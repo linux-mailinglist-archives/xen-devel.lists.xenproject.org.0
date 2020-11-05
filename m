@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 963812A8633
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 19:39:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.20010.45601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0B512A866F
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 19:50:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.20019.45622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kakAH-0004iD-G1; Thu, 05 Nov 2020 18:39:17 +0000
+	id 1kakKk-0006NK-Pw; Thu, 05 Nov 2020 18:50:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 20010.45601; Thu, 05 Nov 2020 18:39:17 +0000
+Received: by outflank-mailman (output) from mailman id 20019.45622; Thu, 05 Nov 2020 18:50:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,461 +23,833 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kakAH-0004ho-CJ; Thu, 05 Nov 2020 18:39:17 +0000
-Received: by outflank-mailman (input) for mailman id 20010;
- Thu, 05 Nov 2020 18:39:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kakKk-0006Mu-Lh; Thu, 05 Nov 2020 18:50:06 +0000
+Received: by outflank-mailman (input) for mailman id 20019;
+ Thu, 05 Nov 2020 18:50:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NZd0=EL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kakAG-0004hj-F0
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 18:39:16 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9a53a093-cd5b-4429-be99-6b330b47c21f;
- Thu, 05 Nov 2020 18:39:10 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kakAA-0007Of-FU; Thu, 05 Nov 2020 18:39:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kakAA-0003V7-4b; Thu, 05 Nov 2020 18:39:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kakAA-0004JW-48; Thu, 05 Nov 2020 18:39:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=6HEM=EL=linux.ibm.com=stefanb@srs-us1.protection.inumbo.net>)
+ id 1kakKj-0006F7-9u
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 18:50:05 +0000
+Received: from mx0a-001b2d01.pphosted.com (unknown [148.163.156.1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 417bf15c-a35f-4a5b-9548-93de63798a7d;
+ Thu, 05 Nov 2020 18:50:02 +0000 (UTC)
+Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A5IXkOm036973; Thu, 5 Nov 2020 13:50:00 -0500
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 34m7re1txr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Nov 2020 13:49:59 -0500
+Received: from m0187473.ppops.net (m0187473.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0A5Ibre0052700;
+ Thu, 5 Nov 2020 13:49:58 -0500
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.11])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 34m7re1txb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Nov 2020 13:49:58 -0500
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+ by ppma03dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0A5IlBhL027678;
+ Thu, 5 Nov 2020 18:49:57 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by ppma03dal.us.ibm.com with ESMTP id 34hs33gutu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Nov 2020 18:49:57 +0000
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 0A5Inosl39780740
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 5 Nov 2020 18:49:50 GMT
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 932CF7805C;
+ Thu,  5 Nov 2020 18:49:55 +0000 (GMT)
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 03A1578060;
+ Thu,  5 Nov 2020 18:49:53 +0000 (GMT)
+Received: from sbct-3.pok.ibm.com (unknown [9.47.158.153])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu,  5 Nov 2020 18:49:53 +0000 (GMT)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=NZd0=EL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kakAG-0004hj-F0
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 18:39:16 +0000
-X-Inumbo-ID: 9a53a093-cd5b-4429-be99-6b330b47c21f
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 9a53a093-cd5b-4429-be99-6b330b47c21f;
-	Thu, 05 Nov 2020 18:39:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=giqocoBG916YuXM5HAG4dHvKDuEgd7A0tfoNB6J7Fu4=; b=jgAkwFyjQV4y4AXbWyC6IZHNMX
-	D/WoggC2C9M9Dt8GsmRiNeltmYYpsd0a8cR78UoO4uCS5vVTjOjUImZq8XJVsd/rhLkdGy8lCIVEi
-	cQ9zBvnuhhqSgya2VcFIJtAKh15glJWaPtemy7gOuLY4RHvupZiiGAqHy74yWeBbsoZk=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kakAA-0007Of-FU; Thu, 05 Nov 2020 18:39:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kakAA-0003V7-4b; Thu, 05 Nov 2020 18:39:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kakAA-0004JW-48; Thu, 05 Nov 2020 18:39:10 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156404-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=6HEM=EL=linux.ibm.com=stefanb@srs-us1.protection.inumbo.net>)
+	id 1kakKj-0006F7-9u
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 18:50:05 +0000
+X-Inumbo-ID: 417bf15c-a35f-4a5b-9548-93de63798a7d
+Received: from mx0a-001b2d01.pphosted.com (unknown [148.163.156.1])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 417bf15c-a35f-4a5b-9548-93de63798a7d;
+	Thu, 05 Nov 2020 18:50:02 +0000 (UTC)
+Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 0A5IXkOm036973;
+	Thu, 5 Nov 2020 13:50:00 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=HF+zIy3dMq9WoBj7Ui49l20NKBjwZxB8ohvtpMNY4X4=;
+ b=ob78G21it51g6/PxidTte7GuwtCenIhiwe07h9DqVd+XTpxhnW1STqMkw+zJTKkmD2xq
+ s1gOdPOFLEWUNp2OrCi6XEpWpdZa27ytwE19AMJ+Ztgl6IWUg6306jaN7PGjaIf9iBNa
+ 2q+omAwsCWB6aJmJGktBAg4wFh2TNIpWQJZ1qvmJgk6PmreTXd69rWb3HgSFtKKSVjDX
+ EIWNe5SSJjX3fiztI2RHe12DG28OiqfO0U5M9bLDlrtwbFez4aSxf6KAG5fNCX9WrvMU
+ fXLEvTVjjnoBNg2KpLZEzT/wCtnfcokkD7VTVeb7i07sKu2mChg9PAB7XBN/JXywDngK Kg== 
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 34m7re1txr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2020 13:49:59 -0500
+Received: from m0187473.ppops.net (m0187473.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0A5Ibre0052700;
+	Thu, 5 Nov 2020 13:49:58 -0500
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com [169.62.189.11])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 34m7re1txb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2020 13:49:58 -0500
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+	by ppma03dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0A5IlBhL027678;
+	Thu, 5 Nov 2020 18:49:57 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+	by ppma03dal.us.ibm.com with ESMTP id 34hs33gutu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2020 18:49:57 +0000
+Received: from b03ledav004.gho.boulder.ibm.com (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+	by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 0A5Inosl39780740
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2020 18:49:50 GMT
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 932CF7805C;
+	Thu,  5 Nov 2020 18:49:55 +0000 (GMT)
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 03A1578060;
+	Thu,  5 Nov 2020 18:49:53 +0000 (GMT)
+Received: from sbct-3.pok.ibm.com (unknown [9.47.158.153])
+	by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2020 18:49:53 +0000 (GMT)
+Subject: Re: [PATCH v2 36/44] qdev: Rename qdev_get_prop_ptr() to
+ object_field_prop_ptr()
+To: Eduardo Habkost <ehabkost@redhat.com>, qemu-devel@nongnu.org
+Cc: "Daniel P. Berrange" <berrange@redhat.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Igor Mammedov <imammedo@redhat.com>, Eric Blake <eblake@redhat.com>,
+        Markus Armbruster <armbru@redhat.com>,
+        =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
+        John Snow <jsnow@redhat.com>,
+        =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
+ <philmd@redhat.com>,
+        Stefan Berger <stefanb@linux.vnet.ibm.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Anthony Perard <anthony.perard@citrix.com>,
+        Paul Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>,
+        Max Reitz <mreitz@redhat.com>, Cornelia Huck <cohuck@redhat.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@de.ibm.com>,
+        Richard Henderson <rth@twiddle.net>,
+        David Hildenbrand <david@redhat.com>, Thomas Huth <thuth@redhat.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Alex Williamson <alex.williamson@redhat.com>,
+        xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
+        qemu-s390x@nongnu.org
+References: <20201104160021.2342108-1-ehabkost@redhat.com>
+ <20201104160021.2342108-37-ehabkost@redhat.com>
+From: Stefan Berger <stefanb@linux.ibm.com>
+Message-ID: <5d4020f6-2df7-0f61-4060-ac885dab3bab@linux.ibm.com>
+Date: Thu, 5 Nov 2020 13:49:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Subject: [xen-4.14-testing test] 156404: regressions - FAIL
-X-Osstest-Failures:
-    xen-4.14-testing:test-armhf-armhf-libvirt:host-ping-check-xen:fail:regression
-    xen-4.14-testing:build-i386:xen-build:fail:regression
-    xen-4.14-testing:test-amd64-i386-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
-    xen-4.14-testing:build-i386-libvirt:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-livepatch:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-migrupgrade:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-pair:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-qemut-rhel6hvm-amd:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-qemut-rhel6hvm-intel:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-i386-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-4.14-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-4.14-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.14-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    xen-4.14-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.14-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.14-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=fc8fab1bb4d3a16914d8e7f6e288e946e68d5a41
-X-Osstest-Versions-That:
-    xen=5784d1e9424151adfdc836535489bd068c6c0700
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 05 Nov 2020 18:39:10 +0000
+In-Reply-To: <20201104160021.2342108-37-ehabkost@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312,18.0.737
+ definitions=2020-11-05_11:2020-11-05,2020-11-05 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=999 spamscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 mlxscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 suspectscore=2 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011050121
 
-flight 156404 xen-4.14-testing real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156404/
+On 11/4/20 11:00 AM, Eduardo Habkost wrote:
+> The function will be moved to common QOM code, as it is not
+> specific to TYPE_DEVICE anymore.
+>
+> Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-libvirt     10 host-ping-check-xen      fail REGR. vs. 156394
- build-i386                    6 xen-build                fail REGR. vs. 156394
-
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemut-win7-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemut-ws16-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
- test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-raw        1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
- test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
- test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
- test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-i386-livepatch     1 build-check(1)               blocked  n/a
- test-amd64-i386-migrupgrade   1 build-check(1)               blocked  n/a
- test-amd64-i386-pair          1 build-check(1)               blocked  n/a
- test-amd64-i386-qemut-rhel6hvm-amd  1 build-check(1)               blocked n/a
- test-amd64-i386-qemut-rhel6hvm-intel  1 build-check(1)             blocked n/a
- test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
- test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
- test-amd64-i386-xl            1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemut-debianhvm-amd64  1 build-check(1)         blocked n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 156394
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 156394
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 156394
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 156394
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 156394
- test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 156394
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 156394
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  fc8fab1bb4d3a16914d8e7f6e288e946e68d5a41
-baseline version:
- xen                  5784d1e9424151adfdc836535489bd068c6c0700
-
-Last test of basis   156394  2020-11-04 08:37:48 Z    1 days
-Testing same since   156404  2020-11-04 22:36:21 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   fail    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           blocked 
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           blocked 
- test-amd64-coresched-i386-xl                                 blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           blocked 
- test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
- test-amd64-i386-freebsd10-amd64                              blocked 
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
- test-amd64-i386-freebsd10-i386                               blocked 
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         blocked 
- test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    blocked 
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  blocked 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         blocked 
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 blocked 
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    blocked 
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    blocked 
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> ---
+> Changes v1 -> v2:
+> * Rename to object_field_prop_ptr() instead of object_static_prop_ptr()
+> ---
+> Cc: Stefan Berger <stefanb@linux.vnet.ibm.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Anthony Perard <anthony.perard@citrix.com>
+> Cc: Paul Durrant <paul@xen.org>
+> Cc: Kevin Wolf <kwolf@redhat.com>
+> Cc: Max Reitz <mreitz@redhat.com>
+> Cc: Paolo Bonzini <pbonzini@redhat.com>
+> Cc: "Daniel P. Berrangé" <berrange@redhat.com>
+> Cc: Eduardo Habkost <ehabkost@redhat.com>
+> Cc: Cornelia Huck <cohuck@redhat.com>
+> Cc: Halil Pasic <pasic@linux.ibm.com>
+> Cc: Christian Borntraeger <borntraeger@de.ibm.com>
+> Cc: Richard Henderson <rth@twiddle.net>
+> Cc: David Hildenbrand <david@redhat.com>
+> Cc: Thomas Huth <thuth@redhat.com>
+> Cc: Matthew Rosato <mjrosato@linux.ibm.com>
+> Cc: Alex Williamson <alex.williamson@redhat.com>
+> Cc: qemu-devel@nongnu.org
+> Cc: xen-devel@lists.xenproject.org
+> Cc: qemu-block@nongnu.org
+> Cc: qemu-s390x@nongnu.org
+> ---
+>   include/hw/qdev-properties.h     |  2 +-
+>   backends/tpm/tpm_util.c          |  6 ++--
+>   hw/block/xen-block.c             |  4 +--
+>   hw/core/qdev-properties-system.c | 50 +++++++++++++-------------
+>   hw/core/qdev-properties.c        | 60 ++++++++++++++++----------------
+>   hw/s390x/css.c                   |  4 +--
+>   hw/s390x/s390-pci-bus.c          |  4 +--
+>   hw/vfio/pci-quirks.c             |  4 +--
+>   8 files changed, 67 insertions(+), 67 deletions(-)
+>
+> diff --git a/include/hw/qdev-properties.h b/include/hw/qdev-properties.h
+> index 7f8d5fc206..2bec65c8e5 100644
+> --- a/include/hw/qdev-properties.h
+> +++ b/include/hw/qdev-properties.h
+> @@ -223,7 +223,7 @@ void qdev_prop_set_macaddr(DeviceState *dev, const char *name,
+>                              const uint8_t *value);
+>   void qdev_prop_set_enum(DeviceState *dev, const char *name, int value);
+>   
+> -void *qdev_get_prop_ptr(Object *obj, Property *prop);
+> +void *object_field_prop_ptr(Object *obj, Property *prop);
+>   
+>   void qdev_prop_register_global(GlobalProperty *prop);
+>   const GlobalProperty *qdev_find_global_prop(Object *obj,
+> diff --git a/backends/tpm/tpm_util.c b/backends/tpm/tpm_util.c
+> index 0b07cf55ea..bb1ab34a75 100644
+> --- a/backends/tpm/tpm_util.c
+> +++ b/backends/tpm/tpm_util.c
+> @@ -35,7 +35,7 @@
+>   static void get_tpm(Object *obj, Visitor *v, const char *name, void *opaque,
+>                       Error **errp)
+>   {
+> -    TPMBackend **be = qdev_get_prop_ptr(obj, opaque);
+> +    TPMBackend **be = object_field_prop_ptr(obj, opaque);
+>       char *p;
+>   
+>       p = g_strdup(*be ? (*be)->id : "");
+> @@ -47,7 +47,7 @@ static void set_tpm(Object *obj, Visitor *v, const char *name, void *opaque,
+>                       Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    TPMBackend *s, **be = qdev_get_prop_ptr(obj, prop);
+> +    TPMBackend *s, **be = object_field_prop_ptr(obj, prop);
+>       char *str;
+>   
+>       if (!visit_type_str(v, name, &str, errp)) {
+> @@ -67,7 +67,7 @@ static void set_tpm(Object *obj, Visitor *v, const char *name, void *opaque,
+>   static void release_tpm(Object *obj, const char *name, void *opaque)
+>   {
+>       Property *prop = opaque;
+> -    TPMBackend **be = qdev_get_prop_ptr(obj, prop);
+> +    TPMBackend **be = object_field_prop_ptr(obj, prop);
+>   
+>       if (*be) {
+>           tpm_backend_reset(*be);
+> diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
+> index bd1aef63a7..718d886e5c 100644
+> --- a/hw/block/xen-block.c
+> +++ b/hw/block/xen-block.c
+> @@ -336,7 +336,7 @@ static void xen_block_get_vdev(Object *obj, Visitor *v, const char *name,
+>                                  void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    XenBlockVdev *vdev = qdev_get_prop_ptr(obj, prop);
+> +    XenBlockVdev *vdev = object_field_prop_ptr(obj, prop);
+>       char *str;
+>   
+>       switch (vdev->type) {
+> @@ -396,7 +396,7 @@ static void xen_block_set_vdev(Object *obj, Visitor *v, const char *name,
+>                                  void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    XenBlockVdev *vdev = qdev_get_prop_ptr(obj, prop);
+> +    XenBlockVdev *vdev = object_field_prop_ptr(obj, prop);
+>       char *str, *p;
+>       const char *end;
+>   
+> diff --git a/hw/core/qdev-properties-system.c b/hw/core/qdev-properties-system.c
+> index 96a0bc5109..8781b856d3 100644
+> --- a/hw/core/qdev-properties-system.c
+> +++ b/hw/core/qdev-properties-system.c
+> @@ -62,7 +62,7 @@ static void get_drive(Object *obj, Visitor *v, const char *name, void *opaque,
+>                         Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    void **ptr = qdev_get_prop_ptr(obj, prop);
+> +    void **ptr = object_field_prop_ptr(obj, prop);
+>       const char *value;
+>       char *p;
+>   
+> @@ -88,7 +88,7 @@ static void set_drive_helper(Object *obj, Visitor *v, const char *name,
+>   {
+>       DeviceState *dev = DEVICE(obj);
+>       Property *prop = opaque;
+> -    void **ptr = qdev_get_prop_ptr(obj, prop);
+> +    void **ptr = object_field_prop_ptr(obj, prop);
+>       char *str;
+>       BlockBackend *blk;
+>       bool blk_created = false;
+> @@ -181,7 +181,7 @@ static void release_drive(Object *obj, const char *name, void *opaque)
+>   {
+>       DeviceState *dev = DEVICE(obj);
+>       Property *prop = opaque;
+> -    BlockBackend **ptr = qdev_get_prop_ptr(obj, prop);
+> +    BlockBackend **ptr = object_field_prop_ptr(obj, prop);
+>   
+>       if (*ptr) {
+>           AioContext *ctx = blk_get_aio_context(*ptr);
+> @@ -214,7 +214,7 @@ const PropertyInfo qdev_prop_drive_iothread = {
+>   static void get_chr(Object *obj, Visitor *v, const char *name, void *opaque,
+>                       Error **errp)
+>   {
+> -    CharBackend *be = qdev_get_prop_ptr(obj, opaque);
+> +    CharBackend *be = object_field_prop_ptr(obj, opaque);
+>       char *p;
+>   
+>       p = g_strdup(be->chr && be->chr->label ? be->chr->label : "");
+> @@ -226,7 +226,7 @@ static void set_chr(Object *obj, Visitor *v, const char *name, void *opaque,
+>                       Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    CharBackend *be = qdev_get_prop_ptr(obj, prop);
+> +    CharBackend *be = object_field_prop_ptr(obj, prop);
+>       Chardev *s;
+>       char *str;
+>   
+> @@ -262,7 +262,7 @@ static void set_chr(Object *obj, Visitor *v, const char *name, void *opaque,
+>   static void release_chr(Object *obj, const char *name, void *opaque)
+>   {
+>       Property *prop = opaque;
+> -    CharBackend *be = qdev_get_prop_ptr(obj, prop);
+> +    CharBackend *be = object_field_prop_ptr(obj, prop);
+>   
+>       qemu_chr_fe_deinit(be, false);
+>   }
+> @@ -286,7 +286,7 @@ static void get_mac(Object *obj, Visitor *v, const char *name, void *opaque,
+>                       Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    MACAddr *mac = qdev_get_prop_ptr(obj, prop);
+> +    MACAddr *mac = object_field_prop_ptr(obj, prop);
+>       char buffer[2 * 6 + 5 + 1];
+>       char *p = buffer;
+>   
+> @@ -301,7 +301,7 @@ static void set_mac(Object *obj, Visitor *v, const char *name, void *opaque,
+>                       Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    MACAddr *mac = qdev_get_prop_ptr(obj, prop);
+> +    MACAddr *mac = object_field_prop_ptr(obj, prop);
+>       int i, pos;
+>       char *str;
+>       const char *p;
+> @@ -363,7 +363,7 @@ static void get_netdev(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    NICPeers *peers_ptr = qdev_get_prop_ptr(obj, prop);
+> +    NICPeers *peers_ptr = object_field_prop_ptr(obj, prop);
+>       char *p = g_strdup(peers_ptr->ncs[0] ? peers_ptr->ncs[0]->name : "");
+>   
+>       visit_type_str(v, name, &p, errp);
+> @@ -374,7 +374,7 @@ static void set_netdev(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    NICPeers *peers_ptr = qdev_get_prop_ptr(obj, prop);
+> +    NICPeers *peers_ptr = object_field_prop_ptr(obj, prop);
+>       NetClientState **ncs = peers_ptr->ncs;
+>       NetClientState *peers[MAX_QUEUE_NUM];
+>       int queues, err = 0, i = 0;
+> @@ -436,7 +436,7 @@ static void get_audiodev(Object *obj, Visitor *v, const char* name,
+>                            void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    QEMUSoundCard *card = qdev_get_prop_ptr(obj, prop);
+> +    QEMUSoundCard *card = object_field_prop_ptr(obj, prop);
+>       char *p = g_strdup(audio_get_id(card));
+>   
+>       visit_type_str(v, name, &p, errp);
+> @@ -447,7 +447,7 @@ static void set_audiodev(Object *obj, Visitor *v, const char* name,
+>                            void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    QEMUSoundCard *card = qdev_get_prop_ptr(obj, prop);
+> +    QEMUSoundCard *card = object_field_prop_ptr(obj, prop);
+>       AudioState *state;
+>       int err = 0;
+>       char *str;
+> @@ -549,7 +549,7 @@ static void set_blocksize(Object *obj, Visitor *v, const char *name,
+>   {
+>       DeviceState *dev = DEVICE(obj);
+>       Property *prop = opaque;
+> -    uint32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *ptr = object_field_prop_ptr(obj, prop);
+>       uint64_t value;
+>       Error *local_err = NULL;
+>   
+> @@ -637,7 +637,7 @@ static void get_reserved_region(Object *obj, Visitor *v, const char *name,
+>                                   void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    ReservedRegion *rr = qdev_get_prop_ptr(obj, prop);
+> +    ReservedRegion *rr = object_field_prop_ptr(obj, prop);
+>       char buffer[64];
+>       char *p = buffer;
+>       int rc;
+> @@ -653,7 +653,7 @@ static void set_reserved_region(Object *obj, Visitor *v, const char *name,
+>                                   void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    ReservedRegion *rr = qdev_get_prop_ptr(obj, prop);
+> +    ReservedRegion *rr = object_field_prop_ptr(obj, prop);
+>       Error *local_err = NULL;
+>       const char *endptr;
+>       char *str;
+> @@ -715,7 +715,7 @@ static void set_pci_devfn(Object *obj, Visitor *v, const char *name,
+>                             void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    int32_t value, *ptr = qdev_get_prop_ptr(obj, prop);
+> +    int32_t value, *ptr = object_field_prop_ptr(obj, prop);
+>       unsigned int slot, fn, n;
+>       char *str;
+>   
+> @@ -753,7 +753,7 @@ invalid:
+>   static int print_pci_devfn(Object *obj, Property *prop, char *dest,
+>                              size_t len)
+>   {
+> -    int32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    int32_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       if (*ptr == -1) {
+>           return snprintf(dest, len, "<unset>");
+> @@ -777,7 +777,7 @@ static void get_pci_host_devaddr(Object *obj, Visitor *v, const char *name,
+>                                    void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    PCIHostDeviceAddress *addr = qdev_get_prop_ptr(obj, prop);
+> +    PCIHostDeviceAddress *addr = object_field_prop_ptr(obj, prop);
+>       char buffer[] = "ffff:ff:ff.f";
+>       char *p = buffer;
+>       int rc = 0;
+> @@ -803,7 +803,7 @@ static void set_pci_host_devaddr(Object *obj, Visitor *v, const char *name,
+>                                    void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    PCIHostDeviceAddress *addr = qdev_get_prop_ptr(obj, prop);
+> +    PCIHostDeviceAddress *addr = object_field_prop_ptr(obj, prop);
+>       char *str, *p;
+>       const char *e;
+>       unsigned long val;
+> @@ -892,7 +892,7 @@ static void get_prop_pcielinkspeed(Object *obj, Visitor *v, const char *name,
+>                                      void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    PCIExpLinkSpeed *p = qdev_get_prop_ptr(obj, prop);
+> +    PCIExpLinkSpeed *p = object_field_prop_ptr(obj, prop);
+>       int speed;
+>   
+>       switch (*p) {
+> @@ -920,7 +920,7 @@ static void set_prop_pcielinkspeed(Object *obj, Visitor *v, const char *name,
+>                                      void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    PCIExpLinkSpeed *p = qdev_get_prop_ptr(obj, prop);
+> +    PCIExpLinkSpeed *p = object_field_prop_ptr(obj, prop);
+>       int speed;
+>   
+>       if (!visit_type_enum(v, name, &speed, prop->info->enum_table,
+> @@ -962,7 +962,7 @@ static void get_prop_pcielinkwidth(Object *obj, Visitor *v, const char *name,
+>                                      void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    PCIExpLinkWidth *p = qdev_get_prop_ptr(obj, prop);
+> +    PCIExpLinkWidth *p = object_field_prop_ptr(obj, prop);
+>       int width;
+>   
+>       switch (*p) {
+> @@ -999,7 +999,7 @@ static void set_prop_pcielinkwidth(Object *obj, Visitor *v, const char *name,
+>                                      void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    PCIExpLinkWidth *p = qdev_get_prop_ptr(obj, prop);
+> +    PCIExpLinkWidth *p = object_field_prop_ptr(obj, prop);
+>       int width;
+>   
+>       if (!visit_type_enum(v, name, &width, prop->info->enum_table,
+> @@ -1050,7 +1050,7 @@ static void get_uuid(Object *obj, Visitor *v, const char *name, void *opaque,
+>                        Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    QemuUUID *uuid = qdev_get_prop_ptr(obj, prop);
+> +    QemuUUID *uuid = object_field_prop_ptr(obj, prop);
+>       char buffer[UUID_FMT_LEN + 1];
+>       char *p = buffer;
+>   
+> @@ -1065,7 +1065,7 @@ static void set_uuid(Object *obj, Visitor *v, const char *name, void *opaque,
+>                       Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    QemuUUID *uuid = qdev_get_prop_ptr(obj, prop);
+> +    QemuUUID *uuid = object_field_prop_ptr(obj, prop);
+>       char *str;
+>   
+>       if (!visit_type_str(v, name, &str, errp)) {
+> diff --git a/hw/core/qdev-properties.c b/hw/core/qdev-properties.c
+> index aeab4ae9b6..9aebd7b8a9 100644
+> --- a/hw/core/qdev-properties.c
+> +++ b/hw/core/qdev-properties.c
+> @@ -50,7 +50,7 @@ void qdev_prop_allow_set_link_before_realize(const Object *obj,
+>       }
+>   }
+>   
+> -void *qdev_get_prop_ptr(Object *obj, Property *prop)
+> +void *object_field_prop_ptr(Object *obj, Property *prop)
+>   {
+>       void *ptr = obj;
+>       ptr += prop->offset;
+> @@ -96,7 +96,7 @@ void field_prop_get_enum(Object *obj, Visitor *v, const char *name,
+>                            void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    int *ptr = qdev_get_prop_ptr(obj, prop);
+> +    int *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_enum(v, name, ptr, prop->info->enum_table, errp);
+>   }
+> @@ -105,7 +105,7 @@ void field_prop_set_enum(Object *obj, Visitor *v, const char *name,
+>                            void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    int *ptr = qdev_get_prop_ptr(obj, prop);
+> +    int *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_enum(v, name, ptr, prop->info->enum_table, errp);
+>   }
+> @@ -134,7 +134,7 @@ static uint32_t qdev_get_prop_mask(Property *prop)
+>   
+>   static void bit_prop_set(Object *obj, Property *props, bool val)
+>   {
+> -    uint32_t *p = qdev_get_prop_ptr(obj, props);
+> +    uint32_t *p = object_field_prop_ptr(obj, props);
+>       uint32_t mask = qdev_get_prop_mask(props);
+>       if (val) {
+>           *p |= mask;
+> @@ -147,7 +147,7 @@ static void prop_get_bit(Object *obj, Visitor *v, const char *name,
+>                            void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint32_t *p = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *p = object_field_prop_ptr(obj, prop);
+>       bool value = (*p & qdev_get_prop_mask(prop)) != 0;
+>   
+>       visit_type_bool(v, name, &value, errp);
+> @@ -188,7 +188,7 @@ static uint64_t qdev_get_prop_mask64(Property *prop)
+>   
+>   static void bit64_prop_set(Object *obj, Property *props, bool val)
+>   {
+> -    uint64_t *p = qdev_get_prop_ptr(obj, props);
+> +    uint64_t *p = object_field_prop_ptr(obj, props);
+>       uint64_t mask = qdev_get_prop_mask64(props);
+>       if (val) {
+>           *p |= mask;
+> @@ -201,7 +201,7 @@ static void prop_get_bit64(Object *obj, Visitor *v, const char *name,
+>                              void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint64_t *p = qdev_get_prop_ptr(obj, prop);
+> +    uint64_t *p = object_field_prop_ptr(obj, prop);
+>       bool value = (*p & qdev_get_prop_mask64(prop)) != 0;
+>   
+>       visit_type_bool(v, name, &value, errp);
+> @@ -233,7 +233,7 @@ static void get_bool(Object *obj, Visitor *v, const char *name, void *opaque,
+>                        Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    bool *ptr = qdev_get_prop_ptr(obj, prop);
+> +    bool *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_bool(v, name, ptr, errp);
+>   }
+> @@ -242,7 +242,7 @@ static void set_bool(Object *obj, Visitor *v, const char *name, void *opaque,
+>                        Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    bool *ptr = qdev_get_prop_ptr(obj, prop);
+> +    bool *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_bool(v, name, ptr, errp);
+>   }
+> @@ -260,7 +260,7 @@ static void get_uint8(Object *obj, Visitor *v, const char *name, void *opaque,
+>                         Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint8_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint8_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint8(v, name, ptr, errp);
+>   }
+> @@ -269,7 +269,7 @@ static void set_uint8(Object *obj, Visitor *v, const char *name, void *opaque,
+>                         Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint8_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint8_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint8(v, name, ptr, errp);
+>   }
+> @@ -299,7 +299,7 @@ static void get_uint16(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint16_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint16_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint16(v, name, ptr, errp);
+>   }
+> @@ -308,7 +308,7 @@ static void set_uint16(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint16_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint16_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint16(v, name, ptr, errp);
+>   }
+> @@ -326,7 +326,7 @@ static void get_uint32(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint32(v, name, ptr, errp);
+>   }
+> @@ -335,7 +335,7 @@ static void set_uint32(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint32(v, name, ptr, errp);
+>   }
+> @@ -344,7 +344,7 @@ void field_prop_get_int32(Object *obj, Visitor *v, const char *name,
+>                             void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    int32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    int32_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_int32(v, name, ptr, errp);
+>   }
+> @@ -353,7 +353,7 @@ static void set_int32(Object *obj, Visitor *v, const char *name, void *opaque,
+>                         Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    int32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    int32_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_int32(v, name, ptr, errp);
+>   }
+> @@ -378,7 +378,7 @@ static void get_uint64(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint64_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint64_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint64(v, name, ptr, errp);
+>   }
+> @@ -387,7 +387,7 @@ static void set_uint64(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint64_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint64_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint64(v, name, ptr, errp);
+>   }
+> @@ -396,7 +396,7 @@ static void get_int64(Object *obj, Visitor *v, const char *name,
+>                         void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    int64_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    int64_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_int64(v, name, ptr, errp);
+>   }
+> @@ -405,7 +405,7 @@ static void set_int64(Object *obj, Visitor *v, const char *name,
+>                         void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    int64_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    int64_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_int64(v, name, ptr, errp);
+>   }
+> @@ -429,14 +429,14 @@ const PropertyInfo qdev_prop_int64 = {
+>   static void release_string(Object *obj, const char *name, void *opaque)
+>   {
+>       Property *prop = opaque;
+> -    g_free(*(char **)qdev_get_prop_ptr(obj, prop));
+> +    g_free(*(char **)object_field_prop_ptr(obj, prop));
+>   }
+>   
+>   static void get_string(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    char **ptr = qdev_get_prop_ptr(obj, prop);
+> +    char **ptr = object_field_prop_ptr(obj, prop);
+>   
+>       if (!*ptr) {
+>           char *str = (char *)"";
+> @@ -450,7 +450,7 @@ static void set_string(Object *obj, Visitor *v, const char *name,
+>                          void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    char **ptr = qdev_get_prop_ptr(obj, prop);
+> +    char **ptr = object_field_prop_ptr(obj, prop);
+>       char *str;
+>   
+>       if (!visit_type_str(v, name, &str, errp)) {
+> @@ -484,7 +484,7 @@ void field_prop_get_size32(Object *obj, Visitor *v, const char *name,
+>                              void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *ptr = object_field_prop_ptr(obj, prop);
+>       uint64_t value = *ptr;
+>   
+>       visit_type_size(v, name, &value, errp);
+> @@ -494,7 +494,7 @@ static void set_size32(Object *obj, Visitor *v, const char *name, void *opaque,
+>                          Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *ptr = object_field_prop_ptr(obj, prop);
+>       uint64_t value;
+>   
+>       if (!visit_type_size(v, name, &value, errp)) {
+> @@ -531,7 +531,7 @@ static void set_prop_arraylen(Object *obj, Visitor *v, const char *name,
+>        */
+>       Property *prop = opaque;
+>       ObjectProperty *op = object_property_find_err(obj, name, &error_abort);
+> -    uint32_t *alenptr = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *alenptr = object_field_prop_ptr(obj, prop);
+>       void **arrayptr = (void *)obj + prop->arrayoffset;
+>       void *eltptr;
+>       const char *arrayname;
+> @@ -570,7 +570,7 @@ static void set_prop_arraylen(Object *obj, Visitor *v, const char *name,
+>            * being inside the device struct.
+>            */
+>           arrayprop->offset = eltptr - (void *)obj;
+> -        assert(qdev_get_prop_ptr(obj, arrayprop) == eltptr);
+> +        assert(object_field_prop_ptr(obj, arrayprop) == eltptr);
+>           object_property_add_field(obj, propname, arrayprop, op->allow_set);
+>       }
+>   }
+> @@ -760,7 +760,7 @@ static void get_size(Object *obj, Visitor *v, const char *name, void *opaque,
+>                        Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint64_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint64_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_size(v, name, ptr, errp);
+>   }
+> @@ -769,7 +769,7 @@ static void set_size(Object *obj, Visitor *v, const char *name, void *opaque,
+>                        Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint64_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint64_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_size(v, name, ptr, errp);
+>   }
+> diff --git a/hw/s390x/css.c b/hw/s390x/css.c
+> index 496e2c5801..fe47751df4 100644
+> --- a/hw/s390x/css.c
+> +++ b/hw/s390x/css.c
+> @@ -2344,7 +2344,7 @@ static void get_css_devid(Object *obj, Visitor *v, const char *name,
+>                             void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    CssDevId *dev_id = qdev_get_prop_ptr(obj, prop);
+> +    CssDevId *dev_id = object_field_prop_ptr(obj, prop);
+>       char buffer[] = "xx.x.xxxx";
+>       char *p = buffer;
+>       int r;
+> @@ -2373,7 +2373,7 @@ static void set_css_devid(Object *obj, Visitor *v, const char *name,
+>                             void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    CssDevId *dev_id = qdev_get_prop_ptr(obj, prop);
+> +    CssDevId *dev_id = object_field_prop_ptr(obj, prop);
+>       char *str;
+>       int num, n1, n2;
+>       unsigned int cssid, ssid, devid;
+> diff --git a/hw/s390x/s390-pci-bus.c b/hw/s390x/s390-pci-bus.c
+> index 54fac3851d..99b18d56ba 100644
+> --- a/hw/s390x/s390-pci-bus.c
+> +++ b/hw/s390x/s390-pci-bus.c
+> @@ -1323,7 +1323,7 @@ static void s390_pci_get_fid(Object *obj, Visitor *v, const char *name,
+>                            void *opaque, Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint32(v, name, ptr, errp);
+>   }
+> @@ -1333,7 +1333,7 @@ static void s390_pci_set_fid(Object *obj, Visitor *v, const char *name,
+>   {
+>       S390PCIBusDevice *zpci = S390_PCI_DEVICE(obj);
+>       Property *prop = opaque;
+> -    uint32_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint32_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       if (!visit_type_uint32(v, name, ptr, errp)) {
+>           return;
+> diff --git a/hw/vfio/pci-quirks.c b/hw/vfio/pci-quirks.c
+> index 802979635c..fc8d63c850 100644
+> --- a/hw/vfio/pci-quirks.c
+> +++ b/hw/vfio/pci-quirks.c
+> @@ -1489,7 +1489,7 @@ static void get_nv_gpudirect_clique_id(Object *obj, Visitor *v,
+>                                          Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint8_t *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint8_t *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       visit_type_uint8(v, name, ptr, errp);
+>   }
+> @@ -1499,7 +1499,7 @@ static void set_nv_gpudirect_clique_id(Object *obj, Visitor *v,
+>                                          Error **errp)
+>   {
+>       Property *prop = opaque;
+> -    uint8_t value, *ptr = qdev_get_prop_ptr(obj, prop);
+> +    uint8_t value, *ptr = object_field_prop_ptr(obj, prop);
+>   
+>       if (!visit_type_uint8(v, name, &value, errp)) {
+>           return;
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit fc8fab1bb4d3a16914d8e7f6e288e946e68d5a41
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Nov 4 11:02:30 2020 +0100
-
-    x86emul: fix PINSRW and adjust other {,V}PINSR*
-    
-    The use of simd_packed_int together with no further update to op_bytes
-    has lead to wrong signaling of #GP(0) for PINSRW without a 16-byte
-    aligned memory operand. Use simd_none instead and override it after
-    general decoding with simd_other, like is done for the B/D/Q siblings.
-    
-    While benign, for consistency also use DstImplicit instead of DstReg
-    in x86_decode_twobyte().
-    
-    PINSR{B,D,Q} also had a stray (redundant) get_fpu() invocation, which
-    gets dropped.
-    
-    For further consistency also
-    - use src.bytes instead of op_bytes in relevant memcpy() invocations,
-    - avoid the pointless updating of op_bytes (all we care about later is
-      that the value be less than 16).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    master commit: 06f0598b41f23c9e4cf7d8c5a05b282de92f3a35
-    master date: 2020-10-23 18:03:18 +0200
-
-commit 898864c3736338548bc2f684b7e307326e0dd4a5
-Author: Roger Pau Monné <roger.pau@citrix.com>
-Date:   Wed Nov 4 11:01:27 2020 +0100
-
-    pci: cleanup MSI interrupts before removing device from IOMMU
-    
-    Doing the MSI cleanup after removing the device from the IOMMU leads
-    to the following panic on AMD hardware:
-    
-    Assertion 'table.ptr && (index < intremap_table_entries(table.ptr, iommu))' failed at iommu_intr.c:172
-    ----[ Xen-4.13.1-10.0.3-d  x86_64  debug=y   Not tainted ]----
-    CPU:    3
-    RIP:    e008:[<ffff82d08026ae3c>] drivers/passthrough/amd/iommu_intr.c#get_intremap_entry+0x52/0x7b
-    [...]
-    Xen call trace:
-       [<ffff82d08026ae3c>] R drivers/passthrough/amd/iommu_intr.c#get_intremap_entry+0x52/0x7b
-       [<ffff82d08026af25>] F drivers/passthrough/amd/iommu_intr.c#update_intremap_entry_from_msi_msg+0xc0/0x342
-       [<ffff82d08026ba65>] F amd_iommu_msi_msg_update_ire+0x98/0x129
-       [<ffff82d08025dd36>] F iommu_update_ire_from_msi+0x1e/0x21
-       [<ffff82d080286862>] F msi_free_irq+0x55/0x1a0
-       [<ffff82d080286f25>] F pci_cleanup_msi+0x8c/0xb0
-       [<ffff82d08025cf52>] F pci_remove_device+0x1af/0x2da
-       [<ffff82d0802a42d1>] F do_physdev_op+0xd18/0x1187
-       [<ffff82d080383925>] F pv_hypercall+0x1f5/0x567
-       [<ffff82d08038a432>] F lstar_enter+0x112/0x120
-    
-    That's because the call to iommu_remove_device on AMD hardware will
-    remove the per-device interrupt remapping table, and hence the call to
-    pci_cleanup_msi done afterwards will find a null intremap table and
-    crash.
-    
-    Reorder the calls so that MSI interrupts are torn down before removing
-    the device from the IOMMU.
-    
-    Fixes: d7cfeb7c13ed ("AMD/IOMMU: don't blindly allocate interrupt remapping tables")
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    master commit: 710f62cc826bb8c7ead99f9d6b6b269e39ff3e98
-    master date: 2020-10-23 10:13:14 +0200
-
-commit 9f954ae7fb1c7dc3b02e5ccac6978c3a8e86086e
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Nov 4 11:01:02 2020 +0100
-
-    build: use if_changed more consistently (and correctly) for prelink*.o
-    
-    Switch to $(call if_changed,ld) where possible; presumably not doing so
-    in e321576f4047 ("xen/build: start using if_changed") right away was an
-    oversight, as it did for Arm in (just) one case. It failed to add
-    prelink.o to $(targets), though, causing - judging from the observed
-    behavior on x86 - undue rebuilds of the final binary (because of
-    prelink.o getting rebuild for $(cmd_prelink.o) being empty, in turn
-    because of .prelink.o.cmd not getting read) during "make install-xen".
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-    master commit: dd2cfba88c3d0e144ffec07c6b5b86e54a9d98a9
-    master date: 2020-09-22 10:19:38 +0200
-(qemu changes not included)
 
