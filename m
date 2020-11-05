@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143222A7D06
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 12:33:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.19733.45053 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 343CA2A7DA1
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Nov 2020 12:57:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.19741.45065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kadW4-0006rX-IX; Thu, 05 Nov 2020 11:33:20 +0000
+	id 1kadsn-0000Gu-KH; Thu, 05 Nov 2020 11:56:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 19733.45053; Thu, 05 Nov 2020 11:33:20 +0000
+Received: by outflank-mailman (output) from mailman id 19741.45065; Thu, 05 Nov 2020 11:56:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,144 +23,111 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kadW4-0006r8-F1; Thu, 05 Nov 2020 11:33:20 +0000
-Received: by outflank-mailman (input) for mailman id 19733;
- Thu, 05 Nov 2020 11:33:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kadsn-0000GU-Gq; Thu, 05 Nov 2020 11:56:49 +0000
+Received: by outflank-mailman (input) for mailman id 19741;
+ Thu, 05 Nov 2020 11:56:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=N0uV=EL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kadW2-0006r3-2X
- for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 11:33:18 +0000
+ id 1kadsm-0000GP-1C
+ for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 11:56:48 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id de39cebb-fcb7-42e9-bcfa-f79d3b787125;
- Thu, 05 Nov 2020 11:33:16 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c3b14e2c-1f39-4b33-9413-1d109a036771;
+ Thu, 05 Nov 2020 11:56:47 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4FBF8ABE3;
- Thu,  5 Nov 2020 11:33:15 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id 59637ABDE;
+ Thu,  5 Nov 2020 11:56:46 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=N0uV=EL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kadW2-0006r3-2X
-	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 11:33:18 +0000
-X-Inumbo-ID: de39cebb-fcb7-42e9-bcfa-f79d3b787125
+	id 1kadsm-0000GP-1C
+	for xen-devel@lists.xenproject.org; Thu, 05 Nov 2020 11:56:48 +0000
+X-Inumbo-ID: c3b14e2c-1f39-4b33-9413-1d109a036771
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id de39cebb-fcb7-42e9-bcfa-f79d3b787125;
-	Thu, 05 Nov 2020 11:33:16 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id c3b14e2c-1f39-4b33-9413-1d109a036771;
+	Thu, 05 Nov 2020 11:56:47 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604575995;
+	t=1604577406;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=/FW7ZIc43wsFfXwFpsgIs8hKt6y6twweyPDlhTMzmFQ=;
-	b=LYr36KQfi8F5T+nqzxBXyURwPl/cucLx3hiMle6zlOozjMIXE7Nwnj+nkjmRi9yaWF7tn8
-	0UCbdHjV6owhcC/KuzVnAdjbFOa3mRChj1X4geBKxXn9sxmtGJjMMqISs3isyquRh4ZVWP
-	ym/azaLMrq2xbnI9bvBQ/PX0u125gk0=
+	bh=6zB8KEK+nBzVoOInEmzNrPpJZ/h0ekA5YpK91js6qt0=;
+	b=dWHUU2T8+npwRfyDN0GZxvf9G1jaz3qA8PfcQrS20b78nrYL3G5mCHET4XG7tmR57AYusv
+	B1ju9kQHDCWG+B6WFSwDj3lzUH+WNkKo1//mGm5b4GX2rGvcDUMmFiR0l/68VPvzFQw5za
+	9iI/ONCe2uPsIYorMLGMDZF9EG/UF7k=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 4FBF8ABE3;
-	Thu,  5 Nov 2020 11:33:15 +0000 (UTC)
-Subject: Re: [PATCH v4.1 2/2] xen/evtchn: rework per event channel lock
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20201104115739.20144-1-jgross@suse.com>
- <ae263d8f-b81d-4c47-2760-6ef3823ca780@suse.com>
- <f558dfae-ecec-9884-00de-4edd65e39b0f@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id 59637ABDE;
+	Thu,  5 Nov 2020 11:56:46 +0000 (UTC)
+Subject: Ping: [PATCH] libxl: fix libacpi dependency
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e930bc95-eeac-b16e-48c8-ef7a5dcb1ec2@suse.com>
-Date: Thu, 5 Nov 2020 12:33:14 +0100
+To: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+Cc: Olaf Hering <olaf@aepfle.de>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <bd68e8f4-ce57-7798-f6d2-53e85319b8d4@suse.com>
+Message-ID: <f2172d3f-38fc-7f9f-9b31-2c07a1686cff@suse.com>
+Date: Thu, 5 Nov 2020 12:56:46 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <f558dfae-ecec-9884-00de-4edd65e39b0f@suse.com>
+In-Reply-To: <bd68e8f4-ce57-7798-f6d2-53e85319b8d4@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.11.2020 16:53, Jürgen Groß wrote:
-> On 04.11.20 16:29, Jan Beulich wrote:
->>> @@ -738,7 +725,8 @@ int evtchn_send(struct domain *ld, unsigned int lport)
->>>   
->>>       lchn = evtchn_from_port(ld, lport);
->>>   
->>> -    spin_lock_irqsave(&lchn->lock, flags);
->>> +    if ( !evtchn_read_trylock(lchn) )
->>> +        return 0;
->>
->> Isn't there a change in behavior here? While sends through
->> ECS_UNBOUND ports indeed get silently ignored, ECS_FREE ones ought
->> to be getting -EINVAL (as should ECS_UNBOUND ones if they're
->> Xen-consumer ones). With the failed trylock you don't know which
->> of the two the port is in the process of being transitioned
->> to/from. The same would apply for other operations distinguishing
->> the two states. Right now both evtchn_status() and
->> evtchn_bind_vcpu() only use the domain-wide lock, but the latter
->> is getting switched by "evtchn: convert domain event lock to an
->> r/w one" (granted there's an RFC remark there whether that
->> transformation is worthwhile). Anyway, the main point of my remark
->> is that there's another subtlety here which I don't think becomes
->> obvious from description or comments - where the two states are
->> mentioned, it gets to look as if they can be treated equally.
+On 27.10.2020 12:40, Jan Beulich wrote:
+> $(DSDT_FILES-y) depends on the recursive make to have run in libacpi/
+> such that the file(s) itself/themselves were generated before
+> compilation gets attempted. The same, however, is also necessary for
+> generated headers, before source files including them would get
+> attempted to be compiled.
 > 
-> Hmm, evtchn_send() seems to be called always with interrupts enabled.
-> We could just use a standard read_lock() here if you think the different
-> states should be treated as today.
-
-This would avoid the caveat in this specific case, but it would
-remain elsewhere (at least as an abstract trap to fall into). I
-suppose evtchn_status() could use a regular read_lock() too, for
-the same reason (if it was to be switched), and evtchn_bind_vcpu()
-may need a write lock anyway (which is forbidden in your model,
-i.e. I'd likely need to drop the switch to the finer grained lock
-there).
-
->>> --- a/xen/include/xen/event.h
->>> +++ b/xen/include/xen/event.h
->>> @@ -105,6 +105,39 @@ void notify_via_xen_event_channel(struct domain *ld, int lport);
->>>   #define bucket_from_port(d, p) \
->>>       ((group_from_port(d, p))[((p) % EVTCHNS_PER_GROUP) / EVTCHNS_PER_BUCKET])
->>>   
->>> +/*
->>> + * Lock an event channel exclusively. This is allowed only when the channel is
->>> + * free or unbound either when taking or when releasing the lock, as any
->>> + * concurrent operation on the event channel using evtchn_read_trylock() will
->>> + * just assume the event channel is free or unbound at the moment when the
->>> + * evtchn_read_trylock() returns false.
->>> + */
->>> +static inline void evtchn_write_lock(struct evtchn *evtchn)
->>> +{
->>> +    write_lock(&evtchn->lock);
->>> +
->>> +    evtchn->old_state = evtchn->state;
->>> +}
->>> +
->>> +static inline void evtchn_write_unlock(struct evtchn *evtchn)
->>> +{
->>> +    /* Enforce lock discipline. */
->>> +    ASSERT(evtchn->old_state == ECS_FREE || evtchn->old_state == ECS_UNBOUND ||
->>> +           evtchn->state == ECS_FREE || evtchn->state == ECS_UNBOUND);
->>> +
->>> +    write_unlock(&evtchn->lock);
->>> +}
->>
->> These two aren't needed outside of event_channel.c, are they? If
->> so, and if they ought to go in a header rather than directly into
->> the .c file (where I'd prefer the latter, for the sake of minimal
->> exposure), then it should be event_channel.h.
+> The dependency specified in libacpi's Makefile, otoh, is entirely
+> pointless nowadays - no compilation happens there anymore (except for
+> tools involved in building the generated files). Together with it, the
+> rule generating acpi.a also can go away.
 > 
-> I wanted to have the locking functions in one place.
+> Reported-by: Olaf Hering <olaf@aepfle.de>
+> Fixes: 14c0d328da2b ("libxl/acpi: Build ACPI tables for HVMlite guests")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+I'd appreciate a libxl side ack (or otherwise) here.
+
+Thanks, Jan
+
+> ---
+> Arguably we might also use $(ACPI_OBJS) instead of specifying just the
+> one object file we know has respective #include directives.
 > 
-> In case you prefer it otherwise (and you seem to do so) I'd rather move
-> the write lock functions to the .c file.
+> --- a/tools/libacpi/Makefile
+> +++ b/tools/libacpi/Makefile
+> @@ -89,11 +89,6 @@ iasl:
+>  	@echo 
+>  	@exit 1
+>  
+> -build.o: ssdt_s3.h ssdt_s4.h ssdt_pm.h ssdt_tpm.h ssdt_laptop_slate.h
+> -
+> -acpi.a: $(OBJS)
+> -	$(AR) rc $@ $(OBJS)
+> -
+>  clean:
+>  	rm -f $(C_SRC) $(H_SRC) $(MK_DSDT) $(C_SRC:=.$(TMP_SUFFIX))
+>  	rm -f $(patsubst %.c,%.hex,$(C_SRC)) $(patsubst %.c,%.aml,$(C_SRC)) $(patsubst %.c,%.asl,$(C_SRC))
+> --- a/tools/libs/light/Makefile
+> +++ b/tools/libs/light/Makefile
+> @@ -32,7 +32,7 @@ ACPI_PATH  = $(XEN_ROOT)/tools/libacpi
+>  DSDT_FILES-$(CONFIG_X86) = dsdt_pvh.c
+>  ACPI_OBJS  = $(patsubst %.c,%.o,$(DSDT_FILES-y)) build.o static_tables.o
+>  ACPI_PIC_OBJS = $(patsubst %.o,%.opic,$(ACPI_OBJS))
+> -$(DSDT_FILES-y): acpi
+> +$(DSDT_FILES-y) build.o: acpi
+>  vpath build.c $(ACPI_PATH)/
+>  vpath static_tables.c $(ACPI_PATH)/
+>  
+> 
 
-Yes please.
-
-Jan
 
