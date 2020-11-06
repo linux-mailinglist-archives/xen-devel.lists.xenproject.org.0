@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63E0C2A98C3
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 16:46:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.20911.46960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E882A98C9
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 16:49:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.20915.46972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kb3w0-0002t2-9W; Fri, 06 Nov 2020 15:45:52 +0000
+	id 1kb3zJ-00033o-OJ; Fri, 06 Nov 2020 15:49:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 20911.46960; Fri, 06 Nov 2020 15:45:52 +0000
+Received: by outflank-mailman (output) from mailman id 20915.46972; Fri, 06 Nov 2020 15:49:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,81 +23,95 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kb3w0-0002sd-5j; Fri, 06 Nov 2020 15:45:52 +0000
-Received: by outflank-mailman (input) for mailman id 20911;
- Fri, 06 Nov 2020 15:45:50 +0000
+	id 1kb3zJ-00033P-L2; Fri, 06 Nov 2020 15:49:17 +0000
+Received: by outflank-mailman (input) for mailman id 20915;
+ Fri, 06 Nov 2020 15:49:15 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DqEO=EM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kb3vy-0002sY-SB
- for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 15:45:50 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+KtV=EM=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1kb3zH-00033K-L6
+ for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 15:49:15 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1a50d871-6b4a-416e-ad4c-002c80b8151e;
- Fri, 06 Nov 2020 15:45:49 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DBE58ABA2;
- Fri,  6 Nov 2020 15:45:48 +0000 (UTC)
+ id acd985ab-8337-43f6-a668-ebadfcc2b01c;
+ Fri, 06 Nov 2020 15:49:13 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=DqEO=EM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kb3vy-0002sY-SB
-	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 15:45:50 +0000
-X-Inumbo-ID: 1a50d871-6b4a-416e-ad4c-002c80b8151e
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=+KtV=EM=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+	id 1kb3zH-00033K-L6
+	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 15:49:15 +0000
+X-Inumbo-ID: acd985ab-8337-43f6-a668-ebadfcc2b01c
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 1a50d871-6b4a-416e-ad4c-002c80b8151e;
-	Fri, 06 Nov 2020 15:45:49 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604677549;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=baG0fcY2nKj2+z89jaqCJLZcP325tXsOE+uQ+OrJOEk=;
-	b=V/4zcjY8hNf/woetkroqvx+gxwqRp1BiGXEgXWLQBrWturzvz+hF61MHn2Mf3VO36Mh5mO
-	yrmHo0nLFupAzOYZHevZLKEPxx9s3+2PhoM7txSiiuGyPkPUU2ha0qjz67/sbuaSJ7h7wG
-	rBxFteneT//ldEiM6moLtmVroYZJl4M=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id DBE58ABA2;
-	Fri,  6 Nov 2020 15:45:48 +0000 (UTC)
-Subject: Re: [PATCH] tools/libs/light: correct bitmap operations
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-References: <20201106140504.25488-1-jgross@suse.com>
- <61860ac6-133a-0393-e63c-8de9ea13e5f9@suse.com>
- <22a4dc50-4feb-a934-a58b-7ebcdcf9e3ab@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <908ab536-d5f3-2822-086d-a13c730e6c74@suse.com>
-Date: Fri, 6 Nov 2020 16:45:48 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	id acd985ab-8337-43f6-a668-ebadfcc2b01c;
+	Fri, 06 Nov 2020 15:49:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1604677753;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yz5DFGKpaiVNHL3RvlNotFBzT5VQDrG5Fw/aH/1VkuM=;
+  b=GtrR9229rKDSd8IeTUrNNxoLfQo5R/7JivDBFMVg65KvUC4TBCJyNoO4
+   /n5RnRilDVNNgUJGxcWMgDEBiZwbIDiMBp7jVNuae8aEOfnFSN7SNDLeJ
+   3z/ZDrHvSAsbx2JQPES8yRIfmobFVm/D90jWp75rmZjmLE7t1SkWeyu/Z
+   c=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: kqXxJxKBs1V0rMqwAnGP/wWmjBvus9Rfa5oQBZhWA5ToUBXnxoOgAhgcho7HUqowRQbhjDmoL3
+ RY3wDrwsONsSfeTB9JRvFsdwXSstVHkQSmrEg8FwHXIMoAXUvF6uvGrMPaOKUTwwSqdeykgGLM
+ yJK0b1BBvd3vNROwKAWc3qTcKWES+DvCZENrPfeyvxh4GgwXL5pk+C3E9R3qEV/RoVdU7yFGM0
+ US517zCDPnPXPyaMrtlUWh+dWofnxMI4d2JV8tdbMGH+Ce0vD8SMvTzD7Nf+AuurITlFrVmKA9
+ 3k4=
+X-SBRS: None
+X-MesageID: 30674195
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,456,1596513600"; 
+   d="scan'208";a="30674195"
+Date: Fri, 6 Nov 2020 15:49:08 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Michael Young <m.a.young@durham.ac.uk>, Stefano Stabellini
+	<sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, George Dunlap <george.dunlap@citrix.com>
+Subject: Re: Xen 4.13.2 released
+Message-ID: <20201106154908.GN2214@perard.uk.xensource.com>
+References: <ed219f15-479b-5d06-c835-eb4f4c64db3a@suse.com>
+ <a391cfd1-be4a-add6-cd36-8bb254f9b43f@austen3.home>
+ <a3dfec9d-bb32-c1c5-c00e-ea95c62c9bde@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <22a4dc50-4feb-a934-a58b-7ebcdcf9e3ab@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <a3dfec9d-bb32-c1c5-c00e-ea95c62c9bde@suse.com>
 
-On 06.11.2020 15:36, Jürgen Groß wrote:
-> On 06.11.20 15:35, Jan Beulich wrote:
->> On 06.11.2020 15:05, Juergen Gross wrote:
->>> Libxl bitmap operations for single bits (test, set, reset) take the bit
->>> number as a signed integer without testing the value to be larger than
->>> 0.
->>>
->>> Correct that by adding the appropriate tests.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>
->> Wouldn't it be better to convert the parameter types to unsigned int?
+On Wed, Nov 04, 2020 at 08:47:57AM +0100, Jan Beulich wrote:
+> On 04.11.2020 00:55, Michael Young wrote:
+> > On Tue, 3 Nov 2020, Jan Beulich wrote:
+> >> I am pleased to announce the release of Xen 4.13.2. This is available
+> >> immediately from its git repository
+> >> http://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=refs/heads/stable-4.13
+> >> (tag RELEASE-4.13.2) or from the XenProject download page
+> >> https://xenproject.org/downloads/xen-project-archives/xen-project-4-13-series/xen-project-4-13-2/
+> >> (where a list of changes can also be found).
+> > 
+> > Is the entry for XSA-335 correct on the download page? That was a qemu 
+> > patch but I don't think it was included in 4.13.2.
 > 
-> Those are official library interfaces. Can we just change them?
+> Interesting, thanks for pointing this out. The qemu-trad part,
+> albeit "just" a SUPPORT.md update, didn't even make it into
+> staging yet afaics. While this can perhaps be viewed as benign,
+> I'm concerned that the qemuu fix also doesn't look to have
+> landed in any of the branches yet, despite the version bump on
+> the staging/master branches just 5 days ago. Anthony, Stefano?
 
-Oh, I didn't expect such helpers to be available to users of the
-library.
+I've pushed the fix now, to qemu-xen trees.
 
-Jan
+Maybe George's script could check qemu-xen trees as well? Or someone in
+the security team could push the patchs or tell me about XSAs involving
+QEMU, otherwise that's going to happen again.
+
+Cheers,
+
+-- 
+Anthony PERARD
 
