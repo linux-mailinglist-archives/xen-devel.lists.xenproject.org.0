@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E6B92A9830
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 16:13:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.20894.46928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63E0C2A98C3
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 16:46:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.20911.46960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kb3PA-0008UN-9H; Fri, 06 Nov 2020 15:11:56 +0000
+	id 1kb3w0-0002t2-9W; Fri, 06 Nov 2020 15:45:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 20894.46928; Fri, 06 Nov 2020 15:11:56 +0000
+Received: by outflank-mailman (output) from mailman id 20911.46960; Fri, 06 Nov 2020 15:45:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,95 +23,81 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kb3PA-0008Tx-4x; Fri, 06 Nov 2020 15:11:56 +0000
-Received: by outflank-mailman (input) for mailman id 20894;
- Fri, 06 Nov 2020 15:11:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+KtV=EM=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1kb3P8-0008Ts-Dj
- for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 15:11:54 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id be185ddf-45ef-4ad9-afc7-f30327d238c2;
- Fri, 06 Nov 2020 15:11:53 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kb3w0-0002sd-5j; Fri, 06 Nov 2020 15:45:52 +0000
+Received: by outflank-mailman (input) for mailman id 20911;
+ Fri, 06 Nov 2020 15:45:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=DqEO=EM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kb3vy-0002sY-SB
+ for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 15:45:50 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1a50d871-6b4a-416e-ad4c-002c80b8151e;
+ Fri, 06 Nov 2020 15:45:49 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DBE58ABA2;
+ Fri,  6 Nov 2020 15:45:48 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=+KtV=EM=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
-	id 1kb3P8-0008Ts-Dj
-	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 15:11:54 +0000
-X-Inumbo-ID: be185ddf-45ef-4ad9-afc7-f30327d238c2
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id be185ddf-45ef-4ad9-afc7-f30327d238c2;
-	Fri, 06 Nov 2020 15:11:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1604675513;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xdbHo+p5BgdyP73xJIcQGHCSKtTjksyd3+brh7VTRP8=;
-  b=f9bZiGe0KRujBi3Kmm+q57BifNJB7xgafz49GD0m9vxZgwRFPDzry7OD
-   SnWkGIqqmpKx5c5otJQe8yRVHo/vNmTpqErXDEtpEyZTt6zF3eUOWVh5U
-   8hLArUlwjfRHOI8c38vMWgqm1YkAs33L7p3CL7yyDmA57t54l8ra0WeKD
-   k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: jxpGl2hMit/nW6dP7MUyVjLk8NgXAR/2qZ8hJag6uXV3Ce8daN/Qtil5kziv3tY3M3yD7dWXYQ
- MJ+JNIRjdhUXkqOGUtHqo9b7j2Aih7UnmW76ONnUm65NZEtXzCZfVgzYXyoqVj+oBURa9kcUyF
- YAXh8Y/5sFvUH3l4xyjzdG/+/iR7wtQH+Kb9DiSuZYzKOdEbfOfTWARtfsbjNonKeyUYRdmUeY
- PIdSRrVJseEuT1TZ6VeFz6dmrHrR+lr3zuQqI8vrjcjjPKNc+oekG8PWMowXKRGIsaeuujW9+N
- epM=
-X-SBRS: None
-X-MesageID: 30976882
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,456,1596513600"; 
-   d="scan'208";a="30976882"
-Date: Fri, 6 Nov 2020 15:11:46 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, <takahiro.akashi@linaro.org>,
-	<alex.bennee@linaro.org>, <masami.hiramatsu@linaro.org>,
-	<ian.jackson@eu.citrix.com>, <wl@xen.org>
-Subject: Re: [PATCH] libxl: set vuart_gfn in libxl__build_hvm
-Message-ID: <20201106151146.GM2214@perard.uk.xensource.com>
-References: <alpine.DEB.2.21.2011051312120.2323@sstabellini-ThinkPad-T480s>
+	(envelope-from <SRS0=DqEO=EM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kb3vy-0002sY-SB
+	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 15:45:50 +0000
+X-Inumbo-ID: 1a50d871-6b4a-416e-ad4c-002c80b8151e
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 1a50d871-6b4a-416e-ad4c-002c80b8151e;
+	Fri, 06 Nov 2020 15:45:49 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604677549;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=baG0fcY2nKj2+z89jaqCJLZcP325tXsOE+uQ+OrJOEk=;
+	b=V/4zcjY8hNf/woetkroqvx+gxwqRp1BiGXEgXWLQBrWturzvz+hF61MHn2Mf3VO36Mh5mO
+	yrmHo0nLFupAzOYZHevZLKEPxx9s3+2PhoM7txSiiuGyPkPUU2ha0qjz67/sbuaSJ7h7wG
+	rBxFteneT//ldEiM6moLtmVroYZJl4M=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id DBE58ABA2;
+	Fri,  6 Nov 2020 15:45:48 +0000 (UTC)
+Subject: Re: [PATCH] tools/libs/light: correct bitmap operations
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+References: <20201106140504.25488-1-jgross@suse.com>
+ <61860ac6-133a-0393-e63c-8de9ea13e5f9@suse.com>
+ <22a4dc50-4feb-a934-a58b-7ebcdcf9e3ab@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <908ab536-d5f3-2822-086d-a13c730e6c74@suse.com>
+Date: Fri, 6 Nov 2020 16:45:48 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2011051312120.2323@sstabellini-ThinkPad-T480s>
+In-Reply-To: <22a4dc50-4feb-a934-a58b-7ebcdcf9e3ab@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2020 at 01:15:05PM -0800, Stefano Stabellini wrote:
-> libxl: set vuart_gfn in libxl__build_hvm
-
-The subject is written two times ;-)
-
-> Setting vuart_gfn was missed when switching ARM guests to the PVH build.
-> Like libxl__build_pv, libxl__build_hvm should set state->vuart_gfn to
-> dom->vuart_gfn.
+On 06.11.2020 15:36, Jürgen Groß wrote:
+> On 06.11.20 15:35, Jan Beulich wrote:
+>> On 06.11.2020 15:05, Juergen Gross wrote:
+>>> Libxl bitmap operations for single bits (test, set, reset) take the bit
+>>> number as a signed integer without testing the value to be larger than
+>>> 0.
+>>>
+>>> Correct that by adding the appropriate tests.
+>>>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>
+>> Wouldn't it be better to convert the parameter types to unsigned int?
 > 
-> Without this change, xl console cannot connect to the vuart console (-t
-> vuart), see https://marc.info/?l=xen-devel&m=160402342101366.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> 
-> diff --git a/tools/libxl/libxl_dom.c b/tools/libxl/libxl_dom.c
-> index f8661e90d4..36fe8915e7 100644
-> --- a/tools/libxl/libxl_dom.c
-> +++ b/tools/libxl/libxl_dom.c
-> @@ -1184,6 +1184,7 @@ int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
->          LOG(ERROR, "hvm build set params failed");
->          goto out;
->      }
-> +    state->vuart_gfn = dom->vuart_gfn;
->  
->      rc = hvm_build_set_xs_values(gc, domid, dom, info);
->      if (rc != 0) {
+> Those are official library interfaces. Can we just change them?
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Oh, I didn't expect such helpers to be available to users of the
+library.
 
-Thanks,
-
--- 
-Anthony PERARD
+Jan
 
