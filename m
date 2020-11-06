@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8437A2A9D04
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 20:04:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.20998.47168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65D222A9D0C
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 20:04:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.20999.47180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kb72D-00059m-RB; Fri, 06 Nov 2020 19:04:29 +0000
+	id 1kb72J-0005FM-3j; Fri, 06 Nov 2020 19:04:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 20998.47168; Fri, 06 Nov 2020 19:04:29 +0000
+Received: by outflank-mailman (output) from mailman id 20999.47180; Fri, 06 Nov 2020 19:04:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kb72D-000594-Ma; Fri, 06 Nov 2020 19:04:29 +0000
-Received: by outflank-mailman (input) for mailman id 20998;
- Fri, 06 Nov 2020 19:04:28 +0000
+	id 1kb72J-0005Ek-08; Fri, 06 Nov 2020 19:04:35 +0000
+Received: by outflank-mailman (input) for mailman id 20999;
+ Fri, 06 Nov 2020 19:04:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VpbQ=EM=casper.srs.infradead.org=batv+cc05c5534fc856bb48c0+6284+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kb72C-0004zS-RR
- for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 19:04:28 +0000
+ id 1kb72H-0004zS-Rg
+ for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 19:04:33 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a259f972-9fc8-4630-878d-9919c92a4c68;
- Fri, 06 Nov 2020 19:04:15 +0000 (UTC)
+ id 0dad4b59-1b73-467f-827d-6f2a3aa13aa0;
+ Fri, 06 Nov 2020 19:04:17 +0000 (UTC)
 Received: from [2001:4bb8:184:9a8d:9e34:f7f4:e59e:ad6f] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kb71d-0000tx-H2; Fri, 06 Nov 2020 19:03:54 +0000
+ id 1kb71f-0000uK-9c; Fri, 06 Nov 2020 19:03:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=VpbQ=EM=casper.srs.infradead.org=batv+cc05c5534fc856bb48c0+6284+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kb72C-0004zS-RR
-	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 19:04:28 +0000
-X-Inumbo-ID: a259f972-9fc8-4630-878d-9919c92a4c68
+	id 1kb72H-0004zS-Rg
+	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 19:04:33 +0000
+X-Inumbo-ID: 0dad4b59-1b73-467f-827d-6f2a3aa13aa0
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a259f972-9fc8-4630-878d-9919c92a4c68;
-	Fri, 06 Nov 2020 19:04:15 +0000 (UTC)
+	id 0dad4b59-1b73-467f-827d-6f2a3aa13aa0;
+	Fri, 06 Nov 2020 19:04:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=xoeiriVlvBvSZjV6Q4wYdmBzo8f6g+sLoFZ2s4edyk8=; b=NxVhEEHR/C1EYxh35k4vDv/Uce
-	dlWSgLAuqe0PKAr557dVmJ6lHVGfcgVFnBUblSiUPXhcm7QnYEpJyfIExsL2RkvO0AWimJ5hCVMid
-	98+jZXSuhAiXHDHIp7itgE4sFgG/X1barPzhD8UvMkia+uZ7DGb5lf04+4P3nYn+v8TAMz9uQ9kf9
-	7AB5YlkNoWmNCdg+jrCrZV0P85fSt8+cPZJVIKiJuJdYGwSt895sPIIaNicR7kG1wfcYnfRHs/XmY
-	WH3KVWDg4MFGBPTPloHXoU/v9MRzD7180eeFlpDdxvrfJdvQ4lqjy6ouInvMW3GmGAOlPSZXFmrve
-	l411IOvA==;
+	bh=z4FJvyEBdJUNH2ICfgDhXYhI93Iugb+FUQTixBMdEJs=; b=N/BTEsalf53sWMF1NynFhjnBWQ
+	uMEzJhDiUhbdgTn6HR32ujb4p0zRiPS+sOoVdEnyZv+Dij8IJUweK1eMVi2RBr1hXUSEwwavtHExg
+	sNr9j1HAVcinwU0zvVZ9QarhyRI4g+YDE9woukNnt8R+toHJE6Yyj0N6xE2RsmnTfWYuqVKiRBcdc
+	C+RJ0pjKXC9y7PJrEmbrlFyzinEMuLJP5ArJM2hoiLEKHH5IAxDcyRZUkdM+9P4+gn1Pn36IKFZYO
+	AdL3p37VKRLnvBgnAkwYvUIBdzrmEngx2OqoC8PTe/8DN9HA5diR/JaO+uxOByGNXLNxU91/DaxUA
+	FUf64JDg==;
 Received: from [2001:4bb8:184:9a8d:9e34:f7f4:e59e:ad6f] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kb71d-0000tx-H2; Fri, 06 Nov 2020 19:03:54 +0000
+	id 1kb71f-0000uK-9c; Fri, 06 Nov 2020 19:03:56 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -87,9 +87,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-nvme@lists.infradead.org,
 	linux-scsi@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org
-Subject: [PATCH 03/24] nvme: let set_capacity_revalidate_and_notify update the bdev size
-Date: Fri,  6 Nov 2020 20:03:15 +0100
-Message-Id: <20201106190337.1973127-4-hch@lst.de>
+Subject: [PATCH 04/24] sd: update the bdev size in sd_revalidate_disk
+Date: Fri,  6 Nov 2020 20:03:16 +0100
+Message-Id: <20201106190337.1973127-5-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201106190337.1973127-1-hch@lst.de>
 References: <20201106190337.1973127-1-hch@lst.de>
@@ -97,43 +97,49 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-There is no good reason to call revalidate_disk_size separately.
+This avoids the extra call to revalidate_disk_size in sd_rescan and
+is otherwise a no-op because the size did not change, or we are in
+the probe path.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/nvme/host/core.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/scsi/sd.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 376096bfc54a83..4e86c9aafd88a7 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2053,7 +2053,7 @@ static void nvme_update_disk_info(struct gendisk *disk,
- 			capacity = 0;
- 	}
+diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
+index 656bcf4940d6d1..4a34dd5b153196 100644
+--- a/drivers/scsi/sd.c
++++ b/drivers/scsi/sd.c
+@@ -1750,10 +1750,8 @@ static int sd_sync_cache(struct scsi_disk *sdkp, struct scsi_sense_hdr *sshdr)
+ static void sd_rescan(struct device *dev)
+ {
+ 	struct scsi_disk *sdkp = dev_get_drvdata(dev);
+-	int ret;
  
--	set_capacity_revalidate_and_notify(disk, capacity, false);
-+	set_capacity_revalidate_and_notify(disk, capacity, true);
- 
- 	nvme_config_discard(disk, ns);
- 	nvme_config_write_zeroes(disk, ns);
-@@ -2136,7 +2136,6 @@ static int nvme_update_ns_info(struct nvme_ns *ns, struct nvme_id_ns *id)
- 		blk_stack_limits(&ns->head->disk->queue->limits,
- 				 &ns->queue->limits, 0);
- 		blk_queue_update_readahead(ns->head->disk->queue);
--		nvme_update_bdev_size(ns->head->disk);
- 		blk_mq_unfreeze_queue(ns->head->disk->queue);
- 	}
- #endif
-@@ -3965,8 +3964,6 @@ static void nvme_validate_ns(struct nvme_ns *ns, struct nvme_ns_ids *ids)
- 	 */
- 	if (ret && ret != -ENOMEM && !(ret > 0 && !(ret & NVME_SC_DNR)))
- 		nvme_ns_remove(ns);
--	else
--		revalidate_disk_size(ns->disk, true);
+-	ret = sd_revalidate_disk(sdkp->disk);
+-	revalidate_disk_size(sdkp->disk, ret == 0);
++	sd_revalidate_disk(sdkp->disk);
  }
  
- static void nvme_validate_or_alloc_ns(struct nvme_ctrl *ctrl, unsigned nsid)
+ static int sd_ioctl(struct block_device *bdev, fmode_t mode,
+@@ -3266,7 +3264,7 @@ static int sd_revalidate_disk(struct gendisk *disk)
+ 	sdkp->first_scan = 0;
+ 
+ 	set_capacity_revalidate_and_notify(disk,
+-		logical_to_sectors(sdp, sdkp->capacity), false);
++		logical_to_sectors(sdp, sdkp->capacity), true);
+ 	sd_config_write_same(sdkp);
+ 	kfree(buffer);
+ 
+@@ -3276,7 +3274,7 @@ static int sd_revalidate_disk(struct gendisk *disk)
+ 	 * capacity to 0.
+ 	 */
+ 	if (sd_zbc_revalidate_zones(sdkp))
+-		set_capacity_revalidate_and_notify(disk, 0, false);
++		set_capacity_revalidate_and_notify(disk, 0, true);
+ 
+  out:
+ 	return 0;
 -- 
 2.28.0
 
