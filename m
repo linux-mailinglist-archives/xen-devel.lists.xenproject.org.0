@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1FB22A8EF8
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 06:42:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.20398.46282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0FF12A9008
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 08:11:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.20413.46310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kauV3-00041w-CM; Fri, 06 Nov 2020 05:41:25 +0000
+	id 1kavtB-0003RM-7w; Fri, 06 Nov 2020 07:10:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 20398.46282; Fri, 06 Nov 2020 05:41:25 +0000
+Received: by outflank-mailman (output) from mailman id 20413.46310; Fri, 06 Nov 2020 07:10:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,130 +23,68 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kauV3-00041X-9P; Fri, 06 Nov 2020 05:41:25 +0000
-Received: by outflank-mailman (input) for mailman id 20398;
- Fri, 06 Nov 2020 05:41:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pfqN=EM=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kauV1-00040y-Sy
- for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 05:41:23 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c4a12626-c426-472f-8db3-43c5058f6699;
- Fri, 06 Nov 2020 05:41:17 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kauUv-0001Ua-DS; Fri, 06 Nov 2020 05:41:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kauUv-0005dV-7C; Fri, 06 Nov 2020 05:41:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kauUv-0006Fr-6l; Fri, 06 Nov 2020 05:41:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kavtB-0003Qx-4Z; Fri, 06 Nov 2020 07:10:25 +0000
+Received: by outflank-mailman (input) for mailman id 20413;
+ Fri, 06 Nov 2020 07:10:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=DqEO=EM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kavtA-0003Qs-1b
+ for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 07:10:24 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f6b4e055-bdb2-4878-ade0-0b0770b80ab4;
+ Fri, 06 Nov 2020 07:10:21 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 18084AB8F;
+ Fri,  6 Nov 2020 07:10:21 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pfqN=EM=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kauV1-00040y-Sy
-	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 05:41:23 +0000
-X-Inumbo-ID: c4a12626-c426-472f-8db3-43c5058f6699
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c4a12626-c426-472f-8db3-43c5058f6699;
-	Fri, 06 Nov 2020 05:41:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=DN7MJoszBXZnKV1IgAR0s1ACwyLSQeWl1dNC4mJGWGE=; b=aZtmtSGBSZAbdZA++GHqbEy1qy
-	f3jYHnplimdo+GKbhO7/PzFunptQhHpnHbODNNmWRLMzeN257bTdYxwOs/Lkwu+AaDQj3vsa9Zij3
-	q9h7LUS9aQEU3wuiVz2OTseOcrXYKrV2rwiE4M1HPR00WrB/5byAAhyrL80BdBba6iG8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kauUv-0001Ua-DS; Fri, 06 Nov 2020 05:41:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kauUv-0005dV-7C; Fri, 06 Nov 2020 05:41:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kauUv-0006Fr-6l; Fri, 06 Nov 2020 05:41:17 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156502-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=DqEO=EM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kavtA-0003Qs-1b
+	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 07:10:24 +0000
+X-Inumbo-ID: f6b4e055-bdb2-4878-ade0-0b0770b80ab4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id f6b4e055-bdb2-4878-ade0-0b0770b80ab4;
+	Fri, 06 Nov 2020 07:10:21 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604646621;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=8nREtTcjfnzeI+eMBht41WVcOapdA3Tg0/MyKJruAb4=;
+	b=rcwCcd6HLqOyJ4Pr8h0zqViohye+ZMz8KFJxCoZ5xbtOcRTUQTfUlCKK96/w7Xu4VA4IF/
+	hGnNx4AOi2L8ByaVU3Jo4jvxvZsvzaGA/pWoM7JTYjJsS3Mn/NJs9hwVKHzQEl6dazn4U9
+	hQmyvN+eVtOFxrrd3u/N9qeoRzZ3JNc=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 18084AB8F;
+	Fri,  6 Nov 2020 07:10:21 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/3] introduce and use xvmalloc() et al / shrink x86 xstate
+ area
+Message-ID: <e0364274-f123-82bd-ec85-bea519a34049@suse.com>
+Date: Fri, 6 Nov 2020 08:10:15 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156502: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=957708c2d1ae25d7375abd5e5e70c3043d64f1f1
-X-Osstest-Versions-That:
-    xen=e006b2e3be72e502b86bd9e1405417abd87bdfed
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 06 Nov 2020 05:41:17 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 156502 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156502/
+While these may seem somewhat unrelated, the connection between them
+is the middle of the patches
 
-Failures :-/ but no regressions.
+1: mm: introduce xvmalloc() et al and use for grant table allocations
+2: x86/xstate: use xvzalloc() for save area allocation
+3: x86/xstate: re-size save area when CPUID policy changes
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  957708c2d1ae25d7375abd5e5e70c3043d64f1f1
-baseline version:
- xen                  e006b2e3be72e502b86bd9e1405417abd87bdfed
-
-Last test of basis   156444  2020-11-05 16:00:29 Z    0 days
-Testing same since   156502  2020-11-06 03:01:22 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   e006b2e3be..957708c2d1  957708c2d1ae25d7375abd5e5e70c3043d64f1f1 -> smoke
+Jan
 
