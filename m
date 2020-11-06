@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC1942A9DB7
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5252A9DB9
 	for <lists+xen-devel@lfdr.de>; Fri,  6 Nov 2020 20:13:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.21051.47307 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.21049.47288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kb7B2-0007Dj-R0; Fri, 06 Nov 2020 19:13:36 +0000
+	id 1kb7B1-00079s-0r; Fri, 06 Nov 2020 19:13:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 21051.47307; Fri, 06 Nov 2020 19:13:36 +0000
+Received: by outflank-mailman (output) from mailman id 21049.47288; Fri, 06 Nov 2020 19:13:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kb7B2-0007CU-IW; Fri, 06 Nov 2020 19:13:36 +0000
-Received: by outflank-mailman (input) for mailman id 21051;
- Fri, 06 Nov 2020 19:13:35 +0000
+	id 1kb7B0-00078v-Ql; Fri, 06 Nov 2020 19:13:34 +0000
+Received: by outflank-mailman (input) for mailman id 21049;
+ Fri, 06 Nov 2020 19:13:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VpbQ=EM=casper.srs.infradead.org=batv+cc05c5534fc856bb48c0+6284+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kb73Z-0004zS-U8
- for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 19:05:53 +0000
+ id 1kb73U-0004zS-U7
+ for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 19:05:48 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 01e1f1af-4970-4177-b232-31b43ea69eec;
+ id ee1a3226-5aa0-467c-9c10-0510578b1254;
  Fri, 06 Nov 2020 19:04:43 +0000 (UTC)
 Received: from [2001:4bb8:184:9a8d:9e34:f7f4:e59e:ad6f] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kb729-00013h-89; Fri, 06 Nov 2020 19:04:25 +0000
+ id 1kb72A-00013z-Vd; Fri, 06 Nov 2020 19:04:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=VpbQ=EM=casper.srs.infradead.org=batv+cc05c5534fc856bb48c0+6284+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kb73Z-0004zS-U8
-	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 19:05:53 +0000
-X-Inumbo-ID: 01e1f1af-4970-4177-b232-31b43ea69eec
+	id 1kb73U-0004zS-U7
+	for xen-devel@lists.xenproject.org; Fri, 06 Nov 2020 19:05:48 +0000
+X-Inumbo-ID: ee1a3226-5aa0-467c-9c10-0510578b1254
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 01e1f1af-4970-4177-b232-31b43ea69eec;
+	id ee1a3226-5aa0-467c-9c10-0510578b1254;
 	Fri, 06 Nov 2020 19:04:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=4bS/eZqoJAQR/DSs9IGqi2g9LCY9L0WWDnWefDh2k5M=; b=tVd8geFSv+/a4ICZqJ4miUgAZr
-	bSnQVkuUj9Q1sOtmlqt7w1/fnbDPR0IyuD7NylvEPospNvxVXib/Q1nUDuQNSaWDRFbsRXA9dbw6O
-	R/GqSzwPpwI2zGGmixd50oCio/LgvmNAgH3JNK5kktQ8eJb8dFVZtMV8LOVf1+XaUk33UAT4qwsbd
-	gO37JazEvqPXopiAzJkFz2g/BDk5ZGRZJMue7aCghVAZN1rAh3Kp+t7apQN+sU6hGH5YlyzTNFcs+
-	V0tQaIvP9jr1OAo1S5SMYXLTVLk25tGMl0HLivTuYcN5VAr0bXyzDQ4D/TX6qd2S5zUuUJoLnnNDa
-	VVQ+Kqmw==;
+	bh=WS/5HaJpXF8+Aj3VZ2GQ3e6HnWhXjc79y2mDNxe6L1Y=; b=d0t0faqKeh0diZy5D+3oFd7PUF
+	TCyCK8sa/DuNKYU0jeT8wTyRvaiEBKDnaS6SEkdUTuybDBsIgoIeRPsAlzl5bKXOe6SmughSQbIEP
+	KkykvrhSx4ccDUXIrBKyrD0p4JiXqCPHgPeWfj3mWbknoX/XAnoyioec4TemaKCqv4ah93+QLH5cg
+	9/RsZdWQzxsF1SLgUEW0HOn02HqxzKnJlnn0keo28vvDdvLYdDXii4E52+MkqA7lju2awVWXrKJL6
+	ATVrFBAnHLMBbHBOSnGGHyMGWAswR83/TC1I7JT5bKbjrfZ4wEjHnEBd8a7RQ1Qnb4mvA0vQ78WTS
+	P88M1meg==;
 Received: from [2001:4bb8:184:9a8d:9e34:f7f4:e59e:ad6f] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kb729-00013h-89; Fri, 06 Nov 2020 19:04:25 +0000
+	id 1kb72A-00013z-Vd; Fri, 06 Nov 2020 19:04:27 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -87,9 +87,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-nvme@lists.infradead.org,
 	linux-scsi@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org
-Subject: [PATCH 19/24] zram: use set_capacity_and_notify
-Date: Fri,  6 Nov 2020 20:03:31 +0100
-Message-Id: <20201106190337.1973127-20-hch@lst.de>
+Subject: [PATCH 20/24] dm-raid: use set_capacity_and_notify
+Date: Fri,  6 Nov 2020 20:03:32 +0100
+Message-Id: <20201106190337.1973127-21-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201106190337.1973127-1-hch@lst.de>
 References: <20201106190337.1973127-1-hch@lst.de>
@@ -102,41 +102,23 @@ device.  This also gets the uevent notifications for the resize for free.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/zram/zram_drv.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/md/dm-raid.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 1b697208d66157..6d15d51cee2b7e 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -1695,7 +1695,7 @@ static void zram_reset_device(struct zram *zram)
- 	disksize = zram->disksize;
- 	zram->disksize = 0;
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index 9c1f7c4de65b35..294f34d2d61bae 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -700,8 +700,7 @@ static void rs_set_capacity(struct raid_set *rs)
+ {
+ 	struct gendisk *gendisk = dm_disk(dm_table_get_md(rs->ti->table));
  
--	set_capacity(zram->disk, 0);
-+	set_capacity_and_notify(zram->disk, 0);
- 	part_stat_set_all(&zram->disk->part0, 0);
+-	set_capacity(gendisk, rs->md.array_sectors);
+-	revalidate_disk_size(gendisk, true);
++	set_capacity_and_notify(gendisk, rs->md.array_sectors);
+ }
  
- 	up_write(&zram->init_lock);
-@@ -1741,9 +1741,7 @@ static ssize_t disksize_store(struct device *dev,
- 
- 	zram->comp = comp;
- 	zram->disksize = disksize;
--	set_capacity(zram->disk, zram->disksize >> SECTOR_SHIFT);
--
--	revalidate_disk_size(zram->disk, true);
-+	set_capacity_and_notify(zram->disk, zram->disksize >> SECTOR_SHIFT);
- 	up_write(&zram->init_lock);
- 
- 	return len;
-@@ -1790,7 +1788,6 @@ static ssize_t reset_store(struct device *dev,
- 	/* Make sure all the pending I/O are finished */
- 	fsync_bdev(bdev);
- 	zram_reset_device(zram);
--	revalidate_disk_size(zram->disk, true);
- 	bdput(bdev);
- 
- 	mutex_lock(&bdev->bd_mutex);
+ /*
 -- 
 2.28.0
 
