@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB8E22AABDE
-	for <lists+xen-devel@lfdr.de>; Sun,  8 Nov 2020 16:22:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.21718.48068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 314882AAC5A
+	for <lists+xen-devel@lfdr.de>; Sun,  8 Nov 2020 17:57:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.21746.48094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kbmVd-0007ch-Hc; Sun, 08 Nov 2020 15:21:37 +0000
+	id 1kbnzc-0007Ub-MH; Sun, 08 Nov 2020 16:56:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 21718.48068; Sun, 08 Nov 2020 15:21:37 +0000
+Received: by outflank-mailman (output) from mailman id 21746.48094; Sun, 08 Nov 2020 16:56:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,271 +23,253 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kbmVd-0007cI-EK; Sun, 08 Nov 2020 15:21:37 +0000
-Received: by outflank-mailman (input) for mailman id 21718;
- Sun, 08 Nov 2020 15:21:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h6fj=EO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kbmVb-0007bg-VB
- for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 15:21:35 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4c0d675e-a38d-4aea-98aa-3cc1b493da7f;
- Sun, 08 Nov 2020 15:21:27 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kbmVT-0002TQ-Cd; Sun, 08 Nov 2020 15:21:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kbmVT-0000Nl-3R; Sun, 08 Nov 2020 15:21:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kbmVT-00050s-2s; Sun, 08 Nov 2020 15:21:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kbnzc-0007UF-J6; Sun, 08 Nov 2020 16:56:40 +0000
+Received: by outflank-mailman (input) for mailman id 21746;
+ Sun, 08 Nov 2020 16:56:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=m9gi=EO=kernel.org=jic23@srs-us1.protection.inumbo.net>)
+ id 1kbnzb-0007UA-Av
+ for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 16:56:39 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9ccd187a-e52e-4a09-a4da-b5004e2143e7;
+ Sun, 08 Nov 2020 16:56:38 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 289C720678;
+ Sun,  8 Nov 2020 16:56:24 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=h6fj=EO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kbmVb-0007bg-VB
-	for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 15:21:35 +0000
-X-Inumbo-ID: 4c0d675e-a38d-4aea-98aa-3cc1b493da7f
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4c0d675e-a38d-4aea-98aa-3cc1b493da7f;
-	Sun, 08 Nov 2020 15:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=z71aQfdGOMVNT4QYp1rZsQiyxQXaHXeJJrnQVcz1Zzk=; b=5hDktEFzsVLA1SX7amxDE/ogse
-	3d4Grhi662cOjW62bXIkO1soLgdGY1hcpMt+jN9VX4i7Favz1sMUeRaGfvWB/SB37irDfrguR7QIm
-	T0iey1yShHmCVgd8zT4lEh2aitik3VMLYn73jp2ifF83p9KrxpFeLWthWFj2SUkUr1y0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kbmVT-0002TQ-Cd; Sun, 08 Nov 2020 15:21:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kbmVT-0000Nl-3R; Sun, 08 Nov 2020 15:21:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kbmVT-00050s-2s; Sun, 08 Nov 2020 15:21:27 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156549-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=m9gi=EO=kernel.org=jic23@srs-us1.protection.inumbo.net>)
+	id 1kbnzb-0007UA-Av
+	for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 16:56:39 +0000
+X-Inumbo-ID: 9ccd187a-e52e-4a09-a4da-b5004e2143e7
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 9ccd187a-e52e-4a09-a4da-b5004e2143e7;
+	Sun, 08 Nov 2020 16:56:38 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net [82.4.196.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 289C720678;
+	Sun,  8 Nov 2020 16:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1604854597;
+	bh=HmpnTGD+sCqkzYKB+VNNoQPDyYLZ8DVZYqWfmSgpAfA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=jTr8zTsz0WaJ6nnvT5Eg1Ll2ihGmqcyn+2SF+Wf/mrD2qllK/kFqFW/v7wcgZNefk
+	 zS7dIr/q6PaG6DfI7dBacAjjo5nnHikNbE1GU0b2Tz2VVRAwvJAMwi+yrMpSam0vAS
+	 yISkL1OxDj/prQqrSSSyaYuB90OjYqoYVe7sJd6Y=
+Date: Sun, 8 Nov 2020 16:56:21 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Fabrice Gasnier
+ <fabrice.gasnier@st.com>, Linux Doc Mailing List
+ <linux-doc@vger.kernel.org>, "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, Javier =?UTF-8?B?R29uesOhbGV6?=
+ <javier@javigon.com>, Jonathan Corbet <corbet@lwn.net>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, "Rafael J. Wysocki"
+ <rjw@rjwysocki.net>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Andrew Donnellan <ajd@linux.ibm.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Baolin Wang
+ <baolin.wang7@gmail.com>, Benson Leung <bleung@chromium.org>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Bruno Meneguele
+ <bmeneg@redhat.com>, Chunyan Zhang <zhang.lyra@gmail.com>, Dan Murphy
+ <dmurphy@ti.com>, Dan Williams <dan.j.williams@intel.com>, Enric Balletbo i
+ Serra <enric.balletbo@collabora.com>, Felipe Balbi <balbi@kernel.org>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, Guenter Roeck
+ <groeck@chromium.org>, Hanjun Guo <guohanjun@huawei.com>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, Jens Axboe <axboe@kernel.dk>, Johannes
+ Thumshirn <johannes.thumshirn@wdc.com>, Juergen Gross <jgross@suse.com>,
+ Konstantin Khlebnikov <koct9i@gmail.com>, Kranthi Kuntala
+ <kranthi.kuntala@intel.com>, Lakshmi Ramasubramanian
+ <nramas@linux.microsoft.com>, Lars-Peter Clausen <lars@metafoo.de>, Len
+ Brown <lenb@kernel.org>, Leonid Maksymchuk <leonmaxx@gmail.com>, Ludovic
+ Desroches <ludovic.desroches@microchip.com>, Mario Limonciello
+ <mario.limonciello@dell.com>, Mark Gross <mgross@linux.intel.com>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Michael Ellerman
+ <mpe@ellerman.id.au>, Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Mike Kravetz <mike.kravetz@oracle.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Nayna Jain <nayna@linux.ibm.com>, Nicolas Ferre
+ <nicolas.ferre@microchip.com>, Niklas Cassel <niklas.cassel@wdc.com>, Oded
+ Gabbay <oded.gabbay@gmail.com>, Oleh Kravchenko <oleg@kaa.org.ua>, Orson
+ Zhai <orsonzhai@gmail.com>, Pavel Machek <pavel@ucw.cz>, Pawan Gupta
+ <pawan.kumar.gupta@linux.intel.com>, Peter Meerwald-Stadler
+ <pmeerw@pmeerw.net>, Peter Rosin <peda@axentia.se>, Petr Mladek
+ <pmladek@suse.com>, Philippe Bergheaud <felix@linux.ibm.com>, Richard
+ Cochran <richardcochran@gmail.com>, Sebastian Reichel <sre@kernel.org>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Thomas
+ Gleixner <tglx@linutronix.de>, Tom Rix <trix@redhat.com>, Vaibhav Jain
+ <vaibhav@linux.ibm.com>, Vineela Tummalapalli
+ <vineela.tummalapalli@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
+ linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Jonathan Cameron
+ <Jonathan.Cameron@huawei.com>
+Subject: Re: [PATCH v2 20/39] docs: ABI: testing: make the files compatible
+ with ReST output
+Message-ID: <20201108165621.4d0da3f4@archlinux>
+In-Reply-To: <20201102154250.45bee17f@coco.lan>
+References: <cover.1604042072.git.mchehab+huawei@kernel.org>
+	<58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
+	<5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
+	<20201030110925.3e09d59e@coco.lan>
+	<cb586ea3-b6e6-4e48-2344-2bd641e5323f@st.com>
+	<20201102124641.GA881895@kroah.com>
+	<20201102154250.45bee17f@coco.lan>
+X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Subject: [libvirt test] 156549: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=3113f3d81532d18fbeedebc0c7de8a0e42b771b2
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 08 Nov 2020 15:21:27 +0000
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-flight 156549 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156549/
+On Mon, 2 Nov 2020 15:42:50 +0100
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
 
-Regressions :-(
+> Em Mon, 2 Nov 2020 13:46:41 +0100
+> Greg Kroah-Hartman <gregkh@linuxfoundation.org> escreveu:
+> 
+> > On Mon, Nov 02, 2020 at 12:04:36PM +0100, Fabrice Gasnier wrote:  
+> > > On 10/30/20 11:09 AM, Mauro Carvalho Chehab wrote:    
+> > > > Em Fri, 30 Oct 2020 10:19:12 +0100
+> > > > Fabrice Gasnier <fabrice.gasnier@st.com> escreveu:
+> > > >     
+> > > >> Hi Mauro,
+> > > >>
+> > > >> [...]
+> > > >>    
+> > > >>>  
+> > > >>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> > > >>> +KernelVersion:	4.12
+> > > >>> +Contact:	benjamin.gaignard@st.com
+> > > >>> +Description:
+> > > >>> +		Reading returns the list possible quadrature modes.
+> > > >>> +
+> > > >>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+> > > >>> +KernelVersion:	4.12
+> > > >>> +Contact:	benjamin.gaignard@st.com
+> > > >>> +Description:
+> > > >>> +		Configure the device counter quadrature modes:
+> > > >>> +
+> > > >>> +		channel_A:
+> > > >>> +			Encoder A input servers as the count input and B as
+> > > >>> +			the UP/DOWN direction control input.
+> > > >>> +
+> > > >>> +		channel_B:
+> > > >>> +			Encoder B input serves as the count input and A as
+> > > >>> +			the UP/DOWN direction control input.
+> > > >>> +
+> > > >>> +		quadrature:
+> > > >>> +			Encoder A and B inputs are mixed to get direction
+> > > >>> +			and count with a scale of 0.25.
+> > > >>> +      
+> > > >>    
+> > > > 
+> > > > Hi Fabrice,
+> > > >     
+> > > >> I just noticed that since Jonathan question in v1.
+> > > >>
+> > > >> Above ABI has been moved in the past as discussed in [1]. You can take a
+> > > >> look at:
+> > > >> b299d00 IIO: stm32: Remove quadrature related functions from trigger driver
+> > > >>
+> > > >> Could you please remove the above chunk ?
+> > > >>
+> > > >> With that, for the stm32 part:
+> > > >> Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>    
+> > > > 
+> > > > 
+> > > > Hmm... probably those were re-introduced due to a rebase. This
+> > > > series were originally written about 1,5 years ago.
+> > > > 
+> > > > I'll drop those hunks.    
+> > > 
+> > > Hi Mauro, Greg,
+> > > 
+> > > I just figured out this patch has been applied with above hunk.
+> > > 
+> > > This should be dropped: is there a fix on its way already ?
+> > > (I may have missed it)    
+> > 
+> > Can you send a fix for just this hunk?  
+> 
+> Hmm...
+> 
+> 	$ git grep /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> 	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:What:                /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> 	Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:What:             /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> 	Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:What:               /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> 
+> Even re-doing the changes from 
+> changeset b299d00420e2 ("IIO: stm32: Remove quadrature related functions from trigger driver")
+> at Documentation/ABI/testing/sysfs-bus-iio-timer-stm32, there's still
+> a third duplicate of some of those, as reported by the script:
+> 
+> 	$ ./scripts/get_abi.pl validate 2>&1|grep quadra
+> 	Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
+> 	Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
+> 
+> As in_count_quadrature_mode_available is also defined at:
+> 	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2
+> 
+> The best here seems to have a patch that will also drop the other
+> duplication of this, probably moving in_count_quadrature_mode_available
+> to a generic node probably placing it inside 
+> Documentation/ABI/testing/sysfs-bus-iio.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+In this particular case it may be valid to do that, but it's not in
+general without loosing information - see below.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+> 
+> Comments?
+> 
+> Thanks,
+> Mauro
+> 
+> PS.: the IIO subsystem is the one that currently has more duplicated
+> ABI entries:
 
-version targeted for testing:
- libvirt              3113f3d81532d18fbeedebc0c7de8a0e42b771b2
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+That was intentional.  Often these provide more information on the
+ABI for a particular device than is present in the base ABI doc.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  121 days
-Failing since        151818  2020-07-11 04:18:52 Z  120 days  115 attempts
-Testing same since   156537  2020-11-07 04:19:10 Z    1 days    2 attempts
+A bit like when we have additional description for dt binding properties
+for a particular device, even though they are standard properties.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Neal Gompa <ngompa13@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+Often a standard property allows for more values than the specific
+one for a particular device.  There can also be obscuring coupling
+between sysfs attributes due to hardware restrictions that we would
+like to provide some explanatory info on.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+I suppose we could add all this information to the parent doc but
+that is pretty ugly and will make that doc very nasty to read.
 
+Jonathan
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> 
+> $ ./scripts/get_abi.pl validate 2>&1|grep iio
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:0  Documentation/ABI/testing/sysfs-bus-iio:394
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:1  Documentation/ABI/testing/sysfs-bus-iio:395
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:2  Documentation/ABI/testing/sysfs-bus-iio:396
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:3  Documentation/ABI/testing/sysfs-bus-iio:397
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:4  Documentation/ABI/testing/sysfs-bus-iio:398
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:5  Documentation/ABI/testing/sysfs-bus-iio:399
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_preset is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:100  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:0
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:0  Documentation/ABI/testing/sysfs-bus-iio:599
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:36  Documentation/ABI/testing/sysfs-bus-iio:588
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_currentY_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-light-lm3533-als:43  Documentation/ABI/testing/sysfs-bus-iio-health-afe440x:38
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:0  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:0
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw_available is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:1  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:1
+> Warning: /sys/bus/iio/devices/iio:deviceX/sensor_sensitivity is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-distance-srf08:0  Documentation/ABI/testing/sysfs-bus-iio-proximity-as3935:8
+> Warning: /sys/bus/iio/devices/triggerX/sampling_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:92  Documentation/ABI/testing/sysfs-bus-iio:45
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 25200 lines long.)
 
