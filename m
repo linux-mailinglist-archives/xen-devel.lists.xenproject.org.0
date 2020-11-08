@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 314882AAC5A
-	for <lists+xen-devel@lfdr.de>; Sun,  8 Nov 2020 17:57:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.21746.48094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C792AAC95
+	for <lists+xen-devel@lfdr.de>; Sun,  8 Nov 2020 18:20:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.21768.48122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kbnzc-0007Ub-MH; Sun, 08 Nov 2020 16:56:40 +0000
+	id 1kboM2-000123-Ng; Sun, 08 Nov 2020 17:19:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 21746.48094; Sun, 08 Nov 2020 16:56:40 +0000
+Received: by outflank-mailman (output) from mailman id 21768.48122; Sun, 08 Nov 2020 17:19:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,253 +23,226 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kbnzc-0007UF-J6; Sun, 08 Nov 2020 16:56:40 +0000
-Received: by outflank-mailman (input) for mailman id 21746;
- Sun, 08 Nov 2020 16:56:39 +0000
+	id 1kboM2-00011d-Kg; Sun, 08 Nov 2020 17:19:50 +0000
+Received: by outflank-mailman (input) for mailman id 21768;
+ Sun, 08 Nov 2020 17:19:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=m9gi=EO=kernel.org=jic23@srs-us1.protection.inumbo.net>)
- id 1kbnzb-0007UA-Av
- for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 16:56:39 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h6fj=EO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kboM0-00011Y-HG
+ for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 17:19:48 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ccd187a-e52e-4a09-a4da-b5004e2143e7;
- Sun, 08 Nov 2020 16:56:38 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 289C720678;
- Sun,  8 Nov 2020 16:56:24 +0000 (UTC)
+ id 5bf2dbc0-56b0-4fac-bbca-01d09f77e1fa;
+ Sun, 08 Nov 2020 17:19:46 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kboLx-0005Nc-Pv; Sun, 08 Nov 2020 17:19:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kboLx-0004oz-Ij; Sun, 08 Nov 2020 17:19:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kboLx-0000GS-IH; Sun, 08 Nov 2020 17:19:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=m9gi=EO=kernel.org=jic23@srs-us1.protection.inumbo.net>)
-	id 1kbnzb-0007UA-Av
-	for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 16:56:39 +0000
-X-Inumbo-ID: 9ccd187a-e52e-4a09-a4da-b5004e2143e7
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=h6fj=EO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kboM0-00011Y-HG
+	for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 17:19:48 +0000
+X-Inumbo-ID: 5bf2dbc0-56b0-4fac-bbca-01d09f77e1fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9ccd187a-e52e-4a09-a4da-b5004e2143e7;
-	Sun, 08 Nov 2020 16:56:38 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net [82.4.196.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 289C720678;
-	Sun,  8 Nov 2020 16:56:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1604854597;
-	bh=HmpnTGD+sCqkzYKB+VNNoQPDyYLZ8DVZYqWfmSgpAfA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=jTr8zTsz0WaJ6nnvT5Eg1Ll2ihGmqcyn+2SF+Wf/mrD2qllK/kFqFW/v7wcgZNefk
-	 zS7dIr/q6PaG6DfI7dBacAjjo5nnHikNbE1GU0b2Tz2VVRAwvJAMwi+yrMpSam0vAS
-	 yISkL1OxDj/prQqrSSSyaYuB90OjYqoYVe7sJd6Y=
-Date: Sun, 8 Nov 2020 16:56:21 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Fabrice Gasnier
- <fabrice.gasnier@st.com>, Linux Doc Mailing List
- <linux-doc@vger.kernel.org>, "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>, Javier =?UTF-8?B?R29uesOhbGV6?=
- <javier@javigon.com>, Jonathan Corbet <corbet@lwn.net>, "Martin K.
- Petersen" <martin.petersen@oracle.com>, "Rafael J. Wysocki"
- <rjw@rjwysocki.net>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Alexandre Torgue
- <alexandre.torgue@st.com>, Andrew Donnellan <ajd@linux.ibm.com>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>, Baolin Wang
- <baolin.wang7@gmail.com>, Benson Leung <bleung@chromium.org>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Bruno Meneguele
- <bmeneg@redhat.com>, Chunyan Zhang <zhang.lyra@gmail.com>, Dan Murphy
- <dmurphy@ti.com>, Dan Williams <dan.j.williams@intel.com>, Enric Balletbo i
- Serra <enric.balletbo@collabora.com>, Felipe Balbi <balbi@kernel.org>,
- Frederic Barrat <fbarrat@linux.ibm.com>, Guenter Roeck
- <groeck@chromium.org>, Hanjun Guo <guohanjun@huawei.com>, Heikki Krogerus
- <heikki.krogerus@linux.intel.com>, Jens Axboe <axboe@kernel.dk>, Johannes
- Thumshirn <johannes.thumshirn@wdc.com>, Juergen Gross <jgross@suse.com>,
- Konstantin Khlebnikov <koct9i@gmail.com>, Kranthi Kuntala
- <kranthi.kuntala@intel.com>, Lakshmi Ramasubramanian
- <nramas@linux.microsoft.com>, Lars-Peter Clausen <lars@metafoo.de>, Len
- Brown <lenb@kernel.org>, Leonid Maksymchuk <leonmaxx@gmail.com>, Ludovic
- Desroches <ludovic.desroches@microchip.com>, Mario Limonciello
- <mario.limonciello@dell.com>, Mark Gross <mgross@linux.intel.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Michael Ellerman
- <mpe@ellerman.id.au>, Mika Westerberg <mika.westerberg@linux.intel.com>,
- Mike Kravetz <mike.kravetz@oracle.com>, Mimi Zohar <zohar@linux.ibm.com>,
- Nayna Jain <nayna@linux.ibm.com>, Nicolas Ferre
- <nicolas.ferre@microchip.com>, Niklas Cassel <niklas.cassel@wdc.com>, Oded
- Gabbay <oded.gabbay@gmail.com>, Oleh Kravchenko <oleg@kaa.org.ua>, Orson
- Zhai <orsonzhai@gmail.com>, Pavel Machek <pavel@ucw.cz>, Pawan Gupta
- <pawan.kumar.gupta@linux.intel.com>, Peter Meerwald-Stadler
- <pmeerw@pmeerw.net>, Peter Rosin <peda@axentia.se>, Petr Mladek
- <pmladek@suse.com>, Philippe Bergheaud <felix@linux.ibm.com>, Richard
- Cochran <richardcochran@gmail.com>, Sebastian Reichel <sre@kernel.org>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Thomas
- Gleixner <tglx@linutronix.de>, Tom Rix <trix@redhat.com>, Vaibhav Jain
- <vaibhav@linux.ibm.com>, Vineela Tummalapalli
- <vineela.tummalapalli@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
- linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-pm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- xen-devel@lists.xenproject.org, Jonathan Cameron
- <Jonathan.Cameron@huawei.com>
-Subject: Re: [PATCH v2 20/39] docs: ABI: testing: make the files compatible
- with ReST output
-Message-ID: <20201108165621.4d0da3f4@archlinux>
-In-Reply-To: <20201102154250.45bee17f@coco.lan>
-References: <cover.1604042072.git.mchehab+huawei@kernel.org>
-	<58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
-	<5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
-	<20201030110925.3e09d59e@coco.lan>
-	<cb586ea3-b6e6-4e48-2344-2bd641e5323f@st.com>
-	<20201102124641.GA881895@kroah.com>
-	<20201102154250.45bee17f@coco.lan>
-X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+	id 5bf2dbc0-56b0-4fac-bbca-01d09f77e1fa;
+	Sun, 08 Nov 2020 17:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=eagm83USspADDuJEspbMQvnaSN3Z8+8P3l+xKn2TrCU=; b=L1khJxVLq0TIjCA468hmJKvN5x
+	kOZ2fPI1dvWAKtIKwD/1yfA0vqlVJqRuSH1mhke3JAvRnr+xLRUa4Nk6pAVSp01WeGtzHC5FiIX4+
+	e2+TeJV7VvyqCzE9/9WRluEl7g/5i6E3g69R9t8sQdu6yKiM93i0awxqCmYWUXSuLxLs=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kboLx-0005Nc-Pv; Sun, 08 Nov 2020 17:19:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kboLx-0004oz-Ij; Sun, 08 Nov 2020 17:19:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kboLx-0000GS-IH; Sun, 08 Nov 2020 17:19:45 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-unstable bisection] complete test-amd64-i386-xl-xsm
+Message-Id: <E1kboLx-0000GS-IH@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 08 Nov 2020 17:19:45 +0000
 
-On Mon, 2 Nov 2020 15:42:50 +0100
-Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-i386-xl-xsm
+testid guest-start
 
-> Em Mon, 2 Nov 2020 13:46:41 +0100
-> Greg Kroah-Hartman <gregkh@linuxfoundation.org> escreveu:
-> 
-> > On Mon, Nov 02, 2020 at 12:04:36PM +0100, Fabrice Gasnier wrote:  
-> > > On 10/30/20 11:09 AM, Mauro Carvalho Chehab wrote:    
-> > > > Em Fri, 30 Oct 2020 10:19:12 +0100
-> > > > Fabrice Gasnier <fabrice.gasnier@st.com> escreveu:
-> > > >     
-> > > >> Hi Mauro,
-> > > >>
-> > > >> [...]
-> > > >>    
-> > > >>>  
-> > > >>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
-> > > >>> +KernelVersion:	4.12
-> > > >>> +Contact:	benjamin.gaignard@st.com
-> > > >>> +Description:
-> > > >>> +		Reading returns the list possible quadrature modes.
-> > > >>> +
-> > > >>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
-> > > >>> +KernelVersion:	4.12
-> > > >>> +Contact:	benjamin.gaignard@st.com
-> > > >>> +Description:
-> > > >>> +		Configure the device counter quadrature modes:
-> > > >>> +
-> > > >>> +		channel_A:
-> > > >>> +			Encoder A input servers as the count input and B as
-> > > >>> +			the UP/DOWN direction control input.
-> > > >>> +
-> > > >>> +		channel_B:
-> > > >>> +			Encoder B input serves as the count input and A as
-> > > >>> +			the UP/DOWN direction control input.
-> > > >>> +
-> > > >>> +		quadrature:
-> > > >>> +			Encoder A and B inputs are mixed to get direction
-> > > >>> +			and count with a scale of 0.25.
-> > > >>> +      
-> > > >>    
-> > > > 
-> > > > Hi Fabrice,
-> > > >     
-> > > >> I just noticed that since Jonathan question in v1.
-> > > >>
-> > > >> Above ABI has been moved in the past as discussed in [1]. You can take a
-> > > >> look at:
-> > > >> b299d00 IIO: stm32: Remove quadrature related functions from trigger driver
-> > > >>
-> > > >> Could you please remove the above chunk ?
-> > > >>
-> > > >> With that, for the stm32 part:
-> > > >> Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>    
-> > > > 
-> > > > 
-> > > > Hmm... probably those were re-introduced due to a rebase. This
-> > > > series were originally written about 1,5 years ago.
-> > > > 
-> > > > I'll drop those hunks.    
-> > > 
-> > > Hi Mauro, Greg,
-> > > 
-> > > I just figured out this patch has been applied with above hunk.
-> > > 
-> > > This should be dropped: is there a fix on its way already ?
-> > > (I may have missed it)    
-> > 
-> > Can you send a fix for just this hunk?  
-> 
-> Hmm...
-> 
-> 	$ git grep /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
-> 	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:What:                /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
-> 	Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:What:             /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
-> 	Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:What:               /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
-> 
-> Even re-doing the changes from 
-> changeset b299d00420e2 ("IIO: stm32: Remove quadrature related functions from trigger driver")
-> at Documentation/ABI/testing/sysfs-bus-iio-timer-stm32, there's still
-> a third duplicate of some of those, as reported by the script:
-> 
-> 	$ ./scripts/get_abi.pl validate 2>&1|grep quadra
-> 	Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
-> 	Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
-> 
-> As in_count_quadrature_mode_available is also defined at:
-> 	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2
-> 
-> The best here seems to have a patch that will also drop the other
-> duplication of this, probably moving in_count_quadrature_mode_available
-> to a generic node probably placing it inside 
-> Documentation/ABI/testing/sysfs-bus-iio.
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-In this particular case it may be valid to do that, but it's not in
-general without loosing information - see below.
+*** Found and reproduced problem changeset ***
 
-> 
-> Comments?
-> 
-> Thanks,
-> Mauro
-> 
-> PS.: the IIO subsystem is the one that currently has more duplicated
-> ABI entries:
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Bug not present: c3453a23f7905d24f2404787543e26ec7d02301c
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156567/
 
-That was intentional.  Often these provide more information on the
-ABI for a particular device than is present in the base ABI doc.
 
-A bit like when we have additional description for dt binding properties
-for a particular device, even though they are standard properties.
+  commit e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Author: Juergen Gross <jgross@suse.com>
+  Date:   Fri Nov 6 10:48:07 2020 +0100
+  
+      xen/rwlock: add check_lock() handling to rwlocks
+      
+      Checking whether a lock is consistently used regarding interrupts on
+      or off is beneficial for rwlocks, too.
+      
+      So add check_lock() calls to rwlock functions. For this purpose make
+      check_lock() globally accessible.
+      
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Reviewed-by: Julien Grall <jgrall@amazon.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Often a standard property allows for more values than the specific
-one for a particular device.  There can also be obscuring coupling
-between sysfs attributes due to hardware restrictions that we would
-like to provide some explanatory info on.
 
-I suppose we could add all this information to the parent doc but
-that is pretty ugly and will make that doc very nasty to read.
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-i386-xl-xsm.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-Jonathan
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-i386-xl-xsm.guest-start --summary-out=tmp/156567.bisection-summary --basis-template=156443 --blessings=real,real-bisect,real-retry xen-unstable test-amd64-i386-xl-xsm guest-start
+Searching for failure / basis pass:
+ 156538 fail [host=huxelrebe0] / 156443 [host=fiano0] 156401 [host=albana0] 156389 [host=elbling1] 156373 [host=huxelrebe1] 156354 [host=albana1] 156339 [host=fiano1] 156331 [host=chardonnay1] 156315 [host=chardonnay0] 156291 [host=elbling0] 156268 [host=fiano1] 156254 [host=rimava1] 156248 [host=albana0] 156228 [host=albana1] 156196 [host=huxelrebe1] 156167 [host=pinot1] 156136 ok.
+Failure / basis pass flights: 156538 / 156136
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 6ca70821b59849ad97c3fadc47e63c1a4af1a78c
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#ea6d3cd1ed79d824e605a70c3626bc4\
+ 37c386260-677cbe1324c29294bb1d1b8454b3f214725e40fd git://xenbits.xen.org/xen.git#6ca70821b59849ad97c3fadc47e63c1a4af1a78c-0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+Loaded 41925 nodes in revision graph
+Searching for test results:
+ 156119 [host=pinot0]
+ 156136 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 6ca70821b59849ad97c3fadc47e63c1a4af1a78c
+ 156167 [host=pinot1]
+ 156196 [host=huxelrebe1]
+ 156228 [host=albana1]
+ 156248 [host=albana0]
+ 156254 [host=rimava1]
+ 156268 [host=fiano1]
+ 156291 [host=elbling0]
+ 156315 [host=chardonnay0]
+ 156331 [host=chardonnay1]
+ 156339 [host=fiano1]
+ 156354 [host=albana1]
+ 156373 [host=huxelrebe1]
+ 156389 [host=elbling1]
+ 156401 [host=albana0]
+ 156443 [host=fiano0]
+ 156550 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd dac867bf9adc1562a4cf9db5f89726597af13ef8
+ 156524 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 2a5f9f6a6932214fda76b9b3c03e024772882d34
+ 156539 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 6ca70821b59849ad97c3fadc47e63c1a4af1a78c
+ 156546 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 2a5f9f6a6932214fda76b9b3c03e024772882d34
+ 156548 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 82c0d3d491ccb183cf12c87775086b68531b8444
+ 156551 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 9ff9705647646aa937b5f5c1426a64c69a62b3bd
+ 156553 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 957708c2d1ae25d7375abd5e5e70c3043d64f1f1
+ 156538 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+ 156555 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156558 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+ 156562 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+ 156564 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156565 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+ 156566 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156567 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+Searching for interesting versions
+ Result found: flight 156136 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c, results HASH(0x5621d81642e0) HASH(0x5621d816a4c0) HASH(0x5621d8163770) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe132\
+ 4c29294bb1d1b8454b3f214725e40fd 957708c2d1ae25d7375abd5e5e70c3043d64f1f1, results HASH(0x5621d81686f8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 9ff9705647646aa937b5f5c1426a64c69a62b3bd, results HASH(0x5621d8165728) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f\
+ 0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd dac867bf9adc1562a4cf9db5f89726597af13ef8, results HASH(0x5621d81672b0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 82c0d3d491ccb183cf12c87775086b68531b8444, results HASH(0x5621d81675b0) Result found: flight 156524 (fail), for basis failure (at\
+  ancestor ~32)
+ Repro found: flight 156539 (pass), for basis pass
+ Repro found: flight 156558 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+No revisions left to test, checking graph state.
+ Result found: flight 156555 (pass), for last pass
+ Result found: flight 156562 (fail), for first failure
+ Repro found: flight 156564 (pass), for last pass
+ Repro found: flight 156565 (fail), for first failure
+ Repro found: flight 156566 (pass), for last pass
+ Repro found: flight 156567 (fail), for first failure
 
-> 
-> $ ./scripts/get_abi.pl validate 2>&1|grep iio
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:0  Documentation/ABI/testing/sysfs-bus-iio:394
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:1  Documentation/ABI/testing/sysfs-bus-iio:395
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:2  Documentation/ABI/testing/sysfs-bus-iio:396
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:3  Documentation/ABI/testing/sysfs-bus-iio:397
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:4  Documentation/ABI/testing/sysfs-bus-iio:398
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:5  Documentation/ABI/testing/sysfs-bus-iio:399
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_preset is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:100  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:0
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
-> Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
-> Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:0  Documentation/ABI/testing/sysfs-bus-iio:599
-> Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:36  Documentation/ABI/testing/sysfs-bus-iio:588
-> Warning: /sys/bus/iio/devices/iio:deviceX/out_currentY_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-light-lm3533-als:43  Documentation/ABI/testing/sysfs-bus-iio-health-afe440x:38
-> Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:0  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:0
-> Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw_available is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:1  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:1
-> Warning: /sys/bus/iio/devices/iio:deviceX/sensor_sensitivity is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-distance-srf08:0  Documentation/ABI/testing/sysfs-bus-iio-proximity-as3935:8
-> Warning: /sys/bus/iio/devices/triggerX/sampling_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:92  Documentation/ABI/testing/sysfs-bus-iio:45
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Bug not present: c3453a23f7905d24f2404787543e26ec7d02301c
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156567/
+
+
+  commit e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Author: Juergen Gross <jgross@suse.com>
+  Date:   Fri Nov 6 10:48:07 2020 +0100
+  
+      xen/rwlock: add check_lock() handling to rwlocks
+      
+      Checking whether a lock is consistently used regarding interrupts on
+      or off is beneficial for rwlocks, too.
+      
+      So add check_lock() calls to rwlock functions. For this purpose make
+      check_lock() globally accessible.
+      
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Reviewed-by: Julien Grall <jgrall@amazon.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-i386-xl-xsm.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+156567: tolerable ALL FAIL
+
+flight 156567 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156567/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-i386-xl-xsm       14 guest-start             fail baseline untested
+
+
+jobs:
+ test-amd64-i386-xl-xsm                                       fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
