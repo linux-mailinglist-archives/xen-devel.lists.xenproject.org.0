@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51A4D2AABB2
-	for <lists+xen-devel@lfdr.de>; Sun,  8 Nov 2020 16:00:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.21697.48041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8040B2AABD7
+	for <lists+xen-devel@lfdr.de>; Sun,  8 Nov 2020 16:15:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.21708.48053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kbmAi-0004yf-9j; Sun, 08 Nov 2020 15:00:00 +0000
+	id 1kbmPT-0006iy-MF; Sun, 08 Nov 2020 15:15:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 21697.48041; Sun, 08 Nov 2020 15:00:00 +0000
+Received: by outflank-mailman (output) from mailman id 21708.48053; Sun, 08 Nov 2020 15:15:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,122 +23,119 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kbmAi-0004yG-6C; Sun, 08 Nov 2020 15:00:00 +0000
-Received: by outflank-mailman (input) for mailman id 21697;
- Sun, 08 Nov 2020 14:59:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kbmPT-0006iZ-Ij; Sun, 08 Nov 2020 15:15:15 +0000
+Received: by outflank-mailman (input) for mailman id 21708;
+ Sun, 08 Nov 2020 15:15:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c4CZ=EO=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1kbmAg-0004yB-Q6
- for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 14:59:59 +0000
-Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 81181a72-5ac7-4ec6-831a-ea95dcef0c5f;
- Sun, 08 Nov 2020 14:59:57 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id AB6F454C;
- Sun,  8 Nov 2020 09:59:56 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sun, 08 Nov 2020 09:59:57 -0500
-Received: from localhost.localdomain (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id EB4F4328005E;
- Sun,  8 Nov 2020 09:59:54 -0500 (EST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=P9lC=EO=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
+ id 1kbmPR-0006iN-QS
+ for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 15:15:14 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 8bfef111-cd1c-43f2-aad5-8e067207ac4c;
+ Sun, 08 Nov 2020 15:15:11 +0000 (UTC)
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-203-SiUou0D8O3uLZ12GtKLeuQ-1; Sun, 08 Nov 2020 10:15:08 -0500
+Received: by mail-wr1-f70.google.com with SMTP id q15so3064560wrw.8
+ for <xen-devel@lists.xenproject.org>; Sun, 08 Nov 2020 07:15:08 -0800 (PST)
+Received: from ?IPv6:2001:b07:6468:f312:5e2c:eb9a:a8b6:fd3e?
+ ([2001:b07:6468:f312:5e2c:eb9a:a8b6:fd3e])
+ by smtp.gmail.com with ESMTPSA id l3sm11508325wmg.32.2020.11.08.07.15.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 08 Nov 2020 07:15:06 -0800 (PST)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=c4CZ=EO=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
-	id 1kbmAg-0004yB-Q6
-	for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 14:59:59 +0000
-X-Inumbo-ID: 81181a72-5ac7-4ec6-831a-ea95dcef0c5f
-Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 81181a72-5ac7-4ec6-831a-ea95dcef0c5f;
-	Sun, 08 Nov 2020 14:59:57 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.west.internal (Postfix) with ESMTP id AB6F454C;
-	Sun,  8 Nov 2020 09:59:56 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute3.internal (MEProxy); Sun, 08 Nov 2020 09:59:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-transfer-encoding:content-type
-	:date:from:message-id:mime-version:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Dr/Os4
-	7m39uIrlvoJNAUFN0AyThOrdYx72S+jUYJCb8=; b=B0jkmDcLb5IQ2Yv6JtJ1cQ
-	VcX2jJZnjA9aeylCKlJeypV36DsIo74oqarEl/GJ5Gadf+BkdcQFhmN6WlT5LRIE
-	W+xa3J2esBghgvRsFW/Jg5KjTCiWPcXcuerYhzZIdlx0yh1MU5AVv9OoxcxfpVLX
-	6OBkLjE2tbO/sCWID5IpLPvHQwWggbChFZIau2P0SvPWs/cN8aBuHa5PDbZi/L4y
-	9R/18YeGqSviaTNCCsBIdeQSfCVnI5zJamTZVsvdvB+V+RQa6anlQNVf571Gtg9W
-	93yT8p6nXbwCORjyy5Qt4nz41ERylnzVGkKTJPKU5+qbJQL9yx0JVbcptnfLiLhg
-	==
-X-ME-Sender: <xms:6weoX8piYKOPBgl3iCTalOdJfyhlSWRWQM7mx9SPIKbhLND_nH6mZw>
-    <xme:6weoXyqo-a4q8RnYujbwiVPKL6s0d8kbsiXFRUnGyj5s_qGS7kdgbnU2teh6xuGYx
-    LInLu3YnTtLCg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedruddufedgjeduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvufffkffogggtohfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetgeet
-    keeukeffhfejueeludehtedtkeeuiedtgffgtdfhveefueeiiefhudehgeenucfkpheple
-    durdeigedrudejtddrkeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
-    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
-    drtghomh
-X-ME-Proxy: <xmx:6weoXxOuejcEnNQXn9aratvMoQPlKtzDgV6u78ZV0O1siIKHcaoGsQ>
-    <xmx:6weoXz6cCBBPXNpYzZhFL_ba8WLhhXUi5gYjLQ9qRyzLAYDNqHFU6A>
-    <xmx:6weoX77-dZlZMRTpDpg8g36X-jfuCYtKyWjoANWWSiZZs3TLCMfMkA>
-    <xmx:7AeoX1Sxc5xbKd_AVs0lJw2e-mszuLe7I0QP32GsmzRpCoG9mKID1Q>
-Received: from localhost.localdomain (ip5b40aa59.dynamic.kabel-deutschland.de [91.64.170.89])
-	by mail.messagingengine.com (Postfix) with ESMTPA id EB4F4328005E;
-	Sun,  8 Nov 2020 09:59:54 -0500 (EST)
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH] libxl: cleanup remaining backend xs dirs after driver domain
-Date: Sun,  8 Nov 2020 15:59:42 +0100
-Message-Id: <20201108145942.3089012-1-marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.25.4
+	(envelope-from <SRS0=P9lC=EO=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
+	id 1kbmPR-0006iN-QS
+	for xen-devel@lists.xenproject.org; Sun, 08 Nov 2020 15:15:14 +0000
+X-Inumbo-ID: 8bfef111-cd1c-43f2-aad5-8e067207ac4c
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id 8bfef111-cd1c-43f2-aad5-8e067207ac4c;
+	Sun, 08 Nov 2020 15:15:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1604848510;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xCiEM7AQz5QZ2RvY5C0nr85g19BsqN3bEHGGJWjun8g=;
+	b=REGghAwvDG700XxvFoEua2gT/PxE7PR+OMgmuToJtos0TbUsFc02pLoUFyg5u9TQ6GTd0A
+	n2qVLz8dMOc4QT5AipGmGCRZLazwmkyyRNOI5YOh3w3XFNLLFv4FhPz+BkhcnUxXhI8aJz
+	0KdtWMnG4Kk3tZ5ava30mnW7p3HOdPk=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-203-SiUou0D8O3uLZ12GtKLeuQ-1; Sun, 08 Nov 2020 10:15:08 -0500
+X-MC-Unique: SiUou0D8O3uLZ12GtKLeuQ-1
+Received: by mail-wr1-f70.google.com with SMTP id q15so3064560wrw.8
+        for <xen-devel@lists.xenproject.org>; Sun, 08 Nov 2020 07:15:08 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=xCiEM7AQz5QZ2RvY5C0nr85g19BsqN3bEHGGJWjun8g=;
+        b=sQ8Zb2abkMf5VSKXJdO/fGGuiJjZmK9Lau44+aQnr/p5VwV9FaGUBuMe2uBHGaxxM9
+         0QStuatTi9GkF4rpOLwqGcXv3zn/6yxHan61Xjcs7c9PpOToN+FICwHeTF5CYevrbrwD
+         JYKA1c6/C9x2vJF15RojYTIqOlnfDNnsMaedsVztk/fsj6Kw2cpF5h9JmapAsZ4vMf9F
+         WK1mkFhVWioCE4j6yDwKneezNx3TfQRQjneKXKTFHYzgtmrvxHdkX+1htk9tqZbq3Su1
+         xCrK7jvo57pDyPbvhyB6NaZ9+JQoTKU6ovB/49AlmdD6qZaCKA6uLfF1N6995kY2KqKm
+         r5kw==
+X-Gm-Message-State: AOAM531QEdSanxLN+LRRCZJVlzQVwCPucxxxXPeCsIa/Q3nKm9n+kcVF
+	ia9LI0Ny52mi8pKkL+VcdkTzMJAJGXJyZlYY6Pz8/3q/KnEEy4gkzJAm+yaduWeCylMe/tTpqst
+	MNmn3B8gA8ZAAOdVGKU5JijXQoeg=
+X-Received: by 2002:a1c:80d3:: with SMTP id b202mr10142607wmd.139.1604848507853;
+        Sun, 08 Nov 2020 07:15:07 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzBz6wtcRAgwxrEGiAL8ElHcOzDdD7qQjz/7QuIFGOGrDkKJazoMrCqH8844xWODBZg8NNGyg==
+X-Received: by 2002:a1c:80d3:: with SMTP id b202mr10142589wmd.139.1604848507695;
+        Sun, 08 Nov 2020 07:15:07 -0800 (PST)
+Received: from ?IPv6:2001:b07:6468:f312:5e2c:eb9a:a8b6:fd3e? ([2001:b07:6468:f312:5e2c:eb9a:a8b6:fd3e])
+        by smtp.gmail.com with ESMTPSA id l3sm11508325wmg.32.2020.11.08.07.15.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2020 07:15:06 -0800 (PST)
+Subject: Re: [PATCH 23/24] virtio-blk: remove a spurious call to
+ revalidate_disk_size
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+Cc: Justin Sanders <justin@coraid.com>, Josef Bacik <josef@toxicpanda.com>,
+ Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Minchan Kim <minchan@kernel.org>, Mike Snitzer <snitzer@redhat.com>,
+ Song Liu <song@kernel.org>, "Martin K. Petersen"
+ <martin.petersen@oracle.com>, dm-devel@redhat.com,
+ linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
+ nbd@other.debian.org, ceph-devel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-raid@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+References: <20201106190337.1973127-1-hch@lst.de>
+ <20201106190337.1973127-24-hch@lst.de>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Message-ID: <d23bd50a-7555-438b-9e3b-131414b2d1a5@redhat.com>
+Date: Sun, 8 Nov 2020 16:15:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Invisible Things Lab
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201106190337.1973127-24-hch@lst.de>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-When device is removed, backend domain (which may be a driver domain) is
-responsible for removing backend entries from xenstore. But in case of
-driver domain, it has no access to remove all of them - specifically the
-directory named after frontend-id remains. This may accumulate enough to
-exceed xenstore quote of the driver domain, breaking further devices.
+On 06/11/20 20:03, Christoph Hellwig wrote:
+> revalidate_disk_size just updates the block device size from the disk 
+> size. Thus calling it from revalidate_disk_size doesn't actually do 
 
-Fix this by calling libxl__xs_path_cleanup() on the backend path from
-libxl__device_destroy() in the toolstack domain too. Note
-libxl__device_destroy() is called when the driver domain already removed
-what it can (see device_destroy_be_watch_cb()->device_hotplug_done()).
+s/revalidate_disk_size/virtblk_update_cache_mode/
 
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
----
- tools/libs/light/libxl_device.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/tools/libs/light/libxl_device.c b/tools/libs/light/libxl_device.c
-index e081faf9a94e..f131a6c822c6 100644
---- a/tools/libs/light/libxl_device.c
-+++ b/tools/libs/light/libxl_device.c
-@@ -763,6 +763,12 @@ int libxl__device_destroy(libxl__gc *gc, libxl__device *dev)
-              * from the backend path.
-              */
-             libxl__xs_path_cleanup(gc, t, be_path);
-+        } else if (domid == LIBXL_TOOLSTACK_DOMID && !libxl_only) {
-+            /*
-+             * Then, toolstack domain is in charge of removing the parent
-+             * directory if empty already.
-+             */
-+            libxl__xs_path_cleanup(gc, t, be_path);
-         }
- 
-         rc = libxl__xs_transaction_commit(gc, &t);
--- 
-2.25.4
+> anything.
 
 
