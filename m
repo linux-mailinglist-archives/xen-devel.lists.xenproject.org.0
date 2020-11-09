@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BADEF2AB15F
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 07:42:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.21984.48336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5D662AB168
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 07:46:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.21999.48360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kc0rx-00017e-KP; Mon, 09 Nov 2020 06:41:37 +0000
+	id 1kc0wM-0001Xb-NT; Mon, 09 Nov 2020 06:46:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 21984.48336; Mon, 09 Nov 2020 06:41:37 +0000
+Received: by outflank-mailman (output) from mailman id 21999.48360; Mon, 09 Nov 2020 06:46:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,662 +23,610 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kc0rx-00017B-Gt; Mon, 09 Nov 2020 06:41:37 +0000
-Received: by outflank-mailman (input) for mailman id 21984;
- Mon, 09 Nov 2020 06:41:36 +0000
+	id 1kc0wM-0001XD-IR; Mon, 09 Nov 2020 06:46:10 +0000
+Received: by outflank-mailman (input) for mailman id 21999;
+ Mon, 09 Nov 2020 06:46:08 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sEkb=EP=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kc0rw-00016k-HT
- for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 06:41:36 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 953adf3f-163a-41ed-ba48-99db9d9e161a;
- Mon, 09 Nov 2020 06:41:31 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ED95AABD1;
- Mon,  9 Nov 2020 06:41:30 +0000 (UTC)
+ (envelope-from <SRS0=s5/2=EP=arm.com=wei.chen@srs-us1.protection.inumbo.net>)
+ id 1kc0wK-0001X7-5x
+ for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 06:46:08 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.8.88]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 112fd248-a34d-4e6f-88ad-db071b1819d7;
+ Mon, 09 Nov 2020 06:46:00 +0000 (UTC)
+Received: from MR2P264CA0112.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500:33::28)
+ by DBBPR08MB4790.eurprd08.prod.outlook.com (2603:10a6:10:f4::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.24; Mon, 9 Nov
+ 2020 06:45:57 +0000
+Received: from VE1EUR03FT035.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:500:33:cafe::86) by MR2P264CA0112.outlook.office365.com
+ (2603:10a6:500:33::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21 via Frontend
+ Transport; Mon, 9 Nov 2020 06:45:57 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT035.mail.protection.outlook.com (10.152.18.110) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3541.17 via Frontend Transport; Mon, 9 Nov 2020 06:45:56 +0000
+Received: ("Tessian outbound 13ed5f5344c0:v71");
+ Mon, 09 Nov 2020 06:45:56 +0000
+Received: from 1c311e205a86.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 1AB44B6E-1836-4EEB-82FF-4330D7B17D30.1; 
+ Mon, 09 Nov 2020 06:45:51 +0000
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 1c311e205a86.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 09 Nov 2020 06:45:51 +0000
+Received: from AM0PR08MB3747.eurprd08.prod.outlook.com (2603:10a6:208:105::24)
+ by AM9PR08MB5940.eurprd08.prod.outlook.com (2603:10a6:20b:281::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.27; Mon, 9 Nov
+ 2020 06:45:50 +0000
+Received: from AM0PR08MB3747.eurprd08.prod.outlook.com
+ ([fe80::257f:eb47:fe85:5993]) by AM0PR08MB3747.eurprd08.prod.outlook.com
+ ([fe80::257f:eb47:fe85:5993%3]) with mapi id 15.20.3499.032; Mon, 9 Nov 2020
+ 06:45:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=sEkb=EP=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kc0rw-00016k-HT
-	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 06:41:36 +0000
-X-Inumbo-ID: 953adf3f-163a-41ed-ba48-99db9d9e161a
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=s5/2=EP=arm.com=wei.chen@srs-us1.protection.inumbo.net>)
+	id 1kc0wK-0001X7-5x
+	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 06:46:08 +0000
+X-Inumbo-ID: 112fd248-a34d-4e6f-88ad-db071b1819d7
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown [40.107.8.88])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 953adf3f-163a-41ed-ba48-99db9d9e161a;
-	Mon, 09 Nov 2020 06:41:31 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604904091;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JFoT60bwaPOryKk4GbCzd9C3J92QHjrVIOHIuInzsxo=;
-	b=l1K1Qhw2FIcvDIcn0ea80pf0jFMggmKFCvZYhE+2mVUv8cSCZUQ9Nx+9mBhBMjWm99DZRi
-	gejAg7PQRTrhmTfvPvtHhCVAgt0RD5KPCswb/freYIP+ohOBHuxygh1EbbD37WyliHAofA
-	LuSlOFRBce/zFs3lO2qcaFP+qR6+Zb0=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id ED95AABD1;
-	Mon,  9 Nov 2020 06:41:30 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 2/2] xen/evtchn: rework per event channel lock
-Date: Mon,  9 Nov 2020 07:41:28 +0100
-Message-Id: <20201109064128.3908-3-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201109064128.3908-1-jgross@suse.com>
-References: <20201109064128.3908-1-jgross@suse.com>
+	id 112fd248-a34d-4e6f-88ad-db071b1819d7;
+	Mon, 09 Nov 2020 06:46:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RkbL8J/KQBGHldUa56Zr1oEDGRUcrvVnBN4KkxRbCcE=;
+ b=r9N58VaoHRdGIWy89uciSTfmJ0eceKi5bz8wCltuYbwWMGHOaK4K3hiEZQsaZsvJLztPOtZ0HnV0v89A5AEu8jLDybz39MOMW2orr63Joq6A4STkbgIu4gxnhiqz0nM0PQGwBtvir6ciy2LoCCZiAi0AA4dJWUMqRf8abLRdrvE=
+Received: from MR2P264CA0112.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500:33::28)
+ by DBBPR08MB4790.eurprd08.prod.outlook.com (2603:10a6:10:f4::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.24; Mon, 9 Nov
+ 2020 06:45:57 +0000
+Received: from VE1EUR03FT035.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:500:33:cafe::86) by MR2P264CA0112.outlook.office365.com
+ (2603:10a6:500:33::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21 via Frontend
+ Transport; Mon, 9 Nov 2020 06:45:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT035.mail.protection.outlook.com (10.152.18.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3541.17 via Frontend Transport; Mon, 9 Nov 2020 06:45:56 +0000
+Received: ("Tessian outbound 13ed5f5344c0:v71"); Mon, 09 Nov 2020 06:45:56 +0000
+X-CR-MTA-TID: 64aa7808
+Received: from 1c311e205a86.1
+	by 64aa7808-outbound-1.mta.getcheckrecipient.com id 1AB44B6E-1836-4EEB-82FF-4330D7B17D30.1;
+	Mon, 09 Nov 2020 06:45:51 +0000
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 1c311e205a86.1
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Mon, 09 Nov 2020 06:45:51 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d8Syf2d7etnpAVZM0D1OxOWw2D9j3Gv4Q3zq5x4WUmc4h0kZzSjUhCvVj4+gf4wOvO5JjmuWAv4tV/fglzCOLbgQ4hvdU+O4dHfTEOA4DEr1fg3OdK8UuYC2EXZ2GfUNmhZSB1pLS0kyzi1P63AeZSj5fSotaafFYsOxxoBchOsAWsMsd8mbvsnvcOaey1SsnW+Irl9TppuK5XJDLLZZO4oANd1dCDyFOtosqLRcxO8LFTsXmtTL1CrLNIOmMjSKAgfJT23E0mpcNjcrc+IKEJA4MWBwoU7M0sZKicMIuNjuNnhMxZxQeRIfm0csZ5H7AIyneU4vpcKJgqKcruyzRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RkbL8J/KQBGHldUa56Zr1oEDGRUcrvVnBN4KkxRbCcE=;
+ b=mI3RcTsEpIM+wcpAqR7i1pewbMQWMVgHRnjgbb+pBBXcADyQk4+JmkOHYPSRRaXTcIEIGINkTk+LuM61lfJ9aXFCfUc4AqIJhSSnAOrL/l5oJeYcr/lFXnUKDc5JifgCIke6S8glY/ARLmhXsuWJ5l4Vfbz6qsLljyHwTvkatUIYQn1OSvTazYa/scYL864/1oIRKAFKVjd0irM4DF7dtrKeYQBy4nh/4DaaNb/qd1z2w+wDJbAeUDrIkGXZta2MMGhh/TrM2lV4bf78d8QPwYhMoYlAcgkn/OM0+BQQxVV8zqNra37+FIX/alg1QH5+FfJqxFTRKXpZ0q4WGBmGow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RkbL8J/KQBGHldUa56Zr1oEDGRUcrvVnBN4KkxRbCcE=;
+ b=r9N58VaoHRdGIWy89uciSTfmJ0eceKi5bz8wCltuYbwWMGHOaK4K3hiEZQsaZsvJLztPOtZ0HnV0v89A5AEu8jLDybz39MOMW2orr63Joq6A4STkbgIu4gxnhiqz0nM0PQGwBtvir6ciy2LoCCZiAi0AA4dJWUMqRf8abLRdrvE=
+Received: from AM0PR08MB3747.eurprd08.prod.outlook.com (2603:10a6:208:105::24)
+ by AM9PR08MB5940.eurprd08.prod.outlook.com (2603:10a6:20b:281::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.27; Mon, 9 Nov
+ 2020 06:45:50 +0000
+Received: from AM0PR08MB3747.eurprd08.prod.outlook.com
+ ([fe80::257f:eb47:fe85:5993]) by AM0PR08MB3747.eurprd08.prod.outlook.com
+ ([fe80::257f:eb47:fe85:5993%3]) with mapi id 15.20.3499.032; Mon, 9 Nov 2020
+ 06:45:49 +0000
+From: Wei Chen <Wei.Chen@arm.com>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>
+Subject: RE: [PATCH V2 23/23] [RFC] libxl: Add support for virtio-disk
+ configuration
+Thread-Topic: [PATCH V2 23/23] [RFC] libxl: Add support for virtio-disk
+ configuration
+Thread-Index: AQHWoxPDW60DxIWT4kuneyvO4zzD5qm/gHcQ
+Date: Mon, 9 Nov 2020 06:45:49 +0000
+Message-ID:
+ <AM0PR08MB374735F747FFF1A3016F37329EEA0@AM0PR08MB3747.eurprd08.prod.outlook.com>
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
+ <1602780274-29141-24-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <1602780274-29141-24-git-send-email-olekstysh@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 8FA3AA85BED9124986B9E8C6D28AFD61.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [203.126.0.113]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: ca1ef037-3a51-4f61-936e-08d8847b1cb3
+x-ms-traffictypediagnostic: AM9PR08MB5940:|DBBPR08MB4790:
+X-Microsoft-Antispam-PRVS:
+	<DBBPR08MB47900E120D1F4A11DCBC28E79EEA0@DBBPR08MB4790.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:4502;OLM:4502;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ UWtkjPgtEyJqPLRioAbalreUaMPBmht1K0tJlyVkx8ou1B+RnXeqGMIXeli6ZYYlRtZ8G8147sW8PSlETgm6BGmBmtuy7DOfdqoo07NFDorNT6ihCc4pV2ZnBIeElgyJy4+y7xktic5ogRdlHXfm4aMJyg147tFhHwXw0+qa2q5LU2bvtUAx1x5kM91lBEzw8b/MLrUdByyvVALqPofY1Z2GRfGV1BUsNO2QgODUKQNZ/v80/af166yh7jwOWiXaj7CHf/vt2WkIn7OzWOlh3xY0nRdBGbj86T9igCS/zHYeoKObrEPHWA+GX+/pKd0Uau68AcE0GMSqdTqg9pfUTGeCgnw6ahcPP/WYDhy8wzoaDNQWSnycj4C2qU5j4mMsf54ik8Pi5VMoUo9vq9lIHQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3747.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(39860400002)(376002)(346002)(366004)(2906002)(76116006)(110136005)(66946007)(4326008)(54906003)(478600001)(71200400001)(26005)(8936002)(83380400001)(66446008)(9686003)(66556008)(316002)(33656002)(8676002)(186003)(55016002)(6506007)(86362001)(64756008)(52536014)(53546011)(66476007)(5660300002)(7696005)(30864003)(21314003)(2004002)(579004);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ YXZeAiNgrqyFy/crNunSY/yBEk8w2VoFc2EaC9nNVPNoZeiByuOwpv5ade82nOd5xyfus47PvPC8Sh6HPks0lCgpsu0bk4M9Fl6usRJWf9ENSlpOCpGynzoTdU1sYPY0l600aUhIo3VzaIwcyMbX3BEUN0oxy20cel/NsBfEyYQy7cGLNuClaem+q1CZ14BCp39P5qAAOHEBkv6NZ6ABQyusFv7Badg0RQb1Ku8FZq1wB/YsD9r+sVaAR21JH7MWlEF565pGTe9YVIkTzhGFcj26y2F4cAokVMBXPh/2ewroppYyjuGrILiWmNZFyWukt2TZ7UOJlgoy4t1K6rd2HeIhq3dybRtNCgf41PRbaxqE168VuxKfPkdf3g4SSs0iwhsp1QqQiAk59fTggcG/ynhMGfPqHgxkHmalZ5P26QEC3Mn1lKvGZFp/8j8kD6xVGbBTUZnxFe7nXRoq5/6GTbD+pgbkH+/JyL3Wcejt6bRlC40clJHEpsfjnRZ20ClNQVskqK3WomrhfFeheiMb9Y0GD/BRkA3+H0kWObKxk/RJdQniHkZCr2LOdKVbALOmvo7dZoOG/AtzOzf6htKyPvncgO/RI+GR4X6djmzwWrUbbbFnLfWcNxHCLpug8aHqBLNgqn/i3E8RoHukxzwkzw==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB5940
+Original-Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT035.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	7cd83cbd-8f5a-4ebc-9021-08d8847b1848
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	dLLYxCOjhh8k4vtiX3o4e3IisIVgcxEYpW3pcSYvbViLXkgBHpcAR5qPZEpkUfYccMQG1+EopXzJo8xTUqaaz1BDQPfllnRrQTITj0Ca9Jv7X/h4icZvKkc/i/yIgsZWhAW9aiBR6gqjL9+qrH3xSgVy+ODIunaJuChXdIKCdvcyT1BuWIZX6Fmw0P/dXjThLIjRA1xHcrQqpkbLxFDaM8ts50ApKDYjmuooibJxBcoWGkWE8/jUcdyZNBiHjN+ymMa1wo+w+GQIvyJptNCIPkHPXTD+J4Bifd0PIlWihd9Exyvmjlua7jtQsQbn8HRYfk0JAb6aCYGZp1AFQIjeJuDyUxM/E1wveWMW1uaej8PnO/v9MWjfUJNcQ+sLDlnt9a4T60f3pI+txUtAcmKT6Alul2VVy+hbxvmh9KEvxiTkjrZSqYQ8ABRoUvOww/tf
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(376002)(136003)(346002)(39860400002)(46966005)(316002)(26005)(36906005)(4326008)(336012)(82740400003)(86362001)(186003)(53546011)(6506007)(55016002)(8936002)(9686003)(478600001)(83380400001)(30864003)(5660300002)(70586007)(70206006)(107886003)(356005)(47076004)(52536014)(81166007)(7696005)(2906002)(82310400003)(33656002)(54906003)(110136005)(8676002)(21314003)(2004002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2020 06:45:56.8550
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca1ef037-3a51-4f61-936e-08d8847b1cb3
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT035.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4790
 
-Currently the lock for a single event channel needs to be taken with
-interrupts off, which causes deadlocks in some cases.
-
-Rework the per event channel lock to be non-blocking for the case of
-sending an event and removing the need for disabling interrupts for
-taking the lock.
-
-The lock is needed for avoiding races between event channel state
-changes (creation, closing, binding) against normal operations (set
-pending, [un]masking, priority changes).
-
-Use a rwlock, but with some restrictions:
-
-- normal operations use read_trylock(), in case of not obtaining the
-  lock the operation is omitted or a default state is returned
-
-- closing an event channel is using write_lock(), with ASSERT()ing that
-  the lock is taken as writer only when the state of the event channel
-  is either before or after the locked region appropriate (either free
-  or unbound).
-
-Fixes: e045199c7c9c54 ("evtchn: address races with evtchn_reset()")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V4:
-- switch to rwlock
-- add ASSERT() to verify correct write_lock() usage
-
-V3:
-- corrected a copy-and-paste error (Jan Beulich)
-- corrected unlocking in two cases (Jan Beulich)
-- renamed evtchn_read_trylock() (Jan Beulich)
-- added some comments and an ASSERT() for evtchn_write_lock()
-- set EVENT_WRITE_LOCK_INC to INT_MIN
-
-V2:
-- added needed barriers
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- xen/arch/x86/irq.c         |   6 +-
- xen/arch/x86/pv/shim.c     |   9 +--
- xen/common/event_channel.c | 144 +++++++++++++++++++++----------------
- xen/include/xen/event.h    |  32 ++++++---
- xen/include/xen/sched.h    |   5 +-
- 5 files changed, 116 insertions(+), 80 deletions(-)
-
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 93c4fb9a79..8d1f9a9fc6 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -2495,14 +2495,12 @@ static void dump_irqs(unsigned char key)
-                 pirq = domain_irq_to_pirq(d, irq);
-                 info = pirq_info(d, pirq);
-                 evtchn = evtchn_from_port(d, info->evtchn);
--                local_irq_disable();
--                if ( spin_trylock(&evtchn->lock) )
-+                if ( evtchn_read_trylock(evtchn) )
-                 {
-                     pending = evtchn_is_pending(d, evtchn);
-                     masked = evtchn_is_masked(d, evtchn);
--                    spin_unlock(&evtchn->lock);
-+                    evtchn_read_unlock(evtchn);
-                 }
--                local_irq_enable();
-                 printk("d%d:%3d(%c%c%c)%c",
-                        d->domain_id, pirq, "-P?"[pending],
-                        "-M?"[masked], info->masked ? 'M' : '-',
-diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-index 9aef7a860a..b4e83e0778 100644
---- a/xen/arch/x86/pv/shim.c
-+++ b/xen/arch/x86/pv/shim.c
-@@ -660,11 +660,12 @@ void pv_shim_inject_evtchn(unsigned int port)
-     if ( port_is_valid(guest, port) )
-     {
-         struct evtchn *chn = evtchn_from_port(guest, port);
--        unsigned long flags;
- 
--        spin_lock_irqsave(&chn->lock, flags);
--        evtchn_port_set_pending(guest, chn->notify_vcpu_id, chn);
--        spin_unlock_irqrestore(&chn->lock, flags);
-+        if ( evtchn_read_trylock(chn) )
-+        {
-+            evtchn_port_set_pending(guest, chn->notify_vcpu_id, chn);
-+            evtchn_read_unlock(chn);
-+        }
-     }
- }
- 
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index cd4a2c0501..4a6b6fc5ad 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -50,6 +50,34 @@
- 
- #define consumer_is_xen(e) (!!(e)->xen_consumer)
- 
-+/*
-+ * Lock an event channel exclusively. This is allowed only when the channel is
-+ * free or unbound either when taking or when releasing the lock, as any
-+ * concurrent operation on the event channel using evtchn_read_trylock() will
-+ * just assume the event channel is free or unbound at the moment when the
-+ * evtchn_read_trylock() returns false.
-+ */
-+static inline void evtchn_write_lock(struct evtchn *evtchn)
-+{
-+    write_lock(&evtchn->lock);
-+
-+    evtchn->old_state = evtchn->state;
-+}
-+
-+static inline void evtchn_write_unlock(struct evtchn *evtchn)
-+{
-+    /* Enforce lock discipline. */
-+    ASSERT(evtchn->old_state == ECS_FREE || evtchn->old_state == ECS_UNBOUND ||
-+           evtchn->state == ECS_FREE || evtchn->state == ECS_UNBOUND);
-+
-+    write_unlock(&evtchn->lock);
-+}
-+
-+static inline void evtchn_read_lock(struct evtchn *evtchn)
-+{
-+    read_lock(&evtchn->lock);
-+}
-+
- /*
-  * The function alloc_unbound_xen_event_channel() allows an arbitrary
-  * notifier function to be specified. However, very few unique functions
-@@ -133,7 +161,7 @@ static struct evtchn *alloc_evtchn_bucket(struct domain *d, unsigned int port)
-             return NULL;
-         }
-         chn[i].port = port + i;
--        spin_lock_init(&chn[i].lock);
-+        rwlock_init(&chn[i].lock);
-     }
-     return chn;
- }
-@@ -255,7 +283,6 @@ static long evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
-     int            port;
-     domid_t        dom = alloc->dom;
-     long           rc;
--    unsigned long  flags;
- 
-     d = rcu_lock_domain_by_any_id(dom);
-     if ( d == NULL )
-@@ -271,14 +298,14 @@ static long evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
-     if ( rc )
-         goto out;
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state = ECS_UNBOUND;
-     if ( (chn->u.unbound.remote_domid = alloc->remote_dom) == DOMID_SELF )
-         chn->u.unbound.remote_domid = current->domain->domain_id;
-     evtchn_port_init(d, chn);
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     alloc->port = port;
- 
-@@ -291,32 +318,26 @@ static long evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
- }
- 
- 
--static unsigned long double_evtchn_lock(struct evtchn *lchn,
--                                        struct evtchn *rchn)
-+static void double_evtchn_lock(struct evtchn *lchn, struct evtchn *rchn)
- {
--    unsigned long flags;
--
-     if ( lchn <= rchn )
-     {
--        spin_lock_irqsave(&lchn->lock, flags);
-+        evtchn_write_lock(lchn);
-         if ( lchn != rchn )
--            spin_lock(&rchn->lock);
-+            evtchn_write_lock(rchn);
-     }
-     else
-     {
--        spin_lock_irqsave(&rchn->lock, flags);
--        spin_lock(&lchn->lock);
-+        evtchn_write_lock(rchn);
-+        evtchn_write_lock(lchn);
-     }
--
--    return flags;
- }
- 
--static void double_evtchn_unlock(struct evtchn *lchn, struct evtchn *rchn,
--                                 unsigned long flags)
-+static void double_evtchn_unlock(struct evtchn *lchn, struct evtchn *rchn)
- {
-     if ( lchn != rchn )
--        spin_unlock(&lchn->lock);
--    spin_unlock_irqrestore(&rchn->lock, flags);
-+        evtchn_write_unlock(lchn);
-+    evtchn_write_unlock(rchn);
- }
- 
- static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-@@ -326,7 +347,6 @@ static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-     int            lport, rport = bind->remote_port;
-     domid_t        rdom = bind->remote_dom;
-     long           rc;
--    unsigned long  flags;
- 
-     if ( rdom == DOMID_SELF )
-         rdom = current->domain->domain_id;
-@@ -362,7 +382,7 @@ static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-     if ( rc )
-         goto out;
- 
--    flags = double_evtchn_lock(lchn, rchn);
-+    double_evtchn_lock(lchn, rchn);
- 
-     lchn->u.interdomain.remote_dom  = rd;
-     lchn->u.interdomain.remote_port = rport;
-@@ -379,7 +399,7 @@ static long evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-      */
-     evtchn_port_set_pending(ld, lchn->notify_vcpu_id, lchn);
- 
--    double_evtchn_unlock(lchn, rchn, flags);
-+    double_evtchn_unlock(lchn, rchn);
- 
-     bind->local_port = lport;
- 
-@@ -402,7 +422,6 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
-     struct domain *d = current->domain;
-     int            virq = bind->virq, vcpu = bind->vcpu;
-     int            rc = 0;
--    unsigned long  flags;
- 
-     if ( (virq < 0) || (virq >= ARRAY_SIZE(v->virq_to_evtchn)) )
-         return -EINVAL;
-@@ -440,14 +459,14 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
- 
-     chn = evtchn_from_port(d, port);
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state          = ECS_VIRQ;
-     chn->notify_vcpu_id = vcpu;
-     chn->u.virq         = virq;
-     evtchn_port_init(d, chn);
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     v->virq_to_evtchn[virq] = bind->port = port;
- 
-@@ -464,7 +483,6 @@ static long evtchn_bind_ipi(evtchn_bind_ipi_t *bind)
-     struct domain *d = current->domain;
-     int            port, vcpu = bind->vcpu;
-     long           rc = 0;
--    unsigned long  flags;
- 
-     if ( domain_vcpu(d, vcpu) == NULL )
-         return -ENOENT;
-@@ -476,13 +494,13 @@ static long evtchn_bind_ipi(evtchn_bind_ipi_t *bind)
- 
-     chn = evtchn_from_port(d, port);
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state          = ECS_IPI;
-     chn->notify_vcpu_id = vcpu;
-     evtchn_port_init(d, chn);
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     bind->port = port;
- 
-@@ -526,7 +544,6 @@ static long evtchn_bind_pirq(evtchn_bind_pirq_t *bind)
-     struct pirq   *info;
-     int            port = 0, pirq = bind->pirq;
-     long           rc;
--    unsigned long  flags;
- 
-     if ( (pirq < 0) || (pirq >= d->nr_pirqs) )
-         return -EINVAL;
-@@ -559,14 +576,14 @@ static long evtchn_bind_pirq(evtchn_bind_pirq_t *bind)
-         goto out;
-     }
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state  = ECS_PIRQ;
-     chn->u.pirq.irq = pirq;
-     link_pirq_port(port, chn, v);
-     evtchn_port_init(d, chn);
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     bind->port = port;
- 
-@@ -587,7 +604,6 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
-     struct evtchn *chn1, *chn2;
-     int            port2;
-     long           rc = 0;
--    unsigned long  flags;
- 
-  again:
-     spin_lock(&d1->event_lock);
-@@ -688,14 +704,14 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
-         BUG_ON(chn2->state != ECS_INTERDOMAIN);
-         BUG_ON(chn2->u.interdomain.remote_dom != d1);
- 
--        flags = double_evtchn_lock(chn1, chn2);
-+        double_evtchn_lock(chn1, chn2);
- 
-         evtchn_free(d1, chn1);
- 
-         chn2->state = ECS_UNBOUND;
-         chn2->u.unbound.remote_domid = d1->domain_id;
- 
--        double_evtchn_unlock(chn1, chn2, flags);
-+        double_evtchn_unlock(chn1, chn2);
- 
-         goto out;
- 
-@@ -703,9 +719,9 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
-         BUG();
-     }
- 
--    spin_lock_irqsave(&chn1->lock, flags);
-+    evtchn_write_lock(chn1);
-     evtchn_free(d1, chn1);
--    spin_unlock_irqrestore(&chn1->lock, flags);
-+    evtchn_write_unlock(chn1);
- 
-  out:
-     if ( d2 != NULL )
-@@ -725,7 +741,6 @@ int evtchn_send(struct domain *ld, unsigned int lport)
-     struct evtchn *lchn, *rchn;
-     struct domain *rd;
-     int            rport, ret = 0;
--    unsigned long  flags;
- 
-     if ( !port_is_valid(ld, lport) )
-         return -EINVAL;
-@@ -738,7 +753,7 @@ int evtchn_send(struct domain *ld, unsigned int lport)
- 
-     lchn = evtchn_from_port(ld, lport);
- 
--    spin_lock_irqsave(&lchn->lock, flags);
-+    evtchn_read_lock(lchn);
- 
-     /* Guest cannot send via a Xen-attached event channel. */
-     if ( unlikely(consumer_is_xen(lchn)) )
-@@ -773,7 +788,7 @@ int evtchn_send(struct domain *ld, unsigned int lport)
-     }
- 
- out:
--    spin_unlock_irqrestore(&lchn->lock, flags);
-+    evtchn_read_unlock(lchn);
- 
-     return ret;
- }
-@@ -806,9 +821,11 @@ void send_guest_vcpu_virq(struct vcpu *v, uint32_t virq)
- 
-     d = v->domain;
-     chn = evtchn_from_port(d, port);
--    spin_lock(&chn->lock);
--    evtchn_port_set_pending(d, v->vcpu_id, chn);
--    spin_unlock(&chn->lock);
-+    if ( evtchn_read_trylock(chn) )
-+    {
-+        evtchn_port_set_pending(d, v->vcpu_id, chn);
-+        evtchn_read_unlock(chn);
-+    }
- 
-  out:
-     spin_unlock_irqrestore(&v->virq_lock, flags);
-@@ -837,9 +854,11 @@ void send_guest_global_virq(struct domain *d, uint32_t virq)
-         goto out;
- 
-     chn = evtchn_from_port(d, port);
--    spin_lock(&chn->lock);
--    evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
--    spin_unlock(&chn->lock);
-+    if ( evtchn_read_trylock(chn) )
-+    {
-+        evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
-+        evtchn_read_unlock(chn);
-+    }
- 
-  out:
-     spin_unlock_irqrestore(&v->virq_lock, flags);
-@@ -849,7 +868,6 @@ void send_guest_pirq(struct domain *d, const struct pirq *pirq)
- {
-     int port;
-     struct evtchn *chn;
--    unsigned long flags;
- 
-     /*
-      * PV guests: It should not be possible to race with __evtchn_close(). The
-@@ -864,9 +882,11 @@ void send_guest_pirq(struct domain *d, const struct pirq *pirq)
-     }
- 
-     chn = evtchn_from_port(d, port);
--    spin_lock_irqsave(&chn->lock, flags);
--    evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    if ( evtchn_read_trylock(chn) )
-+    {
-+        evtchn_port_set_pending(d, chn->notify_vcpu_id, chn);
-+        evtchn_read_unlock(chn);
-+    }
- }
- 
- static struct domain *global_virq_handlers[NR_VIRQS] __read_mostly;
-@@ -1068,15 +1088,16 @@ int evtchn_unmask(unsigned int port)
- {
-     struct domain *d = current->domain;
-     struct evtchn *evtchn;
--    unsigned long flags;
- 
-     if ( unlikely(!port_is_valid(d, port)) )
-         return -EINVAL;
- 
-     evtchn = evtchn_from_port(d, port);
--    spin_lock_irqsave(&evtchn->lock, flags);
--    evtchn_port_unmask(d, evtchn);
--    spin_unlock_irqrestore(&evtchn->lock, flags);
-+    if ( evtchn_read_trylock(evtchn) )
-+    {
-+        evtchn_port_unmask(d, evtchn);
-+        evtchn_read_unlock(evtchn);
-+    }
- 
-     return 0;
- }
-@@ -1156,15 +1177,17 @@ static long evtchn_set_priority(const struct evtchn_set_priority *set_priority)
-     unsigned int port = set_priority->port;
-     struct evtchn *chn;
-     long ret;
--    unsigned long flags;
- 
-     if ( !port_is_valid(d, port) )
-         return -EINVAL;
- 
-     chn = evtchn_from_port(d, port);
--    spin_lock_irqsave(&chn->lock, flags);
-+
-+    evtchn_read_lock(chn);
-+
-     ret = evtchn_port_set_priority(d, chn, set_priority->priority);
--    spin_unlock_irqrestore(&chn->lock, flags);
-+
-+    evtchn_read_unlock(chn);
- 
-     return ret;
- }
-@@ -1332,7 +1355,6 @@ int alloc_unbound_xen_event_channel(
- {
-     struct evtchn *chn;
-     int            port, rc;
--    unsigned long  flags;
- 
-     spin_lock(&ld->event_lock);
- 
-@@ -1345,14 +1367,14 @@ int alloc_unbound_xen_event_channel(
-     if ( rc )
-         goto out;
- 
--    spin_lock_irqsave(&chn->lock, flags);
-+    evtchn_write_lock(chn);
- 
-     chn->state = ECS_UNBOUND;
-     chn->xen_consumer = get_xen_consumer(notification_fn);
-     chn->notify_vcpu_id = lvcpu;
-     chn->u.unbound.remote_domid = remote_domid;
- 
--    spin_unlock_irqrestore(&chn->lock, flags);
-+    evtchn_write_unlock(chn);
- 
-     /*
-      * Increment ->xen_evtchns /after/ ->active_evtchns. No explicit
-@@ -1388,7 +1410,6 @@ void notify_via_xen_event_channel(struct domain *ld, int lport)
- {
-     struct evtchn *lchn, *rchn;
-     struct domain *rd;
--    unsigned long flags;
- 
-     if ( !port_is_valid(ld, lport) )
-     {
-@@ -1403,7 +1424,8 @@ void notify_via_xen_event_channel(struct domain *ld, int lport)
- 
-     lchn = evtchn_from_port(ld, lport);
- 
--    spin_lock_irqsave(&lchn->lock, flags);
-+    if ( !evtchn_read_trylock(lchn) )
-+        return;
- 
-     if ( likely(lchn->state == ECS_INTERDOMAIN) )
-     {
-@@ -1413,7 +1435,7 @@ void notify_via_xen_event_channel(struct domain *ld, int lport)
-         evtchn_port_set_pending(rd, rchn->notify_vcpu_id, rchn);
-     }
- 
--    spin_unlock_irqrestore(&lchn->lock, flags);
-+    evtchn_read_unlock(lchn);
- }
- 
- void evtchn_check_pollers(struct domain *d, unsigned int port)
-diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
-index 2ed4be78f6..9c84265f53 100644
---- a/xen/include/xen/event.h
-+++ b/xen/include/xen/event.h
-@@ -105,6 +105,16 @@ void notify_via_xen_event_channel(struct domain *ld, int lport);
- #define bucket_from_port(d, p) \
-     ((group_from_port(d, p))[((p) % EVTCHNS_PER_GROUP) / EVTCHNS_PER_BUCKET])
- 
-+static inline bool evtchn_read_trylock(struct evtchn *evtchn)
-+{
-+    return read_trylock(&evtchn->lock);
-+}
-+
-+static inline void evtchn_read_unlock(struct evtchn *evtchn)
-+{
-+    read_unlock(&evtchn->lock);
-+}
-+
- static inline bool_t port_is_valid(struct domain *d, unsigned int p)
- {
-     if ( p >= read_atomic(&d->valid_evtchns) )
-@@ -234,12 +244,13 @@ static inline bool evtchn_is_masked(const struct domain *d,
- static inline bool evtchn_port_is_masked(struct domain *d, evtchn_port_t port)
- {
-     struct evtchn *evtchn = evtchn_from_port(d, port);
--    bool rc;
--    unsigned long flags;
-+    bool rc = true;
- 
--    spin_lock_irqsave(&evtchn->lock, flags);
--    rc = evtchn_is_masked(d, evtchn);
--    spin_unlock_irqrestore(&evtchn->lock, flags);
-+    if ( evtchn_read_trylock(evtchn) )
-+    {
-+        rc = evtchn_is_masked(d, evtchn);
-+        evtchn_read_unlock(evtchn);
-+    }
- 
-     return rc;
- }
-@@ -252,12 +263,13 @@ static inline int evtchn_port_poll(struct domain *d, evtchn_port_t port)
-     if ( port_is_valid(d, port) )
-     {
-         struct evtchn *evtchn = evtchn_from_port(d, port);
--        unsigned long flags;
- 
--        spin_lock_irqsave(&evtchn->lock, flags);
--        if ( evtchn_usable(evtchn) )
--            rc = evtchn_is_pending(d, evtchn);
--        spin_unlock_irqrestore(&evtchn->lock, flags);
-+        if ( evtchn_read_trylock(evtchn) )
-+        {
-+            if ( evtchn_usable(evtchn) )
-+                rc = evtchn_is_pending(d, evtchn);
-+            evtchn_read_unlock(evtchn);
-+        }
-     }
- 
-     return rc;
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index a298ff4df8..66d8f058be 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -85,7 +85,7 @@ extern domid_t hardware_domid;
- 
- struct evtchn
- {
--    spinlock_t lock;
-+    rwlock_t lock;
- #define ECS_FREE         0 /* Channel is available for use.                  */
- #define ECS_RESERVED     1 /* Channel is reserved.                           */
- #define ECS_UNBOUND      2 /* Channel is waiting to bind to a remote domain. */
-@@ -114,6 +114,9 @@ struct evtchn
-         u16 virq;      /* state == ECS_VIRQ */
-     } u;
-     u8 priority;
-+#ifndef NDEBUG
-+    u8 old_state;      /* State when taking lock in write mode. */
-+#endif
-     u32 fifo_lastq;    /* Data for fifo events identifying last queue. */
- #ifdef CONFIG_XSM
-     union {
--- 
-2.26.2
-
+SGkgT2xla3NhbmRyLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFhl
+bi1kZXZlbCA8eGVuLWRldmVsLWJvdW5jZXNAbGlzdHMueGVucHJvamVjdC5vcmc+IE9uIEJlaGFs
+ZiBPZg0KPiBPbGVrc2FuZHIgVHlzaGNoZW5rbw0KPiBTZW50OiAyMDIwxOoxMNTCMTbI1SAwOjQ1
+DQo+IFRvOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4gQ2M6IE9sZWtzYW5kciBU
+eXNoY2hlbmtvIDxvbGVrc2FuZHJfdHlzaGNoZW5rb0BlcGFtLmNvbT47IElhbiBKYWNrc29uDQo+
+IDxpd2pAeGVucHJvamVjdC5vcmc+OyBXZWkgTGl1IDx3bEB4ZW4ub3JnPjsgQW50aG9ueSBQRVJB
+UkQNCj4gPGFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20+OyBKdWxpZW4gR3JhbGwgPGp1bGllbkB4
+ZW4ub3JnPjsgU3RlZmFubyBTdGFiZWxsaW5pDQo+IDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPg0K
+PiBTdWJqZWN0OiBbUEFUQ0ggVjIgMjMvMjNdIFtSRkNdIGxpYnhsOiBBZGQgc3VwcG9ydCBmb3Ig
+dmlydGlvLWRpc2sgY29uZmlndXJhdGlvbg0KPiANCj4gRnJvbTogT2xla3NhbmRyIFR5c2hjaGVu
+a28gPG9sZWtzYW5kcl90eXNoY2hlbmtvQGVwYW0uY29tPg0KPiANCj4gVGhpcyBwYXRjaCBhZGRz
+IGJhc2ljIHN1cHBvcnQgZm9yIGNvbmZpZ3VyaW5nIGFuZCBhc3Npc3RpbmcgdmlydGlvLWRpc2sN
+Cj4gYmFja2VuZCAoZW11YWxhdG9yKSB3aGljaCBpcyBpbnRlbmRlZCB0byBydW4gb3V0IG9mIFFl
+bXUgYW5kIGNvdWxkIGJlIHJ1bg0KPiBpbiBhbnkgZG9tYWluLg0KPiANCj4gWGVuc3RvcmUgd2Fz
+IGNob3NlbiBhcyBhIGNvbW11bmljYXRpb24gaW50ZXJmYWNlIGZvciB0aGUgZW11bGF0b3IgcnVu
+bmluZw0KPiBpbiBub24tdG9vbHN0YWNrIGRvbWFpbiB0byBiZSBhYmxlIHRvIGdldCBjb25maWd1
+cmF0aW9uIGVpdGhlciBieSByZWFkaW5nDQo+IFhlbnN0b3JlIGRpcmVjdGx5IG9yIGJ5IHJlY2Vp
+dmluZyBjb21tYW5kIGxpbmUgcGFyYW1ldGVycyAoYW4gdXBkYXRlZCAneGwgZGV2ZCcNCj4gcnVu
+bmluZyBpbiB0aGUgc2FtZSBkb21haW4gd291bGQgcmVhZCBYZW5zdG9yZSBiZWZvcmVoYW5kIGFu
+ZCBjYWxsIGJhY2tlbmQNCj4gZXhlY3V0YWJsZSB3aXRoIHRoZSByZXF1aXJlZCBhcmd1bWVudHMp
+Lg0KPiANCj4gQW4gZXhhbXBsZSBvZiBkb21haW4gY29uZmlndXJhdGlvbiAodHdvIGRpc2tzIGFy
+ZSBhc3NpZ25lZCB0byB0aGUgZ3Vlc3QsDQo+IHRoZSBsYXR0ZXIgaXMgaW4gcmVhZG9ubHkgbW9k
+ZSk6DQo+IA0KPiB2ZGlzayA9IFsgJ2JhY2tlbmQ9RG9tRCwgZGlza3M9cnc6L2Rldi9tbWNibGsw
+cDM7cm86L2Rldi9tbWNibGsxcDMnIF0NCj4gDQoNCkNhbiB3ZSBrZWVwIHVzZSB0aGUgc2FtZSAn
+ZGlzaycgcGFyYW1ldGVyIGZvciB2aXJ0aW8tZGlzaywgYnV0IGFkZCBhbiBvcHRpb24gbGlrZQ0K
+ICJtb2RlbD12aXJ0aW8tZGlzayI/DQpGb3IgZXhhbXBsZToNCmRpc2sgPSBbICdiYWNrZW5kPURv
+bUQsIGRpc2tzPXJ3Oi9kZXYvbW1jYmxrMHAzLG1vZGVsPXZpcnRpby1kaXNrJyBdDQpKdXN0IGxp
+a2Ugd2hhdCBYZW4gaGFzIGRvbmUgZm9yIHg4NiB2aXJ0aW8tbmV0Lg0KDQo+IFdoZXJlIHBlci1k
+aXNrIFhlbnN0b3JlIGVudHJpZXMgYXJlOg0KPiAtIGZpbGVuYW1lIGFuZCByZWFkb25seSBmbGFn
+IChjb25maWd1cmVkIHZpYSAidmRpc2siIHByb3BlcnR5KQ0KPiAtIGJhc2UgYW5kIGlycSAoYWxs
+b2NhdGVkIGR5bmFtaWNhbGx5KQ0KPiANCj4gQmVzaWRlcyBoYW5kbGluZyAndmlzaWJsZScgcGFy
+YW1zIGRlc2NyaWJlZCBpbiBjb25maWd1cmF0aW9uIGZpbGUsDQo+IHBhdGNoIGFsc28gYWxsb2Nh
+dGVzIHZpcnRpby1tbWlvIHNwZWNpZmljIG9uZXMgZm9yIGVhY2ggZGV2aWNlIGFuZA0KPiB3cml0
+ZXMgdGhlbSBpbnRvIFhlbnN0b3JlLiB2aXJ0aW8tbW1pbyBwYXJhbXMgKGlycSBhbmQgYmFzZSkg
+YXJlDQo+IHVuaXF1ZSBwZXIgZ3Vlc3QgZG9tYWluLCB0aGV5IGFsbG9jYXRlZCBhdCB0aGUgZG9t
+YWluIGNyZWF0aW9uIHRpbWUNCj4gYW5kIHBhc3NlZCB0aHJvdWdoIHRvIHRoZSBlbXVsYXRvci4g
+RWFjaCBWaXJ0SU8gZGV2aWNlIGhhcyBhdCBsZWFzdA0KPiBvbmUgcGFpciBvZiB0aGVzZSBwYXJh
+bXMuDQo+IA0KPiBUT0RPOg0KPiAxLiBBbiBleHRyYSAidmlydGlvIiBwcm9wZXJ0eSBjb3VsZCBi
+ZSByZW1vdmVkLg0KPiAyLiBVcGRhdGUgZG9jdW1lbnRhdGlvbi4NCj4gDQo+IFNpZ25lZC1vZmYt
+Ynk6IE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2FuZHJfdHlzaGNoZW5rb0BlcGFtLmNvbT4N
+Cj4gDQo+IC0tLQ0KPiBDaGFuZ2VzIFJGQyAtPiBWMToNCj4gICAgLSBubyBjaGFuZ2VzDQo+IA0K
+PiBDaGFuZ2VzIFYxIC0+IFYyOg0KPiAgICAtIHJlYmFzZSBhY2NvcmRpbmcgdG8gdGhlIG5ldyBs
+b2NhdGlvbiBvZiBsaWJ4bF92aXJ0aW9fZGlzay5jDQo+IA0KPiBQbGVhc2Ugbm90ZSwgdGhlcmUg
+aXMgYSByZWFsIGNvbmNlcm4gYWJvdXQgVmlydElPIGludGVycnVwdHMgYWxsb2NhdGlvbi4NCj4g
+SnVzdCBjb3B5IGhlcmUgd2hhdCBTdGVmYW5vIHNhaWQgaW4gUkZDIHRocmVhZC4NCj4gDQo+IFNv
+LCBpZiB3ZSBlbmQgdXAgYWxsb2NhdGluZyBsZXQncyBzYXkgNiB2aXJ0aW8gaW50ZXJydXB0cyBm
+b3IgYSBkb21haW4sDQo+IHRoZSBjaGFuY2Ugb2YgYSBjbGFzaCB3aXRoIGEgcGh5c2ljYWwgaW50
+ZXJydXB0IG9mIGEgcGFzc3Rocm91Z2ggZGV2aWNlIGlzIHJlYWwuDQo+IA0KPiBJIGFtIG5vdCBl
+bnRpcmVseSBzdXJlIGhvdyB0byBzb2x2ZSBpdCwgYnV0IHRoZXNlIGFyZSBhIGZldyBpZGVhczoN
+Cj4gLSBjaG9vc2luZyB2aXJ0aW8gaW50ZXJydXB0cyB0aGF0IGFyZSBsZXNzIGxpa2VseSB0byBj
+b25mbGljdCAobWF5YmUgPiAxMDAwKQ0KPiAtIG1ha2UgdGhlIHZpcnRpbyBpcnEgKG9wdGlvbmFs
+bHkpIGNvbmZpZ3VyYWJsZSBzbyB0aGF0IGEgdXNlciBjb3VsZA0KPiAgIG92ZXJyaWRlIHRoZSBk
+ZWZhdWx0IGlycSBhbmQgc3BlY2lmeSBvbmUgdGhhdCBkb2Vzbid0IGNvbmZsaWN0DQo+IC0gaW1w
+bGVtZW50aW5nIHN1cHBvcnQgZm9yIHZpcnEgIT0gcGlycSAoZXZlbiB0aGUgeGwgaW50ZXJmYWNl
+IGRvZXNuJ3QNCj4gICBhbGxvdyB0byBzcGVjaWZ5IHRoZSB2aXJxIG51bWJlciBmb3IgcGFzc3Ro
+cm91Z2ggZGV2aWNlcywgc2VlICJpcnFzIikNCj4gDQo+IC0tLQ0KPiAgdG9vbHMvbGlicy9saWdo
+dC9NYWtlZmlsZSAgICAgICAgICAgICAgICAgfCAgIDEgKw0KPiAgdG9vbHMvbGlicy9saWdodC9s
+aWJ4bF9hcm0uYyAgICAgICAgICAgICAgfCAgNTYgKysrKysrKysrKysrLS0tDQo+ICB0b29scy9s
+aWJzL2xpZ2h0L2xpYnhsX2NyZWF0ZS5jICAgICAgICAgICB8ICAgMSArDQo+ICB0b29scy9saWJz
+L2xpZ2h0L2xpYnhsX2ludGVybmFsLmggICAgICAgICB8ICAgMSArDQo+ICB0b29scy9saWJzL2xp
+Z2h0L2xpYnhsX3R5cGVzLmlkbCAgICAgICAgICB8ICAxNSArKysrDQo+ICB0b29scy9saWJzL2xp
+Z2h0L2xpYnhsX3R5cGVzX2ludGVybmFsLmlkbCB8ICAgMSArDQo+ICB0b29scy9saWJzL2xpZ2h0
+L2xpYnhsX3ZpcnRpb19kaXNrLmMgICAgICB8IDEwOSArKysrKysrKysrKysrKysrKysrKysrKysr
+KysrDQo+ICB0b29scy94bC9NYWtlZmlsZSAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMiAr
+LQ0KPiAgdG9vbHMveGwveGwuaCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDMgKw0K
+PiAgdG9vbHMveGwveGxfY21kdGFibGUuYyAgICAgICAgICAgICAgICAgICAgfCAgMTUgKysrKw0K
+PiAgdG9vbHMveGwveGxfcGFyc2UuYyAgICAgICAgICAgICAgICAgICAgICAgfCAxMTUgKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrDQo+ICB0b29scy94bC94bF92aXJ0aW9fZGlzay5jICAg
+ICAgICAgICAgICAgICB8ICA0NiArKysrKysrKysrKysNCj4gIDEyIGZpbGVzIGNoYW5nZWQsIDM1
+NCBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkNCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCB0
+b29scy9saWJzL2xpZ2h0L2xpYnhsX3ZpcnRpb19kaXNrLmMNCj4gIGNyZWF0ZSBtb2RlIDEwMDY0
+NCB0b29scy94bC94bF92aXJ0aW9fZGlzay5jDQo+IA0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMvbGli
+cy9saWdodC9NYWtlZmlsZSBiL3Rvb2xzL2xpYnMvbGlnaHQvTWFrZWZpbGUNCj4gaW5kZXggZjU4
+YTMyMS4uMmVlMzg4YSAxMDA2NDQNCj4gLS0tIGEvdG9vbHMvbGlicy9saWdodC9NYWtlZmlsZQ0K
+PiArKysgYi90b29scy9saWJzL2xpZ2h0L01ha2VmaWxlDQo+IEBAIC0xMTUsNiArMTE1LDcgQEAg
+U1JDUy15ICs9IGxpYnhsX2dlbmlkLmMNCj4gIFNSQ1MteSArPSBfbGlieGxfdHlwZXMuYw0KPiAg
+U1JDUy15ICs9IGxpYnhsX2ZsYXNrLmMNCj4gIFNSQ1MteSArPSBfbGlieGxfdHlwZXNfaW50ZXJu
+YWwuYw0KPiArU1JDUy15ICs9IGxpYnhsX3ZpcnRpb19kaXNrLmMNCj4gDQo+ICBpZmVxICgkKENP
+TkZJR19MSUJOTCkseSkNCj4gIENGTEFHU19MSUJYTCArPSAkKExJQk5MM19DRkxBR1MpDQo+IGRp
+ZmYgLS1naXQgYS90b29scy9saWJzL2xpZ2h0L2xpYnhsX2FybS5jIGIvdG9vbHMvbGlicy9saWdo
+dC9saWJ4bF9hcm0uYw0KPiBpbmRleCA1ODhlZTVhLi45ZWIzMDIyIDEwMDY0NA0KPiAtLS0gYS90
+b29scy9saWJzL2xpZ2h0L2xpYnhsX2FybS5jDQo+ICsrKyBiL3Rvb2xzL2xpYnMvbGlnaHQvbGli
+eGxfYXJtLmMNCj4gQEAgLTgsNiArOCwxMiBAQA0KPiAgI2luY2x1ZGUgPGFzc2VydC5oPg0KPiAg
+I2luY2x1ZGUgPHhlbi9kZXZpY2VfdHJlZV9kZWZzLmg+DQo+IA0KPiArI2lmbmRlZiBjb250YWlu
+ZXJfb2YNCj4gKyNkZWZpbmUgY29udGFpbmVyX29mKHB0ciwgdHlwZSwgbWVtYmVyKSAoewkJCVwN
+Cj4gKyAgICAgICAgdHlwZW9mKCAoKHR5cGUgKikwKS0+bWVtYmVyICkgKl9fbXB0ciA9IChwdHIp
+OwlcDQo+ICsgICAgICAgICh0eXBlICopKCAoY2hhciAqKV9fbXB0ciAtIG9mZnNldG9mKHR5cGUs
+bWVtYmVyKSApO30pDQo+ICsjZW5kaWYNCj4gKw0KPiAgc3RhdGljIGNvbnN0IGNoYXIgKmdpY3Zf
+dG9fc3RyaW5nKGxpYnhsX2dpY192ZXJzaW9uIGdpY192ZXJzaW9uKQ0KPiAgew0KPiAgICAgIHN3
+aXRjaCAoZ2ljX3ZlcnNpb24pIHsNCj4gQEAgLTM5LDE0ICs0NSwzMiBAQCBpbnQgbGlieGxfX2Fy
+Y2hfZG9tYWluX3ByZXBhcmVfY29uZmlnKGxpYnhsX19nYyAqZ2MsDQo+ICAgICAgICAgIHZ1YXJ0
+X2VuYWJsZWQgPSB0cnVlOw0KPiAgICAgIH0NCj4gDQo+IC0gICAgLyoNCj4gLSAgICAgKiBYWFg6
+IEhhbmRsZSBwcm9wZXJseSB2aXJ0aW8NCj4gLSAgICAgKiBBIHByb3BlciBzb2x1dGlvbiB3b3Vs
+ZCBiZSB0aGUgdG9vbHN0YWNrIHRvIGFsbG9jYXRlIHRoZSBpbnRlcnJ1cHRzDQo+IC0gICAgICog
+dXNlZCBieSBlYWNoIHZpcnRpbyBiYWNrZW5kIGFuZCBsZXQgdGhlIGJhY2tlbmQgbm93IHdoaWNo
+IG9uZSBpcyB1c2VkDQo+IC0gICAgICovDQo+ICAgICAgaWYgKGxpYnhsX2RlZmJvb2xfdmFsKGRf
+Y29uZmlnLT5iX2luZm8uYXJjaF9hcm0udmlydGlvKSkgew0KPiAtICAgICAgICBucl9zcGlzICs9
+IChHVUVTVF9WSVJUSU9fTU1JT19TUEkgLSAzMikgKyAxOw0KPiArICAgICAgICB1aW50NjRfdCB2
+aXJ0aW9fYmFzZTsNCj4gKyAgICAgICAgbGlieGxfZGV2aWNlX3ZpcnRpb19kaXNrICp2aXJ0aW9f
+ZGlzazsNCj4gKw0KPiArICAgICAgICB2aXJ0aW9fYmFzZSA9IEdVRVNUX1ZJUlRJT19NTUlPX0JB
+U0U7DQo+ICAgICAgICAgIHZpcnRpb19pcnEgPSBHVUVTVF9WSVJUSU9fTU1JT19TUEk7DQo+ICsN
+Cj4gKyAgICAgICAgaWYgKCFkX2NvbmZpZy0+bnVtX3ZpcnRpb19kaXNrcykgew0KPiArICAgICAg
+ICAgICAgTE9HKEVSUk9SLCAiVmlydGlvIGlzIGVuYWJsZWQsIGJ1dCBubyBWaXJ0aW8gZGV2aWNl
+cyBwcmVzZW50XG4iKTsNCj4gKyAgICAgICAgICAgIHJldHVybiBFUlJPUl9GQUlMOw0KPiArICAg
+ICAgICB9DQo+ICsgICAgICAgIHZpcnRpb19kaXNrID0gJmRfY29uZmlnLT52aXJ0aW9fZGlza3Nb
+MF07DQo+ICsNCj4gKyAgICAgICAgZm9yIChpID0gMDsgaSA8IHZpcnRpb19kaXNrLT5udW1fZGlz
+a3M7IGkrKykgew0KPiArICAgICAgICAgICAgdmlydGlvX2Rpc2stPmRpc2tzW2ldLmJhc2UgPSB2
+aXJ0aW9fYmFzZTsNCj4gKyAgICAgICAgICAgIHZpcnRpb19kaXNrLT5kaXNrc1tpXS5pcnEgPSB2
+aXJ0aW9faXJxOw0KPiArDQo+ICsgICAgICAgICAgICBMT0coREVCVUcsICJBbGxvY2F0ZSBWaXJ0
+aW8gTU1JTyBwYXJhbXM6IElSUSAldSBCQVNFIDB4JSJQUkl4NjQsDQo+ICsgICAgICAgICAgICAg
+ICAgdmlydGlvX2lycSwgdmlydGlvX2Jhc2UpOw0KPiArDQo+ICsgICAgICAgICAgICB2aXJ0aW9f
+aXJxICsrOw0KPiArICAgICAgICAgICAgdmlydGlvX2Jhc2UgKz0gR1VFU1RfVklSVElPX01NSU9f
+U0laRTsNCj4gKyAgICAgICAgfQ0KPiArICAgICAgICB2aXJ0aW9faXJxIC0tOw0KPiArDQo+ICsg
+ICAgICAgIG5yX3NwaXMgKz0gKHZpcnRpb19pcnEgLSAzMikgKyAxOw0KPiAgICAgICAgICB2aXJ0
+aW9fZW5hYmxlZCA9IHRydWU7DQo+ICAgICAgfQ0KPiANCj4gQEAgLTcwLDggKzk0LDkgQEAgaW50
+IGxpYnhsX19hcmNoX2RvbWFpbl9wcmVwYXJlX2NvbmZpZyhsaWJ4bF9fZ2MgKmdjLA0KPiAgICAg
+ICAgICB9DQo+IA0KPiAgICAgICAgICAvKiBUaGUgc2FtZSBjaGVjayBhcyBmb3IgdnBsMDExICov
+DQo+IC0gICAgICAgIGlmICh2aXJ0aW9fZW5hYmxlZCAmJiBpcnEgPT0gdmlydGlvX2lycSkgew0K
+PiAtICAgICAgICAgICAgTE9HKEVSUk9SLCAiUGh5c2ljYWwgSVJRICV1IGNvbmZsaWN0aW5nIHdp
+dGggdmlydGlvIFNQSVxuIiwgaXJxKTsNCj4gKyAgICAgICAgaWYgKHZpcnRpb19lbmFibGVkICYm
+DQo+ICsgICAgICAgICAgIChpcnEgPj0gR1VFU1RfVklSVElPX01NSU9fU1BJICYmIGlycSA8PSB2
+aXJ0aW9faXJxKSkgew0KPiArICAgICAgICAgICAgTE9HKEVSUk9SLCAiUGh5c2ljYWwgSVJRICV1
+IGNvbmZsaWN0aW5nIHdpdGggVmlydGlvIElSUSByYW5nZVxuIiwgaXJxKTsNCj4gICAgICAgICAg
+ICAgIHJldHVybiBFUlJPUl9GQUlMOw0KPiAgICAgICAgICB9DQo+IA0KPiBAQCAtMTAxMSw4ICsx
+MDM2LDE5IEBAIG5leHRfcmVzaXplOg0KPiAgICAgICAgICBpZiAoaW5mby0+dGVlID09IExJQlhM
+X1RFRV9UWVBFX09QVEVFKQ0KPiAgICAgICAgICAgICAgRkRUKCBtYWtlX29wdGVlX25vZGUoZ2Ms
+IGZkdCkgKTsNCj4gDQo+IC0gICAgICAgIGlmIChsaWJ4bF9kZWZib29sX3ZhbChpbmZvLT5hcmNo
+X2FybS52aXJ0aW8pKQ0KPiAtICAgICAgICAgICAgRkRUKCBtYWtlX3ZpcnRpb19tbWlvX25vZGUo
+Z2MsIGZkdCwgR1VFU1RfVklSVElPX01NSU9fQkFTRSwNCj4gR1VFU1RfVklSVElPX01NSU9fU1BJ
+KSApOw0KPiArICAgICAgICBpZiAobGlieGxfZGVmYm9vbF92YWwoaW5mby0+YXJjaF9hcm0udmly
+dGlvKSkgew0KPiArICAgICAgICAgICAgbGlieGxfZG9tYWluX2NvbmZpZyAqZF9jb25maWcgPQ0K
+PiArICAgICAgICAgICAgICAgIGNvbnRhaW5lcl9vZihpbmZvLCBsaWJ4bF9kb21haW5fY29uZmln
+LCBiX2luZm8pOw0KPiArICAgICAgICAgICAgbGlieGxfZGV2aWNlX3ZpcnRpb19kaXNrICp2aXJ0
+aW9fZGlzayA9ICZkX2NvbmZpZy0+dmlydGlvX2Rpc2tzWzBdOw0KPiArICAgICAgICAgICAgdW5z
+aWduZWQgaW50IGk7DQo+ICsNCj4gKyAgICAgICAgICAgIGZvciAoaSA9IDA7IGkgPCB2aXJ0aW9f
+ZGlzay0+bnVtX2Rpc2tzOyBpKyspIHsNCj4gKyAgICAgICAgICAgICAgICB1aW50NjRfdCBiYXNl
+ID0gdmlydGlvX2Rpc2stPmRpc2tzW2ldLmJhc2U7DQo+ICsgICAgICAgICAgICAgICAgdWludDMy
+X3QgaXJxID0gdmlydGlvX2Rpc2stPmRpc2tzW2ldLmlycTsNCj4gKw0KPiArICAgICAgICAgICAg
+ICAgIEZEVCggbWFrZV92aXJ0aW9fbW1pb19ub2RlKGdjLCBmZHQsIGJhc2UsIGlycSkgKTsNCj4g
+KyAgICAgICAgICAgIH0NCj4gKyAgICAgICAgfQ0KPiANCj4gICAgICAgICAgaWYgKHBmZHQpDQo+
+ICAgICAgICAgICAgICBGRFQoIGNvcHlfcGFydGlhbF9mZHQoZ2MsIGZkdCwgcGZkdCkgKTsNCj4g
+ZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYnMvbGlnaHQvbGlieGxfY3JlYXRlLmMgYi90b29scy9saWJz
+L2xpZ2h0L2xpYnhsX2NyZWF0ZS5jDQo+IGluZGV4IDMyMWExM2UuLjhkYTMyOGQgMTAwNjQ0DQo+
+IC0tLSBhL3Rvb2xzL2xpYnMvbGlnaHQvbGlieGxfY3JlYXRlLmMNCj4gKysrIGIvdG9vbHMvbGli
+cy9saWdodC9saWJ4bF9jcmVhdGUuYw0KPiBAQCAtMTgyMSw2ICsxODIxLDcgQEAgY29uc3QgbGli
+eGxfX2RldmljZV90eXBlICpkZXZpY2VfdHlwZV90YmxbXSA9IHsNCj4gICAgICAmbGlieGxfX2R0
+ZGV2X2RldnR5cGUsDQo+ICAgICAgJmxpYnhsX192ZGlzcGxfZGV2dHlwZSwNCj4gICAgICAmbGli
+eGxfX3ZzbmRfZGV2dHlwZSwNCj4gKyAgICAmbGlieGxfX3ZpcnRpb19kaXNrX2RldnR5cGUsDQo+
+ICAgICAgTlVMTA0KPiAgfTsNCj4gDQo+IGRpZmYgLS1naXQgYS90b29scy9saWJzL2xpZ2h0L2xp
+YnhsX2ludGVybmFsLmggYi90b29scy9saWJzL2xpZ2h0L2xpYnhsX2ludGVybmFsLmgNCj4gaW5k
+ZXggZTI2Y2RhOS4uZWE0OTdiYiAxMDA2NDQNCj4gLS0tIGEvdG9vbHMvbGlicy9saWdodC9saWJ4
+bF9pbnRlcm5hbC5oDQo+ICsrKyBiL3Rvb2xzL2xpYnMvbGlnaHQvbGlieGxfaW50ZXJuYWwuaA0K
+PiBAQCAtNDAwMCw2ICs0MDAwLDcgQEAgZXh0ZXJuIGNvbnN0IGxpYnhsX19kZXZpY2VfdHlwZSBs
+aWJ4bF9fdmRpc3BsX2RldnR5cGU7DQo+ICBleHRlcm4gY29uc3QgbGlieGxfX2RldmljZV90eXBl
+IGxpYnhsX19wOV9kZXZ0eXBlOw0KPiAgZXh0ZXJuIGNvbnN0IGxpYnhsX19kZXZpY2VfdHlwZSBs
+aWJ4bF9fcHZjYWxsc2lmX2RldnR5cGU7DQo+ICBleHRlcm4gY29uc3QgbGlieGxfX2RldmljZV90
+eXBlIGxpYnhsX192c25kX2RldnR5cGU7DQo+ICtleHRlcm4gY29uc3QgbGlieGxfX2RldmljZV90
+eXBlIGxpYnhsX192aXJ0aW9fZGlza19kZXZ0eXBlOw0KPiANCj4gIGV4dGVybiBjb25zdCBsaWJ4
+bF9fZGV2aWNlX3R5cGUgKmRldmljZV90eXBlX3RibFtdOw0KPiANCj4gZGlmZiAtLWdpdCBhL3Rv
+b2xzL2xpYnMvbGlnaHQvbGlieGxfdHlwZXMuaWRsIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF90
+eXBlcy5pZGwNCj4gaW5kZXggYjA1NGJmOS4uNWY4YTNmZiAxMDA2NDQNCj4gLS0tIGEvdG9vbHMv
+bGlicy9saWdodC9saWJ4bF90eXBlcy5pZGwNCj4gKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4
+bF90eXBlcy5pZGwNCj4gQEAgLTkzNSw2ICs5MzUsMjAgQEAgbGlieGxfZGV2aWNlX3ZzbmQgPSBT
+dHJ1Y3QoImRldmljZV92c25kIiwgWw0KPiAgICAgICgicGNtcyIsIEFycmF5KGxpYnhsX3ZzbmRf
+cGNtLCAibnVtX3ZzbmRfcGNtcyIpKQ0KPiAgICAgIF0pDQo+IA0KPiArbGlieGxfdmlydGlvX2Rp
+c2tfcGFyYW0gPSBTdHJ1Y3QoInZpcnRpb19kaXNrX3BhcmFtIiwgWw0KPiArICAgICgiZmlsZW5h
+bWUiLCBzdHJpbmcpLA0KPiArICAgICgicmVhZG9ubHkiLCBib29sKSwNCj4gKyAgICAoImlycSIs
+IHVpbnQzMiksDQo+ICsgICAgKCJiYXNlIiwgdWludDY0KSwNCj4gKyAgICBdKQ0KPiArDQo+ICts
+aWJ4bF9kZXZpY2VfdmlydGlvX2Rpc2sgPSBTdHJ1Y3QoImRldmljZV92aXJ0aW9fZGlzayIsIFsN
+Cj4gKyAgICAoImJhY2tlbmRfZG9taWQiLCBsaWJ4bF9kb21pZCksDQo+ICsgICAgKCJiYWNrZW5k
+X2RvbW5hbWUiLCBzdHJpbmcpLA0KPiArICAgICgiZGV2aWQiLCBsaWJ4bF9kZXZpZCksDQo+ICsg
+ICAgKCJkaXNrcyIsIEFycmF5KGxpYnhsX3ZpcnRpb19kaXNrX3BhcmFtLCAibnVtX2Rpc2tzIikp
+LA0KPiArICAgIF0pDQo+ICsNCj4gIGxpYnhsX2RvbWFpbl9jb25maWcgPSBTdHJ1Y3QoImRvbWFp
+bl9jb25maWciLCBbDQo+ICAgICAgKCJjX2luZm8iLCBsaWJ4bF9kb21haW5fY3JlYXRlX2luZm8p
+LA0KPiAgICAgICgiYl9pbmZvIiwgbGlieGxfZG9tYWluX2J1aWxkX2luZm8pLA0KPiBAQCAtOTUx
+LDYgKzk2NSw3IEBAIGxpYnhsX2RvbWFpbl9jb25maWcgPSBTdHJ1Y3QoImRvbWFpbl9jb25maWci
+LCBbDQo+ICAgICAgKCJwdmNhbGxzaWZzIiwgQXJyYXkobGlieGxfZGV2aWNlX3B2Y2FsbHNpZiwg
+Im51bV9wdmNhbGxzaWZzIikpLA0KPiAgICAgICgidmRpc3BscyIsIEFycmF5KGxpYnhsX2Rldmlj
+ZV92ZGlzcGwsICJudW1fdmRpc3BscyIpKSwNCj4gICAgICAoInZzbmRzIiwgQXJyYXkobGlieGxf
+ZGV2aWNlX3ZzbmQsICJudW1fdnNuZHMiKSksDQo+ICsgICAgKCJ2aXJ0aW9fZGlza3MiLCBBcnJh
+eShsaWJ4bF9kZXZpY2VfdmlydGlvX2Rpc2ssICJudW1fdmlydGlvX2Rpc2tzIikpLA0KPiAgICAg
+ICMgYSBjaGFubmVsIG1hbmlmZXN0cyBhcyBhIGNvbnNvbGUgd2l0aCBhIG5hbWUsDQo+ICAgICAg
+IyBzZWUgZG9jcy9taXNjL2NoYW5uZWxzLnR4dA0KPiAgICAgICgiY2hhbm5lbHMiLCBBcnJheShs
+aWJ4bF9kZXZpY2VfY2hhbm5lbCwgIm51bV9jaGFubmVscyIpKSwNCj4gZGlmZiAtLWdpdCBhL3Rv
+b2xzL2xpYnMvbGlnaHQvbGlieGxfdHlwZXNfaW50ZXJuYWwuaWRsDQo+IGIvdG9vbHMvbGlicy9s
+aWdodC9saWJ4bF90eXBlc19pbnRlcm5hbC5pZGwNCj4gaW5kZXggMzU5M2UyMS4uOGY3MTk4MCAx
+MDA2NDQNCj4gLS0tIGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF90eXBlc19pbnRlcm5hbC5pZGwN
+Cj4gKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF90eXBlc19pbnRlcm5hbC5pZGwNCj4gQEAg
+LTMyLDYgKzMyLDcgQEAgbGlieGxfX2RldmljZV9raW5kID0gRW51bWVyYXRpb24oImRldmljZV9r
+aW5kIiwgWw0KPiAgICAgICgxNCwgIlBWQ0FMTFMiKSwNCj4gICAgICAoMTUsICJWU05EIiksDQo+
+ICAgICAgKDE2LCAiVklOUFVUIiksDQo+ICsgICAgKDE3LCAiVklSVElPX0RJU0siKSwNCj4gICAg
+ICBdKQ0KPiANCj4gIGxpYnhsX19jb25zb2xlX2JhY2tlbmQgPSBFbnVtZXJhdGlvbigiY29uc29s
+ZV9iYWNrZW5kIiwgWw0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF92aXJ0
+aW9fZGlzay5jIGIvdG9vbHMvbGlicy9saWdodC9saWJ4bF92aXJ0aW9fZGlzay5jDQo+IG5ldyBm
+aWxlIG1vZGUgMTAwNjQ0DQo+IGluZGV4IDAwMDAwMDAuLjI1ZTdmMWENCj4gLS0tIC9kZXYvbnVs
+bA0KPiArKysgYi90b29scy9saWJzL2xpZ2h0L2xpYnhsX3ZpcnRpb19kaXNrLmMNCj4gQEAgLTAs
+MCArMSwxMDkgQEANCj4gKy8qDQo+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMjAgRVBBTSBTeXN0ZW1z
+IEluYy4NCj4gKyAqDQo+ICsgKiBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91IGNh
+biByZWRpc3RyaWJ1dGUgaXQgYW5kL29yIG1vZGlmeQ0KPiArICogaXQgdW5kZXIgdGhlIHRlcm1z
+IG9mIHRoZSBHTlUgTGVzc2VyIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYXMgcHVibGlzaGVkDQo+
+ICsgKiBieSB0aGUgRnJlZSBTb2Z0d2FyZSBGb3VuZGF0aW9uOyB2ZXJzaW9uIDIuMSBvbmx5LiB3
+aXRoIHRoZSBzcGVjaWFsDQo+ICsgKiBleGNlcHRpb24gb24gbGlua2luZyBkZXNjcmliZWQgaW4g
+ZmlsZSBMSUNFTlNFLg0KPiArICoNCj4gKyAqIFRoaXMgcHJvZ3JhbSBpcyBkaXN0cmlidXRlZCBp
+biB0aGUgaG9wZSB0aGF0IGl0IHdpbGwgYmUgdXNlZnVsLA0KPiArICogYnV0IFdJVEhPVVQgQU5Z
+IFdBUlJBTlRZOyB3aXRob3V0IGV2ZW4gdGhlIGltcGxpZWQgd2FycmFudHkgb2YNCj4gKyAqIE1F
+UkNIQU5UQUJJTElUWSBvciBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRS4gIFNlZSB0
+aGUNCj4gKyAqIEdOVSBMZXNzZXIgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSBmb3IgbW9yZSBkZXRh
+aWxzLg0KPiArICovDQo+ICsNCj4gKyNpbmNsdWRlICJsaWJ4bF9pbnRlcm5hbC5oIg0KPiArDQo+
+ICtzdGF0aWMgaW50IGxpYnhsX19kZXZpY2VfdmlydGlvX2Rpc2tfc2V0ZGVmYXVsdChsaWJ4bF9f
+Z2MgKmdjLCB1aW50MzJfdCBkb21pZCwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGxpYnhsX2RldmljZV92aXJ0aW9fZGlzayAqdmlydGlvX2Rpc2ss
+DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBib29s
+IGhvdHBsdWcpDQo+ICt7DQo+ICsgICAgcmV0dXJuIGxpYnhsX19yZXNvbHZlX2RvbWlkKGdjLCB2
+aXJ0aW9fZGlzay0+YmFja2VuZF9kb21uYW1lLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAmdmlydGlvX2Rpc2stPmJhY2tlbmRfZG9taWQpOw0KPiArfQ0KPiArDQo+ICtzdGF0
+aWMgaW50IGxpYnhsX192aXJ0aW9fZGlza19mcm9tX3hlbnN0b3JlKGxpYnhsX19nYyAqZ2MsIGNv
+bnN0IGNoYXIgKmxpYnhsX3BhdGgsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGxpYnhsX2RldmlkIGRldmlkLA0KPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBsaWJ4bF9kZXZpY2VfdmlydGlvX2Rpc2sgKnZpcnRpb19k
+aXNrKQ0KPiArew0KPiArICAgIGNvbnN0IGNoYXIgKmJlX3BhdGg7DQo+ICsgICAgaW50IHJjOw0K
+PiArDQo+ICsgICAgdmlydGlvX2Rpc2stPmRldmlkID0gZGV2aWQ7DQo+ICsgICAgcmMgPSBsaWJ4
+bF9feHNfcmVhZF9tYW5kYXRvcnkoZ2MsIFhCVF9OVUxMLA0KPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIEdDU1BSSU5URigiJXMvYmFja2VuZCIsIGxpYnhsX3BhdGgpLA0KPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZiZV9wYXRoKTsNCj4gKyAgICBpZiAo
+cmMpIHJldHVybiByYzsNCj4gKw0KPiArICAgIHJjID0gbGlieGxfX2JhY2tlbmRwYXRoX3BhcnNl
+X2RvbWlkKGdjLCBiZV9wYXRoLCAmdmlydGlvX2Rpc2stDQo+ID5iYWNrZW5kX2RvbWlkKTsNCj4g
+KyAgICBpZiAocmMpIHJldHVybiByYzsNCj4gKw0KPiArICAgIHJldHVybiAwOw0KPiArfQ0KPiAr
+DQo+ICtzdGF0aWMgdm9pZCBsaWJ4bF9fdXBkYXRlX2NvbmZpZ192aXJ0aW9fZGlzayhsaWJ4bF9f
+Z2MgKmdjLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+bGlieGxfZGV2aWNlX3ZpcnRpb19kaXNrICpkc3QsDQo+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBsaWJ4bF9kZXZpY2VfdmlydGlvX2Rpc2sgKnNyYykNCj4g
+K3sNCj4gKyAgICBkc3QtPmRldmlkID0gc3JjLT5kZXZpZDsNCj4gK30NCj4gKw0KPiArc3RhdGlj
+IGludCBsaWJ4bF9kZXZpY2VfdmlydGlvX2Rpc2tfY29tcGFyZShsaWJ4bF9kZXZpY2VfdmlydGlv
+X2Rpc2sgKmQxLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBsaWJ4bF9kZXZpY2VfdmlydGlvX2Rpc2sgKmQyKQ0KPiArew0KPiArICAgIHJldHVybiBDT01Q
+QVJFX0RFVklEKGQxLCBkMik7DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyB2b2lkIGxpYnhsX19kZXZp
+Y2VfdmlydGlvX2Rpc2tfYWRkKGxpYnhsX19lZ2MgKmVnYywgdWludDMyX3QgZG9taWQsDQo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsaWJ4bF9kZXZpY2Vfdmly
+dGlvX2Rpc2sgKnZpcnRpb19kaXNrLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgbGlieGxfX2FvX2RldmljZSAqYW9kZXYpDQo+ICt7DQo+ICsgICAgbGlieGxf
+X2RldmljZV9hZGRfYXN5bmMoZWdjLCBkb21pZCwgJmxpYnhsX192aXJ0aW9fZGlza19kZXZ0eXBl
+LCB2aXJ0aW9fZGlzaywNCj4gYW9kZXYpOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgaW50IGxpYnhs
+X19zZXRfeGVuc3RvcmVfdmlydGlvX2Rpc2sobGlieGxfX2djICpnYywgdWludDMyX3QgZG9taWQs
+DQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGlieGxfZGV2
+aWNlX3ZpcnRpb19kaXNrICp2aXJ0aW9fZGlzaywNCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBmbGV4YXJyYXlfdCAqYmFjaywgZmxleGFycmF5X3QgKmZyb250
+LA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZsZXhhcnJh
+eV90ICpyb19mcm9udCkNCj4gK3sNCj4gKyAgICBpbnQgcmM7DQo+ICsgICAgdW5zaWduZWQgaW50
+IGk7DQo+ICsNCj4gKyAgICBmb3IgKGkgPSAwOyBpIDwgdmlydGlvX2Rpc2stPm51bV9kaXNrczsg
+aSsrKSB7DQo+ICsgICAgICAgIHJjID0gZmxleGFycmF5X2FwcGVuZF9wYWlyKHJvX2Zyb250LCBH
+Q1NQUklOVEYoIiVkL2ZpbGVuYW1lIiwgaSksDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIEdDU1BSSU5URigiJXMiLCB2aXJ0aW9fZGlzay0+ZGlza3NbaV0uZmlsZW5hbWUp
+KTsNCj4gKyAgICAgICAgaWYgKHJjKSByZXR1cm4gcmM7DQo+ICsNCj4gKyAgICAgICAgcmMgPSBm
+bGV4YXJyYXlfYXBwZW5kX3BhaXIocm9fZnJvbnQsIEdDU1BSSU5URigiJWQvcmVhZG9ubHkiLCBp
+KSwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR0NTUFJJTlRGKCIlZCIs
+IHZpcnRpb19kaXNrLT5kaXNrc1tpXS5yZWFkb25seSkpOw0KPiArICAgICAgICBpZiAocmMpIHJl
+dHVybiByYzsNCj4gKw0KPiArICAgICAgICByYyA9IGZsZXhhcnJheV9hcHBlbmRfcGFpcihyb19m
+cm9udCwgR0NTUFJJTlRGKCIlZC9iYXNlIiwgaSksDQo+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIEdDU1BSSU5URigiJWx1IiwgdmlydGlvX2Rpc2stPmRpc2tzW2ldLmJhc2Up
+KTsNCj4gKyAgICAgICAgaWYgKHJjKSByZXR1cm4gcmM7DQo+ICsNCj4gKyAgICAgICAgcmMgPSBm
+bGV4YXJyYXlfYXBwZW5kX3BhaXIocm9fZnJvbnQsIEdDU1BSSU5URigiJWQvaXJxIiwgaSksDQo+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEdDU1BSSU5URigiJXUiLCB2aXJ0
+aW9fZGlzay0+ZGlza3NbaV0uaXJxKSk7DQo+ICsgICAgICAgIGlmIChyYykgcmV0dXJuIHJjOw0K
+PiArICAgIH0NCj4gKw0KPiArICAgIHJldHVybiAwOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgTElC
+WExfREVGSU5FX1VQREFURV9ERVZJRCh2aXJ0aW9fZGlzaykNCj4gK3N0YXRpYyBMSUJYTF9ERUZJ
+TkVfREVWSUNFX0ZST01fVFlQRSh2aXJ0aW9fZGlzaykNCj4gK3N0YXRpYyBMSUJYTF9ERUZJTkVf
+REVWSUNFU19BREQodmlydGlvX2Rpc2spDQo+ICsNCj4gK0RFRklORV9ERVZJQ0VfVFlQRV9TVFJV
+Q1QodmlydGlvX2Rpc2ssIFZJUlRJT19ESVNLLA0KPiArICAgIC51cGRhdGVfY29uZmlnID0gKGRl
+dmljZV91cGRhdGVfY29uZmlnX2ZuX3QpDQo+IGxpYnhsX191cGRhdGVfY29uZmlnX3ZpcnRpb19k
+aXNrLA0KPiArICAgIC5mcm9tX3hlbnN0b3JlID0gKGRldmljZV9mcm9tX3hlbnN0b3JlX2ZuX3Qp
+DQo+IGxpYnhsX192aXJ0aW9fZGlza19mcm9tX3hlbnN0b3JlLA0KPiArICAgIC5zZXRfeGVuc3Rv
+cmVfY29uZmlnID0gKGRldmljZV9zZXRfeGVuc3RvcmVfY29uZmlnX2ZuX3QpDQo+IGxpYnhsX19z
+ZXRfeGVuc3RvcmVfdmlydGlvX2Rpc2sNCj4gKyk7DQo+ICsNCj4gKy8qDQo+ICsgKiBMb2NhbCB2
+YXJpYWJsZXM6DQo+ICsgKiBtb2RlOiBDDQo+ICsgKiBjLWJhc2ljLW9mZnNldDogNA0KPiArICog
+aW5kZW50LXRhYnMtbW9kZTogbmlsDQo+ICsgKiBFbmQ6DQo+ICsgKi8NCj4gZGlmZiAtLWdpdCBh
+L3Rvb2xzL3hsL01ha2VmaWxlIGIvdG9vbHMveGwvTWFrZWZpbGUNCj4gaW5kZXggYmRmNjdjOC4u
+OWQ4ZjJhYSAxMDA2NDQNCj4gLS0tIGEvdG9vbHMveGwvTWFrZWZpbGUNCj4gKysrIGIvdG9vbHMv
+eGwvTWFrZWZpbGUNCj4gQEAgLTIzLDcgKzIzLDcgQEAgWExfT0JKUyArPSB4bF92dHBtLm8geGxf
+YmxvY2subyB4bF9uaWMubyB4bF91c2Iubw0KPiAgWExfT0JKUyArPSB4bF9zY2hlZC5vIHhsX3Bj
+aS5vIHhsX3ZjcHUubyB4bF9jZHJvbS5vIHhsX21lbS5vDQo+ICBYTF9PQkpTICs9IHhsX2luZm8u
+byB4bF9jb25zb2xlLm8geGxfbWlzYy5vDQo+ICBYTF9PQkpTICs9IHhsX3ZtY29udHJvbC5vIHhs
+X3NhdmVyZXN0b3JlLm8geGxfbWlncmF0ZS5vDQo+IC1YTF9PQkpTICs9IHhsX3ZkaXNwbC5vIHhs
+X3ZzbmQubyB4bF92a2Iubw0KPiArWExfT0JKUyArPSB4bF92ZGlzcGwubyB4bF92c25kLm8geGxf
+dmtiLm8geGxfdmlydGlvX2Rpc2subw0KPiANCj4gICQoWExfT0JKUyk6IENGTEFHUyArPSAkKENG
+TEFHU19saWJ4ZW50b29sbG9nKQ0KPiAgJChYTF9PQkpTKTogQ0ZMQUdTICs9ICQoQ0ZMQUdTX1hM
+KQ0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMveGwveGwuaCBiL3Rvb2xzL3hsL3hsLmgNCj4gaW5kZXgg
+MDY1NjljNi4uM2QyNmYxOSAxMDA2NDQNCj4gLS0tIGEvdG9vbHMveGwveGwuaA0KPiArKysgYi90
+b29scy94bC94bC5oDQo+IEBAIC0xNzgsNiArMTc4LDkgQEAgaW50IG1haW5fdnNuZGRldGFjaChp
+bnQgYXJnYywgY2hhciAqKmFyZ3YpOw0KPiAgaW50IG1haW5fdmtiYXR0YWNoKGludCBhcmdjLCBj
+aGFyICoqYXJndik7DQo+ICBpbnQgbWFpbl92a2JsaXN0KGludCBhcmdjLCBjaGFyICoqYXJndik7
+DQo+ICBpbnQgbWFpbl92a2JkZXRhY2goaW50IGFyZ2MsIGNoYXIgKiphcmd2KTsNCj4gK2ludCBt
+YWluX3ZpcnRpb19kaXNrYXR0YWNoKGludCBhcmdjLCBjaGFyICoqYXJndik7DQo+ICtpbnQgbWFp
+bl92aXJ0aW9fZGlza2xpc3QoaW50IGFyZ2MsIGNoYXIgKiphcmd2KTsNCj4gK2ludCBtYWluX3Zp
+cnRpb19kaXNrZGV0YWNoKGludCBhcmdjLCBjaGFyICoqYXJndik7DQo+ICBpbnQgbWFpbl91c2Jj
+dHJsX2F0dGFjaChpbnQgYXJnYywgY2hhciAqKmFyZ3YpOw0KPiAgaW50IG1haW5fdXNiY3RybF9k
+ZXRhY2goaW50IGFyZ2MsIGNoYXIgKiphcmd2KTsNCj4gIGludCBtYWluX3VzYmRldl9hdHRhY2go
+aW50IGFyZ2MsIGNoYXIgKiphcmd2KTsNCj4gZGlmZiAtLWdpdCBhL3Rvb2xzL3hsL3hsX2NtZHRh
+YmxlLmMgYi90b29scy94bC94bF9jbWR0YWJsZS5jDQo+IGluZGV4IDdkYTZjMWIuLjc0NWFmYWIg
+MTAwNjQ0DQo+IC0tLSBhL3Rvb2xzL3hsL3hsX2NtZHRhYmxlLmMNCj4gKysrIGIvdG9vbHMveGwv
+eGxfY21kdGFibGUuYw0KPiBAQCAtNDM1LDYgKzQzNSwyMSBAQCBzdHJ1Y3QgY21kX3NwZWMgY21k
+X3RhYmxlW10gPSB7DQo+ICAgICAgICAiRGVzdHJveSBhIGRvbWFpbidzIHZpcnR1YWwgc291bmQg
+ZGV2aWNlIiwNCj4gICAgICAgICI8RG9tYWluPiA8RGV2SWQ+IiwNCj4gICAgICB9LA0KPiArICAg
+IHsgInZpcnRpby1kaXNrLWF0dGFjaCIsDQo+ICsgICAgICAmbWFpbl92aXJ0aW9fZGlza2F0dGFj
+aCwgMSwgMSwNCj4gKyAgICAgICJDcmVhdGUgYSBuZXcgdmlydGlvIGJsb2NrIGRldmljZSIsDQo+
+ICsgICAgICAiIFRCRFxuIg0KPiArICAgIH0sDQo+ICsgICAgeyAidmlydGlvLWRpc2stbGlzdCIs
+DQo+ICsgICAgICAmbWFpbl92aXJ0aW9fZGlza2xpc3QsIDAsIDAsDQo+ICsgICAgICAiTGlzdCB2
+aXJ0aW8gYmxvY2sgZGV2aWNlcyBmb3IgYSBkb21haW4iLA0KPiArICAgICAgIjxEb21haW4ocyk+
+IiwNCj4gKyAgICB9LA0KPiArICAgIHsgInZpcnRpby1kaXNrLWRldGFjaCIsDQo+ICsgICAgICAm
+bWFpbl92aXJ0aW9fZGlza2RldGFjaCwgMCwgMSwNCj4gKyAgICAgICJEZXN0cm95IGEgZG9tYWlu
+J3MgdmlydGlvIGJsb2NrIGRldmljZSIsDQo+ICsgICAgICAiPERvbWFpbj4gPERldklkPiIsDQo+
+ICsgICAgfSwNCj4gICAgICB7ICJ1cHRpbWUiLA0KPiAgICAgICAgJm1haW5fdXB0aW1lLCAwLCAw
+LA0KPiAgICAgICAgIlByaW50IHVwdGltZSBmb3IgYWxsL3NvbWUgZG9tYWlucyIsDQo+IGRpZmYg
+LS1naXQgYS90b29scy94bC94bF9wYXJzZS5jIGIvdG9vbHMveGwveGxfcGFyc2UuYw0KPiBpbmRl
+eCAxMGFjZjIyLi42Y2YzNTI0IDEwMDY0NA0KPiAtLS0gYS90b29scy94bC94bF9wYXJzZS5jDQo+
+ICsrKyBiL3Rvb2xzL3hsL3hsX3BhcnNlLmMNCj4gQEAgLTEyMDQsNiArMTIwNCwxMjAgQEAgb3V0
+Og0KPiAgICAgIGlmIChyYykgZXhpdChFWElUX0ZBSUxVUkUpOw0KPiAgfQ0KPiANCj4gKyNkZWZp
+bmUgTUFYX1ZJUlRJT19ESVNLUyA0DQo+ICsNCj4gK3N0YXRpYyBpbnQgcGFyc2VfdmlydGlvX2Rp
+c2tfY29uZmlnKGxpYnhsX2RldmljZV92aXJ0aW9fZGlzayAqdmlydGlvX2Rpc2ssIGNoYXINCj4g
+KnRva2VuKQ0KPiArew0KPiArICAgIGNoYXIgKm9wYXJnOw0KPiArICAgIGxpYnhsX3N0cmluZ19s
+aXN0IGRpc2tzID0gTlVMTDsNCj4gKyAgICBpbnQgaSwgcmM7DQo+ICsNCj4gKyAgICBpZiAoTUFU
+Q0hfT1BUSU9OKCJiYWNrZW5kIiwgdG9rZW4sIG9wYXJnKSkgew0KPiArICAgICAgICB2aXJ0aW9f
+ZGlzay0+YmFja2VuZF9kb21uYW1lID0gc3RyZHVwKG9wYXJnKTsNCj4gKyAgICB9IGVsc2UgaWYg
+KE1BVENIX09QVElPTigiZGlza3MiLCB0b2tlbiwgb3BhcmcpKSB7DQo+ICsgICAgICAgIHNwbGl0
+X3N0cmluZ19pbnRvX3N0cmluZ19saXN0KG9wYXJnLCAiOyIsICZkaXNrcyk7DQo+ICsNCj4gKyAg
+ICAgICAgdmlydGlvX2Rpc2stPm51bV9kaXNrcyA9IGxpYnhsX3N0cmluZ19saXN0X2xlbmd0aCgm
+ZGlza3MpOw0KPiArICAgICAgICBpZiAodmlydGlvX2Rpc2stPm51bV9kaXNrcyA+IE1BWF9WSVJU
+SU9fRElTS1MpIHsNCj4gKyAgICAgICAgICAgIGZwcmludGYoc3RkZXJyLCAidmRpc2s6IGN1cnJl
+bnRseSBvbmx5ICVkIGRpc2tzIGFyZSBzdXBwb3J0ZWQiLA0KPiArICAgICAgICAgICAgICAgICAg
+ICBNQVhfVklSVElPX0RJU0tTKTsNCj4gKyAgICAgICAgICAgIHJldHVybiAxOw0KPiArICAgICAg
+ICB9DQo+ICsgICAgICAgIHZpcnRpb19kaXNrLT5kaXNrcyA9IHhjYWxsb2ModmlydGlvX2Rpc2st
+Pm51bV9kaXNrcywNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXpl
+b2YoKnZpcnRpb19kaXNrLT5kaXNrcykpOw0KPiArDQo+ICsgICAgICAgIGZvcihpID0gMDsgaSA8
+IHZpcnRpb19kaXNrLT5udW1fZGlza3M7IGkrKykgew0KPiArICAgICAgICAgICAgY2hhciAqZGlz
+a19vcHQ7DQo+ICsNCj4gKyAgICAgICAgICAgIHJjID0gc3BsaXRfc3RyaW5nX2ludG9fcGFpcihk
+aXNrc1tpXSwgIjoiLCAmZGlza19vcHQsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgJnZpcnRpb19kaXNrLT5kaXNrc1tpXS5maWxlbmFtZSk7DQo+ICsgICAgICAg
+ICAgICBpZiAocmMpIHsNCj4gKyAgICAgICAgICAgICAgICBmcHJpbnRmKHN0ZGVyciwgInZkaXNr
+OiBmYWlsZWQgdG8gc3BsaXQgXCIlc1wiIGludG8gcGFpclxuIiwNCj4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgIGRpc2tzW2ldKTsNCj4gKyAgICAgICAgICAgICAgICBnb3RvIG91dDsNCj4gKyAg
+ICAgICAgICAgIH0NCj4gKw0KPiArICAgICAgICAgICAgaWYgKCFzdHJjbXAoZGlza19vcHQsICJy
+byIpKQ0KPiArICAgICAgICAgICAgICAgIHZpcnRpb19kaXNrLT5kaXNrc1tpXS5yZWFkb25seSA9
+IDE7DQo+ICsgICAgICAgICAgICBlbHNlIGlmICghc3RyY21wKGRpc2tfb3B0LCAicnciKSkNCj4g
+KyAgICAgICAgICAgICAgICB2aXJ0aW9fZGlzay0+ZGlza3NbaV0ucmVhZG9ubHkgPSAwOw0KPiAr
+ICAgICAgICAgICAgZWxzZSB7DQo+ICsgICAgICAgICAgICAgICAgZnByaW50ZihzdGRlcnIsICJ2
+ZGlzazogZmFpbGVkIHRvIHBhcnNlIFwiJXNcIiBkaXNrIG9wdGlvblxuIiwNCj4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgIGRpc2tfb3B0KTsNCj4gKyAgICAgICAgICAgICAgICByYyA9IDE7DQo+
+ICsgICAgICAgICAgICB9DQo+ICsgICAgICAgICAgICBmcmVlKGRpc2tfb3B0KTsNCj4gKw0KPiAr
+ICAgICAgICAgICAgaWYgKHJjKSBnb3RvIG91dDsNCj4gKyAgICAgICAgfQ0KPiArICAgIH0gZWxz
+ZSB7DQo+ICsgICAgICAgIGZwcmludGYoc3RkZXJyLCAiVW5rbm93biBzdHJpbmcgXCIlc1wiIGlu
+IHZkaXNrIHNwZWNcbiIsIHRva2VuKTsNCj4gKyAgICAgICAgcmMgPSAxOyBnb3RvIG91dDsNCj4g
+KyAgICB9DQo+ICsNCj4gKyAgICByYyA9IDA7DQo+ICsNCj4gK291dDoNCj4gKyAgICBsaWJ4bF9z
+dHJpbmdfbGlzdF9kaXNwb3NlKCZkaXNrcyk7DQo+ICsgICAgcmV0dXJuIHJjOw0KPiArfQ0KPiAr
+DQo+ICtzdGF0aWMgdm9pZCBwYXJzZV92aXJ0aW9fZGlza19saXN0KGNvbnN0IFhMVV9Db25maWcg
+KmNvbmZpZywNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBsaWJ4bF9kb21haW5fY29u
+ZmlnICpkX2NvbmZpZykNCj4gK3sNCj4gKyAgICBYTFVfQ29uZmlnTGlzdCAqdmlydGlvX2Rpc2tz
+Ow0KPiArICAgIGNvbnN0IGNoYXIgKml0ZW07DQo+ICsgICAgY2hhciAqYnVmID0gTlVMTDsNCj4g
+KyAgICBpbnQgcmM7DQo+ICsNCj4gKyAgICBpZiAoIXhsdV9jZmdfZ2V0X2xpc3QgKGNvbmZpZywg
+InZkaXNrIiwgJnZpcnRpb19kaXNrcywgMCwgMCkpIHsNCj4gKyAgICAgICAgbGlieGxfZG9tYWlu
+X2J1aWxkX2luZm8gKmJfaW5mbyA9ICZkX2NvbmZpZy0+Yl9pbmZvOw0KPiArICAgICAgICBpbnQg
+ZW50cnkgPSAwOw0KPiArDQo+ICsgICAgICAgIC8qIFhYWCBSZW1vdmUgYW4gZXh0cmEgcHJvcGVy
+dHkgKi8NCj4gKyAgICAgICAgbGlieGxfZGVmYm9vbF9zZXRkZWZhdWx0KCZiX2luZm8tPmFyY2hf
+YXJtLnZpcnRpbywgZmFsc2UpOw0KPiArICAgICAgICBpZiAoIWxpYnhsX2RlZmJvb2xfdmFsKGJf
+aW5mby0+YXJjaF9hcm0udmlydGlvKSkgew0KPiArICAgICAgICAgICAgZnByaW50ZihzdGRlcnIs
+ICJWaXJ0aW8gZGV2aWNlIHJlcXVpcmVzIFZpcnRpbyBwcm9wZXJ0eSB0byBiZSBzZXRcbiIpOw0K
+PiArICAgICAgICAgICAgZXhpdChFWElUX0ZBSUxVUkUpOw0KPiArICAgICAgICB9DQo+ICsNCj4g
+KyAgICAgICAgd2hpbGUgKChpdGVtID0geGx1X2NmZ19nZXRfbGlzdGl0ZW0odmlydGlvX2Rpc2tz
+LCBlbnRyeSkpICE9IE5VTEwpIHsNCj4gKyAgICAgICAgICAgIGxpYnhsX2RldmljZV92aXJ0aW9f
+ZGlzayAqdmlydGlvX2Rpc2s7DQo+ICsgICAgICAgICAgICBjaGFyICpwOw0KPiArDQo+ICsgICAg
+ICAgICAgICB2aXJ0aW9fZGlzayA9IEFSUkFZX0VYVEVORF9JTklUKGRfY29uZmlnLT52aXJ0aW9f
+ZGlza3MsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRf
+Y29uZmlnLT5udW1fdmlydGlvX2Rpc2tzLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBsaWJ4bF9kZXZpY2VfdmlydGlvX2Rpc2tfaW5pdCk7DQo+ICsNCj4g
+KyAgICAgICAgICAgIGJ1ZiA9IHN0cmR1cChpdGVtKTsNCj4gKw0KPiArICAgICAgICAgICAgcCA9
+IHN0cnRvayAoYnVmLCAiLCIpOw0KPiArICAgICAgICAgICAgd2hpbGUgKHAgIT0gTlVMTCkNCj4g
+KyAgICAgICAgICAgIHsNCj4gKyAgICAgICAgICAgICAgICB3aGlsZSAoKnAgPT0gJyAnKSBwKys7
+DQo+ICsNCj4gKyAgICAgICAgICAgICAgICByYyA9IHBhcnNlX3ZpcnRpb19kaXNrX2NvbmZpZyh2
+aXJ0aW9fZGlzaywgcCk7DQo+ICsgICAgICAgICAgICAgICAgaWYgKHJjKSBnb3RvIG91dDsNCj4g
+Kw0KPiArICAgICAgICAgICAgICAgIHAgPSBzdHJ0b2sgKE5VTEwsICIsIik7DQo+ICsgICAgICAg
+ICAgICB9DQo+ICsNCj4gKyAgICAgICAgICAgIGVudHJ5Kys7DQo+ICsNCj4gKyAgICAgICAgICAg
+IGlmICh2aXJ0aW9fZGlzay0+bnVtX2Rpc2tzID09IDApIHsNCj4gKyAgICAgICAgICAgICAgICBm
+cHJpbnRmKHN0ZGVyciwgIkF0IGxlYXN0IG9uZSB2aXJ0aW8gZGlzayBzaG91bGQgYmUgc3BlY2lm
+aWVkXG4iKTsNCj4gKyAgICAgICAgICAgICAgICByYyA9IDE7IGdvdG8gb3V0Ow0KPiArICAgICAg
+ICAgICAgfQ0KPiArICAgICAgICB9DQo+ICsgICAgfQ0KPiArDQo+ICsgICAgcmMgPSAwOw0KPiAr
+DQo+ICtvdXQ6DQo+ICsgICAgZnJlZShidWYpOw0KPiArICAgIGlmIChyYykgZXhpdChFWElUX0ZB
+SUxVUkUpOw0KPiArfQ0KPiArDQo+ICB2b2lkIHBhcnNlX2NvbmZpZ19kYXRhKGNvbnN0IGNoYXIg
+KmNvbmZpZ19zb3VyY2UsDQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IGNoYXIgKmNv
+bmZpZ19kYXRhLA0KPiAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgY29uZmlnX2xlbiwNCj4g
+QEAgLTI3MzQsNiArMjg0OCw3IEBAIHNraXBfdXNiZGV2Og0KPiAgICAgIH0NCj4gDQo+ICAgICAg
+cGFyc2VfdmtiX2xpc3QoY29uZmlnLCBkX2NvbmZpZyk7DQo+ICsgICAgcGFyc2VfdmlydGlvX2Rp
+c2tfbGlzdChjb25maWcsIGRfY29uZmlnKTsNCj4gDQo+ICAgICAgeGx1X2NmZ19nZXRfZGVmYm9v
+bChjb25maWcsICJ4ZW5kX3N1c3BlbmRfZXZ0Y2huX2NvbXBhdCIsDQo+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAmY19pbmZvLT54ZW5kX3N1c3BlbmRfZXZ0Y2huX2NvbXBhdCwgMCk7DQo+IGRp
+ZmYgLS1naXQgYS90b29scy94bC94bF92aXJ0aW9fZGlzay5jIGIvdG9vbHMveGwveGxfdmlydGlv
+X2Rpc2suYw0KPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiBpbmRleCAwMDAwMDAwLi44MDhhN2Rh
+DQo+IC0tLSAvZGV2L251bGwNCj4gKysrIGIvdG9vbHMveGwveGxfdmlydGlvX2Rpc2suYw0KPiBA
+QCAtMCwwICsxLDQ2IEBADQo+ICsvKg0KPiArICogQ29weXJpZ2h0IChDKSAyMDIwIEVQQU0gU3lz
+dGVtcyBJbmMuDQo+ICsgKg0KPiArICogVGhpcyBwcm9ncmFtIGlzIGZyZWUgc29mdHdhcmU7IHlv
+dSBjYW4gcmVkaXN0cmlidXRlIGl0IGFuZC9vciBtb2RpZnkNCj4gKyAqIGl0IHVuZGVyIHRoZSB0
+ZXJtcyBvZiB0aGUgR05VIExlc3NlciBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGFzIHB1Ymxpc2hl
+ZA0KPiArICogYnkgdGhlIEZyZWUgU29mdHdhcmUgRm91bmRhdGlvbjsgdmVyc2lvbiAyLjEgb25s
+eS4gd2l0aCB0aGUgc3BlY2lhbA0KPiArICogZXhjZXB0aW9uIG9uIGxpbmtpbmcgZGVzY3JpYmVk
+IGluIGZpbGUgTElDRU5TRS4NCj4gKyAqDQo+ICsgKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0
+ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3aWxsIGJlIHVzZWZ1bCwNCj4gKyAqIGJ1dCBXSVRIT1VU
+IEFOWSBXQVJSQU5UWTsgd2l0aG91dCBldmVuIHRoZSBpbXBsaWVkIHdhcnJhbnR5IG9mDQo+ICsg
+KiBNRVJDSEFOVEFCSUxJVFkgb3IgRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UuICBT
+ZWUgdGhlDQo+ICsgKiBHTlUgTGVzc2VyIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUg
+ZGV0YWlscy4NCj4gKyAqLw0KPiArDQo+ICsjaW5jbHVkZSA8c3RkbGliLmg+DQo+ICsNCj4gKyNp
+bmNsdWRlIDxsaWJ4bC5oPg0KPiArI2luY2x1ZGUgPGxpYnhsX3V0aWxzLmg+DQo+ICsjaW5jbHVk
+ZSA8bGlieGx1dGlsLmg+DQo+ICsNCj4gKyNpbmNsdWRlICJ4bC5oIg0KPiArI2luY2x1ZGUgInhs
+X3V0aWxzLmgiDQo+ICsjaW5jbHVkZSAieGxfcGFyc2UuaCINCj4gKw0KPiAraW50IG1haW5fdmly
+dGlvX2Rpc2thdHRhY2goaW50IGFyZ2MsIGNoYXIgKiphcmd2KQ0KPiArew0KPiArICAgIHJldHVy
+biAwOw0KPiArfQ0KPiArDQo+ICtpbnQgbWFpbl92aXJ0aW9fZGlza2xpc3QoaW50IGFyZ2MsIGNo
+YXIgKiphcmd2KQ0KPiArew0KPiArICAgcmV0dXJuIDA7DQo+ICt9DQo+ICsNCj4gK2ludCBtYWlu
+X3ZpcnRpb19kaXNrZGV0YWNoKGludCBhcmdjLCBjaGFyICoqYXJndikNCj4gK3sNCj4gKyAgICBy
+ZXR1cm4gMDsNCj4gK30NCj4gKw0KPiArLyoNCj4gKyAqIExvY2FsIHZhcmlhYmxlczoNCj4gKyAq
+IG1vZGU6IEMNCj4gKyAqIGMtYmFzaWMtb2Zmc2V0OiA0DQo+ICsgKiBpbmRlbnQtdGFicy1tb2Rl
+OiBuaWwNCj4gKyAqIEVuZDoNCj4gKyAqLw0KPiAtLQ0KPiAyLjcuNA0KPiANCg0K
 
