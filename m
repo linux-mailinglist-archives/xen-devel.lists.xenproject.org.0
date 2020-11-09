@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6942D2AC009
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 16:39:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.22665.49055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62E212AC110
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 17:39:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.22718.49109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kc9F7-0003QO-Nu; Mon, 09 Nov 2020 15:38:05 +0000
+	id 1kcABc-0000vh-RR; Mon, 09 Nov 2020 16:38:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 22665.49055; Mon, 09 Nov 2020 15:38:05 +0000
+Received: by outflank-mailman (output) from mailman id 22718.49109; Mon, 09 Nov 2020 16:38:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,74 +23,106 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kc9F7-0003Pz-KU; Mon, 09 Nov 2020 15:38:05 +0000
-Received: by outflank-mailman (input) for mailman id 22665;
- Mon, 09 Nov 2020 15:38:04 +0000
+	id 1kcABc-0000vI-Nc; Mon, 09 Nov 2020 16:38:32 +0000
+Received: by outflank-mailman (input) for mailman id 22718;
+ Mon, 09 Nov 2020 16:38:31 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2NS2=EP=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kc9F6-0003Pu-GE
- for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 15:38:04 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sEkb=EP=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kcABb-0000v8-2G
+ for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 16:38:31 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 072a0080-e124-459f-8307-958c58b47770;
- Mon, 09 Nov 2020 15:38:02 +0000 (UTC)
+ id 7b4ea960-041b-44e3-96b3-3216b006e393;
+ Mon, 09 Nov 2020 16:38:29 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 10915AC23;
+ Mon,  9 Nov 2020 16:38:29 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=2NS2=EP=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kc9F6-0003Pu-GE
-	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 15:38:04 +0000
-X-Inumbo-ID: 072a0080-e124-459f-8307-958c58b47770
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+	(envelope-from <SRS0=sEkb=EP=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kcABb-0000v8-2G
+	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 16:38:31 +0000
+X-Inumbo-ID: 7b4ea960-041b-44e3-96b3-3216b006e393
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 072a0080-e124-459f-8307-958c58b47770;
-	Mon, 09 Nov 2020 15:38:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1604936282;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=h8MDBQiES9vqsk/VNWiI5tsZVeX14okfUoJ5BWeel7Y=;
-  b=Zbd+feVIOyiQzvfZ07XgR0RnY06am78XXiTpaESUkOWxSIf0Acrcg/FK
-   NGRbdCZ4gS2oeyDIejPRWhlPgx6c7Qvzp7deypHc4NnBVnxKG9amvJxnT
-   2YbKFdjTh22ykBjO+wUMk/Uku2lJw9KAI5w2DcdzGfd4GstNLLiUo2Z5p
-   g=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: c6aLOzjjUzrg04/4+tsgI7sD+ZAfDtDe3sdT4feJNOHFlRW+hhVHU5qv+r+lSLcXeNyZ3oDsVL
- Ru5gbHzQEVd0aCiT4sz9hOeW7N9pDhNTffJQK1cQYIyx9gLJiQdTVE25GAT3UUc3fILmJjSBeS
- u0VUn5jUUbbhF+V4MbZKqC5/52b9h96cMSInYQ1CPSvaI2jelGuqYhQqFAPEuSRdKM+QR5rtQs
- 3keusS7pF8jRePvaUH9p+z6rhBUOmkE05hpCRmkd66dJ0V1ENwpddxDmUW2QjymG6NFeJnKGoC
- Pvk=
-X-SBRS: None
-X-MesageID: 30738214
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,463,1596513600"; 
-   d="scan'208";a="30738214"
-Subject: Re: [PATCH] x86/CPUID: also check leaf 7 max subleaf to be compatible
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>
-References: <a59790df-cc2c-30a3-fdf8-7c56472f00c2@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <3be88229-ac3c-37fa-ce15-d6c48654cd74@citrix.com>
-Date: Mon, 9 Nov 2020 15:30:58 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 7b4ea960-041b-44e3-96b3-3216b006e393;
+	Mon, 09 Nov 2020 16:38:29 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604939909;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=QU7Z3Z0bBjMIFarM5iEftjQYoXJqTzDIt0wRsAEwtIo=;
+	b=e8UAv2S+dcrq+HObe5o8R9YRbIM7bntu3ww9Qwm6FODAhPXWvzaMJYfOcTTOB3V6YpJd1q
+	jqwkqyaf9LIrj/6oGIKLBrE4jzkhpWzozAFDE1DSeI1XOeSwqfaFVv+cEEoi8pK9Iry2b6
+	CAtgkgihAUT1v9DRu8lygSlkLFd/h1g=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 10915AC23;
+	Mon,  9 Nov 2020 16:38:29 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: [PATCH v6 0/3] XSA-343 followup patches
+Date: Mon,  9 Nov 2020 17:38:23 +0100
+Message-Id: <20201109163826.13035-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <a59790df-cc2c-30a3-fdf8-7c56472f00c2@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+Content-Transfer-Encoding: 8bit
 
-On 09/11/2020 15:21, Jan Beulich wrote:
-> Just like is done for basic and extended major leaves.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+The patches for XSA-343 produced some fallout, especially the event
+channel locking has shown to be problematic.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Patch 1 is targeting fifo event channels for avoiding any races for the
+case that the fifo queue has been changed for a specific event channel.
+
+The second patch is modifying the per event channel locking scheme in
+order to avoid deadlocks and problems due to the event channel lock
+having been changed to require IRQs off by the XSA-343 patches.
+
+Changes in V6:
+- added patch 3 (Jan Beulich)
+- switched some more read_trylock() cases to read_lock() (Jan Beulich)
+
+Changes in V5:
+- moved evtchn_write_[un]lock() to event_channel.c (Jan Beulich)
+- used normal read_lock() in some cases (Jan Beulich)
+
+Changes in V4:
+- switched to real rwlock
+
+Changes in V3:
+- addressed comments
+
+Juergen Gross (3):
+  xen/events: access last_priority and last_vcpu_id together
+  xen/evtchn: rework per event channel lock
+  xen/evtchn: revert 52e1fc47abc3a0123
+
+ xen/arch/x86/irq.c          |   6 +-
+ xen/arch/x86/pv/shim.c      |   9 ++-
+ xen/common/event_channel.c  | 144 +++++++++++++++++++-----------------
+ xen/common/event_fifo.c     |  25 +++++--
+ xen/include/xen/event.h     |  29 ++++++--
+ xen/include/xen/sched.h     |   8 +-
+ xen/include/xsm/xsm.h       |   1 -
+ xen/xsm/flask/avc.c         |  78 ++-----------------
+ xen/xsm/flask/hooks.c       |  10 ---
+ xen/xsm/flask/include/avc.h |   2 -
+ 10 files changed, 139 insertions(+), 173 deletions(-)
+
+-- 
+2.26.2
+
 
