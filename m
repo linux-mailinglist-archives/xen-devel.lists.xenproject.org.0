@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9EB2AB550
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 11:48:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.22351.48635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4204B2AB582
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 11:53:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.22361.48647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kc4iR-00007j-1V; Mon, 09 Nov 2020 10:48:03 +0000
+	id 1kc4np-00011y-J8; Mon, 09 Nov 2020 10:53:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 22351.48635; Mon, 09 Nov 2020 10:48:03 +0000
+Received: by outflank-mailman (output) from mailman id 22361.48647; Mon, 09 Nov 2020 10:53:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,135 +23,76 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kc4iQ-00007F-U5; Mon, 09 Nov 2020 10:48:02 +0000
-Received: by outflank-mailman (input) for mailman id 22351;
- Mon, 09 Nov 2020 10:48:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kc4np-00011Z-Fq; Mon, 09 Nov 2020 10:53:37 +0000
+Received: by outflank-mailman (input) for mailman id 22361;
+ Mon, 09 Nov 2020 10:53:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FQmy=EP=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
- id 1kc4iQ-000074-0T
- for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 10:48:02 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 173e2d7d-7bd5-4887-a9ae-09e503516baa;
- Mon, 09 Nov 2020 10:48:00 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-276-4D-q5n4QNqulbb6oiE2qdQ-1; Mon, 09 Nov 2020 05:47:57 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B2481074653;
- Mon,  9 Nov 2020 10:47:55 +0000 (UTC)
-Received: from gondolin (ovpn-113-28.ams2.redhat.com [10.36.113.28])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C3AF175125;
- Mon,  9 Nov 2020 10:47:43 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ (envelope-from <SRS0=a0OZ=EP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kc4no-00011U-7P
+ for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 10:53:36 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 61f1e0b8-92dd-477f-babd-6d197ab52dc3;
+ Mon, 09 Nov 2020 10:53:34 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DE761AD6D;
+ Mon,  9 Nov 2020 10:53:33 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=FQmy=EP=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
-	id 1kc4iQ-000074-0T
-	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 10:48:02 +0000
-X-Inumbo-ID: 173e2d7d-7bd5-4887-a9ae-09e503516baa
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 173e2d7d-7bd5-4887-a9ae-09e503516baa;
-	Mon, 09 Nov 2020 10:48:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1604918880;
+	(envelope-from <SRS0=a0OZ=EP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kc4no-00011U-7P
+	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 10:53:36 +0000
+X-Inumbo-ID: 61f1e0b8-92dd-477f-babd-6d197ab52dc3
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 61f1e0b8-92dd-477f-babd-6d197ab52dc3;
+	Mon, 09 Nov 2020 10:53:34 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1604919214;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5xhQO0ta8Zk7YojdbHZFj2vc+4a/lBAf0TXONvmSYBs=;
-	b=Y57XVgQ30rv+NqboQG+U0Z76cL3+V5FWalC/3pedE5VdUg7KwlCtevkyksHjfJrelxxihS
-	c1tfQC3NIzUHXZlwz8ZgmH2eSMed/qCH+Y9oGnJ3jsj+6iA2UWxiHf3wl2MJuAvSAL19pc
-	EqPZrXejAGuTuO3eyXpJO3myRUbcFIQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-276-4D-q5n4QNqulbb6oiE2qdQ-1; Mon, 09 Nov 2020 05:47:57 -0500
-X-MC-Unique: 4D-q5n4QNqulbb6oiE2qdQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B2481074653;
-	Mon,  9 Nov 2020 10:47:55 +0000 (UTC)
-Received: from gondolin (ovpn-113-28.ams2.redhat.com [10.36.113.28])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C3AF175125;
-	Mon,  9 Nov 2020 10:47:43 +0000 (UTC)
-Date: Mon, 9 Nov 2020 11:47:40 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-To: Eduardo Habkost <ehabkost@redhat.com>
-Cc: qemu-devel@nongnu.org, Igor Mammedov <imammedo@redhat.com>, "Daniel P.
- Berrange" <berrange@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Stefan Berger <stefanb@linux.vnet.ibm.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, Paul
- Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>, Max Reitz
- <mreitz@redhat.com>, Thomas Huth <thuth@redhat.com>, Halil Pasic
- <pasic@linux.ibm.com>, Christian Borntraeger <borntraeger@de.ibm.com>,
- Richard Henderson <rth@twiddle.net>, David Hildenbrand <david@redhat.com>,
- Matthew Rosato <mjrosato@linux.ibm.com>, Alex Williamson
- <alex.williamson@redhat.com>, xen-devel@lists.xenproject.org,
- qemu-block@nongnu.org, qemu-s390x@nongnu.org
-Subject: Re: [PATCH 6/7] qom: Add FIELD_PTR, a type-safe wrapper for
- object_field_prop_ptr()
-Message-ID: <20201109114740.19e727d9.cohuck@redhat.com>
-In-Reply-To: <20201104172512.2381656-7-ehabkost@redhat.com>
-References: <20201104172512.2381656-1-ehabkost@redhat.com>
-	<20201104172512.2381656-7-ehabkost@redhat.com>
-Organization: Red Hat GmbH
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dIi1qxwUZQ0BiQH3jv2IR7dBQoVEGhHSp8IsqYfVSKM=;
+	b=fQfb6yJenalkGZ055BOtocobl1eskuM76KJd0zx+u3QDvnNu/oZNxGwfvYxTcK1LwT71db
+	qDga/k39vGWF8dP53fODKKX9YNOSKrH9YKBL7ZIYSG38Mx2SoRx3W5tLcvQB5VQmXQK8Ay
+	fQ3mbQ6HZibD2Tr+u6AuIArQVOL1Bhg=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id DE761AD6D;
+	Mon,  9 Nov 2020 10:53:33 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/CPUID: don't use UB shift when library is built as 32-bit
+Message-ID: <b579bde8-6cd2-0407-f098-c44e1c9ff814@suse.com>
+Date: Mon, 9 Nov 2020 11:53:36 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.1
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cohuck@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Wed,  4 Nov 2020 12:25:11 -0500
-Eduardo Habkost <ehabkost@redhat.com> wrote:
+At least the insn emulator test harness will continue to be buildable
+(and ought to continue to be usable) also as a 32-bit binary. (Right now
+the CPU policy test harness is, too, but there it may be less relevant
+to keep it functional, just like e.g. we don't support fuzzing the insn
+emulator in 32-bit mode.) Hence the library code needs to cope with
+this.
 
-> Introduce a FIELD_PTR macro that will ensure the size of the area
-> we are accessing has the correct size, and will return a pointer
-> of the correct type.
->=20
-> Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
-> ---
-> Cc: Stefan Berger <stefanb@linux.vnet.ibm.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Anthony Perard <anthony.perard@citrix.com>
-> Cc: Paul Durrant <paul@xen.org>
-> Cc: Kevin Wolf <kwolf@redhat.com>
-> Cc: Max Reitz <mreitz@redhat.com>
-> Cc: Paolo Bonzini <pbonzini@redhat.com>
-> Cc: "Daniel P. Berrang=C3=A9" <berrange@redhat.com>
-> Cc: Eduardo Habkost <ehabkost@redhat.com>
-> Cc: Cornelia Huck <cohuck@redhat.com>
-> Cc: Thomas Huth <thuth@redhat.com>
-> Cc: Halil Pasic <pasic@linux.ibm.com>
-> Cc: Christian Borntraeger <borntraeger@de.ibm.com>
-> Cc: Richard Henderson <rth@twiddle.net>
-> Cc: David Hildenbrand <david@redhat.com>
-> Cc: Matthew Rosato <mjrosato@linux.ibm.com>
-> Cc: Alex Williamson <alex.williamson@redhat.com>
-> Cc: qemu-devel@nongnu.org
-> Cc: xen-devel@lists.xenproject.org
-> Cc: qemu-block@nongnu.org
-> Cc: qemu-s390x@nongnu.org
-> ---
->  include/qom/field-property.h     | 21 ++++++++++-
->  backends/tpm/tpm_util.c          |  6 ++--
->  hw/block/xen-block.c             |  4 +--
->  hw/core/qdev-properties-system.c | 50 +++++++++++++-------------
->  hw/s390x/css.c                   |  4 +--
->  hw/s390x/s390-pci-bus.c          |  4 +--
->  hw/vfio/pci-quirks.c             |  4 +--
->  qom/field-property.c             |  3 +-
->  qom/property-types.c             | 60 +++++++++++++++++---------------
->  9 files changed, 89 insertions(+), 67 deletions(-)
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Cornelia Huck <cohuck@redhat.com>
-
+--- a/xen/lib/x86/cpuid.c
++++ b/xen/lib/x86/cpuid.c
+@@ -165,7 +165,7 @@ void x86_cpuid_policy_fill_native(struct
+         for ( i = 2; i < min_t(unsigned int, 63,
+                                ARRAY_SIZE(p->xstate.raw)); ++i )
+         {
+-            if ( xstates & (1ul << i) )
++            if ( xstates & (1ull << i) )
+                 cpuid_count_leaf(0xd, i, &p->xstate.raw[i]);
+         }
+     }
 
