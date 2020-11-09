@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F24982AB0D6
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 06:34:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.21950.48283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98DE02AB0D7
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 06:34:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.21956.48298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kbznu-0003Hb-Di; Mon, 09 Nov 2020 05:33:22 +0000
+	id 1kbzog-0003O7-Ow; Mon, 09 Nov 2020 05:34:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 21950.48283; Mon, 09 Nov 2020 05:33:22 +0000
+Received: by outflank-mailman (output) from mailman id 21956.48298; Mon, 09 Nov 2020 05:34:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,123 +23,130 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kbznu-0003HC-AM; Mon, 09 Nov 2020 05:33:22 +0000
-Received: by outflank-mailman (input) for mailman id 21950;
- Mon, 09 Nov 2020 05:33:21 +0000
+	id 1kbzog-0003Ni-Le; Mon, 09 Nov 2020 05:34:10 +0000
+Received: by outflank-mailman (input) for mailman id 21956;
+ Mon, 09 Nov 2020 05:34:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sEkb=EP=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kbzns-0003H7-Rm
- for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 05:33:20 +0000
+ id 1kbzof-0003Nd-Sx
+ for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 05:34:09 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cd2cfa72-6093-40b5-b8ed-f0a955cb0d64;
- Mon, 09 Nov 2020 05:33:19 +0000 (UTC)
+ id 971652e7-1c2f-4917-bc75-0a2b28e0915f;
+ Mon, 09 Nov 2020 05:34:09 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 14BE8ABD1;
- Mon,  9 Nov 2020 05:33:19 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 7131EABAE;
+ Mon,  9 Nov 2020 05:34:08 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=sEkb=EP=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kbzns-0003H7-Rm
-	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 05:33:20 +0000
-X-Inumbo-ID: cd2cfa72-6093-40b5-b8ed-f0a955cb0d64
+	id 1kbzof-0003Nd-Sx
+	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 05:34:09 +0000
+X-Inumbo-ID: 971652e7-1c2f-4917-bc75-0a2b28e0915f
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id cd2cfa72-6093-40b5-b8ed-f0a955cb0d64;
-	Mon, 09 Nov 2020 05:33:19 +0000 (UTC)
+	id 971652e7-1c2f-4917-bc75-0a2b28e0915f;
+	Mon, 09 Nov 2020 05:34:09 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1604899999;
+	t=1604900048;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NOCklL+dKjEBoXv5GNo9qN09vViqY6+JBVmLpt5WKQg=;
-	b=V1LysvaHbM6GhlwsChd6yzwtwq5UI+QoF0lFHNURAqWLw62WXoFg9lOn5vAV6s4etOBxDN
-	InKdArnbOOGFfo1qoi/dePLp+cj+yXux5N7Urx+uJmUO306HBQymgA5C6vCAfQj7CxA3Qw
-	8eWm9iBnuSW4UakiT1aslQTsUVV8iOE=
+	bh=noiwDpF5h6c55/R3o+eIuWv6Yp6OH0DaU2dC3h8Ij3M=;
+	b=Ks60smEgzrqCfdsMA3Cu4ez8mQ/b+lRNUSiTGZd2dzvczdBKhKRw/CT8K9G7IxG1QArf2S
+	tejkI/taZVBfcnX+x//mH5eudTrqyMkDyRhtfyu1O+BfC9KQYOu+rEWkOIM6+3MwuwY+/K
+	91DIj6/Oq6t0ykacjqnRMEOLTCZGe7M=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 14BE8ABD1;
-	Mon,  9 Nov 2020 05:33:19 +0000 (UTC)
-Subject: Re: [xen-unstable test] 156556: regressions - FAIL
-To: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <osstest-156556-mainreport@xen.org>
+	by mx2.suse.de (Postfix) with ESMTP id 7131EABAE;
+	Mon,  9 Nov 2020 05:34:08 +0000 (UTC)
+Subject: Re: [PATCH v2] x86/xen: don't unbind uninitialized lock_kicker_irq
+To: Brian Masney <bmasney@redhat.com>, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ dustymabe@redhat.com
+References: <20201107011119.631442-1-bmasney@redhat.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <3660b9c9-8246-ba12-db7a-00b07a85d6d6@suse.com>
-Date: Mon, 9 Nov 2020 06:33:18 +0100
+Message-ID: <5950df5c-79d6-b2bc-4f2b-35624a3c0d1e@suse.com>
+Date: Mon, 9 Nov 2020 06:34:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <osstest-156556-mainreport@xen.org>
+In-Reply-To: <20201107011119.631442-1-bmasney@redhat.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="WBlBx1QOj8ghiAb6qb2SbL7Ho1fKaSjap"
+ boundary="YKXpHhhBagLrE4UFk7e72LVQHqGGgIOur"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---WBlBx1QOj8ghiAb6qb2SbL7Ho1fKaSjap
-Content-Type: multipart/mixed; boundary="2rL9Pd7kUwZUmJXWSJPuoKH8SHeO7RyR2";
+--YKXpHhhBagLrE4UFk7e72LVQHqGGgIOur
+Content-Type: multipart/mixed; boundary="5v4Fbrt87IaxiF1E3Az2Gieiq5dDG3qgf";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org
-Message-ID: <3660b9c9-8246-ba12-db7a-00b07a85d6d6@suse.com>
-Subject: Re: [xen-unstable test] 156556: regressions - FAIL
-References: <osstest-156556-mainreport@xen.org>
-In-Reply-To: <osstest-156556-mainreport@xen.org>
+To: Brian Masney <bmasney@redhat.com>, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ dustymabe@redhat.com
+Message-ID: <5950df5c-79d6-b2bc-4f2b-35624a3c0d1e@suse.com>
+Subject: Re: [PATCH v2] x86/xen: don't unbind uninitialized lock_kicker_irq
+References: <20201107011119.631442-1-bmasney@redhat.com>
+In-Reply-To: <20201107011119.631442-1-bmasney@redhat.com>
 
---2rL9Pd7kUwZUmJXWSJPuoKH8SHeO7RyR2
+--5v4Fbrt87IaxiF1E3Az2Gieiq5dDG3qgf
 Content-Type: multipart/mixed;
- boundary="------------AD26196B0B9F9DAF7BA22B74"
+ boundary="------------6D3294FCE9D5D6953DCD3E3D"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------AD26196B0B9F9DAF7BA22B74
+--------------6D3294FCE9D5D6953DCD3E3D
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 09.11.20 03:09, osstest service owner wrote:
-> flight 156556 xen-unstable real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/156556/
+On 07.11.20 02:11, Brian Masney wrote:
+> When booting a hyperthreaded system with the kernel parameter
+> 'mitigations=3Dauto,nosmt', the following warning occurs:
 >=20
-> Regressions :-(
+>      WARNING: CPU: 0 PID: 1 at drivers/xen/events/events_base.c:1112 un=
+bind_from_irqhandler+0x4e/0x60
+>      ...
+>      Hardware name: Xen HVM domU, BIOS 4.2.amazon 08/24/2006
+>      ...
+>      Call Trace:
+>       xen_uninit_lock_cpu+0x28/0x62
+>       xen_hvm_cpu_die+0x21/0x30
+>       takedown_cpu+0x9c/0xe0
+>       ? trace_suspend_resume+0x60/0x60
+>       cpuhp_invoke_callback+0x9a/0x530
+>       _cpu_up+0x11a/0x130
+>       cpu_up+0x7e/0xc0
+>       bringup_nonboot_cpus+0x48/0x50
+>       smp_init+0x26/0x79
+>       kernel_init_freeable+0xea/0x229
+>       ? rest_init+0xaa/0xaa
+>       kernel_init+0xa/0x106
+>       ret_from_fork+0x35/0x40
 >=20
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->   test-amd64-i386-xl-xsm       14 guest-start              fail REGR. v=
-s. 156443
->   test-amd64-amd64-xl-xsm      14 guest-start              fail REGR. v=
-s. 156443
->   test-amd64-i386-libvirt-xsm  14 guest-start              fail REGR. v=
-s. 156443
->   test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. v=
-s. 156443
->   test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-i=
-nstall fail REGR. vs. 156443
->   test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-in=
-stall fail REGR. vs. 156443
->   test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fai=
-l REGR. vs. 156443
->   test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-inst=
-all fail REGR. vs. 156443
->   test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-insta=
-ll fail REGR. vs. 156443
->   test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fai=
-l REGR. vs. 156443
->   test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fa=
-il REGR. vs. 156443
->   test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fa=
-il REGR. vs. 156443
+> The secondary CPUs are not activated with the nosmt mitigations and onl=
+y
+> the primary thread on each CPU core is used. In this situation,
+> xen_hvm_smp_prepare_cpus(), and more importantly xen_init_lock_cpu(), i=
+s
+> not called, so the lock_kicker_irq is not initialized for the secondary=
 
-Breakage due to policy_rwlock taken with interrupts off in evtchn_send()
-hinting at the further need to NOT take the per event channel lock with
-the irqsave variant.
+> CPUs. Let's fix this by exiting early in xen_uninit_lock_cpu() if the
+> irq is not set to avoid the warning from above for each secondary CPU.
+>=20
+> Signed-off-by: Brian Masney <bmasney@redhat.com>
+
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
 Juergen
 
---------------AD26196B0B9F9DAF7BA22B74
+--------------6D3294FCE9D5D6953DCD3E3D
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -230,25 +237,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------AD26196B0B9F9DAF7BA22B74--
+--------------6D3294FCE9D5D6953DCD3E3D--
 
---2rL9Pd7kUwZUmJXWSJPuoKH8SHeO7RyR2--
+--5v4Fbrt87IaxiF1E3Az2Gieiq5dDG3qgf--
 
---WBlBx1QOj8ghiAb6qb2SbL7Ho1fKaSjap
+--YKXpHhhBagLrE4UFk7e72LVQHqGGgIOur
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+o1J4FAwAAAAAACgkQsN6d1ii/Ey/i
-iAf/TrcDkALZf0KQRTSYwVDjNh9nt2GOTTBSs99tBOVNpxumdlWdaadhzu9ZbGFlUZ4YBNlyGKUZ
-qCCxKbqhRfKKxkkK1hfl/1em1odnzhDqW65Ta47cftSQdc8lf5oZA2/xEyI2nRZfOhmvlUatCupv
-yhk/gkPLJ/fXqHzktpL1pmQzahW1or0XQu0wmpHjR32pWifuzVKRXsI8KpiQeb3jbgpSBjQvHrfo
-OeoHiYfo5b1oUQKw4nwM5X3l4IU+lNhwD/9GHNUhcu1CrRw+ShgGFHuUY5shyFTzX1LOAXMxav6M
-wqSTgYsACOSzQ9g1fu4b6p1jOH/3+iJu93EDoNO3zA==
-=qmbm
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+o1M8FAwAAAAAACgkQsN6d1ii/Ey/m
+CAf+Lr22R5JRysNR9BuGXcwWkkWxoz2HyxznekTnFTH6WHZs1xTmnrStNcLH2PKYPQQzAs3QPXc9
+fTsZc9S3Ev+I594scUDzKCe/teXIldn1qcXoq462o1RrXxBbtAN6Q2J0NszICInMRMfr8z/srOwc
+oFtXTq9s4Ib/IzLI3nZQbnDhHSlB0Z8DyVrO0aB/8RJhJu938Fc10p1MWsRlCogWib133r+8piq0
+CeF3MwncLlsfGgFfnbSWT+FNB7iBTcovcf657ks4zQHFk3nMd75/EHC2CYtm1RKzoI9izg/H4/lv
+w/yfICC0TMUy7mO+bRopDMK13i8w2jSVngg9uPXpIw==
+=YR3F
 -----END PGP SIGNATURE-----
 
---WBlBx1QOj8ghiAb6qb2SbL7Ho1fKaSjap--
+--YKXpHhhBagLrE4UFk7e72LVQHqGGgIOur--
 
