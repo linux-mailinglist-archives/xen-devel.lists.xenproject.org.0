@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6820D2AC7DE
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 22:59:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.22915.49442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A8282AC825
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Nov 2020 23:16:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.22931.49458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcFCO-000592-Qv; Mon, 09 Nov 2020 21:59:40 +0000
+	id 1kcFRs-0006ug-8Q; Mon, 09 Nov 2020 22:15:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 22915.49442; Mon, 09 Nov 2020 21:59:40 +0000
+Received: by outflank-mailman (output) from mailman id 22931.49458; Mon, 09 Nov 2020 22:15:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,149 +23,214 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcFCO-00058c-No; Mon, 09 Nov 2020 21:59:40 +0000
-Received: by outflank-mailman (input) for mailman id 22915;
- Mon, 09 Nov 2020 21:59:39 +0000
+	id 1kcFRs-0006uH-5K; Mon, 09 Nov 2020 22:15:40 +0000
+Received: by outflank-mailman (input) for mailman id 22931;
+ Mon, 09 Nov 2020 22:15:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZjvN=EP=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kcFCN-00058S-C0
- for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 21:59:39 +0000
-Received: from aserp2130.oracle.com (unknown [141.146.126.79])
+ <SRS0=47vU=EP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kcFRp-0006td-VS
+ for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 22:15:37 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab8d546c-15ec-4a61-b6aa-e0724f2b22e4;
- Mon, 09 Nov 2020 21:59:38 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A9LE6TI082669;
- Mon, 9 Nov 2020 21:59:27 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2130.oracle.com with ESMTP id 34nh3arqj8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 09 Nov 2020 21:59:27 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A9LFHn1119274;
- Mon, 9 Nov 2020 21:59:26 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3020.oracle.com with ESMTP id 34p5br4kcu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 09 Nov 2020 21:59:26 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0A9LxJ0U027159;
- Mon, 9 Nov 2020 21:59:20 GMT
-Received: from [10.74.103.185] (/10.74.103.185)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 09 Nov 2020 13:59:19 -0800
+ id 9cf0d240-05ae-4469-82a2-183f59073b7e;
+ Mon, 09 Nov 2020 22:15:33 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcFRl-0000U7-47; Mon, 09 Nov 2020 22:15:33 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcFRk-0001ak-U3; Mon, 09 Nov 2020 22:15:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcFRk-00085M-TY; Mon, 09 Nov 2020 22:15:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ZjvN=EP=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
-	id 1kcFCN-00058S-C0
-	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 21:59:39 +0000
-X-Inumbo-ID: ab8d546c-15ec-4a61-b6aa-e0724f2b22e4
-Received: from aserp2130.oracle.com (unknown [141.146.126.79])
+	(envelope-from <SRS0=47vU=EP=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kcFRp-0006td-VS
+	for xen-devel@lists.xenproject.org; Mon, 09 Nov 2020 22:15:37 +0000
+X-Inumbo-ID: 9cf0d240-05ae-4469-82a2-183f59073b7e
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ab8d546c-15ec-4a61-b6aa-e0724f2b22e4;
-	Mon, 09 Nov 2020 21:59:38 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
-	by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A9LE6TI082669;
-	Mon, 9 Nov 2020 21:59:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=iudd/pWhUkjLp/Fl5sIWyMMOmTzZfRPFExPcv41Jvgw=;
- b=qWXC8FRu7L7SesUBbDQz8EvTZ4cCbyhLuaovb9eAOJYFy6TlNOz/OhUfq/72lHwgEqCt
- Jca2rK2h/8E2vTvrV14slrUZk+Vh5uA7HbIM7se26y9UxlDNXqGYUhFQRPBPZgif0lEK
- hegUPs/8y8x/1jndLVLicIudA+X5Di7PSJdHxOwz9tq9Un1OokWdvPJC9QmBotkYl3bi
- FgXWmSsZc4NBefpT8aWK6SOkb6UwoGPhdzzufvD8A5F9ZHFwRV47NBlWOcjZfc2TLWug
- XKSTn+Uk2IVAS/wTZkSJ4CziX9E3K9n2F5rZ+JvB4i7ByrP+xipFvW7iZA6dYraREs67 Lw== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
-	by aserp2130.oracle.com with ESMTP id 34nh3arqj8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 09 Nov 2020 21:59:27 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
-	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A9LFHn1119274;
-	Mon, 9 Nov 2020 21:59:26 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
-	by userp3020.oracle.com with ESMTP id 34p5br4kcu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 09 Nov 2020 21:59:26 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
-	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0A9LxJ0U027159;
-	Mon, 9 Nov 2020 21:59:20 GMT
-Received: from [10.74.103.185] (/10.74.103.185)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Mon, 09 Nov 2020 13:59:19 -0800
-Subject: Re: [PATCH v2] x86/xen: don't unbind uninitialized lock_kicker_irq
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-        Brian Masney <bmasney@redhat.com>, sstabellini@kernel.org
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
-        hpa@zytor.com, xen-devel@lists.xenproject.org,
-        linux-kernel@vger.kernel.org, dustymabe@redhat.com
-References: <20201107011119.631442-1-bmasney@redhat.com>
- <5950df5c-79d6-b2bc-4f2b-35624a3c0d1e@suse.com>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <87d1122a-ca5a-786b-5b25-4caaaeaf386a@oracle.com>
-Date: Mon, 9 Nov 2020 16:59:14 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.1
-MIME-Version: 1.0
-In-Reply-To: <5950df5c-79d6-b2bc-4f2b-35624a3c0d1e@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9800 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 malwarescore=0
- phishscore=0 spamscore=0 mlxlogscore=999 bulkscore=0 suspectscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2011090139
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9800 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 lowpriorityscore=0 priorityscore=1501
- clxscore=1015 malwarescore=0 mlxscore=0 spamscore=0 suspectscore=0
- mlxlogscore=999 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011090139
+	id 9cf0d240-05ae-4469-82a2-183f59073b7e;
+	Mon, 09 Nov 2020 22:15:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=fMmWneM6nFvqAHlp41GqrknYVPZT8aF8Mo8bxYb1h1A=; b=19/o28MRhFbUsmp6bp72+M7syF
+	oBUaXfIvi9fU10bgaQDtEXt7YsCTgpmpy0OiKm53uYieX/AHVWN41HQ7ZZSXs6kz1CaViqNFoMxfm
+	T0nu4uu92c4aRP6ypWId95/Eai/3UX4uAElaO0rqAc9Zb0+PXNsR0Q7lEU3tijxWDaqA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcFRl-0000U7-47; Mon, 09 Nov 2020 22:15:33 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcFRk-0001ak-U3; Mon, 09 Nov 2020 22:15:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcFRk-00085M-TY; Mon, 09 Nov 2020 22:15:32 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-unstable bisection] complete test-amd64-amd64-xl-xsm
+Message-Id: <E1kcFRk-00085M-TY@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 09 Nov 2020 22:15:32 +0000
+
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-amd64-xl-xsm
+testid guest-start
+
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Bug not present: c3453a23f7905d24f2404787543e26ec7d02301c
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156601/
 
 
-On 11/9/20 12:34 AM, Jürgen Groß wrote:
-> On 07.11.20 02:11, Brian Masney wrote:
->> When booting a hyperthreaded system with the kernel parameter
->> 'mitigations=auto,nosmt', the following warning occurs:
->>
->>      WARNING: CPU: 0 PID: 1 at drivers/xen/events/events_base.c:1112 unbind_from_irqhandler+0x4e/0x60
->>      ...
->>      Hardware name: Xen HVM domU, BIOS 4.2.amazon 08/24/2006
->>      ...
->>      Call Trace:
->>       xen_uninit_lock_cpu+0x28/0x62
->>       xen_hvm_cpu_die+0x21/0x30
->>       takedown_cpu+0x9c/0xe0
->>       ? trace_suspend_resume+0x60/0x60
->>       cpuhp_invoke_callback+0x9a/0x530
->>       _cpu_up+0x11a/0x130
->>       cpu_up+0x7e/0xc0
->>       bringup_nonboot_cpus+0x48/0x50
->>       smp_init+0x26/0x79
->>       kernel_init_freeable+0xea/0x229
->>       ? rest_init+0xaa/0xaa
->>       kernel_init+0xa/0x106
->>       ret_from_fork+0x35/0x40
->>
->> The secondary CPUs are not activated with the nosmt mitigations and only
->> the primary thread on each CPU core is used. In this situation,
->> xen_hvm_smp_prepare_cpus(), and more importantly xen_init_lock_cpu(), is
->> not called, so the lock_kicker_irq is not initialized for the secondary
->> CPUs. Let's fix this by exiting early in xen_uninit_lock_cpu() if the
->> irq is not set to avoid the warning from above for each secondary CPU.
->>
->> Signed-off-by: Brian Masney <bmasney@redhat.com>
->
-> Reviewed-by: Juergen Gross <jgross@suse.com>
+  commit e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Author: Juergen Gross <jgross@suse.com>
+  Date:   Fri Nov 6 10:48:07 2020 +0100
+  
+      xen/rwlock: add check_lock() handling to rwlocks
+      
+      Checking whether a lock is consistently used regarding interrupts on
+      or off is beneficial for rwlocks, too.
+      
+      So add check_lock() calls to rwlock functions. For this purpose make
+      check_lock() globally accessible.
+      
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Reviewed-by: Julien Grall <jgrall@amazon.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-amd64-xl-xsm.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-Applied to for-linus-5.10b.
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-amd64-xl-xsm.guest-start --summary-out=tmp/156601.bisection-summary --basis-template=156443 --blessings=real,real-bisect,real-retry xen-unstable test-amd64-amd64-xl-xsm guest-start
+Searching for failure / basis pass:
+ 156577 fail [host=godello0] / 156443 [host=pinot1] 156401 [host=huxelrebe1] 156389 [host=fiano0] 156373 [host=albana1] 156354 [host=godello1] 156339 ok.
+Failure / basis pass flights: 156577 / 156339
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 7056f2f89f03f2f804ac7e776c7b2b000cd716cd
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#677cbe1324c29294bb1d1b8454b3f21\
+ 4725e40fd-677cbe1324c29294bb1d1b8454b3f214725e40fd git://xenbits.xen.org/xen.git#7056f2f89f03f2f804ac7e776c7b2b000cd716cd-0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 156331 [host=elbling0]
+ 156339 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 7056f2f89f03f2f804ac7e776c7b2b000cd716cd
+ 156354 [host=godello1]
+ 156373 [host=albana1]
+ 156389 [host=fiano0]
+ 156401 [host=huxelrebe1]
+ 156443 [host=pinot1]
+ 156524 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 2a5f9f6a6932214fda76b9b3c03e024772882d34
+ 156538 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+ 156556 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+ 156577 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+ 156587 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 7056f2f89f03f2f804ac7e776c7b2b000cd716cd
+ 156589 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+ 156590 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 2b8314a3c354d04545700c80ff5a5f86799b79c7
+ 156591 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 957708c2d1ae25d7375abd5e5e70c3043d64f1f1
+ 156596 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156597 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+ 156598 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156599 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+ 156600 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156601 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+Searching for interesting versions
+ Result found: flight 156339 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c, results HASH(0x5654388d1fe0) HASH(0x5654388bee38) HASH(0x5654388e4f78) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe132\
+ 4c29294bb1d1b8454b3f214725e40fd 957708c2d1ae25d7375abd5e5e70c3043d64f1f1, results HASH(0x5654388e0ae8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 2b8314a3c354d04545700c80ff5a5f86799b79c7, results HASH(0x5654388c1440) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f\
+ 0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 7056f2f89f03f2f804ac7e776c7b2b000cd716cd, results HASH(0x5654388cedb0) HASH(0x5654388cbb20) Result found: flight 156524 (fail), for basis failure (at ancestor ~523)
+ Repro found: flight 156587 (pass), for basis pass
+ Repro found: flight 156589 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+No revisions left to test, checking graph state.
+ Result found: flight 156596 (pass), for last pass
+ Result found: flight 156597 (fail), for first failure
+ Repro found: flight 156598 (pass), for last pass
+ Repro found: flight 156599 (fail), for first failure
+ Repro found: flight 156600 (pass), for last pass
+ Repro found: flight 156601 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Bug not present: c3453a23f7905d24f2404787543e26ec7d02301c
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156601/
 
 
--boris
+  commit e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Author: Juergen Gross <jgross@suse.com>
+  Date:   Fri Nov 6 10:48:07 2020 +0100
+  
+      xen/rwlock: add check_lock() handling to rwlocks
+      
+      Checking whether a lock is consistently used regarding interrupts on
+      or off is beneficial for rwlocks, too.
+      
+      So add check_lock() calls to rwlock functions. For this purpose make
+      check_lock() globally accessible.
+      
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Reviewed-by: Julien Grall <jgrall@amazon.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-amd64-xl-xsm.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+156601: tolerable ALL FAIL
+
+flight 156601 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156601/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-amd64-xl-xsm      14 guest-start             fail baseline untested
+
+
+jobs:
+ test-amd64-amd64-xl-xsm                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
