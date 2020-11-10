@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C5D2AE369
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 23:37:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24048.51089 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F08382AE3FC
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 00:25:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24066.51124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kccFT-0000bc-1f; Tue, 10 Nov 2020 22:36:23 +0000
+	id 1kcd0w-0005Cm-Vp; Tue, 10 Nov 2020 23:25:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24048.51089; Tue, 10 Nov 2020 22:36:23 +0000
+Received: by outflank-mailman (output) from mailman id 24066.51124; Tue, 10 Nov 2020 23:25:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,270 +23,122 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kccFS-0000bD-UM; Tue, 10 Nov 2020 22:36:22 +0000
-Received: by outflank-mailman (input) for mailman id 24048;
- Tue, 10 Nov 2020 22:36:21 +0000
+	id 1kcd0w-0005CP-Sl; Tue, 10 Nov 2020 23:25:26 +0000
+Received: by outflank-mailman (input) for mailman id 24066;
+ Tue, 10 Nov 2020 23:25:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pxmX=EQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kccFR-0000aW-BO
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 22:36:21 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ZSK1=EQ=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1kcd0v-0005CI-Tj
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 23:25:25 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 828e765a-a845-422f-a405-4f66ffd3797c;
- Tue, 10 Nov 2020 22:36:14 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kccFJ-0004KO-Ve; Tue, 10 Nov 2020 22:36:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kccFJ-0006O9-OI; Tue, 10 Nov 2020 22:36:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kccFJ-0002wW-Nm; Tue, 10 Nov 2020 22:36:13 +0000
+ id a377acb8-f98e-4998-8919-e2203896ffd4;
+ Tue, 10 Nov 2020 23:25:24 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 0AANPBFC043559
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 10 Nov 2020 18:25:17 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 0AANPAQB043558;
+ Tue, 10 Nov 2020 15:25:10 -0800 (PST) (envelope-from ehem)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=pxmX=EQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kccFR-0000aW-BO
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 22:36:21 +0000
-X-Inumbo-ID: 828e765a-a845-422f-a405-4f66ffd3797c
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=ZSK1=EQ=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+	id 1kcd0v-0005CI-Tj
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 23:25:25 +0000
+X-Inumbo-ID: a377acb8-f98e-4998-8919-e2203896ffd4
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 828e765a-a845-422f-a405-4f66ffd3797c;
-	Tue, 10 Nov 2020 22:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=R6qXlTM8un0T/SFP7gCdTqWp5vWHW/qcnbytq+M52o8=; b=4gKUAJbmE/g/MWiJKPJj7uoikb
-	8kFj1OWZlc6Ap7OxOU2036Jq9CT6Dd1F/iZhPindBTL/5tXNMZDvJqTel4PJJg4cHqXxX6ILn/TV9
-	np8cU1ZJ7XiwMVxOufqzeqhx6hbIHCBPcVw6Is9/pT/CXKabL673g5UbiL1h4z6DRUtk=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kccFJ-0004KO-Ve; Tue, 10 Nov 2020 22:36:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kccFJ-0006O9-OI; Tue, 10 Nov 2020 22:36:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kccFJ-0002wW-Nm; Tue, 10 Nov 2020 22:36:13 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156642-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id a377acb8-f98e-4998-8919-e2203896ffd4;
+	Tue, 10 Nov 2020 23:25:24 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+	by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 0AANPBFC043559
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Tue, 10 Nov 2020 18:25:17 -0500 (EST)
+	(envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+	by m5p.com (8.15.2/8.15.2/Submit) id 0AANPAQB043558;
+	Tue, 10 Nov 2020 15:25:10 -0800 (PST)
+	(envelope-from ehem)
+Date: Tue, 10 Nov 2020 15:25:10 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: J??rgen Gro?? <jgross@suse.com>, Julien Grall <julien@xen.org>,
+        roman@zededa.com, xen-devel@lists.xenproject.org
+Subject: Re: Xen on RP4
+Message-ID: <20201110232510.GA43420@mattapan.m5p.com>
+References: <20201023211941.GA90171@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010231647290.12247@sstabellini-ThinkPad-T480s>
+ <20201024053540.GA97417@mattapan.m5p.com>
+ <4fcf4832-9266-443f-54d0-fa1fff4b6e14@xen.org>
+ <20201026160316.GA20589@mattapan.m5p.com>
+ <7a904044-8206-b45d-8ec2-d4e48b07ea83@xen.org>
+ <20201028015423.GA33407@mattapan.m5p.com>
+ <alpine.DEB.2.21.2010281704250.12247@sstabellini-ThinkPad-T480s>
+ <e885b2a9-f6ea-e224-b906-125936cfe550@suse.com>
+ <alpine.DEB.2.21.2010291255070.12247@sstabellini-ThinkPad-T480s>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156642: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=628e1becb6fb121475a6ce68e3f1cb4499851255
-X-Osstest-Versions-That:
-    xen=3059178798a23ba870ff86ff54d442a07e6651fc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 10 Nov 2020 22:36:13 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2010291255070.12247@sstabellini-ThinkPad-T480s>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-flight 156642 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156642/
+On Thu, Oct 29, 2020 at 12:57:58PM -0700, Stefano Stabellini wrote:
+> On Thu, 29 Oct 2020, J??rgen Gro?? wrote:
+> > What about having a small domain parsing the ACPI booting first and use
+> > that information for booting dom0?
+> > 
+> > That dom would be part of the Xen build and the hypervisor wouldn't need
+> > to gain all the ACPI AML logic.
+> 
+> That could work, but in practice we don't have such a domain today --
+> the infrastructure is missing. I wonder whether the bootloader (uboot or
+> grub) would know about the platform and might be able to pass that
+> information to Xen somehow.
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 156622
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  628e1becb6fb121475a6ce68e3f1cb4499851255
-baseline version:
- xen                  3059178798a23ba870ff86ff54d442a07e6651fc
-
-Last test of basis   156622  2020-11-10 13:01:19 Z    0 days
-Failing since        156628  2020-11-10 17:00:28 Z    0 days    2 attempts
-Testing same since   156642  2020-11-10 20:00:30 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+How long would such likely take to implement?  This reads like a
+complicated project, and likely to take a while...
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Then would be the issue of efifb.
 
 
-Not pushing.
 
-------------------------------------------------------------
-commit 628e1becb6fb121475a6ce68e3f1cb4499851255
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Mon Nov 9 20:28:59 2020 +0000
+I've been pondering allocate_memory_11() and coming up with a rather
+complicated potential problem.  ACPI appears to potentially allow for
+non-power of 2 DMA ranges; I'm unaware of any such device, but the code
+should allow for such.
 
-    xen/arm: Always trap AMU system registers
-    
-    The Activity Monitors Unit (AMU) has been introduced by ARMv8.4. It is
-    considered to be unsafe to be expose to guests as they might expose
-    information about code executed by other guests or the host.
-    
-    Arm provided a way to trap all the AMU system registers by setting
-    CPTR_EL2.TAM to 1.
-    
-    Unfortunately, on older revision of the specification, the bit 30 (now
-    CPTR_EL1.TAM) was RES0. Because of that, Xen is setting it to 0 and
-    therefore the system registers would be exposed to the guest when it is
-    run on processors with AMU.
-    
-    As the bit is mark as UNKNOWN at boot in Armv8.4, the only safe solution
-    for us is to always set CPTR_EL1.TAM to 1.
-    
-    Guest trying to access the AMU system registers will now receive an
-    undefined instruction. Unfortunately, this means that even well-behaved
-    guest may fail to boot because we don't sanitize the ID registers.
-    
-    This is a known issues with other Armv8.0+ features (e.g. SVE, Pointer
-    Auth). This will taken care separately.
-    
-    This is part of XSA-351 (or XSA-93 re-born).
-    
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+I can imagine a device which has multiple DMA ranges.  The ranges could
+be fully contained within each other, the ranges could partially overlap,
+or the ranges could be disjoint.
 
-commit e6e85b662be9eab96f4cfc58e9945580cce8b2bb
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Tue Nov 10 14:40:09 2020 +0100
+Someone might wish to allocate all DMA-capable memory to domain 0,
+someone might wish to allocate less.  Additionally if all DMA-capable
+memory is allocated to domain 0, some non-DMA-capable memory could be
+desired.
 
-    x86/CPUID: also check leaf 7 max subleaf to be compatible
-    
-    Just like is done for basic and extended major leaves.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Ideally Xen would move to non-DMA memory.  This would protect Xen against
+a malicious domain 0 and allow allocating more DMA-capable memory to
+domain 0.
 
-commit f5cfa09856732b1d78ff6a21ca3dc33a010da951
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Tue Nov 10 14:39:30 2020 +0100
+This interacts with ballooning.  If memory is removed from domain 0,
+non-DMA memory should be removed first.  If domain 0 is allocated more
+memory, DMA memory should be added first (if any isn't allocated to
+domain 0).
 
-    x86/CPUID: suppress IOMMU related hypervisor leaf data
-    
-    Now that the IOMMU for guests can't be enabled "on demand" anymore,
-    there's also no reason to expose the related CPUID bit "just in case".
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Then again I may be severely overthinking things.
 
-commit db1a9fdd554cb1d8a7099af7925318fc06c6875b
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Tue Nov 10 14:39:03 2020 +0100
 
-    x86/CPUID: don't use UB shift when library is built as 32-bit
-    
-    At least the insn emulator test harness will continue to be buildable
-    (and ought to continue to be usable) also as a 32-bit binary. (Right now
-    the CPU policy test harness is, too, but there it may be less relevant
-    to keep it functional, just like e.g. we don't support fuzzing the insn
-    emulator in 32-bit mode.) Hence the library code needs to cope with
-    this.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
-commit b5ad37f8e9284cc147218f7a5193d739ae7b956f
-Author: Juergen Gross <jgross@suse.com>
-Date:   Tue Nov 10 14:37:15 2020 +0100
 
-    xen/evtchn: revert 52e1fc47abc3a0123
-    
-    With the event channel lock no longer disabling interrupts commit
-    52e1fc47abc3a0123 ("evtchn/Flask: pre-allocate node on send path") can
-    be reverted again.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 5f2df45ead7c1195142f68b7923047a1e9479d54
-Author: Juergen Gross <jgross@suse.com>
-Date:   Tue Nov 10 14:36:15 2020 +0100
-
-    xen/evtchn: rework per event channel lock
-    
-    Currently the lock for a single event channel needs to be taken with
-    interrupts off, which causes deadlocks in some cases.
-    
-    Rework the per event channel lock to be non-blocking for the case of
-    sending an event and removing the need for disabling interrupts for
-    taking the lock.
-    
-    The lock is needed for avoiding races between event channel state
-    changes (creation, closing, binding) against normal operations (set
-    pending, [un]masking, priority changes).
-    
-    Use a rwlock, but with some restrictions:
-    
-    - Changing the state of an event channel (creation, closing, binding)
-      needs to use write_lock(), with ASSERT()ing that the lock is taken as
-      writer only when the state of the event channel is either before or
-      after the locked region appropriate (either free or unbound).
-    
-    - Sending an event needs to use read_trylock() mostly, in case of not
-      obtaining the lock the operation is omitted. This is needed as
-      sending an event can happen with interrupts off (at least in some
-      cases).
-    
-    - Dumping the event channel state for debug purposes is using
-      read_trylock(), too, in order to avoid blocking in case the lock is
-      taken as writer for a long time.
-    
-    - All other cases can use read_lock().
-    
-    Fixes: e045199c7c9c54 ("evtchn: address races with evtchn_reset()")
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
 
