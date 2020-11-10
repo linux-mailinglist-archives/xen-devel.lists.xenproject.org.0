@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2DDE2AD946
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 15:51:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.23485.50270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51A1B2ADA98
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 16:38:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.23496.50282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcUyu-0003FD-EF; Tue, 10 Nov 2020 14:50:48 +0000
+	id 1kcViR-0006nf-4M; Tue, 10 Nov 2020 15:37:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 23485.50270; Tue, 10 Nov 2020 14:50:48 +0000
+Received: by outflank-mailman (output) from mailman id 23496.50282; Tue, 10 Nov 2020 15:37:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,209 +23,239 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcUyu-0003Eo-Aw; Tue, 10 Nov 2020 14:50:48 +0000
-Received: by outflank-mailman (input) for mailman id 23485;
- Tue, 10 Nov 2020 14:50:46 +0000
+	id 1kcViR-0006nG-0X; Tue, 10 Nov 2020 15:37:51 +0000
+Received: by outflank-mailman (input) for mailman id 23496;
+ Tue, 10 Nov 2020 15:37:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xL7T=EQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kcUys-0003Ej-Rt
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 14:50:46 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pxmX=EQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kcViP-0006nB-Gr
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 15:37:49 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2411ae47-7c1c-42bd-942f-fa6fdc7e244e;
- Tue, 10 Nov 2020 14:50:45 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 85BECACF5;
- Tue, 10 Nov 2020 14:50:44 +0000 (UTC)
+ id 0baa1a42-7dd6-47e9-a025-6f74b6476aff;
+ Tue, 10 Nov 2020 15:37:45 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcViK-0003Hg-Nd; Tue, 10 Nov 2020 15:37:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcViK-0008Hm-GB; Tue, 10 Nov 2020 15:37:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcViK-0007fp-Fj; Tue, 10 Nov 2020 15:37:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=xL7T=EQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kcUys-0003Ej-Rt
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 14:50:46 +0000
-X-Inumbo-ID: 2411ae47-7c1c-42bd-942f-fa6fdc7e244e
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=pxmX=EQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kcViP-0006nB-Gr
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 15:37:49 +0000
+X-Inumbo-ID: 0baa1a42-7dd6-47e9-a025-6f74b6476aff
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 2411ae47-7c1c-42bd-942f-fa6fdc7e244e;
-	Tue, 10 Nov 2020 14:50:45 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605019844;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mcM2MSsUdFJePUZru7Sp5fyBCMz/gtP77qxAlImoS2M=;
-	b=rxm/Vr7UoCtc/hIBqRNSRbMvDmFFRNW7xbJDEg5Y+DDyXFm2iD/icK8IjHXY70gpHUwOrF
-	iaD2U0hnb6rf2uw5fVHozFas+R85UWFQWfNKhHdqDaOvNNulYFpDdc/2VwMX4YRGGGon3U
-	AzsN+Yu14xT33qRYxji9ov0qEq/Bmfo=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 85BECACF5;
-	Tue, 10 Nov 2020 14:50:44 +0000 (UTC)
-Subject: Re: [PATCH 5/5] x86/p2m: split write_p2m_entry() hook
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>
-References: <29d30de1-2a8d-aee2-d3c3-331758766fc9@suse.com>
- <7b2b7cc9-8828-41bd-7949-764161bbe7ff@suse.com>
- <20201110135944.hbsojy6eeyw53has@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d73234b0-f22e-0783-3fbe-759ccb0ecc48@suse.com>
-Date: Tue, 10 Nov 2020 15:50:44 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.1
-MIME-Version: 1.0
-In-Reply-To: <20201110135944.hbsojy6eeyw53has@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+	id 0baa1a42-7dd6-47e9-a025-6f74b6476aff;
+	Tue, 10 Nov 2020 15:37:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=Hf86lN04BWqqhdsd+NxrfgVpMXAq54xsQCzaR07XM1s=; b=gz8rzfIx1SRlV5mkF+zub8c8DM
+	xwSOp1hVrYzI4FCtQ61IyXWr/a7QeyOIUdVN0FQ/6VJetABjwrmntcUBinNz3DqFI0sXyiAVKialM
+	jaAJ20ZTWmfk379AMSeYzIasiBFX/VRSt9OArWiYoUPXQFXfj7cZhLXA/zXaCLinCIVw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcViK-0003Hg-Nd; Tue, 10 Nov 2020 15:37:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcViK-0008Hm-GB; Tue, 10 Nov 2020 15:37:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcViK-0007fp-Fj; Tue, 10 Nov 2020 15:37:44 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Subject: [xen-unstable bisection] complete test-amd64-amd64-libvirt-xsm
+Message-Id: <E1kcViK-0007fp-Fj@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 10 Nov 2020 15:37:44 +0000
 
-On 10.11.2020 14:59, Roger Pau Monné wrote:
-> On Wed, Oct 28, 2020 at 10:24:53AM +0100, Jan Beulich wrote:
->> Fair parts of the present handlers are identical; in fact
->> nestedp2m_write_p2m_entry() lacks a call to p2m_entry_modify(). Move
->> common parts right into write_p2m_entry(), splitting the hooks into a
->> "pre" one (needed just by shadow code) and a "post" one.
->>
->> For the common parts moved I think that the p2m_flush_nestedp2m() is,
->> at least from an abstract perspective, also applicable in the shadow
->> case. Hence it doesn't get a 3rd hook put in place.
->>
->> The initial comment that was in hap_write_p2m_entry() gets dropped: Its
->> placement was bogus, and looking back the the commit introducing it
->> (dd6de3ab9985 "Implement Nested-on-Nested") I can't see either what use
->> of a p2m it was meant to be associated with.
-> 
-> Is there any performance implication of moving from one hook to two
-> hooks? Since this shouldn't be a hot path I assume it's fine.
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-amd64-libvirt-xsm
+testid guest-start
 
-Well, first of all just a couple of patches ago two indirect
-calls were folded into one, so it's at least not getting worse
-compared to where we started from. And then both HAP and nested
-install just one of the two hooks.
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-As per the remark in an earlier patch, referred to ...
+*** Found and reproduced problem changeset ***
 
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> RFC: This is effectively the alternative to the suggestion in an earlier
->>      patch that we might do away with the hook altogether. Of course a
->>      hybrid approach would also be possible, by using direct calls here
->>      instead of splitting the hook into two.
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Bug not present: c3453a23f7905d24f2404787543e26ec7d02301c
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156624/
 
-... here, there is the option of doing away with the indirect
-calls altogether, but - as said earlier - at the price of at
-least coming close to a layering violation.
 
->> --- a/xen/arch/x86/mm/hap/nested_hap.c
->> +++ b/xen/arch/x86/mm/hap/nested_hap.c
->> @@ -71,24 +71,11 @@
->>  /*        NESTED VIRT P2M FUNCTIONS         */
->>  /********************************************/
->>  
->> -int
->> -nestedp2m_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn,
->> -    l1_pgentry_t *p, l1_pgentry_t new, unsigned int level)
->> +void
->> +nestedp2m_write_p2m_entry_post(struct p2m_domain *p2m, unsigned int oflags)
->>  {
->> -    struct domain *d = p2m->domain;
->> -    uint32_t old_flags;
->> -
->> -    paging_lock(d);
->> -
->> -    old_flags = l1e_get_flags(*p);
->> -    safe_write_pte(p, new);
->> -
->> -    if (old_flags & _PAGE_PRESENT)
->> -        guest_flush_tlb_mask(d, p2m->dirty_cpumask);
->> -
->> -    paging_unlock(d);
->> -
->> -    return 0;
->> +    if ( oflags & _PAGE_PRESENT )
->> +        guest_flush_tlb_mask(p2m->domain, p2m->dirty_cpumask);
->>  }
-> 
-> This is a verbatimi copy of hap_write_p2m_entry_post. I assume there's
-> a reason why we need both, but I'm missing it.
+  commit e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Author: Juergen Gross <jgross@suse.com>
+  Date:   Fri Nov 6 10:48:07 2020 +0100
+  
+      xen/rwlock: add check_lock() handling to rwlocks
+      
+      Checking whether a lock is consistently used regarding interrupts on
+      or off is beneficial for rwlocks, too.
+      
+      So add check_lock() calls to rwlock functions. For this purpose make
+      check_lock() globally accessible.
+      
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Reviewed-by: Julien Grall <jgrall@amazon.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Only almost, since HAP has
 
-    if ( oflags & _PAGE_PRESENT )
-        guest_flush_tlb_mask(d, d->dirty_cpumask);
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-amd64-libvirt-xsm.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-instead (i.e. they differ in which dirty_cpumask gets used).
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-amd64-libvirt-xsm.guest-start --summary-out=tmp/156624.bisection-summary --basis-template=156443 --blessings=real,real-bisect,real-retry xen-unstable test-amd64-amd64-libvirt-xsm guest-start
+Searching for failure / basis pass:
+ 156588 fail [host=chardonnay0] / 156443 [host=elbling0] 156401 [host=fiano0] 156389 [host=albana0] 156373 [host=godello0] 156354 [host=godello1] 156339 [host=godello1] 156331 [host=huxelrebe0] 156315 [host=albana1] 156291 [host=pinot0] 156268 [host=elbling1] 156254 [host=godello0] 156248 [host=pinot1] 156228 [host=huxelrebe1] 156196 [host=fiano1] 156167 [host=godello1] 156136 [host=chardonnay1] 156119 [host=albana1] 156112 [host=godello0] 156093 ok.
+Failure / basis pass flights: 156588 / 156093
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+Basis pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 3b49791e4cc2f38dd84bf331b75217adaef636e3
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/libvirt.git#2c846fa6bcc11929c9fb857a22430fb9945654ad-2c846fa6bcc11929c9fb857a22430fb9945654ad https://gitlab.com/keycodemap/keycodemapdb.git#27acf0ef828bf719b2053ba398b195829413dbdd-27acf0ef828bf719b2053ba398b195829413dbdd git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0\
+ dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#ea6d3cd1ed79d824e605a70c3626bc437c386260-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#3b49791e4cc2f38dd84bf331b75217adaef636e3-0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+Loaded 41874 nodes in revision graph
+Searching for test results:
+ 156050 [host=elbling0]
+ 156085 []
+ 156093 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 3b49791e4cc2f38dd84bf331b75217adaef636e3
+ 156112 [host=godello0]
+ 156119 [host=albana1]
+ 156136 [host=chardonnay1]
+ 156167 [host=godello1]
+ 156196 [host=fiano1]
+ 156228 [host=huxelrebe1]
+ 156248 [host=pinot1]
+ 156254 [host=godello0]
+ 156268 [host=elbling1]
+ 156291 [host=pinot0]
+ 156315 [host=albana1]
+ 156331 [host=huxelrebe0]
+ 156339 [host=godello1]
+ 156354 [host=godello1]
+ 156373 [host=godello0]
+ 156389 [host=albana0]
+ 156401 [host=fiano0]
+ 156443 [host=elbling0]
+ 156524 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 2a5f9f6a6932214fda76b9b3c03e024772882d34
+ 156538 fail irrelevant
+ 156556 fail irrelevant
+ 156577 fail irrelevant
+ 156623 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156604 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 3b49791e4cc2f38dd84bf331b75217adaef636e3
+ 156588 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+ 156605 fail irrelevant
+ 156607 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+ 156609 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea6d3cd1ed79d824e605a70c3626bc437c386260 1fd1d4bafdf6f9f8fe5ca9b947f016a7aae92a74
+ 156610 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd ca56b06043bb4241eeb0a41a60daffb1408a08d5
+ 156612 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 5816d327e44ab37ae08730f4c54a80835998f31f
+ 156613 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e006b2e3be72e502b86bd9e1405417abd87bdfed
+ 156614 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156618 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+ 156619 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+ 156621 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+ 156624 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e19bcb626f50a652fb1854a8b2f2c9c371687a11
+Searching for interesting versions
+ Result found: flight 156093 (pass), for basis pass
+ For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c, results HASH(0x5637915ab618) HASH(0x5637915b1ac8) HASH(0x5637915af300) For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef8\
+ 28bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd e006b2e3be72e502b86bd9e1405417abd87bdfed, results HASH(0x56378e467658) For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98\
+ c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd 5816d327e44ab37ae08730f4c54a80835998f31f, results HASH(0x5637915ab6d8) For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd ca56b06043bb4241eeb0a41a60daffb1408a08d5, results HASH(0x56378e45d118) Result fo\
+ und: flight 156524 (fail), for basis failure (at ancestor ~33)
+ Repro found: flight 156604 (pass), for basis pass
+ Repro found: flight 156607 (fail), for basis failure
+ 0 revisions at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 677cbe1324c29294bb1d1b8454b3f214725e40fd c3453a23f7905d24f2404787543e26ec7d02301c
+No revisions left to test, checking graph state.
+ Result found: flight 156614 (pass), for last pass
+ Result found: flight 156618 (fail), for first failure
+ Repro found: flight 156619 (pass), for last pass
+ Repro found: flight 156621 (fail), for first failure
+ Repro found: flight 156623 (pass), for last pass
+ Repro found: flight 156624 (fail), for first failure
 
->> --- a/xen/arch/x86/mm/p2m-pt.c
->> +++ b/xen/arch/x86/mm/p2m-pt.c
->> @@ -122,17 +122,55 @@ static int write_p2m_entry(struct p2m_do
->>  {
->>      struct domain *d = p2m->domain;
->>      struct vcpu *v = current;
->> -    int rc = 0;
->>  
->>      if ( v->domain != d )
->>          v = d->vcpu ? d->vcpu[0] : NULL;
->>      if ( likely(v && paging_mode_enabled(d) && paging_get_hostmode(v)) ||
->>           p2m_is_nestedp2m(p2m) )
->> -        rc = p2m->write_p2m_entry(p2m, gfn, p, new, level);
->> +    {
->> +        unsigned int oflags;
->> +        mfn_t omfn;
->> +        int rc;
->> +
->> +        paging_lock(d);
->> +
->> +        if ( p2m->write_p2m_entry_pre )
->> +            p2m->write_p2m_entry_pre(d, gfn, p, new, level);
->> +
->> +        oflags = l1e_get_flags(*p);
->> +        omfn = l1e_get_mfn(*p);
->> +
->> +        rc = p2m_entry_modify(p2m, p2m_flags_to_type(l1e_get_flags(new)),
->> +                              p2m_flags_to_type(oflags), l1e_get_mfn(new),
->> +                              omfn, level);
->> +        if ( rc )
->> +        {
->> +            paging_unlock(d);
->> +            return rc;
->> +        }
->> +
->> +        safe_write_pte(p, new);
->> +
->> +        if ( p2m->write_p2m_entry_post )
->> +            p2m->write_p2m_entry_post(p2m, oflags);
->> +
->> +        paging_unlock(d);
->> +
->> +        if ( nestedhvm_enabled(d) && !p2m_is_nestedp2m(p2m) &&
->> +             (oflags & _PAGE_PRESENT) &&
->> +             !p2m_get_hostp2m(d)->defer_nested_flush &&
->> +             /*
->> +              * We are replacing a valid entry so we need to flush nested p2ms,
->> +              * unless the only change is an increase in access rights.
->> +              */
->> +             (!mfn_eq(omfn, l1e_get_mfn(new)) ||
->> +              !perms_strictly_increased(oflags, l1e_get_flags(new))) )
->> +            p2m_flush_nestedp2m(d);
-> 
-> It feel slightly weird to have a nested p2m hook post, and yet have
-> nested specific code here.
-> 
-> Have you considered if the post hook could be moved outside of the
-> locked region, so that we could put this chunk there in the nested p2m
-> case?
+*** Found and reproduced problem changeset ***
 
-Yes, I did, but I don't think the post hook can be moved out. The
-only alternative therefore would be a 3rd hook. And this hook would
-then need to be installed on the host p2m for nested guests, as
-opposed to nestedp2m_write_p2m_entry_post, which gets installed in
-the nested p2m-s. As said in the description, the main reason I
-decided against a 3rd hook is that I suppose the code here isn't
-HAP-specific (while prior to this patch it was).
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Bug not present: c3453a23f7905d24f2404787543e26ec7d02301c
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/156624/
 
-Jan
+
+  commit e19bcb626f50a652fb1854a8b2f2c9c371687a11
+  Author: Juergen Gross <jgross@suse.com>
+  Date:   Fri Nov 6 10:48:07 2020 +0100
+  
+      xen/rwlock: add check_lock() handling to rwlocks
+      
+      Checking whether a lock is consistently used regarding interrupts on
+      or off is beneficial for rwlocks, too.
+      
+      So add check_lock() calls to rwlock functions. For this purpose make
+      check_lock() globally accessible.
+      
+      Signed-off-by: Juergen Gross <jgross@suse.com>
+      Reviewed-by: Julien Grall <jgrall@amazon.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-amd64-libvirt-xsm.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+156624: tolerable FAIL
+
+flight 156624 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156624/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-amd64-libvirt-xsm 14 guest-start             fail baseline untested
+
+
+jobs:
+ build-amd64-libvirt                                          pass    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
