@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2262AD031
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 08:01:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.23034.49583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D381E2AD077
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 08:28:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.23045.49596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcNdq-0007t7-5s; Tue, 10 Nov 2020 07:00:34 +0000
+	id 1kcO3o-0001MR-Ar; Tue, 10 Nov 2020 07:27:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 23034.49583; Tue, 10 Nov 2020 07:00:34 +0000
+Received: by outflank-mailman (output) from mailman id 23045.49596; Tue, 10 Nov 2020 07:27:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,118 +23,259 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcNdq-0007sm-2l; Tue, 10 Nov 2020 07:00:34 +0000
-Received: by outflank-mailman (input) for mailman id 23034;
- Tue, 10 Nov 2020 07:00:32 +0000
+	id 1kcO3o-0001M2-7e; Tue, 10 Nov 2020 07:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 23045;
+ Tue, 10 Nov 2020 07:27:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=O/Cu=EQ=suse.de=hare@srs-us1.protection.inumbo.net>)
- id 1kcNdo-0007sh-Do
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 07:00:32 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qxi4=EQ=kernel.org=mchehab+huawei@srs-us1.protection.inumbo.net>)
+ id 1kcO3m-0001Lx-Rd
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 07:27:22 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 79a9254e-10c7-4ff6-91e6-5324dba2946c;
- Tue, 10 Nov 2020 07:00:30 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4ADE6ABCC;
- Tue, 10 Nov 2020 07:00:29 +0000 (UTC)
+ id ad09f86c-f71b-443d-9c8c-92ee4d9e29ec;
+ Tue, 10 Nov 2020 07:27:22 +0000 (UTC)
+Received: from coco.lan (ip5f5ad5a8.dynamic.kabel-deutschland.de
+ [95.90.213.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DB0E3206E3;
+ Tue, 10 Nov 2020 07:27:03 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=O/Cu=EQ=suse.de=hare@srs-us1.protection.inumbo.net>)
-	id 1kcNdo-0007sh-Do
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 07:00:32 +0000
-X-Inumbo-ID: 79a9254e-10c7-4ff6-91e6-5324dba2946c
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=qxi4=EQ=kernel.org=mchehab+huawei@srs-us1.protection.inumbo.net>)
+	id 1kcO3m-0001Lx-Rd
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 07:27:22 +0000
+X-Inumbo-ID: ad09f86c-f71b-443d-9c8c-92ee4d9e29ec
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 79a9254e-10c7-4ff6-91e6-5324dba2946c;
-	Tue, 10 Nov 2020 07:00:30 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 4ADE6ABCC;
-	Tue, 10 Nov 2020 07:00:29 +0000 (UTC)
-Subject: Re: [PATCH 03/24] nvme: let set_capacity_revalidate_and_notify update
- the bdev size
-To: Sagi Grimberg <sagi@grimberg.me>, Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Justin Sanders <justin@coraid.com>,
- Josef Bacik <josef@toxicpanda.com>, Ilya Dryomov <idryomov@gmail.com>,
- Jack Wang <jinpu.wang@cloud.ionos.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Minchan Kim <minchan@kernel.org>, Mike Snitzer <snitzer@redhat.com>,
- Song Liu <song@kernel.org>, "Martin K. Petersen"
- <martin.petersen@oracle.com>, dm-devel@redhat.com,
- linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
- nbd@other.debian.org, ceph-devel@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-raid@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20201106190337.1973127-1-hch@lst.de>
- <20201106190337.1973127-4-hch@lst.de>
- <1d06cdfa-a904-30be-f3ec-08ae2fa85cbd@suse.de>
- <20201109085340.GB27483@lst.de>
- <e79f9a96-ef53-d6ea-f6e7-e141bdd2e2d2@suse.de>
- <d28042e3-3123-5dfc-d0a2-aab0012150c8@grimberg.me>
-From: Hannes Reinecke <hare@suse.de>
-Message-ID: <c883475d-c154-a123-521e-4723b87534cd@suse.de>
-Date: Tue, 10 Nov 2020 08:00:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	id ad09f86c-f71b-443d-9c8c-92ee4d9e29ec;
+	Tue, 10 Nov 2020 07:27:22 +0000 (UTC)
+Received: from coco.lan (ip5f5ad5a8.dynamic.kabel-deutschland.de [95.90.213.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id DB0E3206E3;
+	Tue, 10 Nov 2020 07:27:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1604993241;
+	bh=S1o4qj80GoZoWAAm6f5WIdZgKYNgEyeuOMYKs01dOuI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=TUH5+tNazhJ/XJzAl/Wd+cQEsRpNMchPxEmOCv92clZjPMpMMVpFOqsyNGQ8qQlVK
+	 vt54VFkbwQr8J7ito6H7c5ALBnYlEng06bYHpBTDo7H35Y6tiYwfUYlrrC4pXGTnLL
+	 ZqjZgHifCGhcsQ6FCeSyPXsZrR60Wop4+ME3S5hM=
+Date: Tue, 10 Nov 2020 08:26:58 +0100
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Fabrice Gasnier
+ <fabrice.gasnier@st.com>, Linux Doc Mailing List
+ <linux-doc@vger.kernel.org>, "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, Javier =?UTF-8?B?R29uesOhbGV6?=
+ <javier@javigon.com>, Jonathan Corbet <corbet@lwn.net>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, "Rafael J. Wysocki"
+ <rjw@rjwysocki.net>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Andrew Donnellan <ajd@linux.ibm.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Baolin Wang
+ <baolin.wang7@gmail.com>, Benson Leung <bleung@chromium.org>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Bruno Meneguele
+ <bmeneg@redhat.com>, Chunyan Zhang <zhang.lyra@gmail.com>, Dan Murphy
+ <dmurphy@ti.com>, Dan Williams <dan.j.williams@intel.com>, Enric Balletbo i
+ Serra <enric.balletbo@collabora.com>, Felipe Balbi <balbi@kernel.org>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, Guenter Roeck
+ <groeck@chromium.org>, Hanjun Guo <guohanjun@huawei.com>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, Jens Axboe <axboe@kernel.dk>, Johannes
+ Thumshirn <johannes.thumshirn@wdc.com>, Juergen Gross <jgross@suse.com>,
+ Konstantin Khlebnikov <koct9i@gmail.com>, Kranthi Kuntala
+ <kranthi.kuntala@intel.com>, Lakshmi Ramasubramanian
+ <nramas@linux.microsoft.com>, Lars-Peter Clausen <lars@metafoo.de>, Len
+ Brown <lenb@kernel.org>, Leonid Maksymchuk <leonmaxx@gmail.com>, Ludovic
+ Desroches <ludovic.desroches@microchip.com>, Mario Limonciello
+ <mario.limonciello@dell.com>, Mark Gross <mgross@linux.intel.com>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Michael Ellerman
+ <mpe@ellerman.id.au>, Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Mike Kravetz <mike.kravetz@oracle.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Nayna Jain <nayna@linux.ibm.com>, Nicolas Ferre
+ <nicolas.ferre@microchip.com>, Niklas Cassel <niklas.cassel@wdc.com>, Oded
+ Gabbay <oded.gabbay@gmail.com>, Oleh Kravchenko <oleg@kaa.org.ua>, Orson
+ Zhai <orsonzhai@gmail.com>, Pavel Machek <pavel@ucw.cz>, Pawan Gupta
+ <pawan.kumar.gupta@linux.intel.com>, Peter Meerwald-Stadler
+ <pmeerw@pmeerw.net>, Peter Rosin <peda@axentia.se>, Petr Mladek
+ <pmladek@suse.com>, Philippe Bergheaud <felix@linux.ibm.com>, Richard
+ Cochran <richardcochran@gmail.com>, Sebastian Reichel <sre@kernel.org>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Thomas
+ Gleixner <tglx@linutronix.de>, Tom Rix <trix@redhat.com>, Vaibhav Jain
+ <vaibhav@linux.ibm.com>, Vineela Tummalapalli
+ <vineela.tummalapalli@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
+ linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Jonathan Cameron
+ <Jonathan.Cameron@huawei.com>
+Subject: Duplicated ABI entries - Was: Re: [PATCH v2 20/39] docs: ABI:
+ testing: make the files compatible with ReST output
+Message-ID: <20201110082658.2edc1ab5@coco.lan>
+In-Reply-To: <20201108165621.4d0da3f4@archlinux>
+References: <cover.1604042072.git.mchehab+huawei@kernel.org>
+	<58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
+	<5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
+	<20201030110925.3e09d59e@coco.lan>
+	<cb586ea3-b6e6-4e48-2344-2bd641e5323f@st.com>
+	<20201102124641.GA881895@kroah.com>
+	<20201102154250.45bee17f@coco.lan>
+	<20201108165621.4d0da3f4@archlinux>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <d28042e3-3123-5dfc-d0a2-aab0012150c8@grimberg.me>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 11/10/20 12:28 AM, Sagi Grimberg wrote:
+Hi Jonathan,
+
+Em Sun, 8 Nov 2020 16:56:21 +0000
+Jonathan Cameron <jic23@kernel.org> escreveu:
+
+> > PS.: the IIO subsystem is the one that currently has more duplicated
+> > ABI entries:  
+> > $ ./scripts/get_abi.pl validate 2>&1|grep iio
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:0  Documentation/ABI/testing/sysfs-bus-iio:394
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:1  Documentation/ABI/testing/sysfs-bus-iio:395
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:2  Documentation/ABI/testing/sysfs-bus-iio:396
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:3  Documentation/ABI/testing/sysfs-bus-iio:397
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:4  Documentation/ABI/testing/sysfs-bus-iio:398
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:5  Documentation/ABI/testing/sysfs-bus-iio:399
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_preset is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:100  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:0
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
+> > Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
+> > Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:0  Documentation/ABI/testing/sysfs-bus-iio:599
+> > Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:36  Documentation/ABI/testing/sysfs-bus-iio:588
+> > Warning: /sys/bus/iio/devices/iio:deviceX/out_currentY_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-light-lm3533-als:43  Documentation/ABI/testing/sysfs-bus-iio-health-afe440x:38
+> > Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:0  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:0
+> > Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw_available is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:1  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:1
+> > Warning: /sys/bus/iio/devices/iio:deviceX/sensor_sensitivity is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-distance-srf08:0  Documentation/ABI/testing/sysfs-bus-iio-proximity-as3935:8
+> > Warning: /sys/bus/iio/devices/triggerX/sampling_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:92  Documentation/ABI/testing/sysfs-bus-iio:45  
+
 > 
->> [ .. ]
->>>> Originally nvme multipath would update/change the size of the multipath
->>>> device according to the underlying path devices.
->>>> With this patch the size of the multipath device will _not_ change 
->>>> if there
->>>> is a change on the underlying devices.
->>>
->>> Yes, it will.  Take a close look at nvme_update_disk_info and how it is
->>> called.
->>>
->> Okay, then: What would be the correct way of handling a size update 
->> for NVMe multipath?
->> Assuming we're getting an AEN for each path signalling the size change
->> (or a controller reset leading to a size change).
->> So if we're updating the size of the multipath device together with 
->> the path device at the first AEN/reset we'll end up with the other 
->> paths having a different size than the multipath device (and the path 
->> we've just been updating).
->> - Do we care, or cross fingers and hope for the best?
->> - Shouldn't we detect the case where we won't get a size update for 
->> the other paths, or, indeed, we have a genuine device size mismatch 
->> due to a misconfiguration on the target?
->>
->> IE shouldn't we have a flag 'size update pending' for the other 
->> paths,, to take them out ouf use temporarily until the other 
->> AENs/resets have been processed?
+> That was intentional.  Often these provide more information on the
+> ABI for a particular device than is present in the base ABI doc.
+
+FYI, right now, there are 20 duplicated entries, being 16 of them
+from IIO, on those files:
+
+	$ ./scripts/get_abi.pl validate 2>&1|perl -ne 'if (m,(Documentation/\S+)\:,g) { print "$1\n" }'|sort|uniq
+	Documentation/ABI/stable/sysfs-driver-w1_ds28e04
+	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8
+	Documentation/ABI/testing/sysfs-bus-iio-distance-srf08
+	Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371
+	Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010
+	Documentation/ABI/testing/sysfs-bus-iio-icm42600
+	Documentation/ABI/testing/sysfs-bus-iio-light-lm3533-als
+	Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+	Documentation/ABI/testing/sysfs-class-backlight-adp8860
+	Documentation/ABI/testing/sysfs-class-led-trigger-pattern
+	Documentation/ABI/testing/sysfs-kernel-iommu_groups
+
 > 
-> the mpath device will take the minimum size from all the paths, that is
-> what blk_stack_limits does. When the AEN for all the paths will arrive
-> the mpath size will update.
+> A bit like when we have additional description for dt binding properties
+> for a particular device, even though they are standard properties.
 > 
-But that's precisely my point; there won't be an AEN for _all_ paths, 
-but rather one AEN per path. Which will be processed separately, leading 
-to the issue described above.
+> Often a standard property allows for more values than the specific
+> one for a particular device.  There can also be obscuring coupling
+> between sysfs attributes due to hardware restrictions that we would
+> like to provide some explanatory info on.
+> 
+> I suppose we could add all this information to the parent doc but
+> that is pretty ugly and will make that doc very nasty to read.
 
-> Not sure how this is different than what we have today...
+I understand what you meant to do, but right now, it is is actually
+a lot uglier than merging into a single entry ;-)
 
-Oh, that is a problem even today.
-So we should probably move it to a different thread...
+Let's view ABI from the PoV of a system admin that doesn't know
+yet about a certain ABI symbol.
 
-Cheers,
+He'll try to seek for the symbol, more likely using the HTML 
+documentation. Only very senior system admins might try to take
+a look at the Kernel.
 
-Hannes
--- 
-Dr. Hannes Reinecke                Kernel Storage Architect
-hare@suse.de                              +49 911 74053 688
-SUSE Software Solutions GmbH, Maxfeldstr. 5, 90409 Nürnberg
-HRB 36809 (AG Nürnberg), Geschäftsführer: Felix Imendörffer
+This is what happens when one would seek for a duplicated symbol
+via command line:
+
+	$ ./scripts/get_abi.pl search /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency$
+	
+	/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency
+	----------------------------------------------------------
+	
+	Kernel version:		3.4.0
+	Contact:		linux-iio@vger.kernel.org
+	Defined on file(s):	Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371 Documentation/ABI/testing/sysfs-bus-iio
+	
+	Description:
+	
+	Stores the PLL frequency in Hz for channel Y.
+	Reading returns the actual frequency in Hz.
+	The ADF4371 has an integrated VCO with fundamendal output
+	frequency ranging from 4000000000 Hz 8000000000 Hz.
+	
+	out_altvoltage0_frequency:
+	        A divide by 1, 2, 4, 8, 16, 32 or circuit generates
+	        frequencies from 62500000 Hz to 8000000000 Hz.
+	out_altvoltage1_frequency:
+	        This channel duplicates the channel 0 frequency
+	out_altvoltage2_frequency:
+	        A frequency doubler generates frequencies from
+	        8000000000 Hz to 16000000000 Hz.
+	out_altvoltage3_frequency:
+	        A frequency quadrupler generates frequencies from
+	        16000000000 Hz to 32000000000 Hz.
+	
+	Note: writes to one of the channels will affect the frequency of
+	all the other channels, since it involves changing the VCO
+	fundamental output frequency.
+	
+	Output frequency for channel Y in Hz. The number must always be
+	specified and unique if the output corresponds to a single
+	channel.
+
+As the "What:" field is identical on both sysfs-bus-iio-frequency-adf4371
+and sysfs-bus-iio, those entries are merged, which produces an ABI
+documentation mixing both the generic one and the board specific one
+into a single output.
+
+Worse than that, the "generic" content is at the end.
+
+The same happens when generating the HTML output.
+
+See, entries at the HTML output are ordered by the What: field,
+which is considered within the script as an unique key, as it is
+unique (except for IIO and a couple of other cases).
+
+-
+
+As I commented on an e-mail I sent to Greg, I see a few ways
+to solve it.
+
+The most trivial one (which I used to solve a few conflicts on
+other places), is to place driver-specific details on a separate
+file under Documentation/driver-api, and mention it at the
+generic entries. The docs building system will generate cross
+references for Documentation/.../foo.rst files, so, everything
+should be OK.
+
+The second alternative that I also used on a couple of places
+is to modify the generic entry for it to contain the generic
+definition first, followed by per-device details.
+
+There is a third possible alternative: add a new optional field
+(something like Scope:) which would be part of the unique key,
+if present. Implementing support for it could be tricky, as the
+produced output would likely need to create cross-references
+between the generic field (if present) and the per-device details.
+
+Thanks,
+Mauro
+
+PS.: I'm taking a few days of PTO during this week. So, it
+could take a while for me to reply again to this thread.
 
