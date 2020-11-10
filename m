@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02BAC2AD73A
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 14:14:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.23362.50044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51DFE2AD740
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 14:15:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.23369.50060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcTSk-0001SF-UJ; Tue, 10 Nov 2020 13:13:30 +0000
+	id 1kcTUL-0001ap-FF; Tue, 10 Nov 2020 13:15:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 23362.50044; Tue, 10 Nov 2020 13:13:30 +0000
+Received: by outflank-mailman (output) from mailman id 23369.50060; Tue, 10 Nov 2020 13:15:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,268 +23,127 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcTSk-0001Rq-RD; Tue, 10 Nov 2020 13:13:30 +0000
-Received: by outflank-mailman (input) for mailman id 23362;
- Tue, 10 Nov 2020 13:13:29 +0000
+	id 1kcTUL-0001aQ-Bo; Tue, 10 Nov 2020 13:15:09 +0000
+Received: by outflank-mailman (input) for mailman id 23369;
+ Tue, 10 Nov 2020 13:15:07 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=n6mT=EQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kcTSj-0001Rl-A9
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 13:13:29 +0000
+ (envelope-from <SRS0=xL7T=EQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kcTUJ-0001aI-Qp
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 13:15:07 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a2b86a3d-b048-4bb1-a0af-cb7d293332c6;
- Tue, 10 Nov 2020 13:13:28 +0000 (UTC)
+ id b251ff40-e675-4d8f-a5bc-bc5231568bde;
+ Tue, 10 Nov 2020 13:15:04 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 77FD1ABCC;
- Tue, 10 Nov 2020 13:13:27 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id EEF06ABD6;
+ Tue, 10 Nov 2020 13:15:03 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=n6mT=EQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kcTSj-0001Rl-A9
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 13:13:29 +0000
-X-Inumbo-ID: a2b86a3d-b048-4bb1-a0af-cb7d293332c6
+	(envelope-from <SRS0=xL7T=EQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kcTUJ-0001aI-Qp
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 13:15:07 +0000
+X-Inumbo-ID: b251ff40-e675-4d8f-a5bc-bc5231568bde
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id a2b86a3d-b048-4bb1-a0af-cb7d293332c6;
-	Tue, 10 Nov 2020 13:13:28 +0000 (UTC)
+	id b251ff40-e675-4d8f-a5bc-bc5231568bde;
+	Tue, 10 Nov 2020 13:15:04 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605014007;
+	t=1605014104;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kyqV/IU3pTGPWdSEZlbImOB47IBl1mGTQFOc9zMGDOY=;
-	b=JRXWO0xO753KI62IJT9BJMYgV4Pz0YcDcM6YlGlCdmM5j6UZhOUNpfzIoZagRFaRW7LTjZ
-	RFObhSINHDqZCQePHChUXPGQcFtI6cv3WqPRVljsF/OhgfNqZJ4zW4WTzFmqqpJJJXfyUm
-	/dDRsigQYb86/DGRWgPsFZB86m0E8uE=
+	bh=9si9W8u3F5evKhqgh7QdWPPNH2bY3QcqUEHMhYPU1/E=;
+	b=jD0NgWRKHWzNdaoTjpLMEkQomSF1Pu/l5zZyhOX7n9ElgTP4siIFKr2a4rt0rR4kqrlH9o
+	FhytsiO8yAID36HRAG3b8BU6RsyghqVvL/2eBHdMFyGDmXh0lIAqzqb8liXYMj3DlfUPpj
+	X8CNeHK8pzeG/oy5q4SELJT8SUmTazk=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 77FD1ABCC;
-	Tue, 10 Nov 2020 13:13:27 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id EEF06ABD6;
+	Tue, 10 Nov 2020 13:15:03 +0000 (UTC)
 Subject: Re: [PATCH] docs: fix documentation to notice credit2 is the default
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20201110112118.99960-1-roger.pau@citrix.com>
  <b9ca219d-b6d7-9f59-3ede-9b4c9225e01b@suse.com>
  <20201110124900.2hjgn45i7ynf33p3@Air-de-Roger>
  <035d10c0-2774-8d1c-b55f-e075f04344e7@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <20d3ee40-950f-e4f9-00d0-a5274c17771f@suse.com>
-Date: Tue, 10 Nov 2020 14:13:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ <20d3ee40-950f-e4f9-00d0-a5274c17771f@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1e44b5b1-7406-c459-eac5-78af76ccbf34@suse.com>
+Date: Tue, 10 Nov 2020 14:15:03 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.1
 MIME-Version: 1.0
-In-Reply-To: <035d10c0-2774-8d1c-b55f-e075f04344e7@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="UBcp8WDq5VoO9yRZgYr5x4iBik254Vd9l"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---UBcp8WDq5VoO9yRZgYr5x4iBik254Vd9l
-Content-Type: multipart/mixed; boundary="ykSdU5tvKgx4hnlICDlPwc9psFT0nBMOp";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-Message-ID: <20d3ee40-950f-e4f9-00d0-a5274c17771f@suse.com>
-Subject: Re: [PATCH] docs: fix documentation to notice credit2 is the default
-References: <20201110112118.99960-1-roger.pau@citrix.com>
- <b9ca219d-b6d7-9f59-3ede-9b4c9225e01b@suse.com>
- <20201110124900.2hjgn45i7ynf33p3@Air-de-Roger>
- <035d10c0-2774-8d1c-b55f-e075f04344e7@citrix.com>
-In-Reply-To: <035d10c0-2774-8d1c-b55f-e075f04344e7@citrix.com>
-
---ykSdU5tvKgx4hnlICDlPwc9psFT0nBMOp
-Content-Type: multipart/mixed;
- boundary="------------CB5577FAF3A37CBDE15CA46E"
+In-Reply-To: <20d3ee40-950f-e4f9-00d0-a5274c17771f@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------CB5577FAF3A37CBDE15CA46E
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 10.11.20 14:07, Andrew Cooper wrote:
-> On 10/11/2020 12:49, Roger Pau Monn=C3=A9 wrote:
->> On Tue, Nov 10, 2020 at 12:31:14PM +0100, J=C3=BCrgen Gro=C3=9F wrote:=
-
->>> On 10.11.20 12:21, Roger Pau Monne wrote:
->>>> Fix the command line document to account for credit2 now being the
->>>> default scheduler.
+On 10.11.2020 14:13, Jürgen Groß wrote:
+> On 10.11.20 14:07, Andrew Cooper wrote:
+>> On 10/11/2020 12:49, Roger Pau Monné wrote:
+>>> On Tue, Nov 10, 2020 at 12:31:14PM +0100, Jürgen Groß wrote:
+>>>> On 10.11.20 12:21, Roger Pau Monne wrote:
+>>>>> Fix the command line document to account for credit2 now being the
+>>>>> default scheduler.
+>>>>>
+>>>>> Fixes: dafd936dddbd ('Make credit2 the default scheduler')
+>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>> ---
+>>>>>    docs/misc/xen-command-line.pandoc | 2 +-
+>>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+>>>>> index 4ae9391fcd..789aead148 100644
+>>>>> --- a/docs/misc/xen-command-line.pandoc
+>>>>> +++ b/docs/misc/xen-command-line.pandoc
+>>>>> @@ -1876,7 +1876,7 @@ with read and write permissions.
+>>>>>    ### sched
+>>>>>    > `= credit | credit2 | arinc653 | rtds | null`
+>>>>> -> Default: `sched=credit`
+>>>>> +> Default: `sched=credit2`
+>>>>>    Choose the default scheduler.
+>>>>>
+>>>> Tried that before:
 >>>>
->>>> Fixes: dafd936dddbd ('Make credit2 the default scheduler')
->>>> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->>>> ---
->>>>    docs/misc/xen-command-line.pandoc | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>> https://lists.xen.org/archives/html/xen-devel/2019-01/msg01097.html
 >>>>
->>>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-comma=
-nd-line.pandoc
->>>> index 4ae9391fcd..789aead148 100644
->>>> --- a/docs/misc/xen-command-line.pandoc
->>>> +++ b/docs/misc/xen-command-line.pandoc
->>>> @@ -1876,7 +1876,7 @@ with read and write permissions.
->>>>    ### sched
->>>>    > `=3D credit | credit2 | arinc653 | rtds | null`
->>>> -> Default: `sched=3Dcredit`
->>>> +> Default: `sched=3Dcredit2`
->>>>    Choose the default scheduler.
->>>>
->>> Tried that before:
->>>
->>> https://lists.xen.org/archives/html/xen-devel/2019-01/msg01097.html
->>>
->>> And Andrew didn't like it...
->> One way or another we need to get this fixed in the document. Listing
->> credit as the still the default is wrong.
->=20
-> I agree that what is there is wrong, but so is saying credit2.
->=20
-> This documentation is for users, because develops know exactly how they=
+>>>> And Andrew didn't like it...
+>>> One way or another we need to get this fixed in the document. Listing
+>>> credit as the still the default is wrong.
+>>
+>> I agree that what is there is wrong, but so is saying credit2.
+>>
+>> This documentation is for users, because develops know exactly how they
+>> configured their schedulers, and won't actually need to refer to it.
+>>
+>> As a consequence, it depends heavily on what a specific
+>> distro/downstream chose, config-wise.
+>>
+>>> I think there are several places in xen-command-line.pandoc that just
+>>> contain the default values set in Kconfig, so IMO if we want to
+>>> change this it should be done wholesale rather than picking on every
+>>> default value change. Opinions?
+>>
+>> xen-command-line.pandoc wholly predates Kconfig.  We're only in this
+>> mess because previous patches haven't been appropriately reviewed.
+>>
+>> Lets fix it up to be correct, but lets not delay fixing this to look for
+>> potential other cases.
+> 
+> The ultimate fix would be to generate this document according to
+> Kconfig settings. :-D
 
-> configured their schedulers, and won't actually need to refer to it.
->=20
-> As a consequence, it depends heavily on what a specific
-> distro/downstream chose, config-wise.
->=20
->> I think there are several places in xen-command-line.pandoc that just
->> contain the default values set in Kconfig, so IMO if we want to
->> change this it should be done wholesale rather than picking on every
->> default value change. Opinions?
->=20
-> xen-command-line.pandoc wholly predates Kconfig.=C2=A0 We're only in th=
-is
-> mess because previous patches haven't been appropriately reviewed.
->=20
-> Lets fix it up to be correct, but lets not delay fixing this to look fo=
-r
-> potential other cases.
+Except that's not suitable for putting up as a web page for
+everyone to use as "cannoical" reference. Every distro could
+do so, sure.
 
-The ultimate fix would be to generate this document according to
-Kconfig settings. :-D
-
-
-Juergen
-
---------------CB5577FAF3A37CBDE15CA46E
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------CB5577FAF3A37CBDE15CA46E--
-
---ykSdU5tvKgx4hnlICDlPwc9psFT0nBMOp--
-
---UBcp8WDq5VoO9yRZgYr5x4iBik254Vd9l
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+qkfYFAwAAAAAACgkQsN6d1ii/Ey9d
-jggAnsipR5PeH3fRnnhb8V7V8Hq/LTvapnzETCbawd1XTg8eHfprxnyDT6+nlbWu6/cqy9lXVVGs
-Czj+fk+CdKnlKbzPh6grFB3S9qmJbcb+pbkzFlCY18gw2e993tOBBpPe1uBGShwIvntPClO8ANRQ
-XkZ07YgDjqoAFWD0vRuRmivLcdoKoIgFB4p84JGV4VC/oY6LS2G8ygzjEuI8ky+oLbv4L/BdNO/B
-01Fg4Gt+DSmdH1bCkEOdtNjNeUPsgy2P2A/viRz0NTQKgaezM/n0913/wVytNCJswPNHGiI2cUN+
-HscOk/xU75iVkqCkj7a+w+LhFKJhP19ESZpqHzO6XQ==
-=am7L
------END PGP SIGNATURE-----
-
---UBcp8WDq5VoO9yRZgYr5x4iBik254Vd9l--
+Jan
 
