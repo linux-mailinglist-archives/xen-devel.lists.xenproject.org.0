@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999482AE1AC
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 22:27:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.23984.51014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8C5D2AE369
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 23:37:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24048.51089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcb9Z-0002JI-WB; Tue, 10 Nov 2020 21:26:13 +0000
+	id 1kccFT-0000bc-1f; Tue, 10 Nov 2020 22:36:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 23984.51014; Tue, 10 Nov 2020 21:26:13 +0000
+Received: by outflank-mailman (output) from mailman id 24048.51089; Tue, 10 Nov 2020 22:36:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,122 +23,270 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcb9Z-0002It-Sr; Tue, 10 Nov 2020 21:26:13 +0000
-Received: by outflank-mailman (input) for mailman id 23984;
- Tue, 10 Nov 2020 21:26:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kccFS-0000bD-UM; Tue, 10 Nov 2020 22:36:22 +0000
+Received: by outflank-mailman (input) for mailman id 24048;
+ Tue, 10 Nov 2020 22:36:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5eud=EQ=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
- id 1kcb9Y-0002Im-40
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 21:26:12 +0000
-Received: from aserp2130.oracle.com (unknown [141.146.126.79])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ca59eb76-203d-4c95-9139-27ae57475992;
- Tue, 10 Nov 2020 21:26:11 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AALNsqL062598;
- Tue, 10 Nov 2020 21:26:08 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2130.oracle.com with ESMTP id 34nh3ax8mk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 10 Nov 2020 21:26:07 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AALOqFA194731;
- Tue, 10 Nov 2020 21:26:07 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 34p5g0w6vj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 10 Nov 2020 21:26:07 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0AALPx9D001394;
- Tue, 10 Nov 2020 21:26:01 GMT
-Received: from char.us.oracle.com (/10.152.32.25)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 10 Nov 2020 13:25:59 -0800
-Received: by char.us.oracle.com (Postfix, from userid 1000)
- id 650FC6A0109; Tue, 10 Nov 2020 16:27:51 -0500 (EST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=pxmX=EQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kccFR-0000aW-BO
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 22:36:21 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 828e765a-a845-422f-a405-4f66ffd3797c;
+ Tue, 10 Nov 2020 22:36:14 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kccFJ-0004KO-Ve; Tue, 10 Nov 2020 22:36:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kccFJ-0006O9-OI; Tue, 10 Nov 2020 22:36:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kccFJ-0002wW-Nm; Tue, 10 Nov 2020 22:36:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=5eud=EQ=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
-	id 1kcb9Y-0002Im-40
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 21:26:12 +0000
-X-Inumbo-ID: ca59eb76-203d-4c95-9139-27ae57475992
-Received: from aserp2130.oracle.com (unknown [141.146.126.79])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ca59eb76-203d-4c95-9139-27ae57475992;
-	Tue, 10 Nov 2020 21:26:11 +0000 (UTC)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
-	by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AALNsqL062598;
-	Tue, 10 Nov 2020 21:26:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=9Nj2D+m80kZDJqrKbN/4/Is2vNJ6uqoCfmj84gGzeI0=;
- b=KQwSFc1LoGQ1VzaMRiggNXYjNGFOkFbtnIpoHJ63adZBDFwbB47VyCf6DN+tnopZ6tC+
- Ys3WhPIB7S4McHQMXEQ/TepCswb5N1BFbWjHrxa03JjMciQwnjLGGGyrlV53U9+z0dhb
- f3F77ISWqoiBoSQLLZ/m8/dJ3McQblbRZ9l/mnOEBiiEDYqqJ9Ns9zBPT1S6rci/9SBu
- QNDx37w7jRZCsXJG4ySSpIDFhgsG1sNZe/fNCo+y6IMeCl3O6VL0jWad0tcMUszF1FTg
- Ueya8AfybJ2HPRbcLnuZJBCKzrfT6slqP45OamdgZvhtcAVS1LgCt3H+vS4V2OPQqEF2 Lw== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
-	by aserp2130.oracle.com with ESMTP id 34nh3ax8mk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 10 Nov 2020 21:26:07 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
-	by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AALOqFA194731;
-	Tue, 10 Nov 2020 21:26:07 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
-	by aserp3020.oracle.com with ESMTP id 34p5g0w6vj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 10 Nov 2020 21:26:07 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
-	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0AALPx9D001394;
-	Tue, 10 Nov 2020 21:26:01 GMT
-Received: from char.us.oracle.com (/10.152.32.25)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Tue, 10 Nov 2020 13:25:59 -0800
-Received: by char.us.oracle.com (Postfix, from userid 1000)
-	id 650FC6A0109; Tue, 10 Nov 2020 16:27:51 -0500 (EST)
-Date: Tue, 10 Nov 2020 16:27:51 -0500
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org,
-        Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-5.10] swiotlb: remove the tbl_dma_addr argument to
- swiotlb_tbl_map_single
-Message-ID: <20201110212751.GA16458@char.us.oracle.com>
-References: <20201023063309.3472987-1-hch@lst.de>
- <20201103094643.GA18936@lst.de>
- <20201104140438.GA16892@char.us.oracle.com>
- <20201110091421.GA23707@lst.de>
+	(envelope-from <SRS0=pxmX=EQ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kccFR-0000aW-BO
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 22:36:21 +0000
+X-Inumbo-ID: 828e765a-a845-422f-a405-4f66ffd3797c
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 828e765a-a845-422f-a405-4f66ffd3797c;
+	Tue, 10 Nov 2020 22:36:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=R6qXlTM8un0T/SFP7gCdTqWp5vWHW/qcnbytq+M52o8=; b=4gKUAJbmE/g/MWiJKPJj7uoikb
+	8kFj1OWZlc6Ap7OxOU2036Jq9CT6Dd1F/iZhPindBTL/5tXNMZDvJqTel4PJJg4cHqXxX6ILn/TV9
+	np8cU1ZJ7XiwMVxOufqzeqhx6hbIHCBPcVw6Is9/pT/CXKabL673g5UbiL1h4z6DRUtk=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kccFJ-0004KO-Ve; Tue, 10 Nov 2020 22:36:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kccFJ-0006O9-OI; Tue, 10 Nov 2020 22:36:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kccFJ-0002wW-Nm; Tue, 10 Nov 2020 22:36:13 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156642-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201110091421.GA23707@lst.de>
-User-Agent: Mutt/1.9.1 (2017-09-22)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9801 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 spamscore=0 malwarescore=0
- adultscore=0 phishscore=0 bulkscore=0 mlxlogscore=999 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011100146
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9801 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 lowpriorityscore=0 priorityscore=1501
- clxscore=1015 malwarescore=0 mlxscore=0 spamscore=0 suspectscore=0
- mlxlogscore=999 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011100146
+Subject: [xen-unstable-smoke test] 156642: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=628e1becb6fb121475a6ce68e3f1cb4499851255
+X-Osstest-Versions-That:
+    xen=3059178798a23ba870ff86ff54d442a07e6651fc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 10 Nov 2020 22:36:13 +0000
 
-On Tue, Nov 10, 2020 at 10:14:21AM +0100, Christoph Hellwig wrote:
-> On Wed, Nov 04, 2020 at 09:04:38AM -0500, Konrad Rzeszutek Wilk wrote:
-> > On Tue, Nov 03, 2020 at 10:46:43AM +0100, Christoph Hellwig wrote:
-> > > ping?
-> > 
-> > Hopefully this goes through. I am in the process of testing it but ran
-> > into testing issues that I believe are unrelated.
-> 
-> Did you manage to make any progress?  This fixes an issue with the
+flight 156642 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156642/
 
-YES!!
-> new support for systems with DMA offsets in 5.10..
+Regressions :-(
 
-OK. Sending the git pull request in a minute or two.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 156622
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  628e1becb6fb121475a6ce68e3f1cb4499851255
+baseline version:
+ xen                  3059178798a23ba870ff86ff54d442a07e6651fc
+
+Last test of basis   156622  2020-11-10 13:01:19 Z    0 days
+Failing since        156628  2020-11-10 17:00:28 Z    0 days    2 attempts
+Testing same since   156642  2020-11-10 20:00:30 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 628e1becb6fb121475a6ce68e3f1cb4499851255
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Mon Nov 9 20:28:59 2020 +0000
+
+    xen/arm: Always trap AMU system registers
+    
+    The Activity Monitors Unit (AMU) has been introduced by ARMv8.4. It is
+    considered to be unsafe to be expose to guests as they might expose
+    information about code executed by other guests or the host.
+    
+    Arm provided a way to trap all the AMU system registers by setting
+    CPTR_EL2.TAM to 1.
+    
+    Unfortunately, on older revision of the specification, the bit 30 (now
+    CPTR_EL1.TAM) was RES0. Because of that, Xen is setting it to 0 and
+    therefore the system registers would be exposed to the guest when it is
+    run on processors with AMU.
+    
+    As the bit is mark as UNKNOWN at boot in Armv8.4, the only safe solution
+    for us is to always set CPTR_EL1.TAM to 1.
+    
+    Guest trying to access the AMU system registers will now receive an
+    undefined instruction. Unfortunately, this means that even well-behaved
+    guest may fail to boot because we don't sanitize the ID registers.
+    
+    This is a known issues with other Armv8.0+ features (e.g. SVE, Pointer
+    Auth). This will taken care separately.
+    
+    This is part of XSA-351 (or XSA-93 re-born).
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+commit e6e85b662be9eab96f4cfc58e9945580cce8b2bb
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Tue Nov 10 14:40:09 2020 +0100
+
+    x86/CPUID: also check leaf 7 max subleaf to be compatible
+    
+    Just like is done for basic and extended major leaves.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit f5cfa09856732b1d78ff6a21ca3dc33a010da951
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Tue Nov 10 14:39:30 2020 +0100
+
+    x86/CPUID: suppress IOMMU related hypervisor leaf data
+    
+    Now that the IOMMU for guests can't be enabled "on demand" anymore,
+    there's also no reason to expose the related CPUID bit "just in case".
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit db1a9fdd554cb1d8a7099af7925318fc06c6875b
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Tue Nov 10 14:39:03 2020 +0100
+
+    x86/CPUID: don't use UB shift when library is built as 32-bit
+    
+    At least the insn emulator test harness will continue to be buildable
+    (and ought to continue to be usable) also as a 32-bit binary. (Right now
+    the CPU policy test harness is, too, but there it may be less relevant
+    to keep it functional, just like e.g. we don't support fuzzing the insn
+    emulator in 32-bit mode.) Hence the library code needs to cope with
+    this.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit b5ad37f8e9284cc147218f7a5193d739ae7b956f
+Author: Juergen Gross <jgross@suse.com>
+Date:   Tue Nov 10 14:37:15 2020 +0100
+
+    xen/evtchn: revert 52e1fc47abc3a0123
+    
+    With the event channel lock no longer disabling interrupts commit
+    52e1fc47abc3a0123 ("evtchn/Flask: pre-allocate node on send path") can
+    be reverted again.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 5f2df45ead7c1195142f68b7923047a1e9479d54
+Author: Juergen Gross <jgross@suse.com>
+Date:   Tue Nov 10 14:36:15 2020 +0100
+
+    xen/evtchn: rework per event channel lock
+    
+    Currently the lock for a single event channel needs to be taken with
+    interrupts off, which causes deadlocks in some cases.
+    
+    Rework the per event channel lock to be non-blocking for the case of
+    sending an event and removing the need for disabling interrupts for
+    taking the lock.
+    
+    The lock is needed for avoiding races between event channel state
+    changes (creation, closing, binding) against normal operations (set
+    pending, [un]masking, priority changes).
+    
+    Use a rwlock, but with some restrictions:
+    
+    - Changing the state of an event channel (creation, closing, binding)
+      needs to use write_lock(), with ASSERT()ing that the lock is taken as
+      writer only when the state of the event channel is either before or
+      after the locked region appropriate (either free or unbound).
+    
+    - Sending an event needs to use read_trylock() mostly, in case of not
+      obtaining the lock the operation is omitted. This is needed as
+      sending an event can happen with interrupts off (at least in some
+      cases).
+    
+    - Dumping the event channel state for debug purposes is using
+      read_trylock(), too, in order to avoid blocking in case the lock is
+      taken as writer for a long time.
+    
+    - All other cases can use read_lock().
+    
+    Fixes: e045199c7c9c54 ("evtchn: address races with evtchn_reset()")
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
