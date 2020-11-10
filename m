@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97EC32AD3D7
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 11:33:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.23226.49869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A4252AD46D
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 12:07:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.23244.49888 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcQxL-0003Gf-K5; Tue, 10 Nov 2020 10:32:55 +0000
+	id 1kcRTp-000625-BI; Tue, 10 Nov 2020 11:06:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 23226.49869; Tue, 10 Nov 2020 10:32:55 +0000
+Received: by outflank-mailman (output) from mailman id 23244.49888; Tue, 10 Nov 2020 11:06:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,155 +23,317 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcQxL-0003GG-Gl; Tue, 10 Nov 2020 10:32:55 +0000
-Received: by outflank-mailman (input) for mailman id 23226;
- Tue, 10 Nov 2020 10:32:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kcRTp-00061g-81; Tue, 10 Nov 2020 11:06:29 +0000
+Received: by outflank-mailman (input) for mailman id 23244;
+ Tue, 10 Nov 2020 11:06:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=psMK=EQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kcQxJ-0003GA-IQ
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 10:32:53 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e5b84ab0-4272-4ae2-ac2e-18ac3ac5404a;
- Tue, 10 Nov 2020 10:32:52 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=hJ2u=EQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kcRTo-00061b-6A
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 11:06:28 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d7b9a9a1-76e4-4aec-b330-5cf24c955b51;
+ Tue, 10 Nov 2020 11:06:26 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=psMK=EQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kcQxJ-0003GA-IQ
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 10:32:53 +0000
-X-Inumbo-ID: e5b84ab0-4272-4ae2-ac2e-18ac3ac5404a
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e5b84ab0-4272-4ae2-ac2e-18ac3ac5404a;
-	Tue, 10 Nov 2020 10:32:52 +0000 (UTC)
+	(envelope-from <SRS0=hJ2u=EQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kcRTo-00061b-6A
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 11:06:28 +0000
+X-Inumbo-ID: d7b9a9a1-76e4-4aec-b330-5cf24c955b51
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id d7b9a9a1-76e4-4aec-b330-5cf24c955b51;
+	Tue, 10 Nov 2020 11:06:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1605004372;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=uhQye2TkyUFDzIYdrR0IO5dPfzS+NBxOun3In7QlsxU=;
-  b=U3ABf+9ognqk7hVistdX76H016abFt0btpIOSjn9fHZB3xRLDo0sby06
-   x7ZKNAeN4YCWDBg4D0Mf+XLkaCZKHSy+vq2GrQVVy9sRYbV0bcIkgRa2y
-   PUZVjFaadedshxpnbGbViyLlFr+lltKWqBXd2gbwWHkblB4qT5KqgDhTp
-   s=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: Z002tLpBFVgr1ecjQPdNc6X2+/6drGo5e2c7bBMwRImT5DA2vPkn4y3/1U5/zWutdXJlAafe+g
- UIuG6b9nuxC4zY768T+Ft3g3DPeSW1sbgV66rLZOkAqUkq5lmXWwtne+xqUtAPVSuLFd3fRz4r
- XgQWgaxcq5SKnKRo+g1EdpUYUH8Osiw2MahvNFIbhD7qfcibeHYLZI6hu26Yo2wvImJz+ODang
- UZKpDuOgeT1uJW/3IeLDM8N5+w5Umz9frewLD0agA2OyEI6R7EPKaQOHKvGFJ7fd+HzeV5ly6w
- o38=
+  d=citrix.com; s=securemail; t=1605006386;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=IoeKuqYSK5jA+7hLi8BBP01Ooa4QsWCp7IH9OBg61IU=;
+  b=N+YbqqVrVyKvEjW2F7D7h1XTalRs6n3u+NdxK34V2ULHOUQFM/VLMJn7
+   ArJfE4ukLBv+VKNhn/40sxiRlNxoCVsE8KQ/vq2692J4kVQCquiaRgwQ1
+   7Vo3NLlhbCkSEQ78kvoCou70u696Y0uENNE2e0+aC7IEO6pqu8eNT3YDN
+   Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 4tyJ30fWxdKDPOogYFRirC82FqLHUxjtxFwwHK36xTsQt5NlgEdCnN2+0p9kcoQxTDLA971PFb
+ 9L6+QCo4Kqg9lYQVNGetrNrN2hK+EusKvUFiSWJbtZtRkdQtsWSQMoB+ro3tFRa7Qt8ax59pRG
+ heTsdQf8ZQV1buBDQoQHwkFhDXdjWYAvRy21OQ1mRw19EreBa+ODxwnkGbj8VGKaSwuxmdLaqD
+ //hQeXNLmt7Lcqe0ELQn6aa2NiDptht1blB+JjzEm1ag/YPZmoWvYCZr5OzHrc1/eGQHkCgjgS
+ 8Dc=
 X-SBRS: None
-X-MesageID: 31174526
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 31071122
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.77,466,1596513600"; 
-   d="scan'208";a="31174526"
-Subject: Re: [PATCH v2] x86/msr: fix handling of MSR_IA32_PERF_{STATUS/CTL}
+   d="scan'208";a="31071122"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FHiG0TsDCKl3rnbO6tjBVUm0RcgdQSKoYgWxWw77NeutuMpbASTm9yagXlH8AdMo2GY6pIcltuYJ1nHGXX9n60mbWOiOogeMI5VLZO0O+1i0YKocgVjso14Sfxk9SjLtzyw4bRlVExURItOLpFuNGYECe8qdGKSseHUybTCAOTG6EvwB328nk+ZB6koKgCNKNcDO/Or9cZ6iEq7BmbnMgunggpmugmV41Re9EoALy9nyrjgPJQSLFKf5UF5RJ7vw/oYadQx4/tY/tCtS58Rx2ZsiyWCaaAa7lVWlzT8EgyTC4cuFBxqgOYp9k3pQq1f5ucrNQ0KD0YPIU1HIqVCz5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e0jYr58tjfamTxcEsgCw9lsAJ5QTh9ksPUArderUhmM=;
+ b=hx8HaokcvfZxirMLaLg0a5Usv9f2BQBBBU6Uweuq/INXvz1tsZqH2JRYxdivM2vZ4WlPCVopfSMizGr+14rSMQl9LQ25uWkWW+07/Ox8kR7LJxzg+AcesStWLjq3n+oYiKQ0WzsYbu27d028+2AkLuZId/U8qivoHatxvfMOBi90ThsjK8QcV3pU09lOwiuXHAbzoGdVGWgmUtJCoHBgsccmOn2BDMtEWDb+lWX5SQg9KWMQ56FFYGoAEVEgLimDVnQGT4KDxmBYe4b2w3GEUTtUIx7ThPUjEYpmwf6NntlEwZWU+QJ8qMVLK9FKGxW3zOj7Gjl9O0gWBCC9Pt0NAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e0jYr58tjfamTxcEsgCw9lsAJ5QTh9ksPUArderUhmM=;
+ b=KGdJxfVArkRIZv8/IgYrNwQxJwUElgvwiuKTh1tF6ssqN5PxVkPlO+y2aComTXAD95CRFSVELovD1zBs5yk/ZyX2dkwy7AID3Ovya40Xnlp9cNpvAfkC4nlH29nRyYxmXM8t8sFnl6xVI0y3ywlon9WrRPzMMl8uNOCp0Ywqa2M=
+Date: Tue, 10 Nov 2020 12:06:11 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20201109173819.7817-1-andrew.cooper3@citrix.com>
- <681e03f5-86fd-43bb-5347-c526def9ffcb@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <083f46c0-07fb-7b22-4e49-d2a0df87164c@citrix.com>
-Date: Tue, 10 Nov 2020 10:32:46 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>
+Subject: Re: [PATCH 2/5] x86/p2m: collapse the two ->write_p2m_entry() hooks
+Message-ID: <20201110110611.p3twf6rmy7qdlxa7@Air-de-Roger>
+References: <29d30de1-2a8d-aee2-d3c3-331758766fc9@suse.com>
+ <b26981d1-7a1a-2387-0640-574bdf11ceff@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b26981d1-7a1a-2387-0640-574bdf11ceff@suse.com>
+X-ClientProxiedBy: LO3P123CA0006.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:ba::11) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <681e03f5-86fd-43bb-5347-c526def9ffcb@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4e3d672d-7e21-4200-0cc8-08d88568a890
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5463:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DS7PR03MB5463C7C2BD0ACA18BE2E24778FE90@DS7PR03MB5463.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Z5yWdSSgUgIrKQSIFe+YLVkZ6+OGTk7te1EbRNZPvuKLHX+1BE63E6fglUNJwiIR8psAMT3yY58m9bIuXu9oOSo55Q1fpCU8Rxhsm5y2bqv0UthEGx6p5bnLwBzKeh6RGfp2fmdWtDNLDY1szXw9t0AAK7GPXZHM+DPTRlPppJ0bXypNa0yJKKpjA6+z7rpOXWx6/v/sx7/WSPvYPx5zxug/UnhauaH7k5kiNxhIapHVzKk4NCg4jjMrFvMcH5mYg2CpHcarVaZFKWzmfsrlhBQAK7O1/mw+M+r3I3Cfay6691hJUvmsWiPSXtCe89rPxRe+3RSQ/UrfNj28fIag9ar6sBtFg5EdNQHs1xQkXX4j1AXu/iXvlJ5MKNO4uTHS
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(376002)(39860400002)(366004)(346002)(136003)(396003)(2906002)(4326008)(6496006)(1076003)(5660300002)(8676002)(66946007)(9686003)(66476007)(8936002)(83380400001)(86362001)(85182001)(186003)(956004)(6916009)(16526019)(478600001)(26005)(6666004)(54906003)(316002)(33716001)(6486002)(66556008)(70780200001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: jhvOG2WAcSB//Ok/SdhjC4sj9ogQUOa35lozhyGuHT5gaLEPiUTt8q3RAtzU3H2SBlwMY3RU5NqU9SnMF7efGQOJbY81UHHaISIx5GCYBZDOy5LVo06ot6cuUyXg+pbxJMT1zyX/IyPbT+Hh6Hs8vGZYkxKz+ilZssvnxn9+4/d6ArNMsapiOmCd/+BhGcV+s2Nnayjmd9w8HH4odM8xXL3bHCmtz3pHOzYp7/WhY23LAyfEJceI5OGa+LodbeukVkF+uHuUvRBoKlUFcof4jGcr+cyeKveraBbAmwoqbfe/dkWW035ICeqp0GLQ/bZI0/2XeLoxONSbqb2ah2HTKn52knoBu1+cc0ejI151uxwXhVZz1xPPirQF4OORCpqVRm6+5D6hfMhps9lB7kNAKqGigj61rcECGbKeAmg992lbqKZ55oPttNYUY35q0b/zXdFY0E05/1qYPeRt7dmeFj1I5q/VWef6kv4pnAkfj32Xq8A8T7Veqay6KVRJEPH71ogt30OJoYKOUKO69cBTQg5FEojtMut5H+3Y2iFAhkJSLA0p4NGnDmxPaX0BiRE06yNnhW7RNOaJZB2+S8U7LMcxeVHcUSz+9HfGPg0RCDmi0jV2+BTmLOErSVFTa2/sS1/XL8l/dfjO+swDgvW5HcoUuDAtbNsW+4x7UuHDXrqpFeFj6FQeQPNqkSL1Z/J1SKHtZAZTVr5UcQsW1t3YgPGcv35CNxaIriaXbl+TCrtYYu+xMD9xzP29iuVBKrARUqnvFlQW0ylD+4fWM+GAdRs4GWr0pH43Ty3shhyaJv6+WbCE0rpHRRUKEsk1u5woiR/BQE0SgWyUDXBHkYwrZy/Icdu424b+eYbAbMq1VO/mBsUAzM147A5Qv/gHIH/YO6m3QKNf5H65H95GIL3jng==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e3d672d-7e21-4200-0cc8-08d88568a890
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2020 11:06:22.6081
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yKxOld4fbT8KRQknB+nXQ04QDxH+MJYPfRpC9mLsax0km9NKyDFjIDvCwQU29ng2fSL0GWhQsl9pmPJRUmAjOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5463
+X-OriginatorOrg: citrix.com
 
-On 10/11/2020 08:03, Jan Beulich wrote:
-> On 09.11.2020 18:38, Andrew Cooper wrote:
->> From: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Currently a PV hardware domain can also be given control over the CPU
->> frequency, and such guest is allowed to write to MSR_IA32_PERF_CTL.
->> However since commit 322ec7c89f6 the default behavior has been changed
->> to reject accesses to not explicitly handled MSRs, preventing PV
->> guests that manage CPU frequency from reading
->> MSR_IA32_PERF_{STATUS/CTL}.
->>
->> Additionally some HVM guests (Windows at least) will attempt to read
->> MSR_IA32_PERF_CTL and will panic if given back a #GP fault:
->>
->>   vmx.c:3035:d8v0 RDMSR 0x00000199 unimplemented
->>   d8v0 VIRIDIAN CRASH: 3b c0000096 fffff806871c1651 ffffda0253683720 0
->>
->> Move the handling of MSR_IA32_PERF_{STATUS/CTL} to the common MSR
->> handling shared between HVM and PV guests, and add an explicit case
->> for reads to MSR_IA32_PERF_{STATUS/CTL}.
->>
->> Restore previous behavior and allow PV guests with the required
->> permissions to read the contents of the mentioned MSRs. Non privileged
->> guests will get 0 when trying to read those registers, as writes to
->> MSR_IA32_PERF_CTL by such guest will already be silently dropped.
->>
->> Fixes: 322ec7c89f6 ('x86/pv: disallow access to unknown MSRs')
->> Fixes: 84e848fd7a1 ('x86/hvm: disallow access to unknown MSRs')
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On Wed, Oct 28, 2020 at 10:22:58AM +0100, Jan Beulich wrote:
+> The struct paging_mode instances get set to the same functions
+> regardless of mode by both HAP and shadow code, hence there's no point
+> having this hook there. The hook also doesn't need moving elsewhere - we
+> can directly use struct p2m_domain's. This merely requires (from a
+> strictly formal pov; in practice this may not even be needed) making
+> sure we don't end up using safe_write_pte() for nested P2Ms.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Like for the possibly unnecessary p2m_is_nestedp2m() I'm not really sure
+> the paging_get_hostmode() check there is still needed either. But I
+> didn't want to alter more aspects than necessary here.
+> 
+> Of course with the p2m_is_nestedp2m() check there and with all three of
+> {hap,nestedp2m,shadow}_write_p2m_entry() now globally accessible, it's
+> certainly an option to do away with the indirect call there altogether.
+> In fact we may even be able to go further and fold the three functions:
+> They're relatively similar, and this would "seamlessly" address the
+> apparent bug of nestedp2m_write_p2m_entry() not making use of
+> p2m_entry_modify().
+> 
+> --- a/xen/arch/x86/mm/hap/hap.c
+> +++ b/xen/arch/x86/mm/hap/hap.c
+> @@ -823,6 +823,11 @@ hap_write_p2m_entry(struct p2m_domain *p
+>      return 0;
+>  }
+>  
+> +void hap_p2m_init(struct p2m_domain *p2m)
+> +{
+> +    p2m->write_p2m_entry = hap_write_p2m_entry;
+> +}
+> +
+>  static unsigned long hap_gva_to_gfn_real_mode(
+>      struct vcpu *v, struct p2m_domain *p2m, unsigned long gva, uint32_t *pfec)
+>  {
+> @@ -846,7 +851,6 @@ static const struct paging_mode hap_pagi
+>      .p2m_ga_to_gfn          = hap_p2m_ga_to_gfn_real_mode,
+>      .update_cr3             = hap_update_cr3,
+>      .update_paging_modes    = hap_update_paging_modes,
+> -    .write_p2m_entry        = hap_write_p2m_entry,
+>      .flush_tlb              = flush_tlb,
+>      .guest_levels           = 1
+>  };
+> @@ -858,7 +862,6 @@ static const struct paging_mode hap_pagi
+>      .p2m_ga_to_gfn          = hap_p2m_ga_to_gfn_2_levels,
+>      .update_cr3             = hap_update_cr3,
+>      .update_paging_modes    = hap_update_paging_modes,
+> -    .write_p2m_entry        = hap_write_p2m_entry,
+>      .flush_tlb              = flush_tlb,
+>      .guest_levels           = 2
+>  };
+> @@ -870,7 +873,6 @@ static const struct paging_mode hap_pagi
+>      .p2m_ga_to_gfn          = hap_p2m_ga_to_gfn_3_levels,
+>      .update_cr3             = hap_update_cr3,
+>      .update_paging_modes    = hap_update_paging_modes,
+> -    .write_p2m_entry        = hap_write_p2m_entry,
+>      .flush_tlb              = flush_tlb,
+>      .guest_levels           = 3
+>  };
+> @@ -882,7 +884,6 @@ static const struct paging_mode hap_pagi
+>      .p2m_ga_to_gfn          = hap_p2m_ga_to_gfn_4_levels,
+>      .update_cr3             = hap_update_cr3,
+>      .update_paging_modes    = hap_update_paging_modes,
+> -    .write_p2m_entry        = hap_write_p2m_entry,
+>      .flush_tlb              = flush_tlb,
+>      .guest_levels           = 4
+>  };
+> --- a/xen/arch/x86/mm/p2m-pt.c
+> +++ b/xen/arch/x86/mm/p2m-pt.c
+> @@ -126,8 +126,9 @@ static int write_p2m_entry(struct p2m_do
+>  
+>      if ( v->domain != d )
+>          v = d->vcpu ? d->vcpu[0] : NULL;
+> -    if ( likely(v && paging_mode_enabled(d) && paging_get_hostmode(v)) )
+> -        rc = paging_get_hostmode(v)->write_p2m_entry(p2m, gfn, p, new, level);
+> +    if ( likely(v && paging_mode_enabled(d) && paging_get_hostmode(v)) ||
+> +         p2m_is_nestedp2m(p2m) )
+> +        rc = p2m->write_p2m_entry(p2m, gfn, p, new, level);
+>      else
+>          safe_write_pte(p, new);
+>  
+> @@ -209,7 +210,7 @@ p2m_next_level(struct p2m_domain *p2m, v
+>  
+>          new_entry = l1e_from_mfn(mfn, P2M_BASE_FLAGS | _PAGE_RW);
+>  
+> -        rc = p2m->write_p2m_entry(p2m, gfn, p2m_entry, new_entry, level + 1);
+> +        rc = write_p2m_entry(p2m, gfn, p2m_entry, new_entry, level + 1);
+>          if ( rc )
+>              goto error;
+>      }
+> @@ -251,7 +252,7 @@ p2m_next_level(struct p2m_domain *p2m, v
+>          {
+>              new_entry = l1e_from_pfn(pfn | (i << ((level - 1) * PAGETABLE_ORDER)),
+>                                       flags);
+> -            rc = p2m->write_p2m_entry(p2m, gfn, l1_entry + i, new_entry, level);
+> +            rc = write_p2m_entry(p2m, gfn, l1_entry + i, new_entry, level);
+>              if ( rc )
+>              {
+>                  unmap_domain_page(l1_entry);
+> @@ -262,8 +263,7 @@ p2m_next_level(struct p2m_domain *p2m, v
+>          unmap_domain_page(l1_entry);
+>  
+>          new_entry = l1e_from_mfn(mfn, P2M_BASE_FLAGS | _PAGE_RW);
+> -        rc = p2m->write_p2m_entry(p2m, gfn, p2m_entry, new_entry,
+> -                                  level + 1);
+> +        rc = write_p2m_entry(p2m, gfn, p2m_entry, new_entry, level + 1);
+>          if ( rc )
+>              goto error;
+>      }
+> @@ -335,7 +335,7 @@ static int p2m_pt_set_recalc_range(struc
+>              if ( (l1e_get_flags(e) & _PAGE_PRESENT) && !needs_recalc(l1, e) )
+>              {
+>                  set_recalc(l1, e);
+> -                err = p2m->write_p2m_entry(p2m, first_gfn, pent, e, level);
+> +                err = write_p2m_entry(p2m, first_gfn, pent, e, level);
+>                  if ( err )
+>                  {
+>                      ASSERT_UNREACHABLE();
+> @@ -412,8 +412,8 @@ static int do_recalc(struct p2m_domain *
+>                       !needs_recalc(l1, ent) )
+>                  {
+>                      set_recalc(l1, ent);
+> -                    err = p2m->write_p2m_entry(p2m, gfn - remainder, &ptab[i],
+> -                                               ent, level);
+> +                    err = write_p2m_entry(p2m, gfn - remainder, &ptab[i], ent,
+> +                                          level);
+>                      if ( err )
+>                      {
+>                          ASSERT_UNREACHABLE();
+> @@ -426,7 +426,7 @@ static int do_recalc(struct p2m_domain *
+>              if ( !err )
+>              {
+>                  clear_recalc(l1, e);
+> -                err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+> +                err = write_p2m_entry(p2m, gfn, pent, e, level + 1);
+>                  ASSERT(!err);
+>  
+>                  recalc_done = true;
+> @@ -474,7 +474,7 @@ static int do_recalc(struct p2m_domain *
+>          }
+>          else
+>              clear_recalc(l1, e);
+> -        err = p2m->write_p2m_entry(p2m, gfn, pent, e, level + 1);
+> +        err = write_p2m_entry(p2m, gfn, pent, e, level + 1);
+>          ASSERT(!err);
+>  
+>          recalc_done = true;
+> @@ -618,7 +618,7 @@ p2m_pt_set_entry(struct p2m_domain *p2m,
+>              : l3e_empty();
+>          entry_content.l1 = l3e_content.l3;
+>  
+> -        rc = p2m->write_p2m_entry(p2m, gfn, p2m_entry, entry_content, 3);
+> +        rc = write_p2m_entry(p2m, gfn, p2m_entry, entry_content, 3);
+>          /* NB: write_p2m_entry() handles tlb flushes properly */
+>          if ( rc )
+>              goto out;
+> @@ -655,7 +655,7 @@ p2m_pt_set_entry(struct p2m_domain *p2m,
+>              entry_content = l1e_empty();
+>  
+>          /* level 1 entry */
+> -        rc = p2m->write_p2m_entry(p2m, gfn, p2m_entry, entry_content, 1);
+> +        rc = write_p2m_entry(p2m, gfn, p2m_entry, entry_content, 1);
+>          /* NB: write_p2m_entry() handles tlb flushes properly */
+>          if ( rc )
+>              goto out;
+> @@ -690,7 +690,7 @@ p2m_pt_set_entry(struct p2m_domain *p2m,
+>              : l2e_empty();
+>          entry_content.l1 = l2e_content.l2;
+>  
+> -        rc = p2m->write_p2m_entry(p2m, gfn, p2m_entry, entry_content, 2);
+> +        rc = write_p2m_entry(p2m, gfn, p2m_entry, entry_content, 2);
+>          /* NB: write_p2m_entry() handles tlb flushes properly */
+>          if ( rc )
+>              goto out;
+> @@ -914,7 +914,7 @@ static void p2m_pt_change_entry_type_glo
+>              int rc;
+>  
+>              set_recalc(l1, e);
+> -            rc = p2m->write_p2m_entry(p2m, gfn, &tab[i], e, 4);
+> +            rc = write_p2m_entry(p2m, gfn, &tab[i], e, 4);
+>              if ( rc )
+>              {
+>                  ASSERT_UNREACHABLE();
+> @@ -1132,7 +1132,13 @@ void p2m_pt_init(struct p2m_domain *p2m)
+>      p2m->recalc = do_recalc;
+>      p2m->change_entry_type_global = p2m_pt_change_entry_type_global;
+>      p2m->change_entry_type_range = p2m_pt_change_entry_type_range;
+> -    p2m->write_p2m_entry = write_p2m_entry;
+> +
+> +    /* Still too early to use paging_mode_hap(). */
+> +    if ( hap_enabled(p2m->domain) )
+> +        hap_p2m_init(p2m);
+> +    else if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
+> +        shadow_p2m_init(p2m);
 
-Thanks,
+There's already some logic in p2m_initialise that checks for
+hap_enabled for EPT specific initialization. Do you think you could
+move this there so that it's more contained?
 
-> with a nit, a minor adjustment request, and a question:
->
->> @@ -448,6 +467,21 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
->>              goto gp_fault;
->>          break;
->>  
->> +        /*
->> +         * This MSR are not enumerated in CPUID.  It has been around since the
-> s/are/is/
+I think having the initialization condition sprinkled all over the
+different functions makes the logic more complicated to follow.
 
-Oops, yes.
+Also, should hap_p2m_init be limited to HAP and PT, as opposed to HAP
+and EPT which doesn't use the helper AFAICT?
 
->
->> --- a/xen/include/xen/sched.h
->> +++ b/xen/include/xen/sched.h
->> @@ -1069,6 +1069,23 @@ extern enum cpufreq_controller {
->>      FREQCTL_none, FREQCTL_dom0_kernel, FREQCTL_xen
->>  } cpufreq_controller;
->>  
->> +static always_inline bool is_cpufreq_controller(const struct domain *d)
->> +{
->> +    /*
->> +     * A PV dom0 can be nominated as the cpufreq controller, instead of using
->> +     * Xen's cpufreq driver, at which point dom0 gets direct access to certain
->> +     * MSRs.
->> +     *
->> +     * This interface only works when dom0 is identity pinned and has the same
->> +     * number of vCPUs as pCPUs on the system.
->> +     *
->> +     * It would be far better to paravirtualise the interface.
->> +     */
->> +    return (IS_ENABLED(CONFIG_PV) &&
->> +            (cpufreq_controller == FREQCTL_dom0_kernel) &&
->> +            is_pv_domain(d) && is_hardware_domain(d));
->> +}
-> IS_ENABLED(CONFIG_PV) is already part of is_pv_domain() and hence
-> imo shouldn't be used explicitly here.
+Maybe it would be clearer to unify shadow_write_p2m_entry with
+hap_write_p2m_entry and call it p2m_pt_write_p2m_entry to match the
+rest of the p2m PT helpers?
 
-Ah yes.  Will drop.
-
-> Also, this being an x86 concept, is it really a good idea to put
-> in xen/sched.h? I guess this builds on Arm just because of DCE
-> from the IS_ENABLED(CONFIG_PV) (where afaict the one in
-> is_pv_domain() will still do). (But yes, I do realize that
-> cpufreq_controller itself gets declared in this file, so maybe
-> better to do some subsequent cleanup.)
-
-I can't spot anywhere obviously better for it to live.  We don't have a
-common cpufreq.h, and I'm not sure that cpuidle.h is an appropriate
-place to live either.
-
-Thanks,
-
-~Andrew
+Thanks, Roger.
 
