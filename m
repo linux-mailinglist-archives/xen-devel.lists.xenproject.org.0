@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA7092AE13F
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 21:59:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.23961.50975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 999482AE1AC
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 22:27:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.23984.51014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcajz-0007x6-IM; Tue, 10 Nov 2020 20:59:47 +0000
+	id 1kcb9Z-0002JI-WB; Tue, 10 Nov 2020 21:26:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 23961.50975; Tue, 10 Nov 2020 20:59:47 +0000
+Received: by outflank-mailman (output) from mailman id 23984.51014; Tue, 10 Nov 2020 21:26:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,147 +23,122 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcajz-0007wh-F4; Tue, 10 Nov 2020 20:59:47 +0000
-Received: by outflank-mailman (input) for mailman id 23961;
- Tue, 10 Nov 2020 20:59:46 +0000
+	id 1kcb9Z-0002It-Sr; Tue, 10 Nov 2020 21:26:13 +0000
+Received: by outflank-mailman (input) for mailman id 23984;
+ Tue, 10 Nov 2020 21:26:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BlNO=EQ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kcajy-0007wc-9A
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 20:59:46 +0000
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
+ <SRS0=5eud=EQ=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+ id 1kcb9Y-0002Im-40
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 21:26:12 +0000
+Received: from aserp2130.oracle.com (unknown [141.146.126.79])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 68fa3c18-1121-4a52-9232-4f59f4fd4986;
- Tue, 10 Nov 2020 20:59:45 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id 11so16376779ljf.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Nov 2020 12:59:45 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id w10sm2708051ljo.130.2020.11.10.12.59.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Nov 2020 12:59:43 -0800 (PST)
+ id ca59eb76-203d-4c95-9139-27ae57475992;
+ Tue, 10 Nov 2020 21:26:11 +0000 (UTC)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AALNsqL062598;
+ Tue, 10 Nov 2020 21:26:08 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2130.oracle.com with ESMTP id 34nh3ax8mk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 10 Nov 2020 21:26:07 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AALOqFA194731;
+ Tue, 10 Nov 2020 21:26:07 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3020.oracle.com with ESMTP id 34p5g0w6vj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 10 Nov 2020 21:26:07 +0000
+Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0AALPx9D001394;
+ Tue, 10 Nov 2020 21:26:01 GMT
+Received: from char.us.oracle.com (/10.152.32.25)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 10 Nov 2020 13:25:59 -0800
+Received: by char.us.oracle.com (Postfix, from userid 1000)
+ id 650FC6A0109; Tue, 10 Nov 2020 16:27:51 -0500 (EST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=BlNO=EQ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
-	id 1kcajy-0007wc-9A
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 20:59:46 +0000
-X-Inumbo-ID: 68fa3c18-1121-4a52-9232-4f59f4fd4986
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
+	(envelope-from <SRS0=5eud=EQ=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
+	id 1kcb9Y-0002Im-40
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 21:26:12 +0000
+X-Inumbo-ID: ca59eb76-203d-4c95-9139-27ae57475992
+Received: from aserp2130.oracle.com (unknown [141.146.126.79])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 68fa3c18-1121-4a52-9232-4f59f4fd4986;
-	Tue, 10 Nov 2020 20:59:45 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id 11so16376779ljf.2
-        for <xen-devel@lists.xenproject.org>; Tue, 10 Nov 2020 12:59:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=WCEMbK6VpTWfnhbVRjPF5UIFvs6FkjhGHnAeW326f3g=;
-        b=iMpcgfzuICrq0q3iPYKyyIXfq5f3majc74oak7l+oqjHYFf17I3Ozia8LBmmHbN1/r
-         w2qNdUJexnEdGwpFBvSbBW7lu4ZVPJ5I/Kl9Qv4YNKXPAYZ8LEYASJbBbV6l0ISkHzHZ
-         nmqH56DC9asEKFNyl/mitq/QP8cxo6PhpBRvTrwDUcCpGfuqOLNoaskPZBazaHaHV6B4
-         C6/8d3QV4YzDbCB6rLYuN6/6AFv5KQAqM1uvKsi8ACspb+oABuubO/V4Qv+wcDUiCkg6
-         F1Zgx7Fh3aL+lOfY0IHZSusJpI0fUqrXWV4EdcpRzUQC1T6063rYNOYZGoGhKJJERlKj
-         qkSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=WCEMbK6VpTWfnhbVRjPF5UIFvs6FkjhGHnAeW326f3g=;
-        b=kZ6LNBmpOLvt3u6hK5FRI5Tzo9GS5ilUgu0kdcVC2hw/cLsLAWrUEB74Kp7jcE+BsN
-         gKWQ7Zx0ry5aimahxdZdVd1te0oJ+sJV7JBFqVaCIy0Bcbv7o+5qYfC/DGAOEhsKoev6
-         JSeHKHnBl+ZVZ+U5gWq1n96ILXN7Zil2vKw4H4AjhNCQV1mhjKu7QnhjJU2svm96ECjv
-         HcNnntQa+m8B8dghK9Kh4+1iVW8aW4hsfSvGTpYs75q0atBD6kjTzVFfOKq02+2hbO2r
-         nt49pBNt9tSGc1sk0R1aLjlaUrXgZVCQevRhXd15AB6EbwZZ0PtWlO+MdoiDsv7gJUj9
-         tyrg==
-X-Gm-Message-State: AOAM530mG76vM9G9fyQKsXWuHTnNwNwRmxQ6pqhLbrybfcf5903aRQ4c
-	6F2I1ggDToxFO1btbAkS7vE=
-X-Google-Smtp-Source: ABdhPJx0FoQ+N0R4gfe08ybC6gVKP0QNYk6QszL75pnmu1zu1JpGal/VPT307fMrZF3epemW2PT3kQ==
-X-Received: by 2002:a2e:93cf:: with SMTP id p15mr9850563ljh.141.1605041984083;
-        Tue, 10 Nov 2020 12:59:44 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
-        by smtp.gmail.com with ESMTPSA id w10sm2708051ljo.130.2020.11.10.12.59.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2020 12:59:43 -0800 (PST)
-Subject: Re: [PATCH V2 11/23] xen/ioreq: Move x86's io_completion/io_req
- fields to struct vcpu
-To: paul@xen.org, xen-devel@lists.xenproject.org
-Cc: 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Jan Beulich' <jbeulich@suse.com>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
- 'Wei Liu' <wl@xen.org>, 'George Dunlap' <george.dunlap@citrix.com>,
- 'Ian Jackson' <iwj@xenproject.org>, 'Julien Grall' <julien@xen.org>,
- 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Jun Nakajima' <jun.nakajima@intel.com>, 'Kevin Tian'
- <kevin.tian@intel.com>, 'Julien Grall' <julien.grall@arm.com>
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
- <1602780274-29141-12-git-send-email-olekstysh@gmail.com>
- <004f01d6a6cf$79d0daa0$6d728fe0$@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <51b7fe12-46a2-bd0e-da10-f753ecb0453c@gmail.com>
-Date: Tue, 10 Nov 2020 22:59:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id ca59eb76-203d-4c95-9139-27ae57475992;
+	Tue, 10 Nov 2020 21:26:11 +0000 (UTC)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+	by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AALNsqL062598;
+	Tue, 10 Nov 2020 21:26:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=9Nj2D+m80kZDJqrKbN/4/Is2vNJ6uqoCfmj84gGzeI0=;
+ b=KQwSFc1LoGQ1VzaMRiggNXYjNGFOkFbtnIpoHJ63adZBDFwbB47VyCf6DN+tnopZ6tC+
+ Ys3WhPIB7S4McHQMXEQ/TepCswb5N1BFbWjHrxa03JjMciQwnjLGGGyrlV53U9+z0dhb
+ f3F77ISWqoiBoSQLLZ/m8/dJ3McQblbRZ9l/mnOEBiiEDYqqJ9Ns9zBPT1S6rci/9SBu
+ QNDx37w7jRZCsXJG4ySSpIDFhgsG1sNZe/fNCo+y6IMeCl3O6VL0jWad0tcMUszF1FTg
+ Ueya8AfybJ2HPRbcLnuZJBCKzrfT6slqP45OamdgZvhtcAVS1LgCt3H+vS4V2OPQqEF2 Lw== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+	by aserp2130.oracle.com with ESMTP id 34nh3ax8mk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 10 Nov 2020 21:26:07 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+	by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AALOqFA194731;
+	Tue, 10 Nov 2020 21:26:07 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+	by aserp3020.oracle.com with ESMTP id 34p5g0w6vj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 10 Nov 2020 21:26:07 +0000
+Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
+	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0AALPx9D001394;
+	Tue, 10 Nov 2020 21:26:01 GMT
+Received: from char.us.oracle.com (/10.152.32.25)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Tue, 10 Nov 2020 13:25:59 -0800
+Received: by char.us.oracle.com (Postfix, from userid 1000)
+	id 650FC6A0109; Tue, 10 Nov 2020 16:27:51 -0500 (EST)
+Date: Tue, 10 Nov 2020 16:27:51 -0500
+From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org,
+        Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH for-5.10] swiotlb: remove the tbl_dma_addr argument to
+ swiotlb_tbl_map_single
+Message-ID: <20201110212751.GA16458@char.us.oracle.com>
+References: <20201023063309.3472987-1-hch@lst.de>
+ <20201103094643.GA18936@lst.de>
+ <20201104140438.GA16892@char.us.oracle.com>
+ <20201110091421.GA23707@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <004f01d6a6cf$79d0daa0$6d728fe0$@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201110091421.GA23707@lst.de>
+User-Agent: Mutt/1.9.1 (2017-09-22)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9801 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 spamscore=0 malwarescore=0
+ adultscore=0 phishscore=0 bulkscore=0 mlxlogscore=999 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011100146
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9801 signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 lowpriorityscore=0 priorityscore=1501
+ clxscore=1015 malwarescore=0 mlxscore=0 spamscore=0 suspectscore=0
+ mlxlogscore=999 impostorscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011100146
 
+On Tue, Nov 10, 2020 at 10:14:21AM +0100, Christoph Hellwig wrote:
+> On Wed, Nov 04, 2020 at 09:04:38AM -0500, Konrad Rzeszutek Wilk wrote:
+> > On Tue, Nov 03, 2020 at 10:46:43AM +0100, Christoph Hellwig wrote:
+> > > ping?
+> > 
+> > Hopefully this goes through. I am in the process of testing it but ran
+> > into testing issues that I believe are unrelated.
+> 
+> Did you manage to make any progress?  This fixes an issue with the
 
-On 20.10.20 13:55, Paul Durrant wrote:
+YES!!
+> new support for systems with DMA offsets in 5.10..
 
-Hi Paul.
-
-Sorry for the late response.
-
->> -----Original Message-----
->> From: Oleksandr Tyshchenko <olekstysh@gmail.com>
->> Sent: 15 October 2020 17:44
->> To: xen-devel@lists.xenproject.org
->> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Paul Durrant <paul@xen.org>; Jan Beulich
->> <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Roger Pau Monné
->> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; George Dunlap <george.dunlap@citrix.com>; Ian Jackson
->> <iwj@xenproject.org>; Julien Grall <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Jun
->> Nakajima <jun.nakajima@intel.com>; Kevin Tian <kevin.tian@intel.com>; Julien Grall
->> <julien.grall@arm.com>
->> Subject: [PATCH V2 11/23] xen/ioreq: Move x86's io_completion/io_req fields to struct vcpu
->>
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> The IOREQ is a common feature now and these fields will be used
->> on Arm as is. Move them to common struct vcpu as a part of new
->> struct vcpu_io. Also move enum hvm_io_completion to xen/sched.h
->> and remove "hvm" prefixes.
->>
->> This patch completely removes layering violation in the common code.
->>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> CC: Julien Grall <julien.grall@arm.com>
->>
->> ---
->> Please note, this is a split/cleanup/hardening of Julien's PoC:
->> "Add support for Guest IO forwarding to a device emulator"
->>
->> ***
->> I was thinking that it may be better to place these two fields
->> into struct vcpu directly (without intermediate "io" struct).
->> I think, this way the code which operates with these fields
->> would become cleaner. Another possible option would be either
->> to rename "io" struct (I failed to think of a better name) or
->> to drop(replace?) duplicating "io" prefixes from these fields.
-> Just drop the 'io_' prefix from the field names.
-
-Will drop. This would look like indeed better.
-
-
-Thank you.
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+OK. Sending the git pull request in a minute or two.
 
