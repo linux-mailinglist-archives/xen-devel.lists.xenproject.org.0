@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0FE2AD571
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 12:39:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.23295.49967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7470B2AD5EE
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 13:13:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.23315.49986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcRz3-0000sA-Bu; Tue, 10 Nov 2020 11:38:45 +0000
+	id 1kcSVi-0004I7-Cf; Tue, 10 Nov 2020 12:12:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 23295.49967; Tue, 10 Nov 2020 11:38:45 +0000
+Received: by outflank-mailman (output) from mailman id 23315.49986; Tue, 10 Nov 2020 12:12:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,119 +23,105 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcRz3-0000rl-8f; Tue, 10 Nov 2020 11:38:45 +0000
-Received: by outflank-mailman (input) for mailman id 23295;
- Tue, 10 Nov 2020 11:38:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hJ2u=EQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kcRz1-0000rg-Kp
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 11:38:43 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4cacae8a-02c7-4b23-974f-18927ec6a886;
- Tue, 10 Nov 2020 11:38:41 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kcSVi-0004Hi-9a; Tue, 10 Nov 2020 12:12:30 +0000
+Received: by outflank-mailman (input) for mailman id 23315;
+ Tue, 10 Nov 2020 12:12:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xL7T=EQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kcSVh-0004Hd-3O
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 12:12:29 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5458695e-253b-42aa-9abd-e47c127b6146;
+ Tue, 10 Nov 2020 12:12:28 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2BBA4ABCC;
+ Tue, 10 Nov 2020 12:12:27 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=hJ2u=EQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kcRz1-0000rg-Kp
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 11:38:43 +0000
-X-Inumbo-ID: 4cacae8a-02c7-4b23-974f-18927ec6a886
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4cacae8a-02c7-4b23-974f-18927ec6a886;
-	Tue, 10 Nov 2020 11:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1605008321;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=40PxImIy7N+dTs+m91Fee03wILsi2HFIaT9+AwryQAA=;
-  b=C2Bgo9wyPZUcEm0hAtuipocoOijt/cfeU5pnRNfzS+Gxi+GbOTuJmdkM
-   GrkDenA/paeH69P6AZ+/iqE5trj7x12/iJMHwsxjrzD0NwwyCauV5Req7
-   tb7iHTnp3pg2KJZ6QJfOOzt3fClSGtBYFkY8u7zzajNcP3GIgT3mWQtzB
-   I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: k5Lz4GGEf2jgghS13W3KNJFrkJppOQwP5tPWYYvmg3plpgQZMeqVMaSKkUpuQSECz0SAfqwFRD
- YYLGgProERLplWctzgargJHr9+8XQBWnlw3SDDtIycJxMP1LF2fAOYeA07hxU8UbD0LDiapbHO
- jyg0EAAQ1BXSZ6lYz5RNGa95+oZ0kbGbPBW9nE9nFSE/npezKZInaDFvKElANMiEo+YA+FfrZ/
- H3iU17hBV7fNzOdUBS1Sz7O1sXxpnLrJqsXzdo3kuW0icgstyD9dqFJZ/AoM2o7ge9OasiRsIy
- nTE=
-X-SBRS: None
-X-MesageID: 30840389
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,466,1596513600"; 
-   d="scan'208";a="30840389"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iPodGjUZihmn4BuFGd4pJrPiTzTdOSt4OgDwPIpNcz7M8qlNIV5C1EFAhQao6mkAkakz6V1VgkapJLBN8dXzAJpK7ckePOEnF97wV6YSSj83R+opkkHzKeaDTqvQjnNQw460MD5MrMV7jwH2HH6GOuFiJdubqbrY2eT1MkFya3uZZeuZCmZMDvjBaw1c71TwdoRk2vVC/SfyMAMZFf5kzbm0b/4Q3+djmlB+MpOVDN52X0vAbJT+3Hg+bBagAGcwKVArBx3/EU95KYzmedu4ROpcOYvtMnEv+IrhlUTcQ/Y8mhMtX0B24VLdkpAGOQUCPITSq3WfKZ5uIuL5I4Pv6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=my46kdy4q3mUYkveQ4tkBogWiaNXK1LTx/T3ptmh0bg=;
- b=izA6y4zcxrjPcIFG7ejcVfDplV90pHAlxek3IaCiYLtjkQfd+RGKiIeii537STElU1wrXoKpq6XjWhXPHwox/1XqTxo1qzTko2gkAj+cGBbp5ss4vbDE1dtzFw6sUX/VmL7QXFeqHfq0IHxOZh1t662bSoObVxMREvScTFn0/zL4NFCEyNbx+/Yrp3DT1QX7oGKKmwuQYKFbedLwzXAWQ1mBA7fzOOCaaefympF9se7uASdd3pDgMxHLhLdIRIE/5hgV5GWGW+OYzdVG3QF93CrviVJTj0uDS1CfUUmRfWAnlvPeYlzvUoXkDv77vdmog0lz1/BumHlpbtGfUGR1ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=my46kdy4q3mUYkveQ4tkBogWiaNXK1LTx/T3ptmh0bg=;
- b=os1MgH2Z6lmGURZQVNAVVue2oCY4scJITLoGBOu9w9ic/Ko3hYooY3PtsPi3T2qpZM5P8UcSOMyB2chFpqcACHSD3HmXbePmDOi1rph3f0dP4wVdiTYpjePmoBqA1I6dlnCHzw1F1Byt9CkA5zwLv/zJl9HFfjqhNv16LcHuy2s=
-Date: Tue, 10 Nov 2020 12:38:30 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<George.Dunlap@eu.citrix.com>
-Subject: Re: [PATCH 4/5] x86/HAP: move nested-P2M flush calculations out of
- locked region
-Message-ID: <20201110113830.ttnvs74ud2fo3bxn@Air-de-Roger>
-References: <29d30de1-2a8d-aee2-d3c3-331758766fc9@suse.com>
- <551dc0a2-f5ef-a646-26eb-8a67ae428745@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <551dc0a2-f5ef-a646-26eb-8a67ae428745@suse.com>
-X-ClientProxiedBy: LO2P123CA0097.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:139::12) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+	(envelope-from <SRS0=xL7T=EQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kcSVh-0004Hd-3O
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 12:12:29 +0000
+X-Inumbo-ID: 5458695e-253b-42aa-9abd-e47c127b6146
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 5458695e-253b-42aa-9abd-e47c127b6146;
+	Tue, 10 Nov 2020 12:12:28 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605010347;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0YfaoJeSASk43AydLI7V2l3mT3osg6VPabsZj92csws=;
+	b=ieXVHdl+U0MiIDOAQBIlAqWzbq4T2QMuaLCXgqyJkB6mE528pY0KDi9Cog/3+xw49PqsUv
+	yLnsl3GhffmaOEBlCi+dq0B63DrR8GtXIDCQP372QMPMt0nzMgpxo8poz+13V4HZKN9RC1
+	2UWfhGLd3Jqc8TEkPD7t8jTwDQUqyPY=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 2BBA4ABCC;
+	Tue, 10 Nov 2020 12:12:27 +0000 (UTC)
+Subject: Re: [PATCH v2] x86/msr: fix handling of MSR_IA32_PERF_{STATUS/CTL}
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20201109173819.7817-1-andrew.cooper3@citrix.com>
+ <681e03f5-86fd-43bb-5347-c526def9ffcb@suse.com>
+ <083f46c0-07fb-7b22-4e49-d2a0df87164c@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <60ac8b66-7d36-0c4e-85c4-f2d867201fd5@suse.com>
+Date: Tue, 10 Nov 2020 13:12:27 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1ce278f9-fd56-4e9d-20e4-08d8856d29aa
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4396:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB4396FB5D3F96CFC46FFC8AE28FE90@DM6PR03MB4396.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J5dFXGN9N4K6z9yaGQ+2zpkbfg8bdemuxsFxAkcOcmeXRkv9mGrvWIpFQcITatFuIACQz8sLBQq9ewqssPNwITvSVDTgpDjwnHC2UGGPnSCP5DWzATPQx5MLuyOlPdqzCpKWMmGbkFRmFpBf3pqXzSMaC2hI0pjUBgiIt5DOLc0dpaYuop/R1w9KG3iS0LReTw3rPABNokb9BWmgqP8oDGuHk2aou1K0WfVj8WrELmBH/NgBl4m542miNOYH+L0BExLwh7jLqWooCGRo14e4UBvQrjmVLhpJBuLl/oCnoGMTA1N9KZBRO1HL/Np1v01x
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(396003)(346002)(366004)(136003)(39860400002)(376002)(4744005)(54906003)(6486002)(85182001)(4326008)(1076003)(9686003)(86362001)(66476007)(66556008)(33716001)(478600001)(2906002)(66946007)(316002)(6666004)(186003)(26005)(83380400001)(6496006)(6916009)(107886003)(8676002)(956004)(8936002)(5660300002)(16526019);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: wO8ecIKtG7y+HVaOt5Bnkwz9eOt8jMJhtN6iZrUiTlbtZwLfB4QTXSSToyXbJ8Y2CRkh9Dj4k1nCpkEWisn+gholsc9W2DtOvUoEhxmD2TIc5jxgMFB0oTyBfvqeJYdryB6swCNFGvnkDCWHVgWSvwlXtOZSdST7WYA3Yrt52cn+SX+l0FiKcu4aqmWJmdA6KyhyZH+YFxtYPM7wE4+kwTM5GYjVEruH+Hhdgkr/1BG0GywLDQPzFFNoHz8oKmvnJnaf5ePtGUNWLGoErMXCaGpjXiYNqiwPzLTkDC32iKYOgttprh2a5U/v4XbxtbnI2ptxj7thGKY5N6qvPCYRW8a3gcc9MHVFmhM+ah9hSFwyW/WvTRFf9q2PD+2p2KQM+QgjxSco/DKozCj6SZiq3oD2V3hMSRbrg+JA7M9OPiReNL9ERu1IiRxgapN0ERDOuopc8ZSIyGYZ+lG66iAOo2AGsoXCpm/QC8Eah/kTGHhXOVajjemxhBehICerFtdqF6ahIemgyxoShytjI5Ns6UgUZuotiYMMSBaGXN8N+niUbHCa/Oqb4I2ELEVigToYopBPx+F7B9Op27iy5theM2i/8sbHRrFF3RG7mxjiBln/dMF3Pf6Eqcm+2LFkdGcc29wRDv0kn4IVvEF+ytcXwfWdlXWQXfVGL7BWoENLxheSE+zXv5ezmLd7U/mhWtqUfDtKIFatRL/TU+Eum3jJcoGW1RnbNHTih5GkrOX+3iH6sq5z1Bfwpkdc8ls+6SIgMMa6nwRiqISaF69zAlpB6H2wdfEclXZwaujLixZd9TEfC8ggyhPz7Ib6LZuLkVcq5JHPumxiA4kuCPOn0zaxM8jvXVgA4LUUehqwJrSMZ4EWUZDIBcGt45eEadjpfa/4octJzDiTMFYYhcCDgK190A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ce278f9-fd56-4e9d-20e4-08d8856d29aa
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2020 11:38:37.1084
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NPAIYXQhS7L2nikBG718SmDB+zmc2HQkuDPu5SxSNLaI6kHK/jNMaHctE0vD7Cs6faUB0zJCN1ry4JRUwWC3RA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4396
-X-OriginatorOrg: citrix.com
+In-Reply-To: <083f46c0-07fb-7b22-4e49-d2a0df87164c@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2020 at 10:24:12AM +0100, Jan Beulich wrote:
-> By latching the old MFN into a local variable, these calculations don't
-> depend on anything but local variables anymore. Hence the point in time
-> when they get performed doesn't matter anymore, so they can be moved
-> past the locked region.
+On 10.11.2020 11:32, Andrew Cooper wrote:
+> On 10/11/2020 08:03, Jan Beulich wrote:
+>> On 09.11.2020 18:38, Andrew Cooper wrote:
+>>> --- a/xen/include/xen/sched.h
+>>> +++ b/xen/include/xen/sched.h
+>>> @@ -1069,6 +1069,23 @@ extern enum cpufreq_controller {
+>>>      FREQCTL_none, FREQCTL_dom0_kernel, FREQCTL_xen
+>>>  } cpufreq_controller;
+>>>  
+>>> +static always_inline bool is_cpufreq_controller(const struct domain *d)
+>>> +{
+>>> +    /*
+>>> +     * A PV dom0 can be nominated as the cpufreq controller, instead of using
+>>> +     * Xen's cpufreq driver, at which point dom0 gets direct access to certain
+>>> +     * MSRs.
+>>> +     *
+>>> +     * This interface only works when dom0 is identity pinned and has the same
+>>> +     * number of vCPUs as pCPUs on the system.
+>>> +     *
+>>> +     * It would be far better to paravirtualise the interface.
+>>> +     */
+>>> +    return (IS_ENABLED(CONFIG_PV) &&
+>>> +            (cpufreq_controller == FREQCTL_dom0_kernel) &&
+>>> +            is_pv_domain(d) && is_hardware_domain(d));
+>>> +}
+>> IS_ENABLED(CONFIG_PV) is already part of is_pv_domain() and hence
+>> imo shouldn't be used explicitly here.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Ah yes.  Will drop.
+> 
+>> Also, this being an x86 concept, is it really a good idea to put
+>> in xen/sched.h? I guess this builds on Arm just because of DCE
+>> from the IS_ENABLED(CONFIG_PV) (where afaict the one in
+>> is_pv_domain() will still do). (But yes, I do realize that
+>> cpufreq_controller itself gets declared in this file, so maybe
+>> better to do some subsequent cleanup.)
+> 
+> I can't spot anywhere obviously better for it to live.  We don't have a
+> common cpufreq.h,
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Not the most obvious place for it to live at, but
+xen/include/acpi/cpufreq/cpufreq.h ?
 
-Thanks, Roger.
+Jan
 
