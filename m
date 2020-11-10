@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51DFE2AD740
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 14:15:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.23369.50060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3E12AD75D
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Nov 2020 14:20:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.23378.50075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcTUL-0001ap-FF; Tue, 10 Nov 2020 13:15:09 +0000
+	id 1kcTYo-0001oZ-34; Tue, 10 Nov 2020 13:19:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 23369.50060; Tue, 10 Nov 2020 13:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 23378.50075; Tue, 10 Nov 2020 13:19:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,127 +23,114 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcTUL-0001aQ-Bo; Tue, 10 Nov 2020 13:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 23369;
- Tue, 10 Nov 2020 13:15:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kcTYn-0001oA-WE; Tue, 10 Nov 2020 13:19:46 +0000
+Received: by outflank-mailman (input) for mailman id 23378;
+ Tue, 10 Nov 2020 13:19:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xL7T=EQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kcTUJ-0001aI-Qp
- for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 13:15:07 +0000
+ id 1kcTYm-0001o0-Do
+ for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 13:19:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b251ff40-e675-4d8f-a5bc-bc5231568bde;
- Tue, 10 Nov 2020 13:15:04 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ca5d3cd4-0a20-4a0a-865d-a307583a7e8a;
+ Tue, 10 Nov 2020 13:19:41 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EEF06ABD6;
- Tue, 10 Nov 2020 13:15:03 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id D0453ABCC;
+ Tue, 10 Nov 2020 13:19:40 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=xL7T=EQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kcTUJ-0001aI-Qp
-	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 13:15:07 +0000
-X-Inumbo-ID: b251ff40-e675-4d8f-a5bc-bc5231568bde
+	id 1kcTYm-0001o0-Do
+	for xen-devel@lists.xenproject.org; Tue, 10 Nov 2020 13:19:44 +0000
+X-Inumbo-ID: ca5d3cd4-0a20-4a0a-865d-a307583a7e8a
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id b251ff40-e675-4d8f-a5bc-bc5231568bde;
-	Tue, 10 Nov 2020 13:15:04 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id ca5d3cd4-0a20-4a0a-865d-a307583a7e8a;
+	Tue, 10 Nov 2020 13:19:41 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605014104;
+	t=1605014380;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9si9W8u3F5evKhqgh7QdWPPNH2bY3QcqUEHMhYPU1/E=;
-	b=jD0NgWRKHWzNdaoTjpLMEkQomSF1Pu/l5zZyhOX7n9ElgTP4siIFKr2a4rt0rR4kqrlH9o
-	FhytsiO8yAID36HRAG3b8BU6RsyghqVvL/2eBHdMFyGDmXh0lIAqzqb8liXYMj3DlfUPpj
-	X8CNeHK8pzeG/oy5q4SELJT8SUmTazk=
+	bh=xjIxpzoJoK2RSmU+/Sp56xcGMtt7dE1k677M7iQdhr0=;
+	b=Sf/jqmcV09prnR3VZfsTw7JOT4nFDEAmgPie/XOceYuIAy+77v+rzSsKqHSD48N2nAvvpc
+	0CKh2O+eheI3BSXGn/BgeDG5MdYGUNgBH1qh4cdRrurbo8eTt1mOR4SjaIFOCJaVPTIBpq
+	Qpjh8ticDZuHqkFwQH0emVb1uuGkHlc=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id EEF06ABD6;
-	Tue, 10 Nov 2020 13:15:03 +0000 (UTC)
-Subject: Re: [PATCH] docs: fix documentation to notice credit2 is the default
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20201110112118.99960-1-roger.pau@citrix.com>
- <b9ca219d-b6d7-9f59-3ede-9b4c9225e01b@suse.com>
- <20201110124900.2hjgn45i7ynf33p3@Air-de-Roger>
- <035d10c0-2774-8d1c-b55f-e075f04344e7@citrix.com>
- <20d3ee40-950f-e4f9-00d0-a5274c17771f@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id D0453ABCC;
+	Tue, 10 Nov 2020 13:19:40 +0000 (UTC)
+Subject: Re: [PATCH v3 5/7] x86: guard against straight-line speculation past
+ RET
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <7065e2dc-f846-be79-1081-682c2295358c@suse.com>
+ <80ceea17-958d-f409-5f39-9f353e780f5b@suse.com>
+ <20201110093142.hkufamaepn67gv43@Air-de-Roger>
+ <92e58ff0-e6a4-f92f-1ad6-06db7751762a@suse.com>
+ <20201110111603.rarf7ncddrkswlxs@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1e44b5b1-7406-c459-eac5-78af76ccbf34@suse.com>
-Date: Tue, 10 Nov 2020 14:15:03 +0100
+Message-ID: <586bb9e5-bb90-bb27-3010-e702d65e301c@suse.com>
+Date: Tue, 10 Nov 2020 14:19:40 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.1
 MIME-Version: 1.0
-In-Reply-To: <20d3ee40-950f-e4f9-00d0-a5274c17771f@suse.com>
+In-Reply-To: <20201110111603.rarf7ncddrkswlxs@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 10.11.2020 14:13, Jürgen Groß wrote:
-> On 10.11.20 14:07, Andrew Cooper wrote:
->> On 10/11/2020 12:49, Roger Pau Monné wrote:
->>> On Tue, Nov 10, 2020 at 12:31:14PM +0100, Jürgen Groß wrote:
->>>> On 10.11.20 12:21, Roger Pau Monne wrote:
->>>>> Fix the command line document to account for credit2 now being the
->>>>> default scheduler.
->>>>>
->>>>> Fixes: dafd936dddbd ('Make credit2 the default scheduler')
->>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>> ---
->>>>>    docs/misc/xen-command-line.pandoc | 2 +-
->>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
->>>>> index 4ae9391fcd..789aead148 100644
->>>>> --- a/docs/misc/xen-command-line.pandoc
->>>>> +++ b/docs/misc/xen-command-line.pandoc
->>>>> @@ -1876,7 +1876,7 @@ with read and write permissions.
->>>>>    ### sched
->>>>>    > `= credit | credit2 | arinc653 | rtds | null`
->>>>> -> Default: `sched=credit`
->>>>> +> Default: `sched=credit2`
->>>>>    Choose the default scheduler.
->>>>>
->>>> Tried that before:
+On 10.11.2020 12:16, Roger Pau Monné wrote:
+> On Tue, Nov 10, 2020 at 11:06:46AM +0100, Jan Beulich wrote:
+>> On 10.11.2020 10:31, Roger Pau Monné wrote:
+>>> On Fri, Oct 23, 2020 at 10:38:04AM +0200, Jan Beulich wrote:
+>>>> Under certain conditions CPUs can speculate into the instruction stream
+>>>> past a RET instruction. Guard against this just like 3b7dab93f240
+>>>> ("x86/spec-ctrl: Protect against CALL/JMP straight-line speculation")
+>>>> did - by inserting an "INT $3" insn. It's merely the mechanics of how to
+>>>> achieve this that differ: A set of macros gets introduced to post-
+>>>> process RET insns issued by the compiler (or living in assembly files).
 >>>>
->>>> https://lists.xen.org/archives/html/xen-devel/2019-01/msg01097.html
->>>>
->>>> And Andrew didn't like it...
->>> One way or another we need to get this fixed in the document. Listing
->>> credit as the still the default is wrong.
+>>>> Unfortunately for clang this requires further features their built-in
+>>>> assembler doesn't support: We need to be able to override insn mnemonics
+>>>> produced by the compiler (which may be impossible, if internally
+>>>> assembly mnemonics never get generated), and we want to use \(text)
+>>>> escaping / quoting in the auxiliary macro.
+>>>
+>>> Could this have an option to enable/disable at build time?
 >>
->> I agree that what is there is wrong, but so is saying credit2.
+>> Well, a subsequent patch adds a config option for this, which in
+>> the worst case could be turned off. I'm afraid though I'm not
+>> clear about the question, because ...
 >>
->> This documentation is for users, because develops know exactly how they
->> configured their schedulers, and won't actually need to refer to it.
+>>> FreeBSD will drop GNU as quite soon from base, and albeit it can be
+>>> installed as a package I would like to be able to build Xen using a
+>>> toolchain based on LLVM exclusively.
 >>
->> As a consequence, it depends heavily on what a specific
->> distro/downstream chose, config-wise.
->>
->>> I think there are several places in xen-command-line.pandoc that just
->>> contain the default values set in Kconfig, so IMO if we want to
->>> change this it should be done wholesale rather than picking on every
->>> default value change. Opinions?
->>
->> xen-command-line.pandoc wholly predates Kconfig.  We're only in this
->> mess because previous patches haven't been appropriately reviewed.
->>
->> Lets fix it up to be correct, but lets not delay fixing this to look for
->> potential other cases.
+>> ... it's not clear to me what the implications here are: Are you
+>> saying -no-integrated-as is not going to function anymore, unless
+>> people explicitly install gas? If that's not what you meant to
+>> indicate, then I don't see how building would become impossible.
 > 
-> The ultimate fix would be to generate this document according to
-> Kconfig settings. :-D
+> I'm still inquiring about this, but I would say that when gas is
+> removed from FreeBSD then the 'as' command would be mapped to llvm-as,
+> and thus -no-integrated-as would hit the same issues as the integrated
+> as. So far in Xen we have assumed that -no-integrated-as would
+> fallback to an as capable of doing what the integrated clang as
+> doesn't support, but that might not be the case.
 
-Except that's not suitable for putting up as a web page for
-everyone to use as "cannoical" reference. Every distro could
-do so, sure.
+At which point Xen couldn't be built anyway, I expect. If llvm-as
+isn't sufficiently gas-compatible, we've lost (right now at least).
+
+> Ideally we would have to re-run the tests with -no-integrated-as, in
+> order to assert that the external as is really capable of what the
+> internal one is not.
+
+And if it doesn't, what would we do other than failing the build
+(which it would also if we didn't do the 2nd round of checks)?
 
 Jan
 
