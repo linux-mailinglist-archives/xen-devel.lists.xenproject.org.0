@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C20A22AF479
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 16:11:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25033.52589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9881C2AF47A
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 16:12:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.25034.52601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcrme-0007aL-RA; Wed, 11 Nov 2020 15:11:40 +0000
+	id 1kcrmu-0007e8-5D; Wed, 11 Nov 2020 15:11:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25033.52589; Wed, 11 Nov 2020 15:11:40 +0000
+Received: by outflank-mailman (output) from mailman id 25034.52601; Wed, 11 Nov 2020 15:11:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,100 +23,122 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcrme-0007Zx-O6; Wed, 11 Nov 2020 15:11:40 +0000
-Received: by outflank-mailman (input) for mailman id 25033;
- Wed, 11 Nov 2020 15:11:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cwX6=ER=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kcrmd-0007Zs-R2
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:11:39 +0000
+	id 1kcrmu-0007de-14; Wed, 11 Nov 2020 15:11:56 +0000
+Received: by outflank-mailman (input) for mailman id 25034;
+ Wed, 11 Nov 2020 15:11:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MbyH=ER=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1kcrms-0007dI-Ll
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:11:54 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c14d34c5-a5a1-4335-8f81-1d25083b6ad6;
- Wed, 11 Nov 2020 15:11:38 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0740b1c6-e2f5-4db0-84ab-b9693fc39eb6;
+ Wed, 11 Nov 2020 15:11:53 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B42F0AC82;
- Wed, 11 Nov 2020 15:11:37 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 59824ABD1;
+ Wed, 11 Nov 2020 15:11:52 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=cwX6=ER=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kcrmd-0007Zs-R2
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:11:39 +0000
-X-Inumbo-ID: c14d34c5-a5a1-4335-8f81-1d25083b6ad6
+	(envelope-from <SRS0=MbyH=ER=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+	id 1kcrms-0007dI-Ll
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:11:54 +0000
+X-Inumbo-ID: 0740b1c6-e2f5-4db0-84ab-b9693fc39eb6
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c14d34c5-a5a1-4335-8f81-1d25083b6ad6;
-	Wed, 11 Nov 2020 15:11:38 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 0740b1c6-e2f5-4db0-84ab-b9693fc39eb6;
+	Wed, 11 Nov 2020 15:11:53 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605107497;
+	t=1605107512;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=D25xFq44o+ROSq7PtmfH57k0SQUUt62DuVfai3k9VCg=;
-	b=d0waCxHO7tk55pPhck7LiWSWY87tM0XreYEYGdcsf2A9eJYDLb8oP0pgPLyqJQGJ7v5OA4
-	IrFTN912Djc/wiq7/2hyx5as+z7+y+GGIUROqw6tr/bVG9mbHkMrqn8uhtpNcH3Y/mq/Kz
-	XgDZ7huIBciRGexFHVO7gkAWa2CIhoA=
+	bh=uSPXpLEG8GOSyda/5PVaeleBjocKL/tOq+aKFv7VeqM=;
+	b=dKI0r7JK35LFwj0ilmh6RRxVlyv0k0p9yWd/5A7bDxu99/X9F2xkY81YGoznX91IPgeIci
+	cA6JgJ85xkK+lf61TMNMaech5tRRywFUGzHZQt6fQdX5SHyg6pzdElhQ9j0p6bfe71VxIe
+	1mp1AZhrLbQjo7TfHyeYu2gMUrhte24=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id B42F0AC82;
-	Wed, 11 Nov 2020 15:11:37 +0000 (UTC)
-Subject: Re: [PATCH] xen/x86: Work around Clang code generation bug with asm
- parameters
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20201111124512.2268-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8282790a-a0bd-1d33-d992-9d194766254e@suse.com>
-Date: Wed, 11 Nov 2020 16:11:37 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.1
+	by mx2.suse.de (Postfix) with ESMTP id 59824ABD1;
+	Wed, 11 Nov 2020 15:11:52 +0000 (UTC)
+Message-ID: <7012360df5addb6e7737e421562e7f6a1dfe3f75.camel@suse.com>
+Subject: Re: [PATCH 10/12] xen/hypfs: add cpupool directories
+From: Dario Faggioli <dfaggioli@suse.com>
+To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Jan Beulich
+	 <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	 <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	 <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	 <wl@xen.org>, xen-devel@lists.xenproject.org
+Date: Wed, 11 Nov 2020 16:11:51 +0100
+In-Reply-To: <9aba12c7-f8ec-7670-2661-f82b05adf649@suse.com>
+References: <20201026091316.25680-1-jgross@suse.com>
+	 <20201026091316.25680-11-jgross@suse.com>
+	 <c5b12f33b4e3feb0d6f6bc51d5474b36fa42d881.camel@suse.com>
+	 <6b2cf5d0-9c6d-07bd-51d3-9fd34cd8d1a5@suse.com>
+	 <9aba12c7-f8ec-7670-2661-f82b05adf649@suse.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-T7tmYYHPs2F+VFT9IuPY"
+User-Agent: Evolution 3.38.1 (by Flathub.org) 
 MIME-Version: 1.0
-In-Reply-To: <20201111124512.2268-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+
+
+--=-T7tmYYHPs2F+VFT9IuPY
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2020-11-11 at 16:00 +0100, J=C3=BCrgen Gro=C3=9F wrote:
+> On 11.11.20 15:56, Jan Beulich wrote:
+> > On 11.11.2020 15:51, Dario Faggioli wrote:
+> >=20
+> >=20
+> > Having a hypfs_add_dir() stub would also allow to achieve this, and
+> > then, going forward, perhaps also elsewhere.
+>=20
+> I thought about that. This would require to be macro for the stub
+> case,
+> but I don't think this is a major problem.
+>=20
+Yes, I thought about "stub-bing" at the hypfs_add_dir() level, but we
+need a macro for that, for dealing with the parameters.
+
+Also, it's not like having that stub would prevent having #ifdef-s at
+all in this file. So that's why I thought about a local stub.
+
+But sure, if you go for the generic macro stub, I'm fine with that too.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-T7tmYYHPs2F+VFT9IuPY
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-On 11.11.2020 13:45, Andrew Cooper wrote:
-> Clang 9 and later don't handle the clobber of %r10 correctly in
-> _hypercall64_4().  See https://bugs.llvm.org/show_bug.cgi?id=48122
+-----BEGIN PGP SIGNATURE-----
 
-Are you sure this is a bug? With ...
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl+r/zcACgkQFkJ4iaW4
+c+4ydA//XGZ9rclNfsBWzdxmDng1m9P+PQNtkMiiDaPbIfybirqVR5KiNT1awYBB
+O0dsdAmuJpIjWTJ1GGim04t+V4OCqVFTLqSMmeshncKmDffEJzNIA7I7jDQz+vnb
+lqsttsom97nQ7+sfVFo9xzXkWKvCtQVIwqkdWgsN6+rIRtf9cy8pJqFn7Q7j168L
+urmWZ8Go66UoDrLkZ2Sk4bDKrjZpdav/f3GBR2Lmghz28tL81X0IuFR7C9G5rUsI
+nHnH1KAzQrlNCWvD+8cwUW2QmpG9E92gtaWrArpbcM0O62hJu4ZMwZxs6G/k0FwX
+u4xnAsTZrpAK8BxUynPh9iEJ71iVJY+jHB5hY21GcbMtbCk8QhWUFdqbi9HZSc2O
+ILRRyx9A1Z7PYxvGxcpw8zaVAdV61a9JcFgJC8FYLKkZZOpzmGxd8OUNqoRz3Lwq
+pZ0+CFeoudLtX6Sh7z4s5mrCOEGdY+HoDJsBCz20mX6FXJ8kqggFKJQGuR8tGBeZ
+/qbELZNTixOL5Lp1ZeLjRLzjq1UqIE+tWZPLyj6FXWZ24Xu54wDipoCLOdJqjZva
+Grl4bnUmWqEJXbE7xR8Nk0IyDpmDkWcVGdAlaDAXeHENmt1oVt2HcxgeR/jkCiAV
+8fPt5ZQoTC+NpGuqzBrgJJHVVD37H2ls+yE2/m6rF3fWE8wR/zs=
+=NqJT
+-----END PGP SIGNATURE-----
 
->  #define _hypercall64_4(type, hcall, a1, a2, a3, a4)                     \
->      ({                                                                  \
-> -        long res, tmp__;                                                \
-> -        register long _a4 asm ("r10") = ((long)(a4));                   \
-> +        long res, _a1 = (long)(a1), _a2 = (long)(a2),                   \
-> +            _a3 = (long)(a3);                                           \
-> +        register long _a4 asm ("r10") = (long)(a4);                     \
->          asm volatile (                                                  \
->              "call hypercall_page + %c[offset]"                          \
-> -            : "=a" (res), "=D" (tmp__), "=S" (tmp__), "=d" (tmp__),     \
-> -              "=&r" (tmp__) ASM_CALL_CONSTRAINT                         \
+--=-T7tmYYHPs2F+VFT9IuPY--
 
-... this we've requested "any register", while with ...
-
-> -            : [offset] "i" (hcall * 32),                                \
-> -              "1" ((long)(a1)), "2" ((long)(a2)), "3" ((long)(a3)),     \
-> -              "4" (_a4)                                                 \
-
-... this we've asked for that specific register to be initialized
-from r10 (and without telling the compiler that r10 is going to
-change).
-
-Also, by what I would have hoped is convention meanwhile, the new
-macro local variables' names shouldn't start with an underscore,
-but instead perhaps end in one. But to be honest, despite knowing
-of the latent (albeit highly hypothetical) issue, each time I
-find myself making such a comment I'm one tiny step closer to
-giving up.
-
-Anyway, with at least title and description changed (or your view
-clarified verbally)
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
