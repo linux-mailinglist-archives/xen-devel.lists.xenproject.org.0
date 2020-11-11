@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 953122AEF9D
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 12:29:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24649.51998 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1BF42AEFBD
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 12:37:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24658.52010 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcoJ8-0006Qa-HN; Wed, 11 Nov 2020 11:28:58 +0000
+	id 1kcoRW-0007N8-AT; Wed, 11 Nov 2020 11:37:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24649.51998; Wed, 11 Nov 2020 11:28:58 +0000
+Received: by outflank-mailman (output) from mailman id 24658.52010; Wed, 11 Nov 2020 11:37:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,221 +23,172 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcoJ8-0006QB-DZ; Wed, 11 Nov 2020 11:28:58 +0000
-Received: by outflank-mailman (input) for mailman id 24649;
- Wed, 11 Nov 2020 11:28:57 +0000
+	id 1kcoRW-0007Mi-6S; Wed, 11 Nov 2020 11:37:38 +0000
+Received: by outflank-mailman (input) for mailman id 24658;
+ Wed, 11 Nov 2020 11:37:36 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nKbA=ER=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kcoJ7-0006Q6-3Y
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 11:28:57 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1kcoRU-0007Md-Of
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 11:37:36 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0ec4a146-47f9-41de-a98e-3d311d852838;
- Wed, 11 Nov 2020 11:28:56 +0000 (UTC)
+ id 364fe789-e6ea-4c93-bd99-5a249932279b;
+ Wed, 11 Nov 2020 11:37:35 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=nKbA=ER=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kcoJ7-0006Q6-3Y
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 11:28:57 +0000
-X-Inumbo-ID: 0ec4a146-47f9-41de-a98e-3d311d852838
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+	id 1kcoRU-0007Md-Of
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 11:37:36 +0000
+X-Inumbo-ID: 364fe789-e6ea-4c93-bd99-5a249932279b
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 0ec4a146-47f9-41de-a98e-3d311d852838;
-	Wed, 11 Nov 2020 11:28:56 +0000 (UTC)
+	id 364fe789-e6ea-4c93-bd99-5a249932279b;
+	Wed, 11 Nov 2020 11:37:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1605094136;
+  d=citrix.com; s=securemail; t=1605094656;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=gDYiAWA+L6Lto9L4umyrZ7aJVJyp4NQe/dnX4E3RDFY=;
-  b=ZJKbGz4HCVkIYJX0CpzbtPhCZ+h/XIrYeYFannyAOL3JmZok1QdFgP8r
-   h649087PBitIJJVICEdvmgCzS0jKeGJZR56IxVQPqmld/4agq+5zl5wzw
-   uDRnjVeBc63J7uXMKTU0jA4Fb3GtUeY3Kwe0ubPN1EsSvtaTpwiqNO8s5
-   k=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: hkgMNrnbn96rItb/nLHEjudiwP1BGSZnB+zJBugojKSo6FQhXg6xZIfwuGJB8MI3a0qg0M5/Wc
- 7SuDmK8pc0SAhk6Xfq143K8K/8GPKYqJAVfHLezSNZ3oHaD9QfNlDUuio4SElULEWJNIqFWP55
- SFIOIr7pAcjmQNpHGCGR0WSt9KCuYaNgDZQTQaN6KAwDL23VFcZ6WVT53VV+a0f9aMNkuOK8qN
- 0doKF21wEgdP81lhqEpmznujmVOC/CuVj2F8eQjkUbAzph+Jxwqy3wXaJcB153/n5tYFyM1JJp
- /2A=
+  bh=r4CEbq3N7zmXBLL5E7Y/EU2TQNHFkbVKI4fNR4dUkPw=;
+  b=TfRgk7349urMCuzHE0u82LPmjdR/jvDKJfYQt713IoGfp/iNsnvnjpnl
+   Bsbysl/s+Abd3FAXTyXlc2BP3Yir4zXhEIKSs4Q3Q3wuhWW8tRHB06xgI
+   +FMi1BHOrP+pMXPsq/+e6Gv4IEyhz8t4o/LPmy139m0oXZ3K8gTYuxF6f
+   M=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: T/gZ5yTe7OUWbCeyld5+RaT1yWeTwowFhXbl2SiM5drIaW+ANDMxt+xXJlECdO3EfBlIUGvjON
+ iitNxc6pUVBB26SmUN/+JCKcOeue/yY9+G3CqR4fWdaSZL4ZUs3eXEfq+iKzpfGka51fMAInwt
+ 6iU6Bs/xZAbvp6ya/IgAtOgMgPG0xvj966dvdcFtxhkKOJfBx76km2uMmDRCQLOZQsOr87vWoj
+ I3cWWb/3aKp1Gn99Dr2AzAGWbxLDvk2r1YYAFW3jRbi8Z936A2qFJUFOIwJw1bH0xZJr3zmF37
+ Bmk=
 X-SBRS: None
-X-MesageID: 30940680
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 31278426
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.77,469,1596513600"; 
-   d="scan'208";a="30940680"
+   d="scan'208";a="31278426"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FzfbTeqAu9ianjGOjaI9qsKJknYi5A+8IZ+zu0SxYem4upDtna4+XZpaDcS0gsawpjuII5wA38NFnYGzoLcM8ByESnbgZIV+Ay4lCdfzZyULWr6p3Vqj5BI8fhHvEqer8x+4VkeEYMxa8iY5SAYM6UE0xrPo9NuxReYBJbUsbsX70Oferqgq7Q/Vc/t49ZrRk4cSgg6KjYOFuQnf/HfaQJPTalGipaVjv5xNPDZ/DnBlDDC2w03oFEa4Ai15AU4V/wwksiiwffRi9O666rYg+cGHTufy9Q7MCnBvu/VroI4sxAXJbv1F458GiO3O5Mb+azd8jDrfQC1jeXOoc8gV3w==
+ b=VSmrSAlk0uB+c8FlQnXi0Wvp9iOPAg2oWfeQGqgQZLxq2a3OWrC4AJ6edUiKVBUcjepqsChOfUTbHVPjSm/2EZmoz/yp2ftkWjQqwjAkEq4mzrwfaUqcpMG3VNRZTFub34HCzqERS5jEdtfRE68c8Kv/sGR47GYGE1cCsaxemweAfEoQOW0LBfLVPubr81BAj0bVvrnCiCe6OT1vkt/4HdLBAxsA6um5X9wNMH30zDuX/iHYcfL/nB3lG8EPdcXZvpiBll6Sfey0jTICmYSvJ2iXx04I1gPp87Rf8UIdgcwnHYINeaBc8mSmT4auUBYP82a4kzzIS8rgiimcspwoZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oj4XlYtKAzzvwluGDPPEuGdNj6BGyfej6B+oN8iNW+Q=;
- b=BEeiqtzsC98sBVlZZxw58OjfdZfv8416FHcqY2WJaUPE8IXTbBjUxbclV8eWG9s9zAikvlxCAqbB7jrInvoChGbH7YM/q5aHG7jKK8qRlT04WjuFZrKqILy1xXW1Bb1/Wr/eLvqeOnL3Z4pzaYV5LFJ3a0Co74qSt2Yd9+kMWdMNHz+hr0XLcNrZVHoDFpciTDyizHg9dZdRbvemKm8oD2bRfP6dS4mRnWwDGewNICmvw5fAKv9YoAievl0U1+waMekhe+MigeWo/vEATBW/noNT6NbXRe8fu4d4mVoCyz+peiqyjaej/a6vD4uOHBXjUX9XJFg9CNZi7mQNe27f9A==
+ bh=5kZWfWIhx2RjfP2NAAjZM9KwgA88SUFpP0h7VcqMtMY=;
+ b=C1c1ujbnyjwKrOZghFivP/wvRuS0gMS56FERva75rZser86xUFmthTCXEMf8a57By8YhHgi8CGH/lSSgvSuvX+V2FwTtK4S5d08lN4Yt5JfH6olh88EYGnzEsRV2uX+W60ok64pv7I4Wv4pcD9LPcAb+vxrIOaB/IDmchTU8m1d/FG7I9zdzzv3byj/XGM4OhUubhAGHUKoFy7VJXkyfltfk4CZvWJx3PrMnz8hi/ZL/shHALwNEm0oCOwvVx4ECZJ20zbEJKtca5jbxHbTzSSnm5WloAyaWG2QKHUO6AYQQOGjXzKND/dM+QLZX+o+5IzbwuxBS1PThGnkMm6MNoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oj4XlYtKAzzvwluGDPPEuGdNj6BGyfej6B+oN8iNW+Q=;
- b=JwYhNTqXEEL2iYRtovMgWkQdsDsWPs/IG9h7MkDmSRqoCZtNLAILAkVZvOSnexFzXA2/bSbLVZGI2GxHK80WYU/45iQe1lT17ZUxQOaK/Fjn7UZhtIek0O0oQCH0jYAJG52ly8m482qVDGSSdeA8QmsIq4b01gUeY6PwkhlH+fg=
-Date: Wed, 11 Nov 2020 12:28:48 +0100
+ bh=5kZWfWIhx2RjfP2NAAjZM9KwgA88SUFpP0h7VcqMtMY=;
+ b=oUSgXbM/rvKbaajhr0Mev1zdBD7KWMjy8BTiPCN1eUdAlac/fN20nmEtcKmYXwjVxjg4aCn/R04Pf4m6CV4VFLDpUIQhnGFK/4K94wdEhfzOfgSlpwk8e+6luAVUxvdESNqPtK5iuV3nuRO50d5on7NuPk9YUvy5ovypynwZGnw=
+Date: Wed, 11 Nov 2020 12:37:26 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony Perard
-	<anthony.perard@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 5/7] x86: guard against straight-line speculation past
- RET
-Message-ID: <20201111112848.bzbqdqthsq2sm4nx@Air-de-Roger>
-References: <7065e2dc-f846-be79-1081-682c2295358c@suse.com>
- <80ceea17-958d-f409-5f39-9f353e780f5b@suse.com>
- <20201110093142.hkufamaepn67gv43@Air-de-Roger>
- <92e58ff0-e6a4-f92f-1ad6-06db7751762a@suse.com>
- <20201110111603.rarf7ncddrkswlxs@Air-de-Roger>
- <586bb9e5-bb90-bb27-3010-e702d65e301c@suse.com>
- <20201110140856.dtdql7lkwzwijko2@Air-de-Roger>
- <63ac07fc-1a71-b765-007e-571550970833@suse.com>
+To: George Dunlap <George.Dunlap@citrix.com>
+CC: Andrew Cooper <Andrew.Cooper3@citrix.com>, "open list:X86"
+	<xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] docs: fix documentation about default scheduler
+Message-ID: <20201111113726.iqpzf64sgxpnl3gc@Air-de-Roger>
+References: <20201110185129.5951-1-roger.pau@citrix.com>
+ <9A8ADF64-4D76-4BEE-8E1C-4E23E77B9112@citrix.com>
+ <e24211db-7ab5-d950-df56-669b90fda041@citrix.com>
+ <19A67843-4667-46EB-8F11-109D8989BB71@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <63ac07fc-1a71-b765-007e-571550970833@suse.com>
-X-ClientProxiedBy: LNXP265CA0088.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:76::28) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <19A67843-4667-46EB-8F11-109D8989BB71@citrix.com>
+X-ClientProxiedBy: LO2P265CA0416.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a0::20) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7e2d4ba1-80fa-4646-c774-08d88634f7d8
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4764:
+X-MS-Office365-Filtering-Correlation-Id: e22014d1-d454-4d2d-b247-08d886362c9a
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3835:
 X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB4764573E1572A8412B356FBA8FE80@DM6PR03MB4764.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Microsoft-Antispam-PRVS: <DM6PR03MB38350B0D84EA3D5CCFD30A748FE80@DM6PR03MB3835.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y9Qgf6jF1n4w4KyhZFeHDh6p3mZn7Cmm/+9RW0dkyW86bKgpb6kEA9LPJbwNmZWbYCKPYZ6GDobpISbGAcun8sb0NM25Q545TQyD1qshsrniNlS4UC2SAr2lWRB3DSO0kT5AElxjlw36nb3waSAQR6dB0oOlECYQwmkNQ5TB31HKhfKrLP6rF4n2IBkFh3jlKEZ7AR0IEZqAxZMdB5a9U8Hr/jWa1izQ/oU2KAsUz7C4I5O6mBRznnDWP2h2/NjurTmZrnYU5M1p4ytzzc3NorqYm8c6JB/5fQLWV/w+4Rq6Mkbs6Budsue6zKEj+DMk3Yfz8vCmUJm72e/6/G8xPA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(39860400002)(376002)(346002)(366004)(136003)(396003)(66946007)(1076003)(4326008)(66476007)(83380400001)(5660300002)(6666004)(316002)(86362001)(54906003)(186003)(26005)(16526019)(6486002)(53546011)(478600001)(6916009)(956004)(8936002)(6496006)(9686003)(8676002)(33716001)(85182001)(66556008)(2906002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: EthS5pvSvrt+/M9F/l6yToTxyUVEVOgsdEGE4jydEPwQ7ikt2XXd0khI0gP9o2Ou0RcFGSpVH5BLEABf6JCI41AHfpWFpgpzjnEG+4fFGkoXvWjiWI+LufyR9vNddBjXuZcXb0uzdbrG2HkePFi4H4LkgUgXtbmdUoO/Zh1CHnwLVOW/llux7Gai4ui2WjgqEK7OrDpig3NcMHj7CPVsOKzlJQztXqBRdhQ1740SCqAKY+Zbt9Y/tjXoTxL5vaOwpnQv7pY+lx6pKFhI8peDyKq/ZNX+qNNYYZcXv1l8+JajCqQ23+Y8OKXn/vfYhq1qSNquIgV1i7G2mpSdg5FyEZyKRK98kR7skpii4rd/GcvCtwiGC5U+E3OGto4Kfz5A6s1HaImUvyUhcXd0pYGxAihzzadBpnO22lhVHm4Pfw8C/ZrWuDpvCqhsp+YGZIqIadPetFtogINADRhwsXn5WB1FUcjoTp8pj6PvVdYrXlUiTayOuOMcws4mn+NpAOkaj3VONiUNohZVew8b5b+GH+6M+B4Pgz7KbmaibxwXHEeBXSiBwJ9yFwz0K51E0o4vL7mJrVGT0iP8vXvAyy8OJZjXlhRvm6yv8F0T1oVZ5D/y9j/OKTofdP2B4/l8E47sWLhwHOYMs+dgoB9Nwm22uM2DlZIlSJ62DOPGHLQkQMxE06XiYlpkNk0FWcwzQvbq4RCIHyoeoR308kZGiVTyLLkDrFwRC9ZTMdbfXIp/3Dn4QFufT1ezAz00G8kfx7A6iw7WptHqyiVzbl+phQ/mNeLFNS1ZceP8Mr9iEHGpAVjaLOXiVT9FdCNZ4ta4J0ZYg/HcC2jVLnTo+IkY28Qf5JNHetm+XlB4am75iLtFeUiIpNHUU475PpbOyrkcZ6VASiJPDBpDYVh/2q+9zILQyA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e2d4ba1-80fa-4646-c774-08d88634f7d8
+X-Microsoft-Antispam-Message-Info: tzKpmXaSWobJDMMEAJAQNQoyfh0NZrIBM75+ZrfTHlTN4OqGGjX5Ubl4S0QKVq/UBJn0hL8AGk/0KARDjsHrQ03AsOfgDxYkXm/6agqxk294RuEmTxsCvHcfaoPPe8TARjtPDAWC7GoWsKkCILZM19x6b5iVDwOCYIqvnHjG3Y2CuE4slW17i6PVjJwd1qUpsqoS692bwP1grnBJKLArk7ZWVIt6CtW96H+ThUIoWCX4uhkI2h+8aX8BTbMLtsI0PjG29OMYslPdJfvSWRpdHy6T1pJiJME2haBneQPF93r2BwBa+XOkGZMvXiOCxsQo
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(39860400002)(396003)(136003)(346002)(376002)(6636002)(86362001)(66556008)(5660300002)(2906002)(53546011)(83380400001)(9686003)(26005)(1076003)(956004)(85182001)(4326008)(478600001)(54906003)(33716001)(8936002)(6862004)(6496006)(66946007)(6666004)(16526019)(66574015)(66476007)(316002)(186003)(8676002)(6486002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 8EfdEtG9L4DT1a6iZMgZZv9MALImFEb/xWcA+nPanM9jBeZXtwKPoHLVL8I29WD0JBV5I3nIPGbSx30Q/hirhVAhcY60T7HcNaWMvmGbT8j4VotJki/F0luIL16ldxaQUgcnmruTLhRIxWoRR//wSU/5hfWrQjplxGSNlZ/v1lau190aWwQLP3NGjStRZRRL6w7Hzzj2t26zp9M15j6U2Kd+/sSMES/MuubQVpJsq6OBiZKSeS+PdxURwNMEjNiaJRq3OLjDEzVHH5gGH+on7zir79R7eaynfB40uLJrO0sgP0vN5MNHQ6Cmz5LGCJFoJIkw0Gb4BliYmIPVUo/ALtr159zbiqXo9XZc4XhgcnBRCkf+BRGMsatxotCyNZa7avUQ9A5vCD3syOyHApudl1PC/JIB+q/AGnqdXajeP7h3tMFtu1IVpdLhGWDCsBW5EI+IpRaIKJ/B8wcpHatbqVfJThW96QXmJWErW+lvo/dKQz2JdWugQeztZBGrdk6DbCemE0s7O43XdlE+P9xUux83IS6PFLSxcT9Hms7kuuz77INKrR2DG3/DRAZM/poIJOpqpa3FLsv1da9WJ1dcBNc00iIx+67g0FWgxxwp7PKFvtmWnha8U0dE1jW7jcUPqAniVe7MSImbZcaX7/8Pd56U0ZShfyCKe3omHAfxwKKR/OsNMmjo+QGn29pvc7TqBeayh0sit0nPr30c3+YlNXV+jlIjxb1kGI6qw9Ka6xwKUL8yMbVDyIe6gj9rV7wOckE4Nmsef1ww1SQdCxdbAfJqddoAD7OWlt+KvFChMl8pvRzHuECdpc5gTAh2zPDzu5gBryp1Y0sX+Mzx8bkoH8iid0AP66gfhAbjCKyZAw0vKUJRucbTEby/yXFSkrv8xKbnF59SEaDhggeKClmrow==
+X-MS-Exchange-CrossTenant-Network-Message-Id: e22014d1-d454-4d2d-b247-08d886362c9a
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2020 11:28:52.9009
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2020 11:37:31.0085
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6knLT5f+iMDcpBFya5HiOs8V6kOCP3AllKtnIjq0YY7pt03IlSCFdA6KjtXsxq3Gip84VvGeG1RqZ9eP/Wkknw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4764
+X-MS-Exchange-CrossTenant-UserPrincipalName: zksifzw+cadGQfJdVqqOwZDAGL2QaZQw1YydrPWDExd4Dwh3eG1zbbdlap1GJbwhbDJa4Mgw1EvxmIXd3LrIQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3835
 X-OriginatorOrg: citrix.com
 
-On Tue, Nov 10, 2020 at 03:32:43PM +0100, Jan Beulich wrote:
-> On 10.11.2020 15:08, Roger Pau Monné wrote:
-> > On Tue, Nov 10, 2020 at 02:19:40PM +0100, Jan Beulich wrote:
-> >> On 10.11.2020 12:16, Roger Pau Monné wrote:
-> >>> On Tue, Nov 10, 2020 at 11:06:46AM +0100, Jan Beulich wrote:
-> >>>> On 10.11.2020 10:31, Roger Pau Monné wrote:
-> >>>>> On Fri, Oct 23, 2020 at 10:38:04AM +0200, Jan Beulich wrote:
-> >>>>>> Under certain conditions CPUs can speculate into the instruction stream
-> >>>>>> past a RET instruction. Guard against this just like 3b7dab93f240
-> >>>>>> ("x86/spec-ctrl: Protect against CALL/JMP straight-line speculation")
-> >>>>>> did - by inserting an "INT $3" insn. It's merely the mechanics of how to
-> >>>>>> achieve this that differ: A set of macros gets introduced to post-
-> >>>>>> process RET insns issued by the compiler (or living in assembly files).
-> >>>>>>
-> >>>>>> Unfortunately for clang this requires further features their built-in
-> >>>>>> assembler doesn't support: We need to be able to override insn mnemonics
-> >>>>>> produced by the compiler (which may be impossible, if internally
-> >>>>>> assembly mnemonics never get generated), and we want to use \(text)
-> >>>>>> escaping / quoting in the auxiliary macro.
-> >>>>>
-> >>>>> Could this have an option to enable/disable at build time?
-> >>>>
-> >>>> Well, a subsequent patch adds a config option for this, which in
-> >>>> the worst case could be turned off. I'm afraid though I'm not
-> >>>> clear about the question, because ...
-> >>>>
-> >>>>> FreeBSD will drop GNU as quite soon from base, and albeit it can be
-> >>>>> installed as a package I would like to be able to build Xen using a
-> >>>>> toolchain based on LLVM exclusively.
-> >>>>
-> >>>> ... it's not clear to me what the implications here are: Are you
-> >>>> saying -no-integrated-as is not going to function anymore, unless
-> >>>> people explicitly install gas? If that's not what you meant to
-> >>>> indicate, then I don't see how building would become impossible.
-> >>>
-> >>> I'm still inquiring about this, but I would say that when gas is
-> >>> removed from FreeBSD then the 'as' command would be mapped to llvm-as,
-> >>> and thus -no-integrated-as would hit the same issues as the integrated
-> >>> as. So far in Xen we have assumed that -no-integrated-as would
-> >>> fallback to an as capable of doing what the integrated clang as
-> >>> doesn't support, but that might not be the case.
-> >>
-> >> At which point Xen couldn't be built anyway, I expect. If llvm-as
-> >> isn't sufficiently gas-compatible, we've lost (right now at least).
-> >>
-> >>> Ideally we would have to re-run the tests with -no-integrated-as, in
-> >>> order to assert that the external as is really capable of what the
-> >>> internal one is not.
-> >>
-> >> And if it doesn't, what would we do other than failing the build
-> >> (which it would also if we didn't do the 2nd round of checks)?
+On Wed, Nov 11, 2020 at 12:24:50PM +0100, George Dunlap wrote:
+> 
+> 
+> > On Nov 11, 2020, at 11:10 AM, Andrew Cooper <Andrew.Cooper3@citrix.com> wrote:
 > > 
-> > I would always prefer a clear message (ie: your toolstack is not
-> > capable of building Xen) rather than a weird build time failure.
+> > On 11/11/2020 10:12, George Dunlap wrote:
+> >> 
+> >>> On Nov 10, 2020, at 6:51 PM, Roger Pau Monne <roger.pau@citrix.com> wrote:
+> >>> 
+> >>> Fix the command line document to account for the default scheduler not
+> >>> being credit anymore likely, and the fact that it's selectable from
+> >>> Kconfig and thus different builds could end up with different default
+> >>> schedulers.
+> >>> 
+> >>> Fixes: dafd936dddbd ('Make credit2 the default scheduler')
+> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >>> ---
+> >>> Changes since v1:
+> >>> - Point that the default scheduler is being selected by Kconfig,
+> >>>  don't mention the default Kconfig selection.
+> >>> ---
+> >>> docs/misc/xen-command-line.pandoc | 2 +-
+> >>> 1 file changed, 1 insertion(+), 1 deletion(-)
+> >>> 
+> >>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> >>> index 4ae9391fcd..eb1db25f92 100644
+> >>> --- a/docs/misc/xen-command-line.pandoc
+> >>> +++ b/docs/misc/xen-command-line.pandoc
+> >>> @@ -1876,7 +1876,7 @@ with read and write permissions.
+> >>> ### sched
+> >>>> `= credit | credit2 | arinc653 | rtds | null`
+> >>> -> Default: `sched=credit`
+> >>> +> Default: selectable via Kconfig.  Depends on enabled schedulers.
+> >> Sorry for not weighing in earlier; but this basically makes this documentation useless.
+> > 
+> > No.  It is the only half useable version, by being the only version
+> > which isn't misleading.
 > 
-> Fair point in general.
+> The version in this patch essentially says “This has some options, it also has a default, but we’re not going to tell you any of them, nor what your default most likely is.  Go read KConfig to find out.”  This is is completely useless to the person trying to figure out what the default is and what potential alternate values they can put here.
 > 
-> > Also we could maybe disable certain options by default if the
-> > toolstack doesn't have the required support to build them?
+> The vast majority of people who search for this on the internet will have that list of options, and have credit2=default.  As long as we tell them that a local configuration can override the available options and the default, people are smart enough to figure out what their system is doing.
 > 
-> We could, but I'm afraid this will go down the route of embedding
-> tool chain capabilities in xen/.config, which I continue to not
-> consider a good idea (and the thread got stalled, as expected).
+> > It would however be far better to name the CONFIG_ variable (we do
+> > elsewhere in this doc) in question so people can actually figure out
+> > what they've got in front of them.
 > 
-> In fact (also to Andrew and Anthony), recently I've become aware
-> of another shortcoming of this model: Our kernel packages contain
-> .config files for the various architectures and specific per-
-> architecture flavors. It used to be easy to update them on any
-> system, until the tool chain capability checks got introduced.
-> Now, in order to update them, one has to use the precise versions
-> of the various tool chain parts that will be used on the build
-> hosts, or else an error may result (for unexpected changes to
-> the file), or one may unknowingly turn off options that are
-> expected to be enabled.
+> Something like that would be even better, if Roger (or someone) wants to write it up.
 
-I think the options should only be set based on toolchain capabilities
-when there's no .config. If there's an existing .config we should just
-check whether the toolchain is capable of building the selected set of
-options, or else report an error.
+I'm happy to send an updated version, but would like to have some
+agreement before doing so. Is the text below acceptable to everyone?
 
-I guess this would apply to defconfig selecting options based on
-toolchain capabilties.
+### sched
+> `= credit | credit2 | arinc653 | rtds | null`
 
-> Put more generally - if I handed someone a specific .config, I'd
-> expect their resulting binary to contain what I did set up. Or
-> for them to report back that they can't build the thing. But it
-> should not be the case that the .config got silently changed and
-> certain functionality disabled just because they use a different
-> tool chain.
+> Default: `sched=credit2`
 
-Yes, I agree with this.
+Choose the default scheduler. Note the default scheduler is selectable via
+Kconfig and depends on enabled schedulers. Check
+`CONFIG_SCHED_{scheduler_name}_DEFAULT` when you building Xen to adjust the
+default scheduler.
 
-> > Has anyone reported this shortcoming to upstream llvm, so they are
-> > aware and can work on this or maybe provide an alternative way to
-> > achieve the same result?
-> 
-> I didn't and I'm unaware of anyone else possibly having done so.
-> That said, I consider it sort of obvious though that the goal of
-> replacing the GNU tool chain implies being fully compatible (and
-> presumably better in certain areas).
-
-Well, I think we have to keep in mind that the usage of the compiler
-and the linker by Xen is far more advanced than what most applications
-do, and we are likely to hit corner cases. I bet the LLVM people
-weren't even aware of such usage.
-
-Thanks, Roger.
+Roger.
 
