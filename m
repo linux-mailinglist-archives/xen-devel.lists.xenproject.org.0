@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 128982AEBED
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 09:30:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24455.51826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6E0F2AEBD6
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 09:29:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24415.51671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kclW8-0005Fj-GI; Wed, 11 Nov 2020 08:30:12 +0000
+	id 1kclVe-0003oh-BA; Wed, 11 Nov 2020 08:29:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24455.51826; Wed, 11 Nov 2020 08:30:12 +0000
+Received: by outflank-mailman (output) from mailman id 24415.51671; Wed, 11 Nov 2020 08:29:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kclW8-0005Dm-6M; Wed, 11 Nov 2020 08:30:12 +0000
-Received: by outflank-mailman (input) for mailman id 24455;
- Wed, 11 Nov 2020 08:30:09 +0000
+	id 1kclVe-0003oH-5S; Wed, 11 Nov 2020 08:29:42 +0000
+Received: by outflank-mailman (input) for mailman id 24415;
+ Wed, 11 Nov 2020 08:29:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kJD9=ER=casper.srs.infradead.org=batv+33c89f8a75624a8d62ce+6289+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kclUG-0002dF-IE
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 08:28:16 +0000
+ id 1kclUL-0002dF-Id
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 08:28:21 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ba0bac8c-b5c4-4394-97d4-91a256199013;
+ id b00f643d-29c9-436a-94eb-402ae29bce23;
  Wed, 11 Nov 2020 08:27:28 +0000 (UTC)
 Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kclTD-0007b7-Eu; Wed, 11 Nov 2020 08:27:11 +0000
+ id 1kclTE-0007bJ-Mw; Wed, 11 Nov 2020 08:27:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=kJD9=ER=casper.srs.infradead.org=batv+33c89f8a75624a8d62ce+6289+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kclUG-0002dF-IE
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 08:28:16 +0000
-X-Inumbo-ID: ba0bac8c-b5c4-4394-97d4-91a256199013
+	id 1kclUL-0002dF-Id
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 08:28:21 +0000
+X-Inumbo-ID: b00f643d-29c9-436a-94eb-402ae29bce23
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ba0bac8c-b5c4-4394-97d4-91a256199013;
+	id b00f643d-29c9-436a-94eb-402ae29bce23;
 	Wed, 11 Nov 2020 08:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=7BWzzM1ONnukKsMJYvFCtkh7Po4ojUIcRAoXEXZQpls=; b=RCXh8hHVKHOdlbTgZudBE0UgxQ
-	OdZbQcCl+Yq46gbMhWR8GVkt7ot75syMIyMmRVs70SjQ1O8I3Qml7eCC8UgjmLw+eZKo3Y+wA2Jn3
-	swdtiCKDiqLib1ChlnI43270zWz+HESqHy3CFg19CGNjMaZmfyCASYpR/6tWH4C8l/mB79/1BSWgs
-	puiFVbzfVm1so5b0mSiZ9Ei1//wgG5uEkaKOW5zYLA6lZYmZLWg1vlPvHI0aYLKiQl40RWCE1w1Is
-	2SNvkcNq6XAtQw8IczEREzWr5hvM924WJzBVkrt1lqmXha4587UsPlSaCJVXmHuHTxzWvnOewG4Qb
-	h8NmpJFw==;
+	bh=v2gXXjqIndtMF2Cf5P694LBcUky2akZ2+CMnUKb8IcU=; b=h/ZYOi0vPQIdcMW1X52epW5iIP
+	h9Zyh9xPBuvnBtDR9rJcVsymjFWgk2TUgP4FFoLLdSCTXe7ntGcJ5XG69rsQgx37axiExy9vtBsT1
+	WBPGFF1X/JoJyNnoKqxYrl7ac50v8NuDAsyON6Auh+N53il+fFZBpHHFKORtkmvUwR/cJitnZpnUl
+	qpV6JtDzWquk9bGQKBeU5PsoxpY5zIRfl9bEs8/f166ebvAy9I0T0F3CoN03bOJTOZl0KUK74BFDy
+	p+OLpVJpLwXYsam4cN6EaXZ7O9sv6RwyX3Fruby3X96wcAyNGRRY8EPu1u1sug1AC5oK4U/Qi4bOK
+	QmB+Zi2A==;
 Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kclTD-0007b7-Eu; Wed, 11 Nov 2020 08:27:11 +0000
+	id 1kclTE-0007bJ-Mw; Wed, 11 Nov 2020 08:27:13 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -87,9 +87,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-nvme@lists.infradead.org,
 	linux-scsi@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org
-Subject: [PATCH 10/24] nbd: validate the block size in nbd_set_size
-Date: Wed, 11 Nov 2020 09:26:44 +0100
-Message-Id: <20201111082658.3401686-11-hch@lst.de>
+Subject: [PATCH 11/24] nbd: use set_capacity_and_notify
+Date: Wed, 11 Nov 2020 09:26:45 +0100
+Message-Id: <20201111082658.3401686-12-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201111082658.3401686-1-hch@lst.de>
 References: <20201111082658.3401686-1-hch@lst.de>
@@ -97,117 +97,47 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Move the validation of the block from the callers into nbd_set_size.
+Use set_capacity_and_notify to update the disk and block device sizes and
+send a RESIZE uevent to userspace.  Note that blktests relies on uevents
+being sent also for updates that did not change the device size, so the
+explicit kobject_uevent remains for that case.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/block/nbd.c | 47 +++++++++++++++------------------------------
- 1 file changed, 15 insertions(+), 32 deletions(-)
+ drivers/block/nbd.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index eb8a5da48ad75a..327060e01ad58e 100644
+index 327060e01ad58e..a6f51934391edb 100644
 --- a/drivers/block/nbd.c
 +++ b/drivers/block/nbd.c
-@@ -296,16 +296,21 @@ static void nbd_size_clear(struct nbd_device *nbd)
- 	}
- }
- 
--static void nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
-+static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
+@@ -299,8 +299,6 @@ static void nbd_size_clear(struct nbd_device *nbd)
+ static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
  		loff_t blksize)
  {
- 	struct block_device *bdev;
- 
-+	if (!blksize)
-+		blksize = NBD_DEF_BLKSIZE;
-+	if (blksize < 512 || blksize > PAGE_SIZE || !is_power_of_2(blksize))
-+		return -EINVAL;
-+
- 	nbd->config->bytesize = bytesize;
- 	nbd->config->blksize = blksize;
- 
- 	if (!nbd->task_recv)
--		return;
-+		return 0;
- 
- 	if (nbd->config->flags & NBD_FLAG_SEND_TRIM) {
- 		nbd->disk->queue->limits.discard_granularity = blksize;
-@@ -325,6 +330,7 @@ static void nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
- 		bdput(bdev);
- 	}
- 	kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
-+	return 0;
- }
- 
- static void nbd_complete_rq(struct request *req)
-@@ -1304,8 +1310,7 @@ static int nbd_start_device(struct nbd_device *nbd)
- 		args->index = i;
- 		queue_work(nbd->recv_workq, &args->work);
- 	}
--	nbd_set_size(nbd, config->bytesize, config->blksize);
--	return error;
-+	return nbd_set_size(nbd, config->bytesize, config->blksize);
- }
- 
- static int nbd_start_device_ioctl(struct nbd_device *nbd, struct block_device *bdev)
-@@ -1347,14 +1352,6 @@ static void nbd_clear_sock_ioctl(struct nbd_device *nbd,
- 		nbd_config_put(nbd);
- }
- 
--static bool nbd_is_valid_blksize(unsigned long blksize)
--{
--	if (!blksize || !is_power_of_2(blksize) || blksize < 512 ||
--	    blksize > PAGE_SIZE)
--		return false;
--	return true;
--}
+-	struct block_device *bdev;
 -
- static void nbd_set_cmd_timeout(struct nbd_device *nbd, u64 timeout)
- {
- 	nbd->tag_set.timeout = timeout * HZ;
-@@ -1379,19 +1376,12 @@ static int __nbd_ioctl(struct block_device *bdev, struct nbd_device *nbd,
- 	case NBD_SET_SOCK:
- 		return nbd_add_socket(nbd, arg, false);
- 	case NBD_SET_BLKSIZE:
--		if (!arg)
--			arg = NBD_DEF_BLKSIZE;
--		if (!nbd_is_valid_blksize(arg))
--			return -EINVAL;
--		nbd_set_size(nbd, config->bytesize, arg);
--		return 0;
-+		return nbd_set_size(nbd, config->bytesize, arg);
- 	case NBD_SET_SIZE:
--		nbd_set_size(nbd, arg, config->blksize);
--		return 0;
-+		return nbd_set_size(nbd, arg, config->blksize);
- 	case NBD_SET_SIZE_BLOCKS:
--		nbd_set_size(nbd, arg * config->blksize,
--			     config->blksize);
--		return 0;
-+		return nbd_set_size(nbd, arg * config->blksize,
-+				    config->blksize);
- 	case NBD_SET_TIMEOUT:
- 		nbd_set_cmd_timeout(nbd, arg);
- 		return 0;
-@@ -1808,18 +1798,11 @@ static int nbd_genl_size_set(struct genl_info *info, struct nbd_device *nbd)
- 	if (info->attrs[NBD_ATTR_SIZE_BYTES])
- 		bytes = nla_get_u64(info->attrs[NBD_ATTR_SIZE_BYTES]);
+ 	if (!blksize)
+ 		blksize = NBD_DEF_BLKSIZE;
+ 	if (blksize < 512 || blksize > PAGE_SIZE || !is_power_of_2(blksize))
+@@ -320,16 +318,9 @@ static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
+ 	blk_queue_logical_block_size(nbd->disk->queue, blksize);
+ 	blk_queue_physical_block_size(nbd->disk->queue, blksize);
  
--	if (info->attrs[NBD_ATTR_BLOCK_SIZE_BYTES]) {
-+	if (info->attrs[NBD_ATTR_BLOCK_SIZE_BYTES])
- 		bsize = nla_get_u64(info->attrs[NBD_ATTR_BLOCK_SIZE_BYTES]);
--		if (!bsize)
--			bsize = NBD_DEF_BLKSIZE;
--		if (!nbd_is_valid_blksize(bsize)) {
--			printk(KERN_ERR "Invalid block size %llu\n", bsize);
--			return -EINVAL;
--		}
+-	set_capacity(nbd->disk, bytesize >> 9);
+-	bdev = bdget_disk(nbd->disk, 0);
+-	if (bdev) {
+-		if (bdev->bd_disk)
+-			bd_set_nr_sectors(bdev, bytesize >> 9);
+-		else
+-			set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
+-		bdput(bdev);
 -	}
- 
- 	if (bytes != config->bytesize || bsize != config->blksize)
--		nbd_set_size(nbd, bytes, bsize);
-+		return nbd_set_size(nbd, bytes, bsize);
+-	kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
++	set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
++	if (!set_capacity_and_notify(nbd->disk, bytesize >> 9))
++		kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
  	return 0;
  }
  
