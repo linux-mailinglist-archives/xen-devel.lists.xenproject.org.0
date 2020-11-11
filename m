@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E0F2AEBD6
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 09:29:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24415.51671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED36F2AEBE4
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 09:30:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24423.51754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kclVe-0003oh-BA; Wed, 11 Nov 2020 08:29:42 +0000
+	id 1kclVq-0004C3-Gx; Wed, 11 Nov 2020 08:29:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24415.51671; Wed, 11 Nov 2020 08:29:42 +0000
+Received: by outflank-mailman (output) from mailman id 24423.51754; Wed, 11 Nov 2020 08:29:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kclVe-0003oH-5S; Wed, 11 Nov 2020 08:29:42 +0000
-Received: by outflank-mailman (input) for mailman id 24415;
- Wed, 11 Nov 2020 08:29:40 +0000
+	id 1kclVp-0004AX-Uq; Wed, 11 Nov 2020 08:29:53 +0000
+Received: by outflank-mailman (input) for mailman id 24423;
+ Wed, 11 Nov 2020 08:29:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kJD9=ER=casper.srs.infradead.org=batv+33c89f8a75624a8d62ce+6289+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kclUL-0002dF-Id
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 08:28:21 +0000
+ id 1kclUQ-0002dF-Ia
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 08:28:26 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b00f643d-29c9-436a-94eb-402ae29bce23;
- Wed, 11 Nov 2020 08:27:28 +0000 (UTC)
+ id fa1f05d0-9967-49ed-bbbe-693c00e77d6c;
+ Wed, 11 Nov 2020 08:27:30 +0000 (UTC)
 Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kclTE-0007bJ-Mw; Wed, 11 Nov 2020 08:27:13 +0000
+ id 1kclTG-0007bi-W8; Wed, 11 Nov 2020 08:27:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=kJD9=ER=casper.srs.infradead.org=batv+33c89f8a75624a8d62ce+6289+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kclUL-0002dF-Id
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 08:28:21 +0000
-X-Inumbo-ID: b00f643d-29c9-436a-94eb-402ae29bce23
+	id 1kclUQ-0002dF-Ia
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 08:28:26 +0000
+X-Inumbo-ID: fa1f05d0-9967-49ed-bbbe-693c00e77d6c
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b00f643d-29c9-436a-94eb-402ae29bce23;
-	Wed, 11 Nov 2020 08:27:28 +0000 (UTC)
+	id fa1f05d0-9967-49ed-bbbe-693c00e77d6c;
+	Wed, 11 Nov 2020 08:27:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=v2gXXjqIndtMF2Cf5P694LBcUky2akZ2+CMnUKb8IcU=; b=h/ZYOi0vPQIdcMW1X52epW5iIP
-	h9Zyh9xPBuvnBtDR9rJcVsymjFWgk2TUgP4FFoLLdSCTXe7ntGcJ5XG69rsQgx37axiExy9vtBsT1
-	WBPGFF1X/JoJyNnoKqxYrl7ac50v8NuDAsyON6Auh+N53il+fFZBpHHFKORtkmvUwR/cJitnZpnUl
-	qpV6JtDzWquk9bGQKBeU5PsoxpY5zIRfl9bEs8/f166ebvAy9I0T0F3CoN03bOJTOZl0KUK74BFDy
-	p+OLpVJpLwXYsam4cN6EaXZ7O9sv6RwyX3Fruby3X96wcAyNGRRY8EPu1u1sug1AC5oK4U/Qi4bOK
-	QmB+Zi2A==;
+	bh=bgbs5emPj5p7gTWcmnEuks79StD6TA5roIn47mScHH4=; b=fBt6QhZHrv17/Y1zEBZjou8nag
+	/S9UF+dPlT5bEmXhZ0AkX3Des+z44TDZwhlLf8UZwm1bya/Tw1ihVWQ1eo0/wpa9jcmRthywUSjkC
+	a5WCNVJjuCks8OG28CqM1W4KLfPlPhhxQn2JdcTB6we015wUZWKRrDnDkhahK+xL2QOV8g1e7VDFb
+	R8OvQOpZICV1BZy/htkG1su/uosUSegQuLRvZZFjPgBFD8n7wOMK+yVOakCbK2S5b4ZCm7OCaoLMu
+	rE0BnJF3Xca/1n6MGkXXTyg53AWbOj3IBct9gJs8ljT/56L365ZklV7NkghnJYSHb0UpMIe95v8XT
+	ZTecf9FA==;
 Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kclTE-0007bJ-Mw; Wed, 11 Nov 2020 08:27:13 +0000
+	id 1kclTG-0007bi-W8; Wed, 11 Nov 2020 08:27:15 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -87,9 +87,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-nvme@lists.infradead.org,
 	linux-scsi@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org
-Subject: [PATCH 11/24] nbd: use set_capacity_and_notify
-Date: Wed, 11 Nov 2020 09:26:45 +0100
-Message-Id: <20201111082658.3401686-12-hch@lst.de>
+Subject: [PATCH 12/24] aoe: don't call set_capacity from irq context
+Date: Wed, 11 Nov 2020 09:26:46 +0100
+Message-Id: <20201111082658.3401686-13-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201111082658.3401686-1-hch@lst.de>
 References: <20201111082658.3401686-1-hch@lst.de>
@@ -97,50 +97,58 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Use set_capacity_and_notify to update the disk and block device sizes and
-send a RESIZE uevent to userspace.  Note that blktests relies on uevents
-being sent also for updates that did not change the device size, so the
-explicit kobject_uevent remains for that case.
+Updating the block device size from irq context can lead to torn
+writes of the 64-bit value, and prevents us from using normal
+process context locking primitives to serialize access to the 64-bit
+nr_sectors value.  Defer the set_capacity to the already existing
+workqueue handler, where it can be merged with the update of the
+block device size by using set_capacity_and_notify.  As an extra
+bonus this also adds proper uevent notifications for the resize.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/block/nbd.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+ drivers/block/aoe/aoecmd.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index 327060e01ad58e..a6f51934391edb 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -299,8 +299,6 @@ static void nbd_size_clear(struct nbd_device *nbd)
- static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
- 		loff_t blksize)
+diff --git a/drivers/block/aoe/aoecmd.c b/drivers/block/aoe/aoecmd.c
+index 313f0b946fe2b3..ac720bdcd983e7 100644
+--- a/drivers/block/aoe/aoecmd.c
++++ b/drivers/block/aoe/aoecmd.c
+@@ -890,19 +890,13 @@ void
+ aoecmd_sleepwork(struct work_struct *work)
  {
--	struct block_device *bdev;
--
- 	if (!blksize)
- 		blksize = NBD_DEF_BLKSIZE;
- 	if (blksize < 512 || blksize > PAGE_SIZE || !is_power_of_2(blksize))
-@@ -320,16 +318,9 @@ static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
- 	blk_queue_logical_block_size(nbd->disk->queue, blksize);
- 	blk_queue_physical_block_size(nbd->disk->queue, blksize);
+ 	struct aoedev *d = container_of(work, struct aoedev, work);
+-	struct block_device *bd;
+-	u64 ssize;
  
--	set_capacity(nbd->disk, bytesize >> 9);
--	bdev = bdget_disk(nbd->disk, 0);
--	if (bdev) {
--		if (bdev->bd_disk)
--			bd_set_nr_sectors(bdev, bytesize >> 9);
--		else
--			set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
--		bdput(bdev);
--	}
--	kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
-+	set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
-+	if (!set_capacity_and_notify(nbd->disk, bytesize >> 9))
-+		kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
- 	return 0;
+ 	if (d->flags & DEVFL_GDALLOC)
+ 		aoeblk_gdalloc(d);
+ 
+ 	if (d->flags & DEVFL_NEWSIZE) {
+-		ssize = get_capacity(d->gd);
+-		bd = bdget_disk(d->gd, 0);
+-		if (bd) {
+-			bd_set_nr_sectors(bd, ssize);
+-			bdput(bd);
+-		}
++		set_capacity_and_notify(d->gd, d->ssize);
++
+ 		spin_lock_irq(&d->lock);
+ 		d->flags |= DEVFL_UP;
+ 		d->flags &= ~DEVFL_NEWSIZE;
+@@ -971,10 +965,9 @@ ataid_complete(struct aoedev *d, struct aoetgt *t, unsigned char *id)
+ 	d->geo.start = 0;
+ 	if (d->flags & (DEVFL_GDALLOC|DEVFL_NEWSIZE))
+ 		return;
+-	if (d->gd != NULL) {
+-		set_capacity(d->gd, ssize);
++	if (d->gd != NULL)
+ 		d->flags |= DEVFL_NEWSIZE;
+-	} else
++	else
+ 		d->flags |= DEVFL_GDALLOC;
+ 	schedule_work(&d->work);
  }
- 
 -- 
 2.28.0
 
