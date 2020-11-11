@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABDC82AEE41
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 10:56:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24571.51875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CA5E2AEE4D
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 10:58:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24577.51887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcmqx-0005ex-BF; Wed, 11 Nov 2020 09:55:47 +0000
+	id 1kcmtS-0005pK-Oz; Wed, 11 Nov 2020 09:58:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24571.51875; Wed, 11 Nov 2020 09:55:47 +0000
+Received: by outflank-mailman (output) from mailman id 24577.51887; Wed, 11 Nov 2020 09:58:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,116 +23,112 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcmqx-0005eY-8B; Wed, 11 Nov 2020 09:55:47 +0000
-Received: by outflank-mailman (input) for mailman id 24571;
- Wed, 11 Nov 2020 09:55:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kcmtS-0005ov-La; Wed, 11 Nov 2020 09:58:22 +0000
+Received: by outflank-mailman (input) for mailman id 24577;
+ Wed, 11 Nov 2020 09:58:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bkR8=ER=gmail.com=idryomov@srs-us1.protection.inumbo.net>)
- id 1kcmqw-0005eT-Ar
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 09:55:46 +0000
-Received: from mail-il1-x144.google.com (unknown [2607:f8b0:4864:20::144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 78c4218d-4f87-4165-a964-dc4f714c7bb2;
- Wed, 11 Nov 2020 09:55:45 +0000 (UTC)
-Received: by mail-il1-x144.google.com with SMTP id y17so1444714ilg.4
- for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 01:55:45 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=Iq8f=ER=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kcmtR-0005oq-OR
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 09:58:21 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 55b48ee9-b115-4306-a927-e410cc40e570;
+ Wed, 11 Nov 2020 09:58:18 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcmtO-0007l4-LL; Wed, 11 Nov 2020 09:58:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcmtO-0004P7-CK; Wed, 11 Nov 2020 09:58:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kcmtO-0006pf-Br; Wed, 11 Nov 2020 09:58:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=bkR8=ER=gmail.com=idryomov@srs-us1.protection.inumbo.net>)
-	id 1kcmqw-0005eT-Ar
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 09:55:46 +0000
-X-Inumbo-ID: 78c4218d-4f87-4165-a964-dc4f714c7bb2
-Received: from mail-il1-x144.google.com (unknown [2607:f8b0:4864:20::144])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 78c4218d-4f87-4165-a964-dc4f714c7bb2;
-	Wed, 11 Nov 2020 09:55:45 +0000 (UTC)
-Received: by mail-il1-x144.google.com with SMTP id y17so1444714ilg.4
-        for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 01:55:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=qfEf7xRtwJh6vel7ndE10SMbjF6zTEFOWV8RA9xu3eI=;
-        b=Flu0kG/G8H5tmdzF22ns+x1T3WixC4FBs0RbA9YeGx20Pw3IL573gomPOrRSgLhidi
-         jxm4xXdraWCqe23Uz/lTRF5Gzul+neu0ZW5SRlL8rLtuRaQOMWWnKLr+e1J5E2f/IB4R
-         iaO9iEipyz2F49FzVbspMmUTamyYBNigOi7Hq45S5vTkNhsbMM69J9bWbbawzfmKvyaE
-         prBgh+sprAAWuhDKQzcpJRm9c4LoRmjW0z3OGufy4OEk4vgw7impUerADJ8+P1l4Evs/
-         gUeZGg6Qzu0m4oCwYhIr6na+Ay9Hq4ATHKFwzo1XQC1pmqP6NOhCJ7ijtefRPRR/Tb4r
-         FFHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=qfEf7xRtwJh6vel7ndE10SMbjF6zTEFOWV8RA9xu3eI=;
-        b=CXYE1MdLuUdSFrvEij2himZ1IWbumtTsROc58EoPTqpoPBNgOWyzSRxkWzVGbnNn8S
-         fUMLwUXDKykaSDpPUgVIYiMAwXF959D8uiFc0NNv0Rmvtci19Ndfz649W5h1+5uPXmrs
-         DuN7Zf2+EZ/YhqW7Iuf6wLwgru74TCxT/fs0TzHIkkphOphaoHrrW3/yC1qaFkmbq7vi
-         L++MI1ILOj3X38BO/pWV3Ar1jplwWqmkpnpLRW40SptBO2sF1n7yCbG0kD8karTn6Q/6
-         EI/MF/MM/7sIGYfjPcko//OEp1SBn1T1uoTqFNnWOoZ80pxaBWAd/3gAxDaspW6k0eKQ
-         iagA==
-X-Gm-Message-State: AOAM530OpRB8G73nvRWiXxVBCT+xG51FD1Tj/wtV+px1AbjjVGkFG8KK
-	N+6BMKblwMBCA5+xtD7pWZa/YEh28wfohCFn5xo=
-X-Google-Smtp-Source: ABdhPJy9ZPoku1YjH4P5V9sTrbXGNc0TDLR8E4ST1Mn4KA5kvu+HvwpbOUC5MO/5tCHlTeWvzQ658Y1GM8zrKYsupSY=
-X-Received: by 2002:a92:1f43:: with SMTP id i64mr17516886ile.281.1605088545285;
- Wed, 11 Nov 2020 01:55:45 -0800 (PST)
-MIME-Version: 1.0
-References: <20201111082658.3401686-1-hch@lst.de> <20201111082658.3401686-18-hch@lst.de>
-In-Reply-To: <20201111082658.3401686-18-hch@lst.de>
-From: Ilya Dryomov <idryomov@gmail.com>
-Date: Wed, 11 Nov 2020 10:55:45 +0100
-Message-ID: <CAOi1vP-JjnNdAUqd9Gy6YdFgi8Ev4_Jt3zcB9DhAmdAvQhG7Eg@mail.gmail.com>
-Subject: Re: [PATCH 17/24] rbd: use set_capacity_and_notify
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Justin Sanders <justin@coraid.com>, 
-	Josef Bacik <josef@toxicpanda.com>, Jack Wang <jinpu.wang@cloud.ionos.com>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Minchan Kim <minchan@kernel.org>, Mike Snitzer <snitzer@redhat.com>, Song Liu <song@kernel.org>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, dm-devel@redhat.com, 
-	linux-block <linux-block@vger.kernel.org>, Lars Ellenberg <drbd-dev@lists.linbit.com>, 
-	nbd@other.debian.org, Ceph Development <ceph-devel@vger.kernel.org>, 
-	xen-devel@lists.xenproject.org, linux-raid@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>
+	(envelope-from <SRS0=Iq8f=ER=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kcmtR-0005oq-OR
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 09:58:21 +0000
+X-Inumbo-ID: 55b48ee9-b115-4306-a927-e410cc40e570
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 55b48ee9-b115-4306-a927-e410cc40e570;
+	Wed, 11 Nov 2020 09:58:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=WaxgwJEGqmVlw3XbgZmBHyGcqij0ZC6YIAztjmIioXM=; b=7BAlBW4/qd3KBIb0n8KVTaBwZ/
+	RIpCO/qyoVN4zbm4lRMXuIgBx8Y1VDG/bY1LeaVZHQulFQyR+Ke9RLerwsnaIs/7lvalEMJyU+guO
+	IrAaNaRCajQrsZFdh7rbBeJahFmLl/jnKwKeF9GfvF2EhA4cggers0CbeKtlv0Lkthj4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcmtO-0007l4-LL; Wed, 11 Nov 2020 09:58:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcmtO-0004P7-CK; Wed, 11 Nov 2020 09:58:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kcmtO-0006pf-Br; Wed, 11 Nov 2020 09:58:18 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156681-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-coverity test] 156681: all pass - PUSHED
+X-Osstest-Versions-This:
+    xen=3059178798a23ba870ff86ff54d442a07e6651fc
+X-Osstest-Versions-That:
+    xen=0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 11 Nov 2020 09:58:18 +0000
 
-On Wed, Nov 11, 2020 at 9:27 AM Christoph Hellwig <hch@lst.de> wrote:
->
-> Use set_capacity_and_notify to set the size of both the disk and block
-> device.  This also gets the uevent notifications for the resize for free.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Acked-by: Jack Wang <jinpu.wang@cloud.ionos.com>
-> ---
->  drivers/block/rbd.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/block/rbd.c b/drivers/block/rbd.c
-> index f84128abade319..b7a194ffda55b4 100644
-> --- a/drivers/block/rbd.c
-> +++ b/drivers/block/rbd.c
-> @@ -4920,8 +4920,7 @@ static void rbd_dev_update_size(struct rbd_device *rbd_dev)
->             !test_bit(RBD_DEV_FLAG_REMOVING, &rbd_dev->flags)) {
->                 size = (sector_t)rbd_dev->mapping.size / SECTOR_SIZE;
->                 dout("setting size to %llu sectors", (unsigned long long)size);
-> -               set_capacity(rbd_dev->disk, size);
-> -               revalidate_disk_size(rbd_dev->disk, true);
-> +               set_capacity_and_notify(rbd_dev->disk, size);
->         }
->  }
->
-> --
-> 2.28.0
->
+flight 156681 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156681/
 
-Hi Christoph,
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  3059178798a23ba870ff86ff54d442a07e6651fc
+baseline version:
+ xen                  0a5e0ce0fb7e5a3b5dfdc936058d2c0e04e5e258
 
-The Acked-by is wrong here.  I acked this patch (17/24, rbd), and Jack
-acked the next one (18/24, rnbd).
+Last test of basis   156554  2020-11-08 09:20:27 Z    3 days
+Testing same since   156681  2020-11-11 09:19:28 Z    0 days    1 attempts
 
-Thanks,
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-                Ilya
+jobs:
+ coverity-amd64                                               pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   0a5e0ce0fb..3059178798  3059178798a23ba870ff86ff54d442a07e6651fc -> coverity-tested/smoke
 
