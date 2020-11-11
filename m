@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95152AF3FF
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 15:44:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24949.52454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BD1C2AF400
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 15:44:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24953.52465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcrLs-0003aR-Sv; Wed, 11 Nov 2020 14:44:00 +0000
+	id 1kcrMQ-0003gM-52; Wed, 11 Nov 2020 14:44:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24949.52454; Wed, 11 Nov 2020 14:44:00 +0000
+Received: by outflank-mailman (output) from mailman id 24953.52465; Wed, 11 Nov 2020 14:44:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,234 +23,123 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcrLs-0003a2-PI; Wed, 11 Nov 2020 14:44:00 +0000
-Received: by outflank-mailman (input) for mailman id 24949;
- Wed, 11 Nov 2020 14:43:59 +0000
+	id 1kcrMQ-0003fz-1u; Wed, 11 Nov 2020 14:44:34 +0000
+Received: by outflank-mailman (input) for mailman id 24953;
+ Wed, 11 Nov 2020 14:44:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GpG1=ER=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kcrLr-0003Zv-KJ
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:43:59 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nKbA=ER=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kcrMO-0003fp-2u
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:44:32 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7d2dc119-6099-4d60-8080-c29b450e4b7b;
- Wed, 11 Nov 2020 14:43:58 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DE7E3AD11;
- Wed, 11 Nov 2020 14:43:57 +0000 (UTC)
+ id 0d9f2595-7548-459f-a994-9696dac03b6d;
+ Wed, 11 Nov 2020 14:44:31 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=GpG1=ER=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kcrLr-0003Zv-KJ
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:43:59 +0000
-X-Inumbo-ID: 7d2dc119-6099-4d60-8080-c29b450e4b7b
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=nKbA=ER=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kcrMO-0003fp-2u
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:44:32 +0000
+X-Inumbo-ID: 0d9f2595-7548-459f-a994-9696dac03b6d
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 7d2dc119-6099-4d60-8080-c29b450e4b7b;
-	Wed, 11 Nov 2020 14:43:58 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605105838;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s4DJLyWnN2lYtnW/1PMpH8EielXkomSTZEp/9XlNGlc=;
-	b=W0BAY2VkfQoBcUclQ+gNWZOJ/hFKSev4rhL4PmjI/wwTZVutN1p7PPJKPe7fhC0uiPuNSj
-	eqRQMzjaskO7QsaLQRiDFB1egJ0599wxhHV1zOZ5y3AB00JLrJeD96lXJLEUU/9Hm8tx1j
-	AZqwCYWnilJHNF2RA40uU2iewaANu04=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id DE7E3AD11;
-	Wed, 11 Nov 2020 14:43:57 +0000 (UTC)
-Subject: Re: [PATCH 01/12] xen/cpupool: add cpu to sched_res_mask when
- removing it from cpupool
-To: Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>
-References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-2-jgross@suse.com>
- <34527bbdeef138454b6a555c236b2289643b3d6b.camel@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <acef7969-4f9c-bb29-257f-d191f9527b0b@suse.com>
-Date: Wed, 11 Nov 2020 15:43:57 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	id 0d9f2595-7548-459f-a994-9696dac03b6d;
+	Wed, 11 Nov 2020 14:44:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1605105871;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=eFY5+F/7N20RmK3+pOEUrqAFyG5ehkW1hcSCG++Ekr4=;
+  b=ei9a/jWevsbTwxDv9UrhGilm9X5gqVPUCSuBYr/EZbwj8dt9XsPEBXaZ
+   axugeQpKGwKIG4gigSxlI1dCsOUseTs0CNxg1j8rXfPppoBuf44dnvsYB
+   Z+2zXyNpkwRh9qHbeePU1y9VNN/veyF0g6nNnO3GrctSqf53dWhBu5k8j
+   c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: K2TBFFo/OQqKXBj4EfP4tiJj6nMW5SIEDA3FN5dAknz9A1T6kRvEL4qWlERx41C//F9cW/dKf/
+ qmdv9amc0Zpo0w0EU0jJWRSs0onhjhlykjqNZ7PSrRF/NdtA15PEuQf4BJJ3tYe0lp+ifD8mMW
+ 9gqiD2/jxISxN7gvbLWnHJgT0Qi9dEjUmpO7A9iFIAJSeXbNuq3XWNDCky56Fo547z1TMOcVZo
+ Fe+swKCXziPhR+6TYxqdbmDf92gzby+BlvP6boNfNrLWFdeE4yCFdsRlqoYL+UDoWjq/TUaIa2
+ +zc=
+X-SBRS: None
+X-MesageID: 30925166
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,469,1596513600"; 
+   d="scan'208";a="30925166"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E1CQoCWuba7yxKQFkxA0VnrPbGJ7DdDhvou47i1Brinml51I+zhb3kUTWXqZwP3yiY+z5xbWcCIA8HXOEOooMLjD0VhniSAtb9MTJ75gjGjvlAoW4ztF0+7LxOhePpAdUWq2b2x6pkN0hhF51WLaFprTVqySDadGOYYD/P/hohX41TULbUJC529l0rc40M7P5IOSQneXHcLMUacZNfrcQAIfijDIrFSfDzksBChMBEVYzXJa+Z0OoS0g5AZPa6TeYxb8TQSocpMes7/lpby+ZkPd+sixJz4G3Hl5SN5qzs0YCOQZ0owqS1onR6RWcKXEumdBVHwcpu1r1ddw+mtDPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qre77Y/POXr/+bLKSBeDaxaJFslTGf37Y4ufQovFKxA=;
+ b=HqTxC+rZkeXzD+amTZDTYxw9c8P6MMMaCqcTRE5TtBM0xCY2xpc+GUUnoWXTOLYvERozrRsPYNla2JQT1DX0xVCvPOCio0k9WJXobWO8hqpmhXp+qzkfk3dl5gTJ2+7kTGVZ1eZcN5aCh39hIwytGaXsLd22EB9iRQvxrRq3oMdFS49jV8DrsmgYQd1lW9AVqpP1ASV5bdSp5GF7K4CeOSg+TJmICWngl8eA1L+A3jvTcBpI/CI+VJ5CMOS5SqTC8Lsc5t9Sv5D+OWGQEurJfUdBLML9jPrCbQz684iYZhifxQvD3NBkVkQxnHN3MUR4rOVV8v/gqC4T05D1rAkmXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qre77Y/POXr/+bLKSBeDaxaJFslTGf37Y4ufQovFKxA=;
+ b=W27n8a++NeW4Ohug2ssmNtVvtv2nJiEwFk5aU8ir9tmdAKvS+3kTwKYNTcEIiIRhnlBcsEKBct00XDXmmqLvwYJHyImT3uDKETr6QINPbxkynIlxfVFIlnUxnCag0j61oOruDWtZNcY+xB+l5dy0DuEz6j3if0yhdysilMfWdJw=
+Date: Wed, 11 Nov 2020 15:44:22 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+CC: <Rahul.Singh@arm.com>, <Bertrand.Marquis@arm.com>, <julien.grall@arm.com>,
+	<jbeulich@suse.com>, <sstabellini@kernel.org>,
+	<xen-devel@lists.xenproject.org>, <iwj@xenproject.org>, <wl@xen.org>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Subject: Re: [PATCH 04/10] [WORKAROUND] xen/arm: Update hwdom's p2m to trap
+ ECAM space
+Message-ID: <20201111144422.z2hi3ineg6qwbxi4@Air-de-Roger>
+References: <20201109125031.26409-1-andr2000@gmail.com>
+ <20201109125031.26409-5-andr2000@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20201109125031.26409-5-andr2000@gmail.com>
+X-ClientProxiedBy: LO2P265CA0465.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a2::21) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <34527bbdeef138454b6a555c236b2289643b3d6b.camel@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="2tcs4pEbRSfCc4d9blLruWyh9nTxCYOCV"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8f78b034-64e9-4a16-125a-08d886504a49
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5542:
+X-Microsoft-Antispam-PRVS: <DS7PR03MB55422D3BFE209EFEC63F93108FE80@DS7PR03MB5542.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ECBFxeuuP4qBcDV7UQOtDAEeth3GLxxh8fZfK5U1fe9/Z6g86ljXHO558vxhQ6l09VSkobo3/Dhf5Xa965OuYF4bGeHvf5az2m7OD8w0r7sScp9u9Ce2qOnd649ywfEiKmOJJ/kEXIIiEiG/IrZXN3mTqEw/ve6hKSrntiJyV0fYkhr+bR5+I0c9MbfoMVnNTL+P18ONuAyOlRftUH3U2gB1hyZoEw06NSB4kiNN4rIbbwr5Xumzvp2DLzzMxT+OdKbj3N9tRP9jJoKd3T3W3I9vEhA7HM2y56yPOf8uAVd2ENpiMBpDDdizTh4Q0WRz
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(396003)(346002)(136003)(376002)(366004)(39860400002)(33716001)(26005)(9686003)(186003)(66946007)(66476007)(956004)(8676002)(316002)(16526019)(6916009)(8936002)(4326008)(2906002)(86362001)(7416002)(66556008)(6496006)(6486002)(6666004)(4744005)(478600001)(85182001)(1076003)(5660300002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: swmHlA/vMTIFLz4qJq+nJ+VxyptKmT7bxYV4UR+f41U5/UrHmROOH7oQn2twFIADTLeka98Y5BSGInBubf5pSiobg97zG8HHid92kph+ROSDO6B3tpW7Ap80V1ASCOVbQ0/RAFuhmBCfuDmUQ2L/VOYenBuNwFAEaboApTw4MnhBSgIorh6QlU7ReAwJHCaub0KRS8os/rlptuox/KyEWqTmu7ygq/ms1bOuUKQ2LPn25n9VuQWeXskismN+fs+emWbeZVZR4SGhLX8jqhOI9oPxAa73tmrDZslsKdpLDPAhndjEHMRO71ts3z7PBdbe7UDx+qqTrBwx59Q9imFLCAIPuUuRMK2cr9HTZDgtXqWGZCRfTtG/RVe3SEu/vAePUEfuKy0Qv8JBn32RBaScaxZ2jly56ZShQzaDhUF4MkHPBRNTIcxo0dz0ArlLKPf8GIQuDtEcjqZlznn8KjurDwxi42lIBshG8eITREnL1itL3n5Tm1mzV6NM0QLv7HOVuKLc+E2FHc1rXnGL0jV97TzSRLYt+faI4SMdPeYhxqHlw5aNcGlwPWFJrcy273EegtrMMp4RJV/aGOb/SgafssyIV8IBO6HIgOYKLg5Z0JC3SfxPtUZS8hQKK6IXDY6ENYNkvHIJ0DxHx5RV0hylFKICMnQmJy+hNBAhPBV6KH2opfN0di8yxoe4Kfw3P13bRa0JsxDmGbbAL/vDfltYRcYZ+VH60/YUth4XiNKA8bcX/TeN5sDiFA6F/o5pcidXyvmH9Pogg2WWb1oLibxyC4E/NEoI35jwL/j2o6FzNcIHN2PsylFE3L/DLDEbN7c0IHvxjrneStvqs+ZiW/4XIhjK6/JEoXlX8R84WFl8d8nA/hRWwMIawCOk2Pry0PVGDc2Q+GwlMqufvQabf6yThA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f78b034-64e9-4a16-125a-08d886504a49
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2020 14:44:27.5729
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tDZUiaL/s/leiSApQTQGiwQBXegh5yq9smIN9yIrOgD+ST4PkO/OKU6F5qXnupQ5YTEdbfxcDyJnB6mBL5080Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5542
+X-OriginatorOrg: citrix.com
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---2tcs4pEbRSfCc4d9blLruWyh9nTxCYOCV
-Content-Type: multipart/mixed; boundary="VPrrTkA5R0g4h7dTyGWaHAuzacgvP01IH";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>
-Message-ID: <acef7969-4f9c-bb29-257f-d191f9527b0b@suse.com>
-Subject: Re: [PATCH 01/12] xen/cpupool: add cpu to sched_res_mask when
- removing it from cpupool
-References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-2-jgross@suse.com>
- <34527bbdeef138454b6a555c236b2289643b3d6b.camel@suse.com>
-In-Reply-To: <34527bbdeef138454b6a555c236b2289643b3d6b.camel@suse.com>
+On Mon, Nov 09, 2020 at 02:50:25PM +0200, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> Host bridge controller's ECAM space is mapped into Domain-0's p2m,
+> thus it is not possible to trap the same for vPCI via MMIO handlers.
+> For this to work we need to unmap those mappings in p2m.
+> 
+> TODO (Julien): It would be best if we avoid the map/unmap operation.
+> So, maybe we want to introduce another way to avoid the mapping.
+> Maybe by changing the type of the controller to "PCI_HOSTCONTROLLER"
+> and checking if this is a PCI hostcontroller avoid the mapping.
 
---VPrrTkA5R0g4h7dTyGWaHAuzacgvP01IH
-Content-Type: multipart/mixed;
- boundary="------------7C7BF1FBB8A15192A31BC6FC"
-Content-Language: en-US
+I know very little about Arm to be able to provide meaningful comments
+here. I agree that creating the maps just to remove them afterwards is
+not the right approach, we should instead avoid those mappings from
+being created in the first place.
 
-This is a multi-part message in MIME format.
---------------7C7BF1FBB8A15192A31BC6FC
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 11.11.20 15:32, Dario Faggioli wrote:
-> On Mon, 2020-10-26 at 10:13 +0100, Juergen Gross wrote:
->> When a cpu is removed from a cpupool and added to the free cpus it
->> should be added to sched_res_mask, too.
->>
->> The related removal from sched_res_mask in case of core scheduling
->> is already done in schedule_cpu_add().
->>
->> As long as all cpupools share the same scheduling granularity there
->> is nothing going wrong with the missing removal,
->>
-> This patch is adding an addition of the CPU to sched_res_mask, which
-> was missing... So isn't the above "there is nothing going wrong with
-> the missing addition", or something like that?
-
-Oh yes, of course.
-
-Will fix that.
-
->=20
-> Or, if it's an actual missing removal that we are referring to here,
-> then it must be clarified which one.
->=20
->> but this will change
->> when per-cpupool granularity is fully supported.
->>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->>
-> With the above fixed or clarified:
->=20
-> Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-
-Thanks,
-
-
-Juergen
-
---------------7C7BF1FBB8A15192A31BC6FC
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------7C7BF1FBB8A15192A31BC6FC--
-
---VPrrTkA5R0g4h7dTyGWaHAuzacgvP01IH--
-
---2tcs4pEbRSfCc4d9blLruWyh9nTxCYOCV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+r+K0FAwAAAAAACgkQsN6d1ii/Ey8e
-ZAf/dIxjakESFjPctT0Os4twDxyAWBEBjQeOX6KJD3EGhLkBr6ogZKtRNzykDvU9RD960UB5bVKx
-wUZsQjxXZb1P2gUHAyMRT3oBmkLIXbk2haMCBBd1BoyNSMt5TECdDxbKnKtD7XeBuKm9tIo6tpC4
-LixLA6JroVdAhZAbSTr6a0ElCP1UXmanEC6iRCVBVFb/CFPpCzNajdaQfz3uUvopecCp+DpdArG5
-FvAtt3tCc2t54o4QQxDeNOyDlqBJn6Ulo8u4aXKh4rzhOObUXsK+DClcNCfeQNJnUt/iKtROAeJ0
-WvnsZIZBEbBbIXYthEnCCIGW4nZnwFb5Jutm1cwG2A==
-=CwOM
------END PGP SIGNATURE-----
-
---2tcs4pEbRSfCc4d9blLruWyh9nTxCYOCV--
+Roger.
 
