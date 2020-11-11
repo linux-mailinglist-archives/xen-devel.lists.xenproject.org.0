@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14F82AF44D
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 16:01:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25015.52564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00C872AF455
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 16:03:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.25025.52577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcrcK-0006Q6-Cg; Wed, 11 Nov 2020 15:01:00 +0000
+	id 1kcret-0006by-Vb; Wed, 11 Nov 2020 15:03:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25015.52564; Wed, 11 Nov 2020 15:01:00 +0000
+Received: by outflank-mailman (output) from mailman id 25025.52577; Wed, 11 Nov 2020 15:03:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,244 +23,194 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcrcK-0006Ph-9b; Wed, 11 Nov 2020 15:01:00 +0000
-Received: by outflank-mailman (input) for mailman id 25015;
- Wed, 11 Nov 2020 15:00:58 +0000
+	id 1kcret-0006bZ-SL; Wed, 11 Nov 2020 15:03:39 +0000
+Received: by outflank-mailman (input) for mailman id 25025;
+ Wed, 11 Nov 2020 15:03:37 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GpG1=ER=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kcrcI-0006Pa-KC
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:00:58 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nKbA=ER=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kcrer-0006bU-LV
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:03:37 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2ed46d09-9bff-4607-a13b-508f8f990254;
- Wed, 11 Nov 2020 15:00:57 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B7985AC82;
- Wed, 11 Nov 2020 15:00:56 +0000 (UTC)
+ id 20067034-93a5-4f23-8e31-ea0f002f5abc;
+ Wed, 11 Nov 2020 15:03:36 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=GpG1=ER=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kcrcI-0006Pa-KC
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:00:58 +0000
-X-Inumbo-ID: 2ed46d09-9bff-4607-a13b-508f8f990254
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=nKbA=ER=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1kcrer-0006bU-LV
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:03:37 +0000
+X-Inumbo-ID: 20067034-93a5-4f23-8e31-ea0f002f5abc
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 2ed46d09-9bff-4607-a13b-508f8f990254;
-	Wed, 11 Nov 2020 15:00:57 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605106856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OF669ofiJecTVgQi3KBql6TEQF3bqXpo9qIem+avUXw=;
-	b=Q1ZaoTtqxvSNnBNlcwTL3+tJqdlQNxs4fxc+3mwV2ZNsV7RhmaaT85yjTAs2cPqQxQJ8G5
-	Zd867kqkYajXvBc7uuoQkX0rcmRG2MevuBVWlSyBxDcV+h0bX7Tb4ArgZLgMJRg+0586uH
-	ST+ySef/WDN0ZuqVu6a8JQuWgrYgXaE=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id B7985AC82;
-	Wed, 11 Nov 2020 15:00:56 +0000 (UTC)
-Subject: Re: [PATCH 10/12] xen/hypfs: add cpupool directories
-To: Jan Beulich <jbeulich@suse.com>, Dario Faggioli <dfaggioli@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-11-jgross@suse.com>
- <c5b12f33b4e3feb0d6f6bc51d5474b36fa42d881.camel@suse.com>
- <6b2cf5d0-9c6d-07bd-51d3-9fd34cd8d1a5@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <9aba12c7-f8ec-7670-2661-f82b05adf649@suse.com>
-Date: Wed, 11 Nov 2020 16:00:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	id 20067034-93a5-4f23-8e31-ea0f002f5abc;
+	Wed, 11 Nov 2020 15:03:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1605107016;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=+G4UFofyIJQuFMHtvIO7Gci3X1f9UHSZ1LVC+e/3zpQ=;
+  b=iRvYWBybUbwhB18fB5M4M72JC/VTk/w8ZVp1sS+OOh3jCO2ZNBbRndcu
+   Q22esWVZMik5OCgpGo1ioTDVEZ7oDzG2Az3BmmMWUf8pjKX/XiTYWGuW7
+   K8JsSkt6grAjFPcyeHNfCWWi+R6hgozNraKjuMK3mFcnohVtanepWN7mA
+   4=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 4h6IwsyPdVDMcNBgZCEKOqENnunstA9BpifI2XHLgNhYyASY6d5ovV+c1rAfQ8MlAAdgJiJ+jt
+ y1Sxlb3Q3yCcn3Y+nZ0pIlWqAF095xtvKVSXif/kY3VgcCX2SGbTwmbY8J3ZhmJPv4GecK+vT5
+ QH8pkmpAmOB2f5j3KNycQxsrP8ygTETh32cgkmRedLQDKUfLj2Jf8XrdVy62bvfMhxwxX4k4P7
+ 9dCya7Q9Z9yQrvTB5fwd3+7qTISfeqlGVgiq+5lQ3ARfV7v/gsZwFkrcBKAyCqGNIuzrBYHLd/
+ E2Q=
+X-SBRS: None
+X-MesageID: 30981712
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,469,1596513600"; 
+   d="scan'208";a="30981712"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jyvan3vHa4UaqiObbABMYi0o4eJJxgMcsiUFG2ZSUHC83KEHcyBi04TXZjwZfuAX7nTJF82HhKLTrUKrfAazRnDecs8RVh7XUzetGdsA+Xy1n3ZK9PsGqT2UyE83cNCcY1Y0vM+Ti074qTpUbDOcgsA69VUBhrpXwevkThGLm9G9BetWXuGZtw1ytDJNSWimbm7GbCgH4f0JWfvgiOoJeE33huvP5zGiqNZqonkXgcCmczaEGJyUNjZ+jUKa1eUcE4LvSBX/o9/abPsGaLCgx62OElfBH4f91mnp6CoF42V9NHcfA6WnvF8qB0RNQIWkdsAEJuP6laxMqPnD5/8eHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xXVqu6XMKSzoC832hSQGLGFgOtmCssn910dE3tCovKc=;
+ b=f48dXWMII3VkkZ7XHgO5Viap5w09nZ1JF8cDA6opKNsZqLPxiTqANQUBJ4RWnVA/raUXib/lfMdma4l5K13YMFs5ojet5zcCbN/h8FHSzveJ7e/sajtQ9+nH33Et3DQ1HLi3NuU8sbamQERayvjKV4Ynj4X/WeYTgcuqJFQjmJVQMgdMXLyaEdE9bUBw0qsHD9xyfo2NpX7Xk6eVNFMsuQq0sWipQPtvQwV1GYQlzBOZHBFWW8rQ/FmWlcCO8eFYxS42J+Y/9cgMBNcqqAxKulRyZqQ2rc3igkF9zNqdp4PTztjQHMARJiwQMzNiE2M7/lT55dJxrs+12//CdD/ceA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xXVqu6XMKSzoC832hSQGLGFgOtmCssn910dE3tCovKc=;
+ b=hc0/GkWIArGK0DU45F3IQ04BhuiNe/1viLNQd/ToZzGAtYSBtIT4M30VvZNHi77sC8QyGSPvXd6Lorhu4nkAS1Gu4RYZUES34ArOHEUZ65ByF00JNIGUCFVfts84gsKFm7Pr+DAc6isO2BaFJTGJ+EkE3M2W9DSAXPxHqsPEcxw=
+Date: Wed, 11 Nov 2020 16:03:10 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+CC: Oleksandr Andrushchenko <andr2000@gmail.com>, "Rahul.Singh@arm.com"
+	<Rahul.Singh@arm.com>, "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
+	"julien.grall@arm.com" <julien.grall@arm.com>, "jbeulich@suse.com"
+	<jbeulich@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"iwj@xenproject.org" <iwj@xenproject.org>, "wl@xen.org" <wl@xen.org>
+Subject: Re: [PATCH 02/10] arm/pci: Maintain PCI assignable list
+Message-ID: <20201111150310.2wo33lr3f5xrd6sj@Air-de-Roger>
+References: <20201109125031.26409-1-andr2000@gmail.com>
+ <20201109125031.26409-3-andr2000@gmail.com>
+ <20201111135311.6jhskiss2qswm3zp@Air-de-Roger>
+ <03d6a75c-075d-6c57-1d66-2514ef1d0cb8@epam.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <03d6a75c-075d-6c57-1d66-2514ef1d0cb8@epam.com>
+X-ClientProxiedBy: LO2P265CA0486.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13a::11) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <6b2cf5d0-9c6d-07bd-51d3-9fd34cd8d1a5@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="UFfRQk51QwmHYfK2ztisLzaFZePB3Kwdu"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 51eaec14-9e88-4f04-c1bc-08d88652ec17
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3673:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB3673D4C709F235840DB9D73F8FE80@DM6PR03MB3673.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dUPnXZq1OdZz4TovXiHKjriuSemv//DuSSf5Edqc0z6VAOqNdPzwHQXFi4Y6+VIMkeFSmd6eHbYHYSGCYBQnO9JqotrUJHoj7Pnhyxg5PWix2jw3I6FClhMQ41mz/LSEW4ehO+fam+YtUxby/JhRq7PwVkVjKSsIDPG2wOQmgQQ63GqXfaRSZ6t9nUDYP5KXbVmmSSGvI/IGynmXVXOhv1gvOjrEYHUAwpKiPo99izRIbesMsjfXdhgucadcSWhlOR+EX4m+V0nOzKQ/bjkue1KkQSpHTGIyS2bLO81Awfpu3f4QQt8pvXxqMGgBUEsr7x1jgnPGGV46d0CI2f2b7Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(346002)(396003)(366004)(376002)(136003)(39860400002)(9686003)(1076003)(85182001)(2906002)(5660300002)(86362001)(6666004)(54906003)(66946007)(66556008)(66476007)(6496006)(956004)(7416002)(316002)(6916009)(53546011)(6486002)(8936002)(478600001)(186003)(16526019)(33716001)(8676002)(26005)(4326008);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: zTKJzh3iUeWb6CLprWKXIkfd8m+0iiouCfPyf1LVjQ0oeqImY8sotPJ9okUYMYWMK+OkLp02zKJUKMFxenUjXxZSHkSQ2LsayO3AbUnaaL7Jyt8q7nXW1lTS+p3jOJA5fZLlQ4v7tnCma84HqfeoKeDkUTqAysezCRpOVMVMew2OmwmSgNcezhbqMjTrFR5dzWKsQ6eFt6UbEbg2+FxPo64xiUlbKORgKsJ5+72mphMCG/b+G01Snlvc6MZJzjTitv55jQL0BDxi3rwnGaTX2KibGKQajCCCQwByi1GCtCLxcrX4irm4vdGUdcHBe4t0LwvB0dDpH53eAVBG5A9psGo1v/NOkJD1XNaJJYAHHaNxQYvQz0L6LFdtV74JFF3rtjgaqpfVmnCRNCaEhaui3j491LZpM8gX5Gcx3+FrO2ogXkVRTKlu23TSV4kx/LMBuwP8womlJl6s7PsACUgd6ZbHKR8Mo7idBbbGdJR62TE6QDtG2vBtvsspagIRC5h2vKAhKFXvYK9LtzNNKvWN1liQhMaltw91hcAUQEr3OVd03lCEHSnpJIM/VkL3Q+43WqRGWnGGe7lGgzI08KByAqG8hrO6e5jPkkccqIr8YSrGxauUPyxMXkFygTcfDDECYjIaNgWAk6XMveAkPsfo2toxF5WauL071H038oITzwaBx4U4t/Rhz4Pq5w6hour19eD2SfvsC4E+HURbk7X10ze4A4w5hgEaBMTsIkH/9c32PMPGcddvvxXXrl57QtAME1XxRZ25tcLh+4K8kVhgWrSXl4d3vxNhNaKltMoX2V1gqqMLYEsdaSdARcpfQHysVUV5QtjIg9fQ9g7QMD0V17lWn1UJWI0aHTys+c0VbbngFKdyVw1z9oukN/HVJqRYAysRUYJrEgScehEH1ZTe7Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51eaec14-9e88-4f04-c1bc-08d88652ec17
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2020 15:03:18.1485
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k0Y9ED9ixZgCQc6ew62ZCKuYAWimS2FuOMSA5ydtCud8f57RfQqbxDYVQkSDpd7vuVvb3Rq6rQqholvs67XZyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3673
+X-OriginatorOrg: citrix.com
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---UFfRQk51QwmHYfK2ztisLzaFZePB3Kwdu
-Content-Type: multipart/mixed; boundary="30TUk66TA6sHbf3dfEr1pQcOfMLqQbsZ6";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>, Dario Faggioli <dfaggioli@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <9aba12c7-f8ec-7670-2661-f82b05adf649@suse.com>
-Subject: Re: [PATCH 10/12] xen/hypfs: add cpupool directories
-References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-11-jgross@suse.com>
- <c5b12f33b4e3feb0d6f6bc51d5474b36fa42d881.camel@suse.com>
- <6b2cf5d0-9c6d-07bd-51d3-9fd34cd8d1a5@suse.com>
-In-Reply-To: <6b2cf5d0-9c6d-07bd-51d3-9fd34cd8d1a5@suse.com>
+On Wed, Nov 11, 2020 at 02:38:47PM +0000, Oleksandr Andrushchenko wrote:
+> On 11/11/20 3:53 PM, Roger Pau Monné wrote:
+> > On Mon, Nov 09, 2020 at 02:50:23PM +0200, Oleksandr Andrushchenko wrote:
+> >> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> >>
+> >> The original code depends on pciback to manage assignable device list.
+> >> The functionality which is implemented by the pciback and the toolstack
+> >> and which is relevant/missing/needed for ARM:
+> >>
+> >> 1. pciback is used as a database for assignable PCI devices, e.g. xl
+> >>     pci-assignable-{add|remove|list} manipulates that list. So, whenever the
+> >>     toolstack needs to know which PCI devices can be passed through it reads
+> >>     that from the relevant sysfs entries of the pciback.
+> >>
+> >> 2. pciback is used to hold the unbound PCI devices, e.g. when passing through
+> >>     a PCI device it needs to be unbound from the relevant device driver and bound
+> >>     to pciback (strictly speaking it is not required that the device is bound to
+> >>     pciback, but pciback is again used as a database of the passed through PCI
+> >>     devices, so we can re-bind the devices back to their original drivers when
+> >>     guest domain shuts down)
+> >>
+> >> 1. As ARM doesn't use pciback implement the above with additional sysctls:
+> >>   - XEN_SYSCTL_pci_device_set_assigned
+> > I don't see the point in having this sysfs, Xen already knows when a
+> > device is assigned because the XEN_DOMCTL_assign_device hypercall is
+> > used.
+> 
+> But how does the toolstack know about that? When the toolstack needs to
+> 
+> list/know all assigned devices it queries pciback's sysfs entries. So, with
+> 
+> XEN_DOMCTL_assign_device we make that knowledge available to Xen,
+> 
+> but there are no means for the toolstack to get it back.
 
---30TUk66TA6sHbf3dfEr1pQcOfMLqQbsZ6
-Content-Type: multipart/mixed;
- boundary="------------03BBD9441982CAFB9FB35B1D"
-Content-Language: en-US
+But the toolstack will figure out whether a device is assigned or
+not by using
+XEN_SYSCTL_pci_device_get_assigned/XEN_SYSCTL_pci_device_enum_assigned?
 
-This is a multi-part message in MIME format.
---------------03BBD9441982CAFB9FB35B1D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+AFAICT XEN_SYSCTL_pci_device_set_assigned tells Xen a device has been
+assigned, but Xen should already know it because
+XEN_DOMCTL_assign_device would have been used to assign the device?
 
-On 11.11.20 15:56, Jan Beulich wrote:
-> On 11.11.2020 15:51, Dario Faggioli wrote:
->> On Mon, 2020-10-26 at 10:13 +0100, Juergen Gross wrote:
->>> Add /cpupool/<cpupool-id> directories to hypfs. Those are completely
->>> dynamic, so the related hypfs access functions need to be
->>> implemented.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>>
->> So, I'm almost sold... Just one comment:
->>
->>> --- a/xen/common/sched/cpupool.c
->>> +++ b/xen/common/sched/cpupool.c
->>> @@ -999,6 +1073,10 @@ static int __init cpupool_init(void)
->>>  =20
->>>  =C2=A0=C2=A0=C2=A0=C2=A0 cpupool_gran_init();
->>>  =20
->>> +#ifdef CONFIG_HYPFS
->>> +=C2=A0=C2=A0=C2=A0 hypfs_add_dir(&hypfs_root, &cpupool_dir, true);
->>> +#endif
->>> +
->> What would you think about doing this in an helper function
->> (hypfs_cpupool_init() ?), implemented inside the above #ifdef and as a=
-n
->> empty stub if !CONFIG_HYPFS ?
->>
->> That will save us from having the #ifdef-s again here.
->=20
-> Having a hypfs_add_dir() stub would also allow to achieve this, and
-> then, going forward, perhaps also elsewhere.
+> >
+> >>   - XEN_SYSCTL_pci_device_get_assigned
+> >>   - XEN_SYSCTL_pci_device_enum_assigned
+> >> 2. Extend struct pci_dev to hold assignment state.
+> > I'm not really found of this, the hypervisor is no place to store a
+> > database like this, unless it's strictly needed.
+> I do agree and it was previously discussed a bit
+> >
+> > IMO the right implementation here would be to split Linux pciback into
+> > two different drivers:
+> >
+> >   - The pv-pci backend for doing passthrough to classic PV guests.
+> Ok
+> >   - The rest of pciback: device reset, hand-holding driver for devices
+> >     to be assigned and database.
+> 
+> These and assigned devices list seem to be the complete set which
+> 
+> is needed by the toolstack on ARM. All other functionality provided by
+> 
+> pciback is not needed for ARM.
+> 
+> Jan was saying [1] that we might still use pciback as is, but simply use only
+> 
+> the functionality we need.
+> 
+> >
+> > I think there must be something similar in KVM that performs the tasks
+> > of my last point, maybe we could piggyback on it?
+> I promised to look at it. I owe this
+> >
+> > If we want to go the route proposed by this patch, ie: Xen performing
+> > the functions of pciback you would also have to move the PCI reset
+> > code to Xen, so that you can fully manage the PCI devices from Xen.
+> In case of dom0less this would be the case: no pciback, no Domain-0
 
-I thought about that. This would require to be macro for the stub case,
-but I don't think this is a major problem.
+But for dom0less there's no need for any database of assignable
+devices, nor the need to perform pci device resets, as it's all
+assigned at boot time and then never modified?
 
-Currently there are no other places requiring a stub, but in future this
-might change.
-
-
-Juergen
-
---------------03BBD9441982CAFB9FB35B1D
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------03BBD9441982CAFB9FB35B1D--
-
---30TUk66TA6sHbf3dfEr1pQcOfMLqQbsZ6--
-
---UFfRQk51QwmHYfK2ztisLzaFZePB3Kwdu
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+r/KgFAwAAAAAACgkQsN6d1ii/Ey8X
-yAgAmFY4vaqgfiRdstt+cTjhjcnl1omNrcAkLJs/KP5walDsGG8gLND5turAu2Cf7JEg2mHLifW5
-PYO3FbOnSd9HUi6OSt/FEajEySf/8wu7B4oBtZm4oiiE8slo9VT7RWu3eyoZhTo4GHnaf4Ia38xc
-SVGqO4w53x6cxzGm/oS65wn+/fffNikIPGUrSZSg0LlhYW58u13qMGsuTdm0lug6lHP6CkmAtBw7
-ilSq3ZmdjLQgQ9bqXQl/ChdOTC8tmblV/wkeImXXMmYGol4hnD0xTfvQp7FTR2rIJ+WgoQwl/j4U
-Ma0I7m12EFnphQADXOT0uk+IscrpiU61evH6ItRwFQ==
-=q4jW
------END PGP SIGNATURE-----
-
---UFfRQk51QwmHYfK2ztisLzaFZePB3Kwdu--
+Roger.
 
