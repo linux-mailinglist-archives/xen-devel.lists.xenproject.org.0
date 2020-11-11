@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F78E2AEE90
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 11:13:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24603.51941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A1322AEF3E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 12:11:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24622.51962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcn7g-00081m-QI; Wed, 11 Nov 2020 10:13:04 +0000
+	id 1kco19-0004zT-8G; Wed, 11 Nov 2020 11:10:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24603.51941; Wed, 11 Nov 2020 10:13:04 +0000
+Received: by outflank-mailman (output) from mailman id 24622.51962; Wed, 11 Nov 2020 11:10:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,135 +23,109 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcn7g-00081H-ML; Wed, 11 Nov 2020 10:13:04 +0000
-Received: by outflank-mailman (input) for mailman id 24603;
- Wed, 11 Nov 2020 10:13:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kco19-0004z4-4b; Wed, 11 Nov 2020 11:10:23 +0000
+Received: by outflank-mailman (input) for mailman id 24622;
+ Wed, 11 Nov 2020 11:10:22 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Iq8f=ER=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kcn7f-00080b-PA
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 10:13:03 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 32481d4a-0a80-485d-a7fc-ca82d624c381;
- Wed, 11 Nov 2020 10:13:01 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kcn7d-00089B-Cs; Wed, 11 Nov 2020 10:13:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kcn7d-0004vf-5p; Wed, 11 Nov 2020 10:13:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kcn7d-00068t-5M; Wed, 11 Nov 2020 10:13:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=ttLz=ER=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kco17-0004yz-Tc
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 11:10:21 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bede7193-360a-48b6-8584-b428ba45975a;
+ Wed, 11 Nov 2020 11:10:20 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Iq8f=ER=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kcn7f-00080b-PA
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 10:13:03 +0000
-X-Inumbo-ID: 32481d4a-0a80-485d-a7fc-ca82d624c381
-Received: from mail.xenproject.org (unknown [104.130.215.37])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 32481d4a-0a80-485d-a7fc-ca82d624c381;
-	Wed, 11 Nov 2020 10:13:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=563XLd+IDZGMNNFz3o2MvTuufWa43/SJiohlc7Nc8Mk=; b=n9sVbVhMucZHWcSn0iw16cDUVO
-	fKWHgIQVgZJnKhzkHJ1VKtbeD8Yl3dNTax3tarcOaX6G6Xor98KxScQyNNR4IcXZivdAQCD9Q6Kyw
-	3VLJgLbQRFr0GENm3i74PoC5HnkQBJNrD73Ffsi4YbjT+vcy40uIA4ETHwWBnmfdjCmk=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kcn7d-00089B-Cs; Wed, 11 Nov 2020 10:13:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kcn7d-0004vf-5p; Wed, 11 Nov 2020 10:13:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kcn7d-00068t-5M; Wed, 11 Nov 2020 10:13:01 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156679-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=ttLz=ER=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kco17-0004yz-Tc
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 11:10:21 +0000
+X-Inumbo-ID: bede7193-360a-48b6-8584-b428ba45975a
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id bede7193-360a-48b6-8584-b428ba45975a;
+	Wed, 11 Nov 2020 11:10:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1605093020;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=FrUrfzQ1PWZCL6L9TISjWH7ECa/n8mftd8rRa8EUYe8=;
+  b=R1Gc2H4DNQFeD+x8M/7uSKGl4DwM0uDaeU8rCf4oB/ylJzA2hjUfH9GW
+   C3Wi2XTeFd+g/RhnRaIV1N3bf8KIxSXbeK5jVTbAMWI6VNWQf1yYoAe0G
+   KuMP5u7VJxnPokRHt+/i04z1ho+9CniWKPSNG04rX5b+ya7ZS4pblugjM
+   g=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: +xuZKQeB7BNIaxRVbBleRdPCuv86qLyFoaNB2dbeS019F4JBEYHgjC+7vcrmFqUXMmIqvMwzxE
+ HpQLGQwxUD3/43fsEIB4ahsUbApffGkbmRlMo+h3tQ6PH40XrGowjcihiEAhVV81PN24YjIb8u
+ MeSlIgwjEo8369ePT4Rmqf+24W6h07p40fUwgksqogOUcHOv1VslZuGuRmuXSv/PU3+Esm/aUV
+ MCQp3ekcsEqbjrO5Cu0bvgXiHvuOV2UKot2tk5AnGsr6Aw4N2vT8Z9vd9JLFRwSfbffgE8tn4b
+ mZI=
+X-SBRS: None
+X-MesageID: 32056078
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,469,1596513600"; 
+   d="scan'208";a="32056078"
+Subject: Re: [PATCH] docs: fix documentation about default scheduler
+To: George Dunlap <George.Dunlap@citrix.com>, Roger Pau Monne
+	<roger.pau@citrix.com>
+CC: "open list:X86" <xen-devel@lists.xenproject.org>, Ian Jackson
+	<iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+References: <20201110185129.5951-1-roger.pau@citrix.com>
+ <9A8ADF64-4D76-4BEE-8E1C-4E23E77B9112@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <e24211db-7ab5-d950-df56-669b90fda041@citrix.com>
+Date: Wed, 11 Nov 2020 11:10:13 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 156679: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=69634224afaf84474f04e1ab050f216d66bcda68
-X-Osstest-Versions-That:
-    xen=3059178798a23ba870ff86ff54d442a07e6651fc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 11 Nov 2020 10:13:01 +0000
+In-Reply-To: <9A8ADF64-4D76-4BEE-8E1C-4E23E77B9112@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL04.citrite.net (10.13.108.177)
 
-flight 156679 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156679/
+On 11/11/2020 10:12, George Dunlap wrote:
+>
+>> On Nov 10, 2020, at 6:51 PM, Roger Pau Monne <roger.pau@citrix.com> wrote:
+>>
+>> Fix the command line document to account for the default scheduler not
+>> being credit anymore likely, and the fact that it's selectable from
+>> Kconfig and thus different builds could end up with different default
+>> schedulers.
+>>
+>> Fixes: dafd936dddbd ('Make credit2 the default scheduler')
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>> Changes since v1:
+>> - Point that the default scheduler is being selected by Kconfig,
+>>   don't mention the default Kconfig selection.
+>> ---
+>> docs/misc/xen-command-line.pandoc | 2 +-
+>> 1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+>> index 4ae9391fcd..eb1db25f92 100644
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -1876,7 +1876,7 @@ with read and write permissions.
+>> ### sched
+>>> `= credit | credit2 | arinc653 | rtds | null`
+>> -> Default: `sched=credit`
+>> +> Default: selectable via Kconfig.  Depends on enabled schedulers.
+> Sorry for not weighing in earlier; but this basically makes this documentation useless.
 
-Failures :-/ but no regressions.
+No.  It is the only half useable version, by being the only version
+which isn't misleading.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+It would however be far better to name the CONFIG_ variable (we do
+elsewhere in this doc) in question so people can actually figure out
+what they've got in front of them.
 
-version targeted for testing:
- xen                  69634224afaf84474f04e1ab050f216d66bcda68
-baseline version:
- xen                  3059178798a23ba870ff86ff54d442a07e6651fc
-
-Last test of basis   156622  2020-11-10 13:01:19 Z    0 days
-Failing since        156628  2020-11-10 17:00:28 Z    0 days    6 attempts
-Testing same since   156679  2020-11-11 08:00:30 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   3059178798..69634224af  69634224afaf84474f04e1ab050f216d66bcda68 -> smoke
+~Andrew
 
