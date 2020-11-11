@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99D572AFAE9
+	by mail.lfdr.de (Postfix) with ESMTPS id DCF992AFAEB
 	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 22:59:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25369.53097 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.25365.53060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcy9Z-0007j3-RO; Wed, 11 Nov 2020 21:59:45 +0000
+	id 1kcy9Y-0007ei-2z; Wed, 11 Nov 2020 21:59:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25369.53097; Wed, 11 Nov 2020 21:59:45 +0000
+Received: by outflank-mailman (output) from mailman id 25365.53060; Wed, 11 Nov 2020 21:59:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,65 +23,65 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcy9Z-0007hN-Cl; Wed, 11 Nov 2020 21:59:45 +0000
-Received: by outflank-mailman (input) for mailman id 25369;
+	id 1kcy9X-0007e3-Vx; Wed, 11 Nov 2020 21:59:43 +0000
+Received: by outflank-mailman (input) for mailman id 25365;
  Wed, 11 Nov 2020 21:59:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1kcy3V-00064v-QI
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 21:53:29 +0000
-Received: from mail-wr1-x433.google.com (unknown [2a00:1450:4864:20::433])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1kcy3a-00064v-Qa
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 21:53:34 +0000
+Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c5224aac-a27f-435e-829f-b96da6d16fe3;
- Wed, 11 Nov 2020 21:52:52 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id p8so3986703wrx.5
+ id e8572d65-a88e-4d6d-9e12-c7b7451f14b3;
+ Wed, 11 Nov 2020 21:52:53 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id a3so3669141wmb.5
  for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 13:52:52 -0800 (PST)
 Received: from C02ZJ1BNLVDN.emea.arm.com (0547a297.skybroadband.com.
  [5.71.162.151])
- by smtp.gmail.com with ESMTPSA id u23sm4096078wmc.32.2020.11.11.13.52.49
+ by smtp.gmail.com with ESMTPSA id u23sm4096078wmc.32.2020.11.11.13.52.50
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 11 Nov 2020 13:52:50 -0800 (PST)
+ Wed, 11 Nov 2020 13:52:51 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	id 1kcy3V-00064v-QI
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 21:53:29 +0000
-X-Inumbo-ID: c5224aac-a27f-435e-829f-b96da6d16fe3
-Received: from mail-wr1-x433.google.com (unknown [2a00:1450:4864:20::433])
+	id 1kcy3a-00064v-Qa
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 21:53:34 +0000
+X-Inumbo-ID: e8572d65-a88e-4d6d-9e12-c7b7451f14b3
+Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c5224aac-a27f-435e-829f-b96da6d16fe3;
-	Wed, 11 Nov 2020 21:52:52 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id p8so3986703wrx.5
+	id e8572d65-a88e-4d6d-9e12-c7b7451f14b3;
+	Wed, 11 Nov 2020 21:52:53 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id a3so3669141wmb.5
         for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 13:52:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=BBJwuz9SQvVyH51XqrVftJIZ0i+2M/l+kiSJyhKCl9k=;
-        b=XlzDxZVRka1KzvX5UJrwjhiosi0LTKxfDC1uz5BD3yOlL+I42WiaVPwKI9+aqVKXql
-         5YBd4vgOHXP4dK47MDifcU3g2YSqLpxdvo+pAaGTLsPTj9NdIaphWCTKGSnUlkHMg+4S
-         fs3zpJKk77/1AfGsFX1E6KRnBYP8uBpkPLtVasjZFSJL/6lKpmiPA/JBKEOBapTUFiKH
-         cRr9WFfgk1InFZPGSUHkKJ3hV/fV9APjaw2abeMHb8vo1ONFxu19mPPmmDBAdI3r5gR+
-         cJjpO++2/qhasb2xm057E8xKo7UjRoRC81aXvxvDmiJ8avbDfS/65UFyiKgfOPYl+Wkb
-         ZM4g==
+        bh=Df9Xh6fAL7MEGN4PPLSLvsKAz4yhwBBWrhg9iGXHQa0=;
+        b=uF84L1YgWpK/16Gee/yPHZGbKLt/KXZASJ7oPFGrzoDBMo9l5AYMJJhAJ9qsF5H2BY
+         cO3x/E//asW6nbzdufmOh9GmOJR/N/paqbsGcR+xPJfvsVfob471OJYsuA0V2l5YPyhq
+         IfBYCvgrDPHpL2bd/xm5RJF/3DvmJ4J1Ou/u+5lDEZ38bffyPIP5ceVeviSbmv/oFd2K
+         G+30yIhQ6ZrqQWbYIGRJ9vQeXelVwSZIVsvQWnVT/aHk8yZqAMGI1yBZiQ5F6BWJQ7M+
+         /HSp2vvFd5Ekd8WMtEB0FRsCndmsl8YqIwGEyrBgQvkoLMx8vJT0ozbW5ZM4VPWn4mDd
+         X8zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=BBJwuz9SQvVyH51XqrVftJIZ0i+2M/l+kiSJyhKCl9k=;
-        b=in/N5AYoKBXnrx+nnFqfsoTaB+4rdiDjvzRM0ECjc2WxxIM3Lgu6g1u/c7u5//9pt0
-         0eYyyAsEU6HfMaiumAxxHQUA52M/3WPL7+p++cb7Es0+WrJFm7XyDgwY3LOrMJUzRmco
-         lnhewLYFqGRM6asiyE9gQ+v2KVATzZKycgXvSAWwpd0dpi0NCZ/6Kx5w+kxT1XbKv2Ub
-         E7DTFTf3f/xB2Nj2v7GD456fUBuAldalxHdV+zocH6obWb9diIutQ01XYpyY1SnYqk80
-         Gbt21wH2ZMvcKu17CHA6NowtFKUdbRLT6SKO1p0G8kNyu2oJTFUGZukkfr6As1SlRhoe
-         XvyA==
-X-Gm-Message-State: AOAM533EmdtH0NrUAYDgn15R73o0nmMsD6XysvkcvM1qb/14IWZKe6vH
-	DyMkWr5DqUJeLHJAl6nXoyLafJZ8TO0=
-X-Google-Smtp-Source: ABdhPJzCLdv2deDdC5HyuuTbfyEyMVsfKt4vC1Cap1tpREd6zqOgCLxp6yQlpIo2fvH7a8l43IhQhA==
-X-Received: by 2002:adf:f246:: with SMTP id b6mr3825186wrp.238.1605131570813;
-        Wed, 11 Nov 2020 13:52:50 -0800 (PST)
+        bh=Df9Xh6fAL7MEGN4PPLSLvsKAz4yhwBBWrhg9iGXHQa0=;
+        b=t04dM7dcHtzBXMoWlPkbqfh55S3bwr/zk2sfSzsXCSsJqzlcP6gUJyqW6U2K4E8Hf8
+         KCgq8/aKDbgfCLu8s2VWyQpFRPILjeSe3k1K6CIs27KU0ZcjhEKaQv4MnKhAPgqAGjrX
+         UvvfYXLi3CHNEurR2ALXvUVV0m/dKLOURAWewlbkbePx8rHyHvXqjusXlwvP+gna+ypR
+         tDR5cJCJmetRFD5Qi7eMM/o3MNZK0qKgkiUZHAHVmmy1PIk3Px6hKWU06bVZBoTyiD2i
+         LXjcP+37SNXGoeQBmdRxmpwcwpQkAvFBFGG99D/FN26+A1v2b39ypfNUuIicOZJ14URW
+         RsNA==
+X-Gm-Message-State: AOAM5302I364Xht1AmHnleotcy0jeUSqmWxAKCB4BiY925lO9ICmOtMs
+	6zkJn886CMwK+MpgwX4qVS2rvHZUrpc=
+X-Google-Smtp-Source: ABdhPJz998xdMQgMVAfS5d5KafAZkwOa43oizKaiuZiuVOvTHxZwM7rWKfd7OzHDt3uJAVh9K0k1XA==
+X-Received: by 2002:a7b:c77a:: with SMTP id x26mr6304609wmk.63.1605131571835;
+        Wed, 11 Nov 2020 13:52:51 -0800 (PST)
 Received: from C02ZJ1BNLVDN.emea.arm.com (0547a297.skybroadband.com. [5.71.162.151])
-        by smtp.gmail.com with ESMTPSA id u23sm4096078wmc.32.2020.11.11.13.52.49
+        by smtp.gmail.com with ESMTPSA id u23sm4096078wmc.32.2020.11.11.13.52.50
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 11 Nov 2020 13:52:50 -0800 (PST)
+        Wed, 11 Nov 2020 13:52:51 -0800 (PST)
 From: Ash Wilding <ash.j.wilding@gmail.com>
 X-Google-Original-From: Ash Wilding
 To: xen-devel@lists.xenproject.org
@@ -89,9 +89,9 @@ Cc: Ash Wilding <ash.j.wilding@gmail.com>,
 	julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com
-Subject: [RFC PATCH v2 10/15] xen/arm64: port Linux's arm64 cmpxchg.h to Xen
-Date: Wed, 11 Nov 2020 21:51:58 +0000
-Message-Id: <20201111215203.80336-11-ash.j.wilding@gmail.com>
+Subject: [RFC PATCH v2 11/15] xen/arm64: port Linux's arm64 atomic.h to Xen
+Date: Wed, 11 Nov 2020 21:51:59 +0000
+Message-Id: <20201111215203.80336-12-ash.j.wilding@gmail.com>
 X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 In-Reply-To: <20201111215203.80336-1-ash.j.wilding@gmail.com>
 References: <20201111215203.80336-1-ash.j.wilding@gmail.com>
@@ -100,292 +100,305 @@ Content-Transfer-Encoding: 8bit
 
 From: Ash Wilding <ash.j.wilding@gmail.com>
 
- - s/arch_xchg/xchg/
+ - Drop atomic64_t helper declarations as we don't currently have an
+   atomic64_t in Xen.
 
- - s/arch_cmpxchg/cmpxchg/
+ - Drop arch_* prefixes.
 
- - Replace calls to BUILD_BUG() with calls to __bad_cmpxchg() as we
-   don't currently have a BUILD_BUG() macro in Xen and this will
-   equivalently cause a link-time error.
-
- - Replace calls to VM_BUG_ON() with BUG_ON() as we don't currently
-   have a VM_BUG_ON() macro in Xen.
-
- - Pull in the timeout variants of cmpxchg from the original Xen
-   arm64 cmpxchg.h as these are required for guest atomics and are
-   not provided by Linux. Note these are always using LL/SC so we
-   should ideally write LSE versions at some point.
+ - Swap include of <linux/compiler.h> to just <xen/rwonce.h>.
 
 Signed-off-by: Ash Wilding <ash.j.wilding@gmail.com>
 ---
- xen/include/asm-arm/arm64/cmpxchg.h | 165 ++++++++++++++++++++++------
- 1 file changed, 131 insertions(+), 34 deletions(-)
+ xen/include/asm-arm/arm64/atomic.h | 256 ++++++++---------------------
+ 1 file changed, 73 insertions(+), 183 deletions(-)
 
-diff --git a/xen/include/asm-arm/arm64/cmpxchg.h b/xen/include/asm-arm/arm64/cmpxchg.h
-index c51388216e..a5282cf66e 100644
---- a/xen/include/asm-arm/arm64/cmpxchg.h
-+++ b/xen/include/asm-arm/arm64/cmpxchg.h
-@@ -1,17 +1,16 @@
+diff --git a/xen/include/asm-arm/arm64/atomic.h b/xen/include/asm-arm/arm64/atomic.h
+index a2eab9f091..b695cc6e09 100644
+--- a/xen/include/asm-arm/arm64/atomic.h
++++ b/xen/include/asm-arm/arm64/atomic.h
+@@ -1,23 +1,23 @@
 -/* SPDX-License-Identifier: GPL-2.0-only */
++
  /*
-- * Based on arch/arm/include/asm/cmpxchg.h
+- * Based on arch/arm/include/asm/atomic.h
 + * Taken from Linux 5.10-rc2 (last commit 3cea11cd5)
   *
+  * Copyright (C) 1996 Russell King.
+  * Copyright (C) 2002 Deep Blue Solutions Ltd.
   * Copyright (C) 2012 ARM Ltd.
 + * SPDX-License-Identifier: GPL-2.0-only
   */
--#ifndef __ASM_CMPXCHG_H
--#define __ASM_CMPXCHG_H
-+#ifndef __ASM_ARM_ARM64_CMPXCHG_H
-+#define __ASM_ARM_ARM64_CMPXCHG_H
+-#ifndef __ASM_ATOMIC_H
+-#define __ASM_ATOMIC_H
++#ifndef __ASM_ARM_ARM64_ATOMIC_H
++#define __ASM_ARM_ARM64_ATOMIC_H
  
--#include <linux/build_bug.h>
 -#include <linux/compiler.h>
-+#include <asm/bug.h>
-+#include "lse.h"
+-#include <linux/types.h>
++#include <xen/rwonce.h>
++#include <xen/types.h>
  
 -#include <asm/barrier.h>
+-#include <asm/cmpxchg.h>
 -#include <asm/lse.h>
-+extern unsigned long __bad_cmpxchg(volatile void *ptr, int size);
++#include "lse.h"
++#include "cmpxchg.h"
  
- /*
-  * We need separate acquire parameters for ll/sc and lse, since the full
-@@ -33,7 +32,9 @@ static inline u##sz __xchg_case_##name##sz(u##sz x, volatile void *ptr)		\
- 	"	" #mb,								\
- 	/* LSE atomics */							\
- 	"	swp" #acq_lse #rel #sfx "\t%" #w "3, %" #w "0, %2\n"		\
--		__nops(3)							\
-+		"nop\n"							\
-+		"nop\n"							\
-+		"nop\n"							\
- 	"	" #nop_lse)							\
- 	: "=&r" (ret), "=&r" (tmp), "+Q" (*(u##sz *)ptr)			\
- 	: "r" (x)								\
-@@ -62,7 +63,7 @@ __XCHG_CASE( ,  ,  mb_, 64, dmb ish, nop,  , a, l, "memory")
- #undef __XCHG_CASE
- 
- #define __XCHG_GEN(sfx)							\
--static __always_inline  unsigned long __xchg##sfx(unsigned long x,	\
-+static always_inline  unsigned long __xchg##sfx(unsigned long x,	\
- 					volatile void *ptr,		\
- 					int size)			\
+ #define ATOMIC_OP(op)							\
+-static inline void arch_##op(int i, atomic_t *v)			\
++static inline void op(int i, atomic_t *v)			\
  {									\
-@@ -76,7 +77,7 @@ static __always_inline  unsigned long __xchg##sfx(unsigned long x,	\
- 	case 8:								\
- 		return __xchg_case##sfx##_64(x, ptr);			\
- 	default:							\
--		BUILD_BUG();						\
-+		return __bad_cmpxchg(ptr, size);						\
- 	}								\
- 									\
- 	unreachable();							\
-@@ -98,10 +99,10 @@ __XCHG_GEN(_mb)
- })
+ 	__lse_ll_sc_body(op, i, v);					\
+ }
+@@ -32,7 +32,7 @@ ATOMIC_OP(atomic_sub)
+ #undef ATOMIC_OP
  
- /* xchg */
--#define arch_xchg_relaxed(...)	__xchg_wrapper(    , __VA_ARGS__)
--#define arch_xchg_acquire(...)	__xchg_wrapper(_acq, __VA_ARGS__)
--#define arch_xchg_release(...)	__xchg_wrapper(_rel, __VA_ARGS__)
--#define arch_xchg(...)		__xchg_wrapper( _mb, __VA_ARGS__)
-+#define xchg_relaxed(...)	__xchg_wrapper(    , __VA_ARGS__)
-+#define xchg_acquire(...)	__xchg_wrapper(_acq, __VA_ARGS__)
-+#define xchg_release(...)	__xchg_wrapper(_rel, __VA_ARGS__)
-+#define xchg(...)		__xchg_wrapper( _mb, __VA_ARGS__)
- 
- #define __CMPXCHG_CASE(name, sz)			\
- static inline u##sz __cmpxchg_case_##name##sz(volatile void *ptr,	\
-@@ -148,7 +149,7 @@ __CMPXCHG_DBL(_mb)
- #undef __CMPXCHG_DBL
- 
- #define __CMPXCHG_GEN(sfx)						\
--static __always_inline unsigned long __cmpxchg##sfx(volatile void *ptr,	\
-+static always_inline unsigned long __cmpxchg##sfx(volatile void *ptr,	\
- 					   unsigned long old,		\
- 					   unsigned long new,		\
- 					   int size)			\
-@@ -163,7 +164,7 @@ static __always_inline unsigned long __cmpxchg##sfx(volatile void *ptr,	\
- 	case 8:								\
- 		return __cmpxchg_case##sfx##_64(ptr, old, new);		\
- 	default:							\
--		BUILD_BUG();						\
-+		return __bad_cmpxchg(ptr, size);						\
- 	}								\
- 									\
- 	unreachable();							\
-@@ -186,18 +187,18 @@ __CMPXCHG_GEN(_mb)
- })
- 
- /* cmpxchg */
--#define arch_cmpxchg_relaxed(...)	__cmpxchg_wrapper(    , __VA_ARGS__)
--#define arch_cmpxchg_acquire(...)	__cmpxchg_wrapper(_acq, __VA_ARGS__)
--#define arch_cmpxchg_release(...)	__cmpxchg_wrapper(_rel, __VA_ARGS__)
--#define arch_cmpxchg(...)		__cmpxchg_wrapper( _mb, __VA_ARGS__)
--#define arch_cmpxchg_local		arch_cmpxchg_relaxed
-+#define cmpxchg_relaxed(...)	__cmpxchg_wrapper(    , __VA_ARGS__)
-+#define cmpxchg_acquire(...)	__cmpxchg_wrapper(_acq, __VA_ARGS__)
-+#define cmpxchg_release(...)	__cmpxchg_wrapper(_rel, __VA_ARGS__)
-+#define cmpxchg(...)		__cmpxchg_wrapper( _mb, __VA_ARGS__)
-+#define cmpxchg_local		cmpxchg_relaxed
- 
- /* cmpxchg64 */
--#define arch_cmpxchg64_relaxed		arch_cmpxchg_relaxed
--#define arch_cmpxchg64_acquire		arch_cmpxchg_acquire
--#define arch_cmpxchg64_release		arch_cmpxchg_release
--#define arch_cmpxchg64			arch_cmpxchg
--#define arch_cmpxchg64_local		arch_cmpxchg_local
-+#define cmpxchg64_relaxed		cmpxchg_relaxed
-+#define cmpxchg64_acquire		cmpxchg_acquire
-+#define cmpxchg64_release		cmpxchg_release
-+#define cmpxchg64			cmpxchg
-+#define cmpxchg64_local		cmpxchg_local
- 
- /* cmpxchg_double */
- #define system_has_cmpxchg_double()     1
-@@ -205,11 +206,11 @@ __CMPXCHG_GEN(_mb)
- #define __cmpxchg_double_check(ptr1, ptr2)					\
- ({										\
- 	if (sizeof(*(ptr1)) != 8)						\
--		BUILD_BUG();							\
--	VM_BUG_ON((unsigned long *)(ptr2) - (unsigned long *)(ptr1) != 1);	\
-+		return __bad_cmpxchg(ptr, size);							\
-+	BUG_ON((unsigned long *)(ptr2) - (unsigned long *)(ptr1) != 1);	\
- })
- 
--#define arch_cmpxchg_double(ptr1, ptr2, o1, o2, n1, n2)				\
-+#define cmpxchg_double(ptr1, ptr2, o1, o2, n1, n2)				\
- ({										\
- 	int __ret;								\
- 	__cmpxchg_double_check(ptr1, ptr2);					\
-@@ -219,7 +220,7 @@ __CMPXCHG_GEN(_mb)
- 	__ret;									\
- })
- 
--#define arch_cmpxchg_double_local(ptr1, ptr2, o1, o2, n1, n2)			\
-+#define cmpxchg_double_local(ptr1, ptr2, o1, o2, n1, n2)			\
- ({										\
- 	int __ret;								\
- 	__cmpxchg_double_check(ptr1, ptr2);					\
-@@ -255,7 +256,7 @@ __CMPWAIT_CASE( ,  , 64);
- #undef __CMPWAIT_CASE
- 
- #define __CMPWAIT_GEN(sfx)						\
--static __always_inline void __cmpwait##sfx(volatile void *ptr,		\
-+static always_inline void __cmpwait##sfx(volatile void *ptr,		\
- 				  unsigned long val,			\
- 				  int size)				\
+ #define ATOMIC_FETCH_OP(name, op)					\
+-static inline int arch_##op##name(int i, atomic_t *v)			\
++static inline int op##name(int i, atomic_t *v)			\
  {									\
-@@ -269,7 +270,7 @@ static __always_inline void __cmpwait##sfx(volatile void *ptr,		\
- 	case 8:								\
- 		return __cmpwait_case##sfx##_64(ptr, val);		\
- 	default:							\
--		BUILD_BUG();						\
-+		__bad_cmpxchg(ptr, size);						\
- 	}								\
- 									\
- 	unreachable();							\
-@@ -282,4 +283,100 @@ __CMPWAIT_GEN()
- #define __cmpwait_relaxed(ptr, val) \
- 	__cmpwait((ptr), (unsigned long)(val), sizeof(*(ptr)))
+ 	return __lse_ll_sc_body(op##name, i, v);			\
+ }
+@@ -54,175 +54,65 @@ ATOMIC_FETCH_OPS(atomic_sub_return)
  
--#endif	/* __ASM_CMPXCHG_H */
+ #undef ATOMIC_FETCH_OP
+ #undef ATOMIC_FETCH_OPS
+-
+-#define ATOMIC64_OP(op)							\
+-static inline void arch_##op(long i, atomic64_t *v)			\
+-{									\
+-	__lse_ll_sc_body(op, i, v);					\
+-}
+-
+-ATOMIC64_OP(atomic64_andnot)
+-ATOMIC64_OP(atomic64_or)
+-ATOMIC64_OP(atomic64_xor)
+-ATOMIC64_OP(atomic64_add)
+-ATOMIC64_OP(atomic64_and)
+-ATOMIC64_OP(atomic64_sub)
+-
+-#undef ATOMIC64_OP
+-
+-#define ATOMIC64_FETCH_OP(name, op)					\
+-static inline long arch_##op##name(long i, atomic64_t *v)		\
+-{									\
+-	return __lse_ll_sc_body(op##name, i, v);			\
+-}
+-
+-#define ATOMIC64_FETCH_OPS(op)						\
+-	ATOMIC64_FETCH_OP(_relaxed, op)					\
+-	ATOMIC64_FETCH_OP(_acquire, op)					\
+-	ATOMIC64_FETCH_OP(_release, op)					\
+-	ATOMIC64_FETCH_OP(        , op)
+-
+-ATOMIC64_FETCH_OPS(atomic64_fetch_andnot)
+-ATOMIC64_FETCH_OPS(atomic64_fetch_or)
+-ATOMIC64_FETCH_OPS(atomic64_fetch_xor)
+-ATOMIC64_FETCH_OPS(atomic64_fetch_add)
+-ATOMIC64_FETCH_OPS(atomic64_fetch_and)
+-ATOMIC64_FETCH_OPS(atomic64_fetch_sub)
+-ATOMIC64_FETCH_OPS(atomic64_add_return)
+-ATOMIC64_FETCH_OPS(atomic64_sub_return)
+-
+-#undef ATOMIC64_FETCH_OP
+-#undef ATOMIC64_FETCH_OPS
+-
+-static inline long arch_atomic64_dec_if_positive(atomic64_t *v)
+-{
+-	return __lse_ll_sc_body(atomic64_dec_if_positive, v);
+-}
+-
+-#define arch_atomic_read(v)			__READ_ONCE((v)->counter)
+-#define arch_atomic_set(v, i)			__WRITE_ONCE(((v)->counter), (i))
+-
+-#define arch_atomic_add_return_relaxed		arch_atomic_add_return_relaxed
+-#define arch_atomic_add_return_acquire		arch_atomic_add_return_acquire
+-#define arch_atomic_add_return_release		arch_atomic_add_return_release
+-#define arch_atomic_add_return			arch_atomic_add_return
+-
+-#define arch_atomic_sub_return_relaxed		arch_atomic_sub_return_relaxed
+-#define arch_atomic_sub_return_acquire		arch_atomic_sub_return_acquire
+-#define arch_atomic_sub_return_release		arch_atomic_sub_return_release
+-#define arch_atomic_sub_return			arch_atomic_sub_return
+-
+-#define arch_atomic_fetch_add_relaxed		arch_atomic_fetch_add_relaxed
+-#define arch_atomic_fetch_add_acquire		arch_atomic_fetch_add_acquire
+-#define arch_atomic_fetch_add_release		arch_atomic_fetch_add_release
+-#define arch_atomic_fetch_add			arch_atomic_fetch_add
+-
+-#define arch_atomic_fetch_sub_relaxed		arch_atomic_fetch_sub_relaxed
+-#define arch_atomic_fetch_sub_acquire		arch_atomic_fetch_sub_acquire
+-#define arch_atomic_fetch_sub_release		arch_atomic_fetch_sub_release
+-#define arch_atomic_fetch_sub			arch_atomic_fetch_sub
+-
+-#define arch_atomic_fetch_and_relaxed		arch_atomic_fetch_and_relaxed
+-#define arch_atomic_fetch_and_acquire		arch_atomic_fetch_and_acquire
+-#define arch_atomic_fetch_and_release		arch_atomic_fetch_and_release
+-#define arch_atomic_fetch_and			arch_atomic_fetch_and
+-
+-#define arch_atomic_fetch_andnot_relaxed	arch_atomic_fetch_andnot_relaxed
+-#define arch_atomic_fetch_andnot_acquire	arch_atomic_fetch_andnot_acquire
+-#define arch_atomic_fetch_andnot_release	arch_atomic_fetch_andnot_release
+-#define arch_atomic_fetch_andnot		arch_atomic_fetch_andnot
+-
+-#define arch_atomic_fetch_or_relaxed		arch_atomic_fetch_or_relaxed
+-#define arch_atomic_fetch_or_acquire		arch_atomic_fetch_or_acquire
+-#define arch_atomic_fetch_or_release		arch_atomic_fetch_or_release
+-#define arch_atomic_fetch_or			arch_atomic_fetch_or
+-
+-#define arch_atomic_fetch_xor_relaxed		arch_atomic_fetch_xor_relaxed
+-#define arch_atomic_fetch_xor_acquire		arch_atomic_fetch_xor_acquire
+-#define arch_atomic_fetch_xor_release		arch_atomic_fetch_xor_release
+-#define arch_atomic_fetch_xor			arch_atomic_fetch_xor
+-
+-#define arch_atomic_xchg_relaxed(v, new) \
+-	arch_xchg_relaxed(&((v)->counter), (new))
+-#define arch_atomic_xchg_acquire(v, new) \
+-	arch_xchg_acquire(&((v)->counter), (new))
+-#define arch_atomic_xchg_release(v, new) \
+-	arch_xchg_release(&((v)->counter), (new))
+-#define arch_atomic_xchg(v, new) \
+-	arch_xchg(&((v)->counter), (new))
+-
+-#define arch_atomic_cmpxchg_relaxed(v, old, new) \
+-	arch_cmpxchg_relaxed(&((v)->counter), (old), (new))
+-#define arch_atomic_cmpxchg_acquire(v, old, new) \
+-	arch_cmpxchg_acquire(&((v)->counter), (old), (new))
+-#define arch_atomic_cmpxchg_release(v, old, new) \
+-	arch_cmpxchg_release(&((v)->counter), (old), (new))
+-#define arch_atomic_cmpxchg(v, old, new) \
+-	arch_cmpxchg(&((v)->counter), (old), (new))
+-
+-#define arch_atomic_andnot			arch_atomic_andnot
+-
+-/*
+- * 64-bit arch_atomic operations.
+- */
+-#define ATOMIC64_INIT				ATOMIC_INIT
+-#define arch_atomic64_read			arch_atomic_read
+-#define arch_atomic64_set			arch_atomic_set
+-
+-#define arch_atomic64_add_return_relaxed	arch_atomic64_add_return_relaxed
+-#define arch_atomic64_add_return_acquire	arch_atomic64_add_return_acquire
+-#define arch_atomic64_add_return_release	arch_atomic64_add_return_release
+-#define arch_atomic64_add_return		arch_atomic64_add_return
+-
+-#define arch_atomic64_sub_return_relaxed	arch_atomic64_sub_return_relaxed
+-#define arch_atomic64_sub_return_acquire	arch_atomic64_sub_return_acquire
+-#define arch_atomic64_sub_return_release	arch_atomic64_sub_return_release
+-#define arch_atomic64_sub_return		arch_atomic64_sub_return
+-
+-#define arch_atomic64_fetch_add_relaxed		arch_atomic64_fetch_add_relaxed
+-#define arch_atomic64_fetch_add_acquire		arch_atomic64_fetch_add_acquire
+-#define arch_atomic64_fetch_add_release		arch_atomic64_fetch_add_release
+-#define arch_atomic64_fetch_add			arch_atomic64_fetch_add
+-
+-#define arch_atomic64_fetch_sub_relaxed		arch_atomic64_fetch_sub_relaxed
+-#define arch_atomic64_fetch_sub_acquire		arch_atomic64_fetch_sub_acquire
+-#define arch_atomic64_fetch_sub_release		arch_atomic64_fetch_sub_release
+-#define arch_atomic64_fetch_sub			arch_atomic64_fetch_sub
+-
+-#define arch_atomic64_fetch_and_relaxed		arch_atomic64_fetch_and_relaxed
+-#define arch_atomic64_fetch_and_acquire		arch_atomic64_fetch_and_acquire
+-#define arch_atomic64_fetch_and_release		arch_atomic64_fetch_and_release
+-#define arch_atomic64_fetch_and			arch_atomic64_fetch_and
+-
+-#define arch_atomic64_fetch_andnot_relaxed	arch_atomic64_fetch_andnot_relaxed
+-#define arch_atomic64_fetch_andnot_acquire	arch_atomic64_fetch_andnot_acquire
+-#define arch_atomic64_fetch_andnot_release	arch_atomic64_fetch_andnot_release
+-#define arch_atomic64_fetch_andnot		arch_atomic64_fetch_andnot
+-
+-#define arch_atomic64_fetch_or_relaxed		arch_atomic64_fetch_or_relaxed
+-#define arch_atomic64_fetch_or_acquire		arch_atomic64_fetch_or_acquire
+-#define arch_atomic64_fetch_or_release		arch_atomic64_fetch_or_release
+-#define arch_atomic64_fetch_or			arch_atomic64_fetch_or
+-
+-#define arch_atomic64_fetch_xor_relaxed		arch_atomic64_fetch_xor_relaxed
+-#define arch_atomic64_fetch_xor_acquire		arch_atomic64_fetch_xor_acquire
+-#define arch_atomic64_fetch_xor_release		arch_atomic64_fetch_xor_release
+-#define arch_atomic64_fetch_xor			arch_atomic64_fetch_xor
+-
+-#define arch_atomic64_xchg_relaxed		arch_atomic_xchg_relaxed
+-#define arch_atomic64_xchg_acquire		arch_atomic_xchg_acquire
+-#define arch_atomic64_xchg_release		arch_atomic_xchg_release
+-#define arch_atomic64_xchg			arch_atomic_xchg
+-
+-#define arch_atomic64_cmpxchg_relaxed		arch_atomic_cmpxchg_relaxed
+-#define arch_atomic64_cmpxchg_acquire		arch_atomic_cmpxchg_acquire
+-#define arch_atomic64_cmpxchg_release		arch_atomic_cmpxchg_release
+-#define arch_atomic64_cmpxchg			arch_atomic_cmpxchg
+-
+-#define arch_atomic64_andnot			arch_atomic64_andnot
+-
+-#define arch_atomic64_dec_if_positive		arch_atomic64_dec_if_positive
+-
+-#define ARCH_ATOMIC
+-
+-#endif /* __ASM_ATOMIC_H */
 \ No newline at end of file
-+/*
-+ * This code is from the original Xen arm64 cmpxchg.h, from before the
-+ * Linux 5.10-rc2 atomics helpers were ported over. The only changes
-+ * here are renaming the macros and functions to explicitly use
-+ * "timeout" in their names so that they don't clash with the above.
-+ *
-+ * We need this here for guest atomics (the only user of the timeout
-+ * variants).
-+ */
++#define atomic_read(v)			__READ_ONCE((v)->counter)
++#define atomic_set(v, i)			__WRITE_ONCE(((v)->counter), (i))
 +
-+#define __CMPXCHG_TIMEOUT_CASE(w, sz, name)                             \
-+static inline bool __cmpxchg_timeout_case_##name(volatile void *ptr,    \
-+                                         unsigned long *old,            \
-+                                         unsigned long new,             \
-+                                         bool timeout,                  \
-+                                         unsigned int max_try)          \
-+{                                                                       \
-+        unsigned long oldval;                                           \
-+        unsigned long res;                                              \
-+                                                                        \
-+        do {                                                            \
-+                asm volatile("// __cmpxchg_timeout_case_" #name "\n"    \
-+                "       ldxr" #sz "     %" #w "1, %2\n"                 \
-+                "       mov     %w0, #0\n"                              \
-+                "       cmp     %" #w "1, %" #w "3\n"                   \
-+                "       b.ne    1f\n"                                   \
-+                "       stxr" #sz "     %w0, %" #w "4, %2\n"            \
-+                "1:\n"                                                  \
-+                : "=&r" (res), "=&r" (oldval),                          \
-+                  "+Q" (*(unsigned long *)ptr)                          \
-+                : "Ir" (*old), "r" (new)                                \
-+                : "cc");                                                \
-+                                                                        \
-+                if (!res)                                               \
-+                        break;                                          \
-+        } while (!timeout || ((--max_try) > 0));                        \
-+                                                                        \
-+        *old = oldval;                                                  \
-+                                                                        \
-+        return !res;                                                    \
-+}
++#define atomic_add_return_relaxed		atomic_add_return_relaxed
++#define atomic_add_return_acquire		atomic_add_return_acquire
++#define atomic_add_return_release		atomic_add_return_release
++#define atomic_add_return			atomic_add_return
 +
-+__CMPXCHG_TIMEOUT_CASE(w, b, 1)
-+__CMPXCHG_TIMEOUT_CASE(w, h, 2)
-+__CMPXCHG_TIMEOUT_CASE(w,  , 4)
-+__CMPXCHG_TIMEOUT_CASE( ,  , 8)
++#define atomic_sub_return_relaxed		atomic_sub_return_relaxed
++#define atomic_sub_return_acquire		atomic_sub_return_acquire
++#define atomic_sub_return_release		atomic_sub_return_release
++#define atomic_sub_return			atomic_sub_return
 +
-+static always_inline bool __int_cmpxchg(volatile void *ptr, unsigned long *old,
-+                                        unsigned long new, int size,
-+                                        bool timeout, unsigned int max_try)
-+{
-+        switch (size) {
-+        case 1:
-+                return __cmpxchg_timeout_case_1(ptr, old, new, timeout, max_try);
-+        case 2:
-+                return __cmpxchg_timeout_case_2(ptr, old, new, timeout, max_try);
-+        case 4:
-+                return __cmpxchg_timeout_case_4(ptr, old, new, timeout, max_try);
-+        case 8:
-+                return __cmpxchg_timeout_case_8(ptr, old, new, timeout, max_try);
-+        default:
-+                return __bad_cmpxchg(ptr, size);
-+        }
++#define atomic_fetch_add_relaxed		atomic_fetch_add_relaxed
++#define atomic_fetch_add_acquire		atomic_fetch_add_acquire
++#define atomic_fetch_add_release		atomic_fetch_add_release
++#define atomic_fetch_add			atomic_fetch_add
 +
-+        ASSERT_UNREACHABLE();
-+}
++#define atomic_fetch_sub_relaxed		atomic_fetch_sub_relaxed
++#define atomic_fetch_sub_acquire		atomic_fetch_sub_acquire
++#define atomic_fetch_sub_release		atomic_fetch_sub_release
++#define atomic_fetch_sub			atomic_fetch_sub
 +
-+/*
-+ * The helper may fail to update the memory if the action takes too long.
-+ *
-+ * @old: On call the value pointed contains the expected old value. It will be
-+ * updated to the actual old value.
-+ * @max_try: Maximum number of iterations
-+ *
-+ * The helper will return true when the update has succeeded (i.e no
-+ * timeout) and false if the update has failed.
-+ */
-+static always_inline bool __cmpxchg_timeout(volatile void *ptr,
-+                                            unsigned long *old,
-+                                            unsigned long new,
-+                                            int size,
-+                                            unsigned int max_try)
-+{
-+        bool ret;
++#define atomic_fetch_and_relaxed		atomic_fetch_and_relaxed
++#define atomic_fetch_and_acquire		atomic_fetch_and_acquire
++#define atomic_fetch_and_release		atomic_fetch_and_release
++#define atomic_fetch_and			atomic_fetch_and
 +
-+        smp_mb();
-+        ret = __int_cmpxchg(ptr, old, new, size, true, max_try);
-+        smp_mb();
++#define atomic_fetch_andnot_relaxed	atomic_fetch_andnot_relaxed
++#define atomic_fetch_andnot_acquire	atomic_fetch_andnot_acquire
++#define atomic_fetch_andnot_release	atomic_fetch_andnot_release
++#define atomic_fetch_andnot		atomic_fetch_andnot
 +
-+        return ret;
-+}
++#define atomic_fetch_or_relaxed		atomic_fetch_or_relaxed
++#define atomic_fetch_or_acquire		atomic_fetch_or_acquire
++#define atomic_fetch_or_release		atomic_fetch_or_release
++#define atomic_fetch_or			atomic_fetch_or
 +
-+#define __cmpxchg64_timeout(ptr, old, new, max_try)     \
-+        __cmpxchg_timeout(ptr, old, new, 8, max_try)
++#define atomic_fetch_xor_relaxed		atomic_fetch_xor_relaxed
++#define atomic_fetch_xor_acquire		atomic_fetch_xor_acquire
++#define atomic_fetch_xor_release		atomic_fetch_xor_release
++#define atomic_fetch_xor			atomic_fetch_xor
 +
++#define atomic_xchg_relaxed(v, new) \
++	xchg_relaxed(&((v)->counter), (new))
++#define atomic_xchg_acquire(v, new) \
++	xchg_acquire(&((v)->counter), (new))
++#define atomic_xchg_release(v, new) \
++	xchg_release(&((v)->counter), (new))
++#define atomic_xchg(v, new) \
++	xchg(&((v)->counter), (new))
 +
-+#endif	/* __ASM_ARM_ARM64_CMPXCHG_H */
++#define atomic_cmpxchg_relaxed(v, old, new) \
++	cmpxchg_relaxed(&((v)->counter), (old), (new))
++#define atomic_cmpxchg_acquire(v, old, new) \
++	cmpxchg_acquire(&((v)->counter), (old), (new))
++#define atomic_cmpxchg_release(v, old, new) \
++	cmpxchg_release(&((v)->counter), (old), (new))
++
++#define atomic_andnot			atomic_andnot
++
++#endif /* __ASM_ARM_ARM64_ATOMIC_H */
+\ No newline at end of file
 -- 
 2.24.3 (Apple Git-128)
 
