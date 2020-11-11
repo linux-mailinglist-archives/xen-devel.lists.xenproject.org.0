@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160A42AF377
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 15:24:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24873.52340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E8B12AF3A1
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 15:32:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24892.52364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcr2l-0000an-F4; Wed, 11 Nov 2020 14:24:15 +0000
+	id 1kcrAP-0001h1-LC; Wed, 11 Nov 2020 14:32:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24873.52340; Wed, 11 Nov 2020 14:24:15 +0000
+Received: by outflank-mailman (output) from mailman id 24892.52364; Wed, 11 Nov 2020 14:32:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,127 +23,121 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcr2l-0000aO-Bk; Wed, 11 Nov 2020 14:24:15 +0000
-Received: by outflank-mailman (input) for mailman id 24873;
- Wed, 11 Nov 2020 14:24:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cwX6=ER=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kcr2j-0000aI-Re
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:24:13 +0000
+	id 1kcrAP-0001gc-I4; Wed, 11 Nov 2020 14:32:09 +0000
+Received: by outflank-mailman (input) for mailman id 24892;
+ Wed, 11 Nov 2020 14:32:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MbyH=ER=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1kcrAN-0001gX-Md
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:32:07 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ba971cec-dee2-4066-88e1-011a7314ef3b;
- Wed, 11 Nov 2020 14:24:12 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 90c6ca9c-ff9c-4f63-921f-7a306a835a1d;
+ Wed, 11 Nov 2020 14:32:02 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 769C2AC91;
- Wed, 11 Nov 2020 14:24:11 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id F1734ABD6;
+ Wed, 11 Nov 2020 14:32:01 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=cwX6=ER=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kcr2j-0000aI-Re
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:24:13 +0000
-X-Inumbo-ID: ba971cec-dee2-4066-88e1-011a7314ef3b
+	(envelope-from <SRS0=MbyH=ER=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+	id 1kcrAN-0001gX-Md
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:32:07 +0000
+X-Inumbo-ID: 90c6ca9c-ff9c-4f63-921f-7a306a835a1d
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id ba971cec-dee2-4066-88e1-011a7314ef3b;
-	Wed, 11 Nov 2020 14:24:12 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 90c6ca9c-ff9c-4f63-921f-7a306a835a1d;
+	Wed, 11 Nov 2020 14:32:02 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605104651;
+	t=1605105122;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JVYfm9gqzJLW08Rw/dwdme1Aci4M+0lqMEWy94gvz+Q=;
-	b=Lk6OW2M4OmvmPjoFGuYhv2i/mA3dNB6iBiRjDB6+f8UtDLdeFbK3k2RoeqZhoc9vgWqHuH
-	DbaszzXr5OCH8xcedSqcMlxySPz5aQhbjoMgy+HeB10yqXiqAmmJjsbDNMuLfgVnnEmcrl
-	TUchuoYx1E9tIcIw9NqXpJVe3Pm75QU=
+	bh=jiyAOm34YBlkt8TRW7xKyZI32hhUfjZX9Kt8C3ZWV2w=;
+	b=dg1h30rehaUqxj4F3fTEdPPYo7i/4m4IJKJt92LOcbBGA09qzKZ4bbkhpMrz75YfJFe/I9
+	T16fMa09UDbENQUStb1OYiB9bycFwxX/6cLP9/REcW42kE41w3UPyAUypQq7PUKV61xVVP
+	u6uKPfNpAQiK0bgL21XrORLcyQ3B/GY=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 769C2AC91;
-	Wed, 11 Nov 2020 14:24:11 +0000 (UTC)
-Subject: Re: [PATCH v3 5/7] x86: guard against straight-line speculation past
- RET
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <7065e2dc-f846-be79-1081-682c2295358c@suse.com>
- <80ceea17-958d-f409-5f39-9f353e780f5b@suse.com>
- <20201111111504.r4k7a53spsy7pzjq@Air-de-Roger>
- <8ab3658f-8b69-455e-74b3-462f89f1cfe4@suse.com>
- <20201111141950.3a4blschvpcyexw4@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6265e163-6564-97d0-07c8-2876b1951058@suse.com>
-Date: Wed, 11 Nov 2020 15:24:11 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.1
+	by mx2.suse.de (Postfix) with ESMTP id F1734ABD6;
+	Wed, 11 Nov 2020 14:32:01 +0000 (UTC)
+Message-ID: <34527bbdeef138454b6a555c236b2289643b3d6b.camel@suse.com>
+Subject: Re: [PATCH 01/12] xen/cpupool: add cpu to sched_res_mask when
+ removing it from cpupool
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>
+Date: Wed, 11 Nov 2020 15:32:00 +0100
+In-Reply-To: <20201026091316.25680-2-jgross@suse.com>
+References: <20201026091316.25680-1-jgross@suse.com>
+	 <20201026091316.25680-2-jgross@suse.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-1+R5tQwXK3XdNFiQEMxf"
+User-Agent: Evolution 3.38.1 (by Flathub.org) 
 MIME-Version: 1.0
-In-Reply-To: <20201111141950.3a4blschvpcyexw4@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
 
-On 11.11.2020 15:19, Roger Pau Monné wrote:
-> On Wed, Nov 11, 2020 at 02:33:34PM +0100, Jan Beulich wrote:
->> On 11.11.2020 12:15, Roger Pau Monné wrote:
->>> On Fri, Oct 23, 2020 at 10:38:04AM +0200, Jan Beulich wrote:
->>>> Under certain conditions CPUs can speculate into the instruction stream
->>>> past a RET instruction. Guard against this just like 3b7dab93f240
->>>> ("x86/spec-ctrl: Protect against CALL/JMP straight-line speculation")
->>>> did - by inserting an "INT $3" insn. It's merely the mechanics of how to
->>>> achieve this that differ: A set of macros gets introduced to post-
->>>> process RET insns issued by the compiler (or living in assembly files).
->>>>
->>>> Unfortunately for clang this requires further features their built-in
->>>> assembler doesn't support: We need to be able to override insn mnemonics
->>>> produced by the compiler (which may be impossible, if internally
->>>> assembly mnemonics never get generated), and we want to use \(text)
->>>> escaping / quoting in the auxiliary macro.
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
->>>> ---
->>>> TBD: Would be nice to avoid the additions in .init.text, but a query to
->>>>      the binutils folks regarding the ability to identify the section
->>>>      stuff is in (by Peter Zijlstra over a year ago:
->>>>      https://sourceware.org/pipermail/binutils/2019-July/107528.html)
->>>>      has been left without helpful replies.
->>>> ---
->>>> v3: Use .byte 0xc[23] instead of the nested macros.
->>>> v2: Fix build with newer clang. Use int3 mnemonic. Also override retq.
->>>>
->>>> --- a/xen/Makefile
->>>> +++ b/xen/Makefile
->>>> @@ -145,7 +145,15 @@ t2 = $(call as-insn,$(CC) -I$(BASEDIR)/i
->>>>  # https://bugs.llvm.org/show_bug.cgi?id=36110
->>>>  t3 = $(call as-insn,$(CC),".macro FOO;.endm"$(close); asm volatile $(open)".macro FOO;.endm",-no-integrated-as)
->>>>  
->>>> -CLANG_FLAGS += $(call or,$(t1),$(t2),$(t3))
->>>> +# Check whether \(text) escaping in macro bodies is supported.
->>>> +t4 = $(call as-insn,$(CC),".macro m ret:req; \\(ret) $$\\ret; .endm; m 8",,-no-integrated-as)
->>>> +
->>>> +# Check whether macros can override insn mnemonics in inline assembly.
->>>> +t5 = $(call as-insn,$(CC),".macro ret; .error; .endm; .macro retq; .error; .endm",-no-integrated-as)
->>>
->>> I was going over this to post a bug report to LLVM, but it seems like
->>> gcc also doesn't overwrite ret when using the above snippet:
->>>
->>> https://godbolt.org/z/oqsPTv
->>
->> I can't see what's different from
->>
->> void test(void) {
->> 	asm volatile (".macro ret; .error; .endm; .macro retq; .error; .endm");
->> }
->>
->> but this one produces "Error: .error directive invoked in source file"
->> for me with both old and new gcc.
-> 
-> You are right, I think godbolt is somehow busted?
 
-Or maybe they really only compile to assembly, while the error results
-from the assembler?
+--=-1+R5tQwXK3XdNFiQEMxf
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+On Mon, 2020-10-26 at 10:13 +0100, Juergen Gross wrote:
+> When a cpu is removed from a cpupool and added to the free cpus it
+> should be added to sched_res_mask, too.
+>=20
+> The related removal from sched_res_mask in case of core scheduling
+> is already done in schedule_cpu_add().
+>=20
+> As long as all cpupools share the same scheduling granularity there
+> is nothing going wrong with the missing removal,=C2=A0
+>
+This patch is adding an addition of the CPU to sched_res_mask, which
+was missing... So isn't the above "there is nothing going wrong with
+the missing addition", or something like that?
+
+Or, if it's an actual missing removal that we are referring to here,
+then it must be clarified which one.
+
+> but this will change
+> when per-cpupool granularity is fully supported.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+With the above fixed or clarified:
+
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-1+R5tQwXK3XdNFiQEMxf
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl+r9eAACgkQFkJ4iaW4
+c+5U7g/+KABC/HNMdXDMUPS+YwrioXpWKk1NMzHt+7L9fx+qmmeSM/a7u2cG9sCE
+0w6AKc/q6mOmVCX8LmzymFYQbWYv3LNpbWd1ULBKrmPc/8EeJ+WRgOrWJamYNYGm
+ZDzoT2avN0VBJ7rlvz9oRKG5YOIyRNkdV599FH9q9UEwbliBpDjFTHX9F/OpzMGb
+S541Eh7GrL1KAiP7wc4ex5FXvp82mWwApS9FgtS0WcXBH4khXd0aMBSDAq79v6kn
+sDuxjAdHK6ovYzwf2gh3FxFHv+2Fv6ZgPzard9214e65XQ7PmCbQxtkd+74+UGWW
+Fw8IEYA7OfIXkLdfI7A065ZNLspJAZzi1sjwJyVmGpJAn/57jW3kxIUWvwKRR1BG
+JPMJTfYHFnxXQYWHvTuvMpdLeB+hAgEa+BjtoZpygLSa+VAyqgGrvpkTqK0W/+Eb
+8Nm6Ra3X0NEkKcr65PihVvPlq4w/mo+Ld0wAnx1Yd0Rl/nQWwlB3o9Ny4MgO+FuS
+YwnEzC+vMT/ePr2o5f07e/WavvRJNEts4iboRhsMi2KjBZhDf0x+0R7cbEzFg/ye
+EmZut5RvH7gaq7OydWOUIMvmOVBEPHQ7tRAn+5zNmU+PGAFMORePAU+tA+y5RQUL
+Iv6qk1BwJQEZs1fFUREsDxyzUQY9mi+XnrVVVuB4x5IV7P8w5I8=
+=ydfU
+-----END PGP SIGNATURE-----
+
+--=-1+R5tQwXK3XdNFiQEMxf--
+
 
