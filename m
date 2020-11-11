@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271312AE6B6
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 04:01:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24162.51275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BE422AE741
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 05:04:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24171.51294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcgMj-0005Im-CJ; Wed, 11 Nov 2020 03:00:09 +0000
+	id 1kchLi-0002CN-Nn; Wed, 11 Nov 2020 04:03:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24162.51275; Wed, 11 Nov 2020 03:00:09 +0000
+Received: by outflank-mailman (output) from mailman id 24171.51294; Wed, 11 Nov 2020 04:03:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,221 +23,551 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcgMj-0005IP-46; Wed, 11 Nov 2020 03:00:09 +0000
-Received: by outflank-mailman (input) for mailman id 24162;
- Wed, 11 Nov 2020 03:00:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kchLi-0002Bp-IT; Wed, 11 Nov 2020 04:03:10 +0000
+Received: by outflank-mailman (input) for mailman id 24171;
+ Wed, 11 Nov 2020 04:03:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qFwf=ER=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
- id 1kcgMh-0005IK-47
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 03:00:07 +0000
-Received: from mail-oi1-x234.google.com (unknown [2607:f8b0:4864:20::234])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7ab605cd-4c71-4ab4-a227-ac092ff6790c;
- Wed, 11 Nov 2020 03:00:05 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id d9so555624oib.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Nov 2020 19:00:05 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=Iq8f=ER=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kchLg-0002AO-Vc
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 04:03:09 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3837a018-7ac8-4956-9d23-ee9535cdcd37;
+ Wed, 11 Nov 2020 04:03:05 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kchLd-0007qc-6f; Wed, 11 Nov 2020 04:03:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kchLc-0000pc-Uw; Wed, 11 Nov 2020 04:03:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kchLc-0008B5-MC; Wed, 11 Nov 2020 04:03:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=qFwf=ER=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
-	id 1kcgMh-0005IK-47
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 03:00:07 +0000
-X-Inumbo-ID: 7ab605cd-4c71-4ab4-a227-ac092ff6790c
-Received: from mail-oi1-x234.google.com (unknown [2607:f8b0:4864:20::234])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 7ab605cd-4c71-4ab4-a227-ac092ff6790c;
-	Wed, 11 Nov 2020 03:00:05 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id d9so555624oib.3
-        for <xen-devel@lists.xenproject.org>; Tue, 10 Nov 2020 19:00:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=beEpBTWagLBOc/O+uVfh7++man2OBoWOZC896ZVA0ZQ=;
-        b=pHl011s1kqxQ4UQY/epoecoMeoxXwARF14NhVxLqOHiLSa8zBUo/Z84FUKwy91Dcx1
-         UsJfq2q1sXnqoMtz3/QV9o+9hpkXWM6rjlgkbMCUUf/GmhHcG6N/S+5qTPX2z2ALzPfu
-         otxYJsDaKvBmI2McDSaayk/RQ0Bwor09M/kdLyxJg7AeT3wyNV5hOn3vgfCKLsw/tyc4
-         GBXkkOuOn0o/Xq42hzeiNfutAkLIfE/f0RClIyctmCeBYCaeCrcFrnG4ZrgiF9qLKz5j
-         yDc9RTZCKk95AHl1V9I5lMUXN+p+ldatDwVXofdLSZ9DdYh4MdRncJrzhhZXoplsUtjz
-         aS6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=beEpBTWagLBOc/O+uVfh7++man2OBoWOZC896ZVA0ZQ=;
-        b=q5G2KsUacttEyjnNz0s68hM4N/pII4GuzYVqYBEpXb1YqkrEX7QvSOIKPyxIqpbQSr
-         gg1ujPbIGRF4Bk0dBu2M+CftGWRMhSnF6iWelqbWvGWYTW7hkYdDbFpNDhtyv08Epuko
-         WDf0zth3y/m952RMYgtRJdrOEb34OZ34eUhQeqHcXSbheRdtbd5rcxH3g7rwV1FvYeNh
-         6PWCv+KRDRrHyvWv5qRfUYJc/OYuavwD7wKWkDNZZ/oCErvdSEPdmw1XOyK4zItzkkil
-         iAy0aoyBxe4E37wXnagcu/WNEEzdPjhAm8O1nYqDOxwfGqKhghhM6uNJSuyqcnDloCOg
-         dZCQ==
-X-Gm-Message-State: AOAM532O6iH4y9O2AvRGuz9SrwBed++izFlQ5RaAVmH9+MlMHffYVaym
-	RIhGKZtDBse1PbAc8cT/YMvHkHSTUdBABPgnO/eRFIhG8aZEBA==
-X-Google-Smtp-Source: ABdhPJxovtd3/lcT+kwqCBUQ1hvE1nmjWnP6LQrdvfLuhTvqvKS3vzVGQm4sIONRRYiA9oxY/0CNVpo88hJjoBdwb1Y=
-X-Received: by 2002:aca:d941:: with SMTP id q62mr844936oig.33.1605063605402;
- Tue, 10 Nov 2020 19:00:05 -0800 (PST)
-MIME-Version: 1.0
-References: <20201022021655.GA74011@mattapan.m5p.com> <alpine.DEB.2.21.2010221620230.12247@sstabellini-ThinkPad-T480s>
- <20201023005629.GA83870@mattapan.m5p.com> <alpine.DEB.2.21.2010221801490.12247@sstabellini-ThinkPad-T480s>
- <20201023211941.GA90171@mattapan.m5p.com> <alpine.DEB.2.21.2010231647290.12247@sstabellini-ThinkPad-T480s>
- <20201024053540.GA97417@mattapan.m5p.com> <4fcf4832-9266-443f-54d0-fa1fff4b6e14@xen.org>
- <20201026160316.GA20589@mattapan.m5p.com> <7a904044-8206-b45d-8ec2-d4e48b07ea83@xen.org>
- <20201028015423.GA33407@mattapan.m5p.com> <alpine.DEB.2.21.2010281704250.12247@sstabellini-ThinkPad-T480s>
- <e885b2a9-f6ea-e224-b906-125936cfe550@suse.com> <alpine.DEB.2.21.2010291255070.12247@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2010291255070.12247@sstabellini-ThinkPad-T480s>
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Tue, 10 Nov 2020 18:59:53 -0800
-Message-ID: <CACMJ4GZfXkJhGi5uGhA=Ke4y5d4ukfoaAh9r-BSOs84QBX-Ztw@mail.gmail.com>
-Subject: Re: Xen on RP4
-To: Stefano Stabellini <sstabellini@kernel.org>, xen-devel <xen-devel@lists.xenproject.org>, 
-	=?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Elliott Mitchell <ehem+xen@m5p.com>, Julien Grall <julien@xen.org>, 
-	Roman Shaposhnik <roman@zededa.com>, Daniel Smith <dpsmith@apertussolutions.com>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Rich Persaud <persaur@gmail.com>
+	(envelope-from <SRS0=Iq8f=ER=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kchLg-0002AO-Vc
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 04:03:09 +0000
+X-Inumbo-ID: 3837a018-7ac8-4956-9d23-ee9535cdcd37
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 3837a018-7ac8-4956-9d23-ee9535cdcd37;
+	Wed, 11 Nov 2020 04:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=GRGovCJQf24Rcfoqh40eeEpl1dXLNBFBObQnA6gPNIo=; b=xmcYTCw/DNnkrgH41YnPvWmadE
+	/ZzVUiBSYA811KE1rOLyxGvlf4s4o0u8ulb7yVi/Fu+aiR2jWwFExTcf8/iWmH5TC6jLMPk3n1jEc
+	+NLLds1ECD/Ymcivm4+RoHjrwnhvTgIS9irJFEYz5ikAeq8WmhPaLCz/L9YFWhlbyys8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kchLd-0007qc-6f; Wed, 11 Nov 2020 04:03:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kchLc-0000pc-Uw; Wed, 11 Nov 2020 04:03:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kchLc-0008B5-MC; Wed, 11 Nov 2020 04:03:04 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156617-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-4.14-testing test] 156617: regressions - FAIL
+X-Osstest-Failures:
+    xen-4.14-testing:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    xen-4.14-testing:test-armhf-armhf-xl-multivcpu:debian-fixup:fail:heisenbug
+    xen-4.14-testing:test-amd64-i386-xl-qemuu-debianhvm-amd64:guest-localmigrate/x10:fail:heisenbug
+    xen-4.14-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.14-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.14-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.14-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-4.14-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=a38060ece699f22cd317219bec53c0d27279155b
+X-Osstest-Versions-That:
+    xen=0c96e4297da07944525729ddbe438b0131ab5b7e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 11 Nov 2020 04:03:04 +0000
 
-On Thu, Oct 29, 2020 at 12:58 PM Stefano Stabellini
-<sstabellini@kernel.org> wrote:
->
-> On Thu, 29 Oct 2020, J=C3=BCrgen Gro=C3=9F wrote:
-> > On 29.10.20 01:37, Stefano Stabellini wrote:
-> > > On Tue, 27 Oct 2020, Elliott Mitchell wrote:
-> > > > On Mon, Oct 26, 2020 at 06:44:27PM +0000, Julien Grall wrote:
-> > > > > On 26/10/2020 16:03, Elliott Mitchell wrote:
-> > > > > > On Mon, Oct 26, 2020 at 01:31:42PM +0000, Julien Grall wrote:
-> > > > > > > On 24/10/2020 06:35, Elliott Mitchell wrote:
-> > > > > > > > ACPI has a distinct
-> > > > > > > > means of specifying a limited DMA-width; the above fails, b=
-ecause
-> > > > > > > > it
-> > > > > > > > assumes a *device-tree*.
-> > > > > > >
-> > > > > > > Do you know if it would be possible to infer from the ACPI st=
-atic
-> > > > > > > table
-> > > > > > > the DMA-width?
-> > > > > >
-> > > > > > Yes, and it is.  Due to not knowing much about ACPI tables I do=
-n't
-> > > > > > know
-> > > > > > what the C code would look like though (problem is which docume=
-ntation
-> > > > > > should I be looking at first?).
-> > > > >
-> > > > > What you provided below is an excerpt of the DSDT. AFAIK, DSDT co=
-ntent
-> > > > > is written in AML. So far the shortest implementation I have seen=
- for
-> > > > > the AML parser is around 5000 lines (see [1]). It might be possib=
-le to
-> > > > > strip some the code, although I think this will still probably to=
-o big
-> > > > > for a single workaround.
-> > > > >
-> > > > > What I meant by "static table" is a table that looks like a struc=
-ture
-> > > > > and can be parsed in a few lines. If we can't find on contain the=
- DMA
-> > > > > window, then the next best solution is to find a way to identity =
-the
-> > > > > platform.
-> > > > >
-> > > > > I don't know enough ACPI to know if this solution is possible. A =
-good
-> > > > > starter would probably be the ACPI spec [2].
-> > > >
-> > > > Okay, that is worse than I had thought (okay, ACPI is impressively
-> > > > complex for something nominally firmware-level).
-> > > >
-> > > > There are strings in the present Tianocore implementation for Raspb=
-erry
-> > > > PI 4B which could be targeted.  Notably included in the output duri=
-ng
-> > > > boot listing the tables, "RPIFDN", "RPIFDN RPI" and "RPIFDN RPI4" (=
-I'm
-> > > > unsure how kosher these are as this wsn't implemented nor blessed b=
-y the
-> > > > Raspberry PI Foundation).
-> > > >
-> > > > I strongly dislike this approach as you soon turn the Xen project i=
-nto a
-> > > > database of hardware.  This is already occurring with
-> > > > xen/arch/arm/platforms and I would love to do something about this.=
-  On
-> > > > that thought, how about utilizing Xen's command-line for this purpo=
-se?
-> > >
-> > > I don't think that a command line option is a good idea: basically it=
- is
-> > > punting to users the task of platform detection. Also, it means that
-> > > users will be necessarily forced to edit the uboot script or grub
-> > > configuration file to boot.
-> > >
-> > > Note that even if we introduced a new command line, we wouldn't take
-> > > away the need for xen/arch/arm/platforms anyway.
-> > >
-> > > It would be far better for Xen to autodetect the platform if we can.
-> > >
-> > >
-> > > > Have a procedure of during installation/updates retrieve DMA limita=
-tion
-> > > > information from the running OS and the following boot Xen will fol=
-low
-> > > > the appropriate setup.  By its nature, Domain 0 will have the infor=
-mation
-> > > > needed, just becomes an issue of how hard that is to retrieve...
-> > >
-> > > Historically that is what we used to do for many things related to AC=
-PI,
-> > > but unfortunately it leads to a pretty bad architecture where Xen
-> > > depends on Dom0 for booting rather than the other way around. (Dom0
-> > > should be the one requiring Xen for booting, given that Xen is higher
-> > > privilege and boots first.)
-> > >
-> > >
-> > > I think the best compromise is still to use an ACPI string to detect =
-the
-> > > platform. For instance, would it be possible to use the OEMID fields =
-in
-> > > RSDT, XSDT, FADT?  Possibly even a combination of them?
-> > >
-> > > Another option might be to get the platform name from UEFI somehow.
-> >
-> > What about having a small domain parsing the ACPI booting first and use
-> > that information for booting dom0?
-> >
-> > That dom would be part of the Xen build and the hypervisor wouldn't nee=
-d
-> > to gain all the ACPI AML logic.
->
-> That could work, but in practice we don't have such a domain today --
-> the infrastructure is missing. I wonder whether the bootloader (uboot or
-> grub) would know about the platform and might be able to pass that
-> information to Xen somehow.
+flight 156617 xen-4.14-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156617/
 
-This is one of the functions envisioned for the Boot Domain in the
-proposal to add DomB mode to dom0less[1], in the work developed by
-Daniel Smith and I.
+Regressions :-(
 
-With DomB as much or as little of platform detection and initial
-domain configuration will be possible from the Boot Domain. ACPI was
-specifically discussed in the second DomB Design Session at this
-year's Xen Summit[2].
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 156525
 
-Further information on this is available on the Xen wiki[3], thanks to
-Rich Persaud, including links to the Summit presentation on DomB for
-Xen System Boot, and the following discussion of that in the Design
-Session[4], and specific questions can be raised in this thread.
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-xl-multivcpu 13 debian-fixup    fail in 156594 pass in 156617
+ test-amd64-i386-xl-qemuu-debianhvm-amd64 18 guest-localmigrate/x10 fail pass in 156594
 
-thanks,
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 156525
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 156525
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 156525
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 156525
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 156525
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 156525
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 156525
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 156525
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 156525
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 156525
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 156525
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
 
-Christopher
+version targeted for testing:
+ xen                  a38060ece699f22cd317219bec53c0d27279155b
+baseline version:
+ xen                  0c96e4297da07944525729ddbe438b0131ab5b7e
 
-[1] https://lists.xenproject.org/archives/html/xen-devel/2020-05/msg00233.h=
-tml
-[2] https://www.youtube.com/watch?v=3DjlyWfdW6D-E&t=3D15m26s
-[3] https://wiki.xenproject.org/wiki/DomB_mode_of_dom0less
-[4] https://lists.archive.carbon60.com/xen/devel/592140
+Last test of basis   156525  2020-11-06 16:01:25 Z    4 days
+Testing same since   156594  2020-11-09 18:08:08 Z    1 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  David Woodhouse <dwmw@amazon.co.uk>
+  Juergen Gross <jgross@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Olaf Hering <olaf@aepfle.de>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit a38060ece699f22cd317219bec53c0d27279155b
+Author: Bertrand Marquis <bertrand.marquis@arm.com>
+Date:   Wed Oct 7 14:57:01 2020 +0100
+
+    tools/libs/stat: use memcpy instead of strncpy in getBridge
+    
+    Use memcpy in getBridge to prevent gcc warnings about truncated
+    strings. We know that we might truncate it, so the gcc warning
+    here is wrong.
+    Revert previous change changing buffer sizes as bigger buffers
+    are not needed.
+    
+    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Wei Liu <wl@xen.org>
+    (cherry picked from commit 40fe714ca4245a9716264fcb3ee8df42c3650cf6)
+
+commit 78a53f0ee04bfd14dc21dabd3a0d79343c3b642f
+Author: Bertrand Marquis <bertrand.marquis@arm.com>
+Date:   Wed Oct 7 14:57:02 2020 +0100
+
+    tool/libs/light: Fix libxenlight gcc warning
+    
+    Fix gcc10 compilation warning about uninitialized variable by setting
+    it to 0.
+    
+    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Wei Liu <wl@xen.org>
+    (cherry picked from commit 0241809bf838875615797f52af34222e5ab8e98f)
+
+commit 89ae1b185a193fea8e86840c48a2711f04042415
+Author: Olaf Hering <olaf@aepfle.de>
+Date:   Wed Sep 23 08:48:40 2020 +0200
+
+    tools/libxc: report malloc errors in writev_exact
+    
+    The caller of writev_exact should be notified about malloc errors
+    when dealing with partial writes.
+    
+    Signed-off-by: Olaf Hering <olaf@aepfle.de>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Wei Liu <wl@xen.org>
+    (cherry picked from commit 0d8d289af7a679c028462c4ed5d98586f9ef9648)
+
+commit 7398a44e8636c99f6b06fb16d05a64ee06980d10
+Author: Juergen Gross <jgross@suse.com>
+Date:   Sat Sep 12 15:08:36 2020 +0200
+
+    tools/libs/stat: fix broken build
+    
+    Making getBridge() static triggered a build error with some gcc versions:
+    
+    error: 'strncpy' output may be truncated copying 15 bytes from a string of
+    length 255 [-Werror=stringop-truncation]
+    
+    Fix that by using a buffer with 256 bytes instead.
+    
+    Fixes: 6d0ec053907794 ("tools: split libxenstat into new tools/libs/stat directory")
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Wei Liu <wl@xen.org>
+    (cherry picked from commit c8099e48c3dbb8c7399551a265756ecf354eece2)
+
+commit 59b83663f925092f60f699147390c6cb77b55e43
+Author: David Woodhouse <dwmw@amazon.co.uk>
+Date:   Thu Mar 19 20:40:24 2020 +0000
+
+    tools/xenstore: Do not abort xenstore-ls if a node disappears while iterating
+    
+    The do_ls() function has somewhat inconsistent handling of errors.
+    
+    If reading the node's contents with xs_read() fails, then do_ls() will
+    just quietly not display the contents.
+    
+    If reading the node's permissions with xs_get_permissions() fails, then
+    do_ls() will print a warning, continue, and ultimately won't exit with
+    an error code (unless another error happens).
+    
+    If recursing into the node with xs_directory() fails, then do_ls() will
+    abort immediately, not printing any further nodes.
+    
+    For persistent failure modes — such as ENOENT because a node has been
+    removed, or EACCES because it has had its permisions changed since the
+    xs_directory() on the parent directory returned its name — it's
+    obviously quite likely that if either of the first two errors occur for
+    a given node, then so will the third and thus xenstore-ls will abort.
+    
+    The ENOENT one is actually a fairly common case, and has caused tools to
+    fail to clean up a network device because it *apparently* already
+    doesn't exist in xenstore.
+    
+    There is a school of thought that says, "Well, xenstore-ls returned an
+    error. So the tools should not trust its output."
+    
+    The natural corollary of this would surely be that the tools must re-run
+    xenstore-ls as many times as is necessary until its manages to exit
+    without hitting the race condition. I am not keen on that conclusion.
+    
+    For the specific case of ENOENT it seems reasonable to declare that,
+    but for the timing, we might as well just not have seen that node at
+    all when calling xs_directory() for the parent. By ignoring the error,
+    we give acceptable output.
+    
+    The issue can be reproduced as follows:
+    
+    (dom0) # for a in `seq 1 1000` ; do
+                  xenstore-write /local/domain/2/foo/$a $a ;
+             done
+    
+    Now simultaneously:
+    
+    (dom0) # for a in `seq 1 999` ; do
+                  xenstore-rm /local/domain/2/foo/$a ;
+             done
+    (dom2) # while true ; do
+                  ./xenstore-ls -p /local/domain/2/foo | grep -c 1000 ;
+             done
+    
+    We should expect to see node 1000 in the output, every time.
+    
+    Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    (cherry picked from commit beb105af19cc3e58e2ed49224cfe190a736e5fa0)
+
+commit 1f9f1cb3a0216a7d41ded3090b4bb2735cc8a8e6
+Author: Bertrand Marquis <bertrand.marquis@arm.com>
+Date:   Thu Oct 15 10:16:09 2020 +0100
+
+    tools/xenpmd: Fix gcc10 snprintf warning
+    
+    Add a check for snprintf return code and ignore the entry if we get an
+    error. This should in fact never happen and is more a trick to make gcc
+    happy and prevent compilation errors.
+    
+    This is solving the following gcc warning when compiling for arm32 host
+    platforms with optimization activated:
+    xenpmd.c:92:37: error: '%s' directive output may be truncated writing
+    between 4 and 2147483645 bytes into a region of size 271
+    [-Werror=format-truncation=]
+    
+    This is also solving the following Debian bug:
+    https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=970802
+    
+    Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Wei Liu <wl@xen.org>
+    (cherry picked from commit 0dfddb2116e3757f77a691a3fe335173088d69dc)
+
+commit f728b2d69f426258f37709de9efac5245a597d0d
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Wed Aug 19 04:00:36 2020 +0200
+
+    libxl: fix -Werror=stringop-truncation in libxl__prepare_sockaddr_un
+    
+    In file included from /usr/include/string.h:495,
+                     from libxl_internal.h:38,
+                     from libxl_utils.c:20:
+    In function 'strncpy',
+        inlined from 'libxl__prepare_sockaddr_un' at libxl_utils.c:1262:5:
+    /usr/include/bits/string_fortified.h:106:10: error: '__builtin_strncpy' specified bound 108 equals destination size [-Werror=stringop-truncation]
+      106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+          |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    cc1: all warnings being treated as errors
+    
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    (cherry picked from commit fff1b7f50e75ad9535c86f3fcf425b4945c50a1c)
+
+commit 71a12a97988c516a17aba40bb5df9274133e9e92
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Wed Aug 19 04:00:35 2020 +0200
+
+    libxl: workaround gcc 10.2 maybe-uninitialized warning
+    
+    It seems xlu_pci_parse_bdf has a state machine that is too complex for
+    gcc to understand. The build fails with:
+    
+        libxlu_pci.c: In function 'xlu_pci_parse_bdf':
+        libxlu_pci.c:32:18: error: 'func' may be used uninitialized in this function [-Werror=maybe-uninitialized]
+           32 |     pcidev->func = func;
+              |     ~~~~~~~~~~~~~^~~~~~
+        libxlu_pci.c:51:29: note: 'func' was declared here
+           51 |     unsigned dom, bus, dev, func, vslot = 0;
+              |                             ^~~~
+        libxlu_pci.c:31:17: error: 'dev' may be used uninitialized in this function [-Werror=maybe-uninitialized]
+           31 |     pcidev->dev = dev;
+              |     ~~~~~~~~~~~~^~~~~
+        libxlu_pci.c:51:24: note: 'dev' was declared here
+           51 |     unsigned dom, bus, dev, func, vslot = 0;
+              |                        ^~~
+        libxlu_pci.c:30:17: error: 'bus' may be used uninitialized in this function [-Werror=maybe-uninitialized]
+           30 |     pcidev->bus = bus;
+              |     ~~~~~~~~~~~~^~~~~
+        libxlu_pci.c:51:19: note: 'bus' was declared here
+           51 |     unsigned dom, bus, dev, func, vslot = 0;
+              |                   ^~~
+        libxlu_pci.c:29:20: error: 'dom' may be used uninitialized in this function [-Werror=maybe-uninitialized]
+           29 |     pcidev->domain = domain;
+              |     ~~~~~~~~~~~~~~~^~~~~~~~
+        libxlu_pci.c:51:14: note: 'dom' was declared here
+           51 |     unsigned dom, bus, dev, func, vslot = 0;
+              |              ^~~
+        cc1: all warnings being treated as errors
+    
+    Workaround it by setting the initial value to invalid value (0xffffffff)
+    and then assert on each value being set. This way we mute the gcc
+    warning, while still detecting bugs in the parse code.
+    
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    (cherry picked from commit d25cc3ec93ebda030349045d2c7fa14ffde07ed7)
+(qemu changes not included)
 
