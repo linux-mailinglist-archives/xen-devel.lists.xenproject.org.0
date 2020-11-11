@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8B62AF368
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 15:21:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.24860.52328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9493E2AF37F
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 15:26:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.24871.52352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcr02-0000Jm-Ty; Wed, 11 Nov 2020 14:21:26 +0000
+	id 1kcr4w-0000jc-SV; Wed, 11 Nov 2020 14:26:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 24860.52328; Wed, 11 Nov 2020 14:21:26 +0000
+Received: by outflank-mailman (output) from mailman id 24871.52352; Wed, 11 Nov 2020 14:26:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,183 +23,249 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcr02-0000J2-Py; Wed, 11 Nov 2020 14:21:26 +0000
-Received: by outflank-mailman (input) for mailman id 24860;
- Wed, 11 Nov 2020 14:21:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kcr4w-0000jD-PD; Wed, 11 Nov 2020 14:26:30 +0000
+Received: by outflank-mailman (input) for mailman id 24871;
+ Wed, 11 Nov 2020 14:23:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nKbA=ER=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kcr01-0000HG-5h
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:21:25 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1477b381-4151-4a07-995a-22faa2ba7360;
- Wed, 11 Nov 2020 14:21:19 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=R6kc=ER=kernel.org=chunkuang.hu@srs-us1.protection.inumbo.net>)
+ id 1kcr26-0000ZB-4f
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:23:34 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c6d02d55-163b-4e82-a3cc-ba86804685ca;
+ Wed, 11 Nov 2020 14:23:33 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3600422203
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 14:23:32 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id k2so2722953wrx.2
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 06:23:32 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nKbA=ER=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kcr01-0000HG-5h
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:21:25 +0000
-X-Inumbo-ID: 1477b381-4151-4a07-995a-22faa2ba7360
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 1477b381-4151-4a07-995a-22faa2ba7360;
-	Wed, 11 Nov 2020 14:21:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1605104479;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=euGk2UDOuVDTVqJAkajzJT3pF1DGqy1mjJlYnONO37w=;
-  b=Q+QzypHjGhqNcigSEbRT75/+8MCaS1K4d/RNXW2k/WzRHu2GTQ/Rr5Vo
-   c1GVNUuJn5QuXXdQMfjlwMcX0UTgfZZoEe7FjvU/VMeo0eTpzvpC1AZgY
-   BtwqysRT1wrmUGfVkpiDzfbiF3SPICvA0nP90ZMu6ghcfXx3rP7m/mw9j
-   Y=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 7Cb9gf1f6/YcEob2H6at6B3acm3+S9ayQdtKyXGaNv/hfpD9x62dCJ35V5xPK27RmoB6rdZ15Y
- k++Xjr/6tBec/Jsis0+GSV8cLgHUZV8U/C802h1rii6q+Ff0PaoYJSmt3E3drCcnWFfjCDVjHM
- W9qMqThW54WxtUWgTolKwVdWdc4E3Oqp2gKbHTAZb/hP1p0Rl6GO35UPWbz8K4ZT8wfgG5MRIl
- WUi5DG8k61rKXFvn7XhGt0N5i9ldyiUAfWSQkXae5x1WrPXIKdzRu4p9KZrlJVjHb0A2JLKDwh
- Ics=
-X-SBRS: None
-X-MesageID: 31186527
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,469,1596513600"; 
-   d="scan'208";a="31186527"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U9o7dnobV0AO/vy6gVegeSCYWJDFlNdiq+5ScPFcIzr5rc8JVjFMXji1kusA0pn5/uifFktS9ay+1qZCWpSE6lm7l+njtk3aHSjmStTSLQu4ECY7yYUevWtCiCkba2qo8qRqAXmiFzxMpSM6MSvdlRShPY0lhI6ArnioD1Val6k2hZkx/xz4KU/baHd/mo8nLe1f4D6N74ZminRvDWdythSPMwM+YPnCFTmYfAUN6gSBx3tq+jdwqQP6SrB185HD4cUG2wxCgqC+49G295pqMfp1Z53t0khgMdMQM/y8jlsJk4msZmtDfimRMHYajAs+1HSCsmXMNEEukBqdjFtI4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uLgc+bWB+b/0Dvw3ibOvwF8NjO3fjE2arC95H/R78UM=;
- b=njGSyA85bseLVmWIfcotqRELnVDVdlXKsAVU3e0OKjfVG36U1ZLedRbnCajh9OmDflHAE2cw73nRGs+nbJ8Xqn4zRAYzG+U+wJKbUYv0NhSgI5ks0LlcskPkVogYAlm49mcMzi3gno12hrz4baRFOJShknAytr3fZ8n+tdmccxJzcGvffpYAxXyriXmfFSockbhQ6J17ZpaMFWuKyLynJ/FI+hRAFUA9Iolh6Oadfp5i8ZfOjCuoEe4ZGxSp2ShgC8r77a2YrVrvBZtmPJCaHbQFNwj8Wy3+VXCB1WV4LHJzChlEb6EvjX6isyvPZOyR5yH2fFJRO/LmSx/YN0/qIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uLgc+bWB+b/0Dvw3ibOvwF8NjO3fjE2arC95H/R78UM=;
- b=bJ+WtfAgPnIpjn9+3OrIOTCNT6f7Hx7sxeTlq7GL8/ifv7zbhRITbEEFOWi77Wp29Qn+tJRRloIXjte7v4ukV50cwiUEMH4HRoxjOLSLyXpInaM/XhWeeYTkeyKzSZjiQn7UlaV00AtUa9M7Ojs3Dv54yjvMnsjvppBJc74O2h4=
-Date: Wed, 11 Nov 2020 15:21:09 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-CC: "Rahul.Singh@arm.com" <Rahul.Singh@arm.com>, "Bertrand.Marquis@arm.com"
-	<Bertrand.Marquis@arm.com>, "julien.grall@arm.com" <julien.grall@arm.com>,
-	"jbeulich@suse.com" <jbeulich@suse.com>, "sstabellini@kernel.org"
-	<sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "iwj@xenproject.org" <iwj@xenproject.org>,
-	"wl@xen.org" <wl@xen.org>, Oleksandr Andrushchenko <andr2000@gmail.com>
-Subject: Re: [SUSPECTED SPAM][PATCH 01/10] pci/pvh: Allow PCI toolstack code
- run with PVH domains on ARM
-Message-ID: <20201111142109.cumpeziv4xruy6t2@Air-de-Roger>
-References: <20201109125031.26409-1-andr2000@gmail.com>
- <20201109125031.26409-2-andr2000@gmail.com>
- <20201111123150.7lkabdo3wix7jkdk@Air-de-Roger>
- <57fefaee-9684-4c67-662e-f4c57313886e@epam.com>
- <20201111135513.yvqfe4xongnhtjcq@Air-de-Roger>
- <fc3a73cc-824b-d941-8ec8-dfcae8ee1756@epam.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fc3a73cc-824b-d941-8ec8-dfcae8ee1756@epam.com>
-X-ClientProxiedBy: LO2P265CA0460.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a2::16) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+	(envelope-from <SRS0=R6kc=ER=kernel.org=chunkuang.hu@srs-us1.protection.inumbo.net>)
+	id 1kcr26-0000ZB-4f
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 14:23:34 +0000
+X-Inumbo-ID: c6d02d55-163b-4e82-a3cc-ba86804685ca
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id c6d02d55-163b-4e82-a3cc-ba86804685ca;
+	Wed, 11 Nov 2020 14:23:33 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 3600422203
+	for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 14:23:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1605104612;
+	bh=xm3rQeDIh2FuZjYEyhCI9+5vLDwhs0MB53yet3dsIaE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=dPmto1xzJ4FwUTGL7+SCYcrJcJWW52ez+kxbCClZr+loHMAapvqz8LQz+Evkc9Vuu
+	 +KAHrYvHOZwkw2La6X7uex32BeyKimqmO8Ofmcfvrnpb1stNfWTSlBY+XS1QVzjIoA
+	 Z6DKu/gGPoh0EgAddBIc+BpDBved4jgG3COWBuvg=
+Received: by mail-wr1-f44.google.com with SMTP id k2so2722953wrx.2
+        for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 06:23:32 -0800 (PST)
+X-Gm-Message-State: AOAM5332CMdijnd7IETA1sDKf6o1XCBmtmSkkib8suzRd1/AcuFiVNl+
+	NNgU8gvK8QO1rij2kqG/A1+35LIXSmjl1DkqwQ==
+X-Google-Smtp-Source: ABdhPJxh+77oiphOx3YcIcxiUEmfWiMYRwROdlpWqzLsSf75JddHNGi9QfuS9fuMmuFcPm/rgVNfg169e9VDB275Qg8=
+X-Received: by 2002:a50:f0d4:: with SMTP id a20mr5290937edm.303.1605104609593;
+ Wed, 11 Nov 2020 06:23:29 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b31d1ac2-015f-4820-b3e9-08d8864d0c6c
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2636:
-X-Microsoft-Antispam-PRVS: <DM5PR03MB2636A6930DDCD81CA011EBDB8FE80@DM5PR03MB2636.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bfHN0B9SG2hNbfxoPfXJxQghrTXej6+kxoz2UtJgHU1QilytnMpqI5lM3VLzhWfCBlHEuGmO0tH3u8d3eonMTf5cxTPHWXm919ko88RDagYmp9e1w4tLiBxM1Z/zp4qEj2QGl+rkFObARGNBn5+RcWyUAImIcLJkJ0B3LU++cLumCCoQAk1RkjvRBqam6f+Ui4dqSYg73IeYTAaYW2pkef+rTr73y/z/+hFfr10a92u/OrFjxxDzua2l1NtaazT7FiRzlqf10mz/0Npa/WyhSL7CzM14TSt7zvf2fsXcyWZiXLfrARe+r5p5s7mbnu7Hz20LW4BcmmV/2//YOEJkl5Tpo2Bvp7omlYcltSeqFJN4+Sb7IxgaE1YmZM/3Xd9EHPaScBZ9/ZT2xVaRrBIjEg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(136003)(39860400002)(376002)(346002)(396003)(6486002)(66946007)(66556008)(9686003)(478600001)(66476007)(2906002)(5660300002)(83380400001)(186003)(6496006)(6666004)(16526019)(8676002)(85182001)(966005)(33716001)(6916009)(86362001)(956004)(53546011)(54906003)(316002)(4326008)(1076003)(26005)(8936002)(7416002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: xol+fdf4arqho64v1pyu2kA0PC0BrlID0MQueLGpQ7L6+zGZSrgFL5Wu2QagGTtFAhF5Vq3c5i+1ui7UZZPWiLvZ70owGzRbjspBvDv1ReuZwickCcVSW6iTkRuxr2FusmM/d+IDjqb6DyjLGttPfVOZ0utPu8msvykh+LhV2nlJdAJ5eorOIWaGMxrjQFmcJuz078uK3xvSHAybvTtQSvJBVaRIJGln5Pks2Bqva+s57A1QaTBQVzDZymhUKTtcPDpzG6rEiCLPjTxINHz0sGyAz2Nv8Ih4Y9jkFcR18swOXmeYmdr2KbiHT0HgqpTKEVfdjGhQdNqcObnWNNFbqk9RoGdqbRXarp8h5GrOyQeWQ4R0aiD0c8SCT9+iAOqfFG8Dn6Ur+DssIYyyRR3/3CYyBYoUBNHx7QMMmwRwvDBlwUrbjihgsWhpCNTGLUd3PRNqsm8lKg//BTW8DimyJdiVL19E6drwBpkd4jtbxqfL83iJpgGxefvkzUBKFHef6pWrktXJGd+X0bYIBT42PYotSLbX7wJdy97IKlICjAgkfdApB+wtyGCTCxrc/aFLoA7ObaUZzmMcxArulBh2FrhTpRz8uSvrC5a70ebhROdQ4WwHTP8nqYOFnhzL2MnbdNRnZhrafxjtDRNz4e+bm4bX8kI98r+rFZYzXX1oW8QaKl+hFgevTwbXQo+w3KGk2TJavjtLbDL/rG+022/HXqQzP168bdSWHGZ07+m+q+gumPAPQ5Vu1UVvQJ+k58N16laUWA7Lq1bus9vWYC+NC/AUUyFYPFQBYiwFFbO8RTdIbYofhQygr2Q6dNlcBh+qc/p0T+beRCk/NYPMZxKAXfmFMP7xsu+luITLK65+3gjaDT1lBJY6GiraIzakS4IVYZHsz0nZckKoA/ElNbnUcw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b31d1ac2-015f-4820-b3e9-08d8864d0c6c
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2020 14:21:15.3482
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X94TMd4UTRNBmqTT4xJZU+w6lOSOWi91M2eor6qinZOS7FzexZG/UuOx3vNl9LpN/MYFfgCumWBySyMnkJOllg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2636
-X-OriginatorOrg: citrix.com
+References: <20201109103242.19544-1-tzimmermann@suse.de> <20201109103242.19544-3-tzimmermann@suse.de>
+In-Reply-To: <20201109103242.19544-3-tzimmermann@suse.de>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Wed, 11 Nov 2020 22:23:15 +0800
+X-Gmail-Original-Message-ID: <CAAOTY__QuyEA7c4H+eSvrSdFTZttB4DXbjr6HLWoH8WovOD1eQ@mail.gmail.com>
+Message-ID: <CAAOTY__QuyEA7c4H+eSvrSdFTZttB4DXbjr6HLWoH8WovOD1eQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/mediatek: Use struct dma_buf_map in GEM vmap ops
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, 
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, robdclark@gmail.com, 
+	sean@poorly.run, linux-arm-msm@vger.kernel.org, 
+	freedreno@lists.freedesktop.org, 
+	DRI Development <dri-devel@lists.freedesktop.org>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Dave Airlie <airlied@redhat.com>, Lucas Stach <l.stach@pengutronix.de>, 
+	Russell King <linux+etnaviv@armlinux.org.uk>, 
+	Christian Gmeiner <christian.gmeiner@gmail.com>, Qiang Yu <yuq825@gmail.com>, 
+	Ben Skeggs <bskeggs@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Tomeu Vizoso <tomeu.vizoso@collabora.com>, Steven Price <steven.price@arm.com>, 
+	Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+	Alex Deucher <alexander.deucher@amd.com>, Sandy Huang <hjc@rock-chips.com>, 
+	=?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Hans de Goede <hdegoede@redhat.com>, Eric Anholt <eric@anholt.net>, 
+	Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>, Melissa Wen <melissa.srw@gmail.com>, 
+	Haneen Mohammed <hamohammed.sa@gmail.com>, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Emil Velikov <emil.velikov@collabora.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Arunpravin <apaneers@amd.com>, Huang Rui <ray.huang@amd.com>, 
+	Luben Tuikov <luben.tuikov@amd.com>, Madhav Chauhan <madhav.chauhan@amd.com>, 
+	Nirmoy Das <Nirmoy.Das@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, Sam Ravnborg <sam@ravnborg.org>, 
+	Chris Wilson <chris@chris-wilson.co.uk>, etnaviv@lists.freedesktop.org, 
+	lima@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	virtualization@lists.linux-foundation.org, spice-devel@lists.freedesktop.org, 
+	amd-gfx@lists.freedesktop.org, 
+	Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-rockchip@lists.infradead.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2020 at 02:12:56PM +0000, Oleksandr Andrushchenko wrote:
-> 
-> On 11/11/20 3:55 PM, Roger Pau Monné wrote:
-> > On Wed, Nov 11, 2020 at 01:10:01PM +0000, Oleksandr Andrushchenko wrote:
-> >> On 11/11/20 2:31 PM, Roger Pau Monné wrote:
-> >>> On Mon, Nov 09, 2020 at 02:50:22PM +0200, Oleksandr Andrushchenko wrote:
-> >>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> >>>>
-> >>>> According to https://urldefense.com/v3/__https://wiki.xenproject.org/wiki/Linux_PVH__;!!GF_29dbcQIUBPA!nEHd6eivmqtdJxtrhO-3x2Mz9F50JsKUoV7WTEJd_D1N01DrBOJXzGW1QAqwshZ9AMxywbUhOA$ [wiki[.]xenproject[.]org]:
-> >>>>
-> >>>> Items not supported by PVH
-> >>>>    - PCI pass through (as of Xen 4.10)
-> >>>>
-> >>>> Allow running PCI remove code on ARM and do not assert for PVH domains.
-> >>>>
-> >>>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> >>>> ---
-> >>>>    tools/libxl/Makefile    | 4 ++++
-> >>>>    tools/libxl/libxl_pci.c | 4 +++-
-> >>>>    2 files changed, 7 insertions(+), 1 deletion(-)
-> >>>>
-> >>>> diff --git a/tools/libxl/Makefile b/tools/libxl/Makefile
-> >>>> index 241da7fff6f4..f3806aafcb4e 100644
-> >>>> --- a/tools/libxl/Makefile
-> >>>> +++ b/tools/libxl/Makefile
-> >>>> @@ -130,6 +130,10 @@ endif
-> >>>>    
-> >>>>    LIBXL_LIBS += -lyajl
-> >>>>    
-> >>>> +ifeq ($(CONFIG_ARM),y)
-> >>>> +CFALGS += -DCONFIG_ARM
-> >>>> +endif
-> >>>> +
-> >>>>    LIBXL_OBJS = flexarray.o libxl.o libxl_create.o libxl_dm.o libxl_pci.o \
-> >>>>    			libxl_dom.o libxl_exec.o libxl_xshelp.o libxl_device.o \
-> >>>>    			libxl_internal.o libxl_utils.o libxl_uuid.o \
-> >>>> diff --git a/tools/libxl/libxl_pci.c b/tools/libxl/libxl_pci.c
-> >>>> index bc5843b13701..b93cf976642b 100644
-> >>>> --- a/tools/libxl/libxl_pci.c
-> >>>> +++ b/tools/libxl/libxl_pci.c
-> >>>> @@ -1915,8 +1915,10 @@ static void do_pci_remove(libxl__egc *egc, uint32_t domid,
-> >>>>                goto out_fail;
-> >>>>            }
-> >>>>        } else {
-> >>>> +        /* PCI passthrough can also run on ARM PVH */
-> >>>> +#ifndef CONFIG_ARM
-> >>>>            assert(type == LIBXL_DOMAIN_TYPE_PV);
-> >>>> -
-> >>>> +#endif
-> >>> I would just remove the assert now if this is to be used by Arm and
-> >>> you don't need to fork the file for Arm.
-> >> Sounds good, I will drop then
-> >>
-> >> But what would be the right explanation then? I mean why there was an ASSERT
-> >>
-> >> and now it is safe (for x86) to remove that?
-> > An assert is just a safe belt, the expectation is that it's never hit
-> > by actual code. Given that this path will now also be used by PVH
-> > (even if only on Arm) I don't see the point in keeping the assert, and
-> > making it conditional to != Arm seems worse than just dropping it.
-> 
-> Ok, so I can write in the patch description something like:
-> 
-> "this path is now used by PVH, so the assert is no longer valid"
-> 
-> Does it sound ok?
+Hi, Thomas:
 
-LGTM.
+Thomas Zimmermann <tzimmermann@suse.de> =E6=96=BC 2020=E5=B9=B411=E6=9C=889=
+=E6=97=A5 =E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=886:32=E5=AF=AB=E9=81=93=EF=BC=
+=9A
+>
+> Fixes a build failure with mediatek.
+>
+> This change was supposed to be part of commit 49a3f51dfeee ("drm/gem:
+> Use struct dma_buf_map in GEM vmap ops and convert GEM backends"), but
+> mediatek was forgotten.
 
-Roger.
+Acked-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: 49a3f51dfeee ("drm/gem: Use struct dma_buf_map in GEM vmap ops and=
+ convert GEM backends")
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Dave Airlie <airlied@redhat.com>
+> Cc: Lucas Stach <l.stach@pengutronix.de>
+> Cc: Russell King <linux+etnaviv@armlinux.org.uk>
+> Cc: Christian Gmeiner <christian.gmeiner@gmail.com>
+> Cc: Qiang Yu <yuq825@gmail.com>
+> Cc: Ben Skeggs <bskeggs@redhat.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Tomeu Vizoso <tomeu.vizoso@collabora.com>
+> Cc: Steven Price <steven.price@arm.com>
+> Cc: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
+> Cc: Gerd Hoffmann <kraxel@redhat.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: Sandy Huang <hjc@rock-chips.com>
+> Cc: "Heiko St=C3=BCbner" <heiko@sntech.de>
+> Cc: Hans de Goede <hdegoede@redhat.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Cc: Eric Anholt <eric@anholt.net>
+> Cc: Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
+> Cc: Melissa Wen <melissa.srw@gmail.com>
+> Cc: Haneen Mohammed <hamohammed.sa@gmail.com>
+> Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: Emil Velikov <emil.velikov@collabora.com>
+> Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+> Cc: Arunpravin <apaneers@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Luben Tuikov <luben.tuikov@amd.com>
+> Cc: Madhav Chauhan <madhav.chauhan@amd.com>
+> Cc: Nirmoy Das <Nirmoy.Das@amd.com>
+> Cc: Jason Gunthorpe <jgg@ziepe.ca>
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: etnaviv@lists.freedesktop.org
+> Cc: lima@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
+> Cc: virtualization@lists.linux-foundation.org
+> Cc: spice-devel@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-rockchip@lists.infradead.org
+> Cc: xen-devel@lists.xenproject.org
+> ---
+>  drivers/gpu/drm/mediatek/mtk_drm_gem.c | 20 ++++++++++++--------
+>  drivers/gpu/drm/mediatek/mtk_drm_gem.h |  4 ++--
+>  2 files changed, 14 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_gem.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_gem.c
+> index cdd1a6e61564..28a2ee1336ef 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_gem.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_gem.c
+> @@ -240,23 +240,25 @@ struct drm_gem_object *mtk_gem_prime_import_sg_tabl=
+e(struct drm_device *dev,
+>         return &mtk_gem->base;
+>  }
+>
+> -void *mtk_drm_gem_prime_vmap(struct drm_gem_object *obj)
+> +int mtk_drm_gem_prime_vmap(struct drm_gem_object *obj, struct dma_buf_ma=
+p *map)
+>  {
+>         struct mtk_drm_gem_obj *mtk_gem =3D to_mtk_gem_obj(obj);
+> -       struct sg_table *sgt;
+> +       struct sg_table *sgt =3D NULL;
+>         unsigned int npages;
+>
+>         if (mtk_gem->kvaddr)
+> -               return mtk_gem->kvaddr;
+> +               goto out;
+>
+>         sgt =3D mtk_gem_prime_get_sg_table(obj);
+>         if (IS_ERR(sgt))
+> -               return NULL;
+> +               return PTR_ERR(sgt);
+>
+>         npages =3D obj->size >> PAGE_SHIFT;
+>         mtk_gem->pages =3D kcalloc(npages, sizeof(*mtk_gem->pages), GFP_K=
+ERNEL);
+> -       if (!mtk_gem->pages)
+> -               goto out;
+> +       if (!mtk_gem->pages) {
+> +               kfree(sgt);
+> +               return -ENOMEM;
+> +       }
+>
+>         drm_prime_sg_to_page_addr_arrays(sgt, mtk_gem->pages, NULL, npage=
+s);
+>
+> @@ -265,13 +267,15 @@ void *mtk_drm_gem_prime_vmap(struct drm_gem_object =
+*obj)
+>
+>  out:
+>         kfree(sgt);
+> +       dma_buf_map_set_vaddr(map, mtk_gem->kvaddr);
+>
+> -       return mtk_gem->kvaddr;
+> +       return 0;
+>  }
+>
+> -void mtk_drm_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr)
+> +void mtk_drm_gem_prime_vunmap(struct drm_gem_object *obj, struct dma_buf=
+_map *map)
+>  {
+>         struct mtk_drm_gem_obj *mtk_gem =3D to_mtk_gem_obj(obj);
+> +       void *vaddr =3D map->vaddr;
+>
+>         if (!mtk_gem->pages)
+>                 return;
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_gem.h b/drivers/gpu/drm/med=
+iatek/mtk_drm_gem.h
+> index ff9f976d9807..6da5ccb4b933 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_gem.h
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_gem.h
+> @@ -45,7 +45,7 @@ int mtk_drm_gem_mmap_buf(struct drm_gem_object *obj,
+>  struct sg_table *mtk_gem_prime_get_sg_table(struct drm_gem_object *obj);
+>  struct drm_gem_object *mtk_gem_prime_import_sg_table(struct drm_device *=
+dev,
+>                         struct dma_buf_attachment *attach, struct sg_tabl=
+e *sg);
+> -void *mtk_drm_gem_prime_vmap(struct drm_gem_object *obj);
+> -void mtk_drm_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr);
+> +int mtk_drm_gem_prime_vmap(struct drm_gem_object *obj, struct dma_buf_ma=
+p *map);
+> +void mtk_drm_gem_prime_vunmap(struct drm_gem_object *obj, struct dma_buf=
+_map *map);
+>
+>  #endif
+> --
+> 2.29.2
+>
 
