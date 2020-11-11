@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1426E2AF56D
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 16:49:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25102.52697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E330D2AF65B
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Nov 2020 17:29:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.25119.52709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcsMl-00036Y-22; Wed, 11 Nov 2020 15:48:59 +0000
+	id 1kcsyi-0007QR-5J; Wed, 11 Nov 2020 16:28:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25102.52697; Wed, 11 Nov 2020 15:48:59 +0000
+Received: by outflank-mailman (output) from mailman id 25119.52709; Wed, 11 Nov 2020 16:28:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,259 +23,288 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kcsMk-00036B-Us; Wed, 11 Nov 2020 15:48:58 +0000
-Received: by outflank-mailman (input) for mailman id 25102;
- Wed, 11 Nov 2020 15:48:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GpG1=ER=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kcsMj-000365-0V
- for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:48:57 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 091058a1-ae73-46f4-b1d5-bd7e33d42aad;
- Wed, 11 Nov 2020 15:48:56 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1C0D3AC75;
- Wed, 11 Nov 2020 15:48:55 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kcsyi-0007Q2-2D; Wed, 11 Nov 2020 16:28:12 +0000
+Received: by outflank-mailman (input) for mailman id 25119;
+ Wed, 11 Nov 2020 16:28:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uOJX=ER=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kcsyg-0007P8-9A
+ for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 16:28:10 +0000
+Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id eb9d95d7-3253-4738-83cf-4b2ad341fa15;
+ Wed, 11 Nov 2020 16:28:08 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id 23so3099494wrc.8
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 08:28:08 -0800 (PST)
+Received: from CBGR90WXYV0 (54-240-197-234.amazon.com. [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id e6sm3186276wme.27.2020.11.11.08.28.05
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 11 Nov 2020 08:28:06 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=GpG1=ER=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kcsMj-000365-0V
-	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 15:48:57 +0000
-X-Inumbo-ID: 091058a1-ae73-46f4-b1d5-bd7e33d42aad
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 091058a1-ae73-46f4-b1d5-bd7e33d42aad;
-	Wed, 11 Nov 2020 15:48:56 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605109735;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jz5MMH+/kNLXTkt7JMK/JwIUuoIbxXH/8fWLmC0GjLc=;
-	b=cvFGggEw//hx0ac+SNz5leTJBv3tzfAVujKVMc04LFR6W4iktBS57ju7sVQgHLzxThVI35
-	TrcZQ4nSySsWSBtPae/Q9gMdrmWA5PotH5gGv0rd+74zhZi+WvGXfqv0eEzfZAK7+ErMdL
-	FLDNUir0pBYU6WsnssTxgtiHnhpAH0k=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 1C0D3AC75;
-	Wed, 11 Nov 2020 15:48:55 +0000 (UTC)
-Subject: Re: [PATCH v4 2/3] xen/oprofile: use NMI continuation for sending
- virq to guest
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201109095021.9897-1-jgross@suse.com>
- <20201109095021.9897-3-jgross@suse.com>
- <d55adbc0-8a98-dd5c-c204-2ec11955c356@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <288804e4-75e6-6600-9634-8c0ea7a06c22@suse.com>
-Date: Wed, 11 Nov 2020 16:48:54 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	(envelope-from <SRS0=uOJX=ER=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+	id 1kcsyg-0007P8-9A
+	for xen-devel@lists.xenproject.org; Wed, 11 Nov 2020 16:28:10 +0000
+X-Inumbo-ID: eb9d95d7-3253-4738-83cf-4b2ad341fa15
+Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id eb9d95d7-3253-4738-83cf-4b2ad341fa15;
+	Wed, 11 Nov 2020 16:28:08 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id 23so3099494wrc.8
+        for <xen-devel@lists.xenproject.org>; Wed, 11 Nov 2020 08:28:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=N5p7Cgdfa5RSEogVv2IhlZPMjrTH7i/2ipSIxDfwHno=;
+        b=JZGmWQ/Dag44YRrUdwXAX7erRcU4kUaev3uuG3M1JnxOhlwPwqxc4b0tq4qeVe5ujw
+         l1588ep7zMuSsMSGDacFo4Pq8wQ88czblqdcjMIEXyW2wDB4gqhoPYk6ZfNr5El4J6Zm
+         K5qgEeMkxrBwhtiUj9j3+lzvDgdlzYZUAY0oMGtCBNZeNrlgfVEwIhrjUoT9pRW6w8mD
+         It0AFaJDHEGQT90cPZudsyEH3YwWnATRzMvn4FaKMZiuxcSFXTzoqNJiHr76ukLKn1fy
+         K2ClTCg3xWz34McHL/4mUENVsPf9+1TS7RjgLY4/tXXQlZ+BBybPGd+IzeGIoHJRy3K7
+         oipA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=N5p7Cgdfa5RSEogVv2IhlZPMjrTH7i/2ipSIxDfwHno=;
+        b=aIPmHNprc0iGfwGcHL9FqHjFZF9YhqMOi+UDodyalCgy7XJHqSJwQrgXvjkDBEoNTA
+         J/gEya+E2qa9hF4olEfw4hw5DPNd/nR3y31A3NDk7nN3JFNVGZwiaihIfGp/g3M31l+P
+         XwUavY8nlKf2KYoLawh9IxJaK9IWc4HeWzjn+owKxKBpI+shAFB3RsEr+1efP+FuzayF
+         2LZUJzh7wXYDFDcJuPf0V4r7KRw4f6MtIWZYG1S8pVhI7jjAp2wnkcxbKQ27v/5ikoGy
+         +wZwthPn4H+BD1z1/CwpDs/p9IZidsiUF2IxmIy2OC/4KirKP8ljqvWgY9aMCgZXQ6pt
+         tHJw==
+X-Gm-Message-State: AOAM530BieWZzWDYFGLNzh0cg2e4sEYoZceBlnYtnfr4NgkUP56c2v7B
+	Ade8wodNJsW/yn8T+GTOjLk=
+X-Google-Smtp-Source: ABdhPJxGAYgnU/s3RV2jUuLSakYYGxqOOzQJb9zHZpDeCBxXFmLd/Y5IOyN0C5+41N8rmWthj75bzg==
+X-Received: by 2002:a5d:4f07:: with SMTP id c7mr32225833wru.296.1605112087504;
+        Wed, 11 Nov 2020 08:28:07 -0800 (PST)
+Received: from CBGR90WXYV0 (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id e6sm3186276wme.27.2020.11.11.08.28.05
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 11 Nov 2020 08:28:06 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	"'Oleksandr'" <olekstysh@gmail.com>
+Cc: "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'Julien Grall'" <julien@xen.org>,
+	"'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'George Dunlap'" <george.dunlap@citrix.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Wei Liu'" <wl@xen.org>,
+	"'Julien Grall'" <julien.grall@arm.com>,
+	<xen-devel@lists.xenproject.org>
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com> <1602780274-29141-18-git-send-email-olekstysh@gmail.com> <004e01d6a6cf$09cd9f40$1d68ddc0$@xen.org> <700a643e-641e-c243-cb2d-7ad8b5a9b8ad@gmail.com> <d4088e1b-1a50-d2fd-29b0-0f8a2cf4e7d4@suse.com> <ed9defbe-b6bf-bd1f-cd88-64d1b0e135c1@gmail.com> <0ab03a33-5056-0de8-e5f7-b54a661a09c5@suse.com>
+In-Reply-To: <0ab03a33-5056-0de8-e5f7-b54a661a09c5@suse.com>
+Subject: RE: [PATCH V2 17/23] xen/ioreq: Introduce domain_has_ioreq_server()
+Date: Wed, 11 Nov 2020 16:28:05 -0000
+Message-ID: <003401d6b847$a2d9f470$e88ddd50$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <d55adbc0-8a98-dd5c-c204-2ec11955c356@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="E8OuMYTm4FgzkMITDBAncpbr4MXDYchTP"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---E8OuMYTm4FgzkMITDBAncpbr4MXDYchTP
-Content-Type: multipart/mixed; boundary="GvgwHDRtHjTpUpUIg6PyYNzaUrqi9jFrc";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <288804e4-75e6-6600-9634-8c0ea7a06c22@suse.com>
-Subject: Re: [PATCH v4 2/3] xen/oprofile: use NMI continuation for sending
- virq to guest
-References: <20201109095021.9897-1-jgross@suse.com>
- <20201109095021.9897-3-jgross@suse.com>
- <d55adbc0-8a98-dd5c-c204-2ec11955c356@suse.com>
-In-Reply-To: <d55adbc0-8a98-dd5c-c204-2ec11955c356@suse.com>
-
---GvgwHDRtHjTpUpUIg6PyYNzaUrqi9jFrc
-Content-Type: multipart/mixed;
- boundary="------------1E54A406AECAA0E3A49B8A0D"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------1E54A406AECAA0E3A49B8A0D
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain;
+	charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQFqp5MaNUj6MKEiN9RM6S6pfA5bVAGr5WYaAb7RyogBgA8OqwGUDZBmArIItvgB82Dp96pCHWKw
+Content-Language: en-gb
 
-On 11.11.20 16:45, Jan Beulich wrote:
-> On 09.11.2020 10:50, Juergen Gross wrote:
->> @@ -83,14 +85,28 @@ void passive_domain_destroy(struct vcpu *v)
->>   		model->free_msr(v);
->>   }
->>  =20
->> +bool nmi_oprofile_send_virq(void)
->> +{
->> +	struct vcpu *v =3D this_cpu(nmi_cont_vcpu);
->> +
->> +	if ( v )
->> +		send_guest_vcpu_virq(v, VIRQ_XENOPROF);
->> +
->> +	this_cpu(nmi_cont_vcpu) =3D NULL;
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 11 November 2020 13:28
+> To: Oleksandr <olekstysh@gmail.com>
+> Cc: 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>; 'Stefano =
+Stabellini'
+> <sstabellini@kernel.org>; 'Julien Grall' <julien@xen.org>; 'Volodymyr =
+Babchuk'
+> <Volodymyr_Babchuk@epam.com>; 'Andrew Cooper' =
+<andrew.cooper3@citrix.com>; 'George Dunlap'
+> <george.dunlap@citrix.com>; 'Ian Jackson' <iwj@xenproject.org>; 'Wei =
+Liu' <wl@xen.org>; 'Julien Grall'
+> <julien.grall@arm.com>; paul@xen.org; xen-devel@lists.xenproject.org
+> Subject: Re: [PATCH V2 17/23] xen/ioreq: Introduce =
+domain_has_ioreq_server()
 >=20
-> What if, by the time we make it here, a 2nd NMI has arrived? I
-> agree the next overflow interrupt shouldn't arrive this
-> quickly, but I also think you want to zap the per-CPU variable
-> first here, and ...
+> On 11.11.2020 09:41, Oleksandr wrote:
+> >
+> > On 11.11.20 10:08, Jan Beulich wrote:
+> >
+> > Hi Jan
+> >
+> >> On 10.11.2020 21:53, Oleksandr wrote:
+> >>> On 20.10.20 13:51, Paul Durrant wrote:
+> >>>
+> >>> Hi Paul.
+> >>>
+> >>> Sorry for the late response.
+> >>>
+> >>>>> -----Original Message-----
+> >>>>> From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+> >>>>> Sent: 15 October 2020 17:44
+> >>>>> To: xen-devel@lists.xenproject.org
+> >>>>> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; =
+Stefano Stabellini
+> <sstabellini@kernel.org>;
+> >>>>> Julien Grall <julien@xen.org>; Volodymyr Babchuk =
+<Volodymyr_Babchuk@epam.com>; Andrew Cooper
+> >>>>> <andrew.cooper3@citrix.com>; George Dunlap =
+<george.dunlap@citrix.com>; Ian Jackson
+> >>>>> <iwj@xenproject.org>; Jan Beulich <jbeulich@suse.com>; Wei Liu =
+<wl@xen.org>; Paul Durrant
+> >>>>> <paul@xen.org>; Julien Grall <julien.grall@arm.com>
+> >>>>> Subject: [PATCH V2 17/23] xen/ioreq: Introduce =
+domain_has_ioreq_server()
+> >>>>>
+> >>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >>>>>
+> >>>>> This patch introduces a helper the main purpose of which is to =
+check
+> >>>>> if a domain is using IOREQ server(s).
+> >>>>>
+> >>>>> On Arm the current benefit is to avoid calling =
+handle_io_completion()
+> >>>>> (which implies iterating over all possible IOREQ servers anyway)
+> >>>>> on every return in leave_hypervisor_to_guest() if there is no =
+active
+> >>>>> servers for the particular domain.
+> >>>>> Also this helper will be used by one of the subsequent patches =
+on Arm.
+> >>>>>
+> >>>>> This involves adding an extra per-domain variable to store the =
+count
+> >>>>> of servers in use.
+> >>>>>
+> >>>>> Signed-off-by: Oleksandr Tyshchenko =
+<oleksandr_tyshchenko@epam.com>
+> >>>>> CC: Julien Grall <julien.grall@arm.com>
+> >>>>>
+> >>>>> ---
+> >>>>> Please note, this is a split/cleanup/hardening of Julien's PoC:
+> >>>>> "Add support for Guest IO forwarding to a device emulator"
+> >>>>>
+> >>>>> Changes RFC -> V1:
+> >>>>>      - new patch
+> >>>>>
+> >>>>> Changes V1 -> V2:
+> >>>>>      - update patch description
+> >>>>>      - guard helper with CONFIG_IOREQ_SERVER
+> >>>>>      - remove "hvm" prefix
+> >>>>>      - modify helper to just return =
+d->arch.hvm.ioreq_server.nr_servers
+> >>>>>      - put suitable ASSERT()s
+> >>>>>      - use ASSERT(d->ioreq_server.server[id] ? !s : !!s) in =
+set_ioreq_server()
+> >>>>>      - remove d->ioreq_server.nr_servers =3D 0 from =
+hvm_ioreq_init()
+> >>>>> ---
+> >>>>>    xen/arch/arm/traps.c    | 15 +++++++++------
+> >>>>>    xen/common/ioreq.c      |  7 ++++++-
+> >>>>>    xen/include/xen/ioreq.h | 14 ++++++++++++++
+> >>>>>    xen/include/xen/sched.h |  1 +
+> >>>>>    4 files changed, 30 insertions(+), 7 deletions(-)
+> >>>>>
+> >>>>> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> >>>>> index 507c095..a8f5fdf 100644
+> >>>>> --- a/xen/arch/arm/traps.c
+> >>>>> +++ b/xen/arch/arm/traps.c
+> >>>>> @@ -2261,14 +2261,17 @@ static bool check_for_vcpu_work(void)
+> >>>>>        struct vcpu *v =3D current;
+> >>>>>
+> >>>>>    #ifdef CONFIG_IOREQ_SERVER
+> >>>>> -    bool handled;
+> >>>>> +    if ( domain_has_ioreq_server(v->domain) )
+> >>>>> +    {
+> >>>>> +        bool handled;
+> >>>>>
+> >>>>> -    local_irq_enable();
+> >>>>> -    handled =3D handle_io_completion(v);
+> >>>>> -    local_irq_disable();
+> >>>>> +        local_irq_enable();
+> >>>>> +        handled =3D handle_io_completion(v);
+> >>>>> +        local_irq_disable();
+> >>>>>
+> >>>>> -    if ( !handled )
+> >>>>> -        return true;
+> >>>>> +        if ( !handled )
+> >>>>> +            return true;
+> >>>>> +    }
+> >>>>>    #endif
+> >>>>>
+> >>>>>        if ( likely(!v->arch.need_flush_to_ram) )
+> >>>>> diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
+> >>>>> index bcd4961..a72bc0e 100644
+> >>>>> --- a/xen/common/ioreq.c
+> >>>>> +++ b/xen/common/ioreq.c
+> >>>>> @@ -39,9 +39,14 @@ static void set_ioreq_server(struct domain =
+*d, unsigned int id,
+> >>>>>                                 struct ioreq_server *s)
+> >>>>>    {
+> >>>>>        ASSERT(id < MAX_NR_IOREQ_SERVERS);
+> >>>>> -    ASSERT(!s || !d->ioreq_server.server[id]);
+> >>>>> +    ASSERT(d->ioreq_server.server[id] ? !s : !!s);
+> >>>> That looks odd. How about ASSERT(!s ^ =
+!d->ioreq_server.server[id])?
+> >>> ok, looks like it will work.
+> >>>
+> >>>
+> >>>>     Paul
+> >>>>
+> >>>>>        d->ioreq_server.server[id] =3D s;
+> >>>>> +
+> >>>>> +    if ( s )
+> >>>>> +        d->ioreq_server.nr_servers++;
+> >>>>> +    else
+> >>>>> +        d->ioreq_server.nr_servers--;
+> >>>>>    }
+> >>>>>
+> >>>>>    #define GET_IOREQ_SERVER(d, id) \
+> >>>>> diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
+> >>>>> index 7b03ab5..0679fef 100644
+> >>>>> --- a/xen/include/xen/ioreq.h
+> >>>>> +++ b/xen/include/xen/ioreq.h
+> >>>>> @@ -55,6 +55,20 @@ struct ioreq_server {
+> >>>>>        uint8_t                bufioreq_handling;
+> >>>>>    };
+> >>>>>
+> >>>>> +#ifdef CONFIG_IOREQ_SERVER
+> >>>>> +static inline bool domain_has_ioreq_server(const struct domain =
+*d)
+> >>>>> +{
+> >>>>> +    ASSERT((current->domain =3D=3D d) || =
+atomic_read(&d->pause_count));
+> >>>>> +
+> >>>> This seems like an odd place to put such an assertion.
+> >>> I might miss something or interpreted incorrectly but these =
+asserts are
+> >>> the result of how I understood the review comment on previous =
+version [1].
+> >>>
+> >>> I will copy a comment here for the convenience:
+> >>> "This is safe only when d =3D=3D current->domain and it's not =
+paused,
+> >>> or when they're distinct and d is paused. Otherwise the result is
+> >>> stale before the caller can inspect it. This wants documenting by
+> >>> at least a comment, but perhaps better by suitable ASSERT()s."
+> >> The way his reply was worded, I think Paul was wondering about the
+> >> place where you put the assertion, not what you actually assert.
+> >
+> > Shall I put the assertion at the call sites of this helper instead?
+>=20
+> Since Paul raised the question, I expect this is a question to him
+> rather than me?
 
-How could that happen? This function is activated only from NMI
-context in case the NMI happened in guest mode. And it will be
-executed with higher priority than any guest, so there is a zero
-chance another NMI in guest mode can happen in between.
+If it is indeed a question for me then yes, put the assertion where it =
+is clear why it is needed. domain_has_ioreq_server() is essentially a =
+trivial accessor function; it's not the appropriate place.
 
-I can add a comment in this regard if you want.
+  Paul
 
 >=20
->> +
->> +	return v;
->> +}
->> +
->>   static int nmi_callback(const struct cpu_user_regs *regs, int cpu)
->>   {
->>   	int xen_mode, ovf;
->>  =20
->>   	ovf =3D model->check_ctrs(cpu, &cpu_msrs[cpu], regs);
->>   	xen_mode =3D ring_0(regs);
->> -	if ( ovf && is_active(current->domain) && !xen_mode )
->> -		send_guest_vcpu_virq(current, VIRQ_XENOPROF);
->> +	if ( ovf && is_active(current->domain) && !xen_mode ) {
->> +		this_cpu(nmi_cont_vcpu) =3D current;
->=20
-> ... avoid overwriting any non-NULL value here. That's then of
-> course still not closing the window, but has (imo) overall
-> better behavior.
->=20
-> Also, style-wise, going through the file it looks to be mainly
-> Linux style, so may I suggest your additions / changes to be
-> done that way, rather than extending use of this funny mixed
-> style?
+> Jan
 
-Works for me.
-
-
-Juergen
-
---------------1E54A406AECAA0E3A49B8A0D
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------1E54A406AECAA0E3A49B8A0D--
-
---GvgwHDRtHjTpUpUIg6PyYNzaUrqi9jFrc--
-
---E8OuMYTm4FgzkMITDBAncpbr4MXDYchTP
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+sB+YFAwAAAAAACgkQsN6d1ii/Ey/J
-BQf/Vrk8vFJq2wLu3DntrmxqTtJLT9PILw3e2pz3Ms63vtkURlHQJ9vTRdCcdY5GM6sxWnpcGOsF
-Dcqisej3TJMp9/eKzpXAd3gIIm56mwXKNzm44yVeH+iGQomZhxYw5edRHdYXDIu19fPR288UA3t7
-Sr+fJoTw6uErJjU/Fmn6aVO4euLHziJ2jWfHCnRBYWvgkNC+WslhDvVvApn/W59BR6JwRoTTzh4D
-qOUGmIXoqArXrwR1iq01D/e6oKVc5gRF+w/FcZNCTVrbYEE3cPul2vEfhs/LJhRGzYaXJAaCELPQ
-l9+fix/ct2zIwgbBU1lBjJsNEY5e9jdsJDGJbWCkuw==
-=8qug
------END PGP SIGNATURE-----
-
---E8OuMYTm4FgzkMITDBAncpbr4MXDYchTP--
 
