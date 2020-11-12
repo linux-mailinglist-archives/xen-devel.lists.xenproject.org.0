@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E25B42B0EF5
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 21:21:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26033.54153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23C232B0F2C
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 21:45:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26043.54168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdJ4U-00081w-46; Thu, 12 Nov 2020 20:19:54 +0000
+	id 1kdJSS-0002PS-7L; Thu, 12 Nov 2020 20:44:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26033.54153; Thu, 12 Nov 2020 20:19:54 +0000
+Received: by outflank-mailman (output) from mailman id 26043.54168; Thu, 12 Nov 2020 20:44:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,154 +23,192 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdJ4U-00081X-0d; Thu, 12 Nov 2020 20:19:54 +0000
-Received: by outflank-mailman (input) for mailman id 26033;
- Thu, 12 Nov 2020 20:19:52 +0000
+	id 1kdJSS-0002P4-1w; Thu, 12 Nov 2020 20:44:40 +0000
+Received: by outflank-mailman (input) for mailman id 26043;
+ Thu, 12 Nov 2020 20:44:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=muz0=ES=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kdJ4S-00081S-4f
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 20:19:52 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=AYe4=ES=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
+ id 1kdJSQ-0002Oz-Eo
+ for xen-devel@lists.xen.org; Thu, 12 Nov 2020 20:44:38 +0000
+Received: from mail-vk1-xa34.google.com (unknown [2607:f8b0:4864:20::a34])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f2ee61e5-47b6-4a29-abb4-9a58f613d491;
- Thu, 12 Nov 2020 20:19:50 +0000 (UTC)
+ id 27781b78-cd97-418b-a217-0eb5b57b7551;
+ Thu, 12 Nov 2020 20:44:37 +0000 (UTC)
+Received: by mail-vk1-xa34.google.com with SMTP id b190so1651114vka.0
+ for <xen-devel@lists.xen.org>; Thu, 12 Nov 2020 12:44:37 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=muz0=ES=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kdJ4S-00081S-4f
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 20:19:52 +0000
-X-Inumbo-ID: f2ee61e5-47b6-4a29-abb4-9a58f613d491
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	(envelope-from <SRS0=AYe4=ES=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
+	id 1kdJSQ-0002Oz-Eo
+	for xen-devel@lists.xen.org; Thu, 12 Nov 2020 20:44:38 +0000
+X-Inumbo-ID: 27781b78-cd97-418b-a217-0eb5b57b7551
+Received: from mail-vk1-xa34.google.com (unknown [2607:f8b0:4864:20::a34])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f2ee61e5-47b6-4a29-abb4-9a58f613d491;
-	Thu, 12 Nov 2020 20:19:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1605212390;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=ml64WgrDyUNCCt0Zwhrj3BKfHRHSJoK3a6HPlUeDMf4=;
-  b=TDhLEHQ7aNbUT9XaeQoJt3wsgAVk1/2bV0byLa3LmIttwkEukG5B+BJz
-   EKkDw0fNvNZh0OI8Y4LEKspGRv4Wi82NDgDbw+tO4hhPrqpSWSJeoIqsO
-   8cg5IbEMgCuwJhjiUK498G7M7fWtGdoIH3WBlz04sVg0Ea2s440EDv9eq
-   A=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: tsC6RdhXYn06IOnYM5+hIhW+b0jV8miSKM9b3seQEIJw+MbroFyrL5VRUBjHMUbnPN+laR2DWr
- 67SyvOiJGfn1Xtf1NV7RX7q1Doc8F2eICOqXuEHfQOllt+3hgr51Co4cFyTd2+qGn/7paGd58w
- 0HueKMafrLK2PNiFpYevPJg/hl3Al1chtqlP98quBu/1Unlild3IRlHySuM06MQWwyJwOTnpzi
- 6rHvFJOxRqWs3eCffnJmp6QDrTL+vqsSpuC0+Lr0ey850eJ4Y7du4aMK/4KTSGXqpb6WYnK2lk
- ZRE=
-X-SBRS: None
-X-MesageID: 32199207
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,472,1596513600"; 
-   d="scan'208";a="32199207"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q5KIwYUnmMWohFckzTrxbB3Q/05ghEVdpe5e8ZckrEEImKQczTJK6pHLIDNUfFkedusQN7w0/4AJnJlqXKMPnYmIJ3fEJ7C0bTlcL+eh+KlK/eSdNgoQWsFx5rl9006PETvcEe7FKk7D5TQvvvTPkMb6wb08oAev1GWS0a/M/MiZS7IctLfTbPBNfDn31qI03l4UlvMCugZQ/eKSn1u2uzA6KoVAnJmzD5p8+894y/IwwZynJgbiT43/z97t4zqRdzEiOZHYZCUYaG33Yaup55KILEgAMLcZt5+GewaMVWUp3OD1wUfGx3Yb4/EymIZKKdZcyHGdS+YheiC7WxFZNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JEk3MTH4ClpZVHTXC3mpKek7Qm2H6NwtVf7MUraNuuw=;
- b=jEdH/O0GHR3zq/PsEj35PZLKdfv2fL0ReuOPMiv1iOGrnxX/HmYycoYOEoh1zjz+0hcQb2G16iov5o3LYqNkg6fJlBD2Q9NLgqVK0aQNGnhAY9RQ7ERl9Ch8DLkRvN5j8oiF/mfegpvhiSwT05P+uqRqhSi4kMku8CRIBcq140T1v/LkWjlhI6CXCzYpaAXtbFkKpevgoXw5L1X+P7njrvEMw5poe8s6a3s3KiJlieHfBAafu4akJ0it5mspK7c4u7LgrBC5cCC16Jbf7QcavX8YCzBsUE8h35as5v5bti3g8rL9HwDGMHWUHpixUOUNqDzzdGDfFZd6uehACNxevA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+	id 27781b78-cd97-418b-a217-0eb5b57b7551;
+	Thu, 12 Nov 2020 20:44:37 +0000 (UTC)
+Received: by mail-vk1-xa34.google.com with SMTP id b190so1651114vka.0
+        for <xen-devel@lists.xen.org>; Thu, 12 Nov 2020 12:44:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JEk3MTH4ClpZVHTXC3mpKek7Qm2H6NwtVf7MUraNuuw=;
- b=o7Tvwu2aQJ4rgV1mZTh5mVTVZA7h/i7/EgtS6z4p1K5U3w6+nH/gNpdb6SCHfbcuDwvHVxwdwPGfxnm9FkQ01FJ6E2nRD6QxBm7iN7WroO2jBeYWt/ZuZ7P0gAAK6ZE2ynv9/d1caH0sQFmN5ue3JPltLbMR6zmb/5gQ6sV0NNU=
-Date: Thu, 12 Nov 2020 21:19:39 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-CC: <xen-devel@lists.xenproject.org>
-Subject: Re: dom0 PVH: 'entry->arch.pirq != INVALID_PIRQ' failed at vmsi.c:843
-Message-ID: <20201112201939.be6ztg2iipwa6hkb@Air-de-Roger>
-References: <20201112155715.GA5003@antioche.eu.org>
- <20201112163240.6xswol2iswikdzef@Air-de-Roger>
- <20201112172704.GA5899@antioche.eu.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201112172704.GA5899@antioche.eu.org>
-X-ClientProxiedBy: LO2P265CA0257.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:8a::29) To SA0PR03MB5610.namprd03.prod.outlook.com
- (2603:10b6:806:b2::9)
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=1Dv/sJJ3IkoBJcevrIhmR5U4he/z6g+Aj4JE4i0rih4=;
+        b=ViarK4P6ndu5K7y9ppo+Ndl0Da2uyGzmA2EZiaaxjpDQ6r/BxLQLOZLFMAePwCKLUE
+         pBaR9oPKd5Wju/H+5JgjEx915+9/dZcffml0bHYINGyHDVkuHgIic10nBfM6YQe0zD8g
+         Kbc+xT4NulPZu8aLQPKCBx7XUsbr0Bbja2NiIQLl0VHvM2be3qnIcF043MW2xIBQBTyP
+         E8mSjAts6RC4zblixtgMnZZERp16VC8c/3E71mUjk7WBbfl4fCIVWuyztUyHGiu+CY1s
+         WIyS5/mlu5Eris8La+R4AHoNbP+rhUxA80KV69DvZ8aTy6h9P1W6PuCLBHOy7+r+zQ7a
+         W0uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=1Dv/sJJ3IkoBJcevrIhmR5U4he/z6g+Aj4JE4i0rih4=;
+        b=hSq1euPzUxk4izdvbAOGaclabow8TugW7UmrM8mvKEM2V9tqx9SO/Vq1lwI7vQh30q
+         WiIAzY8MtTzFMAtDJSJffZQ7e4mhzAwzwBRnlrFBfYzqMZiSlXSqY3ZqgrkmGMKlbYmy
+         grgPtE9kePF1LU2erLQtftvjDj1uCxBy6hvX6q5ma7KzMQe/0MsZiBYBJS0AQSQncxG9
+         N+nV449yS+NeMiMQ64IsyBvIOa3HGLlYnwRT74GbyHz+gB7/doeoAPOGRvMKlrgmCOuD
+         EtXDwRjgW+D1IDEn/uE6jcl8wQiGGtf7Xq1BQwPyBJib66sOOjm5kB3vIJk1eMeEpxCk
+         wsAg==
+X-Gm-Message-State: AOAM531FgC4eqLo4rqsfCxiy0LAroIxmAehi4Z+3LDRTZJO/qrKhsq/e
+	/MUmHKl0BOg6rT9PXiQSbl6CoUP5qeh1K5+1Af7mWvvB/+G1RA==
+X-Google-Smtp-Source: ABdhPJzFCEtn7ji7EZ5nECRND30Rnub41uq1wPqmPB+hOIwcim6cV41D48iIDwNeXNxsuM3jywta7ktbgRDaXJbmjho=
+X-Received: by 2002:ac5:c952:: with SMTP id s18mr1078333vkm.5.1605213876474;
+ Thu, 12 Nov 2020 12:44:36 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7c4e40e8-8b74-4663-fd06-08d887484c0f
-X-MS-TrafficTypeDiagnostic: SN6PR03MB3694:
-X-Microsoft-Antispam-PRVS: <SN6PR03MB36948F6465E21EBE3EB0F25F8FE70@SN6PR03MB3694.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ue7IwmRSvowq0bZeGXzWCAhLYkIVV8bRJ504ko99fwzcsqOpZhTiRuPlgWnqvSNaz6VEesZHhPRMZWVydRTeVR6oqjmCrI6iQKCfdgn1GfcGjQcBHYG1sH78zkUQJyjL0aJ18ZQ0wPFFFalcs/3yHTfR5ju64JJ2o1FHN7Fs8AfdMwIBtzARRY+Unwbjb0N7ECo6dtO22x43I+5MdebuLJTeaPxAkD81Hx/3fPU2KtxUt6wSiIQu5Xk4nT9+hgbO9/VjDhOQTd8UMPNNSOFzQW9sIjDUTQqgMi14U3zdR0sRKRr3011J1rreV5zIePw/16cp8Tzu3lbglYpILUZ/XvuFLMnK/UsAcYdHfgObx2Fk+XrK00M3Z2Z66IUkfUdwWjIEejPW/souZRXtU+LgpA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(346002)(396003)(366004)(39860400002)(136003)(376002)(478600001)(16526019)(66476007)(6486002)(26005)(85182001)(4326008)(8676002)(83380400001)(33716001)(1076003)(186003)(6916009)(9686003)(966005)(66946007)(86362001)(6496006)(316002)(6666004)(2906002)(8936002)(956004)(66556008)(5660300002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: Uw/T6Ju/T+3+7v31XCDV+VyiC7qVK7jYi9qfniZEQ6GTobPSM0bdkj8Hi7dgwH9/Rwn1ykadW5RvFzRHtrA4y7k0hV3P30sifjV6xZm/yEPwOMSLGbVujWe98mmNkwSoVl7dSnM3cPcrr9lYaiMMrC9IKK9XPfKMp6ufDY/wOs//gYsaOjvJWBvL8cBLUDhWTPn9E77dD1uPJ9FgnXACgXQeExk8e3FaUYK+cqsaBDdPGOXbWFhZApGfGhEc8Ypejb34i5PMCPFiDqH5SLWQuZL1aaUtnZqjb3Z84AVprg/Z5PlNkX1SH3mGZ1kqcrYSB4Usykma5COzygvFacaOdt3OueKLXYvTSiM2eocpEsgzHw++OZSStuY2zD2HvnZzU42KyylKEwl16n6FgewLxs89OVQMtn2wOcjHCcLf06BgwGdy8a4diHv/ehEomV//BTJHPzBQBxC35oqSTFHiDBBLhrjVRpPi9C4NlIVpSEkFuXpxnJUcy1QKkwG47AuptL5N0mZTT0B8J6tK3bLCkO6WdorZp3LcmRQxth/4CZkTJP285K/FwtGPCbYBTBozWSan+2LWqapD9JmTsTo82PEuv1ssXDnSR02iEOPjVCwJmDV58y7ljPI6csjiEih8uQY37MXWv9lPcnfcmq1j5A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c4e40e8-8b74-4663-fd06-08d887484c0f
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR03MB5610.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2020 20:19:45.8816
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ij/qboOEWSv0Yq6PtzUl67k+UGb0KtUcebX/ezwfPuGVmbWAoP85oj4XMR+FcaZrZRccBXoVM+NzMvjVr9FMdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR03MB3694
-X-OriginatorOrg: citrix.com
+References: <CACJ1ZNuJCgDkRHvH2gXqC5gWTJHdUQ9J4G-HBNFwKYZFaWpWuw@mail.gmail.com>
+ <CACJ1ZNupvRX_fcGPWn3mm+3Lm4gT38M088tUc_sSUu8JeQg3Fg@mail.gmail.com>
+In-Reply-To: <CACJ1ZNupvRX_fcGPWn3mm+3Lm4gT38M088tUc_sSUu8JeQg3Fg@mail.gmail.com>
+From: Olivier Lambert <lambert.olivier@gmail.com>
+Date: Thu, 12 Nov 2020 21:44:25 +0100
+Message-ID: <CACJ1ZNu5Kdf72j1eTtdgTuSOjgkpeEWFM0cKB-54pxqwXuWCDQ@mail.gmail.com>
+Subject: Re: Schedule for OpenPOWER/Xen meeting
+To: "<xen-devel@lists.xen.org>" <xen-devel@lists.xen.org>
+Content-Type: multipart/alternative; boundary="000000000000e5562105b3eefac8"
 
-On Thu, Nov 12, 2020 at 06:27:04PM +0100, Manuel Bouyer wrote:
-> On Thu, Nov 12, 2020 at 05:32:40PM +0100, Roger Pau Monné wrote:
-> > On Thu, Nov 12, 2020 at 04:57:15PM +0100, Manuel Bouyer wrote:
-> > Can you give a try to the following debug patch and paste what you
-> > get?
-> > 
-> > Thanks, Roger.
-> > ---8<---
-> > diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-> > index 64dd0a929c..7ff76b7f59 100644
-> > --- a/xen/drivers/vpci/msix.c
-> > +++ b/xen/drivers/vpci/msix.c
-> > @@ -371,7 +371,12 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
-> >              entry->updated = false;
-> >          }
-> >          else
-> > +        {
-> > +            printk("%pp offset %u len %u new_masked %d enabled %d masked %d updated %d\n",
-> > +                   &pdev->sbdf, offset, len, new_masked, msix->enabled, msix->masked,
-> > +                   entry->updated);
-> >              vpci_msix_arch_mask_entry(entry, pdev, entry->masked);
-> > +        }
-> >  
-> >          break;
-> >      }
-> 
-> I get
-> (XEN) ffff83083feaf500p offset 12 len 4 new_masked 0 enabled 0 masked 0 updated 1
-> (XEN) Assertion 'entry->arch.pirq != INVALID_PIRQ' failed at vmsi.c:843
-> 
-> You can find the full serial console log at
-> http://www-soc.lip6.fr/~bouyer/xen-log.txt
+--000000000000e5562105b3eefac8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The following might be able to get you going, but I think I need to
-refine the logic a bit there, will have to give it some thought.
+Okay so before having the meeting webex/whatever link, I think it would be
+more efficient to plan a kind of agenda, something we can pass to the
+OpenPOWER team in the next few days. This way, they could have some answers
+ready, allowing us to explore more things interactively during the meeting.
 
-Thanks, Roger.
----8<---
-diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index 64dd0a929c..3eb6102a61 100644
---- a/xen/drivers/vpci/msix.c
-+++ b/xen/drivers/vpci/msix.c
-@@ -370,7 +370,7 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
- 
-             entry->updated = false;
-         }
--        else
-+        else if ( msix->enabled )
-             vpci_msix_arch_mask_entry(entry, pdev, entry->masked);
- 
-         break;
+Feel free to participate in this thread (even if you won't be at the
+meeting!), so we can gather and then organize a bit of what we'd like to
+know/discuss during this meeting.
+
+So go ahead and start to throw questions :)
+
+
+Thanks,
+
+OIivier.
+
+
+Le jeu. 12 nov. 2020 =C3=A0 09:26, Olivier Lambert <lambert.olivier@gmail.c=
+om> a
+=C3=A9crit :
+
+> Thanks to everyone who participated in the poll. Due to the limited numbe=
+r
+> of answers, I think it's wiser to go for the second option (Thursday the
+> 19th), because everyone who already answered seems available that day. I'=
+ll
+> confirm that to OpenPOWER. When it's confirmed, I'll do a recap here
+> ideally with the meeting place.
+>
+> Thanks,
+>
+> Olivier.
+>
+>
+> Le mar. 10 nov. 2020 =C3=A0 13:41, Olivier Lambert <lambert.olivier@gmail=
+.com>
+> a =C3=A9crit :
+>
+>> Hi everyone,
+>>
+>> We got 2 potential dates for the initial tech meeting with at least one
+>> OpenPOWER expert, so we can discuss the effort needed to port Xen on thi=
+s
+>> architecture.
+>>
+>> Because of time zones (on OpenPower side, there's one guy in Australia),
+>> we got 2 possible schedules in November:
+>>
+>> 1. 3pm CT on this Thursday the 12th (! this week)
+>> 2. Or next week Thursday the 19th
+>>
+>> I made a doodle-like so everyone can vote on their preferred schedule:
+>> https://framadate.org/QQu5rYEOEYr4ZHc4
+>>
+>> Note: 3pm CT would mean 9pm UTC, 10pm UTC+1 (CET). But correct me if I'm
+>> wrong.
+>>
+>> Reminder: the Cryptpad of the last Xen Community meeting contains the
+>> list of people interested. If you are aware of someone interested that
+>> could miss this email on this devel list, feel free to forward it. Crypt=
+pad
+>> link: https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/
+>>
+>> Thank you and see you soon!
+>>
+>> Olivier.
+>>
+>
+
+--000000000000e5562105b3eefac8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Okay so before having the meeting webex/whatever link=
+, I think it would be more efficient to plan a kind of agenda, something we=
+ can pass to the OpenPOWER team in the next few days. This way, they could =
+have some answers ready, allowing us to explore more things interactively d=
+uring the meeting.</div><div><br></div><div>Feel free to participate in thi=
+s thread (even if you won&#39;t be at the meeting!), so we can gather and t=
+hen organize a bit of what we&#39;d like to know/discuss during this meetin=
+g.</div><div><br></div><div>So go ahead and start to throw questions :)<br>=
+</div><div><div><br></div><div><br></div><div>Thanks,</div><div><br></div><=
+div>OIivier.<br></div><br></div></div><br><div class=3D"gmail_quote"><div d=
+ir=3D"ltr" class=3D"gmail_attr">Le=C2=A0jeu. 12 nov. 2020 =C3=A0=C2=A009:26=
+, Olivier Lambert &lt;<a href=3D"mailto:lambert.olivier@gmail.com">lambert.=
+olivier@gmail.com</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote class=3D=
+"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
+04,204,204);padding-left:1ex"><div dir=3D"ltr"><div>Thanks to everyone who =
+participated in the poll. Due to the limited number of answers, I think it&=
+#39;s wiser to go for the second option (Thursday the 19th), because everyo=
+ne who already answered seems available that day. I&#39;ll confirm that to =
+OpenPOWER. When it&#39;s confirmed, I&#39;ll do a recap here ideally with t=
+he meeting place.</div><div><br></div><div>Thanks,</div><div><br></div><div=
+>Olivier.<br></div><br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr=
+" class=3D"gmail_attr">Le=C2=A0mar. 10 nov. 2020 =C3=A0=C2=A013:41, Olivier=
+ Lambert &lt;<a href=3D"mailto:lambert.olivier@gmail.com" target=3D"_blank"=
+>lambert.olivier@gmail.com</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div>Hi everyone,</=
+div><div><br></div><div>We got 2 potential dates for the initial tech meeti=
+ng with at least one OpenPOWER expert, so we can discuss the effort needed =
+to port Xen on this architecture.</div><div><br></div><div>Because of time =
+zones (on OpenPower side, there&#39;s one guy in Australia), we got 2 possi=
+ble schedules in November:</div><div><br></div><div>1. 3pm CT on this Thurs=
+day the 12th (! this week)<br></div><div>2. Or next week Thursday the 19th<=
+/div><div><br></div><div>I made a doodle-like so everyone can vote on their=
+ preferred schedule: <a href=3D"https://framadate.org/QQu5rYEOEYr4ZHc4" tar=
+get=3D"_blank">https://framadate.org/QQu5rYEOEYr4ZHc4</a></div><div><br></d=
+iv><div>Note: 3pm CT would mean 9pm UTC, 10pm UTC+1 (CET). But correct me i=
+f I&#39;m wrong.</div><div><br></div><div>Reminder: the Cryptpad of the las=
+t Xen Community meeting contains the list of people interested. If you are =
+aware of someone interested that could miss this email on this devel list, =
+feel free to forward it. Cryptpad link: <a href=3D"https://cryptpad.fr/pad/=
+#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/" target=3D"_blank">https://cryptpad.=
+fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/</a></div><div><br></div><div>=
+Thank you and see you soon!</div><div><br></div><div>Olivier.<br></div></di=
+v>
+</blockquote></div>
+</blockquote></div>
+
+--000000000000e5562105b3eefac8--
 
