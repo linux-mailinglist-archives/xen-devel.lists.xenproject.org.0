@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0173F2B0BD0
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 18:57:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26003.54120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01E112B0D77
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 20:09:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26018.54138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdGqi-0002Kc-FJ; Thu, 12 Nov 2020 17:57:32 +0000
+	id 1kdHxj-0000vs-NL; Thu, 12 Nov 2020 19:08:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26003.54120; Thu, 12 Nov 2020 17:57:32 +0000
+Received: by outflank-mailman (output) from mailman id 26018.54138; Thu, 12 Nov 2020 19:08:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,88 +23,118 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdGqi-0002KD-Bs; Thu, 12 Nov 2020 17:57:32 +0000
-Received: by outflank-mailman (input) for mailman id 26003;
- Thu, 12 Nov 2020 17:57:31 +0000
+	id 1kdHxj-0000vT-Jv; Thu, 12 Nov 2020 19:08:51 +0000
+Received: by outflank-mailman (input) for mailman id 26018;
+ Thu, 12 Nov 2020 19:08:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rCOj=ES=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kdGqh-0002K8-FW
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 17:57:31 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=44Nj=ES=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kdHxi-0000vO-Ar
+ for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 19:08:50 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9d9b9b46-641d-43bd-b33e-121819da6dc3;
- Thu, 12 Nov 2020 17:57:30 +0000 (UTC)
+ id 2cf15e19-eebc-41d7-9ada-b7865fba89d3;
+ Thu, 12 Nov 2020 19:08:48 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kdHxg-00069e-0d; Thu, 12 Nov 2020 19:08:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kdHxf-0005ZS-N6; Thu, 12 Nov 2020 19:08:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kdHxf-0001pU-MZ; Thu, 12 Nov 2020 19:08:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=rCOj=ES=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kdGqh-0002K8-FW
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 17:57:31 +0000
-X-Inumbo-ID: 9d9b9b46-641d-43bd-b33e-121819da6dc3
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+	(envelope-from <SRS0=44Nj=ES=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kdHxi-0000vO-Ar
+	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 19:08:50 +0000
+X-Inumbo-ID: 2cf15e19-eebc-41d7-9ada-b7865fba89d3
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 9d9b9b46-641d-43bd-b33e-121819da6dc3;
-	Thu, 12 Nov 2020 17:57:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1605203850;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=O8dSFYATXX2/0rtv+0vpyswT6N2eKHkMas7fUESBDQA=;
-  b=GRNmge6jJi+uCniJTbcxyRlwnTnE/KKb7pvBHFPwQbW7GfM8+njR5VwA
-   +syzthVQmB+jjGzi7FaHjPNjyS2mgyX+74Ema/XFdqtyTMUUOtCaR3G0t
-   fLhr+azCChtiZkhals1k2lfweitSHDJLmHW5oUTyyQj3mrf/GmRd/wx+2
-   o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 3vWL9XZGgiTZLWbfUf8OjRUmPowL2Tu1NgRlwjmOkLZSDQ+ahdxleXzus6XQKiHhi4iWnwOQf2
- BF/RBbjM8zQo8aqmOAvvUTysFDIXbeZ9puIIo2X2MNxWWCWRWrGZxcEujPll4divYiL5j7v0SJ
- O/Npv4gYAaK/mGY2WNOpM8YOGqovr0sC80AFsV0PovW2haIZF5f0J5uib1aWUB2aIcoN0NTuIz
- 9+HcJN/08+mH1ZxdzTBZ4xQ6KfCaWRGII/P0PMXBl4Q/gcjRUdbLrYB8jr77mQiXxPh2RE9OLC
- Fok=
-X-SBRS: None
-X-MesageID: 31056687
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,472,1596513600"; 
-   d="scan'208";a="31056687"
-Subject: Re: dom0 PVH: 'entry->arch.pirq != INVALID_PIRQ' failed at vmsi.c:843
-To: Manuel Bouyer <bouyer@antioche.eu.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>
-References: <20201112155715.GA5003@antioche.eu.org>
- <20201112163240.6xswol2iswikdzef@Air-de-Roger>
- <20201112172704.GA5899@antioche.eu.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f5fd0199-698b-5bb9-87bb-4365855b0e27@citrix.com>
-Date: Thu, 12 Nov 2020 17:57:18 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20201112172704.GA5899@antioche.eu.org>
-Content-Type: text/plain; charset="utf-8"
+	id 2cf15e19-eebc-41d7-9ada-b7865fba89d3;
+	Thu, 12 Nov 2020 19:08:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=vKWDXLzdSOZf5O7y7eEnyxGuoqi7lxuCXx8h6B7Jt44=; b=ofIWlMZWoxy0Kuq52NoRE8eq16
+	e6N1PH+J6pAKAWZGvpTlO3mWkqcZncSn/+fSzAa6jeNeZjcC0wwSJ0VdFfBf75OJpit7+Sp3hZRNT
+	7sqyOLnW1l77UOu55m3XFq6mkcVd3tjSNKn2W7dC1C14HJVfukYuRt2td9neZmlTthSo=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kdHxg-00069e-0d; Thu, 12 Nov 2020 19:08:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kdHxf-0005ZS-N6; Thu, 12 Nov 2020 19:08:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kdHxf-0001pU-MZ; Thu, 12 Nov 2020 19:08:47 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156693-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+MIME-Version: 1.0
+Subject: [xtf test] 156693: all pass - PUSHED
+X-Osstest-Versions-This:
+    xtf=8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+X-Osstest-Versions-That:
+    xtf=848c3f2dd42711c4d9fc01839d6630c115daa22f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 12 Nov 2020 19:08:47 +0000
 
-On 12/11/2020 17:27, Manuel Bouyer wrote:
-> On Thu, Nov 12, 2020 at 05:32:40PM +0100, Roger Pau Monné wrote:
->> On Thu, Nov 12, 2020 at 04:57:15PM +0100, Manuel Bouyer wrote:
->>> Hello,
->>> I'm trying to add dom0 PVH support to NetBSD. I'm tesing with Xen 4.13
->>> on a brand new Intel x86 server (Dell R440).
->> I would recommend using 4.14, PVH dom0 is still very much in
->> progress, and while I don't recall any specific fix going in 4.14 that
->> could be related to this there have been changes.
-> packaging Xen on NetBSD requires quite a bit of work; so I don't package
-> every releases. I still need to get NetBSD patches in shape to contribute
-> back ...
+flight 156693 xtf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156693/
 
-For issues like this, you don't need to package all of Xen.  You can
-just build the hypervisor locally and boot that.  (It doesn't matter if
-the dom0 userspace doesn't come up cleanly if you're debugging a general
-issue between the kernel and Xen.)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xtf                  8ab15139728a8efd3ebbb60beb16a958a6a93fa1
+baseline version:
+ xtf                  848c3f2dd42711c4d9fc01839d6630c115daa22f
 
-~Andrew
+Last test of basis   156541  2020-11-07 19:44:12 Z    4 days
+Testing same since   156693  2020-11-12 00:13:53 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-amd64-pvops                                            pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xtf.git
+   848c3f2..8ab1513  8ab15139728a8efd3ebbb60beb16a958a6a93fa1 -> xen-tested-master
 
