@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9338A2B0130
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 09:27:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25530.53343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E8C62B0139
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 09:31:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.25537.53355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kd7wH-0007Cm-Dz; Thu, 12 Nov 2020 08:26:41 +0000
+	id 1kd80w-0008AP-1Z; Thu, 12 Nov 2020 08:31:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25530.53343; Thu, 12 Nov 2020 08:26:41 +0000
+Received: by outflank-mailman (output) from mailman id 25537.53355; Thu, 12 Nov 2020 08:31:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,151 +23,216 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kd7wH-0007CQ-Ac; Thu, 12 Nov 2020 08:26:41 +0000
-Received: by outflank-mailman (input) for mailman id 25530;
- Thu, 12 Nov 2020 08:26:40 +0000
+	id 1kd80v-0008A0-UL; Thu, 12 Nov 2020 08:31:29 +0000
+Received: by outflank-mailman (input) for mailman id 25537;
+ Thu, 12 Nov 2020 08:31:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AYe4=ES=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
- id 1kd7wG-0007CK-7t
- for xen-devel@lists.xen.org; Thu, 12 Nov 2020 08:26:40 +0000
-Received: from mail-vs1-xe2e.google.com (unknown [2607:f8b0:4864:20::e2e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2UFB=ES=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kd80t-00089v-Tt
+ for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 08:31:27 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ca3e4887-efc0-4377-8209-46c2b5ed791b;
- Thu, 12 Nov 2020 08:26:39 +0000 (UTC)
-Received: by mail-vs1-xe2e.google.com with SMTP id t8so2767880vsr.2
- for <xen-devel@lists.xen.org>; Thu, 12 Nov 2020 00:26:39 -0800 (PST)
+ id 9da97217-b18a-4f16-99f5-fddbde9e71e4;
+ Thu, 12 Nov 2020 08:31:26 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B6A65AB95;
+ Thu, 12 Nov 2020 08:31:25 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=AYe4=ES=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
-	id 1kd7wG-0007CK-7t
-	for xen-devel@lists.xen.org; Thu, 12 Nov 2020 08:26:40 +0000
-X-Inumbo-ID: ca3e4887-efc0-4377-8209-46c2b5ed791b
-Received: from mail-vs1-xe2e.google.com (unknown [2607:f8b0:4864:20::e2e])
+	(envelope-from <SRS0=2UFB=ES=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kd80t-00089v-Tt
+	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 08:31:27 +0000
+X-Inumbo-ID: 9da97217-b18a-4f16-99f5-fddbde9e71e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ca3e4887-efc0-4377-8209-46c2b5ed791b;
-	Thu, 12 Nov 2020 08:26:39 +0000 (UTC)
-Received: by mail-vs1-xe2e.google.com with SMTP id t8so2767880vsr.2
-        for <xen-devel@lists.xen.org>; Thu, 12 Nov 2020 00:26:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=KxYhA8URFOUVcC0n9xmCpT8QbAW4X/j6MTL50w9Xv+Y=;
-        b=JyazXarXJkKXpgjS4XKdjHJi3hq/cbDovM1p7LULp/Xl7trXAiqDBEHiCRaF+5R9QH
-         K+BLQ+LvljnFxFbho8s0NqBsGIZS4aCq0vjSJsqyvkiycRqdXmV1MrNWxUmjb8jMe+Hb
-         FDIVoRxI1GgljYxcPAHD3d9uaIu8uqC6EAC/ncerHoSBsC6CmUfgLVtiGbvWzGQ2chtP
-         v/S037TMDRUBvDnhVSyhby6aq+ZzA3nwaM57nyKXo6EVihAvz5EkZVAOW6lsbGeH9+uZ
-         OCp4ocGP20R148Z/1n7HKy2UJQPtjYN8lAAJz9+zuA9Yk08BY1uwGa+yIhw/1q8RIAhq
-         UC2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=KxYhA8URFOUVcC0n9xmCpT8QbAW4X/j6MTL50w9Xv+Y=;
-        b=KMt9abQCb1XDXJRxFCZoZR94ZnFe18TPmFc0ylILfzOXlmFWanXrJzjAsl7Fa5lgul
-         o3hZWzo6rt2rGV9wC9309Q/67ht6iIC4dpKeCgKqUByyi+pajtNfIl2bLNHscdKi0Usq
-         jMrp23QtKvagrH1Tu48zaFvgmeaqs6wjVAIf6feVGkIwEeLRTgTlHa0COWEaSnkRim6/
-         AMvdd7H39rXAfCOVVInYBtmLrvQFyQru393vYjpCOOug1eVxhP5ARiVFg6cUyRlr3YEP
-         XBWHXTwociMTejXqS6vv6uo4yHYtrdDPvIx791d9FdVqZ9eBTiRMIVLOi+hULJWf5LN3
-         IuQQ==
-X-Gm-Message-State: AOAM530Q//dHNPVwcOah0HoZT2qcyZzNB7zq/3zBtCXq1/9XfwxuqjEz
-	IK1kcRB2KbO7zttFuIVM0LyXkNQZmSANbhdWoGoN9KGksh+J+g==
-X-Google-Smtp-Source: ABdhPJzQE3tiJQZNmAjPnQ1wb6Lraey1Do5/fs85bFNEmek/z6CTzHURxnPJveTvm6etSr1EU8zVxPqUtPv+qFdGFkw=
-X-Received: by 2002:a67:ff10:: with SMTP id v16mr17617590vsp.40.1605169598624;
- Thu, 12 Nov 2020 00:26:38 -0800 (PST)
+	id 9da97217-b18a-4f16-99f5-fddbde9e71e4;
+	Thu, 12 Nov 2020 08:31:26 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605169885;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O1dPkWLjtvBC5R6zavbQ4rFJdkZlkirqroDdoeHfwBo=;
+	b=XwWmUh6g146sj0GLPdIBM3OxRfxzgIGhM95VW7EVxi8NwThrCdmp29fCpE6f0ZQSR65ir1
+	L7ufwD1rjQkwj7fYfAeJXfmFz4OLmT4OQku4IAGX0E9WzSrhmX2m9adBIhFhUWUzc3If+Q
+	u52o5AjpOZbC0WNeVXSxeiuKL1RksOo=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id B6A65AB95;
+	Thu, 12 Nov 2020 08:31:25 +0000 (UTC)
+Subject: Re: [RFC PATCH v2 05/15] xen/arm: pull in Linux atomics helpers and
+ dependencies
+To: Ash Wilding <ash.j.wilding@gmail.com>
+Cc: julien@xen.org, bertrand.marquis@arm.com, rahul.singh@arm.com,
+ xen-devel@lists.xenproject.org
+References: <20201111215203.80336-1-ash.j.wilding@gmail.com>
+ <20201111215203.80336-6-ash.j.wilding@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e5603684-1f4b-83f3-8b80-6c9d045912cc@suse.com>
+Date: Thu, 12 Nov 2020 09:31:26 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.1
 MIME-Version: 1.0
-References: <CACJ1ZNuJCgDkRHvH2gXqC5gWTJHdUQ9J4G-HBNFwKYZFaWpWuw@mail.gmail.com>
-In-Reply-To: <CACJ1ZNuJCgDkRHvH2gXqC5gWTJHdUQ9J4G-HBNFwKYZFaWpWuw@mail.gmail.com>
-From: Olivier Lambert <lambert.olivier@gmail.com>
-Date: Thu, 12 Nov 2020 09:26:27 +0100
-Message-ID: <CACJ1ZNupvRX_fcGPWn3mm+3Lm4gT38M088tUc_sSUu8JeQg3Fg@mail.gmail.com>
-Subject: Re: Schedule for OpenPOWER/Xen meeting
-To: "<xen-devel@lists.xen.org>" <xen-devel@lists.xen.org>
-Content-Type: multipart/alternative; boundary="000000000000baf5ef05b3e4aba9"
+In-Reply-To: <20201111215203.80336-6-ash.j.wilding@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---000000000000baf5ef05b3e4aba9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 11.11.2020 22:51, Ash Wilding wrote:
+> From: Ash Wilding <ash.j.wilding@gmail.com>
+> 
+> This patch pulls in Linux's atomics helpers for arm32 and arm64, and
+> their dependencies, as-is.
+> 
+> Note that Linux's arm32 atomics helpers use the READ_ONCE() and
+> WRITE_ONCE() macros defined in <asm-generic/rwonce.h>, while Linux's
+> arm64 atomics helpers use __READ_ONCE() and __WRITE_ONCE().
 
-Thanks to everyone who participated in the poll. Due to the limited number
-of answers, I think it's wiser to go for the second option (Thursday the
-19th), because everyone who already answered seems available that day. I'll
-confirm that to OpenPOWER. When it's confirmed, I'll do a recap here
-ideally with the meeting place.
+And our ACCESS_ONCE() can't be used, or be made usable? I don't think
+we want a 3rd variant when we're already in the process of discussing
+how to fold the two ones we have right now.
 
-Thanks,
+> The only difference is that the __* versions skip checking whether the
+> object being accessed is the same size as a native C type (e.g. char,
+> int, long, etc). Given the arm32 helpers are using the macros to access
+> an atomic_t's counter member, which is an int, we can skip this check by
+> using the __* versions like the arm64 code does.
+> 
+> I mention this here because it forms the first part of my justification
+> for *not* copying Linux's <linux/compiler_types.h> to Xen; the size
+> check described above is performed by __native_word() defined in that
+> header.
+> 
+> The second part of my justification may be more contentious; as you'll
+> see in the next patch, I intend to drop the __unqual_scalar_typeof()
+> calls in __READ_ONCE() and __WRITE_ONCE(). This is because the pointer
+> to the atomic_t's counter member is always a basic (int *) so we don't
+> need this, and dropping it means we can avoid having to port Linux's
+> <linux/compiler_types.h>.
 
-Olivier.
+I don't think weakening the checking is a good idea when the macros
+are being made available for general use. If they'd be renamed to be
+private flavors for use just in Arm's atomics, this would be a
+different thing.
 
+> If people are against this approach, please bear in mind that the
+> current version of __unqual_scalar_typeof() in <linux/compiler_types.h>
+> was actually the reason for Linux upgrading the minimum GCC version
+> required to 4.9 earlier this year so that they can guarantee C11
+> _Generic support [1].
+> 
+> So if we do want to take Linux's <linux/compiler_types.h> we'll either
+> need to:
+> 
+>    A) bump up the minimum required version of GCC to 4.9 to match
+>       that required by Linux; in the Xen README we currently state
+>       GCC 4.8 for Arm and GCC 4.1.2_20070115 for x86.
 
-Le mar. 10 nov. 2020 =C3=A0 13:41, Olivier Lambert <lambert.olivier@gmail.c=
-om> a
-=C3=A9crit :
+Discussion about bumping the baseline has started, but is progressing
+rather slowly. I'm not an Arm maintainer, but it would seem to me
+that going from 4.8 to 4.9 just for Arm at this point may be easier
+than the decision what the new baseline ought to be for x86.
 
-> Hi everyone,
->
-> We got 2 potential dates for the initial tech meeting with at least one
-> OpenPOWER expert, so we can discuss the effort needed to port Xen on this
-> architecture.
->
-> Because of time zones (on OpenPower side, there's one guy in Australia),
-> we got 2 possible schedules in November:
->
-> 1. 3pm CT on this Thursday the 12th (! this week)
-> 2. Or next week Thursday the 19th
->
-> I made a doodle-like so everyone can vote on their preferred schedule:
-> https://framadate.org/QQu5rYEOEYr4ZHc4
->
-> Note: 3pm CT would mean 9pm UTC, 10pm UTC+1 (CET). But correct me if I'm
-> wrong.
->
-> Reminder: the Cryptpad of the last Xen Community meeting contains the lis=
-t
-> of people interested. If you are aware of someone interested that could
-> miss this email on this devel list, feel free to forward it. Cryptpad lin=
-k:
-> https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/
->
-> Thank you and see you soon!
->
-> Olivier.
->
+> --- /dev/null
+> +++ b/xen/include/xen/rwonce.h
+> @@ -0,0 +1,90 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Prevent the compiler from merging or refetching reads or writes. The
+> + * compiler is also forbidden from reordering successive instances of
+> + * READ_ONCE and WRITE_ONCE, but only when the compiler is aware of some
+> + * particular ordering. One way to make the compiler aware of ordering is to
+> + * put the two invocations of READ_ONCE or WRITE_ONCE in different C
+> + * statements.
+> + *
+> + * These two macros will also work on aggregate data types like structs or
+> + * unions.
+> + *
+> + * Their two major use cases are: (1) Mediating communication between
+> + * process-level code and irq/NMI handlers, all running on the same CPU,
+> + * and (2) Ensuring that the compiler does not fold, spindle, or otherwise
+> + * mutilate accesses that either do not require ordering or that interact
+> + * with an explicit memory barrier or atomic instruction that provides the
+> + * required ordering.
+> + */
+> +#ifndef __ASM_GENERIC_RWONCE_H
+> +#define __ASM_GENERIC_RWONCE_H
+> +
+> +#ifndef __ASSEMBLY__
+> +
+> +#include <linux/compiler_types.h>
+> +#include <linux/kasan-checks.h>
+> +#include <linux/kcsan-checks.h>
+> +
+> +/*
+> + * Yes, this permits 64-bit accesses on 32-bit architectures. These will
+> + * actually be atomic in some cases (namely Armv7 + LPAE), but for others we
+> + * rely on the access being split into 2x32-bit accesses for a 32-bit quantity
+> + * (e.g. a virtual address) and a strong prevailing wind.
+> + */
+> +#define compiletime_assert_rwonce_type(t)					\
+> +	compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),	\
+> +		"Unsupported access size for {READ,WRITE}_ONCE().")
+> +
+> +/*
+> + * Use __READ_ONCE() instead of READ_ONCE() if you do not require any
+> + * atomicity. Note that this may result in tears!
+> + */
+> +#ifndef __READ_ONCE
+> +#define __READ_ONCE(x)	(*(const volatile __unqual_scalar_typeof(x) *)&(x))
+> +#endif
+> +
+> +#define READ_ONCE(x)							\
+> +({									\
+> +	compiletime_assert_rwonce_type(x);				\
+> +	__READ_ONCE(x);							\
+> +})
+> +
+> +#define __WRITE_ONCE(x, val)						\
+> +do {									\
+> +	*(volatile typeof(x) *)&(x) = (val);				\
+> +} while (0)
+> +
+> +#define WRITE_ONCE(x, val)						\
+> +do {									\
+> +	compiletime_assert_rwonce_type(x);				\
+> +	__WRITE_ONCE(x, val);						\
+> +} while (0)
+> +
+> +static __no_sanitize_or_inline
+> +unsigned long __read_once_word_nocheck(const void *addr)
+> +{
+> +	return __READ_ONCE(*(unsigned long *)addr);
+> +}
+> +
+> +/*
+> + * Use READ_ONCE_NOCHECK() instead of READ_ONCE() if you need to load a
+> + * word from memory atomically but without telling KASAN/KCSAN. This is
+> + * usually used by unwinding code when walking the stack of a running process.
+> + */
+> +#define READ_ONCE_NOCHECK(x)						\
+> +({									\
+> +	compiletime_assert(sizeof(x) == sizeof(unsigned long),		\
+> +		"Unsupported access size for READ_ONCE_NOCHECK().");	\
+> +	(typeof(x))__read_once_word_nocheck(&(x));			\
+> +})
+> +
+> +static __no_kasan_or_inline
+> +unsigned long read_word_at_a_time(const void *addr)
+> +{
+> +	kasan_check_read(addr, 1);
+> +	return *(unsigned long *)addr;
+> +}
+> +
+> +#endif /* __ASSEMBLY__ */
+> +#endif	/* __ASM_GENERIC_RWONCE_H */
+> \ No newline at end of file
 
---000000000000baf5ef05b3e4aba9
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This wants taking care of in any event - there are multiple instances
+in this patch (in fact it looks as if all of the new files had this
+issue), and I didn't check others.
 
-<div dir=3D"ltr"><div>Thanks to everyone who participated in the poll. Due =
-to the limited number of answers, I think it&#39;s wiser to go for the seco=
-nd option (Thursday the 19th), because everyone who already answered seems =
-available that day. I&#39;ll confirm that to OpenPOWER. When it&#39;s confi=
-rmed, I&#39;ll do a recap here ideally with the meeting place.</div><div><b=
-r></div><div>Thanks,</div><div><br></div><div>Olivier.<br></div><br></div><=
-br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Le=C2=
-=A0mar. 10 nov. 2020 =C3=A0=C2=A013:41, Olivier Lambert &lt;<a href=3D"mail=
-to:lambert.olivier@gmail.com">lambert.olivier@gmail.com</a>&gt; a =C3=A9cri=
-t=C2=A0:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div di=
-r=3D"ltr"><div>Hi everyone,</div><div><br></div><div>We got 2 potential dat=
-es for the initial tech meeting with at least one OpenPOWER expert, so we c=
-an discuss the effort needed to port Xen on this architecture.</div><div><b=
-r></div><div>Because of time zones (on OpenPower side, there&#39;s one guy =
-in Australia), we got 2 possible schedules in November:</div><div><br></div=
-><div>1. 3pm CT on this Thursday the 12th (! this week)<br></div><div>2. Or=
- next week Thursday the 19th</div><div><br></div><div>I made a doodle-like =
-so everyone can vote on their preferred schedule: <a href=3D"https://framad=
-ate.org/QQu5rYEOEYr4ZHc4" target=3D"_blank">https://framadate.org/QQu5rYEOE=
-Yr4ZHc4</a></div><div><br></div><div>Note: 3pm CT would mean 9pm UTC, 10pm =
-UTC+1 (CET). But correct me if I&#39;m wrong.</div><div><br></div><div>Remi=
-nder: the Cryptpad of the last Xen Community meeting contains the list of p=
-eople interested. If you are aware of someone interested that could miss th=
-is email on this devel list, feel free to forward it. Cryptpad link: <a hre=
-f=3D"https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/" target=
-=3D"_blank">https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/<=
-/a></div><div><br></div><div>Thank you and see you soon!</div><div><br></di=
-v><div>Olivier.<br></div></div>
-</blockquote></div>
-
---000000000000baf5ef05b3e4aba9--
+Jan
 
