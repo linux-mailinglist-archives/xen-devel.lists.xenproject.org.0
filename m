@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58A472B0BA8
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 18:53:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25996.54108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0173F2B0BD0
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 18:57:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26003.54120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdGln-00028I-RL; Thu, 12 Nov 2020 17:52:27 +0000
+	id 1kdGqi-0002Kc-FJ; Thu, 12 Nov 2020 17:57:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25996.54108; Thu, 12 Nov 2020 17:52:27 +0000
+Received: by outflank-mailman (output) from mailman id 26003.54120; Thu, 12 Nov 2020 17:57:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,87 +23,88 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdGln-00027v-Ni; Thu, 12 Nov 2020 17:52:27 +0000
-Received: by outflank-mailman (input) for mailman id 25996;
- Thu, 12 Nov 2020 17:52:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zwMZ=ES=xen.org=tim@srs-us1.protection.inumbo.net>)
- id 1kdGll-00027q-Ii
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 17:52:25 +0000
-Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e15a3fc2-f6e3-4e06-830c-b1d07598f259;
- Thu, 12 Nov 2020 17:52:24 +0000 (UTC)
-Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.3 (FreeBSD))
- (envelope-from <tim@xen.org>)
- id 1kdGlh-000BVF-1b; Thu, 12 Nov 2020 17:52:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kdGqi-0002KD-Bs; Thu, 12 Nov 2020 17:57:32 +0000
+Received: by outflank-mailman (input) for mailman id 26003;
+ Thu, 12 Nov 2020 17:57:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rCOj=ES=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kdGqh-0002K8-FW
+ for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 17:57:31 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9d9b9b46-641d-43bd-b33e-121819da6dc3;
+ Thu, 12 Nov 2020 17:57:30 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=zwMZ=ES=xen.org=tim@srs-us1.protection.inumbo.net>)
-	id 1kdGll-00027q-Ii
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 17:52:25 +0000
-X-Inumbo-ID: e15a3fc2-f6e3-4e06-830c-b1d07598f259
-Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e15a3fc2-f6e3-4e06-830c-b1d07598f259;
-	Thu, 12 Nov 2020 17:52:24 +0000 (UTC)
-Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.3 (FreeBSD))
-	(envelope-from <tim@xen.org>)
-	id 1kdGlh-000BVF-1b; Thu, 12 Nov 2020 17:52:21 +0000
-Date: Thu, 12 Nov 2020 17:52:21 +0000
-From: Tim Deegan <tim@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <George.Dunlap@eu.citrix.com>
-Subject: Re: [PATCH 5/5] x86/p2m: split write_p2m_entry() hook
-Message-ID: <20201112175221.GB43943@deinos.phlegethon.org>
-References: <29d30de1-2a8d-aee2-d3c3-331758766fc9@suse.com>
- <7b2b7cc9-8828-41bd-7949-764161bbe7ff@suse.com>
- <20201110135944.hbsojy6eeyw53has@Air-de-Roger>
- <d73234b0-f22e-0783-3fbe-759ccb0ecc48@suse.com>
- <20201111121730.pblsf6inot5gixfc@Air-de-Roger>
- <7f916527-9a9c-8afe-5e5c-781554d1bd73@suse.com>
- <20201112130709.r3acpkrkyck6arul@Air-de-Roger>
- <51e646d4-3e1b-3698-c649-a39840275ec9@suse.com>
+	(envelope-from <SRS0=rCOj=ES=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kdGqh-0002K8-FW
+	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 17:57:31 +0000
+X-Inumbo-ID: 9d9b9b46-641d-43bd-b33e-121819da6dc3
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 9d9b9b46-641d-43bd-b33e-121819da6dc3;
+	Thu, 12 Nov 2020 17:57:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1605203850;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=O8dSFYATXX2/0rtv+0vpyswT6N2eKHkMas7fUESBDQA=;
+  b=GRNmge6jJi+uCniJTbcxyRlwnTnE/KKb7pvBHFPwQbW7GfM8+njR5VwA
+   +syzthVQmB+jjGzi7FaHjPNjyS2mgyX+74Ema/XFdqtyTMUUOtCaR3G0t
+   fLhr+azCChtiZkhals1k2lfweitSHDJLmHW5oUTyyQj3mrf/GmRd/wx+2
+   o=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 3vWL9XZGgiTZLWbfUf8OjRUmPowL2Tu1NgRlwjmOkLZSDQ+ahdxleXzus6XQKiHhi4iWnwOQf2
+ BF/RBbjM8zQo8aqmOAvvUTysFDIXbeZ9puIIo2X2MNxWWCWRWrGZxcEujPll4divYiL5j7v0SJ
+ O/Npv4gYAaK/mGY2WNOpM8YOGqovr0sC80AFsV0PovW2haIZF5f0J5uib1aWUB2aIcoN0NTuIz
+ 9+HcJN/08+mH1ZxdzTBZ4xQ6KfCaWRGII/P0PMXBl4Q/gcjRUdbLrYB8jr77mQiXxPh2RE9OLC
+ Fok=
+X-SBRS: None
+X-MesageID: 31056687
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,472,1596513600"; 
+   d="scan'208";a="31056687"
+Subject: Re: dom0 PVH: 'entry->arch.pirq != INVALID_PIRQ' failed at vmsi.c:843
+To: Manuel Bouyer <bouyer@antioche.eu.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+	<roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>
+References: <20201112155715.GA5003@antioche.eu.org>
+ <20201112163240.6xswol2iswikdzef@Air-de-Roger>
+ <20201112172704.GA5899@antioche.eu.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <f5fd0199-698b-5bb9-87bb-4365855b0e27@citrix.com>
+Date: Thu, 12 Nov 2020 17:57:18 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+In-Reply-To: <20201112172704.GA5899@antioche.eu.org>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <51e646d4-3e1b-3698-c649-a39840275ec9@suse.com>
-X-SA-Known-Good: Yes
-X-SA-Exim-Connect-IP: <locally generated>
-X-SA-Exim-Mail-From: tim@xen.org
-X-SA-Exim-Scanned: No (on deinos.phlegethon.org); SAEximRunCond expanded to false
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL04.citrite.net (10.13.108.177)
 
-At 15:04 +0100 on 12 Nov (1605193496), Jan Beulich wrote:
-> On 12.11.2020 14:07, Roger Pau Monn� wrote:
-> > On Thu, Nov 12, 2020 at 01:29:33PM +0100, Jan Beulich wrote:
-> >> I agree with all this. If only it was merely about TLB flushes. In
-> >> the shadow case, shadow_blow_all_tables() gets invoked, and that
-> >> one - looking at the other call sites - wants the paging lock held.
-[...]
-> > The post hook for shadow could pick the lock again, as I don't think
-> > the removal of the tables needs to be strictly done inside of the same
-> > locked region?
-> 
-> I think it does, or else a use of the now stale tables may occur
-> before they got blown away. Tim?
+On 12/11/2020 17:27, Manuel Bouyer wrote:
+> On Thu, Nov 12, 2020 at 05:32:40PM +0100, Roger Pau Monné wrote:
+>> On Thu, Nov 12, 2020 at 04:57:15PM +0100, Manuel Bouyer wrote:
+>>> Hello,
+>>> I'm trying to add dom0 PVH support to NetBSD. I'm tesing with Xen 4.13
+>>> on a brand new Intel x86 server (Dell R440).
+>> I would recommend using 4.14, PVH dom0 is still very much in
+>> progress, and while I don't recall any specific fix going in 4.14 that
+>> could be related to this there have been changes.
+> packaging Xen on NetBSD requires quite a bit of work; so I don't package
+> every releases. I still need to get NetBSD patches in shape to contribute
+> back ...
 
-Is this the call to shadow_blow_tables() in the write_p2m_entry path?
-I think it would be safe to drop and re-take the paging lock there as
-long as the call happens before the write is considered to have
-finished.
+For issues like this, you don't need to package all of Xen.  You can
+just build the hypervisor locally and boot that.  (It doesn't matter if
+the dom0 userspace doesn't come up cleanly if you're debugging a general
+issue between the kernel and Xen.)
 
-But it would not be a useful performance improvement - any update that
-takes this path is going to be very slow regardless.  So unless you
-have another pressing reason to split it up, I would be inclined to
-leave it as it is.  That way it's easier to see that the locking is
-correct.
-
-Cheers,
-
-Tim.
+~Andrew
 
