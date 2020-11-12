@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A1B32B0613
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E7402B0615
 	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 14:14:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25844.53874 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.25846.53898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdCQp-00060C-4B; Thu, 12 Nov 2020 13:14:31 +0000
+	id 1kdCQs-000641-SK; Thu, 12 Nov 2020 13:14:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25844.53874; Thu, 12 Nov 2020 13:14:31 +0000
+Received: by outflank-mailman (output) from mailman id 25846.53898; Thu, 12 Nov 2020 13:14:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,30 +23,31 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdCQp-0005zm-0H; Thu, 12 Nov 2020 13:14:31 +0000
-Received: by outflank-mailman (input) for mailman id 25844;
- Thu, 12 Nov 2020 13:14:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kdCQs-00063U-Nj; Thu, 12 Nov 2020 13:14:34 +0000
+Received: by outflank-mailman (input) for mailman id 25846;
+ Thu, 12 Nov 2020 13:14:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bXVH=ES=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kdCQm-0005zd-Rb
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 13:14:28 +0000
+ id 1kdCQr-0005zc-LT
+ for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 13:14:33 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a20110c-d835-4432-bc95-9ad6e4a819ca;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1999fd1d-427f-4341-a99f-98b0cbee6c58;
  Thu, 12 Nov 2020 13:14:27 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0639EAD31;
+ by mx2.suse.de (Postfix) with ESMTP id 30214AD35;
  Thu, 12 Nov 2020 13:14:27 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=bXVH=ES=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kdCQm-0005zd-Rb
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 13:14:28 +0000
-X-Inumbo-ID: 4a20110c-d835-4432-bc95-9ad6e4a819ca
+	id 1kdCQr-0005zc-LT
+	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 13:14:33 +0000
+X-Inumbo-ID: 1999fd1d-427f-4341-a99f-98b0cbee6c58
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 4a20110c-d835-4432-bc95-9ad6e4a819ca;
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 1999fd1d-427f-4341-a99f-98b0cbee6c58;
 	Thu, 12 Nov 2020 13:14:27 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
@@ -55,12 +56,12 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fMXlwXyF+4tXesHMIFZzu/eTSNLM+Yoxq+N7JqzPdL0=;
-	b=JDE5qnZR4u+Zq1WJB6ZqJyBKZJFybw6R6w8kazehxa0oN32V0eBsZPGb/WEeyFqkeVMZuM
-	Bm63Y9xjhWJpJ/YsMXTckP/rKNzlySF4lrbHvUE1jGM/FBvcgJZOHdMhlaoueHAJA7GQ11
-	kjb3KXmNwwdUxAb92B06K8zAeJjrIT4=
+	bh=o5mPHjtNvM0yH04ZefCYBX4buH74RoSJz6jycMDPprc=;
+	b=oEpRvoOdLB5fo5jNnw8aZ55Gx118FqotuNyKj1o63IPHzGeRyZ50h08TtRhLR+wld+sa4U
+	oAIoOwFGnaVnUIiQn3V4qkt82GXaKTYtagwaMYDntKAbBTpXNHCiMdVWkRr2HNiCcz5+Lq
+	6w2nE6GX/UCdUCzhmy+oSN7sOtFiqus=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 0639EAD31;
+	by mx2.suse.de (Postfix) with ESMTP id 30214AD35;
 	Thu, 12 Nov 2020 13:14:27 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
@@ -69,125 +70,102 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v5 2/3] xen/oprofile: use NMI continuation for sending virq to guest
-Date: Thu, 12 Nov 2020 14:14:23 +0100
-Message-Id: <20201112131424.9930-3-jgross@suse.com>
+Subject: [PATCH v5 3/3] xen/x86: issue pci_serr error message via NMI continuation
+Date: Thu, 12 Nov 2020 14:14:24 +0100
+Message-Id: <20201112131424.9930-4-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201112131424.9930-1-jgross@suse.com>
 References: <20201112131424.9930-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of calling send_guest_vcpu_virq() from NMI context use the
-NMI continuation framework for that purpose. This avoids taking locks
-in NMI mode.
+Instead of using a softirq pci_serr_error() can use NMI continuation
+for issuing an error message.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 V5:
-- use Linux coding style (Jan Beulich)
-- assume races could happen (Jan Beulich)
-
+- make PCISERR higher prior than oprofile (Jan Beulich)
 V4:
 - rework to less generic approach
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- xen/arch/x86/oprofile/nmi_int.c | 19 +++++++++++++++++--
- xen/arch/x86/traps.c            |  4 ++++
- xen/include/asm-x86/xenoprof.h  |  7 +++++++
- 3 files changed, 28 insertions(+), 2 deletions(-)
+ xen/arch/x86/traps.c          | 21 +++++++++++++++------
+ xen/include/asm-x86/softirq.h |  5 ++---
+ 2 files changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/x86/oprofile/nmi_int.c b/xen/arch/x86/oprofile/nmi_int.c
-index 0f103d80a6..a13bd82915 100644
---- a/xen/arch/x86/oprofile/nmi_int.c
-+++ b/xen/arch/x86/oprofile/nmi_int.c
-@@ -38,6 +38,8 @@ static unsigned long saved_lvtpc[NR_CPUS];
- 
- static char *cpu_type;
- 
-+static DEFINE_PER_CPU(struct vcpu *, nmi_cont_vcpu);
-+
- static int passive_domain_msr_op_checks(unsigned int msr, int *typep, int *indexp)
- {
- 	struct vpmu_struct *vpmu = vcpu_vpmu(current);
-@@ -83,14 +85,27 @@ void passive_domain_destroy(struct vcpu *v)
- 		model->free_msr(v);
- }
- 
-+bool nmi_oprofile_send_virq(void)
-+{
-+	struct vcpu *v = xchg(&this_cpu(nmi_cont_vcpu), NULL);
-+
-+	if (v)
-+		send_guest_vcpu_virq(v, VIRQ_XENOPROF);
-+
-+	return v;
-+}
-+
- static int nmi_callback(const struct cpu_user_regs *regs, int cpu)
- {
- 	int xen_mode, ovf;
- 
- 	ovf = model->check_ctrs(cpu, &cpu_msrs[cpu], regs);
- 	xen_mode = ring_0(regs);
--	if ( ovf && is_active(current->domain) && !xen_mode )
--		send_guest_vcpu_virq(current, VIRQ_XENOPROF);
-+	if (ovf && is_active(current->domain) && !xen_mode &&
-+	    !this_cpu(nmi_cont_vcpu)) {
-+		this_cpu(nmi_cont_vcpu) = current;
-+		trigger_nmi_continuation();
-+	}
- 
- 	if ( ovf == 2 )
- 		current->arch.nmi_pending = true;
 diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 5cbaa49031..240fd1b089 100644
+index 240fd1b089..0459cee9fb 100644
 --- a/xen/arch/x86/traps.c
 +++ b/xen/arch/x86/traps.c
-@@ -65,6 +65,7 @@
- #include <asm/debugger.h>
- #include <asm/msr.h>
- #include <asm/nmi.h>
-+#include <asm/xenoprof.h>
- #include <asm/shared.h>
- #include <asm/x86_emulate.h>
- #include <asm/traps.h>
-@@ -1805,6 +1806,9 @@ bool nmi_check_continuation(void)
+@@ -1661,10 +1661,18 @@ void do_general_protection(struct cpu_user_regs *regs)
+     panic("GENERAL PROTECTION FAULT\n[error_code=%04x]\n", regs->error_code);
+ }
+ 
+-static void pci_serr_softirq(void)
++static bool pci_serr_cont;
++
++static bool pci_serr_nmicont(void)
+ {
++    if ( !pci_serr_cont )
++        return false;
++
++    pci_serr_cont = false;
+     printk("\n\nNMI - PCI system error (SERR)\n");
+     outb(inb(0x61) & 0x0b, 0x61); /* re-enable the PCI SERR error line. */
++
++    return true;
+ }
+ 
+ static void nmi_hwdom_report(unsigned int reason_idx)
+@@ -1689,9 +1697,9 @@ static void pci_serr_error(const struct cpu_user_regs *regs)
+         nmi_hwdom_report(_XEN_NMIREASON_pci_serr);
+         /* fallthrough */
+     case 'i': /* 'ignore' */
+-        /* Would like to print a diagnostic here but can't call printk()
+-           from NMI context -- raise a softirq instead. */
+-        raise_softirq(PCI_SERR_SOFTIRQ);
++        /* Issue error message in NMI continuation. */
++        pci_serr_cont = true;
++        trigger_nmi_continuation();
+         break;
+     default:  /* 'fatal' */
+         console_force_unlock();
+@@ -1806,6 +1814,9 @@ bool nmi_check_continuation(void)
  {
      bool ret = false;
  
-+    if ( nmi_oprofile_send_virq() )
++    if ( pci_serr_nmicont() )
 +        ret = true;
 +
-     return ret;
+     if ( nmi_oprofile_send_virq() )
+         ret = true;
+ 
+@@ -2157,8 +2168,6 @@ void __init trap_init(void)
+     percpu_traps_init();
+ 
+     cpu_init();
+-
+-    open_softirq(PCI_SERR_SOFTIRQ, pci_serr_softirq);
  }
  
-diff --git a/xen/include/asm-x86/xenoprof.h b/xen/include/asm-x86/xenoprof.h
-index 1026ba2e1f..cf6af8c5df 100644
---- a/xen/include/asm-x86/xenoprof.h
-+++ b/xen/include/asm-x86/xenoprof.h
-@@ -69,6 +69,8 @@ int passive_domain_do_rdmsr(unsigned int msr, uint64_t *msr_content);
- int passive_domain_do_wrmsr(unsigned int msr, uint64_t msr_content);
- void passive_domain_destroy(struct vcpu *v);
+ void activate_debugregs(const struct vcpu *curr)
+diff --git a/xen/include/asm-x86/softirq.h b/xen/include/asm-x86/softirq.h
+index 0b7a77f11f..415ee866c7 100644
+--- a/xen/include/asm-x86/softirq.h
++++ b/xen/include/asm-x86/softirq.h
+@@ -6,9 +6,8 @@
+ #define VCPU_KICK_SOFTIRQ      (NR_COMMON_SOFTIRQS + 2)
  
-+bool nmi_oprofile_send_virq(void);
-+
- #else
+ #define MACHINE_CHECK_SOFTIRQ  (NR_COMMON_SOFTIRQS + 3)
+-#define PCI_SERR_SOFTIRQ       (NR_COMMON_SOFTIRQS + 4)
+-#define HVM_DPCI_SOFTIRQ       (NR_COMMON_SOFTIRQS + 5)
+-#define NR_ARCH_SOFTIRQS       6
++#define HVM_DPCI_SOFTIRQ       (NR_COMMON_SOFTIRQS + 4)
++#define NR_ARCH_SOFTIRQS       5
  
- static inline int passive_domain_do_rdmsr(unsigned int msr,
-@@ -85,6 +87,11 @@ static inline int passive_domain_do_wrmsr(unsigned int msr,
+ bool arch_skip_send_event_check(unsigned int cpu);
  
- static inline void passive_domain_destroy(struct vcpu *v) {}
- 
-+static inline bool nmi_oprofile_send_virq(void)
-+{
-+    return false;
-+}
-+
- #endif /* CONFIG_XENOPROF */
- 
- #endif /* __ASM_X86_XENOPROF_H__ */
 -- 
 2.26.2
 
