@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B03502B031E
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 11:50:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25655.53561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE0582B0327
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 11:52:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.25663.53574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdABZ-0006QL-LX; Thu, 12 Nov 2020 10:50:37 +0000
+	id 1kdADK-0006Yq-1N; Thu, 12 Nov 2020 10:52:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25655.53561; Thu, 12 Nov 2020 10:50:37 +0000
+Received: by outflank-mailman (output) from mailman id 25663.53574; Thu, 12 Nov 2020 10:52:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,229 +23,128 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdABZ-0006Pz-IT; Thu, 12 Nov 2020 10:50:37 +0000
-Received: by outflank-mailman (input) for mailman id 25655;
- Thu, 12 Nov 2020 10:50:35 +0000
+	id 1kdADJ-0006YR-U9; Thu, 12 Nov 2020 10:52:25 +0000
+Received: by outflank-mailman (input) for mailman id 25663;
+ Thu, 12 Nov 2020 10:52:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bXVH=ES=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kdABX-0006Pu-Ne
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 10:50:35 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1kdADH-0006YM-Rt
+ for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 10:52:23 +0000
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 63866550-6e08-4d66-a02f-beacc5a13d4d;
- Thu, 12 Nov 2020 10:50:34 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 23835AB95;
- Thu, 12 Nov 2020 10:50:34 +0000 (UTC)
+ id 882f9bd5-84ee-487a-bf7e-d8d18ff35b73;
+ Thu, 12 Nov 2020 10:52:23 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id h62so5070369wme.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Nov 2020 02:52:23 -0800 (PST)
+Received: from C02ZJ1BNLVDN.emea.arm.com (0547a297.skybroadband.com.
+ [5.71.162.151])
+ by smtp.gmail.com with ESMTPSA id m22sm6384756wrb.97.2020.11.12.02.52.20
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 12 Nov 2020 02:52:21 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=bXVH=ES=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kdABX-0006Pu-Ne
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 10:50:35 +0000
-X-Inumbo-ID: 63866550-6e08-4d66-a02f-beacc5a13d4d
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	id 1kdADH-0006YM-Rt
+	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 10:52:23 +0000
+X-Inumbo-ID: 882f9bd5-84ee-487a-bf7e-d8d18ff35b73
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 63866550-6e08-4d66-a02f-beacc5a13d4d;
-	Thu, 12 Nov 2020 10:50:34 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605178234;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=X+kjA95DUOwqZc2hxSm2eQhQsLJUZnBEVfZX03j5Yz8=;
-	b=r/LrAfxIbQcF0s+9esGknZwrWMIbOCgrFndQFe5LsSAbs3JyeiZoqXWl0D7XgWfj3fscH9
-	4sFKjpd2AHQujhJJyKdvFxOy7GNqhpMef4EpgTr5gYipYM3AlDlcl+4Oz4be2bnNPHbSZX
-	iraky/g3NSUe2ZQDZ2bz1czikivWaTc=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 23835AB95;
-	Thu, 12 Nov 2020 10:50:34 +0000 (UTC)
-Subject: Re: [PATCH v4 3/3] xen/x86: issue pci_serr error message via NMI
- continuation
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201109095021.9897-1-jgross@suse.com>
- <20201109095021.9897-4-jgross@suse.com>
- <4f660245-8b3b-fe8b-f4f9-66f59597042a@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <b104a386-f35f-7d4c-c2ac-430d9777e4b2@suse.com>
-Date: Thu, 12 Nov 2020 11:50:33 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	id 882f9bd5-84ee-487a-bf7e-d8d18ff35b73;
+	Thu, 12 Nov 2020 10:52:23 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id h62so5070369wme.3
+        for <xen-devel@lists.xenproject.org>; Thu, 12 Nov 2020 02:52:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=Ujz+MgNk7p2PobWoZs75Nsm661znwucKZOQhhTTVSGA=;
+        b=ggAew42lUOduzbiiuyepthV3vbIvjyrD6kcy+8O5viZ84B3mfBo0qgoLgljdRGg3CT
+         SfLuvuujiP7qvF7sJEX90TScIvIW+/RSIPq6o1sSrl4HISrrg5iF6AUCNzegjDxm7tkd
+         sfSp+AU7kJIlYnm1oxmnOg1kHWt3v6Ee8EOzFg3Mb+JuPTxgYaoqKXnskoUZz+A3rQIJ
+         OkJBcd6D1AyZNByNojaSIaNc3WR8gc879ZHKty8i9KkRws/ehpm8HnzpxzuzhYGM7Yux
+         GxOJvMyxq3RG1HQmGQlM8/pFFy5pF+w/MOEH8FKyO+cx2O+4iKuB7PTNlImkVSjn1wNG
+         7Jow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=Ujz+MgNk7p2PobWoZs75Nsm661znwucKZOQhhTTVSGA=;
+        b=NuernRAYUufERvGVUuV8UvvunSjJGVwO+OJ176lUVaJKxPWxpoW9l24KEt4DuYvH22
+         P9AHLGuhPhF2CcWeV2SkX3gEgAFM/apbjfUVuHXSWNndh19eVi37SSAOWfFmrGMYLBPE
+         M9hrC0i/v7FpHcBeBbbp9G7sObr2O+Nw/XgQN6aZuAPAt0zD87DVx2pNrjtd2GUoX0u1
+         sz97WulHdojJPYpb6b1lD6O6WOlP7RXLFtChBvboHXyjDzXpGWV4pC6O70KghXTQ4kY+
+         SGP/SZC49txmlA6V4uk25yuxbGJRSiTf9oQZAFRFmfNNQp9l2LXgCXh+CiPGipZe20r2
+         RcBw==
+X-Gm-Message-State: AOAM530KDK0o8Bbxvn2WYuPQxMF89p8uqZzaCw+pCBXqHZm9qx9tL2jy
+	9lnfGJDo/d4Xal07mVKw5IA=
+X-Google-Smtp-Source: ABdhPJzBXxhwnm0NWSmupEa6hYQm/lw3ahPsKfu6ri+3AFz4eVzK1gtzvNCMJ3eGTP3eSXNCJVVzbw==
+X-Received: by 2002:a05:600c:288:: with SMTP id 8mr9014103wmk.106.1605178342201;
+        Thu, 12 Nov 2020 02:52:22 -0800 (PST)
+Received: from C02ZJ1BNLVDN.emea.arm.com (0547a297.skybroadband.com. [5.71.162.151])
+        by smtp.gmail.com with ESMTPSA id m22sm6384756wrb.97.2020.11.12.02.52.20
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 12 Nov 2020 02:52:21 -0800 (PST)
+From: Ash Wilding <ash.j.wilding@gmail.com>
+X-Google-Original-From: Ash Wilding
+To: jbeulich@suse.com
+Cc: ash.j.wilding@gmail.com,
+	bertrand.marquis@arm.com,
+	julien@xen.org,
+	rahul.singh@arm.com,
+	xen-devel@lists.xenproject.org
+Subject: Re: [RFC PATCH v2 05/15] xen/arm: pull in Linux atomics helpers and dependencies
+Date: Thu, 12 Nov 2020 10:52:20 +0000
+Message-Id: <20201112105220.22799-1-ash.j.wilding@gmail.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
+In-Reply-To: <e5603684-1f4b-83f3-8b80-6c9d045912cc@suse.com>
+References: <e5603684-1f4b-83f3-8b80-6c9d045912cc@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <4f660245-8b3b-fe8b-f4f9-66f59597042a@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="tLQzYBsXFoMbX0iHNBeVYIg0ewRJaI0Jr"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---tLQzYBsXFoMbX0iHNBeVYIg0ewRJaI0Jr
-Content-Type: multipart/mixed; boundary="hTqbB6E6aKjjGCIDD4uGaUTh5QbuUqSIQ";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <b104a386-f35f-7d4c-c2ac-430d9777e4b2@suse.com>
-Subject: Re: [PATCH v4 3/3] xen/x86: issue pci_serr error message via NMI
- continuation
-References: <20201109095021.9897-1-jgross@suse.com>
- <20201109095021.9897-4-jgross@suse.com>
- <4f660245-8b3b-fe8b-f4f9-66f59597042a@suse.com>
-In-Reply-To: <4f660245-8b3b-fe8b-f4f9-66f59597042a@suse.com>
+Hey Jan,
 
---hTqbB6E6aKjjGCIDD4uGaUTh5QbuUqSIQ
-Content-Type: multipart/mixed;
- boundary="------------B3CBF0D70FEDD8629B448A8A"
-Content-Language: en-US
 
-This is a multi-part message in MIME format.
---------------B3CBF0D70FEDD8629B448A8A
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 12.11.20 10:29, Jan Beulich wrote:
-> On 09.11.2020 10:50, Juergen Gross wrote:
->> Instead of using a softirq pci_serr_error() can use NMI continuation
->> for issuing an error message.
 >>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->=20
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> with one minor change to be considered:
->=20
->> @@ -1808,6 +1816,9 @@ bool nmi_check_continuation(void)
->>       if ( nmi_oprofile_send_virq() )
->>           ret =3D true;
->>  =20
->> +    if ( pci_serr_nmicont() )
->> +        ret =3D true;
->> +
->>       return ret;
->>   }
->=20
-> As the likely more important part, wouldn't it be better to insert
-> this ahead of the oprofile check?
+>> Note that Linux's arm32 atomics helpers use the READ_ONCE() and
+>> WRITE_ONCE() macros defined in <asm-generic/rwonce.h>, while Linux's
+>> arm64 atomics helpers use __READ_ONCE() and __WRITE_ONCE().
+>
+> And our ACCESS_ONCE() can't be used, or be made usable? I don't think
+> we want a 3rd variant when we're already in the process of discussing
+> how to fold the two ones we have right now.
 
-Fine with me.
+Many thanks for the pointer, I'm still familiarising myself with Xen's
+codebase and wasn't aware of ACCESS_ONCE(); yes, that's exactly what we
+need which means we can drop Linux's <asm-generic/rwonce.h> completely.
 
 
-Juergen
+That also means:
 
---------------B3CBF0D70FEDD8629B448A8A
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+>
+> I don't think weakening the checking is a good idea when the macros
+> are being made available for general use. If they'd be renamed to be
+> private flavors for use just in Arm's atomics, this would be a
+> different thing.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+This problem goes away, as does the need/desire to bump the minimum GCC
+version up to 4.9 for xen/arm just to support the usage of C11 _Generic
+in Linux's <linux/compiler_types.h>.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+That said, agreed, I did think the way I'd done it was a tad suspect
+hence the "possibly contentious" disclaimer :-) I'll keep this in mind
+for similar porting work in future. 
 
---------------B3CBF0D70FEDD8629B448A8A--
 
---hTqbB6E6aKjjGCIDD4uGaUTh5QbuUqSIQ--
+>>
+>> \ No newline at end of file
+>
+> This wants taking care of in any event - there are multiple instances
+> in this patch (in fact it looks as if all of the new files had this
+> issue), and I didn't check others.
 
---tLQzYBsXFoMbX0iHNBeVYIg0ewRJaI0Jr
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Ack, will fix.
 
------BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+tE3kFAwAAAAAACgkQsN6d1ii/Ey/m
-8Qf9G1RWrEw3r+oXFSvY19vKNBJ0bZ3f5yKzAJ+bLrTM+BWYOebtHh5NELKRw1RhUX030Z+cFe6b
-O/W0FS9oQmpZXcXKWzAJk+YbrrQPTdNoCaBuTQ/QXBbGv+PVXNsjGAEJtG6e3sfJFWkEW5t/EASF
-uxXA3fqyM1FtjigrB0+9oFrQIGsrKAp5FBx4FMhpw8j83Ltx1Oakndx9y1pfryZxaC+1rE8NxYH+
-y0UXJIBReT4OVbqSEE5woXNBhSprVhaA0FDn55gmF9xLvNY87HQDJ0ePnpZRc/mbnikN3l+8vVGa
-pIILuoeRQsABqmoBl2nyCaVaGQXFjRrXCdCuhO+X1g==
-=yFfT
------END PGP SIGNATURE-----
+Thanks for taking the time to provide feedback!
 
---tLQzYBsXFoMbX0iHNBeVYIg0ewRJaI0Jr--
+Cheers,
+Ash.
 
