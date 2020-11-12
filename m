@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 698A92B053F
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 13:56:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25814.53838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A7A92B05F0
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 14:03:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.25828.53850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdC8n-0003hZ-Th; Thu, 12 Nov 2020 12:55:53 +0000
+	id 1kdCG7-0004ny-QD; Thu, 12 Nov 2020 13:03:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25814.53838; Thu, 12 Nov 2020 12:55:53 +0000
+Received: by outflank-mailman (output) from mailman id 25828.53850; Thu, 12 Nov 2020 13:03:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,179 +23,269 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdC8n-0003h9-Q2; Thu, 12 Nov 2020 12:55:53 +0000
-Received: by outflank-mailman (input) for mailman id 25814;
- Thu, 12 Nov 2020 12:55:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kdCG7-0004nT-Mc; Thu, 12 Nov 2020 13:03:27 +0000
+Received: by outflank-mailman (input) for mailman id 25828;
+ Thu, 12 Nov 2020 13:03:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=s91y=ES=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
- id 1kdC8m-0003h2-Ml
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 12:55:52 +0000
-Received: from nat-hk.nvidia.com (unknown [203.18.50.4])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 28044785-ecc8-40f8-b6ff-b288ba880ad0;
- Thu, 12 Nov 2020 12:55:51 +0000 (UTC)
-Received: from HKMAIL102.nvidia.com (Not Verified[10.18.92.9]) by
- nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5fad30d30000>; Thu, 12 Nov 2020 20:55:47 +0800
-Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL102.nvidia.com
- (10.18.16.11) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 12 Nov
- 2020 12:55:36 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.48) by
- HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS)
- id
- 15.0.1473.3 via Frontend Transport; Thu, 12 Nov 2020 12:55:36 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM5PR12MB1881.namprd12.prod.outlook.com (2603:10b6:3:10f::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Thu, 12 Nov
- 2020 12:55:33 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3499.032; Thu, 12 Nov 2020
- 12:55:33 +0000
-Received: from mlx.ziepe.ca (156.34.48.30) by
- MN2PR15CA0022.namprd15.prod.outlook.com (2603:10b6:208:1b4::35) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21 via Frontend
- Transport; Thu, 12 Nov 2020 12:55:32 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1kdC8R-003fG5-Cp; Thu, 12 Nov 2020 08:55:31 -0400
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <SRS0=bXVH=ES=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kdCG6-0004nO-GL
+ for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 13:03:26 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cddbc6f8-4918-4650-8bc8-abf385dff8af;
+ Thu, 12 Nov 2020 13:03:24 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 94E31AC0C;
+ Thu, 12 Nov 2020 13:03:23 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=s91y=ES=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
-	id 1kdC8m-0003h2-Ml
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 12:55:52 +0000
-X-Inumbo-ID: 28044785-ecc8-40f8-b6ff-b288ba880ad0
-Received: from nat-hk.nvidia.com (unknown [203.18.50.4])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 28044785-ecc8-40f8-b6ff-b288ba880ad0;
-	Thu, 12 Nov 2020 12:55:51 +0000 (UTC)
-Received: from HKMAIL102.nvidia.com (Not Verified[10.18.92.9]) by nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
-	id <B5fad30d30000>; Thu, 12 Nov 2020 20:55:47 +0800
-Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL102.nvidia.com
- (10.18.16.11) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 12 Nov
- 2020 12:55:36 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.48) by
- HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
- 15.0.1473.3 via Frontend Transport; Thu, 12 Nov 2020 12:55:36 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KyIW7IOM0+++D4M++knuxpj7alhdYeaG22sc6dnPQJvngD6iTQvoKuFK3btnmgz2x5yqp2KUXW8gpJDEBdEvtEjNVEU+Zg1UHlyDVRTAXy/CRaAAshslESeA8XtvD9CNUSi5fQw1W/emZlcqGsBZni9eCp7dwc2n18TqXLtRVzzftvL8iAHZnki7/0gMua+yf1LU6I2Vi9Ryc9MtQ3bYLON/ejRZETiohSE8rkOel8ShqC5HGlLy5WVj5K49GrvhTwQ9bnRTURwNdW9PHm+9+Lm3Ds27QwQru7/BDW33MSTzo8ZlWlhMymu3rYrEycSfJsaw8+nCgsb+WHf+Hx7KEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=odkGYsTueGG1Oj1E5+/FEqJBoN5zCA2wnbKnOv3SBSE=;
- b=joeixh4hu5ooTwctsGDAchHhtySQy59tD6tksNFsMczPvsiyyWuzacJauPFFKPZyCHv0IzmOqJaVJq3IwPU71DE7W5hi4kyQEyR6pJIxlSE2XuQcPvjQ4yLf3y6AVksI30sPG4CH/p0/c42VC6zzDIaNOS3iyIN7a4GQHtRk45P0ZWoJCF7P/gyZpqD1uxRRmTdun+D7uF0L7uTvzzcjoMqR8cOI8o/r2s2Lw7FgyBfaTwc4uBJ21Wt1CdBu5vAuD3ZVNz5IjO6f4b1uqtB6rxz5Wi0BUV7nwqfmviq43rTvsR0bX8YHYEt8oDBApe84NJk4YnGpc9atCfbvSXNNhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM5PR12MB1881.namprd12.prod.outlook.com (2603:10b6:3:10f::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Thu, 12 Nov
- 2020 12:55:33 +0000
-Received: from DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3499.032; Thu, 12 Nov 2020
- 12:55:33 +0000
-Date: Thu, 12 Nov 2020 08:55:31 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Ziyad Atiyyeh <ziyadat@nvidia.com>,
-	Itay Aveksis <itayav@nvidia.com>, Moshe Shemesh <moshe@nvidia.com>
-CC: LKML <linux-kernel@vger.kernel.org>, <x86@kernel.org>, Joerg Roedel
-	<joro@8bytes.org>, <iommu@lists.linux-foundation.org>,
-	<linux-hyperv@vger.kernel.org>, Haiyang Zhang <haiyangz@microsoft.com>, "Jon
- Derrick" <jonathan.derrick@intel.com>, Lu Baolu <baolu.lu@linux.intel.com>,
-	Wei Liu <wei.liu@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>, Stephen
- Hemminger <sthemmin@microsoft.com>, Steve Wahl <steve.wahl@hpe.com>, Dimitri
- Sivanich <sivanich@hpe.com>, Russ Anderson <rja@hpe.com>,
-	<linux-pci@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Lorenzo
- Pieralisi <lorenzo.pieralisi@arm.com>, Konrad Rzeszutek Wilk
-	<konrad.wilk@oracle.com>, <xen-devel@lists.xenproject.org>, Juergen Gross
-	<jgross@suse.com>, "Boris Ostrovsky" <boris.ostrovsky@oracle.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
-	<rafael@kernel.org>, "Megha Dey" <megha.dey@intel.com>, Dave Jiang
-	<dave.jiang@intel.com>, Alex Williamson <alex.williamson@redhat.com>, Jacob
- Pan <jacob.jun.pan@intel.com>, Baolu Lu <baolu.lu@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Dan Williams <dan.j.williams@intel.com>
-Subject: REGRESSION: Re: [patch V2 00/46] x86, PCI, XEN, genirq ...: Prepare
- for device MSI
-Message-ID: <20201112125531.GA873287@nvidia.com>
-References: <20200826111628.794979401@linutronix.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20200826111628.794979401@linutronix.de>
-X-ClientProxiedBy: MN2PR15CA0022.namprd15.prod.outlook.com
- (2603:10b6:208:1b4::35) To DM6PR12MB3834.namprd12.prod.outlook.com
- (2603:10b6:5:14a::12)
+	(envelope-from <SRS0=bXVH=ES=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kdCG6-0004nO-GL
+	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 13:03:26 +0000
+X-Inumbo-ID: cddbc6f8-4918-4650-8bc8-abf385dff8af
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id cddbc6f8-4918-4650-8bc8-abf385dff8af;
+	Thu, 12 Nov 2020 13:03:24 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605186203;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UAxGVC/47tuxg1fEph32w2VpULUuKSdgkSzc7H9SKys=;
+	b=USJLlEGKClafSE1a4DM4yzHea/I0CPOdzaZbufFrSRlSM9yJcFrNTt6QMTjYFAfP6U2Z7Q
+	ijbtiGgrYuYA7wTjBlkqWZerZ3z/v5WnlL+CjuoaHUkNpWlRaoB1WtFKfjUWvFSOTKsITD
+	3jjAq7laHibAcLX/3RpBvQNzH1EK13g=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 94E31AC0C;
+	Thu, 12 Nov 2020 13:03:23 +0000 (UTC)
+Subject: Re: [PATCH v4 2/3] xen/oprofile: use NMI continuation for sending
+ virq to guest
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201109095021.9897-1-jgross@suse.com>
+ <20201109095021.9897-3-jgross@suse.com>
+ <d55adbc0-8a98-dd5c-c204-2ec11955c356@suse.com>
+ <288804e4-75e6-6600-9634-8c0ea7a06c22@suse.com>
+ <b84d687e-0aab-d48f-c068-1852cc1075b2@suse.com>
+ <6229914c-bc76-2670-a272-ab0603f612cc@suse.com>
+ <2fe880fb-43d6-8479-278f-a2a38c5b3a9f@suse.com>
+ <f52adcb9-cff7-3bf9-ab98-881e471b0c9a@suse.com>
+ <11ead195-f3a9-f9ba-58b6-9ae96650cf07@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <236b34e1-01c8-f4e9-01dc-33e8d99a239e@suse.com>
+Date: Thu, 12 Nov 2020 14:03:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (156.34.48.30) by MN2PR15CA0022.namprd15.prod.outlook.com (2603:10b6:208:1b4::35) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21 via Frontend Transport; Thu, 12 Nov 2020 12:55:32 +0000
-Received: from jgg by mlx with local (Exim 4.94)	(envelope-from <jgg@nvidia.com>)	id 1kdC8R-003fG5-Cp; Thu, 12 Nov 2020 08:55:31 -0400
-X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
-	t=1605185747; bh=eQ25xNlY3rVx34V0CM4Bnq31qnmUxB4lNkLgF/NTCTU=;
-	h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
-	 From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-LD-Processed;
-	b=VsWoaT5gF6t9jiuouhEpEGN7Qg7rtC2IuOTe3e6QAc+/J5kvbsUGMZeN9Kt4v340c
-	 KVbRoCH9TR2N9HqJF4VZ84B6k+51zu6l3inP6l0HJqan+cR7kEEn/+Cqpds/KwjSEr
-	 BJf+0jPEtmRpSIm1ToZML8tn4g1PO1iVyJXs6pHwlKZwUso5Cn8iCe6LGFBRQ1tEUP
-	 95Nt8mKzj2PmKuTTS2AowvWwB9kBFIAxLC7TFNHrpa0/KKU1hbM20l9NiG3hCradK7
-	 hY1uGGNICjBrlcYzyYVoaC3ibvjfkHv7m8xxytVcHuVd6aNpu8YGZow8Vv5rsi+u+9
-	 YDb6R/lLzsueQ==
+In-Reply-To: <11ead195-f3a9-f9ba-58b6-9ae96650cf07@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="Yn4wmR8JTfOGmxUAzhi5ckx4vnY3VTsL3"
 
-On Wed, Aug 26, 2020 at 01:16:28PM +0200, Thomas Gleixner wrote:
-> This is the second version of providing a base to support device MSI (non
-> PCI based) and on top of that support for IMS (Interrupt Message Storm)
-> based devices in a halfways architecture independent way.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--Yn4wmR8JTfOGmxUAzhi5ckx4vnY3VTsL3
+Content-Type: multipart/mixed; boundary="ZBafHWdhoy3n3s6GmaZYUPgzlGBxbR6jl";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Message-ID: <236b34e1-01c8-f4e9-01dc-33e8d99a239e@suse.com>
+Subject: Re: [PATCH v4 2/3] xen/oprofile: use NMI continuation for sending
+ virq to guest
+References: <20201109095021.9897-1-jgross@suse.com>
+ <20201109095021.9897-3-jgross@suse.com>
+ <d55adbc0-8a98-dd5c-c204-2ec11955c356@suse.com>
+ <288804e4-75e6-6600-9634-8c0ea7a06c22@suse.com>
+ <b84d687e-0aab-d48f-c068-1852cc1075b2@suse.com>
+ <6229914c-bc76-2670-a272-ab0603f612cc@suse.com>
+ <2fe880fb-43d6-8479-278f-a2a38c5b3a9f@suse.com>
+ <f52adcb9-cff7-3bf9-ab98-881e471b0c9a@suse.com>
+ <11ead195-f3a9-f9ba-58b6-9ae96650cf07@suse.com>
+In-Reply-To: <11ead195-f3a9-f9ba-58b6-9ae96650cf07@suse.com>
 
-Hi Thomas,
+--ZBafHWdhoy3n3s6GmaZYUPgzlGBxbR6jl
+Content-Type: multipart/mixed;
+ boundary="------------779065727E6F664CDC070B70"
+Content-Language: en-US
 
-Our test team has been struggling with a regression on bare metal
-SRIOV VFs since -rc1 that they were able to bisect to this series
+This is a multi-part message in MIME format.
+--------------779065727E6F664CDC070B70
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-This commit tests good:
+On 12.11.20 12:36, Jan Beulich wrote:
+> On 12.11.2020 12:27, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 12.11.20 12:05, Jan Beulich wrote:
+>>> On 12.11.2020 11:48, J=C3=BCrgen Gro=C3=9F wrote:
+>>>> On 12.11.20 11:23, Jan Beulich wrote:
+>>>>> On 11.11.2020 16:48, J=C3=BCrgen Gro=C3=9F wrote:
+>>>>>> On 11.11.20 16:45, Jan Beulich wrote:
+>>>>>>> On 09.11.2020 10:50, Juergen Gross wrote:
+>>>>>>>>      static int nmi_callback(const struct cpu_user_regs *regs, i=
+nt cpu)
+>>>>>>>>      {
+>>>>>>>>      	int xen_mode, ovf;
+>>>>>>>>     =20
+>>>>>>>>      	ovf =3D model->check_ctrs(cpu, &cpu_msrs[cpu], regs);
+>>>>>>>>      	xen_mode =3D ring_0(regs);
+>>>>>
+>>>>> Unrelated to the patch here (i.e. just as an observation), this
+>>>>> use of ring_0() looks bogus when the NMI occurred in HVM guest
+>>>>> mode.
+>>>>
+>>>> An NMI in an HVM guest due to oprofile would be a VMEXIT with NMI
+>>>> reason, or just be handled completely inside the guest, right?
+>>>
+>>> Yes, and in the former case for VMX it would be handed on to do_nmi()=
+,
+>>> with the guest register state. For SVM it would get handled on the
+>>> next STGI, i.e. would indeed never surface from HVM guest mode.
+>>>
+>>>> I don't see how this test should ever result in xen_mode being
+>>>> false for an HVM guest.
+>>>
+>>> I think, because of hvm_invalidate_regs_fields(), on VMX it would be
+>>> consistently true in release builds and consistently false in debug
+>>> ones.
+>>
+>> Ah, okay. I searched for do_nmi(), but the vmx code uses the exception=
 
-5712c3ed549e ("Merge tag 'armsoc-fixes' of git://git.kernel.org/pub/scm/lin=
-ux/kernel/git/soc/soc")
+>> table instead.
+>>
+>> So I guess this should be:
+>>
+>> xen_mode =3D !guest_mode(regs);
+>=20
+> Yes, I think so. Just that guest_mode() also has its issues (my patch
+> "x86: refine guest_mode()" improving it at least some is still pending
+> Andrew's go / no-go / improvement suggestions), so whether it's
+> suitable to use here may need some careful evaluation.
 
-This commit tests bad:
+I'll leave the test as is for now.
 
-981aa1d366bf ("PCI: MSI: Fix Kconfig dependencies for PCI_MSI_ARCH_FALLBACK=
-S")
+We can revisit it when your patch has been committed.
 
-They were unable to bisect further into the series because some of the
-interior commits don't boot :(
 
-When we try to load the mlx5 driver on a bare metal VF it gets this:
+Juergen
 
-[Thu Oct 22 08:54:51 2020] DMAR: DRHD: handling fault status reg 2
-[Thu Oct 22 08:54:51 2020] DMAR: [INTR-REMAP] Request device [42:00.2] faul=
-t index 1600 [fault reason 37] Blocked a compatibility format interrupt req=
-uest
-[Thu Oct 22 08:55:04 2020] mlx5_core 0000:42:00.1 eth4: Link down
-[Thu Oct 22 08:55:11 2020] mlx5_core 0000:42:00.1 eth4: Link up
-[Thu Oct 22 08:55:54 2020] mlx5_core 0000:42:00.2: mlx5_cmd_eq_recover:264:=
-(pid 3390): Recovered 1 EQEs on cmd_eq
-[Thu Oct 22 08:55:54 2020] mlx5_core 0000:42:00.2: wait_func_handle_exec_ti=
-meout:1051:(pid 3390): cmd0: CREATE_EQ(0=C3=83=C2=97301) recovered after ti=
-meout
-[Thu Oct 22 08:55:54 2020] DMAR: DRHD: handling fault status reg 102
-[Thu Oct 22 08:55:54 2020] DMAR: [INTR-REMAP] Request device [42:00.2] faul=
-t index 1600 [fault reason 37] Blocked a compatibility format interrupt req=
-uest
+--------------779065727E6F664CDC070B70
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-If you have any idea Ziyad and Itay can run any debugging you like.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I suppose it is because this series is handing out compatability
-addr/data pairs while the IOMMU is setup to only accept remap ones
-from SRIOV VFs?
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Thanks,
-Jason
+--------------779065727E6F664CDC070B70--
+
+--ZBafHWdhoy3n3s6GmaZYUPgzlGBxbR6jl--
+
+--Yn4wmR8JTfOGmxUAzhi5ckx4vnY3VTsL3
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+tMpoFAwAAAAAACgkQsN6d1ii/Ey/d
+1Qf/ctnsBIz5lvMcWL89VGTwpHTHQoFftU8JwddXqfKy/MVxbbFltYXxNWA1qc8KcjHMJ75f/AdF
+5ylr+1wN8nSMbd25G3H8UGDaigFtMERq7/arV9SI/yYprgmvNXSAY6xL4AY/GObQMuWaoCqMXEUk
+9JGvCn6tamT021SEbPKE++ji0T8VutSHse76VolJrt2VhqE2d4WmbxciBBvo44UkXIU9YHpTfGJY
+nH695+p5Y6Gzf/dxPgyqvS1qwoFhtQ4JkJuVHhWYPzlliPg41ftTy6C7a3TXvPY6FCmTBpQRgTEv
+nY8Wfp9azabeDkesKl+YQPjNwHZbpWLxrmIrZv0Gqw==
+=He84
+-----END PGP SIGNATURE-----
+
+--Yn4wmR8JTfOGmxUAzhi5ckx4vnY3VTsL3--
 
