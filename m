@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41FA52B0527
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 13:51:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25797.53802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F212B0538
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 13:54:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.25803.53814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdC46-0003GQ-LE; Thu, 12 Nov 2020 12:51:02 +0000
+	id 1kdC6x-0003S8-7q; Thu, 12 Nov 2020 12:53:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25797.53802; Thu, 12 Nov 2020 12:51:02 +0000
+Received: by outflank-mailman (output) from mailman id 25803.53814; Thu, 12 Nov 2020 12:53:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,319 +23,206 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdC46-0003G1-IF; Thu, 12 Nov 2020 12:51:02 +0000
-Received: by outflank-mailman (input) for mailman id 25797;
- Thu, 12 Nov 2020 12:51:01 +0000
+	id 1kdC6x-0003Rj-4Q; Thu, 12 Nov 2020 12:53:59 +0000
+Received: by outflank-mailman (input) for mailman id 25803;
+ Thu, 12 Nov 2020 12:53:57 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bXVH=ES=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kdC45-0003Fu-4F
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 12:51:01 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=81XN=ES=epam.com=prvs=9585825f72=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1kdC6v-0003Re-N5
+ for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 12:53:57 +0000
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 02c56eee-d1b1-4f41-b0f0-bbb3db933b94;
- Thu, 12 Nov 2020 12:50:59 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 82276AC75;
- Thu, 12 Nov 2020 12:50:58 +0000 (UTC)
+ id b7c94627-d6ad-43c6-8249-1da5099a67dc;
+ Thu, 12 Nov 2020 12:53:56 +0000 (UTC)
+Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0ACCVRTo008957; Thu, 12 Nov 2020 12:53:51 GMT
+Received: from eur01-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2050.outbound.protection.outlook.com [104.47.0.50])
+ by mx0b-0039f301.pphosted.com with ESMTP id 34rf80ur4p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 12 Nov 2020 12:53:50 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM9PR03MB6883.eurprd03.prod.outlook.com (2603:10a6:20b:282::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Thu, 12 Nov
+ 2020 12:53:47 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::501:a686:7515:465e]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::501:a686:7515:465e%8]) with mapi id 15.20.3541.025; Thu, 12 Nov 2020
+ 12:53:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=bXVH=ES=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kdC45-0003Fu-4F
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 12:51:01 +0000
-X-Inumbo-ID: 02c56eee-d1b1-4f41-b0f0-bbb3db933b94
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=81XN=ES=epam.com=prvs=9585825f72=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+	id 1kdC6v-0003Re-N5
+	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 12:53:57 +0000
+X-Inumbo-ID: b7c94627-d6ad-43c6-8249-1da5099a67dc
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 02c56eee-d1b1-4f41-b0f0-bbb3db933b94;
-	Thu, 12 Nov 2020 12:50:59 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605185458;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aaQOEo1oc8aBjYCLuIdNVr/b3Z9v3z3JUDjlzDpRiI4=;
-	b=Dqn2jrv1nDnfNTx5b/eO20IZVf5UtTiYQOUJWRf2356niPvdAlUYNbp7bLGAs/X4XQoOls
-	jWGr3aHfoa8CL6EFUhr+RCAKwmn+hEhK29oYqgrRfIlZ+VnuV1m0lbTWOMiVF/G9A45tsS
-	jtWPJSAZYeJ+1ggwRtBJF8vF5dRxXy4=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 82276AC75;
-	Thu, 12 Nov 2020 12:50:58 +0000 (UTC)
-Subject: Re: [PATCH] xen: add support for automatic debug key actions in case
- of crash
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201022143905.11032-1-jgross@suse.com>
- <977bab69-892c-d94d-d952-1a748f69d0b6@suse.com>
- <53732f8f-fe6d-91bd-4100-4b4d904a4073@suse.com>
- <ed2f73e7-04cc-f568-f0b7-19c843a8d31b@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <8c77ff71-a14e-7cf7-5f27-c7c152ace240@suse.com>
-Date: Thu, 12 Nov 2020 13:50:57 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-MIME-Version: 1.0
-In-Reply-To: <ed2f73e7-04cc-f568-f0b7-19c843a8d31b@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="hM1ECeJX8mgiaB888nnp36HVgRctACYfd"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---hM1ECeJX8mgiaB888nnp36HVgRctACYfd
-Content-Type: multipart/mixed; boundary="bwoMxFaVyrSneugGhwez8ExgAeq6BklI3";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <8c77ff71-a14e-7cf7-5f27-c7c152ace240@suse.com>
-Subject: Re: [PATCH] xen: add support for automatic debug key actions in case
- of crash
-References: <20201022143905.11032-1-jgross@suse.com>
- <977bab69-892c-d94d-d952-1a748f69d0b6@suse.com>
- <53732f8f-fe6d-91bd-4100-4b4d904a4073@suse.com>
- <ed2f73e7-04cc-f568-f0b7-19c843a8d31b@suse.com>
-In-Reply-To: <ed2f73e7-04cc-f568-f0b7-19c843a8d31b@suse.com>
-
---bwoMxFaVyrSneugGhwez8ExgAeq6BklI3
-Content-Type: multipart/mixed;
- boundary="------------4818A1C4ED0F81B33A768B73"
+	id b7c94627-d6ad-43c6-8249-1da5099a67dc;
+	Thu, 12 Nov 2020 12:53:56 +0000 (UTC)
+Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
+	by mx0b-0039f301.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id 0ACCVRTo008957;
+	Thu, 12 Nov 2020 12:53:51 GMT
+Received: from eur01-he1-obe.outbound.protection.outlook.com (mail-he1eur01lp2050.outbound.protection.outlook.com [104.47.0.50])
+	by mx0b-0039f301.pphosted.com with ESMTP id 34rf80ur4p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 12 Nov 2020 12:53:50 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RtmHfC5BMTrN+OKh6X09/JYWiowjpqGtK2Teoz47X0TI5KHgSyjWq7pADimbC1lBZ0ipRut/RfdX+gNejnjWS+qPkKXkD+bSEx12lhgOOCMKyQtD/FcvzZcqNvup9sxIoiWkOD0F1IJ33Ds6u5B14Yq5HA2WbXnvl9ohp6AC+rUrM2X37LO3DYjBCmVPchioEgZbcgSCPj7zee/OPlLv5s6XtDdqa1Z8AqC83EhJsAKG2FxoFK2muxcx8ORpDdrnMKJzXcSLDQJi/vKBOk7p2nc2p/vOsuSD34T6AXUxSS4OGk4to3KDtzoMFlbznad4Jmqw5fwNFZBbZuEnN5rXsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hNloKH2E3e+RoItDDf/WzumfowLq0jgvU8+B2joGuxw=;
+ b=aHRw1tDuXFo3PmC1QUo4m5J/3UU9rPTNJ90CZOsGCzR+r+6Xs0bC4eyrsNS+40iugAHdMX00fJHA9Sc6yP3iTpqT/sbzt7dGamYQPBoeGomSbTLSwfy989IkrasLZ3rFfW1r5VpZeD4633dtFc9QVm+VGCw6NU5owdZzv1HxBOjzViVJcNiauVEsPOpd4vVs9Kz+ex3yOHao4J8CjSxr3hf+U687itdtCMHYZAGi6TbOzr1nWsqGMAkd4nuoVwwyOEv3VwCp41HTJ3Dg9owR6uoiS8LB1YxDOaGL0abXZz3s1o7GAh6YWqDeqkZUz6zRj2zcsXfzXEGET6vuesD9Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hNloKH2E3e+RoItDDf/WzumfowLq0jgvU8+B2joGuxw=;
+ b=ZltFrQrvik9V/OytNu0SxR+A7C00v/xQ17fSZ0Ad4UBZLz0ji+5P7O9eyFnyykBdeS9XYhvaBF272jo4mBwjE8KOCfW3Lbx2sCMvAlLZAogdedNWlYe3+az+GFMCws/FZB1gmdoGN3DgdKWyuFcopGXpQC2jGFkfwCZ2NndV8RUKp1KqF/upm2O+ESbVIdRUOV1ttybQ/6xbGoIq4kKCpX4uJ/SyU92+L8DZeT4/VvcyiY0BDTt7bQK+lXRy6VdKiiU3/qziXXUpo6aaQ3vxXzYX2fgCY0kHqtrx0RMfaegUKUNzY5u61jGqVA22SyQ75/TBbEOrGRVeqPTNkI0bfw==
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM9PR03MB6883.eurprd03.prod.outlook.com (2603:10a6:20b:282::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Thu, 12 Nov
+ 2020 12:53:47 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::501:a686:7515:465e]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::501:a686:7515:465e%8]) with mapi id 15.20.3541.025; Thu, 12 Nov 2020
+ 12:53:47 +0000
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Jan Beulich <jbeulich@suse.com>,
+        Oleksandr Andrushchenko
+	<andr2000@gmail.com>
+CC: "iwj@xenproject.org" <iwj@xenproject.org>, "wl@xen.org" <wl@xen.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
+        "julien.grall@arm.com"
+	<julien.grall@arm.com>,
+        "sstabellini@kernel.org" <sstabellini@kernel.org>,
+        "roger.pau@citrix.com" <roger.pau@citrix.com>,
+        "Rahul.Singh@arm.com"
+	<Rahul.Singh@arm.com>
+Subject: Re: [PATCH 02/10] arm/pci: Maintain PCI assignable list
+Thread-Topic: [PATCH 02/10] arm/pci: Maintain PCI assignable list
+Thread-Index: AQHWtpbuKiRgL1HiZkyNC2yoNcmnl6nDB9uAgAFwr4A=
+Date: Thu, 12 Nov 2020 12:53:47 +0000
+Message-ID: <eb50b7f2-a2fb-a7fb-7937-511e5b26f7a0@epam.com>
+References: <20201109125031.26409-1-andr2000@gmail.com>
+ <20201109125031.26409-3-andr2000@gmail.com>
+ <6a2dc03e-202b-b8f9-46a5-9c90d9de8a6d@suse.com>
+In-Reply-To: <6a2dc03e-202b-b8f9-46a5-9c90d9de8a6d@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [185.199.97.5]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8d80fe6d-4369-4ae7-6fea-08d88709ff36
+x-ms-traffictypediagnostic: AM9PR03MB6883:
+x-microsoft-antispam-prvs: 
+ <AM9PR03MB688340CF3793A3731938A77AE7E70@AM9PR03MB6883.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 9n4yyALzw3SpINwl5CHT67G702I2j+PMOIm0ydeuma/nh1s/51GDHLKhAQnmGYP6wfMQ7ooYTWc/7iBRqjzNSJ4vCV1lefy1Rb+CCdero+hXdxdZ8KlTf1Pkf4dbe/cPj1w4/2MmOlma1+pIqiJJsrVq+Q1ID+2FdODOiYZ5KykbvjkCN4U7dWIZWhH+sc0AMzVQ6XOQxPUfGkEbq3a3oUBjb/en3lZF9ciFiTiJBZUlCa/Q2lNe4LjJWlbTID1Y2gN7Fnz3Df7+MBiuX7K3Tfhz/8Uas/fNYN56XZDHYlO0i8gpHBEswyWUAvbWykjXk90FcUTbN6oJ+808Exetow==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(366004)(396003)(346002)(39860400002)(376002)(2616005)(83380400001)(6512007)(36756003)(2906002)(6486002)(8676002)(8936002)(31696002)(53546011)(71200400001)(6506007)(26005)(7416002)(54906003)(31686004)(186003)(316002)(66446008)(76116006)(64756008)(66476007)(66946007)(5660300002)(86362001)(110136005)(478600001)(66556008)(4326008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: 
+ h1pe5e/UnR1YXLq7CTHSOUxq6evYxfWZTxvsJetxmdbyVOvmks13Gg2RRkPQXSzMShfDFMgsyJ5w+frEhUHQ/hIBZNDapQLQnkhaye6OX3AHFAmP79dVVxf6Rvsvo87wIT4YbJu1C/J7ezxaCiMdlvw/967eFc1mBZQxbmMfvO/+mFq5NlJmXadMhxqIbJcqMgGuj2XZ6a7Zy1Nh6hO5alf+YFnRdI0Bb2hghq8XGjmamGp4Kla3TGOwca/NcOzXznfCjLGhqd4Q4+ZZHzRHeeEcFWmgRWGeJiXXblgmNj6wl1Eg3Vsqeey3NUmyDNHj9KT6qgNQs98QWEosQMurkJ1j/gHuaMg1dgizoTB4gVJ/QkW+Img9PMgivhszOH4zGrJobqJkWXLXb5s6KMiFK5bjVKpdnVrog/znr/nGJ1mkuMeNgbKqSxguxQxeYa0wugRdRdiYcFyJWv/2Kt6x7uqidpzYixs1vSUX5zy8GxYBiQ5Ui/bwNfn/nQPZB9l8cFtfltHcu1gHQMDzf/3f3M3hkMIT17mjYb9YiumJV2HeO2xwHxIP0zZmBeE1+TaRhMMFz2Ix/pio6BqgwUAvXl/q9urNcmv+rUI3HzPtTKwLNmBk6+/dQi3PSP6UV8E/gUIYLqe14MFbOqat6mTsyw==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <6F88741EE7FE1042B15BD4DD03898A88@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d80fe6d-4369-4ae7-6fea-08d88709ff36
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2020 12:53:47.7774
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: XRB+v3VwZZux3k/GhLHLD6dSmMQN+n7Aq+MYvSn+bK9lPNGzwULqupeXtoyZv37mEYpv9mbyIrDWhCs90xFkhm02d68bCJCuCUsje+4Ij6D0V0CHNHwb11YilUVFaTAq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB6883
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312,18.0.737
+ definitions=2020-11-12_05:2020-11-12,2020-11-12 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 clxscore=1015
+ mlxscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
+ mlxlogscore=999 malwarescore=0 priorityscore=1501 adultscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011120075
 
-This is a multi-part message in MIME format.
---------------4818A1C4ED0F81B33A768B73
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 29.10.20 15:49, Jan Beulich wrote:
-> On 29.10.2020 15:40, J=C3=BCrgen Gro=C3=9F wrote:
->> On 29.10.20 15:22, Jan Beulich wrote:
->>> On 22.10.2020 16:39, Juergen Gross wrote:
->>>> @@ -507,6 +509,41 @@ void __init initialize_keytable(void)
->>>>        }
->>>>    }
->>>>   =20
->>>> +#define CRASHACTION_SIZE  32
->>>> +static char crash_debug_panic[CRASHACTION_SIZE];
->>>> +static char crash_debug_hwdom[CRASHACTION_SIZE];
->>>> +static char crash_debug_watchdog[CRASHACTION_SIZE];
->>>> +static char crash_debug_kexeccmd[CRASHACTION_SIZE];
->>>> +static char crash_debug_debugkey[CRASHACTION_SIZE];
->>>> +
->>>> +static char *crash_action[CRASHREASON_N] =3D {
->>>> +    [CRASHREASON_PANIC] =3D crash_debug_panic,
->>>> +    [CRASHREASON_HWDOM] =3D crash_debug_hwdom,
->>>> +    [CRASHREASON_WATCHDOG] =3D crash_debug_watchdog,
->>>> +    [CRASHREASON_KEXECCMD] =3D crash_debug_kexeccmd,
->>>> +    [CRASHREASON_DEBUGKEY] =3D crash_debug_debugkey,
->>>> +};
->>>> +
->>>> +string_runtime_param("crash-debug-panic", crash_debug_panic);
->>>> +string_runtime_param("crash-debug-hwdom", crash_debug_hwdom);
->>>> +string_runtime_param("crash-debug-watchdog", crash_debug_watchdog);=
-
->>>> +string_runtime_param("crash-debug-kexeccmd", crash_debug_kexeccmd);=
-
->>>> +string_runtime_param("crash-debug-debugkey", crash_debug_debugkey);=
-
->>>
->>> In general I'm not in favor of this (or similar) needing
->>> five new command line options, instead of just one. The problem
->>> with e.g.
->>>
->>> crash-debug=3Dpanic:rq,watchdog:0d
->>>
->>> is that ',' (or any other separator chosen) could in principle
->>> also be a debug key. It would still be possible to use
->>>
->>> crash-debug=3Dpanic:rq crash-debug=3Dwatchdog:0d
->>>
->>> though. Thoughts?
->>
->> OTOH the runtime parameters are much easier addressable that way.
->=20
-> Ah yes, I can see this as a reason. Would make we wonder whether
-> command line and runtime handling may want disconnecting in this
-> specific case then. (But I can also see the argument of this
-> being too much overhead then.)
->=20
->>>> +void keyhandler_crash_action(enum crash_reason reason)
->>>> +{
->>>> +    const char *action =3D crash_action[reason];
->>>> +    struct cpu_user_regs *regs =3D get_irq_regs() ? : guest_cpu_use=
-r_regs();
->>>> +
->>>> +    while ( *action ) {
->>>> +        if ( *action =3D=3D '.' )
->>>> +            mdelay(1000);
->>>> +        else
->>>> +            handle_keypress(*action, regs);
->>>> +        action++;
->>>> +    }
->>>> +}
->>>
->>> I think only diagnostic keys should be permitted here.
->>
->> While I understand that other keys could produce nonsense or do harm,
->> I'm not sure we should really prohibit them. Allowing them would e.g.
->> allow to do just a reboot without kdump for one type of crashes.
->=20
-> Ah yes, that's a fair point.
->=20
->>>> --- a/xen/include/xen/kexec.h
->>>> +++ b/xen/include/xen/kexec.h
->>>> @@ -1,6 +1,8 @@
->>>>    #ifndef __XEN_KEXEC_H__
->>>>    #define __XEN_KEXEC_H__
->>>>   =20
->>>> +#include <xen/keyhandler.h>
->>>
->>> Could we go without this, utilizing the gcc extension of forward
->>> declared enums? Otoh ...
->>>
->>>> @@ -82,7 +84,11 @@ void vmcoreinfo_append_str(const char *fmt, ...)
->>>>    #define kexecing 0
->>>>   =20
->>>>    static inline void kexec_early_calculations(void) {}
->>>> -static inline void kexec_crash(void) {}
->>>> +static inline void kexec_crash(enum crash_reason reason)
->>>> +{
->>>> +    keyhandler_crash_action(reason);
->>>> +}
->>>
->>> ... if this is to be an inline function and not just a #define,
->>> it'll need the declaration of the function to have been seen.
->>
->> And even being a #define all users of kexec_crash() would need to
->> #include keyhandler.h (and I'm not sure there are any source files
->> including kexec.h which don't use kexec_crash()).
->=20
-> About as many which do as ones which don't. But there's no
-> generally accessible header which includes xen/kexec.h, so perhaps
-> the extra dependency indeed isn't all this problematic.
-
-Any further comments, or even better, Acks?
-
-
-Juergen
-
-
---------------4818A1C4ED0F81B33A768B73
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------4818A1C4ED0F81B33A768B73--
-
---bwoMxFaVyrSneugGhwez8ExgAeq6BklI3--
-
---hM1ECeJX8mgiaB888nnp36HVgRctACYfd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+tL7EFAwAAAAAACgkQsN6d1ii/Ey9Z
-oAgAnrBT9BDrZN9Nv4LYT/EOflIVmzHiiAPSHVn61h7a2s3Xew8erTXFZuzdaYzdvvzwyW5ovr+v
-fYcBfCD9s0Nc7tIMJRQ8X4tPjM3owaDHkT2qzAFnHXaiVbF1pCvR1Vc7yUNSNaaGWyMnrbx+Kml6
-ls8ln7vczjAbFEbL6dM8NiXN4LbKJ2jDEIFJaJS5sAAz3AZmLI1+EspBwRiAfHTrlm/E4gslCI21
-cLYVf0agdk1IgU7C3uyHgX/TvZb0H+AoBlinnM/bblbg1CkZUdcCZka1QldX4yOOMrUPhQEDTxkE
-+wU6SR/I4xXwtDjEClqKvy2JMguOiUDWwGGO+4GkCQ==
-=bRa8
------END PGP SIGNATURE-----
-
---hM1ECeJX8mgiaB888nnp36HVgRctACYfd--
+DQpPbiAxMS8xMS8yMCA0OjU0IFBNLCBKYW4gQmV1bGljaCB3cm90ZToNCj4gT24gMDkuMTEuMjAy
+MCAxMzo1MCwgT2xla3NhbmRyIEFuZHJ1c2hjaGVua28gd3JvdGU6DQo+PiAtLS0gYS94ZW4vZHJp
+dmVycy9wYXNzdGhyb3VnaC9wY2kuYw0KPj4gKysrIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gv
+cGNpLmMNCj4+IEBAIC04NzksNiArODc5LDQzIEBAIGludCBwY2lfcmVtb3ZlX2RldmljZSh1MTYg
+c2VnLCB1OCBidXMsIHU4IGRldmZuKQ0KPj4gICAgICAgcmV0dXJuIHJldDsNCj4+ICAgfQ0KPj4g
+ICANCj4+ICsjaWZkZWYgQ09ORklHX0FSTQ0KPj4gK2ludCBwY2lfZGV2aWNlX3NldF9hc3NpZ25l
+ZCh1MTYgc2VnLCB1OCBidXMsIHU4IGRldmZuLCBib29sIGFzc2lnbmVkKQ0KPj4gK3sNCj4+ICsg
+ICAgc3RydWN0IHBjaV9kZXYgKnBkZXY7DQo+PiArDQo+PiArICAgIHBkZXYgPSBwY2lfZ2V0X3Bk
+ZXYoc2VnLCBidXMsIGRldmZuKTsNCj4+ICsgICAgaWYgKCAhcGRldiApDQo+PiArICAgIHsNCj4+
+ICsgICAgICAgIHByaW50ayhYRU5MT0dfRVJSICJDYW4ndCBmaW5kIFBDSSBkZXZpY2UgJTA0eDol
+MDJ4OiUwMnguJXVcbiIsDQo+PiArICAgICAgICAgICAgICAgc2VnLCBidXMsIFBDSV9TTE9UKGRl
+dmZuKSwgUENJX0ZVTkMoZGV2Zm4pKTsNCj4+ICsgICAgICAgIHJldHVybiAtRU5PREVWOw0KPj4g
+KyAgICB9DQo+PiArDQo+PiArICAgIHBkZXYtPmFzc2lnbmVkID0gYXNzaWduZWQ7DQo+PiArICAg
+IHByaW50ayhYRU5MT0dfRVJSICJwY2liYWNrICVzYXNzaWduIFBDSSBkZXZpY2UgJTA0eDolMDJ4
+OiUwMnguJXVcbiIsDQo+PiArICAgICAgICAgICBhc3NpZ25lZCA/ICIiIDogImRlLSIsDQo+PiAr
+ICAgICAgICAgICBzZWcsIGJ1cywgUENJX1NMT1QoZGV2Zm4pLCBQQ0lfRlVOQyhkZXZmbikpOw0K
+Pj4gKw0KPj4gKyAgICByZXR1cm4gMDsNCj4+ICt9DQo+PiArDQo+PiAraW50IHBjaV9kZXZpY2Vf
+Z2V0X2Fzc2lnbmVkKHUxNiBzZWcsIHU4IGJ1cywgdTggZGV2Zm4pDQo+PiArew0KPj4gKyAgICBz
+dHJ1Y3QgcGNpX2RldiAqcGRldjsNCj4+ICsNCj4+ICsgICAgcGRldiA9IHBjaV9nZXRfcGRldihz
+ZWcsIGJ1cywgZGV2Zm4pOw0KPj4gKyAgICBpZiAoICFwZGV2ICkNCj4+ICsgICAgew0KPj4gKyAg
+ICAgICAgcHJpbnRrKFhFTkxPR19FUlIgIkNhbid0IGZpbmQgUENJIGRldmljZSAlMDR4OiUwMng6
+JTAyeC4ldVxuIiwNCj4+ICsgICAgICAgICAgICAgICBzZWcsIGJ1cywgUENJX1NMT1QoZGV2Zm4p
+LCBQQ0lfRlVOQyhkZXZmbikpOw0KPj4gKyAgICAgICAgcmV0dXJuIC1FTk9ERVY7DQo+PiArICAg
+IH0NCj4+ICsNCj4+ICsgICAgcmV0dXJuIHBkZXYtPmFzc2lnbmVkID8gMCA6IC1FTk9ERVY7DQo+
+PiArfQ0KPj4gKyNlbmRpZg0KPj4gKw0KPj4gICAjaWZuZGVmIENPTkZJR19BUk0NCj4+ICAgLypU
+T0RPIDpJbXBsZW1lbnQgTVNJIHN1cHBvcnQgZm9yIEFSTSAgKi8NCj4+ICAgc3RhdGljIGludCBw
+Y2lfY2xlYW5fZHBjaV9pcnEoc3RydWN0IGRvbWFpbiAqZCwNCj4+IEBAIC0xODIxLDYgKzE4NTgs
+NjIgQEAgaW50IGlvbW11X2RvX3BjaV9kb21jdGwoDQo+PiAgICAgICByZXR1cm4gcmV0Ow0KPj4g
+ICB9DQo+PiAgIA0KPj4gKyNpZmRlZiBDT05GSUdfQVJNDQo+PiArc3RydWN0IGxpc3RfYXNzaWdu
+ZWQgew0KPj4gKyAgICB1aW50MzJfdCBjdXJfaWR4Ow0KPj4gKyAgICB1aW50MzJfdCBmcm9tX2lk
+eDsNCj4+ICsgICAgYm9vbCBhc3NpZ25lZDsNCj4+ICsgICAgZG9taWRfdCAqZG9tYWluOw0KPj4g
+KyAgICB1aW50MzJfdCAqbWFjaGluZV9zYmRmOw0KPj4gK307DQo+PiArDQo+PiArc3RhdGljIGlu
+dCBfZW51bV9hc3NpZ25lZF9wY2lfZGV2aWNlcyhzdHJ1Y3QgcGNpX3NlZyAqcHNlZywgdm9pZCAq
+YXJnKQ0KPj4gK3sNCj4+ICsgICAgc3RydWN0IGxpc3RfYXNzaWduZWQgKmN0eHQgPSBhcmc7DQo+
+PiArICAgIHN0cnVjdCBwY2lfZGV2ICpwZGV2Ow0KPj4gKw0KPj4gKyAgICBsaXN0X2Zvcl9lYWNo
+X2VudHJ5ICggcGRldiwgJnBzZWctPmFsbGRldnNfbGlzdCwgYWxsZGV2c19saXN0ICkNCj4+ICsg
+ICAgew0KPj4gKyAgICAgICAgaWYgKCBwZGV2LT5hc3NpZ25lZCA9PSBjdHh0LT5hc3NpZ25lZCAp
+DQo+PiArICAgICAgICB7DQo+PiArICAgICAgICAgICAgaWYgKCBjdHh0LT5jdXJfaWR4ID09IGN0
+eHQtPmZyb21faWR4ICkNCj4+ICsgICAgICAgICAgICB7DQo+PiArICAgICAgICAgICAgICAgICpj
+dHh0LT5kb21haW4gPSBwZGV2LT5kb21haW4tPmRvbWFpbl9pZDsNCj4+ICsgICAgICAgICAgICAg
+ICAgKmN0eHQtPm1hY2hpbmVfc2JkZiA9IHBkZXYtPnNiZGYuc2JkZjsNCj4+ICsgICAgICAgICAg
+ICAgICAgcmV0dXJuIDE7DQo+PiArICAgICAgICAgICAgfQ0KPj4gKyAgICAgICAgICAgIGN0eHQt
+PmN1cl9pZHgrKzsNCj4+ICsgICAgICAgIH0NCj4+ICsgICAgfQ0KPj4gKyAgICByZXR1cm4gMDsN
+Cj4+ICt9DQo+PiArDQo+PiAraW50IHBjaV9kZXZpY2VfZW51bV9hc3NpZ25lZChib29sIHJlcG9y
+dF9ub3RfYXNzaWduZWQsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50MzJf
+dCBmcm9tX2lkeCwgZG9taWRfdCAqZG9tYWluLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgdWludDMyX3QgKm1hY2hpbmVfc2JkZikNCj4+ICt7DQo+PiArICAgIHN0cnVjdCBsaXN0
+X2Fzc2lnbmVkIGN0eHQgPSB7DQo+PiArICAgICAgICAuYXNzaWduZWQgPSAhcmVwb3J0X25vdF9h
+c3NpZ25lZCwNCj4+ICsgICAgICAgIC5jdXJfaWR4ID0gMCwNCj4+ICsgICAgICAgIC5mcm9tX2lk
+eCA9IGZyb21faWR4LA0KPj4gKyAgICAgICAgLmRvbWFpbiA9IGRvbWFpbiwNCj4+ICsgICAgICAg
+IC5tYWNoaW5lX3NiZGYgPSBtYWNoaW5lX3NiZGYsDQo+PiArICAgIH07DQo+PiArICAgIGludCBy
+ZXQ7DQo+PiArDQo+PiArICAgIHBjaWRldnNfbG9jaygpOw0KPj4gKyAgICByZXQgPSBwY2lfc2Vn
+bWVudHNfaXRlcmF0ZShfZW51bV9hc3NpZ25lZF9wY2lfZGV2aWNlcywgJmN0eHQpOw0KPj4gKyAg
+ICBwY2lkZXZzX3VubG9jaygpOw0KPj4gKyAgICAvKg0KPj4gKyAgICAgKiBJZiBub3QgZm91bmQg
+dGhlbiByZXBvcnQgYXMgRUlOVkFMIHRvIG1hcmsNCj4+ICsgICAgICogZW51bWVyYXRpb24gcHJv
+Y2VzcyBmaW5pc2hlZC4NCj4+ICsgICAgICovDQo+PiArICAgIGlmICggIXJldCApDQo+PiArICAg
+ICAgICByZXR1cm4gLUVJTlZBTDsNCj4+ICsgICAgcmV0dXJuIDA7DQo+PiArfQ0KPj4gKyNlbmRp
+Zg0KPiBKdXN0IGluIGNhc2UgdGhlIGVhcmxpZXIgY29tbWVudHMgeW91J3ZlIGdvdCBkb24ndCBs
+ZWFkIHRvIHJlbW92YWwNCj4gb2YgdGhpcyBjb2RlIC0gdW5sZXNzIHRoZXJlJ3MgYSByZWFsIG5l
+ZWQgZm9yIHRoZW0gdG8gYmUgcHV0IGhlcmUsDQo+IHVuZGVyICNpZmRlZiwgcGxlYXNlIGFkZCBh
+IG5ldyB4ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hcm0vcGNpLmMNCj4gaW5zdGVhZC4gRXZlbiBp
+ZiBmb3IganVzdCBwYXJ0IG9mIHRoZSBjb2RlLCB0aGlzIHdvdWxkIHRoZW4gYWxzbw0KPiBoZWxw
+IHdpdGggbW9yZSBjbGVhciBtYWludGFpbmVyc2hpcCBvZiB0aGlzIEFybSBzcGVjaWZpYyBjb2Rl
+Lg0KWWVzLCBkb2VzIG1ha2Ugc2Vuc2UgdG8gbW92ZSBhbGwgQVJNIHNwZWNpZmljcyBpbnRvIGEg
+ZGVkaWNhdGVkIGZpbGUNCj4NCj4gSmFu
 
