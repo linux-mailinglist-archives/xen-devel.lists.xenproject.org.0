@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0483F2B00FD
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 09:16:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.25522.53328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9338A2B0130
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Nov 2020 09:27:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.25530.53343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kd7ku-00067g-6F; Thu, 12 Nov 2020 08:14:56 +0000
+	id 1kd7wH-0007Cm-Dz; Thu, 12 Nov 2020 08:26:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 25522.53328; Thu, 12 Nov 2020 08:14:56 +0000
+Received: by outflank-mailman (output) from mailman id 25530.53343; Thu, 12 Nov 2020 08:26:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,173 +23,151 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kd7ku-00067H-1x; Thu, 12 Nov 2020 08:14:56 +0000
-Received: by outflank-mailman (input) for mailman id 25522;
- Thu, 12 Nov 2020 08:14:54 +0000
+	id 1kd7wH-0007CQ-Ac; Thu, 12 Nov 2020 08:26:41 +0000
+Received: by outflank-mailman (input) for mailman id 25530;
+ Thu, 12 Nov 2020 08:26:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2UFB=ES=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kd7ks-00067C-Hx
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 08:14:54 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AYe4=ES=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
+ id 1kd7wG-0007CK-7t
+ for xen-devel@lists.xen.org; Thu, 12 Nov 2020 08:26:40 +0000
+Received: from mail-vs1-xe2e.google.com (unknown [2607:f8b0:4864:20::e2e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f5d513f8-27e5-4e09-87ff-0ca5ae1e1e6c;
- Thu, 12 Nov 2020 08:14:53 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A0D8AAC48;
- Thu, 12 Nov 2020 08:14:52 +0000 (UTC)
+ id ca3e4887-efc0-4377-8209-46c2b5ed791b;
+ Thu, 12 Nov 2020 08:26:39 +0000 (UTC)
+Received: by mail-vs1-xe2e.google.com with SMTP id t8so2767880vsr.2
+ for <xen-devel@lists.xen.org>; Thu, 12 Nov 2020 00:26:39 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=2UFB=ES=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kd7ks-00067C-Hx
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 08:14:54 +0000
-X-Inumbo-ID: f5d513f8-27e5-4e09-87ff-0ca5ae1e1e6c
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=AYe4=ES=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
+	id 1kd7wG-0007CK-7t
+	for xen-devel@lists.xen.org; Thu, 12 Nov 2020 08:26:40 +0000
+X-Inumbo-ID: ca3e4887-efc0-4377-8209-46c2b5ed791b
+Received: from mail-vs1-xe2e.google.com (unknown [2607:f8b0:4864:20::e2e])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f5d513f8-27e5-4e09-87ff-0ca5ae1e1e6c;
-	Thu, 12 Nov 2020 08:14:53 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605168892;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4Lrw4MaCanCjK64q0hqvuM3XkTxYJuV94P34RGjf6/I=;
-	b=mOw4tHw3T9PyIBN7qdPZEQXzwaZtmSnMZ4fy9i8D3aqqlQ+8Wpph/HRkMTUCdp6wPizcIW
-	fz0Ypg0bh4gyvjjaa0DTfgciaGYS2wiSTl3+VKuW+UJLwobFCH7vK2rqJmbXIv2qXg4xJP
-	aTfOlb+vzQcD7fKrI3TH0pe+pCDOjXk=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A0D8AAC48;
-	Thu, 12 Nov 2020 08:14:52 +0000 (UTC)
-Subject: Re: [PATCH] xen/x86: Work around Clang code generation bug with asm
- parameters
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20201111124512.2268-1-andrew.cooper3@citrix.com>
- <8282790a-a0bd-1d33-d992-9d194766254e@suse.com>
- <3ecb8469-8504-054a-078d-4bf32f8f82c4@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <cfc7ad85-22b3-701f-f1d8-5009e5262b92@suse.com>
-Date: Thu, 12 Nov 2020 09:14:48 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.1
+	id ca3e4887-efc0-4377-8209-46c2b5ed791b;
+	Thu, 12 Nov 2020 08:26:39 +0000 (UTC)
+Received: by mail-vs1-xe2e.google.com with SMTP id t8so2767880vsr.2
+        for <xen-devel@lists.xen.org>; Thu, 12 Nov 2020 00:26:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=KxYhA8URFOUVcC0n9xmCpT8QbAW4X/j6MTL50w9Xv+Y=;
+        b=JyazXarXJkKXpgjS4XKdjHJi3hq/cbDovM1p7LULp/Xl7trXAiqDBEHiCRaF+5R9QH
+         K+BLQ+LvljnFxFbho8s0NqBsGIZS4aCq0vjSJsqyvkiycRqdXmV1MrNWxUmjb8jMe+Hb
+         FDIVoRxI1GgljYxcPAHD3d9uaIu8uqC6EAC/ncerHoSBsC6CmUfgLVtiGbvWzGQ2chtP
+         v/S037TMDRUBvDnhVSyhby6aq+ZzA3nwaM57nyKXo6EVihAvz5EkZVAOW6lsbGeH9+uZ
+         OCp4ocGP20R148Z/1n7HKy2UJQPtjYN8lAAJz9+zuA9Yk08BY1uwGa+yIhw/1q8RIAhq
+         UC2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=KxYhA8URFOUVcC0n9xmCpT8QbAW4X/j6MTL50w9Xv+Y=;
+        b=KMt9abQCb1XDXJRxFCZoZR94ZnFe18TPmFc0ylILfzOXlmFWanXrJzjAsl7Fa5lgul
+         o3hZWzo6rt2rGV9wC9309Q/67ht6iIC4dpKeCgKqUByyi+pajtNfIl2bLNHscdKi0Usq
+         jMrp23QtKvagrH1Tu48zaFvgmeaqs6wjVAIf6feVGkIwEeLRTgTlHa0COWEaSnkRim6/
+         AMvdd7H39rXAfCOVVInYBtmLrvQFyQru393vYjpCOOug1eVxhP5ARiVFg6cUyRlr3YEP
+         XBWHXTwociMTejXqS6vv6uo4yHYtrdDPvIx791d9FdVqZ9eBTiRMIVLOi+hULJWf5LN3
+         IuQQ==
+X-Gm-Message-State: AOAM530Q//dHNPVwcOah0HoZT2qcyZzNB7zq/3zBtCXq1/9XfwxuqjEz
+	IK1kcRB2KbO7zttFuIVM0LyXkNQZmSANbhdWoGoN9KGksh+J+g==
+X-Google-Smtp-Source: ABdhPJzQE3tiJQZNmAjPnQ1wb6Lraey1Do5/fs85bFNEmek/z6CTzHURxnPJveTvm6etSr1EU8zVxPqUtPv+qFdGFkw=
+X-Received: by 2002:a67:ff10:: with SMTP id v16mr17617590vsp.40.1605169598624;
+ Thu, 12 Nov 2020 00:26:38 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <3ecb8469-8504-054a-078d-4bf32f8f82c4@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <CACJ1ZNuJCgDkRHvH2gXqC5gWTJHdUQ9J4G-HBNFwKYZFaWpWuw@mail.gmail.com>
+In-Reply-To: <CACJ1ZNuJCgDkRHvH2gXqC5gWTJHdUQ9J4G-HBNFwKYZFaWpWuw@mail.gmail.com>
+From: Olivier Lambert <lambert.olivier@gmail.com>
+Date: Thu, 12 Nov 2020 09:26:27 +0100
+Message-ID: <CACJ1ZNupvRX_fcGPWn3mm+3Lm4gT38M088tUc_sSUu8JeQg3Fg@mail.gmail.com>
+Subject: Re: Schedule for OpenPOWER/Xen meeting
+To: "<xen-devel@lists.xen.org>" <xen-devel@lists.xen.org>
+Content-Type: multipart/alternative; boundary="000000000000baf5ef05b3e4aba9"
 
-On 11.11.2020 21:01, Andrew Cooper wrote:
-> On 11/11/2020 15:11, Jan Beulich wrote:
->> On 11.11.2020 13:45, Andrew Cooper wrote:
->>> Clang 9 and later don't handle the clobber of %r10 correctly in
->>> _hypercall64_4().  See https://bugs.llvm.org/show_bug.cgi?id=48122
->> Are you sure this is a bug?
-> 
-> Yes.
-> 
->>  With ...
->>
->>>  #define _hypercall64_4(type, hcall, a1, a2, a3, a4)                     \
->>>      ({                                                                  \
->>> -        long res, tmp__;                                                \
->>> -        register long _a4 asm ("r10") = ((long)(a4));                   \
->>> +        long res, _a1 = (long)(a1), _a2 = (long)(a2),                   \
->>> +            _a3 = (long)(a3);                                           \
->>> +        register long _a4 asm ("r10") = (long)(a4);                     \
->>>          asm volatile (                                                  \
->>>              "call hypercall_page + %c[offset]"                          \
->>> -            : "=a" (res), "=D" (tmp__), "=S" (tmp__), "=d" (tmp__),     \
->>> -              "=&r" (tmp__) ASM_CALL_CONSTRAINT                         \
->> ... this we've requested "any register", while with ...
->>
->>> -            : [offset] "i" (hcall * 32),                                \
->>> -              "1" ((long)(a1)), "2" ((long)(a2)), "3" ((long)(a3)),     \
->>> -              "4" (_a4)                                                 \
->> ... this we've asked for that specific register to be initialized
->> from r10 (and without telling the compiler that r10 is going to
->> change).
-> 
-> Consider applying that same reasoning to "1" instead of "4".  In that
-> case, a1 would no longer be bound to %rdi.
+--000000000000baf5ef05b3e4aba9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-That's different: "=D" specifies the register, and "1" says "use
-the same register as input". Whereas, as said, "=&r" says "use
-any register" with "1" saying "use the same register" and (_a4)
-specifying where the value is to come from.
+Thanks to everyone who participated in the poll. Due to the limited number
+of answers, I think it's wiser to go for the second option (Thursday the
+19th), because everyone who already answered seems available that day. I'll
+confirm that to OpenPOWER. When it's confirmed, I'll do a recap here
+ideally with the meeting place.
 
-> The use of "4" explicitly binds the input and the output, which includes
-> requiring them to be the same register.
-> 
-> Furthermore, LLVM tends to consider "not behaving in the same was as
-> GCC" a bug.
+Thanks,
 
-That's a fair statement, but then still the description wants
-re-wording. Plus of course future gcc is free to change their
-behavior to that currently observed with clang.
+Olivier.
 
-Consider the following example (on an arch where "f" is a
-floating point register and there are ways to copy directly
-between GPR and floating point registers:
 
-   int i;
-   register float f asm("f7") = <input>;
-   asm("..." : "=r" (i) : "0" (f));
+Le mar. 10 nov. 2020 =C3=A0 13:41, Olivier Lambert <lambert.olivier@gmail.c=
+om> a
+=C3=A9crit :
 
-In this case obviously f7 can't be used for i (as it doesn't
-match "r"). It's merely that the initial value of i is to come
-from f7. In fact for Arm64 this
+> Hi everyone,
+>
+> We got 2 potential dates for the initial tech meeting with at least one
+> OpenPOWER expert, so we can discuss the effort needed to port Xen on this
+> architecture.
+>
+> Because of time zones (on OpenPower side, there's one guy in Australia),
+> we got 2 possible schedules in November:
+>
+> 1. 3pm CT on this Thursday the 12th (! this week)
+> 2. Or next week Thursday the 19th
+>
+> I made a doodle-like so everyone can vote on their preferred schedule:
+> https://framadate.org/QQu5rYEOEYr4ZHc4
+>
+> Note: 3pm CT would mean 9pm UTC, 10pm UTC+1 (CET). But correct me if I'm
+> wrong.
+>
+> Reminder: the Cryptpad of the last Xen Community meeting contains the lis=
+t
+> of people interested. If you are aware of someone interested that could
+> miss this email on this devel list, feel free to forward it. Cryptpad lin=
+k:
+> https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/
+>
+> Thank you and see you soon!
+>
+> Olivier.
+>
 
-extern float flt;
+--000000000000baf5ef05b3e4aba9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-int test(void) {
-	int i;
-	register float f asm("s7") = flt;
-	asm("add %0,%0,5" : "=r" (i) : "0" (f));
-	return i;
-}
+<div dir=3D"ltr"><div>Thanks to everyone who participated in the poll. Due =
+to the limited number of answers, I think it&#39;s wiser to go for the seco=
+nd option (Thursday the 19th), because everyone who already answered seems =
+available that day. I&#39;ll confirm that to OpenPOWER. When it&#39;s confi=
+rmed, I&#39;ll do a recap here ideally with the meeting place.</div><div><b=
+r></div><div>Thanks,</div><div><br></div><div>Olivier.<br></div><br></div><=
+br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Le=C2=
+=A0mar. 10 nov. 2020 =C3=A0=C2=A013:41, Olivier Lambert &lt;<a href=3D"mail=
+to:lambert.olivier@gmail.com">lambert.olivier@gmail.com</a>&gt; a =C3=A9cri=
+t=C2=A0:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div di=
+r=3D"ltr"><div>Hi everyone,</div><div><br></div><div>We got 2 potential dat=
+es for the initial tech meeting with at least one OpenPOWER expert, so we c=
+an discuss the effort needed to port Xen on this architecture.</div><div><b=
+r></div><div>Because of time zones (on OpenPower side, there&#39;s one guy =
+in Australia), we got 2 possible schedules in November:</div><div><br></div=
+><div>1. 3pm CT on this Thursday the 12th (! this week)<br></div><div>2. Or=
+ next week Thursday the 19th</div><div><br></div><div>I made a doodle-like =
+so everyone can vote on their preferred schedule: <a href=3D"https://framad=
+ate.org/QQu5rYEOEYr4ZHc4" target=3D"_blank">https://framadate.org/QQu5rYEOE=
+Yr4ZHc4</a></div><div><br></div><div>Note: 3pm CT would mean 9pm UTC, 10pm =
+UTC+1 (CET). But correct me if I&#39;m wrong.</div><div><br></div><div>Remi=
+nder: the Cryptpad of the last Xen Community meeting contains the list of p=
+eople interested. If you are aware of someone interested that could miss th=
+is email on this devel list, feel free to forward it. Cryptpad link: <a hre=
+f=3D"https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/" target=
+=3D"_blank">https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/<=
+/a></div><div><br></div><div>Thank you and see you soon!</div><div><br></di=
+v><div>Olivier.<br></div></div>
+</blockquote></div>
 
-behaves exactly as described:
-
-test:
-        adrp    x0, flt
-        ldr     s7, [x0, @lo12(flt)]
-        fmov    w0, s7
-        add     x0, x0, #5
-        ret
-
-(Whether fmov is a sensible choice here is a different question;
-I'd have expected some fcvt*.)
-
-Similarly a constant initial value would demonstrate this (or
-one necessarily coming from memory), albeit in a less obvious
-way: It doesn't say "this constant lives in the register", but
-"this constant is to be loaded into the register".
-
->> Also, by what I would have hoped is convention meanwhile, the new
->> macro local variables' names shouldn't start with an underscore,
->> but instead perhaps end in one. But to be honest, despite knowing
->> of the latent (albeit highly hypothetical) issue, each time I
->> find myself making such a comment I'm one tiny step closer to
->> giving up.
-> 
-> Convention is not created by you getting irritated at others getting
-> irritated at you for requesting bizarre and unusual changes in submitted
-> code, or by continuing to point things out, knowing that others
-> specifically disagree with your reasoning in this case.
-> 
-> Convention is created when there is general agreement over the technical
-> merits of writing code in one particular way vs the alternatives, *and*
-> its written down somewhere, so this argument does not continue any further.
-> 
-> There is no restrictions or guidance in the coding style to prefer one
-> form over another, therefore anything is acceptable.
-
-Our coding style document imo ought to describe things not already
-specified by the standard. What scopes certain identifiers are to
-be considered reserved in is, however, written down there already.
-
-Jan
+--000000000000baf5ef05b3e4aba9--
 
