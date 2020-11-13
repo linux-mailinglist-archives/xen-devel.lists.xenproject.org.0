@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED6732B1D8F
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 15:35:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26564.55025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FC8F2B1D95
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 15:38:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26572.55037 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdaAk-0002Nz-5X; Fri, 13 Nov 2020 14:35:30 +0000
+	id 1kdaDW-0002aD-KM; Fri, 13 Nov 2020 14:38:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26564.55025; Fri, 13 Nov 2020 14:35:30 +0000
+Received: by outflank-mailman (output) from mailman id 26572.55037; Fri, 13 Nov 2020 14:38:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,126 +23,188 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdaAk-0002Na-27; Fri, 13 Nov 2020 14:35:30 +0000
-Received: by outflank-mailman (input) for mailman id 26564;
- Fri, 13 Nov 2020 14:35:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yQoD=ET=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kdaAi-0002NV-Jn
- for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 14:35:28 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 52791a99-6ab6-44f3-afff-6377aa920c0f;
- Fri, 13 Nov 2020 14:35:27 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kdaDW-0002Zo-Ge; Fri, 13 Nov 2020 14:38:22 +0000
+Received: by outflank-mailman (input) for mailman id 26572;
+ Fri, 13 Nov 2020 14:38:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5p9l=ET=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kdaDV-0002Zi-D1
+ for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 14:38:21 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d054eba7-0370-4acf-8340-c9bdbfebbe16;
+ Fri, 13 Nov 2020 14:38:20 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1190AAD7C;
+ Fri, 13 Nov 2020 14:38:19 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=yQoD=ET=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1kdaAi-0002NV-Jn
-	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 14:35:28 +0000
-X-Inumbo-ID: 52791a99-6ab6-44f3-afff-6377aa920c0f
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 52791a99-6ab6-44f3-afff-6377aa920c0f;
-	Fri, 13 Nov 2020 14:35:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1605278127;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=ujoTVnN+YBqbDTcmMTB76apyyrOARJ7+33aJqyy73Zk=;
-  b=GNeZUv4gLkfCcJd6+YSoWhlrVJ/Jb0KPMvYy1f4bfHnXxSh68COuwi3m
-   3zWEHqGlO91ciBVTCW3HnapG+g1cy9zsqnylVvGfjEm1naNS5mZ0tElvC
-   Gi21eO/+UitQdtmQU3e0GVlnZ1A6zpUeb0nxVPyVqyJRkDATQG/jIn/qe
-   0=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: lsaPtCFS+Q92a+ExlNbV+rxlTIvh+JAF6scq6CbbBWl9KycSZBx6MNW/wvr07emWq1C9OlbpBp
- Km5oe8UoR4VBJ9i6t8MykxLreiqqWYweQUYTmeDRXZiVIZQ44m/4NlzdoyDWrRT93bkpzdlXN+
- MHuqtMLK2wE0yTl95ZdU9T3ogfUHZugDldOoNunhSegHiX2lI/jJXjdw5dugvpTKYOyNIkXR1m
- i+IwaxaLjOj4ICip1MzE6NNJPJjgmt1qU8FGc6Pb7y6S02wuUpvKU46oT8DcQV1vFlnDSUhSfM
- CW4=
-X-SBRS: None
-X-MesageID: 31362517
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.77,475,1596513600"; 
-   d="scan'208";a="31362517"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PdouVGLZkL6MD5JlXNcvayTR4Z9wdxkax+ZfnhcYnurGEqDMm8Hc+23sCJ7QGwTKTmyE+Udp+IluXxas8WQTYCzWNiFTM1wGaElgH/W026aGn7MFgkGiBjdns1EGiK5J2k5RXYoyzALSpmYCU7xHQXZT2V2E1JoyOnqdwcNbkcmPT47oU8PlcL+hKknptW/t3Tz6IynIgOxG40hVbQtY890F2MGBivpiCloHL0cpYrCjq9snrG/rP4li5Y/Feq0tQXEY13wkM4GLR2OWKqjWI8PYI54pITs0VJMo2KU7Bw9o7N5OwUSymD9JcPHqSRb+lCr1T6cYApsuzOJ9lXsyRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WhCsZoroeC45ZJavgpDQsb7UfSKy7Lpd+WQMFvqQ2K4=;
- b=BuuvRjz3FMHKsdy/eKqMWUsBH/HjNww/ZuORPL2vKUC2RmyUJ5wrS0Zyk21IW25dDgJ/Dx1BXL/hRgnYsMeVKXYNrvrnT4KDizATHyKqG0moh9bPdn/Lx90Xuet8GwrEwX3Iri23hNLf9a8cgjEHcLiSYKQBT5w8peiYV0n7kA3wdiUlj89ZDhwD34dKVfe0YqQHIty7CO6EQIi4ugG0bKWd+H0HWcXBy5B7sDf7ygBKSwz1/LyjC7NkILRTkWb6cjiDPery5LDuoUni45Fp0VPZ79w/naCs/noRkiFiTth4bei4k6vh/yY9OBJ34vyYoJQ2I+2yM9603qSdlSNBhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WhCsZoroeC45ZJavgpDQsb7UfSKy7Lpd+WQMFvqQ2K4=;
- b=BzuZBEFlaS+iPOMZvEh/c8IzewN3fGSa+dZIraqOLqj11+lnvSSrroOv8XT2XjXCPQJVawxD8tTospZ/n3K7CP5lPkuJ9V+ZXbWnJa/bnXKWZ+baLf49c5BnzRssuWDdMe5WfVmFlCF8joztLptB0dyu06PFX+Fh2NTM++heqVE=
-Date: Fri, 13 Nov 2020 15:35:13 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-CC: <xen-devel@lists.xenproject.org>
-Subject: Re: dom0 PVH: 'entry->arch.pirq != INVALID_PIRQ' failed at vmsi.c:843
-Message-ID: <20201113143513.5mvfb4tyczyo2rwx@Air-de-Roger>
-References: <20201112155715.GA5003@antioche.eu.org>
- <20201112163240.6xswol2iswikdzef@Air-de-Roger>
- <20201112172704.GA5899@antioche.eu.org>
- <20201112201939.be6ztg2iipwa6hkb@Air-de-Roger>
- <20201113115457.GD1512@antioche.eu.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201113115457.GD1512@antioche.eu.org>
-X-ClientProxiedBy: LO4P123CA0028.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:151::15) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+	(envelope-from <SRS0=5p9l=ET=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kdaDV-0002Zi-D1
+	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 14:38:21 +0000
+X-Inumbo-ID: d054eba7-0370-4acf-8340-c9bdbfebbe16
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id d054eba7-0370-4acf-8340-c9bdbfebbe16;
+	Fri, 13 Nov 2020 14:38:20 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605278299; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UO1gWVGjEtcPmOydDe/QZYVJvqDCajMausynMmYvfPo=;
+	b=NDsUl840zImKT0xVSJLff42JezjM1fEYF6t98OOrberCmJzK9P0o1y64tW1DrE44ay0IUM
+	tvH9uu+8NTXj5jg8l0tPXNUBTmyV/2OhluMCdvv9ZaMFtKtVW5qLeX9Gm0Ghz1Qh85kUjC
+	XYTlqrZk2CAZaf8hqoqy+4y0bzzuWnQ=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 1190AAD7C;
+	Fri, 13 Nov 2020 14:38:19 +0000 (UTC)
+Subject: Re: [PATCH 06/10] vpci: Make every domain handle its own BARs
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ "Rahul.Singh@arm.com" <Rahul.Singh@arm.com>,
+ "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
+ "julien.grall@arm.com" <julien.grall@arm.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "iwj@xenproject.org" <iwj@xenproject.org>, "wl@xen.org" <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20201109125031.26409-1-andr2000@gmail.com>
+ <20201109125031.26409-7-andr2000@gmail.com>
+ <20201112094002.bzk6gvp4iy4dgj4s@Air-de-Roger>
+ <1b3f11c2-a5a2-da5c-25b3-851ef9465ab9@epam.com>
+ <20201112144643.iyy5b34qyz5zi7mc@Air-de-Roger>
+ <1fe15b9a-6f5d-1209-8ff5-af7c4fc0d637@epam.com>
+ <b4697fbe-6896-ed64-409d-85620c08904a@suse.com>
+ <3d6e5aab-ff89-7859-09c6-5ecb0c052511@epam.com>
+ <1c88fef1-8558-fde1-02c7-8a68f6ecf312@suse.com>
+ <67fd5df7-2ad2-08e5-294e-b769429164f0@epam.com>
+ <03e23a66-619f-e846-cf61-a33ca5d9f0b4@suse.com>
+ <b151e6d2-5480-d201-432a-bece208a1fd9@epam.com>
+ <c58c1393-381a-d995-6e41-fa3251f67bd7@suse.com>
+ <8fc22774-7380-2de1-9c30-6649a79fdfe1@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <46c75ee1-758c-8a42-d8d3-8d42cce3240a@suse.com>
+Date: Fri, 13 Nov 2020 15:38:18 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0265994c-152d-431a-3dbc-08d887e15b99
-X-MS-TrafficTypeDiagnostic: DM5PR03MB3210:
-X-Microsoft-Antispam-PRVS: <DM5PR03MB321091DD9709F0D19B6DA5F88FE60@DM5PR03MB3210.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Pj0LqPggeerDpPBVWYqbGIF5BIjvogPx4QRAcNWrRzwzBr46wYvEkiyXJo2vPB+uxRNBqjM7/aR1oQHnvmowPh6p3fp5ujV/8hVAi3/u16b1ovrhLDTkzl2ifZQKpjfnaDDYFfhYamYrwEzcGvMxUy3lfLML+SOHpr8UOd1V0BXQcdCgw6h7rn99i1sq47Q9yLc+PZUA3PO2LQ0SkldUmOUeG8zy4TX3zx8aKIJjyWqIOvCs+BxvHo0x9RU19JBpCYu7t0SDxeJIQxMQCW7wvu3N262l2epg2sThXTpFDFT6AY1HZratWOKvAFM8eD6J
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(136003)(346002)(376002)(396003)(39860400002)(9686003)(6486002)(478600001)(316002)(4326008)(6666004)(86362001)(5660300002)(26005)(2906002)(186003)(6916009)(66476007)(85182001)(33716001)(956004)(6496006)(8676002)(8936002)(66946007)(1076003)(16526019)(66556008);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: zPd3VvF8fzR2fn4nScpa9UdLXH5FJkJxJ1nvq3iyKAj59FZTHfoP+madQhZ9ZfqFRJgFZlo4pabzeXxFY1YWSypGLN4QWVBoF6uw2vi3Hwro9hMl5o269gy/p/hkw5mQ9k29EnbssuVhDgTUW6yRYyzm7TPBINvJJmLKHd4cd8E48Vh6fuOPxO01eEXmFjUWXWajzqRoiusi4UbR1D9kQmAzKq6bWE/P1Ux0K73EpQ8X+UiEIWySQkPXCxa6kfywuQ3yi3hCqtaC95zmaZRkV0Pf82SFW7izHk8nTU6MgWcpzt21eHnOEMFv4XPctWmqfyf8oMUx9uuvQnfFY1/Elgh1bKg4Uv3vFEOZ7KRYiqpN1wR+YDL4JjC3JUU4Fniol2SZDC0gnveDTv2/v4Mc6M2WmdsVeLxnrAGRh0F5AEnyZUWoXoMWtyyOT4zZKYx4Dn2/KEsURfX7dqqTxLqd8LmbK0AT5BCCDfN5aM9o3S1+OsefohTKV2A0XM9lRhnE0SO5qhqAxUfauGFbY1dmI4ERMZGDePwQ+2pQXaUrQdufHvzRm11UBBBRVdwNiOJuAQQS33y6yD6NdCen/ICCyy//erZMk6eqsxDWH6zDht34UY4EK3mRc3GUSpqBHJBzZq1nIwPhtm0/s4t+UDWwSP2c5BEx5ziL2L1FIuTwOX8COoGrS8pswKaVM9jl80QqN6utXoTQFi86KBBjbO/2p7nGoSX0+c4riK9qR0+LcHF4Ul6vwKseMcPefKLzl4Q4TVjADlvWOo3hsRCGTPi5VodZOHxw+n4aQ3JjMoQvxvRRX9TpoPSxWPIPLvhPaLSVrI1hQvLdsJGAbbXjiHi+81bKsHPHn9BwZImEpEEmJjZVKU/cQt1f1DcLxyhsgDQmHV9BkBYFZnJ8EhLabjaj5g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0265994c-152d-431a-3dbc-08d887e15b99
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2020 14:35:24.7842
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GIcNZaJ/iGshu5QbsqWQnzfmOaq+uFfw53CyDYeoMUXBJyNS4rzpgcGzouqaO2DXbh26ZtiO+Rtc44qbqlM21Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3210
-X-OriginatorOrg: citrix.com
+In-Reply-To: <8fc22774-7380-2de1-9c30-6649a79fdfe1@epam.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2020 at 12:54:57PM +0100, Manuel Bouyer wrote:
-> On Thu, Nov 12, 2020 at 09:19:39PM +0100, Roger Pau Monné wrote:
-> > The following might be able to get you going, but I think I need to
-> > refine the logic a bit there, will have to give it some thought.
+On 13.11.2020 15:32, Oleksandr Andrushchenko wrote:
 > 
-> I also tested with xen devel (Xen version 4.15-unstable, Latest ChangeSet: Wed Nov 4 09:27:22 2020 +0100 git:9ff9705647-dirty).
-> Your patch is needed there too to avoid the panic.
+> On 11/13/20 4:23 PM, Jan Beulich wrote:
+>> On 13.11.2020 13:41, Oleksandr Andrushchenko wrote:
+>>> On 11/13/20 1:35 PM, Jan Beulich wrote:
+>>>> On 13.11.2020 12:02, Oleksandr Andrushchenko wrote:
+>>>>> On 11/13/20 12:50 PM, Jan Beulich wrote:
+>>>>>> On 13.11.2020 11:46, Oleksandr Andrushchenko wrote:
+>>>>>>> On 11/13/20 12:25 PM, Jan Beulich wrote:
+>>>>>>>> On 13.11.2020 07:32, Oleksandr Andrushchenko wrote:
+>>>>>>>>> I'll try to replace is_hardware_domain with something like:
+>>>>>>>>>
+>>>>>>>>> +/*
+>>>>>>>>> + * Detect whether physical PCI devices in this segment belong
+>>>>>>>>> + * to the domain given, e.g. on x86 all PCI devices live in hwdom,
+>>>>>>>>> + * but in case of ARM this might not be the case: those may also
+>>>>>>>>> + * live in driver domains or even Xen itself.
+>>>>>>>>> + */
+>>>>>>>>> +bool pci_is_hardware_domain(struct domain *d, u16 seg)
+>>>>>>>>> +{
+>>>>>>>>> +#ifdef CONFIG_X86
+>>>>>>>>> +    return is_hardware_domain(d);
+>>>>>>>>> +#elif CONFIG_ARM
+>>>>>>>>> +    return pci_is_owner_domain(d, seg);
+>>>>>>>>> +#else
+>>>>>>>>> +#error "Unsupported architecture"
+>>>>>>>>> +#endif
+>>>>>>>>> +}
+>>>>>>>>> +
+>>>>>>>>> +/*
+>>>>>>>>> + * Get domain which owns this segment: for x86 this is always hardware
+>>>>>>>>> + * domain and for ARM this can be different.
+>>>>>>>>> + */
+>>>>>>>>> +struct domain *pci_get_hardware_domain(u16 seg)
+>>>>>>>>> +{
+>>>>>>>>> +#ifdef CONFIG_X86
+>>>>>>>>> +    return hardware_domain;
+>>>>>>>>> +#elif CONFIG_ARM
+>>>>>>>>> +    return pci_get_owner_domain(seg);
+>>>>>>>>> +#else
+>>>>>>>>> +#error "Unsupported architecture"
+>>>>>>>>> +#endif
+>>>>>>>>> +}
+>>>>>>>>>
+>>>>>>>>> This is what I use to properly detect the domain that really owns physical host bridge
+>>>>>>>> I consider this problematic. We should try to not let Arm's and x86'es
+>>>>>>>> PCI implementations diverge too much, i.e. at least the underlying basic
+>>>>>>>> model would better be similar. For example, if entire segments can be
+>>>>>>>> assigned to a driver domain on Arm, why should the same not be possible
+>>>>>>>> on x86?
+>>>>>>> Good question, probably in this case x86 == ARM and I can use
+>>>>>>>
+>>>>>>> pci_is_owner_domain for both architectures instead of using is_hardware_domain for x86
+>>>>>>>
+>>>>>>>> Furthermore I'm suspicious about segments being the right granularity
+>>>>>>>> here. On ia64 multiple host bridges could (and typically would) live
+>>>>>>>> on segment 0. Iirc I had once seen output from an x86 system which was
+>>>>>>>> apparently laid out similarly. Therefore, just like for MCFG, I think
+>>>>>>>> the granularity wants to be bus ranges within a segment.
+>>>>>>> Can you please suggest something we can use as a hint for such a detection logic?
+>>>>>> The underlying information comes from ACPI tables, iirc. I don't
+>>>>>> recall the details, though - sorry.
+>>>>> Ok, so seg + bus should be enough for both ARM and Xen then, right?
+>>>>>
+>>>>> pci_get_hardware_domain(u16 seg, u8 bus)
+>>>> Whether an individual bus number can suitable express things I can't
+>>>> tell; I did say bus range, but of course if you care about just
+>>>> individual devices, then a single bus number will of course do.
+>>> I can implement the lookup whether a PCI host bridge owned by a particular
+>>>
+>>> domain with something like:
+>>>
+>>> struct pci_host_bridge *bridge = pci_find_host_bridge(seg, bus);
+>>>
+>>> return bridge->dt_node->used_by == d->domain_id;
+>>>
+>>> Could you please give me a hint how this can be done on x86?
+>> Bridges can't be assigned to other than the hardware domain right
+>> now.
 > 
-> As with 4.13, I have problems with interrupts not being properly
-> delivered. The strange thing is that the counter is not 0, but 3 (wuth 4.13)
-> or 2 (with 4.15) which would mean that interrupts stop being delivered
-> at some point in the setup process. Maybe something to do with mask/unmask ?
+> So, I can probably then have pci_get_hardware_domain implemented
 > 
-> The problematc interrupt in identifed as "ioapic2 pin 2" by the NetBSD kernel,
-> so it's not MSI/MSI-X (not sure it matters though).
-> Maybe something related to mask/unmask ?
+> by both ARM and x86 in their arch specific code. And for x86 for now
+> 
+> it can simply be a wrapper for is_hardware_domain?
 
-Forgot to mention, it might also be helpful to boot Xen with
-iommu=debug, just in case.
+"get" can't be a wrapper for "is", but I think I get what you're
+saying. But no, preferably I would not see you do this (hence my
+earlier comment). I still think you could use the owner of the
+respective device; I may be mistaken, but iirc we do assign
+bridges to Dom0, so deriving from that would be better than
+hardwiring to is_hardware_domain().
 
-Roger.
+>>   Earlier on I didn't say you should get this to work, only
+>> that I think the general logic around what you add shouldn't make
+>> things more arch specific than they really should be. That said,
+>> something similar to the above should still be doable on x86,
+>> utilizing struct pci_seg's bus2bridge[]. There ought to be
+>> DEV_TYPE_PCI_HOST_BRIDGE entries there, albeit a number of them
+>> (provided by the CPUs themselves rather than the chipset) aren't
+>> really host bridges for the purposes you're after.
+> 
+> You mean I can still use DEV_TYPE_PCI_HOST_BRIDGE as a marker
+> 
+> while trying to detect what I need?
+
+I'm afraid I don't understand what marker you're thinking about
+here.
+
+Jan
 
