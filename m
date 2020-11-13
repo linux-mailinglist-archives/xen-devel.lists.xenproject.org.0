@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 563442B154D
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 06:15:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26027.54353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 221DB2B1553
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 06:18:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26191.54365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdRQD-0007U2-Th; Fri, 13 Nov 2020 05:14:53 +0000
+	id 1kdRTg-0007gK-IU; Fri, 13 Nov 2020 05:18:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26027.54353; Fri, 13 Nov 2020 05:14:53 +0000
+Received: by outflank-mailman (output) from mailman id 26191.54365; Fri, 13 Nov 2020 05:18:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,79 +23,238 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdRQD-0007Td-QD; Fri, 13 Nov 2020 05:14:53 +0000
-Received: by outflank-mailman (input) for mailman id 26027;
- Thu, 12 Nov 2020 19:22:27 +0000
+	id 1kdRTg-0007fv-FI; Fri, 13 Nov 2020 05:18:28 +0000
+Received: by outflank-mailman (input) for mailman id 26191;
+ Fri, 13 Nov 2020 05:18:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3lRS=ES=suse.cz=pvorel@srs-us1.protection.inumbo.net>)
- id 1kdIAt-0002rd-RB
- for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 19:22:27 +0000
+ (envelope-from <SRS0=zLmm=ET=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kdRTe-0007fl-NN
+ for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 05:18:26 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab37eda9-1c41-4a50-bf41-c9b76256a01c;
- Thu, 12 Nov 2020 19:22:26 +0000 (UTC)
+ id c28b5fd8-8365-4256-8c02-77b216f0fce3;
+ Fri, 13 Nov 2020 05:18:25 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9C79EAFF8;
- Thu, 12 Nov 2020 19:22:25 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 9FC7BAB7A;
+ Fri, 13 Nov 2020 05:18:24 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=3lRS=ES=suse.cz=pvorel@srs-us1.protection.inumbo.net>)
-	id 1kdIAt-0002rd-RB
-	for xen-devel@lists.xenproject.org; Thu, 12 Nov 2020 19:22:27 +0000
-X-Inumbo-ID: ab37eda9-1c41-4a50-bf41-c9b76256a01c
+	(envelope-from <SRS0=zLmm=ET=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kdRTe-0007fl-NN
+	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 05:18:26 +0000
+X-Inumbo-ID: c28b5fd8-8365-4256-8c02-77b216f0fce3
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id ab37eda9-1c41-4a50-bf41-c9b76256a01c;
-	Thu, 12 Nov 2020 19:22:26 +0000 (UTC)
+	id c28b5fd8-8365-4256-8c02-77b216f0fce3;
+	Fri, 13 Nov 2020 05:18:25 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605244704;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PhtswhUD7tQ+X/ddXo6jvowUx4Ky45vbO9GuMIrnbfU=;
+	b=CXglpq2Xa+vpbfzFC0Z0/hhMUrGPCtp+3IMuEj/DbbpwyVoiv8CNrL/g8j+P6rA0GJW1Hd
+	VWe9ehQbBKxqdw36jysejgysKZhYQsyfgMzvHRW6A6+BaZ3gB7KEwKVvG5/sC8e9sOVUZl
+	TkAlxM+2aROrMfLFY5xorEl07Q/1P1I=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 9C79EAFF8;
-	Thu, 12 Nov 2020 19:22:25 +0000 (UTC)
-Date: Thu, 12 Nov 2020 20:22:23 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Justin Sanders <justin@coraid.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Jack Wang <jinpu.wang@cloud.ionos.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Roger Pau =?iso-8859-2?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Minchan Kim <minchan@kernel.org>, Mike Snitzer <snitzer@redhat.com>,
-	Song Liu <song@kernel.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	dm-devel@redhat.com, linux-block@vger.kernel.org,
-	drbd-dev@lists.linbit.com, nbd@other.debian.org,
-	ceph-devel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-raid@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-scsi@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 05/24] block: remove the update_bdev parameter from
- set_capacity_revalidate_and_notify
-Message-ID: <20201112192223.GA17194@pevik>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-References: <20201111082658.3401686-1-hch@lst.de>
- <20201111082658.3401686-6-hch@lst.de>
+	by mx2.suse.de (Postfix) with ESMTP id 9FC7BAB7A;
+	Fri, 13 Nov 2020 05:18:24 +0000 (UTC)
+Subject: Re: [PATCH] xen: add support for automatic debug key actions in case
+ of crash
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20201022143905.11032-1-jgross@suse.com>
+ <977bab69-892c-d94d-d952-1a748f69d0b6@suse.com>
+ <53732f8f-fe6d-91bd-4100-4b4d904a4073@suse.com>
+ <ed2f73e7-04cc-f568-f0b7-19c843a8d31b@suse.com>
+ <8c77ff71-a14e-7cf7-5f27-c7c152ace240@suse.com>
+ <3e2132c9-2ab3-7bfb-656b-2cab58a53342@suse.com>
+ <alpine.DEB.2.21.2011121332250.20906@sstabellini-ThinkPad-T480s>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <383f2f1f-96c1-1634-519f-3526019f4f48@suse.com>
+Date: Fri, 13 Nov 2020 06:18:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201111082658.3401686-6-hch@lst.de>
+In-Reply-To: <alpine.DEB.2.21.2011121332250.20906@sstabellini-ThinkPad-T480s>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="ZnYMMjsECBIdr9GWTfbQROPdPddxFa8s2"
 
-Hi Christoph,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--ZnYMMjsECBIdr9GWTfbQROPdPddxFa8s2
+Content-Type: multipart/mixed; boundary="zpho5v4kGn1LCRw8bJvOPmsgtjILnRcmL";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Message-ID: <383f2f1f-96c1-1634-519f-3526019f4f48@suse.com>
+Subject: Re: [PATCH] xen: add support for automatic debug key actions in case
+ of crash
+References: <20201022143905.11032-1-jgross@suse.com>
+ <977bab69-892c-d94d-d952-1a748f69d0b6@suse.com>
+ <53732f8f-fe6d-91bd-4100-4b4d904a4073@suse.com>
+ <ed2f73e7-04cc-f568-f0b7-19c843a8d31b@suse.com>
+ <8c77ff71-a14e-7cf7-5f27-c7c152ace240@suse.com>
+ <3e2132c9-2ab3-7bfb-656b-2cab58a53342@suse.com>
+ <alpine.DEB.2.21.2011121332250.20906@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2011121332250.20906@sstabellini-ThinkPad-T480s>
 
-> The update_bdev argument is always set to true, so remove it.  Also
-> rename the function to the slighly less verbose set_capacity_and_notify,
-> as propagating the disk size to the block device isn't really
-> revalidation.
+--zpho5v4kGn1LCRw8bJvOPmsgtjILnRcmL
+Content-Type: multipart/mixed;
+ boundary="------------491D70378802604DDF4BB714"
+Content-Language: en-US
 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+This is a multi-part message in MIME format.
+--------------491D70378802604DDF4BB714
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Nice cleanup.
+On 12.11.20 22:38, Stefano Stabellini wrote:
+> On Thu, 12 Nov 2020, Jan Beulich wrote:
+>> On 12.11.2020 13:50, J=C3=BCrgen Gro=C3=9F wrote:
+>>> Any further comments, or even better, Acks?
+>>
+>> To be honest I'd prefer to have at least one of the people Cc-ed
+>> minimally indicate they consider this a good idea. No need for a
+>> close review or such, just a basic opinion. Anyone?
+>=20
+> I see Jan's point that it is not clear how much this is going to help i=
+n
+> production. However, it is not going to hurt either, and I have been
+> told a few times recently that debugging Xen is not easy. Anything that=
 
-Kind regards,
-Petr
+> helps in that regard would be good. So I think this patch would be an
+> improvement.
+>=20
+
+This patch is an effort to get better diagnostic data in case of
+Xen crashes from our largest customer, so clearly intended for
+production use.
+
+
+Juergen
+
+--------------491D70378802604DDF4BB714
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------491D70378802604DDF4BB714--
+
+--zpho5v4kGn1LCRw8bJvOPmsgtjILnRcmL--
+
+--ZnYMMjsECBIdr9GWTfbQROPdPddxFa8s2
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+uFx8FAwAAAAAACgkQsN6d1ii/Ey/x
+vwf/bRZ6xSPXNeLYfhRCDOEUBbTUeuOwCajT+l3iyEPcs7+3sBwqDp8ApFgRrU4zyeSvlJvyigQ4
+GTnXU0JNqYb5Zxx6nYLflUP2yEvT5uWyE2eJPp/dGq5dfD/2ga6BL4tABAsoymL/+yfkFOnrm3BY
+Cav/PMqzYL9wYDVrneEw7mC0/Q+bZFiAg1CtPIK6NNoaXvkWd6BUx76EJyPABqfJrIgn5NQZIaOu
+NtbLi9WNQRQqNi0osEu5vESqtyBZdKD+yxj+mmMT9JgqWUPrRu2HuUIA6Fhqw9mwj5Ftc1V0bpoL
+oIGdw8xkyAudGXOskE/RZP+qkLP6qXcg/vO9tYJung==
+=Ob+k
+-----END PGP SIGNATURE-----
+
+--ZnYMMjsECBIdr9GWTfbQROPdPddxFa8s2--
 
