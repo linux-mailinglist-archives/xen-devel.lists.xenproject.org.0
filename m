@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 214DA2B218C
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 18:09:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26796.55287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48A4F2B21AA
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 18:13:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26806.55303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdcZ1-0001Vo-0R; Fri, 13 Nov 2020 17:08:43 +0000
+	id 1kdcdg-0002QG-Mr; Fri, 13 Nov 2020 17:13:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26796.55287; Fri, 13 Nov 2020 17:08:42 +0000
+Received: by outflank-mailman (output) from mailman id 26806.55303; Fri, 13 Nov 2020 17:13:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,74 +23,75 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdcZ0-0001VP-TU; Fri, 13 Nov 2020 17:08:42 +0000
-Received: by outflank-mailman (input) for mailman id 26796;
- Fri, 13 Nov 2020 17:08:41 +0000
+	id 1kdcdg-0002Pr-J1; Fri, 13 Nov 2020 17:13:32 +0000
+Received: by outflank-mailman (input) for mailman id 26806;
+ Fri, 13 Nov 2020 17:13:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uoW6=ET=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kdcYz-0001VK-2y
- for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 17:08:41 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1kdcde-0002Pm-EM
+ for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 17:13:30 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9d62c5ed-c900-49b3-a869-d62e6cc43343;
- Fri, 13 Nov 2020 17:08:39 +0000 (UTC)
+ id 990adde9-7fda-4edf-bc23-6b11b0ad0eb8;
+ Fri, 13 Nov 2020 17:13:29 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=uoW6=ET=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kdcYz-0001VK-2y
-	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 17:08:41 +0000
-X-Inumbo-ID: 9d62c5ed-c900-49b3-a869-d62e6cc43343
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+	id 1kdcde-0002Pm-EM
+	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 17:13:30 +0000
+X-Inumbo-ID: 990adde9-7fda-4edf-bc23-6b11b0ad0eb8
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9d62c5ed-c900-49b3-a869-d62e6cc43343;
-	Fri, 13 Nov 2020 17:08:39 +0000 (UTC)
+	id 990adde9-7fda-4edf-bc23-6b11b0ad0eb8;
+	Fri, 13 Nov 2020 17:13:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1605287319;
+  d=citrix.com; s=securemail; t=1605287609;
   h=subject:to:cc:references:from:message-id:date:
    mime-version:in-reply-to:content-transfer-encoding;
-  bh=nEhD71WdBPiSRNX2ZLtn5P4iTtAdnrsZyLi7zEsS+A4=;
-  b=UNxy3TS1/UxrRuKKtgXKcwrzIShUM2F/wBD3co0r6qJLuSVxFXkahln7
-   AsEtVln2cfx/W3RU+dtA958wtM7Ppx+tvWXMQDtmMnnXTuZu0FPu2ZZVi
-   T/+HgppWPyhs1Z40pYmxYT8f2jrDfOnzXqu7UM6aaFKF9QcnSVEYjPc8t
-   Y=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: XsaHqAbAQP7zSTmVpevWowNZDlhPkxRdQ6hjjLhwWEZU79VInI4rsVuVFU5PBLMCEvsB82ME+q
- nY9qbIjRNk40TLSAtuKvnmSmgKoQexwDsYw9gIuCC1X2NXjQuz4ZNp1slakFlhBALLzMJpBWJY
- xXFwj+zI8tCMwFbyWeadmd+fzgGMMokKSOHBhfcjdQPQgK54fsEKuo7T3xrw7skiAq4UaKcODi
- p2vI5g43vJbIOjDg/+kp/+aWTaMwY/yOz7P2gV5Ijr2BUi5t4Mx1tkpvfn8IuN4HIT7Io2DEzL
- pXA=
+  bh=zhNfuYvFoIkrUjwdSPYa6x5TSR2fKQYqHzLxNnXLPBA=;
+  b=ZZgi/HvKksCjgD2FGw/01chrgIIfSNtptvp8NUReP9WkRPN6UHKe191p
+   06IL0KL4YyfUQRbatihJZ63ujoHKyttxXP6HPPOwyijm7gB2YEHZUC6T4
+   KZNxruSxJ2Lc9LoMtpuIVaveQBJPCFSbWihX1IIzCC5g617ub2h0sobNJ
+   s=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: qxkmov4/hWhPuPJ5ymtWsEcOpYYlSdpTBfnio195YO9S2U2vuQNFS58U734F7tM5OyKrSaHE5d
+ x5Tg16as+H2zjKfgPXGaFIyWy7BHsd6uirliPP4Iu1wni0RL0wHwGCFFh4ry+Kq3F6BKczjU2Q
+ ZvRSgBa+oclMkTj05LTV5zfJyJPEQ1uHVRNRg62wlmLJUl1bLHfBfw5K5nPfC0IfeJK/gsE27F
+ Mkggq5SkXkLaWVGMQ3zNb9rbHpI4I+833M2FFA6S85KkSA+CG8FL0V6bWNAaYNBmGiAr5ruzUf
+ z/Q=
 X-SBRS: None
-X-MesageID: 31482236
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 31162691
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.77,476,1596513600"; 
-   d="scan'208";a="31482236"
+   d="scan'208";a="31162691"
 Subject: Re: [XEN PATCH] tools/xenstore: Log xenstored build ID on startup
-To: Bjoern Doebel <doebel@amazon.de>, <xen-devel@lists.xenproject.org>
+To: Bjoern Doebel <doebel@amazon.de>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+	<jgross@suse.com>, <xen-devel@lists.xenproject.org>
 CC: Julien Grall <jgrall@amazon.co.uk>, Eslam Elnikety <elnikety@amazon.de>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Edwin Torok
+	<edvin.torok@citrix.com>, Christian Lindig <christian.lindig@citrix.com>
 References: <20201113141823.58712-1-doebel@amazon.de>
- <de06e7ce-65cd-95fb-5862-0135e2110a99@citrix.com>
- <c216f07a-df70-ddb5-46fd-7b61e36fa6fc@amazon.de>
+ <5ac379ad-33fd-2973-dfdb-9e06ea539809@suse.com>
+ <0e6b09fe-ffc4-195f-1b6c-67abc0cff92c@amazon.de>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <fef34a7d-d156-94a7-56ea-1b754b6be776@citrix.com>
-Date: Fri, 13 Nov 2020 17:08:32 +0000
+Message-ID: <c1352a2a-112a-966f-7410-b917cabe1d91@citrix.com>
+Date: Fri, 13 Nov 2020 17:13:21 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <c216f07a-df70-ddb5-46fd-7b61e36fa6fc@amazon.de>
+In-Reply-To: <0e6b09fe-ffc4-195f-1b6c-67abc0cff92c@amazon.de>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  FTLPEX02CL04.citrite.net (10.13.108.177)
 
-On 13/11/2020 16:55, Bjoern Doebel wrote:
->
-> On 13.11.20 15:30, Andrew Cooper wrote:
->> On 13/11/2020 14:18, Bjoern Doebel wrote:
+On 13/11/2020 16:56, Bjoern Doebel wrote:
+> On 13.11.20 16:36, Jürgen Groß wrote:
+>> On 13.11.20 15:18, Bjoern Doebel wrote:
 >>> Right now we do not have a mechanism to determine the version of the
 >>> currently running xenstored at runtime. As xenstored runs throughout
 >>> the
@@ -105,21 +106,21 @@ On 13/11/2020 16:55, Bjoern Doebel wrote:
 >>> Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 >>> Reviewed-by: Martin Mazein <amazein@amazon.de>
 >>> Reviewed-by: Paul Durrant <pdurrant@amazon.co.uk>
->> I understand the problem you're trying to solve, but why is this
->> anything more than just enabling build-id's by default across tools/ ?
 >>
->> There are already standard ways of interacting with the build id of
->> running executables on the system.  I'd strongly discourage doing
->> anything custom in xenstored specifically.
-> May I ask what tooling you would use to interact with a running
-> process' buildid?
+>> No support for oxenstored or xenstore-stubdom?
+>
+> Your suggestion further down will apparently help for stubdom. I do
+> not speak ocaml at all - how do we address this?
 
-Amongst other things, yes.  Although as Juergen points out, we want
-something which works with stub domains as well, and "normal userspace
-tools" won't cut it there.
+CC'ing Edwin and Christian who have done the bulk of the oxenstored
+recently.
 
-I still think a first patch in this series should be to turn build-id's
-on by default if supported by the toolchain, generally.
+It sounds like it might not be possible right now, but would be possible
+with a future plan to switch the Ocaml build system over to dune (the
+new/preferred Ocaml upstream toolchain).
+
+If it does end up being an XS_CONTROL sub-op, we can implement it at a
+future point when we can usefully answer the question.
 
 ~Andrew
 
