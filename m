@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F382B20CA
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 17:47:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26763.55239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55FDD2B2118
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 17:55:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26771.55251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdcDX-0007fc-Be; Fri, 13 Nov 2020 16:46:31 +0000
+	id 1kdcM4-0000BV-7E; Fri, 13 Nov 2020 16:55:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26763.55239; Fri, 13 Nov 2020 16:46:31 +0000
+Received: by outflank-mailman (output) from mailman id 26771.55251; Fri, 13 Nov 2020 16:55:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -18,77 +18,110 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdcDX-0007fD-8K; Fri, 13 Nov 2020 16:46:31 +0000
-Received: by outflank-mailman (input) for mailman id 26763;
- Fri, 13 Nov 2020 16:46:29 +0000
+	id 1kdcM4-0000B5-45; Fri, 13 Nov 2020 16:55:20 +0000
+Received: by outflank-mailman (input) for mailman id 26771;
+ Fri, 13 Nov 2020 16:55:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rZ2H=ET=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1kdcDV-0007f8-ND
- for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 16:46:29 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ <SRS0=EgAG=ET=amazon.de=prvs=579e99c79=doebel@srs-us1.protection.inumbo.net>)
+ id 1kdcM1-0000B0-Uj
+ for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 16:55:18 +0000
+Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8ff6bf7d-f20c-433d-bfe7-db8f8d7895ff;
- Fri, 13 Nov 2020 16:46:28 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0ADGkMVt016311
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
- Fri, 13 Nov 2020 17:46:23 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id 3958F2E9CA8; Fri, 13 Nov 2020 17:46:17 +0100 (MET)
+ id 4431a71c-c10c-4d78-96a7-949b7e31aeac;
+ Fri, 13 Nov 2020 16:55:17 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-1a-af6a10df.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
+ 13 Nov 2020 16:55:11 +0000
+Received: from EX13D03EUC002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-1a-af6a10df.us-east-1.amazon.com (Postfix) with ESMTPS
+ id EAD62A1F8A; Fri, 13 Nov 2020 16:55:09 +0000 (UTC)
+Received: from [192.168.31.251] (10.43.161.55) by EX13D03EUC002.ant.amazon.com
+ (10.43.164.60) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Fri, 13 Nov 2020 16:55:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=rZ2H=ET=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
-	id 1kdcDV-0007f8-ND
-	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 16:46:29 +0000
-X-Inumbo-ID: 8ff6bf7d-f20c-433d-bfe7-db8f8d7895ff
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+	(envelope-from <SRS0=EgAG=ET=amazon.de=prvs=579e99c79=doebel@srs-us1.protection.inumbo.net>)
+	id 1kdcM1-0000B0-Uj
+	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 16:55:18 +0000
+X-Inumbo-ID: 4431a71c-c10c-4d78-96a7-949b7e31aeac
+Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 8ff6bf7d-f20c-433d-bfe7-db8f8d7895ff;
-	Fri, 13 Nov 2020 16:46:28 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
-	by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id 0ADGkMVt016311
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Fri, 13 Nov 2020 17:46:23 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
-	id 3958F2E9CA8; Fri, 13 Nov 2020 17:46:17 +0100 (MET)
-Date: Fri, 13 Nov 2020 17:46:17 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: dom0 PVH: 'entry->arch.pirq != INVALID_PIRQ' failed at vmsi.c:843
-Message-ID: <20201113164617.GJ1512@antioche.eu.org>
-References: <20201112155715.GA5003@antioche.eu.org>
- <20201112163240.6xswol2iswikdzef@Air-de-Roger>
- <20201112172704.GA5899@antioche.eu.org>
- <20201112201939.be6ztg2iipwa6hkb@Air-de-Roger>
- <20201113115457.GD1512@antioche.eu.org>
- <20201113143349.gehu36wsipvpkrt7@Air-de-Roger>
+	id 4431a71c-c10c-4d78-96a7-949b7e31aeac;
+	Fri, 13 Nov 2020 16:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+  t=1605286517; x=1636822517;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=0cW9/0mnolwA1dO33wTeIFRKYLG4E2BWKZ1kWv8/TwA=;
+  b=UctwvzuRejkdwDid2w9xGNqBpcpGh9pU0qiFzd1Rb2OE9O7ML8k8/W/s
+   yYCm54rdzwj1jvXu1pkwFsHXCTnhInsRm/jXqOXBwwb9kAeo6QtfxSG/n
+   kQV355lcwUAgnAhQl32uc7HyLGoMi1o32LIUJvUudKDa8ahHSGPHTMx2y
+   g=;
+X-IronPort-AV: E=Sophos;i="5.77,476,1596499200"; 
+   d="scan'208";a="63707561"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO email-inbound-relay-1a-af6a10df.us-east-1.amazon.com) ([10.43.8.6])
+  by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP; 13 Nov 2020 16:55:11 +0000
+Received: from EX13D03EUC002.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+	by email-inbound-relay-1a-af6a10df.us-east-1.amazon.com (Postfix) with ESMTPS id EAD62A1F8A;
+	Fri, 13 Nov 2020 16:55:09 +0000 (UTC)
+Received: from [192.168.31.251] (10.43.161.55) by EX13D03EUC002.ant.amazon.com
+ (10.43.164.60) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 13 Nov
+ 2020 16:55:05 +0000
+Subject: Re: [XEN PATCH] tools/xenstore: Log xenstored build ID on startup
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Julien Grall <jgrall@amazon.co.uk>, Eslam Elnikety <elnikety@amazon.de>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20201113141823.58712-1-doebel@amazon.de>
+ <de06e7ce-65cd-95fb-5862-0135e2110a99@citrix.com>
+From: Bjoern Doebel <doebel@amazon.de>
+Message-ID: <c216f07a-df70-ddb5-46fd-7b61e36fa6fc@amazon.de>
+Date: Fri, 13 Nov 2020 17:55:01 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201113143349.gehu36wsipvpkrt7@Air-de-Roger>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Fri, 13 Nov 2020 17:46:23 +0100 (MET)
+In-Reply-To: <de06e7ce-65cd-95fb-5862-0135e2110a99@citrix.com>
+Content-Language: en-GB
+X-Originating-IP: [10.43.161.55]
+X-ClientProxiedBy: EX13D35UWB001.ant.amazon.com (10.43.161.47) To
+ EX13D03EUC002.ant.amazon.com (10.43.164.60)
+Precedence: Bulk
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-I just noticed that CPU0 also stops receiving clock interrupts - which may
-explain why the kernel wedges. I can still enter NetBSD's debugger,
-which means that console interrupts are still working (the console's event
-channel is also handled by CPU 0).
-A 'q' in Xen doens't show any pending or masked events, for any CPU.
+Ck9uIDEzLjExLjIwIDE1OjMwLCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+IE9uIDEzLzExLzIwMjAg
+MTQ6MTgsIEJqb2VybiBEb2ViZWwgd3JvdGU6Cj4+IFJpZ2h0IG5vdyB3ZSBkbyBub3QgaGF2ZSBh
+IG1lY2hhbmlzbSB0byBkZXRlcm1pbmUgdGhlIHZlcnNpb24gb2YgdGhlCj4+IGN1cnJlbnRseSBy
+dW5uaW5nIHhlbnN0b3JlZCBhdCBydW50aW1lLiBBcyB4ZW5zdG9yZWQgcnVucyB0aHJvdWdob3V0
+IHRoZQo+PiBsaWZldGltZSBvZiBhIFhlbiBob3N0LCB0aGlzIG1heSBsZWFkIHRvIHByb2JsZW1z
+IHdoZW4gbmV3ZXIgdXNlciBzcGFjZQo+PiBidWlsZHMgYXJlIHN0YWdlZC4gVGhlbiwgdGhlIHJ1
+bm5pbmcgeGVuc3RvcmVkIHdpbGwgbm8gbG9uZ2VyIG1hdGNoIHRoZQo+PiB2ZXJzaW9uIG9mIHRo
+ZSBpbnN0YWxsZWQgeGVuc3RvcmVkLgo+Pgo+PiBUbyBhbGxvdyB1c2VycyB0byBhbHdheXMgaWRl
+bnRpZnkgdGhlIHJ1bm5pbmcgdmVyc2lvbiBvZiB4ZW5zdG9yZWQsIGFkZAo+PiBhIGxpbmtlci1n
+ZW5lcmF0ZWQgdW5pcXVlIGJ1aWxkIElEIHRvIGV2ZXJ5IHhlbnN0b3JlZCBidWlsZC4gQWRkCj4+
+IGZ1bmN0aW9uYWxpdHkgdG8gbG9nIHRoaXMgYnVpbGQgSUQgaW50byBhIGZpbGUgdXBvbiBzZXJ2
+aWNlIHN0YXJ0dXAuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEJqb2VybiBEb2ViZWwgPGRvZWJlbEBh
+bWF6b24uZGU+Cj4+IFJldmlld2VkLWJ5OiBNYXJ0aW4gTWF6ZWluIDxhbWF6ZWluQGFtYXpvbi5k
+ZT4KPj4gUmV2aWV3ZWQtYnk6IFBhdWwgRHVycmFudCA8cGR1cnJhbnRAYW1hem9uLmNvLnVrPgo+
+IEkgdW5kZXJzdGFuZCB0aGUgcHJvYmxlbSB5b3UncmUgdHJ5aW5nIHRvIHNvbHZlLCBidXQgd2h5
+IGlzIHRoaXMKPiBhbnl0aGluZyBtb3JlIHRoYW4ganVzdCBlbmFibGluZyBidWlsZC1pZCdzIGJ5
+IGRlZmF1bHQgYWNyb3NzIHRvb2xzLyA/Cj4KPiBUaGVyZSBhcmUgYWxyZWFkeSBzdGFuZGFyZCB3
+YXlzIG9mIGludGVyYWN0aW5nIHdpdGggdGhlIGJ1aWxkIGlkIG9mCj4gcnVubmluZyBleGVjdXRh
+YmxlcyBvbiB0aGUgc3lzdGVtLiAgSSdkIHN0cm9uZ2x5IGRpc2NvdXJhZ2UgZG9pbmcKPiBhbnl0
+aGluZyBjdXN0b20gaW4geGVuc3RvcmVkIHNwZWNpZmljYWxseS4KTWF5IEkgYXNrIHdoYXQgdG9v
+bGluZyB5b3Ugd291bGQgdXNlIHRvIGludGVyYWN0IHdpdGggYSBydW5uaW5nIHByb2Nlc3MnIApi
+dWlsZGlkPwo+IH5BbmRyZXcKCkJqb2VybgoKCgoKQW1hem9uIERldmVsb3BtZW50IENlbnRlciBH
+ZXJtYW55IEdtYkgKS3JhdXNlbnN0ci4gMzgKMTAxMTcgQmVybGluCkdlc2NoYWVmdHNmdWVocnVu
+ZzogQ2hyaXN0aWFuIFNjaGxhZWdlciwgSm9uYXRoYW4gV2Vpc3MKRWluZ2V0cmFnZW4gYW0gQW10
+c2dlcmljaHQgQ2hhcmxvdHRlbmJ1cmcgdW50ZXIgSFJCIDE0OTE3MyBCClNpdHo6IEJlcmxpbgpV
+c3QtSUQ6IERFIDI4OSAyMzcgODc5CgoK
 
-The NetBSD interrupt counters show event channel 2's counter (the CPU0 clock)
-stuck at 13, while others are happily increasing.
-
-Any idea what to look at from here ?
-
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
 
