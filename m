@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47B12B19FE
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 12:24:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26390.54715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39DDC2B1A05
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 12:27:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26394.54726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdXBh-0000D0-HJ; Fri, 13 Nov 2020 11:24:17 +0000
+	id 1kdXEJ-0000Mx-3F; Fri, 13 Nov 2020 11:26:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26390.54715; Fri, 13 Nov 2020 11:24:17 +0000
+Received: by outflank-mailman (output) from mailman id 26394.54726; Fri, 13 Nov 2020 11:26:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,140 +23,226 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdXBh-0000Cd-DA; Fri, 13 Nov 2020 11:24:17 +0000
-Received: by outflank-mailman (input) for mailman id 26390;
- Fri, 13 Nov 2020 11:24:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kdXEJ-0000Mb-03; Fri, 13 Nov 2020 11:26:59 +0000
+Received: by outflank-mailman (input) for mailman id 26394;
+ Fri, 13 Nov 2020 11:26:57 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+DL5=ET=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
- id 1kdXBf-0000CX-TC
- for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 11:24:16 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id aebf0d58-04c0-4030-87a6-f9a2267f90b0;
- Fri, 13 Nov 2020 11:24:15 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-428-_EGJdfxvP22jC5B0pSvw3w-1; Fri, 13 Nov 2020 06:24:10 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BA9515F9D1;
- Fri, 13 Nov 2020 11:24:08 +0000 (UTC)
-Received: from gondolin (ovpn-113-133.ams2.redhat.com [10.36.113.133])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A47C15B4B0;
- Fri, 13 Nov 2020 11:23:54 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <SRS0=5p9l=ET=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kdXEH-0000MV-5U
+ for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 11:26:57 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id db630295-1595-4d35-92db-18bf20625bdd;
+ Fri, 13 Nov 2020 11:26:55 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D42CAABF4;
+ Fri, 13 Nov 2020 11:26:54 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=+DL5=ET=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
-	id 1kdXBf-0000CX-TC
-	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 11:24:16 +0000
-X-Inumbo-ID: aebf0d58-04c0-4030-87a6-f9a2267f90b0
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id aebf0d58-04c0-4030-87a6-f9a2267f90b0;
-	Fri, 13 Nov 2020 11:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1605266654;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	(envelope-from <SRS0=5p9l=ET=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kdXEH-0000MV-5U
+	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 11:26:57 +0000
+X-Inumbo-ID: db630295-1595-4d35-92db-18bf20625bdd
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id db630295-1595-4d35-92db-18bf20625bdd;
+	Fri, 13 Nov 2020 11:26:55 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605266815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8n4tiXp+8mrteg2gUVfjQLr91gUwx8183hlKQTpBrkk=;
-	b=d+fPLQPeO0NAYE81+Dqs4gYOtDCNBCCBbtXIGZC9ISS9YBuTcrvI0VoDPiBUakCihPU5th
-	w4uDsSHH6Q8DmhAj34ZoyUGyhIJby/1A2wFHvcRRVAgwtswsmHK1kHc19VWaM5k/JuJuIx
-	vL9XVFZcG7KxnBdoLyOrW3JOKAgk3jQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-428-_EGJdfxvP22jC5B0pSvw3w-1; Fri, 13 Nov 2020 06:24:10 -0500
-X-MC-Unique: _EGJdfxvP22jC5B0pSvw3w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BA9515F9D1;
-	Fri, 13 Nov 2020 11:24:08 +0000 (UTC)
-Received: from gondolin (ovpn-113-133.ams2.redhat.com [10.36.113.133])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A47C15B4B0;
-	Fri, 13 Nov 2020 11:23:54 +0000 (UTC)
-Date: Fri, 13 Nov 2020 12:23:51 +0100
-From: Cornelia Huck <cohuck@redhat.com>
-To: Eduardo Habkost <ehabkost@redhat.com>
-Cc: qemu-devel@nongnu.org, Igor Mammedov <imammedo@redhat.com>, Markus
- Armbruster <armbru@redhat.com>, Kevin Wolf <kwolf@redhat.com>, "Daniel P.
- Berrange" <berrange@redhat.com>, =?UTF-8?B?TWFyYy1BbmRyw6k=?= Lureau
- <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, Eric
- Blake <eblake@redhat.com>, John Snow <jsnow@redhat.com>, Stefan Berger
- <stefanb@linux.ibm.com>, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
- <philmd@redhat.com>, Stefan Berger <stefanb@linux.vnet.ibm.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Anthony Perard
- <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, Max Reitz
- <mreitz@redhat.com>, Thomas Huth <thuth@redhat.com>, Richard Henderson
- <rth@twiddle.net>, David Hildenbrand <david@redhat.com>, Halil Pasic
- <pasic@linux.ibm.com>, Christian Borntraeger <borntraeger@de.ibm.com>,
- Matthew Rosato <mjrosato@linux.ibm.com>, Alex Williamson
- <alex.williamson@redhat.com>, xen-devel@lists.xenproject.org,
- qemu-block@nongnu.org, qemu-s390x@nongnu.org
-Subject: Re: [PATCH v3 09/53] qdev: Make qdev_get_prop_ptr() get Object* arg
-Message-ID: <20201113122351.583f53a2.cohuck@redhat.com>
-In-Reply-To: <20201112214350.872250-10-ehabkost@redhat.com>
-References: <20201112214350.872250-1-ehabkost@redhat.com>
-	<20201112214350.872250-10-ehabkost@redhat.com>
-Organization: Red Hat GmbH
+	bh=5GHy2zVfvvZFQQ5XWcJzcoBMym3f8oAcj3O13h3Ox/8=;
+	b=TeCzHQ0oSlfVuRvZ/oz2pG9jgA8to2pHuEraS9F3sDrPmUWlkwgOZiL8UlzMMxk9jKzvb+
+	+6vQuPhnOH6QKGgGgiv3thbTvtQrwGCDO+qf4D+vOFKrf5guyJtAjEiJ9OduCT5xGxzY05
+	yMOhxG5gapWxzT1muVVArrlJTQVZ49U=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id D42CAABF4;
+	Fri, 13 Nov 2020 11:26:54 +0000 (UTC)
+Subject: Re: [PATCH 06/10] vpci: Make every domain handle its own BARs
+To: Julien Grall <julien@xen.org>
+Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ "Rahul.Singh@arm.com" <Rahul.Singh@arm.com>,
+ "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
+ "julien.grall@arm.com" <julien.grall@arm.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "iwj@xenproject.org" <iwj@xenproject.org>, "wl@xen.org" <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+References: <20201109125031.26409-1-andr2000@gmail.com>
+ <20201109125031.26409-7-andr2000@gmail.com>
+ <20201112094002.bzk6gvp4iy4dgj4s@Air-de-Roger>
+ <1b3f11c2-a5a2-da5c-25b3-851ef9465ab9@epam.com>
+ <20201112144643.iyy5b34qyz5zi7mc@Air-de-Roger>
+ <1fe15b9a-6f5d-1209-8ff5-af7c4fc0d637@epam.com>
+ <b4697fbe-6896-ed64-409d-85620c08904a@suse.com>
+ <fd656848-1eda-686d-d74c-f10e3ecfe49a@xen.org>
+ <093f0acd-3ddb-84c7-a06e-c75de90ba288@suse.com>
+ <247c2ae8-c1c4-3e0a-3431-82d05bd3be33@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <16fe4b7f-51e3-a8a7-3da7-4b94370058a4@suse.com>
+Date: Fri, 13 Nov 2020 12:26:54 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cohuck@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <247c2ae8-c1c4-3e0a-3431-82d05bd3be33@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Thu, 12 Nov 2020 16:43:06 -0500
-Eduardo Habkost <ehabkost@redhat.com> wrote:
+On 13.11.2020 12:06, Julien Grall wrote:
+> Hi Jan,
+> 
+> On 13/11/2020 10:53, Jan Beulich wrote:
+>> On 13.11.2020 11:36, Julien Grall wrote:
+>>> On 13/11/2020 10:25, Jan Beulich wrote:
+>>>> On 13.11.2020 07:32, Oleksandr Andrushchenko wrote:
+>>>>> On 11/12/20 4:46 PM, Roger Pau Monné wrote:
+>>>>>> On Thu, Nov 12, 2020 at 01:16:10PM +0000, Oleksandr Andrushchenko wrote:
+>>>>>>> On 11/12/20 11:40 AM, Roger Pau Monné wrote:
+>>>>>>>> On Mon, Nov 09, 2020 at 02:50:27PM +0200, Oleksandr Andrushchenko wrote:
+>>>>>>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>>>>>>>> +static uint32_t bar_read_dispatch(const struct pci_dev *pdev, unsigned int reg,
+>>>>>>>>> +                                  void *data)
+>>>>>>>>> +{
+>>>>>>>>> +    struct vpci_bar *vbar, *bar = data;
+>>>>>>>>> +
+>>>>>>>>> +    if ( is_hardware_domain(current->domain) )
+>>>>>>>>> +        return bar_read_hwdom(pdev, reg, data);
+>>>>>>>>> +
+>>>>>>>>> +    vbar = get_vpci_bar(current->domain, pdev, bar->index);
+>>>>>>>>> +    if ( !vbar )
+>>>>>>>>> +        return ~0;
+>>>>>>>>> +
+>>>>>>>>> +    return bar_read_guest(pdev, reg, vbar);
+>>>>>>>>> +}
+>>>>>>>>> +
+>>>>>>>>> +static void bar_write_dispatch(const struct pci_dev *pdev, unsigned int reg,
+>>>>>>>>> +                               uint32_t val, void *data)
+>>>>>>>>> +{
+>>>>>>>>> +    struct vpci_bar *bar = data;
+>>>>>>>>> +
+>>>>>>>>> +    if ( is_hardware_domain(current->domain) )
+>>>>>>>>> +        bar_write_hwdom(pdev, reg, val, data);
+>>>>>>>>> +    else
+>>>>>>>>> +    {
+>>>>>>>>> +        struct vpci_bar *vbar = get_vpci_bar(current->domain, pdev, bar->index);
+>>>>>>>>> +
+>>>>>>>>> +        if ( !vbar )
+>>>>>>>>> +            return;
+>>>>>>>>> +        bar_write_guest(pdev, reg, val, vbar);
+>>>>>>>>> +    }
+>>>>>>>>> +}
+>>>>>>>> You should assign different handlers based on whether the domain that
+>>>>>>>> has the device assigned is a domU or the hardware domain, rather than
+>>>>>>>> doing the selection here.
+>>>>>>> Hm, handlers are assigned once in init_bars and this function is only called
+>>>>>>>
+>>>>>>> for hwdom, so there is no way I can do that for the guests. Hence, the dispatcher
+>>>>>> I think we might want to reset the vPCI handlers when a devices gets
+>>>>>> assigned and deassigned.
+>>>>>
+>>>>> In ARM case init_bars is called too early: PCI device assignment is currently
+>>>>>
+>>>>> initiated by Domain-0' kernel and is done *before* PCI devices are given memory
+>>>>>
+>>>>> ranges and BARs assigned:
+>>>>>
+>>>>> [    0.429514] pci_bus 0000:00: root bus resource [bus 00-ff]
+>>>>> [    0.429532] pci_bus 0000:00: root bus resource [io 0x0000-0xfffff]
+>>>>> [    0.429555] pci_bus 0000:00: root bus resource [mem 0xfe200000-0xfe3fffff]
+>>>>> [    0.429575] pci_bus 0000:00: root bus resource [mem 0x30000000-0x37ffffff]
+>>>>> [    0.429604] pci_bus 0000:00: root bus resource [mem 0x38000000-0x3fffffff pref]
+>>>>> [    0.429670] pci 0000:00:00.0: enabling Extended Tags
+>>>>> [    0.453764] pci 0000:00:00.0: -------------------- BUS_NOTIFY_ADD_DEVICE
+>>>>>
+>>>>> < init_bars >
+>>>>>
+>>>>> [    0.453793] pci 0000:00:00.0: -- IRQ 0
+>>>>> [    0.458825] pci 0000:00:00.0: Failed to add - passthrough or MSI/MSI-X might fail!
+>>>>> [    0.471790] pci 0000:01:00.0: -------------------- BUS_NOTIFY_ADD_DEVICE
+>>>>>
+>>>>> < init_bars >
+>>>>>
+>>>>> [    0.471821] pci 0000:01:00.0: -- IRQ 255
+>>>>> [    0.476809] pci 0000:01:00.0: Failed to add - passthrough or MSI/MSI-X might fail!
+>>>>>
+>>>>> < BAR assignments below >
+>>>>>
+>>>>> [    0.488233] pci 0000:00:00.0: BAR 14: assigned [mem 0xfe200000-0xfe2fffff]
+>>>>> [    0.488265] pci 0000:00:00.0: BAR 15: assigned [mem 0x38000000-0x380fffff pref]
+>>>>>
+>>>>> In case of x86 this is pretty much ok as BARs are already in place, but for ARM we
+>>>>>
+>>>>> need to take care and re-setup vPCI BARs for hwdom.
+>>>>
+>>>> Even on x86 there's no guarantee that all devices have their BARs set
+>>>> up by firmware.
+>>>>
+>>>> In a subsequent reply you've suggested to move init_bars from "add" to
+>>>> "assign", but I'm having trouble seeing what this would change: It's
+>>>> not Dom0 controlling assignment (to itself), but Xen assigns the device
+>>>> towards the end of pci_add_device().
+>>>>
+>>>>> Things are getting even more
+>>>>>
+>>>>> complicated if the host PCI bridge is not ECAM like, so you cannot set mmio_handlers
+>>>>>
+>>>>> and trap hwdom's access to the config space to update BARs etc. This is why I have that
+>>>>>
+>>>>> ugly hack for rcar_gen3 to read actual BARs for hwdom.
+>>>>
+>>>> How to config space accesses work there? The latest for MSI/MSI-X it'll
+>>>> be imperative that Xen be able to intercept config space writes.
+>>>
+>>> I am not sure to understand your last sentence. Are you saying that we
+>>> always need to trap access to MSI/MSI-X message in order to sanitize it?
+>>>
+>>> If one is using the GICv3 ITS (I haven't investigated other MSI
+>>> controller), then I don't believe you need to sanitize the MSI/MSI-X
+>>> message in most of the situation.
+>>
+>> Well, if it's fine for the guest to write arbitrary values to message
+>> address and message data,
+> 
+> The message address would be the doorbell of the ITS that is usually 
+> going through the IOMMU page-tables. Although, I am aware of a couple of 
+> platforms where the doorbell access (among other address ranges 
+> including P2P transaction) bypass the IOMMU. In this situation, we would 
+> need a lot more work than just trapping the access.
 
-> Make the code more generic and not specific to TYPE_DEVICE.
->=20
-> Reviewed-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
-> Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
-> ---
-> Changes v1 -> v2:
-> - Fix build error with CONFIG_XEN
->   I took the liberty of keeping the Reviewed-by line from
->   Marc-Andr=C3=A9 as the build fix is a trivial one line change
-> ---
-> Cc: Stefan Berger <stefanb@linux.vnet.ibm.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Anthony Perard <anthony.perard@citrix.com>
-> Cc: Paul Durrant <paul@xen.org>
-> Cc: Kevin Wolf <kwolf@redhat.com>
-> Cc: Max Reitz <mreitz@redhat.com>
-> Cc: Paolo Bonzini <pbonzini@redhat.com>
-> Cc: "Daniel P. Berrang=C3=A9" <berrange@redhat.com>
-> Cc: Eduardo Habkost <ehabkost@redhat.com>
-> Cc: Cornelia Huck <cohuck@redhat.com>
-> Cc: Thomas Huth <thuth@redhat.com>
-> Cc: Richard Henderson <rth@twiddle.net>
-> Cc: David Hildenbrand <david@redhat.com>
-> Cc: Halil Pasic <pasic@linux.ibm.com>
-> Cc: Christian Borntraeger <borntraeger@de.ibm.com>
-> Cc: Matthew Rosato <mjrosato@linux.ibm.com>
-> Cc: Alex Williamson <alex.williamson@redhat.com>
-> Cc: qemu-devel@nongnu.org
-> Cc: xen-devel@lists.xenproject.org
-> Cc: qemu-block@nongnu.org
-> Cc: qemu-s390x@nongnu.org
-> ---
->  include/hw/qdev-properties.h     |  2 +-
->  backends/tpm/tpm_util.c          |  8 ++--
->  hw/block/xen-block.c             |  5 +-
->  hw/core/qdev-properties-system.c | 57 +++++++++-------------
->  hw/core/qdev-properties.c        | 82 +++++++++++++-------------------
->  hw/s390x/css.c                   |  5 +-
->  hw/s390x/s390-pci-bus.c          |  4 +-
->  hw/vfio/pci-quirks.c             |  5 +-
->  8 files changed, 68 insertions(+), 100 deletions(-)
+When you say "The message address would be the doorbell of the ITS" am
+I right in understanding that's the designated address to be put there?
+What if the guest puts some random different address there?
 
-Reviewed-by: Cornelia Huck <cohuck@redhat.com> #s390 parts
+> Regarding the message data, for the ITS this is an event ID. The HW will 
+> then tag each message with the device ID (this prevents spoofing). The 
+> tupple (device ID, event ID) is used by the ITS to decide where to 
+> inject the event.
+> 
+> Whether other MSI controllers (e.g. GICv2m) have similar isolation 
+> feature will be on the case by case basis.
+> 
+>> _and_ to arbitrarily enable/disable MSI / MSI-X,
+>> then yes, no interception would be needed.
+> The device would be owned by the guest, so I am not sure to understand 
+> the exact problem of letting it enabling/disabling MSI/MSI-X. Do you 
+> mind expanding your thoughts?
 
+Question is - is Xen involved in any way in the handling of interrupts
+from such a device? If not, then I guess full control can indeed be
+left with the guest.
+
+> Furthermore, you can also control which event is enabled/disabled at the 
+> ITS level.
+
+And that's something Xen controls? On x86 we don't have a 2nd level
+of controls, so we need to merge Xen's and the guest's intentions in
+software to know what to store in hardware.
+
+Jan
 
