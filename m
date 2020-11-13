@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 918BB2B195F
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 11:51:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26322.54604 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C3272B1961
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 11:53:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26328.54616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdWfO-0004yK-IQ; Fri, 13 Nov 2020 10:50:54 +0000
+	id 1kdWhq-00059t-2n; Fri, 13 Nov 2020 10:53:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26322.54604; Fri, 13 Nov 2020 10:50:54 +0000
+Received: by outflank-mailman (output) from mailman id 26328.54616; Fri, 13 Nov 2020 10:53:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,46 +23,46 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdWfO-0004xv-F0; Fri, 13 Nov 2020 10:50:54 +0000
-Received: by outflank-mailman (input) for mailman id 26322;
- Fri, 13 Nov 2020 10:50:53 +0000
+	id 1kdWhp-00059U-Vq; Fri, 13 Nov 2020 10:53:25 +0000
+Received: by outflank-mailman (input) for mailman id 26328;
+ Fri, 13 Nov 2020 10:53:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5p9l=ET=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kdWfN-0004xq-KB
- for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 10:50:53 +0000
+ id 1kdWho-00059P-LL
+ for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 10:53:24 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b77ede33-2ab6-42a3-9d26-50af521537b3;
- Fri, 13 Nov 2020 10:50:52 +0000 (UTC)
+ id 7954e1db-e69d-4d60-965c-f70116b9a15f;
+ Fri, 13 Nov 2020 10:53:23 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A25DEAED6;
- Fri, 13 Nov 2020 10:50:51 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id B94C1ABD1;
+ Fri, 13 Nov 2020 10:53:22 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=5p9l=ET=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kdWfN-0004xq-KB
-	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 10:50:53 +0000
-X-Inumbo-ID: b77ede33-2ab6-42a3-9d26-50af521537b3
+	id 1kdWho-00059P-LL
+	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 10:53:24 +0000
+X-Inumbo-ID: 7954e1db-e69d-4d60-965c-f70116b9a15f
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b77ede33-2ab6-42a3-9d26-50af521537b3;
-	Fri, 13 Nov 2020 10:50:52 +0000 (UTC)
+	id 7954e1db-e69d-4d60-965c-f70116b9a15f;
+	Fri, 13 Nov 2020 10:53:23 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605264651; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1605264802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LG+BPsY8bYqXw53+N/Hf+2Azim0UnBMMkFdkLxR89f4=;
-	b=gwixdMqLBFLBxSbrknwADduUuN3KK8AlxbyxmQRKyu8liM/iim6Addjt/7bL3cEiKjar2C
-	wnZKTTajEkazygDRg7QUMlxROqSy+BDqPyisHKpnV03yhRBmiKbu21qPyE1K9waQM0J6Xg
-	UA+59abuXUuEOnfnyO2oBBbTkwAFjrs=
+	bh=6i8swCRsHitjS9eQ4seJE16XU4kwrVEDUZy0+7L7ddI=;
+	b=hpDvlPDFqitZVuv0CgVmHIprxQclEkXtkKwSA6VKOi682JmCzE3tE4o/y0PBG4bgcX7eMB
+	N+iwLB88RMfW62o+3BsxeuJnWawOBINC+NQ3YRg1RmStOWhoCtUnETV1E8kiR95iGCRWta
+	wGbQWnJfCEKvx6RR78VAZ5zlyVFmma0=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A25DEAED6;
-	Fri, 13 Nov 2020 10:50:51 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id B94C1ABD1;
+	Fri, 13 Nov 2020 10:53:22 +0000 (UTC)
 Subject: Re: [PATCH 06/10] vpci: Make every domain handle its own BARs
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Julien Grall <julien@xen.org>
 Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
  "Rahul.Singh@arm.com" <Rahul.Singh@arm.com>,
  "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
@@ -70,7 +70,8 @@ Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
  "sstabellini@kernel.org" <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  "iwj@xenproject.org" <iwj@xenproject.org>, "wl@xen.org" <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
 References: <20201109125031.26409-1-andr2000@gmail.com>
  <20201109125031.26409-7-andr2000@gmail.com>
  <20201112094002.bzk6gvp4iy4dgj4s@Air-de-Roger>
@@ -78,20 +79,20 @@ References: <20201109125031.26409-1-andr2000@gmail.com>
  <20201112144643.iyy5b34qyz5zi7mc@Air-de-Roger>
  <1fe15b9a-6f5d-1209-8ff5-af7c4fc0d637@epam.com>
  <b4697fbe-6896-ed64-409d-85620c08904a@suse.com>
- <3d6e5aab-ff89-7859-09c6-5ecb0c052511@epam.com>
+ <fd656848-1eda-686d-d74c-f10e3ecfe49a@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1c88fef1-8558-fde1-02c7-8a68f6ecf312@suse.com>
-Date: Fri, 13 Nov 2020 11:50:50 +0100
+Message-ID: <093f0acd-3ddb-84c7-a06e-c75de90ba288@suse.com>
+Date: Fri, 13 Nov 2020 11:53:21 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.3
 MIME-Version: 1.0
-In-Reply-To: <3d6e5aab-ff89-7859-09c6-5ecb0c052511@epam.com>
+In-Reply-To: <fd656848-1eda-686d-d74c-f10e3ecfe49a@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 13.11.2020 11:46, Oleksandr Andrushchenko wrote:
-> On 11/13/20 12:25 PM, Jan Beulich wrote:
+On 13.11.2020 11:36, Julien Grall wrote:
+> On 13/11/2020 10:25, Jan Beulich wrote:
 >> On 13.11.2020 07:32, Oleksandr Andrushchenko wrote:
 >>> On 11/12/20 4:46 PM, Roger Pau Monné wrote:
 >>>> On Thu, Nov 12, 2020 at 01:16:10PM +0000, Oleksandr Andrushchenko wrote:
@@ -137,6 +138,7 @@ On 13.11.2020 11:46, Oleksandr Andrushchenko wrote:
 >>>>> for hwdom, so there is no way I can do that for the guests. Hence, the dispatcher
 >>>> I think we might want to reset the vPCI handlers when a devices gets
 >>>> assigned and deassigned.
+>>>
 >>> In ARM case init_bars is called too early: PCI device assignment is currently
 >>>
 >>> initiated by Domain-0' kernel and is done *before* PCI devices are given memory
@@ -170,89 +172,36 @@ On 13.11.2020 11:46, Oleksandr Andrushchenko wrote:
 >>> In case of x86 this is pretty much ok as BARs are already in place, but for ARM we
 >>>
 >>> need to take care and re-setup vPCI BARs for hwdom.
+>>
 >> Even on x86 there's no guarantee that all devices have their BARs set
 >> up by firmware.
-> 
-> This is true. But there you could have config space trapped in "x86 generic way",
-> 
-> please correct me if I'm wrong here
-> 
 >>
 >> In a subsequent reply you've suggested to move init_bars from "add" to
 >> "assign", but I'm having trouble seeing what this would change: It's
 >> not Dom0 controlling assignment (to itself), but Xen assigns the device
 >> towards the end of pci_add_device().
-> 
-> PHYSDEVOP_pci_device_add vs XEN_DOMCTL_assign_device
-> 
-> Currently we initialize BARs during PHYSDEVOP_pci_device_add and
-> 
-> if we do that during XEN_DOMCTL_assign_device things seem to change
-
-But there can't possibly be any XEN_DOMCTL_assign_device involved in
-booting of Dom0. 
-
->>>>    In order to do passthrough to domUs safely
->>>> we will have to add more handlers than what's required for dom0,
->>> Can you please tell what are thinking about? What are the missing handlers?
->>>>    and
->>>> having is_hardware_domain sprinkled in all of them is not a suitable
->>>> solution.
->>> I'll try to replace is_hardware_domain with something like:
->>>
->>> +/*
->>> + * Detect whether physical PCI devices in this segment belong
->>> + * to the domain given, e.g. on x86 all PCI devices live in hwdom,
->>> + * but in case of ARM this might not be the case: those may also
->>> + * live in driver domains or even Xen itself.
->>> + */
->>> +bool pci_is_hardware_domain(struct domain *d, u16 seg)
->>> +{
->>> +#ifdef CONFIG_X86
->>> +    return is_hardware_domain(d);
->>> +#elif CONFIG_ARM
->>> +    return pci_is_owner_domain(d, seg);
->>> +#else
->>> +#error "Unsupported architecture"
->>> +#endif
->>> +}
->>> +
->>> +/*
->>> + * Get domain which owns this segment: for x86 this is always hardware
->>> + * domain and for ARM this can be different.
->>> + */
->>> +struct domain *pci_get_hardware_domain(u16 seg)
->>> +{
->>> +#ifdef CONFIG_X86
->>> +    return hardware_domain;
->>> +#elif CONFIG_ARM
->>> +    return pci_get_owner_domain(seg);
->>> +#else
->>> +#error "Unsupported architecture"
->>> +#endif
->>> +}
->>>
->>> This is what I use to properly detect the domain that really owns physical host bridge
->> I consider this problematic. We should try to not let Arm's and x86'es
->> PCI implementations diverge too much, i.e. at least the underlying basic
->> model would better be similar. For example, if entire segments can be
->> assigned to a driver domain on Arm, why should the same not be possible
->> on x86?
-> 
-> Good question, probably in this case x86 == ARM and I can use
-> 
-> pci_is_owner_domain for both architectures instead of using is_hardware_domain for x86
-> 
 >>
->> Furthermore I'm suspicious about segments being the right granularity
->> here. On ia64 multiple host bridges could (and typically would) live
->> on segment 0. Iirc I had once seen output from an x86 system which was
->> apparently laid out similarly. Therefore, just like for MCFG, I think
->> the granularity wants to be bus ranges within a segment.
-> Can you please suggest something we can use as a hint for such a detection logic?
+>>> Things are getting even more
+>>>
+>>> complicated if the host PCI bridge is not ECAM like, so you cannot set mmio_handlers
+>>>
+>>> and trap hwdom's access to the config space to update BARs etc. This is why I have that
+>>>
+>>> ugly hack for rcar_gen3 to read actual BARs for hwdom.
+>>
+>> How to config space accesses work there? The latest for MSI/MSI-X it'll
+>> be imperative that Xen be able to intercept config space writes.
+> 
+> I am not sure to understand your last sentence. Are you saying that we 
+> always need to trap access to MSI/MSI-X message in order to sanitize it?
+> 
+> If one is using the GICv3 ITS (I haven't investigated other MSI 
+> controller), then I don't believe you need to sanitize the MSI/MSI-X 
+> message in most of the situation.
 
-The underlying information comes from ACPI tables, iirc. I don't
-recall the details, though - sorry.
+Well, if it's fine for the guest to write arbitrary values to message
+address and message data, _and_ to arbitrarily enable/disable MSI / MSI-X,
+then yes, no interception would be needed.
 
 Jan
 
