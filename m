@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 347622B1D72
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 15:29:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26536.54965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86B8E2B1D7F
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Nov 2020 15:30:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.26540.54977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kda4T-00010A-6d; Fri, 13 Nov 2020 14:29:01 +0000
+	id 1kda64-0001q0-L0; Fri, 13 Nov 2020 14:30:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26536.54965; Fri, 13 Nov 2020 14:29:01 +0000
+Received: by outflank-mailman (output) from mailman id 26540.54977; Fri, 13 Nov 2020 14:30:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,129 +23,89 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kda4T-0000zl-35; Fri, 13 Nov 2020 14:29:01 +0000
-Received: by outflank-mailman (input) for mailman id 26536;
- Fri, 13 Nov 2020 14:29:00 +0000
+	id 1kda64-0001pb-Hk; Fri, 13 Nov 2020 14:30:40 +0000
+Received: by outflank-mailman (input) for mailman id 26540;
+ Fri, 13 Nov 2020 14:30:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HVgh=ET=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kda4S-0000zY-B1
- for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 14:29:00 +0000
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
+ <SRS0=uoW6=ET=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kda63-0001pW-BB
+ for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 14:30:39 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dfef669a-5725-4ab2-bca0-be643314ca98;
- Fri, 13 Nov 2020 14:28:54 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id 74so14086353lfo.5
- for <xen-devel@lists.xenproject.org>; Fri, 13 Nov 2020 06:28:54 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id u9sm1574268lfo.181.2020.11.13.06.28.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Nov 2020 06:28:52 -0800 (PST)
+ id ab0613d7-a5ef-4e46-befe-8b7e9a70e382;
+ Fri, 13 Nov 2020 14:30:38 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=HVgh=ET=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
-	id 1kda4S-0000zY-B1
-	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 14:29:00 +0000
-X-Inumbo-ID: dfef669a-5725-4ab2-bca0-be643314ca98
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
+	(envelope-from <SRS0=uoW6=ET=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kda63-0001pW-BB
+	for xen-devel@lists.xenproject.org; Fri, 13 Nov 2020 14:30:39 +0000
+X-Inumbo-ID: ab0613d7-a5ef-4e46-befe-8b7e9a70e382
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id dfef669a-5725-4ab2-bca0-be643314ca98;
-	Fri, 13 Nov 2020 14:28:54 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id 74so14086353lfo.5
-        for <xen-devel@lists.xenproject.org>; Fri, 13 Nov 2020 06:28:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=B8uzbkP85RAfT7LVEI0HOKe9zMgG+kbxKO7hUX2Hku8=;
-        b=YofW5QmYt4bjKvVqGoafWvwNU/DI/LEKeNSOMjSDt19DWiJZGf9CbZXwo8NdFgxstC
-         +mFdOrUQiMbUsYjADaEdz6wUOFHoTVm1HpeLF3ARuHWhGPye0TNmaRSc4loYHkLrpISj
-         QHD3nAGO3vh7duv5yfTgjd+togNr+djtF03h15srKDpkKGnRyyRwJfFyB3In8Bo/BPzP
-         vCJi9TS/RA9c7e3nq58Mo3QH0YgCX+yE7KZBm10rnG1Ix/1OcYs4gQ9iTfj0tnnJAemq
-         N6Dlc9j73s+A0pwgALByR9lRC7Hm78/l6og+Rpw1WMv+db+Otw9RC3OHrSQEfIKhNhde
-         TKuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=B8uzbkP85RAfT7LVEI0HOKe9zMgG+kbxKO7hUX2Hku8=;
-        b=ui97l725FEb0lBHkulcG6geuMaazjf1BfJTdy+FIuyF6Hgi2vgbwEuu59RuEU9HdGX
-         4IKbnw5vu58eSWkHdmyEApH6lbeofeCgSeIkjxpSBs8WAbFz0wwYwWRm5VXXD5W77yTa
-         KsoKp5ai8GSRxlmpWF1kkLSE8G1o4fLRl+RtyHuPMNPzBE8TTrSvHbpcZd07hrNcK1UT
-         h6evVu3RMEAZHwdN06Q2vds0spG+VeXfb7fBs/QJCn/AVos6NwAreUm+8fnDLShiNraR
-         Pe8ly5QazU1aA6WTb0aFDhqaPnccrn1GGTlBSxlnlW7DVHppyRlvM+S1OZztGBA9BHoX
-         +HRw==
-X-Gm-Message-State: AOAM531BZ4HxT1t8UviOsmLOlAt5tR40Aao3noqu/sgHOSoki/WRHF5H
-	bT1eIO1Rxjp1lPlXq6l5qHlaB2/8bjZgCA==
-X-Google-Smtp-Source: ABdhPJywFRi+yrc2L+35uSWOjxJRqQ+5uutGWGQuJUEZq9EZsY+N4QJalzTq6JgP4Feqx8P8sV7fkA==
-X-Received: by 2002:a19:2389:: with SMTP id j131mr1014656lfj.324.1605277733458;
-        Fri, 13 Nov 2020 06:28:53 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
-        by smtp.gmail.com with ESMTPSA id u9sm1574268lfo.181.2020.11.13.06.28.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2020 06:28:52 -0800 (PST)
-Subject: Re: [PATCH V2 09/23] xen/dm: Make x86's DM feature common
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien.grall@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
- <1602780274-29141-10-git-send-email-olekstysh@gmail.com>
- <3f432fdb-0625-4803-3a16-62200a6264ca@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <51dcd1c7-3a1d-a269-12df-84db3bafecce@gmail.com>
-Date: Fri, 13 Nov 2020 16:28:52 +0200
+	id ab0613d7-a5ef-4e46-befe-8b7e9a70e382;
+	Fri, 13 Nov 2020 14:30:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1605277838;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=ni6uFxlookvwWxTeqxXDYqjhj5r2NpQO4zQ6Y7g1xrc=;
+  b=Kj8ilPr5CkjA0lT7jUM/dTGARks/z4njiV+Hxo5E/HJSYjF3Hf0ARn/Q
+   UBznh0BDN8AXCuDhxLyv6rHqHeX7VCrwCXxY4+1Y64vDeJxku4iUhnrK9
+   U/kKS1yOfzRYCVhngSyPpDVayjfKZEP2Rth90f6QRSlV3Xg1Sb8mCxyJS
+   c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: Yk5nvlNlIf1/NvTnizdS9gf4vQXQxr/pgDrwWahazrT6Pid/u6kQ2a5E2MQv8T2iMqU/DBrFxE
+ 4+ZSovmEEpoPJx5/66XoUrrTkHoY0Ieqqox8g+8HM6x3qqXTGELLnD7YZuGH1RXRrxsekwVIF3
+ 2cxiE9qMDQVs337t2gCPwaaMTEAg0JUSSICnRqHFO8ghoKa1LPPKVjSNuumwon3WmG1JkrODy9
+ vvENEOOIbQU713DL41cM9saoXXIeqhJ4EWG4r7htvCqCcH+ZZG7wcwryc+ik1vonCc0JH1GeFJ
+ Ptw=
+X-SBRS: None
+X-MesageID: 31098301
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.77,475,1596513600"; 
+   d="scan'208";a="31098301"
+Subject: Re: [XEN PATCH] tools/xenstore: Log xenstored build ID on startup
+To: Bjoern Doebel <doebel@amazon.de>, <xen-devel@lists.xenproject.org>
+CC: Julien Grall <jgrall@amazon.co.uk>, Eslam Elnikety <elnikety@amazon.de>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20201113141823.58712-1-doebel@amazon.de>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <de06e7ce-65cd-95fb-5862-0135e2110a99@citrix.com>
+Date: Fri, 13 Nov 2020 14:30:23 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <3f432fdb-0625-4803-3a16-62200a6264ca@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+In-Reply-To: <20201113141823.58712-1-doebel@amazon.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL04.citrite.net (10.13.108.177)
 
-
-On 12.11.20 13:32, Jan Beulich wrote:
-
-Hi Jan
-
-> On 15.10.2020 18:44, Oleksandr Tyshchenko wrote:
->> From: Julien Grall <julien.grall@arm.com>
->>
->> As a lot of x86 code can be re-used on Arm later on, this patch
->> splits devicemodel support into common and arch specific parts.
->>
->> The common DM feature is supposed to be built with IOREQ_SERVER
->> option enabled (as well as the IOREQ feature), which is selected
->> for x86's config HVM for now.
-> Did you consider doing it the other way around? It would seem
-> more natural to have the top level dm-op handling arch-specific
-> and call into e.g. ioreq_server_dm_op() for otherwise unhandled
-> ops, just like e.g. do_domctl() calls into iommu_do_domctl()
-> (indirectly via arch_do_domctl()). I ask because in the long
-> run I expect the ioreq server sub-ops to only be a small part
-> of the overall set of dm-ops; already now it's 7 out of 18 if
-> I got the counting right.
+On 13/11/2020 14:18, Bjoern Doebel wrote:
+> Right now we do not have a mechanism to determine the version of the
+> currently running xenstored at runtime. As xenstored runs throughout the
+> lifetime of a Xen host, this may lead to problems when newer user space
+> builds are staged. Then, the running xenstored will no longer match the
+> version of the installed xenstored.
 >
-> This would then also leave compat_dm_op() in x86 code.
+> To allow users to always identify the running version of xenstored, add
+> a linker-generated unique build ID to every xenstored build. Add
+> functionality to log this build ID into a file upon service startup.
 >
-> But yes, there are also downsides with this alternative.
+> Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+> Reviewed-by: Martin Mazein <amazein@amazon.de>
+> Reviewed-by: Paul Durrant <pdurrant@amazon.co.uk>
 
+I understand the problem you're trying to solve, but why is this
+anything more than just enabling build-id's by default across tools/ ?
 
-No, I didn't consider. I separated the proposed DM changes from Julien's 
-patch without modifying the logic.
-My changes on top (except rebasing of course) are updating XSM code and 
-introducing a xen/dm.h for definitions.
+There are already standard ways of interacting with the build id of
+running executables on the system.  I'd strongly discourage doing
+anything custom in xenstored specifically.
 
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+~Andrew
 
