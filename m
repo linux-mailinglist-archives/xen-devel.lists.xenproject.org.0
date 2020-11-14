@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11B2D2B2A18
-	for <lists+xen-devel@lfdr.de>; Sat, 14 Nov 2020 01:48:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.26977.55606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C2F2B2AC7
+	for <lists+xen-devel@lfdr.de>; Sat, 14 Nov 2020 03:12:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.27050.55731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdjiZ-0001L1-B7; Sat, 14 Nov 2020 00:47:03 +0000
+	id 1kdl2i-0006Ft-TU; Sat, 14 Nov 2020 02:11:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 26977.55606; Sat, 14 Nov 2020 00:47:03 +0000
+Received: by outflank-mailman (output) from mailman id 27050.55731; Sat, 14 Nov 2020 02:11:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,121 +23,76 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kdjiZ-0001Kc-7x; Sat, 14 Nov 2020 00:47:03 +0000
-Received: by outflank-mailman (input) for mailman id 26977;
- Sat, 14 Nov 2020 00:47:01 +0000
+	id 1kdl2i-0006Fb-Q0; Sat, 14 Nov 2020 02:11:56 +0000
+Received: by outflank-mailman (input) for mailman id 27050;
+ Sat, 14 Nov 2020 02:11:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2JWW=EU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1kdjiX-0001K4-1u
- for xen-devel@lists.xenproject.org; Sat, 14 Nov 2020 00:47:01 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=8rVh=EU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kdl2h-0006FW-FO
+ for xen-devel@lists.xenproject.org; Sat, 14 Nov 2020 02:11:55 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c2b860b3-b0d2-4c7a-acbc-4642b01f6f01;
- Sat, 14 Nov 2020 00:46:53 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kdjiP-0008HL-HW; Sat, 14 Nov 2020 00:46:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kdjiP-0000aO-BH; Sat, 14 Nov 2020 00:46:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kdjiP-0000Pl-An; Sat, 14 Nov 2020 00:46:53 +0000
+ id ed1db482-3350-4fac-94b2-7d9d96ba054d;
+ Sat, 14 Nov 2020 02:11:54 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D25F92225D;
+ Sat, 14 Nov 2020 02:11:53 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=2JWW=EU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
-	id 1kdjiX-0001K4-1u
-	for xen-devel@lists.xenproject.org; Sat, 14 Nov 2020 00:47:01 +0000
-X-Inumbo-ID: c2b860b3-b0d2-4c7a-acbc-4642b01f6f01
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+	(envelope-from <SRS0=8rVh=EU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kdl2h-0006FW-FO
+	for xen-devel@lists.xenproject.org; Sat, 14 Nov 2020 02:11:55 +0000
+X-Inumbo-ID: ed1db482-3350-4fac-94b2-7d9d96ba054d
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id c2b860b3-b0d2-4c7a-acbc-4642b01f6f01;
-	Sat, 14 Nov 2020 00:46:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=unF+orWQAQJLWxRvI4PxEyhfbRP7pC+HiyuEibQfrcI=; b=eVZyAa8XLrWdfVi86EZQVLZhch
-	x+x8bIav6fycILsWUU5HZ7+lxG4tRLDUqI8PH6h8a/tDsBHfP0XMIzJho881KkI/WDMwOCCTXCNms
-	yjlqliAz+bJUbLNLw0xBVV2BXYFYUg/B9JvfWCKzjupNnipM1vHWdQ+J3o1toyRjyN6g=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kdjiP-0008HL-HW; Sat, 14 Nov 2020 00:46:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kdjiP-0000aO-BH; Sat, 14 Nov 2020 00:46:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kdjiP-0000Pl-An; Sat, 14 Nov 2020 00:46:53 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156742-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id ed1db482-3350-4fac-94b2-7d9d96ba054d;
+	Sat, 14 Nov 2020 02:11:54 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id D25F92225D;
+	Sat, 14 Nov 2020 02:11:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1605319914;
+	bh=+DdL6JZH1w++1IqLUX2/aasJClhdWwwHzAyz0B//UrE=;
+	h=Date:From:To:cc:Subject:From;
+	b=yFvefLeIic6y3QNKZp7jJ7hyVIq3ub3ZZfTih81Q0reel+Iqvp8QSJ4NnuCu5Qrpb
+	 PLbH93Aubcl0FXypHjwWMKnOMq8JGq8D/VQ1JypI5RmKxZKuXHXhuzLa9VFLsQa8ZL
+	 BcCInjsfBfaDm+RMgtJKN1G5rMWSWXdTB7x7x/Z4=
+Date: Fri, 13 Nov 2020 18:11:53 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Andrew Cooper <andrew.cooper3@citrix.com>, cardoe@cardoe.com, wl@xen.org
+cc: sstabellini@kernel.org, xen-devel@lists.xenproject.org
+Subject: [PATCH 0/2] automation: arm64 dom0less smoke test
+Message-ID: <alpine.DEB.2.21.2011131751380.20906@sstabellini-ThinkPad-T480s>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [ovmf test] 156742: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=662b42db76a5b195c3aa94ab2946e342a15cd185
-X-Osstest-Versions-That:
-    ovmf=544cb0132dc1778b9e791202995533523fa6cccd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 14 Nov 2020 00:46:53 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 156742 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156742/
+Hi all,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 662b42db76a5b195c3aa94ab2946e342a15cd185
-baseline version:
- ovmf                 544cb0132dc1778b9e791202995533523fa6cccd
+This short series introduces a very simple Xen Dom0less smoke test based
+on qemu-system-aarch64 to be run as part of the gitlab CI-loop. It
+currently passes on staging.
 
-Last test of basis   156720  2020-11-12 16:00:44 Z    1 days
-Testing same since   156742  2020-11-13 11:32:54 Z    0 days    1 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Pete Batard <pete@akeo.ie>
-  Yunhua Feng <fengyunhua@byosoft.com.cn>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Stefano
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Stefano Stabellini (2):
+      automation: add a QEMU aarch64 smoke test
+      automation: add dom0less to the QEMU aarch64 smoke test
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   544cb0132d..662b42db76  662b42db76a5b195c3aa94ab2946e342a15cd185 -> xen-tested-master
+ automation/gitlab-ci/test.yaml         |  23 ++++++++
+ automation/scripts/build               |   8 +--
+ automation/scripts/qemu-smoke-arm64.sh | 105 +++++++++++++++++++++++++++++++++
+ 3 files changed, 131 insertions(+), 5 deletions(-)
+ create mode 100755 automation/scripts/qemu-smoke-arm64.sh
 
