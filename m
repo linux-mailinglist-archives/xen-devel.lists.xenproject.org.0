@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E40E12B5413
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 23:06:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.28634.57700 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FDDB2B5429
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 23:15:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.28657.57712 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kemdO-0000lm-K9; Mon, 16 Nov 2020 22:06:02 +0000
+	id 1kemmD-0001mX-Hl; Mon, 16 Nov 2020 22:15:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 28634.57700; Mon, 16 Nov 2020 22:06:02 +0000
+Received: by outflank-mailman (output) from mailman id 28657.57712; Mon, 16 Nov 2020 22:15:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,96 +23,223 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kemdO-0000lN-Gr; Mon, 16 Nov 2020 22:06:02 +0000
-Received: by outflank-mailman (input) for mailman id 28634;
- Mon, 16 Nov 2020 21:57:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kemmD-0001m8-Em; Mon, 16 Nov 2020 22:15:09 +0000
+Received: by outflank-mailman (input) for mailman id 28657;
+ Mon, 16 Nov 2020 22:15:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s5R5=EW=gmail.com=cheyenne.wills@srs-us1.protection.inumbo.net>)
- id 1kemV5-0008Gt-Av
- for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 21:57:27 +0000
-Received: from mail-lf1-x134.google.com (unknown [2a00:1450:4864:20::134])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b9dfdd29-918d-47b5-8f0f-665a0b259f77;
- Mon, 16 Nov 2020 21:57:26 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id w142so27239972lff.8
- for <xen-devel@lists.xenproject.org>; Mon, 16 Nov 2020 13:57:26 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=DwRh=EW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kemmB-0001m3-91
+ for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 22:15:07 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6b6ba5e9-bbaf-4a94-8d56-2f53f41c1f9b;
+ Mon, 16 Nov 2020 22:15:06 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E9DCC2224B;
+ Mon, 16 Nov 2020 22:15:04 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=s5R5=EW=gmail.com=cheyenne.wills@srs-us1.protection.inumbo.net>)
-	id 1kemV5-0008Gt-Av
-	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 21:57:27 +0000
-X-Inumbo-ID: b9dfdd29-918d-47b5-8f0f-665a0b259f77
-Received: from mail-lf1-x134.google.com (unknown [2a00:1450:4864:20::134])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b9dfdd29-918d-47b5-8f0f-665a0b259f77;
-	Mon, 16 Nov 2020 21:57:26 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id w142so27239972lff.8
-        for <xen-devel@lists.xenproject.org>; Mon, 16 Nov 2020 13:57:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=HlIbb1shyvkY+uIlBeMbS0LuUPpKa9ZgUjImKSNfQGE=;
-        b=ZMDKu+9Izug6eJI9uJ+0I1A6fvrCuGTXbaDO6Op9NoD5UKmq98fyzSGzbUNhmG7GQw
-         +3BXGXxgTvlvUyn8w8vIK574HxZFpov5G6pvTGPWtTEjZNXhpazidgoHxm4MagCGWzRo
-         FvzbX1VAzclmLvGl6vNrwWd+py0KGBeTinJgV8QxitkCMSyA9JTU89GMS4pQIvws5hTJ
-         7n0z3CnzDkBYf2NF4MlR679zeBD/iBai0haOGuqTgAx/bxDvFwgpfJK0xT/mANCQS8Ex
-         5QzlLzHF0HsPswQ55rnjbUmiW3dX8JsF58xIVIeqEklz+CgxEe+0IlFQCZTrSQkZnFHz
-         UA7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=HlIbb1shyvkY+uIlBeMbS0LuUPpKa9ZgUjImKSNfQGE=;
-        b=aGyIx0EB6wo9hC/E0lM++P7Cg6lxWaZ535Auvi8aZaSoVZ9ha6OYcSFSzO9LgoBhW3
-         zrn3k7VHuqmP/P+qQdQ41emsid/S87Q+YgLnB7smPFanbm5ObKLE5FRVTUjF+JiAT/0n
-         65SgBQTbbn6EXEHD6u/kYfOqRZaeV8fx45+0JsYAmPHvVuQUBQB2RzU2jW5YwHSJvu0f
-         S5E7FSI8c5UQzSoKdhTjuFJtLtsuV+QS5lB5225/wrA9iOp5uNzhT/mapy9XzcJuq/zR
-         tQZ6a1EKZH0ozZHlLs0Ann0Y8jLcGW4toUnZtWsGRWX9sFtJaF+9xzmGTeNn0sY3Lklg
-         VDew==
-X-Gm-Message-State: AOAM532yUTkQpi/UV/E46Ihj22y9aPqzK4lugjUcWPqX3kok10eHpG+R
-	jHBjF+aKOi/7mFIdx09BVG52h6SpY5QgWlw8y8o/nVr9FFU=
-X-Google-Smtp-Source: ABdhPJzSzC7gthH+PuQcAeHEMnR+a9R5GF9IgyKhKC6j1OhBM/CZ+oowKzPF6Knvb6j75jt1ybv8+avBuMlpBPDrGwk=
-X-Received: by 2002:a19:c8ca:: with SMTP id y193mr493116lff.150.1605563845035;
- Mon, 16 Nov 2020 13:57:25 -0800 (PST)
+	(envelope-from <SRS0=DwRh=EW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kemmB-0001m3-91
+	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 22:15:07 +0000
+X-Inumbo-ID: 6b6ba5e9-bbaf-4a94-8d56-2f53f41c1f9b
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 6b6ba5e9-bbaf-4a94-8d56-2f53f41c1f9b;
+	Mon, 16 Nov 2020 22:15:06 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id E9DCC2224B;
+	Mon, 16 Nov 2020 22:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1605564905;
+	bh=oPKNVtxxK245+Q42be0r+QqSCBzguDwheQthAdmtAKM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=n3nAiMMLHOUiiv1iSyaDKLCTtQBWpgrqM2ILl2BpO3wdfeZ7QthaK7zWb2Ow4sFQr
+	 BNuwqJTQL9JnHwbu13Zx5FPVEQIA2j9+1ggH2ORM42esIRQDkbvNYv3vVGCxodV5jS
+	 BEiRY6YNf0cprbFowwpRuQGM61KLQvMc8bRy7qXM=
+Date: Mon, 16 Nov 2020 14:15:04 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Michal Orzel <michal.orzel@arm.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
+Subject: Re: [PATCH v2] xen/arm: Add workaround for Cortex-A76/Neoverse-N1
+ erratum #1286807
+In-Reply-To: <20201116121140.26763-1-michal.orzel@arm.com>
+Message-ID: <alpine.DEB.2.21.2011161414280.20906@sstabellini-ThinkPad-T480s>
+References: <20201116121140.26763-1-michal.orzel@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-From: Cheyenne Wills <cheyenne.wills@gmail.com>
-Date: Mon, 16 Nov 2020 14:57:14 -0700
-Message-ID: <CAHpsFVc4AAm6L0rKUuV47ydOjtw7XAgFnDZxRjdCL0OHXJERDw@mail.gmail.com>
-Subject: XSA-351 causing Solaris-11 systems to panic during boot.
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000a5c9d505b4407665"
+Content-Type: text/plain; charset=US-ASCII
 
---000000000000a5c9d505b4407665
-Content-Type: text/plain; charset="UTF-8"
+On Mon, 16 Nov 2020, Michal Orzel wrote:
+> On the affected Cortex-A76/Neoverse-N1 cores (r0p0 to r3p0),
+> if a virtual address for a cacheable mapping of a location is being
+> accessed by a core while another core is remapping the virtual
+> address to a new physical page using the recommended break-before-make
+> sequence, then under very rare circumstances TLBI+DSB completes before
+> a read using the translation being invalidated has been observed by
+> other observers. The workaround repeats the TLBI+DSB operation
+> for all the TLB flush operations on purpose.
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
 
-Running Xen with XSA-351 is causing Solaris 11 systems to panic during
-boot.  The panic screen is showing the failure to be coming from
-"unix:rdmsr".  The panic occurs with existing guests (booting off a disk)
-and the  booting from an install ISO image.
+Looks good and it looks like you addressed all Julien's comments, so:
 
-I discussed the problem with "andyhhp__" in the "#xen" IRC channel and he
-requested that I report it here.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-This was failing on a Xen 4.13 and a Xen 4.14 system built via gentoo.
 
-I understand that ultimately this is a bug in Solaris.  However it does
-impact existing guests that were functional before applying the XSA-351
-security patches.
-
---000000000000a5c9d505b4407665
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Running Xen with XSA-351 is causing Solaris 11 systems to =
-panic during boot.=C2=A0 The panic screen is showing the failure to be comi=
-ng from &quot;unix:rdmsr&quot;.=C2=A0 The panic occurs with existing guests=
- (booting off a disk) and the=C2=A0 booting from an install ISO image.=C2=
-=A0<br><br>I discussed the problem with &quot;andyhhp__&quot; in the &quot;=
-#xen&quot; IRC channel and he requested that I report it here.<br><br>This =
-was failing on a Xen 4.13 and a Xen 4.14 system built via gentoo.<br><br>I =
-understand that ultimately this is a bug in Solaris.=C2=A0 However it does =
-impact existing guests that were functional before applying the XSA-351 sec=
-urity patches.</div>
-
---000000000000a5c9d505b4407665--
+> ---
+>  docs/misc/arm/silicon-errata.txt     |  2 ++
+>  xen/arch/arm/Kconfig                 | 23 +++++++++++++++++++++
+>  xen/arch/arm/cpuerrata.c             | 14 +++++++++++++
+>  xen/include/asm-arm/arm64/flushtlb.h | 30 +++++++++++++++++++---------
+>  xen/include/asm-arm/cpufeature.h     |  3 ++-
+>  5 files changed, 62 insertions(+), 10 deletions(-)
+> 
+> diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
+> index 552c4151d3..d183ba543f 100644
+> --- a/docs/misc/arm/silicon-errata.txt
+> +++ b/docs/misc/arm/silicon-errata.txt
+> @@ -53,5 +53,7 @@ stable hypervisors.
+>  | ARM            | Cortex-A72      | #853709         | N/A                     |
+>  | ARM            | Cortex-A73      | #858921         | ARM_ERRATUM_858921      |
+>  | ARM            | Cortex-A76      | #1165522        | N/A                     |
+> +| ARM            | Cortex-A76      | #1286807        | ARM64_ERRATUM_1286807   |
+>  | ARM            | Neoverse-N1     | #1165522        | N/A
+> +| ARM            | Neoverse-N1     | #1286807        | ARM64_ERRATUM_1286807   |
+>  | ARM            | MMU-500         | #842869         | N/A                     |
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index f938dd21bd..8171b8d04a 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -244,6 +244,29 @@ config ARM_ERRATUM_858921
+>  
+>  	  If unsure, say Y.
+>  
+> +config ARM64_WORKAROUND_REPEAT_TLBI
+> +	bool
+> +
+> +config ARM64_ERRATUM_1286807
+> +	bool "Cortex-A76/Neoverse-N1: 1286807: Modification of the translation table for a virtual address might lead to read-after-read ordering violation"
+> +	default y
+> +	select ARM64_WORKAROUND_REPEAT_TLBI
+> +	depends on ARM_64
+> +	help
+> +	  This option adds a workaround for ARM Cortex-A76/Neoverse-N1 erratum 1286807.
+> +
+> +	  On the affected Cortex-A76/Neoverse-N1 cores (r0p0 to r3p0), if a virtual
+> +	  address for a cacheable mapping of a location is being
+> +	  accessed by a core while another core is remapping the virtual
+> +	  address to a new physical page using the recommended
+> +	  break-before-make sequence, then under very rare circumstances
+> +	  TLBI+DSB completes before a read using the translation being
+> +	  invalidated has been observed by other observers. The
+> +	  workaround repeats the TLBI+DSB operation for all the TLB flush
+> +	  operations on purpose.
+> +
+> +	  If unsure, say Y.
+> +
+>  endmenu
+>  
+>  config ARM64_HARDEN_BRANCH_PREDICTOR
+> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+> index 567911d380..cb4795beec 100644
+> --- a/xen/arch/arm/cpuerrata.c
+> +++ b/xen/arch/arm/cpuerrata.c
+> @@ -424,6 +424,20 @@ static const struct arm_cpu_capabilities arm_errata[] = {
+>                     (1 << MIDR_VARIANT_SHIFT) | 2),
+>      },
+>  #endif
+> +#ifdef CONFIG_ARM64_ERRATUM_1286807
+> +    {
+> +        /* Cortex-A76 r0p0 - r3p0 */
+> +        .desc = "ARM erratum 1286807",
+> +        .capability = ARM64_WORKAROUND_REPEAT_TLBI,
+> +        MIDR_RANGE(MIDR_CORTEX_A76, 0, 3 << MIDR_VARIANT_SHIFT),
+> +    },
+> +    {
+> +        /* Neoverse-N1 r0p0 - r3p0 */
+> +        .desc = "ARM erratum 1286807",
+> +        .capability = ARM64_WORKAROUND_REPEAT_TLBI,
+> +        MIDR_RANGE(MIDR_NEOVERSE_N1, 0, 3 << MIDR_VARIANT_SHIFT),
+> +    },
+> +#endif
+>  #ifdef CONFIG_ARM64_HARDEN_BRANCH_PREDICTOR
+>      {
+>          .capability = ARM_HARDEN_BRANCH_PREDICTOR,
+> diff --git a/xen/include/asm-arm/arm64/flushtlb.h b/xen/include/asm-arm/arm64/flushtlb.h
+> index ceec59542e..8f2abfaf1d 100644
+> --- a/xen/include/asm-arm/arm64/flushtlb.h
+> +++ b/xen/include/asm-arm/arm64/flushtlb.h
+> @@ -9,6 +9,12 @@
+>   * DSB ISH          // Ensure the TLB invalidation has completed
+>   * ISB              // See explanation below
+>   *
+> + * ARM64_WORKAROUND_REPEAT_TLBI:
+> + * Modification of the translation table for a virtual address might lead to
+> + * read-after-read ordering violation.
+> + * The workaround repeats TLBI+DSB operation for all the TLB flush operations
+> + * on purpose.
+> + *
+>   * For Xen page-tables the ISB will discard any instructions fetched
+>   * from the old mappings.
+>   *
+> @@ -16,15 +22,21 @@
+>   * (and therefore the TLB invalidation) before continuing. So we know
+>   * the TLBs cannot contain an entry for a mapping we may have removed.
+>   */
+> -#define TLB_HELPER(name, tlbop) \
+> -static inline void name(void)   \
+> -{                               \
+> -    asm volatile(               \
+> -        "dsb  ishst;"           \
+> -        "tlbi "  # tlbop  ";"   \
+> -        "dsb  ish;"             \
+> -        "isb;"                  \
+> -        : : : "memory");        \
+> +#define TLB_HELPER(name, tlbop)                  \
+> +static inline void name(void)                    \
+> +{                                                \
+> +    asm volatile(                                \
+> +        "dsb  ishst;"                            \
+> +        "tlbi "  # tlbop  ";"                    \
+> +        ALTERNATIVE(                             \
+> +            "nop; nop;",                         \
+> +            "dsb  ish;"                          \
+> +            "tlbi "  # tlbop  ";",               \
+> +            ARM64_WORKAROUND_REPEAT_TLBI,        \
+> +            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI) \
+> +        "dsb  ish;"                              \
+> +        "isb;"                                   \
+> +        : : : "memory");                         \
+>  }
+>  
+>  /* Flush local TLBs, current VMID only. */
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index 016a9fe203..c7b5052992 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -46,8 +46,9 @@
+>  #define ARM_SMCCC_1_1 8
+>  #define ARM64_WORKAROUND_AT_SPECULATE 9
+>  #define ARM_WORKAROUND_858921 10
+> +#define ARM64_WORKAROUND_REPEAT_TLBI 11
+>  
+> -#define ARM_NCAPS           11
+> +#define ARM_NCAPS           12
+>  
+>  #ifndef __ASSEMBLY__
+>  
+> -- 
+> 2.28.0
+> 
 
