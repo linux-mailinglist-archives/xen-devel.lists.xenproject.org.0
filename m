@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 667442B43A2
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 13:26:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.27883.56486 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA4562B43A3
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 13:26:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.27884.56497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kedZy-0001fa-SH; Mon, 16 Nov 2020 12:25:54 +0000
+	id 1keda3-0001j0-7q; Mon, 16 Nov 2020 12:25:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 27883.56486; Mon, 16 Nov 2020 12:25:54 +0000
+Received: by outflank-mailman (output) from mailman id 27884.56497; Mon, 16 Nov 2020 12:25:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,71 +23,70 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kedZy-0001ew-OL; Mon, 16 Nov 2020 12:25:54 +0000
-Received: by outflank-mailman (input) for mailman id 27883;
- Mon, 16 Nov 2020 12:25:53 +0000
+	id 1keda3-0001iO-42; Mon, 16 Nov 2020 12:25:59 +0000
+Received: by outflank-mailman (input) for mailman id 27884;
+ Mon, 16 Nov 2020 12:25:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3+iU=EW=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1kedZx-0001eS-8T
- for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 12:25:53 +0000
+ id 1keda2-0001eS-74
+ for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 12:25:58 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 58ed8055-d374-449b-baad-1c717da4b7ff;
- Mon, 16 Nov 2020 12:25:52 +0000 (UTC)
+ id 609224b9-9d12-4d98-9da4-f09cc646477a;
+ Mon, 16 Nov 2020 12:25:55 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C2079101E;
- Mon, 16 Nov 2020 04:25:51 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 088DA101E;
+ Mon, 16 Nov 2020 04:25:55 -0800 (PST)
 Received: from scm-wfh-server-rahsin01.stack04.eu02.mi.arm.com (unknown
  [10.58.246.76])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8F5063F70D;
- Mon, 16 Nov 2020 04:25:50 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8C23D3F70D;
+ Mon, 16 Nov 2020 04:25:53 -0800 (PST)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=3+iU=EW=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
-	id 1kedZx-0001eS-8T
-	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 12:25:53 +0000
-X-Inumbo-ID: 58ed8055-d374-449b-baad-1c717da4b7ff
+	id 1keda2-0001eS-74
+	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 12:25:58 +0000
+X-Inumbo-ID: 609224b9-9d12-4d98-9da4-f09cc646477a
 Received: from foss.arm.com (unknown [217.140.110.172])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 58ed8055-d374-449b-baad-1c717da4b7ff;
-	Mon, 16 Nov 2020 12:25:52 +0000 (UTC)
+	id 609224b9-9d12-4d98-9da4-f09cc646477a;
+	Mon, 16 Nov 2020 12:25:55 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C2079101E;
-	Mon, 16 Nov 2020 04:25:51 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 088DA101E;
+	Mon, 16 Nov 2020 04:25:55 -0800 (PST)
 Received: from scm-wfh-server-rahsin01.stack04.eu02.mi.arm.com (unknown [10.58.246.76])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8F5063F70D;
-	Mon, 16 Nov 2020 04:25:50 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8C23D3F70D;
+	Mon, 16 Nov 2020 04:25:53 -0800 (PST)
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
+	Jan Beulich <jbeulich@suse.com>,
+	Paul Durrant <paul@xen.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 1/3] xen/ns16550: Make ns16550 driver usable on ARM with HAS_PCI enabled.
-Date: Mon, 16 Nov 2020 12:25:16 +0000
-Message-Id: <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
+Subject: [PATCH v3 2/3] xen/pci: Move x86 specific code to x86 directory.
+Date: Mon, 16 Nov 2020 12:25:17 +0000
+Message-Id: <a84005e5aa6733043e043b015cde4983719c8535.1605527997.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1605527997.git.rahul.singh@arm.com>
 References: <cover.1605527997.git.rahul.singh@arm.com>
 In-Reply-To: <cover.1605527997.git.rahul.singh@arm.com>
 References: <cover.1605527997.git.rahul.singh@arm.com>
 
-NS16550 driver has PCI support that is under HAS_PCI flag. When HAS_PCI
-is enabled for ARM, compilation error is observed for ARM architecture
-because ARM platforms do not have full PCI support available.
+passthrough/pci.c file is common for all architecture, but there is x86
+specific code in this file.
 
-Introducing new kconfig option CONFIG_HAS_NS16550_PCI to support
-ns16550 PCI for X86.
+Move x86 specific code to the drivers/passthrough/io.c file to avoid
+compilation error for other architecture.
 
-For X86 platforms it is enabled by default. For ARM platforms it is
-disabled by default, once we have proper support for NS16550 PCI for
-ARM we can enable it.
+As drivers/passthrough/io.c is compiled only for x86 move it to
+x86 directory and rename it to hvm.c.
 
 No functional change.
 
@@ -95,175 +94,265 @@ Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
 
 Changes in v3:
-- remove help text from the Kconfig file because of prompt-less option.
+- fixed typo
+- As per suggestion move the code to the file io.c and move that file to
+  x86 directory and rename it hvm.c
 
 ---
- xen/drivers/char/Kconfig   |  4 ++++
- xen/drivers/char/ns16550.c | 32 ++++++++++++++++----------------
- 2 files changed, 20 insertions(+), 16 deletions(-)
+ xen/drivers/passthrough/Makefile            |  3 -
+ xen/drivers/passthrough/pci.c               | 78 +--------------------
+ xen/drivers/passthrough/x86/Makefile        |  1 +
+ xen/drivers/passthrough/{io.c => x86/hvm.c} | 66 +++++++++++++++++
+ xen/drivers/passthrough/x86/iommu.c         |  7 ++
+ xen/include/xen/pci.h                       |  2 +
+ 6 files changed, 77 insertions(+), 80 deletions(-)
+ rename xen/drivers/passthrough/{io.c => x86/hvm.c} (95%)
 
-diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-index b572305657..abb59fdb0f 100644
---- a/xen/drivers/char/Kconfig
-+++ b/xen/drivers/char/Kconfig
-@@ -4,6 +4,10 @@ config HAS_NS16550
- 	help
- 	  This selects the 16550-series UART support. For most systems, say Y.
+diff --git a/xen/drivers/passthrough/Makefile b/xen/drivers/passthrough/Makefile
+index e973e16c74..cc646612c7 100644
+--- a/xen/drivers/passthrough/Makefile
++++ b/xen/drivers/passthrough/Makefile
+@@ -6,6 +6,3 @@ obj-$(CONFIG_ARM) += arm/
+ obj-y += iommu.o
+ obj-$(CONFIG_HAS_PCI) += pci.o
+ obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
+-
+-x86-$(CONFIG_HVM) := io.o
+-obj-$(CONFIG_X86) += $(x86-y)
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 51e584127e..e8a28df126 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -14,9 +14,6 @@
+  * this program; If not, see <http://www.gnu.org/licenses/>.
+  */
  
-+config HAS_NS16550_PCI
-+	def_bool y
-+	depends on X86 && HAS_NS16550 && HAS_PCI
-+
- config HAS_CADENCE_UART
- 	bool "Xilinx Cadence UART driver"
- 	default y
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index d8b52eb813..bd1c2af956 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -16,7 +16,7 @@
- #include <xen/timer.h>
- #include <xen/serial.h>
- #include <xen/iocap.h>
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
- #include <xen/pci.h>
- #include <xen/pci_regs.h>
+-#include <xen/sched.h>
+-#include <xen/pci.h>
+-#include <xen/pci_regs.h>
  #include <xen/pci_ids.h>
-@@ -54,7 +54,7 @@ enum serial_param_type {
-     reg_shift,
-     reg_width,
-     stop_bits,
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     bridge_bdf,
-     device,
-     port_bdf,
-@@ -83,7 +83,7 @@ static struct ns16550 {
-     unsigned int timeout_ms;
-     bool_t intr_works;
-     bool_t dw_usr_bsy;
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     /* PCI card parameters. */
-     bool_t pb_bdf_enable;   /* if =1, pb-bdf effective, port behind bridge */
-     bool_t ps_bdf_enable;   /* if =1, ps_bdf effective, port on pci card */
-@@ -117,14 +117,14 @@ static const struct serial_param_var __initconst sp_vars[] = {
-     {"reg-shift", reg_shift},
-     {"reg-width", reg_width},
-     {"stop-bits", stop_bits},
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     {"bridge", bridge_bdf},
-     {"dev", device},
-     {"port", port_bdf},
- #endif
- };
- 
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
- struct ns16550_config {
-     u16 vendor_id;
-     u16 dev_id;
-@@ -620,7 +620,7 @@ static int ns16550_getc(struct serial_port *port, char *pc)
- 
- static void pci_serial_early_init(struct ns16550 *uart)
- {
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     if ( !uart->ps_bdf_enable || uart->io_base >= 0x10000 )
-         return;
- 
-@@ -719,7 +719,7 @@ static void __init ns16550_init_preirq(struct serial_port *port)
- 
- static void __init ns16550_init_irq(struct serial_port *port)
- {
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     struct ns16550 *uart = port->uart;
- 
-     if ( uart->msi )
-@@ -761,7 +761,7 @@ static void __init ns16550_init_postirq(struct serial_port *port)
-     uart->timeout_ms = max_t(
-         unsigned int, 1, (bits * uart->fifo_size * 1000) / uart->baud);
- 
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     if ( uart->bar || uart->ps_bdf_enable )
-     {
-         if ( uart->param && uart->param->mmio &&
-@@ -841,7 +841,7 @@ static void ns16550_suspend(struct serial_port *port)
- 
-     stop_timer(&uart->timer);
- 
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     if ( uart->bar )
-        uart->cr = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
-                                   uart->ps_bdf[2]), PCI_COMMAND);
-@@ -850,7 +850,7 @@ static void ns16550_suspend(struct serial_port *port)
- 
- static void _ns16550_resume(struct serial_port *port)
- {
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     struct ns16550 *uart = port->uart;
- 
-     if ( uart->bar )
-@@ -1013,7 +1013,7 @@ static int __init check_existence(struct ns16550 *uart)
-     return 1; /* Everything is MMIO */
- #endif
- 
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     pci_serial_early_init(uart);
- #endif
- 
-@@ -1044,7 +1044,7 @@ static int __init check_existence(struct ns16550 *uart)
-     return (status == 0x90);
+ #include <xen/list.h>
+ #include <xen/prefetch.h>
+@@ -24,7 +21,6 @@
+ #include <xen/irq.h>
+ #include <xen/param.h>
+ #include <xen/vm_event.h>
+-#include <asm/hvm/irq.h>
+ #include <xen/delay.h>
+ #include <xen/keyhandler.h>
+ #include <xen/event.h>
+@@ -842,71 +838,6 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+     return ret;
  }
  
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
- static int __init
- pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
+-static int pci_clean_dpci_irq(struct domain *d,
+-                              struct hvm_pirq_dpci *pirq_dpci, void *arg)
+-{
+-    struct dev_intx_gsi_link *digl, *tmp;
+-
+-    pirq_guest_unbind(d, dpci_pirq(pirq_dpci));
+-
+-    if ( pt_irq_need_timer(pirq_dpci->flags) )
+-        kill_timer(&pirq_dpci->timer);
+-
+-    list_for_each_entry_safe ( digl, tmp, &pirq_dpci->digl_list, list )
+-    {
+-        list_del(&digl->list);
+-        xfree(digl);
+-    }
+-
+-    radix_tree_delete(&d->pirq_tree, dpci_pirq(pirq_dpci)->pirq);
+-
+-    if ( !pt_pirq_softirq_active(pirq_dpci) )
+-        return 0;
+-
+-    domain_get_irq_dpci(d)->pending_pirq_dpci = pirq_dpci;
+-
+-    return -ERESTART;
+-}
+-
+-static int pci_clean_dpci_irqs(struct domain *d)
+-{
+-    struct hvm_irq_dpci *hvm_irq_dpci = NULL;
+-
+-    if ( !is_iommu_enabled(d) )
+-        return 0;
+-
+-    if ( !is_hvm_domain(d) )
+-        return 0;
+-
+-    spin_lock(&d->event_lock);
+-    hvm_irq_dpci = domain_get_irq_dpci(d);
+-    if ( hvm_irq_dpci != NULL )
+-    {
+-        int ret = 0;
+-
+-        if ( hvm_irq_dpci->pending_pirq_dpci )
+-        {
+-            if ( pt_pirq_softirq_active(hvm_irq_dpci->pending_pirq_dpci) )
+-                 ret = -ERESTART;
+-            else
+-                 hvm_irq_dpci->pending_pirq_dpci = NULL;
+-        }
+-
+-        if ( !ret )
+-            ret = pt_pirq_iterate(d, pci_clean_dpci_irq, NULL);
+-        if ( ret )
+-        {
+-            spin_unlock(&d->event_lock);
+-            return ret;
+-        }
+-
+-        hvm_domain_irq(d)->dpci = NULL;
+-        free_hvm_irq_dpci(hvm_irq_dpci);
+-    }
+-    spin_unlock(&d->event_lock);
+-    return 0;
+-}
+-
+ /* Caller should hold the pcidevs_lock */
+ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
+                            uint8_t devfn)
+@@ -966,7 +897,7 @@ int pci_release_devices(struct domain *d)
+     int ret;
+ 
+     pcidevs_lock();
+-    ret = pci_clean_dpci_irqs(d);
++    ret = arch_pci_clean_pirqs(d);
+     if ( ret )
+     {
+         pcidevs_unlock();
+@@ -1370,13 +1301,6 @@ static int __init setup_dump_pcidevs(void)
+ }
+ __initcall(setup_dump_pcidevs);
+ 
+-int iommu_update_ire_from_msi(
+-    struct msi_desc *msi_desc, struct msi_msg *msg)
+-{
+-    return iommu_intremap
+-           ? iommu_call(&iommu_ops, update_ire_from_msi, msi_desc, msg) : 0;
+-}
+-
+ static int iommu_add_device(struct pci_dev *pdev)
  {
-@@ -1305,7 +1305,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
+     const struct domain_iommu *hd;
+diff --git a/xen/drivers/passthrough/x86/Makefile b/xen/drivers/passthrough/x86/Makefile
+index a70cf9460d..69284a5d19 100644
+--- a/xen/drivers/passthrough/x86/Makefile
++++ b/xen/drivers/passthrough/x86/Makefile
+@@ -1,2 +1,3 @@
+ obj-y += ats.o
+ obj-y += iommu.o
++obj-$(CONFIG_HVM) += hvm.o
+diff --git a/xen/drivers/passthrough/io.c b/xen/drivers/passthrough/x86/hvm.c
+similarity index 95%
+rename from xen/drivers/passthrough/io.c
+rename to xen/drivers/passthrough/x86/hvm.c
+index 6b1305a3e5..41cfa2e200 100644
+--- a/xen/drivers/passthrough/io.c
++++ b/xen/drivers/passthrough/x86/hvm.c
+@@ -1036,6 +1036,72 @@ unlock:
+     spin_unlock(&d->event_lock);
+ }
  
-     if ( *conf == ',' && *++conf != ',' )
-     {
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-         if ( strncmp(conf, "pci", 3) == 0 )
-         {
-             if ( pci_uart_config(uart, 1/* skip AMT */, uart - ns16550_com) )
-@@ -1327,7 +1327,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
++static int pci_clean_dpci_irq(struct domain *d,
++                              struct hvm_pirq_dpci *pirq_dpci, void *arg)
++{
++    struct dev_intx_gsi_link *digl, *tmp;
++
++    pirq_guest_unbind(d, dpci_pirq(pirq_dpci));
++
++    if ( pt_irq_need_timer(pirq_dpci->flags) )
++        kill_timer(&pirq_dpci->timer);
++
++    list_for_each_entry_safe ( digl, tmp, &pirq_dpci->digl_list, list )
++    {
++        list_del(&digl->list);
++        xfree(digl);
++    }
++
++    radix_tree_delete(&d->pirq_tree, dpci_pirq(pirq_dpci)->pirq);
++
++    if ( !pt_pirq_softirq_active(pirq_dpci) )
++        return 0;
++
++    domain_get_irq_dpci(d)->pending_pirq_dpci = pirq_dpci;
++
++    return -ERESTART;
++}
++
++int arch_pci_clean_pirqs(struct domain *d)
++{
++    struct hvm_irq_dpci *hvm_irq_dpci = NULL;
++
++    if ( !is_iommu_enabled(d) )
++        return 0;
++
++    if ( !is_hvm_domain(d) )
++        return 0;
++
++    spin_lock(&d->event_lock);
++    hvm_irq_dpci = domain_get_irq_dpci(d);
++    if ( hvm_irq_dpci != NULL )
++    {
++        int ret = 0;
++
++        if ( hvm_irq_dpci->pending_pirq_dpci )
++        {
++            if ( pt_pirq_softirq_active(hvm_irq_dpci->pending_pirq_dpci) )
++                 ret = -ERESTART;
++            else
++                 hvm_irq_dpci->pending_pirq_dpci = NULL;
++        }
++
++        if ( !ret )
++            ret = pt_pirq_iterate(d, pci_clean_dpci_irq, NULL);
++        if ( ret )
++        {
++            spin_unlock(&d->event_lock);
++            return ret;
++        }
++
++        hvm_domain_irq(d)->dpci = NULL;
++        free_hvm_irq_dpci(hvm_irq_dpci);
++    }
++    spin_unlock(&d->event_lock);
++
++    return 0;
++}
++
+ /*
+  * Note: 'pt_pirq_softirq_reset' can clear the STATE_SCHED before we get to
+  * doing it. If that is the case we let 'pt_pirq_softirq_reset' do ref-counting.
+diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
+index f17b1820f4..875e67b53b 100644
+--- a/xen/drivers/passthrough/x86/iommu.c
++++ b/xen/drivers/passthrough/x86/iommu.c
+@@ -308,6 +308,13 @@ struct page_info *iommu_alloc_pgtable(struct domain *d)
+     return pg;
+ }
  
-     if ( *conf == ',' && *++conf != ',' )
-     {
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-         if ( strncmp(conf, "msi", 3) == 0 )
-         {
-             conf += 3;
-@@ -1339,7 +1339,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
-             uart->irq = simple_strtol(conf, &conf, 10);
-     }
++int iommu_update_ire_from_msi(
++    struct msi_desc *msi_desc, struct msi_msg *msg)
++{
++    return iommu_intremap
++           ? iommu_call(&iommu_ops, update_ire_from_msi, msi_desc, msg) : 0;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+index 20a54a5bb4..78d83afe64 100644
+--- a/xen/include/xen/pci.h
++++ b/xen/include/xen/pci.h
+@@ -208,4 +208,6 @@ int msixtbl_pt_register(struct domain *, struct pirq *, uint64_t gtable);
+ void msixtbl_pt_unregister(struct domain *, struct pirq *);
+ void msixtbl_pt_cleanup(struct domain *d);
  
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-     if ( *conf == ',' && *++conf != ',' )
-     {
-         conf = parse_pci(conf, NULL, &uart->ps_bdf[0],
-@@ -1419,7 +1419,7 @@ static bool __init parse_namevalue_pairs(char *str, struct ns16550 *uart)
-             uart->reg_width = simple_strtoul(param_value, NULL, 0);
-             break;
- 
--#ifdef CONFIG_HAS_PCI
-+#ifdef CONFIG_HAS_NS16550_PCI
-         case bridge_bdf:
-             if ( !parse_pci(param_value, NULL, &uart->ps_bdf[0],
-                             &uart->ps_bdf[1], &uart->ps_bdf[2]) )
++int arch_pci_clean_pirqs(struct domain *d);
++
+ #endif /* __XEN_PCI_H__ */
 -- 
 2.17.1
 
