@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F6B2B4993
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 16:40:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.28487.57581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A6802B4A6E
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 17:14:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.28513.57593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kegc3-0005R5-OP; Mon, 16 Nov 2020 15:40:15 +0000
+	id 1keh7m-0000jW-B5; Mon, 16 Nov 2020 16:13:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 28487.57581; Mon, 16 Nov 2020 15:40:15 +0000
+Received: by outflank-mailman (output) from mailman id 28513.57593; Mon, 16 Nov 2020 16:13:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,111 +23,113 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kegc3-0005Qg-Kp; Mon, 16 Nov 2020 15:40:15 +0000
-Received: by outflank-mailman (input) for mailman id 28487;
- Mon, 16 Nov 2020 15:40:14 +0000
+	id 1keh7m-0000j7-80; Mon, 16 Nov 2020 16:13:02 +0000
+Received: by outflank-mailman (input) for mailman id 28513;
+ Mon, 16 Nov 2020 16:13:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5kkY=EW=kernel.dk=axboe@srs-us1.protection.inumbo.net>)
- id 1kegc2-0005Qb-3W
- for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 15:40:14 +0000
-Received: from mail-io1-xd2a.google.com (unknown [2607:f8b0:4864:20::d2a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=l6nr=EW=amacapital.net=luto@srs-us1.protection.inumbo.net>)
+ id 1keh7l-0000j2-2B
+ for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 16:13:01 +0000
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 755abfd4-ebea-4ac9-8a7d-5c4968dbd515;
- Mon, 16 Nov 2020 15:40:12 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id i18so16365855ioa.3
- for <xen-devel@lists.xenproject.org>; Mon, 16 Nov 2020 07:40:12 -0800 (PST)
-Received: from [192.168.1.30] ([65.144.74.34])
- by smtp.gmail.com with ESMTPSA id i82sm10491839ill.84.2020.11.16.07.40.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Nov 2020 07:40:11 -0800 (PST)
+ id 46ba993d-4fb7-44e5-9d61-9cdcf59e56f0;
+ Mon, 16 Nov 2020 16:13:00 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id u12so12069186wrt.0
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Nov 2020 08:12:59 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=5kkY=EW=kernel.dk=axboe@srs-us1.protection.inumbo.net>)
-	id 1kegc2-0005Qb-3W
-	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 15:40:14 +0000
-X-Inumbo-ID: 755abfd4-ebea-4ac9-8a7d-5c4968dbd515
-Received: from mail-io1-xd2a.google.com (unknown [2607:f8b0:4864:20::d2a])
+	(envelope-from <SRS0=l6nr=EW=amacapital.net=luto@srs-us1.protection.inumbo.net>)
+	id 1keh7l-0000j2-2B
+	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 16:13:01 +0000
+X-Inumbo-ID: 46ba993d-4fb7-44e5-9d61-9cdcf59e56f0
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 755abfd4-ebea-4ac9-8a7d-5c4968dbd515;
-	Mon, 16 Nov 2020 15:40:12 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id i18so16365855ioa.3
-        for <xen-devel@lists.xenproject.org>; Mon, 16 Nov 2020 07:40:12 -0800 (PST)
+	id 46ba993d-4fb7-44e5-9d61-9cdcf59e56f0;
+	Mon, 16 Nov 2020 16:13:00 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id u12so12069186wrt.0
+        for <xen-devel@lists.xenproject.org>; Mon, 16 Nov 2020 08:12:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20150623.gappssmtp.com; s=20150623;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=tp0p5PHbr2FkOYp8vx6enMy9SJ7npMGO8ToOlTZAVD0=;
-        b=vJHuCgkLtyaYNtKWJGKWTC2HAaX7Y9m8y1VpqDKgvUWa8d0I51VY3ALJeXJtOlsGpr
-         QzxZZWfSIBe9Z9YJVgCkUF04iuHI0uFspV4JwGcoTFtYktgjnY7A8CRm243mremkxSFW
-         /W8ZuC0hXxmoHn+ezTFvYhGe2XU1ttQu6xlHRIQZSFb9V/9nguKyH01uIZBsQIBla1sm
-         kSpCVk0QJdWteogX0XEWe3MJV6jr1Lh++tWh99mrFKS4zYsaeRBflt08zg4X1OBFoLaD
-         OZKwfBprL/CxXZIUp5e8ounGHLLXOFSswyyzQU1smV5YfKh+taZ0KanaNv47asHmejvk
-         eLpw==
+        d=amacapital-net.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=8fy9yJa8xaunaxNAmcC4fKqFwO3hgJ8i3UHbtvhB9OQ=;
+        b=CCagE05Tte+vu4qHj9zLiAy1I7Elq1T7BM2FMQZRQchCZ21yGqXT2YIxuHB1rT6tQU
+         0LcVZeEa/d5r7lBKYg885sd+EMDaHuuiUSjtiw6wyCzePiG9vcbpKpGxuuGAFKCHnKY9
+         k4RMOEOann/4ubOcrv+/XYY0n4HBJcNr9nwT5hbOO0wssAjW86GoL5Inuob6H6fJzP5j
+         Gxakvx1WwtCmj9A86RVfRKyhaKGY/apU5JxBjYFo4+a8UkfQoMuIDwX7LSC6kOpF3DGi
+         ifwNLHwVW1ES9BGSAPmYeZsMVbpTpPOjXLR950OPJeXzIcejbCyDOvJvRc0OjFXCmDpU
+         MqbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=tp0p5PHbr2FkOYp8vx6enMy9SJ7npMGO8ToOlTZAVD0=;
-        b=IJpNW+WFfsoTs9/l43YyOM23NRFFM8kjIJA/IA03D7syNcpcmXQ9Rf5Q/jdzq3ehCq
-         dl16qKylbMM9+3SGFUg4eZA8c4D5/P/Kf/6NRzLtHPtZ4/rVlIawHhNQ6GPj32jFoe7h
-         h2+Hwlbb8dAO4IP5n4ToABN1qGcXkG/QqDQWFykmNy6KaoGwAAN8EASm6IKSXMZGFcKx
-         Z8g+XugkrtapArBXsgku3jJor/6VY2cfLFKA3d11uvwbypbv6kmsx1gqA50++Vtwhodk
-         0NwJZ3fgiUDVIA4mnHVPoLqVya/TPowOx5hh6rkOuVzMBJzAHtOjXlP4muDbBaZSzWQM
-         rfiQ==
-X-Gm-Message-State: AOAM532pfO3XcoJjz6Z8p+4sLs+hvNZ6UmY5RNUYaL1AifojcN48kh70
-	xVE9Tg4BbZdq6B84wr4qW2sONA==
-X-Google-Smtp-Source: ABdhPJzORiPywjBgXN2NzytHbmvXHQyepXDfzUWSZfRzXJXzcmliMaw8xrhzAaFsEhdxvHHHShuK7g==
-X-Received: by 2002:a5e:9e0b:: with SMTP id i11mr3534187ioq.33.1605541212314;
-        Mon, 16 Nov 2020 07:40:12 -0800 (PST)
-Received: from [192.168.1.30] ([65.144.74.34])
-        by smtp.gmail.com with ESMTPSA id i82sm10491839ill.84.2020.11.16.07.40.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2020 07:40:11 -0800 (PST)
-Subject: Re: cleanup updating the size of block devices v3
-To: Christoph Hellwig <hch@lst.de>
-Cc: Justin Sanders <justin@coraid.com>, Josef Bacik <josef@toxicpanda.com>,
- Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Minchan Kim <minchan@kernel.org>, Mike Snitzer <snitzer@redhat.com>,
- Song Liu <song@kernel.org>, "Martin K. Petersen"
- <martin.petersen@oracle.com>, dm-devel@redhat.com,
- linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
- nbd@other.debian.org, ceph-devel@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-raid@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20201116145809.410558-1-hch@lst.de>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <506876ff-65b0-7610-6f9e-8228fcd201c8@kernel.dk>
-Date: Mon, 16 Nov 2020 08:40:10 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=8fy9yJa8xaunaxNAmcC4fKqFwO3hgJ8i3UHbtvhB9OQ=;
+        b=SY3z0PppUtbYsyWzOiFprD+tyHb5RxqX/xGH5xTN9GwGUb6uc2gzT5QG80w9cwE1kv
+         jWaQZzveCNT66EXK5JtnBLWnCjnJ8S7DPnipbrpls+FQVah2OD+l5DnNHJicVnGDEizm
+         fzVA8x1qTmpl6XsqfXyH4oBk3p40VTsO2NgOFo2Z4GpNdoFhbFd6wJKZhweHEHEE4XLk
+         ++CnjZa1aBufQa6JzAAdfCtoq+UPQFv0b1bu6mSOsuDjck1UxeegLzCyHiNPNVNk92Ym
+         vLALJkbeqmULfrL2YQ6ZAZQvCh2GiverRx/WfR0yIELOToYWuBsRHYxcx+MtX9rnI7fC
+         8Ovg==
+X-Gm-Message-State: AOAM530rLXMmmBCAviipw+qoIgS649dwKzoZSqFRxXh/8fXaScF6sc7K
+	YIfQVdLGZ0iVwaO2SCtFD0QU5pX7Ve4SEDx8vKGekA==
+X-Google-Smtp-Source: ABdhPJxC7jxqf4ZHD7BBqVXQL2hN8P5Oggx7Bc5cCg7hTHoa0ssVjlPSEQtioabPGctgV4nNkJs/uFpogKzZWU9akvo=
+X-Received: by 2002:adf:f808:: with SMTP id s8mr20430438wrp.257.1605543179184;
+ Mon, 16 Nov 2020 08:12:59 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201116145809.410558-1-hch@lst.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20201116152301.24558-1-jgross@suse.com> <20201116152301.24558-3-jgross@suse.com>
+In-Reply-To: <20201116152301.24558-3-jgross@suse.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Mon, 16 Nov 2020 08:12:46 -0800
+Message-ID: <CALCETrWVSEB5zrUiZ81KaB5egx78TfDuSDv+qR3HFtJ=SKxwkQ@mail.gmail.com>
+Subject: Re: [PATCH 2/4] x86/xen: use specific Xen pv interrupt entry for DF
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, X86 ML <x86@kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/16/20 7:56 AM, Christoph Hellwig wrote:
-> Hi Jens,
-> 
-> this series builds on top of the work that went into the last merge window,
-> and make sure we have a single coherent interfac for updating the size of a
-> block device.
-> 
-> Changes since v2:
->  - rebased to the set_capacity_revalidate_and_notify in mainline
->  - keep the loop_set_size function
->  - fix two mixed up acks
+On Mon, Nov 16, 2020 at 7:23 AM Juergen Gross <jgross@suse.com> wrote:
+>
+> Xen PV guests don't use IST. For double fault interrupts switch to
+> the same model as NMI.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  arch/x86/include/asm/idtentry.h | 3 +++
+>  arch/x86/xen/enlighten_pv.c     | 8 +++++++-
+>  arch/x86/xen/xen-asm.S          | 2 +-
+>  3 files changed, 11 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/include/asm/idtentry.h b/arch/x86/include/asm/idtentry.h
+> index 3505c0396fa5..b35825392547 100644
+> --- a/arch/x86/include/asm/idtentry.h
+> +++ b/arch/x86/include/asm/idtentry.h
+> @@ -611,6 +611,9 @@ DECLARE_IDTENTRY_RAW(X86_TRAP_DB,   xenpv_exc_debug);
+>
+>  /* #DF */
+>  DECLARE_IDTENTRY_DF(X86_TRAP_DF,       exc_double_fault);
+> +#ifdef CONFIG_XEN_PV
+> +DECLARE_IDTENTRY_RAW_ERRORCODE(X86_TRAP_DF,    xenpv_exc_double_fault);
+> +#endif
+>
+>  /* #VC */
+>  #ifdef CONFIG_AMD_MEM_ENCRYPT
+> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+> index 9f5e44c1f70a..803fbcb398c4 100644
+> --- a/arch/x86/xen/enlighten_pv.c
+> +++ b/arch/x86/xen/enlighten_pv.c
+> @@ -571,6 +571,12 @@ DEFINE_IDTENTRY_RAW(xenpv_exc_nmi)
+>         exc_nmi(regs);
+>  }
+>
+> +DEFINE_IDTENTRY_RAW_ERRORCODE(xenpv_exc_double_fault)
+> +{
+> +       /* On Xen PV, DF doesn't use IST.  The C part is the sane as native. */
 
-Applied 1-23 for 5.11, thanks.
+I would like to think that code is sane, but you probably meant "same".
 
--- 
-Jens Axboe
-
+> +       exc_double_fault(regs, error_code);
+> +}
 
