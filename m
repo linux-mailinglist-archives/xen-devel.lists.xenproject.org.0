@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C82A2B48BB
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 16:11:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.28217.57228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CBE62B4894
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 16:09:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.28079.56755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1keg9x-0005Gs-4L; Mon, 16 Nov 2020 15:11:13 +0000
+	id 1keg8W-00011p-QI; Mon, 16 Nov 2020 15:09:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 28217.57228; Mon, 16 Nov 2020 15:11:12 +0000
+Received: by outflank-mailman (output) from mailman id 28079.56755; Mon, 16 Nov 2020 15:09:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1keg9v-00056f-CP; Mon, 16 Nov 2020 15:11:11 +0000
-Received: by outflank-mailman (input) for mailman id 28217;
- Mon, 16 Nov 2020 15:11:04 +0000
+	id 1keg8W-0000zf-BC; Mon, 16 Nov 2020 15:09:44 +0000
+Received: by outflank-mailman (input) for mailman id 28079;
+ Mon, 16 Nov 2020 15:09:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DM7u=EW=casper.srs.infradead.org=batv+29a21e8ca386e11a5a78+6294+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kefyx-0006ni-1o
- for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 14:59:51 +0000
+ id 1kefys-0006ni-1X
+ for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 14:59:46 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7e3ee4f9-c567-4ec4-8a64-c3e715411e07;
- Mon, 16 Nov 2020 14:58:45 +0000 (UTC)
+ id a341bbf4-6be5-4fed-a83e-3846fb79d988;
+ Mon, 16 Nov 2020 14:58:44 +0000 (UTC)
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kefxc-0003nE-NO; Mon, 16 Nov 2020 14:58:29 +0000
+ id 1kefxe-0003nT-5J; Mon, 16 Nov 2020 14:58:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=DM7u=EW=casper.srs.infradead.org=batv+29a21e8ca386e11a5a78+6294+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kefyx-0006ni-1o
-	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 14:59:51 +0000
-X-Inumbo-ID: 7e3ee4f9-c567-4ec4-8a64-c3e715411e07
+	id 1kefys-0006ni-1X
+	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 14:59:46 +0000
+X-Inumbo-ID: a341bbf4-6be5-4fed-a83e-3846fb79d988
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 7e3ee4f9-c567-4ec4-8a64-c3e715411e07;
-	Mon, 16 Nov 2020 14:58:45 +0000 (UTC)
+	id a341bbf4-6be5-4fed-a83e-3846fb79d988;
+	Mon, 16 Nov 2020 14:58:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=CN10BGv9dKVd+RKbbdTxT2BvIyv06ZDMhow0ngUqFVs=; b=Wf8/hkFaNLSd+gPM2W2r4fv5vP
-	kTvVoS3zDf7gbVd/+sUJtkyAqA5lUq9yQxOzaZbEyDVX2S9VcEH6akrikD/EHAskWC5e3u5GFwo94
-	pvyK6vF1xv0yoWZW0Trp2YhTMDwX2yOQJVSOA1j8iKDivtRGQvmQELbe3fJn2yUvmr1OA274aOkkL
-	de9bCAvfPrVUPcqJAHSKnKZg7g+R46oLX8YCc9Mk8CdlBH2cDMS5JaO9BjoWNQj8G+Bge/APmZ6vq
-	FKHpBXoJF7X4vPleICzEeG/Mc88InJcGvDP+Fhh9lnoF/XRSuvgZLsqj2YVXvQLELtvaQnptV5v8a
-	VOhU/gOA==;
+	bh=/Imzh1mtRC/4MzK3hbPZY3ezfjbBAXF+4uATbyQG9tw=; b=dBQLE+OXBD+j477XeVCLVsEYMc
+	RcEmj1V7WI2hhE1ic5DNIFG4NASPB/YphyPWVi7Xq1LFghc+xDtYP8gnsZoG77DfNVesQgpmfkhvc
+	fRwObxyPEZK/z1Ciz1aZPB7p7sncrnoVPvsbR1T3r36wVT6Dggw6kq20tBT9oOGKs7N8awXlr/4dD
+	vSByTZgMJWOqjW2HVCrSuJQGs+W4TB0ER5Ppk1IPUgTtfrMT+MCFmU3g27MhXzwXsmuaY0EkY4/zY
+	y2h6fT5m4m5EipT6NUGe0exghgq3sxrlH/h+qqCes57dPolMGfQloQ8v6PU+P54LeLSCXbzWWejRV
+	yilzQCOg==;
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefxc-0003nE-NO; Mon, 16 Nov 2020 14:58:29 +0000
+	id 1kefxe-0003nT-5J; Mon, 16 Nov 2020 14:58:30 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -86,11 +86,10 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-raid@vger.kernel.org,
 	linux-nvme@lists.infradead.org,
 	linux-scsi@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	Hannes Reinecke <hare@suse.de>
-Subject: [PATCH 14/78] nvme: use set_capacity_and_notify in nvme_set_queue_dying
-Date: Mon, 16 Nov 2020 15:57:05 +0100
-Message-Id: <20201116145809.410558-15-hch@lst.de>
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH 15/78] drbd: use set_capacity_and_notify
+Date: Mon, 16 Nov 2020 15:57:06 +0100
+Message-Id: <20201116145809.410558-16-hch@lst.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
@@ -98,47 +97,38 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Use the block layer helper to update both the disk and block device
-sizes.  Contrary to the name no notification is sent in this case,
-as a size 0 is special cased.
+Use set_capacity_and_notify to set the size of both the disk and block
+device.  This also gets the uevent notifications for the resize for free.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
 ---
- drivers/nvme/host/core.c | 13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
+ drivers/block/drbd/drbd_main.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 6c144e748f8cae..bc89e8659c403f 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -93,16 +93,6 @@ static void nvme_put_subsystem(struct nvme_subsystem *subsys);
- static void nvme_remove_invalid_namespaces(struct nvme_ctrl *ctrl,
- 					   unsigned nsid);
+diff --git a/drivers/block/drbd/drbd_main.c b/drivers/block/drbd/drbd_main.c
+index 65b95aef8dbc95..1c8c18b2a25f33 100644
+--- a/drivers/block/drbd/drbd_main.c
++++ b/drivers/block/drbd/drbd_main.c
+@@ -2036,8 +2036,7 @@ void drbd_set_my_capacity(struct drbd_device *device, sector_t size)
+ {
+ 	char ppb[10];
  
--static void nvme_update_bdev_size(struct gendisk *disk)
--{
--	struct block_device *bdev = bdget_disk(disk, 0);
--
--	if (bdev) {
--		bd_set_nr_sectors(bdev, get_capacity(disk));
--		bdput(bdev);
--	}
--}
--
- /*
-  * Prepare a queue for teardown.
-  *
-@@ -119,8 +109,7 @@ static void nvme_set_queue_dying(struct nvme_ns *ns)
- 	blk_set_queue_dying(ns->queue);
- 	blk_mq_unquiesce_queue(ns->queue);
+-	set_capacity(device->vdisk, size);
+-	revalidate_disk_size(device->vdisk, false);
++	set_capacity_and_notify(device->vdisk, size);
  
--	set_capacity(ns->disk, 0);
--	nvme_update_bdev_size(ns->disk);
-+	set_capacity_and_notify(ns->disk, 0);
- }
+ 	drbd_info(device, "size = %s (%llu KB)\n",
+ 		ppsize(ppb, size>>1), (unsigned long long)size>>1);
+@@ -2068,8 +2067,7 @@ void drbd_device_cleanup(struct drbd_device *device)
+ 	}
+ 	D_ASSERT(device, first_peer_device(device)->connection->net_conf == NULL);
  
- static void nvme_queue_scan(struct nvme_ctrl *ctrl)
+-	set_capacity(device->vdisk, 0);
+-	revalidate_disk_size(device->vdisk, false);
++	set_capacity_and_notify(device->vdisk, 0);
+ 	if (device->bitmap) {
+ 		/* maybe never allocated. */
+ 		drbd_bm_resize(device, 0, 1);
 -- 
 2.29.2
 
