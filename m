@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45E932B439B
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 13:24:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.27872.56462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F2D2B43A1
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 13:25:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.27882.56473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kedYh-0001Qt-8B; Mon, 16 Nov 2020 12:24:35 +0000
+	id 1kedZt-0001cj-IF; Mon, 16 Nov 2020 12:25:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 27872.56462; Mon, 16 Nov 2020 12:24:35 +0000
+Received: by outflank-mailman (output) from mailman id 27882.56473; Mon, 16 Nov 2020 12:25:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,115 +23,78 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kedYh-0001QA-4O; Mon, 16 Nov 2020 12:24:35 +0000
-Received: by outflank-mailman (input) for mailman id 27872;
- Mon, 16 Nov 2020 12:24:34 +0000
+	id 1kedZt-0001cK-FE; Mon, 16 Nov 2020 12:25:49 +0000
+Received: by outflank-mailman (input) for mailman id 27882;
+ Mon, 16 Nov 2020 12:25:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VFxT=EW=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1kedYg-0001Nd-6Q
- for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 12:24:34 +0000
-Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6996d5b0-907b-4f02-84a4-68e287af2eeb;
- Mon, 16 Nov 2020 12:24:29 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id s8so18457502wrw.10
- for <xen-devel@lists.xenproject.org>; Mon, 16 Nov 2020 04:24:29 -0800 (PST)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id w15sm23012424wrp.52.2020.11.16.04.24.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2020 04:24:22 -0800 (PST)
-Received: from zen.lan (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 4553E1FF91;
- Mon, 16 Nov 2020 12:24:18 +0000 (GMT)
+ <SRS0=3+iU=EW=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
+ id 1kedZs-0001cF-1O
+ for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 12:25:48 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id cdd74c7c-d060-4720-88b2-f346a4a63bac;
+ Mon, 16 Nov 2020 12:25:47 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8FDF101E;
+ Mon, 16 Nov 2020 04:25:46 -0800 (PST)
+Received: from scm-wfh-server-rahsin01.stack04.eu02.mi.arm.com (unknown
+ [10.58.246.76])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5E4D93F70D;
+ Mon, 16 Nov 2020 04:25:45 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=VFxT=EW=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
-	id 1kedYg-0001Nd-6Q
-	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 12:24:34 +0000
-X-Inumbo-ID: 6996d5b0-907b-4f02-84a4-68e287af2eeb
-Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 6996d5b0-907b-4f02-84a4-68e287af2eeb;
-	Mon, 16 Nov 2020 12:24:29 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id s8so18457502wrw.10
-        for <xen-devel@lists.xenproject.org>; Mon, 16 Nov 2020 04:24:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=I5N/dAQ0srBictVseT2rP2fA4AanR0t+DIq+DoGQDUA=;
-        b=kUv5YnOumF/Ptfw2eqBb3oW9vbtrXH2sp4GACYHhA96xfqkjYNrDu1E4hPFaiMhABN
-         5r6Bp5+qFL+41JkZts4NLOMDU+BOZ7f+B3OxTSrsN4NMQ1sCmvnPaCAgK7AUxbRQBHMz
-         2eie64PA2/H4D4HRatmXT07ZJAMsiUF2S2iEBlis90fJOUM3ifH+NgoBJ7NHRUe5GSxJ
-         51rArOQXs0dhUX8EN7kitzVSfDEdlKri/ftf2l6VWkJuIkLMNx4oHB7NGAIgPePTFDsa
-         KOcaFHJBgMjEndAwhqkKbtIf/jfW3DQ88lvtkMKy0vdV8Oahf+jklSClwHom/imIJJtL
-         QtGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=I5N/dAQ0srBictVseT2rP2fA4AanR0t+DIq+DoGQDUA=;
-        b=f2+qH64Qv46f34qMaTyttnwN3+MCBs8E2OfWuGrR1N1m+hTFqRfX7nXocvWvCLavby
-         anhG9xcHhV9G/DkEyzVlutGdojLEiXYqsStlWNQxYwKI85goWZJfZvYbEOHjDjMAp4Hh
-         rArCtTXBT8DPKa984O5s3xvyX79qWa3ZdRH7TaPg66DEHvDS9mEk2PJ8DDdF75OYdlzS
-         3dR3ufQPAI0QF1wYI9nN7/CUiwJq7xWM3vSnvvNTt+oCF2VDEyinNDgPx0gA5gKWfh/3
-         gt0iLBuzS+jQAsryql0iCf8L72yq+i+CtjGG3Mch0/RruFha6zqOZ5dsSCVuh5g8OBuJ
-         KgoQ==
-X-Gm-Message-State: AOAM530api3En5Oq9k53KMPoPcxqvXhklT0YZhLVTgVle8jQQdEqmGea
-	R3o7dra3f4YWU7ZgWIi0jtLmzw==
-X-Google-Smtp-Source: ABdhPJxEtcR4ZeY941H3WHkpWZMVMIuDrHc4wCNctDwDHmfdBIFTxqjPSisyc+pQG175SXdcSQDB4A==
-X-Received: by 2002:adf:e74d:: with SMTP id c13mr19836328wrn.277.1605529469173;
-        Mon, 16 Nov 2020 04:24:29 -0800 (PST)
-Received: from zen.linaroharston ([51.148.130.216])
-        by smtp.gmail.com with ESMTPSA id w15sm23012424wrp.52.2020.11.16.04.24.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2020 04:24:22 -0800 (PST)
-Received: from zen.lan (localhost [127.0.0.1])
-	by zen.linaroharston (Postfix) with ESMTP id 4553E1FF91;
-	Mon, 16 Nov 2020 12:24:18 +0000 (GMT)
-From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: peter.maydell@linaro.org
-Cc: qemu-devel@nongnu.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+	(envelope-from <SRS0=3+iU=EW=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
+	id 1kedZs-0001cF-1O
+	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 12:25:48 +0000
+X-Inumbo-ID: cdd74c7c-d060-4720-88b2-f346a4a63bac
+Received: from foss.arm.com (unknown [217.140.110.172])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id cdd74c7c-d060-4720-88b2-f346a4a63bac;
+	Mon, 16 Nov 2020 12:25:47 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8FDF101E;
+	Mon, 16 Nov 2020 04:25:46 -0800 (PST)
+Received: from scm-wfh-server-rahsin01.stack04.eu02.mi.arm.com (unknown [10.58.246.76])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5E4D93F70D;
+	Mon, 16 Nov 2020 04:25:45 -0800 (PST)
+From: Rahul Singh <rahul.singh@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PULL 5/9] stubs/xen-hw-stub: drop xenstore_store_pv_console_info stub
-Date: Mon, 16 Nov 2020 12:24:13 +0000
-Message-Id: <20201116122417.28346-6-alex.bennee@linaro.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201116122417.28346-1-alex.bennee@linaro.org>
-References: <20201116122417.28346-1-alex.bennee@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	Wei Liu <wl@xen.org>,
+	Paul Durrant <paul@xen.org>
+Subject: [PATCH v3 0/3]  xen/arm: Make PCI passthrough code non-x86 specific
+Date: Mon, 16 Nov 2020 12:25:15 +0000
+Message-Id: <cover.1605527997.git.rahul.singh@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-We should never build something that calls this without having it.
+This patch series is v3 of preparatory work to make PCI passthrough code
+non-x86 specific.
 
-Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-Message-Id: <20201110192316.26397-6-alex.bennee@linaro.org>
+Rahul Singh (3):
+  xen/ns16550: Make ns16550 driver usable on ARM with HAS_PCI enabled.
+  xen/pci: Move x86 specific code to x86 directory.
+  xen/pci: solve compilation error on ARM with HAS_PCI enabled.
 
-diff --git a/stubs/xen-hw-stub.c b/stubs/xen-hw-stub.c
-index 2ea8190921..15f3921a76 100644
---- a/stubs/xen-hw-stub.c
-+++ b/stubs/xen-hw-stub.c
-@@ -10,10 +10,6 @@
- #include "hw/xen/xen.h"
- #include "hw/xen/xen-x86.h"
- 
--void xenstore_store_pv_console_info(int i, Chardev *chr)
--{
--}
--
- int xen_pci_slot_get_pirq(PCIDevice *pci_dev, int irq_num)
- {
-     return -1;
+ xen/drivers/char/Kconfig                    |  4 +
+ xen/drivers/char/ns16550.c                  | 32 ++++----
+ xen/drivers/passthrough/Makefile            |  3 -
+ xen/drivers/passthrough/pci.c               | 86 +--------------------
+ xen/drivers/passthrough/x86/Makefile        |  1 +
+ xen/drivers/passthrough/{io.c => x86/hvm.c} | 66 ++++++++++++++++
+ xen/drivers/passthrough/x86/iommu.c         | 19 +++++
+ xen/include/xen/iommu.h                     |  2 +
+ xen/include/xen/pci.h                       |  2 +
+ 9 files changed, 112 insertions(+), 103 deletions(-)
+ rename xen/drivers/passthrough/{io.c => x86/hvm.c} (95%)
+
 -- 
-2.20.1
+2.17.1
 
 
