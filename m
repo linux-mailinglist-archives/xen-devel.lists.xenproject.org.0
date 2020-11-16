@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 358B12B46C5
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 15:59:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.27999.56545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A10D2B46BA
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 15:59:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.28002.56582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kefxm-0006o9-2k; Mon, 16 Nov 2020 14:58:38 +0000
+	id 1kefy1-0006wR-36; Mon, 16 Nov 2020 14:58:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 27999.56545; Mon, 16 Nov 2020 14:58:38 +0000
+Received: by outflank-mailman (output) from mailman id 28002.56582; Mon, 16 Nov 2020 14:58:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kefxl-0006nn-Vg; Mon, 16 Nov 2020 14:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 27999;
- Mon, 16 Nov 2020 14:58:37 +0000
+	id 1kefy0-0006vp-VO; Mon, 16 Nov 2020 14:58:52 +0000
+Received: by outflank-mailman (input) for mailman id 28002;
+ Mon, 16 Nov 2020 14:58:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DM7u=EW=casper.srs.infradead.org=batv+29a21e8ca386e11a5a78+6294+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1kefxk-0006ni-0m
- for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 14:58:37 +0000
+ id 1kefxy-0006ni-W8
+ for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 14:58:51 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5ffb5798-cba6-438a-af2d-9f1cecbf0892;
- Mon, 16 Nov 2020 14:58:33 +0000 (UTC)
+ id f94e0b88-1e5d-4aa5-b7e4-c2388518e708;
+ Mon, 16 Nov 2020 14:58:34 +0000 (UTC)
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kefxL-0003ie-Nn; Mon, 16 Nov 2020 14:58:12 +0000
+ id 1kefxM-0003ii-UU; Mon, 16 Nov 2020 14:58:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=DM7u=EW=casper.srs.infradead.org=batv+29a21e8ca386e11a5a78+6294+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1kefxk-0006ni-0m
-	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 14:58:37 +0000
-X-Inumbo-ID: 5ffb5798-cba6-438a-af2d-9f1cecbf0892
+	id 1kefxy-0006ni-W8
+	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 14:58:51 +0000
+X-Inumbo-ID: f94e0b88-1e5d-4aa5-b7e4-c2388518e708
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 5ffb5798-cba6-438a-af2d-9f1cecbf0892;
-	Mon, 16 Nov 2020 14:58:33 +0000 (UTC)
+	id f94e0b88-1e5d-4aa5-b7e4-c2388518e708;
+	Mon, 16 Nov 2020 14:58:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=82UVn9JDhZ7kcS3JGvYaAt4iz84QDJp/mOdtcI/Npsk=; b=usuU2sefAFYqsEXj3qbul/Q7Un
-	CCv9GjY0IirraZHVxERI0VFsNKbIJNWWfb9W2amAmbgPQFz1SQQGP9jucGmGFK5Dmz+uV/dQrh4EZ
-	Yz7+inlUGGRZ2SENP6FNBzSsnyPPr/9g2oHpP/gfHR3aZh9bCC9SRkZky62gN2xUhMktrW7I1gC8O
-	OlLKrcM8QGapUy4m0OUacF0pEkCV+NYMm0cjABSANyQg80uGZOPlSQK6hRsBvshv4teWYRl87jbJA
-	+wqxRblm4gAKo4kgFpaUcUBO3YCWIyQ/tck3EBg4rNw0ym4xMAVhVwQ1xnNmFGgIlSjLbsb6rNNg5
-	l7qTv7cQ==;
+	bh=k53tbKeUbVsb5uwUbGW8UpW/h79If5n0w+H4eZR3xSU=; b=tuJMnQttaybo9F4t8cP+N2hLQq
+	RXrM7+cD1yLqquFQbtlx4GxTcGrgpRY8HWo0g3CxND1nv1GYyQPkp8q3K2wzD/dngpDWkkquqHkp4
+	sHuLCh62/kacnFU017uJ6lg3sIxNoOE/FenrUxQsyI4PysSw0WPutcnk5f8h8OTz6qITqDy4OBoNX
+	j839YHJ1VKl6fCqCZwFmQOwQQf+y4oyipnv0MRAtvY48Ogo6z5wy5t7KJxz/QqkUnQuTFox/n8y/r
+	oz3SnuiJlz5Z/j6oveEA/Y/B74scFktzTg4AjYglEkJ4LnQzCz3bmbG+4ANwTszKKWHBb195E+1pa
+	yP5eNyVA==;
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefxL-0003ie-Nn; Mon, 16 Nov 2020 14:58:12 +0000
+	id 1kefxM-0003ii-UU; Mon, 16 Nov 2020 14:58:13 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>,
@@ -88,9 +88,9 @@ Cc: Justin Sanders <justin@coraid.com>,
 	linux-scsi@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	Hannes Reinecke <hare@suse.de>
-Subject: [PATCH 01/78] block: remove the call to __invalidate_device in check_disk_size_change
-Date: Mon, 16 Nov 2020 15:56:52 +0100
-Message-Id: <20201116145809.410558-2-hch@lst.de>
+Subject: [PATCH 02/78] loop: let set_capacity_revalidate_and_notify update the bdev size
+Date: Mon, 16 Nov 2020 15:56:53 +0100
+Message-Id: <20201116145809.410558-3-hch@lst.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
@@ -98,36 +98,33 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-__invalidate_device without the kill_dirty parameter just invalidates
-various clean entries in caches, which doesn't really help us with
-anything, but can cause all kinds of horrible lock orders due to how
-it calls into the file system.  The only reason this hasn't been a
-major issue is because so many people use partitions, for which no
-invalidation was performed anyway.
+There is no good reason to call revalidate_disk_size separately.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 ---
- fs/block_dev.c | 6 ------
- 1 file changed, 6 deletions(-)
+ drivers/block/loop.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/fs/block_dev.c b/fs/block_dev.c
-index 9e84b1928b9401..66ebf594c97f47 100644
---- a/fs/block_dev.c
-+++ b/fs/block_dev.c
-@@ -1334,12 +1334,6 @@ static void check_disk_size_change(struct gendisk *disk,
- 		i_size_write(bdev->bd_inode, disk_size);
- 	}
- 	spin_unlock(&bdev->bd_size_lock);
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index a58084c2ed7ceb..0a0c0c3a68ec4c 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -251,12 +251,8 @@ loop_validate_block_size(unsigned short bsize)
+  */
+ static void loop_set_size(struct loop_device *lo, loff_t size)
+ {
+-	struct block_device *bdev = lo->lo_device;
 -
--	if (bdev_size > disk_size) {
--		if (__invalidate_device(bdev, false))
--			pr_warn("VFS: busy inodes on resized disk %s\n",
--				disk->disk_name);
--	}
+-	bd_set_nr_sectors(bdev, size);
+-
+-	if (!set_capacity_revalidate_and_notify(lo->lo_disk, size, false))
+-		kobject_uevent(&disk_to_dev(bdev->bd_disk)->kobj, KOBJ_CHANGE);
++	if (!set_capacity_revalidate_and_notify(lo->lo_disk, size, true))
++		kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
  }
  
- /**
+ static inline int
 -- 
 2.29.2
 
