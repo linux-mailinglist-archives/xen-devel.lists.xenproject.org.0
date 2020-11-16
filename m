@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EECF22B3D9E
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 08:25:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.27678.56281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635952B3DD3
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 08:41:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.27687.56293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1keYsO-0007Zw-2a; Mon, 16 Nov 2020 07:24:36 +0000
+	id 1keZ7n-0000rg-EP; Mon, 16 Nov 2020 07:40:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 27678.56281; Mon, 16 Nov 2020 07:24:36 +0000
+Received: by outflank-mailman (output) from mailman id 27687.56293; Mon, 16 Nov 2020 07:40:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,200 +23,275 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1keYsN-0007ZX-Vk; Mon, 16 Nov 2020 07:24:35 +0000
-Received: by outflank-mailman (input) for mailman id 27678;
- Mon, 16 Nov 2020 07:24:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1keZ7n-0000rH-BI; Mon, 16 Nov 2020 07:40:31 +0000
+Received: by outflank-mailman (input) for mailman id 27687;
+ Mon, 16 Nov 2020 07:40:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HwWO=EW=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1keYsM-0007ZR-I4
- for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 07:24:34 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 1cd53976-bb28-41bd-930f-b97070fe0f1e;
- Mon, 16 Nov 2020 07:24:33 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C833D6E;
- Sun, 15 Nov 2020 23:24:33 -0800 (PST)
-Received: from e123311-lin.arm.com (unknown [10.57.25.95])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ECAB43F718;
- Sun, 15 Nov 2020 23:24:31 -0800 (PST)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=14IB=EW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1keZ7l-0000r9-NB
+ for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 07:40:29 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4e3a8c24-38bf-474c-9476-224a511e3695;
+ Mon, 16 Nov 2020 07:40:27 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1keZ7j-0004B7-7I; Mon, 16 Nov 2020 07:40:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1keZ7i-00062R-Ue; Mon, 16 Nov 2020 07:40:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1keZ7i-0000TY-UB; Mon, 16 Nov 2020 07:40:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=HwWO=EW=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
-	id 1keYsM-0007ZR-I4
-	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 07:24:34 +0000
-X-Inumbo-ID: 1cd53976-bb28-41bd-930f-b97070fe0f1e
-Received: from foss.arm.com (unknown [217.140.110.172])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 1cd53976-bb28-41bd-930f-b97070fe0f1e;
-	Mon, 16 Nov 2020 07:24:33 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C833D6E;
-	Sun, 15 Nov 2020 23:24:33 -0800 (PST)
-Received: from e123311-lin.arm.com (unknown [10.57.25.95])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ECAB43F718;
-	Sun, 15 Nov 2020 23:24:31 -0800 (PST)
-From: Michal Orzel <michal.orzel@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	bertrand.marquis@arm.com
-Subject: [PATCH] xen/arm: Add workaround for Cortex-A76/Neoverse-N1 erratum #1286807
-Date: Mon, 16 Nov 2020 08:24:22 +0100
-Message-Id: <20201116072422.17400-1-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.28.0
-MIME-Version: 1.0
+	(envelope-from <SRS0=14IB=EW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1keZ7l-0000r9-NB
+	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 07:40:29 +0000
+X-Inumbo-ID: 4e3a8c24-38bf-474c-9476-224a511e3695
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 4e3a8c24-38bf-474c-9476-224a511e3695;
+	Mon, 16 Nov 2020 07:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=HltOjLfM6QQi3bb4Px85+wXlJfQUepjoJiHwJXjBqeA=; b=Oqq505TREE18SMRJWthOIPTucq
+	8fcSkrs2Ys7u5PQIzNTrxqrg6bj5NRN7w1XAir+LcLJ2NQf0IaQ5HCYDOcwjGF5M4EwcjWcoWGPle
+	6zSsj4M/rQdffkVAMyAadtQfDVYp1GlDhaHFVloUsKxTFqwoTM9sEyA2Y8dqCj/db2W4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1keZ7j-0004B7-7I; Mon, 16 Nov 2020 07:40:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1keZ7i-00062R-Ue; Mon, 16 Nov 2020 07:40:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1keZ7i-0000TY-UB; Mon, 16 Nov 2020 07:40:26 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156817-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 156817: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=77549339838b44cd32b576e06701d1f7b4518fb5
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 16 Nov 2020 07:40:26 +0000
 
-On the affected Cortex-A76/Neoverse-N1 cores (r0p0 to r3p0),
-if a virtual address for a cacheable mapping of a location is being
-accessed by a core while another core is remapping the virtual
-address to a new physical page using the recommended break-before-make
-sequence, then under very rare circumstances TLBI+DSB completes before
-a read using the translation being invalidated has been observed by
-other observers. The workaround repeats the TLBI+DSB operation.
+flight 156817 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156817/
 
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
----
- docs/misc/arm/silicon-errata.txt     |  2 ++
- xen/arch/arm/Kconfig                 | 18 +++++++++++++++++
- xen/arch/arm/cpuerrata.c             | 14 ++++++++++++++
- xen/include/asm-arm/arm64/flushtlb.h | 29 +++++++++++++++++++---------
- xen/include/asm-arm/cpufeature.h     |  3 ++-
- 5 files changed, 56 insertions(+), 10 deletions(-)
+Regressions :-(
 
-diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
-index 552c4151d3..d183ba543f 100644
---- a/docs/misc/arm/silicon-errata.txt
-+++ b/docs/misc/arm/silicon-errata.txt
-@@ -53,5 +53,7 @@ stable hypervisors.
- | ARM            | Cortex-A72      | #853709         | N/A                     |
- | ARM            | Cortex-A73      | #858921         | ARM_ERRATUM_858921      |
- | ARM            | Cortex-A76      | #1165522        | N/A                     |
-+| ARM            | Cortex-A76      | #1286807        | ARM64_ERRATUM_1286807   |
- | ARM            | Neoverse-N1     | #1165522        | N/A
-+| ARM            | Neoverse-N1     | #1286807        | ARM64_ERRATUM_1286807   |
- | ARM            | MMU-500         | #842869         | N/A                     |
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index f938dd21bd..5d6d906d72 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -244,6 +244,24 @@ config ARM_ERRATUM_858921
- 
- 	  If unsure, say Y.
- 
-+config ARM64_ERRATUM_1286807
-+	bool "Cortex-A76/Neoverse-N1: 1286807: Modification of the translation table for a virtual address might lead to read-after-read ordering violation"
-+	default y
-+	depends on ARM_64
-+	help
-+	  This option adds a workaround for ARM Cortex-A76/Neoverse-N1 erratum 1286807.
-+
-+	  On the affected Cortex-A76/Neoverse-N1 cores (r0p0 to r3p0), if a virtual
-+	  address for a cacheable mapping of a location is being
-+	  accessed by a core while another core is remapping the virtual
-+	  address to a new physical page using the recommended
-+	  break-before-make sequence, then under very rare circumstances
-+	  TLBI+DSB completes before a read using the translation being
-+	  invalidated has been observed by other observers. The
-+	  workaround repeats the TLBI+DSB operation.
-+
-+	  If unsure, say Y.
-+
- endmenu
- 
- config ARM64_HARDEN_BRANCH_PREDICTOR
-diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-index 567911d380..cb4795beec 100644
---- a/xen/arch/arm/cpuerrata.c
-+++ b/xen/arch/arm/cpuerrata.c
-@@ -424,6 +424,20 @@ static const struct arm_cpu_capabilities arm_errata[] = {
-                    (1 << MIDR_VARIANT_SHIFT) | 2),
-     },
- #endif
-+#ifdef CONFIG_ARM64_ERRATUM_1286807
-+    {
-+        /* Cortex-A76 r0p0 - r3p0 */
-+        .desc = "ARM erratum 1286807",
-+        .capability = ARM64_WORKAROUND_REPEAT_TLBI,
-+        MIDR_RANGE(MIDR_CORTEX_A76, 0, 3 << MIDR_VARIANT_SHIFT),
-+    },
-+    {
-+        /* Neoverse-N1 r0p0 - r3p0 */
-+        .desc = "ARM erratum 1286807",
-+        .capability = ARM64_WORKAROUND_REPEAT_TLBI,
-+        MIDR_RANGE(MIDR_NEOVERSE_N1, 0, 3 << MIDR_VARIANT_SHIFT),
-+    },
-+#endif
- #ifdef CONFIG_ARM64_HARDEN_BRANCH_PREDICTOR
-     {
-         .capability = ARM_HARDEN_BRANCH_PREDICTOR,
-diff --git a/xen/include/asm-arm/arm64/flushtlb.h b/xen/include/asm-arm/arm64/flushtlb.h
-index ceec59542e..6726362211 100644
---- a/xen/include/asm-arm/arm64/flushtlb.h
-+++ b/xen/include/asm-arm/arm64/flushtlb.h
-@@ -9,6 +9,11 @@
-  * DSB ISH          // Ensure the TLB invalidation has completed
-  * ISB              // See explanation below
-  *
-+ * ARM64_WORKAROUND_REPEAT_TLBI:
-+ * Modification of the translation table for a virtual address might lead to
-+ * read-after-read ordering violation.
-+ * The workaround repeats TLBI+DSB operation.
-+ *
-  * For Xen page-tables the ISB will discard any instructions fetched
-  * from the old mappings.
-  *
-@@ -16,15 +21,21 @@
-  * (and therefore the TLB invalidation) before continuing. So we know
-  * the TLBs cannot contain an entry for a mapping we may have removed.
-  */
--#define TLB_HELPER(name, tlbop) \
--static inline void name(void)   \
--{                               \
--    asm volatile(               \
--        "dsb  ishst;"           \
--        "tlbi "  # tlbop  ";"   \
--        "dsb  ish;"             \
--        "isb;"                  \
--        : : : "memory");        \
-+#define TLB_HELPER(name, tlbop)       \
-+static inline void name(void)         \
-+{                                     \
-+    asm volatile(                     \
-+        "dsb  ishst;"                 \
-+        "tlbi "  # tlbop  ";"         \
-+        ALTERNATIVE(                  \
-+        "nop; nop;",                  \
-+        "dsb  ish;"                   \
-+        "tlbi "  # tlbop  ";",        \
-+        ARM64_WORKAROUND_REPEAT_TLBI, \
-+        CONFIG_ARM64_ERRATUM_1286807) \
-+        "dsb  ish;"                   \
-+        "isb;"                        \
-+        : : : "memory");              \
- }
- 
- /* Flush local TLBs, current VMID only. */
-diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
-index 016a9fe203..c7b5052992 100644
---- a/xen/include/asm-arm/cpufeature.h
-+++ b/xen/include/asm-arm/cpufeature.h
-@@ -46,8 +46,9 @@
- #define ARM_SMCCC_1_1 8
- #define ARM64_WORKAROUND_AT_SPECULATE 9
- #define ARM_WORKAROUND_858921 10
-+#define ARM64_WORKAROUND_REPEAT_TLBI 11
- 
--#define ARM_NCAPS           11
-+#define ARM_NCAPS           12
- 
- #ifndef __ASSEMBLY__
- 
--- 
-2.28.0
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              77549339838b44cd32b576e06701d1f7b4518fb5
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  129 days
+Failing since        151818  2020-07-11 04:18:52 Z  128 days  123 attempts
+Testing same since   156800  2020-11-14 04:19:16 Z    2 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 26941 lines long.)
 
