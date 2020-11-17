@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E7142B55F9
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 02:13:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.28673.57727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6834B2B5625
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 02:18:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.28679.57739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kepXH-0006Jp-WD; Tue, 17 Nov 2020 01:11:56 +0000
+	id 1kepdF-0006Wg-Me; Tue, 17 Nov 2020 01:18:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 28673.57727; Tue, 17 Nov 2020 01:11:55 +0000
+Received: by outflank-mailman (output) from mailman id 28679.57739; Tue, 17 Nov 2020 01:18:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,257 +23,155 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kepXH-0006JQ-T2; Tue, 17 Nov 2020 01:11:55 +0000
-Received: by outflank-mailman (input) for mailman id 28673;
- Tue, 17 Nov 2020 01:11:54 +0000
+	id 1kepdF-0006WH-Ig; Tue, 17 Nov 2020 01:18:05 +0000
+Received: by outflank-mailman (input) for mailman id 28679;
+ Tue, 17 Nov 2020 01:18:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Shnx=EX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kepXG-0006JL-BP
- for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 01:11:54 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=g2yZ=EX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1kepdD-0006WC-Mi
+ for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 01:18:03 +0000
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 40f6d5cd-4341-4717-b900-5ec9b099e8d8;
- Tue, 17 Nov 2020 01:11:53 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 27B1F24686;
- Tue, 17 Nov 2020 01:11:52 +0000 (UTC)
+ id 5c36206f-5a29-4f54-804d-732ad89a86e2;
+ Tue, 17 Nov 2020 01:18:02 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kepdC-0006km-3S; Tue, 17 Nov 2020 01:18:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kepdB-0002KL-P1; Tue, 17 Nov 2020 01:18:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kepdB-0005uP-OW; Tue, 17 Nov 2020 01:18:01 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Shnx=EX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kepXG-0006JL-BP
-	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 01:11:54 +0000
-X-Inumbo-ID: 40f6d5cd-4341-4717-b900-5ec9b099e8d8
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=g2yZ=EX=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+	id 1kepdD-0006WC-Mi
+	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 01:18:03 +0000
+X-Inumbo-ID: 5c36206f-5a29-4f54-804d-732ad89a86e2
+Received: from mail.xenproject.org (unknown [104.130.215.37])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 40f6d5cd-4341-4717-b900-5ec9b099e8d8;
-	Tue, 17 Nov 2020 01:11:53 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 27B1F24686;
-	Tue, 17 Nov 2020 01:11:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1605575512;
-	bh=l4Ig2qO6LhuzAZ2MTnBHCjBBRYCfMmboeAapZ2vkQho=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=eZmwDLl56O+GYkr1bZuF5uZNalE44AKysgNXvzyMgNDJx5+c1aJzATIwkOqnd5p6N
-	 lBm3GllKXspTnTHKTRqmYh/psbGDH5rod+8afRd7BXaBjpetrbgjZtgJi0uNRFKPNK
-	 xSxfSgrnNi321zeCdWPqOR9URK3pLVowIv5ACbuM=
-Date: Mon, 16 Nov 2020 17:11:51 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 1/3] xen/ns16550: Make ns16550 driver usable on ARM
- with HAS_PCI enabled.
-In-Reply-To: <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2011161710140.20906@sstabellini-ThinkPad-T480s>
-References: <cover.1605527997.git.rahul.singh@arm.com> <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	id 5c36206f-5a29-4f54-804d-732ad89a86e2;
+	Tue, 17 Nov 2020 01:18:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=c9+ns39L0WQQmZa305xx5mMwv6W2SfC9mVryi02PPaM=; b=MGq/FdcHFLV9QSaPE+aYB+uDW8
+	26gl2LWkjrj7ZpkuY85lusgY1wX5tX7/5imsE4zmhmEOqS/mXTcsZ+K5DmCTa9eqGMninHFhvGBXE
+	xdBtvPxpAIqfOGr9fzg2NJJJ/YmnTUu8ZOKxm/urmoG8pIELbcsXO9gs3XUSUQteLAUw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kepdC-0006km-3S; Tue, 17 Nov 2020 01:18:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kepdB-0002KL-P1; Tue, 17 Nov 2020 01:18:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kepdB-0005uP-OW; Tue, 17 Nov 2020 01:18:01 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156824-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [seabios test] 156824: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    seabios=748d619be3282fba35f99446098ac2d0579f6063
+X-Osstest-Versions-That:
+    seabios=94f0510dc75e910400aad6c169048d672c8c7193
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 17 Nov 2020 01:18:01 +0000
 
-On Mon, 16 Nov 2020, Rahul Singh wrote:
-> NS16550 driver has PCI support that is under HAS_PCI flag. When HAS_PCI
-> is enabled for ARM, compilation error is observed for ARM architecture
-> because ARM platforms do not have full PCI support available.
-> 
-> Introducing new kconfig option CONFIG_HAS_NS16550_PCI to support
-> ns16550 PCI for X86.
-> 
-> For X86 platforms it is enabled by default. For ARM platforms it is
-> disabled by default, once we have proper support for NS16550 PCI for
-> ARM we can enable it.
-> 
-> No functional change.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+flight 156824 seabios real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156824/
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 156285
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 156285
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 156285
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 156285
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 156285
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+
+version targeted for testing:
+ seabios              748d619be3282fba35f99446098ac2d0579f6063
+baseline version:
+ seabios              94f0510dc75e910400aad6c169048d672c8c7193
+
+Last test of basis   156285  2020-10-28 19:42:01 Z   19 days
+Testing same since   156824  2020-11-16 15:39:41 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  David Woodhouse <dwmw@amazon.co.uk>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
 
 
-> ---
-> 
-> Changes in v3:
-> - remove help text from the Kconfig file because of prompt-less option.
-> 
-> ---
->  xen/drivers/char/Kconfig   |  4 ++++
->  xen/drivers/char/ns16550.c | 32 ++++++++++++++++----------------
->  2 files changed, 20 insertions(+), 16 deletions(-)
-> 
-> diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-> index b572305657..abb59fdb0f 100644
-> --- a/xen/drivers/char/Kconfig
-> +++ b/xen/drivers/char/Kconfig
-> @@ -4,6 +4,10 @@ config HAS_NS16550
->  	help
->  	  This selects the 16550-series UART support. For most systems, say Y.
->  
-> +config HAS_NS16550_PCI
-> +	def_bool y
-> +	depends on X86 && HAS_NS16550 && HAS_PCI
-> +
->  config HAS_CADENCE_UART
->  	bool "Xilinx Cadence UART driver"
->  	default y
-> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-> index d8b52eb813..bd1c2af956 100644
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -16,7 +16,7 @@
->  #include <xen/timer.h>
->  #include <xen/serial.h>
->  #include <xen/iocap.h>
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->  #include <xen/pci.h>
->  #include <xen/pci_regs.h>
->  #include <xen/pci_ids.h>
-> @@ -54,7 +54,7 @@ enum serial_param_type {
->      reg_shift,
->      reg_width,
->      stop_bits,
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      bridge_bdf,
->      device,
->      port_bdf,
-> @@ -83,7 +83,7 @@ static struct ns16550 {
->      unsigned int timeout_ms;
->      bool_t intr_works;
->      bool_t dw_usr_bsy;
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      /* PCI card parameters. */
->      bool_t pb_bdf_enable;   /* if =1, pb-bdf effective, port behind bridge */
->      bool_t ps_bdf_enable;   /* if =1, ps_bdf effective, port on pci card */
-> @@ -117,14 +117,14 @@ static const struct serial_param_var __initconst sp_vars[] = {
->      {"reg-shift", reg_shift},
->      {"reg-width", reg_width},
->      {"stop-bits", stop_bits},
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      {"bridge", bridge_bdf},
->      {"dev", device},
->      {"port", port_bdf},
->  #endif
->  };
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->  struct ns16550_config {
->      u16 vendor_id;
->      u16 dev_id;
-> @@ -620,7 +620,7 @@ static int ns16550_getc(struct serial_port *port, char *pc)
->  
->  static void pci_serial_early_init(struct ns16550 *uart)
->  {
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      if ( !uart->ps_bdf_enable || uart->io_base >= 0x10000 )
->          return;
->  
-> @@ -719,7 +719,7 @@ static void __init ns16550_init_preirq(struct serial_port *port)
->  
->  static void __init ns16550_init_irq(struct serial_port *port)
->  {
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      struct ns16550 *uart = port->uart;
->  
->      if ( uart->msi )
-> @@ -761,7 +761,7 @@ static void __init ns16550_init_postirq(struct serial_port *port)
->      uart->timeout_ms = max_t(
->          unsigned int, 1, (bits * uart->fifo_size * 1000) / uart->baud);
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      if ( uart->bar || uart->ps_bdf_enable )
->      {
->          if ( uart->param && uart->param->mmio &&
-> @@ -841,7 +841,7 @@ static void ns16550_suspend(struct serial_port *port)
->  
->      stop_timer(&uart->timer);
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      if ( uart->bar )
->         uart->cr = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
->                                    uart->ps_bdf[2]), PCI_COMMAND);
-> @@ -850,7 +850,7 @@ static void ns16550_suspend(struct serial_port *port)
->  
->  static void _ns16550_resume(struct serial_port *port)
->  {
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      struct ns16550 *uart = port->uart;
->  
->      if ( uart->bar )
-> @@ -1013,7 +1013,7 @@ static int __init check_existence(struct ns16550 *uart)
->      return 1; /* Everything is MMIO */
->  #endif
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      pci_serial_early_init(uart);
->  #endif
->  
-> @@ -1044,7 +1044,7 @@ static int __init check_existence(struct ns16550 *uart)
->      return (status == 0x90);
->  }
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->  static int __init
->  pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
->  {
-> @@ -1305,7 +1305,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
->  
->      if ( *conf == ',' && *++conf != ',' )
->      {
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->          if ( strncmp(conf, "pci", 3) == 0 )
->          {
->              if ( pci_uart_config(uart, 1/* skip AMT */, uart - ns16550_com) )
-> @@ -1327,7 +1327,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
->  
->      if ( *conf == ',' && *++conf != ',' )
->      {
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->          if ( strncmp(conf, "msi", 3) == 0 )
->          {
->              conf += 3;
-> @@ -1339,7 +1339,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
->              uart->irq = simple_strtol(conf, &conf, 10);
->      }
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->      if ( *conf == ',' && *++conf != ',' )
->      {
->          conf = parse_pci(conf, NULL, &uart->ps_bdf[0],
-> @@ -1419,7 +1419,7 @@ static bool __init parse_namevalue_pairs(char *str, struct ns16550 *uart)
->              uart->reg_width = simple_strtoul(param_value, NULL, 0);
->              break;
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#ifdef CONFIG_HAS_NS16550_PCI
->          case bridge_bdf:
->              if ( !parse_pci(param_value, NULL, &uart->ps_bdf[0],
->                              &uart->ps_bdf[1], &uart->ps_bdf[2]) )
-> -- 
-> 2.17.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/seabios.git
+   94f0510..748d619  748d619be3282fba35f99446098ac2d0579f6063 -> xen-tested-master
 
