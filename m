@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B990E2B6869
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 16:15:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29090.58332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 876162B68AF
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 16:29:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29096.58343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf2hc-0005kz-KS; Tue, 17 Nov 2020 15:15:28 +0000
+	id 1kf2ut-0006sG-T5; Tue, 17 Nov 2020 15:29:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29090.58332; Tue, 17 Nov 2020 15:15:28 +0000
+Received: by outflank-mailman (output) from mailman id 29096.58343; Tue, 17 Nov 2020 15:29:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,267 +23,296 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf2hc-0005ka-H4; Tue, 17 Nov 2020 15:15:28 +0000
-Received: by outflank-mailman (input) for mailman id 29090;
- Tue, 17 Nov 2020 15:15:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J6Lq=EX=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kf2ha-0005kV-SW
- for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 15:15:26 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9abedb6a-64e2-4b5b-9905-b4b448d632d5;
- Tue, 17 Nov 2020 15:15:26 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2665FAC23;
- Tue, 17 Nov 2020 15:15:25 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kf2ut-0006rr-PW; Tue, 17 Nov 2020 15:29:11 +0000
+Received: by outflank-mailman (input) for mailman id 29096;
+ Tue, 17 Nov 2020 15:29:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lsz4=EX=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kf2us-0006rm-Fv
+ for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 15:29:10 +0000
+Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ad4a12b0-990c-4f87-b80e-ad3f99f52387;
+ Tue, 17 Nov 2020 15:29:09 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id 23so23561499wrc.8
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Nov 2020 07:29:09 -0800 (PST)
+Received: from CBGR90WXYV0
+ (host109-146-187-185.range109-146.btcentralplus.com. [109.146.187.185])
+ by smtp.gmail.com with ESMTPSA id v19sm4122033wmj.31.2020.11.17.07.29.07
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 17 Nov 2020 07:29:07 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=J6Lq=EX=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kf2ha-0005kV-SW
-	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 15:15:26 +0000
-X-Inumbo-ID: 9abedb6a-64e2-4b5b-9905-b4b448d632d5
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 9abedb6a-64e2-4b5b-9905-b4b448d632d5;
-	Tue, 17 Nov 2020 15:15:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605626125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NIMh+kDn8sv7QigDFeMSUidn3Gdqdrk8+0MbayEVtE4=;
-	b=NuFy0+ceA+njIr7i79ghUoRniWt0RWugotfl2AbLWX0y2kr2epuWF4BgtL0c6FHikGLnnF
-	dMBRZN61WrxozY4dkNmUg14JJcX/41AhZJK6AMOVBoXHmkt8ON5cxMOXl2/WRGBEdWq4LG
-	ez1uBOqgy41lpyJj3xgXr5j8XryF/p4=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 2665FAC23;
-	Tue, 17 Nov 2020 15:15:25 +0000 (UTC)
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-10-jgross@suse.com>
- <6f8c0d3d-73f6-d10f-182a-8bf76856bf09@suse.com>
- <95f673e5-90a8-0fe9-3842-bdb9de5c4aa4@suse.com>
- <0b8ae7db-b1f6-a23c-e608-27650db702ae@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: [PATCH 09/12] xen/hypfs: add support for id-based dynamic
- directories
-Message-ID: <a5d40e13-1585-1093-8d04-ab49874d63f4@suse.com>
-Date: Tue, 17 Nov 2020 16:15:24 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	(envelope-from <SRS0=lsz4=EX=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+	id 1kf2us-0006rm-Fv
+	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 15:29:10 +0000
+X-Inumbo-ID: ad4a12b0-990c-4f87-b80e-ad3f99f52387
+Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id ad4a12b0-990c-4f87-b80e-ad3f99f52387;
+	Tue, 17 Nov 2020 15:29:09 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id 23so23561499wrc.8
+        for <xen-devel@lists.xenproject.org>; Tue, 17 Nov 2020 07:29:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:content-language
+         :thread-index;
+        bh=yioG4elPx+SggR71YG0KF7MvFUWAj6yyGjSEmCGQ83E=;
+        b=oywscOk5oZIBnuX4EaIZV3WBDfwwnjNueXtHJEo6x1TfH3AUMJFES9Ll6ygpJPCKeP
+         AIHMqie2XT8NU4TFpPULs0WmzS2KXcBbSMiFKBH+Nnb/Wz+8N+gAkSuKV0pKE5e9PbmB
+         uzZzrEYgIrDL6c5M5AhU8WNFBmqJGMiN+JX2YmPvokRBgVzqVymg/RJEyQvzehRqNXAm
+         Si7zlZM07wF1wdLy2rXPu/VijmTgafvCGggrHQABT1HwX/7rWqepUY1R1v8uAkI9Xxud
+         7DbXIZxih5URybF+6y0jkFafmA/bV9BcOwbXr0+Ivoqk+QZtJlg2oA1f9dHYZ7egNyNv
+         tPDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :content-language:thread-index;
+        bh=yioG4elPx+SggR71YG0KF7MvFUWAj6yyGjSEmCGQ83E=;
+        b=O78sy0DGrSY05ZHaM/fP1CJ52zjiMn+wUgenNFmQ+TykSyfTNQbjNadzgMkYGCj0BQ
+         QAReEuhHSYdkdBypu2i1hEbeWAm6IVVPWkwGoJNJH0ciNUv7qO8CMCmAQOnkZVvUhQTN
+         4SqHo6XJrdwneJwlvqhs36sx53q0A1yWUu781Kj5J3eHdhvoJm66LgGUP9AYHpbDIBdO
+         8SWEqne/r/ihRx7t6nxDPkndz/jkxCFdFhABCwb86YW3JK1FG/1PlyAFlplxRTxUMPOg
+         AUjeQFfsfy236/miu4BWsBdDn43gl3+cieeOMzQ7vfblqV+DGmmfFaebrOuyUrKuGIFk
+         C9tg==
+X-Gm-Message-State: AOAM533YWQSSZDTx2jhFy+tiFdSg4hXc9BWLyoV49cd05f61ymkt/Lvy
+	snG2eiFnEqW0GdeZNbdrmzU=
+X-Google-Smtp-Source: ABdhPJxziRvO2CxdyVrOBfIHF9KcKpmjwJv00ACoNsPMfK/hKtUN0mb4Vbog2vVPX14W88FjB3RASw==
+X-Received: by 2002:a5d:51cd:: with SMTP id n13mr33094wrv.87.1605626948528;
+        Tue, 17 Nov 2020 07:29:08 -0800 (PST)
+Received: from CBGR90WXYV0 (host109-146-187-185.range109-146.btcentralplus.com. [109.146.187.185])
+        by smtp.gmail.com with ESMTPSA id v19sm4122033wmj.31.2020.11.17.07.29.07
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 17 Nov 2020 07:29:07 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Oleksandr'" <olekstysh@gmail.com>
+Cc: <xen-devel@lists.xenproject.org>,
+	"'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'George Dunlap'" <george.dunlap@citrix.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Jan Beulich'" <jbeulich@suse.com>,
+	"'Julien Grall'" <julien@xen.org>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'Wei Liu'" <wl@xen.org>,
+	=?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Tim Deegan'" <tim@xen.org>,
+	"'Julien Grall'" <julien.grall@arm.com>
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com> <1602780274-29141-3-git-send-email-olekstysh@gmail.com> <004001d6a6b6$9ffd3ac0$dff7b040$@xen.org> <436143ea-609f-f6c3-4952-19fcf410fe8f@gmail.com> <34133df1-bff2-f4df-00a5-674a2af867fc@gmail.com>
+In-Reply-To: <34133df1-bff2-f4df-00a5-674a2af867fc@gmail.com>
+Subject: RE: [PATCH V2 02/23] xen/ioreq: Make x86's IOREQ feature common
+Date: Tue, 17 Nov 2020 15:29:06 -0000
+Message-ID: <007401d6bcf6$63d3f420$2b7bdc60$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <0b8ae7db-b1f6-a23c-e608-27650db702ae@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="z8tazrwpXzoFTBMLIbNsA3eK8YaO0egYm"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---z8tazrwpXzoFTBMLIbNsA3eK8YaO0egYm
-Content-Type: multipart/mixed; boundary="t3GALMtWCUxtR9JAA9JMpXVdWHZVMftqI";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <a5d40e13-1585-1093-8d04-ab49874d63f4@suse.com>
-Subject: Re: [PATCH 09/12] xen/hypfs: add support for id-based dynamic
- directories
-References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-10-jgross@suse.com>
- <6f8c0d3d-73f6-d10f-182a-8bf76856bf09@suse.com>
- <95f673e5-90a8-0fe9-3842-bdb9de5c4aa4@suse.com>
- <0b8ae7db-b1f6-a23c-e608-27650db702ae@suse.com>
-In-Reply-To: <0b8ae7db-b1f6-a23c-e608-27650db702ae@suse.com>
-
---t3GALMtWCUxtR9JAA9JMpXVdWHZVMftqI
-Content-Type: multipart/mixed;
- boundary="------------94DDC25416F4E4CDBF94B304"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------94DDC25416F4E4CDBF94B304
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain;
+	charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQFqp5MaNUj6MKEiN9RM6S6pfA5bVAJRJ+K5AatvYagBUPuZ1AIVomhYqmmB2JA=
 
-On 17.11.20 15:50, Jan Beulich wrote:
-> On 17.11.2020 15:38, J=C3=BCrgen Gro=C3=9F wrote:
->> On 17.11.20 14:33, Jan Beulich wrote:
->>> On 26.10.2020 10:13, Juergen Gross wrote:
->>>> +static struct hypfs_entry *hypfs_dyndir_findentry(struct hypfs_entr=
-y_dir *dir,
->>>> +                                                  const char *name,=
-
->>>> +                                                  unsigned int name=
-_len)
->>>> +{
->>>> +    struct hypfs_dyndir_id *data;
->>>> +
->>>> +    data =3D hypfs_get_dyndata();
->>>> +    if ( !data )
->>>> +        return ERR_PTR(-ENOENT);
->>>> +
->>>> +    /* Use template with original findentry function. */
->>>> +    return data->template->e.funcs->findentry(data->template, name,=
- name_len);
->>>
->>> Why does this pass the address of the template? If it truly is
->>> (just) a template, then its dirlist ought to be empty at all
->>> times? If otoh the "template" indeed gets used as a node in the
->>> tree then perhaps it wants naming differently? "Stem" would come
->>> to mind, but likely there are better alternatives. I've also
->>> considered the German "Statthalter", but its English translations
->>> don't seem reasonable to me here. And "placeholder" has kind of a
->>> negative touch. (Also in this case some of my "const?" remarks
->>> may be irrelevant.)
->>
->> It is basically a template tree.
->>
->> In the current use case (cpupool/<id>/sched-gran) the template is
->> <id> with the leaf "sched-gran" which is the template for the per
->> cpupool incarnation.
+> -----Original Message-----
+> From: Oleksandr <olekstysh@gmail.com>
+> Sent: 17 November 2020 14:48
+> To: paul@xen.org
+> Cc: xen-devel@lists.xenproject.org; 'Oleksandr Tyshchenko' =
+<oleksandr_tyshchenko@epam.com>; 'Andrew
+> Cooper' <andrew.cooper3@citrix.com>; 'George Dunlap' =
+<george.dunlap@citrix.com>; 'Ian Jackson'
+> <iwj@xenproject.org>; 'Jan Beulich' <jbeulich@suse.com>; 'Julien =
+Grall' <julien@xen.org>; 'Stefano
+> Stabellini' <sstabellini@kernel.org>; 'Wei Liu' <wl@xen.org>; 'Roger =
+Pau Monn=C3=A9'
+> <roger.pau@citrix.com>; 'Tim Deegan' <tim@xen.org>; 'Julien Grall' =
+<julien.grall@arm.com>
+> Subject: Re: [PATCH V2 02/23] xen/ioreq: Make x86's IOREQ feature =
+common
 >=20
-> I can see sched-gran being a template, albeit even that will get
-> dirtied as soon as a second leaf appears, as then these entries
-> again need linking together. I think anything called template
-> should be strictly r/o.
+>=20
+> Hi Paul
+>=20
 
-After boot the template will be constant, just like the hypfs tree
-created at boot time.
+Hi Oleksandr,
 
-In theory it could be setup completely static, but this would be
-a rather awful mess of macros.
+> >
+> >> The 'legacy' mechanism of mapping magic pages for ioreq servers
+> >> should remain x86 specific I think that aspect of the code needs to
+> >> remain behind and not get moved into common code. You could do that
+> >> in arch specific calls in hvm_ioreq_server_enable/disable() and
+> >> hvm_get_ioreq_server_info().
+> > Well, if legacy mechanism is not going to be used for other arch and
+> > should remain x86 specific, I will try to investigate what should be
+> > left in x86 code and rework the series.
+> > As a side note, I am afraid, we won't get a 100% code movement =
+(which
+> > I managed to achieve here) for the next version of this patch as we
+> > need arch/x86/hvm/ioreq.c.
+>=20
+> I am investigating how to split the code in order to leave the =
+'legacy'
+> mechanism x86 specific and have a few questions. Could you please
+> clarify the following:
+>=20
+> 1. The split of hvm_ioreq_server_enable/disable() is obvious to me, I
+> would like to clarify regarding hvm_get_ioreq_server_info().
+> Is it close to what you had in mind when suggesting the split of
+> hvm_get_ioreq_server_info() or I just need to abstract
+> hvm_ioreq_server_map_pages() call only?
 
-> It's also not clear to me how adding a 2nd level in the hierarchy
-> would end up working: <component>/<id1>/<id2>/<leaf>. How would
-> <leaf> know all the higher level IDs it's associated with? While
-> I don't think this needs making work right away, the underlying
-> model at least shouldn't prohibit it.
+I think it is sufficient to just abstract hvm_ioreq_server_map_pages() =
+(and return -EOPNOTSUPP in the Arm case).
+The buf ioreq port should be common.
 
-This is the purpose of hypfs_alloc_dyndata(). You'd need something
-like struct hypfs_dyndir_id, but with two ids in it.
+> (Not completed and non tested)
+>=20
+> +/* Called with ioreq_server lock held */
+> +int arch_ioreq_server_get_info(struct hvm_ioreq_server *s,
+> +                               unsigned long *ioreq_gfn,
+> +                               unsigned long *bufioreq_gfn,
+> +                               evtchn_port_t *bufioreq_port)
+> +{
+> +    if ( ioreq_gfn || bufioreq_gfn )
+> +    {
+> +        int rc =3D hvm_ioreq_server_map_pages(s);
+> +
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+> +    if ( ioreq_gfn )
+> +        *ioreq_gfn =3D gfn_x(s->ioreq.gfn);
+> +
+> +    if ( HANDLE_BUFIOREQ(s) )
+> +    {
+> +        if ( bufioreq_gfn )
+> +            *bufioreq_gfn =3D gfn_x(s->bufioreq.gfn);
+> +
+> +        if ( bufioreq_port )
+> +            *bufioreq_port =3D s->bufioreq_evtchn;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+>   int hvm_get_ioreq_server_info(struct domain *d, ioservid_t id,
+>                                 unsigned long *ioreq_gfn,
+>                                 unsigned long *bufioreq_gfn,
+> @@ -916,26 +954,7 @@ int hvm_get_ioreq_server_info(struct domain *d,
+> ioservid_t id,
+>       if ( s->emulator !=3D current->domain )
+>           goto out;
+>=20
+> -    if ( ioreq_gfn || bufioreq_gfn )
+> -    {
+> -        rc =3D hvm_ioreq_server_map_pages(s);
+> -        if ( rc )
+> -            goto out;
+> -    }
+> -
+> -    if ( ioreq_gfn )
+> -        *ioreq_gfn =3D gfn_x(s->ioreq.gfn);
+> -
+> -    if ( HANDLE_BUFIOREQ(s) )
+> -    {
+> -        if ( bufioreq_gfn )
+> -            *bufioreq_gfn =3D gfn_x(s->bufioreq.gfn);
+> -
+> -        if ( bufioreq_port )
+> -            *bufioreq_port =3D s->bufioreq_evtchn;
+> -    }
+> -
+> -    rc =3D 0;
+> +    rc =3D arch_ioreq_server_get_info(s, ioreq_gfn, bufioreq_gfn,
+> bufioreq_port);
+>=20
+>    out:
+>       spin_unlock_recursive(&d->arch.hvm.ioreq_server.lock);
+>=20
+> 2. If I understand the code correctly, besides of the above-mentioned
+> functions the arch specific calls should be in hvm_ioreq_server_init()
+> and hvm_ioreq_server_deinit() to actually hide
+> "hvm_ioreq_server_unmap_pages" usage from the common code.  I noticed
+> that the rollback code in hvm_ioreq_server_init() and the whole
+> hvm_ioreq_server_deinit() have a lot in common except an extra =
+ASSERT()
+> and hvm_ioreq_server_free_pages() call in the latter. My question is
+> could we just replace the rollback code by hvm_ioreq_server_deinit()? =
+I
+> assume an extra hvm_ioreq_server_free_pages() call wouldn't be an =
+issue
+> here, but I am not sure what to do with the ASSERT, I expect it to be
+> triggered at such an early stage (so it probably needs moving out of =
+the
+> hvm_ioreq_server_deinit() (or dropped?) as well as comment needs
+> updating). I am asking, because this way we would get *a single* arch
+> hook here which would be arch_ioreq_server_deinit() and remove code
+> duplication a bit.
+
+I would arch specific init and deinit, even if one of them does =
+nothing... but then I like symmetry :-)
+
+>=20
+> Something close to this.
+> (Not completed and non tested)
+>=20
+> @@ -761,18 +771,17 @@ static int hvm_ioreq_server_init(struct
+> hvm_ioreq_server *s,
+>       return 0;
+>=20
+>    fail_add:
+> -    hvm_ioreq_server_remove_all_vcpus(s);
+> -    hvm_ioreq_server_unmap_pages(s);
+> -
+> -    hvm_ioreq_server_free_rangesets(s);
+> -
+> -    put_domain(s->emulator);
+> +    hvm_ioreq_server_deinit(s);
+>       return rc;
+>   }
+>=20
+> +void arch_ioreq_server_deinit(struct hvm_ioreq_server *s)
+> +{
+> +    hvm_ioreq_server_unmap_pages(s);
+> +}
+> +
+>   static void hvm_ioreq_server_deinit(struct hvm_ioreq_server *s)
+>   {
+> -    ASSERT(!s->enabled);
+
+I assume this is the ASSERT you're referring to... There's no way we =
+should be deinit-ing an enabled server so that should remain in common =
+code as is.
+
+  Paul
+
+>       hvm_ioreq_server_remove_all_vcpus(s);
+>=20
+>       /*
+> @@ -784,7 +793,7 @@ static void hvm_ioreq_server_deinit(struct
+> hvm_ioreq_server *s)
+>        *       the page_info pointer to NULL, meaning the latter will =
+do
+>        *       nothing.
+>        */
+> -    hvm_ioreq_server_unmap_pages(s);
+> +    arch_ioreq_server_deinit(s);
+>       hvm_ioreq_server_free_pages(s);
+>=20
+>       hvm_ioreq_server_free_rangesets(s);
+>=20
+>       put_domain(s->emulator);
+>=20
+>=20
+> --
+>=20
+> Regards,
+>=20
+> Oleksandr Tyshchenko
 
 
-Juergen
-
---------------94DDC25416F4E4CDBF94B304
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------94DDC25416F4E4CDBF94B304--
-
---t3GALMtWCUxtR9JAA9JMpXVdWHZVMftqI--
-
---z8tazrwpXzoFTBMLIbNsA3eK8YaO0egYm
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+z6QwFAwAAAAAACgkQsN6d1ii/Ey/9
-igf/Ypyrkdzn80nw8mMiozvdXUZphXfHWleEFJSmVNPJ0f9NMHSQr2HUYewItKAvlBGqwkV6qEQF
-17KmsNToZXjF/hP86I0kQT34ONwmYVmF2o3luu6ZXIDuPS8pSibjsCg+XeXsOJtpPakZMndq7Iuf
-5YLZ7+IfZhugSp+pJUN9+OXeWpw67xEC916oT5waHIGTaR6qFjzHlYyOxlCT3PzTOVr29yrV5Qey
-M+5hCwGkE57djKDL9vPFeJhi2F0KKFIIELB9QVNR4ilBPDSZsld3D0SzwAJDgL6d4f38hhQJxHbl
-cYxHxt/G2O6Rs+yr8GTuQDM+iELMrQwBriMemgjDWA==
-=gFyO
------END PGP SIGNATURE-----
-
---z8tazrwpXzoFTBMLIbNsA3eK8YaO0egYm--
 
