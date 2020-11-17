@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D22152B6D48
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 19:24:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29206.58488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F5652B6D49
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 19:24:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29204.58464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf5eh-0000NV-3y; Tue, 17 Nov 2020 18:24:39 +0000
+	id 1kf5ec-0000K3-Fb; Tue, 17 Nov 2020 18:24:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29206.58488; Tue, 17 Nov 2020 18:24:39 +0000
+Received: by outflank-mailman (output) from mailman id 29204.58464; Tue, 17 Nov 2020 18:24:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,106 +23,100 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf5eg-0000Mz-Vt; Tue, 17 Nov 2020 18:24:38 +0000
-Received: by outflank-mailman (input) for mailman id 29206;
- Tue, 17 Nov 2020 18:24:37 +0000
+	id 1kf5ec-0000Ja-CN; Tue, 17 Nov 2020 18:24:34 +0000
+Received: by outflank-mailman (input) for mailman id 29204;
+ Tue, 17 Nov 2020 18:24:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+dD8=EX=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
- id 1kf5ef-0000JQ-4P
- for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 18:24:37 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1kf5ea-0000JQ-9R
+ for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 18:24:32 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1021ad91-c687-437e-bb8b-37f15fd9eb24;
+ id 1fa9788e-34b1-401f-83d8-b0ee46c4d5b4;
  Tue, 17 Nov 2020 18:24:31 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=+dD8=EX=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
-	id 1kf5ef-0000JQ-4P
-	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 18:24:37 +0000
-X-Inumbo-ID: 1021ad91-c687-437e-bb8b-37f15fd9eb24
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	id 1kf5ea-0000JQ-9R
+	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 18:24:32 +0000
+X-Inumbo-ID: 1fa9788e-34b1-401f-83d8-b0ee46c4d5b4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 1021ad91-c687-437e-bb8b-37f15fd9eb24;
+	id 1fa9788e-34b1-401f-83d8-b0ee46c4d5b4;
 	Tue, 17 Nov 2020 18:24:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1605637471;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=4HMvIBx0BI9P0e9tGOp3LfzAc3z+4o6/c/L/wV9Ft/A=;
-  b=J0+UpsOG/fTGmgpotvsj/UAqJqiVo7Ygp2FoTEcJk/i7FwggeEogPYrA
-   0a4pshEdQIHxYOnwokInzzVx0qY61Xvdd+PcTgELTV6EvHqkFDIKc8BQr
-   ar7JykjHo+tXvd4fKSEDp1qkFs1FxHUsKgZyPn8toV96olMJUxQj+vioy
-   U=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: yfjK8pbVZlS8xaoxMdLChXUuOw2PJlmlBBbqQb8r11PGMT8NegFwLaxXk/dJuzgwoURSX4J4eZ
- 5qr/H0iuOUHpuH/ZBXP7oDwmOXQU4prMecmOTSJf2K9OjmKvlLzj/gR4qx34WuOJSSLh7OvP0q
- zr0Sf6RQhYn4NO/m5Hgc4DXoZN/2KGpZChVkcoYMmGaAOsHrGbrWckiuP5m3EBlumWnfcMNb1g
- HZFyDVq2NrmLnH6wbVs7uNRNw8FRhT5rPeg1YktZ+IO0AX5TAtlzqzrkIM8Kb3ZA/VdJnSvd4L
- 51c=
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=+xpoQqJ/pbgvLZlCMz1D78iIlwiuXy9MMBl0DGtdCWE=;
+  b=CA5HiP0bTqJl34cCj37MKkMHVFDfiG8HgMgKqpkAyJkvXcgiWaOXHLjm
+   UW77X5sRFZ70SInqNyhk8po1UXdMBEspaDSerOiG5V0tFFZy3Q47yWPRR
+   7FGpmX21ZzFaxg7bFojPhcW5kPVXqTPKutXalRMyNsWVln2WL4oBTOsb7
+   4=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: PZ7B6VkG7TYTQ2LzJFIJRinvipug0hywn82BZW1WgXjggOwuGai/BfAMIa5zeFsaSgs3RNVUeP
+ aNMbS7ycFA2wEYeeazq0OTL4nM/NVBgaogeFB2rD0j6AVldImmO9vekRPzem3mTAXMWtDHn0s1
+ Ub31NwE0KhnTSGXDpNY86dadJgb9iArgWkXeh0ytArYEotGe5Rj7Eu9Ar7OIhH8Yx8xeQb8mAl
+ Uk7R+fjlrbDniwA0iPQqPuRuMdvv8j4J6HzD02EloMPWcMz0xmnHpz/ElatiFrUQWc4UYYEHF8
+ 284=
 X-SBRS: None
-X-MesageID: 32508574
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 31385518
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.77,486,1596513600"; 
-   d="scan'208";a="32508574"
+   d="scan'208";a="31385518"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Doug
- Goldstein" <cardoe@cardoe.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Christian Lindig
-	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>
-Subject: [PATCH v1 0/4] tools/ocaml/libs/xc: domid control at domain creation time
-Date: Tue, 17 Nov 2020 18:24:08 +0000
-Message-ID: <cover.1605636799.git.edvin.torok@citrix.com>
+ Goldstein" <cardoe@cardoe.com>
+Subject: [PATCH v1 1/4] automation/scripts/containerize: fix DOCKER_CMD=podman
+Date: Tue, 17 Nov 2020 18:24:09 +0000
+Message-ID: <28469d0fea059a51694c6fa3b5bd3971696a4f13.1605636800.git.edvin.torok@citrix.com>
 X-Mailer: git-send-email 2.18.4
+In-Reply-To: <cover.1605636799.git.edvin.torok@citrix.com>
+References: <cover.1605636799.git.edvin.torok@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-The xl toolstack allows some control over the domid at VM creation time,
-allow xenopsd similar control by exposing the appropriate domid field in the OCaml xenctrl bindings.
-A new API function is introduced to preserve backwards compatibility without merge ordering
-requirements between the Xen and xenopsd patches: Xen can merge the patch and xenopsd will keep
-building with the old function, and a new version of xenopsd will start using the new function.
+On CentOS 8 with SELinux containerize doesn't work at all:
 
-I've also included some build system fixes to allow me to test the build
-in an upstream build environment:
-```
-cd automation/build
-podman build -t registry.gitlab.com/xen-project/xen/ubuntu:focal -f ubuntu/focal.dockerfile ubuntu
-DOCKER_CMD=podman CONTAINER_NO_PULL=1 CONTAINER=registry.gitlab.com/xen-project/xen/ubuntu:focal automation/scripts/containerize make build-tools-oxenstored
-```
+Make sure that the source code and SSH agent directories are passed on
+with SELinux relabeling enabled.
+(`-security-opt label=disabled` would be another option)
 
-It'd be good if someone could test whether containerize still works on non-SELinux systems now, or
-whether we need more detection logic in the script.
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+---
+ automation/scripts/containerize | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-This works around bugs in the OCaml makefiles that end up in "inconsistent assumptions" by doing a
-'make clean' before building the OCaml files every time. This is inefficient, but works.
-Long term it would be beneficial to switch to Dune as build system,
-which can do correct incremental builds with minimal configuration.
-I'll send a separate patch series for that.
-
-Edwin Török (4):
-  automation/scripts/containerize: fix DOCKER_CMD=podman
-  automation/: add Ubuntu:focal container
-  Makefile: add build-tools-oxenstored
-  tools/ocaml/libs/xc: backward compatible domid control at domain
-    creation time
-
- Makefile                                 |  6 +++
- automation/build/ubuntu/focal.dockerfile | 50 ++++++++++++++++++++++++
- automation/scripts/containerize          |  7 ++--
- tools/ocaml/Makefile                     |  8 ++++
- tools/ocaml/libs/xc/xenctrl.ml           |  3 ++
- tools/ocaml/libs/xc/xenctrl.mli          |  2 +
- tools/ocaml/libs/xc/xenctrl_stubs.c      |  9 ++++-
- 7 files changed, 80 insertions(+), 5 deletions(-)
- create mode 100644 automation/build/ubuntu/focal.dockerfile
-
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index a75d54566c..ed991bb79c 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -7,7 +7,7 @@
+ # and /etc/subgid.
+ #
+ docker_cmd=${DOCKER_CMD:-"docker"}
+-[ "$DOCKER_CMD" = "podman" ] && userns_podman="--userns=keep-id"
++[ "$DOCKER_CMD" = "podman" ] && userns_podman="--userns=keep-id" selinux=",z"
+ 
+ einfo() {
+     echo "$*" >&2
+@@ -95,9 +95,9 @@ einfo "*** Launching container ..."
+ exec ${docker_cmd} run \
+     ${userarg} \
+     ${SSH_AUTH_SOCK:+-e SSH_AUTH_SOCK="/tmp/ssh-agent/${SSH_AUTH_NAME}"} \
+-    -v "${CONTAINER_PATH}":/build:rw \
++    -v "${CONTAINER_PATH}":/build:rw${selinux} \
+     -v "${HOME}/.ssh":/root/.ssh:ro \
+-    ${SSH_AUTH_DIR:+-v "${SSH_AUTH_DIR}":/tmp/ssh-agent} \
++    ${SSH_AUTH_DIR:+-v "${SSH_AUTH_DIR}":/tmp/ssh-agent${selinux}} \
+     ${XEN_CONFIG_EXPERT:+-e XEN_CONFIG_EXPERT=${XEN_CONFIG_EXPERT}} \
+     ${CONTAINER_ARGS} \
+     -${termint}i --rm -- \
 -- 
 2.18.4
 
