@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D4D12B67AA
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 15:40:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29037.58232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6503F2B67B1
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 15:43:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29043.58245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf29s-0001uE-Im; Tue, 17 Nov 2020 14:40:36 +0000
+	id 1kf2Cu-00026O-57; Tue, 17 Nov 2020 14:43:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29037.58232; Tue, 17 Nov 2020 14:40:36 +0000
+Received: by outflank-mailman (output) from mailman id 29043.58245; Tue, 17 Nov 2020 14:43:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,180 +23,140 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf29s-0001ts-FE; Tue, 17 Nov 2020 14:40:36 +0000
-Received: by outflank-mailman (input) for mailman id 29037;
- Tue, 17 Nov 2020 14:40:34 +0000
+	id 1kf2Cu-00025z-1q; Tue, 17 Nov 2020 14:43:44 +0000
+Received: by outflank-mailman (input) for mailman id 29043;
+ Tue, 17 Nov 2020 14:43:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+6JM=EX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kf29q-0001tn-I0
- for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 14:40:34 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+iwA=EX=gmail.com=cheyenne.wills@srs-us1.protection.inumbo.net>)
+ id 1kf2Cs-00025u-F5
+ for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 14:43:42 +0000
+Received: from mail-lf1-x130.google.com (unknown [2a00:1450:4864:20::130])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1d652301-9b6b-4e75-bf71-45e969c34aae;
- Tue, 17 Nov 2020 14:40:33 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0FDFEAC2E;
- Tue, 17 Nov 2020 14:40:31 +0000 (UTC)
+ id 01e943a0-a0b4-4d3f-99d2-0adf996cd279;
+ Tue, 17 Nov 2020 14:43:41 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id u19so24197957lfr.7
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Nov 2020 06:43:41 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=+6JM=EX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kf29q-0001tn-I0
-	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 14:40:34 +0000
-X-Inumbo-ID: 1d652301-9b6b-4e75-bf71-45e969c34aae
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=+iwA=EX=gmail.com=cheyenne.wills@srs-us1.protection.inumbo.net>)
+	id 1kf2Cs-00025u-F5
+	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 14:43:42 +0000
+X-Inumbo-ID: 01e943a0-a0b4-4d3f-99d2-0adf996cd279
+Received: from mail-lf1-x130.google.com (unknown [2a00:1450:4864:20::130])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 1d652301-9b6b-4e75-bf71-45e969c34aae;
-	Tue, 17 Nov 2020 14:40:33 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605624031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6HFszFh1G7iRnoFVT7oihr/NGDAnvmpT5ygMnzEOBt4=;
-	b=NzNjnrwCZ7deUl5beX1zmvgKsNxEvU6QSRUAac9h4qnIxecopLIs9MQYcIXwJGHFCtOwle
-	9XkkY3cgGxBe/4sZYrut8aDrnLLWtuKGmB1YR9CrQ6uCVA0manT1nOTllNtxSXVzE5E1M8
-	DHJP7qSD+kTUyL9q8DyhNae+dDg1ZK0=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 0FDFEAC2E;
-	Tue, 17 Nov 2020 14:40:31 +0000 (UTC)
-Subject: Re: [PATCH 08/12] xen/hypfs: support dynamic hypfs nodes
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-9-jgross@suse.com>
- <d8653200-fbee-4e87-3e2d-7062879d7b4e@suse.com>
- <6fe809d5-09c1-28d3-61ec-10244b2d7d5f@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e93c98cd-1cd2-1646-9db9-3ebd8bc3684c@suse.com>
-Date: Tue, 17 Nov 2020 15:40:31 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
+	id 01e943a0-a0b4-4d3f-99d2-0adf996cd279;
+	Tue, 17 Nov 2020 14:43:41 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id u19so24197957lfr.7
+        for <xen-devel@lists.xenproject.org>; Tue, 17 Nov 2020 06:43:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=QeNFXaMRbG0TXRdf1BcLhaiZbUvGLStAY3jmHGSDROA=;
+        b=sR46a+KE8aZl+yy4j2I6SVx+VPjarZiC9qTGTt86igNaBpN4+QrtMYfpqqSBBvJ0lp
+         uWPkzjtQoGRRXqOsogIqlYcmw12FP1H7164YHU5IJJbm8NTo9/eSOJqXNALdyM4pJSQ1
+         zOxJKq2WMl/MH1pqVqS6AXvCEHLBfhKFE24t+pMMrWPQkH10RA5vWfNkCvx/U+F42qHq
+         BVq/ldRpATNc+VGqTK4uS6OphxqMKOcsycKLAP071aWkEqdMhQ8PU/vL8mG6yCub2vKr
+         TD7tE+LBzIxOz5jKqka4THrVqOJ6l3UNb+a0/IC5z7VvOZV7blHMq82U9pGmTH90/lzq
+         jaqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=QeNFXaMRbG0TXRdf1BcLhaiZbUvGLStAY3jmHGSDROA=;
+        b=YFgPXUnF+IqaZKLtOYBk8GAy3n1sJ8GY50y83EVwLGX4dXpb5tTJQ0bzPLJFQ4SPpK
+         znJhIBsrecNGJWdHrei509aoLJHr3i7lcYfsDO7jZdTdTMqddN61dzCJags3zwZLLZih
+         zAPR+wlRWXB8l88r4ZXOOZZnUrdJ2MWM4OXULg0q23cCuGBGbG4VcFCUchYly6pA8jgJ
+         0fmvyaH+AlGgmouMs39ffMerfOpPt/jmLiS3aocaIyXwjBf5tzoa0gOkkWgbisXn2+u8
+         TYsg3lM92MV3Gy0Nxp1awjgxIjrvyRjAO4NHtJAFooRCZJn1fG+wJRlBJrHc4W6zN61g
+         gd3Q==
+X-Gm-Message-State: AOAM530ebr/w39aPndSVi9GEONvzpTId6moiUp1yvgUkvddGR8j1CAzL
+	Z7gWoYPKmPZ/WqzTeF3HKyMsb3nDJkfcwiv/wOc=
+X-Google-Smtp-Source: ABdhPJxqpGr8/kTWAmL7nf9+ebHPt8dVNKc+PwoLvFN1e17IVHFWFSDz77lXhlevDMmTRZJKQs2P8fdNLaPxG58jnq8=
+X-Received: by 2002:a05:6512:1095:: with SMTP id j21mr1830382lfg.309.1605624220457;
+ Tue, 17 Nov 2020 06:43:40 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <6fe809d5-09c1-28d3-61ec-10244b2d7d5f@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <CAHpsFVc4AAm6L0rKUuV47ydOjtw7XAgFnDZxRjdCL0OHXJERDw@mail.gmail.com>
+ <7bca24cb-a3af-b54d-b224-3c2a316859dd@suse.com>
+In-Reply-To: <7bca24cb-a3af-b54d-b224-3c2a316859dd@suse.com>
+From: Cheyenne Wills <cheyenne.wills@gmail.com>
+Date: Tue, 17 Nov 2020 07:43:29 -0700
+Message-ID: <CAHpsFVcy2n2Sr845mPw4txH5UTbtKrbezRtgdmDaDX0T2r5wog@mail.gmail.com>
+Subject: Re: XSA-351 causing Solaris-11 systems to panic during boot.
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000004d9f1605b44e851c"
 
-On 17.11.2020 15:29, Jürgen Groß wrote:
-> On 17.11.20 13:37, Jan Beulich wrote:
->> On 26.10.2020 10:13, Juergen Gross wrote:
->>> --- a/xen/common/hypfs.c
->>> +++ b/xen/common/hypfs.c
->>> @@ -19,28 +19,29 @@
->>>   CHECK_hypfs_dirlistentry;
->>>   #endif
->>>   
->>> -#define DIRENTRY_NAME_OFF offsetof(struct xen_hypfs_dirlistentry, name)
->>> -#define DIRENTRY_SIZE(name_len) \
->>> -    (DIRENTRY_NAME_OFF +        \
->>> -     ROUNDUP((name_len) + 1, alignof(struct xen_hypfs_direntry)))
->>> -
->>>   struct hypfs_funcs hypfs_dir_funcs = {
->>>       .read = hypfs_read_dir,
->>> +    .getsize = hypfs_getsize,
->>> +    .findentry = hypfs_dir_findentry,
->>>   };
->>>   struct hypfs_funcs hypfs_leaf_ro_funcs = {
->>>       .read = hypfs_read_leaf,
->>> +    .getsize = hypfs_getsize,
->>>   };
->>>   struct hypfs_funcs hypfs_leaf_wr_funcs = {
->>>       .read = hypfs_read_leaf,
->>>       .write = hypfs_write_leaf,
->>> +    .getsize = hypfs_getsize,
->>>   };
->>>   struct hypfs_funcs hypfs_bool_wr_funcs = {
->>>       .read = hypfs_read_leaf,
->>>       .write = hypfs_write_bool,
->>> +    .getsize = hypfs_getsize,
->>>   };
->>>   struct hypfs_funcs hypfs_custom_wr_funcs = {
->>>       .read = hypfs_read_leaf,
->>>       .write = hypfs_write_custom,
->>> +    .getsize = hypfs_getsize,
->>>   };
->>
->> With the increasing number of fields that may (deliberately or
->> by mistake) be NULL, should we gain some form of proactive
->> guarding against calls through such pointers?
-> 
-> Hmm, up to now I think such a bug would be detected rather fast.
+--0000000000004d9f1605b44e851c
+Content-Type: text/plain; charset="UTF-8"
 
-Not sure: Are there any unavoidable uses of all affected code
-paths?
+The Solaris version reported in the copyright banner on the ISO is SunOS
+Release 5.11 Version 11.4.0.15.0 64-bit
 
-> I can add some ASSERT()s for mandatory functions not being NULL when
-> a node is added dynamically or during hypfs initialization for the
-> static nodes.
+My existing guest solaris systems are also at the same release/version level
 
-I'm not sure ASSERT()s alone are enough. I'd definitely prefer
-something which at least avoids the obvious x86 PV privilege
-escalation attack in case a call through NULL has gone
-unnoticed earlier on. E.g. rather than storing NULL in unused
-entries, store a non-canonical pointer so that the effect will
-"just" be a DoS.
+At the time of the panic, the panic log reports that the rcx register
+contains '0606' (this was from my notes yesterday).  If additional
+information is needed, I will need a bit more time to set up my system
+again.
 
->>> @@ -88,6 +93,23 @@ static void hypfs_unlock(void)
->>>       }
->>>   }
->>>   
->>> +void *hypfs_alloc_dyndata(unsigned long size, unsigned long align)
->>
->> Will callers really need to specify (high) alignment values? IOW ...
->>
->>> +{
->>> +    unsigned int cpu = smp_processor_id();
->>> +
->>> +    ASSERT(per_cpu(hypfs_locked, cpu) != hypfs_unlocked);
->>> +    ASSERT(per_cpu(hypfs_dyndata, cpu) == NULL);
->>> +
->>> +    per_cpu(hypfs_dyndata, cpu) = _xzalloc(size, align);
->>
->> ... is xzalloc_bytes() not suitable for use here?
-> 
-> Good question.
-> 
-> Up to now I think we could get away without specific alignment.
-> 
-> I can drop that parameter for now if you'd like that better.
+On Tue, Nov 17, 2020 at 1:12 AM Jan Beulich <jbeulich@suse.com> wrote:
 
-I think control over alignment should be limited to those
-special cases really needing it.
+> On 16.11.2020 22:57, Cheyenne Wills wrote:
+> > Running Xen with XSA-351 is causing Solaris 11 systems to panic during
+> > boot.  The panic screen is showing the failure to be coming from
+> > "unix:rdmsr".  The panic occurs with existing guests (booting off a disk)
+> > and the  booting from an install ISO image.
+> >
+> > I discussed the problem with "andyhhp__" in the "#xen" IRC channel and he
+> > requested that I report it here.
+>
+> Thanks. What we need though is information on the specific MSR(s) that
+> will need to have workarounds added: We surely would want to avoid
+> blindly doing this for all that the XSA change disallowed access to.
+> Reproducing the panic screen here might already help; proper full logs
+> would be even better.
+>
+> Jan
+>
 
->>> @@ -275,22 +305,25 @@ int hypfs_read_leaf(const struct hypfs_entry *entry,
->>>   
->>>       l = container_of(entry, const struct hypfs_entry_leaf, e);
->>>   
->>> -    return copy_to_guest(uaddr, l->u.content, entry->size) ? -EFAULT: 0;
->>> +    return copy_to_guest(uaddr, l->u.content, entry->funcs->getsize(entry)) ?
->>> +                                              -EFAULT : 0;
->>
->> With the intended avoiding of locking, how is this ->getsize()
->> guaranteed to not ...
->>
->>> @@ -298,7 +331,7 @@ static int hypfs_read(const struct hypfs_entry *entry,
->>>           goto out;
->>>   
->>>       ret = -ENOBUFS;
->>> -    if ( ulen < entry->size + sizeof(e) )
->>> +    if ( ulen < size + sizeof(e) )
->>>           goto out;
->>
->> ... invalidate the checking done here? (A similar risk looks to
->> exist on the write path, albeit there we have at least the
->> ->max_size checks, where I hope that field isn't mean to become
->> dynamic as well.)
-> 
-> I think you are right. I should add the size value as a parameter to the
-> read and write functions.
+--0000000000004d9f1605b44e851c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Except that a function like hypfs_read_leaf() shouldn't really
-require its caller to pass in the size of the leaf's payload.
+<div dir=3D"ltr">The Solaris version reported in the copyright banner on th=
+e ISO is SunOS Release 5.11 Version 11.4.0.15.0 64-bit<div><br></div><div>M=
+y existing guest solaris systems are also at the same release/version level=
+</div><div><br></div><div>At the time of the panic, the panic log reports t=
+hat the rcx register contains &#39;0606&#39; (this was from my notes yester=
+day).=C2=A0 If additional information is needed, I will need a bit more tim=
+e to set up=C2=A0my system again.</div></div><br><div class=3D"gmail_quote"=
+><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Nov 17, 2020 at 1:12 AM Jan =
+Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; =
+wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 16.11.=
+2020 22:57, Cheyenne Wills wrote:<br>
+&gt; Running Xen with XSA-351 is causing Solaris 11 systems to panic during=
+<br>
+&gt; boot.=C2=A0 The panic screen is showing the failure to be coming from<=
+br>
+&gt; &quot;unix:rdmsr&quot;.=C2=A0 The panic occurs with existing guests (b=
+ooting off a disk)<br>
+&gt; and the=C2=A0 booting from an install ISO image.<br>
+&gt; <br>
+&gt; I discussed the problem with &quot;andyhhp__&quot; in the &quot;#xen&q=
+uot; IRC channel and he<br>
+&gt; requested that I report it here.<br>
+<br>
+Thanks. What we need though is information on the specific MSR(s) that<br>
+will need to have workarounds added: We surely would want to avoid<br>
+blindly doing this for all that the XSA change disallowed access to.<br>
+Reproducing the panic screen here might already help; proper full logs<br>
+would be even better.<br>
+<br>
+Jan<br>
+</blockquote></div>
 
-Jan
+--0000000000004d9f1605b44e851c--
 
