@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8C52B6760
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 15:30:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29028.58209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A60992B67A3
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 15:39:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29033.58221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf1zX-0008S8-A9; Tue, 17 Nov 2020 14:29:55 +0000
+	id 1kf289-00012l-7B; Tue, 17 Nov 2020 14:38:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29028.58209; Tue, 17 Nov 2020 14:29:55 +0000
+Received: by outflank-mailman (output) from mailman id 29033.58221; Tue, 17 Nov 2020 14:38:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,67 +23,68 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf1zX-0008Rj-6k; Tue, 17 Nov 2020 14:29:55 +0000
-Received: by outflank-mailman (input) for mailman id 29028;
- Tue, 17 Nov 2020 14:29:53 +0000
+	id 1kf289-00012M-3h; Tue, 17 Nov 2020 14:38:49 +0000
+Received: by outflank-mailman (input) for mailman id 29033;
+ Tue, 17 Nov 2020 14:38:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J6Lq=EX=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kf1zV-0008Re-EK
- for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 14:29:53 +0000
+ id 1kf287-00011d-Qx
+ for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 14:38:47 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 87103953-48bb-45bd-86d0-e9a68d1f67fe;
- Tue, 17 Nov 2020 14:29:52 +0000 (UTC)
+ id 7ef65306-d06e-431d-8500-8244a451cb44;
+ Tue, 17 Nov 2020 14:38:47 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 938DEAC2E;
- Tue, 17 Nov 2020 14:29:51 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 28986AC1F;
+ Tue, 17 Nov 2020 14:38:46 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=J6Lq=EX=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kf1zV-0008Re-EK
-	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 14:29:53 +0000
-X-Inumbo-ID: 87103953-48bb-45bd-86d0-e9a68d1f67fe
+	id 1kf287-00011d-Qx
+	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 14:38:47 +0000
+X-Inumbo-ID: 7ef65306-d06e-431d-8500-8244a451cb44
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 87103953-48bb-45bd-86d0-e9a68d1f67fe;
-	Tue, 17 Nov 2020 14:29:52 +0000 (UTC)
+	id 7ef65306-d06e-431d-8500-8244a451cb44;
+	Tue, 17 Nov 2020 14:38:47 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605623391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1605623926; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hnVuomKx40WMf4cquvKgXgKksdZX6y8pUMWsfmeaJ5Y=;
-	b=QwUN/DygWdq6BlnfeD1V7xnwMMHUXIzP/fqlkURzzu907ZPXbZzcOR02T9OFRoPhIP93K9
-	TSpuiHciPEp2opM4wsbEks5DWHtsMk9H6WKK7LZXZ0Xde5Vg+uxt/qlVqR+0WvF6N3b1Y1
-	EwGGdwoTc9F18hR4CmMyzLBGkG1pX04=
+	bh=zFq0mNEnNGQQbJQ5eWMnQX3fnZHSAeNPY7v15vUs1iY=;
+	b=kvvth0b4KbiIPp5RRRi1o+388AjmPqMJV9wcrSxmwSc9kmysIUYRyuQ+AHFxWFg7RAzQnw
+	jk1yvYI50LXjyq9okM79d6bcPmzgmwwF9dVx1kHxqHknic0GjC31gHlNFEpGCtyD0j7UAj
+	gNXO5JTdekopgCc2+Nfz4yPZErEmIys=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 938DEAC2E;
-	Tue, 17 Nov 2020 14:29:51 +0000 (UTC)
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id 28986AC1F;
+	Tue, 17 Nov 2020 14:38:46 +0000 (UTC)
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-9-jgross@suse.com>
- <d8653200-fbee-4e87-3e2d-7062879d7b4e@suse.com>
-Subject: [PATCH 08/12] xen/hypfs: support dynamic hypfs nodes
-Message-ID: <6fe809d5-09c1-28d3-61ec-10244b2d7d5f@suse.com>
-Date: Tue, 17 Nov 2020 15:29:50 +0100
+ <20201026091316.25680-10-jgross@suse.com>
+ <6f8c0d3d-73f6-d10f-182a-8bf76856bf09@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [PATCH 09/12] xen/hypfs: add support for id-based dynamic
+ directories
+Message-ID: <95f673e5-90a8-0fe9-3842-bdb9de5c4aa4@suse.com>
+Date: Tue, 17 Nov 2020 15:38:45 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <d8653200-fbee-4e87-3e2d-7062879d7b4e@suse.com>
+In-Reply-To: <6f8c0d3d-73f6-d10f-182a-8bf76856bf09@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="hFCjskmoi0gjnp7B2YhiBYfebIBqtFjQc"
+ boundary="iRTqzNAF16dzDUUORWQDukyLXID908L9w"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---hFCjskmoi0gjnp7B2YhiBYfebIBqtFjQc
-Content-Type: multipart/mixed; boundary="XX7YNifh0uwWq4sHqsQyz91Ny5fmrfHRo";
+--iRTqzNAF16dzDUUORWQDukyLXID908L9w
+Content-Type: multipart/mixed; boundary="zq09cQFK2MztX650FX9PfZqne4pUChG4T";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>
@@ -91,194 +92,198 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <6fe809d5-09c1-28d3-61ec-10244b2d7d5f@suse.com>
-Subject: [PATCH 08/12] xen/hypfs: support dynamic hypfs nodes
+Message-ID: <95f673e5-90a8-0fe9-3842-bdb9de5c4aa4@suse.com>
+Subject: Re: [PATCH 09/12] xen/hypfs: add support for id-based dynamic
+ directories
 References: <20201026091316.25680-1-jgross@suse.com>
- <20201026091316.25680-9-jgross@suse.com>
- <d8653200-fbee-4e87-3e2d-7062879d7b4e@suse.com>
-In-Reply-To: <d8653200-fbee-4e87-3e2d-7062879d7b4e@suse.com>
+ <20201026091316.25680-10-jgross@suse.com>
+ <6f8c0d3d-73f6-d10f-182a-8bf76856bf09@suse.com>
+In-Reply-To: <6f8c0d3d-73f6-d10f-182a-8bf76856bf09@suse.com>
 
---XX7YNifh0uwWq4sHqsQyz91Ny5fmrfHRo
+--zq09cQFK2MztX650FX9PfZqne4pUChG4T
 Content-Type: multipart/mixed;
- boundary="------------C506B9991BCDEFDCABE781B3"
+ boundary="------------17B76CAA08B0E581952F3F76"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------C506B9991BCDEFDCABE781B3
+--------------17B76CAA08B0E581952F3F76
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 17.11.20 13:37, Jan Beulich wrote:
+On 17.11.20 14:33, Jan Beulich wrote:
 > On 26.10.2020 10:13, Juergen Gross wrote:
->> Add a getsize() function pointer to struct hypfs_funcs for being able
->> to have dynamically filled entries without the need to take the hypfs
->> lock each time the contents are being generated.
->=20
-> But a dynamic update causing a change in size will require _some_
-> lock, won't it?
-
-Yes, of course.
-
-e.g. the getsize() function returning the size of a directory holding an
-entry for each cpupool will need to take the cpupool lock in order to
-avoid a cpupool being created or deleted in parallel.
-
-But the cpupool create/destroy functions don't need to take the hypfs
-lock.
-
->=20
 >> --- a/xen/common/hypfs.c
 >> +++ b/xen/common/hypfs.c
->> @@ -19,28 +19,29 @@
->>   CHECK_hypfs_dirlistentry;
->>   #endif
->>  =20
->> -#define DIRENTRY_NAME_OFF offsetof(struct xen_hypfs_dirlistentry, nam=
-e)
->> -#define DIRENTRY_SIZE(name_len) \
->> -    (DIRENTRY_NAME_OFF +        \
->> -     ROUNDUP((name_len) + 1, alignof(struct xen_hypfs_direntry)))
->> -
->>   struct hypfs_funcs hypfs_dir_funcs =3D {
->>       .read =3D hypfs_read_dir,
->> +    .getsize =3D hypfs_getsize,
->> +    .findentry =3D hypfs_dir_findentry,
->>   };
->>   struct hypfs_funcs hypfs_leaf_ro_funcs =3D {
->>       .read =3D hypfs_read_leaf,
->> +    .getsize =3D hypfs_getsize,
->>   };
->>   struct hypfs_funcs hypfs_leaf_wr_funcs =3D {
->>       .read =3D hypfs_read_leaf,
->>       .write =3D hypfs_write_leaf,
->> +    .getsize =3D hypfs_getsize,
->>   };
->>   struct hypfs_funcs hypfs_bool_wr_funcs =3D {
->>       .read =3D hypfs_read_leaf,
->>       .write =3D hypfs_write_bool,
->> +    .getsize =3D hypfs_getsize,
->>   };
->>   struct hypfs_funcs hypfs_custom_wr_funcs =3D {
->>       .read =3D hypfs_read_leaf,
->>       .write =3D hypfs_write_custom,
->> +    .getsize =3D hypfs_getsize,
->>   };
->=20
-> With the increasing number of fields that may (deliberately or
-> by mistake) be NULL, should we gain some form of proactive
-> guarding against calls through such pointers?
-
-Hmm, up to now I think such a bug would be detected rather fast.
-
-I can add some ASSERT()s for mandatory functions not being NULL when
-a node is added dynamically or during hypfs initialization for the
-static nodes.
-
->=20
->> @@ -88,6 +93,23 @@ static void hypfs_unlock(void)
->>       }
+>> @@ -257,6 +257,82 @@ unsigned int hypfs_getsize(const struct hypfs_ent=
+ry *entry)
+>>       return entry->size;
 >>   }
 >>  =20
->> +void *hypfs_alloc_dyndata(unsigned long size, unsigned long align)
->=20
-> Will callers really need to specify (high) alignment values? IOW ...
->=20
+>> +int hypfs_read_dyndir_id_entry(struct hypfs_entry_dir *template,
+>> +                               unsigned int id, bool is_last,
+>> +                               XEN_GUEST_HANDLE_PARAM(void) *uaddr)
 >> +{
->> +    unsigned int cpu =3D smp_processor_id();
->> +
->> +    ASSERT(per_cpu(hypfs_locked, cpu) !=3D hypfs_unlocked);
->> +    ASSERT(per_cpu(hypfs_dyndata, cpu) =3D=3D NULL);
->> +
->> +    per_cpu(hypfs_dyndata, cpu) =3D _xzalloc(size, align);
+>> +    struct xen_hypfs_dirlistentry direntry;
+>> +    char name[12];
 >=20
-> ... is xzalloc_bytes() not suitable for use here?
+> Perhaps better tie this literal 12 to the one used for declaring
+> struct hypfs_dyndir_id's name[] field, such that an eventual
+> change will need making in exactly one place?
 
-Good question.
-
-Up to now I think we could get away without specific alignment.
-
-I can drop that parameter for now if you'd like that better.
+Yes.
 
 >=20
->> @@ -171,15 +193,34 @@ static int hypfs_get_path_user(char *buf,
->>       return 0;
->>   }
->>  =20
->> +struct hypfs_entry *hypfs_dir_findentry(struct hypfs_entry_dir *dir,
->> +                                        const char *name,
->> +                                        unsigned int name_len)
->> +{
->> +    struct hypfs_entry *entry;
+>> +    unsigned int e_namelen, e_len;
 >> +
->> +    list_for_each_entry ( entry, &dir->dirlist, list )
->> +    {
->> +        int cmp =3D strncmp(name, entry->name, name_len);
+>> +    e_namelen =3D snprintf(name, sizeof(name), "%u", id);
+>> +    e_len =3D HYPFS_DIRENTRY_SIZE(e_namelen);
+>> +    direntry.e.pad =3D 0;
+>> +    direntry.e.type =3D template->e.type;
+>> +    direntry.e.encoding =3D template->e.encoding;
+>> +    direntry.e.content_len =3D template->e.funcs->getsize(&template->=
+e);
+>> +    direntry.e.max_write_len =3D template->e.max_size;
+>> +    direntry.off_next =3D is_last ? 0 : e_len;
+>> +    if ( copy_to_guest(*uaddr, &direntry, 1) )
+>> +        return -EFAULT;
+>> +    if ( copy_to_guest_offset(*uaddr, HYPFS_DIRENTRY_NAME_OFF, name,
+>> +                              e_namelen + 1) )
+>> +        return -EFAULT;
 >> +
->> +        if ( cmp < 0 )
->> +            return ERR_PTR(-ENOENT);
+>> +    guest_handle_add_offset(*uaddr, e_len);
 >> +
->> +        if ( !cmp && strlen(entry->name) =3D=3D name_len )
->> +            return entry;
->> +    }
->> +
->> +    return ERR_PTR(-ENOENT);
+>> +    return 0;
 >> +}
 >> +
->>   static struct hypfs_entry *hypfs_get_entry_rel(struct hypfs_entry_di=
-r *dir,
->>                                                  const char *path)
->>   {
->>       const char *end;
->>       struct hypfs_entry *entry;
->>       unsigned int name_len;
->> -    bool again =3D true;
->>  =20
->> -    while ( again )
->> +    for ( ;; )
+>> +static struct hypfs_entry *hypfs_dyndir_findentry(struct hypfs_entry_=
+dir *dir,
+>> +                                                  const char *name,
+>> +                                                  unsigned int name_l=
+en)
+>> +{
+>> +    struct hypfs_dyndir_id *data;
 >=20
-> Nit: Strictly speaking another blank is needed between the two
-> semicolons.
+> const? (also in read_dyndir below)
 
 Okay.
 
 >=20
->> @@ -275,22 +305,25 @@ int hypfs_read_leaf(const struct hypfs_entry *en=
-try,
->>  =20
->>       l =3D container_of(entry, const struct hypfs_entry_leaf, e);
->>  =20
->> -    return copy_to_guest(uaddr, l->u.content, entry->size) ? -EFAULT:=
- 0;
->> +    return copy_to_guest(uaddr, l->u.content, entry->funcs->getsize(e=
-ntry)) ?
->> +                                              -EFAULT : 0;
+>> +    data =3D hypfs_get_dyndata();
+>> +    if ( !data )
+>> +        return ERR_PTR(-ENOENT);
+>> +
+>> +    /* Use template with original findentry function. */
+>> +    return data->template->e.funcs->findentry(data->template, name, n=
+ame_len);
 >=20
-> With the intended avoiding of locking, how is this ->getsize()
-> guaranteed to not ...
->=20
->> @@ -298,7 +331,7 @@ static int hypfs_read(const struct hypfs_entry *en=
-try,
->>           goto out;
->>  =20
->>       ret =3D -ENOBUFS;
->> -    if ( ulen < entry->size + sizeof(e) )
->> +    if ( ulen < size + sizeof(e) )
->>           goto out;
->=20
-> ... invalidate the checking done here? (A similar risk looks to
-> exist on the write path, albeit there we have at least the
-> ->max_size checks, where I hope that field isn't mean to become
-> dynamic as well.)
+> Why does this pass the address of the template? If it truly is
+> (just) a template, then its dirlist ought to be empty at all
+> times? If otoh the "template" indeed gets used as a node in the
+> tree then perhaps it wants naming differently? "Stem" would come
+> to mind, but likely there are better alternatives. I've also
+> considered the German "Statthalter", but its English translations
+> don't seem reasonable to me here. And "placeholder" has kind of a
+> negative touch. (Also in this case some of my "const?" remarks
+> may be irrelevant.)
 
-I think you are right. I should add the size value as a parameter to the
-read and write functions.
+It is basically a template tree.
 
-And no, max_size should not be dynamic.
+In the current use case (cpupool/<id>/sched-gran) the template is
+<id> with the leaf "sched-gran" which is the template for the per
+cpupool incarnation.
+
+If you like it better I can use stem.
+
+>=20
+> Further this and ...
+>=20
+>> +static int hypfs_read_dyndir(const struct hypfs_entry *entry,
+>> +                             XEN_GUEST_HANDLE_PARAM(void) uaddr)
+>> +{
+>> +    struct hypfs_dyndir_id *data;
+>> +
+>> +    data =3D hypfs_get_dyndata();
+>> +    if ( !data )
+>> +        return -ENOENT;
+>> +
+>> +    /* Use template with original read function. */
+>> +    return data->template->e.funcs->read(&data->template->e, uaddr);
+>=20
+> ... this using the template's funcs is somewhat unexpected, but
+> with the functions acting as the entry's .findentry() / .read()
+> hooks is obviously the right thing (and if the template is more
+> that what the word says, the consideration may become
+> inapplicable anyway). The implication is that the hooks
+> themselves can't be replaced, if need be down the road.
+
+Correct. In case this is needed the related node must be really
+completely dynamical instead.
+
+>=20
+>> +struct hypfs_entry *hypfs_gen_dyndir_entry_id(struct hypfs_entry_dir =
+*template,
+>> +                                              unsigned int id)
+>> +{
+>> +    struct hypfs_dyndir_id *data;
+>> +
+>> +    data =3D hypfs_alloc_dyndata(sizeof(*data), alignof(*data));
+>> +    if ( !data )
+>> +        return ERR_PTR(-ENOMEM);
+>> +
+>> +    data->template =3D template;
+>> +    data->id =3D id;
+>=20
+> I can't seem to spot any consumer of this field: Is it really
+> needed?
+
+Yes. It will be used by the specific read/write functions, e.g.
+cpupool_gran_read().
+
+>=20
+>> --- a/xen/include/xen/hypfs.h
+>> +++ b/xen/include/xen/hypfs.h
+>> @@ -50,6 +50,15 @@ struct hypfs_entry_dir {
+>>       struct list_head dirlist;
+>>   };
+>>  =20
+>> +struct hypfs_dyndir_id {
+>> +    struct hypfs_entry_dir dir;       /* Modified copy of template. *=
+/
+>> +    struct hypfs_funcs funcs;         /* Dynamic functions. */
+>> +    struct hypfs_entry_dir *template; /* Template used. */
+>=20
+> const?
+
+Yes.
+
+>=20
+>> @@ -150,6 +159,11 @@ struct hypfs_entry *hypfs_dir_findentry(struct hy=
+pfs_entry_dir *dir,
+>>                                           unsigned int name_len);
+>>   void *hypfs_alloc_dyndata(unsigned long size, unsigned long align);
+>>   void *hypfs_get_dyndata(void);
+>> +int hypfs_read_dyndir_id_entry(struct hypfs_entry_dir *template,
+>=20
+> const?
+
+Yes.
+
+>=20
+>> +                               unsigned int id, bool is_last,
+>> +                               XEN_GUEST_HANDLE_PARAM(void) *uaddr);
+>> +struct hypfs_entry *hypfs_gen_dyndir_entry_id(struct hypfs_entry_dir =
+*template,
+>=20
+> const?
+
+Yes.
 
 
 Juergen
 
---------------C506B9991BCDEFDCABE781B3
+
+
+--------------17B76CAA08B0E581952F3F76
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -369,25 +374,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------C506B9991BCDEFDCABE781B3--
+--------------17B76CAA08B0E581952F3F76--
 
---XX7YNifh0uwWq4sHqsQyz91Ny5fmrfHRo--
+--zq09cQFK2MztX650FX9PfZqne4pUChG4T--
 
---hFCjskmoi0gjnp7B2YhiBYfebIBqtFjQc
+--iRTqzNAF16dzDUUORWQDukyLXID908L9w
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+z3l4FAwAAAAAACgkQsN6d1ii/Ey+y
-mAf/ey8H4fxbNemcTS8JfA8BVjkH/ax6rUuAmR0yWh2sKbtsSiyDzHusKWSDySOSXDVU52PrJWjn
-4D+xg72E9s/XvhL7jR3DgyUkdPwjT5Va5tf2/ZZap6pCidkC1Cfe6G/boI4ONb+Mw06eyhnset8V
-e9dHHq0XdWKFOSeIGKIzOQo2CjoJnoo6IKFuXVwQBxD3XMhCEFxFLYJOfrlI5cMo79VVdvULkseg
-+AVZSkK4mdjSE51N1cjGRRfo/p/Rwcbq4a6MljfQG38d8jMbuCRNYuW/5bj928rp4J7mHjBd+gxF
-j4CYUeDtc5Q6cj2zDq4nRQB0JPuVDkO0d1e8wD6WPQ==
-=FVDl
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+z4HUFAwAAAAAACgkQsN6d1ii/Ey+3
+bQf9FoBvPni/+o59RJvMDOYMJKzs3LQGy4bVSA3wK0p+/RZDFknbZPz/u+F+BXXOj0PTeSKqxbHa
+W/v1HE7Cr8gKoeiFG04fS1C/J9ICGujrTjPrwwCJh8C8qoxhPddgNhv67Npq212Bj1L2avjDr7of
+SjV/GVbHvj4zx1ZjPKtrwIbLYajX0j7Pl5A7G0PEv/unUotN/dEfSK+5jHVyqS0S22PLyUdsKvrr
+CinNz618KD5XLQ0JLQFx6ooBiRfKZBUvj1jLylbddmu46qFUZVSxkEGocvBoS1c67M/xvtdW2KJn
+6DcNL6i4V7emcVcNVOj7KTkTIeHYNOcHxLl9mU2aEQ==
+=1nGL
 -----END PGP SIGNATURE-----
 
---hFCjskmoi0gjnp7B2YhiBYfebIBqtFjQc--
+--iRTqzNAF16dzDUUORWQDukyLXID908L9w--
 
