@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6BBE2B6A0E
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 17:30:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29129.58380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11ACE2B6A74
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 17:41:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29144.58392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf3rs-0005nG-4I; Tue, 17 Nov 2020 16:30:08 +0000
+	id 1kf42E-0006r7-A1; Tue, 17 Nov 2020 16:40:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29129.58380; Tue, 17 Nov 2020 16:30:08 +0000
+Received: by outflank-mailman (output) from mailman id 29144.58392; Tue, 17 Nov 2020 16:40:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,306 +23,478 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kf3rs-0005mq-0U; Tue, 17 Nov 2020 16:30:08 +0000
-Received: by outflank-mailman (input) for mailman id 29129;
- Tue, 17 Nov 2020 16:30:06 +0000
+	id 1kf42E-0006qi-6w; Tue, 17 Nov 2020 16:40:50 +0000
+Received: by outflank-mailman (input) for mailman id 29144;
+ Tue, 17 Nov 2020 16:40:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UWEc=EX=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kf3rq-0005dY-1f
- for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 16:30:06 +0000
-Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
+ <SRS0=EUfM=EX=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kf42D-0006qd-0R
+ for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 16:40:49 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c7054294-a346-43ff-9c96-ecd32a0792df;
- Tue, 17 Nov 2020 16:30:04 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id x9so24974961ljc.7
- for <xen-devel@lists.xenproject.org>; Tue, 17 Nov 2020 08:30:04 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id p25sm3206522lfc.125.2020.11.17.08.30.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Nov 2020 08:30:03 -0800 (PST)
+ id 27a0a535-718d-40c1-9619-f7d1d6bd8b7b;
+ Tue, 17 Nov 2020 16:40:46 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0AHGec6a017766
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Tue, 17 Nov 2020 17:40:39 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id BC2D12E9CA8; Tue, 17 Nov 2020 17:40:33 +0100 (MET)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=UWEc=EX=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
-	id 1kf3rq-0005dY-1f
-	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 16:30:06 +0000
-X-Inumbo-ID: c7054294-a346-43ff-9c96-ecd32a0792df
-Received: from mail-lj1-x244.google.com (unknown [2a00:1450:4864:20::244])
+	(envelope-from <SRS0=EUfM=EX=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+	id 1kf42D-0006qd-0R
+	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 16:40:49 +0000
+X-Inumbo-ID: 27a0a535-718d-40c1-9619-f7d1d6bd8b7b
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c7054294-a346-43ff-9c96-ecd32a0792df;
-	Tue, 17 Nov 2020 16:30:04 +0000 (UTC)
-Received: by mail-lj1-x244.google.com with SMTP id x9so24974961ljc.7
-        for <xen-devel@lists.xenproject.org>; Tue, 17 Nov 2020 08:30:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=01HVuw46qRoOFWw/AqqExtJgoLq9BcD3AdYtNrquhhs=;
-        b=U6wgdthK0up06n1FGwW97B1xZU1a6z5C+5cwYLVtkwLLLfKNaWrZZzmqLxFDyEaTjG
-         Sey0Op4cZb7f7v1yGh1WDwhlCrLi4I3xQzVLRBnKbl9VIQRDexMguMHiLkAQqEW6MBQR
-         APNkY7EmQ4gRgeVs7jB6OMKgFwlpxnHtgpVVwzdte/MOLTYUreriPUgJc3R/+X6Op8D8
-         BvDHgZ+OhidChT3q6FYHGyiX1iMdZI91FvGkx7hl5eQue/oWCiCSdGlX+oGw3yqOGJOg
-         T6UdFGnnLdDfvCV+wvpJyu3nPGa6KCiS7NQ6Ow1agmZiOcRdk7Lmk6KoPfham2ld8B23
-         2kkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=01HVuw46qRoOFWw/AqqExtJgoLq9BcD3AdYtNrquhhs=;
-        b=COQAPz020Knawkfb2L3QbFiMoJIdeHAhgjdmU89ZCiT91SstVDQdFSVooA6dduqjji
-         epKFc3gY3+EkRxqrkKI4/ckTrYsanfoudNWy2KvI0TAmLs7NwCTB3PQHLjS4gM+/0VLI
-         fUULU4FqivuYtVIkPGZMHEO/Qk/kOtvGqG0Z1qQm/o/Sftad217WMEecFfBWLDnp0Yt1
-         v4Zf6boRrO6wRPYwKnHtO97kQqDnGECiWKFMSdxRJRwHc2Dai/uCymBOq0fKpbPcTbJ8
-         tP+pPj5T3Y2jWgNSegp2wedaH+czHPUi3Xnp1GXZPvb7ZGeriAeUjwcgnpGAmEolHh6r
-         UQ7Q==
-X-Gm-Message-State: AOAM532D94aHMO7LPi/ykVP9ZX0Qwafy137uJ+9SEcgL3aWBmGkjRnyj
-	Gn7rKiaHbdSv+h1yQ8rievI=
-X-Google-Smtp-Source: ABdhPJy4quR2RyUXySZ14ZAeNfdvGX2JjCG0TrbMG/l0/zJpN3MxlUfAIDdMU8oT7w3C520Tvoo/7Q==
-X-Received: by 2002:a2e:1556:: with SMTP id 22mr2435394ljv.416.1605630603584;
-        Tue, 17 Nov 2020 08:30:03 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
-        by smtp.gmail.com with ESMTPSA id p25sm3206522lfc.125.2020.11.17.08.30.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2020 08:30:03 -0800 (PST)
-Subject: Re: [PATCH V2 02/23] xen/ioreq: Make x86's IOREQ feature common
-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>,
- 'Ian Jackson' <iwj@xenproject.org>, 'Jan Beulich' <jbeulich@suse.com>,
- 'Julien Grall' <julien@xen.org>,
- 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
- 'Tim Deegan' <tim@xen.org>, 'Julien Grall' <julien.grall@arm.com>
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
- <1602780274-29141-3-git-send-email-olekstysh@gmail.com>
- <004001d6a6b6$9ffd3ac0$dff7b040$@xen.org>
- <436143ea-609f-f6c3-4952-19fcf410fe8f@gmail.com>
- <34133df1-bff2-f4df-00a5-674a2af867fc@gmail.com>
- <007401d6bcf6$63d3f420$2b7bdc60$@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <a2eecf9b-7246-68c8-aee4-b4009ee16ed8@gmail.com>
-Date: Tue, 17 Nov 2020 18:29:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 27a0a535-718d-40c1-9619-f7d1d6bd8b7b;
+	Tue, 17 Nov 2020 16:40:46 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+	by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id 0AHGec6a017766
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Tue, 17 Nov 2020 17:40:39 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+	id BC2D12E9CA8; Tue, 17 Nov 2020 17:40:33 +0100 (MET)
+Date: Tue, 17 Nov 2020 17:40:33 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201117164033.GB3093@antioche.eu.org>
+References: <20201117150949.GA3791@antioche.eu.org>
+ <20201117155807.a7jgmftnj6njg6oz@Air-de-Roger>
 MIME-Version: 1.0
-In-Reply-To: <007401d6bcf6$63d3f420$2b7bdc60$@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: multipart/mixed; boundary="OXfL5xGRrasGEqWY"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+In-Reply-To: <20201117155807.a7jgmftnj6njg6oz@Air-de-Roger>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Tue, 17 Nov 2020 17:40:40 +0100 (MET)
 
 
-On 17.11.20 17:29, Paul Durrant wrote:
+--OXfL5xGRrasGEqWY
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi Paul
+On Tue, Nov 17, 2020 at 04:58:07PM +0100, Roger Pau Monn� wrote:
+> [...]
+> 
+> I have attached a patch below that will dump the vIO-APIC info as part
+> of the 'i' debug key output, can you paste the whole output of the 'i'
+> debug key when the system stalls?
 
-Thank you for the prompt answer.
+see attached file. Note that the kernel did unstall while 'i' output was
+being printed, so it is mixed with some NetBSD kernel output.
+The idt entry of the 'ioapic2 pin2' interrupt is 103 on CPU 0.
 
->>>> The 'legacy' mechanism of mapping magic pages for ioreq servers
->>>> should remain x86 specific I think that aspect of the code needs to
->>>> remain behind and not get moved into common code. You could do that
->>>> in arch specific calls in hvm_ioreq_server_enable/disable() and
->>>> hvm_get_ioreq_server_info().
->>> Well, if legacy mechanism is not going to be used for other arch and
->>> should remain x86 specific, I will try to investigate what should be
->>> left in x86 code and rework the series.
->>> As a side note, I am afraid, we won't get a 100% code movement (which
->>> I managed to achieve here) for the next version of this patch as we
->>> need arch/x86/hvm/ioreq.c.
->> I am investigating how to split the code in order to leave the 'legacy'
->> mechanism x86 specific and have a few questions. Could you please
->> clarify the following:
->>
->> 1. The split of hvm_ioreq_server_enable/disable() is obvious to me, I
->> would like to clarify regarding hvm_get_ioreq_server_info().
->> Is it close to what you had in mind when suggesting the split of
->> hvm_get_ioreq_server_info() or I just need to abstract
->> hvm_ioreq_server_map_pages() call only?
-> I think it is sufficient to just abstract hvm_ioreq_server_map_pages() (and return -EOPNOTSUPP in the Arm case).
-> The buf ioreq port should be common.
+I also put the whole sequence at
+http://www-soc.lip6.fr/~bouyer/xen-log3.txt
 
-ok, will do.
+You'll see that I did hit 'i' 2 times to get the NetBSD kernel to boot
+multiuser.
 
+> 
+> Can you assert that you properly EOI the vectors on the local APIC? (I
+> don't have a patch to dump the emulated lapic ISR right now, but could
+> provide one if needed).
 
->
->> (Not completed and non tested)
->>
->> +/* Called with ioreq_server lock held */
->> +int arch_ioreq_server_get_info(struct hvm_ioreq_server *s,
->> +                               unsigned long *ioreq_gfn,
->> +                               unsigned long *bufioreq_gfn,
->> +                               evtchn_port_t *bufioreq_port)
->> +{
->> +    if ( ioreq_gfn || bufioreq_gfn )
->> +    {
->> +        int rc = hvm_ioreq_server_map_pages(s);
->> +
->> +        if ( rc )
->> +            return rc;
->> +    }
->> +
->> +    if ( ioreq_gfn )
->> +        *ioreq_gfn = gfn_x(s->ioreq.gfn);
->> +
->> +    if ( HANDLE_BUFIOREQ(s) )
->> +    {
->> +        if ( bufioreq_gfn )
->> +            *bufioreq_gfn = gfn_x(s->bufioreq.gfn);
->> +
->> +        if ( bufioreq_port )
->> +            *bufioreq_port = s->bufioreq_evtchn;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->>    int hvm_get_ioreq_server_info(struct domain *d, ioservid_t id,
->>                                  unsigned long *ioreq_gfn,
->>                                  unsigned long *bufioreq_gfn,
->> @@ -916,26 +954,7 @@ int hvm_get_ioreq_server_info(struct domain *d,
->> ioservid_t id,
->>        if ( s->emulator != current->domain )
->>            goto out;
->>
->> -    if ( ioreq_gfn || bufioreq_gfn )
->> -    {
->> -        rc = hvm_ioreq_server_map_pages(s);
->> -        if ( rc )
->> -            goto out;
->> -    }
->> -
->> -    if ( ioreq_gfn )
->> -        *ioreq_gfn = gfn_x(s->ioreq.gfn);
->> -
->> -    if ( HANDLE_BUFIOREQ(s) )
->> -    {
->> -        if ( bufioreq_gfn )
->> -            *bufioreq_gfn = gfn_x(s->bufioreq.gfn);
->> -
->> -        if ( bufioreq_port )
->> -            *bufioreq_port = s->bufioreq_evtchn;
->> -    }
->> -
->> -    rc = 0;
->> +    rc = arch_ioreq_server_get_info(s, ioreq_gfn, bufioreq_gfn,
->> bufioreq_port);
->>
->>     out:
->>        spin_unlock_recursive(&d->arch.hvm.ioreq_server.lock);
->>
->> 2. If I understand the code correctly, besides of the above-mentioned
->> functions the arch specific calls should be in hvm_ioreq_server_init()
->> and hvm_ioreq_server_deinit() to actually hide
->> "hvm_ioreq_server_unmap_pages" usage from the common code.  I noticed
->> that the rollback code in hvm_ioreq_server_init() and the whole
->> hvm_ioreq_server_deinit() have a lot in common except an extra ASSERT()
->> and hvm_ioreq_server_free_pages() call in the latter. My question is
->> could we just replace the rollback code by hvm_ioreq_server_deinit()? I
->> assume an extra hvm_ioreq_server_free_pages() call wouldn't be an issue
->> here, but I am not sure what to do with the ASSERT, I expect it to be
->> triggered at such an early stage (so it probably needs moving out of the
->> hvm_ioreq_server_deinit() (or dropped?) as well as comment needs
->> updating). I am asking, because this way we would get *a single* arch
->> hook here which would be arch_ioreq_server_deinit() and remove code
->> duplication a bit.
-> I would arch specific init and deinit, even if one of them does nothing... but then I like symmetry :-)
-
-
-Both hvm_ioreq_server_init() and hvm_ioreq_server_deinit() call "legacy" 
-hvm_ioreq_server_unmap_pages()
-which we want to be abstracted. The only difference between these two 
-usages is that the former calls it during rollback only (in case of error).
-Taking into the account what has been suggested for question #1 could we 
-just introduce arch_ioreq_server_unmap_pages() to be called from both 
-init and deinit?
-
-
-[Not completed not tested]
-
-@@ -762,7 +772,7 @@ static int hvm_ioreq_server_init(struct 
-hvm_ioreq_server *s,
-
-   fail_add:
-      hvm_ioreq_server_remove_all_vcpus(s);
--    hvm_ioreq_server_unmap_pages(s);
-+    arch_ioreq_server_unmap_pages(s);
-
-      hvm_ioreq_server_free_rangesets(s);
-
-@@ -776,7 +786,7 @@ static void hvm_ioreq_server_deinit(struct 
-hvm_ioreq_server *s)
-      hvm_ioreq_server_remove_all_vcpus(s);
-
-      /*
--     * NOTE: It is safe to call both hvm_ioreq_server_unmap_pages() and
-+     * NOTE: It is safe to call both arch_ioreq_server_unmap_pages() and
-       *       hvm_ioreq_server_free_pages() in that order.
-       *       This is because the former will do nothing if the pages
-       *       are not mapped, leaving the page to be freed by the latter.
-@@ -784,7 +794,7 @@ static void hvm_ioreq_server_deinit(struct 
-hvm_ioreq_server *s)
-       *       the page_info pointer to NULL, meaning the latter will do
-       *       nothing.
-       */
--    hvm_ioreq_server_unmap_pages(s);
-+    arch_ioreq_server_unmap_pages(s);
-      hvm_ioreq_server_free_pages(s);
-
-      hvm_ioreq_server_free_rangesets(s);
-@@ -918,7 +928,7 @@ int hvm_get_ioreq_server_info(struct domain *d, 
-ioservid_t id,
-
-      if ( ioreq_gfn || bufioreq_gfn )
-      {
--        rc = hvm_ioreq_server_map_pages(s);
-+        rc = arch_ioreq_server_map_pages(s);
-          if ( rc )
-              goto out;
-      }
-
-
-So looks like for leaving legacy mechanism x86 specific we need 4 new 
-arch callbacks:
-
-- arch_ioreq_server_enable
-- arch_ioreq_server_disable
-- arch_ioreq_server_map_pages
-- arch_ioreq_server_unmap_pages
->
->> Something close to this.
->> (Not completed and non tested)
->>
->> @@ -761,18 +771,17 @@ static int hvm_ioreq_server_init(struct
->> hvm_ioreq_server *s,
->>        return 0;
->>
->>     fail_add:
->> -    hvm_ioreq_server_remove_all_vcpus(s);
->> -    hvm_ioreq_server_unmap_pages(s);
->> -
->> -    hvm_ioreq_server_free_rangesets(s);
->> -
->> -    put_domain(s->emulator);
->> +    hvm_ioreq_server_deinit(s);
->>        return rc;
->>    }
->>
->> +void arch_ioreq_server_deinit(struct hvm_ioreq_server *s)
->> +{
->> +    hvm_ioreq_server_unmap_pages(s);
->> +}
->> +
->>    static void hvm_ioreq_server_deinit(struct hvm_ioreq_server *s)
->>    {
->> -    ASSERT(!s->enabled);
-> I assume this is the ASSERT you're referring to... There's no way we should be deinit-ing an enabled server so that should remain in common code as is.
-ok, I agree.
+Reading the code, I think it's OK (assuming I properly understood what
+you mean too). Wouldn't it cause problems on real hardware too
+if the vectors were not EOI'd ?
 
 -- 
-Regards,
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
-Oleksandr Tyshchenko
+--OXfL5xGRrasGEqWY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename="i.txt"
 
+(XEN) IRQ information:
+(XEN)    IRQ:   0 vec:f0 IO-APIC-edge    status=000 aff:{0}/{0} arch/x86/time.c#timer_interrupt()
+(XEN)    IRQ:   1 vec:70 IO-APIC-edge    status=006 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:   3 vec:f1 IO-APIC-edge    status=000 aff:{0-15}/{0-15} drivers/char/ns16550.c#ns16550_interrupt()
+(XEN)    IRQ:   4 vec:78 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:   5 vec:88 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:   6 vec:90 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:   7 vec:98 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:   8 vec:a0 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:   9 vec:a8 IO-APIC-level   status=010 aff:{0}/{0} in-flight=0 d0:  9(-M-)
+(XEN)    IRQ:  10 vec:b0 IO-APIC-edge    status=006 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:  11 vec:b8 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:  12 vec:c0 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:  13 vec:c8 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:  14 vec:d0 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:  15 vec:d8 IO-APIC-edge    status=002 aff:{0}/{0} mapped, unbound
+(XEN)    IRQ:  16 vec:49 IO-APIC-level   status=010 aff:{0}/{0-7} in-flight=0 d0: 16(-M-)
+(XEN)    IRQ:  34 vec:51 IO-APIC-level   status=010 aff:{0}/{0-7} in-flight=1 d0: 34(-MM)
+(XEN)    IRQ: 104 vec:30 DMA_MSI         status=000 aff:{0-223}/{0} drivers/passthrough/vtd/iommu.c#iommu_page_fault()
+(XEN)    IRQ: 105 vec:38 DMA_MSI         status=000 aff:{0-223}/{0} drivers/passthrough/vtd/iommu.c#iommu_page_fault()
+(XEN)    IRQ: 106 vec:40 DMA_MSI         status=000 aff:{0-223}/{0} drivers/passthrough/vtd/iommu.c#iommu_page_fault()
+(XEN)    IRQ: 107 vec:48 DMA_MSI         status=000 aff:{0-223}/{0} drivers/passthrough/vtd/iommu.c#iommu_page_fault()
+(XEN)    IRQ: 108 vec:50 DMA_MSI         status=000 aff:{0-223}/{0} drivers/passthrough/vtd/iommu.c#iommu_page_fault()
+(XEN)    IRQ: 109 vec:58 DMA_MSI         status=000 aff:{0-223}/{0} drivers/passthrough/vtd/iommu.c#iommu_page_fault()
+(XEN)    IRQ: 110 vec:60 DMA_MSI         status=000 aff:{0-223}/{0} drivers/passthrough/vtd/iommu.c#iommu_page_fault()
+(XEN)    IRQ: 111 vec:68 DMA_MSI         status=000 aff:{0-223}/{0} [drivers/passthrough/vtd/iommu.c#iommu_page_fault()
+ (XEN)    IRQ: 112 vec:e0 PCI-MSI         status=030 aff:{0}/{0-7}  in-flight=0 5d0:1143(-M-)
+0(XEN)    IRQ: 113 vec:e8 PCI-MSI         status=010 aff:{0}/{0-7} .in-flight=0 3d0:1142(-M-)
+5(XEN)    IRQ: 114 vec:31 PCI-MSI         status=030 aff:{0}/{0-7} 7in-flight=0 6d0:1141(-M-)
+0(XEN)    IRQ: 115 vec:39 PCI-MSI/-X      status=030 aff:{0}/{0-7} 3in-flight=0 8d0:1140(-M-)
+](XEN)    IRQ: 116 vec:41 PCI-MSI/-X      status=030 aff:{0}/{0-7}  in-flight=0 md0:1139(-M-)
+f(XEN)    IRQ: 117 vec:8e PCI-MSI/-X      status=030 aff:{0}/{0-7} iin-flight=0 id0:1138(-M-)
+0(XEN)    IRQ: 118 vec:96 PCI-MSI/-X      status=030 aff:{0}/{0-7} :in-flight=0  d0:1137(-M-)
+c(XEN)    IRQ: 119 vec:9e PCI-MSI/-X      status=030 aff:{0}/{0-7} min-flight=0 dd0:1136(-M-)
+ (XEN)    IRQ: 120 vec:a6 PCI-MSI/-X      status=030 aff:{0}/{0-7} ain-flight=0 bd0:1135(-M-)
+o(XEN)    IRQ: 121 vec:ae PCI-MSI/-X      status=030 aff:{0}/{0-7} rin-flight=0 td0:1134(-M-)
+e(XEN)    IRQ: 122 vec:b6 PCI-MSI/-X      status=030 aff:{0}/{0-7} din-flight=0  d0:1133(-M-)
+c(XEN)    IRQ: 123 vec:be PCI-MSI/-X      status=030 aff:{0}/{0-7} cin-flight=0 bd0:1132(-M-)
+ (XEN)    IRQ: 124 vec:c6 PCI-MSI/-X      status=030 aff:{0}/{0-7} 0in-flight=0 xd0:1131(-M-)
+f(XEN)    IRQ: 125 vec:ce PCI-MSI/-X      status=030 aff:{0}/{0-7} fin-flight=0 fd0:1130(-M-)
+f(XEN)    IRQ: 126 vec:d6 PCI-MSI/-X      status=030 aff:{0}/{0-7} 8in-flight=0 cd0:1129(-M-)
+8(XEN)    IRQ: 127 vec:de PCI-MSI/-X      status=030 aff:{0}/{0-7} 0in-flight=0 0d0:1128(-M-)
+2(XEN)    IRQ: 128 vec:e6 PCI-MSI/-X      status=030 aff:{0}/{0-7} 7in-flight=0 bd0:1127(-M-)
+7(XEN)    IRQ: 129 vec:ee PCI-MSI/-X      status=030 aff:{0}/{0-7} din-flight=0 6d0:1126(-M-)
+0(XEN)    IRQ: 130 vec:37 PCI-MSI/-X      status=030 aff:{0}/{0-7} in-flight=0 
+d0:1125(-M-)
+[(XEN)    IRQ: 131 vec:3f PCI-MSI/-X      status=030 aff:{0}/{0-7}  in-flight=0  d0:1124(-M-)
+5(XEN)    IRQ: 132 vec:47 PCI-MSI/-X      status=030 aff:{0}/{0-7} 0in-flight=0 .d0:1123(-M-)
+6(XEN)    IRQ: 133 vec:4f PCI-MSI/-X      status=030 aff:{0}/{0-7} 8in-flight=0 9d0:1122(-M-)
+2(XEN)    IRQ: 134 vec:76 PCI-MSI/-X      status=030 aff:{0}/{0-7} 7in-flight=0 2d0:1121(-M-)
+3(XEN)    IRQ: 135 vec:7e PCI-MSI/-X      status=030 aff:{0}/{0-7} ]in-flight=0  d0:1120(-M-)
+m(XEN)    IRQ: 136 vec:86 PCI-MSI/-X      status=030 aff:{0}/{0-7} fin-flight=0 id0:1119(-M-)
+i(XEN)    IRQ: 137 vec:57 PCI-MSI/-X      status=030 aff:{0}/{0-7} 0in-flight=0 :d0:1118(-M-)
+ (XEN)    IRQ: 138 vec:5f PCI-MSI/-X      status=030 aff:{0}/{0-7} nin-flight=0 od0:1117(-M-)
+r(XEN)    IRQ: 139 vec:67 PCI-MSI/-X      status=030 aff:{0}/{0-7} min-flight=0 ad0:1116(-M-)
+l(XEN)    IRQ: 140 vec:6f PCI-MSI/-X      status=030 aff:{0}/{0-7}  in-flight=0 sd0:1115(-M-)
+t(XEN)    IRQ: 141 vec:77 PCI-MSI/-X      status=030 aff:{0}/{0-7} ain-flight=0 td0:1114(-M-)
+e(XEN)    IRQ: 142 vec:7f PCI-MSI/-X      status=030 aff:{0}/{0-7}  in-flight=0 od0:1113(-M-)
+n(XEN)    IRQ: 143 vec:87 PCI-MSI/-X      status=030 aff:{0}/{0-7}  in-flight=0 'd0:1112(-M-)
+m(XEN)    IRQ: 144 vec:8f PCI-MSI/-X      status=030 aff:{0}/{0-7} fin-flight=0 id0:1111(-M-)
+i(XEN)    IRQ: 145 vec:97 PCI-MSI/-X      status=030 aff:{0}/{0-7} 0in-flight=0 :d0:1110(-M-)
+0(XEN)    IRQ: 146 vec:9f PCI-MSI/-X      status=030 aff:{0}/{0-7} 'in-flight=0  d0:1109(-M-)
+((XEN)    IRQ: 147 vec:a7 PCI-MSI/-X      status=030 aff:{0}/{0-7} oin-flight=0 nd0:1108(-M-)
+l(XEN)    IRQ: 148 vec:af PCI-MSI/-X      status=030 aff:{0}/{0-7} iin-flight=0 nd0:1107(-M-)
+e(XEN)    IRQ: 149 vec:b7 PCI-MSI/-X      status=030 aff:{0}/{0-7} )in-flight=0 d0:1106(-M-)
+
+(XEN)    IRQ: 150 vec:bf PCI-MSI/-X      status=030 aff:{0}/{0-7} [in-flight=0  d0:1105(-M-)
+ (XEN) Direct vector information:
+5(XEN)    0x22 -> irq_move_cleanup_interrupt()
+0(XEN)    0xf2 -> arch/x86/cpu/mcheck/mce_intel.c#cmci_interrupt()
+.(XEN)    0xf3 -> arch/x86/cpu/mcheck/mce_intel.c#intel_thermal_interrupt()
+7(XEN)    0xf4 -> arch/x86/hvm/vmx/vmx.c#pi_notification_interrupt()
+1(XEN)    0xf9 -> pmu_apic_interrupt()
+3(XEN)    0xfa -> apic_timer_interrupt()
+8(XEN)    0xfb -> call_function_interrupt()
+3(XEN)    0xfc -> event_check_interrupt()
+7(XEN)    0xfd -> invalidate_interrupt()
+3(XEN)    0xfe -> error_interrupt()
+](XEN)    0xff -> spurious_interrupt()
+ (XEN) IO-APIC interrupt information:
+s(XEN)     IRQ  0 Vec240:
+d(XEN)       Apic 0x00, Pin  2: 0vec=f0 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+:(XEN)     IRQ  1 Vec112:
+ (XEN)       Apic 0x00, Pin  1: fvec=70 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+a(XEN)     IRQ  3 Vec241:
+b(XEN)       Apic 0x00, Pin  3: rvec=f1 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00015555
+i(XEN)     IRQ  4 Vec120:
+c(XEN)       Apic 0x00, Pin  4: avec=78 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+t(XEN)     IRQ  5 Vec136:
+i(XEN)       Apic 0x00, Pin  5: nvec=88 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+g(XEN)     IRQ  6 Vec144:
+ (XEN)       Apic 0x00, Pin  6: avec=90 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+ (XEN)     IRQ  7 Vec152:
+g(XEN)       Apic 0x00, Pin  7: evec=98 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+o(XEN)     IRQ  8 Vec160:
+m(XEN)       Apic 0x00, Pin  8: evec=a0 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+t(XEN)     IRQ  9 Vec168:
+r(XEN)       Apic 0x00, Pin  9: yvec=a8 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=L mask=0 dest_id:00000001
+(XEN)     IRQ 10 Vec176:
+(XEN)       Apic 0x00, Pin 10: 
+vec=b0 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=1 dest_id:00000001
+(XEN)     IRQ 11 Vec184:
+(XEN)       Apic 0x00, Pin 11: vec=b8 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+[(XEN)     IRQ 12 Vec192:
+ (XEN)       Apic 0x00, Pin 12:  vec=c0 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+5(XEN)     IRQ 13 Vec200:
+1(XEN)       Apic 0x00, Pin 13: .vec=c8 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+3(XEN)     IRQ 14 Vec208:
+9(XEN)       Apic 0x00, Pin 14: 3vec=d0 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+9(XEN)     IRQ 15 Vec216:
+1(XEN)       Apic 0x00, Pin 15: 0vec=d8 delivery=LoPri dest=L status=0 polarity=0 irr=0 trig=E mask=0 dest_id:00000001
+2(XEN)     IRQ 16 Vec 73:
+](XEN)       Apic 0x00, Pin 16:  vec=49 delivery=LoPri dest=L status=0 polarity=1 irr=0 trig=L mask=0 dest_id:00000001
+s(XEN)     IRQ 34 Vec 81:
+d(XEN)       Apic 0x02, Pin  2: 0vec=51 delivery=LoPri dest=L status=0 polarity=1 irr=0 trig=L mask=0 dest_id:00000001
+:(XEN) vIO-APIC dom0 state:
+ (XEN) ioapic 0 pin 0 gsi 0 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+G(XEN) ioapic 0 pin 1 gsi 1 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+P(XEN) ioapic 0 pin 2 gsi 2 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+T(XEN) ioapic 0 pin 3 gsi 3 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+ (XEN) ioapic 0 pin 4 gsi 4 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+G(XEN) ioapic 0 pin 5 gsi 5 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+U(XEN) ioapic 0 pin 6 gsi 6 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+I(XEN) ioapic 0 pin 7 gsi 7 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+D(XEN) ioapic 0 pin 8 gsi 8 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+:(XEN) ioapic 0 pin 9 gsi 9 vector 0x60
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 1 mask 0 dest id 0
+ (XEN) ioapic 0 pin 10 gsi 10 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+4(XEN) ioapic 0 pin 11 gsi 11 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+c(XEN) ioapic 0 pin 12 gsi 12 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+d(XEN) ioapic 0 pin 13 gsi 13 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+0(XEN) ioapic 0 pin 14 gsi 14 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+a(XEN) ioapic 0 pin 15 gsi 15 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+8(XEN) ioapic 0 pin 16 gsi 16 vector 0x66
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 0 dest id 0
+9(XEN) ioapic 0 pin 17 gsi 17 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 1 dest id 0
+7(XEN) ioapic 0 pin 18 gsi 18 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 1 dest id 0
+-(XEN) ioapic 0 pin 19 gsi 19 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 1 dest id 0
+b(XEN) ioapic 0 pin 20 gsi 20 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 1 dest id 0
+5(XEN) ioapic 0 pin 21 gsi 21 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 1 dest id 0
+9(XEN) ioapic 0 pin 22 gsi 22 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 1 dest id 0
+1(XEN) ioapic 0 pin 23 gsi 23 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 1 dest id 0
+-(XEN) ioapic 1 pin 0 gsi 24 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+4(XEN) ioapic 1 pin 1 gsi 25 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+5(XEN) ioapic 1 pin 2 gsi 26 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+c(XEN) ioapic 1 pin 3 gsi 27 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+5(XEN) ioapic 1 pin 4 gsi 28 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+-(XEN) ioapic 1 pin 5 gsi 29 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+8(XEN) ioapic 1 pin 6 gsi 30 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+6(XEN) ioapic 1 pin 7 gsi 31 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+7(XEN) ioapic 2 pin 0 gsi 32 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+9(XEN) ioapic 2 pin 1 gsi 33 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+-(XEN) ioapic 2 pin 2 gsi 34 vector 0x67
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 1 IRR 0 trig mode 1 mask 0 dest id 0
+f(XEN) ioapic 2 pin 3 gsi 35 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+2(XEN) ioapic 2 pin 4 gsi 36 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+d(XEN) ioapic 2 pin 5 gsi 37 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+4(XEN) ioapic 2 pin 6 gsi 38 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+b(XEN) ioapic 2 pin 7 gsi 39 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+c(XEN) ioapic 3 pin 0 gsi 40 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+0(XEN) ioapic 3 pin 1 gsi 41 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+d(XEN) ioapic 3 pin 2 gsi 42 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+8(XEN) ioapic 3 pin 3 gsi 43 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+3(XEN) ioapic 3 pin 4 gsi 44 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+c(XEN) ioapic 3 pin 5 gsi 45 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+8(XEN) ioapic 3 pin 6 gsi 46 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+(XEN) ioapic 3 pin 7 gsi 47 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+
+(XEN) ioapic 4 pin 0 gsi 48 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+[(XEN) ioapic 4 pin 1 gsi 49 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+ (XEN) ioapic 4 pin 2 gsi 50 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+ (XEN) ioapic 4 pin 3 gsi 51 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+5(XEN) ioapic 4 pin 4 gsi 52 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+1(XEN) ioapic 4 pin 5 gsi 53 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+.(XEN) ioapic 4 pin 6 gsi 54 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+8(XEN) ioapic 4 pin 7 gsi 55 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+1(XEN) ioapic 5 pin 0 gsi 72 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+0(XEN) ioapic 5 pin 1 gsi 73 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+3(XEN) ioapic 5 pin 2 gsi 74 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+0(XEN) ioapic 5 pin 3 gsi 75 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+7(XEN) ioapic 5 pin 4 gsi 76 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+4(XEN) ioapic 5 pin 5 gsi 77 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+](XEN) ioapic 5 pin 6 gsi 78 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+ (XEN) ioapic 5 pin 7 gsi 79 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+d(XEN) ioapic 6 pin 0 gsi 80 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+k(XEN) ioapic 6 pin 1 gsi 81 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+0(XEN) ioapic 6 pin 2 gsi 82 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+ (XEN) ioapic 6 pin 3 gsi 83 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+a(XEN) ioapic 6 pin 4 gsi 84 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+t(XEN) ioapic 6 pin 5 gsi 85 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+ (XEN) ioapic 6 pin 6 gsi 86 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+s(XEN) ioapic 6 pin 7 gsi 87 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+d(XEN) ioapic 7 pin 0 gsi 88 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+0(XEN) ioapic 7 pin 1 gsi 89 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+:(XEN) ioapic 7 pin 2 gsi 90 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+ (XEN) ioapic 7 pin 3 gsi 91 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+"(XEN) ioapic 7 pin 4 gsi 92 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+r(XEN) ioapic 7 pin 5 gsi 93 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+o(XEN) ioapic 7 pin 6 gsi 94 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+o(XEN) ioapic 7 pin 7 gsi 95 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+t(XEN) ioapic 8 pin 0 gsi 96 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+"(XEN) ioapic 8 pin 1 gsi 97 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+,(XEN) ioapic 8 pin 2 gsi 98 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+ (XEN) ioapic 8 pin 3 gsi 99 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+1(XEN) ioapic 8 pin 4 gsi 100 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+0(XEN) ioapic 8 pin 5 gsi 101 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+2(XEN) ioapic 8 pin 6 gsi 102 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+4(XEN) ioapic 8 pin 7 gsi 103 vector 0
+(XEN)   delivery mode 0 dest mode 0 delivery status 0
+(XEN)   polarity 0 IRR 0 trig mode 0 mask 1 dest id 0
+
+--OXfL5xGRrasGEqWY--
 
