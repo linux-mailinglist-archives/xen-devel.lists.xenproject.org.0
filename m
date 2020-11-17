@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FDDB2B5429
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Nov 2020 23:15:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.28657.57712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E7142B55F9
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Nov 2020 02:13:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.28673.57727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kemmD-0001mX-Hl; Mon, 16 Nov 2020 22:15:09 +0000
+	id 1kepXH-0006Jp-WD; Tue, 17 Nov 2020 01:11:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 28657.57712; Mon, 16 Nov 2020 22:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 28673.57727; Tue, 17 Nov 2020 01:11:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,223 +23,257 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kemmD-0001m8-Em; Mon, 16 Nov 2020 22:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 28657;
- Mon, 16 Nov 2020 22:15:07 +0000
+	id 1kepXH-0006JQ-T2; Tue, 17 Nov 2020 01:11:55 +0000
+Received: by outflank-mailman (input) for mailman id 28673;
+ Tue, 17 Nov 2020 01:11:54 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DwRh=EW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kemmB-0001m3-91
- for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 22:15:07 +0000
+ <SRS0=Shnx=EX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kepXG-0006JL-BP
+ for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 01:11:54 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6b6ba5e9-bbaf-4a94-8d56-2f53f41c1f9b;
- Mon, 16 Nov 2020 22:15:06 +0000 (UTC)
+ id 40f6d5cd-4341-4717-b900-5ec9b099e8d8;
+ Tue, 17 Nov 2020 01:11:53 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
  [24.130.65.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E9DCC2224B;
- Mon, 16 Nov 2020 22:15:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 27B1F24686;
+ Tue, 17 Nov 2020 01:11:52 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=DwRh=EW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kemmB-0001m3-91
-	for xen-devel@lists.xenproject.org; Mon, 16 Nov 2020 22:15:07 +0000
-X-Inumbo-ID: 6b6ba5e9-bbaf-4a94-8d56-2f53f41c1f9b
+	(envelope-from <SRS0=Shnx=EX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kepXG-0006JL-BP
+	for xen-devel@lists.xenproject.org; Tue, 17 Nov 2020 01:11:54 +0000
+X-Inumbo-ID: 40f6d5cd-4341-4717-b900-5ec9b099e8d8
 Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 6b6ba5e9-bbaf-4a94-8d56-2f53f41c1f9b;
-	Mon, 16 Nov 2020 22:15:06 +0000 (UTC)
+	id 40f6d5cd-4341-4717-b900-5ec9b099e8d8;
+	Tue, 17 Nov 2020 01:11:53 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id E9DCC2224B;
-	Mon, 16 Nov 2020 22:15:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 27B1F24686;
+	Tue, 17 Nov 2020 01:11:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1605564905;
-	bh=oPKNVtxxK245+Q42be0r+QqSCBzguDwheQthAdmtAKM=;
+	s=default; t=1605575512;
+	bh=l4Ig2qO6LhuzAZ2MTnBHCjBBRYCfMmboeAapZ2vkQho=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=n3nAiMMLHOUiiv1iSyaDKLCTtQBWpgrqM2ILl2BpO3wdfeZ7QthaK7zWb2Ow4sFQr
-	 BNuwqJTQL9JnHwbu13Zx5FPVEQIA2j9+1ggH2ORM42esIRQDkbvNYv3vVGCxodV5jS
-	 BEiRY6YNf0cprbFowwpRuQGM61KLQvMc8bRy7qXM=
-Date: Mon, 16 Nov 2020 14:15:04 -0800 (PST)
+	b=eZmwDLl56O+GYkr1bZuF5uZNalE44AKysgNXvzyMgNDJx5+c1aJzATIwkOqnd5p6N
+	 lBm3GllKXspTnTHKTRqmYh/psbGDH5rod+8afRd7BXaBjpetrbgjZtgJi0uNRFKPNK
+	 xSxfSgrnNi321zeCdWPqOR9URK3pLVowIv5ACbuM=
+Date: Mon, 16 Nov 2020 17:11:51 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Michal Orzel <michal.orzel@arm.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com
-Subject: Re: [PATCH v2] xen/arm: Add workaround for Cortex-A76/Neoverse-N1
- erratum #1286807
-In-Reply-To: <20201116121140.26763-1-michal.orzel@arm.com>
-Message-ID: <alpine.DEB.2.21.2011161414280.20906@sstabellini-ThinkPad-T480s>
-References: <20201116121140.26763-1-michal.orzel@arm.com>
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 1/3] xen/ns16550: Make ns16550 driver usable on ARM
+ with HAS_PCI enabled.
+In-Reply-To: <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2011161710140.20906@sstabellini-ThinkPad-T480s>
+References: <cover.1605527997.git.rahul.singh@arm.com> <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 16 Nov 2020, Michal Orzel wrote:
-> On the affected Cortex-A76/Neoverse-N1 cores (r0p0 to r3p0),
-> if a virtual address for a cacheable mapping of a location is being
-> accessed by a core while another core is remapping the virtual
-> address to a new physical page using the recommended break-before-make
-> sequence, then under very rare circumstances TLBI+DSB completes before
-> a read using the translation being invalidated has been observed by
-> other observers. The workaround repeats the TLBI+DSB operation
-> for all the TLB flush operations on purpose.
+On Mon, 16 Nov 2020, Rahul Singh wrote:
+> NS16550 driver has PCI support that is under HAS_PCI flag. When HAS_PCI
+> is enabled for ARM, compilation error is observed for ARM architecture
+> because ARM platforms do not have full PCI support available.
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-
-Looks good and it looks like you addressed all Julien's comments, so:
+> Introducing new kconfig option CONFIG_HAS_NS16550_PCI to support
+> ns16550 PCI for X86.
+> 
+> For X86 platforms it is enabled by default. For ARM platforms it is
+> disabled by default, once we have proper support for NS16550 PCI for
+> ARM we can enable it.
+> 
+> No functional change.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  docs/misc/arm/silicon-errata.txt     |  2 ++
->  xen/arch/arm/Kconfig                 | 23 +++++++++++++++++++++
->  xen/arch/arm/cpuerrata.c             | 14 +++++++++++++
->  xen/include/asm-arm/arm64/flushtlb.h | 30 +++++++++++++++++++---------
->  xen/include/asm-arm/cpufeature.h     |  3 ++-
->  5 files changed, 62 insertions(+), 10 deletions(-)
 > 
-> diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
-> index 552c4151d3..d183ba543f 100644
-> --- a/docs/misc/arm/silicon-errata.txt
-> +++ b/docs/misc/arm/silicon-errata.txt
-> @@ -53,5 +53,7 @@ stable hypervisors.
->  | ARM            | Cortex-A72      | #853709         | N/A                     |
->  | ARM            | Cortex-A73      | #858921         | ARM_ERRATUM_858921      |
->  | ARM            | Cortex-A76      | #1165522        | N/A                     |
-> +| ARM            | Cortex-A76      | #1286807        | ARM64_ERRATUM_1286807   |
->  | ARM            | Neoverse-N1     | #1165522        | N/A
-> +| ARM            | Neoverse-N1     | #1286807        | ARM64_ERRATUM_1286807   |
->  | ARM            | MMU-500         | #842869         | N/A                     |
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index f938dd21bd..8171b8d04a 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -244,6 +244,29 @@ config ARM_ERRATUM_858921
+> Changes in v3:
+> - remove help text from the Kconfig file because of prompt-less option.
+> 
+> ---
+>  xen/drivers/char/Kconfig   |  4 ++++
+>  xen/drivers/char/ns16550.c | 32 ++++++++++++++++----------------
+>  2 files changed, 20 insertions(+), 16 deletions(-)
+> 
+> diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
+> index b572305657..abb59fdb0f 100644
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -4,6 +4,10 @@ config HAS_NS16550
+>  	help
+>  	  This selects the 16550-series UART support. For most systems, say Y.
 >  
->  	  If unsure, say Y.
->  
-> +config ARM64_WORKAROUND_REPEAT_TLBI
-> +	bool
+> +config HAS_NS16550_PCI
+> +	def_bool y
+> +	depends on X86 && HAS_NS16550 && HAS_PCI
 > +
-> +config ARM64_ERRATUM_1286807
-> +	bool "Cortex-A76/Neoverse-N1: 1286807: Modification of the translation table for a virtual address might lead to read-after-read ordering violation"
-> +	default y
-> +	select ARM64_WORKAROUND_REPEAT_TLBI
-> +	depends on ARM_64
-> +	help
-> +	  This option adds a workaround for ARM Cortex-A76/Neoverse-N1 erratum 1286807.
-> +
-> +	  On the affected Cortex-A76/Neoverse-N1 cores (r0p0 to r3p0), if a virtual
-> +	  address for a cacheable mapping of a location is being
-> +	  accessed by a core while another core is remapping the virtual
-> +	  address to a new physical page using the recommended
-> +	  break-before-make sequence, then under very rare circumstances
-> +	  TLBI+DSB completes before a read using the translation being
-> +	  invalidated has been observed by other observers. The
-> +	  workaround repeats the TLBI+DSB operation for all the TLB flush
-> +	  operations on purpose.
-> +
-> +	  If unsure, say Y.
-> +
->  endmenu
->  
->  config ARM64_HARDEN_BRANCH_PREDICTOR
-> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-> index 567911d380..cb4795beec 100644
-> --- a/xen/arch/arm/cpuerrata.c
-> +++ b/xen/arch/arm/cpuerrata.c
-> @@ -424,6 +424,20 @@ static const struct arm_cpu_capabilities arm_errata[] = {
->                     (1 << MIDR_VARIANT_SHIFT) | 2),
->      },
+>  config HAS_CADENCE_UART
+>  	bool "Xilinx Cadence UART driver"
+>  	default y
+> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+> index d8b52eb813..bd1c2af956 100644
+> --- a/xen/drivers/char/ns16550.c
+> +++ b/xen/drivers/char/ns16550.c
+> @@ -16,7 +16,7 @@
+>  #include <xen/timer.h>
+>  #include <xen/serial.h>
+>  #include <xen/iocap.h>
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>  #include <xen/pci.h>
+>  #include <xen/pci_regs.h>
+>  #include <xen/pci_ids.h>
+> @@ -54,7 +54,7 @@ enum serial_param_type {
+>      reg_shift,
+>      reg_width,
+>      stop_bits,
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      bridge_bdf,
+>      device,
+>      port_bdf,
+> @@ -83,7 +83,7 @@ static struct ns16550 {
+>      unsigned int timeout_ms;
+>      bool_t intr_works;
+>      bool_t dw_usr_bsy;
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      /* PCI card parameters. */
+>      bool_t pb_bdf_enable;   /* if =1, pb-bdf effective, port behind bridge */
+>      bool_t ps_bdf_enable;   /* if =1, ps_bdf effective, port on pci card */
+> @@ -117,14 +117,14 @@ static const struct serial_param_var __initconst sp_vars[] = {
+>      {"reg-shift", reg_shift},
+>      {"reg-width", reg_width},
+>      {"stop-bits", stop_bits},
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      {"bridge", bridge_bdf},
+>      {"dev", device},
+>      {"port", port_bdf},
 >  #endif
-> +#ifdef CONFIG_ARM64_ERRATUM_1286807
-> +    {
-> +        /* Cortex-A76 r0p0 - r3p0 */
-> +        .desc = "ARM erratum 1286807",
-> +        .capability = ARM64_WORKAROUND_REPEAT_TLBI,
-> +        MIDR_RANGE(MIDR_CORTEX_A76, 0, 3 << MIDR_VARIANT_SHIFT),
-> +    },
-> +    {
-> +        /* Neoverse-N1 r0p0 - r3p0 */
-> +        .desc = "ARM erratum 1286807",
-> +        .capability = ARM64_WORKAROUND_REPEAT_TLBI,
-> +        MIDR_RANGE(MIDR_NEOVERSE_N1, 0, 3 << MIDR_VARIANT_SHIFT),
-> +    },
-> +#endif
->  #ifdef CONFIG_ARM64_HARDEN_BRANCH_PREDICTOR
+>  };
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>  struct ns16550_config {
+>      u16 vendor_id;
+>      u16 dev_id;
+> @@ -620,7 +620,7 @@ static int ns16550_getc(struct serial_port *port, char *pc)
+>  
+>  static void pci_serial_early_init(struct ns16550 *uart)
+>  {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      if ( !uart->ps_bdf_enable || uart->io_base >= 0x10000 )
+>          return;
+>  
+> @@ -719,7 +719,7 @@ static void __init ns16550_init_preirq(struct serial_port *port)
+>  
+>  static void __init ns16550_init_irq(struct serial_port *port)
+>  {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      struct ns16550 *uart = port->uart;
+>  
+>      if ( uart->msi )
+> @@ -761,7 +761,7 @@ static void __init ns16550_init_postirq(struct serial_port *port)
+>      uart->timeout_ms = max_t(
+>          unsigned int, 1, (bits * uart->fifo_size * 1000) / uart->baud);
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      if ( uart->bar || uart->ps_bdf_enable )
 >      {
->          .capability = ARM_HARDEN_BRANCH_PREDICTOR,
-> diff --git a/xen/include/asm-arm/arm64/flushtlb.h b/xen/include/asm-arm/arm64/flushtlb.h
-> index ceec59542e..8f2abfaf1d 100644
-> --- a/xen/include/asm-arm/arm64/flushtlb.h
-> +++ b/xen/include/asm-arm/arm64/flushtlb.h
-> @@ -9,6 +9,12 @@
->   * DSB ISH          // Ensure the TLB invalidation has completed
->   * ISB              // See explanation below
->   *
-> + * ARM64_WORKAROUND_REPEAT_TLBI:
-> + * Modification of the translation table for a virtual address might lead to
-> + * read-after-read ordering violation.
-> + * The workaround repeats TLBI+DSB operation for all the TLB flush operations
-> + * on purpose.
-> + *
->   * For Xen page-tables the ISB will discard any instructions fetched
->   * from the old mappings.
->   *
-> @@ -16,15 +22,21 @@
->   * (and therefore the TLB invalidation) before continuing. So we know
->   * the TLBs cannot contain an entry for a mapping we may have removed.
->   */
-> -#define TLB_HELPER(name, tlbop) \
-> -static inline void name(void)   \
-> -{                               \
-> -    asm volatile(               \
-> -        "dsb  ishst;"           \
-> -        "tlbi "  # tlbop  ";"   \
-> -        "dsb  ish;"             \
-> -        "isb;"                  \
-> -        : : : "memory");        \
-> +#define TLB_HELPER(name, tlbop)                  \
-> +static inline void name(void)                    \
-> +{                                                \
-> +    asm volatile(                                \
-> +        "dsb  ishst;"                            \
-> +        "tlbi "  # tlbop  ";"                    \
-> +        ALTERNATIVE(                             \
-> +            "nop; nop;",                         \
-> +            "dsb  ish;"                          \
-> +            "tlbi "  # tlbop  ";",               \
-> +            ARM64_WORKAROUND_REPEAT_TLBI,        \
-> +            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI) \
-> +        "dsb  ish;"                              \
-> +        "isb;"                                   \
-> +        : : : "memory");                         \
+>          if ( uart->param && uart->param->mmio &&
+> @@ -841,7 +841,7 @@ static void ns16550_suspend(struct serial_port *port)
+>  
+>      stop_timer(&uart->timer);
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      if ( uart->bar )
+>         uart->cr = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
+>                                    uart->ps_bdf[2]), PCI_COMMAND);
+> @@ -850,7 +850,7 @@ static void ns16550_suspend(struct serial_port *port)
+>  
+>  static void _ns16550_resume(struct serial_port *port)
+>  {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      struct ns16550 *uart = port->uart;
+>  
+>      if ( uart->bar )
+> @@ -1013,7 +1013,7 @@ static int __init check_existence(struct ns16550 *uart)
+>      return 1; /* Everything is MMIO */
+>  #endif
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      pci_serial_early_init(uart);
+>  #endif
+>  
+> @@ -1044,7 +1044,7 @@ static int __init check_existence(struct ns16550 *uart)
+>      return (status == 0x90);
 >  }
 >  
->  /* Flush local TLBs, current VMID only. */
-> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
-> index 016a9fe203..c7b5052992 100644
-> --- a/xen/include/asm-arm/cpufeature.h
-> +++ b/xen/include/asm-arm/cpufeature.h
-> @@ -46,8 +46,9 @@
->  #define ARM_SMCCC_1_1 8
->  #define ARM64_WORKAROUND_AT_SPECULATE 9
->  #define ARM_WORKAROUND_858921 10
-> +#define ARM64_WORKAROUND_REPEAT_TLBI 11
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>  static int __init
+>  pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
+>  {
+> @@ -1305,7 +1305,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
 >  
-> -#define ARM_NCAPS           11
-> +#define ARM_NCAPS           12
+>      if ( *conf == ',' && *++conf != ',' )
+>      {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>          if ( strncmp(conf, "pci", 3) == 0 )
+>          {
+>              if ( pci_uart_config(uart, 1/* skip AMT */, uart - ns16550_com) )
+> @@ -1327,7 +1327,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
 >  
->  #ifndef __ASSEMBLY__
+>      if ( *conf == ',' && *++conf != ',' )
+>      {
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>          if ( strncmp(conf, "msi", 3) == 0 )
+>          {
+>              conf += 3;
+> @@ -1339,7 +1339,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
+>              uart->irq = simple_strtol(conf, &conf, 10);
+>      }
 >  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>      if ( *conf == ',' && *++conf != ',' )
+>      {
+>          conf = parse_pci(conf, NULL, &uart->ps_bdf[0],
+> @@ -1419,7 +1419,7 @@ static bool __init parse_namevalue_pairs(char *str, struct ns16550 *uart)
+>              uart->reg_width = simple_strtoul(param_value, NULL, 0);
+>              break;
+>  
+> -#ifdef CONFIG_HAS_PCI
+> +#ifdef CONFIG_HAS_NS16550_PCI
+>          case bridge_bdf:
+>              if ( !parse_pci(param_value, NULL, &uart->ps_bdf[0],
+>                              &uart->ps_bdf[1], &uart->ps_bdf[2]) )
 > -- 
-> 2.28.0
+> 2.17.1
 > 
 
