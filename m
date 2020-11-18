@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26592B7DD8
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 13:51:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29817.59494 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE822B7E33
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 14:20:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29838.59523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfMvS-0002ts-9w; Wed, 18 Nov 2020 12:51:06 +0000
+	id 1kfNMY-00059i-TF; Wed, 18 Nov 2020 13:19:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29817.59494; Wed, 18 Nov 2020 12:51:06 +0000
+Received: by outflank-mailman (output) from mailman id 29838.59523; Wed, 18 Nov 2020 13:19:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,108 +23,117 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfMvS-0002tT-6q; Wed, 18 Nov 2020 12:51:06 +0000
-Received: by outflank-mailman (input) for mailman id 29817;
- Wed, 18 Nov 2020 12:51:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8qHR=EY=infradead.org=willy@srs-us1.protection.inumbo.net>)
- id 1kfMvO-0002tO-3O
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:51:04 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1557e271-f376-4114-8bb5-35ce5e1da761;
- Wed, 18 Nov 2020 12:50:58 +0000 (UTC)
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kfMuz-0006LA-DU; Wed, 18 Nov 2020 12:50:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kfNMY-00059J-Py; Wed, 18 Nov 2020 13:19:06 +0000
+Received: by outflank-mailman (input) for mailman id 29838;
+ Wed, 18 Nov 2020 13:19:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kfNMX-00059E-CE
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 13:19:05 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a9b9006b-6191-4470-9e9c-8753a214ded9;
+ Wed, 18 Nov 2020 13:19:02 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D593EAFD8;
+ Wed, 18 Nov 2020 13:19:01 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=8qHR=EY=infradead.org=willy@srs-us1.protection.inumbo.net>)
-	id 1kfMvO-0002tO-3O
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:51:04 +0000
-X-Inumbo-ID: 1557e271-f376-4114-8bb5-35ce5e1da761
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 1557e271-f376-4114-8bb5-35ce5e1da761;
-	Wed, 18 Nov 2020 12:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=HSUzUyKTU/QS1kBHnPfjuFObEMrIAG6LjkrRvHzZF6g=; b=mpIozshx6aJo2QoKkj03Sj4lqv
-	eATDwM5+pyAtrhOHDUVD77b65789cHxYoWQANXOTIXt7qV/KGnbJ83izmUrP2MQ/2l3mBwDw4mdoW
-	Y5kbGddaa/QKi7M9RwOUo9SSjzPgbiiV1208faqzs+g6W2VUCPYuQiOn803XJb/o/nettEMMrZhNr
-	200kJLaXlHseKJHdT2eZ+hl3ThDl9guSn9OMId2L1GwrdkO42exGupejK69RQO+t1ajwPpeevqxwt
-	f3XgZhPQ7s2PLOBKSeN45qsCk6Fy+tmNaH6Rrigl3ju4Z9SvL4rjgUhEPeklvtVToHeHs9jg6H9jx
-	JzIvniVg==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kfMuz-0006LA-DU; Wed, 18 Nov 2020 12:50:37 +0000
-Date: Wed, 18 Nov 2020 12:50:37 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Christoph Hellwig <hch@lst.de>,
-	Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
-	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org, Jens Axboe <axboe@kernel.dk>
-Subject: Re: merge struct block_device and struct hd_struct
-Message-ID: <20201118125037.GE29991@casper.infradead.org>
-References: <20201118084800.2339180-1-hch@lst.de>
- <22ca5396-0253-f286-9eab-d417b2e0b3ad@suse.com>
- <20201118085804.GA20384@lst.de>
- <1ded2079-f1be-6d5d-01df-65754447df78@suse.com>
- <X7Tky/6dDN8+DrU7@kroah.com>
- <61044f85-cd41-87b5-3f41-36e3dffb6f2a@suse.com>
+	(envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kfNMX-00059E-CE
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 13:19:05 +0000
+X-Inumbo-ID: a9b9006b-6191-4470-9e9c-8753a214ded9
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id a9b9006b-6191-4470-9e9c-8753a214ded9;
+	Wed, 18 Nov 2020 13:19:02 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605705542; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sGHdC2L5o1J1lqE6yUAnA1GvuIm+6bMrJhY8jdQST/I=;
+	b=qySZxs66lDCP88+3Z2BcvdKm+gXwqRXJDfZNttxjnJXw75PLKB/CorpjXfUGsN3H/a4A5R
+	UA9mPNVhc4/Ya61IXseangR8Of75SAsaeTPGFcP2lS4juBHREimhDHinpE7CUmIrjB0mov
+	doMELB36q1i/16owwchcfoyxvuvrrz0=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id D593EAFD8;
+	Wed, 18 Nov 2020 13:19:01 +0000 (UTC)
+Subject: Re: [PATCH v6 2/3] xen/evtchn: rework per event channel lock
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20201109163826.13035-1-jgross@suse.com>
+ <20201109163826.13035-3-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <77067fa0-d902-9091-50e0-d6e15e34b159@suse.com>
+Date: Wed, 18 Nov 2020 14:19:02 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <61044f85-cd41-87b5-3f41-36e3dffb6f2a@suse.com>
+In-Reply-To: <20201109163826.13035-3-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 18, 2020 at 10:23:51AM +0100, Jan Beulich wrote:
-> On 18.11.2020 10:09, Greg KH wrote:
-> > On Wed, Nov 18, 2020 at 10:04:04AM +0100, Jan Beulich wrote:
-> >> On 18.11.2020 09:58, Christoph Hellwig wrote:
-> >>> On Wed, Nov 18, 2020 at 09:56:11AM +0100, Jan Beulich wrote:
-> >>>> since this isn't the first series from you recently spamming
-> >>>> xen-devel, may I ask that you don't Cc entire series to lists
-> >>>> which are involved with perhaps just one out of the many patches?
-> >>>> IMO Cc lists should be compiled on a per-patch basis; the cover
-> >>>> letter may of course be sent to the union of all of them.
-> >>>
-> >>> No way.  Individual CCs are completely broken as they don't provide
-> >>> the reviewer a context.
-> >>
-> >> That's the view of some people, but not all. Context can be easily
-> >> established by those who care going to one of the many archives on
-> >> which the entire series lands. Getting spammed, however, can't be
-> >> avoided by the dozens or hundreds of list subscribers.
-> > 
-> > kernel patches are never "spam", sorry, but for developers to try to
-> > determine which lists/maintainers want to see the whole series and which
-> > do not is impossible.
-> > 
-> > Patches in a series are easily deleted from sane mail clients with a
-> > single click/keystroke all at once, they aren't a problem that needs to
-> > be reduced in volume.
+On 09.11.2020 17:38, Juergen Gross wrote:
+> Currently the lock for a single event channel needs to be taken with
+> interrupts off, which causes deadlocks in some cases.
 > 
-> This doesn't scale, neither in the dimension of recipients nor in
-> the dimension of possible sources of such series.
+> Rework the per event channel lock to be non-blocking for the case of
+> sending an event and removing the need for disabling interrupts for
+> taking the lock.
 > 
-> While it may seem small, it's also a waste of resources to have mails
-> sent to hundreds of even thousands of people. So while from a
-> technical content perspective I surely agree with you saying 'kernel
-> patches are never "spam"', they still are from the perspective of
-> what "spam mail" originally means: Mail the recipients did not want
-> to receive.
+> The lock is needed for avoiding races between event channel state
+> changes (creation, closing, binding) against normal operations (set
+> pending, [un]masking, priority changes).
+> 
+> Use a rwlock, but with some restrictions:
+> 
+> - Changing the state of an event channel (creation, closing, binding)
+>   needs to use write_lock(), with ASSERT()ing that the lock is taken as
+>   writer only when the state of the event channel is either before or
+>   after the locked region appropriate (either free or unbound).
+> 
+> - Sending an event needs to use read_trylock() mostly, in case of not
+>   obtaining the lock the operation is omitted. This is needed as
+>   sending an event can happen with interrupts off (at least in some
+>   cases).
+> 
+> - Dumping the event channel state for debug purposes is using
+>   read_trylock(), too, in order to avoid blocking in case the lock is
+>   taken as writer for a long time.
+> 
+> - All other cases can use read_lock().
 
-What doesn't scale is developers who only care about their tiny
-sliver of Linux and don't stick their heads up from time to time and
-look around.  This is an opportunity for people to become more involved
-in the development of Linux as a whole, instead of just worrying about
-their bit.  You're not "a Xen developer".  You're a Linux developer
-whose current focus is on Xen.
+One of the implications is that racing invocations of ->set_pending()
+are now possible for the same port. Beyond what I said in reply to
+0/3 already, I'm afraid there are (latent) issues:
+
+1) The update of ->pending (or basically any bitfield in struct
+evtchn, or yet more generically any field getting updated in a read-
+modify-write fashion) is no longer generally safe in any of the
+hooks called with just a read lock held. ->pending itself is not an
+issue now merely because it shares storage only with xen_consumer,
+which won't get updated once a port was bound.
+
+2) Of two racing sends, one may now complete without the port
+actually having got fully recorded as linked in the FIFO code. This
+is because the party losing the race of setting EVTCHN_FIFO_LINKED
+will return early, without regard to whether the winner has made
+enough progress. (Of course this is possible only with an
+intermediate queue change, as only then the lock would become
+available to the second of the senders early enough.)
+
+I've gone through other functions called from this path and didn't
+find any further race potential there, but I'm not entirely certain
+I didn't miss anything.
+
+Jan
 
