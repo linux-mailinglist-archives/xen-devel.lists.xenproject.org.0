@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3808B2B7D90
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 13:24:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29795.59465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73BD42B7D9C
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 13:29:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29800.59477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfMVA-0008LL-Id; Wed, 18 Nov 2020 12:23:56 +0000
+	id 1kfMaS-000082-Bh; Wed, 18 Nov 2020 12:29:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29795.59465; Wed, 18 Nov 2020 12:23:56 +0000
+Received: by outflank-mailman (output) from mailman id 29800.59477; Wed, 18 Nov 2020 12:29:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,249 +23,171 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfMVA-0008Kw-Eu; Wed, 18 Nov 2020 12:23:56 +0000
-Received: by outflank-mailman (input) for mailman id 29795;
- Wed, 18 Nov 2020 12:23:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kfMV9-0008Kr-HL
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:23:55 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kfMV8-0002g8-Vm; Wed, 18 Nov 2020 12:23:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+	id 1kfMaS-00007d-8Q; Wed, 18 Nov 2020 12:29:24 +0000
+Received: by outflank-mailman (input) for mailman id 29800;
+ Wed, 18 Nov 2020 12:29:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BWMM=EY=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kfMaQ-00006j-Iy
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:29:22 +0000
+Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 152eb89c-3e99-4d2b-af0c-7ce439501a6e;
+ Wed, 18 Nov 2020 12:29:21 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id u12so2087732wrt.0
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Nov 2020 04:29:21 -0800 (PST)
+Received: from CBGR90WXYV0
+ (host109-146-187-185.range109-146.btcentralplus.com. [109.146.187.185])
+ by smtp.gmail.com with ESMTPSA id v189sm3989075wmg.14.2020.11.18.04.29.19
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 18 Nov 2020 04:29:20 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfMV9-0008Kr-HL
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:23:55 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfMV8-0002g8-Vm; Wed, 18 Nov 2020 12:23:55 +0000
-Subject: Re: AW: AW: AW: AW: Xen data from meta-virtualization layer
-To: Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Leo Krueger <leo.krueger@zal.aero>
-Cc: Peng Fan <peng.fan@nxp.com>, "brucea@xilinx.com" <brucea@xilinx.com>,
- Cornelia Bruelhart <cornelia.bruelhart@zal.aero>,
- oleksandr_andrushchenko@epam.com, xen-devel@lists.xenproject.org,
- Bertrand.Marquis@arm.com
-References: <AM4PR0501MB2227089FDDF0209EF6E215D9E6100@AM4PR0501MB2227.eurprd05.prod.outlook.com>
- <HE1PR05MB47941E23CE053CE72F18867C8BEA0@HE1PR05MB4794.eurprd05.prod.outlook.com>
- <alpine.DEB.2.21.2011091858010.21307@sstabellini-ThinkPad-T480s>
- <HE1PR05MB4794B5C57A54A29A48EE8EAE8BE90@HE1PR05MB4794.eurprd05.prod.outlook.com>
- <alpine.DEB.2.21.2011101842500.21307@sstabellini-ThinkPad-T480s>
- <DB6PR0402MB27608A03EC717053E392A92988E80@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <HE1PR05MB47940ED4E5FDC0BADC54C8E78BE80@HE1PR05MB4794.eurprd05.prod.outlook.com>
- <DB6PR0402MB2760CEEABA9F52CDEB27C1DB88E80@DB6PR0402MB2760.eurprd04.prod.outlook.com>
- <HE1PR05MB47944761ED6A26D3E2CE15868BE40@HE1PR05MB4794.eurprd05.prod.outlook.com>
- <alpine.DEB.2.21.2011161656080.20906@sstabellini-ThinkPad-T480s>
- <HE1PR05MB4794569AC67109AF8B6517268BE20@HE1PR05MB4794.eurprd05.prod.outlook.com>
- <alpine.DEB.2.21.2011171544380.438@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <5dc63ee2-f1ce-31fc-cb6a-fe4dae929fb3@xen.org>
-Date: Wed, 18 Nov 2020 12:23:52 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.3
+	(envelope-from <SRS0=BWMM=EY=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+	id 1kfMaQ-00006j-Iy
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:29:22 +0000
+X-Inumbo-ID: 152eb89c-3e99-4d2b-af0c-7ce439501a6e
+Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 152eb89c-3e99-4d2b-af0c-7ce439501a6e;
+	Wed, 18 Nov 2020 12:29:21 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id u12so2087732wrt.0
+        for <xen-devel@lists.xenproject.org>; Wed, 18 Nov 2020 04:29:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:content-language
+         :thread-index;
+        bh=a7q5y5kwEhcoxThrF6U+u43rpWzWheQIW/yaAeO7GWk=;
+        b=Y03YSM6VsBDbA8isiYP2X7gNhTUXsgwisKUzu/AFjfWh8SOPdW9BFDUg17Ow2z9BUE
+         9mPjR+fx1oFvOA+ltrdad44VmfDZVodl1zNibG0PVADnh18Dih3/fOnLkazqJRC9faUa
+         TAjdlcUKYeifjYg48KeDjPOWmoGPXIR0og1UtaGZA/uRTQg1bRHdve61/8xcCMdtRrSK
+         3Oea7OrS0tvK0QWszCaAN13MVQIh834b7iK3gRgy17+fKjm1CxxLCMAA86SUI86e3NWp
+         j7xx1FDt0+bfzhMfmE+GcSRJPVkR31d4I4y2n7UfMM34k5m8KRWFK4xIJ6979QVIbeb7
+         oLCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :content-language:thread-index;
+        bh=a7q5y5kwEhcoxThrF6U+u43rpWzWheQIW/yaAeO7GWk=;
+        b=tPxW3FVehEK54vDa9+i6CsGt2BV0M5MtroeDwzgecMyY2gH11stU00KIbUHOZnyIrz
+         WNb+A68CczBJlfvKI6dzxoU8oxDK3yWGfXXjnlWseVq6o549UaA/6tlkADrWQCQ6r6Wh
+         oZZyuuVLbor/WbBTRglKJlLqgYzb+i1zWmqfzD2y4LIJ61W5l3qkZczMoU/pLnCmzCTc
+         OWdbhwubLR+fY7ZuzfDjgBKYUR8Fet8Xeu9qTxdgDFy1VVSQqRGMbplzJo+T3dvdXPFa
+         xpgw/x8+Ow6cSJosfOxuFzsA+pDKiaiselI4INH2De71daeZuztf1jHvaNComhbpBmjk
+         3BaQ==
+X-Gm-Message-State: AOAM5331AxjGXgFuCHJkevVKm4MFqwbx/mMint4mfAvTJRhZZvNNXoRf
+	UsD6Wh6YlWvjS6hoZfW4bVs=
+X-Google-Smtp-Source: ABdhPJz9jKDbFhsLf/E2gE9cy8bgu/f44QQZAaG7eBduyPPsBCYoA8OOtC7WLNOWbp969e8uD6+ZKw==
+X-Received: by 2002:adf:ffc9:: with SMTP id x9mr4667501wrs.148.1605702560655;
+        Wed, 18 Nov 2020 04:29:20 -0800 (PST)
+Received: from CBGR90WXYV0 (host109-146-187-185.range109-146.btcentralplus.com. [109.146.187.185])
+        by smtp.gmail.com with ESMTPSA id v189sm3989075wmg.14.2020.11.18.04.29.19
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 18 Nov 2020 04:29:20 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Oleksandr'" <olekstysh@gmail.com>
+Cc: <xen-devel@lists.xenproject.org>,
+	"'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
+	"'Jan Beulich'" <jbeulich@suse.com>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Wei Liu'" <wl@xen.org>,
+	"'George Dunlap'" <george.dunlap@citrix.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Julien Grall'" <julien@xen.org>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'Julien Grall'" <julien.grall@arm.com>
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com> <1602780274-29141-8-git-send-email-olekstysh@gmail.com> <79588865-3f28-5436-0763-cb8ee0b87262@gmail.com>
+In-Reply-To: <79588865-3f28-5436-0763-cb8ee0b87262@gmail.com>
+Subject: RE: [PATCH V2 07/23] xen/ioreq: Move x86's ioreq_gfn(server) to struct domain
+Date: Wed, 18 Nov 2020 12:29:19 -0000
+Message-ID: <00b101d6bda6$7055f2b0$5101d810$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2011171544380.438@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQFqp5MaNUj6MKEiN9RM6S6pfA5bVAHOAtspAs5yhsWqgRnfwA==
 
-Hi,
+> -----Original Message-----
+> From: Oleksandr <olekstysh@gmail.com>
+> Sent: 18 November 2020 12:09
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko =
+<oleksandr_tyshchenko@epam.com>; Jan Beulich
+> <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Roger =
+Pau Monn=C3=A9
+> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; George Dunlap =
+<george.dunlap@citrix.com>; Ian Jackson
+> <iwj@xenproject.org>; Julien Grall <julien@xen.org>; Stefano =
+Stabellini <sstabellini@kernel.org>;
+> Julien Grall <julien.grall@arm.com>
+> Subject: Re: [PATCH V2 07/23] xen/ioreq: Move x86's ioreq_gfn(server) =
+to struct domain
+>=20
+>=20
+> Hi Paul.
+>=20
+> > --- a/xen/include/xen/sched.h
+> > +++ b/xen/include/xen/sched.h
+> > @@ -314,6 +314,8 @@ struct sched_unit {
+> >
+> >   struct evtchn_port_ops;
+> >
+> > +#define MAX_NR_IOREQ_SERVERS 8
+> > +
+> >   struct domain
+> >   {
+> >       domid_t          domain_id;
+> > @@ -521,6 +523,21 @@ struct domain
+> >       /* Argo interdomain communication support */
+> >       struct argo_domain *argo;
+> >   #endif
+> > +
+> > +#ifdef CONFIG_IOREQ_SERVER
+> > +    /* Guest page range used for non-default ioreq servers */
+> > +    struct {
+> > +        unsigned long base;
+> > +        unsigned long mask;
+> > +        unsigned long legacy_mask; /* indexed by HVM param number =
+*/
+> > +    } ioreq_gfn;
+>=20
+> I assume the whole ioreq_gfn struct doesn't need to be here. According
+> to the new requirement to leave legacy interface x86 specific,
+>=20
+> these fields won't be used in common code anymore. I will move =
+ioreq_gfn
+> struct back to hvm_domain. Please confirm.
 
-On 17/11/2020 23:53, Stefano Stabellini wrote:
-> Adding Bertrand, Oleksandr, Julien, and others -- they have a more
-> recent experience with GICv3 ITS than me and might be able to help.
-> I am attaching the device tree Leo sent a few days ago for reference.
-> 
-> 
-> Typically when you can set the ethernet link up and no packets are
-> exchanged it is because of a missing interrupt. In this case a missing
-> MSI.
-> 
-> Bertrand, I believe you tried the GIC ITS driver with PCI devices
-> recently. It is expected to work correctly with MSIs in Dom0, right?
+Yes, leave it where it is in struct hvm_domain.
 
-OSSTest has some hardware (e.g. Thunder-X) where ITS is required to boot 
-Dom0. I haven't seen any failure on recent Xen. We are testing 4.11 and 
-onwards on Thunder-X.
+  Paul
 
-However, it may be possible that some more work is necessary for other 
-hardware (e.g. workaround, missing code...). See more below.
-
-> 
-> 
-> 
-> On Tue, 17 Nov 2020, Leo Krueger wrote:
->> Hi,
->>
->> I enabled CONFIG_HAS_ITS (what a stupid mistake by me to not set it before...) but then had to add the following node to my device tree
->>
->> 	gic_lpi_base: syscon@0x80000000 {
->> 		compatible = "gic-lpi-base";
-
-I couldn't find this compatible defined/used in Linux 5.10-rc4. @Leo, 
-could you clarify which flavor/version of Linux you are using?
-
->> 		reg = <0x0 0x80000000 0x0 0x100000>;
->> 		max-gic-redistributors = <2>;
->> 	};
->>
->> to somehow change something in regard to the ITS and MSI/MSI-X
->>
->> (XEN) GICv3 initialization:
->> (XEN)       gic_dist_addr=0x00000006000000
->> (XEN)       gic_maintenance_irq=25
->> (XEN)       gic_rdist_stride=0
->> (XEN)       gic_rdist_regions=1
->> (XEN)       redistributor regions:
->> (XEN)         - region 0: 0x00000006040000 - 0x00000006080000
->> (XEN) GICv3: using at most 57344 LPIs on the host.
->> (XEN) GICv3: 288 lines, (IID 0001143b).
->> (XEN) GICv3: Found ITS @0x6020000
->> (XEN) using non-cacheable ITS command queue
->> (XEN) GICv3: CPU0: Found redistributor in region 0 @000000004001c000
->>
->> [    0.000000] GICv3: Distributor has no Range Selector support
->> [    0.000000] GICv3: no VLPI support, no direct LPI support
->> [    0.000000] ITS [mem 0x06020000-0x0603ffff]
->> [    0.000000] ITS@0x0000000006020000: allocated 65536 Devices @dc880000 (flat, esz 8, psz 64K, shr 1)
->> [    0.000000] ITS@0x0000000006020000: allocated 32768 Interrupt Collections @dc820000 (flat, esz 2, psz 64K, shr 1)
->> [    0.000000] GIC: using LPI property table @0x00000000dc830000
->> [    0.000000] GICv3: CPU0: found redistributor 0 region 0:0x0000000006040000
->> [    0.000000] CPU0: using LPI pending table @0x00000000dc840000
->> ...
->> [    0.040080] Platform MSI: gic-its domain created
->> [    0.040136] PCI/MSI: /interrupt-controller/gic-its domain created
->> [    0.040181] fsl-mc MSI: /interrupt-controller/gic-its domain created
->>
->>
->> Still I am ending up with the " Failed to add - passthrough or MSI/MSI-X might fail!" log messages for some PCI devices, but at least the on-board ethernet ports (fsl_enetc ) are initialized.
->> I can set the link up and a link is successfully established.
-
-This message is normal. Xen on Arm is not yet aware of PCI devices and 
-therefore the hypercalls to add PCI devices will return -EOPNOTSUPP.
-
-However, this is not an issue because the virtual ITS implementation 
-will allow dom0 to configure any devices.
-
->>
->> But (!) I cannot receive or transmit anything (no error message...) and there seem to be no interrupts:
->>
->> 29:          0   ITS-MSI   1 Edge      gbe0-rxtx0
->>   32:          0   ITS-MSI 8192 Edge      ptp_qoriq
->>
->> (from /proc/interrupts).
->>
->> Any idea on this one? I keep digging and checking whether my device tree needs some additional fixes.
-
-Can you apply patch [1] and provide the logs? This will dump more 
-information about the command received by the vITS and the one send to 
-the host ITS.
-
-Note that Xen will need to be build with CONFIG_DEBUG=y in order to get 
-some of the messages.
-
-[...]
-
->>>> [    0.000000] GICv3: Distributor has no Range Selector support
->>>>
->>>> [    0.000000] GICv3: no VLPI support, no direct LPI support
->>>>
->>>> [    0.000000] GICv3: CPU0: found redistributor 0 region
->>>> 0:0x0000000006040000
->>>
->>> "no VLPI support" is very suspicious, it looks like Dom0 doesn't find any ITS
->>> support.
-VLPI is a feature that was introduced in GICv4 to directly inject LPI in 
-the guest. So this is normal to see this message when running on Xen 
-because we are going to only expose a GICv3 to a domain until at least 
-we support nested virt.
-
-However, you were right about that Xen didn't expose the ITS because the 
-following lines were missing:
-
-[    0.000000] ITS@0x0000000006020000: allocated 65536 Devices @dc880000 
-(flat, esz 8, psz 64K, shr 1)
-
-Cheers,
-
-[1]
-diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
-index 9558bad96ac3..8a0a02308e74 100644
---- a/xen/arch/arm/gic-v3-its.c
-+++ b/xen/arch/arm/gic-v3-its.c
-@@ -87,6 +87,10 @@ static int its_send_command(struct host_its *hw_its, 
-const void *its_cmd)
-      /* No ITS commands from an interrupt handler (at the moment). */
-      ASSERT(!in_irq());
-
-+    printk(XENLOG_WARNING, "pITS  cmd 0x%02lx: %016lx %016lx %016lx 
-%016lx\n",
-+           its_cmd_get_command(command),
-+           command[0], command[1], command[2], command[3]);
-+
-      spin_lock(&hw_its->cmd_lock);
-
-      do {
-diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
-index 869bc97fa1aa..e7c5bcd8d423 100644
---- a/xen/arch/arm/gic-v3-lpi.c
-+++ b/xen/arch/arm/gic-v3-lpi.c
-@@ -183,7 +183,10 @@ void gicv3_do_LPI(unsigned int lpi)
-      /* Find out if a guest mapped something to this physical LPI. */
-      hlpip = gic_get_host_lpi(lpi);
-      if ( !hlpip )
-+    {
-+        printk("%s: Received LPI %u but it is not mapped?\n", __func__, 
-lpi);
-          goto out;
-+    }
-
-      hlpi.data = read_u64_atomic(&hlpip->data);
-
-@@ -222,6 +225,9 @@ void gicv3_lpi_update_host_entry(uint32_t host_lpi, 
-int domain_id,
-  {
-      union host_lpi *hlpip, hlpi;
-
-+    printk("%s: host_lpi %u domain %d virq_lpi %u\n",
-+           __func__, host_lpi, domain_id, virq_lpi);
-+
-      ASSERT(host_lpi >= LPI_OFFSET);
-
-      host_lpi -= LPI_OFFSET;
-diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
-index 58d939b85f92..89ef137b3e6b 100644
---- a/xen/arch/arm/vgic-v3-its.c
-+++ b/xen/arch/arm/vgic-v3-its.c
-@@ -897,7 +897,7 @@ out_unlock:
-
-  static void dump_its_command(uint64_t *command)
-  {
--    gdprintk(XENLOG_WARNING, "  cmd 0x%02lx: %016lx %016lx %016lx 
-%016lx\n",
-+    gdprintk(XENLOG_WARNING, "vITS  cmd 0x%02lx: %016lx %016lx %016lx 
-%016lx\n",
-               its_cmd_get_command(command),
-               command[0], command[1], command[2], command[3]);
-  }
-@@ -926,6 +926,8 @@ static int vgic_its_handle_cmds(struct domain *d, 
-struct virt_its *its)
-          if ( ret )
-              return ret;
-
-+        dump_its_command(command);
-+
-          switch ( its_cmd_get_command(command) )
-          {
-          case GITS_CMD_CLEAR:
+>=20
+>=20
+> > +
+> > +    /* Lock protects all other values in the sub-struct and the =
+default */
+> > +    struct {
+> > +        spinlock_t              lock;
+> > +        struct ioreq_server     *server[MAX_NR_IOREQ_SERVERS];
+> > +    } ioreq_server;
+> > +#endif
+> >   };
+> >
+> >   static inline struct page_list_head *page_to_list(
+>=20
+> --
+> Regards,
+>=20
+> Oleksandr Tyshchenko
 
 
--- 
-Julien Grall
 
