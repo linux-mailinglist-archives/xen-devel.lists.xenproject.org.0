@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 210E32B8470
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 20:10:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30237.60087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0703F2B8637
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 22:01:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30251.60108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfSqF-0003EU-Sn; Wed, 18 Nov 2020 19:10:07 +0000
+	id 1kfUZK-0005Uc-Ak; Wed, 18 Nov 2020 21:00:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30237.60087; Wed, 18 Nov 2020 19:10:07 +0000
+Received: by outflank-mailman (output) from mailman id 30251.60108; Wed, 18 Nov 2020 21:00:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,232 +23,245 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfSqF-0003CH-OL; Wed, 18 Nov 2020 19:10:07 +0000
-Received: by outflank-mailman (input) for mailman id 30237;
- Wed, 18 Nov 2020 19:10:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kfSqE-0003BQ-PV
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 19:10:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kfSqC-0000b2-Cb; Wed, 18 Nov 2020 19:10:04 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kfSqB-0005Zx-Sk; Wed, 18 Nov 2020 19:10:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kfUZK-0005UD-6j; Wed, 18 Nov 2020 21:00:46 +0000
+Received: by outflank-mailman (input) for mailman id 30251;
+ Wed, 18 Nov 2020 21:00:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hmm/=EY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kfUZI-0005U8-S4
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 21:00:44 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0d645aca-18b7-44cf-be0e-f2afaa826add;
+ Wed, 18 Nov 2020 21:00:44 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id B35FE2075B;
+ Wed, 18 Nov 2020 21:00:42 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfSqE-0003BQ-PV
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 19:10:06 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=ZPDYQeEJMUeJ53IrIFmyaECuSyUuN6lz1LGnQKhaaOY=; b=PeZOptQ+HEnC90bBU/nDLY1FqO
-	SLrQoH42sNEM6noPRIzyEPtEbzbVgqgnACvoBZkwoyQByaupx8R24vzd5fuK8bJjxOjyNxrPogya9
-	dpEOqoaDnUx/l4sJDZFDBWGJTcTWZV6LxKh1Th917AuSGQi30xRXQ+eLQQZnB2TKJfe8=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfSqC-0000b2-Cb; Wed, 18 Nov 2020 19:10:04 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfSqB-0005Zx-Sk; Wed, 18 Nov 2020 19:10:04 +0000
-Subject: Re: [PATCH 1/3] mm: introduce xvmalloc() et al and use for grant
- table allocations
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <e0364274-f123-82bd-ec85-bea519a34049@suse.com>
- <d98aabe4-6c1b-0970-2e42-eb991e9075a2@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <e7b72c54-e8e4-428d-9264-484fc0061ba4@xen.org>
-Date: Wed, 18 Nov 2020 19:10:01 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.3
+	(envelope-from <SRS0=hmm/=EY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1kfUZI-0005U8-S4
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 21:00:44 +0000
+X-Inumbo-ID: 0d645aca-18b7-44cf-be0e-f2afaa826add
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 0d645aca-18b7-44cf-be0e-f2afaa826add;
+	Wed, 18 Nov 2020 21:00:44 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id B35FE2075B;
+	Wed, 18 Nov 2020 21:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1605733243;
+	bh=egciVJeNpgcLiVvye+pnZUkuZpAFnD3PDDiETXG6wHA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=eOb8/U1A5BGWtv8oNrTzjJsDIe+lbfwXT2idH70Xp6swVsRMUZ1dPvptGT3uxoISO
+	 SDcgWWVrT+F5Vu60BevSUUPBiozWthJT9NTkkXeeyWpAdg16X/h0iKKlICUm9v94dl
+	 Cm8irhFOUTM2H9OKOKL6977zMHSmYewtSeOFIMJA=
+Date: Wed, 18 Nov 2020 13:00:30 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    Bertrand.Marquis@arm.com, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    george.dunlap@citrix.com, iwj@xenproject.org, julien@xen.org, wl@xen.org, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] xen: EXPERT clean-up and introduce UNSUPPORTED
+In-Reply-To: <eb6b32c3-c7e2-1e36-f492-0c00cc170ce2@suse.com>
+Message-ID: <alpine.DEB.2.21.2011181241310.11739@sstabellini-ThinkPad-T480s>
+References: <20201118005051.26115-1-sstabellini@kernel.org> <eb6b32c3-c7e2-1e36-f492-0c00cc170ce2@suse.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <d98aabe4-6c1b-0970-2e42-eb991e9075a2@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Jan,
-
-On 06/11/2020 07:11, Jan Beulich wrote:
-> All of the array allocations in grant_table_init() can exceed a page's
-> worth of memory, which xmalloc()-based interfaces aren't really suitable
-> for after boot. 
-
-I can see a few reasons why they are not suitable:
-   - xmalloc() will try to using an order and then throw memory. This is 
-pretty inneficient.
-   - xmalloc() will allocate physically contiguous memory
-
-It would be good to clarify which one you refer because none of them are 
-really a problem only after boot...
-
-One thing to be aware thought is xv*() are going to be more inefficient 
-because they involve touching the page-tables (at least until the work 
-to map on-demand the direct map is not merged). In addition, on Arm, 
-they will also use only 4K mappings (I have a TODO to fix that).
-
-So I think we will need to be careful when to use xmalloc() vs 
-xvalloc(). It might be worth outlining that in the documentation of xv*().
-
-The current use in the grant-table code looks fine to me.
-
-[...]
-
-> --- a/xen/common/vmap.c
-> +++ b/xen/common/vmap.c
-> @@ -7,6 +7,7 @@
->   #include <xen/spinlock.h>
->   #include <xen/types.h>
->   #include <xen/vmap.h>
-> +#include <xen/xvmalloc.h>
->   #include <asm/page.h>
->   
->   static DEFINE_SPINLOCK(vm_lock);
-> @@ -299,11 +300,29 @@ void *vzalloc(size_t size)
->       return p;
->   }
->   
-> -void vfree(void *va)
-> +static void _vfree(const void *va, unsigned int pages, enum vmap_region type)
-
-I don't think "unsigned int" is sufficient to cover big size. AFAICT, 
-this is not in a new problem in this code and seems to be a latent issue 
-so far.
-
-However, I feel that it is wrong to introduce a new set of allocation 
-helpers that contained a flaw fixed in xm*alloc() recently (see  commit 
-cf38b4926e2b "xmalloc: guard against integer overflow").
-
-> -    unsigned int i, pages;
-> +    unsigned int i;
->       struct page_info *pg;
->       PAGE_LIST_HEAD(pg_list);
-> +
-> +    ASSERT(pages);
-> +
-> +    for ( i = 0; i < pages; i++ )
-> +    {
-> +        pg = vmap_to_page(va + i * PAGE_SIZE);
-> +        ASSERT(pg);
-> +        page_list_add(pg, &pg_list);
-> +    }
-> +    vunmap(va);
-> +
-> +    while ( (pg = page_list_remove_head(&pg_list)) != NULL )
-> +        free_domheap_page(pg);
-> +}
-> +
-> +void vfree(void *va)
-> +{
-> +    unsigned int pages;
->       enum vmap_region type = VMAP_DEFAULT;
->   
->       if ( !va )
-> @@ -315,18 +334,71 @@ void vfree(void *va)
->           type = VMAP_XEN;
->           pages = vm_size(va, type);
->       }
-> -    ASSERT(pages);
->   
-> -    for ( i = 0; i < pages; i++ )
-> +    _vfree(va, pages, type);
-> +}
-> +
-
-[...]
-
-> --- /dev/null
-> +++ b/xen/include/xen/xvmalloc.h
-> @@ -0,0 +1,70 @@
-> +
-> +#ifndef __XVMALLOC_H__
-> +#define __XVMALLOC_H__
-> +
-> +#include <xen/cache.h>
-> +#include <xen/types.h>
-> +
-> +/*
-> + * Xen malloc/free-style interface.
-
-It would be useful to emphase that they should only be used if the 
-caller does *not* need physically contiguous memory.
-
-> + */
-> +
-> +/* Allocate space for typed object. */
-> +#define xvmalloc(_type) ((_type *)_xvmalloc(sizeof(_type), __alignof__(_type)))
-> +#define xvzalloc(_type) ((_type *)_xvzalloc(sizeof(_type), __alignof__(_type)))
-> +
-> +/* Allocate space for array of typed objects. */
-> +#define xvmalloc_array(_type, _num) \
-> +    ((_type *)_xvmalloc_array(sizeof(_type), __alignof__(_type), _num))
-> +#define xvzalloc_array(_type, _num) \
-> +    ((_type *)_xvzalloc_array(sizeof(_type), __alignof__(_type), _num))
-> +
-> +/* Allocate space for a structure with a flexible array of typed objects. */
-> +#define xvzalloc_flex_struct(type, field, nr) \
-> +    ((type *)_xvzalloc(offsetof(type, field[nr]), __alignof__(type)))
-> +
-> +#define xvmalloc_flex_struct(type, field, nr) \
-> +    ((type *)_xvmalloc(offsetof(type, field[nr]), __alignof__(type)))
-> +
-> +/* Re-allocate space for a structure with a flexible array of typed objects. */
-> +#define xvrealloc_flex_struct(ptr, field, nr)                          \
-> +    ((typeof(ptr))_xvrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]), \
-> +                             __alignof__(typeof(*(ptr)))))
-> +
-> +/* Allocate untyped storage. */
-> +#define xvmalloc_bytes(_bytes) _xvmalloc(_bytes, SMP_CACHE_BYTES)
-> +#define xvzalloc_bytes(_bytes) _xvzalloc(_bytes, SMP_CACHE_BYTES)
-> +
-> +/* Free any of the above. */
-> +extern void xvfree(void *);
-> +
-> +/* Free an allocation, and zero the pointer to it. */
-> +#define XVFREE(p) do { \
-> +    xvfree(p);         \
-> +    (p) = NULL;        \
-> +} while ( false )
-> +
-> +/* Underlying functions */
-> +extern void *_xvmalloc(size_t size, unsigned int align);
-> +extern void *_xvzalloc(size_t size, unsigned int align);
-> +extern void *_xvrealloc(void *ptr, size_t size, unsigned int align);
-> +
-> +static inline void *_xvmalloc_array(
-> +    size_t size, unsigned int align, unsigned long num)
-> +{
-> +    /* Check for overflow. */
-> +    if ( size && num > UINT_MAX / size )
-> +        return NULL;
-> +    return _xvmalloc(size * num, align);
-> +}
-> +
-> +static inline void *_xvzalloc_array(
-> +    size_t size, unsigned int align, unsigned long num)
-> +{
-> +    /* Check for overflow. */
-> +    if ( size && num > UINT_MAX / size )
-> +        return NULL;
-> +    return _xvzalloc(size * num, align);
-> +}
-> +
-> +#endif /* __XVMALLOC_H__ */
+On Wed, 18 Nov 2020, Jan Beulich wrote:
+> On 18.11.2020 01:50, Stefano Stabellini wrote:
+> > 1) It is not obvious that "Configure standard Xen features (expert
+> > users)" is actually the famous EXPERT we keep talking about on xen-devel
 > 
+> Which can be addressed by simply changing the one prompt line.
+> 
+> > 2) It is not obvious when we need to enable EXPERT to get a specific
+> > feature
+> > 
+> > In particular if you want to enable ACPI support so that you can boot
+> > Xen on an ACPI platform, you have to enable EXPERT first. But searching
+> > through the kconfig menu it is really not clear (type '/' and "ACPI"):
+> > nothing in the description tells you that you need to enable EXPERT to
+> > get the option.
+> 
+> And what causes this to be different once you switch to UNSUPPORTED?
 
--- 
-Julien Grall
+Two things: firstly, it doesn't and shouldn't take an expert to enable
+ACPI support, even if ACPI support is experimental. So calling it
+UNSUPPORTED helps a lot. This is particularly relevant to the ARM Kconfig
+options changed by this patch. Secondly, this patch is adding
+"(UNSUPPORTED)" in the oneline prompt so that it becomes easy to match
+it with the option you need to enable.
+
+
+> > So this patch makes things easier by doing two things:
+> > 
+> > - introduce a new kconfig option UNSUPPORTED which is clearly to enable
+> >   UNSUPPORTED features as defined by SUPPORT.md
+> > 
+> > - change EXPERT options to UNSUPPORTED where it makes sense: keep
+> >   depending on EXPERT for features made for experts
+> > 
+> > - tag unsupported features by adding (UNSUPPORTED) to the one-line
+> >   description
+> 
+> I am, btw, not fully convinced of the need for this redundancy. Wouldn't
+> it be enough to have just EXPERT as a setting, but varying (<reason>)
+> tokens in the prompt text?
+
+I don't think so, for the same reasons written above: EXPERT should not
+be gating things like ACPI. Moreover, the advantage of the tag in the
+oneline prompt is that you can search for an option and figure out that
+you need to enable UNSUPPORTED. It doesn't work if we use a different
+tag. Just to get the idea, try to do "make menuconfig" and search for
+"ARGO" with '/': you'll see "(UNSUPPORTED)". Then, if you search for
+"UNSUPPORTED" you can find what you need to enable.
+
+
+> > --- a/xen/Kconfig
+> > +++ b/xen/Kconfig
+> > @@ -34,8 +34,17 @@ config DEFCONFIG_LIST
+> >  	option defconfig_list
+> >  	default ARCH_DEFCONFIG
+> >  
+> > +config UNSUPPORTED
+> > +	bool "Configure UNSUPPORTED features"
+> > +	help
+> > +	  This option allows unsupported Xen options to be enabled, which
+> 
+> I'd recommend against "enabled" - a control may also be there to allow
+> disabling something.
+
+I can change that.
+
+
+> > +	  includes non-security-supported, experimental, and tech preview
+> > +	  features as defined by SUPPORT.md. Xen binaries built with this
+> > +	  option enabled are not security supported.
+> 
+> Overall I'm a little afraid of possible inverse implications: Anything
+> _not_ dependent upon this option (and in particular anything not
+> dependent upon any Kconfig control) may be considered supported then.
+> 
+> Also the last sentence is already present for EXPERT, 
+
+I am happy to rephrase it. What about:
+
+"This option allows certain unsupported Xen options to be changed, which
+includes non-security-supported, experimental, and tech preview features
+as defined by SUPPORT.md."
+
+
+> > +	default n
+> 
+> I realize you likely merely copied what EXPERT has, but this "default n"
+> is pretty pointless and hence would better be omitted imo.
+
+OK
+
+
+> > --- a/xen/arch/x86/Kconfig
+> > +++ b/xen/arch/x86/Kconfig
+> > @@ -102,8 +102,8 @@ config HVM
+> >  	  If unsure, say Y.
+> >  
+> >  config XEN_SHSTK
+> > -	bool "Supervisor Shadow Stacks"
+> > -	depends on HAS_AS_CET_SS && EXPERT
+> > +	bool "Supervisor Shadow Stacks (UNSUPPORTED)"
+> > +	depends on HAS_AS_CET_SS && UNSUPPORTED
+> >  	default y
+> 
+> Andrew, I think I did ask on v1 already: Do we need to continue to
+> consider this unsupported? While perhaps not a change to make right in
+> this patch, it should perhaps be a pre-patch then to avoid the need to
+> touch it here.
+
+Of course I have no opinion on this. I am happy to do as instructed.
+
+
+> > @@ -165,7 +165,7 @@ config HVM_FEP
+> 
+> Seeing just the patch context here, I think HVM_FEP may also want
+> converting.
+
+OK
+
+
+> > --- a/xen/common/Kconfig
+> > +++ b/xen/common/Kconfig
+> > @@ -151,7 +151,7 @@ config KEXEC
+> >  	  If unsure, say Y.
+> >  
+> >  config EFI_SET_VIRTUAL_ADDRESS_MAP
+> > -    bool "EFI: call SetVirtualAddressMap()" if EXPERT
+> > +    bool "EFI: call SetVirtualAddressMap() (UNSUPPORTED)" if UNSUPPORTED
+> 
+> I have to admit I'm pretty unsure about what to do with this one.
+
+Yeah, similarly to XEN_SHSTK, I don't have an opinion here either.  I am
+happy to change it or leave it as.
+
+
+> > @@ -272,7 +272,7 @@ config LATE_HWDOM
+> >  	  If unsure, say N.
+> >  
+> >  config ARGO
+> > -	bool "Argo: hypervisor-mediated interdomain communication" if EXPERT
+> > +	bool "Argo: hypervisor-mediated interdomain communication (UNSUPPORTED)" if UNSUPPORTED
+> 
+> Perhaps better (EXPERIMENTAL)?
+
+For this and also the schedulers options below, although it is true that
+(EXPERIMENTAL) is a more accurate description, then the problem is that
+it is not easy to match against UNSUPPORTED. In other words, if you
+search for "ARGO" in make menuconfig and it is marked with
+(EXPERIMENTAL), it is not obvious that you need to enable UNSUPPORTED to
+get it as an option. For this reason, I think it is better to use
+(UNSUPPORTED) both here and below for SCHED_ARINC653 and SCHED_NULL.
+
+
+> > --- a/xen/common/sched/Kconfig
+> > +++ b/xen/common/sched/Kconfig
+> > @@ -15,7 +15,7 @@ config SCHED_CREDIT2
+> >  	  optimized for lower latency and higher VM density.
+> >  
+> >  config SCHED_RTDS
+> > -	bool "RTDS scheduler support (EXPERIMENTAL)"
+> > +	bool "RTDS scheduler support (UNSUPPORTED)" if UNSUPPORTED
+> >  	default y
+> >  	---help---
+> >  	  The RTDS scheduler is a soft and firm real-time scheduler for
+> > @@ -23,14 +23,14 @@ config SCHED_RTDS
+> >  	  in the cloud, and general low-latency workloads.
+> >  
+> >  config SCHED_ARINC653
+> > -	bool "ARINC653 scheduler support (EXPERIMENTAL)"
+> > +	bool "ARINC653 scheduler support (UNSUPPORTED)" if UNSUPPORTED
+> >  	default DEBUG
+> >  	---help---
+> >  	  The ARINC653 scheduler is a hard real-time scheduler for single
+> >  	  cores, targeted for avionics, drones, and medical devices.
+> >  
+> >  config SCHED_NULL
+> > -	bool "Null scheduler support (EXPERIMENTAL)"
+> > +	bool "Null scheduler support (UNSUPPORTED)" if UNSUPPORTED
+> >  	default y
+> >  	---help---
+> >  	  The null scheduler is a static, zero overhead scheduler,
+> 
+> I'd like to see (EXPERIMENTAL) stay everywhere here.
+
 
