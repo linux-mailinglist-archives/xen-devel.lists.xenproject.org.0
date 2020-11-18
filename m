@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73BD42B7D9C
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 13:29:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29800.59477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26592B7DD8
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 13:51:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29817.59494 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfMaS-000082-Bh; Wed, 18 Nov 2020 12:29:24 +0000
+	id 1kfMvS-0002ts-9w; Wed, 18 Nov 2020 12:51:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29800.59477; Wed, 18 Nov 2020 12:29:24 +0000
+Received: by outflank-mailman (output) from mailman id 29817.59494; Wed, 18 Nov 2020 12:51:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,171 +23,108 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfMaS-00007d-8Q; Wed, 18 Nov 2020 12:29:24 +0000
-Received: by outflank-mailman (input) for mailman id 29800;
- Wed, 18 Nov 2020 12:29:22 +0000
+	id 1kfMvS-0002tT-6q; Wed, 18 Nov 2020 12:51:06 +0000
+Received: by outflank-mailman (input) for mailman id 29817;
+ Wed, 18 Nov 2020 12:51:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BWMM=EY=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kfMaQ-00006j-Iy
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:29:22 +0000
-Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
+ <SRS0=8qHR=EY=infradead.org=willy@srs-us1.protection.inumbo.net>)
+ id 1kfMvO-0002tO-3O
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:51:04 +0000
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 152eb89c-3e99-4d2b-af0c-7ce439501a6e;
- Wed, 18 Nov 2020 12:29:21 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id u12so2087732wrt.0
- for <xen-devel@lists.xenproject.org>; Wed, 18 Nov 2020 04:29:21 -0800 (PST)
-Received: from CBGR90WXYV0
- (host109-146-187-185.range109-146.btcentralplus.com. [109.146.187.185])
- by smtp.gmail.com with ESMTPSA id v189sm3989075wmg.14.2020.11.18.04.29.19
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 18 Nov 2020 04:29:20 -0800 (PST)
+ id 1557e271-f376-4114-8bb5-35ce5e1da761;
+ Wed, 18 Nov 2020 12:50:58 +0000 (UTC)
+Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
+ Hat Linux)) id 1kfMuz-0006LA-DU; Wed, 18 Nov 2020 12:50:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=BWMM=EY=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
-	id 1kfMaQ-00006j-Iy
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:29:22 +0000
-X-Inumbo-ID: 152eb89c-3e99-4d2b-af0c-7ce439501a6e
-Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
+	(envelope-from <SRS0=8qHR=EY=infradead.org=willy@srs-us1.protection.inumbo.net>)
+	id 1kfMvO-0002tO-3O
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:51:04 +0000
+X-Inumbo-ID: 1557e271-f376-4114-8bb5-35ce5e1da761
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 152eb89c-3e99-4d2b-af0c-7ce439501a6e;
-	Wed, 18 Nov 2020 12:29:21 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id u12so2087732wrt.0
-        for <xen-devel@lists.xenproject.org>; Wed, 18 Nov 2020 04:29:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:content-language
-         :thread-index;
-        bh=a7q5y5kwEhcoxThrF6U+u43rpWzWheQIW/yaAeO7GWk=;
-        b=Y03YSM6VsBDbA8isiYP2X7gNhTUXsgwisKUzu/AFjfWh8SOPdW9BFDUg17Ow2z9BUE
-         9mPjR+fx1oFvOA+ltrdad44VmfDZVodl1zNibG0PVADnh18Dih3/fOnLkazqJRC9faUa
-         TAjdlcUKYeifjYg48KeDjPOWmoGPXIR0og1UtaGZA/uRTQg1bRHdve61/8xcCMdtRrSK
-         3Oea7OrS0tvK0QWszCaAN13MVQIh834b7iK3gRgy17+fKjm1CxxLCMAA86SUI86e3NWp
-         j7xx1FDt0+bfzhMfmE+GcSRJPVkR31d4I4y2n7UfMM34k5m8KRWFK4xIJ6979QVIbeb7
-         oLCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :content-language:thread-index;
-        bh=a7q5y5kwEhcoxThrF6U+u43rpWzWheQIW/yaAeO7GWk=;
-        b=tPxW3FVehEK54vDa9+i6CsGt2BV0M5MtroeDwzgecMyY2gH11stU00KIbUHOZnyIrz
-         WNb+A68CczBJlfvKI6dzxoU8oxDK3yWGfXXjnlWseVq6o549UaA/6tlkADrWQCQ6r6Wh
-         oZZyuuVLbor/WbBTRglKJlLqgYzb+i1zWmqfzD2y4LIJ61W5l3qkZczMoU/pLnCmzCTc
-         OWdbhwubLR+fY7ZuzfDjgBKYUR8Fet8Xeu9qTxdgDFy1VVSQqRGMbplzJo+T3dvdXPFa
-         xpgw/x8+Ow6cSJosfOxuFzsA+pDKiaiselI4INH2De71daeZuztf1jHvaNComhbpBmjk
-         3BaQ==
-X-Gm-Message-State: AOAM5331AxjGXgFuCHJkevVKm4MFqwbx/mMint4mfAvTJRhZZvNNXoRf
-	UsD6Wh6YlWvjS6hoZfW4bVs=
-X-Google-Smtp-Source: ABdhPJz9jKDbFhsLf/E2gE9cy8bgu/f44QQZAaG7eBduyPPsBCYoA8OOtC7WLNOWbp969e8uD6+ZKw==
-X-Received: by 2002:adf:ffc9:: with SMTP id x9mr4667501wrs.148.1605702560655;
-        Wed, 18 Nov 2020 04:29:20 -0800 (PST)
-Received: from CBGR90WXYV0 (host109-146-187-185.range109-146.btcentralplus.com. [109.146.187.185])
-        by smtp.gmail.com with ESMTPSA id v189sm3989075wmg.14.2020.11.18.04.29.19
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 18 Nov 2020 04:29:20 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Oleksandr'" <olekstysh@gmail.com>
-Cc: <xen-devel@lists.xenproject.org>,
-	"'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
-	"'Jan Beulich'" <jbeulich@suse.com>,
-	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
-	"'Wei Liu'" <wl@xen.org>,
-	"'George Dunlap'" <george.dunlap@citrix.com>,
-	"'Ian Jackson'" <iwj@xenproject.org>,
-	"'Julien Grall'" <julien@xen.org>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Julien Grall'" <julien.grall@arm.com>
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com> <1602780274-29141-8-git-send-email-olekstysh@gmail.com> <79588865-3f28-5436-0763-cb8ee0b87262@gmail.com>
-In-Reply-To: <79588865-3f28-5436-0763-cb8ee0b87262@gmail.com>
-Subject: RE: [PATCH V2 07/23] xen/ioreq: Move x86's ioreq_gfn(server) to struct domain
-Date: Wed, 18 Nov 2020 12:29:19 -0000
-Message-ID: <00b101d6bda6$7055f2b0$5101d810$@xen.org>
+	id 1557e271-f376-4114-8bb5-35ce5e1da761;
+	Wed, 18 Nov 2020 12:50:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=HSUzUyKTU/QS1kBHnPfjuFObEMrIAG6LjkrRvHzZF6g=; b=mpIozshx6aJo2QoKkj03Sj4lqv
+	eATDwM5+pyAtrhOHDUVD77b65789cHxYoWQANXOTIXt7qV/KGnbJ83izmUrP2MQ/2l3mBwDw4mdoW
+	Y5kbGddaa/QKi7M9RwOUo9SSjzPgbiiV1208faqzs+g6W2VUCPYuQiOn803XJb/o/nettEMMrZhNr
+	200kJLaXlHseKJHdT2eZ+hl3ThDl9guSn9OMId2L1GwrdkO42exGupejK69RQO+t1ajwPpeevqxwt
+	f3XgZhPQ7s2PLOBKSeN45qsCk6Fy+tmNaH6Rrigl3ju4Z9SvL4rjgUhEPeklvtVToHeHs9jg6H9jx
+	JzIvniVg==;
+Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kfMuz-0006LA-DU; Wed, 18 Nov 2020 12:50:37 +0000
+Date: Wed, 18 Nov 2020 12:50:37 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Christoph Hellwig <hch@lst.de>,
+	Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
+	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: merge struct block_device and struct hd_struct
+Message-ID: <20201118125037.GE29991@casper.infradead.org>
+References: <20201118084800.2339180-1-hch@lst.de>
+ <22ca5396-0253-f286-9eab-d417b2e0b3ad@suse.com>
+ <20201118085804.GA20384@lst.de>
+ <1ded2079-f1be-6d5d-01df-65754447df78@suse.com>
+ <X7Tky/6dDN8+DrU7@kroah.com>
+ <61044f85-cd41-87b5-3f41-36e3dffb6f2a@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQFqp5MaNUj6MKEiN9RM6S6pfA5bVAHOAtspAs5yhsWqgRnfwA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <61044f85-cd41-87b5-3f41-36e3dffb6f2a@suse.com>
 
-> -----Original Message-----
-> From: Oleksandr <olekstysh@gmail.com>
-> Sent: 18 November 2020 12:09
-> To: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; Oleksandr Tyshchenko =
-<oleksandr_tyshchenko@epam.com>; Jan Beulich
-> <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Roger =
-Pau Monn=C3=A9
-> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; George Dunlap =
-<george.dunlap@citrix.com>; Ian Jackson
-> <iwj@xenproject.org>; Julien Grall <julien@xen.org>; Stefano =
-Stabellini <sstabellini@kernel.org>;
-> Julien Grall <julien.grall@arm.com>
-> Subject: Re: [PATCH V2 07/23] xen/ioreq: Move x86's ioreq_gfn(server) =
-to struct domain
->=20
->=20
-> Hi Paul.
->=20
-> > --- a/xen/include/xen/sched.h
-> > +++ b/xen/include/xen/sched.h
-> > @@ -314,6 +314,8 @@ struct sched_unit {
-> >
-> >   struct evtchn_port_ops;
-> >
-> > +#define MAX_NR_IOREQ_SERVERS 8
-> > +
-> >   struct domain
-> >   {
-> >       domid_t          domain_id;
-> > @@ -521,6 +523,21 @@ struct domain
-> >       /* Argo interdomain communication support */
-> >       struct argo_domain *argo;
-> >   #endif
-> > +
-> > +#ifdef CONFIG_IOREQ_SERVER
-> > +    /* Guest page range used for non-default ioreq servers */
-> > +    struct {
-> > +        unsigned long base;
-> > +        unsigned long mask;
-> > +        unsigned long legacy_mask; /* indexed by HVM param number =
-*/
-> > +    } ioreq_gfn;
->=20
-> I assume the whole ioreq_gfn struct doesn't need to be here. According
-> to the new requirement to leave legacy interface x86 specific,
->=20
-> these fields won't be used in common code anymore. I will move =
-ioreq_gfn
-> struct back to hvm_domain. Please confirm.
+On Wed, Nov 18, 2020 at 10:23:51AM +0100, Jan Beulich wrote:
+> On 18.11.2020 10:09, Greg KH wrote:
+> > On Wed, Nov 18, 2020 at 10:04:04AM +0100, Jan Beulich wrote:
+> >> On 18.11.2020 09:58, Christoph Hellwig wrote:
+> >>> On Wed, Nov 18, 2020 at 09:56:11AM +0100, Jan Beulich wrote:
+> >>>> since this isn't the first series from you recently spamming
+> >>>> xen-devel, may I ask that you don't Cc entire series to lists
+> >>>> which are involved with perhaps just one out of the many patches?
+> >>>> IMO Cc lists should be compiled on a per-patch basis; the cover
+> >>>> letter may of course be sent to the union of all of them.
+> >>>
+> >>> No way.  Individual CCs are completely broken as they don't provide
+> >>> the reviewer a context.
+> >>
+> >> That's the view of some people, but not all. Context can be easily
+> >> established by those who care going to one of the many archives on
+> >> which the entire series lands. Getting spammed, however, can't be
+> >> avoided by the dozens or hundreds of list subscribers.
+> > 
+> > kernel patches are never "spam", sorry, but for developers to try to
+> > determine which lists/maintainers want to see the whole series and which
+> > do not is impossible.
+> > 
+> > Patches in a series are easily deleted from sane mail clients with a
+> > single click/keystroke all at once, they aren't a problem that needs to
+> > be reduced in volume.
+> 
+> This doesn't scale, neither in the dimension of recipients nor in
+> the dimension of possible sources of such series.
+> 
+> While it may seem small, it's also a waste of resources to have mails
+> sent to hundreds of even thousands of people. So while from a
+> technical content perspective I surely agree with you saying 'kernel
+> patches are never "spam"', they still are from the perspective of
+> what "spam mail" originally means: Mail the recipients did not want
+> to receive.
 
-Yes, leave it where it is in struct hvm_domain.
-
-  Paul
-
->=20
->=20
-> > +
-> > +    /* Lock protects all other values in the sub-struct and the =
-default */
-> > +    struct {
-> > +        spinlock_t              lock;
-> > +        struct ioreq_server     *server[MAX_NR_IOREQ_SERVERS];
-> > +    } ioreq_server;
-> > +#endif
-> >   };
-> >
-> >   static inline struct page_list_head *page_to_list(
->=20
-> --
-> Regards,
->=20
-> Oleksandr Tyshchenko
-
-
+What doesn't scale is developers who only care about their tiny
+sliver of Linux and don't stick their heads up from time to time and
+look around.  This is an opportunity for people to become more involved
+in the development of Linux as a whole, instead of just worrying about
+their bit.  You're not "a Xen developer".  You're a Linux developer
+whose current focus is on Xen.
 
