@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55EA12B79B8
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 09:59:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29535.59042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 066872B798E
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 09:55:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29515.58995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfJJZ-0001RF-B7; Wed, 18 Nov 2020 08:59:45 +0000
+	id 1kfJF2-0000r6-0K; Wed, 18 Nov 2020 08:55:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29535.59042; Wed, 18 Nov 2020 08:59:45 +0000
+Received: by outflank-mailman (output) from mailman id 29515.58995; Wed, 18 Nov 2020 08:55:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,89 +23,142 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfJJZ-0001Qq-8B; Wed, 18 Nov 2020 08:59:45 +0000
-Received: by outflank-mailman (input) for mailman id 29535;
- Wed, 18 Nov 2020 08:59:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kfJF1-0000qh-TV; Wed, 18 Nov 2020 08:55:03 +0000
+Received: by outflank-mailman (input) for mailman id 29515;
+ Wed, 18 Nov 2020 08:55:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kfJAt-0006e0-6w
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 08:50:47 +0000
+ (envelope-from <SRS0=fGLJ=EY=suse.de=colyli@srs-us1.protection.inumbo.net>)
+ id 1kfJF0-0000qc-9A
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 08:55:02 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8bf40fbe-c935-4e0e-a096-066fb9325f3c;
- Wed, 18 Nov 2020 08:50:04 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4e064198-e2d9-4ea2-bcd2-2901ae9ddd47;
+ Wed, 18 Nov 2020 08:54:58 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 80D87AD45;
- Wed, 18 Nov 2020 08:50:03 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id 65CA0AD45;
+ Wed, 18 Nov 2020 08:54:57 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kfJAt-0006e0-6w
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 08:50:47 +0000
-X-Inumbo-ID: 8bf40fbe-c935-4e0e-a096-066fb9325f3c
+	(envelope-from <SRS0=fGLJ=EY=suse.de=colyli@srs-us1.protection.inumbo.net>)
+	id 1kfJF0-0000qc-9A
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 08:55:02 +0000
+X-Inumbo-ID: 4e064198-e2d9-4ea2-bcd2-2901ae9ddd47
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 8bf40fbe-c935-4e0e-a096-066fb9325f3c;
-	Wed, 18 Nov 2020 08:50:04 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 4e064198-e2d9-4ea2-bcd2-2901ae9ddd47;
+	Wed, 18 Nov 2020 08:54:58 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605689403; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KyU5ejWfgwEnjWjOuAgNBFVH+se8h5ZxMHqQu86/6+A=;
-	b=Lplaa1xOPrE/jDH4KfJhgBZ4ybKF6cgmPiszyNju5YYcFJmyOP/6VzRKhetQ6N8kBkmzYg
-	48wK07+NjYad+HnBCd8RvKLT+6LLQPyRSks9/UDfrEoHLdn0I+JWJgTdJM8BgHTvzrc8rU
-	rjAeRtBBRqfZO8fn6sn/BcDo/gJtFaQ=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 80D87AD45;
-	Wed, 18 Nov 2020 08:50:03 +0000 (UTC)
-Subject: Re: [PATCH v2] xen: EXPERT clean-up and introduce UNSUPPORTED
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "open list:X86" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
- "iwj@xenproject.org" <iwj@xenproject.org>, "julien@xen.org"
- <julien@xen.org>, "wl@xen.org" <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20201118005051.26115-1-sstabellini@kernel.org>
- <0A50C952-B9D8-44C3-9326-A0555B435693@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c59a1540-2dd0-2813-9fe5-d5be2335fe9b@suse.com>
-Date: Wed, 18 Nov 2020 09:50:03 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
+	by mx2.suse.de (Postfix) with ESMTP id 65CA0AD45;
+	Wed, 18 Nov 2020 08:54:57 +0000 (UTC)
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+Cc: Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com,
+ Richard Weinberger <richard@nod.at>, Jan Kara <jack@suse.com>,
+ linux-block@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
+References: <20201118084800.2339180-1-hch@lst.de>
+ <20201118084800.2339180-20-hch@lst.de>
+From: Coly Li <colyli@suse.de>
+Subject: Re: [PATCH 19/20] bcache: remove a superflous lookup_bdev all
+Message-ID: <e7f826fd-cb9c-b4ab-fae8-dad398c14eed@suse.de>
+Date: Wed, 18 Nov 2020 16:54:51 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.3
 MIME-Version: 1.0
-In-Reply-To: <0A50C952-B9D8-44C3-9326-A0555B435693@arm.com>
+In-Reply-To: <20201118084800.2339180-20-hch@lst.de>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 18.11.2020 09:45, Bertrand Marquis wrote:
->> On 18 Nov 2020, at 00:50, Stefano Stabellini <sstabellini@kernel.org> wrote:
->> --- a/xen/arch/x86/Kconfig
->> +++ b/xen/arch/x86/Kconfig
->> @@ -102,8 +102,8 @@ config HVM
->> 	  If unsure, say Y.
->>
->> config XEN_SHSTK
->> -	bool "Supervisor Shadow Stacks"
->> -	depends on HAS_AS_CET_SS && EXPERT
->> +	bool "Supervisor Shadow Stacks (UNSUPPORTED)"
->> +	depends on HAS_AS_CET_SS && UNSUPPORTED
+On 11/18/20 4:47 PM, Christoph Hellwig wrote:
+> Don't bother to call lookup_bdev for just a slightly different error
+> message without any functional change.
 > 
-> This one is not following the standard scheme with “if UNSUPPORTED"
+> Signed-off-by: Christoph Hellwig <hch@lst.de>ist
 
-There's no standard scheme here: There's one case where the entire
-option depends on some other setting (e.g. UNSUPPORTED) and another
-where just the prompt (i.e. giving the user a choice) does. The
-difference becomes obvious when the option has a default other than
-"no": Despite the invisible prompt, it may get turned on. In the
-case here (serving as a good example), "default y" would mean the
-feature gets turned on when "if UNSUPPORTED" would be added to the
-prompt and when UNSUPPORTED is itself off.
+Hi Christoph,
 
-Jan
+NACK. This removing error message is frequently triggered and observed,
+and distinct a busy device and an already registered device is important
+(the first one is critical error and second one is not).
+
+Remove such error message will be a functional regression.
+
+Coly Li
+
+> ---
+>  drivers/md/bcache/super.c | 44 +--------------------------------------
+>  1 file changed, 1 insertion(+), 43 deletions(-)
+> 
+> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+> index e5db2cdd114112..5c531ed7785280 100644
+> --- a/drivers/md/bcache/super.c
+> +++ b/drivers/md/bcache/super.c
+> @@ -2380,40 +2380,6 @@ kobj_attribute_write(register,		register_bcache);
+>  kobj_attribute_write(register_quiet,	register_bcache);
+>  kobj_attribute_write(pendings_cleanup,	bch_pending_bdevs_cleanup);
+>  
+> -static bool bch_is_open_backing(struct block_device *bdev)
+> -{
+> -	struct cache_set *c, *tc;
+> -	struct cached_dev *dc, *t;
+> -
+> -	list_for_each_entry_safe(c, tc, &bch_cache_sets, list)
+> -		list_for_each_entry_safe(dc, t, &c->cached_devs, list)
+> -			if (dc->bdev == bdev)
+> -				return true;
+> -	list_for_each_entry_safe(dc, t, &uncached_devices, list)
+> -		if (dc->bdev == bdev)
+> -			return true;
+> -	return false;
+> -}
+> -
+> -static bool bch_is_open_cache(struct block_device *bdev)
+> -{
+> -	struct cache_set *c, *tc;
+> -
+> -	list_for_each_entry_safe(c, tc, &bch_cache_sets, list) {
+> -		struct cache *ca = c->cache;
+> -
+> -		if (ca->bdev == bdev)
+> -			return true;
+> -	}
+> -
+> -	return false;
+> -}
+> -
+> -static bool bch_is_open(struct block_device *bdev)
+> -{
+> -	return bch_is_open_cache(bdev) || bch_is_open_backing(bdev);
+> -}
+> -
+>  struct async_reg_args {
+>  	struct delayed_work reg_work;
+>  	char *path;
+> @@ -2535,15 +2501,7 @@ static ssize_t register_bcache(struct kobject *k, struct kobj_attribute *attr,
+>  				  sb);
+>  	if (IS_ERR(bdev)) {
+>  		if (bdev == ERR_PTR(-EBUSY)) {
+> -			bdev = lookup_bdev(strim(path));
+> -			mutex_lock(&bch_register_lock);
+> -			if (!IS_ERR(bdev) && bch_is_open(bdev))
+> -				err = "device already registered";
+> -			else
+> -				err = "device busy";
+> -			mutex_unlock(&bch_register_lock);
+> -			if (!IS_ERR(bdev))
+> -				bdput(bdev);
+> +			err = "device busy";
+>  			if (attr == &ksysfs_register_quiet)
+>  				goto done;
+>  		}
+> 
+
+
+
 
