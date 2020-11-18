@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C52292B7D57
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 13:09:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29771.59426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F5072B7D74
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 13:14:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29781.59438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfMHF-0006AK-TV; Wed, 18 Nov 2020 12:09:33 +0000
+	id 1kfMLt-0007Ai-IW; Wed, 18 Nov 2020 12:14:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29771.59426; Wed, 18 Nov 2020 12:09:33 +0000
+Received: by outflank-mailman (output) from mailman id 29781.59438; Wed, 18 Nov 2020 12:14:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,140 +23,153 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfMHF-00069t-Nm; Wed, 18 Nov 2020 12:09:33 +0000
-Received: by outflank-mailman (input) for mailman id 29771;
- Wed, 18 Nov 2020 12:09:31 +0000
+	id 1kfMLt-0007AJ-FA; Wed, 18 Nov 2020 12:14:21 +0000
+Received: by outflank-mailman (input) for mailman id 29781;
+ Wed, 18 Nov 2020 12:14:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LUXV=EY=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kfMHD-00069g-Jw
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:09:31 +0000
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
+ <SRS0=QZvP=EY=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kfMLr-0007AE-GN
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:14:19 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b7c65bfb-658f-45e7-b01d-e03dd5fbf487;
- Wed, 18 Nov 2020 12:09:30 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id 11so2097052ljf.2
- for <xen-devel@lists.xenproject.org>; Wed, 18 Nov 2020 04:09:30 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id w12sm3389818ljo.67.2020.11.18.04.09.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Nov 2020 04:09:29 -0800 (PST)
+ id b430c0ea-5d18-4847-af2a-c4992c299d16;
+ Wed, 18 Nov 2020 12:14:16 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0AICE8Mk014008
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Wed, 18 Nov 2020 13:14:09 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id DD7E62E9CA8; Wed, 18 Nov 2020 13:14:03 +0100 (MET)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=LUXV=EY=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
-	id 1kfMHD-00069g-Jw
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:09:31 +0000
-X-Inumbo-ID: b7c65bfb-658f-45e7-b01d-e03dd5fbf487
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
+	(envelope-from <SRS0=QZvP=EY=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+	id 1kfMLr-0007AE-GN
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 12:14:19 +0000
+X-Inumbo-ID: b430c0ea-5d18-4847-af2a-c4992c299d16
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b7c65bfb-658f-45e7-b01d-e03dd5fbf487;
-	Wed, 18 Nov 2020 12:09:30 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id 11so2097052ljf.2
-        for <xen-devel@lists.xenproject.org>; Wed, 18 Nov 2020 04:09:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=zbNp9xUN0gaWpF3LGCgicDWp/VRu0vl+zxACBaRYRYM=;
-        b=Lr7Cw9ANWDFnsRZSlnpOwJsZDGilyK2iklhXvlkCs7MTP7IGq1lwsSUsAYfZcRFRYc
-         OLi0ZvATkplcapk28aqMfdlXnWgBvRi56+7fJ/hCdmM4KlKChpbOjUhHtrleUGvdf4Y0
-         WFgEcxf7IF1wE7AxhCW7hdDXSK+qjTtutW017gOsOl+vIY375yoeodwEXW2cxTM+v2EG
-         4A/6DLXHHqp/8Dvx2xglhUPPgmYO+0LZ320BLsU4OTAXO8WYWPIyU/ocRchtj22nZmCv
-         nF3kdd9p6KkP1jkzodT1etJpNiQ4j6XG/pwPXgtisuhVCf1yRXAJs3EXdVVD7aUdMxQZ
-         HLAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=zbNp9xUN0gaWpF3LGCgicDWp/VRu0vl+zxACBaRYRYM=;
-        b=VYZEAJjj3RXrgqkhEk7iDvKZ0j/lxkA6+YLMBIlbXPb2cx9Kn8UFnZz9UdElRBbUvP
-         uwv/p6+PkAb0M/tqkGiZ2djNvDzdMu3F0UKA8uev8+TKnARrynzqpWiX79gRlWBhfDhu
-         2rvObTVnNKgGXtwWp1Lc6kGoJbhxOk76ez2dt06JBm42WnUBsmFnRo5T7I5S+082oS2y
-         CTdO05axIxQXQPwmWejmjyzbrOMRmT0v7dz4ssi9Gol/ylBulkpdyi0PMT+ezouKYaWi
-         iyycLZeYrwjiWSiuS0Ry2AwI+b48kV12Sic2TlQBKF7RnpgvJDu6gBx7MQC0I3zYfNlR
-         Mtvw==
-X-Gm-Message-State: AOAM530LqK5i4MZaAsG6VszPnXfhE6PXI+ncTZXeqMkIp57f9rmq1tj+
-	xb6zovXMou7Znd0V67wVPaQ=
-X-Google-Smtp-Source: ABdhPJxxD5phpqt+I9oC2LUnEmdBYKa47nu9jFbjg5/QOh1mgsbnTfr0m/nmBqr/ePxzUXN0hhydRw==
-X-Received: by 2002:a2e:580d:: with SMTP id m13mr1169660ljb.200.1605701369585;
-        Wed, 18 Nov 2020 04:09:29 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
-        by smtp.gmail.com with ESMTPSA id w12sm3389818ljo.67.2020.11.18.04.09.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2020 04:09:29 -0800 (PST)
-Subject: Re: [PATCH V2 07/23] xen/ioreq: Move x86's ioreq_gfn(server) to
- struct domain
-From: Oleksandr <olekstysh@gmail.com>
-To: Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall@arm.com>
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
- <1602780274-29141-8-git-send-email-olekstysh@gmail.com>
-Message-ID: <79588865-3f28-5436-0763-cb8ee0b87262@gmail.com>
-Date: Wed, 18 Nov 2020 14:09:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id b430c0ea-5d18-4847-af2a-c4992c299d16;
+	Wed, 18 Nov 2020 12:14:16 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+	by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id 0AICE8Mk014008
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Wed, 18 Nov 2020 13:14:09 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+	id DD7E62E9CA8; Wed, 18 Nov 2020 13:14:03 +0100 (MET)
+Date: Wed, 18 Nov 2020 13:14:03 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201118121403.GC3126@antioche.eu.org>
+References: <20201117150949.GA3791@antioche.eu.org>
+ <20201117155807.a7jgmftnj6njg6oz@Air-de-Roger>
+ <20201117164033.GB3093@antioche.eu.org>
+ <20201118085738.wpnfmjagxjf6cofp@Air-de-Roger>
+ <20201118092425.GC1085@antioche.eu.org>
+ <20201118100025.ic7r3kfsbdnr6muz@Air-de-Roger>
 MIME-Version: 1.0
-In-Reply-To: <1602780274-29141-8-git-send-email-olekstysh@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201118100025.ic7r3kfsbdnr6muz@Air-de-Roger>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Wed, 18 Nov 2020 13:14:10 +0100 (MET)
 
+On Wed, Nov 18, 2020 at 11:00:25AM +0100, Roger Pau Monné wrote:
+> On Wed, Nov 18, 2020 at 10:24:25AM +0100, Manuel Bouyer wrote:
+> > On Wed, Nov 18, 2020 at 09:57:38AM +0100, Roger Pau Monné wrote:
+> > > On Tue, Nov 17, 2020 at 05:40:33PM +0100, Manuel Bouyer wrote:
+> > > > On Tue, Nov 17, 2020 at 04:58:07PM +0100, Roger Pau Monné wrote:
+> > > > > [...]
+> > > > > 
+> > > > > I have attached a patch below that will dump the vIO-APIC info as part
+> > > > > of the 'i' debug key output, can you paste the whole output of the 'i'
+> > > > > debug key when the system stalls?
+> > > > 
+> > > > see attached file. Note that the kernel did unstall while 'i' output was
+> > > > being printed, so it is mixed with some NetBSD kernel output.
+> > > > The idt entry of the 'ioapic2 pin2' interrupt is 103 on CPU 0.
+> > > > 
+> > > > I also put the whole sequence at
+> > > > http://www-soc.lip6.fr/~bouyer/xen-log3.txt
+> > > 
+> > > On one of the instances the pin shows up as masked, but I'm not sure
+> > > if that's relevant since later it shows up as unmasked. Might just be
+> > > part of how NetBSD handles such interrupts.
+> > 
+> > Yes, NetBSD can mask an interrupt source if the interrupts needs to be delayed.
+> > It will be unmasked once the interrupt has been handled.
+> 
+> Yes, I think that's roughly the same model that FreeBSD uses for
+> level IO-APIC interrupts: mask it until the handlers have been run.
+> 
+> > Would it be possible that Xen misses an unmask write, or fails to
+> > call the vector if the interrupt is again pending at the time of the
+> > unmask ?
+> 
+> Well, it should work properly, but we cannot discard anything.
 
-Hi Paul.
+I did some more instrumentation from the NetBSD kernel, including dumping
+the iopic2 pin2 register.
 
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -314,6 +314,8 @@ struct sched_unit {
->   
->   struct evtchn_port_ops;
->   
-> +#define MAX_NR_IOREQ_SERVERS 8
-> +
->   struct domain
->   {
->       domid_t          domain_id;
-> @@ -521,6 +523,21 @@ struct domain
->       /* Argo interdomain communication support */
->       struct argo_domain *argo;
->   #endif
-> +
-> +#ifdef CONFIG_IOREQ_SERVER
-> +    /* Guest page range used for non-default ioreq servers */
-> +    struct {
-> +        unsigned long base;
-> +        unsigned long mask;
-> +        unsigned long legacy_mask; /* indexed by HVM param number */
-> +    } ioreq_gfn;
+At the time of the command timeout, the register value is 0x0000a067,
+which, if I understant it properly, menas that there's no interrupt
+pending (bit IOAPIC_REDLO_RIRR, 0x00004000, is not set).
+From the NetBSD ddb, I can dump this register multiple times, waiting
+several seconds, etc .., it doens't change).
+Now if I call ioapic_dump_raw() from the debugger, which triggers some
+XEN printf:
+db{0}> call ioapic_dump_raw^M
+Register dump of ioapic0^M
+[ 203.5489060] 00 08000000 00170011 08000000(XEN) vioapic.c:124:d0v0 apic_mem_re
+adl:undefined ioregsel 3
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 4
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 5
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 6
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 7
+ 00000000^M
+[ 203.5489060] 08(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 8
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 9
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel a
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel b
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel c
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel d
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel e
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel f
+ 00000000^M
+[ 203.5489060] 10 00010000 00000000 00010000 00000000 00010000 00000000 00010000 00000000^M
+[...]
+[ 203.5489060] Register dump of ioapic2^M
+[ 203.5489060] 00 0a000000 00070011 0a000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 3
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 4
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 5
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 6
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 7
+ 00000000^M
+[ 203.5489060] 08(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 8
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel 9
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel a
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel b
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel c
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel d
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel e
+ 00000000(XEN) vioapic.c:124:d0v0 apic_mem_readl:undefined ioregsel f
+ 00000000^M
+[ 203.5489060] 10 00010000 00000000 00010000 00000000 0000e067 00000000 00010000 00000000^M
 
-I assume the whole ioreq_gfn struct doesn't need to be here. According 
-to the new requirement to leave legacy interface x86 specific,
+then the register switches to 0000e067, with the IOAPIC_REDLO_RIRR bit set.
+From here, if I continue from ddb, the dom0 boots.
 
-these fields won't be used in common code anymore. I will move ioreq_gfn 
-struct back to hvm_domain. Please confirm.
-
-
-> +
-> +    /* Lock protects all other values in the sub-struct and the default */
-> +    struct {
-> +        spinlock_t              lock;
-> +        struct ioreq_server     *server[MAX_NR_IOREQ_SERVERS];
-> +    } ioreq_server;
-> +#endif
->   };
->   
->   static inline struct page_list_head *page_to_list(
+I can get the same effect by just doing ^A^A^A so my guess is that it's
+not accessing the iopic's register which changes the IOAPIC_REDLO_RIRR bit,
+but the XEN printf. Also, from NetBSD, using a dump fuinction which
+doesn't access undefined registers - and so doesn't trigger XEN printfs -
+doens't change the IOAPIC_REDLO_RIRR bit either.
 
 -- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
