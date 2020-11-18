@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C77B2B7362
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 01:51:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29321.58641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D814C2B7595
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 06:12:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29337.58663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfBgY-0006hw-BZ; Wed, 18 Nov 2020 00:50:58 +0000
+	id 1kfFkq-0002JU-43; Wed, 18 Nov 2020 05:11:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29321.58641; Wed, 18 Nov 2020 00:50:58 +0000
+Received: by outflank-mailman (output) from mailman id 29337.58663; Wed, 18 Nov 2020 05:11:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,273 +23,72 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfBgY-0006hX-88; Wed, 18 Nov 2020 00:50:58 +0000
-Received: by outflank-mailman (input) for mailman id 29321;
- Wed, 18 Nov 2020 00:50:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kfFkp-0002JC-Tv; Wed, 18 Nov 2020 05:11:39 +0000
+Received: by outflank-mailman (input) for mailman id 29337;
+ Wed, 18 Nov 2020 05:11:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hmm/=EY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kfBgV-0006hS-S7
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 00:50:55 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 69f4ff4f-7185-4c50-b47d-f743f970d372;
- Wed, 18 Nov 2020 00:50:54 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
- (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 41EC824198;
- Wed, 18 Nov 2020 00:50:53 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=sH5o=EY=strugglers.net=andy@srs-us1.protection.inumbo.net>)
+ id 1kfFko-0002J7-Mc
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 05:11:38 +0000
+Received: from mail.bitfolk.com (unknown [2001:ba8:1f1:f019::25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ce0ca390-75cf-4278-bc02-42c9bbc3f84b;
+ Wed, 18 Nov 2020 05:11:37 +0000 (UTC)
+Received: from andy by mail.bitfolk.com with local (Exim 4.84_2)
+ (envelope-from <andy@strugglers.net>)
+ id 1kfFkj-0007kk-Nj; Wed, 18 Nov 2020 05:11:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=hmm/=EY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1kfBgV-0006hS-S7
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 00:50:55 +0000
-X-Inumbo-ID: 69f4ff4f-7185-4c50-b47d-f743f970d372
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 69f4ff4f-7185-4c50-b47d-f743f970d372;
-	Wed, 18 Nov 2020 00:50:54 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 41EC824198;
-	Wed, 18 Nov 2020 00:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1605660653;
-	bh=JOIEgFpCWDzYiqatKGkd6htz5XfTnsJ+CkRtWN96/x4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=K1P5KIT3EAQYVVIagqDjTWSOdaceRWcnCrHsk6gGiW/OLe+8CNWK+pOKHQx7QePPm
-	 9iasMeOVIA4qeFbpQodekM3urWQGbnjzG5FhHf4npjHAbtWV4/W8DRFfWCWY6uynIw
-	 zOTP3SIQtx7fqznWYQ3JOMpQRC9L03qqb2MVVkwU=
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	Bertrand.Marquis@arm.com,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	andrew.cooper3@citrix.com,
-	george.dunlap@citrix.com,
-	iwj@xenproject.org,
-	jbeulich@suse.com,
-	julien@xen.org,
-	wl@xen.org
-Subject: [PATCH v2] xen: EXPERT clean-up and introduce UNSUPPORTED
-Date: Tue, 17 Nov 2020 16:50:51 -0800
-Message-Id: <20201118005051.26115-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.17.1
+	(envelope-from <SRS0=sH5o=EY=strugglers.net=andy@srs-us1.protection.inumbo.net>)
+	id 1kfFko-0002J7-Mc
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 05:11:38 +0000
+X-Inumbo-ID: ce0ca390-75cf-4278-bc02-42c9bbc3f84b
+Received: from mail.bitfolk.com (unknown [2001:ba8:1f1:f019::25])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id ce0ca390-75cf-4278-bc02-42c9bbc3f84b;
+	Wed, 18 Nov 2020 05:11:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitfolk.com; s=alpha;
+	h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date; bh=N2+2+l5W3BApAH8eEzLL4aB4J2YcCxUUhW6wjo/KqgM=;
+	b=n5f6TKpiPS0jh/IwZboS11xoxj6EVzAo+PcfMrwusaBLx2K4Lqh3qL5j/ut1fVHCivaXr0IW1wWwzdEILlJQYcSZba5U8Ij42WLz2D4SyLvAchG4XyBxz9ZpOrhld7Eo6H15W6mJLXcTedFeInZW4eDpPrLZONIQGwb7+tB+FH0X5XhLDR9pg/ub0FEEivPE/ctL9Cqky5Z3MwCZdtwE5+V4KLr1aJ3pWjfiwrowhfk8doeBOJVwXMWJQrxt+Pb7bSa8X3dyizoXq1Q//LGqv8PWyPaaXToXv/yWttVrCGmrW4j/XnNseD1tUBnFyUmGoy0VNJj/U6anUtzftCF35g==;
+Received: from andy by mail.bitfolk.com with local (Exim 4.84_2)
+	(envelope-from <andy@strugglers.net>)
+	id 1kfFkj-0007kk-Nj; Wed, 18 Nov 2020 05:11:33 +0000
+Date: Wed, 18 Nov 2020 05:11:33 +0000
+From: Andy Smith <andy@strugglers.net>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Michael Young <m.a.young@durham.ac.uk>, xen-devel@lists.xenproject.org
+Subject: Re: zstd compressed kernels
+Message-ID: <20201118051133.GV16071@bitfolk.com>
+References: <1abcd9d-428f-93d-b63d-996ef4592723@austen3.home>
+ <71d36766-1258-0a79-02ff-d888a41e431e@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <71d36766-1258-0a79-02ff-d888a41e431e@citrix.com>
+OpenPGP: id=BF15490B; url=http://strugglers.net/~andy/pubkey.asc
+X-URL: http://strugglers.net/wiki/User:Andy
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: andy@strugglers.net
+X-SA-Exim-Scanned: No (on mail.bitfolk.com); SAEximRunCond expanded to false
 
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+On Tue, Nov 17, 2020 at 08:48:25PM +0000, Andrew Cooper wrote:
+> For domU's, tools/libs/guest/xg_dom_bzimageloader.c and
+> xc_dom_probe_bzimage_kernel()
+> 
+> (Wow this plumbing is ugly and in need of some rationalisation...)
 
-A recent thread [1] has exposed a couple of issues with our current way
-of handling EXPERT.
+Though not part of Xen, the PV part of grub could also do with some
+love as it is also missing lz4 kernel support. This is particularly
+painful since Ubuntu switched to lz4 kernels from the 19.10 release.
 
-1) It is not obvious that "Configure standard Xen features (expert
-users)" is actually the famous EXPERT we keep talking about on xen-devel
+I understand from Jürgen though that grub's PVH support just uses
+the normal i386 loader so if grub supports a bzImage on bare metal
+it should do so with PVH, so that's an option. Certainly that works
+for lz4 anyway.
 
-2) It is not obvious when we need to enable EXPERT to get a specific
-feature
-
-In particular if you want to enable ACPI support so that you can boot
-Xen on an ACPI platform, you have to enable EXPERT first. But searching
-through the kconfig menu it is really not clear (type '/' and "ACPI"):
-nothing in the description tells you that you need to enable EXPERT to
-get the option.
-
-So this patch makes things easier by doing two things:
-
-- introduce a new kconfig option UNSUPPORTED which is clearly to enable
-  UNSUPPORTED features as defined by SUPPORT.md
-
-- change EXPERT options to UNSUPPORTED where it makes sense: keep
-  depending on EXPERT for features made for experts
-
-- tag unsupported features by adding (UNSUPPORTED) to the one-line
-  description
-
-- clarify the EXPERT one-line description
-
-[1] https://marc.info/?l=xen-devel&m=160333101228981
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-CC: andrew.cooper3@citrix.com
-CC: george.dunlap@citrix.com
-CC: iwj@xenproject.org
-CC: jbeulich@suse.com
-CC: julien@xen.org
-CC: wl@xen.org
-
----
-Changes in v2:
-- introduce UNSUPPORTED as a separate new option
-- don't switch all EXPERT options to UNSUPPORTED
----
- xen/Kconfig              | 11 ++++++++++-
- xen/arch/arm/Kconfig     | 10 +++++-----
- xen/arch/x86/Kconfig     |  8 ++++----
- xen/common/Kconfig       |  4 ++--
- xen/common/sched/Kconfig |  6 +++---
- 5 files changed, 24 insertions(+), 15 deletions(-)
-
-diff --git a/xen/Kconfig b/xen/Kconfig
-index 34c318bfa2..59400c4788 100644
---- a/xen/Kconfig
-+++ b/xen/Kconfig
-@@ -34,8 +34,17 @@ config DEFCONFIG_LIST
- 	option defconfig_list
- 	default ARCH_DEFCONFIG
- 
-+config UNSUPPORTED
-+	bool "Configure UNSUPPORTED features"
-+	help
-+	  This option allows unsupported Xen options to be enabled, which
-+	  includes non-security-supported, experimental, and tech preview
-+	  features as defined by SUPPORT.md. Xen binaries built with this
-+	  option enabled are not security supported.
-+	default n
-+
- config EXPERT
--	bool "Configure standard Xen features (expert users)"
-+	bool "Configure EXPERT features"
- 	help
- 	  This option allows certain base Xen options and settings
- 	  to be disabled or tweaked. This is for specialized environments
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index f938dd21bd..5981e7380d 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -32,7 +32,7 @@ menu "Architecture Features"
- source "arch/Kconfig"
- 
- config ACPI
--	bool "ACPI (Advanced Configuration and Power Interface) Support" if EXPERT
-+	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on ARM_64
- 	---help---
- 
-@@ -49,7 +49,7 @@ config GICV3
- 	  If unsure, say Y
- 
- config HAS_ITS
--        bool "GICv3 ITS MSI controller support" if EXPERT
-+        bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
-         depends on GICV3 && !NEW_VGIC
- 
- config HVM
-@@ -79,7 +79,7 @@ config SBSA_VUART_CONSOLE
- 	  SBSA Generic UART implements a subset of ARM PL011 UART.
- 
- config ARM_SSBD
--	bool "Speculative Store Bypass Disable" if EXPERT
-+	bool "Speculative Store Bypass Disable (UNSUPPORTED)" if UNSUPPORTED
- 	depends on HAS_ALTERNATIVE
- 	default y
- 	help
-@@ -89,7 +89,7 @@ config ARM_SSBD
- 	  If unsure, say Y.
- 
- config HARDEN_BRANCH_PREDICTOR
--	bool "Harden the branch predictor against aliasing attacks" if EXPERT
-+	bool "Harden the branch predictor against aliasing attacks (UNSUPPORTED)" if UNSUPPORTED
- 	default y
- 	help
- 	  Speculation attacks against some high-performance processors rely on
-@@ -106,7 +106,7 @@ config HARDEN_BRANCH_PREDICTOR
- 	  If unsure, say Y.
- 
- config TEE
--	bool "Enable TEE mediators support" if EXPERT
-+	bool "Enable TEE mediators support (UNSUPPORTED)" if UNSUPPORTED
- 	default n
- 	help
- 	  This option enables generic TEE mediators support. It allows guests
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 24868aa6ad..d4e20e9d31 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -102,8 +102,8 @@ config HVM
- 	  If unsure, say Y.
- 
- config XEN_SHSTK
--	bool "Supervisor Shadow Stacks"
--	depends on HAS_AS_CET_SS && EXPERT
-+	bool "Supervisor Shadow Stacks (UNSUPPORTED)"
-+	depends on HAS_AS_CET_SS && UNSUPPORTED
- 	default y
- 	---help---
- 	  Control-flow Enforcement Technology (CET) is a set of features in
-@@ -165,7 +165,7 @@ config HVM_FEP
- 	  If unsure, say N.
- 
- config TBOOT
--	bool "Xen tboot support" if EXPERT
-+	bool "Xen tboot support (UNSUPPORTED)" if UNSUPPORTED
- 	default y if !PV_SHIM_EXCLUSIVE
- 	select CRYPTO
- 	---help---
-@@ -251,7 +251,7 @@ config HYPERV_GUEST
- endif
- 
- config MEM_SHARING
--	bool "Xen memory sharing support" if EXPERT
-+	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on HVM
- 
- endmenu
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 3e2cf25088..beed507727 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -151,7 +151,7 @@ config KEXEC
- 	  If unsure, say Y.
- 
- config EFI_SET_VIRTUAL_ADDRESS_MAP
--    bool "EFI: call SetVirtualAddressMap()" if EXPERT
-+    bool "EFI: call SetVirtualAddressMap() (UNSUPPORTED)" if UNSUPPORTED
-     ---help---
-       Call EFI SetVirtualAddressMap() runtime service to setup memory map for
-       further runtime services. According to UEFI spec, it isn't strictly
-@@ -272,7 +272,7 @@ config LATE_HWDOM
- 	  If unsure, say N.
- 
- config ARGO
--	bool "Argo: hypervisor-mediated interdomain communication" if EXPERT
-+	bool "Argo: hypervisor-mediated interdomain communication (UNSUPPORTED)" if UNSUPPORTED
- 	---help---
- 	  Enables a hypercall for domains to ask the hypervisor to perform
- 	  data transfer of messages between domains.
-diff --git a/xen/common/sched/Kconfig b/xen/common/sched/Kconfig
-index 61231aacaa..94c9e20139 100644
---- a/xen/common/sched/Kconfig
-+++ b/xen/common/sched/Kconfig
-@@ -15,7 +15,7 @@ config SCHED_CREDIT2
- 	  optimized for lower latency and higher VM density.
- 
- config SCHED_RTDS
--	bool "RTDS scheduler support (EXPERIMENTAL)"
-+	bool "RTDS scheduler support (UNSUPPORTED)" if UNSUPPORTED
- 	default y
- 	---help---
- 	  The RTDS scheduler is a soft and firm real-time scheduler for
-@@ -23,14 +23,14 @@ config SCHED_RTDS
- 	  in the cloud, and general low-latency workloads.
- 
- config SCHED_ARINC653
--	bool "ARINC653 scheduler support (EXPERIMENTAL)"
-+	bool "ARINC653 scheduler support (UNSUPPORTED)" if UNSUPPORTED
- 	default DEBUG
- 	---help---
- 	  The ARINC653 scheduler is a hard real-time scheduler for single
- 	  cores, targeted for avionics, drones, and medical devices.
- 
- config SCHED_NULL
--	bool "Null scheduler support (EXPERIMENTAL)"
-+	bool "Null scheduler support (UNSUPPORTED)" if UNSUPPORTED
- 	default y
- 	---help---
- 	  The null scheduler is a static, zero overhead scheduler,
--- 
-2.17.1
-
+Cheers,
+Andy
 
