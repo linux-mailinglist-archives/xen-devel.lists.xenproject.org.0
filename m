@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 066872B798E
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 09:55:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29515.58995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E58622B79A2
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 09:56:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29519.59007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfJF2-0000r6-0K; Wed, 18 Nov 2020 08:55:04 +0000
+	id 1kfJGB-0000yB-Ar; Wed, 18 Nov 2020 08:56:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29515.58995; Wed, 18 Nov 2020 08:55:03 +0000
+Received: by outflank-mailman (output) from mailman id 29519.59007; Wed, 18 Nov 2020 08:56:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,142 +23,137 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfJF1-0000qh-TV; Wed, 18 Nov 2020 08:55:03 +0000
-Received: by outflank-mailman (input) for mailman id 29515;
- Wed, 18 Nov 2020 08:55:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kfJGB-0000xl-7X; Wed, 18 Nov 2020 08:56:15 +0000
+Received: by outflank-mailman (input) for mailman id 29519;
+ Wed, 18 Nov 2020 08:56:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fGLJ=EY=suse.de=colyli@srs-us1.protection.inumbo.net>)
- id 1kfJF0-0000qc-9A
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 08:55:02 +0000
+ (envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kfJG9-0000xg-Vs
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 08:56:14 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4e064198-e2d9-4ea2-bcd2-2901ae9ddd47;
- Wed, 18 Nov 2020 08:54:58 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dcd3706f-537d-4b1f-a31a-79ff2e86d009;
+ Wed, 18 Nov 2020 08:56:12 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 65CA0AD45;
- Wed, 18 Nov 2020 08:54:57 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id E6417AD2F;
+ Wed, 18 Nov 2020 08:56:11 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=fGLJ=EY=suse.de=colyli@srs-us1.protection.inumbo.net>)
-	id 1kfJF0-0000qc-9A
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 08:55:02 +0000
-X-Inumbo-ID: 4e064198-e2d9-4ea2-bcd2-2901ae9ddd47
+	(envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kfJG9-0000xg-Vs
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 08:56:14 +0000
+X-Inumbo-ID: dcd3706f-537d-4b1f-a31a-79ff2e86d009
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4e064198-e2d9-4ea2-bcd2-2901ae9ddd47;
-	Wed, 18 Nov 2020 08:54:58 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id dcd3706f-537d-4b1f-a31a-79ff2e86d009;
+	Wed, 18 Nov 2020 08:56:12 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605689772; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7igakkmhEI4CwNFDZCT70CUptcTv+K/s+YCPQmQlu9Q=;
+	b=Y++3q5UJgDUWDlWdeDn6mQNNYdWrbUeFS91t9OchR29jrBjxggFIPk/Zt9w7d5o8Y5Vame
+	8OeLl6cMI/636YtXiKuW5EanOqCgIw218k8knrDwI/S+PfWCYEvotYadONsuLQegM5GdhK
+	3wwWlNOxGUloBVFJNsllEo8czXvQANE=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 65CA0AD45;
-	Wed, 18 Nov 2020 08:54:57 +0000 (UTC)
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+	by mx2.suse.de (Postfix) with ESMTP id E6417AD2F;
+	Wed, 18 Nov 2020 08:56:11 +0000 (UTC)
+Subject: Re: merge struct block_device and struct hd_struct
+To: Christoph Hellwig <hch@lst.de>
 Cc: Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Coly Li <colyli@suse.de>,
  Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com,
  Richard Weinberger <richard@nod.at>, Jan Kara <jack@suse.com>,
  linux-block@vger.kernel.org, xen-devel@lists.xenproject.org,
  linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ Jens Axboe <axboe@kernel.dk>
 References: <20201118084800.2339180-1-hch@lst.de>
- <20201118084800.2339180-20-hch@lst.de>
-From: Coly Li <colyli@suse.de>
-Subject: Re: [PATCH 19/20] bcache: remove a superflous lookup_bdev all
-Message-ID: <e7f826fd-cb9c-b4ab-fae8-dad398c14eed@suse.de>
-Date: Wed, 18 Nov 2020 16:54:51 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.3
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <22ca5396-0253-f286-9eab-d417b2e0b3ad@suse.com>
+Date: Wed, 18 Nov 2020 09:56:11 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
 MIME-Version: 1.0
-In-Reply-To: <20201118084800.2339180-20-hch@lst.de>
+In-Reply-To: <20201118084800.2339180-1-hch@lst.de>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/18/20 4:47 PM, Christoph Hellwig wrote:
-> Don't bother to call lookup_bdev for just a slightly different error
-> message without any functional change.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>ist
+Christoph,
 
-Hi Christoph,
+On 18.11.2020 09:47, Christoph Hellwig wrote:
+> Diffstat:
+>  block/bio.c                                  |    6 
+>  block/blk-cgroup.c                           |   50 +-
+>  block/blk-core.c                             |   85 +--
+>  block/blk-flush.c                            |    2 
+>  block/blk-iocost.c                           |   36 -
+>  block/blk-lib.c                              |    2 
+>  block/blk-merge.c                            |    6 
+>  block/blk-mq.c                               |   11 
+>  block/blk-mq.h                               |    5 
+>  block/blk.h                                  |   92 ----
+>  block/genhd.c                                |  444 +++++---------------
+>  block/ioctl.c                                |    7 
+>  block/partitions/core.c                      |  238 +++--------
+>  drivers/block/drbd/drbd_receiver.c           |    2 
+>  drivers/block/drbd/drbd_worker.c             |    2 
+>  drivers/block/loop.c                         |   21 
+>  drivers/block/nbd.c                          |    6 
+>  drivers/block/xen-blkback/common.h           |    4 
+>  drivers/block/xen-blkfront.c                 |   20 
+>  drivers/block/zram/zram_drv.c                |   20 
+>  drivers/md/bcache/request.c                  |    4 
+>  drivers/md/bcache/super.c                    |   53 --
+>  drivers/md/dm-table.c                        |    9 
+>  drivers/md/dm.c                              |   16 
+>  drivers/md/md.c                              |    8 
+>  drivers/mtd/mtdsuper.c                       |   17 
+>  drivers/nvme/target/admin-cmd.c              |   20 
+>  drivers/s390/block/dasd.c                    |    8 
+>  drivers/s390/block/dasd_ioctl.c              |    9 
+>  drivers/scsi/scsicam.c                       |    2 
+>  drivers/target/target_core_file.c            |    6 
+>  drivers/target/target_core_pscsi.c           |    7 
+>  drivers/usb/gadget/function/storage_common.c |    8 
+>  fs/block_dev.c                               |  578 ++++++++-------------------
+>  fs/btrfs/sysfs.c                             |   15 
+>  fs/btrfs/volumes.c                           |   13 
+>  fs/ext4/super.c                              |   18 
+>  fs/ext4/sysfs.c                              |   10 
+>  fs/f2fs/checkpoint.c                         |    5 
+>  fs/f2fs/f2fs.h                               |    2 
+>  fs/f2fs/super.c                              |    8 
+>  fs/f2fs/sysfs.c                              |    9 
+>  fs/inode.c                                   |    3 
+>  fs/internal.h                                |    7 
+>  fs/io_uring.c                                |   10 
+>  fs/pipe.c                                    |    5 
+>  fs/pstore/blk.c                              |    2 
+>  fs/quota/quota.c                             |   40 +
+>  fs/statfs.c                                  |    2 
+>  fs/super.c                                   |   86 ----
+>  include/linux/blk-cgroup.h                   |    4 
+>  include/linux/blk_types.h                    |   26 +
+>  include/linux/blkdev.h                       |   24 -
+>  include/linux/fs.h                           |    5 
+>  include/linux/genhd.h                        |  104 ----
+>  include/linux/part_stat.h                    |   17 
+>  init/do_mounts.c                             |  271 +++++-------
+>  kernel/trace/blktrace.c                      |   54 --
+>  mm/filemap.c                                 |    9 
+>  59 files changed, 837 insertions(+), 1716 deletions(-)
 
-NACK. This removing error message is frequently triggered and observed,
-and distinct a busy device and an already registered device is important
-(the first one is critical error and second one is not).
+since this isn't the first series from you recently spamming
+xen-devel, may I ask that you don't Cc entire series to lists
+which are involved with perhaps just one out of the many patches?
+IMO Cc lists should be compiled on a per-patch basis; the cover
+letter may of course be sent to the union of all of them.
 
-Remove such error message will be a functional regression.
-
-Coly Li
-
-> ---
->  drivers/md/bcache/super.c | 44 +--------------------------------------
->  1 file changed, 1 insertion(+), 43 deletions(-)
-> 
-> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-> index e5db2cdd114112..5c531ed7785280 100644
-> --- a/drivers/md/bcache/super.c
-> +++ b/drivers/md/bcache/super.c
-> @@ -2380,40 +2380,6 @@ kobj_attribute_write(register,		register_bcache);
->  kobj_attribute_write(register_quiet,	register_bcache);
->  kobj_attribute_write(pendings_cleanup,	bch_pending_bdevs_cleanup);
->  
-> -static bool bch_is_open_backing(struct block_device *bdev)
-> -{
-> -	struct cache_set *c, *tc;
-> -	struct cached_dev *dc, *t;
-> -
-> -	list_for_each_entry_safe(c, tc, &bch_cache_sets, list)
-> -		list_for_each_entry_safe(dc, t, &c->cached_devs, list)
-> -			if (dc->bdev == bdev)
-> -				return true;
-> -	list_for_each_entry_safe(dc, t, &uncached_devices, list)
-> -		if (dc->bdev == bdev)
-> -			return true;
-> -	return false;
-> -}
-> -
-> -static bool bch_is_open_cache(struct block_device *bdev)
-> -{
-> -	struct cache_set *c, *tc;
-> -
-> -	list_for_each_entry_safe(c, tc, &bch_cache_sets, list) {
-> -		struct cache *ca = c->cache;
-> -
-> -		if (ca->bdev == bdev)
-> -			return true;
-> -	}
-> -
-> -	return false;
-> -}
-> -
-> -static bool bch_is_open(struct block_device *bdev)
-> -{
-> -	return bch_is_open_cache(bdev) || bch_is_open_backing(bdev);
-> -}
-> -
->  struct async_reg_args {
->  	struct delayed_work reg_work;
->  	char *path;
-> @@ -2535,15 +2501,7 @@ static ssize_t register_bcache(struct kobject *k, struct kobj_attribute *attr,
->  				  sb);
->  	if (IS_ERR(bdev)) {
->  		if (bdev == ERR_PTR(-EBUSY)) {
-> -			bdev = lookup_bdev(strim(path));
-> -			mutex_lock(&bch_register_lock);
-> -			if (!IS_ERR(bdev) && bch_is_open(bdev))
-> -				err = "device already registered";
-> -			else
-> -				err = "device busy";
-> -			mutex_unlock(&bch_register_lock);
-> -			if (!IS_ERR(bdev))
-> -				bdput(bdev);
-> +			err = "device busy";
->  			if (attr == &ksysfs_register_quiet)
->  				goto done;
->  		}
-> 
-
-
-
+Thanks much,
+Jan
 
