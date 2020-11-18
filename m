@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 382082B7A6C
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 10:32:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.29664.59258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF6942B7A8B
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 10:43:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.29675.59271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfJp8-0007Ix-Tc; Wed, 18 Nov 2020 09:32:22 +0000
+	id 1kfJzu-0008QC-Uu; Wed, 18 Nov 2020 09:43:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 29664.59258; Wed, 18 Nov 2020 09:32:22 +0000
+Received: by outflank-mailman (output) from mailman id 29675.59271; Wed, 18 Nov 2020 09:43:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,125 +23,94 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfJp8-0007IO-Pe; Wed, 18 Nov 2020 09:32:22 +0000
-Received: by outflank-mailman (input) for mailman id 29664;
- Wed, 18 Nov 2020 09:32:21 +0000
+	id 1kfJzu-0008Pn-RK; Wed, 18 Nov 2020 09:43:30 +0000
+Received: by outflank-mailman (input) for mailman id 29675;
+ Wed, 18 Nov 2020 09:43:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nHbf=EY=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
- id 1kfJp7-0007H4-7R
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 09:32:21 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kfJzt-0008Pi-Bt
+ for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 09:43:29 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5ba75b7b-2f31-4ed3-aa37-e61f79eed017;
- Wed, 18 Nov 2020 09:32:17 +0000 (UTC)
-Received: from localhost (unknown [89.205.136.214])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 651A320855;
- Wed, 18 Nov 2020 09:32:15 +0000 (UTC)
+ id a1294673-27bf-48fb-9612-efeb91b9d5e7;
+ Wed, 18 Nov 2020 09:43:28 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 84630AC2D;
+ Wed, 18 Nov 2020 09:43:27 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=nHbf=EY=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
-	id 1kfJp7-0007H4-7R
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 09:32:21 +0000
-X-Inumbo-ID: 5ba75b7b-2f31-4ed3-aa37-e61f79eed017
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kfJzt-0008Pi-Bt
+	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 09:43:29 +0000
+X-Inumbo-ID: a1294673-27bf-48fb-9612-efeb91b9d5e7
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 5ba75b7b-2f31-4ed3-aa37-e61f79eed017;
-	Wed, 18 Nov 2020 09:32:17 +0000 (UTC)
-Received: from localhost (unknown [89.205.136.214])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 651A320855;
-	Wed, 18 Nov 2020 09:32:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1605691936;
-	bh=z9AARqxEifx27ZSfSqyQtp5/QTEI/AENwIGCm/wc71c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fFTiyRf+lNKL9ST4txcSeaDrCIqy8sGZqtdcsNAnsGly1+5GYCQkd5b0dJtsVNXW7
-	 Ty+UOKz4POaIjvZvW72SkGo52lChY2pkhIjug9dEhWmDqtz52fKjvNwDSvPQKw5/EX
-	 XjQbNqUIRf7iTd7GfCLBQpWa8uhdec/9xDR/QuiU=
-Date: Wed, 18 Nov 2020 10:32:12 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Christoph Hellwig <hch@lst.de>, Tejun Heo <tj@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
-	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org, Jens Axboe <axboe@kernel.dk>
-Subject: Re: merge struct block_device and struct hd_struct
-Message-ID: <X7TqHNotTX6W/bmT@kroah.com>
-References: <20201118084800.2339180-1-hch@lst.de>
- <22ca5396-0253-f286-9eab-d417b2e0b3ad@suse.com>
- <20201118085804.GA20384@lst.de>
- <1ded2079-f1be-6d5d-01df-65754447df78@suse.com>
- <X7Tky/6dDN8+DrU7@kroah.com>
- <61044f85-cd41-87b5-3f41-36e3dffb6f2a@suse.com>
+	id a1294673-27bf-48fb-9612-efeb91b9d5e7;
+	Wed, 18 Nov 2020 09:43:28 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605692607; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=47DDZ1KzkF6mKWai+9EruK64aLMwC7IKY7PJl9Yv2WE=;
+	b=kVpO5MOWU7WA8fArxmLMn5NCtfHjEJLNYaNGFJQ7uYlb88c/mjTtprB4S3l7CV4kP1eO5L
+	wwsHJaDra0Mmf5dIpO9rbLsQW9JcZkX7MjAdJDzNJq35zd5pi2r62nOqr1tABAsZny2Hdq
+	a4qm2b/Jhj9HbNK1hlnkNchlNgbgLJo=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 84630AC2D;
+	Wed, 18 Nov 2020 09:43:27 +0000 (UTC)
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <20201117150949.GA3791@antioche.eu.org>
+ <20201117155807.a7jgmftnj6njg6oz@Air-de-Roger>
+ <20201117164033.GB3093@antioche.eu.org>
+ <8039a29c-4058-ab6e-56ef-d1383deb7e38@suse.com>
+ <20201118092819.GE1085@antioche.eu.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <6ad38151-d218-03c4-8085-9eff35bd63ff@suse.com>
+Date: Wed, 18 Nov 2020 10:43:27 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <61044f85-cd41-87b5-3f41-36e3dffb6f2a@suse.com>
+In-Reply-To: <20201118092819.GE1085@antioche.eu.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2020 at 10:23:51AM +0100, Jan Beulich wrote:
-> On 18.11.2020 10:09, Greg KH wrote:
-> > On Wed, Nov 18, 2020 at 10:04:04AM +0100, Jan Beulich wrote:
-> >> On 18.11.2020 09:58, Christoph Hellwig wrote:
-> >>> On Wed, Nov 18, 2020 at 09:56:11AM +0100, Jan Beulich wrote:
-> >>>> since this isn't the first series from you recently spamming
-> >>>> xen-devel, may I ask that you don't Cc entire series to lists
-> >>>> which are involved with perhaps just one out of the many patches?
-> >>>> IMO Cc lists should be compiled on a per-patch basis; the cover
-> >>>> letter may of course be sent to the union of all of them.
-> >>>
-> >>> No way.  Individual CCs are completely broken as they don't provide
-> >>> the reviewer a context.
-> >>
-> >> That's the view of some people, but not all. Context can be easily
-> >> established by those who care going to one of the many archives on
-> >> which the entire series lands. Getting spammed, however, can't be
-> >> avoided by the dozens or hundreds of list subscribers.
-> > 
-> > kernel patches are never "spam", sorry, but for developers to try to
-> > determine which lists/maintainers want to see the whole series and which
-> > do not is impossible.
-> > 
-> > Patches in a series are easily deleted from sane mail clients with a
-> > single click/keystroke all at once, they aren't a problem that needs to
-> > be reduced in volume.
+On 18.11.2020 10:28, Manuel Bouyer wrote:
+> On Wed, Nov 18, 2020 at 10:16:17AM +0100, Jan Beulich wrote:
+>> On 17.11.2020 17:40, Manuel Bouyer wrote:
+>>> On Tue, Nov 17, 2020 at 04:58:07PM +0100, Roger Pau Monné wrote:
+>>>> [...]
+>>>>
+>>>> I have attached a patch below that will dump the vIO-APIC info as part
+>>>> of the 'i' debug key output, can you paste the whole output of the 'i'
+>>>> debug key when the system stalls?
+>>>
+>>> see attached file. Note that the kernel did unstall while 'i' output was
+>>> being printed, so it is mixed with some NetBSD kernel output.
+>>
+>> Could you try to run Xen's serial port without use of any IRQ
+>> (i.e. in "polling" mode), in an attempt to avoid this unstalling
+>> (which is likely to render the resulting output at least in part
+>> meaningless)?
 > 
-> This doesn't scale, neither in the dimension of recipients nor in
-> the dimension of possible sources of such series.
+> It there a boot line option for that ?
 
-Again, trying to figure out what subsystem does, and does not, want
-stuff like this does not scale either.  Remember, we had 4000 developers
-last year, how are you going to tell all of them what the special rules
-are for your subsystem and how they differ from any other subsystem?
+Yes, com<N>= has a field for this:
 
-And why does it matter?  We are all working on the same project, why
-wouldn't you want to see core block device handling patches?  What
-hurts with that, someone might notice something in one of them that a
-different developer did not.
+### com1
+### com2
+> `= <baud>[/<base-baud>][,[DPS][,[<io-base>|pci|amt][,[<irq>|msi][,[<port-bdf>][,[<bridge-bdf>]]]]]]`
 
-> While it may seem small, it's also a waste of resources to have mails
-> sent to hundreds of even thousands of people. So while from a
-> technical content perspective I surely agree with you saying 'kernel
-> patches are never "spam"', they still are from the perspective of
-> what "spam mail" originally means: Mail the recipients did not want
-> to receive.
+with
 
-Anyone on a kernel subsystem mailing list should expect to see kernel
-patches, that's part of the process, and always has been.
+* `<irq>` is the IRQ number to use, or `0` to use the UART in poll
+  mode only, or `msi` to set up a Message Signaled Interrupt.
 
-Kernel subsystems are not silos, people on them should be aware of what
-else is going on in order to stay informed.  And again, if it's a huge
-problem, one click/keystroke and they are gone, no waste.
-
-thanks,
-
-greg k-h
+Jan
 
