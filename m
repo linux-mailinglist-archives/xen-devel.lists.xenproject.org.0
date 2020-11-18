@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C3C82B8040
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 16:17:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30029.59736 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDDE32B8041
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Nov 2020 16:18:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30034.59748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfPCg-0001tN-CK; Wed, 18 Nov 2020 15:17:02 +0000
+	id 1kfPDY-00021a-QX; Wed, 18 Nov 2020 15:17:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30029.59736; Wed, 18 Nov 2020 15:17:02 +0000
+Received: by outflank-mailman (output) from mailman id 30034.59748; Wed, 18 Nov 2020 15:17:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,192 +23,231 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfPCg-0001sy-8a; Wed, 18 Nov 2020 15:17:02 +0000
-Received: by outflank-mailman (input) for mailman id 30029;
- Wed, 18 Nov 2020 15:17:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kfPCe-0001st-O1
- for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 15:17:00 +0000
-Received: from de-smtp-delivery-52.mimecast.com (unknown [51.163.158.52])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bc6fa6f4-d158-4f00-a0a2-15f2bedad7c4;
- Wed, 18 Nov 2020 15:16:59 +0000 (UTC)
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2054.outbound.protection.outlook.com [104.47.5.54]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-17-qywAWm4IPpyoZtpppVvoEQ-1; Wed, 18 Nov 2020 16:16:56 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB7038.eurprd04.prod.outlook.com (2603:10a6:800:12d::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.26; Wed, 18 Nov
- 2020 15:16:55 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::6882:d72e:9dfd:349e]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::6882:d72e:9dfd:349e%5]) with mapi id 15.20.3541.028; Wed, 18 Nov 2020
- 15:16:55 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM0PR01CA0174.eurprd01.prod.exchangelabs.com (2603:10a6:208:aa::43) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
- Transport; Wed, 18 Nov 2020 15:16:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kfPDY-00021B-Mf; Wed, 18 Nov 2020 15:17:56 +0000
+Received: by outflank-mailman (input) for mailman id 30034;
+ Wed, 18 Nov 2020 15:17:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uMMN=EY=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
+ id 1kfPDW-000210-GH
+ for xen-devel@lists.xen.org; Wed, 18 Nov 2020 15:17:54 +0000
+Received: from mail-ua1-x92c.google.com (unknown [2607:f8b0:4864:20::92c])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id daf8d629-c3ee-41d7-8ea4-6c26c984edc5;
+ Wed, 18 Nov 2020 15:17:53 +0000 (UTC)
+Received: by mail-ua1-x92c.google.com with SMTP id q68so783575uaq.3
+ for <xen-devel@lists.xen.org>; Wed, 18 Nov 2020 07:17:53 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=763w=EY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kfPCe-0001st-O1
-	for xen-devel@lists.xenproject.org; Wed, 18 Nov 2020 15:17:00 +0000
-X-Inumbo-ID: bc6fa6f4-d158-4f00-a0a2-15f2bedad7c4
-Received: from de-smtp-delivery-52.mimecast.com (unknown [51.163.158.52])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id bc6fa6f4-d158-4f00-a0a2-15f2bedad7c4;
-	Wed, 18 Nov 2020 15:16:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1605712618;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9miUL1ycQ/wKVbdU7D8a7KBAYMk2rSnGMnl+ZgVXSLo=;
-	b=GTO2ViiQ36Ruc6TGf6RnW4+kBmIovd2rugqa7C8+zkN1E2evExutIyV5GDfLYYAHSxzJ3A
-	FCMCUY8VX4T26HvG36F/OecC4VHqzRfvH358i+sUICuNQ5HxkbpImvFD2ditVEtIFTceN9
-	LXPWzVRd5I6IW7nke6tnNg8I340ahfI=
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2054.outbound.protection.outlook.com [104.47.5.54]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-17-qywAWm4IPpyoZtpppVvoEQ-1; Wed, 18 Nov 2020 16:16:56 +0100
-X-MC-Unique: qywAWm4IPpyoZtpppVvoEQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AR+N9GTmzvmgxDnk2Uln908lSLQSneNZya8bk82gBytrtSeOAYLsUALZ1LpsJd9soxuEhk8RUuwuw2bGus4gnid55XqulsFoN15HZFOc60X7oMdcCwH5RKnTBThaX5Hi5SGXyk9ij4RHrXQmHVrQnNzgZyaf8l3LeqFtv1NoTUgR3IHWmTdtv7Qr3N1M9Jzu5cFhgb33JPm2r7hCn1Yb61xwajRhRKMWYh8e/g8zfoLanXpKADCAuUvz/PjItVQYjoLWy2j79dfUFewtHjzrZbOQckX++F4SWMwkd/+PGznsMy6juLxeQrqAfzgHTCkVjKoGTXukqhlR6AkaHZctnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9miUL1ycQ/wKVbdU7D8a7KBAYMk2rSnGMnl+ZgVXSLo=;
- b=fK717Lv9jB0WcQNOu7Y0lsR/MyzYJTTReBOK9l/wFe+7GVNgPgHyXN+8s5Aigy/px3BlpA1zo058+aHVlGLecQQqUx9InDWw5a+OUny9xGxYqMlR5SyUUmE/K+JAr1Iwctt8ra+9U0kBFxpA2MS8PkXu0MxLktQl+436SzMMy3pi2ii6xJiaC2IBqU5kWzXAgOeuPYusKous1TnQw4dyhszqWOTK9i2zr5/d93DkvUZvRrduQcCP73i8S9h1fpbPoTBHq05AsRXdamccEXfa9H2zlWzEcHpHnyda2tq/SYuDJa1BBBNHdn4MmQpk8raorfy8XFLNucaV3QI661BkxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=suse.com;
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB7038.eurprd04.prod.outlook.com (2603:10a6:800:12d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.26; Wed, 18 Nov
- 2020 15:16:55 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::6882:d72e:9dfd:349e]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::6882:d72e:9dfd:349e%5]) with mapi id 15.20.3541.028; Wed, 18 Nov 2020
- 15:16:55 +0000
-Subject: Re: [PATCH v3 1/3] xen/ns16550: Make ns16550 driver usable on ARM
- with HAS_PCI enabled.
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1605527997.git.rahul.singh@arm.com>
- <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
- <bd5fa7bb-7c44-1ec0-fc57-3ecf01c7d651@suse.com>
- <CBBE4253-F244-418D-9EA6-BC39D1BC8DF8@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1530c2fb-8def-37eb-8a22-d7f9fc4e38b4@suse.com>
-Date: Wed, 18 Nov 2020 16:16:47 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
-In-Reply-To: <CBBE4253-F244-418D-9EA6-BC39D1BC8DF8@arm.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [37.24.206.209]
-X-ClientProxiedBy: AM0PR01CA0174.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:aa::43) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	(envelope-from <SRS0=uMMN=EY=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
+	id 1kfPDW-000210-GH
+	for xen-devel@lists.xen.org; Wed, 18 Nov 2020 15:17:54 +0000
+X-Inumbo-ID: daf8d629-c3ee-41d7-8ea4-6c26c984edc5
+Received: from mail-ua1-x92c.google.com (unknown [2607:f8b0:4864:20::92c])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id daf8d629-c3ee-41d7-8ea4-6c26c984edc5;
+	Wed, 18 Nov 2020 15:17:53 +0000 (UTC)
+Received: by mail-ua1-x92c.google.com with SMTP id q68so783575uaq.3
+        for <xen-devel@lists.xen.org>; Wed, 18 Nov 2020 07:17:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=AifqwwU6opvqQ+dbP3YRrILce8AKsWgnI+JIoG1/g0g=;
+        b=VYG+6N7P+JQKeCBD9r4Rn97ZPiyiWhmsp9hCD7gWSDuKQVTQDyQCIIgdPb5V3fHtXJ
+         uQTufJ82yi/CR+pi7c3VbjcQN+Ledd3/0WURV3T7NXjatPRCgfm660/OD9RwQ7OxSpdQ
+         oL7k4vLeiJlvNXdEvrYuaJ0lhEfOS+seGLYeV6PCrMk6Yof1+Ds70qInARxuUo95QNBS
+         ht//r/PXBVrs6zNaqFfHxqxvpV6PKnTPa4rZYvUluH9UpPuDXwEekTO0khXNTrbXkV/W
+         HUEbVpAZL1CNJhXfTi4H7kR8tJ/CmJ5Ywu1woNwq2DwfiCM05zJMJo+iF8MCCI7W7it4
+         36qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=AifqwwU6opvqQ+dbP3YRrILce8AKsWgnI+JIoG1/g0g=;
+        b=FSv+4WsBYdDu/Oz56PeSFPyg16YF9wr8ScbIcGswTYNmzTawAOGImDBefj4GxPg5z4
+         gOVHeVrUo94BLv680QCXa8z4ezyFslhP2byBRPJUJkwz1E4LI3kq1ieC6OepcdC9sQZc
+         ojKBz9QaqyHICBNUFTCpETA2+Ck0iGLj8pzn7COsQeQyxKuvHoN+OJih+JYpTLZNnkUK
+         qwroLDS9j1Esxykcq3cjg5UAXEeHVdjhRn37K2hdUI3JAg4rdagqqUhD0mPqdsDnnt4B
+         do902MyezFA3UCa6jfA5kiymCoYQ+nshnA3QJNXP5dBJHyBvhdNY1k+n68Zd5KrbatV+
+         odGA==
+X-Gm-Message-State: AOAM5301pLFv1u4klErVrCAPu6eVxyzfd0ElsypswN016ov9XL8DuFXx
+	Z8OR4YhQU15uNviTsoGcEzgQmgRVfk2p1U9bcmnkEO+3BnwpueBi
+X-Google-Smtp-Source: ABdhPJxXSHfeaUd3SLJ956z1ZIY2oKEFuGexNNAX13RANWFzh8SjDYKbexe4S0QrZgulHURmm7IcEhp9uRZSQcrqniQ=
+X-Received: by 2002:ab0:6994:: with SMTP id t20mr3586689uaq.111.1605712672482;
+ Wed, 18 Nov 2020 07:17:52 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.156.60.236] (37.24.206.209) by AM0PR01CA0174.eurprd01.prod.exchangelabs.com (2603:10a6:208:aa::43) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend Transport; Wed, 18 Nov 2020 15:16:54 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 83c48390-681e-46d8-06f4-08d88bd4fc0c
-X-MS-TrafficTypeDiagnostic: VI1PR04MB7038:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB70389249F8ED807015396150B3E10@VI1PR04MB7038.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GoRdTsRjX2dejbxbBVlBC7FBVsPY8iISFhHlzI8UrWM6+Z+36Te1/7fISZMXWGRUI8MZ9GZUTV66CRpntE74ePO/o0XlFHs8TP1e7lF3C/DX5L9NtkCqFOe97GUv9e6NmOZm0TPGgfsVhoWHey8u/d4hkHQMxfbGb6tGOiuTx9HSTCL4D75cD6ut1IUPQBTAAKxLVI0/KFDxlzCHiOy0VAIWLZ9Lg6gX1RI6U4INrPD4wbrLleICW6I6Gg0itA3TutDDi5LkP7xn+4FHDhzJCFRMU6zwUmYUwt1dBJNX0/XME0BX+j2fBQ4k960dPbigjcLzndum6Ws4bvlUMggN3kxvvsQjy8IutWpZyDCquTlK423fV94q7YYVCXdFm1CS
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(136003)(346002)(396003)(366004)(376002)(39860400002)(8936002)(956004)(52116002)(26005)(54906003)(53546011)(2616005)(478600001)(86362001)(4326008)(5660300002)(31686004)(36756003)(8676002)(66556008)(2906002)(186003)(31696002)(16526019)(16576012)(83380400001)(6666004)(6486002)(6916009)(66476007)(66946007)(316002)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData:
-	nvf2YtTgDyBWhmInhhPiZ46k4CdudmsCRSSGEGJrKZjykSc8L85481kQ1vMp2Ujtl3BUsP/eaSLORzCyQztF/9t56DqfmhRYhvY1PlvFmgA91UGPYcaAzN7Ko+FUKo6jNjMLHWg7i46f+HYua1GIVYB7JQruK7gkCm1YD7Nhz/uXTnuyIBaQfBeyhjJcLFRlanH2ig3zshOvmtkh1MV/Y1q5pOWxK+nD7kTTCNEz9ozg58LYTViTDz2LTp8EKimrlOEWdNMFBt4DuJy7tVhP8PWvTALvcfrSJzaRyyviS65kxyWLq87gb15h7K5L5Q7mnnIDSFYVpif73iARkzwJXPUTk/c5xty6D8nZVvOvAe/79NiTxxQCnGg0Vlld59v0dDrhqySScJ1pdWh/BRv8t4mZ0Bg9J+0Vw+uHbCeF1PSwsx4uoME/BP4ND5ekvuG4PY0S6GNT9CGL9LI0f40F0zIYUrBxu5EyF16De4oEoDcApihXsj8wpVsiOhtzInNyUFuflHlVadw81i9/ywLx5xSXTCCUUzLTKHBDWATJxc3caipsgzKlO4xHvozMtnmJO1zxycVpZts7rwHauGGndCO/1O8ZXJatKNEUJ4C2a5D8a8zqOvT6FXsfVNrS7QqVtM/6DTiRykxKbLR9YwNDSxag/5HJggOnaPrZiaN6mt/85+tlMo5NPyg94XKFI/WKs+spT9/QcVpnsyBgWwk3c3rMQIsPNbTLUFXbFn7ysabEKGHozulSY5jSEFWFP0wJtrGBbGfVDd8N8kiSI4Q65OfiUy+k2OffeMRHpMG9Z1/UwdclHWX8MjHxNVjtlrvPxYThj4ERBIVktJtyNWRgzHHpyvHbTr0QY8e0qoF35YfRlLznuwthJZatirAVYPgadlpn82P72+59FFk/z2GARw==
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83c48390-681e-46d8-06f4-08d88bd4fc0c
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2020 15:16:55.2228
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C4FgQdP/TCrr116Qp9HFmSRb31kcngMLKdbjKId4BqQNWqdorysrnFFmdmy3R09G14UoFUF8ienQpeG5LKR5BQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7038
+References: <CACJ1ZNuJCgDkRHvH2gXqC5gWTJHdUQ9J4G-HBNFwKYZFaWpWuw@mail.gmail.com>
+ <CACJ1ZNupvRX_fcGPWn3mm+3Lm4gT38M088tUc_sSUu8JeQg3Fg@mail.gmail.com> <CACJ1ZNu5Kdf72j1eTtdgTuSOjgkpeEWFM0cKB-54pxqwXuWCDQ@mail.gmail.com>
+In-Reply-To: <CACJ1ZNu5Kdf72j1eTtdgTuSOjgkpeEWFM0cKB-54pxqwXuWCDQ@mail.gmail.com>
+From: Olivier Lambert <lambert.olivier@gmail.com>
+Date: Wed, 18 Nov 2020 16:17:41 +0100
+Message-ID: <CACJ1ZNtfgNr9oz7stE=2iwijjAUtZLWR2u_xihFZeEk3Y7gYRQ@mail.gmail.com>
+Subject: Re: Schedule for OpenPOWER/Xen meeting
+To: "<xen-devel@lists.xen.org>" <xen-devel@lists.xen.org>
+Content-Type: multipart/alternative; boundary="000000000000746d0105b4631da0"
 
-On 18.11.2020 16:02, Rahul Singh wrote:
-> Hello Jan,
-> 
->> On 17 Nov 2020, at 10:55 am, Jan Beulich <jbeulich@suse.com> wrote:
+--000000000000746d0105b4631da0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi!
+
+So I managed to get an agenda with basic questions. The meeting is at the
+planned time (Nov the 19th, at 3PM central time, which is 9PM in UK and
+10PM in Europe).
+
+Meeting place will be: https://ibm.webex.com/meet/mendy
+
+Don't forget to ping your colleagues/friends that aren't watching this
+mailing list actively, so they won't miss the meeting :)
+
+See you tomorrow!
+
+Olivier.
+
+Le jeu. 12 nov. 2020 =C3=A0 21:44, Olivier Lambert <lambert.olivier@gmail.c=
+om> a
+=C3=A9crit :
+
+> Okay so before having the meeting webex/whatever link, I think it would b=
+e
+> more efficient to plan a kind of agenda, something we can pass to the
+> OpenPOWER team in the next few days. This way, they could have some answe=
+rs
+> ready, allowing us to explore more things interactively during the meetin=
+g.
+>
+> Feel free to participate in this thread (even if you won't be at the
+> meeting!), so we can gather and then organize a bit of what we'd like to
+> know/discuss during this meeting.
+>
+> So go ahead and start to throw questions :)
+>
+>
+> Thanks,
+>
+> OIivier.
+>
+>
+> Le jeu. 12 nov. 2020 =C3=A0 09:26, Olivier Lambert <lambert.olivier@gmail=
+.com>
+> a =C3=A9crit :
+>
+>> Thanks to everyone who participated in the poll. Due to the limited
+>> number of answers, I think it's wiser to go for the second option (Thurs=
+day
+>> the 19th), because everyone who already answered seems available that da=
+y.
+>> I'll confirm that to OpenPOWER. When it's confirmed, I'll do a recap her=
+e
+>> ideally with the meeting place.
 >>
->> On 16.11.2020 13:25, Rahul Singh wrote:
->>> NS16550 driver has PCI support that is under HAS_PCI flag. When HAS_PCI
->>> is enabled for ARM, compilation error is observed for ARM architecture
->>> because ARM platforms do not have full PCI support available.
+>> Thanks,
 >>
->> While you've extended the sentence, it remains unclear to me what
->> compilation error it is that results here. I've requested such
->> clarification for v2 already.
-> 
-> Compilation error is related to the code that refer to x86  functions (create_irq()..) and MSI implementation related error. 
-> For more details please find the attached file for compilation error.
-
-The use of mmio_ro_ranges is almost quite possibly going to remain
-x86-specific, but then I guess this wants abstracting in a suitable
-way.
-
-The remaining look to all be MSI-related, so perhaps what you want
-to avoid is just that part rather than everything PCI-ish?
-
->>> --- a/xen/drivers/char/ns16550.c
->>> +++ b/xen/drivers/char/ns16550.c
->>> @@ -16,7 +16,7 @@
->>> #include <xen/timer.h>
->>> #include <xen/serial.h>
->>> #include <xen/iocap.h>
->>> -#ifdef CONFIG_HAS_PCI
->>> +#ifdef CONFIG_HAS_NS16550_PCI
->>> #include <xen/pci.h>
->>> #include <xen/pci_regs.h>
->>> #include <xen/pci_ids.h>
+>> Olivier.
 >>
->> ... #undef-ining CONFIG_HAS_PCI at a suitable position in this
->> file (e.g. after all #include-s, to make sure all structure
->> layouts remain correct)? This would then be far easier to revert
->> down the road, and would confine the oddity to a single file
->> (and there a single place) in the code base.
 >>
-> 
-> As for ARM platforms, PCI implementation is in the development process and I am not sure if after completion of PCI work, ns16500 PCI part of code will work out of the box. I think there is some effort required to test the ns16550 PCI part of the code on ARM.
-> As this code is tested on X86 only so I make the options depends on X86 and enable it by default for x86.  
-> 
-> I feel that adding a new Kconfig options is ok to enable/disable the PCI NS16550 support as compared to #undef CONFIG_HAS_PCI in the particular file. If in future other architecture wants to implement the PCI they will face the similar compilation error issues.
-> 
-> Please suggest how we can proceed on this.
+>> Le mar. 10 nov. 2020 =C3=A0 13:41, Olivier Lambert <lambert.olivier@gmai=
+l.com>
+>> a =C3=A9crit :
+>>
+>>> Hi everyone,
+>>>
+>>> We got 2 potential dates for the initial tech meeting with at least one
+>>> OpenPOWER expert, so we can discuss the effort needed to port Xen on th=
+is
+>>> architecture.
+>>>
+>>> Because of time zones (on OpenPower side, there's one guy in Australia)=
+,
+>>> we got 2 possible schedules in November:
+>>>
+>>> 1. 3pm CT on this Thursday the 12th (! this week)
+>>> 2. Or next week Thursday the 19th
+>>>
+>>> I made a doodle-like so everyone can vote on their preferred schedule:
+>>> https://framadate.org/QQu5rYEOEYr4ZHc4
+>>>
+>>> Note: 3pm CT would mean 9pm UTC, 10pm UTC+1 (CET). But correct me if I'=
+m
+>>> wrong.
+>>>
+>>> Reminder: the Cryptpad of the last Xen Community meeting contains the
+>>> list of people interested. If you are aware of someone interested that
+>>> could miss this email on this devel list, feel free to forward it. Cryp=
+tpad
+>>> link: https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/
+>>>
+>>> Thank you and see you soon!
+>>>
+>>> Olivier.
+>>>
+>>
 
-Introduce CONFIG_HAS_PCI_MSI (selected only by x86), if there's no
-immediate plan to support it on Arm together with the rest of PCI?
+--000000000000746d0105b4631da0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+<div dir=3D"ltr"><div>Hi!</div><div><br></div><div>So I managed to get an a=
+genda with basic questions. The meeting is at the planned time (Nov the 19t=
+h, at 3PM central time, which is 9PM in UK and 10PM in Europe).</div><div><=
+br></div><div>Meeting place will be: <a href=3D"https://ibm.webex.com/meet/=
+mendy">https://ibm.webex.com/meet/mendy</a></div><div><br></div><div>Don&#3=
+9;t forget to ping your colleagues/friends that aren&#39;t watching this ma=
+iling list actively, so they won&#39;t miss the meeting :)</div><div><br></=
+div><div>See you tomorrow!</div><div><br></div><div>Olivier.<br></div></div=
+><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Le=C2=
+=A0jeu. 12 nov. 2020 =C3=A0=C2=A021:44, Olivier Lambert &lt;<a href=3D"mail=
+to:lambert.olivier@gmail.com">lambert.olivier@gmail.com</a>&gt; a =C3=A9cri=
+t=C2=A0:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div di=
+r=3D"ltr"><div>Okay so before having the meeting webex/whatever link, I thi=
+nk it would be more efficient to plan a kind of agenda, something we can pa=
+ss to the OpenPOWER team in the next few days. This way, they could have so=
+me answers ready, allowing us to explore more things interactively during t=
+he meeting.</div><div><br></div><div>Feel free to participate in this threa=
+d (even if you won&#39;t be at the meeting!), so we can gather and then org=
+anize a bit of what we&#39;d like to know/discuss during this meeting.</div=
+><div><br></div><div>So go ahead and start to throw questions :)<br></div><=
+div><div><br></div><div><br></div><div>Thanks,</div><div><br></div><div>OIi=
+vier.<br></div><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"l=
+tr" class=3D"gmail_attr">Le=C2=A0jeu. 12 nov. 2020 =C3=A0=C2=A009:26, Olivi=
+er Lambert &lt;<a href=3D"mailto:lambert.olivier@gmail.com" target=3D"_blan=
+k">lambert.olivier@gmail.com</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
+solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div>Thanks to ev=
+eryone who participated in the poll. Due to the limited number of answers, =
+I think it&#39;s wiser to go for the second option (Thursday the 19th), bec=
+ause everyone who already answered seems available that day. I&#39;ll confi=
+rm that to OpenPOWER. When it&#39;s confirmed, I&#39;ll do a recap here ide=
+ally with the meeting place.</div><div><br></div><div>Thanks,</div><div><br=
+></div><div>Olivier.<br></div><br></div><br><div class=3D"gmail_quote"><div=
+ dir=3D"ltr" class=3D"gmail_attr">Le=C2=A0mar. 10 nov. 2020 =C3=A0=C2=A013:=
+41, Olivier Lambert &lt;<a href=3D"mailto:lambert.olivier@gmail.com" target=
+=3D"_blank">lambert.olivier@gmail.com</a>&gt; a =C3=A9crit=C2=A0:<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div>Hi =
+everyone,</div><div><br></div><div>We got 2 potential dates for the initial=
+ tech meeting with at least one OpenPOWER expert, so we can discuss the eff=
+ort needed to port Xen on this architecture.</div><div><br></div><div>Becau=
+se of time zones (on OpenPower side, there&#39;s one guy in Australia), we =
+got 2 possible schedules in November:</div><div><br></div><div>1. 3pm CT on=
+ this Thursday the 12th (! this week)<br></div><div>2. Or next week Thursda=
+y the 19th</div><div><br></div><div>I made a doodle-like so everyone can vo=
+te on their preferred schedule: <a href=3D"https://framadate.org/QQu5rYEOEY=
+r4ZHc4" target=3D"_blank">https://framadate.org/QQu5rYEOEYr4ZHc4</a></div><=
+div><br></div><div>Note: 3pm CT would mean 9pm UTC, 10pm UTC+1 (CET). But c=
+orrect me if I&#39;m wrong.</div><div><br></div><div>Reminder: the Cryptpad=
+ of the last Xen Community meeting contains the list of people interested. =
+If you are aware of someone interested that could miss this email on this d=
+evel list, feel free to forward it. Cryptpad link: <a href=3D"https://crypt=
+pad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/" target=3D"_blank">https:=
+//cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/</a></div><div><br>=
+</div><div>Thank you and see you soon!</div><div><br></div><div>Olivier.<br=
+></div></div>
+</blockquote></div>
+</blockquote></div>
+</blockquote></div>
 
+--000000000000746d0105b4631da0--
 
