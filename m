@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CDF22B9059
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 11:46:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30598.60739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C5F32B9087
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 12:00:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30610.60755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfhSW-0002IQ-Jw; Thu, 19 Nov 2020 10:46:36 +0000
+	id 1kfhf5-0003UZ-Q4; Thu, 19 Nov 2020 10:59:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30598.60739; Thu, 19 Nov 2020 10:46:36 +0000
+Received: by outflank-mailman (output) from mailman id 30610.60755; Thu, 19 Nov 2020 10:59:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,265 +23,254 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfhSW-0002Hy-Ft; Thu, 19 Nov 2020 10:46:36 +0000
-Received: by outflank-mailman (input) for mailman id 30598;
- Thu, 19 Nov 2020 10:46:34 +0000
+	id 1kfhf5-0003UA-Ms; Thu, 19 Nov 2020 10:59:35 +0000
+Received: by outflank-mailman (input) for mailman id 30610;
+ Thu, 19 Nov 2020 10:59:33 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kfhSU-0002Ho-HE; Thu, 19 Nov 2020 10:46:34 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1kfhf3-0003U2-Ht
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 10:59:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kfhSU-0000lm-B8; Thu, 19 Nov 2020 10:46:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kfhST-00023w-WC; Thu, 19 Nov 2020 10:46:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kfhST-0007wC-Vi; Thu, 19 Nov 2020 10:46:33 +0000
+ (envelope-from <julien@xen.org>)
+ id 1kfhf2-00012H-4F; Thu, 19 Nov 2020 10:59:32 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kfhf1-0005eh-O1; Thu, 19 Nov 2020 10:59:31 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kfhSU-0002Ho-HE; Thu, 19 Nov 2020 10:46:34 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=gyDbOG6+ZReM+ntGWFw6ztlaQTG1KBhKleNYITfTWBU=; b=MjCg+z9NnvEbgl7fDJvIZovAq4
-	mg/D675q+wTrEJM/ZWx4IFyAn+RN4X9PQ/KLEj5+bzmcxSbKnUlm6v9tpPs+zJK6CKShwgxt8XBRr
-	T6Ng0/bLZSjM3WSatXyDpl8zXtN7k0iKeiufCn5ObX6scDD2ar75CNG0F2dJl9HnWedY=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	(envelope-from <julien@xen.org>)
+	id 1kfhf3-0003U2-Ht
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 10:59:33 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=63HXOrw55m7fSuT5mv2XlypB1wFoU1pivjgY0UAQ+KU=; b=P0vvHCgCCfYXAoNQaaTy+k5nRF
+	5s3aLqyo13i9Sx15gHo8amKpd8dr1tY9r2OwzLHVuWGNXl0d7HuO4DJrA668bGdZ31hglaJjiQ/R7
+	94ys5+EkVBtoGMkflbIh9vwcIopyx7RGk/5KsLfb3WsQYVfXasE95WN4UE2IZ77aPXsg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kfhSU-0000lm-B8; Thu, 19 Nov 2020 10:46:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kfhST-00023w-WC; Thu, 19 Nov 2020 10:46:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kfhST-0007wC-Vi; Thu, 19 Nov 2020 10:46:33 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156870-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <julien@xen.org>)
+	id 1kfhf2-00012H-4F; Thu, 19 Nov 2020 10:59:32 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kfhf1-0005eh-O1; Thu, 19 Nov 2020 10:59:31 +0000
+Subject: Re: [PATCH 1/3] mm: introduce xvmalloc() et al and use for grant
+ table allocations
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e0364274-f123-82bd-ec85-bea519a34049@suse.com>
+ <d98aabe4-6c1b-0970-2e42-eb991e9075a2@suse.com>
+ <e7b72c54-e8e4-428d-9264-484fc0061ba4@xen.org>
+ <9adc7ec2-c014-d9ae-a8b5-5b942640386c@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e115ce52-3c5c-6530-dd3a-bc7f268ef224@xen.org>
+Date: Thu, 19 Nov 2020 10:59:29 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.3
 MIME-Version: 1.0
-Subject: [libvirt test] 156870: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=126cb34a206a44f04e364700b46426dff9f387d5
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 19 Nov 2020 10:46:33 +0000
+In-Reply-To: <9adc7ec2-c014-d9ae-a8b5-5b942640386c@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 156870 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156870/
+Hi,
 
-Regressions :-(
+On 19/11/2020 09:46, Jan Beulich wrote:
+> On 18.11.2020 20:10, Julien Grall wrote:
+>> On 06/11/2020 07:11, Jan Beulich wrote:
+>>> All of the array allocations in grant_table_init() can exceed a page's
+>>> worth of memory, which xmalloc()-based interfaces aren't really suitable
+>>> for after boot.
+>>
+>> I can see a few reasons why they are not suitable:
+>>     - xmalloc() will try to using an order and then throw memory. This is
+>> pretty inneficient.
+> 
+> But addressing this inefficiency, while a nice side effect, is
+> not the goal here.
+> 
+>>     - xmalloc() will allocate physically contiguous memory
+> 
+> This aspect matters here only indirectly: What we care about
+> avoiding are runtime allocations of non-zero order. The assumption
+> of how I worded the description is that during boot non-zero-
+> order allocations can typically be fulfilled and hence aren't a
+> (general) problem.
+Well... In the case of the grant table, if you can't find a small order 
+of physically contiguous pages then you have bigger trouble on your 
+platform. You will either not have enough space for the allocating the 
+domain memory, or the performance will be awful because only 4K pages 
+are used.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+So while I agree that having xvmalloc() is a good move, I am not 
+convinced of your argument regarding the boot vs runtime.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+I think a better argument is the allocation doesn't need to be 
+physically contiguous in memory. So better avoid it when we can.
 
-version targeted for testing:
- libvirt              126cb34a206a44f04e364700b46426dff9f387d5
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+> 
+>> It would be good to clarify which one you refer because none of them are
+>> really a problem only after boot...
+> 
+> Given the above, I'm not sure in which way you would see this be
+> clarified. Any suggestions welcome.
+> 
+>> One thing to be aware thought is xv*() are going to be more inefficient
+>> because they involve touching the page-tables (at least until the work
+>> to map on-demand the direct map is not merged). In addition, on Arm,
+>> they will also use only 4K mappings (I have a TODO to fix that).
+>>
+>> So I think we will need to be careful when to use xmalloc() vs
+>> xvalloc(). It might be worth outlining that in the documentation of xv*().
+> 
+> The rule is quite simple and the inefficiencies you mention
+> shouldn't matter imo: Post-boot there should not be any
+> implicit allocations of non-zero order. "Implicit" here meaning
+> to still permit e.g. direct alloc_domheap_pages() invocations,
+> making apparent at the call site that the aspect of memory
+> fragmentation was (hopefully) taken into consideration. I'm
+> actually inclined to suggest (down the road) to have _xmalloc()
+> no longer fall back to multi-page allocations post-boot, but
+> instead return NULL.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  132 days
-Failing since        151818  2020-07-11 04:18:52 Z  131 days  126 attempts
-Testing same since   156870  2020-11-19 04:20:46 Z    0 days    1 attempts
+One advantage of xmalloc() is it is able to allocate a suitable xenheap 
+area. So it will not touch the page-tables and therefore useful for 
+short-life allocation as the overhead will be more limited compare to 
+xvalloc().
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Neal Gompa <ngompa13@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+There is also the problem that alloc_{dom, xen}heap_pages() works using 
+order. xmalloc() is handy because it will give back the unnecessary pages.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+Maybe we should consider a version of alloc_*heap_pages() that will take 
+the number of pages rather than order.
 
+> 
+> If you think it is really needed, I can add something like "These
+> should be used in preference to xmalloc() et al whenever the size
+> is not known to be constrained to at most a single page" to the
+> comment at the top of the new header file.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+There are quite a few users of xmalloc() with large allocations. Yet, 
+they would not be suitable for xvalloc() because they require physically 
+contiguous memory. So I think you would want to mention that in the 
+sentence.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> Where the inefficiencies you mention would imo matter is in
+> (future) decisions whether to use vmalloc() et al vs xvmalloc()
+> et al: If the size _may_ be no more than a page, the latter may
+> want preferring.
+I am not sure to understand this... why would we want to keep vmalloc() 
+extern when xvalloc() will be calling it for allocation over a PAGE_SIZE?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> 
+>>> --- a/xen/common/vmap.c
+>>> +++ b/xen/common/vmap.c
+>>> @@ -7,6 +7,7 @@
+>>>    #include <xen/spinlock.h>
+>>>    #include <xen/types.h>
+>>>    #include <xen/vmap.h>
+>>> +#include <xen/xvmalloc.h>
+>>>    #include <asm/page.h>
+>>>    
+>>>    static DEFINE_SPINLOCK(vm_lock);
+>>> @@ -299,11 +300,29 @@ void *vzalloc(size_t size)
+>>>        return p;
+>>>    }
+>>>    
+>>> -void vfree(void *va)
+>>> +static void _vfree(const void *va, unsigned int pages, enum vmap_region type)
+>>
+>> I don't think "unsigned int" is sufficient to cover big size. AFAICT,
+>> this is not in a new problem in this code and seems to be a latent issue
+>> so far.
+>>
+>> However, I feel that it is wrong to introduce a new set of allocation
+>> helpers that contained a flaw fixed in xm*alloc() recently (see  commit
+>> cf38b4926e2b "xmalloc: guard against integer overflow").
+> 
+> For _xmalloc() we're talking about bytes (and the guarding you
+> refer to is actually orthogonal to the limiting done by the
+> page allocator, as follows from the description of that change).
+> Here we're talking about pages. I hope it will be decades until we
+> have to consider allocating 16Tb all in one chunk (and we'd need
+> to have large enough vmap virtual address space set aside first).
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I think you misunderstood my point here. I am not suggesting that a 
+normal user would ask to allocate 16TB but that a caller may pass by 
+mistake an unsanitized value to xv*() functions.
 
+IIRC, the overflow check in xm*() were added after we discovered that 
+some callers where passing unsanitized values.
 
-Not pushing.
+I would expect xv*() functions to be more used in the future, so I think 
+it would be unwise to not guard against overflow.
 
-(No revision log; it would be 27961 lines long.)
+I would be happy with just checking that nr always fit in a 32-bit value.
+
+> Also note that
+> - the entire vmap.c right now uses unsigned int for page counts,
+>    so it would be outright inconsistent to use unsigned long here,
+
+I didn't suggest this would be the only place (note that "new problem"). 
+This was the best place I could find to mention an existing problem that 
+is widened with the introduction of xv*() helpers.
+
+> - at least on x86 passing around 64-bit function arguments is
+>    slightly less efficient than 32-bit ones, and hence I'd prefer
+>    to keep it like this.
+
+Don't you have 64-bit registers on x86-64?
+
+But, I am really surprised this is a concern to you when all the 
+functions in this code will modify the pages tables. You dismissed this 
+overhead in the same e-mail...
+
+> 
+>>> --- /dev/null
+>>> +++ b/xen/include/xen/xvmalloc.h
+>>> @@ -0,0 +1,70 @@
+>>> +
+>>> +#ifndef __XVMALLOC_H__
+>>> +#define __XVMALLOC_H__
+>>> +
+>>> +#include <xen/cache.h>
+>>> +#include <xen/types.h>
+>>> +
+>>> +/*
+>>> + * Xen malloc/free-style interface.
+>>
+>> It would be useful to emphase that they should only be used if the
+>> caller does *not* need physically contiguous memory.
+> 
+> Actually first of all I shouldn't have copied to comment without
+> editing. I've now made it
+> 
+> /*
+>   * Xen malloc/free-style interface preferable for allocations possibly
+>   * exceeding a page's worth of memory, as long as there's no need to have
+>   * physically contiguous memory allocated.
+>   */
+> 
+> albeit I'm not sure the "physically discontiguous" really needs
+> pointing out, considering the 'v' in the function names.
+
+Verbosity never hurt. I would not say the same with figuring out what 
+'v' means.
+
+I am not ashame to say that when began to work on Linux/Xen, I had some 
+trouble to figure out the difference between kmalloc() and vmalloc().
+
+Cheers,
+
+-- 
+Julien Grall
 
