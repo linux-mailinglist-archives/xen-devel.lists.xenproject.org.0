@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92C782B981A
+	by mail.lfdr.de (Postfix) with ESMTPS id 88AFA2B9819
 	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 17:38:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31139.61386 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.31148.61402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfmwT-0003CU-Od; Thu, 19 Nov 2020 16:37:53 +0000
+	id 1kfmxQ-0003Lh-43; Thu, 19 Nov 2020 16:38:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31139.61386; Thu, 19 Nov 2020 16:37:53 +0000
+Received: by outflank-mailman (output) from mailman id 31148.61402; Thu, 19 Nov 2020 16:38:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,91 +23,79 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfmwT-0003C9-LA; Thu, 19 Nov 2020 16:37:53 +0000
-Received: by outflank-mailman (input) for mailman id 31139;
- Thu, 19 Nov 2020 16:37:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PWQs=EZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kfmwR-0003C4-Ex
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 16:37:51 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0778bc08-21cd-4961-a343-cc8cfe4918a0;
- Thu, 19 Nov 2020 16:37:50 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A209DAC2D;
- Thu, 19 Nov 2020 16:37:49 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kfmxQ-0003LI-0t; Thu, 19 Nov 2020 16:38:52 +0000
+Received: by outflank-mailman (input) for mailman id 31148;
+ Thu, 19 Nov 2020 16:38:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2P/M=EZ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kfmxO-0003LC-QN
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 16:38:50 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8d8923b2-a5ac-4564-bffd-c1eb8e33f105;
+ Thu, 19 Nov 2020 16:38:49 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=PWQs=EZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kfmwR-0003C4-Ex
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 16:37:51 +0000
-X-Inumbo-ID: 0778bc08-21cd-4961-a343-cc8cfe4918a0
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 0778bc08-21cd-4961-a343-cc8cfe4918a0;
-	Thu, 19 Nov 2020 16:37:50 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605803869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V+Xf18YHgnei9DXh5gYTPxA+nYmJ8ESY2h/5F4AwS/E=;
-	b=Ac5gIp0TMzRzPxZnVNjrxvenqTYQtUesFqwDYg32cY5y2ea41zHuhlkn+Iic6Q9y2C3mOJ
-	wf3gDRP0fF0514MT+gPrKn5T2rZg2sCyxRSrC1TUsAIu9qIiGrnhzIKA3/3RM0nez9LjIX
-	y5qZDqFUdmQ2SwWcbXQOKSCKFVgd550=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A209DAC2D;
-	Thu, 19 Nov 2020 16:37:49 +0000 (UTC)
-Subject: Re: [PATCH] x86/Intel: avoid UB with NMI watchdog on family 15 CPUs
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <63500eb6-b1da-ce08-52e2-00b30ffe2c26@suse.com>
- <1c2ffdcb-577d-8bea-35e3-904777a0c2e5@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e056d6ff-aceb-e4f9-1fe8-a41c482e34bc@suse.com>
-Date: Thu, 19 Nov 2020 17:37:48 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
+	(envelope-from <SRS0=2P/M=EZ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1kfmxO-0003LC-QN
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 16:38:50 +0000
+X-Inumbo-ID: 8d8923b2-a5ac-4564-bffd-c1eb8e33f105
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 8d8923b2-a5ac-4564-bffd-c1eb8e33f105;
+	Thu, 19 Nov 2020 16:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1605803929;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=XW+It94G6+dYFOkryCtNAWQQoMoEuCBf2FsJzmnphcg=;
+  b=Mxve+bQzubBaq2M7gAdChjZLlIFlWzuFRPV68+rmIvxIfTMAKwGxk1zC
+   CkKJRHpSf719c4h7KduUlIZPdcKXpX7rRLBbBRvZeC/AghQzlSlnjx69d
+   47CyGvkb60J0FL/GJkzSCBwvwkUInWlj/n0//vboeGNJZo8QAkIYhs9tg
+   U=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: fnz8AP2Zq5ukmTk8F97QD9SQiLysb9NgrqMW2iDYaIoFfBYmNC6YzApTzkuMavP3DHPV7N7Gzb
+ YsoHBBrNhP1NBQKkIrs4y2F7kQeC2KrC7ESlHoHLqZsOS/mQRPXDLz1aP/xDzNYX+BxmLpHVAP
+ 1UmzmUgAzP6hN4u57mWHSoiBLVLq7obWAXYeX4noAKxI1Lz7ZeyYD7RZTQ4jXpjSabMZ/ApvSQ
+ uHopSMp0YMfwPcHsVVm9XhmCsKGtYaLnl+wzqtWVbQJ6RQrkGOJLMnLlEhc68SrHSP438ly34m
+ l3U=
+X-SBRS: None
+X-MesageID: 32690080
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,353,1599537600"; 
+   d="scan'208";a="32690080"
+Subject: Re: [PATCH] xen/iommu: vtd: Fix undefined behavior pci_vtd_quirks()
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Julien Grall <jgrall@amazon.com>, Kevin Tian <kevin.tian@intel.com>
+References: <20201119145216.29280-1-julien@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <16b256f5-1ceb-c12f-ff7b-9c6f1a5cc3cb@citrix.com>
+Date: Thu, 19 Nov 2020 16:38:43 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1c2ffdcb-577d-8bea-35e3-904777a0c2e5@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201119145216.29280-1-julien@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL04.citrite.net (10.13.108.177)
 
-On 19.11.2020 17:10, Andrew Cooper wrote:
-> On 19/11/2020 15:57, Jan Beulich wrote:
->> Found by looking for patterns similar to the one Julien did spot in
->> pci_vtd_quirks().
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Subject is wonky.  Is it P4 (Intel), or Fam15 (AMD) ?  I'd be tempted to
-> have the prefix as x86/nmi: either way.
+On 19/11/2020 14:52, Julien Grall wrote:
+> Note that splat is from 4.11.4 and not staging. Although, the problem is
+> still present.
+>
+> This can be solved by making the first operand unsigned int.
+>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>
+> CR: https://code.amazon.com/reviews/CR-38873112
 
-With this code:
+IIRC, this is an internal link, which doesn't want including on the
+upstream commit?
 
-    case X86_VENDOR_INTEL:
-        switch (boot_cpu_data.x86) {
-        case 6:
-            setup_p6_watchdog((boot_cpu_data.x86_model < 14) 
-                              ? P6_EVENT_CPU_CLOCKS_NOT_HALTED
-                              : CORE_EVENT_CPU_CLOCKS_NOT_HALTED);
-            break;
-        case 15:
-            if (!setup_p4_watchdog())
-
-I think qualifying it like I did is quite reasonable. Hence ...
-
-> With that suitably adjusted, Acked-by: Andrew Cooper
-> <andrew.cooper3@citrix.com>
-
-... I'd prefer to keep it as is - please clarify.
-
-Jan
+~Andrew
 
