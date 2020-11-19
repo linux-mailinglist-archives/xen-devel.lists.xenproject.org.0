@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C5F32B9087
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 12:00:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30610.60755 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7862B90A6
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 12:10:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30617.60767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfhf5-0003UZ-Q4; Thu, 19 Nov 2020 10:59:35 +0000
+	id 1kfhp4-0004f5-VG; Thu, 19 Nov 2020 11:09:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30610.60755; Thu, 19 Nov 2020 10:59:35 +0000
+Received: by outflank-mailman (output) from mailman id 30617.60767; Thu, 19 Nov 2020 11:09:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,254 +23,564 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfhf5-0003UA-Ms; Thu, 19 Nov 2020 10:59:35 +0000
-Received: by outflank-mailman (input) for mailman id 30610;
- Thu, 19 Nov 2020 10:59:33 +0000
+	id 1kfhp4-0004eg-RW; Thu, 19 Nov 2020 11:09:54 +0000
+Received: by outflank-mailman (input) for mailman id 30617;
+ Thu, 19 Nov 2020 11:09:54 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kfhf3-0003U2-Ht
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 10:59:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kfhp4-0004eY-5D; Thu, 19 Nov 2020 11:09:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kfhf2-00012H-4F; Thu, 19 Nov 2020 10:59:32 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kfhf1-0005eh-O1; Thu, 19 Nov 2020 10:59:31 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kfhp3-0001Ge-Si; Thu, 19 Nov 2020 11:09:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kfhp3-0002r9-J1; Thu, 19 Nov 2020 11:09:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kfhp3-0002q1-IX; Thu, 19 Nov 2020 11:09:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfhf3-0003U2-Ht
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 10:59:33 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=63HXOrw55m7fSuT5mv2XlypB1wFoU1pivjgY0UAQ+KU=; b=P0vvHCgCCfYXAoNQaaTy+k5nRF
-	5s3aLqyo13i9Sx15gHo8amKpd8dr1tY9r2OwzLHVuWGNXl0d7HuO4DJrA668bGdZ31hglaJjiQ/R7
-	94ys5+EkVBtoGMkflbIh9vwcIopyx7RGk/5KsLfb3WsQYVfXasE95WN4UE2IZ77aPXsg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kfhp4-0004eY-5D; Thu, 19 Nov 2020 11:09:54 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=NHMX4PLwTs0p5aObEsly9b1dYOAs0ZUrSbgAnE9cawk=; b=DVntDvEqlT41CTgi2n/MyZjgW9
+	+ZryyWtwRiUZsptOp5yMRy7QjSMW+UlYA5aPPAqvZVHY6xO8oUNiO3XnAU2uX0geSRc47QSi09XcE
+	KIOJVQCT2c4KuDGf/1OSOVoNJAhQV6r7yrCMibG1LSwxoQrtlTvErbnDgmH9ikPxvsI4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
 	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfhf2-00012H-4F; Thu, 19 Nov 2020 10:59:32 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfhf1-0005eh-O1; Thu, 19 Nov 2020 10:59:31 +0000
-Subject: Re: [PATCH 1/3] mm: introduce xvmalloc() et al and use for grant
- table allocations
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e0364274-f123-82bd-ec85-bea519a34049@suse.com>
- <d98aabe4-6c1b-0970-2e42-eb991e9075a2@suse.com>
- <e7b72c54-e8e4-428d-9264-484fc0061ba4@xen.org>
- <9adc7ec2-c014-d9ae-a8b5-5b942640386c@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <e115ce52-3c5c-6530-dd3a-bc7f268ef224@xen.org>
-Date: Thu, 19 Nov 2020 10:59:29 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.3
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kfhp3-0001Ge-Si; Thu, 19 Nov 2020 11:09:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kfhp3-0002r9-J1; Thu, 19 Nov 2020 11:09:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kfhp3-0002q1-IX; Thu, 19 Nov 2020 11:09:53 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156866-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <9adc7ec2-c014-d9ae-a8b5-5b942640386c@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [qemu-mainline test] 156866: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    qemu-mainline:test-arm64-arm64-xl:xen-boot:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=3d275bd17c7bdf5acd4e4f58fa7b8b9114bb7484
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 19 Nov 2020 11:09:53 +0000
 
-Hi,
+flight 156866 qemu-mainline real [real]
+flight 156877 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156866/
+http://logs.test-lab.xenproject.org/osstest/logs/156877/
 
-On 19/11/2020 09:46, Jan Beulich wrote:
-> On 18.11.2020 20:10, Julien Grall wrote:
->> On 06/11/2020 07:11, Jan Beulich wrote:
->>> All of the array allocations in grant_table_init() can exceed a page's
->>> worth of memory, which xmalloc()-based interfaces aren't really suitable
->>> for after boot.
->>
->> I can see a few reasons why they are not suitable:
->>     - xmalloc() will try to using an order and then throw memory. This is
->> pretty inneficient.
-> 
-> But addressing this inefficiency, while a nice side effect, is
-> not the goal here.
-> 
->>     - xmalloc() will allocate physically contiguous memory
-> 
-> This aspect matters here only indirectly: What we care about
-> avoiding are runtime allocations of non-zero order. The assumption
-> of how I worded the description is that during boot non-zero-
-> order allocations can typically be fulfilled and hence aren't a
-> (general) problem.
-Well... In the case of the grant table, if you can't find a small order 
-of physically contiguous pages then you have bigger trouble on your 
-platform. You will either not have enough space for the allocating the 
-domain memory, or the performance will be awful because only 4K pages 
-are used.
+Regressions :-(
 
-So while I agree that having xvmalloc() is a good move, I am not 
-convinced of your argument regarding the boot vs runtime.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 152631
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 152631
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd     17 guest-start/debian.repeat fail REGR. vs. 152631
 
-I think a better argument is the allocation doesn't need to be 
-physically contiguous in memory. So better avoid it when we can.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
 
-> 
->> It would be good to clarify which one you refer because none of them are
->> really a problem only after boot...
-> 
-> Given the above, I'm not sure in which way you would see this be
-> clarified. Any suggestions welcome.
-> 
->> One thing to be aware thought is xv*() are going to be more inefficient
->> because they involve touching the page-tables (at least until the work
->> to map on-demand the direct map is not merged). In addition, on Arm,
->> they will also use only 4K mappings (I have a TODO to fix that).
->>
->> So I think we will need to be careful when to use xmalloc() vs
->> xvalloc(). It might be worth outlining that in the documentation of xv*().
-> 
-> The rule is quite simple and the inefficiencies you mention
-> shouldn't matter imo: Post-boot there should not be any
-> implicit allocations of non-zero order. "Implicit" here meaning
-> to still permit e.g. direct alloc_domheap_pages() invocations,
-> making apparent at the call site that the aspect of memory
-> fragmentation was (hopefully) taken into consideration. I'm
-> actually inclined to suggest (down the road) to have _xmalloc()
-> no longer fall back to multi-page allocations post-boot, but
-> instead return NULL.
+version targeted for testing:
+ qemuu                3d275bd17c7bdf5acd4e4f58fa7b8b9114bb7484
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
 
-One advantage of xmalloc() is it is able to allocate a suitable xenheap 
-area. So it will not touch the page-tables and therefore useful for 
-short-life allocation as the overhead will be more limited compare to 
-xvalloc().
+Last test of basis   152631  2020-08-20 09:07:46 Z   91 days
+Failing since        152659  2020-08-21 14:07:39 Z   89 days  191 attempts
+Testing same since   156866  2020-11-18 23:09:18 Z    0 days    1 attempts
 
-There is also the problem that alloc_{dom, xen}heap_pages() works using 
-order. xmalloc() is handy because it will give back the unnecessary pages.
+------------------------------------------------------------
+People who touched revisions under test:
+    Aaron Lindsay <aaron@os.amperecomputing.com>
+  Alberto Garcia <berto@igalia.com>
+  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Chen <alex.chen@huawei.com>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexander von Gluck IV <kallisti5@unixzen.com>
+  AlexChen <alex.chen@huawei.com>
+  Alexey Kirillov <lekiravi@yandex-team.ru>
+  Alistair Francis <alistair.francis@wdc.com>
+  Alistair Francis <alistair.francis@xilinx.com>
+  Amey Narkhede <ameynarkhede03@gmail.com>
+  Ana Pazos <apazos@quicinc.com>
+  Andreas Gustafsson <gson@gson.org>
+  Andrew Jones <drjones@redhat.com>
+  Andrey Konovalov <andreyknvl@google.com>
+  Andrey Shinkevich <andrey.shinkevich@virtuozzo.com>
+  Ani Sinha <ani@anisinha.ca>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Anton Blanchard <anton@ozlabs.org>
+  Anup Patel <anup.patel@wdc.com>
+  Artyom Tarasenko <atar4qemu@gmail.com>
+  Babu Moger <babu.moger@amd.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bastian Koppelmann <kbastian@mail.uni-paderborn.de>
+  Ben Widawsky <ben.widawsky@intel.com>
+  Bharat Bhushan <bbhushan2@marvell.com>
+  Bihong Yu <yubihong@huawei.com>
+  Bin Meng <bin.meng@windriver.com>
+  Brad Smith <brad@comstyle.com>
+  Bruce Rogers <brogers@suse.com>
+  Carlo Marcelo Arenas Belón <carenas@gmail.com>
+  Chen Gang <chengang@emindsoft.com.cn>
+  Chen Qun <kuhn.chenqun@huawei.com>
+  Chetan Pant <chetan4windows@gmail.com>
+  Chih-Min Chao <chihmin.chao@sifive.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Chuan Zheng <zhengchuan@huawei.com>
+  Cindy Lu <lulu@redhat.com>
+  Claudio Fontana <cfontana@suse.de>
+  Claudio Imbrenda <imbrenda@linux.ibm.com>
+  Cleber Rosa <crosa@redhat.com>
+  Coiby Xu <coiby.xu@gmail.com>
+  Colin Xu <colin.xu@intel.com>
+  Collin Walling <walling@linux.ibm.com>
+  Connor Kuehl <ckuehl@redhat.com>
+  Corey Minyard <cminyard@mvista.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  César Belley <cesar.belley@lse.epita.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniele Buono <dbuono@linux.vnet.ibm.com>
+  David Carlier <devnexen@gmail.com>
+  David Edmondson <david.edmondson@oracle.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Derek Su <dereksu@qnap.com>
+  Dima Stepanov <dimastep@yandex-team.ru>
+  Ding Hui <dinghui@sangfor.com.cn>
+  Dmitry Fomichev <dmitry.fomichev@wdc.com>
+  Douglas Crosher <dtc-ubuntu@scieneer.com>
+  Dov Murik <dovmurik@linux.vnet.ibm.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+  Eduardo Habkost <ehabkost@redhat.com>
+  Eduardo Otubo <otubo@redhat.com>
+  Elena Afanasova <eafanasova@gmail.com>
+  Emanuele Giuseppe Esposito <e.emanuelegiuseppe@gmail.com>
+  Emmanuel Blot <eblot.ml@gmail.com>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Erik Kline <ek@google.com>
+  Erik Smit <erik.lucas.smit@gmail.com>
+  Fabiano Rosas <farosas@linux.ibm.com>
+  Fam Zheng <fam@euphon.net>
+  Fan Yang <Fan_Yang@sjtu.edu.cn>
+  Felipe Franciosi <felipe@nutanix.com>
+  Filip Bozuta <Filip.Bozuta@syrmia.com>
+  Finn Thain <fthain@telegraphics.com.au>
+  Frajo <franz.haider@jolla.com>
+  Frank Chang <frank.chang@sifive.com>
+  Franz-Josef Haider <franz.haider@jolla.com>
+  Frediano Ziglio <freddy77@gmail.com>
+  Gan Qixin <ganqixin@huawei.com>
+  Geoffrey McRae <geoff@hostfission.com>
+  Georg Kotheimer <georg.kotheimer@kernkonzept.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Giuseppe Musacchio <thatlemon@gmail.com>
+  Gollu Appalanaidu <anaidu.gollu@samsung.com>
+  Gonglei <arei.gonglei@huawei.com>
+  Graeme Gregory <graeme@nuviainc.com>
+  Green Wan <green.wan@sifive.com>
+  Greg Kurz <groug@kaod.org>
+  Guenter Roeck <linux@roeck-us.net>
+  Guoqing Zhang <zhangguoqing.kernel@bytedance.com>
+  Guoyi Tu <tu.guoyi@h3c.com>
+  Gustavo Romero <gromero@linux.ibm.com>
+  haibinzhang(张海斌) <haibinzhang@tencent.com>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wu <wuhaotsh@google.com>
+  Haotian Li <lihaotian9@huawei.com>
+  Harry G. Coin <hgcoin@gmail.com>
+  Havard Skinnemoen <hskinnemoen@google.com>
+  Helge Deller <deller@gmx.de>
+  Heyi Guo <guoheyi@huawei.com>
+  Hongzheng-Li <Ethan.Lee.QNL@gmail.com>
+  Hou Weiying <weiying_hou@outlook.com>
+  Huacai Chen <chenhc@lemote.com>
+  Huacai Chen <zltjiangshi@gmail.com>
+  Igor Kononenko <i.kononenko@yadro.com>
+  Igor Mammedov <imammedo@redhat.com>
+  James Hogan <jhogan@kernel.org>
+  Jan Charvat <charvj10@fel.cvut.cz>
+  Jan Henrik Weinstock <jan.weinstock@rwth-aachen.de>
+  Janosch Frank <frankja@linux.ibm.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Jason J. Herne <jjherne@linux.ibm.com>
+  Jason Wang <jasowang@redhat.com>
+  Jean-Philippe Brucker <jean-philippe@linaro.org>
+  Jens Freimann <jfreimann@redhat.com>
+  Jessica Clarke <jrtc27@jrtc27.com>
+  Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  Jin Yu <jin.yu@intel.com>
+  Joel Stanley <joel@jms.id.au>
+  John Snow <jsnow@redhat.com>
+  Jon Doron <arilou@gmail.com>
+  Josh DuBois <josh@joshdubois.com>
+  Julia Suvorova <jusual@redhat.com>
+  Kai Deng <dengkai1@huawei.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Keith Busch <kbusch@kernel.org>
+  Kele Huang <kele.hwang@gmail.com>
+  Kenta Ishiguro <kentaishiguro@slowstart.org>
+  Kevin Wolf <kwolf@redhat.com>
+  Kirti Wankhede <kwankhede@nvidia.com>
+  Kito Cheng <kito.cheng@sifive.com>
+  Klaus Jensen <k.jensen@samsung.com>
+  Klaus Jensen <klaus.jensen@cnexlabs.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Lei Rao <lei.rao@intel.com>
+  Lei YU <yulei.sh@bytedance.com>
+  Leif Lindholm <leif@nuviainc.com>
+  LemonBoy <thatlemon@gmail.com>
+  Li Feng <fengli@smartx.com>
+  Li Qiang <liq3ea@163.com>
+  Li Zhijian <lizhijian@cn.fujitsu.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Liao Pingfang <liao.pingfang@zte.com.cn>a
+  Lichang Zhao <zhaolichang@huawei.com>
+  lichun <lichun@ruijie.com.cn>
+  Lijun Pan <ljp@linux.ibm.com>
+  LIU Zhiwei <zhiwei_liu@c-sky.com>
+  Liyang Shi <shiliyang@huawei.com>
+  Longpeng(Mike) <longpeng2@huawei.com>
+  Luc Michel <luc@lmichel.fr>
+  Lukas Straub <lukasstraub2@web.de>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matthew Rosato <mjrosato@linux.ibm.com>
+  Matthieu Bucchianeri <matthieu.bucchianeri@leostella.com>
+  Matus Kysel <mkysel@tachyum.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Max Reitz <mreitz@redhat.com>
+  Maxim Levitsky <mlevitsk@redhat.com>
+  Michael Rolnik <mrolnik@gmail.com>
+  Michael Roth <mdroth@linux.vnet.ibm.com>
+  Michael Roth <michael.roth@amd.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michael Tokarev <mjt@tls.msk.ru>
+  Michael Walle <michael@walle.cc>
+  Michal Privoznik <mprivozn@redhat.com>
+  Mike Gelfand <mikedld@mikedld.com>
+  Misono Tomohiro <misono.tomohiro@jp.fujitsu.com>
+  Myriad-Dreamin <camiyoru@gmail.com>
+  Nathan Chancellor <natechancellor@gmail.com>
+  Niek Linnenbank <nieklinnenbank@gmail.com>
+  Nikola Pavlica <pavlica.nikola@gmail.com>
+  Nir Soffer <nirsof@gmail.com>
+  Nir Soffer <nsoffer@redhat.com>
+  Pan Nengyuan <pannengyuan@huawei.com>
+  Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul Burton <paulburton@kernel.org>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Paul Zimmerman <pauldzim@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@ispras.ru>
+  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
+  Pavel Pisa <pisa@cmp.felk.cvut.cz>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Peter Lieven <pl@kamp.de>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Philippe Mathieu-Daudé <1892540@bugs.launchpad.net>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Pierre Morel <pmorel@linux.ibm.com>
+  Prasad J Pandit <pjp@fedoraproject.org>
+  Rao, Lei <lei.rao@intel.com>
+  Raphael Norwitz <raphael.norwitz@nutanix.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Robert Hoo <robert.hu@linux.intel.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Rémi Denis-Courmont <remi.denis.courmont@huawei.com>
+  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
+  Samuel Thibault <samuel.thibault@ens-lyon.org>
+  Sergei Trofimovich <slyfox@gentoo.org>
+  Sergey Nizovtsev <snizovtsev@gmail.com>
+  Sergio Lopez <slp@redhat.com>
+  Shashi Mallela <shashi.mallela@linaro.org>
+  shiliyang <shiliyang@huawei.com>
+  Si-Wei Liu <si-wei.liu@oracle.com>
+  Stafford Horne <shorne@gmail.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefan Reiter <s.reiter@proxmox.com>
+  Stefan Weil <sw@weilnetz.de>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Stephen Long <steplong@quicinc.com>
+  Subbaraya Sundeep <sundeep.lkml@gmail.com>
+  Sunil Muthuswamy <sunilmut@microsoft.com>
+  Sven Schnelle <svens@stackframe.org>
+  Swapnil Ingle <swapnil.ingle@nutanix.com>
+  Thiago Jung Bauermann <bauerman@linux.ibm.com>
+  Thomas Huth <huth@tuxfamily.org>
+  Thomas Huth <thuth@redhat.com>
+  Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+  Timothy Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
+  Timothy E Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Vincenzo Frascino <vincenzo.frascino@arm.com>
+  Vitaly Cheptsov <vit9696@protonmail.com>
+  Vitaly Kuznetsov <vkuznets@redhat.com>
+  Vivek Goyal <vgoyal@redhat.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+  Volker Rümelin <vr_qemu@t-online.de>
+  Xiaoyao Li <xiaoyao.li@intel.com>
+  Xinhao Zhang <zhangxinhao1@huawei.com>
+  Xinyu Li <precinct@mail.ustc.edu.cn>
+  Xu Zou <iwatchnima@gmail.com>
+  Yan Jin <jinyan12@huawei.com>
+  YanYing Zhuang <ann.zhuangyanying@huawei.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yifei Jiang <jiangyifei@huawei.com>
+  Ying Fang <fangying1@huawei.com>
+  Yipeng Yin <yinyipeng1@huawei.com>
+  Yonggang Luo <luoyonggang@gmail.com>
+  Yoshinori Sato <ysato@users.sourceforge.jp>
+  Zenghui Yu <yuzenghui@huawei.com>
+  Zhang Chen <chen.zhang@intel.com>
+  zhaolichang <zhaolichang@huawei.com>
+  Zhengui <lizhengui@huawei.com>
+  Zhengui li <lizhengui@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Wang <zhenyuw@linux.intel.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhiqiang Liu <liuzhiqiang26@huawei.com>
+  Zong Li <zong.li@sifive.com>
 
-Maybe we should consider a version of alloc_*heap_pages() that will take 
-the number of pages rather than order.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
-> 
-> If you think it is really needed, I can add something like "These
-> should be used in preference to xmalloc() et al whenever the size
-> is not known to be constrained to at most a single page" to the
-> comment at the top of the new header file.
 
-There are quite a few users of xmalloc() with large allocations. Yet, 
-they would not be suitable for xvalloc() because they require physically 
-contiguous memory. So I think you would want to mention that in the 
-sentence.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> Where the inefficiencies you mention would imo matter is in
-> (future) decisions whether to use vmalloc() et al vs xvmalloc()
-> et al: If the size _may_ be no more than a page, the latter may
-> want preferring.
-I am not sure to understand this... why would we want to keep vmalloc() 
-extern when xvalloc() will be calling it for allocation over a PAGE_SIZE?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> 
->>> --- a/xen/common/vmap.c
->>> +++ b/xen/common/vmap.c
->>> @@ -7,6 +7,7 @@
->>>    #include <xen/spinlock.h>
->>>    #include <xen/types.h>
->>>    #include <xen/vmap.h>
->>> +#include <xen/xvmalloc.h>
->>>    #include <asm/page.h>
->>>    
->>>    static DEFINE_SPINLOCK(vm_lock);
->>> @@ -299,11 +300,29 @@ void *vzalloc(size_t size)
->>>        return p;
->>>    }
->>>    
->>> -void vfree(void *va)
->>> +static void _vfree(const void *va, unsigned int pages, enum vmap_region type)
->>
->> I don't think "unsigned int" is sufficient to cover big size. AFAICT,
->> this is not in a new problem in this code and seems to be a latent issue
->> so far.
->>
->> However, I feel that it is wrong to introduce a new set of allocation
->> helpers that contained a flaw fixed in xm*alloc() recently (see  commit
->> cf38b4926e2b "xmalloc: guard against integer overflow").
-> 
-> For _xmalloc() we're talking about bytes (and the guarding you
-> refer to is actually orthogonal to the limiting done by the
-> page allocator, as follows from the description of that change).
-> Here we're talking about pages. I hope it will be decades until we
-> have to consider allocating 16Tb all in one chunk (and we'd need
-> to have large enough vmap virtual address space set aside first).
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-I think you misunderstood my point here. I am not suggesting that a 
-normal user would ask to allocate 16TB but that a caller may pass by 
-mistake an unsanitized value to xv*() functions.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-IIRC, the overflow check in xm*() were added after we discovered that 
-some callers where passing unsanitized values.
 
-I would expect xv*() functions to be more used in the future, so I think 
-it would be unwise to not guard against overflow.
+Not pushing.
 
-I would be happy with just checking that nr always fit in a 32-bit value.
-
-> Also note that
-> - the entire vmap.c right now uses unsigned int for page counts,
->    so it would be outright inconsistent to use unsigned long here,
-
-I didn't suggest this would be the only place (note that "new problem"). 
-This was the best place I could find to mention an existing problem that 
-is widened with the introduction of xv*() helpers.
-
-> - at least on x86 passing around 64-bit function arguments is
->    slightly less efficient than 32-bit ones, and hence I'd prefer
->    to keep it like this.
-
-Don't you have 64-bit registers on x86-64?
-
-But, I am really surprised this is a concern to you when all the 
-functions in this code will modify the pages tables. You dismissed this 
-overhead in the same e-mail...
-
-> 
->>> --- /dev/null
->>> +++ b/xen/include/xen/xvmalloc.h
->>> @@ -0,0 +1,70 @@
->>> +
->>> +#ifndef __XVMALLOC_H__
->>> +#define __XVMALLOC_H__
->>> +
->>> +#include <xen/cache.h>
->>> +#include <xen/types.h>
->>> +
->>> +/*
->>> + * Xen malloc/free-style interface.
->>
->> It would be useful to emphase that they should only be used if the
->> caller does *not* need physically contiguous memory.
-> 
-> Actually first of all I shouldn't have copied to comment without
-> editing. I've now made it
-> 
-> /*
->   * Xen malloc/free-style interface preferable for allocations possibly
->   * exceeding a page's worth of memory, as long as there's no need to have
->   * physically contiguous memory allocated.
->   */
-> 
-> albeit I'm not sure the "physically discontiguous" really needs
-> pointing out, considering the 'v' in the function names.
-
-Verbosity never hurt. I would not say the same with figuring out what 
-'v' means.
-
-I am not ashame to say that when began to work on Linux/Xen, I had some 
-trouble to figure out the difference between kmalloc() and vmalloc().
-
-Cheers,
-
--- 
-Julien Grall
+(No revision log; it would be 67076 lines long.)
 
