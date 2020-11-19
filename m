@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBF122B8E4F
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 10:00:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30490.60533 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E352B8E60
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 10:06:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30497.60545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kffns-0007j7-92; Thu, 19 Nov 2020 09:00:32 +0000
+	id 1kfft2-0007wJ-Tg; Thu, 19 Nov 2020 09:05:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30490.60533; Thu, 19 Nov 2020 09:00:32 +0000
+Received: by outflank-mailman (output) from mailman id 30497.60545; Thu, 19 Nov 2020 09:05:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,101 +23,151 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kffns-0007ig-5j; Thu, 19 Nov 2020 09:00:32 +0000
-Received: by outflank-mailman (input) for mailman id 30490;
- Thu, 19 Nov 2020 09:00:30 +0000
+	id 1kfft2-0007vs-Pz; Thu, 19 Nov 2020 09:05:52 +0000
+Received: by outflank-mailman (input) for mailman id 30497;
+ Thu, 19 Nov 2020 09:05:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PWQs=EZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kffnq-0007iW-G1
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:00:30 +0000
+ id 1kfft1-0007vn-FH
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:05:51 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 96ec46dc-60b4-491f-b9c0-a14c5a5c58d8;
- Thu, 19 Nov 2020 09:00:29 +0000 (UTC)
+ id 7a01339e-d583-4cc3-9dd9-404a87dff1b3;
+ Thu, 19 Nov 2020 09:05:50 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A70DEAD2B;
- Thu, 19 Nov 2020 09:00:28 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 82ACBABF4;
+ Thu, 19 Nov 2020 09:05:49 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=PWQs=EZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kffnq-0007iW-G1
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:00:30 +0000
-X-Inumbo-ID: 96ec46dc-60b4-491f-b9c0-a14c5a5c58d8
+	id 1kfft1-0007vn-FH
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:05:51 +0000
+X-Inumbo-ID: 7a01339e-d583-4cc3-9dd9-404a87dff1b3
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 96ec46dc-60b4-491f-b9c0-a14c5a5c58d8;
-	Thu, 19 Nov 2020 09:00:29 +0000 (UTC)
+	id 7a01339e-d583-4cc3-9dd9-404a87dff1b3;
+	Thu, 19 Nov 2020 09:05:50 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605776428; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1605776749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zvL9pyoRF907QtRRaXB1t2Dt9IOlGCKcMhWe71ls8sA=;
-	b=PAZUYhvCEypm74SzKqtGMny7Ug+x1Nz0QaASDTBdVUogdv9DHEwFbBJRlq+3SA8XYtHQfG
-	Z5e9uihcQkUCL+9Vv9I0SaD+WvldCypcNnc+xKVJzQJnk9oDTyp8bEQhqfeRkBLuG5nmir
-	NpHCD7d81TjN+O23sOrJZFCDRQd19/A=
+	bh=5gAxh0vnt33Yqm3BNhR5upND9CkqBWPd9KqhU5sVrB4=;
+	b=s/UoXcFHY7E6ZA6y5MVraD1hzc4lq9uYvPm8tKqze/Pn3BcV9yjmF3nmBnBbBe6swmocBg
+	Ot59akh5NA98fZpNatj35/pjqNR7HfYcuxfgN1Suf5WIwK+wAKRGjxtDaP3aB5u69DMeps
+	LCkJ5gKE9Dieg+zRSQ196WFLJQ6P2Uo=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A70DEAD2B;
-	Thu, 19 Nov 2020 09:00:28 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 82ACBABF4;
+	Thu, 19 Nov 2020 09:05:49 +0000 (UTC)
 Subject: Re: [PATCH v3 1/3] xen/ns16550: Make ns16550 driver usable on ARM
  with HAS_PCI enabled.
-To: Julien Grall <julien@xen.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Julien Grall <julien@xen.org>, Rahul Singh <rahul.singh@arm.com>
+Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Rahul Singh <Rahul.Singh@arm.com>
+ xen-devel@lists.xenproject.org
 References: <cover.1605527997.git.rahul.singh@arm.com>
  <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
- <bd5fa7bb-7c44-1ec0-fc57-3ecf01c7d651@suse.com>
- <CBBE4253-F244-418D-9EA6-BC39D1BC8DF8@arm.com>
- <1530c2fb-8def-37eb-8a22-d7f9fc4e38b4@suse.com>
- <0946edb2-c2c1-0d3d-c8ff-f24055f78ebf@xen.org>
+ <3740e147-719a-4e97-bb0e-fe9bd2ec2aa5@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9f505669-a107-fecc-d26c-75e14cdabadf@suse.com>
-Date: Thu, 19 Nov 2020 10:00:28 +0100
+Message-ID: <aa256a44-8f8f-d4f1-f5f4-12529f45d8c8@suse.com>
+Date: Thu, 19 Nov 2020 10:05:48 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.3
 MIME-Version: 1.0
-In-Reply-To: <0946edb2-c2c1-0d3d-c8ff-f24055f78ebf@xen.org>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <3740e147-719a-4e97-bb0e-fe9bd2ec2aa5@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18.11.2020 16:35, Julien Grall wrote:
-> On 18/11/2020 15:16, Jan Beulich wrote:
->> On 18.11.2020 16:02, Rahul Singh wrote:
->>> Hello Jan,
->>>
->>>> On 17 Nov 2020, at 10:55 am, Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 16.11.2020 13:25, Rahul Singh wrote:
->>>>> NS16550 driver has PCI support that is under HAS_PCI flag. When HAS_PCI
->>>>> is enabled for ARM, compilation error is observed for ARM architecture
->>>>> because ARM platforms do not have full PCI support available.
->>>>
->>>> While you've extended the sentence, it remains unclear to me what
->>>> compilation error it is that results here. I've requested such
->>>> clarification for v2 already.
->>>
->>> Compilation error is related to the code that refer to x86  functions (create_irq()..) and MSI implementation related error.
->>> For more details please find the attached file for compilation error.
+On 18.11.2020 16:50, Julien Grall wrote:
+> On 16/11/2020 12:25, Rahul Singh wrote:
+>> NS16550 driver has PCI support that is under HAS_PCI flag. When HAS_PCI
+>> is enabled for ARM, compilation error is observed for ARM architecture
+>> because ARM platforms do not have full PCI support available.
+>  >
+>> Introducing new kconfig option CONFIG_HAS_NS16550_PCI to support
+>> ns16550 PCI for X86.
 >>
->> The use of mmio_ro_ranges is almost quite possibly going to remain
->> x86-specific, but then I guess this wants abstracting in a suitable
->> way.
+>> For X86 platforms it is enabled by default. For ARM platforms it is
+>> disabled by default, once we have proper support for NS16550 PCI for
+>> ARM we can enable it.
 >>
->> The remaining look to all be MSI-related, so perhaps what you want
->> to avoid is just that part rather than everything PCI-ish?
+>> No functional change.
 > 
-> Not really (see more above).
+> NIT: I would say "No functional change intended" to make clear this is 
+> an expectation and hopefully will be correct :).
+> 
+> Regarding the commit message itself, I would suggest the following to 
+> address Jan's concern:
 
-Did you really mean "above", not "below"? If so, I guess I need some
-clarification. If not, I suppose I've addressed your concern by the
-2-patch series I've just sent.
+While indeed this is a much better description, I continue to think
+that the proposed Kconfig option is undesirable to have. Either,
+following the patch I've just sent, truly x86-specific things (at
+least as far as current state goes - if any of this was to be
+re-used by a future port, suitable further abstraction may be
+needed) should be guarded by CONFIG_X86 (or abstracted into arch
+hooks), or the HAS_PCI_MSI proposal would at least want further
+investigating as to its feasibility to address the issues at hand.
 
 Jan
+
+> "
+> xen/char: ns16550: Gate all PCI code with a new Kconfig HAS_NS16550_PCI
+> 
+> The NS16550 driver is assuming that NS16550 PCI card are usable if the 
+> architecture supports PCI (i.e. CONFIG_HAS_PCI=y). However, the code is 
+> very x86 focus and will fail to build on Arm (/!\ it is not all the errors):
+> 
+>   ns16550.c: In function ‘ns16550_init_irq’:
+> ns16550.c:726:21: error: implicit declaration of function ‘create_irq’; 
+> did you mean ‘release_irq’? [-Werror=implicit-function-declaration]
+>           uart->irq = create_irq(0, false);
+>                       ^~~~~~~~~~
+>                       release_irq
+> ns16550.c:726:21: error: nested extern declaration of ‘create_irq’ 
+> [-Werror=nested-externs]
+> ns16550.c: In function ‘ns16550_init_postirq’:
+> ns16550.c:768:33: error: ‘mmio_ro_ranges’ undeclared (first use in this 
+> function); did you mean ‘mmio_handler’?
+>                rangeset_add_range(mmio_ro_ranges, uart->io_base,
+>                                   ^~~~~~~~~~~~~~
+>                                   mmio_handler
+> ns16550.c:768:33: note: each undeclared identifier is reported only once 
+> for each function it appears in
+> ns16550.c:780:20: error: variable ‘msi’ has initializer but incomplete type
+>               struct msi_info msi = {
+>                      ^~~~~~~~
+> ns16550.c:781:18: error: ‘struct msi_info’ has no member named ‘bus’
+>                   .bus = uart->ps_bdf[0],
+>                    ^~~
+> ns16550.c:781:24: error: excess elements in struct initializer [-Werror]
+>                   .bus = uart->ps_bdf[0],
+>                          ^~~~
+> ns16550.c:781:24: note: (near initialization for ‘msi’)
+> ns16550.c:782:18: error: ‘struct msi_info’ has no member named ‘devfn’
+>                   .devfn = PCI_DEVFN(uart->ps_bdf[1], uart->ps_bdf[2]),
+> 
+> Enabling support for NS16550 PCI card on Arm would require more plumbing 
+> in addition to fixing the compilation error.
+> 
+> Arm systems tend to have platform UART available such as NS16550, PL011. 
+> So there are limited reasons to get NS16550 PCI support for now on Arm.
+> 
+> A new Kconfig option CONFIG_HAS_NS16550_PCI is introduced to gate all 
+> the PCI code.
+> 
+> This option will be select automically for x86 platform and left 
+> unselectable on Arm.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> [julieng: Commit message]
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> "
+> 
+> Cheers,
+> 
+
 
