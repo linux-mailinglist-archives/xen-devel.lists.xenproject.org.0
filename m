@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E5F2B8FA4
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 11:00:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30539.60629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A1D92B8FE0
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 11:07:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30546.60641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfgj7-00050g-OW; Thu, 19 Nov 2020 09:59:41 +0000
+	id 1kfgql-00065p-LD; Thu, 19 Nov 2020 10:07:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30539.60629; Thu, 19 Nov 2020 09:59:41 +0000
+Received: by outflank-mailman (output) from mailman id 30546.60641; Thu, 19 Nov 2020 10:07:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,102 +23,300 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfgj7-00050H-LP; Thu, 19 Nov 2020 09:59:41 +0000
-Received: by outflank-mailman (input) for mailman id 30539;
- Thu, 19 Nov 2020 09:59:39 +0000
+	id 1kfgql-00065Q-Hw; Thu, 19 Nov 2020 10:07:35 +0000
+Received: by outflank-mailman (input) for mailman id 30546;
+ Thu, 19 Nov 2020 10:07:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PWQs=EZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kfgj5-0004zf-TV
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:59:39 +0000
+ (envelope-from <SRS0=kVKL=EZ=suse.cz=jack@srs-us1.protection.inumbo.net>)
+ id 1kfgqj-00065L-Ik
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 10:07:33 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f672350a-6ef8-49f5-bbf2-cb3d094f02ce;
- Thu, 19 Nov 2020 09:59:38 +0000 (UTC)
+ id 646bd827-30de-463a-9d75-1ac1d0fcf34a;
+ Thu, 19 Nov 2020 10:07:32 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 779B6AC22;
- Thu, 19 Nov 2020 09:59:37 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 3BBD2B114;
+ Thu, 19 Nov 2020 10:07:31 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+ id E777D1E130B; Thu, 19 Nov 2020 11:07:30 +0100 (CET)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=PWQs=EZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kfgj5-0004zf-TV
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:59:39 +0000
-X-Inumbo-ID: f672350a-6ef8-49f5-bbf2-cb3d094f02ce
+	(envelope-from <SRS0=kVKL=EZ=suse.cz=jack@srs-us1.protection.inumbo.net>)
+	id 1kfgqj-00065L-Ik
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 10:07:33 +0000
+X-Inumbo-ID: 646bd827-30de-463a-9d75-1ac1d0fcf34a
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id f672350a-6ef8-49f5-bbf2-cb3d094f02ce;
-	Thu, 19 Nov 2020 09:59:38 +0000 (UTC)
+	id 646bd827-30de-463a-9d75-1ac1d0fcf34a;
+	Thu, 19 Nov 2020 10:07:32 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605779977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zGxGRRS5LRoHwz+VuxMJXFTK1Rm1o8gu0of3w4kqWYo=;
-	b=KGaCh5obVLj4E7wCP1ldlHW52amRpgB/ipA/T3yKkVx92O1vGzDYtWhsek9DWBywlU7zZe
-	9hs3GeH8eL0/gq1V2TWG2Wnmp2t2++CnfYz8DmJRHWmHLLmSaq4w9TulrJqWtsurF1fAyQ
-	bIPm0FnMMz9EJ4nrqytxeSa94FltM/U=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 779B6AC22;
-	Thu, 19 Nov 2020 09:59:37 +0000 (UTC)
-Subject: Re: [PATCH] xen: add support for automatic debug key actions in case
- of crash
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20201022143905.11032-1-jgross@suse.com>
- <977bab69-892c-d94d-d952-1a748f69d0b6@suse.com>
- <53732f8f-fe6d-91bd-4100-4b4d904a4073@suse.com>
- <ed2f73e7-04cc-f568-f0b7-19c843a8d31b@suse.com>
- <8c77ff71-a14e-7cf7-5f27-c7c152ace240@suse.com>
- <3e2132c9-2ab3-7bfb-656b-2cab58a53342@suse.com>
- <alpine.DEB.2.21.2011121332250.20906@sstabellini-ThinkPad-T480s>
- <383f2f1f-96c1-1634-519f-3526019f4f48@suse.com>
- <4dda402d-62de-cce5-c205-12f4d13ec623@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <fc917a93-a7d8-ba6e-091d-1ea4faac4173@suse.com>
-Date: Thu, 19 Nov 2020 10:59:36 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
+	by mx2.suse.de (Postfix) with ESMTP id 3BBD2B114;
+	Thu, 19 Nov 2020 10:07:31 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id E777D1E130B; Thu, 19 Nov 2020 11:07:30 +0100 (CET)
+Date: Thu, 19 Nov 2020 11:07:30 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
+	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 12/20] block: simplify the block device claiming interface
+Message-ID: <20201119100730.GU1981@quack2.suse.cz>
+References: <20201118084800.2339180-1-hch@lst.de>
+ <20201118084800.2339180-13-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <4dda402d-62de-cce5-c205-12f4d13ec623@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201118084800.2339180-13-hch@lst.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 
-On 18.11.2020 17:46, Julien Grall wrote:
-> On 13/11/2020 05:18, Jürgen Groß wrote:
->> On 12.11.20 22:38, Stefano Stabellini wrote:
->>> On Thu, 12 Nov 2020, Jan Beulich wrote:
->>>> On 12.11.2020 13:50, Jürgen Groß wrote:
->>>>> Any further comments, or even better, Acks?
->>>>
->>>> To be honest I'd prefer to have at least one of the people Cc-ed
->>>> minimally indicate they consider this a good idea. No need for a
->>>> close review or such, just a basic opinion. Anyone?
->>>
->>> I see Jan's point that it is not clear how much this is going to help in
->>> production. However, it is not going to hurt either, and I have been
->>> told a few times recently that debugging Xen is not easy. Anything that
->>> helps in that regard would be good. So I think this patch would be an
->>> improvement.
->>>
->>
->> This patch is an effort to get better diagnostic data in case of
->> Xen crashes from our largest customer, so clearly intended for
->> production use.
->>
+On Wed 18-11-20 09:47:52, Christoph Hellwig wrote:
+> Stop passing the whole device as a separate argument given that it
+> can be trivially deducted.
 > 
-> I agree with this statement. When you get a crash from Xen in 
-> production, it can be useful to get as much information as possible 
-> dumped. Some of the information printed by the debugkeys cannot be 
-> retrieved from a crashkernel.
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-So, Jürgen, my request was satisfied, so all that's needed is, I
-suppose, a re-submission with the few smaller items addressed.
+The patch looks good to me. You can add:
 
-Jan
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+>  drivers/block/loop.c   | 12 +++-----
+>  fs/block_dev.c         | 69 +++++++++++++++++++-----------------------
+>  include/linux/blkdev.h |  6 ++--
+>  3 files changed, 38 insertions(+), 49 deletions(-)
+> 
+> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+> index b42c728620c9e4..599e94a7e69259 100644
+> --- a/drivers/block/loop.c
+> +++ b/drivers/block/loop.c
+> @@ -1071,7 +1071,6 @@ static int loop_configure(struct loop_device *lo, fmode_t mode,
+>  	struct file	*file;
+>  	struct inode	*inode;
+>  	struct address_space *mapping;
+> -	struct block_device *claimed_bdev = NULL;
+>  	int		error;
+>  	loff_t		size;
+>  	bool		partscan;
+> @@ -1090,8 +1089,7 @@ static int loop_configure(struct loop_device *lo, fmode_t mode,
+>  	 * here to avoid changing device under exclusive owner.
+>  	 */
+>  	if (!(mode & FMODE_EXCL)) {
+> -		claimed_bdev = bdev->bd_contains;
+> -		error = bd_prepare_to_claim(bdev, claimed_bdev, loop_configure);
+> +		error = bd_prepare_to_claim(bdev, loop_configure);
+>  		if (error)
+>  			goto out_putf;
+>  	}
+> @@ -1178,15 +1176,15 @@ static int loop_configure(struct loop_device *lo, fmode_t mode,
+>  	mutex_unlock(&loop_ctl_mutex);
+>  	if (partscan)
+>  		loop_reread_partitions(lo, bdev);
+> -	if (claimed_bdev)
+> -		bd_abort_claiming(bdev, claimed_bdev, loop_configure);
+> +	if (!(mode & FMODE_EXCL))
+> +		bd_abort_claiming(bdev, loop_configure);
+>  	return 0;
+>  
+>  out_unlock:
+>  	mutex_unlock(&loop_ctl_mutex);
+>  out_bdev:
+> -	if (claimed_bdev)
+> -		bd_abort_claiming(bdev, claimed_bdev, loop_configure);
+> +	if (!(mode & FMODE_EXCL))
+> +		bd_abort_claiming(bdev, loop_configure);
+>  out_putf:
+>  	fput(file);
+>  out:
+> diff --git a/fs/block_dev.c b/fs/block_dev.c
+> index e94633dc6ad93b..dd52dbd266cde7 100644
+> --- a/fs/block_dev.c
+> +++ b/fs/block_dev.c
+> @@ -110,24 +110,20 @@ EXPORT_SYMBOL(invalidate_bdev);
+>  int truncate_bdev_range(struct block_device *bdev, fmode_t mode,
+>  			loff_t lstart, loff_t lend)
+>  {
+> -	struct block_device *claimed_bdev = NULL;
+> -	int err;
+> -
+>  	/*
+>  	 * If we don't hold exclusive handle for the device, upgrade to it
+>  	 * while we discard the buffer cache to avoid discarding buffers
+>  	 * under live filesystem.
+>  	 */
+>  	if (!(mode & FMODE_EXCL)) {
+> -		claimed_bdev = bdev->bd_contains;
+> -		err = bd_prepare_to_claim(bdev, claimed_bdev,
+> -					  truncate_bdev_range);
+> +		int err = bd_prepare_to_claim(bdev, truncate_bdev_range);
+>  		if (err)
+>  			return err;
+>  	}
+> +
+>  	truncate_inode_pages_range(bdev->bd_inode->i_mapping, lstart, lend);
+> -	if (claimed_bdev)
+> -		bd_abort_claiming(bdev, claimed_bdev, truncate_bdev_range);
+> +	if (!(mode & FMODE_EXCL))
+> +		bd_abort_claiming(bdev, truncate_bdev_range);
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL(truncate_bdev_range);
+> @@ -1047,7 +1043,6 @@ static bool bd_may_claim(struct block_device *bdev, struct block_device *whole,
+>  /**
+>   * bd_prepare_to_claim - claim a block device
+>   * @bdev: block device of interest
+> - * @whole: the whole device containing @bdev, may equal @bdev
+>   * @holder: holder trying to claim @bdev
+>   *
+>   * Claim @bdev.  This function fails if @bdev is already claimed by another
+> @@ -1057,9 +1052,10 @@ static bool bd_may_claim(struct block_device *bdev, struct block_device *whole,
+>   * RETURNS:
+>   * 0 if @bdev can be claimed, -EBUSY otherwise.
+>   */
+> -int bd_prepare_to_claim(struct block_device *bdev, struct block_device *whole,
+> -		void *holder)
+> +int bd_prepare_to_claim(struct block_device *bdev, void *holder)
+>  {
+> +	struct block_device *whole = bdev->bd_contains;
+> +
+>  retry:
+>  	spin_lock(&bdev_lock);
+>  	/* if someone else claimed, fail */
+> @@ -1099,15 +1095,15 @@ static void bd_clear_claiming(struct block_device *whole, void *holder)
+>  /**
+>   * bd_finish_claiming - finish claiming of a block device
+>   * @bdev: block device of interest
+> - * @whole: whole block device
+>   * @holder: holder that has claimed @bdev
+>   *
+>   * Finish exclusive open of a block device. Mark the device as exlusively
+>   * open by the holder and wake up all waiters for exclusive open to finish.
+>   */
+> -static void bd_finish_claiming(struct block_device *bdev,
+> -		struct block_device *whole, void *holder)
+> +static void bd_finish_claiming(struct block_device *bdev, void *holder)
+>  {
+> +	struct block_device *whole = bdev->bd_contains;
+> +
+>  	spin_lock(&bdev_lock);
+>  	BUG_ON(!bd_may_claim(bdev, whole, holder));
+>  	/*
+> @@ -1132,11 +1128,10 @@ static void bd_finish_claiming(struct block_device *bdev,
+>   * also used when exclusive open is not actually desired and we just needed
+>   * to block other exclusive openers for a while.
+>   */
+> -void bd_abort_claiming(struct block_device *bdev, struct block_device *whole,
+> -		       void *holder)
+> +void bd_abort_claiming(struct block_device *bdev, void *holder)
+>  {
+>  	spin_lock(&bdev_lock);
+> -	bd_clear_claiming(whole, holder);
+> +	bd_clear_claiming(bdev->bd_contains, holder);
+>  	spin_unlock(&bdev_lock);
+>  }
+>  EXPORT_SYMBOL(bd_abort_claiming);
+> @@ -1434,7 +1429,7 @@ static void put_disk_and_module(struct gendisk *disk)
+>  static int __blkdev_get(struct block_device *bdev, fmode_t mode, void *holder,
+>  		int for_part)
+>  {
+> -	struct block_device *whole = NULL, *claiming = NULL;
+> +	struct block_device *whole = NULL;
+>  	struct gendisk *disk = bdev->bd_disk;
+>  	int ret;
+>  	bool first_open = false, unblock_events = true, need_restart;
+> @@ -1462,11 +1457,7 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, void *holder,
+>  
+>  	if (!for_part && (mode & FMODE_EXCL)) {
+>  		WARN_ON_ONCE(!holder);
+> -		if (whole)
+> -			claiming = whole;
+> -		else
+> -			claiming = bdev;
+> -		ret = bd_prepare_to_claim(bdev, claiming, holder);
+> +		ret = bd_prepare_to_claim(bdev, holder);
+>  		if (ret)
+>  			goto out_put_whole;
+>  	}
+> @@ -1543,21 +1534,23 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, void *holder,
+>  		}
+>  	}
+>  	bdev->bd_openers++;
+> -	if (for_part)
+> +	if (for_part) {
+>  		bdev->bd_part_count++;
+> -	if (claiming)
+> -		bd_finish_claiming(bdev, claiming, holder);
+> +	} else if (mode & FMODE_EXCL) {
+> +		bd_finish_claiming(bdev, holder);
+>  
+> -	/*
+> -	 * Block event polling for write claims if requested.  Any write holder
+> -	 * makes the write_holder state stick until all are released.  This is
+> -	 * good enough and tracking individual writeable reference is too
+> -	 * fragile given the way @mode is used in blkdev_get/put().
+> -	 */
+> -	if (claiming && (mode & FMODE_WRITE) && !bdev->bd_write_holder &&
+> -	    (disk->flags & GENHD_FL_BLOCK_EVENTS_ON_EXCL_WRITE)) {
+> -		bdev->bd_write_holder = true;
+> -		unblock_events = false;
+> +		/*
+> +		 * Block event polling for write claims if requested.  Any write
+> +		 * holder makes the write_holder state stick until all are
+> +		 * released.  This is good enough and tracking individual
+> +		 * writeable reference is too fragile given the way @mode is
+> +		 * used in blkdev_get/put().
+> +		 */
+> +		if ((mode & FMODE_WRITE) && !bdev->bd_write_holder &&
+> +		    (disk->flags & GENHD_FL_BLOCK_EVENTS_ON_EXCL_WRITE)) {
+> +			bdev->bd_write_holder = true;
+> +			unblock_events = false;
+> +		}
+>  	}
+>  	mutex_unlock(&bdev->bd_mutex);
+>  
+> @@ -1578,8 +1571,8 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, void *holder,
+>  		__blkdev_put(bdev->bd_contains, mode, 1);
+>  	bdev->bd_contains = NULL;
+>   out_unlock_bdev:
+> -	if (claiming)
+> -		bd_abort_claiming(bdev, claiming, holder);
+> +	if (!for_part && (mode & FMODE_EXCL))
+> +		bd_abort_claiming(bdev, holder);
+>  	mutex_unlock(&bdev->bd_mutex);
+>  	disk_unblock_events(disk);
+>   out_put_whole:
+> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> index 044d9dd159d882..696b2f9c5529d8 100644
+> --- a/include/linux/blkdev.h
+> +++ b/include/linux/blkdev.h
+> @@ -1988,10 +1988,8 @@ void blkdev_show(struct seq_file *seqf, off_t offset);
+>  struct block_device *blkdev_get_by_path(const char *path, fmode_t mode,
+>  		void *holder);
+>  struct block_device *blkdev_get_by_dev(dev_t dev, fmode_t mode, void *holder);
+> -int bd_prepare_to_claim(struct block_device *bdev, struct block_device *whole,
+> -		void *holder);
+> -void bd_abort_claiming(struct block_device *bdev, struct block_device *whole,
+> -		void *holder);
+> +int bd_prepare_to_claim(struct block_device *bdev, void *holder);
+> +void bd_abort_claiming(struct block_device *bdev, void *holder);
+>  void blkdev_put(struct block_device *bdev, fmode_t mode);
+>  
+>  struct block_device *bdev_alloc(struct gendisk *disk, u8 partno);
+> -- 
+> 2.29.2
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
