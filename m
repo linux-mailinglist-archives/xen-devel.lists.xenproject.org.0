@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934A22B8E95
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 10:21:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30508.60569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E18052B8F29
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 10:42:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30515.60581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfg7z-0001Wt-MN; Thu, 19 Nov 2020 09:21:19 +0000
+	id 1kfgS1-0003UX-F3; Thu, 19 Nov 2020 09:42:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30508.60569; Thu, 19 Nov 2020 09:21:19 +0000
+Received: by outflank-mailman (output) from mailman id 30515.60581; Thu, 19 Nov 2020 09:42:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,111 +23,132 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfg7z-0001WU-JA; Thu, 19 Nov 2020 09:21:19 +0000
-Received: by outflank-mailman (input) for mailman id 30508;
- Thu, 19 Nov 2020 09:21:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kfgS1-0003U8-Bg; Thu, 19 Nov 2020 09:42:01 +0000
+Received: by outflank-mailman (input) for mailman id 30515;
+ Thu, 19 Nov 2020 09:42:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kfg7y-0001WP-4s
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:21:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kfg7x-0007Lw-8k; Thu, 19 Nov 2020 09:21:17 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kfg7w-00050i-W0; Thu, 19 Nov 2020 09:21:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+ (envelope-from <SRS0=kVKL=EZ=suse.cz=jack@srs-us1.protection.inumbo.net>)
+ id 1kfgS0-0003U3-33
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:42:00 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 186c4046-a3be-4531-a423-153cc3eaca36;
+ Thu, 19 Nov 2020 09:41:58 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A3791AC98;
+ Thu, 19 Nov 2020 09:41:57 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+ id 286A51E1303; Thu, 19 Nov 2020 10:41:57 +0100 (CET)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfg7y-0001WP-4s
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:21:18 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=34dCLaEzvPfuLtsh2yUyi7VJJvxm+wbXreAmOflWzGM=; b=HRb/x51oFm/TMC8R7maBZaxwfC
-	HNw4bWW/mBtg205vecqynOpNdaOstcbHJ38MOFZUX9eaTYdPORDu62Zt3tFuaem468l6CFWWvO1DI
-	CWsaiQDcF03w6o1F1gHRLA82FQaQbn4SLwK5vOkCuCMmos3+9LdtUAI54j0Vs8oV5k/I=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfg7x-0007Lw-8k; Thu, 19 Nov 2020 09:21:17 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kfg7w-00050i-W0; Thu, 19 Nov 2020 09:21:17 +0000
-Subject: Re: [PATCH v3 1/3] xen/ns16550: Make ns16550 driver usable on ARM
- with HAS_PCI enabled.
-To: Jan Beulich <jbeulich@suse.com>, Rahul Singh <rahul.singh@arm.com>
-Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1605527997.git.rahul.singh@arm.com>
- <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
- <3740e147-719a-4e97-bb0e-fe9bd2ec2aa5@xen.org>
- <aa256a44-8f8f-d4f1-f5f4-12529f45d8c8@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <9007e08f-6d90-88ed-ba64-2f0b3c21cb50@xen.org>
-Date: Thu, 19 Nov 2020 09:21:14 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.3
+	(envelope-from <SRS0=kVKL=EZ=suse.cz=jack@srs-us1.protection.inumbo.net>)
+	id 1kfgS0-0003U3-33
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 09:42:00 +0000
+X-Inumbo-ID: 186c4046-a3be-4531-a423-153cc3eaca36
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 186c4046-a3be-4531-a423-153cc3eaca36;
+	Thu, 19 Nov 2020 09:41:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id A3791AC98;
+	Thu, 19 Nov 2020 09:41:57 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id 286A51E1303; Thu, 19 Nov 2020 10:41:57 +0100 (CET)
+Date: Thu, 19 Nov 2020 10:41:57 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
+	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 11/20] block: reference struct block_device from struct
+ hd_struct
+Message-ID: <20201119094157.GT1981@quack2.suse.cz>
+References: <20201118084800.2339180-1-hch@lst.de>
+ <20201118084800.2339180-12-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <aa256a44-8f8f-d4f1-f5f4-12529f45d8c8@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201118084800.2339180-12-hch@lst.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 
-Hi Jan,
+On Wed 18-11-20 09:47:51, Christoph Hellwig wrote:
+> To simplify block device lookup and a few other upcomdin areas, make sure
+> that we always have a struct block_device available for each disk and
+> each partition.  The only downside of this is that each device and
+> partition uses a little more memories.  The upside will be that a lot of
+				^^^ memory
 
-On 19/11/2020 09:05, Jan Beulich wrote:
-> On 18.11.2020 16:50, Julien Grall wrote:
->> On 16/11/2020 12:25, Rahul Singh wrote:
->>> NS16550 driver has PCI support that is under HAS_PCI flag. When HAS_PCI
->>> is enabled for ARM, compilation error is observed for ARM architecture
->>> because ARM platforms do not have full PCI support available.
->>   >
->>> Introducing new kconfig option CONFIG_HAS_NS16550_PCI to support
->>> ns16550 PCI for X86.
->>>
->>> For X86 platforms it is enabled by default. For ARM platforms it is
->>> disabled by default, once we have proper support for NS16550 PCI for
->>> ARM we can enable it.
->>>
->>> No functional change.
->>
->> NIT: I would say "No functional change intended" to make clear this is
->> an expectation and hopefully will be correct :).
->>
->> Regarding the commit message itself, I would suggest the following to
->> address Jan's concern:
+> code can be simplified.
 > 
-> While indeed this is a much better description, I continue to think
-> that the proposed Kconfig option is undesirable to have.
+> With that all we need to look up the block device is to lookup the inode
+> and do a few sanity checks on the gendisk, instead of the separate lookup
+> for the gendisk.
+> 
+> As part of the change switch bdget() to only find existing block devices,
+> given that we know that the block_device structure must be allocated at
+> probe / partition scan time.
+> 
+> blk-cgroup needed a bit of a special treatment as the only place that
+> wanted to lookup a gendisk outside of the normal blkdev_get path.  It is
+> switched to lookup using the block device hash now that this is the
+> primary lookup path.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-I am yet to see an argument into why we should keep the PCI code 
-compiled on Arm when there will be no-use....
+The patch looks good to me and I like the simplifications! I've found just
+one small issue below.
 
-> Either,
-> following the patch I've just sent, truly x86-specific things (at
-> least as far as current state goes - if any of this was to be
-> re-used by a future port, suitable further abstraction may be
-> needed) should be guarded by CONFIG_X86 (or abstracted into arch
-> hooks), or the HAS_PCI_MSI proposal would at least want further
-> investigating as to its feasibility to address the issues at hand.
+> @@ -1748,16 +1600,18 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
+>  	if (!disk)
+>  		return NULL;
+>  
+> +	disk->part0.bdev = bdev_alloc(disk, 0);
+> +	if (!disk->part0.bdev)
+> +		goto out_free_disk;
+> +
+>  	disk->part0.dkstats = alloc_percpu(struct disk_stats);
+>  	if (!disk->part0.dkstats)
+> -		goto out_free_disk;
+> +		goto out_bdput;
+>  
+>  	init_rwsem(&disk->lookup_sem);
+>  	disk->node_id = node_id;
+> -	if (disk_expand_part_tbl(disk, 0)) {
+> -		free_percpu(disk->part0.dkstats);
+> -		goto out_free_disk;
+> -	}
+> +	if (disk_expand_part_tbl(disk, 0))
+> +		goto out_free_bdstats;
+>  
+>  	ptbl = rcu_dereference_protected(disk->part_tbl, 1);
+>  	rcu_assign_pointer(ptbl->part[0], &disk->part0);
+> @@ -1772,8 +1626,10 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
+>  	 * converted to make use of bd_mutex and sequence counters.
+>  	 */
+>  	hd_sects_seq_init(&disk->part0);
+> -	if (hd_ref_init(&disk->part0))
+> -		goto out_free_part0;
+> +	if (hd_ref_init(&disk->part0)) {
+> +		hd_free_part(&disk->part0);
 
-I would be happy with CONFIG_X86, despite the fact that this is only 
-deferring the problem.
+Aren't you missing kfree(disk) here?
 
-Regarding HAS_PCI_MSI, I don't really see the point of introducing given 
-that we are not going to use NS16550 PCI on Arm in the forseeable 
-future. So why do we need a finer graine Kconfig?
+> +		return NULL;
+> +	}
+>  
+>  	disk->minors = minors;
+>  	rand_initialize_disk(disk);
 
-Cheers,
-
+								Honza
 -- 
-Julien Grall
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
