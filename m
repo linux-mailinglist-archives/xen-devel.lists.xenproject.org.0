@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E1F2B937D
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 14:18:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30771.60915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 634D92B9384
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 14:20:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30777.60927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfjo6-0002Lv-7A; Thu, 19 Nov 2020 13:17:02 +0000
+	id 1kfjqc-0002Vu-M6; Thu, 19 Nov 2020 13:19:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30771.60915; Thu, 19 Nov 2020 13:17:02 +0000
+Received: by outflank-mailman (output) from mailman id 30777.60927; Thu, 19 Nov 2020 13:19:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,299 +23,328 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfjo6-0002LW-3d; Thu, 19 Nov 2020 13:17:02 +0000
-Received: by outflank-mailman (input) for mailman id 30771;
- Thu, 19 Nov 2020 13:17:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rCgr=EZ=nxp.com=jorge.pereira@srs-us1.protection.inumbo.net>)
- id 1kfjo4-0002L0-Bz
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 13:17:00 +0000
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com (unknown
- [40.107.2.57]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5ace5c85-de39-4dbe-8f1c-ad9ce3d35a70;
- Thu, 19 Nov 2020 13:16:59 +0000 (UTC)
-Received: from AM6PR04MB5863.eurprd04.prod.outlook.com (2603:10a6:20b:a5::11)
- by AS8PR04MB8021.eurprd04.prod.outlook.com (2603:10a6:20b:2a7::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Thu, 19 Nov
- 2020 13:16:53 +0000
-Received: from AM6PR04MB5863.eurprd04.prod.outlook.com
- ([fe80::31b9:c9d3:cccf:fc94]) by AM6PR04MB5863.eurprd04.prod.outlook.com
- ([fe80::31b9:c9d3:cccf:fc94%6]) with mapi id 15.20.3589.021; Thu, 19 Nov 2020
- 13:16:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kfjqc-0002VV-I5; Thu, 19 Nov 2020 13:19:38 +0000
+Received: by outflank-mailman (input) for mailman id 30777;
+ Thu, 19 Nov 2020 13:19:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kfjqb-0002VQ-Pm
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 13:19:37 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kfjqb-0003uy-1n; Thu, 19 Nov 2020 13:19:37 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kfjqa-0005bg-LI; Thu, 19 Nov 2020 13:19:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=rCgr=EZ=nxp.com=jorge.pereira@srs-us1.protection.inumbo.net>)
-	id 1kfjo4-0002L0-Bz
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 13:17:00 +0000
-X-Inumbo-ID: 5ace5c85-de39-4dbe-8f1c-ad9ce3d35a70
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com (unknown [40.107.2.57])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 5ace5c85-de39-4dbe-8f1c-ad9ce3d35a70;
-	Thu, 19 Nov 2020 13:16:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WJbSA9QifaNMRNoSXXonvKzf83vqsUazqYr7S+QxVEnfjWHsYNywc7rdatFgDAxf0SKpGdPZXefnyGs++5Ynnd9muOwfVkMsWJ4JNROsMcUiZZcU8WS4TPeyilqQEwcPz5YCoM/+nQTDxCXpUS3QQI9LI/AdVuCmagP4uaz5hFw3HlK8IQEDP4OJk7aP8dMpYtUpnWAxe1vbp7xPN2ADu3iDOzuQNaapVQULmn3rx9nqcXoxA+3fwBpblmXMwSdLdHCewVIP4OeLDcZ66bBqgyr++43pDod4CaLaPF2mq+/O4V1qBke1uT+YT3zziMZFiej/nwbkRcPsOFSofPo4Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=akqBHTHhWXED2JlETSeHCpkPfKyML6WEm6Qtt195NcY=;
- b=f/DqZHfuTI5bEi8/YTTB74t7+wDeG6T7mEWoxBHJUcUprdUAimwUBvyv6E9SgiNcWmCsTp1IgObzuNGXk59/1TV25CRI/9OiSDPsQamjYbglEisTjSNKt7JLe+shNFXB2HeERfgP7gt5dM4PTYCAM+56zZUP7ABNYX7Io/YeYKY6B+YV6oFznkRsOez16RlDurx0EnlxlurepWeZzc5hfWYDgPRfdUYiJZvX64HA4fN5d4D2RYFNVOpBbB1Akttor//eQ+hc1Esct1CcNKHBF3+b2sa8ftFdp9Ni64Z7g+4qxDL4JYDGsLYKm8C3aorDjy1iEwwuOpqEg4Aqqv2aFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=akqBHTHhWXED2JlETSeHCpkPfKyML6WEm6Qtt195NcY=;
- b=hgX7atsHllq6LEtyVENCo/cbX4DNKd7ast2ZV8BEG5KewBVtPHryNZM9rjV9D2GEGl6NcgagnvvbTA+HUZx5rwmxu/BpvnBe33o87zTA76x6H0UzwCUCeKwpzpdH/JKm/k+F4tkWV4uOjNfK2UwlrsiCCWGu4gaqW4LEKvN9ZSU=
-Received: from AM6PR04MB5863.eurprd04.prod.outlook.com (2603:10a6:20b:a5::11)
- by AS8PR04MB8021.eurprd04.prod.outlook.com (2603:10a6:20b:2a7::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Thu, 19 Nov
- 2020 13:16:53 +0000
-Received: from AM6PR04MB5863.eurprd04.prod.outlook.com
- ([fe80::31b9:c9d3:cccf:fc94]) by AM6PR04MB5863.eurprd04.prod.outlook.com
- ([fe80::31b9:c9d3:cccf:fc94%6]) with mapi id 15.20.3589.021; Thu, 19 Nov 2020
- 13:16:53 +0000
-From: Jorge Pereira <jorge.pereira@nxp.com>
-To: "'xen-devel@lists.xenproject.org'" <xen-devel@lists.xenproject.org>
-Subject: smmu-related clarification
-Thread-Topic: smmu-related clarification
-Thread-Index: Ada+dgwvLpGgRoDvTYGCt70DgFD1qg==
-Date: Thu, 19 Nov 2020 13:16:53 +0000
-Message-ID:
- <AM6PR04MB58630B20435EEDF65D2577E2F0E00@AM6PR04MB5863.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=nxp.com;
-x-originating-ip: [93.3.33.12]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 118d9785-41f8-46b7-dae4-08d88c8d6213
-x-ms-traffictypediagnostic: AS8PR04MB8021:
-x-microsoft-antispam-prvs:
- <AS8PR04MB8021EFA50C677BA443A5F61AF0E00@AS8PR04MB8021.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- ioSD3s2rEPTmmHy+MuGHrPChwJB8yGm0SxWAKCFE0ypn7RgCis5jDc6huWS1ldeD7e0TxNk+Ohl41cczYnomscnoY7cZ3znjZZqIBKeoBnWhlsR1kU3ctlKfiUYLHgVsV5t+sMahtb5W2lsQL6ZrXBaQggpid5RVMKcz15WGzv3ZgdwoWNGcImX9dTcrMnup/UzPUI4E/WmEiXY6Ipaj//z9turMamIbV3nwR9aozZ7IVKv5GYZcPiG/8OflJPy6UG7heRDG/nlTu2WumwdS1U6Gcoota5xFyxSduayxMvby+XkUvzPuDhip52TyLZRDPFd3NPoFp00vFvCTTZIrHYXK43ie9NNNwOZ+M8XYHEcjB2H08umcwwvZt1qNJq++
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB5863.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(39850400004)(366004)(376002)(346002)(186003)(6506007)(316002)(33656002)(9686003)(7696005)(86362001)(64756008)(66556008)(66476007)(66446008)(71200400001)(76116006)(66946007)(5660300002)(478600001)(26005)(52536014)(4744005)(44832011)(6916009)(8676002)(3480700007)(8936002)(9326002)(55016002)(2906002)(491001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata:
- g26jUx4gd3Du3muJf+OUSo1+JNlhcKsi1de546XT6E1MxNiTfjiBmT2jQj1RIQuiRXF5lCRWK/emo6QQEnCkDC0a9VC3O93kKfjtdulRW9jZpHIG6+7ok3SSzXzCthwTw0pwd3LpeYnMJc3644UNcM7j84Q0At18y42bT7/cBIyWIy62Utsuoym9JMkXkXAeDH1RBtcHaipSE1QPdnriRr9klLeds3/3H6NJyCUREC2TWRv+UAMMab2Qsg5XHPSbXLZSxSS6Qo46Hzl7YhIMm4/0gxQ1tYI0OreAhTMkdOjEtKAhbsCcikz/hGMapWEB8yvlZVFdMojVJFkXGCmi7zA1/MFrPBw4kabQ7n2LsakS7bF5qPYZ/SOHYSETMst0TKpo1RfHnSVS7gmAjm2bSP4NMSKN3PjZpAcm1EQF3A2AOFvzjDgFeCIkKbkJgeWv9LBG1ck8L7IZ5Sl1kbAv/uG1w9C7TgvGdypGQNdpmrIUIe0iXPB2VHk+V+hrHfYcly0+jHBeFqtuA1Oa+S2ekat/koOhIQ4jEZI+vLeR+xarzYhIlibfdeYZGw/PuuY7p2n8D5k2asFtuO8+nWcHXpgKDfQGJv++2Yx4ES6lBk6cEP7XOMzWJYAVhcJcCxQs8POMpf7PXxh5gaMusREY9A==
-x-ms-exchange-transport-forked: True
-Content-Type: multipart/alternative;
-	boundary="_000_AM6PR04MB58630B20435EEDF65D2577E2F0E00AM6PR04MB5863eurp_"
+	(envelope-from <julien@xen.org>)
+	id 1kfjqb-0002VQ-Pm
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 13:19:37 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=aY4aowiDUUC0AuXT0PTj3329jWTC40JFc9AZmVhWrtE=; b=4bPLASvP0Egx39EJUzbVByO/6r
+	9YMQOWPsYwfc9qeiVed9F/XMyYJZm7DaFJWG9SQ2ZiEUNWf92atOP1n6RADNcEwP7vT94sx97emQf
+	SgrFNJZ1uhmHJB4yW6AXR/tiMq6Bo1D9eeYyJ+OY/I+pMbCCdGRHeg/wFksxWUIQJ3n0=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kfjqb-0003uy-1n; Thu, 19 Nov 2020 13:19:37 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kfjqa-0005bg-LI; Thu, 19 Nov 2020 13:19:36 +0000
+Subject: Re: [PATCH 1/3] mm: introduce xvmalloc() et al and use for grant
+ table allocations
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e0364274-f123-82bd-ec85-bea519a34049@suse.com>
+ <d98aabe4-6c1b-0970-2e42-eb991e9075a2@suse.com>
+ <e7b72c54-e8e4-428d-9264-484fc0061ba4@xen.org>
+ <9adc7ec2-c014-d9ae-a8b5-5b942640386c@suse.com>
+ <e115ce52-3c5c-6530-dd3a-bc7f268ef224@xen.org>
+ <a00f3c98-04c1-4380-dc62-22d001edae1d@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <18d80e2c-fd54-e5be-89e0-5fedf16cc9cd@xen.org>
+Date: Thu, 19 Nov 2020 13:19:34 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.3
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB5863.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 118d9785-41f8-46b7-dae4-08d88c8d6213
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2020 13:16:53.6101
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VDPXcxYEg2UySVjTnGAoSSL9YXLHxvPQ5C8sHbkpeoQw0w7EpxjnCAWx6D6FyiX/rTi1+CSt1QTGJA8SOh5epg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8021
-
---_000_AM6PR04MB58630B20435EEDF65D2577E2F0E00AM6PR04MB5863eurp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi All,
-
-I'm having some smmu-related issues, I need help.
-
-So, in my use-case scenario I have two linux guests running in parallel - d=
-om0 and domU-. I have to enable the smmu because I want to passthough devic=
-es to domU.
-
-Would be great if you help me to clarify the following questions:
-
-  *   if I enable SMMU, it will applies not only to domU but also to dma-ca=
-pable devices assigned to dom0?
-  *   Do I have to add all smmu-masters  of dom0 in device tree as well? Or=
- since dom0 has 1:1 mapping I don't have to do anything?
-
-Thanks,
-Jorge
+In-Reply-To: <a00f3c98-04c1-4380-dc62-22d001edae1d@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
 
 
---_000_AM6PR04MB58630B20435EEDF65D2577E2F0E00AM6PR04MB5863eurp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 19/11/2020 12:33, Jan Beulich wrote:
+> On 19.11.2020 11:59, Julien Grall wrote:
+>> On 19/11/2020 09:46, Jan Beulich wrote:
+>>> On 18.11.2020 20:10, Julien Grall wrote:
+>>>> On 06/11/2020 07:11, Jan Beulich wrote:
+>>>>> All of the array allocations in grant_table_init() can exceed a page's
+>>>>> worth of memory, which xmalloc()-based interfaces aren't really suitable
+>>>>> for after boot.
+>>>>
+>>>> I can see a few reasons why they are not suitable:
+>>>>      - xmalloc() will try to using an order and then throw memory. This is
+>>>> pretty inneficient.
+>>>
+>>> But addressing this inefficiency, while a nice side effect, is
+>>> not the goal here.
+>>>
+>>>>      - xmalloc() will allocate physically contiguous memory
+>>>
+>>> This aspect matters here only indirectly: What we care about
+>>> avoiding are runtime allocations of non-zero order. The assumption
+>>> of how I worded the description is that during boot non-zero-
+>>> order allocations can typically be fulfilled and hence aren't a
+>>> (general) problem.
+>> Well... In the case of the grant table, if you can't find a small order
+>> of physically contiguous pages then you have bigger trouble on your
+>> platform. You will either not have enough space for the allocating the
+>> domain memory, or the performance will be awful because only 4K pages
+>> are used.
+> 
+> Performance will be affected, yes, but I'm not sure I'd call this
+> "awful".
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:1456826159;
-	mso-list-type:hybrid;
-	mso-list-template-ids:327331254 984142610 67698691 67698693 67698689 67698=
-691 67698693 67698689 67698691 67698693;}
-@list l0:level1
-	{mso-level-start-at:0;
-	mso-level-number-format:bullet;
-	mso-level-text:-;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:DengXian;}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New";}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi All,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I&#8217;m having some smmu-related issues, I need he=
-lp. <o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">So, in my use-case scenario I have two linux guests =
-running in parallel &#8211; dom0 and domU-. I have to enable the smmu becau=
-se I want to passthough devices to domU.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Would be great if you help me to clarify the followi=
-ng questions: &nbsp;<o:p></o:p></p>
-<ul style=3D"margin-top:0in" type=3D"disc">
-<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 =
-lfo1">if I enable SMMU, it will applies not only to domU but also to dma-ca=
-pable devices assigned to dom0?
-<o:p></o:p></li><li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso=
--list:l0 level1 lfo1">Do I have to add all smmu-masters &nbsp;of dom0 in de=
-vice tree as well? Or since dom0 has 1:1 mapping I don&#8217;t have to do a=
-nything?<o:p></o:p></li></ul>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
-<p class=3D"MsoNormal">Jorge<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
+Performance is always subjective...
 
---_000_AM6PR04MB58630B20435EEDF65D2577E2F0E00AM6PR04MB5863eurp_--
+> 
+>> So while I agree that having xvmalloc() is a good move, I am not
+>> convinced of your argument regarding the boot vs runtime.
+>>
+>> I think a better argument is the allocation doesn't need to be
+>> physically contiguous in memory. So better avoid it when we can.
+> 
+> Well... I've added a sentence.
+> 
+>>>> It would be good to clarify which one you refer because none of them are
+>>>> really a problem only after boot...
+>>>
+>>> Given the above, I'm not sure in which way you would see this be
+>>> clarified. Any suggestions welcome.
+>>>
+>>>> One thing to be aware thought is xv*() are going to be more inefficient
+>>>> because they involve touching the page-tables (at least until the work
+>>>> to map on-demand the direct map is not merged). In addition, on Arm,
+>>>> they will also use only 4K mappings (I have a TODO to fix that).
+>>>>
+>>>> So I think we will need to be careful when to use xmalloc() vs
+>>>> xvalloc(). It might be worth outlining that in the documentation of xv*().
+>>>
+>>> The rule is quite simple and the inefficiencies you mention
+>>> shouldn't matter imo: Post-boot there should not be any
+>>> implicit allocations of non-zero order. "Implicit" here meaning
+>>> to still permit e.g. direct alloc_domheap_pages() invocations,
+>>> making apparent at the call site that the aspect of memory
+>>> fragmentation was (hopefully) taken into consideration. I'm
+>>> actually inclined to suggest (down the road) to have _xmalloc()
+>>> no longer fall back to multi-page allocations post-boot, but
+>>> instead return NULL.
+>>
+>> One advantage of xmalloc() is it is able to allocate a suitable xenheap
+>> area. So it will not touch the page-tables and therefore useful for
+>> short-life allocation as the overhead will be more limited compare to
+>> xvalloc().
+> 
+> Yet it still shouldn't be used post-boot when the size may exceed
+> system page size, to avoid reporting -ENOMEM or alike when really
+> there's ample but fragmented memory available.
+> 
+>> There is also the problem that alloc_{dom, xen}heap_pages() works using
+>> order. xmalloc() is handy because it will give back the unnecessary pages.
+>>
+>> Maybe we should consider a version of alloc_*heap_pages() that will take
+>> the number of pages rather than order.
+> 
+> Possibly, I've indeed been wondering more than once whether we should.
+> 
+>>> If you think it is really needed, I can add something like "These
+>>> should be used in preference to xmalloc() et al whenever the size
+>>> is not known to be constrained to at most a single page" to the
+>>> comment at the top of the new header file.
+>>
+>> There are quite a few users of xmalloc() with large allocations. Yet,
+>> they would not be suitable for xvalloc() because they require physically
+>> contiguous memory.
+> 
+> Isn't this a mistake? I.e. am I unaware of some comment saying that
+> xmalloc() actually guarantees to return physically contiguous memory?
+
+Well, we have been pretty bad at documenting code... So some of us may 
+have inferred some behavior from xmalloc().
+
+This is also why I requested to make more explicit what 'v' means.
+
+However...
+
+> It's certainly against the "Xen malloc/free-style interface" comment
+> at the top of the header.
+
+... if you consider it as a mistaken, then why did you introduce 
+xvalloc() rather than modifying the implementation of xmalloc()?
+
+> 
+> It was my understanding so far that with the removal of the direct-
+> map this property would go away anyway.
+
+Direct-map is going to disappear on x86, but there are no plan for that 
+on Arm so far.
+
+I am not saying I don't want to remove it, I just want to point out that 
+decision should not be made solely based on what x86 is doing (see more 
+below).
+
+> 
+>> So I think you would want to mention that in the
+>> sentence.
+> 
+> Well, as you've seen further down the comment already mentions that
+> aspect.
+> 
+>>> Where the inefficiencies you mention would imo matter is in
+>>> (future) decisions whether to use vmalloc() et al vs xvmalloc()
+>>> et al: If the size _may_ be no more than a page, the latter may
+>>> want preferring.
+>> I am not sure to understand this... why would we want to keep vmalloc()
+>> extern when xvalloc() will be calling it for allocation over a PAGE_SIZE?
+> 
+> Why force callers knowing they'll allocate more than a page to go
+> through the extra layer? If that was the plan, then we wouldn't
+> need a set of new functions, but could instead tweak vmalloc() etc.
+
+Two reasons:
+   1) There are too many ways to allocate memory in Xen. This adds 
+extra-confusion to use.
+   2) The impact of the extra check is going to be insignificant compare 
+to the cost of the function. Feel free to prove me otherwise with numbers.
+
+> 
+>>>>> --- a/xen/common/vmap.c
+>>>>> +++ b/xen/common/vmap.c
+>>>>> @@ -7,6 +7,7 @@
+>>>>>     #include <xen/spinlock.h>
+>>>>>     #include <xen/types.h>
+>>>>>     #include <xen/vmap.h>
+>>>>> +#include <xen/xvmalloc.h>
+>>>>>     #include <asm/page.h>
+>>>>>     
+>>>>>     static DEFINE_SPINLOCK(vm_lock);
+>>>>> @@ -299,11 +300,29 @@ void *vzalloc(size_t size)
+>>>>>         return p;
+>>>>>     }
+>>>>>     
+>>>>> -void vfree(void *va)
+>>>>> +static void _vfree(const void *va, unsigned int pages, enum vmap_region type)
+>>>>
+>>>> I don't think "unsigned int" is sufficient to cover big size. AFAICT,
+>>>> this is not in a new problem in this code and seems to be a latent issue
+>>>> so far.
+>>>>
+>>>> However, I feel that it is wrong to introduce a new set of allocation
+>>>> helpers that contained a flaw fixed in xm*alloc() recently (see  commit
+>>>> cf38b4926e2b "xmalloc: guard against integer overflow").
+>>>
+>>> For _xmalloc() we're talking about bytes (and the guarding you
+>>> refer to is actually orthogonal to the limiting done by the
+>>> page allocator, as follows from the description of that change).
+>>> Here we're talking about pages. I hope it will be decades until we
+>>> have to consider allocating 16Tb all in one chunk (and we'd need
+>>> to have large enough vmap virtual address space set aside first).
+>>
+>> I think you misunderstood my point here. I am not suggesting that a
+>> normal user would ask to allocate 16TB but that a caller may pass by
+>> mistake an unsanitized value to xv*() functions.
+>>
+>> IIRC, the overflow check in xm*() were added after we discovered that
+>> some callers where passing unsanitized values.
+>>
+>> I would expect xv*() functions to be more used in the future, so I think
+>> it would be unwise to not guard against overflow.
+>>
+>> I would be happy with just checking that nr always fit in a 32-bit value.
+> 
+> The two callers of the function obtain the value from vm_size(),
+> which returns unsigned int.
+
+I can't see a use of vm_size() in vmalloc_type(). I can only see a 
+implicit downcast.
+
+> 
+>>> Also note that
+>>> - the entire vmap.c right now uses unsigned int for page counts,
+>>>     so it would be outright inconsistent to use unsigned long here,
+>>
+>> I didn't suggest this would be the only place (note that "new problem").
+>> This was the best place I could find to mention an existing problem that
+>> is widened with the introduction of xv*() helpers.
+> 
+> Oh, so you're talking of a separate and entirely unrelated patch
+> making sure the existing vmalloc() won't suffer such a problem.
+> Yes, vmalloc_type() could be fixed to this effect. But do you
+> realize we'd have a security issue much earlier if any guest
+> action could lead to such a gigantic vmalloc(), as the time to
+> both allocate and then map 4 billion pages is going to be way
+> longer than what we may tolerate without preempting?
+
+Yes I missed that point. But I am not sure where you are trying to infer...
+
+If it wasn't clear enough, I didn't suggest to fix in this patch. I am 
+only pointed out that we hardened _xmalloc() and this looks like going 
+backwards.
+
+> 
+> And no, there's no overflowing calculation anywhere afaics which
+> would resemble the ones in xmalloc() you refer to.
+
+"overflow" was probably the wrong word. It would be more a downcast when 
+computing the number of pages.
+
+__vmap() is taking an "unsigned int", yet the number of pages is 
+computed using size_t.
+
+>>> - at least on x86 passing around 64-bit function arguments is
+>>>     slightly less efficient than 32-bit ones, and hence I'd prefer
+>>>     to keep it like this.
+>>
+>> Don't you have 64-bit registers on x86-64?
+> 
+> Yes, yet to operate on them most insns need an extra prefix
+> byte.
+
+... Thankfully we have only 2 architectures to care... Otherwise we 
+would never be able to change common code without bikeshedding on 
+micro-optimization.
+
+> 
+>> But, I am really surprised this is a concern to you when all the
+>> functions in this code will modify the pages tables. You dismissed this
+>> overhead in the same e-mail...
+> 
+> Entirely different considerations: The goal of limiting variable
+> (and parameter) types to 32 bits where possible is a generic one.
+
+At the cost of introducing multiple implicit downcast that one day or 
+another is going to bite us.
+
+> Which is, if for nothing else, to avoid introducing bad precedent.
+
+I am ok with 32-bit internal value, but please at least check the 
+downcasting is going to be harmless.
+
+Cheers,
+
+-- 
+Julien Grall
 
