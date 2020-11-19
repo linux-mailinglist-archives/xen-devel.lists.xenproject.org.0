@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCF762B9582
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 15:53:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.30862.61041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE81B2B9584
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 15:54:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.30869.61053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kflJ4-0005Yr-Ud; Thu, 19 Nov 2020 14:53:06 +0000
+	id 1kflKd-0005kR-EW; Thu, 19 Nov 2020 14:54:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 30862.61041; Thu, 19 Nov 2020 14:53:06 +0000
+Received: by outflank-mailman (output) from mailman id 30869.61053; Thu, 19 Nov 2020 14:54:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,124 +23,113 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kflJ4-0005YS-Rf; Thu, 19 Nov 2020 14:53:06 +0000
-Received: by outflank-mailman (input) for mailman id 30862;
- Thu, 19 Nov 2020 14:53:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kflKd-0005k2-BF; Thu, 19 Nov 2020 14:54:43 +0000
+Received: by outflank-mailman (input) for mailman id 30869;
+ Thu, 19 Nov 2020 14:54:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kVKL=EZ=suse.cz=jack@srs-us1.protection.inumbo.net>)
- id 1kflJ3-0005YN-NE
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 14:53:05 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id aca3f7e8-ecfe-4a7d-b782-f1e14293298d;
- Thu, 19 Nov 2020 14:53:04 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0A44DAC2F;
- Thu, 19 Nov 2020 14:53:04 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
- id BD7681E130B; Thu, 19 Nov 2020 15:53:03 +0100 (CET)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <julien@xen.org>) id 1kflKb-0005jw-VR
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 14:54:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kflKb-0005wS-HP; Thu, 19 Nov 2020 14:54:41 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kflKb-0003Ic-7K; Thu, 19 Nov 2020 14:54:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=kVKL=EZ=suse.cz=jack@srs-us1.protection.inumbo.net>)
-	id 1kflJ3-0005YN-NE
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 14:53:05 +0000
-X-Inumbo-ID: aca3f7e8-ecfe-4a7d-b782-f1e14293298d
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id aca3f7e8-ecfe-4a7d-b782-f1e14293298d;
-	Thu, 19 Nov 2020 14:53:04 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 0A44DAC2F;
-	Thu, 19 Nov 2020 14:53:04 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-	id BD7681E130B; Thu, 19 Nov 2020 15:53:03 +0100 (CET)
-Date: Thu, 19 Nov 2020 15:53:03 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
-	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 17/20] filemap: consistently use ->f_mapping over
- ->i_mapping
-Message-ID: <20201119145303.GZ1981@quack2.suse.cz>
-References: <20201118084800.2339180-1-hch@lst.de>
- <20201118084800.2339180-18-hch@lst.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201118084800.2339180-18-hch@lst.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+	(envelope-from <julien@xen.org>)
+	id 1kflKb-0005jw-VR
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 14:54:41 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
+	bh=IjvAESUItdtzLYryfFbk/PumKSZoZap17L392zxaSg0=; b=aUUKccIm6WEHV+NVl8UJtVbd/h
+	wS19pwTVyB9NKwBiAGs9bUt4ETT++QNdv5qc6gz5S/2fRmRg5hTzKtabD3TCI39swY3G87Mnfo3Ig
+	M+hjKT7o8a/wk/05rRFIB41YPQqYh7H9rpsFlOzOUWBLFEavZzMCWX2DnDIW0IYdjcLc=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kflKb-0005wS-HP; Thu, 19 Nov 2020 14:54:41 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=ufe34d9ed68d054.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kflKb-0003Ic-7K; Thu, 19 Nov 2020 14:54:41 +0000
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] xen/irq: Propagate the error from init_one_desc_irq() in init_irq_data()
+Date: Thu, 19 Nov 2020 14:54:34 +0000
+Message-Id: <20201119145434.28065-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 
-On Wed 18-11-20 09:47:57, Christoph Hellwig wrote:
-> Use file->f_mapping in all remaining places that have a struct file
-> available to properly handle the case where inode->i_mapping !=
-> file_inode(file)->i_mapping.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+From: Julien Grall <jgrall@amazon.com>
 
-Looks good. You can add:
+init_one_desc_irq() can return an error if it is unable to allocate
+memory. While this is unlikely to happen during boot (called from
+init_irq_data()), it is better to harden the code by propagting the
+return value.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Spotted by coverity.
 
-								Honza
+CID: 106529
 
-> ---
->  mm/filemap.c | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index d5e7c2029d16b4..3e3531a757f8db 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -2887,13 +2887,13 @@ EXPORT_SYMBOL(filemap_map_pages);
->  vm_fault_t filemap_page_mkwrite(struct vm_fault *vmf)
->  {
->  	struct page *page = vmf->page;
-> -	struct inode *inode = file_inode(vmf->vma->vm_file);
-> +	struct inode *inode = vmf->vma->vm_file->f_mapping->host;
->  	vm_fault_t ret = VM_FAULT_LOCKED;
->  
->  	sb_start_pagefault(inode->i_sb);
->  	file_update_time(vmf->vma->vm_file);
->  	lock_page(page);
-> -	if (page->mapping != inode->i_mapping) {
-> +	if (page->mapping != vmf->vma->vm_file->f_mapping) {
->  		unlock_page(page);
->  		ret = VM_FAULT_NOPAGE;
->  		goto out;
-> @@ -3149,10 +3149,9 @@ void dio_warn_stale_pagecache(struct file *filp)
->  {
->  	static DEFINE_RATELIMIT_STATE(_rs, 86400 * HZ, DEFAULT_RATELIMIT_BURST);
->  	char pathname[128];
-> -	struct inode *inode = file_inode(filp);
->  	char *path;
->  
-> -	errseq_set(&inode->i_mapping->wb_err, -EIO);
-> +	errseq_set(&filp->f_mapping->wb_err, -EIO);
->  	if (__ratelimit(&_rs)) {
->  		path = file_path(filp, pathname, sizeof(pathname));
->  		if (IS_ERR(path))
-> @@ -3179,7 +3178,7 @@ generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
->  
->  	if (iocb->ki_flags & IOCB_NOWAIT) {
->  		/* If there are pages to writeback, return */
-> -		if (filemap_range_has_page(inode->i_mapping, pos,
-> +		if (filemap_range_has_page(file->f_mapping, pos,
->  					   pos + write_len - 1))
->  			return -EAGAIN;
->  	} else {
-> -- 
-> 2.29.2
-> 
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+---
+ xen/arch/arm/irq.c | 7 ++++++-
+ xen/arch/x86/irq.c | 7 ++++++-
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+index 3877657a5277..279d221a2b85 100644
+--- a/xen/arch/arm/irq.c
++++ b/xen/arch/arm/irq.c
+@@ -88,7 +88,12 @@ static int __init init_irq_data(void)
+     for ( irq = NR_LOCAL_IRQS; irq < NR_IRQS; irq++ )
+     {
+         struct irq_desc *desc = irq_to_desc(irq);
+-        init_one_irq_desc(desc);
++        int rc;
++
++        rc = init_one_irq_desc(desc);
++        if ( rc )
++            return rc;
++
+         desc->irq = irq;
+         desc->action  = NULL;
+     }
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index 45966947919e..3ebd684415ac 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -428,9 +428,14 @@ int __init init_irq_data(void)
+ 
+     for ( irq = 0; irq < nr_irqs_gsi; irq++ )
+     {
++        int rc;
++
+         desc = irq_to_desc(irq);
+         desc->irq = irq;
+-        init_one_irq_desc(desc);
++
++        rc = init_one_irq_desc(desc);
++        if ( rc )
++            return rc;
+     }
+     for ( ; irq < nr_irqs; irq++ )
+         irq_to_desc(irq)->irq = irq;
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.17.1
+
 
