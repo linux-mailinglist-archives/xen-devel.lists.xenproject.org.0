@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CBA52B9881
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 17:48:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31193.61487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 815832B98AF
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 17:58:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.31201.61499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfn6C-0005Dg-Nm; Thu, 19 Nov 2020 16:47:56 +0000
+	id 1kfnFm-0006Ru-Mb; Thu, 19 Nov 2020 16:57:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31193.61487; Thu, 19 Nov 2020 16:47:56 +0000
+Received: by outflank-mailman (output) from mailman id 31201.61499; Thu, 19 Nov 2020 16:57:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,136 +23,101 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfn6C-0005DH-KF; Thu, 19 Nov 2020 16:47:56 +0000
-Received: by outflank-mailman (input) for mailman id 31193;
- Thu, 19 Nov 2020 16:47:55 +0000
+	id 1kfnFm-0006RV-It; Thu, 19 Nov 2020 16:57:50 +0000
+Received: by outflank-mailman (input) for mailman id 31201;
+ Thu, 19 Nov 2020 16:57:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d/3C=EZ=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kfn6A-0005DB-Tr
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 16:47:54 +0000
-Received: from mail-wm1-x32f.google.com (unknown [2a00:1450:4864:20::32f])
+ <SRS0=kdOd=EZ=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kfnFl-0006RQ-5U
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 16:57:49 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c1731af1-f070-4113-b0c2-27995c80fcb4;
- Thu, 19 Nov 2020 16:47:54 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id d142so7825493wmd.4
- for <xen-devel@lists.xenproject.org>; Thu, 19 Nov 2020 08:47:54 -0800 (PST)
-Received: from CBGR90WXYV0
- (host109-146-187-185.range109-146.btcentralplus.com. [109.146.187.185])
- by smtp.gmail.com with ESMTPSA id u6sm574570wmj.40.2020.11.19.08.47.52
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 19 Nov 2020 08:47:52 -0800 (PST)
+ id 77c26135-2719-43ff-8f84-d50e9cdcd87b;
+ Thu, 19 Nov 2020 16:57:46 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0AJGvdDk003498
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Thu, 19 Nov 2020 17:57:40 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id 437A42E9CA8; Thu, 19 Nov 2020 17:57:34 +0100 (MET)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=d/3C=EZ=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
-	id 1kfn6A-0005DB-Tr
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 16:47:54 +0000
-X-Inumbo-ID: c1731af1-f070-4113-b0c2-27995c80fcb4
-Received: from mail-wm1-x32f.google.com (unknown [2a00:1450:4864:20::32f])
+	(envelope-from <SRS0=kdOd=EZ=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+	id 1kfnFl-0006RQ-5U
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 16:57:49 +0000
+X-Inumbo-ID: 77c26135-2719-43ff-8f84-d50e9cdcd87b
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c1731af1-f070-4113-b0c2-27995c80fcb4;
-	Thu, 19 Nov 2020 16:47:54 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id d142so7825493wmd.4
-        for <xen-devel@lists.xenproject.org>; Thu, 19 Nov 2020 08:47:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:content-language
-         :thread-index;
-        bh=Exw3myhehWT2/9tPrsDQoWiIuT+J+BTbzR4akiYXSpI=;
-        b=PsWOOjrzzmk84CdhZM/EW4UrpanJRNqZv+H6Nfe4Mx6XR4wGoNjodOKCqV5+wv5mLr
-         KQzWARYzijodq3emI/vf+blBCigaCKCuxnDOjRvSU/Y624C8gnJwKVyTT7yC6X/x/qOL
-         FkREZJxpFLzNEQ/zPr+VG7KAApLCwcYvLO00696Nue52gUMLdWPaVMKv3xn6CmfUVvxl
-         LS7BloTkIHliU1vEhckwwsVxfQsHR9ejwVIluoSwOXC2CuLjvvFcy+qb+FMizaA/V76q
-         HiesQPIi82eBHB1oxI1FhgDz3VC3z5mJ8PGd5sEHuIG8sGHyI1Ak1qs8T1cRw5huti7y
-         U3mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :content-language:thread-index;
-        bh=Exw3myhehWT2/9tPrsDQoWiIuT+J+BTbzR4akiYXSpI=;
-        b=SxeCPI/I+za6y694RkRv+/AyZWbjcDbskqAPNDSB50jetQYM+Y9bT8YSvmlKRczhrC
-         8ONiyISsu3GYGYCz3CPkgl5L28j52b1Tku0RMW43KIkDwfWSYmWHjEdVApRdMvpn0uFh
-         ztNyszoONgsc70LAsq9AGOyJRcMCr5aLqKzX3R4MdBQvMRiksrNX4szsf89ru87M5SYH
-         1dvuBF5XF/ZTKasyXzLp1D9KDQ+pYAUrwQlIgNc/b6HLXPGTi9M+U5QolA41eebmzLXA
-         I+73lPjic8vUNWGhfgSwk2js8toOYSUys6JRhZ7QhNMt7ZoR8KcxGcUlzRUNzxe+7dVh
-         d4qw==
-X-Gm-Message-State: AOAM532qf0YEQGTh9qM4j43SwwAs3wulrnSYxnbzI0gPxYZXywtRfy/p
-	GLhCfOI+FZ9llvk8fFoiBEU=
-X-Google-Smtp-Source: ABdhPJyljCFPFEHkP0a17oyTk6p8MoWTjdAJtafhl5XLvjdfD69NtmX9BA3Cm9nWnvvgrueFiVvSaA==
-X-Received: by 2002:a1c:b487:: with SMTP id d129mr5745313wmf.38.1605804473291;
-        Thu, 19 Nov 2020 08:47:53 -0800 (PST)
-Received: from CBGR90WXYV0 (host109-146-187-185.range109-146.btcentralplus.com. [109.146.187.185])
-        by smtp.gmail.com with ESMTPSA id u6sm574570wmj.40.2020.11.19.08.47.52
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 19 Nov 2020 08:47:52 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-Cc: "'Paul Durrant'" <pdurrant@amazon.com>,
-	"'Wei Liu'" <wl@xen.org>,
-	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20201111200721.30551-1-paul@xen.org> <20201111200721.30551-7-paul@xen.org> <dd6c4a0d-f611-7b81-8c95-72786891f311@suse.com> <00cc01d6be8e$b24973c0$16dc5b40$@xen.org> <f974ee35-239a-644f-ab81-ab4a435e3693@suse.com>
-In-Reply-To: <f974ee35-239a-644f-ab81-ab4a435e3693@suse.com>
-Subject: RE: [PATCH 06/10] viridian: add ExProcessorMasks variants of the flush hypercalls
-Date: Thu, 19 Nov 2020 16:47:52 -0000
-Message-ID: <00ce01d6be93$b90857d0$2b190770$@xen.org>
+	id 77c26135-2719-43ff-8f84-d50e9cdcd87b;
+	Thu, 19 Nov 2020 16:57:46 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+	by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id 0AJGvdDk003498
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Thu, 19 Nov 2020 17:57:40 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+	id 437A42E9CA8; Thu, 19 Nov 2020 17:57:34 +0100 (MET)
+Date: Thu, 19 Nov 2020 17:57:34 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201119165734.GA4903@antioche.eu.org>
+References: <20201117155807.a7jgmftnj6njg6oz@Air-de-Roger>
+ <20201117164033.GB3093@antioche.eu.org>
+ <20201118085738.wpnfmjagxjf6cofp@Air-de-Roger>
+ <20201118092425.GC1085@antioche.eu.org>
+ <20201118100025.ic7r3kfsbdnr6muz@Air-de-Roger>
+ <20201118121403.GC3126@antioche.eu.org>
+ <20201118143928.hvamuf7t7jycsrzb@Air-de-Roger>
+ <bb2b6182-f3a6-61e5-ee70-90a65ae56435@suse.com>
+ <20201119141915.igyb7djkw47rf2dt@Air-de-Roger>
+ <20201119155718.GB4104@antioche.eu.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIKCyTUSJ7jm2WJ2nMqsy5EhijKogHMVqApAbxd85QCfSbd3ALQ2i2tqSJbAxA=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201119155718.GB4104@antioche.eu.org>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Thu, 19 Nov 2020 17:57:40 +0100 (MET)
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 19 November 2020 16:45
-> To: paul@xen.org
-> Cc: 'Paul Durrant' <pdurrant@amazon.com>; 'Wei Liu' <wl@xen.org>; =
-'Andrew Cooper'
-> <andrew.cooper3@citrix.com>; 'Roger Pau Monn=C3=A9' =
-<roger.pau@citrix.com>; xen-devel@lists.xenproject.org
-> Subject: Re: [PATCH 06/10] viridian: add ExProcessorMasks variants of =
-the flush hypercalls
->=20
-> On 19.11.2020 17:11, Paul Durrant wrote:
-> >> From: Jan Beulich <jbeulich@suse.com>
-> >> Sent: 12 November 2020 09:19
-> >>
-> >> On 11.11.2020 21:07, Paul Durrant wrote:
-> >>> --- a/xen/arch/x86/hvm/viridian/viridian.c
-> >>> +++ b/xen/arch/x86/hvm/viridian/viridian.c
-> >>> @@ -553,6 +553,83 @@ static unsigned int vpmask_next(struct =
-hypercall_vpmask *vpmask, unsigned int
-> >> vp
-> >>>  	     (vp) < HVM_MAX_VCPUS; \
-> >>>  	     (vp) =3D vpmask_next(vpmask, vp))
-> >>>
-> >>> +struct hypercall_vpset {
-> >>> +        struct hv_vpset set;
-> >>> +        uint64_t __bank_contents[64];
-> >>
-> >> gcc documents this to be supported as an extension; did you check
-> >> clang supports this, too?
-> >
-> > By 'this', do you mean the assumption that that memory layout is =
-consecutive?
->=20
-> No, rather the basic language aspect that in standard C a struct
-> member which is a struct ending in a flexible array member may
-> not be followed by any other field.
->
+On Thu, Nov 19, 2020 at 04:57:18PM +0100, Manuel Bouyer wrote:
+> On Thu, Nov 19, 2020 at 03:19:15PM +0100, Roger Pau Monné wrote:
+> > I've got two different debug patches for you to try. I'm attaching both
+> > to this email but I think we should start with Jan's suggestion
+> > (conditional_print.patch). That patch will only print extra messages
+> > between the ioregsel 3 ... ioregsel f existing debug messages, you
+> > will have to trigger this from NetBSD by using ioapic_dump_raw AFAICT.
+> 
+> thanks. I didn't see any change in behavior or XEN output with this
+> patch (especially the vioapic_deliver string doesn't show up in the
+> logs).
 
-Ah, ok, now I understand what you mean. I'll union it to reserve the =
-space instead.
+I tried forcing print to 1, and I still don't see "vioapic_deliver" on the
+console. I changed the patch to:
+#define vioapic_deliver(vioapic, irq) ({\ 
+    if ( /* print && irq == 34 */ 1 ) \
+        printk("%s:%d:%s: vioapic_deliver %d\n", __FILE__, __LINE__, __func__, i
+rq); \
+    _vioapic_deliver(vioapic, irq); })
 
-  Paul
-=20
-> Jan
+and got:
+[  13.8853432] ioapic2: pin2 0x0000a067 0x00000000^M
+[  13.8853432] mfii0: cmd timeout ccb 0xffff9780023b7d60 status 0x40000008^M
+(XEN) *** Serial input to Xen (type 'CTRL-a' three times to switch input)
+(XEN) vioapic.c:511:vioapic_irq_positive_edge: vioapic_deliver 2
+[  17.0001093] mfii0: cmd aborted ccb 0xffff9780023b7d60^M
+(XEN) vioapic.c:511:vioapic_irq_positive_edge: vioapic_deliver 2
+[  17.0217772] config_pending_decr: scsibus0 0^M
+(XEN) vioapic.c:511:vioapic_irq_positive_edge: vioapic_deliver 2
+[  17.(XEN) vioapic.c:511:vioapic_irq_positive_edge: vioapic_deliver 2
+0417095] config_finalize 2185^M
 
+So I guess that the interrupt delivery on XEN output is
+vioapic.c:511
+
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
