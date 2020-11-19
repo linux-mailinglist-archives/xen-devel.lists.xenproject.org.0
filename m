@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B38B2B9A39
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 18:58:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31268.61619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 571292B9A75
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Nov 2020 19:17:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.31276.61634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfoBs-0005ba-32; Thu, 19 Nov 2020 17:57:52 +0000
+	id 1kfoU5-0007xP-T5; Thu, 19 Nov 2020 18:16:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31268.61619; Thu, 19 Nov 2020 17:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 31276.61634; Thu, 19 Nov 2020 18:16:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,160 +23,363 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kfoBr-0005bB-VN; Thu, 19 Nov 2020 17:57:51 +0000
-Received: by outflank-mailman (input) for mailman id 31268;
- Thu, 19 Nov 2020 17:57:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kfoU5-0007x0-Pi; Thu, 19 Nov 2020 18:16:41 +0000
+Received: by outflank-mailman (input) for mailman id 31276;
+ Thu, 19 Nov 2020 18:16:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kdOd=EZ=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1kfoBp-0005b6-Sq
- for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 17:57:49 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f78bed2c-2f26-46d2-aeed-59c4fa4293f2;
- Thu, 19 Nov 2020 17:57:47 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0AJHvcWQ024042
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
- Thu, 19 Nov 2020 18:57:39 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id 35A302E9CA8; Thu, 19 Nov 2020 18:57:33 +0100 (MET)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ <SRS0=zZym=EZ=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1kfoU4-0007wu-4u
+ for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 18:16:40 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
+ [40.107.20.82]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8011cd69-79c4-45da-8494-8a696e7cb93a;
+ Thu, 19 Nov 2020 18:16:38 +0000 (UTC)
+Received: from DB6PR1001CA0038.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:4:55::24)
+ by DBAPR08MB5749.eurprd08.prod.outlook.com (2603:10a6:10:1af::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20; Thu, 19 Nov
+ 2020 18:16:37 +0000
+Received: from DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:55:cafe::4f) by DB6PR1001CA0038.outlook.office365.com
+ (2603:10a6:4:55::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
+ Transport; Thu, 19 Nov 2020 18:16:37 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT022.mail.protection.outlook.com (10.152.20.171) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Thu, 19 Nov 2020 18:16:37 +0000
+Received: ("Tessian outbound 797fb8e1da56:v71");
+ Thu, 19 Nov 2020 18:16:37 +0000
+Received: from 6896bc3e2f68.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 5656127B-191C-42C8-8536-85DCDA36A230.1; 
+ Thu, 19 Nov 2020 18:16:29 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 6896bc3e2f68.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 19 Nov 2020 18:16:29 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DBBPR08MB4538.eurprd08.prod.outlook.com (2603:10a6:10:d2::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.28; Thu, 19 Nov
+ 2020 18:16:26 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::39b7:6f9f:d046:e737]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::39b7:6f9f:d046:e737%7]) with mapi id 15.20.3564.028; Thu, 19 Nov 2020
+ 18:16:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=kdOd=EZ=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
-	id 1kfoBp-0005b6-Sq
-	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 17:57:49 +0000
-X-Inumbo-ID: f78bed2c-2f26-46d2-aeed-59c4fa4293f2
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f78bed2c-2f26-46d2-aeed-59c4fa4293f2;
-	Thu, 19 Nov 2020 17:57:47 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
-	by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id 0AJHvcWQ024042
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Thu, 19 Nov 2020 18:57:39 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
-	id 35A302E9CA8; Thu, 19 Nov 2020 18:57:33 +0100 (MET)
-Date: Thu, 19 Nov 2020 18:57:33 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
-Message-ID: <20201119175733.GA6067@antioche.eu.org>
-References: <20201117164033.GB3093@antioche.eu.org>
- <20201118085738.wpnfmjagxjf6cofp@Air-de-Roger>
- <20201118092425.GC1085@antioche.eu.org>
- <20201118100025.ic7r3kfsbdnr6muz@Air-de-Roger>
- <20201118121403.GC3126@antioche.eu.org>
- <20201118143928.hvamuf7t7jycsrzb@Air-de-Roger>
- <bb2b6182-f3a6-61e5-ee70-90a65ae56435@suse.com>
- <20201119141915.igyb7djkw47rf2dt@Air-de-Roger>
- <20201119155718.GB4104@antioche.eu.org>
- <20201119165734.GA4903@antioche.eu.org>
+	(envelope-from <SRS0=zZym=EZ=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+	id 1kfoU4-0007wu-4u
+	for xen-devel@lists.xenproject.org; Thu, 19 Nov 2020 18:16:40 +0000
+X-Inumbo-ID: 8011cd69-79c4-45da-8494-8a696e7cb93a
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown [40.107.20.82])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 8011cd69-79c4-45da-8494-8a696e7cb93a;
+	Thu, 19 Nov 2020 18:16:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ADhZtYNBEr3niClwhOMsFJB7OZtTBz55UcV+VbqtfKA=;
+ b=ZTUa+qxP3iE0g4Tjv9q5Pj12VyK4aOXYVLMh2PJxoImS9Dazao9Z2dEgO96WG9s5AFnZqR2RaTgm5S6iIuXwp2FtBPPKos9C53hxsPT8HfHYBceXwwaUcHJ7UYB6VHpopwLk4+iVNEmWJkagJ9V+BsefOAZG5CNA3g0yg5WZX9Y=
+Received: from DB6PR1001CA0038.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:4:55::24)
+ by DBAPR08MB5749.eurprd08.prod.outlook.com (2603:10a6:10:1af::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20; Thu, 19 Nov
+ 2020 18:16:37 +0000
+Received: from DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:55:cafe::4f) by DB6PR1001CA0038.outlook.office365.com
+ (2603:10a6:4:55::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
+ Transport; Thu, 19 Nov 2020 18:16:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT022.mail.protection.outlook.com (10.152.20.171) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Thu, 19 Nov 2020 18:16:37 +0000
+Received: ("Tessian outbound 797fb8e1da56:v71"); Thu, 19 Nov 2020 18:16:37 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: cbf8cdda0acf4d7f
+X-CR-MTA-TID: 64aa7808
+Received: from 6896bc3e2f68.2
+	by 64aa7808-outbound-1.mta.getcheckrecipient.com id 5656127B-191C-42C8-8536-85DCDA36A230.1;
+	Thu, 19 Nov 2020 18:16:29 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 6896bc3e2f68.2
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Thu, 19 Nov 2020 18:16:29 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iJ4l+MTdbD0hSR7bv7PIwucflJVmM5hcw5NQAfb09qIb/ZP1JHCBV8uSY4y3zf0Aef+s/1jrOidT6ybzbBw4upCxz6SvpJPvwUxjktRneQawUBAJj8yhzZruH3h9JcodCB0QCDXduobu8b6AEIDjxAu+ZbAg+KWd+H4RNhZS/YubdA7LQ5NpKQOAGlCH8kR0ievgbJKsthJqeHRwJR0u4UXeH/DQoYeUUbYULO2rAr+OpJnk2ZZk8+qnD+1O6/krPBCDd9M/KgHHFVzVZwWPxipSat33gdhqB2n6HB5EXZcrhPTfnNexGY/EPlTT7iBmcDkESDISKztves5RuBHDdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ADhZtYNBEr3niClwhOMsFJB7OZtTBz55UcV+VbqtfKA=;
+ b=gi1KcQemqBn4pTUcD7Ty45yoAbIat23iENwoOZ6o8dRQ1cgzDZLq/kC+moZcv7pHOYwk6APjtxSaZeT+Wy10zLn6tKIcB8fPN+mjloPkVAjQDMJp6sODzg9o+DVUwM/MEV9fDrYcSAboxlAkL2AOr0+88Gt8uBoSSMQnvZgc0+a7vrzG6V6jjz8jdWIwPY5sAby3NISKCkPmI0mb9Zl+QM8Sf/aIb0mOtO55EDw+X+DT64JwkiGtgCg2Kx5Fi35yvbYEWNXeccBsFcgWwFXMOJ/hbwMZpDSuNeipsizcnOXkW4qag+n2X2n0/6/BTm/xgr2kBBx1VX30j1QbACAISA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ADhZtYNBEr3niClwhOMsFJB7OZtTBz55UcV+VbqtfKA=;
+ b=ZTUa+qxP3iE0g4Tjv9q5Pj12VyK4aOXYVLMh2PJxoImS9Dazao9Z2dEgO96WG9s5AFnZqR2RaTgm5S6iIuXwp2FtBPPKos9C53hxsPT8HfHYBceXwwaUcHJ7UYB6VHpopwLk4+iVNEmWJkagJ9V+BsefOAZG5CNA3g0yg5WZX9Y=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DBBPR08MB4538.eurprd08.prod.outlook.com (2603:10a6:10:d2::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.28; Thu, 19 Nov
+ 2020 18:16:26 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::39b7:6f9f:d046:e737]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::39b7:6f9f:d046:e737%7]) with mapi id 15.20.3564.028; Thu, 19 Nov 2020
+ 18:16:26 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: "open list:X86" <xen-devel@lists.xenproject.org>, "alex.bennee@linaro.org"
+	<alex.bennee@linaro.org>, Andre Przywara <Andre.Przywara@arm.com>, Rahul
+ Singh <Rahul.Singh@arm.com>, Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH v4 1/3] xen/arm: gic: acpi: Guard helpers to build the
+ MADT with CONFIG_ACPI
+Thread-Topic: [PATCH v4 1/3] xen/arm: gic: acpi: Guard helpers to build the
+ MADT with CONFIG_ACPI
+Thread-Index: AQHWvpal2Ywl5gacb02BE3lv2K8FPqnPwwIA
+Date: Thu, 19 Nov 2020 18:16:26 +0000
+Message-ID: <4F6A86BB-EA0B-4F7A-A1D9-5C5C469FB220@arm.com>
+References: <20201119170829.9923-1-julien@xen.org>
+ <20201119170829.9923-2-julien@xen.org>
+In-Reply-To: <20201119170829.9923-2-julien@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3608.120.23.2.4)
+Authentication-Results-Original: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [82.9.225.195]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 8ba79cc7-2f75-4af7-1c55-08d88cb7411e
+x-ms-traffictypediagnostic: DBBPR08MB4538:|DBAPR08MB5749:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<DBAPR08MB5749CC8CAEF81800AC288CCC9DE00@DBAPR08MB5749.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:7691;OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ oY+Xtc7YDhNWVpzmuDaQ4UhhJeUN9IW8gE4gJ6gwafIbqW91UYBLBkLya4fogo1zMJw0fdi/g37gH0bNU+eg+DJcHfvHnvHlFiAGcAe5Y8wjvBF/d69jpX+1C1NEq97jQlNUXyID+zlyk+vYBdlat0bwauEmCmYyJmUTlzqe6Xp4oZZnl5CcCbGxdrzNeIvWlfVnAif5BKlm1lsVkDJ+wLoR0it6+sGsATTvg3BYajoEcAStXBhQVXaO/z4QkO3+9NGL1vqVhYYZoDg29Rx2lbjcXfsrtpX5EYquigf+wtZURuosCFqUY8HATs6GmiKQIF6jckdIasJkx/qxzu126g==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(136003)(39860400002)(346002)(366004)(396003)(2906002)(66446008)(66556008)(66476007)(6916009)(66946007)(8676002)(8936002)(71200400001)(6486002)(86362001)(76116006)(91956017)(36756003)(5660300002)(6512007)(33656002)(4326008)(54906003)(53546011)(6506007)(26005)(64756008)(186003)(2616005)(478600001)(83380400001)(316002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ Qr0EuBlxzxav8XkpRhSvBTcET/fwyyP5iSdmHUj3LbWFvCVxlDieDgA9EYel70OC8Fu32puKYEVsEjbstWMo/Z5ezjYRYcCj+rnI5ndfJM7WbNQZWYszOGQoD/fivZNsfNOsUPQwMeH6UoYlCZZDOMebnYlVI+NSYx7CRhwqG7uT0/HGQ7HZv/jgJ45eosZ9eAW1W7NBUV3uE4brWz2N3/uoRBqXJmgyONIvQN75bvnds9dfBh8EGzesU3NCQYdQQKwyFSFzB9VO/0rPAWmQq/C51trPahSrQz5Y6FbmXOXkGziRPJCcgd1dxkyHcJifPHIrjzX8N9QlDWFeEbVlARuUHWiWLQj8UJVrXb9c6tzlUV/uW4MpaOF2XenYnKYorO4Qpr+c3EAt18uGGMrJeqw5uoGdzbCXBE3wtlz1icEXdNHY+qo7G3HFQjrX9MUIKf96KNW5M1yL4AsncCI+zHK1g3VP9Uosf+gGv75kuPaK7oO8dCZllSoOUa4dSPDDrgVAe0aeZoln0V6+W6aQP7O1/S7/9CB1YZkxtOkpDRdL+V2ug768t9fja3FY3j+Xi3oFSTKeKnJFEoYjwNybk41q12eAJgaPYLuYEBLzEBAAgnvy2a9xoYrYZERrld2RmRbOO4m8qxxHJRWOg5kgPg==
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <96D93D78A9FB5A4C978131C6BC21360F@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201119165734.GA4903@antioche.eu.org>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Thu, 19 Nov 2020 18:57:39 +0100 (MET)
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4538
+Original-Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	d5846e27-3bb3-42ca-d86f-08d88cb73aed
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	TEN93U/yPphGPAJqoSPwE/1lmU7G68Xyli7rD9jBa1grf4gmad29cOAsdL3Y4bkaxp5arUJeaxaDzzGvPqi+NkQRh+7vPc35NJRNppF3LwpomJ57VMJ+Tn6roUMOLQRVqOxeZi/DdeFPg5oi8M+HeTuJoJDDU9pAiudRPuiSQ9H6+jZHPZtffDO/DCruySPwcYY69shyrtE++/W7U5nt5fITrj78xOvlVO2M/1Yg555HNwmM5iNzNZHRWVzgiwFpLtzp1GtWW+VeGbW0ol5tsMZA1w10do1YFD7bhmnAqF+ozlYqmLLg0yzdjs36UmGAlroSStf3k4X/AjyuEqK3J6+my7zE/6x3JHkrsH/y4g/apA3hpE3vcHISYBKzsAhp1Nifxqm/X2MOaQOMmgXrBA==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(396003)(346002)(376002)(39850400004)(46966005)(82740400003)(47076004)(70206006)(81166007)(356005)(82310400003)(6512007)(2616005)(316002)(2906002)(54906003)(336012)(107886003)(86362001)(6506007)(478600001)(8936002)(186003)(6486002)(70586007)(8676002)(33656002)(4326008)(36756003)(26005)(6862004)(83380400001)(5660300002)(53546011);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2020 18:16:37.2251
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ba79cc7-2f75-4af7-1c55-08d88cb7411e
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT022.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5749
 
-On Thu, Nov 19, 2020 at 05:57:34PM +0100, Manuel Bouyer wrote:
-> On Thu, Nov 19, 2020 at 04:57:18PM +0100, Manuel Bouyer wrote:
-> > On Thu, Nov 19, 2020 at 03:19:15PM +0100, Roger Pau Monné wrote:
-> > > I've got two different debug patches for you to try. I'm attaching both
-> > > to this email but I think we should start with Jan's suggestion
-> > > (conditional_print.patch). That patch will only print extra messages
-> > > between the ioregsel 3 ... ioregsel f existing debug messages, you
-> > > will have to trigger this from NetBSD by using ioapic_dump_raw AFAICT.
-> > 
-> > thanks. I didn't see any change in behavior or XEN output with this
-> > patch (especially the vioapic_deliver string doesn't show up in the
-> > logs).
-> 
-> I tried forcing print to 1, and I still don't see "vioapic_deliver" on the
-> console. I changed the patch to:
-> #define vioapic_deliver(vioapic, irq) ({\ 
->     if ( /* print && irq == 34 */ 1 ) \
->         printk("%s:%d:%s: vioapic_deliver %d\n", __FILE__, __LINE__, __func__, i
-> rq); \
->     _vioapic_deliver(vioapic, irq); })
-> 
-> and got:
-> [  13.8853432] ioapic2: pin2 0x0000a067 0x00000000^M
-> [  13.8853432] mfii0: cmd timeout ccb 0xffff9780023b7d60 status 0x40000008^M
-> (XEN) *** Serial input to Xen (type 'CTRL-a' three times to switch input)
-> (XEN) vioapic.c:511:vioapic_irq_positive_edge: vioapic_deliver 2
-> [  17.0001093] mfii0: cmd aborted ccb 0xffff9780023b7d60^M
-> (XEN) vioapic.c:511:vioapic_irq_positive_edge: vioapic_deliver 2
-> [  17.0217772] config_pending_decr: scsibus0 0^M
-> (XEN) vioapic.c:511:vioapic_irq_positive_edge: vioapic_deliver 2
-> [  17.(XEN) vioapic.c:511:vioapic_irq_positive_edge: vioapic_deliver 2
-> 0417095] config_finalize 2185^M
-> 
-> So I guess that the interrupt delivery on XEN output is
-> vioapic.c:511
+Hi Julien,
 
-I added an ASSERT() after the printf to ket a stack trace, and got:
-db{0}> call ioapic_dump_raw^M
-Register dump of ioapic0^M
-[  13.0193374] 00 08000000 00170011 08000000(XEN) vioapic.c:141:d0v0 apic_mem_readl:undefined ioregsel 3
-(XEN) vioapic.c:512:vioapic_irq_positive_edge: vioapic_deliver 2
-(XEN) Assertion '!print' failed at vioapic.c:512
-(XEN) ----[ Xen-4.15-unstable  x86_64  debug=y   Tainted:   C   ]----
-(XEN) CPU:    0
-(XEN) RIP:    e008:[<ffff82d0402c4164>] vioapic_irq_positive_edge+0x14e/0x150
-(XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d0v0)
-(XEN) rax: ffff82d0405c806c   rbx: ffff830836650580   rcx: 0000000000000000
-(XEN) rdx: ffff8300688bffff   rsi: 000000000000000a   rdi: ffff82d0404b36b8
-(XEN) rbp: ffff8300688bfde0   rsp: ffff8300688bfdc0   r8:  0000000000000004
-(XEN) r9:  0000000000000032   r10: 0000000000000000   r11: 00000000fffffffd
-(XEN) r12: ffff8308366dc000   r13: 0000000000000022   r14: ffff8308366dc31c
-(XEN) r15: ffff8308366d1d80   cr0: 0000000080050033   cr4: 00000000003526e0
-(XEN) cr3: 00000008366c9000   cr2: 0000000000000000
-(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-(XEN) Xen code around <ffff82d0402c4164> (vioapic_irq_positive_edge+0x14e/0x150):
-(XEN)  3d 10 be 1d 00 00 74 c2 <0f> 0b 55 48 89 e5 41 57 41 56 41 55 41 54 53 48
-(XEN) Xen stack trace from rsp=ffff8300688bfdc0:
-(XEN)    0000000200000086 ffff8308366dc000 0000000000000022 0000000000000000
-(XEN)    ffff8300688bfe08 ffff82d0402bcc33 ffff8308366dc000 0000000000000022
-(XEN)    0000000000000001 ffff8300688bfe40 ffff82d0402bd18f ffff830835a7eb98
-(XEN)    ffff8308366dc000 ffff830835a7eb40 ffff8300688bfe68 0100100100100100
-(XEN)    ffff8300688bfea0 ffff82d04026f6e1 ffff830835a7eb30 ffff8308366dc0f4
-(XEN)    ffff830835a7eb40 ffff8300688bfe68 ffff8300688bfe68 ffff82d0405cec80
-(XEN)    ffffffffffffffff ffff82d0405cec80 0000000000000000 ffff82d0405d6c80
-(XEN)    ffff8300688bfed8 ffff82d04022b6fa ffff83083663f000 ffff83083663f000
-(XEN)    0000000000000000 0000000000000000 0000000a7c62165b ffff8300688bfee8
-(XEN)    ffff82d04022b798 ffff8300688bfe08 ffff82d0402a4bcb 0000000000000000
-(XEN)    0000000000000206 ffff8316da86e61c ffff8316da86e600 ffff938031fd47c0
-(XEN)    0000000000000003 0000000000000400 ff889e8da08f928a 0000000000000000
-(XEN)    0000000000000002 0000000000000100 000000000000b86e ffff93803237f010
-(XEN)    0000000000000000 ffff8316da86e61c 0000beef0000beef ffffffff80555918
-(XEN)    000000bf0000beef 0000000000000046 ffff938031fd4790 000000000000beef
-(XEN)    000000000000beef 000000000000beef 000000000000beef 000000000000beef
-(XEN)    0000e01000000000 ffff83083663f000 0000000000000000 00000000003526e0
-(XEN)    0000000000000000 0000000000000000 0000060100000001 0000000000000000
-(XEN) Xen call trace:
-(XEN)    [<ffff82d0402c4164>] R vioapic_irq_positive_edge+0x14e/0x150
-(XEN)    [<ffff82d0402bcc33>] F arch/x86/hvm/irq.c#assert_gsi+0x5e/0x7b
-(XEN)    [<ffff82d0402bd18f>] F hvm_gsi_assert+0x62/0x77
-(XEN)    [<ffff82d04026f6e1>] F drivers/passthrough/io.c#dpci_softirq+0x261/0x29e
-(XEN)    [<ffff82d04022b6fa>] F common/softirq.c#__do_softirq+0x8a/0xbf
-(XEN)    [<ffff82d04022b798>] F do_softirq+0x13/0x15
-(XEN)    [<ffff82d0402a4bcb>] F vmx_asm_do_vmentry+0x2b/0x30
-(XEN) 
-(XEN) 
-(XEN) ****************************************
-(XEN) Panic on CPU 0:
-(XEN) Assertion '!print' failed at vioapic.c:512
-(XEN) ****************************************
+> On 19 Nov 2020, at 17:08, Julien Grall <julien@xen.org> wrote:
+>=20
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> gic_make_hwdom_madt() and gic_get_hwdom_madt_size() are ACPI specific.
+>=20
+> While they build fine today, this will change in a follow-up patch.
+> Rather than trying to fix the build on ACPI, it is best to avoid
+> compiling the helpers and the associated callbacks when CONFIG_ACPI=3Dn.
+>=20
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
+I also tested the serie on FVP without ACPI and Xen is still booting proper=
+ly Dom0.
 
-hope this helps ...
+Cheers
+Bertrand
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+>=20
+> ---
+>    Changes in v4:
+>        - Patch added
+> ---
+> xen/arch/arm/gic-v2.c     |  8 +++-----
+> xen/arch/arm/gic-v3.c     | 11 ++---------
+> xen/arch/arm/gic.c        |  2 ++
+> xen/include/asm-arm/gic.h | 10 ++++++++--
+> 4 files changed, 15 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+> index 0f747538dbcd..581ea5ba6b2c 100644
+> --- a/xen/arch/arm/gic-v2.c
+> +++ b/xen/arch/arm/gic-v2.c
+> @@ -1114,12 +1114,12 @@ static int gicv2_iomem_deny_access(const struct d=
+omain *d)
+>     return iomem_deny_access(d, mfn, mfn + nr);
+> }
+>=20
+> +#ifdef CONFIG_ACPI
+> static unsigned long gicv2_get_hwdom_extra_madt_size(const struct domain =
+*d)
+> {
+>     return 0;
+> }
+>=20
+> -#ifdef CONFIG_ACPI
+> static int gicv2_make_hwdom_madt(const struct domain *d, u32 offset)
+> {
+>     struct acpi_subtable_header *header;
+> @@ -1248,10 +1248,6 @@ static void __init gicv2_acpi_init(void)
+> }
+> #else
+> static void __init gicv2_acpi_init(void) { }
+> -static int gicv2_make_hwdom_madt(const struct domain *d, u32 offset)
+> -{
+> -    return 0;
+> -}
+> #endif
+>=20
+> static int __init gicv2_init(void)
+> @@ -1357,8 +1353,10 @@ const static struct gic_hw_operations gicv2_ops =
+=3D {
+>     .read_apr            =3D gicv2_read_apr,
+>     .read_pending_state  =3D gicv2_read_pending_state,
+>     .make_hwdom_dt_node  =3D gicv2_make_hwdom_dt_node,
+> +#ifdef CONFIG_ACPI
+>     .make_hwdom_madt     =3D gicv2_make_hwdom_madt,
+>     .get_hwdom_extra_madt_size =3D gicv2_get_hwdom_extra_madt_size,
+> +#endif
+>     .map_hwdom_extra_mappings =3D gicv2_map_hwdown_extra_mappings,
+>     .iomem_deny_access   =3D gicv2_iomem_deny_access,
+>     .do_LPI              =3D gicv2_do_LPI,
+> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> index 0f6cbf6224e9..2a344393a0e4 100644
+> --- a/xen/arch/arm/gic-v3.c
+> +++ b/xen/arch/arm/gic-v3.c
+> @@ -1735,15 +1735,6 @@ static void __init gicv3_acpi_init(void)
+> }
+> #else
+> static void __init gicv3_acpi_init(void) { }
+> -static int gicv3_make_hwdom_madt(const struct domain *d, u32 offset)
+> -{
+> -    return 0;
+> -}
+> -
+> -static unsigned long gicv3_get_hwdom_extra_madt_size(const struct domain=
+ *d)
+> -{
+> -    return 0;
+> -}
+> #endif
+>=20
+> static bool gic_dist_supports_lpis(void)
+> @@ -1858,8 +1849,10 @@ static const struct gic_hw_operations gicv3_ops =
+=3D {
+>     .read_pending_state  =3D gicv3_read_pending_state,
+>     .secondary_init      =3D gicv3_secondary_cpu_init,
+>     .make_hwdom_dt_node  =3D gicv3_make_hwdom_dt_node,
+> +#ifdef CONFIG_ACPI
+>     .make_hwdom_madt     =3D gicv3_make_hwdom_madt,
+>     .get_hwdom_extra_madt_size =3D gicv3_get_hwdom_extra_madt_size,
+> +#endif
+>     .iomem_deny_access   =3D gicv3_iomem_deny_access,
+>     .do_LPI              =3D gicv3_do_LPI,
+> };
+> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+> index d623c57cb9fa..fe60619e99cf 100644
+> --- a/xen/arch/arm/gic.c
+> +++ b/xen/arch/arm/gic.c
+> @@ -443,6 +443,7 @@ int gic_make_hwdom_dt_node(const struct domain *d,
+>     return gic_hw_ops->make_hwdom_dt_node(d, gic, fdt);
+> }
+>=20
+> +#ifdef CONFIG_ACPI
+> int gic_make_hwdom_madt(const struct domain *d, u32 offset)
+> {
+>     return gic_hw_ops->make_hwdom_madt(d, offset);
+> @@ -459,6 +460,7 @@ unsigned long gic_get_hwdom_madt_size(const struct do=
+main *d)
+>=20
+>     return madt_size;
+> }
+> +#endif
+>=20
+> int gic_iomem_deny_access(const struct domain *d)
+> {
+> diff --git a/xen/include/asm-arm/gic.h b/xen/include/asm-arm/gic.h
+> index ba870523bb2a..ad0f7452d005 100644
+> --- a/xen/include/asm-arm/gic.h
+> +++ b/xen/include/asm-arm/gic.h
+> @@ -378,12 +378,14 @@ struct gic_hw_operations {
+>     /* Create GIC node for the hardware domain */
+>     int (*make_hwdom_dt_node)(const struct domain *d,
+>                               const struct dt_device_node *gic, void *fdt=
+);
+> +#ifdef CONFIG_ACPI
+>     /* Create MADT table for the hardware domain */
+>     int (*make_hwdom_madt)(const struct domain *d, u32 offset);
+> -    /* Map extra GIC MMIO, irqs and other hw stuffs to the hardware doma=
+in. */
+> -    int (*map_hwdom_extra_mappings)(struct domain *d);
+>     /* Query the size of hardware domain madt table */
+>     unsigned long (*get_hwdom_extra_madt_size)(const struct domain *d);
+> +#endif
+> +    /* Map extra GIC MMIO, irqs and other hw stuffs to the hardware doma=
+in. */
+> +    int (*map_hwdom_extra_mappings)(struct domain *d);
+>     /* Deny access to GIC regions */
+>     int (*iomem_deny_access)(const struct domain *d);
+>     /* Handle LPIs, which require special handling */
+> @@ -435,8 +437,12 @@ void register_gic_ops(const struct gic_hw_operations=
+ *ops);
+> int gic_make_hwdom_dt_node(const struct domain *d,
+>                            const struct dt_device_node *gic,
+>                            void *fdt);
+> +
+> +#ifdef CONFIG_ACPI
+> int gic_make_hwdom_madt(const struct domain *d, u32 offset);
+> unsigned long gic_get_hwdom_madt_size(const struct domain *d);
+> +#endif
+> +
+> int gic_map_hwdom_extra_mappings(struct domain *d);
+> int gic_iomem_deny_access(const struct domain *d);
+>=20
+> --=20
+> 2.17.1
+>=20
+
 
