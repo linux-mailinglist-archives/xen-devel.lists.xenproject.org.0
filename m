@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E67142BABC9
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 15:25:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32258.63286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 565572BABE4
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 15:33:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32264.63299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg7Lw-0001NQ-RV; Fri, 20 Nov 2020 14:25:32 +0000
+	id 1kg7Sx-0002Y3-Ja; Fri, 20 Nov 2020 14:32:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32258.63286; Fri, 20 Nov 2020 14:25:32 +0000
+Received: by outflank-mailman (output) from mailman id 32264.63299; Fri, 20 Nov 2020 14:32:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -18,122 +18,130 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg7Lw-0001N5-Np; Fri, 20 Nov 2020 14:25:32 +0000
-Received: by outflank-mailman (input) for mailman id 32258;
- Fri, 20 Nov 2020 14:25:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WHVp=E2=amazon.co.uk=prvs=5864bad74=pdurrant@srs-us1.protection.inumbo.net>)
- id 1kg7Lv-0001My-FK
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 14:25:31 +0000
-Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0c00be2c-ca04-4a8a-af52-75e5c2ab1898;
- Fri, 20 Nov 2020 14:25:30 +0000 (UTC)
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1d-37fd6b3d.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
- 20 Nov 2020 14:25:12 +0000
-Received: from EX13D32EUC002.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
- by email-inbound-relay-1d-37fd6b3d.us-east-1.amazon.com (Postfix) with ESMTPS
- id A58B02824CF; Fri, 20 Nov 2020 14:25:10 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D32EUC002.ant.amazon.com (10.43.164.94) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 20 Nov 2020 14:25:09 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Fri, 20 Nov 2020 14:25:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kg7Sx-0002Xe-GO; Fri, 20 Nov 2020 14:32:47 +0000
+Received: by outflank-mailman (input) for mailman id 32264;
+ Fri, 20 Nov 2020 14:32:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kg7Sw-0002XZ-8o
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 14:32:46 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 66ffa606-67d9-49c6-84c8-9344ccc0c705;
+ Fri, 20 Nov 2020 14:32:44 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0CF12AC23;
+ Fri, 20 Nov 2020 14:32:44 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=WHVp=E2=amazon.co.uk=prvs=5864bad74=pdurrant@srs-us1.protection.inumbo.net>)
-	id 1kg7Lv-0001My-FK
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 14:25:31 +0000
-X-Inumbo-ID: 0c00be2c-ca04-4a8a-af52-75e5c2ab1898
-Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0c00be2c-ca04-4a8a-af52-75e5c2ab1898;
-	Fri, 20 Nov 2020 14:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1605882330; x=1637418330;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version:subject;
-  bh=31z40IrFiOkeTaig0H3MJc307/RGe0tvascgzgZUi5Q=;
-  b=VbjmDegtZzz86Mg3f9BgHnHZwlnS/+j9F657WetcVfy9ilPUosaeNeUk
-   XyKADGGn3Ovtgk/eBLkSl6cNLVFo0XV+zXmQLq6cO7O9DFKrv57fER9FK
-   St+ydBryL1pFcgvmALC2rHDf0zj1YiuD809o5BHn0G1gcUjCy2xEIrdzS
-   s=;
-X-IronPort-AV: E=Sophos;i="5.78,356,1599523200"; 
-   d="scan'208";a="89153437"
-Subject: RE: [PATCH v2 01/12] viridian: don't blindly write to 32-bit registers is
- 'mode' is invalid
-Thread-Topic: [PATCH v2 01/12] viridian: don't blindly write to 32-bit registers is 'mode'
- is invalid
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO email-inbound-relay-1d-37fd6b3d.us-east-1.amazon.com) ([10.47.23.38])
-  by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP; 20 Nov 2020 14:25:12 +0000
-Received: from EX13D32EUC002.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
-	by email-inbound-relay-1d-37fd6b3d.us-east-1.amazon.com (Postfix) with ESMTPS id A58B02824CF;
-	Fri, 20 Nov 2020 14:25:10 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D32EUC002.ant.amazon.com (10.43.164.94) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 20 Nov 2020 14:25:09 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Fri, 20 Nov 2020 14:25:09 +0000
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
-CC: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Thread-Index: AQHWv0hWzbOqyITZRUa/qwL6gjpVQKnRErYQ
-Date: Fri, 20 Nov 2020 14:25:09 +0000
-Message-ID: <fcd68337f9fd496d9a87c5b84468330a@EX13D32EUC003.ant.amazon.com>
-References: <20201120094900.1489-1-paul@xen.org>
- <20201120094900.1489-2-paul@xen.org>
- <0367ae3b-88a4-1a8d-b174-794b3fe61760@suse.com>
-In-Reply-To: <0367ae3b-88a4-1a8d-b174-794b3fe61760@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.164.242]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	(envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kg7Sw-0002XZ-8o
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 14:32:46 +0000
+X-Inumbo-ID: 66ffa606-67d9-49c6-84c8-9344ccc0c705
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 66ffa606-67d9-49c6-84c8-9344ccc0c705;
+	Fri, 20 Nov 2020 14:32:44 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605882764; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=61pizMgb5lNHjux2ICoE/P5vIGQSORAcFMQOpQT2y5k=;
+	b=UD9XwTegXfLHTsxDDutZ4zSgys8zFepaDsun53+lySVGOVz0S6QAsfJ6zWXaWWGW2iA/0z
+	1uYGu5ycSP07bn9lzahjeK4jutNOWQngTqYkKuaRxMRhs3SpZG1Y1NovzvOyaWD6xdmmBd
+	64dGa8WuUI0Wz/H02gArUg+wcfNwwrg=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 0CF12AC23;
+	Fri, 20 Nov 2020 14:32:44 +0000 (UTC)
+Subject: Re: [PATCH] amd-iommu: Fix Guest CR3 Table following c/s 3a7947b6901
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wei.liu2@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul.durrant@citrix.com>
+References: <20201120141951.13742-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <dc7a4158-2c8e-5aaf-cc68-ab7f15454c77@suse.com>
+Date: Fri, 20 Nov 2020 15:32:44 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Precedence: Bulk
+In-Reply-To: <20201120141951.13742-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxp
-Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDIwIE5vdmVtYmVyIDIwMjAgMTQ6MjANCj4gVG86IFBhdWwg
-RHVycmFudCA8cGF1bEB4ZW4ub3JnPg0KPiBDYzogRHVycmFudCwgUGF1bCA8cGR1cnJhbnRAYW1h
-em9uLmNvLnVrPjsgV2VpIExpdSA8d2xAeGVuLm9yZz47IEFuZHJldyBDb29wZXINCj4gPGFuZHJl
-dy5jb29wZXIzQGNpdHJpeC5jb20+OyBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4
-LmNvbT47IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBSRTogW0VY
-VEVSTkFMXSBbUEFUQ0ggdjIgMDEvMTJdIHZpcmlkaWFuOiBkb24ndCBibGluZGx5IHdyaXRlIHRv
-IDMyLWJpdCByZWdpc3RlcnMgaXMgJ21vZGUnDQo+IGlzIGludmFsaWQNCj4gDQo+IENBVVRJT046
-IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4g
-RG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4NCj4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4g
-Y29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuDQo+IA0KPiAN
-Cj4gDQo+IE9uIDIwLjExLjIwMjAgMTA6NDgsIFBhdWwgRHVycmFudCB3cm90ZToNCj4gPiBGcm9t
-OiBQYXVsIER1cnJhbnQgPHBkdXJyYW50QGFtYXpvbi5jb20+DQo+ID4NCj4gPiBJZiBodm1fZ3Vl
-c3RfeDg2X21vZGUoKSByZXR1cm5zIHNvbWV0aGluZyBvdGhlciB0aGFuIDggb3IgNCB0aGVuDQo+
-ID4gdmlyaWRpYW5faHlwZXJjYWxsKCkgd2lsbCByZXR1cm4gaW1tZWRpYXRlbHkgYnV0LCBvbiB0
-aGUgd2F5IG91dCwgd2lsbCB3cml0ZQ0KPiA+IGJhY2sgc3RhdHVzIGFzIGlmICdtb2RlJyB3YXMg
-NC4gVGhpcyBwYXRjaCBzaW1wbHkgbWFrZXMgaXQgbGVhdmUgdGhlIHJlZ2lzdGVycw0KPiA+IGFs
-b25lLg0KPiANCj4gSU9XIDE2LWJpdCBwcm90ZWN0ZWQgbW9kZSBhbmQgcmVhbCBtb2RlIGFyZW4n
-dCBhbGxvd2VkIHRvIG1ha2UNCj4gaHlwZXJjYWxscyAoc3VwcG9ydGVkIGFsc28gYmUgdGhlIGVh
-cmxpZXIgc3dpdGNoKCkgaW4gdGhlDQo+IGZ1bmN0aW9uKT8NCg0KSSBkb24ndCB0aGluayBydW5u
-aW5nIGVubGlnaHRlbmVkIHZlcnNpb25zIG9mIE9TLzIgMS4zIGlzIHJlYWxseSBhIHVzZSBjYXNl
-IDotKQ0KDQo+IEJ1dCB0aGVuLCB0byBhY2hpZXZlIHdoYXQgeW91IHdhbnQsIHdvdWxkbid0IGl0
-IGJlDQo+IG1vcmUgZGlyZWN0IHRvIHNpbXBseSAicmV0dXJuIEhWTV9IQ0FMTF9jb21wbGV0ZWQ7
-IiBzdHJhaWdodA0KPiBmcm9tIHRoYXQgZWFybGllciBzd2l0Y2goKSdzIGRlZmF1bHQgY2FzZT8g
-QXQgd2hpY2ggcG9pbnQgdGhlDQo+IHN3aXRjaCgpIHlvdSBtb2RpZnkgY291bGQgYmVjb21lIGlm
-L2Vsc2U/IEFueXdheSAtIHlvdSdyZSB0aGUNCj4gbWFpbnRhaW5lciwgSSdtIGp1c3Qgd29uZGVy
-aW5nIC4uLg0KPiANCg0KSXQgY291bGQgYmUgZG9uZSB0aGF0IHdheSBidXQgSSBwcmVmZXIgdGhl
-IGV4aXQgcGF0aCB2aWEgZ290by4NCg0KICBQYXVsDQoNCj4gSmFuDQo=
+On 20.11.2020 15:19, Andrew Cooper wrote:
+> "amd-iommu: use a bitfield for DTE" renamed iommu_dte_set_guest_cr3()'s gcr3
+> parameter to gcr3_mfn but ended up with an off-by-PAGE_SIZE error when
+> extracting bits from the address.
+> 
+> First of all, get_guest_cr3_from_dte() and iommu_dte_set_guest_cr3()
+> are (almost) getters and setters for the same field, so should live together.
+> 
+> Rename them to dte_{get,set}_gcr3_table() to specifically avoid 'guest_cr3' in
+> the name.  This field actually points to a table in memory containing an array
+> of guest CR3 values.  As these functions are used for different logical
+> indirections, they shouldn't use gfn/mfn terminology for their parameters.
+> Switch them to use straight uint64_t full addresses.
+
+All of this still looks to belong to "First of all ..." - did you
+mean to have more in here, but forgot to actually put it in?
+
+> --- a/xen/drivers/passthrough/amd/iommu_guest.c
+> +++ b/xen/drivers/passthrough/amd/iommu_guest.c
+> @@ -68,11 +68,39 @@ static void guest_iommu_disable(struct guest_iommu *iommu)
+>      iommu->enabled = 0;
+>  }
+>  
+> -static uint64_t get_guest_cr3_from_dte(struct amd_iommu_dte *dte)
+> +/*
+> + * The Guest CR3 Table is a table written by the guest kernel, pointing at
+> + * gCR3 values for PASID transactions to use.  The Device Table Entry points
+> + * at a system physical address.
+> + *
+> + * However, these helpers deliberately use untyped parameters without
+> + * reference to gfn/mfn because they are used both for programming the real
+> + * IOMMU, and interpreting a guests programming of its vIOMMU.
+> + */
+> +static uint64_t dte_get_gcr3_table(const struct amd_iommu_dte *dte)
+>  {
+>      return (((uint64_t)dte->gcr3_trp_51_31 << 31) |
+>              (dte->gcr3_trp_30_15 << 15) |
+> -            (dte->gcr3_trp_14_12 << 12)) >> PAGE_SHIFT;
+> +            (dte->gcr3_trp_14_12 << 12));
+> +}
+> +
+> +static void dte_set_gcr3_table(struct amd_iommu_dte *dte, uint16_t dom_id,
+> +                               uint64_t addr, bool gv, uint8_t glx)
+> +{
+> +#define GCR3_MASK(hi, lo) (((1ul << ((hi) + 1)) - 1) & ~((1ul << (lo)) - 1))
+> +
+> +    /* I bit must be set when gcr3 is enabled */
+> +    dte->i = true;
+> +
+> +    dte->gcr3_trp_14_12 = MASK_EXTR(addr, GCR3_MASK(14, 12));
+> +    dte->gcr3_trp_30_15 = MASK_EXTR(addr, GCR3_MASK(30, 15));
+> +    dte->gcr3_trp_51_31 = MASK_EXTR(addr, GCR3_MASK(51, 31));
+> +
+> +    dte->domain_id = dom_id;
+> +    dte->glx = glx;
+> +    dte->gv = gv;
+> +
+> +#undef GCR3_MASK
+>  }
+
+I realize the question is somewhat unrelated, but aren't we updating
+a live DTE here? If so, are there no ordering requirements between the
+writes? Might be worth putting in barrier(s) right on this occasion.
+
+Jan
 
