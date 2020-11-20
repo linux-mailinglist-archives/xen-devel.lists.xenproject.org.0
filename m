@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 312D02BA6E8
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 11:00:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31905.62700 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3426C2BA6E5
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 11:00:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.31899.62678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg3Di-0000CE-Vg; Fri, 20 Nov 2020 10:00:46 +0000
+	id 1kg3D6-0008U1-6e; Fri, 20 Nov 2020 10:00:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31905.62700; Fri, 20 Nov 2020 10:00:46 +0000
+Received: by outflank-mailman (output) from mailman id 31899.62678; Fri, 20 Nov 2020 10:00:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,139 +23,90 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg3Di-0000BC-OC; Fri, 20 Nov 2020 10:00:46 +0000
-Received: by outflank-mailman (input) for mailman id 31905;
- Fri, 20 Nov 2020 10:00:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kg3D6-0008Rd-2T; Fri, 20 Nov 2020 10:00:08 +0000
+Received: by outflank-mailman (input) for mailman id 31899;
+ Fri, 20 Nov 2020 10:00:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>) id 1kg3Dh-0000AK-2w
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 10:00:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1kg3Dg-0002vb-0J; Fri, 20 Nov 2020 10:00:44 +0000
-Received: from host109-146-187-185.range109-146.btcentralplus.com
- ([109.146.187.185] helo=u2f063a87eabd5f.home)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1kg32b-0003d1-Bb; Fri, 20 Nov 2020 09:49:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+ (envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kg3D5-0008RY-F4
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 10:00:07 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f64c7928-8212-47e3-a3d8-6aa5b63871e5;
+ Fri, 20 Nov 2020 10:00:05 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9E5DCAC23;
+ Fri, 20 Nov 2020 10:00:04 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <paul@xen.org>)
-	id 1kg3Dh-0000AK-2w
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 10:00:45 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=/tzXLkeYgeohzzpZOobPIXPIDOQTKzNBQ+V78872kJQ=; b=aljZn49SbQde/x5Nfc4qojAcC9
-	PmWnCmYLuahJRepbdlcp7D10Hf7/4GZGlmy4UacseYU3bW0hcFi4rzFS5VtVbEXZSyZ6HDF3UQIyW
-	BgIbKsJb5C6OoEFWjSnKcH9N0A5eWc42xHT6tgBvcneNt0Dli+cysl18664ZNsNtqc4U=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <paul@xen.org>)
-	id 1kg3Dg-0002vb-0J; Fri, 20 Nov 2020 10:00:44 +0000
-Received: from host109-146-187-185.range109-146.btcentralplus.com ([109.146.187.185] helo=u2f063a87eabd5f.home)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <paul@xen.org>)
-	id 1kg32b-0003d1-Bb; Fri, 20 Nov 2020 09:49:17 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v2 12/12] xl / libxl: add 'ex_processor_mask' into 'libxl_viridian_enlightenment'
-Date: Fri, 20 Nov 2020 09:49:00 +0000
-Message-Id: <20201120094900.1489-13-paul@xen.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201120094900.1489-1-paul@xen.org>
-References: <20201120094900.1489-1-paul@xen.org>
+	(envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kg3D5-0008RY-F4
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 10:00:07 +0000
+X-Inumbo-ID: f64c7928-8212-47e3-a3d8-6aa5b63871e5
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id f64c7928-8212-47e3-a3d8-6aa5b63871e5;
+	Fri, 20 Nov 2020 10:00:05 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605866404; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DmQ50/yXucWRgzVb9oJHTNHg7jZGOFcFMa1qRlKGoU8=;
+	b=gzBCRV4iLy876FLKWdxwyEpk9QxqdmDDaZvz7qw4JBESbSV+6S9Jn6ASJCq0Qu5HvDEjyX
+	FQZJsFFti8PtqbSz6Bbo4O6v1ssNAUwU4M47efX81f8VwAbHuzktJDUTvwpYMrNbM9QUcS
+	7R5ykfC3QstSPwsc8ZZbSBiQCs3j6s0=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 9E5DCAC23;
+	Fri, 20 Nov 2020 10:00:04 +0000 (UTC)
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20201118143928.hvamuf7t7jycsrzb@Air-de-Roger>
+ <bb2b6182-f3a6-61e5-ee70-90a65ae56435@suse.com>
+ <20201119141915.igyb7djkw47rf2dt@Air-de-Roger>
+ <20201119155718.GB4104@antioche.eu.org>
+ <20201119165734.GA4903@antioche.eu.org>
+ <20201119175733.GA6067@antioche.eu.org>
+ <1a50e1e2-b69c-afd6-a179-316231512004@suse.com>
+ <20201120082855.5z4cibcd5djlwmgp@Air-de-Roger>
+ <20201120085249.GA1508@antioche.eu.org>
+ <97f371a9-00fe-33fe-8923-c247f44f9af6@suse.com>
+ <20201120092754.GH1508@antioche.eu.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20904a6a-ac64-755d-d228-4c49faf66fb5@suse.com>
+Date: Fri, 20 Nov 2020 11:00:05 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201120092754.GH1508@antioche.eu.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-From: Paul Durrant <pdurrant@amazon.com>
+On 20.11.2020 10:27, Manuel Bouyer wrote:
+> On Fri, Nov 20, 2020 at 09:59:57AM +0100, Jan Beulich wrote:
+>> Well, anything coming through the LAPIC needs ack-ing (except for
+>> the spurious interrupt of course), or else ISR won't get updated
+>> and further interrupts at this or lower priority can't be serviced
+>> (delivered) anymore. This includes interrupts originally coming
+>> through the IO-APIC. But the same constraint / requirement exists
+>> on baremetal.
+> 
+> OK, so even if I didn't see where this happens, it's happening.
+> Is it what's Xen is using as ACK from the dom0 for a IOAPIC
+> interrupt, or is it something else (at the IOAPIC level) ?
 
-Adding the new value into the enumeration makes it immediately available
-to xl, so this patch adjusts the xl.cfg(5) documentation accordingly.
+It's the traditional LAPIC based EOI mechanism that Xen intercepts
+(as necessary) on the guest side and then translates (via
+surprisingly many layers of calls) into the necessary EOI /
+unmask / whatever at the hardware level. Our vIO-APIC
+implementation so far doesn't support IO-APIC based EOI at all
+(which is reflected in the IO-APIC version ID being 0x11).
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
----
-Cc: Ian Jackson <iwj@xenproject.org>
-Cc: Wei Liu <wl@xen.org>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
----
- docs/man/xl.cfg.5.pod.in         | 8 ++++++++
- tools/include/libxl.h            | 7 +++++++
- tools/libs/light/libxl_types.idl | 1 +
- tools/libs/light/libxl_x86.c     | 3 +++
- 4 files changed, 19 insertions(+)
-
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 0532739c1fff..3f0f8de1e988 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2318,6 +2318,14 @@ This set incorporates use of a hypercall for interprocessor interrupts.
- This enlightenment may improve performance of Windows guests with multiple
- virtual CPUs.
- 
-+=item B<ex_processor_masks>
-+
-+This set enables new hypercall variants taking a variably-sized sparse
-+B<Virtual Processor Set> as an argument, rather than a simple 64-bit
-+mask. Hence this enlightenment must be specified for guests with more
-+than 64 vCPUs if B<hcall_remote_tlb_flush> and/or B<hcall_ipi> are also
-+specified.
-+
- =item B<defaults>
- 
- This is a special value that enables the default set of groups, which
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 1ea5b4f446e8..eaffccb30f37 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -444,6 +444,13 @@
-  */
- #define LIBXL_HAVE_DISK_SAFE_REMOVE 1
- 
-+/*
-+ * LIBXL_HAVE_VIRIDIAN_EX_PROCESSOR_MASKS indicates that the
-+ * 'ex_processor_masks' value is present in the viridian enlightenment
-+ * enumeration.
-+ */
-+#define LIBXL_HAVE_VIRIDIAN_EX_PROCESSOR_MASKS 1
-+
- /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 9d3f05f39978..05324736b744 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -238,6 +238,7 @@ libxl_viridian_enlightenment = Enumeration("viridian_enlightenment", [
-     (7, "synic"),
-     (8, "stimer"),
-     (9, "hcall_ipi"),
-+    (10, "ex_processor_masks"),
-     ])
- 
- libxl_hdtype = Enumeration("hdtype", [
-diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-index e18274cc10e2..86d272999d67 100644
---- a/tools/libs/light/libxl_x86.c
-+++ b/tools/libs/light/libxl_x86.c
-@@ -366,6 +366,9 @@ static int hvm_set_viridian_features(libxl__gc *gc, uint32_t domid,
-     if (libxl_bitmap_test(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_HCALL_IPI))
-         mask |= HVMPV_hcall_ipi;
- 
-+    if (libxl_bitmap_test(&enlightenments, LIBXL_VIRIDIAN_ENLIGHTENMENT_EX_PROCESSOR_MASKS))
-+        mask |= HVMPV_ex_processor_masks;
-+
-     if (mask != 0 &&
-         xc_hvm_param_set(CTX->xch,
-                          domid,
--- 
-2.20.1
-
+Jan
 
