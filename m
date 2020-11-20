@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06AFF2BA9CA
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 13:05:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32096.63019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 351F72BA9D8
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 13:08:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32104.63031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg5AJ-0008ME-1G; Fri, 20 Nov 2020 12:05:23 +0000
+	id 1kg5Cu-0008VZ-G2; Fri, 20 Nov 2020 12:08:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32096.63019; Fri, 20 Nov 2020 12:05:22 +0000
+Received: by outflank-mailman (output) from mailman id 32104.63031; Fri, 20 Nov 2020 12:08:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,138 +23,151 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg5AI-0008Lp-U8; Fri, 20 Nov 2020 12:05:22 +0000
-Received: by outflank-mailman (input) for mailman id 32096;
- Fri, 20 Nov 2020 12:05:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kg5Cu-0008VA-CV; Fri, 20 Nov 2020 12:08:04 +0000
+Received: by outflank-mailman (input) for mailman id 32104;
+ Fri, 20 Nov 2020 12:08:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wRTa=E2=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kg5AH-0008Lk-5p
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 12:05:21 +0000
+ id 1kg5Cs-0008V5-UI
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 12:08:02 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 78753ed9-5426-4e6b-a6bd-5f10bf42f020;
- Fri, 20 Nov 2020 12:05:20 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9cdab809-22e5-433e-87ab-4002bd8bd114;
+ Fri, 20 Nov 2020 12:08:01 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2EDC4AC23;
- Fri, 20 Nov 2020 12:05:19 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id A5B91AFDB;
+ Fri, 20 Nov 2020 12:08:00 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=wRTa=E2=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kg5AH-0008Lk-5p
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 12:05:21 +0000
-X-Inumbo-ID: 78753ed9-5426-4e6b-a6bd-5f10bf42f020
+	id 1kg5Cs-0008V5-UI
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 12:08:02 +0000
+X-Inumbo-ID: 9cdab809-22e5-433e-87ab-4002bd8bd114
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 78753ed9-5426-4e6b-a6bd-5f10bf42f020;
-	Fri, 20 Nov 2020 12:05:20 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 9cdab809-22e5-433e-87ab-4002bd8bd114;
+	Fri, 20 Nov 2020 12:08:01 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605873919; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1605874080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NzTiA4NG82ayN413wirwqqYr4HehcKAsF24Gn5hP2dU=;
-	b=bmYyX8nILg+ZlY8sbtWE5w2bO2VV8WEs5T/iV+E9cNskIM3/nmOQdHogS6LmAUqDiCIN7o
-	uep+xZsGp+4iiWlkS7R5O+A3tUuUCh3Zjoj5861nPuFhVVaUm7oGIsCOvz4fsp1+Fs7rrG
-	1a0+AfThrxlQZZZfV/WGh6OWJYlmzC4=
+	bh=fi5hxOosLe4ci8CACHcYoETyc/XuBOtY9iexkoP8wiU=;
+	b=a37bqq6FVQfk9qmoQUIC8F5b1rg8hAsd/nFAvEv+0uWryKISA3u857vpvnoUEs8U2FyIRJ
+	QxGZDTbHFZpBg4pohlE7UZQvxR9+3R+lntDjNSctEpkEUrDuwjlxVL7L1r27Uelrhbxkdq
+	Lx8gvFdR71AmMsL9SFcxyQO7sWimq5I=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 2EDC4AC23;
-	Fri, 20 Nov 2020 12:05:19 +0000 (UTC)
-Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use
- popf
+	by mx2.suse.de (Postfix) with ESMTP id A5B91AFDB;
+	Fri, 20 Nov 2020 12:08:00 +0000 (UTC)
+Subject: Re: [PATCH v2 06/12] x86/paravirt: switch time pvops functions to use
+ static_call()
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
  luto@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
  Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- "H. Peter Anvin" <hpa@zytor.com>, Deep Shah <sdeep@vmware.com>,
- "VMware, Inc." <pv-drivers@vmware.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Deep Shah <sdeep@vmware.com>, "VMware, Inc." <pv-drivers@vmware.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <sean.j.christopherson@intel.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
+ Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Daniel Bristot de Oliveira <bristot@redhat.com>
 References: <20201120114630.13552-1-jgross@suse.com>
- <20201120114630.13552-6-jgross@suse.com>
- <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+ <20201120114630.13552-7-jgross@suse.com>
+ <20201120120154.GE3021@hirez.programming.kicks-ass.net>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <d2148d19-b8b3-1492-701b-3a85b761fd76@suse.com>
-Date: Fri, 20 Nov 2020 13:05:17 +0100
+Message-ID: <eab0567e-26b6-7482-b575-3430a34f61f4@suse.com>
+Date: Fri, 20 Nov 2020 13:07:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+In-Reply-To: <20201120120154.GE3021@hirez.programming.kicks-ass.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="ylZJJWu3CTRSDQL4pjinjf9KQnc2Mi8Rq"
+ boundary="Js2C2dWgfc4nTTtJ5MoQYP8PDLusaIBXv"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ylZJJWu3CTRSDQL4pjinjf9KQnc2Mi8Rq
-Content-Type: multipart/mixed; boundary="OJdSKNZQ7zTeFDk7fKB1vgvgQ8RAMAcBi";
+--Js2C2dWgfc4nTTtJ5MoQYP8PDLusaIBXv
+Content-Type: multipart/mixed; boundary="gBfRrUi6EIKy8OO8lvbihDGpshaEHf5sL";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
  luto@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
  Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- "H. Peter Anvin" <hpa@zytor.com>, Deep Shah <sdeep@vmware.com>,
- "VMware, Inc." <pv-drivers@vmware.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Deep Shah <sdeep@vmware.com>, "VMware, Inc." <pv-drivers@vmware.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <sean.j.christopherson@intel.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
+ Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <d2148d19-b8b3-1492-701b-3a85b761fd76@suse.com>
-Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use
- popf
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Daniel Bristot de Oliveira <bristot@redhat.com>
+Message-ID: <eab0567e-26b6-7482-b575-3430a34f61f4@suse.com>
+Subject: Re: [PATCH v2 06/12] x86/paravirt: switch time pvops functions to use
+ static_call()
 References: <20201120114630.13552-1-jgross@suse.com>
- <20201120114630.13552-6-jgross@suse.com>
- <20201120115943.GD3021@hirez.programming.kicks-ass.net>
-In-Reply-To: <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+ <20201120114630.13552-7-jgross@suse.com>
+ <20201120120154.GE3021@hirez.programming.kicks-ass.net>
+In-Reply-To: <20201120120154.GE3021@hirez.programming.kicks-ass.net>
 
---OJdSKNZQ7zTeFDk7fKB1vgvgQ8RAMAcBi
+--gBfRrUi6EIKy8OO8lvbihDGpshaEHf5sL
 Content-Type: multipart/mixed;
- boundary="------------67F8C41D891759989B303093"
+ boundary="------------2D61E8643D7878B5993793A0"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------67F8C41D891759989B303093
+--------------2D61E8643D7878B5993793A0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 20.11.20 12:59, Peter Zijlstra wrote:
-> On Fri, Nov 20, 2020 at 12:46:23PM +0100, Juergen Gross wrote:
->> +static __always_inline void arch_local_irq_restore(unsigned long flag=
-s)
->> +{
->> +	if (!arch_irqs_disabled_flags(flags))
->> +		arch_local_irq_enable();
->> +}
+On 20.11.20 13:01, Peter Zijlstra wrote:
+> On Fri, Nov 20, 2020 at 12:46:24PM +0100, Juergen Gross wrote:
+>> The time pvops functions are the only ones left which might be
+>> used in 32-bit mode and which return a 64-bit value.
+>>
+>> Switch them to use the static_call() mechanism instead of pvops, as
+>> this allows quite some simplification of the pvops implementation.
+>>
+>> Due to include hell this requires to split out the time interfaces
+>> into a new header file.
 >=20
-> If someone were to write horrible code like:
+> There's also this patch floating around; just in case that would come i=
+n
+> handy:
 >=20
-> 	local_irq_disable();
-> 	local_irq_save(flags);
-> 	local_irq_enable();
-> 	local_irq_restore(flags);
->=20
-> we'd be up some creek without a paddle... now I don't _think_ we have
-> genius code like that, but I'd feel saver if we can haz an assertion in=
+>    https://lkml.kernel.org/r/20201110005609.40989-3-frederic@kernel.org=
 
-> there somewhere...
->=20
-> Maybe something like:
->=20
-> #ifdef CONFIG_DEBUG_ENTRY // for lack of something saner
-> 	WARN_ON_ONCE((arch_local_save_flags() ^ flags) & X86_EFLAGS_IF);
-> #endif
->=20
-> At the end?
 >=20
 
-I'd be fine with that. I didn't add something like that because I
-couldn't find a suitable CONFIG_ :-)
+Ah, yes. This would make life much easier.
 
 
 Juergen
 
---------------67F8C41D891759989B303093
+--------------2D61E8643D7878B5993793A0
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -245,25 +258,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------67F8C41D891759989B303093--
+--------------2D61E8643D7878B5993793A0--
 
---OJdSKNZQ7zTeFDk7fKB1vgvgQ8RAMAcBi--
+--gBfRrUi6EIKy8OO8lvbihDGpshaEHf5sL--
 
---ylZJJWu3CTRSDQL4pjinjf9KQnc2Mi8Rq
+--Js2C2dWgfc4nTTtJ5MoQYP8PDLusaIBXv
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+3sP0FAwAAAAAACgkQsN6d1ii/Ey9w
-0Af/dT6XeG9kNTyqYmy9/CPAH4Oth+lNpcfbnKD+N1KHS2cUBc7/EQ1Aqjbe2nDZKRK6vw/E21u8
-U8mU0GsAvfwZltDYvmAtBfgOErYFp2LEjWHrNw+jAAFcCQB9VQewNhQ87VwBv3dHNCz5SkabXif9
-2ql8lQg3+TvIHyMzqRvXeAHCiIWmvjWceaniEwjo8aVB21XrySpCpSBh7wI9bvD+66Y3rrl9wNTD
-K+gLs8izRO4wUOrq8+OJDN+CE2NZIgcnUICM62DRs9EPa6RaDpfXa072Tggc1z0Y0JUElLSS/NDa
-QULDL6tNrQjVAVhoV8PiR7Zvit8cbRocdGdIpSlcrA==
-=bqp5
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+3sZ4FAwAAAAAACgkQsN6d1ii/Ey/3
+jQgAi585ZnxsqQnHs2MM186NZwzBRkQkzP3jMvU0GbwSpGKausY1llB2/PNBmF1VqwRXspKl+AUA
+3jFFImHpbvbwP1nMxRcNdBMN7lPp7ryuT3m0e07QfJ3iM5KieHKeQzWqTWOyTKagFuqZa6FHLYZi
+8z8EE3js4klXNxhV7xSk9Gq2uG+6NK3GXrbz+cm+SsY4LV5KVXlq73RS/txcioX0XbMqy6R5GfTO
+eTDPz0pch8fftn3VtYoNyp1VnnDd+63JkL1z2yjJZ0NbbjaE3rEMU4902KY0v2WDUMk+FC5/pltI
+WRYnBzTbzsXf3edO/7A8t2TV1sUTI6PILETFoLuMyw==
+=nK8b
 -----END PGP SIGNATURE-----
 
---ylZJJWu3CTRSDQL4pjinjf9KQnc2Mi8Rq--
+--Js2C2dWgfc4nTTtJ5MoQYP8PDLusaIBXv--
 
