@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E6BD2BAD25
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 16:12:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32310.63353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B2CA2BAD2A
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 16:12:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32315.63364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg84l-0007GD-Mq; Fri, 20 Nov 2020 15:11:51 +0000
+	id 1kg85U-0007MJ-0H; Fri, 20 Nov 2020 15:12:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32310.63353; Fri, 20 Nov 2020 15:11:51 +0000
+Received: by outflank-mailman (output) from mailman id 32315.63364; Fri, 20 Nov 2020 15:12:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -18,78 +18,119 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg84l-0007Fo-JR; Fri, 20 Nov 2020 15:11:51 +0000
-Received: by outflank-mailman (input) for mailman id 32310;
- Fri, 20 Nov 2020 15:11:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kg84k-0007Fj-D3
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 15:11:50 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f905bef7-efb1-4a46-a069-504a61eb0382;
- Fri, 20 Nov 2020 15:11:48 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 150D4AB3D;
- Fri, 20 Nov 2020 15:11:48 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kg85T-0007Lw-T0; Fri, 20 Nov 2020 15:12:35 +0000
+Received: by outflank-mailman (input) for mailman id 32315;
+ Fri, 20 Nov 2020 15:12:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WHVp=E2=amazon.co.uk=prvs=5864bad74=pdurrant@srs-us1.protection.inumbo.net>)
+ id 1kg85S-0007Lo-Al
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 15:12:34 +0000
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d2fe4309-0a17-4d83-96c0-2113bf821642;
+ Fri, 20 Nov 2020 15:12:33 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-1e-a70de69e.us-east-1.amazon.com) ([10.43.8.2])
+ by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
+ 20 Nov 2020 15:12:27 +0000
+Received: from EX13D32EUC003.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-1e-a70de69e.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 33532A20E0; Fri, 20 Nov 2020 15:12:26 +0000 (UTC)
+Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
+ EX13D32EUC003.ant.amazon.com (10.43.164.24) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 20 Nov 2020 15:12:25 +0000
+Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
+ EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
+ Fri, 20 Nov 2020 15:12:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kg84k-0007Fj-D3
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 15:11:50 +0000
-X-Inumbo-ID: f905bef7-efb1-4a46-a069-504a61eb0382
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id f905bef7-efb1-4a46-a069-504a61eb0382;
-	Fri, 20 Nov 2020 15:11:48 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605885108; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z2q+0eVq72VvrhyYPm4CfCBl5ZsNx290iGgTWnTDA4E=;
-	b=YjNq9S2eFzS0QsvuAcerqm01Qt/WrAqIjJaChJGKyz/ZSqckA30lQt6lWvruaxlvfGnq/Z
-	nEk6ZjL+AulXVzrzpT/CCtQMsKdxcLRF80f24+TiX/4n/Er714+4bp0AZd/xLvVQNsvv44
-	0ei7TmDxRwxr7VGLaR5YOZg73ZYxxI0=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 150D4AB3D;
-	Fri, 20 Nov 2020 15:11:48 +0000 (UTC)
-Subject: Re: [PATCH v2 06/12] viridian: use softirq batching in hvcall_ipi()
-To: Paul Durrant <paul@xen.org>
-Cc: Paul Durrant <pdurrant@amazon.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+	(envelope-from <SRS0=WHVp=E2=amazon.co.uk=prvs=5864bad74=pdurrant@srs-us1.protection.inumbo.net>)
+	id 1kg85S-0007Lo-Al
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 15:12:34 +0000
+X-Inumbo-ID: d2fe4309-0a17-4d83-96c0-2113bf821642
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id d2fe4309-0a17-4d83-96c0-2113bf821642;
+	Fri, 20 Nov 2020 15:12:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
+  s=amazon201209; t=1605885153; x=1637421153;
+  h=from:to:cc:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version:subject;
+  bh=NGvsQnBYaANVCJh02E68OqZwYy2JRHKJhBQQw90P4l8=;
+  b=pknAlqtwYuSSsQlMPk3jtKShJzARMXzE/VIJGsNSwUAF02gtciC66NeK
+   5290r6L9IvZ/KhrDrCoQyLfTGCwYfdE7wEbtLnxCpDfVDuAUmuuiPnLMN
+   3qcM1QXZxaS8TQyqyJpijlOKppS0FKxELBBEi2NKxVxJfwB9zp2xuMuBc
+   Q=;
+X-IronPort-AV: E=Sophos;i="5.78,356,1599523200"; 
+   d="scan'208";a="66254629"
+Subject: RE: [PATCH v2 05/12] viridian: use hypercall_vpmask in hvcall_ipi()
+Thread-Topic: [PATCH v2 05/12] viridian: use hypercall_vpmask in hvcall_ipi()
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO email-inbound-relay-1e-a70de69e.us-east-1.amazon.com) ([10.43.8.2])
+  by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP; 20 Nov 2020 15:12:27 +0000
+Received: from EX13D32EUC003.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+	by email-inbound-relay-1e-a70de69e.us-east-1.amazon.com (Postfix) with ESMTPS id 33532A20E0;
+	Fri, 20 Nov 2020 15:12:26 +0000 (UTC)
+Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
+ EX13D32EUC003.ant.amazon.com (10.43.164.24) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 20 Nov 2020 15:12:25 +0000
+Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
+ EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
+ Fri, 20 Nov 2020 15:12:25 +0000
+From: "Durrant, Paul" <pdurrant@amazon.co.uk>
+To: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
+CC: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Index: AQHWv08fwALhu38GGk2wLQdBAEFKPKnRIGSQ
+Date: Fri, 20 Nov 2020 15:12:25 +0000
+Message-ID: <90afbf7ee1214d79ad506a9e66f05c92@EX13D32EUC003.ant.amazon.com>
 References: <20201120094900.1489-1-paul@xen.org>
- <20201120094900.1489-7-paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8dbcfe50-58a3-a519-03cb-1e7f11af567e@suse.com>
-Date: Fri, 20 Nov 2020 16:11:49 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
-MIME-Version: 1.0
-In-Reply-To: <20201120094900.1489-7-paul@xen.org>
-Content-Type: text/plain; charset=utf-8
+ <20201120094900.1489-6-paul@xen.org>
+ <a7e118c7-2b72-98f8-19a1-82667c47f44f@suse.com>
+In-Reply-To: <a7e118c7-2b72-98f8-19a1-82667c47f44f@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.164.242]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Precedence: Bulk
 
-On 20.11.2020 10:48, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
-> 
-> vlapic_ipi() uses a softirq batching mechanism to improve the efficiency of
-> sending a IPIs to large number of processors. This patch modifies send_ipi()
-> (the worker function called by hvcall_ipi()) to also make use of the
-> mechanism when there multiple bits set the hypercall_vpmask.
-> 
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxp
+Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDIwIE5vdmVtYmVyIDIwMjAgMTU6MDkNCj4gVG86IFBhdWwg
+RHVycmFudCA8cGF1bEB4ZW4ub3JnPg0KPiBDYzogRHVycmFudCwgUGF1bCA8cGR1cnJhbnRAYW1h
+em9uLmNvLnVrPjsgV2VpIExpdSA8d2xAeGVuLm9yZz47IEFuZHJldyBDb29wZXINCj4gPGFuZHJl
+dy5jb29wZXIzQGNpdHJpeC5jb20+OyBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4
+LmNvbT47IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBSRTogW0VY
+VEVSTkFMXSBbUEFUQ0ggdjIgMDUvMTJdIHZpcmlkaWFuOiB1c2UgaHlwZXJjYWxsX3ZwbWFzayBp
+biBodmNhbGxfaXBpKCkNCj4gDQo+IENBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9t
+IG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4N
+Cj4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93
+IHRoZSBjb250ZW50IGlzIHNhZmUuDQo+IA0KPiANCj4gDQo+IE9uIDIwLjExLjIwMjAgMTA6NDgs
+IFBhdWwgRHVycmFudCB3cm90ZToNCj4gPiAtLS0gYS94ZW4vYXJjaC94ODYvaHZtL3ZpcmlkaWFu
+L3ZpcmlkaWFuLmMNCj4gPiArKysgYi94ZW4vYXJjaC94ODYvaHZtL3ZpcmlkaWFuL3ZpcmlkaWFu
+LmMNCj4gPiBAQCAtNTUxLDYgKzU1MSwyNSBAQCBzdGF0aWMgYm9vbCB2cG1hc2tfdGVzdChjb25z
+dCBzdHJ1Y3QgaHlwZXJjYWxsX3ZwbWFzayAqdnBtYXNrLA0KPiA+ICAgICAgcmV0dXJuIHRlc3Rf
+Yml0KHZwLCB2cG1hc2stPm1hc2spOw0KPiA+ICB9DQo+ID4NCj4gPiArc3RhdGljIHVuc2lnbmVk
+IGludCB2cG1hc2tfZmlyc3Qoc3RydWN0IGh5cGVyY2FsbF92cG1hc2sgKnZwbWFzaykNCj4gDQo+
+IE5vdyB0aGlzIGFuZCAuLi4NCj4gDQo+ID4gK3sNCj4gPiArICAgIHJldHVybiBmaW5kX2ZpcnN0
+X2JpdCh2cG1hc2stPm1hc2ssIEhWTV9NQVhfVkNQVVMpOw0KPiA+ICt9DQo+ID4gKw0KPiA+ICtz
+dGF0aWMgdW5zaWduZWQgaW50IHZwbWFza19uZXh0KHN0cnVjdCBoeXBlcmNhbGxfdnBtYXNrICp2
+cG1hc2ssIHVuc2lnbmVkIGludCB2cCkNCj4gDQo+IC4uLiB0aGlzIHNob3VsZCByZWFsbHkgaGF2
+ZSBwb2ludGVycyB0byBjb25zdCBhcyBwYXJhbWV0ZXJzLg0KPiANCj4gPiBAQCAtNjMxLDEzICs2
+NTAsMjEgQEAgc3RhdGljIGludCBodmNhbGxfZmx1c2godW5pb24gaHlwZXJjYWxsX2lucHV0ICpp
+bnB1dCwNCj4gPiAgICAgIHJldHVybiAwOw0KPiA+ICB9DQo+ID4NCj4gPiArc3RhdGljIHZvaWQg
+c2VuZF9pcGkoc3RydWN0IGh5cGVyY2FsbF92cG1hc2sgKnZwbWFzaywgdWludDhfdCB2ZWN0b3Ip
+DQo+IA0KPiBBbmQgSSBndWVzcyB0aGlzIG9uZSBzaG91bGQsIHRvby4NCj4gDQoNClRydWUsIHRo
+ZXkgY2FuIGJlIGNvbnN0Lg0KDQogIFBhdWwNCg0KPiBKYW4NCg==
 
