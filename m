@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8462BA370
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 08:37:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31640.62198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C0302BA37E
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 08:38:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.31646.62210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg0yu-0003pZ-IW; Fri, 20 Nov 2020 07:37:20 +0000
+	id 1kg0zf-0003wK-Sg; Fri, 20 Nov 2020 07:38:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31640.62198; Fri, 20 Nov 2020 07:37:20 +0000
+Received: by outflank-mailman (output) from mailman id 31646.62210; Fri, 20 Nov 2020 07:38:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,37 +23,37 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg0yu-0003pC-F7; Fri, 20 Nov 2020 07:37:20 +0000
-Received: by outflank-mailman (input) for mailman id 31640;
- Fri, 20 Nov 2020 07:37:18 +0000
+	id 1kg0zf-0003vu-PI; Fri, 20 Nov 2020 07:38:07 +0000
+Received: by outflank-mailman (input) for mailman id 31646;
+ Fri, 20 Nov 2020 07:38:05 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ruer=E2=suse.de=hare@srs-us1.protection.inumbo.net>)
- id 1kg0ys-0003p2-M3
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 07:37:18 +0000
+ id 1kg0zd-0003vn-P0
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 07:38:05 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 89d6f3b0-9aca-4e35-92eb-a9ab1bc8b131;
- Fri, 20 Nov 2020 07:37:17 +0000 (UTC)
+ id a73c8294-9aa1-48bc-946f-4a8b748a0e18;
+ Fri, 20 Nov 2020 07:38:05 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DA874AC23;
- Fri, 20 Nov 2020 07:37:16 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4661CAC83;
+ Fri, 20 Nov 2020 07:38:04 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=Ruer=E2=suse.de=hare@srs-us1.protection.inumbo.net>)
-	id 1kg0ys-0003p2-M3
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 07:37:18 +0000
-X-Inumbo-ID: 89d6f3b0-9aca-4e35-92eb-a9ab1bc8b131
+	id 1kg0zd-0003vn-P0
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 07:38:05 +0000
+X-Inumbo-ID: a73c8294-9aa1-48bc-946f-4a8b748a0e18
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 89d6f3b0-9aca-4e35-92eb-a9ab1bc8b131;
-	Fri, 20 Nov 2020 07:37:17 +0000 (UTC)
+	id a73c8294-9aa1-48bc-946f-4a8b748a0e18;
+	Fri, 20 Nov 2020 07:38:05 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id DA874AC23;
-	Fri, 20 Nov 2020 07:37:16 +0000 (UTC)
-Subject: Re: [PATCH 60/78] zram: remove the claim mechanism
+	by mx2.suse.de (Postfix) with ESMTP id 4661CAC83;
+	Fri, 20 Nov 2020 07:38:04 +0000 (UTC)
+Subject: Re: [PATCH 61/78] zram: do not call set_blocksize
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>, Josef Bacik <josef@toxicpanda.com>,
  Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
@@ -70,29 +70,27 @@ Cc: Justin Sanders <justin@coraid.com>, Josef Bacik <josef@toxicpanda.com>,
  linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
  linux-fsdevel@vger.kernel.org
 References: <20201116145809.410558-1-hch@lst.de>
- <20201116145809.410558-61-hch@lst.de>
+ <20201116145809.410558-62-hch@lst.de>
 From: Hannes Reinecke <hare@suse.de>
-Message-ID: <317d324a-f4a2-7fc4-3546-0048c38c55da@suse.de>
-Date: Fri, 20 Nov 2020 08:37:15 +0100
+Message-ID: <e6f89f0b-602b-f297-87f5-86b7c1b353f0@suse.de>
+Date: Fri, 20 Nov 2020 08:38:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <20201116145809.410558-61-hch@lst.de>
+In-Reply-To: <20201116145809.410558-62-hch@lst.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
 On 11/16/20 3:57 PM, Christoph Hellwig wrote:
-> The zram claim mechanism was added to ensure no new opens come in
-> during teardown.  But the proper way to archive that is to call
-> del_gendisk first, which takes care of all that.  Once del_gendisk
-> is called in the right place, the reset side can also be simplified
-> as no I/O can be outstanding on a block device that is not open.
+> set_blocksize is used by file systems to use their preferred buffer cache
+> block size.  Block drivers should not set it.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->   drivers/block/zram/zram_drv.c | 76 ++++++++++-------------------------
->   1 file changed, 21 insertions(+), 55 deletions(-)
+>   drivers/block/zram/zram_drv.c | 11 +----------
+>   drivers/block/zram/zram_drv.h |  1 -
+>   2 files changed, 1 insertion(+), 11 deletions(-)
 > 
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 
