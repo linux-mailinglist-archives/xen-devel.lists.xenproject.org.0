@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B64812BAA65
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 13:46:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32136.63075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4BD2BAA6D
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 13:48:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32144.63087 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg5n7-0004sP-7q; Fri, 20 Nov 2020 12:45:29 +0000
+	id 1kg5pj-00054z-Kr; Fri, 20 Nov 2020 12:48:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32136.63075; Fri, 20 Nov 2020 12:45:29 +0000
+Received: by outflank-mailman (output) from mailman id 32144.63087; Fri, 20 Nov 2020 12:48:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,92 +23,106 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg5n7-0004rz-4D; Fri, 20 Nov 2020 12:45:29 +0000
-Received: by outflank-mailman (input) for mailman id 32136;
- Fri, 20 Nov 2020 12:45:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kg5pj-00054a-HE; Fri, 20 Nov 2020 12:48:11 +0000
+Received: by outflank-mailman (input) for mailman id 32144;
+ Fri, 20 Nov 2020 12:48:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kg5n5-0004rs-Hw
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 12:45:27 +0000
+ id 1kg5ph-00052v-Ha
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 12:48:09 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3e90de5e-eadb-499a-b01a-e402c7c062e9;
- Fri, 20 Nov 2020 12:45:26 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 705721be-47c8-42c3-98f2-f8bc4662558a;
+ Fri, 20 Nov 2020 12:48:07 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 12743ABD6;
- Fri, 20 Nov 2020 12:45:26 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id B54AEAC2F;
+ Fri, 20 Nov 2020 12:48:06 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kg5n5-0004rs-Hw
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 12:45:27 +0000
-X-Inumbo-ID: 3e90de5e-eadb-499a-b01a-e402c7c062e9
+	id 1kg5ph-00052v-Ha
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 12:48:09 +0000
+X-Inumbo-ID: 705721be-47c8-42c3-98f2-f8bc4662558a
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 3e90de5e-eadb-499a-b01a-e402c7c062e9;
-	Fri, 20 Nov 2020 12:45:26 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 705721be-47c8-42c3-98f2-f8bc4662558a;
+	Fri, 20 Nov 2020 12:48:07 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605876326; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1605876486; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=H7PHzkAOiCeSpzSd3mLSic9jVidXunJJhK7mu+ZIVNI=;
-	b=aV4LmXmI3EUk38/E7y4qXGlwgF1Bh/heM1LyA3UhI2FtOrZW4XECD8f6f6Ab65RBwIOKrm
-	uSmQ09kApC0mNZDetupLylvp2oRMmKuQtRSGJvIx3pFLprj1M6ZUE+sXl/UB+JBq4w+d2h
-	YJbvUD0fVQpwhgjwhzUp+hcEOm96ZBk=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/W5SKfLxS9P8Oy1kRO1B1GHv3bqQeOd6wIJNTG5W8Ek=;
+	b=CNhFFOc/6PWwhGSiqBGd6pxgF4pkdlppFCpL8UOLoD/zbHG8bTCFZGM7FXx6Cd8II1I30P
+	EDlzXHUT/JnyI7+YpNYsRQ7EQGOOQ+snqgxdz29sXob2lkOdMyffkP4pmDyrqv3myZctHg
+	KzjvQX3kNlCXQkugBG+1k4Zmkqz4zxg=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 12743ABD6;
-	Fri, 20 Nov 2020 12:45:26 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+	by mx2.suse.de (Postfix) with ESMTP id B54AEAC2F;
+	Fri, 20 Nov 2020 12:48:06 +0000 (UTC)
+Subject: Ping: [PATCH v2] x86/PV: make post-migration page state consistent
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: E801 memory "map" use implies no ACPI
-Message-ID: <18ca8671-1478-3dc8-7b91-041dbc18829f@suse.com>
-Date: Fri, 20 Nov 2020 13:45:19 +0100
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>
+References: <07ebce3c-4dcf-bc9e-6d82-7f3def486ab8@suse.com>
+Message-ID: <b733914b-1bfd-d95d-470e-af3ca7a4f69f@suse.com>
+Date: Fri, 20 Nov 2020 13:48:07 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
+In-Reply-To: <07ebce3c-4dcf-bc9e-6d82-7f3def486ab8@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-ACPI mandates use of E820 (or newer, e.g. EFI), and in fact firmware
-has been observed to include E820_ACPI ranges in what E801 reports as
-available (really "configured") memory.
+On 04.11.2020 08:56, Jan Beulich wrote:
+> When a page table page gets de-validated, its type reference count drops
+> to zero (and PGT_validated gets cleared), but its type remains intact.
+> XEN_DOMCTL_getpageframeinfo3, therefore, so far reported prior usage for
+> such pages. An intermediate write to such a page via e.g.
+> MMU_NORMAL_PT_UPDATE, however, would transition the page's type to
+> PGT_writable_page, thus altering what XEN_DOMCTL_getpageframeinfo3 would
+> return. In libxc the decision which pages to normalize / localize
+> depends solely on the type returned from the domctl. As a result without
+> further precautions the guest won't be able to tell whether such a page
+> has had its (apparent) PTE entries transitioned to the new MFNs.
+> 
+> Add a check of PGT_validated, thus consistently avoiding normalization /
+> localization in the tool stack.
+> 
+> Also use XEN_DOMCTL_PFINFO_NOTAB in the variable's initializer instead
+> open coding it.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v2: Don't change type's type.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-TBD: Alternatively we could drop all use of E801 (and older), since
-     there shouldn't be any 64-bit systems not supporting the more
-     modern E820.
+Ping?
 
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -74,7 +74,7 @@ bool __read_mostly use_invpcid;
- unsigned long __read_mostly cr4_pv32_mask;
- 
- /* **** Linux config option: propagated to domain0. */
--/* "acpi=off":    Sisables both ACPI table parsing and interpreter. */
-+/* "acpi=off":    Disables both ACPI table parsing and interpreter. */
- /* "acpi=force":  Override the disable blacklist.                   */
- /* "acpi=ht":     Limit ACPI just to boot-time to enable HT.        */
- /* "acpi=noirq":  Disables ACPI interrupt routing.                  */
-@@ -1069,6 +1069,7 @@ void __init noreturn __start_xen(unsigne
-         e820_raw.map[1].size = bootsym(highmem_kb) << 10;
-         e820_raw.map[1].type = E820_RAM;
-         e820_raw.nr_map = 2;
-+        disable_acpi();
-     }
-     else if ( mbi->flags & MBI_MEMLIMITS )
-     {
-@@ -1080,6 +1081,7 @@ void __init noreturn __start_xen(unsigne
-         e820_raw.map[1].size = mbi->mem_upper << 10;
-         e820_raw.map[1].type = E820_RAM;
-         e820_raw.nr_map = 2;
-+        disable_acpi();
-     }
-     else
-         panic("Bootloader provided no memory information\n");
+> --- a/xen/arch/x86/domctl.c
+> +++ b/xen/arch/x86/domctl.c
+> @@ -215,7 +215,7 @@ long arch_do_domctl(
+>  
+>          for ( i = 0; i < num; ++i )
+>          {
+> -            unsigned long gfn = 0, type = 0;
+> +            unsigned long gfn = 0, type = XEN_DOMCTL_PFINFO_NOTAB;
+>              struct page_info *page;
+>              p2m_type_t t;
+>  
+> @@ -255,6 +255,8 @@ long arch_do_domctl(
+>  
+>                  if ( page->u.inuse.type_info & PGT_pinned )
+>                      type |= XEN_DOMCTL_PFINFO_LPINTAB;
+> +                else if ( !(page->u.inuse.type_info & PGT_validated) )
+> +                    type = XEN_DOMCTL_PFINFO_NOTAB;
+>  
+>                  if ( page->count_info & PGC_broken )
+>                      type = XEN_DOMCTL_PFINFO_BROKEN;
+> 
+
 
