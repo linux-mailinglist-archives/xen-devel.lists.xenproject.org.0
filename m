@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE0432BAAD5
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 14:12:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32171.63131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FEAD2BAADC
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 14:13:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32176.63143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg6C4-0000IR-7r; Fri, 20 Nov 2020 13:11:16 +0000
+	id 1kg6Dw-0000SO-LO; Fri, 20 Nov 2020 13:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32171.63131; Fri, 20 Nov 2020 13:11:16 +0000
+Received: by outflank-mailman (output) from mailman id 32176.63143; Fri, 20 Nov 2020 13:13:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,232 +23,335 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg6C4-0000I2-4Y; Fri, 20 Nov 2020 13:11:16 +0000
-Received: by outflank-mailman (input) for mailman id 32171;
- Fri, 20 Nov 2020 13:11:14 +0000
+	id 1kg6Dw-0000Ry-HI; Fri, 20 Nov 2020 13:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 32176;
+ Fri, 20 Nov 2020 13:13:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N4/k=E2=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
- id 1kg6C2-0000Hx-3N
- for xen-devel@lists.xen.org; Fri, 20 Nov 2020 13:11:14 +0000
-Received: from mail-vk1-xa31.google.com (unknown [2607:f8b0:4864:20::a31])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wRTa=E2=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kg6Dv-0000Rs-1r
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 13:13:11 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e746f718-d898-4057-86d9-1e63b0311efa;
- Fri, 20 Nov 2020 13:11:12 +0000 (UTC)
-Received: by mail-vk1-xa31.google.com with SMTP id u16so2186730vkb.1
- for <xen-devel@lists.xen.org>; Fri, 20 Nov 2020 05:11:12 -0800 (PST)
+ id aa1d2455-4234-44a4-9a01-8dbf4009cf8b;
+ Fri, 20 Nov 2020 13:13:09 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DFB90AE9A;
+ Fri, 20 Nov 2020 13:13:08 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=N4/k=E2=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
-	id 1kg6C2-0000Hx-3N
-	for xen-devel@lists.xen.org; Fri, 20 Nov 2020 13:11:14 +0000
-X-Inumbo-ID: e746f718-d898-4057-86d9-1e63b0311efa
-Received: from mail-vk1-xa31.google.com (unknown [2607:f8b0:4864:20::a31])
+	(envelope-from <SRS0=wRTa=E2=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kg6Dv-0000Rs-1r
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 13:13:11 +0000
+X-Inumbo-ID: aa1d2455-4234-44a4-9a01-8dbf4009cf8b
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e746f718-d898-4057-86d9-1e63b0311efa;
-	Fri, 20 Nov 2020 13:11:12 +0000 (UTC)
-Received: by mail-vk1-xa31.google.com with SMTP id u16so2186730vkb.1
-        for <xen-devel@lists.xen.org>; Fri, 20 Nov 2020 05:11:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=Is4LlyNi/I66refyHQmdCDL6lW4ZWZ2icPR7xWsFFGM=;
-        b=AChYZ+S1hdoa/8SzPN4oDXyK916yATiMb4kYWKHiG4sPYotW9Ia2wZ300UCZemcuCj
-         9h273X3kmNZ4sr8llgyZyhzNuqjy1SLEN8mMt8CjP3UhrjQVN2HWxeAOzA1JOlk/Atiu
-         +ltn9b7a4kCgbMDlvyGBC3pCf4yRC9aApF2IEoeOOo2Rh3ITj7NET5sS8ZT3IcxG97jv
-         bzvILUnahm0kNhB14b5BRUJ7sciIrhz7B99juvumfxqI+p07ib9tkWoIL0zuMYrhO0nz
-         eHIMA10tNKRP9UkOkbBlODW+MxB1cYBDumeb1Iws8FtHD/ib21oB5YbSRgjTpHxuu0go
-         2Olw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=Is4LlyNi/I66refyHQmdCDL6lW4ZWZ2icPR7xWsFFGM=;
-        b=H1Wc0vswr2d5TU3j87doh00mUBeInpzmktqu2jt2t56twgPgiaa0cSu95OgSmYx7md
-         BNoe/v8MFQRbQ8atE4K/FNGgfbYEYXqj2gvaGFOvOdvU271P9tUDYrKQPcbUVn9/9N5P
-         mV+nJKkWJVrzD4E+o6KD6B46EWdAldozn4LMhpElNJ4rWXzfTnotfwlzJualTfy350nN
-         9DN5X0ceCljrmtGST6OTfJ5CaqPcDXkwgHo9cmB4+wCMLLeJlxwV+vGAeR7q/to2IYFw
-         rnF8ccXn1zSmrUcoYpWU6eWlsTT5Etstrlz13IqmV41Cj/mSEYDrpmMTVSd6qOxknnRX
-         dggw==
-X-Gm-Message-State: AOAM531bIcsDtWVsBZ0IENCZMRRUsfmrSJnAWlPX7HuYQhTS+G5q8R/e
-	rtrWXhE4+Y0tcjpVqGLVJMW6w/EDhZoiFeH7LYiWqbRscWq1oh0N
-X-Google-Smtp-Source: ABdhPJy+Y5xPa/pgsmnUlgOSBA5KsoyKfAf7QayiS0Rk+ne6AIl3S6t+gupbBEt4CcqW1c73qC6Ec6fRr+rxNv0nYbU=
-X-Received: by 2002:a1f:1c6:: with SMTP id 189mr12053599vkb.13.1605877871800;
- Fri, 20 Nov 2020 05:11:11 -0800 (PST)
+	id aa1d2455-4234-44a4-9a01-8dbf4009cf8b;
+	Fri, 20 Nov 2020 13:13:09 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605877989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=F0OTJuCOh4d9HajXsdk2UN4sq7a2Yi9zh8zUIqKzg3c=;
+	b=NkjEXDCpCDQM3QxSYTKmmfN4J+l3AXBEzZRRj70jVxFuT6AtZFPXYZ59L7t9nzS70/Aw2A
+	qKbL/spMR0JG5XMrAyeIvsFeJPvD7QeQHuC9WkovDS//HXcrqYyARnyXKtIYnhlyeHY5YV
+	RjvpmxHYnFDtmCJcVorQNxmKVxHJ0Kc=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id DFB90AE9A;
+	Fri, 20 Nov 2020 13:13:08 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] xen: add support for automatic debug key actions in case of crash
+Date: Fri, 20 Nov 2020 14:13:06 +0100
+Message-Id: <20201120131306.24388-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-References: <CACJ1ZNuJCgDkRHvH2gXqC5gWTJHdUQ9J4G-HBNFwKYZFaWpWuw@mail.gmail.com>
- <CACJ1ZNupvRX_fcGPWn3mm+3Lm4gT38M088tUc_sSUu8JeQg3Fg@mail.gmail.com>
- <CACJ1ZNu5Kdf72j1eTtdgTuSOjgkpeEWFM0cKB-54pxqwXuWCDQ@mail.gmail.com> <CACJ1ZNtfgNr9oz7stE=2iwijjAUtZLWR2u_xihFZeEk3Y7gYRQ@mail.gmail.com>
-In-Reply-To: <CACJ1ZNtfgNr9oz7stE=2iwijjAUtZLWR2u_xihFZeEk3Y7gYRQ@mail.gmail.com>
-From: Olivier Lambert <lambert.olivier@gmail.com>
-Date: Fri, 20 Nov 2020 14:11:00 +0100
-Message-ID: <CACJ1ZNtiTg874VDKeV2sLdk0qWzt79pVf3Bo4J+GZWPhZdxWFQ@mail.gmail.com>
-Subject: Re: Schedule for OpenPOWER/Xen meeting
-To: "<xen-devel@lists.xen.org>" <xen-devel@lists.xen.org>
-Cc: damien.thenot@vates.fr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Thanks everyone for participating in the meeting!
+When the host crashes it would sometimes be nice to have additional
+debug data available which could be produced via debug keys, but
+halting the server for manual intervention might be impossible due to
+the need to reboot/kexec rather sooner than later.
 
-Here is a recap on topics that was discussed (some partial/draft notes
-from me and Damien at Vates, sorry if some are not entirely accurate):
+Add support for automatic debug key actions in case of crashes which
+can be activated via boot- or runtime-parameter.
 
-* Page table implementation, hardware page walking, virtual memory in Xen
-  * Multiple implementation, first a hashed tree structure, then later
-a radix tree, closer to x86 and Linux usage.
-  * Multiple page size support: 1G, 2M, 64k, 4k
-  * All IO are memory mapped access
+Depending on the type of crash the desired data might be different, so
+support different settings for the possible types of crashes.
 
-* Power arch hardware control and power management
-  * Based on firmware called
-[OPAL](https://open-power.github.io/skiboot/doc/opal-spec.html), Open
-Power Abstraction Layer
+The parameter is "crash-debug" with the following syntax:
 
-* Interrupts are different than x86
-  * Exceptions are considered interrupts in Power
-  * Interrupts coming from external hardware are called external interrupts
-    - On [KVM](https://www.kernel.org/doc/html/latest/virt/kvm/devices/xive=
-.html)
-    - On [Qemu](https://www.qemu.org/docs/master/specs/ppc-spapr-xive.html)
+  crash-debug-<type>=<string>
 
-* There is an existing hypervisor spec on Power
-  * What kind of hypercalls are needed to run a Linux guest on Power?
-  * This spec need to be implemented on Xen to be the most compatible possi=
-ble
+with <type> being one of:
 
-* Might be interesting to join the OpenPOWER Foundation
+  panic, hwdom, watchdog, kexeccmd, debugkey
 
-* Toolchain to use to develop on Power
-  * LLVM/CLang or GCC crosscompiler
-  * Qemu emulation of Power architecture? Functional enough to begin
-working on it?
+and <string> a sequence of debug key characters with '+' having the
+special semantics of a 10 millisecond pause.
 
-* Availability of test hardware
-  * Adapting the current CI loop for new architectures
+So "crash-debug-watchdog=0+0qr" would result in special output in case
+of watchdog triggered crash (dom0 state, 10 ms pause, dom0 state,
+domain info, run queues).
 
-* PCIe root complex each have their own IOMMU
-  * Might be able to be disabled
-  * Has an integrated error handling scheme
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- switched special character '.' to '+' (Jan Beulich)
+- 10 ms instead of 1 s pause (Jan Beulich)
+- added more text to the boot parameter description (Jan Beulich)
+---
+ docs/misc/xen-command-line.pandoc | 39 +++++++++++++++++++++++++++++++
+ xen/common/kexec.c                |  8 ++++---
+ xen/common/keyhandler.c           | 38 ++++++++++++++++++++++++++++++
+ xen/common/shutdown.c             |  4 ++--
+ xen/drivers/char/console.c        |  2 +-
+ xen/include/xen/kexec.h           | 10 ++++++--
+ xen/include/xen/keyhandler.h      | 11 +++++++++
+ 7 files changed, 104 insertions(+), 8 deletions(-)
 
-* Hardware information given by a device tree
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 4ae9391fcd..c274351aeb 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -574,6 +574,45 @@ reduction of features at Xen's disposal to manage guests.
+ ### cpuinfo (x86)
+ > `= <boolean>`
+ 
++### crash-debug-debugkey
++### crash-debug-hwdom
++### crash-debug-kexeccmd
++### crash-debug-panic
++### crash-debug-watchdog
++> `= <string>`
++
++> Can be modified at runtime
++
++Specify debug-key actions in cases of crashes. Each of the parameters applies
++to a different crash reason. The `<string>` is a sequence of debug key
++characters, with `+` having the special meaning of a 10 millisecond pause.
++
++`crash-debug-debugkey` will be used for crashes induced by the `C` debug
++key (i.e. manually induced crash).
++
++`crash-debug-hwdom` denotes a crash of dom0.
++
++`crash-debug-kexeccmd` is an explicit request of dom0 to continue with the
++kdump kernel via kexec.
++
++`crash-debug-panic` is a crash of the hypervisor.
++
++`crash-debug-watchdog` is a crash due to the watchdog timer expiring.
++
++It should be noted that dumping diagnosis data to the console can fail in
++multiple ways (missing data, hanging system, ...) depending on the reason
++of the crash, which might have left the hypervisor in a bad state.
++
++So e.g. `crash-debug-watchdog=0+0r` would dump dom0 state twice with 10
++milliseconds between the two state dumps, followed by the run queues of the
++hypervisor, if the system crashes due to a watchdog timeout.
++
++These parameters should be used carefully, as e.g. specifying
++`crash-debug-debugkey=C` would result in an endless loop. Depending on the
++reason of the system crash it might happen that triggering some debug key
++action will result in a hang instead of dumping data and then doing a
++reboot or crash dump.
++
+ ### crashinfo_maxaddr
+ > `= <size>`
+ 
+diff --git a/xen/common/kexec.c b/xen/common/kexec.c
+index 52cdc4ebc3..ebeee6405a 100644
+--- a/xen/common/kexec.c
++++ b/xen/common/kexec.c
+@@ -373,10 +373,12 @@ static int kexec_common_shutdown(void)
+     return 0;
+ }
+ 
+-void kexec_crash(void)
++void kexec_crash(enum crash_reason reason)
+ {
+     int pos;
+ 
++    keyhandler_crash_action(reason);
++
+     pos = (test_bit(KEXEC_FLAG_CRASH_POS, &kexec_flags) != 0);
+     if ( !test_bit(KEXEC_IMAGE_CRASH_BASE + pos, &kexec_flags) )
+         return;
+@@ -409,7 +411,7 @@ static long kexec_reboot(void *_image)
+ static void do_crashdump_trigger(unsigned char key)
+ {
+     printk("'%c' pressed -> triggering crashdump\n", key);
+-    kexec_crash();
++    kexec_crash(CRASHREASON_DEBUGKEY);
+     printk(" * no crash kernel loaded!\n");
+ }
+ 
+@@ -840,7 +842,7 @@ static int kexec_exec(XEN_GUEST_HANDLE_PARAM(void) uarg)
+         ret = continue_hypercall_on_cpu(0, kexec_reboot, image);
+         break;
+     case KEXEC_TYPE_CRASH:
+-        kexec_crash(); /* Does not return */
++        kexec_crash(CRASHREASON_KEXECCMD); /* Does not return */
+         break;
+     }
+ 
+diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
+index 68364e987d..c2da7c18a8 100644
+--- a/xen/common/keyhandler.c
++++ b/xen/common/keyhandler.c
+@@ -3,7 +3,9 @@
+  */
+ 
+ #include <asm/regs.h>
++#include <xen/delay.h>
+ #include <xen/keyhandler.h>
++#include <xen/param.h>
+ #include <xen/shutdown.h>
+ #include <xen/event.h>
+ #include <xen/console.h>
+@@ -507,6 +509,42 @@ void __init initialize_keytable(void)
+     }
+ }
+ 
++#define CRASHACTION_SIZE  32
++static char crash_debug_panic[CRASHACTION_SIZE];
++static char crash_debug_hwdom[CRASHACTION_SIZE];
++static char crash_debug_watchdog[CRASHACTION_SIZE];
++static char crash_debug_kexeccmd[CRASHACTION_SIZE];
++static char crash_debug_debugkey[CRASHACTION_SIZE];
++
++static char *crash_action[CRASHREASON_N] = {
++    [CRASHREASON_PANIC] = crash_debug_panic,
++    [CRASHREASON_HWDOM] = crash_debug_hwdom,
++    [CRASHREASON_WATCHDOG] = crash_debug_watchdog,
++    [CRASHREASON_KEXECCMD] = crash_debug_kexeccmd,
++    [CRASHREASON_DEBUGKEY] = crash_debug_debugkey,
++};
++
++string_runtime_param("crash-debug-panic", crash_debug_panic);
++string_runtime_param("crash-debug-hwdom", crash_debug_hwdom);
++string_runtime_param("crash-debug-watchdog", crash_debug_watchdog);
++string_runtime_param("crash-debug-kexeccmd", crash_debug_kexeccmd);
++string_runtime_param("crash-debug-debugkey", crash_debug_debugkey);
++
++void keyhandler_crash_action(enum crash_reason reason)
++{
++    const char *action = crash_action[reason];
++    struct cpu_user_regs *regs = get_irq_regs() ? : guest_cpu_user_regs();
++
++    while ( *action )
++    {
++        if ( *action == '+' )
++            mdelay(10);
++        else
++            handle_keypress(*action, regs);
++        action++;
++    }
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/common/shutdown.c b/xen/common/shutdown.c
+index 912593915b..abde48aa4c 100644
+--- a/xen/common/shutdown.c
++++ b/xen/common/shutdown.c
+@@ -43,7 +43,7 @@ void hwdom_shutdown(u8 reason)
+     case SHUTDOWN_crash:
+         debugger_trap_immediate();
+         printk("Hardware Dom%u crashed: ", hardware_domain->domain_id);
+-        kexec_crash();
++        kexec_crash(CRASHREASON_HWDOM);
+         maybe_reboot();
+         break; /* not reached */
+ 
+@@ -56,7 +56,7 @@ void hwdom_shutdown(u8 reason)
+     case SHUTDOWN_watchdog:
+         printk("Hardware Dom%u shutdown: watchdog rebooting machine\n",
+                hardware_domain->domain_id);
+-        kexec_crash();
++        kexec_crash(CRASHREASON_WATCHDOG);
+         machine_restart(0);
+         break; /* not reached */
+ 
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 861ad53a8f..acec277f5e 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -1271,7 +1271,7 @@ void panic(const char *fmt, ...)
+ 
+     debugger_trap_immediate();
+ 
+-    kexec_crash();
++    kexec_crash(CRASHREASON_PANIC);
+ 
+     if ( opt_noreboot )
+         machine_halt();
+diff --git a/xen/include/xen/kexec.h b/xen/include/xen/kexec.h
+index e85ba16405..9f7a912e97 100644
+--- a/xen/include/xen/kexec.h
++++ b/xen/include/xen/kexec.h
+@@ -1,6 +1,8 @@
+ #ifndef __XEN_KEXEC_H__
+ #define __XEN_KEXEC_H__
+ 
++#include <xen/keyhandler.h>
++
+ #ifdef CONFIG_KEXEC
+ 
+ #include <public/kexec.h>
+@@ -48,7 +50,7 @@ void machine_kexec_unload(struct kexec_image *image);
+ void machine_kexec_reserved(xen_kexec_reserve_t *reservation);
+ void machine_reboot_kexec(struct kexec_image *image);
+ void machine_kexec(struct kexec_image *image);
+-void kexec_crash(void);
++void kexec_crash(enum crash_reason reason);
+ void kexec_crash_save_cpu(void);
+ struct crash_xen_info *kexec_crash_save_info(void);
+ void machine_crash_shutdown(void);
+@@ -82,7 +84,11 @@ void vmcoreinfo_append_str(const char *fmt, ...)
+ #define kexecing 0
+ 
+ static inline void kexec_early_calculations(void) {}
+-static inline void kexec_crash(void) {}
++static inline void kexec_crash(enum crash_reason reason)
++{
++    keyhandler_crash_action(reason);
++}
++
+ static inline void kexec_crash_save_cpu(void) {}
+ static inline void set_kexec_crash_area_size(u64 system_ram) {}
+ 
+diff --git a/xen/include/xen/keyhandler.h b/xen/include/xen/keyhandler.h
+index 5131e86cbc..dbf797a8b4 100644
+--- a/xen/include/xen/keyhandler.h
++++ b/xen/include/xen/keyhandler.h
+@@ -48,4 +48,15 @@ void register_irq_keyhandler(unsigned char key,
+ /* Inject a keypress into the key-handling subsystem. */
+ extern void handle_keypress(unsigned char key, struct cpu_user_regs *regs);
+ 
++enum crash_reason {
++    CRASHREASON_PANIC,
++    CRASHREASON_HWDOM,
++    CRASHREASON_WATCHDOG,
++    CRASHREASON_KEXECCMD,
++    CRASHREASON_DEBUGKEY,
++    CRASHREASON_N
++};
++
++void keyhandler_crash_action(enum crash_reason reason);
++
+ #endif /* __XEN_KEYHANDLER_H__ */
+-- 
+2.26.2
 
-This is all for our notes. Feel free to share if you have more content
-or things to fix.
-
-
-IMHO, it was very interesting, and also bringing good news:
-1. There's an hypervisor specification for POWER, which will be
-**really** useful if we want to implement Xen ("just" follow the spec)
-2. POWER design and virt mechanisms seem -at first glance-
-surprisingly similar to the Xen way (equivalent of grant table
-principle etc.), and maybe it will be a great fit in the end!
-
-There's still some technical docs to be published on the OpenPOWER
-side, but they are willing to move forward relatively quickly.
-
-In conclusion, I would say we are on the right track, and we might
-have good surprises on how Xen can fit easily on POWER. Next steps?
-Should we have a Xen meeting dedicated to that topic or should we wait
-for the next monthly community call? We could use that time to decide
-a kind of agenda for the next month and prepare some tasks to be done.
-
-Thanks again!
-
-Olivier.
-
-For reference, here are the links we had during the meeting:
-* https://openpowerfoundation.org/?resource_lib=3Dpower-isa-version-3-022:1=
-3
-OPAL, is a combination of multiple parts22:31
-* https://open-power.github.io/skiboot/doc/opal-spec.html#what-is-opal22:33
-* https://github.com/open-power/docs22:34
-* https://openpowerfoundation.org/?resource_lib=3Dlinux-on-power-architectu=
-re-reference-a-papr-linux-subset-review-draft22:37
-* https://www.kernel.org/doc/html/latest/virt/kvm/devices/xive.html22:51
-* https://www.qemu.org/docs/master/specs/ppc-spapr-xive.html
-
-
-Le mer. 18 nov. 2020 =C3=A0 16:17, Olivier Lambert
-<lambert.olivier@gmail.com> a =C3=A9crit :
->
-> Hi!
->
-> So I managed to get an agenda with basic questions. The meeting is at the=
- planned time (Nov the 19th, at 3PM central time, which is 9PM in UK and 10=
-PM in Europe).
->
-> Meeting place will be: https://ibm.webex.com/meet/mendy
->
-> Don't forget to ping your colleagues/friends that aren't watching this ma=
-iling list actively, so they won't miss the meeting :)
->
-> See you tomorrow!
->
-> Olivier.
->
-> Le jeu. 12 nov. 2020 =C3=A0 21:44, Olivier Lambert <lambert.olivier@gmail=
-.com> a =C3=A9crit :
->>
->> Okay so before having the meeting webex/whatever link, I think it would =
-be more efficient to plan a kind of agenda, something we can pass to the Op=
-enPOWER team in the next few days. This way, they could have some answers r=
-eady, allowing us to explore more things interactively during the meeting.
->>
->> Feel free to participate in this thread (even if you won't be at the mee=
-ting!), so we can gather and then organize a bit of what we'd like to know/=
-discuss during this meeting.
->>
->> So go ahead and start to throw questions :)
->>
->>
->> Thanks,
->>
->> OIivier.
->>
->>
->> Le jeu. 12 nov. 2020 =C3=A0 09:26, Olivier Lambert <lambert.olivier@gmai=
-l.com> a =C3=A9crit :
->>>
->>> Thanks to everyone who participated in the poll. Due to the limited num=
-ber of answers, I think it's wiser to go for the second option (Thursday th=
-e 19th), because everyone who already answered seems available that day. I'=
-ll confirm that to OpenPOWER. When it's confirmed, I'll do a recap here ide=
-ally with the meeting place.
->>>
->>> Thanks,
->>>
->>> Olivier.
->>>
->>>
->>> Le mar. 10 nov. 2020 =C3=A0 13:41, Olivier Lambert <lambert.olivier@gma=
-il.com> a =C3=A9crit :
->>>>
->>>> Hi everyone,
->>>>
->>>> We got 2 potential dates for the initial tech meeting with at least on=
-e OpenPOWER expert, so we can discuss the effort needed to port Xen on this=
- architecture.
->>>>
->>>> Because of time zones (on OpenPower side, there's one guy in Australia=
-), we got 2 possible schedules in November:
->>>>
->>>> 1. 3pm CT on this Thursday the 12th (! this week)
->>>> 2. Or next week Thursday the 19th
->>>>
->>>> I made a doodle-like so everyone can vote on their preferred schedule:=
- https://framadate.org/QQu5rYEOEYr4ZHc4
->>>>
->>>> Note: 3pm CT would mean 9pm UTC, 10pm UTC+1 (CET). But correct me if I=
-'m wrong.
->>>>
->>>> Reminder: the Cryptpad of the last Xen Community meeting contains the =
-list of people interested. If you are aware of someone interested that coul=
-d miss this email on this devel list, feel free to forward it. Cryptpad lin=
-k: https://cryptpad.fr/pad/#/2/pad/edit/k-0Aj+Sxb5SliLWrFRBwx49V/
->>>>
->>>> Thank you and see you soon!
->>>>
->>>> Olivier.
 
