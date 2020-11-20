@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93CA32BA55D
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 10:01:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31787.62467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58ED22BA57B
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 10:08:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.31795.62480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg2Ic-0008Eg-Rz; Fri, 20 Nov 2020 09:01:46 +0000
+	id 1kg2P4-000062-Mu; Fri, 20 Nov 2020 09:08:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31787.62467; Fri, 20 Nov 2020 09:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 31795.62480; Fri, 20 Nov 2020 09:08:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,33 +23,33 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg2Ic-0008EK-Oq; Fri, 20 Nov 2020 09:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 31787;
- Fri, 20 Nov 2020 09:01:45 +0000
+	id 1kg2P4-00005c-JU; Fri, 20 Nov 2020 09:08:26 +0000
+Received: by outflank-mailman (input) for mailman id 31795;
+ Fri, 20 Nov 2020 09:08:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tRH+=E2=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1kg2Ib-0008EE-Au
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 09:01:45 +0000
+ id 1kg2P2-00005W-O8
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 09:08:24 +0000
 Received: from verein.lst.de (unknown [213.95.11.211])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e4bf5b1e-2083-4427-a416-3720c2612229;
- Fri, 20 Nov 2020 09:01:44 +0000 (UTC)
+ id 070ef7dd-4942-468a-8592-5f4489bfd336;
+ Fri, 20 Nov 2020 09:08:23 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 4C98067373; Fri, 20 Nov 2020 10:01:42 +0100 (CET)
+ id 0DA3867373; Fri, 20 Nov 2020 10:08:21 +0100 (CET)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=tRH+=E2=lst.de=hch@srs-us1.protection.inumbo.net>)
-	id 1kg2Ib-0008EE-Au
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 09:01:45 +0000
-X-Inumbo-ID: e4bf5b1e-2083-4427-a416-3720c2612229
+	id 1kg2P2-00005W-O8
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 09:08:24 +0000
+X-Inumbo-ID: 070ef7dd-4942-468a-8592-5f4489bfd336
 Received: from verein.lst.de (unknown [213.95.11.211])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e4bf5b1e-2083-4427-a416-3720c2612229;
-	Fri, 20 Nov 2020 09:01:44 +0000 (UTC)
+	id 070ef7dd-4942-468a-8592-5f4489bfd336;
+	Fri, 20 Nov 2020 09:08:23 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 4C98067373; Fri, 20 Nov 2020 10:01:42 +0100 (CET)
-Date: Fri, 20 Nov 2020 10:01:42 +0100
+	id 0DA3867373; Fri, 20 Nov 2020 10:08:21 +0100 (CET)
+Date: Fri, 20 Nov 2020 10:08:20 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Jan Kara <jack@suse.cz>
 Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
@@ -61,43 +61,93 @@ Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
 	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
 	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: Re: [PATCH 13/20] block: remove ->bd_contains
-Message-ID: <20201120090142.GC21715@lst.de>
-References: <20201118084800.2339180-1-hch@lst.de> <20201118084800.2339180-14-hch@lst.de> <20201119103253.GV1981@quack2.suse.cz>
+Subject: Re: [PATCH 14/20] block: remove the nr_sects field in struct
+ hd_struct
+Message-ID: <20201120090820.GD21715@lst.de>
+References: <20201118084800.2339180-1-hch@lst.de> <20201118084800.2339180-15-hch@lst.de> <20201119120525.GW1981@quack2.suse.cz>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201119103253.GV1981@quack2.suse.cz>
+In-Reply-To: <20201119120525.GW1981@quack2.suse.cz>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Thu, Nov 19, 2020 at 11:32:53AM +0100, Jan Kara wrote:
-> > @@ -1521,7 +1510,7 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, void *holder,
-> >  		if (bdev->bd_bdi == &noop_backing_dev_info)
-> >  			bdev->bd_bdi = bdi_get(disk->queue->backing_dev_info);
-> >  	} else {
-> > -		if (bdev->bd_contains == bdev) {
-> > +		if (!bdev->bd_partno) {
+On Thu, Nov 19, 2020 at 01:05:25PM +0100, Jan Kara wrote:
+> > @@ -613,7 +613,7 @@ void guard_bio_eod(struct bio *bio)
+> >  	rcu_read_lock();
+> >  	part = __disk_get_part(bio->bi_disk, bio->bi_partno);
+> >  	if (part)
+> > -		maxsector = part_nr_sects_read(part);
+> > +		maxsector = bdev_nr_sectors(part->bdev);
+> >  	else
+> >  		maxsector = get_capacity(bio->bi_disk);
 > 
-> This should be !bdev_is_partition(bdev) for consistency, right?
+> I have to say that after these changes I find it a bit confusing that we
+> have get/set_capacity() and bdev_nr_sectors() / bdev_set_nr_sectors() and
+> they are all the same thing (i_size of the bdev). Is there a reason for the
+> distinction?
 
-Yes.  Same for the same check further up for the !bdev->bd_openers
-case.
+get_capacity/set_capacity are the existing unchanged interfaces that
+work on struct gendisk, and unchanged from what we had before.  They also
+have lots of users which makes them kinda awkward to touch.
 
-> > +#define bdev_whole(_bdev) \
-> > +	((_bdev)->bd_disk->part0.bdev)
+bdev_nr_sectors is the public interface to query the size for any
+kind of struct block device, to be used by consumers of the block
+device interface.
+
+bdev_set_nr_sectors is a private helper for the partitions core that
+avoids duplicating a bit of code, and works on partitions.
+
+
+
+> > @@ -38,6 +38,16 @@ static void disk_add_events(struct gendisk *disk);
+> >  static void disk_del_events(struct gendisk *disk);
+> >  static void disk_release_events(struct gendisk *disk);
+> >  
+> > +void set_capacity(struct gendisk *disk, sector_t sectors)
+> > +{
+> > +	struct block_device *bdev = disk->part0.bdev;
 > > +
-> >  #define bdev_kobj(_bdev) \
-> >  	(&part_to_dev((_bdev)->bd_part)->kobj)
+> > +	spin_lock(&bdev->bd_size_lock);
+> > +	i_size_write(bdev->bd_inode, (loff_t)sectors << SECTOR_SHIFT);
+> > +	spin_unlock(&bdev->bd_size_lock);
 > 
-> I'd somewhat prefer if these helpers could actually be inline functions and
-> not macros. I guess they are macros because hd_struct isn't in blk_types.h.
-> But if we moved helpers to blkdev.h, we'd have all definitions we need...
-> Is that a problem for some users?
+> AFAICT bd_size_lock is pointless after these changes so we can just remove
+> it?
 
-As you pointed out the reason these are macros is that the obvious
-placement doesn't work.  My plan was to look into cleaning up the block
-headers, which are a complete mess between blk_types.h, bio.h, blkdev.h
-and genhd.h after I'm done making sense of the data structures, so for
-now I didn't want to move too much around.  Hopefully we'll be able to
-convert these helpers to inlines once I'm done.
+I don't think it is, as reuqiring bd_mutex for size updates leads to
+rather awkward lock ordering problems.
+
+> >  	if (capacity != size && capacity != 0 && size != 0) {
+> >  		char *envp[] = { "RESIZE=1", NULL };
+> >  
+> > +		pr_info("%s: detected capacity change from %lld to %lld\n",
+> > +		       disk->disk_name, size, capacity);
+> 
+> So we are now missing above message for transitions from / to 0 capacity?
+> Is there any other notification in the kernel log when e.g. media is
+> inserted into a CD-ROM drive? I remember using these messages for detecting
+> that...
+
+True, I guess we should keep the messages for that case at least under
+some circumstances.  Let me take a closer look at what could make sense.
+
+> Also what about GENHD_FL_HIDDEN devices? Are we sure we never set capacity
+> for them?
+
+We absolutely set the capacity for them, as we have to.  And even use
+this interface.  But yes, I think we should skip sending the uevent for
+them.
+
+> > @@ -1158,8 +1169,7 @@ ssize_t part_size_show(struct device *dev,
+> >  {
+> >  	struct hd_struct *p = dev_to_part(dev);
+> >  
+> > -	return sprintf(buf, "%llu\n",
+> > -		(unsigned long long)part_nr_sects_read(p));
+> > +	return sprintf(buf, "%llu\n", bdev_nr_sectors(p->bdev));
+> 
+> Is sector_t really guaranteed to be unsigned long long?
+
+Yes, it is these days, ever since I removed the option to have a 32-bit
+one on 32-bit platforms a while ago.
 
