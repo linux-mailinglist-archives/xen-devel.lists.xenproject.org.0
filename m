@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86CFD2BA8DE
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 12:22:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31971.62798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AFE42BA8EA
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 12:24:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.31977.62810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg4Tm-0001bA-5d; Fri, 20 Nov 2020 11:21:26 +0000
+	id 1kg4WX-0001lw-MC; Fri, 20 Nov 2020 11:24:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31971.62798; Fri, 20 Nov 2020 11:21:26 +0000
+Received: by outflank-mailman (output) from mailman id 31977.62810; Fri, 20 Nov 2020 11:24:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,140 +23,266 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg4Tm-0001al-29; Fri, 20 Nov 2020 11:21:26 +0000
-Received: by outflank-mailman (input) for mailman id 31971;
- Fri, 20 Nov 2020 11:21:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kg4WX-0001lO-HB; Fri, 20 Nov 2020 11:24:17 +0000
+Received: by outflank-mailman (input) for mailman id 31977;
+ Fri, 20 Nov 2020 11:24:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ulUS=E2=suse.cz=jack@srs-us1.protection.inumbo.net>)
- id 1kg4Tk-0001ag-Eh
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 11:21:24 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35edf7cf-aaef-49ff-a730-73d122afc14b;
- Fri, 20 Nov 2020 11:21:22 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C4C79AED9;
- Fri, 20 Nov 2020 11:21:21 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
- id 2825E1E130B; Fri, 20 Nov 2020 12:21:21 +0100 (CET)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kg4WV-0001lG-Qa; Fri, 20 Nov 2020 11:24:15 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kg4WV-0004fs-Fd; Fri, 20 Nov 2020 11:24:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kg4WV-0005IK-7R; Fri, 20 Nov 2020 11:24:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kg4WV-0000gC-6u; Fri, 20 Nov 2020 11:24:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ulUS=E2=suse.cz=jack@srs-us1.protection.inumbo.net>)
-	id 1kg4Tk-0001ag-Eh
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 11:21:24 +0000
-X-Inumbo-ID: 35edf7cf-aaef-49ff-a730-73d122afc14b
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 35edf7cf-aaef-49ff-a730-73d122afc14b;
-	Fri, 20 Nov 2020 11:21:22 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id C4C79AED9;
-	Fri, 20 Nov 2020 11:21:21 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-	id 2825E1E130B; Fri, 20 Nov 2020 12:21:21 +0100 (CET)
-Date: Fri, 20 Nov 2020 12:21:21 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>,
-	Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
-	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 14/20] block: remove the nr_sects field in struct
- hd_struct
-Message-ID: <20201120112121.GB15537@quack2.suse.cz>
-References: <20201118084800.2339180-1-hch@lst.de>
- <20201118084800.2339180-15-hch@lst.de>
- <20201119120525.GW1981@quack2.suse.cz>
- <20201120090820.GD21715@lst.de>
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kg4WV-0001lG-Qa; Fri, 20 Nov 2020 11:24:15 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=wSMogNAwewOurVZn/WcMbVNTDvs5vAgEj85V84pvBGI=; b=k4tUevAC8mMLv68iqAk/WIEJ4W
+	6ri/XDjCzShIKCBXvJHYxvo7RK3Iyj2xr664sEqBBduILOjLimuMDe8MXtRzpYSqSdnzULGfUPFaO
+	QWtcZz7mEZV+WjtS/owRZ41yVGMYJ+WO2R7DH91Kba5IJWDIdYRVssxk6xjsy67bgSIg=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kg4WV-0004fs-Fd; Fri, 20 Nov 2020 11:24:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kg4WV-0005IK-7R; Fri, 20 Nov 2020 11:24:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kg4WV-0000gC-6u; Fri, 20 Nov 2020 11:24:15 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156892-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201120090820.GD21715@lst.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: [libvirt test] 156892: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=b67c5267253d5d9d7beaf03408369e1bd4449104
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 20 Nov 2020 11:24:15 +0000
 
-On Fri 20-11-20 10:08:20, Christoph Hellwig wrote:
-> On Thu, Nov 19, 2020 at 01:05:25PM +0100, Jan Kara wrote:
-> > > @@ -613,7 +613,7 @@ void guard_bio_eod(struct bio *bio)
-> > >  	rcu_read_lock();
-> > >  	part = __disk_get_part(bio->bi_disk, bio->bi_partno);
-> > >  	if (part)
-> > > -		maxsector = part_nr_sects_read(part);
-> > > +		maxsector = bdev_nr_sectors(part->bdev);
-> > >  	else
-> > >  		maxsector = get_capacity(bio->bi_disk);
-> > 
-> > I have to say that after these changes I find it a bit confusing that we
-> > have get/set_capacity() and bdev_nr_sectors() / bdev_set_nr_sectors() and
-> > they are all the same thing (i_size of the bdev). Is there a reason for the
-> > distinction?
-> 
-> get_capacity/set_capacity are the existing unchanged interfaces that
-> work on struct gendisk, and unchanged from what we had before.  They also
-> have lots of users which makes them kinda awkward to touch.
-> 
-> bdev_nr_sectors is the public interface to query the size for any
-> kind of struct block device, to be used by consumers of the block
-> device interface.
-> 
-> bdev_set_nr_sectors is a private helper for the partitions core that
-> avoids duplicating a bit of code, and works on partitions.
+flight 156892 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156892/
 
-OK, I guess I'll get used to this...
+Regressions :-(
 
-> > > @@ -38,6 +38,16 @@ static void disk_add_events(struct gendisk *disk);
-> > >  static void disk_del_events(struct gendisk *disk);
-> > >  static void disk_release_events(struct gendisk *disk);
-> > >  
-> > > +void set_capacity(struct gendisk *disk, sector_t sectors)
-> > > +{
-> > > +	struct block_device *bdev = disk->part0.bdev;
-> > > +
-> > > +	spin_lock(&bdev->bd_size_lock);
-> > > +	i_size_write(bdev->bd_inode, (loff_t)sectors << SECTOR_SHIFT);
-> > > +	spin_unlock(&bdev->bd_size_lock);
-> > 
-> > AFAICT bd_size_lock is pointless after these changes so we can just remove
-> > it?
-> 
-> I don't think it is, as reuqiring bd_mutex for size updates leads to
-> rather awkward lock ordering problems.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-OK, let me ask differently: What is bd_size_lock protecting now? Ah, I see,
-on 32-bit it is needed to prevent torn writes to i_size, right?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-> > >  	if (capacity != size && capacity != 0 && size != 0) {
-> > >  		char *envp[] = { "RESIZE=1", NULL };
-> > >  
-> > > +		pr_info("%s: detected capacity change from %lld to %lld\n",
-> > > +		       disk->disk_name, size, capacity);
-> > 
-> > So we are now missing above message for transitions from / to 0 capacity?
-> > Is there any other notification in the kernel log when e.g. media is
-> > inserted into a CD-ROM drive? I remember using these messages for detecting
-> > that...
-> 
-> True, I guess we should keep the messages for that case at least under
-> some circumstances.  Let me take a closer look at what could make sense.
-> 
-> > Also what about GENHD_FL_HIDDEN devices? Are we sure we never set capacity
-> > for them?
-> 
-> We absolutely set the capacity for them, as we have to.  And even use
-> this interface.  But yes, I think we should skip sending the uevent for
-> them.
+version targeted for testing:
+ libvirt              b67c5267253d5d9d7beaf03408369e1bd4449104
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-Also previously we were not printing any messages for hidden devices and
-now we do. I'm not sure whether that's intended or not.
+Last test of basis   151777  2020-07-10 04:19:19 Z  133 days
+Failing since        151818  2020-07-11 04:18:52 Z  132 days  127 attempts
+Testing same since   156892  2020-11-20 04:19:13 Z    0 days    1 attempts
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 28147 lines long.)
 
