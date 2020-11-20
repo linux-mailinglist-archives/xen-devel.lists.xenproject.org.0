@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D3822BA591
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 10:12:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31801.62492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CA7D2BA59C
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 10:13:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.31806.62504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg2Sb-0001C5-7z; Fri, 20 Nov 2020 09:12:05 +0000
+	id 1kg2To-0001L2-Il; Fri, 20 Nov 2020 09:13:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31801.62492; Fri, 20 Nov 2020 09:12:05 +0000
+Received: by outflank-mailman (output) from mailman id 31806.62504; Fri, 20 Nov 2020 09:13:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,81 +23,79 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg2Sb-0001Bg-4W; Fri, 20 Nov 2020 09:12:05 +0000
-Received: by outflank-mailman (input) for mailman id 31801;
- Fri, 20 Nov 2020 09:12:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kg2SZ-0001Bb-Me
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 09:12:03 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 391ebce0-2f7f-48ee-8f90-5fcb2a73d4af;
- Fri, 20 Nov 2020 09:12:02 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B67B8AC0C;
- Fri, 20 Nov 2020 09:12:01 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kg2To-0001Kc-F0; Fri, 20 Nov 2020 09:13:20 +0000
+Received: by outflank-mailman (input) for mailman id 31806;
+ Fri, 20 Nov 2020 09:13:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GrQD=E2=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kg2Tm-0001KT-QK
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 09:13:18 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f7142d15-b95a-4b6b-8262-c42da1162098;
+ Fri, 20 Nov 2020 09:13:17 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0AK9DBok002911
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Fri, 20 Nov 2020 10:13:12 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id 392B42E9CA8; Fri, 20 Nov 2020 10:13:06 +0100 (MET)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=xyTX=E2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kg2SZ-0001Bb-Me
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 09:12:03 +0000
-X-Inumbo-ID: 391ebce0-2f7f-48ee-8f90-5fcb2a73d4af
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 391ebce0-2f7f-48ee-8f90-5fcb2a73d4af;
-	Fri, 20 Nov 2020 09:12:02 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1605863521; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7JeWb2czxrVFkgWEVPsHDHmYKfUupehhGgkrX1SvIDw=;
-	b=b2b5Uthk7n6bnxe3OuZLirH/TiW9VT0Bpl4xWU7v/6wK8+zVGkvT5QIWRRCxxlu5HvFat+
-	9gQh3bLAR+U7kdAM2TMkt8FgGSeekqDDl7iJXXiyNxevWh0xPWyW3VM4OQtpOrxHJ9YTzM
-	l0SHOYJRF0jjoU6cSJ5TWeIWZk2/Iy4=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id B67B8AC0C;
-	Fri, 20 Nov 2020 09:12:01 +0000 (UTC)
-Subject: Re: [PATCH] x86/IRQ: drop two unused variables
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <75d17df8-706b-08e5-b839-33ed1ce44bf3@suse.com>
-Message-ID: <52caf9b8-d296-398e-81b4-4ec6868d778e@suse.com>
-Date: Fri, 20 Nov 2020 10:12:02 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
+	(envelope-from <SRS0=GrQD=E2=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+	id 1kg2Tm-0001KT-QK
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 09:13:18 +0000
+X-Inumbo-ID: f7142d15-b95a-4b6b-8262-c42da1162098
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id f7142d15-b95a-4b6b-8262-c42da1162098;
+	Fri, 20 Nov 2020 09:13:17 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+	by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id 0AK9DBok002911
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Fri, 20 Nov 2020 10:13:12 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+	id 392B42E9CA8; Fri, 20 Nov 2020 10:13:06 +0100 (MET)
+Date: Fri, 20 Nov 2020 10:13:06 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        xen-devel@lists.xenproject.org
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201120091306.GE1508@antioche.eu.org>
+References: <20201118121403.GC3126@antioche.eu.org>
+ <20201118143928.hvamuf7t7jycsrzb@Air-de-Roger>
+ <bb2b6182-f3a6-61e5-ee70-90a65ae56435@suse.com>
+ <20201119141915.igyb7djkw47rf2dt@Air-de-Roger>
+ <20201119155718.GB4104@antioche.eu.org>
+ <20201119165734.GA4903@antioche.eu.org>
+ <20201119175733.GA6067@antioche.eu.org>
+ <1a50e1e2-b69c-afd6-a179-316231512004@suse.com>
+ <20201120082855.5z4cibcd5djlwmgp@Air-de-Roger>
+ <5e637a72-085d-45b9-aa5c-01e138c81875@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <75d17df8-706b-08e5-b839-33ed1ce44bf3@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5e637a72-085d-45b9-aa5c-01e138c81875@suse.com>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Fri, 20 Nov 2020 10:13:12 +0100 (MET)
 
-On 20.11.2020 09:48, Jan Beulich wrote:
-> @@ -1663,13 +1661,11 @@ int pirq_guest_bind(struct vcpu *v, stru
+On Fri, Nov 20, 2020 at 09:54:42AM +0100, Jan Beulich wrote:
+> [...]
+> >From the stack trace above the only possibility I could derive for
+> now would be that we didn't run softirqs for a long time, but I don't
+> think that's very realistic here. Otoh, Manuel, does the NMI watchdog
+> work on that system? It certainly wouldn't hurt if you turned it on,
+> just in case.
 
-Argh, there's yet one more in this function. Will need v2.
+I just did, this doesn't changes anything.
+For the record, my boot params are now
 
-Jan
+menu=Boot Xen PVH:load /test console=com0 root=dk0 -vx; multiboot /xen-test.gz dom0_mem=1024M console=com2 com2=57600,8n1,,0 loglvl=all guest_loglvl=all gnttab_max_nr_frames=64 dom0=pvh iommu=debug dom0_vcpus_pin sync_console dom0_max_vcpus=1 watchdog=force
 
->  static irq_guest_action_t *__pirq_guest_unbind(
->      struct domain *d, struct pirq *pirq, struct irq_desc *desc)
->  {
-> -    unsigned int        irq;
->      irq_guest_action_t *action;
->      cpumask_t           cpu_eoi_map;
->      int                 i;
->  
->      action = (irq_guest_action_t *)desc->action;
-> -    irq = desc - irq_desc;
->  
->      if ( unlikely(action == NULL) )
->      {
-> 
-
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
