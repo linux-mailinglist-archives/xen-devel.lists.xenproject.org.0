@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 069352BAEDD
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 16:33:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32387.63401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9273D2BAEDE
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 16:33:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32388.63413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg8PE-0001Jr-7G; Fri, 20 Nov 2020 15:33:00 +0000
+	id 1kg8PY-0001QP-K0; Fri, 20 Nov 2020 15:33:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32387.63401; Fri, 20 Nov 2020 15:33:00 +0000
+Received: by outflank-mailman (output) from mailman id 32388.63413; Fri, 20 Nov 2020 15:33:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,66 +23,327 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg8PE-0001JS-42; Fri, 20 Nov 2020 15:33:00 +0000
-Received: by outflank-mailman (input) for mailman id 32387;
- Fri, 20 Nov 2020 15:32:59 +0000
+	id 1kg8PY-0001Pp-FO; Fri, 20 Nov 2020 15:33:20 +0000
+Received: by outflank-mailman (input) for mailman id 32388;
+ Fri, 20 Nov 2020 15:33:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tRH+=E2=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1kg8PD-0001JN-0K
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 15:32:59 +0000
-Received: from verein.lst.de (unknown [213.95.11.211])
+ (envelope-from <SRS0=wRTa=E2=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kg8PW-0001Pd-TM
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 15:33:18 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 209cd0d0-1788-45b3-a500-a7bd4ee488a5;
- Fri, 20 Nov 2020 15:32:56 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id ED47B67373; Fri, 20 Nov 2020 16:32:53 +0100 (CET)
+ id 44de94ec-779a-4d96-b299-cc50a3a745cd;
+ Fri, 20 Nov 2020 15:33:17 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3E8AEAB3D;
+ Fri, 20 Nov 2020 15:33:16 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=tRH+=E2=lst.de=hch@srs-us1.protection.inumbo.net>)
-	id 1kg8PD-0001JN-0K
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 15:32:59 +0000
-X-Inumbo-ID: 209cd0d0-1788-45b3-a500-a7bd4ee488a5
-Received: from verein.lst.de (unknown [213.95.11.211])
+	(envelope-from <SRS0=wRTa=E2=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1kg8PW-0001Pd-TM
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 15:33:18 +0000
+X-Inumbo-ID: 44de94ec-779a-4d96-b299-cc50a3a745cd
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 209cd0d0-1788-45b3-a500-a7bd4ee488a5;
-	Fri, 20 Nov 2020 15:32:56 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id ED47B67373; Fri, 20 Nov 2020 16:32:53 +0100 (CET)
-Date: Fri, 20 Nov 2020 16:32:53 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Jan Kara <jack@suse.cz>
-Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
-	Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
-	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 14/20] block: remove the nr_sects field in struct
- hd_struct
-Message-ID: <20201120153253.GA18990@lst.de>
-References: <20201118084800.2339180-1-hch@lst.de> <20201118084800.2339180-15-hch@lst.de> <20201119120525.GW1981@quack2.suse.cz> <20201120090820.GD21715@lst.de> <20201120112121.GB15537@quack2.suse.cz>
+	id 44de94ec-779a-4d96-b299-cc50a3a745cd;
+	Fri, 20 Nov 2020 15:33:17 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1605886396; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lvPtaEeeOLyizn57MRVVpkF+JbUFnbzP+zwdZtq3RtI=;
+	b=b0LPOBtVuFKD1b+VNksejHAk6wXCWf/UxcOKYNZIpCfHx+V7A5WkoYTG9DucUzhrgQlely
+	W3wQI0AgWy6ds8vEuNif5VDRS3oPoIABom3rFBQO/yJ5WsJqxnbtHd/f3Yxl2mn8IEJpzc
+	Zvzw2p6R+wBl2l3AiCpZA/Jgov0oljY=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 3E8AEAB3D;
+	Fri, 20 Nov 2020 15:33:16 +0000 (UTC)
+Subject: Re: [PATCH v2] tools/libs/ctrl: fix dumping of ballooned guest
+To: xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20201111100143.13820-1-jgross@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <3720cde6-d138-a081-37be-b68103b8aa6f@suse.com>
+Date: Fri, 20 Nov 2020 16:33:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201120112121.GB15537@quack2.suse.cz>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20201111100143.13820-1-jgross@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="EEkw1WHGfD0V2ByWa7hz60iMBLgApt5UG"
 
-On Fri, Nov 20, 2020 at 12:21:21PM +0100, Jan Kara wrote:
-> > > AFAICT bd_size_lock is pointless after these changes so we can just remove
-> > > it?
-> > 
-> > I don't think it is, as reuqiring bd_mutex for size updates leads to
-> > rather awkward lock ordering problems.
-> 
-> OK, let me ask differently: What is bd_size_lock protecting now? Ah, I see,
-> on 32-bit it is needed to prevent torn writes to i_size, right?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--EEkw1WHGfD0V2ByWa7hz60iMBLgApt5UG
+Content-Type: multipart/mixed; boundary="u8uuTPPLE78bmchdJ4j9gNPj9IdgGmhPT";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Message-ID: <3720cde6-d138-a081-37be-b68103b8aa6f@suse.com>
+Subject: Re: [PATCH v2] tools/libs/ctrl: fix dumping of ballooned guest
+References: <20201111100143.13820-1-jgross@suse.com>
+In-Reply-To: <20201111100143.13820-1-jgross@suse.com>
 
-Exactly.  In theory we could skip it for 64-bit, but as updating the
-size isn't a fast path, and struct block_device isn't super size critical
-I'd rather keep the same code for 32 vs 64-bit builds.
+--u8uuTPPLE78bmchdJ4j9gNPj9IdgGmhPT
+Content-Type: multipart/mixed;
+ boundary="------------C2110B62A65CC1945C7670A3"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------C2110B62A65CC1945C7670A3
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 11.11.20 11:01, Juergen Gross wrote:
+> A guest with memory < maxmem often can't be dumped via xl dump-core
+> without an error message today:
+>=20
+> xc: info: exceeded nr_pages (262144) losing pages
+>=20
+> In case the last page of the guest isn't allocated the loop in
+> xc_domain_dumpcore_via_callback() will always spit out this message,
+> as the number of already dumped pages is tested before the next page
+> is checked to be valid.
+>=20
+> The guest's p2m_size might be lower than expected, so this should be
+> tested in order to avoid reading past the end of it.
+>=20
+> The guest might use high bits in p2m entries to flag special cases like=
+
+> foreign mappings. Entries with an MFN larger than the highest MFN of
+> the host should be skipped.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+
+This is a real bug fix.
+
+Can any maintainer please have a look?
+
+
+Juergen
+
+> ---
+>   tools/libs/ctrl/xc_core.c | 42 +++++++++++++++++++++++++++++---------=
+-
+>   1 file changed, 31 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/tools/libs/ctrl/xc_core.c b/tools/libs/ctrl/xc_core.c
+> index e8c6fb96f9..b47ab2f6d8 100644
+> --- a/tools/libs/ctrl/xc_core.c
+> +++ b/tools/libs/ctrl/xc_core.c
+> @@ -439,6 +439,7 @@ xc_domain_dumpcore_via_callback(xc_interface *xch,
+>       unsigned long i;
+>       unsigned long j;
+>       unsigned long nr_pages;
+> +    unsigned long max_mfn;
+>  =20
+>       xc_core_memory_map_t *memory_map =3D NULL;
+>       unsigned int nr_memory_map;
+> @@ -577,6 +578,10 @@ xc_domain_dumpcore_via_callback(xc_interface *xch,=
+
+>                                      &p2m, &dinfo->p2m_size);
+>           if ( sts !=3D 0 )
+>               goto out;
+> +
+> +        sts =3D xc_maximum_ram_page(xch, &max_mfn);
+> +        if ( sts !=3D 0 )
+> +            goto out;
+>       }
+>       else
+>       {
+> @@ -818,19 +823,12 @@ xc_domain_dumpcore_via_callback(xc_interface *xch=
+,
+>           {
+>               uint64_t gmfn;
+>               void *vaddr;
+> -
+> -            if ( j >=3D nr_pages )
+> -            {
+> -                /*
+> -                 * When live dump-mode (-L option) is specified,
+> -                 * guest domain may increase memory.
+> -                 */
+> -                IPRINTF("exceeded nr_pages (%ld) losing pages", nr_pag=
+es);
+> -                goto copy_done;
+> -            }
+>  =20
+>               if ( !auto_translated_physmap )
+>               {
+> +                if ( i >=3D dinfo->p2m_size )
+> +                    break;
+> +
+>                   if ( dinfo->guest_width >=3D sizeof(unsigned long) )
+>                   {
+>                       if ( dinfo->guest_width =3D=3D sizeof(unsigned lo=
+ng) )
+> @@ -846,6 +844,14 @@ xc_domain_dumpcore_via_callback(xc_interface *xch,=
+
+>                       if ( gmfn =3D=3D (uint32_t)INVALID_PFN )
+>                          continue;
+>                   }
+> +                if ( gmfn > max_mfn )
+> +                    continue;
+> +
+> +                if ( j >=3D nr_pages )
+> +                {
+> +                    j++;
+> +                    continue;
+> +                }
+>  =20
+>                   p2m_array[j].pfn =3D i;
+>                   p2m_array[j].gmfn =3D gmfn;
+> @@ -855,6 +861,12 @@ xc_domain_dumpcore_via_callback(xc_interface *xch,=
+
+>                   if ( !xc_core_arch_gpfn_may_present(&arch_ctxt, i) )
+>                       continue;
+>  =20
+> +                if ( j >=3D nr_pages )
+> +                {
+> +                    j++;
+> +                    continue;
+> +                }
+> +
+>                   gmfn =3D i;
+>                   pfn_array[j] =3D i;
+>               }
+> @@ -879,7 +891,15 @@ xc_domain_dumpcore_via_callback(xc_interface *xch,=
+
+>           }
+>       }
+>  =20
+> -copy_done:
+> +    if ( j > nr_pages )
+> +    {
+> +        /*
+> +         * When live dump-mode (-L option) is specified,
+> +         * guest domain may increase memory.
+> +         */
+> +        IPRINTF("exceeded nr_pages (%ld) losing %ld pages", nr_pages, =
+j - nr_pages);
+> +    }
+> +
+>       sts =3D dump_rtn(xch, args, dump_mem_start, dump_mem - dump_mem_s=
+tart);
+>       if ( sts !=3D 0 )
+>           goto out;
+>=20
+
+
+--------------C2110B62A65CC1945C7670A3
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------C2110B62A65CC1945C7670A3--
+
+--u8uuTPPLE78bmchdJ4j9gNPj9IdgGmhPT--
+
+--EEkw1WHGfD0V2ByWa7hz60iMBLgApt5UG
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+34bsFAwAAAAAACgkQsN6d1ii/Ey9F
+2Qf/QfQOKXYPzLSlgvvgEHcOKgTHwW9bpT9CC7UKI8aUcmGKkcu/zP7hG2EmTjOHjfF8cKtb7jU6
+X3w5TRxAbNZ/iwaKB54fYdn+T+g+ubcleP7c4B7S4eXrPzTM6+co7xw2WXF6zHK1RA0HD09+PtIw
+CWFxCNGjFFMkSACrlJpUFE8RJkmNTG76kYFMRgXwcwu6Ab7PEPFazFIIapDrbki6k67iOIG40uvq
+Nmci58CFtOoeyphgxvDEsQB0cNXvB0dUwWVkms/vrRxjSDEaB3jRhehUFexQPUihmx6BVCIZ+TI+
+Zg58igktJqAPDHmMSU+dARM72P/gRdHnfmovly12Dg==
+=Rl4r
+-----END PGP SIGNATURE-----
+
+--EEkw1WHGfD0V2ByWa7hz60iMBLgApt5UG--
 
