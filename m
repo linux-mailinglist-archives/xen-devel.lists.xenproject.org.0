@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C0302BA37E
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 08:38:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.31646.62210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B13B92BA382
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 08:38:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.31653.62221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg0zf-0003wK-Sg; Fri, 20 Nov 2020 07:38:07 +0000
+	id 1kg107-00045b-5W; Fri, 20 Nov 2020 07:38:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 31646.62210; Fri, 20 Nov 2020 07:38:07 +0000
+Received: by outflank-mailman (output) from mailman id 31653.62221; Fri, 20 Nov 2020 07:38:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,37 +23,36 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg0zf-0003vu-PI; Fri, 20 Nov 2020 07:38:07 +0000
-Received: by outflank-mailman (input) for mailman id 31646;
- Fri, 20 Nov 2020 07:38:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kg107-00045C-2N; Fri, 20 Nov 2020 07:38:35 +0000
+Received: by outflank-mailman (input) for mailman id 31653;
+ Fri, 20 Nov 2020 07:38:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ruer=E2=suse.de=hare@srs-us1.protection.inumbo.net>)
- id 1kg0zd-0003vn-P0
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 07:38:05 +0000
+ id 1kg104-00044u-O8
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 07:38:32 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a73c8294-9aa1-48bc-946f-4a8b748a0e18;
- Fri, 20 Nov 2020 07:38:05 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0b7434fb-3841-4e30-b5a1-c2824ef8eae8;
+ Fri, 20 Nov 2020 07:38:32 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4661CAC83;
- Fri, 20 Nov 2020 07:38:04 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id 39FC4AB3D;
+ Fri, 20 Nov 2020 07:38:31 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=Ruer=E2=suse.de=hare@srs-us1.protection.inumbo.net>)
-	id 1kg0zd-0003vn-P0
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 07:38:05 +0000
-X-Inumbo-ID: a73c8294-9aa1-48bc-946f-4a8b748a0e18
+	id 1kg104-00044u-O8
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 07:38:32 +0000
+X-Inumbo-ID: 0b7434fb-3841-4e30-b5a1-c2824ef8eae8
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id a73c8294-9aa1-48bc-946f-4a8b748a0e18;
-	Fri, 20 Nov 2020 07:38:05 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 0b7434fb-3841-4e30-b5a1-c2824ef8eae8;
+	Fri, 20 Nov 2020 07:38:32 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 4661CAC83;
-	Fri, 20 Nov 2020 07:38:04 +0000 (UTC)
-Subject: Re: [PATCH 61/78] zram: do not call set_blocksize
+	by mx2.suse.de (Postfix) with ESMTP id 39FC4AB3D;
+	Fri, 20 Nov 2020 07:38:31 +0000 (UTC)
+Subject: Re: [PATCH 62/78] loop: do not call set_blocksize
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 Cc: Justin Sanders <justin@coraid.com>, Josef Bacik <josef@toxicpanda.com>,
  Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
@@ -70,14 +69,14 @@ Cc: Justin Sanders <justin@coraid.com>, Josef Bacik <josef@toxicpanda.com>,
  linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
  linux-fsdevel@vger.kernel.org
 References: <20201116145809.410558-1-hch@lst.de>
- <20201116145809.410558-62-hch@lst.de>
+ <20201116145809.410558-63-hch@lst.de>
 From: Hannes Reinecke <hare@suse.de>
-Message-ID: <e6f89f0b-602b-f297-87f5-86b7c1b353f0@suse.de>
-Date: Fri, 20 Nov 2020 08:38:03 +0100
+Message-ID: <b1703b65-244d-e445-2e81-0b63dd1518f2@suse.de>
+Date: Fri, 20 Nov 2020 08:38:29 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <20201116145809.410558-62-hch@lst.de>
+In-Reply-To: <20201116145809.410558-63-hch@lst.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -88,9 +87,8 @@ On 11/16/20 3:57 PM, Christoph Hellwig wrote:
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->   drivers/block/zram/zram_drv.c | 11 +----------
->   drivers/block/zram/zram_drv.h |  1 -
->   2 files changed, 1 insertion(+), 11 deletions(-)
+>   drivers/block/loop.c | 3 ---
+>   1 file changed, 3 deletions(-)
 > 
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 
