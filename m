@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5979B2BA97A
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 12:47:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32004.62933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 476362BA97B
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Nov 2020 12:47:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32014.62945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg4sX-0004mt-U0; Fri, 20 Nov 2020 11:47:01 +0000
+	id 1kg4sc-0004uq-9y; Fri, 20 Nov 2020 11:47:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32004.62933; Fri, 20 Nov 2020 11:47:01 +0000
+Received: by outflank-mailman (output) from mailman id 32014.62945; Fri, 20 Nov 2020 11:47:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,43 +23,43 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kg4sX-0004ls-Lv; Fri, 20 Nov 2020 11:47:01 +0000
-Received: by outflank-mailman (input) for mailman id 32004;
- Fri, 20 Nov 2020 11:47:00 +0000
+	id 1kg4sc-0004th-4D; Fri, 20 Nov 2020 11:47:06 +0000
+Received: by outflank-mailman (input) for mailman id 32014;
+ Fri, 20 Nov 2020 11:47:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wRTa=E2=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kg4sW-00048T-6M
- for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 11:47:00 +0000
+ id 1kg4sb-00048T-6Z
+ for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 11:47:05 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 23341d06-2be7-4e0c-9872-f24490181e15;
- Fri, 20 Nov 2020 11:46:37 +0000 (UTC)
+ id 6b373ac3-0389-4a7c-87dd-2830ea35c45d;
+ Fri, 20 Nov 2020 11:46:38 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 18599ADCA;
+ by mx2.suse.de (Postfix) with ESMTP id 73BF2ADD9;
  Fri, 20 Nov 2020 11:46:37 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=wRTa=E2=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kg4sW-00048T-6M
-	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 11:47:00 +0000
-X-Inumbo-ID: 23341d06-2be7-4e0c-9872-f24490181e15
+	id 1kg4sb-00048T-6Z
+	for xen-devel@lists.xenproject.org; Fri, 20 Nov 2020 11:47:05 +0000
+X-Inumbo-ID: 6b373ac3-0389-4a7c-87dd-2830ea35c45d
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 23341d06-2be7-4e0c-9872-f24490181e15;
-	Fri, 20 Nov 2020 11:46:37 +0000 (UTC)
+	id 6b373ac3-0389-4a7c-87dd-2830ea35c45d;
+	Fri, 20 Nov 2020 11:46:38 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1605872797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=F0FxjLQb6W8kGCEjKtE8wMSw1R1pxGMsEFzboyPVoeE=;
-	b=bN5ciPN9/DNdp7hpMnvdVggS8h8vSPrE1dpBLTKIao4WCmPdxE/YcHFGwJD6CPBJG5IRvZ
-	W1Jvtp8CM17/auMrVrr1BNDfXKPXB2nvcpHoPKafpkAJ3PLKyVDh3moVELGw+VGDI4iD1x
-	TfiHTB9PfaDUKUzjFg2n8SehAt/bAl0=
+	bh=sS1EJKt51h291wm5JVNdsHCnbqIXSSiBfe36LpIoCrA=;
+	b=WVjP1cXrvEv6BcOuYYRRPDo3jLHXRzTbMmG8iz26tq7H/AD6XGaCaEuWLh1HYP0KzOQojC
+	TL5gEUnwW2xZHsOxw7AUv5t25FlWOGVjL7woGx7jIIthaq+3F+CLPtjKswaNYB80qYpmvG
+	3n9/6uZzIwC91SbNbyTtK8/S+fhiOK4=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 18599ADCA;
+	by mx2.suse.de (Postfix) with ESMTP id 73BF2ADD9;
 	Fri, 20 Nov 2020 11:46:37 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
@@ -74,166 +74,143 @@ Cc: peterz@infradead.org,
 	Thomas Gleixner <tglx@linutronix.de>,
 	Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 09/12] x86/paravirt: switch iret pvops to ALTERNATIVE
-Date: Fri, 20 Nov 2020 12:46:27 +0100
-Message-Id: <20201120114630.13552-10-jgross@suse.com>
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH v2 10/12] x86/paravirt: add new macros PVOP_ALT* supporting pvops in ALTERNATIVEs
+Date: Fri, 20 Nov 2020 12:46:28 +0100
+Message-Id: <20201120114630.13552-11-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201120114630.13552-1-jgross@suse.com>
 References: <20201120114630.13552-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The iret paravirt op is rather special as it is using a jmp instead
-of a call instruction. Switch it to ALTERNATIVE.
+Instead of using paravirt patching for custom code sequences add
+support for using ALTERNATIVE handling combined with paravirt call
+patching.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- arch/x86/include/asm/paravirt.h       |  7 ++++---
- arch/x86/include/asm/paravirt_types.h |  5 +----
- arch/x86/kernel/asm-offsets.c         |  5 -----
- arch/x86/kernel/paravirt.c            | 26 ++------------------------
- arch/x86/xen/enlighten_pv.c           |  3 +--
- 5 files changed, 8 insertions(+), 38 deletions(-)
+ arch/x86/include/asm/paravirt_types.h | 62 +++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index 1dd30c95505d..62fbcd899539 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -720,9 +720,10 @@ extern void default_banner(void);
- #define PARA_INDIRECT(addr)	*addr(%rip)
- 
- #define INTERRUPT_RETURN						\
--	PARA_SITE(PARA_PATCH(PV_CPU_iret),				\
--		  ANNOTATE_RETPOLINE_SAFE;				\
--		  jmp PARA_INDIRECT(pv_ops+PV_CPU_iret);)
-+	ANNOTATE_RETPOLINE_SAFE;					\
-+	ALTERNATIVE_2 "jmp *paravirt_iret(%rip);",			\
-+		      "jmp native_iret;", X86_FEATURE_NOT_XENPV,	\
-+		      "jmp xen_iret;", X86_FEATURE_XENPV
- 
- #ifdef CONFIG_DEBUG_ENTRY
- #define SAVE_FLAGS(clobbers)                                        \
 diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index b86acbb6449f..b66650dc869e 100644
+index b66650dc869e..1f8e1b76e78b 100644
 --- a/arch/x86/include/asm/paravirt_types.h
 +++ b/arch/x86/include/asm/paravirt_types.h
-@@ -152,10 +152,6 @@ struct pv_cpu_ops {
+@@ -482,14 +482,39 @@ int paravirt_disable_iospace(void);
+ 		(rettype)(__eax & PVOP_RETMASK(rettype));		\
+ 	})
  
- 	u64 (*read_pmc)(int counter);
- 
--	/* Normal iret.  Jump to this with the standard iret stack
--	   frame set up. */
--	void (*iret)(void);
--
- 	void (*start_context_switch)(struct task_struct *prev);
- 	void (*end_context_switch)(struct task_struct *next);
- #endif
-@@ -295,6 +291,7 @@ struct paravirt_patch_template {
- 
- extern struct pv_info pv_info;
- extern struct paravirt_patch_template pv_ops;
-+extern void (*paravirt_iret)(void);
- 
- #define PARAVIRT_PATCH(x)					\
- 	(offsetof(struct paravirt_patch_template, x) / sizeof(void *))
-diff --git a/arch/x86/kernel/asm-offsets.c b/arch/x86/kernel/asm-offsets.c
-index 736508004b30..ecd3fd6993d1 100644
---- a/arch/x86/kernel/asm-offsets.c
-+++ b/arch/x86/kernel/asm-offsets.c
-@@ -61,11 +61,6 @@ static void __used common(void)
- 	OFFSET(IA32_RT_SIGFRAME_sigcontext, rt_sigframe_ia32, uc.uc_mcontext);
- #endif
- 
--#ifdef CONFIG_PARAVIRT_XXL
--	BLANK();
--	OFFSET(PV_CPU_iret, paravirt_patch_template, cpu.iret);
--#endif
--
- #ifdef CONFIG_XEN
- 	BLANK();
- 	OFFSET(XEN_vcpu_info_mask, vcpu_info, evtchn_upcall_mask);
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index 9f8aa18aa378..2ab547dd66c3 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -86,25 +86,6 @@ u64 notrace _paravirt_ident_64(u64 x)
- {
- 	return x;
- }
--
--static unsigned paravirt_patch_jmp(void *insn_buff, const void *target,
--				   unsigned long addr, unsigned len)
--{
--	struct branch *b = insn_buff;
--	unsigned long delta = (unsigned long)target - (addr+5);
--
--	if (len < 5) {
--#ifdef CONFIG_RETPOLINE
--		WARN_ONCE(1, "Failing to patch indirect JMP in %ps\n", (void *)addr);
--#endif
--		return len;	/* call too long for patch site */
--	}
--
--	b->opcode = 0xe9;	/* jmp */
--	b->delta = delta;
--
--	return 5;
--}
- #endif
- 
- DEFINE_STATIC_KEY_TRUE(virt_spin_lock_key);
-@@ -136,9 +117,6 @@ unsigned paravirt_patch_default(u8 type, void *insn_buff,
- 	else if (opfunc == _paravirt_ident_64)
- 		ret = paravirt_patch_ident_64(insn_buff, len);
- 
--	else if (type == PARAVIRT_PATCH(cpu.iret))
--		/* If operation requires a jmp, then jmp */
--		ret = paravirt_patch_jmp(insn_buff, opfunc, addr, len);
- #endif
- 	else
- 		/* Otherwise call the function. */
-@@ -316,8 +294,6 @@ struct paravirt_patch_template pv_ops = {
- 
- 	.cpu.load_sp0		= native_load_sp0,
- 
--	.cpu.iret		= native_iret,
--
- #ifdef CONFIG_X86_IOPL_IOPERM
- 	.cpu.invalidate_io_bitmap	= native_tss_invalidate_io_bitmap,
- 	.cpu.update_io_bitmap		= native_tss_update_io_bitmap,
-@@ -422,6 +398,8 @@ struct paravirt_patch_template pv_ops = {
- NOKPROBE_SYMBOL(native_get_debugreg);
- NOKPROBE_SYMBOL(native_set_debugreg);
- NOKPROBE_SYMBOL(native_load_idt);
++#define ____PVOP_ALT_CALL(rettype, op, alt, cond, clbr, call_clbr,	\
++			  extra_clbr, ...)				\
++	({								\
++		PVOP_CALL_ARGS;						\
++		PVOP_TEST_NULL(op);					\
++		BUILD_BUG_ON(sizeof(rettype) > sizeof(unsigned long));	\
++		asm volatile(ALTERNATIVE(paravirt_alt(PARAVIRT_CALL),	\
++					 alt, cond)			\
++			     : call_clbr, ASM_CALL_CONSTRAINT		\
++			     : paravirt_type(op),			\
++			       paravirt_clobber(clbr),			\
++			       ##__VA_ARGS__				\
++			     : "memory", "cc" extra_clbr);		\
++		(rettype)(__eax & PVOP_RETMASK(rettype));		\
++	})
 +
-+void (*paravirt_iret)(void) = native_iret;
- #endif
+ #define __PVOP_CALL(rettype, op, ...)					\
+ 	____PVOP_CALL(rettype, op, CLBR_ANY, PVOP_CALL_CLOBBERS,	\
+ 		      EXTRA_CLOBBERS, ##__VA_ARGS__)
  
- EXPORT_SYMBOL(pv_ops);
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 32b295cc2716..4716383c64a9 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -1057,8 +1057,6 @@ static const struct pv_cpu_ops xen_cpu_ops __initconst = {
++#define __PVOP_ALT_CALL(rettype, op, alt, cond, ...)			\
++	____PVOP_ALT_CALL(rettype, op, alt, cond, CLBR_ANY,		\
++			  PVOP_CALL_CLOBBERS, EXTRA_CLOBBERS,		\
++			  ##__VA_ARGS__)
++
+ #define __PVOP_CALLEESAVE(rettype, op, ...)				\
+ 	____PVOP_CALL(rettype, op.func, CLBR_RET_REG,			\
+ 		      PVOP_CALLEE_CLOBBERS, , ##__VA_ARGS__)
  
- 	.read_pmc = xen_read_pmc,
++#define __PVOP_ALT_CALLEESAVE(rettype, op, alt, cond, ...)		\
++	____PVOP_ALT_CALL(rettype, op.func, alt, cond, CLBR_RET_REG,	\
++			  PVOP_CALLEE_CLOBBERS, , ##__VA_ARGS__)
++
  
--	.iret = xen_iret,
--
- 	.load_tr_desc = paravirt_nop,
- 	.set_ldt = xen_set_ldt,
- 	.load_gdt = xen_load_gdt,
-@@ -1222,6 +1220,7 @@ asmlinkage __visible void __init xen_start_kernel(void)
- 	pv_info = xen_info;
- 	pv_ops.init.patch = paravirt_patch_default;
- 	pv_ops.cpu = xen_cpu_ops;
-+	paravirt_iret = xen_iret;
- 	xen_init_irq_ops();
+ #define ____PVOP_VCALL(op, clbr, call_clbr, extra_clbr, ...)		\
+ 	({								\
+@@ -503,36 +528,73 @@ int paravirt_disable_iospace(void);
+ 			     : "memory", "cc" extra_clbr);		\
+ 	})
  
- 	/*
++#define ____PVOP_ALT_VCALL(op, alt, cond, clbr, call_clbr,		\
++			   extra_clbr, ...)				\
++	({								\
++		PVOP_VCALL_ARGS;					\
++		PVOP_TEST_NULL(op);					\
++		asm volatile(ALTERNATIVE(paravirt_alt(PARAVIRT_CALL),	\
++					 alt, cond)			\
++			     : call_clbr, ASM_CALL_CONSTRAINT		\
++			     : paravirt_type(op),			\
++			       paravirt_clobber(clbr),			\
++			       ##__VA_ARGS__				\
++			     : "memory", "cc" extra_clbr);		\
++	})
++
+ #define __PVOP_VCALL(op, ...)						\
+ 	____PVOP_VCALL(op, CLBR_ANY, PVOP_VCALL_CLOBBERS,		\
+ 		       VEXTRA_CLOBBERS, ##__VA_ARGS__)
+ 
++#define __PVOP_ALT_VCALL(op, alt, cond, ...)				\
++	____PVOP_ALT_VCALL(op, alt, cond, CLBR_ANY,			\
++			   PVOP_VCALL_CLOBBERS, VEXTRA_CLOBBERS,	\
++			   ##__VA_ARGS__)
++
+ #define __PVOP_VCALLEESAVE(op, ...)					\
+ 	____PVOP_VCALL(op.func, CLBR_RET_REG,				\
+ 		      PVOP_VCALLEE_CLOBBERS, , ##__VA_ARGS__)
+ 
++#define __PVOP_ALT_VCALLEESAVE(op, alt, cond, ...)			\
++	____PVOP_ALT_VCALL(op.func, alt, cond, CLBR_RET_REG,		\
++			   PVOP_VCALLEE_CLOBBERS, , ##__VA_ARGS__)
++
+ 
+ 
+ #define PVOP_CALL0(rettype, op)						\
+ 	__PVOP_CALL(rettype, op)
+ #define PVOP_VCALL0(op)							\
+ 	__PVOP_VCALL(op)
++#define PVOP_ALT_CALL0(rettype, op, alt, cond)				\
++	__PVOP_ALT_CALL(rettype, op, alt, cond)
++#define PVOP_ALT_VCALL0(op, alt, cond)					\
++	__PVOP_ALT_VCALL(op, alt, cond)
+ 
+ #define PVOP_CALLEE0(rettype, op)					\
+ 	__PVOP_CALLEESAVE(rettype, op)
+ #define PVOP_VCALLEE0(op)						\
+ 	__PVOP_VCALLEESAVE(op)
++#define PVOP_ALT_CALLEE0(rettype, op, alt, cond)			\
++	__PVOP_ALT_CALLEESAVE(rettype, op, alt, cond)
++#define PVOP_ALT_VCALLEE0(op, alt, cond)				\
++	__PVOP_ALT_VCALLEESAVE(op, alt, cond)
+ 
+ 
+ #define PVOP_CALL1(rettype, op, arg1)					\
+ 	__PVOP_CALL(rettype, op, PVOP_CALL_ARG1(arg1))
+ #define PVOP_VCALL1(op, arg1)						\
+ 	__PVOP_VCALL(op, PVOP_CALL_ARG1(arg1))
++#define PVOP_ALT_VCALL1(op, arg1, alt, cond)				\
++	__PVOP_ALT_VCALL(op, alt, cond, PVOP_CALL_ARG1(arg1))
+ 
+ #define PVOP_CALLEE1(rettype, op, arg1)					\
+ 	__PVOP_CALLEESAVE(rettype, op, PVOP_CALL_ARG1(arg1))
+ #define PVOP_VCALLEE1(op, arg1)						\
+ 	__PVOP_VCALLEESAVE(op, PVOP_CALL_ARG1(arg1))
++#define PVOP_ALT_CALLEE1(rettype, op, arg1, alt, cond)			\
++	__PVOP_ALT_CALLEESAVE(rettype, op, alt, cond, PVOP_CALL_ARG1(arg1))
++#define PVOP_ALT_VCALLEE1(op, arg1, alt, cond)				\
++	__PVOP_ALT_VCALLEESAVE(op, alt, cond, PVOP_CALL_ARG1(arg1))
+ 
+ 
+ #define PVOP_CALL2(rettype, op, arg1, arg2)				\
 -- 
 2.26.2
 
