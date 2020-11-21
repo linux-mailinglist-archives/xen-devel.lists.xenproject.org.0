@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 602012BBE8B
-	for <lists+xen-devel@lfdr.de>; Sat, 21 Nov 2020 11:54:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32843.63968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E81512BBF72
+	for <lists+xen-devel@lfdr.de>; Sat, 21 Nov 2020 15:08:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32888.63994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kgQWj-00041o-KO; Sat, 21 Nov 2020 10:53:57 +0000
+	id 1kgTXh-0007nk-A5; Sat, 21 Nov 2020 14:07:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32843.63968; Sat, 21 Nov 2020 10:53:57 +0000
+Received: by outflank-mailman (output) from mailman id 32888.63994; Sat, 21 Nov 2020 14:07:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,324 +23,579 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kgQWj-00041P-HD; Sat, 21 Nov 2020 10:53:57 +0000
-Received: by outflank-mailman (input) for mailman id 32843;
- Sat, 21 Nov 2020 10:53:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kgTXh-0007nA-3X; Sat, 21 Nov 2020 14:07:09 +0000
+Received: by outflank-mailman (input) for mailman id 32888;
+ Sat, 21 Nov 2020 14:07:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lwRl=E3=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1kgQWh-00041K-W5
- for xen-devel@lists.xenproject.org; Sat, 21 Nov 2020 10:53:56 +0000
-Received: from mail-il1-x12b.google.com (unknown [2607:f8b0:4864:20::12b])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f2d037d6-8ec1-4c5e-a593-88bb9b58bd09;
- Sat, 21 Nov 2020 10:53:54 +0000 (UTC)
-Received: by mail-il1-x12b.google.com with SMTP id h6so10909600ilj.8
- for <xen-devel@lists.xenproject.org>; Sat, 21 Nov 2020 02:53:54 -0800 (PST)
-Received: from [100.64.72.31] ([173.245.215.240])
- by smtp.gmail.com with ESMTPSA id c16sm3871734ilj.71.2020.11.21.02.53.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 21 Nov 2020 02:53:52 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kgTXf-0007n1-Hf; Sat, 21 Nov 2020 14:07:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kgTXf-0002Fx-7L; Sat, 21 Nov 2020 14:07:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kgTXe-0007bT-TA; Sat, 21 Nov 2020 14:07:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kgTXe-0007dC-Sh; Sat, 21 Nov 2020 14:07:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=lwRl=E3=gmail.com=persaur@srs-us1.protection.inumbo.net>)
-	id 1kgQWh-00041K-W5
-	for xen-devel@lists.xenproject.org; Sat, 21 Nov 2020 10:53:56 +0000
-X-Inumbo-ID: f2d037d6-8ec1-4c5e-a593-88bb9b58bd09
-Received: from mail-il1-x12b.google.com (unknown [2607:f8b0:4864:20::12b])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id f2d037d6-8ec1-4c5e-a593-88bb9b58bd09;
-	Sat, 21 Nov 2020 10:53:54 +0000 (UTC)
-Received: by mail-il1-x12b.google.com with SMTP id h6so10909600ilj.8
-        for <xen-devel@lists.xenproject.org>; Sat, 21 Nov 2020 02:53:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=content-transfer-encoding:from:mime-version:subject:message-id:date
-         :to:cc;
-        bh=GJlmF9AKA/yoVwceev69lVTOpx+OM8K+hMVriKdWdws=;
-        b=PVf+jWydh8M6TK099qKH6DFcAkK4p8sXpyLzSl8Vaz5mXIXOZKOoewmPtzDndjArFv
-         xLyYMvKZ85NbAWmgWWxOPVsfaWlUwmhfrus3znMnHY+MH6Nqci7AECpe/EyK3nrT+h1i
-         2mUATLBkw5AqIclRp4U+2WE/eyQf+gTe7KEYKRwXKPBK4ETq3amRKn7SrGJH4YX5uMgx
-         oAoRmJGptAN22HMnHGBmRSrsJPV7YTyoMJYgcT7CVKl1rZWflY+flER1NGAd3q3MxYB3
-         WjISPySNgitw/t/2vlwIPVPcPNSpI2phezi6vhK1eozWCOakdRzb/huv7e8i1xHxZgsk
-         pIcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:content-transfer-encoding:from:mime-version
-         :subject:message-id:date:to:cc;
-        bh=GJlmF9AKA/yoVwceev69lVTOpx+OM8K+hMVriKdWdws=;
-        b=UjjFgDaha5kS4mGhuQkn4RqzBJr14Z4ptSs9xaFK57MEfHHfuSi1r+zdXsY5PJV7Bs
-         /BXR4ojX7+w+YKjv8PPSLzpPte+jFZ9D0qKes/T424jjinc84dCC4otcO0Ao2szcGjpX
-         nXEnxJfHWPn+ekNyP2MoHnEo9qs9K9Vh98LLC6F9TR/mU6+vsLXMVem/Cy/GLz+IqVHt
-         iIPfMTHFbm+jwHELY2FAlNxnFEHBri9zlIuA+Ybe2Wrw/DABaZF+9mcK40gQTT/FTfDD
-         +sT0EFsmQBeQgdKFLXAlhK+sL1feOZRVOWFt2X74eDLa5mzEvwbETxCEcZR4J/+4UVdv
-         CiLw==
-X-Gm-Message-State: AOAM532hUpexuXnUh113+ESsv017x2qfipYFakmKc4WSd7Kvy1TToVgC
-	usR7xm6cGXeDX84VdXqDsfqk8K2ymWXWUA==
-X-Google-Smtp-Source: ABdhPJz7fhptF9TsGDp0E1iNwhZB4JzKpw8hAlw+PN3AkTNy9iQzL4a4y+KJ/vL4Zv9ctUcJMal+OA==
-X-Received: by 2002:a92:6410:: with SMTP id y16mr28036175ilb.126.1605956033405;
-        Sat, 21 Nov 2020 02:53:53 -0800 (PST)
-Received: from [100.64.72.31] ([173.245.215.240])
-        by smtp.gmail.com with ESMTPSA id c16sm3871734ilj.71.2020.11.21.02.53.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 21 Nov 2020 02:53:52 -0800 (PST)
-Content-Type: multipart/alternative; boundary=Apple-Mail-D9968B9E-C459-45BF-8459-7167284D8E63
-Content-Transfer-Encoding: 7bit
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v2] xen: EXPERT clean-up and introduce UNSUPPORTED
-Message-Id: <868F968F-83B1-4AB7-A48F-FB4E7D3D5E41@gmail.com>
-Date: Sat, 21 Nov 2020 05:53:50 -0500
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com,
- Bertrand.Marquis@arm.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- george.dunlap@citrix.com, iwj@xenproject.org, julien@xen.org, wl@xen.org,
- xen-devel@lists.xenproject.org,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Roman Shaposhnik <roman@zededa.com>,
- =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-X-Mailer: iPad Mail (18B92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kgTXf-0007n1-Hf; Sat, 21 Nov 2020 14:07:07 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xOqz1/+/dSE1zBk6TSGUUAgCoqPsYbaAef8arbJfFRk=; b=VidovsLT3b1fGq54Ff/KxbzRt1
+	VIZSmz3QiEAt39yMpLONR22skVpzlo9S1d23qQeEQ09ER5J7CioA4qk1PPdR8fwnnVnbTUF5ZVqyI
+	Ni29D7MXlXeG8q/sMYTDbVjtkgTCXm4MjCBHA+2HqxOx4uy4Hk76J2XVPLPdy1j8n3S8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kgTXf-0002Fx-7L; Sat, 21 Nov 2020 14:07:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kgTXe-0007bT-TA; Sat, 21 Nov 2020 14:07:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1kgTXe-0007dC-Sh; Sat, 21 Nov 2020 14:07:06 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156912-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 156912: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-multivcpu:guest-localmigrate/x10:fail:heisenbug
+    qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:allowable
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=7761e07c3ffd8daad6fd933ad0bb03493080e193
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 21 Nov 2020 14:07:06 +0000
+
+flight 156912 qemu-mainline real [real]
+flight 156923 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156912/
+http://logs.test-lab.xenproject.org/osstest/logs/156923/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd     17 guest-start/debian.repeat fail REGR. vs. 152631
+
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-multivcpu 20 guest-localmigrate/x10 fail pass in 156923-retest
+
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     20 guest-localmigrate/x10   fail REGR. vs. 152631
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
+ test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                7761e07c3ffd8daad6fd933ad0bb03493080e193
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
+
+Last test of basis   152631  2020-08-20 09:07:46 Z   93 days
+Failing since        152659  2020-08-21 14:07:39 Z   91 days  195 attempts
+Testing same since   156912  2020-11-21 01:06:45 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+    Aaron Lindsay <aaron@os.amperecomputing.com>
+  Alberto Garcia <berto@igalia.com>
+  Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Chen <alex.chen@huawei.com>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexander von Gluck IV <kallisti5@unixzen.com>
+  AlexChen <alex.chen@huawei.com>
+  Alexey Kirillov <lekiravi@yandex-team.ru>
+  Alistair Francis <alistair.francis@wdc.com>
+  Alistair Francis <alistair.francis@xilinx.com>
+  Amey Narkhede <ameynarkhede03@gmail.com>
+  Ana Pazos <apazos@quicinc.com>
+  Andreas Gustafsson <gson@gson.org>
+  Andrew Jones <drjones@redhat.com>
+  Andrey Konovalov <andreyknvl@google.com>
+  Andrey Shinkevich <andrey.shinkevich@virtuozzo.com>
+  Ani Sinha <ani@anisinha.ca>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Anton Blanchard <anton@ozlabs.org>
+  Anup Patel <anup.patel@wdc.com>
+  Artyom Tarasenko <atar4qemu@gmail.com>
+  Babu Moger <babu.moger@amd.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bastian Koppelmann <kbastian@mail.uni-paderborn.de>
+  Ben Widawsky <ben.widawsky@intel.com>
+  Bharat Bhushan <bbhushan2@marvell.com>
+  Bihong Yu <yubihong@huawei.com>
+  Bin Meng <bin.meng@windriver.com>
+  Brad Smith <brad@comstyle.com>
+  Bruce Rogers <brogers@suse.com>
+  Carlo Marcelo Arenas Belón <carenas@gmail.com>
+  Chen Gang <chengang@emindsoft.com.cn>
+  Chen Qun <kuhn.chenqun@huawei.com>
+  Chetan Pant <chetan4windows@gmail.com>
+  Chih-Min Chao <chihmin.chao@sifive.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Chuan Zheng <zhengchuan@huawei.com>
+  Cindy Lu <lulu@redhat.com>
+  Claudio Fontana <cfontana@suse.de>
+  Claudio Imbrenda <imbrenda@linux.ibm.com>
+  Cleber Rosa <crosa@redhat.com>
+  Coiby Xu <coiby.xu@gmail.com>
+  Colin Xu <colin.xu@intel.com>
+  Collin Walling <walling@linux.ibm.com>
+  Connor Kuehl <ckuehl@redhat.com>
+  Corey Minyard <cminyard@mvista.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  César Belley <cesar.belley@lse.epita.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniele Buono <dbuono@linux.vnet.ibm.com>
+  David Carlier <devnexen@gmail.com>
+  David Edmondson <david.edmondson@oracle.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Derek Su <dereksu@qnap.com>
+  Dima Stepanov <dimastep@yandex-team.ru>
+  Ding Hui <dinghui@sangfor.com.cn>
+  Dmitry Fomichev <dmitry.fomichev@wdc.com>
+  Douglas Crosher <dtc-ubuntu@scieneer.com>
+  Dov Murik <dovmurik@linux.vnet.ibm.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Edgar E. Iglesias <edgar.iglesias@xilinx.com>
+  Eduardo Habkost <ehabkost@redhat.com>
+  Eduardo Otubo <otubo@redhat.com>
+  Elena Afanasova <eafanasova@gmail.com>
+  Emanuele Giuseppe Esposito <e.emanuelegiuseppe@gmail.com>
+  Emmanuel Blot <eblot.ml@gmail.com>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Erik Kline <ek@google.com>
+  Erik Smit <erik.lucas.smit@gmail.com>
+  Fabiano Rosas <farosas@linux.ibm.com>
+  Fam Zheng <fam@euphon.net>
+  Fan Yang <Fan_Yang@sjtu.edu.cn>
+  Felipe Franciosi <felipe@nutanix.com>
+  Filip Bozuta <Filip.Bozuta@syrmia.com>
+  Finn Thain <fthain@telegraphics.com.au>
+  Frajo <franz.haider@jolla.com>
+  Frank Chang <frank.chang@sifive.com>
+  Franz-Josef Haider <franz.haider@jolla.com>
+  Frediano Ziglio <freddy77@gmail.com>
+  Gan Qixin <ganqixin@huawei.com>
+  Geoffrey McRae <geoff@hostfission.com>
+  Georg Kotheimer <georg.kotheimer@kernkonzept.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Giuseppe Musacchio <thatlemon@gmail.com>
+  Gollu Appalanaidu <anaidu.gollu@samsung.com>
+  Gonglei <arei.gonglei@huawei.com>
+  Graeme Gregory <graeme@nuviainc.com>
+  Green Wan <green.wan@sifive.com>
+  Greg Kurz <groug@kaod.org>
+  Guenter Roeck <linux@roeck-us.net>
+  Guoqing Zhang <zhangguoqing.kernel@bytedance.com>
+  Guoyi Tu <tu.guoyi@h3c.com>
+  Gustavo Romero <gromero@linux.ibm.com>
+  haibinzhang(张海斌) <haibinzhang@tencent.com>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wu <wuhaotsh@google.com>
+  Haotian Li <lihaotian9@huawei.com>
+  Harry G. Coin <hgcoin@gmail.com>
+  Havard Skinnemoen <hskinnemoen@google.com>
+  Helge Deller <deller@gmx.de>
+  Heyi Guo <guoheyi@huawei.com>
+  Hongzheng-Li <Ethan.Lee.QNL@gmail.com>
+  Hou Weiying <weiying_hou@outlook.com>
+  Huacai Chen <chenhc@lemote.com>
+  Huacai Chen <zltjiangshi@gmail.com>
+  Igor Kononenko <i.kononenko@yadro.com>
+  Igor Mammedov <imammedo@redhat.com>
+  James Hogan <jhogan@kernel.org>
+  Jan Charvat <charvj10@fel.cvut.cz>
+  Jan Henrik Weinstock <jan.weinstock@rwth-aachen.de>
+  Janosch Frank <frankja@linux.ibm.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Jason J. Herne <jjherne@linux.ibm.com>
+  Jason Wang <jasowang@redhat.com>
+  Jean-Philippe Brucker <jean-philippe@linaro.org>
+  Jens Freimann <jfreimann@redhat.com>
+  Jessica Clarke <jrtc27@jrtc27.com>
+  Jiachen Zhang <zhangjiachen.jaycee@bytedance.com>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  Jin Yu <jin.yu@intel.com>
+  Joel Stanley <joel@jms.id.au>
+  John Snow <jsnow@redhat.com>
+  Jon Doron <arilou@gmail.com>
+  Josh DuBois <josh@joshdubois.com>
+  Julia Suvorova <jusual@redhat.com>
+  Kai Deng <dengkai1@huawei.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Keith Busch <kbusch@kernel.org>
+  Kele Huang <kele.hwang@gmail.com>
+  Kenta Ishiguro <kentaishiguro@slowstart.org>
+  Kevin Wolf <kwolf@redhat.com>
+  Kirti Wankhede <kwankhede@nvidia.com>
+  Kito Cheng <kito.cheng@sifive.com>
+  Klaus Jensen <k.jensen@samsung.com>
+  Klaus Jensen <klaus.jensen@cnexlabs.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Lei Rao <lei.rao@intel.com>
+  Lei YU <yulei.sh@bytedance.com>
+  Leif Lindholm <leif@nuviainc.com>
+  LemonBoy <thatlemon@gmail.com>
+  Li Feng <fengli@smartx.com>
+  Li Qiang <liq3ea@163.com>
+  Li Zhijian <lizhijian@cn.fujitsu.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Liao Pingfang <liao.pingfang@zte.com.cn>a
+  Lichang Zhao <zhaolichang@huawei.com>
+  lichun <lichun@ruijie.com.cn>
+  Lijun Pan <ljp@linux.ibm.com>
+  LIU Zhiwei <zhiwei_liu@c-sky.com>
+  Liyang Shi <shiliyang@huawei.com>
+  Longpeng(Mike) <longpeng2@huawei.com>
+  Luc Michel <luc@lmichel.fr>
+  Lukas Straub <lukasstraub2@web.de>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matthew Rosato <mjrosato@linux.ibm.com>
+  Matthieu Bucchianeri <matthieu.bucchianeri@leostella.com>
+  Matus Kysel <mkysel@tachyum.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Max Reitz <mreitz@redhat.com>
+  Maxim Levitsky <mlevitsk@redhat.com>
+  Michael Rolnik <mrolnik@gmail.com>
+  Michael Roth <mdroth@linux.vnet.ibm.com>
+  Michael Roth <michael.roth@amd.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michael Tokarev <mjt@tls.msk.ru>
+  Michael Walle <michael@walle.cc>
+  Michal Privoznik <mprivozn@redhat.com>
+  Mike Gelfand <mikedld@mikedld.com>
+  Misono Tomohiro <misono.tomohiro@jp.fujitsu.com>
+  Myriad-Dreamin <camiyoru@gmail.com>
+  Nathan Chancellor <natechancellor@gmail.com>
+  Niek Linnenbank <nieklinnenbank@gmail.com>
+  Niklas Schnelle <schnelle@linux.ibm.com>
+  Nikola Pavlica <pavlica.nikola@gmail.com>
+  Nir Soffer <nirsof@gmail.com>
+  Nir Soffer <nsoffer@redhat.com>
+  Pan Nengyuan <pannengyuan@huawei.com>
+  Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul Burton <paulburton@kernel.org>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Paul Zimmerman <pauldzim@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@gmail.com>
+  Pavel Dovgalyuk <Pavel.Dovgaluk@ispras.ru>
+  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
+  Pavel Pisa <pisa@cmp.felk.cvut.cz>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Peter Lieven <pl@kamp.de>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Philippe Mathieu-Daudé <1892540@bugs.launchpad.net>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Pierre Morel <pmorel@linux.ibm.com>
+  Prasad J Pandit <pjp@fedoraproject.org>
+  Rao, Lei <lei.rao@intel.com>
+  Raphael Norwitz <raphael.norwitz@nutanix.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Robert Hoo <robert.hu@linux.intel.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Rémi Denis-Courmont <remi.denis.courmont@huawei.com>
+  Sai Pavan Boddu <sai.pavan.boddu@xilinx.com>
+  Samuel Thibault <samuel.thibault@ens-lyon.org>
+  Sergei Trofimovich <slyfox@gentoo.org>
+  Sergey Nizovtsev <snizovtsev@gmail.com>
+  Sergio Lopez <slp@redhat.com>
+  Shashi Mallela <shashi.mallela@linaro.org>
+  shiliyang <shiliyang@huawei.com>
+  Si-Wei Liu <si-wei.liu@oracle.com>
+  Stafford Horne <shorne@gmail.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefan Reiter <s.reiter@proxmox.com>
+  Stefan Weil <sw@weilnetz.de>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Stephen Long <steplong@quicinc.com>
+  Subbaraya Sundeep <sundeep.lkml@gmail.com>
+  Sunil Muthuswamy <sunilmut@microsoft.com>
+  Sven Schnelle <svens@stackframe.org>
+  Swapnil Ingle <swapnil.ingle@nutanix.com>
+  Thiago Jung Bauermann <bauerman@linux.ibm.com>
+  Thomas Huth <huth@tuxfamily.org>
+  Thomas Huth <thuth@redhat.com>
+  Tianjia Zhang <tianjia.zhang@linux.alibaba.com>
+  Timothy Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
+  Timothy E Baldwin <T.E.Baldwin99@members.leeds.ac.uk>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Vincenzo Frascino <vincenzo.frascino@arm.com>
+  Vitaly Cheptsov <vit9696@protonmail.com>
+  Vitaly Kuznetsov <vkuznets@redhat.com>
+  Vivek Goyal <vgoyal@redhat.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+  Volker Rümelin <vr_qemu@t-online.de>
+  Xiaoyao Li <xiaoyao.li@intel.com>
+  Xinhao Zhang <zhangxinhao1@huawei.com>
+  Xinyu Li <precinct@mail.ustc.edu.cn>
+  Xu Zou <iwatchnima@gmail.com>
+  Yan Jin <jinyan12@huawei.com>
+  YanYing Zhuang <ann.zhuangyanying@huawei.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yifei Jiang <jiangyifei@huawei.com>
+  Ying Fang <fangying1@huawei.com>
+  Yipeng Yin <yinyipeng1@huawei.com>
+  Yonggang Luo <luoyonggang@gmail.com>
+  Yoshinori Sato <ysato@users.sourceforge.jp>
+  Zenghui Yu <yuzenghui@huawei.com>
+  Zhang Chen <chen.zhang@intel.com>
+  zhaolichang <zhaolichang@huawei.com>
+  Zhengui <lizhengui@huawei.com>
+  Zhengui li <lizhengui@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Wang <zhenyuw@linux.intel.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhiqiang Liu <liuzhiqiang26@huawei.com>
+  Zong Li <zong.li@sifive.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
---Apple-Mail-D9968B9E-C459-45BF-8459-7167284D8E63
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-=EF=BB=BF
-=EF=BB=BFOn Nov 20, 2020, at 05:09, Jan Beulich <jbeulich@suse.com> wrote:
-> =EF=BB=BFOn 19.11.2020 22:40, Stefano Stabellini wrote:
->> On Thu, 19 Nov 2020, Jan Beulich wrote:
->>> On 18.11.2020 22:00, Stefano Stabellini wrote:
->>>> On Wed, 18 Nov 2020, Jan Beulich wrote:
->>>>> On 18.11.2020 01:50, Stefano Stabellini wrote:
->>>>>> 1) It is not obvious that "Configure standard Xen features (expert
->>>>>> users)" is actually the famous EXPERT we keep talking about on xen-de=
-vel
->>>>> Which can be addressed by simply changing the one prompt line.
->>>>>> 2) It is not obvious when we need to enable EXPERT to get a specific
->>>>>> feature
->>>>>> In particular if you want to enable ACPI support so that you can boot=
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->>>>>> Xen on an ACPI platform, you have to enable EXPERT first. But searchi=
-ng
->>>>>> through the kconfig menu it is really not clear (type '/' and "ACPI")=
-:
->>>>>> nothing in the description tells you that you need to enable EXPERT t=
-o
->>>>>> get the option.
->>>>> And what causes this to be different once you switch to UNSUPPORTED?
->>>> Two things: firstly, it doesn't and shouldn't take an expert to enable
->>>> ACPI support, even if ACPI support is experimental. So calling it
->>>> UNSUPPORTED helps a lot. This is particularly relevant to the ARM Kconf=
-ig
->>>> options changed by this patch. Secondly, this patch is adding
->>>> "(UNSUPPORTED)" in the oneline prompt so that it becomes easy to match
->>>> it with the option you need to enable.
->>> There's redundancy here then, which I think is in almost all cases
->>> better to avoid. That's first and foremost because the two places
->>> can go out of sync. Therefore, if the primary thing is to help
->>> "make menuconfig" (which I admit I don't normally use, as it's
->>> nothing that gets invoked implicitly by the build process afaict,
->>> i.e. one has to actively invoke it), perhaps we should enhance
->>> kconfig to attach at least a pre-determined subset of labels to
->>> the prompts automatically?
->>> And second, also in reply to what you've been saying further down,
->>> perhaps we would better go with a hierarchy of controls here, e.g.
->>> EXPERT -> EXPERIMENTAL -> UNSUPPORTED?
->>=20
->> Both these are good ideas worth discussing; somebody else made a similar
->> suggestion some time back. I was already thinking this could be a great
->> candidate for one of the first "working groups" as defined by George
->> during the last community call because the topic is not purely
->> technical: a working group could help getting alignment and make
->> progress faster. We can propose it to George when he is back.
->>=20
->> However, I don't think we need the working group to make progress on
->> this limited patch that only addresses the lowest hanging fruit.
->>=20
->> I'd like to suggest to make progress on this patch in its current form,
->> and in parallel start a longer term discussion on how to do something
->> like you suggested above.
->=20
-> Okay, I guess I can accept this. So FAOD I'm not objecting to the
-> change (with some suitable adjustments, as discussed), but I'm
-> then also not going to be the one to ack it. Nevertheless I'd like
-> to point out that doing such a partial solution may end up adding
-> confusion rather than reducing it.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Seconded.
-
-> Much depends on how exactly consumers interpret what we hand to them.
-
-How have Xen consumers changed during the last 15 years?  The UX (user exper=
-ience) community uses a technique called "user stories" [0][1][2].  It may b=
-e worth writing a few sentences about the users (distro packagers? Xen deriv=
-atives? hypervisor developers? hosting companies? malware developers?) whose=
- needs are addressed by proposed changes.  One could then reason about UX of=
- Xen feature selection, before and after proposed changes.
-
-Rich
-
-[0] https://uxdict.io/design-thinking-methods-user-stories-3b9467313a04
-[1] https://uxdesign.cc/fostering-ux-on-a-devops-culture-bb92716e3f43
-[2] https://about.gitlab.com/blog/2020/03/27/how-we-utilize-user-stories-as-=
-a-collaborative-design-tool/
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
---Apple-Mail-D9968B9E-C459-45BF-8459-7167284D8E63
-Content-Type: text/html;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Not pushing.
 
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"><div dir=3D"ltr">=EF=BB=BF=
-<meta http-equiv=3D"content-type" content=3D"text/html; charset=3Dutf-8"><di=
-v dir=3D"ltr">=EF=BB=BFOn Nov 20, 2020, at 05:09, Jan Beulich &lt;jbeulich@s=
-use.com&gt; wrote:<div dir=3D"ltr"><blockquote type=3D"cite"><br></blockquot=
-e></div><blockquote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF<span>On 19.11.2=
-020 22:40, Stefano Stabellini wrote:</span><br><blockquote type=3D"cite"><sp=
-an>On Thu, 19 Nov 2020, Jan Beulich wrote:</span><br></blockquote><blockquot=
-e type=3D"cite"><blockquote type=3D"cite"><span>On 18.11.2020 22:00, Stefano=
- Stabellini wrote:</span><br></blockquote></blockquote><blockquote type=3D"c=
-ite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>On Wed, 18 No=
-v 2020, Jan Beulich wrote:</span><br></blockquote></blockquote></blockquote>=
-<blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite=
-"><blockquote type=3D"cite"><span>On 18.11.2020 01:50, Stefano Stabellini wr=
-ote:</span><br></blockquote></blockquote></blockquote></blockquote><blockquo=
-te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockq=
-uote type=3D"cite"><blockquote type=3D"cite"><span>1) It is not obvious that=
- "Configure standard Xen features (expert</span><br></blockquote></blockquot=
-e></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquo=
-te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockq=
-uote type=3D"cite"><span>users)" is actually the famous EXPERT we keep talki=
-ng about on xen-devel</span><br></blockquote></blockquote></blockquote></blo=
-ckquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
-ockquote type=3D"cite"><blockquote type=3D"cite"><span></span><br></blockquo=
-te></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockqu=
-ote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>=
-Which can be addressed by simply changing the one prompt line.</span><br></b=
-lockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><=
-blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"=
-><span></span><br></blockquote></blockquote></blockquote></blockquote><block=
-quote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blo=
-ckquote type=3D"cite"><blockquote type=3D"cite"><span>2) It is not obvious w=
-hen we need to enable EXPERT to get a specific</span><br></blockquote></bloc=
-kquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blo=
-ckquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><b=
-lockquote type=3D"cite"><span>feature</span><br></blockquote></blockquote></=
-blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote t=
-ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote=
- type=3D"cite"><span></span><br></blockquote></blockquote></blockquote></blo=
-ckquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
-ockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><=
-span>In particular if you want to enable ACPI support so that you can boot</=
-span><br></blockquote></blockquote></blockquote></blockquote></blockquote><b=
-lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
-<blockquote type=3D"cite"><blockquote type=3D"cite"><span>Xen on an ACPI pla=
-tform, you have to enable EXPERT first. But searching</span><br></blockquote=
-></blockquote></blockquote></blockquote></blockquote><blockquote type=3D"cit=
-e"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"c=
-ite"><blockquote type=3D"cite"><span>through the kconfig menu it is really n=
-ot clear (type '/' and "ACPI"):</span><br></blockquote></blockquote></blockq=
-uote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
-"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
-"cite"><span>nothing in the description tells you that you need to enable EX=
-PERT to</span><br></blockquote></blockquote></blockquote></blockquote></bloc=
-kquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
-"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>get the opt=
-ion.</span><br></blockquote></blockquote></blockquote></blockquote></blockqu=
-ote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"=
-cite"><blockquote type=3D"cite"><span></span><br></blockquote></blockquote><=
-/blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"=
-><blockquote type=3D"cite"><blockquote type=3D"cite"><span>And what causes t=
-his to be different once you switch to UNSUPPORTED?</span><br></blockquote><=
-/blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote t=
-ype=3D"cite"><blockquote type=3D"cite"><span></span><br></blockquote></block=
-quote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bloc=
-kquote type=3D"cite"><span>Two things: firstly, it doesn't and shouldn't tak=
-e an expert to enable</span><br></blockquote></blockquote></blockquote><bloc=
-kquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><sp=
-an>ACPI support, even if ACPI support is experimental. So calling it</span><=
-br></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockqu=
-ote type=3D"cite"><blockquote type=3D"cite"><span>UNSUPPORTED helps a lot. T=
-his is particularly relevant to the ARM Kconfig</span><br></blockquote></blo=
-ckquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
-ockquote type=3D"cite"><span>options changed by this patch. Secondly, this p=
-atch is adding</span><br></blockquote></blockquote></blockquote><blockquote t=
-ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>"(UNS=
-UPPORTED)" in the oneline prompt so that it becomes easy to match</span><br>=
-</blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote=
- type=3D"cite"><blockquote type=3D"cite"><span>it with the option you need t=
-o enable.</span><br></blockquote></blockquote></blockquote><blockquote type=3D=
-"cite"><blockquote type=3D"cite"><span></span><br></blockquote></blockquote>=
-<blockquote type=3D"cite"><blockquote type=3D"cite"><span>There's redundancy=
- here then, which I think is in almost all cases</span><br></blockquote></bl=
-ockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><span>better to=
- avoid. That's first and foremost because the two places</span><br></blockqu=
-ote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><span>c=
-an go out of sync. Therefore, if the primary thing is to help</span><br></bl=
-ockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><s=
-pan>"make menuconfig" (which I admit I don't normally use, as it's</span><br=
-></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cit=
-e"><span>nothing that gets invoked implicitly by the build process afaict,</=
-span><br></blockquote></blockquote><blockquote type=3D"cite"><blockquote typ=
-e=3D"cite"><span>i.e. one has to actively invoke it), perhaps we should enha=
-nce</span><br></blockquote></blockquote><blockquote type=3D"cite"><blockquot=
-e type=3D"cite"><span>kconfig to attach at least a pre-determined subset of l=
-abels to</span><br></blockquote></blockquote><blockquote type=3D"cite"><bloc=
-kquote type=3D"cite"><span>the prompts automatically?</span><br></blockquote=
-></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><span></sp=
-an><br></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
-"cite"><span>And second, also in reply to what you've been saying further do=
-wn,</span><br></blockquote></blockquote><blockquote type=3D"cite"><blockquot=
-e type=3D"cite"><span>perhaps we would better go with a hierarchy of control=
-s here, e.g.</span><br></blockquote></blockquote><blockquote type=3D"cite"><=
-blockquote type=3D"cite"><span>EXPERT -&gt; EXPERIMENTAL -&gt; UNSUPPORTED?<=
-/span><br></blockquote></blockquote><blockquote type=3D"cite"><span></span><=
-br></blockquote><blockquote type=3D"cite"><span>Both these are good ideas wo=
-rth discussing; somebody else made a similar</span><br></blockquote><blockqu=
-ote type=3D"cite"><span>suggestion some time back. I was already thinking th=
-is could be a great</span><br></blockquote><blockquote type=3D"cite"><span>c=
-andidate for one of the first "working groups" as defined by George</span><b=
-r></blockquote><blockquote type=3D"cite"><span>during the last community cal=
-l because the topic is not purely</span><br></blockquote><blockquote type=3D=
-"cite"><span>technical: a working group could help getting alignment and mak=
-e</span><br></blockquote><blockquote type=3D"cite"><span>progress faster. We=
- can propose it to George when he is back.</span><br></blockquote><blockquot=
-e type=3D"cite"><span></span><br></blockquote><blockquote type=3D"cite"><spa=
-n>However, I don't think we need the working group to make progress on</span=
-><br></blockquote><blockquote type=3D"cite"><span>this limited patch that on=
-ly addresses the lowest hanging fruit.</span><br></blockquote><blockquote ty=
-pe=3D"cite"><span></span><br></blockquote><blockquote type=3D"cite"><span>I'=
-d like to suggest to make progress on this patch in its current form,</span>=
-<br></blockquote><blockquote type=3D"cite"><span>and in parallel start a lon=
-ger term discussion on how to do something</span><br></blockquote><blockquot=
-e type=3D"cite"><span>like you suggested above.</span><br></blockquote><span=
-></span><br><span>Okay, I guess I can accept this. So FAOD I'm not objecting=
- to the</span><br><span>change (with some suitable adjustments, as discussed=
-), but I'm</span><br><span>then also not going to be the one to ack it. Neve=
-rtheless I'd like</span><br><span>to point out that doing such a partial sol=
-ution may end up adding</span><br><span>confusion rather than reducing it. <=
-/span></div></blockquote><div><br></div>Seconded.<div><br><blockquote type=3D=
-"cite"><div dir=3D"ltr"><span>Much depends on how exactly&nbsp;</span><span>=
-consumers interpret what we hand to them.</span><br></div></blockquote><br><=
-div>How have Xen consumers changed during the last 15 years? &nbsp;The UX (u=
-ser experience) community uses a technique called "user stories" [0][1][2]. &=
-nbsp;It may be worth writing a few sentences about the users (distro package=
-rs? Xen derivatives? hypervisor developers? hosting companies? malware devel=
-opers?) whose needs are addressed by proposed changes. &nbsp;One could then r=
-eason about UX of Xen feature selection, before and after proposed changes.<=
-/div><div><br></div><div>Rich</div><div><br></div><div>[0]&nbsp;<a href=3D"h=
-ttps://uxdict.io/design-thinking-methods-user-stories-3b9467313a04">https://=
-uxdict.io/design-thinking-methods-user-stories-3b9467313a04</a></div><div>[1=
-]&nbsp;<a href=3D"https://uxdesign.cc/fostering-ux-on-a-devops-culture-bb927=
-16e3f43">https://uxdesign.cc/fostering-ux-on-a-devops-culture-bb92716e3f43</=
-a></div><div>[2]&nbsp;<a href=3D"https://about.gitlab.com/blog/2020/03/27/ho=
-w-we-utilize-user-stories-as-a-collaborative-design-tool/">https://about.git=
-lab.com/blog/2020/03/27/how-we-utilize-user-stories-as-a-collaborative-desig=
-n-tool/</a></div><div><br></div></div></div></div></div></body></html>=
-
---Apple-Mail-D9968B9E-C459-45BF-8459-7167284D8E63--
+(No revision log; it would be 67366 lines long.)
 
