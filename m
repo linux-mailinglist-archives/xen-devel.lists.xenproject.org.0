@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D8142BC06A
-	for <lists+xen-devel@lfdr.de>; Sat, 21 Nov 2020 17:03:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.32963.64045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 614C62BC084
+	for <lists+xen-devel@lfdr.de>; Sat, 21 Nov 2020 17:24:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.32981.64064 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kgVL6-0004VI-Cw; Sat, 21 Nov 2020 16:02:16 +0000
+	id 1kgVgP-0006px-En; Sat, 21 Nov 2020 16:24:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 32963.64045; Sat, 21 Nov 2020 16:02:16 +0000
+Received: by outflank-mailman (output) from mailman id 32981.64064; Sat, 21 Nov 2020 16:24:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,108 +23,66 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kgVL6-0004Uq-8T; Sat, 21 Nov 2020 16:02:16 +0000
-Received: by outflank-mailman (input) for mailman id 32963;
- Sat, 21 Nov 2020 16:02:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kgVgP-0006pY-BT; Sat, 21 Nov 2020 16:24:17 +0000
+Received: by outflank-mailman (input) for mailman id 32981;
+ Sat, 21 Nov 2020 16:24:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kgVL4-0004Ui-PW; Sat, 21 Nov 2020 16:02:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kgVL4-00056Z-FT; Sat, 21 Nov 2020 16:02:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kgVL4-0005aB-9G; Sat, 21 Nov 2020 16:02:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kgVL4-0002Tk-8m; Sat, 21 Nov 2020 16:02:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+ (envelope-from <SRS0=ondl=E3=lst.de=hch@srs-us1.protection.inumbo.net>)
+ id 1kgVgN-0006pT-Qb
+ for xen-devel@lists.xenproject.org; Sat, 21 Nov 2020 16:24:15 +0000
+Received: from verein.lst.de (unknown [213.95.11.211])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 828d2389-1b39-4ece-a8a3-db04261d0f36;
+ Sat, 21 Nov 2020 16:24:14 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 951F467373; Sat, 21 Nov 2020 17:24:11 +0100 (CET)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kgVL4-0004Ui-PW; Sat, 21 Nov 2020 16:02:14 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=w1yZLNaHc/Bsh88luLqFPlLGZm5IfNJwvL1G7E9UggU=; b=ajfR+pyOtLOpnVQr4kiHyrYqB7
-	G/zbYqxLPD6YbyRMK/fzPOCmNQulcmNST9QgJq+Ao6lesXBnUoG6oADuzK9daS/H+DQaZtiFmsJeT
-	gxrjnpShih82UqzTdGXlSPS+eYqJ4i5UAi5Kf3/EUFMcuBOjtT7ZQkbwoAfN51kzreKw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kgVL4-00056Z-FT; Sat, 21 Nov 2020 16:02:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
-	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kgVL4-0005aB-9G; Sat, 21 Nov 2020 16:02:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
-	(envelope-from <osstest-admin@xenproject.org>)
-	id 1kgVL4-0002Tk-8m; Sat, 21 Nov 2020 16:02:14 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-156920-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	(envelope-from <SRS0=ondl=E3=lst.de=hch@srs-us1.protection.inumbo.net>)
+	id 1kgVgN-0006pT-Qb
+	for xen-devel@lists.xenproject.org; Sat, 21 Nov 2020 16:24:15 +0000
+X-Inumbo-ID: 828d2389-1b39-4ece-a8a3-db04261d0f36
+Received: from verein.lst.de (unknown [213.95.11.211])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 828d2389-1b39-4ece-a8a3-db04261d0f36;
+	Sat, 21 Nov 2020 16:24:14 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 951F467373; Sat, 21 Nov 2020 17:24:11 +0100 (CET)
+Date: Sat, 21 Nov 2020 17:24:11 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Jan Kara <jack@suse.cz>
+Cc: Matthew Wilcox <willy@infradead.org>, Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
+	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 14/20] block: remove the nr_sects field in struct
+ hd_struct
+Message-ID: <20201121162411.GA18475@lst.de>
+References: <20201118084800.2339180-1-hch@lst.de> <20201118084800.2339180-15-hch@lst.de> <20201119120525.GW1981@quack2.suse.cz> <20201120090820.GD21715@lst.de> <20201120112121.GB15537@quack2.suse.cz> <20201120153253.GA18990@lst.de> <20201120155956.GB4327@casper.infradead.org> <20201120200548.GA27360@quack2.suse.cz>
 MIME-Version: 1.0
-Subject: [ovmf test] 156920: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0
-X-Osstest-Versions-That:
-    ovmf=47343af30435302c087027177613412a1a83e919
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 21 Nov 2020 16:02:14 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201120200548.GA27360@quack2.suse.cz>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-flight 156920 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/156920/
+On Fri, Nov 20, 2020 at 09:05:48PM +0100, Jan Kara wrote:
+> The code is already switched to it AFAICT (the lock is really only used in
+> the two places that write i_size). But the problem is that in theory two
+> i_size_write() calls can race in a way that the resulting stored i_size is a
+> mix of two stored sizes. Now I have hard time imagining how this could
+> happen for a block device and if two reconfigurations of a block device
+> could race like that we'd have a large problems anyway...
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0
-baseline version:
- ovmf                 47343af30435302c087027177613412a1a83e919
-
-Last test of basis   156913  2020-11-21 01:54:44 Z    0 days
-Testing same since   156920  2020-11-21 09:10:55 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   47343af304..e7bd0dd26d  e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0 -> xen-tested-master
+Now that you mention it, yes - i_size_write needs to be under i_rwsem
+or an equivalent lock.  We could look into using i_rwsem also for block
+device, but for now the spinlock seems to be doing fine.  Note that
+in current mainline we only have such a lock protecting i_size of the
+block_device inode, but none for the size in hd_struct.
 
