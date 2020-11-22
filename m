@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D5BB2BC7E7
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Nov 2020 19:23:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.33432.64463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C063D2BC7EE
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Nov 2020 19:26:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.33436.64475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kgu1R-000309-If; Sun, 22 Nov 2020 18:23:37 +0000
+	id 1kgu3c-0003Bm-Vq; Sun, 22 Nov 2020 18:25:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 33432.64463; Sun, 22 Nov 2020 18:23:37 +0000
+Received: by outflank-mailman (output) from mailman id 33436.64475; Sun, 22 Nov 2020 18:25:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,105 +23,110 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kgu1R-0002zk-F8; Sun, 22 Nov 2020 18:23:37 +0000
-Received: by outflank-mailman (input) for mailman id 33432;
- Sun, 22 Nov 2020 18:23:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kgu3c-0003BO-S3; Sun, 22 Nov 2020 18:25:52 +0000
+Received: by outflank-mailman (input) for mailman id 33436;
+ Sun, 22 Nov 2020 18:25:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D2VG=E4=perches.com=joe@srs-us1.protection.inumbo.net>)
- id 1kgu1P-0002zb-DI
- for xen-devel@lists.xenproject.org; Sun, 22 Nov 2020 18:23:35 +0000
-Received: from smtprelay.hostedemail.com (unknown [216.40.44.203])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f86001f0-9152-4ccb-993e-ce1e8c3a136e;
- Sun, 22 Nov 2020 18:23:34 +0000 (UTC)
+ id 1kgu3a-0003BI-SH
+ for xen-devel@lists.xenproject.org; Sun, 22 Nov 2020 18:25:50 +0000
+Received: from smtprelay.hostedemail.com (unknown [216.40.44.109])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3143e4ad-ef99-44c3-97d6-9178eba05b3d;
+ Sun, 22 Nov 2020 18:25:50 +0000 (UTC)
 Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
  [216.40.38.60])
- by smtprelay05.hostedemail.com (Postfix) with ESMTP id 524371802912B;
- Sun, 22 Nov 2020 18:23:34 +0000 (UTC)
+ by smtprelay06.hostedemail.com (Postfix) with ESMTP id 883C21800AEAD;
+ Sun, 22 Nov 2020 18:25:49 +0000 (UTC)
 Received: from XPS-9350.home (unknown [47.151.128.180])
  (Authenticated sender: joe@perches.com)
- by omf14.hostedemail.com (Postfix) with ESMTPA;
- Sun, 22 Nov 2020 18:23:29 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by omf09.hostedemail.com (Postfix) with ESMTPA;
+ Sun, 22 Nov 2020 18:25:38 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=D2VG=E4=perches.com=joe@srs-us1.protection.inumbo.net>)
-	id 1kgu1P-0002zb-DI
-	for xen-devel@lists.xenproject.org; Sun, 22 Nov 2020 18:23:35 +0000
-X-Inumbo-ID: f86001f0-9152-4ccb-993e-ce1e8c3a136e
-Received: from smtprelay.hostedemail.com (unknown [216.40.44.203])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id f86001f0-9152-4ccb-993e-ce1e8c3a136e;
-	Sun, 22 Nov 2020 18:23:34 +0000 (UTC)
+	id 1kgu3a-0003BI-SH
+	for xen-devel@lists.xenproject.org; Sun, 22 Nov 2020 18:25:50 +0000
+X-Inumbo-ID: 3143e4ad-ef99-44c3-97d6-9178eba05b3d
+Received: from smtprelay.hostedemail.com (unknown [216.40.44.109])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 3143e4ad-ef99-44c3-97d6-9178eba05b3d;
+	Sun, 22 Nov 2020 18:25:50 +0000 (UTC)
 Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
-	by smtprelay05.hostedemail.com (Postfix) with ESMTP id 524371802912B;
-	Sun, 22 Nov 2020 18:23:34 +0000 (UTC)
+	by smtprelay06.hostedemail.com (Postfix) with ESMTP id 883C21800AEAD;
+	Sun, 22 Nov 2020 18:25:49 +0000 (UTC)
 X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 2,0,0,,d41d8cd98f00b204,joe@perches.com,,RULES_HIT:41:355:379:599:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1540:1593:1594:1711:1730:1747:1777:1792:2393:2559:2562:2828:3138:3139:3140:3141:3142:3352:3622:3865:3866:3867:3868:3870:3871:3872:4250:4321:5007:6691:6742:6743:7903:10004:10400:10848:11232:11658:11914:12296:12297:12740:12760:12895:13019:13069:13161:13229:13311:13357:13439:14040:14096:14097:14659:14721:21080:21324:21433:21451:21627:30012:30054:30091,0,RBL:none,CacheIP:none,Bayesian:0.5,0.5,0.5,Netcheck:none,DomainCache:0,MSF:not bulk,SPF:,MSBL:0,DNSBL:none,Custom_rules:0:0:0,LFtime:1,LUA_SUMMARY:none
-X-HE-Tag: match16_380b6892735e
-X-Filterd-Recvd-Size: 3051
+X-Spam-Summary: 2,0,0,,d41d8cd98f00b204,joe@perches.com,,RULES_HIT:41:355:379:599:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1537:1561:1593:1594:1711:1714:1730:1747:1777:1792:2393:2559:2562:2828:3138:3139:3140:3141:3142:3622:3865:3866:4321:5007:6742:6743:10004:10400:10848:11232:11658:11914:12297:12740:12760:12895:13019:13069:13161:13229:13311:13357:13439:14659:21080:21450:21627:30054:30091,0,RBL:none,CacheIP:none,Bayesian:0.5,0.5,0.5,Netcheck:none,DomainCache:0,MSF:not bulk,SPF:,MSBL:0,DNSBL:none,Custom_rules:0:0:0,LFtime:1,LUA_SUMMARY:none
+X-HE-Tag: stamp54_4305a342735e
+X-Filterd-Recvd-Size: 3841
 Received: from XPS-9350.home (unknown [47.151.128.180])
 	(Authenticated sender: joe@perches.com)
-	by omf14.hostedemail.com (Postfix) with ESMTPA;
-	Sun, 22 Nov 2020 18:23:29 +0000 (UTC)
-Message-ID: <dec07021e7fc11a02b14c98b713ae2c6e2a4ca00.camel@perches.com>
-Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
+	by omf09.hostedemail.com (Postfix) with ESMTPA;
+	Sun, 22 Nov 2020 18:25:38 +0000 (UTC)
+Message-ID: <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
 From: Joe Perches <joe@perches.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>, Tom Rix
-	 <trix@redhat.com>, Matthew Wilcox <willy@infradead.org>
-Cc: clang-built-linux@googlegroups.com, linux-hyperv@vger.kernel.org, 
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
- tboot-devel@lists.sourceforge.net, kvm@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-acpi@vger.kernel.org, devel@acpica.org,
-  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, netdev@vger.kernel.org, 
- linux-media@vger.kernel.org, MPT-FusionLinux.pdl@broadcom.com, 
- linux-scsi@vger.kernel.org, linux-wireless@vger.kernel.org, 
- ibm-acpi-devel@lists.sourceforge.net, platform-driver-x86@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-omap@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, ecryptfs@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, cluster-devel@redhat.com, 
- linux-mtd@lists.infradead.org, keyrings@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
- alsa-devel@alsa-project.org, bpf@vger.kernel.org, 
- linux-bluetooth@vger.kernel.org, linux-nfs@vger.kernel.org, 
- patches@opensource.cirrus.com
-Date: Sun, 22 Nov 2020 10:23:28 -0800
-In-Reply-To: <751803306cd957d0e7ef6a4fc3dbf12ebceaba92.camel@HansenPartnership.com>
-References: <20201121165058.1644182-1-trix@redhat.com>
-	 <20201122032304.GE4327@casper.infradead.org>
-	 <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
-	 <20201122145635.GG4327@casper.infradead.org>
-	 <0819ce06-c462-d4df-d3d9-14931dc5aefc@redhat.com>
-	 <751803306cd957d0e7ef6a4fc3dbf12ebceaba92.camel@HansenPartnership.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>, Kees Cook
+	 <keescook@chromium.org>, Jakub Kicinski <kuba@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, 
+ amd-gfx@lists.freedesktop.org, bridge@lists.linux-foundation.org, 
+ ceph-devel@vger.kernel.org, cluster-devel@redhat.com,
+ coreteam@netfilter.org,  devel@driverdev.osuosl.org, dm-devel@redhat.com,
+ drbd-dev@lists.linbit.com,  dri-devel@lists.freedesktop.org,
+ GR-everest-linux-l2@marvell.com,  GR-Linux-NIC-Dev@marvell.com,
+ intel-gfx@lists.freedesktop.org,  intel-wired-lan@lists.osuosl.org,
+ keyrings@vger.kernel.org,  linux1394-devel@lists.sourceforge.net,
+ linux-acpi@vger.kernel.org,  linux-afs@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,  linux-arm-msm@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net,  linux-block@vger.kernel.org,
+ linux-can@vger.kernel.org,  linux-cifs@vger.kernel.org,
+ linux-crypto@vger.kernel.org,  linux-decnet-user@lists.sourceforge.net,
+ linux-ext4@vger.kernel.org,  linux-fbdev@vger.kernel.org,
+ linux-geode@lists.infradead.org,  linux-gpio@vger.kernel.org,
+ linux-hams@vger.kernel.org,  linux-hwmon@vger.kernel.org,
+ linux-i3c@lists.infradead.org,  linux-ide@vger.kernel.org,
+ linux-iio@vger.kernel.org,  linux-input@vger.kernel.org,
+ linux-integrity@vger.kernel.org,  linux-mediatek@lists.infradead.org,
+ linux-media@vger.kernel.org,  linux-mmc@vger.kernel.org,
+ linux-mm@kvack.org, linux-mtd@lists.infradead.org, 
+ linux-nfs@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-sctp@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, op-tee@lists.trustedfirmware.org, 
+ oss-drivers@netronome.com, patches@opensource.cirrus.com, 
+ rds-devel@oss.oracle.com, reiserfs-devel@vger.kernel.org, 
+ samba-technical@lists.samba.org, selinux@vger.kernel.org, 
+ target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net, 
+ usb-storage@lists.one-eyed-alien.net, 
+ virtualization@lists.linux-foundation.org, wcn36xx@lists.infradead.org, 
+ x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-hardening@vger.kernel.org,  Nick Desaulniers
+ <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>,
+ Miguel Ojeda <ojeda@kernel.org>
+Date: Sun, 22 Nov 2020 10:25:37 -0800
+In-Reply-To: <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+	 <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+	 <202011201129.B13FDB3C@keescook>
+	 <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+	 <202011220816.8B6591A@keescook>
+	 <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
 Content-Type: text/plain; charset="ISO-8859-1"
 User-Agent: Evolution 3.38.1-1 
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On Sun, 2020-11-22 at 08:49 -0800, James Bottomley wrote:
-> We can enforce sysfs_emit going forwards
-> using tools like checkpatch
+On Sun, 2020-11-22 at 10:21 -0800, James Bottomley wrote:
+> Please tell me
+> our reward for all this effort isn't a single missing error print.
 
-It's not really possible for checkpatch to find or warn about
-sysfs uses of sprintf. checkpatch is really just a trivial
-line-by-line parser and it has no concept of code intent.
-
-It just can't warn on every use of the sprintf family.
-There are just too many perfectly valid uses.
-
-> but there's no benefit and a lot of harm to
-> be done by trying to churn the entire tree
-
-Single uses of sprintf for sysfs is not really any problem.
-
-But likely there are still several possible overrun sprintf/snprintf
-paths in sysfs.  Some of them are very obscure and unlikely to be
-found by a robot as the logic for sysfs buf uses can be fairly twisty.
-
-But provably correct conversions IMO _should_ be done and IMO churn
-considerations should generally have less importance.
+There were quite literally dozens of logical defects found
+by the fallthrough additions.  Very few were logging only.
 
 
 
