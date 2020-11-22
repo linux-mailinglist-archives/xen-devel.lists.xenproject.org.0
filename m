@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C269E2BC6BE
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Nov 2020 17:12:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.33360.64376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66BE12BC6C9
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Nov 2020 17:17:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.33367.64388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kgrxE-0005mh-AG; Sun, 22 Nov 2020 16:11:08 +0000
+	id 1kgs31-0005zt-VA; Sun, 22 Nov 2020 16:17:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 33360.64376; Sun, 22 Nov 2020 16:11:08 +0000
+Received: by outflank-mailman (output) from mailman id 33367.64388; Sun, 22 Nov 2020 16:17:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,159 +23,159 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kgrxE-0005mI-6M; Sun, 22 Nov 2020 16:11:08 +0000
-Received: by outflank-mailman (input) for mailman id 33360;
- Sun, 22 Nov 2020 16:11:06 +0000
+	id 1kgs31-0005zU-RY; Sun, 22 Nov 2020 16:17:07 +0000
+Received: by outflank-mailman (input) for mailman id 33367;
+ Sun, 22 Nov 2020 16:17:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=54+R=E4=redhat.com=trix@srs-us1.protection.inumbo.net>)
- id 1kgrxB-0005mC-TH
- for xen-devel@lists.xenproject.org; Sun, 22 Nov 2020 16:11:06 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 77ca28b9-cca2-4b60-86bf-1500a993fbfd;
- Sun, 22 Nov 2020 16:11:03 +0000 (UTC)
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-194-PnxnsHywOeO7SP8jZaQIGA-1; Sun, 22 Nov 2020 11:10:59 -0500
-Received: by mail-qt1-f197.google.com with SMTP id c2so11750997qtx.3
- for <xen-devel@lists.xenproject.org>; Sun, 22 Nov 2020 08:10:59 -0800 (PST)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
- [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id l3sm2779806qth.13.2020.11.22.08.10.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Nov 2020 08:10:58 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=P5EI=E4=chromium.org=keescook@srs-us1.protection.inumbo.net>)
+ id 1kgs31-0005zP-1e
+ for xen-devel@lists.xenproject.org; Sun, 22 Nov 2020 16:17:07 +0000
+Received: from mail-pf1-x441.google.com (unknown [2607:f8b0:4864:20::441])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0b5abb6d-c332-4c79-8bb7-44f71d5276bd;
+ Sun, 22 Nov 2020 16:17:06 +0000 (UTC)
+Received: by mail-pf1-x441.google.com with SMTP id y7so12553044pfq.11
+ for <xen-devel@lists.xenproject.org>; Sun, 22 Nov 2020 08:17:06 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id k4sm9841327pfg.130.2020.11.22.08.17.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Nov 2020 08:17:04 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=54+R=E4=redhat.com=trix@srs-us1.protection.inumbo.net>)
-	id 1kgrxB-0005mC-TH
-	for xen-devel@lists.xenproject.org; Sun, 22 Nov 2020 16:11:06 +0000
-X-Inumbo-ID: 77ca28b9-cca2-4b60-86bf-1500a993fbfd
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 77ca28b9-cca2-4b60-86bf-1500a993fbfd;
-	Sun, 22 Nov 2020 16:11:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606061463;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D4o3+oRulyAmQWJaTM5GlynW0/tmbkOzx3PzhPB5iTg=;
-	b=JuTdFtHhsclSCFUt685nObhejVSN718q0xDzBI7qCmYl4/ObRaglwiPh1kkjwftUYKtjGT
-	F9V7hg+6Ged1Ypc78HlKhU8yURVG+HfY97vOU+FDQTH2+EktMkCoujoBzuPIEBmLFdUcTH
-	U0gcN5s+aBBBeO3IQtZ/9hGSdS8be9I=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-194-PnxnsHywOeO7SP8jZaQIGA-1; Sun, 22 Nov 2020 11:10:59 -0500
-X-MC-Unique: PnxnsHywOeO7SP8jZaQIGA-1
-Received: by mail-qt1-f197.google.com with SMTP id c2so11750997qtx.3
-        for <xen-devel@lists.xenproject.org>; Sun, 22 Nov 2020 08:10:59 -0800 (PST)
+	(envelope-from <SRS0=P5EI=E4=chromium.org=keescook@srs-us1.protection.inumbo.net>)
+	id 1kgs31-0005zP-1e
+	for xen-devel@lists.xenproject.org; Sun, 22 Nov 2020 16:17:07 +0000
+X-Inumbo-ID: 0b5abb6d-c332-4c79-8bb7-44f71d5276bd
+Received: from mail-pf1-x441.google.com (unknown [2607:f8b0:4864:20::441])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 0b5abb6d-c332-4c79-8bb7-44f71d5276bd;
+	Sun, 22 Nov 2020 16:17:06 +0000 (UTC)
+Received: by mail-pf1-x441.google.com with SMTP id y7so12553044pfq.11
+        for <xen-devel@lists.xenproject.org>; Sun, 22 Nov 2020 08:17:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=9LoGd3XD212DnUOzzxWdBwAHKcFiABUM1eku/Z5s9PQ=;
+        b=ECdUiFozoGotedNMltHxGvt7ELeQp/og9KGaJat0+erwcdPPWVCrU8KkW+JV4RYPeo
+         GTWUobzmr0s313q/lzhn4jF5RxJP4nhZO/aj20hZaH8d/g/a456RbO+LKniOS4LntN7M
+         GHx9cYZv8xWYKIg8n9C3ZJn+Q+L/6/s35hbx0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=D4o3+oRulyAmQWJaTM5GlynW0/tmbkOzx3PzhPB5iTg=;
-        b=gP1uMiBDngimd93OcuEp54Y+rkueevHCceMK3hD9VlOTOM7Knzh1ELEFSCuc5RysmD
-         hm0gpZiDy5+U862XF2bPNQqYISQ09AwT5D+C7bFVZDvmPN1qo7HXPd8v28ha+RBUlBy0
-         Yki+MBlr942jdlvfvb3N70gWsAt4TNPW5WhEXEp28fmmrnfutsOS+qCUumTJP9EupP3s
-         sudg2LaoUVu9tT7wxIXTtTlT/btn9TXJExR6dRicztRm777O0Y8b1SvxEo+VgIzX8G7l
-         M09JAKf2ygdDMOAedLPRFm/Q7KrEwrRrZ9LXzm/5XLyNwnh2+//8qsquTtBPXbqjx9GQ
-         ZOXA==
-X-Gm-Message-State: AOAM530b8g/nuKW9dcOlciVK9QUFAUCWiq3sDccHVGC0/xfeTacZcUlK
-	X/HS0tsW1Sco2J81Pc8RR4SdMPq7lYBmVOKuYNIR2LsSqOBSFmZgUmfs0xxbC2xyQ4zZdx3TYzI
-	pgbeKvMAtRddhJD2uAvRkyvTsth8=
-X-Received: by 2002:ac8:5a8c:: with SMTP id c12mr23364800qtc.97.1606061459263;
-        Sun, 22 Nov 2020 08:10:59 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJw6JfmMkGlJyoaKx6ihYsYbDuDsWkyDwIosiC/apv5eylMrcIvHPxlHVgnFDCnun9WXh4UZ3w==
-X-Received: by 2002:ac8:5a8c:: with SMTP id c12mr23364770qtc.97.1606061458997;
-        Sun, 22 Nov 2020 08:10:58 -0800 (PST)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
-        by smtp.gmail.com with ESMTPSA id l3sm2779806qth.13.2020.11.22.08.10.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Nov 2020 08:10:58 -0800 (PST)
-Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
-To: Matthew Wilcox <willy@infradead.org>
-Cc: joe@perches.com, clang-built-linux@googlegroups.com,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org, tboot-devel@lists.sourceforge.net,
- kvm@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-acpi@vger.kernel.org, devel@acpica.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- netdev@vger.kernel.org, linux-media@vger.kernel.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
- linux-wireless@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
- platform-driver-x86@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org,
- ecryptfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- cluster-devel@redhat.com, linux-mtd@lists.infradead.org,
- keyrings@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, alsa-devel@alsa-project.org, bpf@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-nfs@vger.kernel.org,
- patches@opensource.cirrus.com
-References: <20201121165058.1644182-1-trix@redhat.com>
- <20201122032304.GE4327@casper.infradead.org>
- <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
- <20201122145635.GG4327@casper.infradead.org>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <0819ce06-c462-d4df-d3d9-14931dc5aefc@redhat.com>
-Date: Sun, 22 Nov 2020 08:10:53 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=9LoGd3XD212DnUOzzxWdBwAHKcFiABUM1eku/Z5s9PQ=;
+        b=fq8MlgGqVgtcsMSZaZeDmOjgxhYj7N2bAe8L8sFma4PsWHiiBlNSTSCT+6OgObDDI3
+         unEGzRSZ/NNB8KXQRPw77K3vh8R6M/IjeSpP9Srhm3Nb+MTR40hNz6HPFcfoSkUlKQ8+
+         4MJl9ppq954yEuJ0saWnngSsh5kuuR1qId2Ga/5zyx3k/0xpi5Er6lCis+uSisycjk7T
+         6fgNVpq58FYRwPDQfy2rShOPW4wiRQR4tIIEIxikk7jt9Vq0AdasEA4dijZHRVL+UQem
+         Ondp4xgqGRATQ3bsZb0gTrQMv0X6VCbAPSTzCLZ8VGkVrj9n2ukeI2XdBnCdJoVhSY8d
+         xMPQ==
+X-Gm-Message-State: AOAM531ygPHJmHxgBHCpQvaZL3PICVsu6jbJnT4LzNesxSxrHjvaKH4/
+	xZ22sb7c2f6wWcPdMT4IE/em2A==
+X-Google-Smtp-Source: ABdhPJzjrfS3ZVuiz5fqtjIAbZtKQ5pfqPy3q+oKf7VtoFjoXLjA79CcRlXr5vTeWnitsMgA/HY0Vg==
+X-Received: by 2002:a63:1d0b:: with SMTP id d11mr21383404pgd.368.1606061825374;
+        Sun, 22 Nov 2020 08:17:05 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+        by smtp.gmail.com with ESMTPSA id k4sm9841327pfg.130.2020.11.22.08.17.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2020 08:17:04 -0800 (PST)
+Date: Sun, 22 Nov 2020 08:17:03 -0800
+From: Kees Cook <keescook@chromium.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+	amd-gfx@lists.freedesktop.org, bridge@lists.linux-foundation.org,
+	ceph-devel@vger.kernel.org, cluster-devel@redhat.com,
+	coreteam@netfilter.org, devel@driverdev.osuosl.org,
+	dm-devel@redhat.com, drbd-dev@lists.linbit.com,
+	dri-devel@lists.freedesktop.org, GR-everest-linux-l2@marvell.com,
+	GR-Linux-NIC-Dev@marvell.com, intel-gfx@lists.freedesktop.org,
+	intel-wired-lan@lists.osuosl.org, keyrings@vger.kernel.org,
+	linux1394-devel@lists.sourceforge.net, linux-acpi@vger.kernel.org,
+	linux-afs@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	linux-block@vger.kernel.org, linux-can@vger.kernel.org,
+	linux-cifs@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-decnet-user@lists.sourceforge.net, linux-ext4@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, linux-geode@lists.infradead.org,
+	linux-gpio@vger.kernel.org, linux-hams@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
+	linux-ide@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-input@vger.kernel.org, linux-integrity@vger.kernel.org,
+	linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org,
+	linux-mmc@vger.kernel.org, linux-mm@kvack.org,
+	linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
+	linux-rdma@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	nouveau@lists.freedesktop.org, op-tee@lists.trustedfirmware.org,
+	oss-drivers@netronome.com, patches@opensource.cirrus.com,
+	rds-devel@oss.oracle.com, reiserfs-devel@vger.kernel.org,
+	samba-technical@lists.samba.org, selinux@vger.kernel.org,
+	target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+	usb-storage@lists.one-eyed-alien.net,
+	virtualization@lists.linux-foundation.org,
+	wcn36xx@lists.infradead.org, x86@kernel.org,
+	xen-devel@lists.xenproject.org, linux-hardening@vger.kernel.org,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Nathan Chancellor <natechancellor@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>, Joe Perches <joe@perches.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+Message-ID: <202011220816.8B6591A@keescook>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 MIME-Version: 1.0
-In-Reply-To: <20201122145635.GG4327@casper.infradead.org>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 
+On Fri, Nov 20, 2020 at 11:51:42AM -0800, Jakub Kicinski wrote:
+> On Fri, 20 Nov 2020 11:30:40 -0800 Kees Cook wrote:
+> > On Fri, Nov 20, 2020 at 10:53:44AM -0800, Jakub Kicinski wrote:
+> > > On Fri, 20 Nov 2020 12:21:39 -0600 Gustavo A. R. Silva wrote:  
+> > > > This series aims to fix almost all remaining fall-through warnings in
+> > > > order to enable -Wimplicit-fallthrough for Clang.
+> > > > 
+> > > > In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
+> > > > add multiple break/goto/return/fallthrough statements instead of just
+> > > > letting the code fall through to the next case.
+> > > > 
+> > > > Notice that in order to enable -Wimplicit-fallthrough for Clang, this
+> > > > change[1] is meant to be reverted at some point. So, this patch helps
+> > > > to move in that direction.
+> > > > 
+> > > > Something important to mention is that there is currently a discrepancy
+> > > > between GCC and Clang when dealing with switch fall-through to empty case
+> > > > statements or to cases that only contain a break/continue/return
+> > > > statement[2][3][4].  
+> > > 
+> > > Are we sure we want to make this change? Was it discussed before?
+> > > 
+> > > Are there any bugs Clangs puritanical definition of fallthrough helped
+> > > find?
+> > > 
+> > > IMVHO compiler warnings are supposed to warn about issues that could
+> > > be bugs. Falling through to default: break; can hardly be a bug?!  
+> > 
+> > It's certainly a place where the intent is not always clear. I think
+> > this makes all the cases unambiguous, and doesn't impact the machine
+> > code, since the compiler will happily optimize away any behavioral
+> > redundancy.
+> 
+> If none of the 140 patches here fix a real bug, and there is no change
+> to machine code then it sounds to me like a W=2 kind of a warning.
 
-On 11/22/20 6:56 AM, Matthew Wilcox wrote:
-> On Sun, Nov 22, 2020 at 06:46:46AM -0800, Tom Rix wrote:
->> On 11/21/20 7:23 PM, Matthew Wilcox wrote:
->>> On Sat, Nov 21, 2020 at 08:50:58AM -0800, trix@redhat.com wrote:
->>>> The fixer review is
->>>> https://reviews.llvm.org/D91789
->>>>
->>>> A run over allyesconfig for x86_64 finds 62 issues, 5 are false positives.
->>>> The false positives are caused by macros passed to other macros and by
->>>> some macro expansions that did not have an extra semicolon.
->>>>
->>>> This cleans up about 1,000 of the current 10,000 -Wextra-semi-stmt
->>>> warnings in linux-next.
->>> Are any of them not false-positives?  It's all very well to enable
->>> stricter warnings, but if they don't fix any bugs, they're just churn.
->>>
->> While enabling additional warnings may be a side effect of this effort
->>
->> the primary goal is to set up a cleaning robot. After that a refactoring robot.
-> Why do we need such a thing?  Again, it sounds like more churn.
-> It's really annoying when I'm working on something important that gets
-> derailed by pointless churn.  Churn also makes it harder to backport
-> patches to earlier kernels.
->
-A refactoring example on moving to treewide, consistent use of a new api may help.
+FWIW, this series has found at least one bug so far:
+https://lore.kernel.org/lkml/CAFCwf11izHF=g1mGry1fE5kvFFFrxzhPSM6qKAO8gxSp=Kr_CQ@mail.gmail.com/
 
-Consider
-
-2efc459d06f1630001e3984854848a5647086232
-
-sysfs: Add sysfs_emit and sysfs_emit_at to format sysfs output
-
-A new api for printing in the sysfs.  How do we use it treewide ?
-
-Done manually, it would be a heroic effort requiring high level maintainers pushing and likely only get partially done.
-
-If a refactoring programatic fixit is done and validated on a one subsystem, it can run on all the subsystems.
-
-The effort is a couple of weeks to write and validate the fixer, hours to run over the tree.
-
-It won't be perfect but will be better than doing it manually.
-
-Tom
-
+-- 
+Kees Cook
 
