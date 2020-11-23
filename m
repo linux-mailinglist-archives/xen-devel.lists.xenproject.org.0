@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A793E2C0F22
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 16:44:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.34721.65920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7752C0F3F
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 16:48:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.34728.65932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khE1K-0001Ds-ML; Mon, 23 Nov 2020 15:44:50 +0000
+	id 1khE4D-0001PO-Ah; Mon, 23 Nov 2020 15:47:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 34721.65920; Mon, 23 Nov 2020 15:44:50 +0000
+Received: by outflank-mailman (output) from mailman id 34728.65932; Mon, 23 Nov 2020 15:47:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,117 +23,235 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khE1K-0001DS-JB; Mon, 23 Nov 2020 15:44:50 +0000
-Received: by outflank-mailman (input) for mailman id 34721;
- Mon, 23 Nov 2020 15:44:49 +0000
+	id 1khE4D-0001Oz-7H; Mon, 23 Nov 2020 15:47:49 +0000
+Received: by outflank-mailman (input) for mailman id 34728;
+ Mon, 23 Nov 2020 15:47:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/SOx=E5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1khE1J-0001DN-Au
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 15:44:49 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=dDmC=E5=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1khE4B-0001Oq-C1
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 15:47:47 +0000
+Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a9fc51ee-7db9-4c79-9c04-5f68bd615732;
- Mon, 23 Nov 2020 15:44:47 +0000 (UTC)
+ id 414d1422-316d-42d9-9bc4-a15bb4475700;
+ Mon, 23 Nov 2020 15:47:46 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id 142so18466511ljj.10
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 07:47:46 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id s62sm3552lja.102.2020.11.23.07.47.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Nov 2020 07:47:44 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=/SOx=E5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
-	id 1khE1J-0001DN-Au
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 15:44:49 +0000
-X-Inumbo-ID: a9fc51ee-7db9-4c79-9c04-5f68bd615732
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+	(envelope-from <SRS0=dDmC=E5=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+	id 1khE4B-0001Oq-C1
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 15:47:47 +0000
+X-Inumbo-ID: 414d1422-316d-42d9-9bc4-a15bb4475700
+Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id a9fc51ee-7db9-4c79-9c04-5f68bd615732;
-	Mon, 23 Nov 2020 15:44:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1606146287;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=iMeadjRxQcZlD2zTEb+imI1bmEGKVKytoWBZ5ZeE2+w=;
-  b=GDjzQ/Y8lJK3LBU87KVQJi+KHgk12zNufFWjgb8zna2v2ojI8Lkmf2uD
-   llOKYZLamZ/NvTrJlFbQGEj122XMWzVrbd4/6WX7Gbos13HFiCPgisEhJ
-   afAfFebf1lGPnvZBS0872jHO0SZtFhyr/UeM7CD5bS6emVIWmTW7qRxVn
-   A=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: SGVF6Jdj7E3ZrWBACYftE+CWJszS3Ln3/A4rBf2mz9dtWCPkuwJwBwD3qH2P/9q+w32u2bjXUJ
- kt4K/6urFJ5zkbMeL1BRiNZIxEcVzs4wylfHA3UQxIb69nXN55rTHeTUR6RUs/Q4emxjW0mTgP
- eOwsOYepgfNRNl6OyY6MkegLGiOdYfOgvQVtRtKJpE5Nu8HLEOGEcy+LTBrwbsG10whxlsiLKl
- 89c7Ff2pj6CJTpnSXZO08Zf/PLYuQKJd+7J+HMi8Xd+V2xStOCj4bs+KAeTFkShK/18oSLaJxl
- fmw=
-X-SBRS: None
-X-MesageID: 32913229
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,363,1599537600"; 
-   d="scan'208";a="32913229"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A93fW7brkgzwEzfuvKBfYRcEpviZLCST6lqXOhFvENAeVUg23zJ46BjlDfjB2licb7PvtbSte2pV2ieggXCt3mypQ+6TSj/wV8LsaWKPyoUEsnXwpe29tHXx/5R5A7VZ3u2wvduqKOUoRuzS+BvWpx/6qeZSRUF0FbGe8z3nXQmJNMUzoo1SMWrVqWlddNYphl0QBv2wpCuXZoY6sCgEIrjptkAE/nb7hRF2/b9KmJTAkQ47pxQJpf4xP5ZUf4vrGJ1u/4pJeM2CZOuLuGk4Hr/+6Qdq7GmVUWbrqd08kRdsZHMU1i7TxzG/iCetldUnuKydaDV5Q1I+4Sn+KPE9zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C1Wd4GzeYtWnis+nIYyELt1FZdGc5LtAW9yKBZSKUQE=;
- b=ATKQcZxANPykSJMIhqL0uTcRyPOooWILjnA2DXlQ5Fcp5a4CRrNRnX/lmxBa6i0kHMo9cu0JUdpKs39pn3zg/KdkSMthzo3WqH7GQyO/HKHbJg/dPwZKvLmk5whlLab2z2LvmnNcWqX+r9utz5g6HzTbw6T+TEOLDfu3sNwMj+L791QtYmPnH7lgktY7yQcDRkIkz9iuMKGB/sT0CMCKXx1zyOpT0KF6RC4hpG3owOMkuSsF3w17psVYC0lEMAKDmH96+lGW5zhnF8JKySVHmVHv52GH/kfraalifSQStQ1hjTnChLxIvjSj0fadYvItY4TmSJmZ1xnubpz32DgIaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+	id 414d1422-316d-42d9-9bc4-a15bb4475700;
+	Mon, 23 Nov 2020 15:47:46 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id 142so18466511ljj.10
+        for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 07:47:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C1Wd4GzeYtWnis+nIYyELt1FZdGc5LtAW9yKBZSKUQE=;
- b=io3OGhObNTm+258lVI0Vv9+G/nfe+IWrZDloXRaNtM4QDTlwKhbG+dPT0+WEmkyHtlbxrK4YRXUKY6Uc4xxw7UuPET8eujzqKj2dModXKMplXj0aZOg5AoINRIhya9tixUVSUuYcaEUvyMjuGhVMg/9nQpcPo55OknvpzRDqYEM=
-Date: Mon, 23 Nov 2020 16:44:38 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien@xen.org>
-Subject: Re: [PATCH 4/4] x86/ACPI: don't invalidate S5 data when S3 wakeup
- vector cannot be determined
-Message-ID: <20201123154438.r4dspkhbmgos5j7n@Air-de-Roger>
-References: <7f895b0e-f46f-8fe2-b0ac-e0503ef06a1f@suse.com>
- <d2b9d231-8a05-6164-66f8-74d7bfe4b40f@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d2b9d231-8a05-6164-66f8-74d7bfe4b40f@suse.com>
-X-ClientProxiedBy: MR2P264CA0014.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:1::26) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=6BjATHCxirlMscvoXaspmm4DKGb45kqaNww0aQhBLrQ=;
+        b=uZdvRNn1LYALcK93XCRoJlD9kYiCNAtQGcM/ihVDybp6lXIjsBGgJXV7ZJqjp1Sc/K
+         8ERB4r/Wioa/fSTuQWerlp72SCjqSVgld38wTHOe36kj4BJTILm7aY1cW2XrGYrd7wJb
+         l/7RxNG4lVyp2/vroymXZZIsG6wiuYw5CBvNvizf+tdytsLcxbzleEJKWMt56vgv0DNO
+         YUPZi2UdGn3t5J5cjZlPt4E/qCK7YOXx0R2Q9bmXPMwGfeviMetA+9r5eCu1ur/cxtoi
+         1FU62uMfxZnvD7z3IpoPlQoGV6B0coqQedK5ezspYCrvDsdfeZoybjKBfWhunBU4C+bx
+         aQAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=6BjATHCxirlMscvoXaspmm4DKGb45kqaNww0aQhBLrQ=;
+        b=GpRO7tB5WOVsV07oruhJSmq+68lRy+Vl8Tv6I7owqHstFTaReTjAlzOCoWTLnLFm3S
+         WViRQypoQ2w62C1u/dvqlPGLSglxsqISViINi8/nhLbwpcdqDlwx6IqhfdvR5vYw46Uz
+         k0/IZJg0MzUN1v/Gdn77gZmpIkxe1colF8xvzPLBTvM/DZTwvks417BxOSSmkNlFvXkn
+         WErx6/f7MOIe6ZtWoMJByaWs6y8J2SDe0XiDB6g6k9e1XfTtRgoLUM2uwIDmnR02SJ+V
+         qiKbbfcFBJcFGXSIgrUfeOJV3dNg6k3Zn+n8RiuFFVxdxf/AqMezv3sEkF5OCh9CO0Bk
+         Lv4A==
+X-Gm-Message-State: AOAM531NkMq44BF0O2wc2IwgndiBB8q2wxmqg1hjR54d3Z9QAJblmjz0
+	fsKQ3iEh13u61YTneTDCnWYCkTcUlXoKvA==
+X-Google-Smtp-Source: ABdhPJxg0rSQzCab1r/3SntdBdL5F6WJpzjZ1Zuek553WQZKxfgF82EOdsSRqvPgwyUh+AZVzsBr6A==
+X-Received: by 2002:a2e:86c1:: with SMTP id n1mr65040ljj.351.1606146464679;
+        Mon, 23 Nov 2020 07:47:44 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+        by smtp.gmail.com with ESMTPSA id s62sm3552lja.102.2020.11.23.07.47.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2020 07:47:44 -0800 (PST)
+Subject: Re: [PATCH V2 12/23] xen/ioreq: Remove "hvm" prefixes from involved
+ function names
+To: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
+ <1602780274-29141-13-git-send-email-olekstysh@gmail.com>
+ <e3064b77-71c3-9d8d-2324-6839895101f4@suse.com>
+ <d3b6623c-683d-2845-78c3-a114193b0ce4@gmail.com>
+ <04a81b7e-213a-968b-048c-dfa68b6e3b0d@gmail.com>
+ <96e6622c-08b3-ff85-75f1-14c8b7cd6d6e@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <30c01448-d4f2-803e-1569-5e806f830efc@gmail.com>
+Date: Mon, 23 Nov 2020 17:47:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a363ef01-2813-44fb-df15-08d88fc6b2e5
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2633:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR03MB263381619EAEC7335E0572FF8FFC0@DM5PR03MB2633.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Lby4VmSivWS0hw1GCxxdpD2E6CPFpXJyATsGDvJdrcxowNWODeg81SyZWTM+tAidMWLgy5tvxP2HlonRv65VI6T4dhHYbJgHs0JyRmFyOs70Ku4+Ai6T4yx0gfYZgAdVjbHLfwV6S6Ni2GmWIF4/8zdXSuAeeoVbnVXh/kBbTnA54QYe2/PDuJsqSM+hSjHJif4t6bN/HJUuwonAnnrw3pSHCvFXbC0kp+vWsnhVlBODCWo6NBCLdjKOsg8T3hwjTgLWvRatl5adwWtI1WZBoJJWak/aYJlairyy7KMvgoiWPSybdPeoXn00A+aTQFEL
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(136003)(376002)(346002)(39860400002)(396003)(366004)(9686003)(6496006)(6916009)(6666004)(6486002)(33716001)(8936002)(4326008)(2906002)(1076003)(8676002)(478600001)(66556008)(316002)(4744005)(54906003)(66946007)(956004)(85182001)(5660300002)(86362001)(16526019)(186003)(66476007)(26005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: rTuF6NHP3JdKnqTV39Y/BWd7YbwmxtMwzUNg99Vjn06qPb14IjyHPe0exExz2LttfmdLw4cjwcgYpRyylsdmN5c6qOUsB9PoURRbml0XZ2RkCpnSuuWRQEbL781F43KYeDkLLHlQJjdFJfLWKFTiGqRvRuUUEeU00lV617KuLm6Mwzj/gI2lCluTrMTrxY0Y36boYoD33uy5WtHbziGWFiM+OgMS/j7sdrK1rcTDkNQ1j7pwvNg1RcirnTsNbOZ/FaV+cwErgyKkXEx00+A4EZs1pAgl5sve1Rx+mUj2MmcaK019jd6ZqSmpAl2cSgv52pP7FMlL/55nZZSvqJjioAZE2+/f/aXYPGM4+Dt9X6WQbxxk/8qaO9S+z3JW/dtgW6HB2KHtOdCpBX2r5MHNsEIGAZT/PoJqYwVCWl9b07BKhP9SmXSu6JrckhcShLSV90QF536/tf19Dq7LfI+5/ZKeyXbkUwe3itq4UCDZzcmQJMLeMQZLPx7JtInEUUF/vMrr2auMZKe2Un5WGEgUOf7+zRBR3pB2vMwDF0Gmrq4k/4PlKAZ8A1P99bBLc5/pW/eKsgxoWDm6iDTpd+fVlmIIxLG8Ocy4Oj+dq1VZUV8kBd436GwCv+epl4k8sgYYFMft7WvWqK2OP/AlGVwdIx6bn0Ox+NLdwFzHnyH+Ac2f+x+QYoPrJx3IosiVn4s5BygBaxNECBJ3WDWKbXkr8iIzzNUz8KC+sayD9LptHEXgezcDb4kO+m0LULWmMidEVMTMW9Sil+ZqNvLY5MsvvJ72fTUoM7af8W23LiF6gmumh/4yMLd/zKWuXovYgwcJVqe1jAn0zd6/lyvg1nV4AgANaw5+5TFTAQyJ/CIr6iwvIbDPypaKZ7EI6h0ZCAJciYiaFdkqAshF0GG54hASdw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: a363ef01-2813-44fb-df15-08d88fc6b2e5
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2020 15:44:44.1825
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bD/AGpwmBRA8FgJh8x4WNLCby8lL1og+DwI1dMoZg3F3jAUUup0rzuy5WgFxxw3yfRIUF/m0mmiQIcfScI5oCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2633
-X-OriginatorOrg: citrix.com
+In-Reply-To: <96e6622c-08b3-ff85-75f1-14c8b7cd6d6e@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On Mon, Nov 23, 2020 at 01:41:06PM +0100, Jan Beulich wrote:
-> We can be more tolerant as long as the data collected from FACS is only
-> needed to enter S3. A prior change already added suitable checking to
-> acpi_enter_sleep().
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+On 23.11.20 16:56, Jan Beulich wrote:
 
-Thanks, Roger.
+Hi Jan, Paul
+
+> On 23.11.2020 15:39, Oleksandr wrote:
+>> As it was agreed, below the list of proposed renaming (naming) within
+>> current series.
+> Thanks for compiling this. A couple of suggestions for consideration:
+>
+>> 1. Global (existing):
+>> hvm_map_mem_type_to_ioreq_server     -> ioreq_server_map_mem_type
+>> hvm_select_ioreq_server              -> ioreq_server_select
+>> hvm_send_ioreq                       -> ioreq_send
+>> hvm_ioreq_init                       -> ioreq_init
+> ioreq_domain_init() (or, imo less desirable domain_ioreq_init())?
+On Arm (for example) I see two variants are present:
+1. That starts with subsystem:
+- tee_domain_init
+- iommu_domain_init
+
+
+2. Where sybsystem in the middle:
+- domain_io_init
+- domain_vuart_init
+- domain_vtimer_init
+
+If there is no rule, but a matter of taste then I would use 
+ioreq_domain_init(),
+so arch_ioreq_init() wants to be arch_ioreq_domain_init().
+
+>
+>> hvm_destroy_all_ioreq_servers        -> ioreq_server_destroy_all
+>> hvm_all_ioreq_servers_add_vcpu       -> ioreq_server_add_vcpu_all
+>> hvm_all_ioreq_servers_remove_vcpu    -> ioreq_server_remove_vcpu_all
+>> hvm_broadcast_ioreq                  -> ioreq_broadcast
+>> hvm_create_ioreq_server              -> ioreq_server_create
+>> hvm_get_ioreq_server_info            -> ioreq_server_get_info
+>> hvm_map_io_range_to_ioreq_server     -> ioreq_server_map_io_range
+>> hvm_unmap_io_range_from_ioreq_server -> ioreq_server_unmap_io_range
+>> hvm_set_ioreq_server_state           -> ioreq_server_set_state
+>> hvm_destroy_ioreq_server             -> ioreq_server_destroy
+>> hvm_get_ioreq_server_frame           -> ioreq_server_get_frame
+>> hvm_ioreq_needs_completion           -> ioreq_needs_completion
+>> hvm_mmio_first_byte                  -> ioreq_mmio_first_byte
+>> hvm_mmio_last_byte                   -> ioreq_mmio_last_byte
+>> send_invalidate_req                  -> ioreq_signal_mapcache_invalidate
+>>
+>> handle_hvm_io_completion             -> handle_io_completion
+> For this one I'm not sure what to suggest, but I'm not overly happy
+> with the name.
+
+I also failed to find a better name. Probably ioreq_ or vcpu_ioreq_ 
+prefix wants to be added here?
+
+
+>
+>> hvm_io_pending                       -> io_pending
+> vcpu_ioreq_pending() or vcpu_any_ioreq_pending()?
+
+I am fine with vcpu_ioreq_pending()
+
+
+>
+>> 2. Global (new):
+>> arch_io_completion
+>> arch_ioreq_server_map_pages
+>> arch_ioreq_server_unmap_pages
+>> arch_ioreq_server_enable
+>> arch_ioreq_server_disable
+>> arch_ioreq_server_destroy
+>> arch_ioreq_server_map_mem_type
+>> arch_ioreq_server_destroy_all
+>> arch_ioreq_server_get_type_addr
+>> arch_ioreq_init
+> Assuming this is the arch hook of the similarly named function
+> further up, a similar adjustment may then be wanted here.
+
+Yes.
+
+
+>
+>> domain_has_ioreq_server
+>>
+>>
+>> 3. Local (existing) in common ioreq.c:
+>> hvm_alloc_ioreq_mfn               -> ioreq_alloc_mfn
+>> hvm_free_ioreq_mfn                -> ioreq_free_mfn
+> These two are server functions, so should imo be ioreq_server_...().
+
+ok, but ...
+
+
+> However, if they're static (as they're now), no distinguishing
+> prefix is strictly necessary, i.e. alloc_mfn() and free_mfn() may
+> be fine. The two names may be too short for Paul's taste, though.
+> Some similar shortening may be possible for some or all of the ones
+
+
+... In general I would be fine with any option. However, using the 
+shortening rule for all
+we are going to end up with single-word function names (enable, init, etc).
+So I would prefer to leave locals as is (but dropping hvm prefixes of 
+course and
+clarify ioreq_server_alloc_mfn/ioreq_server_free_mfn).
+
+Paul, Jan what do you think?
+
+
+> below here.
+>
+> Jan
+>
+>> hvm_update_ioreq_evtchn           -> ioreq_update_evtchn
+>> hvm_ioreq_server_add_vcpu         -> ioreq_server_add_vcpu
+>> hvm_ioreq_server_remove_vcpu      -> ioreq_server_remove_vcpu
+>> hvm_ioreq_server_remove_all_vcpus -> ioreq_server_remove_all_vcpus
+>> hvm_ioreq_server_alloc_pages      -> ioreq_server_alloc_pages
+>> hvm_ioreq_server_free_pages       -> ioreq_server_free_pages
+>> hvm_ioreq_server_free_rangesets   -> ioreq_server_free_rangesets
+>> hvm_ioreq_server_alloc_rangesets  -> ioreq_server_alloc_rangesets
+>> hvm_ioreq_server_enable           -> ioreq_server_enable
+>> hvm_ioreq_server_disable          -> ioreq_server_disable
+>> hvm_ioreq_server_init             -> ioreq_server_init
+>> hvm_ioreq_server_deinit           -> ioreq_server_deinit
+>> hvm_send_buffered_ioreq           -> ioreq_send_buffered
+>>
+>> hvm_wait_for_io                   -> wait_for_io
+>>
+>> 4. Local (existing) in x86 ioreq.c:
+>> Everything related to legacy interface (hvm_alloc_legacy_ioreq_gfn, etc)
+>> are going
+>> to remain as is.
+>>
+>>
+>>
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
