@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 247112C18B5
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 23:49:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35240.66670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F1202C18B8
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 23:54:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35248.66682 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khKeI-0002bd-Ux; Mon, 23 Nov 2020 22:49:30 +0000
+	id 1khKiT-0003TE-Ft; Mon, 23 Nov 2020 22:53:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35240.66670; Mon, 23 Nov 2020 22:49:30 +0000
+Received: by outflank-mailman (output) from mailman id 35248.66682; Mon, 23 Nov 2020 22:53:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,110 +23,106 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khKeI-0002bE-Re; Mon, 23 Nov 2020 22:49:30 +0000
-Received: by outflank-mailman (input) for mailman id 35240;
- Mon, 23 Nov 2020 22:49:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1khKeH-0002b9-5b
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:49:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1khKeG-0004Z9-2A; Mon, 23 Nov 2020 22:49:28 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1khKeF-0005zt-R4; Mon, 23 Nov 2020 22:49:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1khKiT-0003Sp-Ch; Mon, 23 Nov 2020 22:53:49 +0000
+Received: by outflank-mailman (input) for mailman id 35248;
+ Mon, 23 Nov 2020 22:53:47 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Rez2=E5=kernel.org=gustavoars@srs-us1.protection.inumbo.net>)
+ id 1khKiR-0003SJ-Fj
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:53:47 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6b314eb7-5d78-44bf-8276-561e9b09ebf7;
+ Mon, 23 Nov 2020 22:53:46 +0000 (UTC)
+Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E0DFC206D8;
+ Mon, 23 Nov 2020 22:53:44 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1khKeH-0002b9-5b
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:49:29 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=5MNW1inTob+ISExQ5qkJRx9m4GK2Yllrafe4Wg6R6aU=; b=K6Xx+Q7ux+tNHwU1Cjnerz6ggG
-	s+mJtj/tIDzGZFalWyRYdZ+RtI4nb10dMLxszsDHcT7c1JJ7rrMjfhfLTUVnvEprulmWUuCvKKzcQ
-	xPPzv0TgVfwPcZbq4PBUmd/4DBLzwjFdtTyeSMXA6qV5CGA+UwU8ZHenB8MhNtePq80o=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1khKeG-0004Z9-2A; Mon, 23 Nov 2020 22:49:28 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1khKeF-0005zt-R4; Mon, 23 Nov 2020 22:49:27 +0000
-Subject: Re: [PATCH v2 7/8] lib: move bsearch code
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <aa1ca5da-3ecf-8721-63f9-b86ebbc64330@suse.com>
- <87a20884-5a76-a664-dcc9-bd4becee40b3@suse.com>
- <44ffc041-cacd-468e-a835-f5b2048bb201@xen.org>
- <2cf3a90d-f463-41f8-f861-6ef00279b204@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <2419eccf-c696-6aa1-ada4-0f7bd6bc5657@xen.org>
-Date: Mon, 23 Nov 2020 22:49:25 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.0
+	(envelope-from <SRS0=Rez2=E5=kernel.org=gustavoars@srs-us1.protection.inumbo.net>)
+	id 1khKiR-0003SJ-Fj
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:53:47 +0000
+X-Inumbo-ID: 6b314eb7-5d78-44bf-8276-561e9b09ebf7
+Received: from mail.kernel.org (unknown [198.145.29.99])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 6b314eb7-5d78-44bf-8276-561e9b09ebf7;
+	Mon, 23 Nov 2020 22:53:46 +0000 (UTC)
+Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id E0DFC206D8;
+	Mon, 23 Nov 2020 22:53:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1606172025;
+	bh=Y754Uxsb+oRdteJzxeLGJZ0Nr6qJ2w8yPhIjK1E9ygw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Hd8DEuKDlU/OBnXmphx1Bjt66POq5VZAkAJuwm05bXMWgCP0KNMsZhuX1pGccgVAQ
+	 CuJqNVszqNMvfApMAr7ZRwkEnkR59sOEF5TtNw+vX34N/EMP+A/lHmONMXhkr1ttvy
+	 rNUTWmbmeyjT6VfheHX8QTYB5CtlRKh4XbeKEb9c=
+Date: Mon, 23 Nov 2020 16:53:59 -0600
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: boris.ostrovsky@oracle.com
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 058/141] xen-blkfront: Fix fall-through warnings for Clang
+Message-ID: <20201123225359.GP21644@embeddedor>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <33057688012c34dd60315ad765ff63f070e98c0c.1605896059.git.gustavoars@kernel.org>
+ <e8d67ea1-3d0d-509a-a2f1-cf1758bb373f@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <2cf3a90d-f463-41f8-f861-6ef00279b204@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e8d67ea1-3d0d-509a-a2f1-cf1758bb373f@oracle.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 
-Hi Jan,
-
-On 19/11/2020 10:27, Jan Beulich wrote:
-> On 18.11.2020 19:09, Julien Grall wrote:
->> On 23/10/2020 11:19, Jan Beulich wrote:
->>> --- a/xen/include/xen/compiler.h
->>> +++ b/xen/include/xen/compiler.h
->>> @@ -12,6 +12,7 @@
->>>    
->>>    #define inline        __inline__
->>>    #define always_inline __inline__ __attribute__ ((__always_inline__))
->>> +#define gnu_inline    __inline__ __attribute__ ((__gnu_inline__))
->>
->> bsearch() is only used by Arm and I haven't seen anyone so far
->> complaining about the perf of I/O emulation.
->>
->> Therefore, I am not convinced that there is enough justification to
->> introduce a GNU attribute just for this patch.
+On Fri, Nov 20, 2020 at 04:36:26PM -0500, boris.ostrovsky@oracle.com wrote:
 > 
-> Please settle this with Andrew: He had asked for the function to
-> become inline. I don't view making it static inline in the header
-> as an option here - if the compiler decides to not inline it, we
-> should not end up with multiple instances in different CUs.
+> On 11/20/20 1:32 PM, Gustavo A. R. Silva wrote:
+> > In preparation to enable -Wimplicit-fallthrough for Clang, fix a warning
+> > by explicitly adding a break statement instead of letting the code fall
+> > through to the next case.
+> >
+> > Link: https://github.com/KSPP/linux/issues/115
+> > Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> > ---
+> >  drivers/block/xen-blkfront.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+> > index 48629d3433b4..34b028be78ab 100644
+> > --- a/drivers/block/xen-blkfront.c
+> > +++ b/drivers/block/xen-blkfront.c
+> > @@ -2462,6 +2462,7 @@ static void blkback_changed(struct xenbus_device *dev,
+> >  			break;
+> >  		if (talk_to_blkback(dev, info))
+> >  			break;
+> > +		break;
+> >  	case XenbusStateInitialising:
+> >  	case XenbusStateInitialised:
+> >  	case XenbusStateReconfiguring:
+> 
+> 
+> Reviewed-by Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> 
+> 
+> (for patch 138 as well)
 
-That's the cons of static inline... but then why is it suddenly a 
-problem with this helper?
+Thank you for both reviews, Boris.
 
-> And
-> without making it static inline the attribute needs adding; at
-> least I'm unaware of an alternative which works with the various
-> compiler versions.
+> Although I thought using 'fallthrough' attribute was the more common approach.
 
-The question we have to answer is: What is the gain with this approach?
+I've got it. I will consider that for a future patch.
 
-If it is not quantifiable, then introducing compiler specific attribute 
-is not an option.
-
-IIRC, there are only two callers (all in Arm code) of this function. 
-Even inlined, I don't believe you would drastically reduce the number of 
-instructions compare to a full blown version. To be generous, I would 
-say you may save ~20 instructions per copy.
-
-Therefore, so far, the compiler specific attribute doesn't look 
-justified to me. As usual, I am happy to be proven wrong.
-
-Cheers,
-
--- 
-Julien Grall
+Thanks
+--
+Gustavo
 
