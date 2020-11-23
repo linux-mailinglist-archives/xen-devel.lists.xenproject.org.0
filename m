@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D6DD2C135F
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 19:56:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35130.66520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9D5B2C1369
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 20:04:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35139.66532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khH0Z-00074V-CN; Mon, 23 Nov 2020 18:56:15 +0000
+	id 1khH8i-00082A-7I; Mon, 23 Nov 2020 19:04:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35130.66520; Mon, 23 Nov 2020 18:56:15 +0000
+Received: by outflank-mailman (output) from mailman id 35139.66532; Mon, 23 Nov 2020 19:04:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,170 +23,219 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khH0Z-000746-8g; Mon, 23 Nov 2020 18:56:15 +0000
-Received: by outflank-mailman (input) for mailman id 35130;
- Mon, 23 Nov 2020 18:56:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0pQc=E5=gmail.com=miguel.ojeda.sandonis@srs-us1.protection.inumbo.net>)
- id 1khH0X-000741-Ip
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 18:56:13 +0000
-Received: from mail-yb1-xb41.google.com (unknown [2607:f8b0:4864:20::b41])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4ea3ab6f-d25f-4f22-850e-06b44c785b68;
- Mon, 23 Nov 2020 18:56:12 +0000 (UTC)
-Received: by mail-yb1-xb41.google.com with SMTP id 2so16859257ybc.12
- for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 10:56:12 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1khH8i-00081l-42; Mon, 23 Nov 2020 19:04:40 +0000
+Received: by outflank-mailman (input) for mailman id 35139;
+ Mon, 23 Nov 2020 19:04:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xOkN=E5=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1khH8h-00081g-90
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 19:04:39 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c0b14898-5a65-4ba4-8ef9-d232c4a3f0f1;
+ Mon, 23 Nov 2020 19:04:37 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 822DDAC41;
+ Mon, 23 Nov 2020 19:04:36 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=0pQc=E5=gmail.com=miguel.ojeda.sandonis@srs-us1.protection.inumbo.net>)
-	id 1khH0X-000741-Ip
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 18:56:13 +0000
-X-Inumbo-ID: 4ea3ab6f-d25f-4f22-850e-06b44c785b68
-Received: from mail-yb1-xb41.google.com (unknown [2607:f8b0:4864:20::b41])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 4ea3ab6f-d25f-4f22-850e-06b44c785b68;
-	Mon, 23 Nov 2020 18:56:12 +0000 (UTC)
-Received: by mail-yb1-xb41.google.com with SMTP id 2so16859257ybc.12
-        for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 10:56:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=KNG9rf3jiBLOHJ1Qe+5HClUHwDC8G2v5PJoNSRMQj2o=;
-        b=ZA1WcoeOdsWbRfOoumZEJTLTRH6V2Lpq2CDbZ0VVs1hbOT/vd/v8/YkJaULhb4MkV5
-         MHmDtgQZ7Y6vQOoRafNcjdab1m8jmYbh8Ox0xcyAJF866JXyArBCoNYzebFkQV1wRZF3
-         r3hM3WSnIq7Ht5VQ2PIwvurJMfamtV7PLgYZxEoHoT74qEv3IGeXPryfDRdu7AW/qetQ
-         L1ocOXaYsoIrsq1AVQ8cgaa4G2qWRkZviQ+mOBHOVW/MFUti3ALLJAr2MKUeWh+s4BW6
-         tAJsdEl41qUIuUvcW5DdLnVlmhWMC8lZFuXyyo4x1R3eX3DaWLHh1JzDrRZDt/CN6qga
-         036w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=KNG9rf3jiBLOHJ1Qe+5HClUHwDC8G2v5PJoNSRMQj2o=;
-        b=mdEyKoFaBnLfIEt61bzk0FujwNNJPAE11KkmI8FFlXeH6s33/pjmuhEQVMemcevFb0
-         SmT0TP/HIHWynbLxcFblxw6Wfq5EXzn+TnUigHSJUMVXJeLkeZAPWTpuTRkUngviK4pL
-         eL4G5fX41+OfwbsXNUNhSNPnNQqAFlITDhmwxWEgu6GCe17G4vUvzUp9b/Ofp2E6B4+Y
-         Rz65yt7Nt0SR1JoayEzf2/tE4eaNXAmjgOmP9d9m5w8RnyCr+FPQg+zcgy5vMNHSvkQ4
-         4IrtNVeBtlf2+0zKCVk5dh7wi3UVrM3qWVXss2B6E5tM4wMYarMnOJdg35l/HQgpcTv/
-         QTXA==
-X-Gm-Message-State: AOAM532Tk7wz2J1xhBBCli8QUhC3ZYx6DLRJiOvnIXma92PYyVMhaGvA
-	bRlyP3JBBTqBnrFYrGe7p+lUg1Ygb7e7InKSwuM=
-X-Google-Smtp-Source: ABdhPJyhWLCSkpSmtD0p55Cmpr9Ao1aJs0IYHWLu4Tcyj9q39OBvqgrIxMZMaEy7w1zacpD3mVr5R93EsjzwMBkGuSA=
-X-Received: by 2002:a25:df55:: with SMTP id w82mr977719ybg.135.1606157772316;
- Mon, 23 Nov 2020 10:56:12 -0800 (PST)
+	(envelope-from <SRS0=xOkN=E5=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1khH8h-00081g-90
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 19:04:39 +0000
+X-Inumbo-ID: c0b14898-5a65-4ba4-8ef9-d232c4a3f0f1
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id c0b14898-5a65-4ba4-8ef9-d232c4a3f0f1;
+	Mon, 23 Nov 2020 19:04:37 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606158276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s3ouLa9RJIbqH4FhgXgE1Dst59qBpgo5CefVFmZ55ag=;
+	b=oS9oYDCMT3jlYSkOFZSnjQzaU35+kHdBIAFfPx5y8O6e+7Rd0dgRBaGt5jCbkCPNRL/Th8
+	XM0N/TQ8Q84IggsAMF3fCAKoAPgRZ0XYRflaKegwFayb19R76chwV1qYSoA6EChxvt0QbY
+	pG+v1WC7N0QizMyqsn/XA/02bTRwQj4=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 822DDAC41;
+	Mon, 23 Nov 2020 19:04:36 +0000 (UTC)
+Subject: Re: [PATCH] MAINTINERS: Propose Ian Jackson as new release manager
+To: Ian Jackson <iwj@xenproject.org>, George Dunlap
+ <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Roger Pau Monne <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+References: <20201123160400.1273386-1-george.dunlap@citrix.com>
+ <24507.60537.640007.567348@mariner.uk.xensource.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <25b93d61-b52c-c333-2583-07b5d03692b8@suse.com>
+Date: Mon, 23 Nov 2020 20:04:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-References: <cover.1605896059.git.gustavoars@kernel.org> <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook> <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook> <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
- <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
- <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com> <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 23 Nov 2020 19:56:01 +0100
-Message-ID: <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Cc: Kees Cook <keescook@chromium.org>, Jakub Kicinski <kuba@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
-	alsa-devel@alsa-project.org, amd-gfx@lists.freedesktop.org, 
-	bridge@lists.linux-foundation.org, ceph-devel@vger.kernel.org, 
-	cluster-devel@redhat.com, coreteam@netfilter.org, devel@driverdev.osuosl.org, 
-	dm-devel@redhat.com, drbd-dev@lists.linbit.com, 
-	dri-devel@lists.freedesktop.org, GR-everest-linux-l2@marvell.com, 
-	GR-Linux-NIC-Dev@marvell.com, intel-gfx@lists.freedesktop.org, 
-	intel-wired-lan@lists.osuosl.org, keyrings@vger.kernel.org, 
-	linux1394-devel@lists.sourceforge.net, linux-acpi@vger.kernel.org, 
-	linux-afs@lists.infradead.org, 
-	Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-arm-msm@vger.kernel.org, 
-	linux-atm-general@lists.sourceforge.net, linux-block@vger.kernel.org, 
-	linux-can@vger.kernel.org, linux-cifs@vger.kernel.org, 
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, linux-decnet-user@lists.sourceforge.net, 
-	Ext4 Developers List <linux-ext4@vger.kernel.org>, linux-fbdev@vger.kernel.org, 
-	linux-geode@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-hams@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	linux-i3c@lists.infradead.org, linux-ide@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-input <linux-input@vger.kernel.org>, 
-	linux-integrity@vger.kernel.org, linux-mediatek@lists.infradead.org, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, linux-mmc@vger.kernel.org, 
-	Linux-MM <linux-mm@kvack.org>, linux-mtd@lists.infradead.org, 
-	linux-nfs@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-sctp@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, 
-	linux-wireless <linux-wireless@vger.kernel.org>, 
-	Network Development <netdev@vger.kernel.org>, netfilter-devel@vger.kernel.org, 
-	nouveau@lists.freedesktop.org, op-tee@lists.trustedfirmware.org, 
-	oss-drivers@netronome.com, patches@opensource.cirrus.com, 
-	rds-devel@oss.oracle.com, reiserfs-devel@vger.kernel.org, 
-	samba-technical@lists.samba.org, selinux@vger.kernel.org, 
-	target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net, 
-	usb-storage@lists.one-eyed-alien.net, 
-	virtualization@lists.linux-foundation.org, wcn36xx@lists.infradead.org, 
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, xen-devel@lists.xenproject.org, 
-	linux-hardening@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, 
-	Nathan Chancellor <natechancellor@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Joe Perches <joe@perches.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <24507.60537.640007.567348@mariner.uk.xensource.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="RbsJ6C35zk97y4RuVSYXKEJCDvswJGwu1"
 
-On Mon, Nov 23, 2020 at 4:58 PM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
->
-> Well, I used git.  It says that as of today in Linus' tree we have 889
-> patches related to fall throughs and the first series went in in
-> october 2017 ... ignoring a couple of outliers back to February.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--RbsJ6C35zk97y4RuVSYXKEJCDvswJGwu1
+Content-Type: multipart/mixed; boundary="UkBBn4ep6qKbB6UcvhpTDXSxzMTeFi3bH";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Ian Jackson <iwj@xenproject.org>, George Dunlap
+ <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Roger Pau Monne <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Message-ID: <25b93d61-b52c-c333-2583-07b5d03692b8@suse.com>
+Subject: Re: [PATCH] MAINTINERS: Propose Ian Jackson as new release manager
+References: <20201123160400.1273386-1-george.dunlap@citrix.com>
+ <24507.60537.640007.567348@mariner.uk.xensource.com>
+In-Reply-To: <24507.60537.640007.567348@mariner.uk.xensource.com>
 
-I can see ~10k insertions over ~1k commits and 15 years that mention a
-fallthrough in the entire repo. That is including some commits (like
-the biggest one, 960 insertions) that have nothing to do with C
-fallthrough. A single kernel release has an order of magnitude more
-changes than this...
+--UkBBn4ep6qKbB6UcvhpTDXSxzMTeFi3bH
+Content-Type: multipart/mixed;
+ boundary="------------F4FCA6AB20BDD98D93C6403B"
+Content-Language: en-US
 
-But if we do the math, for an author, at even 1 minute per line change
-and assuming nothing can be automated at all, it would take 1 month of
-work. For maintainers, a couple of trivial lines is noise compared to
-many other patches.
+This is a multi-part message in MIME format.
+--------------F4FCA6AB20BDD98D93C6403B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-In fact, this discussion probably took more time than the time it
-would take to review the 200 lines. :-)
+On 23.11.20 18:08, Ian Jackson wrote:
+> George Dunlap writes ("[PATCH] MAINTINERS: Propose Ian Jackson as new r=
+elease manager"):
+>> Ian Jackson has agreed to be the release manager for 4.15.  Signify
+>> this by giving him maintainership over CHANGELOG.md.
+>=20
+> Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+>=20
+> Obviously that signifies my consent but I think it needs more acks.
+>=20
+> Wei, Juergen, Paul, I think I am likely to ask you some questions.
+> Any tips etc would be welcome.
 
-> We're also complaining about the inability to recruit maintainers:
->
-> https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
->
-> And burn out:
->
-> http://antirez.com/news/129
+Fine with me. :-)
 
-Accepting trivial and useful 1-line patches is not what makes a
-voluntary maintainer quit... Thankless work with demanding deadlines is.
 
-> The whole crux of your argument seems to be maintainers' time isn't
-> important so we should accept all trivial patches
+Juergen
 
-I have not said that, at all. In fact, I am a voluntary one and I
-welcome patches like this. It takes very little effort on my side to
-review and it helps the kernel overall. Paid maintainers are the ones
-that can take care of big features/reviews.
+--------------F4FCA6AB20BDD98D93C6403B
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-> What I'm actually trying to articulate is a way of measuring value of
-> the patch vs cost ... it has nothing really to do with who foots the
-> actual bill.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I understand your point, but you were the one putting it in terms of a
-junior FTE. In my view, 1 month-work (worst case) is very much worth
-removing a class of errors from a critical codebase.
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> One thesis I'm actually starting to formulate is that this continual
-> devaluing of maintainers is why we have so much difficulty keeping and
-> recruiting them.
+--------------F4FCA6AB20BDD98D93C6403B--
 
-That may very well be true, but I don't feel anybody has devalued
-maintainers in this discussion.
+--UkBBn4ep6qKbB6UcvhpTDXSxzMTeFi3bH--
 
-Cheers,
-Miguel
+--RbsJ6C35zk97y4RuVSYXKEJCDvswJGwu1
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+8B8MFAwAAAAAACgkQsN6d1ii/Ey/k
+Mwf9FPem376Mc0hndA7HbuDIoqJCnmCH5s4F2Ubfueng4Va1QiduWwe47eesx+7W9Be8IEPIc16V
+YuWgAhrsY/ttad6h5fFTZOlHimpDc8xKSurxw4sesRVPVT4+n/1y3WH/9Nh/akWvPPPaGAFEjYdI
+KPML8jbqg65buOg9Pe4mFbr/7kRM4MuhU87O8NQOw4TCafaTOvBZB1SpCt0pgVcO7IqMNT7ACL+z
+liRPHiNaqJexze5jLuGQ0x+KQuK4xzd+yqlHCvcx79bX4iwfrf8G1Syw4QSqOzedwXokOkAtmSDk
+s3R9tK6gCNwhoA1NEkY4REB3hmNijQnHEHmyo8UD2g==
+=V6Xy
+-----END PGP SIGNATURE-----
+
+--RbsJ6C35zk97y4RuVSYXKEJCDvswJGwu1--
 
