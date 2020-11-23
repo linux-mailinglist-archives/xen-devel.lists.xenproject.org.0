@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1E0F2C0F7E
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 17:01:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.34775.65994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106392C0FB5
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 17:05:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.34783.66007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khEGu-00048W-Nm; Mon, 23 Nov 2020 16:00:56 +0000
+	id 1khEKo-0004KH-96; Mon, 23 Nov 2020 16:04:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 34775.65994; Mon, 23 Nov 2020 16:00:56 +0000
+Received: by outflank-mailman (output) from mailman id 34783.66007; Mon, 23 Nov 2020 16:04:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,143 +23,97 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khEGu-000487-Kf; Mon, 23 Nov 2020 16:00:56 +0000
-Received: by outflank-mailman (input) for mailman id 34775;
- Mon, 23 Nov 2020 16:00:54 +0000
+	id 1khEKo-0004Js-5y; Mon, 23 Nov 2020 16:04:58 +0000
+Received: by outflank-mailman (input) for mailman id 34783;
+ Mon, 23 Nov 2020 16:04:57 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Rrc6=E5=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1khEGr-000482-VE
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 16:00:54 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.22])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/KCf=E5=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1khEKn-0004Jn-C5
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 16:04:57 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 597aee59-c80c-41a2-91b6-6e76a3bed4e2;
- Mon, 23 Nov 2020 16:00:52 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.3.4 DYNA|AUTH)
- with ESMTPSA id V0b6ccwANG0hrJD
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 23 Nov 2020 17:00:43 +0100 (CET)
+ id 21ebb239-01de-4132-8be8-45ca20f0855b;
+ Mon, 23 Nov 2020 16:04:56 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Rrc6=E5=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
-	id 1khEGr-000482-VE
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 16:00:54 +0000
-X-Inumbo-ID: 597aee59-c80c-41a2-91b6-6e76a3bed4e2
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.22])
+	(envelope-from <SRS0=/KCf=E5=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+	id 1khEKn-0004Jn-C5
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 16:04:57 +0000
+X-Inumbo-ID: 21ebb239-01de-4132-8be8-45ca20f0855b
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 597aee59-c80c-41a2-91b6-6e76a3bed4e2;
-	Mon, 23 Nov 2020 16:00:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1606147252;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
-	X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
-	bh=VUdBJc6ahXffD4ePwK9dNsIUxMg8YOVPnQnEip+4khE=;
-	b=Ssnb0hVzCicshlGVT6JWrG7eI3G7C2ENLQ+++cShganlf85itSQ3K+FwqWBbzKsG/u
-	qi8r2UKwwmvdrAJwdn4oCfHiMgLc6PC1+0sHsK01VcohMiy+JB8oBd0l6NZyWilIXFU3
-	RC9jkN03r3VohN3/1pdLVpmrULEXmtx4AU0iT40rQGdthyZSmFAHoKbGo5Qy6Tpf+5bq
-	9GFD/kCsv76oSihRmTii71Uffv68Qe3qR5wKVSdtOVahf7IOvyzQkJY6cWskI40BX6VM
-	tGf8HC30e+YVAmPJmsPmSFq3IuMBAHEzi9lpP/gV862gWJzchuVRBS7VI6N3IVSslT+w
-	4voA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+uX"
-X-RZG-CLASS-ID: mo00
-Received: from sender
-	by smtp.strato.de (RZmta 47.3.4 DYNA|AUTH)
-	with ESMTPSA id V0b6ccwANG0hrJD
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-	Mon, 23 Nov 2020 17:00:43 +0100 (CET)
-Date: Mon, 23 Nov 2020 17:00:31 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v1 00/23] reduce overhead during live migration
-Message-ID: <20201123170031.147efdb1.olaf@aepfle.de>
-In-Reply-To: <20201029172004.17219-1-olaf@aepfle.de>
-References: <20201029172004.17219-1-olaf@aepfle.de>
-X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+	id 21ebb239-01de-4132-8be8-45ca20f0855b;
+	Mon, 23 Nov 2020 16:04:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1606147496;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=m43E1j1pgce7TcObGftnisojvbl9tRjPYzsFht/m8E8=;
+  b=KpvAT03qCDz3FKAlGuZ1CIzLKxnGJngW76c7yEfPm0lxju954iwaGrfg
+   MwvYj2zGw2fIM8UuGBGTCmzJtza4KCFQ+zBw6Sh4YP663UAUkceSQ3/VC
+   zcFQ+oA98Yaf2Bv++CeI9QJSTxcAEYzkWs0rVfoViSfWJtsa7U0cFo0LH
+   k=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: Gqqm3vfdwr9zFqbi6kea/7+Q2JJDIadQjbPWzpMtYnYPxvHXa22K75WQvRqZYgKSClFtZztZNt
+ TGRvDaWhItenmQWjXI+K7YW4P3i6rGw8BxhutRr3vSQRGpuO4FBjL3UOX6Qa9GXhWultR42DRL
+ 08o7BFkEPPzqoR5wKK+4oWds3ip/RP0nsR1lzyRK4/prsG4lFQYFt75mKwuL1j7FsfGlZGTX9e
+ nSnQgYPaG5TBAVe9mhbyp+M+2OmgX4K+zxg6PLABaRQA1cljzuAJDge+bfm4rG1C2xC63Ryu7c
+ DKU=
+X-SBRS: None
+X-MesageID: 31728320
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,363,1599537600"; 
+   d="scan'208";a="31728320"
+From: George Dunlap <george.dunlap@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+	<ian.jackson@citrix.com>, Wei Liu <wl@xen.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Roger Pau Monne
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
+ Grall" <julien@xen.org>, Paul Durrant <paul@xen.org>
+Subject: [PATCH] MAINTINERS: Propose Ian Jackson as new release manager
+Date: Mon, 23 Nov 2020 16:04:00 +0000
+Message-ID: <20201123160400.1273386-1-george.dunlap@citrix.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/aTcd5+wmI6HVz+GTz8amsC8"; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
---Sig_/aTcd5+wmI6HVz+GTz8amsC8
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Ian Jackson has agreed to be the release manager for 4.15.  Signify
+this by giving him maintainership over CHANGELOG.md.
 
-There was no feedback to this series within the past three weeks.
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+---
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Paul Durrant <paul@xen.org>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Please review this series.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index dab38a6a14..a9872df1de 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -250,7 +250,7 @@ F:	xen/include/public/arch-arm/
+ F:	xen/include/public/arch-arm.h
+ 
+ Change Log
+-M:	Paul Durrant <paul@xen.org>
++M:	Ian Jackson <ian.jackson@citrix.com>
+ R:	Community Manager <community.manager@xenproject.org>
+ S:	Maintained
+ F:	CHANGELOG.md
+-- 
+2.25.1
 
-Thanks,
-Olaf
-
-Am Thu, 29 Oct 2020 18:19:40 +0100
-schrieb Olaf Hering <olaf@aepfle.de>:
-
-> The current live migration code can easily saturate an 1Gb link.
-> There is still room for improvement with faster network connections.
-> Even with this series reviewed and applied.
-> See description of patch #6.
->=20
-> Olaf
->=20
-> Olaf Hering (23):
->   tools: add readv_exact to libxenctrl
->   tools: add xc_is_known_page_type to libxenctrl
->   tools: use xc_is_known_page_type
->   tools: unify type checking for data pfns in migration stream
->   tools: show migration transfer rate in send_dirty_pages
->   tools/guest: prepare to allocate arrays once
->   tools/guest: save: move batch_pfns
->   tools/guest: save: move mfns array
->   tools/guest: save: move types array
->   tools/guest: save: move errors array
->   tools/guest: save: move iov array
->   tools/guest: save: move rec_pfns array
->   tools/guest: save: move guest_data array
->   tools/guest: save: move local_pages array
->   tools/guest: restore: move pfns array
->   tools/guest: restore: move types array
->   tools/guest: restore: move mfns array
->   tools/guest: restore: move map_errs array
->   tools/guest: restore: move mfns array in populate_pfns
->   tools/guest: restore: move pfns array in populate_pfns
->   tools/guest: restore: split record processing
->   tools/guest: restore: split handle_page_data
->   tools/guest: restore: write data directly into guest
->=20
->  tools/libs/ctrl/xc_private.c          |  54 ++-
->  tools/libs/ctrl/xc_private.h          |  34 ++
->  tools/libs/guest/xg_sr_common.c       |  33 +-
->  tools/libs/guest/xg_sr_common.h       |  86 +++-
->  tools/libs/guest/xg_sr_restore.c      | 562 +++++++++++++++++---------
->  tools/libs/guest/xg_sr_save.c         | 158 ++++----
->  tools/libs/guest/xg_sr_save_x86_hvm.c |   5 +-
->  tools/libs/guest/xg_sr_save_x86_pv.c  |  31 +-
->  8 files changed, 666 insertions(+), 297 deletions(-)
-
---Sig_/aTcd5+wmI6HVz+GTz8amsC8
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl+73KAACgkQ86SN7mm1
-DoCrxA//WUzp3ahy/fcxMkrL3ZqAp4DAFOGGG0lTIZwPmgpP+cRzCiWCRbt9Ky6R
-4DOYKw/JLndXc6sxvhuKoFdK0SBRidIFkFlIjymkvvtCpE1mk6mHhh5lcEusvtfh
-URII1DfazKhlc71o7KvQPKGOEVWx4LjwMDvyPtkJzbfamB9dH5WyKpG/UtB6dWVy
-oiJ/20TJqEN/oj4Z3T70jCyWnxrpH2XIpofmBFIsYdvSfufoZJfNiPPnBGzc0PVC
-GWHy2qU6CzpmrKlwVLaIiO87FFLPFknDeiqMIemaPst9ZG9V6YoR2v+E/dKuffWa
-rcFaIehNu74l13P1iCZf2Vkd25/E3/Xqjt78kb35gQUwsBCbVqt+xLwkNPrsVTr9
-fW3d5rEs0dJLyszZnFnHgcEbqcWjO/K3DskoE9C5OZ+KEzV8UG5P5mwMedrFfs0g
-GRe65lJfrDB66jbgzZDoAq3MU/kfnYC3/F5rAU7/OU/4izl6tQDUQ9aoahdND1l+
-YyBRDN7pdyjbGcsucyx7p5W9HJ2JEOO6g94v1BvS4Zf+PxdnRXn+tOPmajYaq/BX
-/pQcDoSriwNCDqzMW6pWy3iPOqyErn6icMmJ5AW5fv+aRx4+2I8PNvqPNeFGgAo6
-QndxMmGW0aJxyDkewP08/t40Fpi7m0MIYLKderI/xnVj/sKINS8=
-=HdJZ
------END PGP SIGNATURE-----
-
---Sig_/aTcd5+wmI6HVz+GTz8amsC8--
 
