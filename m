@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EABC2C1157
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 18:06:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.34873.66133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF9202C1156
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 18:06:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.34874.66145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khFI7-0002FS-EH; Mon, 23 Nov 2020 17:06:15 +0000
+	id 1khFIF-0002Hm-OG; Mon, 23 Nov 2020 17:06:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 34873.66133; Mon, 23 Nov 2020 17:06:15 +0000
+Received: by outflank-mailman (output) from mailman id 34874.66145; Mon, 23 Nov 2020 17:06:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,174 +23,169 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khFI7-0002F3-Ax; Mon, 23 Nov 2020 17:06:15 +0000
-Received: by outflank-mailman (input) for mailman id 34873;
- Mon, 23 Nov 2020 17:06:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2ut/=E5=redhat.com=trix@srs-us1.protection.inumbo.net>)
- id 1khFI5-0002Ey-UJ
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 17:06:14 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 2e3560cf-3647-426e-9b95-86125a1de11e;
- Mon, 23 Nov 2020 17:06:11 +0000 (UTC)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-177-wZephkW_NCajj8fxvey0QQ-1; Mon, 23 Nov 2020 12:06:09 -0500
-Received: by mail-qv1-f72.google.com with SMTP id t14so13427563qvc.13
- for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 09:06:09 -0800 (PST)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
- [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id o187sm10226153qkb.120.2020.11.23.09.06.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Nov 2020 09:06:07 -0800 (PST)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1khFIF-0002H9-JW; Mon, 23 Nov 2020 17:06:23 +0000
+Received: by outflank-mailman (input) for mailman id 34874;
+ Mon, 23 Nov 2020 17:06:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/SOx=E5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1khFIE-0002Gk-11
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 17:06:22 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bd7b5ca9-072e-4126-9b2b-042ca67fce6c;
+ Mon, 23 Nov 2020 17:06:20 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=2ut/=E5=redhat.com=trix@srs-us1.protection.inumbo.net>)
-	id 1khFI5-0002Ey-UJ
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 17:06:14 +0000
-X-Inumbo-ID: 2e3560cf-3647-426e-9b95-86125a1de11e
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id 2e3560cf-3647-426e-9b95-86125a1de11e;
-	Mon, 23 Nov 2020 17:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606151171;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
-	b=BtEofZ03By1sp6OyH8lSI6IT4Bb/Q48OsWV2XnBXmdgQcceGh9rKSaQV86czSHO4W4CJHn
-	vUaUaH4n0l1WmtKl1NY4JjZQEtZdHR6F0okj/kLdyZp+LnqjvTzaYPmjipu9+IS6RcbTNg
-	lanzsvwsZXvmVS2IMlU/0SstZMlkjqs=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-177-wZephkW_NCajj8fxvey0QQ-1; Mon, 23 Nov 2020 12:06:09 -0500
-X-MC-Unique: wZephkW_NCajj8fxvey0QQ-1
-Received: by mail-qv1-f72.google.com with SMTP id t14so13427563qvc.13
-        for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 09:06:09 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
-        b=AFnjmI7l7Q/wflePjF28tRpUmuHqwFuAEMfgQf6zReXwgPd6W0bGksYGHW8WPPF+FD
-         lseisESDouCSBLmWzJEP7KSW1IYcn7xaPgMPN2E9a8unX4WJdnkfa13Zcg8fl14lADYC
-         /ABwwjn5kqbg21sWbeLtcAZTkH2OaIyMhdCPJgH9WgI5cucL1k6EgOAHBLErjVLgfLux
-         h8mKLHjymDuLdrxp6Hd+UmzwaWeaB15VmqLriZdbNhc7EkU+6NT9FkoH01Ary5S+H7bM
-         IOI9Im857Zu5NgFYlI+0MzQlkL08VoWW3v2MBF5Ue+mEP+4n8RXOJcrEyYY0poDy4gYC
-         K5mQ==
-X-Gm-Message-State: AOAM530UWmKadx6MQovM+uFYaF4CMwhi1iIjzE1JxEaSSlnU150yDQew
-	MxxlXKUPJWRpecmbgAfN7FPpv6zPCBBPFLrnTOaR1aU5CrRXy1fnERJD+pQNrafugvx7Cr4YB2x
-	Ih3sCdhTLTwameb6xAD8xIo6z0Kg=
-X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70868qtx.354.1606151168818;
-        Mon, 23 Nov 2020 09:06:08 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwHR8oVpP3xv7xpCkK6lH4mawBfXgRI3GL2dEiLGp13/vfLrDKV7SBtsWnvpv2iFDtHltekRw==
-X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70839qtx.354.1606151168572;
-        Mon, 23 Nov 2020 09:06:08 -0800 (PST)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
-        by smtp.gmail.com with ESMTPSA id o187sm10226153qkb.120.2020.11.23.09.06.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2020 09:06:07 -0800 (PST)
-Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
-To: Joe Perches <joe@perches.com>, clang-built-linux@googlegroups.com
-Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org, tboot-devel@lists.sourceforge.net,
- kvm@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-acpi@vger.kernel.org, devel@acpica.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- netdev@vger.kernel.org, linux-media@vger.kernel.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
- linux-wireless@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
- platform-driver-x86@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org,
- ecryptfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- cluster-devel@redhat.com, linux-mtd@lists.infradead.org,
- keyrings@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, alsa-devel@alsa-project.org, bpf@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-nfs@vger.kernel.org,
- patches@opensource.cirrus.com
-References: <20201121165058.1644182-1-trix@redhat.com>
- <2105f0c05e9eae8bee8e17dcc5314474b3c0bc73.camel@perches.com>
- <6e8c1926-4209-8f10-d0f9-72c875a85a88@redhat.com>
- <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <88eeba27-ee36-df63-8cd9-3cccbe5e0850@redhat.com>
-Date: Mon, 23 Nov 2020 09:06:03 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+	(envelope-from <SRS0=/SOx=E5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1khFIE-0002Gk-11
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 17:06:22 +0000
+X-Inumbo-ID: bd7b5ca9-072e-4126-9b2b-042ca67fce6c
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id bd7b5ca9-072e-4126-9b2b-042ca67fce6c;
+	Mon, 23 Nov 2020 17:06:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1606151180;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=hVzk91sE/ycAQyMp9sp9SsR7dFa6lWuJDB8t4pwhI0k=;
+  b=R5MXi5FWts8T0d7QLOKlHIpUuiH29Xpi9JOOEIZTGE9uP6VWPhia2ly+
+   f78xrLOSuIng8zXdLS2kb+dY5rHllIZPDb5l2Mb32WzCCVEYarHSFqb6c
+   KsUckrKt4l2cwqP1QnIlu7WJrC/AliOs9IOMHpjHmnCBcoRDjE4JjL58f
+   I=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: k/RH6pOlc7qwYfdZdpvTXOmLD/L9pWCGcRuWRJ6POCh57kARWR8OmH77mHIlz11L/e6ckqB943
+ CV1MsEoFb5j3YPIBIVKCtIBAgNfNrd36meS42Jz/L9O8Hub5peZvy2O0/4YgjUiE4PkviOp3uW
+ m3YVN8co9gmEugxjmmFBr238SomsSzey12Ofdkdxo0b9/7hhByz/X9uK01aYMqwf4/NtvsU8Db
+ 4OdRePx6wZNVL6UCoMSKIK6Jz7ZJvE1b/GKR9IduIZY1xBG3XWbNgPbcMDwEUAXH8cVcqwyI0L
+ nLA=
+X-SBRS: None
+X-MesageID: 32106154
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,363,1599537600"; 
+   d="scan'208";a="32106154"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TXrTd1JsZEs0sM6HzVoMBwiwRxXGuk5OhhrxLMpNDptISylPd4VZtxyEecAdngTBc5Xq9w2PVe9+kj605hJ9xWedq+JYarlJevKVh5wakdE1qdvqahdqb0i6vDA9OHniK973nyzDevOKy7e65/kE/yyneII0pEU99+HBRXF4Ctl5hC588J5nlgbe6RrtfVU/2wgwUWj2zFLPyg5eBySvo7pyKWGq/lUm7W+x6qNLU/rO8DNNVM/9xPk2EMD3asaHti7HxSIflGPM+z/cMB5f3AaAcj6H8EsjDobpmD+Uc3VBYh+5Q4WRsUX/lfYKQ2o+vHKa8CdBDQl1dv7TGkDnmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=asUtqppFQO1pDKssJig/X4Cohpfx++RKZRdzC55z5hk=;
+ b=iwSPFmSyXPWvzSicgYzmngRj8jkzWhGap+e4JuolymSF07C7HDcY8ZC4iplLtKsItJZCm9YKAlILfIO3jqrJ5wvIDdptdNVZfGxz8E9lzNVFdqzGEINU53hN7zlsGm2uonWwTPC2lw1P0Wv1TOyHilueTKbGreDcnVJC5Z0Gc0VbgWzskBpsib9flEcXBLjzbjivL1dxoJPKZ0NgpIZfg8qfWMfohg6DH5hj0Dxm1Lc5/LLth+BB8nN+cjGXoaXr3k9HCXJotwA0IbqtIrRJLYjwo5UQZlQggw2l5J6qELlMSm1MZNe+2/5qPRls9pcD/QTe7fIvhpDDOTWWwZegPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=asUtqppFQO1pDKssJig/X4Cohpfx++RKZRdzC55z5hk=;
+ b=AjMI4uNBc/Cf83rnEMx3HRUAnOoTVkSOrjBiZLkrzU9BCyu5PSCK+5FF2ZE1DzgsL61loaXZKmjgTbmXsNX1mBhfuiRlViFLbWHqXkoNO739SmNv2k7qGr5UYphXqv2mWGR6RepmDGG413qGuEtghIDknOJP1NxSH8ORo/WQGwA=
+Date: Mon, 23 Nov 2020 18:06:10 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: Jan Beulich <jbeulich@suse.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201123170610.kzfxvcgkdkvh3ex4@Air-de-Roger>
+References: <20201120082855.5z4cibcd5djlwmgp@Air-de-Roger>
+ <20201120085249.GA1508@antioche.eu.org>
+ <97f371a9-00fe-33fe-8923-c247f44f9af6@suse.com>
+ <20201120092754.GH1508@antioche.eu.org>
+ <20904a6a-ac64-755d-d228-4c49faf66fb5@suse.com>
+ <20201120103824.GJ1508@antioche.eu.org>
+ <20201123095713.orfpg72r73m7f46n@Air-de-Roger>
+ <20201123113241.GE2520@antioche.eu.org>
+ <20201123125112.q3zqb4e5nk6jg4hw@Air-de-Roger>
+ <20201123143150.GG2520@antioche.eu.org>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201123143150.GG2520@antioche.eu.org>
+X-ClientProxiedBy: MR2P264CA0019.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:1::31) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2c1a49a1-52be-4998-a676-08d88fd216d1
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3739:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB3739A2EBAE6AE6164C158CB68FFC0@DM6PR03MB3739.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CkK/MF5qLUoOXFCsvTgxP+k5+SlxRXkU+sR37uylOlxCrb/eSJ1e4+3lc9A/DuAJywSqai7z5xrYn/E9PVH/DIwZcOIeLYFgiYvOfRwZhoTUj/eTJYn3N3LuRZzeIazYez85QzL9NXMq74ACmOQ99wnKvCxJCTAEn8FogRuonbpuX3fojUG5VZ1nmo+SYYTpo99Y4RISKNsoDU3QMtRXVE0pOiiSqbLraMmuo0sgeuEPChLroAKK8nNXvzK5yIufUlSXiymsGMWu5LitlxFhTRzc23eq7olQ3/XdbiYs9ds01GrlDRckf4kY5rTS3WFHvdj0H9DSz8HvAvVVSVyTG4K/0tdcBWQdEVhqzxvjuXi6h2hNI+SuTbkGnYbOB08+dX/K0PewULXTZarHqmYTvA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(396003)(366004)(39860400002)(136003)(346002)(376002)(9686003)(86362001)(83380400001)(316002)(6486002)(1076003)(6916009)(5660300002)(186003)(956004)(966005)(16526019)(478600001)(26005)(66476007)(66556008)(66946007)(4326008)(8936002)(8676002)(6496006)(2906002)(6666004)(85182001)(33716001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: HVwc/PFgxsHRGsKVENhFNvCZh2Dq1MmcGxW3V0Gb7KYEeCK5LlUkVUxUUIIxLpWO29BltL+1KhWFNF+6QlnOq2ZAqhQvhxQudCu7Y2GY+gkiB7P1419i/z58cAUAe4Nkrb8LCo5OQmGaeuEaFkBpHbn7YoOgTGa43SmlUi8JjT/yXKq1WNNv84cGwLbmBaId7v7uqBu+7wM9p3ptZArGnkFxTGWme6ADhTjs14bYY1Hj4rPQFD4waOs9dyz5FIyi8VVcTozlEcxbL6/0+oHkprfABJbaW/qaODVbwFMtLslaKdmNRutWHDJB1/OWhKKVMcIoDrY9PtgsuuapnD5WfEStZbfczeTMMPsii69XtvOfV/owEREr0kWxdZgx2lWjBYuK0oF38meN2GW9MF2L/hOINUrggyWvhvnTT/OeWvq8WehWQpLUqc8naTRMjEH8+5Ccg4Ou+yEk8ST1jw8iiuHy3tgXglXXsZ/tWKvC5tWHFQ9bSp88bga7Sc0BRZ6V5cMSE62HRZS3RIcR/ciHCZeaazZXpMUlJpgMxvvxQL6R/uQe8RY7N6zrdzIZbznDtfDhLKfyufI8o08IGKyvsTI25oPHkDHypTlgSeM6jWVg1cWibIjP7K6AjCpqKT5x+g9bWvYkWIuKLb6uoz/aI5iLJuSyvdHFjOAeGU+VHpihw3XLPq3qNw/yptr9Ig8zgPOjhogd9u7GwL1rDj0edgUINJ10zJSLovT7HIT9j4xlAef7kSmyswWdjuxUbtRfO9uyn6PzBEjhD6sjPJxqqpz0tyofJnjJx+b+XneoT0XVolp4W4h/HN7kj0ZRvT2wNUFsO5k1sTt+xvMVu4/cpfyJ/mix2EbLf/VvnwpsWA2Jt1PhZwRtGDqMdpnMIC0MAY/l0Gl+jWkDm+gNmVhMBQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c1a49a1-52be-4998-a676-08d88fd216d1
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2020 17:06:16.3688
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U2gbw10tY0M3CyOq4sFQwhE45ybumTAMO9n54K6qVLjJ9d/00a69jVu9UGK8uEs282Ji8jWLPTE6vkQpIRGVaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3739
+X-OriginatorOrg: citrix.com
 
+On Mon, Nov 23, 2020 at 03:31:50PM +0100, Manuel Bouyer wrote:
+> On Mon, Nov 23, 2020 at 01:51:12PM +0100, Roger Pau Monné wrote:
+> > Hm, yes, it's quite weird. Do you know whether a NetBSD kernel can be
+> > multibooted from pxelinux with Xen? I would like to see if I can
+> > reproduce this myself.
+> 
+> Yes, if Xen+linux can boot, Xen+netbsd should boot too.
+> In a previous mail I wrote:
+> In case it helps, I put by Xen and netbsd kernels at
+> http://www-soc.lip6.fr/~bouyer/netbsd-dom0-pvh/
+> I boot it from the NetBSD boot loader with:
+> menu=Boot Xen PVH:load /netbsd-test console=com0 root=dk0 -vx; multiboot /xen-te
+> st.gz dom0_mem=1024M console=com2 com2=57600,8n1 loglvl=all guest_loglvl=all gnt
+> tab_max_nr_frames=64 dom0=pvh iommu=debug
+> I guess with grub this would be
+> kernel /xen-test.gz dom0_mem=1024M console=com2 com2=57600,8n1 loglvl=all guest_
+> loglvl=all gnttab_max_nr_frames=64 dom0=pvh iommu=debug
+> module /netbsd-test console=com0 root=dk0 -vx
+> 
+> (yes, com2 for xen and com0 for netbsd, that's not a bug :)
+> You can enter the NetBSD debugger with
+> +++++
+> you can then enter commands, lile
+> sh ev /i
+> to see the interrupt counters
+> 
+> > 
+> > I have the following patch also which will print a warning message
+> > when GSI 34 is injected from hardware or when Xen performs an EOI
+> > (either from a time out or when reacting to a guest one). I would
+> > expect at least the interrupt injection one to trigger together with
+> > the existing message.
+> 
+> It's quite verbose. I put the full log at
+> http://www-soc.lip6.fr/~bouyer/xen-log4.txt
 
-On 11/22/20 10:22 AM, Joe Perches wrote:
-> On Sun, 2020-11-22 at 08:33 -0800, Tom Rix wrote:
->> On 11/21/20 9:10 AM, Joe Perches wrote:
->>> On Sat, 2020-11-21 at 08:50 -0800, trix@redhat.com wrote:
->>>> A difficult part of automating commits is composing the subsystem
->>>> preamble in the commit log.  For the ongoing effort of a fixer producing
->>>> one or two fixes a release the use of 'treewide:' does not seem appropriate.
->>>>
->>>> It would be better if the normal prefix was used.  Unfortunately normal is
->>>> not consistent across the tree.
->>>>
->>>> So I am looking for comments for adding a new tag to the MAINTAINERS file
->>>>
->>>> 	D: Commit subsystem prefix
->>>>
->>>> ex/ for FPGA DFL DRIVERS
->>>>
->>>> 	D: fpga: dfl:
->>> I'm all for it.  Good luck with the effort.  It's not completely trivial.
->>>
->>> From a decade ago:
->>>
->>> https://lore.kernel.org/lkml/1289919077.28741.50.camel@Joe-Laptop/
->>>
->>> (and that thread started with extra semicolon patches too)
->> Reading the history, how about this.
->>
->> get_maintainer.pl outputs a single prefix, if multiple files have the
->> same prefix it works, if they don't its an error.
->>
->> Another script 'commit_one_file.sh' does the call to get_mainainter.pl
->> to get the prefix and be called by run-clang-tools.py to get the fixer
->> specific message.
-> It's not whether the script used is get_maintainer or any other script,
-> the question is really if the MAINTAINERS file is the appropriate place
-> to store per-subsystem patch specific prefixes.
->
-> It is.
->
-> Then the question should be how are the forms described and what is the
-> inheritance priority.  My preference would be to have a default of
-> inherit the parent base and add basename(subsystem dirname).
->
-> Commit history seems to have standardized on using colons as the separator
-> between the commit prefix and the subject.
->
-> A good mechanism to explore how various subsystems have uses prefixes in
-> the past might be something like:
->
-> $ git log --no-merges --pretty='%s' -<commit_count> <subsystem_path> | \
->   perl -n -e 'print substr($_, 0, rindex($_, ":") + 1) . "\n";' | \
->   sort | uniq -c | sort -rn
+OK, I'm afraid this is likely too verbose and messes with the timings.
 
-Thanks, I have shamelessly stolen this line and limited the commits to the maintainer.
+I've been looking (again) into the code, and I found something weird
+that I think could be related to the issue you are seeing, but haven't
+managed to try to boot the NetBSD kernel provided in order to assert
+whether it solves the issue or not (or even whether I'm able to
+repro it). Would you mind giving the patch below a try?
 
-I will post something once the generation of the prefixes is done.
-
-Tom
+Thanks, Roger.
+---8<---
+diff --git a/xen/drivers/passthrough/io.c b/xen/drivers/passthrough/io.c
+index 6b1305a3e5..ebd6c8e933 100644
+--- a/xen/drivers/passthrough/io.c
++++ b/xen/drivers/passthrough/io.c
+@@ -174,7 +174,6 @@ static void pt_irq_time_out(void *data)
+          * In the identity mapped case the EOI can also be done now, this way
+          * the iteration over the list of domain pirqs is avoided.
+          */
+-        hvm_gsi_deassert(irq_map->dom, dpci_pirq(irq_map)->pirq);
+         irq_map->flags |= HVM_IRQ_DPCI_EOI_LATCH;
+         pt_irq_guest_eoi(irq_map->dom, irq_map, NULL);
+         spin_unlock(&irq_map->dom->event_lock);
 
 
