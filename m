@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B162C1894
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 23:42:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35231.66658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 247112C18B5
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 23:49:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35240.66670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khKX5-0002LR-4A; Mon, 23 Nov 2020 22:42:03 +0000
+	id 1khKeI-0002bd-Ux; Mon, 23 Nov 2020 22:49:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35231.66658; Mon, 23 Nov 2020 22:42:03 +0000
+Received: by outflank-mailman (output) from mailman id 35240.66670; Mon, 23 Nov 2020 22:49:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,128 +23,110 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khKX5-0002L2-0c; Mon, 23 Nov 2020 22:42:03 +0000
-Received: by outflank-mailman (input) for mailman id 35231;
- Mon, 23 Nov 2020 22:42:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VxlT=E5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1khKX3-0002Kw-6c
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:42:01 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 541bf3ed-facc-44ee-93b0-9dd8b1ceea74;
- Mon, 23 Nov 2020 22:42:00 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 09397206B7;
- Mon, 23 Nov 2020 22:41:58 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1khKeI-0002bE-Re; Mon, 23 Nov 2020 22:49:30 +0000
+Received: by outflank-mailman (input) for mailman id 35240;
+ Mon, 23 Nov 2020 22:49:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1khKeH-0002b9-5b
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:49:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1khKeG-0004Z9-2A; Mon, 23 Nov 2020 22:49:28 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1khKeF-0005zt-R4; Mon, 23 Nov 2020 22:49:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=VxlT=E5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1khKX3-0002Kw-6c
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:42:01 +0000
-X-Inumbo-ID: 541bf3ed-facc-44ee-93b0-9dd8b1ceea74
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 541bf3ed-facc-44ee-93b0-9dd8b1ceea74;
-	Mon, 23 Nov 2020 22:42:00 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 09397206B7;
-	Mon, 23 Nov 2020 22:41:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606171319;
-	bh=+5QGZAfUOAQQd7G+TYaZK2GT2F5H4rT/WGvl5K7sRf0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=GzWITx+r+VYQXS0PC/SD4W5yyE6it/YhflEkM076Zumy+9zAqw1ZX5Biia/3MXQwZ
-	 xTExKMKzq9gVhLF9XjKZNf51JUbVCCW5+85HrSz89oXWnJImLthmcTIY9mi0hbEAiz
-	 pwF5dpu4QBj66QD3qsLEVQG1l6OpeEsxnh6URQgI=
-Date: Mon, 23 Nov 2020 14:41:58 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-    Bertrand.Marquis@arm.com, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
-    george.dunlap@citrix.com, iwj@xenproject.org, julien@xen.org, wl@xen.org, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] xen: EXPERT clean-up and introduce UNSUPPORTED
-In-Reply-To: <8ff723d7-00e2-be35-48b0-dc4b932d35cc@suse.com>
-Message-ID: <alpine.DEB.2.21.2011231440070.7979@sstabellini-ThinkPad-T480s>
-References: <20201118005051.26115-1-sstabellini@kernel.org> <eb6b32c3-c7e2-1e36-f492-0c00cc170ce2@suse.com> <alpine.DEB.2.21.2011181241310.11739@sstabellini-ThinkPad-T480s> <3e8c03eb-ee3f-4439-90c2-acf340c7d8e7@suse.com> <alpine.DEB.2.21.2011191310210.11739@sstabellini-ThinkPad-T480s>
- <8ff723d7-00e2-be35-48b0-dc4b932d35cc@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <julien@xen.org>)
+	id 1khKeH-0002b9-5b
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:49:29 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=5MNW1inTob+ISExQ5qkJRx9m4GK2Yllrafe4Wg6R6aU=; b=K6Xx+Q7ux+tNHwU1Cjnerz6ggG
+	s+mJtj/tIDzGZFalWyRYdZ+RtI4nb10dMLxszsDHcT7c1JJ7rrMjfhfLTUVnvEprulmWUuCvKKzcQ
+	xPPzv0TgVfwPcZbq4PBUmd/4DBLzwjFdtTyeSMXA6qV5CGA+UwU8ZHenB8MhNtePq80o=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1khKeG-0004Z9-2A; Mon, 23 Nov 2020 22:49:28 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1khKeF-0005zt-R4; Mon, 23 Nov 2020 22:49:27 +0000
+Subject: Re: [PATCH v2 7/8] lib: move bsearch code
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <aa1ca5da-3ecf-8721-63f9-b86ebbc64330@suse.com>
+ <87a20884-5a76-a664-dcc9-bd4becee40b3@suse.com>
+ <44ffc041-cacd-468e-a835-f5b2048bb201@xen.org>
+ <2cf3a90d-f463-41f8-f861-6ef00279b204@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <2419eccf-c696-6aa1-ada4-0f7bd6bc5657@xen.org>
+Date: Mon, 23 Nov 2020 22:49:25 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <2cf3a90d-f463-41f8-f861-6ef00279b204@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Fri, 20 Nov 2020, Jan Beulich wrote:
-> On 19.11.2020 22:40, Stefano Stabellini wrote:
-> > On Thu, 19 Nov 2020, Jan Beulich wrote:
-> >> On 18.11.2020 22:00, Stefano Stabellini wrote:
-> >>> On Wed, 18 Nov 2020, Jan Beulich wrote:
-> >>>> On 18.11.2020 01:50, Stefano Stabellini wrote:
-> >>>>> 1) It is not obvious that "Configure standard Xen features (expert
-> >>>>> users)" is actually the famous EXPERT we keep talking about on xen-devel
-> >>>>
-> >>>> Which can be addressed by simply changing the one prompt line.
-> >>>>
-> >>>>> 2) It is not obvious when we need to enable EXPERT to get a specific
-> >>>>> feature
-> >>>>>
-> >>>>> In particular if you want to enable ACPI support so that you can boot
-> >>>>> Xen on an ACPI platform, you have to enable EXPERT first. But searching
-> >>>>> through the kconfig menu it is really not clear (type '/' and "ACPI"):
-> >>>>> nothing in the description tells you that you need to enable EXPERT to
-> >>>>> get the option.
-> >>>>
-> >>>> And what causes this to be different once you switch to UNSUPPORTED?
-> >>>
-> >>> Two things: firstly, it doesn't and shouldn't take an expert to enable
-> >>> ACPI support, even if ACPI support is experimental. So calling it
-> >>> UNSUPPORTED helps a lot. This is particularly relevant to the ARM Kconfig
-> >>> options changed by this patch. Secondly, this patch is adding
-> >>> "(UNSUPPORTED)" in the oneline prompt so that it becomes easy to match
-> >>> it with the option you need to enable.
-> >>
-> >> There's redundancy here then, which I think is in almost all cases
-> >> better to avoid. That's first and foremost because the two places
-> >> can go out of sync. Therefore, if the primary thing is to help
-> >> "make menuconfig" (which I admit I don't normally use, as it's
-> >> nothing that gets invoked implicitly by the build process afaict,
-> >> i.e. one has to actively invoke it), perhaps we should enhance
-> >> kconfig to attach at least a pre-determined subset of labels to
-> >> the prompts automatically?
-> >>
-> >> And second, also in reply to what you've been saying further down,
-> >> perhaps we would better go with a hierarchy of controls here, e.g.
-> >> EXPERT -> EXPERIMENTAL -> UNSUPPORTED?
-> > 
-> > Both these are good ideas worth discussing; somebody else made a similar
-> > suggestion some time back. I was already thinking this could be a great
-> > candidate for one of the first "working groups" as defined by George
-> > during the last community call because the topic is not purely
-> > technical: a working group could help getting alignment and make
-> > progress faster. We can propose it to George when he is back.
-> > 
-> > However, I don't think we need the working group to make progress on
-> > this limited patch that only addresses the lowest hanging fruit.
-> > 
-> > I'd like to suggest to make progress on this patch in its current form,
-> > and in parallel start a longer term discussion on how to do something
-> > like you suggested above.
+Hi Jan,
+
+On 19/11/2020 10:27, Jan Beulich wrote:
+> On 18.11.2020 19:09, Julien Grall wrote:
+>> On 23/10/2020 11:19, Jan Beulich wrote:
+>>> --- a/xen/include/xen/compiler.h
+>>> +++ b/xen/include/xen/compiler.h
+>>> @@ -12,6 +12,7 @@
+>>>    
+>>>    #define inline        __inline__
+>>>    #define always_inline __inline__ __attribute__ ((__always_inline__))
+>>> +#define gnu_inline    __inline__ __attribute__ ((__gnu_inline__))
+>>
+>> bsearch() is only used by Arm and I haven't seen anyone so far
+>> complaining about the perf of I/O emulation.
+>>
+>> Therefore, I am not convinced that there is enough justification to
+>> introduce a GNU attribute just for this patch.
 > 
-> Okay, I guess I can accept this. So FAOD I'm not objecting to the
-> change (with some suitable adjustments, as discussed), but I'm
-> then also not going to be the one to ack it. Nevertheless I'd like
-> to point out that doing such a partial solution may end up adding
-> confusion rather than reducing it. Much depends on how exactly
-> consumers interpret what we hand to them.
+> Please settle this with Andrew: He had asked for the function to
+> become inline. I don't view making it static inline in the header
+> as an option here - if the compiler decides to not inline it, we
+> should not end up with multiple instances in different CUs.
 
-Thank you Jan. I'll clarify the patch and address your comments. I'll
-also try to get the attention of one of the other maintainers for the
-ack.
+That's the cons of static inline... but then why is it suddenly a 
+problem with this helper?
+
+> And
+> without making it static inline the attribute needs adding; at
+> least I'm unaware of an alternative which works with the various
+> compiler versions.
+
+The question we have to answer is: What is the gain with this approach?
+
+If it is not quantifiable, then introducing compiler specific attribute 
+is not an option.
+
+IIRC, there are only two callers (all in Arm code) of this function. 
+Even inlined, I don't believe you would drastically reduce the number of 
+instructions compare to a full blown version. To be generous, I would 
+say you may save ~20 instructions per copy.
+
+Therefore, so far, the compiler specific attribute doesn't look 
+justified to me. As usual, I am happy to be proven wrong.
+
+Cheers,
+
+-- 
+Julien Grall
 
