@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B95872C105D
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 17:36:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.34861.66118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EABC2C1157
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 18:06:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.34873.66133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khEpH-0007yg-5z; Mon, 23 Nov 2020 16:36:27 +0000
+	id 1khFI7-0002FS-EH; Mon, 23 Nov 2020 17:06:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 34861.66118; Mon, 23 Nov 2020 16:36:27 +0000
+Received: by outflank-mailman (output) from mailman id 34873.66133; Mon, 23 Nov 2020 17:06:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,234 +23,174 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khEpH-0007yF-20; Mon, 23 Nov 2020 16:36:27 +0000
-Received: by outflank-mailman (input) for mailman id 34861;
- Mon, 23 Nov 2020 16:36:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dDmC=E5=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1khEpG-0007yA-0r
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 16:36:26 +0000
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c173b3b0-9329-4d6b-a938-e3e53edaadee;
- Mon, 23 Nov 2020 16:36:25 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id s30so24654040lfc.4
- for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 08:36:24 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id i10sm1427063lfo.19.2020.11.23.08.36.22
+	id 1khFI7-0002F3-Ax; Mon, 23 Nov 2020 17:06:15 +0000
+Received: by outflank-mailman (input) for mailman id 34873;
+ Mon, 23 Nov 2020 17:06:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2ut/=E5=redhat.com=trix@srs-us1.protection.inumbo.net>)
+ id 1khFI5-0002Ey-UJ
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 17:06:14 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 2e3560cf-3647-426e-9b95-86125a1de11e;
+ Mon, 23 Nov 2020 17:06:11 +0000 (UTC)
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-177-wZephkW_NCajj8fxvey0QQ-1; Mon, 23 Nov 2020 12:06:09 -0500
+Received: by mail-qv1-f72.google.com with SMTP id t14so13427563qvc.13
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 09:06:09 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id o187sm10226153qkb.120.2020.11.23.09.06.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Nov 2020 08:36:23 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ Mon, 23 Nov 2020 09:06:07 -0800 (PST)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=dDmC=E5=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
-	id 1khEpG-0007yA-0r
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 16:36:26 +0000
-X-Inumbo-ID: c173b3b0-9329-4d6b-a938-e3e53edaadee
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id c173b3b0-9329-4d6b-a938-e3e53edaadee;
-	Mon, 23 Nov 2020 16:36:25 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id s30so24654040lfc.4
-        for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 08:36:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=/K5iUHatmuqEhjbGJrlXqgis7vMnx7mGfGzhYkWi4Lk=;
-        b=hpag8Ohy0eqJW7lFDqpoS7fwWHLBaWodIwFKCn73f1bp4ILV6Rt4XLoGzQFArD0ZFe
-         aJD1i09SNG1Y1ghDcmaD7rQueu1uENJSlC2EA7GEoSBgm6hdNT+AbVCAkL+nSWQOxXgl
-         u/1lXYy3bTZxgzt7Ox70Vh5870q0UmIPTLTv1g+RDPX8eKZEwwv0lWcLpVMs9PkDbCYj
-         oldrWJq8OvBR+E3LCX9SnrdRWT9CyeTMJN6CvunD/ipPV3ddXZuWwubq6W60g9M9n5r+
-         ZJPVZ3v2aZO07DiJC4oVmNZdjWueck2lCRDnlWg7e/e9AoMQ2GpMM/KKaolA4+PhPb/L
-         9qPw==
+	(envelope-from <SRS0=2ut/=E5=redhat.com=trix@srs-us1.protection.inumbo.net>)
+	id 1khFI5-0002Ey-UJ
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 17:06:14 +0000
+X-Inumbo-ID: 2e3560cf-3647-426e-9b95-86125a1de11e
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id 2e3560cf-3647-426e-9b95-86125a1de11e;
+	Mon, 23 Nov 2020 17:06:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1606151171;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
+	b=BtEofZ03By1sp6OyH8lSI6IT4Bb/Q48OsWV2XnBXmdgQcceGh9rKSaQV86czSHO4W4CJHn
+	vUaUaH4n0l1WmtKl1NY4JjZQEtZdHR6F0okj/kLdyZp+LnqjvTzaYPmjipu9+IS6RcbTNg
+	lanzsvwsZXvmVS2IMlU/0SstZMlkjqs=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-177-wZephkW_NCajj8fxvey0QQ-1; Mon, 23 Nov 2020 12:06:09 -0500
+X-MC-Unique: wZephkW_NCajj8fxvey0QQ-1
+Received: by mail-qv1-f72.google.com with SMTP id t14so13427563qvc.13
+        for <xen-devel@lists.xenproject.org>; Mon, 23 Nov 2020 09:06:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=/K5iUHatmuqEhjbGJrlXqgis7vMnx7mGfGzhYkWi4Lk=;
-        b=tcTPVpDsmeK8zDFV2cjbZbf7wuSGXOzbvt/gCF8w86JYg9Qsw12G1PIRjxr4XbZw4E
-         eltiP3INSbo4UjPmB+gfv1FoctbzTeEfk56v2nEotz963rcGLDswMpkpXZ/Vy5Uvui3w
-         q0uIzpyM2G5KOPl55IcaFYFhrMJtpQt8B8G0KaomJD7SPJUeMlP1RKhrdQczuQNrZyHu
-         C3y7FXjeDXSLGOwj6M/l6RlUwiqloiBUc7+z0OOfPoERMGaDVfemi3L9kf13P8WtP7h+
-         YUELhJGtY7C/br4KOywNcdm4B3sGR/HlAxz9yIKhurdukuq7pGl+xjTtj4dOAm/TL0e8
-         m7VA==
-X-Gm-Message-State: AOAM531M271SeTlYwywlXS7VFPy5bHyIL6I9FT/ONSQ2KvaYGrVHOUH9
-	VxmmqCyFmHTAw1c4DWAd0IIYNUGBz3ig8w==
-X-Google-Smtp-Source: ABdhPJz76K7PsT0Uou9OKoNF4Et8bXBU8xHH7QuobTFBx8CsBz/ywiEB+w/2LmaEIV51m62KMtTV0g==
-X-Received: by 2002:a19:c714:: with SMTP id x20mr12641037lff.537.1606149383746;
-        Mon, 23 Nov 2020 08:36:23 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
-        by smtp.gmail.com with ESMTPSA id i10sm1427063lfo.19.2020.11.23.08.36.22
+        bh=ETdBmUCF01QVQJOZ+sQu9TUGQeVKu9xOEmE1E5gBvfU=;
+        b=AFnjmI7l7Q/wflePjF28tRpUmuHqwFuAEMfgQf6zReXwgPd6W0bGksYGHW8WPPF+FD
+         lseisESDouCSBLmWzJEP7KSW1IYcn7xaPgMPN2E9a8unX4WJdnkfa13Zcg8fl14lADYC
+         /ABwwjn5kqbg21sWbeLtcAZTkH2OaIyMhdCPJgH9WgI5cucL1k6EgOAHBLErjVLgfLux
+         h8mKLHjymDuLdrxp6Hd+UmzwaWeaB15VmqLriZdbNhc7EkU+6NT9FkoH01Ary5S+H7bM
+         IOI9Im857Zu5NgFYlI+0MzQlkL08VoWW3v2MBF5Ue+mEP+4n8RXOJcrEyYY0poDy4gYC
+         K5mQ==
+X-Gm-Message-State: AOAM530UWmKadx6MQovM+uFYaF4CMwhi1iIjzE1JxEaSSlnU150yDQew
+	MxxlXKUPJWRpecmbgAfN7FPpv6zPCBBPFLrnTOaR1aU5CrRXy1fnERJD+pQNrafugvx7Cr4YB2x
+	Ih3sCdhTLTwameb6xAD8xIo6z0Kg=
+X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70868qtx.354.1606151168818;
+        Mon, 23 Nov 2020 09:06:08 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwHR8oVpP3xv7xpCkK6lH4mawBfXgRI3GL2dEiLGp13/vfLrDKV7SBtsWnvpv2iFDtHltekRw==
+X-Received: by 2002:ac8:5d53:: with SMTP id g19mr70839qtx.354.1606151168572;
+        Mon, 23 Nov 2020 09:06:08 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
+        by smtp.gmail.com with ESMTPSA id o187sm10226153qkb.120.2020.11.23.09.06.04
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 23 Nov 2020 08:36:23 -0800 (PST)
-Subject: Re: [PATCH V2 12/23] xen/ioreq: Remove "hvm" prefixes from involved
- function names
-To: paul@xen.org
-Cc: 'Jan Beulich' <jbeulich@suse.com>,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
- 'Wei Liu' <wl@xen.org>, 'George Dunlap' <george.dunlap@citrix.com>,
- 'Ian Jackson' <iwj@xenproject.org>, 'Julien Grall' <julien@xen.org>,
- 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Jun Nakajima' <jun.nakajima@intel.com>, 'Kevin Tian'
- <kevin.tian@intel.com>, 'Julien Grall' <julien.grall@arm.com>,
- xen-devel@lists.xenproject.org
-References: <1602780274-29141-1-git-send-email-olekstysh@gmail.com>
- <1602780274-29141-13-git-send-email-olekstysh@gmail.com>
- <e3064b77-71c3-9d8d-2324-6839895101f4@suse.com>
- <d3b6623c-683d-2845-78c3-a114193b0ce4@gmail.com>
- <04a81b7e-213a-968b-048c-dfa68b6e3b0d@gmail.com>
- <96e6622c-08b3-ff85-75f1-14c8b7cd6d6e@suse.com>
- <30c01448-d4f2-803e-1569-5e806f830efc@gmail.com>
- <002101d6c1b0$e906a520$bb13ef60$@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <0b502895-e715-4dee-6476-8e25f3a7a3ec@gmail.com>
-Date: Mon, 23 Nov 2020 18:36:22 +0200
+        Mon, 23 Nov 2020 09:06:07 -0800 (PST)
+Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
+To: Joe Perches <joe@perches.com>, clang-built-linux@googlegroups.com
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, tboot-devel@lists.sourceforge.net,
+ kvm@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-acpi@vger.kernel.org, devel@acpica.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ netdev@vger.kernel.org, linux-media@vger.kernel.org,
+ MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
+ platform-driver-x86@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ ecryptfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ cluster-devel@redhat.com, linux-mtd@lists.infradead.org,
+ keyrings@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, alsa-devel@alsa-project.org, bpf@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-nfs@vger.kernel.org,
+ patches@opensource.cirrus.com
+References: <20201121165058.1644182-1-trix@redhat.com>
+ <2105f0c05e9eae8bee8e17dcc5314474b3c0bc73.camel@perches.com>
+ <6e8c1926-4209-8f10-d0f9-72c875a85a88@redhat.com>
+ <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
+From: Tom Rix <trix@redhat.com>
+Message-ID: <88eeba27-ee36-df63-8cd9-3cccbe5e0850@redhat.com>
+Date: Mon, 23 Nov 2020 09:06:03 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <002101d6c1b0$e906a520$bb13ef60$@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <859bae8ddae3238116824192f6ddf1c91a381913.camel@perches.com>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 
 
-On 23.11.20 17:54, Paul Durrant wrote:
-
-Hi Paul
-
->> -----Original Message-----
->> From: Oleksandr <olekstysh@gmail.com>
->> Sent: 23 November 2020 15:48
->> To: Jan Beulich <jbeulich@suse.com>; Paul Durrant <paul@xen.org>
->> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Andrew Cooper <andrew.cooper3@citrix.com>;
->> Roger Pau Monné <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; George Dunlap
->> <george.dunlap@citrix.com>; Ian Jackson <iwj@xenproject.org>; Julien Grall <julien@xen.org>; Stefano
->> Stabellini <sstabellini@kernel.org>; Jun Nakajima <jun.nakajima@intel.com>; Kevin Tian
->> <kevin.tian@intel.com>; Julien Grall <julien.grall@arm.com>; xen-devel@lists.xenproject.org
->> Subject: Re: [PATCH V2 12/23] xen/ioreq: Remove "hvm" prefixes from involved function names
->>
->>
->> On 23.11.20 16:56, Jan Beulich wrote:
->>
->> Hi Jan, Paul
->>
->>> On 23.11.2020 15:39, Oleksandr wrote:
->>>> As it was agreed, below the list of proposed renaming (naming) within
->>>> current series.
->>> Thanks for compiling this. A couple of suggestions for consideration:
+On 11/22/20 10:22 AM, Joe Perches wrote:
+> On Sun, 2020-11-22 at 08:33 -0800, Tom Rix wrote:
+>> On 11/21/20 9:10 AM, Joe Perches wrote:
+>>> On Sat, 2020-11-21 at 08:50 -0800, trix@redhat.com wrote:
+>>>> A difficult part of automating commits is composing the subsystem
+>>>> preamble in the commit log.  For the ongoing effort of a fixer producing
+>>>> one or two fixes a release the use of 'treewide:' does not seem appropriate.
+>>>>
+>>>> It would be better if the normal prefix was used.  Unfortunately normal is
+>>>> not consistent across the tree.
+>>>>
+>>>> So I am looking for comments for adding a new tag to the MAINTAINERS file
+>>>>
+>>>> 	D: Commit subsystem prefix
+>>>>
+>>>> ex/ for FPGA DFL DRIVERS
+>>>>
+>>>> 	D: fpga: dfl:
+>>> I'm all for it.  Good luck with the effort.  It's not completely trivial.
 >>>
->>>> 1. Global (existing):
->>>> hvm_map_mem_type_to_ioreq_server     -> ioreq_server_map_mem_type
->>>> hvm_select_ioreq_server              -> ioreq_server_select
->>>> hvm_send_ioreq                       -> ioreq_send
->>>> hvm_ioreq_init                       -> ioreq_init
->>> ioreq_domain_init() (or, imo less desirable domain_ioreq_init())?
->> On Arm (for example) I see two variants are present:
->> 1. That starts with subsystem:
->> - tee_domain_init
->> - iommu_domain_init
+>>> From a decade ago:
+>>>
+>>> https://lore.kernel.org/lkml/1289919077.28741.50.camel@Joe-Laptop/
+>>>
+>>> (and that thread started with extra semicolon patches too)
+>> Reading the history, how about this.
 >>
+>> get_maintainer.pl outputs a single prefix, if multiple files have the
+>> same prefix it works, if they don't its an error.
 >>
->> 2. Where sybsystem in the middle:
->> - domain_io_init
->> - domain_vuart_init
->> - domain_vtimer_init
->>
->> If there is no rule, but a matter of taste then I would use
->> ioreq_domain_init(),
->> so arch_ioreq_init() wants to be arch_ioreq_domain_init().
->>
->>>> hvm_destroy_all_ioreq_servers        -> ioreq_server_destroy_all
->>>> hvm_all_ioreq_servers_add_vcpu       -> ioreq_server_add_vcpu_all
->>>> hvm_all_ioreq_servers_remove_vcpu    -> ioreq_server_remove_vcpu_all
->>>> hvm_broadcast_ioreq                  -> ioreq_broadcast
->>>> hvm_create_ioreq_server              -> ioreq_server_create
->>>> hvm_get_ioreq_server_info            -> ioreq_server_get_info
->>>> hvm_map_io_range_to_ioreq_server     -> ioreq_server_map_io_range
->>>> hvm_unmap_io_range_from_ioreq_server -> ioreq_server_unmap_io_range
->>>> hvm_set_ioreq_server_state           -> ioreq_server_set_state
->>>> hvm_destroy_ioreq_server             -> ioreq_server_destroy
->>>> hvm_get_ioreq_server_frame           -> ioreq_server_get_frame
->>>> hvm_ioreq_needs_completion           -> ioreq_needs_completion
->>>> hvm_mmio_first_byte                  -> ioreq_mmio_first_byte
->>>> hvm_mmio_last_byte                   -> ioreq_mmio_last_byte
->>>> send_invalidate_req                  -> ioreq_signal_mapcache_invalidate
->>>>
->>>> handle_hvm_io_completion             -> handle_io_completion
->>> For this one I'm not sure what to suggest, but I'm not overly happy
->>> with the name.
->> I also failed to find a better name. Probably ioreq_ or vcpu_ioreq_
->> prefix wants to be added here?
->>
->>
->>>> hvm_io_pending                       -> io_pending
->>> vcpu_ioreq_pending() or vcpu_any_ioreq_pending()?
->> I am fine with vcpu_ioreq_pending()
->>
-> ...in which case vcpu_ioreq_handle_completion() seems like a reasonable choice.
-
-ok, will rename here ...
-
-
+>> Another script 'commit_one_file.sh' does the call to get_mainainter.pl
+>> to get the prefix and be called by run-clang-tools.py to get the fixer
+>> specific message.
+> It's not whether the script used is get_maintainer or any other script,
+> the question is really if the MAINTAINERS file is the appropriate place
+> to store per-subsystem patch specific prefixes.
 >
->>>> 2. Global (new):
->>>> arch_io_completion
+> It is.
+>
+> Then the question should be how are the forms described and what is the
+> inheritance priority.  My preference would be to have a default of
+> inherit the parent base and add basename(subsystem dirname).
+>
+> Commit history seems to have standardized on using colons as the separator
+> between the commit prefix and the subject.
+>
+> A good mechanism to explore how various subsystems have uses prefixes in
+> the past might be something like:
+>
+> $ git log --no-merges --pretty='%s' -<commit_count> <subsystem_path> | \
+>   perl -n -e 'print substr($_, 0, rindex($_, ":") + 1) . "\n";' | \
+>   sort | uniq -c | sort -rn
 
-and here arch_vcpu_ioreq_completion() (without handle in the middle).
+Thanks, I have shamelessly stolen this line and limited the commits to the maintainer.
 
+I will post something once the generation of the prefixes is done.
 
-
->>>> arch_ioreq_server_map_pages
->>>> arch_ioreq_server_unmap_pages
->>>> arch_ioreq_server_enable
->>>> arch_ioreq_server_disable
->>>> arch_ioreq_server_destroy
->>>> arch_ioreq_server_map_mem_type
->>>> arch_ioreq_server_destroy_all
->>>> arch_ioreq_server_get_type_addr
->>>> arch_ioreq_init
->>> Assuming this is the arch hook of the similarly named function
->>> further up, a similar adjustment may then be wanted here.
->> Yes.
->>
->>
->>>> domain_has_ioreq_server
->>>>
->>>>
->>>> 3. Local (existing) in common ioreq.c:
->>>> hvm_alloc_ioreq_mfn               -> ioreq_alloc_mfn
->>>> hvm_free_ioreq_mfn                -> ioreq_free_mfn
->>> These two are server functions, so should imo be ioreq_server_...().
->> ok, but ...
->>
->>
->>> However, if they're static (as they're now), no distinguishing
->>> prefix is strictly necessary, i.e. alloc_mfn() and free_mfn() may
->>> be fine. The two names may be too short for Paul's taste, though.
->>> Some similar shortening may be possible for some or all of the ones
->>
->> ... In general I would be fine with any option. However, using the
->> shortening rule for all
->> we are going to end up with single-word function names (enable, init, etc).
->> So I would prefer to leave locals as is (but dropping hvm prefixes of
->> course and
->> clarify ioreq_server_alloc_mfn/ioreq_server_free_mfn).
->>
->> Paul, Jan what do you think?
-> I prefer ioreq_server_alloc_mfn/ioreq_server_free_mfn. The problem with shortening is that function names become ambiguous within the source base and hence harder to find.
-
-Got it.
-
-
-Thank you
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
+Tom
 
 
