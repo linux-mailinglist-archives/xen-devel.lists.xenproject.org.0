@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C57332C1890
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 23:39:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35224.66646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83B162C1894
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 23:42:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35231.66658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khKTt-0001Vs-Jv; Mon, 23 Nov 2020 22:38:45 +0000
+	id 1khKX5-0002LR-4A; Mon, 23 Nov 2020 22:42:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35224.66646; Mon, 23 Nov 2020 22:38:45 +0000
+Received: by outflank-mailman (output) from mailman id 35231.66658; Mon, 23 Nov 2020 22:42:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,239 +23,128 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khKTt-0001VT-Gv; Mon, 23 Nov 2020 22:38:45 +0000
-Received: by outflank-mailman (input) for mailman id 35224;
- Mon, 23 Nov 2020 22:38:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1khKX5-0002L2-0c; Mon, 23 Nov 2020 22:42:03 +0000
+Received: by outflank-mailman (input) for mailman id 35231;
+ Mon, 23 Nov 2020 22:42:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VxlT=E5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1khKTs-0001VO-3N
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:38:44 +0000
+ id 1khKX3-0002Kw-6c
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:42:01 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 85b93523-35bb-448b-90e2-e5378130d2da;
- Mon, 23 Nov 2020 22:38:43 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 541bf3ed-facc-44ee-93b0-9dd8b1ceea74;
+ Mon, 23 Nov 2020 22:42:00 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
  [24.130.65.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9EB58206B7;
- Mon, 23 Nov 2020 22:38:41 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mail.kernel.org (Postfix) with ESMTPSA id 09397206B7;
+ Mon, 23 Nov 2020 22:41:58 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=VxlT=E5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1khKTs-0001VO-3N
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:38:44 +0000
-X-Inumbo-ID: 85b93523-35bb-448b-90e2-e5378130d2da
+	id 1khKX3-0002Kw-6c
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:42:01 +0000
+X-Inumbo-ID: 541bf3ed-facc-44ee-93b0-9dd8b1ceea74
 Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 85b93523-35bb-448b-90e2-e5378130d2da;
-	Mon, 23 Nov 2020 22:38:43 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 541bf3ed-facc-44ee-93b0-9dd8b1ceea74;
+	Mon, 23 Nov 2020 22:42:00 +0000 (UTC)
 Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 9EB58206B7;
-	Mon, 23 Nov 2020 22:38:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 09397206B7;
+	Mon, 23 Nov 2020 22:41:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606171122;
-	bh=J8yaeI82deNDReC9zVtqWLtxHJahijABZ89UbZIKDGo=;
+	s=default; t=1606171319;
+	bh=+5QGZAfUOAQQd7G+TYaZK2GT2F5H4rT/WGvl5K7sRf0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VsU7u8B5aSiFAj0P2ep8UYezT5NdV34xPp9TQT/PHkJvOMo1P67Cy3IoH3Im3Axmp
-	 JyKj4Aao0N+V3JQkEGrv2axnsXoTiQsyg+w7MQtPYfLcNu7np6/8O4oO356sgKbaaM
-	 P9+IjZT5+q2FjJr9CEjUdHpSWFFEZ+EsYqHpw+mw=
-Date: Mon, 23 Nov 2020 14:38:40 -0800 (PST)
+	b=GzWITx+r+VYQXS0PC/SD4W5yyE6it/YhflEkM076Zumy+9zAqw1ZX5Biia/3MXQwZ
+	 xTExKMKzq9gVhLF9XjKZNf51JUbVCCW5+85HrSz89oXWnJImLthmcTIY9mi0hbEAiz
+	 pwF5dpu4QBj66QD3qsLEVQG1l6OpeEsxnh6URQgI=
+Date: Mon, 23 Nov 2020 14:41:58 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Jan Beulich <jbeulich@suse.com>
-cc: Rahul Singh <Rahul.Singh@arm.com>, 
-    Julien Grall <julien.grall.oss@gmail.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Wei Liu <wl@xen.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v3 1/3] xen/ns16550: Make ns16550 driver usable on ARM
- with HAS_PCI enabled.
-In-Reply-To: <f24a1db6-64a6-96d2-d67c-dc1b03c9cc49@suse.com>
-Message-ID: <alpine.DEB.2.21.2011231436350.7979@sstabellini-ThinkPad-T480s>
-References: <cover.1605527997.git.rahul.singh@arm.com> <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com> <3740e147-719a-4e97-bb0e-fe9bd2ec2aa5@xen.org> <aa256a44-8f8f-d4f1-f5f4-12529f45d8c8@suse.com> <9007e08f-6d90-88ed-ba64-2f0b3c21cb50@xen.org>
- <8531a99d-3c54-36c7-0cd4-2e4838f96eb0@suse.com> <ba26fdfb-34f8-c4d3-e082-f1f49c768981@xen.org> <89F35B3F-FAAD-4C58-B3FD-F93CA3290A49@arm.com> <alpine.DEB.2.21.2011191534060.7979@sstabellini-ThinkPad-T480s> <CAJ=z9a0aS1G0F1jAtKNEe4r3tyBoxy1xJ9AV7pYgifsL62iqww@mail.gmail.com>
- <alpine.DEB.2.21.2011191551510.7979@sstabellini-ThinkPad-T480s> <37511625-C475-497B-BA83-B762687148BF@arm.com> <f24a1db6-64a6-96d2-d67c-dc1b03c9cc49@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    Bertrand.Marquis@arm.com, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    george.dunlap@citrix.com, iwj@xenproject.org, julien@xen.org, wl@xen.org, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] xen: EXPERT clean-up and introduce UNSUPPORTED
+In-Reply-To: <8ff723d7-00e2-be35-48b0-dc4b932d35cc@suse.com>
+Message-ID: <alpine.DEB.2.21.2011231440070.7979@sstabellini-ThinkPad-T480s>
+References: <20201118005051.26115-1-sstabellini@kernel.org> <eb6b32c3-c7e2-1e36-f492-0c00cc170ce2@suse.com> <alpine.DEB.2.21.2011181241310.11739@sstabellini-ThinkPad-T480s> <3e8c03eb-ee3f-4439-90c2-acf340c7d8e7@suse.com> <alpine.DEB.2.21.2011191310210.11739@sstabellini-ThinkPad-T480s>
+ <8ff723d7-00e2-be35-48b0-dc4b932d35cc@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-897275416-1606171023=:7979"
-Content-ID: <alpine.DEB.2.21.2011231437420.7979@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-897275416-1606171023=:7979
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2011231437421.7979@sstabellini-ThinkPad-T480s>
-
-On Mon, 23 Nov 2020, Jan Beulich wrote:
-> Rahul,
-> 
-> On 23.11.2020 12:54, Rahul Singh wrote:
-> > Hello Jan,
-> 
-> as an aside - it helps if you also put the addressee of your mail
-> on the To list.
-> 
-> >> On 20 Nov 2020, at 12:14 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> >>
-> >> On Thu, 19 Nov 2020, Julien Grall wrote:
-> >>> On Thu, 19 Nov 2020, 23:38 Stefano Stabellini, <sstabellini@kernel.org> wrote:
-> >>>      On Thu, 19 Nov 2020, Rahul Singh wrote:
-> >>>>> On 19/11/2020 09:53, Jan Beulich wrote:
-> >>>>>> On 19.11.2020 10:21, Julien Grall wrote:
-> >>>>>>> Hi Jan,
-> >>>>>>>
-> >>>>>>> On 19/11/2020 09:05, Jan Beulich wrote:
-> >>>>>>>> On 18.11.2020 16:50, Julien Grall wrote:
-> >>>>>>>>> On 16/11/2020 12:25, Rahul Singh wrote:
-> >>>>>>>>>> NS16550 driver has PCI support that is under HAS_PCI flag. When HAS_PCI
-> >>>>>>>>>> is enabled for ARM, compilation error is observed for ARM architecture
-> >>>>>>>>>> because ARM platforms do not have full PCI support available.
-> >>>>>>>>>    >
-> >>>>>>>>>> Introducing new kconfig option CONFIG_HAS_NS16550_PCI to support
-> >>>>>>>>>> ns16550 PCI for X86.
-> >>>>>>>>>>
-> >>>>>>>>>> For X86 platforms it is enabled by default. For ARM platforms it is
-> >>>>>>>>>> disabled by default, once we have proper support for NS16550 PCI for
-> >>>>>>>>>> ARM we can enable it.
-> >>>>>>>>>>
-> >>>>>>>>>> No functional change.
-> >>>>>>>>>
-> >>>>>>>>> NIT: I would say "No functional change intended" to make clear this is
-> >>>>>>>>> an expectation and hopefully will be correct :).
-> >>>>>>>>>
-> >>>>>>>>> Regarding the commit message itself, I would suggest the following to
-> >>>>>>>>> address Jan's concern:
-> >>>>>>>>
-> >>>>>>>> While indeed this is a much better description, I continue to think
-> >>>>>>>> that the proposed Kconfig option is undesirable to have.
-> >>>>>>>
-> >>>>>>> I am yet to see an argument into why we should keep the PCI code
-> >>>>>>> compiled on Arm when there will be no-use....
-> >>>>>> Well, see my patch suppressing building of quite a part of it.
+On Fri, 20 Nov 2020, Jan Beulich wrote:
+> On 19.11.2020 22:40, Stefano Stabellini wrote:
+> > On Thu, 19 Nov 2020, Jan Beulich wrote:
+> >> On 18.11.2020 22:00, Stefano Stabellini wrote:
+> >>> On Wed, 18 Nov 2020, Jan Beulich wrote:
+> >>>> On 18.11.2020 01:50, Stefano Stabellini wrote:
+> >>>>> 1) It is not obvious that "Configure standard Xen features (expert
+> >>>>> users)" is actually the famous EXPERT we keep talking about on xen-devel
+> >>>>
+> >>>> Which can be addressed by simply changing the one prompt line.
+> >>>>
+> >>>>> 2) It is not obvious when we need to enable EXPERT to get a specific
+> >>>>> feature
 > >>>>>
-> >>>>> I will let Rahul figuring out whether your patch series is sufficient to fix compilation issues (this is what matters right
-> >>>      now).
+> >>>>> In particular if you want to enable ACPI support so that you can boot
+> >>>>> Xen on an ACPI platform, you have to enable EXPERT first. But searching
+> >>>>> through the kconfig menu it is really not clear (type '/' and "ACPI"):
+> >>>>> nothing in the description tells you that you need to enable EXPERT to
+> >>>>> get the option.
 > >>>>
-> >>>> I just checked the compilation error for ARM after enabling the HAS_PCI on ARM. I am observing the same compilation error
-> >>>      what I observed previously.
-> >>>> There are two new errors related to struct uart_config and struct part_param as those struct defined globally but used under
-> >>>      X86 flags.
-> >>>>
-> >>>> At top level:
-> >>>> ns16550.c:179:48: error: ‘uart_config’ defined but not used [-Werror=unused-const-variable=]
-> >>>>   static const struct ns16550_config __initconst uart_config[] =
-> >>>>                                                  ^~~~~~~~~~~
-> >>>> ns16550.c:104:54: error: ‘uart_param’ defined but not used [-Werror=unused-const-variable=]
-> >>>>   static const struct ns16550_config_param __initconst uart_param[] = {
-> >>>>
-> >>>>
-> >>>>>
-> >>>>>>>> Either,
-> >>>>>>>> following the patch I've just sent, truly x86-specific things (at
-> >>>>>>>> least as far as current state goes - if any of this was to be
-> >>>>>>>> re-used by a future port, suitable further abstraction may be
-> >>>>>>>> needed) should be guarded by CONFIG_X86 (or abstracted into arch
-> >>>>>>>> hooks), or the HAS_PCI_MSI proposal would at least want further
-> >>>>>>>> investigating as to its feasibility to address the issues at hand.
-> >>>>>>>
-> >>>>>>> I would be happy with CONFIG_X86, despite the fact that this is only
-> >>>>>>> deferring the problem.
-> >>>>>>>
-> >>>>>>> Regarding HAS_PCI_MSI, I don't really see the point of introducing given
-> >>>>>>> that we are not going to use NS16550 PCI on Arm in the forseeable
-> >>>>>>> future.
-> >>>>>> And I continue to fail to see what would guarantee this: As soon
-> >>>>>> as you can plug in such a card into an Arm system, people will
-> >>>>>> want to be able use it. That's why we had to add support for it
-> >>>>>> on x86, after all.
-> >>>>>
-> >>>>> Well, plug-in PCI cards on Arm has been available for quite a while... Yet I haven't heard anyone asking for NS16550 PCI
-> >>>      support.
-> >>>>>
-> >>>>> This is probably because SBSA compliant server should always provide an SBSA UART (a cut-down version of the PL011). So why
-> >>>      would bother to lose a PCI slot for yet another UART?
-> >>>>>
-> >>>>>>>> So why do we need a finer graine Kconfig?
-> >>>>>> Because most of the involved code is indeed MSI-related?
-> >>>>>
-> >>>>> Possibly, yet it would not be necessary if we don't want NS16550 PCI support...
-> >>>>
-> >>>> To fix compilation error on ARM as per the discussion there are below options please suggest which one to use to proceed
-> >>>      further.
-> >>>>
-> >>>> 1. Use the newly introduced CONFIG_HAS_NS16550_PCI config options. This helps also non-x86 architecture in the future not to
-> >>>      have compilation error
-> >>>> what we are observing now when HAS_PCI is enabled.
-> >>>>
-> >>>> 2. Guard the remaining x86 specific code with CONFIG_X86 and introduce the new CONFIG_HAS_PCI_MSI options to fix the MSI
-> >>>      related compilation error.
-> >>>> Once we have proper support for MSI and PCI for ARM  (HAS_PCI_MSI and HAS_PCI enabled for ARM in Kconfig ) I am not sure if
-> >>>      NS16550 PCI will work out of the box on ARM .In that case, we might need to come back again to fix NS16550 driver. 
+> >>>> And what causes this to be different once you switch to UNSUPPORTED?
 > >>>
-> >>>
-> >>>      It doesn't matter too much to me, let's just choose one option so that you
-> >>>      get unblocked soon.
-> >>>
-> >>>      It looks like Jan prefers option 2) and both Julien and I are OK with
-> >>>      it. So let's do 2). Jan, please confirm too :-)
-> >>>
-> >>>
-> >>> Please don't put words in my mouth... 
+> >>> Two things: firstly, it doesn't and shouldn't take an expert to enable
+> >>> ACPI support, even if ACPI support is experimental. So calling it
+> >>> UNSUPPORTED helps a lot. This is particularly relevant to the ARM Kconfig
+> >>> options changed by this patch. Secondly, this patch is adding
+> >>> "(UNSUPPORTED)" in the oneline prompt so that it becomes easy to match
+> >>> it with the option you need to enable.
 > >>
-> >> Sorry Julien, I misinterpreted one of your previous comments. Sometimes
-> >> it is difficult to do things by email. It is good that you clarified as
-> >> my goal was to reach an agreement.
+> >> There's redundancy here then, which I think is in almost all cases
+> >> better to avoid. That's first and foremost because the two places
+> >> can go out of sync. Therefore, if the primary thing is to help
+> >> "make menuconfig" (which I admit I don't normally use, as it's
+> >> nothing that gets invoked implicitly by the build process afaict,
+> >> i.e. one has to actively invoke it), perhaps we should enhance
+> >> kconfig to attach at least a pre-determined subset of labels to
+> >> the prompts automatically?
 > >>
-> >>
-> >>> I think introducing HAS_PCI_MSI is short sighted.
-> >>>
-> >>> There are no clear benefits of it when NS16550 PCI support is not going to be enable in the foreseeable future.
-> >>
-> >> I agree
-> >>
-> >>
-> >>> I would be ok with moving everything under CONFIG_X86. IHMO this is still shortsighted but at least we don't introduce a config that's not
-> >>> going to help Arm or other any architecture to disable completely PCI support in NS16550.
-> >>
-> >> So you are suggesting a new option:
-> >>
-> >> 3. Guard the remaining x86 specific code *and* the MSI related
-> >> compilation errors with CONFIG_X86
-> >>
-> >> Is that right?
-> >>
-> >>
-> >> My preference is actually option 1) but this series is already at v3 and
-> >> I don't think this decision is as important as much as unblocking
-> >> Rahul, so I am OK with the other alternatives too.
-> >>
-> >> I tend to agree with you that 3) is better than 2) for the reasons you
-> >> wrote above.
+> >> And second, also in reply to what you've been saying further down,
+> >> perhaps we would better go with a hierarchy of controls here, e.g.
+> >> EXPERT -> EXPERIMENTAL -> UNSUPPORTED?
 > > 
+> > Both these are good ideas worth discussing; somebody else made a similar
+> > suggestion some time back. I was already thinking this could be a great
+> > candidate for one of the first "working groups" as defined by George
+> > during the last community call because the topic is not purely
+> > technical: a working group could help getting alignment and make
+> > progress faster. We can propose it to George when he is back.
 > > 
-> > Can you please provide your suggestion how to proceed on this so that I can send my next patch.
-> > I am waiting for your reply if you are also ok for the options 3.
+> > However, I don't think we need the working group to make progress on
+> > this limited patch that only addresses the lowest hanging fruit.
+> > 
+> > I'd like to suggest to make progress on this patch in its current form,
+> > and in parallel start a longer term discussion on how to do something
+> > like you suggested above.
 > 
-> I can live with 3, I guess, but I still think a separate PCI_MSI
-> control would be better. Please realize though that things also
-> depend on how the change is going to look like in the end, i.e.
-> I'm not going to assure you this is my final view on it. In any
-> event I've just sent v2 of my series, which I consider a prereq
-> of yours.
+> Okay, I guess I can accept this. So FAOD I'm not objecting to the
+> change (with some suitable adjustments, as discussed), but I'm
+> then also not going to be the one to ack it. Nevertheless I'd like
+> to point out that doing such a partial solution may end up adding
+> confusion rather than reducing it. Much depends on how exactly
+> consumers interpret what we hand to them.
 
-It is great that we have a way forward.
-
-I'll try to have a look at your series -- it looks pretty
-straightforward.
---8323329-897275416-1606171023=:7979--
+Thank you Jan. I'll clarify the patch and address your comments. I'll
+also try to get the attention of one of the other maintainers for the
+ack.
 
