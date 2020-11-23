@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9D5B2C1369
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 20:04:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35139.66532 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97EBD2C1521
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 21:04:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35151.66550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khH8i-00082A-7I; Mon, 23 Nov 2020 19:04:40 +0000
+	id 1khI42-0004ol-Px; Mon, 23 Nov 2020 20:03:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35139.66532; Mon, 23 Nov 2020 19:04:40 +0000
+Received: by outflank-mailman (output) from mailman id 35151.66550; Mon, 23 Nov 2020 20:03:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,219 +23,158 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khH8i-00081l-42; Mon, 23 Nov 2020 19:04:40 +0000
-Received: by outflank-mailman (input) for mailman id 35139;
- Mon, 23 Nov 2020 19:04:39 +0000
+	id 1khI42-0004oM-LS; Mon, 23 Nov 2020 20:03:54 +0000
+Received: by outflank-mailman (input) for mailman id 35151;
+ Mon, 23 Nov 2020 20:03:53 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xOkN=E5=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1khH8h-00081g-90
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 19:04:39 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=UxIT=E5=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
+ id 1khI41-0004oH-FW
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 20:03:53 +0000
+Received: from hqnvemgate25.nvidia.com (unknown [216.228.121.64])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c0b14898-5a65-4ba4-8ef9-d232c4a3f0f1;
- Mon, 23 Nov 2020 19:04:37 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 822DDAC41;
- Mon, 23 Nov 2020 19:04:36 +0000 (UTC)
+ id 38838641-c63d-4d9c-af1d-ffaab802aa77;
+ Mon, 23 Nov 2020 20:03:52 +0000 (UTC)
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fbc15a70004>; Mon, 23 Nov 2020 12:03:51 -0800
+Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 23 Nov
+ 2020 20:03:49 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.103)
+ by HQMAIL107.nvidia.com (172.20.187.13) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Mon, 23 Nov 2020 20:03:49 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB4338.namprd12.prod.outlook.com (2603:10b6:5:2a2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.21; Mon, 23 Nov
+ 2020 20:03:48 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::e40c:730c:156c:2ef9]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::e40c:730c:156c:2ef9%7]) with mapi id 15.20.3589.022; Mon, 23 Nov 2020
+ 20:03:48 +0000
+Received: from mlx.ziepe.ca (156.34.48.30) by
+ MN2PR03CA0013.namprd03.prod.outlook.com (2603:10b6:208:23a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
+ Transport; Mon, 23 Nov 2020 20:03:47 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1khI3t-000A35-Tb; Mon, 23 Nov 2020 16:03:45 -0400
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=xOkN=E5=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1khH8h-00081g-90
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 19:04:39 +0000
-X-Inumbo-ID: c0b14898-5a65-4ba4-8ef9-d232c4a3f0f1
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=UxIT=E5=nvidia.com=jgg@srs-us1.protection.inumbo.net>)
+	id 1khI41-0004oH-FW
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 20:03:53 +0000
+X-Inumbo-ID: 38838641-c63d-4d9c-af1d-ffaab802aa77
+Received: from hqnvemgate25.nvidia.com (unknown [216.228.121.64])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id c0b14898-5a65-4ba4-8ef9-d232c4a3f0f1;
-	Mon, 23 Nov 2020 19:04:37 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606158276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s3ouLa9RJIbqH4FhgXgE1Dst59qBpgo5CefVFmZ55ag=;
-	b=oS9oYDCMT3jlYSkOFZSnjQzaU35+kHdBIAFfPx5y8O6e+7Rd0dgRBaGt5jCbkCPNRL/Th8
-	XM0N/TQ8Q84IggsAMF3fCAKoAPgRZ0XYRflaKegwFayb19R76chwV1qYSoA6EChxvt0QbY
-	pG+v1WC7N0QizMyqsn/XA/02bTRwQj4=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 822DDAC41;
-	Mon, 23 Nov 2020 19:04:36 +0000 (UTC)
-Subject: Re: [PATCH] MAINTINERS: Propose Ian Jackson as new release manager
-To: Ian Jackson <iwj@xenproject.org>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-References: <20201123160400.1273386-1-george.dunlap@citrix.com>
- <24507.60537.640007.567348@mariner.uk.xensource.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <25b93d61-b52c-c333-2583-07b5d03692b8@suse.com>
-Date: Mon, 23 Nov 2020 20:04:35 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	id 38838641-c63d-4d9c-af1d-ffaab802aa77;
+	Mon, 23 Nov 2020 20:03:52 +0000 (UTC)
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+	id <B5fbc15a70004>; Mon, 23 Nov 2020 12:03:51 -0800
+Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 23 Nov
+ 2020 20:03:49 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.103)
+ by HQMAIL107.nvidia.com (172.20.187.13) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Mon, 23 Nov 2020 20:03:49 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gITd84wMHHzcOptjQRg1Bi4wKYLoloErjGXTzbxbsYYxXpRm6DfDjP1G8JsqPPruG8n8djHpWT3ChykgCoTQdTlPHkj05TPw7WZ4Y46HlI8bprZC3XuF3n009Te/qaTwPxc9ef3s3wxgnUStlvtZrJvP5WQhh3MIKLFTGEWjhLXWcgs1VmoV9q6ndrBwWgPhsRBIC9rKh9qqm9cf9Ujr9sks/ml2cZ4bW16uPSJVifE1ke5RuUikXPZ60YcpNVw15sbmeBPfJ8v059YAkVfr8AOpsBgi+OymMySTg/JYVNFtVJ2pGo3M9pC5txLp474ztgTCR2D9RfvqUQOXT+42RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QophqWBVIGhmInjMMmoN1JCz5yEuED07MVw87J8AVUY=;
+ b=dpOj+p56VpZQgFejSTc+TjZx9PpIbmIlWcJPfXyA8QiV6hyerQ1PNIg37pZm/OoPMM7dRNU+MPO2Sxmva5Z6iKtLQpQNkcM79tS52of8WjxHEmReB+Qc/VB0gzy26dU2FtXMoEzn5Rx6YHRp97uhlWeSk7Nsi1BUrieORD+G9yqkgKBmwQvC726s6EkJ0s32uNc7iMGffyCjKbyBtSLggJX9G9WEJ0m0GYQlYWRE7aVXL+Iy16bXoksvn7nW7YXP74v45GAqxPt7EElquzCZ4kXurFfWXXWM9ThsUobGLm/yb7wWVAmTEM+ttWZwc1mR7P3I+RsId2H9o2Xiqq+zAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB4338.namprd12.prod.outlook.com (2603:10b6:5:2a2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.21; Mon, 23 Nov
+ 2020 20:03:48 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::e40c:730c:156c:2ef9]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::e40c:730c:156c:2ef9%7]) with mapi id 15.20.3589.022; Mon, 23 Nov 2020
+ 20:03:48 +0000
+Date: Mon, 23 Nov 2020 16:03:45 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<amd-gfx@lists.freedesktop.org>, <bridge@lists.linux-foundation.org>,
+	<ceph-devel@vger.kernel.org>, <cluster-devel@redhat.com>,
+	<coreteam@netfilter.org>, <devel@driverdev.osuosl.org>,
+	<dm-devel@redhat.com>, <drbd-dev@lists.linbit.com>,
+	<dri-devel@lists.freedesktop.org>, <GR-everest-linux-l2@marvell.com>,
+	<GR-Linux-NIC-Dev@marvell.com>, <intel-gfx@lists.freedesktop.org>,
+	<intel-wired-lan@lists.osuosl.org>, <keyrings@vger.kernel.org>,
+	<linux1394-devel@lists.sourceforge.net>, <linux-acpi@vger.kernel.org>,
+	<linux-afs@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-arm-msm@vger.kernel.org>, <linux-atm-general@lists.sourceforge.net>,
+	<linux-block@vger.kernel.org>, <linux-can@vger.kernel.org>,
+	<linux-cifs@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<linux-decnet-user@lists.sourceforge.net>, <linux-ext4@vger.kernel.org>,
+	<linux-fbdev@vger.kernel.org>, <linux-geode@lists.infradead.org>,
+	<linux-gpio@vger.kernel.org>, <linux-hams@vger.kernel.org>,
+	<linux-hwmon@vger.kernel.org>, <linux-i3c@lists.infradead.org>,
+	<linux-ide@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+	<linux-input@vger.kernel.org>, <linux-integrity@vger.kernel.org>,
+	<linux-mediatek@lists.infradead.org>, <linux-media@vger.kernel.org>,
+	<linux-mmc@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-mtd@lists.infradead.org>, <linux-nfs@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+	<linux-scsi@vger.kernel.org>, <linux-sctp@vger.kernel.org>,
+	<linux-security-module@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <linux-usb@vger.kernel.org>,
+	<linux-watchdog@vger.kernel.org>, <linux-wireless@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <netfilter-devel@vger.kernel.org>,
+	<nouveau@lists.freedesktop.org>, <op-tee@lists.trustedfirmware.org>,
+	<oss-drivers@netronome.com>, <patches@opensource.cirrus.com>,
+	<rds-devel@oss.oracle.com>, <reiserfs-devel@vger.kernel.org>,
+	<samba-technical@lists.samba.org>, <selinux@vger.kernel.org>,
+	<target-devel@vger.kernel.org>, <tipc-discussion@lists.sourceforge.net>,
+	<usb-storage@lists.one-eyed-alien.net>,
+	<virtualization@lists.linux-foundation.org>, <wcn36xx@lists.infradead.org>,
+	<x86@kernel.org>, <xen-devel@lists.xenproject.org>,
+	<linux-hardening@vger.kernel.org>, Nick Desaulniers
+	<ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>, Joe Perches <joe@perches.com>, Kees Cook
+	<keescook@chromium.org>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+Message-ID: <20201123200345.GA38546@nvidia.com>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
+X-ClientProxiedBy: MN2PR03CA0013.namprd03.prod.outlook.com
+ (2603:10b6:208:23a::18) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
 MIME-Version: 1.0
-In-Reply-To: <24507.60537.640007.567348@mariner.uk.xensource.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="RbsJ6C35zk97y4RuVSYXKEJCDvswJGwu1"
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (156.34.48.30) by MN2PR03CA0013.namprd03.prod.outlook.com (2603:10b6:208:23a::18) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend Transport; Mon, 23 Nov 2020 20:03:47 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from <jgg@nvidia.com>)	id 1khI3t-000A35-Tb; Mon, 23 Nov 2020 16:03:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+	t=1606161831; bh=QophqWBVIGhmInjMMmoN1JCz5yEuED07MVw87J8AVUY=;
+	h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
+	 From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType;
+	b=Zr1EZlr7FGouweCXJ2A3YJZ8lxsTazMwmiIDkNNgeYuPc4M3hA0h9guNHLXrnnLeX
+	 Dp0jtpGLpYuZZsYit0m8+Y/3Pgk+U78P2KDuhjfei0oh+kHbQnRfzB2jD1Wu7rVyZ8
+	 A2iuCgvA8hhwNVx8Bo/l4LfRAECKvf8eJj6um7c8+wyJ6oFgyijvPixB8Xcq6YNTLj
+	 o7o09Zdo2SkPJV9Ld82VvGAW1KENwGx8qxL8L4kHw5xGizl/kk/4FLfOCs8mx17bXD
+	 N2PIS7AsaPoH2bHogxWrZ7vcH6YOCMGYKk/oZQ1BhSoaDoH96AMZAs9BCirfcyYEMq
+	 3EMRDyReptNPA==
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---RbsJ6C35zk97y4RuVSYXKEJCDvswJGwu1
-Content-Type: multipart/mixed; boundary="UkBBn4ep6qKbB6UcvhpTDXSxzMTeFi3bH";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Ian Jackson <iwj@xenproject.org>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Message-ID: <25b93d61-b52c-c333-2583-07b5d03692b8@suse.com>
-Subject: Re: [PATCH] MAINTINERS: Propose Ian Jackson as new release manager
-References: <20201123160400.1273386-1-george.dunlap@citrix.com>
- <24507.60537.640007.567348@mariner.uk.xensource.com>
-In-Reply-To: <24507.60537.640007.567348@mariner.uk.xensource.com>
+On Fri, Nov 20, 2020 at 12:21:39PM -0600, Gustavo A. R. Silva wrote:
 
---UkBBn4ep6qKbB6UcvhpTDXSxzMTeFi3bH
-Content-Type: multipart/mixed;
- boundary="------------F4FCA6AB20BDD98D93C6403B"
-Content-Language: en-US
+>   IB/hfi1: Fix fall-through warnings for Clang
+>   IB/mlx4: Fix fall-through warnings for Clang
+>   IB/qedr: Fix fall-through warnings for Clang
+>   RDMA/mlx5: Fix fall-through warnings for Clang
 
-This is a multi-part message in MIME format.
---------------F4FCA6AB20BDD98D93C6403B
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+I picked these four to the rdma tree, thanks
 
-On 23.11.20 18:08, Ian Jackson wrote:
-> George Dunlap writes ("[PATCH] MAINTINERS: Propose Ian Jackson as new r=
-elease manager"):
->> Ian Jackson has agreed to be the release manager for 4.15.  Signify
->> this by giving him maintainership over CHANGELOG.md.
->=20
-> Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
->=20
-> Obviously that signifies my consent but I think it needs more acks.
->=20
-> Wei, Juergen, Paul, I think I am likely to ask you some questions.
-> Any tips etc would be welcome.
-
-Fine with me. :-)
-
-
-Juergen
-
---------------F4FCA6AB20BDD98D93C6403B
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------F4FCA6AB20BDD98D93C6403B--
-
---UkBBn4ep6qKbB6UcvhpTDXSxzMTeFi3bH--
-
---RbsJ6C35zk97y4RuVSYXKEJCDvswJGwu1
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+8B8MFAwAAAAAACgkQsN6d1ii/Ey/k
-Mwf9FPem376Mc0hndA7HbuDIoqJCnmCH5s4F2Ubfueng4Va1QiduWwe47eesx+7W9Be8IEPIc16V
-YuWgAhrsY/ttad6h5fFTZOlHimpDc8xKSurxw4sesRVPVT4+n/1y3WH/9Nh/akWvPPPaGAFEjYdI
-KPML8jbqg65buOg9Pe4mFbr/7kRM4MuhU87O8NQOw4TCafaTOvBZB1SpCt0pgVcO7IqMNT7ACL+z
-liRPHiNaqJexze5jLuGQ0x+KQuK4xzd+yqlHCvcx79bX4iwfrf8G1Syw4QSqOzedwXokOkAtmSDk
-s3R9tK6gCNwhoA1NEkY4REB3hmNijQnHEHmyo8UD2g==
-=V6Xy
------END PGP SIGNATURE-----
-
---RbsJ6C35zk97y4RuVSYXKEJCDvswJGwu1--
+Jason
 
