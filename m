@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E57032BFF64
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 06:23:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.33606.64720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A53A2C0098
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 08:30:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.33632.64760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kh4Ic-0006HP-AL; Mon, 23 Nov 2020 05:22:02 +0000
+	id 1kh6Hg-00023o-QR; Mon, 23 Nov 2020 07:29:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 33606.64720; Mon, 23 Nov 2020 05:22:02 +0000
+Received: by outflank-mailman (output) from mailman id 33632.64760; Mon, 23 Nov 2020 07:29:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,192 +23,171 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kh4Ic-0006Gz-2A; Mon, 23 Nov 2020 05:22:02 +0000
-Received: by outflank-mailman (input) for mailman id 33606;
- Mon, 23 Nov 2020 05:22:00 +0000
+	id 1kh6Hg-00023P-NB; Mon, 23 Nov 2020 07:29:12 +0000
+Received: by outflank-mailman (input) for mailman id 33632;
+ Mon, 23 Nov 2020 07:29:10 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xOkN=E5=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kh4Ia-0006Gu-C2
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 05:22:00 +0000
+ id 1kh6He-00023K-S2
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 07:29:10 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3290cf00-ff34-4a28-ab2e-3f70a4a07943;
- Mon, 23 Nov 2020 05:21:58 +0000 (UTC)
+ id 2d2eae3d-3400-4d94-a564-a9f22a0bfcd8;
+ Mon, 23 Nov 2020 07:29:09 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C30A0AC0C;
- Mon, 23 Nov 2020 05:21:57 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 9B892ABCE;
+ Mon, 23 Nov 2020 07:29:08 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=xOkN=E5=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kh4Ia-0006Gu-C2
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 05:22:00 +0000
-X-Inumbo-ID: 3290cf00-ff34-4a28-ab2e-3f70a4a07943
+	id 1kh6He-00023K-S2
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 07:29:10 +0000
+X-Inumbo-ID: 2d2eae3d-3400-4d94-a564-a9f22a0bfcd8
 Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 3290cf00-ff34-4a28-ab2e-3f70a4a07943;
-	Mon, 23 Nov 2020 05:21:58 +0000 (UTC)
+	id 2d2eae3d-3400-4d94-a564-a9f22a0bfcd8;
+	Mon, 23 Nov 2020 07:29:09 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606108917; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606116548; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bnlvBaRBDOwhFV9Frw/ljad6M3emL9wmQHU9HFSgjyg=;
-	b=hp03zaAa6g9jzr7ZFVJcK9sSTowRPcxkxQEe9lmU/Iow1G3DAlxUFBpvBVKmZJWewAUzYp
-	vGYrU8C7R3DG7nHlXCVKch/x7KxTgOIiJvaA3kRKTaVRHf6CnXlZA3TTNnQV9qi0tFvy5H
-	GAR5vu9087dpuD1Mp71uPoXjdE0aTbI=
+	bh=i09SCvlePJ2J/OPXmW03ImaqfNDdSHiM7gHhLVc0sAE=;
+	b=drX6B+4WzXHC6ZlBxsWb0tsYNdZVzjP//rp8+kt67jiJmKBel8HfI+VOjUFhA+WtAwT9+X
+	Ia7lLtNiDN4o6vKmzptkuen14hUiHs5SOI3C+pteEjR/+xROTHldKi5yfzqt8LWwGlvxbw
+	Y7xlaUA0ysrHyaI2Ikkgo64K1zxZQyA=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id C30A0AC0C;
-	Mon, 23 Nov 2020 05:21:57 +0000 (UTC)
-To: Andy Lutomirski <luto@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "VMware, Inc." <pv-drivers@vmware.com>, X86 ML <x86@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Linux Virtualization <virtualization@lists.linux-foundation.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel
- <xen-devel@lists.xenproject.org>, Thomas Gleixner <tglx@linutronix.de>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <20201120114630.13552-1-jgross@suse.com>
- <20201120114630.13552-6-jgross@suse.com>
- <20201120115943.GD3021@hirez.programming.kicks-ass.net>
- <eb05e878-6334-8d19-496b-6572df67fc56@suse.com>
- <CALCETrXOGhXoOJpzhAMqD7iibi09WzbGk9SWVH7JzA=d5uarWA@mail.gmail.com>
+	by mx2.suse.de (Postfix) with ESMTP id 9B892ABCE;
+	Mon, 23 Nov 2020 07:29:08 +0000 (UTC)
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20201109163826.13035-1-jgross@suse.com>
+ <20201109163826.13035-3-jgross@suse.com>
+ <77067fa0-d902-9091-50e0-d6e15e34b159@suse.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use
- popf
-Message-ID: <894a4cec-8426-4152-d391-474711040c5b@suse.com>
-Date: Mon, 23 Nov 2020 06:21:56 +0100
+Subject: Re: [PATCH v6 2/3] xen/evtchn: rework per event channel lock
+Message-ID: <70b4c68e-4131-1543-fa66-0efd743a055a@suse.com>
+Date: Mon, 23 Nov 2020 08:29:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <CALCETrXOGhXoOJpzhAMqD7iibi09WzbGk9SWVH7JzA=d5uarWA@mail.gmail.com>
+In-Reply-To: <77067fa0-d902-9091-50e0-d6e15e34b159@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="KjjwiwVOCYamlMPkg53LvZQjNAFZkdRhT"
+ boundary="Hd5XsRLGsgwwVLZo82mlVFTJfc1TcY5Pl"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---KjjwiwVOCYamlMPkg53LvZQjNAFZkdRhT
-Content-Type: multipart/mixed; boundary="PYEGjNEoNCwI2vygBQpmaIoVRT2ThJktq";
+--Hd5XsRLGsgwwVLZo82mlVFTJfc1TcY5Pl
+Content-Type: multipart/mixed; boundary="vqkhtjnuIxrozriPkBil9AOpzBexo3UD3";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Andy Lutomirski <luto@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "VMware, Inc." <pv-drivers@vmware.com>, X86 ML <x86@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Linux Virtualization <virtualization@lists.linux-foundation.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel
- <xen-devel@lists.xenproject.org>, Thomas Gleixner <tglx@linutronix.de>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <894a4cec-8426-4152-d391-474711040c5b@suse.com>
-Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use
- popf
-References: <20201120114630.13552-1-jgross@suse.com>
- <20201120114630.13552-6-jgross@suse.com>
- <20201120115943.GD3021@hirez.programming.kicks-ass.net>
- <eb05e878-6334-8d19-496b-6572df67fc56@suse.com>
- <CALCETrXOGhXoOJpzhAMqD7iibi09WzbGk9SWVH7JzA=d5uarWA@mail.gmail.com>
-In-Reply-To: <CALCETrXOGhXoOJpzhAMqD7iibi09WzbGk9SWVH7JzA=d5uarWA@mail.gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Message-ID: <70b4c68e-4131-1543-fa66-0efd743a055a@suse.com>
+Subject: Re: [PATCH v6 2/3] xen/evtchn: rework per event channel lock
+References: <20201109163826.13035-1-jgross@suse.com>
+ <20201109163826.13035-3-jgross@suse.com>
+ <77067fa0-d902-9091-50e0-d6e15e34b159@suse.com>
+In-Reply-To: <77067fa0-d902-9091-50e0-d6e15e34b159@suse.com>
 
---PYEGjNEoNCwI2vygBQpmaIoVRT2ThJktq
+--vqkhtjnuIxrozriPkBil9AOpzBexo3UD3
 Content-Type: multipart/mixed;
- boundary="------------61EFA80FF3AEF2DEA88EC6CD"
+ boundary="------------578FAFE8DF50A2D49AE1D294"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------61EFA80FF3AEF2DEA88EC6CD
+--------------578FAFE8DF50A2D49AE1D294
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 22.11.20 22:44, Andy Lutomirski wrote:
-> On Sat, Nov 21, 2020 at 10:55 PM J=C3=BCrgen Gro=C3=9F <jgross@suse.com=
-> wrote:
+On 18.11.20 14:19, Jan Beulich wrote:
+> On 09.11.2020 17:38, Juergen Gross wrote:
+>> Currently the lock for a single event channel needs to be taken with
+>> interrupts off, which causes deadlocks in some cases.
 >>
->> On 20.11.20 12:59, Peter Zijlstra wrote:
->>> On Fri, Nov 20, 2020 at 12:46:23PM +0100, Juergen Gross wrote:
->>>> +static __always_inline void arch_local_irq_restore(unsigned long fl=
-ags)
->>>> +{
->>>> +    if (!arch_irqs_disabled_flags(flags))
->>>> +            arch_local_irq_enable();
->>>> +}
->>>
->>> If someone were to write horrible code like:
->>>
->>>        local_irq_disable();
->>>        local_irq_save(flags);
->>>        local_irq_enable();
->>>        local_irq_restore(flags);
->>>
->>> we'd be up some creek without a paddle... now I don't _think_ we have=
-
->>> genius code like that, but I'd feel saver if we can haz an assertion =
-in
->>> there somewhere...
->>>
->>> Maybe something like:
->>>
->>> #ifdef CONFIG_DEBUG_ENTRY // for lack of something saner
->>>        WARN_ON_ONCE((arch_local_save_flags() ^ flags) & X86_EFLAGS_IF=
-);
->>> #endif
->>>
->>> At the end?
+>> Rework the per event channel lock to be non-blocking for the case of
+>> sending an event and removing the need for disabling interrupts for
+>> taking the lock.
 >>
->> I'd like to, but using WARN_ON_ONCE() in include/asm/irqflags.h sounds=
-
->> like a perfect receipt for include dependency hell.
+>> The lock is needed for avoiding races between event channel state
+>> changes (creation, closing, binding) against normal operations (set
+>> pending, [un]masking, priority changes).
 >>
->> We could use a plain asm("ud2") instead.
+>> Use a rwlock, but with some restrictions:
+>>
+>> - Changing the state of an event channel (creation, closing, binding)
+>>    needs to use write_lock(), with ASSERT()ing that the lock is taken =
+as
+>>    writer only when the state of the event channel is either before or=
+
+>>    after the locked region appropriate (either free or unbound).
+>>
+>> - Sending an event needs to use read_trylock() mostly, in case of not
+>>    obtaining the lock the operation is omitted. This is needed as
+>>    sending an event can happen with interrupts off (at least in some
+>>    cases).
+>>
+>> - Dumping the event channel state for debug purposes is using
+>>    read_trylock(), too, in order to avoid blocking in case the lock is=
+
+>>    taken as writer for a long time.
+>>
+>> - All other cases can use read_lock().
 >=20
-> How about out-of-lining it:
+> One of the implications is that racing invocations of ->set_pending()
+> are now possible for the same port. Beyond what I said in reply to
+> 0/3 already, I'm afraid there are (latent) issues:
 >=20
-> #ifdef CONFIG_DEBUG_ENTRY
-> extern void warn_bogus_irqrestore();
-> #endif
+> 1) The update of ->pending (or basically any bitfield in struct
+> evtchn, or yet more generically any field getting updated in a read-
+> modify-write fashion) is no longer generally safe in any of the
+> hooks called with just a read lock held. ->pending itself is not an
+> issue now merely because it shares storage only with xen_consumer,
+> which won't get updated once a port was bound.
+
+This is fragile.
+
+We should put the pending indicator into a dedicated byte.
+
+> 2) Of two racing sends, one may now complete without the port
+> actually having got fully recorded as linked in the FIFO code. This
+> is because the party losing the race of setting EVTCHN_FIFO_LINKED
+> will return early, without regard to whether the winner has made
+> enough progress. (Of course this is possible only with an
+> intermediate queue change, as only then the lock would become
+> available to the second of the senders early enough.)
+
+No, I don't think this is limited to a queue change. If a caller of
+evtchn_fifo_set_pending() is being interrupted after setting
+EVTCHN_FIFO_PENDING, and then a second caller can make it to setting
+EVTCHN_FIFO_LINKED, the first caller won't even try to take the queue
+lock, resulting in evtchn_check_pollers() being called before the
+event might have been put properly into the queue.
+
+I'd suggest to extend the fifo queue lock region in order to mitigate
+this problem.
+
 >=20
-> static __always_inline void arch_local_irq_restore(unsigned long flags)=
+> I've gone through other functions called from this path and didn't
+> find any further race potential there, but I'm not entirely certain
+> I didn't miss anything.
 
-> {
->         if (!arch_irqs_disabled_flags(flags)) {
->                 arch_local_irq_enable();
->         } else {
-> #ifdef CONFIG_DEBUG_ENTRY
->                 if (unlikely(arch_local_irq_save() & X86_EFLAGS_IF))
->                      warn_bogus_irqrestore();
-> #endif
-> }
->=20
-
-This couldn't be a WARN_ON_ONCE() then (or it would be a catch all).
-Another approach might be to open-code the WARN_ON_ONCE(), like:
-
-#ifdef CONFIG_DEBUG_ENTRY
-extern void warn_bogus_irqrestore(bool *once);
-#endif
-
-static __always_inline void arch_local_irq_restore(unsigned long flags)
-{
-	if (!arch_irqs_disabled_flags(flags))
-		arch_local_irq_enable();
-#ifdef CONFIG_DEBUG_ENTRY
-	{
-		static bool once;
-
-		if (unlikely(arch_local_irq_save() & X86_EFLAGS_IF))
-			warn_bogus_irqrestore(&once);
-	}
-#endif
-}
+I can prepare a patch if you agree my ideas.
 
 
 Juergen
 
---------------61EFA80FF3AEF2DEA88EC6CD
+--------------578FAFE8DF50A2D49AE1D294
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -299,25 +278,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------61EFA80FF3AEF2DEA88EC6CD--
+--------------578FAFE8DF50A2D49AE1D294--
 
---PYEGjNEoNCwI2vygBQpmaIoVRT2ThJktq--
+--vqkhtjnuIxrozriPkBil9AOpzBexo3UD3--
 
---KjjwiwVOCYamlMPkg53LvZQjNAFZkdRhT
+--Hd5XsRLGsgwwVLZo82mlVFTJfc1TcY5Pl
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+7RvQFAwAAAAAACgkQsN6d1ii/Ey8g
-cQf/Uld5d2rCAffpLFBdphaCOgFSPC2kdsNOxLyfO0gdHESNxsBoZ/BREBUVCnDawcH4cZlOl/6E
-ZHl1LQFfe963dpoB0V3n3hscAEalez4yzbsgsoysAqDqyA7Dl/kFW4ycGCnqtQCwK1utjoejDrWo
-JnODzWqm4fLZGbe1Y7VUw6G25XSL1mTfoXst86jeU0Ycvr6/NFBA4zFy10wAylyosZe/6xss9lKl
-f/GAwNiafJ6o8ZQwxAAh5vRf0oU0ro47p9Pu1wmzXNMfIO8TgazfvOp68Ml/0n4DR+TuCB1tarqx
-QqyidG1WLriURSEHtWCAmqiIgeagXTWcLkWsbGIImQ==
-=0xzm
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+7ZMMFAwAAAAAACgkQsN6d1ii/Ey+Y
+owf/XRhml7vg/AN5HHVWcom+FP9smUNe5+HQP0aQCqukx+Q2wuXyD8vmS8S05zUn82lqjEPYFbbi
+7dHq9uUpIawxiAWHrdaPD3DEABklJLYUtW/pwp8QOjBoLEWqknFn7KGNW+u0FoXVg9knFUvCnfpM
+hkSOUhsIv0LSs1m19ylOwhH5B9QH+pHvAsk/OFPjnsDeaoBbzzVkFs2RwJsWWo7afZQUf3QZYRH4
+5zK9mKa137gm7/lYM9Xx2H4329cPeOSXjG3lXIizNLI2s6CwM/4uTJ64qdIsV2Fg/G4UO3Ba8ZZm
+CYzfpHqB1EpZU0izeLIW+KdGSy9/Rc/7WFolqS8obQ==
+=z5CC
 -----END PGP SIGNATURE-----
 
---KjjwiwVOCYamlMPkg53LvZQjNAFZkdRhT--
+--Hd5XsRLGsgwwVLZo82mlVFTJfc1TcY5Pl--
 
