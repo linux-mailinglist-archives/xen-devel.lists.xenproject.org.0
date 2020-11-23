@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190272C1286
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 19:01:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35002.66327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A9742C1302
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 19:27:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35114.66496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khG8s-0000nX-Oa; Mon, 23 Nov 2020 18:00:46 +0000
+	id 1khGYa-0004Kf-N8; Mon, 23 Nov 2020 18:27:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35002.66327; Mon, 23 Nov 2020 18:00:46 +0000
+Received: by outflank-mailman (output) from mailman id 35114.66496; Mon, 23 Nov 2020 18:27:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,260 +23,204 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khG8s-0000nB-Kg; Mon, 23 Nov 2020 18:00:46 +0000
-Received: by outflank-mailman (input) for mailman id 35002;
- Mon, 23 Nov 2020 18:00:45 +0000
+	id 1khGYa-0004KG-Jx; Mon, 23 Nov 2020 18:27:20 +0000
+Received: by outflank-mailman (input) for mailman id 35114;
+ Mon, 23 Nov 2020 18:27:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>) id 1khG8r-0000m3-1d
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 18:00:45 +0000
+ (envelope-from <julien@xen.org>) id 1khGYZ-0004K8-GQ
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 18:27:19 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1khG8q-00070h-3C; Mon, 23 Nov 2020 18:00:44 +0000
-Received: from ec2-54-145-241-208.compute-1.amazonaws.com ([54.145.241.208]
- helo=ip-10-0-29-170.ec2.internal)
+ (envelope-from <julien@xen.org>)
+ id 1khGYX-0007a9-VS; Mon, 23 Nov 2020 18:27:17 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1khFtn-0000at-Ls; Mon, 23 Nov 2020 17:45:11 +0000
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1khGYX-0003rA-Jg; Mon, 23 Nov 2020 18:27:17 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <paul@xen.org>)
-	id 1khG8r-0000m3-1d
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 18:00:45 +0000
+	(envelope-from <julien@xen.org>)
+	id 1khGYZ-0004K8-GQ
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 18:27:19 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	 bh=76KlTk8bHaA9SDHeFdHL0duSfvVvDvb9nsw14DdiG9Q=; b=plm5b0KVLxpKbyBRR7SpwCDiM
-	iSSQe1fwCPOUoU4I3ghimoXuLVD5PutUpMeV+iGz+t9liqsw32kiEjtfDSunMSIsQk8lErcS6IolU
-	t2cuZieZaiLcCY3UtpJfas+nY4x98nWg/4Ce+ehQBnQ3gvJMBj+li26JrAJ8qg+zG3RXo=;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=v8AYlSkV+k3q8JSiD8YvMwRTa5fXhluaknB6u6qK634=; b=LvHzQOnPsJEjHZwEzfec+omYV4
+	QCmj/yex+J0N13O5i7EOH7010nUidzredCawIlB+6hSsjVwzBdixgcsCkpxPb62RpfLmbCSdk9Ix9
+	i7f02EvB26axUZG9mh3Wb7OB6ap0VnBn15GRxRdVZ4VGNK3g7PKJl2UIZQ6xpRcLp7is=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <paul@xen.org>)
-	id 1khG8q-00070h-3C; Mon, 23 Nov 2020 18:00:44 +0000
-Received: from ec2-54-145-241-208.compute-1.amazonaws.com ([54.145.241.208] helo=ip-10-0-29-170.ec2.internal)
-	by xenbits.xenproject.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(envelope-from <julien@xen.org>)
+	id 1khGYX-0007a9-VS; Mon, 23 Nov 2020 18:27:17 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
 	(Exim 4.92)
-	(envelope-from <paul@xen.org>)
-	id 1khFtn-0000at-Ls; Mon, 23 Nov 2020 17:45:11 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v3 23/23] xl / libxl: support 'xl pci-attach/detach' by name
-Date: Mon, 23 Nov 2020 17:45:03 +0000
-Message-Id: <20201123174503.6800-24-paul@xen.org>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20201123174503.6800-1-paul@xen.org>
-References: <20201123174503.6800-1-paul@xen.org>
+	(envelope-from <julien@xen.org>)
+	id 1khGYX-0003rA-Jg; Mon, 23 Nov 2020 18:27:17 +0000
+Subject: Re: AW: AW: AW: AW: AW: Xen data from meta-virtualization layer
+To: Leo Krueger <leo.krueger@zal.aero>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Peng Fan <peng.fan@nxp.com>, "brucea@xilinx.com" <brucea@xilinx.com>,
+ Cornelia Bruelhart <cornelia.bruelhart@zal.aero>,
+ "oleksandr_andrushchenko@epam.com" <oleksandr_andrushchenko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>
+References: <AM4PR0501MB2227089FDDF0209EF6E215D9E6100@AM4PR0501MB2227.eurprd05.prod.outlook.com>
+ <alpine.DEB.2.21.2011091858010.21307@sstabellini-ThinkPad-T480s>
+ <HE1PR05MB4794B5C57A54A29A48EE8EAE8BE90@HE1PR05MB4794.eurprd05.prod.outlook.com>
+ <alpine.DEB.2.21.2011101842500.21307@sstabellini-ThinkPad-T480s>
+ <DB6PR0402MB27608A03EC717053E392A92988E80@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <HE1PR05MB47940ED4E5FDC0BADC54C8E78BE80@HE1PR05MB4794.eurprd05.prod.outlook.com>
+ <DB6PR0402MB2760CEEABA9F52CDEB27C1DB88E80@DB6PR0402MB2760.eurprd04.prod.outlook.com>
+ <HE1PR05MB47944761ED6A26D3E2CE15868BE40@HE1PR05MB4794.eurprd05.prod.outlook.com>
+ <alpine.DEB.2.21.2011161656080.20906@sstabellini-ThinkPad-T480s>
+ <HE1PR05MB4794569AC67109AF8B6517268BE20@HE1PR05MB4794.eurprd05.prod.outlook.com>
+ <alpine.DEB.2.21.2011171544380.438@sstabellini-ThinkPad-T480s>
+ <5dc63ee2-f1ce-31fc-cb6a-fe4dae929fb3@xen.org>
+ <HE1PR05MB4794EBDD1FE29BC69D0BCC898BFD0@HE1PR05MB4794.eurprd05.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <b67581c6-6682-5059-55d1-a9c695a8cdc3@xen.org>
+Date: Mon, 23 Nov 2020 18:27:15 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <HE1PR05MB4794EBDD1FE29BC69D0BCC898BFD0@HE1PR05MB4794.eurprd05.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-From: Paul Durrant <pdurrant@amazon.com>
 
-This patch adds a 'name' field into the idl for 'libxl_device_pci' and
-libxlu_pci_parse_spec_string() is modified to parse the new 'name'
-parameter of PCI_SPEC_STRING detailed in the updated documention in
-xl-pci-configuration(5).
 
-If the 'name' field is non-NULL then both libxl_device_pci_add() and
-libxl_device_pci_remove() will use it to look up the device BDF in
-the list of assignable devices.
+On 22/11/2020 22:55, Leo Krueger wrote:
+> Hi Julien,
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
----
-Cc: Ian Jackson <iwj@xenproject.org>
-Cc: Wei Liu <wl@xen.org>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
----
- tools/include/libxl.h            |  6 ++++
- tools/libs/light/libxl_pci.c     | 67 +++++++++++++++++++++++++++++++++++++---
- tools/libs/light/libxl_types.idl |  1 +
- tools/libs/util/libxlu_pci.c     |  7 ++++-
- 4 files changed, 75 insertions(+), 6 deletions(-)
+Hi Leo,
 
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 4025d3a3d4..5b55a20155 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -485,6 +485,12 @@
- #define LIBXL_HAVE_PCI_ASSIGNABLE_NAME 1
- 
- /*
-+ * LIBXL_HAVE_DEVICE_PCI_NAME indicates that the 'name' field of
-+ * libxl_device_pci is defined.
-+ */
-+#define LIBXL_HAVE_DEVICE_PCI_NAME 1
-+
-+/*
-  * libxl ABI compatibility
-  *
-  * The only guarantee which libxl makes regarding ABI compatibility
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index a1c9ae0d5b..986fb11d5c 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -60,6 +60,10 @@ static void libxl_create_pci_backend_device(libxl__gc *gc,
-                                             int num,
-                                             const libxl_device_pci *pci)
- {
-+    if (pci->name) {
-+        flexarray_append(back, GCSPRINTF("name-%d", num));
-+        flexarray_append(back, GCSPRINTF("%s", pci->name));
-+    }
-     flexarray_append(back, GCSPRINTF("key-%d", num));
-     flexarray_append(back, GCSPRINTF(PCI_BDF, pci->bdf.domain, pci->bdf.bus, pci->bdf.dev, pci->bdf.func));
-     flexarray_append(back, GCSPRINTF("dev-%d", num));
-@@ -284,6 +288,7 @@ retry_transaction:
- 
- retry_transaction2:
-     t = xs_transaction_start(ctx->xsh);
-+    xs_rm(ctx->xsh, t, GCSPRINTF("%s/name-%d", be_path, i));
-     xs_rm(ctx->xsh, t, GCSPRINTF("%s/state-%d", be_path, i));
-     xs_rm(ctx->xsh, t, GCSPRINTF("%s/key-%d", be_path, i));
-     xs_rm(ctx->xsh, t, GCSPRINTF("%s/dev-%d", be_path, i));
-@@ -322,6 +327,12 @@ retry_transaction2:
-             xs_write(ctx->xsh, t, GCSPRINTF("%s/vdevfn-%d", be_path, j - 1), tmp, strlen(tmp));
-             xs_rm(ctx->xsh, t, tmppath);
-         }
-+        tmppath = GCSPRINTF("%s/name-%d", be_path, j);
-+        tmp = libxl__xs_read(gc, t, tmppath);
-+        if (tmp) {
-+            xs_write(ctx->xsh, t, GCSPRINTF("%s/name-%d", be_path, j - 1), tmp, strlen(tmp));
-+            xs_rm(ctx->xsh, t, tmppath);
-+        }
-     }
-     if (!xs_transaction_end(ctx->xsh, t, 0))
-         if (errno == EAGAIN)
-@@ -1619,6 +1630,23 @@ void libxl__device_pci_add(libxl__egc *egc, uint32_t domid,
-     pas->starting = starting;
-     pas->callback = device_pci_add_stubdom_done;
- 
-+    if (pci->name) {
-+        libxl_pci_bdf *pcibdf =
-+            libxl_device_pci_assignable_name2bdf(CTX, pci->name);
-+
-+        if (!pcibdf) {
-+            rc = ERROR_FAIL;
-+            goto out;
-+        }
-+
-+        LOGD(DETAIL, domid, "'%s' -> %04x:%02x:%02x.%u", pci->name,
-+             pcibdf->domain, pcibdf->bus, pcibdf->dev, pcibdf->func);
-+
-+        libxl_pci_bdf_copy(CTX, &pci->bdf, pcibdf);
-+        libxl_pci_bdf_dispose(pcibdf);
-+        free(pcibdf);
-+    }
-+
-     if (libxl__domain_type(gc, domid) == LIBXL_DOMAIN_TYPE_HVM) {
-         rc = xc_test_assign_device(ctx->xch, domid,
-                                    pci_encode_bdf(&pci->bdf));
-@@ -1767,11 +1795,19 @@ static void device_pci_add_done(libxl__egc *egc,
-     libxl_device_pci *pci = &pas->pci;
- 
-     if (rc) {
--        LOGD(ERROR, domid,
--             "libxl__device_pci_add  failed for "
--             "PCI device %x:%x:%x.%x (rc %d)",
--             pci->bdf.domain, pci->bdf.bus, pci->bdf.dev, pci->bdf.func,
--             rc);
-+        if (pci->name) {
-+            LOGD(ERROR, domid,
-+                 "libxl__device_pci_add failed for "
-+                 "PCI device '%s' (rc %d)",
-+                 pci->name,
-+                 rc);
-+        } else {
-+            LOGD(ERROR, domid,
-+                 "libxl__device_pci_add failed for "
-+                 "PCI device %x:%x:%x.%x (rc %d)",
-+                 pci->bdf.domain, pci->bdf.bus, pci->bdf.dev, pci->bdf.func,
-+                 rc);
-+        }
-         pci_info_xs_remove(gc, &pci->bdf, "domid");
-     }
-     libxl_device_pci_dispose(pci);
-@@ -2288,6 +2324,23 @@ static void libxl__device_pci_remove_common(libxl__egc *egc,
-     libxl__ev_time_init(&prs->timeout);
-     libxl__ev_time_init(&prs->retry_timer);
- 
-+    if (pci->name) {
-+        libxl_pci_bdf *pcibdf =
-+            libxl_device_pci_assignable_name2bdf(CTX, pci->name);
-+
-+        if (!pcibdf) {
-+            rc = ERROR_FAIL;
-+            goto out;
-+        }
-+
-+        LOGD(DETAIL, domid, "'%s' -> %04x:%02x:%02x.%u", pci->name,
-+             pcibdf->domain, pcibdf->bus, pcibdf->dev, pcibdf->func);
-+
-+        libxl_pci_bdf_copy(CTX, &prs->pci.bdf, pcibdf);
-+        libxl_pci_bdf_dispose(pcibdf);
-+        free(pcibdf);
-+    }
-+
-     prs->orig_vdev = pci->vdevfn & ~7U;
- 
-     if ( pci->vfunc_mask == LIBXL_PCI_FUNC_ALL ) {
-@@ -2422,6 +2475,10 @@ static int libxl__device_pci_from_xs_be(libxl__gc *gc,
-         } while ((p = strtok_r(NULL, ",=", &saveptr)) != NULL);
-     }
- 
-+    s = libxl__xs_read(gc, XBT_NULL, GCSPRINTF("%s/name-%d", be_path, nr));
-+    if (s)
-+        pci->name = strdup(s);
-+
-     return 0;
- }
- 
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 2c441142fb..44bad36f1c 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -778,6 +778,7 @@ libxl_pci_bdf = Struct("pci_bdf", [
- 
- libxl_device_pci = Struct("device_pci", [
-     ("bdf", libxl_pci_bdf),
-+    ("name", string),
-     ("vdevfn", uint32),
-     ("vfunc_mask", uint32),
-     ("msitranslate", bool),
-diff --git a/tools/libs/util/libxlu_pci.c b/tools/libs/util/libxlu_pci.c
-index a8b6ce5427..543a1f80e9 100644
---- a/tools/libs/util/libxlu_pci.c
-+++ b/tools/libs/util/libxlu_pci.c
-@@ -151,6 +151,7 @@ int xlu_pci_parse_spec_string(XLU_Config *cfg, libxl_device_pci *pcidev,
- {
-     const char *ptr = str;
-     bool bdf_present = false;
-+    bool name_present = false;
-     int ret;
- 
-     /* Attempt to parse 'bdf' as positional parameter */
-@@ -193,6 +194,10 @@ int xlu_pci_parse_spec_string(XLU_Config *cfg, libxl_device_pci *pcidev,
-             pcidev->power_mgmt = atoi(val);
-         } else if (!strcmp(key, "rdm_policy")) {
-             ret = parse_rdm_policy(cfg, &pcidev->rdm_policy, val);
-+        } else if (!strcmp(key, "name")) {
-+            name_present = true;
-+            pcidev->name = strdup(val);
-+            if (!pcidev->name) ret = ERROR_NOMEM;
-         } else {
-             XLU__PCI_ERR(cfg, "Unknown PCI_SPEC_STRING option: %s", key);
-             ret = ERROR_INVAL;
-@@ -205,7 +210,7 @@ int xlu_pci_parse_spec_string(XLU_Config *cfg, libxl_device_pci *pcidev,
-             return ret;
-     }
- 
--    if (!bdf_present)
-+    if (!(bdf_present ^ name_present))
-         return ERROR_INVAL;
- 
-     return 0;
+> 
+> finally I could try out what you suggested, please find my answers inline.
+
+Thank you for sending the logs!
+
+> 
+>> -----Ursprüngliche Nachricht-----
+>> Von: Julien Grall <julien@xen.org>
+>> Gesendet: Mittwoch, 18. November 2020 13:24
+>> An: Stefano Stabellini <stefano.stabellini@xilinx.com>; Leo Krueger
+>> <leo.krueger@zal.aero>
+>> Cc: Peng Fan <peng.fan@nxp.com>; brucea@xilinx.com; Cornelia Bruelhart
+>> <cornelia.bruelhart@zal.aero>; oleksandr_andrushchenko@epam.com; xen-
+>> devel@lists.xenproject.org; Bertrand.Marquis@arm.com
+>> Betreff: Re: AW: AW: AW: AW: Xen data from meta-virtualization layer
+>>
+>> Hi,
+>>
+>> On 17/11/2020 23:53, Stefano Stabellini wrote:
+>>> Adding Bertrand, Oleksandr, Julien, and others -- they have a more
+>>> recent experience with GICv3 ITS than me and might be able to help.
+>>> I am attaching the device tree Leo sent a few days ago for reference.
+>>>
+>>>
+>>> Typically when you can set the ethernet link up and no packets are
+>>> exchanged it is because of a missing interrupt. In this case a missing
+>>> MSI.
+>>>
+>>> Bertrand, I believe you tried the GIC ITS driver with PCI devices
+>>> recently. It is expected to work correctly with MSIs in Dom0, right?
+>>
+>> OSSTest has some hardware (e.g. Thunder-X) where ITS is required to boot
+>> Dom0. I haven't seen any failure on recent Xen. We are testing 4.11 and
+>> onwards on Thunder-X.
+>>
+>> However, it may be possible that some more work is necessary for other
+>> hardware (e.g. workaround, missing code...). See more below.
+>>
+>>>
+>>>
+>>>
+>>> On Tue, 17 Nov 2020, Leo Krueger wrote:
+>>>> Hi,
+>>>>
+>>>> I enabled CONFIG_HAS_ITS (what a stupid mistake by me to not set it
+>>>> before...) but then had to add the following node to my device tree
+>>>>
+>>>> 	gic_lpi_base: syscon@0x80000000 {
+>>>> 		compatible = "gic-lpi-base";
+>>
+>> I couldn't find this compatible defined/used in Linux 5.10-rc4. @Leo, could
+>> you clarify which flavor/version of Linux you are using?
+> 
+> It is Linux 4.19 from Yocto (Warror release). XEN 4.13.2.
+
+Do you have a link to the Linux tree? Is there any additional patches on 
+top of vanilla?
+
+> While searching around the Internet for any solution, I came across [0] which contained the gic-lpi-base node.
+> So I just tried adding it (quite desperate I know) and voila, it at least brought me one step further (XEN exposing the ITS)...
+
+I am slightly confused to how this would help. Xen and, AFAICT, Linux 
+don't understand gic-lpi-base. Do you have modification in your Linux to 
+use it?
+
+Looking at the DT changes in [0], it looks like the node is not a child 
+of gic@. So I think Xen will map the region to Dom0.
+
+There are two things that I can notice:
+   1) This region is RAM, but I can't find any reserve node. Is there 
+any specific code in Linux to reserve it?
+   2) The implementation in U-boot seems to suggest that the firmware 
+will configure the LPIs and then enable it. If that's the case, then Xen 
+needs to re-use the table in the DT rather than allocating a new one. 
+However, I would have expected an error message in the log:
+
+    "GICv3: CPUx: Cannot initialize LPIs"
+
+At least Xen should not expose gic-lpi-base to the kernel, but I will 
+wait on more details about the Linux kernel used before commenting more.
+
+I would also be interested to know more details about the failure when 
+gic-lpi-base is not added in your DT. In particular, I am interested to 
+understand why Xen would not expose the ITS as we don't parse that node.
+
+[...]
+
+> For XEN 4.13.2 I had to adapt your patch slightly [1], see below (yes I know, quite ugly in parts).
+
+No worries, debug patches are not meant to be nice to read ;).
+
+> Find attached the boot log and an output of "xl dmesg" which is truncated due to the large amount of messages.
+> 
+> When enabling the network interface (gbe0), the following output is visible:
+> 
+> root@kontron-sal28:~# ip link set up dev gbe0
+> (XEN) vgic-v3-its.c:902:d0v0 vITS  cmd 0x0c: 000000170000000c 0000000000000001 0000000000000000 0000000000000000
+> (XEN) vgic-v3-its.c:902:d0v0 vITS  cmd 0x05: 0000000000000005 0000000000000000 0000000000000000 0000000000000000
+
+0xc is INV and 0x5 is SYNC. Most likely the driver unmask the interrupt 
+by writing in the property table (access are not trapped to Xen) and 
+then requested to invalidate the cache state.
+
+> [   34.034598] Atheros 8031 ethernet 0000:00:00.3:05: attached PHY driver [Atheros 8031 ethernet] (mii_bus:phy_addr=0000:00:00.3:05, irq=POLL)
+> [   34.041111] 8021q: adding VLAN 0 to HW filter on device gbe0
+> [   34.041209] IPv6: ADDRCONF(NETDEV_UP): gbe0: link is not ready
+> root@kontron-sal28:~# [   35.041951] fsl_enetc 0000:00:00.0 gbe0: Link is Down
+> [   38.114426] fsl_enetc 0000:00:00.0 gbe0: Link is Up - 1Gbps/Full - flow control off
+> [   38.114508] IPv6: ADDRCONF(NETDEV_CHANGE): gbe0: link becomes ready
+> 
+> Does that tell you anything?
+
+It is at least a good sign because it means Linux is able to 
+initialize/talk to the vITS.
+
+I would lean towards one (or multiple) issue with pITS and/or the 
+device-tree exposed to Linux. I am not entirely what exactly... I think 
+having more details about the Linux setup would be helpful.
+
+I will reply on Rahul's e-mail separately.
+
+Cheers,
+
 -- 
-2.11.0
-
+Julien Grall
 
