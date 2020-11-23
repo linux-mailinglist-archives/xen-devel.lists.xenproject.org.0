@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 452492C1851
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 23:19:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35198.66610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F4FF2C185E
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 23:28:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35209.66622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khKAZ-0007sO-1o; Mon, 23 Nov 2020 22:18:47 +0000
+	id 1khKJQ-0000Nt-8M; Mon, 23 Nov 2020 22:27:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35198.66610; Mon, 23 Nov 2020 22:18:47 +0000
+Received: by outflank-mailman (output) from mailman id 35209.66622; Mon, 23 Nov 2020 22:27:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,110 +23,116 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khKAY-0007rz-V0; Mon, 23 Nov 2020 22:18:46 +0000
-Received: by outflank-mailman (input) for mailman id 35198;
- Mon, 23 Nov 2020 22:18:45 +0000
+	id 1khKJQ-0000NR-4F; Mon, 23 Nov 2020 22:27:56 +0000
+Received: by outflank-mailman (input) for mailman id 35209;
+ Mon, 23 Nov 2020 22:27:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WaDe=E5=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1khKAX-0007ru-EB
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:18:45 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=VxlT=E5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1khKJO-0000NM-N5
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:27:54 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b0fc3a25-5a5f-49b5-94e0-2c652fb07d6f;
- Mon, 23 Nov 2020 22:18:43 +0000 (UTC)
+ id 09d3b6af-6795-497d-b1c3-f78e4847d379;
+ Mon, 23 Nov 2020 22:27:54 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
+ [24.130.65.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1B99020715;
+ Mon, 23 Nov 2020 22:27:53 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=WaDe=E5=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1khKAX-0007ru-EB
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:18:45 +0000
-X-Inumbo-ID: b0fc3a25-5a5f-49b5-94e0-2c652fb07d6f
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+	(envelope-from <SRS0=VxlT=E5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+	id 1khKJO-0000NM-N5
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 22:27:54 +0000
+X-Inumbo-ID: 09d3b6af-6795-497d-b1c3-f78e4847d379
+Received: from mail.kernel.org (unknown [198.145.29.99])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id b0fc3a25-5a5f-49b5-94e0-2c652fb07d6f;
-	Mon, 23 Nov 2020 22:18:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1606169923;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=jAAfu4xO7vv46wl9cxSRuvWJTJrfxpupa07NGhSrHQg=;
-  b=gBcbnJLsxTnLXzc04KvkF//hK7GQA1ygOdD6vZNiTxQzbUooOdujMvhF
-   3tYUcMclAy2P5JJV3hiuQAueahekI89qdVX95AyAFN6J7UtfMsNjMEEi7
-   uUib9sMFQtfmtnQphsGUwaZypJ9BTf+3YeOMzdGL5Y7h1/odSXKmuTY2N
-   w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: LXVVTD0u9I9HJrqOHSOBu/Xiunsk07/qHR1sr5L9Iz9Ayxt+DDTwmmwVyokdzbf10czdSLNMR5
- FMWi/ctDrqPN8koI19uUTlSHvSO6E2BndLx+AzDGFCBwzyFdJUuW2U650Yc/MtFVnPOOvrZwrX
- Zy94HTQwj5tLdabrX2BeeV3QQsEATzsFcUcSlv8jW2MoKEZrUuaHCU/8028xksRUzmhU3Cq9aE
- h9uIEF0aRHbuvQeTnlq7Q9EZZNMVCuoRKDt7pCsbz2rccCDM+pgvVJMtBu15iCsDsDbXir9UgX
- 3rc=
-X-SBRS: None
-X-MesageID: 31796836
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,364,1599537600"; 
-   d="scan'208";a="31796836"
-Subject: Re: [PATCH v3 00/23] xl / libxl: named PCI pass-through devices
-To: Paul Durrant <paul@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Paul Durrant <pdurrant@amazon.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>, George Dunlap <george.dunlap@citrix.com>, "Ian
- Jackson" <iwj@xenproject.org>, Nick Rosbrook <rosbrookn@ainfosec.com>, Wei
- Liu <wl@xen.org>
-References: <20201123174503.6800-1-paul@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <822734cf-a048-2f53-940a-9f5ccf9df40f@citrix.com>
-Date: Mon, 23 Nov 2020 22:18:21 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 09d3b6af-6795-497d-b1c3-f78e4847d379;
+	Mon, 23 Nov 2020 22:27:54 +0000 (UTC)
+Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 1B99020715;
+	Mon, 23 Nov 2020 22:27:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1606170473;
+	bh=XTVgf6MJsIORC0sxL3htLEwzrBRdJZChC4NEG8kN+Ug=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=XRwAlmz74nRf162Rcwqvgh1OPWdRni+yM43ZANzvbmfP2N0CctHYseLbWeVmBwx1L
+	 alXg0wID0r4YAvr9e+uu4/Z5FnuAcMQi6SjHb8fyPuwqW2kgiSineG/zK96vgk5+r5
+	 2+NlcAG8re81ZGnMOWMY7ZIzEj1Nu6J3253WKaWM=
+Date: Mon, 23 Nov 2020 14:27:52 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Julien Grall <julien.grall@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH RFC 4/6] xen/arm: mm: Allow other mapping size in
+ xen_pt_update_entry()
+In-Reply-To: <1ba4afef-7efa-6d1a-5929-ec2652dbbb21@xen.org>
+Message-ID: <alpine.DEB.2.21.2011231409050.7979@sstabellini-ThinkPad-T480s>
+References: <20201119190751.22345-1-julien@xen.org> <20201119190751.22345-5-julien@xen.org> <alpine.DEB.2.21.2011191706420.7979@sstabellini-ThinkPad-T480s> <1ba4afef-7efa-6d1a-5929-ec2652dbbb21@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <20201123174503.6800-1-paul@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+Content-Type: text/plain; charset=US-ASCII
 
-On 23/11/2020 17:44, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
->
-> Paul Durrant (23):
->   xl / libxl: s/pcidev/pci and remove DEFINE_DEVICE_TYPE_STRUCT_X
->   libxl: make libxl__device_list() work correctly for
->     LIBXL__DEVICE_KIND_PCI...
->   libxl: Make sure devices added by pci-attach are reflected in the
->     config
->   libxl: add/recover 'rdm_policy' to/from PCI backend in xenstore
->   libxl: s/detatched/detached in libxl_pci.c
->   libxl: remove extraneous arguments to do_pci_remove() in libxl_pci.c
->   libxl: stop using aodev->device_config in libxl__device_pci_add()...
->   libxl: generalise 'driver_path' xenstore access functions in
->     libxl_pci.c
->   libxl: remove unnecessary check from libxl__device_pci_add()
->   libxl: remove get_all_assigned_devices() from libxl_pci.c
->   libxl: make sure callers of libxl_device_pci_list() free the list
->     after use
->   libxl: add libxl_device_pci_assignable_list_free()...
->   libxl: use COMPARE_PCI() macro is_pci_in_array()...
->   docs/man: extract documentation of PCI_SPEC_STRING from the xl.cfg
->     manpage...
->   docs/man: improve documentation of PCI_SPEC_STRING...
->   docs/man: fix xl(1) documentation for 'pci' operations
->   libxl: introduce 'libxl_pci_bdf' in the idl...
->   libxlu: introduce xlu_pci_parse_spec_string()
->   libxl: modify
->     libxl_device_pci_assignable_add/remove/list/list_free()...
->   docs/man: modify xl(1) in preparation for naming of assignable devices
->   xl / libxl: support naming of assignable devices
->   docs/man: modify xl-pci-configuration(5) to add 'name' field to
->     PCI_SPEC_STRING
->   xl / libxl: support 'xl pci-attach/detach' by name
+On Fri, 20 Nov 2020, Julien Grall wrote:
+> > >       /*
+> > >        * For arm32, page-tables are different on each CPUs. Yet, they
+> > > share
+> > > @@ -1265,14 +1287,43 @@ static int xen_pt_update(unsigned long virt,
+> > >         spin_lock(&xen_pt_lock);
+> > >   -    for ( ; addr < addr_end; addr += PAGE_SIZE )
+> > > +    while ( left )
+> > >       {
+> > > -        rc = xen_pt_update_entry(root, addr, mfn, flags);
+> > > +        unsigned int order;
+> > > +        unsigned long mask;
+> > > +
+> > > +        /*
+> > > +         * Don't take into account the MFN when removing mapping (i.e
+> > > +         * MFN_INVALID) to calculate the correct target order.
+> > > +         *
+> > > +         * XXX: Support superpage mappings if nr is not aligned to a
+> > > +         * superpage size.
+> > 
+> > It would be good to add another sentence to explain that the checks
+> > below are simply based on masks and rely on the mfn, vfn, and also
+> > nr_mfn to be superpage aligned. (It took me some time to figure it out.)
+> 
+> I am not sure to understand what you wrote here. Could you suggest a sentence?
 
-We're trying to get the CI loop up and running.  Its not emailing
-xen-devel yet, but has found a real error somewhere in this series.
+Something like the following:
 
-https://gitlab.com/xen-project/patchew/xen/-/pipelines/220153571
+/*
+ * Don't take into account the MFN when removing mapping (i.e
+ * MFN_INVALID) to calculate the correct target order.
+ *
+ * This loop relies on mfn, vfn, and nr_mfn, to be all superpage
+ * aligned, and it uses `mask' to check for that.
+ *
+ * XXX: Support superpage mappings if nr_mfn is not aligned to a
+ * superpage size.
+ */
 
-~Andrew
+
+> Regarding the TODO itself, we have the exact same one in the P2M code. I
+> couldn't find a clever way to deal with it yet. Any idea how this could be
+> solved?
+ 
+I was thinking of a loop that start with the highest possible superpage
+size that virt and mfn are aligned to, and also smaller or equal to
+nr_mfn. So rather than using the mask to also make sure nr_mfns is
+aligned, I would only use the mask to check that mfn and virt are
+aligned. Then, we only need to check that superpage_size <= left.
+
+Concrete example: virt and mfn are 2MB aligned, nr_mfn is 5MB / 1280 4K
+pages. We allocate 2MB superpages until onlt 1MB is left. At that point
+superpage_size <= left fails and we go down to 4K allocations.
+
+Would that work?
 
