@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 687C32C0D87
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 15:32:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.34495.65606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E10042C0D84
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 15:32:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.34492.65596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khCtG-0000SY-1j; Mon, 23 Nov 2020 14:32:26 +0000
+	id 1khCsv-0000NA-PJ; Mon, 23 Nov 2020 14:32:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 34495.65606; Mon, 23 Nov 2020 14:32:26 +0000
+Received: by outflank-mailman (output) from mailman id 34492.65596; Mon, 23 Nov 2020 14:32:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,101 +23,172 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khCtF-0000S7-Uk; Mon, 23 Nov 2020 14:32:25 +0000
-Received: by outflank-mailman (input) for mailman id 34495;
- Mon, 23 Nov 2020 14:32:24 +0000
+	id 1khCsv-0000Mk-LW; Mon, 23 Nov 2020 14:32:05 +0000
+Received: by outflank-mailman (input) for mailman id 34492;
+ Mon, 23 Nov 2020 14:32:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MzqB=E5=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1khCtE-0000Ro-0L
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 14:32:24 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qJrE=E5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1khCsu-0000Ma-AR
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 14:32:04 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fa94b267-4d49-45a0-8355-46e92fb224d1;
- Mon, 23 Nov 2020 14:32:20 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0ANEVtj7027034
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
- Mon, 23 Nov 2020 15:31:56 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id 81F5F2E9CAC; Mon, 23 Nov 2020 15:31:50 +0100 (MET)
+ id f2efc230-2365-4696-8c19-d6b22003b213;
+ Mon, 23 Nov 2020 14:32:03 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8CE42AC23;
+ Mon, 23 Nov 2020 14:32:02 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=MzqB=E5=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
-	id 1khCtE-0000Ro-0L
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 14:32:24 +0000
-X-Inumbo-ID: fa94b267-4d49-45a0-8355-46e92fb224d1
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+	(envelope-from <SRS0=qJrE=E5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1khCsu-0000Ma-AR
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 14:32:04 +0000
+X-Inumbo-ID: f2efc230-2365-4696-8c19-d6b22003b213
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id fa94b267-4d49-45a0-8355-46e92fb224d1;
-	Mon, 23 Nov 2020 14:32:20 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
-	by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id 0ANEVtj7027034
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 23 Nov 2020 15:31:56 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
-	id 81F5F2E9CAC; Mon, 23 Nov 2020 15:31:50 +0100 (MET)
-Date: Mon, 23 Nov 2020 15:31:50 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
-Message-ID: <20201123143150.GG2520@antioche.eu.org>
-References: <1a50e1e2-b69c-afd6-a179-316231512004@suse.com>
- <20201120082855.5z4cibcd5djlwmgp@Air-de-Roger>
- <20201120085249.GA1508@antioche.eu.org>
- <97f371a9-00fe-33fe-8923-c247f44f9af6@suse.com>
- <20201120092754.GH1508@antioche.eu.org>
- <20904a6a-ac64-755d-d228-4c49faf66fb5@suse.com>
- <20201120103824.GJ1508@antioche.eu.org>
- <20201123095713.orfpg72r73m7f46n@Air-de-Roger>
- <20201123113241.GE2520@antioche.eu.org>
- <20201123125112.q3zqb4e5nk6jg4hw@Air-de-Roger>
+	id f2efc230-2365-4696-8c19-d6b22003b213;
+	Mon, 23 Nov 2020 14:32:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606141922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C/br/wr1vs+jHb0x3GkA7iy/FWtl0oeRJ/XrBSDPWX4=;
+	b=RYldOfDTrJG4kDD9DBVRUMeZ15TD7Kb42zNBgJWfT7PiW5bCU8aKw8miOwPLVPiTT+pJhk
+	gcvMOtZB6oOfEldfRSiLRmP0YivGRBCy50GMZmFhPJ0j3/zSWw99jSErv7x0p/YLJgQtzB
+	YdWuIvZzK9QquxX0tZWsCoGKx1CqXNE=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 8CE42AC23;
+	Mon, 23 Nov 2020 14:32:02 +0000 (UTC)
+Subject: [PATCH v2 10/17] x86/xstate: enable AMX components
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <255f466c-3c95-88c5-3e55-0f04c9ae1b12@suse.com>
+Message-ID: <5490ecab-8fe1-aa46-95e0-4ad6c6318879@suse.com>
+Date: Mon, 23 Nov 2020 15:32:01 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201123125112.q3zqb4e5nk6jg4hw@Air-de-Roger>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Mon, 23 Nov 2020 15:31:57 +0100 (MET)
+In-Reply-To: <255f466c-3c95-88c5-3e55-0f04c9ae1b12@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2020 at 01:51:12PM +0100, Roger Pau Monné wrote:
-> Hm, yes, it's quite weird. Do you know whether a NetBSD kernel can be
-> multibooted from pxelinux with Xen? I would like to see if I can
-> reproduce this myself.
+These being controlled by XCR0, enabling support is relatively
+straightforward. Note however that there won't be any use of them until
+their dependent ISA extension CPUID flags get exposed, not the least due
+to the way recalculate_xstate() handles the dependencies in kind of a
+reverse manner.
 
-Yes, if Xen+linux can boot, Xen+netbsd should boot too.
-In a previous mail I wrote:
-In case it helps, I put by Xen and netbsd kernels at
-http://www-soc.lip6.fr/~bouyer/netbsd-dom0-pvh/
-I boot it from the NetBSD boot loader with:
-menu=Boot Xen PVH:load /netbsd-test console=com0 root=dk0 -vx; multiboot /xen-te
-st.gz dom0_mem=1024M console=com2 com2=57600,8n1 loglvl=all guest_loglvl=all gnt
-tab_max_nr_frames=64 dom0=pvh iommu=debug
-I guess with grub this would be
-kernel /xen-test.gz dom0_mem=1024M console=com2 com2=57600,8n1 loglvl=all guest_
-loglvl=all gnttab_max_nr_frames=64 dom0=pvh iommu=debug
-module /netbsd-test console=com0 root=dk0 -vx
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: New.
 
-(yes, com2 for xen and com0 for netbsd, that's not a bug :)
-You can enter the NetBSD debugger with
-+++++
-you can then enter commands, lile
-sh ev /i
-to see the interrupt counters
+--- a/tools/libs/light/libxl_cpuid.c
++++ b/tools/libs/light/libxl_cpuid.c
+@@ -219,6 +219,9 @@ int libxl_cpuid_parse_config(libxl_cpuid
+         {"md-clear",     0x00000007,  0, CPUID_REG_EDX, 10,  1},
+         {"serialize",    0x00000007,  0, CPUID_REG_EDX, 14,  1},
+         {"cet-ibt",      0x00000007,  0, CPUID_REG_EDX, 20,  1},
++        {"amx-bf16",     0x00000007,  0, CPUID_REG_EDX, 22,  1},
++        {"amx-tile",     0x00000007,  0, CPUID_REG_EDX, 24,  1},
++        {"amx-int8",     0x00000007,  0, CPUID_REG_EDX, 25,  1},
+         {"ibrsb",        0x00000007,  0, CPUID_REG_EDX, 26,  1},
+         {"stibp",        0x00000007,  0, CPUID_REG_EDX, 27,  1},
+         {"l1d-flush",    0x00000007,  0, CPUID_REG_EDX, 28,  1},
+--- a/tools/misc/xen-cpuid.c
++++ b/tools/misc/xen-cpuid.c
+@@ -167,7 +167,8 @@ static const char *const str_7d0[32] =
+ 
+     [18] = "pconfig",
+     [20] = "cet-ibt",
+-
++    [22] = "amx-bf16",
++    [24] = "amx-tile",      [25] = "amx-int8",
+     [26] = "ibrsb",         [27] = "stibp",
+     [28] = "l1d-flush",     [29] = "arch-caps",
+     [30] = "core-caps",     [31] = "ssbd",
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -195,6 +195,14 @@ static void recalculate_xstate(struct cp
+                           xstate_size(X86_XCR0_PKRU_POS));
+     }
+ 
++    if ( p->feat.amx_tile )
++    {
++        xstates |= X86_XCR0_TILECFG | X86_XCR0_TILEDATA;
++        xstate_size = max(xstate_size,
++                          xstate_offset(X86_XCR0_TILEDATA_POS) +
++                          xstate_size(X86_XCR0_TILEDATA_POS));
++    }
++
+     p->xstate.max_size  =  xstate_size;
+     p->xstate.xcr0_low  =  xstates & ~XSTATE_XSAVES_ONLY;
+     p->xstate.xcr0_high = (xstates & ~XSTATE_XSAVES_ONLY) >> 32;
+--- a/xen/arch/x86/xstate.c
++++ b/xen/arch/x86/xstate.c
+@@ -642,6 +642,10 @@ static bool valid_xcr0(uint64_t xcr0)
+     if ( !(xcr0 & X86_XCR0_BNDREGS) != !(xcr0 & X86_XCR0_BNDCSR) )
+         return false;
+ 
++    /* TILECFG and TILEDATA must be the same. */
++    if ( !(xcr0 & X86_XCR0_TILECFG) != !(xcr0 & X86_XCR0_TILEDATA) )
++        return false;
++
+     return true;
+ }
+ 
+--- a/xen/include/asm-x86/x86-defns.h
++++ b/xen/include/asm-x86/x86-defns.h
+@@ -96,6 +96,10 @@
+ #define X86_XCR0_HI_ZMM           (1ULL << X86_XCR0_HI_ZMM_POS)
+ #define X86_XCR0_PKRU_POS         9
+ #define X86_XCR0_PKRU             (1ULL << X86_XCR0_PKRU_POS)
++#define X86_XCR0_TILECFG_POS      17
++#define X86_XCR0_TILECFG          (1ULL << X86_XCR0_TILECFG_POS)
++#define X86_XCR0_TILEDATA_POS     18
++#define X86_XCR0_TILEDATA         (1ULL << X86_XCR0_TILEDATA_POS)
+ #define X86_XCR0_LWP_POS          62
+ #define X86_XCR0_LWP              (1ULL << X86_XCR0_LWP_POS)
+ 
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -265,6 +265,9 @@ XEN_CPUFEATURE(MD_CLEAR,      9*32+10) /
+ XEN_CPUFEATURE(TSX_FORCE_ABORT, 9*32+13) /* MSR_TSX_FORCE_ABORT.RTM_ABORT */
+ XEN_CPUFEATURE(SERIALIZE,     9*32+14) /*a  SERIALIZE insn */
+ XEN_CPUFEATURE(CET_IBT,       9*32+20) /*   CET - Indirect Branch Tracking */
++XEN_CPUFEATURE(AMX_BF16,      9*32+22) /*   AMX BFloat16 instructions */
++XEN_CPUFEATURE(AMX_TILE,      9*32+24) /*   AMX tile architecture */
++XEN_CPUFEATURE(AMX_INT8,      9*32+25) /*   AMX 8-bit integer instructions */
+ XEN_CPUFEATURE(IBRSB,         9*32+26) /*A  IBRS and IBPB support (used by Intel) */
+ XEN_CPUFEATURE(STIBP,         9*32+27) /*A  STIBP */
+ XEN_CPUFEATURE(L1D_FLUSH,     9*32+28) /*S  MSR_FLUSH_CMD and L1D flush. */
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -222,7 +222,7 @@ def crunch_numbers(state):
+         # instruction groups which are specified to require XSAVE for state
+         # management.
+         XSAVE: [XSAVEOPT, XSAVEC, XGETBV1, XSAVES,
+-                AVX, MPX, PKU, LWP],
++                AVX, MPX, PKU, AMX_TILE, LWP],
+ 
+         # AVX is taken to mean hardware support for 256bit registers (which in
+         # practice depends on the VEX prefix to encode), and the instructions
+@@ -288,6 +288,11 @@ def crunch_numbers(state):
+ 
+         # In principle the TSXLDTRK insns could also be considered independent.
+         RTM: [TSXLDTRK],
++
++        # AMX-TILE means hardware support for tile registers and general non-
++        # computational instructions.  All further AMX features are built on top
++        # of AMX-TILE.
++        AMX_TILE: [AMX_BF16, AMX_INT8],
+     }
+ 
+     deep_features = tuple(sorted(deps.keys()))
 
-> 
-> I have the following patch also which will print a warning message
-> when GSI 34 is injected from hardware or when Xen performs an EOI
-> (either from a time out or when reacting to a guest one). I would
-> expect at least the interrupt injection one to trigger together with
-> the existing message.
-
-It's quite verbose. I put the full log at
-http://www-soc.lip6.fr/~bouyer/xen-log4.txt
-
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
 
