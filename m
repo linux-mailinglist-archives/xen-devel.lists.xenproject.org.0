@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76BE42C0F7B
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 16:58:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.34767.65983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1E0F2C0F7E
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Nov 2020 17:01:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.34775.65994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khEEQ-0002mL-AF; Mon, 23 Nov 2020 15:58:22 +0000
+	id 1khEGu-00048W-Nm; Mon, 23 Nov 2020 16:00:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 34767.65983; Mon, 23 Nov 2020 15:58:22 +0000
+Received: by outflank-mailman (output) from mailman id 34775.65994; Mon, 23 Nov 2020 16:00:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,193 +23,143 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khEEQ-0002lw-6j; Mon, 23 Nov 2020 15:58:22 +0000
-Received: by outflank-mailman (input) for mailman id 34767;
- Mon, 23 Nov 2020 15:58:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6H7V=E5=hansenpartnership.com=james.bottomley@srs-us1.protection.inumbo.net>)
- id 1khEEN-0002lr-RG
- for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 15:58:20 +0000
-Received: from bedivere.hansenpartnership.com (unknown [96.44.175.130])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id af4dd6ea-9eb5-43ab-bce7-4d3f98027596;
- Mon, 23 Nov 2020 15:58:11 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by bedivere.hansenpartnership.com (Postfix) with ESMTP id 8958812803A6;
- Mon, 23 Nov 2020 07:58:10 -0800 (PST)
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
- by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id pNOg0X0CRuCM; Mon, 23 Nov 2020 07:58:10 -0800 (PST)
-Received: from jarvis.int.hansenpartnership.com (unknown
- [IPv6:2601:600:8280:66d1::527])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 1690C12802D9;
- Mon, 23 Nov 2020 07:58:07 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1khEGu-000487-Kf; Mon, 23 Nov 2020 16:00:56 +0000
+Received: by outflank-mailman (input) for mailman id 34775;
+ Mon, 23 Nov 2020 16:00:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Rrc6=E5=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1khEGr-000482-VE
+ for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 16:00:54 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.22])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 597aee59-c80c-41a2-91b6-6e76a3bed4e2;
+ Mon, 23 Nov 2020 16:00:52 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.3.4 DYNA|AUTH)
+ with ESMTPSA id V0b6ccwANG0hrJD
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 23 Nov 2020 17:00:43 +0100 (CET)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=6H7V=E5=hansenpartnership.com=james.bottomley@srs-us1.protection.inumbo.net>)
-	id 1khEEN-0002lr-RG
-	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 15:58:20 +0000
-X-Inumbo-ID: af4dd6ea-9eb5-43ab-bce7-4d3f98027596
-Received: from bedivere.hansenpartnership.com (unknown [96.44.175.130])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id af4dd6ea-9eb5-43ab-bce7-4d3f98027596;
-	Mon, 23 Nov 2020 15:58:11 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 8958812803A6;
-	Mon, 23 Nov 2020 07:58:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1606147090;
-	bh=lBjYTVUJkmNX+Ql1BcMOHCS5uLgrfuyir/PBRp4vAgY=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=tw2BKkTzWzFWEQdrm6zgBKJtIh2PRfv5Mb0TfkjZKqSr5KeTmWZWgl8VEPx5No8bX
-	 gdEQ1NYoCzrZ51ueWl3PIAwT19fSirwyiz4cqIKbNqhoqeMTMjHgs4jilQhkGLvH0x
-	 +YA09wNIiuW9eCRS9chAzVTlxjJYgA69RXyn6sLU=
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
-	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id pNOg0X0CRuCM; Mon, 23 Nov 2020 07:58:10 -0800 (PST)
-Received: from jarvis.int.hansenpartnership.com (unknown [IPv6:2601:600:8280:66d1::527])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 1690C12802D9;
-	Mon, 23 Nov 2020 07:58:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1606147090;
-	bh=lBjYTVUJkmNX+Ql1BcMOHCS5uLgrfuyir/PBRp4vAgY=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=tw2BKkTzWzFWEQdrm6zgBKJtIh2PRfv5Mb0TfkjZKqSr5KeTmWZWgl8VEPx5No8bX
-	 gdEQ1NYoCzrZ51ueWl3PIAwT19fSirwyiz4cqIKbNqhoqeMTMjHgs4jilQhkGLvH0x
-	 +YA09wNIiuW9eCRS9chAzVTlxjJYgA69RXyn6sLU=
-Message-ID: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Kees Cook <keescook@chromium.org>, Jakub Kicinski <kuba@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kernel
- <linux-kernel@vger.kernel.org>,  alsa-devel@alsa-project.org,
- amd-gfx@lists.freedesktop.org,  bridge@lists.linux-foundation.org,
- ceph-devel@vger.kernel.org,  cluster-devel@redhat.com,
- coreteam@netfilter.org, devel@driverdev.osuosl.org,  dm-devel@redhat.com,
- drbd-dev@lists.linbit.com, dri-devel@lists.freedesktop.org, 
- GR-everest-linux-l2@marvell.com, GR-Linux-NIC-Dev@marvell.com, 
- intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org, 
- keyrings@vger.kernel.org, linux1394-devel@lists.sourceforge.net, 
- linux-acpi@vger.kernel.org, linux-afs@lists.infradead.org, Linux ARM
- <linux-arm-kernel@lists.infradead.org>, linux-arm-msm@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, linux-block@vger.kernel.org, 
- linux-can@vger.kernel.org, linux-cifs@vger.kernel.org, Linux Crypto Mailing
- List <linux-crypto@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net,  Ext4 Developers List
- <linux-ext4@vger.kernel.org>, linux-fbdev@vger.kernel.org,
- linux-geode@lists.infradead.org,  linux-gpio@vger.kernel.org,
- linux-hams@vger.kernel.org,  linux-hwmon@vger.kernel.org,
- linux-i3c@lists.infradead.org,  linux-ide@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input <linux-input@vger.kernel.org>,
- linux-integrity@vger.kernel.org,  linux-mediatek@lists.infradead.org, Linux
- Media Mailing List <linux-media@vger.kernel.org>,
- linux-mmc@vger.kernel.org, Linux-MM <linux-mm@kvack.org>,
- linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org, 
- linux-rdma@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
- linux-security-module@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org, 
- linux-watchdog@vger.kernel.org, linux-wireless
- <linux-wireless@vger.kernel.org>,  Network Development
- <netdev@vger.kernel.org>, netfilter-devel@vger.kernel.org,
- nouveau@lists.freedesktop.org,  op-tee@lists.trustedfirmware.org,
- oss-drivers@netronome.com,  patches@opensource.cirrus.com,
- rds-devel@oss.oracle.com,  reiserfs-devel@vger.kernel.org,
- samba-technical@lists.samba.org,  selinux@vger.kernel.org,
- target-devel@vger.kernel.org,  tipc-discussion@lists.sourceforge.net,
- usb-storage@lists.one-eyed-alien.net, 
- virtualization@lists.linux-foundation.org, wcn36xx@lists.infradead.org, 
- "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
- xen-devel@lists.xenproject.org,  linux-hardening@vger.kernel.org, Nick
- Desaulniers <ndesaulniers@google.com>,  Nathan Chancellor
- <natechancellor@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Joe Perches
- <joe@perches.com>
-Date: Mon, 23 Nov 2020 07:58:06 -0800
-In-Reply-To: <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
-References: <cover.1605896059.git.gustavoars@kernel.org>
-	 <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	 <202011201129.B13FDB3C@keescook>
-	 <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	 <202011220816.8B6591A@keescook>
-	 <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
-	 <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
-	 <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
-	 <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.34.4 
+	(envelope-from <SRS0=Rrc6=E5=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+	id 1khEGr-000482-VE
+	for xen-devel@lists.xenproject.org; Mon, 23 Nov 2020 16:00:54 +0000
+X-Inumbo-ID: 597aee59-c80c-41a2-91b6-6e76a3bed4e2
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.22])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 597aee59-c80c-41a2-91b6-6e76a3bed4e2;
+	Mon, 23 Nov 2020 16:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1606147252;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+	X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+	bh=VUdBJc6ahXffD4ePwK9dNsIUxMg8YOVPnQnEip+4khE=;
+	b=Ssnb0hVzCicshlGVT6JWrG7eI3G7C2ENLQ+++cShganlf85itSQ3K+FwqWBbzKsG/u
+	qi8r2UKwwmvdrAJwdn4oCfHiMgLc6PC1+0sHsK01VcohMiy+JB8oBd0l6NZyWilIXFU3
+	RC9jkN03r3VohN3/1pdLVpmrULEXmtx4AU0iT40rQGdthyZSmFAHoKbGo5Qy6Tpf+5bq
+	9GFD/kCsv76oSihRmTii71Uffv68Qe3qR5wKVSdtOVahf7IOvyzQkJY6cWskI40BX6VM
+	tGf8HC30e+YVAmPJmsPmSFq3IuMBAHEzi9lpP/gV862gWJzchuVRBS7VI6N3IVSslT+w
+	4voA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTW+uX"
+X-RZG-CLASS-ID: mo00
+Received: from sender
+	by smtp.strato.de (RZmta 47.3.4 DYNA|AUTH)
+	with ESMTPSA id V0b6ccwANG0hrJD
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+	Mon, 23 Nov 2020 17:00:43 +0100 (CET)
+Date: Mon, 23 Nov 2020 17:00:31 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v1 00/23] reduce overhead during live migration
+Message-ID: <20201123170031.147efdb1.olaf@aepfle.de>
+In-Reply-To: <20201029172004.17219-1-olaf@aepfle.de>
+References: <20201029172004.17219-1-olaf@aepfle.de>
+X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/aTcd5+wmI6HVz+GTz8amsC8"; protocol="application/pgp-signature"
 
-On Mon, 2020-11-23 at 15:19 +0100, Miguel Ojeda wrote:
-> On Sun, Nov 22, 2020 at 11:36 PM James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
-> > Well, it seems to be three years of someone's time plus the
-> > maintainer review time and series disruption of nearly a thousand
-> > patches.  Let's be conservative and assume the producer worked
-> > about 30% on the series and it takes about 5-10 minutes per patch
-> > to review, merge and for others to rework existing series.  So
-> > let's say it's cost a person year of a relatively junior engineer
-> > producing the patches and say 100h of review and application
-> > time.  The latter is likely the big ticket item because it's what
-> > we have in least supply in the kernel (even though it's 20x vs the
-> > producer time).
-> 
-> How are you arriving at such numbers? It is a total of ~200 trivial
-> lines.
+--Sig_/aTcd5+wmI6HVz+GTz8amsC8
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Well, I used git.  It says that as of today in Linus' tree we have 889
-patches related to fall throughs and the first series went in in
-october 2017 ... ignoring a couple of outliers back to February.
+There was no feedback to this series within the past three weeks.
 
-> > It's not about the risk of the changes it's about the cost of
-> > implementing them.  Even if you discount the producer time (which
-> > someone gets to pay for, and if I were the engineering manager, I'd
-> > be unhappy about), the review/merge/rework time is pretty
-> > significant in exchange for six minor bug fixes.  Fine, when a new
-> > compiler warning comes along it's certainly reasonable to see if we
-> > can benefit from it and the fact that the compiler people think
-> > it's worthwhile is enough evidence to assume this initially.  But
-> > at some point you have to ask whether that assumption is supported
-> > by the evidence we've accumulated over the time we've been using
-> > it.  And if the evidence doesn't support it perhaps it is time to
-> > stop the experiment.
-> 
-> Maintainers routinely review 1-line trivial patches, not to mention
-> internal API changes, etc.
+Please review this series.
 
-We're also complaining about the inability to recruit maintainers:
+Thanks,
+Olaf
 
-https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
+Am Thu, 29 Oct 2020 18:19:40 +0100
+schrieb Olaf Hering <olaf@aepfle.de>:
 
-And burn out:
+> The current live migration code can easily saturate an 1Gb link.
+> There is still room for improvement with faster network connections.
+> Even with this series reviewed and applied.
+> See description of patch #6.
+>=20
+> Olaf
+>=20
+> Olaf Hering (23):
+>   tools: add readv_exact to libxenctrl
+>   tools: add xc_is_known_page_type to libxenctrl
+>   tools: use xc_is_known_page_type
+>   tools: unify type checking for data pfns in migration stream
+>   tools: show migration transfer rate in send_dirty_pages
+>   tools/guest: prepare to allocate arrays once
+>   tools/guest: save: move batch_pfns
+>   tools/guest: save: move mfns array
+>   tools/guest: save: move types array
+>   tools/guest: save: move errors array
+>   tools/guest: save: move iov array
+>   tools/guest: save: move rec_pfns array
+>   tools/guest: save: move guest_data array
+>   tools/guest: save: move local_pages array
+>   tools/guest: restore: move pfns array
+>   tools/guest: restore: move types array
+>   tools/guest: restore: move mfns array
+>   tools/guest: restore: move map_errs array
+>   tools/guest: restore: move mfns array in populate_pfns
+>   tools/guest: restore: move pfns array in populate_pfns
+>   tools/guest: restore: split record processing
+>   tools/guest: restore: split handle_page_data
+>   tools/guest: restore: write data directly into guest
+>=20
+>  tools/libs/ctrl/xc_private.c          |  54 ++-
+>  tools/libs/ctrl/xc_private.h          |  34 ++
+>  tools/libs/guest/xg_sr_common.c       |  33 +-
+>  tools/libs/guest/xg_sr_common.h       |  86 +++-
+>  tools/libs/guest/xg_sr_restore.c      | 562 +++++++++++++++++---------
+>  tools/libs/guest/xg_sr_save.c         | 158 ++++----
+>  tools/libs/guest/xg_sr_save_x86_hvm.c |   5 +-
+>  tools/libs/guest/xg_sr_save_x86_pv.c  |  31 +-
+>  8 files changed, 666 insertions(+), 297 deletions(-)
 
-http://antirez.com/news/129
+--Sig_/aTcd5+wmI6HVz+GTz8amsC8
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
 
-The whole crux of your argument seems to be maintainers' time isn't
-important so we should accept all trivial patches ... I'm pushing back
-on that assumption in two places, firstly the valulessness of the time
-and secondly that all trivial patches are valuable.
+-----BEGIN PGP SIGNATURE-----
 
-> If some company does not want to pay for that, that's fine, but they
-> don't get to be maintainers and claim `Supported`.
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl+73KAACgkQ86SN7mm1
+DoCrxA//WUzp3ahy/fcxMkrL3ZqAp4DAFOGGG0lTIZwPmgpP+cRzCiWCRbt9Ky6R
+4DOYKw/JLndXc6sxvhuKoFdK0SBRidIFkFlIjymkvvtCpE1mk6mHhh5lcEusvtfh
+URII1DfazKhlc71o7KvQPKGOEVWx4LjwMDvyPtkJzbfamB9dH5WyKpG/UtB6dWVy
+oiJ/20TJqEN/oj4Z3T70jCyWnxrpH2XIpofmBFIsYdvSfufoZJfNiPPnBGzc0PVC
+GWHy2qU6CzpmrKlwVLaIiO87FFLPFknDeiqMIemaPst9ZG9V6YoR2v+E/dKuffWa
+rcFaIehNu74l13P1iCZf2Vkd25/E3/Xqjt78kb35gQUwsBCbVqt+xLwkNPrsVTr9
+fW3d5rEs0dJLyszZnFnHgcEbqcWjO/K3DskoE9C5OZ+KEzV8UG5P5mwMedrFfs0g
+GRe65lJfrDB66jbgzZDoAq3MU/kfnYC3/F5rAU7/OU/4izl6tQDUQ9aoahdND1l+
+YyBRDN7pdyjbGcsucyx7p5W9HJ2JEOO6g94v1BvS4Zf+PxdnRXn+tOPmajYaq/BX
+/pQcDoSriwNCDqzMW6pWy3iPOqyErn6icMmJ5AW5fv+aRx4+2I8PNvqPNeFGgAo6
+QndxMmGW0aJxyDkewP08/t40Fpi7m0MIYLKderI/xnVj/sKINS8=
+=HdJZ
+-----END PGP SIGNATURE-----
 
-What I'm actually trying to articulate is a way of measuring value of
-the patch vs cost ... it has nothing really to do with who foots the
-actual bill.
-
-One thesis I'm actually starting to formulate is that this continual
-devaluing of maintainers is why we have so much difficulty keeping and
-recruiting them.
-
-James
-
-
-
+--Sig_/aTcd5+wmI6HVz+GTz8amsC8--
 
