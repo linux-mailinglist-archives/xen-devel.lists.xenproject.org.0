@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A08C2C2B20
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 16:23:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36546.68491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2CF92C2BC6
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 16:50:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36556.68503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khaA0-0003mX-B5; Tue, 24 Nov 2020 15:23:16 +0000
+	id 1khaZN-0005hs-I2; Tue, 24 Nov 2020 15:49:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36546.68491; Tue, 24 Nov 2020 15:23:16 +0000
+Received: by outflank-mailman (output) from mailman id 36556.68503; Tue, 24 Nov 2020 15:49:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,283 +23,126 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khaA0-0003m0-7f; Tue, 24 Nov 2020 15:23:16 +0000
-Received: by outflank-mailman (input) for mailman id 36546;
- Tue, 24 Nov 2020 15:23:14 +0000
+	id 1khaZN-0005hT-Ea; Tue, 24 Nov 2020 15:49:29 +0000
+Received: by outflank-mailman (input) for mailman id 36556;
+ Tue, 24 Nov 2020 15:49:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KyA6=E6=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kha9x-0003lO-W0
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 15:23:14 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IwAZ=E6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1khaZL-0005hO-MT
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 15:49:27 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d6f2bae5-09b7-4a9c-915d-2c10e60d4ba4;
- Tue, 24 Nov 2020 15:23:13 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2AB7CAC2D
- for <xen-devel@lists.xenproject.org>; Tue, 24 Nov 2020 15:23:12 +0000 (UTC)
+ id e8f1a77d-49e1-4cfa-84cf-e2686110dc82;
+ Tue, 24 Nov 2020 15:49:26 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=KyA6=E6=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kha9x-0003lO-W0
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 15:23:14 +0000
-X-Inumbo-ID: d6f2bae5-09b7-4a9c-915d-2c10e60d4ba4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=IwAZ=E6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+	id 1khaZL-0005hO-MT
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 15:49:27 +0000
+X-Inumbo-ID: e8f1a77d-49e1-4cfa-84cf-e2686110dc82
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id d6f2bae5-09b7-4a9c-915d-2c10e60d4ba4;
-	Tue, 24 Nov 2020 15:23:13 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606231392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xOn7bhmsHAh3nbeX1jA5Pz+A8azHmtctaSU5thLi85w=;
-	b=H5pMvDonqaAn5/7SWPxGd3hNew0zvm5I55fsDf3DMYH9POhueNGt0+S2mR8KhnkQqGkutc
-	2x/gCRNk5Xsd/R3zk5JOq8qspcMVhJyZWU+clST7neNyIr/t9Ck5nSDPXs7nc828EYzZ3L
-	f8x3I4Xjxbn+/4Z8kvl74/sh9Tv0jVg=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 2AB7CAC2D
-	for <xen-devel@lists.xenproject.org>; Tue, 24 Nov 2020 15:23:12 +0000 (UTC)
-To: xen-devel@lists.xenproject.org
-References: <20904a6a-ac64-755d-d228-4c49faf66fb5@suse.com>
- <20201120103824.GJ1508@antioche.eu.org>
- <20201123095713.orfpg72r73m7f46n@Air-de-Roger>
- <20201123113241.GE2520@antioche.eu.org>
- <20201123125112.q3zqb4e5nk6jg4hw@Air-de-Roger>
- <20201123143150.GG2520@antioche.eu.org>
+	id e8f1a77d-49e1-4cfa-84cf-e2686110dc82;
+	Tue, 24 Nov 2020 15:49:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1606232966;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=B0AHOWU5/O2a5HTnH/yfjCvoUWmPbB14HEU14RtM+fo=;
+  b=SsHVwm+tNdS/M5WohQ28aI4r6uVMAAX4Jy5FFU8UvWbnwws4+jbpcH5J
+   2OOFBLY9iyVb/iuKPqeVuhhG9Hm4Ni+DHOFKfCI+2Sqcaq1+BVOUeon9w
+   SeUgcEqowotDKIOUN3dUnT1rB7wVeyg1Z7u5h6Qaen+J5LL/FZuoy/UFb
+   A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: vWlt506xwQLDgQhVp4uKkIJpPNOe7Pg6BSMEEonP2tOXy/JtCRYIGz15G8MezFd757eBQciJED
+ SkVGUl+EvbZ0Z82UKOimhKc1dQbHizvAzuwpuMUY2Jew+7CxSo1DILBGnuvxENwIoiLThCs9+X
+ oo5rRkAVny7ELsXn/fXQ/gcgQUsuTKt3UDE6HG6FSl3DMaKSSNi7kOkBCU/1zx4ptCkgcyy5TC
+ nz4Y4oGFYn1fjXTE7peLYwzk57Cf7Vwyc5ipq/QjUoN9ouo0Jg1DEUxYCPd6+UpApmDFxFNCdh
+ BGU=
+X-SBRS: None
+X-MesageID: 32184396
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,366,1599537600"; 
+   d="scan'208";a="32184396"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WdjCEMN+bhzikaEv5GU6hoVRuM2JmvcUweRUTcjRbe/yb7BplZ4XA5esJI8EvRXcKwT3I1eyNFfhyYTO+KU581/s9RtB43hrJdAF0Wr7PA3hFIVeyrIpwf90sfU/kAWKrW4AeHs/rkyCRjKq2E5MiUpM2Jyk++pjxEaWxLOJplrwjl4UNNebc1nEOt5BbRFOs/aqahjSloWERF4QGdVfERm2+7F6KX/GkmccM6CkRqOV7bODkbSf/cIoUuvFcDrufqvrVTrsIlRXEBpf/Tbk8l+Y32rTY3qZYgKUELJE7sd51pLJQ31Jnnl+eclCaTyH2jBIfa+fwiHPk0uu2dMCTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xGQbamVpFC7tNhFrt/gNw+e5L2jcDt0svi9b393BfSI=;
+ b=oX9fnBr8mEs6aM8Q9Yy9U/S5m2S1pQy+eHeqFb7Ub2Asev9G3lsbYg8ILoWbU1DsNrhuSo9BPTNkFR6x7EQGrw7tfn0QMwp3Htb6yXH/v75StFqQEmhyTDhuOffBJiFk6LoCkTT0fqBBnQp7f/NiBf12OSZd20xBXm5fVx6BPj2FDZCGPLUrtuzDxRRBJv0etAtERuzpRN9Cth6lmZex8olQGhYpoAD0jwm/pF48hRw3ALvbaaAbKXnRMwJaXYxUggsWCTMdFlIBJjYb62QDAVV3fBQWP4xth/lzFY4ye4jA9R8Gl0KNN7aO/6A3dFgvipBwNDU+e7b+bFRikvTjyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xGQbamVpFC7tNhFrt/gNw+e5L2jcDt0svi9b393BfSI=;
+ b=SzsXfFYRB7Vwfk6Xjg0SspbqlbdJcxFvX69TV495qDfOlajFYx9TDidVZigFzDNyb+BgzFF+646ulC2UQnituEYHvVLgGtr5WJs2ZHrlBNPFCi4/XcQ0qhKMO4xwKDYolxm/fciUpIoYqogOidyV5tfvSA39mKbRuqozlyovZTo=
+Date: Tue, 24 Nov 2020 16:49:17 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: Jan Beulich <jbeulich@suse.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201124154917.l3jwa6w4ejumjuqw@Air-de-Roger>
+References: <20201123143150.GG2520@antioche.eu.org>
  <20201123170610.kzfxvcgkdkvh3ex4@Air-de-Roger>
  <20201123173925.GG4662@antioche.eu.org>
  <b3912e97-9684-fe97-1053-ad7168a19721@suse.com>
- <ee63d6c2-4d0f-a3b7-37d0-8ce45c9e6fb1@suse.com>
- <20201124145927.zrbsmvs6qvaxh4hf@Air-de-Roger>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
-Message-ID: <ca994a9d-92c2-9cc6-1315-cb71cd3ffeed@suse.com>
-Date: Tue, 24 Nov 2020 16:23:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ <20201124122102.3igsriesou3vl6mu@Air-de-Roger>
+ <20201124135948.GL2020@antioche.eu.org>
+ <6d6a77cf-58de-4e4d-ed75-e9365be060b7@suse.com>
+ <20201124142713.GM2020@antioche.eu.org>
+ <e6a0fc84-e7ed-825c-5356-29b8a6359a2b@suse.com>
+ <20201124150842.GN2020@antioche.eu.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20201124150842.GN2020@antioche.eu.org>
+X-ClientProxiedBy: MR2P264CA0172.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501::11)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <20201124145927.zrbsmvs6qvaxh4hf@Air-de-Roger>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="CHFSPsKpbHOpBA7AY793o9AaF3msjbQyG"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 70df89e5-87d6-4426-2bb5-08d890908349
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4475:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4475B5E14D499F25D9D3773D8FFB0@DM6PR03MB4475.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qlBdprVHtEYOPdP3l2yysMksKl1QoQT371AaMOtJMTvkGw7sRvaG0uV5spC2KwVfdOSMnipcYHivDDIT0b+1dH8kPzttYueZXOZ6Q8i8XzQFU6Yp3PzZGxfS1X2EAz34tFF7n0Pq05J7yHCATlM4dc3qc+4Yz/xO5gtfOergMiOtMQpBKNasdHLdQE4N2E5Y2Z5tZQp9t4/0ymc4VzZ/tk9q7LFdYuoGQwahnqbWCecy8QLnml4q3kkWMtr5ntM+IMQkrquDHra1jHC1JM7rafXydV2jqKp/4U6VUT7/F9uzmO9M5dLizSmIuak0HgWh5/EwCCedDVglwwTpUm6YF6klk2TDQlAEQXRm156cbGlHkiEj6goq2Anm/CGFoYZ/dtG7STqm8fjwDlDtOkZpxg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(136003)(346002)(376002)(396003)(39860400002)(366004)(966005)(6666004)(2906002)(8676002)(66946007)(66556008)(26005)(6486002)(16526019)(4326008)(53546011)(8936002)(6496006)(9686003)(478600001)(956004)(66476007)(4744005)(85182001)(1076003)(186003)(5660300002)(6916009)(33716001)(86362001)(316002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: O53Nft3Y/hMwR/oL6eOLfTKNRWrcf0Hl34LB3WaHwLJT/evZXyqui5263SmdAhDDI5wGOstNRa1ZFiSoWtxwu9h66Ec0osJrZ6Powczeq9SgS4i927aSEItk8roeGq6vDFkHSEhAkjOx44qs3HRBFweM2WL7ifhGYiOwOog/n7o65DfWwuRjKHh0aJpKqrbnQDb1Ue/hmNCQ4mdkCsnt1ylfSW06dsCWR0o7MCh80E81E8YSyCMQlW3E/azhd3zxaSpThqw5Gh9sjjQ3EsY7pCAPstb5oBrLBcyfEU9vW6PMp4yH96ktplepWEeuHSvjAgZA56oQgQ0MV8fHwg/5lGEPoWc0ka0UiZflYQkDWfj7el2tqLDwrr7CuRSog3HeTrxbjvV9Y6HvIEbxcDBsLD9QnM55J3VjANU0n9ntyAxtDtqGoYkXJTwHr/vNtRehzQ2dVcJwq1qjUSjZvZGBl3x2QVzmXAgfSdxcedVgobbosAcwSmIxBejZnQAUidQVzli9DGsqJrtSl3DYDweIoWyVuliTuZ5XUNq9GQ/666qUjanVWK9feng/sYOpuXXcK1m6w3Yh3gZhaLG7rcn3xn7V1fNINkH7nAF/7OJI/QkL5t0bgfrELUVkfEdb/3KQh2K5Qlx96rv9pUfcoDyZSg+ap6nKaueNRCacAupwYI6Ed7G+CPMBH6zUJpB32IjAqTuLSIZiPHcQtt/Kkcgt076skoHtvSx9b1NpdR0ywGJzFWsvF52bhoI4NI8A50LNWk1ow4zbCkgAuXlSJTyqckVc/3YRs5SaIGX8hV0R2dazApj7+ZPft0FsweDOPdcN0MEgIA//KvXUhdgZu/fch1Y+Rad6r5FHGnnVpEHmHw0adbMxEqCbl1tygdyY0zmLIqoPCvzuqEwaKRz3U5ix9A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70df89e5-87d6-4426-2bb5-08d890908349
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2020 15:49:22.6391
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pwJmFNBWrShY3w8G8LjjHY9diyv2RXogBz4O3jNFfCSCSp4+fBzXS3fxewLiuSRYxqBPJOWh5YVZ5kQ5lv2mnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4475
+X-OriginatorOrg: citrix.com
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---CHFSPsKpbHOpBA7AY793o9AaF3msjbQyG
-Content-Type: multipart/mixed; boundary="13prHdkrRQ56cFfNKGw6OMaTt6fySie4V";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Message-ID: <ca994a9d-92c2-9cc6-1315-cb71cd3ffeed@suse.com>
-Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
-References: <20904a6a-ac64-755d-d228-4c49faf66fb5@suse.com>
- <20201120103824.GJ1508@antioche.eu.org>
- <20201123095713.orfpg72r73m7f46n@Air-de-Roger>
- <20201123113241.GE2520@antioche.eu.org>
- <20201123125112.q3zqb4e5nk6jg4hw@Air-de-Roger>
- <20201123143150.GG2520@antioche.eu.org>
- <20201123170610.kzfxvcgkdkvh3ex4@Air-de-Roger>
- <20201123173925.GG4662@antioche.eu.org>
- <b3912e97-9684-fe97-1053-ad7168a19721@suse.com>
- <ee63d6c2-4d0f-a3b7-37d0-8ce45c9e6fb1@suse.com>
- <20201124145927.zrbsmvs6qvaxh4hf@Air-de-Roger>
-In-Reply-To: <20201124145927.zrbsmvs6qvaxh4hf@Air-de-Roger>
+On Tue, Nov 24, 2020 at 04:08:42PM +0100, Manuel Bouyer wrote:
+> On Tue, Nov 24, 2020 at 03:52:25PM +0100, Jan Beulich wrote:
+> > On 24.11.2020 15:27, Manuel Bouyer wrote:
+> > > new log at
+> > > http://www-soc.lip6.fr/~bouyer/xen-log7.txt
+> > > 
+> > > this one ends up in a panic, I hope you'll find what you expect here.
+> > 
+> > Did you actually, just to have the data point, ever try to disable
+> > interrupt remapping ("iommu=no-intremap")? For PVH we can't ask you
+> > to turn of the IOMMU as a whole, but aiui interrupt remapping is
+> > not a strict prereq. (I'm sure Roger will correct me if I'm wrong.)
+> 
+> I just tried, it doesn't seem to change anything.
 
---13prHdkrRQ56cFfNKGw6OMaTt6fySie4V
-Content-Type: multipart/mixed;
- boundary="------------7E7EF1C34DD9F071E8552867"
-Content-Language: en-US
+Could you also give a try with ioapic_ack=new on the Xen command line?
 
-This is a multi-part message in MIME format.
---------------7E7EF1C34DD9F071E8552867
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 24.11.20 15:59, Roger Pau Monn=C3=A9 wrote:
-> On Tue, Nov 24, 2020 at 03:42:28PM +0100, Jan Beulich wrote:
->> On 24.11.2020 11:05, Jan Beulich wrote:
->>> On 23.11.2020 18:39, Manuel Bouyer wrote:
->>>> On Mon, Nov 23, 2020 at 06:06:10PM +0100, Roger Pau Monn=C3=A9 wrote=
-:
->>>>> OK, I'm afraid this is likely too verbose and messes with the timin=
-gs.
->>>>>
->>>>> I've been looking (again) into the code, and I found something weir=
-d
->>>>> that I think could be related to the issue you are seeing, but have=
-n't
->>>>> managed to try to boot the NetBSD kernel provided in order to asser=
-t
->>>>> whether it solves the issue or not (or even whether I'm able to
->>>>> repro it). Would you mind giving the patch below a try?
->>>>
->>>> With this, I get the same hang but XEN outputs don't wake up the int=
-errupt
->>>> any more. The NetBSD counter shows only one interrupt for ioapic2 pi=
-n 2,
->>>> while I would have about 8 at the time of the hang.
->>>>
->>>> So, now it looks like interrupts are blocked forever.
->>>
->>> Which may be a good thing for debugging purposes, because now we have=
-
->>> a way to investigate what is actually blocking the interrupt's
->>> delivery without having to worry about more output screwing the
->>> overall picture.
->>>
->>>> At
->>>> http://www-soc.lip6.fr/~bouyer/xen-log5.txt
->>>> you'll find the output of the 'i' key.
->>>
->>> (XEN)    IRQ:  34 vec:59 IO-APIC-level   status=3D010 aff:{0}/{0-7} i=
-n-flight=3D1 d0: 34(-MM)
->>>
->>> (XEN)     IRQ 34 Vec 89:
->>> (XEN)       Apic 0x02, Pin  2: vec=3D59 delivery=3DLoPri dest=3DL sta=
-tus=3D1 polarity=3D1 irr=3D1 trig=3DL mask=3D0 dest_id:00000001
->>
->> Since it repeats in Manuel's latest dump, perhaps the odd combination
->> of status=3D1 and irr=3D1 is to tell us something? It is my understand=
-ing
->> that irr ought to become set only when delivery-status clears. Yet I
->> don't know what to take from this...
->=20
-> My reading of this is that one interrupt was accepted by the lapic
-> (irr=3D1) and that there's a further interrupt pending that hasn't yet
-> been accepted by the lapic (status=3D1) because it's still serving the
-> previous one. But that's all weird because there's no matching
-> vector in ISR, and hence the IRR bit on the IO-APIC has somehow become
-> stale or out of sync with the lapic state?
->=20
-> I'm also unsure about how Xen has managed to reach this state, it
-> shouldn't be possible in the first place.
->=20
-> I don't think I can instrument the paths further with printfs because
-> it's likely to result in the behavior itself changing and console
-> spamming. I could however create a static buffer to trace relevant
-> actions and then dump all them together with the 'i' debug key output.
-
-debugtrace is your friend here. It already has a debug key for printing
-the buffer contents to console ('T').
-
-As the buffer is wrap-around you can even add debug prints in the
-related interrupt paths for finding out which paths have been called in
-which order and on which cpu. Depending on the findings you might want
-to use percpu buffers.
-
-
-Juergen
-
---------------7E7EF1C34DD9F071E8552867
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------7E7EF1C34DD9F071E8552867--
-
---13prHdkrRQ56cFfNKGw6OMaTt6fySie4V--
-
---CHFSPsKpbHOpBA7AY793o9AaF3msjbQyG
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+9JV8FAwAAAAAACgkQsN6d1ii/Ey/z
-vgf9EqBNBC5Bd0PHn2dGMAsXLPfIlLRuzuJAOggqLZ8ff91iIPjFLsAlmZ1iFUCEm/b7+6sr3EFg
-3gbJBvnCBfSMWDOmlMAA1CPpf1JRqKRcSlaCLd8jkTYSQCPLjYWgjj/fywyi7fDaPzj2x6AMPlCj
-5dvGxW7Y88Ns9AVlE12g5acX0PE4hZ/4tndCNi1JktbDcsQYd8rXcSa/I7VyAu1hfDHl2CxvOJiz
-17im+YEZP9Wbk4ixtG5BpCb9hC4/DGicflMqfPMoN20GrwEDbukdfYuc1CjAALkFnnYsYTgyi5OQ
-TowFNbtGZIGvr9WqN3xuPiv1xJprIbseQy13lGpbQA==
-=XcfH
------END PGP SIGNATURE-----
-
---CHFSPsKpbHOpBA7AY793o9AaF3msjbQyG--
+Thanks, Roger.
 
