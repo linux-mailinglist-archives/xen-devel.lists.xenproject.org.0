@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 454EA2C2F0A
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 18:45:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36743.68761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68AB32C2F84
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 19:04:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36750.68772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khcN7-00023N-3D; Tue, 24 Nov 2020 17:44:57 +0000
+	id 1khcfb-0003xl-O8; Tue, 24 Nov 2020 18:04:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36743.68761; Tue, 24 Nov 2020 17:44:57 +0000
+Received: by outflank-mailman (output) from mailman id 36750.68772; Tue, 24 Nov 2020 18:04:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -19,144 +19,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khcN6-00022y-W8; Tue, 24 Nov 2020 17:44:56 +0000
-Received: by outflank-mailman (input) for mailman id 36743;
- Tue, 24 Nov 2020 17:44:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PpH5=E6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1khcN5-00022t-8e
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 17:44:55 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 190566a1-69a0-42fb-8912-0e1af1d56d81;
- Tue, 24 Nov 2020 17:44:53 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5A123206C0;
- Tue, 24 Nov 2020 17:44:52 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1khcfb-0003xM-Kj; Tue, 24 Nov 2020 18:04:03 +0000
+Received: by outflank-mailman (input) for mailman id 36750;
+ Tue, 24 Nov 2020 18:04:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YSly=E6=gmail.com=htejun@srs-us1.protection.inumbo.net>)
+ id 1khcfZ-0003xH-CN
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 18:04:01 +0000
+Received: from mail-qk1-x743.google.com (unknown [2607:f8b0:4864:20::743])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 43030d14-aac1-4507-80bd-825c0fab2e05;
+ Tue, 24 Nov 2020 18:04:00 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id h20so3011964qkk.4
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Nov 2020 10:04:00 -0800 (PST)
+Received: from localhost (dhcp-6c-ae-f6-dc-d8-61.cpe.echoes.net. [72.28.8.195])
+ by smtp.gmail.com with ESMTPSA id c14sm13621716qko.29.2020.11.24.10.03.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2020 10:03:59 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=PpH5=E6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1khcN5-00022t-8e
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 17:44:55 +0000
-X-Inumbo-ID: 190566a1-69a0-42fb-8912-0e1af1d56d81
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 190566a1-69a0-42fb-8912-0e1af1d56d81;
-	Tue, 24 Nov 2020 17:44:53 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 5A123206C0;
-	Tue, 24 Nov 2020 17:44:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606239892;
-	bh=1zh8h9tR1JDURCC6GdkhF4d3iDUmvRcYXH/D2Xf0Cao=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bmYnzzV6DeYm7XBOGQpQhSv5FSdX2pbBUrmZEKPyzUZgNE51kdiixFGcVrb33luPd
-	 2Wd0iIsRgCKHELjWZRx3UOlxr3fJU6STF5zcYYejNVY5OS5cs8n0TXVZVQbzT7bOHz
-	 vqJFT/L1TYYPAa5uOmigJlg0J54RLrG+159h0JDs=
-Date: Tue, 24 Nov 2020 09:44:51 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <Rahul.Singh@arm.com>
-cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: Add workaround for Cortex-A55 erratum
- #1530923
-In-Reply-To: <E5A460E5-7D10-4314-98B4-0D90CD173940@arm.com>
-Message-ID: <alpine.DEB.2.21.2011240944400.7979@sstabellini-ThinkPad-T480s>
-References: <61a105672650e7470710183f37351b821b818d1e.1606215998.git.bertrand.marquis@arm.com> <E5A460E5-7D10-4314-98B4-0D90CD173940@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=YSly=E6=gmail.com=htejun@srs-us1.protection.inumbo.net>)
+	id 1khcfZ-0003xH-CN
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 18:04:01 +0000
+X-Inumbo-ID: 43030d14-aac1-4507-80bd-825c0fab2e05
+Received: from mail-qk1-x743.google.com (unknown [2607:f8b0:4864:20::743])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 43030d14-aac1-4507-80bd-825c0fab2e05;
+	Tue, 24 Nov 2020 18:04:00 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id h20so3011964qkk.4
+        for <xen-devel@lists.xenproject.org>; Tue, 24 Nov 2020 10:04:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=sender:date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=8qZ2mbF42a4EoCPjpueBEzfe9XOwF2IptTReGgUwObs=;
+        b=is4ScJMtRgB8A67gco8/ShkniDzY10n7rMewX714/9E8uwhLChpIiLuhS9NYdAwKZO
+         wwPFFE1umeJEQtu7KDxbrmdClPTpQcYjr1RpDpjnuZBK1iq0PQfGRfm19X+XI49NQayK
+         8lAFgH0g1BclA/vf2p2mEb1VckBHMRHQuZY2MAZGNuGYbRuKC1k7RL8V45KondL8dAgu
+         pkggwpY/K/3AGEFSp3YuAHk/ID2wYfhEWzIb5TQJq39NiNddKNAmZTO9FhKaayKgBddH
+         Z4wiCaTnVN8dlV2LZgcg+T7QWmffCA0edb1cuImXXMdzH67nJfiqgEY4ncID7PjQAYKh
+         /ZGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+         :references:mime-version:content-disposition:in-reply-to;
+        bh=8qZ2mbF42a4EoCPjpueBEzfe9XOwF2IptTReGgUwObs=;
+        b=RS/K55POrmjxsS0uHRZuDr1UHl2JMZxC4D2tjV3o+D0wjmD5EujPTbeG1fRIom9Tzc
+         O/owSkBn+THWf8paMtYPhNt++swOPhO2bkv5DAATUVhxcq6E1YDTaxVk8OR/c5xPPDaI
+         v+5+Kmj4ChKhBQOaAN3xL8eRl+tB5szDmmy6frN/l8he3sqQjZV8zBncLtdq5U1ttzvY
+         mPw1iEn5qeHxkcybnOXcuo1j1RAIjVAwu6XleHobcY/2tandS/oIC0z82dhiChGfL2ta
+         eAuM4JnXQQAKpMgqrj5oe0niPtNNE0RFhUjRxD+nrUvf3YnbNQfKblfolRTjYgQQYDRO
+         jCsA==
+X-Gm-Message-State: AOAM532YCt52520yEzQLV4eABGRUQroDcNmq9WK37GrsoK2cPkJHfqpd
+	9bw00r5GLr9rQpgqFZhK9Mw=
+X-Google-Smtp-Source: ABdhPJypHMVf10j8dqLbG3/kMc2wzxScN+9Rw3Fm44OZCed30V+ovAuzBFJQGc76NiRl6CUPNsyaww==
+X-Received: by 2002:ae9:e007:: with SMTP id m7mr5836885qkk.416.1606241040110;
+        Tue, 24 Nov 2020 10:04:00 -0800 (PST)
+Received: from localhost (dhcp-6c-ae-f6-dc-d8-61.cpe.echoes.net. [72.28.8.195])
+        by smtp.gmail.com with ESMTPSA id c14sm13621716qko.29.2020.11.24.10.03.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2020 10:03:59 -0800 (PST)
+Sender: Tejun Heo <htejun@gmail.com>
+Date: Tue, 24 Nov 2020 13:03:36 -0500
+From: Tejun Heo <tj@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Josef Bacik <josef@toxicpanda.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jan Kara <jack@suse.cz>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
+	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 21/45] block: refactor blkdev_get
+Message-ID: <X71K+JS+xnGs+EPF@mtj.duckdns.org>
+References: <20201124132751.3747337-1-hch@lst.de>
+ <20201124132751.3747337-22-hch@lst.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201124132751.3747337-22-hch@lst.de>
 
-On Tue, 24 Nov 2020, Rahul Singh wrote:
-> > On 24 Nov 2020, at 11:12 am, Bertrand Marquis <Bertrand.Marquis@arm.com> wrote:
-> > 
-> > On the Cortex A55, TLB entries can be allocated by a speculative AT
-> > instruction. If this is happening during a guest context switch with an
-> > inconsistent page table state in the guest, TLBs with wrong values might
-> > be allocated.
-> > The ARM64_WORKAROUND_AT_SPECULATE workaround is used as for erratum
-> > 1165522 on Cortex A76 or Neoverse N1.
-> > 
-> > This change is also introducing the MIDR identifier for the Cortex-A55.
-> > 
-> > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+On Tue, Nov 24, 2020 at 02:27:27PM +0100, Christoph Hellwig wrote:
+> Move more code that is only run on the outer open but not the open of
+> the underlying whole device when opening a partition into blkdev_get,
+> which leads to a much easier to follow structure.
 > 
-> Reviewed-by: Rahul Singh <rahul.singh@arm.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> > docs/misc/arm/silicon-errata.txt | 1 +
-> > xen/arch/arm/cpuerrata.c         | 6 ++++++
-> > xen/include/asm-arm/processor.h  | 2 ++
-> > 3 files changed, 9 insertions(+)
-> > 
-> > diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
-> > index d183ba543f..27bf957ebf 100644
-> > --- a/docs/misc/arm/silicon-errata.txt
-> > +++ b/docs/misc/arm/silicon-errata.txt
-> > @@ -45,6 +45,7 @@ stable hypervisors.
-> > | ARM            | Cortex-A53      | #827319         | ARM64_ERRATUM_827319    |
-> > | ARM            | Cortex-A53      | #824069         | ARM64_ERRATUM_824069    |
-> > | ARM            | Cortex-A53      | #819472         | ARM64_ERRATUM_819472    |
-> > +| ARM            | Cortex-A55      | #1530923        | N/A                     |
-> > | ARM            | Cortex-A57      | #852523         | N/A                     |
-> > | ARM            | Cortex-A57      | #832075         | ARM64_ERRATUM_832075    |
-> > | ARM            | Cortex-A57      | #834220         | ARM64_ERRATUM_834220    |
-> > diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-> > index cb4795beec..b398d480f1 100644
-> > --- a/xen/arch/arm/cpuerrata.c
-> > +++ b/xen/arch/arm/cpuerrata.c
-> > @@ -514,6 +514,12 @@ static const struct arm_cpu_capabilities arm_errata[] = {
-> >         .capability = ARM64_WORKAROUND_AT_SPECULATE,
-> >         MIDR_ALL_VERSIONS(MIDR_CORTEX_A57),
-> >     },
-> > +    {
-> > +        /* Cortex-A55 (All versions as erratum is open in SDEN v14) */
-> > +        .desc = "ARM erratum 1530923",
-> > +        .capability = ARM64_WORKAROUND_AT_SPECULATE,
-> > +        MIDR_ALL_VERSIONS(MIDR_CORTEX_A55),
-> > +    },
-> >     {},
-> > };
-> > 
-> > diff --git a/xen/include/asm-arm/processor.h b/xen/include/asm-arm/processor.h
-> > index d3d12a9d19..87c8136022 100644
-> > --- a/xen/include/asm-arm/processor.h
-> > +++ b/xen/include/asm-arm/processor.h
-> > @@ -53,6 +53,7 @@
-> > #define ARM_CPU_PART_CORTEX_A17     0xC0E
-> > #define ARM_CPU_PART_CORTEX_A15     0xC0F
-> > #define ARM_CPU_PART_CORTEX_A53     0xD03
-> > +#define ARM_CPU_PART_CORTEX_A55     0xD05
-> > #define ARM_CPU_PART_CORTEX_A57     0xD07
-> > #define ARM_CPU_PART_CORTEX_A72     0xD08
-> > #define ARM_CPU_PART_CORTEX_A73     0xD09
-> > @@ -64,6 +65,7 @@
-> > #define MIDR_CORTEX_A17 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A17)
-> > #define MIDR_CORTEX_A15 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A15)
-> > #define MIDR_CORTEX_A53 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A53)
-> > +#define MIDR_CORTEX_A55 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A55)
-> > #define MIDR_CORTEX_A57 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A57)
-> > #define MIDR_CORTEX_A72 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A72)
-> > #define MIDR_CORTEX_A73 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A73)
-> > -- 
-> > 2.17.1
-> > 
-> > 
+> This allows to simplify the disk and module refcounting so that one
+> reference is held for each open, similar to what we do with normal
+> file operations.
 > 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+
+Acked-by: Tejun Heo <tj@kernel.org>
+
+Thanks.
+
+-- 
+tejun
 
