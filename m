@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53B742C28C3
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:53:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36389.68287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E664F2C28A7
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:51:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36362.68272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYl5-0000qN-4N; Tue, 24 Nov 2020 13:53:27 +0000
+	id 1khYia-0000XI-Hl; Tue, 24 Nov 2020 13:50:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36389.68287; Tue, 24 Nov 2020 13:53:27 +0000
+Received: by outflank-mailman (output) from mailman id 36362.68272; Tue, 24 Nov 2020 13:50:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,107 +23,122 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYl5-0000py-11; Tue, 24 Nov 2020 13:53:27 +0000
-Received: by outflank-mailman (input) for mailman id 36389;
- Tue, 24 Nov 2020 13:53:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1khYia-0000Wn-Ds; Tue, 24 Nov 2020 13:50:52 +0000
+Received: by outflank-mailman (input) for mailman id 36362;
+ Tue, 24 Nov 2020 13:50:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IyBN=E6=suse.de=colyli@srs-us1.protection.inumbo.net>)
- id 1khYak-000505-2s
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:42:46 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 70400235-bde5-4dc3-8c2b-19a99aafe489;
- Tue, 24 Nov 2020 13:41:54 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EE837AC2D;
- Tue, 24 Nov 2020 13:41:53 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1khYiZ-0000Wd-6K; Tue, 24 Nov 2020 13:50:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1khYiZ-0004v4-2P; Tue, 24 Nov 2020 13:50:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1khYiY-00034u-MD; Tue, 24 Nov 2020 13:50:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1khYiY-0002IE-Li; Tue, 24 Nov 2020 13:50:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=IyBN=E6=suse.de=colyli@srs-us1.protection.inumbo.net>)
-	id 1khYak-000505-2s
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:42:46 +0000
-X-Inumbo-ID: 70400235-bde5-4dc3-8c2b-19a99aafe489
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 70400235-bde5-4dc3-8c2b-19a99aafe489;
-	Tue, 24 Nov 2020 13:41:54 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id EE837AC2D;
-	Tue, 24 Nov 2020 13:41:53 +0000 (UTC)
-Subject: Re: [PATCH 13/45] block: add a bdev_kobj helper
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Cc: Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Mike Snitzer <snitzer@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jan Kara <jack@suse.cz>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>, dm-devel@redhat.com,
- Richard Weinberger <richard@nod.at>, Jan Kara <jack@suse.com>,
- linux-block@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-References: <20201124132751.3747337-1-hch@lst.de>
- <20201124132751.3747337-14-hch@lst.de>
-From: Coly Li <colyli@suse.de>
-Message-ID: <cb689e01-60dc-9df8-3a94-006bc3c39367@suse.de>
-Date: Tue, 24 Nov 2020 21:41:47 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.3
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1khYiZ-0000Wd-6K; Tue, 24 Nov 2020 13:50:51 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=64ddWax/uBLtI+AtrLYwC8zR+Ue2EHukf4021uKZfbw=; b=MUj1G5XlCt0ebcFarafdjYYoKC
+	GjNpD83J1Sz8h3I0FJrRIR8gxn19ZKQlitA5PVM9C+Udvk/js426SOgtwmHmv/gswrtGKKhFRAXM6
+	AGtQxQyG0gJl3QuX8Tqga/dfTQowkxm48S2D6Q1pqEVMi18coui4uK0zPOQ6dyTCMxbQ=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146] helo=infra.test-lab.xenproject.org)
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1khYiZ-0004v4-2P; Tue, 24 Nov 2020 13:50:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+	by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1khYiY-00034u-MD; Tue, 24 Nov 2020 13:50:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim 4.92)
+	(envelope-from <osstest-admin@xenproject.org>)
+	id 1khYiY-0002IE-Li; Tue, 24 Nov 2020 13:50:50 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-156982-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20201124132751.3747337-14-hch@lst.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 156982: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=8147e00e4fbfcc43b665dc6bf279b204c501ba04
+X-Osstest-Versions-That:
+    xen=b659a5cebd611dbe698e63c03485b5fe8cd964ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 24 Nov 2020 13:50:50 +0000
 
-On 11/24/20 9:27 PM, Christoph Hellwig wrote:
-> Add a little helper to find the kobject for a struct block_device.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+flight 156982 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/156982/
 
-For the bcache part, Acked-by: Coly Li <colyli@suse.de>
+Failures :-/ but no regressions.
 
-Thanks.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Coly Li
+version targeted for testing:
+ xen                  8147e00e4fbfcc43b665dc6bf279b204c501ba04
+baseline version:
+ xen                  b659a5cebd611dbe698e63c03485b5fe8cd964ad
 
-> ---
->  drivers/md/bcache/super.c |  7 ++-----
->  drivers/md/md.c           |  4 +---
->  fs/block_dev.c            |  6 +++---
->  fs/btrfs/sysfs.c          | 15 +++------------
->  include/linux/blk_types.h |  3 +++
->  5 files changed, 12 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-> index 46a00134a36ae1..a6a5e21e4fd136 100644
-> --- a/drivers/md/bcache/super.c
-> +++ b/drivers/md/bcache/super.c
-> @@ -1447,8 +1447,7 @@ static int register_bdev(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
->  		goto err;
->  
->  	err = "error creating kobject";
-> -	if (kobject_add(&dc->disk.kobj, &part_to_dev(bdev->bd_part)->kobj,
-> -			"bcache"))
-> +	if (kobject_add(&dc->disk.kobj, bdev_kobj(bdev), "bcache"))
->  		goto err;
->  	if (bch_cache_accounting_add_kobjs(&dc->accounting, &dc->disk.kobj))
->  		goto err;
-> @@ -2342,9 +2341,7 @@ static int register_cache(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
->  		goto err;
->  	}
->  
-> -	if (kobject_add(&ca->kobj,
-> -			&part_to_dev(bdev->bd_part)->kobj,
-> -			"bcache")) {
-> +	if (kobject_add(&ca->kobj, bdev_kobj(bdev), "bcache")) {
->  		err = "error calling kobject_add";
->  		ret = -ENOMEM;
->  		goto out;
+Last test of basis   156907  2020-11-20 20:01:25 Z    3 days
+Testing same since   156982  2020-11-24 11:01:24 Z    0 days    1 attempts
 
-[snipped]
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <JBeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   b659a5cebd..8147e00e4f  8147e00e4fbfcc43b665dc6bf279b204c501ba04 -> smoke
 
