@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 041032C278A
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:29:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36046.67822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C94C2C283D
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:40:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36126.67917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYOH-0001gv-Hw; Tue, 24 Nov 2020 13:29:53 +0000
+	id 1khYYJ-0004J8-TT; Tue, 24 Nov 2020 13:40:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36046.67822; Tue, 24 Nov 2020 13:29:53 +0000
+Received: by outflank-mailman (output) from mailman id 36126.67917; Tue, 24 Nov 2020 13:40:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYOH-0001g3-DJ; Tue, 24 Nov 2020 13:29:53 +0000
-Received: by outflank-mailman (input) for mailman id 36046;
- Tue, 24 Nov 2020 13:29:50 +0000
+	id 1khYYJ-0004IF-JK; Tue, 24 Nov 2020 13:40:15 +0000
+Received: by outflank-mailman (input) for mailman id 36126;
+ Tue, 24 Nov 2020 13:40:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1khYNt-0000Qf-2K
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:29 +0000
+ id 1khYOI-0000Qf-3K
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:54 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8c44d38a-3103-4e34-b193-c5b93c192b58;
- Tue, 24 Nov 2020 13:28:39 +0000 (UTC)
+ id 162c60c4-ba10-400e-9e62-6205e806d74c;
+ Tue, 24 Nov 2020 13:28:43 +0000 (UTC)
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1khYMn-0006Y9-FD; Tue, 24 Nov 2020 13:28:21 +0000
+ id 1khYMf-0006WP-Qt; Tue, 24 Nov 2020 13:28:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1khYNt-0000Qf-2K
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:29 +0000
-X-Inumbo-ID: 8c44d38a-3103-4e34-b193-c5b93c192b58
+	id 1khYOI-0000Qf-3K
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:54 +0000
+X-Inumbo-ID: 162c60c4-ba10-400e-9e62-6205e806d74c
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 8c44d38a-3103-4e34-b193-c5b93c192b58;
-	Tue, 24 Nov 2020 13:28:39 +0000 (UTC)
+	id 162c60c4-ba10-400e-9e62-6205e806d74c;
+	Tue, 24 Nov 2020 13:28:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=/JD7P59kLLFVg7PYLNCPMZCDXAoG4vpH+WsHJpZ7foo=; b=Bvsu7rjRscfk3fEBDWdwaXTw1a
-	yBP66Yl4lQOXZQ1S0o5jVg/rBBbRLPUiXelUDNs0ZAosLOVPtEolGC+8nE1mAd6iOzHUIIuTpQhAM
-	QGAU98CffrUAdOC0jTKXiJ0GblnVmH8SXMxqR0sNHBtPeJOVwXat5gkslEyaiJN1KHtmwltwbLBBr
-	xcNJqY9CnNj5y2xB3ZTcIuTs7H5v3FpZu2pdJV/2UWpXznmvQYvTM9bx79wzAXH4NglFzV354UL/8
-	8BDoU15Guo3iZd+qKmPA8nkrs/rxZ0GZST9iabXcDgdZbFFJjp6nZrmp50w1pJT1e3IrE4W8kg91U
-	Ya1lng2Q==;
+	bh=1wdTghj4fAZYDMEoMIijyWaUffoUw73Ru2rPfTzIwgc=; b=iuyrZ6v9lOV+HmLY++2sL1Tphw
+	RstNxNQbVHznNk65hqoXvXwyS2SxZeKCbg82rqAa4OoHom6hfCotYBQDqYAWw1z7h2qe5AtwL40YH
+	pBWGQVEI8t2986Trhrw4ARuUf+uIC6KWaSH3uNwAKDcQFYZw/3SW7lDafQ8OOn0HUoOncreV3btKH
+	ODAv7ImyQoKl/hMu3FGvOWhHWdbWS5MKSe/MRvcGAShE6UQB/FLHFc9L49FARzuarAUj6Qb7J9kUo
+	goEygVbNrIrONzqSmE36MDIEQOQwyxFUA0fjky85vXz+mIOI+RNIu5gA2ev77SpfiLP3LSaTl5ArA
+	qhnIJE8w==;
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYMn-0006Y9-FD; Tue, 24 Nov 2020 13:28:21 +0000
+	id 1khYMf-0006WP-Qt; Tue, 24 Nov 2020 13:28:14 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Tejun Heo <tj@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Tejun Heo <tj@kernel.org>,
 	linux-mtd@lists.infradead.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 18/45] init: refactor devt_from_partuuid
-Date: Tue, 24 Nov 2020 14:27:24 +0100
-Message-Id: <20201124132751.3747337-19-hch@lst.de>
+Subject: [PATCH 13/45] block: add a bdev_kobj helper
+Date: Tue, 24 Nov 2020 14:27:19 +0100
+Message-Id: <20201124132751.3747337-14-hch@lst.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201124132751.3747337-1-hch@lst.de>
 References: <20201124132751.3747337-1-hch@lst.de>
@@ -90,118 +90,153 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-The code in devt_from_partuuid is very convoluted.  Refactor a bit by
-sanitizing the goto and variable name usage.
+Add a little helper to find the kobject for a struct block_device.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 ---
- init/do_mounts.c | 68 ++++++++++++++++++++++--------------------------
- 1 file changed, 31 insertions(+), 37 deletions(-)
+ drivers/md/bcache/super.c |  7 ++-----
+ drivers/md/md.c           |  4 +---
+ fs/block_dev.c            |  6 +++---
+ fs/btrfs/sysfs.c          | 15 +++------------
+ include/linux/blk_types.h |  3 +++
+ 5 files changed, 12 insertions(+), 23 deletions(-)
 
-diff --git a/init/do_mounts.c b/init/do_mounts.c
-index aef2f24461c7f1..afa26a4028d25e 100644
---- a/init/do_mounts.c
-+++ b/init/do_mounts.c
-@@ -105,13 +105,10 @@ static int match_dev_by_uuid(struct device *dev, const void *data)
-  */
- static dev_t devt_from_partuuid(const char *uuid_str)
+diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+index 46a00134a36ae1..a6a5e21e4fd136 100644
+--- a/drivers/md/bcache/super.c
++++ b/drivers/md/bcache/super.c
+@@ -1447,8 +1447,7 @@ static int register_bdev(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
+ 		goto err;
+ 
+ 	err = "error creating kobject";
+-	if (kobject_add(&dc->disk.kobj, &part_to_dev(bdev->bd_part)->kobj,
+-			"bcache"))
++	if (kobject_add(&dc->disk.kobj, bdev_kobj(bdev), "bcache"))
+ 		goto err;
+ 	if (bch_cache_accounting_add_kobjs(&dc->accounting, &dc->disk.kobj))
+ 		goto err;
+@@ -2342,9 +2341,7 @@ static int register_cache(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
+ 		goto err;
+ 	}
+ 
+-	if (kobject_add(&ca->kobj,
+-			&part_to_dev(bdev->bd_part)->kobj,
+-			"bcache")) {
++	if (kobject_add(&ca->kobj, bdev_kobj(bdev), "bcache")) {
+ 		err = "error calling kobject_add";
+ 		ret = -ENOMEM;
+ 		goto out;
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index b2edf5e0f965b5..7ce6047c856ea2 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -2414,7 +2414,6 @@ EXPORT_SYMBOL(md_integrity_add_rdev);
+ static int bind_rdev_to_array(struct md_rdev *rdev, struct mddev *mddev)
  {
--	dev_t res = 0;
- 	struct uuidcmp cmp;
- 	struct device *dev = NULL;
--	struct gendisk *disk;
--	struct hd_struct *part;
-+	dev_t devt = 0;
- 	int offset = 0;
--	bool clear_root_wait = false;
- 	char *slash;
+ 	char b[BDEVNAME_SIZE];
+-	struct kobject *ko;
+ 	int err;
  
- 	cmp.uuid = uuid_str;
-@@ -120,52 +117,49 @@ static dev_t devt_from_partuuid(const char *uuid_str)
- 	/* Check for optional partition number offset attributes. */
- 	if (slash) {
- 		char c = 0;
-+
- 		/* Explicitly fail on poor PARTUUID syntax. */
--		if (sscanf(slash + 1,
--			   "PARTNROFF=%d%c", &offset, &c) != 1) {
--			clear_root_wait = true;
--			goto done;
--		}
-+		if (sscanf(slash + 1, "PARTNROFF=%d%c", &offset, &c) != 1)
-+			goto clear_root_wait;
- 		cmp.len = slash - uuid_str;
- 	} else {
- 		cmp.len = strlen(uuid_str);
- 	}
+ 	/* prevent duplicates */
+@@ -2477,9 +2476,8 @@ static int bind_rdev_to_array(struct md_rdev *rdev, struct mddev *mddev)
+ 	if ((err = kobject_add(&rdev->kobj, &mddev->kobj, "dev-%s", b)))
+ 		goto fail;
  
--	if (!cmp.len) {
--		clear_root_wait = true;
--		goto done;
+-	ko = &part_to_dev(rdev->bdev->bd_part)->kobj;
+ 	/* failure here is OK */
+-	err = sysfs_create_link(&rdev->kobj, ko, "block");
++	err = sysfs_create_link(&rdev->kobj, bdev_kobj(rdev->bdev), "block");
+ 	rdev->sysfs_state = sysfs_get_dirent_safe(rdev->kobj.sd, "state");
+ 	rdev->sysfs_unack_badblocks =
+ 		sysfs_get_dirent_safe(rdev->kobj.sd, "unacknowledged_bad_blocks");
+diff --git a/fs/block_dev.c b/fs/block_dev.c
+index 60492620d51866..f6a2a06ad262fa 100644
+--- a/fs/block_dev.c
++++ b/fs/block_dev.c
+@@ -1242,7 +1242,7 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ 	holder->disk = disk;
+ 	holder->refcnt = 1;
+ 
+-	ret = add_symlink(disk->slave_dir, &part_to_dev(bdev->bd_part)->kobj);
++	ret = add_symlink(disk->slave_dir, bdev_kobj(bdev));
+ 	if (ret)
+ 		goto out_free;
+ 
+@@ -1259,7 +1259,7 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ 	goto out_unlock;
+ 
+ out_del:
+-	del_symlink(disk->slave_dir, &part_to_dev(bdev->bd_part)->kobj);
++	del_symlink(disk->slave_dir, bdev_kobj(bdev));
+ out_free:
+ 	kfree(holder);
+ out_unlock:
+@@ -1287,7 +1287,7 @@ void bd_unlink_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ 	holder = bd_find_holder_disk(bdev, disk);
+ 
+ 	if (!WARN_ON_ONCE(holder == NULL) && !--holder->refcnt) {
+-		del_symlink(disk->slave_dir, &part_to_dev(bdev->bd_part)->kobj);
++		del_symlink(disk->slave_dir, bdev_kobj(bdev));
+ 		del_symlink(bdev->bd_part->holder_dir,
+ 			    &disk_to_dev(disk)->kobj);
+ 		kobject_put(bdev->bd_part->holder_dir);
+diff --git a/fs/btrfs/sysfs.c b/fs/btrfs/sysfs.c
+index 279d9262b676d4..24b6c6dc69000a 100644
+--- a/fs/btrfs/sysfs.c
++++ b/fs/btrfs/sysfs.c
+@@ -1232,8 +1232,6 @@ int btrfs_sysfs_add_space_info_type(struct btrfs_fs_info *fs_info,
+ 
+ void btrfs_sysfs_remove_device(struct btrfs_device *device)
+ {
+-	struct hd_struct *disk;
+-	struct kobject *disk_kobj;
+ 	struct kobject *devices_kobj;
+ 
+ 	/*
+@@ -1243,11 +1241,8 @@ void btrfs_sysfs_remove_device(struct btrfs_device *device)
+ 	devices_kobj = device->fs_info->fs_devices->devices_kobj;
+ 	ASSERT(devices_kobj);
+ 
+-	if (device->bdev) {
+-		disk = device->bdev->bd_part;
+-		disk_kobj = &part_to_dev(disk)->kobj;
+-		sysfs_remove_link(devices_kobj, disk_kobj->name);
 -	}
-+	if (!cmp.len)
-+		goto clear_root_wait;
++	if (device->bdev)
++		sysfs_remove_link(devices_kobj, bdev_kobj(device->bdev)->name);
  
--	dev = class_find_device(&block_class, NULL, &cmp,
--				&match_dev_by_uuid);
-+	dev = class_find_device(&block_class, NULL, &cmp, &match_dev_by_uuid);
- 	if (!dev)
--		goto done;
+ 	if (device->devid_kobj.state_initialized) {
+ 		kobject_del(&device->devid_kobj);
+@@ -1353,11 +1348,7 @@ int btrfs_sysfs_add_device(struct btrfs_device *device)
+ 	nofs_flag = memalloc_nofs_save();
+ 
+ 	if (device->bdev) {
+-		struct hd_struct *disk;
+-		struct kobject *disk_kobj;
 -
--	res = dev->devt;
-+		return 0;
+-		disk = device->bdev->bd_part;
+-		disk_kobj = &part_to_dev(disk)->kobj;
++		struct kobject *disk_kobj = bdev_kobj(device->bdev);
  
--	/* Attempt to find the partition by offset. */
--	if (!offset)
--		goto no_offset;
-+	if (offset) {
-+		/*
-+		 * Attempt to find the requested partition by adding an offset
-+		 * to the partition number found by UUID.
-+		 */
-+		struct hd_struct *part;
+ 		ret = sysfs_create_link(devices_kobj, disk_kobj, disk_kobj->name);
+ 		if (ret) {
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index ebfb4e7c1fd125..9698f459cc65c9 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -49,6 +49,9 @@ struct block_device {
+ 	struct super_block	*bd_fsfreeze_sb;
+ } __randomize_layout;
  
--	res = 0;
--	disk = part_to_disk(dev_to_part(dev));
--	part = disk_get_part(disk, dev_to_part(dev)->partno + offset);
--	if (part) {
--		res = part_devt(part);
--		put_device(part_to_dev(part));
-+		part = disk_get_part(dev_to_disk(dev),
-+				     dev_to_part(dev)->partno + offset);
-+		if (part) {
-+			devt = part_devt(part);
-+			put_device(part_to_dev(part));
-+		}
-+	} else {
-+		devt = dev->devt;
- 	}
- 
--no_offset:
- 	put_device(dev);
--done:
--	if (clear_root_wait) {
--		pr_err("VFS: PARTUUID= is invalid.\n"
--		       "Expected PARTUUID=<valid-uuid-id>[/PARTNROFF=%%d]\n");
--		if (root_wait)
--			pr_err("Disabling rootwait; root= is invalid.\n");
--		root_wait = 0;
--	}
--	return res;
-+	return devt;
++#define bdev_kobj(_bdev) \
++	(&part_to_dev((_bdev)->bd_part)->kobj)
 +
-+clear_root_wait:
-+	pr_err("VFS: PARTUUID= is invalid.\n"
-+	       "Expected PARTUUID=<valid-uuid-id>[/PARTNROFF=%%d]\n");
-+	if (root_wait)
-+		pr_err("Disabling rootwait; root= is invalid.\n");
-+	root_wait = 0;
-+	return 0;
- }
- 
- /**
+ /*
+  * Block error status values.  See block/blk-core:blk_errors for the details.
+  * Alpha cannot write a byte atomically, so we need to use 32-bit value.
 -- 
 2.29.2
 
