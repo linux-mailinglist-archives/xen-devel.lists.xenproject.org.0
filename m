@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C2202C285B
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:41:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36212.68123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D53992C285F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:41:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36216.68168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYZ2-00065G-Ov; Tue, 24 Nov 2020 13:41:00 +0000
+	id 1khYZ7-0006IK-NR; Tue, 24 Nov 2020 13:41:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36212.68123; Tue, 24 Nov 2020 13:41:00 +0000
+Received: by outflank-mailman (output) from mailman id 36216.68168; Tue, 24 Nov 2020 13:41:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYZ2-00063r-7h; Tue, 24 Nov 2020 13:41:00 +0000
-Received: by outflank-mailman (input) for mailman id 36212;
- Tue, 24 Nov 2020 13:40:58 +0000
+	id 1khYZ7-0006F9-48; Tue, 24 Nov 2020 13:41:05 +0000
+Received: by outflank-mailman (input) for mailman id 36216;
+ Tue, 24 Nov 2020 13:40:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1khYOm-0000Qf-40
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:30:24 +0000
+ id 1khYO8-0000Qf-2s
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:44 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2297f7a2-f7a7-4e4d-a7b9-f9365b3163f3;
- Tue, 24 Nov 2020 13:28:48 +0000 (UTC)
+ id 5dced3d8-43cd-4c46-9b38-9e502cd89644;
+ Tue, 24 Nov 2020 13:28:41 +0000 (UTC)
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1khYMo-0006YR-Rc; Tue, 24 Nov 2020 13:28:23 +0000
+ id 1khYMq-0006Yi-HT; Tue, 24 Nov 2020 13:28:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1khYOm-0000Qf-40
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:30:24 +0000
-X-Inumbo-ID: 2297f7a2-f7a7-4e4d-a7b9-f9365b3163f3
+	id 1khYO8-0000Qf-2s
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:44 +0000
+X-Inumbo-ID: 5dced3d8-43cd-4c46-9b38-9e502cd89644
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 2297f7a2-f7a7-4e4d-a7b9-f9365b3163f3;
-	Tue, 24 Nov 2020 13:28:48 +0000 (UTC)
+	id 5dced3d8-43cd-4c46-9b38-9e502cd89644;
+	Tue, 24 Nov 2020 13:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=X5DUE98moi230PHv1tVgCiHzV+UhCd8lztDnZO9kG5c=; b=X+rA73r6QDOVyee+DSa3rW8b35
-	OeKaTwg4NHeZa8iiOjrhEjDtW7DX4fOMB9c6aebaBDKuxk+IsDdUW0f7EuZlr2Pov3PURxlMx5rSK
-	PBcTmBTO0WyZ7LcgWQ6Xl/0zPJFv0c+ZKh43ZOCIkVopkoFOK48fZGWf8ai+Cj/OoZO3jhvVw5m5Q
-	yaSWPl46Vb8ovXNenLX8KK6YPvBJf1LP9VoLMLET0fF69TiH7hVM4rzUe6WIONjC+Mkq9y1ueE05Y
-	CfQTDXafYdPFj4peFCtKw/0RrMBMz1uLe6nNpgZh858syqReHUhfMsbGLdWOS/inGodpPctzqcSuj
-	FQUx+Tzw==;
+	bh=haCO3X861N4gYeaBWGi7WpA4oycN+6CCoLtCh0jGV0A=; b=UbR0rqfEviC2A8JyLwBgBA5M5p
+	+ivg+qHtDcLcBHMdD64n1DMXXEp3t8ybLC4npUOUn/qYfKCmt7Kr5p/jhadGMMWeJowrUm92nKPQz
+	0DO6dAQGwlEARF+Tq0YvNLL9RIIo2Tuk36m6mPWI9mpe2ZrBZzeuv6v2bnWEH/X0m1YkmNAGXk04j
+	mo6XzNihgFi5lQUd3e3kT5gVdg8KsVapZp96LnJ5YCrBSloPSlJds/FevxYe3saLdUdlnf8vi4Ktr
+	Ea1Au77+mqNyRWCMV4E1ZfyFZIEedVVP76a4K3XW3ZfINq8T12WQoSwsrZLF2tfsp147TOxDzEcif
+	V/8iGe5Q==;
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYMo-0006YR-Rc; Tue, 24 Nov 2020 13:28:23 +0000
+	id 1khYMq-0006Yi-HT; Tue, 24 Nov 2020 13:28:25 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Tejun Heo <tj@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Tejun Heo <tj@kernel.org>,
 	linux-mtd@lists.infradead.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 19/45] init: cleanup match_dev_by_uuid and match_dev_by_label
-Date: Tue, 24 Nov 2020 14:27:25 +0100
-Message-Id: <20201124132751.3747337-20-hch@lst.de>
+Subject: [PATCH 20/45] block: refactor __blkdev_put
+Date: Tue, 24 Nov 2020 14:27:26 +0100
+Message-Id: <20201124132751.3747337-21-hch@lst.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201124132751.3747337-1-hch@lst.de>
 References: <20201124132751.3747337-1-hch@lst.de>
@@ -90,54 +90,50 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Avoid a totally pointless goto label, and use the same style of
-comparism for both helpers.
+Reorder the code to have one big section for the last close, and to use
+bdev_is_partition.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 ---
- init/do_mounts.c | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+ fs/block_dev.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/init/do_mounts.c b/init/do_mounts.c
-index afa26a4028d25e..5879edf083b318 100644
---- a/init/do_mounts.c
-+++ b/init/do_mounts.c
-@@ -79,15 +79,10 @@ static int match_dev_by_uuid(struct device *dev, const void *data)
- 	const struct uuidcmp *cmp = data;
- 	struct hd_struct *part = dev_to_part(dev);
- 
--	if (!part->info)
--		goto no_match;
+diff --git a/fs/block_dev.c b/fs/block_dev.c
+index 437f67e12b2838..88847839ef0102 100644
+--- a/fs/block_dev.c
++++ b/fs/block_dev.c
+@@ -1738,22 +1738,22 @@ static void __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part)
+ 		WARN_ON_ONCE(bdev->bd_holders);
+ 		sync_blockdev(bdev);
+ 		kill_bdev(bdev);
 -
--	if (strncasecmp(cmp->uuid, part->info->uuid, cmp->len))
--		goto no_match;
--
-+	if (!part->info ||
-+	    strncasecmp(cmp->uuid, part->info->uuid, cmp->len))
-+		return 0;
- 	return 1;
--no_match:
--	return 0;
- }
+ 		bdev_write_inode(bdev);
+-	}
+-	if (bdev->bd_contains == bdev) {
+-		if (disk->fops->release)
++
++		if (!bdev_is_partition(bdev) && disk->fops->release)
+ 			disk->fops->release(disk, mode);
+-	}
+-	if (!bdev->bd_openers) {
++
+ 		disk_put_part(bdev->bd_part);
+ 		bdev->bd_part = NULL;
+ 		bdev->bd_disk = NULL;
+-		if (bdev != bdev->bd_contains)
++		if (bdev_is_partition(bdev))
+ 			victim = bdev->bd_contains;
+ 		bdev->bd_contains = NULL;
  
- /**
-@@ -174,10 +169,9 @@ static int match_dev_by_label(struct device *dev, const void *data)
- 	const char *label = data;
- 	struct hd_struct *part = dev_to_part(dev);
- 
--	if (part->info && !strcmp(label, part->info->volname))
--		return 1;
--
--	return 0;
-+	if (!part->info || strcmp(label, part->info->volname))
-+		return 0;
-+	return 1;
- }
- 
- static dev_t devt_from_partlabel(const char *label)
+ 		put_disk_and_module(disk);
++	} else {
++		if (!bdev_is_partition(bdev) && disk->fops->release)
++			disk->fops->release(disk, mode);
+ 	}
+ 	mutex_unlock(&bdev->bd_mutex);
+ 	bdput(bdev);
 -- 
 2.29.2
 
