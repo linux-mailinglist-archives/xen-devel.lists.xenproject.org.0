@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63BCA2C2216
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 10:51:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35645.67288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC3C2C2219
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 10:52:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35659.67300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khUyb-0003u7-Mp; Tue, 24 Nov 2020 09:51:09 +0000
+	id 1khUzm-00042r-2N; Tue, 24 Nov 2020 09:52:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35645.67288; Tue, 24 Nov 2020 09:51:09 +0000
+Received: by outflank-mailman (output) from mailman id 35659.67300; Tue, 24 Nov 2020 09:52:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,77 +23,78 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khUyb-0003ti-Iy; Tue, 24 Nov 2020 09:51:09 +0000
-Received: by outflank-mailman (input) for mailman id 35645;
- Tue, 24 Nov 2020 09:51:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1khUzl-00042R-UF; Tue, 24 Nov 2020 09:52:21 +0000
+Received: by outflank-mailman (input) for mailman id 35659;
+ Tue, 24 Nov 2020 09:52:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lBCh=E6=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1khUya-0003tY-2Y
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 09:51:08 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
- [40.107.6.47]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0b4334fb-e58e-4aea-be68-ab876c462f93;
- Tue, 24 Nov 2020 09:51:06 +0000 (UTC)
-Received: from AM5PR0601CA0081.eurprd06.prod.outlook.com (2603:10a6:206::46)
- by VI1PR08MB3967.eurprd08.prod.outlook.com (2603:10a6:803:df::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20; Tue, 24 Nov
- 2020 09:51:04 +0000
-Received: from AM5EUR03FT006.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:206:0:cafe::31) by AM5PR0601CA0081.outlook.office365.com
- (2603:10a6:206::46) with Microsoft SMTP Server (version=TLS1_2,
+ id 1khUzk-00042K-9H
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 09:52:20 +0000
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.1.55]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ce8ca9d7-6457-47b1-8dcc-c3eecf4b5176;
+ Tue, 24 Nov 2020 09:52:19 +0000 (UTC)
+Received: from AM5PR0201CA0001.eurprd02.prod.outlook.com
+ (2603:10a6:203:3d::11) by AM0PR08MB3634.eurprd08.prod.outlook.com
+ (2603:10a6:208:d6::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.24; Tue, 24 Nov
+ 2020 09:52:16 +0000
+Received: from AM5EUR03FT004.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:3d:cafe::d2) by AM5PR0201CA0001.outlook.office365.com
+ (2603:10a6:203:3d::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20 via Frontend
- Transport; Tue, 24 Nov 2020 09:51:04 +0000
+ Transport; Tue, 24 Nov 2020 09:52:16 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT006.mail.protection.outlook.com (10.152.16.122) with
+ AM5EUR03FT004.mail.protection.outlook.com (10.152.16.163) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3589.20 via Frontend Transport; Tue, 24 Nov 2020 09:51:03 +0000
-Received: ("Tessian outbound 39167997cde8:v71");
- Tue, 24 Nov 2020 09:51:02 +0000
-Received: from 8599586636a8.1
+ 15.20.3589.20 via Frontend Transport; Tue, 24 Nov 2020 09:52:16 +0000
+Received: ("Tessian outbound 082214a64d39:v71");
+ Tue, 24 Nov 2020 09:52:16 +0000
+Received: from 2e9b45130cab.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 81FA1A10-8465-4940-B127-D87B4CE47541.1; 
- Tue, 24 Nov 2020 09:50:56 +0000
+ 1C56E1D7-2A1C-44AA-B574-C98B8747D074.1; 
+ Tue, 24 Nov 2020 09:52:10 +0000
 Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 8599586636a8.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2e9b45130cab.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 24 Nov 2020 09:50:56 +0000
+ Tue, 24 Nov 2020 09:52:10 +0000
 Received: from DB7PR08MB3500.eurprd08.prod.outlook.com (2603:10a6:10:49::10)
  by DB6PR0802MB2375.eurprd08.prod.outlook.com (2603:10a6:4:87::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.28; Tue, 24 Nov
- 2020 09:50:55 +0000
+ 2020 09:52:08 +0000
 Received: from DB7PR08MB3500.eurprd08.prod.outlook.com
  ([fe80::21f3:34c:8f7e:42ef]) by DB7PR08MB3500.eurprd08.prod.outlook.com
  ([fe80::21f3:34c:8f7e:42ef%2]) with mapi id 15.20.3589.030; Tue, 24 Nov 2020
- 09:50:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ 09:52:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=lBCh=E6=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
-	id 1khUya-0003tY-2Y
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 09:51:08 +0000
-X-Inumbo-ID: 0b4334fb-e58e-4aea-be68-ab876c462f93
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown [40.107.6.47])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0b4334fb-e58e-4aea-be68-ab876c462f93;
-	Tue, 24 Nov 2020 09:51:06 +0000 (UTC)
+	id 1khUzk-00042K-9H
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 09:52:20 +0000
+X-Inumbo-ID: ce8ca9d7-6457-47b1-8dcc-c3eecf4b5176
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com (unknown [40.107.1.55])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id ce8ca9d7-6457-47b1-8dcc-c3eecf4b5176;
+	Tue, 24 Nov 2020 09:52:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GZFaB2/bXfxcggfsHvRMUSk/hZxdtuFFLn0thbD2pBk=;
- b=vvLKxIK0iNUCHBTdD4fWBxRz6XISTLFeW5obdDIBySQSbETaS2/jvbP5RxujV5QdcDe33T+bEEsb9QpkzC7v4vyLP1daZiksdhqDr8iXWLezJRW6Ec45RuCa2UdM0K1BSLEl9qWW+rzH3oCufayyr7FjT12j4GpmoMuqTGWgTQc=
-Received: from AM5PR0601CA0081.eurprd06.prod.outlook.com (2603:10a6:206::46)
- by VI1PR08MB3967.eurprd08.prod.outlook.com (2603:10a6:803:df::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20; Tue, 24 Nov
- 2020 09:51:04 +0000
-Received: from AM5EUR03FT006.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:206:0:cafe::31) by AM5PR0601CA0081.outlook.office365.com
- (2603:10a6:206::46) with Microsoft SMTP Server (version=TLS1_2,
+ bh=OYMspa/OlGi/l4ukMEcDAxi0KoqVji6ybi+Ak4X8Tuo=;
+ b=zzSyWNRgSBMWAbJFNwvb0Qj8o+1l/vx6LFtPE1ml44rFfBb5H5T7pvOP9Sa2Xc8gknlRhZnORW2osJxvx47tJHhXDm1tYrslDmcO9a4LIcgjDJObA2dy9LnCJozMQAGHulN/r1e3u65gjhj+tMO3d/mtQiUMQHGD8ItNMOsaHw0=
+Received: from AM5PR0201CA0001.eurprd02.prod.outlook.com
+ (2603:10a6:203:3d::11) by AM0PR08MB3634.eurprd08.prod.outlook.com
+ (2603:10a6:208:d6::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.24; Tue, 24 Nov
+ 2020 09:52:16 +0000
+Received: from AM5EUR03FT004.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:3d:cafe::d2) by AM5PR0201CA0001.outlook.office365.com
+ (2603:10a6:203:3d::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20 via Frontend
- Transport; Tue, 24 Nov 2020 09:51:04 +0000
+ Transport; Tue, 24 Nov 2020 09:52:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -102,61 +103,59 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT006.mail.protection.outlook.com (10.152.16.122) with Microsoft SMTP
+ AM5EUR03FT004.mail.protection.outlook.com (10.152.16.163) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3589.20 via Frontend Transport; Tue, 24 Nov 2020 09:51:03 +0000
-Received: ("Tessian outbound 39167997cde8:v71"); Tue, 24 Nov 2020 09:51:02 +0000
+ 15.20.3589.20 via Frontend Transport; Tue, 24 Nov 2020 09:52:16 +0000
+Received: ("Tessian outbound 082214a64d39:v71"); Tue, 24 Nov 2020 09:52:16 +0000
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 935a50edbdcfc374
+X-CR-MTA-CID: f21d1071c5ff9716
 X-CR-MTA-TID: 64aa7808
-Received: from 8599586636a8.1
-	by 64aa7808-outbound-1.mta.getcheckrecipient.com id 81FA1A10-8465-4940-B127-D87B4CE47541.1;
-	Tue, 24 Nov 2020 09:50:56 +0000
+Received: from 2e9b45130cab.1
+	by 64aa7808-outbound-1.mta.getcheckrecipient.com id 1C56E1D7-2A1C-44AA-B574-C98B8747D074.1;
+	Tue, 24 Nov 2020 09:52:10 +0000
 Received: from EUR01-DB5-obe.outbound.protection.outlook.com
-    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 8599586636a8.1
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2e9b45130cab.1
     (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
-    Tue, 24 Nov 2020 09:50:56 +0000
+    Tue, 24 Nov 2020 09:52:10 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JYHx4qkIBnYHL76NY0JpGVqi0juEQ1kmsHyWcYZeuJG234fbe+dqZmaITRs9eKtOJIY8fBTxirBQgkX/+c3BvPL0GiDKMKwczJqPAXNn+DAOELarTR/pqBwEqzWC/6CHljLj/1N3sYrUXhgwvD9hRJ99TisGtM1JOVfi0aKhAWmcL4pMQ2vKgAeZz8DbcLQP1wfRjuQrnEhMP2o0+v8tr5k4uDpbs4oUE91nTyfTnPF9nNdujuIly2lJmWNeuRQT7eZ7vZIrJc5mHjDvFmLHGOSY+BaJRf3Q70LbVTFAzxRDtO0AB3c1VSfWC40PlwH2ZmFwEOKy/0kruSzV0lcxjg==
+ b=SJEzzh+CIlMUSUZRVM1pjRBp5aEvBjMBBHnsnnSoIGhyTfNdJJ/vi2caJn0nypzV9eA771ZWyi72jfjL3H19I1okiVfjqj9uhXviNn2xravYPDN2CGxS7S/k7atpp6CjrpbJL/MwHB8xyKmv1bYpsjbkXh+NJGstJBP5sHT/GZJoR8pg/PM28vwJkwMbt1K8U43RNXyGupjIgbC2ohd4afQg/6w6BLAc/6t2pZfuLtjKsIdjrymPD0YG2goqslEAIIohx0QGiWffRhIF0zrENQy1xNvyzFuea/fwPaoc4kun8RDgyolZbF3F/zemoPnxU7D7MPyxflEEqOF0hj299w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GZFaB2/bXfxcggfsHvRMUSk/hZxdtuFFLn0thbD2pBk=;
- b=nkL6l/5nnNzqo6nbGJu4lBlwXbadKWXCLDNpe2Bo2fGfDX0bQy4puQbFKMOraiqbMZ+r+OCT4xobfr1J6cDCkWywsQ5uVCyEk9yN4r9yRIAnM1XSc5DFxop9ZnwoyztT9wlTmFgT3uRaskC2oHYzInxUKNGwe+ALoZcwl1pzyQuIJ5l5YMAgnox9HLw92LAlzlpYrphPuQ6CCSyF/pi+2dECIpdhvWNPCjgiqlL6vObDDgEAomnxixrStwe67NDQMVTpfx0GkkJzat6oW7fDJ3qMfxsLsM4jEq13JgDmgYaqQTzRDcGTwYSdalv8ZDj7X7xIjVioSmRpt/NKVOhspA==
+ bh=OYMspa/OlGi/l4ukMEcDAxi0KoqVji6ybi+Ak4X8Tuo=;
+ b=MwXHtgIzhxsOjUZt1FQ4NQAUR+a9vFyNLA8fa2pS2vdurL0ZBSxqgJJmk6KiZt1pLCDGgs+98uuKBvjjk/euKOvfshaOdCV2pR+cd4hXJ6NbFQ+5JUiqfqdnOj9BRjxOP/mXwra3kyr3p0hVV+wOnPndz7+Fradt9NtpSQjwuGw2HpG/FVJOSvnTKvwR9xL/KU3E9bSOEtUqhvnX5KRFfdIaUvt4zRwg2Lz0Byw4DQ0xN1lb111na9U965h3+sgH7oLN0hquid9zMnhPBCKcq3ITgz4XKQ8ZC1XD+3NydgXCV/rfHPoco1SJgRI4B4VSMX9/2zSVKnlXknh51PCgpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GZFaB2/bXfxcggfsHvRMUSk/hZxdtuFFLn0thbD2pBk=;
- b=vvLKxIK0iNUCHBTdD4fWBxRz6XISTLFeW5obdDIBySQSbETaS2/jvbP5RxujV5QdcDe33T+bEEsb9QpkzC7v4vyLP1daZiksdhqDr8iXWLezJRW6Ec45RuCa2UdM0K1BSLEl9qWW+rzH3oCufayyr7FjT12j4GpmoMuqTGWgTQc=
+ bh=OYMspa/OlGi/l4ukMEcDAxi0KoqVji6ybi+Ak4X8Tuo=;
+ b=zzSyWNRgSBMWAbJFNwvb0Qj8o+1l/vx6LFtPE1ml44rFfBb5H5T7pvOP9Sa2Xc8gknlRhZnORW2osJxvx47tJHhXDm1tYrslDmcO9a4LIcgjDJObA2dy9LnCJozMQAGHulN/r1e3u65gjhj+tMO3d/mtQiUMQHGD8ItNMOsaHw0=
 Received: from DB7PR08MB3500.eurprd08.prod.outlook.com (2603:10a6:10:49::10)
  by DB6PR0802MB2375.eurprd08.prod.outlook.com (2603:10a6:4:87::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3564.28; Tue, 24 Nov
- 2020 09:50:55 +0000
+ 2020 09:52:08 +0000
 Received: from DB7PR08MB3500.eurprd08.prod.outlook.com
  ([fe80::21f3:34c:8f7e:42ef]) by DB7PR08MB3500.eurprd08.prod.outlook.com
  ([fe80::21f3:34c:8f7e:42ef%2]) with mapi id 15.20.3589.030; Tue, 24 Nov 2020
- 09:50:55 +0000
+ 09:52:08 +0000
 From: Rahul Singh <Rahul.Singh@arm.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
 CC: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
 	<xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
 	Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2 2/3] ns16550: "com<N>=" command line options are
- x86-specific
-Thread-Topic: [PATCH v2 2/3] ns16550: "com<N>=" command line options are
- x86-specific
-Thread-Index: AQHWwZqpPJPxxO+xfkyOkLGUgNSyN6nWaXmAgACh7IA=
-Date: Tue, 24 Nov 2020 09:50:55 +0000
-Message-ID: <1709861D-749B-4FAE-8948-28F6C6904DBB@arm.com>
+Subject: Re: [PATCH v2 3/3] ns16550: drop stray "#ifdef CONFIG_HAS_PCI"
+Thread-Topic: [PATCH v2 3/3] ns16550: drop stray "#ifdef CONFIG_HAS_PCI"
+Thread-Index: AQHWwZq/qJpu10nDFkuzrG8rOtqGVanWaYOAgACiOQA=
+Date: Tue, 24 Nov 2020 09:52:08 +0000
+Message-ID: <C88DD0E4-47DC-4D20-8FA9-6ED4502EE47F@arm.com>
 References: <96115b2b-c104-e566-2368-6a2439d2c988@suse.com>
- <bfa07fc2-9151-402f-3b73-dedf8280cb66@suse.com>
- <alpine.DEB.2.21.2011231608120.7979@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2011231608120.7979@sstabellini-ThinkPad-T480s>
+ <c5cf7b83-9948-dd87-dfe0-40d36df0db70@suse.com>
+ <alpine.DEB.2.21.2011231610110.7979@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2011231610110.7979@sstabellini-ThinkPad-T480s>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -166,41 +165,41 @@ Authentication-Results-Original: kernel.org; dkim=none (message not signed)
 x-originating-ip: [80.1.41.211]
 x-ms-publictraffictype: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 8aad7919-352c-43d7-b47a-08d8905e751a
-x-ms-traffictypediagnostic: DB6PR0802MB2375:|VI1PR08MB3967:
+X-MS-Office365-Filtering-Correlation-Id: 9b6fc64e-54e6-43c2-2c1c-08d8905ea05b
+x-ms-traffictypediagnostic: DB6PR0802MB2375:|AM0PR08MB3634:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR08MB39675C70F26B812B7F949D12FCFB0@VI1PR08MB3967.eurprd08.prod.outlook.com>
+	<AM0PR08MB3634035A874821DA25C49135FCFB0@AM0PR08MB3634.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:8273;OLM:8273;
+x-ms-oob-tlc-oobclassifiers: OLM:2803;OLM:2803;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- LMSKoj8hqN1ED7h3zTj0VaR+VuczigffeZKHIcUyelUEQ2Hdd7+K9abCQPB8Yajc6MobAox8lwUDyczcNUPkFCGH36ieZinSPNYBqYYtgw8Xr7iT0WkD7rQIA762hq6QTiyHst1w49WgEG0YTp+1zxabS43X7gAD1oGQ2WUxdpPcMpzBKUJ+uVPibhrhU8VNaVdWPl75uaaYvw0IqaYP5CjtBlH4fHSjQHKiE4HuyAwqLi838a6IXSn1ADpf7HrCGGdbdWGBrbT0Cf2Gozd+pqIvsHeFTnvrRA325qThKJVO3LtD+ZGcEf5QRrasscBqte0RSHVfK+RIW6eXlWpW4A==
+ vZGBll6CZn2t8rXzlXU0iwhOuqM0Z1cwW2WJIumoVEtbgAqmS5QtwKNAnYLVJNwfKvfKJ3fC2fjvkTLUVi16v7m84nPOXyVTX1jhsDfN2xCUYF9SdnEue/LnbTkC5aCsSupOQg8HmXnEIhQVE4Mg/AgkRjqykSoI7ROC9ayRg9x17uQO/UPCPabp84mwqOQHRjy2Nia9PDXsl874Au6VmnFueWukyCdm+ruelICIoFIGc/KtivrrypwBvQATkLry73r8/uV59H64/RSLZTJHxD6U0E0HAyoB1q8fTobKJ6AZOyn9LQBwVP+WVyJWcile2M0tpsc1Y+3mCxXqoIbcHQ==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3500.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(366004)(136003)(346002)(39860400002)(376002)(71200400001)(83380400001)(4326008)(26005)(33656002)(6506007)(53546011)(186003)(6486002)(36756003)(5660300002)(2906002)(8676002)(6916009)(6512007)(8936002)(76116006)(2616005)(66446008)(66476007)(54906003)(316002)(86362001)(91956017)(66556008)(66946007)(478600001)(64756008);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3500.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(366004)(136003)(346002)(39860400002)(376002)(71200400001)(4326008)(26005)(33656002)(6506007)(53546011)(186003)(6486002)(36756003)(5660300002)(2906002)(8676002)(6916009)(6512007)(8936002)(76116006)(2616005)(66446008)(4744005)(66476007)(54906003)(316002)(86362001)(91956017)(66556008)(66946007)(478600001)(64756008);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?gyF4I/Iji2ej5HnqcgCoFOdpQEwUDupj8KGBEYrXHgogqZZVufwGWImvS61D?=
- =?us-ascii?Q?gytFMSNJCtxpsKxdnCcHifVeT8VQvB7vibB4EmfGMvckhdLWf4YJgH3jmpFA?=
- =?us-ascii?Q?rc5yD/3Gr3sXftPSYlbbMjLC0qf96raPHaeDBj0bB7Fj1i4zZHl3BZagLSbg?=
- =?us-ascii?Q?HjLs2KFzgm4Wym8U/owDKKC0bd+oFjZfD3zgdwGMUr4PbA5VNRB/lmtV7eZp?=
- =?us-ascii?Q?Y+jKdgy1ivWFMncql2SNIrxv8b/ecSatp2XjsIF8CppCXKMZCoegAAHIqyai?=
- =?us-ascii?Q?7RQ5XX8u+HQ3L5sE91CvNbPM1W4NNdKpEmIO4ftpB6+jJ6ZAasXyqTR4+4Go?=
- =?us-ascii?Q?i6xze5FO8Eb8nt437I3B3DBm6BD56982fde8+DLhVVLVcIC8tXgrtaJGY3aT?=
- =?us-ascii?Q?VWjVdxHGW76mnlsPnk/Ewcp6Did9/kBNJjtQCSEP/jIv814LcdFwuohM6gUv?=
- =?us-ascii?Q?ghYltoZYxdUeWAwo6go0QTGZgQu7eFzuYUBRAuerRZqYhwADM2CF1/qLR0AV?=
- =?us-ascii?Q?/aE7e6Ig0FIdRmPJNrxkxl34XIJBSCjvtOEvxcl6XaE4O4vdFOLpLmUY9dAM?=
- =?us-ascii?Q?FEA/63FOg0zQZIMg5nMQwv73Nek01dL7MK+enYry2bgCvxrqvzzde+oY2chP?=
- =?us-ascii?Q?vEVJ6C9UX+qKDJ5M7BzomkK5ezg3KQTD2/AiLIh9lC2lpRS2Ez8bXT1O32b9?=
- =?us-ascii?Q?OsYa4sj+JBq9mqALAr9Hh/aU7c9Airx2CVv5YeYORt7PuN5NxlUsGDzaGoEj?=
- =?us-ascii?Q?OtwaXh226u6qn0AmT6G457CywcHkzqDCPWBPN7chNOXnB8WSoRxTdfr61/9X?=
- =?us-ascii?Q?ZrEmsPsbcMl2JD2VIzppIz6y0DN4noqmHyf1p2xVrzY8oUHx5CTE94uNyQh6?=
- =?us-ascii?Q?RXlBKIvmyaK5GIGZb7YuZ1aj5swKBkGUBfGpHJV9RYIocY/qVwWAog83+Sly?=
- =?us-ascii?Q?7aS1Bky8VRF3YAsqICseAD/RZPwZQQ8PdstS0i4QeIkdDd9of5jS8eg/PebB?=
- =?us-ascii?Q?MRuI?=
+ =?us-ascii?Q?iPGa9WmDQBupjgHWza5Fh+DIBuDEpaaMGerjV+MMR/yV5HltVYkp5Y0lA5Jy?=
+ =?us-ascii?Q?AMNS924ZwUi6smnb8QQS5FSoJboyTwKTxOUXEIWPhARUH9FQ0s0iob76rCu3?=
+ =?us-ascii?Q?XO4o2qsXkQi1uMfRz3g588YWecg3A477f1J1hpyLjQUHfVeXA8e3YDLopbCJ?=
+ =?us-ascii?Q?Kn8iKtif84ztuRgXRUm/b91HQBWQC4aoElutES4evRbfZX0e9lU08rAUbTL5?=
+ =?us-ascii?Q?KlljvZPW5Ds3ScUvIW/2xX35VicKToP9NXT6jOp2JJMPcOgbG/g85iQVlCsG?=
+ =?us-ascii?Q?AH8tVb5m0ITlVh7SIRaclq+tREo+bd3KEliRYqGh21W5661SKSI4Vt+ZwvWb?=
+ =?us-ascii?Q?d3GBo6bI2r/+bPt10Z5HjXHkOo17WnjtQc50eC1NmnskAQP+plLu5aX9JyqD?=
+ =?us-ascii?Q?odQgSmjRyXUIzwoNeR+iVyhUAIlcRD7dT+v9RM0ar++NCQiHEjZfxPm6MGrJ?=
+ =?us-ascii?Q?w0Y0u7I6uBgcuSjaIDDFw8BL0tTP8BoNqjsSZXBcsjf5E3m9977lH9ebPS/I?=
+ =?us-ascii?Q?5yyvv2ecFHI/ues185qh1I3cgtT2op7FgwIJEo0bQ/PYGqS5i66HlxDp+RG5?=
+ =?us-ascii?Q?Q/Q4l/g6tn3Y8FBCA9TQ6XAuR/HY8slKkil9DyvNIwnz7gI/c7yNiVwR0sMP?=
+ =?us-ascii?Q?v2fLbKcrMdQPkhP9KaJuGjCZAJT1JD/GXgZa0IPghZBP6icVgCEw8XS3nd6I?=
+ =?us-ascii?Q?GEjTdoIDmzQErBC5C0TaZtWkV2xQD/5htomepP2weOplLltdJl598w+UnG+4?=
+ =?us-ascii?Q?8XASp45ipXyVgISkBeCZiR5vAZMqcUZtgw6kOk5DbTdsoxF1BCONf1tgwuGo?=
+ =?us-ascii?Q?5Hho1Ovzc2/zCqVMC+1eMAiuJaP7nUr4jKhj0nNQvBcs6b1MXgz3LGLI1pjJ?=
+ =?us-ascii?Q?GqAYf1T5x0D2RgPxgwVTKeF33M/dCQIHIXX1Gt1JpXvGlQcQz7mSSAYJMN8e?=
+ =?us-ascii?Q?824BhENi1sDLscNSQPa5KAfSBg2KddiOj7l32PUcn1ON9/wmzIxcYxyvk3eW?=
+ =?us-ascii?Q?Lojk?=
 x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <8D8478678CCDA14FBB65E9FC69B5ADE5@eurprd08.prod.outlook.com>
+Content-ID: <06EB38CAE8B60B4494E4BF309FBCC8BE@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0802MB2375
@@ -208,265 +207,58 @@ Original-Authentication-Results: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT006.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT004.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	4e1486b2-2be3-4879-a4fc-08d8905e7042
+	3a50a609-a3fd-48c8-42bf-08d8905e9bad
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ImoTfeLaQXykiIaA4cdRwfy86qsVOEHrQDJcSEWWyO/dQE0k41shxKGsPDOzBluPSZVZcN08DjV9kS10LAyKokBpvw9T7uN1eic9J7KZCQwWsz5Te1kDVoY+STpX0272zLYu7q8qYTI82KWaMyLIHVuue/xHRw0BBLlTyoJUAValkNq3L713aLrYwkPpP/R5Cs/aopUL+i9qmINIrAIOQIvTxey1LDB59LQ78uT8toSg128bmKAXpSo7Hz4Mb1ANWVHfUGwWxWkfeP2LLUPa6n8cF5Z0w5KWCzOl2Bv2dnt4TG6Zde/7JZXpfJBtLbYuKIo9SG1AmEV+4EUnLg7f7xJL3C8+xb21SqERGV00PfsoGE9CBz1j5wkMohdgT+AT/XKFRH8WWRAdf5UEE0X5lg==
+	UzclhXNX2O+GVA7/PTX0bknlr1qn4hUzHK0q+wuKXcxORkq2G7k/QfDXUXuaFsI4xAHBJdbJRjCVFoPhMJ1VVwy9RcuME90fU9es3wxLdIzEWQyyIkpkVlZKUHS+3kY1pqS9tWe5K6bu9WwpTyfzmK9q3U1YqIbDFK5YCYn8/xFzAv2HV1LyQQHsX+QYkS2bTJTWRjQbMuXOau374BduQiCv4yzP4d0C6XMHcwzGf7j53Vz5+8GNv30zrmwxHWNvU6zsTky31RuN5QZuHruUxnjwgVPtOiJHJEbu8plWgxq7BkWg0gSGry1/DTovv+QJTmouhK10ue2Os+7XNhNq30EQPt/PM9WeZpymQUcLsEOnsgnyXhahYCjFBffdN5f6zjeMu17yTNttJYPSqjUhnQ==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(346002)(39860400002)(376002)(136003)(46966005)(82310400003)(70206006)(83380400001)(186003)(70586007)(47076004)(82740400003)(356005)(54906003)(4326008)(316002)(81166007)(6862004)(36906005)(2906002)(33656002)(36756003)(86362001)(53546011)(6506007)(336012)(8676002)(6512007)(478600001)(8936002)(6486002)(26005)(5660300002)(2616005);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(376002)(136003)(39860400002)(396003)(346002)(46966005)(478600001)(2616005)(2906002)(6862004)(5660300002)(4744005)(86362001)(82310400003)(33656002)(70586007)(70206006)(82740400003)(36906005)(47076004)(6512007)(356005)(336012)(36756003)(6506007)(54906003)(26005)(4326008)(81166007)(186003)(8676002)(8936002)(53546011)(316002)(6486002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2020 09:51:03.8305
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2020 09:52:16.3850
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8aad7919-352c-43d7-b47a-08d8905e751a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b6fc64e-54e6-43c2-2c1c-08d8905ea05b
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT006.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT004.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3967
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB3634
 
-Hello Jan,
+Hello ,
 
 > On 24 Nov 2020, at 12:11 am, Stefano Stabellini <sstabellini@kernel.org> =
 wrote:
 >=20
 > On Mon, 23 Nov 2020, Jan Beulich wrote:
->> Pure code motion (plus the addition of "#ifdef CONFIG_X86); no
->> functional change intended.
+>> There's no point wrapping the function invocation when
+>> - the function body is already suitably wrapped,
+>> - the function itself is unconditionally available.
 >>=20
 >> Reported-by: Julien Grall <julien@xen.org>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >=20
-> Great cleanup
->=20
 > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
+>=20
 Reviewed-by: Rahul Singh <rahul.singh@arm.com>
-
-Regards,
-Rahul
 >=20
->=20
->> ---
->> v2: Re-base over new earlier patch.
->>=20
->> --- a/docs/misc/xen-command-line.pandoc
->> +++ b/docs/misc/xen-command-line.pandoc
->> @@ -318,8 +318,8 @@ Interrupts.  Specifying zero disables CM
->> Flag to indicate whether to probe for a CMOS Real Time Clock irrespectiv=
-e of
->> ACPI indicating none to be there.
->>=20
->> -### com1
->> -### com2
->> +### com1 (x86)
->> +### com2 (x86)
->>> `=3D <baud>[/<base-baud>][,[DPS][,[<io-base>|pci|amt][,[<irq>|msi][,[<p=
-ort-bdf>][,[<bridge-bdf>]]]]]]`
->>=20
->> Both option `com1` and `com2` follow the same format.
 >> --- a/xen/drivers/char/ns16550.c
 >> +++ b/xen/drivers/char/ns16550.c
->> @@ -31,38 +31,6 @@
->> #include <asm/fixmap.h>
+>> @@ -662,9 +662,7 @@ static int __init check_existence(struct
+>>     return 1; /* Everything is MMIO */
 >> #endif
 >>=20
->> -/*
->> - * Configure serial port with a string:
->> - *   <baud>[/<base_baud>][,DPS[,<io-base>[,<irq>[,<port-bdf>[,<bridge-b=
-df>]]]]].
->> - * The tail of the string can be omitted if platform defaults are suffi=
-cient.
->> - * If the baud rate is pre-configured, perhaps by a bootloader, then 'a=
-uto'
->> - * can be specified in place of a numeric baud rate. Polled mode is spe=
-cified
->> - * by requesting irq 0.
->> - */
->> -static char __initdata opt_com1[128] =3D "";
->> -static char __initdata opt_com2[128] =3D "";
->> -string_param("com1", opt_com1);
->> -string_param("com2", opt_com2);
->> -
->> -enum serial_param_type {
->> -    baud,
->> -    clock_hz,
->> -    data_bits,
->> -    io_base,
->> -    irq,
->> -    parity,
->> -    reg_shift,
->> -    reg_width,
->> -    stop_bits,
 >> -#ifdef CONFIG_HAS_PCI
->> -    bridge_bdf,
->> -    device,
->> -    port_bdf,
+>>     pci_serial_early_init(uart);
 >> -#endif
->> -    /* List all parameters before this line. */
->> -    num_serial_params
->> -};
->> -
->> static struct ns16550 {
->>     int baud, clock_hz, data_bits, parity, stop_bits, fifo_size, irq;
->>     u64 io_base;   /* I/O port or memory-mapped I/O address. */
->> @@ -98,32 +66,6 @@ static struct ns16550 {
->> #endif
->> } ns16550_com[2] =3D { { 0 } };
 >>=20
->> -struct serial_param_var {
->> -    char name[12];
->> -    enum serial_param_type type;
->> -};
->> -
->> -/*
->> - * Enum struct keeping a table of all accepted parameter names for pars=
-ing
->> - * com_console_options for serial port com1 and com2.
->> - */
->> -static const struct serial_param_var __initconst sp_vars[] =3D {
->> -    {"baud", baud},
->> -    {"clock-hz", clock_hz},
->> -    {"data-bits", data_bits},
->> -    {"io-base", io_base},
->> -    {"irq", irq},
->> -    {"parity", parity},
->> -    {"reg-shift", reg_shift},
->> -    {"reg-width", reg_width},
->> -    {"stop-bits", stop_bits},
->> -#ifdef CONFIG_HAS_PCI
->> -    {"bridge", bridge_bdf},
->> -    {"dev", device},
->> -    {"port", port_bdf},
->> -#endif
->> -};
->> -
->> #ifdef CONFIG_HAS_PCI
->> struct ns16550_config {
->>     u16 vendor_id;
->> @@ -674,6 +616,19 @@ static struct uart_driver __read_mostly
->> #endif
->> };
->>=20
->> +static void ns16550_init_common(struct ns16550 *uart)
->> +{
->> +    uart->clock_hz  =3D UART_CLOCK_HZ;
->> +
->> +    /* Default is no transmit FIFO. */
->> +    uart->fifo_size =3D 1;
->> +
->> +    /* Default lsr_mask =3D UART_LSR_THRE */
->> +    uart->lsr_mask  =3D UART_LSR_THRE;
->> +}
->> +
->> +#ifdef CONFIG_X86
->> +
->> static int __init parse_parity_char(int c)
->> {
->>     switch ( c )
->> @@ -1217,6 +1172,64 @@ pci_uart_config(struct ns16550 *uart, bo
->> #endif /* CONFIG_HAS_PCI */
->>=20
->> /*
->> + * Configure serial port with a string:
->> + *   <baud>[/<base_baud>][,DPS[,<io-base>[,<irq>[,<port-bdf>[,<bridge-b=
-df>]]]]].
->> + * The tail of the string can be omitted if platform defaults are suffi=
-cient.
->> + * If the baud rate is pre-configured, perhaps by a bootloader, then 'a=
-uto'
->> + * can be specified in place of a numeric baud rate. Polled mode is spe=
-cified
->> + * by requesting irq 0.
->> + */
->> +static char __initdata opt_com1[128] =3D "";
->> +static char __initdata opt_com2[128] =3D "";
->> +string_param("com1", opt_com1);
->> +string_param("com2", opt_com2);
->> +
->> +enum serial_param_type {
->> +    baud,
->> +    clock_hz,
->> +    data_bits,
->> +    io_base,
->> +    irq,
->> +    parity,
->> +    reg_shift,
->> +    reg_width,
->> +    stop_bits,
->> +#ifdef CONFIG_HAS_PCI
->> +    bridge_bdf,
->> +    device,
->> +    port_bdf,
->> +#endif
->> +    /* List all parameters before this line. */
->> +    num_serial_params
->> +};
->> +
->> +struct serial_param_var {
->> +    char name[12];
->> +    enum serial_param_type type;
->> +};
->> +
->> +/*
->> + * Enum struct keeping a table of all accepted parameter names for pars=
-ing
->> + * com_console_options for serial port com1 and com2.
->> + */
->> +static const struct serial_param_var __initconst sp_vars[] =3D {
->> +    {"baud", baud},
->> +    {"clock-hz", clock_hz},
->> +    {"data-bits", data_bits},
->> +    {"io-base", io_base},
->> +    {"irq", irq},
->> +    {"parity", parity},
->> +    {"reg-shift", reg_shift},
->> +    {"reg-width", reg_width},
->> +    {"stop-bits", stop_bits},
->> +#ifdef CONFIG_HAS_PCI
->> +    {"bridge", bridge_bdf},
->> +    {"dev", device},
->> +    {"port", port_bdf},
->> +#endif
->> +};
->> +
->> +/*
->>  * Used to parse name value pairs and return which value it is along wit=
-h
->>  * pointer for the extracted value.
->>  */
->> @@ -1504,17 +1517,6 @@ static void __init ns16550_parse_port_co
->>     serial_register_uart(uart - ns16550_com, &ns16550_driver, uart);
->> }
->>=20
->> -static void ns16550_init_common(struct ns16550 *uart)
->> -{
->> -    uart->clock_hz  =3D UART_CLOCK_HZ;
->> -
->> -    /* Default is no transmit FIFO. */
->> -    uart->fifo_size =3D 1;
->> -
->> -    /* Default lsr_mask =3D UART_LSR_THRE */
->> -    uart->lsr_mask  =3D UART_LSR_THRE;
->> -}
->> -
->> void __init ns16550_init(int index, struct ns16550_defaults *defaults)
->> {
->>     struct ns16550 *uart;
->> @@ -1541,6 +1543,8 @@ void __init ns16550_init(int index, stru
->>     ns16550_parse_port_config(uart, (index =3D=3D 0) ? opt_com1 : opt_co=
-m2);
->> }
->>=20
->> +#endif /* CONFIG_X86 */
->> +
->> #ifdef CONFIG_HAS_DEVICE_TREE
->> static int __init ns16550_uart_dt_init(struct dt_device_node *dev,
->>                                        const void *data)
+>>     /*
+>>      * Do a simple existence test first; if we fail this,
 >>=20
 >=20
 
+Regards,
+Rahul=
 
