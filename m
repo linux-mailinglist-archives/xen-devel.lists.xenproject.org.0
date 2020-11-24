@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED23D2C3074
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 20:08:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36812.68929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228ED2C30BC
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 20:30:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36921.69010 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khdfT-0001g7-8t; Tue, 24 Nov 2020 19:07:59 +0000
+	id 1khe1W-0005c1-3i; Tue, 24 Nov 2020 19:30:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36812.68929; Tue, 24 Nov 2020 19:07:59 +0000
+Received: by outflank-mailman (output) from mailman id 36921.69010; Tue, 24 Nov 2020 19:30:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,43 +23,43 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khdfS-0001cd-PJ; Tue, 24 Nov 2020 19:07:58 +0000
-Received: by outflank-mailman (input) for mailman id 36812;
- Tue, 24 Nov 2020 19:07:56 +0000
+	id 1khe1V-0005bc-Tj; Tue, 24 Nov 2020 19:30:45 +0000
+Received: by outflank-mailman (input) for mailman id 36921;
+ Tue, 24 Nov 2020 19:30:44 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>) id 1khdfQ-0001XH-Iy
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 19:07:56 +0000
+ (envelope-from <paul@xen.org>) id 1khe1U-0005bN-9w
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 19:30:44 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1khdfQ-0003tY-CH; Tue, 24 Nov 2020 19:07:56 +0000
+ id 1khe1U-0004Oc-3Y; Tue, 24 Nov 2020 19:30:44 +0000
 Received: from host86-183-162-145.range86-183.btcentralplus.com
  ([86.183.162.145] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1khdfQ-0000r4-4a; Tue, 24 Nov 2020 19:07:56 +0000
+ id 1khdfR-0000r4-8n; Tue, 24 Nov 2020 19:07:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1khdfQ-0001XH-Iy
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 19:07:56 +0000
+	id 1khe1U-0005bN-9w
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 19:30:44 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=kWx4PMcch2RGl9krlLbC6HcOzeq81AJtXFE2kaQbHAQ=; b=X3bWEy2pV03VwPPUWm5LioJEeM
-	d3sxxFzln5i4A1yXajppsi6gOMV8ZrmuWM7QPVaHGabBXBMYRZAaOaQWV3muJmuIMDi3/nOHj+x5H
-	Iup+8cVpxAdEHspCmQzeQx2izVbFdMAlWznTki1VECUWZmqrBuNq9OFDqEl1rA2nai2w=;
+	bh=RtfTTUWPnmWV4G9WLn/ouwRay4gNP0ppXh1HWl5O3Ig=; b=nDbiJmy76A4OpVVMcm2mKFC5uB
+	Dm6qQUR8PN0JLG/05KzzqwFGTGWOZ/2EDFlJXreAQJsvq0SduUXHy9m00LbrIt7uUUypZsIhe5HIl
+	RvRG6LVfLoNQpoC3knLSZsL5XXdNLFxx/xRRTB0QIZzwy94GM9tPPf3YSRfc2V5KhIzQ=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1khdfQ-0003tY-CH; Tue, 24 Nov 2020 19:07:56 +0000
+	id 1khe1U-0004Oc-3Y; Tue, 24 Nov 2020 19:30:44 +0000
 Received: from host86-183-162-145.range86-183.btcentralplus.com ([86.183.162.145] helo=u2f063a87eabd5f.home)
 	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
 	(Exim 4.92)
 	(envelope-from <paul@xen.org>)
-	id 1khdfQ-0000r4-4a; Tue, 24 Nov 2020 19:07:56 +0000
+	id 1khdfR-0000r4-8n; Tue, 24 Nov 2020 19:07:57 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Paul Durrant <pdurrant@amazon.com>,
@@ -67,9 +67,9 @@ Cc: Paul Durrant <pdurrant@amazon.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v3 09/13] viridian: add ExProcessorMasks variant of the IPI hypercall
-Date: Tue, 24 Nov 2020 19:07:40 +0000
-Message-Id: <20201124190744.11343-10-paul@xen.org>
+Subject: [PATCH v3 10/13] viridian: log initial invocation of each type of hypercall
+Date: Tue, 24 Nov 2020 19:07:41 +0000
+Message-Id: <20201124190744.11343-11-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201124190744.11343-1-paul@xen.org>
 References: <20201124190744.11343-1-paul@xen.org>
@@ -79,14 +79,11 @@ Content-Transfer-Encoding: 8bit
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-A previous patch introduced variants of the flush hypercalls that take a
-'Virtual Processor Set' as an argument rather than a simple 64-bit mask.
-This patch introduces a similar variant of the HVCALL_SEND_IPI hypercall
-(HVCALL_SEND_IPI_EX).
-
-NOTE: As with HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE/LIST_EX, a guest should
-      not yet issue the HVCALL_SEND_IPI_EX hypercall as support for
-      'ExProcessorMasks' is not yet advertised via CPUID.
+To make is simpler to observe which viridian hypercalls are issued by a
+particular Windows guest, this patch adds a per-domain mask to track them.
+Each type of hypercall causes a different bit to be set in the mask and
+when the bit transitions from clear to set, a log line is emitted showing
+the name of the hypercall and the domain that issued it.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
@@ -95,107 +92,101 @@ Cc: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: "Roger Pau Monné" <roger.pau@citrix.com>
 
-v3:
- - Adjust prototype of new function
-
 v2:
- - Sanity check size before hvm_copy_from_guest_phys()
+ - Use DECLARE_BITMAP() for 'hypercall_flags'
+ - Use an enum for _HCALL_* values
 ---
- xen/arch/x86/hvm/viridian/viridian.c | 74 ++++++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+ xen/arch/x86/hvm/viridian/viridian.c | 21 +++++++++++++++++++++
+ xen/include/asm-x86/hvm/viridian.h   | 10 ++++++++++
+ 2 files changed, 31 insertions(+)
 
 diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viridian/viridian.c
-index 5d0b49012360..93865be5797a 100644
+index 93865be5797a..3c18908b7b35 100644
 --- a/xen/arch/x86/hvm/viridian/viridian.c
 +++ b/xen/arch/x86/hvm/viridian/viridian.c
-@@ -860,6 +860,75 @@ static int hvcall_ipi(const union hypercall_input *input,
-     return 0;
- }
- 
-+static int hvcall_ipi_ex(const union hypercall_input *input,
-+                         union hypercall_output *output,
-+                         paddr_t input_params_gpa,
-+                         paddr_t output_params_gpa)
-+{
-+    struct hypercall_vpmask *vpmask = &this_cpu(hypercall_vpmask);
-+    struct {
-+        uint32_t vector;
-+        uint8_t target_vtl;
-+        uint8_t reserved_zero[3];
-+        struct hv_vpset set;
-+    } input_params;
-+    union hypercall_vpset *vpset = &this_cpu(hypercall_vpset);
-+    struct hv_vpset *set = &vpset->set;
-+    size_t size;
-+    int rc;
-+
-+    /* These hypercalls should never use the fast-call convention. */
-+    if ( input->fast )
-+        return -EINVAL;
-+
-+    /* Get input parameters. */
-+    if ( hvm_copy_from_guest_phys(&input_params, input_params_gpa,
-+                                  sizeof(input_params)) != HVMTRANS_okay )
-+        return -EINVAL;
-+
-+    if ( input_params.target_vtl ||
-+         input_params.reserved_zero[0] ||
-+         input_params.reserved_zero[1] ||
-+         input_params.reserved_zero[2] )
-+        return HV_STATUS_INVALID_PARAMETER;
-+
-+    if ( input_params.vector < 0x10 || input_params.vector > 0xff )
-+        return HV_STATUS_INVALID_PARAMETER;
-+
-+    *set = input_params.set;
-+    if ( set->format == HV_GENERIC_SET_SPARSE_4K )
-+    {
-+        unsigned long offset = offsetof(typeof(input_params),
-+                                        set.bank_contents);
-+
-+        size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
-+
-+        if ( offsetof(typeof(*vpset), set.bank_contents[0]) + size >
-+             sizeof(*vpset) )
-+        {
-+            ASSERT_UNREACHABLE();
-+            return -EINVAL;
-+        }
-+
-+        if ( hvm_copy_from_guest_phys(&set->bank_contents,
-+                                      input_params_gpa + offset,
-+                                      size) != HVMTRANS_okay)
-+            return -EINVAL;
-+
-+        size += sizeof(*set);
-+    }
-+    else
-+        size = sizeof(*set);
-+
-+    rc = hv_vpset_to_vpmask(set, vpmask);
-+    if ( rc )
-+        return rc;
-+
-+    send_ipi(vpmask, input_params.vector);
-+
-+    return 0;
-+}
-+
- int viridian_hypercall(struct cpu_user_regs *regs)
+@@ -933,6 +933,7 @@ int viridian_hypercall(struct cpu_user_regs *regs)
  {
      struct vcpu *curr = current;
-@@ -916,6 +985,11 @@ int viridian_hypercall(struct cpu_user_regs *regs)
+     struct domain *currd = curr->domain;
++    struct viridian_domain *vd = currd->arch.hvm.viridian;
+     int mode = hvm_guest_x86_mode(curr);
+     unsigned long input_params_gpa, output_params_gpa;
+     int rc = 0;
+@@ -962,6 +963,10 @@ int viridian_hypercall(struct cpu_user_regs *regs)
+     switch ( input.call_code )
+     {
+     case HVCALL_NOTIFY_LONG_SPIN_WAIT:
++        if ( !test_and_set_bit(_HCALL_spin_wait, vd->hypercall_flags) )
++            printk(XENLOG_G_INFO "d%d: VIRIDIAN HVCALL_NOTIFY_LONG_SPIN_WAIT\n",
++                   currd->domain_id);
++
+         /*
+          * See section 14.5.1 of the specification.
+          */
+@@ -970,22 +975,38 @@ int viridian_hypercall(struct cpu_user_regs *regs)
+ 
+     case HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE:
+     case HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST:
++        if ( !test_and_set_bit(_HCALL_flush, vd->hypercall_flags) )
++            printk(XENLOG_G_INFO "%pd: VIRIDIAN HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE/LIST\n",
++                   currd);
++
+         rc = hvcall_flush(&input, &output, input_params_gpa,
+                           output_params_gpa);
+         break;
+ 
+     case HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE_EX:
+     case HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST_EX:
++        if ( !test_and_set_bit(_HCALL_flush_ex, vd->hypercall_flags) )
++            printk(XENLOG_G_INFO "%pd: VIRIDIAN HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE/LIST_EX\n",
++                   currd);
++
+         rc = hvcall_flush_ex(&input, &output, input_params_gpa,
+                              output_params_gpa);
+         break;
+ 
+     case HVCALL_SEND_IPI:
++        if ( !test_and_set_bit(_HCALL_ipi, vd->hypercall_flags) )
++            printk(XENLOG_G_INFO "%pd: VIRIDIAN HVCALL_SEND_IPI\n",
++                   currd);
++
+         rc = hvcall_ipi(&input, &output, input_params_gpa,
                          output_params_gpa);
          break;
  
-+    case HVCALL_SEND_IPI_EX:
-+        rc = hvcall_ipi_ex(&input, &output, input_params_gpa,
-+                           output_params_gpa);
-+        break;
+     case HVCALL_SEND_IPI_EX:
++        if ( !test_and_set_bit(_HCALL_ipi_ex, vd->hypercall_flags) )
++            printk(XENLOG_G_INFO "%pd: VIRIDIAN HVCALL_SEND_IPI_EX\n",
++                   currd);
 +
-     default:
-         gprintk(XENLOG_WARNING, "unimplemented hypercall %04x\n",
-                 input.call_code);
+         rc = hvcall_ipi_ex(&input, &output, input_params_gpa,
+                            output_params_gpa);
+         break;
+diff --git a/xen/include/asm-x86/hvm/viridian.h b/xen/include/asm-x86/hvm/viridian.h
+index cbf77d9c760b..4c8ff6e80b6f 100644
+--- a/xen/include/asm-x86/hvm/viridian.h
++++ b/xen/include/asm-x86/hvm/viridian.h
+@@ -55,10 +55,20 @@ struct viridian_time_ref_count
+     int64_t off;
+ };
+ 
++enum {
++    _HCALL_spin_wait,
++    _HCALL_flush,
++    _HCALL_flush_ex,
++    _HCALL_ipi,
++    _HCALL_ipi_ex,
++    _HCALL_nr /* must be last */
++};
++
+ struct viridian_domain
+ {
+     union hv_guest_os_id guest_os_id;
+     union hv_vp_assist_page_msr hypercall_gpa;
++    DECLARE_BITMAP(hypercall_flags, _HCALL_nr);
+     struct viridian_time_ref_count time_ref_count;
+     struct viridian_page reference_tsc;
+ };
 -- 
 2.20.1
 
