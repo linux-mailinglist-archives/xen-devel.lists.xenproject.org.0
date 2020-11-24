@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4EDE2C2721
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:29:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36001.67738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9C982C276B
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:29:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36042.67786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYNM-0000sf-2z; Tue, 24 Nov 2020 13:28:56 +0000
+	id 1khYO6-0001Vk-HT; Tue, 24 Nov 2020 13:29:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36001.67738; Tue, 24 Nov 2020 13:28:56 +0000
+Received: by outflank-mailman (output) from mailman id 36042.67786; Tue, 24 Nov 2020 13:29:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYNL-0000s2-TW; Tue, 24 Nov 2020 13:28:55 +0000
-Received: by outflank-mailman (input) for mailman id 36001;
- Tue, 24 Nov 2020 13:28:54 +0000
+	id 1khYO6-0001VH-EB; Tue, 24 Nov 2020 13:29:42 +0000
+Received: by outflank-mailman (input) for mailman id 36042;
+ Tue, 24 Nov 2020 13:29:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1khYNK-0000Qf-1J
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:28:54 +0000
+ id 1khYNo-0000Qf-2L
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:24 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6ea29fcb-06f5-46f6-a89f-c1b138585611;
- Tue, 24 Nov 2020 13:28:25 +0000 (UTC)
+ id 26ea2157-cf32-448a-907d-cc80947b34ea;
+ Tue, 24 Nov 2020 13:28:39 +0000 (UTC)
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1khYML-0006U2-TO; Tue, 24 Nov 2020 13:27:54 +0000
+ id 1khYMN-0006U7-DO; Tue, 24 Nov 2020 13:27:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1khYNK-0000Qf-1J
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:28:54 +0000
-X-Inumbo-ID: 6ea29fcb-06f5-46f6-a89f-c1b138585611
+	id 1khYNo-0000Qf-2L
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:24 +0000
+X-Inumbo-ID: 26ea2157-cf32-448a-907d-cc80947b34ea
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 6ea29fcb-06f5-46f6-a89f-c1b138585611;
-	Tue, 24 Nov 2020 13:28:25 +0000 (UTC)
+	id 26ea2157-cf32-448a-907d-cc80947b34ea;
+	Tue, 24 Nov 2020 13:28:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=hzV3z6SMaqyfIauoWZXz79MWtSUwimkTva+cu+wYxlA=; b=YcqovzdCTe1S4oEOtkiwBB1Lva
-	tbtWR9C+DovWiWZoNJPHK9RQrYZjKUM7Drp1hnFw1GTX1Jvk04Hd3trxzQ+fyoxsP1futR8jAHh7G
-	m++vI6ur7xxBWeJPKrJNK5QVX7l3+UeM6AjbiAjRATlrWkYizakQMYaATUwBbYrcERkSINRrED8sM
-	txPsKX3pPj/UYI560klmFpFYMcMloF+t/eXLNLUVVvoEw3eCXzSegwCuUVDPpT8EfzdIKSLiqbIKa
-	lxgMy3k+JWNbKkmnFS165gUjPgzeD07g2h5F4z1oEdlv0ay94Qn86TlwxjevvUAt6v+K6LwpveQ2I
-	DtDCjJVg==;
+	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description;
+	bh=qbQZqUyuqbWI0k7YOCxXBM7JuauYhSOH9/mPud+JBEQ=; b=JPuFDbn3CeG05+vmoNAk65fF+e
+	E+AWjN7EiPbhuy8d43uHrVAUMryHcbvWp/sIQsb2keLu3WxSA8fNQgXpu6WDI/oPIzGdu1t9jnCoh
+	ALo16cLEzPbEOBDyyUQhXe2zb4Wg1WnXZR7b7Of0uxXZvBhKgYdSIm1GQtyXmTB80hVs2aO5jg3Wd
+	JxN4GkeL/03jRIvwuCVHER5Yi938IlSwfy+kOfinhXXDGRCH8xrqmYFJRsvf9MdJi8dfiZSzBVDNv
+	9Y5vxWaV8co6fpHvChVu6aEJa1JKBk5/o4XXJCwXXE79GGFIwkJ9LI5tm5QxCZm0GqpKScG6vBm6n
+	A4zKiNLQ==;
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYML-0006U2-TO; Tue, 24 Nov 2020 13:27:54 +0000
+	id 1khYMN-0006U7-DO; Tue, 24 Nov 2020 13:27:55 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Tejun Heo <tj@kernel.org>,
@@ -80,116 +80,41 @@ Cc: Tejun Heo <tj@kernel.org>,
 	linux-mtd@lists.infradead.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: merge struct block_device and struct hd_struct v2
-Date: Tue, 24 Nov 2020 14:27:06 +0100
-Message-Id: <20201124132751.3747337-1-hch@lst.de>
+Subject: [PATCH 01/45] blk-cgroup: fix a hd_struct leak in blkcg_fill_root_iostats
+Date: Tue, 24 Nov 2020 14:27:07 +0100
+Message-Id: <20201124132751.3747337-2-hch@lst.de>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201124132751.3747337-1-hch@lst.de>
+References: <20201124132751.3747337-1-hch@lst.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi Jens,
+disk_get_part needs to be paired with a disk_put_part.
 
-this series cleans up our main per-device node data structure by merging
-the block_device and hd_struct data structures that have the same scope,
-but different life times.  The main effect (besides removing lots of
-code) is that instead of having two device sizes that need complex
-synchronization there is just one now.
+Fixes: ef45fe470e1 ("blk-cgroup: show global disk stats in root cgroup io.stat")
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Acked-by: Tejun Heo <tj@kernel.org>
+---
+ block/blk-cgroup.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Note that this now includes the previous "misc cleanups" series as I had
-to fix up a thing in there with the changed patch ordering.
+diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
+index c68bdf58c9a6e1..54fbe1e80cc41a 100644
+--- a/block/blk-cgroup.c
++++ b/block/blk-cgroup.c
+@@ -849,6 +849,7 @@ static void blkcg_fill_root_iostats(void)
+ 			blkg_iostat_set(&blkg->iostat.cur, &tmp);
+ 			u64_stats_update_end(&blkg->iostat.sync);
+ 		}
++		disk_put_part(part);
+ 	}
+ }
+ 
+-- 
+2.29.2
 
-The first patch already is in 5.10-rc, but not in for-5.11/block
-
-A git tree is available here:
-
-    git://git.infradead.org/users/hch/block.git bdev-lookup
-
-Gitweb:
-
-    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/bdev-lookup
-
-Changes since v1:
- - spelling fixes
- - fix error unwinding in __alloc_disk_node
- - use bdev_is_partition in a few more places
- - don't send the RESIZE=1 uevent for hidden gendisks
- - rename __bdget_disk to disk_find_part
- - drop a bcache patch
- - some patch reordering
- - add more refactoring
- - use rcu protection to prevent racing with a disk going away
-   in blkdev_get
- - split up some of the big patches into many small ones
- - clean up the freeze_bdev interface
-
-Diffstat:
- block/bio.c                                  |    6 
- block/blk-cgroup.c                           |   50 -
- block/blk-core.c                             |   68 +-
- block/blk-flush.c                            |    2 
- block/blk-iocost.c                           |   36 -
- block/blk-lib.c                              |    2 
- block/blk-merge.c                            |    2 
- block/blk-mq.c                               |    9 
- block/blk-mq.h                               |    7 
- block/blk.h                                  |   84 ---
- block/genhd.c                                |  467 ++++-------------
- block/ioctl.c                                |   14 
- block/partitions/core.c                      |  252 +++------
- drivers/block/drbd/drbd_receiver.c           |    2 
- drivers/block/drbd/drbd_worker.c             |    3 
- drivers/block/loop.c                         |   24 
- drivers/block/mtip32xx/mtip32xx.c            |   15 
- drivers/block/mtip32xx/mtip32xx.h            |    2 
- drivers/block/nbd.c                          |    6 
- drivers/block/xen-blkback/common.h           |    4 
- drivers/block/xen-blkfront.c                 |   20 
- drivers/block/zram/zram_drv.c                |   87 ---
- drivers/block/zram/zram_drv.h                |    1 
- drivers/md/bcache/request.c                  |    4 
- drivers/md/bcache/super.c                    |   29 -
- drivers/md/dm-core.h                         |    7 
- drivers/md/dm-table.c                        |    9 
- drivers/md/dm.c                              |   45 -
- drivers/md/md.c                              |    8 
- drivers/mtd/mtdsuper.c                       |   17 
- drivers/nvme/target/admin-cmd.c              |   20 
- drivers/s390/block/dasd.c                    |    8 
- drivers/s390/block/dasd_ioctl.c              |    9 
- drivers/scsi/scsicam.c                       |    2 
- drivers/target/target_core_file.c            |    6 
- drivers/target/target_core_pscsi.c           |    7 
- drivers/usb/gadget/function/storage_common.c |    8 
- fs/block_dev.c                               |  730 +++++++++------------------
- fs/btrfs/sysfs.c                             |   15 
- fs/btrfs/volumes.c                           |   13 
- fs/buffer.c                                  |    2 
- fs/ext4/ioctl.c                              |    2 
- fs/ext4/super.c                              |   18 
- fs/ext4/sysfs.c                              |   10 
- fs/f2fs/checkpoint.c                         |    5 
- fs/f2fs/f2fs.h                               |    2 
- fs/f2fs/file.c                               |   14 
- fs/f2fs/super.c                              |    8 
- fs/f2fs/sysfs.c                              |    9 
- fs/inode.c                                   |    3 
- fs/internal.h                                |    7 
- fs/io_uring.c                                |   10 
- fs/pipe.c                                    |    5 
- fs/pstore/blk.c                              |    2 
- fs/quota/quota.c                             |   40 +
- fs/statfs.c                                  |    2 
- fs/super.c                                   |   86 ---
- fs/xfs/xfs_fsops.c                           |    7 
- include/linux/blk-cgroup.h                   |    4 
- include/linux/blk_types.h                    |   24 
- include/linux/blkdev.h                       |   27 
- include/linux/fs.h                           |    5 
- include/linux/genhd.h                        |  110 ----
- include/linux/part_stat.h                    |   45 -
- init/do_mounts.c                             |  271 ++++------
- kernel/trace/blktrace.c                      |   54 -
- mm/filemap.c                                 |   13 
- 67 files changed, 957 insertions(+), 1928 deletions(-)
 
