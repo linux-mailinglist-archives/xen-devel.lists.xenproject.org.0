@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5F92C2345
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 11:49:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35747.67378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E3112C238D
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 12:04:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35758.67394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khVtN-0000hd-Kc; Tue, 24 Nov 2020 10:49:49 +0000
+	id 1khW7N-0002U1-Vh; Tue, 24 Nov 2020 11:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35747.67378; Tue, 24 Nov 2020 10:49:49 +0000
+Received: by outflank-mailman (output) from mailman id 35758.67394; Tue, 24 Nov 2020 11:04:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,116 +23,139 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khVtN-0000hH-HP; Tue, 24 Nov 2020 10:49:49 +0000
-Received: by outflank-mailman (input) for mailman id 35747;
- Tue, 24 Nov 2020 10:49:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1khW7N-0002Tc-SE; Tue, 24 Nov 2020 11:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 35758;
+ Tue, 24 Nov 2020 11:04:17 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nkWz=E6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1khVtM-0000hC-6q
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 10:49:48 +0000
+ id 1khW7N-0002TX-1l
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 11:04:17 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 83866c44-6cfc-4b1d-9389-28decc564439;
- Tue, 24 Nov 2020 10:49:47 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 07242373-3a06-4af2-8e84-0467ab8ed6d2;
+ Tue, 24 Nov 2020 11:04:15 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 90026AC2E;
- Tue, 24 Nov 2020 10:49:46 +0000 (UTC)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by mx2.suse.de (Postfix) with ESMTP id EF3E5AC2D;
+ Tue, 24 Nov 2020 11:04:14 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=nkWz=E6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1khVtM-0000hC-6q
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 10:49:48 +0000
-X-Inumbo-ID: 83866c44-6cfc-4b1d-9389-28decc564439
+	id 1khW7N-0002TX-1l
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 11:04:17 +0000
+X-Inumbo-ID: 07242373-3a06-4af2-8e84-0467ab8ed6d2
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 83866c44-6cfc-4b1d-9389-28decc564439;
-	Tue, 24 Nov 2020 10:49:47 +0000 (UTC)
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id 07242373-3a06-4af2-8e84-0467ab8ed6d2;
+	Tue, 24 Nov 2020 11:04:15 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606214986; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606215855; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SZKSVVPjh9io3hX3hgPDkgrOGmXkV4LjTmpETkWhWZY=;
-	b=QXVNwaZYwWYWmYk6q3ANbpcjuYogcFZ21uFBWS3oOFEXX7/ucgbJWHjqpslPb1oe9lwofR
-	x/dlRw9DNqNc+mcsylgyZE7zI4y6xnse8e9eAeRr6Jl0kFnIyHighunt0A3FNz99zcc3U8
-	dM285/xthwk1uucWjfsO3Gtstz/GacY=
+	bh=T8eVZ4DqvpfafX30qWTsandQgKds3bRQUYvkav5QoEg=;
+	b=Mas6AuYrSUojHSCJwHmwdXkwwxpLtqt9oN0G1C+pouxW+e9QWmHlWSEiiKmluNV8DH/htY
+	W5ALAvYaItBKEAAW9Qsh/rU2ay8U93rt/rRFxvvlhyGPi6KWz/R5SLUAPfNL/9Lpmw5TTr
+	asA7cKr79CgdI1b+6qHyVftUeEGGLGc=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 90026AC2E;
-	Tue, 24 Nov 2020 10:49:46 +0000 (UTC)
-Subject: Re: [PATCH v3 1/3] xen/ns16550: Make ns16550 driver usable on ARM
- with HAS_PCI enabled.
-To: Julien Grall <julien@xen.org>
-Cc: Rahul Singh <Rahul.Singh@arm.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall.oss@gmail.com>
-References: <cover.1605527997.git.rahul.singh@arm.com>
- <955996aa8cd7f17f9f39c60bd3b9b74ffaa5c5f7.1605527997.git.rahul.singh@arm.com>
- <3740e147-719a-4e97-bb0e-fe9bd2ec2aa5@xen.org>
- <aa256a44-8f8f-d4f1-f5f4-12529f45d8c8@suse.com>
- <9007e08f-6d90-88ed-ba64-2f0b3c21cb50@xen.org>
- <8531a99d-3c54-36c7-0cd4-2e4838f96eb0@suse.com>
- <ba26fdfb-34f8-c4d3-e082-f1f49c768981@xen.org>
- <89F35B3F-FAAD-4C58-B3FD-F93CA3290A49@arm.com>
- <alpine.DEB.2.21.2011191534060.7979@sstabellini-ThinkPad-T480s>
- <CAJ=z9a0aS1G0F1jAtKNEe4r3tyBoxy1xJ9AV7pYgifsL62iqww@mail.gmail.com>
- <alpine.DEB.2.21.2011191551510.7979@sstabellini-ThinkPad-T480s>
- <6d2dae58-bfe5-596e-7850-a20ed54e1a81@xen.org>
- <7964507a-afc8-a548-5ea1-0182b6001cb1@suse.com>
- <a634e6c9-7ada-3739-8d8f-00c53bcd2815@xen.org>
+	by mx2.suse.de (Postfix) with ESMTP id EF3E5AC2D;
+	Tue, 24 Nov 2020 11:04:14 +0000 (UTC)
+Subject: Re: [PATCH 2/4] x86/ACPI: fix S3 wakeup vector mapping
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>
+References: <7f895b0e-f46f-8fe2-b0ac-e0503ef06a1f@suse.com>
+ <c0210cbf-c07d-7fa6-2ae0-59764514836a@suse.com>
+ <20201123152454.yjr3jgvsyucftrff@Air-de-Roger>
+ <79776889-c566-5f07-abfe-2cb79cfa78fa@suse.com>
+ <20201123160752.uzczcxnz5ytvtd46@Air-de-Roger>
+ <fe2ec163-c6c7-12d6-0c89-57a238514e25@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <32524f30-acb1-04d7-b69d-6e881f45f5ae@suse.com>
-Date: Tue, 24 Nov 2020 11:49:46 +0100
+Message-ID: <094e9e27-e01f-6020-c091-f9c546e92028@suse.com>
+Date: Tue, 24 Nov 2020 12:04:15 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <a634e6c9-7ada-3739-8d8f-00c53bcd2815@xen.org>
+In-Reply-To: <fe2ec163-c6c7-12d6-0c89-57a238514e25@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.11.2020 11:22, Julien Grall wrote:
-> On 24/11/2020 09:47, Jan Beulich wrote:
->> On 23.11.2020 18:13, Julien Grall wrote:
->>> My view on 2) can change if Jan provides enough information into why one
->>> would want NS1650 PCI enabled by default on Arm but disable MSI.
+On 23.11.2020 17:14, Andrew Cooper wrote:
+> On 23/11/2020 16:07, Roger Pau Monné wrote:
+>> On Mon, Nov 23, 2020 at 04:30:05PM +0100, Jan Beulich wrote:
+>>> On 23.11.2020 16:24, Roger Pau Monné wrote:
+>>>> On Mon, Nov 23, 2020 at 01:40:12PM +0100, Jan Beulich wrote:
+>>>>> --- a/xen/arch/x86/acpi/power.c
+>>>>> +++ b/xen/arch/x86/acpi/power.c
+>>>>> @@ -174,17 +174,20 @@ static void acpi_sleep_prepare(u32 state
+>>>>>      if ( state != ACPI_STATE_S3 )
+>>>>>          return;
+>>>>>  
+>>>>> -    wakeup_vector_va = __acpi_map_table(
+>>>>> -        acpi_sinfo.wakeup_vector, sizeof(uint64_t));
+>>>>> -
+>>>>>      /* TBoot will set resume vector itself (when it is safe to do so). */
+>>>>>      if ( tboot_in_measured_env() )
+>>>>>          return;
+>>>>>  
+>>>>> +    set_fixmap(FIX_ACPI_END, acpi_sinfo.wakeup_vector);
+>>>>> +    wakeup_vector_va = fix_to_virt(FIX_ACPI_END) +
+>>>>> +                       PAGE_OFFSET(acpi_sinfo.wakeup_vector);
+>>>>> +
+>>>>>      if ( acpi_sinfo.vector_width == 32 )
+>>>>>          *(uint32_t *)wakeup_vector_va = bootsym_phys(wakeup_start);
+>>>>>      else
+>>>>>          *(uint64_t *)wakeup_vector_va = bootsym_phys(wakeup_start);
+>>>>> +
+>>>>> +    clear_fixmap(FIX_ACPI_END);
+>>>> Why not use vmap here instead of the fixmap?
+>>> Considering the S3 path is relatively fragile (as in: we end up
+>>> breaking it more often than about anything else) I wanted to
+>>> make as little of a change as possible. Hence I decided to stick
+>>> to the fixmap use that was (indirectly) used before as well.
+>> Unless there's a restriction to use the ACPI fixmap entry I would just
+>> switch to use vmap, as it's used extensively in the code and less
+>> likely to trigger issues in the future, or else a bunch of other stuff
+>> would also be broken.
 >>
->> Because, like it was on x86, initially there may be no support for
->> MSI?
+>> IMO doing the mapping differently here when it's not required will end
+>> up turning this code more fragile in the long run.
 > 
-> "no support for MSI" implies that there will be at least support for 
-> NS16550 PCI.
+> We can't enter S3 at all until dom0 has booted, as one detail has to
+> come from AML.
 > 
->>  I have no idea what the plans are ...
-> 
-> There are no such plan on Arm for the forseeable future (read as we 
-> haven't seen any interested from the Arm community).
+> Therefore, we're fully up and running by this point, and vmap() will be
+> fine.
 
-Okay, so you're question wasn't so much about the "but" in there,
-but the "PCI" in the first place.
+That's not the point of my reservation. The code here runs when the
+system already isn't "fully up and running" anymore. Secondary CPUs
+have already been offlined, and we're around the point where we
+disable interrupts. Granted when we disable them, we also turn off
+spin debugging, but I'd still prefer a path that's not susceptible
+to IRQ state. What I admit I didn't pay attention to is that
+set_fixmap(), by virtue of being a thin wrapper around
+map_pages_to_xen(), similarly uses locks. IOW - okay, I'll switch
+to vmap(). You're both aware that it, unlike set_fixmap(), can
+fail, aren't you?
 
-> The NS16550 PCI code will stay unusable until someone effectively send a 
-> patch to plumb it correctly.
-> 
-> While I agree that disabling MSI may be nice to have to do in the 
-> future, this doesn't address the need for Arm. I don't want to get in 
-> our way the NS16550 PCI code in our way when implementing PCI (with or 
-> without MSI) on Arm.
-> 
-> Even if there were an interest, I would still expect some users (e.g. 
-> embedded folks) to want to compile-out unused feature (you may have a 
-> platform with a embedded NS16550).
-> 
-> So the path forward will stay either 1) or 3) for me.
+> However, why are we re-writing the wakeup vector every time?  Its fixed
+> by the position of the trampoline, so we'd actually simplify the S3 path
+> by only setting it up once.
 
-Well, as said elsewhere - 3) it is then afaic, for making more
-obvious that this is really a hack.
+I think the spec allows for (as in: doesn't preclude) firmware to
+write this structure from scratch again each time the system comes
+back up. Therefore what we've written there once may not survive
+the first suspend/resume cycle.
+
+> (The fix for fragility is to actually test it, not shy away from making
+> any change)
+
+Fair point. I'll see if I can convince my old laptop to cooperate.
+I know Windows doesn't resume correctly on it ...
 
 Jan
 
