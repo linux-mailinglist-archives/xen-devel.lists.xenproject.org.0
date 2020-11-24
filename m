@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834012C2719
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:28:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35986.67665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87BC32C271F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:28:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35990.67714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYMs-0000R7-L5; Tue, 24 Nov 2020 13:28:26 +0000
+	id 1khYNC-0000gN-2z; Tue, 24 Nov 2020 13:28:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35986.67665; Tue, 24 Nov 2020 13:28:26 +0000
+Received: by outflank-mailman (output) from mailman id 35990.67714; Tue, 24 Nov 2020 13:28:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYMs-0000Ql-Hq; Tue, 24 Nov 2020 13:28:26 +0000
-Received: by outflank-mailman (input) for mailman id 35986;
- Tue, 24 Nov 2020 13:28:25 +0000
+	id 1khYNB-0000fM-TJ; Tue, 24 Nov 2020 13:28:45 +0000
+Received: by outflank-mailman (input) for mailman id 35990;
+ Tue, 24 Nov 2020 13:28:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1khYMq-0000Qf-1v
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:28:25 +0000
+ id 1khYNA-0000Qf-0z
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:28:44 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0e2b4566-a3a9-49f0-b0ef-9759e8f25a47;
- Tue, 24 Nov 2020 13:28:20 +0000 (UTC)
+ id 2a683895-2499-4995-accb-56c7fdf0d24e;
+ Tue, 24 Nov 2020 13:28:24 +0000 (UTC)
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1khYMV-0006Ut-HC; Tue, 24 Nov 2020 13:28:03 +0000
+ id 1khYMW-0006V1-Oc; Tue, 24 Nov 2020 13:28:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1khYMq-0000Qf-1v
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:28:25 +0000
-X-Inumbo-ID: 0e2b4566-a3a9-49f0-b0ef-9759e8f25a47
+	id 1khYNA-0000Qf-0z
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:28:44 +0000
+X-Inumbo-ID: 2a683895-2499-4995-accb-56c7fdf0d24e
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 0e2b4566-a3a9-49f0-b0ef-9759e8f25a47;
-	Tue, 24 Nov 2020 13:28:20 +0000 (UTC)
+	id 2a683895-2499-4995-accb-56c7fdf0d24e;
+	Tue, 24 Nov 2020 13:28:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=kUYn0sikpHZNYDnsxFrAwXSb49C5P7DMdxps0LhhPGQ=; b=voamq2gIRabU8afAKL3jTQT86w
-	3voeMXKzWRc968NV3Og6QI7vPIsFgyzT+g3y7G5VN1mzlkrcmMY4Qg7EwhHhprBp2pFWLMjK63ObP
-	R7mWTCNSKQkV5l0bX4rfRh4gKPGZnVeHwjNUcB1zJgqL93wnbxgFlTDmJRPjnCaFhMh+HPucQfU+S
-	uovUuXHghcRdZOgSkakX0fZ9XuPs/BxiQ7jD+ibvnUIkvCuGFLC0BxmxD5xKdEPhugucjYN8I4Xpv
-	WSH12/wojKPamwwzSgge7VqR4tsSr5bVtW0y1gEbh0LGN1fc0aleWXDqaFKriKv0dnauuuFj6BOkD
-	RzQOH7Hw==;
+	bh=q5VEN3b+/NuaC3nLa7Ob8T2zF/1/3On5f5TLNt/sEKk=; b=gSBkuGb01pZYejE/qt8U+f1Prp
+	H6UFF5H/7Q8DKAajhbcAG/TWkWqcbJP6bF/2kpoG1MhuVrgkQKne/Is825NwtMjoMkmVuk6QyOhw4
+	6d32g0XCyz8crp9IhQ8kuRwKQHuh2i/recIYUgVpmwkRUq3tDkXkobmCdXxgw2dGWnUTzWgrewmho
+	SphjpGruHOWqUH4vavWTPhddkaX2Ct2GTq94foULjN6riyh6UEzcq/lFdKB/Bgo2FSx5SzSq74gko
+	EnRhAkBQn/CQvobi3r+bM87y3KzNaOsLt6QALXtIHOxRJ1xW5O4DJquFcSCvJ8LYd4MwXPv9+3hgu
+	zAxlftXQ==;
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYMV-0006Ut-HC; Tue, 24 Nov 2020 13:28:03 +0000
+	id 1khYMW-0006V1-Oc; Tue, 24 Nov 2020 13:28:05 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Tejun Heo <tj@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Tejun Heo <tj@kernel.org>,
 	linux-mtd@lists.infradead.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 06/45] zram: remove the claim mechanism
-Date: Tue, 24 Nov 2020 14:27:12 +0100
-Message-Id: <20201124132751.3747337-7-hch@lst.de>
+Subject: [PATCH 07/45] zram: do not call set_blocksize
+Date: Tue, 24 Nov 2020 14:27:13 +0100
+Message-Id: <20201124132751.3747337-8-hch@lst.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201124132751.3747337-1-hch@lst.de>
 References: <20201124132751.3747337-1-hch@lst.de>
@@ -90,142 +90,69 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-The zram claim mechanism was added to ensure no new opens come in
-during teardown.  But the proper way to archive that is to call
-del_gendisk first, which takes care of all that.  Once del_gendisk
-is called in the right place, the reset side can also be simplified
-as no I/O can be outstanding on a block device that is not open.
+set_blocksize is used by file systems to use their preferred buffer cache
+block size.  Block drivers should not set it.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/zram/zram_drv.c | 72 ++++++++---------------------------
- 1 file changed, 15 insertions(+), 57 deletions(-)
+ drivers/block/zram/zram_drv.c | 11 +----------
+ drivers/block/zram/zram_drv.h |  1 -
+ 2 files changed, 1 insertion(+), 11 deletions(-)
 
 diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 6d15d51cee2b7e..2e6d75ec1afddb 100644
+index 2e6d75ec1afddb..88baa6158eaee1 100644
 --- a/drivers/block/zram/zram_drv.c
 +++ b/drivers/block/zram/zram_drv.c
-@@ -1756,64 +1756,33 @@ static ssize_t disksize_store(struct device *dev,
- static ssize_t reset_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t len)
- {
--	int ret;
--	unsigned short do_reset;
--	struct zram *zram;
-+	struct zram *zram = dev_to_zram(dev);
- 	struct block_device *bdev;
-+	unsigned short do_reset;
-+	int ret = 0;
+@@ -403,13 +403,10 @@ static void reset_bdev(struct zram *zram)
+ 		return;
  
- 	ret = kstrtou16(buf, 10, &do_reset);
- 	if (ret)
- 		return ret;
--
- 	if (!do_reset)
- 		return -EINVAL;
- 
--	zram = dev_to_zram(dev);
- 	bdev = bdget_disk(zram->disk, 0);
- 	if (!bdev)
- 		return -ENOMEM;
- 
- 	mutex_lock(&bdev->bd_mutex);
--	/* Do not reset an active device or claimed device */
--	if (bdev->bd_openers || zram->claim) {
--		mutex_unlock(&bdev->bd_mutex);
--		bdput(bdev);
--		return -EBUSY;
--	}
--
--	/* From now on, anyone can't open /dev/zram[0-9] */
--	zram->claim = true;
-+	if (bdev->bd_openers)
-+		ret = -EBUSY;
-+	else
-+		zram_reset_device(zram);
- 	mutex_unlock(&bdev->bd_mutex);
--
--	/* Make sure all the pending I/O are finished */
--	fsync_bdev(bdev);
--	zram_reset_device(zram);
- 	bdput(bdev);
- 
--	mutex_lock(&bdev->bd_mutex);
--	zram->claim = false;
--	mutex_unlock(&bdev->bd_mutex);
--
--	return len;
--}
--
--static int zram_open(struct block_device *bdev, fmode_t mode)
--{
--	int ret = 0;
--	struct zram *zram;
--
--	WARN_ON(!mutex_is_locked(&bdev->bd_mutex));
--
--	zram = bdev->bd_disk->private_data;
--	/* zram was claimed to reset so open request fails */
--	if (zram->claim)
--		ret = -EBUSY;
--
--	return ret;
-+	return ret ? ret : len;
- }
- 
- static const struct block_device_operations zram_devops = {
--	.open = zram_open,
- 	.submit_bio = zram_submit_bio,
- 	.swap_slot_free_notify = zram_slot_free_notify,
- 	.rw_page = zram_rw_page,
-@@ -1821,7 +1790,6 @@ static const struct block_device_operations zram_devops = {
- };
- 
- static const struct block_device_operations zram_wb_devops = {
--	.open = zram_open,
- 	.submit_bio = zram_submit_bio,
- 	.swap_slot_free_notify = zram_slot_free_notify,
- 	.owner = THIS_MODULE
-@@ -1974,32 +1942,22 @@ static int zram_add(void)
- 
- static int zram_remove(struct zram *zram)
- {
--	struct block_device *bdev;
--
--	bdev = bdget_disk(zram->disk, 0);
--	if (!bdev)
--		return -ENOMEM;
-+	struct block_device *bdev = bdget_disk(zram->disk, 0);
- 
--	mutex_lock(&bdev->bd_mutex);
--	if (bdev->bd_openers || zram->claim) {
--		mutex_unlock(&bdev->bd_mutex);
-+	if (bdev) {
-+		if (bdev->bd_openers) {
-+			bdput(bdev);
-+			return -EBUSY;
-+		}
- 		bdput(bdev);
--		return -EBUSY;
+ 	bdev = zram->bdev;
+-	if (zram->old_block_size)
+-		set_blocksize(bdev, zram->old_block_size);
+ 	blkdev_put(bdev, FMODE_READ|FMODE_WRITE|FMODE_EXCL);
+ 	/* hope filp_close flush all of IO */
+ 	filp_close(zram->backing_dev, NULL);
+ 	zram->backing_dev = NULL;
+-	zram->old_block_size = 0;
+ 	zram->bdev = NULL;
+ 	zram->disk->fops = &zram_devops;
+ 	kvfree(zram->bitmap);
+@@ -454,7 +451,7 @@ static ssize_t backing_dev_store(struct device *dev,
+ 	struct file *backing_dev = NULL;
+ 	struct inode *inode;
+ 	struct address_space *mapping;
+-	unsigned int bitmap_sz, old_block_size = 0;
++	unsigned int bitmap_sz;
+ 	unsigned long nr_pages, *bitmap = NULL;
+ 	struct block_device *bdev = NULL;
+ 	int err;
+@@ -509,14 +506,8 @@ static ssize_t backing_dev_store(struct device *dev,
+ 		goto out;
  	}
  
--	zram->claim = true;
--	mutex_unlock(&bdev->bd_mutex);
+-	old_block_size = block_size(bdev);
+-	err = set_blocksize(bdev, PAGE_SIZE);
+-	if (err)
+-		goto out;
 -
-+	del_gendisk(zram->disk);
- 	zram_debugfs_unregister(zram);
--
--	/* Make sure all the pending I/O are finished */
--	fsync_bdev(bdev);
- 	zram_reset_device(zram);
--	bdput(bdev);
+ 	reset_bdev(zram);
  
- 	pr_info("Removed device: %s\n", zram->disk->disk_name);
- 
--	del_gendisk(zram->disk);
- 	blk_cleanup_queue(zram->disk->queue);
- 	put_disk(zram->disk);
- 	kfree(zram);
+-	zram->old_block_size = old_block_size;
+ 	zram->bdev = bdev;
+ 	zram->backing_dev = backing_dev;
+ 	zram->bitmap = bitmap;
+diff --git a/drivers/block/zram/zram_drv.h b/drivers/block/zram/zram_drv.h
+index f2fd46daa76045..712354a4207c77 100644
+--- a/drivers/block/zram/zram_drv.h
++++ b/drivers/block/zram/zram_drv.h
+@@ -118,7 +118,6 @@ struct zram {
+ 	bool wb_limit_enable;
+ 	u64 bd_wb_limit;
+ 	struct block_device *bdev;
+-	unsigned int old_block_size;
+ 	unsigned long *bitmap;
+ 	unsigned long nr_pages;
+ #endif
 -- 
 2.29.2
 
