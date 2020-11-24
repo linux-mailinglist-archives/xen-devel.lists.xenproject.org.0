@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79B272C2587
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 13:19:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35864.67512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5221B2C2588
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 13:20:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35871.67524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khXHf-0001PR-97; Tue, 24 Nov 2020 12:18:59 +0000
+	id 1khXIf-0001aV-Lj; Tue, 24 Nov 2020 12:20:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35864.67512; Tue, 24 Nov 2020 12:18:59 +0000
+Received: by outflank-mailman (output) from mailman id 35871.67524; Tue, 24 Nov 2020 12:20:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,274 +23,236 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khXHf-0001P2-5Z; Tue, 24 Nov 2020 12:18:59 +0000
-Received: by outflank-mailman (input) for mailman id 35864;
- Tue, 24 Nov 2020 12:18:57 +0000
+	id 1khXIf-0001Z6-GY; Tue, 24 Nov 2020 12:20:01 +0000
+Received: by outflank-mailman (input) for mailman id 35871;
+ Tue, 24 Nov 2020 12:19:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KyA6=E6=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1khXHd-0001Ox-0t
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 12:18:57 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4f5f1624-66c9-4873-bc92-77be059c37ae;
- Tue, 24 Nov 2020 12:18:55 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8114EAC2E;
- Tue, 24 Nov 2020 12:18:54 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tuHM=E6=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1khXId-0001W3-6q
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 12:19:59 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.8.80]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ab6357f3-f3c9-4f74-a78e-b8fd3044c125;
+ Tue, 24 Nov 2020 12:19:58 +0000 (UTC)
+Received: from DB6PR0601CA0046.eurprd06.prod.outlook.com (2603:10a6:4:17::32)
+ by DB6PR0801MB1894.eurprd08.prod.outlook.com (2603:10a6:4:72::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.30; Tue, 24 Nov
+ 2020 12:19:55 +0000
+Received: from DB5EUR03FT043.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:17:cafe::7f) by DB6PR0601CA0046.outlook.office365.com
+ (2603:10a6:4:17::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
+ Transport; Tue, 24 Nov 2020 12:19:55 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT043.mail.protection.outlook.com (10.152.20.236) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Tue, 24 Nov 2020 12:19:55 +0000
+Received: ("Tessian outbound e0cdfd2b0406:v71");
+ Tue, 24 Nov 2020 12:19:55 +0000
+Received: from 0951a5ada50c.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 11E58ACC-864A-46CD-8122-9E99350E9045.1; 
+ Tue, 24 Nov 2020 12:19:41 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0951a5ada50c.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 24 Nov 2020 12:19:41 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DBBPR08MB6220.eurprd08.prod.outlook.com (2603:10a6:10:205::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.21; Tue, 24 Nov
+ 2020 12:19:40 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0%7]) with mapi id 15.20.3589.030; Tue, 24 Nov 2020
+ 12:19:40 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=KyA6=E6=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1khXHd-0001Ox-0t
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 12:18:57 +0000
-X-Inumbo-ID: 4f5f1624-66c9-4873-bc92-77be059c37ae
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=tuHM=E6=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+	id 1khXId-0001W3-6q
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 12:19:59 +0000
+X-Inumbo-ID: ab6357f3-f3c9-4f74-a78e-b8fd3044c125
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown [40.107.8.80])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4f5f1624-66c9-4873-bc92-77be059c37ae;
-	Tue, 24 Nov 2020 12:18:55 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606220334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RFWJDXQbZkjrb5CRsC/eLe96jaTP+gxrZWQQaIRru8I=;
-	b=VugQZ21xNQ9Vk6lSigrRD7YjB2WhIJDu+ULIPJalqll4J3jwUHkI9ouEHOgOmGyaRQ+Z+J
-	E5flwcHEdQm91vqiOwIbndv/Kkb2wz5Cm4WW2PSSGVMbMwrkvX9X2kwrxJX/l85s1J704d
-	grJYdhyOfbBHV0dpbAltQ5SZH8SDzY8=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 8114EAC2E;
-	Tue, 24 Nov 2020 12:18:54 +0000 (UTC)
-Subject: Re: [PATCH v7 2/3] xen/events: modify struct evtchn layout
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201124070106.26854-1-jgross@suse.com>
- <20201124070106.26854-3-jgross@suse.com>
- <440bced0-97ec-33c4-f6fa-01850777e5c2@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <696314b9-18e3-e18d-10f2-a510e19438da@suse.com>
-Date: Tue, 24 Nov 2020 13:18:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-MIME-Version: 1.0
-In-Reply-To: <440bced0-97ec-33c4-f6fa-01850777e5c2@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="TT1hRZiCRHqfqHKBklAnfyKM1R4I6rr16"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---TT1hRZiCRHqfqHKBklAnfyKM1R4I6rr16
-Content-Type: multipart/mixed; boundary="8fjOsoXHK3aUncWCh5rGMM9UVGnCsIO5a";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <696314b9-18e3-e18d-10f2-a510e19438da@suse.com>
-Subject: Re: [PATCH v7 2/3] xen/events: modify struct evtchn layout
-References: <20201124070106.26854-1-jgross@suse.com>
- <20201124070106.26854-3-jgross@suse.com>
- <440bced0-97ec-33c4-f6fa-01850777e5c2@suse.com>
-In-Reply-To: <440bced0-97ec-33c4-f6fa-01850777e5c2@suse.com>
-
---8fjOsoXHK3aUncWCh5rGMM9UVGnCsIO5a
-Content-Type: multipart/mixed;
- boundary="------------2BC00B69429FD899B1B88A01"
+	id ab6357f3-f3c9-4f74-a78e-b8fd3044c125;
+	Tue, 24 Nov 2020 12:19:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9lPurmAyxjBr8vvqzQC466c9CBWgu4SVW3fNteI5ru4=;
+ b=I//jMKKCqWidDa6eikEFXS1LGz3YrIo5UW3egmeyNKu4pn6l4MEn/rs372TWmmDa7m76jB1IyY2h24EnJveYP7OyU6q3JrNCeY+GWqD1YDCDP0Kc5FtFRbJmgolkrneLWv47NvbREr2YJuT4roWs4yGp5O9NiR90Uin1m2cZ3H4=
+Received: from DB6PR0601CA0046.eurprd06.prod.outlook.com (2603:10a6:4:17::32)
+ by DB6PR0801MB1894.eurprd08.prod.outlook.com (2603:10a6:4:72::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.30; Tue, 24 Nov
+ 2020 12:19:55 +0000
+Received: from DB5EUR03FT043.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:17:cafe::7f) by DB6PR0601CA0046.outlook.office365.com
+ (2603:10a6:4:17::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
+ Transport; Tue, 24 Nov 2020 12:19:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT043.mail.protection.outlook.com (10.152.20.236) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Tue, 24 Nov 2020 12:19:55 +0000
+Received: ("Tessian outbound e0cdfd2b0406:v71"); Tue, 24 Nov 2020 12:19:55 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: e504c5c1d9bc8e27
+X-CR-MTA-TID: 64aa7808
+Received: from 0951a5ada50c.1
+	by 64aa7808-outbound-1.mta.getcheckrecipient.com id 11E58ACC-864A-46CD-8122-9E99350E9045.1;
+	Tue, 24 Nov 2020 12:19:41 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0951a5ada50c.1
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Tue, 24 Nov 2020 12:19:41 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MAgOW6gzhDn+wMwnQmLZkCBGRbp4MDuGIPy69Vkojjmzv30NRqNIsgEJcb5dI7Amhq4/1CyYUQR0pvFCPOnel8i/gi4heOMgrkL16W5Nmq0wGOSsJJP0bHiKdzMgWhuTAq5Miki36jprWknBU+0GujYM+YAMjJv/7zyDoYP/IAEeFn2/Dd6GjSqPKlmrShtFE4oHQwx0WYgm8RSlM+e/vKybAwV8v4NWWNNMy3eSa7FtYXYBqrKKq979ExOD/xNcNQY4o+hyIRhO0Ktsg1dpOwWKHv648x1maS4fiuWPxviQPiERkz2ZLhYW4eAqzENHMlqg7vBIEg9j2kEcDWdZJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9lPurmAyxjBr8vvqzQC466c9CBWgu4SVW3fNteI5ru4=;
+ b=gpd0zQ3kb/DYKEKZS9LlKTQDlhDFLp1E5UPXD5JbclZsQueORuPB6wVpKC7zziQK4GMC+rN/PKPL8b2RitpR6mFJZnJbfPz8XcYT2W+N9l4ImkAb71cusPZkFi1qDJMXzU/HZ24jyEUwQewBDUkR8ackhLmZ5kkMYhCWjDrhaB85q+OOJT37rC1TLS9s8zXaDidrpjN+xvFw8OAODqBusvxqtbSjCNNubDiKQgq3nKLNg7UcDlbwv4u89pktrSpSZ4lMnOll8h4HhQk5aqml7uFdwCKJislGgvUaZpgRNsZvzE9X0WKvXEYTPUCSNfDAdArrvaBBFHk8mjSNs4nZQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9lPurmAyxjBr8vvqzQC466c9CBWgu4SVW3fNteI5ru4=;
+ b=I//jMKKCqWidDa6eikEFXS1LGz3YrIo5UW3egmeyNKu4pn6l4MEn/rs372TWmmDa7m76jB1IyY2h24EnJveYP7OyU6q3JrNCeY+GWqD1YDCDP0Kc5FtFRbJmgolkrneLWv47NvbREr2YJuT4roWs4yGp5O9NiR90Uin1m2cZ3H4=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DBBPR08MB6220.eurprd08.prod.outlook.com (2603:10a6:10:205::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.21; Tue, 24 Nov
+ 2020 12:19:40 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0%7]) with mapi id 15.20.3589.030; Tue, 24 Nov 2020
+ 12:19:40 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: "open list:X86" <xen-devel@lists.xenproject.org>, Julien Grall
+	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH RFC 2/6] xen/arm: mm: Remove ; at the end of mm_printk()
+Thread-Topic: [PATCH RFC 2/6] xen/arm: mm: Remove ; at the end of mm_printk()
+Thread-Index: AQHWvqdY1rahTHlLkUqbsCGy2n+E1qnXOtqA
+Date: Tue, 24 Nov 2020 12:19:40 +0000
+Message-ID: <6D9F19C7-DAC2-4B29-93D8-B7F47DC90AB4@arm.com>
+References: <20201119190751.22345-1-julien@xen.org>
+ <20201119190751.22345-3-julien@xen.org>
+In-Reply-To: <20201119190751.22345-3-julien@xen.org>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------2BC00B69429FD899B1B88A01
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3608.120.23.2.4)
+Authentication-Results-Original: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [217.140.99.251]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 3befa256-49ff-4b83-fde3-08d890734094
+x-ms-traffictypediagnostic: DBBPR08MB6220:|DB6PR0801MB1894:
+X-Microsoft-Antispam-PRVS:
+	<DB6PR0801MB18943DAEFFB9BBFD5D5AF9BA9DFB0@DB6PR0801MB1894.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:4502;OLM:4502;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ PcNS2Q0oXvgO9OFRh476eq7x2RxKm2+gesLfrPA4yqVVHVQu6H9hhmvuOVwXr3a7XKGpJ2fLVObxjMR/u5fCuFulaDL24OAl6dE/YUZZeggKQFPvLQ0L9EPf7e2zmED2BRug4amvts5ZI4MfgdHTnK32fv+W5roVnZxwwoXflgXcbAQtJR9ReGufShGwJfFPoTAoiJS22TKRZ+zSpSyir/JoJhS1LjY+crin9QLalYt2OFh3zEZw3Rh1vFoxxzUW6gXxk4Q6ryoFKIsKW+qzQnu17d+aOM7GeRCULJnKU1g1kgQKqeG/loAvwfXmcscptetOMiF1j2pA+3LxlsgDKg==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(366004)(376002)(346002)(39860400002)(136003)(66946007)(6506007)(2906002)(8936002)(36756003)(54906003)(86362001)(91956017)(8676002)(76116006)(53546011)(186003)(26005)(6916009)(478600001)(66556008)(6486002)(4326008)(4744005)(64756008)(316002)(33656002)(83380400001)(66476007)(66446008)(5660300002)(6512007)(71200400001)(2616005);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ lipM6hV0cdJ7L37NHNSGvZtCU8ygsqZu9ZjZXi9GyrDLpZi8Rg9yQfaZeiXlOZ62lLTJczjPsmUm25NDIwmWzQbgy82VTMjYw4JSFJ25PFi72e7Dl/29bHN4TU1I3jeL3BhxGTRAN3sF5pqqVWKH9hrTJuFKy1MwzBkSJxrkmS6kv/1w0WapTDy8w/W3fsFNa0msBCOF4C2MqKq2iDOj4nM9hFCZYiDvK6Qj3Ubbnt24VrFTcmMelh7+V6uyWMtO3EaEStUDpFIP1ByZ1AZIOLTNbMl+lLJD5AeXGfTkTArpo3YmL0b48CbFJoz0ZXm0drA8n4Pem3fKjH0TdT5UKtjCRcDjndrubrTY85FwXy6s8NgR2h7CuDbt9WerowR9/38Pm4lJWraV2+YuCLHvo8lNk//0QyLLNvI/7HtuHNMkCNto+WxNiCudR1aqbW7c+sIlR7bmdBiF6GADicGCzMRg/7TAN8gBHX4XPo98bu2uyPbD19fOfPu3FflQQCTawwxozs7StqkNTclAjnOS5d6NbWma+vtp0wA/HEmllBwbg+9C0IJXmuj5uGw9K5a2dJQqtunPUKfISKHebeGq6HMSjI5BMs3n9RCLqrtY9sK609eRqNum/01HShcTa4esRGeGeGDDj9gXqcO4fa7yBpgh5XrDr+jLl0lxfEhgrnavMk0uBgGWuooUWWbd2MEo3DtSTDMu798DxJXpezGNyzCcsfdmarfBq6nSsmotfuA/L3dFqaTNLbULSlqMG8nYUpW/Uvccm4qXnLdjjIcrYEdSOpDLM/76wm3ijpGZSeC1rr82D40d5ix9AZlMp23T2ub2tXEyzRecIVLA95SsuHO9Q+EXHKfuwaFQ6Qu9vg+tApLQbblZ/iimgj6bBA/aQafq+TtG7cWCO4kTXYjJCQ==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <4142C9E21973E3408B1FC811E4ADF684@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6220
+Original-Authentication-Results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT043.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	071b888d-b6d5-49df-b05a-08d8907337bc
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	sx726/Ajflwrv866XOq1LDMAeosjHUl0aXxW5/4M8EZj5OZAk22BtdJ4NQlm8J+7Lxy5k+1WK8GdtqTo+6nLpUtuMtL86A9tjFUY3SHZvmxnNUgNvwqz8mo7YR5sroCBmwqnW81iw5aLd6Y5AD7bhp/hCrV2bqgvZJyoCuhiYeml9Oymjd3Jump2nrOV85f3RRl181sdTY7g46jOX0HQBg18m9A7o2dxkYiV2gXoKPXOxDeProvCByLLGV4PHgOA9oLUTeuxUkkkuNq3DMtTsjtn0Z6El2ksmvMDPJBzCJ1gOlDZXU1vppFlyoRWJLn07VqMdMYjNf4dFiipkRv/KkB7ukESu9+4DxIsZwS5sefyXTn4TkDeeVmoPfZLvlY7d3p17M0uB9D9WC7OfKYUwQ==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(46966005)(70586007)(336012)(2616005)(70206006)(6862004)(54906003)(107886003)(6512007)(4326008)(8676002)(2906002)(8936002)(316002)(82310400003)(6486002)(4744005)(356005)(83380400001)(53546011)(47076004)(478600001)(33656002)(86362001)(186003)(36756003)(81166007)(5660300002)(26005)(82740400003)(6506007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2020 12:19:55.2000
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3befa256-49ff-4b83-fde3-08d890734094
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT043.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1894
 
-On 24.11.20 12:42, Jan Beulich wrote:
-> On 24.11.2020 08:01, Juergen Gross wrote:
->> In order to avoid latent races when updating an event channel put
->> xen_consumer and pending fields in different bytes.
+Hi Julien,
+
+> On 19 Nov 2020, at 19:07, Julien Grall <julien@xen.org> wrote:
 >=20
-> I think there's a little more to be said here as to what the
-> actual risk is, as the two fields are - afaict - at present
-> fine the way they're declared.
-
-Okay.
-
+> From: Julien Grall <jgrall@amazon.com>
 >=20
->> @@ -94,9 +93,10 @@ struct evtchn
->>   #define ECS_VIRQ         5 /* Channel is bound to a virtual IRQ line=
-=2E        */
->>   #define ECS_IPI          6 /* Channel is bound to a virtual IPI line=
-=2E        */
->>       u8  state;             /* ECS_* */
->> -    u8  xen_consumer:XEN_CONSUMER_BITS; /* Consumer in Xen if nonzero=
- */
+> The ; at the end of mm_printk() means the following code will not build
+> correctly:
 >=20
-> I see no reason to use a full byte for this one; in fact I
-> was considering whether it, state, and old_state couldn't
-> share storage (the latest when we run into space issues with
-> this struct). (In this context I'm also observing that
-> old_state could get away with just 2 bits, i.e. all three
-> fields would fit in a single byte.)
-
-I think doing further compression now isn't really helping. It would
-just add more padding bytes and result in larger code.
-
+> if ( ... )
+>    mm_printk(...);
+> else
+>    ...
 >=20
->> -    u8  pending:1;
->> -    u16 notify_vcpu_id;    /* VCPU for local delivery notification */=
-
->> +#ifndef NDEBUG
->> +    u8  old_state;     /* State when taking lock in write mode. */
->> +#endif
->> +    u8  xen_consumer;  /* Consumer in Xen if nonzero */
->>       u32 port;
->>       union {
->>           struct {
->> @@ -113,11 +113,13 @@ struct evtchn
->>           } pirq;        /* state =3D=3D ECS_PIRQ */
->>           u16 virq;      /* state =3D=3D ECS_VIRQ */
->>       } u;
->> -    u8 priority;
->> -#ifndef NDEBUG
->> -    u8 old_state;      /* State when taking lock in write mode. */
->> -#endif
->> -    u32 fifo_lastq;    /* Data for fifo events identifying last queue=
-=2E */
->> +
->> +    /* FIFO event channels only. */
->> +    u8  pending;
->> +    u8  priority;
->> +    u16 notify_vcpu_id;    /* VCPU for local delivery notification */=
-
+> As we treat the macro as a function, we want to remove the ; at the end
+> of it.
 >=20
-> This field definitely isn't FIFO-only.
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Oh, you are right.
-
-> Also for all fields you touch anyway, may I ask that you switch to
-> uint<N>_t or, in the case of "pending", bool?
-
-Fine with me.
-
-Would you object to switching the whole structure in this regard?
+Cheers
+Bertrand
 
 
-Juergen
+> ---
+> xen/arch/arm/mm.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index 4dd886f7c80d..59f8a3f15fd1 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -59,7 +59,7 @@ mm_printk(const char *fmt, ...) {}
+>     {                                       \
+>         dprintk(XENLOG_ERR, fmt, ## args);  \
+>         WARN();                             \
+> -    } while (0);
+> +    } while (0)
+> #endif
+>=20
+> /*
+> --=20
+> 2.17.1
+>=20
+>=20
 
---------------2BC00B69429FD899B1B88A01
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------2BC00B69429FD899B1B88A01--
-
---8fjOsoXHK3aUncWCh5rGMM9UVGnCsIO5a--
-
---TT1hRZiCRHqfqHKBklAnfyKM1R4I6rr16
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl+8+i0FAwAAAAAACgkQsN6d1ii/Ey+g
-Awf/RqmtqWU4u7986qrW0DVLqlQ7kDvnUsKdtytwLVrrVgp2XA9BSd3FtehnA0UtdbzOWxID8kHN
-6uRCM7mKO/YGT3+A7cJ+B/oLemIY9AllbIwRhiuHiZ0R8XeuX6ITqpoiCz4/YvcHeiVJRlBwpcNT
-+Bdbt+MSf7NAFg7Z6Q57keGVon+pY+CW/vzfdvf+JjjK/QUIBbHHSN6HaKa8D38K2ElMi++BP/fa
-AuJqwj/1cAx9w8QUkM7n3Q8IOvcOjx9d0fFeKH9zwHs/HgWtdXCoz8bWgb5Z3cMSS+Tx8ElWe6Q2
-grDPRk6Atx4I/LC8uER7fnbMh4pXpjMJefLbD2xQ7g==
-=P9zi
------END PGP SIGNATURE-----
-
---TT1hRZiCRHqfqHKBklAnfyKM1R4I6rr16--
 
