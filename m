@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60CD2C28C4
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:53:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36391.68299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 687F32C28D8
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 15:00:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36413.68311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYlB-0000ti-E5; Tue, 24 Nov 2020 13:53:33 +0000
+	id 1khYrX-0001ua-61; Tue, 24 Nov 2020 14:00:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36391.68299; Tue, 24 Nov 2020 13:53:33 +0000
+Received: by outflank-mailman (output) from mailman id 36413.68311; Tue, 24 Nov 2020 14:00:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,73 +23,83 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYlB-0000tB-AP; Tue, 24 Nov 2020 13:53:33 +0000
-Received: by outflank-mailman (input) for mailman id 36391;
- Tue, 24 Nov 2020 13:53:31 +0000
+	id 1khYrX-0001sp-21; Tue, 24 Nov 2020 14:00:07 +0000
+Received: by outflank-mailman (input) for mailman id 36413;
+ Tue, 24 Nov 2020 14:00:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ki3g=E6=infradead.org=willy@srs-us1.protection.inumbo.net>)
- id 1khYl9-0000sM-5n
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:53:31 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ <SRS0=UPq8=E6=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1khYrV-0001gK-G1
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 14:00:05 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 16d3b942-b704-4c20-b5ed-c04bf73eb38e;
- Tue, 24 Nov 2020 13:53:28 +0000 (UTC)
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1khYkr-00014M-IZ; Tue, 24 Nov 2020 13:53:13 +0000
+ id 8f1753fc-10a9-4c03-87a4-f45e32227480;
+ Tue, 24 Nov 2020 14:00:02 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0AODxroP023842
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Tue, 24 Nov 2020 14:59:54 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id 760BA2E9CAC; Tue, 24 Nov 2020 14:59:48 +0100 (MET)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Ki3g=E6=infradead.org=willy@srs-us1.protection.inumbo.net>)
-	id 1khYl9-0000sM-5n
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:53:31 +0000
-X-Inumbo-ID: 16d3b942-b704-4c20-b5ed-c04bf73eb38e
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+	(envelope-from <SRS0=UPq8=E6=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+	id 1khYrV-0001gK-G1
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 14:00:05 +0000
+X-Inumbo-ID: 8f1753fc-10a9-4c03-87a4-f45e32227480
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 16d3b942-b704-4c20-b5ed-c04bf73eb38e;
-	Tue, 24 Nov 2020 13:53:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ZXWWj8sGpheRB/oPAny/oeYYPMI5xkrPoBeF/PO6t/I=; b=uFy7Ttpe28lYbENky3PW90QaTq
-	xG4wEg+wloh0hNvJWawTJQg7XQAS91A4oAPYqDqFFgSWTUjyMdGkcvWeSWNAAcnJJnpdJMC7Jm0Jq
-	M95Jiv0GtCKP7Jwi7y4hV5eX/5ntAWKqVIIOuyD36/oMrxKN+22zQUxm/erDkZPH5EFs5kxiNk/qX
-	fbYUgHkg+8QptScbUSZ6yFCMWEuoNILFEypZ+PtlRUpUS1f/iW3EWfM0Vm7XWaklqtf+Jppv9QouI
-	MA/OL8tDwMa4wuUd7DIRsV4kdVDn9/qL5FTWuQlH76deZdi3dut2mc+76r0aL8ewuSlgqLBT+dwl6
-	clkzRyQg==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYkr-00014M-IZ; Tue, 24 Nov 2020 13:53:13 +0000
-Date: Tue, 24 Nov 2020 13:53:13 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jan Kara <jack@suse.cz>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
-	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 02/45] filemap: consistently use ->f_mapping over
- ->i_mapping
-Message-ID: <20201124135313.GA4327@casper.infradead.org>
-References: <20201124132751.3747337-1-hch@lst.de>
- <20201124132751.3747337-3-hch@lst.de>
+	id 8f1753fc-10a9-4c03-87a4-f45e32227480;
+	Tue, 24 Nov 2020 14:00:02 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+	by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id 0AODxroP023842
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Tue, 24 Nov 2020 14:59:54 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+	id 760BA2E9CAC; Tue, 24 Nov 2020 14:59:48 +0100 (MET)
+Date: Tue, 24 Nov 2020 14:59:48 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201124135948.GL2020@antioche.eu.org>
+References: <20904a6a-ac64-755d-d228-4c49faf66fb5@suse.com>
+ <20201120103824.GJ1508@antioche.eu.org>
+ <20201123095713.orfpg72r73m7f46n@Air-de-Roger>
+ <20201123113241.GE2520@antioche.eu.org>
+ <20201123125112.q3zqb4e5nk6jg4hw@Air-de-Roger>
+ <20201123143150.GG2520@antioche.eu.org>
+ <20201123170610.kzfxvcgkdkvh3ex4@Air-de-Roger>
+ <20201123173925.GG4662@antioche.eu.org>
+ <b3912e97-9684-fe97-1053-ad7168a19721@suse.com>
+ <20201124122102.3igsriesou3vl6mu@Air-de-Roger>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20201124132751.3747337-3-hch@lst.de>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201124122102.3igsriesou3vl6mu@Air-de-Roger>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Tue, 24 Nov 2020 14:59:55 +0100 (MET)
 
-On Tue, Nov 24, 2020 at 02:27:08PM +0100, Christoph Hellwig wrote:
-> Use file->f_mapping in all remaining places that have a struct file
-> available to properly handle the case where inode->i_mapping !=
-> file_inode(file)->i_mapping.
+On Tue, Nov 24, 2020 at 01:21:02PM +0100, Roger Pau Monné wrote:
+> [...]
+> > What we're missing is LAPIC information, since the masked status logged
+> > is unclear: (-MM) isn't fully matching up with "mask=0". But of course
+> > the former is just a software representation, while the latter is what
+> > the RTE holds. IOW for the interrupt to not get delivered, there needs
+> > to be this or a higher ISR bit set (considering we don't use the TPR),
+> > or (I think we can pretty much exclude this) we'd need to be running
+> > with IRQs off for extended periods of time.
 > 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Let's dump the physical lapic(s) IRR and ISR together with the
+> IO-APIC state. Can you please apply the following patch and use the
+> 'i' key again? (please keep the previous patch applied)
 
-Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Done, you'll find the log at
+http://www-soc.lip6.fr/~bouyer/xen-log6.txt
+
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
