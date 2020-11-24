@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFB7C2C27CA
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:30:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.36076.67846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 041032C278A
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 14:29:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.36046.67822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYP4-0002np-5i; Tue, 24 Nov 2020 13:30:42 +0000
+	id 1khYOH-0001gv-Hw; Tue, 24 Nov 2020 13:29:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 36076.67846; Tue, 24 Nov 2020 13:30:42 +0000
+Received: by outflank-mailman (output) from mailman id 36046.67822; Tue, 24 Nov 2020 13:29:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,44 +23,44 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khYP4-0002nL-27; Tue, 24 Nov 2020 13:30:42 +0000
-Received: by outflank-mailman (input) for mailman id 36076;
- Tue, 24 Nov 2020 13:30:40 +0000
+	id 1khYOH-0001g3-DJ; Tue, 24 Nov 2020 13:29:53 +0000
+Received: by outflank-mailman (input) for mailman id 36046;
+ Tue, 24 Nov 2020 13:29:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1khYNe-0000Qf-23
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:14 +0000
+ id 1khYNt-0000Qf-2K
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:29 +0000
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9f360c11-3cce-4639-9598-31dba95ee084;
- Tue, 24 Nov 2020 13:28:34 +0000 (UTC)
+ id 8c44d38a-3103-4e34-b193-c5b93c192b58;
+ Tue, 24 Nov 2020 13:28:39 +0000 (UTC)
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1khYMk-0006Xd-Im; Tue, 24 Nov 2020 13:28:19 +0000
+ id 1khYMn-0006Y9-FD; Tue, 24 Nov 2020 13:28:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=daQ6=E6=casper.srs.infradead.org=batv+cbe268a5dfa7b983a02e+6302+infradead.org+hch@srs-us1.protection.inumbo.net>)
-	id 1khYNe-0000Qf-23
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:14 +0000
-X-Inumbo-ID: 9f360c11-3cce-4639-9598-31dba95ee084
+	id 1khYNt-0000Qf-2K
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 13:29:29 +0000
+X-Inumbo-ID: 8c44d38a-3103-4e34-b193-c5b93c192b58
 Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 9f360c11-3cce-4639-9598-31dba95ee084;
-	Tue, 24 Nov 2020 13:28:34 +0000 (UTC)
+	id 8c44d38a-3103-4e34-b193-c5b93c192b58;
+	Tue, 24 Nov 2020 13:28:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description;
-	bh=aYwkX4I6zMx34nzrdb7tYezzW5eC03Czg70BjD05yqI=; b=PBlG+SI1LP3b7gr/lJlKmKFFJd
-	bocVKBuspYZb9+bd6oRwQGEd0L7j3hQYuLx9nBobabPLesfL8HLab1E4KCm/5+LC3aeewsBsrF0Ec
-	hulcbyCIFfsfA8vcNobuzkqbXhMEwxxlSaiC+PbDLVpuj7Vfeb4n/Hc03FWeCTlPALu7BKMacg7VB
-	VdoUIV8XfOoQvjg+7Lpil7jQgfh2pOibzDF+EEKPx14W4pVYNFzWxgoqa5dOjKsd+dX8NOcHTR0xd
-	r+KlCQy9eeFmFLAe7pGrffUSOJRf0kI5rzxEXRSylWdG/EZ+5D3kd5agpzXpiDKm6I3+ieiU+g83C
-	6CbAnNrA==;
+	bh=/JD7P59kLLFVg7PYLNCPMZCDXAoG4vpH+WsHJpZ7foo=; b=Bvsu7rjRscfk3fEBDWdwaXTw1a
+	yBP66Yl4lQOXZQ1S0o5jVg/rBBbRLPUiXelUDNs0ZAosLOVPtEolGC+8nE1mAd6iOzHUIIuTpQhAM
+	QGAU98CffrUAdOC0jTKXiJ0GblnVmH8SXMxqR0sNHBtPeJOVwXat5gkslEyaiJN1KHtmwltwbLBBr
+	xcNJqY9CnNj5y2xB3ZTcIuTs7H5v3FpZu2pdJV/2UWpXznmvQYvTM9bx79wzAXH4NglFzV354UL/8
+	8BDoU15Guo3iZd+qKmPA8nkrs/rxZ0GZST9iabXcDgdZbFFJjp6nZrmp50w1pJT1e3IrE4W8kg91U
+	Ya1lng2Q==;
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYMk-0006Xd-Im; Tue, 24 Nov 2020 13:28:19 +0000
+	id 1khYMn-0006Y9-FD; Tue, 24 Nov 2020 13:28:21 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Tejun Heo <tj@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Tejun Heo <tj@kernel.org>,
 	linux-mtd@lists.infradead.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 16/45] block: change the hash used for looking up block devices
-Date: Tue, 24 Nov 2020 14:27:22 +0100
-Message-Id: <20201124132751.3747337-17-hch@lst.de>
+Subject: [PATCH 18/45] init: refactor devt_from_partuuid
+Date: Tue, 24 Nov 2020 14:27:24 +0100
+Message-Id: <20201124132751.3747337-19-hch@lst.de>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201124132751.3747337-1-hch@lst.de>
 References: <20201124132751.3747337-1-hch@lst.de>
@@ -90,66 +90,118 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Adding the minor to the major creates tons of pointless conflicts. Just
-use the dev_t itself, which is 32-bits and thus is guaranteed to fit
-into ino_t.
+The code in devt_from_partuuid is very convoluted.  Refactor a bit by
+sanitizing the goto and variable name usage.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Reviewed-by: Jan Kara <jack@suse.cz>
 ---
- fs/block_dev.c | 26 ++------------------------
- 1 file changed, 2 insertions(+), 24 deletions(-)
+ init/do_mounts.c | 68 ++++++++++++++++++++++--------------------------
+ 1 file changed, 31 insertions(+), 37 deletions(-)
 
-diff --git a/fs/block_dev.c b/fs/block_dev.c
-index f6a2a06ad262fa..437f67e12b2838 100644
---- a/fs/block_dev.c
-+++ b/fs/block_dev.c
-@@ -863,35 +863,12 @@ void __init bdev_cache_init(void)
- 	blockdev_superblock = bd_mnt->mnt_sb;   /* For writeback */
+diff --git a/init/do_mounts.c b/init/do_mounts.c
+index aef2f24461c7f1..afa26a4028d25e 100644
+--- a/init/do_mounts.c
++++ b/init/do_mounts.c
+@@ -105,13 +105,10 @@ static int match_dev_by_uuid(struct device *dev, const void *data)
+  */
+ static dev_t devt_from_partuuid(const char *uuid_str)
+ {
+-	dev_t res = 0;
+ 	struct uuidcmp cmp;
+ 	struct device *dev = NULL;
+-	struct gendisk *disk;
+-	struct hd_struct *part;
++	dev_t devt = 0;
+ 	int offset = 0;
+-	bool clear_root_wait = false;
+ 	char *slash;
+ 
+ 	cmp.uuid = uuid_str;
+@@ -120,52 +117,49 @@ static dev_t devt_from_partuuid(const char *uuid_str)
+ 	/* Check for optional partition number offset attributes. */
+ 	if (slash) {
+ 		char c = 0;
++
+ 		/* Explicitly fail on poor PARTUUID syntax. */
+-		if (sscanf(slash + 1,
+-			   "PARTNROFF=%d%c", &offset, &c) != 1) {
+-			clear_root_wait = true;
+-			goto done;
+-		}
++		if (sscanf(slash + 1, "PARTNROFF=%d%c", &offset, &c) != 1)
++			goto clear_root_wait;
+ 		cmp.len = slash - uuid_str;
+ 	} else {
+ 		cmp.len = strlen(uuid_str);
+ 	}
+ 
+-	if (!cmp.len) {
+-		clear_root_wait = true;
+-		goto done;
+-	}
++	if (!cmp.len)
++		goto clear_root_wait;
+ 
+-	dev = class_find_device(&block_class, NULL, &cmp,
+-				&match_dev_by_uuid);
++	dev = class_find_device(&block_class, NULL, &cmp, &match_dev_by_uuid);
+ 	if (!dev)
+-		goto done;
+-
+-	res = dev->devt;
++		return 0;
+ 
+-	/* Attempt to find the partition by offset. */
+-	if (!offset)
+-		goto no_offset;
++	if (offset) {
++		/*
++		 * Attempt to find the requested partition by adding an offset
++		 * to the partition number found by UUID.
++		 */
++		struct hd_struct *part;
+ 
+-	res = 0;
+-	disk = part_to_disk(dev_to_part(dev));
+-	part = disk_get_part(disk, dev_to_part(dev)->partno + offset);
+-	if (part) {
+-		res = part_devt(part);
+-		put_device(part_to_dev(part));
++		part = disk_get_part(dev_to_disk(dev),
++				     dev_to_part(dev)->partno + offset);
++		if (part) {
++			devt = part_devt(part);
++			put_device(part_to_dev(part));
++		}
++	} else {
++		devt = dev->devt;
+ 	}
+ 
+-no_offset:
+ 	put_device(dev);
+-done:
+-	if (clear_root_wait) {
+-		pr_err("VFS: PARTUUID= is invalid.\n"
+-		       "Expected PARTUUID=<valid-uuid-id>[/PARTNROFF=%%d]\n");
+-		if (root_wait)
+-			pr_err("Disabling rootwait; root= is invalid.\n");
+-		root_wait = 0;
+-	}
+-	return res;
++	return devt;
++
++clear_root_wait:
++	pr_err("VFS: PARTUUID= is invalid.\n"
++	       "Expected PARTUUID=<valid-uuid-id>[/PARTNROFF=%%d]\n");
++	if (root_wait)
++		pr_err("Disabling rootwait; root= is invalid.\n");
++	root_wait = 0;
++	return 0;
  }
  
--/*
-- * Most likely _very_ bad one - but then it's hardly critical for small
-- * /dev and can be fixed when somebody will need really large one.
-- * Keep in mind that it will be fed through icache hash function too.
-- */
--static inline unsigned long hash(dev_t dev)
--{
--	return MAJOR(dev)+MINOR(dev);
--}
--
--static int bdev_test(struct inode *inode, void *data)
--{
--	return BDEV_I(inode)->bdev.bd_dev == *(dev_t *)data;
--}
--
--static int bdev_set(struct inode *inode, void *data)
--{
--	BDEV_I(inode)->bdev.bd_dev = *(dev_t *)data;
--	return 0;
--}
--
- static struct block_device *bdget(dev_t dev)
- {
- 	struct block_device *bdev;
- 	struct inode *inode;
- 
--	inode = iget5_locked(blockdev_superblock, hash(dev),
--			bdev_test, bdev_set, &dev);
--
-+	inode = iget_locked(blockdev_superblock, dev);
- 	if (!inode)
- 		return NULL;
- 
-@@ -903,6 +880,7 @@ static struct block_device *bdget(dev_t dev)
- 		bdev->bd_super = NULL;
- 		bdev->bd_inode = inode;
- 		bdev->bd_part_count = 0;
-+		bdev->bd_dev = dev;
- 		inode->i_mode = S_IFBLK;
- 		inode->i_rdev = dev;
- 		inode->i_bdev = bdev;
+ /**
 -- 
 2.29.2
 
