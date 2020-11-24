@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122682C19EE
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 01:26:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35293.66748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6ED12C1A27
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 01:41:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35303.66760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khM9G-0003pl-9Y; Tue, 24 Nov 2020 00:25:34 +0000
+	id 1khMOD-0005Xx-Ip; Tue, 24 Nov 2020 00:41:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35293.66748; Tue, 24 Nov 2020 00:25:34 +0000
+Received: by outflank-mailman (output) from mailman id 35303.66760; Tue, 24 Nov 2020 00:41:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,205 +23,177 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khM9G-0003pM-6Q; Tue, 24 Nov 2020 00:25:34 +0000
-Received: by outflank-mailman (input) for mailman id 35293;
- Tue, 24 Nov 2020 00:25:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1khMOD-0005XY-Fc; Tue, 24 Nov 2020 00:41:01 +0000
+Received: by outflank-mailman (input) for mailman id 35303;
+ Tue, 24 Nov 2020 00:40:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PpH5=E6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1khM9E-0003pH-N8
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 00:25:32 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 15bd4e62-52f7-49d0-b69d-fda49432d0fc;
- Tue, 24 Nov 2020 00:25:31 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9B70220729;
- Tue, 24 Nov 2020 00:25:30 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ <SRS0=rpYA=E6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1khMOB-0005XR-7I
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 00:40:59 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 734d45c5-fe77-4abd-be52-f55b66f8e497;
+ Tue, 24 Nov 2020 00:40:57 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=PpH5=E6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1khM9E-0003pH-N8
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 00:25:32 +0000
-X-Inumbo-ID: 15bd4e62-52f7-49d0-b69d-fda49432d0fc
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 15bd4e62-52f7-49d0-b69d-fda49432d0fc;
-	Tue, 24 Nov 2020 00:25:31 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 9B70220729;
-	Tue, 24 Nov 2020 00:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606177530;
-	bh=zRsMQ1sdMyKyuXMkMtUSFWYf/9u5wU1Aw7W/E8hs25o=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=0/54lLXhqIcRaCOiYEzIl7O2kG3JRXpA42CtsNMs+l1GhhcSu2rxL42iCWfu7Wvoe
-	 YaYMG8zOLz4dbCP54KKlVavby9LalyjXlV12FAc/IiVDNxEPa298rS9lCaYeeH9WMI
-	 c8hsOjQu686uaC8O9StyxjpThkLDKY0PyiTP9CZ0=
-Date: Mon, 23 Nov 2020 16:25:29 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Julien Grall <julien.grall@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH RFC 4/6] xen/arm: mm: Allow other mapping size in
- xen_pt_update_entry()
-In-Reply-To: <eff4cb40-ac90-940c-aa97-16a5021386d3@xen.org>
-Message-ID: <alpine.DEB.2.21.2011231612330.7979@sstabellini-ThinkPad-T480s>
-References: <20201119190751.22345-1-julien@xen.org> <20201119190751.22345-5-julien@xen.org> <alpine.DEB.2.21.2011191706420.7979@sstabellini-ThinkPad-T480s> <1ba4afef-7efa-6d1a-5929-ec2652dbbb21@xen.org> <alpine.DEB.2.21.2011231409050.7979@sstabellini-ThinkPad-T480s>
- <eff4cb40-ac90-940c-aa97-16a5021386d3@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=rpYA=E6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+	id 1khMOB-0005XR-7I
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 00:40:59 +0000
+X-Inumbo-ID: 734d45c5-fe77-4abd-be52-f55b66f8e497
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 734d45c5-fe77-4abd-be52-f55b66f8e497;
+	Tue, 24 Nov 2020 00:40:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1606178457;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=hDAXSFYCTwV7+OA3EDO2Of56ILPq9gGqRN4D8Fc0RUg=;
+  b=WEuA2VUQsq+fLhKfdC/SRbYjik9xr6lJbP9+T2Kdjfj08f+A4HTE1Uhq
+   b2am9fOup7h0vyC4VoaXZagB1BmC6LFKbezeuyI1OEHD2mPdnz8o4UwaC
+   HtFTRIU6z2IHXOZKSXh255VZvkW3n8FiAkI0WgxjCR+K4xinTEkDAFNhx
+   A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 23uAuWnWj9ztOiIbw/OfThm+MbJqABlR73RviENEroa6b2kOXIZ5959DbpDA1Dd1FDzUgnFqqc
+ n+9U+xJq8T8wONqSBJt4cx2m4WD3DQr6rtNnqTBdxtuzVyhu0mRq8LjcMz7hpnlXEl0s0apWcd
+ +Wj1J4ojM0uGj3xmCTxBwn0E4DTGpw4EVPLUzbCnhMXpW054EcgL6WbnhRINGQhDG0/NeN6gVd
+ Yq1M3Gi4rYr5Rty2Kc4bf5bnlN/o+R/hsQ5T4p/1bP/ZM1QIBYpdgOuzhxDhc0AuRA4TQPtO+D
+ Ito=
+X-SBRS: None
+X-MesageID: 32134937
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,364,1599537600"; 
+   d="scan'208";a="32134937"
+Subject: Re: [PATCH v2 7/8] lib: move bsearch code
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+CC: George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+References: <aa1ca5da-3ecf-8721-63f9-b86ebbc64330@suse.com>
+ <87a20884-5a76-a664-dcc9-bd4becee40b3@suse.com>
+ <44ffc041-cacd-468e-a835-f5b2048bb201@xen.org>
+ <2cf3a90d-f463-41f8-f861-6ef00279b204@suse.com>
+ <2419eccf-c696-6aa1-ada4-0f7bd6bc5657@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <77534dc3-bdd6-f884-99e3-90dc9b02a81f@citrix.com>
+Date: Tue, 24 Nov 2020 00:40:50 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <2419eccf-c696-6aa1-ada4-0f7bd6bc5657@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ FTLPEX02CL04.citrite.net (10.13.108.177)
 
-On Mon, 23 Nov 2020, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 23/11/2020 22:27, Stefano Stabellini wrote:
-> > On Fri, 20 Nov 2020, Julien Grall wrote:
-> > > > >        /*
-> > > > >         * For arm32, page-tables are different on each CPUs. Yet, they
-> > > > > share
-> > > > > @@ -1265,14 +1287,43 @@ static int xen_pt_update(unsigned long virt,
-> > > > >          spin_lock(&xen_pt_lock);
-> > > > >    -    for ( ; addr < addr_end; addr += PAGE_SIZE )
-> > > > > +    while ( left )
-> > > > >        {
-> > > > > -        rc = xen_pt_update_entry(root, addr, mfn, flags);
-> > > > > +        unsigned int order;
-> > > > > +        unsigned long mask;
-> > > > > +
-> > > > > +        /*
-> > > > > +         * Don't take into account the MFN when removing mapping (i.e
-> > > > > +         * MFN_INVALID) to calculate the correct target order.
-> > > > > +         *
-> > > > > +         * XXX: Support superpage mappings if nr is not aligned to a
-> > > > > +         * superpage size.
-> > > > 
-> > > > It would be good to add another sentence to explain that the checks
-> > > > below are simply based on masks and rely on the mfn, vfn, and also
-> > > > nr_mfn to be superpage aligned. (It took me some time to figure it out.)
-> > > 
-> > > I am not sure to understand what you wrote here. Could you suggest a
-> > > sentence?
-> > 
-> > Something like the following:
-> > 
-> > /*
-> >   * Don't take into account the MFN when removing mapping (i.e
-> >   * MFN_INVALID) to calculate the correct target order.
-> >   *
-> >   * This loop relies on mfn, vfn, and nr_mfn, to be all superpage
-> >   * aligned, and it uses `mask' to check for that.
-> 
-> Unfortunately, I am still not sure to understand this comment.
-> The loop can deal with any (super)page size (4KB, 2MB, 1GB). There are no
-> assumption on any alignment for mfn, vfn and nr_mfn.
-> 
-> By OR-ing the 3 components together, we can use it to find out the maximum
-> size that can be used for the mapping.
-> 
-> So can you clarify what you mean?
+On 23/11/2020 22:49, Julien Grall wrote:
+> Hi Jan,
+>
+> On 19/11/2020 10:27, Jan Beulich wrote:
+>> On 18.11.2020 19:09, Julien Grall wrote:
+>>> On 23/10/2020 11:19, Jan Beulich wrote:
+>>>> --- a/xen/include/xen/compiler.h
+>>>> +++ b/xen/include/xen/compiler.h
+>>>> @@ -12,6 +12,7 @@
+>>>>       #define inline        __inline__
+>>>>    #define always_inline __inline__ __attribute__
+>>>> ((__always_inline__))
+>>>> +#define gnu_inline    __inline__ __attribute__ ((__gnu_inline__))
+>>>
+>>> bsearch() is only used by Arm and I haven't seen anyone so far
+>>> complaining about the perf of I/O emulation.
+>>>
+>>> Therefore, I am not convinced that there is enough justification to
+>>> introduce a GNU attribute just for this patch.
+>>
+>> Please settle this with Andrew: He had asked for the function to
+>> become inline. I don't view making it static inline in the header
+>> as an option here - if the compiler decides to not inline it, we
+>> should not end up with multiple instances in different CUs.
+>
+> That's the cons of static inline... but then why is it suddenly a
+> problem with this helper?
+>
+>> And
+>> without making it static inline the attribute needs adding; at
+>> least I'm unaware of an alternative which works with the various
+>> compiler versions.
+>
+> The question we have to answer is: What is the gain with this approach?
 
-In pseudo-code:
+Substantial.
 
-  mask = mfn | vfn | nr_mfns;
-  if (mask & ((1<<FIRST_ORDER) - 1))
-  if (mask & ((1<<SECOND_ORDER) - 1))
-  if (mask & ((1<<THIRD_ORDER) - 1))
-  ...
+>
+> If it is not quantifiable, then introducing compiler specific
+> attribute is not an option.
+>
+> IIRC, there are only two callers (all in Arm code) of this function.
+> Even inlined, I don't believe you would drastically reduce the number
+> of instructions compare to a full blown version. To be generous, I
+> would say you may save ~20 instructions per copy.
+>
+> Therefore, so far, the compiler specific attribute doesn't look
+> justified to me. As usual, I am happy to be proven wrong
 
-As you wrote the mask is used to find the max size that can be used for
-the mapping.
+There is a very good reason why this is the classic example used for
+extern inline's in various libc's.
 
-But let's take nr_mfns out of the equation for a moment for clarity:
+The gains are from the compiler being able to optimise away the function
+pointer(s) entirely.  Instead of working on opaque objects, it can see
+the accesses directly, implement compares as straight array reads, (for
+sorting, the swap() call turns into memcpy()) and because it can see all
+the memory accesses, doesn't have to assume that every call to cmp()
+modifies arbitrary data in the array (i.e. doesn't have to reload the
+objects from memory every iteration).
 
-  mask = mfn | vfn;
-  if (mask & ((1<<FIRST_ORDER) - 1))
-  if (mask & ((1<<SECOND_ORDER) - 1))
-  if (mask & ((1<<THIRD_ORDER) - 1))
-  ...
+extern inline allows the compiler full flexibility to judge whether
+inlining is a net win, based on optimisation settings and observing what
+the practical memory access pattern would be from not inlining.
 
-How would you describe this check? I'd call this an alignment check,
-is it not?
+extern inline is the appropriate thing to use here, except for the big
+note in the GCC manual saying "always use gnu_inline in this case" which
+appears to be working around a change in the C99 standard which forces
+any non-static inline to emit a body even when its not called, due to
+rules about global symbols.
 
+Therefore, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-> >   *
-> >   * XXX: Support superpage mappings if nr_mfn is not aligned to a
-> >   * superpage size.
-> >   */
-> > 
-> > 
-> > > Regarding the TODO itself, we have the exact same one in the P2M code. I
-> > > couldn't find a clever way to deal with it yet. Any idea how this could be
-> > > solved?
-> >   I was thinking of a loop that start with the highest possible superpage
-> > size that virt and mfn are aligned to, and also smaller or equal to
-> > nr_mfn. So rather than using the mask to also make sure nr_mfns is
-> > aligned, I would only use the mask to check that mfn and virt are
-> > aligned. Then, we only need to check that superpage_size <= left.
-> > 
-> > Concrete example: virt and mfn are 2MB aligned, nr_mfn is 5MB / 1280 4K
-> > pages. We allocate 2MB superpages until onlt 1MB is left. At that point
-> > superpage_size <= left fails and we go down to 4K allocations.
-> > 
-> > Would that work?
-> 
-> Unfortunately no, AFAICT, your assumption is that vfn/mfn are originally
-> aligned to higest possible superpage size. There are situation where this is
-> not the case.
+Some further observations:
 
-Yes, I was assuming that vfn/mfn are originally aligned to higest
-possible superpage size. It is more difficult without that assumption
-:-)
+For arch/arm/io.c, the handlers are sorted, so find_mmio_handler() will
+be O(lg n), but it will surely be faster with the inlined version, and
+this is the fastpath.
 
+register_mmio_handler() OTOH is massively expensive, because sort()
+turns the array into a heap and back into an array on every insertion,
+just to insert an entry into an already sorted array.  It would be more
+efficient to library-fy the work I did for VT-x MSR load/save lists
+(again, extern inline) and reuse
+"insert_$FOO_into_sorted_list_of_FOOs()" which is a search, single
+memmove() to make a gap, and a memcpy() into place.
 
-> To give a concrete example, at the moment the RAM is mapped using 1GB
-> superpage in Xen. But in the future, we will only want to map RAM regions in
-> the directmap that haven't been marked as reserved [1].
-> 
-> Those reserved regions don't have architectural alignment or placement.
-> 
-> I will use an over-exegerated example (or maybe not :)).
-> 
-> Imagine you have 4GB of RAM starting at 0. The HW/Software engineer decided to
-> place a 2MB reserved region start at 512MB.
-> 
-> As a result we would want to map two RAM regions:
->    1) 0 to 512MB
->    2) 514MB to 4GB
-> 
-> I will only focus on 2). In the ideal situation, we would want to map
->    a) 514MB to 1GB using 2MB superpage
->    b) 1GB to 4GB using 1GB superpage
-> 
-> We don't want be to use 2MB superpage because this will increase TLB pressure
-> (we want to avoid Xen using too much TLB entries) and also increase the size
-> of the page-tables.
-> 
-> Therefore, we want to select the best size for each iteration. For now, the
-> only solution I can come up with is to OR vfn/mfn and then use a series of
-> check to compare the mask and nr_mfn.
+When you compile io.c with this patch in place, the delta is:
 
-Yeah, that's more or less what I was imagining too. Maybe we could use
-ffs and friends to avoid or simplify some of those checks.
+add/remove: 0/1 grow/shrink: 1/0 up/down: 92/-164 (-72)
+Function                                     old     new   delta
+try_handle_mmio                              720     812     +92
+bsearch                                      164       -    -164
+Total: Before=992489, After=992417, chg -0.01%
+
+The reason cmp_mmio_handler (140 bytes) doesn't drop out is because it
+is referenced by register_mmio_hanlder()'s call to sort().  All in all,
+the inlined version is less than 1/3 the size of the out-of-lined
+version, but I haven't characterised it further than that.
 
 
-> In addition to the "classic" mappings (i.e. 4KB, 2MB, 1GB). I would like to
-> explore contiguous mapping (e.g. 64KB, 32MB) to further reduce the TLBs
-> pressure. Note that a processor may or may not take advantage of contiguous
-> mapping to reduce the number of TLBs used.
-> 
-> This will unfortunately increase the numbers of check. I will try to come up
-> with a patch and we can discuss from there.
+On a totally separate point,  I wonder if we'd be better off compiling
+with -fgnu89-inline because I can't see any case we're we'd want the C99
+inline semantics anywhere in Xen.
 
-OK
+~Andrew
 
