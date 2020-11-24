@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEE802C259B
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 13:26:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.35903.67560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8F252C25D1
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Nov 2020 13:38:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.35912.67572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khXOw-0002hw-1m; Tue, 24 Nov 2020 12:26:30 +0000
+	id 1khXZi-0003gs-3P; Tue, 24 Nov 2020 12:37:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 35903.67560; Tue, 24 Nov 2020 12:26:30 +0000
+Received: by outflank-mailman (output) from mailman id 35912.67572; Tue, 24 Nov 2020 12:37:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -19,102 +19,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khXOv-0002hX-Ul; Tue, 24 Nov 2020 12:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 35903;
- Tue, 24 Nov 2020 12:26:28 +0000
+	id 1khXZi-0003gT-0X; Tue, 24 Nov 2020 12:37:38 +0000
+Received: by outflank-mailman (input) for mailman id 35912;
+ Tue, 24 Nov 2020 12:37:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YSly=E6=gmail.com=htejun@srs-us1.protection.inumbo.net>)
- id 1khXOt-0002hQ-UQ
- for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 12:26:28 +0000
-Received: from mail-qt1-x842.google.com (unknown [2607:f8b0:4864:20::842])
+ (envelope-from <SRS0=nkWz=E6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1khXZh-0003gO-5w
+ for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 12:37:37 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 50273573-a0da-4c5c-82a2-195c84ec28b4;
- Tue, 24 Nov 2020 12:26:27 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id 7so15888720qtp.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Nov 2020 04:26:27 -0800 (PST)
-Received: from localhost (dhcp-6c-ae-f6-dc-d8-61.cpe.echoes.net. [72.28.8.195])
- by smtp.gmail.com with ESMTPSA id t2sm8643187qkb.2.2020.11.24.04.26.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2020 04:26:25 -0800 (PST)
+ id 37d8de65-7865-4798-a96c-d72c1a860a8f;
+ Tue, 24 Nov 2020 12:37:36 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 79410AC2D;
+ Tue, 24 Nov 2020 12:37:35 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=YSly=E6=gmail.com=htejun@srs-us1.protection.inumbo.net>)
-	id 1khXOt-0002hQ-UQ
-	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 12:26:28 +0000
-X-Inumbo-ID: 50273573-a0da-4c5c-82a2-195c84ec28b4
-Received: from mail-qt1-x842.google.com (unknown [2607:f8b0:4864:20::842])
+	(envelope-from <SRS0=nkWz=E6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1khXZh-0003gO-5w
+	for xen-devel@lists.xenproject.org; Tue, 24 Nov 2020 12:37:37 +0000
+X-Inumbo-ID: 37d8de65-7865-4798-a96c-d72c1a860a8f
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 50273573-a0da-4c5c-82a2-195c84ec28b4;
-	Tue, 24 Nov 2020 12:26:27 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id 7so15888720qtp.1
-        for <xen-devel@lists.xenproject.org>; Tue, 24 Nov 2020 04:26:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=sender:date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=3VmFnou2nD4lcYGUPrMqThXCue7L4UhclP4oij42Kbk=;
-        b=Q2pmLjkQax53DfEJqAJ++rfXRuCUfTMdSrNvTnPX432cf0gQiAL3+rv3sWj3pG2My/
-         oRdarF4chfZ/NGCWEsg2aUxLBAr7DM0+LX5j3dmwR37bMrIIw9a2t0+E+kgW+uzsRvYc
-         g8kM86RUe+4+vv//4l1WUE0yyA289I+AFdLve44wNIShUP964g0YZBC6/O2hSjbZ07AU
-         S+AiwdwqWWOpdsi3wwn8TVFeRWE/u7jWG4pRzv/CGg3KS5VD7Ier0L558UzN4+P3vh8c
-         3eIrk+wHnJy7NT29VnOUcXmovGz+97HAGUQWfQatJC0i/4bkcHptLw7Lu0lLat1XLRR0
-         0C4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
-         :references:mime-version:content-disposition:in-reply-to;
-        bh=3VmFnou2nD4lcYGUPrMqThXCue7L4UhclP4oij42Kbk=;
-        b=eps1XF5mtztgNbAmcgGlsB5qnHLn5DQ2RK5XsM4AENWTDvDNW/7m2SxpZMZA4cDOLA
-         rpcQ2nVohvzfBxGNciubPNxxT2n3gVD7faIr3T7wNnku8bcvruOtQkFz3Nuy5zRaWzj/
-         VvpYzK/Si0Ps62qjszDGvh+WDgwj6vdnV6Dkdc286QPT50iqUjqkzX1PVR5NNtHfP3rh
-         F13WKVLvH/h/xT2ui8kQcHVQ7x96b0+rPSCxEdIth1ZHywLoMEYInEi4fhw6SnijjcRq
-         lu1LbRXEfvBK9GfRmiiQ1fkB8yRW4TpbAh0Ma3YoH/ZLhIR82JzfmHpzRXokVOT6U98X
-         YfvQ==
-X-Gm-Message-State: AOAM531PGdcHRkffALkMejC+pSMIgCB4raEYuQ9mVEa24g/Q9pqrBMg4
-	hvbgL7S60hqRnppGqXvvA6Y=
-X-Google-Smtp-Source: ABdhPJzEc+iLQWYgDMndDYVqthGkMbJAnqvSsODxlzYXE5vX4s2url7RgqZoX9eivJ6nNv6zlRow0w==
-X-Received: by 2002:aed:3c42:: with SMTP id u2mr4081287qte.159.1606220786736;
-        Tue, 24 Nov 2020 04:26:26 -0800 (PST)
-Received: from localhost (dhcp-6c-ae-f6-dc-d8-61.cpe.echoes.net. [72.28.8.195])
-        by smtp.gmail.com with ESMTPSA id t2sm8643187qkb.2.2020.11.24.04.26.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2020 04:26:25 -0800 (PST)
-Sender: Tejun Heo <htejun@gmail.com>
-Date: Tue, 24 Nov 2020 07:26:03 -0500
-From: Tejun Heo <tj@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Josef Bacik <josef@toxicpanda.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
-	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 01/20] blk-cgroup: fix a hd_struct leak in
- blkcg_fill_root_iostats
-Message-ID: <X7z7215hVXzg3FGA@mtj.duckdns.org>
-References: <20201118084800.2339180-1-hch@lst.de>
- <20201118084800.2339180-2-hch@lst.de>
+	id 37d8de65-7865-4798-a96c-d72c1a860a8f;
+	Tue, 24 Nov 2020 12:37:36 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606221455; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QCDm5pogy+IZ0lOtJJutBjvsjA+rmanEIHT9rFjFzIA=;
+	b=tMLVqdEkp3s5CI2EME+ZaMdeQJVF2J6uYuTJmzh7zATOZ1S7nszblAB1hP2H4QXFokgmCz
+	efI8wy2Jk8H7lG5yLNlyxuRIt/fsRZdPhLOlAIAPXCFwAeWhJAeFyhHglPsdeY9FcELYBs
+	NFuu/bnr3ygkno4O59wQi/PGYGc7gws=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 79410AC2D;
+	Tue, 24 Nov 2020 12:37:35 +0000 (UTC)
+Subject: Re: [PATCH v7 2/3] xen/events: modify struct evtchn layout
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201124070106.26854-1-jgross@suse.com>
+ <20201124070106.26854-3-jgross@suse.com>
+ <440bced0-97ec-33c4-f6fa-01850777e5c2@suse.com>
+ <696314b9-18e3-e18d-10f2-a510e19438da@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <9017e6a2-2fa0-4093-32a8-a256a58f4a33@suse.com>
+Date: Tue, 24 Nov 2020 13:37:35 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201118084800.2339180-2-hch@lst.de>
+In-Reply-To: <696314b9-18e3-e18d-10f2-a510e19438da@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2020 at 09:47:41AM +0100, Christoph Hellwig wrote:
-> disk_get_part needs to be paired with a disk_put_part.
+On 24.11.2020 13:18, Jürgen Groß wrote:
+> On 24.11.20 12:42, Jan Beulich wrote:
+>> On 24.11.2020 08:01, Juergen Gross wrote:
+>>> @@ -94,9 +93,10 @@ struct evtchn
+>>>   #define ECS_VIRQ         5 /* Channel is bound to a virtual IRQ line.        */
+>>>   #define ECS_IPI          6 /* Channel is bound to a virtual IPI line.        */
+>>>       u8  state;             /* ECS_* */
+>>> -    u8  xen_consumer:XEN_CONSUMER_BITS; /* Consumer in Xen if nonzero */
+>>
+>> I see no reason to use a full byte for this one; in fact I
+>> was considering whether it, state, and old_state couldn't
+>> share storage (the latest when we run into space issues with
+>> this struct). (In this context I'm also observing that
+>> old_state could get away with just 2 bits, i.e. all three
+>> fields would fit in a single byte.)
 > 
-> Fixes: ef45fe470e1 ("blk-cgroup: show global disk stats in root cgroup io.stat")
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> I think doing further compression now isn't really helping. It would
+> just add more padding bytes and result in larger code.
 
-Acked-by: Tejun Heo <tj@kernel.org>
+I'm not meaning to ask to widen the use of bitfields right now
+(unless this helps avoiding holes). But I'd like to not see the
+one non-problematic use go away without this really being
+necessary.
 
-Thanks.
+>> Also for all fields you touch anyway, may I ask that you switch to
+>> uint<N>_t or, in the case of "pending", bool?
+> 
+> Fine with me.
+> 
+> Would you object to switching the whole structure in this regard?
 
--- 
-tejun
+I didn't dare to suggest you doing so. So no, I wouldn't mind.
+However, there's more room then for what some would possibly
+call bike shedding: The wider the scope of the conversion you
+do the more relevant it'll become that strictly speaking there
+ought to be (almost?) no use of fixed width types here, as per
+./CODING_STYLE.
+
+Jan
 
