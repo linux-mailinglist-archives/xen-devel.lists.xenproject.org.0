@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72A52C4E2E
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 06:16:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.38137.70986 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C6FB2C4E2F
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 06:16:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.38139.70994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ki9dE-0001xv-NP; Thu, 26 Nov 2020 05:15:48 +0000
+	id 1ki9dF-0001yX-0U; Thu, 26 Nov 2020 05:15:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 38137.70986; Thu, 26 Nov 2020 05:15:48 +0000
+Received: by outflank-mailman (output) from mailman id 38139.70994; Thu, 26 Nov 2020 05:15:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,102 +23,102 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ki9dE-0001xW-Ik; Thu, 26 Nov 2020 05:15:48 +0000
-Received: by outflank-mailman (input) for mailman id 38137;
- Wed, 25 Nov 2020 22:44:41 +0000
+	id 1ki9dE-0001xx-Se; Thu, 26 Nov 2020 05:15:48 +0000
+Received: by outflank-mailman (input) for mailman id 38139;
+ Wed, 25 Nov 2020 23:02:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cX6R=E7=gmail.com=ecree.xilinx@srs-us1.protection.inumbo.net>)
- id 1ki3Wj-0002Mw-CT
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 22:44:41 +0000
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
+ id 1ki3oD-000469-T0
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 23:02:45 +0000
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 700e3e7d-60c4-4325-8299-15c2f89434ee;
- Wed, 25 Nov 2020 22:44:40 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id c198so229142wmd.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Nov 2020 14:44:40 -0800 (PST)
+ id 2802225f-6caa-4242-a188-4bdddacce7df;
+ Wed, 25 Nov 2020 23:02:45 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id 23so83248wrc.8
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Nov 2020 15:02:45 -0800 (PST)
 Received: from [192.168.1.122]
  (cpc92720-cmbg20-2-0-cust364.5-4.cable.virginm.net. [82.21.83.109])
- by smtp.gmail.com with ESMTPSA id h15sm6411655wrw.15.2020.11.25.14.44.35
+ by smtp.gmail.com with ESMTPSA id u129sm5552667wme.9.2020.11.25.15.02.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Nov 2020 14:44:38 -0800 (PST)
+ Wed, 25 Nov 2020 15:02:43 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=cX6R=E7=gmail.com=ecree.xilinx@srs-us1.protection.inumbo.net>)
-	id 1ki3Wj-0002Mw-CT
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 22:44:41 +0000
-X-Inumbo-ID: 700e3e7d-60c4-4325-8299-15c2f89434ee
-Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
+	id 1ki3oD-000469-T0
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 23:02:45 +0000
+X-Inumbo-ID: 2802225f-6caa-4242-a188-4bdddacce7df
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 700e3e7d-60c4-4325-8299-15c2f89434ee;
-	Wed, 25 Nov 2020 22:44:40 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id c198so229142wmd.0
-        for <xen-devel@lists.xenproject.org>; Wed, 25 Nov 2020 14:44:40 -0800 (PST)
+	id 2802225f-6caa-4242-a188-4bdddacce7df;
+	Wed, 25 Nov 2020 23:02:45 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id 23so83248wrc.8
+        for <xen-devel@lists.xenproject.org>; Wed, 25 Nov 2020 15:02:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=mMrMdknFbsC77SFRvwwD3pm1cwl3V2MP65kzVJE6tY4=;
-        b=mE3/9/w1S1BsFafykdzrNl6nUKLQtv3irXzEz/AwtJdLppuZQnzVWeoYFC7Qb5OQef
-         2DAcZ7D6Froq/rlKPIBwqGtt0C/0XmhDJf/Ua0btTGl1wBl77rh04suLM7Drqc/fd1vb
-         erjCUGXrwTRfKAEK60/5plkWP59Lm5M7QZ9ENMraFyUEU5TYdKtuuKGBjQ65xtLyj0UE
-         nayIBzzwS8QdOAkDbWxTvDHZJGPoguOAiztDitejPSo1Rp931ceTN4KgHMls79AEVEp8
-         0UjkiGW0It0CwNfB/koaXcS1sEgjLFm2K1jcT9QDdZUmcgiCMPoll+6KvJ2hAfFlaA1V
-         8PSw==
+        bh=ha42UWMtlXOL8kfvC1XpFKttY73p7G2gxviD5bIo2Ac=;
+        b=cK16XuXEr1UlZZi/GgHF7dItPstb+7yZ2QUTp5Dxvdc6OIX52ygirnUAKuRVBOH+dK
+         A20pmgUIw2HuGZFFAXCmBSAdjpUAnHlbQW6vzVJQphFFEbO8NHcI7pY1E1IYv6o5k0Qf
+         jXWsM0ddqTXTn/1nZTXycpkYVMfbhxZxJ9mV7kOEU+Tec/es0pgNM20lzmzFkZBYIURn
+         HK2FiFuW7CXMZxeXIL3yJ5bCH/J8M2hkcorgk3PecLezXYs+oTw3zVRlNq6FEGJfSXMe
+         e5NpXkmlA2dB6AmhViUGWqJQAiQop1G/7Q0C0bZUhlLDOGEFt9XX9+Dv47nZ0Rj6T1x/
+         IsxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=mMrMdknFbsC77SFRvwwD3pm1cwl3V2MP65kzVJE6tY4=;
-        b=jUn+I+0nOd9095XsRVTTjJvmV9Iuwa8sJZcGI8TqceEObL2xRcWvXUDqOv78vFNQlb
-         96tnZ7WP3Awulq+GmKQJQvkDz2kwrPB4GnUvtmT5UPYFfj3MKnNH+sI45M5Mp5O/aY1s
-         XgSg2XjJpQXx41iWc4yiKQyoQrjiUne/gmmxLhlM2sOGP8T7hNfggIMfN1o+VoYpbwRy
-         7QLD2W1rF7vs89qkk0jw8WCGcjaMMiRQasAtrjqRlRtudEtwRS02kxvnKk0PDcxtNQZ8
-         8t9GwhIsPqI3CDkyV2U4HGX8YOX9c6Ez6k4sGz3cgqYlfYvZH6ILdYHr9QILcIdqBK1W
-         tH7g==
-X-Gm-Message-State: AOAM532xQDNoIwpM8p3aALNlwCyflAT6HB9GXP1k4iULCUm9Igm7wGax
-	+6xVvDoIlkJn4nrnK7aFp7I=
-X-Google-Smtp-Source: ABdhPJzVXPr1uOlB1vaw2cfl6zSoOiLq1F6oo5r6Yg/UanqxqpZONWe00UKvdrBaRFZ4o0pgYT/ByA==
-X-Received: by 2002:a7b:cf0a:: with SMTP id l10mr6364382wmg.103.1606344279394;
-        Wed, 25 Nov 2020 14:44:39 -0800 (PST)
+        bh=ha42UWMtlXOL8kfvC1XpFKttY73p7G2gxviD5bIo2Ac=;
+        b=qIETVp5aZP1N6uw1r9UFwZX7gfdV0znpb/WHMg4sNlIOCiFsEjp+Avw1ffTtPFLKKa
+         6QIucF+j+e5Z1iRfVdtVH7LUEJvW12WyIr2sSaVBixh9ace+Q0RKYKNbaAgVoxNCaLpz
+         fF+M7kn6nEQFr7GyswbyDXLUPhXjsoCkMQRh14xX+XgEzPDd9sUs9/lB1QhMrjC5KD4E
+         MZwqFbhNvPGBElER20zHmpQTiXjMMhnXOgcH/z79SEwphZnMLj4+l2e4LBvb7Zm1ieOW
+         qS2YMPpjsFP5ukBLUk9M3wyAonKiUJzZqk0G/KTEn1EnSPtwNrz0vw3hkdNomac4jU0K
+         IYNw==
+X-Gm-Message-State: AOAM533Vu5xCmmd9wwPEThI2chtQliOhsuCUQwW4/yNBpvT7IMMHwlYy
+	rpNb1fNFvso2oIQ3x4R8qYI=
+X-Google-Smtp-Source: ABdhPJzir63ZhkohioP0Ktx42tkGcEWW5m4eKxg+CUjAscHddZDwqHZSdjbm/E0JNHFBggGwkKFODQ==
+X-Received: by 2002:a5d:474b:: with SMTP id o11mr180470wrs.235.1606345364309;
+        Wed, 25 Nov 2020 15:02:44 -0800 (PST)
 Received: from [192.168.1.122] (cpc92720-cmbg20-2-0-cust364.5-4.cable.virginm.net. [82.21.83.109])
-        by smtp.gmail.com with ESMTPSA id h15sm6411655wrw.15.2020.11.25.14.44.35
+        by smtp.gmail.com with ESMTPSA id u129sm5552667wme.9.2020.11.25.15.02.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2020 14:44:38 -0800 (PST)
+        Wed, 25 Nov 2020 15:02:43 -0800 (PST)
 Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
- James Bottomley <James.Bottomley@hansenpartnership.com>
-Cc: Kees Cook <keescook@chromium.org>, Jakub Kicinski <kuba@kernel.org>,
+To: Kees Cook <keescook@chromium.org>,
+ Nick Desaulniers <ndesaulniers@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>,
  "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, alsa-devel@alsa-project.org,
- amd-gfx@lists.freedesktop.org, bridge@lists.linux-foundation.org,
- ceph-devel@vger.kernel.org, cluster-devel@redhat.com,
- coreteam@netfilter.org, devel@driverdev.osuosl.org, dm-devel@redhat.com,
- drbd-dev@lists.linbit.com, dri-devel@lists.freedesktop.org,
+ LKML <linux-kernel@vger.kernel.org>, alsa-devel@alsa-project.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ bridge@lists.linux-foundation.org, ceph-devel@vger.kernel.org,
+ cluster-devel@redhat.com, coreteam@netfilter.org,
+ devel@driverdev.osuosl.org, dm-devel@redhat.com, drbd-dev@lists.linbit.com,
+ dri-devel <dri-devel@lists.freedesktop.org>,
  GR-everest-linux-l2@marvell.com, GR-Linux-NIC-Dev@marvell.com,
  intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
  keyrings@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
  linux-acpi@vger.kernel.org, linux-afs@lists.infradead.org,
  Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-arm-msm@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- linux-block@vger.kernel.org, linux-can@vger.kernel.org,
- linux-cifs@vger.kernel.org,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net,
- Ext4 Developers List <linux-ext4@vger.kernel.org>,
- linux-fbdev@vger.kernel.org, linux-geode@lists.infradead.org,
- linux-gpio@vger.kernel.org, linux-hams@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
- linux-ide@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input <linux-input@vger.kernel.org>, linux-integrity@vger.kernel.org,
- linux-mediatek@lists.infradead.org,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- linux-mmc@vger.kernel.org, Linux-MM <linux-mm@kvack.org>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ linux-atm-general@lists.sourceforge.net, linux-block@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-cifs@vger.kernel.org,
+ "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+ <linux-crypto@vger.kernel.org>, linux-decnet-user@lists.sourceforge.net,
+ linux-ext4@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-geode@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-hams@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-i3c@lists.infradead.org, linux-ide@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-integrity@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-mmc@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
  linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org,
+ linux-rdma@vger.kernel.org, Linux-Renesas
+ <linux-renesas-soc@vger.kernel.org>, linux-scsi@vger.kernel.org,
+ linux-sctp@vger.kernel.org, linux-security-module@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
  linux-watchdog@vger.kernel.org,
  linux-wireless <linux-wireless@vger.kernel.org>,
@@ -132,7 +132,6 @@ Cc: Kees Cook <keescook@chromium.org>, Jakub Kicinski <kuba@kernel.org>,
  virtualization@lists.linux-foundation.org, wcn36xx@lists.infradead.org,
  "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
  xen-devel@lists.xenproject.org, linux-hardening@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>,
  Nathan Chancellor <natechancellor@gmail.com>, Miguel Ojeda
  <ojeda@kernel.org>, Joe Perches <joe@perches.com>
 References: <cover.1605896059.git.gustavoars@kernel.org>
@@ -140,80 +139,32 @@ References: <cover.1605896059.git.gustavoars@kernel.org>
  <202011201129.B13FDB3C@keescook>
  <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
- <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
- <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
- <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
- <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
- <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
- <CANiq72kqO=bYMJnFS2uYRpgWATJ=uXxZuNUsTXT+3aLtrpnzvQ@mail.gmail.com>
+ <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
+ <202011241324.B3439A2@keescook>
 From: Edward Cree <ecree.xilinx@gmail.com>
-Message-ID: <44005bde-f6d4-5eaa-39b8-1a5efeedb2d3@gmail.com>
-Date: Wed, 25 Nov 2020 22:44:35 +0000
+Message-ID: <99a9ffd7-6356-b81d-6e08-7ed74b6fb82c@gmail.com>
+Date: Wed, 25 Nov 2020 23:02:40 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <CANiq72kqO=bYMJnFS2uYRpgWATJ=uXxZuNUsTXT+3aLtrpnzvQ@mail.gmail.com>
+In-Reply-To: <202011241324.B3439A2@keescook>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-On 25/11/2020 00:32, Miguel Ojeda wrote:
-> I have said *authoring* lines of *this* kind takes a minute per line.
-> Specifically: lines fixing the fallthrough warning mechanically and
-> repeatedly where the compiler tells you to, and doing so full-time for
-> a month.
-<snip>
-> It is useful since it makes intent clear.
-To make the intent clear, you have to first be certain that you
- understand the intent; otherwise by adding either a break or a
- fallthrough to suppress the warning you are just destroying the
- information that "the intent of this code is unknown".
-Figuring out the intent of a piece of unfamiliar code takes more
- than 1 minute; just because
+On 24/11/2020 21:25, Kees Cook wrote:
+> I still think this isn't right -- it's a case statement that runs off
+> the end without an explicit flow control determination.
+
+Proves too much — for instance
     case foo:
-        thing;
     case bar:
-        break;
- produces identical code to
-    case foo:
         thing;
         break;
-    case bar:
-        break;
- doesn't mean that *either* is correct — maybe the author meant
- to write
-    case foo:
-        return thing;
-    case bar:
-        break;
- and by inserting that break you've destroyed the marker that
- would direct someone who knew what the code was about to look
- at that point in the code and spot the problem.
-Thus, you *always* have to look at more than just the immediate
- mechanical context of the code, to make a proper judgement that
- yes, this was the intent.  If you think that that sort of thing
- can be done in an *average* time of one minute, then I hope you
- stay away from code I'm responsible for!
-One minute would be an optimistic target for code that, as the
- maintainer, one is already somewhat familiar with.  For code
- that you're seeing for the first time, as is usually the case
- with the people doing these mechanical fix-a-warning patches,
- it's completely unrealistic.
-
-A warning is only useful because it makes you *think* about the
- code.  If you suppress the warning without doing that thinking,
- then you made the warning useless; and if the warning made you
- think about code that didn't *need* it, then the warning was
- useless from the start.
-
-So make your mind up: does Clang's stricter -Wimplicit-fallthrough
- flag up code that needs thought (in which case the fixes take
- effort both to author and to review) or does it flag up code
- that can be mindlessly "fixed" (in which case the warning is
- worthless)?  Proponents in this thread seem to be trying to
- have it both ways.
+ doesn't require a fallthrough; after case foo:, and afaik
+ no-one is suggesting it should.  Yet it, too, is "a case
+ statement that runs off the end without an explicit flow
+ control determination".
 
 -ed
 
