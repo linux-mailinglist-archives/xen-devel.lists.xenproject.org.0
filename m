@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D6BC2C431E
+	by mail.lfdr.de (Postfix) with ESMTPS id 38DEB2C431C
 	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 16:38:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.37852.70423 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.37857.70435 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khwrr-0002X2-6l; Wed, 25 Nov 2020 15:38:03 +0000
+	id 1khws5-0002f1-Fi; Wed, 25 Nov 2020 15:38:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 37852.70423; Wed, 25 Nov 2020 15:38:03 +0000
+Received: by outflank-mailman (output) from mailman id 37857.70435; Wed, 25 Nov 2020 15:38:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,47 +23,46 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khwrr-0002WY-2i; Wed, 25 Nov 2020 15:38:03 +0000
-Received: by outflank-mailman (input) for mailman id 37852;
- Wed, 25 Nov 2020 15:38:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1khws5-0002ea-CI; Wed, 25 Nov 2020 15:38:17 +0000
+Received: by outflank-mailman (input) for mailman id 37857;
+ Wed, 25 Nov 2020 15:38:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kPj2=E7=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1khwrq-0002VJ-Ak
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 15:38:02 +0000
+ id 1khws4-0002eG-8c
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 15:38:16 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f08f63be-fa4b-4fa0-a790-064278d173f6;
- Wed, 25 Nov 2020 15:38:01 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ff96824a-4190-4410-8429-a0a9a861c5ba;
+ Wed, 25 Nov 2020 15:38:15 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 10A63221FE;
- Wed, 25 Nov 2020 15:37:59 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mail.kernel.org (Postfix) with ESMTPSA id 01517221F7;
+ Wed, 25 Nov 2020 15:38:13 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=kPj2=E7=kernel.org=sashal@srs-us1.protection.inumbo.net>)
-	id 1khwrq-0002VJ-Ak
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 15:38:02 +0000
-X-Inumbo-ID: f08f63be-fa4b-4fa0-a790-064278d173f6
+	id 1khws4-0002eG-8c
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 15:38:16 +0000
+X-Inumbo-ID: ff96824a-4190-4410-8429-a0a9a861c5ba
 Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id f08f63be-fa4b-4fa0-a790-064278d173f6;
-	Wed, 25 Nov 2020 15:38:01 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id ff96824a-4190-4410-8429-a0a9a861c5ba;
+	Wed, 25 Nov 2020 15:38:15 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 10A63221FE;
-	Wed, 25 Nov 2020 15:37:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 01517221F7;
+	Wed, 25 Nov 2020 15:38:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606318680;
-	bh=wTQOE4SUn+DPuZZHeu0shEVL9fFiq/gn30Nkhrmkl8A=;
+	s=default; t=1606318694;
+	bh=N/9mYrylQeD41uQIKVHiCHGYsB0T/taFOwU3YpP8X10=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LreWwdIfxRmJgpF59iyqnvM8ucEYythtKh9zb6WFZQVDNQAwA6GPWW+SQEs3GaCib
-	 RgmCYSy5cdLQEOn+42L8Eh1ywM1CIecSaXRTBj0DGBhpq1CEgduqTgI9EvZmkmAohd
-	 zSfNyV7TNWHoAofShNt5JUFIQD6r7FXlAUcDD1aE=
+	b=Lo4JgGow5MYRduf7OeWzK3goSVQahSBK1lbpvaZKQmbYKktiB97AEF1nsDDQC0o/1
+	 AW+bMxKiQ5mpffwv0OaKFcOh0J6x3xDBjwD8lknz69ziKATiyaT+j1LqXFDkPF9SIL
+	 K/UnS+2ldeDyfzXD4RH92ATIXm1WYD06xgwPCtnE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -72,12 +71,12 @@ Cc: Brian Masney <bmasney@redhat.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
 	Sasha Levin <sashal@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 4.9 05/10] x86/xen: don't unbind uninitialized lock_kicker_irq
-Date: Wed, 25 Nov 2020 10:37:48 -0500
-Message-Id: <20201125153753.810973-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.4 4/8] x86/xen: don't unbind uninitialized lock_kicker_irq
+Date: Wed, 25 Nov 2020 10:38:04 -0500
+Message-Id: <20201125153808.811104-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20201125153753.810973-1-sashal@kernel.org>
-References: <20201125153753.810973-1-sashal@kernel.org>
+In-Reply-To: <20201125153808.811104-1-sashal@kernel.org>
+References: <20201125153808.811104-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -126,10 +125,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/xen/spinlock.c b/arch/x86/xen/spinlock.c
-index 8d2c6f071dccf..44bf8a22c97b8 100644
+index 85872a08994a1..e9fc0f7df0da8 100644
 --- a/arch/x86/xen/spinlock.c
 +++ b/arch/x86/xen/spinlock.c
-@@ -98,10 +98,20 @@ void xen_init_lock_cpu(int cpu)
+@@ -301,10 +301,20 @@ void xen_init_lock_cpu(int cpu)
  
  void xen_uninit_lock_cpu(int cpu)
  {
