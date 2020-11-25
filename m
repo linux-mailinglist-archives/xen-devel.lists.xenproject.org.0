@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C9992C3A67
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 08:58:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.37392.69731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31EFB2C3A7C
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 09:08:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.37405.69749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khpgt-0006AK-CZ; Wed, 25 Nov 2020 07:58:15 +0000
+	id 1khpqQ-0007fT-Oo; Wed, 25 Nov 2020 08:08:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 37392.69731; Wed, 25 Nov 2020 07:58:15 +0000
+Received: by outflank-mailman (output) from mailman id 37405.69749; Wed, 25 Nov 2020 08:08:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -18,124 +18,324 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khpgt-00069v-9L; Wed, 25 Nov 2020 07:58:15 +0000
-Received: by outflank-mailman (input) for mailman id 37392;
- Wed, 25 Nov 2020 07:58:13 +0000
+	id 1khpqQ-0007f4-LE; Wed, 25 Nov 2020 08:08:06 +0000
+Received: by outflank-mailman (input) for mailman id 37405;
+ Wed, 25 Nov 2020 08:08:05 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xP3f=E7=amazon.co.uk=prvs=591f578ad=pdurrant@srs-us1.protection.inumbo.net>)
- id 1khpgr-00069q-Ol
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 07:58:13 +0000
-Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=X3kr=E7=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1khpqP-0007ez-4T
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 08:08:05 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a4b79f69-380a-443b-8306-a1f7c55417a1;
- Wed, 25 Nov 2020 07:58:10 +0000 (UTC)
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-2b-baacba05.us-west-2.amazon.com) ([10.43.8.2])
- by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP;
- 25 Nov 2020 07:58:04 +0000
-Received: from EX13D32EUC002.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
- by email-inbound-relay-2b-baacba05.us-west-2.amazon.com (Postfix) with ESMTPS
- id 1E2C6A1F62; Wed, 25 Nov 2020 07:58:03 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D32EUC002.ant.amazon.com (10.43.164.94) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 25 Nov 2020 07:58:01 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Wed, 25 Nov 2020 07:58:01 +0000
+ id 361c3867-9381-4848-8bc7-540bf03beaec;
+ Wed, 25 Nov 2020 08:08:03 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id EA2FBAF13;
+ Wed, 25 Nov 2020 08:08:02 +0000 (UTC)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=xP3f=E7=amazon.co.uk=prvs=591f578ad=pdurrant@srs-us1.protection.inumbo.net>)
-	id 1khpgr-00069q-Ol
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 07:58:13 +0000
-X-Inumbo-ID: a4b79f69-380a-443b-8306-a1f7c55417a1
-Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
+	(envelope-from <SRS0=X3kr=E7=suse.com=jgross@srs-us1.protection.inumbo.net>)
+	id 1khpqP-0007ez-4T
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 08:08:05 +0000
+X-Inumbo-ID: 361c3867-9381-4848-8bc7-540bf03beaec
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id a4b79f69-380a-443b-8306-a1f7c55417a1;
-	Wed, 25 Nov 2020 07:58:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1606291091; x=1637827091;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version:subject;
-  bh=pSVy8q3CeysJY4r8/vbWRC+tCrOCTRUOZ6JeinKUUKk=;
-  b=EhOFRl3dbbHoU5Y6HDEhljydNo6vxOPLpE14+A5kcfpQqMG/M2/AR7lS
-   f8XXPlPgTxTpsgdbhU8fEWgO79fqeY62k0dtLuk1ZeCn5KZaV0kpHLGNV
-   pd8Zx0GP2+veCBwtN86+KRtRvgeRWJzfdb9C5l9SpOwhLe6fIqFtIRae+
-   E=;
-X-IronPort-AV: E=Sophos;i="5.78,368,1599523200"; 
-   d="scan'208";a="68638787"
-Subject: RE: [PATCH v3 01/13] viridian: don't blindly write to 32-bit registers is
- 'mode' is invalid
-Thread-Topic: [PATCH v3 01/13] viridian: don't blindly write to 32-bit registers is 'mode'
- is invalid
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO email-inbound-relay-2b-baacba05.us-west-2.amazon.com) ([10.43.8.2])
-  by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP; 25 Nov 2020 07:58:04 +0000
-Received: from EX13D32EUC002.ant.amazon.com (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
-	by email-inbound-relay-2b-baacba05.us-west-2.amazon.com (Postfix) with ESMTPS id 1E2C6A1F62;
-	Wed, 25 Nov 2020 07:58:03 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D32EUC002.ant.amazon.com (10.43.164.94) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 25 Nov 2020 07:58:01 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Wed, 25 Nov 2020 07:58:01 +0000
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
-CC: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Thread-Index: AQHWwv/mBCagLEwxTECmvm/ahimeeKnYe0Gw
-Date: Wed, 25 Nov 2020 07:58:01 +0000
-Message-ID: <0ccd665ede7f4118bf719d29dea40b02@EX13D32EUC003.ant.amazon.com>
-References: <20201124190744.11343-1-paul@xen.org>
- <20201124190744.11343-2-paul@xen.org>
- <ed2dbafa-b1fc-7ce3-9814-9034b0393921@suse.com>
-In-Reply-To: <ed2dbafa-b1fc-7ce3-9814-9034b0393921@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.102]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	id 361c3867-9381-4848-8bc7-540bf03beaec;
+	Wed, 25 Nov 2020 08:08:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606291683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UExZorE119fqiJFnUUqCcIDfodxvAsbWH78/1a4Q1NY=;
+	b=biX9k7QvRtGLisXF+GlaOjcnEKv1vFExMHkv/kNuJgpwDG3DCYM0FX3oNGW5tNj1Us3TRt
+	gicDXweaTI62x1GsV2KNMVsv7XNebFoSr3vIAW6Acf/8DBJ6ygI8YRP4egRwoFXvQLWSOc
+	n7CU1yg17GDjjFgSmUlIZOuC0ClijJI=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id EA2FBAF13;
+	Wed, 25 Nov 2020 08:08:02 +0000 (UTC)
+Subject: Re: [PATCH v7 3/3] xen/events: rework fifo queue locking
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201124070106.26854-1-jgross@suse.com>
+ <20201124070106.26854-4-jgross@suse.com>
+ <c627b42b-1e1f-b83a-2db8-b9e5fa5dce10@suse.com>
+ <8e2853c3-9f84-2fd6-0e41-1f1d9172f236@suse.com>
+ <9eada207-9880-b2fe-054c-f3218d2034b2@suse.com>
+ <cce1b71c-aa37-a3b7-990e-bd2f0437d074@suse.com>
+ <c3091b91-b594-7a5e-f008-6df10db227ec@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <a1b7307a-f825-091f-8499-10e47046ff07@suse.com>
+Date: Wed, 25 Nov 2020 09:08:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Precedence: Bulk
+In-Reply-To: <c3091b91-b594-7a5e-f008-6df10db227ec@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="lElX8ctztPUSDLzTiLz35NztcKVPW5Xw4"
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxp
-Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDI1IE5vdmVtYmVyIDIwMjAgMDc6NTINCj4gVG86IFBhdWwg
-RHVycmFudCA8cGF1bEB4ZW4ub3JnPg0KPiBDYzogRHVycmFudCwgUGF1bCA8cGR1cnJhbnRAYW1h
-em9uLmNvLnVrPjsgV2VpIExpdSA8d2xAeGVuLm9yZz47IEFuZHJldyBDb29wZXINCj4gPGFuZHJl
-dy5jb29wZXIzQGNpdHJpeC5jb20+OyBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4
-LmNvbT47IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBSRTogW0VY
-VEVSTkFMXSBbUEFUQ0ggdjMgMDEvMTNdIHZpcmlkaWFuOiBkb24ndCBibGluZGx5IHdyaXRlIHRv
-IDMyLWJpdCByZWdpc3RlcnMgaXMgJ21vZGUnDQo+IGlzIGludmFsaWQNCj4gDQo+IENBVVRJT046
-IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4g
-RG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4NCj4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4g
-Y29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuDQo+IA0KPiAN
-Cj4gDQo+IE9uIDI0LjExLjIwMjAgMjA6MDcsIFBhdWwgRHVycmFudCB3cm90ZToNCj4gPiBGcm9t
-OiBQYXVsIER1cnJhbnQgPHBkdXJyYW50QGFtYXpvbi5jb20+DQo+ID4NCj4gPiBJZiBodm1fZ3Vl
-c3RfeDg2X21vZGUoKSByZXR1cm5zIHNvbWV0aGluZyBvdGhlciB0aGFuIDggb3IgNCB0aGVuDQo+
-ID4gdmlyaWRpYW5faHlwZXJjYWxsKCkgd2lsbCByZXR1cm4gaW1tZWRpYXRlbHkgYnV0LCBvbiB0
-aGUgd2F5IG91dCwgd2lsbCB3cml0ZQ0KPiA+IGJhY2sgc3RhdHVzIGFzIGlmICdtb2RlJyB3YXMg
-NC4gVGhpcyBwYXRjaCBzaW1wbHkgbWFrZXMgaXQgbGVhdmUgdGhlIHJlZ2lzdGVycw0KPiA+IGFs
-b25lLg0KPiA+DQo+ID4gTk9URTogVGhlIGZvcm1hdHRpbmcgb2YgdGhlICdvdXQnIGxhYmVsIGFu
-ZCB0aGUgc3dpdGNoIHN0YXRlbWVudCBhcmUgYWxzbw0KPiA+ICAgICAgIGFkanVzdGVkIGFzIHBl
-ciBDT0RJTkdfU1RZTEUuDQo+IA0KPiBQYXJ0bHkgb25seSBhcyBmYXIgYXMgdGhlIGxhdHRlciBn
-b2VzOg0KPiANCj4gPiAtLS0gYS94ZW4vYXJjaC94ODYvaHZtL3ZpcmlkaWFuL3ZpcmlkaWFuLmMN
-Cj4gPiArKysgYi94ZW4vYXJjaC94ODYvaHZtL3ZpcmlkaWFuL3ZpcmlkaWFuLmMNCj4gPiBAQCAt
-NjkyLDEzICs2OTIsMTQgQEAgaW50IHZpcmlkaWFuX2h5cGVyY2FsbChzdHJ1Y3QgY3B1X3VzZXJf
-cmVncyAqcmVncykNCj4gPiAgICAgICAgICBicmVhazsNCj4gPiAgICAgIH0NCj4gPg0KPiA+IC1v
-dXQ6DQo+ID4gKyBvdXQ6DQo+ID4gICAgICBvdXRwdXQucmVzdWx0ID0gc3RhdHVzOw0KPiA+ICAg
-ICAgc3dpdGNoIChtb2RlKSB7DQo+IA0KPiBUaGlzIHdvdWxkIHdhbnQgdG8gYmUNCj4gDQo+ICAg
-ICBzd2l0Y2ggKCBtb2RlICkNCj4gICAgIHsNCj4gDQoNCk9oLCB5ZXMuDQoNCj4gSSBndWVzcyB0
-aGlzIGNvdWxkIGVhc2lseSBiZSB0YWtlbiBjYXJlIG9mIHdoaWxlIGNvbW1pdHRpbmcuDQoNClRo
-YW5rcywNCg0KICBQYXVsDQoNCj4gDQo+IEphbg0K
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--lElX8ctztPUSDLzTiLz35NztcKVPW5Xw4
+Content-Type: multipart/mixed; boundary="Vp5jdXvulMPTeSjiJPdeNxRHAupihaDIk";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Message-ID: <a1b7307a-f825-091f-8499-10e47046ff07@suse.com>
+Subject: Re: [PATCH v7 3/3] xen/events: rework fifo queue locking
+References: <20201124070106.26854-1-jgross@suse.com>
+ <20201124070106.26854-4-jgross@suse.com>
+ <c627b42b-1e1f-b83a-2db8-b9e5fa5dce10@suse.com>
+ <8e2853c3-9f84-2fd6-0e41-1f1d9172f236@suse.com>
+ <9eada207-9880-b2fe-054c-f3218d2034b2@suse.com>
+ <cce1b71c-aa37-a3b7-990e-bd2f0437d074@suse.com>
+ <c3091b91-b594-7a5e-f008-6df10db227ec@suse.com>
+In-Reply-To: <c3091b91-b594-7a5e-f008-6df10db227ec@suse.com>
+
+--Vp5jdXvulMPTeSjiJPdeNxRHAupihaDIk
+Content-Type: multipart/mixed;
+ boundary="------------C0A45ADC55C2E4603E533366"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------C0A45ADC55C2E4603E533366
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 25.11.20 08:42, Jan Beulich wrote:
+> On 25.11.2020 06:23, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 24.11.20 17:32, Jan Beulich wrote:
+>>> On 24.11.2020 15:49, J=C3=BCrgen Gro=C3=9F wrote:
+>>>> On 24.11.20 15:02, Jan Beulich wrote:
+>>>>> On 24.11.2020 08:01, Juergen Gross wrote:
+>>>>>> Two cpus entering evtchn_fifo_set_pending() for the same event cha=
+nnel
+>>>>>> can race in case the first one gets interrupted after setting
+>>>>>> EVTCHN_FIFO_PENDING and when the other one manages to set
+>>>>>> EVTCHN_FIFO_LINKED before the first one is testing that bit. This =
+can
+>>>>>> lead to evtchn_check_pollers() being called before the event is pu=
+t
+>>>>>> properly into the queue, resulting eventually in the guest not see=
+ing
+>>>>>> the event pending and thus blocking forever afterwards.
+>>>>>>
+>>>>>> Note that commit 5f2df45ead7c1195 ("xen/evtchn: rework per event c=
+hannel
+>>>>>> lock") made the race just more obvious, while the fifo event chann=
+el
+>>>>>> implementation had this race from the beginning when an unmask ope=
+ration
+>>>>>> was running in parallel with an event channel send operation.
+>>>>>
+>>>>> Ah yes, but then also only for inter-domain channels, as it was
+>>>>> only in that case that the "wrong" domain's event lock was held.
+>>>>> IOW there was a much earlier change already where this issue
+>>>>> got widened (when the per-channel locking got introduced). This
+>>>>> then got reduced to the original scope by XSA-343's adding of
+>>>>> locking to evtchn_unmask(). (Not sure how much of this history
+>>>>> wants actually adding here. I'm writing it down not the least to
+>>>>> make sure I have a complete enough picture.)
+>>>>
+>>>> I think we both agree that this race was possible for quite some tim=
+e.
+>>>> And I even think one customer bug I've been looking into recently
+>>>> might be exactly this problem (a dom0 was occasionally hanging in
+>>>> cross-cpu function calls, but switching to 2-level events made the
+>>>> problem disappear).
+>>>
+>>> IPIs weren't affected earlier on (i.e. in any released version),
+>>> if my analysis above is correct.
+>>
+>> I don't think it is correct.
+>>
+>> An unmask operation in parallel with set_pending will have had the
+>> same race for IPIs.
+>=20
+> Why? When FIFO locks were introduced, the event lock got acquired
+> around the call to evtchn_unmask(), and IPIs got sent with that
+> lock similarly held. Likewise after XSA-343 evtchn_unmask() as
+> well as the sending of IPIs acquire the per-channel lock (which at
+> that point was still an ordinary spin lock).
+
+Oh, I think we are talking about different paths.
+
+I'm talking about EVTCHNOP_unmask. There is no lock involved when
+calling evtchn_unmask().
+
+>=20
+>>>>>> Additionally when an
+>>>>>> event channel needs to change queues both queues need to be locked=
+
+>>>>>> initially.
+>>>>>
+>>>>> Since this was (afaict) intentionally not the case before, I
+>>>>> think I would want to see a word spent on the "why", perhaps
+>>>>> better in a code comment than here. Even more so that you
+>>>>> delete a respective comment justifying the possible race as
+>>>>> permissible. And I have to admit right now I'm still uncertain
+>>>>> both ways, i.e. I neither have a clear understanding of why it
+>>>>> would have been considered fine the other way around before,
+>>>>> nor why the double locking is strictly needed.
+>>>>
+>>>> I need the double locking to avoid someone entering the locked regio=
+n
+>>>> when dropping the lock for the old queue and taking the one for the
+>>>> new queue, as this would open the same race window again.
+>>>
+>>> Well, that's what have already said. Thing is that the code
+>>> prior to your change gives the impression as if this race was
+>>> benign.
+>>
+>> The race regarding a queue change, yes. But not the race I'm fixing wi=
+th
+>> this patch. I need to make sure that only one caller is inside the big=
+
+>> if clause for a specific event. And dropping the lock inside this clau=
+se
+>> would violate that assumption.
+>=20
+> IOW the presumed wrong assumption back then was that the function
+> would always be called with a lock already held which excludes
+> the region to be entered twice for the same channel. But - was
+> this a wrong assumption at the time? Thinking about this again I
+> now actually come to the conclusion that my analysis above was
+> wrong in the other direction: Even inter-domain channels did have
+> consistent locking (of the other side's event lock), preventing
+> any such race there. Which implies that imo one of the Fixes: tags
+> wants dropping, as the race became possible only when "downgrading"
+> some of the involved locks to rw ones. Obviously my "evtchn:
+> convert vIRQ lock to an r/w one" then extends this race to vIRQ-s.
+
+No. See my remark regarding unmask.
+
+
+Juergen
+
+--------------C0A45ADC55C2E4603E533366
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------C0A45ADC55C2E4603E533366--
+
+--Vp5jdXvulMPTeSjiJPdeNxRHAupihaDIk--
+
+--lElX8ctztPUSDLzTiLz35NztcKVPW5Xw4
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl++EOIFAwAAAAAACgkQsN6d1ii/Ey9L
+fwf/WwHQNYceOuI+uBF0Nhg+NnPXgWd68kydA1ciKCObmms2H4uByA9/7Gg6sjqQ+iMY5P4akLGR
+ntjYxpnUf3UTeyFnnLCeArllI9A1paLIU5YJsHfsMRREuqoYpeiyFQMaggYid63dBRi8eYMDVe5N
+W1KOQmrvdXbtzVFDsibhAAQEgZTsVrhp/3ADZ+/hanOJ1W9GLzO4gYO6ewqwL/PKQIQJSX9njunD
+FbToy4tR13wZolT1xVkywEHofDs33jtkpUyWWK5+OfLv2JQ0rcICn/z8louCTiay3YffbpFByBLn
+8lYTFwcLGGYI8X6z/bAO9Akz081dZS/2RpTBPwDnQA==
+=/Afx
+-----END PGP SIGNATURE-----
+
+--lElX8ctztPUSDLzTiLz35NztcKVPW5Xw4--
 
