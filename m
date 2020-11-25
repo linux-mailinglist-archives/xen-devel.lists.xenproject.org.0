@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5EA42C381B
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 05:28:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.37184.69479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FE3B2C382E
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 05:42:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.37239.69491 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khmPu-0001uh-JX; Wed, 25 Nov 2020 04:28:30 +0000
+	id 1khmct-00040b-PX; Wed, 25 Nov 2020 04:41:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 37184.69479; Wed, 25 Nov 2020 04:28:30 +0000
+Received: by outflank-mailman (output) from mailman id 37239.69491; Wed, 25 Nov 2020 04:41:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,153 +23,93 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khmPu-0001to-ET; Wed, 25 Nov 2020 04:28:30 +0000
-Received: by outflank-mailman (input) for mailman id 37184;
- Wed, 25 Nov 2020 04:28:29 +0000
+	id 1khmct-00040B-MA; Wed, 25 Nov 2020 04:41:55 +0000
+Received: by outflank-mailman (input) for mailman id 37239;
+ Wed, 25 Nov 2020 04:41:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gEFk=E7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1khmPt-0000sM-1D
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 04:28:29 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TOsx=E7=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1khmcs-000406-42
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 04:41:54 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2735ef72-28c5-4302-9bb0-19c8cb949484;
- Wed, 25 Nov 2020 04:27:53 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
- (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9E25621D7A;
- Wed, 25 Nov 2020 04:27:52 +0000 (UTC)
+ id 27c57388-8b16-46ff-96e8-2cfa3ffb75e9;
+ Wed, 25 Nov 2020 04:41:53 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 0AP4ffo8027973
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 24 Nov 2020 23:41:47 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 0AP4feW1027972;
+ Tue, 24 Nov 2020 20:41:40 -0800 (PST) (envelope-from ehem)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=gEFk=E7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1khmPt-0000sM-1D
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 04:28:29 +0000
-X-Inumbo-ID: 2735ef72-28c5-4302-9bb0-19c8cb949484
-Received: from mail.kernel.org (unknown [198.145.29.99])
+	(envelope-from <SRS0=TOsx=E7=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+	id 1khmcs-000406-42
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 04:41:54 +0000
+X-Inumbo-ID: 27c57388-8b16-46ff-96e8-2cfa3ffb75e9
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 2735ef72-28c5-4302-9bb0-19c8cb949484;
-	Wed, 25 Nov 2020 04:27:53 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 9E25621D7A;
-	Wed, 25 Nov 2020 04:27:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606278472;
-	bh=BsN+MdGSKW1XgXXksWV5TK4XWZsbUTOQRZGpT/TJoLk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QvEmcM+cAnFDgFRTLrutIBjyVHt8PnS3FU8WH2usO8zBQ+Zf7Rmd5I8kN7TMma/cr
-	 /bWgWrb5p0MZHsOYegmtDqu3zvAVSksQyD9URIMzMummurZfyQbi+kD1N9X1SCQ0gd
-	 x0Zdx8UMiFsxo0ELEUVptNiLB15v0DoVLRawjamw=
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: andrew.cooper3@citrix.com,
-	cardoe@cardoe.com,
-	wl@xen.org
-Cc: sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: [PATCH v3 12/12] automation: add domU creation to dom0 alpine linux test
-Date: Tue, 24 Nov 2020 20:27:45 -0800
-Message-Id: <20201125042745.31986-12-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <alpine.DEB.2.21.2011241722540.7979@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2011241722540.7979@sstabellini-ThinkPad-T480s>
+	id 27c57388-8b16-46ff-96e8-2cfa3ffb75e9;
+	Wed, 25 Nov 2020 04:41:53 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+	by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 0AP4ffo8027973
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Tue, 24 Nov 2020 23:41:47 -0500 (EST)
+	(envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+	by m5p.com (8.15.2/8.15.2/Submit) id 0AP4feW1027972;
+	Tue, 24 Nov 2020 20:41:40 -0800 (PST)
+	(envelope-from ehem)
+Date: Tue, 24 Nov 2020 20:41:40 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Roman Shaposhnik <roman@zededa.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+        Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Xen on RP4
+Message-ID: <X73ghKgQEXLv2z2p@mattapan.m5p.com>
+References: <X73RfHfRfBRLKkvB@mattapan.m5p.com>
+ <CAMmSBy8dtUQotUeX2MVke7d2nWS0shvKPL_S=4tUeF0UKh4vgA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMmSBy8dtUQotUeX2MVke7d2nWS0shvKPL_S=4tUeF0UKh4vgA@mail.gmail.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-Add a trivial Busybox based domU.
+On Tue, Nov 24, 2020 at 08:01:32PM -0800, Roman Shaposhnik wrote:
+> On Tue, Nov 24, 2020 at 7:37 PM Elliott Mitchell <ehem+xen@m5p.com> wrote:
+> > Presently I'm using a 5.8 kernel with your patches and haven't seen
+> > graphical output under Xen with either boot stack.  I've confirmed fully
+> > operational graphics without Xen on Tianocore, I've confirmed operational
+> > virtual terminals with U-Boot and not Xen.
+> >
+> > I had been planning to wait a bit before moving to 5.9, but if that is
+> > the crucial ingredient I'll move early.
+> 
+> We're still using 5.4 -- but it seems that the next LTS 5.10 is also functional.
+> 
+> I can bet $10 whatever it is -- it is DT related ;-)
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
----
- automation/scripts/qemu-alpine-arm64.sh | 47 ++++++++++++++++++++++---
- 1 file changed, 42 insertions(+), 5 deletions(-)
+Given how many of the pieces I'm assembling are alpha or beta level, I
+estimate a 50:50 chance on that.  Good odds it is device-tree, but good
+odds I grabbed a bad version of $something.
 
-diff --git a/automation/scripts/qemu-alpine-arm64.sh b/automation/scripts/qemu-alpine-arm64.sh
-index 7d1eb7d1b6..bd8965e6f1 100755
---- a/automation/scripts/qemu-alpine-arm64.sh
-+++ b/automation/scripts/qemu-alpine-arm64.sh
-@@ -8,10 +8,36 @@ apt-get -qy install --no-install-recommends qemu-system-aarch64 \
-                                             u-boot-tools \
-                                             device-tree-compiler \
-                                             cpio \
--                                            curl
-+                                            curl \
-+                                            busybox-static
- 
--mkdir -p binaries/rootfs
--cd binaries/rootfs
-+# DomU Busybox
-+cd binaries
-+mkdir -p initrd
-+mkdir -p initrd/bin
-+mkdir -p initrd/sbin
-+mkdir -p initrd/etc
-+mkdir -p initrd/dev
-+mkdir -p initrd/proc
-+mkdir -p initrd/sys
-+mkdir -p initrd/lib
-+mkdir -p initrd/var
-+mkdir -p initrd/mnt
-+cp /bin/busybox initrd/bin/busybox
-+initrd/bin/busybox --install initrd/bin
-+echo "#!/bin/sh
-+
-+mount -t proc proc /proc
-+mount -t sysfs sysfs /sys
-+mount -t devtmpfs devtmpfs /dev
-+/bin/sh" > initrd/init
-+chmod +x initrd/init
-+cd initrd
-+find . | cpio --create --format='newc' | gzip > ../initrd.cpio.gz
-+cd ..
-+
-+mkdir -p rootfs
-+cd rootfs
- tar xvzf ../initrd.tar.gz
- mkdir proc
- mkdir run
-@@ -19,6 +45,15 @@ mkdir srv
- mkdir sys
- rm var/run
- cp -ar ../dist/install/* .
-+mv ../initrd.cpio.gz ./root
-+cp ../Image ./root
-+echo "name=\"test\"
-+memory=512
-+vcpus=1
-+kernel=\"/root/Image\"
-+ramdisk=\"/root/initrd.cpio.gz\"
-+extra=\"console=hvc0 root=/dev/ram0 rdinit=/bin/sh\"
-+" > root/test.cfg
- echo "#!/bin/bash
- 
- export LD_LIBRARY_PATH=/usr/local/lib
-@@ -26,6 +61,8 @@ bash /etc/init.d/xencommons start
- 
- xl list
- 
-+xl create -c /root/test.cfg
-+
- " > etc/local.d/xen.start
- chmod +x etc/local.d/xen.start
- echo "rc_verbose=yes" >> etc/rc.conf
-@@ -68,7 +105,7 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/conf
- rm -f smoke.serial
- set +e
- echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"| \
--timeout -k 1 480 \
-+timeout -k 1 720 \
- qemu-system-aarch64 \
-     -machine virtualization=true \
-     -cpu cortex-a57 -machine type=virt \
-@@ -80,5 +117,5 @@ qemu-system-aarch64 \
-     -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin |& tee smoke.serial
- 
- set -e
--grep -q "Domain-0" smoke.serial || exit 1
-+(grep -q "Domain-0" smoke.serial && grep -q "BusyBox" smoke.serial) || exit 1
- exit 0
+I mostly wanted to know whether I was in completely uncharted territory
+and needed to wait for others to catch up, versus merely working in a
+situation where support is funky and I'm at an unknown location in
+charted territory.
+
+I'll be keeping the Tianocore setup available since Xen on ARM really
+/should/ allow ACPI...
+
+
 -- 
-2.17.1
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
 
 
