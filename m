@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E30F32C415D
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 14:49:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.37790.70306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 287A92C4173
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 14:57:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.37797.70318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khvAM-0000Lc-D4; Wed, 25 Nov 2020 13:49:02 +0000
+	id 1khvI1-0001Fg-2h; Wed, 25 Nov 2020 13:56:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 37790.70306; Wed, 25 Nov 2020 13:49:02 +0000
+Received: by outflank-mailman (output) from mailman id 37797.70318; Wed, 25 Nov 2020 13:56:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,59 +23,57 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khvAM-0000LD-9s; Wed, 25 Nov 2020 13:49:02 +0000
-Received: by outflank-mailman (input) for mailman id 37790;
- Wed, 25 Nov 2020 13:49:00 +0000
+	id 1khvI0-0001FH-Vb; Wed, 25 Nov 2020 13:56:56 +0000
+Received: by outflank-mailman (input) for mailman id 37797;
+ Wed, 25 Nov 2020 13:56:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1khvAK-0000L8-L1
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:49:00 +0000
+ (envelope-from <iwj@xenproject.org>) id 1khvHz-0001FC-Bn
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:56:55 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1khvAK-0008I8-Ga
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:49:00 +0000
+ (envelope-from <iwj@xenproject.org>) id 1khvHy-0008TS-Gh
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:56:54 +0000
 Received: from iwj (helo=mynotebook.example.org)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1khvAK-0001uP-FX
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:49:00 +0000
+ (envelope-from <iwj@xenproject.org>) id 1khvHy-0002UR-Fk
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:56:54 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1khvAI-0001Hf-M1; Wed, 25 Nov 2020 13:48:58 +0000
+ id 1khvHw-0001JZ-MT; Wed, 25 Nov 2020 13:56:52 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <iwj@xenproject.org>)
-	id 1khvAK-0000L8-L1
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:49:00 +0000
+	id 1khvHz-0001FC-Bn
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:56:55 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=CC:Subject:To:Date:Message-ID:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=EXVMI6QL/ACKGwBY4ODNpCDfRoerL0fOa8oPaRNAPcs=; b=lKxf6hN0NrOyZRHRVFzNR+MPBL
-	h0N/18GlOw8xKx6aX3OyUPKC2gjNwETYP198AgCOkd1UlK4FAjSc9gqZOL0Rr0bF0QQ5LmixYvZNd
-	F6ttUX2wQk51iDQh//4X5h8JhoozOX52dFPpBkf2LW7JytyosUXtzMd/j3qgOwdXtW3w=;
+	d=xenproject.org; s=20200302mail; h=Subject:References:In-Reply-To:CC:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=BIqso6EQUrm2U0mBVjcvavC/rZFxt/cV7qMCIT3KhzQ=; b=xL4EmwVS/0+UAXVSpPRNqrknkf
+	zwwjf6vUwzp6+3g+9A+IRwvmGBAEYQ/Phl+PebmprjVFKIiIyI9BBIEEbGlOxQftjVEFG7huTsFyk
+	IlMsiTgiP6rKiVcZQwRznns+dmOL8RgMC6VFqIWog4TKeuIUbf0wNGC37ty8Mzuo9WyU=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
 	by mail.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <iwj@xenproject.org>)
-	id 1khvAK-0008I8-Ga
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:49:00 +0000
+	id 1khvHy-0008TS-Gh
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:56:54 +0000
 Received: from iwj (helo=mynotebook.example.org)
 	by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
 	(envelope-from <iwj@xenproject.org>)
-	id 1khvAK-0001uP-FX
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:49:00 +0000
+	id 1khvHy-0002UR-Fk
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 13:56:54 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
 	(envelope-from <iwj@xenproject.org>)
-	id 1khvAI-0001Hf-M1; Wed, 25 Nov 2020 13:48:58 +0000
+	id 1khvHw-0001JZ-MT; Wed, 25 Nov 2020 13:56:52 +0000
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: 8bit
-Message-ID: <24510.24778.433048.477008@mariner.uk.xensource.com>
-Date: Wed, 25 Nov 2020 13:48:58 +0000
+Message-ID: <24510.25252.447028.364012@mariner.uk.xensource.com>
+Date: Wed, 25 Nov 2020 13:56:52 +0000
 To: xen-devel@lists.xenproject.org
-Subject: Xen 4.15: Proposed release schedule
 CC: committers@xenproject.org,
     George Dunlap <George.Dunlap@citrix.com>,
-
     Andrew Cooper <andrew.cooper3@citrix.com>,
     George Dunlap <george.dunlap@citrix.com>,
     Jan Beulich <jbeulich@suse.com>,
@@ -84,8 +82,13 @@ CC: committers@xenproject.org,
     =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
     Paul Durrant <xadimgnik@gmail.com>,
     Wei Liu <wl@xen.org>
-FCC: ~/mail/Outbound
---text follows this line--
+In-Reply-To: <24510.24778.433048.477008@mariner.uk.xensource.com>
+References: <24510.24778.433048.477008@mariner.uk.xensource.com>
+Subject: Xen 4.15: Proposed release schedule
+
+(resending because the first one had corrupted email headers;
+ please reply to this one and not the previous one)
+
 Hi.  I've done a little bit of consultation with previous release
 managers, and reviewed various list archives and calendars.  These
 consultations seemed to suggest some folklore that wasn't captured in
@@ -149,7 +152,7 @@ rather than later.
 Thanks,
 Ian.
 
-From b34f4ddace0b8d76d8c340a46288a2db79c99460 Mon Sep 17 00:00:00 2001
+>From b34f4ddace0b8d76d8c340a46288a2db79c99460 Mon Sep 17 00:00:00 2001
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>
