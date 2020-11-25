@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9982C3B95
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 10:08:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.37478.69858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6AB22C3BDA
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 10:20:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.37488.69876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khqmQ-0005T7-HC; Wed, 25 Nov 2020 09:08:02 +0000
+	id 1khqyE-0007BK-NB; Wed, 25 Nov 2020 09:20:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 37478.69858; Wed, 25 Nov 2020 09:08:02 +0000
+Received: by outflank-mailman (output) from mailman id 37488.69876; Wed, 25 Nov 2020 09:20:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,155 +23,148 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khqmQ-0005Sm-E5; Wed, 25 Nov 2020 09:08:02 +0000
-Received: by outflank-mailman (input) for mailman id 37478;
- Wed, 25 Nov 2020 09:01:20 +0000
+	id 1khqyE-0007Av-JT; Wed, 25 Nov 2020 09:20:14 +0000
+Received: by outflank-mailman (input) for mailman id 37488;
+ Wed, 25 Nov 2020 09:20:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Vrf3=E7=mess.org=sean@srs-us1.protection.inumbo.net>)
- id 1khqfv-0005KW-Qj
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 09:01:20 +0000
-Received: from gofer.mess.org (unknown [2a02:8011:d000:212::1])
+ (envelope-from <SRS0=dO0Y=E7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1khqyC-0007Aq-TI
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 09:20:12 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e337ed2d-8dc3-4a18-a8d7-c531ee69001c;
- Wed, 25 Nov 2020 09:01:17 +0000 (UTC)
-Received: by gofer.mess.org (Postfix, from userid 1000)
- id C2D44C63FB; Wed, 25 Nov 2020 09:01:14 +0000 (GMT)
+ id 68ccaf5a-02b7-4f78-98a4-8f75bac2bbb3;
+ Wed, 25 Nov 2020 09:20:11 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id EF8D8AC65;
+ Wed, 25 Nov 2020 09:20:10 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=Vrf3=E7=mess.org=sean@srs-us1.protection.inumbo.net>)
-	id 1khqfv-0005KW-Qj
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 09:01:20 +0000
-X-Inumbo-ID: e337ed2d-8dc3-4a18-a8d7-c531ee69001c
-Received: from gofer.mess.org (unknown [2a02:8011:d000:212::1])
+	(envelope-from <SRS0=dO0Y=E7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1khqyC-0007Aq-TI
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 09:20:12 +0000
+X-Inumbo-ID: 68ccaf5a-02b7-4f78-98a4-8f75bac2bbb3
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id e337ed2d-8dc3-4a18-a8d7-c531ee69001c;
-	Wed, 25 Nov 2020 09:01:17 +0000 (UTC)
-Received: by gofer.mess.org (Postfix, from userid 1000)
-	id C2D44C63FB; Wed, 25 Nov 2020 09:01:14 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mess.org; s=2020;
-	t=1606294874; bh=KH9dzgywMXfGPGDwmO8Qm6o//zr8KQDL4nO6EawRuDY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SJYLrwiKZrmMRjkeBYo7cqsbs6xljPuQypU3vE6W0mhxhiBNmXN2bqL5RV07d2awA
-	 Wb5Oa7L0TiIxfU/vxoLt2vFycI3gN8Kh1qdOF59uK2dEnqITAnDV+wsiQw/exDF78D
-	 hoTz22IC76edW7bl4Xm8hYrqoRAlLOCNTSbizDTKI7x8BBnutJW03OyPsTxurVqfdC
-	 T9t8y4uSMzXA9L5TYoAbkkzEdR07qHfBTYdhaiYGGYuE1E1bdzLhtRTU2iYu251NBa
-	 zqIr2827TZMk9I1fNh/951tgkmCQWewUCt5nrmXnkgqHhLp9nxDE6gWAGCUXG6XCXv
-	 3mw8Hv064saVQ==
-Date: Wed, 25 Nov 2020 09:01:14 +0000
-From: Sean Young <sean@mess.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-	Kees Cook <keescook@chromium.org>, Jakub Kicinski <kuba@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	alsa-devel@alsa-project.org, amd-gfx@lists.freedesktop.org,
-	bridge@lists.linux-foundation.org, ceph-devel@vger.kernel.org,
-	cluster-devel@redhat.com, coreteam@netfilter.org,
-	devel@driverdev.osuosl.org, dm-devel@redhat.com,
-	drbd-dev@lists.linbit.com, dri-devel@lists.freedesktop.org,
-	GR-everest-linux-l2@marvell.com, GR-Linux-NIC-Dev@marvell.com,
-	intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
-	keyrings@vger.kernel.org, linux1394-devel@lists.sourceforge.net,
-	linux-acpi@vger.kernel.org, linux-afs@lists.infradead.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	linux-block@vger.kernel.org, linux-can@vger.kernel.org,
-	linux-cifs@vger.kernel.org,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net,
-	Ext4 Developers List <linux-ext4@vger.kernel.org>,
-	linux-fbdev@vger.kernel.org, linux-geode@lists.infradead.org,
-	linux-gpio@vger.kernel.org, linux-hams@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
-	linux-ide@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-input <linux-input@vger.kernel.org>,
-	linux-integrity@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	linux-mmc@vger.kernel.org, Linux-MM <linux-mm@kvack.org>,
-	linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	linux-wireless <linux-wireless@vger.kernel.org>,
-	Network Development <netdev@vger.kernel.org>,
-	netfilter-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
-	op-tee@lists.trustedfirmware.org, oss-drivers@netronome.com,
-	patches@opensource.cirrus.com, rds-devel@oss.oracle.com,
-	reiserfs-devel@vger.kernel.org, samba-technical@lists.samba.org,
-	selinux@vger.kernel.org, target-devel@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	usb-storage@lists.one-eyed-alien.net,
-	virtualization@lists.linux-foundation.org,
-	wcn36xx@lists.infradead.org,
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-	xen-devel@lists.xenproject.org, linux-hardening@vger.kernel.org,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nathan Chancellor <natechancellor@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>, Joe Perches <joe@perches.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-Message-ID: <20201125090114.GA24274@gofer.mess.org>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
- <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
- <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
- <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+	id 68ccaf5a-02b7-4f78-98a4-8f75bac2bbb3;
+	Wed, 25 Nov 2020 09:20:11 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606296011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WKtefuZNEFSpvl4zth8rv/GE2eTSZH3Uh3HETRcwyKo=;
+	b=u0QweprMcC8ZIbp4NCB6GGEOQwZZEPsogUGRVgdGvZWZprFhJ4cX3jdjVj5ZlGZuBNjyrX
+	nfEnpge+QTKK1vHbTmPkRsuqiDKOpF8uWPpUY/xUAOFoxw9JhI7DoO/ye92xp/N2c59c5m
+	Jn4yOJRMX1/0wMwFhNzTAvH85OGbPo8=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id EF8D8AC65;
+	Wed, 25 Nov 2020 09:20:10 +0000 (UTC)
+Subject: Re: [PATCH v4 1/3] domctl: introduce a new domain create flag,
+ XEN_DOMCTL_CDF_disable_fifo, ...
+To: Paul Durrant <paul@xen.org>
+Cc: Paul Durrant <pdurrant@amazon.com>, Eslam Elnikety <elnikety@amazon.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20201124191751.11472-1-paul@xen.org>
+ <20201124191751.11472-2-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <444917ac-f2aa-5544-8f6c-097e7f57c98c@suse.com>
+Date: Wed, 25 Nov 2020 10:20:11 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20201124191751.11472-2-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2020 at 07:58:06AM -0800, James Bottomley wrote:
-> On Mon, 2020-11-23 at 15:19 +0100, Miguel Ojeda wrote:
-> > On Sun, Nov 22, 2020 at 11:36 PM James Bottomley
-> > <James.Bottomley@hansenpartnership.com> wrote:
-> > > It's not about the risk of the changes it's about the cost of
-> > > implementing them.  Even if you discount the producer time (which
-> > > someone gets to pay for, and if I were the engineering manager, I'd
-> > > be unhappy about), the review/merge/rework time is pretty
-> > > significant in exchange for six minor bug fixes.  Fine, when a new
-> > > compiler warning comes along it's certainly reasonable to see if we
-> > > can benefit from it and the fact that the compiler people think
-> > > it's worthwhile is enough evidence to assume this initially.  But
-> > > at some point you have to ask whether that assumption is supported
-> > > by the evidence we've accumulated over the time we've been using
-> > > it.  And if the evidence doesn't support it perhaps it is time to
-> > > stop the experiment.
-> > 
-> > Maintainers routinely review 1-line trivial patches, not to mention
-> > internal API changes, etc.
+On 24.11.2020 20:17, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
 > 
-> We're also complaining about the inability to recruit maintainers:
+> ...to control the visibility of the FIFO event channel operations
+> (EVTCHNOP_init_control, EVTCHNOP_expand_array, and EVTCHNOP_set_priority) to
+> the guest.
 > 
-> https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
+> These operations were added to the public header in commit d2d50c2f308f
+> ("evtchn: add FIFO-based event channel ABI") and the first implementation
+> appeared in the two subsequent commits: edc8872aeb4a ("evtchn: implement
+> EVTCHNOP_set_priority and add the set_priority hook") and 88910061ec61
+> ("evtchn: add FIFO-based event channel hypercalls and port ops"). Prior to
+> that, a guest issuing those operations would receive a return value of
+> -ENOSYS (not implemented) from Xen. Guests aware of the FIFO operations but
+> running on an older (pre-4.4) Xen would fall back to using the 2-level event
+> channel interface upon seeing this return value.
 > 
-> And burn out:
-> 
-> http://antirez.com/news/129
-> 
-> The whole crux of your argument seems to be maintainers' time isn't
-> important so we should accept all trivial patches ... I'm pushing back
-> on that assumption in two places, firstly the valulessness of the time
-> and secondly that all trivial patches are valuable.
+> Unfortunately the uncontrolable appearance of these new operations in Xen 4.4
+> onwards has implications for hibernation of some Linux guests. During resume
+> from hibernation, there are two kernels involved: the "boot" kernel and the
+> "resume" kernel. The guest boot kernel may default to use FIFO operations and
+> instruct Xen via EVTCHNOP_init_control to switch from 2-level to FIFO. On the
+> other hand, the resume kernel keeps assuming 2-level, because it was hibernated
+> on a version of Xen that did not support the FIFO operations.
 
-You're assuming burn out or recruitment problems is due to patch workload
-or too many "trivial" patches.
+And the alternative of the boot kernel issuing EVTCHNOP_reset has
+other unwanted consequences. Maybe worth mentioning here, as
+otherwise this would look like the obvious way to return to 2-level
+mode?
 
-In my experience, "other maintainers" is by far the biggest cause of
-burn out for my kernel maintenance work.
+Also, why can't the boot kernel be instructed to avoid engaging
+FIFO mode?
 
-Certainly arguing with a maintainer about some obviously-correct patch
-series must be a good example of this.
+> To maintain compatibility it is necessary to make Xen behave as it did
+> before the new operations were added and hence the code in this patch ensures
+> that, if XEN_DOMCTL_CDF_disable_fifo is set, the FIFO event channel operations
+> will again result in -ENOSYS being returned to the guest.
 
+Are there indeed dependencies on the precise return value anywhere?
+If so, the generally inappropriate use (do_event_channel_op()'s
+default case really would also need switching) would want a brief
+comment, so it'll be understood by readers that this isn't code to
+derive other code from. If not, -EPERM or -EACCES perhaps?
 
-Sean
+Also, now that we gain a runtime control, do we perhaps also want a
+build time one?
+
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> Signed-off-by: Eslam Elnikety <elnikety@amazon.com>
+
+Are this order as well as the From: tag above correct? Or
+alternatively, are there actually any pieces left at all from
+Eslam's earlier patch?
+
+> v4:
+>  - New in v4
+
+(Just as an aside: That's quite interesting for a previously
+standalone patch. I guess that patch was really split, considering
+you've retained Eslam's S-o-b? But perhaps there are different ways
+to look at things ...)
+
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -70,9 +70,11 @@ struct xen_domctl_createdomain {
+>  #define XEN_DOMCTL_CDF_iommu          (1U<<_XEN_DOMCTL_CDF_iommu)
+>  #define _XEN_DOMCTL_CDF_nested_virt   6
+>  #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt)
+> +#define _XEN_DOMCTL_CDF_disable_fifo  7
+> +#define XEN_DOMCTL_CDF_disable_fifo   (1U << _XEN_DOMCTL_CDF_disable_fifo)
+
+Despite getting longish, I think this needs "evtchn" somewhere in
+the name. To keep size bounded, maybe XEN_DOMCTL_CDF_no_fifo_evtchn?
+
+>  /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */
+> -#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_nested_virt
+> +#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_disable_fifo
+
+While not directly related to this patch, I'm puzzled by the
+presence of this constant: I've not been able to find any use of
+it. In particular you did have a need to modify
+sanitise_domain_config().
+
+Jan
 
