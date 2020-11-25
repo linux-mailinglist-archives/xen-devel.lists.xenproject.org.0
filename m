@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE8D22C3F27
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 12:35:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.37598.70045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC9A92C3F35
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 12:41:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.37606.70057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kht4f-0003FE-A3; Wed, 25 Nov 2020 11:35:01 +0000
+	id 1khtAG-00049H-TN; Wed, 25 Nov 2020 11:40:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 37598.70045; Wed, 25 Nov 2020 11:35:01 +0000
+Received: by outflank-mailman (output) from mailman id 37606.70057; Wed, 25 Nov 2020 11:40:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,93 +23,104 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kht4f-0003Ep-6g; Wed, 25 Nov 2020 11:35:01 +0000
-Received: by outflank-mailman (input) for mailman id 37598;
- Wed, 25 Nov 2020 11:35:00 +0000
+	id 1khtAG-00048s-Pz; Wed, 25 Nov 2020 11:40:48 +0000
+Received: by outflank-mailman (input) for mailman id 37606;
+ Wed, 25 Nov 2020 11:40:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QLmq=E7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kht4e-0003Ek-Bk
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 11:35:00 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sFqU=E7=suse.cz=jack@srs-us1.protection.inumbo.net>)
+ id 1khtAF-00048M-6o
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 11:40:47 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 98a1c86e-ce4f-446c-b8b4-b8d25921092f;
- Wed, 25 Nov 2020 11:34:59 +0000 (UTC)
+ id 28b40baf-f245-4d24-9bdb-8cf362351697;
+ Wed, 25 Nov 2020 11:40:46 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3F6BDAC41;
+ Wed, 25 Nov 2020 11:40:45 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+ id D8B791E130F; Wed, 25 Nov 2020 12:40:44 +0100 (CET)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=QLmq=E7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
-	id 1kht4e-0003Ek-Bk
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 11:35:00 +0000
-X-Inumbo-ID: 98a1c86e-ce4f-446c-b8b4-b8d25921092f
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+	(envelope-from <SRS0=sFqU=E7=suse.cz=jack@srs-us1.protection.inumbo.net>)
+	id 1khtAF-00048M-6o
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 11:40:47 +0000
+X-Inumbo-ID: 28b40baf-f245-4d24-9bdb-8cf362351697
+Received: from mx2.suse.de (unknown [195.135.220.15])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 98a1c86e-ce4f-446c-b8b4-b8d25921092f;
-	Wed, 25 Nov 2020 11:34:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1606304099;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=01AObPEzqIxLTNz3dIKwWe0KbB5hu7dlBpFLNIJ4zXQ=;
-  b=Zyk2yEl6zhVQZdxD533Razwp0RPnPYZ5WJYr9iTcV+LaFl4GEBFJneKK
-   yXDRdi9yC3+YdB62NS6P1Od0GXAQR34a/v1JNU1bebkLmafBVWB3ujJpn
-   FRz0VqYAFl+hXKEKhOG3K1aGg6UdRI1PrQ+CwtY0yga3TE7K2eEtS1MU5
-   0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 8laZL+S721WS+YayX/vM0WXv1fRymI3Fd8PNOKeBwuiHq67IYrntiFO/Hmt/2Dtog/IVV4AVMy
- Odj6TxyBhODs2+1dA7BRGOn5Dk7UkXo5AzUFqrtcd8BcTBwsNuu3RL3qBnu601ax3jsjBo08sT
- xqfxVo7CGFKz6qseRqaTKpmu1IqOdabt4QG4zVH85VauKJShOW9sATKKA24GkvOKNDW9zA/6DK
- QA64IMQ3gJgq2+H+4q2sITaEt4BxE/3S47x77yi++jKOo4st/RwTZC0swmfg4/Q+6xNjw5NuWx
- nqw=
-X-SBRS: None
-X-MesageID: 32249198
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,368,1599537600"; 
-   d="scan'208";a="32249198"
-Subject: Re: [PATCH v4 1/3] domctl: introduce a new domain create flag,
- XEN_DOMCTL_CDF_disable_fifo, ...
-To: Paul Durrant <paul@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Paul Durrant <pdurrant@amazon.com>, Eslam Elnikety <elnikety@amazon.com>,
-	Christian Lindig <christian.lindig@citrix.com>, David Scott
-	<dave@recoil.org>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20201124191751.11472-1-paul@xen.org>
- <20201124191751.11472-2-paul@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <2b2e3737-ecd7-907f-3c72-f31835dc5cb8@citrix.com>
-Date: Wed, 25 Nov 2020 11:30:41 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+	id 28b40baf-f245-4d24-9bdb-8cf362351697;
+	Wed, 25 Nov 2020 11:40:46 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 3F6BDAC41;
+	Wed, 25 Nov 2020 11:40:45 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id D8B791E130F; Wed, 25 Nov 2020 12:40:44 +0100 (CET)
+Date: Wed, 25 Nov 2020 12:40:44 +0100
+From: Jan Kara <jack@suse.cz>
+To: Tejun Heo <tj@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Coly Li <colyli@suse.de>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Richard Weinberger <richard@nod.at>,
+	Jan Kara <jack@suse.com>, linux-block@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 11/20] block: reference struct block_device from struct
+ hd_struct
+Message-ID: <20201125114044.GC16944@quack2.suse.cz>
+References: <20201118084800.2339180-1-hch@lst.de>
+ <20201118084800.2339180-12-hch@lst.de>
+ <X708BTJ5njtbC2z1@mtj.duckdns.org>
 MIME-Version: 1.0
-In-Reply-To: <20201124191751.11472-2-paul@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <X708BTJ5njtbC2z1@mtj.duckdns.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 
-On 24/11/2020 19:17, Paul Durrant wrote:
-> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-> index 666aeb71bf1b..70701c59d053 100644
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -70,9 +70,11 @@ struct xen_domctl_createdomain {
->  #define XEN_DOMCTL_CDF_iommu          (1U<<_XEN_DOMCTL_CDF_iommu)
->  #define _XEN_DOMCTL_CDF_nested_virt   6
->  #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt)
-> +#define _XEN_DOMCTL_CDF_disable_fifo  7
-> +#define XEN_DOMCTL_CDF_disable_fifo   (1U << _XEN_DOMCTL_CDF_disable_fifo)
 
-The sense is backwards.  It should be a "permit the use of FIFO"
-control.  If the code had been written this way to begin with, the bug
-you found wouldn't have existed.
+Hello!
 
-Given that there is not currently a way to disable FIFO, you can
-probably do without an enumeration of whether the hypervisor supports it
-or not.
+On Tue 24-11-20 11:59:49, Tejun Heo wrote:
+> > diff --git a/block/partitions/core.c b/block/partitions/core.c
+> > index a02e224115943d..0ba0bf44b88af3 100644
+> > --- a/block/partitions/core.c
+> > +++ b/block/partitions/core.c
+> > @@ -340,12 +340,11 @@ void delete_partition(struct hd_struct *part)
+> >  	device_del(part_to_dev(part));
+> >  
+> >  	/*
+> > -	 * Remove gendisk pointer from idr so that it cannot be looked up
+> > -	 * while RCU period before freeing gendisk is running to prevent
+> > -	 * use-after-free issues. Note that the device number stays
+> > -	 * "in-use" until we really free the gendisk.
+> > +	 * Remove the block device from the inode hash, so that it cannot be
+> > +	 * looked up while waiting for the RCU grace period.
+> >  	 */
+> > -	blk_invalidate_devt(part_devt(part));
+> > +	remove_inode_hash(part->bdev->bd_inode);
+> 
+> I don't think this is necessary now that the bdev and inode lifetimes are
+> one. Before, punching out the association early was necessary because we
+> could be in a situation where we can successfully look up a part from idr
+> and then try to pin the associated disk which may already be freed. With the
+> new code, the lookup is through the inode whose lifetime is one and the same
+> with gendisk, so use-after-free isn't possible and __blkdev_get() will
+> reliably reject such open attempts.
 
-~Andrew
+I think the remove_inode_hash() call is actually still needed. Consider a
+situation when the disk is unplugged, gendisk gets destroyed, bdev still
+lives on (e.g. because it is still open). Device gets re-plugged, gendisk
+for the same device number gets created. But we really need new bdev for
+this because from higher level POV this is completely new device. And the
+old bdev needs to live on as long as it is open. So IMO we still need to
+just unhash the inode and leave it lingering in the background.
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
