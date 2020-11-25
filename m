@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D473D2C3F50
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 12:50:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.37613.70069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA01A2C3F54
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 12:51:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.37620.70081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khtJH-00052z-Sb; Wed, 25 Nov 2020 11:50:07 +0000
+	id 1khtKe-0005E9-6w; Wed, 25 Nov 2020 11:51:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 37613.70069; Wed, 25 Nov 2020 11:50:07 +0000
+Received: by outflank-mailman (output) from mailman id 37620.70081; Wed, 25 Nov 2020 11:51:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -18,136 +18,150 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khtJH-00052a-Nl; Wed, 25 Nov 2020 11:50:07 +0000
-Received: by outflank-mailman (input) for mailman id 37613;
- Wed, 25 Nov 2020 11:50:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xP3f=E7=amazon.co.uk=prvs=591f578ad=pdurrant@srs-us1.protection.inumbo.net>)
- id 1khtJG-0004yt-0z
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 11:50:06 +0000
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2bdb7f1d-62a6-4c4b-aa89-ead1607bc409;
- Wed, 25 Nov 2020 11:50:04 +0000 (UTC)
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2b-4ff6265a.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 25 Nov 2020 11:49:58 +0000
-Received: from EX13D03EUC004.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
- by email-inbound-relay-2b-4ff6265a.us-west-2.amazon.com (Postfix) with ESMTPS
- id D7EE7A206C; Wed, 25 Nov 2020 11:49:56 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D03EUC004.ant.amazon.com (10.43.164.33) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 25 Nov 2020 11:49:55 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Wed, 25 Nov 2020 11:49:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1khtKe-0005Dk-32; Wed, 25 Nov 2020 11:51:32 +0000
+Received: by outflank-mailman (input) for mailman id 37620;
+ Wed, 25 Nov 2020 11:51:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dO0Y=E7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1khtKc-0005Da-J0
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 11:51:30 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bc7fecdb-87e3-4233-a2d9-a1612d0af6c0;
+ Wed, 25 Nov 2020 11:51:29 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 883A9AC48;
+ Wed, 25 Nov 2020 11:51:28 +0000 (UTC)
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=xP3f=E7=amazon.co.uk=prvs=591f578ad=pdurrant@srs-us1.protection.inumbo.net>)
-	id 1khtJG-0004yt-0z
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 11:50:06 +0000
-X-Inumbo-ID: 2bdb7f1d-62a6-4c4b-aa89-ead1607bc409
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id 2bdb7f1d-62a6-4c4b-aa89-ead1607bc409;
-	Wed, 25 Nov 2020 11:50:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1606305005; x=1637841005;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version:subject;
-  bh=0Xp+Ld/00tFOv4jMqEHbRqWMFmZJkCjUUSRudyIJZ6U=;
-  b=MCTuO7KvnOGfmop0S4STVAhL018Os0jj/gWhBh/XcUtGdShdsA4LifV+
-   gFNzSFBNCnWhgamUwE/QCa7geyEL/PhZ7rQZI2rXncApQ94s/SupGPOwB
-   daIF7oNfQlMm+mgDjEHSXVSBFK6w9SVPkmILhtyb4bfRm6QRNVcVms3wT
-   A=;
-X-IronPort-AV: E=Sophos;i="5.78,368,1599523200"; 
-   d="scan'208";a="97787018"
-Subject: RE: [PATCH v4 1/3] domctl: introduce a new domain create flag,
+	(envelope-from <SRS0=dO0Y=E7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1khtKc-0005Da-J0
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 11:51:30 +0000
+X-Inumbo-ID: bc7fecdb-87e3-4233-a2d9-a1612d0af6c0
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+	id bc7fecdb-87e3-4233-a2d9-a1612d0af6c0;
+	Wed, 25 Nov 2020 11:51:29 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606305088; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1ufAIsxgz3dNrTVYHsOrmKrdgkJ0tVPi4GXrtu7oa2I=;
+	b=Vp74fjys1mzPp7Tn6lgRA/sbhE2WpbtnwrahiFMFWrx0gtPBtV63oa0+Ypg2XZ1b0Qkq1A
+	+h9QNMoHUWREk+TgLhlF1YhD9xRMOuPc1MrAJTPGTud7wJd/KQhCBHX/ORLEiaJUeObqzw
+	YoSrtrUhVhne9meKVPEkM4fLHOmmU8w=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 883A9AC48;
+	Wed, 25 Nov 2020 11:51:28 +0000 (UTC)
+Subject: Re: [PATCH v4 1/3] domctl: introduce a new domain create flag,
  XEN_DOMCTL_CDF_disable_fifo, ...
-Thread-Topic: [PATCH v4 1/3] domctl: introduce a new domain create flag,
- XEN_DOMCTL_CDF_disable_fifo, ...
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO email-inbound-relay-2b-4ff6265a.us-west-2.amazon.com) ([10.47.23.38])
-  by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP; 25 Nov 2020 11:49:58 +0000
-Received: from EX13D03EUC004.ant.amazon.com (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
-	by email-inbound-relay-2b-4ff6265a.us-west-2.amazon.com (Postfix) with ESMTPS id D7EE7A206C;
-	Wed, 25 Nov 2020 11:49:56 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D03EUC004.ant.amazon.com (10.43.164.33) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Wed, 25 Nov 2020 11:49:55 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Wed, 25 Nov 2020 11:49:55 +0000
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "Elnikety, Eslam" <elnikety@amazon.com>, Christian Lindig
-	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Thread-Index: AQHWwpaPMlIHtWtagUGiOXvRZvLCO6nYt6KAgAAEHQA=
-Date: Wed, 25 Nov 2020 11:49:54 +0000
-Message-ID: <fc5c13e8e8f349ad9c005313bbe60d07@EX13D32EUC003.ant.amazon.com>
+To: paul@xen.org
+Cc: 'Paul Durrant' <pdurrant@amazon.com>,
+ 'Eslam Elnikety' <elnikety@amazon.com>,
+ 'Christian Lindig' <christian.lindig@citrix.com>,
+ 'David Scott' <dave@recoil.org>, 'Ian Jackson' <iwj@xenproject.org>,
+ 'Wei Liu' <wl@xen.org>, 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Julien Grall' <julien@xen.org>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20201124191751.11472-1-paul@xen.org>
  <20201124191751.11472-2-paul@xen.org>
- <2b2e3737-ecd7-907f-3c72-f31835dc5cb8@citrix.com>
-In-Reply-To: <2b2e3737-ecd7-907f-3c72-f31835dc5cb8@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.164.90]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ <444917ac-f2aa-5544-8f6c-097e7f57c98c@suse.com>
+ <009001d6c31b$a1eaeef0$e5c0ccd0$@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3ab33c4e-56af-5690-32b8-a89c5e27761b@suse.com>
+Date: Wed, 25 Nov 2020 12:51:28 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Precedence: Bulk
+In-Reply-To: <009001d6c31b$a1eaeef0$e5c0ccd0$@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbmRyZXcgQ29vcGVyIDxhbmRy
-ZXcuY29vcGVyM0BjaXRyaXguY29tPg0KPiBTZW50OiAyNSBOb3ZlbWJlciAyMDIwIDExOjMxDQo+
-IFRvOiBQYXVsIER1cnJhbnQgPHBhdWxAeGVuLm9yZz47IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
-ZWN0Lm9yZw0KPiBDYzogRHVycmFudCwgUGF1bCA8cGR1cnJhbnRAYW1hem9uLmNvLnVrPjsgRWxu
-aWtldHksIEVzbGFtIDxlbG5pa2V0eUBhbWF6b24uY29tPjsgQ2hyaXN0aWFuIExpbmRpZw0KPiA8
-Y2hyaXN0aWFuLmxpbmRpZ0BjaXRyaXguY29tPjsgRGF2aWQgU2NvdHQgPGRhdmVAcmVjb2lsLm9y
-Zz47IElhbiBKYWNrc29uIDxpd2pAeGVucHJvamVjdC5vcmc+OyBXZWkNCj4gTGl1IDx3bEB4ZW4u
-b3JnPjsgR2VvcmdlIER1bmxhcCA8Z2VvcmdlLmR1bmxhcEBjaXRyaXguY29tPjsgSmFuIEJldWxp
-Y2ggPGpiZXVsaWNoQHN1c2UuY29tPjsgSnVsaWVuDQo+IEdyYWxsIDxqdWxpZW5AeGVuLm9yZz47
-IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4NCj4gU3ViamVjdDog
-UkU6IFtFWFRFUk5BTF0gW1BBVENIIHY0IDEvM10gZG9tY3RsOiBpbnRyb2R1Y2UgYSBuZXcgZG9t
-YWluIGNyZWF0ZSBmbGFnLA0KPiBYRU5fRE9NQ1RMX0NERl9kaXNhYmxlX2ZpZm8sIC4uLg0KPiAN
-Cj4gQ0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3Jn
-YW5pemF0aW9uLiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3Blbg0KPiBhdHRhY2htZW50cyB1bmxl
-c3MgeW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2Fm
-ZS4NCj4gDQo+IA0KPiANCj4gT24gMjQvMTEvMjAyMCAxOToxNywgUGF1bCBEdXJyYW50IHdyb3Rl
-Og0KPiA+IGRpZmYgLS1naXQgYS94ZW4vaW5jbHVkZS9wdWJsaWMvZG9tY3RsLmggYi94ZW4vaW5j
-bHVkZS9wdWJsaWMvZG9tY3RsLmgNCj4gPiBpbmRleCA2NjZhZWI3MWJmMWIuLjcwNzAxYzU5ZDA1
-MyAxMDA2NDQNCj4gPiAtLS0gYS94ZW4vaW5jbHVkZS9wdWJsaWMvZG9tY3RsLmgNCj4gPiArKysg
-Yi94ZW4vaW5jbHVkZS9wdWJsaWMvZG9tY3RsLmgNCj4gPiBAQCAtNzAsOSArNzAsMTEgQEAgc3Ry
-dWN0IHhlbl9kb21jdGxfY3JlYXRlZG9tYWluIHsNCj4gPiAgI2RlZmluZSBYRU5fRE9NQ1RMX0NE
-Rl9pb21tdSAgICAgICAgICAoMVU8PF9YRU5fRE9NQ1RMX0NERl9pb21tdSkNCj4gPiAgI2RlZmlu
-ZSBfWEVOX0RPTUNUTF9DREZfbmVzdGVkX3ZpcnQgICA2DQo+ID4gICNkZWZpbmUgWEVOX0RPTUNU
-TF9DREZfbmVzdGVkX3ZpcnQgICAgKDFVIDw8IF9YRU5fRE9NQ1RMX0NERl9uZXN0ZWRfdmlydCkN
-Cj4gPiArI2RlZmluZSBfWEVOX0RPTUNUTF9DREZfZGlzYWJsZV9maWZvICA3DQo+ID4gKyNkZWZp
-bmUgWEVOX0RPTUNUTF9DREZfZGlzYWJsZV9maWZvICAgKDFVIDw8IF9YRU5fRE9NQ1RMX0NERl9k
-aXNhYmxlX2ZpZm8pDQo+IA0KPiBUaGUgc2Vuc2UgaXMgYmFja3dhcmRzLiAgSXQgc2hvdWxkIGJl
-IGEgInBlcm1pdCB0aGUgdXNlIG9mIEZJRk8iDQo+IGNvbnRyb2wuICBJZiB0aGUgY29kZSBoYWQg
-YmVlbiB3cml0dGVuIHRoaXMgd2F5IHRvIGJlZ2luIHdpdGgsIHRoZSBidWcNCj4geW91IGZvdW5k
-IHdvdWxkbid0IGhhdmUgZXhpc3RlZC4NCj4gDQo+IEdpdmVuIHRoYXQgdGhlcmUgaXMgbm90IGN1
-cnJlbnRseSBhIHdheSB0byBkaXNhYmxlIEZJRk8sIHlvdSBjYW4NCj4gcHJvYmFibHkgZG8gd2l0
-aG91dCBhbiBlbnVtZXJhdGlvbiBvZiB3aGV0aGVyIHRoZSBoeXBlcnZpc29yIHN1cHBvcnRzIGl0
-DQo+IG9yIG5vdC4NCj4gDQoNCk9rLCBJIGNhbiByZXZlcnNlIHRoZSBzZW5zZS4NCg0KSSBmb3Vu
-ZCBhbm90aGVyIG9uZSB0aGF0IHdlIG91Z2h0IHRvIGNvbnRyb2wgaW4gYSBzaW1pbGFyIHdheS4u
-LiB0aGUgcGVyLWNwdSBldnRjaG4gdXBjYWxscy4gQUZBSUsgb25seSB0aGUgV2luZG93cyBQViBk
-cml2ZXJzIG1ha2UgdXNlIG9mIGl0IChhbmQgSSBjYW4gYXJyYW5nZSB0byBzcXVhc2ggdGhhdCB3
-aXRoIGEgcmVnaXN0cnkgZmxhZykgYnV0IGl0IHJlYWxseSBmYWxscyBpbnRvIHRoZSBzYW1lIGNh
-dGVnb3J5IGFzIEZJRk8uLi4gc28gbWF5YmUgd2UgbmVlZCBhIHNlcGFyYXRlIGJpdC1maWVsZCBm
-b3IgdGhlc2Ugc29ydHMgb2YgdGhpbmc/DQoNCiAgUGF1bA0KDQo+IH5BbmRyZXcNCg==
+On 25.11.2020 12:10, Paul Durrant wrote:
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 25 November 2020 09:20
+>>
+>> On 24.11.2020 20:17, Paul Durrant wrote:
+>>> From: Paul Durrant <pdurrant@amazon.com>
+>>>
+>>> ...to control the visibility of the FIFO event channel operations
+>>> (EVTCHNOP_init_control, EVTCHNOP_expand_array, and EVTCHNOP_set_priority) to
+>>> the guest.
+>>>
+>>> These operations were added to the public header in commit d2d50c2f308f
+>>> ("evtchn: add FIFO-based event channel ABI") and the first implementation
+>>> appeared in the two subsequent commits: edc8872aeb4a ("evtchn: implement
+>>> EVTCHNOP_set_priority and add the set_priority hook") and 88910061ec61
+>>> ("evtchn: add FIFO-based event channel hypercalls and port ops"). Prior to
+>>> that, a guest issuing those operations would receive a return value of
+>>> -ENOSYS (not implemented) from Xen. Guests aware of the FIFO operations but
+>>> running on an older (pre-4.4) Xen would fall back to using the 2-level event
+>>> channel interface upon seeing this return value.
+>>>
+>>> Unfortunately the uncontrolable appearance of these new operations in Xen 4.4
+>>> onwards has implications for hibernation of some Linux guests. During resume
+>>> from hibernation, there are two kernels involved: the "boot" kernel and the
+>>> "resume" kernel. The guest boot kernel may default to use FIFO operations and
+>>> instruct Xen via EVTCHNOP_init_control to switch from 2-level to FIFO. On the
+>>> other hand, the resume kernel keeps assuming 2-level, because it was hibernated
+>>> on a version of Xen that did not support the FIFO operations.
+>>
+>> And the alternative of the boot kernel issuing EVTCHNOP_reset has
+>> other unwanted consequences. Maybe worth mentioning here, as
+>> otherwise this would look like the obvious way to return to 2-level
+>> mode?
+>>
+>> Also, why can't the boot kernel be instructed to avoid engaging
+>> FIFO mode?
+>>
+> 
+> Both of those are, of course, viable alternatives if the guest can be
+> modified. The problem we need to work around is guest that are already
+> out there and cannot be updated.
+
+Making use of EVTCHNOP_reset indeed would require a change to the
+kernel. But Linux has a command line option to suppress use of
+FIFO event channels, so I can't see why the boot kernel couldn't
+be passed this flag without any modification to the binary.
+
+>>> To maintain compatibility it is necessary to make Xen behave as it did
+>>> before the new operations were added and hence the code in this patch ensures
+>>> that, if XEN_DOMCTL_CDF_disable_fifo is set, the FIFO event channel operations
+>>> will again result in -ENOSYS being returned to the guest.
+>>
+>> Are there indeed dependencies on the precise return value anywhere?
+>> If so, the generally inappropriate use (do_event_channel_op()'s
+>> default case really would also need switching) would want a brief
+>> comment, so it'll be understood by readers that this isn't code to
+>> derive other code from. If not, -EPERM or -EACCES perhaps?
+>>
+> 
+> The patch, as stated, is reverting behaviour and so the -ENOSYS really
+> needs to stay since it is essentially ABI now. I am not aware of guest
+> code that will, in fact, die if it sees -EPERM or -EACCES instead but
+> there may be such code. The only safe thing to do is to make things
+> look like the used to.
+
+I don't think specific error codes can be considered "ABI". Not
+the least because, if there are multiple causes for an error, it
+ought to be undefined which error gets returned. A guest not
+falling back to 2-level on _any_ error here is basically setting
+itself up for eventual failure because of e.g. getting back
+-ENOMEM. Or someone deciding to add an XSM check to the function.
+
+As said, I'm of the opinion that the other -ENOSYS ought to be
+replaced as well, which of course would be precluded if this was
+considered "ABI".
+
+Jan
 
