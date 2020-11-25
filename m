@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A04742C49E0
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 22:29:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.38095.70735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04D12C49F8
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 22:33:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.38103.70748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ki2LQ-0003Fe-7Z; Wed, 25 Nov 2020 21:28:56 +0000
+	id 1ki2Ps-00049b-U8; Wed, 25 Nov 2020 21:33:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 38095.70735; Wed, 25 Nov 2020 21:28:56 +0000
+Received: by outflank-mailman (output) from mailman id 38103.70748; Wed, 25 Nov 2020 21:33:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,200 +23,119 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ki2LQ-0003FE-3z; Wed, 25 Nov 2020 21:28:56 +0000
-Received: by outflank-mailman (input) for mailman id 38095;
- Wed, 25 Nov 2020 21:28:55 +0000
+	id 1ki2Ps-00049C-R7; Wed, 25 Nov 2020 21:33:32 +0000
+Received: by outflank-mailman (input) for mailman id 38103;
+ Wed, 25 Nov 2020 21:33:31 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gEFk=E7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1ki2LP-0003F9-1D
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 21:28:55 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3685e01e-1c47-4abd-af2b-fb4066cce531;
- Wed, 25 Nov 2020 21:28:54 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net
- [24.130.65.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B92BB206E0;
- Wed, 25 Nov 2020 21:28:52 +0000 (UTC)
+ <SRS0=NWac=E7=telegraphics.com.au=fthain@srs-us1.protection.inumbo.net>)
+ id 1ki2Pr-000497-8d
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 21:33:31 +0000
+Received: from kvm5.telegraphics.com.au (unknown [98.124.60.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 674c4678-a85e-40b6-a7f8-8022c38a6ab3;
+ Wed, 25 Nov 2020 21:33:29 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by kvm5.telegraphics.com.au (Postfix) with ESMTP id 9789F29FB0;
+ Wed, 25 Nov 2020 16:33:24 -0500 (EST)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=gEFk=E7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
-	id 1ki2LP-0003F9-1D
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 21:28:55 +0000
-X-Inumbo-ID: 3685e01e-1c47-4abd-af2b-fb4066cce531
-Received: from mail.kernel.org (unknown [198.145.29.99])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 3685e01e-1c47-4abd-af2b-fb4066cce531;
-	Wed, 25 Nov 2020 21:28:54 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s (c-24-130-65-46.hsd1.ca.comcast.net [24.130.65.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id B92BB206E0;
-	Wed, 25 Nov 2020 21:28:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606339733;
-	bh=/Ysq6Vgj8EHb6KbamRFC3s2zGugtlI2n/1OSkfSGZ4s=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=assL+3Yi9bO8B9zPGFItUVzzA3j7agW0Ou5XWfof4AaTtUtIvxWYn1uufWfdVF5d9
-	 gKdS2rwKLJpNQPRKwhREY4n4/yNHEVDy4zykMGkmP70Fa1e9GnzmqYwnaTsbMu51o8
-	 +sjJCCxKBQvUvTFiZfpXj9y8WN9FbAeXUNnwCzwU=
-Date: Wed, 25 Nov 2020 13:28:51 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v4 3/3] ns16550: Gate all PCI code with CONFIG_X86
-In-Reply-To: <6d64bb35a6ce247faaa3df2ebae27b6bfa1d969e.1606326929.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2011251328440.7979@sstabellini-ThinkPad-T480s>
-References: <cover.1606326929.git.rahul.singh@arm.com> <6d64bb35a6ce247faaa3df2ebae27b6bfa1d969e.1606326929.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	(envelope-from <SRS0=NWac=E7=telegraphics.com.au=fthain@srs-us1.protection.inumbo.net>)
+	id 1ki2Pr-000497-8d
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 21:33:31 +0000
+X-Inumbo-ID: 674c4678-a85e-40b6-a7f8-8022c38a6ab3
+Received: from kvm5.telegraphics.com.au (unknown [98.124.60.144])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id 674c4678-a85e-40b6-a7f8-8022c38a6ab3;
+	Wed, 25 Nov 2020 21:33:29 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by kvm5.telegraphics.com.au (Postfix) with ESMTP id 9789F29FB0;
+	Wed, 25 Nov 2020 16:33:24 -0500 (EST)
+Date: Thu, 26 Nov 2020 08:33:24 +1100 (AEDT)
+From: Finn Thain <fthain@telegraphics.com.au>
+To: Nick Desaulniers <ndesaulniers@google.com>
+cc: James Bottomley <James.Bottomley@hansenpartnership.com>, 
+    Kees Cook <keescook@chromium.org>, 
+    "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+    Joe Perches <joe@perches.com>, Jakub Kicinski <kuba@kernel.org>, 
+    alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net, 
+    reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org, 
+    linux-wireless <linux-wireless@vger.kernel.org>, 
+    linux-fbdev@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>, 
+    LKML <linux-kernel@vger.kernel.org>, 
+    Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org, 
+    dm-devel@redhat.com, keyrings@vger.kernel.org, 
+    linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com, 
+    wcn36xx@lists.infradead.org, samba-technical@lists.samba.org, 
+    linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net, 
+    linux-afs@lists.infradead.org, usb-storage@lists.one-eyed-alien.net, 
+    drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org, 
+    linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com, 
+    linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org, 
+    oss-drivers@netronome.com, bridge@lists.linux-foundation.org, 
+    linux-security-module@vger.kernel.org, 
+    amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+    linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com, 
+    linux-acpi@vger.kernel.org, coreteam@netfilter.org, 
+    intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org, 
+    Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net, 
+    linux-ext4@vger.kernel.org, linux-media@vger.kernel.org, 
+    linux-watchdog@vger.kernel.org, selinux@vger.kernel.org, 
+    linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
+    intel-gfx@lists.freedesktop.org, linux-geode@lists.infradead.org, 
+    linux-can@vger.kernel.org, linux-block@vger.kernel.org, 
+    linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
+    linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org, 
+    nouveau@lists.freedesktop.org, linux-hams@vger.kernel.org, 
+    ceph-devel@vger.kernel.org, virtualization@lists.linux-foundation.org, 
+    Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+    linux-hwmon@vger.kernel.org, 
+    "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, 
+    linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com, 
+    Linux Memory Management List <linux-mm@kvack.org>, 
+    Network Development <netdev@vger.kernel.org>, 
+    linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org, 
+    Linux-Renesas <linux-renesas-soc@vger.kernel.org>, 
+    linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org, 
+    netfilter-devel@vger.kernel.org, 
+    "open list:HARDWARE RANDOM NUMBER GENERATOR CORE" <linux-crypto@vger.kernel.org>, 
+    patches@opensource.cirrus.com, linux-integrity@vger.kernel.org, 
+    target-devel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+    Jonathan Cameron <Jonathan.Cameron@huawei.com>, 
+    Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [Intel-wired-lan] [PATCH 000/141] Fix fall-through warnings for
+ Clang
+In-Reply-To: <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
+Message-ID: <alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
+References: <202011201129.B13FDB3C@keescook> <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com> <202011220816.8B6591A@keescook> <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com> <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
+ <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com> <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com> <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com> <20201123130348.GA3119@embeddedor>
+ <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com> <202011241327.BB28F12F6@keescook> <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com> <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-250076586-1606339733=:7979"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Wed, 25 Nov 2020, Nick Desaulniers wrote:
 
---8323329-250076586-1606339733=:7979
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+> So developers and distributions using Clang can't have 
+> -Wimplicit-fallthrough enabled because GCC is less strict (which has 
+> been shown in this thread to lead to bugs)?  We'd like to have nice 
+> things too, you know.
+> 
 
-On Wed, 25 Nov 2020, Rahul Singh wrote:
-> The NS16550 driver is assuming that NS16550 PCI card are usable if the
-> architecture supports PCI (i.e. CONFIG_HAS_PCI=y). However, the code is
-> very x86 focus and will fail to build on Arm (/!\ it is not all the
-> errors):
-> 
-> ns16550.c: In function ‘ns16550_init_irq’:
-> ns16550.c:726:21: error: implicit declaration of function ‘create_irq’;
-> did you mean ‘release_irq’? [-Werror=implicit-function-declaration]
->           uart->irq = create_irq(0, false);
->                       ^~~~~~~~~~
->                       release_irq
-> ns16550.c:726:21: error: nested extern declaration of ‘create_irq’
-> [-Werror=nested-externs]
-> ns16550.c: In function ‘ns16550_init_postirq’:
-> ns16550.c:768:33: error: ‘mmio_ro_ranges’ undeclared (first use in this
-> function); did you mean ‘mmio_handler’?
->                rangeset_add_range(mmio_ro_ranges, uart->io_base,
->                                   ^~~~~~~~~~~~~~
->                                   mmio_handler
-> ns16550.c:768:33: note: each undeclared identifier is reported only once
-> for each function it appears in
-> ns16550.c:780:20: error: variable ‘msi’ has initializer but incomplete
-> type
->               struct msi_info msi = {
->                      ^~~~~~~~
-> 
-> Enabling support for NS16550 PCI card on Arm would require more plumbing
-> in addition to fixing the compilation error.
-> 
-> Arm systems tend to have platform UART available such as NS16550, PL011.
-> So there are limited reasons to get NS16550 PCI support for now on Arm.
-> 
-> Guard all remaining PCI code that is not under x86 flag with CONFIG_X86.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+Apparently the GCC developers don't want you to have "nice things" either. 
+Do you think that the kernel should drop gcc in favour of clang?
+Or do you think that a codebase can somehow satisfy multiple checkers and 
+their divergent interpretations of the language spec?
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+> This is not a shiny new warning; it's already on for GCC and has existed 
+> in both compilers for multiple releases.
+> 
 
+Perhaps you're referring to the compiler feature that lead to the 
+ill-fated, tree-wide /* fallthrough */ patch series.
 
-> ---
-> 
-> Changes in v4:
-> - As per the discussion guard all remaining PCI code with CONFIG_X86
-> 
-> ---
->  xen/drivers/char/ns16550.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-> index 9235d854fe..26e601857a 100644
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -16,7 +16,7 @@
->  #include <xen/timer.h>
->  #include <xen/serial.h>
->  #include <xen/iocap.h>
-> -#ifdef CONFIG_HAS_PCI
-> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
->  #include <xen/pci.h>
->  #include <xen/pci_regs.h>
->  #include <xen/pci_ids.h>
-> @@ -51,7 +51,7 @@ static struct ns16550 {
->      unsigned int timeout_ms;
->      bool_t intr_works;
->      bool_t dw_usr_bsy;
-> -#ifdef CONFIG_HAS_PCI
-> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
->      /* PCI card parameters. */
->      bool_t pb_bdf_enable;   /* if =1, pb-bdf effective, port behind bridge */
->      bool_t ps_bdf_enable;   /* if =1, ps_bdf effective, port on pci card */
-> @@ -66,7 +66,7 @@ static struct ns16550 {
->  #endif
->  } ns16550_com[2] = { { 0 } };
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
->  struct ns16550_config {
->      u16 vendor_id;
->      u16 dev_id;
-> @@ -256,7 +256,7 @@ static int ns16550_getc(struct serial_port *port, char *pc)
->  
->  static void pci_serial_early_init(struct ns16550 *uart)
->  {
-> -#ifdef CONFIG_HAS_PCI
-> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
->      if ( !uart->ps_bdf_enable || uart->io_base >= 0x10000 )
->          return;
->  
-> @@ -355,7 +355,7 @@ static void __init ns16550_init_preirq(struct serial_port *port)
->  
->  static void __init ns16550_init_irq(struct serial_port *port)
->  {
-> -#ifdef CONFIG_HAS_PCI
-> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
->      struct ns16550 *uart = port->uart;
->  
->      if ( uart->msi )
-> @@ -397,7 +397,7 @@ static void __init ns16550_init_postirq(struct serial_port *port)
->      uart->timeout_ms = max_t(
->          unsigned int, 1, (bits * uart->fifo_size * 1000) / uart->baud);
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
->      if ( uart->bar || uart->ps_bdf_enable )
->      {
->          if ( uart->param && uart->param->mmio &&
-> @@ -477,7 +477,7 @@ static void ns16550_suspend(struct serial_port *port)
->  
->      stop_timer(&uart->timer);
->  
-> -#ifdef CONFIG_HAS_PCI
-> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
->      if ( uart->bar )
->         uart->cr = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
->                                    uart->ps_bdf[2]), PCI_COMMAND);
-> @@ -486,7 +486,7 @@ static void ns16550_suspend(struct serial_port *port)
->  
->  static void _ns16550_resume(struct serial_port *port)
->  {
-> -#ifdef CONFIG_HAS_PCI
-> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
->      struct ns16550 *uart = port->uart;
->  
->      if ( uart->bar )
-> -- 
-> 2.17.1
-> 
---8323329-250076586-1606339733=:7979--
+When the ink dries on the C23 language spec and the implementations figure 
+out how to interpret it then sure, enforce the warning for new code -- the 
+cost/benefit analysis is straight forward. However, the case for patching 
+existing mature code is another story.
 
