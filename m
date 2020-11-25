@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CC2A2C4762
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 19:17:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.37952.70568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BB202C4765
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Nov 2020 19:17:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.37955.70580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khzLb-0001Uc-Bf; Wed, 25 Nov 2020 18:16:55 +0000
+	id 1khzLg-0001an-R3; Wed, 25 Nov 2020 18:17:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 37952.70568; Wed, 25 Nov 2020 18:16:55 +0000
+Received: by outflank-mailman (output) from mailman id 37955.70580; Wed, 25 Nov 2020 18:17:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,64 +23,97 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1khzLb-0001U0-7o; Wed, 25 Nov 2020 18:16:55 +0000
-Received: by outflank-mailman (input) for mailman id 37952;
- Wed, 25 Nov 2020 18:16:53 +0000
+	id 1khzLg-0001Zv-Ky; Wed, 25 Nov 2020 18:17:00 +0000
+Received: by outflank-mailman (input) for mailman id 37955;
+ Wed, 25 Nov 2020 18:16:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MqAN=E7=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1khzLZ-0001Oz-9c
- for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 18:16:53 +0000
+ id 1khzLe-0001Oz-9f
+ for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 18:16:58 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 617e2fad-6fc2-48fd-8ed6-856b402076a1;
- Wed, 25 Nov 2020 18:16:47 +0000 (UTC)
+ id 8db06e9a-3041-4f8a-a772-db9e0c6eee0a;
+ Wed, 25 Nov 2020 18:16:50 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91E7E11D4;
- Wed, 25 Nov 2020 10:16:47 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BDFEB11D4;
+ Wed, 25 Nov 2020 10:16:50 -0800 (PST)
 Received: from scm-wfh-server-rahsin01.stack04.eu02.mi.arm.com (unknown
  [10.58.246.76])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C93D93F23F;
- Wed, 25 Nov 2020 10:16:46 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 715AE3F23F;
+ Wed, 25 Nov 2020 10:16:49 -0800 (PST)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=MqAN=E7=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
-	id 1khzLZ-0001Oz-9c
-	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 18:16:53 +0000
-X-Inumbo-ID: 617e2fad-6fc2-48fd-8ed6-856b402076a1
+	id 1khzLe-0001Oz-9f
+	for xen-devel@lists.xenproject.org; Wed, 25 Nov 2020 18:16:58 +0000
+X-Inumbo-ID: 8db06e9a-3041-4f8a-a772-db9e0c6eee0a
 Received: from foss.arm.com (unknown [217.140.110.172])
 	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id 617e2fad-6fc2-48fd-8ed6-856b402076a1;
-	Wed, 25 Nov 2020 18:16:47 +0000 (UTC)
+	id 8db06e9a-3041-4f8a-a772-db9e0c6eee0a;
+	Wed, 25 Nov 2020 18:16:50 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91E7E11D4;
-	Wed, 25 Nov 2020 10:16:47 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BDFEB11D4;
+	Wed, 25 Nov 2020 10:16:50 -0800 (PST)
 Received: from scm-wfh-server-rahsin01.stack04.eu02.mi.arm.com (unknown [10.58.246.76])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C93D93F23F;
-	Wed, 25 Nov 2020 10:16:46 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 715AE3F23F;
+	Wed, 25 Nov 2020 10:16:49 -0800 (PST)
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
 	Jan Beulich <jbeulich@suse.com>,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH v4 2/3] xen/pci: solve compilation error on ARM with HAS_PCI enabled.
-Date: Wed, 25 Nov 2020 18:16:03 +0000
-Message-Id: <2ce402cfae6d90433626bcdc6314e5ee5dda103f.1606326929.git.rahul.singh@arm.com>
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v4 3/3] ns16550: Gate all PCI code with CONFIG_X86
+Date: Wed, 25 Nov 2020 18:16:04 +0000
+Message-Id: <6d64bb35a6ce247faaa3df2ebae27b6bfa1d969e.1606326929.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1606326929.git.rahul.singh@arm.com>
 References: <cover.1606326929.git.rahul.singh@arm.com>
 In-Reply-To: <cover.1606326929.git.rahul.singh@arm.com>
 References: <cover.1606326929.git.rahul.singh@arm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-If mem-sharing, mem-paging, or log-dirty functionality is not enabled
-for architecture when HAS_PCI is enabled, the compiler will throw an
-error.
+The NS16550 driver is assuming that NS16550 PCI card are usable if the
+architecture supports PCI (i.e. CONFIG_HAS_PCI=y). However, the code is
+very x86 focus and will fail to build on Arm (/!\ it is not all the
+errors):
 
-Move code to x86 specific file to fix compilation error.
+ns16550.c: In function ‘ns16550_init_irq’:
+ns16550.c:726:21: error: implicit declaration of function ‘create_irq’;
+did you mean ‘release_irq’? [-Werror=implicit-function-declaration]
+          uart->irq = create_irq(0, false);
+                      ^~~~~~~~~~
+                      release_irq
+ns16550.c:726:21: error: nested extern declaration of ‘create_irq’
+[-Werror=nested-externs]
+ns16550.c: In function ‘ns16550_init_postirq’:
+ns16550.c:768:33: error: ‘mmio_ro_ranges’ undeclared (first use in this
+function); did you mean ‘mmio_handler’?
+               rangeset_add_range(mmio_ro_ranges, uart->io_base,
+                                  ^~~~~~~~~~~~~~
+                                  mmio_handler
+ns16550.c:768:33: note: each undeclared identifier is reported only once
+for each function it appears in
+ns16550.c:780:20: error: variable ‘msi’ has initializer but incomplete
+type
+              struct msi_info msi = {
+                     ^~~~~~~~
 
-Also, modify the code to use likely() in place of unlikley() for each
-condition to make code more optimized.
+Enabling support for NS16550 PCI card on Arm would require more plumbing
+in addition to fixing the compilation error.
+
+Arm systems tend to have platform UART available such as NS16550, PL011.
+So there are limited reasons to get NS16550 PCI support for now on Arm.
+
+Guard all remaining PCI code that is not under x86 flag with CONFIG_X86.
 
 No functional change intended.
 
@@ -88,84 +121,88 @@ Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
 
 Changes in v4:
-- fixed minor comments
+- As per the discussion guard all remaining PCI code with CONFIG_X86
 
 ---
- xen/drivers/passthrough/pci.c       |  8 +-------
- xen/drivers/passthrough/x86/iommu.c | 13 +++++++++++++
- xen/include/xen/iommu.h             |  2 ++
- 3 files changed, 16 insertions(+), 7 deletions(-)
+ xen/drivers/char/ns16550.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 3c6ab1bcb6..4c21655b7d 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -20,7 +20,6 @@
- #include <xen/iommu.h>
- #include <xen/irq.h>
- #include <xen/param.h>
--#include <xen/vm_event.h>
- #include <xen/delay.h>
- #include <xen/keyhandler.h>
- #include <xen/event.h>
-@@ -1418,12 +1417,7 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
-     if ( !is_iommu_enabled(d) )
-         return 0;
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index 9235d854fe..26e601857a 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -16,7 +16,7 @@
+ #include <xen/timer.h>
+ #include <xen/serial.h>
+ #include <xen/iocap.h>
+-#ifdef CONFIG_HAS_PCI
++#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+ #include <xen/pci.h>
+ #include <xen/pci_regs.h>
+ #include <xen/pci_ids.h>
+@@ -51,7 +51,7 @@ static struct ns16550 {
+     unsigned int timeout_ms;
+     bool_t intr_works;
+     bool_t dw_usr_bsy;
+-#ifdef CONFIG_HAS_PCI
++#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+     /* PCI card parameters. */
+     bool_t pb_bdf_enable;   /* if =1, pb-bdf effective, port behind bridge */
+     bool_t ps_bdf_enable;   /* if =1, ps_bdf effective, port on pci card */
+@@ -66,7 +66,7 @@ static struct ns16550 {
+ #endif
+ } ns16550_com[2] = { { 0 } };
  
--    /* Prevent device assign if mem paging or mem sharing have been 
--     * enabled for this domain */
--    if ( d != dom_io &&
--         unlikely(mem_sharing_enabled(d) ||
--                  vm_event_check_ring(d->vm_event_paging) ||
--                  p2m_get_hostp2m(d)->global_logdirty) )
-+    if( !arch_iommu_use_permitted(d) )
-         return -EXDEV;
+-#ifdef CONFIG_HAS_PCI
++#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+ struct ns16550_config {
+     u16 vendor_id;
+     u16 dev_id;
+@@ -256,7 +256,7 @@ static int ns16550_getc(struct serial_port *port, char *pc)
  
-     /* device_assigned() should already have cleared the device for assignment */
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index f17b1820f4..cea1032b3d 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -18,6 +18,7 @@
- #include <xen/guest_access.h>
- #include <xen/event.h>
- #include <xen/softirq.h>
-+#include <xen/vm_event.h>
- #include <xsm/xsm.h>
+ static void pci_serial_early_init(struct ns16550 *uart)
+ {
+-#ifdef CONFIG_HAS_PCI
++#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+     if ( !uart->ps_bdf_enable || uart->io_base >= 0x10000 )
+         return;
  
- #include <asm/hvm/io.h>
-@@ -308,6 +309,18 @@ struct page_info *iommu_alloc_pgtable(struct domain *d)
-     return pg;
- }
+@@ -355,7 +355,7 @@ static void __init ns16550_init_preirq(struct serial_port *port)
  
-+bool arch_iommu_use_permitted(const struct domain *d)
-+{
-+    /*
-+     * Prevent device assign if mem paging, mem sharing or log-dirty
-+     * have been enabled for this domain.
-+     */
-+    return d == dom_io ||
-+           (likely(!mem_sharing_enabled(d)) &&
-+            likely(!vm_event_check_ring(d->vm_event_paging)) &&
-+            likely(!p2m_get_hostp2m(d)->global_logdirty));
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 191021870f..056eaa09fc 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -381,6 +381,8 @@ DECLARE_PER_CPU(bool_t, iommu_dont_flush_iotlb);
- extern struct spinlock iommu_pt_cleanup_lock;
- extern struct page_list_head iommu_pt_cleanup_list;
+ static void __init ns16550_init_irq(struct serial_port *port)
+ {
+-#ifdef CONFIG_HAS_PCI
++#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+     struct ns16550 *uart = port->uart;
  
-+bool arch_iommu_use_permitted(const struct domain *d);
-+
- #endif /* _IOMMU_H_ */
+     if ( uart->msi )
+@@ -397,7 +397,7 @@ static void __init ns16550_init_postirq(struct serial_port *port)
+     uart->timeout_ms = max_t(
+         unsigned int, 1, (bits * uart->fifo_size * 1000) / uart->baud);
  
- /*
+-#ifdef CONFIG_HAS_PCI
++#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+     if ( uart->bar || uart->ps_bdf_enable )
+     {
+         if ( uart->param && uart->param->mmio &&
+@@ -477,7 +477,7 @@ static void ns16550_suspend(struct serial_port *port)
+ 
+     stop_timer(&uart->timer);
+ 
+-#ifdef CONFIG_HAS_PCI
++#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+     if ( uart->bar )
+        uart->cr = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
+                                   uart->ps_bdf[2]), PCI_COMMAND);
+@@ -486,7 +486,7 @@ static void ns16550_suspend(struct serial_port *port)
+ 
+ static void _ns16550_resume(struct serial_port *port)
+ {
+-#ifdef CONFIG_HAS_PCI
++#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+     struct ns16550 *uart = port->uart;
+ 
+     if ( uart->bar )
 -- 
 2.17.1
 
