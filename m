@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB2DC2C588C
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 16:53:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.38701.71507 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BD042C588A
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 16:53:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.38699.71482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiJaC-0004YL-Q8; Thu, 26 Nov 2020 15:53:20 +0000
+	id 1kiJa3-0004M6-TH; Thu, 26 Nov 2020 15:53:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 38701.71507; Thu, 26 Nov 2020 15:53:20 +0000
+Received: by outflank-mailman (output) from mailman id 38699.71482; Thu, 26 Nov 2020 15:53:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,120 +23,157 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiJaC-0004Xc-JC; Thu, 26 Nov 2020 15:53:20 +0000
-Received: by outflank-mailman (input) for mailman id 38701;
- Thu, 26 Nov 2020 15:53:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kiJa3-0004LN-P8; Thu, 26 Nov 2020 15:53:11 +0000
+Received: by outflank-mailman (input) for mailman id 38699;
+ Thu, 26 Nov 2020 15:53:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YrL6=FA=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kiJaA-0004Ch-IS
- for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 15:53:18 +0000
+ id 1kiJa2-0004Dd-8F
+ for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 15:53:10 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id f5a14498-556f-4d9b-bcff-08e943744578;
- Thu, 26 Nov 2020 15:53:06 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id c67c59f9-4127-43c7-83f7-6e995a80dadc;
+ Thu, 26 Nov 2020 15:53:07 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1C7B331B;
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3B9531B;
  Thu, 26 Nov 2020 07:53:06 -0800 (PST)
 Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com
  [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6D6863F23F;
- Thu, 26 Nov 2020 07:53:05 -0800 (PST)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4F7FA3F23F;
+ Thu, 26 Nov 2020 07:53:06 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=YrL6=FA=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
-	id 1kiJaA-0004Ch-IS
-	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 15:53:18 +0000
-X-Inumbo-ID: f5a14498-556f-4d9b-bcff-08e943744578
+	id 1kiJa2-0004Dd-8F
+	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 15:53:10 +0000
+X-Inumbo-ID: c67c59f9-4127-43c7-83f7-6e995a80dadc
 Received: from foss.arm.com (unknown [217.140.110.172])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
-	id f5a14498-556f-4d9b-bcff-08e943744578;
-	Thu, 26 Nov 2020 15:53:06 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+	id c67c59f9-4127-43c7-83f7-6e995a80dadc;
+	Thu, 26 Nov 2020 15:53:07 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1C7B331B;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3B9531B;
 	Thu, 26 Nov 2020 07:53:06 -0800 (PST)
 Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com [10.1.199.1])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6D6863F23F;
-	Thu, 26 Nov 2020 07:53:05 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4F7FA3F23F;
+	Thu, 26 Nov 2020 07:53:06 -0800 (PST)
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 5/7] xen/arm: Add handler for cp15 ID registers
-Date: Thu, 26 Nov 2020 15:51:07 +0000
-Message-Id: <d1b01a60e2e0042fe98719c2cd13b7d44e565dfb.1606151462.git.bertrand.marquis@arm.com>
+Subject: [PATCH 6/7] xen/arm: Add CP10 exception support to handle VMFR
+Date: Thu, 26 Nov 2020 15:51:08 +0000
+Message-Id: <18f51a4276f50e270f80d1d7d13b156509233cac.1606151462.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <cover.1606151462.git.bertrand.marquis@arm.com>
 References: <cover.1606151462.git.bertrand.marquis@arm.com>
 In-Reply-To: <cover.1606151462.git.bertrand.marquis@arm.com>
 References: <cover.1606151462.git.bertrand.marquis@arm.com>
 
-Add support for emulation of cp15 based ID registers (on arm32 or when
-running a 32bit guest on arm64).
-The handlers are returning the values stored in the guest_cpuinfo
-structure.
-In the current status the MVFR registers are no supported.
+Add support for cp10 exceptions decoding to be able to emulate the
+values for VMFR0 and VMFR1 when TID3 bit of HSR is activated.
+This is required for aarch32 guests accessing VMFR0 and VMFR1 using vmrs
+and vmsr instructions.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
- xen/arch/arm/vcpreg.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ xen/arch/arm/traps.c             |  5 +++++
+ xen/arch/arm/vcpreg.c            | 38 ++++++++++++++++++++++++++++++++
+ xen/include/asm-arm/perfc_defn.h |  1 +
+ xen/include/asm-arm/traps.h      |  1 +
+ 4 files changed, 45 insertions(+)
 
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 22bd1bd4c6..28d9d64558 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -2097,6 +2097,11 @@ void do_trap_guest_sync(struct cpu_user_regs *regs)
+         perfc_incr(trap_cp14_dbg);
+         do_cp14_dbg(regs, hsr);
+         break;
++    case HSR_EC_CP10:
++        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        perfc_incr(trap_cp10);
++        do_cp10(regs, hsr);
++        break;
+     case HSR_EC_CP:
+         GUEST_BUG_ON(!psr_mode_is_32bit(regs));
+         perfc_incr(trap_cp);
 diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-index cdc91cdf5b..d0c6406f34 100644
+index d0c6406f34..9d6a36ca5d 100644
 --- a/xen/arch/arm/vcpreg.c
 +++ b/xen/arch/arm/vcpreg.c
-@@ -155,6 +155,14 @@ TVM_REG32(CONTEXTIDR, CONTEXTIDR_EL1)
-         break;                                                      \
-     }
+@@ -634,6 +634,44 @@ void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr)
+     inject_undef_exception(regs, hsr);
+ }
  
-+/* Macro to generate easily case for ID co-processor emulation */
-+#define GENERATE_TID3_INFO(reg,field,offset)                        \
-+    case HSR_CPREG32(reg):                                          \
-+    {                                                               \
-+        return handle_ro_read_val(regs, regidx, cp32.read, hsr,     \
-+                          1, guest_cpuinfo.field.bits[offset]);     \
++void do_cp10(struct cpu_user_regs *regs, const union hsr hsr)
++{
++    const struct hsr_cp32 cp32 = hsr.cp32;
++    int regidx = cp32.reg;
++
++    if ( !check_conditional_instr(regs, hsr) )
++    {
++        advance_pc(regs, hsr);
++        return;
 +    }
 +
- void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
- {
-     const struct hsr_cp32 cp32 = hsr.cp32;
-@@ -286,6 +294,33 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
-          */
-         return handle_raz_wi(regs, regidx, cp32.read, hsr, 1);
- 
++    switch ( hsr.bits & HSR_CP32_REGS_MASK )
++    {
 +    /*
-+     * HCR_EL2.TID3
-+     *
-+     * This is trapping most Identification registers used by a guest
-+     * to identify the processor features
++     * HSR.TID3 is trapping access to MVFR register used to identify the
++     * VFP/Simd using VMRS/VMSR instructions.
++     * In this case MVFR2 is not supported as the instruction does not support
++     * it.
++     * Exception encoding is using MRC/MCR standard with the reg field in Crn
++     * as are declared MVFR0 and MVFR1 in cpregs.h
 +     */
-+    GENERATE_TID3_INFO(ID_PFR0, pfr32, 0)
-+    GENERATE_TID3_INFO(ID_PFR1, pfr32, 1)
-+    GENERATE_TID3_INFO(ID_PFR2, pfr32, 2)
-+    GENERATE_TID3_INFO(ID_DFR0, dbg32, 0)
-+    GENERATE_TID3_INFO(ID_DFR1, dbg32, 1)
-+    GENERATE_TID3_INFO(ID_AFR0, aux32, 0)
-+    GENERATE_TID3_INFO(ID_MMFR0, mm32, 0)
-+    GENERATE_TID3_INFO(ID_MMFR1, mm32, 1)
-+    GENERATE_TID3_INFO(ID_MMFR2, mm32, 2)
-+    GENERATE_TID3_INFO(ID_MMFR3, mm32, 3)
-+    GENERATE_TID3_INFO(ID_MMFR4, mm32, 4)
-+    GENERATE_TID3_INFO(ID_MMFR5, mm32, 5)
-+    GENERATE_TID3_INFO(ID_ISAR0, isa32, 0)
-+    GENERATE_TID3_INFO(ID_ISAR1, isa32, 1)
-+    GENERATE_TID3_INFO(ID_ISAR2, isa32, 2)
-+    GENERATE_TID3_INFO(ID_ISAR3, isa32, 3)
-+    GENERATE_TID3_INFO(ID_ISAR4, isa32, 4)
-+    GENERATE_TID3_INFO(ID_ISAR5, isa32, 5)
-+    GENERATE_TID3_INFO(ID_ISAR6, isa32, 6)
-+    /* MVFR registers are in cp10 no cp15 */
++    GENERATE_TID3_INFO(MVFR0, mvfr, 0)
++    GENERATE_TID3_INFO(MVFR1, mvfr, 1)
 +
-     /*
-      * HCR_EL2.TIDCP
-      *
++    default:
++        gdprintk(XENLOG_ERR,
++                 "%s p10, %d, r%d, cr%d, cr%d, %d @ 0x%"PRIregister"\n",
++                 cp32.read ? "mrc" : "mcr",
++                 cp32.op1, cp32.reg, cp32.crn, cp32.crm, cp32.op2, regs->pc);
++        gdprintk(XENLOG_ERR, "unhandled 32-bit CP10 access %#x\n",
++                 hsr.bits & HSR_CP32_REGS_MASK);
++        inject_undef_exception(regs, hsr);
++        return;
++    }
++
++    advance_pc(regs, hsr);
++}
++
+ void do_cp(struct cpu_user_regs *regs, const union hsr hsr)
+ {
+     const struct hsr_cp cp = hsr.cp;
+diff --git a/xen/include/asm-arm/perfc_defn.h b/xen/include/asm-arm/perfc_defn.h
+index 6a83185163..31f071222b 100644
+--- a/xen/include/asm-arm/perfc_defn.h
++++ b/xen/include/asm-arm/perfc_defn.h
+@@ -11,6 +11,7 @@ PERFCOUNTER(trap_cp15_64,  "trap: cp15 64-bit access")
+ PERFCOUNTER(trap_cp14_32,  "trap: cp14 32-bit access")
+ PERFCOUNTER(trap_cp14_64,  "trap: cp14 64-bit access")
+ PERFCOUNTER(trap_cp14_dbg, "trap: cp14 dbg access")
++PERFCOUNTER(trap_cp10,     "trap: cp10 access")
+ PERFCOUNTER(trap_cp,       "trap: cp access")
+ PERFCOUNTER(trap_smc32,    "trap: 32-bit smc")
+ PERFCOUNTER(trap_hvc32,    "trap: 32-bit hvc")
+diff --git a/xen/include/asm-arm/traps.h b/xen/include/asm-arm/traps.h
+index 997c37884e..c4a3d0fb1b 100644
+--- a/xen/include/asm-arm/traps.h
++++ b/xen/include/asm-arm/traps.h
+@@ -62,6 +62,7 @@ void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr);
+ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr);
+ void do_cp14_64(struct cpu_user_regs *regs, const union hsr hsr);
+ void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr);
++void do_cp10(struct cpu_user_regs *regs, const union hsr hsr);
+ void do_cp(struct cpu_user_regs *regs, const union hsr hsr);
+ 
+ /* SMCCC handling */
 -- 
 2.17.1
 
