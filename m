@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 104A72C57F6
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 16:19:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.38636.71396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B63E82C581A
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 16:29:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.38644.71408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiJ2M-0000Kg-6a; Thu, 26 Nov 2020 15:18:22 +0000
+	id 1kiJC7-0001Ke-6A; Thu, 26 Nov 2020 15:28:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 38636.71396; Thu, 26 Nov 2020 15:18:22 +0000
+Received: by outflank-mailman (output) from mailman id 38644.71408; Thu, 26 Nov 2020 15:28:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,265 +23,154 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiJ2M-0000KD-3F; Thu, 26 Nov 2020 15:18:22 +0000
-Received: by outflank-mailman (input) for mailman id 38636;
- Thu, 26 Nov 2020 15:18:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EevG=FA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kiJ2K-0000K8-KQ
- for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 15:18:20 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2acfbf8e-7e4f-4002-8e37-b0dc4961aaa6;
- Thu, 26 Nov 2020 15:18:18 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EC0C7ACE0;
- Thu, 26 Nov 2020 15:18:17 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kiJC7-0001KF-2y; Thu, 26 Nov 2020 15:28:27 +0000
+Received: by outflank-mailman (input) for mailman id 38644;
+ Thu, 26 Nov 2020 15:28:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LKT8=FA=gmail.com=geert.uytterhoeven@srs-us1.protection.inumbo.net>)
+ id 1kiJC6-0001KA-1K
+ for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 15:28:26 +0000
+Received: from mail-ot1-f65.google.com (unknown [209.85.210.65])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ab7e3f94-68da-488e-bb6c-4353ec84fe44;
+ Thu, 26 Nov 2020 15:28:24 +0000 (UTC)
+Received: by mail-ot1-f65.google.com with SMTP id 79so2156912otc.7
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Nov 2020 07:28:24 -0800 (PST)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=EevG=FA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kiJ2K-0000K8-KQ
-	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 15:18:20 +0000
-X-Inumbo-ID: 2acfbf8e-7e4f-4002-8e37-b0dc4961aaa6
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 2acfbf8e-7e4f-4002-8e37-b0dc4961aaa6;
-	Thu, 26 Nov 2020 15:18:18 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606403898; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Zy7ccoNOl0qFZO7b2BZ4VQGuj+49u2hiBURF8zzqyo0=;
-	b=jxN4HrOBbgFtAShjzpbN1iWS4WX53PrS+VWdMoyrwKAv+I1Kh4vgNp5J2TiFGqc9N+iVTL
-	IOVRBRRS7mlaBsr0BRG4A39KWOHWw0kzDn0t+Y3RZQokthgQgqH0YxD9XCB3r/x2OyXIDt
-	lDkVaZdsxd7q8gkZWQMP8iGbux1q84w=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id EC0C7ACE0;
-	Thu, 26 Nov 2020 15:18:17 +0000 (UTC)
-Subject: Re: [PATCH v2 02/17] mm: introduce xvmalloc() et al and use for grant
- table allocations
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <255f466c-3c95-88c5-3e55-0f04c9ae1b12@suse.com>
- <23acd443-348c-5ef9-0fb5-880e06cc9a2d@suse.com>
- <0c40a6f6-af8c-1040-f249-36752df3a1f1@xen.org>
- <a752cdb9-4609-2a61-b657-c17cbe4febb8@suse.com>
- <alpine.DEB.2.21.2011251122200.7979@sstabellini-ThinkPad-T480s>
- <2aeba247-8b36-7b75-dc17-b901bf746f87@suse.com>
- <8e86bed4-b6fa-ed81-8ca8-41e727c56cb1@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <150fdd8b-f4c5-5ee8-f1e5-b3fafb4eb3ca@suse.com>
-Date: Thu, 26 Nov 2020 16:18:18 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+	(envelope-from <SRS0=LKT8=FA=gmail.com=geert.uytterhoeven@srs-us1.protection.inumbo.net>)
+	id 1kiJC6-0001KA-1K
+	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 15:28:26 +0000
+X-Inumbo-ID: ab7e3f94-68da-488e-bb6c-4353ec84fe44
+Received: from mail-ot1-f65.google.com (unknown [209.85.210.65])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id ab7e3f94-68da-488e-bb6c-4353ec84fe44;
+	Thu, 26 Nov 2020 15:28:24 +0000 (UTC)
+Received: by mail-ot1-f65.google.com with SMTP id 79so2156912otc.7
+        for <xen-devel@lists.xenproject.org>; Thu, 26 Nov 2020 07:28:24 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=kP9MspVOPl/NnVl8oGn1EIC/+F8CcK5+OXo+jY56Nno=;
+        b=P8jJ8LPDzZu00Cs7zmm6NkeXye2k+pTbCKake39qiyx5HBWziWWAQCFThcE2XZcbwp
+         IDr4qif/UHnpNZ4dTGWWsM4Gw2wDGnxUat1hmJKidY5UE0bqnuX83hVHAThcHLnK99B/
+         746noz0PTfJINeUGeodUWBZ+L7B1T/wasn8PNANwBe02V9zCmCUFsPHZ9QEAq7SITelw
+         NPV/xINz0ImsZsAfh2HgXregN+DAmi8Ai0nTtKqh/zaqVN3Pwy2KiluPPpwnQW4n4IzY
+         snBF1+1bBUiTCB62CxaWfQc+ngrxSzggRdbxie6SFTeN0S0JMhDfNOpRS7S76yQ8UBFG
+         +WUA==
+X-Gm-Message-State: AOAM530HbTgkWN1TA9Ob5AqKhGHZxvREDGMQ9hiCcD4fkHqyDYQMpsO3
+	nwek6XYijubVL807tX8znt6yHgekl4gdpqF82yY=
+X-Google-Smtp-Source: ABdhPJyYtol6dSfaI6WhgTcuunq7fhBuSULViECyA4Z+K27bCejCuaia55DZ/aziu9dD69JTQZlYwW/4z6Mu7Di+rU4=
+X-Received: by 2002:a05:6830:210a:: with SMTP id i10mr2551843otc.145.1606404504116;
+ Thu, 26 Nov 2020 07:28:24 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <8e86bed4-b6fa-ed81-8ca8-41e727c56cb1@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <cover.1605896059.git.gustavoars@kernel.org> <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook> <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook> <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+ <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+ <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
+ <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
+ <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+ <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+ <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
+ <CANiq72kqO=bYMJnFS2uYRpgWATJ=uXxZuNUsTXT+3aLtrpnzvQ@mail.gmail.com>
+ <44005bde-f6d4-5eaa-39b8-1a5efeedb2d3@gmail.com> <CANiq72nobq=ptWK-qWxU91JHqkKhMcRtJNnw2XJd5-vSJWZd8Q@mail.gmail.com>
+In-Reply-To: <CANiq72nobq=ptWK-qWxU91JHqkKhMcRtJNnw2XJd5-vSJWZd8Q@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 26 Nov 2020 16:28:12 +0100
+Message-ID: <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Edward Cree <ecree.xilinx@gmail.com>, 
+	ALSA Development Mailing List <alsa-devel@alsa-project.org>, linux-atm-general@lists.sourceforge.net, 
+	reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-wireless <linux-wireless@vger.kernel.org>, 
+	Linux Fbdev development list <linux-fbdev@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	James Bottomley <James.Bottomley@hansenpartnership.com>, linux-ide@vger.kernel.org, 
+	dm-devel@redhat.com, keyrings@vger.kernel.org, 
+	MTD Maling List <linux-mtd@lists.infradead.org>, GR-everest-linux-l2@marvell.com, 
+	wcn36xx@lists.infradead.org, samba-technical@lists.samba.org, 
+	linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net, 
+	linux-afs@lists.infradead.org, usb-storage@lists.one-eyed-alien.net, 
+	Lars Ellenberg <drbd-dev@lists.linbit.com>, driverdevel <devel@driverdev.osuosl.org>, 
+	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com, 
+	Nick Desaulniers <ndesaulniers@google.com>, scsi <linux-scsi@vger.kernel.org>, 
+	Nathan Chancellor <natechancellor@gmail.com>, linux-rdma <linux-rdma@vger.kernel.org>, 
+	oss-drivers@netronome.com, bridge@lists.linux-foundation.org, 
+	linux-security-module <linux-security-module@vger.kernel.org>, 
+	amd-gfx list <amd-gfx@lists.freedesktop.org>, linux-stm32@st-md-mailman.stormreply.com, 
+	cluster-devel@redhat.com, ACPI Devel Maling List <linux-acpi@vger.kernel.org>, 
+	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org, 
+	linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Ext4 Developers List <linux-ext4@vger.kernel.org>, 
+	Linux Media Mailing List <linux-media@vger.kernel.org>, Kees Cook <keescook@chromium.org>, 
+	selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
+	Intel Graphics Development <intel-gfx@lists.freedesktop.org>, linux-geode@lists.infradead.org, 
+	linux-can@vger.kernel.org, linux-block@vger.kernel.org, 
+	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, op-tee@lists.trustedfirmware.org, 
+	linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org, 
+	Nouveau Dev <nouveau@lists.freedesktop.org>, linux-hams@vger.kernel.org, 
+	ceph-devel <ceph-devel@vger.kernel.org>, virtualization@lists.linux-foundation.org, 
+	Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org, 
+	Linux Watchdog Mailing List <linux-watchdog@vger.kernel.org>, 
+	"open list:NFS, SUNRPC, AND..." <linux-nfs@vger.kernel.org>, GR-Linux-NIC-Dev@marvell.com, 
+	tipc-discussion@lists.sourceforge.net, Linux-MM <linux-mm@kvack.org>, 
+	Network Development <netdev@vger.kernel.org>, linux-decnet-user@lists.sourceforge.net, 
+	Linux MMC List <linux-mmc@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, Linux-Renesas <linux-renesas-soc@vger.kernel.org>, 
+	linux-sctp@vger.kernel.org, USB list <linux-usb@vger.kernel.org>, 
+	NetFilter <netfilter-devel@vger.kernel.org>, 
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com, 
+	Joe Perches <joe@perches.com>, linux-integrity <linux-integrity@vger.kernel.org>, 
+	target-devel <target-devel@vger.kernel.org>, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 26.11.2020 14:22, Julien Grall wrote:
-> On 26/11/2020 11:34, Jan Beulich wrote:
->> On 25.11.2020 20:48, Stefano Stabellini wrote:
->>> On Wed, 25 Nov 2020, Jan Beulich wrote:
->>>> On 25.11.2020 13:15, Julien Grall wrote:
->>>>> On 23/11/2020 14:23, Jan Beulich wrote:
->>>>>> I'm unconvinced of the mentioning of "physically contiguous" in the
->>>>>> comment at the top of the new header: I don't think xmalloc() provides
->>>>>> such a guarantee. Any use assuming so would look (latently) broken to
->>>>>> me.
->>>>>
->>>>> I haven't had the chance to reply to the first version about this. So I
->>>>> will reply here to avoid confusion.
->>>>>
->>>>> I can at least spot one user in Arm that would use xmalloc() that way
->>>>> (see the allocation of itt_addr in arch/arm/gic-v3-its.c).
->>>>
->>>> And I surely wouldn't have spotted this, even if I had tried
->>>> to find "offenders", i.e. as said before not wanting to alter
->>>> the behavior of existing code (beyond the explicit changes
->>>> done here) was ...
->>>>
->>>>> AFAIK, the memory is for the sole purpose of the ITS and should not be
->>>>> accessed by Xen. So I think we can replace by a new version of
->>>>> alloc_domheap_pages().
->>>>>
->>>>> However, I still question the usefulness of introducing yet another way
->>>>> to allocate memory (we already have alloc_xenheap_pages(), xmalloc(),
->>>>> alloc_domheap_pages(), vmap()) if you think users cannot rely on
->>>>> xmalloc() to allocate memory physically contiguous.
->>>>
->>>> ... the reason to introduce a separate new interface. Plus of
->>>> course this parallels what Linux has.
->>>>
->>>>> It definitely makes more difficult to figure out when to use xmalloc()
->>>>> vs xvalloc().
->>>>
->>>> I don't see the difficulty:
->>>> - if you need physically contiguous memory, use alloc_xen*_pages(),
->>>> - if you know the allocation size is always no more than a page,
->>>>    use xmalloc(),
-> 
-> If that's then intention, then may I ask why xmalloc() is able to 
-> support multiple pages allocation?
+Hi Miguel,
 
-Because support for this pre-dates even the introduction of vmalloc()?
+On Thu, Nov 26, 2020 at 3:54 PM Miguel Ojeda
+<miguel.ojeda.sandonis@gmail.com> wrote:
+> On Wed, Nov 25, 2020 at 11:44 PM Edward Cree <ecree.xilinx@gmail.com> wrote:
+> > To make the intent clear, you have to first be certain that you
+> >  understand the intent; otherwise by adding either a break or a
+> >  fallthrough to suppress the warning you are just destroying the
+> >  information that "the intent of this code is unknown".
+>
+> If you don't know what the intent of your own code is, then you
+> *already* have a problem in your hands.
 
-> Your assumption is Xen will always be built with the same page size 
-> across all the architecture. While Xen only works with 4KB pages today, 
-> Arm can support 16KB and 64KB. I have long term plan to add support for it.
-> 
-> So I don't think you can use the page size as a way to distinguish which 
-> one to use.
+The maintainer is not necessarily the owner/author of the code, and
+thus may not know the intent of the code.
 
-The let's abstract this one level further
+> > or does it flag up code
+> >  that can be mindlessly "fixed" (in which case the warning is
+> >  worthless)?  Proponents in this thread seem to be trying to
+> >  have it both ways.
+>
+> A warning is not worthless just because you can mindlessly fix it.
+> There are many counterexamples, e.g. many
+> checkpatch/lint/lang-format/indentation warnings, functional ones like
+> the `if (a = b)` warning...
 
-- if you know the allocation size is always no more than the smallest
-  possible page size, use xmalloc()
+BTW, you cannot mindlessly fix the latter, as you cannot know if
+"(a == b)" or "((a = b))" was intended, without understanding the code
+(and the (possibly unavailable) data sheet, and the hardware, ...).
 
->>> What if you need memory physically contiguous but not necessarily an
->>> order of pages, such as for instance 5200 bytes?
->>
->> This case is, I think, rare enough (in particular in Xen) that the
->> waste of space can be tolerated imo.
-> 
-> This is quite departure from:
-> 
-> commit b829a0ff5794ee5b0f96a0c872f6a4ed7b1007c7
-> Author: Jan Beulich <jbeulich@suse.com>
-> Date:   Thu Oct 13 10:03:43 2011 +0200
-> 
->      xmalloc: return unused full pages on multi-page allocations
-> 
->      Certain (boot time) allocations are relatively large (particularly when
->      building with high NR_CPUS), but can also happen to be pretty far away
->      from a power-of-two size. Utilize the page allocator's (other than
->      Linux'es) capability of allowing to return space from higher-order
->      allocations in smaller pieces to return the unused parts immediately.
-> 
->      Signed-off-by: Jan Beulich <jbeulich@suse.com>
->      Acked-by: Keir Fraser <keir@xen.org>
-> 
-> I am curious to know what changed...
+P.S. So far I've stayed out of this thread, as I like it if the compiler
+     flags possible mistakes.  After all I was the one fixing new
+     "may be used uninitialized" warnings thrown up by gcc-4.1, until
+     (a bit later than) support for that compiler was removed...
 
-Nothing. But even if something had, citing a 9 year old commit is
-not likely to point out any actual contradiction.
+Gr{oetje,eeting}s,
 
-> Anyway, what you wrote is very server focused. On Arm, we have plan to 
-> run Xen on smaller hardware where wasting memory mean less usable RAM 
-> for guests.
-> 
-> The problem with using an order is the bigger the order is the more 
-> change you will waste space...
-> 
-> Allocating more than a page is fairly common on Arm, so we really want 
-> to reduce the amount of memory wasted.
+                        Geert
 
-The amount of space wasted is the same - the tail of the trailing
-page. I'm afraid I don't see what your point is.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
->>> If xmalloc can't do physically contiguous allocations, we need something
->>> else that does physically contiguous allocations not only at page
->>> granularity, right?
->>
->> Well, we first need to settle on what guarantees xmalloc() is meant
->> to provide. It may be just me assuming it doesn't provide the same
->> ones which Linux'es kmalloc() makes. I'm first and foremost
->> judging by the comment near the top of xmalloc.h, which compares
->> with malloc() / free(), not kmalloc() / kfree().
->>
->>> The other issue is semantics. If xmalloc is unable to allocate more than
->>> a page of contiguous memory, then it is identical to vmalloc from the
->>> caller's point of view: both xmalloc and vmalloc return a virtual
->>> address for an allocation that might not be physically contiguous.
->>
->> Almost. vmalloc() puts guard pages around the allocation and
->> guarantees page alignment.
->>
->>> Maybe we should get rid of xmalloc entirely and improve the
->>> implementation of vmalloc so that it falls back to xmalloc for
->>> sub-page allocations. Which in fact is almost the same thing that you
->>> did.
->>
->> This would break callers assuming page alignment (and - shouldn't
->> be an issue in practice - granularity). If anything, as Julien
->> did suggest, we could modify xmalloc() accordingly, but then of
->> course making sure we also honor alignment requests beyond page
->> size.
->>
->> Neither of these is the goal here, hence this "intermediate"
->> implementation, which is only almost "redundant".
->>
->>>> - if you know the allocation size is always more than a page, use
->>>>    vmalloc(),
->>>> - otherwise use xvmalloc(). Exceptions may of course apply, i.e.
->>>> this is just a rule of thumb.
->>>>
->>>>> I would like to hear an opinion from the other maintainers.
->>>>
->>>> Let's hope at least one will voice theirs.
->>>
->>> If we take a step back, I think we only really need two memory
->>> allocators:
->>>
->>> 1) one that allocates physically contiguous memory
->>> 2) one that allocates non-physically contiguous memory
->>>
->>> That's it, right?
->>>
->>> In addition to that, I understand it could be convient to have a little
->>> wrapper that automatically chooses between 1) and 2) depending on
->>> circumstances.
->>>
->>> But if the circumstance is just size < PAGE_SIZE then I don't think we
->>> need any convenience wrappers: we should just be able to call 2), which
->>> is vmalloc, once we improve the vmalloc implementation.
->>>
->>> Or do you see any reasons to keep the current vmalloc implementation as
->>> is for sub-page allocations?
->>
->> See my "Almost. ..." above.
->>
->> As an aside, I also find it quite puzzling that in one of the rare
->> cases where I propose to clone an interface from Linux without much
->> deviation from their model, I get objections. It typically was the
->> other way around in the past ...
-> 
-> If we were really following Linux, then we would have two interfaces:
->     - xmalloc() which is the same as kmalloc()
->     - xvalloc() which is the same a kvalloc()
-
-(correction: xvmalloc() and kvmalloc())
-
-- vmalloc() (named identically in Linux and Xen)
-
-IOW the same set of _three_ interface groups.
-
-> However, you seem to be the one objecting on the behavior of xmalloc().
-
-I don't think I'm objecting to any existing behavior. What I did
-is state my view on (non-)guarantees by xmalloc(). And I've
-already said - maybe I'm wrong and, like Linux'es kmalloc(),
-there is a guarantee of it producing contiguous memory, and I
-merely didn't find where that's said.
-
-> I can't speak for Stefano, but I don't object on following Linux. 
-> Instead I am objecting on the growing number of way to allocate memory 
-> in Xen and that differ depending on the system_state.
-
-But as per above the addition only brings us on par with Linux.
-There, kvmalloc_node() is simply a wrapper (with different logic
-when to try what) around kmalloc_node() and __vmalloc_node(). No
-different (in the basic idea) from what I'm doing here.
-
-Jan
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
 
