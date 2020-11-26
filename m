@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D1A02C5280
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 11:55:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.38414.71146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08B8A2C52D6
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 12:21:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.38437.71182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiEvZ-0000DN-Uk; Thu, 26 Nov 2020 10:55:05 +0000
+	id 1kiFKB-000386-Ha; Thu, 26 Nov 2020 11:20:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 38414.71146; Thu, 26 Nov 2020 10:55:05 +0000
+Received: by outflank-mailman (output) from mailman id 38437.71182; Thu, 26 Nov 2020 11:20:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,160 +23,153 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiEvZ-0000Cy-Qy; Thu, 26 Nov 2020 10:55:05 +0000
-Received: by outflank-mailman (input) for mailman id 38414;
- Thu, 26 Nov 2020 10:55:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kiFKB-00037h-Dq; Thu, 26 Nov 2020 11:20:31 +0000
+Received: by outflank-mailman (input) for mailman id 38437;
+ Thu, 26 Nov 2020 11:20:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kiEvY-0000Cs-TF
- for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 10:55:04 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kiEvY-0007WG-PE; Thu, 26 Nov 2020 10:55:04 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kiEvY-00017r-Iq; Thu, 26 Nov 2020 10:55:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+ (envelope-from <SRS0=EevG=FA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kiFKA-00037Z-IT
+ for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 11:20:30 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 79368db0-8bd5-4416-aac3-fbf7b067b746;
+ Thu, 26 Nov 2020 11:20:29 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A2846AE38;
+ Thu, 26 Nov 2020 11:20:28 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kiEvY-0000Cs-TF
-	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 10:55:04 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=DFhUYVFFlXb3RIsaC7qTxudE9a8KQjuC14ZVwj2F9LU=; b=xBCYTt68W1vkRr1FGLL2xMxSAi
-	Eq2XKNoQow9+pWhCGxQlCy+9UrdtrXiRT2CldzV7AG+dGxgbA7rjLB9oH5ZIGdS5GJcTmVptoKWUy
-	ELYzocwXD+TUE1WAV343AILR6I+iaCOchBtoUu9donDGgrAvkDAroInUGyuGY/Xr1aTA=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
-	by mail.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kiEvY-0007WG-PE; Thu, 26 Nov 2020 10:55:04 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
-	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	(Exim 4.92)
-	(envelope-from <julien@xen.org>)
-	id 1kiEvY-00017r-Iq; Thu, 26 Nov 2020 10:55:04 +0000
-Subject: Re: [PATCH] xen/arm: Add Cortex-A73 erratum 858921 workaround
-To: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andre Przywara <Andre.Przywara@arm.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Kaly Xin <Kaly.Xin@arm.com>,
- nd <nd@arm.com>
-References: <20201109082110.1133996-1-penny.zheng@arm.com>
- <cfa63398-8182-b79f-1602-ed068e2319ad@xen.org>
- <AM0PR08MB3747B42FC856B9BDF24646629EE60@AM0PR08MB3747.eurprd08.prod.outlook.com>
- <alpine.DEB.2.21.2011251554070.7979@sstabellini-ThinkPad-T480s>
- <AM0PR08MB3747912905438DA6D7FF969C9EF90@AM0PR08MB3747.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <8f47313a-f47a-520d-3845-3f2198fce5b4@xen.org>
-Date: Thu, 26 Nov 2020 10:55:02 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.0
+	(envelope-from <SRS0=EevG=FA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kiFKA-00037Z-IT
+	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 11:20:30 +0000
+X-Inumbo-ID: 79368db0-8bd5-4416-aac3-fbf7b067b746
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 79368db0-8bd5-4416-aac3-fbf7b067b746;
+	Thu, 26 Nov 2020 11:20:29 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606389628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2HO8W78++dtjOUhVV1AqKnxQOikqYpyyy/sH+7IWvtA=;
+	b=WsA9+GcRhpaGcy9SE5oQ8AJ3D5hkmWFJ3mSmHyw6WOe6GvGKtgbF7xcMxXR8VcbnqRmptj
+	Zca971FxbKOjopOHH1psruq4pqq+EU0UiF++Mf/sdi55qFcOCwiIRJCfsvQhS2G4e6jPfa
+	PmQ3bo3Omwz3+WpEZjb7YI2+wX1dQgk=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id A2846AE38;
+	Thu, 26 Nov 2020 11:20:28 +0000 (UTC)
+Subject: Re: [PATCH v3] xen: add support for automatic debug key actions in
+ case of crash
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20201126080340.6154-1-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <22190c77-eb35-5b72-7d72-34800c3f052f@suse.com>
+Date: Thu, 26 Nov 2020 12:20:28 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <AM0PR08MB3747912905438DA6D7FF969C9EF90@AM0PR08MB3747.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=gbk; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201126080340.6154-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi Wei,
-
-Your e-mail font seems to be different to the usual plain text one. Are 
-you sending the e-mail using HTML by any chance?
-
-On 26/11/2020 02:07, Wei Chen wrote:
-> Hi Stefano,
+On 26.11.2020 09:03, Juergen Gross wrote:
+> When the host crashes it would sometimes be nice to have additional
+> debug data available which could be produced via debug keys, but
+> halting the server for manual intervention might be impossible due to
+> the need to reboot/kexec rather sooner than later.
 > 
->> -----Original Message-----
->> From: Stefano Stabellini <sstabellini@kernel.org>
->> Sent: 2020Äê11ÔÂ26ÈÕ 8:00
->> To: Wei Chen <Wei.Chen@arm.com>
->> Cc: Julien Grall <julien@xen.org>; Penny Zheng <Penny.Zheng@arm.com>; xen-
->> devel@lists.xenproject.org; sstabellini@kernel.org; Andre Przywara
->> <Andre.Przywara@arm.com>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
->> Kaly Xin <Kaly.Xin@arm.com>; nd <nd@arm.com>
->> Subject: RE: [PATCH] xen/arm: Add Cortex-A73 erratum 858921 workaround
->>
->> Resuming this old thread.
->>
->> On Fri, 13 Nov 2020, Wei Chen wrote:
->>>> Hi,
->>>>
->>>> On 09/11/2020 08:21, Penny Zheng wrote:
->>>>> CNTVCT_EL0 or CNTPCT_EL0 counter read in Cortex-A73 (all versions)
->>>>> might return a wrong value when the counter crosses a 32bit boundary.
->>>>>
->>>>> Until now, there is no case for Xen itself to access CNTVCT_EL0,
->>>>> and it also should be the Guest OS's responsibility to deal with
->>>>> this part.
->>>>>
->>>>> But for CNTPCT, there exists several cases in Xen involving reading
->>>>> CNTPCT, so a possible workaround is that performing the read twice,
->>>>> and to return one or the other depending on whether a transition has
->>>>> taken place.
->>>>>
->>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->>>>
->>>> Acked-by: Julien Grall <jgrall@amazon.com>
->>>>
->>>> On a related topic, do we need a fix similar to Linux commit
->>>> 75a19a0202db "arm64: arch_timer: Ensure counter register reads occur
->>>> with seqlock held"?
->>>>
->>>
->>> I take a look at this Linux commit, it seems to prevent the seq-lock to be
->>> speculated.  Using an enforce ordering instead of ISB after the read counter
->>> operation seems to be for performance reasons.
->>>
->>> I have found that you had placed an ISB before read counter in get_cycles
->>> to prevent counter value to be speculated. But you haven't placed the second
->>> ISB after reading. Is it because we haven't used the get_cycles in seq lock
->>> critical context (Maybe I didn't find the right place)? So should we need to fix it
->>> now, or you prefer to fix it now for future usage?
->>
->> Looking at the call sites, it doesn't look like we need any ISB after
->> get_cycles as it is not used in any critical context. There is also a
->> data dependency with the value returned by it.
-
-I am assuming you looked at all the users of NOW(). Is that right?
-
->>
->> So I am thinking we don't need any fix. At most we need an in-code comment?
+> Add support for automatic debug key actions in case of crashes which
+> can be activated via boot- or runtime-parameter.
 > 
-> I agree with you to add an in-code comment. It will remind us in future when we
-> use the get_cycles in critical context. Adding it now will probably only lead to
-> meaningless performance degradation.
+> Depending on the type of crash the desired data might be different, so
+> support different settings for the possible types of crashes.
+> 
+> The parameter is "crash-debug" with the following syntax:
+> 
+>   crash-debug-<type>=<string>
+> 
+> with <type> being one of:
+> 
+>   panic, hwdom, watchdog, kexeccmd, debugkey
+> 
+> and <string> a sequence of debug key characters with '+' having the
+> special semantics of a 10 millisecond pause.
+> 
+> So "crash-debug-watchdog=0+0qr" would result in special output in case
+> of watchdog triggered crash (dom0 state, 10 ms pause, dom0 state,
+> domain info, run queues).
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - switched special character '.' to '+' (Jan Beulich)
+> - 10 ms instead of 1 s pause (Jan Beulich)
+> - added more text to the boot parameter description (Jan Beulich)
+> 
+> V3:
+> - added const (Jan Beulich)
+> - thorough test of crash reason parameter (Jan Beulich)
+> - kexeccmd case should depend on CONFIG_KEXEC (Jan Beulich)
+> - added dummy get_irq_regs() helper on Arm
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-I read this as there would be no perfomance impact if we add the 
-ordering it now. Did you intend to say?
+Except for the Arm aspect, where I'm not sure using
+guest_cpu_user_regs() is correct in all cases,
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> Because Xen may never use it in a similar
-> scenario.
+Nevertheless ...
 
-Right, there are two potentials approach here:
-   - Wait until there are a user
-       * Pros: Doesn't impact performance
-       * Cons: We rely on users/reviewers to catch any misuse
-   - Harden the code
-       * Pros: Less risk to introduce a bug inadvertently
-       * Cons: May impact the performance
+> @@ -507,6 +509,50 @@ void __init initialize_keytable(void)
+>      }
+>  }
+>  
+> +#define CRASHACTION_SIZE  32
+> +static char crash_debug_panic[CRASHACTION_SIZE];
+> +string_runtime_param("crash-debug-panic", crash_debug_panic);
+> +static char crash_debug_hwdom[CRASHACTION_SIZE];
+> +string_runtime_param("crash-debug-hwdom", crash_debug_hwdom);
+> +static char crash_debug_watchdog[CRASHACTION_SIZE];
+> +string_runtime_param("crash-debug-watchdog", crash_debug_watchdog);
+> +#ifdef CONFIG_KEXEC
+> +static char crash_debug_kexeccmd[CRASHACTION_SIZE];
+> +string_runtime_param("crash-debug-kexeccmd", crash_debug_kexeccmd);
+> +#endif
 
-In general, I prefer that the code is hardened by default if the 
-performance impact is limited. This may save us hours of 
-debugging/reproducing bug.
+... to limit #ifdef-ary I'd have suggested to put
 
-In addition, AFAICT, the x86 version of get_cycles() is already able to 
-provide that ordering. So there are chances that code may rely on it.
+#else
+# define crash_debug_kexeccmd NULL
 
-While I don't necessarily agree to add barriers everywhere by default 
-(this may have big impact on the platform). I think it is better to have 
-an accurate number of cycles.
+right above here and ...
 
-Cheers,
+> +void keyhandler_crash_action(enum crash_reason reason)
+> +{
+> +    static const char *const crash_action[CRASHREASON_N] = {
+> +        [CRASHREASON_PANIC] = crash_debug_panic,
+> +        [CRASHREASON_HWDOM] = crash_debug_hwdom,
+> +        [CRASHREASON_WATCHDOG] = crash_debug_watchdog,
+> +#ifdef CONFIG_KEXEC
+> +        [CRASHREASON_KEXECCMD] = crash_debug_kexeccmd,
+> +#endif
+> +        [CRASHREASON_DEBUGKEY] = crash_debug_debugkey,
+> +    };
+> +    const char *action;
+> +    struct cpu_user_regs *regs = get_irq_regs() ? : guest_cpu_user_regs();
+> +
+> +    if ( (unsigned int)reason >= CRASHREASON_N )
 
--- 
-Julien Grall
+... I'd have preferred ARRAY_SIZE() here, at which point the
+array dimension also wouldn't need explicitly specifying.
+
+Jan
 
