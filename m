@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 699762C54D2
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 14:09:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.38526.71259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 687B02C552A
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 14:22:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.38535.71271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiH0Y-0004Pg-Sc; Thu, 26 Nov 2020 13:08:22 +0000
+	id 1kiHEB-000687-6V; Thu, 26 Nov 2020 13:22:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 38526.71259; Thu, 26 Nov 2020 13:08:22 +0000
+Received: by outflank-mailman (output) from mailman id 38535.71271; Thu, 26 Nov 2020 13:22:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,117 +23,253 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiH0Y-0004PH-PX; Thu, 26 Nov 2020 13:08:22 +0000
-Received: by outflank-mailman (input) for mailman id 38526;
- Thu, 26 Nov 2020 13:08:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZgDp=FA=gmail.com=ganime1961tire@srs-us1.protection.inumbo.net>)
- id 1kiH0W-0004Ok-Ky
- for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 13:08:20 +0000
-Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eeda3358-4e67-4e7f-b1ee-326ab6b43ac0;
- Thu, 26 Nov 2020 13:08:19 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id 10so2098910wml.2
- for <xen-devel@lists.xenproject.org>; Thu, 26 Nov 2020 05:08:19 -0800 (PST)
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kiHEB-00067i-3C; Thu, 26 Nov 2020 13:22:27 +0000
+Received: by outflank-mailman (input) for mailman id 38535;
+ Thu, 26 Nov 2020 13:22:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kiHE9-00067d-Qc
+ for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 13:22:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kiHE8-00027f-Dm; Thu, 26 Nov 2020 13:22:24 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kiHE8-0003W5-1d; Thu, 26 Nov 2020 13:22:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=ZgDp=FA=gmail.com=ganime1961tire@srs-us1.protection.inumbo.net>)
-	id 1kiH0W-0004Ok-Ky
-	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 13:08:20 +0000
-X-Inumbo-ID: eeda3358-4e67-4e7f-b1ee-326ab6b43ac0
-Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
-	id eeda3358-4e67-4e7f-b1ee-326ab6b43ac0;
-	Thu, 26 Nov 2020 13:08:19 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id 10so2098910wml.2
-        for <xen-devel@lists.xenproject.org>; Thu, 26 Nov 2020 05:08:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=FrmZM9zwgR9nchK0ys0/eSXi1mHT4RBrjU6HUYIHqZo=;
-        b=GRmlIL22hQjM7sneI1C3hRpROU7qnHrJgSa8k2FDmbzvzZMNhwZuUfJ6v8uDpEpxr5
-         4Ku0eVlcm42QFkogUPPXpOapI06ESAA3b3gPkwkEbwfZvM6bAY9zPCt5cuapYyLW5KSp
-         A5Dk6aVxW28hB3tC3skYZqFR4czlBa9bEwAP+DM6Li80oOU4H1YzUBrPZhQnJ/1lg0Qs
-         pUPZPHQfvEtq0V0ZbCxpqMTg06zpo0JYLWNrWoFH9XtqHdP4EO0iC/WmWY8PJNUXS4sp
-         17l/35B1WtKvortaqzEh0+lQ3PxDDnVkJvwy7x0ykanOVI3yXu3kCzqRY0zUejr3JCQn
-         ayNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=FrmZM9zwgR9nchK0ys0/eSXi1mHT4RBrjU6HUYIHqZo=;
-        b=DmvfeksYHDLChzn6SL8r7QOuL0JXPWQcUO+GqJkX0B+aZrEijbeBXLlUBoKLrvz0zc
-         0+AkwTRtDJ2JYZxXrhuE73kv66bNlfW9S6QdGJkQYP9R/q1uNJtCtsWjHeZJxBonmA4d
-         wQBf+k/LFguq+E6mF+n9T4KyUvH6QbPHsq3RGUu3SonOyM6lNzMhefxvAhEP+YE/Dqt3
-         aWRXQ0GUitTBt8gM8K8nU4EVVM7609Kw6OJApOwLJ4fmihsyp2d9rXFNIkgEctP6SabJ
-         9GJb/ckNluuHbFq5Rv9ocvK+M8V7lABHVkymxneXIXhtTLiSqi9gzQLDntkUwIpXhQ/8
-         5ZZw==
-X-Gm-Message-State: AOAM5319dHzfm1kcNy/ibFU8YbJws8zcL8Ro9Pi0IMr+XTbLnsVu3vcD
-	U0JzAAxEZeJQ1gTwi+ZAu+Uyy9X1ROiGK1PWnutMPk4Xr+E=
-X-Google-Smtp-Source: ABdhPJxCw3GSSvGOhHdp3NZO7cbAp5huaXvbF59WpdGSfxe0gEZbT89f/AVgZDrQpcDAIznHIa34wrvvIn5hc9T7Gig=
-X-Received: by 2002:a1c:a786:: with SMTP id q128mr3323091wme.115.1606396097564;
- Thu, 26 Nov 2020 05:08:17 -0800 (PST)
+	(envelope-from <julien@xen.org>)
+	id 1kiHE9-00067d-Qc
+	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 13:22:25 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=la40kzql3fS0yvQUE0Hq44V+3H0ISNU/TGuhIMnUIXA=; b=fp/Wq9AJLXPJJ93S8e+8YRSWp9
+	GUZhJS0XnuBo7WDRtlf4dkM0B0il0SQse5jKOsrpUhBG51J8Hc+CHQmRw+m05+PBsge+CRIyNqhcV
+	1SLuqGqsQkpnTIZj/5wtXddYcmuJEpsZem8KkTLgpRSgbp317wXyrKE/21WzxL74HmTY=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+	by mail.xenproject.org with esmtp (Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kiHE8-00027f-Dm; Thu, 26 Nov 2020 13:22:24 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+	by xenbits.xenproject.org with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.92)
+	(envelope-from <julien@xen.org>)
+	id 1kiHE8-0003W5-1d; Thu, 26 Nov 2020 13:22:24 +0000
+Subject: Re: [PATCH v2 02/17] mm: introduce xvmalloc() et al and use for grant
+ table allocations
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <255f466c-3c95-88c5-3e55-0f04c9ae1b12@suse.com>
+ <23acd443-348c-5ef9-0fb5-880e06cc9a2d@suse.com>
+ <0c40a6f6-af8c-1040-f249-36752df3a1f1@xen.org>
+ <a752cdb9-4609-2a61-b657-c17cbe4febb8@suse.com>
+ <alpine.DEB.2.21.2011251122200.7979@sstabellini-ThinkPad-T480s>
+ <2aeba247-8b36-7b75-dc17-b901bf746f87@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <8e86bed4-b6fa-ed81-8ca8-41e727c56cb1@xen.org>
+Date: Thu, 26 Nov 2020 13:22:21 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.0
 MIME-Version: 1.0
-References: <CAF6SwtntQvKrmrhQaDSQwcysCOdNjsUxZO90qtQepvZ-0YLgCA@mail.gmail.com>
-In-Reply-To: <CAF6SwtntQvKrmrhQaDSQwcysCOdNjsUxZO90qtQepvZ-0YLgCA@mail.gmail.com>
-From: Ganime Yalur <ganime1961tire@gmail.com>
-Date: Thu, 26 Nov 2020 14:08:05 +0100
-Message-ID: <CAF6SwtnnTezMGJCt9PhKP+7HJogGKQVj1_4dqJ9Yduy22-JRkQ@mail.gmail.com>
-Subject: Fwd: subscribe
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000c3baec05b5023ccc"
+In-Reply-To: <2aeba247-8b36-7b75-dc17-b901bf746f87@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
---000000000000c3baec05b5023ccc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Jan,
 
----------- Forwarded message ---------
-G=C3=B6nderen: Ganime Yalur <ganime1961tire@gmail.com>
-Date: 26 Kas 2020 Per 12:57
-Subject: subscribe
-To: <xen-devel-request@lists.xenproject.org>
+On 26/11/2020 11:34, Jan Beulich wrote:
+> On 25.11.2020 20:48, Stefano Stabellini wrote:
+>> On Wed, 25 Nov 2020, Jan Beulich wrote:
+>>> On 25.11.2020 13:15, Julien Grall wrote:
+>>>> On 23/11/2020 14:23, Jan Beulich wrote:
+>>>>> All of the array allocations in grant_table_init() can exceed a page's
+>>>>> worth of memory, which xmalloc()-based interfaces aren't really suitable
+>>>>> for after boot. We also don't need any of these allocations to be
+>>>>> physically contiguous.. Introduce interfaces dynamically switching
+>>>>> between xmalloc() et al and vmalloc() et al, based on requested size,
+>>>>> and use them instead.
+>>>>>
+>>>>> All the wrappers in the new header get cloned mostly verbatim from
+>>>>> xmalloc.h, with the sole adjustment to switch unsigned long to size_t
+>>>>> for sizes and to unsigned int for alignments.
+>>>>>
+>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>> ---
+>>>>> v2: Actually edit a copy-and-pasted comment in xvmalloc.h which was
+>>>>>       meant to be edited from the beginning.
+>>>>> ---
+>>>>> I'm unconvinced of the mentioning of "physically contiguous" in the
+>>>>> comment at the top of the new header: I don't think xmalloc() provides
+>>>>> such a guarantee. Any use assuming so would look (latently) broken to
+>>>>> me.
+>>>>
+>>>> I haven't had the chance to reply to the first version about this. So I
+>>>> will reply here to avoid confusion.
+>>>>
+>>>> I can at least spot one user in Arm that would use xmalloc() that way
+>>>> (see the allocation of itt_addr in arch/arm/gic-v3-its.c).
+>>>
+>>> And I surely wouldn't have spotted this, even if I had tried
+>>> to find "offenders", i.e. as said before not wanting to alter
+>>> the behavior of existing code (beyond the explicit changes
+>>> done here) was ...
+>>>
+>>>> AFAIK, the memory is for the sole purpose of the ITS and should not be
+>>>> accessed by Xen. So I think we can replace by a new version of
+>>>> alloc_domheap_pages().
+>>>>
+>>>> However, I still question the usefulness of introducing yet another way
+>>>> to allocate memory (we already have alloc_xenheap_pages(), xmalloc(),
+>>>> alloc_domheap_pages(), vmap()) if you think users cannot rely on
+>>>> xmalloc() to allocate memory physically contiguous.
+>>>
+>>> ... the reason to introduce a separate new interface. Plus of
+>>> course this parallels what Linux has.
+>>>
+>>>> It definitely makes more difficult to figure out when to use xmalloc()
+>>>> vs xvalloc().
+>>>
+>>> I don't see the difficulty:
+>>> - if you need physically contiguous memory, use alloc_xen*_pages(),
+>>> - if you know the allocation size is always no more than a page,
+>>>    use xmalloc(),
 
+If that's then intention, then may I ask why xmalloc() is able to 
+support multiple pages allocation?
 
-I Need additional help to verifiy Benchmarkresults with nginx and nee
-librarys like -lwip -lpthread-embeddd
--lnewlibc .
+Your assumption is Xen will always be built with the same page size 
+across all the architecture. While Xen only works with 4KB pages today, 
+Arm can support 16KB and 64KB. I have long term plan to add support for it.
 
-Is this enough to set in configure Script of nginx latest release or i need
-to patch something INSIDE makefile or nginx sources?
+So I don't think you can use the page size as a way to distinguish which 
+one to use.
 
-I need a method, who works outside of unikraft Kernel.
+>>
+>> What if you need memory physically contiguous but not necessarily an
+>> order of pages, such as for instance 5200 bytes?
+> 
+> This case is, I think, rare enough (in particular in Xen) that the
+> waste of space can be tolerated imo.
 
-I hope someone can
-help me
+This is quite departure from:
 
-Thanks and
+commit b829a0ff5794ee5b0f96a0c872f6a4ed7b1007c7
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Oct 13 10:03:43 2011 +0200
 
-Best regards
+     xmalloc: return unused full pages on multi-page allocations
 
---000000000000c3baec05b5023ccc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+     Certain (boot time) allocations are relatively large (particularly when
+     building with high NR_CPUS), but can also happen to be pretty far away
+     from a power-of-two size. Utilize the page allocator's (other than
+     Linux'es) capability of allowing to return space from higher-order
+     allocations in smaller pieces to return the unused parts immediately.
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">---------- Forwarded message ---------<br>G=C3=B6ndere=
-n: <strong class=3D"gmail_sendername" dir=3D"auto">Ganime Yalur</strong> <s=
-pan dir=3D"auto">&lt;<a href=3D"mailto:ganime1961tire@gmail.com">ganime1961=
-tire@gmail.com</a>&gt;</span><br>Date: 26 Kas 2020 Per 12:57<br>Subject: su=
-bscribe<br>To:  &lt;<a href=3D"mailto:xen-devel-request@lists.xenproject.or=
-g">xen-devel-request@lists.xenproject.org</a>&gt;<br></div><br><br><div dir=
-=3D"auto">I Need additional help to verifiy Benchmarkresults with nginx and=
- nee librarys like -lwip -lpthread-embeddd=C2=A0<div dir=3D"auto">-lnewlibc=
- .</div><div dir=3D"auto"><br></div><div dir=3D"auto">Is this enough to set=
- in configure Script of nginx latest release or i need to patch something I=
-NSIDE makefile or nginx sources?</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">I need a method, who works outside of unikraft Kernel.</div><div =
-dir=3D"auto"><br></div><div dir=3D"auto">I hope someone can=C2=A0</div><div=
- dir=3D"auto">help me</div><div dir=3D"auto"><br></div><div dir=3D"auto">Th=
-anks and</div><div dir=3D"auto"><br></div><div dir=3D"auto">Best regards</d=
-iv></div>
-</div></div></div>
+     Signed-off-by: Jan Beulich <jbeulich@suse.com>
+     Acked-by: Keir Fraser <keir@xen.org>
 
---000000000000c3baec05b5023ccc--
+I am curious to know what changed...
+
+Anyway, what you wrote is very server focused. On Arm, we have plan to 
+run Xen on smaller hardware where wasting memory mean less usable RAM 
+for guests.
+
+The problem with using an order is the bigger the order is the more 
+change you will waste space...
+
+Allocating more than a page is fairly common on Arm, so we really want 
+to reduce the amount of memory wasted.
+
+> 
+>> If xmalloc can't do physically contiguous allocations, we need something
+>> else that does physically contiguous allocations not only at page
+>> granularity, right?
+> 
+> Well, we first need to settle on what guarantees xmalloc() is meant
+> to provide. It may be just me assuming it doesn't provide the same
+> ones which Linux'es kmalloc() makes. I'm first and foremost
+> judging by the comment near the top of xmalloc.h, which compares
+> with malloc() / free(), not kmalloc() / kfree().
+> 
+>> The other issue is semantics. If xmalloc is unable to allocate more than
+>> a page of contiguous memory, then it is identical to vmalloc from the
+>> caller's point of view: both xmalloc and vmalloc return a virtual
+>> address for an allocation that might not be physically contiguous.
+> 
+> Almost. vmalloc() puts guard pages around the allocation and
+> guarantees page alignment.
+> 
+>> Maybe we should get rid of xmalloc entirely and improve the
+>> implementation of vmalloc so that it falls back to xmalloc for
+>> sub-page allocations. Which in fact is almost the same thing that you
+>> did.
+> 
+> This would break callers assuming page alignment (and - shouldn't
+> be an issue in practice - granularity). If anything, as Julien
+> did suggest, we could modify xmalloc() accordingly, but then of
+> course making sure we also honor alignment requests beyond page
+> size.
+> 
+> Neither of these is the goal here, hence this "intermediate"
+> implementation, which is only almost "redundant".
+> 
+>>> - if you know the allocation size is always more than a page, use
+>>>    vmalloc(),
+>>> - otherwise use xvmalloc(). Exceptions may of course apply, i.e.
+>>> this is just a rule of thumb.
+>>>
+>>>> I would like to hear an opinion from the other maintainers.
+>>>
+>>> Let's hope at least one will voice theirs.
+>>
+>> If we take a step back, I think we only really need two memory
+>> allocators:
+>>
+>> 1) one that allocates physically contiguous memory
+>> 2) one that allocates non-physically contiguous memory
+>>
+>> That's it, right?
+>>
+>> In addition to that, I understand it could be convient to have a little
+>> wrapper that automatically chooses between 1) and 2) depending on
+>> circumstances.
+>>
+>> But if the circumstance is just size < PAGE_SIZE then I don't think we
+>> need any convenience wrappers: we should just be able to call 2), which
+>> is vmalloc, once we improve the vmalloc implementation.
+>>
+>> Or do you see any reasons to keep the current vmalloc implementation as
+>> is for sub-page allocations?
+> 
+> See my "Almost. ..." above.
+> 
+> As an aside, I also find it quite puzzling that in one of the rare
+> cases where I propose to clone an interface from Linux without much
+> deviation from their model, I get objections. It typically was the
+> other way around in the past ...
+
+If we were really following Linux, then we would have two interfaces:
+    - xmalloc() which is the same as kmalloc()
+    - xvalloc() which is the same a kvalloc()
+
+However, you seem to be the one objecting on the behavior of xmalloc().
+
+I can't speak for Stefano, but I don't object on following Linux. 
+Instead I am objecting on the growing number of way to allocate memory 
+in Xen and that differ depending on the system_state.
+
+Cheers,
+
+-- 
+Julien Grall
 
