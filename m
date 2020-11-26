@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77ADC2C4FF0
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 09:04:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.38304.71046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B83D22C50E1
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Nov 2020 10:05:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.38314.71058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiCFp-00015z-5y; Thu, 26 Nov 2020 08:03:49 +0000
+	id 1kiDCn-0006V5-N1; Thu, 26 Nov 2020 09:04:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 38304.71046; Thu, 26 Nov 2020 08:03:49 +0000
+Received: by outflank-mailman (output) from mailman id 38314.71058; Thu, 26 Nov 2020 09:04:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,370 +23,482 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiCFp-00015a-2r; Thu, 26 Nov 2020 08:03:49 +0000
-Received: by outflank-mailman (input) for mailman id 38304;
- Thu, 26 Nov 2020 08:03:46 +0000
+	id 1kiDCn-0006Uf-JT; Thu, 26 Nov 2020 09:04:45 +0000
+Received: by outflank-mailman (input) for mailman id 38314;
+ Thu, 26 Nov 2020 09:04:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yWto=FA=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kiCFm-00015V-QE
- for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 08:03:46 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 54c554f6-472b-48ee-a02f-e6d373c690f2;
- Thu, 26 Nov 2020 08:03:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A289BAC0C;
- Thu, 26 Nov 2020 08:03:42 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YrL6=FA=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1kiDCl-0006Ua-Ck
+ for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 09:04:43 +0000
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.5.58]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bd90020a-1ff3-4d7c-9084-455ba474bcbc;
+ Thu, 26 Nov 2020 09:04:42 +0000 (UTC)
+Received: from DB7PR03CA0075.eurprd03.prod.outlook.com (2603:10a6:10:72::16)
+ by AM6PR08MB3208.eurprd08.prod.outlook.com (2603:10a6:209:4b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Thu, 26 Nov
+ 2020 09:04:35 +0000
+Received: from DB5EUR03FT004.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:72:cafe::10) by DB7PR03CA0075.outlook.office365.com
+ (2603:10a6:10:72::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20 via Frontend
+ Transport; Thu, 26 Nov 2020 09:04:35 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT004.mail.protection.outlook.com (10.152.20.128) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Thu, 26 Nov 2020 09:04:35 +0000
+Received: ("Tessian outbound 082214a64d39:v71");
+ Thu, 26 Nov 2020 09:04:34 +0000
+Received: from f9916890ed0d.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ E4496F37-1511-4CDD-9F5F-75BE5D70224C.1; 
+ Thu, 26 Nov 2020 09:04:28 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f9916890ed0d.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 26 Nov 2020 09:04:28 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DBAPR08MB5752.eurprd08.prod.outlook.com (2603:10a6:10:1ac::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Thu, 26 Nov
+ 2020 09:04:27 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0%7]) with mapi id 15.20.3589.030; Thu, 26 Nov 2020
+ 09:04:27 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=yWto=FA=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kiCFm-00015V-QE
-	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 08:03:46 +0000
-X-Inumbo-ID: 54c554f6-472b-48ee-a02f-e6d373c690f2
-Received: from mx2.suse.de (unknown [195.135.220.15])
+	(envelope-from <SRS0=YrL6=FA=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+	id 1kiDCl-0006Ua-Ck
+	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 09:04:43 +0000
+X-Inumbo-ID: bd90020a-1ff3-4d7c-9084-455ba474bcbc
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com (unknown [40.107.5.58])
 	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 54c554f6-472b-48ee-a02f-e6d373c690f2;
-	Thu, 26 Nov 2020 08:03:43 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606377822; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=CjteYFCzzzAJ0LtD9dfouVrr6hZ49DMWJlX7vqKsT9k=;
-	b=lAAMy9aRxH5lK8pfQsXHog/IPnkhfo058Sgz6u8W62iUC6T0sXpwv6Q7hcqfIoQ5hzpdN6
-	mtWi6ChlvbnJUvnbyWTE92y6rxYhcnsMNzNo9LWfOCTzU9M2Q01WJdXttfS7PJ72aGqbAP
-	dziQush9WztfgQ/HnPGFI+00H8qjwhY=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A289BAC0C;
-	Thu, 26 Nov 2020 08:03:42 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3] xen: add support for automatic debug key actions in case of crash
-Date: Thu, 26 Nov 2020 09:03:40 +0100
-Message-Id: <20201126080340.6154-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+	id bd90020a-1ff3-4d7c-9084-455ba474bcbc;
+	Thu, 26 Nov 2020 09:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l7FYCXLKpq3GugLNHqEUXAZJx5k0nXUoNo1QFsUcmow=;
+ b=q6NeNfgd6MGuATU36I1DA26VaFKKQlFBFnmuyWSlot/xCHXkjr+Biq5ITab/qebVyKrbWoFx7nwYaQWc+jvcTOVK7ZgIw/lknDY7sY1hecimlhFMXVrqivW6x1bi4A8f7KA7jqSuuZeH7bbuHxWrSoamWzcrfcKN8ymbcsQNiqU=
+Received: from DB7PR03CA0075.eurprd03.prod.outlook.com (2603:10a6:10:72::16)
+ by AM6PR08MB3208.eurprd08.prod.outlook.com (2603:10a6:209:4b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Thu, 26 Nov
+ 2020 09:04:35 +0000
+Received: from DB5EUR03FT004.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:72:cafe::10) by DB7PR03CA0075.outlook.office365.com
+ (2603:10a6:10:72::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20 via Frontend
+ Transport; Thu, 26 Nov 2020 09:04:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT004.mail.protection.outlook.com (10.152.20.128) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Thu, 26 Nov 2020 09:04:35 +0000
+Received: ("Tessian outbound 082214a64d39:v71"); Thu, 26 Nov 2020 09:04:34 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: e4d613cb1f479c8d
+X-CR-MTA-TID: 64aa7808
+Received: from f9916890ed0d.1
+	by 64aa7808-outbound-1.mta.getcheckrecipient.com id E4496F37-1511-4CDD-9F5F-75BE5D70224C.1;
+	Thu, 26 Nov 2020 09:04:28 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f9916890ed0d.1
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Thu, 26 Nov 2020 09:04:28 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UhSUTa3+SXsKXjkFBpRCCZWhLhAOIe/I97oAK1JviYopMcx5bH9qMs8ZFpG7/SyrHVcxl8pD9GgYrMRXPzxISOasiFm99ck2E7axyk0dRb1Qfn1Bfo3/ipBWkYUpW45jiWjR7bysO4E6MSrITGHZNwclQ9HaQhQwGtBMyGbTXBx6xadXFmEUaV6739Axqryy02RUA4cNGPjvXo612exN69ggTDaCyZ54z1961YFVgaa6l8Tid1hBDKNNa7yvNfRL2VC8cEXMgXrbNLq5/sALukW+gDG8Prxc7SjnBqkqpXczM2U4QlT3lX98rNFusgqR/FsraCoCVkZXzA65E9S/IA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l7FYCXLKpq3GugLNHqEUXAZJx5k0nXUoNo1QFsUcmow=;
+ b=UP16/5HLfS8GgErgG+A2erLbsE97nRZkOmjSBaT1Hwe7JQK+Ts28rkKDk2M3ztU3sj4FDcqdnBXU01VvjrXALrxxZ+sfZRuxbItuDa1+AQZkiOvKap4OSRBf2JrbWza381buGy/5lJ+tpN2dxXwREL4hc56+Iv9gA0GElC3LxoD09AA7q48Hq7D+x8cuwgtEjGH8nbH17kR0SPd5FbEX5ivYa3FZWT04QvWr78tvzmEAvToMuU48mFmYXLoYEVUD0BresDA1LXsSryJF9nFzyhyygjPCuByI99Ib+rX5MtEkSDK9AYaiwyrR28dseH3hOwqfnZTtRHcF7Zes5Txblg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l7FYCXLKpq3GugLNHqEUXAZJx5k0nXUoNo1QFsUcmow=;
+ b=q6NeNfgd6MGuATU36I1DA26VaFKKQlFBFnmuyWSlot/xCHXkjr+Biq5ITab/qebVyKrbWoFx7nwYaQWc+jvcTOVK7ZgIw/lknDY7sY1hecimlhFMXVrqivW6x1bi4A8f7KA7jqSuuZeH7bbuHxWrSoamWzcrfcKN8ymbcsQNiqU=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DBAPR08MB5752.eurprd08.prod.outlook.com (2603:10a6:10:1ac::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Thu, 26 Nov
+ 2020 09:04:27 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0%7]) with mapi id 15.20.3589.030; Thu, 26 Nov 2020
+ 09:04:27 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Rahul Singh <Rahul.Singh@arm.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+	<jbeulich@suse.com>, Paul Durrant <paul@xen.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v4 1/3] xen/pci: Move x86 specific code to x86 directory.
+Thread-Topic: [PATCH v4 1/3] xen/pci: Move x86 specific code to x86 directory.
+Thread-Index: AQHWw1crc3wbvvllAUG9bYTTFcj66qnaH5kA
+Date: Thu, 26 Nov 2020 09:04:27 +0000
+Message-ID: <57E71345-E9D4-439D-B959-E520BC473F7D@arm.com>
+References: <cover.1606326929.git.rahul.singh@arm.com>
+ <3500f44e3b6f8f05f9d05fa170817d5bc6f39f22.1606326929.git.rahul.singh@arm.com>
+In-Reply-To:
+ <3500f44e3b6f8f05f9d05fa170817d5bc6f39f22.1606326929.git.rahul.singh@arm.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3608.120.23.2.4)
+Authentication-Results-Original: arm.com; dkim=none (message not signed)
+ header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [82.9.225.195]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 20379137-24c6-482c-62b5-08d891ea4ba7
+x-ms-traffictypediagnostic: DBAPR08MB5752:|AM6PR08MB3208:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<AM6PR08MB32084A1596DF3006EE30191E9DF90@AM6PR08MB3208.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:7219;OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ f/Jr8kAZV1C9dOzS2I4MzLj/mngVpZrGKJh9vZxk6lr+dT0iZN0316b2YkPBwLk20Xc9+dwrBsXkhNT531lrEG3q4E4FNEfEIt45jMI7fWzgI0tvRlnCpWngLZ/n34IGhV0cVz4d4viYofi6uv3Dto0O3uOoplATrfVyr7OVyNL+xkjxGdWllP8qsK0bZz+ELZawbNtm0dn5TVN6YCbNQYLs90YKx3W4le1Fqj8LjknjZG5ya7ClKAeqjpK8Cz99JigjewT9Q3S6E2wfklBbCRs0PryGVm/2Xq3X5p33GTYeV3aSVWrcwi9CUgsSHaEB1kHXzlC6phFFrBwhDM8u6SE0mq2Jtyx9YQAJe+PlvHghN4Msnu0uyzuaeAd8oNkP43lto9wN6VkbxIz18Wdufg==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(346002)(136003)(396003)(376002)(39860400002)(6506007)(86362001)(6512007)(186003)(8936002)(6636002)(316002)(33656002)(53546011)(6862004)(26005)(37006003)(6486002)(2616005)(2906002)(5660300002)(8676002)(54906003)(76116006)(91956017)(4326008)(36756003)(66476007)(66556008)(66946007)(66446008)(83380400001)(71200400001)(478600001)(64756008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ =?us-ascii?Q?ZPzQ22ycQrz3u0HxcrY2sT/H0YJN88W4AwjJogqWSA/ogcXEDIutSA2j0cLh?=
+ =?us-ascii?Q?7NlSj0+5QlEkMGprksta3YPsH7bHzLqGym40OYQrgc3deARUNuJfp/oSYjr4?=
+ =?us-ascii?Q?iGNhQotAGFgk0usCSE2v9NAX1IFsQX5PpI8bToNE6A8r0odOdm4zUnxytRzS?=
+ =?us-ascii?Q?JtGQTd2caKZ6K3JHYGdhoh6mzUvhjbfRJDX0tRqri9CACKYz2NqY+V1+8s9C?=
+ =?us-ascii?Q?H4SMKICPkLbf+yXiwyPy3NBNzD/eR46b3hbYPbSUJa3Grv8P7/4UyV7/bHWO?=
+ =?us-ascii?Q?Z1ZABDiK6wg4lr/5Vegg0B1SmjrN3OkTUQYOBNIO+m0QrgWY8sqACXk2/fxl?=
+ =?us-ascii?Q?T6Mkhsdza+Uu/wILqmGmZRX2iOzJLo/9Ko72F7po6PNU7TVOuZoj9yMMHS+1?=
+ =?us-ascii?Q?r9/DtN7wiLJXvIp+TsigZZa3b5wMAqR4dhGoCFqWFnsdpMuhwZWpUMCCWQfW?=
+ =?us-ascii?Q?WoOOZNKHAqtYygiNV8H71thH3t7OO4CQ3n/sBzfSfPtZckMk3tvFuSyanwPX?=
+ =?us-ascii?Q?hZJWF0yDxtKHwik1McPw14WggI+JdejWOntimSstaKkaLjZKM2Ushmbb2VNA?=
+ =?us-ascii?Q?WBCjyZOR4/q7dLkvAG/u40j0LjGKL8Cin24APyxJrTvvMagB4V8hidqaEWC5?=
+ =?us-ascii?Q?wrBsi148b/RHiemv/Lu2Q6HYA+z6Hl7QXjLbc6v4scOA0aEmJ0yrFwt/92SC?=
+ =?us-ascii?Q?iBV1V+cGPb5AjG6fdNRvGnYi8rc+V9fNtjuz9+z9soxFZM/b8nMYcKsb/b6K?=
+ =?us-ascii?Q?SxYFqs2l1Xdvv4A2QSB8GQ5Md76vU3SpL9s0pN+ozxXQ4GlQNPfUhmSMvMrB?=
+ =?us-ascii?Q?8C9Q+nGSmIkfNBKZdCMXJO6fXPqR0DMDBjnPKrU8ukA8KqceJXLt5ImSjhgU?=
+ =?us-ascii?Q?GNqUdwr2LCBsMeT5Q8gSx7+HSE/cAP3AbpjL+mVZnqw8AypTOAJRXtx8GP/F?=
+ =?us-ascii?Q?6jOm/rSzZAqnYPL9GpX/rBn53vi6ajxFTPWY5CwSM3zq/Sa7uiHWd6dx7Kdj?=
+ =?us-ascii?Q?mvmp?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <6CFF37332EDAFD45BF176D075271F592@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5752
+Original-Authentication-Results: arm.com; dkim=none (message not signed)
+ header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT004.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	50a2ef6a-8e85-4ff6-d78a-08d891ea4706
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	KVFWVzL0sLnoffW2gW3W0tiUljNITdauBRKtsDDFXVfu0gD+olV1AhgFdPlXYmGZ0m5wi3Lfol6Q1taPP3LVBI5HZayUqExX3ZQ6kzHIyCQ4EA232R9nLreWwhVp4HPYqc9Ire8lh1HVmb8kQqjU2MeRzdeuZShLdOzWSoto+tQE+eYr4OAQfLaaKLK8nR2CJ1PpD0TGKO9VarPYKqWvZ+iRQnxyG0l/br+nz7705iYQAxPmsAJCxjhUt8VWfIT8c01reriuo2cG2/I4hbizTuooR4vFAL0WnXWDF7cTKMAQr9UeFGaXCq0EHHNOhrG4Gyy+lwCV1R1mCcG5kvMewuT3c6q813ZelBygDV1rOQkQz3rI+UD4iSJEz6ig+90Cbiz7MeQTmRNN2YuemEPyK/uiPrHH7uKRJCxSNC8pp36tcbXJNfejS0faYp4fxJGsdgCemFislCc63bMJ9rqZaas5clWy0TAtHq+UyEIPLfA=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(396003)(346002)(376002)(39860400002)(46966005)(70206006)(4326008)(54906003)(6512007)(81166007)(36756003)(8676002)(70586007)(356005)(6862004)(83380400001)(82740400003)(316002)(8936002)(47076004)(6636002)(33656002)(336012)(86362001)(186003)(26005)(37006003)(478600001)(6506007)(53546011)(2616005)(6486002)(2906002)(82310400003)(5660300002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2020 09:04:35.0481
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20379137-24c6-482c-62b5-08d891ea4ba7
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT004.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3208
 
-When the host crashes it would sometimes be nice to have additional
-debug data available which could be produced via debug keys, but
-halting the server for manual intervention might be impossible due to
-the need to reboot/kexec rather sooner than later.
 
-Add support for automatic debug key actions in case of crashes which
-can be activated via boot- or runtime-parameter.
 
-Depending on the type of crash the desired data might be different, so
-support different settings for the possible types of crashes.
+> On 25 Nov 2020, at 18:16, Rahul Singh <Rahul.Singh@arm.com> wrote:
+>=20
+> passthrough/pci.c file is common for all architecture, but there is x86
+> specific code in this file.
+>=20
+> Move x86 specific code to the drivers/passthrough/io.c file to avoid
+> compilation error for other architecture.
+>=20
+> As drivers/passthrough/io.c is compiled only for x86 move it to
+> x86 directory and rename it to hvm.c.
+>=20
+> No functional change intended.
+>=20
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-The parameter is "crash-debug" with the following syntax:
+Cheers
+Bertrand
 
-  crash-debug-<type>=<string>
-
-with <type> being one of:
-
-  panic, hwdom, watchdog, kexeccmd, debugkey
-
-and <string> a sequence of debug key characters with '+' having the
-special semantics of a 10 millisecond pause.
-
-So "crash-debug-watchdog=0+0qr" would result in special output in case
-of watchdog triggered crash (dom0 state, 10 ms pause, dom0 state,
-domain info, run queues).
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- switched special character '.' to '+' (Jan Beulich)
-- 10 ms instead of 1 s pause (Jan Beulich)
-- added more text to the boot parameter description (Jan Beulich)
-
-V3:
-- added const (Jan Beulich)
-- thorough test of crash reason parameter (Jan Beulich)
-- kexeccmd case should depend on CONFIG_KEXEC (Jan Beulich)
-- added dummy get_irq_regs() helper on Arm
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- docs/misc/xen-command-line.pandoc | 39 ++++++++++++++++++++++++++
- xen/common/kexec.c                |  8 ++++--
- xen/common/keyhandler.c           | 46 +++++++++++++++++++++++++++++++
- xen/common/shutdown.c             |  4 +--
- xen/drivers/char/console.c        |  2 +-
- xen/include/asm-arm/irq.h         |  5 ++++
- xen/include/xen/kexec.h           | 10 +++++--
- xen/include/xen/keyhandler.h      | 11 ++++++++
- 8 files changed, 117 insertions(+), 8 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index b4a0d60c11..294be31abb 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -574,6 +574,45 @@ reduction of features at Xen's disposal to manage guests.
- ### cpuinfo (x86)
- > `= <boolean>`
- 
-+### crash-debug-debugkey
-+### crash-debug-hwdom
-+### crash-debug-kexeccmd
-+### crash-debug-panic
-+### crash-debug-watchdog
-+> `= <string>`
-+
-+> Can be modified at runtime
-+
-+Specify debug-key actions in cases of crashes. Each of the parameters applies
-+to a different crash reason. The `<string>` is a sequence of debug key
-+characters, with `+` having the special meaning of a 10 millisecond pause.
-+
-+`crash-debug-debugkey` will be used for crashes induced by the `C` debug
-+key (i.e. manually induced crash).
-+
-+`crash-debug-hwdom` denotes a crash of dom0.
-+
-+`crash-debug-kexeccmd` is an explicit request of dom0 to continue with the
-+kdump kernel via kexec. Only available on hypervisors built with CONFIG_KEXEC.
-+
-+`crash-debug-panic` is a crash of the hypervisor.
-+
-+`crash-debug-watchdog` is a crash due to the watchdog timer expiring.
-+
-+It should be noted that dumping diagnosis data to the console can fail in
-+multiple ways (missing data, hanging system, ...) depending on the reason
-+of the crash, which might have left the hypervisor in a bad state.
-+
-+So e.g. `crash-debug-watchdog=0+0r` would dump dom0 state twice with 10
-+milliseconds between the two state dumps, followed by the run queues of the
-+hypervisor, if the system crashes due to a watchdog timeout.
-+
-+These parameters should be used carefully, as e.g. specifying
-+`crash-debug-debugkey=C` would result in an endless loop. Depending on the
-+reason of the system crash it might happen that triggering some debug key
-+action will result in a hang instead of dumping data and then doing a
-+reboot or crash dump.
-+
- ### crashinfo_maxaddr
- > `= <size>`
- 
-diff --git a/xen/common/kexec.c b/xen/common/kexec.c
-index 52cdc4ebc3..ebeee6405a 100644
---- a/xen/common/kexec.c
-+++ b/xen/common/kexec.c
-@@ -373,10 +373,12 @@ static int kexec_common_shutdown(void)
-     return 0;
- }
- 
--void kexec_crash(void)
-+void kexec_crash(enum crash_reason reason)
- {
-     int pos;
- 
-+    keyhandler_crash_action(reason);
-+
-     pos = (test_bit(KEXEC_FLAG_CRASH_POS, &kexec_flags) != 0);
-     if ( !test_bit(KEXEC_IMAGE_CRASH_BASE + pos, &kexec_flags) )
-         return;
-@@ -409,7 +411,7 @@ static long kexec_reboot(void *_image)
- static void do_crashdump_trigger(unsigned char key)
- {
-     printk("'%c' pressed -> triggering crashdump\n", key);
--    kexec_crash();
-+    kexec_crash(CRASHREASON_DEBUGKEY);
-     printk(" * no crash kernel loaded!\n");
- }
- 
-@@ -840,7 +842,7 @@ static int kexec_exec(XEN_GUEST_HANDLE_PARAM(void) uarg)
-         ret = continue_hypercall_on_cpu(0, kexec_reboot, image);
-         break;
-     case KEXEC_TYPE_CRASH:
--        kexec_crash(); /* Does not return */
-+        kexec_crash(CRASHREASON_KEXECCMD); /* Does not return */
-         break;
-     }
- 
-diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-index 68364e987d..11ab6ecd59 100644
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -3,7 +3,9 @@
-  */
- 
- #include <asm/regs.h>
-+#include <xen/delay.h>
- #include <xen/keyhandler.h>
-+#include <xen/param.h>
- #include <xen/shutdown.h>
- #include <xen/event.h>
- #include <xen/console.h>
-@@ -507,6 +509,50 @@ void __init initialize_keytable(void)
-     }
- }
- 
-+#define CRASHACTION_SIZE  32
-+static char crash_debug_panic[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-panic", crash_debug_panic);
-+static char crash_debug_hwdom[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-hwdom", crash_debug_hwdom);
-+static char crash_debug_watchdog[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-watchdog", crash_debug_watchdog);
-+#ifdef CONFIG_KEXEC
-+static char crash_debug_kexeccmd[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-kexeccmd", crash_debug_kexeccmd);
-+#endif
-+static char crash_debug_debugkey[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-debugkey", crash_debug_debugkey);
-+
-+void keyhandler_crash_action(enum crash_reason reason)
-+{
-+    static const char *const crash_action[CRASHREASON_N] = {
-+        [CRASHREASON_PANIC] = crash_debug_panic,
-+        [CRASHREASON_HWDOM] = crash_debug_hwdom,
-+        [CRASHREASON_WATCHDOG] = crash_debug_watchdog,
-+#ifdef CONFIG_KEXEC
-+        [CRASHREASON_KEXECCMD] = crash_debug_kexeccmd,
-+#endif
-+        [CRASHREASON_DEBUGKEY] = crash_debug_debugkey,
-+    };
-+    const char *action;
-+    struct cpu_user_regs *regs = get_irq_regs() ? : guest_cpu_user_regs();
-+
-+    if ( (unsigned int)reason >= CRASHREASON_N )
-+        return;
-+    action = crash_action[reason];
-+    if ( !action )
-+        return;
-+
-+    while ( *action )
-+    {
-+        if ( *action == '+' )
-+            mdelay(10);
-+        else
-+            handle_keypress(*action, regs);
-+        action++;
-+    }
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/common/shutdown.c b/xen/common/shutdown.c
-index 912593915b..abde48aa4c 100644
---- a/xen/common/shutdown.c
-+++ b/xen/common/shutdown.c
-@@ -43,7 +43,7 @@ void hwdom_shutdown(u8 reason)
-     case SHUTDOWN_crash:
-         debugger_trap_immediate();
-         printk("Hardware Dom%u crashed: ", hardware_domain->domain_id);
--        kexec_crash();
-+        kexec_crash(CRASHREASON_HWDOM);
-         maybe_reboot();
-         break; /* not reached */
- 
-@@ -56,7 +56,7 @@ void hwdom_shutdown(u8 reason)
-     case SHUTDOWN_watchdog:
-         printk("Hardware Dom%u shutdown: watchdog rebooting machine\n",
-                hardware_domain->domain_id);
--        kexec_crash();
-+        kexec_crash(CRASHREASON_WATCHDOG);
-         machine_restart(0);
-         break; /* not reached */
- 
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 861ad53a8f..acec277f5e 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -1271,7 +1271,7 @@ void panic(const char *fmt, ...)
- 
-     debugger_trap_immediate();
- 
--    kexec_crash();
-+    kexec_crash(CRASHREASON_PANIC);
- 
-     if ( opt_noreboot )
-         machine_halt();
-diff --git a/xen/include/asm-arm/irq.h b/xen/include/asm-arm/irq.h
-index e45d574598..01d5a7cb02 100644
---- a/xen/include/asm-arm/irq.h
-+++ b/xen/include/asm-arm/irq.h
-@@ -98,6 +98,11 @@ void irq_set_affinity(struct irq_desc *desc, const cpumask_t *cpu_mask);
-  */
- bool irq_type_set_by_domain(const struct domain *d);
- 
-+static inline struct cpu_user_regs *get_irq_regs(void)
-+{
-+    return NULL;
-+}
-+
- #endif /* _ASM_HW_IRQ_H */
- /*
-  * Local variables:
-diff --git a/xen/include/xen/kexec.h b/xen/include/xen/kexec.h
-index e85ba16405..9f7a912e97 100644
---- a/xen/include/xen/kexec.h
-+++ b/xen/include/xen/kexec.h
-@@ -1,6 +1,8 @@
- #ifndef __XEN_KEXEC_H__
- #define __XEN_KEXEC_H__
- 
-+#include <xen/keyhandler.h>
-+
- #ifdef CONFIG_KEXEC
- 
- #include <public/kexec.h>
-@@ -48,7 +50,7 @@ void machine_kexec_unload(struct kexec_image *image);
- void machine_kexec_reserved(xen_kexec_reserve_t *reservation);
- void machine_reboot_kexec(struct kexec_image *image);
- void machine_kexec(struct kexec_image *image);
--void kexec_crash(void);
-+void kexec_crash(enum crash_reason reason);
- void kexec_crash_save_cpu(void);
- struct crash_xen_info *kexec_crash_save_info(void);
- void machine_crash_shutdown(void);
-@@ -82,7 +84,11 @@ void vmcoreinfo_append_str(const char *fmt, ...)
- #define kexecing 0
- 
- static inline void kexec_early_calculations(void) {}
--static inline void kexec_crash(void) {}
-+static inline void kexec_crash(enum crash_reason reason)
-+{
-+    keyhandler_crash_action(reason);
-+}
-+
- static inline void kexec_crash_save_cpu(void) {}
- static inline void set_kexec_crash_area_size(u64 system_ram) {}
- 
-diff --git a/xen/include/xen/keyhandler.h b/xen/include/xen/keyhandler.h
-index 5131e86cbc..dbf797a8b4 100644
---- a/xen/include/xen/keyhandler.h
-+++ b/xen/include/xen/keyhandler.h
-@@ -48,4 +48,15 @@ void register_irq_keyhandler(unsigned char key,
- /* Inject a keypress into the key-handling subsystem. */
- extern void handle_keypress(unsigned char key, struct cpu_user_regs *regs);
- 
-+enum crash_reason {
-+    CRASHREASON_PANIC,
-+    CRASHREASON_HWDOM,
-+    CRASHREASON_WATCHDOG,
-+    CRASHREASON_KEXECCMD,
-+    CRASHREASON_DEBUGKEY,
-+    CRASHREASON_N
-+};
-+
-+void keyhandler_crash_action(enum crash_reason reason);
-+
- #endif /* __XEN_KEYHANDLER_H__ */
--- 
-2.26.2
+> ---
+>=20
+> Changes in v4:
+> - fixed compilation error when CONFIG_HVM is disabled=20
+> - remove iommu_update_ire_from_msi from the patch will send another patch
+>  to fix.
+>=20
+> ---
+> xen/drivers/passthrough/Makefile            |  3 -
+> xen/drivers/passthrough/pci.c               | 71 +--------------------
+> xen/drivers/passthrough/x86/Makefile        |  1 +
+> xen/drivers/passthrough/{io.c =3D> x86/hvm.c} | 66 +++++++++++++++++++
+> xen/include/xen/pci.h                       |  9 +++
+> 5 files changed, 77 insertions(+), 73 deletions(-)
+> rename xen/drivers/passthrough/{io.c =3D> x86/hvm.c} (95%)
+>=20
+> diff --git a/xen/drivers/passthrough/Makefile b/xen/drivers/passthrough/M=
+akefile
+> index e973e16c74..cc646612c7 100644
+> --- a/xen/drivers/passthrough/Makefile
+> +++ b/xen/drivers/passthrough/Makefile
+> @@ -6,6 +6,3 @@ obj-$(CONFIG_ARM) +=3D arm/
+> obj-y +=3D iommu.o
+> obj-$(CONFIG_HAS_PCI) +=3D pci.o
+> obj-$(CONFIG_HAS_DEVICE_TREE) +=3D device_tree.o
+> -
+> -x86-$(CONFIG_HVM) :=3D io.o
+> -obj-$(CONFIG_X86) +=3D $(x86-y)
+> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.=
+c
+> index 51e584127e..3c6ab1bcb6 100644
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -14,9 +14,6 @@
+>  * this program; If not, see <http://www.gnu.org/licenses/>.
+>  */
+>=20
+> -#include <xen/sched.h>
+> -#include <xen/pci.h>
+> -#include <xen/pci_regs.h>
+> #include <xen/pci_ids.h>
+> #include <xen/list.h>
+> #include <xen/prefetch.h>
+> @@ -24,7 +21,6 @@
+> #include <xen/irq.h>
+> #include <xen/param.h>
+> #include <xen/vm_event.h>
+> -#include <asm/hvm/irq.h>
+> #include <xen/delay.h>
+> #include <xen/keyhandler.h>
+> #include <xen/event.h>
+> @@ -842,71 +838,6 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+>     return ret;
+> }
+>=20
+> -static int pci_clean_dpci_irq(struct domain *d,
+> -                              struct hvm_pirq_dpci *pirq_dpci, void *arg=
+)
+> -{
+> -    struct dev_intx_gsi_link *digl, *tmp;
+> -
+> -    pirq_guest_unbind(d, dpci_pirq(pirq_dpci));
+> -
+> -    if ( pt_irq_need_timer(pirq_dpci->flags) )
+> -        kill_timer(&pirq_dpci->timer);
+> -
+> -    list_for_each_entry_safe ( digl, tmp, &pirq_dpci->digl_list, list )
+> -    {
+> -        list_del(&digl->list);
+> -        xfree(digl);
+> -    }
+> -
+> -    radix_tree_delete(&d->pirq_tree, dpci_pirq(pirq_dpci)->pirq);
+> -
+> -    if ( !pt_pirq_softirq_active(pirq_dpci) )
+> -        return 0;
+> -
+> -    domain_get_irq_dpci(d)->pending_pirq_dpci =3D pirq_dpci;
+> -
+> -    return -ERESTART;
+> -}
+> -
+> -static int pci_clean_dpci_irqs(struct domain *d)
+> -{
+> -    struct hvm_irq_dpci *hvm_irq_dpci =3D NULL;
+> -
+> -    if ( !is_iommu_enabled(d) )
+> -        return 0;
+> -
+> -    if ( !is_hvm_domain(d) )
+> -        return 0;
+> -
+> -    spin_lock(&d->event_lock);
+> -    hvm_irq_dpci =3D domain_get_irq_dpci(d);
+> -    if ( hvm_irq_dpci !=3D NULL )
+> -    {
+> -        int ret =3D 0;
+> -
+> -        if ( hvm_irq_dpci->pending_pirq_dpci )
+> -        {
+> -            if ( pt_pirq_softirq_active(hvm_irq_dpci->pending_pirq_dpci)=
+ )
+> -                 ret =3D -ERESTART;
+> -            else
+> -                 hvm_irq_dpci->pending_pirq_dpci =3D NULL;
+> -        }
+> -
+> -        if ( !ret )
+> -            ret =3D pt_pirq_iterate(d, pci_clean_dpci_irq, NULL);
+> -        if ( ret )
+> -        {
+> -            spin_unlock(&d->event_lock);
+> -            return ret;
+> -        }
+> -
+> -        hvm_domain_irq(d)->dpci =3D NULL;
+> -        free_hvm_irq_dpci(hvm_irq_dpci);
+> -    }
+> -    spin_unlock(&d->event_lock);
+> -    return 0;
+> -}
+> -
+> /* Caller should hold the pcidevs_lock */
+> static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
+>                            uint8_t devfn)
+> @@ -966,7 +897,7 @@ int pci_release_devices(struct domain *d)
+>     int ret;
+>=20
+>     pcidevs_lock();
+> -    ret =3D pci_clean_dpci_irqs(d);
+> +    ret =3D arch_pci_clean_pirqs(d);
+>     if ( ret )
+>     {
+>         pcidevs_unlock();
+> diff --git a/xen/drivers/passthrough/x86/Makefile b/xen/drivers/passthrou=
+gh/x86/Makefile
+> index a70cf9460d..69284a5d19 100644
+> --- a/xen/drivers/passthrough/x86/Makefile
+> +++ b/xen/drivers/passthrough/x86/Makefile
+> @@ -1,2 +1,3 @@
+> obj-y +=3D ats.o
+> obj-y +=3D iommu.o
+> +obj-$(CONFIG_HVM) +=3D hvm.o
+> diff --git a/xen/drivers/passthrough/io.c b/xen/drivers/passthrough/x86/h=
+vm.c
+> similarity index 95%
+> rename from xen/drivers/passthrough/io.c
+> rename to xen/drivers/passthrough/x86/hvm.c
+> index 6b1305a3e5..41cfa2e200 100644
+> --- a/xen/drivers/passthrough/io.c
+> +++ b/xen/drivers/passthrough/x86/hvm.c
+> @@ -1036,6 +1036,72 @@ unlock:
+>     spin_unlock(&d->event_lock);
+> }
+>=20
+> +static int pci_clean_dpci_irq(struct domain *d,
+> +                              struct hvm_pirq_dpci *pirq_dpci, void *arg=
+)
+> +{
+> +    struct dev_intx_gsi_link *digl, *tmp;
+> +
+> +    pirq_guest_unbind(d, dpci_pirq(pirq_dpci));
+> +
+> +    if ( pt_irq_need_timer(pirq_dpci->flags) )
+> +        kill_timer(&pirq_dpci->timer);
+> +
+> +    list_for_each_entry_safe ( digl, tmp, &pirq_dpci->digl_list, list )
+> +    {
+> +        list_del(&digl->list);
+> +        xfree(digl);
+> +    }
+> +
+> +    radix_tree_delete(&d->pirq_tree, dpci_pirq(pirq_dpci)->pirq);
+> +
+> +    if ( !pt_pirq_softirq_active(pirq_dpci) )
+> +        return 0;
+> +
+> +    domain_get_irq_dpci(d)->pending_pirq_dpci =3D pirq_dpci;
+> +
+> +    return -ERESTART;
+> +}
+> +
+> +int arch_pci_clean_pirqs(struct domain *d)
+> +{
+> +    struct hvm_irq_dpci *hvm_irq_dpci =3D NULL;
+> +
+> +    if ( !is_iommu_enabled(d) )
+> +        return 0;
+> +
+> +    if ( !is_hvm_domain(d) )
+> +        return 0;
+> +
+> +    spin_lock(&d->event_lock);
+> +    hvm_irq_dpci =3D domain_get_irq_dpci(d);
+> +    if ( hvm_irq_dpci !=3D NULL )
+> +    {
+> +        int ret =3D 0;
+> +
+> +        if ( hvm_irq_dpci->pending_pirq_dpci )
+> +        {
+> +            if ( pt_pirq_softirq_active(hvm_irq_dpci->pending_pirq_dpci)=
+ )
+> +                 ret =3D -ERESTART;
+> +            else
+> +                 hvm_irq_dpci->pending_pirq_dpci =3D NULL;
+> +        }
+> +
+> +        if ( !ret )
+> +            ret =3D pt_pirq_iterate(d, pci_clean_dpci_irq, NULL);
+> +        if ( ret )
+> +        {
+> +            spin_unlock(&d->event_lock);
+> +            return ret;
+> +        }
+> +
+> +        hvm_domain_irq(d)->dpci =3D NULL;
+> +        free_hvm_irq_dpci(hvm_irq_dpci);
+> +    }
+> +    spin_unlock(&d->event_lock);
+> +
+> +    return 0;
+> +}
+> +
+> /*
+>  * Note: 'pt_pirq_softirq_reset' can clear the STATE_SCHED before we get =
+to
+>  * doing it. If that is the case we let 'pt_pirq_softirq_reset' do ref-co=
+unting.
+> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+> index 20a54a5bb4..8e3d4d9454 100644
+> --- a/xen/include/xen/pci.h
+> +++ b/xen/include/xen/pci.h
+> @@ -208,4 +208,13 @@ int msixtbl_pt_register(struct domain *, struct pirq=
+ *, uint64_t gtable);
+> void msixtbl_pt_unregister(struct domain *, struct pirq *);
+> void msixtbl_pt_cleanup(struct domain *d);
+>=20
+> +#ifdef CONFIG_HVM
+> +int arch_pci_clean_pirqs(struct domain *d);
+> +#else
+> +static inline int arch_pci_clean_pirqs(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +#endif /* CONFIG_HVM */
+> +
+> #endif /* __XEN_PCI_H__ */
+> --=20
+> 2.17.1
+>=20
 
 
