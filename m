@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A781B2C6804
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 15:39:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.39513.72446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 611B12C6805
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 15:39:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.39518.72458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kietz-0000PO-8d; Fri, 27 Nov 2020 14:39:11 +0000
+	id 1kieuV-0000Va-Mw; Fri, 27 Nov 2020 14:39:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 39513.72446; Fri, 27 Nov 2020 14:39:11 +0000
+Received: by outflank-mailman (output) from mailman id 39518.72458; Fri, 27 Nov 2020 14:39:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,256 +23,185 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kietz-0000Oz-5B; Fri, 27 Nov 2020 14:39:11 +0000
-Received: by outflank-mailman (input) for mailman id 39513;
- Fri, 27 Nov 2020 14:39:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kieuV-0000VD-Hl; Fri, 27 Nov 2020 14:39:43 +0000
+Received: by outflank-mailman (input) for mailman id 39518;
+ Fri, 27 Nov 2020 14:39:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hQCY=FB=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kietx-0000Ou-VB
- for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 14:39:09 +0000
+ (envelope-from <SRS0=rmeX=FB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kieuT-0000V2-QD
+ for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 14:39:41 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0a8edfd9-97e5-4ed7-b3de-f88a634514bf;
- Fri, 27 Nov 2020 14:39:08 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 96b2181a-2184-4f83-be4c-abeaede88ee2;
+ Fri, 27 Nov 2020 14:39:40 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DF675AC55;
- Fri, 27 Nov 2020 14:39:07 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id D0FBFABD7;
+ Fri, 27 Nov 2020 14:39:39 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=hQCY=FB=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kietx-0000Ou-VB
-	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 14:39:09 +0000
-X-Inumbo-ID: 0a8edfd9-97e5-4ed7-b3de-f88a634514bf
+	(envelope-from <SRS0=rmeX=FB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kieuT-0000V2-QD
+	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 14:39:41 +0000
+X-Inumbo-ID: 96b2181a-2184-4f83-be4c-abeaede88ee2
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 0a8edfd9-97e5-4ed7-b3de-f88a634514bf;
-	Fri, 27 Nov 2020 14:39:08 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 96b2181a-2184-4f83-be4c-abeaede88ee2;
+	Fri, 27 Nov 2020 14:39:40 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606487948; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606487979; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jQEL1saZRtu8Ds50rj4d1r4gft1kfdAL7bU++DKRAsU=;
-	b=rZcR5dYs1BNrBXablSRUo5sQhKUgbG/e2Iv/Qr/yzmU7+RVBqrkm7j9az0T6bWSS5fWXhr
-	Ec1OZ/fwhYPW2YetM+4OFGGM9XVROOM/xj8JFAPrRf3BAFRjYpbXv62AAUx7Cgi+k24ZpG
-	n9DXfkH5GjGxVIL6NhW4aWwOAspVf+8=
+	bh=UmA4DRpHijWQ21BBicmaNvL34nvckkY07jwQErDBbIA=;
+	b=lyX8Fo0RvawhGB2l3Z/ui2tbWH3kRRaCorXIeOb6FZpsvS58iHzTuinbbFFFk5ZQC1+4KN
+	u6u3yBUgw11nJwvSHxd9+wrnjOmnCO6RG4upUUQk32Ip5rl5oYDI7ideUh0KDv39Ye0hPd
+	KBVapFTNphHZVZh65WzCENr7sYc1b3Y=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id DF675AC55;
-	Fri, 27 Nov 2020 14:39:07 +0000 (UTC)
-Subject: Re: [PATCH v8 3/3] xen/events: do some cleanups in
- evtchn_fifo_set_pending()
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20201125105122.3650-1-jgross@suse.com>
- <20201125105122.3650-4-jgross@suse.com>
- <0ab6f8b5-1a9a-845e-3935-a660e5c7fc16@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <a11fb0fc-9a2e-8f9a-5fd3-356c0e0a0f60@suse.com>
-Date: Fri, 27 Nov 2020 15:39:07 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	by mx2.suse.de (Postfix) with ESMTP id D0FBFABD7;
+	Fri, 27 Nov 2020 14:39:39 +0000 (UTC)
+Subject: Re: [PATCH v10 1/7] remove remaining uses of iommu_legacy_map/unmap
+To: Paul Durrant <paul@xen.org>
+Cc: Paul Durrant <pdurrant@amazon.com>, Julien Grall <jgrall@amazon.com>,
+ Kevin Tian <kevin.tian@intel.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org
+References: <20201120132440.1141-1-paul@xen.org>
+ <20201120132440.1141-2-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <bf07896c-c2ce-6f5f-eb82-4180b60fa58e@suse.com>
+Date: Fri, 27 Nov 2020 15:39:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <0ab6f8b5-1a9a-845e-3935-a660e5c7fc16@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="qFJVFUWfoJ3GRGmlv25OVTUGcA1OgIM2c"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---qFJVFUWfoJ3GRGmlv25OVTUGcA1OgIM2c
-Content-Type: multipart/mixed; boundary="tu9tYuq12ieXBY65NuByCg9Pgwae9UW5K";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <a11fb0fc-9a2e-8f9a-5fd3-356c0e0a0f60@suse.com>
-Subject: Re: [PATCH v8 3/3] xen/events: do some cleanups in
- evtchn_fifo_set_pending()
-References: <20201125105122.3650-1-jgross@suse.com>
- <20201125105122.3650-4-jgross@suse.com>
- <0ab6f8b5-1a9a-845e-3935-a660e5c7fc16@xen.org>
-In-Reply-To: <0ab6f8b5-1a9a-845e-3935-a660e5c7fc16@xen.org>
-
---tu9tYuq12ieXBY65NuByCg9Pgwae9UW5K
-Content-Type: multipart/mixed;
- boundary="------------1EED04DB54FFE24301D417DA"
+In-Reply-To: <20201120132440.1141-2-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------1EED04DB54FFE24301D417DA
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+On 20.11.2020 14:24, Paul Durrant wrote:
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -2489,10 +2489,16 @@ static int cleanup_page_mappings(struct page_info *page)
+>  
+>          if ( d && unlikely(need_iommu_pt_sync(d)) && is_pv_domain(d) )
+>          {
+> -            int rc2 = iommu_legacy_unmap(d, _dfn(mfn), 1u << PAGE_ORDER_4K);
+> +            unsigned int flush_flags = 0;
+> +            int err;
+> +
+> +            err = iommu_unmap(d, _dfn(mfn), 1ul << PAGE_ORDER_4K, &flush_flags);
+> +            if ( !err && !this_cpu(iommu_dont_flush_iotlb) )
+> +                err = iommu_iotlb_flush(d, _dfn(mfn), 1ul << PAGE_ORDER_4K,
+> +                                        flush_flags);
 
-On 27.11.20 15:23, Julien Grall wrote:
->=20
->=20
-> On 25/11/2020 10:51, Juergen Gross wrote:
->> evtchn_fifo_set_pending() can be simplified a little bit.
->=20
-> The commit message is quite light... For posterity, it would be good to=
-=20
-> explain why the simplication can be done. In particular, there is a=20
-> chance in behavior after this patch.
->=20
->> Suggested-by: Jan Beulich <jbeulich@suse.com>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->> V8:
->> - new patch
->> ---
->> =C2=A0 xen/common/event_fifo.c | 34 +++++++++++++++-------------------=
+As was the subject of XSA-346, honoring on a path leading to
+the freeing of a page _before_ the delayed flush actually
+happens is wrong. Luckily the first of the two patches for
+that XSA arranged for you never being able to observe the flag
+set, so the check here is simply pointless. But it should
+still be removed for documentation purposes.
 
->> =C2=A0 1 file changed, 15 insertions(+), 19 deletions(-)
->>
->> diff --git a/xen/common/event_fifo.c b/xen/common/event_fifo.c
->> index 443593c3b3..77609539b1 100644
->> --- a/xen/common/event_fifo.c
->> +++ b/xen/common/event_fifo.c
->> @@ -175,6 +175,18 @@ static void evtchn_fifo_set_pending(struct vcpu=20
->> *v, struct evtchn *evtchn)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> +=C2=A0=C2=A0=C2=A0 /*
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * Control block not mapped.=C2=A0 The guest =
-must not unmask an
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * event until the control block is initializ=
-ed, so we can
->> +=C2=A0=C2=A0=C2=A0=C2=A0 * just drop the event.
->> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0=C2=A0 if ( unlikely(!v->evtchn_fifo->control_block) )
->=20
-> Sort of unrelated, AFAICT, v->evtchn_fifo->control_block can be set=20
-> concurrently to this access.
->=20
-> Thankfully, once the control block is mapped, it can't be unmapped.=20
-> However, there is still a possibility that you may see half of the upda=
-te.
->=20
-> Shouldn't the field access with ACCESS_ONCE()?
+> @@ -3014,14 +3020,20 @@ static int _get_page_type(struct page_info *page, unsigned long type,
+>          if ( d && unlikely(need_iommu_pt_sync(d)) && is_pv_domain(d) )
+>          {
+>              mfn_t mfn = page_to_mfn(page);
+> +            dfn_t dfn = _dfn(mfn_x(mfn));
+> +            unsigned int flush_flags = 0;
+>  
+>              if ( (x & PGT_type_mask) == PGT_writable_page )
+> -                rc = iommu_legacy_unmap(d, _dfn(mfn_x(mfn)),
+> -                                        1ul << PAGE_ORDER_4K);
+> +                rc = iommu_unmap(d, dfn, 1ul << PAGE_ORDER_4K, &flush_flags);
+>              else
+> -                rc = iommu_legacy_map(d, _dfn(mfn_x(mfn)), mfn,
+> -                                      1ul << PAGE_ORDER_4K,
+> -                                      IOMMUF_readable | IOMMUF_writable);
+> +            {
+> +                rc = iommu_map(d, dfn, mfn, 1ul << PAGE_ORDER_4K,
+> +                               IOMMUF_readable | IOMMUF_writable, &flush_flags);
+> +            }
+> +
+> +            if ( !rc && !this_cpu(iommu_dont_flush_iotlb) )
+> +                rc = iommu_iotlb_flush(d, dfn, 1ul << PAGE_ORDER_4K,
+> +                                       flush_flags);
 
-Shouldn't this be another patch? Especially as the writing side needs
-the same treatment.
+Along these lines here - at least the unmapping needs to be
+followed by a flush before the page can assume its new role.
+Yet again I don't think the flag can ever be observed true
+here, first and foremost because of the is_pv_domain() in
+the surrounding if(). While the check could be made
+conditional upon the prior operation having been a map, I
+think it's again easier to simply delete the dead check.
 
+> --- a/xen/arch/x86/mm/p2m-ept.c
+> +++ b/xen/arch/x86/mm/p2m-ept.c
+> @@ -842,15 +842,19 @@ out:
+>      if ( rc == 0 && p2m_is_hostp2m(p2m) &&
+>           need_modify_vtd_table )
+>      {
+> -        if ( iommu_use_hap_pt(d) && !this_cpu(iommu_dont_flush_iotlb) )
+> -            rc = iommu_iotlb_flush(d, _dfn(gfn), 1ul << order,
+> -                                   (iommu_flags ? IOMMU_FLUSHF_added : 0) |
+> -                                   (vtd_pte_present ? IOMMU_FLUSHF_modified
+> -                                                    : 0));
+> -        else if ( need_iommu_pt_sync(d) )
+> +        unsigned int flush_flags = 0;
+> +
+> +        if ( need_iommu_pt_sync(d) )
+>              rc = iommu_flags ?
+> -                iommu_legacy_map(d, _dfn(gfn), mfn, 1ul << order, iommu_flags) :
+> -                iommu_legacy_unmap(d, _dfn(gfn), 1ul << order);
+> +                iommu_map(d, _dfn(gfn), mfn, 1ul << order, iommu_flags,
+> +                          &flush_flags) :
+> +                iommu_unmap(d, _dfn(gfn), 1ul << order, &flush_flags);
+> +        else if ( iommu_use_hap_pt(d) )
+> +            flush_flags = (iommu_flags ? IOMMU_FLUSHF_added : 0) |
+> +                          (vtd_pte_present ? IOMMU_FLUSHF_modified : 0);
 
-Juergen
+Is there a particular reason you inverted the order of the
+iommu_use_hap_pt() and need_iommu_pt_sync() checks here?
+The common (default) case for VT-x / VT-d / EPT is going to
+be shared page tables, so I think this should remain the
+path getting away with just one evaluation of a conditional.
 
---------------1EED04DB54FFE24301D417DA
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -836,8 +836,8 @@ int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap *xatp,
+>  
+>      if ( is_iommu_enabled(d) )
+>      {
+> -       this_cpu(iommu_dont_flush_iotlb) = 1;
+> -       extra.ppage = &pages[0];
+> +        this_cpu(iommu_dont_flush_iotlb) = true;
+> +        extra.ppage = &pages[0];
+>      }
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Is the respective part of the description ("no longer
+pointlessly gated on is_iommu_enabled() returning true") stale?
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> @@ -368,15 +360,12 @@ void iommu_dev_iotlb_flush_timeout(struct domain *d, struct pci_dev *pdev);
+>  
+>  /*
+>   * The purpose of the iommu_dont_flush_iotlb optional cpu flag is to
+> - * avoid unecessary iotlb_flush in the low level IOMMU code.
+> - *
+> - * iommu_map_page/iommu_unmap_page must flush the iotlb but somethimes
+> - * this operation can be really expensive. This flag will be set by the
+> - * caller to notify the low level IOMMU code to avoid the iotlb flushes.
+> - * iommu_iotlb_flush/iommu_iotlb_flush_all will be explicitly called by
+> - * the caller.
+> + * avoid unnecessary IOMMU flushing while updating the P2M.
+> + * Setting the value to true will cause iommu_iotlb_flush() to return without
+> + * actually performing a flush. A batch flush must therefore be done by the
+> + * calling code after setting the value back to false.
 
---------------1EED04DB54FFE24301D417DA--
+I guess this too was in need of updating with the v9 changes?
 
---tu9tYuq12ieXBY65NuByCg9Pgwae9UW5K--
-
---qFJVFUWfoJ3GRGmlv25OVTUGcA1OgIM2c
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/BD4sFAwAAAAAACgkQsN6d1ii/Ey8r
-DQf+IDpivk4Wp9bZNtf+YBYCdJI7fIp/G9OQ7a7qtIWc5Hqj38BSwpFrve78Uuzjaz59dxixM+QA
-enLUSrl2RT0XgkDEjlNrOGGjtBJYODbRufAFoDUoqN7YP29WtYzQLMreBdsRyZlja5CzQqKyR56w
-0IaFimrafWwNFhvcMbuUcKKVmOZ6V7d1VjKvlxvJ5o71zZjPhxCPhpM1/YePrIHKm4yPTUAE4A0q
-YJ/Fge8FfQf2svgLmhZ0N3yX7ivZk4dIKwgFXSpW8S24Wyrm/qvXKxqadBU3h08vpa6al7i7u9LB
-hq9GZ4A1pMt27SLvqTgQCTbgafY2rVdKsGnRTbQMuQ==
-=yu8P
------END PGP SIGNATURE-----
-
---qFJVFUWfoJ3GRGmlv25OVTUGcA1OgIM2c--
+Jan
 
