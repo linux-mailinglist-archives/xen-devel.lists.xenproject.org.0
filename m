@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9D42C61D5
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 10:37:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.38790.71905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80DC92C62F8
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 11:24:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.39133.71923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiaBa-0001PN-BT; Fri, 27 Nov 2020 09:37:02 +0000
+	id 1kiau5-00060w-6U; Fri, 27 Nov 2020 10:23:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 38790.71905; Fri, 27 Nov 2020 09:37:02 +0000
+Received: by outflank-mailman (output) from mailman id 39133.71923; Fri, 27 Nov 2020 10:23:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,192 +23,159 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kiaBa-0001Oy-8I; Fri, 27 Nov 2020 09:37:02 +0000
-Received: by outflank-mailman (input) for mailman id 38790;
- Thu, 26 Nov 2020 16:18:32 +0000
+	id 1kiau5-00060W-2o; Fri, 27 Nov 2020 10:23:01 +0000
+Received: by outflank-mailman (input) for mailman id 39133;
+ Fri, 27 Nov 2020 10:22:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QDyK=FA=redhat.com=kherbst@srs-us1.protection.inumbo.net>)
- id 1kiJyZ-0007gu-Ux
- for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 16:18:32 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id fe4b196e-02ab-4885-9a13-c0a768cb4fad;
- Thu, 26 Nov 2020 16:18:31 +0000 (UTC)
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-422-Vyb3LmvEO0yCfU3IWWKsNg-1; Thu, 26 Nov 2020 11:18:25 -0500
-Received: by mail-qt1-f198.google.com with SMTP id i20so1507587qtr.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Nov 2020 08:18:25 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=rmeX=FB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kiau3-00060R-Nk
+ for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 10:22:59 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0d2630ba-47fd-4d95-a9dd-11a1eb657d8c;
+ Fri, 27 Nov 2020 10:22:58 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C728DAC2F;
+ Fri, 27 Nov 2020 10:22:57 +0000 (UTC)
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=QDyK=FA=redhat.com=kherbst@srs-us1.protection.inumbo.net>)
-	id 1kiJyZ-0007gu-Ux
-	for xen-devel@lists.xenproject.org; Thu, 26 Nov 2020 16:18:32 +0000
-X-Inumbo-ID: fe4b196e-02ab-4885-9a13-c0a768cb4fad
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
-	by us1-rack-iad1.inumbo.com (Halon) with ESMTP
-	id fe4b196e-02ab-4885-9a13-c0a768cb4fad;
-	Thu, 26 Nov 2020 16:18:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606407510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	(envelope-from <SRS0=rmeX=FB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+	id 1kiau3-00060R-Nk
+	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 10:22:59 +0000
+X-Inumbo-ID: 0d2630ba-47fd-4d95-a9dd-11a1eb657d8c
+Received: from mx2.suse.de (unknown [195.135.220.15])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 0d2630ba-47fd-4d95-a9dd-11a1eb657d8c;
+	Fri, 27 Nov 2020 10:22:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606472577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IL7sPB68gF1YeWIUFuBJ//YIBDjI3bDL6qHHKubt/Z0=;
-	b=IOmhlXVU0SbnGpY3BpOTvOF5fmmL+x3dr/igY6NQi8P5VRvzaBx7rYihsMQLnr/2wjS5ls
-	lvhWzMsvGVZbuOMadN8VodSqXyxvXgSytlwV2pfW04pV/KU13GU2/Vlnjpaju/SpxStUa5
-	Ap4HVqPWBmDJjfj+VUMbgiAsQoaIc4c=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-422-Vyb3LmvEO0yCfU3IWWKsNg-1; Thu, 26 Nov 2020 11:18:25 -0500
-X-MC-Unique: Vyb3LmvEO0yCfU3IWWKsNg-1
-Received: by mail-qt1-f198.google.com with SMTP id i20so1507587qtr.0
-        for <xen-devel@lists.xenproject.org>; Thu, 26 Nov 2020 08:18:25 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=IL7sPB68gF1YeWIUFuBJ//YIBDjI3bDL6qHHKubt/Z0=;
-        b=G9dZgy+hfboKxAn7QJxMH5KrbOZlac7s/hADSv6HCM9jLk8BdlI+STFTz59JPgnZhQ
-         TO+kppUWlqYVE5JoDI+y+S9rbPVsS7iokVTh78U1V1nRBJrz1M3UdI9fvwd1hGFzQuv3
-         5ULRe/baZgsE3nXebw2V0UT7/jzcUelIbO3tvv3DwlSAwoGo0WWVqMEGqJ2NvHzfrseX
-         YJOuhTfERtJRU+oZpdDGDao0tIOeU98Fw/ZD+RrGsnX/tHa4lsCvGwXSzTgr0kjpLrrI
-         VnKkFCFGExnDa1AMropwgsXQ473ydc+HwT2/cc9fdAsvUl9qiKBbwNnwHJINbywtZgjf
-         ERjA==
-X-Gm-Message-State: AOAM530L0RUvp4fm8RTjHhox3TVlqXeNjO4gcHS/yDl8HOZ/SJbm5Eia
-	0fKjZvnj0UmaHHNBwd9UGv8kDl1CA7xvV2uxthCHSkdKphkM3byDMCrs0jYWFnLPIMLv8Zr2hAd
-	KtH/hgTxfv8AFEFT9fboH8ywC2veyJg+T/YwoeGR8yAc=
-X-Received: by 2002:a37:ac8:: with SMTP id 191mr3793961qkk.381.1606407504845;
-        Thu, 26 Nov 2020 08:18:24 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzCU4CKAolN2PpaYdMoKCHma/+NC3lHjkQkQkRPTWC20j3rANbYTTy+FG9V7n634RRlgf0kcsxPjR4LO+NB5fA=
-X-Received: by 2002:a37:ac8:: with SMTP id 191mr3793888qkk.381.1606407504531;
- Thu, 26 Nov 2020 08:18:24 -0800 (PST)
+	bh=DRWyPz7nptY60EVFk7sxsNcVyrTPLHy7zKH/6dyJ0rQ=;
+	b=d/ZFS/W/0lZAu+tLiDjBIm02M1rICaaoXDLBNBVNj2ZMXOx0FjBj5zqx1o2bBGa1WLg0JH
+	mlPk4LTf6WqACva8+5rdZt7IuWvhhGRE5VTf0LQ3nTmtrYyCBJA+od6JFzcnFmudZbBkM1
+	yUto/Up/4vGpsKBmrhWjrrfNjBwB+Qs=
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id C728DAC2F;
+	Fri, 27 Nov 2020 10:22:57 +0000 (UTC)
+Subject: Re: [PATCH] xen/x86: Work around Clang code generation bug with asm
+ parameters
+From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20201111124512.2268-1-andrew.cooper3@citrix.com>
+ <8282790a-a0bd-1d33-d992-9d194766254e@suse.com>
+ <3ecb8469-8504-054a-078d-4bf32f8f82c4@citrix.com>
+ <cfc7ad85-22b3-701f-f1d8-5009e5262b92@suse.com>
+Message-ID: <539850cd-9e59-a07f-9c9f-ddf9fc28f203@suse.com>
+Date: Fri, 27 Nov 2020 11:22:58 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-References: <cover.1605896059.git.gustavoars@kernel.org> <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook> <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook> <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
- <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
- <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
- <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
- <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
- <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
- <CANiq72kqO=bYMJnFS2uYRpgWATJ=uXxZuNUsTXT+3aLtrpnzvQ@mail.gmail.com>
- <44005bde-f6d4-5eaa-39b8-1a5efeedb2d3@gmail.com> <CANiq72nobq=ptWK-qWxU91JHqkKhMcRtJNnw2XJd5-vSJWZd8Q@mail.gmail.com>
- <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
-In-Reply-To: <CAMuHMdV5kOakvZJMWLxbpigFPS+Xuw6DVYsWCWZy7wGsv3idcw@mail.gmail.com>
-From: Karol Herbst <kherbst@redhat.com>
-Date: Thu, 26 Nov 2020 17:18:13 +0100
-Message-ID: <CACO55tsBj3gLECoMWtViDitd7fVTnW+Cp0LVmqYkR=QFBJkEmQ@mail.gmail.com>
-Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
-	ALSA Development Mailing List <alsa-devel@alsa-project.org>, bridge@lists.linux-foundation.org, 
-	target-devel <target-devel@vger.kernel.org>, linux-iio@vger.kernel.org, 
-	linux-wireless <linux-wireless@vger.kernel.org>, Linux MMC List <linux-mmc@vger.kernel.org>, 
-	Linux Fbdev development list <linux-fbdev@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>, 
-	virtualization@lists.linux-foundation.org, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, linux-ide@vger.kernel.org, 
-	dm-devel@redhat.com, keyrings@vger.kernel.org, 
-	MTD Maling List <linux-mtd@lists.infradead.org>, GR-everest-linux-l2@marvell.com, 
-	wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org, 
-	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org, 
-	Lars Ellenberg <drbd-dev@lists.linbit.com>, driverdevel <devel@driverdev.osuosl.org>, 
-	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com, 
-	scsi <linux-scsi@vger.kernel.org>, 
-	ACPI Devel Maling List <linux-acpi@vger.kernel.org>, linux-rdma <linux-rdma@vger.kernel.org>, 
-	oss-drivers@netronome.com, linux-atm-general@lists.sourceforge.net, 
-	ceph-devel <ceph-devel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, 
-	linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com, 
-	usb-storage@lists.one-eyed-alien.net, coreteam@netfilter.org, 
-	intel-wired-lan@lists.osuosl.org, linux-input <linux-input@vger.kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Ext4 Developers List <linux-ext4@vger.kernel.org>, NetFilter <netfilter-devel@vger.kernel.org>, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, Kees Cook <keescook@chromium.org>, 
-	selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
-	Intel Graphics Development <intel-gfx@lists.freedesktop.org>, linux-sctp@vger.kernel.org, 
-	reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org, 
-	linux-block@vger.kernel.org, 
-	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, op-tee@lists.trustedfirmware.org, 
-	linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org, 
-	Nouveau Dev <nouveau@lists.freedesktop.org>, linux-hams@vger.kernel.org, 
-	Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org, 
-	Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org, 
-	Nick Desaulniers <ndesaulniers@google.com>, 
-	Linux Watchdog Mailing List <linux-watchdog@vger.kernel.org>, GR-Linux-NIC-Dev@marvell.com, 
-	Linux-MM <linux-mm@kvack.org>, Network Development <netdev@vger.kernel.org>, 
-	linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, 
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>, Edward Cree <ecree.xilinx@gmail.com>, 
-	linux-security-module <linux-security-module@vger.kernel.org>, 
-	USB list <linux-usb@vger.kernel.org>, tipc-discussion@lists.sourceforge.net, 
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com, 
-	Joe Perches <joe@perches.com>, linux-integrity <linux-integrity@vger.kernel.org>, 
-	"open list:NFS, SUNRPC, AND..." <linux-nfs@vger.kernel.org>, 
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, linux-hardening@vger.kernel.org
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=kherbst@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <cfc7ad85-22b3-701f-f1d8-5009e5262b92@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 26, 2020 at 4:28 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->
-> Hi Miguel,
->
-> On Thu, Nov 26, 2020 at 3:54 PM Miguel Ojeda
-> <miguel.ojeda.sandonis@gmail.com> wrote:
-> > On Wed, Nov 25, 2020 at 11:44 PM Edward Cree <ecree.xilinx@gmail.com> wrote:
-> > > To make the intent clear, you have to first be certain that you
-> > >  understand the intent; otherwise by adding either a break or a
-> > >  fallthrough to suppress the warning you are just destroying the
-> > >  information that "the intent of this code is unknown".
-> >
-> > If you don't know what the intent of your own code is, then you
-> > *already* have a problem in your hands.
->
-> The maintainer is not necessarily the owner/author of the code, and
-> thus may not know the intent of the code.
->
-> > > or does it flag up code
-> > >  that can be mindlessly "fixed" (in which case the warning is
-> > >  worthless)?  Proponents in this thread seem to be trying to
-> > >  have it both ways.
-> >
-> > A warning is not worthless just because you can mindlessly fix it.
-> > There are many counterexamples, e.g. many
-> > checkpatch/lint/lang-format/indentation warnings, functional ones like
-> > the `if (a = b)` warning...
->
-> BTW, you cannot mindlessly fix the latter, as you cannot know if
-> "(a == b)" or "((a = b))" was intended, without understanding the code
-> (and the (possibly unavailable) data sheet, and the hardware, ...).
->
+On 12.11.2020 09:14, Jan Beulich wrote:
+> On 11.11.2020 21:01, Andrew Cooper wrote:
+>> On 11/11/2020 15:11, Jan Beulich wrote:
+>>> On 11.11.2020 13:45, Andrew Cooper wrote:
+>>>> Clang 9 and later don't handle the clobber of %r10 correctly in
+>>>> _hypercall64_4().  See https://bugs.llvm.org/show_bug.cgi?id=48122
+>>> Are you sure this is a bug?
+>>
+>> Yes.
+>>
+>>>  With ...
+>>>
+>>>>  #define _hypercall64_4(type, hcall, a1, a2, a3, a4)                     \
+>>>>      ({                                                                  \
+>>>> -        long res, tmp__;                                                \
+>>>> -        register long _a4 asm ("r10") = ((long)(a4));                   \
+>>>> +        long res, _a1 = (long)(a1), _a2 = (long)(a2),                   \
+>>>> +            _a3 = (long)(a3);                                           \
+>>>> +        register long _a4 asm ("r10") = (long)(a4);                     \
+>>>>          asm volatile (                                                  \
+>>>>              "call hypercall_page + %c[offset]"                          \
+>>>> -            : "=a" (res), "=D" (tmp__), "=S" (tmp__), "=d" (tmp__),     \
+>>>> -              "=&r" (tmp__) ASM_CALL_CONSTRAINT                         \
+>>> ... this we've requested "any register", while with ...
+>>>
+>>>> -            : [offset] "i" (hcall * 32),                                \
+>>>> -              "1" ((long)(a1)), "2" ((long)(a2)), "3" ((long)(a3)),     \
+>>>> -              "4" (_a4)                                                 \
+>>> ... this we've asked for that specific register to be initialized
+>>> from r10 (and without telling the compiler that r10 is going to
+>>> change).
+>>
+>> Consider applying that same reasoning to "1" instead of "4".  In that
+>> case, a1 would no longer be bound to %rdi.
+> 
+> That's different: "=D" specifies the register, and "1" says "use
+> the same register as input". Whereas, as said, "=&r" says "use
+> any register" with "1" saying "use the same register" and (_a4)
+> specifying where the value is to come from.
+> 
+>> The use of "4" explicitly binds the input and the output, which includes
+>> requiring them to be the same register.
+>>
+>> Furthermore, LLVM tends to consider "not behaving in the same was as
+>> GCC" a bug.
+> 
+> That's a fair statement, but then still the description wants
+> re-wording. Plus of course future gcc is free to change their
+> behavior to that currently observed with clang.
+> 
+> Consider the following example (on an arch where "f" is a
+> floating point register and there are ways to copy directly
+> between GPR and floating point registers:
+> 
+>    int i;
+>    register float f asm("f7") = <input>;
+>    asm("..." : "=r" (i) : "0" (f));
+> 
+> In this case obviously f7 can't be used for i (as it doesn't
+> match "r"). It's merely that the initial value of i is to come
+> from f7. In fact for Arm64 this
+> 
+> extern float flt;
+> 
+> int test(void) {
+> 	int i;
+> 	register float f asm("s7") = flt;
+> 	asm("add %0,%0,5" : "=r" (i) : "0" (f));
+> 	return i;
+> }
+> 
+> behaves exactly as described:
+> 
+> test:
+>         adrp    x0, flt
+>         ldr     s7, [x0, @lo12(flt)]
+>         fmov    w0, s7
+>         add     x0, x0, #5
+>         ret
+> 
+> (Whether fmov is a sensible choice here is a different question;
+> I'd have expected some fcvt*.)
 
-to allow assignments in if statements was clearly a mistake and if you
-need outside information to understand the code, your code is the
-issue already.
+Meanwhile I've realized that I neither need to resort to Arm here,
+nor to floating point, e.g.
 
-> P.S. So far I've stayed out of this thread, as I like it if the compiler
->      flags possible mistakes.  After all I was the one fixing new
->      "may be used uninitialized" warnings thrown up by gcc-4.1, until
->      (a bit later than) support for that compiler was removed...
->
-> Gr{oetje,eeting}s,
->
->                         Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
->
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
+int test2(int in) {
+	int i;
+	register int ri asm("ecx") = in;
+	asm("nop %0" : "=r" (i) : "0" (ri));
+	return i;
+}
 
+You'll find that the resulting code (at -O2; gcc 10.2.0) doesn't
+use %ecx at all - %edi gets moved directly to %eax.
+
+Jan
 
