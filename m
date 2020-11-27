@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8823D2C6ABF
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 18:39:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.39698.72688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 394C02C6BC3
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 19:59:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.39719.72708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kihiG-00036I-F3; Fri, 27 Nov 2020 17:39:16 +0000
+	id 1kiiwu-00029M-Fb; Fri, 27 Nov 2020 18:58:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 39698.72688; Fri, 27 Nov 2020 17:39:16 +0000
+Received: by outflank-mailman (output) from mailman id 39719.72708; Fri, 27 Nov 2020 18:58:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kihiG-00035v-Bp; Fri, 27 Nov 2020 17:39:16 +0000
-Received: by outflank-mailman (input) for mailman id 39698;
- Fri, 27 Nov 2020 17:39:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kiiwu-00028u-BG; Fri, 27 Nov 2020 18:58:28 +0000
+Received: by outflank-mailman (input) for mailman id 39719;
+ Fri, 27 Nov 2020 18:58:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=C3sB=FB=kernel.org=kuba@srs-us1.protection.inumbo.net>)
- id 1kihiE-00035q-RJ
- for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 17:39:14 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 59ba2d25-8ba3-4c99-89a9-d1b31f2d7d23;
- Fri, 27 Nov 2020 17:39:14 +0000 (UTC)
-Received: from kicinski-fedora-pc1c0hjn.DHCP.thefacebook.com (unknown
- [163.114.132.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 04B9621534;
- Fri, 27 Nov 2020 17:39:11 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kiiws-00028h-RG; Fri, 27 Nov 2020 18:58:26 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kiiws-0003ww-L0; Fri, 27 Nov 2020 18:58:26 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kiiws-0006We-CF; Fri, 27 Nov 2020 18:58:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kiiws-0005pR-Bk; Fri, 27 Nov 2020 18:58:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,51 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59ba2d25-8ba3-4c99-89a9-d1b31f2d7d23
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606498753;
-	bh=j1DgY7r0rMQwVPcBNG2W4pflvrkcsR7Nn0kZYvEb2Ss=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=0j8EzUjAKu+0z+mAQUkB3CXGNcEbFYIqENj9gKgasYED6nKNkPWzRrF0o9Zh8bFYY
-	 ufUD4pf3x2fVB0Sf272JPD3mGvgRrWph+5enO8G3pD1njUJDyq7PPaKQC7JJXYshQ8
-	 NXklXCJw7Tl57KnQy271JTtuX5+F9SUf5tUoe6PU=
-Date: Fri, 27 Nov 2020 09:39:11 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>
-Cc: linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, bpf@vger.kernel.org,
- Daniel Borkmann <daniel@iogearbox.net>, Dany Madden <drt@linux.ibm.com>,
- Daris A Nevil <dnevil@snmc.com>, "David S. Miller" <davem@davemloft.net>,
- Erik Stahlman <erik@vt.edu>, Geoff Levand <geoff@infradead.org>, Grygorii
- Strashko <grygorii.strashko@ti.com>, "Gustavo A. R. Silva"
- <gustavoars@kernel.org>, Ishizaki Kou <kou.ishizaki@toshiba.co.jp>, Ivan
- Khoronzhuk <ivan.khoronzhuk@linaro.org>, Jens Osterkamp
- <Jens.Osterkamp@de.ibm.com>, Jesper Dangaard Brouer <hawk@kernel.org>, John
- Allen <jallen@linux.vnet.ibm.com>, John Fastabend
- <john.fastabend@gmail.com>, Kurt Kanzenbach <kurt@linutronix.de>, Lijun Pan
- <ljp@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, Michael Ellerman
- <mpe@ellerman.id.au>, netdev@vger.kernel.org, Nicolas Pitre
- <nico@fluxnic.net>, Paul Durrant <paul@xen.org>, Paul Mackerras
- <paulus@samba.org>, Peter Cammaert <pc@denkart.be>, Russell King
- <rmk@arm.linux.org.uk>, Rusty Russell <rusty@rustcorp.com.au>, Santiago
- Leon <santi_leon@yahoo.com>, Sukadev Bhattiprolu <sukadev@linux.ibm.com>,
- Thomas Falcon <tlfalcon@linux.vnet.ibm.com>, Utz Bacher
- <utz.bacher@de.ibm.com>, Wei Liu <wei.liu@kernel.org>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 0/8] Rid W=1 warnings in Net
-Message-ID: <20201127093911.05d9122a@kicinski-fedora-pc1c0hjn.DHCP.thefacebook.com>
-In-Reply-To: <20201126133853.3213268-1-lee.jones@linaro.org>
-References: <20201126133853.3213268-1-lee.jones@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=4AhP6P1n3xEvHpsSBVbHhAX//y03xlTQKzjsiPb0jgI=; b=KX9qhstytWw7xw/Zu9WkpXwlSk
+	BxPG4gJ1THxQ6H+Jp3vQi84HJ3lfc+cAJS2h9GpyInEnrQbhgpkmx39DC5jwRjM9Wnw5RV3hJ23Ob
+	6+Ze4XdlB0lGDSCsF+wvb2DAuSEp4OgSVkkHuoioUfomaz4ZpRp/ynZFlWJEmjq36tao=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157055-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 157055: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=73b604bb1e13ff915c523180979f7b4db34b6d1b
+X-Osstest-Versions-That:
+    ovmf=872f953262d68a11da7bc2fb3ded16df234b8700
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 27 Nov 2020 18:58:26 +0000
 
-On Thu, 26 Nov 2020 13:38:45 +0000 Lee Jones wrote:
-> Resending the stragglers.
-> 
-> This set is part of a larger effort attempting to clean-up W=1
-> kernel builds, which are currently overwhelmingly riddled with
-> niggly little warnings.
+flight 157055 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157055/
 
-This set doesn't apply to net-next, please rebase.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 73b604bb1e13ff915c523180979f7b4db34b6d1b
+baseline version:
+ ovmf                 872f953262d68a11da7bc2fb3ded16df234b8700
+
+Last test of basis   157042  2020-11-27 01:41:56 Z    0 days
+Testing same since   157055  2020-11-27 17:09:39 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
+  Peter Grehan <grehan@freebsd.org>
+  Rebecca Cran <rebecca@bsdio.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   872f953262..73b604bb1e  73b604bb1e13ff915c523180979f7b4db34b6d1b -> xen-tested-master
 
