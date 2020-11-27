@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5592B2C690D
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 17:03:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.39614.72562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6FD32C691A
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 17:07:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.39623.72574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kigCR-0001eo-SP; Fri, 27 Nov 2020 16:02:19 +0000
+	id 1kigHI-0001rP-FQ; Fri, 27 Nov 2020 16:07:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 39614.72562; Fri, 27 Nov 2020 16:02:19 +0000
+Received: by outflank-mailman (output) from mailman id 39623.72574; Fri, 27 Nov 2020 16:07:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,177 +23,120 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kigCR-0001eP-Oj; Fri, 27 Nov 2020 16:02:19 +0000
-Received: by outflank-mailman (input) for mailman id 39614;
- Fri, 27 Nov 2020 16:02:18 +0000
+	id 1kigHI-0001qz-C7; Fri, 27 Nov 2020 16:07:20 +0000
+Received: by outflank-mailman (input) for mailman id 39623;
+ Fri, 27 Nov 2020 16:07:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rmeX=FB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kigCQ-0001eK-2Y
- for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 16:02:18 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ab2b01bc-604a-4af7-97c8-a92a590696a8;
- Fri, 27 Nov 2020 16:02:16 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C230CAC2D;
- Fri, 27 Nov 2020 16:02:15 +0000 (UTC)
+ (envelope-from <SRS0=3FF1=FB=redhat.com=trix@srs-us1.protection.inumbo.net>)
+ id 1kigHG-0001qs-Bp
+ for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 16:07:18 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 85f75f21-a658-4529-8fb8-386dfb0ae8ae;
+ Fri, 27 Nov 2020 16:07:16 +0000 (UTC)
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-101-BwW6imh3OGuofZcwe0icgA-1; Fri, 27 Nov 2020 11:07:14 -0500
+Received: by mail-qv1-f69.google.com with SMTP id v8so3324981qvq.12
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Nov 2020 08:07:14 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id u22sm6252620qkk.51.2020.11.27.08.07.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Nov 2020 08:07:13 -0800 (PST)
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=rmeX=FB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kigCQ-0001eK-2Y
-	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 16:02:18 +0000
-X-Inumbo-ID: ab2b01bc-604a-4af7-97c8-a92a590696a8
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id ab2b01bc-604a-4af7-97c8-a92a590696a8;
-	Fri, 27 Nov 2020 16:02:16 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606492935; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NgfoAm+mF4Fjgn0c434j7wnv4MDSiRf0c2pqPYGz+fk=;
-	b=tCK8Xcd4QZVmFex0+IWp0UgsWwwdhgT5toB3QMvcareGeoggQr5ZAYwpzJhC1yrCLVeCko
-	e2ravUv8RG587zJKI8i15VjkOHRKRAulwBDsq21lXo++KBElPKu1gg/dzOl1F+ZSUAH2O+
-	CJkKT5mD7GIdP2IcVEXlGfRJ1ItBQTg=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id C230CAC2D;
-	Fri, 27 Nov 2020 16:02:15 +0000 (UTC)
-Subject: Re: [PATCH v10 7/7] vtd: use a bit field for dma_pte
-To: Paul Durrant <paul@xen.org>, Kevin Tian <kevin.tian@intel.com>
-Cc: Paul Durrant <pdurrant@amazon.com>, xen-devel@lists.xenproject.org
-References: <20201120132440.1141-1-paul@xen.org>
- <20201120132440.1141-8-paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <24774b4e-3ae8-2941-24ee-722acea69657@suse.com>
-Date: Fri, 27 Nov 2020 17:02:17 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
-MIME-Version: 1.0
-In-Reply-To: <20201120132440.1141-8-paul@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+	(envelope-from <SRS0=3FF1=FB=redhat.com=trix@srs-us1.protection.inumbo.net>)
+	id 1kigHG-0001qs-Bp
+	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 16:07:18 +0000
+X-Inumbo-ID: 85f75f21-a658-4529-8fb8-386dfb0ae8ae
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+	by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+	id 85f75f21-a658-4529-8fb8-386dfb0ae8ae;
+	Fri, 27 Nov 2020 16:07:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1606493236;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type;
+	bh=TsMD7b3MnWExoEfBuHmM8Gy0J5MPvPWD/mFWcwpBdWg=;
+	b=CkShzpfcPmuV2PZI7PvezdHXAMKEvddi22lMdvyp1ZhtJquNWD2zYm8aTUx/BlFL71/m6E
+	B+6HLg9ZB7JPw3nVq47ohzpnti5TFcj3FbHNE4//1PInz2VnkCXBnHArZsz8A8tl1BzTFj
+	qNBkv4OdnpDJ8B6B6Sl625k5fN7X0Rg=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-101-BwW6imh3OGuofZcwe0icgA-1; Fri, 27 Nov 2020 11:07:14 -0500
+X-MC-Unique: BwW6imh3OGuofZcwe0icgA-1
+Received: by mail-qv1-f69.google.com with SMTP id v8so3324981qvq.12
+        for <xen-devel@lists.xenproject.org>; Fri, 27 Nov 2020 08:07:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=TsMD7b3MnWExoEfBuHmM8Gy0J5MPvPWD/mFWcwpBdWg=;
+        b=F/7np+AnStIztfaA1dPYzlsCEqqYmlhIUnjfOIhaYfPWjecyZjGg2weN7R2h8kV4PC
+         iq4Q9rR7hLny54mhHNClRNFZAYnvKjEjWb3ycBZBFUHxhgIGU0hYQ6fTonzN7BHQLdxm
+         OVU5LQbhwNIXjI0eXleDfzDUfSkPXS+9W72+l9JOR7EtcesUxTeU3igNuaPB/Ii2GkHK
+         d7SAoyhcqG/LNis883TMnNwf4UqcrXL8paQmXgcNUKyijyUvR0JVZHbDamoXn7uP02B4
+         bgpFjKm7wSfl1teQzSuiL4PBYMc8Q6n2gsDy3c9YHBpbmAS3Z/t+G1WiC4LZbTn+2Knu
+         Y37g==
+X-Gm-Message-State: AOAM533nULVoQHKxtUtjdCHikgLPlBZKEk/xvG/+621p02GfwVdU73PI
+	g49jMY0+pSLxzcBNHE/2I/byd5wh0Mt2McaX+S8OerMfE+4PVqMZvZi1oZ6TQ+SadyVRopJ6nea
+	ADh3Lsk3UqX27/gK7JYBjCt/XbCU=
+X-Received: by 2002:ac8:5059:: with SMTP id h25mr8937155qtm.283.1606493234320;
+        Fri, 27 Nov 2020 08:07:14 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJy+zzViQ6Rqk2DxgBkqfwyhjs9VcRi7Mngdgz9bSSxFH/DfJqKgsYTy1Dp2gQ9sUoRbMvjYaw==
+X-Received: by 2002:ac8:5059:: with SMTP id h25mr8937129qtm.283.1606493234096;
+        Fri, 27 Nov 2020 08:07:14 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com. [75.142.250.213])
+        by smtp.gmail.com with ESMTPSA id u22sm6252620qkk.51.2020.11.27.08.07.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 27 Nov 2020 08:07:13 -0800 (PST)
+From: trix@redhat.com
+To: boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	sstabellini@kernel.org,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	hpa@zytor.com
+Cc: x86@kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	Tom Rix <trix@redhat.com>
+Subject: [PATCH] xen: remove trailing semicolon in macro definition
+Date: Fri, 27 Nov 2020 08:07:07 -0800
+Message-Id: <20201127160707.2622061-1-trix@redhat.com>
+X-Mailer: git-send-email 2.18.4
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="US-ASCII"
 
-On 20.11.2020 14:24, Paul Durrant wrote:
-> @@ -709,20 +709,23 @@ static void dma_pte_clear_one(struct domain *domain, uint64_t addr,
->      page = (struct dma_pte *)map_vtd_domain_page(pg_maddr);
->      pte = page + address_level_offset(addr, 1);
->  
-> -    if ( !dma_pte_present(*pte) )
-> +    if ( !pte->r && !pte->w )
+From: Tom Rix <trix@redhat.com>
 
-I think dma_pte_present() wants to stay, so we would have to touch
-only one place when adding support for x.
+The macro use will already have a semicolon.
 
->      {
->          spin_unlock(&hd->arch.mapping_lock);
->          unmap_vtd_domain_page(page);
->          return;
->      }
->  
-> -    dma_clear_pte(*pte);
-> -    *flush_flags |= IOMMU_FLUSHF_modified;
-> +    pte->r = pte->w = false;
-> +    smp_wmb();
-> +    pte->val = 0;
->  
->      spin_unlock(&hd->arch.mapping_lock);
->      iommu_sync_cache(pte, sizeof(struct dma_pte));
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ arch/x86/include/asm/xen/page.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Just as an observation - in an earlier patch I think there was a
-code sequence having these the other way around. I think we want
-to settle one one way of doing this (flush then unlock, or unlock
-then flush). Kevin?
+diff --git a/arch/x86/include/asm/xen/page.h b/arch/x86/include/asm/xen/page.h
+index 5941e18edd5a..1a162e559753 100644
+--- a/arch/x86/include/asm/xen/page.h
++++ b/arch/x86/include/asm/xen/page.h
+@@ -355,7 +355,7 @@ unsigned long arbitrary_virt_to_mfn(void *vaddr);
+ void make_lowmem_page_readonly(void *vaddr);
+ void make_lowmem_page_readwrite(void *vaddr);
+ 
+-#define xen_remap(cookie, size) ioremap((cookie), (size));
++#define xen_remap(cookie, size) ioremap((cookie), (size))
+ #define xen_unmap(cookie) iounmap((cookie))
+ 
+ static inline bool xen_arch_need_swiotlb(struct device *dev,
+-- 
+2.18.4
 
-> @@ -1775,15 +1778,12 @@ static int __must_check intel_iommu_map_page(struct domain *d, dfn_t dfn,
->      page = (struct dma_pte *)map_vtd_domain_page(pg_maddr);
->      pte = &page[dfn_x(dfn) & LEVEL_MASK];
->      old = *pte;
-> -
-> -    dma_set_pte_addr(new, mfn_to_maddr(mfn));
-> -    dma_set_pte_prot(new,
-> -                     ((flags & IOMMUF_readable) ? DMA_PTE_READ  : 0) |
-> -                     ((flags & IOMMUF_writable) ? DMA_PTE_WRITE : 0));
-> -
-> -    /* Set the SNP on leaf page table if Snoop Control available */
-> -    if ( iommu_snoop )
-> -        dma_set_pte_snp(new);
-> +    new = (struct dma_pte){
-> +        .r = flags & IOMMUF_readable,
-> +        .w = flags & IOMMUF_writable,
-> +        .snp = iommu_snoop,
-> +        .addr = mfn_x(mfn),
-> +    };
-
-We still haven't settled on a newer gcc baseline, so this kind of
-initializer is still not allowed (as in: will break the build) for
-struct-s with unnamed sub-struct-s / sub-union-s.
-
-> @@ -2611,18 +2611,18 @@ static void vtd_dump_page_table_level(paddr_t pt_maddr, int level, paddr_t gpa,
->              process_pending_softirqs();
->  
->          pte = &pt_vaddr[i];
-> -        if ( !dma_pte_present(*pte) )
-> +        if ( !pte->r && !pte->w )
->              continue;
->  
->          address = gpa + offset_level_address(i, level);
->          if ( next_level >= 1 ) 
-> -            vtd_dump_page_table_level(dma_pte_addr(*pte), next_level,
-> +            vtd_dump_page_table_level(pfn_to_paddr(pte->addr), next_level,
->                                        address, indent + 1);
->          else
->              printk("%*sdfn: %08lx mfn: %08lx\n",
->                     indent, "",
->                     (unsigned long)(address >> PAGE_SHIFT_4K),
-> -                   (unsigned long)(dma_pte_addr(*pte) >> PAGE_SHIFT_4K));
-> +                   (unsigned long)(pte->addr));
-
-Could you also drop the no longer needed pair of parentheses. I
-further suspect the cast isn't needed (anymore?). (Otoh I think
-I recall oddities with gcc's printf()-style format checking and
-direct passing of bitfields. But if that's a problem, I think
-one of the earlier ones already introduced such an issue. So
-perhaps we can wait until someone actually confirms there is an
-issue - quite likely this someone would be me anyway.)
-
-> --- a/xen/drivers/passthrough/vtd/iommu.h
-> +++ b/xen/drivers/passthrough/vtd/iommu.h
-> @@ -244,38 +244,21 @@ struct context_entry {
->  #define level_size(l) (1 << level_to_offset_bits(l))
->  #define align_to_level(addr, l) ((addr + level_size(l) - 1) & level_mask(l))
->  
-> -/*
-> - * 0: readable
-> - * 1: writable
-> - * 2-6: reserved
-> - * 7: super page
-> - * 8-11: available
-> - * 12-63: Host physcial address
-> - */
->  struct dma_pte {
-> -    u64 val;
-> +    union {
-> +        uint64_t val;
-> +        struct {
-> +            bool r:1;
-> +            bool w:1;
-> +            unsigned int reserved0:1;
-> +            unsigned int ignored0:4;
-> +            bool ps:1;
-> +            unsigned int ignored1:3;
-> +            bool snp:1;
-> +            uint64_t addr:52;
-
-As per the doc I look at this extends only to bit 51 at most.
-Above are 11 ignored bits and (in leaf entries) the TM one.
-
-Considering the differences between leaf and intermediate
-entries, perhaps leaf-only fields could gain a brief comment?
-
-Jan
 
