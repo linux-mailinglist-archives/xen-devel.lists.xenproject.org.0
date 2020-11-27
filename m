@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EC4E2C679D
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 15:15:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.39448.72368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C09842C67A3
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 15:16:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.39455.72380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kieWJ-00066v-Gd; Fri, 27 Nov 2020 14:14:43 +0000
+	id 1kieY4-0006FH-UR; Fri, 27 Nov 2020 14:16:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 39448.72368; Fri, 27 Nov 2020 14:14:43 +0000
+Received: by outflank-mailman (output) from mailman id 39455.72380; Fri, 27 Nov 2020 14:16:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,329 +23,260 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kieWJ-00066W-DP; Fri, 27 Nov 2020 14:14:43 +0000
-Received: by outflank-mailman (input) for mailman id 39448;
- Fri, 27 Nov 2020 14:14:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hQCY=FB=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kieWI-00066R-IH
- for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 14:14:42 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c3c6a597-7eab-4853-ae5a-18c82f6f59e7;
- Fri, 27 Nov 2020 14:14:40 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7D786AE59;
- Fri, 27 Nov 2020 14:14:39 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+	id 1kieY4-0006Es-QQ; Fri, 27 Nov 2020 14:16:32 +0000
+Received: by outflank-mailman (input) for mailman id 39455;
+ Fri, 27 Nov 2020 14:16:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4e3U=FB=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1kieY2-0006El-Ow
+ for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 14:16:30 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe0c::629])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 03b2ded8-b195-4968-962f-f50f5cb89304;
+ Fri, 27 Nov 2020 14:16:28 +0000 (UTC)
+Received: from DB6P192CA0020.EURP192.PROD.OUTLOOK.COM (2603:10a6:4:b8::30) by
+ DB7PR08MB3500.eurprd08.prod.outlook.com (2603:10a6:10:49::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.30; Fri, 27 Nov 2020 14:16:26 +0000
+Received: from DB5EUR03FT023.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:b8:cafe::95) by DB6P192CA0020.outlook.office365.com
+ (2603:10a6:4:b8::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20 via Frontend
+ Transport; Fri, 27 Nov 2020 14:16:26 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT023.mail.protection.outlook.com (10.152.20.68) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3611.26 via Frontend Transport; Fri, 27 Nov 2020 14:16:25 +0000
+Received: ("Tessian outbound d6c201accd3c:v71");
+ Fri, 27 Nov 2020 14:16:25 +0000
+Received: from 9db9305aa0c5.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ E599E4C9-2682-4465-B3E7-38381134B81A.1; 
+ Fri, 27 Nov 2020 14:16:08 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 9db9305aa0c5.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 27 Nov 2020 14:16:08 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DB7PR08MB3386.eurprd08.prod.outlook.com (2603:10a6:10:46::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Fri, 27 Nov
+ 2020 14:16:07 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0%7]) with mapi id 15.20.3589.031; Fri, 27 Nov 2020
+ 14:16:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
-	(envelope-from <SRS0=hQCY=FB=suse.com=jgross@srs-us1.protection.inumbo.net>)
-	id 1kieWI-00066R-IH
-	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 14:14:42 +0000
-X-Inumbo-ID: c3c6a597-7eab-4853-ae5a-18c82f6f59e7
-Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id c3c6a597-7eab-4853-ae5a-18c82f6f59e7;
-	Fri, 27 Nov 2020 14:14:40 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606486479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=H5+j1VjDw3rrB9Y/+RHthiScLa1UYvpUqJE4Gf0S3c8=;
-	b=ZZv7G1rel6+JicX1h3L7eZiGoJfdjE+fR9vMYivS52mViznlH5kZPcq9UlZALTZnpPnGIJ
-	yVtDLZKtAgf/hvRYOBnDipA2PwkCWBe+f9ZC/zzC1rhR7bhxNJ5v7sC+aiTp8qNhm9cnxF
-	0Uf9Fq9kz9rU8BpFUFgGcJeTYF0uTq0=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 7D786AE59;
-	Fri, 27 Nov 2020 14:14:39 +0000 (UTC)
-Subject: Re: [PATCH v8 2/3] xen/events: rework fifo queue locking
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20201125105122.3650-1-jgross@suse.com>
- <20201125105122.3650-3-jgross@suse.com>
- <e60e4fce-8c1b-013a-9ec2-20bd2c930619@xen.org>
- <2b099865-647c-3d47-1510-d429c2a4b6c6@suse.com>
- <5f04e881-915f-e2b7-6af3-459af614f8ca@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <c9a8e879-ff55-3fbc-41ab-df836c76be9f@suse.com>
-Date: Fri, 27 Nov 2020 15:14:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-MIME-Version: 1.0
-In-Reply-To: <5f04e881-915f-e2b7-6af3-459af614f8ca@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="JiVqM4SgNy2AnUH7mGNfPgRFTpbJhjfKn"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---JiVqM4SgNy2AnUH7mGNfPgRFTpbJhjfKn
-Content-Type: multipart/mixed; boundary="eAbuZ8bV7zg10jJcjKm4fWQLNyHd3MJez";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <c9a8e879-ff55-3fbc-41ab-df836c76be9f@suse.com>
-Subject: Re: [PATCH v8 2/3] xen/events: rework fifo queue locking
-References: <20201125105122.3650-1-jgross@suse.com>
- <20201125105122.3650-3-jgross@suse.com>
- <e60e4fce-8c1b-013a-9ec2-20bd2c930619@xen.org>
- <2b099865-647c-3d47-1510-d429c2a4b6c6@suse.com>
- <5f04e881-915f-e2b7-6af3-459af614f8ca@xen.org>
-In-Reply-To: <5f04e881-915f-e2b7-6af3-459af614f8ca@xen.org>
-
---eAbuZ8bV7zg10jJcjKm4fWQLNyHd3MJez
-Content-Type: multipart/mixed;
- boundary="------------143C760AC2AC5CBECD35C408"
+	(envelope-from <SRS0=4e3U=FB=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+	id 1kieY2-0006El-Ow
+	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 14:16:30 +0000
+X-Inumbo-ID: 03b2ded8-b195-4968-962f-f50f5cb89304
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown [2a01:111:f400:fe0c::629])
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 03b2ded8-b195-4968-962f-f50f5cb89304;
+	Fri, 27 Nov 2020 14:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W0lKqdAxGV52KUnfN/GqFWuaEaMQkLORmFiAeJApcIQ=;
+ b=eQrirgNQTZCdugX6/wtQMGbkPqYJSELONm1xogfD1qDCA4oDDofSiX9g/keGdo4hIZNwqMmZJOw7P5WA6Y99/Kir9xR0DIPdhOL5BhAx9nis9HR+0guntmc49tDfBaOEaHZUJNXkB2/GEuOMt6kn2tPTceLrhfkZ0NVecHJCF2g=
+Received: from DB6P192CA0020.EURP192.PROD.OUTLOOK.COM (2603:10a6:4:b8::30) by
+ DB7PR08MB3500.eurprd08.prod.outlook.com (2603:10a6:10:49::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.30; Fri, 27 Nov 2020 14:16:26 +0000
+Received: from DB5EUR03FT023.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:b8:cafe::95) by DB6P192CA0020.outlook.office365.com
+ (2603:10a6:4:b8::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.20 via Frontend
+ Transport; Fri, 27 Nov 2020 14:16:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT023.mail.protection.outlook.com (10.152.20.68) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3611.26 via Frontend Transport; Fri, 27 Nov 2020 14:16:25 +0000
+Received: ("Tessian outbound d6c201accd3c:v71"); Fri, 27 Nov 2020 14:16:25 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 77f8d2eac79d42e1
+X-CR-MTA-TID: 64aa7808
+Received: from 9db9305aa0c5.2
+	by 64aa7808-outbound-1.mta.getcheckrecipient.com id E599E4C9-2682-4465-B3E7-38381134B81A.1;
+	Fri, 27 Nov 2020 14:16:08 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 9db9305aa0c5.2
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Fri, 27 Nov 2020 14:16:08 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Q3Ojk0qwf0TjDwXTritXeAoQsb9dnHqwh0S0d1hXLc/sBh2Zz2R54nmape5DmbzvCUkbU7qKuGm5WDIF0CRkVAPFqIYtCO/a8TtTMk2Aa16gQ8aIuYJ756NyTp3Wcr6aOas3BT47YZD3o98io6vQKZ9XpQ0sFyQDOAvUwSkKiUOcwKPE0RuQtCm/8RtXG7BtqK11vxdADoqEfUgWsTvWiJO2GoNzOWwHC29kygudl7uCt0XCWhwgx+SUJJoFJbewkeHdVIhGD7IzQn7rZV0GQmDd4WeCBrdqC7wgy2HqNCN2wD9PpB/65yGKHJshS6gyqjy429gBc1FeAmPzizPN8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W0lKqdAxGV52KUnfN/GqFWuaEaMQkLORmFiAeJApcIQ=;
+ b=nD4rlL53D1vCW9mkwPmjKwojUXt+yyE/dxYJGOZFHnjeTz7aFylK88NmSZsiuvVkS4BlM530Z1RI9x6hoUDlZJFtJC9fNQGXLo6Cn4GYw8PsVQ9Ld5ygqYs0tzXVA6ACuv/nAvDK92rMgNDfEvh8Q/Lf/N6YuRWYCJqLIjoYUCi/eDYXMOcKc+7jt77kidn2v3EHCBiXuSKeuuXdOMXRIZ0ceyRvL8FVNmXrmies8W8x4gm5CS0y6RcChp3GUzPRYbyrL+mHRRzl6xZ71oV+ImgGpTIKjlWBJnuZG8Km7wZBDrEHlfdGrJr6IfyKUkeQjBPTz7RNJbgF6xdkHHjXww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W0lKqdAxGV52KUnfN/GqFWuaEaMQkLORmFiAeJApcIQ=;
+ b=eQrirgNQTZCdugX6/wtQMGbkPqYJSELONm1xogfD1qDCA4oDDofSiX9g/keGdo4hIZNwqMmZJOw7P5WA6Y99/Kir9xR0DIPdhOL5BhAx9nis9HR+0guntmc49tDfBaOEaHZUJNXkB2/GEuOMt6kn2tPTceLrhfkZ0NVecHJCF2g=
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
+ by DB7PR08MB3386.eurprd08.prod.outlook.com (2603:10a6:10:46::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Fri, 27 Nov
+ 2020 14:16:07 +0000
+Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0]) by DB7PR08MB3689.eurprd08.prod.outlook.com
+ ([fe80::8567:dffb:80c1:bc0%7]) with mapi id 15.20.3589.031; Fri, 27 Nov 2020
+ 14:16:07 +0000
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Rahul Singh <Rahul.Singh@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4 3/3] ns16550: Gate all PCI code with CONFIG_X86
+Thread-Topic: [PATCH v4 3/3] ns16550: Gate all PCI code with CONFIG_X86
+Thread-Index: AQHWw1cvptOzj+DOhEKKe2XksTlGiKncBA0AgAAE9oA=
+Date: Fri, 27 Nov 2020 14:16:07 +0000
+Message-ID: <F1A3739A-D07C-429F-AC7B-47F7E2710377@arm.com>
+References: <cover.1606326929.git.rahul.singh@arm.com>
+ <6d64bb35a6ce247faaa3df2ebae27b6bfa1d969e.1606326929.git.rahul.singh@arm.com>
+ <bacfe1c3-d86d-95b2-c52a-4bb86f1338ea@suse.com>
+In-Reply-To: <bacfe1c3-d86d-95b2-c52a-4bb86f1338ea@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------143C760AC2AC5CBECD35C408
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3608.120.23.2.4)
+Authentication-Results-Original: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [82.9.225.195]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 168b1d40-4c00-494d-c6e0-08d892df0697
+x-ms-traffictypediagnostic: DB7PR08MB3386:|DB7PR08MB3500:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<DB7PR08MB35009B0B89885D672CBF408F9DF80@DB7PR08MB3500.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ JkBjaAUY01kxYRk/RvQgtCEcpvatQ45yl3FGdkTCa8WBec0419NiT9nnXICP/1AAGJ82L5tuKycHPJq9j6NhuvP6bKjUnXJOqmLxVv+krWjg2i1vqEZRzXsPs09MFQL4mQStQDzY/TSeHufQecirDZiBgh+96EIWltXURDXQ79WJRl4irPgklmpwamYZqf+O7sxyGHSIaYlecLdUHqcKvcmCd9WnUrLzw2c6vR8i/cqSGMMHDiDS3kXBh/bdYxgudPFG9iXhjj7GF0Pvd8jdZ8zbZP9jRl4x9MLWlp+8/duY75JxCZrx+9aOtYq3rFdfdoCcWm/6LH4RGaQoWZDpcg==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(396003)(39860400002)(366004)(376002)(136003)(2906002)(5660300002)(8676002)(6512007)(6486002)(36756003)(8936002)(6916009)(86362001)(64756008)(66476007)(91956017)(76116006)(66556008)(66446008)(66946007)(4326008)(33656002)(54906003)(71200400001)(186003)(6506007)(53546011)(26005)(478600001)(2616005)(316002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ =?us-ascii?Q?M927DEbGUqAnGTiPl3WDg/SnxvLnwrCR6vfOgFFIxbOeaLIl5MIVIXhgTBAd?=
+ =?us-ascii?Q?TA+QVixn4woItN1Ynn/FYZ0higInnF4spO12g2ntvxgzv/ELYDPrbQG2WGJ1?=
+ =?us-ascii?Q?H6ROVfj45+7TEYFgo4/ttOb7+msTRJxcoTJHhLTULAryoBFm6xrJFhlz4O52?=
+ =?us-ascii?Q?4otn2fsVwHF2gcO60B1fuL/svhjw6yOlP2l2YG3bEePVohlRWmj/v2EGj485?=
+ =?us-ascii?Q?b3xls5b7tJnzxrkU4csH9UxQ6d0cCk3UMvoxxPBDcRHR+pdsLsaoq1hA4QCL?=
+ =?us-ascii?Q?ag5IwxnsBF4c7/epqNPtoKVlaZV4CjT5IzyXeFN7FmfwwAfAWOP4yrP9KmDX?=
+ =?us-ascii?Q?DUwuILy8DhC3zgwbzc2P26kje2qrbu1+4FWr5prNGkUDpTwV5XBk9WcfOj/Z?=
+ =?us-ascii?Q?lNoJ4xMLFnubrvAZIhpbbs8KqOYIekKEcoBN8x3s43s3uCn/+7DTNdvHG6h3?=
+ =?us-ascii?Q?7fF/m9xA6NBmK5B4wjAL1YZPEWydCrE3z/wVtiW7ZVZxqPKnzb4e5pbiwL3e?=
+ =?us-ascii?Q?Y7uDL0vET1DOUyB4UUfC7mbR5ytN7lehVycVmwDxefHaLMnhbG1C48r5rjHu?=
+ =?us-ascii?Q?Wmlrgvcb7sbwdB2WOFM7hhUnCz00YcPtAvycCk8d5CmMSHHV1lczs3Mum+oI?=
+ =?us-ascii?Q?Vul0TTLglIBb41LEdHG+Td+nJEgW3OmUKWZ65nkIXJXtD0+fB18+KdJvlsNN?=
+ =?us-ascii?Q?Za0jLEq0J03jrzSdmj/J+A52HJumJeplPBzCRw42WQlAtfR8Se/FJXqGkLAG?=
+ =?us-ascii?Q?YPM83yCW8svYW9Z9a3HwYGgib/RXQUlCS9994fF+vVnmM4PN8rDtBZ0lEmkZ?=
+ =?us-ascii?Q?pEuRCHnDLOnXPT6DfO5vdgbktByRZ4yW+lrSOx1ivnr4HvJ7t1c/5uM/3Kfc?=
+ =?us-ascii?Q?1bUQ67QvZzORMt4gXrsbbGeC4oRxO5D+IqRLBM9lRZFoW3lnUIDqiyF+2P11?=
+ =?us-ascii?Q?kYd+NvGDsnmAC3L2tCZdjv7ytHC4YjZRmjYh+5uo8CaKbHmsMOnI28LWWw1r?=
+ =?us-ascii?Q?hk5G?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <DB27409D3E7E6341906AB6B2C9CD9D72@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3386
+Original-Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT023.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	74b975c8-5e4d-4c3e-06a6-08d892defbaf
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	qaBz0E+en1i06MR5HFWrtXquCMAnJLyBcPuLhzAUgibhb1tiwk3ClVUkFbcs6bTyLw4X2/67I05lFuWjyUJq4KGbI92CsbK6pZ8y+49Tt6QRwgNIBzxncBpxzgxRkm6z+FIWkDrFRapqfmcDICQoxNMN3MJf8zHArWMxNIky8FyeS6YUwvMaEHaoOwN7k7tEjO62L1Ugwi1PNRD9BCgaGf9ImdXjfFOoCZ5dXiYipzp9xtfKIoHL38cI7wvIR+1JBgNSbqewgTlRl+NJ7fNLNxi2numWA1xqG4EEDqOVqLRSnJFT1FdYqY3z5mRP9WXTl8N4avCK798BmvMPuorDToYorJv9DXsvqZSvrmYSTAllk+CsUnya7BAG6qbJw1ELZiy6hXLhH1UO5ny/Fdui+A==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(39860400002)(396003)(346002)(376002)(136003)(46966005)(6512007)(2906002)(70206006)(82310400003)(336012)(81166007)(36756003)(6862004)(186003)(316002)(70586007)(2616005)(8676002)(53546011)(356005)(6506007)(5660300002)(26005)(54906003)(478600001)(47076004)(33656002)(82740400003)(8936002)(4326008)(6486002)(86362001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2020 14:16:25.8837
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 168b1d40-4c00-494d-c6e0-08d892df0697
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT023.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3500
 
-On 27.11.20 15:11, Julien Grall wrote:
-> Hi Juergen,
+Hi Jan,
+
+> On 27 Nov 2020, at 13:58, Jan Beulich <jbeulich@suse.com> wrote:
 >=20
-> On 27/11/2020 14:05, J=C3=BCrgen Gro=C3=9F wrote:
->> On 27.11.20 14:58, Julien Grall wrote:
->>> Hi Juergen,
->>>
->>> On 25/11/2020 10:51, Juergen Gross wrote:
->>>> -static struct evtchn_fifo_queue *lock_old_queue(const struct domain=
-=20
->>>> *d,
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ev=
-tchn *evtchn,
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned =
-long *flags)
->>>> -{
->>>> -=C2=A0=C2=A0=C2=A0 struct vcpu *v;
->>>> -=C2=A0=C2=A0=C2=A0 struct evtchn_fifo_queue *q, *old_q;
->>>> -=C2=A0=C2=A0=C2=A0 unsigned int try;
->>>> -=C2=A0=C2=A0=C2=A0 union evtchn_fifo_lastq lastq;
->>>> -
->>>> -=C2=A0=C2=A0=C2=A0 for ( try =3D 0; try < 3; try++ )
->>>> -=C2=A0=C2=A0=C2=A0 {
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lastq.raw =3D read_atomi=
-c(&evtchn->fifo_lastq);
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 v =3D d->vcpu[lastq.last=
-_vcpu_id];
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 old_q =3D &v->evtchn_fif=
-o->queue[lastq.last_priority];
->>>> -
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock_irqsave(&old_q=
-->lock, *flags);
->>>> -
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 v =3D d->vcpu[lastq.last=
-_vcpu_id];
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 q =3D &v->evtchn_fifo->q=
-ueue[lastq.last_priority];
->>>> -
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( old_q =3D=3D q )
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-return old_q;
->>>> -
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock_irqrestore(&=
-old_q->lock, *flags);
->>>> -=C2=A0=C2=A0=C2=A0 }
->>>> -
->>>> -=C2=A0=C2=A0=C2=A0 gprintk(XENLOG_WARNING,
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-"dom%d port %d lost event (too many queue changes)\n",
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-d->domain_id, evtchn->port);
->>>> -=C2=A0=C2=A0=C2=A0 return NULL;
->>>> -}
->>>> -
->>>> =C2=A0 static int try_set_link(event_word_t *word, event_word_t *w, =
-
->>>> uint32_t link)
->>>> =C2=A0 {
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 event_word_t new, old;
->>>> @@ -190,6 +158,9 @@ static void evtchn_fifo_set_pending(struct vcpu =
-
->>>> *v, struct evtchn *evtchn)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 event_word_t *word;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long flags;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool_t was_pending;
->>>> +=C2=A0=C2=A0=C2=A0 struct evtchn_fifo_queue *q, *old_q;
->>>> +=C2=A0=C2=A0=C2=A0 unsigned int try;
->>>> +=C2=A0=C2=A0=C2=A0 bool linked =3D true;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port =3D evtchn->port;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 word =3D evtchn_fifo_word_from_port(d=
-, port);
->>>> @@ -204,17 +175,67 @@ static void evtchn_fifo_set_pending(struct=20
->>>> vcpu *v, struct evtchn *evtchn)
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>> +=C2=A0=C2=A0=C2=A0 /*
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Lock all queues related to the event cha=
-nnel (in case of a=20
->>>> queue change
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * this might be two).
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * It is mandatory to do that before settin=
-g and testing the=20
->>>> PENDING bit
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * and to hold the current queue lock until=
- the event has put=20
->>>> into the
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * list of pending events in order to avoid=
- waking up a guest=20
->>>> without the
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * event being visibly pending in the guest=
-=2E
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>> +=C2=A0=C2=A0=C2=A0 for ( try =3D 0; try < 4; try++ )
->>>
->>> May I ask why the number of try is 4 rather than the original 3?
->>
->> Oh, I think this is just a typo. OTOH it doesn't really matter.
+> On 25.11.2020 19:16, Rahul Singh wrote:
+>> --- a/xen/drivers/char/ns16550.c
+>> +++ b/xen/drivers/char/ns16550.c
+>> @@ -16,7 +16,7 @@
+>> #include <xen/timer.h>
+>> #include <xen/serial.h>
+>> #include <xen/iocap.h>
+>> -#ifdef CONFIG_HAS_PCI
+>> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
+>> #include <xen/pci.h>
+>> #include <xen/pci_regs.h>
+>> #include <xen/pci_ids.h>
+>> @@ -51,7 +51,7 @@ static struct ns16550 {
+>>     unsigned int timeout_ms;
+>>     bool_t intr_works;
+>>     bool_t dw_usr_bsy;
+>> -#ifdef CONFIG_HAS_PCI
+>> +#if defined(CONFIG_X86) && defined(CONFIG_HAS_PCI)
 >=20
-> I agree that the number of try was likely random and therefore using a =
-
-> different number should not matter.
+> I'm sorry to be picky, but this being a hack wants, imo, also calling
+> it so, by way of a code comment. Clearly this should go at one of the
+> first instances, yet neither of the two above are really suitable imo.
+> Hence I'm coming back to my prior suggestion of introducing a
+> consolidated #define without this becoming a Kconfig setting:
 >=20
-> However, this is making more difficult to review the patch because this=
-=20
-> is an unexplained change.
+> /*
+> * The PCI part of the code in this file currently is only known to
+> * work on x86. Undo this hack once the logic has been suitably
+> * abstracted.
+> */
+> #if defined(CONFIG_HAS_PCI) && defined(CONFIG_X86)
+> # define NS16550_PCI
+> #endif
 >=20
-> I would prefer if this is dropped. But if you want to keep this change,=
-=20
-> then it should be explained in the commit message.
+> And then use NS16550_PCI everywhere. I'd be fine making this
+> adjustment while committing, if I knew that (a) you're okay with it
+> and (b) the R-b and A-b you've already got can be kept.
+>=20
 
-Well, I could argue that there is potentially one lock more to take, so
-the retry number is increased by one, too. ;-)
+Sounds ok to me so you can keep my R-b if you go this way.
 
-I think we can just switch back to 3.
+Cheers
+Bertrand
 
+> Jan
+>=20
 
-Juergen
-
---------------143C760AC2AC5CBECD35C408
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------143C760AC2AC5CBECD35C408--
-
---eAbuZ8bV7zg10jJcjKm4fWQLNyHd3MJez--
-
---JiVqM4SgNy2AnUH7mGNfPgRFTpbJhjfKn
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/BCc4FAwAAAAAACgkQsN6d1ii/Ey9E
-Uwf/fznCn1xClre4A8zUceBm2gQNev5LV/VCLvNP+UiO3u/iDc8sJUxRtPn6guWNZi8q9i0WCQB4
-ehfkKC/YPEZD70OrDAYv3U/edIuEWp+GpdvpZiDkhmJOBTnu/qZ1AGNje9lHpRJ6l7abd+QZndhl
-qtKiiAow80BvdtL78k4EyxFTYFBqAZvERcMCndkRjdQiMZSe2FSzqSr/iU8P2T+KVdSkMm9uv1uO
-ADDx3Tfzkrz6yB8NStZfT3SToFkQOEWM/ei3cBkjGMioIaAWuleohL0TgZwqZ1OvvMiSq7p7jpRV
-64Z8BvDcaYhxS5G9cpyxzqVfqIX60RIxWpyIXd42vA==
-=jEZn
------END PGP SIGNATURE-----
-
---JiVqM4SgNy2AnUH7mGNfPgRFTpbJhjfKn--
 
