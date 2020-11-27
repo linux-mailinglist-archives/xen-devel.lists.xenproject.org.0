@@ -2,13 +2,13 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F792C668D
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 14:19:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.39308.72172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 419162C66D0
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 14:27:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.39324.72184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kideL-0007Ad-4m; Fri, 27 Nov 2020 13:18:57 +0000
+	id 1kidmb-00089d-W6; Fri, 27 Nov 2020 13:27:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 39308.72172; Fri, 27 Nov 2020 13:18:57 +0000
+Received: by outflank-mailman (output) from mailman id 39324.72184; Fri, 27 Nov 2020 13:27:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -23,106 +23,89 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kideL-0007A4-0L; Fri, 27 Nov 2020 13:18:57 +0000
-Received: by outflank-mailman (input) for mailman id 39308;
- Fri, 27 Nov 2020 13:18:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kidmb-00089E-SV; Fri, 27 Nov 2020 13:27:29 +0000
+Received: by outflank-mailman (input) for mailman id 39324;
+ Fri, 27 Nov 2020 13:27:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rmeX=FB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kideJ-00079o-Qw
- for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 13:18:55 +0000
+ id 1kidma-000899-B4
+ for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 13:27:28 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4e109bb4-c955-4260-aada-4e8269ab984f;
- Fri, 27 Nov 2020 13:18:54 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 75cadbde-4305-485a-804a-48616b6f99ad;
+ Fri, 27 Nov 2020 13:27:27 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 34AEBABD7;
- Fri, 27 Nov 2020 13:18:53 +0000 (UTC)
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57] helo=us1-amaz-eas2.inumbo.com)
+ by mx2.suse.de (Postfix) with ESMTP id BB492ABD7;
+ Fri, 27 Nov 2020 13:27:26 +0000 (UTC)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <SRS0=rmeX=FB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
-	id 1kideJ-00079o-Qw
-	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 13:18:55 +0000
-X-Inumbo-ID: 4e109bb4-c955-4260-aada-4e8269ab984f
+	id 1kidma-000899-B4
+	for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 13:27:28 +0000
+X-Inumbo-ID: 75cadbde-4305-485a-804a-48616b6f99ad
 Received: from mx2.suse.de (unknown [195.135.220.15])
-	by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
-	id 4e109bb4-c955-4260-aada-4e8269ab984f;
-	Fri, 27 Nov 2020 13:18:54 +0000 (UTC)
+	by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+	id 75cadbde-4305-485a-804a-48616b6f99ad;
+	Fri, 27 Nov 2020 13:27:27 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606483133; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606483646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8g7q5pCrLfu96e1+ucv/jpHymygtJQ9Bt4QSJe70gz0=;
-	b=W/ixNgjNCAEsWAEzlqTx4QSc/w0EEvGniqciLxWMT10ckKSyeHlsbGiVlM6Uap2pybEc1f
-	6QCiwBHkztVDhaiZG7IgL+hssudgGQBCxy0NyAC6Tec7jVG6kCfrPuZu2CvfjBJtJbw/ml
-	vDWTPvfVbdvB/UqG0x6x2ROPZByOQwc=
+	bh=51EYpbdjdC+tNeKD+XfzFsK9Ys9IXmbL6xmukn3jCoQ=;
+	b=WbWLvy72YS3uNoBw5PSbszdpDrKCHuXCKw06hQcm3F71o3TD3K3MbLFTzZxQa7XRzWVEgu
+	wwmhGk4f1x07/3p4lcPr6H1YVZs6YyRSHKRjPvBp2fauud6jnAujeu4MxrQ/fit0Z2qQO1
+	qdC98JaLWBb+zdYjIk35vhxlk7zksbw=
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 34AEBABD7;
-	Fri, 27 Nov 2020 13:18:53 +0000 (UTC)
-Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20201124150842.GN2020@antioche.eu.org>
- <20201124154917.l3jwa6w4ejumjuqw@Air-de-Roger>
- <20201124160914.GQ2020@antioche.eu.org>
- <20201126133444.r2oi24i3umh7shb3@Air-de-Roger>
- <20201126141608.GA4123@antioche.eu.org>
- <20201126142635.uzi643co3mxp5h42@Air-de-Roger>
- <20201126150937.jhbfp7iefkmtedx7@Air-de-Roger>
- <20201126172034.GA7642@antioche.eu.org>
- <20201127105948.ji5gxv4e7axrvgpo@Air-de-Roger>
- <e9610278-84e5-dc32-b568-8867011de4e4@suse.com>
- <20201127131324.GJ1717@antioche.eu.org>
+	by mx2.suse.de (Postfix) with ESMTP id BB492ABD7;
+	Fri, 27 Nov 2020 13:27:26 +0000 (UTC)
+Subject: Re: [PATCH v8 3/3] xen/events: do some cleanups in
+ evtchn_fifo_set_pending()
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201125105122.3650-1-jgross@suse.com>
+ <20201125105122.3650-4-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <714e9393-d7f4-ed47-d1ed-aff79f3552a0@suse.com>
-Date: Fri, 27 Nov 2020 14:18:54 +0100
+Message-ID: <dc81e650-166f-99c2-0982-58c0b89c1eb4@suse.com>
+Date: Fri, 27 Nov 2020 14:27:27 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20201127131324.GJ1717@antioche.eu.org>
-Content-Type: text/plain; charset=windows-1252
+In-Reply-To: <20201125105122.3650-4-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.11.2020 14:13, Manuel Bouyer wrote:
-> On Fri, Nov 27, 2020 at 12:29:35PM +0100, Jan Beulich wrote:
->> On 27.11.2020 11:59, Roger Pau Monné wrote:
->>> --- a/xen/arch/x86/hvm/irq.c
->>> +++ b/xen/arch/x86/hvm/irq.c
->>> @@ -187,6 +187,10 @@ void hvm_gsi_assert(struct domain *d, unsigned int gsi)
->>>       * to know if the GSI is pending or not.
->>>       */
->>>      spin_lock(&d->arch.hvm.irq_lock);
->>> +    if ( gsi == TRACK_IRQ )
->>> +        debugtrace_printk("hvm_gsi_assert irq %u trig %u assert count %u\n",
->>> +                          gsi, trig, hvm_irq->gsi_assert_count[gsi]);
->>
->> This produces
->>
->> 81961 hvm_gsi_assert irq 34 trig 1 assert count 1
->>
->> Since the logging occurs ahead of the call to assert_gsi(), it
->> means we don't signal anything to Dom0, because according to our
->> records there's still an IRQ in flight. Unfortunately we only
->> see the tail of the trace, so it's not possible to tell how / when
->> we got into this state.
->>
->> Manuel - is this the only patch you have in place? Or did you keep
->> any prior ones? Iirc there once was one where Roger also suppressed
->> some de-assert call.
-> 
-> Yes, I have some of the previous patches (otherwise Xen panics).
-> Attached is the diffs I currently have 
+On 25.11.2020 11:51, Juergen Gross wrote:
+> --- a/xen/common/event_fifo.c
+> +++ b/xen/common/event_fifo.c
+> @@ -175,6 +175,18 @@ static void evtchn_fifo_set_pending(struct vcpu *v, struct evtchn *evtchn)
+>          return;
+>      }
+>  
+> +    /*
+> +     * Control block not mapped.  The guest must not unmask an
+> +     * event until the control block is initialized, so we can
+> +     * just drop the event.
+> +     */
+> +    if ( unlikely(!v->evtchn_fifo->control_block) )
+> +    {
+> +        printk(XENLOG_G_WARNING
+> +               "%pv has no FIFO event channel control block\n", v);
+> +        return;
+> +    }
 
-I think you want to delete the hunk dropping the call to
-hvm_gsi_deassert() from pt_irq_time_out(). Iirc it was that
-addition which changed the behavior to just a single IRQ ever
-making it into Dom0. And it ought to be only the change to
-msix_write() which is needed to avoid the panic.
+This results in bypassing the setting of PENDING and the possible
+call to evtchn_check_pollers(). It may in particular be the case
+that a very special purpose guest uses event channels just for
+waking up pollers, which - afaict - then doesn't require setting
+up a control block. To give an example, I could easily see an XTF
+test avoid that step if indeed it's unnecessary.
 
 Jan
 
