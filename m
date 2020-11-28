@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E0372C6CF8
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Nov 2020 22:45:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.39787.72806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4D9D2C6E93
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Nov 2020 04:03:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.39809.72828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kilXk-0001bm-Br; Fri, 27 Nov 2020 21:44:40 +0000
+	id 1kiqVD-0002oR-TB; Sat, 28 Nov 2020 03:02:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 39787.72806; Fri, 27 Nov 2020 21:44:40 +0000
+Received: by outflank-mailman (output) from mailman id 39809.72828; Sat, 28 Nov 2020 03:02:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kilXk-0001bN-8j; Fri, 27 Nov 2020 21:44:40 +0000
-Received: by outflank-mailman (input) for mailman id 39787;
- Fri, 27 Nov 2020 21:44:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N/b8=FB=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1kilXi-0001bI-6k
- for xen-devel@lists.xenproject.org; Fri, 27 Nov 2020 21:44:38 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ad880bc6-89e3-4676-830d-a4c60720df7e;
- Fri, 27 Nov 2020 21:44:35 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0ARLiQiR028880
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
- Fri, 27 Nov 2020 22:44:27 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id E43082E9465; Fri, 27 Nov 2020 22:44:20 +0100 (MET)
+	id 1kiqVD-0002o9-M9; Sat, 28 Nov 2020 03:02:23 +0000
+Received: by outflank-mailman (input) for mailman id 39809;
+ Sat, 28 Nov 2020 03:02:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kiqVD-0002o1-3K; Sat, 28 Nov 2020 03:02:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kiqVC-00029f-U2; Sat, 28 Nov 2020 03:02:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kiqVC-0002P3-KW; Sat, 28 Nov 2020 03:02:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kiqVC-0007BA-K1; Sat, 28 Nov 2020 03:02:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,48 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad880bc6-89e3-4676-830d-a4c60720df7e
-Date: Fri, 27 Nov 2020 22:44:20 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
-Message-ID: <20201127214420.GA637@antioche.eu.org>
-References: <20201126150937.jhbfp7iefkmtedx7@Air-de-Roger>
- <20201126172034.GA7642@antioche.eu.org>
- <20201127105948.ji5gxv4e7axrvgpo@Air-de-Roger>
- <e9610278-84e5-dc32-b568-8867011de4e4@suse.com>
- <20201127131324.GJ1717@antioche.eu.org>
- <714e9393-d7f4-ed47-d1ed-aff79f3552a0@suse.com>
- <20201127133121.GN1717@antioche.eu.org>
- <96aa5a9b-3f4a-ce9d-0f41-4a24d409ed55@suse.com>
- <20201127135929.GR1717@antioche.eu.org>
- <20201127202211.eqrxloii5x54zode@Air-de-Roger>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=g/1saNe/5/IRzJyFBMMJH0AgQgjg636now6T1Yt+drA=; b=zi1UsZ9TlqPIXVSlL+LC39GAce
+	JCB9XoSOKpvHnr7xmpoqb7Uysgr6OUk0Jo1qZ2vXc8O8LrBDpFEK39Qo1OVISLvrIN0SfAMf579fo
+	jWbrz9CH2FbESfnFBS4DfQYunGaIXtPkiheyICjh/5mTkR7BwqkbWQZqiwff5kWUY/UI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157060-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201127202211.eqrxloii5x54zode@Air-de-Roger>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Fri, 27 Nov 2020 22:44:27 +0100 (MET)
+MIME-Version: 1.0
+Subject: [ovmf test] 157060: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=f69a2b9a42029bcbcf88d074425ebe63495b0a08
+X-Osstest-Versions-That:
+    ovmf=73b604bb1e13ff915c523180979f7b4db34b6d1b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 28 Nov 2020 03:02:22 +0000
 
-On Fri, Nov 27, 2020 at 09:22:11PM +0100, Roger Pau Monné wrote:
-> > 
-> > But I can confirm that now, entering ^A^A^A gets interrupt going in again
-> 
-> I think there are some weird things with dpci interrupts that I'm
-> trying to understand. I have a patch now that will panic when the
-> buffer is full, so we will hopefully be able to see the whole trace of
-> events. There will be no need for you to press the 'T' key now, the
-> system will panic when the buffer is full.
-> 
-> Note this patch also removes the deassert done in pt_irq_time_out.
+flight 157060 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157060/
 
-thanks
-the trace is at
-http://www-soc.lip6.fr/~bouyer/xen-log13.txt
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 f69a2b9a42029bcbcf88d074425ebe63495b0a08
+baseline version:
+ ovmf                 73b604bb1e13ff915c523180979f7b4db34b6d1b
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Last test of basis   157055  2020-11-27 17:09:39 Z    0 days
+Testing same since   157060  2020-11-27 19:10:46 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Wenyi Xie <xiewenyi2@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   73b604bb1e..f69a2b9a42  f69a2b9a42029bcbcf88d074425ebe63495b0a08 -> xen-tested-master
 
