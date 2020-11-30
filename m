@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D05E12C8217
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 11:26:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.40789.73721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45C532C8220
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 11:28:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.40794.73733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjgNd-0007ss-HO; Mon, 30 Nov 2020 10:26:01 +0000
+	id 1kjgQD-000830-VB; Mon, 30 Nov 2020 10:28:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 40789.73721; Mon, 30 Nov 2020 10:26:01 +0000
+Received: by outflank-mailman (output) from mailman id 40794.73733; Mon, 30 Nov 2020 10:28:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjgNd-0007sT-Dx; Mon, 30 Nov 2020 10:26:01 +0000
-Received: by outflank-mailman (input) for mailman id 40789;
- Mon, 30 Nov 2020 10:25:59 +0000
+	id 1kjgQD-00082b-S0; Mon, 30 Nov 2020 10:28:41 +0000
+Received: by outflank-mailman (input) for mailman id 40794;
+ Mon, 30 Nov 2020 10:28:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lj5U=FE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kjgNb-0007sM-MT
- for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 10:25:59 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=I3zd=FE=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kjgQC-00082V-Cy
+ for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 10:28:40 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 64067815-f0e1-448f-bbb2-91688457eef9;
- Mon, 30 Nov 2020 10:25:59 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 358C8AC91;
- Mon, 30 Nov 2020 10:25:58 +0000 (UTC)
+ id f038c638-b2bf-4372-9635-c787039fffda;
+ Mon, 30 Nov 2020 10:28:38 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0AUASTND013861
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Mon, 30 Nov 2020 11:28:30 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id 7138D2E9CAC; Mon, 30 Nov 2020 11:28:24 +0100 (MET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,62 +42,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64067815-f0e1-448f-bbb2-91688457eef9
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606731958; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dBEF1eJeXnriytUNl9lwc1WRag97wA2VNUJqIUxwYDY=;
-	b=OxF3xbjx7qQfha/QRMYoAUSP8aGCPmdKeAFoYWTDi19BKMWTDgXPyUFZKUIB7kPDWu4Y4T
-	jXv3NVpa06QraMTo2FiSeRIVBegcRD+dp+JJgCvkJmXraJBFsPZB7aRyzpxbpRjRdXF6Yg
-	Tlshyeudfc11GfnOyZNak44kxLFyqp0=
-Subject: Re: [ANNOUNCE] Call for agenda items for December 2020 Community Call
- @ 16:00 UTC
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: "open list:X86" <xen-devel@lists.xenproject.org>
-References: <6A1AC739-EB53-4996-A99B-EE68358E70DB@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6da4cd56-7364-bc6e-24d8-02976dbd637d@suse.com>
-Date: Mon, 30 Nov 2020 11:25:57 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+X-Inumbo-ID: f038c638-b2bf-4372-9635-c787039fffda
+Date: Mon, 30 Nov 2020 11:28:24 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        xen-devel@lists.xenproject.org
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201130102824.GB1084@antioche.eu.org>
+References: <20201127131324.GJ1717@antioche.eu.org>
+ <714e9393-d7f4-ed47-d1ed-aff79f3552a0@suse.com>
+ <20201127133121.GN1717@antioche.eu.org>
+ <96aa5a9b-3f4a-ce9d-0f41-4a24d409ed55@suse.com>
+ <20201127135929.GR1717@antioche.eu.org>
+ <20201127202211.eqrxloii5x54zode@Air-de-Roger>
+ <20201127214420.GA637@antioche.eu.org>
+ <20201128145311.3gmzq5lnkz6ajdtr@Air-de-Roger>
+ <20201128171430.GB631@antioche.eu.org>
+ <819e859e-0fd2-cdbf-6126-46c924364d12@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <6A1AC739-EB53-4996-A99B-EE68358E70DB@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <819e859e-0fd2-cdbf-6126-46c924364d12@suse.com>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Mon, 30 Nov 2020 11:28:30 +0100 (MET)
 
-On 27.11.2020 12:52, George Dunlap wrote:
-> The proposed agenda is in https://cryptpad.fr/pad/#/2/pad/edit/OPN55rXaOncupuWuHxtddzWJ/ and you can edit to add items.  Alternatively, you can reply to this mail directly.
-
-The "New series / series requiring attention" section is gone. Was
-this intentional? If not, I would have wanted to propose that items
-from that list which we didn't get to on the previous call be
-automatically propagated. According to my observation it is more
-likely than not that nothing would have changed in their status.
-Hence it may be easier to take one off the list if indeed it has
-got unstalled.
-
-> == Dial-in Information ==
-> ## Meeting time
-> 16:00 - 17:00 UTC
-> Further International meeting times: https://www.timeanddate.com/worldclock/meetingdetails.html?year=2020&month=12&day=3&hour=16&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
+On Mon, Nov 30, 2020 at 11:00:23AM +0100, Jan Beulich wrote:
+> On 28.11.2020 18:14, Manuel Bouyer wrote:
+> > On Sat, Nov 28, 2020 at 03:53:11PM +0100, Roger Pau Monné wrote:
+> >>> the trace is at
+> >>> http://www-soc.lip6.fr/~bouyer/xen-log13.txt
+> >>
+> >> Thanks! I think I've found the issue and I'm attaching a possible fix
+> >> (fix.patch) to this email. In any case I've also attached a further
+> >> debug patch, in case the fix turns out to be wrong. Please test the
+> >> fix first, as the debug patch will end up triggering a panic when the
+> >> buffer is full.
+> > 
+> > Yes, fix.patch does make the system boot as expected !
 > 
-> 
-> ## Dial in details
-> Web: https://www.gotomeet.me/GeorgeDunlap
-> 
-> You can also dial in using your phone.
-> Access Code: 168-682-109
-> 
-> China (Toll Free): 4008 811084
-> Germany: +49 692 5736 7317
+> May I translate this to a Tested-by?
 
-From last month's meeting:
+Sure !
 
-   Germany: +49 721 9881 4161
-
-Jan
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
