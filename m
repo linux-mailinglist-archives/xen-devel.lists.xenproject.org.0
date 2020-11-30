@@ -2,58 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C917A2C7CFF
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 03:50:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.40625.73527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29CD72C7D1B
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 04:07:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.40633.73541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjZGr-0005rp-4D; Mon, 30 Nov 2020 02:50:33 +0000
+	id 1kjZWu-0007Ry-IF; Mon, 30 Nov 2020 03:07:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 40625.73527; Mon, 30 Nov 2020 02:50:33 +0000
+Received: by outflank-mailman (output) from mailman id 40633.73541; Mon, 30 Nov 2020 03:07:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjZGr-0005rQ-1D; Mon, 30 Nov 2020 02:50:33 +0000
-Received: by outflank-mailman (input) for mailman id 40625;
- Mon, 30 Nov 2020 02:50:31 +0000
+	id 1kjZWu-0007RZ-Ea; Mon, 30 Nov 2020 03:07:08 +0000
+Received: by outflank-mailman (input) for mailman id 40633;
+ Mon, 30 Nov 2020 03:07:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=x+J0=FE=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1kjZGo-0005rG-UU
- for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 02:50:30 +0000
-Received: from mga18.intel.com (unknown [134.134.136.126])
+ id 1kjZWt-0007RU-OJ
+ for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 03:07:07 +0000
+Received: from mga07.intel.com (unknown [134.134.136.100])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4178d6ca-2ea6-46da-bb58-05210031a6d7;
- Mon, 30 Nov 2020 02:50:28 +0000 (UTC)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2020 18:50:28 -0800
+ id e7fe85b0-0154-4540-934b-9406e029c01b;
+ Mon, 30 Nov 2020 03:07:04 +0000 (UTC)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2020 19:07:03 -0800
 Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
- by FMSMGA003.fm.intel.com with ESMTP; 29 Nov 2020 18:50:27 -0800
-Received: from orsmsx609.amr.corp.intel.com (10.22.229.22) by
+ by orsmga005.jf.intel.com with ESMTP; 29 Nov 2020 19:07:03 -0800
+Received: from orsmsx605.amr.corp.intel.com (10.22.229.18) by
  ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Sun, 29 Nov 2020 18:50:27 -0800
-Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
- ORSMSX609.amr.corp.intel.com (10.22.229.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Sun, 29 Nov 2020 18:50:26 -0800
+ 15.1.1713.5; Sun, 29 Nov 2020 19:07:02 -0800
 Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
+ orsmsx605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Sun, 29 Nov 2020 18:50:26 -0800
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.105)
+ via Frontend Transport; Sun, 29 Nov 2020 19:07:02 -0800
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.103)
  by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Sun, 29 Nov 2020 18:50:24 -0800
+ 15.1.1713.5; Sun, 29 Nov 2020 19:06:56 -0800
 Received: from MWHPR11MB1645.namprd11.prod.outlook.com (2603:10b6:301:b::12)
- by CO1PR11MB5028.namprd11.prod.outlook.com (2603:10b6:303:9a::12) with
+ by MW3PR11MB4569.namprd11.prod.outlook.com (2603:10b6:303:54::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.23; Mon, 30 Nov
- 2020 02:50:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Mon, 30 Nov
+ 2020 03:06:54 +0000
 Received: from MWHPR11MB1645.namprd11.prod.outlook.com
  ([fe80::31c9:44c6:7323:61ac]) by MWHPR11MB1645.namprd11.prod.outlook.com
  ([fe80::31c9:44c6:7323:61ac%7]) with mapi id 15.20.3611.025; Mon, 30 Nov 2020
- 02:50:23 +0000
+ 03:06:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,45 +61,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4178d6ca-2ea6-46da-bb58-05210031a6d7
-IronPort-SDR: 1P3Gxyv0q5E+5OSh8qzwZcRZxQeQOLZwe/DyuXqu76HT3zpFzZtUfiC28gsv9UdDmEoud+iHXZ
- qapbHQ2MBPiQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9820"; a="160345679"
+X-Inumbo-ID: e7fe85b0-0154-4540-934b-9406e029c01b
+IronPort-SDR: 7x5EfeQ6LRUMslcqprJIhhakWdj5yenc81tRIBK7KSnCVjq4KT/hJXFu/BLxOg1YqHZI6fgDuu
+ S6zBnDktAa5w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9820"; a="236700356"
 X-IronPort-AV: E=Sophos;i="5.78,379,1599548400"; 
-   d="scan'208";a="160345679"
+   d="scan'208";a="236700356"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-IronPort-SDR: 3v1W/e3gG/2LaEmiAlJUgA09Rwx7PtNeUPGtcviUrXQiNl/pzFspK+nDkuWFeQhlhqcFDvroB6
- itLL1hM0qQ8A==
+IronPort-SDR: KOkg9CcsSOTE69ilnfcGgYIxohDbg21j5zwuvStvNniDxf0eiCmvB0qrdPifOxphQRRFfxpt0B
+ n7EtHknCna1Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.78,379,1599548400"; 
-   d="scan'208";a="372328842"
+   d="scan'208";a="548908692"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NTNMdMFrrbfex0bE387q1d2I6gj7GBjql6YTQfoNHQAIId086Li7xkz9GHVytADgmMZvdskykAazsJGQBRT9cRLLwzMUUnFoUIVRJNr9+fIQtNEsCQM6FaxWZKDoJciWYqSykzMCb984OwboEsL7pm3vv+0BR6QaBc36E4GldSZXtKSgv5PI3vf99YsmqPbUMNuZ5S69TKmkC+Wy+Qklll+1+goWTHtvtrGOhP1pNI1RT1qtv7BPmaoUxOeWwaexWecZhGiBhIUJZxU7NNRuo7xjXuHJdcEEFrV7zkmXpDR+bvsWdl9d1EqlNlvnSCHIRh6PlKgWrX6E6d1YELSmyg==
+ b=glxYktrDvShonLEjb3MXrLujlKaSiQ1h+dRLlsnrIprQ0IgsXGS0NKmVGdvvctOj8CeCeWx2pFGlFCZ9feW1h7Kwqas6ZwJ7tof9RxB6kcMk2ZYN6KQiIIwLjSDEgy5iY58/nP9BDf0nE7Nn/7KXpdnJGO+oESYfpwXZncmJlI+Hg0M4jCjWDwu9GBjChgWHmd/JasRXuf/HZy6cy6wIWtR7a4H7i6H0QgNlhzplhXqSOeNWanl7qJWgK1GKsMVrQqQ2hXOlFpxFwTM5DU8vPaQJJt9QM2TarllE3H3fGCfU38HT6PLWF/XfF4hNypkQqXg62YvVhWuwSNVwq6RpVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mxGh980rurTfhXcU3ftPBq57c43XUNnP7P+xNRvGVbk=;
- b=eV+7tODrwQPNOSMfj7s+pdfR6KCPBhfid/NbgWWdbCCCMSgtEZsvBT4wV1GphthsLlq4GoefR0NGgHVbN8luBoje45eLl0W1IlrJ2jqKCvgeblN0X0H/c+OpUIkMSD/xWjCp2/1WAvUXboU4k+l8Upa0Bz6+g/2xQxB+vU7ar+/Lg5zSIWKKZ9u+Z1FccNtL4/T1t6Uyr4h9EGSxkztQCaKcom2vJxBms4RSkc1vYazF3kWvd41dyeEtPugTN6orkiW3hRYI0S5azI6E52RZTMYrCzlaopU3gIxBT3AAU8yt4zAVj5kpR28GAsa1YylFf/DK/grdizlrorLbnY4+pg==
+ bh=iiovQkWpoKh7jYGCVmlBa94pRx4OT7IoM7ixCi81ijM=;
+ b=GAz+Pgrpoqy6Rc8uXoYliPL5HZNGgfvxsGsOBanTMFKBNBAhYBBroMQs96ypMZMpYqZZhHZ5SWdokdrpsx+9XeFor/CM30RD4X4m7xYVCOjZBi9qCC7Bne/LsbNSlZCJ8LElzB2tqMcz+1dqQDIArXMk4xBJ1TAWFunBZtf1PnDr8GA7fe3Lq4HTo1C0kzhrcYBStAB458bWAEeJgit8amH7kjkSLUP56yBN0YxrZcfO3koZ3efkkNhaOUBzHlieEVN0OlRq9MsagwxFLRvziaTAWdkEGqFFzZgz5Us/M7hcaIney7nl7DHwz0JckBess5yNmPpnQY4dZhj3rewCyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com;
  s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mxGh980rurTfhXcU3ftPBq57c43XUNnP7P+xNRvGVbk=;
- b=mY96ZqFvtU17/TmZIOjjyTy2nCWoT2ZL6eGqlBMRM2LuKkK2aY1h5Jbfu6Rv3/BwsoXtUm38pDqQk/tQ5yapU1XxshwBSgYfwvZ45RcK54VjFs1TVg9CTRut8SFIgaZbbOBSiC50m3KK9U60TprT41Iw+iAUhfpwtuSU8roLBJs=
+ bh=iiovQkWpoKh7jYGCVmlBa94pRx4OT7IoM7ixCi81ijM=;
+ b=VVYKwH6VGc8VG9YfuUKJ/tFXoC0d5UWlktE/sDxBYxSkuhhTnCxfBvdHJ4+k0f3jKk+V6tm9lpMLSW/SiVUbg8g3DsjmYvaQebKfpeKeSPcRlmoBFXZcQVNxl7F8mOx6WVnWVVJzNHW4Aa+QojptxsqOzpNqnCZxpWUVZOP+N18=
 From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
+To: Paul Durrant <paul@xen.org>, "xen-devel@lists.xenproject.org"
 	<xen-devel@lists.xenproject.org>
-CC: Julien Grall <jgrall@amazon.com>
-Subject: RE: [PATCH] xen/iommu: vtd: Fix undefined behavior pci_vtd_quirks()
-Thread-Topic: [PATCH] xen/iommu: vtd: Fix undefined behavior pci_vtd_quirks()
-Thread-Index: AQHWvoOaSpI/XFJ49Uub3hmiO5sEdqngCfbQ
-Date: Mon, 30 Nov 2020 02:50:23 +0000
-Message-ID: <MWHPR11MB16456E395CC9B993E0C07EC48CF50@MWHPR11MB1645.namprd11.prod.outlook.com>
-References: <20201119145216.29280-1-julien@xen.org>
-In-Reply-To: <20201119145216.29280-1-julien@xen.org>
+CC: Paul Durrant <pdurrant@amazon.com>
+Subject: RE: [PATCH v10 5/7] vtd: use a bit field for root_entry
+Thread-Topic: [PATCH v10 5/7] vtd: use a bit field for root_entry
+Thread-Index: AQHWv0COaWiEdvBtMUu0J5DvTo0K7angCUXA
+Date: Mon, 30 Nov 2020 03:06:54 +0000
+Message-ID: <MWHPR11MB164520264945AF959D7A3ED28CF50@MWHPR11MB1645.namprd11.prod.outlook.com>
+References: <20201120132440.1141-1-paul@xen.org>
+ <20201120132440.1141-6-paul@xen.org>
+In-Reply-To: <20201120132440.1141-6-paul@xen.org>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -115,119 +112,238 @@ authentication-results: xen.org; dkim=none (message not signed)
  header.d=none;xen.org; dmarc=none action=none header.from=intel.com;
 x-originating-ip: [192.198.147.217]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7f170a4a-fe2a-4951-742e-08d894daaf3c
-x-ms-traffictypediagnostic: CO1PR11MB5028:
-x-microsoft-antispam-prvs: <CO1PR11MB50285EA04850D2D699A18E0D8CF50@CO1PR11MB5028.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-office365-filtering-correlation-id: b337982f-bbeb-4bc4-8d98-08d894dcfe02
+x-ms-traffictypediagnostic: MW3PR11MB4569:
+x-microsoft-antispam-prvs: <MW3PR11MB4569884722EA43093ED2967A8CF50@MW3PR11MB4569.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hh/Op+FXpv3cM9MZAR0ziLVmj7Z1IN9gsKNEtT2xKCQIfrLZ46QLgUQmEcUuZLXnfYntK5bkHjAl6U0QLq2BVncQ7gxWyZ/ukCJP0wSHiljMQ/X07NxaxGiPVo6jRtjjDauCLRPZqRkNz57+pYR/4uXORJcVHMHydwJwKuG0ms+6ASuFAr8+RZwOMYdHft09sE6A+FZs8GCTFg/HnoqmggBtfbnkpLj2Z/fzplewb838TJ+i4YjRJhL4/raZk0kOMiMmHk+5QcstTYE51rHgCypjYDnAfvKod35acW5X9/rrbjss7gJ6ZGYZyUrJzwjMPmiOD6FhMfHA4v/uBkCX741M/oDUFFox3KJECXw/Mi2gXtikxMEa9zP8RsTpubXKU2NDL7v3+BykhBH0nLH8GA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR11MB1645.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(136003)(39860400002)(366004)(396003)(346002)(71200400001)(9686003)(52536014)(6506007)(4326008)(7696005)(86362001)(8936002)(5660300002)(316002)(76116006)(64756008)(186003)(26005)(966005)(8676002)(2906002)(66446008)(33656002)(110136005)(66476007)(478600001)(66556008)(55016002)(66946007)(83380400001);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?l8aQBlvABtbNL/DtlPGZCl6h/cYnPzqBU683PYs8cvi3BqWxTjOMPIO7HlmV?=
- =?us-ascii?Q?JRe/sUrwx+/gyVCacIZ0DeFu/SFfSu5QPQs/MtKMxaGtuhBdYJ/+cYR1qgcH?=
- =?us-ascii?Q?pH33Jn0Sk7SPlqCDsO0zlYyRIIPGHXuw0bndqo2Kvgwyda0MJ3kLn0/2w3zP?=
- =?us-ascii?Q?TpmDruY5IErphcUap7bFZoDPuaaCOwTX263/ZkzwQTIVwo4gqig0hOzvV6tV?=
- =?us-ascii?Q?yOk8QT5xB9Ulp+RPSG7gsnOrF9M2taFoPQpnv4IGPq7SKfKxlLa/xAOsTGdM?=
- =?us-ascii?Q?6l2Dp2SHCNCxYsVvF8gipsWo34NbCM+5IPBq0HSsalIlsCIQpRZjjPRR1PuI?=
- =?us-ascii?Q?jYEnwdmTLveHHaZa63Q0VpDsKqM8i1Au03LUV2yy895qoVcw5jiVGkVrKvPn?=
- =?us-ascii?Q?tzdOufMhxksw4yfI7H+zhhQJHI8dKCmq4kGLOH9RtA5JvDNpjZfFo9pZwLGo?=
- =?us-ascii?Q?XUnKH6pfyTD/K6Oi0pELKaHcfsfZXyxJIUTR0YlwlNPE1ju+JZh+9Vp043oL?=
- =?us-ascii?Q?3ggfz130+dUCQ/pcABOzWE1Y3J5LXv3pKWzuRO8cGpil5MxkrXpjHcspSrGy?=
- =?us-ascii?Q?z+saD1zJovRTz4R93TwhKWFllddhJSgTFYhfMCJeX6Q9xiz3CTLLEZurU5hs?=
- =?us-ascii?Q?TA9Lmd44foDaCJtOQSF8xHYj3N54x7zByLn3J0F2ADAwqoH8V2cEBaAFIYzO?=
- =?us-ascii?Q?7sRI/9wGx86OOY3KZ5z4PYuRb1TWUMkhVCP+JO4auiKwjTCYjD717SPdIeNX?=
- =?us-ascii?Q?dgf0Bp/hRuckqwCL09T4SHFN6Ijg94AvcoywulWZ0l4YpI4srsVZNOIVD3/v?=
- =?us-ascii?Q?83Szt+i+oy4az8DbHOS538EQ/VyXH45TZIL3vP55zJSwWvb03bjs9YfwEpuQ?=
- =?us-ascii?Q?rUovW7TI92JJX57MJi4ayr3ZMM7xn6ddm0+3APnT/2mhmbshC6RI7Y//qyWv?=
- =?us-ascii?Q?AarELN5kXcTOR3QzyPlUeFvr5IQYGWaquKk7L2C1J/0=3D?=
+x-microsoft-antispam-message-info: NkIaJuH6cRjroQIHG870PuCzkes3spRu/6Upo/aiQoRxlg5Aij8+lfcSwef72zC4NEXCcnRml/G0cIYAFckCX41Z/hncriz7gHxp+GGlnqEQJJuGksTmyB2hTNv51aA8VN/DTfO9Qr29DUHaRgD/S9XbErh8YgAQe6rqcu1IsB/roSxNJk8ko80U9feDgjRxUa5XCjGoVaxQ8+w7ir+uUQ9YLu33NY554h+V1t6f0reCCi7ZDl/zWy0VwCiee94yXIv4buasli3CNhdb0DvvQImwFg1njPEziAXKXZjRck7RLzFLDQqoT5pBHNtJjGmXf7wfgP7nl520ueF6u5Z1SQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR11MB1645.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(136003)(346002)(396003)(376002)(366004)(33656002)(66946007)(52536014)(83380400001)(66556008)(64756008)(8936002)(66446008)(66476007)(5660300002)(76116006)(8676002)(2906002)(478600001)(9686003)(26005)(316002)(110136005)(55016002)(4326008)(6506007)(186003)(71200400001)(86362001)(7696005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?jvwlXsSu4GW/MQMHwjwZcGwT6dhfKa+WF8qMN1PJAVZ5GlxwjWlsZCZAltx3?=
+ =?us-ascii?Q?4nGC4VbLu82nt+uXuaktVgfZs71EIEzB1tv7/zoOOC75u9S+1VaKTyTR9Xag?=
+ =?us-ascii?Q?ZfBNrT8n2fFlLtoz3AQLb6RmGqApI5smQ1tPTdzO5pt/teed3EmiP66J4Jui?=
+ =?us-ascii?Q?7/OrE91NyQ7oyi6swgWMptCvndY2y5GUBUnlHEcDoskBfXyKJr6ehDZJwG1i?=
+ =?us-ascii?Q?NxF9MiPMLKjx5P/EkhXShSytRn8OeXGkJ4DFG0Swt9lO4Jc/XwRttMKdC5aE?=
+ =?us-ascii?Q?3xtQOuVmapWmETBR26SXKkYa7PRkTEOiDUVUr0Xo1/rh2Bq/lRtcdTLD9nfI?=
+ =?us-ascii?Q?fDNybx0NdIS/PxaIVzFGpUxffHwvg0kgYQMhSxIaXrrGFo+Xb0bD9Zz519Dc?=
+ =?us-ascii?Q?8H/nM4DGWC4UcuzJgCNv2FN5In2pz+nbFc6c/z+e3h4SFCO/unHlR5Qqpg/y?=
+ =?us-ascii?Q?yxChdj+ScXUfsBalkVeh0Hblk0k3600S+bctLVz3Du9tBsd4v9LakZBgIqp1?=
+ =?us-ascii?Q?OP9z0cvbZFtJ7Qxffr3qMWH4oqlSiVV/WoUz4Xc1dkDclaXLqptdlOraGzeY?=
+ =?us-ascii?Q?NHVvl9KhtuBIPDEmJJewiRn6GrQBvl45EN8+OfRvS57XYuJ08uoDI9i9GNiU?=
+ =?us-ascii?Q?OIqOdhQWSxPACGn64clMb/3TLh9p+w0//8O9gW0XlK6DICW3BbJsbdLbmq1I?=
+ =?us-ascii?Q?m7RpHnM4sU1x8iTR5JMBOmv8StX+fh0/XHmCSMiQGYkgcSIJWCK49HGxDmsP?=
+ =?us-ascii?Q?TJ/i22t4uZnLslUzqLmz7LMA9UvMmRrDYoJS7jpg0aEFFaJbGAOBsaJ31NpC?=
+ =?us-ascii?Q?Qs7KtZyHPItECJ2kx9T49VesqVLoaw89d1re6RZV6teKcNsdZVM4O+Ik3CQe?=
+ =?us-ascii?Q?Upp0+WZM9E77Ao8ACl1sum72gO2ZVxoqXgEsnSzpDV7jHv6uPk86T1kcNsXG?=
+ =?us-ascii?Q?mN8ZdZzK6GsApW1YDjrUp8ND10ZHilp0pJob39Pa0Po=3D?=
 x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1645.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f170a4a-fe2a-4951-742e-08d894daaf3c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Nov 2020 02:50:23.6041
+X-MS-Exchange-CrossTenant-Network-Message-Id: b337982f-bbeb-4bc4-8d98-08d894dcfe02
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Nov 2020 03:06:54.7261
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: boWQBMNynXt7pOBMdGZeUHqWKHP9CEdY8uQc/5ZsxAYPIyqont6NnUBOUPLNU5yV5G+49iF1N6sgDWPo0zKPNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5028
+X-MS-Exchange-CrossTenant-userprincipalname: ZdaiBpTK0ze/CPhsGm7NhYEVMdKhEQ23Obj6vQa4AnATMjE6LwTjidO6DI6AkLSsqLn0p7fTjIHyJwAtP3Xckg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4569
 X-OriginatorOrg: intel.com
 
-> From: Julien Grall <julien@xen.org>
-> Sent: Thursday, November 19, 2020 10:52 PM
+> From: Paul Durrant <paul@xen.org>
+> Sent: Friday, November 20, 2020 9:25 PM
 >=20
-> From: Julien Grall <jgrall@amazon.com>
+> From: Paul Durrant <pdurrant@amazon.com>
 >=20
-> When booting Xen with CONFIG_USBAN=3Dy on Sandy Bridge, UBSAN will
-> throw
-> the following splat:
+> This makes the code a little easier to read and also makes it more consis=
+tent
+> with iremap_entry.
 >=20
-> (XEN)
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> (XEN) UBSAN: Undefined behaviour in quirks.c:449:63
-> (XEN) left shift of 1 by 31 places cannot be represented in type 'int'
-> (XEN) ----[ Xen-4.11.4  x86_64  debug=3Dy   Not tainted ]----
+> Also take the opportunity to tidy up the implementation of
+> device_in_domain().
 >=20
-> [...]
->=20
-> (XEN) Xen call trace:
-> (XEN)    [<ffff82d0802c0ccc>] ubsan.c#ubsan_epilogue+0xa/0xad
-> (XEN)    [<ffff82d0802c16c9>]
-> __ubsan_handle_shift_out_of_bounds+0xb4/0x145
-> (XEN)    [<ffff82d0802eeecd>] pci_vtd_quirk+0x3d3/0x74f
-> (XEN)    [<ffff82d0802e508b>]
-> iommu.c#domain_context_mapping+0x45b/0x46f
-> (XEN)    [<ffff82d08053f39e>] iommu.c#setup_hwdom_device+0x22/0x3a
-> (XEN)    [<ffff82d08053dfbc>] pci.c#setup_one_hwdom_device+0x8c/0x124
-> (XEN)    [<ffff82d08053e302>] pci.c#_setup_hwdom_pci_devices+0xbb/0x2f7
-> (XEN)    [<ffff82d0802da5b7>] pci.c#pci_segments_iterate+0x4c/0x8c
-> (XEN)    [<ffff82d08053e8bd>] setup_hwdom_pci_devices+0x25/0x2c
-> (XEN)    [<ffff82d08053e916>]
-> iommu.c#intel_iommu_hwdom_init+0x52/0x2f3
-> (XEN)    [<ffff82d08053d6da>] iommu_hwdom_init+0x4e/0xa4
-> (XEN)    [<ffff82d080577f32>] dom0_construct_pv+0x23c8/0x2476
-> (XEN)    [<ffff82d08057cb50>] construct_dom0+0x6c/0xa3
-> (XEN)    [<ffff82d080564822>] __start_xen+0x4651/0x4b55
-> (XEN)    [<ffff82d0802000f3>] __high_start+0x53/0x55
->=20
-> Note that splat is from 4.11.4 and not staging. Although, the problem is
-> still present.
->=20
-> This can be solved by making the first operand unsigned int.
->=20
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: <kevin.tian@intel.com>
 
->=20
-> CR: https://code.amazon.com/reviews/CR-38873112
 > ---
->  xen/drivers/passthrough/vtd/quirks.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Cc: Kevin Tian <kevin.tian@intel.com>
 >=20
-> diff --git a/xen/drivers/passthrough/vtd/quirks.c
-> b/xen/drivers/passthrough/vtd/quirks.c
-> index a8330f17bc0c..8a81d9c9308b 100644
-> --- a/xen/drivers/passthrough/vtd/quirks.c
-> +++ b/xen/drivers/passthrough/vtd/quirks.c
-> @@ -435,7 +435,7 @@ void pci_vtd_quirk(const struct pci_dev *pdev)
->      case 0x3728: /* Xeon C5500/C3500 (JasperForest) */
->      case 0x3c28: /* Sandybridge */
->          val =3D pci_conf_read32(pdev->sbdf, 0x1AC);
-> -        pci_conf_write32(pdev->sbdf, 0x1AC, val | (1 << 31));
-> +        pci_conf_write32(pdev->sbdf, 0x1AC, val | (1U << 31));
->          printk(XENLOG_INFO "Masked VT-d error signaling on %pp\n", &pdev=
--
-> >sbdf);
->          break;
+> v10:
+>  - Small tweaks requested by Jan
+>  - Remove macros in favour of direct field access
+>  - Add missing barrier
 >=20
+> v4:
+>  - New in v4
+> ---
+>  xen/drivers/passthrough/vtd/iommu.c   |  9 +++++----
+>  xen/drivers/passthrough/vtd/iommu.h   | 25 ++++++++++++-------------
+>  xen/drivers/passthrough/vtd/utils.c   |  6 +++---
+>  xen/drivers/passthrough/vtd/x86/ats.c | 27 +++++++++++++++------------
+>  4 files changed, 35 insertions(+), 32 deletions(-)
+>=20
+> diff --git a/xen/drivers/passthrough/vtd/iommu.c
+> b/xen/drivers/passthrough/vtd/iommu.c
+> index d136fe36883b..1a038541f0a3 100644
+> --- a/xen/drivers/passthrough/vtd/iommu.c
+> +++ b/xen/drivers/passthrough/vtd/iommu.c
+> @@ -237,7 +237,7 @@ static u64 bus_to_context_maddr(struct vtd_iommu
+> *iommu, u8 bus)
+>      ASSERT(spin_is_locked(&iommu->lock));
+>      root_entries =3D (struct root_entry *)map_vtd_domain_page(iommu-
+> >root_maddr);
+>      root =3D &root_entries[bus];
+> -    if ( !root_present(*root) )
+> +    if ( !root->p )
+>      {
+>          maddr =3D alloc_pgtable_maddr(1, iommu->node);
+>          if ( maddr =3D=3D 0 )
+> @@ -245,11 +245,12 @@ static u64 bus_to_context_maddr(struct
+> vtd_iommu *iommu, u8 bus)
+>              unmap_vtd_domain_page(root_entries);
+>              return 0;
+>          }
+> -        set_root_value(*root, maddr);
+> -        set_root_present(*root);
+> +        root->ctp =3D paddr_to_pfn(maddr);
+> +        smp_wmb();
+> +        root->p =3D true;
+>          iommu_sync_cache(root, sizeof(struct root_entry));
+>      }
+> -    maddr =3D (u64) get_context_addr(*root);
+> +    maddr =3D pfn_to_paddr(root->ctp);
+>      unmap_vtd_domain_page(root_entries);
+>      return maddr;
+>  }
+> diff --git a/xen/drivers/passthrough/vtd/iommu.h
+> b/xen/drivers/passthrough/vtd/iommu.h
+> index 216791b3d634..b14628eec260 100644
+> --- a/xen/drivers/passthrough/vtd/iommu.h
+> +++ b/xen/drivers/passthrough/vtd/iommu.h
+> @@ -184,21 +184,20 @@
+>  #define dma_frcd_source_id(c) (c & 0xffff)
+>  #define dma_frcd_page_addr(d) (d & (((u64)-1) << 12)) /* low 64 bit */
+>=20
+> -/*
+> - * 0: Present
+> - * 1-11: Reserved
+> - * 12-63: Context Ptr (12 - (haw-1))
+> - * 64-127: Reserved
+> - */
+>  struct root_entry {
+> -    u64    val;
+> -    u64    rsvd1;
+> +    union {
+> +        struct { uint64_t lo, hi; };
+> +        struct {
+> +            /* 0 - 63 */
+> +            bool p:1;
+> +            unsigned int reserved0:11;
+> +            uint64_t ctp:52;
+> +
+> +            /* 64 - 127 */
+> +            uint64_t reserved1;
+> +        };
+> +    };
+>  };
+> -#define root_present(root)    ((root).val & 1)
+> -#define set_root_present(root) do {(root).val |=3D 1;} while(0)
+> -#define get_context_addr(root) ((root).val & PAGE_MASK_4K)
+> -#define set_root_value(root, value) \
+> -    do {(root).val |=3D ((value) & PAGE_MASK_4K);} while(0)
+>=20
+>  struct context_entry {
+>      u64 lo;
+> diff --git a/xen/drivers/passthrough/vtd/utils.c
+> b/xen/drivers/passthrough/vtd/utils.c
+> index 4febcf506d8a..5f25a86a535c 100644
+> --- a/xen/drivers/passthrough/vtd/utils.c
+> +++ b/xen/drivers/passthrough/vtd/utils.c
+> @@ -112,15 +112,15 @@ void print_vtd_entries(struct vtd_iommu *iommu,
+> int bus, int devfn, u64 gmfn)
+>          return;
+>      }
+>=20
+> -    printk("    root_entry[%02x] =3D %"PRIx64"\n", bus, root_entry[bus].=
+val);
+> -    if ( !root_present(root_entry[bus]) )
+> +    printk("    root_entry[%02x] =3D %"PRIx64"\n", bus, root_entry[bus].=
+lo);
+> +    if ( !root_entry[bus].p )
+>      {
+>          unmap_vtd_domain_page(root_entry);
+>          printk("    root_entry[%02x] not present\n", bus);
+>          return;
+>      }
+>=20
+> -    val =3D root_entry[bus].val;
+> +    val =3D pfn_to_paddr(root_entry[bus].ctp);
+>      unmap_vtd_domain_page(root_entry);
+>      ctxt_entry =3D map_vtd_domain_page(val);
+>      if ( ctxt_entry =3D=3D NULL )
+> diff --git a/xen/drivers/passthrough/vtd/x86/ats.c
+> b/xen/drivers/passthrough/vtd/x86/ats.c
+> index 04d702b1d6b1..fec969ef75bb 100644
+> --- a/xen/drivers/passthrough/vtd/x86/ats.c
+> +++ b/xen/drivers/passthrough/vtd/x86/ats.c
+> @@ -74,8 +74,8 @@ int ats_device(const struct pci_dev *pdev, const struct
+> acpi_drhd_unit *drhd)
+>  static bool device_in_domain(const struct vtd_iommu *iommu,
+>                               const struct pci_dev *pdev, uint16_t did)
+>  {
+> -    struct root_entry *root_entry;
+> -    struct context_entry *ctxt_entry =3D NULL;
+> +    struct root_entry *root_entry, *root_entries;
+> +    struct context_entry *context_entry, *context_entries =3D NULL;
+>      unsigned int tt;
+>      bool found =3D false;
+>=20
+> @@ -85,25 +85,28 @@ static bool device_in_domain(const struct
+> vtd_iommu *iommu,
+>          return false;
+>      }
+>=20
+> -    root_entry =3D map_vtd_domain_page(iommu->root_maddr);
+> -    if ( !root_present(root_entry[pdev->bus]) )
+> +    root_entries =3D (struct root_entry *)map_vtd_domain_page(iommu-
+> >root_maddr);
+> +    root_entry =3D &root_entries[pdev->bus];
+> +    if ( !root_entry->p )
+>          goto out;
+>=20
+> -    ctxt_entry =3D map_vtd_domain_page(root_entry[pdev->bus].val);
+> -    if ( context_domain_id(ctxt_entry[pdev->devfn]) !=3D did )
+> +    context_entries =3D map_vtd_domain_page(root_entry->ctp);
+> +    context_entry =3D &context_entries[pdev->devfn];
+> +    if ( context_domain_id(*context_entry) !=3D did )
+>          goto out;
+>=20
+> -    tt =3D context_translation_type(ctxt_entry[pdev->devfn]);
+> +    tt =3D context_translation_type(*context_entry);
+>      if ( tt !=3D CONTEXT_TT_DEV_IOTLB )
+>          goto out;
+>=20
+>      found =3D true;
+> -out:
+> -    if ( root_entry )
+> -        unmap_vtd_domain_page(root_entry);
+>=20
+> -    if ( ctxt_entry )
+> -        unmap_vtd_domain_page(ctxt_entry);
+> + out:
+> +    if ( root_entries )
+> +        unmap_vtd_domain_page(root_entries);
+> +
+> +    if ( context_entries )
+> +        unmap_vtd_domain_page(context_entries);
+>=20
+>      return found;
+>  }
 > --
-> 2.17.1
+> 2.20.1
 
 
