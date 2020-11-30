@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A7E02C831C
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 12:23:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41021.74106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B49FA2C8353
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 12:36:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41032.74118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjhGk-0000Pg-Ri; Mon, 30 Nov 2020 11:22:58 +0000
+	id 1kjhT8-0001XE-6Z; Mon, 30 Nov 2020 11:35:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41021.74106; Mon, 30 Nov 2020 11:22:58 +0000
+Received: by outflank-mailman (output) from mailman id 41032.74118; Mon, 30 Nov 2020 11:35:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjhGk-0000PH-Nc; Mon, 30 Nov 2020 11:22:58 +0000
-Received: by outflank-mailman (input) for mailman id 41021;
- Mon, 30 Nov 2020 11:22:57 +0000
+	id 1kjhT8-0001Wp-35; Mon, 30 Nov 2020 11:35:46 +0000
+Received: by outflank-mailman (input) for mailman id 41032;
+ Mon, 30 Nov 2020 11:35:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=avKr=FE=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kjhGj-0000P8-4f
- for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 11:22:57 +0000
-Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+ <SRS0=I3zd=FE=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kjhT6-0001Wk-GE
+ for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 11:35:44 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a9f3f888-0c5b-451f-8358-ed17f7e4de6e;
- Mon, 30 Nov 2020 11:22:55 +0000 (UTC)
-Received: by mail-lf1-x141.google.com with SMTP id r24so20875616lfm.8
- for <xen-devel@lists.xenproject.org>; Mon, 30 Nov 2020 03:22:55 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id x134sm2413508lff.161.2020.11.30.03.22.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Nov 2020 03:22:53 -0800 (PST)
+ id 5b64e9de-1139-42bf-8371-6e68610583df;
+ Mon, 30 Nov 2020 11:35:41 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0AUBZXm3023070
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Mon, 30 Nov 2020 12:35:34 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id 017D22E9CAC; Mon, 30 Nov 2020 12:35:27 +0100 (MET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,267 +42,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9f3f888-0c5b-451f-8358-ed17f7e4de6e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=MXrDDLpAfTaxU1bNVbBRC2S3j+N1CzIycOci6TfNZ2g=;
-        b=neI9z+45JbHS5pifD7oPK6lOC8ge1SUAzfnEYFrpa9ctaC0cIsuQWaBpNMAUZcLJid
-         gKDxUKoyzEU1AGZEz4h66JCwhfddejc0TXWkuVgFFffJt2mCOI5HwqmYFhkNehe6C48A
-         RNyvUsze9eKr5yS8SIN23hdBmEExi3RC/yzH+vfEe7hrrL3Asw6dC8t36H3Io9nTtBtI
-         VxXhesTzStcvCdG1LOcF+ePffqK2ivZPybHOG5rJuqJgSvxr0eMX02HKn/9vu6Id7Yaz
-         h47CJL1/LfgGSTZEgLMC25aJCp0AgHM92y7yxro99Q+79NL4y5CSvU/sPDIRc3B8YSPj
-         4Gvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=MXrDDLpAfTaxU1bNVbBRC2S3j+N1CzIycOci6TfNZ2g=;
-        b=tgeUcWzC9BSwVfahNDPedV6jf0K+UQ6btaGhqXsTOO/dYIPJzuZv14Gu9joIlal4/Z
-         SCBaOeCPwNGj8M3x0HPnP/MEJySCH3w6ZNZfZxuANYBOd9ehWA3uzLALPPpYjskS8Syc
-         RIkG8K3orBbqF7oRSIuvY4dxYX/Vnp5iP6GWdI6Veo3fIu8Mvu+At2MnfLPug1MPoQ5R
-         PaKEyJOy9QH6x4Gh+ckUUTfNSGNx+MvRTTdX1dF5QuengBKhQ6KTl0Iv9tr/zSZtftbB
-         69HbgMH8jrhxE1AYukB/xqP4n5F7bkYz5ocSYGWyjvDtYueF+Z3fn3Md7L3M3DfXE6Jj
-         D4AA==
-X-Gm-Message-State: AOAM532mgpI2D8NT5tLhDP1M2n7K9DAuuCcFmSlGNuaeyP8oYrOptxhx
-	JPzGn3w/gV5bV3F+y+FpL2Y=
-X-Google-Smtp-Source: ABdhPJyh5IDuJDJNpDZ0b0zQ7MtdUUl5vXX1HHFtuvwPWeN/eq2FYFW5XbpdUzPYn7N4byNJEl2QvA==
-X-Received: by 2002:a19:cc2:: with SMTP id 185mr8964985lfm.318.1606735374534;
-        Mon, 30 Nov 2020 03:22:54 -0800 (PST)
-Subject: Re: [PATCH V3 00/23] IOREQ feature (+ virtio-mmio) on Arm
-From: Oleksandr <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <julien.grall@arm.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Kaly Xin <Kaly.Xin@arm.com>, Artem Mygaiev <joculator@gmail.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
-Message-ID: <66df4a0b-166a-81c3-9237-854649c832f9@gmail.com>
-Date: Mon, 30 Nov 2020 13:22:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 5b64e9de-1139-42bf-8371-6e68610583df
+Date: Mon, 30 Nov 2020 12:35:27 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        xen-devel@lists.xenproject.org
+Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
+Message-ID: <20201130113527.GE1084@antioche.eu.org>
+References: <20201127131324.GJ1717@antioche.eu.org>
+ <714e9393-d7f4-ed47-d1ed-aff79f3552a0@suse.com>
+ <20201127133121.GN1717@antioche.eu.org>
+ <96aa5a9b-3f4a-ce9d-0f41-4a24d409ed55@suse.com>
+ <20201127135929.GR1717@antioche.eu.org>
+ <20201127202211.eqrxloii5x54zode@Air-de-Roger>
+ <20201127214420.GA637@antioche.eu.org>
+ <20201128145311.3gmzq5lnkz6ajdtr@Air-de-Roger>
+ <20201128171430.GB631@antioche.eu.org>
+ <819e859e-0fd2-cdbf-6126-46c924364d12@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: multipart/mixed; boundary="oyUTqETQ0mS9luUI"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <819e859e-0fd2-cdbf-6126-46c924364d12@suse.com>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Mon, 30 Nov 2020 12:35:34 +0100 (MET)
 
 
-On 30.11.20 12:31, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+--oyUTqETQ0mS9luUI
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hello all.
+On Mon, Nov 30, 2020 at 11:00:23AM +0100, Jan Beulich wrote:
+> On 28.11.2020 18:14, Manuel Bouyer wrote:
+> > On Sat, Nov 28, 2020 at 03:53:11PM +0100, Roger Pau Monné wrote:
+> >>> the trace is at
+> >>> http://www-soc.lip6.fr/~bouyer/xen-log13.txt
+> >>
+> >> Thanks! I think I've found the issue and I'm attaching a possible fix
+> >> (fix.patch) to this email. In any case I've also attached a further
+> >> debug patch, in case the fix turns out to be wrong. Please test the
+> >> fix first, as the debug patch will end up triggering a panic when the
+> >> buffer is full.
+> > 
+> > Yes, fix.patch does make the system boot as expected !
+> 
+> May I translate this to a Tested-by?
+> 
+> Patch also
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Thanks much to both of you for all the effort here!
 
-Added missed subject line. I am sorry for the inconvenience.
+Also, please don't forget the attached patch !
+Without it, the hypervisor panics.
 
-
->
->
-> Date: Sat, 28 Nov 2020 22:33:51 +0200
-> Subject: [PATCH V3 00/23] IOREQ feature (+ virtio-mmio) on Arm
-> MIME-Version: 1.0
-> Content-Type: text/plain; charset=UTF-8
-> Content-Transfer-Encoding: 8bit
->
-> Hello all.
->
-> The purpose of this patch series is to add IOREQ/DM support to Xen on Arm.
-> You can find an initial discussion at [1] and RFC/V1/V2 series at [2]/[3]/[4].
-> Xen on Arm requires some implementation to forward guest MMIO access to a device
-> model in order to implement virtio-mmio backend or even mediator outside of hypervisor.
-> As Xen on x86 already contains required support this series tries to make it common
-> and introduce Arm specific bits plus some new functionality. Patch series is based on
-> Julien's PoC "xen/arm: Add support for Guest IO forwarding to a device emulator".
-> Besides splitting existing IOREQ/DM support and introducing Arm side, the series
-> also includes virtio-mmio related changes (last 2 patches for toolstack)
-> for the reviewers to be able to see how the whole picture could look like.
->
-> According to the initial discussion there are a few open questions/concerns
-> regarding security, performance in VirtIO solution:
-> 1. virtio-mmio vs virtio-pci, SPI vs MSI, different use-cases require different
->     transport...
-> 2. virtio backend is able to access all guest memory, some kind of protection
->     is needed: 'virtio-iommu in Xen' vs 'pre-shared-memory & memcpys in guest'
-> 3. interface between toolstack and 'out-of-qemu' virtio backend, avoid using
->     Xenstore in virtio backend if possible.
-> 4. a lot of 'foreing mapping' could lead to the memory exhaustion, Julien
->     has some idea regarding that.
->
-> Looks like all of them are valid and worth considering, but the first thing
-> which we need on Arm is a mechanism to forward guest IO to a device emulator,
-> so let's focus on it in the first place.
->
-> ***
->
-> There are a lot of changes since RFC series, almost all TODOs were resolved on Arm,
-> Arm code was improved and hardened, common IOREQ/DM code became really arch-agnostic
-> (without HVM-ism), the "legacy" mechanism of mapping magic pages for the IOREQ servers
-> was left x86 specific, etc. But one TODO still remains which is "PIO handling" on Arm.
-> The "PIO handling" TODO is expected to left unaddressed for the current series.
-> It is not an big issue for now while Xen doesn't have support for vPCI on Arm.
-> On Arm64 they are only used for PCI IO Bar and we would probably want to expose
-> them to emulator as PIO access to make a DM completely arch-agnostic. So "PIO handling"
-> should be implemented when we add support for vPCI.
->
-> I left interface untouched in the following patch
-> "xen/dm: Introduce xendevicemodel_set_irq_level DM op"
-> since there is still an open discussion what interface to use/what
-> information to pass to the hypervisor.
->
-> There is a patch on review this series depends on:
-> https://patchwork.kernel.org/patch/11816689
->
-> Please note, that IOREQ feature is disabled by default on Arm within current series.
->
-> ***
->
-> Patch series [5] was rebased on recent "staging branch"
-> (181f2c2 evtchn: double per-channel locking can't hit identical channels) and tested on
-> Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with virtio-mmio disk backend [6]
-> running in driver domain and unmodified Linux Guest running on existing
-> virtio-blk driver (frontend). No issues were observed. Guest domain 'reboot/destroy'
-> use-cases work properly. Patch series was only build-tested on x86.
->
-> Please note, build-test passed for the following modes:
-> 1. x86: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y (default)
-> 2. x86: #CONFIG_HVM is not set / #CONFIG_IOREQ_SERVER is not set
-> 3. Arm64: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
-> 4. Arm64: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set  (default)
-> 5. Arm32: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
-> 6. Arm32: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set  (default)
->
-> ***
->
-> Any feedback/help would be highly appreciated.
->
-> [1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg00825.html
-> [2] https://lists.xenproject.org/archives/html/xen-devel/2020-08/msg00071.html
-> [3] https://lists.xenproject.org/archives/html/xen-devel/2020-09/msg00732.html
-> [4] https://lists.xenproject.org/archives/html/xen-devel/2020-10/msg01077.html
-> [5] https://github.com/otyshchenko1/xen/commits/ioreq_4.14_ml4
-> [6] https://github.com/xen-troops/virtio-disk/commits/ioreq_ml1
->
-> Julien Grall (5):
->    xen/dm: Make x86's DM feature common
->    xen/mm: Make x86's XENMEM_resource_ioreq_server handling common
->    arm/ioreq: Introduce arch specific bits for IOREQ/DM features
->    xen/dm: Introduce xendevicemodel_set_irq_level DM op
->    libxl: Introduce basic virtio-mmio support on Arm
->
-> Oleksandr Tyshchenko (18):
->    x86/ioreq: Prepare IOREQ feature for making it common
->    x86/ioreq: Add IOREQ_STATUS_* #define-s and update code for moving
->    x86/ioreq: Provide out-of-line wrapper for the handle_mmio()
->    xen/ioreq: Make x86's IOREQ feature common
->    xen/ioreq: Make x86's hvm_ioreq_needs_completion() common
->    xen/ioreq: Make x86's hvm_mmio_first(last)_byte() common
->    xen/ioreq: Make x86's hvm_ioreq_(page/vcpu/server) structs common
->    xen/ioreq: Move x86's ioreq_server to struct domain
->    xen/ioreq: Move x86's io_completion/io_req fields to struct vcpu
->    xen/ioreq: Remove "hvm" prefixes from involved function names
->    xen/ioreq: Use guest_cmpxchg64() instead of cmpxchg()
->    xen/arm: Stick around in leave_hypervisor_to_guest until I/O has
->      completed
->    xen/mm: Handle properly reference in set_foreign_p2m_entry() on Arm
->    xen/ioreq: Introduce domain_has_ioreq_server()
->    xen/arm: io: Abstract sign-extension
->    xen/ioreq: Make x86's send_invalidate_req() common
->    xen/arm: Add mapcache invalidation handling
->    [RFC] libxl: Add support for virtio-disk configuration
->
->   MAINTAINERS                                  |    8 +-
->   tools/include/xendevicemodel.h               |    4 +
->   tools/libs/devicemodel/core.c                |   18 +
->   tools/libs/devicemodel/libxendevicemodel.map |    1 +
->   tools/libs/light/Makefile                    |    1 +
->   tools/libs/light/libxl_arm.c                 |   94 +-
->   tools/libs/light/libxl_create.c              |    1 +
->   tools/libs/light/libxl_internal.h            |    1 +
->   tools/libs/light/libxl_types.idl             |   16 +
->   tools/libs/light/libxl_types_internal.idl    |    1 +
->   tools/libs/light/libxl_virtio_disk.c         |  109 +++
->   tools/xl/Makefile                            |    2 +-
->   tools/xl/xl.h                                |    3 +
->   tools/xl/xl_cmdtable.c                       |   15 +
->   tools/xl/xl_parse.c                          |  116 +++
->   tools/xl/xl_virtio_disk.c                    |   46 +
->   xen/arch/arm/Makefile                        |    2 +
->   xen/arch/arm/dm.c                            |   89 ++
->   xen/arch/arm/domain.c                        |    9 +
->   xen/arch/arm/hvm.c                           |    4 +
->   xen/arch/arm/io.c                            |   29 +-
->   xen/arch/arm/ioreq.c                         |  126 +++
->   xen/arch/arm/p2m.c                           |   48 +-
->   xen/arch/arm/traps.c                         |   58 +-
->   xen/arch/x86/Kconfig                         |    1 +
->   xen/arch/x86/hvm/dm.c                        |  295 +-----
->   xen/arch/x86/hvm/emulate.c                   |   80 +-
->   xen/arch/x86/hvm/hvm.c                       |   12 +-
->   xen/arch/x86/hvm/hypercall.c                 |    9 +-
->   xen/arch/x86/hvm/intercept.c                 |    5 +-
->   xen/arch/x86/hvm/io.c                        |   26 +-
->   xen/arch/x86/hvm/ioreq.c                     | 1357 ++------------------------
->   xen/arch/x86/hvm/stdvga.c                    |   10 +-
->   xen/arch/x86/hvm/svm/nestedsvm.c             |    2 +-
->   xen/arch/x86/hvm/vmx/realmode.c              |    6 +-
->   xen/arch/x86/hvm/vmx/vvmx.c                  |    2 +-
->   xen/arch/x86/mm.c                            |   46 +-
->   xen/arch/x86/mm/p2m.c                        |   13 +-
->   xen/arch/x86/mm/shadow/common.c              |    2 +-
->   xen/common/Kconfig                           |    3 +
->   xen/common/Makefile                          |    2 +
->   xen/common/dm.c                              |  292 ++++++
->   xen/common/ioreq.c                           | 1307 +++++++++++++++++++++++++
->   xen/common/memory.c                          |   73 +-
->   xen/include/asm-arm/domain.h                 |    3 +
->   xen/include/asm-arm/hvm/ioreq.h              |  139 +++
->   xen/include/asm-arm/mm.h                     |    8 -
->   xen/include/asm-arm/mmio.h                   |    1 +
->   xen/include/asm-arm/p2m.h                    |   19 +-
->   xen/include/asm-arm/traps.h                  |   24 +
->   xen/include/asm-x86/hvm/domain.h             |   43 -
->   xen/include/asm-x86/hvm/emulate.h            |    2 +-
->   xen/include/asm-x86/hvm/io.h                 |   17 -
->   xen/include/asm-x86/hvm/ioreq.h              |   58 +-
->   xen/include/asm-x86/hvm/vcpu.h               |   18 -
->   xen/include/asm-x86/mm.h                     |    4 -
->   xen/include/asm-x86/p2m.h                    |   24 +-
->   xen/include/public/arch-arm.h                |    5 +
->   xen/include/public/hvm/dm_op.h               |   16 +
->   xen/include/xen/dm.h                         |   44 +
->   xen/include/xen/ioreq.h                      |  146 +++
->   xen/include/xen/p2m-common.h                 |    4 +
->   xen/include/xen/sched.h                      |   32 +
->   xen/include/xsm/dummy.h                      |    4 +-
->   xen/include/xsm/xsm.h                        |    6 +-
->   xen/xsm/dummy.c                              |    2 +-
->   xen/xsm/flask/hooks.c                        |    5 +-
->   67 files changed, 3084 insertions(+), 1884 deletions(-)
->   create mode 100644 tools/libs/light/libxl_virtio_disk.c
->   create mode 100644 tools/xl/xl_virtio_disk.c
->   create mode 100644 xen/arch/arm/dm.c
->   create mode 100644 xen/arch/arm/ioreq.c
->   create mode 100644 xen/common/dm.c
->   create mode 100644 xen/common/ioreq.c
->   create mode 100644 xen/include/asm-arm/hvm/ioreq.h
->   create mode 100644 xen/include/xen/dm.h
->   create mode 100644 xen/include/xen/ioreq.h
->
 -- 
-Regards,
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
-Oleksandr Tyshchenko
+--oyUTqETQ0mS9luUI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename=patch-pvh-panic
 
+diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+index 64dd0a929c..3eb6102a61 100644
+--- xen/drivers/vpci/msix.c.orig
++++ xen/drivers/vpci/msix.c
+@@ -370,7 +370,7 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
+ 
+             entry->updated = false;
+         }
+-        else
++        else if ( msix->enabled )
+             vpci_msix_arch_mask_entry(entry, pdev, entry->masked);
+ 
+         break;
+
+--oyUTqETQ0mS9luUI--
 
