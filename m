@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC7C62C8378
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 12:51:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41048.74142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4FA22C8398
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 12:59:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41055.74153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjhhK-0003S5-Nl; Mon, 30 Nov 2020 11:50:26 +0000
+	id 1kjhpW-0003lb-Jk; Mon, 30 Nov 2020 11:58:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41048.74142; Mon, 30 Nov 2020 11:50:26 +0000
+Received: by outflank-mailman (output) from mailman id 41055.74153; Mon, 30 Nov 2020 11:58:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjhhK-0003Rg-KS; Mon, 30 Nov 2020 11:50:26 +0000
-Received: by outflank-mailman (input) for mailman id 41048;
- Mon, 30 Nov 2020 11:50:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I3zd=FE=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1kjhhJ-0003Rb-7i
- for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 11:50:25 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 553e2e2b-eebb-4cdf-a44d-b7a8aa80c1cb;
- Mon, 30 Nov 2020 11:50:23 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0AUBoIsU021271
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
- Mon, 30 Nov 2020 12:50:19 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id 266502E9CAC; Mon, 30 Nov 2020 12:50:13 +0100 (MET)
+	id 1kjhpW-0003lF-GT; Mon, 30 Nov 2020 11:58:54 +0000
+Received: by outflank-mailman (input) for mailman id 41055;
+ Mon, 30 Nov 2020 11:58:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lj5U=FE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kjhpV-0003lA-P1
+ for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 11:58:53 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 09dd7da0-a390-4de8-8b81-374f416e528a;
+ Mon, 30 Nov 2020 11:58:51 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 20CFFABD2;
+ Mon, 30 Nov 2020 11:58:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,101 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 553e2e2b-eebb-4cdf-a44d-b7a8aa80c1cb
-Date: Mon, 30 Nov 2020 12:50:13 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        xen-devel@lists.xenproject.org
-Subject: Re: NetBSD dom0 PVH: hardware interrupts stalls
-Message-ID: <20201130115013.GF1084@antioche.eu.org>
-References: <20201127133121.GN1717@antioche.eu.org>
- <96aa5a9b-3f4a-ce9d-0f41-4a24d409ed55@suse.com>
- <20201127135929.GR1717@antioche.eu.org>
- <20201127202211.eqrxloii5x54zode@Air-de-Roger>
- <20201127214420.GA637@antioche.eu.org>
- <20201128145311.3gmzq5lnkz6ajdtr@Air-de-Roger>
- <20201128171430.GB631@antioche.eu.org>
- <819e859e-0fd2-cdbf-6126-46c924364d12@suse.com>
- <20201130113527.GE1084@antioche.eu.org>
- <7e284ec6-a3a3-6c04-ce48-10a8290304d5@suse.com>
+X-Inumbo-ID: 09dd7da0-a390-4de8-8b81-374f416e528a
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606737531; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5byG2FT0x2IRFALO4a+A1nUQJUqRrfL6T+ypiFVIAWo=;
+	b=GqX3nQ+oQWQ1vY227YD6c4LMoJwwTmqxgyR18vJx85L6bzH9JMvJh58z4hTVPY4UB80d9k
+	ALMjlLlw2QRR7kVNH+scl81k7Xh+tZXSD07E9qmrtbIsrIUtRHxb1lr39PF/Q1E6CDG93z
+	tXRLe7jb8wyt5Emdy/hoiXj7uF1syHA=
+Subject: Re: [PATCH v4] IOMMU: make DMA containment of quarantined devices
+ optional
+To: paul@xen.org
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Kevin Tian' <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
+References: <c78e09fa-606c-c6c4-e9db-b57cb50ee5e2@suse.com>
+ <013601d6c705$f09fd9a0$d1df8ce0$@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <221431d9-2435-f106-af46-0641f5a4e8f8@suse.com>
+Date: Mon, 30 Nov 2020 12:58:50 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e284ec6-a3a3-6c04-ce48-10a8290304d5@suse.com>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Mon, 30 Nov 2020 12:50:19 +0100 (MET)
+In-Reply-To: <013601d6c705$f09fd9a0$d1df8ce0$@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 30, 2020 at 12:44:23PM +0100, Jan Beulich wrote:
-> On 30.11.2020 12:35, Manuel Bouyer wrote:
-> > On Mon, Nov 30, 2020 at 11:00:23AM +0100, Jan Beulich wrote:
-> >> On 28.11.2020 18:14, Manuel Bouyer wrote:
-> >>> On Sat, Nov 28, 2020 at 03:53:11PM +0100, Roger Pau Monné wrote:
-> >>>>> the trace is at
-> >>>>> http://www-soc.lip6.fr/~bouyer/xen-log13.txt
-> >>>>
-> >>>> Thanks! I think I've found the issue and I'm attaching a possible fix
-> >>>> (fix.patch) to this email. In any case I've also attached a further
-> >>>> debug patch, in case the fix turns out to be wrong. Please test the
-> >>>> fix first, as the debug patch will end up triggering a panic when the
-> >>>> buffer is full.
-> >>>
-> >>> Yes, fix.patch does make the system boot as expected !
-> >>
-> >> May I translate this to a Tested-by?
-> >>
-> >> Patch also
-> >> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> >>
-> >> Thanks much to both of you for all the effort here!
-> > 
-> > Also, please don't forget the attached patch !
-> > Without it, the hypervisor panics.
+On 30.11.2020 11:45, Paul Durrant wrote:
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 27 November 2020 16:46
+>>
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -1278,7 +1278,7 @@ detection of systems known to misbehave
+>>  > Default: `new` unless directed-EOI is supported
+>>
+>>  ### iommu
+>> -    = List of [ <bool>, verbose, debug, force, required, quarantine,
+>> +    = List of [ <bool>, verbose, debug, force, required, quarantine[=scratch-page],
+>>                  sharept, intremap, intpost, crash-disable,
+>>                  snoop, qinval, igfx, amd-iommu-perdev-intremap,
+>>                  dom0-{passthrough,strict} ]
+>> @@ -1316,11 +1316,32 @@ boolean (e.g. `iommu=no`) can override t
+>>      will prevent Xen from booting if IOMMUs aren't discovered and enabled
+>>      successfully.
+>>
+>> -*   The `quarantine` boolean can be used to control Xen's behavior when
+>> -    de-assigning devices from guests.  If enabled (the default), Xen always
+>> +*   The `quarantine` option can be used to control Xen's behavior when
+>> +    de-assigning devices from guests.
+>> +
+>> +    When a PCI device is assigned to an untrusted domain, it is possible
+>> +    for that domain to program the device to DMA to an arbitrary address.
+>> +    The IOMMU is used to protect the host from malicious DMA by making
+>> +    sure that the device addresses can only target memory assigned to the
+>> +    guest.  However, when the guest domain is torn down, assigning the
+>> +    device back to the hardware domain would allow any in-flight DMA to
+>> +    potentially target critical host data.  To avoid this, quarantining
+>> +    should be enabled.  Quarantining can be done in two ways: In its basic
+>> +    form, all in-flight DMA will simply be forced to encounter IOMMU
+>> +    faults.  Since there are systems where doing so can cause host lockup,
+>> +    an alternative form is available where writes to memory will be made
+>> +    fault, but reads will be directed to a dummy page.  The implication
+>> +    here is that such reads will go unnoticed, i.e. an admin may not
+>> +    become aware of the underlying problem.
+>> +
+>> +    Therefore, if this option is set to true (the default), Xen always
+>>      quarantines such devices; they must be explicitly assigned back to Dom0
+>> -    before they can be used there again.  If disabled, Xen will only
+>> -    quarantine devices the toolstack hass arranged for getting quarantined.
+>> +    before they can be used there again.  If set to "scratch-page", still
+>> +    active DMA reads will additionally be directed to a "scratch" page.  If
 > 
-> Well - this one still needs a proper description and S-o-b.
-> The other one came in immediately consumable shape right away.
+> There's inconsistency of terms here. We should choose either 'dummy page'
+> or 'scratch page' (and my vote goes for the latter).
 
-The patch was sent by Roger on 12 Nov 2020, in reply to my mail
-about the panic. The panic is:
+Oh, that wasn't intentional. I've replaced all "dummy" now.
 
-(XEN) Xen call trace:
-(XEN)    [<ffff82d08031cc28>] R vpci_msix_arch_mask_entry+0x18/0x20
-(XEN)    [<ffff82d08025a38a>] S drivers/vpci/msix.c#msix_write+0x18a/0x2b0
-(XEN)    [<ffff82d08030d943>] S arch/x86/hvm/intercept.c#hvm_mmio_write+0x23/0x3
-0
-(XEN)    [<ffff82d08030dd19>] S hvm_process_io_intercept+0x1e9/0x260
-(XEN)    [<ffff82d08030ddad>] S hvm_io_intercept+0x1d/0x40
-(XEN)    [<ffff82d0802fe7ba>] S arch/x86/hvm/emulate.c#hvmemul_do_io+0x26a/0x4d0
-(XEN)    [<ffff82d080259ef9>] S drivers/vpci/msix.c#msix_accept+0x9/0x20
-(XEN)    [<ffff82d0802fea56>] S arch/x86/hvm/emulate.c#hvmemul_do_io_buffer+0x36
-/0x70
-(XEN)    [<ffff82d0802ff005>] S arch/x86/hvm/emulate.c#hvmemul_linear_mmio_access+0x1e5/0x300
-(XEN)    [<ffff82d0802fff44>] S arch/x86/hvm/emulate.c#linear_write+0x84/0x160
-(XEN)    [<ffff82d080301ca8>] S arch/x86/hvm/emulate.c#hvmemul_write+0xe8/0x100
-(XEN)    [<ffff82d0802de6cc>] S x86_emulate+0x289dc/0x2cfb0
-(XEN)    [<ffff82d08027c7ab>] S map_domain_page+0x4b/0x600
-(XEN)    [<ffff82d080340eaa>] S __get_gfn_type_access+0x6a/0x100
-(XEN)    [<ffff82d08034a367>] S arch/x86/mm/p2m-ept.c#ept_next_level+0x107/0x150
-(XEN)    [<ffff82d0802e4961>] S x86_emulate_wrapper+0x21/0x60
-(XEN)    [<ffff82d08030024f>] S arch/x86/hvm/emulate.c#_hvm_emulate_one+0x4f/0x220
-(XEN)    [<ffff82d0803004ed>] S hvmemul_get_seg_reg+0x4d/0x50
-(XEN)    [<ffff82d08030042e>] S hvm_emulate_one+0xe/0x10
-(XEN)    [<ffff82d08030e4ca>] S hvm_emulate_one_insn+0x3a/0xf0
-(XEN)    [<ffff82d0802e4af0>] S x86_insn_is_mem_access+0/0x260
-(XEN)    [<ffff82d08030e5c9>] S handle_mmio_with_translation+0x49/0x60
-(XEN)    [<ffff82d080305d78>] S hvm_hap_nested_page_fault+0x2c8/0x720
-(XEN)    [<ffff82d0802fea56>] S arch/x86/hvm/emulate.c#hv(XEN) 
-(XEN) ****************************************
-(XEN) Panic on CPU 13:
-(XEN) Assertion 'entry->arch.pirq != INVALID_PIRQ' failed at vmsi.c:843
-(XEN) ****************************************
+> Also, rather than true or false, shouldn't we have 'off', 'basic', and
+> 'scratch-page'?
 
-This is when it configures the broadcom network interface, which interrupts
-at "msix3 vec 0". It is the first MSI-X device configured; the previous
-ones are MSI only.
+I didn't want to break (or needlessly extend) the present boolean nature
+of the option. Hence I only added "scratch-page". I wouldn't want to add
+"basic" as an alias of "true", but if you think we really need this, then
+I surely could do so. As to "off" vs "false" - both are permitted anyway
+by the parsing functions. And to me (both as a programmer and as someone
+who had been studying maths long ago) something that's boolean goes
+rather with true/false than on/off; I can certainly change that wording
+if you deem that more appropriate / helpful for the target audience.
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Jan
 
