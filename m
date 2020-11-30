@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70BD22C89EA
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 17:51:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41340.74481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B9F2C8A02
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 17:56:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41351.74497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjmOX-0001Qq-Qt; Mon, 30 Nov 2020 16:51:21 +0000
+	id 1kjmTF-0001kO-GD; Mon, 30 Nov 2020 16:56:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41340.74481; Mon, 30 Nov 2020 16:51:21 +0000
+Received: by outflank-mailman (output) from mailman id 41351.74497; Mon, 30 Nov 2020 16:56:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjmOX-0001QR-Ne; Mon, 30 Nov 2020 16:51:21 +0000
-Received: by outflank-mailman (input) for mailman id 41340;
- Mon, 30 Nov 2020 16:51:20 +0000
+	id 1kjmTF-0001jy-CZ; Mon, 30 Nov 2020 16:56:13 +0000
+Received: by outflank-mailman (input) for mailman id 41351;
+ Mon, 30 Nov 2020 16:56:11 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>) id 1kjmOW-0001QM-CX
- for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 16:51:20 +0000
+ (envelope-from <julien@xen.org>) id 1kjmTD-0001jt-Bq
+ for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 16:56:11 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1kjmOV-0001PU-UW; Mon, 30 Nov 2020 16:51:19 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=u1bbd043a57dd5a.ant.amazon.com)
+ (envelope-from <julien@xen.org>)
+ id 1kjmT5-0001Vf-NJ; Mon, 30 Nov 2020 16:56:03 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1kjmOV-0007mX-Hc; Mon, 30 Nov 2020 16:51:19 +0000
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kjmT5-0002Oq-HJ; Mon, 30 Nov 2020 16:56:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,136 +40,60 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From;
-	bh=XvfdPrYOjfivOrXAndJdfQrCNwEnDaIrvyrxzNqhODk=; b=Mdru5x59232mjdZC+7aa+PxzE/
-	zemvWoaOiZkQ5drZzX2l8VIXF4KYhM3ihmfT/YG6aKlvlbZHs4jDCjRujUT7Et013HZggjhMy2tDk
-	1nv5uRBw2V2SzU4CY114j+hIMQCMCQzZItcGJFV2CHN1neZ/Ef0cDxHl6e3lb/3ASSM0=;
-From: Hongyan Xia <hx242@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: jgrall@amazon.com,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/vmap: handle superpages in vmap_to_mfn()
-Date: Mon, 30 Nov 2020 16:50:54 +0000
-Message-Id: <34de4c4326673c60d3e2cbd3bbcbcca481906524.1606755042.git.hongyxia@amazon.com>
-X-Mailer: git-send-email 2.17.1
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=/GuFncgBZL1ILEdm4G2ODWEnlFhcl0st1I6ubsiFQHA=; b=OA5u39nXo4nDOZg/pRt+k4SZRB
+	Xk5u9yfypa5jtWFAxaf6d9g9OKFi0Iu0x4ipBoZWnv4HaptrWvla5K9W6JqE+5oxGoZKwOdvQk5D8
+	h/ZsoVJPVpXuFvoLdZC381v39EBrA/Y53k9uowtte0CWmvs7hUCHGjX0BM9OF+sTR18Y=;
+Subject: Re: Xen 4.15: Proposed release schedule
+To: Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org
+Cc: committers@xenproject.org, George Dunlap <George.Dunlap@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>, Paul Durrant <xadimgnik@gmail.com>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <24510.24778.433048.477008@mariner.uk.xensource.com>
+ <24510.25252.447028.364012@mariner.uk.xensource.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a0648b20-54df-850b-2992-35dfbb86b7ca@xen.org>
+Date: Mon, 30 Nov 2020 16:56:01 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <24510.25252.447028.364012@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-From: Hongyan Xia <hongyxia@amazon.com>
+Hi Ian,
 
-There is simply no guarantee that vmap won't return superpages to the
-caller. It can happen if the list of MFNs are contiguous, or we simply
-have a large granularity. Although rare, if such things do happen, we
-will simply hit BUG_ON() and crash. Properly handle such cases in a new
-implementation.
+On 25/11/2020 13:56, Ian Jackson wrote:
+>    Friday 8th January    Last posting date
+> 
+>      Patches adding new features should be posted to the mailing list
+>      by this cate, although perhaps not in their final version.
+> 
+>    Friday 22nd January   Feature freeze
+>   
+>      Patches adding new features should be committed by this date.
+>      Straightforward bugfixes may continue to be accepted by
+>      maintainers.
+We have a quite a good features line-up on Arm for this release. 
+Unfortunately, some of the Arm reviewers (including myself) will be 
+unavailable until mid-January. I think this will likely impair what we 
+can get in Xen 4.15.
 
-Note that vmap is now too large to be a macro, so implement it as a
-normal function and move the declaration to mm.h (page.h cannot handle
-mfn_t).
+I was going to suggest a different feature freeze date for Arm (IIRC we 
+did that in 2018), but the implementation of IOREQ for Arm will touch 
+also x86 (in order to make the existing code common).
 
-Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
----
- xen/arch/x86/domain_page.c |  2 +-
- xen/arch/x86/mm.c          | 43 ++++++++++++++++++++++++++++++++++++++
- xen/include/asm-x86/mm.h   |  2 ++
- xen/include/asm-x86/page.h |  2 --
- 4 files changed, 46 insertions(+), 3 deletions(-)
+Therefore, would it be possible to push the "Feature Freeze" by week?
 
-diff --git a/xen/arch/x86/domain_page.c b/xen/arch/x86/domain_page.c
-index eac5e3304fb8..4ba75d397a17 100644
---- a/xen/arch/x86/domain_page.c
-+++ b/xen/arch/x86/domain_page.c
-@@ -338,7 +338,7 @@ mfn_t domain_page_map_to_mfn(const void *ptr)
-         return _mfn(virt_to_mfn(ptr));
- 
-     if ( va >= VMAP_VIRT_START && va < VMAP_VIRT_END )
--        return vmap_to_mfn(va);
-+        return vmap_to_mfn(ptr);
- 
-     ASSERT(va >= MAPCACHE_VIRT_START && va < MAPCACHE_VIRT_END);
- 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 5a50339284c7..c22385e90d8a 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -5194,6 +5194,49 @@ l1_pgentry_t *virt_to_xen_l1e(unsigned long v)
-         }                                          \
-     } while ( false )
- 
-+mfn_t vmap_to_mfn(const void *v)
-+{
-+    bool locking = system_state > SYS_STATE_boot;
-+    unsigned int l2_offset = l2_table_offset((unsigned long)v);
-+    unsigned int l1_offset = l1_table_offset((unsigned long)v);
-+    l3_pgentry_t *pl3e = virt_to_xen_l3e((unsigned long)v);
-+    l2_pgentry_t *pl2e;
-+    l1_pgentry_t *pl1e;
-+    struct page_info *l3page;
-+    mfn_t ret;
-+
-+    ASSERT(pl3e);
-+    l3page = virt_to_page(pl3e);
-+    L3T_LOCK(l3page);
-+
-+    ASSERT(l3e_get_flags(*pl3e) & _PAGE_PRESENT);
-+    if ( l3e_get_flags(*pl3e) & _PAGE_PSE )
-+    {
-+        ret = mfn_add(l3e_get_mfn(*pl3e),
-+                      (l2_offset << PAGETABLE_ORDER) + l1_offset);
-+        L3T_UNLOCK(l3page);
-+        return ret;
-+    }
-+
-+    pl2e = map_l2t_from_l3e(*pl3e) + l2_offset;
-+    ASSERT(l2e_get_flags(*pl2e) & _PAGE_PRESENT);
-+    if ( l2e_get_flags(*pl2e) & _PAGE_PSE )
-+    {
-+        ret = mfn_add(l2e_get_mfn(*pl2e), l1_offset);
-+        L3T_UNLOCK(l3page);
-+        return ret;
-+    }
-+
-+    pl1e = map_l1t_from_l2e(*pl2e) + l1_offset;
-+    UNMAP_DOMAIN_PAGE(pl2e);
-+    ASSERT(l1e_get_flags(*pl1e) & _PAGE_PRESENT);
-+    ret = l1e_get_mfn(*pl1e);
-+    L3T_UNLOCK(l3page);
-+    UNMAP_DOMAIN_PAGE(pl1e);
-+
-+    return ret;
-+}
-+
- int map_pages_to_xen(
-     unsigned long virt,
-     mfn_t mfn,
-diff --git a/xen/include/asm-x86/mm.h b/xen/include/asm-x86/mm.h
-index deeba75a1cbb..6354d165f48b 100644
---- a/xen/include/asm-x86/mm.h
-+++ b/xen/include/asm-x86/mm.h
-@@ -578,6 +578,8 @@ mfn_t alloc_xen_pagetable_new(void);
- void free_xen_pagetable_new(mfn_t mfn);
- 
- l1_pgentry_t *virt_to_xen_l1e(unsigned long v);
-+mfn_t vmap_to_mfn(const void *v);
-+#define vmap_to_page(va) mfn_to_page(vmap_to_mfn(va))
- 
- int __sync_local_execstate(void);
- 
-diff --git a/xen/include/asm-x86/page.h b/xen/include/asm-x86/page.h
-index 7a771baf7cb3..b2bcc95fd2de 100644
---- a/xen/include/asm-x86/page.h
-+++ b/xen/include/asm-x86/page.h
-@@ -291,8 +291,6 @@ void copy_page_sse2(void *, const void *);
- #define pfn_to_paddr(pfn)   __pfn_to_paddr(pfn)
- #define paddr_to_pfn(pa)    __paddr_to_pfn(pa)
- #define paddr_to_pdx(pa)    pfn_to_pdx(paddr_to_pfn(pa))
--#define vmap_to_mfn(va)     l1e_get_mfn(*virt_to_xen_l1e((unsigned long)(va)))
--#define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
- 
- #endif /* !defined(__ASSEMBLY__) */
- 
+Note that I am not suggesting to push the "Last posting date" as to 
+avoid increasing pressure on the number of series to review.
+
+Cheers,
+
 -- 
-2.17.1
-
+Julien Grall
 
