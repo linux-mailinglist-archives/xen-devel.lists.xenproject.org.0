@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B9F2C8A02
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 17:56:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41351.74497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 263772C8C49
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Nov 2020 19:12:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41380.74509 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjmTF-0001kO-GD; Mon, 30 Nov 2020 16:56:13 +0000
+	id 1kjneN-0000tu-CR; Mon, 30 Nov 2020 18:11:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41351.74497; Mon, 30 Nov 2020 16:56:13 +0000
+Received: by outflank-mailman (output) from mailman id 41380.74509; Mon, 30 Nov 2020 18:11:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjmTF-0001jy-CZ; Mon, 30 Nov 2020 16:56:13 +0000
-Received: by outflank-mailman (input) for mailman id 41351;
- Mon, 30 Nov 2020 16:56:11 +0000
+	id 1kjneN-0000tV-8b; Mon, 30 Nov 2020 18:11:47 +0000
+Received: by outflank-mailman (input) for mailman id 41380;
+ Mon, 30 Nov 2020 18:11:45 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kjmTD-0001jt-Bq
- for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 16:56:11 +0000
+ (envelope-from <hx242@xen.org>) id 1kjneL-0000tQ-5O
+ for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 18:11:45 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kjmT5-0001Vf-NJ; Mon, 30 Nov 2020 16:56:03 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ (envelope-from <hx242@xen.org>)
+ id 1kjneH-0003AP-Vv; Mon, 30 Nov 2020 18:11:41 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=edge-cache-235.e-lhr50.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kjmT5-0002Oq-HJ; Mon, 30 Nov 2020 16:56:03 +0000
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1kjneH-0008CH-J5; Mon, 30 Nov 2020 18:11:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,60 +41,63 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=/GuFncgBZL1ILEdm4G2ODWEnlFhcl0st1I6ubsiFQHA=; b=OA5u39nXo4nDOZg/pRt+k4SZRB
-	Xk5u9yfypa5jtWFAxaf6d9g9OKFi0Iu0x4ipBoZWnv4HaptrWvla5K9W6JqE+5oxGoZKwOdvQk5D8
-	h/ZsoVJPVpXuFvoLdZC381v39EBrA/Y53k9uowtte0CWmvs7hUCHGjX0BM9OF+sTR18Y=;
-Subject: Re: Xen 4.15: Proposed release schedule
-To: Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org
-Cc: committers@xenproject.org, George Dunlap <George.Dunlap@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>, Paul Durrant <xadimgnik@gmail.com>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <24510.24778.433048.477008@mariner.uk.xensource.com>
- <24510.25252.447028.364012@mariner.uk.xensource.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a0648b20-54df-850b-2992-35dfbb86b7ca@xen.org>
-Date: Mon, 30 Nov 2020 16:56:01 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.0
-MIME-Version: 1.0
-In-Reply-To: <24510.25252.447028.364012@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+	s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+	bh=ndgVYZCrNmPbecjhfCy3ZQaLH0zpEGe05VzAmEtBl2s=; b=uSdYT+fG9DAb6Pm4Dlo2z0CP+L
+	cusBBvqmPk1HkhAm+j6a7G+tcY8aUK0dlvh7vK8kCXfpkWmoaGeLCftR3JAiJVMKjjSBl0rDJisOf
+	gcf/Z3jvpeimbe3IpS5s4iBEovARFM1juI8Qyl044J1dSfw9T42EaQOZjz+2cGvxvRl8=;
+Message-ID: <8118aa61528cb14acab8a399bd483557bd3c921e.camel@xen.org>
+Subject: Re: [PATCH 04/16] x86/srat: vmap the pages for acpi_slit
+From: Hongyan Xia <hx242@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu
+	 <wl@xen.org>, Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, 
+	xen-devel@lists.xenproject.org
+Date: Mon, 30 Nov 2020 18:11:38 +0000
+In-Reply-To: <d41fee35-8889-3ab8-2a5e-f4b442747362@suse.com>
+References: <cover.1588278317.git.hongyxia@amazon.com>
+	 <f4226fafcd333c0274fcee24601c280bf6494417.1588278317.git.hongyxia@amazon.com>
+	 <d41fee35-8889-3ab8-2a5e-f4b442747362@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-Hi Ian,
-
-On 25/11/2020 13:56, Ian Jackson wrote:
->    Friday 8th January    Last posting date
+On Mon, 2020-11-30 at 11:16 +0100, Jan Beulich wrote:
+> On 30.04.2020 22:44, Hongyan Xia wrote:
+> > --- a/xen/arch/x86/srat.c
+> > +++ b/xen/arch/x86/srat.c
+> > @@ -196,7 +196,8 @@ void __init acpi_numa_slit_init(struct
+> > acpi_table_slit *slit)
+> >  		return;
+> >  	}
+> >  	mfn = alloc_boot_pages(PFN_UP(slit->header.length), 1);
+> > -	acpi_slit = mfn_to_virt(mfn_x(mfn));
+> > +	acpi_slit = vmap_boot_pages(mfn, PFN_UP(slit->header.length));
+> > +	BUG_ON(!acpi_slit);
+> >  	memcpy(acpi_slit, slit, slit->header.length);
+> >  }
 > 
->      Patches adding new features should be posted to the mailing list
->      by this cate, although perhaps not in their final version.
-> 
->    Friday 22nd January   Feature freeze
->   
->      Patches adding new features should be committed by this date.
->      Straightforward bugfixes may continue to be accepted by
->      maintainers.
-We have a quite a good features line-up on Arm for this release. 
-Unfortunately, some of the Arm reviewers (including myself) will be 
-unavailable until mid-January. I think this will likely impair what we 
-can get in Xen 4.15.
+> I'm not sure in how far this series is still to be considered
+> active / pending; I still have it in my inbox as something to
+> look at in any event. If it is, then I think the latest by this
+> patch it becomes clear that we either want to make vmalloc()
+> boot-allocator capable, or introduce e.g. vmalloc_boot().
+> Having this recurring pattern including the somewhat odd
+> vmap_boot_pages() is imo not the best way forward. It would
+> then also no longer be necessary to allocate contiguous pages,
+> as none of the users up to here appear to have such a need.
 
-I was going to suggest a different feature freeze date for Arm (IIRC we 
-did that in 2018), but the implementation of IOREQ for Arm will touch 
-also x86 (in order to make the existing code common).
+This series is blocked on the PTE domheap conversion series so I will
+definitely come back here after that series is merged.
 
-Therefore, would it be possible to push the "Feature Freeze" by week?
+vmap_boot_pages() (poorly named, there is nothing "boot" about it) is
+actually useful in other patches as well, especially when there is no
+direct map but we need to map a contiguous range, since
+map_domain_page() can only handle a single one. So I would say there
+will be a need for this function (maybe call it vmap_contig_pages()?)
+even if for this patch a boot-capable vmalloc can do the job.
 
-Note that I am not suggesting to push the "Last posting date" as to 
-avoid increasing pressure on the number of series to review.
+Hongyan
 
-Cheers,
-
--- 
-Julien Grall
 
