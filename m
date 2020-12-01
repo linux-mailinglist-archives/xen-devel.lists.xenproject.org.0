@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6E182C9917
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 09:22:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41669.75105 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE0682C9918
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 09:22:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41677.75117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk0vO-0005ps-W6; Tue, 01 Dec 2020 08:22:14 +0000
+	id 1kk0vT-0005zU-JZ; Tue, 01 Dec 2020 08:22:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41669.75105; Tue, 01 Dec 2020 08:22:14 +0000
+Received: by outflank-mailman (output) from mailman id 41677.75117; Tue, 01 Dec 2020 08:22:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk0vO-0005oT-Mh; Tue, 01 Dec 2020 08:22:14 +0000
-Received: by outflank-mailman (input) for mailman id 41669;
- Tue, 01 Dec 2020 08:22:12 +0000
+	id 1kk0vT-0005yV-Bd; Tue, 01 Dec 2020 08:22:19 +0000
+Received: by outflank-mailman (input) for mailman id 41677;
+ Tue, 01 Dec 2020 08:22:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UECe=FF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kk0vM-0004Uj-Jt
- for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 08:22:12 +0000
+ id 1kk0vR-0004Uj-KF
+ for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 08:22:17 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c3e75dc9-6b8c-4948-9e33-bfc041c331ed;
+ id 8c0bbf43-36d4-4383-b29a-fee1a0eed84c;
  Tue, 01 Dec 2020 08:21:35 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E7BA2AC2F;
- Tue,  1 Dec 2020 08:21:33 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 37707AD71;
+ Tue,  1 Dec 2020 08:21:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3e75dc9-6b8c-4948-9e33-bfc041c331ed
+X-Inumbo-ID: 8c0bbf43-36d4-4383-b29a-fee1a0eed84c
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1606810894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7nEfxMc4Y111J56Pbtn4xCo86ZYNHh7NsCYZakRnxAw=;
-	b=q7fVue6+a3LnDyFS4uwGeOnENuWlrCODSQKGhqEjyhoQOU0imZti8xKGiJxIgP4ZPH0XGq
-	NcJcyyWri44MTb8Bd6uW73F0Exdla3Y1bf3Kz69CES6KlvO/AeUxcAaeshGW8aFjl48Syi
-	NJNsGCjs8OelOTH3cwKbfq2LzCG5/UE=
+	bh=HM46dWJ+2EckZVs46afJ02xSZlPII/ZflhbtJ/soVzY=;
+	b=si2eglK8gFZfvlwn7DwLnIfjPwj443YIA2y0+2TssmsqgTD1VpUZvitNvDWOvPhJZbQS6V
+	H6lMLFAHhyc3EJFWNXxzU9nCuJnsn3hnRCrUF1EVh1mxqA/k9p3Ppo39CylLKOsK5gOPwX
+	ZRK+gWBGuZMp8brKkizNXEPDGrUqBxI=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -58,157 +58,204 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 14/17] xen/hypfs: add support for id-based dynamic directories
-Date: Tue,  1 Dec 2020 09:21:25 +0100
-Message-Id: <20201201082128.15239-15-jgross@suse.com>
+	Wei Liu <wl@xen.org>,
+	Dario Faggioli <dfaggioli@suse.com>
+Subject: [PATCH v2 15/17] xen/cpupool: add cpupool directories
+Date: Tue,  1 Dec 2020 09:21:26 +0100
+Message-Id: <20201201082128.15239-16-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201201082128.15239-1-jgross@suse.com>
 References: <20201201082128.15239-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add some helpers to hypfs.c to support dynamic directories with a
-numerical id as name.
-
-The dynamic directory is based on a template specified by the user
-allowing to use specific access functions and having a predefined
-set of entries in the directory.
+Add /cpupool/<cpupool-id> directories to hypfs. Those are completely
+dynamic, so the related hypfs access functions need to be implemented.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V2:
-- use macro for length of entry name (Jan Beulich)
-- const attributes (Jan Beulich)
-- use template name as format string (Jan Beulich)
-- add hypfs_dynid_entry_size() helper (Jan Beulich)
-- expect dyndir data having been allocated by enter() callback
+- added const (Jan Beulich)
+- call hypfs_add_dir() in helper (Dario Faggioli)
+- switch locking to enter/exit callbacks
 ---
- xen/common/hypfs.c      | 75 +++++++++++++++++++++++++++++++++++++++++
- xen/include/xen/hypfs.h | 17 ++++++++++
- 2 files changed, 92 insertions(+)
+ docs/misc/hypfs-paths.pandoc |   9 +++
+ xen/common/sched/cpupool.c   | 122 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 131 insertions(+)
 
-diff --git a/xen/common/hypfs.c b/xen/common/hypfs.c
-index 39448c5409..1819b26925 100644
---- a/xen/common/hypfs.c
-+++ b/xen/common/hypfs.c
-@@ -355,6 +355,81 @@ unsigned int hypfs_getsize(const struct hypfs_entry *entry)
-     return entry->size;
- }
+diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pandoc
+index 6c7b2f7ee3..aaca1cdf92 100644
+--- a/docs/misc/hypfs-paths.pandoc
++++ b/docs/misc/hypfs-paths.pandoc
+@@ -175,6 +175,15 @@ The major version of Xen.
  
-+int hypfs_read_dyndir_id_entry(const struct hypfs_entry_dir *template,
-+                               unsigned int id, bool is_last,
-+                               XEN_GUEST_HANDLE_PARAM(void) *uaddr)
+ The minor version of Xen.
+ 
++#### /cpupool/
++
++A directory of all current cpupools.
++
++#### /cpupool/*/
++
++The individual cpupools. Each entry is a directory with the name being the
++cpupool-id (e.g. /cpupool/0/).
++
+ #### /params/
+ 
+ A directory of runtime parameters.
+diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
+index 0db7d77219..3e17fdf95b 100644
+--- a/xen/common/sched/cpupool.c
++++ b/xen/common/sched/cpupool.c
+@@ -13,6 +13,8 @@
+ 
+ #include <xen/cpu.h>
+ #include <xen/cpumask.h>
++#include <xen/guest_access.h>
++#include <xen/hypfs.h>
+ #include <xen/init.h>
+ #include <xen/keyhandler.h>
+ #include <xen/lib.h>
+@@ -33,6 +35,7 @@ static int cpupool_moving_cpu = -1;
+ static struct cpupool *cpupool_cpu_moving = NULL;
+ static cpumask_t cpupool_locked_cpus;
+ 
++/* This lock nests inside sysctl or hypfs lock. */
+ static DEFINE_SPINLOCK(cpupool_lock);
+ 
+ static enum sched_gran __read_mostly opt_sched_granularity = SCHED_GRAN_cpu;
+@@ -1003,12 +1006,131 @@ static struct notifier_block cpu_nfb = {
+     .notifier_call = cpu_callback
+ };
+ 
++#ifdef CONFIG_HYPFS
++static const struct hypfs_entry *cpupool_pooldir_enter(
++    const struct hypfs_entry *entry);
++
++static struct hypfs_funcs cpupool_pooldir_funcs = {
++    .enter = cpupool_pooldir_enter,
++    .exit = hypfs_node_exit,
++    .read = hypfs_read_dir,
++    .write = hypfs_write_deny,
++    .getsize = hypfs_getsize,
++    .findentry = hypfs_dir_findentry,
++};
++
++static HYPFS_VARDIR_INIT(cpupool_pooldir, "%u", &cpupool_pooldir_funcs);
++
++static const struct hypfs_entry *cpupool_pooldir_enter(
++    const struct hypfs_entry *entry)
 +{
-+    struct xen_hypfs_dirlistentry direntry;
-+    char name[HYPFS_DYNDIR_ID_NAMELEN];
-+    unsigned int e_namelen, e_len;
-+
-+    e_namelen = snprintf(name, sizeof(name), template->e.name, id);
-+    e_len = DIRENTRY_SIZE(e_namelen);
-+    direntry.e.pad = 0;
-+    direntry.e.type = template->e.type;
-+    direntry.e.encoding = template->e.encoding;
-+    direntry.e.content_len = template->e.funcs->getsize(&template->e);
-+    direntry.e.max_write_len = template->e.max_size;
-+    direntry.off_next = is_last ? 0 : e_len;
-+    if ( copy_to_guest(*uaddr, &direntry, 1) )
-+        return -EFAULT;
-+    if ( copy_to_guest_offset(*uaddr, DIRENTRY_NAME_OFF, name,
-+                              e_namelen + 1) )
-+        return -EFAULT;
-+
-+    guest_handle_add_offset(*uaddr, e_len);
-+
-+    return 0;
++    return &cpupool_pooldir.e;
 +}
 +
-+static struct hypfs_entry *hypfs_dyndir_findentry(
-+    const struct hypfs_entry_dir *dir, const char *name, unsigned int name_len)
++static int cpupool_dir_read(const struct hypfs_entry *entry,
++                            XEN_GUEST_HANDLE_PARAM(void) uaddr)
 +{
-+    const struct hypfs_dyndir_id *data;
++    int ret = 0;
++    const struct cpupool *c;
++    unsigned int size = 0;
 +
-+    data = hypfs_get_dyndata();
++    list_for_each_entry(c, &cpupool_list, list)
++    {
++        size += hypfs_dynid_entry_size(entry, c->cpupool_id);
 +
-+    /* Use template with original findentry function. */
-+    return data->template->e.funcs->findentry(data->template, name, name_len);
++        ret = hypfs_read_dyndir_id_entry(&cpupool_pooldir, c->cpupool_id,
++                                         list_is_last(&c->list, &cpupool_list),
++                                         &uaddr);
++        if ( ret )
++            break;
++    }
++
++    return ret;
 +}
 +
-+static int hypfs_read_dyndir(const struct hypfs_entry *entry,
-+                             XEN_GUEST_HANDLE_PARAM(void) uaddr)
++static unsigned int cpupool_dir_getsize(const struct hypfs_entry *entry)
 +{
-+    const struct hypfs_dyndir_id *data;
++    const struct cpupool *c;
++    unsigned int size = 0;
 +
-+    data = hypfs_get_dyndata();
++    list_for_each_entry(c, &cpupool_list, list)
++        size += hypfs_dynid_entry_size(entry, c->cpupool_id);
 +
-+    /* Use template with original read function. */
-+    return data->template->e.funcs->read(&data->template->e, uaddr);
++    return size;
 +}
 +
-+struct hypfs_entry *hypfs_gen_dyndir_entry_id(
-+    const struct hypfs_entry_dir *template, unsigned int id)
++static const struct hypfs_entry *cpupool_dir_enter(
++    const struct hypfs_entry *entry)
 +{
 +    struct hypfs_dyndir_id *data;
 +
-+    data = hypfs_get_dyndata();
++    data = hypfs_alloc_dyndata(sizeof(*data));
++    if ( !data )
++        return ERR_PTR(-ENOMEM);
++    data->id = CPUPOOLID_NONE;
 +
-+    data->template = template;
-+    data->id = id;
-+    snprintf(data->name, sizeof(data->name), template->e.name, id);
-+    data->dir = *template;
-+    data->dir.e.name = data->name;
-+    data->dir.e.funcs = &data->funcs;
-+    data->funcs = *template->e.funcs;
-+    data->funcs.findentry = hypfs_dyndir_findentry;
-+    data->funcs.read = hypfs_read_dyndir;
++    spin_lock(&cpupool_lock);
 +
-+    return &data->dir.e;
++    return entry;
 +}
 +
-+unsigned int hypfs_dynid_entry_size(const struct hypfs_entry *template,
-+                                    unsigned int id)
++static void cpupool_dir_exit(const struct hypfs_entry *entry)
 +{
-+    return DIRENTRY_SIZE(snprintf(NULL, 0, template->name, id));
++    spin_unlock(&cpupool_lock);
++
++    hypfs_free_dyndata();
 +}
 +
- int hypfs_read_dir(const struct hypfs_entry *entry,
-                    XEN_GUEST_HANDLE_PARAM(void) uaddr)
- {
-diff --git a/xen/include/xen/hypfs.h b/xen/include/xen/hypfs.h
-index be8d6c508a..1782c50b30 100644
---- a/xen/include/xen/hypfs.h
-+++ b/xen/include/xen/hypfs.h
-@@ -76,6 +76,16 @@ struct hypfs_entry_dir {
-     struct list_head dirlist;
- };
- 
-+struct hypfs_dyndir_id {
-+    struct hypfs_entry_dir dir;             /* Modified copy of template. */
-+    struct hypfs_funcs funcs;               /* Dynamic functions. */
-+    const struct hypfs_entry_dir *template; /* Template used. */
-+#define HYPFS_DYNDIR_ID_NAMELEN 12
-+    char name[HYPFS_DYNDIR_ID_NAMELEN];     /* Name of hypfs entry. */
++static struct hypfs_entry *cpupool_dir_findentry(
++    const struct hypfs_entry_dir *dir, const char *name, unsigned int name_len)
++{
++    unsigned long id;
++    const char *end;
++    const struct cpupool *cpupool;
 +
-+    unsigned int id;                        /* Numerical id. */
++    id = simple_strtoul(name, &end, 10);
++    if ( end != name + name_len )
++        return ERR_PTR(-ENOENT);
++
++    cpupool = __cpupool_find_by_id(id, true);
++
++    if ( !cpupool )
++        return ERR_PTR(-ENOENT);
++
++    return hypfs_gen_dyndir_entry_id(&cpupool_pooldir, id);
++}
++
++static struct hypfs_funcs cpupool_dir_funcs = {
++    .enter = cpupool_dir_enter,
++    .exit = cpupool_dir_exit,
++    .read = cpupool_dir_read,
++    .write = hypfs_write_deny,
++    .getsize = cpupool_dir_getsize,
++    .findentry = cpupool_dir_findentry,
 +};
 +
- #define HYPFS_VARDIR_INIT(var, nam, fn)           \
-     struct hypfs_entry_dir __read_mostly var = {  \
-         .e.type = XEN_HYPFS_TYPE_DIR,             \
-@@ -181,6 +191,13 @@ struct hypfs_entry *hypfs_dir_findentry(const struct hypfs_entry_dir *dir,
- void *hypfs_alloc_dyndata(unsigned long size);
- void *hypfs_get_dyndata(void);
- void hypfs_free_dyndata(void);
-+int hypfs_read_dyndir_id_entry(const struct hypfs_entry_dir *template,
-+                               unsigned int id, bool is_last,
-+                               XEN_GUEST_HANDLE_PARAM(void) *uaddr);
-+struct hypfs_entry *hypfs_gen_dyndir_entry_id(
-+    const struct hypfs_entry_dir *template, unsigned int id);
-+unsigned int hypfs_dynid_entry_size(const struct hypfs_entry *template,
-+                                    unsigned int id);
- #endif
++static HYPFS_VARDIR_INIT(cpupool_dir, "cpupool", &cpupool_dir_funcs);
++
++static void cpupool_hypfs_init(void)
++{
++    hypfs_add_dir(&hypfs_root, &cpupool_dir, true);
++    hypfs_add_dyndir(&cpupool_dir, &cpupool_pooldir);
++}
++#else
++
++static void cpupool_hypfs_init(void)
++{
++}
++#endif
++
+ static int __init cpupool_init(void)
+ {
+     unsigned int cpu;
  
- #endif /* __XEN_HYPFS_H__ */
+     cpupool_gran_init();
+ 
++    cpupool_hypfs_init();
++
+     cpupool0 = cpupool_create(0, 0);
+     BUG_ON(IS_ERR(cpupool0));
+     cpupool_put(cpupool0);
 -- 
 2.26.2
 
