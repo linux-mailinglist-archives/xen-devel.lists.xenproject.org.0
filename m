@@ -2,35 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADDE42CA34C
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 14:02:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41999.75530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81C1F2CA37D
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 14:12:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42008.75542 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk5Hu-0002Kw-St; Tue, 01 Dec 2020 13:01:46 +0000
+	id 1kk5SL-0003MD-Kk; Tue, 01 Dec 2020 13:12:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41999.75530; Tue, 01 Dec 2020 13:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 42008.75542; Tue, 01 Dec 2020 13:12:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk5Hu-0002KP-NA; Tue, 01 Dec 2020 13:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 41999;
- Tue, 01 Dec 2020 13:01:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kk5Ht-0002KH-NV; Tue, 01 Dec 2020 13:01:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kk5Ht-00040r-Bh; Tue, 01 Dec 2020 13:01:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kk5Hs-0002I2-Uq; Tue, 01 Dec 2020 13:01:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kk5Hs-0004P2-UU; Tue, 01 Dec 2020 13:01:44 +0000
+	id 1kk5SL-0003Lo-HL; Tue, 01 Dec 2020 13:12:33 +0000
+Received: by outflank-mailman (input) for mailman id 42008;
+ Tue, 01 Dec 2020 13:12:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kJqf=FF=epam.com=prvs=0604985de8=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1kk5SK-0003Lj-IQ
+ for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 13:12:32 +0000
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fd21798f-ee3c-41a2-87aa-d18f6de31dac;
+ Tue, 01 Dec 2020 13:12:30 +0000 (UTC)
+Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0B1DAEWR023559; Tue, 1 Dec 2020 13:12:27 GMT
+Received: from eur03-am5-obe.outbound.protection.outlook.com
+ (mail-am5eur03lp2050.outbound.protection.outlook.com [104.47.8.50])
+ by mx0b-0039f301.pphosted.com with ESMTP id 353ejmywry-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 01 Dec 2020 13:12:27 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM9PR03MB6882.eurprd03.prod.outlook.com (2603:10a6:20b:283::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.22; Tue, 1 Dec
+ 2020 13:12:22 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::501:a686:7515:465e]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::501:a686:7515:465e%9]) with mapi id 15.20.3611.022; Tue, 1 Dec 2020
+ 13:12:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,289 +53,265 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4sp7PrTnoXUsT6glqJSIDSX7a/iQ2sl0AMwVAi5b+40=; b=BQ/MWKa4RhmA1FmVvfmarRzdvd
-	z3UqjOy2BZfxQ8K3R+MBlVC2OED02Km6RXA9wGsyhWQyNPgtHZHDSBG3XZWRKL6I83XasX+aRH+eK
-	wXG8aVCoy53OSb3oZ09WEn4kStPW4caT93A2Wj5ROQC9ScXkVIvyqiTMuFf8MMO3+Mcg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157123-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: fd21798f-ee3c-41a2-87aa-d18f6de31dac
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BNYCrEQvf3whzZ/bRJYXijdCBGFzBlaUysXceFNdCefpXBBVyZnxN6F4tPYegoa3ZTekSTszmJ+OCP6xPT/JIGchK/iP5Hsb6ciUf7r4mcyJRdhYpdIMdv2j/pysIcpz1XC7z97NFVZ3oeTfnEo+nZLH1Bwn9tYEoxxXVfD45vAx7AAUXxi2DfPtTZkd8U+RMRq/ZqOVJJIjwhfWy7eZJ68B5G2VdZRo4c81sv8WmcfIEYbK0aJ9WyfkRHqCk3IfQUjFVbjPoaRrN0z3PNHubchHIC35vU+pbI1O+HBJ17vqJblO0a2fm4RyyucXSCDNoBVZCvZ+mSq6km8TIT/JXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gX1fZVUF3IThJ1z4CK/d+pqVKfl2H7GE0dwf74Lavwc=;
+ b=NRMOQwGiMZZ8+8wdbHlddLLYPXT7C8n27UVJneyzsuvweuXhGqLKZ3bO534W49IX2hKcoDQ/Ym79IxtCYACtkzEFO6SRROlsWG2465GnESl6IkgcyWAT50lR3djH60sVCxuhDZwcDg7TJx7tQA+1yz9SiKD/ldr0KUE8l3YVh+IHdlRpInoYF4rjjiAETKE8hXAVtAJvaI7eaX/3JE+jUHZ8fk8JHi3G8e4AkJ9HFzh3P3IqUSe55SoQxONQd9QlPgvHCn3hKSB/GfNJ1N1bAD+vsKFfiMF5b6eQafRpP2g3Qozjx3/W53AUd3/dHs/HbmnKfsEGoE95HGzWliQpWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gX1fZVUF3IThJ1z4CK/d+pqVKfl2H7GE0dwf74Lavwc=;
+ b=jYpc4ZnLtKK9b1nXNanOZkHAn3HHD1Hx9j3swwRKJ2T1D/DctfgicoPF8hzddFgqQLrbMJxTGuVMve+L2xiVx5I6PgsTch9gZHJfwpJjFcBIgo6UdEMBfRg2jeHnnmWLwFiplBvygMEmrqqAVqdnmC6BM2fSFM9ZCTZZwym3J0q1Xb/UzyI+8lqzrIj6TwjQTT3jFKbqb7S4C3KJODwyF7Ho4yMThsT+P1u/qBMxQT1vO8a+i0hWZcphrYlWnwJ3G94UuHSQt9VRBB1WfyY1T0VO29LDKYOHJeyzFIbMtwYSiiR4mbOph5ZbZSPC9GxMBBbf5UDU12+SjEKCAKPrbw==
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Paul Durrant <paul@xen.org>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Paul Durrant <pdurrant@amazon.com>, Ian Jackson <iwj@xenproject.org>,
+        Wei
+ Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v4 03/23] libxl: Make sure devices added by pci-attach are
+ reflected in the config
+Thread-Topic: [PATCH v4 03/23] libxl: Make sure devices added by pci-attach
+ are reflected in the config
+Thread-Index: AQHWx+OabtYotvRU7E6Ior0bjSGKzA==
+Date: Tue, 1 Dec 2020 13:12:22 +0000
+Message-ID: <d16e33d7-a4af-8686-c639-b4f591caf77c@epam.com>
+References: <20201124080159.11912-1-paul@xen.org>
+ <20201124080159.11912-4-paul@xen.org>
+In-Reply-To: <20201124080159.11912-4-paul@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: xen.org; dkim=none (message not signed)
+ header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [185.199.97.5]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f06f2a16-e436-499a-83ec-08d895fabdaf
+x-ms-traffictypediagnostic: AM9PR03MB6882:
+x-microsoft-antispam-prvs: 
+ <AM9PR03MB6882B05CFB4C976631DEB79DE7F40@AM9PR03MB6882.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:446;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ Z7zGAS/OxmJckLmmK0ch2SlNZmkW8Btk7mQVClS4Di6MSoKdR8SA6LxP2bF/0za0DJD6mCWvoSdGihwO8kkWoD2I0kCsLkWsET7OjkD/OU+cPraSrap/rJ9QErf6I9bZVtRNfVLlrWSGHya5FJ5catKbizKiGORNhir9VHVcrsUwZaEr5hJ/i5HJSWYk+3bLnqOCRK5tzvaD0O9fjAbubQp6Feosldn1wQWRJs+IHRp8OOcDqruRiMJ0o+PerbRM1AjXp91AgW8AVe/tvXZ1EqX145Fx4J6NFcPyZXHRcJlO8c0sP4s1aiG0ZkbiDZgWGdbHUTsAA1wn+xrX/TBPUxQy0Qi9w7p7oExrebOaiMKRq95oDdUpGZGKUpvyk24wtokYPimhxvDdi+XcH/u2eA==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(66946007)(31686004)(31696002)(36756003)(186003)(54906003)(316002)(53546011)(2906002)(64756008)(110136005)(478600001)(6506007)(4326008)(6512007)(26005)(966005)(8676002)(66446008)(2616005)(66476007)(66556008)(76116006)(5660300002)(71200400001)(8936002)(86362001)(6486002)(83380400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: 
+ =?utf-8?B?VDQ3ZnBPQjlIanhYS3NnYU43djV1K0F5c3BXN0Vsam9KYXp2OEFacmcyNkpS?=
+ =?utf-8?B?SkpyNjVMSUNOTGNtUjFGMHl0RWJZMEw5REFFSDZWZFJsU2FFakxNcEZDWG5j?=
+ =?utf-8?B?TXhDRVQxM0RMcGFldk5mT25kZmhoSWpHeVJzNXdWenBUbWZPc0F5TFpHNWMz?=
+ =?utf-8?B?SWQ4VzI1dTNzbkdXVkd3RkZoS3NwVU5qL29oSXhzZ3d0eTZoVGVEdjJXbHQr?=
+ =?utf-8?B?Nkp2QkFxYVg3eVVqZFJFTDNhUnlqd0JlTGxucEk1aDcwQUpLUmVmT3loUFJU?=
+ =?utf-8?B?UXhlT3htZjJqRTRZQmRLaDIxQUM1ZlRUVzZaNzU0UGpnU3JRVGY1M3ZkNEVO?=
+ =?utf-8?B?WW15WWNzNHo0VG1acjV3V0liNXlaQzgvMFJpVWJkVG5CeTJjRElIa05LZVJt?=
+ =?utf-8?B?bmxiUHhYbHlPTW4yR05qbTdsRzJvQXJpRUE0ZDZiQ2FNZFBVL3VaT2ZkdEt0?=
+ =?utf-8?B?WGpUaDFveUV5QXNQQ1pXdlpnbkhsVjlhbFJUSXNtMjFPb1QzczZvYjlhWkQz?=
+ =?utf-8?B?bWFJbDF6VHZMU2dESUhRcEpTYTE0Z0orZXJtMytIQlNPazQ2V2FuUjdWSXAx?=
+ =?utf-8?B?TmVtRkFaWUVHYXNidko1a2tMR3FMZ1J4SndxODZheUpJREdKbkcvQlhOcFp3?=
+ =?utf-8?B?cTZYOEY4R1A0RURGaTNSa0o5SlFlbzg3a3h3SkJzeW0xWEdwS1ZKTWw0QWFy?=
+ =?utf-8?B?UWMvbFVCTkZsMmVsd01sZExPKy9xL0gzTXIxdHFkZGZCdmN4dytDcWIwL3h6?=
+ =?utf-8?B?bUxqc1F1VktsemJKaXlJRGFHTDRZTW5xbzdrazA2cHJWQ1dzM1MyVWp4WXM4?=
+ =?utf-8?B?emQwZGoxWjd5dnVmTXhEcnpoUHpyMzhHR096VjZqK2I2UFZFdEJIL2FvRTNo?=
+ =?utf-8?B?Y0RRY1M3cGJzMURBOE5POTV6RkxqcHdNS3Fiam5nR0NhOW5QczNCcXZudkJL?=
+ =?utf-8?B?dk5DdEN2b1FIVUZhZXQzOTd3SUlwdzVEN1hpV3p6d3FoR2huakdCd0gyMmlt?=
+ =?utf-8?B?RmVGeVhZVkVWdXJFQXVOLytjbUVJamtNT3VBWEJuRVJNSVRtM1ZCRDA4RmJx?=
+ =?utf-8?B?NFp0Zk5mOFBoTDBEdmVsMk5uYjk5NFVUOERvV3lXZE1SRUtMNDFzTFVkaHo5?=
+ =?utf-8?B?UnpRRUVtUWVablRSTDVsaEVkeEFpdjY0dGJkVEYwRkU4NGt0eFBGUytYak1L?=
+ =?utf-8?B?SWZBNjRCMXdGOHplOEk1OXFmdzNzaUl4WFNYNmlJRUFtMVZGcFdIS2dUcjcw?=
+ =?utf-8?B?SVV4aHZIQm1FcTdmaHJTNnZQMXlqZ2pyWXlaSWZZVkk5OHEwcFovUHhoM0Rw?=
+ =?utf-8?Q?HQy39lS9oKdpizr9kQVVTFqbcHJPldIslb?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <695146B236D2264784747525B41B63EB@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: [xen-unstable test] 157123: tolerable FAIL
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    xen-unstable:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
-X-Osstest-Versions-That:
-    xen=3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 01 Dec 2020 13:01:44 +0000
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f06f2a16-e436-499a-83ec-08d895fabdaf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2020 13:12:22.8768
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: isZrUscEQ6VtDS3dSaxFKyAROd2fx4vJ3a9e+SJyMbfyVIZ7vhgCnQNpjVqDbIjnfot52Df0kJs5+Ky97brTbIJgR+8Z8RF7VW0ARnk2rAYQIp5EM//NF/3TUfogi5LR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB6882
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312,18.0.737
+ definitions=2020-12-01_05:2020-11-30,2020-12-01 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 bulkscore=0
+ mlxlogscore=999 spamscore=0 mlxscore=0 adultscore=0 phishscore=0
+ impostorscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2009150000 definitions=main-2012010084
 
-flight 157123 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157123/
-
-Failures :-/ but no regressions.
-
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail in 157115 pass in 157123
- test-armhf-armhf-xl-rtds 18 guest-start/debian.repeat fail in 157115 pass in 157123
- test-amd64-amd64-xl-rtds     20 guest-localmigrate/x10     fail pass in 157115
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 20 guest-start/debianhvm.repeat fail pass in 157115
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 157115
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 157115
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 157115
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 157115
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 157115
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 157115
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 157115
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 157115
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 157115
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 157115
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 157115
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
-baseline version:
- xen                  3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
-
-Last test of basis   157123  2020-12-01 02:30:56 Z    0 days
-Testing same since                          (not found)         0 attempts
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Published tested tree is already up to date.
-
+SGksIFBhdWwhDQoNCk9uIDExLzI0LzIwIDEwOjAxIEFNLCBQYXVsIER1cnJhbnQgd3JvdGU6DQo+
+IEZyb206IFBhdWwgRHVycmFudCA8cGR1cnJhbnRAYW1hem9uLmNvbT4NCj4NCj4gQ3VycmVudGx5
+IGxpYnhsX19kZXZpY2VfcGNpX2FkZF94ZW5zdG9yZSgpIGlzIGJyb2tlbiBpbiB0aGF0IGRvZXMg
+bm90DQo+IHVwZGF0ZSB0aGUgZG9tYWluJ3MgY29uZmlndXJhdGlvbiBmb3IgdGhlIGZpcnN0IGRl
+dmljZSBhZGRlZCAod2hpY2ggY2F1c2VzDQo+IGNyZWF0aW9uIG9mIHRoZSBvdmVyYWxsIGJhY2tl
+bmQgYXJlYSBpbiB4ZW5zdG9yZSkuIFRoaXMgY2FuIGJlIGVhc2lseSBvYnNlcnZlZA0KPiBieSBy
+dW5uaW5nICd4bCBsaXN0IC1sJyBhZnRlciBhZGRpbmcgYSBzaW5nbGUgZGV2aWNlOiB0aGUgZGV2
+aWNlIHdpbGwgYmUNCj4gbWlzc2luZy4NCj4NCj4gVGhpcyBwYXRjaCBmaXhlcyB0aGUgcHJvYmxl
+bSBhbmQgYWRkcyBhIERFQlVHIGxvZyBsaW5lIHRvIGFsbG93IGVhc3kNCj4gdmVyaWZpY2F0aW9u
+IHRoYXQgdGhlIGRvbWFpbiBjb25maWd1cmF0aW9uIGlzIGJlaW5nIG1vZGlmaWVkLiBBbHNvLCB0
+aGUgdXNlDQo+IG9mIGxpYnhsX19kZXZpY2VfZ2VuZXJpY19hZGQoKSBpcyBkcm9wcGVkIGFzIGl0
+IGxlYWRzIHRvIGEgY29uZnVzaW5nIHNpdHVhdGlvbg0KPiB3aGVyZSBvbmx5IHBhcnRpYWwgYmFj
+a2VuZCBpbmZvcm1hdGlvbiBpcyB3cml0dGVuIHVuZGVyIHRoZSB4ZW5zdG9yZQ0KPiAnL2xpYnhs
+JyBwYXRoLiBGb3IgTElCWExfX0RFVklDRV9LSU5EX1BDSSBkZXZpY2VzIHRoZSBvbmx5IGRlZmlu
+aXRpdmUNCj4gaW5mb3JtYXRpb24gaW4geGVuc3RvcmUgaXMgdW5kZXIgJy9sb2NhbC9kb21haW4v
+MC9iYWNrZW5kJyAodGhlICcwJyBiZWluZw0KPiBoYXJkLWNvZGVkKS4NCj4NCj4gTk9URTogVGhp
+cyBwYXRjaCBpbmNsdWRlcyBhIHdoaXRlc3BhY2UgaW4gYWRkX3BjaXNfZG9uZSgpLg0KPg0KPiBT
+aWduZWQtb2ZmLWJ5OiBQYXVsIER1cnJhbnQgPHBkdXJyYW50QGFtYXpvbi5jb20+DQo+IC0tLQ0K
+PiBDYzogSWFuIEphY2tzb24gPGl3akB4ZW5wcm9qZWN0Lm9yZz4NCj4gQ2M6IFdlaSBMaXUgPHds
+QHhlbi5vcmc+DQo+IENjOiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJhcmRAY2l0cml4LmNv
+bT4NCj4NCj4gdjI6DQo+ICAgLSBBdm9pZCBoYXZpbmcgdHdvIGNvbXBsZXRlbHkgZGlmZmVyZW50
+IHdheXMgb2YgYWRkaW5nIGRldmljZXMgaW50byB4ZW5zdG9yZQ0KPg0KPiB2MzoNCj4gICAtIFJl
+dmVydCBzb21lIGNoYW5nZXMgZm9ybSB2MiBhcyB0aGVyZSBpcyBjb25mdXNpb24gb3ZlciB1c2Ug
+b2YgdGhlIGxpYnhsDQo+ICAgICBhbmQgYmFja2VuZCB4ZW5zdG9yZSBwYXRocyB3aGljaCBuZWVk
+cyB0byBiZSBmaXhlZA0KPiAtLS0NCj4gICB0b29scy9saWJzL2xpZ2h0L2xpYnhsX3BjaS5jIHwg
+ODcgKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gICAxIGZp
+bGUgY2hhbmdlZCwgNDUgaW5zZXJ0aW9ucygrKSwgNDIgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYg
+LS1naXQgYS90b29scy9saWJzL2xpZ2h0L2xpYnhsX3BjaS5jIGIvdG9vbHMvbGlicy9saWdodC9s
+aWJ4bF9wY2kuYw0KPiBpbmRleCA5ZDQ0YjI4ZjBhLi5kYTAxYzc3YmEyIDEwMDY0NA0KPiAtLS0g
+YS90b29scy9saWJzL2xpZ2h0L2xpYnhsX3BjaS5jDQo+ICsrKyBiL3Rvb2xzL2xpYnMvbGlnaHQv
+bGlieGxfcGNpLmMNCj4gQEAgLTc5LDM5ICs3OSw1NSBAQCBzdGF0aWMgdm9pZCBsaWJ4bF9fZGV2
+aWNlX2Zyb21fcGNpKGxpYnhsX19nYyAqZ2MsIHVpbnQzMl90IGRvbWlkLA0KPiAgICAgICBkZXZp
+Y2UtPmtpbmQgPSBMSUJYTF9fREVWSUNFX0tJTkRfUENJOw0KPiAgIH0NCj4gICANCj4gLXN0YXRp
+YyBpbnQgbGlieGxfX2NyZWF0ZV9wY2lfYmFja2VuZChsaWJ4bF9fZ2MgKmdjLCB1aW50MzJfdCBk
+b21pZCwNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBsaWJ4
+bF9kZXZpY2VfcGNpICpwY2ksDQo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgaW50IG51bSkNCj4gK3N0YXRpYyB2b2lkIGxpYnhsX19jcmVhdGVfcGNpX2JhY2tlbmQobGli
+eGxfX2djICpnYywgeHNfdHJhbnNhY3Rpb25fdCB0LA0KPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICB1aW50MzJfdCBkb21pZCwgY29uc3QgbGlieGxfZGV2aWNlX3BjaSAq
+cGNpKQ0KPiAgIHsNCj4gLSAgICBmbGV4YXJyYXlfdCAqZnJvbnQgPSBOVUxMOw0KPiAtICAgIGZs
+ZXhhcnJheV90ICpiYWNrID0gTlVMTDsNCj4gLSAgICBsaWJ4bF9fZGV2aWNlIGRldmljZTsNCj4g
+LSAgICBpbnQgaTsNCj4gKyAgICBsaWJ4bF9jdHggKmN0eCA9IGxpYnhsX19nY19vd25lcihnYyk7
+DQo+ICsgICAgZmxleGFycmF5X3QgKmZyb250LCAqYmFjazsNCj4gKyAgICBjaGFyICpmZV9wYXRo
+LCAqYmVfcGF0aDsNCj4gKyAgICBzdHJ1Y3QgeHNfcGVybWlzc2lvbnMgZmVfcGVybXNbMl0sIGJl
+X3Blcm1zWzJdOw0KPiArDQo+ICsgICAgTE9HRChERUJVRywgZG9taWQsICJDcmVhdGluZyBwY2kg
+YmFja2VuZCIpOw0KPiAgIA0KPiAgICAgICBmcm9udCA9IGZsZXhhcnJheV9tYWtlKGdjLCAxNiwg
+MSk7DQo+ICAgICAgIGJhY2sgPSBmbGV4YXJyYXlfbWFrZShnYywgMTYsIDEpOw0KPiAgIA0KPiAt
+ICAgIExPR0QoREVCVUcsIGRvbWlkLCAiQ3JlYXRpbmcgcGNpIGJhY2tlbmQiKTsNCj4gLQ0KPiAt
+ICAgIC8qIGFkZCBwY2kgZGV2aWNlICovDQo+IC0gICAgbGlieGxfX2RldmljZV9mcm9tX3BjaShn
+YywgZG9taWQsIHBjaSwgJmRldmljZSk7DQo+ICsgICAgZmVfcGF0aCA9IGxpYnhsX19kb21haW5f
+ZGV2aWNlX2Zyb250ZW5kX3BhdGgoZ2MsIGRvbWlkLCAwLA0KPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExJQlhMX19ERVZJQ0VfS0lORF9QQ0kpOw0K
+PiArICAgIGJlX3BhdGggPSBsaWJ4bF9fZG9tYWluX2RldmljZV9iYWNrZW5kX3BhdGgoZ2MsIDAs
+IGRvbWlkLCAwLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgTElCWExfX0RFVklDRV9LSU5EX1BDSSk7DQo+ICAgDQo+ICsgICAgZmxleGFycmF5X2Fw
+cGVuZF9wYWlyKGJhY2ssICJmcm9udGVuZCIsIGZlX3BhdGgpOw0KPiAgICAgICBmbGV4YXJyYXlf
+YXBwZW5kX3BhaXIoYmFjaywgImZyb250ZW5kLWlkIiwgR0NTUFJJTlRGKCIlZCIsIGRvbWlkKSk7
+DQo+IC0gICAgZmxleGFycmF5X2FwcGVuZF9wYWlyKGJhY2ssICJvbmxpbmUiLCAiMSIpOw0KPiAr
+ICAgIGZsZXhhcnJheV9hcHBlbmRfcGFpcihiYWNrLCAib25saW5lIiwgR0NTUFJJTlRGKCIlZCIs
+IDEpKTsNCj4gICAgICAgZmxleGFycmF5X2FwcGVuZF9wYWlyKGJhY2ssICJzdGF0ZSIsIEdDU1BS
+SU5URigiJWQiLCBYZW5idXNTdGF0ZUluaXRpYWxpc2luZykpOw0KPiAgICAgICBmbGV4YXJyYXlf
+YXBwZW5kX3BhaXIoYmFjaywgImRvbWFpbiIsIGxpYnhsX19kb21pZF90b19uYW1lKGdjLCBkb21p
+ZCkpOw0KPiAgIA0KPiAtICAgIGZvciAoaSA9IDA7IGkgPCBudW07IGkrKywgcGNpKyspDQo+IC0g
+ICAgICAgIGxpYnhsX2NyZWF0ZV9wY2lfYmFja2VuZF9kZXZpY2UoZ2MsIGJhY2ssIGksIHBjaSk7
+DQo+ICsgICAgYmVfcGVybXNbMF0uaWQgPSAwOw0KDQpUaGVyZSB3YXMgYSBkaXNjdXNzaW9uIFsx
+XSBvbiBQQ0kgb24gQVJNIGFuZCBvbmUgb2YgdGhlIHF1ZXN0aW9uIHdhcyB0aGF0IGl0IGlzIHBv
+c3NpYmxlDQoNCnRoYXQgd2UgaGF2ZSB0aGUgcGNpIGJhY2tlbmQgcnVubmluZyBpbiBhIGxhdGUg
+aGFyZHdhcmUgZG9tYWluL2RyaXZlciBkb21haW4sIHdoaWNoIG1heQ0KDQpub3QgYmUgRG9tYWlu
+LTAuIERvIHlvdSB0aGluayB3ZSBjYW4gYXZvaWQgdXNpbmcgMCBoZXJlIGFuZCBnZXQgc29tZSBj
+bHVlIG9mIHRoZSBkb21haW4NCg0KZnJvbSAiKmJhY2tlbmQ9ZG9tYWluLWlkIj8gSWYgbm90IHNl
+dCBpdCB3aWxsIHJldHVybiBEb21haW4tMCdzIElEIGFuZCB3b24ndCBicmVhayBhbnl0aGluZyoN
+Cg0KKlRoYW5rIHlvdSwqDQoNCipPbGVrc2FuZHINCioNCg0KPiArICAgIGJlX3Blcm1zWzBdLnBl
+cm1zID0gWFNfUEVSTV9OT05FOw0KPiArICAgIGJlX3Blcm1zWzFdLmlkID0gZG9taWQ7DQo+ICsg
+ICAgYmVfcGVybXNbMV0ucGVybXMgPSBYU19QRVJNX1JFQUQ7DQo+ICsNCj4gKyAgICB4c19ybShj
+dHgtPnhzaCwgdCwgYmVfcGF0aCk7DQo+ICsgICAgeHNfbWtkaXIoY3R4LT54c2gsIHQsIGJlX3Bh
+dGgpOw0KPiArICAgIHhzX3NldF9wZXJtaXNzaW9ucyhjdHgtPnhzaCwgdCwgYmVfcGF0aCwgYmVf
+cGVybXMsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgIEFSUkFZX1NJWkUoYmVfcGVybXMpKTsN
+Cj4gKyAgICBsaWJ4bF9feHNfd3JpdGV2KGdjLCB0LCBiZV9wYXRoLCBsaWJ4bF9feHNfa3ZzX29m
+X2ZsZXhhcnJheShnYywgYmFjaykpOw0KPiAgIA0KPiAtICAgIGZsZXhhcnJheV9hcHBlbmRfcGFp
+cihiYWNrLCAibnVtX2RldnMiLCBHQ1NQUklOVEYoIiVkIiwgbnVtKSk7DQo+ICsgICAgZmxleGFy
+cmF5X2FwcGVuZF9wYWlyKGZyb250LCAiYmFja2VuZCIsIGJlX3BhdGgpOw0KPiAgICAgICBmbGV4
+YXJyYXlfYXBwZW5kX3BhaXIoZnJvbnQsICJiYWNrZW5kLWlkIiwgR0NTUFJJTlRGKCIlZCIsIDAp
+KTsNCj4gICAgICAgZmxleGFycmF5X2FwcGVuZF9wYWlyKGZyb250LCAic3RhdGUiLCBHQ1NQUklO
+VEYoIiVkIiwgWGVuYnVzU3RhdGVJbml0aWFsaXNpbmcpKTsNCj4gICANCj4gLSAgICByZXR1cm4g
+bGlieGxfX2RldmljZV9nZW5lcmljX2FkZChnYywgWEJUX05VTEwsICZkZXZpY2UsDQo+IC0gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGlieGxfX3hzX2t2c19vZl9mbGV4YXJy
+YXkoZ2MsIGJhY2spLA0KPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxp
+YnhsX194c19rdnNfb2ZfZmxleGFycmF5KGdjLCBmcm9udCksDQo+IC0gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgTlVMTCk7DQo+ICsgICAgZmVfcGVybXNbMF0uaWQgPSBkb21p
+ZDsNCj4gKyAgICBmZV9wZXJtc1swXS5wZXJtcyA9IFhTX1BFUk1fTk9ORTsNCj4gKyAgICBmZV9w
+ZXJtc1sxXS5pZCA9IDA7DQo+ICsgICAgZmVfcGVybXNbMV0ucGVybXMgPSBYU19QRVJNX1JFQUQ7
+DQo+ICsNCj4gKyAgICB4c19ybShjdHgtPnhzaCwgdCwgZmVfcGF0aCk7DQo+ICsgICAgeHNfbWtk
+aXIoY3R4LT54c2gsIHQsIGZlX3BhdGgpOw0KPiArICAgIHhzX3NldF9wZXJtaXNzaW9ucyhjdHgt
+PnhzaCwgdCwgZmVfcGF0aCwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgZmVfcGVybXMsIEFS
+UkFZX1NJWkUoZmVfcGVybXMpKTsNCj4gKyAgICBsaWJ4bF9feHNfd3JpdGV2KGdjLCB0LCBmZV9w
+YXRoLCBsaWJ4bF9feHNfa3ZzX29mX2ZsZXhhcnJheShnYywgZnJvbnQpKTsNCj4gICB9DQo+ICAg
+DQo+ICAgc3RhdGljIGludCBsaWJ4bF9fZGV2aWNlX3BjaV9hZGRfeGVuc3RvcmUobGlieGxfX2dj
+ICpnYywNCj4gQEAgLTEzNSw4ICsxNTEsNiBAQCBzdGF0aWMgaW50IGxpYnhsX19kZXZpY2VfcGNp
+X2FkZF94ZW5zdG9yZShsaWJ4bF9fZ2MgKmdjLA0KPiAgICAgICBiZV9wYXRoID0gbGlieGxfX2Rv
+bWFpbl9kZXZpY2VfYmFja2VuZF9wYXRoKGdjLCAwLCBkb21pZCwgMCwNCj4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMSUJYTF9fREVWSUNFX0tJTkRf
+UENJKTsNCj4gICAgICAgbnVtX2RldnMgPSBsaWJ4bF9feHNfcmVhZChnYywgWEJUX05VTEwsIEdD
+U1BSSU5URigiJXMvbnVtX2RldnMiLCBiZV9wYXRoKSk7DQo+IC0gICAgaWYgKCFudW1fZGV2cykN
+Cj4gLSAgICAgICAgcmV0dXJuIGxpYnhsX19jcmVhdGVfcGNpX2JhY2tlbmQoZ2MsIGRvbWlkLCBw
+Y2ksIDEpOw0KPiAgIA0KPiAgICAgICBsaWJ4bF9kb21haW5fdHlwZSBkb210eXBlID0gbGlieGxf
+X2RvbWFpbl90eXBlKGdjLCBkb21pZCk7DQo+ICAgICAgIGlmIChkb210eXBlID09IExJQlhMX0RP
+TUFJTl9UWVBFX0lOVkFMSUQpDQo+IEBAIC0xNTAsMTcgKzE2NCwxNyBAQCBzdGF0aWMgaW50IGxp
+YnhsX19kZXZpY2VfcGNpX2FkZF94ZW5zdG9yZShsaWJ4bF9fZ2MgKmdjLA0KPiAgICAgICBiYWNr
+ID0gZmxleGFycmF5X21ha2UoZ2MsIDE2LCAxKTsNCj4gICANCj4gICAgICAgTE9HRChERUJVRywg
+ZG9taWQsICJBZGRpbmcgbmV3IHBjaSBkZXZpY2UgdG8geGVuc3RvcmUiKTsNCj4gLSAgICBudW0g
+PSBhdG9pKG51bV9kZXZzKTsNCj4gKyAgICBudW0gPSBudW1fZGV2cyA/IGF0b2kobnVtX2RldnMp
+IDogMDsNCj4gICAgICAgbGlieGxfY3JlYXRlX3BjaV9iYWNrZW5kX2RldmljZShnYywgYmFjaywg
+bnVtLCBwY2kpOw0KPiAgICAgICBmbGV4YXJyYXlfYXBwZW5kX3BhaXIoYmFjaywgIm51bV9kZXZz
+IiwgR0NTUFJJTlRGKCIlZCIsIG51bSArIDEpKTsNCj4gLSAgICBpZiAoIXN0YXJ0aW5nKQ0KPiAr
+ICAgIGlmIChudW0gJiYgIXN0YXJ0aW5nKQ0KPiAgICAgICAgICAgZmxleGFycmF5X2FwcGVuZF9w
+YWlyKGJhY2ssICJzdGF0ZSIsIEdDU1BSSU5URigiJWQiLCBYZW5idXNTdGF0ZVJlY29uZmlndXJp
+bmcpKTsNCj4gICANCj4gICAgICAgLyoNCj4gICAgICAgICogU3R1YmRvbWluIGNvbmZpZyBpcyBk
+ZXJpdmVkIGZyb20gaXRzIHRhcmdldCBkb21haW4sIGl0IGRvZXNuJ3QgaGF2ZQ0KPiAgICAgICAg
+KiBpdHMgb3duIGZpbGUuDQo+ICAgICAgICAqLw0KPiAtICAgIGlmICghaXNfc3R1YmRvbWFpbikg
+ew0KPiArICAgIGlmICghaXNfc3R1YmRvbWFpbiAmJiAhc3RhcnRpbmcpIHsNCj4gICAgICAgICAg
+IGxvY2sgPSBsaWJ4bF9fbG9ja19kb21haW5fdXNlcmRhdGEoZ2MsIGRvbWlkKTsNCj4gICAgICAg
+ICAgIGlmICghbG9jaykgew0KPiAgICAgICAgICAgICAgIHJjID0gRVJST1JfTE9DS19GQUlMOw0K
+PiBAQCAtMTcwLDYgKzE4NCw3IEBAIHN0YXRpYyBpbnQgbGlieGxfX2RldmljZV9wY2lfYWRkX3hl
+bnN0b3JlKGxpYnhsX19nYyAqZ2MsDQo+ICAgICAgICAgICByYyA9IGxpYnhsX19nZXRfZG9tYWlu
+X2NvbmZpZ3VyYXRpb24oZ2MsIGRvbWlkLCAmZF9jb25maWcpOw0KPiAgICAgICAgICAgaWYgKHJj
+KSBnb3RvIG91dDsNCj4gICANCj4gKyAgICAgICAgTE9HRChERUJVRywgZG9taWQsICJBZGRpbmcg
+bmV3IHBjaSBkZXZpY2UgdG8gY29uZmlnIik7DQo+ICAgICAgICAgICBkZXZpY2VfYWRkX2RvbWFp
+bl9jb25maWcoZ2MsICZkX2NvbmZpZywgJmxpYnhsX19wY2lfZGV2dHlwZSwNCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBwY2kpOw0KPiAgIA0KPiBAQCAtMTg2LDYgKzIwMSwx
+MCBAQCBzdGF0aWMgaW50IGxpYnhsX19kZXZpY2VfcGNpX2FkZF94ZW5zdG9yZShsaWJ4bF9fZ2Mg
+KmdjLA0KPiAgICAgICAgICAgICAgIGlmIChyYykgZ290byBvdXQ7DQo+ICAgICAgICAgICB9DQo+
+ICAgDQo+ICsgICAgICAgIC8qIFRoaXMgaXMgdGhlIGZpcnN0IGRldmljZSwgc28gY3JlYXRlIHRo
+ZSBiYWNrZW5kICovDQo+ICsgICAgICAgIGlmICghbnVtX2RldnMpDQo+ICsgICAgICAgICAgICBs
+aWJ4bF9fY3JlYXRlX3BjaV9iYWNrZW5kKGdjLCB0LCBkb21pZCwgcGNpKTsNCj4gKw0KPiAgICAg
+ICAgICAgbGlieGxfX3hzX3dyaXRldihnYywgdCwgYmVfcGF0aCwgbGlieGxfX3hzX2t2c19vZl9m
+bGV4YXJyYXkoZ2MsIGJhY2spKTsNCj4gICANCj4gICAgICAgICAgIHJjID0gbGlieGxfX3hzX3Ry
+YW5zYWN0aW9uX2NvbW1pdChnYywgJnQpOw0KPiBAQCAtMTQzNyw3ICsxNDU2LDcgQEAgb3V0X25v
+X2lycToNCj4gICAgICAgICAgIH0NCj4gICAgICAgfQ0KPiAgIA0KPiAtICAgIGlmICghc3RhcnRp
+bmcgJiYgIWxpYnhsX2dldF9zdHViZG9tX2lkKENUWCwgZG9taWQpKQ0KPiArICAgIGlmICghbGli
+eGxfZ2V0X3N0dWJkb21faWQoQ1RYLCBkb21pZCkpDQo+ICAgICAgICAgICByYyA9IGxpYnhsX19k
+ZXZpY2VfcGNpX2FkZF94ZW5zdG9yZShnYywgZG9taWQsIHBjaSwgc3RhcnRpbmcpOw0KPiAgICAg
+ICBlbHNlDQo+ICAgICAgICAgICByYyA9IDA7DQo+IEBAIC0xNzY1LDI4ICsxNzg0LDEyIEBAIHN0
+YXRpYyB2b2lkIGxpYnhsX19hZGRfcGNpcyhsaWJ4bF9fZWdjICplZ2MsIGxpYnhsX19hbyAqYW8s
+IHVpbnQzMl90IGRvbWlkLA0KPiAgIH0NCj4gICANCj4gICBzdGF0aWMgdm9pZCBhZGRfcGNpc19k
+b25lKGxpYnhsX19lZ2MgKmVnYywgbGlieGxfX211bHRpZGV2ICptdWx0aWRldiwNCj4gLSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgaW50IHJjKQ0KPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICBpbnQgcmMpDQo+ICAgew0KPiAgICAgICBFR0NfR0M7DQo+ICAgICAgIGFkZF9wY2lzX3N0
+YXRlICphcGRzID0gQ09OVEFJTkVSX09GKG11bHRpZGV2LCAqYXBkcywgbXVsdGlkZXYpOw0KPiAt
+DQo+IC0gICAgLyogQ29udmVuaWVuY2UgYWxpYXNlcyAqLw0KPiAtICAgIGxpYnhsX2RvbWFpbl9j
+b25maWcgKmRfY29uZmlnID0gYXBkcy0+ZF9jb25maWc7DQo+IC0gICAgbGlieGxfZG9taWQgZG9t
+aWQgPSBhcGRzLT5kb21pZDsNCj4gICAgICAgbGlieGxfX2FvX2RldmljZSAqYW9kZXYgPSBhcGRz
+LT5vdXRlcl9hb2RldjsNCj4gICANCj4gLSAgICBpZiAocmMpIGdvdG8gb3V0Ow0KPiAtDQo+IC0g
+ICAgaWYgKGRfY29uZmlnLT5udW1fcGNpcyA+IDAgJiYgIWxpYnhsX2dldF9zdHViZG9tX2lkKENU
+WCwgZG9taWQpKSB7DQo+IC0gICAgICAgIHJjID0gbGlieGxfX2NyZWF0ZV9wY2lfYmFja2VuZChn
+YywgZG9taWQsIGRfY29uZmlnLT5wY2lzLA0KPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgZF9jb25maWctPm51bV9wY2lzKTsNCj4gLSAgICAgICAgaWYgKHJjIDwgMCkg
+ew0KPiAtICAgICAgICAgICAgTE9HRChFUlJPUiwgZG9taWQsICJsaWJ4bF9jcmVhdGVfcGNpX2Jh
+Y2tlbmQgZmFpbGVkOiAlZCIsIHJjKTsNCj4gLSAgICAgICAgICAgIGdvdG8gb3V0Ow0KPiAtICAg
+ICAgICB9DQo+IC0gICAgfQ0KPiAtDQo+IC1vdXQ6DQo+ICAgICAgIGFvZGV2LT5yYyA9IHJjOw0K
+PiAgICAgICBhb2Rldi0+Y2FsbGJhY2soZWdjLCBhb2Rldik7DQo+ICAgfQ0KWzFdIGh0dHBzOi8v
+bGlzdHMueGVucHJvamVjdC5vcmcvYXJjaGl2ZXMvaHRtbC94ZW4tZGV2ZWwvMjAyMC0xMC9tc2cw
+MTg2MS5odG1s
 
