@@ -2,33 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D4B12C96C7
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AC0F2C96C6
 	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 06:14:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41377.74815 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.41571.74827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjxyp-0002p3-NK; Tue, 01 Dec 2020 05:13:35 +0000
+	id 1kjxzX-0002ur-4H; Tue, 01 Dec 2020 05:14:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41377.74815; Tue, 01 Dec 2020 05:13:35 +0000
+Received: by outflank-mailman (output) from mailman id 41571.74827; Tue, 01 Dec 2020 05:14:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kjxyp-0002oe-Jb; Tue, 01 Dec 2020 05:13:35 +0000
-Received: by outflank-mailman (input) for mailman id 41377;
- Mon, 30 Nov 2020 17:41:42 +0000
+	id 1kjxzX-0002uS-0S; Tue, 01 Dec 2020 05:14:19 +0000
+Received: by outflank-mailman (input) for mailman id 41571;
+ Tue, 01 Dec 2020 05:14:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JoTA=FE=cknow.org=didi.debian@srs-us1.protection.inumbo.net>)
- id 1kjnBG-0006Sb-3i
- for xen-devel@lists.xenproject.org; Mon, 30 Nov 2020 17:41:42 +0000
-Received: from relay2-d.mail.gandi.net (unknown [217.70.183.194])
+ <SRS0=dyvC=FF=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
+ id 1kjxzV-0002uL-IN
+ for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 05:14:17 +0000
+Received: from mga05.intel.com (unknown [192.55.52.43])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c439de24-f28b-4528-9f2d-c3e669644a02;
- Mon, 30 Nov 2020 17:41:40 +0000 (UTC)
-Received: from bagend.home.cknow.org (92-110-45-68.cable.dynamic.v4.ziggo.nl
- [92.110.45.68]) (Authenticated sender: didi.debian@cknow.org)
- by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id 9E01240004;
- Mon, 30 Nov 2020 17:41:35 +0000 (UTC)
+ id 93725f7a-dd98-4abe-9a7e-3d8b78546769;
+ Tue, 01 Dec 2020 05:14:15 +0000 (UTC)
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 21:14:13 -0800
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by fmsmga005.fm.intel.com with ESMTP; 30 Nov 2020 21:14:13 -0800
+Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Mon, 30 Nov 2020 21:14:13 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+ via Frontend Transport; Mon, 30 Nov 2020 21:14:13 -0800
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.172)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1713.5; Mon, 30 Nov 2020 21:14:13 -0800
+Received: from MWHPR11MB1645.namprd11.prod.outlook.com (2603:10b6:301:b::12)
+ by MWHPR11MB1567.namprd11.prod.outlook.com (2603:10b6:301:d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.24; Tue, 1 Dec
+ 2020 05:14:12 +0000
+Received: from MWHPR11MB1645.namprd11.prod.outlook.com
+ ([fe80::31c9:44c6:7323:61ac]) by MWHPR11MB1645.namprd11.prod.outlook.com
+ ([fe80::31c9:44c6:7323:61ac%7]) with mapi id 15.20.3611.025; Tue, 1 Dec 2020
+ 05:14:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,236 +62,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c439de24-f28b-4528-9f2d-c3e669644a02
-X-Originating-IP: 92.110.45.68
-From: Diederik de Haas <didi.debian@cknow.org>
-To: xen-devel@lists.xenproject.org
-Cc: Diederik de Haas <didi.debian@cknow.org>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: [PATCH] Fix spelling errors.
-Date: Mon, 30 Nov 2020 18:39:41 +0100
-Message-Id: <a60e2c98183d7c873f4e306954f900614fcdb582.1606757711.git.didi.debian@cknow.org>
-X-Mailer: git-send-email 2.29.2
+X-Inumbo-ID: 93725f7a-dd98-4abe-9a7e-3d8b78546769
+IronPort-SDR: XkMNV1+2CrEGkgM/4VsJNHGa/3sUKEybaEjGOngtXOJiIxB+AlBgd5uLCsNyHok1LYLpjYW0n9
+ +0MKC96LiaZw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9821"; a="257476237"
+X-IronPort-AV: E=Sophos;i="5.78,383,1599548400"; 
+   d="scan'208";a="257476237"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+IronPort-SDR: Y3smGJXVsL4fdnji/rGLWpdc9DGdRbZRQ2hchFG0Y9h2/jOpAeyNn5C3RKtX9xyJyAfwi1h+dL
+ lFyDVQPDONKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,383,1599548400"; 
+   d="scan'208";a="538870292"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lETtPNVhmMDWh7FWaiDGq9kIGR0D0WVXL2g/rkD/Mh1/2GcPO86+Azi5DcbBiLXkhXizsnCh3XyUu9bQznkXN5kPG4dAXAXxN3Po38jE6mqs/Gpyy1Yr+d4P8Py1pR5GWhwX5ZkZ6OH97B0OKxd91JS5jS0rTNUIDJ8zW4mGgE8A/3kX0UmOjpW8iRdDq5jzoSDoha8GjeKMloKQBbSdci/jPp/QFp9WsXSECMVJz8Gj0gx8ujO82s8/CYC97m/tegB+7QZH/MQj3HjsDtwVcx/qHVXatzExe0hH+IPOgx25KVUNYMqjrSmwjigd7qwkKeFjjKS3WEkaHOf3N0TjMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VrMHMsU9ngcsF76fZaDCMsSaDHV0e/vGyRm24Rw2OTk=;
+ b=czPxKyh4H6u5PAOJ0iIzV2G2UTPd1hVrhKnQmxz46mzhh9BBtvkP/uX6tm5K10yz0pV/qSZk6FDiRELRNL5DvakQqc8PcYOTss2nR5iTmtgmm1b8kY51ZP5Q5iQAfPCwJiQD5pIWSAKgcyw73ibWWdfK/IBPaYDlYFTl/JZCvinuzjAUdsuGHDA7BrXFh+9fok5PBVXSWRt3C04XtPrG8N5Pf2O2MCMj8auIV69yw3lpCNp3oILIE8cMhu1B7bi8mopaU1NbOBXWWmFpvi5793tFT0GNaL9RkkFdGeikBXg8a+w3y+EmGA6Ip0FoU7NMrmFPw7D0++QCEfm1ZbkcvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com;
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VrMHMsU9ngcsF76fZaDCMsSaDHV0e/vGyRm24Rw2OTk=;
+ b=J7PsWmTJ+6o12Do3ytS5wE9eU/sWkleECVrjl9d7grSMkdDHE3SL7zX79bsN5qjw5JCpi+ZMoopTZDI+o8Vx5HJT5XjxfWboHBSoyapxKPy6h6m0DAhLDvgnJJaNKE+RuNfZ0OyBU3/ymVdn3xza9rj4SL7GNJNIFoRTSBgluPI=
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Paul Durrant <pdurrant@amazon.com>, Paul Durrant <paul@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v10 5/7] vtd: use a bit field for root_entry
+Thread-Topic: [PATCH v10 5/7] vtd: use a bit field for root_entry
+Thread-Index: AQHWv0COaWiEdvBtMUu0J5DvTo0K7angCUXAgABza4CAAUYrEA==
+Date: Tue, 1 Dec 2020 05:14:12 +0000
+Message-ID: <MWHPR11MB16454C8AA702124013BE89F68CF40@MWHPR11MB1645.namprd11.prod.outlook.com>
+References: <20201120132440.1141-1-paul@xen.org>
+ <20201120132440.1141-6-paul@xen.org>
+ <MWHPR11MB164520264945AF959D7A3ED28CF50@MWHPR11MB1645.namprd11.prod.outlook.com>
+ <5962cbc3-5aaf-7855-e00d-fb525441f454@suse.com>
+In-Reply-To: <5962cbc3-5aaf-7855-e00d-fb525441f454@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+authentication-results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [192.198.147.217]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3df7bc9f-be6c-4013-0c97-08d895b7f0bc
+x-ms-traffictypediagnostic: MWHPR11MB1567:
+x-microsoft-antispam-prvs: <MWHPR11MB1567019EE62FBDBD93ED9A3E8CF40@MWHPR11MB1567.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: loJhw/8ykJr34ImqOGHJNNWJwvTTkyrz8KnsxIKfHTH96MM8YRIEYHiuYBO/tXaB4jBB12loCLD+B0yVUXkiWkjidlOD7VUAB7mBG5y6iHuyJUtPb6qDELtu+bi7BEV1GYvHLbuFc4eHCdVCFzhEW/Ihi3/I1/jPv1hphFsnUXnamIQkkZjA/wSLytOzGgyOIEgeKdwfC0sYiKZlIEbIlcx7jrxWb1b3aw65e7XIVyMWO0Hq0CJTBrM2RpI/5lZsD9WIIU/t5rNlW5YseICUlHnZZYVB6hgdG7DK0/FhvQIbb7hVbTGz/vXwrnvWrp2ueU3H8xhnlauHZ4Qm1CbEog==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR11MB1645.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(376002)(39860400002)(136003)(346002)(396003)(8936002)(4744005)(2906002)(6916009)(33656002)(76116006)(4326008)(54906003)(86362001)(71200400001)(8676002)(186003)(478600001)(26005)(316002)(5660300002)(66446008)(83380400001)(7696005)(66556008)(53546011)(66946007)(66476007)(52536014)(64756008)(9686003)(6506007)(55016002);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata: =?utf-8?B?TWY1MVhiZ001MGN1MUhPSVRhdE9QYjN0Q2VoSVlCNEIrMWE0Q2doanhzTFZK?=
+ =?utf-8?B?VGJub0Y2dmFUL3ZEWUZ0WndsM3l6eWkrZzBWeno3MStyYStKc3MxSWhTVjVv?=
+ =?utf-8?B?cUszRnZVdllva2lSaldFVjRROHpFb0hkK29xbmt2RnY4ZmdvQ0hMMVpXSUFn?=
+ =?utf-8?B?cm14M0xxY1RwTWhrU2YxcmJQeCtHTXd6RnFTREVuYXJKVjJ5ODFVaHp0bDNh?=
+ =?utf-8?B?eE9HZFlEOVR3blk4RDdtSTJvd05zK3hlNjFXZjJwbm1kOE5FelQ3eXF6RXVL?=
+ =?utf-8?B?eUx3L2ZWeWQ3VzVvT2xGVWdHRlVsWkxXTHVHMkU4eG1oaHRWenJrQ3FMazRj?=
+ =?utf-8?B?aGF6QlNGeGoyVlUybzZERlBOM3MyaURFdXU5WElyb0p0K3VZZEJpOENTMktC?=
+ =?utf-8?B?Z0k5dVJnWXdoeTZ0QTcxbW9pTXNzMC9uSHFDM1FFaVYxczRobHVNWUp4MzEr?=
+ =?utf-8?B?czV1a3c1NTJVbW9LSjBDbnNFVVFET2tHVHQxYnRqNmYrRTVPMkdUYU1qR3Bo?=
+ =?utf-8?B?aVdlZ3VldjRvaFR5RWlXMjQ4ZThROUpwVXlPVExrVGNKTUI3MzZISjBzRndw?=
+ =?utf-8?B?UjY2RE1hbGdKcThZZ3haaUZtUm1SZEFMazg4VHpJRFVDVTM4YnBRNHNVTUp5?=
+ =?utf-8?B?WnFId3M3SDBERGd0WThCQUthb2h4dDh5QU5NN3VjbUpRRkNMdndWTXRHUjNu?=
+ =?utf-8?B?aFJiRTFxQ244ekNGcHlMZGZvc2JUa0lJRHc1MHJpRGF4dEl3MkxpclZNb1Mz?=
+ =?utf-8?B?UHZjQW1nTTExdCtCQkh6UmpuYWRhbmRnRHpHSHBHMkhIQW9UNUl4MGVnY1Rn?=
+ =?utf-8?B?N3ZpUHRFNkJvRVhFNXdMekhkUkVkTW02VEY5NzhFRE9FZFQ1N0QvVisvRGFR?=
+ =?utf-8?B?M2tiNWVmQ1U0aStvbjNOVmFCOGY5RDBsNXlQcjhFRjBXRTNMVWs5SmpIWVZJ?=
+ =?utf-8?B?Wk1CQUN0S01RV29TOXRjM2dHajNuMVM4RlFoRm5rUXJKQ1BvZjhnN2pNcWFm?=
+ =?utf-8?B?VWZRM0dReE9SZ2tPQU9VNWRJckxPY0poMlJOLytCTlRlUWZ0R3l5eTNvRmNs?=
+ =?utf-8?B?cjRiemloS3VGUU11dzNHNXM5NGorL2RyRE16aDhmdnU4bG5maUkrMzB5aUZl?=
+ =?utf-8?B?YlduYmY2SWlqY1pPV0RYWGlnNWRWUTFLTlFuWW5ZVkprUzMyVjNOT1pwTVV2?=
+ =?utf-8?B?NHJVbkgyVVZlVks1WjFhdnF0dUF4R2Uya1BERmpXM2RKSnZzWWYzcnBTYnpz?=
+ =?utf-8?B?NXhSMG9yNVhhNmpyMHpreHd6OGlPQlpIRlVWc3BmQUdQT25UN0gra2FHNGJm?=
+ =?utf-8?Q?Vd52VsWN3kmZ8=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1645.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3df7bc9f-be6c-4013-0c97-08d895b7f0bc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2020 05:14:12.1395
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QTh6hjw/34+YCtL+twLJpA3u6ymkmE3M5Bg+xOiA1U5jMqQyAs+2YTxrS6lVz6/QK7GqWRKY7i7dTjiFmDW1rg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1567
+X-OriginatorOrg: intel.com
 
-Only spelling errors; no functional changes.
-
-In docs/misc/dump-core-format.txt there are a few more instances of
-'informations'. I'll leave that up to someone who can properly determine
-how those sentences should be constructed.
-
-Signed-off-by: Diederik de Haas <didi.debian@cknow.org>
-
-Please CC me in replies as I'm not subscribed to this list.
----
- docs/man/xl.1.pod.in                   | 2 +-
- docs/man/xl.cfg.5.pod.in               | 2 +-
- docs/man/xlcpupool.cfg.5.pod           | 2 +-
- tools/firmware/rombios/rombios.c       | 2 +-
- tools/libs/light/libxl_stream_read.c   | 2 +-
- tools/xl/xl_cmdtable.c                 | 2 +-
- xen/arch/x86/boot/video.S              | 2 +-
- xen/arch/x86/cpu/vpmu.c                | 2 +-
- xen/arch/x86/mpparse.c                 | 2 +-
- xen/arch/x86/x86_emulate/x86_emulate.c | 2 +-
- xen/common/libelf/libelf-dominfo.c     | 2 +-
- xen/drivers/passthrough/arm/smmu.c     | 2 +-
- xen/tools/gen-cpuid.py                 | 2 +-
- xen/xsm/flask/policy/access_vectors    | 2 +-
- 14 files changed, 14 insertions(+), 14 deletions(-)
-
-diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
-index f92bacfa72..eaa72faad6 100644
---- a/docs/man/xl.1.pod.in
-+++ b/docs/man/xl.1.pod.in
-@@ -1578,7 +1578,7 @@ List vsnd devices for a domain.
- Creates a new keyboard device in the domain specified by I<domain-id>.
- I<vkb-device> describes the device to attach, using the same format as the
- B<VKB_SPEC_STRING> string in the domain config file. See L<xl.cfg(5)>
--for more informations.
-+for more information.
- 
- =item B<vkb-detach> I<domain-id> I<devid>
- 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 0532739c1f..b4625f56db 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2385,7 +2385,7 @@ If B<videoram> is set less than 128MB, an error will be triggered.
- 
- =item B<stdvga=BOOLEAN>
- 
--Speficies a standard VGA card with VBE (VESA BIOS Extensions) as the
-+Specifies a standard VGA card with VBE (VESA BIOS Extensions) as the
- emulated graphics device. If your guest supports VBE 2.0 or
- later (e.g. Windows XP onwards) then you should enable this.
- stdvga supports more video ram and bigger resolutions than Cirrus.
-diff --git a/docs/man/xlcpupool.cfg.5.pod b/docs/man/xlcpupool.cfg.5.pod
-index 3c9ddf7958..c577c7ca3a 100644
---- a/docs/man/xlcpupool.cfg.5.pod
-+++ b/docs/man/xlcpupool.cfg.5.pod
-@@ -106,7 +106,7 @@ means that cpus 2,3,5 will be member of the cpupool.
- means that cpus 0,2,3 and 5 will be member of the cpupool. A "node:" or
- "nodes:" modifier can be used. E.g., "0,node:1,nodes:2-3,^10-13" means
- that pcpus 0, plus all the cpus of NUMA nodes 1,2,3 with the exception
--of cpus 10,11,12,13 will be memeber of the cpupool.
-+of cpus 10,11,12,13 will be members of the cpupool.
- 
- =back
- 
-diff --git a/tools/firmware/rombios/rombios.c b/tools/firmware/rombios/rombios.c
-index 51558ee57a..5cda22785f 100644
---- a/tools/firmware/rombios/rombios.c
-+++ b/tools/firmware/rombios/rombios.c
-@@ -2607,7 +2607,7 @@ void ata_detect( )
-   write_byte(ebda_seg,&EbdaData->ata.channels[3].irq,11);
- #endif
- #if BX_MAX_ATA_INTERFACES > 4
--#error Please fill the ATA interface informations
-+#error Please fill the ATA interface information
- #endif
- 
-   // Device detection
-diff --git a/tools/libs/light/libxl_stream_read.c b/tools/libs/light/libxl_stream_read.c
-index 514f6d9f89..99a6714e76 100644
---- a/tools/libs/light/libxl_stream_read.c
-+++ b/tools/libs/light/libxl_stream_read.c
-@@ -459,7 +459,7 @@ static void stream_continue(libxl__egc *egc,
-         while (process_record(egc, stream))
-             ; /*
-                * Nothing! process_record() helpfully tells us if no specific
--               * futher actions have been set up, in which case we want to go
-+               * further actions have been set up, in which case we want to go
-                * ahead and process the next record.
-                */
-         break;
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 7da6c1b927..6ab5e47da3 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -154,7 +154,7 @@ struct cmd_spec cmd_table[] = {
-       "-h  Print this help.\n"
-       "-c  Leave domain running after creating the snapshot.\n"
-       "-p  Leave domain paused after creating the snapshot.\n"
--      "-D  Store the domain id in the configration."
-+      "-D  Store the domain id in the configuration."
-     },
-     { "migrate",
-       &main_migrate, 0, 1,
-diff --git a/xen/arch/x86/boot/video.S b/xen/arch/x86/boot/video.S
-index a485779ce7..0efbe8d3b3 100644
---- a/xen/arch/x86/boot/video.S
-+++ b/xen/arch/x86/boot/video.S
-@@ -177,7 +177,7 @@ dac_set:
-         movb    $0, _param(PARAM_LFB_COLORS+7)
- 
- dac_done:
--# get protected mode interface informations
-+# get protected mode interface information
-         movw    $0x4f0a, %ax
-         xorw    %bx, %bx
-         xorw    %di, %di
-diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
-index 1ed39ef03f..ac32379c2e 100644
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -680,7 +680,7 @@ static void pvpmu_finish(struct domain *d, xen_pmu_params_t *params)
-         vcpu_unpause(v);
- }
- 
--/* Dump some vpmu informations on console. Used in keyhandler dump_domains(). */
-+/* Dump some vpmu information on console. Used in keyhandler dump_domains(). */
- void vpmu_dump(struct vcpu *v)
- {
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
-diff --git a/xen/arch/x86/mpparse.c b/xen/arch/x86/mpparse.c
-index d532575fee..dff02b142b 100644
---- a/xen/arch/x86/mpparse.c
-+++ b/xen/arch/x86/mpparse.c
-@@ -170,7 +170,7 @@ static int MP_processor_info_x(struct mpc_config_processor *m,
- 	if (num_processors >= 8 && hotplug
- 	    && genapic.name == apic_default.name) {
- 		printk_once(XENLOG_WARNING
--			    "WARNING: CPUs limit of 8 reached - ignoring futher processors\n");
-+			    "WARNING: CPUs limit of 8 reached - ignoring further processors\n");
- 		unaccounted_cpus = true;
- 		return -ENOSPC;
- 	}
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
-index a35b63634b..ecc067bffe 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -3246,7 +3246,7 @@ x86_decode(
-             case 0x23: /* mov reg,dr */
-                 /*
-                  * Mov to/from cr/dr ignore the encoding of Mod, and behave as
--                 * if they were encoded as reg/reg instructions.  No futher
-+                 * if they were encoded as reg/reg instructions. No further
-                  * disp/SIB bytes are fetched.
-                  */
-                 modrm_mod = 3;
-diff --git a/xen/common/libelf/libelf-dominfo.c b/xen/common/libelf/libelf-dominfo.c
-index 508f08db42..69c94b6f3b 100644
---- a/xen/common/libelf/libelf-dominfo.c
-+++ b/xen/common/libelf/libelf-dominfo.c
-@@ -1,5 +1,5 @@
- /*
-- * parse xen-specific informations out of elf kernel binaries.
-+ * parse xen-specific information out of elf kernel binaries.
-  *
-  * This library is free software; you can redistribute it and/or
-  * modify it under the terms of the GNU Lesser General Public
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index b8321f5d8d..ed04d85e05 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -214,7 +214,7 @@ struct iommu_domain
- 	struct list_head		list;
- };
- 
--/* Xen: Describes informations required for a Xen domain */
-+/* Xen: Describes information required for a Xen domain */
- struct arm_smmu_xen_domain {
- 	spinlock_t			lock;
- 	/* List of context (i.e iommu_domain) associated to this domain */
-diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
-index 50412b9a46..36f67750e5 100755
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -192,7 +192,7 @@ def crunch_numbers(state):
-         FXSR: [FFXSR, SSE],
- 
-         # SSE is taken to mean support for the %XMM registers as well as the
--        # instructions.  Several futher instruction sets are built on core
-+        # instructions.  Several further instruction sets are built on core
-         # %XMM support, without specific inter-dependencies.  Additionally
-         # AMD has a special mis-alignment sub-mode.
-         SSE: [SSE2, MISALIGNSSE],
-diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/access_vectors
-index 1aa0bb501c..6359c7fc87 100644
---- a/xen/xsm/flask/policy/access_vectors
-+++ b/xen/xsm/flask/policy/access_vectors
-@@ -507,7 +507,7 @@ class security
- #
- class version
- {
--# Extra informations (-unstable).
-+# Extra information (-unstable).
-     xen_extraversion
- # Compile information of the hypervisor.
-     xen_compile_info
--- 
-2.29.2
-
+PiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IE1vbmRheSwg
+Tm92ZW1iZXIgMzAsIDIwMjAgNTo0NiBQTQ0KPiANCj4gT24gMzAuMTEuMjAyMCAwNDowNiwgVGlh
+biwgS2V2aW4gd3JvdGU6DQo+ID4+IEZyb206IFBhdWwgRHVycmFudCA8cGF1bEB4ZW4ub3JnPg0K
+PiA+PiBTZW50OiBGcmlkYXksIE5vdmVtYmVyIDIwLCAyMDIwIDk6MjUgUE0NCj4gPj4NCj4gPj4g
+RnJvbTogUGF1bCBEdXJyYW50IDxwZHVycmFudEBhbWF6b24uY29tPg0KPiA+Pg0KPiA+PiBUaGlz
+IG1ha2VzIHRoZSBjb2RlIGEgbGl0dGxlIGVhc2llciB0byByZWFkIGFuZCBhbHNvIG1ha2VzIGl0
+IG1vcmUNCj4gY29uc2lzdGVudA0KPiA+PiB3aXRoIGlyZW1hcF9lbnRyeS4NCj4gPj4NCj4gPj4g
+QWxzbyB0YWtlIHRoZSBvcHBvcnR1bml0eSB0byB0aWR5IHVwIHRoZSBpbXBsZW1lbnRhdGlvbiBv
+Zg0KPiA+PiBkZXZpY2VfaW5fZG9tYWluKCkuDQo+ID4+DQo+ID4+IFNpZ25lZC1vZmYtYnk6IFBh
+dWwgRHVycmFudCA8cGR1cnJhbnRAYW1hem9uLmNvbT4NCj4gPg0KPiA+IFJldmlld2VkLWJ5OiA8
+a2V2aW4udGlhbkBpbnRlbC5jb20+DQo+IA0KPiBCZXNpZGVzIHRoaXMgbG9va2luZyBhIGxpdHRs
+ZSBvZGQgKGNhbiBiZSBlYXNpbHkgZml4ZWQgb2YgY291cnNlKQ0KPiBJIHdvbmRlciB3aGV0aGVy
+IGJvdGggaGVyZSBhbmQgZm9yIHBhdGNoIDYgeW91IGhhZCBzZWVuIG15IHJlcXVlc3RzDQo+IGZv
+ciBzbWFsbGlzaCBjaGFuZ2VzLCBhbmQgd2hldGhlciB5b3UgbWVhbnQgdG8gb3ZlcnJpZGUgdGhv
+c2UsIG9yDQo+IHdoZXRoZXIgeW91ciBSLWIgd2lsbCBjb250aW51ZSB0byBhcHBseSB3aXRoIHRo
+ZW0gbWFkZS4NCj4gDQoNCkxldCBteSBSLWIgY29udGludWUgdG8gYXBwbHkuIFRob3NlIGFyZSBz
+bWFsbCBjaGFuZ2VzLg0KDQpUaGFua3MNCktldmluDQo=
 
