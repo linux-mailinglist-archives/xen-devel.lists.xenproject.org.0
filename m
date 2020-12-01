@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C7D32C9A48
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 10:01:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41759.75186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92A562C9AA0
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 10:03:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41770.75202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk1Wz-0002P7-SO; Tue, 01 Dec 2020 09:01:05 +0000
+	id 1kk1Yz-0002bf-BW; Tue, 01 Dec 2020 09:03:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41759.75186; Tue, 01 Dec 2020 09:01:05 +0000
+Received: by outflank-mailman (output) from mailman id 41770.75202; Tue, 01 Dec 2020 09:03:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk1Wz-0002Oi-OZ; Tue, 01 Dec 2020 09:01:05 +0000
-Received: by outflank-mailman (input) for mailman id 41759;
- Tue, 01 Dec 2020 09:01:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kk1Yz-0002bG-7d; Tue, 01 Dec 2020 09:03:09 +0000
+Received: by outflank-mailman (input) for mailman id 41770;
+ Tue, 01 Dec 2020 09:03:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UECe=FF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kk1Wy-0002OT-CA
- for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 09:01:04 +0000
+ id 1kk1Yy-0002bB-Fv
+ for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 09:03:08 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 186bfbcc-18e7-4e7d-bc0b-f6408ca6e6a3;
- Tue, 01 Dec 2020 09:01:03 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 108a0a0e-9bc7-4fd6-acbf-b75450e0125c;
+ Tue, 01 Dec 2020 09:03:07 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3E4F2AB7F;
- Tue,  1 Dec 2020 09:01:02 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id EB004AB7F;
+ Tue,  1 Dec 2020 09:03:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,129 +39,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 186bfbcc-18e7-4e7d-bc0b-f6408ca6e6a3
+X-Inumbo-ID: 108a0a0e-9bc7-4fd6-acbf-b75450e0125c
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606813262; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606813387; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gq9HZx+s/4mvB3GyXfKgnklt74JkdDMjWvBBPTawEPc=;
-	b=owduYkwbTtgQ79+UMD/bdAXnxU+gkhvaOVJdqrvo/s8v2rnitlIGUppjBnCBLFRpK55Q+9
-	dJ31bj8r2hegFFSOGoo5eLZoWPnN7saI/M/EyNyTZpGELwYgQThKI+OaajyYpoPy1AheqQ
-	uKIPdmJD3NBaSfXarPqsZv2IeSndO+c=
-Subject: Re: [PATCH v2 04/17] xen/cpupool: switch cpupool id to unsigned
+	bh=tBGQA4SdlZIXUvwqO0mSdE3fF/iJT63s2Q4sRiRixj0=;
+	b=BBbV30TEB7X2dv0kEdKpVWTeFvW58YcrRX4eM7yOHOcNT6LTxLE02bS2sgAuxW8t5rEPlJ
+	GQC1KwVC6+wLxI1RtRNDBA+FUqoBc3Bnb7Bil9GXsJlnMIzUxsxXcuhgxY/acoV7KGeatX
+	87JpTbvO7q6dg79eGAWTqyg1TR6wxDg=
+Subject: Re: [PATCH v2 15/17] xen/cpupool: add cpupool directories
 To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ xen-devel@lists.xenproject.org
 References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-5-jgross@suse.com>
- <a0bac022-fe6e-aae6-6d07-6a2b9bc492b3@suse.com>
+ <20201201082128.15239-16-jgross@suse.com>
+ <07118fab-6252-eb37-5844-b63e5dfc0976@suse.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <eed1baac-a6eb-f10b-7272-742c08f5124e@suse.com>
-Date: Tue, 1 Dec 2020 10:01:01 +0100
+Message-ID: <d8809f56-8d6c-8597-d3c8-ff6c9bf9bde2@suse.com>
+Date: Tue, 1 Dec 2020 10:03:06 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <a0bac022-fe6e-aae6-6d07-6a2b9bc492b3@suse.com>
+In-Reply-To: <07118fab-6252-eb37-5844-b63e5dfc0976@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="h4icEOT6ODfBq5kuB7s1ePdTUsnn7F4TO"
+ boundary="YE8XuQam5rCsXRQok1cjmn5VjJeFrOoev"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---h4icEOT6ODfBq5kuB7s1ePdTUsnn7F4TO
-Content-Type: multipart/mixed; boundary="o3PByQlchZ7AcDLF77ktJN7QW4C1jEzgU";
+--YE8XuQam5rCsXRQok1cjmn5VjJeFrOoev
+Content-Type: multipart/mixed; boundary="O5Lq6QKm3HQR8eeYWZMX9nbDmPVDM4NLw";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <eed1baac-a6eb-f10b-7272-742c08f5124e@suse.com>
-Subject: Re: [PATCH v2 04/17] xen/cpupool: switch cpupool id to unsigned
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ xen-devel@lists.xenproject.org
+Message-ID: <d8809f56-8d6c-8597-d3c8-ff6c9bf9bde2@suse.com>
+Subject: Re: [PATCH v2 15/17] xen/cpupool: add cpupool directories
 References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-5-jgross@suse.com>
- <a0bac022-fe6e-aae6-6d07-6a2b9bc492b3@suse.com>
-In-Reply-To: <a0bac022-fe6e-aae6-6d07-6a2b9bc492b3@suse.com>
+ <20201201082128.15239-16-jgross@suse.com>
+ <07118fab-6252-eb37-5844-b63e5dfc0976@suse.com>
+In-Reply-To: <07118fab-6252-eb37-5844-b63e5dfc0976@suse.com>
 
---o3PByQlchZ7AcDLF77ktJN7QW4C1jEzgU
+--O5Lq6QKm3HQR8eeYWZMX9nbDmPVDM4NLw
 Content-Type: multipart/mixed;
- boundary="------------86159DF286D8E4151E9E14A7"
+ boundary="------------67038BF2CE13C3E0D04F8211"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------86159DF286D8E4151E9E14A7
+--------------67038BF2CE13C3E0D04F8211
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 01.12.20 09:55, Jan Beulich wrote:
+On 01.12.20 10:00, Jan Beulich wrote:
 > On 01.12.2020 09:21, Juergen Gross wrote:
->> @@ -243,11 +243,11 @@ void cpupool_put(struct cpupool *pool)
->>    * - unknown scheduler
->>    */
->>   static struct cpupool *cpupool_create(
->> -    int poolid, unsigned int sched_id, int *perr)
->> +    unsigned int poolid, unsigned int sched_id, int *perr)
->>   {
->>       struct cpupool *c;
->>       struct cpupool **q;
->> -    int last =3D 0;
->> +    unsigned int last =3D 0;
->>  =20
->>       *perr =3D -ENOMEM;
->>       if ( (c =3D alloc_cpupool_struct()) =3D=3D NULL )
->> @@ -256,7 +256,7 @@ static struct cpupool *cpupool_create(
->>       /* One reference for caller, one reference for cpupool_destroy()=
-=2E */
->>       atomic_set(&c->refcnt, 2);
->>  =20
->> -    debugtrace_printk("cpupool_create(pool=3D%d,sched=3D%u)\n", pooli=
-d, sched_id);
->> +    debugtrace_printk("cpupool_create(pool=3D%u,sched=3D%u)\n", pooli=
-d, sched_id);
->>  =20
->>       spin_lock(&cpupool_lock);
->=20
-> Below from here we have
->=20
->      c->cpupool_id =3D (poolid =3D=3D CPUPOOLID_NONE) ? (last + 1) : po=
-olid;
->=20
-> which I think can (a) wrap to zero and (b) cause a pool with id
-> CPUPOOLID_NONE to be created. The former is bad in any event, and
-> the latter will cause confusion at least with cpupool_add_domain()
-> and cpupool_get_id(). I realize this is a tangential problem, i.e.
-> may want fixing in a separate change.
+>> Add /cpupool/<cpupool-id> directories to hypfs. Those are completely
+>> dynamic, so the related hypfs access functions need to be implemented.=
 
-Yes, this is an issue today already, and it is fixed in patch 5.
-
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> V2:
+>> - added const (Jan Beulich)
 >=20
->> --- a/xen/common/sched/private.h
->> +++ b/xen/common/sched/private.h
->> @@ -505,8 +505,8 @@ static inline void sched_unit_unpause(const struct=
- sched_unit *unit)
+> Any particular reason this doesn't extend to ...
+>=20
+>> @@ -1003,12 +1006,131 @@ static struct notifier_block cpu_nfb =3D {
+>>       .notifier_call =3D cpu_callback
+>>   };
 >>  =20
->>   struct cpupool
->>   {
->> -    int              cpupool_id;
->> -#define CPUPOOLID_NONE    (-1)
->> +    unsigned int     cpupool_id;
->> +#define CPUPOOLID_NONE    (~0U)
+>> +#ifdef CONFIG_HYPFS
+>> +static const struct hypfs_entry *cpupool_pooldir_enter(
+>> +    const struct hypfs_entry *entry);
+>> +
+>> +static struct hypfs_funcs cpupool_pooldir_funcs =3D {
 >=20
-> How about using XEN_SYSCTL_CPUPOOL_PAR_ANY here? Furthermore,
-> together with the remark above, I think you also want to consider
-> the case of sizeof(unsigned int) > sizeof(uint32_t).
+> ... this (similarly in the next patch)? Granted I didn't look at
+> the hypfs patches yet, but I don't suppose these struct instances
+> need to be writable.
 
-With patch 5 this should be completely fine.
+No reason. I'll add const.
 
 
 Juergen
 
---------------86159DF286D8E4151E9E14A7
+--------------67038BF2CE13C3E0D04F8211
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -251,25 +221,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------86159DF286D8E4151E9E14A7--
+--------------67038BF2CE13C3E0D04F8211--
 
---o3PByQlchZ7AcDLF77ktJN7QW4C1jEzgU--
+--O5Lq6QKm3HQR8eeYWZMX9nbDmPVDM4NLw--
 
---h4icEOT6ODfBq5kuB7s1ePdTUsnn7F4TO
+--YE8XuQam5rCsXRQok1cjmn5VjJeFrOoev
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/GBk0FAwAAAAAACgkQsN6d1ii/Ey9p
-qgf/ZFYxdFIjfUPcw9KSeBF0rIxH6Nz3sauaCdlDJZ5hW3mgRwRAB0dob+EXSqaCMhdy8rk24nTr
-22DD7QFwBPvk/Ved8pd3aqh8yEd2br0u2YMiDmggZLncUQcWKcFrS6ovZYFo+ZfvOes+IvVATrO5
-bffCgqAAVdR8b1BWkb4w+ViryUkZAcbSqedpbXYLicHZCeUdxT+pdogfDVKqpXaUPYoKyKmgCZke
-H+Qs03Jeg4N/C62SSEpccMbVjLd0smj2EzEt5pVGdfHodn2BTdOFF/NhSD8t6Ol4tGo7ZS74GjZx
-q9WklHEnwieagx38ERPmZ7ICNBQGzFFEegHopCHOEA==
-=zIOt
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/GBsoFAwAAAAAACgkQsN6d1ii/Ey8m
+rgf/b4V257T8XPxSGuvAtBgY1uxyq/y0inFpZBdD3sJU/uOQQZ/4JUA3SRZZUa7xr7tINvQuILQG
+RxHzvj/vxHpG+8nLEH6nb8f7xxieMK2PLltydGYyTpPLGhUU74sOh8pSHNLYCXlywNGUBoDpIsjX
+mX5frFM8qEyUtK+nvM/tPNcxJeWkcFi572GX60GKiRr1Ny6zU0kWsCCr/Ib6zHG7HKKfVS5F+tOP
+8ghF5O5qRkZ8XkNH9Dwh5VWyB4TNbQ+HR+Cp6xwUg1P4RHxQD2i7lTR7Yx/Pu9HqSuhuqt5Z6YXs
+Ic3lzajLBCMI8T8An288IGUEJC7YXZIHVSKWFawvGQ==
+=WgH3
 -----END PGP SIGNATURE-----
 
---h4icEOT6ODfBq5kuB7s1ePdTUsnn7F4TO--
+--YE8XuQam5rCsXRQok1cjmn5VjJeFrOoev--
 
