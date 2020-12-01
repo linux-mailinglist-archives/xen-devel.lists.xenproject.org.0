@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92A562C9AA0
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 10:03:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41770.75202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A9DE2C9B0F
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 10:07:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41777.75214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk1Yz-0002bf-BW; Tue, 01 Dec 2020 09:03:09 +0000
+	id 1kk1dM-0002qM-Tk; Tue, 01 Dec 2020 09:07:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41770.75202; Tue, 01 Dec 2020 09:03:09 +0000
+Received: by outflank-mailman (output) from mailman id 41777.75214; Tue, 01 Dec 2020 09:07:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk1Yz-0002bG-7d; Tue, 01 Dec 2020 09:03:09 +0000
-Received: by outflank-mailman (input) for mailman id 41770;
- Tue, 01 Dec 2020 09:03:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kk1dM-0002px-Q9; Tue, 01 Dec 2020 09:07:40 +0000
+Received: by outflank-mailman (input) for mailman id 41777;
+ Tue, 01 Dec 2020 09:07:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UECe=FF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kk1Yy-0002bB-Fv
- for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 09:03:08 +0000
+ (envelope-from <SRS0=KrUB=FF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kk1dL-0002ps-NE
+ for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 09:07:39 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 108a0a0e-9bc7-4fd6-acbf-b75450e0125c;
- Tue, 01 Dec 2020 09:03:07 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b003c577-5e7c-4d79-8fb4-920b04642b5d;
+ Tue, 01 Dec 2020 09:07:38 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EB004AB7F;
- Tue,  1 Dec 2020 09:03:06 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 12AD8AB7F;
+ Tue,  1 Dec 2020 09:07:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,207 +38,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 108a0a0e-9bc7-4fd6-acbf-b75450e0125c
+X-Inumbo-ID: b003c577-5e7c-4d79-8fb4-920b04642b5d
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606813387; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606813658; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tBGQA4SdlZIXUvwqO0mSdE3fF/iJT63s2Q4sRiRixj0=;
-	b=BBbV30TEB7X2dv0kEdKpVWTeFvW58YcrRX4eM7yOHOcNT6LTxLE02bS2sgAuxW8t5rEPlJ
-	GQC1KwVC6+wLxI1RtRNDBA+FUqoBc3Bnb7Bil9GXsJlnMIzUxsxXcuhgxY/acoV7KGeatX
-	87JpTbvO7q6dg79eGAWTqyg1TR6wxDg=
-Subject: Re: [PATCH v2 15/17] xen/cpupool: add cpupool directories
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+	bh=4afmUn79aMo+7zFP+9CWyAWfYk6rLfDq5W/VGJdw1LQ=;
+	b=Ka1c1ChuHG6f2cKd9MNL1F3kaRbEwEJ26cGtbPg0hy9mVDSLvzcux9no2t/SVyZ2R5q8kF
+	sjBsPteM3Y/7XxHtwnT3KLv3o65onWt3CCE8KK1Mxht7Q4lH35sOkIFMs/k70n156kVXJq
+	l3apbpvQH+gdG4uQ1AZ9DhGAX3lossY=
+Subject: Re: [PATCH v2 04/17] xen/cpupool: switch cpupool id to unsigned
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
- xen-devel@lists.xenproject.org
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-16-jgross@suse.com>
- <07118fab-6252-eb37-5844-b63e5dfc0976@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <d8809f56-8d6c-8597-d3c8-ff6c9bf9bde2@suse.com>
-Date: Tue, 1 Dec 2020 10:03:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ <20201201082128.15239-5-jgross@suse.com>
+ <a0bac022-fe6e-aae6-6d07-6a2b9bc492b3@suse.com>
+ <eed1baac-a6eb-f10b-7272-742c08f5124e@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e6cc3d1f-f0c5-f32e-db9c-4fc9298c2a45@suse.com>
+Date: Tue, 1 Dec 2020 10:07:37 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <07118fab-6252-eb37-5844-b63e5dfc0976@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="YE8XuQam5rCsXRQok1cjmn5VjJeFrOoev"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---YE8XuQam5rCsXRQok1cjmn5VjJeFrOoev
-Content-Type: multipart/mixed; boundary="O5Lq6QKm3HQR8eeYWZMX9nbDmPVDM4NLw";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
- xen-devel@lists.xenproject.org
-Message-ID: <d8809f56-8d6c-8597-d3c8-ff6c9bf9bde2@suse.com>
-Subject: Re: [PATCH v2 15/17] xen/cpupool: add cpupool directories
-References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-16-jgross@suse.com>
- <07118fab-6252-eb37-5844-b63e5dfc0976@suse.com>
-In-Reply-To: <07118fab-6252-eb37-5844-b63e5dfc0976@suse.com>
-
---O5Lq6QKm3HQR8eeYWZMX9nbDmPVDM4NLw
-Content-Type: multipart/mixed;
- boundary="------------67038BF2CE13C3E0D04F8211"
+In-Reply-To: <eed1baac-a6eb-f10b-7272-742c08f5124e@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------67038BF2CE13C3E0D04F8211
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 01.12.20 10:00, Jan Beulich wrote:
-> On 01.12.2020 09:21, Juergen Gross wrote:
->> Add /cpupool/<cpupool-id> directories to hypfs. Those are completely
->> dynamic, so the related hypfs access functions need to be implemented.=
-
+On 01.12.2020 10:01, Jürgen Groß wrote:
+> On 01.12.20 09:55, Jan Beulich wrote:
+>> On 01.12.2020 09:21, Juergen Gross wrote:
+>>> @@ -243,11 +243,11 @@ void cpupool_put(struct cpupool *pool)
+>>>    * - unknown scheduler
+>>>    */
+>>>   static struct cpupool *cpupool_create(
+>>> -    int poolid, unsigned int sched_id, int *perr)
+>>> +    unsigned int poolid, unsigned int sched_id, int *perr)
+>>>   {
+>>>       struct cpupool *c;
+>>>       struct cpupool **q;
+>>> -    int last = 0;
+>>> +    unsigned int last = 0;
+>>>   
+>>>       *perr = -ENOMEM;
+>>>       if ( (c = alloc_cpupool_struct()) == NULL )
+>>> @@ -256,7 +256,7 @@ static struct cpupool *cpupool_create(
+>>>       /* One reference for caller, one reference for cpupool_destroy(). */
+>>>       atomic_set(&c->refcnt, 2);
+>>>   
+>>> -    debugtrace_printk("cpupool_create(pool=%d,sched=%u)\n", poolid, sched_id);
+>>> +    debugtrace_printk("cpupool_create(pool=%u,sched=%u)\n", poolid, sched_id);
+>>>   
+>>>       spin_lock(&cpupool_lock);
 >>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->> V2:
->> - added const (Jan Beulich)
->=20
-> Any particular reason this doesn't extend to ...
->=20
->> @@ -1003,12 +1006,131 @@ static struct notifier_block cpu_nfb =3D {
->>       .notifier_call =3D cpu_callback
->>   };
->>  =20
->> +#ifdef CONFIG_HYPFS
->> +static const struct hypfs_entry *cpupool_pooldir_enter(
->> +    const struct hypfs_entry *entry);
->> +
->> +static struct hypfs_funcs cpupool_pooldir_funcs =3D {
->=20
-> ... this (similarly in the next patch)? Granted I didn't look at
-> the hypfs patches yet, but I don't suppose these struct instances
-> need to be writable.
+>> Below from here we have
+>>
+>>      c->cpupool_id = (poolid == CPUPOOLID_NONE) ? (last + 1) : poolid;
+>>
+>> which I think can (a) wrap to zero and (b) cause a pool with id
+>> CPUPOOLID_NONE to be created. The former is bad in any event, and
+>> the latter will cause confusion at least with cpupool_add_domain()
+>> and cpupool_get_id(). I realize this is a tangential problem, i.e.
+>> may want fixing in a separate change.
+> 
+> Yes, this is an issue today already, and it is fixed in patch 5.
+> 
+>>
+>>> --- a/xen/common/sched/private.h
+>>> +++ b/xen/common/sched/private.h
+>>> @@ -505,8 +505,8 @@ static inline void sched_unit_unpause(const struct sched_unit *unit)
+>>>   
+>>>   struct cpupool
+>>>   {
+>>> -    int              cpupool_id;
+>>> -#define CPUPOOLID_NONE    (-1)
+>>> +    unsigned int     cpupool_id;
+>>> +#define CPUPOOLID_NONE    (~0U)
+>>
+>> How about using XEN_SYSCTL_CPUPOOL_PAR_ANY here? Furthermore,
+>> together with the remark above, I think you also want to consider
+>> the case of sizeof(unsigned int) > sizeof(uint32_t).
+> 
+> With patch 5 this should be completely fine.
 
-No reason. I'll add const.
+Ah - I didn't expect this kind of fix in a patch with that title,
+but yes.
 
-
-Juergen
-
---------------67038BF2CE13C3E0D04F8211
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------67038BF2CE13C3E0D04F8211--
-
---O5Lq6QKm3HQR8eeYWZMX9nbDmPVDM4NLw--
-
---YE8XuQam5rCsXRQok1cjmn5VjJeFrOoev
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/GBsoFAwAAAAAACgkQsN6d1ii/Ey8m
-rgf/b4V257T8XPxSGuvAtBgY1uxyq/y0inFpZBdD3sJU/uOQQZ/4JUA3SRZZUa7xr7tINvQuILQG
-RxHzvj/vxHpG+8nLEH6nb8f7xxieMK2PLltydGYyTpPLGhUU74sOh8pSHNLYCXlywNGUBoDpIsjX
-mX5frFM8qEyUtK+nvM/tPNcxJeWkcFi572GX60GKiRr1Ny6zU0kWsCCr/Ib6zHG7HKKfVS5F+tOP
-8ghF5O5qRkZ8XkNH9Dwh5VWyB4TNbQ+HR+Cp6xwUg1P4RHxQD2i7lTR7Yx/Pu9HqSuhuqt5Z6YXs
-Ic3lzajLBCMI8T8An288IGUEJC7YXZIHVSKWFawvGQ==
-=WgH3
------END PGP SIGNATURE-----
-
---YE8XuQam5rCsXRQok1cjmn5VjJeFrOoev--
+Jan
 
