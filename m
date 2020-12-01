@@ -2,31 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 175112CA04C
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 11:50:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41825.75301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8F252CA0C4
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 12:04:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41834.75313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk3E7-0004RR-6h; Tue, 01 Dec 2020 10:49:43 +0000
+	id 1kk3RO-0006HT-GN; Tue, 01 Dec 2020 11:03:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41825.75301; Tue, 01 Dec 2020 10:49:43 +0000
+Received: by outflank-mailman (output) from mailman id 41834.75313; Tue, 01 Dec 2020 11:03:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk3E7-0004R2-3K; Tue, 01 Dec 2020 10:49:43 +0000
-Received: by outflank-mailman (input) for mailman id 41825;
- Tue, 01 Dec 2020 10:49:41 +0000
+	id 1kk3RO-0006H3-C0; Tue, 01 Dec 2020 11:03:26 +0000
+Received: by outflank-mailman (input) for mailman id 41834;
+ Tue, 01 Dec 2020 11:03:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KrUB=FF=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kk3E5-0004Qx-Ig
- for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 10:49:41 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=na+5=FF=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+ id 1kk3RN-0006Gy-5y
+ for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 11:03:25 +0000
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 83d024e0-b26c-49f4-b781-36d511790e18;
- Tue, 01 Dec 2020 10:49:40 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 998B6AC90;
- Tue,  1 Dec 2020 10:49:39 +0000 (UTC)
+ id bae84da9-3c01-488a-b810-367f11aac04c;
+ Tue, 01 Dec 2020 11:03:24 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id 23so1974181wrc.8
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Dec 2020 03:03:24 -0800 (PST)
+Received: from zen.linaroharston ([51.148.130.216])
+ by smtp.gmail.com with ESMTPSA id v7sm2381281wma.26.2020.12.01.03.03.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Dec 2020 03:03:21 -0800 (PST)
+Received: from zen (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id EEF111FF7E;
+ Tue,  1 Dec 2020 11:03:20 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,95 +44,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83d024e0-b26c-49f4-b781-36d511790e18
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606819779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nRa7yuoH4jgSQKC7xkeLfahP/u1wYvFmASAmGAH6kOs=;
-	b=nkfDCEzViB0nRB8DYyrodsOTbRqWJLodX4GeZ4zJMcU6CaKA4kgi1B82D/DwihvPs9/oa6
-	f+WCiR9X+JwPIQoJFUXVy80C8WZkw6TSwK4jFkP37efd0U8R2CV/EAveeKD+JViafpgUeM
-	jEe0if4cQhUdWGsHdESRQAcoGWp80iw=
-Subject: Re: [PATCH V3 19/23] xen/arm: io: Abstract sign-extension
-To: Julien Grall <julien@xen.org>, Oleksandr <olekstysh@gmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+X-Inumbo-ID: bae84da9-3c01-488a-b810-367f11aac04c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=references:user-agent:from:to:cc:subject:in-reply-to:date
+         :message-id:mime-version:content-transfer-encoding;
+        bh=ipBJUGbtRku9teUZUW1nNmFVDBPn0WzbshJ5Gm4rGOE=;
+        b=avPWF8RnfQKUr8zOoYRH0VRn/ccw7yYf4BBEJWjhXMZbUxIMkKs/6ouOh18zpWt6JJ
+         jjc8jJycFJet4QMK/cVtWxvbNK43lrKS3FWnmUPGmoXzVj93XSVw9yr2eexn3vVH4j46
+         8oTKRyxGAnFjFkiIDXwykv37ZjC3Vh7KfoAuYBzp1aR0HF4HTv8/JbYh/NJ5Q2ofuygQ
+         8TlV0o6GNTcr3AYcHMs/3n2SMh9y2+Yb4T8iHG8QtFbUuXlb43DwkI9eVTxifB8Aipwh
+         IdaM17w6IQ7WJjCkha6J26G/0Su65Inm+d5RSsD+ZSg27KkKLsjacFTW2JQoq3vt389J
+         E/Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:references:user-agent:from:to:cc:subject
+         :in-reply-to:date:message-id:mime-version:content-transfer-encoding;
+        bh=ipBJUGbtRku9teUZUW1nNmFVDBPn0WzbshJ5Gm4rGOE=;
+        b=ms1GofobsQZ0mK2xjOBInwkq6XrzSnecVI0c1xWWjOkD00CaeIjpP59h2J3cL5tsFu
+         DcXAsfqBwcH4pJ6MuOm/vzXllxMyZbRsXoqPZ3ei69Z2gCyzhfQGlYTW24iAl6JPzVca
+         0zwU7nrpxeNdtA3JUlb0lFxO4phPNbKKcLrQyA8dqPazjPkbVIaof+eXyfIRT1IyUZNO
+         47ubgtUlhKe4AYv5RlDQ2TuRega75PCuyjXoAbYMh0Kv4Dhi7m+6mdsusdYhlMsUP7PJ
+         U5frjEdRtx1oXcec+yKMp7rsJnPA/L3v0MHA+b7mjogQz27pUK49EUiHyDL4UneQi2iQ
+         IwGQ==
+X-Gm-Message-State: AOAM5313WRaZv5YO0XYez8+qOFY/nZ7tCkmF+vTPeDCbkLow2pK3Fn39
+	y5nX+3Nc18WkIKW45qk7ZdyC8A==
+X-Google-Smtp-Source: ABdhPJzDOhKQm/zgRzj3yo7Syp+0/5eSKBVrrTB2oEhZyuwUbPW2Zwj4z3f2sZrHl5Ju3NYCuLAbww==
+X-Received: by 2002:adf:dd8a:: with SMTP id x10mr3215799wrl.24.1606820603110;
+        Tue, 01 Dec 2020 03:03:23 -0800 (PST)
 References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-20-git-send-email-olekstysh@gmail.com>
- <878sai7e1a.fsf@epam.com> <cad0d7fe-3a9f-3992-9d89-8e9bb438dfbe@gmail.com>
- <93284ea1-e658-ffff-3223-174d633e38ad@suse.com>
- <d7b8f43d-2a59-6316-5609-0595b2a86045@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7b6c5dd4-fcff-2ed6-2295-d70e204c26a0@suse.com>
-Date: Tue, 1 Dec 2020 11:49:39 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ <1606732298-22107-2-git-send-email-olekstysh@gmail.com>
+User-agent: mu4e 1.5.7; emacs 28.0.50
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Paul Durrant
+ <paul@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Roger Pau =?utf-8?Q?Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei
+ Liu <wl@xen.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Julien Grall <julien.grall@arm.com>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH V3 01/23] x86/ioreq: Prepare IOREQ feature for making it
+ common
+In-reply-to: <1606732298-22107-2-git-send-email-olekstysh@gmail.com>
+Date: Tue, 01 Dec 2020 11:03:20 +0000
+Message-ID: <87eek9u6tj.fsf@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <d7b8f43d-2a59-6316-5609-0595b2a86045@xen.org>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 01.12.2020 11:30, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 01/12/2020 07:55, Jan Beulich wrote:
->> On 01.12.2020 00:27, Oleksandr wrote:
->>> On 30.11.20 23:03, Volodymyr Babchuk wrote:
->>>> Oleksandr Tyshchenko writes:
->>>>> --- a/xen/include/asm-arm/traps.h
->>>>> +++ b/xen/include/asm-arm/traps.h
->>>>> @@ -83,6 +83,30 @@ static inline bool VABORT_GEN_BY_GUEST(const struct cpu_user_regs *regs)
->>>>>            (unsigned long)abort_guest_exit_end == regs->pc;
->>>>>    }
->>>>>    
->>>>> +/* Check whether the sign extension is required and perform it */
->>>>> +static inline register_t sign_extend(const struct hsr_dabt dabt, register_t r)
->>>>> +{
->>>>> +    uint8_t size = (1 << dabt.size) * 8;
->>>>> +
->>>>> +    /*
->>>>> +     * Sign extend if required.
->>>>> +     * Note that we expect the read handler to have zeroed the bits
->>>>> +     * outside the requested access size.
->>>>> +     */
->>>>> +    if ( dabt.sign && (r & (1UL << (size - 1))) )
->>>>> +    {
->>>>> +        /*
->>>>> +         * We are relying on register_t using the same as
->>>>> +         * an unsigned long in order to keep the 32-bit assembly
->>>>> +         * code smaller.
->>>>> +         */
->>>>> +        BUILD_BUG_ON(sizeof(register_t) != sizeof(unsigned long));
->>>>> +        r |= (~0UL) << size;
->>>> If `size` is 64, you will get undefined behavior there.
->>> I think, we don't need to worry about undefined behavior here. Having
->>> size=64 would be possible with doubleword (dabt.size=3). But if "r"
->>> adjustment gets called (I mean Syndrome Sign Extend bit is set) then
->>> we deal with byte, halfword or word operations (dabt.size<3). Or I
->>> missed something?
->>
->> At which point please put in a respective ASSERT(), possibly amended
->> by a brief comment.
-> 
-> ASSERT()s are only meant to catch programatic error. However, in this 
-> case, the bigger risk is an hardware bug such as advertising a sign 
-> extension for either 64-bit (or 32-bit) on Arm64 (resp. Arm32).
-> 
-> Actually the Armv8 spec is a bit more blurry when running in AArch32 
-> state because they suggest that the sign extension can be set even for 
-> 32-bit access. I think this is a spelling mistake, but it is probably 
-> better to be cautious here.
-> 
-> Therefore, I would recommend to rework the code so it is only called 
-> when len < sizeof(register_t).
 
-This would be even better in this case, I agree.
+Oleksandr Tyshchenko <olekstysh@gmail.com> writes:
 
-Jan
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>
+> As a lot of x86 code can be re-used on Arm later on, this
+> patch makes some preparation to x86/hvm/ioreq.c before moving
+> to the common code. This way we will get a verbatim copy
+<snip>
+>
+> It worth mentioning that a code which checks the return value of
+> p2m_set_ioreq_server() in hvm_map_mem_type_to_ioreq_server() was
+> folded into arch_ioreq_server_map_mem_type() for the clear split.
+> So the p2m_change_entry_type_global() is called with ioreq_server
+> lock held.
+<snip>
+>=20=20
+> +/* Called with ioreq_server lock held */
+> +int arch_ioreq_server_map_mem_type(struct domain *d,
+> +                                   struct hvm_ioreq_server *s,
+> +                                   uint32_t flags)
+> +{
+> +    int rc =3D p2m_set_ioreq_server(d, flags, s);
+> +
+> +    if ( rc =3D=3D 0 && flags =3D=3D 0 )
+> +    {
+> +        const struct p2m_domain *p2m =3D p2m_get_hostp2m(d);
+> +
+> +        if ( read_atomic(&p2m->ioreq.entry_count) )
+> +            p2m_change_entry_type_global(d, p2m_ioreq_server, p2m_ram_rw=
+);
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+>  /*
+>   * Map or unmap an ioreq server to specific memory type. For now, only
+>   * HVMMEM_ioreq_server is supported, and in the future new types can be
+> @@ -1112,19 +1155,11 @@ int hvm_map_mem_type_to_ioreq_server(struct domai=
+n *d, ioservid_t id,
+>      if ( s->emulator !=3D current->domain )
+>          goto out;
+>=20=20
+> -    rc =3D p2m_set_ioreq_server(d, flags, s);
+> +    rc =3D arch_ioreq_server_map_mem_type(d, s, flags);
+>=20=20
+>   out:
+>      spin_unlock_recursive(&d->arch.hvm.ioreq_server.lock);
+>=20=20
+> -    if ( rc =3D=3D 0 && flags =3D=3D 0 )
+> -    {
+> -        struct p2m_domain *p2m =3D p2m_get_hostp2m(d);
+> -
+> -        if ( read_atomic(&p2m->ioreq.entry_count) )
+> -            p2m_change_entry_type_global(d, p2m_ioreq_server, p2m_ram_rw=
+);
+> -    }
+> -
+
+It should be noted that p2m holds it's own lock but I'm unfamiliar with
+Xen's locking architecture. Is there anything that prevents another vCPU
+accessing a page that is also being used my ioreq on the first vCPU?
+
+Assuming that deadlock isn't a possibility to my relatively untrained
+eye this looks good to me:
+
+Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+
+--=20
+Alex Benn=C3=A9e
 
