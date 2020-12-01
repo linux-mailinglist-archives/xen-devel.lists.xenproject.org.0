@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 230372C9916
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 09:22:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.41658.75081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15FA52C995A
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Dec 2020 09:24:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.41701.75130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk0vJ-0005dB-Lm; Tue, 01 Dec 2020 08:22:09 +0000
+	id 1kk0xL-0006fc-Rj; Tue, 01 Dec 2020 08:24:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 41658.75081; Tue, 01 Dec 2020 08:22:09 +0000
+Received: by outflank-mailman (output) from mailman id 41701.75130; Tue, 01 Dec 2020 08:24:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kk0vJ-0005bY-6e; Tue, 01 Dec 2020 08:22:09 +0000
-Received: by outflank-mailman (input) for mailman id 41658;
- Tue, 01 Dec 2020 08:22:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kk0xL-0006fC-OW; Tue, 01 Dec 2020 08:24:15 +0000
+Received: by outflank-mailman (input) for mailman id 41701;
+ Tue, 01 Dec 2020 08:24:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UECe=FF=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kk0vH-0004VK-6D
- for xen-devel@lists.xenproject.org; Tue, 01 Dec 2020 08:22:07 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 25f21fdf-10c8-425f-b015-8b72c954f7ae;
- Tue, 01 Dec 2020 08:21:35 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BA1F5AD8A;
- Tue,  1 Dec 2020 08:21:34 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kk0xK-0006f1-Hp; Tue, 01 Dec 2020 08:24:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kk0xK-0006W1-DL; Tue, 01 Dec 2020 08:24:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kk0xK-0006yH-5n; Tue, 01 Dec 2020 08:24:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kk0xK-0000ym-5L; Tue, 01 Dec 2020 08:24:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,213 +42,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25f21fdf-10c8-425f-b015-8b72c954f7ae
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606810894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3G0xgIlL/9kX9DtKJGfu7x/TxV+adakU1t5bKB7Shos=;
-	b=IkpN9WygXUSH6MIqzZPiyHDmb45LMWErKCm8iYpw9oM5Mo9lo6NFRIhzEfKRtrBCK30H+G
-	I9itFnpDgiqpTj4f4xPcwoimg7/sfsc/K7+kG2Vzw2hBWABakSekL3R+30plQDJappTYyh
-	pKHnK5heJzej4UKjt411+cYbvpyHkMs=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH v2 17/17] xen/cpupool: make per-cpupool sched-gran hypfs node writable
-Date: Tue,  1 Dec 2020 09:21:28 +0100
-Message-Id: <20201201082128.15239-18-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201201082128.15239-1-jgross@suse.com>
-References: <20201201082128.15239-1-jgross@suse.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Y5VkM0Y3FhZC60uDY7Y1xgDiVDit1xrKETxH2jCZGBo=; b=GH/VPYlIKl1NpTnOT5WiAUV7bG
+	KqdJM2QuHpqVWbPBnTOEO/kXxM60GLEj7HF4rthUsJYpGMQ9hNpDQxi2tjbyl1BH10TgpK13Nev1A
+	LTuZOOwJScQt4FF+42XDvkQLdjgQsz7XtsmK1JquUo6yn3dbTzPc9vl9V3p0f2lt08Yg=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157125-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 157125: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=08ae9e5f40f8bae0c3cf48f84181884ddd310fa0
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 01 Dec 2020 08:24:14 +0000
 
-Make /cpupool/<id>/sched-gran in hypfs writable. This will enable per
-cpupool selectable scheduling granularity.
+flight 157125 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157125/
 
-Writing this node is allowed only with no cpu assigned to the cpupool.
-Allowed are values "cpu", "core" and "socket".
+Regressions :-(
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- test user parameters earlier (Jan Beulich)
----
- docs/misc/hypfs-paths.pandoc |  5 ++-
- xen/common/sched/cpupool.c   | 70 ++++++++++++++++++++++++++++++------
- 2 files changed, 63 insertions(+), 12 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pandoc
-index f1ce24d7fe..e86f7d0dbe 100644
---- a/docs/misc/hypfs-paths.pandoc
-+++ b/docs/misc/hypfs-paths.pandoc
-@@ -184,10 +184,13 @@ A directory of all current cpupools.
- The individual cpupools. Each entry is a directory with the name being the
- cpupool-id (e.g. /cpupool/0/).
- 
--#### /cpupool/*/sched-gran = ("cpu" | "core" | "socket")
-+#### /cpupool/*/sched-gran = ("cpu" | "core" | "socket") [w]
- 
- The scheduling granularity of a cpupool.
- 
-+Writing a value is allowed only for cpupools with no cpu assigned and if the
-+architecture is supporting different scheduling granularities.
-+
- #### /params/
- 
- A directory of runtime parameters.
-diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
-index cfc75ccbe4..b1d9507978 100644
---- a/xen/common/sched/cpupool.c
-+++ b/xen/common/sched/cpupool.c
-@@ -77,7 +77,7 @@ static void sched_gran_print(enum sched_gran mode, unsigned int gran)
- }
- 
- #ifdef CONFIG_HAS_SCHED_GRANULARITY
--static int __init sched_select_granularity(const char *str)
-+static int sched_gran_get(const char *str, enum sched_gran *mode)
- {
-     unsigned int i;
- 
-@@ -85,36 +85,43 @@ static int __init sched_select_granularity(const char *str)
-     {
-         if ( strcmp(sg_name[i].name, str) == 0 )
-         {
--            opt_sched_granularity = sg_name[i].mode;
-+            *mode = sg_name[i].mode;
-             return 0;
-         }
-     }
- 
-     return -EINVAL;
- }
-+
-+static int __init sched_select_granularity(const char *str)
-+{
-+    return sched_gran_get(str, &opt_sched_granularity);
-+}
- custom_param("sched-gran", sched_select_granularity);
-+#else
-+static int sched_gran_get(const char *str, enum sched_gran *mode)
-+{
-+    return -EINVAL;
-+}
- #endif
- 
--static unsigned int __init cpupool_check_granularity(void)
-+static unsigned int cpupool_check_granularity(enum sched_gran mode)
- {
-     unsigned int cpu;
-     unsigned int siblings, gran = 0;
- 
--    if ( opt_sched_granularity == SCHED_GRAN_cpu )
-+    if ( mode == SCHED_GRAN_cpu )
-         return 1;
- 
-     for_each_online_cpu ( cpu )
-     {
--        siblings = cpumask_weight(sched_get_opt_cpumask(opt_sched_granularity,
--                                                        cpu));
-+        siblings = cpumask_weight(sched_get_opt_cpumask(mode, cpu));
-         if ( gran == 0 )
-             gran = siblings;
-         else if ( gran != siblings )
-             return 0;
-     }
- 
--    sched_disable_smt_switching = true;
--
-     return gran;
- }
- 
-@@ -126,7 +133,7 @@ static void __init cpupool_gran_init(void)
- 
-     while ( gran == 0 )
-     {
--        gran = cpupool_check_granularity();
-+        gran = cpupool_check_granularity(opt_sched_granularity);
- 
-         if ( gran == 0 )
-         {
-@@ -152,6 +159,9 @@ static void __init cpupool_gran_init(void)
-     if ( fallback )
-         warning_add(fallback);
- 
-+    if ( opt_sched_granularity != SCHED_GRAN_cpu )
-+        sched_disable_smt_switching = true;
-+
-     sched_granularity = gran;
-     sched_gran_print(opt_sched_granularity, sched_granularity);
- }
-@@ -1145,17 +1155,55 @@ static unsigned int hypfs_gran_getsize(const struct hypfs_entry *entry)
-     return strlen(gran) + 1;
- }
- 
-+static int cpupool_gran_write(struct hypfs_entry_leaf *leaf,
-+                              XEN_GUEST_HANDLE_PARAM(void) uaddr,
-+                              unsigned int ulen)
-+{
-+    const struct hypfs_dyndir_id *data;
-+    struct cpupool *cpupool;
-+    enum sched_gran gran;
-+    unsigned int sched_gran = 0;
-+    char name[SCHED_GRAN_NAME_LEN];
-+    int ret = 0;
-+
-+    if ( ulen > SCHED_GRAN_NAME_LEN )
-+        return -ENOSPC;
-+
-+    if ( copy_from_guest(name, uaddr, ulen) )
-+        return -EFAULT;
-+
-+    if ( memchr(name, 0, ulen) == (name + ulen - 1) )
-+        sched_gran = sched_gran_get(name, &gran) ?
-+                     0 : cpupool_check_granularity(gran);
-+    if ( sched_gran == 0 )
-+        return -EINVAL;
-+
-+    data = hypfs_get_dyndata();
-+    cpupool = __cpupool_find_by_id(data->id, true);
-+    ASSERT(cpupool);
-+
-+    if ( !cpumask_empty(cpupool->cpu_valid) )
-+        ret = -EBUSY;
-+    else
-+    {
-+        cpupool->gran = gran;
-+        cpupool->sched_gran = sched_gran;
-+    }
-+
-+    return ret;
-+}
-+
- static struct hypfs_funcs cpupool_gran_funcs = {
-     .enter = hypfs_node_enter,
-     .exit = hypfs_node_exit,
-     .read = cpupool_gran_read,
--    .write = hypfs_write_deny,
-+    .write = cpupool_gran_write,
-     .getsize = hypfs_gran_getsize,
-     .findentry = hypfs_leaf_findentry,
- };
- 
- static HYPFS_VARSIZE_INIT(cpupool_gran, XEN_HYPFS_TYPE_STRING, "sched-gran",
--                          0, &cpupool_gran_funcs);
-+                          SCHED_GRAN_NAME_LEN, &cpupool_gran_funcs);
- static char granstr[SCHED_GRAN_NAME_LEN] = {
-     [0 ... SCHED_GRAN_NAME_LEN - 2] = '?',
-     [SCHED_GRAN_NAME_LEN - 1] = 0
--- 
-2.26.2
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
+version targeted for testing:
+ libvirt              08ae9e5f40f8bae0c3cf48f84181884ddd310fa0
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  144 days
+Failing since        151818  2020-07-11 04:18:52 Z  143 days  138 attempts
+Testing same since   157125  2020-12-01 04:19:15 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 29770 lines long.)
 
