@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 542732CC79C
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 21:19:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43002.77378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C690E2CC8B1
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 22:11:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43009.77390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkYZe-0004Bu-K0; Wed, 02 Dec 2020 20:18:02 +0000
+	id 1kkZOg-0001Fb-7s; Wed, 02 Dec 2020 21:10:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43002.77378; Wed, 02 Dec 2020 20:18:02 +0000
+Received: by outflank-mailman (output) from mailman id 43009.77390; Wed, 02 Dec 2020 21:10:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkYZe-0004BV-Gn; Wed, 02 Dec 2020 20:18:02 +0000
-Received: by outflank-mailman (input) for mailman id 43002;
- Wed, 02 Dec 2020 20:18:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X14H=FG=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1kkYZd-0004BQ-N1
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 20:18:01 +0000
-Received: from mail-io1-xd43.google.com (unknown [2607:f8b0:4864:20::d43])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bfff363c-9dc3-4be9-b6de-9344e0d4efbb;
- Wed, 02 Dec 2020 20:18:00 +0000 (UTC)
-Received: by mail-io1-xd43.google.com with SMTP id n4so2838840iow.12
- for <xen-devel@lists.xenproject.org>; Wed, 02 Dec 2020 12:18:00 -0800 (PST)
+	id 1kkZOg-0001Ee-41; Wed, 02 Dec 2020 21:10:46 +0000
+Received: by outflank-mailman (input) for mailman id 43009;
+ Wed, 02 Dec 2020 21:10:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kkZOe-0001AX-Mk
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 21:10:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kkZOX-0003rS-RW; Wed, 02 Dec 2020 21:10:37 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kkZOX-00039w-Hj; Wed, 02 Dec 2020 21:10:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,83 +39,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfff363c-9dc3-4be9-b6de-9344e0d4efbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=imOsHZ8UM7k2PqA8O+sHJ8lLeteNEVL/iOURmAIDRzs=;
-        b=YVI++cRdislCT0pqLziNmY07cMrzMaRRyo/bg+OnOunK0TjuLN46oD1Fgsmb45irUj
-         pomtFMYzxtICc1wZfYv1PpfGed/fNZanjbBDdiP6LnsfQ2NnFqtjuVrC1/eszVO5Ksyr
-         dDnJoPIcfW/7t90rWKKtqmnPQOtTniKefkBae1QCYlNbxnUsmDMiZO11/iBEdVD1+MuW
-         tT1vPjNXgTxzcc5LFTUhw7v5KCFuayV/JFyFBZALL12jPMFX2t4gUQo/qJYudqLDSNm9
-         rLXju7QSBIi5U94JWFX+jbJAJ3sC0ne4uh4CdUv+3Dte/iopxngHLphNceER/WxjWxHz
-         wVLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=imOsHZ8UM7k2PqA8O+sHJ8lLeteNEVL/iOURmAIDRzs=;
-        b=k4rpKvbTMjc7eeg1QQIvG6wgrZptLjKG5H6zo+NYCQzHy+1c1nhZruXguUdO3EjStp
-         G0qxBDQSybH9GLg9wIwOiOeswcMFeyVtNqNjwe8/YSnia8Uo9JLOJKzLZHhuzdHUNx6w
-         /QFsYE5vNUJEZOozhrzIlX1GCTgZURQ1RxmMukNV34MhvOWcwkg8ALqyoeGQRpwjQnLC
-         NwC28A0q6cMlYFYST7YXxCYDiIlaiM/DqD5WHR6j4aBbw2h7A8dj/IzBuniRI/coOcIP
-         dk/33pjL+1qIgiDyizhY5x5AywdfFjJkCcPVcctgYIZ6FjgJFTnUgCHrQzx6djXNuKIF
-         Iozw==
-X-Gm-Message-State: AOAM530rslzk0ouQHtI7MAIsIQzOrUhF5fzxLlFCq07jkHSvV8gtgp7S
-	PRzSIMrGbfG7Bm9Lw2RcV+1lb5iFoitmBq0M6io=
-X-Google-Smtp-Source: ABdhPJwKiwf3SlGeZHIvOJLeNs1DGgEjYagjHDl7JjsFhuHVeh4GR8neEtie0iv0Pib34F/M4DbydMviVlR03QOkMNg=
-X-Received: by 2002:a02:c981:: with SMTP id b1mr3811297jap.6.1606940280062;
- Wed, 02 Dec 2020 12:18:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=Onm0xfQJVu6IWG1SCpBTJID+WxJ8YF3bI4LRL0Fd27Y=; b=h8s+qOsm38vLVaLM3L2hgfZW8/
+	yYlNsTpeqoJTnbiDVFEp/B94uf/dHD1wDgTygKNcvDZE+7plNxv697phqhU/RALPpSK+MFUmomO8F
+	Zzj0HLH8JXZvNPTF7JDif8Ba+0aE+zp2LL755ihbGbmRX+ahedcn3UvdUXb5K+2pkZik=;
+Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
+ per-channel lock held
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <lengyelt@ainfosec.com>,
+ Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>
+References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
+ <d821c715-966a-b48b-a877-c5dac36822f0@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
+Date: Wed, 2 Dec 2020 21:10:35 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-References: <20201202164628.24224-1-olaf@aepfle.de>
-In-Reply-To: <20201202164628.24224-1-olaf@aepfle.de>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 2 Dec 2020 15:17:48 -0500
-Message-ID: <CAKf6xpt8tK2otnYEFEPQHAxx3oCmGo8iogdgkRM5_Pgtsg2VkQ@mail.gmail.com>
-Subject: Re: [PATCH v1] tools/hotplug: allow tuning of xenwatchdogd arguments
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, 
-	Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <d821c715-966a-b48b-a877-c5dac36822f0@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Wed, Dec 2, 2020 at 11:47 AM Olaf Hering <olaf@aepfle.de> wrote:
->
-> Currently the arguments for xenwatchdogd are hardcoded with 15s
-> keep-alive interval and 30s timeout.
->
-> It is not possible to tweak these values via
-> /etc/systemd/system/xen-watchdog.service.d/*.conf because ExecStart
-> can not be replaced. The only option would be a private copy
-> /etc/systemd/system/xen-watchdog.service, which may get out of sync
-> with the Xen provided xen-watchdog.service.
->
-> Adjust the service file to recognize XENWATCHDOGD_ARGS= in a
-> private unit configuration file.
->
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+Hi Jan,
+
+On 23/11/2020 13:30, Jan Beulich wrote:
+> While there don't look to be any problems with this right now, the lock
+> order implications from holding the lock can be very difficult to follow
+> (and may be easy to violate unknowingly). The present callbacks don't
+> (and no such callback should) have any need for the lock to be held.
+> 
+> However, vm_event_disable() frees the structures used by respective
+> callbacks and isn't otherwise synchronized with invocations of these
+> callbacks, so maintain a count of in-progress calls, for evtchn_close()
+> to wait to drop to zero before freeing the port (and dropping the lock).
+
+AFAICT, this callback is not the only place where the synchronization is 
+missing in the VM event code.
+
+For instance, vm_event_put_request() can also race against 
+vm_event_disable().
+
+So shouldn't we handle this issue properly in VM event?
+
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
->  tools/hotplug/Linux/init.d/xen-watchdog.in          | 7 ++++++-
->  tools/hotplug/Linux/systemd/xen-watchdog.service.in | 4 +++-
->  2 files changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/hotplug/Linux/init.d/xen-watchdog.in b/tools/hotplug/Linux/init.d/xen-watchdog.in
-> index c05f1f6b6a..87e2353b49 100644
-> --- a/tools/hotplug/Linux/init.d/xen-watchdog.in
-> +++ b/tools/hotplug/Linux/init.d/xen-watchdog.in
-> @@ -19,6 +19,11 @@
->
->  . @XEN_SCRIPT_DIR@/hotplugpath.sh
->
-> +xencommons_config=@CONFIG_DIR@/@CONFIG_LEAF_DIR@
-> +
-> +test -f $xencommons_config/xencommons && . $xencommons_config/xencommons
-> +
-> +test -z "$XENWATCHDOGD_ARGS" || XENWATCHDOGD_ARGS='15 30'
+> Should we make this accounting optional, to be requested through a new
+> parameter to alloc_unbound_xen_event_channel(), or derived from other
+> than the default callback being requested?
 
-This should be `test -z ... && ` or `test -n ... || ` to set the
-default values properly.
+Aside the VM event, do you see any value for the other caller?
 
-Regards,
-Jason
+> ---
+> v3: Drain callbacks before proceeding with closing. Re-base.
+> 
+> --- a/xen/common/event_channel.c
+> +++ b/xen/common/event_channel.c
+> @@ -397,6 +397,7 @@ static long evtchn_bind_interdomain(evtc
+>       
+>       rchn->u.interdomain.remote_dom  = ld;
+>       rchn->u.interdomain.remote_port = lport;
+> +    atomic_set(&rchn->u.interdomain.active_calls, 0);
+>       rchn->state                     = ECS_INTERDOMAIN;
+>   
+>       /*
+> @@ -720,6 +721,10 @@ int evtchn_close(struct domain *d1, int
+>   
+>           double_evtchn_lock(chn1, chn2);
+>   
+> +        if ( consumer_is_xen(chn1) )
+> +            while ( atomic_read(&chn1->u.interdomain.active_calls) )
+> +                cpu_relax();
+> +
+>           evtchn_free(d1, chn1);
+>   
+>           chn2->state = ECS_UNBOUND;
+> @@ -781,9 +786,15 @@ int evtchn_send(struct domain *ld, unsig
+>           rport = lchn->u.interdomain.remote_port;
+>           rchn  = evtchn_from_port(rd, rport);
+>           if ( consumer_is_xen(rchn) )
+> +        {
+> +            /* Don't keep holding the lock for the call below. */
+> +            atomic_inc(&rchn->u.interdomain.active_calls);
+> +            evtchn_read_unlock(lchn);
+>               xen_notification_fn(rchn)(rd->vcpu[rchn->notify_vcpu_id], rport);
+> -        else
+> -            evtchn_port_set_pending(rd, rchn->notify_vcpu_id, rchn);
+
+atomic_dec() doesn't contain any memory barrier, so we will want one 
+between xen_notification_fn() and atomic_dec() to avoid re-ordering.
+
+> +            atomic_dec(&rchn->u.interdomain.active_calls);
+> +            return 0;
+> +        }
+> +        evtchn_port_set_pending(rd, rchn->notify_vcpu_id, rchn);
+>           break;
+>       case ECS_IPI:
+>           evtchn_port_set_pending(ld, lchn->notify_vcpu_id, lchn);
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -104,6 +104,7 @@ struct evtchn
+>           } unbound;     /* state == ECS_UNBOUND */
+>           struct {
+>               evtchn_port_t  remote_port;
+> +            atomic_t       active_calls;
+>               struct domain *remote_dom;
+>           } interdomain; /* state == ECS_INTERDOMAIN */
+>           struct {
+> 
+
+Cheers,
+
+-- 
+Julien Grall
 
