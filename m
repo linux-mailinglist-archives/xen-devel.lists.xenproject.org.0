@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 688D62CC47C
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 19:04:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42943.77278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E83C22CC48F
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 19:11:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42950.77294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkWTY-0008CJ-DS; Wed, 02 Dec 2020 18:03:36 +0000
+	id 1kkWaq-0000kH-8B; Wed, 02 Dec 2020 18:11:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42943.77278; Wed, 02 Dec 2020 18:03:36 +0000
+Received: by outflank-mailman (output) from mailman id 42950.77294; Wed, 02 Dec 2020 18:11:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkWTY-0008Bu-9k; Wed, 02 Dec 2020 18:03:36 +0000
-Received: by outflank-mailman (input) for mailman id 42943;
- Wed, 02 Dec 2020 18:03:35 +0000
+	id 1kkWaq-0000js-4Y; Wed, 02 Dec 2020 18:11:08 +0000
+Received: by outflank-mailman (input) for mailman id 42950;
+ Wed, 02 Dec 2020 18:11:07 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kkWTW-0008Bp-TT
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 18:03:35 +0000
+ (envelope-from <julien@xen.org>) id 1kkWao-0000ji-U5
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 18:11:06 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kkWTU-00087d-PD; Wed, 02 Dec 2020 18:03:32 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ id 1kkWao-0008Go-Lk; Wed, 02 Dec 2020 18:11:06 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kkWTU-0006Hm-CH; Wed, 02 Dec 2020 18:03:32 +0000
+ id 1kkWao-0006th-74; Wed, 02 Dec 2020 18:11:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,79 +42,161 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=h1RaJKZGs67HCwMBIg/HMcjp3ktjOJpM+aawCccispI=; b=tnQ4qzLgm/JXK+eUKqHCvHlEeQ
-	+oj5pJgeOTU2+n/lWUQzJpmUowpkCkD5cGGmUF2vxCYw4lL8DFnleuNjmsd0HhPTl5385M13J6+pZ
-	rzG5Qdn1HGTzGRzaPNHUlWYNCayb4TPI9HymTApvux1xVe+JRLn5kW2+dAPuXDjx2ZRk=;
-Subject: Re: [PATCH] xen/iommu: vtd: Fix undefined behavior pci_vtd_quirks()
-To: "Tian, Kevin" <kevin.tian@intel.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <jgrall@amazon.com>
-References: <20201119145216.29280-1-julien@xen.org>
- <MWHPR11MB16456E395CC9B993E0C07EC48CF50@MWHPR11MB1645.namprd11.prod.outlook.com>
+	bh=lWlr9lkqrxC598c5YlkM0v2pBVs1jhg/f08ORjhLjRg=; b=O+5fMO5gCB/OmGQCQKHBg0YKDX
+	VDx7G403j6A3F0TnFebVBtI909pIuj6IxDnf9GZLzyU5ysSYOs2MmUP5NIrB+D/aDAyNWblw/RMDh
+	SyCQpluS5cSjXXZdttUKF2CyUSvVhwhkIc81xARuHnI8aCV9QxyJGDaxYhTip5xWzwR0=;
+Subject: Re: [PATCH] xen/arm: Add Cortex-A73 erratum 858921 workaround
+To: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andre Przywara <Andre.Przywara@arm.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Kaly Xin <Kaly.Xin@arm.com>,
+ nd <nd@arm.com>
+References: <20201109082110.1133996-1-penny.zheng@arm.com>
+ <cfa63398-8182-b79f-1602-ed068e2319ad@xen.org>
+ <AM0PR08MB3747B42FC856B9BDF24646629EE60@AM0PR08MB3747.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.21.2011251554070.7979@sstabellini-ThinkPad-T480s>
+ <AM0PR08MB3747912905438DA6D7FF969C9EF90@AM0PR08MB3747.eurprd08.prod.outlook.com>
+ <8f47313a-f47a-520d-3845-3f2198fce5b4@xen.org>
+ <AM0PR08MB37478D884057C8720ED1023D9EF90@AM0PR08MB3747.eurprd08.prod.outlook.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <adffc9f6-9418-080f-135b-e723fbd3fb28@xen.org>
-Date: Wed, 2 Dec 2020 18:03:30 +0000
+Message-ID: <0a272ffd-24de-2db4-5751-9161cc57cec3@xen.org>
+Date: Wed, 2 Dec 2020 18:11:04 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <MWHPR11MB16456E395CC9B993E0C07EC48CF50@MWHPR11MB1645.namprd11.prod.outlook.com>
+In-Reply-To: <AM0PR08MB37478D884057C8720ED1023D9EF90@AM0PR08MB3747.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On 30/11/2020 02:50, Tian, Kevin wrote:
+
+On 26/11/2020 11:27, Wei Chen wrote:
+> Hi Julien,
+
+Hi Wei,
+
+>> -----Original Message-----
 >> From: Julien Grall <julien@xen.org>
->> Sent: Thursday, November 19, 2020 10:52 PM
+>> Sent: 2020年11月26日 18:55
+>> To: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini <sstabellini@kernel.org>
+>> Cc: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
+>> Andre Przywara <Andre.Przywara@arm.com>; Bertrand Marquis
+>> <Bertrand.Marquis@arm.com>; Kaly Xin <Kaly.Xin@arm.com>; nd
+>> <nd@arm.com>
+>> Subject: Re: [PATCH] xen/arm: Add Cortex-A73 erratum 858921 workaround
 >>
->> From: Julien Grall <jgrall@amazon.com>
+>> Hi Wei,
 >>
->> When booting Xen with CONFIG_USBAN=y on Sandy Bridge, UBSAN will
->> throw
->> the following splat:
+>> Your e-mail font seems to be different to the usual plain text one. Are
+>> you sending the e-mail using HTML by any chance?
 >>
->> (XEN)
->> ================================================================
->> ================
->> (XEN) UBSAN: Undefined behaviour in quirks.c:449:63
->> (XEN) left shift of 1 by 31 places cannot be represented in type 'int'
->> (XEN) ----[ Xen-4.11.4  x86_64  debug=y   Not tainted ]----
->>
->> [...]
->>
->> (XEN) Xen call trace:
->> (XEN)    [<ffff82d0802c0ccc>] ubsan.c#ubsan_epilogue+0xa/0xad
->> (XEN)    [<ffff82d0802c16c9>]
->> __ubsan_handle_shift_out_of_bounds+0xb4/0x145
->> (XEN)    [<ffff82d0802eeecd>] pci_vtd_quirk+0x3d3/0x74f
->> (XEN)    [<ffff82d0802e508b>]
->> iommu.c#domain_context_mapping+0x45b/0x46f
->> (XEN)    [<ffff82d08053f39e>] iommu.c#setup_hwdom_device+0x22/0x3a
->> (XEN)    [<ffff82d08053dfbc>] pci.c#setup_one_hwdom_device+0x8c/0x124
->> (XEN)    [<ffff82d08053e302>] pci.c#_setup_hwdom_pci_devices+0xbb/0x2f7
->> (XEN)    [<ffff82d0802da5b7>] pci.c#pci_segments_iterate+0x4c/0x8c
->> (XEN)    [<ffff82d08053e8bd>] setup_hwdom_pci_devices+0x25/0x2c
->> (XEN)    [<ffff82d08053e916>]
->> iommu.c#intel_iommu_hwdom_init+0x52/0x2f3
->> (XEN)    [<ffff82d08053d6da>] iommu_hwdom_init+0x4e/0xa4
->> (XEN)    [<ffff82d080577f32>] dom0_construct_pv+0x23c8/0x2476
->> (XEN)    [<ffff82d08057cb50>] construct_dom0+0x6c/0xa3
->> (XEN)    [<ffff82d080564822>] __start_xen+0x4651/0x4b55
->> (XEN)    [<ffff82d0802000f3>] __high_start+0x53/0x55
->>
->> Note that splat is from 4.11.4 and not staging. Although, the problem is
->> still present.
->>
->> This can be solved by making the first operand unsigned int.
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
-> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> It's strange, I always use the plain text.
 
-Thanks! I have committed the patch.
+Maybe exchange decided to mangle the e-mail :). Anyway, this new message 
+looks fine.
 
-Cheers,
+> 
+>> On 26/11/2020 02:07, Wei Chen wrote:
+>>> Hi Stefano,
+>>>
+>>>> -----Original Message-----
+>>>> From: Stefano Stabellini <sstabellini@kernel.org>
+>>>> Sent: 2020��11��26�� 8:00
+>>>> To: Wei Chen <Wei.Chen@arm.com>
+>>>> Cc: Julien Grall <julien@xen.org>; Penny Zheng <Penny.Zheng@arm.com>;
+>> xen-
+>>>> devel@lists.xenproject.org; sstabellini@kernel.org; Andre Przywara
+>>>> <Andre.Przywara@arm.com>; Bertrand Marquis
+>> <Bertrand.Marquis@arm.com>;
+>>>> Kaly Xin <Kaly.Xin@arm.com>; nd <nd@arm.com>
+>>>> Subject: RE: [PATCH] xen/arm: Add Cortex-A73 erratum 858921 workaround
+>>>>
+>>>> Resuming this old thread.
+>>>>
+>>>> On Fri, 13 Nov 2020, Wei Chen wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> On 09/11/2020 08:21, Penny Zheng wrote:
+>>>>>>> CNTVCT_EL0 or CNTPCT_EL0 counter read in Cortex-A73 (all versions)
+>>>>>>> might return a wrong value when the counter crosses a 32bit boundary.
+>>>>>>>
+>>>>>>> Until now, there is no case for Xen itself to access CNTVCT_EL0,
+>>>>>>> and it also should be the Guest OS's responsibility to deal with
+>>>>>>> this part.
+>>>>>>>
+>>>>>>> But for CNTPCT, there exists several cases in Xen involving reading
+>>>>>>> CNTPCT, so a possible workaround is that performing the read twice,
+>>>>>>> and to return one or the other depending on whether a transition has
+>>>>>>> taken place.
+>>>>>>>
+>>>>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>>>>>
+>>>>>> Acked-by: Julien Grall <jgrall@amazon.com>
+>>>>>>
+>>>>>> On a related topic, do we need a fix similar to Linux commit
+>>>>>> 75a19a0202db "arm64: arch_timer: Ensure counter register reads occur
+>>>>>> with seqlock held"?
+>>>>>>
+>>>>>
+>>>>> I take a look at this Linux commit, it seems to prevent the seq-lock to be
+>>>>> speculated.  Using an enforce ordering instead of ISB after the read counter
+>>>>> operation seems to be for performance reasons.
+>>>>>
+>>>>> I have found that you had placed an ISB before read counter in get_cycles
+>>>>> to prevent counter value to be speculated. But you haven't placed the
+>> second
+>>>>> ISB after reading. Is it because we haven't used the get_cycles in seq lock
+>>>>> critical context (Maybe I didn't find the right place)? So should we need to
+>> fix it
+>>>>> now, or you prefer to fix it now for future usage?
+>>>>
+>>>> Looking at the call sites, it doesn't look like we need any ISB after
+>>>> get_cycles as it is not used in any critical context. There is also a
+>>>> data dependency with the value returned by it.
+>>
+>> I am assuming you looked at all the users of NOW(). Is that right?
+>>
+>>>>
+>>>> So I am thinking we don't need any fix. At most we need an in-code comment?
+>>>
+>>> I agree with you to add an in-code comment. It will remind us in future when
+>> we
+>>> use the get_cycles in critical context. Adding it now will probably only lead to
+>>> meaningless performance degradation.
+>>
+>> I read this as there would be no perfomance impact if we add the
+>> ordering it now. Did you intend to say?
+> 
+> Sorry about my English. I intended to say "Adding it now may introduce some
+> performance cost. And this performance cost may be not worth. Because Xen
+> may never use it in a similar scenario "
+
+Don't worry! I think the performance should not be noticeable if we use 
+the same trick as Linux.
+
+>> In addition, AFAICT, the x86 version of get_cycles() is already able to
+>> provide that ordering. So there are chances that code may rely on it.
+>>
+>> While I don't necessarily agree to add barriers everywhere by default
+>> (this may have big impact on the platform). I think it is better to have
+>> an accurate number of cycles.
+>>
+> 
+> As x86 had done it, I think it’s ok to do it for Arm. This will keep a function
+> behaves the same on different architectures.
+
+Just to be clear, I am not 100% sure this is what Intel is doing. 
+Although this is my understanding of the comment in the code.
+
+@Stefano, what do you think?
+
+@Wei, assuming Stefano is happy with the proposal, would you be happy to 
+send a patch for that?
+
+Best regards,
 
 -- 
 Julien Grall
