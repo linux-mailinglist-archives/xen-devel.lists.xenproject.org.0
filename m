@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B6962CB60E
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 09:00:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42472.76383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B654A2CB75C
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 09:39:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42482.76401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkN40-0003cK-UR; Wed, 02 Dec 2020 08:00:36 +0000
+	id 1kkNeZ-0006dC-3F; Wed, 02 Dec 2020 08:38:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42472.76383; Wed, 02 Dec 2020 08:00:36 +0000
+Received: by outflank-mailman (output) from mailman id 42482.76401; Wed, 02 Dec 2020 08:38:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkN40-0003bv-Qs; Wed, 02 Dec 2020 08:00:36 +0000
-Received: by outflank-mailman (input) for mailman id 42472;
- Wed, 02 Dec 2020 08:00:35 +0000
+	id 1kkNeY-0006cn-Vv; Wed, 02 Dec 2020 08:38:22 +0000
+Received: by outflank-mailman (input) for mailman id 42482;
+ Wed, 02 Dec 2020 08:38:21 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UQyH=FG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kkN3z-0003bq-AI
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 08:00:35 +0000
+ id 1kkNeX-0006ci-KM
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 08:38:21 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8e60884d-8b66-4a16-9af0-d577dcd50c5d;
- Wed, 02 Dec 2020 08:00:34 +0000 (UTC)
+ id f8f50bd7-f247-496d-9206-5ddada90bb14;
+ Wed, 02 Dec 2020 08:38:20 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 622F2AC2D;
- Wed,  2 Dec 2020 08:00:33 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 7E111AD43;
+ Wed,  2 Dec 2020 08:38:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,95 +38,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e60884d-8b66-4a16-9af0-d577dcd50c5d
+X-Inumbo-ID: f8f50bd7-f247-496d-9206-5ddada90bb14
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606896033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606898299; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=g6FYMsGWpX8KoLJIZ4SxdHBjh5HKNe1VFSZksiQciHU=;
-	b=TgdOqlZCy72ckynxbg33GXrVdLZ+6wPcKZ+pJo2D/k4tYjLqBzIxHmWb/wp7QXABb3Ud0D
-	bpEtnY2oDzWRjmGDGr3DYjzu+yvUJvPZuw7hoodtFZEvbPkPMFohZXn8w1bWwB1NldsSco
-	u6kuDx+diToy7BvMAjgThrIDRmtE6c8=
-Subject: Re: [PATCH V3 01/23] x86/ioreq: Prepare IOREQ feature for making it
- common
-To: Oleksandr <olekstysh@gmail.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-2-git-send-email-olekstysh@gmail.com>
- <87eek9u6tj.fsf@linaro.org> <cd2e064e-896b-3a28-5d37-93ddaba1c13e@gmail.com>
+	bh=XEYyqJfDwG6UshypPKSBfFwAxJJi3ee131MIR2Zs4L8=;
+	b=OmsUZPZ3nToyRt/I2zOoBW0NrM1qVRfppgD+1UrQ3xnKL8ZVlWTorVgzgFUb7Vig7mc9PD
+	C+Rk1RYi2npBhtKN03TQthMkX6VlZiLxY4w61WBVVRb72JJzkHXeElA1JeKMtPk2DGEiG8
+	9rGPaYCK0707URPv1IkYHA4iST5hrzo=
+Subject: Re: [PATCH] vpci/msix: exit early if MSI-X is disabled
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Manuel Bouyer <bouyer@antioche.eu.org>, xen-devel@lists.xenproject.org
+References: <20201201174014.27878-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <802c49d5-00bb-9e10-70d7-2629913b08c9@suse.com>
-Date: Wed, 2 Dec 2020 09:00:29 +0100
+Message-ID: <dfc96aa9-c39f-177c-c8f8-af18b80804de@suse.com>
+Date: Wed, 2 Dec 2020 09:38:18 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <cd2e064e-896b-3a28-5d37-93ddaba1c13e@gmail.com>
+In-Reply-To: <20201201174014.27878-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.12.2020 19:53, Oleksandr wrote:
-> On 01.12.20 13:03, Alex Bennée wrote:
->> Oleksandr Tyshchenko <olekstysh@gmail.com> writes:
->>> @@ -1112,19 +1155,11 @@ int hvm_map_mem_type_to_ioreq_server(struct domain *d, ioservid_t id,
->>>       if ( s->emulator != current->domain )
->>>           goto out;
->>>   
->>> -    rc = p2m_set_ioreq_server(d, flags, s);
->>> +    rc = arch_ioreq_server_map_mem_type(d, s, flags);
->>>   
->>>    out:
->>>       spin_unlock_recursive(&d->arch.hvm.ioreq_server.lock);
->>>   
->>> -    if ( rc == 0 && flags == 0 )
->>> -    {
->>> -        struct p2m_domain *p2m = p2m_get_hostp2m(d);
->>> -
->>> -        if ( read_atomic(&p2m->ioreq.entry_count) )
->>> -            p2m_change_entry_type_global(d, p2m_ioreq_server, p2m_ram_rw);
->>> -    }
->>> -
->> It should be noted that p2m holds it's own lock but I'm unfamiliar with
->> Xen's locking architecture. Is there anything that prevents another vCPU
->> accessing a page that is also being used my ioreq on the first vCPU?
-> I am not sure that I would be able to provide reasonable explanations here.
-> All what I understand is that p2m_change_entry_type_global() x86 
-> specific (we don't have p2m_ioreq_server concept on Arm) and should 
-> remain as such (not exposed to the common code).
-> IIRC, I raised a question during V2 review whether we could have ioreq 
-> server lock around the call to p2m_change_entry_type_global() and didn't 
-> get objections.
+On 01.12.2020 18:40, Roger Pau Monne wrote:
+> Do not attempt to mask an MSI-X entry if MSI-X is not enabled. Else it
+> will lead to hitting the following assert on debug builds:
+> 
+> (XEN) Panic on CPU 13:
+> (XEN) Assertion 'entry->arch.pirq != INVALID_PIRQ' failed at vmsi.c:843
 
-Not getting objections doesn't mean much. Personally I don't recall
-such a question, but this doesn't mean much. The important thing
-here is that you properly justify this change in the description (I
-didn't look at this version of the patch as a whole yet, so quite
-likely you actually do). This is because you need to guarantee that
-you don't introduce any lock order violations by this. There also
-should be an attempt to avoid future introduction of issues, by
-adding lock nesting related comments in suitable places. Again,
-quite likely you actually do so, and I will notice it once looking
-at the patch as a whole.
+Since the line number is only of limited use, I'd like to see the
+function name (vpci_msix_arch_mask_entry()) also added here; easily
+done while committing, if the question further down can be resolved
+without code change.
 
-All of this said, I think it should be tried hard to avoid
-introducing this extra lock nesting, if there aren't other places
-already where the same nesting of locks is in effect.
+> --- a/xen/drivers/vpci/msix.c
+> +++ b/xen/drivers/vpci/msix.c
+> @@ -357,7 +357,11 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
+>           * so that it picks the new state.
+>           */
+>          entry->masked = new_masked;
+> -        if ( !new_masked && msix->enabled && !msix->masked && entry->updated )
+> +
+> +        if ( !msix->enabled )
+> +            break;
+> +
+> +        if ( !new_masked && !msix->masked && entry->updated )
+>          {
+>              /*
+>               * If MSI-X is enabled, the function mask is not active, the entry
 
-> I may mistake, but looks like the lock being used
-> in p2m_change_entry_type_global() is yet another lock for protecting 
-> page table operations, so unlikely we could get into the trouble calling 
-> this function with the ioreq server lock held.
+What about a "disabled" -> "enabled-but-masked" transition? This,
+afaict, similarly won't trigger setting up of entries from
+control_write(), and hence I'd expect the ASSERT() to similarly
+trigger when subsequently an entry's mask bit gets altered.
 
-I'm afraid I don't understand the "yet another" here: The ioreq
-server lock clearly serves an entirely different purpose.
+I'd also be fine making this further adjustment, if you agree,
+but the one thing I haven't been able to fully convince myself of
+is that there's then still no need to set ->updated to true.
 
 Jan
 
