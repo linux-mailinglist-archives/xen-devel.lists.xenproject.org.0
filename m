@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D63F2CB8BD
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 10:25:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42554.76577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6467D2CB8D0
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 10:29:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42570.76589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkONt-00049V-MJ; Wed, 02 Dec 2020 09:25:13 +0000
+	id 1kkORQ-0004Rc-5e; Wed, 02 Dec 2020 09:28:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42554.76577; Wed, 02 Dec 2020 09:25:13 +0000
+Received: by outflank-mailman (output) from mailman id 42570.76589; Wed, 02 Dec 2020 09:28:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkONt-000496-Ih; Wed, 02 Dec 2020 09:25:13 +0000
-Received: by outflank-mailman (input) for mailman id 42554;
- Wed, 02 Dec 2020 09:25:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kkORQ-0004RD-2R; Wed, 02 Dec 2020 09:28:52 +0000
+Received: by outflank-mailman (input) for mailman id 42570;
+ Wed, 02 Dec 2020 09:28:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UQyH=FG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kkONs-000491-4m
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 09:25:12 +0000
+ id 1kkORP-0004R8-3p
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 09:28:51 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3a9b3c6e-0669-4457-9192-3736b16c5fca;
- Wed, 02 Dec 2020 09:25:10 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f37dbe1e-6121-4853-85cc-5e58da556245;
+ Wed, 02 Dec 2020 09:28:50 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7A262ADCA;
- Wed,  2 Dec 2020 09:25:09 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 78D17ADA2;
+ Wed,  2 Dec 2020 09:28:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,58 +38,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a9b3c6e-0669-4457-9192-3736b16c5fca
+X-Inumbo-ID: f37dbe1e-6121-4853-85cc-5e58da556245
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606901109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606901329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=efiM/dz3vSPkG+X5au0xOu1pZEnQd/QJBfpCmrN6BzY=;
-	b=VaxlxOrVAC0IaoB+0wHID+d9tcWM6GnkB6ZnhEW8XKBcVOE0o7v5elU4YAj79pBegu8nyA
-	d3YGavOQnKuOf9aQ6ukV1omZcjENX5EwusBfTqprxR8hu1mtPae7E6fRTea9BwjsXHHcb4
-	0Ay/NO3QyxaukSmJtqOfkmyhMbCJMMw=
-Subject: Re: [PATCH] x86/IRQ: bump max number of guests for a shared IRQ to 31
-To: Igor Druzhinin <igor.druzhinin@citrix.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
+	bh=mjDGImZh8q7OUTE/8K7S0r4PTqQZWnnkUTanEAf10KA=;
+	b=jNYTfDnoFxwV2ZKSVrPGKD8fwFG96NHLRqxYVhu0c9fYY6IGjX24Ozwaw2nWpkMXaVdyzX
+	eaC6p7kqfEWklZBL7erpdD4N++AcmfLKv56ktYKlmSEyQ5DStmKGe68rSRQC/mIO5J3dNn
+	WDg/8OGtPopKN9YkauTUYZfHzrzxKWk=
+Subject: Re: [PATCH v4 01/11] viridian: don't blindly write to 32-bit
+ registers is 'mode' is invalid
+To: Paul Durrant <paul@xen.org>
+Cc: Paul Durrant <pdurrant@amazon.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <1606780777-30718-1-git-send-email-igor.druzhinin@citrix.com>
+References: <20201202092205.906-1-paul@xen.org>
+ <20201202092205.906-2-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b98d3517-6c9d-6f40-6e28-cde142978143@suse.com>
-Date: Wed, 2 Dec 2020 10:25:09 +0100
+Message-ID: <f95b237e-31d3-08c8-4dab-ee273f10b585@suse.com>
+Date: Wed, 2 Dec 2020 10:28:49 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <1606780777-30718-1-git-send-email-igor.druzhinin@citrix.com>
+In-Reply-To: <20201202092205.906-2-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01.12.2020 00:59, Igor Druzhinin wrote:
-> Current limit of 7 is too restrictive for modern systems where one GSI
-> could be shared by potentially many PCI INTx sources where each of them
-> corresponds to a device passed through to its own guest. Some systems do not
-> apply due dilligence in swizzling INTx links in case e.g. INTA is declared as
-> interrupt pin for the majority of PCI devices behind a single router,
-> resulting in overuse of a GSI.
+On 02.12.2020 10:21, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
 > 
-> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+> If hvm_guest_x86_mode() returns something other than 8 or 4 then
+> viridian_hypercall() will return immediately but, on the way out, will write
+> back status as if 'mode' was 4. This patch simply makes it leave the registers
+> alone.
+> 
+> NOTE: The formatting of the 'out' label and the switch statement are also
+>       adjusted as per CODING_STYLE.
+> 
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 > ---
+> Cc: Wei Liu <wl@xen.org>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
 > 
-> If people think that would make sense - I can rework the array to a list of
-> domain pointers to avoid the limit.
+> v4:
+>  - Fixed another CODING_STYLE violation.
 
-Not sure about this. What is the biggest number you've found on any
-system? (I assume the chosen value of 31 has some headroom.)
+Partly:
 
-Instead I'm wondering whether this wouldn't better be a Kconfig
-setting (or even command line controllable). There don't look to be
-any restrictions on the precise value chosen (i.e. 2**n-1 like is
-the case for old and new values here, for whatever reason), so a
-simple permitted range of like 4...64 would seem fine to specify.
-Whether the default then would want to be 8 (close to the current
-7) or higher (around the actually observed maximum) is a different
-question.
+> --- a/xen/arch/x86/hvm/viridian/viridian.c
+> +++ b/xen/arch/x86/hvm/viridian/viridian.c
+> @@ -692,13 +692,15 @@ int viridian_hypercall(struct cpu_user_regs *regs)
+>          break;
+>      }
+>  
+> -out:
+> + out:
+>      output.result = status;
+> -    switch (mode) {
+> +    switch (mode)
+
+There are also two blanks missing here. Will again record this as
+to be taken care of while committing, once an ack arrives. (And
+btw, the earlier of the two "is" in the subject also wants to be
+"if".)
 
 Jan
 
