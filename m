@@ -2,32 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AE862CC21C
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 17:24:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42871.77152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D91712CC240
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 17:28:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42876.77164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkUuI-0006C7-On; Wed, 02 Dec 2020 16:23:06 +0000
+	id 1kkUzA-0006PF-Gv; Wed, 02 Dec 2020 16:28:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42871.77152; Wed, 02 Dec 2020 16:23:06 +0000
+Received: by outflank-mailman (output) from mailman id 42876.77164; Wed, 02 Dec 2020 16:28:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkUuI-0006Bi-LF; Wed, 02 Dec 2020 16:23:06 +0000
-Received: by outflank-mailman (input) for mailman id 42871;
- Wed, 02 Dec 2020 16:23:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kkUuH-0006Bc-0W
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 16:23:05 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kkUuB-0005rf-Sj; Wed, 02 Dec 2020 16:22:59 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kkUuB-000312-64; Wed, 02 Dec 2020 16:22:59 +0000
+	id 1kkUzA-0006Oq-DU; Wed, 02 Dec 2020 16:28:08 +0000
+Received: by outflank-mailman (input) for mailman id 42876;
+ Wed, 02 Dec 2020 16:28:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8zz6=FG=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
+ id 1kkUz8-0006Ol-Bl
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 16:28:06 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.107.0.67]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f65dae95-bed6-4014-909f-038c5c284190;
+ Wed, 02 Dec 2020 16:28:02 +0000 (UTC)
+Received: from AM6P194CA0062.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:84::39)
+ by DB7PR08MB3898.eurprd08.prod.outlook.com (2603:10a6:10:30::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.31; Wed, 2 Dec
+ 2020 16:27:56 +0000
+Received: from AM5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:84:cafe::f5) by AM6P194CA0062.outlook.office365.com
+ (2603:10a6:209:84::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17 via Frontend
+ Transport; Wed, 2 Dec 2020 16:27:56 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT052.mail.protection.outlook.com (10.152.17.161) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3632.17 via Frontend Transport; Wed, 2 Dec 2020 16:27:56 +0000
+Received: ("Tessian outbound 6af064f543d4:v71");
+ Wed, 02 Dec 2020 16:27:56 +0000
+Received: from 6ec038b02ca8.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ C6412DD8-2385-43CC-BA28-A4DF970FCAEC.1; 
+ Wed, 02 Dec 2020 16:27:24 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 6ec038b02ca8.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 02 Dec 2020 16:27:24 +0000
+Received: from DB7PR08MB3500.eurprd08.prod.outlook.com (2603:10a6:10:49::10)
+ by DB8PR08MB5388.eurprd08.prod.outlook.com (2603:10a6:10:11c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.18; Wed, 2 Dec
+ 2020 16:27:21 +0000
+Received: from DB7PR08MB3500.eurprd08.prod.outlook.com
+ ([fe80::21f3:34c:8f7e:42ef]) by DB7PR08MB3500.eurprd08.prod.outlook.com
+ ([fe80::21f3:34c:8f7e:42ef%2]) with mapi id 15.20.3611.025; Wed, 2 Dec 2020
+ 16:27:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,1416 +69,689 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:Subject:From;
-	bh=VnjWqipgjomA6OH93rtvKZ6PRGrdHEjx/jRx4+YFL/I=; b=HggpNbWzuj8OD8uUrgKehXzy9c
-	xWUUlw8F+JtlU3pyEmPLbUuObzmlyg8eA55Fn1K/uK1ypD/v1RwS0XC6I6UaqkDCFrh6+/pDTiTTA
-	k2rm0bYPs5SYSt56SU0gueVVO0ewr4x9NxmaD5K6SH2Iuj7SnmfnOeXkqcVkasy4kRO4=;
-From: Julien Grall <julien@xen.org>
+X-Inumbo-ID: f65dae95-bed6-4014-909f-038c5c284190
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z6JkTW5nVri2kNE3b7oFBJwGnGkmN+AXVr6yE6KOkoI=;
+ b=67RK9EakKvUzwLbBlE4KM4VxqaPlam3IEn9UcMMwzlyFC5lBnaWR3kJ/G3XbuG23icixnMPU5XhKmsP457bQGyL4dTJm37Rv9yOFCaoMd8WtnL80TNmp1hJgBxZ2sCGzeM9uNXUmJjzJBxbaA3BFgf6V0hvjU7Q8rp9mfEvDjnQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 7863ca8403c9f91b
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FoY1+EcOJZEu2PnxyKSu7iu7fm/4qTHMlwiiR3gl18xROK2NrCYLE0FCYptFKLWdIHc14AFgc70WEgEchcU41AqYQYbfVO7ylktJ+jWQUTXBcHARnytuf4n3I7amOQSLR+Yu1/qgbRWDJQfUTh2/nMb/Y2GR5KPepAo/2KOUD5tknhxRcP92nrrvQHVi6JBdwyOb8AvQ3cMUtOHjiEo9MgSxnaH8k5VS9s8Sc+T29m/HVuoQpPg7YqBbPlGXp/WemdiK9+emFGPnTq8Y/mz1Cy66WRKiEAO2+Q9i1wM4T52YH1n8rZbSXlFuwCTtwgDtt6Rn08vEG50fWx9dgmENxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z6JkTW5nVri2kNE3b7oFBJwGnGkmN+AXVr6yE6KOkoI=;
+ b=b8dySvqHd4wq7hsUnhB7enrk5wKpnMy/tyQ61VtnUx3Cp/CQU0Eh7y/T8/RFkqBCUjSdBQpcA6Sk0nk5gzvQXBbHUJoL5nuhUqTQiio/2oLAivAyLQ4G07hyIOY5uRYcri131ka97F9zkOXaoeRb7y9nBQq8Qx3TjvaMX7sL2Zak9ZzmyxWfwbPXuoAs57K9PcO52wYYz/JNm3+tWyjB7W8OJPxG3zPfIifV+IcTvYxS3vIAnlaZRJFtxfuDIRAki6M+yehPCsIKS15Y/IMkNONsgJlzXYkOX2wV2BA64EDPpwsHGz2q0x9OaXu/Np0Jo+LOy3Xj+JRuiiY97OjCPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z6JkTW5nVri2kNE3b7oFBJwGnGkmN+AXVr6yE6KOkoI=;
+ b=67RK9EakKvUzwLbBlE4KM4VxqaPlam3IEn9UcMMwzlyFC5lBnaWR3kJ/G3XbuG23icixnMPU5XhKmsP457bQGyL4dTJm37Rv9yOFCaoMd8WtnL80TNmp1hJgBxZ2sCGzeM9uNXUmJjzJBxbaA3BFgf6V0hvjU7Q8rp9mfEvDjnQ=
+From: Rahul Singh <Rahul.Singh@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Subject: Re: [PATCH v2 8/8] xen/arm: Add support for SMMUv3 driver
-To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Thread-Topic: [PATCH v2 8/8] xen/arm: Add support for SMMUv3 driver
+Thread-Index: AQHWxBX/ttp8YMNqT0KunkbXuSldmKnjI/iAgADj3wA=
+Date: Wed, 2 Dec 2020 16:27:21 +0000
+Message-ID: <4338735A-1655-4B5F-A493-13D6021C2FBB@arm.com>
 References: <cover.1606406359.git.rahul.singh@arm.com>
  <de2101687020d18172a2b153f8977a5116d0cd66.1606406359.git.rahul.singh@arm.com>
-Message-ID: <a67bb114-a4a9-651a-338b-123b350ac4b3@xen.org>
-Date: Wed, 2 Dec 2020 16:22:56 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+ <alpine.DEB.2.21.2012011749550.1100@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2012011749550.1100@sstabellini-ThinkPad-T480s>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [80.1.41.211]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 431dd52e-f08f-462c-3553-08d896df39cc
+x-ms-traffictypediagnostic: DB8PR08MB5388:|DB7PR08MB3898:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<DB7PR08MB38988E841B0A1B38E05B27EEFCF30@DB7PR08MB3898.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:5797;OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ ccUHDIWVC6gmPdpK8cqKpHTRLvkQzAVICbRzVt0BNB3XqEqnFul6My4x3oqTRUGoNmr22fL2i2eg2eZ+/Le8u206QcDU4S/1zrNeAw/FG1tBfxOP+KJ3wUx5SYNKTXzRKNtUatSn+n9kaUhZEr58g2JMWB0/yhsrNFVK+pGg97rLUp46N4U5YSUIbBPGag1axRQ+NeWhTUcwL7LkcFJUzr9gq8EAzgMZ//48gFZ5B6e4EY3xPDkZcQvbFlKIy/FOBc7h0AXPTIgNhxZ7Eq/DTocdVafBzzfrnq/2Ry0Rgq82w3OLlqonwgMpei6MDv8XNANets+WZVN3bdjhzLbhZ9T74pJhZdTB2jkJ9KQLfbpUoF8eB7/ebxlpqXUoksYwpboCJkjOekT4dHU57tn32HYonlaDr5/2QAILU6w6ZzmPn30GE6Qaa0cRzCMlRywe7BDCa4SAhfFdeFw2Zo6x/KZUnGvxj+XAUrfb5mehRw6HMU0rKjyaiGvZKm/iHCNL
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3500.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(366004)(376002)(396003)(39860400002)(136003)(2906002)(316002)(71200400001)(6512007)(6506007)(8676002)(478600001)(53546011)(6486002)(2616005)(8936002)(33656002)(83380400001)(54906003)(6916009)(5660300002)(64756008)(66446008)(76116006)(66946007)(91956017)(66476007)(66556008)(30864003)(36756003)(26005)(86362001)(186003)(7416002)(4326008)(2004002)(45980500001)(559001)(579004)(309714004);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ =?utf-8?B?TjlwT2MvQmdHWVNlRUV4R0hXYlFMTmNsUEE3VUcxaThQMStvajRVL21VcWVs?=
+ =?utf-8?B?NEh5MkJzeGhrblBFbWo3RVJGa01FUW1ZR2JtRlJhMWNsbHQ5NTVTSGVKSTBv?=
+ =?utf-8?B?RUJCZFRqdXRnODNEOHp2N3E3eGNobXVLdnlMNC9FNS9pNkQvNmY1b3RPa0tN?=
+ =?utf-8?B?V2N5dzBkNXdIUGtpaWFjZ2U5RWlwemtZTStrWTM4cFYrVldFWE9tZDh3bllz?=
+ =?utf-8?B?M1BlUDdjRUFQTXF6a2tHZjlrVGJXNWM4R01kZ3Rjc1Z3MWp6M1BxMG1LYnFS?=
+ =?utf-8?B?K2RmZStnU0dMUVZZZnFOSlRSbnZsTnNyVmc0b0RJWkxjbEtMV1VIOTB1T2VH?=
+ =?utf-8?B?K1lXQk5jYkY1MXpvTndYMWpRY3VBVXhQQ2YzVW9pNnRxNU1MTFF4c2hOSUFs?=
+ =?utf-8?B?Mjh5R2ovYWVoT29idFVBNk5KeWVjR3duUnI3bXJZbjBDbHhQVHdhRElUQzM3?=
+ =?utf-8?B?T3g1OGpLcXNmNElsZG5CTXpGNEEyQ2RDUW84UHVMTzNkTnBFeWxRSjlkaXdF?=
+ =?utf-8?B?OXJmRWJydHVnOVNVMUc5aXZuRWFFcC9HKzltYTFpS21HV1JzQ1ZjSFBnbVhL?=
+ =?utf-8?B?dFVDUzg2L01RUng1NG9iNWw2Y3g0eGgyZ2kxRlVDenAxYWhJRFpUZ0ZGNHFX?=
+ =?utf-8?B?R0tnOUZMMngzUDZPVkE4VXRYMGExMzdCSENPYUlyY25QMlpvcVBYRzVEZVlY?=
+ =?utf-8?B?TTZsemZBNE9JS3hFdU9kUDA5SEhadS83cUIyOERHZ3ArVkFFazdVTGM2UDM1?=
+ =?utf-8?B?UmhpcGpsYzZOOEQ3U2VKZDlyb0k0MnRCcGFheFUyK1IvQUtqaS9BMkpkNXFO?=
+ =?utf-8?B?cmxIN2txNjQvWlJJLy9VckkvRlFjclhzUW4wdEZHUTFVOFNMeld1YjJTbkNI?=
+ =?utf-8?B?NDJKeWVQN1AyY0cxTkUxcnVHNy83VU01d2pzNEFzenJuRWNZSHRob3VTbGl5?=
+ =?utf-8?B?UjVFNFdpUU10Rkgya3R6Qm9xR1dCMXNqZEttaFcrQXUrTEEyME9XSUNKWHZ3?=
+ =?utf-8?B?ekVjVHRqWE4xVzQ5b3ZVaGx4WTZlUi9jS2RWVVRjQkU0TVUwWlZ4enBFWkE0?=
+ =?utf-8?B?UFFUWXgyanpYWDVyaHRFaEFoOUFhSkt2MHA3U1BSNE1qMGM3eDZnSGJ3aG56?=
+ =?utf-8?B?Q0FSWnhMNHBNa0hGV043MTZMYURLVndSKzRZTHNyN3ByS29DeC81VXlZdmxW?=
+ =?utf-8?B?QTlkai9DdEVwVGprWGZwd21wRFdNZm5zTWxZYUV6TnlZNThteVdwZkdqSnE4?=
+ =?utf-8?B?dnIwcmpDYnhTVndGTmljQzJ1eXJyNmdGSzhRY0k5NUlGOWMvb3E1RWc4R0p3?=
+ =?utf-8?Q?yguGSEUUi1MzomHyHSEV44114Mu61G/nsc?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C0D3FB0535B89D40831677DBA3A26D44@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <de2101687020d18172a2b153f8977a5116d0cd66.1606406359.git.rahul.singh@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5388
+Original-Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	24814ece-a4bc-4eb3-207b-08d896df2510
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	vxqvtu3km541wQfz1u+C1pcyiKYp2qcIqN8/dPTG5oJSeh/Z3F+8bU4iLlUQ/N4BBT0W8aLi2YGLg1tD0QgG5tBwJyVcxHPDea1PnLmGwTS60ZOP2taP+/g659MKhzzn5Bh0G6QDh4KdzT/zJijqPryIUJ6nr4C1TKWMy7/f2MSAjDx9m6lFRl09NYprcWGuqtwUey4NEkNFe+W6JwLh1c7FB0gs9u01FKRKZySMStonTD5kx6uMeUMFvXLl/7A52gOj86vy/jnzo2FTU+ZggqYcjX6QpVg5D+6jEMebVqPv+3KX3sqVbtnCn4cfiesDfO94INwfpiU43zHLGuZYCkCZJcsKCqllqIP0W6SMJpDu/dD2MZ36/f3zofbTQG+OLY1kG/k/R/z9yaTziymbmmgT2uroKsj9NnVo3N9LXPLr7hAEKkY8bEomQCR26/nTO9oN9c+GEchDQCoPKDKeqYswWOiz9r04QQcBuXuEJ4o7UL9btikwzyqs6TTIVRdhlnNLHD2hGIkQ8xOQRSHbAQ==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(396003)(39860400002)(136003)(376002)(46966005)(2616005)(81166007)(36756003)(83380400001)(336012)(54906003)(4326008)(33656002)(6486002)(2906002)(86362001)(5660300002)(82310400003)(8676002)(53546011)(6862004)(30864003)(6506007)(36906005)(26005)(356005)(478600001)(82740400003)(316002)(186003)(8936002)(47076004)(107886003)(70206006)(70586007)(6512007)(2004002)(309714004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2020 16:27:56.3743
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 431dd52e-f08f-462c-3553-08d896df39cc
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3898
 
-Hi Rahul,
-
-On 26/11/2020 17:02, Rahul Singh wrote:
-> Add support for ARM architected SMMUv3 implementation. It is based on
-> the Linux SMMUv3 driver.
-> 
-> Major differences with regard to Linux driver are as follows:
-> 1. Only Stage-2 translation is supported as compared to the Linux driver
->     that supports both Stage-1 and Stage-2 translations.
-> 2. Use P2M  page table instead of creating one as SMMUv3 has the
->     capability to share the page tables with the CPU.
-> 3. Tasklets are used in place of threaded IRQ's in Linux for event queue
->     and priority queue IRQ handling.
-
-On the previous version, we discussed that using tasklets is not a 
-suitable replacement for threaded IRQs. What's the plan to address it?
-
-> 4. Latest version of the Linux SMMUv3 code implements the commands queue
->     access functions based on atomic operations implemented in Linux.
->     Atomic functions used by the commands queue access functions are not
->     implemented in XEN therefore we decided to port the earlier version
->     of the code. Once the proper atomic operations will be available in
->     XEN the driver can be updated.
-> 5. Driver is currently supported as Tech Preview.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
->   MAINTAINERS                           |   6 +
->   SUPPORT.md                            |   1 +
->   xen/drivers/passthrough/Kconfig       |  10 +
->   xen/drivers/passthrough/arm/Makefile  |   1 +
->   xen/drivers/passthrough/arm/smmu-v3.c | 986 +++++++++++++++++++++-----
->   5 files changed, 814 insertions(+), 190 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index dab38a6a14..1d63489eec 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -249,6 +249,12 @@ F:	xen/include/asm-arm/
->   F:	xen/include/public/arch-arm/
->   F:	xen/include/public/arch-arm.h
->   
-> +ARM SMMUv3
-> +M:	Bertrand Marquis <bertrand.marquis@arm.com>
-> +M:	Rahul Singh <rahul.singh@arm.com>
-> +S:	Supported
-> +F:	xen/drivers/passthrough/arm/smmu-v3.c
-> +
->   Change Log
->   M:	Paul Durrant <paul@xen.org>
->   R:	Community Manager <community.manager@xenproject.org>
-> diff --git a/SUPPORT.md b/SUPPORT.md
-> index ab02aca5f4..e402c7202d 100644
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -68,6 +68,7 @@ For the Cortex A57 r0p0 - r1p1, see Errata 832075.
->       Status, ARM SMMUv1: Supported, not security supported
->       Status, ARM SMMUv2: Supported, not security supported
->       Status, Renesas IPMMU-VMSA: Supported, not security supported
-> +    Status, ARM SMMUv3: Tech Preview
-
-Please move this right after "ARM SMMUv2".
-
->   
->   ### ARM/GICv3 ITS
->   
-> diff --git a/xen/drivers/passthrough/Kconfig b/xen/drivers/passthrough/Kconfig
-> index 0036007ec4..5b71c59f47 100644
-> --- a/xen/drivers/passthrough/Kconfig
-> +++ b/xen/drivers/passthrough/Kconfig
-> @@ -13,6 +13,16 @@ config ARM_SMMU
->   	  Say Y here if your SoC includes an IOMMU device implementing the
->   	  ARM SMMU architecture.
->   
-> +config ARM_SMMU_V3
-> +	bool "ARM Ltd. System MMU Version 3 (SMMUv3) Support" if EXPERT
-> +	depends on ARM_64
-> +	---help---
-> +	 Support for implementations of the ARM System MMU architecture
-> +	 version 3.
-> +
-> +	 Say Y here if your system includes an IOMMU device implementing
-> +	 the ARM SMMUv3 architecture.
-> +
->   config IPMMU_VMSA
->   	bool "Renesas IPMMU-VMSA found in R-Car Gen3 SoCs"
->   	depends on ARM_64
-> diff --git a/xen/drivers/passthrough/arm/Makefile b/xen/drivers/passthrough/arm/Makefile
-> index fcd918ea3e..c5fb3b58a5 100644
-> --- a/xen/drivers/passthrough/arm/Makefile
-> +++ b/xen/drivers/passthrough/arm/Makefile
-> @@ -1,3 +1,4 @@
->   obj-y += iommu.o iommu_helpers.o iommu_fwspec.o
->   obj-$(CONFIG_ARM_SMMU) += smmu.o
->   obj-$(CONFIG_IPMMU_VMSA) += ipmmu-vmsa.o
-> +obj-$(CONFIG_ARM_SMMU_V3) += smmu-v3.o
-> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-> index 55d1cba194..8f2337e7f2 100644
-> --- a/xen/drivers/passthrough/arm/smmu-v3.c
-> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
-> @@ -2,36 +2,280 @@
->   /*
->    * IOMMU API for ARM architected SMMUv3 implementations.
->    *
-> - * Copyright (C) 2015 ARM Limited
-> + * Based on Linux's SMMUv3 driver:
-> + *    drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> + *    commit: 951cbbc386ff01b50da4f46387e994e81d9ab431
-> + * and Xen's SMMU driver:
-> + *    xen/drivers/passthrough/arm/smmu.c
-
-I would suggest to list the major differences here as well.
-
->    *
-> - * Author: Will Deacon <will.deacon@arm.com>
-> + * Copyright (C) 2015 ARM Limited Will Deacon <will.deacon@arm.com>
-
-Why did you merge the Author and copyright line?
-
->    *
-> - * This driver is powered by bad coffee and bombay mix.
-> + * Copyright (C) 2020 Arm Ltd.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + *
-> + * You should have received a copy of the GNU General Public License
-> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-> + *
-> + */
-> +
-> +#include <xen/acpi.h>
-> +#include <xen/config.h>
-> +#include <xen/delay.h>
-> +#include <xen/errno.h>
-> +#include <xen/err.h>
-> +#include <xen/irq.h>
-> +#include <xen/lib.h>
-> +#include <xen/list.h>
-> +#include <xen/mm.h>
-> +#include <xen/rbtree.h>
-> +#include <xen/sched.h>
-> +#include <xen/sizes.h>
-> +#include <xen/vmap.h>
-> +#include <asm/atomic.h>
-> +#include <asm/device.h>
-> +#include <asm/io.h>
-> +#include <asm/platform.h>
-> +#include <asm/iommu_fwspec.h>
-
-All the headers seem to be alphabetically ordered but this one.
-
-> +
-> +/* Linux compatibility functions. */
-
-Some of the helpers here seem to be similar to the SMMU driver. Can we 
-have an header that can be shared between the two?
-
-> +typedef paddr_t dma_addr_t;
-> +typedef unsigned int gfp_t;
-> +
-> +#define platform_device device
-> +
-> +#define GFP_KERNEL 0
-> +
-> +/* Alias to Xen device tree helpers */
-> +#define device_node dt_device_node
-> +#define of_phandle_args dt_phandle_args
-> +#define of_device_id dt_device_match
-> +#define of_match_node dt_match_node
-> +#define of_property_read_u32(np, pname, out) (!dt_property_read_u32(np, pname, out))
-> +#define of_property_read_bool dt_property_read_bool
-> +#define of_parse_phandle_with_args dt_parse_phandle_with_args
-> +
-> +/* Alias to Xen lock functions */
-> +#define mutex spinlock
-> +#define mutex_init spin_lock_init
-> +#define mutex_lock spin_lock
-> +#define mutex_unlock spin_unlock
-
-Hmm... mutex are not spinlock. Can you explain why this is fine to 
-switch to spinlock?
-
-> +
-> +/* Alias to Xen time functions */
-> +#define ktime_t s_time_t
-> +#define ktime_get()             (NOW())
-> +#define ktime_add_us(t,i)       (t + MICROSECS(i))
-> +#define ktime_compare(t,i)      (t > (i))
-> +
-> +/* Alias to Xen allocation helpers */
-> +#define kzalloc(size, flags)    _xzalloc(size, sizeof(void *))
-> +#define kfree xfree
-> +#define devm_kzalloc(dev, size, flags)  _xzalloc(size, sizeof(void *))
-> +
-> +/* Device logger functions */
-> +#define dev_name(dev) dt_node_full_name(dev->of_node)
-> +#define dev_dbg(dev, fmt, ...)      \
-> +    printk(XENLOG_DEBUG "SMMUv3: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
-> +#define dev_notice(dev, fmt, ...)   \
-> +    printk(XENLOG_INFO "SMMUv3: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
-> +#define dev_warn(dev, fmt, ...)     \
-> +    printk(XENLOG_WARNING "SMMUv3: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
-> +#define dev_err(dev, fmt, ...)      \
-> +    printk(XENLOG_ERR "SMMUv3: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
-> +#define dev_info(dev, fmt, ...)     \
-> +    printk(XENLOG_INFO "SMMUv3: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
-> +#define dev_err_ratelimited(dev, fmt, ...)      \
-> +    printk(XENLOG_ERR "SMMUv3: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
-> +
-> +/*
-> + * Periodically poll an address and wait between reads in us until a
-> + * condition is met or a timeout occurs.
-> + */
-> +#define readx_poll_timeout(op, addr, val, cond, sleep_us, timeout_us) \
-> +({ \
-> +     s_time_t deadline = NOW() + MICROSECS(timeout_us); \
-> +     for (;;) { \
-> +        (val) = op(addr); \
-> +        if (cond) \
-> +            break; \
-> +        if (NOW() > deadline) { \
-> +            (val) = op(addr); \
-> +            break; \
-> +        } \
-> +        udelay(sleep_us); \
-> +     } \
-> +     (cond) ? 0 : -ETIMEDOUT; \
-> +})
-> +
-> +#define readl_relaxed_poll_timeout(addr, val, cond, delay_us, timeout_us) \
-> +    readx_poll_timeout(readl_relaxed, addr, val, cond, delay_us, timeout_us)
-> +
-> +#define FIELD_PREP(_mask, _val)         \
-> +    (((typeof(_mask))(_val) << (__builtin_ffsll(_mask) - 1)) & (_mask))
-> +
-> +#define FIELD_GET(_mask, _reg)          \
-> +    (typeof(_mask))(((_reg) & (_mask)) >> (__builtin_ffsll(_mask) - 1))
-> +
-> +#define WRITE_ONCE(x, val)                  \
-> +do {                                        \
-> +    *(volatile typeof(x) *)&(x) = (val);    \
-> +} while (0)
-
-Please implement it with write_atomic() or ACCESS_ONCE().
-
-> +
-> +/* Xen: Stub out DMA domain related functions */
-> +#define iommu_get_dma_cookie(dom) 0
-> +#define iommu_put_dma_cookie(dom)
-> +
-> +/*
-> + * Helpers for DMA allocation. Just the function name is reused for
-> + * porting code, these allocation are not managed allocations
->    */
-> +static void *dmam_alloc_coherent(struct device *dev, size_t size,
-> +                                 paddr_t *dma_handle, gfp_t gfp)
-> +{
-> +    void *vaddr;
-> +    unsigned long alignment = size;
-> +
-> +    /*
-> +     * _xzalloc requires that the (align & (align -1)) = 0. Most of the
-> +     * allocations in SMMU code should send the right value for size. In
-> +     * case this is not true print a warning and align to the size of a
-> +     * (void *)
-> +     */
-> +    if ( size & (size - 1) )
-
-We should use the same coding style within the file. As the file is 
-imported from Linux, new code should follow Linux coding style.
-
-> +    {
-> +        printk(XENLOG_WARNING "SMMUv3: Fixing alignment for the DMA buffer\n");
-> +        alignment = sizeof(void *);
-> +    }
-> +
-> +    vaddr = _xzalloc(size, alignment);
-> +    if ( !vaddr )
-> +    {
-> +        printk(XENLOG_ERR "SMMUv3: DMA allocation failed\n");
-> +        return NULL;
-> +    }
-> +
-> +    *dma_handle = virt_to_maddr(vaddr);
-> +
-> +    return vaddr;
-> +}
-> +
-> +/* Xen: Type definitions for iommu_domain */
-> +#define IOMMU_DOMAIN_UNMANAGED 0
-> +#define IOMMU_DOMAIN_DMA 1
-> +#define IOMMU_DOMAIN_IDENTITY 2
-> +
-> +/* Xen specific code. */
-> +struct iommu_domain {
-> +    /* Runtime SMMU configuration for this iommu_domain */
-> +    atomic_t ref;
-> +    /*
-> +     * Used to link iommu_domain contexts for a same domain.
-> +     * There is at least one per-SMMU to used by the domain.
-> +     */
-> +    struct list_head    list;
-> +};
-> +
-> +/* Describes information required for a Xen domain */
-> +struct arm_smmu_xen_domain {
-> +    spinlock_t      lock;
-> +
-> +    /* List of iommu domains associated to this domain */
-> +    struct list_head    contexts;
-> +};
-> +
-> +/*
-> + * Information about each device stored in dev->archdata.iommu
-> + * The dev->archdata.iommu stores the iommu_domain (runtime configuration of
-> + * the SMMU).
-> + */
-> +struct arm_smmu_xen_device {
-> +    struct iommu_domain *domain;
-> +};
-> +
-> +/* Keep a list of devices associated with this driver */
-> +static DEFINE_SPINLOCK(arm_smmu_devices_lock);
-> +static LIST_HEAD(arm_smmu_devices);
-> +
-> +
-> +static inline void *dev_iommu_priv_get(struct device *dev)
-> +{
-> +    struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +
-> +    return fwspec && fwspec->iommu_priv ? fwspec->iommu_priv : NULL;
-> +}
-> +
-> +static inline void dev_iommu_priv_set(struct device *dev, void *priv)
-> +{
-> +    struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +
-> +    fwspec->iommu_priv = priv;
-> +}
-> +
-> +int dt_property_match_string(const struct dt_device_node *np,
-> +                             const char *propname, const char *string)
-
-I think this should be implemented in device_tree.c
-
-> +{
-> +    const struct dt_property *dtprop = dt_find_property(np, propname, NULL);
-> +    size_t l;
-> +    int i;
-> +    const char *p, *end;
-> +
-> +    if ( !dtprop )
-> +        return -EINVAL;
-> +
-> +    if ( !dtprop->value )
-> +        return -ENODATA;
-> +
-> +    p = dtprop->value;
-> +    end = p + dtprop->length;
-> +
-> +    for ( i = 0; p < end; i++, p += l )
-> +    {
-> +        l = strnlen(p, end - p) + 1;
-> +
-> +        if ( p + l > end )
-> +            return -EILSEQ;
-> +
-> +        if ( strcmp(string, p) == 0 )
-> +            return i; /* Found it; return index */
-> +    }
-> +
-> +    return -ENODATA;
-> +}
-> +
-> +static int platform_get_irq_byname_optional(struct device *dev,
-> +                                            const char *name)
-> +{
-> +    int index, ret;
-> +    struct dt_device_node *np  = dev_to_dt(dev);
-> +
-> +    if ( unlikely(!name) )
-> +        return -EINVAL;
-> +
-> +    index = dt_property_match_string(np, "interrupt-names", name);
-> +    if ( index < 0 )
-> +    {
-> +        dev_info(dev, "IRQ %s not found\n", name);
-> +        return index;
-> +    }
->   
-> -#include <linux/acpi.h>
-> -#include <linux/acpi_iort.h>
-> -#include <linux/bitfield.h>
-> -#include <linux/bitops.h>
-> -#include <linux/crash_dump.h>
-> -#include <linux/delay.h>
-> -#include <linux/dma-iommu.h>
-> -#include <linux/err.h>
-> -#include <linux/interrupt.h>
-> -#include <linux/io-pgtable.h>
-> -#include <linux/iommu.h>
-> -#include <linux/iopoll.h>
-> -#include <linux/module.h>
-> -#include <linux/msi.h>
-> -#include <linux/of.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_iommu.h>
-> -#include <linux/of_platform.h>
-> -#include <linux/pci.h>
-> -#include <linux/pci-ats.h>
-> -#include <linux/platform_device.h>
-> -
-> -#include <linux/amba/bus.h>
-> +    ret = platform_get_irq(np, index);
-> +    if ( ret < 0 )
-> +    {
-> +        dev_err(dev, "failed to get irq index %d\n", index);
-> +        return -ENODEV;
-> +    }
-> +
-> +    return ret;
-> +}
-> +
-> +/* Start of Linux SMMUv3 code */
->   
->   /* MMIO registers */
->   #define ARM_SMMU_IDR0			0x0
-> @@ -507,6 +751,7 @@ struct arm_smmu_s2_cfg {
->   	u16				vmid;
->   	u64				vttbr;
->   	u64				vtcr;
-> +	struct domain		*domain;
->   };
->   
->   struct arm_smmu_strtab_cfg {
-> @@ -567,8 +812,13 @@ struct arm_smmu_device {
->   
->   	struct arm_smmu_strtab_cfg	strtab_cfg;
->   
-> -	/* IOMMU core code handle */
-> -	struct iommu_device		iommu;
-> +	/* Need to keep a list of SMMU devices */
-> +	struct list_head		devices;
-> +
-> +	/* Tasklets for handling evts/faults and pci page request IRQs*/
-> +	struct tasklet		evtq_irq_tasklet;
-> +	struct tasklet		priq_irq_tasklet;
-> +	struct tasklet		combined_irq_tasklet;
->   };
->   
->   /* SMMU private data for each master */
-> @@ -1110,7 +1360,7 @@ static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid)
->   }
->   
->   /* IRQ and event handlers */
-> -static irqreturn_t arm_smmu_evtq_thread(int irq, void *dev)
-> +static void arm_smmu_evtq_thread(void *dev)
->   {
->   	int i;
->   	struct arm_smmu_device *smmu = dev;
-> @@ -1140,7 +1390,6 @@ static irqreturn_t arm_smmu_evtq_thread(int irq, void *dev)
->   	/* Sync our overflow flag, as we believe we're up to speed */
->   	llq->cons = Q_OVF(llq->prod) | Q_WRP(llq, llq->cons) |
->   		    Q_IDX(llq, llq->cons);
-> -	return IRQ_HANDLED;
->   }
->   
->   static void arm_smmu_handle_ppr(struct arm_smmu_device *smmu, u64 *evt)
-> @@ -1181,7 +1430,7 @@ static void arm_smmu_handle_ppr(struct arm_smmu_device *smmu, u64 *evt)
->   	}
->   }
->   
-> -static irqreturn_t arm_smmu_priq_thread(int irq, void *dev)
-> +static void arm_smmu_priq_thread(void *dev)
->   {
->   	struct arm_smmu_device *smmu = dev;
->   	struct arm_smmu_queue *q = &smmu->priq.q;
-> @@ -1200,12 +1449,12 @@ static irqreturn_t arm_smmu_priq_thread(int irq, void *dev)
->   	llq->cons = Q_OVF(llq->prod) | Q_WRP(llq, llq->cons) |
->   		      Q_IDX(llq, llq->cons);
->   	queue_sync_cons_out(q);
-> -	return IRQ_HANDLED;
->   }
->   
->   static int arm_smmu_device_disable(struct arm_smmu_device *smmu);
->   
-> -static irqreturn_t arm_smmu_gerror_handler(int irq, void *dev)
-> +static void arm_smmu_gerror_handler(int irq, void *dev,
-> +				struct cpu_user_regs *regs)
->   {
->   	u32 gerror, gerrorn, active;
->   	struct arm_smmu_device *smmu = dev;
-> @@ -1215,7 +1464,7 @@ static irqreturn_t arm_smmu_gerror_handler(int irq, void *dev)
->   
->   	active = gerror ^ gerrorn;
->   	if (!(active & GERROR_ERR_MASK))
-> -		return IRQ_NONE; /* No errors pending */
-> +		return; /* No errors pending */
->   
->   	dev_warn(smmu->dev,
->   		 "unexpected global error reported (0x%08x), this could be serious\n",
-> @@ -1248,26 +1497,42 @@ static irqreturn_t arm_smmu_gerror_handler(int irq, void *dev)
->   		arm_smmu_cmdq_skip_err(smmu);
->   
->   	writel(gerror, smmu->base + ARM_SMMU_GERRORN);
-> -	return IRQ_HANDLED;
->   }
->   
-> -static irqreturn_t arm_smmu_combined_irq_thread(int irq, void *dev)
-> +static void arm_smmu_combined_irq_handler(int irq, void *dev,
-> +				struct cpu_user_regs *regs)
-> +{
-> +	struct arm_smmu_device *smmu = (struct arm_smmu_device *)dev;
-
-The cast is not necessary.
-
-> +
-> +	arm_smmu_gerror_handler(irq, dev, regs);
-> +
-> +	tasklet_schedule(&(smmu->combined_irq_tasklet));
-> +}
-> +
-> +static void arm_smmu_combined_irq_thread(void *dev)
->   {
->   	struct arm_smmu_device *smmu = dev;
->   
-> -	arm_smmu_evtq_thread(irq, dev);
-> +	arm_smmu_evtq_thread(dev);
->   	if (smmu->features & ARM_SMMU_FEAT_PRI)
-> -		arm_smmu_priq_thread(irq, dev);
-> -
-> -	return IRQ_HANDLED;
-> +		arm_smmu_priq_thread(dev);
->   }
->   
-> -static irqreturn_t arm_smmu_combined_irq_handler(int irq, void *dev)
-> +static void arm_smmu_evtq_irq_tasklet(int irq, void *dev,
-> +				struct cpu_user_regs *regs)
->   {
-> -	arm_smmu_gerror_handler(irq, dev);
-> -	return IRQ_WAKE_THREAD;
-> +	struct arm_smmu_device *smmu = (struct arm_smmu_device *)dev;
-
-Ditto.
-
-> +
-> +	tasklet_schedule(&(smmu->evtq_irq_tasklet));
->   }
->   
-> +static void arm_smmu_priq_irq_tasklet(int irq, void *dev,
-> +				struct cpu_user_regs *regs)
-> +{
-> +	struct arm_smmu_device *smmu = (struct arm_smmu_device *)dev;
-
-Ditto.
-
-> +
-> +	tasklet_schedule(&(smmu->priq_irq_tasklet));
-> +}
->   
->   /* IO_PGTABLE API */
->   static void arm_smmu_tlb_inv_context(void *cookie)
-> @@ -1354,27 +1619,69 @@ static void arm_smmu_domain_free(struct iommu_domain *domain)
->   }
->   
->   static int arm_smmu_domain_finalise_s2(struct arm_smmu_domain *smmu_domain,
-> -				       struct arm_smmu_master *master,
-> -				       struct io_pgtable_cfg *pgtbl_cfg)
-> +				       struct arm_smmu_master *master)
->   {
->   	int vmid;
-> +	u64 reg;
-
-I think uint32_t is sufficient here.
-
->   	struct arm_smmu_device *smmu = smmu_domain->smmu;
->   	struct arm_smmu_s2_cfg *cfg = &smmu_domain->s2_cfg;
->   
-> +	/* VTCR */
-> +	reg = VTCR_RES1 | VTCR_SH0_IS | VTCR_IRGN0_WBWA | VTCR_ORGN0_WBWA;
-
-VTCR_RES1 will set bit 31 to 1. However, from the spec it looks like the 
-equivalent bit in the entry (see 5.2 in ARM IHI 0070C.a) will be RES0.
-
-> +
-> +	switch (PAGE_SIZE) {
-> +	case SZ_4K:
-> +		reg |= VTCR_TG0_4K;
-> +		break;
-> +	case SZ_16K:
-> +		reg |= VTCR_TG0_16K;
-> +		break;
-> +	case SZ_64K:
-> +		reg |= VTCR_TG0_4K;
-> +		break;
-> +	}
-
-I would just handle 4K here and add a BUILD_BUG_ON(PAGE_SIZE != SZ_4K).
-
-> + > +	switch (smmu->oas) {
-
-AFAICT smmu->oas and ...
-
-> +	case 32:
-> +		reg |= VTCR_PS(_AC(0x0,ULL));
-> +		break;
-> +	case 36:
-> +		reg |= VTCR_PS(_AC(0x1,ULL));
-> +		break;
-> +	case 40:
-> +		reg |= VTCR_PS(_AC(0x2,ULL));
-> +		break;
-> +	case 42:
-> +		reg |= VTCR_PS(_AC(0x3,ULL));
-> +		break;
-> +	case 44:
-> +		reg |= VTCR_PS(_AC(0x4,ULL));
-> +		break;
-> +		case 48:
-> +		reg |= VTCR_PS(_AC(0x5,ULL));
-> +		break;
-> +	case 52:
-> +		reg |= VTCR_PS(_AC(0x6,ULL));
-> +		break;
-> +	}
-> +
-> +	reg |= VTCR_T0SZ(64ULL - smmu->ias);
-
-... are directly taken from the SMMU configuration. However, as we share 
-the P2M, we need to make sure the value match what the CPU is using.
-
-For the IAS, you will want to use p2m_ipa_bits and for the output, we 
-will want to cap to PADDR_BITS.
-
-> +	reg |= VTCR_SL0(0x2);
-
-Similar to above, the starting level will depend on how the P2M was 
-configured.
-
-> +	reg |= VTCR_VS;
-
-AFAICT, the bit 179 (bit 19 in the word) is indicating whether AArch32 
-or AArch64 translation table is used. However, bit 19 in VTCR_EL2 
-indicates whether we are using 8-bit or 16-bit VMID.
-
-> +
-> +	cfg->vtcr   = reg;
-
-It would be better to initialize vtcr exactly at the same place as Linux 
-does. This would make easier to match the code.
-> +
->   	vmid = arm_smmu_bitmap_alloc(smmu->vmid_map, smmu->vmid_bits);
->   	if (vmid < 0)
->   		return vmid;
-> +	cfg->vmid  = (u16)vmid;
-> +
-> +	cfg->vttbr  = page_to_maddr(cfg->domain->arch.p2m.root);
-> +
-> +	printk(XENLOG_DEBUG
-> +		   "SMMUv3: d%u: vmid 0x%x vtcr 0x%"PRIpaddr" p2maddr 0x%"PRIpaddr"\n",
-> +		   cfg->domain->domain_id, cfg->vmid, cfg->vtcr, cfg->vttbr);
->   
-> -	vtcr = &pgtbl_cfg->arm_lpae_s2_cfg.vtcr;
-> -	cfg->vmid	= (u16)vmid;
-> -	cfg->vttbr	= pgtbl_cfg->arm_lpae_s2_cfg.vttbr;
-> -	cfg->vtcr	= FIELD_PREP(STRTAB_STE_2_VTCR_S2T0SZ, vtcr->tsz) |
-> -			  FIELD_PREP(STRTAB_STE_2_VTCR_S2SL0, vtcr->sl) |
-> -			  FIELD_PREP(STRTAB_STE_2_VTCR_S2IR0, vtcr->irgn) |
-> -			  FIELD_PREP(STRTAB_STE_2_VTCR_S2OR0, vtcr->orgn) |
-> -			  FIELD_PREP(STRTAB_STE_2_VTCR_S2SH0, vtcr->sh) |
-> -			  FIELD_PREP(STRTAB_STE_2_VTCR_S2TG, vtcr->tg) |
-> -			  FIELD_PREP(STRTAB_STE_2_VTCR_S2PS, vtcr->ps);
->   	return 0;
->   }
->   
-> @@ -1382,28 +1689,12 @@ static int arm_smmu_domain_finalise(struct iommu_domain *domain,
->   				    struct arm_smmu_master *master)
->   {
->   	int ret;
-> -	unsigned long ias, oas;
-> -	int (*finalise_stage_fn)(struct arm_smmu_domain *,
-> -				 struct arm_smmu_master *,
-> -				 struct io_pgtable_cfg *);
->   	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
-> -	struct arm_smmu_device *smmu = smmu_domain->smmu;
->   
->   	/* Restrict the stage to what we can actually support */
->   	smmu_domain->stage = ARM_SMMU_DOMAIN_S2;
->   
-> -	switch (smmu_domain->stage) {
-> -	case ARM_SMMU_DOMAIN_NESTED:
-> -	case ARM_SMMU_DOMAIN_S2:
-> -		ias = smmu->ias;
-> -		oas = smmu->oas;
-> -		finalise_stage_fn = arm_smmu_domain_finalise_s2;
-> -		break;
-> -	default:
-> -		return -EINVAL;
-> -	}
-> -
-> -	ret = finalise_stage_fn(smmu_domain, master, &pgtbl_cfg);
-
-It is not entirely clear why this code is removed here and not the 
-previous patch?
-
-> +	ret = arm_smmu_domain_finalise_s2(smmu_domain, master);
->   	if (ret < 0) {
->   		return ret;
->   	}
-> @@ -1553,7 +1844,8 @@ static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
->   		return -ENOMEM;
->   	}
->   
-> -	if (!WARN_ON(q->base_dma & (qsz - 1))) {
-> +	WARN_ON(q->base_dma & (qsz - 1));
-
-This is a call to rework how our WARN_ON() in Xen.
-
-> +	if (unlikely(q->base_dma & (qsz - 1))) {
->   		dev_info(smmu->dev, "allocated %u entries for %s\n",
->   			 1 << q->llq.max_n_shift, name);
->   	}
-> @@ -1758,9 +2050,7 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
->   	/* Request interrupt lines */
->   	irq = smmu->evtq.q.irq;
->   	if (irq) {
-> -		ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
-> -						arm_smmu_evtq_thread,
-> -						IRQF_ONESHOT,
-> +		ret = request_irq(irq, 0, arm_smmu_evtq_irq_tasklet,
->   						"arm-smmu-v3-evtq", smmu);
->   		if (ret < 0)
->   			dev_warn(smmu->dev, "failed to enable evtq irq\n");
-> @@ -1770,8 +2060,8 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
->   
->   	irq = smmu->gerr_irq;
->   	if (irq) {
-> -		ret = devm_request_irq(smmu->dev, irq, arm_smmu_gerror_handler,
-> -				       0, "arm-smmu-v3-gerror", smmu);
-> +		ret = request_irq(irq, 0, arm_smmu_gerror_handler,
-> +						"arm-smmu-v3-gerror", smmu);
->   		if (ret < 0)
->   			dev_warn(smmu->dev, "failed to enable gerror irq\n");
->   	} else {
-> @@ -1781,11 +2071,8 @@ static void arm_smmu_setup_unique_irqs(struct arm_smmu_device *smmu)
->   	if (smmu->features & ARM_SMMU_FEAT_PRI) {
->   		irq = smmu->priq.q.irq;
->   		if (irq) {
-> -			ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
-> -							arm_smmu_priq_thread,
-> -							IRQF_ONESHOT,
-> -							"arm-smmu-v3-priq",
-> -							smmu);
-> +			ret = request_irq(irq, 0, arm_smmu_priq_irq_tasklet,
-> +							"arm-smmu-v3-priq", smmu);
->   			if (ret < 0)
->   				dev_warn(smmu->dev,
->   					 "failed to enable priq irq\n");
-> @@ -1814,11 +2101,8 @@ static int arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
->   		 * Cavium ThunderX2 implementation doesn't support unique irq
->   		 * lines. Use a single irq line for all the SMMUv3 interrupts.
->   		 */
-> -		ret = devm_request_threaded_irq(smmu->dev, irq,
-> -					arm_smmu_combined_irq_handler,
-> -					arm_smmu_combined_irq_thread,
-> -					IRQF_ONESHOT,
-> -					"arm-smmu-v3-combined-irq", smmu);
-> +		ret = request_irq(irq, 0, arm_smmu_combined_irq_handler,
-> +						"arm-smmu-v3-combined-irq", smmu);
->   		if (ret < 0)
->   			dev_warn(smmu->dev, "failed to enable combined irq\n");
->   	} else
-> @@ -1857,7 +2141,7 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu, bool bypass)
->   	reg = readl_relaxed(smmu->base + ARM_SMMU_CR0);
->   	if (reg & CR0_SMMUEN) {
->   		dev_warn(smmu->dev, "SMMU currently enabled! Resetting...\n");
-> -		WARN_ON(is_kdump_kernel() && !disable_bypass);
-> +		WARN_ON(!disable_bypass);
->   		arm_smmu_update_gbpa(smmu, GBPA_ABORT, 0);
->   	}
->   
-> @@ -1952,8 +2236,11 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu, bool bypass)
->   		return ret;
->   	}
->   
-> -	if (is_kdump_kernel())
-> -		enables &= ~(CR0_EVTQEN | CR0_PRIQEN);
-> +	/* Initialize tasklets for threaded IRQs*/
-> +	tasklet_init(&smmu->evtq_irq_tasklet, arm_smmu_evtq_thread, smmu);
-> +	tasklet_init(&smmu->priq_irq_tasklet, arm_smmu_priq_thread, smmu);
-> +	tasklet_init(&smmu->combined_irq_tasklet, arm_smmu_combined_irq_thread,
-> +				 smmu);
->   
->   	/* Enable the SMMU interface, or ensure bypass */
->   	if (!bypass || disable_bypass) {
-> @@ -2195,7 +2482,7 @@ static inline int arm_smmu_device_acpi_probe(struct platform_device *pdev,
->   static int arm_smmu_device_dt_probe(struct platform_device *pdev,
->   				    struct arm_smmu_device *smmu)
->   {
-> -	struct device *dev = &pdev->dev;
-> +	struct device *dev = pdev;
->   	u32 cells;
->   	int ret = -EINVAL;
->   
-> @@ -2219,130 +2506,449 @@ static unsigned long arm_smmu_resource_size(struct arm_smmu_device *smmu)
->   		return SZ_128K;
->   }
->   
-> +/* Start of Xen specific code. */
->   static int arm_smmu_device_probe(struct platform_device *pdev)
->   {
-> -	int irq, ret;
-> -	struct resource *res;
-> -	resource_size_t ioaddr;
-> -	struct arm_smmu_device *smmu;
-> -	struct device *dev = &pdev->dev;
-> -	bool bypass;
-> +    int irq, ret;
-> +    paddr_t ioaddr, iosize;
-> +    struct arm_smmu_device *smmu;
-> +    bool bypass;
-> +
-> +    smmu = devm_kzalloc(dev, sizeof(*smmu), GFP_KERNEL);
-> +    if ( !smmu )
-> +    {
-> +        dev_err(pdev, "failed to allocate arm_smmu_device\n");
-> +        return -ENOMEM;
-> +    }
-> +    smmu->dev = pdev;
-> +
-> +    if ( pdev->of_node )
-> +    {
-> +        ret = arm_smmu_device_dt_probe(pdev, smmu);
-> +    } else
-> +    {
-> +        ret = arm_smmu_device_acpi_probe(pdev, smmu);
-> +        if ( ret == -ENODEV )
-> +            return ret;
-> +    }
-> +
-> +    /* Set bypass mode according to firmware probing result */
-> +    bypass = !!ret;
-
-AFAICT, bypass would be set if the device-tree is buggy. For Xen, I 
-think it would be saner to not continue as this would break isolation.
-
-> +
-> +    /* Base address */
-> +    ret = dt_device_get_address(dev_to_dt(pdev), 0, &ioaddr, &iosize);
-> +    if( ret )
-> +        return -ENODEV;
-> +
-> +    if ( iosize < arm_smmu_resource_size(smmu) )
-> +    {
-> +        dev_err(pdev, "MMIO region too small (%lx)\n", iosize);
-> +        return -EINVAL;
-> +    }
-> +
-> +    /*
-> +     * Don't map the IMPLEMENTATION DEFINED regions, since they may contain
-> +     * the PMCG registers which are reserved by the PMU driver.
-> +     */
-
-This comment doesn't seem to match the code. Did you intend to...
-
-
-> +    smmu->base = ioremap_nocache(ioaddr, iosize);
-
-... use ARM_SMMU_REG_SZ which would only map the necessary region?
-
-> +    if ( IS_ERR(smmu->base) )
-> +        return PTR_ERR(smmu->base);
-> +
-> +    if ( iosize > SZ_64K )
-> +    {
-> +        smmu->page1 = ioremap_nocache(ioaddr + SZ_64K, ARM_SMMU_REG_SZ);
-> +        if ( IS_ERR(smmu->page1) )
-> +            return PTR_ERR(smmu->page1);
-> +    }
-> +    else
-> +    {
-> +        smmu->page1 = smmu->base;
-> +    }
-> +
-> +    /* Interrupt lines */
-> +
-> +    irq = platform_get_irq_byname_optional(pdev, "combined");
-> +    if ( irq > 0 )
-> +        smmu->combined_irq = irq;
-> +    else
-> +    {
-> +        irq = platform_get_irq_byname_optional(pdev, "eventq");
-> +        if ( irq > 0 )
-> +            smmu->evtq.q.irq = irq;
-> +
-> +        irq = platform_get_irq_byname_optional(pdev, "priq");
-> +        if ( irq > 0 )
-> +            smmu->priq.q.irq = irq;
-> +
-> +        irq = platform_get_irq_byname_optional(pdev, "gerror");
-> +        if ( irq > 0 )
-> +            smmu->gerr_irq = irq;
-> +    }
-> +    /* Probe the h/w */
-> +    ret = arm_smmu_device_hw_probe(smmu);
-> +    if ( ret )
-> +        return ret;
-> +
-> +    /* Initialise in-memory data structures */
-> +    ret = arm_smmu_init_structures(smmu);
-> +    if ( ret )
-> +        return ret;
-> +
-> +    /* Reset the device */
-> +    ret = arm_smmu_device_reset(smmu, bypass);
-> +    if ( ret )
-> +        return ret;
-> +
-> +    /*
-> +     * Keep a list of all probed devices. This will be used to query
-> +     * the smmu devices based on the fwnode.
-> +     */
-> +    INIT_LIST_HEAD(&smmu->devices);
-> +
-> +    spin_lock(&arm_smmu_devices_lock);
-> +    list_add(&smmu->devices, &arm_smmu_devices);
-> +    spin_unlock(&arm_smmu_devices_lock);
-> +
-> +    return 0;
-> +}
-> +
-> +static int __must_check arm_smmu_iotlb_flush_all(struct domain *d)
-> +{
-> +    struct arm_smmu_xen_domain *xen_domain = dom_iommu(d)->arch.priv;
-> +    struct iommu_domain *io_domain;
-> +
-> +    spin_lock(&xen_domain->lock);
-> +
-> +    list_for_each_entry( io_domain, &xen_domain->contexts, list )
-> +    {
-> +        /*
-> +         * Only invalidate the context when SMMU is present.
-> +         * This is because the context initialization is delayed
-> +         * until a master has been added.
-> +         */
-> +        if ( unlikely(!ACCESS_ONCE(to_smmu_domain(io_domain)->smmu)) )
-> +            continue;
-> +
-> +        arm_smmu_tlb_inv_context(to_smmu_domain(io_domain));
-> +    }
->   
-> -	smmu = devm_kzalloc(dev, sizeof(*smmu), GFP_KERNEL);
-> -	if (!smmu) {
-> -		dev_err(dev, "failed to allocate arm_smmu_device\n");
-> -		return -ENOMEM;
-> -	}
-> -	smmu->dev = dev;
-> +    spin_unlock(&xen_domain->lock);
-> +
-> +    return 0;
-> +}
-> +
-> +static int __must_check arm_smmu_iotlb_flush(struct domain *d, dfn_t dfn,
-> +                                             unsigned long page_count,
-> +                                             unsigned int flush_flags)
-> +{
-> +    return arm_smmu_iotlb_flush_all(d);
-> +}
->   
-> -	if (dev->of_node) {
-> -		ret = arm_smmu_device_dt_probe(pdev, smmu);
-> -	} else {
-> -		ret = arm_smmu_device_acpi_probe(pdev, smmu);
-> -		if (ret == -ENODEV)
-> -			return ret;
-> -	}
-> +static struct arm_smmu_device *arm_smmu_get_by_dev(struct device *dev)
-> +{
-> +    struct arm_smmu_device *smmu = NULL;
->   
-> -	/* Set bypass mode according to firmware probing result */
-> -	bypass = !!ret;
-> +    spin_lock(&arm_smmu_devices_lock);
-> +    list_for_each_entry( smmu, &arm_smmu_devices, devices )
-> +    {
-> +        if ( smmu->dev  == dev )
-> +        {
-> +            spin_unlock(&arm_smmu_devices_lock);
-> +            return smmu;
-> +        }
-> +    }
-> +    spin_unlock(&arm_smmu_devices_lock);
->   
-> -	/* Base address */
-> -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> -	if (resource_size(res) < arm_smmu_resource_size(smmu)) {
-> -		dev_err(dev, "MMIO region too small (%pr)\n", res);
-> -		return -EINVAL;
-> -	}
-> -	ioaddr = res->start;
-
-The code removed is basically the same as the one you added except the 
-coding style change. This patch is already quite long to review, so can 
-we please keep the change to the strict minimum?
-
-If you want to do to clean-up then they should be done before/after.
-
-> +    return NULL;
-> +}
->   
-> -	/*
-> -	 * Don't map the IMPLEMENTATION DEFINED regions, since they may contain
-> -	 * the PMCG registers which are reserved by the PMU driver.
-> -	 */
-> -	smmu->base = arm_smmu_ioremap(dev, ioaddr, ARM_SMMU_REG_SZ);
-> -	if (IS_ERR(smmu->base))
-> -		return PTR_ERR(smmu->base);
-> -
-> -	if (arm_smmu_resource_size(smmu) > SZ_64K) {
-> -		smmu->page1 = arm_smmu_ioremap(dev, ioaddr + SZ_64K,
-> -					       ARM_SMMU_REG_SZ);
-> -		if (IS_ERR(smmu->page1))
-> -			return PTR_ERR(smmu->page1);
-> -	} else {
-> -		smmu->page1 = smmu->base;
-> -	}
-> +/* Probing and initialisation functions */
-> +static struct iommu_domain *arm_smmu_get_domain(struct domain *d,
-> +                                                struct device *dev)
-> +{
-> +    struct iommu_domain *io_domain;
-> +    struct arm_smmu_domain *smmu_domain;
-> +    struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +    struct arm_smmu_xen_domain *xen_domain = dom_iommu(d)->arch.priv;
-> +    struct arm_smmu_device *smmu = arm_smmu_get_by_dev(fwspec->iommu_dev);
-> +
-> +    if ( !smmu )
-> +        return NULL;
->   
-> -	/* Interrupt lines */
-> +    /*
-> +     * Loop through the &xen_domain->contexts to locate a context
-> +     * assigned to this SMMU
-> +     */
-> +    list_for_each_entry( io_domain, &xen_domain->contexts, list )
-> +    {
-> +        smmu_domain = to_smmu_domain(io_domain);
-> +        if ( smmu_domain->smmu == smmu )
-> +            return io_domain;
-> +    }
->   
-> -	irq = platform_get_irq_byname_optional(pdev, "combined");
-> -	if (irq > 0)
-> -		smmu->combined_irq = irq;
-> -	else {
-> -		irq = platform_get_irq_byname_optional(pdev, "eventq");
-> -		if (irq > 0)
-> -			smmu->evtq.q.irq = irq;
-> +    return NULL;
-> +}
->   
-> -		irq = platform_get_irq_byname_optional(pdev, "priq");
-> -		if (irq > 0)
-> -			smmu->priq.q.irq = irq;
-> +static void arm_smmu_destroy_iommu_domain(struct iommu_domain *io_domain)
-> +{
-> +    list_del(&io_domain->list);
-> +    arm_smmu_domain_free(io_domain);
-> +}
->   
-> -		irq = platform_get_irq_byname_optional(pdev, "gerror");
-> -		if (irq > 0)
-> -			smmu->gerr_irq = irq;
-> -	}
-> -	/* Probe the h/w */
-> -	ret = arm_smmu_device_hw_probe(smmu);
-> -	if (ret)
-> -		return ret;
-> +static int arm_smmu_assign_dev(struct domain *d, u8 devfn,
-> +                               struct device *dev, u32 flag)
-> +{
-> +    int ret = 0;
-> +    struct iommu_domain *io_domain;
-> +    struct arm_smmu_domain *smmu_domain;
-> +    struct arm_smmu_xen_domain *xen_domain = dom_iommu(d)->arch.priv;
->   
-> -	/* Initialise in-memory data structures */
-> -	ret = arm_smmu_init_structures(smmu);
-> -	if (ret)
-> -		return ret;
-> +    if ( !dev->archdata.iommu )
-> +    {
-> +        dev->archdata.iommu = xzalloc(struct arm_smmu_xen_device);
-> +        if ( !dev->archdata.iommu )
-> +            return -ENOMEM;
-> +    }
->   
-> -	/* Record our private device structure */
-> -	platform_set_drvdata(pdev, smmu);
-> +    spin_lock(&xen_domain->lock);
->   
-> -	/* Reset the device */
-> -	ret = arm_smmu_device_reset(smmu, bypass);
-> -	if (ret)
-> -		return ret;
-> +    /*
-> +     * Check to see if an iommu_domain already exists for this xen domain
-> +     * under the same SMMU
-> +     */
-> +    io_domain = arm_smmu_get_domain(d, dev);
-> +    if ( !io_domain )
-> +    {
-> +        io_domain = arm_smmu_domain_alloc(IOMMU_DOMAIN_DMA);
-> +        if ( !io_domain )
-> +        {
-> +            ret = -ENOMEM;
-> +            goto out;
-> +        }
->   
-> -	/* And we're up. Go go go! */
-> -	ret = iommu_device_sysfs_add(&smmu->iommu, dev, NULL,
-> -				     "smmu3.%pa", &ioaddr);
-> -	if (ret)
-> -		return ret;
-> +        smmu_domain = to_smmu_domain(io_domain);
-> +        smmu_domain->s2_cfg.domain = d;
->   
-> -	iommu_device_set_ops(&smmu->iommu, &arm_smmu_ops);
-> -	iommu_device_set_fwnode(&smmu->iommu, dev->fwnode);
-> +        /* Chain the new context to the domain */
-> +        list_add(&io_domain->list, &xen_domain->contexts);
->   
-> -	ret = iommu_device_register(&smmu->iommu);
-> -	if (ret) {
-> -		dev_err(dev, "Failed to register iommu\n");
-> -		return ret;
-> -	}
-> +    }
-> +
-> +    ret = arm_smmu_attach_dev(io_domain, dev);
-> +    if ( ret )
-> +    {
-> +        if ( io_domain->ref.counter == 0 )
-> +            arm_smmu_destroy_iommu_domain(io_domain);
-> +    }
-> +    else
-> +    {
-> +        atomic_inc(&io_domain->ref);
-> +    }
->   
-> -	return arm_smmu_set_bus_ops(&arm_smmu_ops);
-> +out:
-> +    spin_unlock(&xen_domain->lock);
-> +    return ret;
->   }
->   
-> -static int arm_smmu_device_remove(struct platform_device *pdev)
-> +static int arm_smmu_deassign_dev(struct domain *d, struct device *dev)
->   {
-> -	struct arm_smmu_device *smmu = platform_get_drvdata(pdev);
-> +    struct iommu_domain *io_domain = arm_smmu_get_domain(d, dev);
-> +    struct arm_smmu_xen_domain *xen_domain = dom_iommu(d)->arch.priv;
-> +    struct arm_smmu_domain *arm_smmu = to_smmu_domain(io_domain);
-> +    struct arm_smmu_master *master = dev_iommu_priv_get(dev);
->   
-> -	arm_smmu_set_bus_ops(NULL);
-> -	iommu_device_unregister(&smmu->iommu);
-> -	iommu_device_sysfs_remove(&smmu->iommu);
-> -	arm_smmu_device_disable(smmu);
-> +    if ( !arm_smmu || arm_smmu->s2_cfg.domain != d )
-> +    {
-> +        dev_err(dev, " not attached to domain %d\n", d->domain_id);
-> +        return -ESRCH;
-> +    }
->   
-> -	return 0;
-> +    spin_lock(&xen_domain->lock);
-> +
-> +    arm_smmu_detach_dev(master);
-> +    atomic_dec(&io_domain->ref);
-> +
-> +    if ( io_domain->ref.counter == 0 )
-> +        arm_smmu_destroy_iommu_domain(io_domain);
-> +
-> +    spin_unlock(&xen_domain->lock);
-> +
-> +    return 0;
-> +}
-> +
-> +static int arm_smmu_reassign_dev(struct domain *s, struct domain *t,
-> +                                 u8 devfn,  struct device *dev)
-> +{
-> +    int ret = 0;
-> +
-> +    /* Don't allow remapping on other domain than hwdom */
-> +    if ( t && t != hardware_domain )
-> +        return -EPERM;
-> +
-> +    if ( t == s )
-> +        return 0;
-> +
-> +    ret = arm_smmu_deassign_dev(s, dev);
-> +    if ( ret )
-> +        return ret;
-> +
-> +    if ( t )
-> +    {
-> +        /* No flags are defined for ARM. */
-> +        ret = arm_smmu_assign_dev(t, devfn, dev, 0);
-> +        if ( ret )
-> +            return ret;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +static int arm_smmu_iommu_xen_domain_init(struct domain *d)
-> +{
-> +    struct arm_smmu_xen_domain *xen_domain;
-> +
-> +    xen_domain = xzalloc(struct arm_smmu_xen_domain);
-> +    if ( !xen_domain )
-> +        return -ENOMEM;
-> +
-> +    spin_lock_init(&xen_domain->lock);
-> +    INIT_LIST_HEAD(&xen_domain->contexts);
-> +
-> +    dom_iommu(d)->arch.priv = xen_domain;
-> +
-> +    return 0;
-> +}
-> +
-> +static void __hwdom_init arm_smmu_iommu_hwdom_init(struct domain *d)
-> +{
-> +}
-> +
-> +static void arm_smmu_iommu_xen_domain_teardown(struct domain *d)
-> +{
-> +    struct arm_smmu_xen_domain *xen_domain = dom_iommu(d)->arch.priv;
-> +
-> +    ASSERT(list_empty(&xen_domain->contexts));
-> +    xfree(xen_domain);
-> +}
-> +
-> +static int arm_smmu_dt_xlate(struct device *dev,
-> +                             const struct dt_phandle_args *args)
-> +{
-> +    int ret;
-> +    struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +
-> +    ret = iommu_fwspec_add_ids(dev, args->args, 1);
-> +    if ( ret )
-> +        return ret;
-> +
-> +    if ( dt_device_is_protected(dev_to_dt(dev)) )
-> +    {
-> +        dev_err(dev, "Already added to SMMUv3\n");
-> +        return -EEXIST;
-> +    }
-> +
-> +    /* Let Xen know that the master device is protected by an IOMMU. */
-> +    dt_device_set_protected(dev_to_dt(dev));
-> +
-> +    dev_info(dev, "Added master device (SMMUv3 %s StreamIds %u)\n",
-> +            dev_name(fwspec->iommu_dev), fwspec->num_ids);
-> +
-> +    return 0;
->   }
->   
-> -static void arm_smmu_device_shutdown(struct platform_device *pdev)
-
-I think this function should have been dropped in the previous patch.
-
-> +static int arm_smmu_add_device(u8 devfn, struct device *dev)
->   {
-> -	arm_smmu_device_remove(pdev);
-> +    int i, ret;
-> +    struct arm_smmu_device *smmu;
-> +    struct arm_smmu_master *master;
-> +    struct iommu_fwspec *fwspec;
-> +
-> +    fwspec = dev_iommu_fwspec_get(dev);
-> +    if ( !fwspec )
-> +        return -ENODEV;
-> +
-> +    smmu = arm_smmu_get_by_dev(fwspec->iommu_dev);
-> +    if ( !smmu )
-> +        return -ENODEV;
-> +
-> +    master = xzalloc(struct arm_smmu_master);
-> +    if ( !master )
-> +        return -ENOMEM;
-> +
-> +    master->dev = dev;
-> +    master->smmu = smmu;
-> +    master->sids = fwspec->ids;
-> +    master->num_sids = fwspec->num_ids;
-> +
-> +    dev_iommu_priv_set(dev, master);
-> +
-> +    /* Check the SIDs are in range of the SMMU and our stream table */
-> +    for ( i = 0; i < master->num_sids; i++ )
-> +    {
-> +        u32 sid = master->sids[i];
-> +
-> +        if ( !arm_smmu_sid_in_range(smmu, sid) )
-> +        {
-> +            ret = -ERANGE;
-> +            goto err_free_master;
-> +        }
-> +
-> +        /* Ensure l2 strtab is initialised */
-> +        if ( smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB )
-> +        {
-> +            ret = arm_smmu_init_l2_strtab(smmu, sid);
-> +            if ( ret )
-> +                goto err_free_master;
-> +        }
-> +    }
-> +
-> +    return 0;
-> +
-> +err_free_master:
-> +    xfree(master);
-> +    dev_iommu_priv_set(dev, NULL);
-> +    return ret;
->   }
->   
-> -static const struct of_device_id arm_smmu_of_match[] = {
-> -	{ .compatible = "arm,smmu-v3", },
-> -	{ },
-> +static const struct iommu_ops arm_smmu_iommu_ops = {
-> +    .init = arm_smmu_iommu_xen_domain_init,
-> +    .hwdom_init = arm_smmu_iommu_hwdom_init,
-> +    .teardown = arm_smmu_iommu_xen_domain_teardown,
-> +    .iotlb_flush = arm_smmu_iotlb_flush,
-> +    .iotlb_flush_all = arm_smmu_iotlb_flush_all,
-> +    .assign_device = arm_smmu_assign_dev,
-> +    .reassign_device = arm_smmu_reassign_dev,
-> +    .map_page = arm_iommu_map_page,
-> +    .unmap_page = arm_iommu_unmap_page,
-> +    .dt_xlate = arm_smmu_dt_xlate,
-> +    .add_device = arm_smmu_add_device,
-> +};
-> +
-> +static const struct dt_device_match arm_smmu_of_match[] = {
-> +    { .compatible = "arm,smmu-v3", },
-> +    { },
->   };
-> +
-> +static __init int arm_smmu_dt_init(struct dt_device_node *dev,
-> +                                   const void *data)
-> +{
-> +    int rc;
-> +
-> +    /*
-> +     * Even if the device can't be initialized, we don't want to
-> +     * give the SMMU device to dom0.
-> +     */
-> +    dt_device_set_used_by(dev, DOMID_XEN);
-> +
-> +    rc = arm_smmu_device_probe(dt_to_dev(dev));
-> +    if ( rc )
-> +        return rc;
-> +
-> +    iommu_set_ops(&arm_smmu_iommu_ops);
-> +    return 0;
-> +}
-> +
-> +DT_DEVICE_START(smmuv3, "ARM SMMU V3", DEVICE_IOMMU)
-> +    .dt_match = arm_smmu_of_match,
-> +    .init = arm_smmu_dt_init,
-> +DT_DEVICE_END
-> 
-
-Cheers,
-
--- 
-Julien Grall
+SGVsbG8gU3RlZmFubywNCg0KPiBPbiAyIERlYyAyMDIwLCBhdCAyOjUxIGFtLCBTdGVmYW5vIFN0
+YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+IHdyb3RlOg0KPiANCj4gT24gVGh1LCAy
+NiBOb3YgMjAyMCwgUmFodWwgU2luZ2ggd3JvdGU6DQo+PiBBZGQgc3VwcG9ydCBmb3IgQVJNIGFy
+Y2hpdGVjdGVkIFNNTVV2MyBpbXBsZW1lbnRhdGlvbi4gSXQgaXMgYmFzZWQgb24NCj4+IHRoZSBM
+aW51eCBTTU1VdjMgZHJpdmVyLg0KPj4gDQo+PiBNYWpvciBkaWZmZXJlbmNlcyB3aXRoIHJlZ2Fy
+ZCB0byBMaW51eCBkcml2ZXIgYXJlIGFzIGZvbGxvd3M6DQo+PiAxLiBPbmx5IFN0YWdlLTIgdHJh
+bnNsYXRpb24gaXMgc3VwcG9ydGVkIGFzIGNvbXBhcmVkIHRvIHRoZSBMaW51eCBkcml2ZXINCj4+
+ICAgdGhhdCBzdXBwb3J0cyBib3RoIFN0YWdlLTEgYW5kIFN0YWdlLTIgdHJhbnNsYXRpb25zLg0K
+Pj4gMi4gVXNlIFAyTSAgcGFnZSB0YWJsZSBpbnN0ZWFkIG9mIGNyZWF0aW5nIG9uZSBhcyBTTU1V
+djMgaGFzIHRoZQ0KPj4gICBjYXBhYmlsaXR5IHRvIHNoYXJlIHRoZSBwYWdlIHRhYmxlcyB3aXRo
+IHRoZSBDUFUuDQo+PiAzLiBUYXNrbGV0cyBhcmUgdXNlZCBpbiBwbGFjZSBvZiB0aHJlYWRlZCBJ
+UlEncyBpbiBMaW51eCBmb3IgZXZlbnQgcXVldWUNCj4+ICAgYW5kIHByaW9yaXR5IHF1ZXVlIElS
+USBoYW5kbGluZy4NCj4+IDQuIExhdGVzdCB2ZXJzaW9uIG9mIHRoZSBMaW51eCBTTU1VdjMgY29k
+ZSBpbXBsZW1lbnRzIHRoZSBjb21tYW5kcyBxdWV1ZQ0KPj4gICBhY2Nlc3MgZnVuY3Rpb25zIGJh
+c2VkIG9uIGF0b21pYyBvcGVyYXRpb25zIGltcGxlbWVudGVkIGluIExpbnV4Lg0KPj4gICBBdG9t
+aWMgZnVuY3Rpb25zIHVzZWQgYnkgdGhlIGNvbW1hbmRzIHF1ZXVlIGFjY2VzcyBmdW5jdGlvbnMg
+YXJlIG5vdA0KPj4gICBpbXBsZW1lbnRlZCBpbiBYRU4gdGhlcmVmb3JlIHdlIGRlY2lkZWQgdG8g
+cG9ydCB0aGUgZWFybGllciB2ZXJzaW9uDQo+PiAgIG9mIHRoZSBjb2RlLiBPbmNlIHRoZSBwcm9w
+ZXIgYXRvbWljIG9wZXJhdGlvbnMgd2lsbCBiZSBhdmFpbGFibGUgaW4NCj4+ICAgWEVOIHRoZSBk
+cml2ZXIgY2FuIGJlIHVwZGF0ZWQuDQo+PiA1LiBEcml2ZXIgaXMgY3VycmVudGx5IHN1cHBvcnRl
+ZCBhcyBUZWNoIFByZXZpZXcuDQo+IA0KPiBUaGlzIHBhdGNoIGlzIGJpZyBhbmQgd2FzIGRpZmZp
+Y3VsdCB0byByZXZpZXcsIG5vbmV0aGVsZXNzIEkgdHJpZWQgOi0pDQoNClRoYW5rcyBhZ2FpbiBm
+b3IgcmV2aWV3aW5nIHRoZSBjb2RlLg0KPiANCj4gVGhhdCBzYWlkLCB0aGUgY29kZSBpcyBzZWxm
+LWNvbnRhaW5lZCwgbWFya2VkIGFzIFRlY2ggUHJldmlldywgYW5kIG5vdA0KPiBhdCByaXNrIG9m
+IG1ha2luZyBvdGhlciB0aGluZ3MgdW5zdGFibGUsIHNvIGl0IGlzIGxvdyByaXNrIHRvIGFjY2Vw
+dCBpdC4NCj4gDQo+IENvbW1lbnRzIGJlbG93Lg0KPiANCj4gDQo+PiBTaWduZWQtb2ZmLWJ5OiBS
+YWh1bCBTaW5naCA8cmFodWwuc2luZ2hAYXJtLmNvbT4NCj4+IC0tLQ0KPj4gTUFJTlRBSU5FUlMg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgNiArDQo+PiBTVVBQT1JULm1kICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHwgICAxICsNCj4+IHhlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL0tj
+b25maWcgICAgICAgfCAgMTAgKw0KPj4geGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL01ha2Vm
+aWxlICB8ICAgMSArDQo+PiB4ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hcm0vc21tdS12My5jIHwg
+OTg2ICsrKysrKysrKysrKysrKysrKysrKy0tLS0tDQo+PiA1IGZpbGVzIGNoYW5nZWQsIDgxNCBp
+bnNlcnRpb25zKCspLCAxOTAgZGVsZXRpb25zKC0pDQo+PiANCj4+IGRpZmYgLS1naXQgYS9NQUlO
+VEFJTkVSUyBiL01BSU5UQUlORVJTDQo+PiBpbmRleCBkYWIzOGE2YTE0Li4xZDYzNDg5ZWVjIDEw
+MDY0NA0KPj4gLS0tIGEvTUFJTlRBSU5FUlMNCj4+ICsrKyBiL01BSU5UQUlORVJTDQo+PiBAQCAt
+MjQ5LDYgKzI0OSwxMiBAQCBGOgl4ZW4vaW5jbHVkZS9hc20tYXJtLw0KPj4gRjoJeGVuL2luY2x1
+ZGUvcHVibGljL2FyY2gtYXJtLw0KPj4gRjoJeGVuL2luY2x1ZGUvcHVibGljL2FyY2gtYXJtLmgN
+Cj4+IA0KPj4gK0FSTSBTTU1VdjMNCj4+ICtNOglCZXJ0cmFuZCBNYXJxdWlzIDxiZXJ0cmFuZC5t
+YXJxdWlzQGFybS5jb20+DQo+PiArTToJUmFodWwgU2luZ2ggPHJhaHVsLnNpbmdoQGFybS5jb20+
+DQo+PiArUzoJU3VwcG9ydGVkDQo+PiArRjoJeGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL3Nt
+bXUtdjMuYw0KPj4gKw0KPj4gQ2hhbmdlIExvZw0KPj4gTToJUGF1bCBEdXJyYW50IDxwYXVsQHhl
+bi5vcmc+DQo+PiBSOglDb21tdW5pdHkgTWFuYWdlciA8Y29tbXVuaXR5Lm1hbmFnZXJAeGVucHJv
+amVjdC5vcmc+DQo+PiBkaWZmIC0tZ2l0IGEvU1VQUE9SVC5tZCBiL1NVUFBPUlQubWQNCj4+IGlu
+ZGV4IGFiMDJhY2E1ZjQuLmU0MDJjNzIwMmQgMTAwNjQ0DQo+PiAtLS0gYS9TVVBQT1JULm1kDQo+
+PiArKysgYi9TVVBQT1JULm1kDQo+PiBAQCAtNjgsNiArNjgsNyBAQCBGb3IgdGhlIENvcnRleCBB
+NTcgcjBwMCAtIHIxcDEsIHNlZSBFcnJhdGEgODMyMDc1Lg0KPj4gICAgIFN0YXR1cywgQVJNIFNN
+TVV2MTogU3VwcG9ydGVkLCBub3Qgc2VjdXJpdHkgc3VwcG9ydGVkDQo+PiAgICAgU3RhdHVzLCBB
+Uk0gU01NVXYyOiBTdXBwb3J0ZWQsIG5vdCBzZWN1cml0eSBzdXBwb3J0ZWQNCj4+ICAgICBTdGF0
+dXMsIFJlbmVzYXMgSVBNTVUtVk1TQTogU3VwcG9ydGVkLCBub3Qgc2VjdXJpdHkgc3VwcG9ydGVk
+DQo+PiArICAgIFN0YXR1cywgQVJNIFNNTVV2MzogVGVjaCBQcmV2aWV3DQo+PiANCj4+ICMjIyBB
+Uk0vR0lDdjMgSVRTDQo+PiANCj4+IGRpZmYgLS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3Vn
+aC9LY29uZmlnIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvS2NvbmZpZw0KPj4gaW5kZXggMDAz
+NjAwN2VjNC4uNWI3MWM1OWY0NyAxMDA2NDQNCj4+IC0tLSBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJv
+dWdoL0tjb25maWcNCj4+ICsrKyBiL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL0tjb25maWcNCj4+
+IEBAIC0xMyw2ICsxMywxNiBAQCBjb25maWcgQVJNX1NNTVUNCj4+IAkgIFNheSBZIGhlcmUgaWYg
+eW91ciBTb0MgaW5jbHVkZXMgYW4gSU9NTVUgZGV2aWNlIGltcGxlbWVudGluZyB0aGUNCj4+IAkg
+IEFSTSBTTU1VIGFyY2hpdGVjdHVyZS4NCj4+IA0KPj4gK2NvbmZpZyBBUk1fU01NVV9WMw0KPj4g
+Kwlib29sICJBUk0gTHRkLiBTeXN0ZW0gTU1VIFZlcnNpb24gMyAoU01NVXYzKSBTdXBwb3J0IiBp
+ZiBFWFBFUlQNCj4+ICsJZGVwZW5kcyBvbiBBUk1fNjQNCj4+ICsJLS0taGVscC0tLQ0KPj4gKwkg
+U3VwcG9ydCBmb3IgaW1wbGVtZW50YXRpb25zIG9mIHRoZSBBUk0gU3lzdGVtIE1NVSBhcmNoaXRl
+Y3R1cmUNCj4+ICsJIHZlcnNpb24gMy4NCj4+ICsNCj4+ICsJIFNheSBZIGhlcmUgaWYgeW91ciBz
+eXN0ZW0gaW5jbHVkZXMgYW4gSU9NTVUgZGV2aWNlIGltcGxlbWVudGluZw0KPj4gKwkgdGhlIEFS
+TSBTTU1VdjMgYXJjaGl0ZWN0dXJlLg0KPj4gKw0KPj4gY29uZmlnIElQTU1VX1ZNU0ENCj4+IAli
+b29sICJSZW5lc2FzIElQTU1VLVZNU0EgZm91bmQgaW4gUi1DYXIgR2VuMyBTb0NzIg0KPj4gCWRl
+cGVuZHMgb24gQVJNXzY0DQo+PiBkaWZmIC0tZ2l0IGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gv
+YXJtL01ha2VmaWxlIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL01ha2VmaWxlDQo+PiBp
+bmRleCBmY2Q5MThlYTNlLi5jNWZiM2I1OGE1IDEwMDY0NA0KPj4gLS0tIGEveGVuL2RyaXZlcnMv
+cGFzc3Rocm91Z2gvYXJtL01ha2VmaWxlDQo+PiArKysgYi94ZW4vZHJpdmVycy9wYXNzdGhyb3Vn
+aC9hcm0vTWFrZWZpbGUNCj4+IEBAIC0xLDMgKzEsNCBAQA0KPj4gb2JqLXkgKz0gaW9tbXUubyBp
+b21tdV9oZWxwZXJzLm8gaW9tbXVfZndzcGVjLm8NCj4+IG9iai0kKENPTkZJR19BUk1fU01NVSkg
+Kz0gc21tdS5vDQo+PiBvYmotJChDT05GSUdfSVBNTVVfVk1TQSkgKz0gaXBtbXUtdm1zYS5vDQo+
+PiArb2JqLSQoQ09ORklHX0FSTV9TTU1VX1YzKSArPSBzbW11LXYzLm8NCj4+IGRpZmYgLS1naXQg
+YS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hcm0vc21tdS12My5jIGIveGVuL2RyaXZlcnMvcGFz
+c3Rocm91Z2gvYXJtL3NtbXUtdjMuYw0KPj4gaW5kZXggNTVkMWNiYTE5NC4uOGYyMzM3ZTdmMiAx
+MDA2NDQNCj4+IC0tLSBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FybS9zbW11LXYzLmMNCj4+
+ICsrKyBiL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FybS9zbW11LXYzLmMNCj4+IEBAIC0yLDM2
+ICsyLDI4MCBAQA0KPj4gLyoNCj4+ICAqIElPTU1VIEFQSSBmb3IgQVJNIGFyY2hpdGVjdGVkIFNN
+TVV2MyBpbXBsZW1lbnRhdGlvbnMuDQo+PiAgKg0KPj4gLSAqIENvcHlyaWdodCAoQykgMjAxNSBB
+Uk0gTGltaXRlZA0KPj4gKyAqIEJhc2VkIG9uIExpbnV4J3MgU01NVXYzIGRyaXZlcjoNCj4+ICsg
+KiAgICBkcml2ZXJzL2lvbW11L2FybS9hcm0tc21tdS12My9hcm0tc21tdS12My5jDQo+PiArICog
+ICAgY29tbWl0OiA5NTFjYmJjMzg2ZmYwMWI1MGRhNGY0NjM4N2U5OTRlODFkOWFiNDMxDQo+PiAr
+ICogYW5kIFhlbidzIFNNTVUgZHJpdmVyOg0KPj4gKyAqICAgIHhlbi9kcml2ZXJzL3Bhc3N0aHJv
+dWdoL2FybS9zbW11LmMNCj4+ICAqDQo+PiAtICogQXV0aG9yOiBXaWxsIERlYWNvbiA8d2lsbC5k
+ZWFjb25AYXJtLmNvbT4NCj4+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMTUgQVJNIExpbWl0ZWQgV2ls
+bCBEZWFjb24gPHdpbGwuZGVhY29uQGFybS5jb20+DQo+PiAgKg0KPj4gLSAqIFRoaXMgZHJpdmVy
+IGlzIHBvd2VyZWQgYnkgYmFkIGNvZmZlZSBhbmQgYm9tYmF5IG1peC4NCj4+ICsgKiBDb3B5cmln
+aHQgKEMpIDIwMjAgQXJtIEx0ZC4NCj4+ICsgKg0KPj4gKyAqIFRoaXMgcHJvZ3JhbSBpcyBmcmVl
+IHNvZnR3YXJlOyB5b3UgY2FuIHJlZGlzdHJpYnV0ZSBpdCBhbmQvb3IgbW9kaWZ5DQo+PiArICog
+aXQgdW5kZXIgdGhlIHRlcm1zIG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSB2ZXJz
+aW9uIDIgYXMNCj4+ICsgKiBwdWJsaXNoZWQgYnkgdGhlIEZyZWUgU29mdHdhcmUgRm91bmRhdGlv
+bi4NCj4+ICsgKg0KPj4gKyAqIFRoaXMgcHJvZ3JhbSBpcyBkaXN0cmlidXRlZCBpbiB0aGUgaG9w
+ZSB0aGF0IGl0IHdpbGwgYmUgdXNlZnVsLA0KPj4gKyAqIGJ1dCBXSVRIT1VUIEFOWSBXQVJSQU5U
+WTsgd2l0aG91dCBldmVuIHRoZSBpbXBsaWVkIHdhcnJhbnR5IG9mDQo+PiArICogTUVSQ0hBTlRB
+QklMSVRZIG9yIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFLiAgU2VlIHRoZQ0KPj4g
+KyAqIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGZvciBtb3JlIGRldGFpbHMuDQo+PiArICoN
+Cj4+ICsgKiBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2ZWQgYSBjb3B5IG9mIHRoZSBHTlUgR2VuZXJh
+bCBQdWJsaWMgTGljZW5zZQ0KPj4gKyAqIGFsb25nIHdpdGggdGhpcyBwcm9ncmFtLiAgSWYgbm90
+LCBzZWUgPGh0dHA6Ly93d3cuZ251Lm9yZy9saWNlbnNlcy8+Lg0KPj4gKyAqDQo+PiArICovDQo+
+PiArDQo+PiArI2luY2x1ZGUgPHhlbi9hY3BpLmg+DQo+PiArI2luY2x1ZGUgPHhlbi9jb25maWcu
+aD4NCj4+ICsjaW5jbHVkZSA8eGVuL2RlbGF5Lmg+DQo+PiArI2luY2x1ZGUgPHhlbi9lcnJuby5o
+Pg0KPj4gKyNpbmNsdWRlIDx4ZW4vZXJyLmg+DQo+PiArI2luY2x1ZGUgPHhlbi9pcnEuaD4NCj4+
+ICsjaW5jbHVkZSA8eGVuL2xpYi5oPg0KPj4gKyNpbmNsdWRlIDx4ZW4vbGlzdC5oPg0KPj4gKyNp
+bmNsdWRlIDx4ZW4vbW0uaD4NCj4+ICsjaW5jbHVkZSA8eGVuL3JidHJlZS5oPg0KPj4gKyNpbmNs
+dWRlIDx4ZW4vc2NoZWQuaD4NCj4+ICsjaW5jbHVkZSA8eGVuL3NpemVzLmg+DQo+PiArI2luY2x1
+ZGUgPHhlbi92bWFwLmg+DQo+PiArI2luY2x1ZGUgPGFzbS9hdG9taWMuaD4NCj4+ICsjaW5jbHVk
+ZSA8YXNtL2RldmljZS5oPg0KPj4gKyNpbmNsdWRlIDxhc20vaW8uaD4NCj4+ICsjaW5jbHVkZSA8
+YXNtL3BsYXRmb3JtLmg+DQo+PiArI2luY2x1ZGUgPGFzbS9pb21tdV9md3NwZWMuaD4NCj4+ICsN
+Cj4+ICsvKiBMaW51eCBjb21wYXRpYmlsaXR5IGZ1bmN0aW9ucy4gKi8NCj4+ICt0eXBlZGVmIHBh
+ZGRyX3QgZG1hX2FkZHJfdDsNCj4+ICt0eXBlZGVmIHVuc2lnbmVkIGludCBnZnBfdDsNCj4+ICsN
+Cj4+ICsjZGVmaW5lIHBsYXRmb3JtX2RldmljZSBkZXZpY2UNCj4+ICsNCj4+ICsjZGVmaW5lIEdG
+UF9LRVJORUwgMA0KPj4gKw0KPj4gKy8qIEFsaWFzIHRvIFhlbiBkZXZpY2UgdHJlZSBoZWxwZXJz
+ICovDQo+PiArI2RlZmluZSBkZXZpY2Vfbm9kZSBkdF9kZXZpY2Vfbm9kZQ0KPj4gKyNkZWZpbmUg
+b2ZfcGhhbmRsZV9hcmdzIGR0X3BoYW5kbGVfYXJncw0KPj4gKyNkZWZpbmUgb2ZfZGV2aWNlX2lk
+IGR0X2RldmljZV9tYXRjaA0KPj4gKyNkZWZpbmUgb2ZfbWF0Y2hfbm9kZSBkdF9tYXRjaF9ub2Rl
+DQo+PiArI2RlZmluZSBvZl9wcm9wZXJ0eV9yZWFkX3UzMihucCwgcG5hbWUsIG91dCkgKCFkdF9w
+cm9wZXJ0eV9yZWFkX3UzMihucCwgcG5hbWUsIG91dCkpDQo+PiArI2RlZmluZSBvZl9wcm9wZXJ0
+eV9yZWFkX2Jvb2wgZHRfcHJvcGVydHlfcmVhZF9ib29sDQo+PiArI2RlZmluZSBvZl9wYXJzZV9w
+aGFuZGxlX3dpdGhfYXJncyBkdF9wYXJzZV9waGFuZGxlX3dpdGhfYXJncw0KPiANCj4gR2l2ZW4g
+YWxsIHRoZSBjaGFuZ2VzIHRvIHRoZSBmaWxlIGJ5IHRoZSBwcmV2aW91cyBwYXRjaGVzIHdlIGFy
+ZQ0KPiBiYXNpY2FsbHkgZnVsbHkgKG9yIGFsbW9zdCBmdWxseSkgYWRhcHRpbmcgdGhpcyBjb2Rl
+IHRvIFhlbi4NCj4gDQo+IFNvIGF0IHRoYXQgcG9pbnQgSSB3b25kZXIgaWYgd2Ugc2hvdWxkIGp1
+c3QgYXMgd2VsbCBtYWtlIHRoZXNlIGNoYW5nZXMNCj4gKGUuZy4gcy9vZl9waGFuZGxlX2FyZ3Mv
+ZHRfcGhhbmRsZV9hcmdzL2cpIHRvIHRoZSBjb2RlIHRvby4NCg0KWWVzLCB5b3UgYXJlIHJpZ2h0
+IHRoYXQgaXMgd2h5IGluIHRoZSBmaXJzdCB2ZXJzaW9uIG9mIHRoZSBwYXRjaCBJIG1vZGlmeWlu
+ZyB0aGUgY29kZSB0byBtYWtlIGl0IGZ1bGx5IFhFTiBjb21wYXRpYmxlLiBCdXQgaW4gdGhpcyBw
+YXRjaCBzZXJpZXMgSSB1c2UgdGhlIExpbnV4IGNvbXBhdGliaWxpdHkgZnVuY3Rpb24gdG8gaGF2
+ZSBMaW51eCBjb2RlIHVubW9kaWZpZWQuSSBhbHNvIHByZWZlciB0byBtYWtlIGNoYW5nZXMgKHMv
+b2ZfcGhhbmRsZV9hcmdzL2R0X3BoYW5kbGVfYXJncy9nKS4NCg0KPiANCj4gSnVsaWVuLCBSYWh1
+bCwgd2hhdCBkbyB5b3UgZ3V5cyB0aGluaz8gDQo+IA0KPiANCj4+ICsvKiBBbGlhcyB0byBYZW4g
+bG9jayBmdW5jdGlvbnMgKi8NCj4gDQo+IEkgdGhpbmsgdGhpcyBkZXNlcnZlcyBhdCBsZWFzdCBv
+bmUgc3RhdGVtZW50IHRvIGV4cGxhaW4gd2h5IGl0IGlzIE9LLg0KDQpBY2suIEkgV2lsbCBhZGQg
+dGhlIGNvbW1lbnQuDQo+IA0KPiBBbHNvLCBhIHNpbWlsYXIgY29tbWVudCB0byB0aGUgb25lIGFi
+b3ZlOiBtYXliZSB3ZSBzaG91bGQgYWRkIGEgY291cGxlDQo+IG9mIG1vcmUgcHJlcGFyYXRpb24g
+cGF0Y2hlcyB0byBzL211dGV4L3NwaW5sb2NrL2cgYW5kIGNoYW5nZSB0aGUgdGltZQ0KPiBhbmQg
+YWxsb2NhdGlvbiBmdW5jdGlvbnMgdG9vLg0KPiANCj4gDQo+PiArI2RlZmluZSBtdXRleCBzcGlu
+bG9jaw0KPj4gKyNkZWZpbmUgbXV0ZXhfaW5pdCBzcGluX2xvY2tfaW5pdA0KPj4gKyNkZWZpbmUg
+bXV0ZXhfbG9jayBzcGluX2xvY2sNCj4+ICsjZGVmaW5lIG11dGV4X3VubG9jayBzcGluX3VubG9j
+aw0KPj4gKw0KPj4gKy8qIEFsaWFzIHRvIFhlbiB0aW1lIGZ1bmN0aW9ucyAqLw0KPj4gKyNkZWZp
+bmUga3RpbWVfdCBzX3RpbWVfdA0KPj4gKyNkZWZpbmUga3RpbWVfZ2V0KCkgICAgICAgICAgICAg
+KE5PVygpKQ0KPj4gKyNkZWZpbmUga3RpbWVfYWRkX3VzKHQsaSkgICAgICAgKHQgKyBNSUNST1NF
+Q1MoaSkpDQo+PiArI2RlZmluZSBrdGltZV9jb21wYXJlKHQsaSkgICAgICAodCA+IChpKSkNCj4+
+ICsNCj4+ICsvKiBBbGlhcyB0byBYZW4gYWxsb2NhdGlvbiBoZWxwZXJzICovDQo+PiArI2RlZmlu
+ZSBremFsbG9jKHNpemUsIGZsYWdzKSAgICBfeHphbGxvYyhzaXplLCBzaXplb2Yodm9pZCAqKSkN
+Cj4+ICsjZGVmaW5lIGtmcmVlIHhmcmVlDQo+PiArI2RlZmluZSBkZXZtX2t6YWxsb2MoZGV2LCBz
+aXplLCBmbGFncykgIF94emFsbG9jKHNpemUsIHNpemVvZih2b2lkICopKQ0KPj4gKw0KPj4gKy8q
+IERldmljZSBsb2dnZXIgZnVuY3Rpb25zICovDQo+PiArI2RlZmluZSBkZXZfbmFtZShkZXYpIGR0
+X25vZGVfZnVsbF9uYW1lKGRldi0+b2Zfbm9kZSkNCj4+ICsjZGVmaW5lIGRldl9kYmcoZGV2LCBm
+bXQsIC4uLikgICAgICBcDQo+PiArICAgIHByaW50ayhYRU5MT0dfREVCVUcgIlNNTVV2MzogJXM6
+ICIgZm10LCBkZXZfbmFtZShkZXYpLCAjIyBfX1ZBX0FSR1NfXykNCj4+ICsjZGVmaW5lIGRldl9u
+b3RpY2UoZGV2LCBmbXQsIC4uLikgICBcDQo+PiArICAgIHByaW50ayhYRU5MT0dfSU5GTyAiU01N
+VXYzOiAlczogIiBmbXQsIGRldl9uYW1lKGRldiksICMjIF9fVkFfQVJHU19fKQ0KPj4gKyNkZWZp
+bmUgZGV2X3dhcm4oZGV2LCBmbXQsIC4uLikgICAgIFwNCj4+ICsgICAgcHJpbnRrKFhFTkxPR19X
+QVJOSU5HICJTTU1VdjM6ICVzOiAiIGZtdCwgZGV2X25hbWUoZGV2KSwgIyMgX19WQV9BUkdTX18p
+DQo+PiArI2RlZmluZSBkZXZfZXJyKGRldiwgZm10LCAuLi4pICAgICAgXA0KPj4gKyAgICBwcmlu
+dGsoWEVOTE9HX0VSUiAiU01NVXYzOiAlczogIiBmbXQsIGRldl9uYW1lKGRldiksICMjIF9fVkFf
+QVJHU19fKQ0KPj4gKyNkZWZpbmUgZGV2X2luZm8oZGV2LCBmbXQsIC4uLikgICAgIFwNCj4+ICsg
+ICAgcHJpbnRrKFhFTkxPR19JTkZPICJTTU1VdjM6ICVzOiAiIGZtdCwgZGV2X25hbWUoZGV2KSwg
+IyMgX19WQV9BUkdTX18pDQo+PiArI2RlZmluZSBkZXZfZXJyX3JhdGVsaW1pdGVkKGRldiwgZm10
+LCAuLi4pICAgICAgXA0KPj4gKyAgICBwcmludGsoWEVOTE9HX0VSUiAiU01NVXYzOiAlczogIiBm
+bXQsIGRldl9uYW1lKGRldiksICMjIF9fVkFfQVJHU19fKQ0KPj4gKw0KPj4gKy8qDQo+PiArICog
+UGVyaW9kaWNhbGx5IHBvbGwgYW4gYWRkcmVzcyBhbmQgd2FpdCBiZXR3ZWVuIHJlYWRzIGluIHVz
+IHVudGlsIGENCj4+ICsgKiBjb25kaXRpb24gaXMgbWV0IG9yIGEgdGltZW91dCBvY2N1cnMuDQo+
+IA0KPiBJdCB3b3VsZCBiZSBnb29kIHRvIGFkZCBhIHN0YXRlbWVudCB0byBwb2ludCBvdXQgd2hh
+dCB0aGUgcmV0dXJuIHZhbHVlDQo+IGlzIGdvaW5nIHRvIGJlLg0KDQpBY2suIA0KPiANCj4gDQo+
+PiArICovDQo+PiArI2RlZmluZSByZWFkeF9wb2xsX3RpbWVvdXQob3AsIGFkZHIsIHZhbCwgY29u
+ZCwgc2xlZXBfdXMsIHRpbWVvdXRfdXMpIFwNCj4+ICsoeyBcDQo+PiArICAgICBzX3RpbWVfdCBk
+ZWFkbGluZSA9IE5PVygpICsgTUlDUk9TRUNTKHRpbWVvdXRfdXMpOyBcDQo+PiArICAgICBmb3Ig
+KDs7KSB7IFwNCj4+ICsgICAgICAgICh2YWwpID0gb3AoYWRkcik7IFwNCj4+ICsgICAgICAgIGlm
+IChjb25kKSBcDQo+PiArICAgICAgICAgICAgYnJlYWs7IFwNCj4+ICsgICAgICAgIGlmIChOT1co
+KSA+IGRlYWRsaW5lKSB7IFwNCj4+ICsgICAgICAgICAgICAodmFsKSA9IG9wKGFkZHIpOyBcDQo+
+PiArICAgICAgICAgICAgYnJlYWs7IFwNCj4+ICsgICAgICAgIH0gXA0KPj4gKyAgICAgICAgdWRl
+bGF5KHNsZWVwX3VzKTsgXA0KPj4gKyAgICAgfSBcDQo+PiArICAgICAoY29uZCkgPyAwIDogLUVU
+SU1FRE9VVDsgXA0KPj4gK30pDQo+PiArDQo+PiArI2RlZmluZSByZWFkbF9yZWxheGVkX3BvbGxf
+dGltZW91dChhZGRyLCB2YWwsIGNvbmQsIGRlbGF5X3VzLCB0aW1lb3V0X3VzKSBcDQo+PiArICAg
+IHJlYWR4X3BvbGxfdGltZW91dChyZWFkbF9yZWxheGVkLCBhZGRyLCB2YWwsIGNvbmQsIGRlbGF5
+X3VzLCB0aW1lb3V0X3VzKQ0KPj4gKw0KPj4gKyNkZWZpbmUgRklFTERfUFJFUChfbWFzaywgX3Zh
+bCkgICAgICAgICBcDQo+PiArICAgICgoKHR5cGVvZihfbWFzaykpKF92YWwpIDw8IChfX2J1aWx0
+aW5fZmZzbGwoX21hc2spIC0gMSkpICYgKF9tYXNrKSkNCj4gDQo+IExldCdzIGFkZCB0aGUgZGVm
+aW5pdGlvbiBvZiBmZnNsbCB0byBiaXRvcHMuaA0KDQpPay4gDQo+IA0KPiANCj4+ICsjZGVmaW5l
+IEZJRUxEX0dFVChfbWFzaywgX3JlZykgICAgICAgICAgXA0KPj4gKyAgICAodHlwZW9mKF9tYXNr
+KSkoKChfcmVnKSAmIChfbWFzaykpID4+IChfX2J1aWx0aW5fZmZzbGwoX21hc2spIC0gMSkpDQo+
+PiArDQo+PiArI2RlZmluZSBXUklURV9PTkNFKHgsIHZhbCkgICAgICAgICAgICAgICAgICBcDQo+
+PiArZG8geyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQo+PiArICAg
+ICoodm9sYXRpbGUgdHlwZW9mKHgpICopJih4KSA9ICh2YWwpOyAgICBcDQo+PiArfSB3aGlsZSAo
+MCkNCj4gDQo+IG1heWJlIHdlIHNob3VsZCBkZWZpbmUgdGhpcyBpbiB4ZW4vaW5jbHVkZS94ZW4v
+bGliLmgNCg0KT2suIA0KPiANCj4gDQo+PiArDQo+PiArLyogWGVuOiBTdHViIG91dCBETUEgZG9t
+YWluIHJlbGF0ZWQgZnVuY3Rpb25zICovDQo+PiArI2RlZmluZSBpb21tdV9nZXRfZG1hX2Nvb2tp
+ZShkb20pIDANCj4+ICsjZGVmaW5lIGlvbW11X3B1dF9kbWFfY29va2llKGRvbSkNCj4gDQo+IFNo
+b3VsZG4ndCB3ZSByZW1vdmUgYW55IGNhbGwgdG8gaW9tbXVfZ2V0X2RtYV9jb29raWUgYW5kDQo+
+IGlvbW11X3B1dF9kbWFfY29va2llIGluIG9uZSBvZiB0aGUgcHJldmlvdXMgcGF0Y2hlcz8NCg0K
+QWNrLiANCj4gDQo+IA0KPj4gKy8qDQo+PiArICogSGVscGVycyBmb3IgRE1BIGFsbG9jYXRpb24u
+IEp1c3QgdGhlIGZ1bmN0aW9uIG5hbWUgaXMgcmV1c2VkIGZvcg0KPj4gKyAqIHBvcnRpbmcgY29k
+ZSwgdGhlc2UgYWxsb2NhdGlvbiBhcmUgbm90IG1hbmFnZWQgYWxsb2NhdGlvbnMNCj4+ICAqLw0K
+Pj4gK3N0YXRpYyB2b2lkICpkbWFtX2FsbG9jX2NvaGVyZW50KHN0cnVjdCBkZXZpY2UgKmRldiwg
+c2l6ZV90IHNpemUsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFkZHJf
+dCAqZG1hX2hhbmRsZSwgZ2ZwX3QgZ2ZwKQ0KPj4gK3sNCj4+ICsgICAgdm9pZCAqdmFkZHI7DQo+
+PiArICAgIHVuc2lnbmVkIGxvbmcgYWxpZ25tZW50ID0gc2l6ZTsNCj4+ICsNCj4+ICsgICAgLyoN
+Cj4+ICsgICAgICogX3h6YWxsb2MgcmVxdWlyZXMgdGhhdCB0aGUgKGFsaWduICYgKGFsaWduIC0x
+KSkgPSAwLiBNb3N0IG9mIHRoZQ0KPj4gKyAgICAgKiBhbGxvY2F0aW9ucyBpbiBTTU1VIGNvZGUg
+c2hvdWxkIHNlbmQgdGhlIHJpZ2h0IHZhbHVlIGZvciBzaXplLiBJbg0KPj4gKyAgICAgKiBjYXNl
+IHRoaXMgaXMgbm90IHRydWUgcHJpbnQgYSB3YXJuaW5nIGFuZCBhbGlnbiB0byB0aGUgc2l6ZSBv
+ZiBhDQo+PiArICAgICAqICh2b2lkICopDQo+PiArICAgICAqLw0KPj4gKyAgICBpZiAoIHNpemUg
+JiAoc2l6ZSAtIDEpICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgcHJpbnRrKFhFTkxPR19XQVJO
+SU5HICJTTU1VdjM6IEZpeGluZyBhbGlnbm1lbnQgZm9yIHRoZSBETUEgYnVmZmVyXG4iKTsNCj4+
+ICsgICAgICAgIGFsaWdubWVudCA9IHNpemVvZih2b2lkICopOw0KPj4gKyAgICB9DQo+PiArDQo+
+PiArICAgIHZhZGRyID0gX3h6YWxsb2Moc2l6ZSwgYWxpZ25tZW50KTsNCj4+ICsgICAgaWYgKCAh
+dmFkZHIgKQ0KPj4gKyAgICB7DQo+PiArICAgICAgICBwcmludGsoWEVOTE9HX0VSUiAiU01NVXYz
+OiBETUEgYWxsb2NhdGlvbiBmYWlsZWRcbiIpOw0KPj4gKyAgICAgICAgcmV0dXJuIE5VTEw7DQo+
+PiArICAgIH0NCj4+ICsNCj4+ICsgICAgKmRtYV9oYW5kbGUgPSB2aXJ0X3RvX21hZGRyKHZhZGRy
+KTsNCj4+ICsNCj4+ICsgICAgcmV0dXJuIHZhZGRyOw0KPj4gK30NCj4+ICsNCj4+ICsvKiBYZW46
+IFR5cGUgZGVmaW5pdGlvbnMgZm9yIGlvbW11X2RvbWFpbiAqLw0KPj4gKyNkZWZpbmUgSU9NTVVf
+RE9NQUlOX1VOTUFOQUdFRCAwDQo+PiArI2RlZmluZSBJT01NVV9ET01BSU5fRE1BIDENCj4+ICsj
+ZGVmaW5lIElPTU1VX0RPTUFJTl9JREVOVElUWSAyDQo+PiArDQo+PiArLyogWGVuIHNwZWNpZmlj
+IGNvZGUuICovDQo+PiArc3RydWN0IGlvbW11X2RvbWFpbiB7DQo+PiArICAgIC8qIFJ1bnRpbWUg
+U01NVSBjb25maWd1cmF0aW9uIGZvciB0aGlzIGlvbW11X2RvbWFpbiAqLw0KPj4gKyAgICBhdG9t
+aWNfdCByZWY7DQo+PiArICAgIC8qDQo+PiArICAgICAqIFVzZWQgdG8gbGluayBpb21tdV9kb21h
+aW4gY29udGV4dHMgZm9yIGEgc2FtZSBkb21haW4uDQo+PiArICAgICAqIFRoZXJlIGlzIGF0IGxl
+YXN0IG9uZSBwZXItU01NVSB0byB1c2VkIGJ5IHRoZSBkb21haW4uDQo+PiArICAgICAqLw0KPj4g
+KyAgICBzdHJ1Y3QgbGlzdF9oZWFkICAgIGxpc3Q7DQo+PiArfTsNCj4+ICsNCj4+ICsvKiBEZXNj
+cmliZXMgaW5mb3JtYXRpb24gcmVxdWlyZWQgZm9yIGEgWGVuIGRvbWFpbiAqLw0KPj4gK3N0cnVj
+dCBhcm1fc21tdV94ZW5fZG9tYWluIHsNCj4+ICsgICAgc3BpbmxvY2tfdCAgICAgIGxvY2s7DQo+
+PiArDQo+PiArICAgIC8qIExpc3Qgb2YgaW9tbXUgZG9tYWlucyBhc3NvY2lhdGVkIHRvIHRoaXMg
+ZG9tYWluICovDQo+PiArICAgIHN0cnVjdCBsaXN0X2hlYWQgICAgY29udGV4dHM7DQo+PiArfTsN
+Cj4+ICsNCj4+ICsvKg0KPj4gKyAqIEluZm9ybWF0aW9uIGFib3V0IGVhY2ggZGV2aWNlIHN0b3Jl
+ZCBpbiBkZXYtPmFyY2hkYXRhLmlvbW11DQo+PiArICogVGhlIGRldi0+YXJjaGRhdGEuaW9tbXUg
+c3RvcmVzIHRoZSBpb21tdV9kb21haW4gKHJ1bnRpbWUgY29uZmlndXJhdGlvbiBvZg0KPj4gKyAq
+IHRoZSBTTU1VKS4NCj4+ICsgKi8NCj4+ICtzdHJ1Y3QgYXJtX3NtbXVfeGVuX2RldmljZSB7DQo+
+PiArICAgIHN0cnVjdCBpb21tdV9kb21haW4gKmRvbWFpbjsNCj4+ICt9Ow0KPiANCj4gRG8gd2Ug
+bmVlZCBib3RoIHN0cnVjdCBhcm1fc21tdV94ZW5fZGV2aWNlIGFuZCBzdHJ1Y3QgaW9tbXVfZG9t
+YWluPw0KPiANCg0KTm8gd2UgZG9u4oCZdCBuZWVkIGJvdGguIEkgd2lsbCByZW1vdmUgdGhlIHN0
+cnVjdCBhcm1fc21tdV94ZW5fZGV2aWNlLiANCg0KPiANCj4+ICsvKiBLZWVwIGEgbGlzdCBvZiBk
+ZXZpY2VzIGFzc29jaWF0ZWQgd2l0aCB0aGlzIGRyaXZlciAqLw0KPj4gK3N0YXRpYyBERUZJTkVf
+U1BJTkxPQ0soYXJtX3NtbXVfZGV2aWNlc19sb2NrKTsNCj4+ICtzdGF0aWMgTElTVF9IRUFEKGFy
+bV9zbW11X2RldmljZXMpOw0KPj4gKw0KPj4gKw0KPj4gK3N0YXRpYyBpbmxpbmUgdm9pZCAqZGV2
+X2lvbW11X3ByaXZfZ2V0KHN0cnVjdCBkZXZpY2UgKmRldikNCj4+ICt7DQo+PiArICAgIHN0cnVj
+dCBpb21tdV9md3NwZWMgKmZ3c3BlYyA9IGRldl9pb21tdV9md3NwZWNfZ2V0KGRldik7DQo+PiAr
+DQo+PiArICAgIHJldHVybiBmd3NwZWMgJiYgZndzcGVjLT5pb21tdV9wcml2ID8gZndzcGVjLT5p
+b21tdV9wcml2IDogTlVMTDsNCj4+ICt9DQo+PiArDQo+PiArc3RhdGljIGlubGluZSB2b2lkIGRl
+dl9pb21tdV9wcml2X3NldChzdHJ1Y3QgZGV2aWNlICpkZXYsIHZvaWQgKnByaXYpDQo+PiArew0K
+Pj4gKyAgICBzdHJ1Y3QgaW9tbXVfZndzcGVjICpmd3NwZWMgPSBkZXZfaW9tbXVfZndzcGVjX2dl
+dChkZXYpOw0KPj4gKw0KPj4gKyAgICBmd3NwZWMtPmlvbW11X3ByaXYgPSBwcml2Ow0KPj4gK30N
+Cj4+ICsNCj4+ICtpbnQgZHRfcHJvcGVydHlfbWF0Y2hfc3RyaW5nKGNvbnN0IHN0cnVjdCBkdF9k
+ZXZpY2Vfbm9kZSAqbnAsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBj
+aGFyICpwcm9wbmFtZSwgY29uc3QgY2hhciAqc3RyaW5nKQ0KPj4gK3sNCj4+ICsgICAgY29uc3Qg
+c3RydWN0IGR0X3Byb3BlcnR5ICpkdHByb3AgPSBkdF9maW5kX3Byb3BlcnR5KG5wLCBwcm9wbmFt
+ZSwgTlVMTCk7DQo+PiArICAgIHNpemVfdCBsOw0KPj4gKyAgICBpbnQgaTsNCj4+ICsgICAgY29u
+c3QgY2hhciAqcCwgKmVuZDsNCj4+ICsNCj4+ICsgICAgaWYgKCAhZHRwcm9wICkNCj4+ICsgICAg
+ICAgIHJldHVybiAtRUlOVkFMOw0KPj4gKw0KPj4gKyAgICBpZiAoICFkdHByb3AtPnZhbHVlICkN
+Cj4+ICsgICAgICAgIHJldHVybiAtRU5PREFUQTsNCj4+ICsNCj4+ICsgICAgcCA9IGR0cHJvcC0+
+dmFsdWU7DQo+PiArICAgIGVuZCA9IHAgKyBkdHByb3AtPmxlbmd0aDsNCj4+ICsNCj4+ICsgICAg
+Zm9yICggaSA9IDA7IHAgPCBlbmQ7IGkrKywgcCArPSBsICkNCj4+ICsgICAgew0KPj4gKyAgICAg
+ICAgbCA9IHN0cm5sZW4ocCwgZW5kIC0gcCkgKyAxOw0KPj4gKw0KPj4gKyAgICAgICAgaWYgKCBw
+ICsgbCA+IGVuZCApDQo+PiArICAgICAgICAgICAgcmV0dXJuIC1FSUxTRVE7DQo+PiArDQo+PiAr
+ICAgICAgICBpZiAoIHN0cmNtcChzdHJpbmcsIHApID09IDAgKQ0KPj4gKyAgICAgICAgICAgIHJl
+dHVybiBpOyAvKiBGb3VuZCBpdDsgcmV0dXJuIGluZGV4ICovDQo+PiArICAgIH0NCj4+ICsNCj4+
+ICsgICAgcmV0dXJuIC1FTk9EQVRBOw0KPj4gK30NCj4gDQo+IEkgdGhpbmsgeW91IHNob3VsZCBl
+aXRoZXIgdXNlIGR0X3Byb3BlcnR5X3JlYWRfc3RyaW5nIG9yIG1vdmUgdGhlDQo+IGltcGxlbWVu
+dGF0aW9uIG9mIGR0X3Byb3BlcnR5X21hdGNoX3N0cmluZyB0byB4ZW4vY29tbW9uL2RldmljZV90
+cmVlLmMNCj4gKGluIHdoaWNoIGNhc2UgSSBzdWdnZXN0IHRvIGRvIGl0IGluIGEgc2VwYXJhdGUg
+cGF0Y2guKQ0KDQpJIHdpbGwgcHJlZmVyIHRvIG1vdmUgdGhlIGNvZGUgdG8geGVuL2NvbW1vbi9k
+ZXZpY2VfdHJlZS5jIGFzIGl0IG1pZ2h0IGhlbHAgaW4gZnV0dXJlIHRvIHVzZS4NCj4gDQo+IA0K
+PiBJJ2QganVzdCB1c2UgZHRfcHJvcGVydHlfcmVhZF9zdHJpbmcuDQo+IA0KPiANCj4gDQo+PiAr
+c3RhdGljIGludCBwbGF0Zm9ybV9nZXRfaXJxX2J5bmFtZV9vcHRpb25hbChzdHJ1Y3QgZGV2aWNl
+ICpkZXYsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBj
+b25zdCBjaGFyICpuYW1lKQ0KPj4gK3sNCj4+ICsgICAgaW50IGluZGV4LCByZXQ7DQo+PiArICAg
+IHN0cnVjdCBkdF9kZXZpY2Vfbm9kZSAqbnAgID0gZGV2X3RvX2R0KGRldik7DQo+PiArDQo+PiAr
+ICAgIGlmICggdW5saWtlbHkoIW5hbWUpICkNCj4+ICsgICAgICAgIHJldHVybiAtRUlOVkFMOw0K
+Pj4gKw0KPj4gKyAgICBpbmRleCA9IGR0X3Byb3BlcnR5X21hdGNoX3N0cmluZyhucCwgImludGVy
+cnVwdC1uYW1lcyIsIG5hbWUpOw0KPj4gKyAgICBpZiAoIGluZGV4IDwgMCApDQo+PiArICAgIHsN
+Cj4+ICsgICAgICAgIGRldl9pbmZvKGRldiwgIklSUSAlcyBub3QgZm91bmRcbiIsIG5hbWUpOw0K
+Pj4gKyAgICAgICAgcmV0dXJuIGluZGV4Ow0KPj4gKyAgICB9DQo+PiANCj4+IC0jaW5jbHVkZSA8
+bGludXgvYWNwaS5oPg0KPj4gLSNpbmNsdWRlIDxsaW51eC9hY3BpX2lvcnQuaD4NCj4+IC0jaW5j
+bHVkZSA8bGludXgvYml0ZmllbGQuaD4NCj4+IC0jaW5jbHVkZSA8bGludXgvYml0b3BzLmg+DQo+
+PiAtI2luY2x1ZGUgPGxpbnV4L2NyYXNoX2R1bXAuaD4NCj4+IC0jaW5jbHVkZSA8bGludXgvZGVs
+YXkuaD4NCj4+IC0jaW5jbHVkZSA8bGludXgvZG1hLWlvbW11Lmg+DQo+PiAtI2luY2x1ZGUgPGxp
+bnV4L2Vyci5oPg0KPj4gLSNpbmNsdWRlIDxsaW51eC9pbnRlcnJ1cHQuaD4NCj4+IC0jaW5jbHVk
+ZSA8bGludXgvaW8tcGd0YWJsZS5oPg0KPj4gLSNpbmNsdWRlIDxsaW51eC9pb21tdS5oPg0KPj4g
+LSNpbmNsdWRlIDxsaW51eC9pb3BvbGwuaD4NCj4+IC0jaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+
+DQo+PiAtI2luY2x1ZGUgPGxpbnV4L21zaS5oPg0KPj4gLSNpbmNsdWRlIDxsaW51eC9vZi5oPg0K
+Pj4gLSNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+DQo+PiAtI2luY2x1ZGUgPGxpbnV4L29m
+X2lvbW11Lmg+DQo+PiAtI2luY2x1ZGUgPGxpbnV4L29mX3BsYXRmb3JtLmg+DQo+PiAtI2luY2x1
+ZGUgPGxpbnV4L3BjaS5oPg0KPj4gLSNpbmNsdWRlIDxsaW51eC9wY2ktYXRzLmg+DQo+PiAtI2lu
+Y2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPg0KPj4gLQ0KPj4gLSNpbmNsdWRlIDxsaW51
+eC9hbWJhL2J1cy5oPg0KPj4gKyAgICByZXQgPSBwbGF0Zm9ybV9nZXRfaXJxKG5wLCBpbmRleCk7
+DQo+PiArICAgIGlmICggcmV0IDwgMCApDQo+PiArICAgIHsNCj4+ICsgICAgICAgIGRldl9lcnIo
+ZGV2LCAiZmFpbGVkIHRvIGdldCBpcnEgaW5kZXggJWRcbiIsIGluZGV4KTsNCj4+ICsgICAgICAg
+IHJldHVybiAtRU5PREVWOw0KPj4gKyAgICB9DQo+PiArDQo+PiArICAgIHJldHVybiByZXQ7DQo+
+PiArfQ0KPj4gKw0KPj4gKy8qIFN0YXJ0IG9mIExpbnV4IFNNTVV2MyBjb2RlICovDQo+PiANCj4+
+IC8qIE1NSU8gcmVnaXN0ZXJzICovDQo+PiAjZGVmaW5lIEFSTV9TTU1VX0lEUjAJCQkweDANCj4+
+IEBAIC01MDcsNiArNzUxLDcgQEAgc3RydWN0IGFybV9zbW11X3MyX2NmZyB7DQo+PiAJdTE2CQkJ
+CXZtaWQ7DQo+PiAJdTY0CQkJCXZ0dGJyOw0KPj4gCXU2NAkJCQl2dGNyOw0KPj4gKwlzdHJ1Y3Qg
+ZG9tYWluCQkqZG9tYWluOw0KPj4gfTsNCj4+IA0KPj4gc3RydWN0IGFybV9zbW11X3N0cnRhYl9j
+Zmcgew0KPj4gQEAgLTU2Nyw4ICs4MTIsMTMgQEAgc3RydWN0IGFybV9zbW11X2RldmljZSB7DQo+
+PiANCj4+IAlzdHJ1Y3QgYXJtX3NtbXVfc3RydGFiX2NmZwlzdHJ0YWJfY2ZnOw0KPj4gDQo+PiAt
+CS8qIElPTU1VIGNvcmUgY29kZSBoYW5kbGUgKi8NCj4+IC0Jc3RydWN0IGlvbW11X2RldmljZQkJ
+aW9tbXU7DQo+PiArCS8qIE5lZWQgdG8ga2VlcCBhIGxpc3Qgb2YgU01NVSBkZXZpY2VzICovDQo+
+PiArCXN0cnVjdCBsaXN0X2hlYWQJCWRldmljZXM7DQo+PiArDQo+PiArCS8qIFRhc2tsZXRzIGZv
+ciBoYW5kbGluZyBldnRzL2ZhdWx0cyBhbmQgcGNpIHBhZ2UgcmVxdWVzdCBJUlFzKi8NCj4+ICsJ
+c3RydWN0IHRhc2tsZXQJCWV2dHFfaXJxX3Rhc2tsZXQ7DQo+PiArCXN0cnVjdCB0YXNrbGV0CQlw
+cmlxX2lycV90YXNrbGV0Ow0KPj4gKwlzdHJ1Y3QgdGFza2xldAkJY29tYmluZWRfaXJxX3Rhc2ts
+ZXQ7DQo+PiB9Ow0KPj4gDQo+PiAvKiBTTU1VIHByaXZhdGUgZGF0YSBmb3IgZWFjaCBtYXN0ZXIg
+Ki8NCj4+IEBAIC0xMTEwLDcgKzEzNjAsNyBAQCBzdGF0aWMgaW50IGFybV9zbW11X2luaXRfbDJf
+c3RydGFiKHN0cnVjdCBhcm1fc21tdV9kZXZpY2UgKnNtbXUsIHUzMiBzaWQpDQo+PiB9DQo+PiAN
+Cj4+IC8qIElSUSBhbmQgZXZlbnQgaGFuZGxlcnMgKi8NCj4+IC1zdGF0aWMgaXJxcmV0dXJuX3Qg
+YXJtX3NtbXVfZXZ0cV90aHJlYWQoaW50IGlycSwgdm9pZCAqZGV2KQ0KPj4gK3N0YXRpYyB2b2lk
+IGFybV9zbW11X2V2dHFfdGhyZWFkKHZvaWQgKmRldikNCj4gDQo+IEkgdGhpbmsgd2Ugc2hvdWxk
+bid0IGNhbGwgaXQgYSB0aHJlYWQgZ2l2ZW4gdGhhdCdzIGEgdGFza2xldC4gV2Ugc2hvdWxkDQo+
+IHJlbmFtZSB0aGUgZnVuY3Rpb24gb3IgaXQgd2lsbCBiZSBjb25mdXNpbmcNCg0KT2suIA0KPiAN
+Cj4+IHsNCj4+IAlpbnQgaTsNCj4+IAlzdHJ1Y3QgYXJtX3NtbXVfZGV2aWNlICpzbW11ID0gZGV2
+Ow0KPj4gQEAgLTExNDAsNyArMTM5MCw2IEBAIHN0YXRpYyBpcnFyZXR1cm5fdCBhcm1fc21tdV9l
+dnRxX3RocmVhZChpbnQgaXJxLCB2b2lkICpkZXYpDQo+PiAJLyogU3luYyBvdXIgb3ZlcmZsb3cg
+ZmxhZywgYXMgd2UgYmVsaWV2ZSB3ZSdyZSB1cCB0byBzcGVlZCAqLw0KPj4gCWxscS0+Y29ucyA9
+IFFfT1ZGKGxscS0+cHJvZCkgfCBRX1dSUChsbHEsIGxscS0+Y29ucykgfA0KPj4gCQkgICAgUV9J
+RFgobGxxLCBsbHEtPmNvbnMpOw0KPj4gLQlyZXR1cm4gSVJRX0hBTkRMRUQ7DQo+PiB9DQo+PiAN
+Cj4+IHN0YXRpYyB2b2lkIGFybV9zbW11X2hhbmRsZV9wcHIoc3RydWN0IGFybV9zbW11X2Rldmlj
+ZSAqc21tdSwgdTY0ICpldnQpDQo+PiBAQCAtMTE4MSw3ICsxNDMwLDcgQEAgc3RhdGljIHZvaWQg
+YXJtX3NtbXVfaGFuZGxlX3BwcihzdHJ1Y3QgYXJtX3NtbXVfZGV2aWNlICpzbW11LCB1NjQgKmV2
+dCkNCj4+IAl9DQo+PiB9DQo+PiANCj4+IC1zdGF0aWMgaXJxcmV0dXJuX3QgYXJtX3NtbXVfcHJp
+cV90aHJlYWQoaW50IGlycSwgdm9pZCAqZGV2KQ0KPj4gK3N0YXRpYyB2b2lkIGFybV9zbW11X3By
+aXFfdGhyZWFkKHZvaWQgKmRldikNCj4gDQo+IHNhbWUgaGVyZQ0KDQpPay4gDQo+IA0KPiANCj4+
+IHsNCj4+IAlzdHJ1Y3QgYXJtX3NtbXVfZGV2aWNlICpzbW11ID0gZGV2Ow0KPj4gCXN0cnVjdCBh
+cm1fc21tdV9xdWV1ZSAqcSA9ICZzbW11LT5wcmlxLnE7DQo+PiBAQCAtMTIwMCwxMiArMTQ0OSwx
+MiBAQCBzdGF0aWMgaXJxcmV0dXJuX3QgYXJtX3NtbXVfcHJpcV90aHJlYWQoaW50IGlycSwgdm9p
+ZCAqZGV2KQ0KPj4gCWxscS0+Y29ucyA9IFFfT1ZGKGxscS0+cHJvZCkgfCBRX1dSUChsbHEsIGxs
+cS0+Y29ucykgfA0KPj4gCQkgICAgICBRX0lEWChsbHEsIGxscS0+Y29ucyk7DQo+PiAJcXVldWVf
+c3luY19jb25zX291dChxKTsNCj4+IC0JcmV0dXJuIElSUV9IQU5ETEVEOw0KPj4gfQ0KPj4gDQo+
+PiBzdGF0aWMgaW50IGFybV9zbW11X2RldmljZV9kaXNhYmxlKHN0cnVjdCBhcm1fc21tdV9kZXZp
+Y2UgKnNtbXUpOw0KPj4gDQo+PiAtc3RhdGljIGlycXJldHVybl90IGFybV9zbW11X2dlcnJvcl9o
+YW5kbGVyKGludCBpcnEsIHZvaWQgKmRldikNCj4+ICtzdGF0aWMgdm9pZCBhcm1fc21tdV9nZXJy
+b3JfaGFuZGxlcihpbnQgaXJxLCB2b2lkICpkZXYsDQo+PiArCQkJCXN0cnVjdCBjcHVfdXNlcl9y
+ZWdzICpyZWdzKQ0KPj4gew0KPj4gCXUzMiBnZXJyb3IsIGdlcnJvcm4sIGFjdGl2ZTsNCj4+IAlz
+dHJ1Y3QgYXJtX3NtbXVfZGV2aWNlICpzbW11ID0gZGV2Ow0KPj4gQEAgLTEyMTUsNyArMTQ2NCw3
+IEBAIHN0YXRpYyBpcnFyZXR1cm5fdCBhcm1fc21tdV9nZXJyb3JfaGFuZGxlcihpbnQgaXJxLCB2
+b2lkICpkZXYpDQo+PiANCj4+IAlhY3RpdmUgPSBnZXJyb3IgXiBnZXJyb3JuOw0KPj4gCWlmICgh
+KGFjdGl2ZSAmIEdFUlJPUl9FUlJfTUFTSykpDQo+PiAtCQlyZXR1cm4gSVJRX05PTkU7IC8qIE5v
+IGVycm9ycyBwZW5kaW5nICovDQo+PiArCQlyZXR1cm47IC8qIE5vIGVycm9ycyBwZW5kaW5nICov
+DQo+PiANCj4+IAlkZXZfd2FybihzbW11LT5kZXYsDQo+PiAJCSAidW5leHBlY3RlZCBnbG9iYWwg
+ZXJyb3IgcmVwb3J0ZWQgKDB4JTA4eCksIHRoaXMgY291bGQgYmUgc2VyaW91c1xuIiwNCj4+IEBA
+IC0xMjQ4LDI2ICsxNDk3LDQyIEBAIHN0YXRpYyBpcnFyZXR1cm5fdCBhcm1fc21tdV9nZXJyb3Jf
+aGFuZGxlcihpbnQgaXJxLCB2b2lkICpkZXYpDQo+PiAJCWFybV9zbW11X2NtZHFfc2tpcF9lcnIo
+c21tdSk7DQo+PiANCj4+IAl3cml0ZWwoZ2Vycm9yLCBzbW11LT5iYXNlICsgQVJNX1NNTVVfR0VS
+Uk9STik7DQo+PiAtCXJldHVybiBJUlFfSEFORExFRDsNCj4+IH0NCj4+IA0KPj4gLXN0YXRpYyBp
+cnFyZXR1cm5fdCBhcm1fc21tdV9jb21iaW5lZF9pcnFfdGhyZWFkKGludCBpcnEsIHZvaWQgKmRl
+dikNCj4+ICtzdGF0aWMgdm9pZCBhcm1fc21tdV9jb21iaW5lZF9pcnFfaGFuZGxlcihpbnQgaXJx
+LCB2b2lkICpkZXYsDQo+PiArCQkJCXN0cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdzKQ0KPj4gK3sN
+Cj4+ICsJc3RydWN0IGFybV9zbW11X2RldmljZSAqc21tdSA9IChzdHJ1Y3QgYXJtX3NtbXVfZGV2
+aWNlICopZGV2Ow0KPj4gKw0KPj4gKwlhcm1fc21tdV9nZXJyb3JfaGFuZGxlcihpcnEsIGRldiwg
+cmVncyk7DQo+PiArDQo+PiArCXRhc2tsZXRfc2NoZWR1bGUoJihzbW11LT5jb21iaW5lZF9pcnFf
+dGFza2xldCkpOw0KPj4gK30NCj4+ICsNCj4+ICtzdGF0aWMgdm9pZCBhcm1fc21tdV9jb21iaW5l
+ZF9pcnFfdGhyZWFkKHZvaWQgKmRldikNCj4+IHsNCj4+IAlzdHJ1Y3QgYXJtX3NtbXVfZGV2aWNl
+ICpzbW11ID0gZGV2Ow0KPj4gDQo+PiAtCWFybV9zbW11X2V2dHFfdGhyZWFkKGlycSwgZGV2KTsN
+Cj4+ICsJYXJtX3NtbXVfZXZ0cV90aHJlYWQoZGV2KTsNCj4+IAlpZiAoc21tdS0+ZmVhdHVyZXMg
+JiBBUk1fU01NVV9GRUFUX1BSSSkNCj4+IC0JCWFybV9zbW11X3ByaXFfdGhyZWFkKGlycSwgZGV2
+KTsNCj4+IC0NCj4+IC0JcmV0dXJuIElSUV9IQU5ETEVEOw0KPj4gKwkJYXJtX3NtbXVfcHJpcV90
+aHJlYWQoZGV2KTsNCj4+IH0NCj4+IA0KPj4gLXN0YXRpYyBpcnFyZXR1cm5fdCBhcm1fc21tdV9j
+b21iaW5lZF9pcnFfaGFuZGxlcihpbnQgaXJxLCB2b2lkICpkZXYpDQo+PiArc3RhdGljIHZvaWQg
+YXJtX3NtbXVfZXZ0cV9pcnFfdGFza2xldChpbnQgaXJxLCB2b2lkICpkZXYsDQo+PiArCQkJCXN0
+cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdzKQ0KPj4gew0KPj4gLQlhcm1fc21tdV9nZXJyb3JfaGFu
+ZGxlcihpcnEsIGRldik7DQo+PiAtCXJldHVybiBJUlFfV0FLRV9USFJFQUQ7DQo+PiArCXN0cnVj
+dCBhcm1fc21tdV9kZXZpY2UgKnNtbXUgPSAoc3RydWN0IGFybV9zbW11X2RldmljZSAqKWRldjsN
+Cj4+ICsNCj4+ICsJdGFza2xldF9zY2hlZHVsZSgmKHNtbXUtPmV2dHFfaXJxX3Rhc2tsZXQpKTsN
+Cj4+IH0NCj4+IA0KPj4gK3N0YXRpYyB2b2lkIGFybV9zbW11X3ByaXFfaXJxX3Rhc2tsZXQoaW50
+IGlycSwgdm9pZCAqZGV2LA0KPj4gKwkJCQlzdHJ1Y3QgY3B1X3VzZXJfcmVncyAqcmVncykNCj4+
+ICt7DQo+PiArCXN0cnVjdCBhcm1fc21tdV9kZXZpY2UgKnNtbXUgPSAoc3RydWN0IGFybV9zbW11
+X2RldmljZSAqKWRldjsNCj4+ICsNCj4+ICsJdGFza2xldF9zY2hlZHVsZSgmKHNtbXUtPnByaXFf
+aXJxX3Rhc2tsZXQpKTsNCj4+ICt9DQo+PiANCj4+IC8qIElPX1BHVEFCTEUgQVBJICovDQo+PiBz
+dGF0aWMgdm9pZCBhcm1fc21tdV90bGJfaW52X2NvbnRleHQodm9pZCAqY29va2llKQ0KPj4gQEAg
+LTEzNTQsMjcgKzE2MTksNjkgQEAgc3RhdGljIHZvaWQgYXJtX3NtbXVfZG9tYWluX2ZyZWUoc3Ry
+dWN0IGlvbW11X2RvbWFpbiAqZG9tYWluKQ0KPj4gfQ0KPj4gDQo+PiBzdGF0aWMgaW50IGFybV9z
+bW11X2RvbWFpbl9maW5hbGlzZV9zMihzdHJ1Y3QgYXJtX3NtbXVfZG9tYWluICpzbW11X2RvbWFp
+biwNCj4+IC0JCQkJICAgICAgIHN0cnVjdCBhcm1fc21tdV9tYXN0ZXIgKm1hc3RlciwNCj4+IC0J
+CQkJICAgICAgIHN0cnVjdCBpb19wZ3RhYmxlX2NmZyAqcGd0YmxfY2ZnKQ0KPj4gKwkJCQkgICAg
+ICAgc3RydWN0IGFybV9zbW11X21hc3RlciAqbWFzdGVyKQ0KPj4gew0KPj4gCWludCB2bWlkOw0K
+Pj4gKwl1NjQgcmVnOw0KPj4gCXN0cnVjdCBhcm1fc21tdV9kZXZpY2UgKnNtbXUgPSBzbW11X2Rv
+bWFpbi0+c21tdTsNCj4+IAlzdHJ1Y3QgYXJtX3NtbXVfczJfY2ZnICpjZmcgPSAmc21tdV9kb21h
+aW4tPnMyX2NmZzsNCj4+IA0KPj4gKwkvKiBWVENSICovDQo+PiArCXJlZyA9IFZUQ1JfUkVTMSB8
+IFZUQ1JfU0gwX0lTIHwgVlRDUl9JUkdOMF9XQldBIHwgVlRDUl9PUkdOMF9XQldBOw0KPj4gKw0K
+Pj4gKwlzd2l0Y2ggKFBBR0VfU0laRSkgew0KPj4gKwljYXNlIFNaXzRLOg0KPj4gKwkJcmVnIHw9
+IFZUQ1JfVEcwXzRLOw0KPj4gKwkJYnJlYWs7DQo+PiArCWNhc2UgU1pfMTZLOg0KPj4gKwkJcmVn
+IHw9IFZUQ1JfVEcwXzE2SzsNCj4+ICsJCWJyZWFrOw0KPj4gKwljYXNlIFNaXzY0SzoNCj4+ICsJ
+CXJlZyB8PSBWVENSX1RHMF80SzsNCj4+ICsJCWJyZWFrOw0KPj4gKwl9DQo+PiArDQo+PiArCXN3
+aXRjaCAoc21tdS0+b2FzKSB7DQo+PiArCWNhc2UgMzI6DQo+PiArCQlyZWcgfD0gVlRDUl9QUyhf
+QUMoMHgwLFVMTCkpOw0KPj4gKwkJYnJlYWs7DQo+PiArCWNhc2UgMzY6DQo+PiArCQlyZWcgfD0g
+VlRDUl9QUyhfQUMoMHgxLFVMTCkpOw0KPj4gKwkJYnJlYWs7DQo+PiArCWNhc2UgNDA6DQo+PiAr
+CQlyZWcgfD0gVlRDUl9QUyhfQUMoMHgyLFVMTCkpOw0KPj4gKwkJYnJlYWs7DQo+PiArCWNhc2Ug
+NDI6DQo+PiArCQlyZWcgfD0gVlRDUl9QUyhfQUMoMHgzLFVMTCkpOw0KPj4gKwkJYnJlYWs7DQo+
+PiArCWNhc2UgNDQ6DQo+PiArCQlyZWcgfD0gVlRDUl9QUyhfQUMoMHg0LFVMTCkpOw0KPj4gKwkJ
+YnJlYWs7DQo+PiArCQljYXNlIDQ4Og0KPj4gKwkJcmVnIHw9IFZUQ1JfUFMoX0FDKDB4NSxVTEwp
+KTsNCj4+ICsJCWJyZWFrOw0KPj4gKwljYXNlIDUyOg0KPj4gKwkJcmVnIHw9IFZUQ1JfUFMoX0FD
+KDB4NixVTEwpKTsNCj4+ICsJCWJyZWFrOw0KPj4gKwl9DQo+PiArDQo+PiArCXJlZyB8PSBWVENS
+X1QwU1ooNjRVTEwgLSBzbW11LT5pYXMpOw0KPj4gKwlyZWcgfD0gVlRDUl9TTDAoMHgyKTsNCj4+
+ICsJcmVnIHw9IFZUQ1JfVlM7DQo+PiArDQo+PiArCWNmZy0+dnRjciAgID0gcmVnOw0KPj4gKw0K
+Pj4gCXZtaWQgPSBhcm1fc21tdV9iaXRtYXBfYWxsb2Moc21tdS0+dm1pZF9tYXAsIHNtbXUtPnZt
+aWRfYml0cyk7DQo+PiAJaWYgKHZtaWQgPCAwKQ0KPj4gCQlyZXR1cm4gdm1pZDsNCj4+ICsJY2Zn
+LT52bWlkICA9ICh1MTYpdm1pZDsNCj4+ICsNCj4+ICsJY2ZnLT52dHRiciAgPSBwYWdlX3RvX21h
+ZGRyKGNmZy0+ZG9tYWluLT5hcmNoLnAybS5yb290KTsNCj4+ICsNCj4+ICsJcHJpbnRrKFhFTkxP
+R19ERUJVRw0KPj4gKwkJICAgIlNNTVV2MzogZCV1OiB2bWlkIDB4JXggdnRjciAweCUiUFJJcGFk
+ZHIiIHAybWFkZHIgMHglIlBSSXBhZGRyIlxuIiwNCj4+ICsJCSAgIGNmZy0+ZG9tYWluLT5kb21h
+aW5faWQsIGNmZy0+dm1pZCwgY2ZnLT52dGNyLCBjZmctPnZ0dGJyKTsNCj4+IA0KPj4gLQl2dGNy
+ID0gJnBndGJsX2NmZy0+YXJtX2xwYWVfczJfY2ZnLnZ0Y3I7DQo+PiAtCWNmZy0+dm1pZAk9ICh1
+MTYpdm1pZDsNCj4+IC0JY2ZnLT52dHRicgk9IHBndGJsX2NmZy0+YXJtX2xwYWVfczJfY2ZnLnZ0
+dGJyOw0KPj4gLQljZmctPnZ0Y3IJPSBGSUVMRF9QUkVQKFNUUlRBQl9TVEVfMl9WVENSX1MyVDBT
+WiwgdnRjci0+dHN6KSB8DQo+PiAtCQkJICBGSUVMRF9QUkVQKFNUUlRBQl9TVEVfMl9WVENSX1My
+U0wwLCB2dGNyLT5zbCkgfA0KPj4gLQkJCSAgRklFTERfUFJFUChTVFJUQUJfU1RFXzJfVlRDUl9T
+MklSMCwgdnRjci0+aXJnbikgfA0KPj4gLQkJCSAgRklFTERfUFJFUChTVFJUQUJfU1RFXzJfVlRD
+Ul9TMk9SMCwgdnRjci0+b3JnbikgfA0KPj4gLQkJCSAgRklFTERfUFJFUChTVFJUQUJfU1RFXzJf
+VlRDUl9TMlNIMCwgdnRjci0+c2gpIHwNCj4+IC0JCQkgIEZJRUxEX1BSRVAoU1RSVEFCX1NURV8y
+X1ZUQ1JfUzJURywgdnRjci0+dGcpIHwNCj4+IC0JCQkgIEZJRUxEX1BSRVAoU1RSVEFCX1NURV8y
+X1ZUQ1JfUzJQUywgdnRjci0+cHMpOw0KPj4gCXJldHVybiAwOw0KPj4gfQ0KPj4gDQo+PiBAQCAt
+MTM4MiwyOCArMTY4OSwxMiBAQCBzdGF0aWMgaW50IGFybV9zbW11X2RvbWFpbl9maW5hbGlzZShz
+dHJ1Y3QgaW9tbXVfZG9tYWluICpkb21haW4sDQo+PiAJCQkJICAgIHN0cnVjdCBhcm1fc21tdV9t
+YXN0ZXIgKm1hc3RlcikNCj4+IHsNCj4+IAlpbnQgcmV0Ow0KPj4gLQl1bnNpZ25lZCBsb25nIGlh
+cywgb2FzOw0KPj4gLQlpbnQgKCpmaW5hbGlzZV9zdGFnZV9mbikoc3RydWN0IGFybV9zbW11X2Rv
+bWFpbiAqLA0KPj4gLQkJCQkgc3RydWN0IGFybV9zbW11X21hc3RlciAqLA0KPj4gLQkJCQkgc3Ry
+dWN0IGlvX3BndGFibGVfY2ZnICopOw0KPj4gCXN0cnVjdCBhcm1fc21tdV9kb21haW4gKnNtbXVf
+ZG9tYWluID0gdG9fc21tdV9kb21haW4oZG9tYWluKTsNCj4+IC0Jc3RydWN0IGFybV9zbW11X2Rl
+dmljZSAqc21tdSA9IHNtbXVfZG9tYWluLT5zbW11Ow0KPj4gDQo+PiAJLyogUmVzdHJpY3QgdGhl
+IHN0YWdlIHRvIHdoYXQgd2UgY2FuIGFjdHVhbGx5IHN1cHBvcnQgKi8NCj4+IAlzbW11X2RvbWFp
+bi0+c3RhZ2UgPSBBUk1fU01NVV9ET01BSU5fUzI7DQo+PiANCj4+IC0Jc3dpdGNoIChzbW11X2Rv
+bWFpbi0+c3RhZ2UpIHsNCj4+IC0JY2FzZSBBUk1fU01NVV9ET01BSU5fTkVTVEVEOg0KPj4gLQlj
+YXNlIEFSTV9TTU1VX0RPTUFJTl9TMjoNCj4+IC0JCWlhcyA9IHNtbXUtPmlhczsNCj4+IC0JCW9h
+cyA9IHNtbXUtPm9hczsNCj4+IC0JCWZpbmFsaXNlX3N0YWdlX2ZuID0gYXJtX3NtbXVfZG9tYWlu
+X2ZpbmFsaXNlX3MyOw0KPj4gLQkJYnJlYWs7DQo+PiAtCWRlZmF1bHQ6DQo+PiAtCQlyZXR1cm4g
+LUVJTlZBTDsNCj4+IC0JfQ0KPj4gLQ0KPj4gLQlyZXQgPSBmaW5hbGlzZV9zdGFnZV9mbihzbW11
+X2RvbWFpbiwgbWFzdGVyLCAmcGd0YmxfY2ZnKTsNCj4+ICsJcmV0ID0gYXJtX3NtbXVfZG9tYWlu
+X2ZpbmFsaXNlX3MyKHNtbXVfZG9tYWluLCBtYXN0ZXIpOw0KPj4gCWlmIChyZXQgPCAwKSB7DQo+
+PiAJCXJldHVybiByZXQ7DQo+PiAJfQ0KPj4gQEAgLTE1NTMsNyArMTg0NCw4IEBAIHN0YXRpYyBp
+bnQgYXJtX3NtbXVfaW5pdF9vbmVfcXVldWUoc3RydWN0IGFybV9zbW11X2RldmljZSAqc21tdSwN
+Cj4+IAkJcmV0dXJuIC1FTk9NRU07DQo+PiAJfQ0KPj4gDQo+PiAtCWlmICghV0FSTl9PTihxLT5i
+YXNlX2RtYSAmIChxc3ogLSAxKSkpIHsNCj4+ICsJV0FSTl9PTihxLT5iYXNlX2RtYSAmIChxc3og
+LSAxKSk7DQo+PiArCWlmICh1bmxpa2VseShxLT5iYXNlX2RtYSAmIChxc3ogLSAxKSkpIHsNCj4+
+IAkJZGV2X2luZm8oc21tdS0+ZGV2LCAiYWxsb2NhdGVkICV1IGVudHJpZXMgZm9yICVzXG4iLA0K
+Pj4gCQkJIDEgPDwgcS0+bGxxLm1heF9uX3NoaWZ0LCBuYW1lKTsNCj4gDQo+IFdlIGRvbid0IG5l
+ZWQgYm90aCB0aGUgV0FSTklORyBhbmQgdGhlIGRldl9pbmZvLiB5b3UgY291bGQgdHVybiB0aGUN
+Cj4gZGV2X3dhcm4gLyBYRU5MT0dfV0FSTklORy4NCj4gDQpBY2suDQoNCj4gDQo+PiAJfQ0KPj4g
+QEAgLTE3NTgsOSArMjA1MCw3IEBAIHN0YXRpYyB2b2lkIGFybV9zbW11X3NldHVwX3VuaXF1ZV9p
+cnFzKHN0cnVjdCBhcm1fc21tdV9kZXZpY2UgKnNtbXUpDQo+PiAJLyogUmVxdWVzdCBpbnRlcnJ1
+cHQgbGluZXMgKi8NCj4+IAlpcnEgPSBzbW11LT5ldnRxLnEuaXJxOw0KPj4gCWlmIChpcnEpIHsN
+Cj4+IC0JCXJldCA9IGRldm1fcmVxdWVzdF90aHJlYWRlZF9pcnEoc21tdS0+ZGV2LCBpcnEsIE5V
+TEwsDQo+PiAtCQkJCQkJYXJtX3NtbXVfZXZ0cV90aHJlYWQsDQo+PiAtCQkJCQkJSVJRRl9PTkVT
+SE9ULA0KPj4gKwkJcmV0ID0gcmVxdWVzdF9pcnEoaXJxLCAwLCBhcm1fc21tdV9ldnRxX2lycV90
+YXNrbGV0LA0KPj4gCQkJCQkJImFybS1zbW11LXYzLWV2dHEiLCBzbW11KTsNCj4+IAkJaWYgKHJl
+dCA8IDApDQo+PiAJCQlkZXZfd2FybihzbW11LT5kZXYsICJmYWlsZWQgdG8gZW5hYmxlIGV2dHEg
+aXJxXG4iKTsNCj4+IEBAIC0xNzcwLDggKzIwNjAsOCBAQCBzdGF0aWMgdm9pZCBhcm1fc21tdV9z
+ZXR1cF91bmlxdWVfaXJxcyhzdHJ1Y3QgYXJtX3NtbXVfZGV2aWNlICpzbW11KQ0KPj4gDQo+PiAJ
+aXJxID0gc21tdS0+Z2Vycl9pcnE7DQo+PiAJaWYgKGlycSkgew0KPj4gLQkJcmV0ID0gZGV2bV9y
+ZXF1ZXN0X2lycShzbW11LT5kZXYsIGlycSwgYXJtX3NtbXVfZ2Vycm9yX2hhbmRsZXIsDQo+PiAt
+CQkJCSAgICAgICAwLCAiYXJtLXNtbXUtdjMtZ2Vycm9yIiwgc21tdSk7DQo+PiArCQlyZXQgPSBy
+ZXF1ZXN0X2lycShpcnEsIDAsIGFybV9zbW11X2dlcnJvcl9oYW5kbGVyLA0KPj4gKwkJCQkJCSJh
+cm0tc21tdS12My1nZXJyb3IiLCBzbW11KTsNCj4+IAkJaWYgKHJldCA8IDApDQo+PiAJCQlkZXZf
+d2FybihzbW11LT5kZXYsICJmYWlsZWQgdG8gZW5hYmxlIGdlcnJvciBpcnFcbiIpOw0KPj4gCX0g
+ZWxzZSB7DQo+PiBAQCAtMTc4MSwxMSArMjA3MSw4IEBAIHN0YXRpYyB2b2lkIGFybV9zbW11X3Nl
+dHVwX3VuaXF1ZV9pcnFzKHN0cnVjdCBhcm1fc21tdV9kZXZpY2UgKnNtbXUpDQo+PiAJaWYgKHNt
+bXUtPmZlYXR1cmVzICYgQVJNX1NNTVVfRkVBVF9QUkkpIHsNCj4+IAkJaXJxID0gc21tdS0+cHJp
+cS5xLmlycTsNCj4+IAkJaWYgKGlycSkgew0KPj4gLQkJCXJldCA9IGRldm1fcmVxdWVzdF90aHJl
+YWRlZF9pcnEoc21tdS0+ZGV2LCBpcnEsIE5VTEwsDQo+PiAtCQkJCQkJCWFybV9zbW11X3ByaXFf
+dGhyZWFkLA0KPj4gLQkJCQkJCQlJUlFGX09ORVNIT1QsDQo+PiAtCQkJCQkJCSJhcm0tc21tdS12
+My1wcmlxIiwNCj4+IC0JCQkJCQkJc21tdSk7DQo+PiArCQkJcmV0ID0gcmVxdWVzdF9pcnEoaXJx
+LCAwLCBhcm1fc21tdV9wcmlxX2lycV90YXNrbGV0LA0KPj4gKwkJCQkJCQkiYXJtLXNtbXUtdjMt
+cHJpcSIsIHNtbXUpOw0KPj4gCQkJaWYgKHJldCA8IDApDQo+PiAJCQkJZGV2X3dhcm4oc21tdS0+
+ZGV2LA0KPj4gCQkJCQkgImZhaWxlZCB0byBlbmFibGUgcHJpcSBpcnFcbiIpOw0KPj4gQEAgLTE4
+MTQsMTEgKzIxMDEsOCBAQCBzdGF0aWMgaW50IGFybV9zbW11X3NldHVwX2lycXMoc3RydWN0IGFy
+bV9zbW11X2RldmljZSAqc21tdSkNCj4+IAkJICogQ2F2aXVtIFRodW5kZXJYMiBpbXBsZW1lbnRh
+dGlvbiBkb2Vzbid0IHN1cHBvcnQgdW5pcXVlIGlycQ0KPj4gCQkgKiBsaW5lcy4gVXNlIGEgc2lu
+Z2xlIGlycSBsaW5lIGZvciBhbGwgdGhlIFNNTVV2MyBpbnRlcnJ1cHRzLg0KPj4gCQkgKi8NCj4+
+IC0JCXJldCA9IGRldm1fcmVxdWVzdF90aHJlYWRlZF9pcnEoc21tdS0+ZGV2LCBpcnEsDQo+PiAt
+CQkJCQlhcm1fc21tdV9jb21iaW5lZF9pcnFfaGFuZGxlciwNCj4+IC0JCQkJCWFybV9zbW11X2Nv
+bWJpbmVkX2lycV90aHJlYWQsDQo+PiAtCQkJCQlJUlFGX09ORVNIT1QsDQo+PiAtCQkJCQkiYXJt
+LXNtbXUtdjMtY29tYmluZWQtaXJxIiwgc21tdSk7DQo+PiArCQlyZXQgPSByZXF1ZXN0X2lycShp
+cnEsIDAsIGFybV9zbW11X2NvbWJpbmVkX2lycV9oYW5kbGVyLA0KPj4gKwkJCQkJCSJhcm0tc21t
+dS12My1jb21iaW5lZC1pcnEiLCBzbW11KTsNCj4+IAkJaWYgKHJldCA8IDApDQo+PiAJCQlkZXZf
+d2FybihzbW11LT5kZXYsICJmYWlsZWQgdG8gZW5hYmxlIGNvbWJpbmVkIGlycVxuIik7DQo+PiAJ
+fSBlbHNlDQo+PiBAQCAtMTg1Nyw3ICsyMTQxLDcgQEAgc3RhdGljIGludCBhcm1fc21tdV9kZXZp
+Y2VfcmVzZXQoc3RydWN0IGFybV9zbW11X2RldmljZSAqc21tdSwgYm9vbCBieXBhc3MpDQo+PiAJ
+cmVnID0gcmVhZGxfcmVsYXhlZChzbW11LT5iYXNlICsgQVJNX1NNTVVfQ1IwKTsNCj4+IAlpZiAo
+cmVnICYgQ1IwX1NNTVVFTikgew0KPj4gCQlkZXZfd2FybihzbW11LT5kZXYsICJTTU1VIGN1cnJl
+bnRseSBlbmFibGVkISBSZXNldHRpbmcuLi5cbiIpOw0KPj4gLQkJV0FSTl9PTihpc19rZHVtcF9r
+ZXJuZWwoKSAmJiAhZGlzYWJsZV9ieXBhc3MpOw0KPj4gKwkJV0FSTl9PTighZGlzYWJsZV9ieXBh
+c3MpOw0KPj4gCQlhcm1fc21tdV91cGRhdGVfZ2JwYShzbW11LCBHQlBBX0FCT1JULCAwKTsNCj4+
+IAl9DQo+PiANCj4+IEBAIC0xOTUyLDggKzIyMzYsMTEgQEAgc3RhdGljIGludCBhcm1fc21tdV9k
+ZXZpY2VfcmVzZXQoc3RydWN0IGFybV9zbW11X2RldmljZSAqc21tdSwgYm9vbCBieXBhc3MpDQo+
+PiAJCXJldHVybiByZXQ7DQo+PiAJfQ0KPj4gDQo+PiAtCWlmIChpc19rZHVtcF9rZXJuZWwoKSkN
+Cj4+IC0JCWVuYWJsZXMgJj0gfihDUjBfRVZUUUVOIHwgQ1IwX1BSSVFFTik7DQo+PiArCS8qIElu
+aXRpYWxpemUgdGFza2xldHMgZm9yIHRocmVhZGVkIElSUXMqLw0KPj4gKwl0YXNrbGV0X2luaXQo
+JnNtbXUtPmV2dHFfaXJxX3Rhc2tsZXQsIGFybV9zbW11X2V2dHFfdGhyZWFkLCBzbW11KTsNCj4+
+ICsJdGFza2xldF9pbml0KCZzbW11LT5wcmlxX2lycV90YXNrbGV0LCBhcm1fc21tdV9wcmlxX3Ro
+cmVhZCwgc21tdSk7DQo+PiArCXRhc2tsZXRfaW5pdCgmc21tdS0+Y29tYmluZWRfaXJxX3Rhc2ts
+ZXQsIGFybV9zbW11X2NvbWJpbmVkX2lycV90aHJlYWQsDQo+PiArCQkJCSBzbW11KTsNCj4+IA0K
+Pj4gCS8qIEVuYWJsZSB0aGUgU01NVSBpbnRlcmZhY2UsIG9yIGVuc3VyZSBieXBhc3MgKi8NCj4+
+IAlpZiAoIWJ5cGFzcyB8fCBkaXNhYmxlX2J5cGFzcykgew0KPj4gQEAgLTIxOTUsNyArMjQ4Miw3
+IEBAIHN0YXRpYyBpbmxpbmUgaW50IGFybV9zbW11X2RldmljZV9hY3BpX3Byb2JlKHN0cnVjdCBw
+bGF0Zm9ybV9kZXZpY2UgKnBkZXYsDQo+PiBzdGF0aWMgaW50IGFybV9zbW11X2RldmljZV9kdF9w
+cm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2LA0KPj4gCQkJCSAgICBzdHJ1Y3QgYXJt
+X3NtbXVfZGV2aWNlICpzbW11KQ0KPj4gew0KPj4gLQlzdHJ1Y3QgZGV2aWNlICpkZXYgPSAmcGRl
+di0+ZGV2Ow0KPj4gKwlzdHJ1Y3QgZGV2aWNlICpkZXYgPSBwZGV2Ow0KPj4gCXUzMiBjZWxsczsN
+Cj4+IAlpbnQgcmV0ID0gLUVJTlZBTDsNCj4+IA0KPj4gQEAgLTIyMTksMTMwICsyNTA2LDQ0OSBA
+QCBzdGF0aWMgdW5zaWduZWQgbG9uZyBhcm1fc21tdV9yZXNvdXJjZV9zaXplKHN0cnVjdCBhcm1f
+c21tdV9kZXZpY2UgKnNtbXUpDQo+PiAJCXJldHVybiBTWl8xMjhLOw0KPj4gfQ0KPj4gDQo+PiAr
+LyogU3RhcnQgb2YgWGVuIHNwZWNpZmljIGNvZGUuICovDQo+PiBzdGF0aWMgaW50IGFybV9zbW11
+X2RldmljZV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQ0KPj4gew0KPj4gLQlp
+bnQgaXJxLCByZXQ7DQo+PiAtCXN0cnVjdCByZXNvdXJjZSAqcmVzOw0KPj4gLQlyZXNvdXJjZV9z
+aXplX3QgaW9hZGRyOw0KPj4gLQlzdHJ1Y3QgYXJtX3NtbXVfZGV2aWNlICpzbW11Ow0KPj4gLQlz
+dHJ1Y3QgZGV2aWNlICpkZXYgPSAmcGRldi0+ZGV2Ow0KPj4gLQlib29sIGJ5cGFzczsNCj4+ICsg
+ICAgaW50IGlycSwgcmV0Ow0KPj4gKyAgICBwYWRkcl90IGlvYWRkciwgaW9zaXplOw0KPj4gKyAg
+ICBzdHJ1Y3QgYXJtX3NtbXVfZGV2aWNlICpzbW11Ow0KPj4gKyAgICBib29sIGJ5cGFzczsNCj4+
+ICsNCj4+ICsgICAgc21tdSA9IGRldm1fa3phbGxvYyhkZXYsIHNpemVvZigqc21tdSksIEdGUF9L
+RVJORUwpOw0KPj4gKyAgICBpZiAoICFzbW11ICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgZGV2
+X2VycihwZGV2LCAiZmFpbGVkIHRvIGFsbG9jYXRlIGFybV9zbW11X2RldmljZVxuIik7DQo+PiAr
+ICAgICAgICByZXR1cm4gLUVOT01FTTsNCj4+ICsgICAgfQ0KPj4gKyAgICBzbW11LT5kZXYgPSBw
+ZGV2Ow0KPj4gKw0KPj4gKyAgICBpZiAoIHBkZXYtPm9mX25vZGUgKQ0KPj4gKyAgICB7DQo+PiAr
+ICAgICAgICByZXQgPSBhcm1fc21tdV9kZXZpY2VfZHRfcHJvYmUocGRldiwgc21tdSk7DQo+PiAr
+ICAgIH0gZWxzZQ0KPj4gKyAgICB7DQo+IA0KPiBjb2Rpbmcgc3R5bGUNCg0KQWNrLiANCj4gDQo+
+IA0KPj4gKyAgICAgICAgcmV0ID0gYXJtX3NtbXVfZGV2aWNlX2FjcGlfcHJvYmUocGRldiwgc21t
+dSk7DQo+PiArICAgICAgICBpZiAoIHJldCA9PSAtRU5PREVWICkNCj4+ICsgICAgICAgICAgICBy
+ZXR1cm4gcmV0Ow0KPj4gKyAgICB9DQo+PiArDQo+PiArICAgIC8qIFNldCBieXBhc3MgbW9kZSBh
+Y2NvcmRpbmcgdG8gZmlybXdhcmUgcHJvYmluZyByZXN1bHQgKi8NCj4+ICsgICAgYnlwYXNzID0g
+ISFyZXQ7DQo+PiArDQo+PiArICAgIC8qIEJhc2UgYWRkcmVzcyAqLw0KPj4gKyAgICByZXQgPSBk
+dF9kZXZpY2VfZ2V0X2FkZHJlc3MoZGV2X3RvX2R0KHBkZXYpLCAwLCAmaW9hZGRyLCAmaW9zaXpl
+KTsNCj4+ICsgICAgaWYoIHJldCApDQo+PiArICAgICAgICByZXR1cm4gLUVOT0RFVjsNCj4+ICsN
+Cj4+ICsgICAgaWYgKCBpb3NpemUgPCBhcm1fc21tdV9yZXNvdXJjZV9zaXplKHNtbXUpICkNCj4+
+ICsgICAgew0KPj4gKyAgICAgICAgZGV2X2VycihwZGV2LCAiTU1JTyByZWdpb24gdG9vIHNtYWxs
+ICglbHgpXG4iLCBpb3NpemUpOw0KPj4gKyAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+PiArICAg
+IH0NCj4+ICsNCj4+ICsgICAgLyoNCj4+ICsgICAgICogRG9uJ3QgbWFwIHRoZSBJTVBMRU1FTlRB
+VElPTiBERUZJTkVEIHJlZ2lvbnMsIHNpbmNlIHRoZXkgbWF5IGNvbnRhaW4NCj4+ICsgICAgICog
+dGhlIFBNQ0cgcmVnaXN0ZXJzIHdoaWNoIGFyZSByZXNlcnZlZCBieSB0aGUgUE1VIGRyaXZlci4N
+Cj4gDQo+IERvZXMgdGhpcyBhcHBseSB0byBYZW4gdG9vPw0KDQpZZXMuIFBlcmZvcm1hbmNlIG1v
+bml0b3JpbmcgZmFjaWxpdGllcyBhcmUgb3B0aW9uYWwuIEN1cnJlbnRseSB0aGVyZSBpcyBubyBw
+bGFuIHRvIHN1cHBvcnQgYWxzbyBpbiBYRU4uDQo+IA0KPiANCj4+ICsgICAgICovDQo+PiArICAg
+IHNtbXUtPmJhc2UgPSBpb3JlbWFwX25vY2FjaGUoaW9hZGRyLCBpb3NpemUpOw0KPj4gKyAgICBp
+ZiAoIElTX0VSUihzbW11LT5iYXNlKSApDQo+PiArICAgICAgICByZXR1cm4gUFRSX0VSUihzbW11
+LT5iYXNlKTsNCj4+ICsNCj4+ICsgICAgaWYgKCBpb3NpemUgPiBTWl82NEsgKQ0KPj4gKyAgICB7
+DQo+PiArICAgICAgICBzbW11LT5wYWdlMSA9IGlvcmVtYXBfbm9jYWNoZShpb2FkZHIgKyBTWl82
+NEssIEFSTV9TTU1VX1JFR19TWik7DQo+PiArICAgICAgICBpZiAoIElTX0VSUihzbW11LT5wYWdl
+MSkgKQ0KPj4gKyAgICAgICAgICAgIHJldHVybiBQVFJfRVJSKHNtbXUtPnBhZ2UxKTsNCj4+ICsg
+ICAgfQ0KPj4gKyAgICBlbHNlDQo+PiArICAgIHsNCj4+ICsgICAgICAgIHNtbXUtPnBhZ2UxID0g
+c21tdS0+YmFzZTsNCj4+ICsgICAgfQ0KPj4gKw0KPj4gKyAgICAvKiBJbnRlcnJ1cHQgbGluZXMg
+Ki8NCj4+ICsNCj4+ICsgICAgaXJxID0gcGxhdGZvcm1fZ2V0X2lycV9ieW5hbWVfb3B0aW9uYWwo
+cGRldiwgImNvbWJpbmVkIik7DQo+PiArICAgIGlmICggaXJxID4gMCApDQo+PiArICAgICAgICBz
+bW11LT5jb21iaW5lZF9pcnEgPSBpcnE7DQo+PiArICAgIGVsc2UNCj4+ICsgICAgew0KPj4gKyAg
+ICAgICAgaXJxID0gcGxhdGZvcm1fZ2V0X2lycV9ieW5hbWVfb3B0aW9uYWwocGRldiwgImV2ZW50
+cSIpOw0KPj4gKyAgICAgICAgaWYgKCBpcnEgPiAwICkNCj4+ICsgICAgICAgICAgICBzbW11LT5l
+dnRxLnEuaXJxID0gaXJxOw0KPj4gKw0KPj4gKyAgICAgICAgaXJxID0gcGxhdGZvcm1fZ2V0X2ly
+cV9ieW5hbWVfb3B0aW9uYWwocGRldiwgInByaXEiKTsNCj4+ICsgICAgICAgIGlmICggaXJxID4g
+MCApDQo+PiArICAgICAgICAgICAgc21tdS0+cHJpcS5xLmlycSA9IGlycTsNCj4+ICsNCj4+ICsg
+ICAgICAgIGlycSA9IHBsYXRmb3JtX2dldF9pcnFfYnluYW1lX29wdGlvbmFsKHBkZXYsICJnZXJy
+b3IiKTsNCj4+ICsgICAgICAgIGlmICggaXJxID4gMCApDQo+PiArICAgICAgICAgICAgc21tdS0+
+Z2Vycl9pcnEgPSBpcnE7DQo+PiArICAgIH0NCj4+ICsgICAgLyogUHJvYmUgdGhlIGgvdyAqLw0K
+Pj4gKyAgICByZXQgPSBhcm1fc21tdV9kZXZpY2VfaHdfcHJvYmUoc21tdSk7DQo+PiArICAgIGlm
+ICggcmV0ICkNCj4+ICsgICAgICAgIHJldHVybiByZXQ7DQo+PiArDQo+PiArICAgIC8qIEluaXRp
+YWxpc2UgaW4tbWVtb3J5IGRhdGEgc3RydWN0dXJlcyAqLw0KPj4gKyAgICByZXQgPSBhcm1fc21t
+dV9pbml0X3N0cnVjdHVyZXMoc21tdSk7DQo+PiArICAgIGlmICggcmV0ICkNCj4+ICsgICAgICAg
+IHJldHVybiByZXQ7DQo+PiArDQo+PiArICAgIC8qIFJlc2V0IHRoZSBkZXZpY2UgKi8NCj4+ICsg
+ICAgcmV0ID0gYXJtX3NtbXVfZGV2aWNlX3Jlc2V0KHNtbXUsIGJ5cGFzcyk7DQo+PiArICAgIGlm
+ICggcmV0ICkNCj4+ICsgICAgICAgIHJldHVybiByZXQ7DQo+PiArDQo+PiArICAgIC8qDQo+PiAr
+ICAgICAqIEtlZXAgYSBsaXN0IG9mIGFsbCBwcm9iZWQgZGV2aWNlcy4gVGhpcyB3aWxsIGJlIHVz
+ZWQgdG8gcXVlcnkNCj4+ICsgICAgICogdGhlIHNtbXUgZGV2aWNlcyBiYXNlZCBvbiB0aGUgZndu
+b2RlLg0KPj4gKyAgICAgKi8NCj4+ICsgICAgSU5JVF9MSVNUX0hFQUQoJnNtbXUtPmRldmljZXMp
+Ow0KPj4gKw0KPj4gKyAgICBzcGluX2xvY2soJmFybV9zbW11X2RldmljZXNfbG9jayk7DQo+PiAr
+ICAgIGxpc3RfYWRkKCZzbW11LT5kZXZpY2VzLCAmYXJtX3NtbXVfZGV2aWNlcyk7DQo+PiArICAg
+IHNwaW5fdW5sb2NrKCZhcm1fc21tdV9kZXZpY2VzX2xvY2spOw0KPj4gKw0KPj4gKyAgICByZXR1
+cm4gMDsNCj4+ICt9DQoNCg==
 
