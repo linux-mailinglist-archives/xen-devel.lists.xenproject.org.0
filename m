@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB89D2CBCD8
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 13:23:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42683.76788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61FDB2CBD0A
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 13:33:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42691.76804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkRAL-0005iK-U9; Wed, 02 Dec 2020 12:23:25 +0000
+	id 1kkRJM-0006kH-TA; Wed, 02 Dec 2020 12:32:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42683.76788; Wed, 02 Dec 2020 12:23:25 +0000
+Received: by outflank-mailman (output) from mailman id 42691.76804; Wed, 02 Dec 2020 12:32:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkRAL-0005hr-Qt; Wed, 02 Dec 2020 12:23:25 +0000
-Received: by outflank-mailman (input) for mailman id 42683;
- Wed, 02 Dec 2020 12:23:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kkRJM-0006js-PR; Wed, 02 Dec 2020 12:32:44 +0000
+Received: by outflank-mailman (input) for mailman id 42691;
+ Wed, 02 Dec 2020 12:32:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkRAK-0005hj-K3; Wed, 02 Dec 2020 12:23:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkRAK-0000F5-D3; Wed, 02 Dec 2020 12:23:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkRAK-0002LX-5X; Wed, 02 Dec 2020 12:23:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kkRAK-0008Tm-55; Wed, 02 Dec 2020 12:23:24 +0000
+ (envelope-from <SRS0=DXNT=FG=alien8.de=bp@srs-us1.protection.inumbo.net>)
+ id 1kkRJK-0006jn-Ex
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 12:32:43 +0000
+Received: from mail.skyhub.de (unknown [5.9.137.197])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4cab47ae-c2ff-4eb8-a472-8e46912ccb2a;
+ Wed, 02 Dec 2020 12:32:40 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f161b00e186258fb055049e.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f16:1b00:e186:258f:b055:49e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 839061EC0445;
+ Wed,  2 Dec 2020 13:32:39 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,90 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dOtx9UTkFPO9WEL0+ZKCGvAuBtXT4O9vVlR19rr7zcE=; b=RM3BkcsrN1AcCACiMPXY6MnvI8
-	ywMlkxDNElD/dj3ACAYpqMdURaV1EhslYc3hAXGNkIlDUgDO9PvXmvaADIIp25HMmzIpIQlQCxygK
-	dP+d0gpqAGRidcxYZOQaUkCX6Gs7o9eMnqkQrmMN70WK0BVi4BVEyfn5r7LMXAFYHyLM=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157157-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4cab47ae-c2ff-4eb8-a472-8e46912ccb2a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+	t=1606912359;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+	bh=o/X2Q8TjgxS2AV7FMOJUAyk9P7ykB2huuy5Ud2cBljk=;
+	b=fME5MejkgBN0mNXJWemh6uyBGI0q25TJUz52B4+MjOgCtx/vrQOy0f9Ub8yPrBnpMg8dIl
+	1BtvFqXRtCl5jfju1qfzn/8xxugE+mK0UXIH4WMg2ulGvxAIS6TwI4OPYiLuQNYyxJFg8+
+	GLKfO3eez6x6jvEShA/6zBynFK93hw4=
+Date: Wed, 2 Dec 2020 13:32:35 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org, peterz@infradead.org,
+	luto@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
+	Deep Shah <sdeep@vmware.com>,
+	"VMware, Inc." <pv-drivers@vmware.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 04/12] x86/xen: drop USERGS_SYSRET64 paravirt call
+Message-ID: <20201202123235.GD2951@zn.tnic>
+References: <20201120114630.13552-1-jgross@suse.com>
+ <20201120114630.13552-5-jgross@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 157157: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=cabf60fc32d4cfa1d74a2bdfcdb294a31da5d68e
-X-Osstest-Versions-That:
-    xen=3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 02 Dec 2020 12:23:24 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20201120114630.13552-5-jgross@suse.com>
 
-flight 157157 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157157/
+On Fri, Nov 20, 2020 at 12:46:22PM +0100, Juergen Gross wrote:
+> @@ -123,12 +115,15 @@ SYM_INNER_LABEL(entry_SYSCALL_64_after_hwframe, SYM_L_GLOBAL)
+>  	 * Try to use SYSRET instead of IRET if we're returning to
+>  	 * a completely clean 64-bit userspace context.  If we're not,
+>  	 * go to the slow exit path.
+> +	 * In the Xen PV case we must use iret anyway.
+>  	 */
+> -	movq	RCX(%rsp), %rcx
+> -	movq	RIP(%rsp), %r11
+>  
+> -	cmpq	%rcx, %r11	/* SYSRET requires RCX == RIP */
+> -	jne	swapgs_restore_regs_and_return_to_usermode
+> +	ALTERNATIVE __stringify( \
+> +		movq	RCX(%rsp), %rcx; \
+> +		movq	RIP(%rsp), %r11; \
+> +		cmpq	%rcx, %r11;	/* SYSRET requires RCX == RIP */ \
+> +		jne	swapgs_restore_regs_and_return_to_usermode), \
+> +	"jmp	swapgs_restore_regs_and_return_to_usermode", X86_FEATURE_XENPV
 
-Failures :-/ but no regressions.
+Why such a big ALTERNATIVE when you can simply do:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+        /*
+         * Try to use SYSRET instead of IRET if we're returning to
+         * a completely clean 64-bit userspace context.  If we're not,
+         * go to the slow exit path.
+         * In the Xen PV case we must use iret anyway.
+         */
+        ALTERNATIVE "", "jmp swapgs_restore_regs_and_return_to_usermode", X86_FEATURE_XENPV
 
-version targeted for testing:
- xen                  cabf60fc32d4cfa1d74a2bdfcdb294a31da5d68e
-baseline version:
- xen                  3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
+        movq    RCX(%rsp), %rcx;
+        movq    RIP(%rsp), %r11;
+        cmpq    %rcx, %r11;     /* SYSRET requires RCX == RIP */ \
+        jne     swapgs_restore_regs_and_return_to_usermode
 
-Last test of basis   157112  2020-11-30 14:00:26 Z    1 days
-Testing same since   157157  2020-12-02 10:00:26 Z    0 days    1 attempts
+?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Dario Faggioli <dfaggioli@suse.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Rahul Singh <rahul.singh@arm.com>
-  Stefano Stabellini <sstabellini@kernel.org>
+-- 
+Regards/Gruss,
+    Boris.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   3ae469af8e..cabf60fc32  cabf60fc32d4cfa1d74a2bdfcdb294a31da5d68e -> smoke
+https://people.kernel.org/tglx/notes-about-netiquette
 
