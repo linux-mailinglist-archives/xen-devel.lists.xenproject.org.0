@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B01992CB810
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 10:05:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42495.76425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 980302CB899
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 10:22:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42502.76441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkO4s-000165-LI; Wed, 02 Dec 2020 09:05:34 +0000
+	id 1kkOKv-0002vg-5p; Wed, 02 Dec 2020 09:22:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42495.76425; Wed, 02 Dec 2020 09:05:34 +0000
+Received: by outflank-mailman (output) from mailman id 42502.76441; Wed, 02 Dec 2020 09:22:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkO4s-00015g-Hb; Wed, 02 Dec 2020 09:05:34 +0000
-Received: by outflank-mailman (input) for mailman id 42495;
- Wed, 02 Dec 2020 09:05:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kkOKv-0002vH-2R; Wed, 02 Dec 2020 09:22:09 +0000
+Received: by outflank-mailman (input) for mailman id 42502;
+ Wed, 02 Dec 2020 09:22:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UQyH=FG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kkO4r-00015b-ED
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 09:05:33 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 689f0276-8bdb-4c06-8263-ee973c53d642;
- Wed, 02 Dec 2020 09:05:32 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AD235AC2E;
- Wed,  2 Dec 2020 09:05:31 +0000 (UTC)
+ (envelope-from <paul@xen.org>) id 1kkOKt-0002v7-Ec
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 09:22:07 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kkOKt-0004px-6J; Wed, 02 Dec 2020 09:22:07 +0000
+Received: from host86-183-162-145.range86-183.btcentralplus.com
+ ([86.183.162.145] helo=u2f063a87eabd5f.home)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1kkOKs-0006CD-Ts; Wed, 02 Dec 2020 09:22:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,60 +40,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 689f0276-8bdb-4c06-8263-ee973c53d642
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606899931; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RYABrRedWVHhG6rsWZPdptGnU401jSFHr8Qgyk6k58A=;
-	b=anfJGqu79NDZab8bZlBiZkKPsspQ91DqRgzJK5xdI9ZI6EbW5+tYcVUowJu+Av3NM8psoX
-	v6UlNVq4SEZwzV3nZIeNAFIe6xyS2/mw0vxXE/9L4vBeT5y3yC/PLsQ7HphRs7RCI+VZgt
-	mWAusFSnxOzELrvidpeU9RlhF1TqaJY=
-Subject: Re: [PATCH] Fix spelling errors.
-To: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, xen-devel@lists.xenproject.org,
- Diederik de Haas <didi.debian@cknow.org>
-References: <a60e2c98183d7c873f4e306954f900614fcdb582.1606757711.git.didi.debian@cknow.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3702b443-fd7b-6000-a952-0ecec6fe318c@suse.com>
-Date: Wed, 2 Dec 2020 10:05:31 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:Cc:To:From;
+	bh=vKZWz15kBurVPlkeTgoU9pGf8p6XxQhWGrIoZqzdY1Y=; b=oiQDxnmwrAIF3w4tm3iFsKizQb
+	waNBxZ9qTXlgJoJS6B7Ma07LKIG5oHnd+RxpTJ59ohLctwgXSui30oXwz7krwdeGcuTFHoVtryjFp
+	n8BkvC30vWcksXlVYX/dQq2ZK8pgK/ALVOjyv9UEEtdIjsA5oXsfCczxJh4zrcMqZ6Zw=;
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: Paul Durrant <pdurrant@amazon.com>
+Subject: [PATCH v4 00/11] viridian: add support for ExProcessorMasks
+Date: Wed,  2 Dec 2020 09:21:56 +0000
+Message-Id: <20201202092205.906-1-paul@xen.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <a60e2c98183d7c873f4e306954f900614fcdb582.1606757711.git.didi.debian@cknow.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 30.11.2020 18:39, Diederik de Haas wrote:
-> Only spelling errors; no functional changes.
-> 
-> In docs/misc/dump-core-format.txt there are a few more instances of
-> 'informations'. I'll leave that up to someone who can properly determine
-> how those sentences should be constructed.
-> 
-> Signed-off-by: Diederik de Haas <didi.debian@cknow.org>
-> 
-> Please CC me in replies as I'm not subscribed to this list.
-> ---
->  docs/man/xl.1.pod.in                   | 2 +-
->  docs/man/xl.cfg.5.pod.in               | 2 +-
->  docs/man/xlcpupool.cfg.5.pod           | 2 +-
->  tools/firmware/rombios/rombios.c       | 2 +-
->  tools/libs/light/libxl_stream_read.c   | 2 +-
->  tools/xl/xl_cmdtable.c                 | 2 +-
+From: Paul Durrant <pdurrant@amazon.com>
 
-Since these are trivial and obvious adjustments, I intend to not wait
-very long for an xl/libxl side ack, before deciding to commit this.
-Perhaps just another day or so.
+Paul Durrant (11):
+  viridian: don't blindly write to 32-bit registers is 'mode' is invalid
+  viridian: move flush hypercall implementation into separate function
+  viridian: move IPI hypercall implementation into separate function
+  viridian: introduce a per-cpu hypercall_vpmask and accessor
+    functions...
+  viridian: use hypercall_vpmask in hvcall_ipi()
+  viridian: use softirq batching in hvcall_ipi()
+  viridian: add ExProcessorMasks variants of the flush hypercalls
+  viridian: add ExProcessorMasks variant of the IPI hypercall
+  viridian: log initial invocation of each type of hypercall
+  viridian: add a new '_HVMPV_ex_processor_masks' bit into
+    HVM_PARAM_VIRIDIAN...
+  xl / libxl: add 'ex_processor_mask' into
+    'libxl_viridian_enlightenment'
 
-Jan
+ docs/man/xl.cfg.5.pod.in             |   8 +
+ tools/include/libxl.h                |   7 +
+ tools/libs/light/libxl_types.idl     |   1 +
+ tools/libs/light/libxl_x86.c         |   3 +
+ xen/arch/x86/hvm/viridian/viridian.c | 604 +++++++++++++++++++++------
+ xen/include/asm-x86/hvm/viridian.h   |  10 +
+ xen/include/public/hvm/params.h      |   7 +-
+ 7 files changed, 516 insertions(+), 124 deletions(-)
+
+-- 
+2.20.1
+
 
