@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D7C42CC25F
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 17:36:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42887.77188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42E192CC2AC
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 17:47:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42895.77199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkV6n-0007W7-Nr; Wed, 02 Dec 2020 16:36:01 +0000
+	id 1kkVH7-00008w-Ny; Wed, 02 Dec 2020 16:46:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42887.77188; Wed, 02 Dec 2020 16:36:01 +0000
+Received: by outflank-mailman (output) from mailman id 42895.77199; Wed, 02 Dec 2020 16:46:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkV6n-0007Vi-KW; Wed, 02 Dec 2020 16:36:01 +0000
-Received: by outflank-mailman (input) for mailman id 42887;
- Wed, 02 Dec 2020 16:36:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kkVH7-00008X-Kx; Wed, 02 Dec 2020 16:46:41 +0000
+Received: by outflank-mailman (input) for mailman id 42895;
+ Wed, 02 Dec 2020 16:46:40 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1kkV6m-0007Vb-Sv
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 16:36:00 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1kkV6m-00068N-Qy
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 16:36:00 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1kkV6m-0003z2-PY
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 16:36:00 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1kkV6j-0005on-BI; Wed, 02 Dec 2020 16:35:57 +0000
+ (envelope-from <SRS0=Z8xT=FG=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1kkVH6-00008R-DE
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 16:46:40 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b8fc5ae2-fdbf-480d-baa4-dd360b6448c0;
+ Wed, 02 Dec 2020 16:46:38 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.3.4 DYNA|AUTH)
+ with ESMTPSA id 60a649wB2GkUXfq
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 2 Dec 2020 17:46:30 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,64 +40,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=zlQiDJR+/Pb9UkxioXvWJdFAT1Utbih89CmWbF+q2JY=; b=p151pceMRr3NSR6RAnGXDPtFx7
-	i4cq0fMFFSqmORB3xBTrM89z0r/75yP9iKPsMkhIK1YIUQ4jTG0NhQmFF8U1hKLsSdWhCYiNBH6+7
-	aLpKD6powGnY0xW1RVTFr4BSsyMpBIFtvHPSfm9j7twHcAAl5jbnDbxr4OAk9G9pnNs8=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: b8fc5ae2-fdbf-480d-baa4-dd360b6448c0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1606927597;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+	Subject:Sender;
+	bh=CrKA4JECnYMv6hggb6IRjnNAsHHjaWmmYuVheKSuQYA=;
+	b=C6Ah8Gpz5QVXe2hhwkt3Y+9eC9FK4uJKMzY3okZ5EOY+tY4nmIAhwJAbxTc21qE2wk
+	fN5SPS/tQpaj15yu9hzFbozviRl1mO97nWXDcGUkxfASmXwN6aRMno+AfG2ZOEFyhVSk
+	RNXUM7YqKCse+nayeWAFDcmj2wUYzdmNFUbT6TP/FMLZRJQabhBatLXcITtrKFHztNbC
+	RNqBHWCTKHp3oOr+kE7UgcPCdVHNz7wlABvgM1QWWj/85ZBAV3zLrrMUrjKScCVAdiaF
+	QgwURfBbm9+3ucw337QXf9GxMrKYPZ4+fgYIId315RNnphry6VgkkKbwAXexLq6S6Reh
+	molA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3Gwg"
+X-RZG-CLASS-ID: mo00
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Olaf Hering <olaf@aepfle.de>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v1] tools/hotplug: allow tuning of xenwatchdogd arguments
+Date: Wed,  2 Dec 2020 17:46:28 +0100
+Message-Id: <20201202164628.24224-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24519.49773.66229.841306@mariner.uk.xensource.com>
-Date: Wed, 2 Dec 2020 16:35:57 +0000
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
-    committers@xenproject.org,
-    George Dunlap <George.Dunlap@citrix.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    Jan Beulich <jbeulich@suse.com>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    =?iso-8859-1?Q?J=FCrgen_Gro=DF?=  <jgross@suse.com>,
-    Paul Durrant <xadimgnik@gmail.com>,
-    Wei Liu <wl@xen.org>,
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: Xen 4.15: Proposed release schedule
-In-Reply-To: <a0648b20-54df-850b-2992-35dfbb86b7ca@xen.org>
-References: <24510.24778.433048.477008@mariner.uk.xensource.com>
-	<24510.25252.447028.364012@mariner.uk.xensource.com>
-	<a0648b20-54df-850b-2992-35dfbb86b7ca@xen.org>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Transfer-Encoding: 8bit
 
-Julien Grall writes ("Re: Xen 4.15: Proposed release schedule"):
-> Therefore, would it be possible to push the "Feature Freeze" by week?
+Currently the arguments for xenwatchdogd are hardcoded with 15s
+keep-alive interval and 30s timeout.
 
-Sure.  To expand on that: this was the only comment on my proposal,
-and I'm happy to accept such a minor change.
+It is not possible to tweak these values via
+/etc/systemd/system/xen-watchdog.service.d/*.conf because ExecStart
+can not be replaced. The only option would be a private copy
+/etc/systemd/system/xen-watchdog.service, which may get out of sync
+with the Xen provided xen-watchdog.service.
 
-Adjusting the LPD too, but not the other two tentative dates, leads to
-this schedule:
+Adjust the service file to recognize XENWATCHDOGD_ARGS= in a
+private unit configuration file.
 
-   Friday 15th January    Last posting date
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ tools/hotplug/Linux/init.d/xen-watchdog.in          | 7 ++++++-
+ tools/hotplug/Linux/systemd/xen-watchdog.service.in | 4 +++-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-     Patches adding new features should be posted to the mailing list
-     by this cate, although perhaps not in their final version.
-
-   Friday 29th January   Feature freeze
-  
-     Patches adding new features should be committed by this date.
-     Straightforward bugfixes may continue to be accepted by
-     maintainers.
-
-   Friday 12th February **tentatve**   Code freeze
-
-     Bugfixes only, all changes to be approved by the Release Manager.
-
-   Week of 12th March **tentative**   Release
-     (probably Tuesday or Wednesday)
-
-Unless anyone has objections, I will declare this official, tomorrow.
-
-Ian.
+diff --git a/tools/hotplug/Linux/init.d/xen-watchdog.in b/tools/hotplug/Linux/init.d/xen-watchdog.in
+index c05f1f6b6a..87e2353b49 100644
+--- a/tools/hotplug/Linux/init.d/xen-watchdog.in
++++ b/tools/hotplug/Linux/init.d/xen-watchdog.in
+@@ -19,6 +19,11 @@
+ 
+ . @XEN_SCRIPT_DIR@/hotplugpath.sh
+ 
++xencommons_config=@CONFIG_DIR@/@CONFIG_LEAF_DIR@
++
++test -f $xencommons_config/xencommons && . $xencommons_config/xencommons
++
++test -z "$XENWATCHDOGD_ARGS" || XENWATCHDOGD_ARGS='15 30'
+ DAEMON=${sbindir}/xenwatchdogd
+ base=$(basename $DAEMON)
+ 
+@@ -46,7 +51,7 @@ start() {
+ 	local r
+ 	echo -n $"Starting domain watchdog daemon: "
+ 
+-	$DAEMON 30 15
++	$DAEMON $XENWATCHDOGD_ARGS
+ 	r=$?
+ 	[ "$r" -eq 0 ] && success $"$base startup" || failure $"$base startup"
+ 	echo
+diff --git a/tools/hotplug/Linux/systemd/xen-watchdog.service.in b/tools/hotplug/Linux/systemd/xen-watchdog.service.in
+index 1eecd2a616..637ab7fd7f 100644
+--- a/tools/hotplug/Linux/systemd/xen-watchdog.service.in
++++ b/tools/hotplug/Linux/systemd/xen-watchdog.service.in
+@@ -6,7 +6,9 @@ ConditionPathExists=/proc/xen/capabilities
+ 
+ [Service]
+ Type=forking
+-ExecStart=@sbindir@/xenwatchdogd 30 15
++Environment="XENWATCHDOGD_ARGS=30 15"
++EnvironmentFile=-@CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
++ExecStart=@sbindir@/xenwatchdogd $XENWATCHDOGD_ARGS
+ KillSignal=USR1
+ 
+ [Install]
 
