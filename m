@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C690E2CC8B1
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 22:11:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43009.77390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C0452CC8B6
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 22:14:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43016.77402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkZOg-0001Fb-7s; Wed, 02 Dec 2020 21:10:46 +0000
+	id 1kkZSP-0001RB-Ob; Wed, 02 Dec 2020 21:14:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43009.77390; Wed, 02 Dec 2020 21:10:46 +0000
+Received: by outflank-mailman (output) from mailman id 43016.77402; Wed, 02 Dec 2020 21:14:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkZOg-0001Ee-41; Wed, 02 Dec 2020 21:10:46 +0000
-Received: by outflank-mailman (input) for mailman id 43009;
- Wed, 02 Dec 2020 21:10:44 +0000
+	id 1kkZSP-0001Qm-LO; Wed, 02 Dec 2020 21:14:37 +0000
+Received: by outflank-mailman (input) for mailman id 43016;
+ Wed, 02 Dec 2020 21:14:36 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kkZOe-0001AX-Mk
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 21:10:44 +0000
+ (envelope-from <julien@xen.org>) id 1kkZSO-0001Qh-Om
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 21:14:36 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kkZOX-0003rS-RW; Wed, 02 Dec 2020 21:10:37 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ id 1kkZSM-0003wn-Jr; Wed, 02 Dec 2020 21:14:34 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kkZOX-00039w-Hj; Wed, 02 Dec 2020 21:10:37 +0000
+ id 1kkZSM-0003Ud-DL; Wed, 02 Dec 2020 21:14:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,122 +42,107 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Onm0xfQJVu6IWG1SCpBTJID+WxJ8YF3bI4LRL0Fd27Y=; b=h8s+qOsm38vLVaLM3L2hgfZW8/
-	yYlNsTpeqoJTnbiDVFEp/B94uf/dHD1wDgTygKNcvDZE+7plNxv697phqhU/RALPpSK+MFUmomO8F
-	Zzj0HLH8JXZvNPTF7JDif8Ba+0aE+zp2LL755ihbGbmRX+ahedcn3UvdUXb5K+2pkZik=;
-Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
- per-channel lock held
+	bh=PMNxof0t/q+zpIFpcEyHRgoWAfoohyTYPUe/y/T+DLU=; b=iljXsA1wn7crLPV6J1kB4AgqpT
+	mmmtzAxW/BHVlHYBXM9Ds+cVgA+EFIwNXXRXuSOSjOzVjKnwPiobpnFPO588kRJUWBrEt1bQedYlm
+	axy0EqBOfY3gZBqb6cZKxCIEadYC3YK3IJ2kFBvmVUcgMA0/FGK8w5VPZbin99kPJ+iM=;
+Subject: Re: [PATCH v3 2/5] evtchn: avoid access tearing for
+ ->virq_to_evtchn[] accesses
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
  <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <lengyelt@ainfosec.com>,
- Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
- Alexandru Isaila <aisaila@bitdefender.com>
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
- <d821c715-966a-b48b-a877-c5dac36822f0@suse.com>
+ <ce6ce543-d57a-4111-2e66-871c4f4633a8@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
-Date: Wed, 2 Dec 2020 21:10:35 +0000
+Message-ID: <dae588c9-69ab-36f8-f945-b9f6fb0cb14d@xen.org>
+Date: Wed, 2 Dec 2020 21:14:32 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <d821c715-966a-b48b-a877-c5dac36822f0@suse.com>
+In-Reply-To: <ce6ce543-d57a-4111-2e66-871c4f4633a8@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
 Hi Jan,
 
-On 23/11/2020 13:30, Jan Beulich wrote:
-> While there don't look to be any problems with this right now, the lock
-> order implications from holding the lock can be very difficult to follow
-> (and may be easy to violate unknowingly). The present callbacks don't
-> (and no such callback should) have any need for the lock to be held.
+On 23/11/2020 13:28, Jan Beulich wrote:
+> Use {read,write}_atomic() to exclude any eventualities, in particular
+> observing that accesses aren't all happening under a consistent lock.
 > 
-> However, vm_event_disable() frees the structures used by respective
-> callbacks and isn't otherwise synchronized with invocations of these
-> callbacks, so maintain a count of in-progress calls, for evtchn_close()
-> to wait to drop to zero before freeing the port (and dropping the lock).
-
-AFAICT, this callback is not the only place where the synchronization is 
-missing in the VM event code.
-
-For instance, vm_event_put_request() can also race against 
-vm_event_disable().
-
-So shouldn't we handle this issue properly in VM event?
-
-> 
+> Requested-by: Julien Grall <julien@xen.org>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Should we make this accounting optional, to be requested through a new
-> parameter to alloc_unbound_xen_event_channel(), or derived from other
-> than the default callback being requested?
 
-Aside the VM event, do you see any value for the other caller?
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
 
 > ---
-> v3: Drain callbacks before proceeding with closing. Re-base.
+> v3: New.
 > 
 > --- a/xen/common/event_channel.c
 > +++ b/xen/common/event_channel.c
-> @@ -397,6 +397,7 @@ static long evtchn_bind_interdomain(evtc
->       
->       rchn->u.interdomain.remote_dom  = ld;
->       rchn->u.interdomain.remote_port = lport;
-> +    atomic_set(&rchn->u.interdomain.active_calls, 0);
->       rchn->state                     = ECS_INTERDOMAIN;
+> @@ -446,7 +446,7 @@ int evtchn_bind_virq(evtchn_bind_virq_t
 >   
->       /*
-> @@ -720,6 +721,10 @@ int evtchn_close(struct domain *d1, int
+>       spin_lock(&d->event_lock);
 >   
->           double_evtchn_lock(chn1, chn2);
+> -    if ( v->virq_to_evtchn[virq] != 0 )
+> +    if ( read_atomic(&v->virq_to_evtchn[virq]) )
+>           ERROR_EXIT(-EEXIST);
 >   
-> +        if ( consumer_is_xen(chn1) )
-> +            while ( atomic_read(&chn1->u.interdomain.active_calls) )
-> +                cpu_relax();
-> +
->           evtchn_free(d1, chn1);
+>       if ( port != 0 )
+> @@ -474,7 +474,8 @@ int evtchn_bind_virq(evtchn_bind_virq_t
 >   
->           chn2->state = ECS_UNBOUND;
-> @@ -781,9 +786,15 @@ int evtchn_send(struct domain *ld, unsig
->           rport = lchn->u.interdomain.remote_port;
->           rchn  = evtchn_from_port(rd, rport);
->           if ( consumer_is_xen(rchn) )
-> +        {
-> +            /* Don't keep holding the lock for the call below. */
-> +            atomic_inc(&rchn->u.interdomain.active_calls);
-> +            evtchn_read_unlock(lchn);
->               xen_notification_fn(rchn)(rd->vcpu[rchn->notify_vcpu_id], rport);
-> -        else
-> -            evtchn_port_set_pending(rd, rchn->notify_vcpu_id, rchn);
-
-atomic_dec() doesn't contain any memory barrier, so we will want one 
-between xen_notification_fn() and atomic_dec() to avoid re-ordering.
-
-> +            atomic_dec(&rchn->u.interdomain.active_calls);
-> +            return 0;
-> +        }
-> +        evtchn_port_set_pending(rd, rchn->notify_vcpu_id, rchn);
+>       evtchn_write_unlock(chn);
+>   
+> -    v->virq_to_evtchn[virq] = bind->port = port;
+> +    bind->port = port;
+> +    write_atomic(&v->virq_to_evtchn[virq], port);
+>   
+>    out:
+>       spin_unlock(&d->event_lock);
+> @@ -660,9 +661,9 @@ int evtchn_close(struct domain *d1, int
+>       case ECS_VIRQ:
+>           for_each_vcpu ( d1, v )
+>           {
+> -            if ( v->virq_to_evtchn[chn1->u.virq] != port1 )
+> +            if ( read_atomic(&v->virq_to_evtchn[chn1->u.virq]) != port1 )
+>                   continue;
+> -            v->virq_to_evtchn[chn1->u.virq] = 0;
+> +            write_atomic(&v->virq_to_evtchn[chn1->u.virq], 0);
+>               spin_barrier(&v->virq_lock);
+>           }
 >           break;
->       case ECS_IPI:
->           evtchn_port_set_pending(ld, lchn->notify_vcpu_id, lchn);
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -104,6 +104,7 @@ struct evtchn
->           } unbound;     /* state == ECS_UNBOUND */
->           struct {
->               evtchn_port_t  remote_port;
-> +            atomic_t       active_calls;
->               struct domain *remote_dom;
->           } interdomain; /* state == ECS_INTERDOMAIN */
->           struct {
+> @@ -801,7 +802,7 @@ bool evtchn_virq_enabled(const struct vc
+>       if ( virq_is_global(virq) && v->vcpu_id )
+>           v = domain_vcpu(v->domain, 0);
+>   
+> -    return v->virq_to_evtchn[virq];
+> +    return read_atomic(&v->virq_to_evtchn[virq]);
+>   }
+>   
+>   void send_guest_vcpu_virq(struct vcpu *v, uint32_t virq)
+> @@ -814,7 +815,7 @@ void send_guest_vcpu_virq(struct vcpu *v
+>   
+>       spin_lock_irqsave(&v->virq_lock, flags);
+>   
+> -    port = v->virq_to_evtchn[virq];
+> +    port = read_atomic(&v->virq_to_evtchn[virq]);
+>       if ( unlikely(port == 0) )
+>           goto out;
+>   
+> @@ -843,7 +844,7 @@ void send_guest_global_virq(struct domai
+>   
+>       spin_lock_irqsave(&v->virq_lock, flags);
+>   
+> -    port = v->virq_to_evtchn[virq];
+> +    port = read_atomic(&v->virq_to_evtchn[virq]);
+>       if ( unlikely(port == 0) )
+>           goto out;
+>   
 > 
-
-Cheers,
 
 -- 
 Julien Grall
