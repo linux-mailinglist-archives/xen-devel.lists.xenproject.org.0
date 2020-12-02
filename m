@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E192CC2AC
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 17:47:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42895.77199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F09762CC2AD
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 17:48:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42901.77212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkVH7-00008w-Ny; Wed, 02 Dec 2020 16:46:41 +0000
+	id 1kkVII-0000Fh-3x; Wed, 02 Dec 2020 16:47:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42895.77199; Wed, 02 Dec 2020 16:46:41 +0000
+Received: by outflank-mailman (output) from mailman id 42901.77212; Wed, 02 Dec 2020 16:47:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkVH7-00008X-Kx; Wed, 02 Dec 2020 16:46:41 +0000
-Received: by outflank-mailman (input) for mailman id 42895;
- Wed, 02 Dec 2020 16:46:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kkVIH-0000F9-WD; Wed, 02 Dec 2020 16:47:54 +0000
+Received: by outflank-mailman (input) for mailman id 42901;
+ Wed, 02 Dec 2020 16:47:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z8xT=FG=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kkVH6-00008R-DE
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 16:46:40 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.21])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b8fc5ae2-fdbf-480d-baa4-dd360b6448c0;
- Wed, 02 Dec 2020 16:46:38 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.3.4 DYNA|AUTH)
- with ESMTPSA id 60a649wB2GkUXfq
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 2 Dec 2020 17:46:30 +0100 (CET)
+ (envelope-from <julien@xen.org>) id 1kkVIG-0000F3-Mv
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 16:47:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kkVID-0006Ok-1l; Wed, 02 Dec 2020 16:47:49 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kkVIC-0004ze-Ca; Wed, 02 Dec 2020 16:47:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,88 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8fc5ae2-fdbf-480d-baa4-dd360b6448c0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1606927597;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
-	Subject:Sender;
-	bh=CrKA4JECnYMv6hggb6IRjnNAsHHjaWmmYuVheKSuQYA=;
-	b=C6Ah8Gpz5QVXe2hhwkt3Y+9eC9FK4uJKMzY3okZ5EOY+tY4nmIAhwJAbxTc21qE2wk
-	fN5SPS/tQpaj15yu9hzFbozviRl1mO97nWXDcGUkxfASmXwN6aRMno+AfG2ZOEFyhVSk
-	RNXUM7YqKCse+nayeWAFDcmj2wUYzdmNFUbT6TP/FMLZRJQabhBatLXcITtrKFHztNbC
-	RNqBHWCTKHp3oOr+kE7UgcPCdVHNz7wlABvgM1QWWj/85ZBAV3zLrrMUrjKScCVAdiaF
-	QgwURfBbm9+3ucw337QXf9GxMrKYPZ4+fgYIId315RNnphry6VgkkKbwAXexLq6S6Reh
-	molA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3Gwg"
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v1] tools/hotplug: allow tuning of xenwatchdogd arguments
-Date: Wed,  2 Dec 2020 17:46:28 +0100
-Message-Id: <20201202164628.24224-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=IgtC8QEvnHi7quh/t01nXLhSMnMFrS0sCPbUyz0O6V0=; b=GuSh0okzGKVc50oqOHJjXt1MOP
+	JZB+egSu6BE1H+6kD1RpfhhaSxS2XGOTXZa1QDFXSmD3IlB5VKEvex5DqW9Y5n2PLcL3pgKTofElV
+	PRjBCzOzwMfMABBZRo3K6OM+m6A+iWuowMILBb9H3qNHajEdd9QhVhYTg40FlSqU/JBU=;
+Subject: Re: [PATCH v2 8/8] xen/arm: Add support for SMMUv3 driver
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Rahul Singh <rahul.singh@arm.com>
+Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1606406359.git.rahul.singh@arm.com>
+ <de2101687020d18172a2b153f8977a5116d0cd66.1606406359.git.rahul.singh@arm.com>
+ <alpine.DEB.2.21.2012011749550.1100@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <1912278a-13f4-885d-d1ca-cc130718d064@xen.org>
+Date: Wed, 2 Dec 2020 16:47:45 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <alpine.DEB.2.21.2012011749550.1100@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Currently the arguments for xenwatchdogd are hardcoded with 15s
-keep-alive interval and 30s timeout.
+Hi Stefano,
 
-It is not possible to tweak these values via
-/etc/systemd/system/xen-watchdog.service.d/*.conf because ExecStart
-can not be replaced. The only option would be a private copy
-/etc/systemd/system/xen-watchdog.service, which may get out of sync
-with the Xen provided xen-watchdog.service.
+On 02/12/2020 02:51, Stefano Stabellini wrote:
+> On Thu, 26 Nov 2020, Rahul Singh wrote:
 
-Adjust the service file to recognize XENWATCHDOGD_ARGS= in a
-private unit configuration file.
+>> +/* Alias to Xen device tree helpers */
+>> +#define device_node dt_device_node
+>> +#define of_phandle_args dt_phandle_args
+>> +#define of_device_id dt_device_match
+>> +#define of_match_node dt_match_node
+>> +#define of_property_read_u32(np, pname, out) (!dt_property_read_u32(np, pname, out))
+>> +#define of_property_read_bool dt_property_read_bool
+>> +#define of_parse_phandle_with_args dt_parse_phandle_with_args
+> 
+> Given all the changes to the file by the previous patches we are
+> basically fully (or almost fully) adapting this code to Xen.
+> 
+> So at that point I wonder if we should just as well make these changes
+> (e.g. s/of_phandle_args/dt_phandle_args/g) to the code too.
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- tools/hotplug/Linux/init.d/xen-watchdog.in          | 7 ++++++-
- tools/hotplug/Linux/systemd/xen-watchdog.service.in | 4 +++-
- 2 files changed, 9 insertions(+), 2 deletions(-)
+I have already accepted the fact that keeping Linux code as-is is nearly 
+impossible without much workaround :). The benefits tends to also 
+limited as we noticed for the SMMU driver.
 
-diff --git a/tools/hotplug/Linux/init.d/xen-watchdog.in b/tools/hotplug/Linux/init.d/xen-watchdog.in
-index c05f1f6b6a..87e2353b49 100644
---- a/tools/hotplug/Linux/init.d/xen-watchdog.in
-+++ b/tools/hotplug/Linux/init.d/xen-watchdog.in
-@@ -19,6 +19,11 @@
- 
- . @XEN_SCRIPT_DIR@/hotplugpath.sh
- 
-+xencommons_config=@CONFIG_DIR@/@CONFIG_LEAF_DIR@
-+
-+test -f $xencommons_config/xencommons && . $xencommons_config/xencommons
-+
-+test -z "$XENWATCHDOGD_ARGS" || XENWATCHDOGD_ARGS='15 30'
- DAEMON=${sbindir}/xenwatchdogd
- base=$(basename $DAEMON)
- 
-@@ -46,7 +51,7 @@ start() {
- 	local r
- 	echo -n $"Starting domain watchdog daemon: "
- 
--	$DAEMON 30 15
-+	$DAEMON $XENWATCHDOGD_ARGS
- 	r=$?
- 	[ "$r" -eq 0 ] && success $"$base startup" || failure $"$base startup"
- 	echo
-diff --git a/tools/hotplug/Linux/systemd/xen-watchdog.service.in b/tools/hotplug/Linux/systemd/xen-watchdog.service.in
-index 1eecd2a616..637ab7fd7f 100644
---- a/tools/hotplug/Linux/systemd/xen-watchdog.service.in
-+++ b/tools/hotplug/Linux/systemd/xen-watchdog.service.in
-@@ -6,7 +6,9 @@ ConditionPathExists=/proc/xen/capabilities
- 
- [Service]
- Type=forking
--ExecStart=@sbindir@/xenwatchdogd 30 15
-+Environment="XENWATCHDOGD_ARGS=30 15"
-+EnvironmentFile=-@CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
-+ExecStart=@sbindir@/xenwatchdogd $XENWATCHDOGD_ARGS
- KillSignal=USR1
- 
- [Install]
+I would like to point out that this may make quite difficult (if not 
+impossible) to revert the previous patches which remove support for some 
+features (e.g. atomic, MSI, ATS).
+
+If we are going to adapt the code to Xen (I'd like to keep Linux code 
+style though), then I think we should consider to keep code that may be 
+useful in the near future (at least MSI, ATS).
+
+> 
+>> +#define FIELD_GET(_mask, _reg)          \
+>> +    (typeof(_mask))(((_reg) & (_mask)) >> (__builtin_ffsll(_mask) - 1))
+>> +
+>> +#define WRITE_ONCE(x, val)                  \
+>> +do {                                        \
+>> +    *(volatile typeof(x) *)&(x) = (val);    \
+>> +} while (0)
+> 
+> maybe we should define this in xen/include/xen/lib.h
+
+I have attempted such discussion in the past and this resulted to more 
+bikeshed than it is worth it. So I would suggest to re-implement 
+WRITE_ONCE() as write_atomic() for now.
+
+Cheers,
+
+-- 
+Julien Grall
 
