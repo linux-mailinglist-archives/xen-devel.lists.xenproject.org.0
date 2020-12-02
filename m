@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D25B62CB894
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 10:22:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.42509.76524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF0D82CB89B
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Dec 2020 10:22:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.42511.76536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkOL4-0003DJ-6L; Wed, 02 Dec 2020 09:22:18 +0000
+	id 1kkOL5-0003GN-AN; Wed, 02 Dec 2020 09:22:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 42509.76524; Wed, 02 Dec 2020 09:22:18 +0000
+Received: by outflank-mailman (output) from mailman id 42511.76536; Wed, 02 Dec 2020 09:22:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkOL3-0003C4-UE; Wed, 02 Dec 2020 09:22:17 +0000
-Received: by outflank-mailman (input) for mailman id 42509;
- Wed, 02 Dec 2020 09:22:15 +0000
+	id 1kkOL4-0003Dc-PO; Wed, 02 Dec 2020 09:22:18 +0000
+Received: by outflank-mailman (input) for mailman id 42511;
+ Wed, 02 Dec 2020 09:22:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>) id 1kkOL1-00037J-EE
- for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 09:22:15 +0000
+ (envelope-from <paul@xen.org>) id 1kkOL2-0003AT-Js
+ for xen-devel@lists.xenproject.org; Wed, 02 Dec 2020 09:22:16 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kkOL1-0004qi-7x; Wed, 02 Dec 2020 09:22:15 +0000
+ id 1kkOL2-0004qv-Cc; Wed, 02 Dec 2020 09:22:16 +0000
 Received: from host86-183-162-145.range86-183.btcentralplus.com
  ([86.183.162.145] helo=u2f063a87eabd5f.home)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <paul@xen.org>)
- id 1kkOL0-0006CD-WC; Wed, 02 Dec 2020 09:22:15 +0000
+ id 1kkOL2-0006CD-4h; Wed, 02 Dec 2020 09:22:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,9 +43,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=2McqarQ48ceH9xo3HrtqQ787rnJw7CqOtU4aFIIyXmY=; b=VrfCTBgvonhJEYdohms63KyNVG
-	O6YoeftfM3WaIJ9RY2iXH+dIoSfaMa6UjrpggzFVMQfAVuMbjvlKDNMjudxN7N7wrxlGbIDiMU3sK
-	GxvLSWdYiNOD1H1cLJjK4pxKJUWE7moBSq3jQfKTjDg1BX3GpULQFwFmFk5T3Qd9iNw0=;
+	bh=Gt2Gm0WXXUEpvKgVkyBf36jhM5Cv2I4ub9rwEjAgTo0=; b=25jlMVPl80HFOvfhQj59s90ZWD
+	s0F2bzsjBcDmkAAxhiL5Rn1/OGKLpVNbhwwM+k/ULKIvHVdybUeeiQOStJt0KpuHZPN+gdACpYQ6l
+	l8w7fqvAGwLjGJe6GRxksplffffO7vrkihWOxXQZFWNddfiZgcRR4OQbjWZ7l5IgymMk=;
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: Paul Durrant <pdurrant@amazon.com>,
@@ -53,9 +53,9 @@ Cc: Paul Durrant <pdurrant@amazon.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 07/11] viridian: add ExProcessorMasks variants of the flush hypercalls
-Date: Wed,  2 Dec 2020 09:22:03 +0000
-Message-Id: <20201202092205.906-8-paul@xen.org>
+Subject: [PATCH v4 08/11] viridian: add ExProcessorMasks variant of the IPI hypercall
+Date: Wed,  2 Dec 2020 09:22:04 +0000
+Message-Id: <20201202092205.906-9-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201202092205.906-1-paul@xen.org>
 References: <20201202092205.906-1-paul@xen.org>
@@ -65,19 +65,14 @@ Content-Transfer-Encoding: 8bit
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-The Microsoft Hypervisor TLFS specifies variants of the already implemented
-HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE/LIST hypercalls that take a 'Virtual
-Processor Set' as an argument rather than a simple 64-bit mask.
+A previous patch introduced variants of the flush hypercalls that take a
+'Virtual Processor Set' as an argument rather than a simple 64-bit mask.
+This patch introduces a similar variant of the HVCALL_SEND_IPI hypercall
+(HVCALL_SEND_IPI_EX).
 
-This patch adds a new hvcall_flush_ex() function to implement these
-(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE/LIST_EX) hypercalls. This makes use of
-new helper functions, hv_vpset_nr_banks() and hv_vpset_to_vpmask(), to
-determine the size of the Virtual Processor Set (so it can be copied from
-guest memory) and parse it into hypercall_vpmask (respectively).
-
-NOTE: A guest should not yet issue these hypercalls as 'ExProcessorMasks'
-      support needs to be advertised via CPUID. This will be done in a
-      subsequent patch.
+NOTE: As with HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE/LIST_EX, a guest should
+      not yet issue the HVCALL_SEND_IPI_EX hypercall as support for
+      'ExProcessorMasks' is not yet advertised via CPUID.
 
 Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
@@ -87,108 +82,38 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: "Roger Pau Monné" <roger.pau@citrix.com>
 
 v3:
- - Adjust one of the helper macros
- - A few more consts and type tweaks
  - Adjust prototype of new function
 
 v2:
- - Add helper macros to define mask and struct sizes
- - Use a union to determine the size of 'hypercall_vpset'
- - Use hweight64() in hv_vpset_nr_banks()
  - Sanity check size before hvm_copy_from_guest_phys()
 ---
- xen/arch/x86/hvm/viridian/viridian.c | 141 +++++++++++++++++++++++++++
- 1 file changed, 141 insertions(+)
+ xen/arch/x86/hvm/viridian/viridian.c | 74 ++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
 
 diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viridian/viridian.c
-index 47f15717bcd3..fceca760b41d 100644
+index fceca760b41d..9aa8e6c2572c 100644
 --- a/xen/arch/x86/hvm/viridian/viridian.c
 +++ b/xen/arch/x86/hvm/viridian/viridian.c
-@@ -577,6 +577,69 @@ static unsigned int vpmask_nr(const struct hypercall_vpmask *vpmask)
-     return bitmap_weight(vpmask->mask, HVM_MAX_VCPUS);
- }
- 
-+#define HV_VPSET_BANK_SIZE \
-+    sizeof_field(struct hv_vpset, bank_contents[0])
-+
-+#define HV_VPSET_SIZE(banks)   \
-+    (offsetof(struct hv_vpset, bank_contents) + \
-+     ((banks) * HV_VPSET_BANK_SIZE))
-+
-+#define HV_VPSET_MAX_BANKS \
-+    (sizeof_field(struct hv_vpset, valid_bank_mask) * 8)
-+
-+union hypercall_vpset {
-+    struct hv_vpset set;
-+    uint8_t pad[HV_VPSET_SIZE(HV_VPSET_MAX_BANKS)];
-+};
-+
-+static DEFINE_PER_CPU(union hypercall_vpset, hypercall_vpset);
-+
-+static unsigned int hv_vpset_nr_banks(struct hv_vpset *vpset)
-+{
-+    return hweight64(vpset->valid_bank_mask);
-+}
-+
-+static uint16_t hv_vpset_to_vpmask(const struct hv_vpset *set,
-+                                   struct hypercall_vpmask *vpmask)
-+{
-+#define NR_VPS_PER_BANK (HV_VPSET_BANK_SIZE * 8)
-+
-+    switch ( set->format )
-+    {
-+    case HV_GENERIC_SET_ALL:
-+        vpmask_fill(vpmask);
-+        return 0;
-+
-+    case HV_GENERIC_SET_SPARSE_4K:
-+    {
-+        uint64_t bank_mask;
-+        unsigned int vp, bank = 0;
-+
-+        vpmask_empty(vpmask);
-+        for ( vp = 0, bank_mask = set->valid_bank_mask;
-+              bank_mask;
-+              vp += NR_VPS_PER_BANK, bank_mask >>= 1 )
-+        {
-+            if ( bank_mask & 1 )
-+            {
-+                uint64_t mask = set->bank_contents[bank];
-+
-+                vpmask_set(vpmask, vp, mask);
-+                bank++;
-+            }
-+        }
-+        return 0;
-+    }
-+
-+    default:
-+        break;
-+    }
-+
-+    return -EINVAL;
-+
-+#undef NR_VPS_PER_BANK
-+}
-+
- /*
-  * Windows should not issue the hypercalls requiring this callback in the
-  * case where vcpu_id would exceed the size of the mask.
-@@ -657,6 +720,78 @@ static int hvcall_flush(const union hypercall_input *input,
+@@ -860,6 +860,75 @@ static int hvcall_ipi(const union hypercall_input *input,
      return 0;
  }
  
-+static int hvcall_flush_ex(const union hypercall_input *input,
-+                           union hypercall_output *output,
-+                           paddr_t input_params_gpa,
-+                           paddr_t output_params_gpa)
++static int hvcall_ipi_ex(const union hypercall_input *input,
++                         union hypercall_output *output,
++                         paddr_t input_params_gpa,
++                         paddr_t output_params_gpa)
 +{
 +    struct hypercall_vpmask *vpmask = &this_cpu(hypercall_vpmask);
 +    struct {
-+        uint64_t address_space;
-+        uint64_t flags;
++        uint32_t vector;
++        uint8_t target_vtl;
++        uint8_t reserved_zero[3];
 +        struct hv_vpset set;
 +    } input_params;
++    union hypercall_vpset *vpset = &this_cpu(hypercall_vpset);
++    struct hv_vpset *set = &vpset->set;
++    size_t size;
++    int rc;
 +
 +    /* These hypercalls should never use the fast-call convention. */
 +    if ( input->fast )
@@ -199,73 +124,64 @@ index 47f15717bcd3..fceca760b41d 100644
 +                                  sizeof(input_params)) != HVMTRANS_okay )
 +        return -EINVAL;
 +
-+    if ( input_params.flags & HV_FLUSH_ALL_PROCESSORS )
-+        vpmask_fill(vpmask);
-+    else
++    if ( input_params.target_vtl ||
++         input_params.reserved_zero[0] ||
++         input_params.reserved_zero[1] ||
++         input_params.reserved_zero[2] )
++        return HV_STATUS_INVALID_PARAMETER;
++
++    if ( input_params.vector < 0x10 || input_params.vector > 0xff )
++        return HV_STATUS_INVALID_PARAMETER;
++
++    *set = input_params.set;
++    if ( set->format == HV_GENERIC_SET_SPARSE_4K )
 +    {
-+        union hypercall_vpset *vpset = &this_cpu(hypercall_vpset);
-+        struct hv_vpset *set = &vpset->set;
-+        size_t size;
-+        int rc;
++        unsigned long offset = offsetof(typeof(input_params),
++                                        set.bank_contents);
 +
-+        *set = input_params.set;
-+        if ( set->format == HV_GENERIC_SET_SPARSE_4K )
++        size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
++
++        if ( offsetof(typeof(*vpset), set.bank_contents[0]) + size >
++             sizeof(*vpset) )
 +        {
-+            unsigned long offset = offsetof(typeof(input_params),
-+                                            set.bank_contents);
-+
-+            size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
-+
-+            if ( offsetof(typeof(*vpset), set.bank_contents[0]) + size >
-+                 sizeof(*vpset) )
-+            {
-+                ASSERT_UNREACHABLE();
-+                return -EINVAL;
-+            }
-+
-+            if ( hvm_copy_from_guest_phys(&set->bank_contents[0],
-+                                          input_params_gpa + offset,
-+                                          size) != HVMTRANS_okay)
-+                return -EINVAL;
-+
-+            size += sizeof(*set);
++            ASSERT_UNREACHABLE();
++            return -EINVAL;
 +        }
-+        else
-+            size = sizeof(*set);
 +
-+        rc = hv_vpset_to_vpmask(set, vpmask);
-+        if ( rc )
-+            return rc;
++        if ( hvm_copy_from_guest_phys(&set->bank_contents,
++                                      input_params_gpa + offset,
++                                      size) != HVMTRANS_okay)
++            return -EINVAL;
++
++        size += sizeof(*set);
 +    }
++    else
++        size = sizeof(*set);
 +
-+    /*
-+     * A false return means that another vcpu is currently trying
-+     * a similar operation, so back off.
-+     */
-+    if ( !paging_flush_tlb(need_flush, vpmask) )
-+        return -ERESTART;
++    rc = hv_vpset_to_vpmask(set, vpmask);
++    if ( rc )
++        return rc;
 +
-+    output->rep_complete = input->rep_count;
++    send_ipi(vpmask, input_params.vector);
 +
 +    return 0;
 +}
 +
- static void send_ipi(struct hypercall_vpmask *vpmask, uint8_t vector)
+ int viridian_hypercall(struct cpu_user_regs *regs)
  {
-     struct domain *currd = current->domain;
-@@ -770,6 +905,12 @@ int viridian_hypercall(struct cpu_user_regs *regs)
-                           output_params_gpa);
+     struct vcpu *curr = current;
+@@ -916,6 +985,11 @@ int viridian_hypercall(struct cpu_user_regs *regs)
+                         output_params_gpa);
          break;
  
-+    case HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE_EX:
-+    case HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST_EX:
-+        rc = hvcall_flush_ex(&input, &output, input_params_gpa,
-+                             output_params_gpa);
++    case HVCALL_SEND_IPI_EX:
++        rc = hvcall_ipi_ex(&input, &output, input_params_gpa,
++                           output_params_gpa);
 +        break;
 +
-     case HVCALL_SEND_IPI:
-         rc = hvcall_ipi(&input, &output, input_params_gpa,
-                         output_params_gpa);
+     default:
+         gprintk(XENLOG_WARNING, "unimplemented hypercall %04x\n",
+                 input.call_code);
 -- 
 2.20.1
 
