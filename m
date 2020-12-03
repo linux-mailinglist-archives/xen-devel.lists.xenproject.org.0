@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB0272CDA01
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 16:18:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43769.78623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66B442CDA10
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 16:23:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43775.78633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkqNF-0001IU-Qh; Thu, 03 Dec 2020 15:18:25 +0000
+	id 1kkqRh-0002H3-F2; Thu, 03 Dec 2020 15:23:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43769.78623; Thu, 03 Dec 2020 15:18:25 +0000
+Received: by outflank-mailman (output) from mailman id 43775.78633; Thu, 03 Dec 2020 15:23:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkqNF-0001I4-Lx; Thu, 03 Dec 2020 15:18:25 +0000
-Received: by outflank-mailman (input) for mailman id 43769;
- Thu, 03 Dec 2020 15:18:24 +0000
+	id 1kkqRh-0002Gi-Bn; Thu, 03 Dec 2020 15:23:01 +0000
+Received: by outflank-mailman (input) for mailman id 43775;
+ Thu, 03 Dec 2020 15:23:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yflw=FH=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kkqND-0001Hz-Vk
- for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 15:18:24 +0000
+ (envelope-from <SRS0=vSHx=FH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kkqRf-0002Gd-Tw
+ for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 15:22:59 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3d46ee3e-dd18-497c-b9ed-9d0d31441d37;
- Thu, 03 Dec 2020 15:18:21 +0000 (UTC)
+ id b0041b98-db9a-4a09-aee0-f9344932ae24;
+ Thu, 03 Dec 2020 15:22:58 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 068C5ABCE;
- Thu,  3 Dec 2020 15:18:21 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id CBDDDABCE;
+ Thu,  3 Dec 2020 15:22:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,230 +39,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d46ee3e-dd18-497c-b9ed-9d0d31441d37
+X-Inumbo-ID: b0041b98-db9a-4a09-aee0-f9344932ae24
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607008701; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1607008978; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jwDV5HhaydAvzJYaCReQGhRny3sveDf76+NkX356SB4=;
-	b=RXl90IvfLV3B+eIkJ57tFQH7Z9LhFEo8jn6VF7uTy7eFhE75Kp+S/2G4M446S3wE+xeNyM
-	F6o+8xUPwqxiCM3bhkg5lXCFnHxEeL5cIYZzaHk5z5aFXO0J4T6c4kCzGKj81XmEZtp+C9
-	yBIjUZzztMY9OvQgs2WM6Di7GVkVAkY=
-Subject: Re: [PATCH v2 13/17] xen/hypfs: support dynamic hypfs nodes
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-14-jgross@suse.com>
- <a02fe2e6-428f-9bea-0108-92fa03729420@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <0efe5d36-da32-7f0d-5515-5fb5994ea2d9@suse.com>
-Date: Thu, 3 Dec 2020 16:18:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+	bh=nYaGsRymu8tOlNaFh/oHGL2VMwjaNycEaEBHauIUjjQ=;
+	b=koVcS2usgAx3WC4U1saA6fqW0mfZTKYhmjskys5MBukd8Iyj0mAfOO8c8gPgz6Fa4OhWqK
+	KHPrGRbT2ehZ4Cl9M6pGI+iY71PnPJaGCc1fwEn9Ob4O1XFqnBc+x+XJmycvpbKJsPR5di
+	1h1n3WQBn8ztY6h/cajm2he2ENh69dA=
+Subject: Re: [PATCH v5 1/4] domctl: introduce a new domain create flag,
+ XEN_DOMCTL_CDF_evtchn_fifo, ...
+To: Paul Durrant <paul@xen.org>
+Cc: Paul Durrant <pdurrant@amazon.com>, Eslam Elnikety <elnikety@amazon.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20201203124159.3688-1-paul@xen.org>
+ <20201203124159.3688-2-paul@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <fea91a65-1d7c-cd46-81a2-9a6bcb690ed1@suse.com>
+Date: Thu, 3 Dec 2020 16:22:56 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <a02fe2e6-428f-9bea-0108-92fa03729420@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="axbB0pP5sZ4QuvTln0IxeS0coD5uAjvTT"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---axbB0pP5sZ4QuvTln0IxeS0coD5uAjvTT
-Content-Type: multipart/mixed; boundary="XrT8D4fGhKOAxx1M7yVO0Qsd6Ea7gOe3z";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <0efe5d36-da32-7f0d-5515-5fb5994ea2d9@suse.com>
-Subject: Re: [PATCH v2 13/17] xen/hypfs: support dynamic hypfs nodes
-References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-14-jgross@suse.com>
- <a02fe2e6-428f-9bea-0108-92fa03729420@suse.com>
-In-Reply-To: <a02fe2e6-428f-9bea-0108-92fa03729420@suse.com>
-
---XrT8D4fGhKOAxx1M7yVO0Qsd6Ea7gOe3z
-Content-Type: multipart/mixed;
- boundary="------------D60063E3C3802B61D4D5134A"
+In-Reply-To: <20201203124159.3688-2-paul@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------D60063E3C3802B61D4D5134A
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+On 03.12.2020 13:41, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
+> 
+> ...to control the visibility of the FIFO event channel operations
+> (EVTCHNOP_init_control, EVTCHNOP_expand_array, and EVTCHNOP_set_priority) to
+> the guest.
+> 
+> These operations were added to the public header in commit d2d50c2f308f
+> ("evtchn: add FIFO-based event channel ABI") and the first implementation
+> appeared in the two subsequent commits: edc8872aeb4a ("evtchn: implement
+> EVTCHNOP_set_priority and add the set_priority hook") and 88910061ec61
+> ("evtchn: add FIFO-based event channel hypercalls and port ops"). Prior to
+> that, a guest issuing those operations would receive a return value of
+> -ENOSYS (not implemented) from Xen. Guests aware of the FIFO operations but
+> running on an older (pre-4.4) Xen would fall back to using the 2-level event
+> channel interface upon seeing this return value.
+> 
+> Unfortunately the uncontrolable appearance of these new operations in Xen 4.4
+> onwards has implications for hibernation of some Linux guests. During resume
+> from hibernation, there are two kernels involved: the "boot" kernel and the
+> "resume" kernel. The guest boot kernel may default to use FIFO operations and
+> instruct Xen via EVTCHNOP_init_control to switch from 2-level to FIFO. On the
+> other hand, the resume kernel keeps assuming 2-level, because it was hibernated
+> on a version of Xen that did not support the FIFO operations.
+> 
+> To maintain compatibility it is necessary to make Xen behave as it did
+> before the new operations were added and hence the code in this patch ensures
+> that, if XEN_DOMCTL_CDF_evtchn_fifo is not set, the FIFO event channel
+> operations will again result in -ENOSYS being returned to the guest.
 
-On 03.12.20 16:08, Jan Beulich wrote:
-> On 01.12.2020 09:21, Juergen Gross wrote:
->> Add a HYPFS_VARDIR_INIT() macro for initializing such a directory
->> statically, taking a struct hypfs_funcs pointer as parameter additiona=
-l
->> to those of HYPFS_DIR_INIT().
->>
->> Modify HYPFS_VARSIZE_INIT() to take the function vector pointer as an
->> additional parameter as this will be needed for dynamical entries.
->>
->> For being able to let the generic hypfs coding continue to work on
->> normal struct hypfs_entry entities even for dynamical nodes add some
->> infrastructure for allocating a working area for the current hypfs
->> request in order to store needed information for traversing the tree.
->> This area is anchored in a percpu pointer and can be retrieved by any
->> level of the dynamic entries. The normal way to handle allocation and
->> freeing is to allocate the data in the enter() callback of a node and
->> to free it in the related exit() callback.
->>
->> Add a hypfs_add_dyndir() function for adding a dynamic directory
->> template to the tree, which is needed for having the correct reference=
+I have to admit I'm now even more concerned of the control for such
+going into Xen, the more with the now 2nd use in the subsequent patch.
+The implication of this would seem to be that whenever we add new
+hypercalls or sub-ops, a domain creation control would also need
+adding determining whether that new sub-op is actually okay to use by
+a guest. Or else I'd be keen to up front see criteria at least roughly
+outlined by which it could be established whether such an override
+control is needed.
 
->> to its position in hypfs.
->>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->> V2:
->> - switch to xzalloc_bytes() in hypfs_alloc_dyndata() (Jan Beulich)
->> - carved out from previous patch
->> - use enter() and exit() callbacks for allocating and freeing
->>    dyndata memory
->=20
-> I can't seem to be able to spot what this describes, and the
-> respective part of the description therefore also remains unclear
+I'm also not convinced such controls really want to be opt-in rather
+than opt-out. While perhaps sensible as long as a feature is
+experimental, not exposing stuff by default may mean slower adoption
+of new (and hopefully better) functionality. I realize there's still
+the option of having the tool stack default to enable, and just the
+hypervisor defaulting to disable, but anyway.
 
-I think all pieces are coming together with patch 15.
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -622,7 +622,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>      unsigned int max_vcpus;
+>  
+>      /* HVM and HAP must be set. IOMMU may or may not be */
+> -    if ( (config->flags & ~XEN_DOMCTL_CDF_iommu) !=
+> +    if ( (config->flags &
+> +          ~(XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_evtchn_fifo) !=
+>           (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap) )
+>      {
+>          dprintk(XENLOG_INFO, "Unsupported configuration %#x\n",
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -2478,7 +2478,8 @@ void __init create_domUs(void)
+>          struct domain *d;
+>          struct xen_domctl_createdomain d_cfg = {
+>              .arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE,
+> -            .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
+> +            .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
+> +                     XEN_DOMCTL_CDF_evtchn_fifo,
+>              .max_evtchn_port = -1,
+>              .max_grant_frames = 64,
+>              .max_maptrack_frames = 1024,
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -805,7 +805,8 @@ void __init start_xen(unsigned long boot_phys_offset,
+>      struct bootmodule *xen_bootmodule;
+>      struct domain *dom0;
+>      struct xen_domctl_createdomain dom0_cfg = {
+> -        .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
+> +        .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
+> +                 XEN_DOMCTL_CDF_evtchn_fifo,
+>          .max_evtchn_port = -1,
+>          .max_grant_frames = gnttab_dom0_frames(),
+>          .max_maptrack_frames = -1,
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -738,7 +738,8 @@ static struct domain *__init create_dom0(const module_t *image,
+>                                           const char *loader)
+>  {
+>      struct xen_domctl_createdomain dom0_cfg = {
+> -        .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
+> +        .flags = XEN_DOMCTL_CDF_evtchn_fifo |
+> +                 (IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0),
+>          .max_evtchn_port = -1,
+>          .max_grant_frames = -1,
+>          .max_maptrack_frames = -1,
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -307,7 +307,7 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
+>           ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
+>             XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
+>             XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
+> -           XEN_DOMCTL_CDF_nested_virt) )
+> +           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_evtchn_fifo) )
+>      {
+>          dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
+>          return -EINVAL;
 
-> to me. Not the least again when considering multi-level templates,
-> where potentially each of the handlers may want to allocate dyndata,
-> yet only one party can at a time.
+All of the hunks above point out a scalability issue if we were to
+follow this route for even just a fair part of new sub-ops, and I
+suppose you've noticed this with the next patch presumably touching
+all the same places again.
 
-Right now: yes.
-
-In case needed it will be rather easy to have a linked list of dyndata
-entities, with the percpu dyndata variable pointing to the most recent
-one (the one of the currently deepest nesting level).
-
->=20
->> - add hypfs_add_dyndir()
->=20
-> Overall this patch adds a lot of (for now) dead code, which makes it
-> hard to judge whether this is what's needed. I guess I'll again
-> learn more by reding further patches.
-
-I hope so.
-
-
---------------D60063E3C3802B61D4D5134A
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------D60063E3C3802B61D4D5134A--
-
---XrT8D4fGhKOAxx1M7yVO0Qsd6Ea7gOe3z--
-
---axbB0pP5sZ4QuvTln0IxeS0coD5uAjvTT
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/JAbwFAwAAAAAACgkQsN6d1ii/Ey94
-HQgAhnWo2c4OidZB+HhTJGIh8tmFTFFuWBJKJBODAiGsvI2FbdwcnjtLx7MSmVeihAvMPYyYI7ls
-BYTbp4DdTpQLKCMvnzWCTWY8iR0EZv37PL1zQUajzyvAFszVyLL9lvhxdfd27KNCgzOLy7KbwEZt
-7eW0yGtJhqveO2OSA7hnIy30v9mr3NIdsU7FewSqEHpIG/B3G0Pouk4AAt8bGYbZqfJHImpyWYfl
-oTn+q4c0Yxz6Wix0VZT5gdR/1XSvfb+t5B0jqR3wB/x7JDf2HdVBJLNnd15CEGQjFXruDG17B+j5
-/Vo52CN3M5oHx/b1EAdhUcZzkQd1fDLKkeCsBOLAWA==
-=fzpe
------END PGP SIGNATURE-----
-
---axbB0pP5sZ4QuvTln0IxeS0coD5uAjvTT--
+Jan
 
