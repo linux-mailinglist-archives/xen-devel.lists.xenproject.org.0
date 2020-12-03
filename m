@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5634B2CD234
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 10:13:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43213.77732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21ACF2CD286
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 10:27:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43223.77748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkkgL-0000z6-Md; Thu, 03 Dec 2020 09:13:45 +0000
+	id 1kkktb-000258-VS; Thu, 03 Dec 2020 09:27:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43213.77732; Thu, 03 Dec 2020 09:13:45 +0000
+Received: by outflank-mailman (output) from mailman id 43223.77748; Thu, 03 Dec 2020 09:27:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkkgL-0000yf-Ib; Thu, 03 Dec 2020 09:13:45 +0000
-Received: by outflank-mailman (input) for mailman id 43213;
- Thu, 03 Dec 2020 09:13:44 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kkktb-00024j-SF; Thu, 03 Dec 2020 09:27:27 +0000
+Received: by outflank-mailman (input) for mailman id 43223;
+ Thu, 03 Dec 2020 09:27:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkkgK-0000yW-0z; Thu, 03 Dec 2020 09:13:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkkgJ-00086D-Qz; Thu, 03 Dec 2020 09:13:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkkgJ-000201-HN; Thu, 03 Dec 2020 09:13:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kkkgJ-0003sz-Gu; Thu, 03 Dec 2020 09:13:43 +0000
+ (envelope-from <SRS0=vSHx=FH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kkkta-00024e-F7
+ for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 09:27:26 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f12fe71c-d742-45fa-ad22-64cfe5131b73;
+ Thu, 03 Dec 2020 09:27:25 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2A5E0AC55;
+ Thu,  3 Dec 2020 09:27:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,237 +39,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=jdE2O9uRa4dl1pBsShSiS7o0cX+bpI4inwUXxx9XLdo=; b=b/SQ9w2n63Q7EUM89f62PS+AZG
-	z+/tBQ8DzkWMIdcnt6YP+hsFzRU/ZxmZbEFL9uHdq0T6UvkkqWh/GnSYGEuSsS87ilZhmlTxviWFP
-	c+8r8rqdM0Oe4TR96hBbS9I04s3XPM1SIwfp4U8lxYraf2kiikQ6L0bAOg9G2uQSS1FU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157171-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f12fe71c-d742-45fa-ad22-64cfe5131b73
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1606987644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pVf0pzAcE5NuQeytzIki02m6gx+39mPGMJjm8+J2YLY=;
+	b=QFsmUBIAB8E/9ubYwrPtGDIF0XEBMDJS3oW2R8PPStTJu2Kf3owlE7Nw/B7oXnyYAiQHyR
+	DlzKSrpFpW/hN3RvsXrtsvHv8SNwAhC/syYWif/WPeDULRZ5MyGJPmuiWzi4RlnGFGUmI8
+	x8u4zVzazJjB27170VmjdIN4hRGagto=
+Subject: Re: [PATCH 1/2] include: don't use asm/page.h from common headers
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Hongyan Xia <hx242@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <75484377-160c-a529-1cfc-96de86cfc550@suse.com>
+ <04276039-a5d0-fefd-260e-ffaa8272fd6a@suse.com>
+ <a35fb176-e729-a542-4416-7040d6c80964@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <bdf294d9-e021-36d3-7e04-1c148e34701f@suse.com>
+Date: Thu, 3 Dec 2020 10:27:23 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Subject: [libvirt test] 157171: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=5f6a7618993b31c1ded6e5ad650a607a5c93f6e2
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 03 Dec 2020 09:13:43 +0000
+In-Reply-To: <a35fb176-e729-a542-4416-7040d6c80964@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 157171 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157171/
+On 02.12.2020 18:14, Julien Grall wrote:
+> Hi Jan,
+> 
+> On 02/12/2020 14:49, Jan Beulich wrote:
+>> Doing so limits what can be done in (in particular included by) this per-
+>> arch header. Abstract out page shift/size related #define-s, which is all
+>> the repsecitve headers care about. Extend the replacement / removal to
+> 
+> s/repsecitve/respective/
+> 
+>> some x86 headers as well; some others now need to include page.h (and
+>> they really should have before).
+>>
+>> Arm's VADDR_BITS gets restricted to 32-bit, as its current value is
+>> clearly wrong for 64-bit, but the constant also isn't used anywhere
+>> right now (i.e. the #define could also be dropped altogether).
+> 
+> Whoops. Thankfully this is not used.
+> 
+>>
+>> I wasn't sure about Arm's use of vaddr_t in PAGE_OFFSET(), and hence I
+>> kept it and provided a way to override the #define in the common header.
+> 
+> vaddr_t is defined to 32-bit for arm32 or 64-bit for arm64. So I think 
+> it would be fine to use the generic PAGE_OFFSET() implementation.
 
-Regressions :-(
+Will switch.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+>> --- /dev/null
+>> +++ b/xen/include/asm-arm/page-shift.h
+> 
+> The name of the file looks a bit odd given that *_BITS are also defined 
+> in it. So how about renaming to page-size.h?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+I was initially meaning to use that name, but these headers
+specifically don't define any sizes - *_BITS are still shift
+values, at least in a way. If the current name isn't liked, my
+next best suggestion would then be page-bits.h.
 
-version targeted for testing:
- libvirt              5f6a7618993b31c1ded6e5ad650a607a5c93f6e2
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+>> @@ -0,0 +1,15 @@
+>> +#ifndef __ARM_PAGE_SHIFT_H__
+>> +#define __ARM_PAGE_SHIFT_H__
+>> +
+>> +#define PAGE_SHIFT              12
+>> +
+>> +#define PAGE_OFFSET(ptr)        ((vaddr_t)(ptr) & ~PAGE_MASK)
+>> +
+>> +#ifdef CONFIG_ARM_64
+>> +#define PADDR_BITS              48
+> 
+> Shouldn't we define VADDR_BITS here?
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  146 days
-Failing since        151818  2020-07-11 04:18:52 Z  145 days  140 attempts
-Testing same since   157171  2020-12-03 04:19:14 Z    0 days    1 attempts
+See the description - it's unused anyway. I'm fine any of the three
+possible ways:
+1) keep as is in v1
+2) drop altogether
+3) also #define for 64-bit (but then you need to tell me whether 64
+   is the right value to use, or what the correct one would be)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Neal Gompa <ngompa13@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+> But I wonder whether VADDR_BITS 
+> should be defined as sizeof(vaddr_t) * 8.
+> 
+> This would require to include asm/types.h.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+Which I'd specifically like to avoid. Plus use of sizeof() also
+precludes the use of respective #define-s in #if-s.
 
+>> --- a/xen/include/asm-x86/desc.h
+>> +++ b/xen/include/asm-x86/desc.h
+>> @@ -1,6 +1,8 @@
+>>   #ifndef __ARCH_DESC_H
+>>   #define __ARCH_DESC_H
+>>   
+>> +#include <asm/page.h>
+> 
+> May I ask why you are including <asm/page.h> and not <xen/page-size.h> here?
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Because of
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+DECLARE_PER_CPU(l1_pgentry_t, gdt_l1e);
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+and
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+DECLARE_PER_CPU(l1_pgentry_t, compat_gdt_l1e);
 
+at least (didn't check further).
 
-Not pushing.
-
-(No revision log; it would be 30497 lines long.)
+Jan
 
