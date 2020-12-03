@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 611BF2CCDCE
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 05:14:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43089.77516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8CCB2CCDD0
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 05:15:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43094.77528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkfzW-00047h-PQ; Thu, 03 Dec 2020 04:13:14 +0000
+	id 1kkg1K-0004Fc-5M; Thu, 03 Dec 2020 04:15:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43089.77516; Thu, 03 Dec 2020 04:13:14 +0000
+Received: by outflank-mailman (output) from mailman id 43094.77528; Thu, 03 Dec 2020 04:15:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkfzW-00047I-M7; Thu, 03 Dec 2020 04:13:14 +0000
-Received: by outflank-mailman (input) for mailman id 43089;
- Thu, 03 Dec 2020 04:13:13 +0000
+	id 1kkg1K-0004FD-2A; Thu, 03 Dec 2020 04:15:06 +0000
+Received: by outflank-mailman (input) for mailman id 43094;
+ Thu, 03 Dec 2020 04:15:05 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Inx=FH=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kkfzV-00047D-BW
- for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 04:13:13 +0000
+ id 1kkg1J-0004F8-7q
+ for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 04:15:05 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 40d38d7f-36a3-4fc2-b7ed-6a7a8cf8ab77;
- Thu, 03 Dec 2020 04:13:12 +0000 (UTC)
+ id 1c26f19a-211d-4100-af01-046564eb50a3;
+ Thu, 03 Dec 2020 04:15:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,113 +36,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40d38d7f-36a3-4fc2-b7ed-6a7a8cf8ab77
-Date: Wed, 2 Dec 2020 20:13:09 -0800 (PST)
+X-Inumbo-ID: 1c26f19a-211d-4100-af01-046564eb50a3
+Date: Wed, 2 Dec 2020 20:15:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1606968791;
-	bh=Z3i40Qn3EymSB7nCQtviOCB9w8/baaES6EtOh1CYua4=;
+	s=k20201202; t=1606968903;
+	bh=gSvh4WPDu46VitPbr/c3ps4QYUgcgZCVWP8di2342no=;
 	h=From:To:cc:Subject:In-Reply-To:References:From;
-	b=s/5Y9MvmQJTPaTjisnA/SGxZUjVHUT7mW9eW4B7CSoXQD9mHKeSH4KgY24Bz+3zlq
-	 HgEM/8CT9bFKI8b/LHseA3qBQkVfYf/hIIO1CLmdILCzQGKJ+o3JAcsDvATzfUbvfR
-	 lfb9tpTkB/taQD3jgFvrE7ifRl0RTKY14zj8nSHOlqDdbGTfP5exDKHl0byqKNyF0u
-	 rhj05kfaNp7zCisX7KPz181m+Unz3CdDYsa/UM4TQn1pkHtc4w/7sVnB575ykKb6Q8
-	 AWi35YIN7FhBGe42c6jwvO82RIPEQ7/9P1TLss0AyenqCkSoFlRtGMAqmUYZIvxqdw
-	 UTJ8OZo1tE0Vg==
+	b=VsBE3nogPVuFPtaAKebL4wxwuXVWwh41J4T0iRzhMNQKbt4RugSvj27vX1D4VfY0b
+	 r5icQH52RD4MV1W3a0Ye5fvfnC8t/ttPq1REiFBkQ5KCeKaqgHanL+P5ck6GUqFt+j
+	 r6bQdNa9zdwuXKOPuX+5ypql3WhWzIeUC01wi+RMl4mf+M+WhH/VxT4bDiGr84W8Ec
+	 jkL1sSAlEvNkKXJSUKaKDLI0H/k1O1iy+1qtRlZYkmn6sUFuiFbUGNlg2QfFOmTP5E
+	 m5J8Ofl/PpJ0pCV327iceXGGHhgIsd0JNy863J7M5xVwWq5Ez1Uuce5vRIzBE0KLfp
+	 T5t7VJ5uv3AYQ==
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org, 
-    bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
-    Paul Durrant <paul@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 8/8] xen/arm: Add support for SMMUv3 driver
-In-Reply-To: <1912278a-13f4-885d-d1ca-cc130718d064@xen.org>
-Message-ID: <alpine.DEB.2.21.2012021958020.30425@sstabellini-ThinkPad-T480s>
-References: <cover.1606406359.git.rahul.singh@arm.com> <de2101687020d18172a2b153f8977a5116d0cd66.1606406359.git.rahul.singh@arm.com> <alpine.DEB.2.21.2012011749550.1100@sstabellini-ThinkPad-T480s> <1912278a-13f4-885d-d1ca-cc130718d064@xen.org>
+To: Wei Chen <Wei.Chen@arm.com>
+cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Penny Zheng <Penny.Zheng@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andre Przywara <Andre.Przywara@arm.com>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Kaly Xin <Kaly.Xin@arm.com>, 
+    nd <nd@arm.com>
+Subject: RE: [PATCH] xen/arm: Add Cortex-A73 erratum 858921 workaround
+In-Reply-To: <DB7PR08MB3753C88E41582E76E3C9049F9EF20@DB7PR08MB3753.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.21.2012022014270.30425@sstabellini-ThinkPad-T480s>
+References: <20201109082110.1133996-1-penny.zheng@arm.com> <cfa63398-8182-b79f-1602-ed068e2319ad@xen.org> <AM0PR08MB3747B42FC856B9BDF24646629EE60@AM0PR08MB3747.eurprd08.prod.outlook.com> <alpine.DEB.2.21.2011251554070.7979@sstabellini-ThinkPad-T480s>
+ <AM0PR08MB3747912905438DA6D7FF969C9EF90@AM0PR08MB3747.eurprd08.prod.outlook.com> <8f47313a-f47a-520d-3845-3f2198fce5b4@xen.org> <AM0PR08MB37478D884057C8720ED1023D9EF90@AM0PR08MB3747.eurprd08.prod.outlook.com> <0a272ffd-24de-2db4-5751-9161cc57cec3@xen.org>
+ <DB7PR08MB3753C88E41582E76E3C9049F9EF20@DB7PR08MB3753.eurprd08.prod.outlook.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1698463917-1606968903=:30425"
 
-On Wed, 2 Dec 2020, Julien Grall wrote:
-> On 02/12/2020 02:51, Stefano Stabellini wrote:
-> > On Thu, 26 Nov 2020, Rahul Singh wrote:
-> > > +/* Alias to Xen device tree helpers */
-> > > +#define device_node dt_device_node
-> > > +#define of_phandle_args dt_phandle_args
-> > > +#define of_device_id dt_device_match
-> > > +#define of_match_node dt_match_node
-> > > +#define of_property_read_u32(np, pname, out) (!dt_property_read_u32(np,
-> > > pname, out))
-> > > +#define of_property_read_bool dt_property_read_bool
-> > > +#define of_parse_phandle_with_args dt_parse_phandle_with_args
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1698463917-1606968903=:30425
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Thu, 3 Dec 2020, Wei Chen wrote:
+> Hi Julien,
+> 
+> > -----Original Message-----
+> > From: Julien Grall <julien@xen.org>
+> > Sent: 2020年12月3日 2:11
+> > To: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini <sstabellini@kernel.org>
+> > Cc: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
+> > Andre Przywara <Andre.Przywara@arm.com>; Bertrand Marquis
+> > <Bertrand.Marquis@arm.com>; Kaly Xin <Kaly.Xin@arm.com>; nd
+> > <nd@arm.com>
+> > Subject: Re: [PATCH] xen/arm: Add Cortex-A73 erratum 858921 workaround
 > > 
-> > Given all the changes to the file by the previous patches we are
-> > basically fully (or almost fully) adapting this code to Xen.
 > > 
-> > So at that point I wonder if we should just as well make these changes
-> > (e.g. s/of_phandle_args/dt_phandle_args/g) to the code too.
-> 
-> I have already accepted the fact that keeping Linux code as-is is nearly
-> impossible without much workaround :). The benefits tends to also limited as
-> we noticed for the SMMU driver.
-> 
-> I would like to point out that this may make quite difficult (if not
-> impossible) to revert the previous patches which remove support for some
-> features (e.g. atomic, MSI, ATS).
-> 
-> If we are going to adapt the code to Xen (I'd like to keep Linux code style
-> though), then I think we should consider to keep code that may be useful in
-> the near future (at least MSI, ATS).
-
-(I am fine with keeping the Linux code style.)
-
-We could try to keep the code as similar to Linux as possible. This
-didn't work out in the past.
-
-Otherwise, we could fully adapt the driver to Xen. If we fully adapt the
-driver to Xen (code style aside) it is better to be consistent and also
-do substitutions like s/of_phandle_args/dt_phandle_args/g. Then the
-policy becomes clear: the code comes from Linux but it is 100% adapted
-to Xen.
-
-
-Now the question about what to do about the MSI and ATS code is a good
-one. We know that we are going to want that code at some point in the
-next 2 years. Like you wrote, if we fully adapt the code to Xen and
-remove MSI and ATS code, then it is going to be harder to add it back.
-
-So maybe keeping the MSI and ATS code for now, even if it cannot work,
-would be better. I think this strategy works well if the MSI and ATS
-code can be disabled easily, i.e. with a couple of lines of code in the
-init function rather than #ifdef everywhere. It doesn't work well if we
-have to add #ifdef everywhere.
-
-It looks like MSI could be disabled adding a couple of lines to
-arm_smmu_setup_msis.
-
-Similarly ATS seems to be easy to disable by forcing ats_enabled to
-false.
-
-So yes, this looks like a good way forward. Rahul, what do you think?
-
-
- 
-> > > +#define FIELD_GET(_mask, _reg)          \
-> > > +    (typeof(_mask))(((_reg) & (_mask)) >> (__builtin_ffsll(_mask) - 1))
-> > > +
-> > > +#define WRITE_ONCE(x, val)                  \
-> > > +do {                                        \
-> > > +    *(volatile typeof(x) *)&(x) = (val);    \
-> > > +} while (0)
 > > 
-> > maybe we should define this in xen/include/xen/lib.h
+> > On 26/11/2020 11:27, Wei Chen wrote:
+> > > Hi Julien,
+> > 
+> > Hi Wei,
+> > 
+> > >> -----Original Message-----
+> > >> From: Julien Grall <julien@xen.org>
+> > >> Sent: 2020年11月26日 18:55
+> > >> To: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
+> > <sstabellini@kernel.org>
+> > >> Cc: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
+> > >> Andre Przywara <Andre.Przywara@arm.com>; Bertrand Marquis
+> > >> <Bertrand.Marquis@arm.com>; Kaly Xin <Kaly.Xin@arm.com>; nd
+> > >> <nd@arm.com>
+> > >> Subject: Re: [PATCH] xen/arm: Add Cortex-A73 erratum 858921 workaround
+> > >>
+> > >> Hi Wei,
+> > >>
+> > >> Your e-mail font seems to be different to the usual plain text one. Are
+> > >> you sending the e-mail using HTML by any chance?
+> > >>
+> > >
+> > > It's strange, I always use the plain text.
+> > 
+> > Maybe exchange decided to mangle the e-mail :). Anyway, this new message
+> > looks fine.
+> > 
+> > >
+> > >> On 26/11/2020 02:07, Wei Chen wrote:
+> > >>> Hi Stefano,
+> > >>>
+> > >>>> -----Original Message-----
+> > >>>> From: Stefano Stabellini <sstabellini@kernel.org>
+> > >>>> Sent: 2020??????11??????26?????? 8:00
+> > >>>> To: Wei Chen <Wei.Chen@arm.com>
+> > >>>> Cc: Julien Grall <julien@xen.org>; Penny Zheng <Penny.Zheng@arm.com>;
+> > >> xen-
+> > >>>> devel@lists.xenproject.org; sstabellini@kernel.org; Andre Przywara
+> > >>>> <Andre.Przywara@arm.com>; Bertrand Marquis
+> > >> <Bertrand.Marquis@arm.com>;
+> > >>>> Kaly Xin <Kaly.Xin@arm.com>; nd <nd@arm.com>
+> > >>>> Subject: RE: [PATCH] xen/arm: Add Cortex-A73 erratum 858921
+> > workaround
+> > >>>>
+> > >>>> Resuming this old thread.
+> > >>>>
+> > >>>> On Fri, 13 Nov 2020, Wei Chen wrote:
+> > >>>>>> Hi,
+> > >>>>>>
+> > >>>>>> On 09/11/2020 08:21, Penny Zheng wrote:
+> > >>>>>>> CNTVCT_EL0 or CNTPCT_EL0 counter read in Cortex-A73 (all versions)
+> > >>>>>>> might return a wrong value when the counter crosses a 32bit boundary.
+> > >>>>>>>
+> > >>>>>>> Until now, there is no case for Xen itself to access CNTVCT_EL0,
+> > >>>>>>> and it also should be the Guest OS's responsibility to deal with
+> > >>>>>>> this part.
+> > >>>>>>>
+> > >>>>>>> But for CNTPCT, there exists several cases in Xen involving reading
+> > >>>>>>> CNTPCT, so a possible workaround is that performing the read twice,
+> > >>>>>>> and to return one or the other depending on whether a transition has
+> > >>>>>>> taken place.
+> > >>>>>>>
+> > >>>>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> > >>>>>>
+> > >>>>>> Acked-by: Julien Grall <jgrall@amazon.com>
+> > >>>>>>
+> > >>>>>> On a related topic, do we need a fix similar to Linux commit
+> > >>>>>> 75a19a0202db "arm64: arch_timer: Ensure counter register reads occur
+> > >>>>>> with seqlock held"?
+> > >>>>>>
+> > >>>>>
+> > >>>>> I take a look at this Linux commit, it seems to prevent the seq-lock to be
+> > >>>>> speculated.  Using an enforce ordering instead of ISB after the read
+> > counter
+> > >>>>> operation seems to be for performance reasons.
+> > >>>>>
+> > >>>>> I have found that you had placed an ISB before read counter in get_cycles
+> > >>>>> to prevent counter value to be speculated. But you haven't placed the
+> > >> second
+> > >>>>> ISB after reading. Is it because we haven't used the get_cycles in seq lock
+> > >>>>> critical context (Maybe I didn't find the right place)? So should we need to
+> > >> fix it
+> > >>>>> now, or you prefer to fix it now for future usage?
+> > >>>>
+> > >>>> Looking at the call sites, it doesn't look like we need any ISB after
+> > >>>> get_cycles as it is not used in any critical context. There is also a
+> > >>>> data dependency with the value returned by it.
+> > >>
+> > >> I am assuming you looked at all the users of NOW(). Is that right?
+> > >>
+> > >>>>
+> > >>>> So I am thinking we don't need any fix. At most we need an in-code
+> > comment?
+> > >>>
+> > >>> I agree with you to add an in-code comment. It will remind us in future
+> > when
+> > >> we
+> > >>> use the get_cycles in critical context. Adding it now will probably only lead
+> > to
+> > >>> meaningless performance degradation.
+> > >>
+> > >> I read this as there would be no perfomance impact if we add the
+> > >> ordering it now. Did you intend to say?
+> > >
+> > > Sorry about my English. I intended to say "Adding it now may introduce some
+> > > performance cost. And this performance cost may be not worth. Because Xen
+> > > may never use it in a similar scenario "
+> > 
+> > Don't worry! I think the performance should not be noticeable if we use
+> > the same trick as Linux.
+> > 
+> > >> In addition, AFAICT, the x86 version of get_cycles() is already able to
+> > >> provide that ordering. So there are chances that code may rely on it.
+> > >>
+> > >> While I don't necessarily agree to add barriers everywhere by default
+> > >> (this may have big impact on the platform). I think it is better to have
+> > >> an accurate number of cycles.
+> > >>
+> > >
+> > > As x86 had done it, I think it’s ok to do it for Arm. This will keep a function
+> > > behaves the same on different architectures.
+> > 
+> > Just to be clear, I am not 100% sure this is what Intel is doing.
+> > Although this is my understanding of the comment in the code.
+> > 
+> > @Stefano, what do you think?
+> > 
+> > @Wei, assuming Stefano is happy with the proposal, would you be happy to
+> > send a patch for that?
+> > 
 > 
-> I have attempted such discussion in the past and this resulted to more
-> bikeshed than it is worth it. So I would suggest to re-implement WRITE_ONCE()
-> as write_atomic() for now.
+> Of  course, I am willing to do that. It seems the enforce_ordering patch has been
+> merged. And Vincenzo reported the enforce_ordering method will have ~4.5
+> performance improvement[1] (Compare to ISB). So I will use enforce_ordering
+> method directly instead of using ISB.
+> 
+> [1]https://lkml.org/lkml/2020/3/13/645
 
-Good suggestion, less discussions more code :-)
+If we can enforce ordering without adding an ISB, I am all for it.
+--8323329-1698463917-1606968903=:30425--
 
