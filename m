@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7562CD0DB
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 09:13:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43152.77624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 539672CD120
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 09:21:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43160.77639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkjjE-0002oX-IO; Thu, 03 Dec 2020 08:12:40 +0000
+	id 1kkjrD-0003qr-Ky; Thu, 03 Dec 2020 08:20:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43152.77624; Thu, 03 Dec 2020 08:12:40 +0000
+Received: by outflank-mailman (output) from mailman id 43160.77639; Thu, 03 Dec 2020 08:20:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkjjE-0002oB-ES; Thu, 03 Dec 2020 08:12:40 +0000
-Received: by outflank-mailman (input) for mailman id 43152;
- Thu, 03 Dec 2020 08:12:38 +0000
+	id 1kkjrD-0003qS-Hd; Thu, 03 Dec 2020 08:20:55 +0000
+Received: by outflank-mailman (input) for mailman id 43160;
+ Thu, 03 Dec 2020 08:20:54 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vSHx=FH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kkjjC-0002o6-Np
- for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 08:12:38 +0000
+ id 1kkjrC-0003qN-5N
+ for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 08:20:54 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4b4bf2e8-5497-49b1-9b38-f7362e97abcb;
- Thu, 03 Dec 2020 08:12:37 +0000 (UTC)
+ id ceeae4b4-107d-4e50-a51c-bfc0412f8a2e;
+ Thu, 03 Dec 2020 08:20:52 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 33349AE95;
- Thu,  3 Dec 2020 08:12:36 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 61F10AC55;
+ Thu,  3 Dec 2020 08:20:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,78 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b4bf2e8-5497-49b1-9b38-f7362e97abcb
+X-Inumbo-ID: ceeae4b4-107d-4e50-a51c-bfc0412f8a2e
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1606983156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1606983651; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LNIkhb3LvLaWFc4Cvk7s0fVDJExphp0lqT/VK6hAPps=;
-	b=RmoVxP27qESIVuXTZa2aJd/1ZbAe8cv77gcDoMEvl0w9ET68CpV3YRzv+oEgX7mS8Cax5l
-	8rBcHXFB6duNTcWwloL9igUthmyiFJ4Il0Whl0EewWQp+Vn/gdeG2BDGYkNr0LSl4LdNgo
-	Sq8D+XKxrR5bNLGp0JlMewapGs2rzxs=
-Subject: Re: [PATCH v2 11/17] xen/hypfs: add getsize() and findentry()
- callbacks to hypfs_funcs
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-12-jgross@suse.com>
- <e8a876c9-b1bf-62a4-d30c-a2c646cb68f7@suse.com>
- <e2909e87-473f-dbf5-9e58-7c817ac59e3f@suse.com>
+	bh=4puBeoSg4tODVpXmLAW0sGWhnauZKc2JuH4Jn/niFAE=;
+	b=Oe06/56bn4A3nCVy8onyNtDB57y4gC/VKHD528xFqG7TyV4sm76OW6n32MuIApx7UVIN+K
+	bvZsI7pWv++M/0I+28LPmz5RAgta+N12iXo34qS+F8Hfuh1CtmmGhMf4+UxsuKN/fuz009
+	WUpF0Dwn9Xd0O3QtghAiEvJHA2fQMHU=
+Subject: Re: [PATCH] x86/IRQ: bump max number of guests for a shared IRQ to 31
+To: Igor Druzhinin <igor.druzhinin@citrix.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
+ xen-devel@lists.xenproject.org
+References: <1606780777-30718-1-git-send-email-igor.druzhinin@citrix.com>
+ <b98d3517-6c9d-6f40-6e28-cde142978143@suse.com>
+ <3c9735ec-2b04-1ace-2adb-d72b32c4a5f9@citrix.com>
+ <88019c81-1988-2512-282b-53b61adf09c6@suse.com>
+ <bcb0964d-9444-f5e6-372f-d8daa460fcfd@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d878f80d-d71d-93cd-8ee1-06fb860bf390@suse.com>
-Date: Thu, 3 Dec 2020 09:12:31 +0100
+Message-ID: <c29f706f-2fef-fbca-1b45-776882b8445c@suse.com>
+Date: Thu, 3 Dec 2020 09:20:50 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <e2909e87-473f-dbf5-9e58-7c817ac59e3f@suse.com>
+In-Reply-To: <bcb0964d-9444-f5e6-372f-d8daa460fcfd@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02.12.2020 16:51, Jürgen Groß wrote:
-> On 02.12.20 16:42, Jan Beulich wrote:
->> On 01.12.2020 09:21, Juergen Gross wrote:
->>> Add a getsize() function pointer to struct hypfs_funcs for being able
->>> to have dynamically filled entries without the need to take the hypfs
->>> lock each time the contents are being generated.
+On 02.12.2020 17:34, Igor Druzhinin wrote:
+> On 02/12/2020 15:21, Jan Beulich wrote:
+>> On 02.12.2020 15:53, Igor Druzhinin wrote:
+>>> On 02/12/2020 09:25, Jan Beulich wrote:
+>>>> Instead I'm wondering whether this wouldn't better be a Kconfig
+>>>> setting (or even command line controllable). There don't look to be
+>>>> any restrictions on the precise value chosen (i.e. 2**n-1 like is
+>>>> the case for old and new values here, for whatever reason), so a
+>>>> simple permitted range of like 4...64 would seem fine to specify.
+>>>> Whether the default then would want to be 8 (close to the current
+>>>> 7) or higher (around the actually observed maximum) is a different
+>>>> question.
 >>>
->>> For directories add a findentry callback to the vector and modify
->>> hypfs_get_entry_rel() to use it.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> I'm in favor of a command line argument here - it would be much less trouble
+>>> if a higher limit was suddenly necessary in the field. The default IMO
+>>> should definitely be higher than 8 - I'd stick with number 32 which to me
+>>> should cover our real world scenarios and apply some headroom for the future.
 >>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> with maybe one further small adjustment:
->>
->>> @@ -176,15 +188,41 @@ static int hypfs_get_path_user(char *buf,
->>>       return 0;
->>>   }
->>>   
->>> +struct hypfs_entry *hypfs_leaf_findentry(const struct hypfs_entry_dir *dir,
->>> +                                         const char *name,
->>> +                                         unsigned int name_len)
->>> +{
->>> +    return ERR_PTR(-ENOENT);
->>> +}
->>
->> ENOENT seems odd to me here. There looks to be no counterpart to
->> EISDIR, so maybe ENODATA, EACCES, or EPERM?
+>> Well, I'm concerned of the extra memory overhead. Every IRQ,
+>> sharable or not, will get the extra slots allocated with the
+>> current scheme. Perhaps a prereq change then would be to only
+>> allocate multi-guest arrays for sharable IRQs, effectively
+>> shrinking the overhead in particular for all MSI ones?
 > 
-> Hmm, why?
-> 
-> In case I have /a/b and I'm looking for /a/b/c ENOENT seems to be just
-> fine?
-> 
-> Or I could add ENOTDIR.
+> That's one way to improve overall system scalability but in that area
+> there is certainly much bigger fish to fry elsewhere. With 32 elements in the
+> array we get 200 bytes of overhead per structure, with 16 it's just 72 extra
+> bytes which in the unattainable worst case scenario of every single vector taken
+> in 512 CPU machine would only account for several MB of overhead.
 
-Oh, there actually is supposed to be such an entry, but public/errno.h
-is simply missing it. Yes - ENOTDIR is what I was thinking of when
-saying "there looks to be no counterpart to EISDIR".
+I'm generally unhappy with this way of thinking, as this is what has
+been leading to unnecessary growth of all sorts of software and its
+needs of resources. Yes, there surely are larger gains to be had
+elsewhere, but that's imo still no excuse to grow memory allocations
+"blindly" despite it being clear that in a fair share of cases a
+fair part of the allocated memory won't be used. This said, ...
+
+> I'd start with dynamic array allocation first and setting the limit to 16 that
+> should be enough for now. And then if that default value needs to be raised
+> we can consider further improvements.
+
+... I'm puzzled by this plan of yours, because unless I'm
+misunderstanding dynamic array allocation is what I've been asking
+for, effectively. Now that we have xmalloc_flex_struct(), this
+should even be relatively straightforward, i.e. in particular with
+no need to open code complex expressions.
 
 Jan
 
