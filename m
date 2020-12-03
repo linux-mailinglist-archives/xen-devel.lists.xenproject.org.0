@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 227F32CD52A
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 13:08:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43385.77987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 142632CD580
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 13:30:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43396.77998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kknOP-00024B-0q; Thu, 03 Dec 2020 12:07:25 +0000
+	id 1kknjQ-000459-ST; Thu, 03 Dec 2020 12:29:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43385.77987; Thu, 03 Dec 2020 12:07:24 +0000
+Received: by outflank-mailman (output) from mailman id 43396.77998; Thu, 03 Dec 2020 12:29:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kknOO-00023m-Tv; Thu, 03 Dec 2020 12:07:24 +0000
-Received: by outflank-mailman (input) for mailman id 43385;
- Thu, 03 Dec 2020 12:07:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KUIR=FH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kknON-00023h-9Y
- for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 12:07:23 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 900ccd7f-0efa-4205-9892-8e945cb6446b;
- Thu, 03 Dec 2020 12:07:22 +0000 (UTC)
+	id 1kknjQ-00044d-OF; Thu, 03 Dec 2020 12:29:08 +0000
+Received: by outflank-mailman (input) for mailman id 43396;
+ Thu, 03 Dec 2020 12:29:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kknjP-00044V-FE; Thu, 03 Dec 2020 12:29:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kknjP-0003pW-7R; Thu, 03 Dec 2020 12:29:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kknjO-0003jh-Vl; Thu, 03 Dec 2020 12:29:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kknjO-0006BM-VL; Thu, 03 Dec 2020 12:29:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,71 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 900ccd7f-0efa-4205-9892-8e945cb6446b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1606997242;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=KJdP6Uqywn/Nn94UJYUt611kPhXl937zqVBQr07U+Xk=;
-  b=cJ+d5ZhIauFdElNZUSBMbJCNtlEw+GSGghlYepmt0As7nuHSBQySxsPV
-   g1y+fn2SmVnrVgFLZzpvdt4p2nVEVOvZw0fG8e8p+Aiew5fjFNiWRIZrR
-   ewf27CGuTv4CfQ6Eftq86LcVXUVExhqwjj4POSOQm+DHBUnOIQxcmcH5m
-   s=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: s/PaW1TzAHm3E5gWvDTJORBbFIy+EP/8HLXhbKXWr+daLN4LSJmeum5AMpDQO+lcXxtLbi9Wso
- aHqjBFnc1gT9+JMcPYVu2jjHH7NPmWu+fV5j1QmUOnbpxVL6FOWa8RQNRJCebNcPHAIzxztr8I
- xfaXveW8mrhsKdv9o4Vlrk1a2ZvTbDy4i1yvbuVOnjXz1xAQqF87/p+feYKMCMjJWe6n7MwfOv
- /EtjKO5kfCFQrNOrt2FG6yvdlB0r4UToGBpb7lBfb6iEcl9YUsQDmB7Uv5/t5ki8YCxmNMr218
- Hiw=
-X-SBRS: None
-X-MesageID: 32451431
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,389,1599537600"; 
-   d="scan'208";a="32451431"
-Subject: Re: [PATCH 1/2] include: don't use asm/page.h from common headers
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Hongyan Xia <hx242@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-References: <75484377-160c-a529-1cfc-96de86cfc550@suse.com>
- <04276039-a5d0-fefd-260e-ffaa8272fd6a@suse.com>
- <a35fb176-e729-a542-4416-7040d6c80964@xen.org>
- <bdf294d9-e021-36d3-7e04-1c148e34701f@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <b6080ab1-b303-d93c-88ba-7b98333e7237@citrix.com>
-Date: Thu, 3 Dec 2020 12:07:15 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <bdf294d9-e021-36d3-7e04-1c148e34701f@suse.com>
-Content-Type: text/plain; charset="utf-8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=MsKBq3r6Rne1lS5f2tV14ccGvGLO0ZFMEFVBN+U5AnM=; b=klQwEaHyZGwIw3Jow4A2kzS+PC
+	va16s39KDpy4w8N33dvbV5D+e6+OU3Nygs3sv4QgWwxpuBYuFcjntksNvk3sjEY68nflEFUfQc4f3
+	bIKe3nDdguiM+HSJH7i6clki6w5lRO81XdMS80eklEdaoJvCnoANSOTLNj/vh48U+jDk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157167-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+MIME-Version: 1.0
+Subject: [ovmf test] 157167: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=7c4ab1c2ef60a4690177d2361f8dd44d7d7df7f8
+X-Osstest-Versions-That:
+    ovmf=9fb629edd75e1ae1e7f4e85b0876107a7180899b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 03 Dec 2020 12:29:06 +0000
 
-On 03/12/2020 09:27, Jan Beulich wrote:
->>> --- /dev/null
->>> +++ b/xen/include/asm-arm/page-shift.h
->> The name of the file looks a bit odd given that *_BITS are also defined 
->> in it. So how about renaming to page-size.h?
-> I was initially meaning to use that name, but these headers
-> specifically don't define any sizes - *_BITS are still shift
-> values, at least in a way. If the current name isn't liked, my
-> next best suggestion would then be page-bits.h.
+flight 157167 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157167/
 
-Pick a generic name, or it will bitrot quickly, and it really wants to
-be the same across architectures.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 7c4ab1c2ef60a4690177d2361f8dd44d7d7df7f8
+baseline version:
+ ovmf                 9fb629edd75e1ae1e7f4e85b0876107a7180899b
 
-The real issue is that page.h contains far too much stuff now, in both
-architectures.  Longterm, we want to split apart the architectural
-pagetable definitions, from the Xen APIs to manipulate them, which will
-simplify the asm include hierarchy as well.
+Last test of basis   157117  2020-11-30 18:12:47 Z    2 days
+Testing same since   157167  2020-12-02 23:40:53 Z    0 days    1 attempts
 
-I'd go with page-bits.h, or just a plain pagetable.h.
+------------------------------------------------------------
+People who touched revisions under test:
+  Guo Dong <guo.dong@intel.com>
 
-~Andrew
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   9fb629edd7..7c4ab1c2ef  7c4ab1c2ef60a4690177d2361f8dd44d7d7df7f8 -> xen-tested-master
 
