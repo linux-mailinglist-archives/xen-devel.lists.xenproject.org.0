@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED6F62CD7BF
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 14:40:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43491.78167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6B632CD833
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 14:52:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43502.78179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkoqW-0004Tu-ET; Thu, 03 Dec 2020 13:40:32 +0000
+	id 1kkp1A-0005fD-Es; Thu, 03 Dec 2020 13:51:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43491.78167; Thu, 03 Dec 2020 13:40:32 +0000
+Received: by outflank-mailman (output) from mailman id 43502.78179; Thu, 03 Dec 2020 13:51:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkoqW-0004TV-BC; Thu, 03 Dec 2020 13:40:32 +0000
-Received: by outflank-mailman (input) for mailman id 43491;
- Thu, 03 Dec 2020 13:40:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vSHx=FH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kkoqV-0004TO-6a
- for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 13:40:31 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1dd7175d-1265-41bf-92ef-91d91d17d076;
- Thu, 03 Dec 2020 13:40:30 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 62959AC2E;
- Thu,  3 Dec 2020 13:40:29 +0000 (UTC)
+	id 1kkp1A-0005eq-BN; Thu, 03 Dec 2020 13:51:32 +0000
+Received: by outflank-mailman (input) for mailman id 43502;
+ Thu, 03 Dec 2020 13:51:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oiWT=FH=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kkp18-0005ek-Qc
+ for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 13:51:30 +0000
+Received: from mail-wm1-x332.google.com (unknown [2a00:1450:4864:20::332])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 12d3098d-0b58-407c-ae6b-06e7429356c1;
+ Thu, 03 Dec 2020 13:51:29 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id 3so3951346wmg.4
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Dec 2020 05:51:29 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-183-162-145.range86-183.btcentralplus.com.
+ [86.183.162.145])
+ by smtp.gmail.com with ESMTPSA id e4sm1881349wrr.32.2020.12.03.05.51.27
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 03 Dec 2020 05:51:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,118 +42,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dd7175d-1265-41bf-92ef-91d91d17d076
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607002829; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wsZeX4m2pj3ShAbO2r0Y+TdBRHcQ1W0Qjt05Su5dPrY=;
-	b=SjkdG+I6WBwgReOPkJTseQSwk/sVFejKQOXgIf+qjVqzawGPZCVY+6pbzDeimyS75sNmfP
-	E/LpLxIlJw9QTkPk2rvuhEBcqsHst4DoDig0N4Gk74xEXh+8+JTjlAXzMUPkwBuF7fNVcZ
-	ZRBpXesevyd5vvXXG6BEn0y2AIHdKxc=
-Subject: Re: [PATCH] vpci/msix: exit early if MSI-X is disabled
-From: Jan Beulich <jbeulich@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Manuel Bouyer <bouyer@antioche.eu.org>, xen-devel@lists.xenproject.org
-References: <20201201174014.27878-1-roger.pau@citrix.com>
- <dfc96aa9-c39f-177c-c8f8-af18b80804de@suse.com>
-Message-ID: <cdb2a1ae-9ee7-6661-b69f-d2faacef2c12@suse.com>
-Date: Thu, 3 Dec 2020 14:40:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+X-Inumbo-ID: 12d3098d-0b58-407c-ae6b-06e7429356c1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:content-language
+         :thread-index;
+        bh=KG0ZODBhqlJjf3yMVFp97XKyIxJKUtY7MgL/JtPCVxk=;
+        b=p0R85et3SoulqgQcgIr4QEB6ii0+JdF7kqz4YTa9i+QepyoZ2+uyi9mRfCUgnTn4Kq
+         usNz3Mj5pz5xFfgHdcn1qcokLz7GXvaWR3d+ubq99hiGfoSpzKfiBEiJF88nvRcibpNt
+         rP66gtTKtaW1i5YddKUVT7E9SQTtSAmKfQXvhhVsmi4P+PyFz+rcd6hr+sNwtbHTxfuP
+         b8d8ETy5HVfHRqITCgIezWQbsWu4LXYJx/Gd4x8RAWXs1d76HxYfg8PnaqxVTx/fxJHy
+         3U0N5QmTPXa5wSA2Tz42Qg7niqeyL56/WXqbXs9eCFakQVNY1mEk2KjwoHioznyvCMpj
+         VAyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :content-language:thread-index;
+        bh=KG0ZODBhqlJjf3yMVFp97XKyIxJKUtY7MgL/JtPCVxk=;
+        b=dP8yTWbK49NfcnfHTG8y67xcT6oS9fRB/bA+umO5tjrmWqwOrhJoYDGhed5XpzZurs
+         RacEMgUL28zBkeKi+jGZyfcUJJXySZshLvW0J+xe6OuDgBgKo1kCPCME+Iun6Vp76CEn
+         waf7Wr0mlLquO5pZAG0CQW4S1xnwF/LJWCNAeLBtEuGmPCK5gLQM61cKseZzloFaumzM
+         XZwA1Aoq2XU8rOg5NX6k73qUjAauhyhxdAao4isG8pUaYdMqd2Qnp54hSHqmzLVDp75C
+         P/6v/NQP/zY+8KP0YrZxrBKp3mtWqneoS9vFb7IjCin+lq1Ior5PQ9NSgoCQs4NY6yPL
+         2APw==
+X-Gm-Message-State: AOAM531r5u24WXdbZOyG3E2OQzAxK5fU9DRsg37gOU4/M2gcivDF8dJ1
+	8l6/+jttdCqQkFvqD3HDKgw=
+X-Google-Smtp-Source: ABdhPJxLAbcX/ZEH0BEBPfmqu5og4nYc8qefFJ9zXmASR5brA65YMYuDeQkVoIfsYsMLk6MEWEmIdg==
+X-Received: by 2002:a1c:6a10:: with SMTP id f16mr3502596wmc.106.1607003489054;
+        Thu, 03 Dec 2020 05:51:29 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: =?utf-8?Q?'J=C3=BCrgen_Gro=C3=9F'?= <jgross@suse.com>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'Paul Durrant'" <pdurrant@amazon.com>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'Anthony PERARD'" <anthony.perard@citrix.com>,
+	"'Christian Lindig'" <christian.lindig@citrix.com>,
+	"'David Scott'" <dave@recoil.org>,
+	"'George Dunlap'" <george.dunlap@citrix.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Jan Beulich'" <jbeulich@suse.com>,
+	"'Julien Grall'" <julien@xen.org>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
+	"'Wei Liu'" <wl@xen.org>
+References: <20201203124159.3688-1-paul@xen.org> <7417f158-2cad-3909-2676-f9d5a90f4202@suse.com>
+In-Reply-To: <7417f158-2cad-3909-2676-f9d5a90f4202@suse.com>
+Subject: RE: [PATCH v5 0/4] Xen ABI feature control
+Date: Thu, 3 Dec 2020 13:51:27 -0000
+Message-ID: <00b101d6c97b$660c4990$3224dcb0$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <dfc96aa9-c39f-177c-c8f8-af18b80804de@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJzrCHAX/gquRkO4g65wfjgQBytUAJD4qPyqJl9rgA=
 
-On 02.12.2020 09:38, Jan Beulich wrote:
-> On 01.12.2020 18:40, Roger Pau Monne wrote:
->> --- a/xen/drivers/vpci/msix.c
->> +++ b/xen/drivers/vpci/msix.c
->> @@ -357,7 +357,11 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
->>           * so that it picks the new state.
->>           */
->>          entry->masked = new_masked;
->> -        if ( !new_masked && msix->enabled && !msix->masked && entry->updated )
->> +
->> +        if ( !msix->enabled )
->> +            break;
->> +
->> +        if ( !new_masked && !msix->masked && entry->updated )
->>          {
->>              /*
->>               * If MSI-X is enabled, the function mask is not active, the entry
-> 
-> What about a "disabled" -> "enabled-but-masked" transition? This,
-> afaict, similarly won't trigger setting up of entries from
-> control_write(), and hence I'd expect the ASSERT() to similarly
-> trigger when subsequently an entry's mask bit gets altered.
-> 
-> I'd also be fine making this further adjustment, if you agree,
-> but the one thing I haven't been able to fully convince myself of
-> is that there's then still no need to set ->updated to true.
+> -----Original Message-----
+> From: J=C3=BCrgen Gro=C3=9F <jgross@suse.com>
+> Sent: 03 December 2020 13:15
+> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
+> Cc: Paul Durrant <pdurrant@amazon.com>; Andrew Cooper =
+<andrew.cooper3@citrix.com>; Anthony PERARD
+> <anthony.perard@citrix.com>; Christian Lindig =
+<christian.lindig@citrix.com>; David Scott
+> <dave@recoil.org>; George Dunlap <george.dunlap@citrix.com>; Ian =
+Jackson <iwj@xenproject.org>; Jan
+> Beulich <jbeulich@suse.com>; Julien Grall <julien@xen.org>; Roger Pau =
+Monn=C3=A9 <roger.pau@citrix.com>;
+> Stefano Stabellini <sstabellini@kernel.org>; Volodymyr Babchuk =
+<Volodymyr_Babchuk@epam.com>; Wei Liu
+> <wl@xen.org>
+> Subject: Re: [PATCH v5 0/4] Xen ABI feature control
+>=20
+> On 03.12.20 13:41, Paul Durrant wrote:
+> > From: Paul Durrant <pdurrant@amazon.com>
+> >
+> > This series was previously called "evtchn: Introduce a per-guest =
+knob to
+> > control FIFO ABI". It is been extensively re-worked and extended to =
+cover
+> > another ABI feature.
+> >
+> > Paul Durrant (4):
+> >    domctl: introduce a new domain create flag,
+> >      XEN_DOMCTL_CDF_evtchn_fifo, ...
+> >    domctl: introduce a new domain create flag,
+> >      XEN_DOMCTL_CDF_evtchn_upcall, ...
+> >    libxl: introduce a 'libxl_xen_abi_features' enumeration...
+> >    xl: introduce a 'xen-abi-features' option...
+> >
+> >   docs/man/xl.cfg.5.pod.in         | 50 =
+++++++++++++++++++++++++++++++++
+> >   tools/include/libxl.h            | 10 +++++++
+> >   tools/libs/light/libxl_arm.c     | 22 +++++++++-----
+> >   tools/libs/light/libxl_create.c  | 31 ++++++++++++++++++++
+> >   tools/libs/light/libxl_types.idl |  7 +++++
+> >   tools/libs/light/libxl_x86.c     | 17 ++++++++++-
+> >   tools/ocaml/libs/xc/xenctrl.ml   |  2 ++
+> >   tools/ocaml/libs/xc/xenctrl.mli  |  2 ++
+> >   tools/xl/xl_parse.c              | 50 =
+++++++++++++++++++++++++++++++--
+> >   xen/arch/arm/domain.c            |  3 +-
+> >   xen/arch/arm/domain_build.c      |  3 +-
+> >   xen/arch/arm/setup.c             |  3 +-
+> >   xen/arch/x86/domain.c            |  8 +++++
+> >   xen/arch/x86/hvm/hvm.c           |  3 ++
+> >   xen/arch/x86/setup.c             |  4 ++-
+> >   xen/common/domain.c              |  3 +-
+> >   xen/common/event_channel.c       | 24 +++++++++++++--
+> >   xen/include/public/domctl.h      |  6 +++-
+> >   18 files changed, 229 insertions(+), 19 deletions(-)
+> > ---
+> > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Cc: Anthony PERARD <anthony.perard@citrix.com>
+> > Cc: Christian Lindig <christian.lindig@citrix.com>
+> > Cc: David Scott <dave@recoil.org>
+> > Cc: George Dunlap <george.dunlap@citrix.com>
+> > Cc: Ian Jackson <iwj@xenproject.org>
+> > Cc: Jan Beulich <jbeulich@suse.com>
+> > Cc: Julien Grall <julien@xen.org>
+> > Cc: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
+> > Cc: Stefano Stabellini <sstabellini@kernel.org>
+> > Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> > Cc: Wei Liu <wl@xen.org>
+> >
+>=20
+> Do we want to add a create flag for each such feature, or would it be
+> better to set options like those via hypfs?
+>=20
+> It would be fairly easy to ad dynamic hypfs paths, e.g.:
+>=20
+> /domain/<domid>/abi-features/evtchn-fifo
+> /domain/<domid>/abi-features/evtchn-upcall
+>=20
+> which would have boolean type and could be set as long as the domain
+> hasn't been started.
+>=20
+> xl support could even be rather generic, without the need to add =
+coding
+> to xl for each new feature.
+>=20
+> This is no objection to this series, but just an idea how to avoid
+> extending the use of unstable interfaces.
+>=20
+> Thoughts?
+>=20
 
-I've taken another look. I think setting ->updated (or something
-equivalent) is needed in that case, in order to not lose the
-setting of the entry mask bit. However, this would only defer the
-problem to control_write(): This would now need to call
-vpci_msix_arch_mask_entry() under suitable conditions, but avoid
-calling it when the entry is disabled or was never set up. No
-matter whether making the setting of ->updated conditional, or
-adding a conditional call in update_entry(), we'd need to
-evaluate whether the entry is currently disabled. Imo, instead of
-introducing a new arch hook for this, it's easier to make
-vpci_msix_arch_mask_entry() tolerate getting called on a disabled
-entry. Below my proposed alternative change.
+I was not aware we could have something that was dynamic only before I =
+domain is started.
 
-While writing the description I started wondering why we require
-address or data fields to have got written before the first
-unmask. I don't think the hardware imposes such a requirement;
-zeros would be used instead, whatever this means. Let's not
-forget that it's only the primary purpose of MSI/MSI-X to
-trigger interrupts. Forcing the writes to go elsewhere in
-memory is not forbidden from all I know, and could be used by a
-driver. IOW I think ->updated should start out as set to true.
-But of course vpci_msi_update() then would need to check the
-upper address bits and avoid setting up an interrupt if they're
-not 0xfee. And further arrangements would be needed to have the
-guest requested write actually get carried out correctly.
+We'd still want libxl to write the features rather than xl doing it =
+directly I think as we still want it to be the owner of the default =
+settings. Personally it still feels like this kind of setting does want =
+to be an explicit part of domain creation, though using hypfs does sound =
+like a neat idea.
 
-Jan
+  Paul
 
-x86/vPCI: tolerate (un)masking a disabled MSI-X entry
+>=20
+> Juergen
 
-None of the four reasons causing vpci_msix_arch_mask_entry() to get
-called (there's just a single call site) are impossible or illegal prior
-to an entry actually having got set up:
-- the entry may remain masked (in this case, however, a prior masked ->
-  unmasked transition would already not have worked),
-- MSI-X may not be enabled,
-- the global mask bit may be set,
-- the entry may not otherwise have been updated.
-Hence the function asserting that the entry was previously set up was
-simply wrong. Since the caller tracks the masked state (and setting up
-of an entry would only be effected when that software bit is clear),
-it's okay to skip both masking and unmasking requests in this case.
-
-Fixes: d6281be9d0145 ('vpci/msix: add MSI-X handlers')
-Reported-by: Manuel Bouyer <bouyer@antioche.eu.org>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/arch/x86/hvm/vmsi.c
-+++ b/xen/arch/x86/hvm/vmsi.c
-@@ -840,8 +840,8 @@ void vpci_msi_arch_print(const struct vp
- void vpci_msix_arch_mask_entry(struct vpci_msix_entry *entry,
-                                const struct pci_dev *pdev, bool mask)
- {
--    ASSERT(entry->arch.pirq != INVALID_PIRQ);
--    vpci_mask_pirq(pdev->domain, entry->arch.pirq, mask);
-+    if ( entry->arch.pirq != INVALID_PIRQ )
-+        vpci_mask_pirq(pdev->domain, entry->arch.pirq, mask);
- }
- 
- int vpci_msix_arch_enable_entry(struct vpci_msix_entry *entry,
 
