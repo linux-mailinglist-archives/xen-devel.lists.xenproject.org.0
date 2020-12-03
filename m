@@ -2,45 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9AF12CD687
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 14:20:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43471.78137 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 383552CD6CF
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 14:33:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43484.78154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkoX5-0002Le-4x; Thu, 03 Dec 2020 13:20:27 +0000
+	id 1kkoj8-0003YB-Gq; Thu, 03 Dec 2020 13:32:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43471.78137; Thu, 03 Dec 2020 13:20:27 +0000
+Received: by outflank-mailman (output) from mailman id 43484.78154; Thu, 03 Dec 2020 13:32:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkoX5-0002LF-1m; Thu, 03 Dec 2020 13:20:27 +0000
-Received: by outflank-mailman (input) for mailman id 43471;
- Thu, 03 Dec 2020 13:20:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kkoj8-0003XB-Cw; Thu, 03 Dec 2020 13:32:54 +0000
+Received: by outflank-mailman (input) for mailman id 43484;
+ Thu, 03 Dec 2020 13:32:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1si/=FH=epam.com=prvs=0606d307f8=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1kkoX2-0002LA-Q6
- for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 13:20:25 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 206478a7-7516-45ea-a9f2-1a3a78fb640b;
- Thu, 03 Dec 2020 13:20:23 +0000 (UTC)
-Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0B3DJwSI000461; Thu, 3 Dec 2020 13:20:21 GMT
-Received: from eur01-he1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2054.outbound.protection.outlook.com [104.47.0.54])
- by mx0a-0039f301.pphosted.com with ESMTP id 355vrqd6fe-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 03 Dec 2020 13:20:21 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB6065.eurprd03.prod.outlook.com (2603:10a6:208:15c::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3611.25; Thu, 3 Dec
- 2020 13:20:18 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::501:a686:7515:465e]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::501:a686:7515:465e%9]) with mapi id 15.20.3632.018; Thu, 3 Dec 2020
- 13:20:18 +0000
+ <SRS0=mnUA=FH=citrix.com=christian.lindig@srs-us1.protection.inumbo.net>)
+ id 1kkoj7-0003X6-7P
+ for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 13:32:53 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 26d15956-a595-40c4-9a09-6e9ead0919bb;
+ Thu, 03 Dec 2020 13:32:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,203 +36,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 206478a7-7516-45ea-a9f2-1a3a78fb640b
+X-Inumbo-ID: 26d15956-a595-40c4-9a09-6e9ead0919bb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1607002371;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=kmGynGka6OdOCKP6iBHNafWRmniOtqOEz4pj+4DOnFA=;
+  b=ZhX3ydX1b2k7ROtkBLqdEJE793pgdNA6niCrn3h4TfEsbbPC5Mp4Stfa
+   1acFSH2jTibsEUDzlkR8lAv3X0E1VVss7AFWy+gqway329NwJTFXNjnIs
+   d78SQMfGfYnDNcn/zeeAWvYh8zgC2iNUsg6FZiGc1M8hiw6YVoGdVofXP
+   Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: HPlPa6xiAPFCZraDZfIaMQ161sNyf3o+pS3O/hBbwvuYDSNhwN+b2C9SBaZkn9k0/urNSA+e5+
+ pxLzXQZcqun8YDpIAQ/2MmXCC8t6+q4Ejg1FsSnvhqY1EgJSyFWeG05jNjiP5HLMkSBZYzEz1t
+ S+eOR2QcRErroJbE1dDXktttFiAkv1W3rKoNNoU+BajT0ty0T+hq0Hf/4QoD5hQN63GQkzQ966
+ +Zwz8pN50wYyhjZG//OA0yhuxLREo2QKeE7y28WdI/7FQAIT1q3R3TVU8VtzUxNOsmi51E4RjQ
+ f3s=
+X-SBRS: 4.0
+X-MesageID: 32449730
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,389,1599537600"; 
+   d="scan'208,217";a="32449730"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kZ3k8hysJyNOsM7A4KoDaf0sEzuERIfpE03WxYl9PwL/0uo07gvSxslH9XhEHaAEmIS54Ye4u73Jdd26JiwRuso4iW061p87ylqyUtlQQZXqwjUCblMEDyoluwCDHD50oL3jCyHJBAhn8ppyzMq6r/4aMpYsj4p3ucfYZzCrT4ABdRZhWJpGZDAwwP+joFjl1prgSU8k64WI8Jj28Jj7/PkzpZBlJzXuN6uIfNuuM2CXysGRap91TVbpxhUgd09ZsiGUJELgyjPcJ2UAea+z8rc+z8VpWxwsM0LBkLeZEx43N5X9ByAdnT7eORQIuXaFQh8cQJYlIjw48zKs+w2/mw==
+ b=Yh9SOPutK6WOE//zhyxIsXlXSdao9WVRW10PV8w0SUWCZOP6hn1Gk2G7CVLhXK4URLMiTxPFoKI8LX8nPCKaF2329a7RH+THt8+Mr1YTjj/hKYN02qIXwl3iwOg84VlfRmiqyLT61j91i7lapguu00r30O1mtfwnMPkRltBJlT4kCywsYjD6NLQFF6/1wUiJ/GfQn1AaooNkkCp/EGenficC860nG4kAakd6F6R3yMd/myic+mX+wFQWe48khIefcYD9eE0Zjyf617bJfWG/Y9/E5GTKICnmsw8TzoM1kUG8a6kQlrfSqh60gPEDik1s06tLZwKZyNkvyIqGHBsudQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VUwRy5/vE/PKCVxGZpC6aHaCa0X0v8XsvbChM7sHiM8=;
- b=H9UVYebyWCx8PnvvBLC6ywTathOzwXg0ke8kuFauSrZiCnJg2rpt21/a+ldKIX0X/rtd+7w2Dc8ax2XsPKmxc/AToLD3eReQBpn37pfmnpS9UrG169vis4kLcPkziZjvCAMJBUdxIpxCoinaUwWbTmLbFecBVzpYv9PV55uiwJXbi8MVEeVXxlkTC7i8vWAMdKmngNCMvVx1Z8vmHNL0GiO7ijlholbBRYzGR3E1PxBxb80q+BgR7ArpnYJW9mNnotfQ++hpHmA0gUSMnb9iEMUMxb7vlziCMPJnefQQXrxXzPDkctfT0AItxr5Bv8tUJXQwhDVB14AxaNXrHEcMiA==
+ bh=gXlpwmINk2mGBNYkik9bxuW71GX8tebXQLV7unc1R7c=;
+ b=RIrYIcj2nWoXfLbhDY2TTAjJDcGie8FSW9J0cTNmnmaxIPhkdsgvIIK7zsChAElWK4eaeeLVQBbwuyb/CCjVRzU9UaNdJcygXveglhnSIt06cS4eZfk7xEsrFEfIIjYRUQuF50PN+mI91xBrGz7iAz1XYM96fg4ZOhjff9QFEBLJlr/W9PWUjYoR+gg3CIHhTEAODlGZKc6rbobLYgGJPx9VU2vLPad4rgK8d4jpPpFvaII/8CxmrTrg0WvMUoybuVMEhXVZLQILZPHJ/L2VAeQo+lfYPgaf2zMXb+CL3f7DGuGLFsnUcSUhbdi0UbS0UENtopc2RGFnDkcctyKjSA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VUwRy5/vE/PKCVxGZpC6aHaCa0X0v8XsvbChM7sHiM8=;
- b=dnsbzit6oMjpR+Opn3K1V0zpjnDlDDRAiK0Q0MmV/sAxferONYTlLW6e4G9c6psbsuPNI4phrkIGq9zpmdYt24jGOJqDxte9YtywX3oqiIzdbt/I0Xmscz60ukmlkdHMrDasI9hzdNg8lUqbGjjJ0R/f13Zj0Mo3GC4bq9QvPP+vTW843NpSuQ0S22sExAnhVkStnHXL59lX6iYSX6E8roXdOxVwo3VWNIf+EnKJMvd/iQ1cRdjWUGOS9kYbBIinfgMpdGI5OM05O83KVt+359Hlrp6tTqAtcmg1LL5k9Jv76xts2dFkAx0vlbju3AaA2aachij5Mi2scWKkQSD8LQ==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: "paul@xen.org" <paul@xen.org>,
-        "xen-devel@lists.xenproject.org"
+ bh=gXlpwmINk2mGBNYkik9bxuW71GX8tebXQLV7unc1R7c=;
+ b=XPLTt1BATF15lzXU4/+KrMTOwoQr9O1tzbNw41gGVcGRLgtmgHzuOXWozEqZDrcziKjGpqB0/bNF0wZIJAokX4rq1Rm/g3BXnCR2s8JqB/SoeDnkl9Y9xdnGKFxejX8mGzunhS2e/nKjbmymgLNyTBbNqUTU+k2BVXJyJnLjoNk=
+From: Christian Lindig <christian.lindig@citrix.com>
+To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Paul Durrant
+	<paul@xen.org>, "xen-devel@lists.xenproject.org"
 	<xen-devel@lists.xenproject.org>
-CC: 'Paul Durrant' <pdurrant@amazon.com>, 'Ian Jackson' <iwj@xenproject.org>,
-        'Wei Liu' <wl@xen.org>, 'Anthony PERARD' <anthony.perard@citrix.com>
-Subject: Re: [PATCH v4 03/23] libxl: Make sure devices added by pci-attach are
- reflected in the config
-Thread-Topic: [PATCH v4 03/23] libxl: Make sure devices added by pci-attach
- are reflected in the config
-Thread-Index: AQHWx+OabtYotvRU7E6Ior0bjSGKzKnlXZAAgAAAvYA=
-Date: Thu, 3 Dec 2020 13:20:18 +0000
-Message-ID: <2c30b442-5dba-3d87-11b2-ba2bfd521a8f@epam.com>
-References: <20201124080159.11912-1-paul@xen.org>
- <20201124080159.11912-4-paul@xen.org>
- <d16e33d7-a4af-8686-c639-b4f591caf77c@epam.com>
- <00a701d6c976$ac403020$04c09060$@xen.org>
-In-Reply-To: <00a701d6c976$ac403020$04c09060$@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [185.199.97.5]
+CC: Paul Durrant <pdurrant@amazon.com>, Andrew Cooper
+	<Andrew.Cooper3@citrix.com>, Anthony Perard <anthony.perard@citrix.com>,
+	David Scott <dave@recoil.org>, George Dunlap <George.Dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Roger Pau Monne <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Wei Liu" <wl@xen.org>
+Subject: Re: [PATCH v5 0/4] Xen ABI feature control
+Thread-Topic: [PATCH v5 0/4] Xen ABI feature control
+Thread-Index: AQHWyXjIEJK6osKOu0eZZfeqHV9qfg==
+Date: Thu, 3 Dec 2020 13:32:47 +0000
+Message-ID: <DS7PR03MB5655496C2C7EFC8DF29BCA37F6F20@DS7PR03MB5655.namprd03.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e73ad96b-5222-41e9-b263-08d8978e2dca
-x-ms-traffictypediagnostic: AM0PR03MB6065:
-x-microsoft-antispam-prvs: 
- <AM0PR03MB60650F3289921A7E52C1C64EE7F20@AM0PR03MB6065.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-ms-office365-filtering-correlation-id: acf09ade-402c-42bd-1b4c-08d8978fec6a
+x-ms-traffictypediagnostic: DM6PR03MB4747:
+x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR03MB4747431EFDAEC02F7B4F8DC2F6F20@DM6PR03MB4747.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- hFwYjUnRKLLZ+0o9W0AjmqwiIlOPVccicVLHMiAZ0K5MCM36Pccjg5HKkLRkF+qINA3TbuL7nVsOTR/h14Cj0/FFl8HZofy27h1Sciycw6TMqI0WOa5LvM/CNW8Q201ckGF3akLaZfVll9pR2WFFhFVa8tDB0PQcDh8d6xv7v/lIaB5iAmp36keG/vwa8XiKRMUS2MAGXEkX72IZcCIB56GTXngX2gcPi68RotqtrWh2rNBl94WQayLjd7hx9N6LiLlR1YBnHgyq0BwHWu5wkn5+uieYKM0SANVpenOvewaAWHPp3IOP1Nl6mccBidwIVPcAURuYyBckEcThL7xWZ0VoHexWq0/agzxxD7t6W9iQ6YU6Qdju3/Qm4Y1oIfiZ
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(366004)(396003)(346002)(39860400002)(376002)(2616005)(8676002)(6486002)(54906003)(316002)(53546011)(2906002)(110136005)(6506007)(26005)(186003)(36756003)(31686004)(8936002)(4326008)(6512007)(76116006)(86362001)(66946007)(66446008)(478600001)(5660300002)(31696002)(64756008)(66476007)(91956017)(66556008)(71200400001)(83380400001)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: 
- =?utf-8?B?OEtaeUEyeTBCNk9Bcnk2S1Z4TSswaG1EN3Jxb0N5ZkdON2lnOEZzTGlPUHM5?=
- =?utf-8?B?TDIrQnUvZ0MwVEhxMWVSV2xmNWE1ZWtmWFVhVGpBNlZiZExKK0dCNVJsVkZC?=
- =?utf-8?B?ZFAxM3NCSXpINlRjM0FsY2NKeFg0NENlTXgxSVF3ZENUS3lpdVB2a3kxUGFQ?=
- =?utf-8?B?cS8wMTdjQUphNk1mRHpmZzU2eGhiRzhYQ2ZUT1pZeEFNM2tPUmRnUzdMQVFa?=
- =?utf-8?B?dG5nUFgwVUNKWU1GejFRcDFacVk1OFRaZEQ3Mmx1cHFBUnFrREthODhEUEMv?=
- =?utf-8?B?MWF4RFE4Z3RZWndEQ0RGc0lZRld4ZXIxL01CMVRtUXVTR0lzQkFBWWVZMTYr?=
- =?utf-8?B?YTRIVHBWMHNPQ2lUOHVBU2ZpaHpGUk96QjVGZHJCamQ4eEhQZW4wRkJ0Y29D?=
- =?utf-8?B?cGJtZXY4WXh6Y2VCRjR3MUFUUHZRQ0ovQmZyY3kyOFNUejkxRHhBajUyR3RJ?=
- =?utf-8?B?akFxd0k2bU5qV0lld0FvdjI4M3BINGh1UlVOcW83N012TWMyNzdiRU5KaUM3?=
- =?utf-8?B?WVlpLzZkTFloSmFJcEhKZXZ3UEIvckVJclcwdWRRTGk5Y2kxWDVTQUFOZWxp?=
- =?utf-8?B?MDF1UFNSTzFzb0tZa1QyaDJ1Y2daYUNrMndkTlo0dXdBSEFhb1ZCZ2lPeWtM?=
- =?utf-8?B?UWZEMWFvN2V6MGl0VFZ4dVBHQWh1YUt3RjhEU3d2R2MvY1VXMk4wL2E5THhR?=
- =?utf-8?B?Tkx3Qkh0aVRjbFFtUE1Lb1VwUVFVQUZUTjlxTUZEZWp1ZjJyUjZWdnlEYnFD?=
- =?utf-8?B?aTRISEM4MW5uekdWTzFtU2JRaFJXb1VZMmhpRVl6NDBPdTV3TkJmdStOSHRT?=
- =?utf-8?B?a2xzYWhHZmk2WUJDZG5hVHZhTG40SW9DYkliSEQvWm9xVTY3UENZVDdPQ2Za?=
- =?utf-8?B?Sm9DdFNhNGpDek1GSkxVdmVLSElWaloyU3JHUDMyanQrVjdhS3ppMWZ0dCtx?=
- =?utf-8?B?ZkJXaTBpRFB2bXpsaXJOZm85ZjJkYk83aTJqZ25lczhkUGxydzhJT2VwcU90?=
- =?utf-8?B?dmxNQ216cFZVcUc5Q2MzbTdHNzBucUNDVzNuUDFvUjIrQkx5MjIrWTBVaGY5?=
- =?utf-8?B?UVZpMEVSOWFpUUhncnFXaEIvV3FmRXVGdmVLL3JTdDJiUjcwQmwzQTNOSUxZ?=
- =?utf-8?B?N0NmSEMvUS9VT21CeEpFSkxkMDR1UVNJQ0hRNlFETExZdm9XcEFlSzJEczNs?=
- =?utf-8?B?RFhOeDFjSmU2eXFwRkR4eDVlWUxXOGJ1OXlJVFRPYjZPZkNFckh3UzFtRkhi?=
- =?utf-8?B?bFBLVXd2K1NNY3htUCtsaEY3dUgwdGxPa3ptNmZENDlNayt6WTZmRmc4R1RB?=
- =?utf-8?Q?a6kJ5g7ndNsEOAdIgtRZjsqRY8fG2T8jcH?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <25884EF5136DC249956B90901F9B070F@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+x-microsoft-antispam-message-info: 0LziCboezOgvQRcHICS5Fe3NIWKHR6B+NHVIcYm1QAIP/GYrtiuJVcn8QAxUxk7KCiq5PyiZF50CgquV7PaFCIlrnzXprOzrb9vu7r+CwpUUqXRwpu7T5WDn+bXuQioFUg6rJmt5+ycHac7Z9Eq1mY2eYrN4gry+6Em4P4AvkBtJCao/NlkoJ8oMEvgSMhic+vdcjRezqe6Bw9ssw1M1dHjFJVggwJLg0m597BOy0ggtN0176VuLOmWD8XdJXdoiYuzpC3+BhfUt574VxA1PMvZmk6xcBbQ3wQlGZidaw+i1KyTlVN8oH4q7uEWrm2p2ABBUamYkuoQplqrRm71Vrw==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5655.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(366004)(376002)(346002)(39860400002)(54906003)(19627405001)(33656002)(316002)(44832011)(5660300002)(52536014)(86362001)(110136005)(6506007)(186003)(7416002)(71200400001)(91956017)(66556008)(66446008)(53546011)(66574015)(64756008)(66946007)(76116006)(4326008)(66476007)(2906002)(26005)(9686003)(55016002)(7696005)(8676002)(8936002)(478600001)(55236004)(83380400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?8g/UuWJSnFW3WTHYOfA1ajFiB5lVwcMOFuTZBv0oR3N3Sq2pqd8dsGXHki?=
+ =?iso-8859-1?Q?XRLS/EmosV04rHGS+wRR7c36KruwPo8jqJ85efVzjKugISK4GWrzzx4a27?=
+ =?iso-8859-1?Q?H0H15ZOeGAwAdGzHfIL0CEU/ptjfE40B85mNgD1cQG0se9MoXwQunKUU2M?=
+ =?iso-8859-1?Q?oWwgeEL2zxEN1T/atJIsRDVuaiZgyikfrYUfho80tTT8DRww2zVGWOiMto?=
+ =?iso-8859-1?Q?de4TGX2RxFRL34dALb0813XHl7oVVNmIdo+uKYzGz+cIgMJM+ZFgmcPG81?=
+ =?iso-8859-1?Q?dkTwIU81/3p85FtJtVNVhG3fxVW9T0lF/FAcAD8nhwERRLydpkmFJ8nGVV?=
+ =?iso-8859-1?Q?LLU9qQgPf2zhsZE3lw260Su8MPEKBNawDroT7KhQSDMkcJvqtQrUyHmAMy?=
+ =?iso-8859-1?Q?vPWO9vretgADdfkKH0qwUyL9SvzMv6R2+/m92kgqM660TN8YFzL+pAZKUd?=
+ =?iso-8859-1?Q?dLmFfNlxlO/pvCnszfu0MrGqdTSCiu/EVNsOMEK3X3L/Zd6lknwkkvFokO?=
+ =?iso-8859-1?Q?PGb4ppKCBiIySgotpoErbzdf6fXDo4EWTCWEHoZJbmhO+Zgfu5rsl8AcNM?=
+ =?iso-8859-1?Q?ZCpYbT5Zrz2gGflB0VcS5NiRc57isVwsNXn8hwyUqBQnetmHlM+UvseJIu?=
+ =?iso-8859-1?Q?+ThkcY/Kfl6CWcckyqtp7YxxkphifeDLaBls9h+t+Rv9lp1XSIHYAsCaaP?=
+ =?iso-8859-1?Q?vu1fP4r4z1yw3/OGlI1HZje8ywXrX0h7kPB3qIWaoaLuqk0NxYNJOopJ2H?=
+ =?iso-8859-1?Q?Yrd8IPSC8jh7CbXzdCaQtGXoZgFS3aQb2RigZ6n9SIuYlr6wKrICv+hVtP?=
+ =?iso-8859-1?Q?BKOArDJ0WfznEZODaPTKLiXAyJL63/beVaDRu5KiziJo/jvSSlUJejmrYp?=
+ =?iso-8859-1?Q?Gym279PKy1iSuXK5vBxYE9MbSF+pptVI4+tegg59Iv0AaRwJz5rpbDli92?=
+ =?iso-8859-1?Q?Be181QUsQYW7GDvHLZAiVLJUzKOAeogHJ+pDjgMSAyC1V1zLiquIY98A78?=
+ =?iso-8859-1?Q?cDeifbMVs5SkX4zlg=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_DS7PR03MB5655496C2C7EFC8DF29BCA37F6F20DS7PR03MB5655namp_"
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e73ad96b-5222-41e9-b263-08d8978e2dca
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Dec 2020 13:20:18.1487
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5655.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acf09ade-402c-42bd-1b4c-08d8978fec6a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Dec 2020 13:32:47.4075
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vD74w71gzTsiwJa2YVfB1qLjiEI6cl17EiSkwOWixejrph44vn62+/TXDoRCbq7v1o/7t/tUaCkpoTGzmJFy5n1G/xrHELJjpblTSMqviQO4wI/PoXBe+7acylL/Hjpv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6065
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312,18.0.737
- definitions=2020-12-03_07:2020-12-03,2020-12-03 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 spamscore=0 mlxscore=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 impostorscore=0 mlxlogscore=999 phishscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012030080
+X-MS-Exchange-CrossTenant-userprincipalname: a7AElmWMrvGBDaWw5/bFSfDOeQ+T9NArnAAOSp13RfrdwcOfhgk9zHV9K9LuRNQYYP4u1wcd57eheTqBjRNZNeSCtG0uwRUGJHddR3/m8YI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4747
+X-OriginatorOrg: citrix.com
 
-DQpPbiAxMi8zLzIwIDM6MTcgUE0sIFBhdWwgRHVycmFudCB3cm90ZToNCj4+IC0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQo+PiBGcm9tOiBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyA8T2xla3Nh
-bmRyX0FuZHJ1c2hjaGVua29AZXBhbS5jb20+DQo+PiBTZW50OiAwMSBEZWNlbWJlciAyMDIwIDEz
-OjEyDQo+PiBUbzogUGF1bCBEdXJyYW50IDxwYXVsQHhlbi5vcmc+OyB4ZW4tZGV2ZWxAbGlzdHMu
-eGVucHJvamVjdC5vcmcNCj4+IENjOiBQYXVsIER1cnJhbnQgPHBkdXJyYW50QGFtYXpvbi5jb20+
-OyBJYW4gSmFja3NvbiA8aXdqQHhlbnByb2plY3Qub3JnPjsgV2VpIExpdSA8d2xAeGVuLm9yZz47
-DQo+PiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJhcmRAY2l0cml4LmNvbT4NCj4+IFN1Ympl
-Y3Q6IFJlOiBbUEFUQ0ggdjQgMDMvMjNdIGxpYnhsOiBNYWtlIHN1cmUgZGV2aWNlcyBhZGRlZCBi
-eSBwY2ktYXR0YWNoIGFyZSByZWZsZWN0ZWQgaW4gdGhlIGNvbmZpZw0KPj4NCj4+IEhpLCBQYXVs
-IQ0KPj4NCj4+IE9uIDExLzI0LzIwIDEwOjAxIEFNLCBQYXVsIER1cnJhbnQgd3JvdGU6DQo+Pj4g
-RnJvbTogUGF1bCBEdXJyYW50IDxwZHVycmFudEBhbWF6b24uY29tPg0KPj4+DQo+Pj4gQ3VycmVu
-dGx5IGxpYnhsX19kZXZpY2VfcGNpX2FkZF94ZW5zdG9yZSgpIGlzIGJyb2tlbiBpbiB0aGF0IGRv
-ZXMgbm90DQo+Pj4gdXBkYXRlIHRoZSBkb21haW4ncyBjb25maWd1cmF0aW9uIGZvciB0aGUgZmly
-c3QgZGV2aWNlIGFkZGVkICh3aGljaCBjYXVzZXMNCj4+PiBjcmVhdGlvbiBvZiB0aGUgb3ZlcmFs
-bCBiYWNrZW5kIGFyZWEgaW4geGVuc3RvcmUpLiBUaGlzIGNhbiBiZSBlYXNpbHkgb2JzZXJ2ZWQN
-Cj4+PiBieSBydW5uaW5nICd4bCBsaXN0IC1sJyBhZnRlciBhZGRpbmcgYSBzaW5nbGUgZGV2aWNl
-OiB0aGUgZGV2aWNlIHdpbGwgYmUNCj4+PiBtaXNzaW5nLg0KPj4+DQo+Pj4gVGhpcyBwYXRjaCBm
-aXhlcyB0aGUgcHJvYmxlbSBhbmQgYWRkcyBhIERFQlVHIGxvZyBsaW5lIHRvIGFsbG93IGVhc3kN
-Cj4+PiB2ZXJpZmljYXRpb24gdGhhdCB0aGUgZG9tYWluIGNvbmZpZ3VyYXRpb24gaXMgYmVpbmcg
-bW9kaWZpZWQuIEFsc28sIHRoZSB1c2UNCj4+PiBvZiBsaWJ4bF9fZGV2aWNlX2dlbmVyaWNfYWRk
-KCkgaXMgZHJvcHBlZCBhcyBpdCBsZWFkcyB0byBhIGNvbmZ1c2luZyBzaXR1YXRpb24NCj4+PiB3
-aGVyZSBvbmx5IHBhcnRpYWwgYmFja2VuZCBpbmZvcm1hdGlvbiBpcyB3cml0dGVuIHVuZGVyIHRo
-ZSB4ZW5zdG9yZQ0KPj4+ICcvbGlieGwnIHBhdGguIEZvciBMSUJYTF9fREVWSUNFX0tJTkRfUENJ
-IGRldmljZXMgdGhlIG9ubHkgZGVmaW5pdGl2ZQ0KPj4+IGluZm9ybWF0aW9uIGluIHhlbnN0b3Jl
-IGlzIHVuZGVyICcvbG9jYWwvZG9tYWluLzAvYmFja2VuZCcgKHRoZSAnMCcgYmVpbmcNCj4+PiBo
-YXJkLWNvZGVkKS4NCj4+Pg0KPj4+IE5PVEU6IFRoaXMgcGF0Y2ggaW5jbHVkZXMgYSB3aGl0ZXNw
-YWNlIGluIGFkZF9wY2lzX2RvbmUoKS4NCj4+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IFBhdWwgRHVy
-cmFudCA8cGR1cnJhbnRAYW1hem9uLmNvbT4NCj4+PiAtLS0NCj4+PiBDYzogSWFuIEphY2tzb24g
-PGl3akB4ZW5wcm9qZWN0Lm9yZz4NCj4+PiBDYzogV2VpIExpdSA8d2xAeGVuLm9yZz4NCj4+PiBD
-YzogQW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20+DQo+Pj4NCj4+PiB2
-MjoNCj4+PiAgICAtIEF2b2lkIGhhdmluZyB0d28gY29tcGxldGVseSBkaWZmZXJlbnQgd2F5cyBv
-ZiBhZGRpbmcgZGV2aWNlcyBpbnRvIHhlbnN0b3JlDQo+Pj4NCj4+PiB2MzoNCj4+PiAgICAtIFJl
-dmVydCBzb21lIGNoYW5nZXMgZm9ybSB2MiBhcyB0aGVyZSBpcyBjb25mdXNpb24gb3ZlciB1c2Ug
-b2YgdGhlIGxpYnhsDQo+Pj4gICAgICBhbmQgYmFja2VuZCB4ZW5zdG9yZSBwYXRocyB3aGljaCBu
-ZWVkcyB0byBiZSBmaXhlZA0KPj4+IC0tLQ0KPj4+ICAgIHRvb2xzL2xpYnMvbGlnaHQvbGlieGxf
-cGNpLmMgfCA4NyArKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0K
-Pj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCA0NSBpbnNlcnRpb25zKCspLCA0MiBkZWxldGlvbnMoLSkN
-Cj4+Pg0KPj4+IGRpZmYgLS1naXQgYS90b29scy9saWJzL2xpZ2h0L2xpYnhsX3BjaS5jIGIvdG9v
-bHMvbGlicy9saWdodC9saWJ4bF9wY2kuYw0KPj4+IGluZGV4IDlkNDRiMjhmMGEuLmRhMDFjNzdi
-YTIgMTAwNjQ0DQo+Pj4gLS0tIGEvdG9vbHMvbGlicy9saWdodC9saWJ4bF9wY2kuYw0KPj4+ICsr
-KyBiL3Rvb2xzL2xpYnMvbGlnaHQvbGlieGxfcGNpLmMNCj4+PiBAQCAtNzksMzkgKzc5LDU1IEBA
-IHN0YXRpYyB2b2lkIGxpYnhsX19kZXZpY2VfZnJvbV9wY2kobGlieGxfX2djICpnYywgdWludDMy
-X3QgZG9taWQsDQo+Pj4gICAgICAgIGRldmljZS0+a2luZCA9IExJQlhMX19ERVZJQ0VfS0lORF9Q
-Q0k7DQo+Pj4gICAgfQ0KPj4+DQo+Pj4gLXN0YXRpYyBpbnQgbGlieGxfX2NyZWF0ZV9wY2lfYmFj
-a2VuZChsaWJ4bF9fZ2MgKmdjLCB1aW50MzJfdCBkb21pZCwNCj4+PiAtICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IGxpYnhsX2RldmljZV9wY2kgKnBjaSwNCj4+PiAt
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGludCBudW0pDQo+Pj4gK3N0YXRp
-YyB2b2lkIGxpYnhsX19jcmVhdGVfcGNpX2JhY2tlbmQobGlieGxfX2djICpnYywgeHNfdHJhbnNh
-Y3Rpb25fdCB0LA0KPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVp
-bnQzMl90IGRvbWlkLCBjb25zdCBsaWJ4bF9kZXZpY2VfcGNpICpwY2kpDQo+Pj4gICAgew0KPj4+
-IC0gICAgZmxleGFycmF5X3QgKmZyb250ID0gTlVMTDsNCj4+PiAtICAgIGZsZXhhcnJheV90ICpi
-YWNrID0gTlVMTDsNCj4+PiAtICAgIGxpYnhsX19kZXZpY2UgZGV2aWNlOw0KPj4+IC0gICAgaW50
-IGk7DQo+Pj4gKyAgICBsaWJ4bF9jdHggKmN0eCA9IGxpYnhsX19nY19vd25lcihnYyk7DQo+Pj4g
-KyAgICBmbGV4YXJyYXlfdCAqZnJvbnQsICpiYWNrOw0KPj4+ICsgICAgY2hhciAqZmVfcGF0aCwg
-KmJlX3BhdGg7DQo+Pj4gKyAgICBzdHJ1Y3QgeHNfcGVybWlzc2lvbnMgZmVfcGVybXNbMl0sIGJl
-X3Blcm1zWzJdOw0KPj4+ICsNCj4+PiArICAgIExPR0QoREVCVUcsIGRvbWlkLCAiQ3JlYXRpbmcg
-cGNpIGJhY2tlbmQiKTsNCj4+Pg0KPj4+ICAgICAgICBmcm9udCA9IGZsZXhhcnJheV9tYWtlKGdj
-LCAxNiwgMSk7DQo+Pj4gICAgICAgIGJhY2sgPSBmbGV4YXJyYXlfbWFrZShnYywgMTYsIDEpOw0K
-Pj4+DQo+Pj4gLSAgICBMT0dEKERFQlVHLCBkb21pZCwgIkNyZWF0aW5nIHBjaSBiYWNrZW5kIik7
-DQo+Pj4gLQ0KPj4+IC0gICAgLyogYWRkIHBjaSBkZXZpY2UgKi8NCj4+PiAtICAgIGxpYnhsX19k
-ZXZpY2VfZnJvbV9wY2koZ2MsIGRvbWlkLCBwY2ksICZkZXZpY2UpOw0KPj4+ICsgICAgZmVfcGF0
-aCA9IGxpYnhsX19kb21haW5fZGV2aWNlX2Zyb250ZW5kX3BhdGgoZ2MsIGRvbWlkLCAwLA0KPj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTElCWExf
-X0RFVklDRV9LSU5EX1BDSSk7DQo+Pj4gKyAgICBiZV9wYXRoID0gbGlieGxfX2RvbWFpbl9kZXZp
-Y2VfYmFja2VuZF9wYXRoKGdjLCAwLCBkb21pZCwgMCwNCj4+PiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTElCWExfX0RFVklDRV9LSU5EX1BDSSk7DQo+
-Pj4NCj4+PiArICAgIGZsZXhhcnJheV9hcHBlbmRfcGFpcihiYWNrLCAiZnJvbnRlbmQiLCBmZV9w
-YXRoKTsNCj4+PiAgICAgICAgZmxleGFycmF5X2FwcGVuZF9wYWlyKGJhY2ssICJmcm9udGVuZC1p
-ZCIsIEdDU1BSSU5URigiJWQiLCBkb21pZCkpOw0KPj4+IC0gICAgZmxleGFycmF5X2FwcGVuZF9w
-YWlyKGJhY2ssICJvbmxpbmUiLCAiMSIpOw0KPj4+ICsgICAgZmxleGFycmF5X2FwcGVuZF9wYWly
-KGJhY2ssICJvbmxpbmUiLCBHQ1NQUklOVEYoIiVkIiwgMSkpOw0KPj4+ICAgICAgICBmbGV4YXJy
-YXlfYXBwZW5kX3BhaXIoYmFjaywgInN0YXRlIiwgR0NTUFJJTlRGKCIlZCIsIFhlbmJ1c1N0YXRl
-SW5pdGlhbGlzaW5nKSk7DQo+Pj4gICAgICAgIGZsZXhhcnJheV9hcHBlbmRfcGFpcihiYWNrLCAi
-ZG9tYWluIiwgbGlieGxfX2RvbWlkX3RvX25hbWUoZ2MsIGRvbWlkKSk7DQo+Pj4NCj4+PiAtICAg
-IGZvciAoaSA9IDA7IGkgPCBudW07IGkrKywgcGNpKyspDQo+Pj4gLSAgICAgICAgbGlieGxfY3Jl
-YXRlX3BjaV9iYWNrZW5kX2RldmljZShnYywgYmFjaywgaSwgcGNpKTsNCj4+PiArICAgIGJlX3Bl
-cm1zWzBdLmlkID0gMDsNCj4+IFRoZXJlIHdhcyBhIGRpc2N1c3Npb24gWzFdIG9uIFBDSSBvbiBB
-Uk0gYW5kIG9uZSBvZiB0aGUgcXVlc3Rpb24gd2FzIHRoYXQgaXQgaXMgcG9zc2libGUNCj4+DQo+
-PiB0aGF0IHdlIGhhdmUgdGhlIHBjaSBiYWNrZW5kIHJ1bm5pbmcgaW4gYSBsYXRlIGhhcmR3YXJl
-IGRvbWFpbi9kcml2ZXIgZG9tYWluLCB3aGljaCBtYXkNCj4+DQo+PiBub3QgYmUgRG9tYWluLTAu
-IERvIHlvdSB0aGluayB3ZSBjYW4gYXZvaWQgdXNpbmcgMCBoZXJlIGFuZCBnZXQgc29tZSBjbHVl
-IG9mIHRoZSBkb21haW4NCj4+DQo+PiBmcm9tICIqYmFja2VuZD1kb21haW4taWQiPyBJZiBub3Qg
-c2V0IGl0IHdpbGwgcmV0dXJuIERvbWFpbi0wJ3MgSUQgYW5kIHdvbid0IGJyZWFrIGFueXRoaW5n
-Kg0KPiBOb3Qgc3VyZSB3aGF0IHlvdSdyZSBhc2tpbmcgZm9yIHNpbmNlLi4uDQoNCk15IGJhZCwg
-cGxlYXNlIGlnbm9yZQ0KDQpSZXZpZXdlZC1ieTogT2xla3NhbmRyIEFuZHJ1c2hjaGVua28gPG9s
-ZWtzYW5kcl9hbmRydXNoY2hlbmtvQGVwYW0uY29tPg0KDQpUaGFuayB5b3UsDQoNCk9sZWtzYW5k
-cg0KDQo+DQo+PiAqVGhhbmsgeW91LCoNCj4+DQo+PiAqT2xla3NhbmRyDQo+PiAqDQo+Pg0KPj4+
-ICsgICAgYmVfcGVybXNbMF0ucGVybXMgPSBYU19QRVJNX05PTkU7DQo+Pj4gKyAgICBiZV9wZXJt
-c1sxXS5pZCA9IGRvbWlkOw0KPj4+ICsgICAgYmVfcGVybXNbMV0ucGVybXMgPSBYU19QRVJNX1JF
-QUQ7DQo+Pj4gKw0KPj4+ICsgICAgeHNfcm0oY3R4LT54c2gsIHQsIGJlX3BhdGgpOw0KPj4+ICsg
-ICAgeHNfbWtkaXIoY3R4LT54c2gsIHQsIGJlX3BhdGgpOw0KPj4+ICsgICAgeHNfc2V0X3Blcm1p
-c3Npb25zKGN0eC0+eHNoLCB0LCBiZV9wYXRoLCBiZV9wZXJtcywNCj4+PiArICAgICAgICAgICAg
-ICAgICAgICAgICBBUlJBWV9TSVpFKGJlX3Blcm1zKSk7DQo+Pj4gKyAgICBsaWJ4bF9feHNfd3Jp
-dGV2KGdjLCB0LCBiZV9wYXRoLCBsaWJ4bF9feHNfa3ZzX29mX2ZsZXhhcnJheShnYywgYmFjaykp
-Ow0KPj4+DQo+Pj4gLSAgICBmbGV4YXJyYXlfYXBwZW5kX3BhaXIoYmFjaywgIm51bV9kZXZzIiwg
-R0NTUFJJTlRGKCIlZCIsIG51bSkpOw0KPj4+ICsgICAgZmxleGFycmF5X2FwcGVuZF9wYWlyKGZy
-b250LCAiYmFja2VuZCIsIGJlX3BhdGgpOw0KPj4+ICAgICAgICBmbGV4YXJyYXlfYXBwZW5kX3Bh
-aXIoZnJvbnQsICJiYWNrZW5kLWlkIiwgR0NTUFJJTlRGKCIlZCIsIDApKTsNCj4gLi4uIGJhY2tl
-bmQtaWQgaXMgd3JpdHRlbiBoZXJlLg0KPg0KPiAgICBQYXVsDQo+DQo+
+--_000_DS7PR03MB5655496C2C7EFC8DF29BCA37F6F20DS7PR03MB5655namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
+
+
+________________________________
+From: J=FCrgen Gro=DF
+Sent: Thursday, December 03, 2020 13:15
+To: Paul Durrant; xen-devel@lists.xenproject.org
+Cc: Paul Durrant; Andrew Cooper; Anthony Perard; Christian Lindig; David Sc=
+ott; George Dunlap; Ian Jackson; Jan Beulich; Julien Grall; Roger Pau Monne=
+; Stefano Stabellini; Volodymyr Babchuk; Wei Liu
+Subject: Re: [PATCH v5 0/4] Xen ABI feature control
+
+On 03.12.20 13:41, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
+>
+> This series was previously called "evtchn: Introduce a per-guest knob to
+> control FIFO ABI". It is been extensively re-worked and extended to cover
+> another ABI feature.
+>
+> Paul Durrant (4):
+>    domctl: introduce a new domain create flag,
+>      XEN_DOMCTL_CDF_evtchn_fifo, ...
+>    domctl: introduce a new domain create flag,
+>      XEN_DOMCTL_CDF_evtchn_upcall, ...
+>    libxl: introduce a 'libxl_xen_abi_features' enumeration...
+>    xl: introduce a 'xen-abi-features' option...
+>
+>   docs/man/xl.cfg.5.pod.in         | 50 ++++++++++++++++++++++++++++++++
+>   tools/include/libxl.h            | 10 +++++++
+>   tools/libs/light/libxl_arm.c     | 22 +++++++++-----
+>   tools/libs/light/libxl_create.c  | 31 ++++++++++++++++++++
+>   tools/libs/light/libxl_types.idl |  7 +++++
+>   tools/libs/light/libxl_x86.c     | 17 ++++++++++-
+>   tools/ocaml/libs/xc/xenctrl.ml   |  2 ++
+>   tools/ocaml/libs/xc/xenctrl.mli  |  2 ++
+>   tools/xl/xl_parse.c              | 50 ++++++++++++++++++++++++++++++--
+>   xen/arch/arm/domain.c            |  3 +-
+>   xen/arch/arm/domain_build.c      |  3 +-
+>   xen/arch/arm/setup.c             |  3 +-
+>   xen/arch/x86/domain.c            |  8 +++++
+>   xen/arch/x86/hvm/hvm.c           |  3 ++
+>   xen/arch/x86/setup.c             |  4 ++-
+>   xen/common/domain.c              |  3 +-
+>   xen/common/event_channel.c       | 24 +++++++++++++--
+>   xen/include/public/domctl.h      |  6 +++-
+>   18 files changed, 229 insertions(+), 19 deletions(-)
+> ---
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Anthony PERARD <anthony.perard@citrix.com>
+> Cc: Christian Lindig <christian.lindig@citrix.com>
+> Cc: David Scott <dave@recoil.org>
+> Cc: George Dunlap <george.dunlap@citrix.com>
+> Cc: Ian Jackson <iwj@xenproject.org>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Julien Grall <julien@xen.org>
+> Cc: "Roger Pau Monn=E9" <roger.pau@citrix.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> Cc: Wei Liu <wl@xen.org>
+>
+
+Do we want to add a create flag for each such feature, or would it be
+better to set options like those via hypfs?
+
+It would be fairly easy to ad dynamic hypfs paths, e.g.:
+
+/domain/<domid>/abi-features/evtchn-fifo
+/domain/<domid>/abi-features/evtchn-upcall
+
+which would have boolean type and could be set as long as the domain
+hasn't been started.
+
+xl support could even be rather generic, without the need to add coding
+to xl for each new feature.
+
+This is no objection to this series, but just an idea how to avoid
+extending the use of unstable interfaces.
+
+Thoughts?
+
+
+Juergen
+
+--_000_DS7PR03MB5655496C2C7EFC8DF29BCA37F6F20DS7PR03MB5655namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div>
+<div>
+<p style=3D"margin:0.0px 0.0px 0.0px 0.0px;font:11.0px Menlo;color:#000000"=
+><span style=3D"font-variant-ligatures:no-common-ligatures">Acked-by: Chris=
+tian Lindig &lt;christian.lindig@citrix.com&gt;</span></p>
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0);">
+<br>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%;">
+<b>From:</b> J=FCrgen Gro=DF<br>
+<b>Sent:</b> Thursday, December 03, 2020 13:15<br>
+<b>To:</b> Paul Durrant; xen-devel@lists.xenproject.org<br>
+<b>Cc:</b> Paul Durrant; Andrew Cooper; Anthony Perard; Christian Lindig; D=
+avid Scott; George Dunlap; Ian Jackson; Jan Beulich; Julien Grall; Roger Pa=
+u Monne; Stefano Stabellini; Volodymyr Babchuk; Wei Liu<br>
+<b>Subject:</b> Re: [PATCH v5 0/4] Xen ABI feature control
+<div><br>
+</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 03.12.20 13:41, Paul Durrant wrote:<br>
+&gt; From: Paul Durrant &lt;pdurrant@amazon.com&gt;<br>
+&gt; <br>
+&gt; This series was previously called &quot;evtchn: Introduce a per-guest =
+knob to<br>
+&gt; control FIFO ABI&quot;. It is been extensively re-worked and extended =
+to cover<br>
+&gt; another ABI feature.<br>
+&gt; <br>
+&gt; Paul Durrant (4):<br>
+&gt;&nbsp;&nbsp;&nbsp; domctl: introduce a new domain create flag,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XEN_DOMCTL_CDF_evtchn_fifo, ...<br>
+&gt;&nbsp;&nbsp;&nbsp; domctl: introduce a new domain create flag,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XEN_DOMCTL_CDF_evtchn_upcall, ...<br>
+&gt;&nbsp;&nbsp;&nbsp; libxl: introduce a 'libxl_xen_abi_features' enumerat=
+ion...<br>
+&gt;&nbsp;&nbsp;&nbsp; xl: introduce a 'xen-abi-features' option...<br>
+&gt; <br>
+&gt;&nbsp;&nbsp; docs/man/xl.cfg.5.pod.in&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; | 50 ++++++++++++++++++++++++++++++++<br>
+&gt;&nbsp;&nbsp; tools/include/libxl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 10 +++++++<br>
+&gt;&nbsp;&nbsp; tools/libs/light/libxl_arm.c&nbsp;&nbsp;&nbsp;&nbsp; | 22 =
++++++++++-----<br>
+&gt;&nbsp;&nbsp; tools/libs/light/libxl_create.c&nbsp; | 31 +++++++++++++++=
++++++<br>
+&gt;&nbsp;&nbsp; tools/libs/light/libxl_types.idl |&nbsp; 7 +++++<br>
+&gt;&nbsp;&nbsp; tools/libs/light/libxl_x86.c&nbsp;&nbsp;&nbsp;&nbsp; | 17 =
+++++++++++-<br>
+&gt;&nbsp;&nbsp; tools/ocaml/libs/xc/xenctrl.ml&nbsp;&nbsp; |&nbsp; 2 ++<br=
+>
+&gt;&nbsp;&nbsp; tools/ocaml/libs/xc/xenctrl.mli&nbsp; |&nbsp; 2 ++<br>
+&gt;&nbsp;&nbsp; tools/xl/xl_parse.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 50 ++++++++++++++++++++++++++++++=
+--<br>
+&gt;&nbsp;&nbsp; xen/arch/arm/domain.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 3 +-<br>
+&gt;&nbsp;&nbsp; xen/arch/arm/domain_build.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+|&nbsp; 3 +-<br>
+&gt;&nbsp;&nbsp; xen/arch/arm/setup.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 3 +-<br>
+&gt;&nbsp;&nbsp; xen/arch/x86/domain.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 8 +++++<br>
+&gt;&nbsp;&nbsp; xen/arch/x86/hvm/hvm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 3 ++<br>
+&gt;&nbsp;&nbsp; xen/arch/x86/setup.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 ++-<br>
+&gt;&nbsp;&nbsp; xen/common/domain.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 3 +-<br>
+&gt;&nbsp;&nbsp; xen/common/event_channel.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; | 24 +++++++++++++--<br>
+&gt;&nbsp;&nbsp; xen/include/public/domctl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+|&nbsp; 6 +++-<br>
+&gt;&nbsp;&nbsp; 18 files changed, 229 insertions(+), 19 deletions(-)<br>
+&gt; ---<br>
+&gt; Cc: Andrew Cooper &lt;andrew.cooper3@citrix.com&gt;<br>
+&gt; Cc: Anthony PERARD &lt;anthony.perard@citrix.com&gt;<br>
+&gt; Cc: Christian Lindig &lt;christian.lindig@citrix.com&gt;<br>
+&gt; Cc: David Scott &lt;dave@recoil.org&gt;<br>
+&gt; Cc: George Dunlap &lt;george.dunlap@citrix.com&gt;<br>
+&gt; Cc: Ian Jackson &lt;iwj@xenproject.org&gt;<br>
+&gt; Cc: Jan Beulich &lt;jbeulich@suse.com&gt;<br>
+&gt; Cc: Julien Grall &lt;julien@xen.org&gt;<br>
+&gt; Cc: &quot;Roger Pau Monn=E9&quot; &lt;roger.pau@citrix.com&gt;<br>
+&gt; Cc: Stefano Stabellini &lt;sstabellini@kernel.org&gt;<br>
+&gt; Cc: Volodymyr Babchuk &lt;Volodymyr_Babchuk@epam.com&gt;<br>
+&gt; Cc: Wei Liu &lt;wl@xen.org&gt;<br>
+&gt; <br>
+<br>
+Do we want to add a create flag for each such feature, or would it be<br>
+better to set options like those via hypfs?<br>
+<br>
+It would be fairly easy to ad dynamic hypfs paths, e.g.:<br>
+<br>
+/domain/&lt;domid&gt;/abi-features/evtchn-fifo<br>
+/domain/&lt;domid&gt;/abi-features/evtchn-upcall<br>
+<br>
+which would have boolean type and could be set as long as the domain<br>
+hasn't been started.<br>
+<br>
+xl support could even be rather generic, without the need to add coding<br>
+to xl for each new feature.<br>
+<br>
+This is no objection to this series, but just an idea how to avoid<br>
+extending the use of unstable interfaces.<br>
+<br>
+Thoughts?<br>
+<br>
+<br>
+Juergen<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DS7PR03MB5655496C2C7EFC8DF29BCA37F6F20DS7PR03MB5655namp_--
 
