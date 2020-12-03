@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81C092CCE3C
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 06:06:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.43103.77546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE6D42CCEB2
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Dec 2020 06:36:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.43065.77560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkgoL-00010S-6n; Thu, 03 Dec 2020 05:05:45 +0000
+	id 1kkhHX-0003rH-Mi; Thu, 03 Dec 2020 05:35:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 43103.77546; Thu, 03 Dec 2020 05:05:45 +0000
+Received: by outflank-mailman (output) from mailman id 43065.77560; Thu, 03 Dec 2020 05:35:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kkgoL-0000zz-1n; Thu, 03 Dec 2020 05:05:45 +0000
-Received: by outflank-mailman (input) for mailman id 43103;
- Thu, 03 Dec 2020 05:05:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkgoJ-0000zr-Cd; Thu, 03 Dec 2020 05:05:43 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkgoJ-0002St-34; Thu, 03 Dec 2020 05:05:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kkgoI-0005Vf-QV; Thu, 03 Dec 2020 05:05:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kkgoI-0001A8-Q1; Thu, 03 Dec 2020 05:05:42 +0000
+	id 1kkhHX-0003qv-JK; Thu, 03 Dec 2020 05:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 43065;
+ Thu, 03 Dec 2020 01:17:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FEMK=FH=google.com=jwerner@srs-us1.protection.inumbo.net>)
+ id 1kkdFn-0003kK-61
+ for xen-devel@lists.xenproject.org; Thu, 03 Dec 2020 01:17:51 +0000
+Received: from mail-io1-xd44.google.com (unknown [2607:f8b0:4864:20::d44])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0041973b-43b7-48b6-b8eb-9f3db2d58ec3;
+ Thu, 03 Dec 2020 01:17:49 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id i9so392974ioo.2
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Dec 2020 17:17:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,415 +37,271 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=eTk2dTRNnM45AvHxqFJ/s03foEPmbmo9QHdjig9jV08=; b=zT8AfhPOp9jBP5GlcYHCqfIcEk
-	iUwx7MjmWb6gqRbB3w2O5y9B39fPQAEK+0UMXrfyWMlCUk7XLRvLXZCLAxAkwe9Wys0RY4m3GYPg9
-	eP834wZ3o5NBnL4fj2F5X5vGeDKuWgMd1l3TA82jyssC7D8pZ6WpoVFHGPm0f6UgG68k=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157153-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0041973b-43b7-48b6-b8eb-9f3db2d58ec3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=lmpg5qD2M65fYVjtflfrq1MH1jnryFUeBIm4GzOqPYU=;
+        b=NewOo2y8CU/oYPw9OMV6e9ukvbZiS33BdvMIIJ+GYNU3j8Wxj4K+F6lDxVEkbcBsTf
+         6RiNwLOjHTnq+6bVlvatcfXpCQzFM02B+5uVjzELo+A71UPUCwh1eLyExncnxxRK8T5Q
+         UdX2sGfZRUHOzZhrlzTGk2Sr0d0JbW5FSkATo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=lmpg5qD2M65fYVjtflfrq1MH1jnryFUeBIm4GzOqPYU=;
+        b=cUhTlEOa3Dx1GT3jGYPr1dZWimaWKxHokT+nzoYctRRrrU00Jy5UivpYZgcN1DUMBG
+         TGRE2R1z33kKuK/cEA1HmgjvYIK4eL9+OacuEwm4fA+2/QgRuR18UtYujJ9P5zAghOEh
+         6yXjHoiixZk2AY8ZWFmBvop7CLoTqVyLk3pGWtJSiHXi1kCsFsCs41J1dNwPOmdPPkJS
+         NYR+IhfZgUTCU0Ac64N06wDfzjNG0iQL0+Zfu7T7EUUJIxT+gZ15o6Q+aLXD9WiE2dcT
+         WhyINg8uE6GjEl0WF2MR27cpMPeMuWJV8gNIPbZAUAM9SwOMIdt+a/vJ0jzGuTfb6dQz
+         earA==
+X-Gm-Message-State: AOAM530R/Jpg+wHN25IbU275n2imoZOtM0fjkvjZqvumWU3rMmEcHSyc
+	NYQOXldImIPD7nLoEEIsXeJYySBW0tRx3GIJCPVqUA==
+X-Google-Smtp-Source: ABdhPJwjoA0fKKVjk9eLidoE5PocSKI2LcJfWILMWRz/wAwVo+R3t4mrTndLEkKe38ytToxMrMoxjf+nYsHf9jbBYf0=
+X-Received: by 2002:a02:bc9:: with SMTP id 192mr1303365jad.50.1606958268859;
+ Wed, 02 Dec 2020 17:17:48 -0800 (PST)
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 157153: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-5.4:test-armhf-armhf-xl-vhd:leak-check/check:fail:heisenbug
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=42af416d71462a72b02ba6ac632c8dcb9ce729a0
-X-Osstest-Versions-That:
-    linux=9f4b26f3ea18cb2066c9e58a84ff202c71739a41
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 03 Dec 2020 05:05:42 +0000
+References: <20201113235242.k6fzlwmwm2xqhqsi@tomti.i.net-space.pl> <ef50dac9-3ded-6836-28b1-7addb0bab986@gmx.de>
+In-Reply-To: <ef50dac9-3ded-6836-28b1-7addb0bab986@gmx.de>
+From: Julius Werner <jwerner@chromium.org>
+Date: Wed, 2 Dec 2020 17:17:36 -0800
+Message-ID: <CAODwPW9dxvMfXY=92pJNGazgYqcynAk72EkzOcmF7JZXhHTwSQ@mail.gmail.com>
+Subject: Re: [SPECIFICATION RFC] The firmware and bootloader log specification
+To: Daniel Kiper <daniel.kiper@oracle.com>
+Cc: Coreboot <coreboot@coreboot.org>, The development of GRUB 2 <grub-devel@gnu.org>, 
+	LKML <linux-kernel@vger.kernel.org>, systemd-devel@lists.freedesktop.org, 
+	trenchboot-devel@googlegroups.com, U-Boot Mailing List <u-boot@lists.denx.de>, x86@kernel.org, 
+	xen-devel@lists.xenproject.org, alecb@umass.edu, 
+	alexander.burmashev@oracle.com, allen.cryptic@gmail.com, 
+	andrew.cooper3@citrix.com, ard.biesheuvel@linaro.org, btrotter@gmail.com, 
+	dpsmith@apertussolutions.com, eric.devolder@oracle.com, 
+	eric.snowberg@oracle.com, hpa@zytor.com, hun@n-dimensional.de, 
+	javierm@redhat.com, joao.m.martins@oracle.com, kanth.ghatraju@oracle.com, 
+	konrad.wilk@oracle.com, krystian.hebel@3mdeb.com, leif@nuviainc.com, 
+	lukasz.hawrylko@intel.com, luto@amacapital.net, michal.zygowski@3mdeb.com, 
+	mjg59@google.com, mtottenh@akamai.com, 
+	"Vladimir 'phcoder' Serbinenko" <phcoder@gmail.com>, piotr.krol@3mdeb.com, pjones@redhat.com, 
+	Paul Menzel <pmenzel@molgen.mpg.de>, roger.pau@citrix.com, ross.philipson@oracle.com, 
+	tyhicks@linux.microsoft.com, Heinrich Schuchardt <xypron.glpk@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 157153 linux-5.4 real [real]
-flight 157170 linux-5.4 real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157153/
-http://logs.test-lab.xenproject.org/osstest/logs/157170/
+Standardizing in-memory logging sounds like an interesting idea,
+especially with regards to components that can run on top of different
+firmware stacks (things like GRUB or TF-A). But I would be a bit wary
+of creating a "new standard to rule them all" and then expecting all
+projects to switch what they have over to that. I think we all know
+https://xkcd.com/927/.
 
-Failures :-/ but no regressions.
+Have you looked around and evaluated existing solutions that already
+have some proliferation first? I think it would be much easier to
+convince people to standardize on something that already has existing
+users and drivers available in multiple projects.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-vhd      20 leak-check/check    fail pass in 157170-retest
+In coreboot we're using a very simple character ring buffer that only
+has two 4-byte header fields: total size and cursor (i.e. current
+position where you would write the next character). The top 4 bits of
+the cursor field are reserved for flags, one of which is the
+"overflow" flag that tells you whether the ring-buffer already
+overflowed or not (so readers know whether to print the whole ring
+buffer, or only from the start to the current cursor). We try to
+dimension the buffers so they don't overflow on a single boot, but
+this approach allows us to log multiple boots on platforms that can
+persist memory across reboots, which sometimes comes in handy.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 156984
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 156984
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 156984
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 156984
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 156984
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 156984
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 156984
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 156984
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 156984
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 156984
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 156984
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+The disadvantages of that approach compared to your proposal are lack
+of some features, like the facilities field (although one can still
+just print a tag like "<0>" or "<4>" behind each newline) or
+timestamps (coreboot instead has separate timestamp logging). But I
+think a really big advantage is size: in early firmware environments
+before DDR training, space is often very precious and we struggle to
+find more than a couple of kilobytes for the log buffer. If I look at
+the structure you proposed, that's already 24 bytes of overhead per
+individual message. If we were hooking that up to our normal printk()
+facility in coreboot (such that each invocation creates a new message
+header), that would probably waste about a third of the whole log
+buffer on overhead. I think a complicated, syslog-style logging
+structure that stores individual message blocks instead of a
+continuous character string isn't really suitable for firmware
+logging.
 
-version targeted for testing:
- linux                42af416d71462a72b02ba6ac632c8dcb9ce729a0
-baseline version:
- linux                9f4b26f3ea18cb2066c9e58a84ff202c71739a41
+FWIW the coreboot console has existing support in Linux
+(https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/firmware/google/memconsole-coreboot.c),
+SeaBIOS (https://github.com/coreboot/seabios/blob/master/src/fw/coreboot.c#L219),
+TF-A (https://github.com/ARM-software/arm-trusted-firmware/blob/master/drivers/coreboot/cbmem_console/aarch64/cbmem_console.S),
+GRUB (https://git.savannah.gnu.org/cgit/grub.git/tree/grub-core/term/i386/coreboot/cbmemc.c),
+U-Boot (https://github.com/u-boot/u-boot/blob/master/drivers/misc/cbmem_console.c)
+and probably a couple of others I'm not aware of. And the code to add
+support (especially when only appending) is so simple that it just
+takes a couple of lines to implement (binary code size to implement
+the format is also always a concern for firmware environments).
 
-Last test of basis   156984  2020-11-24 13:11:22 Z    8 days
-Testing same since   157153  2020-12-02 08:12:37 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Alan Stern <stern@rowland.harvard.edu>
-  Anand K Mistry <amistry@google.com>
-  Andrew Lunn <andrew@lunn.ch>
-  Ard Biesheuvel <ardb@kernel.org>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Arthur Kiyanovski <akiyano@amazon.com>
-  Avraham Stern <avraham.stern@intel.com>
-  Benjamin Berg <bberg@redhat.com>
-  Benjamin Tissoires <benjamin.tissoires@redhat.com>
-  Boqun Feng <boqun.feng@gmail.com>
-  Boris Ostrovsky <boris.ostrovsky@oracle.com>
-  Borislav Petkov <bp@suse.de>
-  Brett Creeley <brett.creeley@intel.com>
-  Brian Masney <bmasney@redhat.com>
-  Cezary Rojewski <cezary.rojewski@intel.com>
-  Chen Baozi <chenbaozi@phytium.com.cn>
-  Chris Ye <lzye@google.com>
-  Christoph Hellwig <hch@lst.de>
-  Cong Wang <cong.wang@bytedance.com>
-  Cédric Le Goater <clg@kaod.org>
-  Daniel Xu <dxu@dxuuu.xyz>
-  Dany Madden <drt@linux.ibm.com>
-  David Sterba <dsterba@suse.com>
-  David Woodhouse <dwmw@amazon.co.uk>
-  Dexuan Cui <decui@microsoft.com>
-  Dipen Patel <dipenp@nvidia.com>
-  Dmitry Torokhov <dmitry.torokhov@gmail.com>
-  Filipe Manana <fdmanana@suse.com>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Florian Klink <flokli@flokli.de>
-  Frank Yang <puilp0502@gmail.com>
-  Gabriele Paoloni <gabriele.paoloni@intel.com>
-  Geert Uytterhoeven <geert@linux-m68k.org>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Greg Kurz <groug@kaod.org>
-  Grygorii Strashko <grygorii.strashko@ti.com>
-  Guenter Roeck <linux@roeck-us.net>
-  Hans de Goede <hdegoede@redhat.com>
-  Hauke Mehrtens <hauke@hauke-m.de>
-  Henrique de Moraes Holschuh <hnh@hmh.eng.br>
-  Hui Su <sh_def@163.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jan Kara <jack@suse.cz>
-  Jason Gunthorpe <jgg@nvidia.com>
-  Jens Axboe <axboe@kernel.dk>
-  Jens Wiklander <jens.wiklander@linaro.org>
-  Jiri Kosina <jkosina@suse.cz>
-  Jiri Olsa <jolsa@redhat.com>
-  Johannes Berg <johannes.berg@intel.com>
-  Johannes Thumshirn <johannes.thumshirn@wdc.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Julian Wiedmann <jwi@linux.ibm.com>
-  Kaixu Xia <kaixuxia@tencent.com>
-  Kalle Valo <kvalo@codeaurora.org>
-  Konrad Jankowski <konrad0.jankowski@intel.com>
-  Krzysztof Kozlowski <krzk@kernel.org>
-  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-  Lee Duncan <lduncan@suse.com>
-  Lijun Pan <ljp@linux.ibm.com>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  liuzx@knownsec.com
-  Luca Coelho <luciano.coelho@intel.com>
-  Lukas Wunner <lukas@wunner.de>
-  Marc Ferland <ferlandm@amotus.ca>
-  Marc Kleine-Budde <mkl@pengutronix.de>
-  Marc Zyngier <maz@kernel.org>
-  Mark Brown <broonie@kernel.org>
-  Martijn van de Streek <martijn@zeewinde.xyz>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Masami Hiramatsu <mhiramat@kernel.org>
-  Mateusz Gorski <mateusz.gorski@linux.intel.com>
-  Max Filippov <jcmvbkbc@gmail.com>
-  Michael Chan <michael.chan@broadcom.com>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael S. Tsirkin <mst@redhat.com>
-  Mike Christie <michael.christie@oracle.com>
-  Mike Cui <mikecui@amazon.com>
-  Mike Rapoport <rppt@linux.ibm.com>
-  Minwoo Im <minwoo.im.dev@gmail.com>
-  Namhyung Kim <namhyung@kernel.org>
-  Namjae Jeon <namjae.jeon@samsung.com>
-  Nathan Chancellor <natechancellor@gmail.com>
-  Necip Fazil Yildiran <fazilyildiran@gmail.com>
-  Oleksij Rempel <o.rempel@pengutronix.de>
-  Pablo Ceballos <pceballos@google.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Pavan K S <pavan.k.s@intel.com>
-  penghao <penghao@uniontech.com>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>
-  Raju Rangoju <rajur@chelsio.com>
-  Rohith Surabattula <rohiths@microsoft.com>
-  Rui Miguel Silva <rui.silva@linaro.org>
-  Ruslan Sushko <rus@sushko.dev>
-  Sami Tolvanen <samitolvanen@google.com>
-  Sasha Levin <sashal@kernel.org>
-  Shay Agroskin <shayagr@amazon.com>
-  Simon Wunderlich <sw@simonwunderlich.de>
-  Slawomir Laba <slawomirx.laba@intel.com>
-  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-  Sriram Dash <sriram.dash@samsung.com>
-  Stanley Chu <stanley.chu@mediatek.com>
-  Stefan Agner <stefan@agner.ch>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Stephen Rothwell <sfr@canb.auug.org.au>
-  Steve French <stfrench@microsoft.com>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
-  Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-  Sugar Zhang <sugar.zhang@rock-chips.com>
-  Sven Eckelmann <sven@narfation.org>
-  Sylwester Dziedziuch <sylwesterx.dziedziuch@intel.com>
-  Taehee Yoo <ap420073@gmail.com>
-  Tejun Heo <tj@kernel.org>
-  Thierry Reding <treding@nvidia.com>
-  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-  Tony Lindgren <tony@atomide.com>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Vinod Koul <vkoul@kernel.org>
-  Wei Liu <wei.liu@kernel.org>
-  Weihang Li <liweihang@huawei.com>
-  Wenpeng Liang <liangwenpeng@huawei.com>
-  Will Deacon <will@kernel.org>
-  Willem de Bruijn <willemb@google.com>
-  Xiaochen Shen <xiaochen.shen@intel.com>
-  Xiongfeng Wang <wangxiongfeng2@huawei.com>
-  Yixian Liu <liuyixian@huawei.com>
-  Yu Zhao <yuzhao@google.com>
-  Zenghui Yu <yuzenghui@huawei.com>
-  Zhang Changzhong <zhangchangzhong@huawei.com>
-  Zhang Qilong <zhangqilong3@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   9f4b26f3ea18..42af416d7146  42af416d71462a72b02ba6ac632c8dcb9ce729a0 -> tested/linux-5.4
+On Wed, Nov 18, 2020 at 7:04 AM Heinrich Schuchardt <xypron.glpk@gmx.de> wrote:
+>
+> On 14.11.20 00:52, Daniel Kiper wrote:
+> > Hey,
+> >
+> > This is next attempt to create firmware and bootloader log specification.
+> > Due to high interest among industry it is an extension to the initial
+> > bootloader log only specification. It takes into the account most of the
+> > comments which I got up until now.
+> >
+> > The goal is to pass all logs produced by various boot components to the
+> > running OS. The OS kernel should expose these logs to the user space
+> > and/or process them internally if needed. The content of these logs
+> > should be human readable. However, they should also contain the
+> > information which allows admins to do e.g. boot time analysis.
+> >
+> > The log specification should be as much as possible platform agnostic
+> > and self contained. The final version of this spec should be merged into
+> > existing specifications, e.g. UEFI, ACPI, Multiboot2, or be a standalone
+> > spec, e.g. as a part of OASIS Standards. The former seems better but is
+> > not perfect too...
+> >
+> > Here is the description (pseudocode) of the structures which will be
+> > used to store the log data.
+>
+> Hello Daniel,
+>
+> thanks for your suggestion which makes good sense to me.
+>
+> Why can't we simply use the message format defined in "The Syslog
+> Protocol", https://tools.ietf.org/html/rfc5424?
+>
+> >
+> >   struct bf_log
+> >   {
+> >     uint32_t   version;
+> >     char       producer[64];
+> >     uint64_t   flags;
+> >     uint64_t   next_bf_log_addr;
+> >     uint32_t   next_msg_off;
+> >     bf_log_msg msgs[];
+>
+> As bf_log_msg is does not have defined length msgs[] cannot be an array.
+>
+> >   }
+> >
+> >   struct bf_log_msg
+> >   {
+> >     uint32_t size;
+> >     uint64_t ts_nsec;
+> >     uint32_t level;
+> >     uint32_t facility;
+> >     uint32_t msg_off;
+> >     char     strings[];
+> >   }
+> >
+> > The members of struct bf_log:
+> >   - version: the firmware and bootloader log format version number, 1 for now,
+> >   - producer: the producer/firmware/bootloader/... type; the length
+> >     allows ASCII UUID storage if somebody needs that functionality,
+> >   - flags: it can be used to store information about log state, e.g.
+> >     it was truncated or not (does it make sense to have an information
+> >     about the number of lost messages?),
+> >   - next_bf_log_addr: address of next bf_log struct; none if zero (I think
+> >     newer spec versions should not change anything in first 5 bf_log members;
+> >     this way older log parsers will be able to traverse/copy all logs regardless
+> >     of version used in one log or another),
+> >   - next_msg_off: the offset, in bytes, from the beginning of the bf_log struct,
+> >     of the next byte after the last log message in the msgs[]; i.e. the offset
+> >     of the next available log message slot; it is equal to the total size of
+> >     the log buffer including the bf_log struct,
+>
+> Why would you need an offset to first unused byte?
+>
+> We possibly have multiple producers of messages:
+>
+> - TF-A
+> - U-Boot
+> - iPXE
+> - GRUB
+>
+> What we need is the offset to the next struct bf_log.
+>
+> >   - msgs: the array of log messages,
+> >   - should we add CRC or hash or signatures here?
+> >
+> > The members of struct bf_log_msg:
+> >   - size: total size of bf_log_msg struct,
+> >   - ts_nsec: timestamp expressed in nanoseconds starting from 0,
+>
+> Would each message producer start from 0?
+>
+> Shouldn't we use the time from the hardware RTC if it is available via
+> boot service GetTime()?
+>
+> >   - level: similar to syslog meaning; can be used to differentiate normal messages
+> >     from debug messages; the exact interpretation depends on the current producer
+> >     type specified in the bf_log.producer,
+> >   - facility: similar to syslog meaning; can be used to differentiate the sources of
+> >     the messages, e.g. message produced by networking module; the exact interpretation
+> >     depends on the current producer type specified in the bf_log.producer,
+> >   - msg_off: the log message offset in strings[],
+>
+> What is this field good for? Why don't you start the the string at
+> strings[0]?
+> What would be useful would be the offset to the next bf_log_msg.
+>
+> >   - strings[0]: the beginning of log message type, similar to the facility member but
+> >     NUL terminated string instead of integer; this will be used by, e.g., the GRUB2
+> >     for messages printed using grub_dprintf(),
+> >   - strings[msg_off]: the beginning of log message, NUL terminated string.
+>
+>
+> Why strings in plural? Do you want to put multiple strings into
+> 'strings'? What identifies the last string?
+>
+>
+> >
+> > Note: The producers are free to use/ignore any given set of level, facility and/or
+> >       log type members. Though the usage of these members has to be clearly defined.
+> >       Ignored integer members should be set to 0. Ignored log message type should
+> >       contain an empty NUL terminated string. The log message is mandatory but can
+> >       be an empty NUL terminated string.
+> >
+> > There is still not fully solved problem how the logs should be presented to the OS.
+> > On the UEFI platforms we can use config tables to do that. Then probably
+> > bf_log.next_bf_log_addr should not be used.
+>
+> Why? How would you otherwise find the entries of the next produser in
+> the configuration table? What I am missing is a GUID for the
+> configuration table.
+>
+> > On the ACPI and Device Tree platforms
+> > we can use these mechanisms to present the logs to the OSes. The situation gets more
+>
+> I do not understand this.
+>
+> UEFI implementations use either of ACPI and device-trees and support
+> configuration tables. Why do you want to use some other binding?
+>
+> Best regards
+>
+> Heinrich
+>
+> > difficult if neither of these mechanisms are present. However, maybe we should not
+> > bother too much about that because probably these platforms getting less and less
+> > common.
+> >
+> > Anyway, I am aware that this is not specification per se. The goal of this email is
+> > to continue the discussion about the idea of the firmware and booloader log and to
+> > find out where the final specification should land. Of course taking into the account
+> > assumptions made above.
+> >
+> > You can find previous discussions about related topics at [1], [2] and [3].
+> >
+> > Additionally, I am going to present this during GRUB mini-summit session on Tuesday,
+> > 17th of November at 15:45 UTC. So, if you want to discuss the log design please join
+> > us. You can find more details here [4].
+> >
+> > Daniel
+> >
+> > [1] https://lists.gnu.org/archive/html/grub-devel/2019-10/msg00107.html
+> > [2] https://lists.gnu.org/archive/html/grub-devel/2019-11/msg00079.html
+> > [3] https://lists.gnu.org/archive/html/grub-devel/2020-05/msg00223.html
+> > [4] https://twitter.com/3mdeb_com/status/1327278804100931587
+> >
+>
 
