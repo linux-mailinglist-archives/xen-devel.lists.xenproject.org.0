@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5FC62CEA9B
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 10:16:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44264.79351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F332CEAD3
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 10:27:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44271.79363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl7CQ-0001tP-Nx; Fri, 04 Dec 2020 09:16:22 +0000
+	id 1kl7Md-00030w-RH; Fri, 04 Dec 2020 09:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44264.79351; Fri, 04 Dec 2020 09:16:22 +0000
+Received: by outflank-mailman (output) from mailman id 44271.79363; Fri, 04 Dec 2020 09:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl7CQ-0001t0-KW; Fri, 04 Dec 2020 09:16:22 +0000
-Received: by outflank-mailman (input) for mailman id 44264;
- Fri, 04 Dec 2020 09:16:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kl7Md-00030X-OB; Fri, 04 Dec 2020 09:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 44271;
+ Fri, 04 Dec 2020 09:26:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=c9tS=FI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kl7CP-0001sv-NM
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 09:16:21 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 56139137-c5f5-40c0-aabc-8e4516927846;
- Fri, 04 Dec 2020 09:16:20 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EB797ACC6;
- Fri,  4 Dec 2020 09:16:19 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1kl7Mc-00030S-8e
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 09:26:54 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kl7Mb-00054X-3e; Fri, 04 Dec 2020 09:26:53 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kl7Ma-0001xR-RQ; Fri, 04 Dec 2020 09:26:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,121 +39,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56139137-c5f5-40c0-aabc-8e4516927846
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607073380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=elv0qx14rjDZkrgz9XMZ0WUbGL2H6cwfwNztroy1OWk=;
-	b=lh6AdLF5IIhWZ8MmfCOl5EvcYZ2mHl8eBBqWMUKorZJ9eeV47tbJSyHitq070y5jSUz/5h
-	ioXwqZSjJ3zZGNlzksHOuCx0mkP91voJCieXlGlsKcuSJi/W7o0fNysb8zUqlCjxVFCP8W
-	9eReQs+TIRWhBvpsAKEa4bmE563yGUg=
-Subject: Re: [PATCH v2 14/17] xen/hypfs: add support for id-based dynamic
- directories
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=VBQgBosC98HgPuxZ5XdIOh7Zj4Homg+IA64bM0PEdC0=; b=qxcOusCRdowinX/e2J5je7CbHn
+	lCdlwChg5fUQFEVRY/aVBGChnPc77Opo9zFA6dbmpYaw7zCcjgcagERs8rsR4RRCR3t+R8r0L8ssR
+	FJBC49hdDjilRPypugm/79jtMgi7GE3lQcVFn0KG1TzKoPBQxlTkhrQPPdhT7Q5RUpfw=;
+Subject: Re: [PATCH 1/2] include: don't use asm/page.h from common headers
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-15-jgross@suse.com>
- <369bcb0b-5554-8976-d3fe-5066b3d7cdce@suse.com>
- <774ca9f3-3bbe-817f-5ecb-76054aa619f5@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f81a011d-101c-29e7-cba2-0b52506cc027@suse.com>
-Date: Fri, 4 Dec 2020 10:16:20 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Hongyan Xia <hx242@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <75484377-160c-a529-1cfc-96de86cfc550@suse.com>
+ <04276039-a5d0-fefd-260e-ffaa8272fd6a@suse.com>
+ <a35fb176-e729-a542-4416-7040d6c80964@xen.org>
+ <bdf294d9-e021-36d3-7e04-1c148e34701f@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <56063ac8-f771-0269-62f5-8076ec714c96@xen.org>
+Date: Fri, 4 Dec 2020 09:26:50 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <774ca9f3-3bbe-817f-5ecb-76054aa619f5@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <bdf294d9-e021-36d3-7e04-1c148e34701f@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 04.12.2020 09:52, Jürgen Groß wrote:
-> On 03.12.20 16:44, Jan Beulich wrote:
->> On 01.12.2020 09:21, Juergen Gross wrote:
->>> --- a/xen/common/hypfs.c
->>> +++ b/xen/common/hypfs.c
->>> @@ -355,6 +355,81 @@ unsigned int hypfs_getsize(const struct hypfs_entry *entry)
->>>       return entry->size;
->>>   }
->>>   
->>> +int hypfs_read_dyndir_id_entry(const struct hypfs_entry_dir *template,
->>> +                               unsigned int id, bool is_last,
->>> +                               XEN_GUEST_HANDLE_PARAM(void) *uaddr)
->>> +{
->>> +    struct xen_hypfs_dirlistentry direntry;
->>> +    char name[HYPFS_DYNDIR_ID_NAMELEN];
->>> +    unsigned int e_namelen, e_len;
->>> +
->>> +    e_namelen = snprintf(name, sizeof(name), template->e.name, id);
->>> +    e_len = DIRENTRY_SIZE(e_namelen);
->>> +    direntry.e.pad = 0;
->>> +    direntry.e.type = template->e.type;
->>> +    direntry.e.encoding = template->e.encoding;
->>> +    direntry.e.content_len = template->e.funcs->getsize(&template->e);
->>> +    direntry.e.max_write_len = template->e.max_size;
->>> +    direntry.off_next = is_last ? 0 : e_len;
->>> +    if ( copy_to_guest(*uaddr, &direntry, 1) )
->>> +        return -EFAULT;
->>> +    if ( copy_to_guest_offset(*uaddr, DIRENTRY_NAME_OFF, name,
->>> +                              e_namelen + 1) )
->>> +        return -EFAULT;
->>> +
->>> +    guest_handle_add_offset(*uaddr, e_len);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static struct hypfs_entry *hypfs_dyndir_findentry(
->>> +    const struct hypfs_entry_dir *dir, const char *name, unsigned int name_len)
->>> +{
->>> +    const struct hypfs_dyndir_id *data;
->>> +
->>> +    data = hypfs_get_dyndata();
->>> +
->>> +    /* Use template with original findentry function. */
->>> +    return data->template->e.funcs->findentry(data->template, name, name_len);
->>> +}
->>> +
->>> +static int hypfs_read_dyndir(const struct hypfs_entry *entry,
->>> +                             XEN_GUEST_HANDLE_PARAM(void) uaddr)
->>> +{
->>> +    const struct hypfs_dyndir_id *data;
->>> +
->>> +    data = hypfs_get_dyndata();
->>> +
->>> +    /* Use template with original read function. */
->>> +    return data->template->e.funcs->read(&data->template->e, uaddr);
->>> +}
->>> +
->>> +struct hypfs_entry *hypfs_gen_dyndir_entry_id(
->>> +    const struct hypfs_entry_dir *template, unsigned int id)
->>> +{
->>> +    struct hypfs_dyndir_id *data;
->>> +
->>> +    data = hypfs_get_dyndata();
->>> +
->>> +    data->template = template;
->>> +    data->id = id;
->>> +    snprintf(data->name, sizeof(data->name), template->e.name, id);
->>> +    data->dir = *template;
->>> +    data->dir.e.name = data->name;
+Hi Jan,
+
+On 03/12/2020 09:27, Jan Beulich wrote:
+> On 02.12.2020 18:14, Julien Grall wrote:
+>> Hi Jan,
 >>
->> I'm somewhat puzzled, if not confused, by the apparent redundancy
->> of this name generation with that in hypfs_read_dyndir_id_entry().
->> Wasn't the idea to be able to use generic functions on these
->> generated entries?
+>> On 02/12/2020 14:49, Jan Beulich wrote:
+>>> Doing so limits what can be done in (in particular included by) this per-
+>>> arch header. Abstract out page shift/size related #define-s, which is all
+>>> the repsecitve headers care about. Extend the replacement / removal to
+>>
+>> s/repsecitve/respective/
+>>
+>>> some x86 headers as well; some others now need to include page.h (and
+>>> they really should have before).
+>>>
+>>> Arm's VADDR_BITS gets restricted to 32-bit, as its current value is
+>>> clearly wrong for 64-bit, but the constant also isn't used anywhere
+>>> right now (i.e. the #define could also be dropped altogether).
+>>
+>> Whoops. Thankfully this is not used.
+>>
+>>>
+>>> I wasn't sure about Arm's use of vaddr_t in PAGE_OFFSET(), and hence I
+>>> kept it and provided a way to override the #define in the common header.
+>>
+>> vaddr_t is defined to 32-bit for arm32 or 64-bit for arm64. So I think
+>> it would be fine to use the generic PAGE_OFFSET() implementation.
 > 
-> I can add a macro replacing the double snprintf().
+> Will switch.
+> 
+>>> --- /dev/null
+>>> +++ b/xen/include/asm-arm/page-shift.h
+>>
+>> The name of the file looks a bit odd given that *_BITS are also defined
+>> in it. So how about renaming to page-size.h?
+> 
+> I was initially meaning to use that name, but these headers
+> specifically don't define any sizes - *_BITS are still shift
+> values, at least in a way. If the current name isn't liked, my
+> next best suggestion would then be page-bits.h.
 
-That wasn't my point. I'm concerned of there being two name generation
-sites in the first place. Is this perhaps simply some form of
-optimization, avoiding hypfs_read_dyndir_id_entry() to call
-hypfs_gen_dyndir_entry_id() (but risking the two going out of sync)?
+I would be happy with page-bits.h.
 
-Jan
+> 
+>>> @@ -0,0 +1,15 @@
+>>> +#ifndef __ARM_PAGE_SHIFT_H__
+>>> +#define __ARM_PAGE_SHIFT_H__
+>>> +
+>>> +#define PAGE_SHIFT              12
+>>> +
+>>> +#define PAGE_OFFSET(ptr)        ((vaddr_t)(ptr) & ~PAGE_MASK)
+>>> +
+>>> +#ifdef CONFIG_ARM_64
+>>> +#define PADDR_BITS              48
+>>
+>> Shouldn't we define VADDR_BITS here?
+> 
+> See the description - it's unused anyway. I'm fine any of the three
+> possible ways:
+> 1) keep as is in v1
+> 2) drop altogether
+> 3) also #define for 64-bit (but then you need to tell me whether 64
+>     is the right value to use, or what the correct one would be)
+
+I would go with 2).
+
+> 
+>> But I wonder whether VADDR_BITS
+>> should be defined as sizeof(vaddr_t) * 8.
+>>
+>> This would require to include asm/types.h.
+> 
+> Which I'd specifically like to avoid. Plus use of sizeof() also
+> precludes the use of respective #define-s in #if-s.
+
+Fair point!
+
+>>> --- a/xen/include/asm-x86/desc.h
+>>> +++ b/xen/include/asm-x86/desc.h
+>>> @@ -1,6 +1,8 @@
+>>>    #ifndef __ARCH_DESC_H
+>>>    #define __ARCH_DESC_H
+>>>    
+>>> +#include <asm/page.h>
+>>
+>> May I ask why you are including <asm/page.h> and not <xen/page-size.h> here?
+> 
+> Because of
+> 
+> DECLARE_PER_CPU(l1_pgentry_t, gdt_l1e);
+> 
+> and
+> 
+> DECLARE_PER_CPU(l1_pgentry_t, compat_gdt_l1e);
+> 
+> at least (didn't check further).
+Thanks for the explanation!
+
+
+> Jan
+> 
+
+Cheers,
+
+-- 
+Julien Grall
 
