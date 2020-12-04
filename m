@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E09512CED0A
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 12:29:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44516.79765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 809AB2CED0B
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 12:29:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44517.79776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl9Gs-00024E-QJ; Fri, 04 Dec 2020 11:29:06 +0000
+	id 1kl9H8-00029c-74; Fri, 04 Dec 2020 11:29:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44516.79765; Fri, 04 Dec 2020 11:29:06 +0000
+Received: by outflank-mailman (output) from mailman id 44517.79776; Fri, 04 Dec 2020 11:29:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl9Gs-00023p-N5; Fri, 04 Dec 2020 11:29:06 +0000
-Received: by outflank-mailman (input) for mailman id 44516;
- Fri, 04 Dec 2020 11:29:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kl9Gq-00023f-Km
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 11:29:05 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kl9Go-0008D7-Us; Fri, 04 Dec 2020 11:29:02 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kl9Go-0002ny-Nh; Fri, 04 Dec 2020 11:29:02 +0000
+	id 1kl9H8-00029D-3x; Fri, 04 Dec 2020 11:29:22 +0000
+Received: by outflank-mailman (input) for mailman id 44517;
+ Fri, 04 Dec 2020 11:29:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OO73=FI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kl9H5-00028g-Ug
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 11:29:19 +0000
+Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b06e870e-fbd4-49f8-b830-32da89671e08;
+ Fri, 04 Dec 2020 11:29:18 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id s8so4971866wrw.10
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Dec 2020 03:29:18 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id 64sm2820559wmd.12.2020.12.04.03.29.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Dec 2020 03:29:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,113 +42,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=7uul7Eq0jzdriWKnD6cl7d748nd4WelZ/jS33nSJLPc=; b=j80BGqbxTtx9AoQ5RdwYzj2VuM
-	S6nAr4un1XOA9XeustC7t8bagLAfag9HbAvvTs2Mhc3sAXM+KKhjj2gksSFkaRCbKPBnI/JHCa52h
-	ohCC5bxj1aoZHbMHQuIflZYp6nXMH4QwatdnPi4f5MGBriuqYCcsXH3P6nt/gV34Slv8=;
-Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
- per-channel lock held
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <lengyelt@ainfosec.com>,
- Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
- <d821c715-966a-b48b-a877-c5dac36822f0@suse.com>
- <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
- <7a768bcd-80c1-d193-8796-7fb6720fa22a@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <1a8250f5-ea49-ac3a-e992-be7ec40deba9@xen.org>
-Date: Fri, 4 Dec 2020 11:28:59 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: b06e870e-fbd4-49f8-b830-32da89671e08
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=8JcoC/cE2Sni0QVP8Rh/OxtpAcstxTODBod/LqoYel4=;
+        b=HNdy3HU9kIKPLh7fwYQTh5I+Fw/HZTNtLUjGWL/bR2vma03MHoeVA+9uhj9i2rUKy8
+         8DykdWZbf6NjpbMb7AtCzlxh0kRQ44XphvW0WXjKmYTb0KbkjC5zdvG1gU410pPHC2eL
+         BpKlJTkbXjNkWjoEYft5aQiK4YLdrnFIsaLfrsfWTr+mgRURIF5JuJ2uQQuojYIIAfc4
+         a4RDMo4CIfPG47wpxB5Ry0MCnsMCx3qy6e50GuEO//cLeyS5Xv+lsK9qVYBTAcj1Mfzn
+         uhhPuiZhf5BMNt1u+RdmofRQv0Wxu0c5Ux6AQrRZ7yiypNENTCzoUhsPoNXJ8LXWAfx1
+         ObLA==
+X-Gm-Message-State: AOAM531yP0C4bs8Vw7zWAw3JgaaRPD13bQF0/aeAEoLwO/xW4vEgVFdF
+	VeREufUPtfhmN2QRuvrpkXE=
+X-Google-Smtp-Source: ABdhPJw8S0m2dIYTW0qSdEaBxQ2CYzaOJa+zaWCuc278qRh5ciSy03YAzBxbFOgfqegP9Gwq/c3mHw==
+X-Received: by 2002:a5d:4046:: with SMTP id w6mr4547721wrp.51.1607081357296;
+        Fri, 04 Dec 2020 03:29:17 -0800 (PST)
+Date: Fri, 4 Dec 2020 11:29:15 +0000
+From: Wei Liu <wl@xen.org>
+To: Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+	David Scott <dave@recoil.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v5 12/23] libxl: add
+ libxl_device_pci_assignable_list_free()...
+Message-ID: <20201204112915.p3i4necmgvtpmtkp@liuwe-devbox-debian-v2>
+References: <20201203142534.4017-1-paul@xen.org>
+ <20201203142534.4017-13-paul@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <7a768bcd-80c1-d193-8796-7fb6720fa22a@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201203142534.4017-13-paul@xen.org>
+User-Agent: NeoMutt/20180716
 
-Hi Jan,
-
-On 03/12/2020 10:09, Jan Beulich wrote:
-> On 02.12.2020 22:10, Julien Grall wrote:
->> On 23/11/2020 13:30, Jan Beulich wrote:
->>> While there don't look to be any problems with this right now, the lock
->>> order implications from holding the lock can be very difficult to follow
->>> (and may be easy to violate unknowingly). The present callbacks don't
->>> (and no such callback should) have any need for the lock to be held.
->>>
->>> However, vm_event_disable() frees the structures used by respective
->>> callbacks and isn't otherwise synchronized with invocations of these
->>> callbacks, so maintain a count of in-progress calls, for evtchn_close()
->>> to wait to drop to zero before freeing the port (and dropping the lock).
->>
->> AFAICT, this callback is not the only place where the synchronization is
->> missing in the VM event code.
->>
->> For instance, vm_event_put_request() can also race against
->> vm_event_disable().
->>
->> So shouldn't we handle this issue properly in VM event?
+On Thu, Dec 03, 2020 at 02:25:23PM +0000, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
 > 
-> I suppose that's a question to the VM event folks rather than me?
-
-Yes. From my understanding of Tamas's e-mail, they are relying on the 
-monitoring software to do the right thing.
-
-I will refrain to comment on this approach. However, given the race is 
-much wider than the event channel, I would recommend to not add more 
-code in the event channel to deal with such problem.
-
-Instead, this should be fixed in the VM event code when someone has time 
-to harden the subsystem.
-
+> ... to be used by callers of libxl_device_pci_assignable_list().
 > 
->>> ---
->>> Should we make this accounting optional, to be requested through a new
->>> parameter to alloc_unbound_xen_event_channel(), or derived from other
->>> than the default callback being requested?
->>
->> Aside the VM event, do you see any value for the other caller?
+> Currently there is no API for callers of libxl_device_pci_assignable_list()
+> to free the list. The xl function pciassignable_list() calls
+> libxl_device_pci_dispose() on each element of the returned list, but
+> libxl_pci_assignable() in libxl_pci.c does not. Neither does the implementation
+> of libxl_device_pci_assignable_list() call libxl_device_pci_init().
 > 
-> No (albeit I'm not entirely certain about vpl011_notification()'s
-> needs), hence the consideration. It's unnecessary overhead in
-> those cases.
-
-I had another look and I think there is a small race in VPL011. It 
-should be easy to fix (I will try to have a look later today).
-
+> This patch adds the new API function, makes sure it is used everywhere and
+> also modifies libxl_device_pci_assignable_list() to initialize list
+> entries rather than just zeroing them.
 > 
->>> @@ -781,9 +786,15 @@ int evtchn_send(struct domain *ld, unsig
->>>            rport = lchn->u.interdomain.remote_port;
->>>            rchn  = evtchn_from_port(rd, rport);
->>>            if ( consumer_is_xen(rchn) )
->>> +        {
->>> +            /* Don't keep holding the lock for the call below. */
->>> +            atomic_inc(&rchn->u.interdomain.active_calls);
->>> +            evtchn_read_unlock(lchn);
->>>                xen_notification_fn(rchn)(rd->vcpu[rchn->notify_vcpu_id], rport);
->>> -        else
->>> -            evtchn_port_set_pending(rd, rchn->notify_vcpu_id, rchn);
->>
->> atomic_dec() doesn't contain any memory barrier, so we will want one
->> between xen_notification_fn() and atomic_dec() to avoid re-ordering.
-> 
-> Oh, indeed. But smp_mb() is too heavy handed here - x86 doesn't
-> really need any barrier, yet would gain a full MFENCE that way.
-> Actually - looks like I forgot we gained smp_mb__before_atomic()
-> a little over half a year ago.
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> Acked-by: Christian Lindig <christian.lindig@citrix.com>
+> Reviewed-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Ah yes, I forgot that atomics instruction are ordered on x86.
-
-Cheers,
-
--- 
-Julien Grall
+Acked-by: Wei Liu <wl@xen.org>
 
