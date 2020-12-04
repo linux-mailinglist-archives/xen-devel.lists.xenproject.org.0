@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E6F02CEA76
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 10:06:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44237.79327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC77C2CEA81
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 10:11:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44254.79339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl727-0000du-G8; Fri, 04 Dec 2020 09:05:43 +0000
+	id 1kl777-0001XY-3D; Fri, 04 Dec 2020 09:10:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44237.79327; Fri, 04 Dec 2020 09:05:43 +0000
+Received: by outflank-mailman (output) from mailman id 44254.79339; Fri, 04 Dec 2020 09:10:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl727-0000dY-Cl; Fri, 04 Dec 2020 09:05:43 +0000
-Received: by outflank-mailman (input) for mailman id 44237;
- Fri, 04 Dec 2020 09:05:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kl776-0001X9-WE; Fri, 04 Dec 2020 09:10:53 +0000
+Received: by outflank-mailman (input) for mailman id 44254;
+ Fri, 04 Dec 2020 09:10:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kl726-0000dT-0z
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 09:05:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kl724-0004XG-KS; Fri, 04 Dec 2020 09:05:40 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kl724-0000e0-F6; Fri, 04 Dec 2020 09:05:40 +0000
+ (envelope-from <SRS0=c9tS=FI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kl775-0001X4-17
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 09:10:51 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0ef017ed-80da-4caa-b087-48b7b011fd06;
+ Fri, 04 Dec 2020 09:10:49 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0CBA8ACC4;
+ Fri,  4 Dec 2020 09:10:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,94 +38,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=A/FoQA/sadJy6m4W7CwLip1NCAOD/yNDGZPhkRJBuRQ=; b=PtBcDVh3D2h2/ZKPr5mYzYBKeB
-	qP6yRvbTZ0YxF8+OP4OxABWJh1kQZJXPKxods4ilhxw5xuCgdbF5oDAj1t0ZY47rxLxO05Dr6we2+
-	CbHSXVK4a3jiazyBC1Inybgnp7sMHVZTh2P7eUxvIurUY4Mwk5vs5OH4/R1sptK5R4Sk=;
-Subject: Re: [PATCH v2 7/8] xen/arm: Remove Linux specific code that is not
- usable in XEN
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1606406359.git.rahul.singh@arm.com>
- <1d9da8ed4845aeb9e86a5ce6750b811bd7e2020e.1606406359.git.rahul.singh@arm.com>
- <cd74f2a7-7836-ef90-9cd8-857068adb0f5@xen.org>
- <51C0C24A-3CE6-48A3-85F5-14F010409DC3@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <b87e9293-77bb-2c43-63d0-8d54d5fc9a7e@xen.org>
-Date: Fri, 4 Dec 2020 09:05:38 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: 0ef017ed-80da-4caa-b087-48b7b011fd06
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1607073049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GvPAS1fnvtQTnWbCJURw87a677mWEVHMf028tHQFHsk=;
+	b=LRQQpUASSPqqIUaI0Mpc6Ypf/1QddP+2MJh3QPxm/qUritoutBVhUdmOM84wybYYS3CR1p
+	imvAiLNm1mEA2tqEvIDYRmASZMCiqQBPPnYGssVkJ//LAeAwlNd2A9iO61Ap451ArFAI2K
+	fMpG+b76+WFMMHOHXMo98wMBUu44wRQ=
+Subject: Re: [PATCH v2 15/17] xen/cpupool: add cpupool directories
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <20201201082128.15239-1-jgross@suse.com>
+ <20201201082128.15239-16-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e14fa4a4-3a3e-ceac-af38-8561baf58aa8@suse.com>
+Date: Fri, 4 Dec 2020 10:10:49 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <51C0C24A-3CE6-48A3-85F5-14F010409DC3@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <20201201082128.15239-16-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Hi Rahul,
+On 01.12.2020 09:21, Juergen Gross wrote:
+> @@ -1003,12 +1006,131 @@ static struct notifier_block cpu_nfb = {
+>      .notifier_call = cpu_callback
+>  };
+>  
+> +#ifdef CONFIG_HYPFS
+> +static const struct hypfs_entry *cpupool_pooldir_enter(
+> +    const struct hypfs_entry *entry);
+> +
+> +static struct hypfs_funcs cpupool_pooldir_funcs = {
 
-On 03/12/2020 14:33, Rahul Singh wrote:
->> On 2 Dec 2020, at 2:45 pm, Julien Grall <julien@xen.org> wrote:
->>> -
->>> -static struct iommu_device *arm_smmu_probe_device(struct device *dev)
->>> -{
->>
->> Most of the code here looks useful to Xen. I think you want to keep the code and re-use it afterwards.
-> 
-> Ok. I removed the code here and added the XEN compatible code to add devices in next patch.
-> I will keep it in this patch and will modifying the code to make XEN compatible.
+Yet one more const missing?
 
-In general, it is prefer if the code the code rather than dropping in 
-patch A and then add it again differently patch B. This makes easier to 
-check that the code outcome of the function is mostly the same.
+> +    .enter = cpupool_pooldir_enter,
+> +    .exit = hypfs_node_exit,
+> +    .read = hypfs_read_dir,
+> +    .write = hypfs_write_deny,
+> +    .getsize = hypfs_getsize,
+> +    .findentry = hypfs_dir_findentry,
+> +};
+> +
+> +static HYPFS_VARDIR_INIT(cpupool_pooldir, "%u", &cpupool_pooldir_funcs);
+> +
+> +static const struct hypfs_entry *cpupool_pooldir_enter(
+> +    const struct hypfs_entry *entry)
+> +{
+> +    return &cpupool_pooldir.e;
+> +}
+> +
+> +static int cpupool_dir_read(const struct hypfs_entry *entry,
+> +                            XEN_GUEST_HANDLE_PARAM(void) uaddr)
+> +{
+> +    int ret = 0;
+> +    const struct cpupool *c;
+> +    unsigned int size = 0;
+> +
+> +    list_for_each_entry(c, &cpupool_list, list)
+> +    {
+> +        size += hypfs_dynid_entry_size(entry, c->cpupool_id);
 
->>> -static struct iommu_ops arm_smmu_ops = {
->>> -	.capable		= arm_smmu_capable,
->>> -	.domain_alloc		= arm_smmu_domain_alloc,
->>> -	.domain_free		= arm_smmu_domain_free,
->>> -	.attach_dev		= arm_smmu_attach_dev,
->>> -	.map			= arm_smmu_map,
->>> -	.unmap			= arm_smmu_unmap,
->>> -	.flush_iotlb_all	= arm_smmu_flush_iotlb_all,
->>> -	.iotlb_sync		= arm_smmu_iotlb_sync,
->>> -	.iova_to_phys		= arm_smmu_iova_to_phys,
->>> -	.probe_device		= arm_smmu_probe_device,
->>> -	.release_device		= arm_smmu_release_device,
->>> -	.device_group		= arm_smmu_device_group,
->>> -	.domain_get_attr	= arm_smmu_domain_get_attr,
->>> -	.domain_set_attr	= arm_smmu_domain_set_attr,
->>> -	.of_xlate		= arm_smmu_of_xlate,
->>> -	.get_resv_regions	= arm_smmu_get_resv_regions,
->>> -	.put_resv_regions	= generic_iommu_put_resv_regions,
->>> -	.pgsize_bitmap		= -1UL, /* Restricted during device attach */
->>> -};
->>> -
->>>   /* Probing and initialisation functions */
->>>   static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
->>>   				   struct arm_smmu_queue *q,
->>> @@ -2406,7 +2032,6 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
->>>   	switch (FIELD_GET(IDR0_STALL_MODEL, reg)) {
->>>   	case IDR0_STALL_MODEL_FORCE:
->>>   		smmu->features |= ARM_SMMU_FEAT_STALL_FORCE;
->>> -		fallthrough;
->>
->> We should keep all the fallthrough documented. So I think we want to introduce the fallthrough in Xen as well.
-> 
-> Ok I will keep fallthrough documented in this patch.
-> 
-> fallthrough implementation in XEN should be another patch. I am not sure when we can implement but we will try to implement.
+Why do you maintain size here? I can't spot any use.
 
-Yes, I didn't ask to implement "fallthrough" in this patch, but instead 
-as a pre-requirement patch.
+With this dropped the function then no longer depends on its
+"entry" parameter, which makes me wonder ...
 
-I would implement it in include/xen/compiler.h.
+> +        ret = hypfs_read_dyndir_id_entry(&cpupool_pooldir, c->cpupool_id,
+> +                                         list_is_last(&c->list, &cpupool_list),
+> +                                         &uaddr);
+> +        if ( ret )
+> +            break;
+> +    }
+> +
+> +    return ret;
+> +}
+> +
+> +static unsigned int cpupool_dir_getsize(const struct hypfs_entry *entry)
+> +{
+> +    const struct cpupool *c;
+> +    unsigned int size = 0;
+> +
+> +    list_for_each_entry(c, &cpupool_list, list)
+> +        size += hypfs_dynid_entry_size(entry, c->cpupool_id);
 
-Cheers,
+... why this one does. To be certain their results are consistent
+with one another, I think both should produce their results from
+the same data.
 
--- 
-Julien Grall
+> +    return size;
+> +}
+> +
+> +static const struct hypfs_entry *cpupool_dir_enter(
+> +    const struct hypfs_entry *entry)
+> +{
+> +    struct hypfs_dyndir_id *data;
+> +
+> +    data = hypfs_alloc_dyndata(sizeof(*data));
+
+I generally like the added type safety of the macro wrappers
+around _xmalloc(). I wonder if it wouldn't be a good idea to have
+such here as well, to avoid random mistakes like
+
+    data = hypfs_alloc_dyndata(sizeof(data));
+
+However I further notice that the struct allocated isn't cpupool
+specific at all. It would seem to me that such an allocation
+therefore doesn't belong here. Therefore I wonder whether ...
+
+> +    if ( !data )
+> +        return ERR_PTR(-ENOMEM);
+> +    data->id = CPUPOOLID_NONE;
+> +
+> +    spin_lock(&cpupool_lock);
+
+... these two properties (initial ID and lock) shouldn't e.g. be
+communicated via the template, allowing the enter/exit hooks to
+become generic for all ID templates.
+
+Yet in turn I notice that the "id" field only ever gets set, both
+in patch 14 and here. But yes, I've now spotted the consumers in
+patch 16.
+
+> +    return entry;
+> +}
+> +
+> +static void cpupool_dir_exit(const struct hypfs_entry *entry)
+> +{
+> +    spin_unlock(&cpupool_lock);
+> +
+> +    hypfs_free_dyndata();
+> +}
+> +
+> +static struct hypfs_entry *cpupool_dir_findentry(
+> +    const struct hypfs_entry_dir *dir, const char *name, unsigned int name_len)
+> +{
+> +    unsigned long id;
+> +    const char *end;
+> +    const struct cpupool *cpupool;
+> +
+> +    id = simple_strtoul(name, &end, 10);
+> +    if ( end != name + name_len )
+> +        return ERR_PTR(-ENOENT);
+> +
+> +    cpupool = __cpupool_find_by_id(id, true);
+
+Silent truncation from unsigned long to unsigned int?
+
+> +    if ( !cpupool )
+> +        return ERR_PTR(-ENOENT);
+> +
+> +    return hypfs_gen_dyndir_entry_id(&cpupool_pooldir, id);
+> +}
+> +
+> +static struct hypfs_funcs cpupool_dir_funcs = {
+
+Yet another missing const?
+
+> +    .enter = cpupool_dir_enter,
+> +    .exit = cpupool_dir_exit,
+> +    .read = cpupool_dir_read,
+> +    .write = hypfs_write_deny,
+> +    .getsize = cpupool_dir_getsize,
+> +    .findentry = cpupool_dir_findentry,
+> +};
+> +
+> +static HYPFS_VARDIR_INIT(cpupool_dir, "cpupool", &cpupool_dir_funcs);
+
+Why VARDIR? This isn't a template, is it? Or does VARDIR really
+serve multiple purposes?
+
+> +static void cpupool_hypfs_init(void)
+> +{
+> +    hypfs_add_dir(&hypfs_root, &cpupool_dir, true);
+> +    hypfs_add_dyndir(&cpupool_dir, &cpupool_pooldir);
+> +}
+> +#else
+> +
+> +static void cpupool_hypfs_init(void)
+> +{
+> +}
+> +#endif
+
+I think you want to be consistent with the use of blank lines next
+to #if / #else / #endif. In cases when they enclose multiple entities,
+I think it's generally better to have intervening blank lines
+everywhere. I also think in such cases commenting #else and #endif is
+helpful. But you're the maintainer of this code ...
+
+Jan
 
