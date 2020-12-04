@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A84182CF774
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Dec 2020 00:32:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.45100.80566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74A782CF7B5
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Dec 2020 00:53:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.45111.80587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klKXO-0000Vl-51; Fri, 04 Dec 2020 23:30:54 +0000
+	id 1klKsZ-0002Yh-BZ; Fri, 04 Dec 2020 23:52:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 45100.80566; Fri, 04 Dec 2020 23:30:54 +0000
+Received: by outflank-mailman (output) from mailman id 45111.80587; Fri, 04 Dec 2020 23:52:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klKXN-0000VK-VV; Fri, 04 Dec 2020 23:30:53 +0000
-Received: by outflank-mailman (input) for mailman id 45100;
- Fri, 04 Dec 2020 23:30:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1klKXM-0000VC-6w; Fri, 04 Dec 2020 23:30:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1klKXL-0007T6-TD; Fri, 04 Dec 2020 23:30:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1klKXL-000268-I8; Fri, 04 Dec 2020 23:30:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1klKXL-0008ET-Hg; Fri, 04 Dec 2020 23:30:51 +0000
+	id 1klKsZ-0002YI-86; Fri, 04 Dec 2020 23:52:47 +0000
+Received: by outflank-mailman (input) for mailman id 45111;
+ Fri, 04 Dec 2020 23:52:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gNFP=FI=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1klKsY-0002YD-0D
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 23:52:46 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e7f734f3-864b-42ce-b86e-f95466562de2;
+ Fri, 04 Dec 2020 23:52:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,320 +35,361 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7n374Wk6bvu1lTA0hrLNtHCrvZ0phFEs6YbLWk9CeV0=; b=1QhNNdjnOF1xgSZ/ZTBqEiW8sG
-	LLJAmO1qbH6v7keDDiXUY2MeWiSgMZUtpgVleaOwQpN0V/v5dDTauv0GP4QqJQGCfu49s6UMN9DjT
-	sFHLydEJVHDY0T8R7sNWFjZUkkzKDnSkg4HNg61B867INAgV1nbVJ7XIRc8S8/ow8i5s=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157199-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e7f734f3-864b-42ce-b86e-f95466562de2
+Date: Fri, 4 Dec 2020 15:52:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1607125964;
+	bh=YYyU6PwrDiQTEYcWMMLQfrhbgp4/5WOqB7PcoZaU+jM=;
+	h=From:To:cc:Subject:In-Reply-To:References:From;
+	b=l48xANx5IC8noSkTBcMCOxBrHjWDmuz9tkL5BHLxh7uW37ghXpF+9xpxMobDymnUZ
+	 JiLLOxnTiBKVEdguyZyu9jx3ja999zvvbaTAF965Nf5z9NO2AeZ5XPotncQLDMjg8s
+	 tFVHSIf8/X2nv0MZpmOjuUnkOI8ahuDto60bCG5HT7AGmIwqz6XzSrS/nltsmoj06S
+	 3Qe2RHnQADhE1QN9LI+ZlYCINzjwoFH3SXndM06kjU8arbLKsDbemTR/0cHZii8tth
+	 Uk/p+V/CxANa14weEwM2Ci2f2JrzuWLpUxUpgfs3IP7Camt5G1lEjg+G221RlTM5vG
+	 wKx5YC/dBE4Ng==
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 1/7] xen/arm: Add ID registers and complete cpufinfo
+In-Reply-To: <97efd89cccdffc2a7fd987ac8156f5eea191fd3f.1606742184.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.21.2012041546340.32240@sstabellini-ThinkPad-T480s>
+References: <cover.1606742184.git.bertrand.marquis@arm.com> <97efd89cccdffc2a7fd987ac8156f5eea191fd3f.1606742184.git.bertrand.marquis@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [linux-linus test] 157199: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
-    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
-    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
-    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
-    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
-    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-amd64-pvgrub:guest-stop:fail:regression
-    linux-linus:test-amd64-amd64-i386-pvgrub:guest-stop:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:leak-check/basis(11):fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:leak-check/basis(11):fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:leak-check/basis(11):fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=bbe2ba04c5a92a49db8a42c850a5a2f6481e47eb
-X-Osstest-Versions-That:
-    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 04 Dec 2020 23:30:51 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 157199 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157199/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
- test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
- test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
- test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
- test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
- test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
- test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
- test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 152332
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 152332
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 152332
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 152332
- test-amd64-amd64-amd64-pvgrub 20 guest-stop              fail REGR. vs. 152332
- test-amd64-amd64-i386-pvgrub 20 guest-stop               fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-credit2  11 leak-check/basis(11)    fail blocked in 152332
- test-arm64-arm64-xl-xsm      11 leak-check/basis(11)    fail blocked in 152332
- test-arm64-arm64-xl-seattle  11 leak-check/basis(11)    fail blocked in 152332
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152332
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
- test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 152332
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152332
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- linux                bbe2ba04c5a92a49db8a42c850a5a2f6481e47eb
-baseline version:
- linux                deacdb3e3979979016fcd0ffd518c320a62ad166
-
-Last test of basis   152332  2020-07-31 19:41:23 Z  126 days
-Failing since        152366  2020-08-01 20:49:34 Z  125 days  212 attempts
-Testing same since   157199  2020-12-04 07:52:18 Z    0 days    1 attempts
-
-------------------------------------------------------------
-3629 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           fail    
- test-amd64-coresched-i386-xl                                 fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-i386-xl-xsm                                       fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              fail    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      fail    
- test-amd64-i386-freebsd10-i386                               fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         fail    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         fail    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 fail    
- test-amd64-amd64-amd64-pvgrub                                fail    
- test-amd64-amd64-i386-pvgrub                                 fail    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    fail    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+There is a typo in the subject line
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+On Mon, 30 Nov 2020, Bertrand Marquis wrote:
+> Add definition and entries in cpuinfo for ID registers introduced in
+> newer Arm Architecture reference manual:
+> - ID_PFR2: processor feature register 2
+> - ID_DFR1: debug feature register 1
+> - ID_MMFR4 and ID_MMFR5: Memory model feature registers 4 and 5
+> - ID_ISA6: ISA Feature register 6
+> Add more bitfield definitions in PFR fields of cpuinfo.
+> Add MVFR2 register definition for aarch32.
+> Add mvfr values in cpuinfo.
+> Add some registers definition for arm64 in sysregs as some are not
+> always know by compilers.
+> Initialize the new values added in cpuinfo in identify_cpu during init.
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+I realize I am using an old compiler but I am getting a build error:
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+/local/repos/gcc-linaro-5.3.1-2016.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc -MMD -MP -MF ./.cpufeature.o.d  -DBUILD_ID -fno-strict-aliasing -std=gnu99 -Wall -Wstrict-prototypes -Wdeclaration-after-statement -Wno-unused-but-set-variable -Wno-unused-local-typedefs   -O1 -fno-omit-frame-pointer -nostdinc -fno-builtin -fno-common -Werror -Wredundant-decls -Wno-pointer-arith -Wvla -pipe -D__XEN__ -include /local/repos/xen-upstream/xen/include/xen/config.h -Wa,--strip-local-absolute -g -mcpu=generic -mgeneral-regs-only   -I/local/repos/xen-upstream/xen/include -fno-stack-protector -fno-exceptions -fno-asynchronous-unwind-tables -Wnested-externs '-D__OBJECT_FILE__="cpufeature.o"'  -c cpufeature.c -o cpufeature.o
+{standard input}: Assembler messages:
+{standard input}:634: Error: unknown or missing system register name at operand 2 -- `mrs x1,ID_MMFR4_EL1'
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+If I remove the line:
+
+  c->mm32.bits[4]  = READ_SYSREG32(ID_MMFR4_EL1);
 
 
-Not pushing.
+it builds just fine
 
-(No revision log; it would be 696543 lines long.)
+
+
+> ---
+> Changes in V2:
+>   Fix dbg32 table size and add proper initialisation of the second entry
+>   of the table by reading ID_DFR1 register.
+> ---
+>  xen/arch/arm/cpufeature.c           | 17 ++++++++
+>  xen/include/asm-arm/arm64/sysregs.h | 25 ++++++++++++
+>  xen/include/asm-arm/cpregs.h        | 11 +++++
+>  xen/include/asm-arm/cpufeature.h    | 63 ++++++++++++++++++++++++-----
+>  4 files changed, 107 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index 44126dbf07..204be9b084 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -114,15 +114,20 @@ void identify_cpu(struct cpuinfo_arm *c)
+>  
+>          c->mm64.bits[0]  = READ_SYSREG64(ID_AA64MMFR0_EL1);
+>          c->mm64.bits[1]  = READ_SYSREG64(ID_AA64MMFR1_EL1);
+> +        c->mm64.bits[2]  = READ_SYSREG64(ID_AA64MMFR2_EL1);
+>  
+>          c->isa64.bits[0] = READ_SYSREG64(ID_AA64ISAR0_EL1);
+>          c->isa64.bits[1] = READ_SYSREG64(ID_AA64ISAR1_EL1);
+> +
+> +        c->zfr64.bits[0] = READ_SYSREG64(ID_AA64ZFR0_EL1);
+>  #endif
+>  
+>          c->pfr32.bits[0] = READ_SYSREG32(ID_PFR0_EL1);
+>          c->pfr32.bits[1] = READ_SYSREG32(ID_PFR1_EL1);
+> +        c->pfr32.bits[2] = READ_SYSREG32(ID_PFR2_EL1);
+>  
+>          c->dbg32.bits[0] = READ_SYSREG32(ID_DFR0_EL1);
+> +        c->dbg32.bits[1] = READ_SYSREG32(ID_DFR1_EL1);
+>  
+>          c->aux32.bits[0] = READ_SYSREG32(ID_AFR0_EL1);
+>  
+> @@ -130,6 +135,8 @@ void identify_cpu(struct cpuinfo_arm *c)
+>          c->mm32.bits[1]  = READ_SYSREG32(ID_MMFR1_EL1);
+>          c->mm32.bits[2]  = READ_SYSREG32(ID_MMFR2_EL1);
+>          c->mm32.bits[3]  = READ_SYSREG32(ID_MMFR3_EL1);
+> +        c->mm32.bits[4]  = READ_SYSREG32(ID_MMFR4_EL1);
+> +        c->mm32.bits[5]  = READ_SYSREG32(ID_MMFR5_EL1);
+>  
+>          c->isa32.bits[0] = READ_SYSREG32(ID_ISAR0_EL1);
+>          c->isa32.bits[1] = READ_SYSREG32(ID_ISAR1_EL1);
+> @@ -137,6 +144,16 @@ void identify_cpu(struct cpuinfo_arm *c)
+>          c->isa32.bits[3] = READ_SYSREG32(ID_ISAR3_EL1);
+>          c->isa32.bits[4] = READ_SYSREG32(ID_ISAR4_EL1);
+>          c->isa32.bits[5] = READ_SYSREG32(ID_ISAR5_EL1);
+> +        c->isa32.bits[6] = READ_SYSREG32(ID_ISAR6_EL1);
+> +
+> +#ifdef CONFIG_ARM_64
+> +        c->mvfr.bits[0] = READ_SYSREG64(MVFR0_EL1);
+> +        c->mvfr.bits[1] = READ_SYSREG64(MVFR1_EL1);
+> +        c->mvfr.bits[2] = READ_SYSREG64(MVFR2_EL1);
+> +#else
+> +        c->mvfr.bits[0] = READ_CP32(MVFR0);
+> +        c->mvfr.bits[1] = READ_CP32(MVFR1);
+> +#endif
+>  }
+>  
+>  /*
+> diff --git a/xen/include/asm-arm/arm64/sysregs.h b/xen/include/asm-arm/arm64/sysregs.h
+> index c60029d38f..5abbeda3fd 100644
+> --- a/xen/include/asm-arm/arm64/sysregs.h
+> +++ b/xen/include/asm-arm/arm64/sysregs.h
+> @@ -57,6 +57,31 @@
+>  #define ICH_AP1R2_EL2             __AP1Rx_EL2(2)
+>  #define ICH_AP1R3_EL2             __AP1Rx_EL2(3)
+>  
+> +/*
+> + * Define ID coprocessor registers if they are not
+> + * already defined by the compiler.
+> + *
+> + * Values picked from linux kernel
+> + */
+> +#ifndef ID_AA64MMFR2_EL1
+> +#define ID_AA64MMFR2_EL1            S3_0_C0_C7_2
+> +#endif
+> +#ifndef ID_PFR2_EL1
+> +#define ID_PFR2_EL1                 S3_0_C0_C3_4
+> +#endif
+> +#ifndef ID_MMFR5_EL1
+> +#define ID_MMFR5_EL1                S3_0_C0_C3_6
+> +#endif
+> +#ifndef ID_ISAR6_EL1
+> +#define ID_ISAR6_EL1                S3_0_C0_C2_7
+> +#endif
+> +#ifndef ID_AA64ZFR0_EL1
+> +#define ID_AA64ZFR0_EL1             S3_0_C0_C4_4
+> +#endif
+> +#ifndef ID_DFR1_EL1
+> +#define ID_DFR1_EL1                 S3_0_C0_C3_5
+> +#endif
+> +
+>  /* Access to system registers */
+>  
+>  #define READ_SYSREG32(name) ((uint32_t)READ_SYSREG64(name))
+> diff --git a/xen/include/asm-arm/cpregs.h b/xen/include/asm-arm/cpregs.h
+> index 8fd344146e..58be898891 100644
+> --- a/xen/include/asm-arm/cpregs.h
+> +++ b/xen/include/asm-arm/cpregs.h
+> @@ -63,6 +63,7 @@
+>  #define FPSID           p10,7,c0,c0,0   /* Floating-Point System ID Register */
+>  #define FPSCR           p10,7,c1,c0,0   /* Floating-Point Status and Control Register */
+>  #define MVFR0           p10,7,c7,c0,0   /* Media and VFP Feature Register 0 */
+> +#define MVFR1           p10,7,c6,c0,0   /* Media and VFP Feature Register 1 */
+>  #define FPEXC           p10,7,c8,c0,0   /* Floating-Point Exception Control Register */
+>  #define FPINST          p10,7,c9,c0,0   /* Floating-Point Instruction Register */
+>  #define FPINST2         p10,7,c10,c0,0  /* Floating-point Instruction Register 2 */
+> @@ -108,18 +109,23 @@
+>  #define MPIDR           p15,0,c0,c0,5   /* Multiprocessor Affinity Register */
+>  #define ID_PFR0         p15,0,c0,c1,0   /* Processor Feature Register 0 */
+>  #define ID_PFR1         p15,0,c0,c1,1   /* Processor Feature Register 1 */
+> +#define ID_PFR2         p15,0,c0,c3,4   /* Processor Feature Register 2 */
+>  #define ID_DFR0         p15,0,c0,c1,2   /* Debug Feature Register 0 */
+> +#define ID_DFR1         p15,0,c0,c3,5   /* Debug Feature Register 1 */
+>  #define ID_AFR0         p15,0,c0,c1,3   /* Auxiliary Feature Register 0 */
+>  #define ID_MMFR0        p15,0,c0,c1,4   /* Memory Model Feature Register 0 */
+>  #define ID_MMFR1        p15,0,c0,c1,5   /* Memory Model Feature Register 1 */
+>  #define ID_MMFR2        p15,0,c0,c1,6   /* Memory Model Feature Register 2 */
+>  #define ID_MMFR3        p15,0,c0,c1,7   /* Memory Model Feature Register 3 */
+> +#define ID_MMFR4        p15,0,c0,c2,6   /* Memory Model Feature Register 4 */
+> +#define ID_MMFR5        p15,0,c0,c3,6   /* Memory Model Feature Register 5 */
+>  #define ID_ISAR0        p15,0,c0,c2,0   /* ISA Feature Register 0 */
+>  #define ID_ISAR1        p15,0,c0,c2,1   /* ISA Feature Register 1 */
+>  #define ID_ISAR2        p15,0,c0,c2,2   /* ISA Feature Register 2 */
+>  #define ID_ISAR3        p15,0,c0,c2,3   /* ISA Feature Register 3 */
+>  #define ID_ISAR4        p15,0,c0,c2,4   /* ISA Feature Register 4 */
+>  #define ID_ISAR5        p15,0,c0,c2,5   /* ISA Feature Register 5 */
+> +#define ID_ISAR6        p15,0,c0,c2,7   /* ISA Feature Register 6 */
+>  #define CCSIDR          p15,1,c0,c0,0   /* Cache Size ID Registers */
+>  #define CLIDR           p15,1,c0,c0,1   /* Cache Level ID Register */
+>  #define CSSELR          p15,2,c0,c0,0   /* Cache Size Selection Register */
+> @@ -312,18 +318,23 @@
+>  #define HSTR_EL2                HSTR
+>  #define ID_AFR0_EL1             ID_AFR0
+>  #define ID_DFR0_EL1             ID_DFR0
+> +#define ID_DFR1_EL1             ID_DFR1
+>  #define ID_ISAR0_EL1            ID_ISAR0
+>  #define ID_ISAR1_EL1            ID_ISAR1
+>  #define ID_ISAR2_EL1            ID_ISAR2
+>  #define ID_ISAR3_EL1            ID_ISAR3
+>  #define ID_ISAR4_EL1            ID_ISAR4
+>  #define ID_ISAR5_EL1            ID_ISAR5
+> +#define ID_ISAR6_EL1            ID_ISAR6
+>  #define ID_MMFR0_EL1            ID_MMFR0
+>  #define ID_MMFR1_EL1            ID_MMFR1
+>  #define ID_MMFR2_EL1            ID_MMFR2
+>  #define ID_MMFR3_EL1            ID_MMFR3
+> +#define ID_MMFR4_EL1            ID_MMFR4
+> +#define ID_MMFR5_EL1            ID_MMFR5
+>  #define ID_PFR0_EL1             ID_PFR0
+>  #define ID_PFR1_EL1             ID_PFR1
+> +#define ID_PFR2_EL1             ID_PFR2
+>  #define IFSR32_EL2              IFSR
+>  #define MDCR_EL2                HDCR
+>  #define MIDR_EL1                MIDR
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index c7b5052992..64354c3f19 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -148,6 +148,7 @@ struct cpuinfo_arm {
+>      union {
+>          uint64_t bits[2];
+>          struct {
+> +            /* PFR0 */
+>              unsigned long el0:4;
+>              unsigned long el1:4;
+>              unsigned long el2:4;
+> @@ -155,9 +156,23 @@ struct cpuinfo_arm {
+>              unsigned long fp:4;   /* Floating Point */
+>              unsigned long simd:4; /* Advanced SIMD */
+>              unsigned long gic:4;  /* GIC support */
+> -            unsigned long __res0:28;
+> +            unsigned long ras:4;
+> +            unsigned long sve:4;
+> +            unsigned long sel2:4;
+> +            unsigned long mpam:4;
+> +            unsigned long amu:4;
+> +            unsigned long dit:4;
+> +            unsigned long __res0:4;
+>              unsigned long csv2:4;
+> -            unsigned long __res1:4;
+> +            unsigned long cvs3:4;
+> +
+> +            /* PFR1 */
+> +            unsigned long bt:4;
+> +            unsigned long ssbs:4;
+> +            unsigned long mte:4;
+> +            unsigned long ras_frac:4;
+> +            unsigned long mpam_frac:4;
+> +            unsigned long __res1:44;
+>          };
+>      } pfr64;
+>  
+> @@ -170,7 +185,7 @@ struct cpuinfo_arm {
+>      } aux64;
+>  
+>      union {
+> -        uint64_t bits[2];
+> +        uint64_t bits[3];
+>          struct {
+>              unsigned long pa_range:4;
+>              unsigned long asid_bits:4;
+> @@ -190,6 +205,8 @@ struct cpuinfo_arm {
+>              unsigned long pan:4;
+>              unsigned long __res1:8;
+>              unsigned long __res2:32;
+> +
+> +            unsigned long __res3:64;
+>          };
+>      } mm64;
+>  
+> @@ -197,6 +214,10 @@ struct cpuinfo_arm {
+>          uint64_t bits[2];
+>      } isa64;
+>  
+> +    struct {
+> +        uint64_t bits[1];
+> +    } zfr64;
+> +
+>  #endif
+>  
+>      /*
+> @@ -204,25 +225,38 @@ struct cpuinfo_arm {
+>       * when running in 32-bit mode.
+>       */
+>      union {
+> -        uint32_t bits[2];
+> +        uint32_t bits[3];
+>          struct {
+> +            /* PFR0 */
+>              unsigned long arm:4;
+>              unsigned long thumb:4;
+>              unsigned long jazelle:4;
+>              unsigned long thumbee:4;
+> -            unsigned long __res0:16;
+> +            unsigned long csv2:4;
+> +            unsigned long amu:4;
+> +            unsigned long dit:4;
+> +            unsigned long ras:4;
+>  
+> +            /* PFR1 */
+>              unsigned long progmodel:4;
+>              unsigned long security:4;
+>              unsigned long mprofile:4;
+>              unsigned long virt:4;
+>              unsigned long gentimer:4;
+> -            unsigned long __res1:12;
+> +            unsigned long sec_frac:4;
+> +            unsigned long virt_frac:4;
+> +            unsigned long gic:4;
+> +
+> +            /* PFR2 */
+> +            unsigned long csv3:4;
+> +            unsigned long ssbs:4;
+> +            unsigned long ras_frac:4;
+> +            unsigned long __res2:20;
+>          };
+>      } pfr32;
+>  
+>      struct {
+> -        uint32_t bits[1];
+> +        uint32_t bits[2];
+>      } dbg32;
+>  
+>      struct {
+> @@ -230,12 +264,23 @@ struct cpuinfo_arm {
+>      } aux32;
+>  
+>      struct {
+> -        uint32_t bits[4];
+> +        uint32_t bits[6];
+>      } mm32;
+>  
+>      struct {
+> -        uint32_t bits[6];
+> +        uint32_t bits[7];
+>      } isa32;
+> +
+> +#ifdef CONFIG_ARM_64
+> +    struct {
+> +        uint64_t bits[3];
+> +    } mvfr;
+> +#else
+> +    /* Only MVFR0 and MVFR1 exist on armv7 */
+> +    struct {
+> +        uint32_t bits[2];
+> +    } mvfr;
+> +#endif
+>  };
+>  
+>  extern struct cpuinfo_arm boot_cpu_data;
+> -- 
+> 2.17.1
+> 
 
