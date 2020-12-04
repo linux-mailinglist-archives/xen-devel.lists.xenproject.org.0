@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED072CECC1
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 12:09:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44410.79549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 324492CECC0
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 12:09:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44411.79561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl8xN-0006Q6-AH; Fri, 04 Dec 2020 11:08:57 +0000
+	id 1kl8xQ-0006RU-Nu; Fri, 04 Dec 2020 11:09:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44410.79549; Fri, 04 Dec 2020 11:08:57 +0000
+Received: by outflank-mailman (output) from mailman id 44411.79561; Fri, 04 Dec 2020 11:09:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl8xN-0006Pf-4q; Fri, 04 Dec 2020 11:08:57 +0000
-Received: by outflank-mailman (input) for mailman id 44410;
- Fri, 04 Dec 2020 11:08:54 +0000
+	id 1kl8xQ-0006Qw-J1; Fri, 04 Dec 2020 11:09:00 +0000
+Received: by outflank-mailman (input) for mailman id 44411;
+ Fri, 04 Dec 2020 11:08:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TCoV=FI=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1kl8xK-0006Pa-GA
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 11:08:54 +0000
-Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ov5/=FI=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kl8xP-0006Pa-Hv
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 11:08:59 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e819146b-636c-4bf6-bf38-840aa4604e32;
- Fri, 04 Dec 2020 11:08:53 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id E2F855C0116;
- Fri,  4 Dec 2020 06:08:52 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Fri, 04 Dec 2020 06:08:52 -0500
-Received: from mail-itl (unknown [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id C68AC240057;
- Fri,  4 Dec 2020 06:08:50 -0500 (EST)
+ id 96c48557-3014-4078-a48d-3e4800ea4c71;
+ Fri, 04 Dec 2020 11:08:58 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D5FECACA8;
+ Fri,  4 Dec 2020 11:08:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,228 +39,391 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e819146b-636c-4bf6-bf38-840aa4604e32
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=pE2wbx
-	tydrzwQsmeEJiqEhudgsi/298pIjDCfrCe31k=; b=RA2fCGRA+2UCP/UlmO0o6i
-	6KpC3gbmIoVy7pySCWRP9FrEZLpVXkx4S/LZLjyO9Ih2Bw1ZHZPRnxKMeExPUwwA
-	bbspdFpjfSZeMQyqhRJrFFbu7yNSGj/cYv2hCnCXmSNfTIDFR/4LgW2f36Onc0BZ
-	EQUD9nFpU8AJQI4QZe+uzfOBsr78rsq+RKBzMqNq1oe3RA2xbFBP4DE7u8SNoXaX
-	P96MILn+Ldl8lVHWhMjetOzQ3VkNoJzDIisTpuGWCG2b3xpA1xJMzzVAyb8sSj7b
-	DhmhHfry6VhTd1OWnctqxQF6orQhkpgsAhtw76jgKCN7zyMYos8T4dsnZ9Ncik3Q
-	==
-X-ME-Sender: <xms:wxjKX7aLi9mDY1DnK2m0WV8_t6q-Qu4gvHR-27MFbWQiHsRg1FEt6w>
-    <xme:wxjKX6YcruexLR9PhWmOIrNDpE8P6KIbmYFkJHyDAtDHW6c3J3997WxYPKZCvH3ZV
-    q6M1ZryFiwQZw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudeikedgvdefucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
-    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
-    durdeigedrudejtddrkeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
-    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
-    drtghomh
-X-ME-Proxy: <xmx:wxjKX9-uR2dIjUi9EXEAJGWujLIw7jFU_9x4qJt1kXkL3-CKECziuw>
-    <xmx:wxjKXxo7GT0NEcLK4IaXaF_rfslDyYrNOmSHGUIH9MIfvPbuCEt1iw>
-    <xmx:wxjKX2pKE_PXD3oDPpVwtWWdg015qxxEeXAz51zfB2ta1pXIxH36sQ>
-    <xmx:xBjKX_kXmOM-s69NFQAlxjPr0KM0eAOevxNE4SEtslw9Rxjno9lfnA>
-Date: Fri, 4 Dec 2020 12:08:47 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@fb.com>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	linux-nvme@lists.infradead.org
-Subject: Re: GPF on 0xdead000000000100 in nvme_map_data - Linux 5.9.9
-Message-ID: <20201204110847.GU201140@mail-itl>
-References: <20201129035639.GW2532@mail-itl>
- <20201130164010.GA23494@redsun51.ssa.fujisawa.hgst.com>
- <20201202000642.GJ201140@mail-itl>
+X-Inumbo-ID: 96c48557-3014-4078-a48d-3e4800ea4c71
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1607080138; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=84ResGlc+MxjQNmlNLcjLRxG7gWahDfMvrJUwuJlK3k=;
+	b=KbfwJmAi8Im+J0vWgJMDG/P/J2zxMI1eBTzFcXrYLXbVQwXF9zB1f5K1zRc71zTssfDPre
+	u9hBG3Da9xysVr6fX8Xz1pXdbqb+/HTVrYVN1UZVmCEkdpJLT3RyZk2Hl/K7L5uzMpI/zC
+	aFVnS+QeDsSD9KDwlE7WHK3orrMh2yY=
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <20201201082128.15239-1-jgross@suse.com>
+ <20201201082128.15239-16-jgross@suse.com>
+ <e14fa4a4-3a3e-ceac-af38-8561baf58aa8@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [PATCH v2 15/17] xen/cpupool: add cpupool directories
+Message-ID: <72e2300c-6367-5469-d7fd-767dd411dcb8@suse.com>
+Date: Fri, 4 Dec 2020 12:08:56 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
+In-Reply-To: <e14fa4a4-3a3e-ceac-af38-8561baf58aa8@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="lKkRBIzN5W0l28vM"
-Content-Disposition: inline
-In-Reply-To: <20201202000642.GJ201140@mail-itl>
+ protocol="application/pgp-signature";
+ boundary="EuENw2daS39mqXviIERXk4Mk2BkRTOegc"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--EuENw2daS39mqXviIERXk4Mk2BkRTOegc
+Content-Type: multipart/mixed; boundary="PNNEg4wEdAXvKcCwGwjUJj48DdcaVibf6";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>,
+ xen-devel@lists.xenproject.org
+Message-ID: <72e2300c-6367-5469-d7fd-767dd411dcb8@suse.com>
+Subject: Re: [PATCH v2 15/17] xen/cpupool: add cpupool directories
+References: <20201201082128.15239-1-jgross@suse.com>
+ <20201201082128.15239-16-jgross@suse.com>
+ <e14fa4a4-3a3e-ceac-af38-8561baf58aa8@suse.com>
+In-Reply-To: <e14fa4a4-3a3e-ceac-af38-8561baf58aa8@suse.com>
 
---lKkRBIzN5W0l28vM
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--PNNEg4wEdAXvKcCwGwjUJj48DdcaVibf6
+Content-Type: multipart/mixed;
+ boundary="------------AFB756D8916BB5F08C1BC606"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------AFB756D8916BB5F08C1BC606
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: GPF on 0xdead000000000100 in nvme_map_data - Linux 5.9.9
 
-On Wed, Dec 02, 2020 at 01:06:46AM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Tue, Dec 01, 2020 at 01:40:10AM +0900, Keith Busch wrote:
-> > On Sun, Nov 29, 2020 at 04:56:39AM +0100, Marek Marczykowski-G=C3=B3rec=
-ki wrote:
-> > > I can reliably hit kernel panic in nvme_map_data() which looks like t=
-he
-> > > one below. It happens on Linux 5.9.9, while 5.4.75 works fine. I have=
-n't
-> > > tried other version on this hardware. Linux is running as Xen
-> > > PV dom0, on top of nvme there is LUKS and then LVM with thin
-> > > provisioning. The crash happens reliably when starting a Xen domU (wh=
-ich
-> > > uses one of thin provisioned LVM volumes as its disk). But booting do=
-m0
-> > > works fine (even though it is using the same disk setup for its root
-> > > filesystem).
-> > >=20
-> > > I did a bit of debugging and found it's about this part:
-> > >=20
-> > > drivers/nvme/host/pci.c:
-> > >  800 static blk_status_t nvme_map_data(struct nvme_dev *dev, struct r=
-equest *req,
-> > >  801         struct nvme_command *cmnd)
-> > >  802 {
-> > >  803     struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
-> > >  804     blk_status_t ret =3D BLK_STS_RESOURCE;
-> > >  805     int nr_mapped;
-> > >  806=20
-> > >  807     if (blk_rq_nr_phys_segments(req) =3D=3D 1) {
-> > >  808         struct bio_vec bv =3D req_bvec(req);
-> > >  809=20
-> > >  810         if (!is_pci_p2pdma_page(bv.bv_page)) {
-> > >=20
-> > > Here, bv.bv_page->pgmap is LIST_POISON1, while page_zonenum(bv.bv_pag=
-e)
-> > > says ZONE_DEVICE. So, is_pci_p2pdma_page() crashes on accessing
-> > > bv.bv_page->pgmap->type.
-> >=20
-> > Something sounds off. I thought all ZONE_DEVICE pages require a pgmap
-> > because that's what holds a references to the device's live-ness. What
-> > are you allocating this memory from that makes ZONE_DEVICE true without
-> > a pgmap?
+On 04.12.20 10:10, Jan Beulich wrote:
+> On 01.12.2020 09:21, Juergen Gross wrote:
+>> @@ -1003,12 +1006,131 @@ static struct notifier_block cpu_nfb =3D {
+>>       .notifier_call =3D cpu_callback
+>>   };
+>>  =20
+>> +#ifdef CONFIG_HYPFS
+>> +static const struct hypfs_entry *cpupool_pooldir_enter(
+>> +    const struct hypfs_entry *entry);
+>> +
+>> +static struct hypfs_funcs cpupool_pooldir_funcs =3D {
 >=20
-> Well, I allocate anything myself. I just try to start the system with
-> unmodified Linux 5.9.9 and NVME drive...
-> I didn't managed to find where this page is allocated, nor where it gets
-> broken. I _suspect_ it gets allocated as ZONE_DEVICE page and then gets
-> released as ZONE_NORMAL which sets another part of the union to
-> LIST_POISON1. But I have absolutely no data to confirm/deny this theory.
+> Yet one more const missing?
 
-I've bisected this (thanks to a bit of scripting, PXE and git bisect
-run, it was long, but fairly painless) and identified this commit as the
-culprit:=20
+Already fixed locally.
 
-commit 9e2369c06c8a181478039258a4598c1ddd2cadfa
-Author: Roger Pau Monne <roger.pau@citrix.com>
-Date:   Tue Sep 1 10:33:26 2020 +0200
+>=20
+>> +    .enter =3D cpupool_pooldir_enter,
+>> +    .exit =3D hypfs_node_exit,
+>> +    .read =3D hypfs_read_dir,
+>> +    .write =3D hypfs_write_deny,
+>> +    .getsize =3D hypfs_getsize,
+>> +    .findentry =3D hypfs_dir_findentry,
+>> +};
+>> +
+>> +static HYPFS_VARDIR_INIT(cpupool_pooldir, "%u", &cpupool_pooldir_func=
+s);
+>> +
+>> +static const struct hypfs_entry *cpupool_pooldir_enter(
+>> +    const struct hypfs_entry *entry)
+>> +{
+>> +    return &cpupool_pooldir.e;
+>> +}
+>> +
+>> +static int cpupool_dir_read(const struct hypfs_entry *entry,
+>> +                            XEN_GUEST_HANDLE_PARAM(void) uaddr)
+>> +{
+>> +    int ret =3D 0;
+>> +    const struct cpupool *c;
+>> +    unsigned int size =3D 0;
+>> +
+>> +    list_for_each_entry(c, &cpupool_list, list)
+>> +    {
+>> +        size +=3D hypfs_dynid_entry_size(entry, c->cpupool_id);
+>=20
+> Why do you maintain size here? I can't spot any use.
 
-    xen: add helpers to allocate unpopulated memory
-   =20
-I'm adding relevant people and xen-devel to the thread.
-For completeness, here is the original crash message:
+Oh, indeed.
 
-general protection fault, probably for non-canonical address 0xdead00000000=
-0100: 0000 [#1] SMP NOPTI
-CPU: 1 PID: 134 Comm: kworker/u12:2 Not tainted 5.9.9-1.qubes.x86_64 #1
-Hardware name: LENOVO 20M9CTO1WW/20M9CTO1WW, BIOS N2CET50W (1.33 ) 01/15/20=
-20
-Workqueue: dm-thin do_worker [dm_thin_pool]
-RIP: e030:nvme_map_data+0x300/0x3a0 [nvme]
-Code: b8 fe ff ff e9 a8 fe ff ff 4c 8b 56 68 8b 5e 70 8b 76 74 49 8b 02 48 =
-c1 e8 33 83 e0 07 83 f8 04 0f 85 f2 fe ff ff 49 8b 42 08 <83> b8 d0 00 00 0=
-0 04 0f 85 e1 fe ff ff e9 38 fd ff ff 8b 55 70 be
-RSP: e02b:ffffc900010e7ad8 EFLAGS: 00010246
-RAX: dead000000000100 RBX: 0000000000001000 RCX: ffff8881a58f5000
-RDX: 0000000000001000 RSI: 0000000000000000 RDI: ffff8881a679e000
-RBP: ffff8881a5ef4c80 R08: ffff8881a5ef4c80 R09: 0000000000000002
-R10: ffffea0003dfff40 R11: 0000000000000008 R12: ffff8881a679e000
-R13: ffffc900010e7b20 R14: ffff8881a70b5980 R15: ffff8881a679e000
-FS:  0000000000000000(0000) GS:ffff8881b5440000(0000) knlGS:0000000000000000
-CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000001d64408 CR3: 00000001aa2c0000 CR4: 0000000000050660
-Call Trace:
- nvme_queue_rq+0xa7/0x1a0 [nvme]
- __blk_mq_try_issue_directly+0x11d/0x1e0
- ? add_wait_queue_exclusive+0x70/0x70
- blk_mq_try_issue_directly+0x35/0xc0l[
- blk_mq_submit_bio+0x58f/0x660
- __submit_bio_noacct+0x300/0x330
- process_shared_bio+0x126/0x1b0 [dm_thin_pool]
- process_cell+0x226/0x280 [dm_thin_pool]
- process_thin_deferred_cells+0x185/0x320 [dm_thin_pool]
- process_deferred_bios+0xa4/0x2a0 [dm_thin_pool]UX
- do_worker+0xcc/0x130 [dm_thin_pool]
- process_one_work+0x1b4/0x370
- worker_thread+0x4c/0x310
- ? process_one_work+0x370/0x370
- kthread+0x11b/0x140
- ? __kthread_bind_mask+0x60/0x60<
- ret_from_fork+0x22/0x30
-Modules linked in: loop snd_seq_dummy snd_hrtimer nf_tables nfnetlink vfat =
-fat snd_sof_pci snd_sof_intel_byt snd_sof_intel_ipc snd_sof_intel_hda_commo=
-n snd_soc_hdac_hda snd_sof_xtensa_dsp snd_sof_intel_hda snd_sof snd_soc_skl
-snd_soc_sst_
-ipc snd_soc_sst_dsp snd_hda_ext_core snd_soc_acpi_intel_match snd_soc_acpi =
-snd_soc_core snd_compress ac97_bus snd_pcm_dmaengine elan_i2c snd_hda_codec=
-_hdmi mei_hdcp iTCO_wdt intel_powerclamp intel_pmc_bxt ee1004 intel_rapl_msr
-iTCO_vendor
-_support joydev pcspkr intel_wmi_thunderbolt wmi_bmof thunderbolt ucsi_acpi=
- idma64 typec_ucsi snd_hda_codec_realtek typec snd_hda_codec_generic snd_hd=
-a_intel snd_intel_dspcfg snd_hda_codec thinkpad_acpi snd_hda_core ledtrig_a=
-udio
-int3403_
-thermal snd_hwdep snd_seq snd_seq_device snd_pcm iwlwifi snd_timer processo=
-r_thermal_device mei_me cfg80211 intel_rapl_common snd e1000e mei int3400_t=
-hermal int340x_thermal_zone i2c_i801 acpi_thermal_rel soundcore intel_soc_d=
-ts_iosf
-i2c_s
-mbus rfkill intel_pch_thermal xenfs
- ip_tables dm_thin_pool dm_persistent_data dm_bio_prison dm_crypt nouveau r=
-tsx_pci_sdmmc mmc_core mxm_wmi crct10dif_pclmul ttm crc32_pclmul crc32c_int=
-el i915 ghash_clmulni_intel i2c_algo_bit serio_raw nvme drm_kms_helper cec =
-xhci_pci
-nvme
-_core rtsx_pci xhci_pci_renesas drm xhci_hcd wmi video pinctrl_cannonlake p=
-inctrl_intel xen_privcmd xen_pciback xen_blkback xen_gntalloc xen_gntdev xe=
-n_evtchn uinput
----[ end trace f8d47e4aa6724df4 ]---
-RIP: e030:nvme_map_data+0x300/0x3a0 [nvme]
-Code: b8 fe ff ff e9 a8 fe ff ff 4c 8b 56 68 8b 5e 70 8b 76 74 49 8b 02 48 =
-c1 e8 33 83 e0 07 83 f8 04 0f 85 f2 fe ff ff 49 8b 42 08 <83> b8 d0 00 00 0=
-0 04 0f 85 e1 fe ff ff e9 38 fd ff ff 8b 55 70 be
-RSP: e02b:ffffc900010e7ad8 EFLAGS: 00010246
-RAX: dead000000000100 RBX: 0000000000001000 RCX: ffff8881a58f5000
-RDX: 0000000000001000 RSI: 0000000000000000 RDI: ffff8881a679e000
-RBP: ffff8881a5ef4c80 R08: ffff8881a5ef4c80 R09: 0000000000000002
-R10: ffffea0003dfff40 R11: 0000000000000008 R12: ffff8881a679e000
-R13: ffffc900010e7b20 R14: ffff8881a70b5980 R15: ffff8881a679e000
-FS:  0000000000000000(0000) GS:ffff8881b5440000(0000) knlGS:0000000000000000
-CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000001d64408 CR3: 00000001aa2c0000 CR4: 0000000000050660
-Kernel panic - not syncing: Fatal exception
-Kernel Offset: disabled
+This is a remnant of an earlier variant.
+
+>=20
+> With this dropped the function then no longer depends on its
+> "entry" parameter, which makes me wonder ...
+>=20
+>> +        ret =3D hypfs_read_dyndir_id_entry(&cpupool_pooldir, c->cpupo=
+ol_id,
+>> +                                         list_is_last(&c->list, &cpup=
+ool_list),
+>> +                                         &uaddr);
+>> +        if ( ret )
+>> +            break;
+>> +    }
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +static unsigned int cpupool_dir_getsize(const struct hypfs_entry *ent=
+ry)
+>> +{
+>> +    const struct cpupool *c;
+>> +    unsigned int size =3D 0;
+>> +
+>> +    list_for_each_entry(c, &cpupool_list, list)
+>> +        size +=3D hypfs_dynid_entry_size(entry, c->cpupool_id);
+>=20
+> ... why this one does. To be certain their results are consistent
+> with one another, I think both should produce their results from
+> the same data.
+
+In the end they do. Creating a complete direntry just for obtaining its
+size is overkill, especially as hypfs_read_dyndir_id_entry() is not
+directly calculating the size, but copying the fixed and the variable
+parts in two portions.
+
+>=20
+>> +    return size;
+>> +}
+>> +
+>> +static const struct hypfs_entry *cpupool_dir_enter(
+>> +    const struct hypfs_entry *entry)
+>> +{
+>> +    struct hypfs_dyndir_id *data;
+>> +
+>> +    data =3D hypfs_alloc_dyndata(sizeof(*data));
+>=20
+> I generally like the added type safety of the macro wrappers
+> around _xmalloc(). I wonder if it wouldn't be a good idea to have
+> such here as well, to avoid random mistakes like
+>=20
+>      data =3D hypfs_alloc_dyndata(sizeof(data));
+
+Fine with me.
+
+>=20
+> However I further notice that the struct allocated isn't cpupool
+> specific at all. It would seem to me that such an allocation
+> therefore doesn't belong here. Therefore I wonder whether ...
+>=20
+>> +    if ( !data )
+>> +        return ERR_PTR(-ENOMEM);
+>> +    data->id =3D CPUPOOLID_NONE;
+>> +
+>> +    spin_lock(&cpupool_lock);
+>=20
+> ... these two properties (initial ID and lock) shouldn't e.g. be
+> communicated via the template, allowing the enter/exit hooks to
+> become generic for all ID templates.
+
+The problem with the lock is that it is rather user specific. For
+domains this will be split (rcu_read_lock(&domlist_read_lock) for
+the /domain directory, and get_domain() for the per-domain level).
+
+And memory allocation might need other data as well, so this won't
+be the same structure for all cases. A two level dynamic directory
+(e.g. domain/vcpu) might want to allocate the needed dyndata for
+both levels already when entering /domain.
+
+>=20
+> Yet in turn I notice that the "id" field only ever gets set, both
+> in patch 14 and here. But yes, I've now spotted the consumers in
+> patch 16.
+>=20
+>> +    return entry;
+>> +}
+>> +
+>> +static void cpupool_dir_exit(const struct hypfs_entry *entry)
+>> +{
+>> +    spin_unlock(&cpupool_lock);
+>> +
+>> +    hypfs_free_dyndata();
+>> +}
+>> +
+>> +static struct hypfs_entry *cpupool_dir_findentry(
+>> +    const struct hypfs_entry_dir *dir, const char *name, unsigned int=
+ name_len)
+>> +{
+>> +    unsigned long id;
+>> +    const char *end;
+>> +    const struct cpupool *cpupool;
+>> +
+>> +    id =3D simple_strtoul(name, &end, 10);
+>> +    if ( end !=3D name + name_len )
+>> +        return ERR_PTR(-ENOENT);
+>> +
+>> +    cpupool =3D __cpupool_find_by_id(id, true);
+>=20
+> Silent truncation from unsigned long to unsigned int?
+
+Oh, indeed. Need to check against UINT_MAX.
+
+>=20
+>> +    if ( !cpupool )
+>> +        return ERR_PTR(-ENOENT);
+>> +
+>> +    return hypfs_gen_dyndir_entry_id(&cpupool_pooldir, id);
+>> +}
+>> +
+>> +static struct hypfs_funcs cpupool_dir_funcs =3D {
+>=20
+> Yet another missing const?
+
+Already fixed.
+
+>=20
+>> +    .enter =3D cpupool_dir_enter,
+>> +    .exit =3D cpupool_dir_exit,
+>> +    .read =3D cpupool_dir_read,
+>> +    .write =3D hypfs_write_deny,
+>> +    .getsize =3D cpupool_dir_getsize,
+>> +    .findentry =3D cpupool_dir_findentry,
+>> +};
+>> +
+>> +static HYPFS_VARDIR_INIT(cpupool_dir, "cpupool", &cpupool_dir_funcs);=
+
+>=20
+> Why VARDIR? This isn't a template, is it? Or does VARDIR really
+> serve multiple purposes?
+
+Basically it just takes an additional parameter for the function vector.
+Maybe I should rename it to HYPFS_DIR_INIT_FUNC()?
+
+>=20
+>> +static void cpupool_hypfs_init(void)
+>> +{
+>> +    hypfs_add_dir(&hypfs_root, &cpupool_dir, true);
+>> +    hypfs_add_dyndir(&cpupool_dir, &cpupool_pooldir);
+>> +}
+>> +#else
+>> +
+>> +static void cpupool_hypfs_init(void)
+>> +{
+>> +}
+>> +#endif
+>=20
+> I think you want to be consistent with the use of blank lines next
+> to #if / #else / #endif. In cases when they enclose multiple entities,
+> I think it's generally better to have intervening blank lines
+> everywhere. I also think in such cases commenting #else and #endif is
+> helpful. But you're the maintainer of this code ...
+
+I think I'll change it.
 
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+Juergen
 
---lKkRBIzN5W0l28vM
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------AFB756D8916BB5F08C1BC606
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------AFB756D8916BB5F08C1BC606--
+
+--PNNEg4wEdAXvKcCwGwjUJj48DdcaVibf6--
+
+--EuENw2daS39mqXviIERXk4Mk2BkRTOegc
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl/KGMAACgkQ24/THMrX
-1yyq/wf+Oj7E49JnpUC4yd/NdOWLI89rsYqR6UvBjYlR8QUh+FtVBoPdtfKKGm+A
-Btb4LYgmHqT2oO9y86ZugGpP+MQbjIBva5MpR3TrbVsK4GZGaPKBQjkssRMnXBug
-rvdNZEGUaylOJry8DzGiYo3/5kGzXhM7HNhNuvdkbGvwKdsQLbM6NBr3kOMbzktH
-mquqn3uiLD1Inn6+8UtO2NPo0U5RSS1/h/ac/3v0/1ZXQh5ryW65e+y+WJuaKgdT
-Nt5Scuz1FziTMxCeGp3E+sW1PHkS405VFL/XBntzD2A21HiJFtyMwlJZRbzD/Sw6
-tQfHwvC25Bi6hxCe8p0N6gyUUxkRbQ==
-=tfVN
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/KGMgFAwAAAAAACgkQsN6d1ii/Ey/F
+0Af+IM5LPMZiEtpZAzwLT4o0m0CPErJkmADKNFqO6rh93GkEa7lu+LZ+pcRk1W+5so76CuAQM8uY
+extKPqNUUpxRaZ+aIHfrwqCxwOI7mRtQPJZZvnuAS7N9nsw3TVJIYCNuJ7JIP3vbIMJFnMNMymGw
+KrAC5MIJ19JisUGHBeqzvl8p+CrB0H6jznxLGs6mWM0GblzJMsv9e4G5L4u8as9WD0NyCaqP6Ud3
+uZCyWw4z9F8Jc7OZHfSdhMoPDj4Z1noHR+70RXIt6N6q9MIdvZf1zwwNb7zyeKFHUflWYNaA1JTy
+JQ9n2aKJQKKZ+jibh5AD2+Ov8y+9buD80Q9/l5y9RQ==
+=VnYv
 -----END PGP SIGNATURE-----
 
---lKkRBIzN5W0l28vM--
+--EuENw2daS39mqXviIERXk4Mk2BkRTOegc--
 
