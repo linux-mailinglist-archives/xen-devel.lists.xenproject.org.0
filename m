@@ -2,42 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 214B12CF41C
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 19:34:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.45018.80490 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDECB2CF499
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 20:16:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.45028.80508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klFts-0002m3-6j; Fri, 04 Dec 2020 18:33:48 +0000
+	id 1klGYS-00073T-BH; Fri, 04 Dec 2020 19:15:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 45018.80490; Fri, 04 Dec 2020 18:33:48 +0000
+Received: by outflank-mailman (output) from mailman id 45028.80508; Fri, 04 Dec 2020 19:15:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klFts-0002le-2n; Fri, 04 Dec 2020 18:33:48 +0000
-Received: by outflank-mailman (input) for mailman id 45018;
- Fri, 04 Dec 2020 18:33:46 +0000
+	id 1klGYS-000737-7u; Fri, 04 Dec 2020 19:15:44 +0000
+Received: by outflank-mailman (input) for mailman id 45028;
+ Fri, 04 Dec 2020 19:15:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Kc/5=FI=amazon.co.uk=prvs=6003cbb93=pdurrant@srs-us1.protection.inumbo.net>)
- id 1klFtq-0002lZ-H9
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 18:33:46 +0000
-Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
+ <SRS0=VOLy=FI=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+ id 1klGYQ-000732-EK
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 19:15:42 +0000
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6198d457-bf0f-4862-8914-c5112ad2a167;
- Fri, 04 Dec 2020 18:33:45 +0000 (UTC)
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-1d-74cf8b49.us-east-1.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
- 04 Dec 2020 18:33:39 +0000
-Received: from EX13D03EUC002.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
- by email-inbound-relay-1d-74cf8b49.us-east-1.amazon.com (Postfix) with ESMTPS
- id 80E28C05B9; Fri,  4 Dec 2020 18:33:35 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D03EUC002.ant.amazon.com (10.43.164.60) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 4 Dec 2020 18:33:34 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Fri, 4 Dec 2020 18:33:34 +0000
+ id 7a54f2da-c03e-4546-b076-9921267ff6a5;
+ Fri, 04 Dec 2020 19:15:41 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id u12so6401116wrt.0
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Dec 2020 11:15:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,97 +35,113 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6198d457-bf0f-4862-8914-c5112ad2a167
+X-Inumbo-ID: 7a54f2da-c03e-4546-b076-9921267ff6a5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1607106825; x=1638642825;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version:subject;
-  bh=nTlTxptuem5odOY+jcWjS5Pof00CGGujTgfBoho2voo=;
-  b=HufR3j87fRE9mNMF2tnARK72q9LoYqWEQncqUJk0Crc2Gn0fnAD9Qm1v
-   ngc3uw+Of41RSEbutKqgzOTevuQQvdrDlCuO1EMTPLCUkDh5F21gySmQX
-   yrkRM5ohXELHDbkOf/M62X/WG9C3/aDz2OXzAfUiF2sVNyXSb13HqkkFH
-   U=;
-X-IronPort-AV: E=Sophos;i="5.78,393,1599523200"; 
-   d="scan'208";a="67403274"
-Subject: RE: [PATCH v5 1/4] domctl: introduce a new domain create flag,
- XEN_DOMCTL_CDF_evtchn_fifo, ...
-Thread-Topic: [PATCH v5 1/4] domctl: introduce a new domain create flag,
- XEN_DOMCTL_CDF_evtchn_fifo, ...
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>,
-	"paul@xen.org" <paul@xen.org>, "Elnikety, Eslam" <elnikety@amazon.com>, "'Ian
- Jackson'" <iwj@xenproject.org>, 'Wei Liu' <wl@xen.org>, 'Anthony PERARD'
-	<anthony.perard@citrix.com>, 'George Dunlap' <george.dunlap@citrix.com>,
-	'Christian Lindig' <christian.lindig@citrix.com>, 'David Scott'
-	<dave@recoil.org>, 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
-	=?utf-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Thread-Index: AQJzrCHAX/gquRkO4g65wfjgQBytUAJ7xs67Aj6rtzSoheWkIIAACFOAgAATywCAAPdoAIAACFeAgAAWa4CAACI7AIAAAc2AgABhdgCAAAEeAIAADUEw
-Date: Fri, 4 Dec 2020 18:33:34 +0000
-Message-ID: <19beb5b5a651415c83dfbdaa533e7bed@EX13D32EUC003.ant.amazon.com>
-References: <20201203124159.3688-1-paul@xen.org>
- <20201203124159.3688-2-paul@xen.org>
- <fea91a65-1d7c-cd46-81a2-9a6bcb690ed1@suse.com>
- <00ee01d6c98b$507af1c0$f170d540$@xen.org>
- <8a4a2027-0df3-aee2-537a-3d2814b329ec@suse.com>
- <00f601d6c996$ce3908d0$6aab1a70$@xen.org>
- <946280c7-c7f7-c760-c0d3-db91e6cde68a@suse.com>
- <011201d6ca16$ae14ac50$0a3e04f0$@xen.org>
- <4fb9fb4c-5849-25f1-ff72-ba3a046d3fd8@suse.com>
- <df1df316-9512-7b0c-fde1-aa4fc60ac70b@xen.org>
- <5de9f051-4071-4e09-528c-c1fb8345dc25@citrix.com>
- <alpine.DEB.2.21.2012040940160.32240@sstabellini-ThinkPad-T480s>
- <7184a2de-f711-9683-3db6-7b880def022d@citrix.com>
-In-Reply-To: <7184a2de-f711-9683-3db6-7b880def022d@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.164.90]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=BInFkaBTq7RoiD4QqVvt4DOGstC1qQ0b1UfsOmig1cs=;
+        b=LdvavkxtQ5JGuVRfBnEdHRXwjjLu43bygmUViNH2uAv46JPpp2MdcwBgal6IZkxWlN
+         mpb9UMFMltpXzM5991itulvqZWi4Vamlx1hy5nS5gp930Nv5zi4FywOAQRyv4OPE6t/9
+         WP8uXpZPX9o/PKaPi4QN9fa/pTMf+4sESbe6MYqZeaARqAFvP911KbGwIll9cJqmRc8t
+         pP33aELd/4zgOGi2i95uu8+KpPAm/4KL8lpp+aiXihfjh4kRbYcan8Yp27F/3F7OIH7I
+         oB4HRVJnPG+RFMONdHGtFhR5BvXh9kJi9uH0/OnD733u1kp785PHz8J6FC7qGphXvd0n
+         QbYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=BInFkaBTq7RoiD4QqVvt4DOGstC1qQ0b1UfsOmig1cs=;
+        b=kyLFM00lcpmToRMLbqTm11UrAwu1eg45FLkPNFb+X1j2n2aC8/bJ0qoQbduQn7vzAU
+         oIQF6qjmjnC6vrDQ6MnpUYS9PEZN7UmGgXzGeJJvRwKS0bNNzZ02CoJId7CvwLMcFxLQ
+         4+59BZlfKklZcic6URX+7HQuO5xmBTrOkcwkzKib/wZV+WyVcwN3Jbf61qvqt6TE4KWj
+         eoGfkOLMhAtfWUoV6NYYFL6BrEotbmqXOXiKs7MASIcAnRHXiU+9O37O4JwUE1FnBs4t
+         OL5JskpWLt5XLHg4L9KzYvbP3FpzAbyd7GQJucoroy2Qo3VYA55UMCjoIZmm4HmHstFf
+         wCDg==
+X-Gm-Message-State: AOAM530+mIDcb0eLMMsLDPAfoKQ6ZrlOx94S9SAYcWgzLtIeEI1KO/U+
+	qDVTF8esxTfVTgIBrDv0nbevl9nI0cqK1CoeJYg=
+X-Google-Smtp-Source: ABdhPJxGfACeZ+AiB9ITaXrMsVNBAESh8C5YWoCwkr+X3R9NPqoG13ppIGczSR1/wGtsorDbnxUMavp4WNbcvB/d0fk=
+X-Received: by 2002:a5d:68ce:: with SMTP id p14mr3863673wrw.386.1607109340552;
+ Fri, 04 Dec 2020 11:15:40 -0800 (PST)
 MIME-Version: 1.0
-Precedence: Bulk
+References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
+ <d821c715-966a-b48b-a877-c5dac36822f0@suse.com> <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
+ <7a768bcd-80c1-d193-8796-7fb6720fa22a@suse.com> <1a8250f5-ea49-ac3a-e992-be7ec40deba9@xen.org>
+ <CABfawhkQcUD4f62zpg0cyrdQgG82XtpYRZZ_-50hjagooT530A@mail.gmail.com> <5862eb24-d894-455a-13ac-61af54f949e7@xen.org>
+In-Reply-To: <5862eb24-d894-455a-13ac-61af54f949e7@xen.org>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Fri, 4 Dec 2020 14:15:05 -0500
+Message-ID: <CABfawhkWQiOhLL8f3NzoWbeuag-f+YOOK0i_LJzZq5Yvoh=oHQ@mail.gmail.com>
+Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
+ per-channel lock held
+To: Julien Grall <julien@xen.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Tamas K Lengyel <lengyelt@ainfosec.com>, 
+	Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>, Alexandru Isaila <aisaila@bitdefender.com>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbmRyZXcgQ29vcGVyIDxhbmRy
-ZXcuY29vcGVyM0BjaXRyaXguY29tPg0KPiBTZW50OiAwNCBEZWNlbWJlciAyMDIwIDE3OjQ1DQo+
-IFRvOiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+DQo+IENjOiBK
-dWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPjsgSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2Uu
-Y29tPjsgcGF1bEB4ZW4ub3JnOyBEdXJyYW50LCBQYXVsDQo+IDxwZHVycmFudEBhbWF6b24uY28u
-dWs+OyBFbG5pa2V0eSwgRXNsYW0gPGVsbmlrZXR5QGFtYXpvbi5jb20+OyAnSWFuIEphY2tzb24n
-IDxpd2pAeGVucHJvamVjdC5vcmc+Ow0KPiAnV2VpIExpdScgPHdsQHhlbi5vcmc+OyAnQW50aG9u
-eSBQRVJBUkQnIDxhbnRob255LnBlcmFyZEBjaXRyaXguY29tPjsgJ0dlb3JnZSBEdW5sYXAnDQo+
-IDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+OyAnQ2hyaXN0aWFuIExpbmRpZycgPGNocmlzdGlh
-bi5saW5kaWdAY2l0cml4LmNvbT47ICdEYXZpZCBTY290dCcNCj4gPGRhdmVAcmVjb2lsLm9yZz47
-ICdWb2xvZHlteXIgQmFiY2h1aycgPFZvbG9keW15cl9CYWJjaHVrQGVwYW0uY29tPjsgJ1JvZ2Vy
-IFBhdSBNb25uw6knDQo+IDxyb2dlci5wYXVAY2l0cml4LmNvbT47IHhlbi1kZXZlbEBsaXN0cy54
-ZW5wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBSRTogW0VYVEVSTkFMXSBbUEFUQ0ggdjUgMS80XSBk
-b21jdGw6IGludHJvZHVjZSBhIG5ldyBkb21haW4gY3JlYXRlIGZsYWcsDQo+IFhFTl9ET01DVExf
-Q0RGX2V2dGNobl9maWZvLCAuLi4NCj4gDQo+IENBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRl
-ZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9yZ2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9y
-IG9wZW4NCj4gYXR0YWNobWVudHMgdW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFu
-ZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuDQo+IA0KPiANCj4gDQo+IE9uIDA0LzEyLzIwMjAg
-MTc6NDEsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gPj4+IEZBT0QsIEkgYW0gc3VyZSB0
-aGVyZSBtaWdodCBiZSBvdGhlciBmZWF0dXJlcyB0aGF0IG5lZWQgdG8gYmUNCj4gPj4+IGRpc2Fi
-bGVkLiBCdXQgd2UgaGF2ZSB0byBzdGFydCBzb21ld2hlcmUgOikuDQo+ID4+IEFic29sdXRlbHkg
-dG9wIG9mIHRoZSBsaXN0LCBpbXBvcnRhbmNlIHdpc2UsIGlzIHNvIHdlIGNhbiB0ZXN0IGRpZmZl
-cmVudA0KPiA+PiBjb25maWd1cmF0aW9ucywgd2l0aG91dCBuZWVkaW5nIHRvIHJlYnVpbGQgdGhl
-IGh5cGVydmlzb3IgKGFuZCB0byBhDQo+ID4+IGxlc3NlciBleHRlbnQsIHdpdGhvdXQgaGF2aW5n
-IHRvIHJlYm9vdCkuDQo+ID4+DQo+ID4+IEl0IGlzIGEgbWlzdGFrZSB0aGF0IGV2ZW50cy9ncmFu
-dHMvZXRjIHdlcmUgZXZlciBhdmFpbGFibGUgdW5pbGF0ZXJhbGx5DQo+ID4+IGluIEhWTSBndWVz
-dHMuICBUaGlzIGlzIGRlZmluaXRlbHkgYSBzdGVwIGluIHRoZSByaWdodCBkaXJlY3Rpb24gKGJ1
-dCBJDQo+ID4+IHRob3VnaHQgaXQgd291bGQgYmUgdG9vIHJ1ZGUgdG8gYXNrIFBhdWwgdG8gbWFr
-ZSBhbGwgb2YgdGhvc2UgQ0RGIGZsYWdzDQo+ID4+IGF0IG9uY2UpLg0KPiA+ICsxDQo+ID4NCj4g
-PiBGb3IgRnVTYSB3ZSdsbCBuZWVkIHRvIGJlIGFibGUgdG8gZGlzYWJsZSB0aGVtIGF0IHNvbWUg
-cG9pbnQgc29vbi4NCj4gDQo+IEZXSVcsIEkgaGF2ZSBhIHByb3BlciBwbGFuIGZvciB0aGlzIHN0
-dWZmLCB3aGljaCBzdGFydCBhbG9uZ3NpZGUgdGhlDQo+IGZpeGVkIHRvb2xzdGFjayBBQkksIGFu
-ZCB3aWxsIGNvdmVyIGFsbCBhc3BlY3RzIG9mIG9wdGlvbmFsDQo+IGZ1bmN0aW9uYWxpdHkgaW4g
-YSBkb21haW4uDQo+IA0KDQpPSy4gQ2FuIHdlIGxpdmUgd2l0aCB0aGlzIHNlcmllcyBhcyBpdCBz
-dGFuZHMgdW50aWwgdGhhdCBwb2ludD8gVGhlcmUgaXMgc29tZSB1cmdlbmN5IHRvIGdldCBhdCBs
-ZWFzdCB0aGVzZSB0d28gdGhpbmdzIGZpeGVkLg0KDQogIFBhdWwNCg0KPiB+QW5kcmV3DQo=
+On Fri, Dec 4, 2020 at 10:29 AM Julien Grall <julien@xen.org> wrote:
+>
+>
+>
+> On 04/12/2020 15:21, Tamas K Lengyel wrote:
+> > On Fri, Dec 4, 2020 at 6:29 AM Julien Grall <julien@xen.org> wrote:
+> >>
+> >> Hi Jan,
+> >>
+> >> On 03/12/2020 10:09, Jan Beulich wrote:
+> >>> On 02.12.2020 22:10, Julien Grall wrote:
+> >>>> On 23/11/2020 13:30, Jan Beulich wrote:
+> >>>>> While there don't look to be any problems with this right now, the lock
+> >>>>> order implications from holding the lock can be very difficult to follow
+> >>>>> (and may be easy to violate unknowingly). The present callbacks don't
+> >>>>> (and no such callback should) have any need for the lock to be held.
+> >>>>>
+> >>>>> However, vm_event_disable() frees the structures used by respective
+> >>>>> callbacks and isn't otherwise synchronized with invocations of these
+> >>>>> callbacks, so maintain a count of in-progress calls, for evtchn_close()
+> >>>>> to wait to drop to zero before freeing the port (and dropping the lock).
+> >>>>
+> >>>> AFAICT, this callback is not the only place where the synchronization is
+> >>>> missing in the VM event code.
+> >>>>
+> >>>> For instance, vm_event_put_request() can also race against
+> >>>> vm_event_disable().
+> >>>>
+> >>>> So shouldn't we handle this issue properly in VM event?
+> >>>
+> >>> I suppose that's a question to the VM event folks rather than me?
+> >>
+> >> Yes. From my understanding of Tamas's e-mail, they are relying on the
+> >> monitoring software to do the right thing.
+> >>
+> >> I will refrain to comment on this approach. However, given the race is
+> >> much wider than the event channel, I would recommend to not add more
+> >> code in the event channel to deal with such problem.
+> >>
+> >> Instead, this should be fixed in the VM event code when someone has time
+> >> to harden the subsystem.
+> >
+> > I double-checked and the disable route is actually more robust, we
+> > don't just rely on the toolstack doing the right thing. The domain
+> > gets paused before any calls to vm_event_disable. So I don't think
+> > there is really a race-condition here.
+>
+> The code will *only* pause the monitored domain. I can see two issues:
+>     1) The toolstack is still sending event while destroy is happening.
+> This is the race discussed here.
+>     2) The implement of vm_event_put_request() suggests that it can be
+> called with not-current domain.
+>
+> I don't see how just pausing the monitored domain is enough here.
+
+Requests only get generated by the monitored domain. So if the domain
+is not running you won't get more of them. The toolstack can only send
+replies.
+
+Tamas
 
