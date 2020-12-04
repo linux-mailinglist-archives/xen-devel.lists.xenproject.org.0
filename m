@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30212CEC71
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 11:46:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44367.79500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23A602CEC75
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 11:48:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44373.79512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl8bT-0003rt-Km; Fri, 04 Dec 2020 10:46:19 +0000
+	id 1kl8cx-000404-W5; Fri, 04 Dec 2020 10:47:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44367.79500; Fri, 04 Dec 2020 10:46:19 +0000
+Received: by outflank-mailman (output) from mailman id 44373.79512; Fri, 04 Dec 2020 10:47:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl8bT-0003rY-HZ; Fri, 04 Dec 2020 10:46:19 +0000
-Received: by outflank-mailman (input) for mailman id 44367;
- Fri, 04 Dec 2020 10:46:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kl8cx-0003zi-T5; Fri, 04 Dec 2020 10:47:51 +0000
+Received: by outflank-mailman (input) for mailman id 44373;
+ Fri, 04 Dec 2020 10:47:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OO73=FI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kl8bS-0003rS-9x
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 10:46:18 +0000
-Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bdd3fa05-2d14-4d09-b8cf-eff83be0a826;
- Fri, 04 Dec 2020 10:46:17 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id f190so6646299wme.1
- for <xen-devel@lists.xenproject.org>; Fri, 04 Dec 2020 02:46:17 -0800 (PST)
+ id 1kl8cw-0003zb-Ig
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 10:47:50 +0000
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2c28f864-2c61-4c9a-b610-eb1e28479484;
+ Fri, 04 Dec 2020 10:47:49 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id r3so4860390wrt.2
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Dec 2020 02:47:49 -0800 (PST)
 Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id d8sm2560640wmb.11.2020.12.04.02.46.16
+ by smtp.gmail.com with ESMTPSA id u23sm2699076wmc.32.2020.12.04.02.47.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Dec 2020 02:46:16 -0800 (PST)
+ Fri, 04 Dec 2020 02:47:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +41,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdd3fa05-2d14-4d09-b8cf-eff83be0a826
+X-Inumbo-ID: 2c28f864-2c61-4c9a-b610-eb1e28479484
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=u6WCj7PXxa0WiaVvXHv6H3WzGC6ALrNUNnuUj/qDI0Y=;
-        b=Wg8KuVD1DLJytOfS6/Po3PFlYH7eCXHE4CS5UY7AR5q+e6eU+rmPblTJYimD6SbSVM
-         emQwO6GiWLESyKL87PXQo5bm5nctNgZgfcFnX5yRFG5PcX86asmIB1rdu0Gm4RLCxLep
-         /uSlBrcFCjm3kuyGtb8SQHX9y1f5Hgq8tFyzxQkz+rrxbkJ8Ui4Cu+QIGE9VXn7QQJ0M
-         ro4tLzccQ5ECryvuF6zlAJNwnh8rmI3aZ7am5MivSEj1naRdhuFFOwCaJls5IrDQ8cO5
-         uka90VFnBnT2+BfLKlpN9ihaGkPnKjF0/+RQfX6+S0ZFb3a6k+3V67qaq/RnVF2Im4Ta
-         LR8A==
-X-Gm-Message-State: AOAM533FNohLrcvBagIZ7CnQGyVUdtMHGTuu0dCT4H8lOKuRnbiA/8U8
-	WYlJti0HFslchC1erCIvZyc=
-X-Google-Smtp-Source: ABdhPJyy3eR0gDnAhX3C/HEH14SRnfUcMXfMIdcbSZhbM9HNGfwc60C52iBkI8/ic1dG8y9Z3i4LAg==
-X-Received: by 2002:a05:600c:242:: with SMTP id 2mr3540085wmj.144.1607078776876;
-        Fri, 04 Dec 2020 02:46:16 -0800 (PST)
-Date: Fri, 4 Dec 2020 10:46:14 +0000
+        bh=kuA/yQ4vyj1G+DxnjxkDCulQAGgM5Ed5CjhJHkroJBQ=;
+        b=SsOdunQ03Ev3RWuLCIkr8nniJiZ1S1vS8gca0mY5UEFh3WyeDS5j0rXphfcOs8tBos
+         FxnsQwPAFelhn6WYTjVHk0d+zSH6SDienOgqDfMdwZtuz3BiiSD0AdTq+DgbbKZQhwTr
+         mA7Y2jeb8tU14PJo9BaMo8P/1ikmnAOr0G+PTmdcnAZoS4SA4Rww2ukLz9vmYVtoRYg+
+         Fn5WC2adnL2epqniYnck1W8mcvwQY0k7X9PfTheNZpP11X8szGqXkPjHXBJXwtFbv57b
+         caixsTo95aUIBsUcm/EXYPYR7oOCxoi0/e70VubdvUgxUUNUO4ME13HM9P8w5WjinygB
+         YiWQ==
+X-Gm-Message-State: AOAM5322ir0sFEg4aQjaFbmdtQdj4fgyIzVtWY9Bx2EFxeSn06GAXEJd
+	gDNKhS74ECWjnQpchQzgc8U=
+X-Google-Smtp-Source: ABdhPJyDoCSpapC7Lo3EXfLV+9P/i+CHNVNN2n6OA6NRQMCGFghA0ou6ARfLrntyTiavL5aAFezIyQ==
+X-Received: by 2002:a5d:400a:: with SMTP id n10mr4232204wrp.362.1607078868865;
+        Fri, 04 Dec 2020 02:47:48 -0800 (PST)
+Date: Fri, 4 Dec 2020 10:47:47 +0000
 From: Wei Liu <wl@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	xen-devel@lists.xenproject.org,
-	Diederik de Haas <didi.debian@cknow.org>
-Subject: Re: [PATCH] Fix spelling errors.
-Message-ID: <20201204104614.s7wjirrxudrztoe4@liuwe-devbox-debian-v2>
-References: <a60e2c98183d7c873f4e306954f900614fcdb582.1606757711.git.didi.debian@cknow.org>
- <3702b443-fd7b-6000-a952-0ecec6fe318c@suse.com>
+To: paul@xen.org
+Cc: 'Jan Beulich' <jbeulich@suse.com>, 'Wei Liu' <wl@xen.org>,
+	'Paul Durrant' <pdurrant@amazon.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 00/11] viridian: add support for ExProcessorMasks
+Message-ID: <20201204104747.zh7qpxmlpzg6xl2n@liuwe-devbox-debian-v2>
+References: <20201202092205.906-1-paul@xen.org>
+ <fabc2720-3cbc-0b3f-1b09-23ec25189407@suse.com>
+ <011301d6ca17$1a3fb690$4ebf23b0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3702b443-fd7b-6000-a952-0ecec6fe318c@suse.com>
+In-Reply-To: <011301d6ca17$1a3fb690$4ebf23b0$@xen.org>
 User-Agent: NeoMutt/20180716
 
-On Wed, Dec 02, 2020 at 10:05:31AM +0100, Jan Beulich wrote:
-> On 30.11.2020 18:39, Diederik de Haas wrote:
-> > Only spelling errors; no functional changes.
+On Fri, Dec 04, 2020 at 08:26:01AM -0000, Paul Durrant wrote:
+> > -----Original Message-----
+> > From: Jan Beulich <jbeulich@suse.com>
+> > Sent: 04 December 2020 08:12
+> > To: Wei Liu <wl@xen.org>; Paul Durrant <paul@xen.org>
+> > Cc: Paul Durrant <pdurrant@amazon.com>; xen-devel@lists.xenproject.org
+> > Subject: Re: [PATCH v4 00/11] viridian: add support for ExProcessorMasks
 > > 
-> > In docs/misc/dump-core-format.txt there are a few more instances of
-> > 'informations'. I'll leave that up to someone who can properly determine
-> > how those sentences should be constructed.
+> > Wei,
 > > 
-> > Signed-off-by: Diederik de Haas <didi.debian@cknow.org>
+> > On 02.12.2020 10:21, Paul Durrant wrote:
+> > > From: Paul Durrant <pdurrant@amazon.com>
+> > >
+> > > Paul Durrant (11):
+> > >   viridian: don't blindly write to 32-bit registers is 'mode' is invalid
+> > >   viridian: move flush hypercall implementation into separate function
+> > >   viridian: move IPI hypercall implementation into separate function
+> > >   viridian: introduce a per-cpu hypercall_vpmask and accessor
+> > >     functions...
+> > >   viridian: use hypercall_vpmask in hvcall_ipi()
+> > >   viridian: use softirq batching in hvcall_ipi()
+> > >   viridian: add ExProcessorMasks variants of the flush hypercalls
+> > >   viridian: add ExProcessorMasks variant of the IPI hypercall
+> > >   viridian: log initial invocation of each type of hypercall
+> > >   viridian: add a new '_HVMPV_ex_processor_masks' bit into
+> > >     HVM_PARAM_VIRIDIAN...
+> > >   xl / libxl: add 'ex_processor_mask' into
+> > >     'libxl_viridian_enlightenment'
+> > >
+> > >  docs/man/xl.cfg.5.pod.in             |   8 +
+> > >  tools/include/libxl.h                |   7 +
+> > >  tools/libs/light/libxl_types.idl     |   1 +
+> > >  tools/libs/light/libxl_x86.c         |   3 +
+> > >  xen/arch/x86/hvm/viridian/viridian.c | 604 +++++++++++++++++++++------
+> > >  xen/include/asm-x86/hvm/viridian.h   |  10 +
+> > >  xen/include/public/hvm/params.h      |   7 +-
+> > >  7 files changed, 516 insertions(+), 124 deletions(-)
 > > 
-> > Please CC me in replies as I'm not subscribed to this list.
-> > ---
-> >  docs/man/xl.1.pod.in                   | 2 +-
-> >  docs/man/xl.cfg.5.pod.in               | 2 +-
-> >  docs/man/xlcpupool.cfg.5.pod           | 2 +-
-> >  tools/firmware/rombios/rombios.c       | 2 +-
-> >  tools/libs/light/libxl_stream_read.c   | 2 +-
-> >  tools/xl/xl_cmdtable.c                 | 2 +-
+> > the status of this series was one of the topics of yesterday's
+> > community call. Since Paul's prior ping hasn't had a response by
+> > you (possibly because you're on PTO for an extended period of
+> > time) the plan is to get this series in with as much of
+> > reviewing that I was able to do by, perhaps, the middle of next
+> > week. Unless of course we hear back from you earlier, giving at
+> > least an indication of when you might be able to look at this.
+> > 
+> > Thanks for your understanding.
+> > 
+> > Paul, I notice v4 patches 10 and 11 never arrived in my inbox.
 > 
-> Since these are trivial and obvious adjustments, I intend to not wait
-> very long for an xl/libxl side ack, before deciding to commit this.
-> Perhaps just another day or so.
-
-Please feel free to do this in the future for trivial changes like
-fixing typos in comments and manpages.
-
-Acked-by: Wei Liu <wl@xen.org>
-
+> Oh, yes... I don't see them in my mail either. (I guess I did 'git send-email 000*' instead of 'git send-email 00*'). I'll send v5 (with the extra style fix) and get them on list.
 > 
-> Jan
+> > The list archives also don't have them. Therefore I can't check
+> > the status of the tools side changes, and I don't think I'd
+> > want to commit those anyway without tool stack side acks, the
+> > more that they weren't part of what I've looked at.
+> > 
+> 
+> Sure. The toolstack side is pretty trivial so hopefully Anthony or Ian would happy to give an ack.
+
+You have my ack on that part too.
+
+Wei.
 
