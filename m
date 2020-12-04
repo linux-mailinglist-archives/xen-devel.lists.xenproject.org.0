@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4BC92CF1D1
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 17:25:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44943.80391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 306572CF1EA
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 17:30:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44950.80405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klDtY-0005IV-Jx; Fri, 04 Dec 2020 16:25:20 +0000
+	id 1klDxz-0005Vl-9Y; Fri, 04 Dec 2020 16:29:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44943.80391; Fri, 04 Dec 2020 16:25:20 +0000
+Received: by outflank-mailman (output) from mailman id 44950.80405; Fri, 04 Dec 2020 16:29:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klDtY-0005I6-GV; Fri, 04 Dec 2020 16:25:20 +0000
-Received: by outflank-mailman (input) for mailman id 44943;
- Fri, 04 Dec 2020 16:25:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1klDxz-0005VP-6F; Fri, 04 Dec 2020 16:29:55 +0000
+Received: by outflank-mailman (input) for mailman id 44950;
+ Fri, 04 Dec 2020 16:29:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6t4/=FI=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1klDtX-0005I1-42
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 16:25:19 +0000
+ id 1klDxx-0005VJ-Oo
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 16:29:53 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0d7b34b8-e71c-46b7-b9b8-76d04880ed6a;
- Fri, 04 Dec 2020 16:25:18 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9b67a80c-78cf-4d5d-841d-a0c0931c7e4c;
+ Fri, 04 Dec 2020 16:29:52 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 69512AC9A;
- Fri,  4 Dec 2020 16:25:17 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 837E9ACC1;
+ Fri,  4 Dec 2020 16:29:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,84 +39,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d7b34b8-e71c-46b7-b9b8-76d04880ed6a
+X-Inumbo-ID: 9b67a80c-78cf-4d5d-841d-a0c0931c7e4c
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607099117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1607099391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wCzY4tbIDpH0VVSO04WM5bndyi7WKIj6iiHn8DqcabU=;
-	b=tOgvqskCaj3dWuLFXRr/D9VhuuzltZTHsNskMEoPPZKrOM13thR+ng45ha2wkM/1pRUBpi
-	W6l9pepcYHAgg2312Y/csXigj1onHSVD4qJbRmhswbE+4BRtQ/IC4iyHQVY1Stm8J9iRBW
-	CCD+5fqt3NymCfcgzYA0aeXssnT8aLE=
-Message-ID: <967454f248c521e51b0a1be27b7d38fe243ce54e.camel@suse.com>
-Subject: Re: [PATCH v2 05/17] xen/cpupool: switch cpupool list to normal
- list interface
+	bh=SL3mwkZxHtAUx3sawZKWGup9Vk1PcbISsUT/Xs/r90c=;
+	b=JcUTC05PV1ie2Y2ULY9lG3A24V4VJcVjejvd2uV+LeflyvfUrk1XS9VyFs0VPcKpnIgaCP
+	v8769GqUr2FEgHfKyzCVUFzUfuU/HHYmkp2LR6H/Nwc0w6Y77HdYJ2RTaknLHJXmEHCUTf
+	oWvUVRoYjJYYeDIvLjvVQaSlkFkarD0=
+Message-ID: <53c1aa85b4421d90b14f4345fb5cdf77a514a877.camel@suse.com>
+Subject: Re: [PATCH v2 06/17] xen/cpupool: use ERR_PTR() for returning error
+ cause from cpupool_create()
 From: Dario Faggioli <dfaggioli@suse.com>
-To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Jan Beulich
-	 <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-Date: Fri, 04 Dec 2020 17:25:16 +0100
-In-Reply-To: <76e7d00f-b049-97fc-f9e2-ade76b10a93e@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>
+Date: Fri, 04 Dec 2020 17:29:50 +0100
+In-Reply-To: <20201201082128.15239-7-jgross@suse.com>
 References: <20201201082128.15239-1-jgross@suse.com>
-	 <20201201082128.15239-6-jgross@suse.com>
-	 <54301d8c-2d69-3206-6c42-d2638b7e7aa3@suse.com>
-	 <a812d9a9-a701-bb58-01bf-9375ad4feb50@suse.com>
-	 <fe0b6924122aa9dff2095403738f111750cc815a.camel@suse.com>
-	 <76e7d00f-b049-97fc-f9e2-ade76b10a93e@suse.com>
+	 <20201201082128.15239-7-jgross@suse.com>
 Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-tkkM7bhpV4NNs/gEUX5h"
+	protocol="application/pgp-signature"; boundary="=-GPWP1MuQ5tDtAxoJkZJ2"
 User-Agent: Evolution 3.38.2 (by Flathub.org) 
 MIME-Version: 1.0
 
 
---=-tkkM7bhpV4NNs/gEUX5h
+--=-GPWP1MuQ5tDtAxoJkZJ2
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2020-12-04 at 17:16 +0100, J=C3=BCrgen Gro=C3=9F wrote:
-> On 04.12.20 17:13, Dario Faggioli wrote:
-> >=20
-> >=20
-> > What I'd do is:
-> > =C2=A0 - add a comment here, explaining quickly exactly this fact, i.e.=
-,
-> > =C2=A0=C2=A0=C2=A0 that it's not that we've forgotten to deal with this=
- and it's
-> > all
-> > =C2=A0=C2=A0=C2=A0 on=C2=A0purpose. Actually, it can be either a commen=
-t here or it can
-> > be
-> > =C2=A0=C2=A0=C2=A0 mentioned in the changelog. I'm fine either way
-> > =C2=A0 - if we're concerned about someone doing:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for i=3D1...N { xl cpupool-create foo ba=
-r }
-> > =C2=A0=C2=A0=C2=A0 with N ending up being some giant number, e.g., by m=
-istake, I
-> > don't
-> > =C2=A0=C2=A0=C2=A0 think it's unreasonable to come up with an high enou=
-gh (but
-> > =C2=A0=C2=A0=C2=A0 certainly not in the billions!) MAX_CPUPOOLS, and st=
-op creating
-> > new
-> > =C2=A0=C2=A0=C2=A0 ones when we reach that level.
+On Tue, 2020-12-01 at 09:21 +0100, Juergen Gross wrote:
+> Instead of a pointer to an error variable as parameter just use
+> ERR_PTR() to return the cause of an error in cpupool_create().
 >=20
-> Do you agree that this could be another patch?
+Yes... And thanks!
+
+Happy to see more of this happening and more of the ad-hoc error
+handling going away.
+
+> This propagates to scheduler_alloc(), too.
 >=20
-Ah, yes, sorry, got carried away and forgot to mention that!
-
-Of course it should be in another patch... But indeed I should have
-stated that clearly.
-
-So, trying to do better this time round:
-- the comment can/should be added as part of this patch. But I'm
-  now much more=C2=A0convinced=C2=A0that a quick mention in the changelog
-  (still of this patch) is=C2=A0actually better;
-- any "solution" (Jan's or MAX_CPUPOOLS) should go in its own patch.
-
-> I'm not introducing that (theoretical) problem here.
->=20
-Indeed.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
 
 Regards
 --=20
@@ -126,28 +93,28 @@ SUSE Labs, SUSE https://www.suse.com/
 -------------------------------------------------------------------
 <<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
---=-tkkM7bhpV4NNs/gEUX5h
+--=-GPWP1MuQ5tDtAxoJkZJ2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl/KYuwACgkQFkJ4iaW4
-c+61yhAAiFAyIW7eZ3o7XapgC2t8iDJzOpKwvbOIfnpPXHqeIR6tOpJVxtPSL36E
-6RVNZ7DiilBizjF3aJ2WBKRsDpldfePBciUnDqcMkFLUDhqtDC/GBh2flSzB8twl
-PcfQB15sKhYAKkDN1UNad05CfVDT7jmuDZfB0iTOf78bHKS5YMPcOFUJweeCYUCe
-R47D8aIKqb+jdLg2rluKAt3gt+nmXesBUyGrV7DUMRoEd2ZuaCX8c++AXut0f7sd
-E4z+X1EOaqnzY8dQYRJeIXvl6ZJsDTFVR2hkIfBJnXfpo9nJ1i7xnWIn5tPvJDxp
-W6ihe8MUeRCcUN7CkxnH6exKQhoAjsKNOiynLPDbiY5IicvPgAUjHrY8srbgxZJ6
-BAElKkdZot4oGfi7+++vKhAQ9HWX6JU8fHw30PdJCZzr6vQ5B1SHEbCo5eD4cviF
-FgiHMjd6yTmEQgkE9uPIB/1P+LfEzvzjC065RnqDHD33PX7Oyjz92zUPYuTD72eu
-nA5NZr8k/daCDjkKGX/tvu2t4+Plt1g/+Hv2JiCBDgxdrXJXi9FbzCv1Zhnu+ibr
-PuoFSMUpnHOuDrMJiFCxcv3ohk0iNBW+Pp2YIvNZ0HL3xlcSHxVGsBSofR7Oz1lH
-DNafHI0kTp8zYCBumlj9MDYzcrpJao438fbTHzsmevRMG1uQ8bI=
-=hDDv
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl/KY/4ACgkQFkJ4iaW4
+c+5bDBAAq5/G7A3RbNQC4aZGOP10aor8sxDTEj17/+1ooAvQbU07DPQKIZhbGoT2
+hjI7qnMB8gBStILWaV0HpYNsRj28Xu1zXZDjrVgtwa7z82y8hc5Yqf14eMANmslE
+YxeVFhDlbZ+orUxz5JoCGNfOSZLP5Ak1OeG4dpK40KmunbToqiwHe55k3NGuTU5n
+NbznfjMdKrWnRcJJKcOQ629xge6Bkd98dx3M/Wv0JL3VNCsVx3xWY8P+DYAysKrZ
+hEy47z6oc9AGUCq4AnAisXwAIrfdHeL/VlwKteGb8i2iS0ZAxzc3q1ZeoNr8I0Mx
+kftWJ159E2E72yBquIfEMj9xB8fpBqDpqLx/uUyGeVF4O4nYO2WUcjUf9hAV9E41
+FI88xJga3HMp+Yse+VL2H5wQ3vJPmSsKLuv53C2bMD0vtuC678ZmnJYT9hSAidv4
+C7ggl66erCQwQVV9HFx1DIkkuNpZ1fK0xigTJbgQOzfAyjFgB7XSyEMhveh34MJZ
+zB8AIXERvwaVchj6pMkxOKEn1eQtUKJ1BRQRPv3PgrcVjxO9RJuqbgq0T6XvwoCo
+F+GcMJV5gdE5/4bMwwubkUjFJ35JlkzxInZuDSJ7ljiEdEk79fB+voEhYApXB8Oh
+nFH2Ffcaml7XVT5JXFyMGbcTMqGyzOxrUo1D+Jd8P2RpL6I8WME=
+=n+ut
 -----END PGP SIGNATURE-----
 
---=-tkkM7bhpV4NNs/gEUX5h--
+--=-GPWP1MuQ5tDtAxoJkZJ2--
 
 
