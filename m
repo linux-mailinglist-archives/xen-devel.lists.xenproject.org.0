@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416242CECFB
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 12:23:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44490.79717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27B722CECFC
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 12:23:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44496.79729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl9Ay-0001Si-Av; Fri, 04 Dec 2020 11:23:00 +0000
+	id 1kl9BX-0001cM-KQ; Fri, 04 Dec 2020 11:23:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44490.79717; Fri, 04 Dec 2020 11:23:00 +0000
+Received: by outflank-mailman (output) from mailman id 44496.79729; Fri, 04 Dec 2020 11:23:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl9Ay-0001SI-7c; Fri, 04 Dec 2020 11:23:00 +0000
-Received: by outflank-mailman (input) for mailman id 44490;
- Fri, 04 Dec 2020 11:22:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kl9BX-0001bw-Gy; Fri, 04 Dec 2020 11:23:35 +0000
+Received: by outflank-mailman (input) for mailman id 44496;
+ Fri, 04 Dec 2020 11:23:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OO73=FI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kl9Aw-0001S8-Ex
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 11:22:58 +0000
-Received: from mail-wr1-f65.google.com (unknown [209.85.221.65])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d57d0a01-2d98-4f5e-87a5-cc8549f81204;
- Fri, 04 Dec 2020 11:22:57 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id p8so4962017wrx.5
- for <xen-devel@lists.xenproject.org>; Fri, 04 Dec 2020 03:22:57 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id w15sm3149831wrp.52.2020.12.04.03.22.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Dec 2020 03:22:56 -0800 (PST)
+ <SRS0=2IQI=FI=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kl9BW-0001an-39
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 11:23:34 +0000
+Received: from mail-wr1-x430.google.com (unknown [2a00:1450:4864:20::430])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0d202927-992a-4633-b18a-f49904518993;
+ Fri, 04 Dec 2020 11:23:30 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id s8so4955346wrw.10
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Dec 2020 03:23:30 -0800 (PST)
+Received: from CBGR90WXYV0 (54-240-197-233.amazon.com. [54.240.197.233])
+ by smtp.gmail.com with ESMTPSA id d191sm2084311wmd.24.2020.12.04.03.23.28
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 04 Dec 2020 03:23:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,50 +41,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d57d0a01-2d98-4f5e-87a5-cc8549f81204
+X-Inumbo-ID: 0d202927-992a-4633-b18a-f49904518993
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:content-language
+         :thread-index;
+        bh=+bsmCiRUqBszY6GII2Goi0WykGJvS1wDctdpsN73wdk=;
+        b=lw2IuKlT699PrS58j5TPqQp5TD9DIEfCeXswImk36Xm0zia0IHJPC5GapO26PeNy2+
+         7z9r5eePIWpnjeXINN9MMWiAf5hCWz++vpnaxK3lwWojZR/5SMiDGttBgLOkgrz7Nlga
+         IDdNSeWtjnMZINPjuam6bj+hEhwBUJNBswNFRmhR6twg6XT7eJ2osi6kCZSa8KQX9Hzl
+         wyCvQsPPugQhpKsdTXq9vu7mv85Lb82Ag4DsznHOtpaz8Y/CcHi8oZKOuTSD05OtBCi9
+         z6ZVcGPsp2881Q5lnDZWZSMVW8lErg/10f5Fik4JDGHvnW6yunjiy27ryym4sqZfY/25
+         mSmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=/C1k3MYuUx3p+eH57DxvaQx/eTuPkAfziW3cYF7b8P8=;
-        b=EuYPVdfcZVHQ4gdsDd2SuNBWPRqxnboAmlBmanvUnutyMQOVtaD9ybL/APmZCHyt/M
-         rcQNQ4nXMrUoMeV2SG2E/l9DzkXutovsFaPI6+tYNmDebtLRa8/2gLT39dI9wxU0Wu4q
-         FeFrE1kJhPzfCbj3akfaEEJdknJ9hWuwAm21oAvegiAerdDOG8KzEDjZYoCAmpj4KUpl
-         KksbmSebJgibQePThWwjlhV7ATbAb4MWx9wXjyRBz2s/+AYyxYUx0ng8bo7X0p6r2OTN
-         PPw6D8lDVr7v92bmi2mpIZiuQyh9gYHQt813FCK3YPZKwyTTxszMm3Kep0vgFYicUqGf
-         yv/g==
-X-Gm-Message-State: AOAM533X1/LJ+uFQZYk1DHhPNUvnrTqP3GSX0aHLThOJvutIEnxjuul9
-	pHvgTJ1mMkNXKF9gUQAcipE=
-X-Google-Smtp-Source: ABdhPJxqmdNPve4AUlGSPQ1ru0WCIQrbGe051mC2cxWGHbTxd9ipy5194eamfvBhsV+O6C7MXzZb1w==
-X-Received: by 2002:a5d:570d:: with SMTP id a13mr4442508wrv.193.1607080976614;
-        Fri, 04 Dec 2020 03:22:56 -0800 (PST)
-Date: Fri, 4 Dec 2020 11:22:54 +0000
-From: Wei Liu <wl@xen.org>
-To: Paul Durrant <paul@xen.org>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <pdurrant@amazon.com>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v5 09/23] libxl: remove unnecessary check from
- libxl__device_pci_add()
-Message-ID: <20201204112254.fjdfb4esxrb3wiil@liuwe-devbox-debian-v2>
-References: <20201203142534.4017-1-paul@xen.org>
- <20201203142534.4017-10-paul@xen.org>
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :content-language:thread-index;
+        bh=+bsmCiRUqBszY6GII2Goi0WykGJvS1wDctdpsN73wdk=;
+        b=NDa6RR2wox7J0Kc4t0DASd74mWONdMy+ZlsYJeA8CnLqV+hqvhSjndoxYw49qzXbFY
+         IitSLh4CBPGZW8clHx6x5rBXzZ9Jgsi7lcVx08nLUxqixc6FdmxhnORWG0uX5qnIPpO9
+         2NgS5Ll/jKZaACmb6VfSqRiyVPJ8tqPCg8EBs2b3IdEDrX+i+XcX4QPmUX4fIywqiYk8
+         DkawN/CAPXmEJYqrYFx6bezPfk79CI4Vj+H6JiX0v1umIgzL+yuBTWJ0DZhdvA8FExBA
+         IbyB+omN4RSbwXN9DudB0lIoZPv4NHi2QTc75NvdenNM7VtO9P/1c56PmzJZqi6jI50m
+         CX8Q==
+X-Gm-Message-State: AOAM532c14AkQB8gCCqGIVb1GDOBDJK+uDZ/T96G6+dN42TkpixCCYwB
+	dVxhjfVbWiAQ0FRR8Hao1N0=
+X-Google-Smtp-Source: ABdhPJzBH9pBNAWMR2Q0bO5UJQYvQXuUaJSGufDVoOHvqtzxecm6dpQWLxWwaDeccedmPdDyZHB0hg==
+X-Received: by 2002:adf:ba91:: with SMTP id p17mr4396625wrg.328.1607081009796;
+        Fri, 04 Dec 2020 03:23:29 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Wei Liu'" <wl@xen.org>
+Cc: <xen-devel@lists.xenproject.org>,
+	"'Paul Durrant'" <pdurrant@amazon.com>,
+	"'Oleksandr Andrushchenko'" <oleksandr_andrushchenko@epam.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Anthony PERARD'" <anthony.perard@citrix.com>
+References: <20201203142534.4017-1-paul@xen.org> <20201203142534.4017-2-paul@xen.org> <20201204111326.5pxgqertdm3tk7y2@liuwe-devbox-debian-v2> <013d01d6ca2f$605fe7e0$211fb7a0$@xen.org> <20201204112141.wdwb54brb23x2bgs@liuwe-devbox-debian-v2>
+In-Reply-To: <20201204112141.wdwb54brb23x2bgs@liuwe-devbox-debian-v2>
+Subject: RE: [PATCH v5 01/23] xl / libxl: s/pcidev/pci and remove DEFINE_DEVICE_TYPE_STRUCT_X
+Date: Fri, 4 Dec 2020 11:23:28 -0000
+Message-ID: <014701d6ca2f$e414f260$ac3ed720$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201203142534.4017-10-paul@xen.org>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQLNnXLs2pPLw4H6lzH6w2mINWFu0wFb+WecAj+9ygIB0uemdAExrIbdp8QiUiA=
 
-On Thu, Dec 03, 2020 at 02:25:20PM +0000, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
+> -----Original Message-----
+> From: Wei Liu <wl@xen.org>
+> Sent: 04 December 2020 11:22
+> To: paul@xen.org
+> Cc: 'Wei Liu' <wl@xen.org>; xen-devel@lists.xenproject.org; 'Paul Durrant' <pdurrant@amazon.com>;
+> 'Oleksandr Andrushchenko' <oleksandr_andrushchenko@epam.com>; 'Ian Jackson' <iwj@xenproject.org>;
+> 'Anthony PERARD' <anthony.perard@citrix.com>
+> Subject: Re: [PATCH v5 01/23] xl / libxl: s/pcidev/pci and remove DEFINE_DEVICE_TYPE_STRUCT_X
 > 
-> The code currently checks explicitly whether the device is already assigned,
-> but this is actually unnecessary as assigned devices do not form part of
-> the list returned by libxl_device_pci_assignable_list() and hence the
-> libxl_pci_assignable() test would have already failed.
+> On Fri, Dec 04, 2020 at 11:19:47AM -0000, Paul Durrant wrote:
+> > > -----Original Message-----
+> > > From: Wei Liu <wl@xen.org>
+> > > Sent: 04 December 2020 11:13
+> > > To: Paul Durrant <paul@xen.org>
+> > > Cc: xen-devel@lists.xenproject.org; Paul Durrant <pdurrant@amazon.com>; Oleksandr Andrushchenko
+> > > <oleksandr_andrushchenko@epam.com>; Ian Jackson <iwj@xenproject.org>; Wei Liu <wl@xen.org>;
+> Anthony
+> > > PERARD <anthony.perard@citrix.com>
+> > > Subject: Re: [PATCH v5 01/23] xl / libxl: s/pcidev/pci and remove DEFINE_DEVICE_TYPE_STRUCT_X
+> > >
+> > > On Thu, Dec 03, 2020 at 02:25:12PM +0000, Paul Durrant wrote:
+> > > > From: Paul Durrant <pdurrant@amazon.com>
+> > > >
+> > > > The seemingly arbitrary use of 'pci' and 'pcidev' in the code in libxl_pci.c
+> > > > is confusing and also compromises use of some macros used for other device
+> > > > types. Indeed it seems that DEFINE_DEVICE_TYPE_STRUCT_X exists solely because
+> > > > of this duality.
+> > > >
+> > > > This patch purges use of 'pcidev' from the libxl code, allowing evaluation of
+> > > > DEFINE_DEVICE_TYPE_STRUCT_X to be replaced with DEFINE_DEVICE_TYPE_STRUCT,
+> > > > hence allowing removal of the former.
+> > > >
+> > > > For consistency the xl and libs/util code is also modified, but in this case
+> > > > it is purely cosmetic.
+> > > >
+> > > > NOTE: Some of the more gross formatting errors (such as lack of spaces after
+> > > >       keywords) that came into context have been fixed in libxl_pci.c.
+> > > >
+> > > > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> > > > Reviewed-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> > > > ---
+> > > > Cc: Ian Jackson <iwj@xenproject.org>
+> > > > Cc: Wei Liu <wl@xen.org>
+> > > > Cc: Anthony PERARD <anthony.perard@citrix.com>
+> > > >
+> > >
+> > > This is going to break libxl callers because the name "pcidev" is
+> > > visible from the public header.
+> > >
+> > > I agree this is confusing and inconsistent, but we didn't go extra
+> > > length to maintain the inconsistency for no reason.
+> > >
+> > > If you really want to change it, I won't stand in the way. In fact, I'm
+> > > all for consistency. I think the flag you added should help alleviate
+> > > the fallout.
+> >
+> > Yes, I thought that was the idea... we can make API changes if we add a flag. I could see about
+> adding shims to translate the names
+> > and keep the internal code clean.
 > 
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-> Reviewed-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Yes if you can add some internal shims to handle it that would be
+> great. Otherwise you will need to at least fix libvirt.
+> 
 
-Acked-by: Wei Liu <wl@xen.org>
+I think shims are safest. We don't know what other callers are lurking out there :-)
+
+  Paul
+
+> Wei.
+
 
