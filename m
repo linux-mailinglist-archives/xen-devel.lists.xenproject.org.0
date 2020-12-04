@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46F332CEAD3
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 10:27:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44271.79363 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5A802CEAEC
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 10:30:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44276.79375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl7Md-00030w-RH; Fri, 04 Dec 2020 09:26:55 +0000
+	id 1kl7Pg-0003ey-Cp; Fri, 04 Dec 2020 09:30:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44271.79363; Fri, 04 Dec 2020 09:26:55 +0000
+Received: by outflank-mailman (output) from mailman id 44276.79375; Fri, 04 Dec 2020 09:30:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl7Md-00030X-OB; Fri, 04 Dec 2020 09:26:55 +0000
-Received: by outflank-mailman (input) for mailman id 44271;
- Fri, 04 Dec 2020 09:26:54 +0000
+	id 1kl7Pg-0003cr-87; Fri, 04 Dec 2020 09:30:04 +0000
+Received: by outflank-mailman (input) for mailman id 44276;
+ Fri, 04 Dec 2020 09:30:02 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kl7Mc-00030S-8e
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 09:26:54 +0000
+ (envelope-from <julien@xen.org>) id 1kl7Pe-0003RM-UI
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 09:30:02 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kl7Mb-00054X-3e; Fri, 04 Dec 2020 09:26:53 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ id 1kl7Pd-00058p-UG; Fri, 04 Dec 2020 09:30:01 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kl7Ma-0001xR-RQ; Fri, 04 Dec 2020 09:26:52 +0000
+ id 1kl7Pd-00023o-NO; Fri, 04 Dec 2020 09:30:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,10 +42,11 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=VBQgBosC98HgPuxZ5XdIOh7Zj4Homg+IA64bM0PEdC0=; b=qxcOusCRdowinX/e2J5je7CbHn
-	lCdlwChg5fUQFEVRY/aVBGChnPc77Opo9zFA6dbmpYaw7zCcjgcagERs8rsR4RRCR3t+R8r0L8ssR
-	FJBC49hdDjilRPypugm/79jtMgi7GE3lQcVFn0KG1TzKoPBQxlTkhrQPPdhT7Q5RUpfw=;
-Subject: Re: [PATCH 1/2] include: don't use asm/page.h from common headers
+	bh=Pg2ajvPOv+TopAudDD1Tf0w/hz1nlX0P6LwqAjlW1Ng=; b=d+QMPl6syT1//l2wjZDHRw5apZ
+	2m4H5DSxEJ6LflcTySRxG4TyTO4mwicQv1ER0dphy+OyBWl6tPDGVJbfcW2kgh3qbNhrRfY1k36y4
+	LaTCPJiw1uSW1NPmhaVMbWgEytw853xJ0gEJkk6SirXSd1BQw4BtFvn4++i9ubpQCwg4=;
+Subject: Re: [PATCH 2/2] mm: split out mfn_t / gfn_t / pfn_t definitions and
+ helpers
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
@@ -53,122 +54,76 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Hongyan Xia <hx242@xen.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <75484377-160c-a529-1cfc-96de86cfc550@suse.com>
- <04276039-a5d0-fefd-260e-ffaa8272fd6a@suse.com>
- <a35fb176-e729-a542-4416-7040d6c80964@xen.org>
- <bdf294d9-e021-36d3-7e04-1c148e34701f@suse.com>
+ <fb4de786-7302-3336-dcb4-1a388bee34bc@suse.com>
+ <9c240acd-f3ef-6775-eb4b-6e3b14251e51@xen.org>
+ <320d042c-2e37-f5ef-ce2f-2d4c97901bae@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <56063ac8-f771-0269-62f5-8076ec714c96@xen.org>
-Date: Fri, 4 Dec 2020 09:26:50 +0000
+Message-ID: <3ef55770-70c3-f3d6-371b-79eb7a286466@xen.org>
+Date: Fri, 4 Dec 2020 09:29:59 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <bdf294d9-e021-36d3-7e04-1c148e34701f@suse.com>
+In-Reply-To: <320d042c-2e37-f5ef-ce2f-2d4c97901bae@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
 Hi Jan,
 
-On 03/12/2020 09:27, Jan Beulich wrote:
-> On 02.12.2020 18:14, Julien Grall wrote:
->> Hi Jan,
->>
->> On 02/12/2020 14:49, Jan Beulich wrote:
->>> Doing so limits what can be done in (in particular included by) this per-
->>> arch header. Abstract out page shift/size related #define-s, which is all
->>> the repsecitve headers care about. Extend the replacement / removal to
->>
->> s/repsecitve/respective/
->>
->>> some x86 headers as well; some others now need to include page.h (and
->>> they really should have before).
+On 03/12/2020 09:39, Jan Beulich wrote:
+> On 02.12.2020 18:35, Julien Grall wrote:
+>> On 02/12/2020 14:50, Jan Beulich wrote:
+>>> xen/mm.h has heavy dependencies, while in a number of cases only these
+>>> type definitions are needed. This separation then also allows pulling in
+>>> these definitions when including xen/mm.h would cause cyclic
+>>> dependencies.
 >>>
->>> Arm's VADDR_BITS gets restricted to 32-bit, as its current value is
->>> clearly wrong for 64-bit, but the constant also isn't used anywhere
->>> right now (i.e. the #define could also be dropped altogether).
->>
->> Whoops. Thankfully this is not used.
->>
+>>> Replace xen/mm.h inclusion where possible in include/xen/. (In
+>>> xen/iommu.h also take the opportunity and correct the few remaining
+>>> sorting issues.)
 >>>
->>> I wasn't sure about Arm's use of vaddr_t in PAGE_OFFSET(), and hence I
->>> kept it and provided a way to override the #define in the common header.
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> --- a/xen/arch/x86/acpi/power.c
+>>> +++ b/xen/arch/x86/acpi/power.c
+>>> @@ -10,7 +10,6 @@
+>>>     * Slimmed with Xen specific support.
+>>>     */
+>>>    
+>>> -#include <asm/io.h>
 >>
->> vaddr_t is defined to 32-bit for arm32 or 64-bit for arm64. So I think
->> it would be fine to use the generic PAGE_OFFSET() implementation.
+>> This seems to be unrelated of this work.
 > 
-> Will switch.
+> Well spotted, but the answer really is "yes and no". My first
+> attempt at fixing build issues from this and similar asm/io.h
+> inclusions was to remove such unnecessary ones. But this didn't
+> work out - I had to fix the header instead. If you think this
+> extra cleanup really does any harm here, I can drop it. But I'd
+> prefer to keep it.
+
+I am fine with keeping it here. Can you mention it in the commit message?
+
 > 
 >>> --- /dev/null
->>> +++ b/xen/include/asm-arm/page-shift.h
+>>> +++ b/xen/include/xen/frame-num.h
 >>
->> The name of the file looks a bit odd given that *_BITS are also defined
->> in it. So how about renaming to page-size.h?
+>> It would feel more natural to me if the file is named mm-types.h.
 > 
-> I was initially meaning to use that name, but these headers
-> specifically don't define any sizes - *_BITS are still shift
-> values, at least in a way. If the current name isn't liked, my
-> next best suggestion would then be page-bits.h.
-
-I would be happy with page-bits.h.
-
-> 
->>> @@ -0,0 +1,15 @@
->>> +#ifndef __ARM_PAGE_SHIFT_H__
->>> +#define __ARM_PAGE_SHIFT_H__
->>> +
->>> +#define PAGE_SHIFT              12
->>> +
->>> +#define PAGE_OFFSET(ptr)        ((vaddr_t)(ptr) & ~PAGE_MASK)
->>> +
->>> +#ifdef CONFIG_ARM_64
->>> +#define PADDR_BITS              48
->>
->> Shouldn't we define VADDR_BITS here?
-> 
-> See the description - it's unused anyway. I'm fine any of the three
-> possible ways:
-> 1) keep as is in v1
-> 2) drop altogether
-> 3) also #define for 64-bit (but then you need to tell me whether 64
->     is the right value to use, or what the correct one would be)
-
-I would go with 2).
-
-> 
->> But I wonder whether VADDR_BITS
->> should be defined as sizeof(vaddr_t) * 8.
->>
->> This would require to include asm/types.h.
-> 
-> Which I'd specifically like to avoid. Plus use of sizeof() also
-> precludes the use of respective #define-s in #if-s.
-
-Fair point!
-
->>> --- a/xen/include/asm-x86/desc.h
->>> +++ b/xen/include/asm-x86/desc.h
->>> @@ -1,6 +1,8 @@
->>>    #ifndef __ARCH_DESC_H
->>>    #define __ARCH_DESC_H
->>>    
->>> +#include <asm/page.h>
->>
->> May I ask why you are including <asm/page.h> and not <xen/page-size.h> here?
-> 
-> Because of
-> 
-> DECLARE_PER_CPU(l1_pgentry_t, gdt_l1e);
-> 
-> and
-> 
-> DECLARE_PER_CPU(l1_pgentry_t, compat_gdt_l1e);
-> 
-> at least (didn't check further).
-Thanks for the explanation!
-
-
-> Jan
-> 
+> Indeed I was first meaning to use this name (not the least
+> because I don't particularly like the one chosen, but I also
+> couldn't think of a better one). However, then things like
+> struct page_info would imo also belong there (more precisely in
+> asm/mm-types.h to be included from here), which is specifically
+> something I want to avoid. Yes, eventually we may (I'm inclined
+> to even say "will") want such a header, but I still want to
+> keep these even more fundamental types in a separate one.
+> Otherwise we'll again end up with files including mm-types.h
+> just because of needing e.g. gfn_t for a function declaration.
+> (Note that the same isn't the case for struct page_info, which
+> can simply be forward declared.)
+Thanks for the explanation. AFAICT, this file will mostly contain 
+typesafe for MM. So how about naming it to mm-typesafe.h? Or maybe 
+mm-frame.h?
 
 Cheers,
 
