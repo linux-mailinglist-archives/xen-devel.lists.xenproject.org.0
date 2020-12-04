@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C11F2CEB9F
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 11:03:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44308.79426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8FBF2CEBF9
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 11:16:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44316.79440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl7ul-0007YA-Th; Fri, 04 Dec 2020 10:02:11 +0000
+	id 1kl88O-0000He-4Q; Fri, 04 Dec 2020 10:16:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44308.79426; Fri, 04 Dec 2020 10:02:11 +0000
+Received: by outflank-mailman (output) from mailman id 44316.79440; Fri, 04 Dec 2020 10:16:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl7ul-0007Xl-QG; Fri, 04 Dec 2020 10:02:11 +0000
-Received: by outflank-mailman (input) for mailman id 44308;
- Fri, 04 Dec 2020 10:02:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kl88N-0000HC-Vc; Fri, 04 Dec 2020 10:16:15 +0000
+Received: by outflank-mailman (input) for mailman id 44316;
+ Fri, 04 Dec 2020 10:16:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=c9tS=FI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kl7uk-0007Xg-DJ
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 10:02:10 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2fb25cac-dc63-4e1c-909b-5931cc4c5452;
- Fri, 04 Dec 2020 10:02:09 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A9816AFB4;
- Fri,  4 Dec 2020 10:02:08 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kl88M-0000H4-17; Fri, 04 Dec 2020 10:16:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kl88L-0006JP-Om; Fri, 04 Dec 2020 10:16:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kl88L-0004WT-EM; Fri, 04 Dec 2020 10:16:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kl88L-0006P9-Dq; Fri, 04 Dec 2020 10:16:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,46 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fb25cac-dc63-4e1c-909b-5931cc4c5452
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607076128; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yWdjWukSl+2mN1AWCmKhG0bEjMooLyrm1HRLOc99GTs=;
-	b=T0cs8FczasGJrkUjdPIKLQ+aFXUAAtVp8jUmPvvmjDIA+0dV1NMZkslQPXoibrOQeqaiAS
-	OKsmzla9oCWQcrpfOu2r/j47uHWCf30vuDok1kbfvBsla6CUTLa/WUPCSntB9jHVRt9/sn
-	rwx8Ogwyf2zoOjNrjsN9Mhd7Xhn/rlU=
-Subject: Re: [PATCH] gnttab: don't allocate status frame tracking array when
- "gnttab=max_ver:1"
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <a484cc88-f41d-5d38-d098-4eda297569a1@suse.com>
- <bf921997-fc9a-b1b9-78d9-7a7f85fe4608@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6fb5dd40-d9b8-a3c6-9616-070d5fadb59b@suse.com>
-Date: Fri, 4 Dec 2020 11:02:09 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=CaBulPZ0qPCJG0jOesnN1fuY8DU5H8nu4AEhWgqfZ44=; b=N0LdBhgyyfjUgMMHHaZYxxu9CW
+	zKcWp4Weqtt5qB/M5M105x/TxHA0YKgEujfWAUYCZt90ycHueIqrqVDe+6uFM2DaPiHO94Auw7Kz6
+	Q29JVnvid7+p5uR7yQlYJEUqgTW6mLmzTGgtkoWhVYj1dLQABhxGo0UsPVX4QG2ckAbY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157200-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <bf921997-fc9a-b1b9-78d9-7a7f85fe4608@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 157200: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=be3755af37263833cb3b1c6b1f2ba219bdf97ec3
+X-Osstest-Versions-That:
+    xen=aec46884784c2494a30221da775d4ac2c43a4d42
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Dec 2020 10:16:13 +0000
 
-On 02.12.2020 19:31, Julien Grall wrote:
-> On 05/11/2020 15:55, Jan Beulich wrote:
->> This array can be large when many grant frames are permitted; avoid
->> allocating it when it's not going to be used anyway. 
-> 
-> Given there are not many users of grant-table v2, would it make sense to 
-> avoid allocating the array until the guest start using grant-table v2?
+flight 157200 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157200/
 
-Hmm, yes, seems possible. Let me give this a try.
+Failures :-/ but no regressions.
 
-Jan
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  be3755af37263833cb3b1c6b1f2ba219bdf97ec3
+baseline version:
+ xen                  aec46884784c2494a30221da775d4ac2c43a4d42
+
+Last test of basis   157163  2020-12-02 19:01:29 Z    1 days
+Testing same since   157200  2020-12-04 08:00:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Diederik de Haas <didi.debian@cknow.org>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   aec4688478..be3755af37  be3755af37263833cb3b1c6b1f2ba219bdf97ec3 -> smoke
 
