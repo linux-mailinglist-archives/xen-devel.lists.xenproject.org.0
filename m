@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFCBE2CF7B6
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Dec 2020 00:53:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.45116.80599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 469532CF7B7
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Dec 2020 00:54:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.45121.80611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klKtG-0002gU-LM; Fri, 04 Dec 2020 23:53:30 +0000
+	id 1klKu1-0002oA-Us; Fri, 04 Dec 2020 23:54:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 45116.80599; Fri, 04 Dec 2020 23:53:30 +0000
+Received: by outflank-mailman (output) from mailman id 45121.80611; Fri, 04 Dec 2020 23:54:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klKtG-0002g5-IB; Fri, 04 Dec 2020 23:53:30 +0000
-Received: by outflank-mailman (input) for mailman id 45116;
- Fri, 04 Dec 2020 23:53:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1klKu1-0002nk-Re; Fri, 04 Dec 2020 23:54:17 +0000
+Received: by outflank-mailman (input) for mailman id 45121;
+ Fri, 04 Dec 2020 23:54:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WR05=FI=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1klKtF-0002fz-9x
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 23:53:29 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6bebb1a3-9dd5-46f3-b3af-da086547ca40;
- Fri, 04 Dec 2020 23:53:28 +0000 (UTC)
+ <SRS0=gNFP=FI=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1klKu0-0002nb-8R
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 23:54:16 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 38e12b43-c637-48a7-b068-6383b2eff31a;
+ Fri, 04 Dec 2020 23:54:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,128 +35,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bebb1a3-9dd5-46f3-b3af-da086547ca40
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1607126008;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=XWm9eAAQQ9rWakVKjBaxzrEdqMCR0yQ24/rfWLPC13s=;
-  b=BE3QBf/vh/iqYT0607LXMGsKsNm0pyI9AfqtQQskknsq/j3voNfKX6ef
-   QRJG8+IC2JMkJ1xQM6qLKCMP3OoT4B0ovHPHXfqtDm0joZ7tuWNyWJzFa
-   tiz3sTVEQYRQNEZqtunQwbZdW25HA2flKYv9J1oxXjQ9zWsb6lj8dhdkR
-   Y=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: Kr6p4B4Tg8SnCWUjVp3uCMfjkdSA6hGWWNfrhsvm3O3kq78gY5qtrOauAvWXZx2RrNR/XsORq9
- Jr1Zw/Jh6wsdmjstdmLw2JktekReRxzMTbBy7Ura4Y6c0jrgcbJO+I+fJtlvNyPJkzmYoaT0mY
- +3YNPxj67OZpNUp2kzytiftDKvzVsnizq4Cwp78JNSSdgpXk03CshGQfLkgYXhe8xqCPQQp2Be
- Nz3uEh+UZcJWM5FH9kVcxCbC9iLXM5RMaRWaNo4sH5sjvNhZ40QcHdf8WcDXJRyqcCTGRQBRB2
- arA=
-X-SBRS: 5.1
-X-MesageID: 32816974
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,394,1599537600"; 
-   d="scan'208";a="32816974"
-Subject: Re: [PATCH v2 00/17] xen: support per-cpupool scheduling granularity
-To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Dario Faggioli
-	<dfaggioli@suse.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20201201082128.15239-1-jgross@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a12de6ea-584c-49ca-3a09-f94b65933a62@citrix.com>
-Date: Fri, 4 Dec 2020 23:53:21 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 38e12b43-c637-48a7-b068-6383b2eff31a
+Date: Fri, 4 Dec 2020 15:54:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1607126054;
+	bh=6qbAfoHGBHocQsedYQyTCKTMdHTb6QYUplQTl2cKNi4=;
+	h=From:To:cc:Subject:In-Reply-To:References:From;
+	b=ZhH4VYEGTnpZguj/9y6T2lOccw9QjMm06TdTOHsTHmDrxQo+p0eq9Xm71QCZZJm1y
+	 10cmg8nsvgjl+bW3wfY/Nw61SyRuC8GW2mVaYgk7+2qieZm8zz3PdWqW0L46CuBGQD
+	 3dGU6So6h+KnBefLTNihMZahQdS9+mBh2J9EZXOM0tyZkl7wo82zox8kXub5k40HHw
+	 cFCHKCoOFZyBlLUwBnk9c4dplxp1NZ0UUBTG6pOmHG6LCw47NOcqwmuSrdGAcBW9vj
+	 xrnwz2VwocEChqCX5sMiV2Hq+GrnVscrTlUluIbrKYOxpaPdAN2d4KEZlAJIvRkgRv
+	 tZQsLHbJ8FRAw==
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+cc: Bertrand Marquis <bertrand.marquis@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v2 2/7] xen/arm: Add arm64 ID registers definitions
+In-Reply-To: <87zh2y7gm0.fsf@epam.com>
+Message-ID: <alpine.DEB.2.21.2012041553240.32240@sstabellini-ThinkPad-T480s>
+References: <cover.1606742184.git.bertrand.marquis@arm.com> <83f4e52dce23d2e83f6118e5ecb3cef22112f9e9.1606742184.git.bertrand.marquis@arm.com> <87zh2y7gm0.fsf@epam.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <20201201082128.15239-1-jgross@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
+Content-Type: text/plain; charset=US-ASCII
 
-On 01/12/2020 08:21, Juergen Gross wrote:
-> Support scheduling granularity per cpupool. Setting the granularity is
-> done via hypfs, which needed to gain dynamical entries for that
-> purpose.
->
-> Apart from the hypfs related additional functionality the main change
-> for cpupools was the support for moving a domain to a new granularity,
-> as this requires to modify the scheduling unit/vcpu relationship.
->
-> I have tried to do the hypfs modifications in a rather generic way in
-> order to be able to use the same infrastructure in other cases, too
-> (e.g. for per-domain entries).
->
-> The complete series has been tested by creating cpupools with different
-> granularities and moving busy and idle domains between those.
->
-> Changes in V2:
-> - Added several new patches, especially for some further cleanups in
->   cpupool.c.
-> - Completely reworked the locking scheme with dynamical directories:
->   locking of resources (cpupools in this series) is now done via new
->   callbacks which are called when traversing the hypfs tree. This
->   removes the need to add locking to each hypfs related cpupool
->   function and it ensures data integrity across multiple callbacks.
-> - Reordered the first few patches in order to have already acked
->   patches in pure cleanup patches first.
-> - Addressed several comments.
->
-> Juergen Gross (17):
->   xen/cpupool: add cpu to sched_res_mask when removing it from cpupool
->   xen/cpupool: add missing bits for per-cpupool scheduling granularity
->   xen/cpupool: sort included headers in cpupool.c
->   xen/cpupool: switch cpupool id to unsigned
->   xen/cpupool: switch cpupool list to normal list interface
->   xen/cpupool: use ERR_PTR() for returning error cause from
->     cpupool_create()
->   xen/cpupool: support moving domain between cpupools with different
->     granularity
->   docs: fix hypfs path documentation
->   xen/hypfs: move per-node function pointers into a dedicated struct
->   xen/hypfs: pass real failure reason up from hypfs_get_entry()
->   xen/hypfs: add getsize() and findentry() callbacks to hypfs_funcs
->   xen/hypfs: add new enter() and exit() per node callbacks
->   xen/hypfs: support dynamic hypfs nodes
->   xen/hypfs: add support for id-based dynamic directories
->   xen/cpupool: add cpupool directories
->   xen/cpupool: add scheduling granularity entry to cpupool entries
->   xen/cpupool: make per-cpupool sched-gran hypfs node writable
+On Mon, 30 Nov 2020, Volodymyr Babchuk wrote:
+> Bertrand Marquis writes:
+> 
+> > Add coprocessor registers definitions for all ID registers trapped
+> > through the TID3 bit of HSR.
+> > Those are the one that will be emulated in Xen to only publish to guests
+> > the features that are supported by Xen and that are accessible to
+> > guests.
+> >
+> > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-Gitlab CI is fairly (but not completely) reliably hitting an failure in
-ARM randconfig against this series only.
-
-https://gitlab.com/xen-project/patchew/xen/-/pipelines/225445864 is one
-example.
-
-Error is:
-
-cpupool.c:102:12: error: 'sched_gran_get' defined but not used
-[-Werror=unused-function]
-  102 | static int sched_gran_get(const char *str, enum sched_gran *mode)
-      |            ^~~~~~~~~~~~~~
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-
-Weirdly, there is a second diagnostic showing up which appears to be
-unrelated and non-fatal, but a concerning non-the-less
-
-mem_access.c: In function 'p2m_mem_access_check':
-mem_access.c:227:6: note: parameter passing for argument of type 'const
-struct npfec' changed in GCC 9.1
-  227 | bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla, const struct
-npfec npfec)
-      |      ^~~~~~~~~~~~~~~~~~~~
-
-It appears to be related to
-https://gcc.gnu.org/bugzilla/show_bug.cgi?id=88469 and is letting us
-know that the ABI changed.  However, Xen is an embedded project with no
-external linkage, so we can probably compile with -Wno-psabi and be done
-with it.
-
-~Andrew, in lieu of a real CI robot.
+> > ---
+> > Changes in V2: rebase
+> > ---
+> >  xen/include/asm-arm/arm64/hsr.h | 37 +++++++++++++++++++++++++++++++++
+> >  1 file changed, 37 insertions(+)
+> >
+> > diff --git a/xen/include/asm-arm/arm64/hsr.h b/xen/include/asm-arm/arm64/hsr.h
+> > index ca931dd2fe..e691d41c17 100644
+> > --- a/xen/include/asm-arm/arm64/hsr.h
+> > +++ b/xen/include/asm-arm/arm64/hsr.h
+> > @@ -110,6 +110,43 @@
+> >  #define HSR_SYSREG_CNTP_CTL_EL0   HSR_SYSREG(3,3,c14,c2,1)
+> >  #define HSR_SYSREG_CNTP_CVAL_EL0  HSR_SYSREG(3,3,c14,c2,2)
+> >  
+> > +/* Those registers are used when HCR_EL2.TID3 is set */
+> > +#define HSR_SYSREG_ID_PFR0_EL1    HSR_SYSREG(3,0,c0,c1,0)
+> > +#define HSR_SYSREG_ID_PFR1_EL1    HSR_SYSREG(3,0,c0,c1,1)
+> > +#define HSR_SYSREG_ID_PFR2_EL1    HSR_SYSREG(3,0,c0,c3,4)
+> > +#define HSR_SYSREG_ID_DFR0_EL1    HSR_SYSREG(3,0,c0,c1,2)
+> > +#define HSR_SYSREG_ID_DFR1_EL1    HSR_SYSREG(3,0,c0,c3,5)
+> > +#define HSR_SYSREG_ID_AFR0_EL1    HSR_SYSREG(3,0,c0,c1,3)
+> > +#define HSR_SYSREG_ID_MMFR0_EL1   HSR_SYSREG(3,0,c0,c1,4)
+> > +#define HSR_SYSREG_ID_MMFR1_EL1   HSR_SYSREG(3,0,c0,c1,5)
+> > +#define HSR_SYSREG_ID_MMFR2_EL1   HSR_SYSREG(3,0,c0,c1,6)
+> > +#define HSR_SYSREG_ID_MMFR3_EL1   HSR_SYSREG(3,0,c0,c1,7)
+> > +#define HSR_SYSREG_ID_MMFR4_EL1   HSR_SYSREG(3,0,c0,c2,6)
+> > +#define HSR_SYSREG_ID_MMFR5_EL1   HSR_SYSREG(3,0,c0,c3,6)
+> > +#define HSR_SYSREG_ID_ISAR0_EL1   HSR_SYSREG(3,0,c0,c2,0)
+> > +#define HSR_SYSREG_ID_ISAR1_EL1   HSR_SYSREG(3,0,c0,c2,1)
+> > +#define HSR_SYSREG_ID_ISAR2_EL1   HSR_SYSREG(3,0,c0,c2,2)
+> > +#define HSR_SYSREG_ID_ISAR3_EL1   HSR_SYSREG(3,0,c0,c2,3)
+> > +#define HSR_SYSREG_ID_ISAR4_EL1   HSR_SYSREG(3,0,c0,c2,4)
+> > +#define HSR_SYSREG_ID_ISAR5_EL1   HSR_SYSREG(3,0,c0,c2,5)
+> > +#define HSR_SYSREG_ID_ISAR6_EL1   HSR_SYSREG(3,0,c0,c2,7)
+> > +#define HSR_SYSREG_MVFR0_EL1      HSR_SYSREG(3,0,c0,c3,0)
+> > +#define HSR_SYSREG_MVFR1_EL1      HSR_SYSREG(3,0,c0,c3,1)
+> > +#define HSR_SYSREG_MVFR2_EL1      HSR_SYSREG(3,0,c0,c3,2)
+> > +
+> > +#define HSR_SYSREG_ID_AA64PFR0_EL1   HSR_SYSREG(3,0,c0,c4,0)
+> > +#define HSR_SYSREG_ID_AA64PFR1_EL1   HSR_SYSREG(3,0,c0,c4,1)
+> > +#define HSR_SYSREG_ID_AA64DFR0_EL1   HSR_SYSREG(3,0,c0,c5,0)
+> > +#define HSR_SYSREG_ID_AA64DFR1_EL1   HSR_SYSREG(3,0,c0,c5,1)
+> > +#define HSR_SYSREG_ID_AA64ISAR0_EL1  HSR_SYSREG(3,0,c0,c6,0)
+> > +#define HSR_SYSREG_ID_AA64ISAR1_EL1  HSR_SYSREG(3,0,c0,c6,1)
+> > +#define HSR_SYSREG_ID_AA64MMFR0_EL1  HSR_SYSREG(3,0,c0,c7,0)
+> > +#define HSR_SYSREG_ID_AA64MMFR1_EL1  HSR_SYSREG(3,0,c0,c7,1)
+> > +#define HSR_SYSREG_ID_AA64MMFR2_EL1  HSR_SYSREG(3,0,c0,c7,2)
+> > +#define HSR_SYSREG_ID_AA64AFR0_EL1   HSR_SYSREG(3,0,c0,c5,4)
+> > +#define HSR_SYSREG_ID_AA64AFR1_EL1   HSR_SYSREG(3,0,c0,c5,5)
+> > +#define HSR_SYSREG_ID_AA64ZFR0_EL1   HSR_SYSREG(3,0,c0,c4,4)
+> > +
+> >  #endif /* __ASM_ARM_ARM64_HSR_H */
+> >  
+> >  /*
+> 
+> 
+> -- 
+> Volodymyr Babchuk at EPAM
 
