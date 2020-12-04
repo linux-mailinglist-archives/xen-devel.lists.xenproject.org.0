@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C36222CF615
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 22:24:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.45072.80535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12E122CF650
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 22:41:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.45083.80554 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klIYJ-0003qf-9A; Fri, 04 Dec 2020 21:23:43 +0000
+	id 1klIoo-0005ts-Tz; Fri, 04 Dec 2020 21:40:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 45072.80535; Fri, 04 Dec 2020 21:23:43 +0000
+Received: by outflank-mailman (output) from mailman id 45083.80554; Fri, 04 Dec 2020 21:40:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1klIYJ-0003qG-5h; Fri, 04 Dec 2020 21:23:43 +0000
-Received: by outflank-mailman (input) for mailman id 45072;
- Fri, 04 Dec 2020 21:23:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1klIoo-0005tS-Qi; Fri, 04 Dec 2020 21:40:46 +0000
+Received: by outflank-mailman (input) for mailman id 45083;
+ Fri, 04 Dec 2020 21:40:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VOLy=FI=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1klIYH-0003qB-7Y
- for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 21:23:41 +0000
-Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e36ca147-12da-4a4c-876a-6d8f8ec145fd;
- Fri, 04 Dec 2020 21:23:40 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id v14so6610265wml.1
- for <xen-devel@lists.xenproject.org>; Fri, 04 Dec 2020 13:23:40 -0800 (PST)
+ <SRS0=gNFP=FI=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1klIon-0005mT-V0
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 21:40:46 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d5530d3c-dab1-4a5a-bc96-6f0f942cccb7;
+ Fri, 04 Dec 2020 21:40:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,124 +36,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e36ca147-12da-4a4c-876a-6d8f8ec145fd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=xBkisH7qkt4tTks6hPY848K8Xv8nx74W1YCkO3MSs78=;
-        b=FrwZUo3xb4GJ2XCMYiKx6j+u9fsesFpOeFfg9mWR8Y/MbbuFtHYhGweL8FRRJpQ1Fu
-         TT05l0v4kSoDWxEHBTGxu+G0/NsWZgChvthEMQB5qo+PD1qegkVo30vTzBfaEaCkduqf
-         TxMoffSc98r4Byl479ghTPk7V6RANs34jEoDRDYEDQ10Kr+BolyI2kWJKNNsN12v4TNz
-         x6dg2kceyG/he3EH2Mt5JSeQldC6RDKfOlJm9iE4WWmrtqADDGbo9Nfj39Sps8wz5+5r
-         QdaQC/MDc6lJPHZLDZfWRQN02maR3qOhkTHt8sUggzWiaCWl6jN/GyY5BUnsA8hSVfo2
-         I/PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=xBkisH7qkt4tTks6hPY848K8Xv8nx74W1YCkO3MSs78=;
-        b=O4OQEu/NOFNMqHXDqKifh7WIuDKT0D9mnQ18AVMSZFCUOe0nEefY9lS7siSGy2Lq+h
-         jiL6B46S7bthTZv4dHQE87fvdzHwU9tTkwlT/7W+nDuKv5tROoJ31KOoepdbULbk2agx
-         2WtgS2tXb/yGkCyVExVkYqk4xe8ejXqW2sbtgkkbXUQNZat3rVi8dsSSCLbSt4R/wlI4
-         J7iJ31AayNohBBOnIS6hrftQb4wXenadq2Von8PqCzditIiiX/lm9yEJeFFugmfaCYuz
-         Cc8rQ7rddRPyEvZuxBedLKq3HzWoa+5hTbjbpo5pYWhIpsNAuv0DwNThUowvoN911Cu/
-         nlSg==
-X-Gm-Message-State: AOAM533DjW9uwioZmcDMjfd01dd+CIb4K4D9FVZ3kJySzFJHWsCMQ8lz
-	VWgcmBeQJ4J6E6NZsZe7MxdtkXKqW7/Chafutqg=
-X-Google-Smtp-Source: ABdhPJyDago5jgo8lT/b6tX8BLqNd48NQMnJrZtGH1jlRB2oYa35oUPd0fjyJN66ZAOSGkjfWsCl1yskmo0vd2+EJp4=
-X-Received: by 2002:a1c:4843:: with SMTP id v64mr6328377wma.186.1607117019180;
- Fri, 04 Dec 2020 13:23:39 -0800 (PST)
+X-Inumbo-ID: d5530d3c-dab1-4a5a-bc96-6f0f942cccb7
+Date: Fri, 4 Dec 2020 13:40:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1607118044;
+	bh=+BjprIbHx8mxLbZVVC1kwi0qaPAi0CFltpmHTGpjwpU=;
+	h=From:To:cc:Subject:In-Reply-To:References:From;
+	b=NzRsMuaFH6TclnM/mK2Q4H6zZTQtK+G8Qrt2XkCns8qBqorpvH3VHkdI6XWDg1W7O
+	 +Gn6t2ZI+E1nclJTaHmU/tAqxRsvfRwimzs32ujxRb8Vds+8yqon/itVSkb4AYo0bM
+	 fbzHvKDWdCqaEDW+Ok1ATw8A1G7nSswliLtthx7b4XYsMOUL2TGO/5UfhIcn/AHc2e
+	 fFEYyK/eceQnHr0yihN6WJdfCko7AVIEFJ13dDTVmaU0j5Ti80EwkWf6LfH5n3Fysu
+	 rqaDW0gXiRskZj84tXK2Kpy2gMWBXvun/Bvp6lpHaHV0jg+0GQ/o4X8Fq66uBUA50J
+	 XSYeS0pVtDs0w==
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Wei Liu <wl@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    cardoe@cardoe.com, xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH v3 01/12] automation: add a QEMU aarch64 smoke test
+In-Reply-To: <20201204104039.44diltm2gg4twpxn@liuwe-devbox-debian-v2>
+Message-ID: <alpine.DEB.2.21.2012041335110.32240@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2011241722540.7979@sstabellini-ThinkPad-T480s> <20201125042745.31986-1-sstabellini@kernel.org> <20201204104039.44diltm2gg4twpxn@liuwe-devbox-debian-v2>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
- <d821c715-966a-b48b-a877-c5dac36822f0@suse.com> <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
- <7a768bcd-80c1-d193-8796-7fb6720fa22a@suse.com> <1a8250f5-ea49-ac3a-e992-be7ec40deba9@xen.org>
- <CABfawhkQcUD4f62zpg0cyrdQgG82XtpYRZZ_-50hjagooT530A@mail.gmail.com>
- <5862eb24-d894-455a-13ac-61af54f949e7@xen.org> <CABfawhkWQiOhLL8f3NzoWbeuag-f+YOOK0i_LJzZq5Yvoh=oHQ@mail.gmail.com>
- <CAJ=z9a2yEsvUcu8c=pjv5ymLgLHebZCJcTh7c+yeW44J6jDgWw@mail.gmail.com>
-In-Reply-To: <CAJ=z9a2yEsvUcu8c=pjv5ymLgLHebZCJcTh7c+yeW44J6jDgWw@mail.gmail.com>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Fri, 4 Dec 2020 16:23:03 -0500
-Message-ID: <CABfawhmqk8aOEe4RMUtTjq_jgSCuGrL5vpuNdRBPNmmxRnfxFg@mail.gmail.com>
-Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
- per-channel lock held
-To: Julien Grall <julien.grall.oss@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Tamas K Lengyel <lengyelt@ainfosec.com>, 
-	Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>, Alexandru Isaila <aisaila@bitdefender.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Dec 4, 2020 at 2:22 PM Julien Grall <julien.grall.oss@gmail.com> wrote:
->
-> On Fri, 4 Dec 2020 at 19:15, Tamas K Lengyel <tamas.k.lengyel@gmail.com> wrote:
-> >
-> > On Fri, Dec 4, 2020 at 10:29 AM Julien Grall <julien@xen.org> wrote:
-> > >
-> > >
-> > >
-> > > On 04/12/2020 15:21, Tamas K Lengyel wrote:
-> > > > On Fri, Dec 4, 2020 at 6:29 AM Julien Grall <julien@xen.org> wrote:
-> > > >>
-> > > >> Hi Jan,
-> > > >>
-> > > >> On 03/12/2020 10:09, Jan Beulich wrote:
-> > > >>> On 02.12.2020 22:10, Julien Grall wrote:
-> > > >>>> On 23/11/2020 13:30, Jan Beulich wrote:
-> > > >>>>> While there don't look to be any problems with this right now, the lock
-> > > >>>>> order implications from holding the lock can be very difficult to follow
-> > > >>>>> (and may be easy to violate unknowingly). The present callbacks don't
-> > > >>>>> (and no such callback should) have any need for the lock to be held.
-> > > >>>>>
-> > > >>>>> However, vm_event_disable() frees the structures used by respective
-> > > >>>>> callbacks and isn't otherwise synchronized with invocations of these
-> > > >>>>> callbacks, so maintain a count of in-progress calls, for evtchn_close()
-> > > >>>>> to wait to drop to zero before freeing the port (and dropping the lock).
-> > > >>>>
-> > > >>>> AFAICT, this callback is not the only place where the synchronization is
-> > > >>>> missing in the VM event code.
-> > > >>>>
-> > > >>>> For instance, vm_event_put_request() can also race against
-> > > >>>> vm_event_disable().
-> > > >>>>
-> > > >>>> So shouldn't we handle this issue properly in VM event?
-> > > >>>
-> > > >>> I suppose that's a question to the VM event folks rather than me?
-> > > >>
-> > > >> Yes. From my understanding of Tamas's e-mail, they are relying on the
-> > > >> monitoring software to do the right thing.
-> > > >>
-> > > >> I will refrain to comment on this approach. However, given the race is
-> > > >> much wider than the event channel, I would recommend to not add more
-> > > >> code in the event channel to deal with such problem.
-> > > >>
-> > > >> Instead, this should be fixed in the VM event code when someone has time
-> > > >> to harden the subsystem.
-> > > >
-> > > > I double-checked and the disable route is actually more robust, we
-> > > > don't just rely on the toolstack doing the right thing. The domain
-> > > > gets paused before any calls to vm_event_disable. So I don't think
-> > > > there is really a race-condition here.
-> > >
-> > > The code will *only* pause the monitored domain. I can see two issues:
-> > >     1) The toolstack is still sending event while destroy is happening.
-> > > This is the race discussed here.
-> > >     2) The implement of vm_event_put_request() suggests that it can be
-> > > called with not-current domain.
-> > >
-> > > I don't see how just pausing the monitored domain is enough here.
-> >
-> > Requests only get generated by the monitored domain.
->
-> If that's the case, then why is vm_event_put_request() able to
-> deal with a non-current domain?
->
-> I understand that you are possibly trusting who may call it, but this
-> looks quite fragile.
+On Fri, 4 Dec 2020, Wei Liu wrote:
+> On Tue, Nov 24, 2020 at 08:27:34PM -0800, Stefano Stabellini wrote:
+> > Use QEMU to start Xen (just the hypervisor) up until it stops because
+> > there is no dom0 kernel to boot.
+> > 
+> > It is based on the existing build job unstable-arm64v8.
+> > 
+> > Also use make -j$(nproc) to build Xen.
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > ---
+> > Changes in v2:
+> > - fix x86_32 build
+> > ---
+> >  automation/gitlab-ci/test.yaml         | 22 ++++++++++++++++++
+> >  automation/scripts/build               |  6 ++---
+> >  automation/scripts/qemu-smoke-arm64.sh | 32 ++++++++++++++++++++++++++
+> >  3 files changed, 57 insertions(+), 3 deletions(-)
+> >  create mode 100755 automation/scripts/qemu-smoke-arm64.sh
+> > 
+> > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> > index 793feafe8b..35346e3f6e 100644
+> > --- a/automation/gitlab-ci/test.yaml
+> > +++ b/automation/gitlab-ci/test.yaml
+> > @@ -22,6 +22,28 @@ build-each-commit-gcc:
+> >      - /^coverity-tested\/.*/
+> >      - /^stable-.*/
+> >  
+> > +qemu-smoke-arm64-gcc:
+> > +  stage: test
+> > +  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
+> > +  variables:
+> > +    CONTAINER: debian:unstable-arm64v8
+> > +  script:
+> > +    - ./automation/scripts/qemu-smoke-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
+> > +  dependencies:
+> > +    - debian-unstable-gcc-arm64
+> > +  artifacts:
+> > +    paths:
+> > +      - smoke.serial
+> > +      - '*.log'
+> > +    when: always
+> > +  tags:
+> > +    - arm64
+> > +  except:
+> > +    - master
+> > +    - smoke
+> > +    - /^coverity-tested\/.*/
+> > +    - /^stable-.*/
+> > +
+> >  qemu-smoke-x86-64-gcc:
+> >    stage: test
+> >    image: registry.gitlab.com/xen-project/xen/${CONTAINER}
+> > diff --git a/automation/scripts/build b/automation/scripts/build
+> > index 0cd0f3971d..7038e5eb50 100755
+> > --- a/automation/scripts/build
+> > +++ b/automation/scripts/build
+> > @@ -10,9 +10,9 @@ cc-ver()
+> >  
+> >  # random config or default config
+> >  if [[ "${RANDCONFIG}" == "y" ]]; then
+> > -    make -C xen KCONFIG_ALLCONFIG=tools/kconfig/allrandom.config randconfig
+> > +    make -j$(nproc) -C xen KCONFIG_ALLCONFIG=tools/kconfig/allrandom.config randconfig
+> >  else
+> > -    make -C xen defconfig
+> > +    make -j$(nproc) -C xen defconfig
+> >  fi
+> >  
+> >  # build up our configure options
+> > @@ -45,7 +45,7 @@ make -j$(nproc) dist
+> >  # Extract artifacts to avoid getting rewritten by customised builds
+> >  cp xen/.config xen-config
+> >  mkdir binaries
+> > -if [[ "${XEN_TARGET_ARCH}" == "x86_64" ]]; then
+> > +if [[ "${XEN_TARGET_ARCH}" != "x86_32" ]]; then
+> >      cp xen/xen binaries/xen
+> >  fi
+> >  
+> > diff --git a/automation/scripts/qemu-smoke-arm64.sh b/automation/scripts/qemu-smoke-arm64.sh
+> > new file mode 100755
+> > index 0000000000..a7efbf8b6f
+> > --- /dev/null
+> > +++ b/automation/scripts/qemu-smoke-arm64.sh
+> > @@ -0,0 +1,32 @@
+> > +#!/bin/bash
+> > +
+> > +set -ex
+> > +
+> > +# Install QEMU
+> > +export DEBIAN_FRONTENT=noninteractive
+> > +apt-get -qy update
+> > +apt-get -qy install --no-install-recommends qemu-system-aarch64 \
+> > +                                            u-boot-qemu
+> > +
+> > +# XXX Silly workaround to get the following QEMU command to work
+> > +cp /usr/share/qemu/pvh.bin /usr/share/qemu/efi-virtio.rom
+> 
+> Can you explain a bit more why this workaround works at all?
+> 
+> Not a blocking comment, but this will help other people who try to
+> modify this script.
 
-I didn't write the system. You probably want to ask that question from
-the original author.
+Yeah: the following QEMU command just after the copy is:
 
-Tamas
+  qemu-system-aarch64 \
+     -machine virtualization=true \
+     -cpu cortex-a57 -machine type=virt \
+     -m 512 -display none \
+     -machine dumpdtb=binaries/virt-gicv3.dtb
+
+The purpose for this command is just to generate the dtb for the
+platform, see the "dumpdtb" option.
+
+This version of QEMU refuses to do that unless it can load
+"efi-virtio.rom"; although it doesn't make any sense because:
+- we are not running anything here, only generating a DTB, no ROMs
+  should be needed
+- below when we actualy start QEMU to do emulation with the same
+  options, "efi-virtio.rom" is not actually needed
+
+
+I can expand a bit more on the comment, maybe:
+
+# XXX Silly workaround to get the following QEMU command to work
+# QEMU looks for "efi-virtio.rom" even if it is unneeded
+
+
+Thank you for the ack on the series by the way. If you are OK with it, I
+am going to wait for a couple of days in case of further comments, and
+if there aren't any I'll commit the series making this change on commit.
 
