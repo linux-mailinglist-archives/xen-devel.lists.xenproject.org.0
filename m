@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8FBF2CEBF9
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 11:16:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.44316.79440 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB5BC2CEC4C
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Dec 2020 11:37:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.44332.79453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl88O-0000He-4Q; Fri, 04 Dec 2020 10:16:16 +0000
+	id 1kl8S2-0002P4-Pw; Fri, 04 Dec 2020 10:36:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 44316.79440; Fri, 04 Dec 2020 10:16:16 +0000
+Received: by outflank-mailman (output) from mailman id 44332.79453; Fri, 04 Dec 2020 10:36:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kl88N-0000HC-Vc; Fri, 04 Dec 2020 10:16:15 +0000
-Received: by outflank-mailman (input) for mailman id 44316;
- Fri, 04 Dec 2020 10:16:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kl88M-0000H4-17; Fri, 04 Dec 2020 10:16:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kl88L-0006JP-Om; Fri, 04 Dec 2020 10:16:13 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kl88L-0004WT-EM; Fri, 04 Dec 2020 10:16:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kl88L-0006P9-Dq; Fri, 04 Dec 2020 10:16:13 +0000
+	id 1kl8S2-0002Of-MV; Fri, 04 Dec 2020 10:36:34 +0000
+Received: by outflank-mailman (input) for mailman id 44332;
+ Fri, 04 Dec 2020 10:36:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OO73=FI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kl8S1-0002Oa-WF
+ for xen-devel@lists.xenproject.org; Fri, 04 Dec 2020 10:36:34 +0000
+Received: from mail-wr1-f68.google.com (unknown [209.85.221.68])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a48f77cc-f3ce-4461-aeb7-5790db91d473;
+ Fri, 04 Dec 2020 10:36:33 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id p8so4823429wrx.5
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Dec 2020 02:36:33 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id y2sm3032650wrn.31.2020.12.04.02.36.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Dec 2020 02:36:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +41,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=CaBulPZ0qPCJG0jOesnN1fuY8DU5H8nu4AEhWgqfZ44=; b=N0LdBhgyyfjUgMMHHaZYxxu9CW
-	zKcWp4Weqtt5qB/M5M105x/TxHA0YKgEujfWAUYCZt90ycHueIqrqVDe+6uFM2DaPiHO94Auw7Kz6
-	Q29JVnvid7+p5uR7yQlYJEUqgTW6mLmzTGgtkoWhVYj1dLQABhxGo0UsPVX4QG2ckAbY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157200-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a48f77cc-f3ce-4461-aeb7-5790db91d473
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=iCwX12JvinfsBXupn1+ExlWFe4TW7BvvX0Qxxio66Zw=;
+        b=iVfbt9oblLZ3wkcxcAUIliUWe5LPzw6qkNFEQQhYLUYuRQChq7JKiqLNv183nqJXC0
+         Z7RhHYYjpAvs/ckOYTEfI5eosJ5KacanY4rBOUQq7GhUTWGcnWuB8PBOXsnQNaVU5lPS
+         Oz2Rbs7n2rldQFRQjgsDEtNd5glNvKG/DJe8AvAHxUQ4bMNiFhdMN99k0ynOYMdcTG2Q
+         VvTTGEsi3U+oyYbdRNxZSlkSAjdUfK74iVYgKtXn+NDclsf9Uhlqj24QTB6GZ8etKhNR
+         9NxToae/BXf51sr8mtK/sXf1ev7YqEuFJquHPtvwTHNG4ERFf7D2Xy34FJxURa6FeNyQ
+         NGIA==
+X-Gm-Message-State: AOAM531QhjfMnEODAdKeI91c7IC2zCLt13THf95KK90htEKFiTSfxHcR
+	TVuL1hb2n9wU0YqwYen9QqA=
+X-Google-Smtp-Source: ABdhPJydpAA/xOKVpHwzXnu0wlIzM0yGBGdQWdr9LwoJ2pVfMgeiFJDLGZJeMErSlU26OEDEgpFmpA==
+X-Received: by 2002:adf:f9cb:: with SMTP id w11mr4245212wrr.1.1607078192458;
+        Fri, 04 Dec 2020 02:36:32 -0800 (PST)
+Date: Fri, 4 Dec 2020 10:36:30 +0000
+From: Wei Liu <wl@xen.org>
+To: paul@xen.org
+Cc: 'Wei Liu' <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [EXTERNAL] [PATCH v3 00/13] viridian: add support for
+ ExProcessorMasks...
+Message-ID: <20201204103630.2v5ftevpqlhswqtg@liuwe-devbox-debian-v2>
+References: <20201124190744.11343-1-paul@xen.org>
+ <001b01d6c7eb$9c6d0240$d54706c0$@xen.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 157200: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=be3755af37263833cb3b1c6b1f2ba219bdf97ec3
-X-Osstest-Versions-That:
-    xen=aec46884784c2494a30221da775d4ac2c43a4d42
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 04 Dec 2020 10:16:13 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <001b01d6c7eb$9c6d0240$d54706c0$@xen.org>
+User-Agent: NeoMutt/20180716
 
-flight 157200 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157200/
+On Tue, Dec 01, 2020 at 02:09:40PM -0000, Paul Durrant wrote:
+> Wei,
+> 
+>   I'll likely send a v4 to address the style nit Jan picked up in patch #1 but the rest should be stable now. Could you have a look over it?
 
-Failures :-/ but no regressions.
+I've only been able to skim-read this patch set, but I agree in general
+that adding ExProcessorMasks support is a good idea. It is needed to
+cope with more than 64 cpus as far as I can tell.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+With Jan's comments addressed.
 
-version targeted for testing:
- xen                  be3755af37263833cb3b1c6b1f2ba219bdf97ec3
-baseline version:
- xen                  aec46884784c2494a30221da775d4ac2c43a4d42
+Acked-by: Wei Liu <wl@xen.org>
 
-Last test of basis   157163  2020-12-02 19:01:29 Z    1 days
-Testing same since   157200  2020-12-04 08:00:27 Z    0 days    1 attempts
+Wei.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Diederik de Haas <didi.debian@cknow.org>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   aec4688478..be3755af37  be3755af37263833cb3b1c6b1f2ba219bdf97ec3 -> smoke
 
