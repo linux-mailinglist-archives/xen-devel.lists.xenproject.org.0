@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CB642D0D5E
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 10:50:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.46034.81654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BB102D0D69
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 10:52:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.46040.81666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmD9h-0001A1-8C; Mon, 07 Dec 2020 09:50:05 +0000
+	id 1kmDCD-0001WL-Ne; Mon, 07 Dec 2020 09:52:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 46034.81654; Mon, 07 Dec 2020 09:50:05 +0000
+Received: by outflank-mailman (output) from mailman id 46040.81666; Mon, 07 Dec 2020 09:52:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmD9h-00017u-4V; Mon, 07 Dec 2020 09:50:05 +0000
-Received: by outflank-mailman (input) for mailman id 46034;
- Mon, 07 Dec 2020 09:50:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kmDCD-0001Vu-Io; Mon, 07 Dec 2020 09:52:41 +0000
+Received: by outflank-mailman (input) for mailman id 46040;
+ Mon, 07 Dec 2020 09:52:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3bhA=FL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kmD9f-0000u0-Rl
- for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 09:50:03 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 366e6046-21a8-4da8-acd3-ea28002051cd;
- Mon, 07 Dec 2020 09:50:03 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 30BF2AD6B;
- Mon,  7 Dec 2020 09:50:02 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kmDCB-0001Vm-Ov; Mon, 07 Dec 2020 09:52:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kmDCB-0004XI-GS; Mon, 07 Dec 2020 09:52:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kmDCB-0008LO-8C; Mon, 07 Dec 2020 09:52:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kmDCB-0006ai-7i; Mon, 07 Dec 2020 09:52:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,126 +42,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 366e6046-21a8-4da8-acd3-ea28002051cd
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607334602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NX/6LZuF7Yu6jUZxb47a+vb6f3XXEKbg8SU3fM/qL14=;
-	b=m36nZmwJ+p/YMJyARv77VcWQAohJhf/JdpiWs6aXDUTCQfAGDqnFWSDW8LvjnIWQdDeVz3
-	Mmrl05lvQwCDOy5jHTebeuWbDB+AFZVHkEA22VxvVH13rAiwtDPiM3tvMmqIGqEq4Ho7ii
-	+UpcU8xPljGDnP0XlLisn/PJDePGhdY=
-Subject: Re: [PATCH 06/10] vpci: Make every domain handle its own BARs
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
- "Rahul.Singh@arm.com" <Rahul.Singh@arm.com>,
- "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
- "julien.grall@arm.com" <julien.grall@arm.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "iwj@xenproject.org" <iwj@xenproject.org>, "wl@xen.org" <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20201109125031.26409-1-andr2000@gmail.com>
- <1b3f11c2-a5a2-da5c-25b3-851ef9465ab9@epam.com>
- <20201112144643.iyy5b34qyz5zi7mc@Air-de-Roger>
- <1fe15b9a-6f5d-1209-8ff5-af7c4fc0d637@epam.com>
- <b4697fbe-6896-ed64-409d-85620c08904a@suse.com>
- <3d6e5aab-ff89-7859-09c6-5ecb0c052511@epam.com>
- <1c88fef1-8558-fde1-02c7-8a68f6ecf312@suse.com>
- <67fd5df7-2ad2-08e5-294e-b769429164f0@epam.com>
- <03e23a66-619f-e846-cf61-a33ca5d9f0b4@suse.com>
- <b151e6d2-5480-d201-432a-bece208a1fd9@epam.com>
- <c58c1393-381a-d995-6e41-fa3251f67bd7@suse.com>
- <8fc22774-7380-2de1-9c30-6649a79fdfe1@epam.com>
- <46c75ee1-758c-8a42-d8d3-8d42cce3240a@suse.com>
- <66cb04c5-5e98-6a4d-da88-230b2dbc3d98@epam.com>
- <04059ce3-7009-9e1e-8ba2-398cc993d81b@suse.com>
- <802e20d8-82b6-5755-e6e5-aadb07585a32@epam.com>
- <b631c122-554c-e26e-4fa9-56809dd5569a@suse.com>
- <8913ce50-1b51-36f6-36b6-7e09d9553df9@epam.com>
- <eed78fed-159f-3ee3-5eec-9384e52406bf@suse.com>
- <d04bf141-d263-edfd-2110-f52bcca19411@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <06497635-b7bc-b1d6-0503-32d3b808a643@suse.com>
-Date: Mon, 7 Dec 2020 10:50:04 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
-MIME-Version: 1.0
-In-Reply-To: <d04bf141-d263-edfd-2110-f52bcca19411@epam.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=PlOrPG3N6cqVCllnxaSbA/tgN1x1P+Jky3I2Szpqbus=; b=2PF2b+VnytsyG0YYzx1hsLQSrW
+	LGu63uFwI03hxlmtl9EuV/woVQ3X+G3EkubIVdtWPvJYMfN1X+1hH/rd6B+KeX6GX/6fB/99wRLl2
+	+2Z7rl/Kc3XkIH/k/aCNd+LxQQYVnMRtEFxLo668JkZoL6Rz6s1EStEltDGIrlq81+ng=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157251-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 157251: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=4523be1ed7f420dabdf42bae2dc33e13aa46b4e4
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 07 Dec 2020 09:52:39 +0000
 
-On 07.12.2020 10:37, Oleksandr Andrushchenko wrote:
-> On 12/7/20 11:28 AM, Jan Beulich wrote:
->> On 07.12.2020 10:11, Oleksandr Andrushchenko wrote:
->>> On 12/7/20 10:48 AM, Jan Beulich wrote:
->>>> On 04.12.2020 15:38, Oleksandr Andrushchenko wrote:
->>>>> So, I started looking at the bus2bridge and if it can be used for both x86 (and possible ARM) and I have an
->>>>>
->>>>> impression that the original purpose of this was to identify the devices which x86 IOMMU should
->>>>>
->>>>> cover: e.g. I am looking at the find_upstream_bridge users and they are x86 IOMMU and VGA driver.
->>>>>
->>>>> I tried to play with this on ARM, and for the HW platform I have and QEMU I got 0 entries in bus2bridge...
->>>>>
->>>>> This is because of how xen/drivers/passthrough/pci.c:alloc_pdev is implemented (which lives in the
->>>>>
->>>>> common code BTW, but seems to be x86 specific): so, it skips setting up bus2bridge entries for the bridges I have.
->>>> I'm curious to learn what's x86-specific here. I also can't deduce
->>>> why bus2bridge setup would be skipped.
->>> So, for example:
->>>
->>> commit 0af438757d455f8eb6b5a6ae9a990ae245f230fd
->>> Author: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
->>> Date:   Fri Sep 27 10:11:49 2013 +0200
->>>
->>>       AMD IOMMU: fix Dom0 device setup failure for host bridges
->>>
->>>       The host bridge device (i.e. 0x18 for AMD) does not require IOMMU, and
->>>       therefore is not included in the IVRS. The current logic tries to map
->>>       all PCI devices to an IOMMU. In this case, "xl dmesg" shows the
->>>       following message on AMD sytem.
->>>
->>>       (XEN) setup 0000:00:18.0 for d0 failed (-19)
->>>       (XEN) setup 0000:00:18.1 for d0 failed (-19)
->>>       (XEN) setup 0000:00:18.2 for d0 failed (-19)
->>>       (XEN) setup 0000:00:18.3 for d0 failed (-19)
->>>       (XEN) setup 0000:00:18.4 for d0 failed (-19)
->>>       (XEN) setup 0000:00:18.5 for d0 failed (-19)
->>>
->>>       This patch adds a new device type (i.e. DEV_TYPE_PCI_HOST_BRIDGE) which
->>>       corresponds to PCI class code 0x06 and sub-class 0x00. Then, it uses
->>>       this new type to filter when trying to map device to IOMMU.
->>>
->>> One of my test systems has DEV_TYPE_PCI_HOST_BRIDGE, so bus2brdige setup is ignored
->> If there's data to be sensibly recorded for host bridges, I don't
->> see why the function couldn't be updated. I don't view this as
->> x86-specific; it may just be that on x86 we have no present use
->> for such data. It may in turn be the case that then x86-specific
->> call sites consuming this data need updating to not be mislead by
->> the change in what data gets recorded. But that's still all within
->> the scope of bringing intended-to-be-arch-independent code closer
->> to actually being arch-independent.
-> 
-> Well, the patch itself made me think that this is a workaround for x86
-> 
-> which made DEV_TYPE_PCI_HOST_BRIDGE a special case and it relies on that.
-> 
-> So, please correct me if I'm wrong here, but in order to make it really generic
-> 
-> I would need to introduce some specific knowledge for x86 about such a device
-> 
-> and make the IOMMU code rely on that instead of bus2bridge.
+flight 157251 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157251/
 
-I'm afraid this is too vague for me to respond with a clear "yes" or
-"no". In particular I don't see the special casing of that type, not
-the least because it's not clear to me what data you would see
-recording for it (or more precisely, from where you'd take the to be
-recorded data - the device's config space doesn't tell you the bus
-range covered by the bridge afaict).
+Regressions :-(
 
-Jan
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              4523be1ed7f420dabdf42bae2dc33e13aa46b4e4
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  150 days
+Failing since        151818  2020-07-11 04:18:52 Z  149 days  144 attempts
+Testing same since   157216  2020-12-05 04:19:10 Z    2 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 31452 lines long.)
 
