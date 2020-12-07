@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB1AD2D0DCA
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 11:07:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.46082.81744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A36E62D0DD0
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 11:11:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.46091.81757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmDQf-0003KL-Gn; Mon, 07 Dec 2020 10:07:37 +0000
+	id 1kmDUX-0004I2-5o; Mon, 07 Dec 2020 10:11:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 46082.81744; Mon, 07 Dec 2020 10:07:37 +0000
+Received: by outflank-mailman (output) from mailman id 46091.81757; Mon, 07 Dec 2020 10:11:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmDQf-0003Jv-DU; Mon, 07 Dec 2020 10:07:37 +0000
-Received: by outflank-mailman (input) for mailman id 46082;
- Mon, 07 Dec 2020 10:07:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kmDUX-0004Hd-2Z; Mon, 07 Dec 2020 10:11:37 +0000
+Received: by outflank-mailman (input) for mailman id 46091;
+ Mon, 07 Dec 2020 10:11:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kmDQd-0003Jq-EJ
- for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 10:07:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kmDQc-0004xP-2A; Mon, 07 Dec 2020 10:07:34 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kmDQb-0002Eo-Ni; Mon, 07 Dec 2020 10:07:33 +0000
+ (envelope-from <SRS0=3bhA=FL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kmDUV-0004HY-Ht
+ for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 10:11:35 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ae47d2db-2f2b-4507-ab9b-5efd0c6e01d6;
+ Mon, 07 Dec 2020 10:11:34 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CCBA1AC9A;
+ Mon,  7 Dec 2020 10:11:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,151 +38,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
-	bh=ouQvCwF6cPs+TVYkUwmeUGfuDacOBBcAOCv0Ja9PmJk=; b=Vw2Ab25EEN6JIVzGOe+9YfIrNv
-	fvSIll7/O7p3p+CKO6OzY4ucLbxZ/VtfiePKpgqEyPBasAQwV+Vjr58Q9bcmjwqGRw8ZsscJMh1mE
-	5DTV/kosB7nLTM1aeVoNZfylY2mgDh2sBQ8Rc0Qsq4VrHLsU0kD5Wrr5O+in7D8xnPb0=;
-Subject: Re: [PATCH v5 1/4] domctl: introduce a new domain create flag,
- XEN_DOMCTL_CDF_evtchn_fifo, ...
-From: Julien Grall <julien@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: 'Paul Durrant' <pdurrant@amazon.com>,
- 'Eslam Elnikety' <elnikety@amazon.com>, 'Ian Jackson' <iwj@xenproject.org>,
- 'Wei Liu' <wl@xen.org>, 'Anthony PERARD' <anthony.perard@citrix.com>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>,
- 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Christian Lindig' <christian.lindig@citrix.com>,
- 'David Scott' <dave@recoil.org>,
- 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, paul@xen.org
-References: <20201203124159.3688-1-paul@xen.org>
- <20201203124159.3688-2-paul@xen.org>
- <fea91a65-1d7c-cd46-81a2-9a6bcb690ed1@suse.com>
- <00ee01d6c98b$507af1c0$f170d540$@xen.org>
- <8a4a2027-0df3-aee2-537a-3d2814b329ec@suse.com>
- <00f601d6c996$ce3908d0$6aab1a70$@xen.org>
- <946280c7-c7f7-c760-c0d3-db91e6cde68a@suse.com>
- <011201d6ca16$ae14ac50$0a3e04f0$@xen.org>
- <4fb9fb4c-5849-25f1-ff72-ba3a046d3fd8@suse.com>
- <df1df316-9512-7b0c-fde1-aa4fc60ac70b@xen.org>
- <c5537493-1a6f-cdc1-27dc-a34060e7efc5@suse.com>
- <63af7714-9c03-35b6-99a1-795b678b8032@xen.org>
-Message-ID: <19308701-04ca-46dc-289c-143679b16c7b@xen.org>
-Date: Mon, 7 Dec 2020 10:07:30 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: ae47d2db-2f2b-4507-ab9b-5efd0c6e01d6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1607335894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SCcClU7oa5vHgsCWal0Ai4WzKWWgRhj5qtSOOVmum70=;
+	b=J50JUJjlMIypg5SbnxBxD6BzBte304BGWpHKEszDdFN8vv+/C59Wq3yMTVciRryw8rmJOy
+	3tZ9GcfJ+Gka0zV1FRZEl/GuxyJ+GwLJ3glUCB/2vlG50kQnpFRu7NDkoNejwhR/P4sPVS
+	cRdRTL/wi/1ZLFbnt6r1FiCD/KYbbKI=
+Subject: Re: [PATCH v2] x86/vmap: handle superpages in vmap_to_mfn()
+To: Hongyan Xia <hx242@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <4a69a1177f9496ad0e3ea77e9b1d5b802bf83b60.1606994506.git.hongyxia@amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <8a3c4749-4275-b632-b3fa-073447acd352@suse.com>
+Date: Mon, 7 Dec 2020 11:11:36 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <63af7714-9c03-35b6-99a1-795b678b8032@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <4a69a1177f9496ad0e3ea77e9b1d5b802bf83b60.1606994506.git.hongyxia@amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
+On 03.12.2020 12:21, Hongyan Xia wrote:
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -5194,6 +5194,60 @@ l1_pgentry_t *virt_to_xen_l1e(unsigned long v)
+>          }                                          \
+>      } while ( false )
+>  
+> +/* Translate mapped Xen address to MFN. */
+> +mfn_t xen_map_to_mfn(unsigned long va)
+> +{
+> +#define CHECK_MAPPED(cond_)     \
+> +    if ( !(cond_) )             \
+> +    {                           \
+> +        ASSERT_UNREACHABLE();   \
+> +        ret = INVALID_MFN;      \
+> +        goto out;               \
+> +    }                           \
 
+This should be coded such that use sites ...
 
-On 07/12/2020 10:04, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 07/12/2020 09:17, Jan Beulich wrote:
->> On 04.12.2020 12:45, Julien Grall wrote:
->>>      1) From the recent security issues (such as XSA-343), a knob to
->>> disable FIFO would be quite beneficials for vendors that don't need the
->>> feature.
->>
->> Except that this wouldn't have been suitable as a during-embargo
->> mitigation, for its observability by guests.
-> 
-> I think you are missing my point here. If that knob was available before 
-> the security event, a vendor may have already decided to use it to 
-> disable feature affected.
-> 
-> This vendor would not have needed to spend time to either hotpatch or 
-> reboot all its fleet.
-> 
->>>      2) Fleet management purpose. You may have a fleet with multiple
->>> versions of Xen. You don't want your customer to start relying on
->>> features that may not be available on all the hosts otherwise it
->>> complicates the guest placement.
->>
->> Guests incapable to run on older Xen are a problem in this regard
->> anyway, aren't they? And if they are capable, I don't see what
->> you're referring to.
-> 
-> It is not about guest that cannot run on older Xen. It is more about 
-> allowing a guest to use a feature that is not yet widely available in 
-> the fleet (you don't update all the hosts in a night...).
-> 
-> Imagine the guest owner really wants to use feature A that is only 
-> available on new Xen version. The owner may have noticed the feature on 
-> an existing running guest and would like to create a new guest that use 
-> the feature.
-> 
-> It might be possible that there are no capacity available on the new Xen 
-> version. So the guest may start on an older capacity.
-> 
-> I can assure you that the owner will contact the customer service of the 
-> cloud provider to ask why the feature is not available on the new guest.
-> 
-> With a knob available, a cloud provider has more flexibility to when the 
-> feature can be exposed.
-> 
->>> FAOD, I am sure there might be other features that need to be disabled.
->>> But we have to start somewhere :).
->>
->> If there is such a need, then yes, sure. But shouldn't we at least
->> gain rough agreement on how the future is going to look like with
->> this? IOW have in hands some at least roughly agreed criteria by
->> which we could decide which new ABI additions will need some form
->> of override going forward (also allowing to judge which prior
->> additions may want to gain overrides in a retroactive fashion, or
->> in fact should have had ones from the beginning)?
-> 
-> I think the answer is quite straight-forward: Anything exposed to the 
-> non-privileged (I include stubdomain) guest should have a knob to 
+> +    bool locking = system_state > SYS_STATE_boot;
+> +    unsigned int l2_offset = l2_table_offset(va);
+> +    unsigned int l1_offset = l1_table_offset(va);
+> +    const l3_pgentry_t *pl3e = virt_to_xen_l3e(va);
+> +    const l2_pgentry_t *pl2e = NULL;
+> +    const l1_pgentry_t *pl1e = NULL;
+> +    struct page_info *l3page;
+> +    mfn_t ret;
+> +
+> +    L3T_INIT(l3page);
+> +    CHECK_MAPPED(pl3e)
+> +    l3page = virt_to_page(pl3e);
+> +    L3T_LOCK(l3page);
+> +
+> +    CHECK_MAPPED(l3e_get_flags(*pl3e) & _PAGE_PRESENT)
 
-s/include/exclude/
+... will properly require a statement-ending semicolon. With
+additionally the trailing underscore dropped from the macro's
+parameter name
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> disable it.
-> 
->>
->>>>> Now imagine you are the cloud provider, running Xen. What you did 
->>>>> was start to upgrade your hosts from an older version of Xen to a 
->>>>> newer version of Xen, to pick up various bug fixes and make sure 
->>>>> you are running a version that is within the security support 
->>>>> envelope. You identify that your customer's problem is a bug in 
->>>>> their OS that was latent on the old version of the hypervisor but 
->>>>> is now manifesting on the new one because it has buggy support for 
->>>>> a hypercall that was added between the two versions. How are you 
->>>>> going to fix this issue, and get your customer up and running 
->>>>> again? Of course you'd like your customer to upgrade their OS, but 
->>>>> they can't even boot it to do that. You really need a solution that 
->>>>> can restore the old VM environment, at least temporarily, for that 
->>>>> customer.
->>>>
->>>> Boot the guest on a not-yet-upgraded host again, to update its kernel?
->>>
->>> You are making the assumption that the customer would have the choice to
->>> target a specific versions of Xen. This may be undesirable for a cloud
->>> provider as suddenly your customer may want to stick on the old version
->>> of Xen.
->>
->> I've gone from you saying "You really need a solution that can restore
->> the old VM environment, at least temporarily, for that customer." The
->> "temporarily" to me implies that it is at least an option to tie a
->> certain guest to a certain Xen version for in-guest upgrading purposes.
->  >
->> If the deal with the customer doesn't include running on a certain Xen
->> version, I don't see how this could have non-temporary consequences to
->> the cloud provider.
-> 
-> I think by "you", you mean Paul and not me?
-> 
-> Cheers,
-> 
+Or wait,
 
--- 
-Julien Grall
+> --- a/xen/include/asm-x86/mm.h
+> +++ b/xen/include/asm-x86/mm.h
+> @@ -578,6 +578,7 @@ mfn_t alloc_xen_pagetable_new(void);
+>  void free_xen_pagetable_new(mfn_t mfn);
+>  
+>  l1_pgentry_t *virt_to_xen_l1e(unsigned long v);
+> +mfn_t xen_map_to_mfn(unsigned long va);
+
+This is now a pretty proper companion of map_page_to_xen(), and
+hence imo ought to be declared next to that one rather than here.
+Ultimately Arm may also need to gain an implementation.
+
+> --- a/xen/include/asm-x86/page.h
+> +++ b/xen/include/asm-x86/page.h
+> @@ -291,7 +291,7 @@ void copy_page_sse2(void *, const void *);
+>  #define pfn_to_paddr(pfn)   __pfn_to_paddr(pfn)
+>  #define paddr_to_pfn(pa)    __paddr_to_pfn(pa)
+>  #define paddr_to_pdx(pa)    pfn_to_pdx(paddr_to_pfn(pa))
+> -#define vmap_to_mfn(va)     l1e_get_mfn(*virt_to_xen_l1e((unsigned long)(va)))
+> +#define vmap_to_mfn(va)     xen_map_to_mfn((unsigned long)va)
+
+You've lost parentheses around va.
+
+Jan
 
