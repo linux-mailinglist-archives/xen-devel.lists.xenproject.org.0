@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1926B2D1211
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 14:30:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.46567.82647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98DD2D1251
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 14:42:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.46586.82672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmGb3-0006fC-Bh; Mon, 07 Dec 2020 13:30:33 +0000
+	id 1kmGlc-00088Y-LM; Mon, 07 Dec 2020 13:41:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 46567.82647; Mon, 07 Dec 2020 13:30:33 +0000
+Received: by outflank-mailman (output) from mailman id 46586.82672; Mon, 07 Dec 2020 13:41:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmGb3-0006en-8U; Mon, 07 Dec 2020 13:30:33 +0000
-Received: by outflank-mailman (input) for mailman id 46567;
- Mon, 07 Dec 2020 13:30:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DX/D=FL=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kmGb1-0006do-Ju
- for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 13:30:31 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dd845fb6-9b2c-47e7-b339-d9698956272a;
- Mon, 07 Dec 2020 13:30:30 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5E70EAD09;
- Mon,  7 Dec 2020 13:30:29 +0000 (UTC)
+	id 1kmGlc-000889-I8; Mon, 07 Dec 2020 13:41:28 +0000
+Received: by outflank-mailman (input) for mailman id 46586;
+ Mon, 07 Dec 2020 13:41:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xlZz=FL=bounce.vates.fr=bounce-md_30504962.5fce3105.v1-c51429d20de44e80987a2908f93cb7af@srs-us1.protection.inumbo.net>)
+ id 1kmGlb-00087o-9F
+ for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 13:41:27 +0000
+Received: from mail187-17.suw11.mandrillapp.com (unknown [198.2.187.17])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 10729004-03fd-4487-a5c9-bd2facc0a2eb;
+ Mon, 07 Dec 2020 13:41:26 +0000 (UTC)
+Received: from pmta01.mandrill.prod.suw01.rsglab.com (127.0.0.1) by
+ mail187-17.suw11.mandrillapp.com id hpoogc174i40 for
+ <xen-devel@lists.xenproject.org>;
+ Mon, 7 Dec 2020 13:41:26 +0000 (envelope-from
+ <bounce-md_30504962.5fce3105.v1-c51429d20de44e80987a2908f93cb7af@bounce.vates.fr>)
+Received: from [185.78.159.90] by mandrillapp.com id
+ c51429d20de44e80987a2908f93cb7af; Mon, 07 Dec 2020 13:41:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,238 +42,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd845fb6-9b2c-47e7-b339-d9698956272a
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607347829; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qO8uDSCaCVklC/1884Z3m6tRv+wQIAXdoqVmyxZTomc=;
-	b=Lqq67VCQiRnET2stayy3VmJFaL/+SiunSGCMyjY+/iAT69IgVj1Po9szzlkif8CQKoFjJw
-	O421QkLOJd619Fb3UmAxypDynmuGG8KeDiysJD/h1VK+iW+mTfloQjJWku0CVt7Mb7pfrj
-	jAbOZY6dksmrkLKftV+hq5yZbqKd2ME=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 2/2] xen: don't use page->lru for ZONE_DEVICE memory
-Date: Mon,  7 Dec 2020 14:30:24 +0100
-Message-Id: <20201207133024.16621-3-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201207133024.16621-1-jgross@suse.com>
-References: <20201207133024.16621-1-jgross@suse.com>
+X-Inumbo-ID: 10729004-03fd-4487-a5c9-bd2facc0a2eb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=mandrill; d=vates.fr;
+ h=From:Subject:To:Message-Id:Date:MIME-Version:Content-Type; i=benjamin.reis@vates.fr;
+ bh=uwjndJrzvEh86+hmZ4HZG7uKSNuP8jinRy8UFX+YLjk=;
+ b=oWAAAxX0JmVr3HVZ/U1zOau1KB89nT1uvicl0YF1y1adv2xFx9oxlE0BxTYniliJ9FvAbiKTcnYD
+   xic0kpVM3HmdHxqogNqPeJh84+/NfZ2rq5x1vDxm5qS2X1rxdv8bFQM4UtM4kkVXKqBaxROONCYy
+   IeUYv4F9PMVmTG76kyg=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
+ i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1607348485; h=From : 
+ Subject : To : Message-Id : Date : MIME-Version : Content-Type : From : 
+ Subject : Date : X-Mandrill-User : List-Unsubscribe; 
+ bh=uwjndJrzvEh86+hmZ4HZG7uKSNuP8jinRy8UFX+YLjk=; 
+ b=XzhHYpIhchXFtRm38/7Yc1zYqg7pgGJQlSF5LZ6YmCUnOWgJzs2K+qrVN1PAeJMy94m2Mo
+ F8zFHepejDqXjICt+5H4RvOJmQp61ARZBB0TuI6pKjWyWMq4X9KJepaBdJAsk36EI2hqQo8s
+ y9g0vXJTynF5pKLaXmKbcamfG0Beo=
+From: Benjamin Reis <benjamin.reis@vates.fr>
+Subject: [Help Wanted] New toolstack Rust PoC
+X-Virus-Scanned: amavisd-new at plam.fr
+To: xen-devel@lists.xenproject.org
+Message-Id: <1b86b418-71e1-3422-6531-00af746cf7a8@vates.fr>
+X-Report-Abuse: Please forward a copy of this message, including all headers, to abuse@mandrill.com
+X-Report-Abuse: You can also report abuse here: http://mandrillapp.com/contact/abuse?id=30504962.c51429d20de44e80987a2908f93cb7af
+X-Mandrill-User: md_30504962
+Date: Mon, 07 Dec 2020 13:41:25 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/alternative; boundary="_av-VT238g60RITZZ1j9P4kUSA"
 
-Commit 9e2369c06c8a18 ("xen: add helpers to allocate unpopulated
-memory") introduced usage of ZONE_DEVICE memory for foreign memory
-mappings.
+--_av-VT238g60RITZZ1j9P4kUSA
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Unfortunately this collides with using page->lru for Xen backend
-private page caches.
+Hi all,
 
-Fix that by using page->zone_device_data instead.
+As you may know: we are working on a rust PoC 
+(https://github.com/xcp-ng/xenopsd-ng/rust/ 
+<https://github.com/xcp-ng/xenopsd-ng/pull/13>) for the new Xen 
+Toolstack. We have partial bindings for Xenctrl and Xenstore and with 
+that we're able to pause/unpause/shutdown a guest and we're close to 
+booting a XTF guest (https://github.com/xcp-ng/xenopsd-ng/pull/13 
+<https://github.com/xcp-ng/xenopsd-ng/pull/13>).
 
-Fixes: 9e2369c06c8a18 ("xen: add helpers to allocate unpopulated memory")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- drivers/xen/grant-table.c       | 65 +++++++++++++++++++++++++++++----
- drivers/xen/unpopulated-alloc.c | 20 +++++-----
- include/xen/grant_table.h       |  4 ++
- 3 files changed, 73 insertions(+), 16 deletions(-)
+We are new to Xen so we're having a hard time finding what's wrong with 
+our current code, so we're looking for some help/guidance to keep our 
+PoC going forward. We're suspecting that in hypercall fails silently 
+when setting the guest's hvm context. Would anyone be interested in 
+helping us debugging/developping the PoC? We're currently tracking this 
+issue here: https://github.com/xcp-ng/xenopsd-ng/issues/17. Hoping to 
+hear from you soon. Benjamin Reis Vates SAS
 
-diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-index e2e42912f241..696663a439fe 100644
---- a/drivers/xen/grant-table.c
-+++ b/drivers/xen/grant-table.c
-@@ -813,10 +813,63 @@ int gnttab_alloc_pages(int nr_pages, struct page **pages)
- }
- EXPORT_SYMBOL_GPL(gnttab_alloc_pages);
- 
-+#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
-+static inline void cache_init(struct gnttab_page_cache *cache)
-+{
-+	cache->pages = NULL;
-+}
-+
-+static inline bool cache_empty(struct gnttab_page_cache *cache)
-+{
-+	return !cache->pages;
-+}
-+
-+static inline struct page *cache_deq(struct gnttab_page_cache *cache)
-+{
-+	struct page *page;
-+
-+	page = cache->pages;
-+	cache->pages = page->zone_device_data;
-+
-+	return page;
-+}
-+
-+static inline void cache_enq(struct gnttab_page_cache *cache, struct page *page)
-+{
-+	page->zone_device_data = cache->pages;
-+	cache->pages = page;
-+}
-+#else
-+static inline void cache_init(struct gnttab_page_cache *cache)
-+{
-+	INIT_LIST_HEAD(&cache->pages);
-+}
-+
-+static inline bool cache_empty(struct gnttab_page_cache *cache)
-+{
-+	return list_empty(&cache->pages);
-+}
-+
-+static inline struct page *cache_deq(struct gnttab_page_cache *cache)
-+{
-+	struct page *page;
-+
-+	page = list_first_entry(&cache->pages, struct page, lru);
-+	list_del(&page[0]->lru);
-+
-+	return page;
-+}
-+
-+static inline void cache_enq(struct gnttab_page_cache *cache, struct page *page)
-+{
-+	list_add(&page->lru, &cache->pages);
-+}
-+#endif
-+
- void gnttab_page_cache_init(struct gnttab_page_cache *cache)
- {
- 	spin_lock_init(&cache->lock);
--	INIT_LIST_HEAD(&cache->pages);
-+	cache_init(cache);
- 	cache->num_pages = 0;
- }
- EXPORT_SYMBOL_GPL(gnttab_page_cache_init);
-@@ -827,13 +880,12 @@ int gnttab_page_cache_get(struct gnttab_page_cache *cache, struct page **page)
- 
- 	spin_lock_irqsave(&cache->lock, flags);
- 
--	if (list_empty(&cache->pages)) {
-+	if (cache_empty(cache)) {
- 		spin_unlock_irqrestore(&cache->lock, flags);
- 		return gnttab_alloc_pages(1, page);
- 	}
- 
--	page[0] = list_first_entry(&cache->pages, struct page, lru);
--	list_del(&page[0]->lru);
-+	page[0] = cache_deq(cache);
- 	cache->num_pages--;
- 
- 	spin_unlock_irqrestore(&cache->lock, flags);
-@@ -851,7 +903,7 @@ void gnttab_page_cache_put(struct gnttab_page_cache *cache, struct page **page,
- 	spin_lock_irqsave(&cache->lock, flags);
- 
- 	for (i = 0; i < num; i++)
--		list_add(&page[i]->lru, &cache->pages);
-+		cache_enq(cache, page[i]);
- 	cache->num_pages += num;
- 
- 	spin_unlock_irqrestore(&cache->lock, flags);
-@@ -867,8 +919,7 @@ void gnttab_page_cache_shrink(struct gnttab_page_cache *cache, unsigned int num)
- 	spin_lock_irqsave(&cache->lock, flags);
- 
- 	while (cache->num_pages > num) {
--		page[i] = list_first_entry(&cache->pages, struct page, lru);
--		list_del(&page[i]->lru);
-+		page[i] = cache_deq(cache);
- 		cache->num_pages--;
- 		if (++i == ARRAY_SIZE(page)) {
- 			spin_unlock_irqrestore(&cache->lock, flags);
-diff --git a/drivers/xen/unpopulated-alloc.c b/drivers/xen/unpopulated-alloc.c
-index 8c512ea550bb..7762c1bb23cb 100644
---- a/drivers/xen/unpopulated-alloc.c
-+++ b/drivers/xen/unpopulated-alloc.c
-@@ -12,7 +12,7 @@
- #include <xen/xen.h>
- 
- static DEFINE_MUTEX(list_lock);
--static LIST_HEAD(page_list);
-+static struct page *page_list;
- static unsigned int list_count;
- 
- static int fill_list(unsigned int nr_pages)
-@@ -84,7 +84,8 @@ static int fill_list(unsigned int nr_pages)
- 		struct page *pg = virt_to_page(vaddr + PAGE_SIZE * i);
- 
- 		BUG_ON(!virt_addr_valid(vaddr + PAGE_SIZE * i));
--		list_add(&pg->lru, &page_list);
-+		pg->zone_device_data = page_list;
-+		page_list = pg;
- 		list_count++;
- 	}
- 
-@@ -118,12 +119,10 @@ int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
- 	}
- 
- 	for (i = 0; i < nr_pages; i++) {
--		struct page *pg = list_first_entry_or_null(&page_list,
--							   struct page,
--							   lru);
-+		struct page *pg = page_list;
- 
- 		BUG_ON(!pg);
--		list_del(&pg->lru);
-+		page_list = pg->zone_device_data;
- 		list_count--;
- 		pages[i] = pg;
- 
-@@ -134,7 +133,8 @@ int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
- 				unsigned int j;
- 
- 				for (j = 0; j <= i; j++) {
--					list_add(&pages[j]->lru, &page_list);
-+					pages[j]->zone_device_data = page_list;
-+					page_list = pages[j];
- 					list_count++;
- 				}
- 				goto out;
-@@ -160,7 +160,8 @@ void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
- 
- 	mutex_lock(&list_lock);
- 	for (i = 0; i < nr_pages; i++) {
--		list_add(&pages[i]->lru, &page_list);
-+		pages[i]->zone_device_data = page_list;
-+		page_list = pages[i];
- 		list_count++;
- 	}
- 	mutex_unlock(&list_lock);
-@@ -189,7 +190,8 @@ static int __init init(void)
- 			struct page *pg =
- 				pfn_to_page(xen_extra_mem[i].start_pfn + j);
- 
--			list_add(&pg->lru, &page_list);
-+			pg->zone_device_data = page_list;
-+			page_list = pg;
- 			list_count++;
- 		}
- 	}
-diff --git a/include/xen/grant_table.h b/include/xen/grant_table.h
-index c6ef8ffc1a09..b9c937b3a149 100644
---- a/include/xen/grant_table.h
-+++ b/include/xen/grant_table.h
-@@ -200,7 +200,11 @@ void gnttab_free_pages(int nr_pages, struct page **pages);
- 
- struct gnttab_page_cache {
- 	spinlock_t		lock;
-+#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
-+	struct page		*pages;
-+#else
- 	struct list_head	pages;
-+#endif
- 	unsigned int		num_pages;
- };
- 
--- 
-2.26.2
+
+
+--_av-VT238g60RITZZ1j9P4kUSA
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+
+    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF-8=
+">
+  </head>
+  <body>
+    <p style=3D"box-sizing: border-box; margin: 0px; font-size: 13.5px; lin=
+e-height: 1.6em; white-space: pre-wrap; width: 1598px; word-break: break-wo=
+rd; color: rgb(221, 221, 221); font-family: &quot;Open Sans&quot;, sans-ser=
+if; font-style: normal; font-variant-ligatures: normal; font-variant-caps: =
+normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: s=
+tart; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px;=
+ -webkit-text-stroke-width: 0px; background-color: rgba(221, 221, 221, 0.04=
+); text-decoration-thickness: initial; text-decoration-style: initial; text=
+-decoration-color: initial;">Hi all, 
+</p>
+    <p style=3D"box-sizing: border-box; margin: 0px; font-size: 13.5px; lin=
+e-height: 1.6em; white-space: pre-wrap; width: 1598px; word-break: break-wo=
+rd; color: rgb(221, 221, 221); font-family: &quot;Open Sans&quot;, sans-ser=
+if; font-style: normal; font-variant-ligatures: normal; font-variant-caps: =
+normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: s=
+tart; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px;=
+ -webkit-text-stroke-width: 0px; background-color: rgba(221, 221, 221, 0.04=
+); text-decoration-thickness: initial; text-decoration-style: initial; text=
+-decoration-color: initial;">
+</p>
+    <p style=3D"box-sizing: border-box; margin: 0.5em 0px 0px; font-size: 1=
+3.5px; line-height: 1.6em; white-space: pre-wrap; width: 1598px; word-break=
+: break-word; color: rgb(221, 221, 221); font-family: &quot;Open Sans&quot;=
+, sans-serif; font-style: normal; font-variant-ligatures: normal; font-vari=
+ant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; tex=
+t-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spa=
+cing: 0px; -webkit-text-stroke-width: 0px; background-color: rgba(221, 221,=
+ 221, 0.04); text-decoration-thickness: initial; text-decoration-style: ini=
+tial; text-decoration-color: initial;">As you may know: we are working on a=
+ rust PoC (<a class=3D"theme markdown__link" href=3D"https://github.com/xcp=
+-ng/xenopsd-ng/pull/13" rel=3D"noreferrer" target=3D"_blank" style=3D"box-s=
+izing: border-box; background-color: transparent; color: rgb(164, 255, 235)=
+; text-decoration: none; cursor: pointer; word-break: break-word;">https://=
+github.com/xcp-ng/xenopsd-ng/rust/</a>) for the new Xen Toolstack.
+We have partial bindings for Xenctrl and Xenstore and with that we're able =
+to pause/unpause/shutdown a guest and we're close to booting a XTF guest (<=
+a class=3D"theme markdown__link" href=3D"https://github.com/xcp-ng/xenopsd-=
+ng/pull/13" rel=3D"noreferrer" target=3D"_blank" style=3D"box-sizing: borde=
+r-box; background-color: transparent; color: rgb(164, 255, 235); text-decor=
+ation: none; cursor: pointer; word-break: break-word;">https://github.com/x=
+cp-ng/xenopsd-ng/pull/13</a>).</p>
+    <p style=3D"box-sizing: border-box; margin: 0.5em 0px 0px; font-size: 1=
+3.5px; line-height: 1.6em; white-space: pre-wrap; width: 1598px; word-break=
+: break-word; color: rgb(221, 221, 221); font-family: &quot;Open Sans&quot;=
+, sans-serif; font-style: normal; font-variant-ligatures: normal; font-vari=
+ant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; tex=
+t-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spa=
+cing: 0px; -webkit-text-stroke-width: 0px; background-color: rgba(221, 221,=
+ 221, 0.04); text-decoration-thickness: initial; text-decoration-style: ini=
+tial; text-decoration-color: initial;">We are new to Xen so we're having a =
+hard time finding what's wrong with our current code, so we're looking for =
+some help/guidance to keep our PoC going forward.
+We're suspecting that in hypercall fails silently when setting the guest's =
+hvm context.
+Would anyone be interested in helping us debugging/developping the PoC?
+We're currently tracking this issue here: <a class=3D"moz-txt-link-freetext=
+" href=3D"https://github.com/xcp-ng/xenopsd-ng/issues/17">https://github.co=
+m/xcp-ng/xenopsd-ng/issues/17</a>.
+
+Hoping to hear from you soon.
+
+Benjamin Reis
+Vates SAS
+</p>
+  <img src=3D"https://mandrillapp.com/track/open.php?u=3D30504962&id=3Dc514=
+29d20de44e80987a2908f93cb7af" height=3D"1" width=3D"1"></body>
+</html>
+
+
+--_av-VT238g60RITZZ1j9P4kUSA--
 
 
