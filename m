@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BDF52D1902
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 20:07:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.46923.83146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 666F12D1926
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 20:13:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.46948.83158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmLq9-0002ez-NE; Mon, 07 Dec 2020 19:06:29 +0000
+	id 1kmLwg-0003jA-Fd; Mon, 07 Dec 2020 19:13:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 46923.83146; Mon, 07 Dec 2020 19:06:29 +0000
+Received: by outflank-mailman (output) from mailman id 46948.83158; Mon, 07 Dec 2020 19:13:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmLq9-0002ea-Jh; Mon, 07 Dec 2020 19:06:29 +0000
-Received: by outflank-mailman (input) for mailman id 46923;
- Mon, 07 Dec 2020 18:31:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KVsS=FL=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1kmLI1-0007r5-As
- for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 18:31:13 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 37e468e2-ea19-4f08-b2b6-22dcff629aba;
- Mon, 07 Dec 2020 18:31:11 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 0B7IV1BS033689
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 7 Dec 2020 13:31:07 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 0B7IV133033688;
- Mon, 7 Dec 2020 10:31:01 -0800 (PST) (envelope-from ehem)
+	id 1kmLwg-0003il-Bg; Mon, 07 Dec 2020 19:13:14 +0000
+Received: by outflank-mailman (input) for mailman id 46948;
+ Mon, 07 Dec 2020 19:13:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=e0y+=FL=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kmLwe-0003ig-87
+ for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 19:13:12 +0000
+Received: from mail-wr1-x434.google.com (unknown [2a00:1450:4864:20::434])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a03cd1b4-4776-483c-b591-2348ce19a3de;
+ Mon, 07 Dec 2020 19:13:10 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id i2so13881925wrs.4
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Dec 2020 11:13:10 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-183-162-145.range86-183.btcentralplus.com.
+ [86.183.162.145])
+ by smtp.gmail.com with ESMTPSA id u10sm195629wmd.43.2020.12.07.11.13.08
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 07 Dec 2020 11:13:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,121 +42,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37e468e2-ea19-4f08-b2b6-22dcff629aba
-Message-Id: <202012071831.0B7IV133033688@m5p.com>
-From: Elliott Mitchell <ehem+xenn@m5p.com>
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>
-Cc: Wei Liu <wl@xen.org>
-Cc: "Marek Marczykowski-Górecki" <marmarek@invisiblethingslab.com>
-Date: Thu, 1 Oct 2020 15:19:33 -0700
-Subject: [RFC PATCH] tools/python: Correct extension filenames for Python 3
-X-Spam-Status: No, score=2.1 required=10.0 tests=DATE_IN_PAST_96_XX,
-	KHOP_HELO_FCRDNS autolearn=no autolearn_force=no version=3.4.4
-X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+X-Inumbo-ID: a03cd1b4-4776-483c-b591-2348ce19a3de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:content-language
+         :thread-index;
+        bh=mKImpMHefcGMjwuZymDE86va3HkD31kS1uQWZsITmds=;
+        b=rfT/Ep6s4v0B1xbYfnA75do4KB6pJ0V7gW8HHP6HqNT4+mv6BVoIp8qJUmxkMdEpc7
+         XqssnJYS2TtqWZJTIHyUHXEyPoZ9cQBrmCUxb4TMkU2JyK5ckegjowPLj6fjxRVvM8IX
+         GAj1u7TvJBeXLrHSA355NYJXrAQiilhsfrBkEVyG53NEv6cKtrK0ABE4f6cbMl6B4PiI
+         8Apz9wZIB0gAHHbS5VlsLCK0raQEgkEkr+b3JkmYWt7h7uhD4p8hCWsV5l/GAMUG+9Fo
+         ghJjtwyFYmpHDJR6g1kn05Qg43sjiiXBmpAKZX7XUkWgYGyG8iZkzVKFS1kE/8Pk9LuX
+         YZOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :content-language:thread-index;
+        bh=mKImpMHefcGMjwuZymDE86va3HkD31kS1uQWZsITmds=;
+        b=nxniQ3knFQK5EWoqGGyR+P6jaMSMK6nSa9Nbw4G78ZQ8ysVxwX02T8uxWpBhrlolf7
+         /8Keg3L6SdhkWQPa6NHEgArfctLCjRwoWbH33ePOeTNB9ha9i0SEf1hudTomBJCpL3u6
+         uWhNkBnvvPQCst8LffzGaersvRU/7qrc/US5j9xOrbEsNMH/r4kCTqcEhSY7CKQxQeyN
+         +59usKBwZWNOxfBiRpFFBVfmrhxTODsZidax5XYYfNMria1IlqN0bEE1ONQ8ZBAGZyK7
+         X4K/S1KTJRgYK+XAnAX+DnKv4HepNC+gUvQtyEJX4cYRqWubs4P5FEDPUBRdw+AfL2so
+         E4fg==
+X-Gm-Message-State: AOAM533Ld5nR0031Oi7MoNUvd1YYPSFE+ffsTS9Mbu6fLZkcGi4FAq4Q
+	iGnakDaTgELMYO+hfSZpKUE=
+X-Google-Smtp-Source: ABdhPJxUNUMRg4txWxb/8/bsuceumcDwSZaTvlnQGXtEc1QkLnwk35GphjW3ed+ojEDRta9qcPAkjg==
+X-Received: by 2002:adf:fa4a:: with SMTP id y10mr21526240wrr.122.1607368389799;
+        Mon, 07 Dec 2020 11:13:09 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Wei Liu'" <wl@xen.org>
+Cc: <xen-devel@lists.xenproject.org>,
+	"'Paul Durrant'" <pdurrant@amazon.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	"'Anthony PERARD'" <anthony.perard@citrix.com>
+References: <20201203142534.4017-1-paul@xen.org> <20201203142534.4017-19-paul@xen.org> <20201204113413.iebyf2ldzq6rfpsg@liuwe-devbox-debian-v2>
+In-Reply-To: <20201204113413.iebyf2ldzq6rfpsg@liuwe-devbox-debian-v2>
+Subject: RE: [PATCH v5 18/23] libxlu: introduce xlu_pci_parse_spec_string()
+Date: Mon, 7 Dec 2020 19:13:08 -0000
+Message-ID: <0d2e01d6cccc$ffe23da0$ffa6b8e0$@xen.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQLNnXLs2pPLw4H6lzH6w2mINWFu0wIe2fTUAq/cxhCn1+ivcA==
 
-Python distutils really looks like between 2 and 3, it took two steps
-forward and then two steps backward.
+> -----Original Message-----
+> From: Wei Liu <wl@xen.org>
+> Sent: 04 December 2020 11:34
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Paul Durrant <pdurrant@amazon.com>; Ian Jackson
+> <iwj@xenproject.org>; Wei Liu <wl@xen.org>; Anthony PERARD <anthony.perard@citrix.com>
+> Subject: Re: [PATCH v5 18/23] libxlu: introduce xlu_pci_parse_spec_string()
+> 
+> On Thu, Dec 03, 2020 at 02:25:29PM +0000, Paul Durrant wrote:
+> > From: Paul Durrant <pdurrant@amazon.com>
+> >
+> > This patch largely re-writes the code to parse a PCI_SPEC_STRING and enters
+> > it via the newly introduced function. The new parser also deals with 'bdf'
+> > and 'vslot' as non-positional paramaters, as per the documentation in
+> > xl-pci-configuration(5).
+> >
+> > The existing xlu_pci_parse_bdf() function remains, but now strictly parses
+> > BDF values. Some existing callers of xlu_pci_parse_bdf() are
+> > modified to call xlu_pci_parse_spec_string() as per the documentation in xl(1).
+> >
+> > NOTE: Usage text in xl_cmdtable.c and error messages are also modified
+> >       appropriately.
+> >
+> > Fixes: d25cc3ec93eb ("libxl: workaround gcc 10.2 maybe-uninitialized warning")
+> 
+> I don't think d25cc3ec93eb is buggy, so this tag is not needed.
 
-First, it broke the linking step off of the compile step.  Thus CC and
-LDSHARED were separated, thus CFLAGS and LDFLAGS were separated.  A
-substantial step forwards.  Yet then CFLAGS was appended to LDFLAGS,
-meaning LDSHARED needed to be able to accept CFLAGS as arguments.  Thus
-effectively reuniting them.
+It is. If you supply the '*' for all funcs then vfunc_mask is set but func is not... so you then hit the assertion at the end of
+xlu_pci_parse_bdf().
 
-Second, now distutils includes the host type in the object file area and
-the full host triplet in the shared object name.  As such now a
-filesystem can be shared by hosts with distinct architectures.  Great for
-mixed environments.  Yet the build machine architecture/triplet is
-assumed to be the runtime architecture, thus we end up with a workaround
-something like the below.
+> 
+> > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> 
+> Acked-by: Wei Liu <wl@xen.org>
 
-The current state of this seems like a pretty awful hack.  I'm making
-assumptions about the architecture which I won't bet on holding.  This
-was really a quick hack for Pry Mar to assist with the current situation.
+Thanks,
 
-A proper solution is needed.  This feels like a proof-of-concept, but
-needs refinement before ending up in any tree.
-
----
- tools/pygrub/setup.py | 16 +++++++++++++++-
- tools/python/setup.py | 16 +++++++++++++++-
- 2 files changed, 30 insertions(+), 2 deletions(-)
-
-diff --git a/tools/pygrub/setup.py b/tools/pygrub/setup.py
-index b8f1dc4590..737f97d679 100644
---- a/tools/pygrub/setup.py
-+++ b/tools/pygrub/setup.py
-@@ -7,6 +7,19 @@ extra_compile_args  = [ "-fno-strict-aliasing", "-Werror" ]
- 
- XEN_ROOT = "../.."
- 
-+from distutils import command
-+import distutils.command.build_ext
-+class BuildExtArch(distutils.command.build_ext.build_ext):
-+	arch_map = {
-+		'x86_64':	'amd64',
-+		'x86_32':	'i386',
-+		'arm64':	'aarch64',
-+		'arm32':	'armel',
-+	}
-+	def get_ext_filename(self, ext_name):
-+		name = super().get_ext_filename(ext_name)
-+		return name.replace(os.getenv("XEN_COMPILE_ARCH"), self.arch_map[os.getenv("XEN_TARGET_ARCH")])
-+
- xenfsimage = Extension("xenfsimage",
-     extra_compile_args = extra_compile_args,
-     include_dirs = [ XEN_ROOT + "/tools/libfsimage/common/" ],
-@@ -25,5 +38,6 @@ setup(name='pygrub',
-       package_dir={'grub': 'src', 'fsimage': 'src'},
-       scripts = ["src/pygrub"],
-       packages=pkgs,
--      ext_modules = [ xenfsimage ]
-+      ext_modules = [ xenfsimage ],
-+      cmdclass = {'build_ext': BuildExtArch},
-       )
-diff --git a/tools/python/setup.py b/tools/python/setup.py
-index 8c95db7769..4d761f9360 100644
---- a/tools/python/setup.py
-+++ b/tools/python/setup.py
-@@ -17,6 +17,19 @@ PATH_LIBXENCTRL = XEN_ROOT + "/tools/libs/ctrl"
- PATH_LIBXENGUEST = XEN_ROOT + "/tools/libs/guest"
- PATH_XENSTORE = XEN_ROOT + "/tools/libs/store"
- 
-+from distutils import command
-+import distutils.command.build_ext
-+class BuildExtArch(distutils.command.build_ext.build_ext):
-+	arch_map = {
-+		'x86_64':	'amd64',
-+		'x86_32':	'i386',
-+		'arm64':	'aarch64',
-+		'arm32':	'armel',
-+	}
-+	def get_ext_filename(self, ext_name):
-+		name = super().get_ext_filename(ext_name)
-+		return name.replace(os.getenv("XEN_COMPILE_ARCH"), self.arch_map[os.getenv("XEN_TARGET_ARCH")])
-+
- xc = Extension("xc",
-                extra_compile_args = extra_compile_args,
-                include_dirs       = [ PATH_XEN,
-@@ -51,5 +64,6 @@ setup(name            = 'xen',
-                          'xen.lowlevel',
-                         ],
-       ext_package = "xen.lowlevel",
--      ext_modules = modules
-+      ext_modules = modules,
-+      cmdclass = {'build_ext': BuildExtArch},
-       )
--- 
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+  Paul
 
 
