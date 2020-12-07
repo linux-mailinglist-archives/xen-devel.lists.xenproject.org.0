@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ABD32D0B5E
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 08:55:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.45926.81474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C2472D0B6E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 09:02:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.45938.81485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmBM7-000531-8E; Mon, 07 Dec 2020 07:54:47 +0000
+	id 1kmBTU-0006aB-C7; Mon, 07 Dec 2020 08:02:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 45926.81474; Mon, 07 Dec 2020 07:54:47 +0000
+Received: by outflank-mailman (output) from mailman id 45938.81485; Mon, 07 Dec 2020 08:02:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmBM7-00052c-52; Mon, 07 Dec 2020 07:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 45926;
- Mon, 07 Dec 2020 07:54:45 +0000
+	id 1kmBTU-0006Zm-9F; Mon, 07 Dec 2020 08:02:24 +0000
+Received: by outflank-mailman (input) for mailman id 45938;
+ Mon, 07 Dec 2020 08:02:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3bhA=FL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kmBM5-00052X-Ar
- for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 07:54:45 +0000
+ id 1kmBTS-0006Zh-Ne
+ for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 08:02:22 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ebc1c104-9c37-4d43-93fd-6dc86b92bdf8;
- Mon, 07 Dec 2020 07:54:41 +0000 (UTC)
+ id d7debd77-597b-4bb4-93cf-dbf0d510bb86;
+ Mon, 07 Dec 2020 08:02:20 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 36D7DACC4;
- Mon,  7 Dec 2020 07:54:40 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 096ACAC9A;
+ Mon,  7 Dec 2020 08:02:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,140 +39,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebc1c104-9c37-4d43-93fd-6dc86b92bdf8
+X-Inumbo-ID: d7debd77-597b-4bb4-93cf-dbf0d510bb86
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607327680; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1607328140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=dBW+RZrThsYzUdoYBFqueVw1sHDq20n8t5u2fozEwB8=;
-	b=GR/EBMuhpdyFpNxUrwke6Li2u7hnyLdqDIIuPMAAug71kBgxebvxWUCVByFvhbmw/xjpba
-	OIlxbRAFX9v1K80823wwf/3BI0hAffIu3Xw7+oW5mvEbciVPGc8ltdkRCWBJ4nxqls8u9D
-	f9GhtcT5zi9YzzfeGfDukTf2KIRcXlU=
-Subject: Re: [PATCH v2 14/17] xen/hypfs: add support for id-based dynamic
- directories
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+	bh=8jDy2kB4A2gHHrNfM6JAX0OgtL3+GUlngGaCrsMy/xo=;
+	b=YpUOcMadl/5Tzer610sIxp88uh0eVS75GdP8TKuFJzQxFJDskZAOYyAqE3J7TBaJ5dnZtK
+	or7hu1WhKnZQ0MjwxOdal2aEmalLMawu4JScm5KLMBfaPvneTgMvaR+09jeMqwz0XodGJi
+	W2iz37KzUDmSmVHS6Ief3IxLnnhYYgA=
+Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
+ per-channel lock held
+To: Julien Grall <julien@xen.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201201082128.15239-1-jgross@suse.com>
- <20201201082128.15239-15-jgross@suse.com>
- <369bcb0b-5554-8976-d3fe-5066b3d7cdce@suse.com>
- <774ca9f3-3bbe-817f-5ecb-76054aa619f5@suse.com>
- <f81a011d-101c-29e7-cba2-0b52506cc027@suse.com>
- <181448f7-fffb-ee5d-b420-40500bdb608d@suse.com>
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <lengyelt@ainfosec.com>,
+ Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
+ <d821c715-966a-b48b-a877-c5dac36822f0@suse.com>
+ <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
+ <7a768bcd-80c1-d193-8796-7fb6720fa22a@suse.com>
+ <1a8250f5-ea49-ac3a-e992-be7ec40deba9@xen.org>
+ <269f9a2d-7a8d-cba2-801f-6d3b12f9455f@suse.com>
+ <02a2b77f-27a9-b1b6-1acf-1f136cffdf30@xen.org>
+ <48395363-ea47-9139-011e-233d92581a71@suse.com>
+ <2edfc711-d8d9-4854-94a2-2d9e4d9902ec@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8094a301-6334-2504-cf2a-87629098f8ed@suse.com>
-Date: Mon, 7 Dec 2020 08:54:42 +0100
+Message-ID: <381cbc5b-29e8-d84d-0b7c-e84de82bc1a4@suse.com>
+Date: Mon, 7 Dec 2020 09:02:22 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <181448f7-fffb-ee5d-b420-40500bdb608d@suse.com>
+In-Reply-To: <2edfc711-d8d9-4854-94a2-2d9e4d9902ec@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.12.2020 14:08, Jürgen Groß wrote:
-> On 04.12.20 10:16, Jan Beulich wrote:
->> On 04.12.2020 09:52, Jürgen Groß wrote:
->>> On 03.12.20 16:44, Jan Beulich wrote:
->>>> On 01.12.2020 09:21, Juergen Gross wrote:
->>>>> --- a/xen/common/hypfs.c
->>>>> +++ b/xen/common/hypfs.c
->>>>> @@ -355,6 +355,81 @@ unsigned int hypfs_getsize(const struct hypfs_entry *entry)
->>>>>        return entry->size;
->>>>>    }
->>>>>    
->>>>> +int hypfs_read_dyndir_id_entry(const struct hypfs_entry_dir *template,
->>>>> +                               unsigned int id, bool is_last,
->>>>> +                               XEN_GUEST_HANDLE_PARAM(void) *uaddr)
->>>>> +{
->>>>> +    struct xen_hypfs_dirlistentry direntry;
->>>>> +    char name[HYPFS_DYNDIR_ID_NAMELEN];
->>>>> +    unsigned int e_namelen, e_len;
->>>>> +
->>>>> +    e_namelen = snprintf(name, sizeof(name), template->e.name, id);
->>>>> +    e_len = DIRENTRY_SIZE(e_namelen);
->>>>> +    direntry.e.pad = 0;
->>>>> +    direntry.e.type = template->e.type;
->>>>> +    direntry.e.encoding = template->e.encoding;
->>>>> +    direntry.e.content_len = template->e.funcs->getsize(&template->e);
->>>>> +    direntry.e.max_write_len = template->e.max_size;
->>>>> +    direntry.off_next = is_last ? 0 : e_len;
->>>>> +    if ( copy_to_guest(*uaddr, &direntry, 1) )
->>>>> +        return -EFAULT;
->>>>> +    if ( copy_to_guest_offset(*uaddr, DIRENTRY_NAME_OFF, name,
->>>>> +                              e_namelen + 1) )
->>>>> +        return -EFAULT;
->>>>> +
->>>>> +    guest_handle_add_offset(*uaddr, e_len);
->>>>> +
->>>>> +    return 0;
->>>>> +}
->>>>> +
->>>>> +static struct hypfs_entry *hypfs_dyndir_findentry(
->>>>> +    const struct hypfs_entry_dir *dir, const char *name, unsigned int name_len)
->>>>> +{
->>>>> +    const struct hypfs_dyndir_id *data;
->>>>> +
->>>>> +    data = hypfs_get_dyndata();
->>>>> +
->>>>> +    /* Use template with original findentry function. */
->>>>> +    return data->template->e.funcs->findentry(data->template, name, name_len);
->>>>> +}
->>>>> +
->>>>> +static int hypfs_read_dyndir(const struct hypfs_entry *entry,
->>>>> +                             XEN_GUEST_HANDLE_PARAM(void) uaddr)
->>>>> +{
->>>>> +    const struct hypfs_dyndir_id *data;
->>>>> +
->>>>> +    data = hypfs_get_dyndata();
->>>>> +
->>>>> +    /* Use template with original read function. */
->>>>> +    return data->template->e.funcs->read(&data->template->e, uaddr);
->>>>> +}
->>>>> +
->>>>> +struct hypfs_entry *hypfs_gen_dyndir_entry_id(
->>>>> +    const struct hypfs_entry_dir *template, unsigned int id)
->>>>> +{
->>>>> +    struct hypfs_dyndir_id *data;
->>>>> +
->>>>> +    data = hypfs_get_dyndata();
->>>>> +
->>>>> +    data->template = template;
->>>>> +    data->id = id;
->>>>> +    snprintf(data->name, sizeof(data->name), template->e.name, id);
->>>>> +    data->dir = *template;
->>>>> +    data->dir.e.name = data->name;
+On 04.12.2020 16:09, Julien Grall wrote:
+> On 04/12/2020 12:01, Jan Beulich wrote:
+>> On 04.12.2020 12:51, Julien Grall wrote:
+>>> On 04/12/2020 11:48, Jan Beulich wrote:
+>>>> On 04.12.2020 12:28, Julien Grall wrote:
+>>>>> On 03/12/2020 10:09, Jan Beulich wrote:
+>>>>>> On 02.12.2020 22:10, Julien Grall wrote:
+>>>>>>> So shouldn't we handle this issue properly in VM event?
+>>>>>>
+>>>>>> I suppose that's a question to the VM event folks rather than me?
+>>>>>
+>>>>> Yes. From my understanding of Tamas's e-mail, they are relying on the
+>>>>> monitoring software to do the right thing.
+>>>>>
+>>>>> I will refrain to comment on this approach. However, given the race is
+>>>>> much wider than the event channel, I would recommend to not add more
+>>>>> code in the event channel to deal with such problem.
+>>>>>
+>>>>> Instead, this should be fixed in the VM event code when someone has time
+>>>>> to harden the subsystem.
 >>>>
->>>> I'm somewhat puzzled, if not confused, by the apparent redundancy
->>>> of this name generation with that in hypfs_read_dyndir_id_entry().
->>>> Wasn't the idea to be able to use generic functions on these
->>>> generated entries?
+>>>> Are effectively saying I should now undo the addition of the
+>>>> refcounting, which was added in response to feedback from you?
 >>>
->>> I can add a macro replacing the double snprintf().
+>>> Please point out where I made the request to use the refcounting...
 >>
->> That wasn't my point. I'm concerned of there being two name generation
->> sites in the first place. Is this perhaps simply some form of
->> optimization, avoiding hypfs_read_dyndir_id_entry() to call
->> hypfs_gen_dyndir_entry_id() (but risking the two going out of sync)?
+>> You didn't ask for this directly, sure, but ...
+>>
+>>> I pointed out there was an issue with the VM event code.
+>>
+>> ... this has ultimately led to the decision to use refcounting
+>> (iirc there was one alternative that I had proposed, besides
+>> the option of doing nothing).
 > 
-> Be aware that hypfs_read_dyndir_id_entry() is generating a struct
-> xen_hypfs_dirlistentry, which is different from the internal
-> representation of the data produced by hypfs_gen_dyndir_entry_id().
-> 
-> So the main common part is the name generation. What else would you
-> want apart from making it common via e.g. a macro? Letting
-> hypfs_read_dyndir_id_entry() call hypfs_gen_dyndir_entry_id() would
-> just be a more general approach with all the data but the generated
-> name of hypfs_gen_dyndir_entry_id() dropped or just copied around
-> a second time.
+> One other option that was discussed (maybe only on security@xen.org) is 
+> to move the spinlock outside of the structure so it is always allocated.
 
-IOW just an optimization, as I was assuming. Whether you macroize the
-name generation I'd like to leave up to you. But you could please add
-comments on both sides as to parts which need to remain in sync?
+Oh, right - forgot about that one, because that's nothing I would
+ever have taken on actually carrying out.
+
+>>> This was latter
+>>> analysed as a wider issue. The VM event folks doesn't seem to be very
+>>> concerned on the race, so I don't see the reason to try to fix it in the
+>>> event channel code.
+>>
+>> And you won't need the refcount for vpl011 then?
+> 
+> I don't believe we need it for the vpl011 as the spin lock protecting 
+> the code should always be allocated. The problem today is the lock is 
+> initialized too late.
+> 
+>> I can certainly
+>> drop it again, but it feels odd to go back to an earlier version
+>> under the circumstances ...
+> 
+> The code introduced doesn't look necessary outside of the VM event code.
+> So I think it would be wrong to merge it if it is just papering over a 
+> bigger problem.
+
+So to translate this to a clear course of action: You want me to
+go back to the earlier version by dropping the refcounting again?
+(I don't view this as "papering over" btw, but a tiny step towards
+a solution.)
 
 Jan
 
