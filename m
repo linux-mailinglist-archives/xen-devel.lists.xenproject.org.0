@@ -2,42 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4591F2D0DF1
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 11:24:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.46122.81820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED37A2D0DF5
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 11:25:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.46127.81832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmDgt-0005od-KB; Mon, 07 Dec 2020 10:24:23 +0000
+	id 1kmDhx-0005y0-Ub; Mon, 07 Dec 2020 10:25:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 46122.81820; Mon, 07 Dec 2020 10:24:23 +0000
+Received: by outflank-mailman (output) from mailman id 46127.81832; Mon, 07 Dec 2020 10:25:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmDgt-0005oE-Gd; Mon, 07 Dec 2020 10:24:23 +0000
-Received: by outflank-mailman (input) for mailman id 46122;
- Mon, 07 Dec 2020 10:24:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kmDhx-0005xb-Qu; Mon, 07 Dec 2020 10:25:29 +0000
+Received: by outflank-mailman (input) for mailman id 46127;
+ Mon, 07 Dec 2020 10:25:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=og4e=FL=amazon.co.uk=prvs=60380b542=pdurrant@srs-us1.protection.inumbo.net>)
- id 1kmDgs-0005mY-69
- for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 10:24:22 +0000
-Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 95db8a9f-74d6-47ff-8392-343e496d73c4;
- Mon, 07 Dec 2020 10:24:16 +0000 (UTC)
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-2b-8cc5d68b.us-west-2.amazon.com) ([10.43.8.2])
- by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
- 07 Dec 2020 10:24:08 +0000
-Received: from EX13D03EUC004.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
- by email-inbound-relay-2b-8cc5d68b.us-west-2.amazon.com (Postfix) with ESMTPS
- id EAFE0A1822; Mon,  7 Dec 2020 10:23:57 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D03EUC004.ant.amazon.com (10.43.164.33) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 7 Dec 2020 10:23:56 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1497.006;
- Mon, 7 Dec 2020 10:23:56 +0000
+ <SRS0=1Acm=FL=redhat.com=berrange@srs-us1.protection.inumbo.net>)
+ id 1kmDhw-0005xU-B0
+ for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 10:25:28 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 81d14cd7-cad1-4b66-b4b9-44ece13be304;
+ Mon, 07 Dec 2020 10:25:25 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-11-VhlrEtJON5GtTXd0WawECg-1; Mon, 07 Dec 2020 05:25:23 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ADC311005513;
+ Mon,  7 Dec 2020 10:25:20 +0000 (UTC)
+Received: from redhat.com (ovpn-113-137.ams2.redhat.com [10.36.113.137])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6921C60BE2;
+ Mon,  7 Dec 2020 10:25:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,79 +46,106 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95db8a9f-74d6-47ff-8392-343e496d73c4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazon201209; t=1607336657; x=1638872657;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version:subject;
-  bh=U0bim6zkzxMacxlqZrtth4BZTZBryVs9GrfbNQCSqqs=;
-  b=BEStf6gC7bTWmcUfks64ZRKP01yFKGFOPDFyFXe3mLTLhfny4JnPNOqt
-   W6/173mOBaR2wyd4O3rox32/96EWeLB0UY6WeUBIbKwila5Vds9qA0O43
-   kE6bzpKgimn/aUjLVDghW4nGwqWs7gnTG6lUc8EZ2W/S0qGcFd02K6RLy
-   k=;
-X-IronPort-AV: E=Sophos;i="5.78,399,1599523200"; 
-   d="scan'208";a="69530302"
-Subject: RE: [PATCH v5 1/4] domctl: introduce a new domain create flag,
- XEN_DOMCTL_CDF_evtchn_fifo, ...
-Thread-Topic: [PATCH v5 1/4] domctl: introduce a new domain create flag,
- XEN_DOMCTL_CDF_evtchn_fifo, ...
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-CC: "Elnikety, Eslam" <elnikety@amazon.com>, 'Ian Jackson'
-	<iwj@xenproject.org>, 'Wei Liu' <wl@xen.org>, 'Anthony PERARD'
-	<anthony.perard@citrix.com>, 'Andrew Cooper' <andrew.cooper3@citrix.com>,
-	'George Dunlap' <george.dunlap@citrix.com>, 'Stefano Stabellini'
-	<sstabellini@kernel.org>, 'Christian Lindig' <christian.lindig@citrix.com>,
-	'David Scott' <dave@recoil.org>, 'Volodymyr Babchuk'
-	<Volodymyr_Babchuk@epam.com>, =?utf-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?=
-	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "paul@xen.org" <paul@xen.org>
-Thread-Index: AQJzrCHAX/gquRkO4g65wfjgQBytUAJ7xs67Aj6rtzSoheWkIIAACFOAgAATywCAAPdoAIAACFeAgAAWa4CAACI7AIAEjX2AgAANTgCAAAL4gIAAALmQ
-Date: Mon, 7 Dec 2020 10:23:56 +0000
-Message-ID: <bba9cef29617481e8f88f9117e55ce76@EX13D32EUC003.ant.amazon.com>
-References: <20201203124159.3688-1-paul@xen.org>
- <20201203124159.3688-2-paul@xen.org>
- <fea91a65-1d7c-cd46-81a2-9a6bcb690ed1@suse.com>
- <00ee01d6c98b$507af1c0$f170d540$@xen.org>
- <8a4a2027-0df3-aee2-537a-3d2814b329ec@suse.com>
- <00f601d6c996$ce3908d0$6aab1a70$@xen.org>
- <946280c7-c7f7-c760-c0d3-db91e6cde68a@suse.com>
- <011201d6ca16$ae14ac50$0a3e04f0$@xen.org>
- <4fb9fb4c-5849-25f1-ff72-ba3a046d3fd8@suse.com>
- <df1df316-9512-7b0c-fde1-aa4fc60ac70b@xen.org>
- <c5537493-1a6f-cdc1-27dc-a34060e7efc5@suse.com>
- <63af7714-9c03-35b6-99a1-795b678b8032@xen.org>
- <93d4ff1c-9f8a-c318-50f8-add2820059d7@suse.com>
-In-Reply-To: <93d4ff1c-9f8a-c318-50f8-add2820059d7@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.145]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 81d14cd7-cad1-4b66-b4b9-44ece13be304
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1607336725;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lgvE6LyH4jrE6pQS01wyiRU9NGcs0HDZI4+lkUVm7vc=;
+	b=HEhpMnQ+XLIrHO4FWkVVCTFIgHBRpY+s0JhdVTs64XOAWq0nEdzU4lEdnoz/nQ+q6fCaSQ
+	kNVnigQsYBNIz5UAsXCTWaYWDu5YbKZR9LiolZIy8ov4uDKzVqwF30ERJxECHST+FsFhzJ
+	3d1H1DPIBgLpflcCCgvpzGJ7oKPXgBg=
+X-MC-Unique: VhlrEtJON5GtTXd0WawECg-1
+Date: Mon, 7 Dec 2020 10:25:08 +0000
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Thomas Huth <thuth@redhat.com>
+Cc: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+	qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
+	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, kvm@vger.kernel.org,
+	Paul Durrant <paul@xen.org>, Cornelia Huck <cohuck@redhat.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Wainer dos Santos Moschetta <wainersm@redhat.com>,
+	Halil Pasic <pasic@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@de.ibm.com>,
+	qemu-s390x@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+	Willian Rampazzo <wrampazz@redhat.com>,
+	Huacai Chen <chenhc@lemote.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Claudio Fontana <cfontana@suse.de>
+Subject: Re: [PATCH 5/8] gitlab-ci: Add KVM s390x cross-build jobs
+Message-ID: <20201207102450.GG3102898@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+References: <20201206185508.3545711-1-philmd@redhat.com>
+ <20201206185508.3545711-6-philmd@redhat.com>
+ <66d4d0ab-2bb5-1284-b08a-43c6c30f30dc@redhat.com>
 MIME-Version: 1.0
-Precedence: Bulk
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <66d4d0ab-2bb5-1284-b08a-43c6c30f30dc@redhat.com>
+User-Agent: Mutt/1.14.6 (2020-07-11)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KW3NuaXBdDQo+ID4+IEkndmUgZ29uZSBmcm9t
-IHlvdSBzYXlpbmcgIllvdSByZWFsbHkgbmVlZCBhIHNvbHV0aW9uIHRoYXQgY2FuIHJlc3RvcmUN
-Cj4gPj4gdGhlIG9sZCBWTSBlbnZpcm9ubWVudCwgYXQgbGVhc3QgdGVtcG9yYXJpbHksIGZvciB0
-aGF0IGN1c3RvbWVyLiIgVGhlDQo+ID4+ICJ0ZW1wb3JhcmlseSIgdG8gbWUgaW1wbGllcyB0aGF0
-IGl0IGlzIGF0IGxlYXN0IGFuIG9wdGlvbiB0byB0aWUgYQ0KPiA+PiBjZXJ0YWluIGd1ZXN0IHRv
-IGEgY2VydGFpbiBYZW4gdmVyc2lvbiBmb3IgaW4tZ3Vlc3QgdXBncmFkaW5nIHB1cnBvc2VzLg0K
-PiA+ICA+DQoNCk5vdCBuZWNlc3NhcmlseS4NCg0KPiA+PiBJZiB0aGUgZGVhbCB3aXRoIHRoZSBj
-dXN0b21lciBkb2Vzbid0IGluY2x1ZGUgcnVubmluZyBvbiBhIGNlcnRhaW4gWGVuDQo+ID4+IHZl
-cnNpb24sIEkgZG9uJ3Qgc2VlIGhvdyB0aGlzIGNvdWxkIGhhdmUgbm9uLXRlbXBvcmFyeSBjb25z
-ZXF1ZW5jZXMgdG8NCj4gPj4gdGhlIGNsb3VkIHByb3ZpZGVyLg0KPiA+DQo+ID4gSSB0aGluayBi
-eSAieW91IiwgeW91IG1lYW4gUGF1bCBhbmQgbm90IG1lPw0KPiANCj4gT2gsIHJpZ2h0LCBJIGRp
-ZG4ndCBwYXkgYXR0ZW50aW9uIHRvIHdobyB3cm90ZSB0aGF0IHRleHQuIFNvcnJ5Lg0KPiANCg0K
-QnkgdGVtcG9yYXJ5IEkgbWVhbiB0aGF0IHdlIG1heSB3YW50IHRvIHRpbWUtbGltaXQgdHVybmlu
-ZyBvZmYgYSBjZXJ0YWluIHBhcnQgb2YgdGhlIEFCVSBiZWNhdXNlLCB3aGlsc3QgaXQgaXMgcHJv
-YmxlbWF0aWMgZm9yIHNvbWUgY3VzdG9tZXJzLCBpdCBjb3VsZCAoYW5kIGlzIGxpa2VseSB0bykg
-aGF2ZSBtZWFzdXJhYmxlIGJlbmVmaXRzIHRvIG90aGVycy4gVGh1cyB5b3Uga2VlcCB0aGUgZmVh
-dHVyZSBvZmYgb25seSB1bnRpbCBhbnkgY3VzdG9tZXJzIHJ1bm5pbmcgT1MgdGhhdCBoYXZlIHBy
-b2JsZW1zIGhhdmUgdXBncmFkZWQgdGhlaXIgaW5zdGFsbGF0aW9ucy4NCg0KICBQYXVsDQoNCg==
+On Mon, Dec 07, 2020 at 06:46:01AM +0100, Thomas Huth wrote:
+> On 06/12/2020 19.55, Philippe Mathieu-Daudé wrote:
+> > Cross-build s390x target with only KVM accelerator enabled.
+> > 
+> > Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+> > ---
+> >  .gitlab-ci.d/crossbuilds-kvm-s390x.yml | 6 ++++++
+> >  .gitlab-ci.yml                         | 1 +
+> >  MAINTAINERS                            | 1 +
+> >  3 files changed, 8 insertions(+)
+> >  create mode 100644 .gitlab-ci.d/crossbuilds-kvm-s390x.yml
+> > 
+> > diff --git a/.gitlab-ci.d/crossbuilds-kvm-s390x.yml b/.gitlab-ci.d/crossbuilds-kvm-s390x.yml
+> > new file mode 100644
+> > index 00000000000..1731af62056
+> > --- /dev/null
+> > +++ b/.gitlab-ci.d/crossbuilds-kvm-s390x.yml
+> > @@ -0,0 +1,6 @@
+> > +cross-s390x-kvm:
+> > +  extends: .cross_accel_build_job
+> > +  variables:
+> > +    IMAGE: debian-s390x-cross
+> > +    TARGETS: s390x-softmmu
+> > +    ACCEL_CONFIGURE_OPTS: --disable-tcg
+> > diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> > index 573afceb3c7..a69619d7319 100644
+> > --- a/.gitlab-ci.yml
+> > +++ b/.gitlab-ci.yml
+> > @@ -14,6 +14,7 @@ include:
+> >    - local: '/.gitlab-ci.d/crossbuilds.yml'
+> >    - local: '/.gitlab-ci.d/crossbuilds-kvm-x86.yml'
+> >    - local: '/.gitlab-ci.d/crossbuilds-kvm-arm.yml'
+> > +  - local: '/.gitlab-ci.d/crossbuilds-kvm-s390x.yml'
+> 
+> KVM code is already covered by the "cross-s390x-system" job, but an
+> additional compilation test with --disable-tcg makes sense here. I'd then
+> rather name it "cross-s390x-no-tcg" or so instead of "cross-s390x-kvm".
+> 
+> And while you're at it, I'd maybe rather name the new file just
+> crossbuilds-s390x.yml and also move the other s390x related jobs into it?
+
+I don't think we really should split it up so much - just put these
+jobs in the existing crosbuilds.yml file.
+
+
+Regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+
 
