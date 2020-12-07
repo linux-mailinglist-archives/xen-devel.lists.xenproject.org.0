@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE71A2D0FB4
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 12:51:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.46381.82318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 890132D0FBF
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Dec 2020 12:54:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.46386.82330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmF3C-0002MN-3L; Mon, 07 Dec 2020 11:51:30 +0000
+	id 1kmF5j-0002WK-IF; Mon, 07 Dec 2020 11:54:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 46381.82318; Mon, 07 Dec 2020 11:51:30 +0000
+Received: by outflank-mailman (output) from mailman id 46386.82330; Mon, 07 Dec 2020 11:54:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmF3C-0002Ly-0I; Mon, 07 Dec 2020 11:51:30 +0000
-Received: by outflank-mailman (input) for mailman id 46381;
- Mon, 07 Dec 2020 11:51:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kmF5j-0002Vu-ES; Mon, 07 Dec 2020 11:54:07 +0000
+Received: by outflank-mailman (input) for mailman id 46386;
+ Mon, 07 Dec 2020 11:54:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AUZZ=FL=redhat.com=thuth@srs-us1.protection.inumbo.net>)
- id 1kmF3A-0002Lt-GN
- for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 11:51:28 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 7963aaa1-8ff7-428a-8ea3-cecbea150a4e;
- Mon, 07 Dec 2020 11:51:27 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-477-OLykk5vMNfObUY5WAyj2jg-1; Mon, 07 Dec 2020 06:51:26 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC390107ACE4;
- Mon,  7 Dec 2020 11:51:23 +0000 (UTC)
-Received: from thuth.remote.csb (ovpn-112-85.ams2.redhat.com [10.36.112.85])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0AE7C5D9E2;
- Mon,  7 Dec 2020 11:51:11 +0000 (UTC)
+ (envelope-from <hx242@xen.org>) id 1kmF5i-0002Vp-4x
+ for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 11:54:06 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1kmF5f-0007HI-VQ; Mon, 07 Dec 2020 11:54:03 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=u1bbd043a57dd5a.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1kmF5f-0001WL-K5; Mon, 07 Dec 2020 11:54:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,81 +40,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7963aaa1-8ff7-428a-8ea3-cecbea150a4e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607341887;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fZbtPO9TKtQkBSC6vY2I2aKZfTmFL8HdRvz1iHz5xEM=;
-	b=eVEM8LyDseCwM9pvEbpuc38FEVLFWjlMxKpiyT2PAkPq942m+CAwUOV5l4WHZarMl+XiXJ
-	Pe/OUfQ6PFmr/6FJvyfhYTIGclzMr8aASJRGiTR1YwloxBeDbOhnVVn7S2ylGWm+Yb51bW
-	yapr8yN4+kU+un5w8DX1/jD8yC66i3U=
-X-MC-Unique: OLykk5vMNfObUY5WAyj2jg-1
-Subject: Re: [PATCH v2 5/5] gitlab-ci: Add Xen cross-build jobs
-To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
- qemu-devel@nongnu.org
-Cc: Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Cornelia Huck <cohuck@redhat.com>, Claudio Fontana <cfontana@suse.de>,
- Willian Rampazzo <wrampazz@redhat.com>, qemu-s390x@nongnu.org,
- Anthony Perard <anthony.perard@citrix.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
- Wainer dos Santos Moschetta <wainersm@redhat.com>,
- xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
- Marcelo Tosatti <mtosatti@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- kvm@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <20201207112353.3814480-1-philmd@redhat.com>
- <20201207112353.3814480-6-philmd@redhat.com>
-From: Thomas Huth <thuth@redhat.com>
-Message-ID: <9bfd1ed4-baa2-ece8-5b96-ec8fc7a8c547@redhat.com>
-Date: Mon, 7 Dec 2020 12:51:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
-MIME-Version: 1.0
-In-Reply-To: <20201207112353.3814480-6-philmd@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+	bh=ikBlnqEAXg+Yf0+YTnPF983S0uwctkYma+4j5+0nY+0=; b=yHdKlqJBTd6exfWZBmOSyXpejH
+	atCFfiPtIaTSopTrJTt5HnirOfTG++XAMtrJsWf63qgFn7wE6lPU1z7gz0TfRlZZn3LaOFyWnfGmz
+	wf8Ag5AZrYhtJavhcPk85uWJOQAtFhOKSBFt9GJxQB5rTox+sAR7MkKUGVtpze8bo66s=;
+Message-ID: <8ba50b6c69ca5c61da8e01faabd9eadc020a49b2.camel@xen.org>
+Subject: Re: [PATCH v2] x86/vmap: handle superpages in vmap_to_mfn()
+From: Hongyan Xia <hx242@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau
+ =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Mon, 07 Dec 2020 11:54:04 +0000
+In-Reply-To: <8a3c4749-4275-b632-b3fa-073447acd352@suse.com>
+References: 
+	<4a69a1177f9496ad0e3ea77e9b1d5b802bf83b60.1606994506.git.hongyxia@amazon.com>
+	 <8a3c4749-4275-b632-b3fa-073447acd352@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On 07/12/2020 12.23, Philippe Mathieu-Daudé wrote:
-> Cross-build ARM and X86 targets with only Xen accelerator enabled.
+On Mon, 2020-12-07 at 11:11 +0100, Jan Beulich wrote:
+> On 03.12.2020 12:21, Hongyan Xia wrote:
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -5194,6 +5194,60 @@ l1_pgentry_t *virt_to_xen_l1e(unsigned long
+> > v)
+> >          }                                          \
+> >      } while ( false )
+> >  
+> > +/* Translate mapped Xen address to MFN. */
+> > +mfn_t xen_map_to_mfn(unsigned long va)
+> > +{
+> > +#define CHECK_MAPPED(cond_)     \
+> > +    if ( !(cond_) )             \
+> > +    {                           \
+> > +        ASSERT_UNREACHABLE();   \
+> > +        ret = INVALID_MFN;      \
+> > +        goto out;               \
+> > +    }                           \
 > 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-> ---
->  .gitlab-ci.d/crossbuilds.yml | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
+> This should be coded such that use sites ...
 > 
-> diff --git a/.gitlab-ci.d/crossbuilds.yml b/.gitlab-ci.d/crossbuilds.yml
-> index 7a94a66b4b3..31f10f1e145 100644
-> --- a/.gitlab-ci.d/crossbuilds.yml
-> +++ b/.gitlab-ci.d/crossbuilds.yml
-> @@ -135,3 +135,18 @@ cross-win64-system:
->    extends: .cross_system_build_job
->    variables:
->      IMAGE: fedora-win64-cross
-> +
-> +cross-amd64-xen:
-> +  extends: .cross_accel_build_job
-> +  variables:
-> +    IMAGE: debian-amd64-cross
-> +    ACCEL: xen
-> +    TARGETS: i386-softmmu,x86_64-softmmu
-> +    ACCEL_CONFIGURE_OPTS: --disable-tcg --disable-kvm
-> +
-> +cross-arm64-xen:
-> +  extends: .cross_accel_build_job
-> +  variables:
-> +    IMAGE: debian-arm64-cross
-> +    ACCEL: xen
-> +    TARGETS: aarch64-softmmu
-Could you please simply replace aarch64-softmmu by arm-softmmu in the
-target-list-exclude statement in this file instead of adding a new job for
-arm64? That should have the same results and will spare us one job...
+> > +    bool locking = system_state > SYS_STATE_boot;
+> > +    unsigned int l2_offset = l2_table_offset(va);
+> > +    unsigned int l1_offset = l1_table_offset(va);
+> > +    const l3_pgentry_t *pl3e = virt_to_xen_l3e(va);
+> > +    const l2_pgentry_t *pl2e = NULL;
+> > +    const l1_pgentry_t *pl1e = NULL;
+> > +    struct page_info *l3page;
+> > +    mfn_t ret;
+> > +
+> > +    L3T_INIT(l3page);
+> > +    CHECK_MAPPED(pl3e)
+> > +    l3page = virt_to_page(pl3e);
+> > +    L3T_LOCK(l3page);
+> > +
+> > +    CHECK_MAPPED(l3e_get_flags(*pl3e) & _PAGE_PRESENT)
+> 
+> ... will properly require a statement-ending semicolon. With
+> additionally the trailing underscore dropped from the macro's
+> parameter name
 
- Thanks,
-  Thomas
+The immediate solution that came to mind is a do-while construct. Would
+you be happy with that?
+
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+
+Thanks.
+
+> Or wait,
+> 
+> > --- a/xen/include/asm-x86/mm.h
+> > +++ b/xen/include/asm-x86/mm.h
+> > @@ -578,6 +578,7 @@ mfn_t alloc_xen_pagetable_new(void);
+> >  void free_xen_pagetable_new(mfn_t mfn);
+> >  
+> >  l1_pgentry_t *virt_to_xen_l1e(unsigned long v);
+> > +mfn_t xen_map_to_mfn(unsigned long va);
+> 
+> This is now a pretty proper companion of map_page_to_xen(), and
+> hence imo ought to be declared next to that one rather than here.
+> Ultimately Arm may also need to gain an implementation.
+
+Since map_pages_to_xen() is in the common header, are we okay with
+having the declaration but not an implementation on the Arm side in
+this patch? Or do we also want to introduce the Arm implementation in
+this patch?
+
+> > --- a/xen/include/asm-x86/page.h
+> > +++ b/xen/include/asm-x86/page.h
+> > @@ -291,7 +291,7 @@ void copy_page_sse2(void *, const void *);
+> >  #define pfn_to_paddr(pfn)   __pfn_to_paddr(pfn)
+> >  #define paddr_to_pfn(pa)    __paddr_to_pfn(pa)
+> >  #define paddr_to_pdx(pa)    pfn_to_pdx(paddr_to_pfn(pa))
+> > -#define vmap_to_mfn(va)     l1e_get_mfn(*virt_to_xen_l1e((unsigned
+> > long)(va)))
+> > +#define vmap_to_mfn(va)     xen_map_to_mfn((unsigned long)va)
+> 
+> You've lost parentheses around va.
+
+Will fix.
+
+Hongyan
 
 
