@@ -2,56 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C512D2255
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 05:54:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.47114.83413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A80B2D22ED
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 06:12:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.47045.83434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmUzv-000402-9D; Tue, 08 Dec 2020 04:53:11 +0000
+	id 1kmVIO-0006GY-6s; Tue, 08 Dec 2020 05:12:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 47114.83413; Tue, 08 Dec 2020 04:53:11 +0000
+Received: by outflank-mailman (output) from mailman id 47045.83434; Tue, 08 Dec 2020 05:12:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmUzv-0003zW-5X; Tue, 08 Dec 2020 04:53:11 +0000
-Received: by outflank-mailman (input) for mailman id 47114;
- Tue, 08 Dec 2020 04:53:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kmVIO-0006G9-3d; Tue, 08 Dec 2020 05:12:16 +0000
+Received: by outflank-mailman (input) for mailman id 47045;
+ Mon, 07 Dec 2020 21:50:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KM1O=FM=oracle.com=martin.petersen@srs-us1.protection.inumbo.net>)
- id 1kmUzt-0003y0-6H
- for xen-devel@lists.xenproject.org; Tue, 08 Dec 2020 04:53:09 +0000
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3342fc7e-e8b2-4082-a499-3f9f0714e580;
- Tue, 08 Dec 2020 04:53:07 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B84nxYX064111;
- Tue, 8 Dec 2020 04:52:35 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 35825m0srp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 08 Dec 2020 04:52:35 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B84ocFe155422;
- Tue, 8 Dec 2020 04:52:34 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by userp3020.oracle.com with ESMTP id 358kys9m8t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 08 Dec 2020 04:52:34 +0000
-Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B84qX4M159553;
- Tue, 8 Dec 2020 04:52:33 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3020.oracle.com with ESMTP id 358kys9m7s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 08 Dec 2020 04:52:33 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B84qDZf015901;
- Tue, 8 Dec 2020 04:52:15 GMT
-Received: from ca-mkp.ca.oracle.com (/10.156.108.201)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 07 Dec 2020 20:52:13 -0800
+ <SRS0=ovVX=FL=konsulko.com=trini@srs-us1.protection.inumbo.net>)
+ id 1kmOP0-0003pY-36
+ for xen-devel@lists.xenproject.org; Mon, 07 Dec 2020 21:50:38 +0000
+Received: from mail-qk1-x732.google.com (unknown [2607:f8b0:4864:20::732])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f646448e-91af-4056-aa1f-4a3fa8fe05c3;
+ Mon, 07 Dec 2020 21:50:37 +0000 (UTC)
+Received: by mail-qk1-x732.google.com with SMTP id 1so14259205qka.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Dec 2020 13:50:37 -0800 (PST)
+Received: from bill-the-cat (cpe-65-184-135-175.ec.res.rr.com.
+ [65.184.135.175])
+ by smtp.gmail.com with ESMTPSA id b14sm11970109qtx.36.2020.12.07.13.50.34
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 07 Dec 2020 13:50:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,92 +42,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3342fc7e-e8b2-4082-a499-3f9f0714e580
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=1e3cV7XKyt5cBPHNeWYhYMHu3W87CKppja6U1Jvw5F4=;
- b=V+G180Fh0lHbcmydQJqS5i+cerb42SoRrRI9QCXlQMjyWKKfj0acXqExTQUiK+7OEtft
- OuMy/8L57grCegXY4FPi2mfpdUD9NETOrjU6XyLEGnB6yCKU9e30d2WSgQTsYBxq/cMN
- 5junVfgiRpfFB5rc1EfDtZHP43anCs3FIrUtz16u4yPsKG0NCInMT5yeMTaPCX1MMJeq
- qZ1GHIcbwNatFRQ/tELhwJDJybfqjlIskC/pDoCLpTPJ2KTrod7PX9rst5aaRTC3xIQA
- veh/+mbPHLjYXfePq5oiUCHv2+7Gowf8M2KKiHFzojpZKSSSQD2meZy2nTRpI8CVh6TQ Yg== 
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-To: linux-kernel@vger.kernel.org,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, coreteam@netfilter.org,
-        selinux@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-        Joe Perches <joe@perches.com>, linux-hardening@vger.kernel.org,
-        reiserfs-devel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
-        patches@opensource.cirrus.com, linux-fbdev@vger.kernel.org,
-        keyrings@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
-        linux-geode@lists.infradead.org, linux-gpio@vger.kernel.org,
-        linux-hams@vger.kernel.org, linux-ext4@vger.kernel.org,
-        wcn36xx@lists.infradead.org, GR-everest-linux-l2@marvell.com,
-        x86@kernel.org, linux-watchdog@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-cifs@vger.kernel.org,
-        linux-nfs@vger.kernel.org, linux-iio@vger.kernel.org,
-        linux-usb@vger.kernel.org, devel@driverdev.osuosl.org,
-        linux-atm-general@lists.sourceforge.net,
-        linux-wireless@vger.kernel.org, linux-crypto@vger.kernel.org,
-        linux-decnet-user@lists.sourceforge.net,
-        Nathan Chancellor <natechancellor@gmail.com>,
-        netfilter-devel@vger.kernel.org, target-devel@vger.kernel.org,
-        linux-integrity@vger.kernel.org,
-        virtualization@lists.linux-foundation.org,
-        linux-mediatek@lists.infradead.org, Kees Cook <keescook@chromium.org>,
-        samba-technical@lists.samba.org, ceph-devel@vger.kernel.org,
-        drbd-dev@tron.linbit.com, intel-gfx@lists.freedesktop.org,
-        dm-devel@redhat.com, linux-acpi@vger.kernel.org,
-        linux-ide@vger.kernel.org, xen-devel@lists.xenproject.org,
-        op-tee@lists.trustedfirmware.org, linux-hwmon@vger.kernel.org,
-        linux-sctp@vger.kernel.org, bridge@lists.linux-foundation.org,
-        linux-mtd@lists.infradead.org, linux-input@vger.kernel.org,
-        linux-can@vger.kernel.org, rds-devel@oss.oracle.com,
-        oss-drivers@netronome.com, tipc-discussion@lists.sourceforge.net,
-        cluster-devel@redhat.com, linux-rdma@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
-        linux-block@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
-        linux1394-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
-        linux-i3c@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-mmc@vger.kernel.org, linux-scsi@vger.kernel.org,
-        linux-afs@lists.infradead.org, nouveau@lists.freedesktop.org,
-        GR-Linux-NIC-Dev@marvell.com, netdev@vger.kernel.org,
-        linux-security-module@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com, linux-mm@kvack.org,
-        intel-wired-lan@lists.osuosl.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: (subset) [PATCH 000/141] Fix fall-through warnings for Clang
-Date: Mon,  7 Dec 2020 23:52:01 -0500
-Message-Id: <160740299787.710.4201881220590518200.b4-ty@oracle.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
-References: <cover.1605896059.git.gustavoars@kernel.org>
+X-Inumbo-ID: f646448e-91af-4056-aa1f-4a3fa8fe05c3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=/ZcCG7pADF2Oan3XaaLEvoIyvCq89Mhc+GwW8vVvIrY=;
+        b=Lozzj4GfI580ONqAuCJKC3AAbdqg1jhqs2wm7PT4W0lBO7ssjToZ1C5s6xMzXBuy2Q
+         RANmCAIdVLZ8U6O5cFiEnSTK/M3L+2NbtbQNUHJLTwHedrzizOas4aZSk09mnrHh2fO6
+         J1Lq1zy1/7zESVTeOQjjTpj7b3wkCAVA4oQPI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=/ZcCG7pADF2Oan3XaaLEvoIyvCq89Mhc+GwW8vVvIrY=;
+        b=bw7z6F3wREVi1VaHbnHPvhAYkEH05w0um3fHokudcqRwHwNgUGA0huRXHkWAdQSEkB
+         PQw+MTOPBOMPedWk+s+TwkLX5cveaJoWNLjEAHQfytwqINp8KlcKp/+rlvcoIYbEsigu
+         g1+jUPU4QPaQARWiWGvLC9J1QNSRFrBMBsX3dGP0zUcDcb4BQiPyHGBb2y1a/qJaMIWy
+         B/0eNrPlbkdW3fDGGHU48hTHi+8Clfp0jx+3UpzUejkc7dBt3gNB3ylPk6I+iWIIMAQV
+         fb+eb3iKrNchCWkmR3DXjJVeTRmTKGJb3vDekuEftVk5vJPJHbA3FGsk60ASdfuBBpa8
+         zMow==
+X-Gm-Message-State: AOAM530ppifdu3ryScQth8AEDS3mpiZeCCgegZnPDmVDl4kVeWi0SPKo
+	jsrSPUPPKysHR4nJlaGxjL0+7A==
+X-Google-Smtp-Source: ABdhPJz6FCbeMXa2G2maw67GOiOFfbP8/C/NR5x0geY5gSM9+hW8KXY+f/apvUvqCtKzzryrb+b0Nw==
+X-Received: by 2002:a05:620a:6c8:: with SMTP id 8mr963037qky.176.1607377837079;
+        Mon, 07 Dec 2020 13:50:37 -0800 (PST)
+Date: Mon, 7 Dec 2020 16:50:32 -0500
+From: Tom Rini <trini@konsulko.com>
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Cc: Wim Vervoorn <wvervoorn@eltan.com>,
+	The development of GNU GRUB <grub-devel@gnu.org>,
+	Daniel Kiper <daniel.kiper@oracle.com>, coreboot@coreboot.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	systemd-devel@lists.freedesktop.org,
+	trenchboot-devel@googlegroups.com,
+	U-Boot Mailing List <u-boot@lists.denx.de>, x86@kernel.org,
+	xen-devel@lists.xenproject.org, alecb@umass.edu,
+	alexander.burmashev@oracle.com, allen.cryptic@gmail.com,
+	andrew.cooper3@citrix.com, ard.biesheuvel@linaro.org,
+	"btrotter@gmail.com" <btrotter@gmail.com>,
+	dpsmith@apertussolutions.com, eric.devolder@oracle.com,
+	eric.snowberg@oracle.com, hpa@zytor.com, hun@n-dimensional.de,
+	javierm@redhat.com, joao.m.martins@oracle.com,
+	kanth.ghatraju@oracle.com, konrad.wilk@oracle.com,
+	krystian.hebel@3mdeb.com, leif@nuviainc.com,
+	lukasz.hawrylko@intel.com, luto@amacapital.net,
+	michal.zygowski@3mdeb.com, Matthew Garrett <mjg59@google.com>,
+	mtottenh@akamai.com,
+	Vladimir 'phcoder' Serbinenko <phcoder@gmail.com>,
+	piotr.krol@3mdeb.com, pjones@redhat.com, roger.pau@citrix.com,
+	ross.philipson@oracle.com, tyhicks@linux.microsoft.com,
+	Heinrich Schuchardt <xypron.glpk@gmx.de>
+Subject: Re: [SPECIFICATION RFC] The firmware and bootloader log specification
+Message-ID: <20201207215032.GN32272@bill-the-cat>
+References: <20201113235242.k6fzlwmwm2xqhqsi@tomti.i.net-space.pl>
+ <CAODwPW9dxvMfXY=92pJNGazgYqcynAk72EkzOcmF7JZXhHTwSQ@mail.gmail.com>
+ <6c1e79be210549949c30253a6cfcafc1@Eltsrv03.Eltan.local>
+ <9b614471-0395-88a5-1347-66417797e39d@molgen.mpg.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9828 signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 adultscore=0 bulkscore=0
- phishscore=0 mlxlogscore=740 clxscore=1015 priorityscore=1501 mlxscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012080029
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/HtAX+RUajEpU4A/"
+Content-Disposition: inline
+In-Reply-To: <9b614471-0395-88a5-1347-66417797e39d@molgen.mpg.de>
+X-Clacks-Overhead: GNU Terry Pratchett
+User-Agent: Mutt/1.9.4 (2018-02-28)
 
-On Fri, 20 Nov 2020 12:21:39 -0600, Gustavo A. R. Silva wrote:
 
-> This series aims to fix almost all remaining fall-through warnings in
-> order to enable -Wimplicit-fallthrough for Clang.
-> 
-> In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
-> add multiple break/goto/return/fallthrough statements instead of just
-> letting the code fall through to the next case.
-> 
-> [...]
+--/HtAX+RUajEpU4A/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Applied to 5.11/scsi-queue, thanks!
+On Fri, Dec 04, 2020 at 02:23:23PM +0100, Paul Menzel wrote:
+> Dear Wim, dear Daniel,
+>=20
+>=20
+> First, thank you for including all parties in the discussion.
+> Am 04.12.20 um 13:52 schrieb Wim Vervoorn:
+>=20
+> > I agree with you. Using an existing standard is better than inventing
+> > a new one in this case. I think using the coreboot logging is a good
+> > idea as there is indeed a lot of support already available and it is
+> > lightweight and simple.
+> In my opinion coreboot=E2=80=99s format is lacking, that it does not reco=
+rd the
+> timestamp, and the log level is not stored as metadata, but (in coreboot)
+> only used to decide if to print the message or not.
+>=20
+> I agree with you, that an existing standard should be used, and in my
+> opinion it=E2=80=99s Linux message format. That is most widely supported,=
+ and
+> existing tools could then also work with pre-Linux messages.
+>=20
+> Sean Hudson from Mentor Graphics presented that idea at Embedded Linux
+> Conference Europe 2016 [1]. No idea, if anything came out of that effort.
+> (Unfortunately, I couldn=E2=80=99t find an email. Does somebody have cont=
+acts at
+> Mentor to find out, how to reach him?)
 
-[054/141] target: Fix fall-through warnings for Clang
-          https://git.kernel.org/mkp/scsi/c/492096ecfa39
+I believe the main thing that came out of this was the reminder that
+there was an even older attempt by U-Boot to have such a mechanism, and
+that at the time getting the work accepted in Linux faced some hurdles
+or another.
 
--- 
-Martin K. Petersen	Oracle Linux Engineering
+That said, I too agree with taking what's already a de facto standard,
+the coreboot logging, and expand on it as needed.
+
+--=20
+Tom
+
+--/HtAX+RUajEpU4A/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEEGjx/cOCPqxcHgJu/FHw5/5Y0tywFAl/Oo6UACgkQFHw5/5Y0
+tywf8Qv+L4APGvoo04UfMbodnLWALTyJgHeFXO5lXNUc1MVcmDGlZImiPdj72ky9
+E8YqQQS1D5zoRlQrHXefKqKxUHPcmHnSYGkwC3xfBX7yrvxB8ggEbbrA1uWBZm+2
+mXpJhP9wPwUzAJYGriknNOA4Ly6UVpgSljQCwKSRPSVAOXr90A9bWsQLktAqrkH5
+QdWwrpKAS1XaOPvnWYWyFs6dTQjqxfGngG+9zWio8JFwj9tFHTvZgI3Nqzi+8+N5
+7bBRqyvEkpni2VoQi20RQSiWwdVw21r8ezlP4Zx8HkW4LqoqZIEpY2pa2UVkDb8b
+phjIxsZqG4lCy9sP4byqcAQnu1h0FFzSdKFuBpRJi3VJaQ0gJ2g0ySPzBSCDu4Va
+5qIVE/64uMhIhgU3cYr+7pi/bgw8LoGNnjOBh9d4CVYh61M2EWSEA9f227tlAWlJ
+YK0wpz6REoq0TRpRHwr313pkdMHefe9dWaJ2ul4tSud420mQ+zzFZ+ghLywLSo0w
+vAPmRdwM
+=tVGW
+-----END PGP SIGNATURE-----
+
+--/HtAX+RUajEpU4A/--
 
