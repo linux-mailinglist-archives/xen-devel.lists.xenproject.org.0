@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E757E2D29B6
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 12:25:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.47358.83838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5272D2B14
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 13:34:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.47419.83879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmb6F-0001wL-Ql; Tue, 08 Dec 2020 11:24:07 +0000
+	id 1kmcAm-00006o-Qc; Tue, 08 Dec 2020 12:32:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 47358.83838; Tue, 08 Dec 2020 11:24:07 +0000
+Received: by outflank-mailman (output) from mailman id 47419.83879; Tue, 08 Dec 2020 12:32:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmb6F-0001vw-NT; Tue, 08 Dec 2020 11:24:07 +0000
-Received: by outflank-mailman (input) for mailman id 47358;
- Tue, 08 Dec 2020 11:24:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kmcAm-00006Q-MM; Tue, 08 Dec 2020 12:32:52 +0000
+Received: by outflank-mailman (input) for mailman id 47419;
+ Tue, 08 Dec 2020 12:32:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CW+N=FM=euphon.net=fam@srs-us1.protection.inumbo.net>)
- id 1kmb6C-0001vr-Hc
- for xen-devel@lists.xenproject.org; Tue, 08 Dec 2020 11:24:06 +0000
-Received: from sender2-of-o52.zoho.com.cn (unknown [163.53.93.247])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a03a1fcd-5ccb-4c70-ab26-8d554934213f;
- Tue, 08 Dec 2020 11:24:01 +0000 (UTC)
-Received: from freeip.amazon.com (54.239.6.186 [54.239.6.186]) by
- mx.zoho.com.cn with SMTPS id 1607426632344594.6343788567094;
- Tue, 8 Dec 2020 19:23:52 +0800 (CST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kmcAl-00006I-OJ; Tue, 08 Dec 2020 12:32:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kmcAl-0006QC-DC; Tue, 08 Dec 2020 12:32:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kmcAl-0006VD-52; Tue, 08 Dec 2020 12:32:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kmcAl-0007Hg-4W; Tue, 08 Dec 2020 12:32:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,106 +42,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a03a1fcd-5ccb-4c70-ab26-8d554934213f
-ARC-Seal: i=1; a=rsa-sha256; t=1607426635; cv=none; 
-	d=zoho.com.cn; s=zohoarc; 
-	b=VNfiMeLzy3SgXCtOR7yczQs1cHlee/laXPOCDvB+3b0J8Wmsc2J57BPOueD/fnZPtyH9hqhoAN0eRzXdmGrQVWkFNPoFV4YBJenZJjXipZF+OyT0FvLKfm7F9cAka1Wv8kEr6oik43/N5YUftY+QbrKWmZR9/PMQaXcFNa6aycw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zoho.com.cn; s=zohoarc; 
-	t=1607426635; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=1iOZu/bWRMc27o2XpZheBxvCkC5w68WGiu3hg1+B8lQ=; 
-	b=b4xLFSTjd7Hhus4LQFiY1pThbEQwpUafIZYwqOm0ETjqZBaUeGV2sUUIFNzAEzjpC2C4okPTLy9QsWYQ9SQQIj7pqogGWFy9u2mQ5HGo2C5SA8DHrl8A5sljcJk9DYBpOScx/uUneoIh2WM2sLnPeBPCGAx7H3/akm2V0rhdmiA=
-ARC-Authentication-Results: i=1; mx.zoho.com.cn;
-	dkim=pass  header.i=euphon.net;
-	spf=pass  smtp.mailfrom=fam@euphon.net;
-	dmarc=pass header.from=<fam@euphon.net> header.from=<fam@euphon.net>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1607426635;
-	s=zoho; d=euphon.net; i=fam@euphon.net;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:Mime-Version:Content-Transfer-Encoding;
-	bh=1iOZu/bWRMc27o2XpZheBxvCkC5w68WGiu3hg1+B8lQ=;
-	b=hRz/YgNiFsAFVdV5YwO+EetSfpjOIWK6mEsuzb49i9Yj0+gAySetG9zleRInL/TS
-	HaKGQRZ9zE0klc16g2dvExNjof+H09tMRrNNb4TGzKtr3wwiSqOkLqiF2m7OekJa6iJ
-	jxaDB+FrzM2ZM/uaTpUcah+uDKdVybXBOApAIaD8=
-Message-ID: <dc240dfed0c6bb4810a936ac307aedf0c2ee6892.camel@euphon.net>
-Subject: Re: [RFC] design: design doc for 1:1 direct-map
-From: Fam Zheng <fam@euphon.net>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Bertrand.Marquis@arm.com,
- Kaly.Xin@arm.com,  Wei.Chen@arm.com, nd@arm.com, Paul Durrant
- <paul@xen.org>, Penny Zheng <penny.zheng@arm.com>,
- xen-devel@lists.xenproject.org, sstabellini@kernel.org
-Date: Tue, 08 Dec 2020 11:23:44 +0000
-In-Reply-To: <2c7e96e1-9a34-4a9d-2a8f-7479d46f1a92@suse.com>
-References: <20201208052113.1641514-1-penny.zheng@arm.com>
-	 <6731d0c1-37df-ade8-7b77-d1032c326111@xen.org>
-	 <b53b7ea5-51f2-8746-8d0d-17d2b57ecc89@suse.com>
-	 <20201208102205.GA118611@dev>
-	 <2c7e96e1-9a34-4a9d-2a8f-7479d46f1a92@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=lV9YRF3xDKVjkjqZOgUyyiRKW53Vv24dVW0BoEqK7tI=; b=kY3nyIPq6b1esQruYUC7j8iWY/
+	YhqcfatSgKQ307ZX/44d94ZrDg5oF4uQpseiX8cARVls7tW4x5w9++TMOjZLZJhYa9AisNv5v3kmB
+	HByX47TAkwfYc9i1bvRB+wYGrTYbtL/yHlkqU/PlErPKhZbfA0DGTvJSJz0Li2GCg0Zw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157274-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-ZohoCNMailClient: External
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 157274: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=df89071faa0bac101f8513d5c08dc823f8a3b71d
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 08 Dec 2020 12:32:51 +0000
 
-On Tue, 2020-12-08 at 11:53 +0100, Jan Beulich wrote:
-> On 08.12.2020 11:22, Fam Zheng wrote:
-> > On 2020-12-08 10:12, Jan Beulich wrote:
-> > > On 08.12.2020 10:07, Julien Grall wrote:
-> > > > On 08/12/2020 05:21, Penny Zheng wrote:
-> > > > > --- /dev/null
-> > > > > +++ b/docs/designs/1_1_direct-map.md
-> > > > > @@ -0,0 +1,87 @@
-> > > > > +# Preface
-> > > > > +
-> > > > > +The document is an early draft for direct-map memory map
-> > > > > +(`guest physical == physical`) of domUs. And right now, it
-> > > > > constrains to ARM
-> > > > 
-> > > > s/constrains/limited/
-> > > > 
-> > > > Aside the interface to the user, you should be able to re-use
-> > > > the same 
-> > > > code on x86. Note that because the memory layout on x86 is
-> > > > fixed (always 
-> > > > starting at 0), you would only be able to have only one direct-
-> > > > mapped 
-> > > > domain.
-> > > 
-> > > Even one seems challenging, if it's truly meant to have all of
-> > > the
-> > > domain's memory direct-mapped: The use of space in the first Mb
-> > > is
-> > > different between host and guest.
-> > 
-> > Speaking about the case of x86, we can still direct-map the ram
-> > regions
-> > to the single direct-mapped DomU because neither Xen nor dom0
-> > require
-> > those low mem.
-> > 
-> > We don't worry about (i.e. don't direct-map) non-ram regions (or
-> > any
-> > range that is not reported as usable ram from DomU's PoV (dictated
-> > by
-> > e820 table), so those can be MMIO or arbitrary mapping with EPT.
-> 
-> For one, the very first page is considered special in x86 Xen. No
-> guest should gain access to MFN 0, unless you first audit all
-> code and address all the issues you find. And then there's also
-> Xen's low-memory trampoline living there. Plus besides the BDA
-> (at real-mode address 0040:0000) I suppose the EBDA also shouldn't
-> be exposed to a guest, nor anything else that the host finds
-> reserved in E820. IOW it would be the host E820 to dictate some
-> of the guest E820 in such a case.
-> 
+flight 157274 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157274/
 
-You're right about the trampoline area, it has to be specially taken
-care of. Not a problem if we could disable cpu hotplug. I don't think
-the guest will ever try to DMA from/to MFN 0, BDA or EBDA, so even not
-direct mapping those should not make any functional difference.
+Regressions :-(
 
-In general, I agree the guest E820 as well as all direct mapping areas
-mustn't break out of host E820 limitation, otherwise it will not work.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-Fam
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
+version targeted for testing:
+ libvirt              df89071faa0bac101f8513d5c08dc823f8a3b71d
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  151 days
+Failing since        151818  2020-07-11 04:18:52 Z  150 days  145 attempts
+Testing same since   157274  2020-12-08 04:19:10 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 31785 lines long.)
 
