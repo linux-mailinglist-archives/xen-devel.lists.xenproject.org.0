@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09AED2D23C0
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 07:45:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.47159.83509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF7772D244A
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 08:24:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.47171.83539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmWkC-0006gi-DY; Tue, 08 Dec 2020 06:45:04 +0000
+	id 1kmXLZ-0002Bb-S2; Tue, 08 Dec 2020 07:23:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 47159.83509; Tue, 08 Dec 2020 06:45:04 +0000
+Received: by outflank-mailman (output) from mailman id 47171.83539; Tue, 08 Dec 2020 07:23:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmWkC-0006gJ-9y; Tue, 08 Dec 2020 06:45:04 +0000
-Received: by outflank-mailman (input) for mailman id 47159;
- Tue, 08 Dec 2020 06:45:02 +0000
+	id 1kmXLZ-0002BC-OR; Tue, 08 Dec 2020 07:23:41 +0000
+Received: by outflank-mailman (input) for mailman id 47171;
+ Tue, 08 Dec 2020 07:23:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LMSP=FM=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kmWkA-0006gE-Rb
- for xen-devel@lists.xenproject.org; Tue, 08 Dec 2020 06:45:02 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3281bf9f-3de6-4ca8-ac92-4c3cf2b89ce8;
- Tue, 08 Dec 2020 06:45:01 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BAE4DAD41;
- Tue,  8 Dec 2020 06:45:00 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JbUw=FM=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1kmXLY-0002B5-Lw
+ for xen-devel@lists.xenproject.org; Tue, 08 Dec 2020 07:23:40 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 6cbbc409-bbb9-4462-a961-2df6a3430daa;
+ Tue, 08 Dec 2020 07:23:38 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3CD3230E;
+ Mon,  7 Dec 2020 23:23:38 -0800 (PST)
+Received: from e123311-lin.arm.com (unknown [10.57.20.247])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AA3383F718;
+ Mon,  7 Dec 2020 23:23:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,198 +41,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3281bf9f-3de6-4ca8-ac92-4c3cf2b89ce8
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607409900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B4qg8nuNsxBlC4DVeh6XkCDOdkWU5AaPYPIvqXZwoWc=;
-	b=scyISi7ME3Gq3/i8CXTrCBsOP935pKa2XKl78EaIrNxlDRWowtnUGxdtAm7s9LrfREKdOy
-	FWK7WbcTmBREAojJC7QOGleFGoP6IeP8OdBIrHuGQNH9yqws4z+BeJ8lTdF+81DYGt6k27
-	a6hiFsmx7u9vzAhXvxzUhSHuVuKoX5M=
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- open list <linux-kernel@vger.kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20201207133024.16621-1-jgross@suse.com>
- <20201207133024.16621-3-jgross@suse.com>
- <CAKf6xpuqdY=TctOjNsnTTexeBpkV+HMkOHFsAd4vxUudBpxizA@mail.gmail.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: [PATCH 2/2] xen: don't use page->lru for ZONE_DEVICE memory
-Message-ID: <72bc4417-076c-78f0-9c7e-5a9c95e79fb2@suse.com>
-Date: Tue, 8 Dec 2020 07:45:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+X-Inumbo-ID: 6cbbc409-bbb9-4462-a961-2df6a3430daa
+From: Michal Orzel <michal.orzel@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	bertrand.marquis@arm.com,
+	wei.chen@arm.com
+Subject: [PATCH] xen/arm: Add workaround for Cortex-A53 erratum #845719
+Date: Tue,  8 Dec 2020 08:23:27 +0100
+Message-Id: <20201208072327.11890-1-michal.orzel@arm.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <CAKf6xpuqdY=TctOjNsnTTexeBpkV+HMkOHFsAd4vxUudBpxizA@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="cV2DFq5HhB0DJvGp9vWxAtDSVVIuHsGaz"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---cV2DFq5HhB0DJvGp9vWxAtDSVVIuHsGaz
-Content-Type: multipart/mixed; boundary="AAtAYjElSB8dHXTdN4ldFSOorn5hlu7Z3";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- open list <linux-kernel@vger.kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <72bc4417-076c-78f0-9c7e-5a9c95e79fb2@suse.com>
-Subject: Re: [PATCH 2/2] xen: don't use page->lru for ZONE_DEVICE memory
-References: <20201207133024.16621-1-jgross@suse.com>
- <20201207133024.16621-3-jgross@suse.com>
- <CAKf6xpuqdY=TctOjNsnTTexeBpkV+HMkOHFsAd4vxUudBpxizA@mail.gmail.com>
-In-Reply-To: <CAKf6xpuqdY=TctOjNsnTTexeBpkV+HMkOHFsAd4vxUudBpxizA@mail.gmail.com>
+When executing in aarch32 state at EL0, a load at EL0 from a
+virtual address that matches the bottom 32 bits of the virtual address
+used by a recent load at (aarch64) EL1 might return incorrect data.
 
---AAtAYjElSB8dHXTdN4ldFSOorn5hlu7Z3
-Content-Type: multipart/mixed;
- boundary="------------66A30C87FE131471BF04702D"
-Content-Language: en-US
+The workaround is to insert a write of the contextidr_el1 register
+on exception return to an aarch32 guest.
 
-This is a multi-part message in MIME format.
---------------66A30C87FE131471BF04702D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+---
+ docs/misc/arm/silicon-errata.txt |  1 +
+ xen/arch/arm/Kconfig             | 19 +++++++++++++++++++
+ xen/arch/arm/arm64/entry.S       |  9 +++++++++
+ xen/arch/arm/cpuerrata.c         |  8 ++++++++
+ xen/include/asm-arm/cpufeature.h |  3 ++-
+ 5 files changed, 39 insertions(+), 1 deletion(-)
 
-On 07.12.20 21:48, Jason Andryuk wrote:
-> On Mon, Dec 7, 2020 at 8:30 AM Juergen Gross <jgross@suse.com> wrote:
->>
->> Commit 9e2369c06c8a18 ("xen: add helpers to allocate unpopulated
->> memory") introduced usage of ZONE_DEVICE memory for foreign memory
->> mappings.
->>
->> Unfortunately this collides with using page->lru for Xen backend
->> private page caches.
->>
->> Fix that by using page->zone_device_data instead.
->>
->> Fixes: 9e2369c06c8a18 ("xen: add helpers to allocate unpopulated memor=
-y")
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->=20
-> Would it make sense to add BUG_ON(is_zone_device_page(page)) and the
-> opposite as appropriate to cache_enq?
+diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
+index 27bf957ebf..fa3d9af63d 100644
+--- a/docs/misc/arm/silicon-errata.txt
++++ b/docs/misc/arm/silicon-errata.txt
+@@ -45,6 +45,7 @@ stable hypervisors.
+ | ARM            | Cortex-A53      | #827319         | ARM64_ERRATUM_827319    |
+ | ARM            | Cortex-A53      | #824069         | ARM64_ERRATUM_824069    |
+ | ARM            | Cortex-A53      | #819472         | ARM64_ERRATUM_819472    |
++| ARM            | Cortex-A53      | #845719         | ARM64_ERRATUM_845719    |
+ | ARM            | Cortex-A55      | #1530923        | N/A                     |
+ | ARM            | Cortex-A57      | #852523         | N/A                     |
+ | ARM            | Cortex-A57      | #832075         | ARM64_ERRATUM_832075    |
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index f5b1bcda03..6bea393555 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -244,6 +244,25 @@ config ARM_ERRATUM_858921
+ 
+ 	  If unsure, say Y.
+ 
++config ARM64_ERRATUM_845719
++	bool "Cortex-A53: 845719: A load might read incorrect data"
++	default y
++	help
++	  This option adds an alternative code sequence to work around ARM
++	  erratum 845719 on Cortex-A53 parts up to r0p4.
++
++	  When executing in aarch32 state at EL0, a load at EL0 from a
++	  virtual address that matches the bottom 32 bits of the virtual address
++	  used by a recent load at (aarch64) EL1 might return incorrect data.
++
++	  The workaround is to insert a write of the contextidr_el1 register
++	  on exception return to an aarch32 guest.
++	  Please note that this does not necessarily enable the workaround,
++	  as it depends on the alternative framework, which will only patch
++	  the kernel if an affected CPU is detected.
++
++	  If unsure, say Y.
++
+ config ARM64_WORKAROUND_REPEAT_TLBI
+ 	bool
+ 
+diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
+index 175ea2981e..ef3336f34a 100644
+--- a/xen/arch/arm/arm64/entry.S
++++ b/xen/arch/arm/arm64/entry.S
+@@ -96,6 +96,15 @@
+         msr     SPSR_fiq, x22
+         msr     SPSR_irq, x23
+ 
++#ifdef CONFIG_ARM64_ERRATUM_845719
++alternative_if ARM64_WORKAROUND_845719
++        /* contextidr_el1 is not accessible from aarch32 guest so we can
++         * write xzr to it
++         */
++        msr     contextidr_el1, xzr
++alternative_else_nop_endif
++#endif
++
+         add     x21, sp, #UREGS_SPSR_und
+         ldp     w22, w23, [x21]
+         msr     SPSR_und, x22
+diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+index b398d480f1..8959d4d4dc 100644
+--- a/xen/arch/arm/cpuerrata.c
++++ b/xen/arch/arm/cpuerrata.c
+@@ -491,6 +491,14 @@ static const struct arm_cpu_capabilities arm_errata[] = {
+         .capability = ARM_WORKAROUND_858921,
+         MIDR_ALL_VERSIONS(MIDR_CORTEX_A73),
+     },
++#endif
++#ifdef CONFIG_ARM64_ERRATUM_845719
++    {
++        /* Cortex-A53 r0p[01234] */
++        .desc = "ARM erratum 845719",
++        .capability = ARM64_WORKAROUND_845719,
++        MIDR_RANGE(MIDR_CORTEX_A53, 0x00, 0x04),
++    },
+ #endif
+     {
+         /* Neoverse r0p0 - r2p0 */
+diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+index c7b5052992..1165a1eb62 100644
+--- a/xen/include/asm-arm/cpufeature.h
++++ b/xen/include/asm-arm/cpufeature.h
+@@ -47,8 +47,9 @@
+ #define ARM64_WORKAROUND_AT_SPECULATE 9
+ #define ARM_WORKAROUND_858921 10
+ #define ARM64_WORKAROUND_REPEAT_TLBI 11
++#define ARM64_WORKAROUND_845719 12
+ 
+-#define ARM_NCAPS           12
++#define ARM_NCAPS           13
+ 
+ #ifndef __ASSEMBLY__
+ 
+-- 
+2.28.0
 
-No, I don't think so. At least in the CONFIG_ZONE_DEVICE case the
-initial list in a PV dom0 is populated from extra memory (basically
-the same, but not marked as zone device memory explicitly).
-
-Juergen
-
---------------66A30C87FE131471BF04702D
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------66A30C87FE131471BF04702D--
-
---AAtAYjElSB8dHXTdN4ldFSOorn5hlu7Z3--
-
---cV2DFq5HhB0DJvGp9vWxAtDSVVIuHsGaz
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/PIOwFAwAAAAAACgkQsN6d1ii/Ey+A
-EAf/dhnf9lD4yl339gf4XqzB1RM2geEGVVrTakAgm+2STBVKC/sca9ZwNDewAWomR3QbcZPy23vu
-lZ1Lzh62FFvgXobXU67jMDGjIsNwc5zO17aU7agx+1YbYsxY97mzgODXzf54XmQOeDWPQ4VFjl7E
-JVH8b8PMoNG1YqiH0GdhAp4N3BMtmVRWhCDNO17HEtbvKrPNEPaDwovyYZdwzIXh18tlyuW0DM94
-FxBSW4ec4iEfU/wtGYRg/fBxWUVxWVxjW12GVYtk6C25uUD4FsWxjuz+DauULUL2iYDJK+sYMlaE
-6Ho7PjarAqu2WNKtgWvlZNJ22+//nmLy5Wq1cM3rvg==
-=6KS0
------END PGP SIGNATURE-----
-
---cV2DFq5HhB0DJvGp9vWxAtDSVVIuHsGaz--
 
