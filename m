@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E1CE2D288D
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 11:11:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.47286.83727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66E6F2D28BB
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 11:22:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.47297.83745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmZxB-0002wf-91; Tue, 08 Dec 2020 10:10:41 +0000
+	id 1kma8d-00046m-D7; Tue, 08 Dec 2020 10:22:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 47286.83727; Tue, 08 Dec 2020 10:10:41 +0000
+Received: by outflank-mailman (output) from mailman id 47297.83745; Tue, 08 Dec 2020 10:22:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmZxB-0002w9-4V; Tue, 08 Dec 2020 10:10:41 +0000
-Received: by outflank-mailman (input) for mailman id 47286;
- Tue, 08 Dec 2020 10:10:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kma8d-00046N-9m; Tue, 08 Dec 2020 10:22:31 +0000
+Received: by outflank-mailman (input) for mailman id 47297;
+ Tue, 08 Dec 2020 10:22:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kmZxA-0002w1-8Q; Tue, 08 Dec 2020 10:10:40 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kmZxA-0003Vt-2C; Tue, 08 Dec 2020 10:10:40 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kmZx9-00079j-Sk; Tue, 08 Dec 2020 10:10:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kmZx9-0002h4-SF; Tue, 08 Dec 2020 10:10:39 +0000
+ (envelope-from <SRS0=CW+N=FM=euphon.net=fam@srs-us1.protection.inumbo.net>)
+ id 1kma8Z-00046I-95
+ for xen-devel@lists.xenproject.org; Tue, 08 Dec 2020 10:22:29 +0000
+Received: from sender2-of-o52.zoho.com.cn (unknown [163.53.93.247])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1c8d9297-7e11-45a8-b2e0-83314a3d04eb;
+ Tue, 08 Dec 2020 10:22:24 +0000 (UTC)
+Received: from localhost (ec2-52-56-101-76.eu-west-2.compute.amazonaws.com
+ [52.56.101.76]) by mx.zoho.com.cn
+ with SMTPS id 160742293597166.17876928455007;
+ Tue, 8 Dec 2020 18:22:15 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +39,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=3FqxB5ig7W24wueCIwsNeRbtpyfUnrnj7ehSsZqAcbo=; b=eAz/BlgyS58tys9ex0XGLu7WF0
-	OqIROlXOv9+SpD9Ng7U3KVRDq0UC7pgApFg+pKVdfTg5TIafq0Lnrm9lGxBVd676lPUiyUrHhwl9C
-	saHgDr72e7Gy/PcSkqokQv1EqIZnO+M7e4X/n5DT/swjQEyaEXwyuNgVah2S/hOKfNp0=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157293-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1c8d9297-7e11-45a8-b2e0-83314a3d04eb
+ARC-Seal: i=1; a=rsa-sha256; t=1607422937; cv=none; 
+	d=zoho.com.cn; s=zohoarc; 
+	b=TFiKC+Cw4GY2VxCXzJ3S4rnO1WVzgHC4Kinjk9FF/m+Y+PHDKMxbPbGgl6SpTGi4+fZjFV45YoRPIMeb7zsENmUb+i24hknorBZmNyE4DUg/U/ebUVO5n0eUH7GgOLfpMupJPAUiVOavG/VOlO3UpTVrCRTG0FNQFmMQmrCXyl8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zoho.com.cn; s=zohoarc; 
+	t=1607422937; h=Content-Type:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=E6Gx3CZw78P9pkk42XXrq3hoXi1ADhJ5b/Vp4030ksk=; 
+	b=BTpIVA+cx3ZB6Sf2nKgZoiVAW41Byffc1RsJNBTlKjzMtPyXRHc9mxSSdR8190mgIDNHatsXFLKJ/yfkKY+SyxXuOaoFgFgkM5FL5FzIon0wHFHrRzM04DucbzfJWY4+qB5Zm7oZV2e+aLRIwqbGMzGQQGXQKz5GYf5YpXKBFPk=
+ARC-Authentication-Results: i=1; mx.zoho.com.cn;
+	dkim=pass  header.i=euphon.net;
+	spf=pass  smtp.mailfrom=fam@euphon.net;
+	dmarc=pass header.from=<fam@euphon.net> header.from=<fam@euphon.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1607422937;
+	s=zoho; d=euphon.net; i=fam@euphon.net;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To;
+	bh=E6Gx3CZw78P9pkk42XXrq3hoXi1ADhJ5b/Vp4030ksk=;
+	b=YM4tzEWX2z1Om9nNP9zJ3+Am8RiYFc5GDQX/k5m42S7vrF8Rva1+2jUOy3fcCnNe
+	fBfFjLWJGNhUusJMOmbmjA0gJjlWEnxi8ktawWR2SwRWsURmHgbnNpyMIR6dsVGWZw3
+	36d+Z8bxcN+jVB/zyHP6iqK5yAUQRH/NTCtSS/sU=
+Date: Tue, 8 Dec 2020 10:22:05 +0000
+From: Fam Zheng <fam@euphon.net>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Bertrand.Marquis@arm.com,
+	Kaly.Xin@arm.com, Wei.Chen@arm.com, nd@arm.com,
+	Paul Durrant <paul@xen.org>, Penny Zheng <penny.zheng@arm.com>,
+	xen-devel@lists.xenproject.org, sstabellini@kernel.org
+Subject: Re: [RFC] design: design doc for 1:1 direct-map
+Message-ID: <20201208102205.GA118611@dev>
+References: <20201208052113.1641514-1-penny.zheng@arm.com>
+ <6731d0c1-37df-ade8-7b77-d1032c326111@xen.org>
+ <b53b7ea5-51f2-8746-8d0d-17d2b57ecc89@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 157293: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=777e3590f154e6a8af560dd318b9465fa168db20
-X-Osstest-Versions-That:
-    xen=4b0e0db86194b5e9e18c9f2c10b3910f3394c56f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 08 Dec 2020 10:10:39 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b53b7ea5-51f2-8746-8d0d-17d2b57ecc89@suse.com>
+X-ZohoCNMailClient: External
 
-flight 157293 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157293/
+On 2020-12-08 10:12, Jan Beulich wrote:
+> On 08.12.2020 10:07, Julien Grall wrote:
+> > On 08/12/2020 05:21, Penny Zheng wrote:
+> >> --- /dev/null
+> >> +++ b/docs/designs/1_1_direct-map.md
+> >> @@ -0,0 +1,87 @@
+> >> +# Preface
+> >> +
+> >> +The document is an early draft for direct-map memory map
+> >> +(`guest physical == physical`) of domUs. And right now, it constrains to ARM
+> > 
+> > s/constrains/limited/
+> > 
+> > Aside the interface to the user, you should be able to re-use the same 
+> > code on x86. Note that because the memory layout on x86 is fixed (always 
+> > starting at 0), you would only be able to have only one direct-mapped 
+> > domain.
+> 
+> Even one seems challenging, if it's truly meant to have all of the
+> domain's memory direct-mapped: The use of space in the first Mb is
+> different between host and guest.
 
-Failures :-/ but no regressions.
+Speaking about the case of x86, we can still direct-map the ram regions
+to the single direct-mapped DomU because neither Xen nor dom0 require
+those low mem.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+We don't worry about (i.e. don't direct-map) non-ram regions (or any
+range that is not reported as usable ram from DomU's PoV (dictated by
+e820 table), so those can be MMIO or arbitrary mapping with EPT.
 
-version targeted for testing:
- xen                  777e3590f154e6a8af560dd318b9465fa168db20
-baseline version:
- xen                  4b0e0db86194b5e9e18c9f2c10b3910f3394c56f
-
-Last test of basis   157262  2020-12-07 17:00:26 Z    0 days
-Testing same since   157293  2020-12-08 08:00:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   4b0e0db861..777e3590f1  777e3590f154e6a8af560dd318b9465fa168db20 -> smoke
+Fam
 
