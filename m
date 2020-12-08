@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A552D27C7
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 10:35:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.47266.83688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5320D2D2809
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Dec 2020 10:47:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.47274.83706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmZOn-0007WB-PR; Tue, 08 Dec 2020 09:35:09 +0000
+	id 1kmZac-00008u-2D; Tue, 08 Dec 2020 09:47:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 47266.83688; Tue, 08 Dec 2020 09:35:09 +0000
+Received: by outflank-mailman (output) from mailman id 47274.83706; Tue, 08 Dec 2020 09:47:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmZOn-0007Vm-M9; Tue, 08 Dec 2020 09:35:09 +0000
-Received: by outflank-mailman (input) for mailman id 47266;
- Tue, 08 Dec 2020 09:35:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kmZab-00008V-Ts; Tue, 08 Dec 2020 09:47:21 +0000
+Received: by outflank-mailman (input) for mailman id 47274;
+ Tue, 08 Dec 2020 09:47:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ur7q=FM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kmZOm-0007Vh-IG
- for xen-devel@lists.xenproject.org; Tue, 08 Dec 2020 09:35:08 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3b82cf30-bbb9-4334-b346-c157f5a3a98a;
- Tue, 08 Dec 2020 09:35:07 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BBDCEAD21;
- Tue,  8 Dec 2020 09:35:06 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1kmZaa-00008Q-La
+ for xen-devel@lists.xenproject.org; Tue, 08 Dec 2020 09:47:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kmZaZ-0002yo-Dg; Tue, 08 Dec 2020 09:47:19 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kmZaZ-0005Ap-4d; Tue, 08 Dec 2020 09:47:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,83 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b82cf30-bbb9-4334-b346-c157f5a3a98a
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607420106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MUQbzhw7NK6yRCTLkT/kEn3M96AjRwg+fxEt7cvqeZ0=;
-	b=BwDGNAHLlAuGPVYvIV/J7ZfDBc40UQgWrrp1I3poRi1NwJtKuj8+Fekh/N17T8jaYBnvjd
-	0tPGLup5/wD0gUlqBhFgXAxkiZN9vptmxAszqeej3h/LaWfASd6z7iafuzNV5BDuojNymT
-	d5oaRKvzzg2X26QYKtuHFUo0eJeKdHU=
-Subject: Re: [PATCH V3 11/23] xen/ioreq: Move x86's io_completion/io_req
- fields to struct vcpu
-To: paul@xen.org, 'Oleksandr' <olekstysh@gmail.com>
-Cc: 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
- 'Wei Liu' <wl@xen.org>, 'George Dunlap' <george.dunlap@citrix.com>,
- 'Ian Jackson' <iwj@xenproject.org>, 'Julien Grall' <julien@xen.org>,
- 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Jun Nakajima' <jun.nakajima@intel.com>, 'Kevin Tian'
- <kevin.tian@intel.com>, 'Julien Grall' <julien.grall@arm.com>,
- xen-devel@lists.xenproject.org
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-12-git-send-email-olekstysh@gmail.com>
- <742899b6-964b-be75-affc-31342c07133a@suse.com>
- <d7d867d3-b508-0c6c-191f-264e1e08bf39@gmail.com>
- <0d3c01d6cd37$0c013770$2403a650$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c96725ea-883a-6123-0bf5-da74c1a3cc47@suse.com>
-Date: Tue, 8 Dec 2020 10:35:06 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=YvHQTI4XmTUDYGQGBG8XOps6X0Uw3L3zOWwSWzPritI=; b=Rj1Ar53ay1mmf0rNlQ0RAd7ElH
+	POU2gpLZ2nYWdmsZPxCdxrZEgNDzxAv1w4+Zp4qsIIKQEEdghNTrIrSYhCzM3ErqNY3RjQ6WMQEwV
+	08/tG+gv09PUM2OLkY6bhXkzY5dekR48J0UcnRSnzSajsEoJArRkRC1jvM3t5E4E6zpU=;
+Subject: Re: [PATCH] xen/arm: Add workaround for Cortex-A53 erratum #845719
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com,
+ wei.chen@arm.com
+References: <20201208072327.11890-1-michal.orzel@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <d286241c-fd3b-8506-37e5-0ddcdaae97be@xen.org>
+Date: Tue, 8 Dec 2020 09:47:16 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <0d3c01d6cd37$0c013770$2403a650$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <20201208072327.11890-1-michal.orzel@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 08.12.2020 08:52, Paul Durrant wrote:
->> From: Oleksandr <olekstysh@gmail.com>
->> Sent: 07 December 2020 21:00
->>
->> On 07.12.20 14:32, Jan Beulich wrote:
->>> On 30.11.2020 11:31, Oleksandr Tyshchenko wrote:
->>>> --- a/xen/include/xen/sched.h
->>>> +++ b/xen/include/xen/sched.h
->>>> @@ -145,6 +145,21 @@ void evtchn_destroy_final(struct domain *d); /* from complete_domain_destroy
->> */
->>>>
->>>>   struct waitqueue_vcpu;
->>>>
->>>> +enum io_completion {
->>>> +    IO_no_completion,
->>>> +    IO_mmio_completion,
->>>> +    IO_pio_completion,
->>>> +#ifdef CONFIG_X86
->>>> +    IO_realmode_completion,
->>>> +#endif
->>>> +};
->>> I'm not entirely happy with io_ / IO_ here - they seem a little
->>> too generic. How about ioreq_ / IOREQ_ respectively?
->>
->> I am OK, would like to hear Paul's opinion on both questions.
->>
-> 
-> No, I think the 'IO_' prefix is better. They relate to a field in the vcpu_io struct. An alternative might be 'VIO_'...
-> 
->>
->>>
->>>> +struct vcpu_io {
->>>> +    /* I/O request in flight to device model. */
->>>> +    enum io_completion   completion;
-> 
-> ... in which case, you could also name the enum 'vio_completion'.
+Hi,
 
-I'd be okay with these - still better than just "io".
+On 08/12/2020 07:23, Michal Orzel wrote:
+> When executing in aarch32 state at EL0, a load at EL0 from a
+> virtual address that matches the bottom 32 bits of the virtual address
+> used by a recent load at (aarch64) EL1 might return incorrect data.
+> 
+> The workaround is to insert a write of the contextidr_el1 register
+> on exception return to an aarch32 guest.
 
-Jan
+I am a bit confused with this comment. In the previous paragraph, you 
+are suggesting that the problem is an interaction between EL1 AArch64 
+and EL0 AArch32. But here you seem to imply the issue only happen when 
+running a AArch32 guest.
+
+Can you clarify it?
+
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+> ---
+>   docs/misc/arm/silicon-errata.txt |  1 +
+>   xen/arch/arm/Kconfig             | 19 +++++++++++++++++++
+>   xen/arch/arm/arm64/entry.S       |  9 +++++++++
+>   xen/arch/arm/cpuerrata.c         |  8 ++++++++
+>   xen/include/asm-arm/cpufeature.h |  3 ++-
+>   5 files changed, 39 insertions(+), 1 deletion(-)
+> 
+> diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
+> index 27bf957ebf..fa3d9af63d 100644
+> --- a/docs/misc/arm/silicon-errata.txt
+> +++ b/docs/misc/arm/silicon-errata.txt
+> @@ -45,6 +45,7 @@ stable hypervisors.
+>   | ARM            | Cortex-A53      | #827319         | ARM64_ERRATUM_827319    |
+>   | ARM            | Cortex-A53      | #824069         | ARM64_ERRATUM_824069    |
+>   | ARM            | Cortex-A53      | #819472         | ARM64_ERRATUM_819472    |
+> +| ARM            | Cortex-A53      | #845719         | ARM64_ERRATUM_845719    |
+>   | ARM            | Cortex-A55      | #1530923        | N/A                     |
+>   | ARM            | Cortex-A57      | #852523         | N/A                     |
+>   | ARM            | Cortex-A57      | #832075         | ARM64_ERRATUM_832075    |
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index f5b1bcda03..6bea393555 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -244,6 +244,25 @@ config ARM_ERRATUM_858921
+>   
+>   	  If unsure, say Y.
+>   
+> +config ARM64_ERRATUM_845719
+> +	bool "Cortex-A53: 845719: A load might read incorrect data"
+> +	default y
+> +	help
+> +	  This option adds an alternative code sequence to work around ARM
+> +	  erratum 845719 on Cortex-A53 parts up to r0p4.
+> +
+> +	  When executing in aarch32 state at EL0, a load at EL0 from a
+> +	  virtual address that matches the bottom 32 bits of the virtual address
+> +	  used by a recent load at (aarch64) EL1 might return incorrect data.
+> +
+> +	  The workaround is to insert a write of the contextidr_el1 register
+> +	  on exception return to an aarch32 guest.
+> +	  Please note that this does not necessarily enable the workaround,
+> +	  as it depends on the alternative framework, which will only patch
+> +	  the kernel if an affected CPU is detected.
+> +
+> +	  If unsure, say Y.
+> +
+>   config ARM64_WORKAROUND_REPEAT_TLBI
+>   	bool
+>   
+> diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
+> index 175ea2981e..ef3336f34a 100644
+> --- a/xen/arch/arm/arm64/entry.S
+> +++ b/xen/arch/arm/arm64/entry.S
+> @@ -96,6 +96,15 @@
+>           msr     SPSR_fiq, x22
+>           msr     SPSR_irq, x23
+>   
+> +#ifdef CONFIG_ARM64_ERRATUM_845719
+> +alternative_if ARM64_WORKAROUND_845719
+> +        /* contextidr_el1 is not accessible from aarch32 guest so we can
+> +         * write xzr to it
+> +         */
+
+This path is also used when the trapping occurs when running in EL0 
+aarch32. So wouldn't you clobber it if the EL1 AArch64 use it (Linux may 
+store the PID in it)?
+
+Also the coding style for multi-line comment in Xen is:
+
+/*
+  * Foo
+  * Bar
+  */
+
+> +        msr     contextidr_el1, xzr
+> +alternative_else_nop_endif
+> +#endif
+
+Cheers,
+
+-- 
+Julien Grall
 
