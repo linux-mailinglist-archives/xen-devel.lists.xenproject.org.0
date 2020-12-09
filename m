@@ -2,34 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E7CE2D4C6A
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 22:05:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48719.86187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA8C2D4C71
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 22:06:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48726.86199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn6e5-0002FH-48; Wed, 09 Dec 2020 21:05:09 +0000
+	id 1kn6ep-0002O2-Ei; Wed, 09 Dec 2020 21:05:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48719.86187; Wed, 09 Dec 2020 21:05:09 +0000
+Received: by outflank-mailman (output) from mailman id 48726.86199; Wed, 09 Dec 2020 21:05:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn6e5-0002Er-0X; Wed, 09 Dec 2020 21:05:09 +0000
-Received: by outflank-mailman (input) for mailman id 48719;
- Wed, 09 Dec 2020 21:05:07 +0000
+	id 1kn6ep-0002Na-BB; Wed, 09 Dec 2020 21:05:55 +0000
+Received: by outflank-mailman (input) for mailman id 48726;
+ Wed, 09 Dec 2020 21:05:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GmJG=FN=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kn6e3-0002EX-8q
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 21:05:07 +0000
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+ <SRS0=/xMB=FN=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kn6en-0002NO-Ko
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 21:05:53 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 75f87b02-3e70-4363-b5f8-743be902e657;
- Wed, 09 Dec 2020 21:05:05 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id x23so4114597lji.7
- for <xen-devel@lists.xenproject.org>; Wed, 09 Dec 2020 13:05:05 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id x67sm285152lff.82.2020.12.09.13.05.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Dec 2020 13:05:03 -0800 (PST)
+ id 4e92b115-7093-41fe-98e9-a5644f508a0e;
+ Wed, 09 Dec 2020 21:05:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,244 +35,350 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75f87b02-3e70-4363-b5f8-743be902e657
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=ziK8rAJAHWHZ7JGTlXpNI/0LtdEcTIT2NfNjvM79Uvk=;
-        b=Czp9zXTlJlGo4XB4ISmYDMsMym/4rNLOnM7KUwJuw7Po4kj2287MTK4/rXMaZ54Utt
-         lSNHocyH45GAU9hfrbfxMsAISNXW45b631qcvFhlCHAozKkOOj9ScjJRy0JjCEwWFW6b
-         8qWMZp4p93rjwBxCZ16VX5vUZlNPAhN+LsDn9o0AwxsZr2GTnzZusN5PGp9wgO4egXUt
-         JFdNxJ6te9cVmk5LL00YPnl+yopCkgpRT1MKrqMjX+SeVdV2pohLK/qUC2hQodmBeEak
-         QJJRxPFig4zEDW706YVJf7LrLpsT7H8Yb2dNzShHG7m4ffDF42DDzezMGQmW/BT5Zbuw
-         K4fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=ziK8rAJAHWHZ7JGTlXpNI/0LtdEcTIT2NfNjvM79Uvk=;
-        b=CO0fIDv8oEDSFe2SN1nrywDjgg1S760tetQC88PNhRluTJV7xq+EoqhmYcyYAIGv4g
-         KUrh3gV97lRbmpPaVIFv9YdBWr4DXN836dyqlHOg0YQFkvkn5FkdJ7xhtyZPWY3J6WrN
-         fedTBP2lA7jqSvY8XGEO8eMSkK0uclDH2xpUspqB4PSwrbx9EjCSPwz6r6Da9eqiSQOj
-         BD3CtfLwTxr+VhmPL7CI/iKp9ZhHkElbMXGmUYTXHIs2kDSWGnYkqwC6J+EEH+DTmewP
-         9ToZTmw7xBGBpeqmyrslOHV/GvL5hhDySHWZfOGpVFBF8dOcKOEAhy6K4vnBFfWcEqis
-         eZzA==
-X-Gm-Message-State: AOAM533LmiHvn/pshhSTZWmT69iw8VrvUE+W+b7FqhNerOvj+2dY6/6X
-	ifi3juNck+bKGGjmUKxsL5E9MPjWMyCuYA==
-X-Google-Smtp-Source: ABdhPJyeG3Dq5+gTT8OTtJ47P4+DJRpzrLCyZP9Wj+/4bgsIjGXdBN5F8g7ySE+XMqT7dgx4aLub0Q==
-X-Received: by 2002:a05:651c:1b6:: with SMTP id c22mr1774381ljn.365.1607547904498;
-        Wed, 09 Dec 2020 13:05:04 -0800 (PST)
-Subject: Re: [PATCH V3 17/23] xen/ioreq: Introduce domain_has_ioreq_server()
-To: Julien Grall <julien@xen.org>, paul@xen.org
-Cc: 'Jan Beulich' <jbeulich@suse.com>,
- 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
- 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>,
- 'Ian Jackson' <iwj@xenproject.org>, 'Wei Liu' <wl@xen.org>,
- 'Julien Grall' <julien.grall@arm.com>, xen-devel@lists.xenproject.org
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-18-git-send-email-olekstysh@gmail.com>
- <3bb4c3b5-a46a-ba31-292f-5c6ba49fa9be@suse.com>
- <6026b7f3-ae6e-f98f-be65-27d7f729a37f@gmail.com>
- <18bfd9b1-3e6a-8119-efd0-c82ad7ae681d@gmail.com>
- <0d6c01d6cd9a$666326c0$33297440$@xen.org>
- <57bfc007-e400-6777-0075-827daa8acf0e@gmail.com>
- <0d7201d6ce09$e13dce80$a3b96b80$@xen.org>
- <84d7238d-0ec1-acdd-6cea-db78aba6f3d7@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <dfe1f85a-6293-5c5e-ad33-4367f83a5c60@gmail.com>
-Date: Wed, 9 Dec 2020 23:05:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 4e92b115-7093-41fe-98e9-a5644f508a0e
+Date: Wed, 9 Dec 2020 13:05:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1607547952;
+	bh=ClpgMRd9x5q58/di1AJQe568A42ut6G9v5HuiN5QT6g=;
+	h=From:To:cc:Subject:In-Reply-To:References:From;
+	b=K3OhrhRdI0SqXeK+3NwwiKVrIFYBOj3WG0gaAmLL5BHYes5Fz73IpkI/v2USsobiG
+	 SjTVM/eh4qFnK5yjczOAR+oBcriwZtCPKoK+q9X0l+ua0s4mYDwGLQrnNMP1Wj39hZ
+	 AfcoKp0oq9SQg3iPWi7U1060y2YDCXn6GlbQGG3EAueco8TaHRBQn/IUdScV8qTjtu
+	 gipaOJW9wBdNKLxmDAWl8qLczFByRJv2q3+Etx/9luf7HsbrqrgteQHuh2+w7p81DK
+	 64jNSxj9+RayE1bode/FjvJAyF5w3V9ZsBL98Vn6C/7x6VyFWUodF/LQTQRIhu+PKD
+	 Ydl5hh95SnI/w==
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3 1/7] xen/arm: Add ID registers and complete cpuinfo
+In-Reply-To: <aab713989bec4dc843bd513c03b305c83028851b.1607524536.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.21.2012091102520.20986@sstabellini-ThinkPad-T480s>
+References: <cover.1607524536.git.bertrand.marquis@arm.com> <aab713989bec4dc843bd513c03b305c83028851b.1607524536.git.bertrand.marquis@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <84d7238d-0ec1-acdd-6cea-db78aba6f3d7@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII
+
+On Wed, 9 Dec 2020, Bertrand Marquis wrote:
+> Add definition and entries in cpuinfo for ID registers introduced in
+> newer Arm Architecture reference manual:
+> - ID_PFR2: processor feature register 2
+> - ID_DFR1: debug feature register 1
+> - ID_MMFR4 and ID_MMFR5: Memory model feature registers 4 and 5
+> - ID_ISA6: ISA Feature register 6
+> Add more bitfield definitions in PFR fields of cpuinfo.
+> Add MVFR2 register definition for aarch32.
+> Add mvfr values in cpuinfo.
+> Add some registers definition for arm64 in sysregs as some are not
+> always know by compilers.
+> Initialize the new values added in cpuinfo in identify_cpu during init.
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-On 09.12.20 20:58, Julien Grall wrote:
-> Hi Oleksandr and Paul,
-
-Hi Julien, Paul.
-
-
->
-> Sorry for jumping late in the conversation.
->
-> On 09/12/2020 09:01, Paul Durrant wrote:
->>> -----Original Message-----
->>> From: Oleksandr <olekstysh@gmail.com>
->>> Sent: 08 December 2020 20:17
->>> To: paul@xen.org
->>> Cc: 'Jan Beulich' <jbeulich@suse.com>; 'Oleksandr Tyshchenko' 
->>> <oleksandr_tyshchenko@epam.com>;
->>> 'Stefano Stabellini' <sstabellini@kernel.org>; 'Julien Grall' 
->>> <julien@xen.org>; 'Volodymyr Babchuk'
->>> <Volodymyr_Babchuk@epam.com>; 'Andrew Cooper' 
->>> <andrew.cooper3@citrix.com>; 'George Dunlap'
->>> <george.dunlap@citrix.com>; 'Ian Jackson' <iwj@xenproject.org>; 'Wei 
->>> Liu' <wl@xen.org>; 'Julien Grall'
->>> <julien.grall@arm.com>; xen-devel@lists.xenproject.org
->>> Subject: Re: [PATCH V3 17/23] xen/ioreq: Introduce 
->>> domain_has_ioreq_server()
->>>
->>>
->>> On 08.12.20 21:43, Paul Durrant wrote:
->>>
->>> Hi Paul
->>>
->>>>> -----Original Message-----
->>>>> From: Oleksandr <olekstysh@gmail.com>
->>>>> Sent: 08 December 2020 16:57
->>>>> To: Paul Durrant <paul@xen.org>
->>>>> Cc: Jan Beulich <jbeulich@suse.com>; Oleksandr Tyshchenko 
->>>>> <oleksandr_tyshchenko@epam.com>; Stefano
->>>>> Stabellini <sstabellini@kernel.org>; Julien Grall 
->>>>> <julien@xen.org>; Volodymyr Babchuk
->>>>> <Volodymyr_Babchuk@epam.com>; Andrew Cooper 
->>>>> <andrew.cooper3@citrix.com>; George Dunlap
->>>>> <george.dunlap@citrix.com>; Ian Jackson <iwj@xenproject.org>; Wei 
->>>>> Liu <wl@xen.org>; Julien Grall
->>>>> <julien.grall@arm.com>; xen-devel@lists.xenproject.org
->>>>> Subject: Re: [PATCH V3 17/23] xen/ioreq: Introduce 
->>>>> domain_has_ioreq_server()
->>>>>
->>>>>
->>>>> Hi Paul.
->>>>>
->>>>>
->>>>> On 08.12.20 17:33, Oleksandr wrote:
->>>>>> On 08.12.20 17:11, Jan Beulich wrote:
->>>>>>
->>>>>> Hi Jan
->>>>>>
->>>>>>> On 30.11.2020 11:31, Oleksandr Tyshchenko wrote:
->>>>>>>> --- a/xen/include/xen/ioreq.h
->>>>>>>> +++ b/xen/include/xen/ioreq.h
->>>>>>>> @@ -55,6 +55,20 @@ struct ioreq_server {
->>>>>>>>         uint8_t                bufioreq_handling;
->>>>>>>>     };
->>>>>>>>     +/*
->>>>>>>> + * This should only be used when d == current->domain and it's 
->>>>>>>> not
->>>>>>>> paused,
->>>>>>> Is the "not paused" part really relevant here? Besides it being 
->>>>>>> rare
->>>>>>> that the current domain would be paused (if so, it's in the process
->>>>>>> of having all its vCPU-s scheduled out), does this matter at all?do
->>>>>>> any extra actionsdo any extra actions
->>>>>> No, it isn't relevant, I will drop it.
->>>>>>
->>>>>>
->>>>>>> Apart from this the patch looks okay to me, but I'm not sure it
->>>>>>> addresses Paul's concerns. Iirc he had suggested to switch back to
->>>>>>> a list if doing a swipe over the entire array is too expensive in
->>>>>>> this specific case.
->>>>>> We would like to avoid to do any extra actions in
->>>>>> leave_hypervisor_to_guest() if possible.
->>>>>> But not only there, the logic whether we check/set
->>>>>> mapcache_invalidation variable could be avoided if a domain doesn't
->>>>>> use IOREQ server...
->>>>>
->>>>> Are you OK with this patch (common part of it)?
->>>> How much of a performance benefit is this? The array is small to 
->>>> simply counting the non-NULL
->>> entries should be pretty quick.
->>> I didn't perform performance measurements on how much this call 
->>> consumes.
->>> In our system we run three domains. The emulator is in DomD only, so I
->>> would like to avoid to call vcpu_ioreq_handle_completion() for every
->>> Dom0/DomU's vCPUs
->>> if there is no real need to do it.
->>
->> This is not relevant to the domain that the emulator is running in; 
->> it's concerning the domains which the emulator is servicing. How many 
->> of those are there?
->
-> AFAICT, the maximum number of IOREQ servers is 8 today.
->
->>
->>> On Arm vcpu_ioreq_handle_completion()
->>> is called with IRQ enabled, so the call is accompanied with
->>> corresponding irq_enable/irq_disable.
->>> These unneeded actions could be avoided by using this simple one-line
->>> helper...
->>>
->>
->> The helper may be one line but there is more to the patch than that. 
->> I still think you could just walk the array in the helper rather than 
->> keeping a running occupancy count.
->
-> Right, the concern here is this function will be called in an hotpath 
-> (everytime we are re-entering to the guest). At the difference of x86, 
-> the entry/exit code is really small, so any additional code will have 
-> an impact on the overall performance.
-+1
-
-
->
->
-> That said, the IOREQ code is a tech preview for Arm. So I would be 
-> fine going with Paul's approach until we have a better understanding 
-> on the performance of virtio/IOREQ.
-
-I am fine with Paul's approach for now (I only need a confirmation that 
-I got it correctly).
-
-
->
->
-> I am going to throw some more thoughts about the optimization here. 
-> The patch is focusing on performance impact when IOREQ is built-in and 
-> not used.
-It is true, what I would to add here is the helper also avoids 
-unnecessary vcpu_ioreq_handle_completion() calls as well another 
-unnecessary action
-(mapcache handling logic, although it is not a hotpath) in subsequent 
-patch when IOREQ is used.
-
-
-> I think we can do further optimization (which may superseed this one).
->
-> get_pending_vcpu() (called from handle_hvm_io_completion()) is overly 
-> expensive in particular if you have no I/O forwarded to an IOREQ 
-> server. Entry to the hypervisor can happen for many reasons 
-> (interrupts, system registers emulation, I/O emulation...) and the I/O 
-> forwarded should be a small subset.
->
-> Ideally, handle_hvm_io_completion() should be a NOP (at max a few 
-> instructions) if there are nothing to do. Maybe we want to introduce a 
-> per-vCPU flag indicating if an I/O has been forwarded to an IOREQ server.
->
-> This would also us to bypass most of the function if there is nothing 
-> to do.
->
-> Any thoughts?
->
-> In any case this is more a forward looking rather than a request for 
-> the current series. What matters to me is we have a functional (not 
-> necessarily optimized) version of IOREQ in Xen 4.15. This would be a 
-> great step towards using Virto on Xen.
-
-Completely agree, current series is quite big) and if we will try to 
-make it perfect I am afraid, we won't have it even in Xen 4.16). As for 
-proposed optimization - I think it worth considering, I will mention 
-about it in the cover letter for the series among other possible things 
-such as buffered request, etc.
-
-
->
->
-> Cheers,
->
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+> ---
+> Changes in V2:
+>   Fix dbg32 table size and add proper initialisation of the second entry
+>   of the table by reading ID_DFR1 register.
+> Changes in V3:
+>   Fix typo in commit title
+>   Add MVFR2 definition and handling on aarch32 and remove specific case
+>   for mvfr field in cpuinfo (now the same on arm64 and arm32).
+>   Add MMFR4 definition if not known by the compiler.
+> 
+> ---
+>  xen/arch/arm/cpufeature.c           | 18 ++++++++++
+>  xen/include/asm-arm/arm64/sysregs.h | 28 +++++++++++++++
+>  xen/include/asm-arm/cpregs.h        | 12 +++++++
+>  xen/include/asm-arm/cpufeature.h    | 56 ++++++++++++++++++++++++-----
+>  4 files changed, 105 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index 44126dbf07..bc7ee5ac95 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -114,15 +114,20 @@ void identify_cpu(struct cpuinfo_arm *c)
+>  
+>          c->mm64.bits[0]  = READ_SYSREG64(ID_AA64MMFR0_EL1);
+>          c->mm64.bits[1]  = READ_SYSREG64(ID_AA64MMFR1_EL1);
+> +        c->mm64.bits[2]  = READ_SYSREG64(ID_AA64MMFR2_EL1);
+>  
+>          c->isa64.bits[0] = READ_SYSREG64(ID_AA64ISAR0_EL1);
+>          c->isa64.bits[1] = READ_SYSREG64(ID_AA64ISAR1_EL1);
+> +
+> +        c->zfr64.bits[0] = READ_SYSREG64(ID_AA64ZFR0_EL1);
+>  #endif
+>  
+>          c->pfr32.bits[0] = READ_SYSREG32(ID_PFR0_EL1);
+>          c->pfr32.bits[1] = READ_SYSREG32(ID_PFR1_EL1);
+> +        c->pfr32.bits[2] = READ_SYSREG32(ID_PFR2_EL1);
+>  
+>          c->dbg32.bits[0] = READ_SYSREG32(ID_DFR0_EL1);
+> +        c->dbg32.bits[1] = READ_SYSREG32(ID_DFR1_EL1);
+>  
+>          c->aux32.bits[0] = READ_SYSREG32(ID_AFR0_EL1);
+>  
+> @@ -130,6 +135,8 @@ void identify_cpu(struct cpuinfo_arm *c)
+>          c->mm32.bits[1]  = READ_SYSREG32(ID_MMFR1_EL1);
+>          c->mm32.bits[2]  = READ_SYSREG32(ID_MMFR2_EL1);
+>          c->mm32.bits[3]  = READ_SYSREG32(ID_MMFR3_EL1);
+> +        c->mm32.bits[4]  = READ_SYSREG32(ID_MMFR4_EL1);
+> +        c->mm32.bits[5]  = READ_SYSREG32(ID_MMFR5_EL1);
+>  
+>          c->isa32.bits[0] = READ_SYSREG32(ID_ISAR0_EL1);
+>          c->isa32.bits[1] = READ_SYSREG32(ID_ISAR1_EL1);
+> @@ -137,6 +144,17 @@ void identify_cpu(struct cpuinfo_arm *c)
+>          c->isa32.bits[3] = READ_SYSREG32(ID_ISAR3_EL1);
+>          c->isa32.bits[4] = READ_SYSREG32(ID_ISAR4_EL1);
+>          c->isa32.bits[5] = READ_SYSREG32(ID_ISAR5_EL1);
+> +        c->isa32.bits[6] = READ_SYSREG32(ID_ISAR6_EL1);
+> +
+> +#ifdef CONFIG_ARM_64
+> +        c->mvfr.bits[0] = READ_SYSREG64(MVFR0_EL1);
+> +        c->mvfr.bits[1] = READ_SYSREG64(MVFR1_EL1);
+> +        c->mvfr.bits[2] = READ_SYSREG64(MVFR2_EL1);
+> +#else
+> +        c->mvfr.bits[0] = READ_CP32(MVFR0);
+> +        c->mvfr.bits[1] = READ_CP32(MVFR1);
+> +        c->mvfr.bits[2] = READ_CP32(MVFR2);
+> +#endif
+>  }
+>  
+>  /*
+> diff --git a/xen/include/asm-arm/arm64/sysregs.h b/xen/include/asm-arm/arm64/sysregs.h
+> index c60029d38f..077fd95fb7 100644
+> --- a/xen/include/asm-arm/arm64/sysregs.h
+> +++ b/xen/include/asm-arm/arm64/sysregs.h
+> @@ -57,6 +57,34 @@
+>  #define ICH_AP1R2_EL2             __AP1Rx_EL2(2)
+>  #define ICH_AP1R3_EL2             __AP1Rx_EL2(3)
+>  
+> +/*
+> + * Define ID coprocessor registers if they are not
+> + * already defined by the compiler.
+> + *
+> + * Values picked from linux kernel
+> + */
+> +#ifndef ID_AA64MMFR2_EL1
+> +#define ID_AA64MMFR2_EL1            S3_0_C0_C7_2
+> +#endif
+> +#ifndef ID_PFR2_EL1
+> +#define ID_PFR2_EL1                 S3_0_C0_C3_4
+> +#endif
+> +#ifndef ID_MMFR4_EL1
+> +#define ID_MMFR4_EL1                S3_0_C0_C2_6
+> +#endif
+> +#ifndef ID_MMFR5_EL1
+> +#define ID_MMFR5_EL1                S3_0_C0_C3_6
+> +#endif
+> +#ifndef ID_ISAR6_EL1
+> +#define ID_ISAR6_EL1                S3_0_C0_C2_7
+> +#endif
+> +#ifndef ID_AA64ZFR0_EL1
+> +#define ID_AA64ZFR0_EL1             S3_0_C0_C4_4
+> +#endif
+> +#ifndef ID_DFR1_EL1
+> +#define ID_DFR1_EL1                 S3_0_C0_C3_5
+> +#endif
+> +
+>  /* Access to system registers */
+>  
+>  #define READ_SYSREG32(name) ((uint32_t)READ_SYSREG64(name))
+> diff --git a/xen/include/asm-arm/cpregs.h b/xen/include/asm-arm/cpregs.h
+> index 8fd344146e..2690ddeb7a 100644
+> --- a/xen/include/asm-arm/cpregs.h
+> +++ b/xen/include/asm-arm/cpregs.h
+> @@ -63,6 +63,8 @@
+>  #define FPSID           p10,7,c0,c0,0   /* Floating-Point System ID Register */
+>  #define FPSCR           p10,7,c1,c0,0   /* Floating-Point Status and Control Register */
+>  #define MVFR0           p10,7,c7,c0,0   /* Media and VFP Feature Register 0 */
+> +#define MVFR1           p10,7,c6,c0,0   /* Media and VFP Feature Register 1 */
+> +#define MVFR2           p10,7,c5,c0,0   /* Media and VFP Feature Register 2 */
+>  #define FPEXC           p10,7,c8,c0,0   /* Floating-Point Exception Control Register */
+>  #define FPINST          p10,7,c9,c0,0   /* Floating-Point Instruction Register */
+>  #define FPINST2         p10,7,c10,c0,0  /* Floating-point Instruction Register 2 */
+> @@ -108,18 +110,23 @@
+>  #define MPIDR           p15,0,c0,c0,5   /* Multiprocessor Affinity Register */
+>  #define ID_PFR0         p15,0,c0,c1,0   /* Processor Feature Register 0 */
+>  #define ID_PFR1         p15,0,c0,c1,1   /* Processor Feature Register 1 */
+> +#define ID_PFR2         p15,0,c0,c3,4   /* Processor Feature Register 2 */
+>  #define ID_DFR0         p15,0,c0,c1,2   /* Debug Feature Register 0 */
+> +#define ID_DFR1         p15,0,c0,c3,5   /* Debug Feature Register 1 */
+>  #define ID_AFR0         p15,0,c0,c1,3   /* Auxiliary Feature Register 0 */
+>  #define ID_MMFR0        p15,0,c0,c1,4   /* Memory Model Feature Register 0 */
+>  #define ID_MMFR1        p15,0,c0,c1,5   /* Memory Model Feature Register 1 */
+>  #define ID_MMFR2        p15,0,c0,c1,6   /* Memory Model Feature Register 2 */
+>  #define ID_MMFR3        p15,0,c0,c1,7   /* Memory Model Feature Register 3 */
+> +#define ID_MMFR4        p15,0,c0,c2,6   /* Memory Model Feature Register 4 */
+> +#define ID_MMFR5        p15,0,c0,c3,6   /* Memory Model Feature Register 5 */
+>  #define ID_ISAR0        p15,0,c0,c2,0   /* ISA Feature Register 0 */
+>  #define ID_ISAR1        p15,0,c0,c2,1   /* ISA Feature Register 1 */
+>  #define ID_ISAR2        p15,0,c0,c2,2   /* ISA Feature Register 2 */
+>  #define ID_ISAR3        p15,0,c0,c2,3   /* ISA Feature Register 3 */
+>  #define ID_ISAR4        p15,0,c0,c2,4   /* ISA Feature Register 4 */
+>  #define ID_ISAR5        p15,0,c0,c2,5   /* ISA Feature Register 5 */
+> +#define ID_ISAR6        p15,0,c0,c2,7   /* ISA Feature Register 6 */
+>  #define CCSIDR          p15,1,c0,c0,0   /* Cache Size ID Registers */
+>  #define CLIDR           p15,1,c0,c0,1   /* Cache Level ID Register */
+>  #define CSSELR          p15,2,c0,c0,0   /* Cache Size Selection Register */
+> @@ -312,18 +319,23 @@
+>  #define HSTR_EL2                HSTR
+>  #define ID_AFR0_EL1             ID_AFR0
+>  #define ID_DFR0_EL1             ID_DFR0
+> +#define ID_DFR1_EL1             ID_DFR1
+>  #define ID_ISAR0_EL1            ID_ISAR0
+>  #define ID_ISAR1_EL1            ID_ISAR1
+>  #define ID_ISAR2_EL1            ID_ISAR2
+>  #define ID_ISAR3_EL1            ID_ISAR3
+>  #define ID_ISAR4_EL1            ID_ISAR4
+>  #define ID_ISAR5_EL1            ID_ISAR5
+> +#define ID_ISAR6_EL1            ID_ISAR6
+>  #define ID_MMFR0_EL1            ID_MMFR0
+>  #define ID_MMFR1_EL1            ID_MMFR1
+>  #define ID_MMFR2_EL1            ID_MMFR2
+>  #define ID_MMFR3_EL1            ID_MMFR3
+> +#define ID_MMFR4_EL1            ID_MMFR4
+> +#define ID_MMFR5_EL1            ID_MMFR5
+>  #define ID_PFR0_EL1             ID_PFR0
+>  #define ID_PFR1_EL1             ID_PFR1
+> +#define ID_PFR2_EL1             ID_PFR2
+>  #define IFSR32_EL2              IFSR
+>  #define MDCR_EL2                HDCR
+>  #define MIDR_EL1                MIDR
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index c7b5052992..6cf83d775b 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -148,6 +148,7 @@ struct cpuinfo_arm {
+>      union {
+>          uint64_t bits[2];
+>          struct {
+> +            /* PFR0 */
+>              unsigned long el0:4;
+>              unsigned long el1:4;
+>              unsigned long el2:4;
+> @@ -155,9 +156,23 @@ struct cpuinfo_arm {
+>              unsigned long fp:4;   /* Floating Point */
+>              unsigned long simd:4; /* Advanced SIMD */
+>              unsigned long gic:4;  /* GIC support */
+> -            unsigned long __res0:28;
+> +            unsigned long ras:4;
+> +            unsigned long sve:4;
+> +            unsigned long sel2:4;
+> +            unsigned long mpam:4;
+> +            unsigned long amu:4;
+> +            unsigned long dit:4;
+> +            unsigned long __res0:4;
+>              unsigned long csv2:4;
+> -            unsigned long __res1:4;
+> +            unsigned long cvs3:4;
+> +
+> +            /* PFR1 */
+> +            unsigned long bt:4;
+> +            unsigned long ssbs:4;
+> +            unsigned long mte:4;
+> +            unsigned long ras_frac:4;
+> +            unsigned long mpam_frac:4;
+> +            unsigned long __res1:44;
+>          };
+>      } pfr64;
+>  
+> @@ -170,7 +185,7 @@ struct cpuinfo_arm {
+>      } aux64;
+>  
+>      union {
+> -        uint64_t bits[2];
+> +        uint64_t bits[3];
+>          struct {
+>              unsigned long pa_range:4;
+>              unsigned long asid_bits:4;
+> @@ -190,6 +205,8 @@ struct cpuinfo_arm {
+>              unsigned long pan:4;
+>              unsigned long __res1:8;
+>              unsigned long __res2:32;
+> +
+> +            unsigned long __res3:64;
+>          };
+>      } mm64;
+>  
+> @@ -197,6 +214,10 @@ struct cpuinfo_arm {
+>          uint64_t bits[2];
+>      } isa64;
+>  
+> +    struct {
+> +        uint64_t bits[1];
+> +    } zfr64;
+> +
+>  #endif
+>  
+>      /*
+> @@ -204,25 +225,38 @@ struct cpuinfo_arm {
+>       * when running in 32-bit mode.
+>       */
+>      union {
+> -        uint32_t bits[2];
+> +        uint32_t bits[3];
+>          struct {
+> +            /* PFR0 */
+>              unsigned long arm:4;
+>              unsigned long thumb:4;
+>              unsigned long jazelle:4;
+>              unsigned long thumbee:4;
+> -            unsigned long __res0:16;
+> +            unsigned long csv2:4;
+> +            unsigned long amu:4;
+> +            unsigned long dit:4;
+> +            unsigned long ras:4;
+>  
+> +            /* PFR1 */
+>              unsigned long progmodel:4;
+>              unsigned long security:4;
+>              unsigned long mprofile:4;
+>              unsigned long virt:4;
+>              unsigned long gentimer:4;
+> -            unsigned long __res1:12;
+> +            unsigned long sec_frac:4;
+> +            unsigned long virt_frac:4;
+> +            unsigned long gic:4;
+> +
+> +            /* PFR2 */
+> +            unsigned long csv3:4;
+> +            unsigned long ssbs:4;
+> +            unsigned long ras_frac:4;
+> +            unsigned long __res2:20;
+>          };
+>      } pfr32;
+>  
+>      struct {
+> -        uint32_t bits[1];
+> +        uint32_t bits[2];
+>      } dbg32;
+>  
+>      struct {
+> @@ -230,12 +264,16 @@ struct cpuinfo_arm {
+>      } aux32;
+>  
+>      struct {
+> -        uint32_t bits[4];
+> +        uint32_t bits[6];
+>      } mm32;
+>  
+>      struct {
+> -        uint32_t bits[6];
+> +        uint32_t bits[7];
+>      } isa32;
+> +
+> +    struct {
+> +        uint64_t bits[3];
+> +    } mvfr;
+>  };
+>  
+>  extern struct cpuinfo_arm boot_cpu_data;
+> -- 
+> 2.17.1
+> 
 
