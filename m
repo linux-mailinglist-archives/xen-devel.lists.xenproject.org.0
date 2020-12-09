@@ -2,49 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAF492D422E
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 13:36:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48244.85294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEFA12D4332
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 14:28:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48250.85306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmygx-0004F1-F0; Wed, 09 Dec 2020 12:35:35 +0000
+	id 1kmzV5-0000Zn-Fn; Wed, 09 Dec 2020 13:27:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48244.85294; Wed, 09 Dec 2020 12:35:35 +0000
+Received: by outflank-mailman (output) from mailman id 48250.85306; Wed, 09 Dec 2020 13:27:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmygx-0004Ec-Be; Wed, 09 Dec 2020 12:35:35 +0000
-Received: by outflank-mailman (input) for mailman id 48244;
- Wed, 09 Dec 2020 12:35:34 +0000
+	id 1kmzV5-0000ZO-CY; Wed, 09 Dec 2020 13:27:23 +0000
+Received: by outflank-mailman (input) for mailman id 48250;
+ Wed, 09 Dec 2020 13:27:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZHYZ=FN=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kmygw-0004EX-Fe
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 12:35:34 +0000
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f0917a44-8970-46ab-a772-ddf2273d71f6;
- Wed, 09 Dec 2020 12:35:33 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B9CXYfw030646;
- Wed, 9 Dec 2020 12:35:31 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 35825m7wtu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 09 Dec 2020 12:35:31 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B9CTlu4160349;
- Wed, 9 Dec 2020 12:33:30 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 358m50gmf9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 09 Dec 2020 12:33:30 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B9CXS0r031296;
- Wed, 9 Dec 2020 12:33:28 GMT
-Received: from [10.39.218.141] (/10.39.218.141)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 09 Dec 2020 04:33:28 -0800
+ <SRS0=S60M=FN=arm.com=mark.rutland@srs-us1.protection.inumbo.net>)
+ id 1kmzV4-0000ZJ-1e
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 13:27:22 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 54f6f2c4-09a3-485c-b1c7-f5bd4c0e4a57;
+ Wed, 09 Dec 2020 13:27:20 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6032831B;
+ Wed,  9 Dec 2020 05:27:20 -0800 (PST)
+Received: from C02TD0UTHF1T.local (unknown [10.57.26.40])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F7983F66B;
+ Wed,  9 Dec 2020 05:27:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,53 +42,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0917a44-8970-46ab-a772-ddf2273d71f6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=uAtbp6FlKUllmr+yHGq3Pv/VB5lfTrcVbzi/Vo9937M=;
- b=IAEUhaS2kdS1CLykMSAJgfswBZwFaoZsSUedBFW3zRzZU0sSyTnBQr/FqFPPGV3kWslX
- +elj9a5AQTDiTMYPe2roDdS4OpLPNnvMAxC476aNA8UIaLQBEQc+2m3qbPGjSWT/k1VS
- lF7wVNfaoI3ndGS7pHIfDsQRH3o5ecWa/CuFlPJODtqje7QIfI6xXNqzTnV6lbw6J1ZV
- dBr69adjApWiru89fDMDsVJN+Va8pw4eHj1BiNEaQI7lBtlO0EBZEzBA6MIqywEpZP9J
- NuMjgD5OlDLTUN8KZzd8jiutFed6P/2U5AYqoxYQd70WP8jZnfdBDfInH7muqW0StLSt VA== 
-Subject: Re: [PATCH] xen/xenbus: make xs_talkv() interruptible for SIGKILL
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-        linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-References: <20201209101114.31522-1-jgross@suse.com>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <8eae89eb-9250-ec03-e78a-686efc38742e@oracle.com>
-Date: Wed, 9 Dec 2020 07:33:27 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: 54f6f2c4-09a3-485c-b1c7-f5bd4c0e4a57
+Date: Wed, 9 Dec 2020 13:27:10 +0000
+From: Mark Rutland <mark.rutland@arm.com>
+To: Andy Lutomirski <luto@kernel.org>
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"VMware, Inc." <pv-drivers@vmware.com>, X86 ML <x86@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Linux Virtualization <virtualization@lists.linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use
+ popf
+Message-ID: <20201209132710.GA8566@C02TD0UTHF1T.local>
+References: <20201120114630.13552-1-jgross@suse.com>
+ <20201120114630.13552-6-jgross@suse.com>
+ <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+ <eb05e878-6334-8d19-496b-6572df67fc56@suse.com>
+ <CALCETrXOGhXoOJpzhAMqD7iibi09WzbGk9SWVH7JzA=d5uarWA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20201209101114.31522-1-jgross@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9829 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 spamscore=0 suspectscore=0
- bulkscore=0 malwarescore=0 phishscore=0 adultscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012090088
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9829 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 adultscore=0 bulkscore=0
- phishscore=0 mlxlogscore=999 clxscore=1015 priorityscore=1501 mlxscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012090089
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALCETrXOGhXoOJpzhAMqD7iibi09WzbGk9SWVH7JzA=d5uarWA@mail.gmail.com>
 
+On Sun, Nov 22, 2020 at 01:44:53PM -0800, Andy Lutomirski wrote:
+> On Sat, Nov 21, 2020 at 10:55 PM Jürgen Groß <jgross@suse.com> wrote:
+> >
+> > On 20.11.20 12:59, Peter Zijlstra wrote:
+> > > On Fri, Nov 20, 2020 at 12:46:23PM +0100, Juergen Gross wrote:
+> > >> +static __always_inline void arch_local_irq_restore(unsigned long flags)
+> > >> +{
+> > >> +    if (!arch_irqs_disabled_flags(flags))
+> > >> +            arch_local_irq_enable();
+> > >> +}
+> > >
+> > > If someone were to write horrible code like:
+> > >
+> > >       local_irq_disable();
+> > >       local_irq_save(flags);
+> > >       local_irq_enable();
+> > >       local_irq_restore(flags);
+> > >
+> > > we'd be up some creek without a paddle... now I don't _think_ we have
+> > > genius code like that, but I'd feel saver if we can haz an assertion in
+> > > there somewhere...
+> > >
+> > > Maybe something like:
+> > >
+> > > #ifdef CONFIG_DEBUG_ENTRY // for lack of something saner
+> > >       WARN_ON_ONCE((arch_local_save_flags() ^ flags) & X86_EFLAGS_IF);
+> > > #endif
+> > >
+> > > At the end?
+> >
+> > I'd like to, but using WARN_ON_ONCE() in include/asm/irqflags.h sounds
+> > like a perfect receipt for include dependency hell.
+> >
+> > We could use a plain asm("ud2") instead.
+> 
+> How about out-of-lining it:
+> 
+> #ifdef CONFIG_DEBUG_ENTRY
+> extern void warn_bogus_irqrestore();
+> #endif
+> 
+> static __always_inline void arch_local_irq_restore(unsigned long flags)
+> {
+>        if (!arch_irqs_disabled_flags(flags)) {
+>                arch_local_irq_enable();
+>        } else {
+> #ifdef CONFIG_DEBUG_ENTRY
+>                if (unlikely(arch_local_irq_save() & X86_EFLAGS_IF))
+>                     warn_bogus_irqrestore();
+> #endif
+> }
 
-On 12/9/20 5:11 AM, Juergen Gross wrote:
-> In case a process waits for any Xenstore action in the xenbus driver
-> it should be interruptible via SIGKILL.
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+I was just talking to Peter on IRC about implementing the same thing for
+arm64, so could we put this in the generic irqflags code? IIUC we can
+use raw_irqs_disabled() to do the check.
 
+As this isn't really entry specific (and IIUC the cases this should
+catch would break lockdep today), maybe we should add a new
+DEBUG_IRQFLAGS for this, that DEBUG_LOCKDEP can also select?
 
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Something like:
 
+#define local_irq_restore(flags)                               \
+       do {                                                    \
+               if (!raw_irqs_disabled_flags(flags)) {          \
+                       trace_hardirqs_on();                    \
+               } else if (IS_ENABLED(CONFIG_DEBUG_IRQFLAGS) {  \
+                       if (unlikely(raw_irqs_disabled())       \
+                               warn_bogus_irqrestore();        \
+               }                                               \
+               raw_local_irq_restore(flags);                   \
+        } while (0)
 
+... perhaps? (ignoring however we deal with once-ness).
+
+Thanks,
+Mark.
 
