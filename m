@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C06182D3F12
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 10:48:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48062.85023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 066BA2D3F1C
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 10:49:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48068.85036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmw4y-0002eV-Qb; Wed, 09 Dec 2020 09:48:12 +0000
+	id 1kmw67-0002lr-3o; Wed, 09 Dec 2020 09:49:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48062.85023; Wed, 09 Dec 2020 09:48:12 +0000
+Received: by outflank-mailman (output) from mailman id 48068.85036; Wed, 09 Dec 2020 09:49:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmw4y-0002e4-L7; Wed, 09 Dec 2020 09:48:12 +0000
-Received: by outflank-mailman (input) for mailman id 48062;
- Wed, 09 Dec 2020 09:48:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kmw4x-0002dw-50; Wed, 09 Dec 2020 09:48:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kmw4w-0003vf-SO; Wed, 09 Dec 2020 09:48:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kmw4w-00018D-CV; Wed, 09 Dec 2020 09:48:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kmw4w-0005vY-C5; Wed, 09 Dec 2020 09:48:10 +0000
+	id 1kmw67-0002lU-0h; Wed, 09 Dec 2020 09:49:23 +0000
+Received: by outflank-mailman (input) for mailman id 48068;
+ Wed, 09 Dec 2020 09:49:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XdhY=FN=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kmw66-0002lP-2X
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 09:49:22 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c6572575-c20b-4e6b-b715-acfde1cdd48a;
+ Wed, 09 Dec 2020 09:49:19 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0B99nAfK029140
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Wed, 9 Dec 2020 10:49:10 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id E0FA42E93A2; Wed,  9 Dec 2020 10:49:04 +0100 (MET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +42,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/FU8OOivyMLVridxEUC9401GRTVxWvWUR0O3mnLIiXc=; b=SgfEkMtzyyvUk4gosfbn6rRxwO
-	Yyuih+1fi7YvTm+1FdK5ddLqgSgVeDQoYfF2qjnjqjbXpXmQv3qxWRcnf/FmSk9hQwkLw4nEVGXLR
-	lEzzWYpY+s+cEwSiqXlLYQu0V1MLsA9oyf7dauTPcE+F1BF+JkTlNwRaH3zCHS00gz/k=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157343-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c6572575-c20b-4e6b-b715-acfde1cdd48a
+Date: Wed, 9 Dec 2020 10:49:04 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Subject: Re: dom0 PV looping on search_pre_exception_table()
+Message-ID: <20201209094904.GC1469@antioche.eu.org>
+References: <20201208175738.GA3390@antioche.eu.org>
+ <e73cc71d-c1a6-87c8-1b82-5d70d4f52eaa@citrix.com>
+ <cf1f85eb-1aa2-c3fa-680c-ea5ba5f68647@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 157343: all pass - PUSHED
-X-Osstest-Versions-This:
-    xen=777e3590f154e6a8af560dd318b9465fa168db20
-X-Osstest-Versions-That:
-    xen=5e666356a9d55fbd9eb5b8506088aa760e107b5b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 09 Dec 2020 09:48:10 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cf1f85eb-1aa2-c3fa-680c-ea5ba5f68647@suse.com>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Wed, 09 Dec 2020 10:49:11 +0100 (MET)
 
-flight 157343 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157343/
+On Wed, Dec 09, 2020 at 09:39:49AM +0100, Jan Beulich wrote:
+> On 08.12.2020 19:13, Andrew Cooper wrote:
+> > On 08/12/2020 17:57, Manuel Bouyer wrote:
+> >> Hello,
+> >> for the first time I tried to boot a xen kernel from devel with
+> >> a NetBSD PV dom0. The kernel boots, but when the first userland prcess
+> >> is launched, it seems to enter a loop involving search_pre_exception_table()
+> >> (I see an endless stream from the dprintk() at arch/x86/extable.c:202)
+> >>
+> >> With xen 4.13 I see it, but exactly once:
+> >> (XEN) extable.c:202: Pre-exception: ffff82d08038c304 -> ffff82d08038c8c8
+> >>
+> >> with devel:
+> >> (XEN) extable.c:202: Pre-exception: ffff82d040393309 -> ffff82d0403938c8        
+> >> (XEN) extable.c:202: Pre-exception: ffff82d040393309 -> ffff82d0403938c8        
+> >> (XEN) extable.c:202: Pre-exception: ffff82d040393309 -> ffff82d0403938c8        
+> >> (XEN) extable.c:202: Pre-exception: ffff82d040393309 -> ffff82d0403938c8        
+> >> (XEN) extable.c:202: Pre-exception: ffff82d040393309 -> ffff82d0403938c8        
+> >> [...]
+> >>
+> >> the dom0 kernel is the same.
+> >>
+> >> At first glance it looks like a fault in the guest is not handled at it should,
+> >> and the userland process keeps faulting on the same address.
+> >>
+> >> Any idea what to look at ?
+> > 
+> > That is a reoccurring fault on IRET back to guest context, and is
+> > probably caused by some unwise-in-hindsight cleanup which doesn't
+> > escalate the failure to the failsafe callback.
+> 
+> But is this a 32-bit Dom0? 64-bit ones get well-known selectors
+> installed for CS and SS by create_bounce_frame(), and we don't
+> permit registration of non-canonical trap handler entry point
+> addresses.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  777e3590f154e6a8af560dd318b9465fa168db20
-baseline version:
- xen                  5e666356a9d55fbd9eb5b8506088aa760e107b5b
+No, it's a 64bits dom0.
 
-Last test of basis   157238  2020-12-06 09:18:27 Z    3 days
-Testing same since   157343  2020-12-09 09:19:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  From: Juergen Gross <jgross@suse.com>
-  Hongyan Xia <hongyxia@amazon.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Olaf Hering <olaf@aepfle.de>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- coverity-amd64                                               pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   5e666356a9..777e3590f1  777e3590f154e6a8af560dd318b9465fa168db20 -> coverity-tested/smoke
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
