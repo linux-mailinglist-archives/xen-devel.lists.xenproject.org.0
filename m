@@ -2,34 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E6272D48AF
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 19:15:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48614.85980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 389B72D48BA
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 19:16:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48619.85992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn3zu-00018K-5q; Wed, 09 Dec 2020 18:15:30 +0000
+	id 1kn40s-0001F7-FK; Wed, 09 Dec 2020 18:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48614.85980; Wed, 09 Dec 2020 18:15:30 +0000
+Received: by outflank-mailman (output) from mailman id 48619.85992; Wed, 09 Dec 2020 18:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn3zu-00017v-2J; Wed, 09 Dec 2020 18:15:30 +0000
-Received: by outflank-mailman (input) for mailman id 48614;
- Wed, 09 Dec 2020 18:15:28 +0000
+	id 1kn40s-0001Ei-C6; Wed, 09 Dec 2020 18:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 48619;
+ Wed, 09 Dec 2020 18:16:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S60M=FN=arm.com=mark.rutland@srs-us1.protection.inumbo.net>)
- id 1kn3zs-00017q-Kg
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 18:15:28 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 6185d4b2-be4d-4dc7-9bbc-b25f19572fd8;
- Wed, 09 Dec 2020 18:15:26 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0928F1FB;
- Wed,  9 Dec 2020 10:15:26 -0800 (PST)
-Received: from C02TD0UTHF1T.local (unknown [10.57.26.40])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B118B3F68F;
- Wed,  9 Dec 2020 10:15:22 -0800 (PST)
+ <SRS0=/xMB=FN=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kn40q-0001Ec-Bb
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 18:16:28 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4a22cde7-f0db-402b-8b92-3cb1c385b917;
+ Wed, 09 Dec 2020 18:16:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,126 +35,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6185d4b2-be4d-4dc7-9bbc-b25f19572fd8
-Date: Wed, 9 Dec 2020 18:15:14 +0000
-From: Mark Rutland <mark.rutland@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-	x86@kernel.org, linux-kernel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org, luto@kernel.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>, Deep Shah <sdeep@vmware.com>,
-	"VMware, Inc." <pv-drivers@vmware.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use
- popf
-Message-ID: <20201209181514.GA14235@C02TD0UTHF1T.local>
-References: <20201120114630.13552-1-jgross@suse.com>
- <20201120114630.13552-6-jgross@suse.com>
- <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+X-Inumbo-ID: 4a22cde7-f0db-402b-8b92-3cb1c385b917
+Date: Wed, 9 Dec 2020 10:16:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1607537786;
+	bh=Av76fKJ5U2Hr4LGBXl1FsH9tWYcREJgon6dpLFNEaBw=;
+	h=From:To:cc:Subject:In-Reply-To:References:From;
+	b=Gzbd+ktynE3Oe57Ll+KPmCe9hKQbz782OLThp8nCVuQTbAfB3VLfFsClPYwmgSxCS
+	 Ow2b+eNiiX85obVL8up1IWXuT0QNdws+Q9F6OskbFQ96oMeLkRv1akL3ruUTZKo4/W
+	 Ri19uE0XHYNWbDGViFNgEBvFjDO6wChsouSIytx/r8GBpcuXqCcW8S3vboLmYoWdgh
+	 xZubh4EujkoCVNTKLhEioGJv0tHULIrXGNuvzdXIlUD0Wrq7PXDPw20CqMGgFftamJ
+	 0ig29cAMsAgsOakxEPVI6SCf1dgnqAyUymgQCsiBjTqSAs+etQgvjAr6LbREE1Ufew
+	 NFVoBjHZYmilg==
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Michal Orzel <michal.orzel@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Wei Chen <Wei.Chen@arm.com>
+Subject: Re: [PATCH] xen/arm: Add workaround for Cortex-A53 erratum #845719
+In-Reply-To: <e974547f-ddf2-a7d1-43a1-cdc81c874823@arm.com>
+Message-ID: <alpine.DEB.2.21.2012091015540.20986@sstabellini-ThinkPad-T480s>
+References: <20201208072327.11890-1-michal.orzel@arm.com> <d286241c-fd3b-8506-37e5-0ddcdaae97be@xen.org> <5D1B5771-A6B3-4F5E-81A1-864DBC8787B4@arm.com> <bf45e0f4-2de7-d1db-4732-342937bf61e7@xen.org> <alpine.DEB.2.21.2012081730020.20986@sstabellini-ThinkPad-T480s>
+ <e974547f-ddf2-a7d1-43a1-cdc81c874823@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Nov 20, 2020 at 12:59:43PM +0100, Peter Zijlstra wrote:
-> On Fri, Nov 20, 2020 at 12:46:23PM +0100, Juergen Gross wrote:
-> > +static __always_inline void arch_local_irq_restore(unsigned long flags)
-> > +{
-> > +	if (!arch_irqs_disabled_flags(flags))
-> > +		arch_local_irq_enable();
-> > +}
-> 
-> If someone were to write horrible code like:
-> 
-> 	local_irq_disable();
-> 	local_irq_save(flags);
-> 	local_irq_enable();
-> 	local_irq_restore(flags);
-> 
-> we'd be up some creek without a paddle... now I don't _think_ we have
-> genius code like that, but I'd feel saver if we can haz an assertion in
-> there somewhere...
+On Wed, 9 Dec 2020, Michal Orzel wrote:
+> On 09.12.2020 02:34, Stefano Stabellini wrote:
+> > On Tue, 8 Dec 2020, Julien Grall wrote:
+> >> On 08/12/2020 14:38, Bertrand Marquis wrote:
+> >>> Hi Julien,
+> >>>
+> >>>> On 8 Dec 2020, at 09:47, Julien Grall <julien@xen.org> wrote:
+> >>>>
+> >>>> Hi,
+> >>>>
+> >>>> On 08/12/2020 07:23, Michal Orzel wrote:
+> >>>>> When executing in aarch32 state at EL0, a load at EL0 from a
+> >>>>> virtual address that matches the bottom 32 bits of the virtual address
+> >>>>> used by a recent load at (aarch64) EL1 might return incorrect data.
+> >>>>> The workaround is to insert a write of the contextidr_el1 register
+> >>>>> on exception return to an aarch32 guest.
+> >>>>
+> >>>> I am a bit confused with this comment. In the previous paragraph, you are
+> >>>> suggesting that the problem is an interaction between EL1 AArch64 and EL0
+> >>>> AArch32. But here you seem to imply the issue only happen when running a
+> >>>> AArch32 guest.
+> >>>>
+> >>>> Can you clarify it?
+> >>>
+> >>> This can happen when switching from an aarch64 guest to an aarch32 guest so
+> >>> not only when there is interaction.
+> > 
+> > Just to confirm: it cannot happen when switching from aarch64 *EL2* to
+> > aarch32 EL0/1, right?  Because that happens all the time in Xen.
+> > 
+> > 
+> No it cannot. It can only happen when switching from aarch64 EL1 to aarch32 EL0.
 
-I've cobbled that together locally (i'll post it momentarily), and gave it a
-spin on both arm64 and x86, whereupon it exploded at boot time on x86.
+Excellent, thanks for checking
 
-In arch/x86/kernel/apic/io_apic.c's timer_irq_works() we do:
 
-	local_irq_save(flags);
-	local_irq_enable();
+> >> Right, but the context switch will write to CONTEXTIDR_EL1. So this case
+> >> should already be handled.
+> >>
+> >> Xen will never switch from AArch64 EL1 to AArch32 EL0 without a context switch
+> >> (the inverse can happen if we inject an exception to the guest).
+> >>
+> >> Reading the Cortex-A53 SDEN, it sounds like this is an OS and not Hypervisor
+> >> problem. In fact, Linux only seems to workaround it when switching in the OS
+> >> side rather than the hypervisor.
+> >>
+> >> Therefore, I am not sure to understand why we need to workaroud it in Xen.
+> > 
+> > It looks like Julien is right in regards to the "aarch64 EL1 to aarch32
+> > EL0" issue.
+> > 
+> Yes I agree. I missed the fact that there is a write to CONTEXTIDR_EL1
+> in 'ctxt_switch_to'. Let's abandon this.
 
-	[ trigger an IRQ here ]
-
-	local_irq_restore(flags);
-
-... and in check_timer() we call that a number of times after either a
-local_irq_save() or local_irq_disable(), eventually trailing with a
-local_irq_disable() that will balance things up before calling
-local_irq_restore().
-
-I guess that timer_irq_works() should instead do:
-
-	local_irq_save(flags);
-	local_irq_enable();
-	...
-	local_irq_disable();
-	local_irq_restore(flags);
-
-... assuming we consider that legitimate?
-
-With that, and all the calls to local_irq_disable() in check_timer() removed
-(diff below) I get a clean boot under QEMU with the assertion hacked in and
-DEBUG_LOCKDEP enabled.
-
-Thanks
-Mark.
-
----->8----
-diff --git a/arch/x86/kernel/apic/io_apic.c b/arch/x86/kernel/apic/io_apic.c
-index 7b3c7e0d4a09..e79e665a3aeb 100644
---- a/arch/x86/kernel/apic/io_apic.c
-+++ b/arch/x86/kernel/apic/io_apic.c
-@@ -1631,6 +1631,7 @@ static int __init timer_irq_works(void)
-        else
-                delay_without_tsc();
- 
-+       local_irq_disable();
-        local_irq_restore(flags);
- 
-        /*
-@@ -2191,7 +2192,6 @@ static inline void __init check_timer(void)
-                        goto out;
-                }
-                panic_if_irq_remap("timer doesn't work through Interrupt-remapped IO-APIC");
--               local_irq_disable();
-                clear_IO_APIC_pin(apic1, pin1);
-                if (!no_pin1)
-                        apic_printk(APIC_QUIET, KERN_ERR "..MP-BIOS bug: "
-@@ -2215,7 +2215,6 @@ static inline void __init check_timer(void)
-                /*
-                 * Cleanup, just in case ...
-                 */
--               local_irq_disable();
-                legacy_pic->mask(0);
-                clear_IO_APIC_pin(apic2, pin2);
-                apic_printk(APIC_QUIET, KERN_INFO "....... failed.\n");
-@@ -2232,7 +2231,6 @@ static inline void __init check_timer(void)
-                apic_printk(APIC_QUIET, KERN_INFO "..... works.\n");
-                goto out;
-        }
--       local_irq_disable();
-        legacy_pic->mask(0);
-        apic_write(APIC_LVT0, APIC_LVT_MASKED | APIC_DM_FIXED | cfg->vector);
-        apic_printk(APIC_QUIET, KERN_INFO "..... failed.\n");
-@@ -2251,7 +2249,6 @@ static inline void __init check_timer(void)
-                apic_printk(APIC_QUIET, KERN_INFO "..... works.\n");
-                goto out;
-        }
--       local_irq_disable();
-        apic_printk(APIC_QUIET, KERN_INFO "..... failed :(.\n");
-        if (apic_is_x2apic_enabled())
-                apic_printk(APIC_QUIET, KERN_INFO
+Job done :-)
 
