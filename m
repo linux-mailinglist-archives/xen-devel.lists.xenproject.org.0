@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6064B2D43A3
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 15:00:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48274.85338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CC872D43C2
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 15:02:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48279.85350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn005-0003gu-By; Wed, 09 Dec 2020 13:59:25 +0000
+	id 1kn038-0004gH-Qz; Wed, 09 Dec 2020 14:02:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48274.85338; Wed, 09 Dec 2020 13:59:25 +0000
+Received: by outflank-mailman (output) from mailman id 48279.85350; Wed, 09 Dec 2020 14:02:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn005-0003gV-8e; Wed, 09 Dec 2020 13:59:25 +0000
-Received: by outflank-mailman (input) for mailman id 48274;
- Wed, 09 Dec 2020 13:59:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kn038-0004fs-Nd; Wed, 09 Dec 2020 14:02:34 +0000
+Received: by outflank-mailman (input) for mailman id 48279;
+ Wed, 09 Dec 2020 14:02:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XdhY=FN=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1kn004-0003gQ-Ev
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 13:59:24 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 95922b69-8533-40ff-9909-9189a95ad141;
- Wed, 09 Dec 2020 13:59:21 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0B9DxDJh007027
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
- Wed, 9 Dec 2020 14:59:14 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id BB6FA2E946C; Wed,  9 Dec 2020 14:59:08 +0100 (MET)
+ <SRS0=S60M=FN=arm.com=mark.rutland@srs-us1.protection.inumbo.net>)
+ id 1kn037-0004fn-OC
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 14:02:33 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id dadac90b-a437-4a8f-a18e-2490a31909fb;
+ Wed, 09 Dec 2020 14:02:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EAFD31FB;
+ Wed,  9 Dec 2020 06:02:31 -0800 (PST)
+Received: from C02TD0UTHF1T.local (unknown [10.57.26.40])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 067D13F66B;
+ Wed,  9 Dec 2020 06:02:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,100 +42,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95922b69-8533-40ff-9909-9189a95ad141
-Date: Wed, 9 Dec 2020 14:59:08 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: dom0 PV looping on search_pre_exception_table()
-Message-ID: <20201209135908.GA4269@antioche.eu.org>
-References: <20201208175738.GA3390@antioche.eu.org>
- <e73cc71d-c1a6-87c8-1b82-5d70d4f52eaa@citrix.com>
- <20201209101512.GA1299@antioche.eu.org>
- <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
+X-Inumbo-ID: dadac90b-a437-4a8f-a18e-2490a31909fb
+Date: Wed, 9 Dec 2020 14:02:21 +0000
+From: Mark Rutland <mark.rutland@arm.com>
+To: Andy Lutomirski <luto@kernel.org>
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"VMware, Inc." <pv-drivers@vmware.com>, X86 ML <x86@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Linux Virtualization <virtualization@lists.linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use
+ popf
+Message-ID: <20201209140221.GA9087@C02TD0UTHF1T.local>
+References: <20201120114630.13552-1-jgross@suse.com>
+ <20201120114630.13552-6-jgross@suse.com>
+ <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+ <eb05e878-6334-8d19-496b-6572df67fc56@suse.com>
+ <CALCETrXOGhXoOJpzhAMqD7iibi09WzbGk9SWVH7JzA=d5uarWA@mail.gmail.com>
+ <20201209132710.GA8566@C02TD0UTHF1T.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Wed, 09 Dec 2020 14:59:15 +0100 (MET)
+In-Reply-To: <20201209132710.GA8566@C02TD0UTHF1T.local>
 
-On Wed, Dec 09, 2020 at 01:28:54PM +0000, Andrew Cooper wrote:
-> 
-> Pagefaults on IRET come either from stack accesses for operands (not the
-> case here as Xen is otherwise working fine), or from segement selector
-> loads for %cs and %ss.
-> 
-> In this example, %ss is in the LDT, which specifically does use
-> pagefaults to promote the frame to PGT_segdesc.
-> 
-> I suspect that what is happening is that handle_ldt_mapping_fault() is
-> failing to promote the page (for some reason), and we're taking the "In
-> hypervisor mode? Leave it to the #PF handler to fix up." path due to the
-> confusion in context, and Xen's #PF handler is concluding "nothing else
-> to do".
-> 
-> The older behaviour of escalating to the failsafe callback would have
-> broken this cycle by rewriting %ss and re-entering the kernel.
-> 
-> 
-> Please try the attached debugging patch, which is an extension of what I
-> gave you yesterday.† First, it ought to print %cr2, which I expect will
-> point to Xen's virtual mapping of the vcpu's LDT.† The logic ought to
-> loop a few times so we can inspect the hypervisor codepaths which are
-> effectively livelocked in this state, and I've also instrumented
-> check_descriptor() failures because I've got a gut feeling that is the
-> root cause of the problem.
+On Wed, Dec 09, 2020 at 01:27:10PM +0000, Mark Rutland wrote:
+> On Sun, Nov 22, 2020 at 01:44:53PM -0800, Andy Lutomirski wrote:
+> > On Sat, Nov 21, 2020 at 10:55 PM J√ºrgen Gro√ü <jgross@suse.com> wrote:
+> > > On 20.11.20 12:59, Peter Zijlstra wrote:
+> > > > If someone were to write horrible code like:
+> > > >
+> > > >       local_irq_disable();
+> > > >       local_irq_save(flags);
+> > > >       local_irq_enable();
+> > > >       local_irq_restore(flags);
+> > > >
+> > > > we'd be up some creek without a paddle... now I don't _think_ we have
+> > > > genius code like that, but I'd feel saver if we can haz an assertion in
+> > > > there somewhere...
 
-here's the output:
-(XEN) IRET fault: #PF[0000]                                            [23/1999]
-(XEN) %cr2 ffff820000010040                                                    
-(XEN) IRET fault: #PF[0000]                                                    
-(XEN) %cr2 ffff820000010040                                                 
-(XEN) IRET fault: #PF[0000]
-(XEN) %cr2 ffff820000010040
-(XEN) IRET fault: #PF[0000]
-(XEN) %cr2 ffff820000010040
-(XEN) domain_crash called from extable.c:216
-(XEN) Domain 0 (vcpu#0) crashed on cpu#0:
-(XEN) ----[ Xen-4.15-unstable  x86_64  debug=y   Tainted:   C   ]----
-(XEN) CPU:    0
-(XEN) RIP:    0047:[<00007f7ff60007d0>]
-(XEN) RFLAGS: 0000000000000202   EM: 0   CONTEXT: pv guest (d0v0)
-(XEN) rax: ffff82d04038c309   rbx: 0000000000000000   rcx: 000000000000e008
-(XEN) rdx: 0000000000010086   rsi: ffff83007fcb7f78   rdi: 000000000000e010
-(XEN) rbp: 0000000000000000   rsp: 00007f7fff4876c0   r8:  0000000e00000000
-(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
-(XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000000000
-(XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 0000000000002660
-(XEN) cr3: 0000000079cdb000   cr2: ffffa1000000a040
-(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: ffffffff80cf2dc0
-(XEN) ds: 0023   es: 0023   fs: 0000   gs: 0000   ss: 003f   cs: 0047
-(XEN) Guest stack trace from rsp=00007f7fff4876c0:
-(XEN)    0000000000000001 00007f7fff487bd8 0000000000000000 0000000000000000
-(XEN)    0000000000000003 00000000aee00040 0000000000000004 0000000000000038
-(XEN)    0000000000000005 0000000000000008 0000000000000006 0000000000001000
-(XEN)    0000000000000007 00007f7ff6000000 0000000000000008 0000000000000000
-(XEN)    0000000000000009 00000000aee01cd0 00000000000007d0 0000000000000000
-(XEN)    00000000000007d1 0000000000000000 00000000000007d2 0000000000000000
-(XEN)    00000000000007d3 0000000000000000 000000000000000d 00007f7fff488000
-(XEN)    00000000000007de 00007f7fff4877c0 0000000000000000 0000000000000000
-(XEN)    6e692f6e6962732f 0000000000007469 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN) Hardware Dom0 crashed: rebooting machine in 5 seconds.
+> I was just talking to Peter on IRC about implementing the same thing for
+> arm64, so could we put this in the generic irqflags code? IIUC we can
+> use raw_irqs_disabled() to do the check.
+> 
+> As this isn't really entry specific (and IIUC the cases this should
+> catch would break lockdep today), maybe we should add a new
+> DEBUG_IRQFLAGS for this, that DEBUG_LOCKDEP can also select?
+> 
+> Something like:
+> 
+> #define local_irq_restore(flags)                               \
+>        do {                                                    \
+>                if (!raw_irqs_disabled_flags(flags)) {          \
+>                        trace_hardirqs_on();                    \
+>                } else if (IS_ENABLED(CONFIG_DEBUG_IRQFLAGS) {  \
+>                        if (unlikely(raw_irqs_disabled())       \
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Whoops; that should be !raw_irqs_disabled().
+
+>                                warn_bogus_irqrestore();        \
+>                }                                               \
+>                raw_local_irq_restore(flags);                   \
+>         } while (0)
+> 
+> ... perhaps? (ignoring however we deal with once-ness).
+
+If no-one shouts in the next day or two I'll spin this as its own patch.
+
+Mark.
 
