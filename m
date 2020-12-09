@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FBB32D4636
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 17:00:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48420.85623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B8022D4662
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 17:10:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48426.85635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn1sw-0001uB-QC; Wed, 09 Dec 2020 16:00:10 +0000
+	id 1kn22U-0002XV-TE; Wed, 09 Dec 2020 16:10:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48420.85623; Wed, 09 Dec 2020 16:00:10 +0000
+Received: by outflank-mailman (output) from mailman id 48426.85635; Wed, 09 Dec 2020 16:10:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn1sw-0001tm-N8; Wed, 09 Dec 2020 16:00:10 +0000
-Received: by outflank-mailman (input) for mailman id 48420;
- Wed, 09 Dec 2020 16:00:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NJeK=FN=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kn1sv-0001th-VF
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 16:00:09 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bd73d7aa-f145-43ba-9dec-01c1250e9d71;
- Wed, 09 Dec 2020 16:00:08 +0000 (UTC)
+	id 1kn22U-0002V1-Mf; Wed, 09 Dec 2020 16:10:02 +0000
+Received: by outflank-mailman (input) for mailman id 48426;
+ Wed, 09 Dec 2020 16:10:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sDS6=FN=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kn22T-0002Or-AP
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 16:10:01 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c52ac2eb-1082-4d1d-abf1-6da9345f8552;
+ Wed, 09 Dec 2020 16:09:59 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E0678AC9A;
+ Wed,  9 Dec 2020 16:09:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,110 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd73d7aa-f145-43ba-9dec-01c1250e9d71
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1607529608;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=ZApL8V1v0OtWA7YuFI4qL9rpovu2jonLWpRVf2y2jTg=;
-  b=if2b1TLLcxi2b1DQYhz7SNd7wMShOmWeRocIse7qwN7aQmnipGJ+iQvQ
-   eEpnCHepD+JNAFhjBTIvhUxVfWTNpBM6G7ErBTxJ+Opaxbi8SHhvb0rtz
-   z8FGYY34s7y7KC6dyZwihwS1Olj75ENtX87QKF7ivXxXja8WG9AofkKnB
-   A=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: qAAMO42tiHbdG3unZHWa1BN7kCR2vVzwvIjP1g0jNOlWDlXLhRc7u609aSWX6+L2cFmYmxltU1
- xvj1u+ZWjuDmTWtbfW/B5pXngGkSDJAI5dBt7wQM8t73WW6VPeDfZeIYBhhpj4ewtQrf9vhSFn
- ckmBqUzpSiP4DUoKsFO/guQqPbCY0OJss/dilmU0uMkabvhUkrf+nwo7Ij0JhfZQi5Hxs51b1P
- 4UdLhC/Tzw5+yLMdyTBAcukcVHp4LxBKgHP+r0k2agXY54OFiGkSfBhA9rIFTrVi8IJi/otkG9
- X6w=
-X-SBRS: 5.2
-X-MesageID: 34066157
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,405,1599537600"; 
-   d="scan'208";a="34066157"
-Subject: Re: dom0 PV looping on search_pre_exception_table()
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-CC: <xen-devel@lists.xenproject.org>
-References: <20201208175738.GA3390@antioche.eu.org>
- <e73cc71d-c1a6-87c8-1b82-5d70d4f52eaa@citrix.com>
- <20201209101512.GA1299@antioche.eu.org>
- <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
- <20201209135908.GA4269@antioche.eu.org>
- <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
- <20201209154431.GA4913@antioche.eu.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
-Date: Wed, 9 Dec 2020 16:00:02 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: c52ac2eb-1082-4d1d-abf1-6da9345f8552
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1607530199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=kGF6k6YkBY0gTxGsY3A9nBmvv9dZFk8vYQw5QGMKns4=;
+	b=cun1VRxXKh7JgT/oHY6u4CCjqg0nEQWdUSFinkqtDGYDBGFz6RytW2fYHX9VFiTH2M6eQg
+	sVxXc4m4HnNQtuo68EwCwvGcu7Oq6K8kH+P6CfU3d2zsHffiVm54MPboR+tO63snEKU/74
+	i92YGAp0Gi765jlRim3x3boOcJQ4Hpk=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 0/8] xen: support per-cpupool scheduling granularity
+Date: Wed,  9 Dec 2020 17:09:48 +0100
+Message-Id: <20201209160956.32456-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <20201209154431.GA4913@antioche.eu.org>
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL04.citrite.net (10.13.108.177)
 
-On 09/12/2020 15:44, Manuel Bouyer wrote:
-> On Wed, Dec 09, 2020 at 02:41:23PM +0000, Andrew Cooper wrote:
->> Huh, so it is the LDT, but we're not getting as far as inspecting the
->> target frame.
->>
->> I wonder if the LDT is set up correctly.
-> I guess it is, otherwise it wouldn't boot with a Xen 4.13 kernel, isn't it ?
+Support scheduling granularity per cpupool. Setting the granularity is
+done via hypfs, which needed to gain dynamical entries for that
+purpose.
 
-Well - you said you always saw it once on 4.13, which clearly shows that
-something was wonky, but it managed to unblock itself.
+Apart from the hypfs related additional functionality the main change
+for cpupools was the support for moving a domain to a new granularity,
+as this requires to modify the scheduling unit/vcpu relationship.
 
->> How about this incremental delta?
-> Here's the output
-> (XEN) IRET fault: #PF[0000]                                                    
-> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
-> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
-> (XEN) IRET fault: #PF[0000]                                                    
-> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
-> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
-> (XEN) IRET fault: #PF[0000]                                                 
+I have tried to do the hypfs modifications in a rather generic way in
+order to be able to use the same infrastructure in other cases, too
+(e.g. for per-domain entries).
 
-Ok, so the promotion definitely fails, but we don't get as far as
-inspecting the content of the LDT frame.  This probably means it failed
-to change the page type, which probably means there are still
-outstanding writeable references.
+The complete series has been tested by creating cpupools with different
+granularities and moving busy and idle domains between those.
 
-I'm expecting the final printk to be the one which triggers.
+Changes in V3:
+- Patches 1-6 and 8-11 of V2 have been committed already
+- New patch 2
+- Addressed all comments
+- Added a data pointer to struct hypfs_dyndir
 
-~Andrew
+Changes in V2:
+- Added several new patches, especially for some further cleanups in
+  cpupool.c.
+- Completely reworked the locking scheme with dynamical directories:
+  locking of resources (cpupools in this series) is now done via new
+  callbacks which are called when traversing the hypfs tree. This
+  removes the need to add locking to each hypfs related cpupool
+  function and it ensures data integrity across multiple callbacks.
+- Reordered the first few patches in order to have already acked
+  patches in pure cleanup patches first.
+- Addressed several comments.
 
-diff --git a/xen/arch/x86/pv/mm.c b/xen/arch/x86/pv/mm.c
-index 5d74d11cba..2823dc2894 100644
---- a/xen/arch/x86/pv/mm.c
-+++ b/xen/arch/x86/pv/mm.c
-@@ -87,14 +87,23 @@ bool pv_map_ldt_shadow_page(unsigned int offset)
- 
-     gl1e = guest_get_eff_kern_l1e(linear);
-     if ( unlikely(!(l1e_get_flags(gl1e) & _PAGE_PRESENT)) )
-+    {
-+        printk(XENLOG_ERR "*** LDT: gl1e %"PRIpte" not present\n",
-gl1e.l1);
-         return false;
-+    }
- 
-     page = get_page_from_gfn(currd, l1e_get_pfn(gl1e), NULL, P2M_ALLOC);
-     if ( unlikely(!page) )
-+    {
-+        printk(XENLOG_ERR "*** LDT: failed to get gfn %05lx reference\n",
-+               l1e_get_pfn(gl1e));
-         return false;
-+    }
- 
-     if ( unlikely(!get_page_type(page, PGT_seg_desc_page)) )
-     {
-+        printk(XENLOG_ERR "*** LDT: bad type: caf %016lx, taf=%016lx\n",
-+               page->count_info, page->u.inuse.type_info);
-         put_page(page);
-         return false;
-     }
+Juergen Gross (8):
+  xen/cpupool: support moving domain between cpupools with different
+    granularity
+  xen/hypfs: switch write function handles to const
+  xen/hypfs: add new enter() and exit() per node callbacks
+  xen/hypfs: support dynamic hypfs nodes
+  xen/hypfs: add support for id-based dynamic directories
+  xen/cpupool: add cpupool directories
+  xen/cpupool: add scheduling granularity entry to cpupool entries
+  xen/cpupool: make per-cpupool sched-gran hypfs node writable
+
+ docs/misc/hypfs-paths.pandoc   |  16 +++
+ xen/common/hypfs.c             | 226 ++++++++++++++++++++++++++++++-
+ xen/common/sched/core.c        | 121 ++++++++++++-----
+ xen/common/sched/cpupool.c     | 240 +++++++++++++++++++++++++++++++--
+ xen/include/xen/guest_access.h |   5 +
+ xen/include/xen/hypfs.h        |  66 ++++++---
+ 6 files changed, 610 insertions(+), 64 deletions(-)
+
+-- 
+2.26.2
 
 
