@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A458C2D481C
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 18:41:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48602.85956 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96C972D489D
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 19:09:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48608.85968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn3Rn-0006Gx-8G; Wed, 09 Dec 2020 17:40:15 +0000
+	id 1kn3td-00009A-Eq; Wed, 09 Dec 2020 18:09:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48602.85956; Wed, 09 Dec 2020 17:40:15 +0000
+Received: by outflank-mailman (output) from mailman id 48608.85968; Wed, 09 Dec 2020 18:09:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn3Rn-0006GY-4a; Wed, 09 Dec 2020 17:40:15 +0000
-Received: by outflank-mailman (input) for mailman id 48602;
- Wed, 09 Dec 2020 17:40:14 +0000
+	id 1kn3td-00008l-Bl; Wed, 09 Dec 2020 18:09:01 +0000
+Received: by outflank-mailman (input) for mailman id 48608;
+ Wed, 09 Dec 2020 18:09:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=atyx=FN=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1kn3Rl-0006GT-Te
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 17:40:13 +0000
+ <SRS0=NJeK=FN=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kn3tc-00008g-AN
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 18:09:00 +0000
 Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5c569f61-6e31-4f57-9192-45b3fe65b19d;
- Wed, 09 Dec 2020 17:40:12 +0000 (UTC)
+ id 375ceb45-e9a5-4588-87be-34dad0fe1fd8;
+ Wed, 09 Dec 2020 18:08:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,83 +35,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c569f61-6e31-4f57-9192-45b3fe65b19d
+X-Inumbo-ID: 375ceb45-e9a5-4588-87be-34dad0fe1fd8
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1607535612;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oqB04BnwV8YKEAA5lwVIHzO7kV7aixxFQohMpXRA2wM=;
-  b=Bn/Ev2gpq5BssnRDoRi1q/ZloewFlx5Ye4dnH0rihX80YPLclLPPjRRq
-   b9i2olpmjATeeVEjHZQ8NIb/gizCJziMjMS5M6QTCnMC1l/O05HFnsXII
-   OrxtxeSj5mkmRnXxH+9n/znBBIJRho6IYsl2GkVPn62jfrbmno7CEABJ0
-   c=;
+  d=citrix.com; s=securemail; t=1607537338;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=cBU3LS98o+fjiQPofsknAqLnUizj3TVodTJMvLkvuNM=;
+  b=RQoLXZIhaIQxMgWSbCc/hoJAIe2tWhA/opPx2v2T1nR5mcyIjw7jRERe
+   +Rzfq9SGkPKbdUXhY4ajIdgX7GpLbWHSSkij8Kt9jpjNBAsgL+ZKHb/pa
+   KnurcWxgDb3lvA8l1bjjd1LZF1FQtXm9YFamOO7y6JgjSPnTCOa+CFv5u
+   8=;
 Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: GdC42mKzGq431WnKJvGb0mIJlS1Ea7JCAdUR8TFSGJ6TnlKlbkhAb2h5kDZXboXXYKZ3Be8gND
- Ey2va32GN39YapDsbctRl4zEvLkD6iGpNylkDhV6m6tbjvhgkJpmGUFewcmqaYHo3IMfrSqM3f
- pLL49Wel5OqCU/PFmjXLWmsRHfPnGX/uYbb9VvFLzl9Io05QJWFfok8wRpq+0zG4KXvfcuB8OW
- bJf5OrkMCBZXFUK96hGysaEYB8O5QMhwpjsSSeKRhYke89WiANTgqR1rN5OC/Wmg7aM2pKQMAE
- 1qs=
+IronPort-SDR: ilHGjCB9KEJmVYK57iapJYRZLA7WicDig9i8/+OCfrMqEi/awjt07bWeqo0cMmYsQZN6eZcBhX
+ z8lgvCEvr2LQ0llrSb8IyiHtW1V5ke3fqTODLq8i8memPKcRbtScbN2D9JEqawPT0oKV3kLpnV
+ v/fVFj6S/knaBzv7iSV9zFUI54aHcfN+LsLcvpX/U5P5zLavyd+1IKlxqHCPwyWI/35bsXxTb1
+ 9CdhzXcCVCFILAiEDy+VyVbI5g5COuS4pCI/x1lce2kYfRvCyrbxwZLiGKaCE3mAGNDYn9fFEv
+ vtI=
 X-SBRS: 5.2
-X-MesageID: 32880971
+X-MesageID: 32883396
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.78,405,1599537600"; 
-   d="scan'208";a="32880971"
-Date: Wed, 9 Dec 2020 17:40:07 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>
-Subject: Re: [PATCH v3 1/8] xen: fix build when $(obj-y) consists of just
- blanks
-Message-ID: <X9EL90SMyqrs9GaL@perard.uk.xensource.com>
-References: <1a6bac6a-7d83-f5b6-c5b9-8b3b39824d40@suse.com>
- <511be84d-9a13-17ae-f3d9-d6daf9c02711@suse.com>
+   d="scan'208";a="32883396"
+Subject: Re: dom0 PV looping on search_pre_exception_table()
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: <xen-devel@lists.xenproject.org>
+References: <20201208175738.GA3390@antioche.eu.org>
+ <e73cc71d-c1a6-87c8-1b82-5d70d4f52eaa@citrix.com>
+ <20201209101512.GA1299@antioche.eu.org>
+ <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
+ <20201209135908.GA4269@antioche.eu.org>
+ <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
+ <20201209154431.GA4913@antioche.eu.org>
+ <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
+ <20201209163049.GA6158@antioche.eu.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
+Date: Wed, 9 Dec 2020 18:08:53 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <511be84d-9a13-17ae-f3d9-d6daf9c02711@suse.com>
+In-Reply-To: <20201209163049.GA6158@antioche.eu.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL04.citrite.net (10.13.108.177)
 
-On Mon, Nov 23, 2020 at 04:20:52PM +0100, Jan Beulich wrote:
-> This case can occur when combining empty lists
-> 
-> obj-y :=
-> ...
-> obj-y += $(empty)
-> 
-> or
-> 
-> obj-y := $(empty) $(empty)
-> 
-> where (only) blanks would accumulate. This was only a latent issue until
-> now, but would become an active issue for Arm once lib/ gets populated
-> with all respective objects going into the to be introduced lib.a.
-> 
-> Also address a related issue at this occasion: When an empty built_in.o
-> gets created, .built_in.o.d will have its dependencies recorded. If, on
-> a subsequent incremental build, an actual constituent of built_in.o
-> appeared, the $(filter-out ) would leave these recorded dependencies in
-> place. But of course the linker won't know what to do with C header
-> files. (The apparent alternative of avoiding to pass $(c_flags) or
-> $(a_flags) would not be reliable afaict, as among these flags there may
-> be some affecting information conveyed via the object file to the
-> linker. The linker, finding inconsistent flags across object files, may
+On 09/12/2020 16:30, Manuel Bouyer wrote:
+> On Wed, Dec 09, 2020 at 04:00:02PM +0000, Andrew Cooper wrote:
+>> [...]
+>>>> I wonder if the LDT is set up correctly.
+>>> I guess it is, otherwise it wouldn't boot with a Xen 4.13 kernel, isn't it ?
+>> Well - you said you always saw it once on 4.13, which clearly shows that
+>> something was wonky, but it managed to unblock itself.
+>>
+>>>> How about this incremental delta?
+>>> Here's the output
+>>> (XEN) IRET fault: #PF[0000]                                                    
+>>> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
+>>> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+>>> (XEN) IRET fault: #PF[0000]                                                    
+>>> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
+>>> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+>>> (XEN) IRET fault: #PF[0000]                                                 
+>> Ok, so the promotion definitely fails, but we don't get as far as
+>> inspecting the content of the LDT frame.  This probably means it failed
+>> to change the page type, which probably means there are still
+>> outstanding writeable references.
+>>
+>> I'm expecting the final printk to be the one which triggers.
+> It's not. 
+> Here's the output:
+> (XEN) IRET fault: #PF[0000]
+> (XEN) %cr2 ffff820000010040, LDT base ffffbd000000a000, limit 0057
+> (XEN) *** LDT: gl1e 0000000000000000 not present
+> (XEN) *** pv_map_ldt_shadow_page(0x40) failed
+> (XEN) IRET fault: #PF[0000]
+> (XEN) %cr2 ffff820000010040, LDT base ffffbd000000a000, limit 0057
+> (XEN) *** LDT: gl1e 0000000000000000 not present
+> (XEN) *** pv_map_ldt_shadow_page(0x40) failed
 
-How about using $(XEN_CFLAGS) instead of $(c_flags)? That should prevent
-CC from generating the .*.o.d files while keeping the relevant flags. I
-was planing to do that to avoid the issue, see:
-https://lore.kernel.org/xen-devel/20200421161208.2429539-10-anthony.perard@citrix.com
+Ok.  So the mapping registered for the LDT is not yet present.  Xen
+should be raising #PF with the guest, and would be in every case other
+than the weird context on IRET, where we've confused bad guest state
+with bad hypervisor state.
 
-> then error out.) Using just $(obj-y) won't work either: It breaks when
-> the same object file is listed more than once.
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index 3ac07a84c3..35c24ed668 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1235,10 +1235,6 @@ static int handle_ldt_mapping_fault(unsigned int
+offset,
+     {
+         printk(XENLOG_ERR "*** pv_map_ldt_shadow_page(%#x) failed\n",
+offset);
+ 
+-        /* In hypervisor mode? Leave it to the #PF handler to fix up. */
+-        if ( !guest_mode(regs) )
+-            return 0;
+-
+         /* Access would have become non-canonical? Pass #GP[sel] back. */
+         if ( unlikely(!is_canonical_address(curr->arch.pv.ldt_base +
+offset)) )
+         {
 
-Do we need to worry about having a object file been listed twice?
-Wouldn't that be a mistake?
 
--- 
-Anthony PERARD
+This bodge ought to cause a #PF to be delivered suitably, but may make
+other corner cases not quite work correctly, so isn't a clean fix.
+
+~Andrew
 
