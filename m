@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 626072D44E0
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 15:56:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48377.85539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4312D44FC
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 16:02:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48384.85551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn0tL-0002kd-DG; Wed, 09 Dec 2020 14:56:31 +0000
+	id 1kn0yE-0003ko-1U; Wed, 09 Dec 2020 15:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48377.85539; Wed, 09 Dec 2020 14:56:31 +0000
+Received: by outflank-mailman (output) from mailman id 48384.85551; Wed, 09 Dec 2020 15:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn0tL-0002kE-AH; Wed, 09 Dec 2020 14:56:31 +0000
-Received: by outflank-mailman (input) for mailman id 48377;
- Wed, 09 Dec 2020 14:56:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uDNN=FN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kn0tK-0002k8-BB
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 14:56:30 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 30da2f88-ee82-421f-8f21-80c8a4dc4632;
- Wed, 09 Dec 2020 14:56:29 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DC0E8AC9A;
- Wed,  9 Dec 2020 14:56:28 +0000 (UTC)
+	id 1kn0yD-0003jx-Uc; Wed, 09 Dec 2020 15:01:33 +0000
+Received: by outflank-mailman (input) for mailman id 48384;
+ Wed, 09 Dec 2020 15:01:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8mlr=FN=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1kn0yC-0003jr-FK
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 15:01:32 +0000
+Received: from wout3-smtp.messagingengine.com (unknown [64.147.123.19])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2a802157-34fe-463e-9be6-18d48d0d6f00;
+ Wed, 09 Dec 2020 15:01:30 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id D83E5AFB;
+ Wed,  9 Dec 2020 10:01:28 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Wed, 09 Dec 2020 10:01:29 -0500
+Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
+ [91.64.170.89])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 11C831080063;
+ Wed,  9 Dec 2020 10:01:25 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,56 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30da2f88-ee82-421f-8f21-80c8a4dc4632
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607525789; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cZ9X8tPyiBYCjlpfW2dYi3z3C5S4jPnmYJ28bKkFqHA=;
-	b=LIo2qftjZUUwlM5R0bbGTiGu92mxPxVqD5EhWikq+ZvbnD+kZQncvrBnGRK2qwnbQ3Akq5
-	9AlquJrlOSsOajteWnMvRxPdS1E9LCA8MXwbt+oPIZPbxvB9YtUshyviE04yLrarVBtFwP
-	4T1Hiursnv0KGB5mdSIs9H74t4AoXWQ=
-Subject: Re: [PATCH v3 0/8] xen: beginnings of moving library-like code into
- an archive
-To: Julien Grall <julien@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <1a6bac6a-7d83-f5b6-c5b9-8b3b39824d40@suse.com>
- <509B2BDB-A226-4328-A75E-33AAF74BE45B@arm.com>
- <41587b00-2899-65a6-3867-97664529fdab@suse.com>
- <6d56c227-2828-22fc-61a9-ae836ada805a@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <5d2fe1ea-a3b1-1d24-9e8e-3fba16a5f294@suse.com>
-Date: Wed, 9 Dec 2020 15:56:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+X-Inumbo-ID: 2a802157-34fe-463e-9be6-18d48d0d6f00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Jc/F6i
+	K7o3PUb9Iz+/A5vMzJfnPabacuo83uCpBn6y0=; b=EWQksCubZPK5tzGqR9z1aB
+	19JQFgBR7bbwgcoSiNDOk4+LXxOLkZq0zL9awtR8Zcxe/WgdxQeLtJ/DI437/tmW
+	yFudNwDoOGZeWXM6qPLGvFyGaRdW/kXls1VCDUzJHTsYGVZEvKB/zUXvTyVX3kMW
+	Qa0F5r3MYUdqsjE4XVoLCncx4ODHF6SpTrlMio9AEieVvF0vQYRkPcTEG3npa0Pk
+	0FneNkf4CF1QPQ/y3vGKVcV3a4iaCSLoultj9dKLvtdBb9rpmvxN/scqFJFZEEgo
+	1j1t4SKCzmL3VqRNEY38bjiB7mMS4qvsQkfrnCF0w+ToGcAARTJMzq1ro4a4rIMg
+	==
+X-ME-Sender: <xms:xubQX3DlpGN_uwJpsJon-ywhUfffnAPOtSgIkpWC8P6GNiqrMQwS9Q>
+    <xme:xubQX9hsjn6KQ73-_JoO89htyFfpp-yWuCow3VtNoD9jRwdaeCJzRyxFTGLb8-SU3
+    6LUNJjDDob3wg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudejkedgjedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucfkpheple
+    durdeigedrudejtddrkeelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
+    drtghomh
+X-ME-Proxy: <xmx:xubQXynA7nbRAsarVjEJgTrMGdAPmrnjNsJEw8SkbajH0aC0Q1n_sA>
+    <xmx:xubQX5wT_BwoY_5DC_7bwpru8kKmrKm_YQYC7CzcDywxh_mnYsi7IQ>
+    <xmx:xubQX8RFBmmHTUlswgWNOHgv91iiXOYBCcdAzRIheWZ7IpgmBhAMZg>
+    <xmx:yObQX15ZWgPYMiTQIR3ySsPaF8G9vWP-7AJ9qKspxJ7BTM7FIPV6Qg>
+Date: Wed, 9 Dec 2020 16:01:21 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] libxl: cleanup remaining backend xs dirs after driver
+ domain
+Message-ID: <20201209150121.GM1244@mail-itl>
+References: <20201108145942.3089012-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-In-Reply-To: <6d56c227-2828-22fc-61a9-ae836ada805a@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="+nG9yj4eE4W6Oba0"
+Content-Disposition: inline
+In-Reply-To: <20201108145942.3089012-1-marmarek@invisiblethingslab.com>
 
-On 09.12.2020 15:51, Julien Grall wrote:
-> On 09/12/2020 14:47, Jan Beulich wrote:
->> On 09.12.2020 12:33, Bertrand Marquis wrote:
->>> I will review this today, sorry for the delay.
->>
->> Thanks for the reviews, and no problem at all. Since iirc it was
->> you who asked on the last community call, I wanted to point out
->> that despite your reviews and despite Wei's acks the series
->> still won't be able to go in, because patches 2 and 3 are still
->> lacking Arm maintainer acks.
-> 
-> I am waiting on Anthony's input before giving my ack on patch 2.
 
-Well, okay. I'll continue to wait then. What about patch 3 though?
+--+nG9yj4eE4W6Oba0
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] libxl: cleanup remaining backend xs dirs after driver
+ domain
 
-Jan
+On Sun, Nov 08, 2020 at 03:59:42PM +0100, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> When device is removed, backend domain (which may be a driver domain) is
+> responsible for removing backend entries from xenstore. But in case of
+> driver domain, it has no access to remove all of them - specifically the
+> directory named after frontend-id remains. This may accumulate enough to
+> exceed xenstore quote of the driver domain, breaking further devices.
+>=20
+> Fix this by calling libxl__xs_path_cleanup() on the backend path from
+> libxl__device_destroy() in the toolstack domain too. Note
+> libxl__device_destroy() is called when the driver domain already removed
+> what it can (see device_destroy_be_watch_cb()->device_hotplug_done()).
+>=20
+> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+
+Ping?
+
+> ---
+>  tools/libs/light/libxl_device.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/tools/libs/light/libxl_device.c b/tools/libs/light/libxl_dev=
+ice.c
+> index e081faf9a94e..f131a6c822c6 100644
+> --- a/tools/libs/light/libxl_device.c
+> +++ b/tools/libs/light/libxl_device.c
+> @@ -763,6 +763,12 @@ int libxl__device_destroy(libxl__gc *gc, libxl__devi=
+ce *dev)
+>               * from the backend path.
+>               */
+>              libxl__xs_path_cleanup(gc, t, be_path);
+> +        } else if (domid =3D=3D LIBXL_TOOLSTACK_DOMID && !libxl_only) {
+> +            /*
+> +             * Then, toolstack domain is in charge of removing the parent
+> +             * directory if empty already.
+> +             */
+> +            libxl__xs_path_cleanup(gc, t, be_path);
+>          }
+> =20
+>          rc =3D libxl__xs_transaction_commit(gc, &t);
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--+nG9yj4eE4W6Oba0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl/Q5sEACgkQ24/THMrX
+1yxqPAgAgDxlOEfg0KtsT1B3Kyx/oFwD3mJAGzzu8Bz3HJrOXVGW4HnVtnY1ivMk
+bA1m3Eb6omGTEVym61QntXx36ZJgcI9fk/xOxfbvzP5UkANI3f7gHxWGhoJ0ADEo
+i3OZn7/Qhu540kmFn6sW2U4lqNHozota8iRfsDy2LJKtsUyfL2YpsCdkEN9EBOxf
+yy8vo5AVcWQuFKofqheJLzTrugttOlH8dQaXXOeBjN0j5uaY4AxJnfPzE9+2rK9C
+Ssyy2XdRYQbmIdykcSFtPdv0GN05Fk8RamvJhkFOiJK2VFTlN7OKtRkcKJiTM6u7
+grzMP/aE1c9rY5U5fXgu8T2c+nTAcw==
+=dy9n
+-----END PGP SIGNATURE-----
+
+--+nG9yj4eE4W6Oba0--
 
