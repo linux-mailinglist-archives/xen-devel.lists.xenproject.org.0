@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8D322D4984
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 19:54:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48656.86061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00AA32D4993
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 19:57:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48661.86073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn4bf-0005dn-Q5; Wed, 09 Dec 2020 18:54:31 +0000
+	id 1kn4eX-0005mv-8z; Wed, 09 Dec 2020 18:57:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48656.86061; Wed, 09 Dec 2020 18:54:31 +0000
+Received: by outflank-mailman (output) from mailman id 48661.86073; Wed, 09 Dec 2020 18:57:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn4bf-0005dO-MV; Wed, 09 Dec 2020 18:54:31 +0000
-Received: by outflank-mailman (input) for mailman id 48656;
- Wed, 09 Dec 2020 18:54:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kn4eX-0005mW-5M; Wed, 09 Dec 2020 18:57:29 +0000
+Received: by outflank-mailman (input) for mailman id 48661;
+ Wed, 09 Dec 2020 18:57:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/1wO=FN=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1kn4bd-0005dJ-TQ
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 18:54:30 +0000
-Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9d4e0494-9fb1-4078-a985-d76a7190c2f8;
- Wed, 09 Dec 2020 18:54:28 +0000 (UTC)
+ <SRS0=XdhY=FN=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kn4eV-0005mR-RC
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 18:57:27 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 47a305cb-98f8-44d9-9b34-ad0dc326ae89;
+ Wed, 09 Dec 2020 18:57:25 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0B9IvJl1009568
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Wed, 9 Dec 2020 19:57:20 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id 2FC9C2E946C; Wed,  9 Dec 2020 19:57:14 +0100 (MET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,164 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d4e0494-9fb1-4078-a985-d76a7190c2f8
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607540067;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Uu7pkTsDY6PR0uRw8JT+RVlLSz62Q8pgzg6y5Vv+F8=;
-	b=ZKyRHF02e6C/n1mUBKn5ZR+XVl6dDjKmAKKg5N6crtAg3HJ2EOJsCCYkTM8vHNeLb8e1EE
-	woT+FRsq9wRBfKR1H/jU/h5ITtu8upRL+qht0KlSG2FPcGkAH50CYTjWzYIsGM1MBx+iWY
-	ZvsmEPNQYKrYuTvetq+cnT9AM+zSzfv26zNUDqMcYYy5Az+ooZ8kxUTRgcQxFQ6FrUZZA7
-	tY++O41Ru5wCUH11xGUu3nNNoe1jAmst2c8vb9fs1ROv5DpuiAJAfEGvFi7t2m4iBw9m+F
-	U7kRP7HRP7vVZzw7D+fjTVnk7dQ2NJnIZPMHxtpdBE5YJPwHXnrxOYNyE+5jUA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607540067;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Uu7pkTsDY6PR0uRw8JT+RVlLSz62Q8pgzg6y5Vv+F8=;
-	b=c0VvWr+XQ1eFIDzaipp+m6QkbNpqK8MTFWzd5nGNoue3bmiiBo/fQBptKc2vv17Tly9FpG
-	ckQTiaR3Qc/ZrSAA==
-To: Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org, luto@kernel.org, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, Deep Shah <sdeep@vmware.com>, "VMware\, Inc." <pv-drivers@vmware.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use popf
-In-Reply-To: <20201209181514.GA14235@C02TD0UTHF1T.local>
-References: <20201120114630.13552-1-jgross@suse.com> <20201120114630.13552-6-jgross@suse.com> <20201120115943.GD3021@hirez.programming.kicks-ass.net> <20201209181514.GA14235@C02TD0UTHF1T.local>
-Date: Wed, 09 Dec 2020 19:54:26 +0100
-Message-ID: <87tusuzu71.fsf@nanos.tec.linutronix.de>
+X-Inumbo-ID: 47a305cb-98f8-44d9-9b34-ad0dc326ae89
+Date: Wed, 9 Dec 2020 19:57:14 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: dom0 PV looping on search_pre_exception_table()
+Message-ID: <20201209185714.GS1469@antioche.eu.org>
+References: <20201208175738.GA3390@antioche.eu.org>
+ <e73cc71d-c1a6-87c8-1b82-5d70d4f52eaa@citrix.com>
+ <20201209101512.GA1299@antioche.eu.org>
+ <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
+ <20201209135908.GA4269@antioche.eu.org>
+ <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
+ <20201209154431.GA4913@antioche.eu.org>
+ <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
+ <20201209163049.GA6158@antioche.eu.org>
+ <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Wed, 09 Dec 2020 19:57:20 +0100 (MET)
 
-On Wed, Dec 09 2020 at 18:15, Mark Rutland wrote:
-> In arch/x86/kernel/apic/io_apic.c's timer_irq_works() we do:
->
-> 	local_irq_save(flags);
-> 	local_irq_enable();
->
-> 	[ trigger an IRQ here ]
->
-> 	local_irq_restore(flags);
->
-> ... and in check_timer() we call that a number of times after either a
-> local_irq_save() or local_irq_disable(), eventually trailing with a
-> local_irq_disable() that will balance things up before calling
-> local_irq_restore().
->
-> I guess that timer_irq_works() should instead do:
->
-> 	local_irq_save(flags);
-> 	local_irq_enable();
-> 	...
-> 	local_irq_disable();
-> 	local_irq_restore(flags);
->
-> ... assuming we consider that legitimate?
+On Wed, Dec 09, 2020 at 06:08:53PM +0000, Andrew Cooper wrote:
+> On 09/12/2020 16:30, Manuel Bouyer wrote:
+> > On Wed, Dec 09, 2020 at 04:00:02PM +0000, Andrew Cooper wrote:
+> >> [...]
+> >>>> I wonder if the LDT is set up correctly.
+> >>> I guess it is, otherwise it wouldn't boot with a Xen 4.13 kernel, isn't it ?
+> >> Well - you said you always saw it once on 4.13, which clearly shows that
+> >> something was wonky, but it managed to unblock itself.
+> >>
+> >>>> How about this incremental delta?
+> >>> Here's the output
+> >>> (XEN) IRET fault: #PF[0000]                                                    
+> >>> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
+> >>> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+> >>> (XEN) IRET fault: #PF[0000]                                                    
+> >>> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
+> >>> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+> >>> (XEN) IRET fault: #PF[0000]                                                 
+> >> Ok, so the promotion definitely fails, but we don't get as far as
+> >> inspecting the content of the LDT frame.  This probably means it failed
+> >> to change the page type, which probably means there are still
+> >> outstanding writeable references.
+> >>
+> >> I'm expecting the final printk to be the one which triggers.
+> > It's not. 
+> > Here's the output:
+> > (XEN) IRET fault: #PF[0000]
+> > (XEN) %cr2 ffff820000010040, LDT base ffffbd000000a000, limit 0057
+> > (XEN) *** LDT: gl1e 0000000000000000 not present
+> > (XEN) *** pv_map_ldt_shadow_page(0x40) failed
+> > (XEN) IRET fault: #PF[0000]
+> > (XEN) %cr2 ffff820000010040, LDT base ffffbd000000a000, limit 0057
+> > (XEN) *** LDT: gl1e 0000000000000000 not present
+> > (XEN) *** pv_map_ldt_shadow_page(0x40) failed
+> 
+> Ok.  So the mapping registered for the LDT is not yet present.  Xen
+> should be raising #PF with the guest, and would be in every case other
+> than the weird context on IRET, where we've confused bad guest state
+> with bad hypervisor state.
 
-Nah. That's old and insane gunk.
+Unfortunably it doesn't fix the problem. I'm now getting a loop of
+(XEN) *** LDT: gl1e 0000000000000000 not present                               
+(XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
 
-Thanks,
-
-        tglx
----
- arch/x86/kernel/apic/io_apic.c |   22 ++++++----------------
- 1 file changed, 6 insertions(+), 16 deletions(-)
-
---- a/arch/x86/kernel/apic/io_apic.c
-+++ b/arch/x86/kernel/apic/io_apic.c
-@@ -1618,21 +1618,16 @@ static void __init delay_without_tsc(voi
- static int __init timer_irq_works(void)
- {
- 	unsigned long t1 = jiffies;
--	unsigned long flags;
- 
- 	if (no_timer_check)
- 		return 1;
- 
--	local_save_flags(flags);
- 	local_irq_enable();
--
- 	if (boot_cpu_has(X86_FEATURE_TSC))
- 		delay_with_tsc();
- 	else
- 		delay_without_tsc();
- 
--	local_irq_restore(flags);
--
- 	/*
- 	 * Expect a few ticks at least, to be sure some possible
- 	 * glue logic does not lock up after one or two first
-@@ -1641,10 +1636,10 @@ static int __init timer_irq_works(void)
- 	 * least one tick may be lost due to delays.
- 	 */
- 
--	/* jiffies wrap? */
--	if (time_after(jiffies, t1 + 4))
--		return 1;
--	return 0;
-+	local_irq_disable();
-+
-+	/* Did jiffies advance? */
-+	return time_after(jiffies, t1 + 4);
- }
- 
- /*
-@@ -2117,13 +2112,12 @@ static inline void __init check_timer(vo
- 	struct irq_cfg *cfg = irqd_cfg(irq_data);
- 	int node = cpu_to_node(0);
- 	int apic1, pin1, apic2, pin2;
--	unsigned long flags;
- 	int no_pin1 = 0;
- 
- 	if (!global_clock_event)
- 		return;
- 
--	local_irq_save(flags);
-+	local_irq_disable();
- 
- 	/*
- 	 * get/set the timer IRQ vector:
-@@ -2191,7 +2185,6 @@ static inline void __init check_timer(vo
- 			goto out;
- 		}
- 		panic_if_irq_remap("timer doesn't work through Interrupt-remapped IO-APIC");
--		local_irq_disable();
- 		clear_IO_APIC_pin(apic1, pin1);
- 		if (!no_pin1)
- 			apic_printk(APIC_QUIET, KERN_ERR "..MP-BIOS bug: "
-@@ -2215,7 +2208,6 @@ static inline void __init check_timer(vo
- 		/*
- 		 * Cleanup, just in case ...
- 		 */
--		local_irq_disable();
- 		legacy_pic->mask(0);
- 		clear_IO_APIC_pin(apic2, pin2);
- 		apic_printk(APIC_QUIET, KERN_INFO "....... failed.\n");
-@@ -2232,7 +2224,6 @@ static inline void __init check_timer(vo
- 		apic_printk(APIC_QUIET, KERN_INFO "..... works.\n");
- 		goto out;
- 	}
--	local_irq_disable();
- 	legacy_pic->mask(0);
- 	apic_write(APIC_LVT0, APIC_LVT_MASKED | APIC_DM_FIXED | cfg->vector);
- 	apic_printk(APIC_QUIET, KERN_INFO "..... failed.\n");
-@@ -2251,7 +2242,6 @@ static inline void __init check_timer(vo
- 		apic_printk(APIC_QUIET, KERN_INFO "..... works.\n");
- 		goto out;
- 	}
--	local_irq_disable();
- 	apic_printk(APIC_QUIET, KERN_INFO "..... failed :(.\n");
- 	if (apic_is_x2apic_enabled())
- 		apic_printk(APIC_QUIET, KERN_INFO
-@@ -2260,7 +2250,7 @@ static inline void __init check_timer(vo
- 	panic("IO-APIC + timer doesn't work!  Boot with apic=debug and send a "
- 		"report.  Then try booting with the 'noapic' option.\n");
- out:
--	local_irq_restore(flags);
-+	local_irq_enable();
- }
- 
- /*
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
