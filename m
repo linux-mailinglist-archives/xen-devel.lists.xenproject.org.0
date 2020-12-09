@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7BA62D4491
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 15:42:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48337.85458 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FAC92D4492
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 15:43:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48338.85469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn0g6-00010M-Ec; Wed, 09 Dec 2020 14:42:50 +0000
+	id 1kn0g8-00012k-PP; Wed, 09 Dec 2020 14:42:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48337.85458; Wed, 09 Dec 2020 14:42:50 +0000
+Received: by outflank-mailman (output) from mailman id 48338.85469; Wed, 09 Dec 2020 14:42:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn0g6-0000zw-8s; Wed, 09 Dec 2020 14:42:50 +0000
-Received: by outflank-mailman (input) for mailman id 48337;
- Wed, 09 Dec 2020 14:42:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kn0g8-000123-LD; Wed, 09 Dec 2020 14:42:52 +0000
+Received: by outflank-mailman (input) for mailman id 48338;
+ Wed, 09 Dec 2020 14:42:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uDNN=FN=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kn0g4-0000zq-C5
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 14:42:48 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 99beeb13-f007-472b-93f3-fa9d58141815;
- Wed, 09 Dec 2020 14:42:47 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8B056AD2B;
- Wed,  9 Dec 2020 14:42:46 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kn0g6-00010E-Aj; Wed, 09 Dec 2020 14:42:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kn0g6-0001kI-1j; Wed, 09 Dec 2020 14:42:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kn0g5-000766-Oq; Wed, 09 Dec 2020 14:42:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kn0g5-0002cY-ON; Wed, 09 Dec 2020 14:42:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,80 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99beeb13-f007-472b-93f3-fa9d58141815
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607524966; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VCqA7fbJ0LAudNU8V/slBuJvIHhpFqzfocQYAr+T5E4=;
-	b=Fw4uq9bR9WITgtkGIEDNQ5Glt/ma4ic89NLNXCslwnbpd3hR1TtoMWVg4RVzc5U8x1MmBy
-	eEbyxpwi9Z/OLHqZSXZz+WZjE1RK0wv+3nk9uAp27Rqb4yo48kJHPWlRFbLhbJFFqGL1Zl
-	8Hbw1lzoJuFznGNN3EdQsF4woHqcoWE=
-Subject: Re: [PATCH v3 2/8] lib: collect library files in an archive
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>
-References: <1a6bac6a-7d83-f5b6-c5b9-8b3b39824d40@suse.com>
- <21714b83-8619-5aa9-be5b-3015d05a26a4@suse.com>
- <E7B41B4F-98F9-4C52-8549-F407D6FB8251@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <742e504a-02f7-2132-c631-6a31c03959e4@suse.com>
-Date: Wed, 9 Dec 2020 15:42:45 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=aX1uy8yfwbuk8OHBd10Z4YsFCsgWoNqldb9F4jAPKpY=; b=jzpgOM4xdarNdZirsG+W0bCvny
+	rpXqpzg9cO+0f/U7g8eTHpvk7ADVr2Cb4lMV+0oz9SaUn04wuqqlbcE3LHA2l53E1Nl+rRiL4Iux8
+	nCW4AiRCO3eqDJvSzUM8UwrII4bRoU61zKQjVNOvzkf5kSBNXUJAaq5i2JhbdwsguSDQ=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157345-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <E7B41B4F-98F9-4C52-8549-F407D6FB8251@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 157345: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+X-Osstest-Versions-That:
+    ovmf=7061294be500de021bef3d4bc5218134d223315f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 09 Dec 2020 14:42:49 +0000
 
-On 09.12.2020 12:37, Bertrand Marquis wrote:
->> On 23 Nov 2020, at 15:21, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> In order to (subsequently) drop odd things like CONFIG_NEEDS_LIST_SORT
->> just to avoid bloating binaries when only some arch-es and/or
->> configurations need generic library routines, combine objects under lib/
->> into an archive, which the linker then can pick the necessary objects
->> out of.
->>
->> Note that we can't use thin archives just yet, until we've raised the
->> minimum required binutils version suitably.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+flight 157345 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157345/
 
-Thanks.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+baseline version:
+ ovmf                 7061294be500de021bef3d4bc5218134d223315f
 
->> @@ -60,7 +64,14 @@ include Makefile
->> # ---------------------------------------------------------------------------
->>
->> quiet_cmd_ld = LD      $@
->> -cmd_ld = $(LD) $(XEN_LDFLAGS) -r -o $@ $(real-prereqs)
->> +cmd_ld = $(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out %.a,$(real-prereqs)) \
->> +               --start-group $(filter %.a,$(real-prereqs)) --end-group
-> 
-> This might be a good idea to add a comment to explain why the start/end-group
-> is needed so that someone does not change this back in the future.
+Last test of basis   157338  2020-12-09 03:48:15 Z    0 days
+Testing same since   157345  2020-12-09 12:40:46 Z    0 days    1 attempts
 
-Since we're trying to inherit Linux'es build system, I did look
-there and iirc there was no comment, so I didn't see a basis for
-us to have one.
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
 
-> Something like: put libraries between start/end group to have unused symbols removed.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Now that's not the reason - why you describe is the default
-behavior for archives, and there is something like a "whole
-archive" option iirc to change to a mode where all objects
-get pulled out. Instead this is a symbol resolution thing
-aiui - by default earlier archives can't resolve undefined
-symbols first referenced by objects pulled out of later
-archives.
 
-Jan
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   7061294be5..f95e80d832  f95e80d832e923046c92cd6f0b8208cec147138e -> xen-tested-master
 
