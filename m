@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B8022D4662
+	by mail.lfdr.de (Postfix) with ESMTPS id 558182D4660
 	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 17:10:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48426.85635 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.48427.85644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn22U-0002XV-TE; Wed, 09 Dec 2020 16:10:02 +0000
+	id 1kn22V-0002YQ-81; Wed, 09 Dec 2020 16:10:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48426.85635; Wed, 09 Dec 2020 16:10:02 +0000
+Received: by outflank-mailman (output) from mailman id 48427.85644; Wed, 09 Dec 2020 16:10:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn22U-0002V1-Mf; Wed, 09 Dec 2020 16:10:02 +0000
-Received: by outflank-mailman (input) for mailman id 48426;
+	id 1kn22V-0002XU-1X; Wed, 09 Dec 2020 16:10:03 +0000
+Received: by outflank-mailman (input) for mailman id 48427;
  Wed, 09 Dec 2020 16:10:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sDS6=FN=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kn22T-0002Or-AP
+ id 1kn22T-0002Oq-Ad
  for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 16:10:01 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c52ac2eb-1082-4d1d-abf1-6da9345f8552;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5098c72f-d137-4a1d-b8ac-fcbb34d1c47c;
  Wed, 09 Dec 2020 16:09:59 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E0678AC9A;
- Wed,  9 Dec 2020 16:09:58 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 05E57AF8D;
+ Wed,  9 Dec 2020 16:09:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,85 +38,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c52ac2eb-1082-4d1d-abf1-6da9345f8552
+X-Inumbo-ID: 5098c72f-d137-4a1d-b8ac-fcbb34d1c47c
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1607530199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=kGF6k6YkBY0gTxGsY3A9nBmvv9dZFk8vYQw5QGMKns4=;
-	b=cun1VRxXKh7JgT/oHY6u4CCjqg0nEQWdUSFinkqtDGYDBGFz6RytW2fYHX9VFiTH2M6eQg
-	sVxXc4m4HnNQtuo68EwCwvGcu7Oq6K8kH+P6CfU3d2zsHffiVm54MPboR+tO63snEKU/74
-	i92YGAp0Gi765jlRim3x3boOcJQ4Hpk=
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=708vSf4hdDLmhqVFIbpBu/E6M/WDwL53lyQ6wvfCs8c=;
+	b=GOdn9DLkeQ5NgCKeDecYY+yJJtj3HJFe6Oc9MX2QEujxoe4TiN54CGBJ2DVq/UG0dELW7g
+	LAfkuDAtm383RkycI3vY0SI382b/5VWBxpP0uvAXu5MYJdZCEGglQ+WzpRuN4wtPFY3xZ1
+	Z0ODRWmMQByUCN185u3/rFNn0tIGwrg=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	George Dunlap <george.dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 0/8] xen: support per-cpupool scheduling granularity
-Date: Wed,  9 Dec 2020 17:09:48 +0100
-Message-Id: <20201209160956.32456-1-jgross@suse.com>
+	Dario Faggioli <dfaggioli@suse.com>
+Subject: [PATCH v3 1/8] xen/cpupool: support moving domain between cpupools with different granularity
+Date: Wed,  9 Dec 2020 17:09:49 +0100
+Message-Id: <20201209160956.32456-2-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201209160956.32456-1-jgross@suse.com>
+References: <20201209160956.32456-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Support scheduling granularity per cpupool. Setting the granularity is
-done via hypfs, which needed to gain dynamical entries for that
-purpose.
+When moving a domain between cpupools with different scheduling
+granularity the sched_units of the domain need to be adjusted.
 
-Apart from the hypfs related additional functionality the main change
-for cpupools was the support for moving a domain to a new granularity,
-as this requires to modify the scheduling unit/vcpu relationship.
+Do that by allocating new sched_units and throwing away the old ones
+in sched_move_domain().
 
-I have tried to do the hypfs modifications in a rather generic way in
-order to be able to use the same infrastructure in other cases, too
-(e.g. for per-domain entries).
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/common/sched/core.c | 121 ++++++++++++++++++++++++++++++----------
+ 1 file changed, 90 insertions(+), 31 deletions(-)
 
-The complete series has been tested by creating cpupools with different
-granularities and moving busy and idle domains between those.
-
-Changes in V3:
-- Patches 1-6 and 8-11 of V2 have been committed already
-- New patch 2
-- Addressed all comments
-- Added a data pointer to struct hypfs_dyndir
-
-Changes in V2:
-- Added several new patches, especially for some further cleanups in
-  cpupool.c.
-- Completely reworked the locking scheme with dynamical directories:
-  locking of resources (cpupools in this series) is now done via new
-  callbacks which are called when traversing the hypfs tree. This
-  removes the need to add locking to each hypfs related cpupool
-  function and it ensures data integrity across multiple callbacks.
-- Reordered the first few patches in order to have already acked
-  patches in pure cleanup patches first.
-- Addressed several comments.
-
-Juergen Gross (8):
-  xen/cpupool: support moving domain between cpupools with different
-    granularity
-  xen/hypfs: switch write function handles to const
-  xen/hypfs: add new enter() and exit() per node callbacks
-  xen/hypfs: support dynamic hypfs nodes
-  xen/hypfs: add support for id-based dynamic directories
-  xen/cpupool: add cpupool directories
-  xen/cpupool: add scheduling granularity entry to cpupool entries
-  xen/cpupool: make per-cpupool sched-gran hypfs node writable
-
- docs/misc/hypfs-paths.pandoc   |  16 +++
- xen/common/hypfs.c             | 226 ++++++++++++++++++++++++++++++-
- xen/common/sched/core.c        | 121 ++++++++++++-----
- xen/common/sched/cpupool.c     | 240 +++++++++++++++++++++++++++++++--
- xen/include/xen/guest_access.h |   5 +
- xen/include/xen/hypfs.h        |  66 ++++++---
- 6 files changed, 610 insertions(+), 64 deletions(-)
-
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index a429fc7640..2a61c879b3 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -613,17 +613,45 @@ static void sched_move_irqs(const struct sched_unit *unit)
+         vcpu_move_irqs(v);
+ }
+ 
++/*
++ * Move a domain from one cpupool to another.
++ *
++ * A domain with any vcpu having temporary affinity settings will be denied
++ * to move. Hard and soft affinities will be reset.
++ *
++ * In order to support cpupools with different scheduling granularities all
++ * scheduling units are replaced by new ones.
++ *
++ * The complete move is done in the following steps:
++ * - check prerequisites (no vcpu with temporary affinities)
++ * - allocate all new data structures (scheduler specific domain data, unit
++ *   memory, scheduler specific unit data)
++ * - pause domain
++ * - temporarily move all (old) units to the same scheduling resource (this
++ *   makes the final resource assignment easier in case the new cpupool has
++ *   a larger granularity than the old one, as the scheduling locks for all
++ *   vcpus must be held for that operation)
++ * - remove old units from scheduling
++ * - set new cpupool and scheduler domain data pointers in struct domain
++ * - switch all vcpus to new units, still assigned to the old scheduling
++ *   resource
++ * - migrate all new units to scheduling resources of the new cpupool
++ * - unpause the domain
++ * - free the old memory (scheduler specific domain data, unit memory,
++ *   scheduler specific unit data)
++ */
+ int sched_move_domain(struct domain *d, struct cpupool *c)
+ {
+     struct vcpu *v;
+-    struct sched_unit *unit;
++    struct sched_unit *unit, *old_unit;
++    struct sched_unit *new_units = NULL, *old_units;
++    struct sched_unit **unit_ptr = &new_units;
+     unsigned int new_p, unit_idx;
+-    void **unit_priv;
+     void *domdata;
+-    void *unitdata;
+-    struct scheduler *old_ops;
++    struct scheduler *old_ops = dom_scheduler(d);
+     void *old_domdata;
+     unsigned int gran = cpupool_get_granularity(c);
++    unsigned int n_units = DIV_ROUND_UP(d->max_vcpus, gran);
+     int ret = 0;
+ 
+     for_each_vcpu ( d, v )
+@@ -641,53 +669,78 @@ int sched_move_domain(struct domain *d, struct cpupool *c)
+         goto out;
+     }
+ 
+-    unit_priv = xzalloc_array(void *, DIV_ROUND_UP(d->max_vcpus, gran));
+-    if ( unit_priv == NULL )
++    for ( unit_idx = 0; unit_idx < n_units; unit_idx++ )
+     {
+-        sched_free_domdata(c->sched, domdata);
+-        ret = -ENOMEM;
+-        goto out;
+-    }
++        unit = sched_alloc_unit_mem();
++        if ( unit )
++        {
++            /* Initialize unit for sched_alloc_udata() to work. */
++            unit->domain = d;
++            unit->unit_id = unit_idx * gran;
++            unit->vcpu_list = d->vcpu[unit->unit_id];
++            unit->priv = sched_alloc_udata(c->sched, unit, domdata);
++            *unit_ptr = unit;
++        }
+ 
+-    unit_idx = 0;
+-    for_each_sched_unit ( d, unit )
+-    {
+-        unit_priv[unit_idx] = sched_alloc_udata(c->sched, unit, domdata);
+-        if ( unit_priv[unit_idx] == NULL )
++        if ( !unit || !unit->priv )
+         {
+-            for ( unit_idx = 0; unit_priv[unit_idx]; unit_idx++ )
+-                sched_free_udata(c->sched, unit_priv[unit_idx]);
+-            xfree(unit_priv);
+-            sched_free_domdata(c->sched, domdata);
++            old_units = new_units;
++            old_domdata = domdata;
+             ret = -ENOMEM;
+-            goto out;
++            goto out_free;
+         }
+-        unit_idx++;
++
++        unit_ptr = &unit->next_in_list;
+     }
+ 
+     domain_pause(d);
+ 
+-    old_ops = dom_scheduler(d);
+     old_domdata = d->sched_priv;
+ 
++    new_p = cpumask_first(d->cpupool->cpu_valid);
+     for_each_sched_unit ( d, unit )
+     {
++        spinlock_t *lock;
++
++        /*
++         * Temporarily move all units to same processor to make locking
++         * easier when moving the new units to the new processors.
++         */
++        lock = unit_schedule_lock_irq(unit);
++        sched_set_res(unit, get_sched_res(new_p));
++        spin_unlock_irq(lock);
++
+         sched_remove_unit(old_ops, unit);
+     }
+ 
++    old_units = d->sched_unit_list;
++
+     d->cpupool = c;
+     d->sched_priv = domdata;
+ 
++    unit = new_units;
++    for_each_vcpu ( d, v )
++    {
++        old_unit = v->sched_unit;
++        if ( unit->unit_id + gran == v->vcpu_id )
++            unit = unit->next_in_list;
++
++        unit->state_entry_time = old_unit->state_entry_time;
++        unit->runstate_cnt[v->runstate.state]++;
++        /* Temporarily use old resource assignment */
++        unit->res = get_sched_res(new_p);
++
++        v->sched_unit = unit;
++    }
++
++    d->sched_unit_list = new_units;
++
+     new_p = cpumask_first(c->cpu_valid);
+-    unit_idx = 0;
+     for_each_sched_unit ( d, unit )
+     {
+         spinlock_t *lock;
+         unsigned int unit_p = new_p;
+ 
+-        unitdata = unit->priv;
+-        unit->priv = unit_priv[unit_idx];
+-
+         for_each_sched_unit_vcpu ( unit, v )
+         {
+             migrate_timer(&v->periodic_timer, new_p);
+@@ -713,8 +766,6 @@ int sched_move_domain(struct domain *d, struct cpupool *c)
+ 
+         sched_insert_unit(c->sched, unit);
+ 
+-        sched_free_udata(old_ops, unitdata);
+-
+         unit_idx++;
+     }
+ 
+@@ -722,11 +773,19 @@ int sched_move_domain(struct domain *d, struct cpupool *c)
+ 
+     domain_unpause(d);
+ 
+-    sched_free_domdata(old_ops, old_domdata);
++ out_free:
++    for ( unit = old_units; unit; )
++    {
++        if ( unit->priv )
++            sched_free_udata(c->sched, unit->priv);
++        old_unit = unit;
++        unit = unit->next_in_list;
++        xfree(old_unit);
++    }
+ 
+-    xfree(unit_priv);
++    sched_free_domdata(old_ops, old_domdata);
+ 
+-out:
++ out:
+     rcu_read_unlock(&sched_res_rculock);
+ 
+     return ret;
 -- 
 2.26.2
 
