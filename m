@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CEA32D4172
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 12:54:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48188.85212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB6F2D41A6
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 13:03:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48200.85224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmy31-000824-LX; Wed, 09 Dec 2020 11:54:19 +0000
+	id 1kmyBg-0000jH-TK; Wed, 09 Dec 2020 12:03:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48188.85212; Wed, 09 Dec 2020 11:54:19 +0000
+Received: by outflank-mailman (output) from mailman id 48200.85224; Wed, 09 Dec 2020 12:03:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmy31-00081f-HH; Wed, 09 Dec 2020 11:54:19 +0000
-Received: by outflank-mailman (input) for mailman id 48188;
- Wed, 09 Dec 2020 11:54:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kmyBg-0000is-Pg; Wed, 09 Dec 2020 12:03:16 +0000
+Received: by outflank-mailman (input) for mailman id 48200;
+ Wed, 09 Dec 2020 12:03:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kmy30-00081a-5j
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 11:54:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kmy2x-0006cV-OR; Wed, 09 Dec 2020 11:54:15 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kmy2x-0006Ab-H2; Wed, 09 Dec 2020 11:54:15 +0000
+ (envelope-from <SRS0=bdKt=FN=alien8.de=bp@srs-us1.protection.inumbo.net>)
+ id 1kmyBe-0000in-4Y
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 12:03:14 +0000
+Received: from mail.skyhub.de (unknown [5.9.137.197])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c8576c31-d14e-45e3-8af7-24df90f1ea39;
+ Wed, 09 Dec 2020 12:03:12 +0000 (UTC)
+Received: from zn.tnic (p200300ec2f0f480029f89b316a92fa4b.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f0f:4800:29f8:9b31:6a92:fa4b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7B28D1EC0118;
+ Wed,  9 Dec 2020 13:03:11 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,93 +42,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=PZbvjGYPW+C80/qudm7L2NIELdMPGmRcgxQGTG5ezS0=; b=QdfpBPlyKvVVOJRp0xSTjqEFfy
-	W24rD7BZOwTS4tDQW1/Cc5oG0sbDHwNGwFpTbAdjIUvG+bBtHlgHmMdxqBR4Wl1eCdcqWEiNNMnQg
-	emvHnXYrO8TRir5ARPDrI6fRmlYsD+C0rcFv6js0JBysFmHLjEE5NvlGbD/DyMq3ezso=;
-Subject: Re: [PATCH v3 4/5] evtchn: convert domain event lock to an r/w one
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
- <a333387e-f9e5-7051-569a-1a9a37da53ca@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <074be931-54b0-1b0f-72d8-5bd577884814@xen.org>
-Date: Wed, 9 Dec 2020 11:54:13 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: c8576c31-d14e-45e3-8af7-24df90f1ea39
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+	t=1607515391;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MkDF2BGW53pllBVxbrp35zb7hHGQHDWR/sD7dvFz1IY=;
+	b=HEfZeiKQCt2C7bZJNE6U0ObntUyi1mhN9sU2Pi4U4OH50xzO7goM8aBTpCO/vHZW/T20UL
+	gCvwseWgnBUqsp6rixMDsQe46s2seaCU7GZWJG73Sb5KWEHRfSUOdQYEOF8C/pR3Li6VPM
+	DksKCjaHWoiL91XA/+XuLCu+FKdjEN8=
+Date: Wed, 9 Dec 2020 13:03:07 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+	linux-kernel@vger.kernel.org, peterz@infradead.org, luto@kernel.org,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH v2 07/12] x86: add new features for paravirt patching
+Message-ID: <20201209120307.GB18203@zn.tnic>
+References: <20201120114630.13552-1-jgross@suse.com>
+ <20201120114630.13552-8-jgross@suse.com>
+ <20201208184315.GE27920@zn.tnic>
+ <2510752e-5d3d-f71c-8a4c-a5d2aae0075e@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <a333387e-f9e5-7051-569a-1a9a37da53ca@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2510752e-5d3d-f71c-8a4c-a5d2aae0075e@suse.com>
 
-Hi Jan,
+On Wed, Dec 09, 2020 at 08:30:53AM +0100, Jürgen Groß wrote:
+> Hey, I already suggested to use ~FEATURE for that purpose (see
+> https://lore.kernel.org/lkml/f105a63d-6b51-3afb-83e0-e899ea40813e@suse.com/
 
-On 23/11/2020 13:29, Jan Beulich wrote:
-> @@ -620,7 +620,7 @@ int evtchn_close(struct domain *d1, int
->       long           rc = 0;
->   
->    again:
-> -    spin_lock(&d1->event_lock);
-> +    write_lock(&d1->event_lock);
->   
->       if ( !port_is_valid(d1, port1) )
->       {
-> @@ -690,13 +690,11 @@ int evtchn_close(struct domain *d1, int
->                   BUG();
->   
->               if ( d1 < d2 )
-> -            {
-> -                spin_lock(&d2->event_lock);
-> -            }
-> +                read_lock(&d2->event_lock);
+Great minds think alike!
 
-This change made me realized that I don't quite understand how the 
-rwlock is meant to work for event_lock. I was actually expecting this to 
-be a write_lock() given there are state changed in the d2 events.
+:-P
 
-Could you outline how a developper can find out whether he/she should 
-use read_lock or write_lock?
+> I'd rather make the syntax:
+> 
+> ALTERNATIVE_TERNARY <initial-code> <feature> <code-for-feature-set>
+>                                              <code-for-feature-unset>
+> 
+> as this ...
 
-[...]
+Sure, that is ok too.
 
-> --- a/xen/common/rwlock.c
-> +++ b/xen/common/rwlock.c
-> @@ -102,6 +102,14 @@ void queue_write_lock_slowpath(rwlock_t
->       spin_unlock(&lock->lock);
->   }
->   
-> +void _rw_barrier(rwlock_t *lock)
-> +{
-> +    check_barrier(&lock->lock.debug);
-> +    smp_mb();
-> +    while ( _rw_is_locked(lock) )
-> +        arch_lock_relax();
-> +    smp_mb();
-> +}
+> ... would match perfectly to this interpretation.
 
-As I pointed out when this implementation was first proposed (see [1]), 
-there is a risk that the loop will never exit.
+Yap.
 
-I think the following implementation would be better (although it is ugly):
+> Hmm, using flags is an alternative (pun intended :-) ).
 
-write_lock();
-/* do nothing */
-write_unlock();
+LOL!
 
-This will act as a barrier between lock held before and after the call.
+Btw, pls do check how much the vmlinux size of an allyesconfig grows
+with this as we will be adding a byte per patch site. Not that it would
+matter too much - the flags are a long way a comin'. :-)
 
-As an aside, I think the introduction of rw_barrier() deserve to be a in 
-separate patch to help the review.
+> No, this is needed for non-Xen cases, too (especially pv spinlocks).
 
-Cheers,
+I see.
+
+> > Can you give an example here pls why the paravirt patching needs to run
+> > first?
+> 
+> Okay.
+
+I meant an example for me to have a look at. :)
+
+If possible pls.
+
+Thx.
 
 -- 
-Julien Grall
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
