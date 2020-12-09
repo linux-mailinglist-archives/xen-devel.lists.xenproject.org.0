@@ -2,33 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE972D45E9
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 16:55:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48404.85611 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FBB32D4636
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 17:00:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48420.85623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn1o6-0000Sa-76; Wed, 09 Dec 2020 15:55:10 +0000
+	id 1kn1sw-0001uB-QC; Wed, 09 Dec 2020 16:00:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48404.85611; Wed, 09 Dec 2020 15:55:10 +0000
+Received: by outflank-mailman (output) from mailman id 48420.85623; Wed, 09 Dec 2020 16:00:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn1o6-0000Rr-36; Wed, 09 Dec 2020 15:55:10 +0000
-Received: by outflank-mailman (input) for mailman id 48404;
- Wed, 09 Dec 2020 15:55:08 +0000
+	id 1kn1sw-0001tm-N8; Wed, 09 Dec 2020 16:00:10 +0000
+Received: by outflank-mailman (input) for mailman id 48420;
+ Wed, 09 Dec 2020 16:00:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0kem=FN=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kn1o4-0000O2-KB
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 15:55:08 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (unknown [81.169.146.164])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NJeK=FN=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kn1sv-0001th-VF
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 16:00:09 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 31da302d-6595-43d6-aebb-98ed20980d29;
- Wed, 09 Dec 2020 15:55:03 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.6.3 DYNA|AUTH)
- with ESMTPSA id 007720wB9Fsx0bB
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 9 Dec 2020 16:54:59 +0100 (CET)
+ id bd73d7aa-f145-43ba-9dec-01c1250e9d71;
+ Wed, 09 Dec 2020 16:00:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,79 +35,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31da302d-6595-43d6-aebb-98ed20980d29
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1607529303;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:From:
-	Subject:Sender;
-	bh=ti7wpap7OKPtBty/ilhF07cZXxS6hyTWcz0abirc9Nk=;
-	b=IqFVHRvEQJI8EdzsqLVU4d73cnsrkHaKATHpes1Gv8xzJG4nRbXnMc3Tsg9ovNcrXA
-	Gcq+2lQHFp4cP9disWVwv3+8cc6XI3esQCp/bR+fbUAcNeA4roRNJYVglLxlHCfia2z8
-	CIBPXUPnO/YhoOm/0ayf8RUP1ZOeGUPZ9yxMPRRDKgh5gR3GZBVOW3n8N5qXWV7WMI0G
-	oAOs9cLvagI3VwzJGL4OI7K0DVSMoFSLyPvL2wifIUDHkpC5TLknyFHtf3EJdXHIp1Ti
-	XOMV350sUKuZiuFQUcyfPHxuzVBujESqdPlcwM3YGtiZI6HOoxjw1FfABNz011hsTnKf
-	Socw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuz7MdiQehTvc3KJf+TWodQ=="
-X-RZG-CLASS-ID: mo00
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v1 3/3] tools: add API to work with sevaral bits at once
-Date: Wed,  9 Dec 2020 16:54:51 +0100
-Message-Id: <20201209155452.28376-3-olaf@aepfle.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201209155452.28376-1-olaf@aepfle.de>
-References: <20201209155452.28376-1-olaf@aepfle.de>
+X-Inumbo-ID: bd73d7aa-f145-43ba-9dec-01c1250e9d71
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1607529608;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=ZApL8V1v0OtWA7YuFI4qL9rpovu2jonLWpRVf2y2jTg=;
+  b=if2b1TLLcxi2b1DQYhz7SNd7wMShOmWeRocIse7qwN7aQmnipGJ+iQvQ
+   eEpnCHepD+JNAFhjBTIvhUxVfWTNpBM6G7ErBTxJ+Opaxbi8SHhvb0rtz
+   z8FGYY34s7y7KC6dyZwihwS1Olj75ENtX87QKF7ivXxXja8WG9AofkKnB
+   A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: qAAMO42tiHbdG3unZHWa1BN7kCR2vVzwvIjP1g0jNOlWDlXLhRc7u609aSWX6+L2cFmYmxltU1
+ xvj1u+ZWjuDmTWtbfW/B5pXngGkSDJAI5dBt7wQM8t73WW6VPeDfZeIYBhhpj4ewtQrf9vhSFn
+ ckmBqUzpSiP4DUoKsFO/guQqPbCY0OJss/dilmU0uMkabvhUkrf+nwo7Ij0JhfZQi5Hxs51b1P
+ 4UdLhC/Tzw5+yLMdyTBAcukcVHp4LxBKgHP+r0k2agXY54OFiGkSfBhA9rIFTrVi8IJi/otkG9
+ X6w=
+X-SBRS: 5.2
+X-MesageID: 34066157
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,405,1599537600"; 
+   d="scan'208";a="34066157"
+Subject: Re: dom0 PV looping on search_pre_exception_table()
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: <xen-devel@lists.xenproject.org>
+References: <20201208175738.GA3390@antioche.eu.org>
+ <e73cc71d-c1a6-87c8-1b82-5d70d4f52eaa@citrix.com>
+ <20201209101512.GA1299@antioche.eu.org>
+ <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
+ <20201209135908.GA4269@antioche.eu.org>
+ <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
+ <20201209154431.GA4913@antioche.eu.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
+Date: Wed, 9 Dec 2020 16:00:02 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <20201209154431.GA4913@antioche.eu.org>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL04.citrite.net (10.13.108.177)
 
-Introduce new API to test if a fixed number of bits is clear or set,
-and clear or set them all at once.
+On 09/12/2020 15:44, Manuel Bouyer wrote:
+> On Wed, Dec 09, 2020 at 02:41:23PM +0000, Andrew Cooper wrote:
+>> Huh, so it is the LDT, but we're not getting as far as inspecting the
+>> target frame.
+>>
+>> I wonder if the LDT is set up correctly.
+> I guess it is, otherwise it wouldn't boot with a Xen 4.13 kernel, isn't it ?
 
-The caller has to make sure the input bitnumber is a multiply of BITS_PER_LONG.
+Well - you said you always saw it once on 4.13, which clearly shows that
+something was wonky, but it managed to unblock itself.
 
-This API avoids the loop over each bit in a known range just to see
-if all of them are either clear or set.
+>> How about this incremental delta?
+> Here's the output
+> (XEN) IRET fault: #PF[0000]                                                    
+> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
+> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+> (XEN) IRET fault: #PF[0000]                                                    
+> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
+> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+> (XEN) IRET fault: #PF[0000]                                                 
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- tools/libs/ctrl/xc_bitops.h | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+Ok, so the promotion definitely fails, but we don't get as far as
+inspecting the content of the LDT frame.  This probably means it failed
+to change the page type, which probably means there are still
+outstanding writeable references.
 
-diff --git a/tools/libs/ctrl/xc_bitops.h b/tools/libs/ctrl/xc_bitops.h
-index f0bac4a071..92f38872fb 100644
---- a/tools/libs/ctrl/xc_bitops.h
-+++ b/tools/libs/ctrl/xc_bitops.h
-@@ -77,4 +77,29 @@ static inline void bitmap_or(void *_dst, const void *_other,
-         dst[i] |= other[i];
- }
- 
-+static inline int test_bit_long_set(unsigned long nr_base, const void *_addr)
-+{
-+    const unsigned long *addr = _addr;
-+    unsigned long val = addr[nr_base / BITS_PER_LONG];
-+    return val == ~0;
-+}
-+
-+static inline int test_bit_long_clear(unsigned long nr_base, const void *_addr)
-+{
-+    const unsigned long *addr = _addr;
-+    unsigned long val = addr[nr_base / BITS_PER_LONG];
-+    return val == 0;
-+}
-+
-+static inline void clear_bit_long(unsigned long nr_base, void *_addr)
-+{
-+    unsigned long *addr = _addr;
-+    addr[nr_base / BITS_PER_LONG] = 0;
-+}
-+
-+static inline void set_bit_long(unsigned long nr_base, void *_addr)
-+{
-+    unsigned long *addr = _addr;
-+    addr[nr_base / BITS_PER_LONG] = ~0;
-+}
- #endif  /* XC_BITOPS_H */
+I'm expecting the final printk to be the one which triggers.
+
+~Andrew
+
+diff --git a/xen/arch/x86/pv/mm.c b/xen/arch/x86/pv/mm.c
+index 5d74d11cba..2823dc2894 100644
+--- a/xen/arch/x86/pv/mm.c
++++ b/xen/arch/x86/pv/mm.c
+@@ -87,14 +87,23 @@ bool pv_map_ldt_shadow_page(unsigned int offset)
+ 
+     gl1e = guest_get_eff_kern_l1e(linear);
+     if ( unlikely(!(l1e_get_flags(gl1e) & _PAGE_PRESENT)) )
++    {
++        printk(XENLOG_ERR "*** LDT: gl1e %"PRIpte" not present\n",
+gl1e.l1);
+         return false;
++    }
+ 
+     page = get_page_from_gfn(currd, l1e_get_pfn(gl1e), NULL, P2M_ALLOC);
+     if ( unlikely(!page) )
++    {
++        printk(XENLOG_ERR "*** LDT: failed to get gfn %05lx reference\n",
++               l1e_get_pfn(gl1e));
+         return false;
++    }
+ 
+     if ( unlikely(!get_page_type(page, PGT_seg_desc_page)) )
+     {
++        printk(XENLOG_ERR "*** LDT: bad type: caf %016lx, taf=%016lx\n",
++               page->count_info, page->u.inuse.type_info);
+         put_page(page);
+         return false;
+     }
+
 
