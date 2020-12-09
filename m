@@ -2,28 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E694C2D4B15
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 20:55:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48689.86121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B7C22D4BFB
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 21:37:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48698.86133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn5Xw-0003RO-J2; Wed, 09 Dec 2020 19:54:44 +0000
+	id 1kn6CJ-0007Px-U5; Wed, 09 Dec 2020 20:36:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48689.86121; Wed, 09 Dec 2020 19:54:44 +0000
+Received: by outflank-mailman (output) from mailman id 48698.86133; Wed, 09 Dec 2020 20:36:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn5Xw-0003Qz-FJ; Wed, 09 Dec 2020 19:54:44 +0000
-Received: by outflank-mailman (input) for mailman id 48689;
- Wed, 09 Dec 2020 19:54:43 +0000
+	id 1kn6CJ-0007PX-Qo; Wed, 09 Dec 2020 20:36:27 +0000
+Received: by outflank-mailman (input) for mailman id 48698;
+ Wed, 09 Dec 2020 20:36:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/xMB=FN=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kn5Xv-0003Qu-4q
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 19:54:43 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=GmJG=FN=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kn6CI-0007PM-EZ
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 20:36:26 +0000
+Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c0391753-0872-4ce6-b992-5df83792284d;
- Wed, 09 Dec 2020 19:54:42 +0000 (UTC)
+ id 781e3555-9673-4d04-aed3-392dd359b4c4;
+ Wed, 09 Dec 2020 20:36:25 +0000 (UTC)
+Received: by mail-lj1-x241.google.com with SMTP id f11so4056547ljn.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Dec 2020 12:36:25 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id t196sm280262lff.195.2020.12.09.12.36.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Dec 2020 12:36:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,151 +41,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0391753-0872-4ce6-b992-5df83792284d
-Date: Wed, 9 Dec 2020 11:54:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1607543681;
-	bh=bUu9X1geTL8M/GRL58coGcKFEnZEH5lzro/be4YmT74=;
-	h=From:To:cc:Subject:In-Reply-To:References:From;
-	b=pLg3Ih70pXOFULvXM8uvkooxLIRpGfsGn7QGkW+xZMzyZWBWeXUa66vc7QrgSePF4
-	 B7GMNcsTgHal8F/SA+mnr0b7/6oGMpHya9nmY+0Tb23fG6wBpNPuu8lNSuxu5NTiz5
-	 +RyuexWbSD68EoRrFQNMboAx+a8XdHr5E6NGWbjbwkA2MpgKCMmI5OWnSQ3a5ifnxs
-	 VFvelzr0rhX+cWeqqx9ueKZUv6QLAfnhaXKUVhbL4/l4CyRdwHh/pqH5d+Sx+f77D6
-	 6gmB+hT7cttJ9bcgsYVnjJzS7JHWSG5o7aUfwp+elxAVFcMNZ9Sr9YVG3c1NxuzRfH
-	 7sPU7zG48Qung==
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 5/7] xen/arm: Add handler for cp15 ID registers
-In-Reply-To: <5a36325410f485dbdddc0f6088378cacc54c5243.1607524536.git.bertrand.marquis@arm.com>
-Message-ID: <alpine.DEB.2.21.2012091153400.20986@sstabellini-ThinkPad-T480s>
-References: <cover.1607524536.git.bertrand.marquis@arm.com> <5a36325410f485dbdddc0f6088378cacc54c5243.1607524536.git.bertrand.marquis@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 781e3555-9673-4d04-aed3-392dd359b4c4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=gqUt/I2482+pfCTh1cUIEi2n9lArJhB7Bpk6SZ2KITU=;
+        b=VovL3mFebRhI7evZxqhaeoqlIz22rDzjjE37z6UVy4sBHqMEYiPC8abkryznN7KUtx
+         vpciLxT23LHj4Gn+Wllx5bvQJF6lsXSEDpgjmuNUJ2THMbNOY9tFbgCfwHmyYHQNVbOl
+         NVh6ev2dbDD+s8cE+j3EaGP1x9y/JPboTv0ueaHTCPy2PuY2fNQixjZT/HVTIpN63eGD
+         Vil92zAc0/eTM1cna9i51/BTA90/VV9ChCYW7fJPwY6TPMusjGAsiuJCmmzqsFvBI++l
+         9bhkLifeMFwuE9zromWx48QU5VvpcOREX+8QZY7DFdQoBK37CL4Fsg/wWxtaq8NxF/+x
+         XrBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=gqUt/I2482+pfCTh1cUIEi2n9lArJhB7Bpk6SZ2KITU=;
+        b=VvdFwmaRWkl/uYstG8uim09J1aU8AABWTLZbJyZsKGosIFPDsKzF1/VthxMDKZqetZ
+         NJbBlj8MsUbpuexzU+1MokITbMeYuUqI0mrSesqwZ69QXOhqhS8Id9li/dwL9rh6kEFf
+         DXa6LiZ3q0gRn8g5pu6jmAOp5vNt1PfhVGaLtMi3sPyPFbSj3cq1/Og9jYzaQZ/5s85q
+         +je25qk3xFv/DDLkvg7QrffU1bfa1W/MZmx5/29oOJKvXkMkWD8IllKusFjYJiF5hhO+
+         DUfI2lON0bmP1syjvlvFbzzIAksi8SfeASyRhCUruDwARFZ7q02/o7XUyPWO0YEWPR19
+         aWFg==
+X-Gm-Message-State: AOAM530cPZTARjH9YbbzH0/hee2g1bmq45RWjQazJ1NAkLV1GRpLuQMr
+	24hzjNFjQAHxpXh6cl4bl173gDfo4n58fg==
+X-Google-Smtp-Source: ABdhPJzW3plcS9eRZ2Z11WUFpOTMfiwJWmukAhLVxfuz9v/1IDHyHou2B6Kqj90gDj+IRUCUjRctug==
+X-Received: by 2002:a2e:88c2:: with SMTP id a2mr1746585ljk.415.1607546183862;
+        Wed, 09 Dec 2020 12:36:23 -0800 (PST)
+Subject: Re: [PATCH V3 17/23] xen/ioreq: Introduce domain_has_ioreq_server()
+To: paul@xen.org
+Cc: 'Jan Beulich' <jbeulich@suse.com>,
+ 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>,
+ 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>,
+ 'Ian Jackson' <iwj@xenproject.org>, 'Wei Liu' <wl@xen.org>,
+ 'Julien Grall' <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
+ <1606732298-22107-18-git-send-email-olekstysh@gmail.com>
+ <3bb4c3b5-a46a-ba31-292f-5c6ba49fa9be@suse.com>
+ <6026b7f3-ae6e-f98f-be65-27d7f729a37f@gmail.com>
+ <18bfd9b1-3e6a-8119-efd0-c82ad7ae681d@gmail.com>
+ <0d6c01d6cd9a$666326c0$33297440$@xen.org>
+ <57bfc007-e400-6777-0075-827daa8acf0e@gmail.com>
+ <0d7201d6ce09$e13dce80$a3b96b80$@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <96b9b843-f4fe-834a-f17b-d75198aa0dab@gmail.com>
+Date: Wed, 9 Dec 2020 22:36:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Wed, 9 Dec 2020, Bertrand Marquis wrote:
-> Add support for emulation of cp15 based ID registers (on arm32 or when
-> running a 32bit guest on arm64).
-> The handlers are returning the values stored in the guest_cpuinfo
-> structure for known registers and RAZ for all reserved registers.
-> In the current status the MVFR registers are no supported.
-> 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes in V2: Rebase
-> Changes in V3:
->   Add case definition for reserved registers
->   Add handling of reserved registers as RAZ.
->   Fix code style in GENERATE_TID3_INFO declaration
-> 
-> ---
->  xen/arch/arm/vcpreg.c        | 39 ++++++++++++++++++++++++++++++++++++
->  xen/include/asm-arm/cpregs.h | 25 +++++++++++++++++++++++
->  2 files changed, 64 insertions(+)
-> 
-> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-> index cdc91cdf5b..d371a1c38c 100644
-> --- a/xen/arch/arm/vcpreg.c
-> +++ b/xen/arch/arm/vcpreg.c
-> @@ -155,6 +155,14 @@ TVM_REG32(CONTEXTIDR, CONTEXTIDR_EL1)
->          break;                                                      \
->      }
->  
-> +/* Macro to generate easily case for ID co-processor emulation */
-> +#define GENERATE_TID3_INFO(reg, field, offset)                      \
-> +    case HSR_CPREG32(reg):                                          \
-> +    {                                                               \
-> +        return handle_ro_read_val(regs, regidx, cp32.read, hsr,     \
-> +                          1, guest_cpuinfo.field.bits[offset]);     \
-> +    }
-> +
->  void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
->  {
->      const struct hsr_cp32 cp32 = hsr.cp32;
-> @@ -286,6 +294,37 @@ void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr)
->           */
->          return handle_raz_wi(regs, regidx, cp32.read, hsr, 1);
->  
-> +    /*
-> +     * HCR_EL2.TID3
-> +     *
-> +     * This is trapping most Identification registers used by a guest
-> +     * to identify the processor features
-> +     */
-> +    GENERATE_TID3_INFO(ID_PFR0, pfr32, 0)
-> +    GENERATE_TID3_INFO(ID_PFR1, pfr32, 1)
-> +    GENERATE_TID3_INFO(ID_PFR2, pfr32, 2)
-> +    GENERATE_TID3_INFO(ID_DFR0, dbg32, 0)
-> +    GENERATE_TID3_INFO(ID_DFR1, dbg32, 1)
-> +    GENERATE_TID3_INFO(ID_AFR0, aux32, 0)
-> +    GENERATE_TID3_INFO(ID_MMFR0, mm32, 0)
-> +    GENERATE_TID3_INFO(ID_MMFR1, mm32, 1)
-> +    GENERATE_TID3_INFO(ID_MMFR2, mm32, 2)
-> +    GENERATE_TID3_INFO(ID_MMFR3, mm32, 3)
-> +    GENERATE_TID3_INFO(ID_MMFR4, mm32, 4)
-> +    GENERATE_TID3_INFO(ID_MMFR5, mm32, 5)
-> +    GENERATE_TID3_INFO(ID_ISAR0, isa32, 0)
-> +    GENERATE_TID3_INFO(ID_ISAR1, isa32, 1)
-> +    GENERATE_TID3_INFO(ID_ISAR2, isa32, 2)
-> +    GENERATE_TID3_INFO(ID_ISAR3, isa32, 3)
-> +    GENERATE_TID3_INFO(ID_ISAR4, isa32, 4)
-> +    GENERATE_TID3_INFO(ID_ISAR5, isa32, 5)
-> +    GENERATE_TID3_INFO(ID_ISAR6, isa32, 6)
-> +    /* MVFR registers are in cp10 no cp15 */
-> +
-> +    HSR_CPREG32_TID3_RESERVED_CASE:
-> +        /* Handle all reserved registers as RAZ */
-> +        return handle_ro_raz(regs, regidx, cp32.read, hsr, 1);
-
-Same question as for the aarch64 case: do we need to do write-ignore
-for the reserved registers?
+In-Reply-To: <0d7201d6ce09$e13dce80$a3b96b80$@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
 
->      /*
->       * HCR_EL2.TIDCP
->       *
-> diff --git a/xen/include/asm-arm/cpregs.h b/xen/include/asm-arm/cpregs.h
-> index 2690ddeb7a..5cb1ad5cbe 100644
-> --- a/xen/include/asm-arm/cpregs.h
-> +++ b/xen/include/asm-arm/cpregs.h
-> @@ -133,6 +133,31 @@
->  #define VPIDR           p15,4,c0,c0,0   /* Virtualization Processor ID Register */
->  #define VMPIDR          p15,4,c0,c0,5   /* Virtualization Multiprocessor ID Register */
->  
-> +/*
-> + * Those cases are catching all Reserved registers trapped by TID3 which
-> + * currently have no assignment.
-> + * HCR.TID3 is trapping all registers in the group 3:
-> + * coproc == p15, opc1 == 0, CRn == c0, CRm == {c2-c7}, opc2 == {0-7}.
-> + */
-> +#define HSR_CPREG32_TID3_CASES(REG)     case HSR_CPREG32(p15,0,c0,REG,0): \
-> +                                        case HSR_CPREG32(p15,0,c0,REG,1): \
-> +                                        case HSR_CPREG32(p15,0,c0,REG,2): \
-> +                                        case HSR_CPREG32(p15,0,c0,REG,3): \
-> +                                        case HSR_CPREG32(p15,0,c0,REG,4): \
-> +                                        case HSR_CPREG32(p15,0,c0,REG,5): \
-> +                                        case HSR_CPREG32(p15,0,c0,REG,6): \
-> +                                        case HSR_CPREG32(p15,0,c0,REG,7)
-> +
-> +#define HSR_CPREG32_TID3_RESERVED_CASE  case HSR_CPREG32(p15,0,c0,c3,0): \
-> +                                        case HSR_CPREG32(p15,0,c0,c3,1): \
-> +                                        case HSR_CPREG32(p15,0,c0,c3,2): \
-> +                                        case HSR_CPREG32(p15,0,c0,c3,3): \
-> +                                        case HSR_CPREG32(p15,0,c0,c3,7): \
-> +                                        HSR_CPREG32_TID3_CASES(c4): \
-> +                                        HSR_CPREG32_TID3_CASES(c5): \
-> +                                        HSR_CPREG32_TID3_CASES(c6): \
-> +                                        HSR_CPREG32_TID3_CASES(c7)
+Hi Paul.
 
-The following are missing, is it a problem?
 
-p15,0,c0,c0,2
-p15,0,c0,c0,3
-p15,0,c0,c0,4
-p15,0,c0,c0,6
-p15,0,c0,c0,7
+>>>>>> On 30.11.2020 11:31, Oleksandr Tyshchenko wrote:
+>>>>>>> --- a/xen/include/xen/ioreq.h
+>>>>>>> +++ b/xen/include/xen/ioreq.h
+>>>>>>> @@ -55,6 +55,20 @@ struct ioreq_server {
+>>>>>>>         uint8_t                bufioreq_handling;
+>>>>>>>     };
+>>>>>>>     +/*
+>>>>>>> + * This should only be used when d == current->domain and it's not
+>>>>>>> paused,
+>>>>>> Is the "not paused" part really relevant here? Besides it being rare
+>>>>>> that the current domain would be paused (if so, it's in the process
+>>>>>> of having all its vCPU-s scheduled out), does this matter at all?do
+>>>>>> any extra actionsdo any extra actions
+>>>>> No, it isn't relevant, I will drop it.
+>>>>>
+>>>>>
+>>>>>> Apart from this the patch looks okay to me, but I'm not sure it
+>>>>>> addresses Paul's concerns. Iirc he had suggested to switch back to
+>>>>>> a list if doing a swipe over the entire array is too expensive in
+>>>>>> this specific case.
+>>>>> We would like to avoid to do any extra actions in
+>>>>> leave_hypervisor_to_guest() if possible.
+>>>>> But not only there, the logic whether we check/set
+>>>>> mapcache_invalidation variable could be avoided if a domain doesn't
+>>>>> use IOREQ server...
+>>>> Are you OK with this patch (common part of it)?
+>>> How much of a performance benefit is this? The array is small to simply counting the non-NULL
+>> entries should be pretty quick.
+>> I didn't perform performance measurements on how much this call consumes.
+>> In our system we run three domains. The emulator is in DomD only, so I
+>> would like to avoid to call vcpu_ioreq_handle_completion() for every
+>> Dom0/DomU's vCPUs
+>> if there is no real need to do it.
+> This is not relevant to the domain that the emulator is running in; it's concerning the domains which the emulator is servicing. How many of those are there?
+Err, yes, I wasn't precise when providing an example.
+Single emulator is running in DomD and servicing DomU. So with the 
+helper in place the vcpu_ioreq_handle_completion() gets only called for 
+DomU vCPUs (as expected).
+Without an optimization the vcpu_ioreq_handle_completion() gets called 
+for _all_ vCPUs, and I see it as an extra action for Dom0, DomD vCPUs.
+
+
+>
+>> On Arm vcpu_ioreq_handle_completion()
+>> is called with IRQ enabled, so the call is accompanied with
+>> corresponding irq_enable/irq_disable.
+>> These unneeded actions could be avoided by using this simple one-line
+>> helper...
+>>
+> The helper may be one line but there is more to the patch than that. I still think you could just walk the array in the helper rather than keeping a running occupancy count.
+
+OK, is the implementation below close to what you propose? If yes, I 
+will update a helper and drop nr_servers variable.
+
+bool domain_has_ioreq_server(const struct domain *d)
+{
+     const struct ioreq_server *s;
+     unsigned int id;
+
+     FOR_EACH_IOREQ_SERVER(d, id, s)
+         return true;
+
+     return false;
+}
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
