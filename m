@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 862932D4E83
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 00:09:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48829.86385 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F6DB2D4E8F
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 00:13:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48836.86397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn8ad-0006wh-FU; Wed, 09 Dec 2020 23:09:43 +0000
+	id 1kn8eG-0007uO-0s; Wed, 09 Dec 2020 23:13:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48829.86385; Wed, 09 Dec 2020 23:09:43 +0000
+Received: by outflank-mailman (output) from mailman id 48836.86397; Wed, 09 Dec 2020 23:13:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn8ad-0006wI-CE; Wed, 09 Dec 2020 23:09:43 +0000
-Received: by outflank-mailman (input) for mailman id 48829;
- Wed, 09 Dec 2020 23:09:41 +0000
+	id 1kn8eF-0007tz-Tu; Wed, 09 Dec 2020 23:13:27 +0000
+Received: by outflank-mailman (input) for mailman id 48836;
+ Wed, 09 Dec 2020 23:13:26 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kn8ab-0006wC-1B
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 23:09:41 +0000
+ (envelope-from <julien@xen.org>) id 1kn8eE-0007tp-Gz
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 23:13:26 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kn8aZ-0004dz-JQ; Wed, 09 Dec 2020 23:09:39 +0000
+ id 1kn8eD-0004jm-7E; Wed, 09 Dec 2020 23:13:25 +0000
 Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1kn8aZ-0000Td-CB; Wed, 09 Dec 2020 23:09:39 +0000
+ id 1kn8eD-0000qp-0Q; Wed, 09 Dec 2020 23:13:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,144 +42,121 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=sDZqRXJ9x65fHI0YJVKKxjPbRLQ/3/qafiP8sra/fr0=; b=ahWNsmcsnlOzSi/Vc1L0EgmAoA
-	k0b5NTLMZSNHxIZIsiaygnHAR6L0lNIR1Xu/OQ7tQza5HjJa7sA6lbnzm6svIHMLvqp/2BxYqEdfx
-	zBu5PJrv6GBxkZiJj4BZzMOJOKUlV652uVlYnMebhPyTOncmYmSD90trcXyIGURbVMXY=;
-Subject: Re: [PATCH v3 3/7] xen/arm: create a cpuinfo structure for guest
+	bh=ZXUAnsjBfLVJAh63qAGiwwR2vLlKdEjO0/ttJkDZziM=; b=Rqngn4u0ggN/GW7X+5Jg7IoFSz
+	rFrUmWVAkPgTO+eNIEI8vHlRXKQilVuX4NSc9J+QRxSADAmMuCTATMDuS9yrPPo15PDnAWWO2zOtI
+	itdJKlB9bWL8SEg5Tv/2/Gr7sKrbyLhIBtYLiQIh/CVOxa6rO5iNLm+cHyABG6aEqX3s=;
+Subject: Re: [PATCH v3 4/7] xen/arm: Add handler for ID registers on arm64
 To: Bertrand Marquis <bertrand.marquis@arm.com>,
  xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <cover.1607524536.git.bertrand.marquis@arm.com>
- <33f39e7f521e6f73a0dba57a8be9fb50656e1807.1607524536.git.bertrand.marquis@arm.com>
+ <e991b05af11d00627709caf847c5de99f487cab0.1607524536.git.bertrand.marquis@arm.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <61b2677c-bc0d-af0b-95f8-f8de76a20856@xen.org>
-Date: Wed, 9 Dec 2020 23:09:38 +0000
+Message-ID: <8a154f7c-f700-5b6f-5645-a122fec45d19@xen.org>
+Date: Wed, 9 Dec 2020 23:13:23 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <33f39e7f521e6f73a0dba57a8be9fb50656e1807.1607524536.git.bertrand.marquis@arm.com>
+In-Reply-To: <e991b05af11d00627709caf847c5de99f487cab0.1607524536.git.bertrand.marquis@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Bertand,
+
 
 On 09/12/2020 16:30, Bertrand Marquis wrote:
-> Create a cpuinfo structure for guest and mask into it the features that
-> we do not support in Xen or that we do not want to publish to guests.
-> 
-> Modify some values in the cpuinfo structure for guests to mask some
-> features which we do not want to allow to guests (like AMU) or we do not
-> support (like SVE).
-> 
-> The code is trying to group together registers modifications for the
-> same feature to be able in the long term to easily enable/disable a
-> feature depending on user parameters or add other registers modification
-> in the same place (like enabling/disabling HCR bits).
+> Add vsysreg emulation for registers trapped when TID3 bit is activated
+> in HSR.
+> The emulation is returning the value stored in cpuinfo_guest structure
+> for know registers and is handling reserved registers as RAZ.
 > 
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
 > Changes in V2: Rebase
 > Changes in V3:
->    Use current_cpu_data info instead of recalling identify_cpu
+>    Fix commit message
+>    Fix code style for GENERATE_TID3_INFO declaration
+>    Add handling of reserved registers as RAZ.
 > 
 > ---
->   xen/arch/arm/cpufeature.c        | 51 ++++++++++++++++++++++++++++++++
->   xen/include/asm-arm/cpufeature.h |  2 ++
->   2 files changed, 53 insertions(+)
+>   xen/arch/arm/arm64/vsysreg.c | 53 ++++++++++++++++++++++++++++++++++++
+>   1 file changed, 53 insertions(+)
 > 
-> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
-> index bc7ee5ac95..7255383504 100644
-> --- a/xen/arch/arm/cpufeature.c
-> +++ b/xen/arch/arm/cpufeature.c
-> @@ -24,6 +24,8 @@
+> diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
+> index 8a85507d9d..ef7a11dbdd 100644
+> --- a/xen/arch/arm/arm64/vsysreg.c
+> +++ b/xen/arch/arm/arm64/vsysreg.c
+> @@ -69,6 +69,14 @@ TVM_REG(CONTEXTIDR_EL1)
+>           break;                                                          \
+>       }
 >   
->   DECLARE_BITMAP(cpu_hwcaps, ARM_NCAPS);
->   
-> +struct cpuinfo_arm __read_mostly guest_cpuinfo;
+> +/* Macro to generate easily case for ID co-processor emulation */
+> +#define GENERATE_TID3_INFO(reg, field, offset)                          \
+> +    case HSR_SYSREG_##reg:                                              \
+> +    {                                                                   \
+> +        return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr,   \
+> +                          1, guest_cpuinfo.field.bits[offset]);         \
+
+The indentation looks wrong here. The "1" should be aligned with "regs".
+
+> +    }
 > +
->   void update_cpu_capabilities(const struct arm_cpu_capabilities *caps,
->                                const char *info)
+>   void do_sysreg(struct cpu_user_regs *regs,
+>                  const union hsr hsr)
 >   {
-> @@ -157,6 +159,55 @@ void identify_cpu(struct cpuinfo_arm *c)
->   #endif
->   }
+> @@ -259,6 +267,51 @@ void do_sysreg(struct cpu_user_regs *regs,
+>            */
+>           return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
 >   
-> +/*
-> + * This function is creating a cpuinfo structure with values modified to mask
-> + * all cpu features that should not be published to guest.
-> + * The created structure is then used to provide ID registers values to guests.
-> + */
-> +static int __init create_guest_cpuinfo(void)
-> +{
 > +    /*
-> +     * TODO: The code is currently using only the features detected on the boot
-> +     * core. In the long term we should try to compute values containing only
-> +     * features supported by all cores.
+> +     * HCR_EL2.TID3
+> +     *
+> +     * This is trapping most Identification registers used by a guest
+> +     * to identify the processor features
 > +     */
-> +    guest_cpuinfo = current_cpu_data;
-
-It would be more logical to use boot_cpu_data as this would be easier to 
-match with your comment.
-
+> +    GENERATE_TID3_INFO(ID_PFR0_EL1, pfr32, 0)
+> +    GENERATE_TID3_INFO(ID_PFR1_EL1, pfr32, 1)
+> +    GENERATE_TID3_INFO(ID_PFR2_EL1, pfr32, 2)
+> +    GENERATE_TID3_INFO(ID_DFR0_EL1, dbg32, 0)
+> +    GENERATE_TID3_INFO(ID_DFR1_EL1, dbg32, 1)
+> +    GENERATE_TID3_INFO(ID_AFR0_EL1, aux32, 0)
+> +    GENERATE_TID3_INFO(ID_MMFR0_EL1, mm32, 0)
+> +    GENERATE_TID3_INFO(ID_MMFR1_EL1, mm32, 1)
+> +    GENERATE_TID3_INFO(ID_MMFR2_EL1, mm32, 2)
+> +    GENERATE_TID3_INFO(ID_MMFR3_EL1, mm32, 3)
+> +    GENERATE_TID3_INFO(ID_MMFR4_EL1, mm32, 4)
+> +    GENERATE_TID3_INFO(ID_MMFR5_EL1, mm32, 5)
+> +    GENERATE_TID3_INFO(ID_ISAR0_EL1, isa32, 0)
+> +    GENERATE_TID3_INFO(ID_ISAR1_EL1, isa32, 1)
+> +    GENERATE_TID3_INFO(ID_ISAR2_EL1, isa32, 2)
+> +    GENERATE_TID3_INFO(ID_ISAR3_EL1, isa32, 3)
+> +    GENERATE_TID3_INFO(ID_ISAR4_EL1, isa32, 4)
+> +    GENERATE_TID3_INFO(ID_ISAR5_EL1, isa32, 5)
+> +    GENERATE_TID3_INFO(ID_ISAR6_EL1, isa32, 6)
+> +    GENERATE_TID3_INFO(MVFR0_EL1, mvfr, 0)
+> +    GENERATE_TID3_INFO(MVFR1_EL1, mvfr, 1)
+> +    GENERATE_TID3_INFO(MVFR2_EL1, mvfr, 2)
+> +    GENERATE_TID3_INFO(ID_AA64PFR0_EL1, pfr64, 0)
+> +    GENERATE_TID3_INFO(ID_AA64PFR1_EL1, pfr64, 1)
+> +    GENERATE_TID3_INFO(ID_AA64DFR0_EL1, dbg64, 0)
+> +    GENERATE_TID3_INFO(ID_AA64DFR1_EL1, dbg64, 1)
+> +    GENERATE_TID3_INFO(ID_AA64ISAR0_EL1, isa64, 0)
+> +    GENERATE_TID3_INFO(ID_AA64ISAR1_EL1, isa64, 1)
+> +    GENERATE_TID3_INFO(ID_AA64MMFR0_EL1, mm64, 0)
+> +    GENERATE_TID3_INFO(ID_AA64MMFR1_EL1, mm64, 1)
+> +    GENERATE_TID3_INFO(ID_AA64MMFR2_EL1, mm64, 2)
+> +    GENERATE_TID3_INFO(ID_AA64AFR0_EL1, aux64, 0)
+> +    GENERATE_TID3_INFO(ID_AA64AFR1_EL1, aux64, 1)
+> +    GENERATE_TID3_INFO(ID_AA64ZFR0_EL1, zfr64, 0)
 > +
-> +#ifdef CONFIG_ARM_64
-> +    /* Disable MPAM as xen does not support it */
-> +    guest_cpuinfo.pfr64.mpam = 0;
-> +    guest_cpuinfo.pfr64.mpam_frac = 0;
+> +    HSR_SYSREG_TID3_RESERVED_CASE:
+> +        /* Handle all reserved registers as RAZ */
+> +        return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr, 1);
 > +
-> +    /* Disable SVE as Xen does not support it */
-> +    guest_cpuinfo.pfr64.sve = 0;
-> +    guest_cpuinfo.zfr64.bits[0] = 0;
-> +
-> +    /* Disable MTE as Xen does not support it */
-> +    guest_cpuinfo.pfr64.mte = 0;
-> +#endif
-> +
-> +    /* Disable AMU */
-> +#ifdef CONFIG_ARM_64
-> +    guest_cpuinfo.pfr64.amu = 0;
-> +#endif
-> +    guest_cpuinfo.pfr32.amu = 0;
-> +
-> +    /* Disable RAS as Xen does not support it */
-> +#ifdef CONFIG_ARM_64
-> +    guest_cpuinfo.pfr64.ras = 0;
-> +    guest_cpuinfo.pfr64.ras_frac = 0;
-> +#endif
-> +    guest_cpuinfo.pfr32.ras = 0;
-> +    guest_cpuinfo.pfr32.ras_frac = 0;
-
-How about all the fields that are currently marked as RES0/RES1? 
-Shouldn't we make sure they will stay like that even if newer 
-architecture use them?
-
-> +
-> +    return 0;
-> +}
-> +/*
-> + * This function needs to be run after all smp are started to have
-> + * cpuinfo structures for all cores.
-> + */
-> +__initcall(create_guest_cpuinfo);
-> +
->   /*
->    * Local variables:
->    * mode: C
-> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
-> index 6cf83d775b..10b62bd324 100644
-> --- a/xen/include/asm-arm/cpufeature.h
-> +++ b/xen/include/asm-arm/cpufeature.h
-> @@ -283,6 +283,8 @@ extern void identify_cpu(struct cpuinfo_arm *);
->   extern struct cpuinfo_arm cpu_data[];
->   #define current_cpu_data cpu_data[smp_processor_id()]
->   
-> +extern struct cpuinfo_arm guest_cpuinfo;
-> +
->   #endif /* __ASSEMBLY__ */
->   
->   #endif
+>       /*
+>        * HCR_EL2.TIDCP
+>        *
 > 
 
 -- 
