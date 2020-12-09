@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00732D4E52
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 23:50:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48809.86340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3B0A2D4E6E
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 00:03:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48817.86358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn8HO-0004f8-Rp; Wed, 09 Dec 2020 22:49:50 +0000
+	id 1kn8Uj-0006cK-D4; Wed, 09 Dec 2020 23:03:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48809.86340; Wed, 09 Dec 2020 22:49:50 +0000
+Received: by outflank-mailman (output) from mailman id 48817.86358; Wed, 09 Dec 2020 23:03:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn8HO-0004ej-OC; Wed, 09 Dec 2020 22:49:50 +0000
-Received: by outflank-mailman (input) for mailman id 48809;
- Wed, 09 Dec 2020 22:49:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GmJG=FN=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kn8HM-0004ee-Ne
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 22:49:48 +0000
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 92daae74-1023-4065-8e8a-4d700e7b8f53;
- Wed, 09 Dec 2020 22:49:46 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id l11so5447112lfg.0
- for <xen-devel@lists.xenproject.org>; Wed, 09 Dec 2020 14:49:46 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id d1sm306839lfs.216.2020.12.09.14.49.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Dec 2020 14:49:44 -0800 (PST)
+	id 1kn8Uj-0006bv-9Y; Wed, 09 Dec 2020 23:03:37 +0000
+Received: by outflank-mailman (input) for mailman id 48817;
+ Wed, 09 Dec 2020 23:03:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kn8Uh-0006bq-Gh
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 23:03:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kn8Ug-0004W7-9F; Wed, 09 Dec 2020 23:03:34 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kn8Uf-0008Ro-VS; Wed, 09 Dec 2020 23:03:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,643 +39,363 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92daae74-1023-4065-8e8a-4d700e7b8f53
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=eSrfHixI8CRkmO34CVpc+ZRZhqn7TykEpy53kp85QiA=;
-        b=N+WYWQ0LLEhlNld8J5Fl/gsIEOhO3z+dEIFqNTthPUI2eaov5LVY4usqY997A5tqzm
-         6kwZ2GU+W+oVYfq9YshNO9WrXFYLXEslDFfCNldkNvUorbqcZ2FAGRleAekubW7PBQqA
-         BqZmy7Fxop6jrLR6gEoEAhvF5OWNwAc9RGVmwIOaNsAj4JrLVj/lG0e0AhACsq+EQ4Wq
-         YG5C0710Ga0ZAkAlzwrZ0aE6RTs8Ybirzz7wQO8AYrNGTAg66WXXeOdSHuKG+MVtlfRp
-         WW8/6hTckm02ibLJF5Mmwrtez0sJYaf2XnNge9SklbCyvNw5JHQOKyKNAXVqBpnKLywK
-         a0SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=eSrfHixI8CRkmO34CVpc+ZRZhqn7TykEpy53kp85QiA=;
-        b=tPdbO140e9H1ZykBSdOS1sQFcQliw1yX7WsoNtW5P8mE58BkjN0MQmegfcT7QoYkL0
-         dlRwtMWcqt63XC1BLm8mbpOWTjmD4skQO1M91lxWxOeDMhnTfllZXb45kSJk1/nz/LPV
-         DuqnT7v5/+LCncc5c3SL+fvSjkeIm4qSq4Su+YGIVKN0bI7dRftwzLSG/CCvw2UhQkgt
-         MI9JgZVHF6yyfTjLchUMzRWn30vB8zSP5UdyOIED6N0vswokzK9lpLptaRlrw+YVcPpy
-         bNMpsDzFTfgFdJsCrGgSOQeMActsaJUOq0xCPSF4Vz2dqkeVzqpfYL73jnre+7hjRlVq
-         de4w==
-X-Gm-Message-State: AOAM532WqNEdSX5myR5hooVsQc7OWgBPMPtGpTwlnpD941l1PNq/2pD2
-	f0/grLCakIBxjPUdQunyp80=
-X-Google-Smtp-Source: ABdhPJwOGO2pFef1l1LzMAhYURGFX6N0dKB995JVawqAKJ/up+SBjA54KSr/99C0K4P6g1kC8lNIfg==
-X-Received: by 2002:ac2:4ec1:: with SMTP id p1mr1707877lfr.394.1607554185331;
-        Wed, 09 Dec 2020 14:49:45 -0800 (PST)
-Subject: Re: [PATCH V3 14/23] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-15-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2012091357430.20986@sstabellini-ThinkPad-T480s>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <31e35f5d-5ab4-19bf-e36b-8e7c0b7bf7d4@gmail.com>
-Date: Thu, 10 Dec 2020 00:49:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=3MQJ9vloOwkHii0kvk6B1/G/TcoG2G3CSPvRoenFr9Q=; b=1P6Xm7LqFuAHlkLQjVhOBnZFtu
+	qBwWrkysyShYRewioM4fEl3dJKOG3dZB6x5O7lxkaDMCD0Tnff206vXIIdvvRTHUSHsKZWaP5oqIM
+	fwjuNQh8/XBlB1VkG9vqkVCbsjM9qj7O7XNZQbrJUGcqjo32orlqvvELPdsHLcgNACbk=;
+Subject: Re: [PATCH v3 1/7] xen/arm: Add ID registers and complete cpuinfo
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1607524536.git.bertrand.marquis@arm.com>
+ <aab713989bec4dc843bd513c03b305c83028851b.1607524536.git.bertrand.marquis@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <62484fa0-fa86-523a-12e0-54d69934d791@xen.org>
+Date: Wed, 9 Dec 2020 23:03:32 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2012091357430.20986@sstabellini-ThinkPad-T480s>
+In-Reply-To: <aab713989bec4dc843bd513c03b305c83028851b.1607524536.git.bertrand.marquis@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
+Hi Bertrand,
 
-On 10.12.20 00:04, Stefano Stabellini wrote:
+On 09/12/2020 16:30, Bertrand Marquis wrote:
+> Add definition and entries in cpuinfo for ID registers introduced in
+> newer Arm Architecture reference manual:
+> - ID_PFR2: processor feature register 2
+> - ID_DFR1: debug feature register 1
+> - ID_MMFR4 and ID_MMFR5: Memory model feature registers 4 and 5
+> - ID_ISA6: ISA Feature register 6
+> Add more bitfield definitions in PFR fields of cpuinfo.
+> Add MVFR2 register definition for aarch32.
+> Add mvfr values in cpuinfo.
+> Add some registers definition for arm64 in sysregs as some are not
+> always know by compilers.
+> Initialize the new values added in cpuinfo in identify_cpu during init.
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> 
+> ---
+> Changes in V2:
+>    Fix dbg32 table size and add proper initialisation of the second entry
+>    of the table by reading ID_DFR1 register.
+> Changes in V3:
+>    Fix typo in commit title
+>    Add MVFR2 definition and handling on aarch32 and remove specific case
+>    for mvfr field in cpuinfo (now the same on arm64 and arm32).
+>    Add MMFR4 definition if not known by the compiler.
+> 
+> ---
+>   xen/arch/arm/cpufeature.c           | 18 ++++++++++
+>   xen/include/asm-arm/arm64/sysregs.h | 28 +++++++++++++++
+>   xen/include/asm-arm/cpregs.h        | 12 +++++++
+>   xen/include/asm-arm/cpufeature.h    | 56 ++++++++++++++++++++++++-----
+>   4 files changed, 105 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index 44126dbf07..bc7ee5ac95 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -114,15 +114,20 @@ void identify_cpu(struct cpuinfo_arm *c)
+>   
+>           c->mm64.bits[0]  = READ_SYSREG64(ID_AA64MMFR0_EL1);
+>           c->mm64.bits[1]  = READ_SYSREG64(ID_AA64MMFR1_EL1);
+> +        c->mm64.bits[2]  = READ_SYSREG64(ID_AA64MMFR2_EL1);
+>   
+>           c->isa64.bits[0] = READ_SYSREG64(ID_AA64ISAR0_EL1);
+>           c->isa64.bits[1] = READ_SYSREG64(ID_AA64ISAR1_EL1);
+> +
+> +        c->zfr64.bits[0] = READ_SYSREG64(ID_AA64ZFR0_EL1);
+>   #endif
+>   
+>           c->pfr32.bits[0] = READ_SYSREG32(ID_PFR0_EL1);
+>           c->pfr32.bits[1] = READ_SYSREG32(ID_PFR1_EL1);
+> +        c->pfr32.bits[2] = READ_SYSREG32(ID_PFR2_EL1);
+>   
+>           c->dbg32.bits[0] = READ_SYSREG32(ID_DFR0_EL1);
+> +        c->dbg32.bits[1] = READ_SYSREG32(ID_DFR1_EL1);
+>   
+>           c->aux32.bits[0] = READ_SYSREG32(ID_AFR0_EL1);
+>   
+> @@ -130,6 +135,8 @@ void identify_cpu(struct cpuinfo_arm *c)
+>           c->mm32.bits[1]  = READ_SYSREG32(ID_MMFR1_EL1);
+>           c->mm32.bits[2]  = READ_SYSREG32(ID_MMFR2_EL1);
+>           c->mm32.bits[3]  = READ_SYSREG32(ID_MMFR3_EL1);
+> +        c->mm32.bits[4]  = READ_SYSREG32(ID_MMFR4_EL1);
+> +        c->mm32.bits[5]  = READ_SYSREG32(ID_MMFR5_EL1);
 
-Hi Stefano
+Please don't introduce any more use of READ_SYSREG32(), they are wrong 
+on Armv8 because system registers are always 64-bit.
 
-> On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
->> From: Julien Grall <julien.grall@arm.com>
->>
->> This patch adds basic IOREQ/DM support on Arm. The subsequent
->> patches will improve functionality and add remaining bits.
->>
->> The IOREQ/DM features are supposed to be built with IOREQ_SERVER
->> option enabled, which is disabled by default on Arm for now.
->>
->> Please note, the "PIO handling" TODO is expected to left unaddressed
->> for the current series. It is not an big issue for now while Xen
->> doesn't have support for vPCI on Arm. On Arm64 they are only used
->> for PCI IO Bar and we would probably want to expose them to emulator
->> as PIO access to make a DM completely arch-agnostic. So "PIO handling"
->> should be implemented when we add support for vPCI.
->>
->> Signed-off-by: Julien Grall <julien.grall@arm.com>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> ---
->> Please note, this is a split/cleanup/hardening of Julien's PoC:
->> "Add support for Guest IO forwarding to a device emulator"
->>
->> Changes RFC -> V1:
->>     - was split into:
->>       - arm/ioreq: Introduce arch specific bits for IOREQ/DM features
->>       - xen/mm: Handle properly reference in set_foreign_p2m_entry() on Arm
->>     - update patch description
->>     - update asm-arm/hvm/ioreq.h according to the newly introduced arch functions:
->>       - arch_hvm_destroy_ioreq_server()
->>       - arch_handle_hvm_io_completion()
->>     - update arch files to include xen/ioreq.h
->>     - remove HVMOP plumbing
->>     - rewrite a logic to handle properly case when hvm_send_ioreq() returns IO_RETRY
->>     - add a logic to handle properly handle_hvm_io_completion() return value
->>     - rename handle_mmio() to ioreq_handle_complete_mmio()
->>     - move paging_mark_pfn_dirty() to asm-arm/paging.h
->>     - remove forward declaration for hvm_ioreq_server in asm-arm/paging.h
->>     - move try_fwd_ioserv() to ioreq.c, provide stubs if !CONFIG_IOREQ_SERVER
->>     - do not remove #ifdef CONFIG_IOREQ_SERVER in memory.c for guarding xen/ioreq.h
->>     - use gdprintk in try_fwd_ioserv(), remove unneeded prints
->>     - update list of #include-s
->>     - move has_vpci() to asm-arm/domain.h
->>     - add a comment (TODO) to unimplemented yet handle_pio()
->>     - remove hvm_mmio_first(last)_byte() and hvm_ioreq_(page/vcpu/server) structs
->>       from the arch files, they were already moved to the common code
->>     - remove set_foreign_p2m_entry() changes, they will be properly implemented
->>       in the follow-up patch
->>     - select IOREQ_SERVER for Arm instead of Arm64 in Kconfig
->>     - remove x86's realmode and other unneeded stubs from xen/ioreq.h
->>     - clafify ioreq_t p.df usage in try_fwd_ioserv()
->>     - set ioreq_t p.count to 1 in try_fwd_ioserv()
->>
->> Changes V1 -> V2:
->>     - was split into:
->>       - arm/ioreq: Introduce arch specific bits for IOREQ/DM features
->>       - xen/arm: Stick around in leave_hypervisor_to_guest until I/O has completed
->>     - update the author of a patch
->>     - update patch description
->>     - move a loop in leave_hypervisor_to_guest() to a separate patch
->>     - set IOREQ_SERVER disabled by default
->>     - remove already clarified /* XXX */
->>     - replace BUG() by ASSERT_UNREACHABLE() in handle_pio()
->>     - remove default case for handling the return value of try_handle_mmio()
->>     - remove struct hvm_domain, enum hvm_io_completion, struct hvm_vcpu_io,
->>       struct hvm_vcpu from asm-arm/domain.h, these are common materials now
->>     - update everything according to the recent changes (IOREQ related function
->>       names don't contain "hvm" prefixes/infixes anymore, IOREQ related fields
->>       are part of common struct vcpu/domain now, etc)
->>
->> Changes V2 -> V3:
->>     - update patch according the "legacy interface" is x86 specific
->>     - add dummy arch hooks
->>     - remove dummy paging_mark_pfn_dirty()
->>     - don’t include <xen/domain_page.h> in common ioreq.c
->>     - don’t include <public/hvm/ioreq.h> in arch ioreq.h
->>     - remove #define ioreq_params(d, i)
->> ---
->> ---
->>   xen/arch/arm/Makefile           |   2 +
->>   xen/arch/arm/dm.c               |  34 ++++++++++
->>   xen/arch/arm/domain.c           |   9 +++
->>   xen/arch/arm/io.c               |  11 +++-
->>   xen/arch/arm/ioreq.c            | 141 ++++++++++++++++++++++++++++++++++++++++
->>   xen/arch/arm/traps.c            |  13 ++++
->>   xen/include/asm-arm/domain.h    |   3 +
->>   xen/include/asm-arm/hvm/ioreq.h | 139 +++++++++++++++++++++++++++++++++++++++
->>   xen/include/asm-arm/mmio.h      |   1 +
->>   9 files changed, 352 insertions(+), 1 deletion(-)
->>   create mode 100644 xen/arch/arm/dm.c
->>   create mode 100644 xen/arch/arm/ioreq.c
->>   create mode 100644 xen/include/asm-arm/hvm/ioreq.h
->>
->> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
->> index 296c5e6..c3ff454 100644
->> --- a/xen/arch/arm/Makefile
->> +++ b/xen/arch/arm/Makefile
->> @@ -13,6 +13,7 @@ obj-y += cpuerrata.o
->>   obj-y += cpufeature.o
->>   obj-y += decode.o
->>   obj-y += device.o
->> +obj-$(CONFIG_IOREQ_SERVER) += dm.o
->>   obj-y += domain.o
->>   obj-y += domain_build.init.o
->>   obj-y += domctl.o
->> @@ -27,6 +28,7 @@ obj-y += guest_atomics.o
->>   obj-y += guest_walk.o
->>   obj-y += hvm.o
->>   obj-y += io.o
->> +obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
->>   obj-y += irq.o
->>   obj-y += kernel.init.o
->>   obj-$(CONFIG_LIVEPATCH) += livepatch.o
->> diff --git a/xen/arch/arm/dm.c b/xen/arch/arm/dm.c
->> new file mode 100644
->> index 0000000..5d3da37
->> --- /dev/null
->> +++ b/xen/arch/arm/dm.c
->> @@ -0,0 +1,34 @@
->> +/*
->> + * Copyright (c) 2019 Arm ltd.
->> + *
->> + * This program is free software; you can redistribute it and/or modify it
->> + * under the terms and conditions of the GNU General Public License,
->> + * version 2, as published by the Free Software Foundation.
->> + *
->> + * This program is distributed in the hope it will be useful, but WITHOUT
->> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
->> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
->> + * more details.
->> + *
->> + * You should have received a copy of the GNU General Public License along with
->> + * this program; If not, see <http://www.gnu.org/licenses/>.
->> + */
->> +
->> +#include <xen/dm.h>
->> +#include <xen/hypercall.h>
->> +
->> +int arch_dm_op(struct xen_dm_op *op, struct domain *d,
->> +               const struct dmop_args *op_args, bool *const_op)
->> +{
->> +    return -EOPNOTSUPP;
->> +}
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * tab-width: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->> index 18cafcd..8f55aba 100644
->> --- a/xen/arch/arm/domain.c
->> +++ b/xen/arch/arm/domain.c
->> @@ -15,6 +15,7 @@
->>   #include <xen/guest_access.h>
->>   #include <xen/hypercall.h>
->>   #include <xen/init.h>
->> +#include <xen/ioreq.h>
->>   #include <xen/lib.h>
->>   #include <xen/livepatch.h>
->>   #include <xen/sched.h>
->> @@ -696,6 +697,10 @@ int arch_domain_create(struct domain *d,
->>   
->>       ASSERT(config != NULL);
->>   
->> +#ifdef CONFIG_IOREQ_SERVER
->> +    ioreq_domain_init(d);
->> +#endif
->> +
->>       /* p2m_init relies on some value initialized by the IOMMU subsystem */
->>       if ( (rc = iommu_domain_init(d, config->iommu_opts)) != 0 )
->>           goto fail;
->> @@ -1014,6 +1019,10 @@ int domain_relinquish_resources(struct domain *d)
->>           if (ret )
->>               return ret;
->>   
->> +#ifdef CONFIG_IOREQ_SERVER
->> +        ioreq_server_destroy_all(d);
->> +#endif
->> +
->>       PROGRESS(xen):
->>           ret = relinquish_memory(d, &d->xenpage_list);
->>           if ( ret )
->> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
->> index ae7ef96..f44cfd4 100644
->> --- a/xen/arch/arm/io.c
->> +++ b/xen/arch/arm/io.c
->> @@ -23,6 +23,7 @@
->>   #include <asm/cpuerrata.h>
->>   #include <asm/current.h>
->>   #include <asm/mmio.h>
->> +#include <asm/hvm/ioreq.h>
->>   
->>   #include "decode.h"
->>   
->> @@ -123,7 +124,15 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->>   
->>       handler = find_mmio_handler(v->domain, info.gpa);
->>       if ( !handler )
->> -        return IO_UNHANDLED;
->> +    {
->> +        int rc;
->> +
->> +        rc = try_fwd_ioserv(regs, v, &info);
->> +        if ( rc == IO_HANDLED )
->> +            return handle_ioserv(regs, v);
->> +
->> +        return rc;
->> +    }
->>   
->>       /* All the instructions used on emulated MMIO region should be valid */
->>       if ( !dabt.valid )
->> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
->> new file mode 100644
->> index 0000000..f08190c
->> --- /dev/null
->> +++ b/xen/arch/arm/ioreq.c
->> @@ -0,0 +1,141 @@
->> +/*
->> + * arm/ioreq.c: hardware virtual machine I/O emulation
->> + *
->> + * Copyright (c) 2019 Arm ltd.
->> + *
->> + * This program is free software; you can redistribute it and/or modify it
->> + * under the terms and conditions of the GNU General Public License,
->> + * version 2, as published by the Free Software Foundation.
->> + *
->> + * This program is distributed in the hope it will be useful, but WITHOUT
->> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
->> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
->> + * more details.
->> + *
->> + * You should have received a copy of the GNU General Public License along with
->> + * this program; If not, see <http://www.gnu.org/licenses/>.
->> + */
->> +
->> +#include <xen/domain.h>
->> +#include <xen/ioreq.h>
->> +
->> +#include <asm/traps.h>
->> +
->> +#include <public/hvm/ioreq.h>
->> +
->> +enum io_state handle_ioserv(struct cpu_user_regs *regs, struct vcpu *v)
->> +{
->> +    const union hsr hsr = { .bits = regs->hsr };
->> +    const struct hsr_dabt dabt = hsr.dabt;
->> +    /* Code is similar to handle_read */
->> +    uint8_t size = (1 << dabt.size) * 8;
->> +    register_t r = v->io.req.data;
->> +
->> +    /* We are done with the IO */
->> +    v->io.req.state = STATE_IOREQ_NONE;
->> +
->> +    if ( dabt.write )
->> +        return IO_HANDLED;
->> +
->> +    /*
->> +     * Sign extend if required.
->> +     * Note that we expect the read handler to have zeroed the bits
->> +     * outside the requested access size.
->> +     */
->> +    if ( dabt.sign && (r & (1UL << (size - 1))) )
->> +    {
->> +        /*
->> +         * We are relying on register_t using the same as
->> +         * an unsigned long in order to keep the 32-bit assembly
->> +         * code smaller.
->> +         */
->> +        BUILD_BUG_ON(sizeof(register_t) != sizeof(unsigned long));
->> +        r |= (~0UL) << size;
->> +    }
->> +
->> +    set_user_reg(regs, dabt.reg, r);
-> Could you introduce a set_user_reg_signextend static inline function
-> that can be used both here and in handle_read?
-Yes, already done (this was requested by Julien). Please see
-https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg86986.html
+>   
+>           c->isa32.bits[0] = READ_SYSREG32(ID_ISAR0_EL1);
+>           c->isa32.bits[1] = READ_SYSREG32(ID_ISAR1_EL1);
+> @@ -137,6 +144,17 @@ void identify_cpu(struct cpuinfo_arm *c)
+>           c->isa32.bits[3] = READ_SYSREG32(ID_ISAR3_EL1);
+>           c->isa32.bits[4] = READ_SYSREG32(ID_ISAR4_EL1);
+>           c->isa32.bits[5] = READ_SYSREG32(ID_ISAR5_EL1);
+> +        c->isa32.bits[6] = READ_SYSREG32(ID_ISAR6_EL1);
+> +
+> +#ifdef CONFIG_ARM_64
+> +        c->mvfr.bits[0] = READ_SYSREG64(MVFR0_EL1);
+> +        c->mvfr.bits[1] = READ_SYSREG64(MVFR1_EL1);
+> +        c->mvfr.bits[2] = READ_SYSREG64(MVFR2_EL1);
+> +#else
+> +        c->mvfr.bits[0] = READ_CP32(MVFR0);
+> +        c->mvfr.bits[1] = READ_CP32(MVFR1);
+> +        c->mvfr.bits[2] = READ_CP32(MVFR2);
+> +#endif
 
+READ_SYSREG() will do the job to either use READ_SYSREG64() or 
+READ_CP32() depending on the arch used.
 
->
->
->> +    return IO_HANDLED;
->> +}
->> +
->> +enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
->> +                             struct vcpu *v, mmio_info_t *info)
->> +{
->> +    struct vcpu_io *vio = &v->io;
->> +    ioreq_t p = {
->> +        .type = IOREQ_TYPE_COPY,
->> +        .addr = info->gpa,
->> +        .size = 1 << info->dabt.size,
->> +        .count = 1,
->> +        .dir = !info->dabt.write,
->> +        /*
->> +         * On x86, df is used by 'rep' instruction to tell the direction
->> +         * to iterate (forward or backward).
->> +         * On Arm, all the accesses to MMIO region will do a single
->> +         * memory access. So for now, we can safely always set to 0.
->> +         */
->> +        .df = 0,
->> +        .data = get_user_reg(regs, info->dabt.reg),
->> +        .state = STATE_IOREQ_READY,
->> +    };
->> +    struct ioreq_server *s = NULL;
->> +    enum io_state rc;
->> +
->> +    switch ( vio->req.state )
->> +    {
->> +    case STATE_IOREQ_NONE:
->> +        break;
->> +
->> +    case STATE_IORESP_READY:
->> +        return IO_HANDLED;
->> +
->> +    default:
->> +        gdprintk(XENLOG_ERR, "wrong state %u\n", vio->req.state);
->> +        return IO_ABORT;
->> +    }
->> +
->> +    s = ioreq_server_select(v->domain, &p);
->> +    if ( !s )
->> +        return IO_UNHANDLED;
->> +
->> +    if ( !info->dabt.valid )
->> +        return IO_ABORT;
->> +
->> +    vio->req = p;
->> +
->> +    rc = ioreq_send(s, &p, 0);
->> +    if ( rc != IO_RETRY || v->domain->is_shutting_down )
->> +        vio->req.state = STATE_IOREQ_NONE;
->> +    else if ( !ioreq_needs_completion(&vio->req) )
->> +        rc = IO_HANDLED;
->> +    else
->> +        vio->completion = IO_mmio_completion;
->> +
->> +    return rc;
->> +}
->> +
->> +bool ioreq_complete_mmio(void)
->> +{
->> +    struct vcpu *v = current;
->> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
->> +    const union hsr hsr = { .bits = regs->hsr };
->> +    paddr_t addr = v->io.req.addr;
->> +
->> +    if ( try_handle_mmio(regs, hsr, addr) == IO_HANDLED )
->> +    {
->> +        advance_pc(regs, hsr);
->> +        return true;
->> +    }
->> +
->> +    return false;
->> +}
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * tab-width: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
->> index 22bd1bd..036b13f 100644
->> --- a/xen/arch/arm/traps.c
->> +++ b/xen/arch/arm/traps.c
->> @@ -21,6 +21,7 @@
->>   #include <xen/hypercall.h>
->>   #include <xen/init.h>
->>   #include <xen/iocap.h>
->> +#include <xen/ioreq.h>
->>   #include <xen/irq.h>
->>   #include <xen/lib.h>
->>   #include <xen/mem_access.h>
->> @@ -1385,6 +1386,9 @@ static arm_hypercall_t arm_hypercall_table[] = {
->>   #ifdef CONFIG_HYPFS
->>       HYPERCALL(hypfs_op, 5),
->>   #endif
->> +#ifdef CONFIG_IOREQ_SERVER
->> +    HYPERCALL(dm_op, 3),
->> +#endif
->>   };
->>   
->>   #ifndef NDEBUG
->> @@ -1956,6 +1960,9 @@ static void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
->>               case IO_HANDLED:
->>                   advance_pc(regs, hsr);
->>                   return;
->> +            case IO_RETRY:
->> +                /* finish later */
->> +                return;
->>               case IO_UNHANDLED:
->>                   /* IO unhandled, try another way to handle it. */
->>                   break;
->> @@ -2254,6 +2261,12 @@ static void check_for_vcpu_work(void)
->>   {
->>       struct vcpu *v = current;
->>   
->> +#ifdef CONFIG_IOREQ_SERVER
->> +    local_irq_enable();
->> +    vcpu_ioreq_handle_completion(v);
->> +    local_irq_disable();
->> +#endif
->> +
->>       if ( likely(!v->arch.need_flush_to_ram) )
->>           return;
->>   
->> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
->> index 6819a3b..c235e5b 100644
->> --- a/xen/include/asm-arm/domain.h
->> +++ b/xen/include/asm-arm/domain.h
->> @@ -10,6 +10,7 @@
->>   #include <asm/gic.h>
->>   #include <asm/vgic.h>
->>   #include <asm/vpl011.h>
->> +#include <public/hvm/dm_op.h>
->>   #include <public/hvm/params.h>
->>   
->>   struct hvm_domain
->> @@ -262,6 +263,8 @@ static inline void arch_vcpu_block(struct vcpu *v) {}
->>   
->>   #define arch_vm_assist_valid_mask(d) (1UL << VMASST_TYPE_runstate_update_flag)
->>   
->> +#define has_vpci(d)    ({ (void)(d); false; })
->> +
->>   #endif /* __ASM_DOMAIN_H__ */
->>   
->>   /*
->> diff --git a/xen/include/asm-arm/hvm/ioreq.h b/xen/include/asm-arm/hvm/ioreq.h
->> new file mode 100644
->> index 0000000..2bffc7a
->> --- /dev/null
->> +++ b/xen/include/asm-arm/hvm/ioreq.h
->> @@ -0,0 +1,139 @@
->> +/*
->> + * hvm.h: Hardware virtual machine assist interface definitions.
->> + *
->> + * Copyright (c) 2016 Citrix Systems Inc.
->> + * Copyright (c) 2019 Arm ltd.
->> + *
->> + * This program is free software; you can redistribute it and/or modify it
->> + * under the terms and conditions of the GNU General Public License,
->> + * version 2, as published by the Free Software Foundation.
->> + *
->> + * This program is distributed in the hope it will be useful, but WITHOUT
->> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
->> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
->> + * more details.
->> + *
->> + * You should have received a copy of the GNU General Public License along with
->> + * this program; If not, see <http://www.gnu.org/licenses/>.
->> + */
->> +
->> +#ifndef __ASM_ARM_HVM_IOREQ_H__
->> +#define __ASM_ARM_HVM_IOREQ_H__
->> +
->> +#include <xen/ioreq.h>
->> +
->> +#ifdef CONFIG_IOREQ_SERVER
->> +enum io_state handle_ioserv(struct cpu_user_regs *regs, struct vcpu *v);
->> +enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
->> +                             struct vcpu *v, mmio_info_t *info);
->> +#else
->> +static inline enum io_state handle_ioserv(struct cpu_user_regs *regs,
->> +                                          struct vcpu *v)
->> +{
->> +    return IO_UNHANDLED;
->> +}
->> +
->> +static inline enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
->> +                                           struct vcpu *v, mmio_info_t *info)
->> +{
->> +    return IO_UNHANDLED;
->> +}
->> +#endif
-> If we are providing stub functions, then we can also provide stub
-> functions for:
->
-> ioreq_domain_init
-> ioreq_server_destroy_all
->
-> and avoid the ifdefs.
-I got your point. These are common IOREQ interface functions, which 
-declarations live in the common header, should I provide
-stubs in the common ioreq.h?
+>   }
+>   
+>   /*
+> diff --git a/xen/include/asm-arm/arm64/sysregs.h b/xen/include/asm-arm/arm64/sysregs.h
+> index c60029d38f..077fd95fb7 100644
+> --- a/xen/include/asm-arm/arm64/sysregs.h
+> +++ b/xen/include/asm-arm/arm64/sysregs.h
+> @@ -57,6 +57,34 @@
+>   #define ICH_AP1R2_EL2             __AP1Rx_EL2(2)
+>   #define ICH_AP1R3_EL2             __AP1Rx_EL2(3)
+>   
+> +/*
+> + * Define ID coprocessor registers if they are not
+> + * already defined by the compiler.
+> + *
+> + * Values picked from linux kernel
+> + */
+> +#ifndef ID_AA64MMFR2_EL1
 
+I am a bit puzzled how this meant to work. Will the libc/compiler 
+headers define ID_AA64MMFR2_EL1?
 
->
->
->> +bool ioreq_complete_mmio(void);
->> +
->> +static inline bool handle_pio(uint16_t port, unsigned int size, int dir)
->> +{
->> +    /*
->> +     * TODO: For Arm64, the main user will be PCI. So this should be
->> +     * implemented when we add support for vPCI.
->> +     */
->> +    ASSERT_UNREACHABLE();
->> +    return true;
->> +}
->> +
->> +static inline void msix_write_completion(struct vcpu *v)
->> +{
->> +}
->> +
->> +static inline bool arch_vcpu_ioreq_completion(enum io_completion io_completion)
->> +{
->> +    ASSERT_UNREACHABLE();
->> +    return true;
->> +}
->> +
->> +/*
->> + * The "legacy" mechanism of mapping magic pages for the IOREQ servers
->> + * is x86 specific, so the following hooks don't need to be implemented on Arm:
->> + * - arch_ioreq_server_map_pages
->> + * - arch_ioreq_server_unmap_pages
->> + * - arch_ioreq_server_enable
->> + * - arch_ioreq_server_disable
->> + */
->> +static inline int arch_ioreq_server_map_pages(struct ioreq_server *s)
->> +{
->> +    return -EOPNOTSUPP;
->> +}
->> +
->> +static inline void arch_ioreq_server_unmap_pages(struct ioreq_server *s)
->> +{
->> +}
->> +
->> +static inline void arch_ioreq_server_enable(struct ioreq_server *s)
->> +{
->> +}
->> +
->> +static inline void arch_ioreq_server_disable(struct ioreq_server *s)
->> +{
->> +}
->> +
->> +static inline void arch_ioreq_server_destroy(struct ioreq_server *s)
->> +{
->> +}
->> +
->> +static inline int arch_ioreq_server_map_mem_type(struct domain *d,
->> +                                                 struct ioreq_server *s,
->> +                                                 uint32_t flags)
->> +{
->> +    return -EOPNOTSUPP;
->> +}
->> +
->> +static inline bool arch_ioreq_server_destroy_all(struct domain *d)
->> +{
->> +    return true;
->> +}
->> +
->> +static inline int arch_ioreq_server_get_type_addr(const struct domain *d,
->> +                                                  const ioreq_t *p,
->> +                                                  uint8_t *type,
->> +                                                  uint64_t *addr)
->> +{
->> +    if ( p->type != IOREQ_TYPE_COPY && p->type != IOREQ_TYPE_PIO )
->> +        return -EINVAL;
->> +
->> +    *type = (p->type == IOREQ_TYPE_PIO) ?
->> +             XEN_DMOP_IO_RANGE_PORT : XEN_DMOP_IO_RANGE_MEMORY;
->> +    *addr = p->addr;
-> This function is not used in this patch and PIOs are left unimplemented
-> according to a few comments, so I am puzzled by this code here. Do we
-> need it?
-Yes. It is called from ioreq_server_select (common/ioreq.c). I could 
-just skip PIO case and use
-*type = XEN_DMOP_IO_RANGE_MEMORY, but I didn't want to diverge.
+> +#define ID_AA64MMFR2_EL1            S3_0_C0_C7_2
+> +#endif
+> +#ifndef ID_PFR2_EL1
+> +#define ID_PFR2_EL1                 S3_0_C0_C3_4
+> +#endif
+> +#ifndef ID_MMFR4_EL1
+> +#define ID_MMFR4_EL1                S3_0_C0_C2_6
+> +#endif
+> +#ifndef ID_MMFR5_EL1
+> +#define ID_MMFR5_EL1                S3_0_C0_C3_6
+> +#endif
+> +#ifndef ID_ISAR6_EL1
+> +#define ID_ISAR6_EL1                S3_0_C0_C2_7
+> +#endif
+> +#ifndef ID_AA64ZFR0_EL1
+> +#define ID_AA64ZFR0_EL1             S3_0_C0_C4_4
+> +#endif
+> +#ifndef ID_DFR1_EL1
+> +#define ID_DFR1_EL1                 S3_0_C0_C3_5
+> +#endif
+> +
+>   /* Access to system registers */
+>   
+>   #define READ_SYSREG32(name) ((uint32_t)READ_SYSREG64(name))
+> diff --git a/xen/include/asm-arm/cpregs.h b/xen/include/asm-arm/cpregs.h
+> index 8fd344146e..2690ddeb7a 100644
+> --- a/xen/include/asm-arm/cpregs.h
+> +++ b/xen/include/asm-arm/cpregs.h
+> @@ -63,6 +63,8 @@
+>   #define FPSID           p10,7,c0,c0,0   /* Floating-Point System ID Register */
+>   #define FPSCR           p10,7,c1,c0,0   /* Floating-Point Status and Control Register */
+>   #define MVFR0           p10,7,c7,c0,0   /* Media and VFP Feature Register 0 */
+> +#define MVFR1           p10,7,c6,c0,0   /* Media and VFP Feature Register 1 */
+> +#define MVFR2           p10,7,c5,c0,0   /* Media and VFP Feature Register 2 */
+>   #define FPEXC           p10,7,c8,c0,0   /* Floating-Point Exception Control Register */
+>   #define FPINST          p10,7,c9,c0,0   /* Floating-Point Instruction Register */
+>   #define FPINST2         p10,7,c10,c0,0  /* Floating-point Instruction Register 2 */
+> @@ -108,18 +110,23 @@
+>   #define MPIDR           p15,0,c0,c0,5   /* Multiprocessor Affinity Register */
+>   #define ID_PFR0         p15,0,c0,c1,0   /* Processor Feature Register 0 */
+>   #define ID_PFR1         p15,0,c0,c1,1   /* Processor Feature Register 1 */
+> +#define ID_PFR2         p15,0,c0,c3,4   /* Processor Feature Register 2 */
+>   #define ID_DFR0         p15,0,c0,c1,2   /* Debug Feature Register 0 */
+> +#define ID_DFR1         p15,0,c0,c3,5   /* Debug Feature Register 1 */
+>   #define ID_AFR0         p15,0,c0,c1,3   /* Auxiliary Feature Register 0 */
+>   #define ID_MMFR0        p15,0,c0,c1,4   /* Memory Model Feature Register 0 */
+>   #define ID_MMFR1        p15,0,c0,c1,5   /* Memory Model Feature Register 1 */
+>   #define ID_MMFR2        p15,0,c0,c1,6   /* Memory Model Feature Register 2 */
+>   #define ID_MMFR3        p15,0,c0,c1,7   /* Memory Model Feature Register 3 */
+> +#define ID_MMFR4        p15,0,c0,c2,6   /* Memory Model Feature Register 4 */
+> +#define ID_MMFR5        p15,0,c0,c3,6   /* Memory Model Feature Register 5 */
+>   #define ID_ISAR0        p15,0,c0,c2,0   /* ISA Feature Register 0 */
+>   #define ID_ISAR1        p15,0,c0,c2,1   /* ISA Feature Register 1 */
+>   #define ID_ISAR2        p15,0,c0,c2,2   /* ISA Feature Register 2 */
+>   #define ID_ISAR3        p15,0,c0,c2,3   /* ISA Feature Register 3 */
+>   #define ID_ISAR4        p15,0,c0,c2,4   /* ISA Feature Register 4 */
+>   #define ID_ISAR5        p15,0,c0,c2,5   /* ISA Feature Register 5 */
+> +#define ID_ISAR6        p15,0,c0,c2,7   /* ISA Feature Register 6 */
+>   #define CCSIDR          p15,1,c0,c0,0   /* Cache Size ID Registers */
+>   #define CLIDR           p15,1,c0,c0,1   /* Cache Level ID Register */
+>   #define CSSELR          p15,2,c0,c0,0   /* Cache Size Selection Register */
+> @@ -312,18 +319,23 @@
+>   #define HSTR_EL2                HSTR
+>   #define ID_AFR0_EL1             ID_AFR0
+>   #define ID_DFR0_EL1             ID_DFR0
+> +#define ID_DFR1_EL1             ID_DFR1
+>   #define ID_ISAR0_EL1            ID_ISAR0
+>   #define ID_ISAR1_EL1            ID_ISAR1
+>   #define ID_ISAR2_EL1            ID_ISAR2
+>   #define ID_ISAR3_EL1            ID_ISAR3
+>   #define ID_ISAR4_EL1            ID_ISAR4
+>   #define ID_ISAR5_EL1            ID_ISAR5
+> +#define ID_ISAR6_EL1            ID_ISAR6
+>   #define ID_MMFR0_EL1            ID_MMFR0
+>   #define ID_MMFR1_EL1            ID_MMFR1
+>   #define ID_MMFR2_EL1            ID_MMFR2
+>   #define ID_MMFR3_EL1            ID_MMFR3
+> +#define ID_MMFR4_EL1            ID_MMFR4
+> +#define ID_MMFR5_EL1            ID_MMFR5
+>   #define ID_PFR0_EL1             ID_PFR0
+>   #define ID_PFR1_EL1             ID_PFR1
+> +#define ID_PFR2_EL1             ID_PFR2
+>   #define IFSR32_EL2              IFSR
+>   #define MDCR_EL2                HDCR
+>   #define MIDR_EL1                MIDR
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index c7b5052992..6cf83d775b 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -148,6 +148,7 @@ struct cpuinfo_arm {
+>       union {
+>           uint64_t bits[2];
+>           struct {
+> +            /* PFR0 */
+>               unsigned long el0:4;
+>               unsigned long el1:4;
+>               unsigned long el2:4;
+> @@ -155,9 +156,23 @@ struct cpuinfo_arm {
+>               unsigned long fp:4;   /* Floating Point */
+>               unsigned long simd:4; /* Advanced SIMD */
+>               unsigned long gic:4;  /* GIC support */
+> -            unsigned long __res0:28;
+> +            unsigned long ras:4;
+> +            unsigned long sve:4;
+> +            unsigned long sel2:4;
+> +            unsigned long mpam:4;
+> +            unsigned long amu:4;
+> +            unsigned long dit:4;
+> +            unsigned long __res0:4;
+>               unsigned long csv2:4;
+> -            unsigned long __res1:4;
+> +            unsigned long cvs3:4;
+> +
+> +            /* PFR1 */
+> +            unsigned long bt:4;
+> +            unsigned long ssbs:4;
+> +            unsigned long mte:4;
+> +            unsigned long ras_frac:4;
+> +            unsigned long mpam_frac:4;
+> +            unsigned long __res1:44;
+>           };
+>       } pfr64;
+>   
+> @@ -170,7 +185,7 @@ struct cpuinfo_arm {
+>       } aux64;
+>   
+>       union {
+> -        uint64_t bits[2];
+> +        uint64_t bits[3];
+>           struct {
+>               unsigned long pa_range:4;
+>               unsigned long asid_bits:4;
+> @@ -190,6 +205,8 @@ struct cpuinfo_arm {
+>               unsigned long pan:4;
+>               unsigned long __res1:8;
+>               unsigned long __res2:32;
+> +
+> +            unsigned long __res3:64;
+>           };
+>       } mm64;
+>   
+> @@ -197,6 +214,10 @@ struct cpuinfo_arm {
+>           uint64_t bits[2];
+>       } isa64;
+>   
+> +    struct {
+> +        uint64_t bits[1];
+> +    } zfr64;
+> +
+>   #endif
+>   
+>       /*
+> @@ -204,25 +225,38 @@ struct cpuinfo_arm {
+>        * when running in 32-bit mode.
+>        */
+>       union {
+> -        uint32_t bits[2];
+> +        uint32_t bits[3];
+>           struct {
+> +            /* PFR0 */
+>               unsigned long arm:4;
+>               unsigned long thumb:4;
+>               unsigned long jazelle:4;
+>               unsigned long thumbee:4;
+> -            unsigned long __res0:16;
+> +            unsigned long csv2:4;
+> +            unsigned long amu:4;
+> +            unsigned long dit:4;
+> +            unsigned long ras:4;
+>   
+> +            /* PFR1 */
+>               unsigned long progmodel:4;
+>               unsigned long security:4;
+>               unsigned long mprofile:4;
+>               unsigned long virt:4;
+>               unsigned long gentimer:4;
+> -            unsigned long __res1:12;
+> +            unsigned long sec_frac:4;
+> +            unsigned long virt_frac:4;
+> +            unsigned long gic:4;
+> +
+> +            /* PFR2 */
+> +            unsigned long csv3:4;
+> +            unsigned long ssbs:4;
+> +            unsigned long ras_frac:4;
+> +            unsigned long __res2:20;
+>           };
+>       } pfr32;
+>   
+>       struct {
+> -        uint32_t bits[1];
+> +        uint32_t bits[2];
+>       } dbg32;
+>   
+>       struct {
+> @@ -230,12 +264,16 @@ struct cpuinfo_arm {
+>       } aux32;
+>   
+>       struct {
+> -        uint32_t bits[4];
+> +        uint32_t bits[6];
+>       } mm32;
+>   
+>       struct {
+> -        uint32_t bits[6];
+> +        uint32_t bits[7];
+>       } isa32;
+> +
+> +    struct {
+> +        uint64_t bits[3];
 
+Shouldn't this be register_t?
+
+> +    } mvfr;
+>   };
+>   
+>   extern struct cpuinfo_arm boot_cpu_data;
+> 
 
 -- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Julien Grall
 
