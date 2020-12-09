@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCEA32D4EF6
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 00:48:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48878.86481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74FC02D4EFB
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 00:49:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48883.86493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn9BZ-0003BT-Ij; Wed, 09 Dec 2020 23:47:53 +0000
+	id 1kn9DA-0003MI-24; Wed, 09 Dec 2020 23:49:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48878.86481; Wed, 09 Dec 2020 23:47:53 +0000
+Received: by outflank-mailman (output) from mailman id 48883.86493; Wed, 09 Dec 2020 23:49:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn9BZ-0003B4-FN; Wed, 09 Dec 2020 23:47:53 +0000
-Received: by outflank-mailman (input) for mailman id 48878;
- Wed, 09 Dec 2020 23:47:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kn9BX-0003Az-9L
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 23:47:51 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kn9BV-0005VF-UI; Wed, 09 Dec 2020 23:47:49 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kn9BV-0003Mp-Lu; Wed, 09 Dec 2020 23:47:49 +0000
+	id 1kn9D9-0003Ls-Rk; Wed, 09 Dec 2020 23:49:31 +0000
+Received: by outflank-mailman (input) for mailman id 48883;
+ Wed, 09 Dec 2020 23:49:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/xMB=FN=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kn9D8-0003LX-9W
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 23:49:30 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 681a309f-298e-48df-8bae-3405f40b94aa;
+ Wed, 09 Dec 2020 23:49:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,117 +35,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=UONJBA/KX+vQqohI3/fhkl5eeQUbAO/CODqEwYJ967o=; b=oOfhfeHephQ8rgxIDGdlY10Ijp
-	DxxN5YwGMFpJkiYKsdbp+icgQEO3TJSyKo7K1tasOf+ikcbWK/fZp08Lc7WrW6oAqC8V+YLZsM7TD
-	EvB+iJnKRtT0U3jf+ygLz5jS4FRB1X8aLzvYeawQrtZQLzr7EE/I4zkCUUO2b8/LdIXE=;
-Subject: Re: [PATCH V3 15/23] xen/arm: Stick around in
- leave_hypervisor_to_guest until I/O has completed
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-16-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2012091432450.20986@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.2012091521480.20986@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <52799b99-6405-03f4-2a46-3a0a4aac597f@xen.org>
-Date: Wed, 9 Dec 2020 23:47:47 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: 681a309f-298e-48df-8bae-3405f40b94aa
+Date: Wed, 9 Dec 2020 15:49:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1607557769;
+	bh=1Xsr9Fqgal0YfsSPjBnxq5MBvfuYZJtTBbrypfnMCCk=;
+	h=From:To:cc:Subject:In-Reply-To:References:From;
+	b=Zpd+Wua8J7b10g7L542pszU4FDCroAtpQB1LKXA/0mHIHG1gl9S3Yv5KI4EhK5Dbi
+	 UIXi/V6EI0h25SsBDv1Of5wyRkJaEyUdTq23wyuIqYMmzcrLhO62v/CqSlze3XeARS
+	 QOZXmn3gFE7oKHhqUCS7mcVlFukEnmunB2Yr12bTBJrX8240cJCG60wWKNu7znRLwc
+	 g5BXc3FOnJ5Y8pGcC5iiBymxn6CyahJ6aRU91n2+zeKBA9KbxSBgA+nNHXBObOJOdZ
+	 Hu4u8flHgeFF35oAoTctg7g+vPzJoA9CRrYVREay+zZ8nERKQZ6SDpMAKtTGtzZokH
+	 23dxsvvRCzKJQ==
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Julien Grall <julien.grall@arm.com>
+Subject: Re: [PATCH V3 16/23] xen/mm: Handle properly reference in
+ set_foreign_p2m_entry() on Arm
+In-Reply-To: <1606732298-22107-17-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.21.2012091549140.20986@sstabellini-ThinkPad-T480s>
+References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com> <1606732298-22107-17-git-send-email-olekstysh@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2012091521480.20986@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323329-1214772993-1607557769=:20986"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
+--8323329-1214772993-1607557769=:20986
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-On 09/12/2020 23:35, Stefano Stabellini wrote:
-> On Wed, 9 Dec 2020, Stefano Stabellini wrote:
->> On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
->>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>
->>> This patch adds proper handling of return value of
->>> vcpu_ioreq_handle_completion() which involves using a loop
->>> in leave_hypervisor_to_guest().
->>>
->>> The reason to use an unbounded loop here is the fact that vCPU
->>> shouldn't continue until an I/O has completed. In Xen case, if an I/O
->>> never completes then it most likely means that something went horribly
->>> wrong with the Device Emulator. And it is most likely not safe to
->>> continue. So letting the vCPU to spin forever if I/O never completes
->>> is a safer action than letting it continue and leaving the guest in
->>> unclear state and is the best what we can do for now.
->>>
->>> This wouldn't be an issue for Xen as do_softirq() would be called at
->>> every loop. In case of failure, the guest will crash and the vCPU
->>> will be unscheduled.
->>
->> Imagine that we have two guests: one that requires an ioreq server and
->> one that doesn't. If I am not mistaken this loop could potentially spin
->> forever on a pcpu, thus preventing any other guest being scheduled, even
->> if the other guest doesn't need any ioreq servers.
->>
->>
->> My other concern is that we are busy-looping. Could we call something
->> like wfi() or do_idle() instead? The ioreq server event notification of
->> completion should wake us up?
->>
->> Following this line of thinking, I am wondering if instead of the
->> busy-loop we should call vcpu_block_unless_event_pending(current) in
->> try_handle_mmio if IO_RETRY. Then when the emulation is done, QEMU (or
->> equivalent) calls xenevtchn_notify which ends up waking up the domU
->> vcpu. Would that work?
+On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> I read now Julien's reply: we are already doing something similar to
-> what I suggested with the following call chain:
+> This patch implements reference counting of foreign entries in
+> in set_foreign_p2m_entry() on Arm. This is a mandatory action if
+> we want to run emulator (IOREQ server) in other than dom0 domain,
+> as we can't trust it to do the right thing if it is not running
+> in dom0. So we need to grab a reference on the page to avoid it
+> disappearing.
 > 
-> check_for_vcpu_work -> vcpu_ioreq_handle_completion -> wait_for_io -> wait_on_xen_event_channel
+> It is valid to always pass "p2m_map_foreign_rw" type to
+> guest_physmap_add_entry() since the current and foreign domains
+> would be always different. A case when they are equal would be
+> rejected by rcu_lock_remote_domain_by_id(). Besides the similar
+> comment in the code put a respective ASSERT() to catch incorrect
+> usage in future.
 > 
-> So the busy-loop here is only a safety-belt in cause of a spurious
-> wake-up, in which case we are going to call again check_for_vcpu_work,
-> potentially causing a guest reschedule.
+> It was tested with IOREQ feature to confirm that all the pages given
+> to this function belong to a domain, so we can use the same approach
+> as for XENMAPSPACE_gmfn_foreign handling in xenmem_add_to_physmap_one().
 > 
-> Then, this is fine and addresses both my concerns. Maybe let's add a note
-> in the commit message about it.
-
-Damm, I hit the "sent" button just a second before seen your reply. :/ 
-Oh well. I suggested the same because I have seen the same question 
-multiple time.
-
+> This involves adding an extra parameter for the foreign domain to
+> set_foreign_p2m_entry() and a helper to indicate whether the arch
+> supports the reference counting of foreign entries and the restriction
+> for the hardware domain in the common code can be skipped for it.
 > 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> CC: Julien Grall <julien.grall@arm.com>
+
+The arm side looks OK to me
+
+
+> ---
+> Please note, this is a split/cleanup/hardening of Julien's PoC:
+> "Add support for Guest IO forwarding to a device emulator"
 > 
-> I am also wondering if there is any benefit in calling wait_for_io()
-> earlier, maybe from try_handle_mmio if IO_RETRY?
-
-wait_for_io() may end up to deschedule the vCPU. I would like to avoid 
-this to happen in the middle of the I/O emulation because we need to 
-happen it without lock held at all.
-
-I don't think there are locks involved today, but the deeper in the call 
-stack the scheduling happens, the more chance we may screw up in the future.
-
-However...
-
-> leave_hypervisor_to_guest is very late for that.
-
-... I am not sure what's the problem with that. The IOREQ will be 
-notified of the pending I/O as soon as try_handle_mmio() put the I/O in 
-the shared page.
-
-If the IOREQ server is running on a different pCPU, then it might be 
-possible that the I/O has completed before reached 
-leave_hypervisor_to_guest(). In this case, we would not have to wait for 
-the I/O.
-
-Cheers,
-
--- 
-Julien Grall
+> Changes RFC -> V1:
+>    - new patch, was split from:
+>      "[RFC PATCH V1 04/12] xen/arm: Introduce arch specific bits for IOREQ/DM features"
+>    - rewrite a logic to handle properly reference in set_foreign_p2m_entry()
+>      instead of treating foreign entries as p2m_ram_rw
+> 
+> Changes V1 -> V2:
+>    - rebase according to the recent changes to acquire_resource()
+>    - update patch description
+>    - introduce arch_refcounts_p2m()
+>    - add an explanation why p2m_map_foreign_rw is valid
+>    - move set_foreign_p2m_entry() to p2m-common.h
+>    - add const to new parameter
+> 
+> Changes V2 -> V3:
+>    - update patch description
+>    - rename arch_refcounts_p2m() to arch_acquire_resource_check()
+>    - move comment to x86’s arch_acquire_resource_check()
+>    - return rc in Arm's set_foreign_p2m_entry()
+>    - put a respective ASSERT() into Arm's set_foreign_p2m_entry()
+> ---
+> ---
+>  xen/arch/arm/p2m.c           | 24 ++++++++++++++++++++++++
+>  xen/arch/x86/mm/p2m.c        |  5 +++--
+>  xen/common/memory.c          | 10 +++-------
+>  xen/include/asm-arm/p2m.h    | 19 +++++++++----------
+>  xen/include/asm-x86/p2m.h    | 16 +++++++++++++---
+>  xen/include/xen/p2m-common.h |  4 ++++
+>  6 files changed, 56 insertions(+), 22 deletions(-)
+> 
+> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+> index 4eeb867..5b8d494 100644
+> --- a/xen/arch/arm/p2m.c
+> +++ b/xen/arch/arm/p2m.c
+> @@ -1380,6 +1380,30 @@ int guest_physmap_remove_page(struct domain *d, gfn_t gfn, mfn_t mfn,
+>      return p2m_remove_mapping(d, gfn, (1 << page_order), mfn);
+>  }
+>  
+> +int set_foreign_p2m_entry(struct domain *d, const struct domain *fd,
+> +                          unsigned long gfn, mfn_t mfn)
+> +{
+> +    struct page_info *page = mfn_to_page(mfn);
+> +    int rc;
+> +
+> +    if ( !get_page(page, fd) )
+> +        return -EINVAL;
+> +
+> +    /*
+> +     * It is valid to always use p2m_map_foreign_rw here as if this gets
+> +     * called then d != fd. A case when d == fd would be rejected by
+> +     * rcu_lock_remote_domain_by_id() earlier. Put a respective ASSERT()
+> +     * to catch incorrect usage in future.
+> +     */
+> +    ASSERT(d != fd);
+> +
+> +    rc = guest_physmap_add_entry(d, _gfn(gfn), mfn, 0, p2m_map_foreign_rw);
+> +    if ( rc )
+> +        put_page(page);
+> +
+> +    return rc;
+> +}
+> +
+>  static struct page_info *p2m_allocate_root(void)
+>  {
+>      struct page_info *page;
+> diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
+> index 7a2ba82..4772c86 100644
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -1321,7 +1321,8 @@ static int set_typed_p2m_entry(struct domain *d, unsigned long gfn_l,
+>  }
+>  
+>  /* Set foreign mfn in the given guest's p2m table. */
+> -int set_foreign_p2m_entry(struct domain *d, unsigned long gfn, mfn_t mfn)
+> +int set_foreign_p2m_entry(struct domain *d, const struct domain *fd,
+> +                          unsigned long gfn, mfn_t mfn)
+>  {
+>      return set_typed_p2m_entry(d, gfn, mfn, PAGE_ORDER_4K, p2m_map_foreign,
+>                                 p2m_get_hostp2m(d)->default_access);
+> @@ -2621,7 +2622,7 @@ int p2m_add_foreign(struct domain *tdom, unsigned long fgfn,
+>       * will update the m2p table which will result in  mfn -> gpfn of dom0
+>       * and not fgfn of domU.
+>       */
+> -    rc = set_foreign_p2m_entry(tdom, gpfn, mfn);
+> +    rc = set_foreign_p2m_entry(tdom, fdom, gpfn, mfn);
+>      if ( rc )
+>          gdprintk(XENLOG_WARNING, "set_foreign_p2m_entry failed. "
+>                   "gpfn:%lx mfn:%lx fgfn:%lx td:%d fd:%d\n",
+> diff --git a/xen/common/memory.c b/xen/common/memory.c
+> index 3363c06..49e3001 100644
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -1134,12 +1134,8 @@ static int acquire_resource(
+>      xen_pfn_t mfn_list[32];
+>      int rc;
+>  
+> -    /*
+> -     * FIXME: Until foreign pages inserted into the P2M are properly
+> -     *        reference counted, it is unsafe to allow mapping of
+> -     *        resource pages unless the caller is the hardware domain.
+> -     */
+> -    if ( paging_mode_translate(currd) && !is_hardware_domain(currd) )
+> +    if ( paging_mode_translate(currd) && !is_hardware_domain(currd) &&
+> +         !arch_acquire_resource_check() )
+>          return -EACCES;
+>  
+>      if ( copy_from_guest(&xmar, arg, 1) )
+> @@ -1207,7 +1203,7 @@ static int acquire_resource(
+>  
+>          for ( i = 0; !rc && i < xmar.nr_frames; i++ )
+>          {
+> -            rc = set_foreign_p2m_entry(currd, gfn_list[i],
+> +            rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
+>                                         _mfn(mfn_list[i]));
+>              /* rc should be -EIO for any iteration other than the first */
+>              if ( rc && i )
+> diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
+> index 28ca9a8..4f8056e 100644
+> --- a/xen/include/asm-arm/p2m.h
+> +++ b/xen/include/asm-arm/p2m.h
+> @@ -161,6 +161,15 @@ typedef enum {
+>  #endif
+>  #include <xen/p2m-common.h>
+>  
+> +static inline bool arch_acquire_resource_check(void)
+> +{
+> +    /*
+> +     * The reference counting of foreign entries in set_foreign_p2m_entry()
+> +     * is supported on Arm.
+> +     */
+> +    return true;
+> +}
+> +
+>  static inline
+>  void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
+>  {
+> @@ -392,16 +401,6 @@ static inline gfn_t gfn_next_boundary(gfn_t gfn, unsigned int order)
+>      return gfn_add(gfn, 1UL << order);
+>  }
+>  
+> -static inline int set_foreign_p2m_entry(struct domain *d, unsigned long gfn,
+> -                                        mfn_t mfn)
+> -{
+> -    /*
+> -     * NOTE: If this is implemented then proper reference counting of
+> -     *       foreign entries will need to be implemented.
+> -     */
+> -    return -EOPNOTSUPP;
+> -}
+> -
+>  /*
+>   * A vCPU has cache enabled only when the MMU is enabled and data cache
+>   * is enabled.
+> diff --git a/xen/include/asm-x86/p2m.h b/xen/include/asm-x86/p2m.h
+> index 4603560..8d2dc22 100644
+> --- a/xen/include/asm-x86/p2m.h
+> +++ b/xen/include/asm-x86/p2m.h
+> @@ -382,6 +382,19 @@ struct p2m_domain {
+>  #endif
+>  #include <xen/p2m-common.h>
+>  
+> +static inline bool arch_acquire_resource_check(void)
+> +{
+> +    /*
+> +     * The reference counting of foreign entries in set_foreign_p2m_entry()
+> +     * is not supported on x86.
+> +     *
+> +     * FIXME: Until foreign pages inserted into the P2M are properly
+> +     * reference counted, it is unsafe to allow mapping of
+> +     * resource pages unless the caller is the hardware domain.
+> +     */
+> +    return false;
+> +}
+> +
+>  /*
+>   * Updates vCPU's n2pm to match its np2m_base in VMCx12 and returns that np2m.
+>   */
+> @@ -647,9 +660,6 @@ int p2m_finish_type_change(struct domain *d,
+>  int p2m_is_logdirty_range(struct p2m_domain *, unsigned long start,
+>                            unsigned long end);
+>  
+> -/* Set foreign entry in the p2m table (for priv-mapping) */
+> -int set_foreign_p2m_entry(struct domain *d, unsigned long gfn, mfn_t mfn);
+> -
+>  /* Set mmio addresses in the p2m table (for pass-through) */
+>  int set_mmio_p2m_entry(struct domain *d, gfn_t gfn, mfn_t mfn,
+>                         unsigned int order);
+> diff --git a/xen/include/xen/p2m-common.h b/xen/include/xen/p2m-common.h
+> index 58031a6..b4bc709 100644
+> --- a/xen/include/xen/p2m-common.h
+> +++ b/xen/include/xen/p2m-common.h
+> @@ -3,6 +3,10 @@
+>  
+>  #include <xen/mm.h>
+>  
+> +/* Set foreign entry in the p2m table */
+> +int set_foreign_p2m_entry(struct domain *d, const struct domain *fd,
+> +                          unsigned long gfn, mfn_t mfn);
+> +
+>  /* Remove a page from a domain's p2m table */
+>  int __must_check
+>  guest_physmap_remove_page(struct domain *d, gfn_t gfn, mfn_t mfn,
+> -- 
+> 2.7.4
+> 
+--8323329-1214772993-1607557769=:20986--
 
