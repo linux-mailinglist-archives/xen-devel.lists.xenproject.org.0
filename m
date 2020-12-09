@@ -2,63 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC0682D412E
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 12:34:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48155.85149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 607732D413A
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 12:38:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48163.85160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmxk0-0005aF-If; Wed, 09 Dec 2020 11:34:40 +0000
+	id 1kmxnb-0005n2-3K; Wed, 09 Dec 2020 11:38:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48155.85149; Wed, 09 Dec 2020 11:34:40 +0000
+Received: by outflank-mailman (output) from mailman id 48163.85160; Wed, 09 Dec 2020 11:38:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kmxk0-0005Zq-EF; Wed, 09 Dec 2020 11:34:40 +0000
-Received: by outflank-mailman (input) for mailman id 48155;
- Wed, 09 Dec 2020 11:34:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kmxna-0005md-Vm; Wed, 09 Dec 2020 11:38:22 +0000
+Received: by outflank-mailman (input) for mailman id 48163;
+ Wed, 09 Dec 2020 11:38:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hiOm=FN=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kmxjy-0005Yz-5U
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 11:34:38 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.42]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e5c7f4ce-e73e-4392-adce-96e34b14a115;
- Wed, 09 Dec 2020 11:34:37 +0000 (UTC)
-Received: from AM5PR1001CA0026.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:206:2::39)
- by AM9PR08MB6308.eurprd08.prod.outlook.com (2603:10a6:20b:287::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.21; Wed, 9 Dec
- 2020 11:34:35 +0000
-Received: from AM5EUR03FT053.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:206:2:cafe::9) by AM5PR1001CA0026.outlook.office365.com
- (2603:10a6:206:2::39) with Microsoft SMTP Server (version=TLS1_2,
+ id 1kmxnZ-0005mY-Fq
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 11:38:21 +0000
+Received: from FRA01-MR2-obe.outbound.protection.outlook.com (unknown
+ [40.107.9.89]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c3f74adc-5408-4342-a952-f1d44500b9a1;
+ Wed, 09 Dec 2020 11:38:19 +0000 (UTC)
+Received: from AM6P194CA0085.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:8f::26)
+ by PR2PR08MB4780.eurprd08.prod.outlook.com (2603:10a6:101:1a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.13; Wed, 9 Dec
+ 2020 11:38:17 +0000
+Received: from VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:8f:cafe::19) by AM6P194CA0085.outlook.office365.com
+ (2603:10a6:209:8f::26) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
- Transport; Wed, 9 Dec 2020 11:34:35 +0000
+ Transport; Wed, 9 Dec 2020 11:38:16 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT053.mail.protection.outlook.com (10.152.16.210) with
+ VE1EUR03FT008.mail.protection.outlook.com (10.152.18.75) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3654.12 via Frontend Transport; Wed, 9 Dec 2020 11:34:34 +0000
-Received: ("Tessian outbound 6af064f543d4:v71");
- Wed, 09 Dec 2020 11:34:34 +0000
-Received: from 42170922e995.1
+ 15.20.3654.12 via Frontend Transport; Wed, 9 Dec 2020 11:38:16 +0000
+Received: ("Tessian outbound 665ba7fbdfd9:v71");
+ Wed, 09 Dec 2020 11:38:16 +0000
+Received: from 076082c5ce7d.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- F1B8FA4A-1F39-49D7-A19B-47EBAA7172F1.1; 
- Wed, 09 Dec 2020 11:34:19 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 42170922e995.1
+ 5C5A348F-2D42-45B5-B784-F43B837967F2.1; 
+ Wed, 09 Dec 2020 11:38:00 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 076082c5ce7d.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 09 Dec 2020 11:34:19 +0000
+ Wed, 09 Dec 2020 11:38:00 +0000
 Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
  by DBBPR08MB6075.eurprd08.prod.outlook.com (2603:10a6:10:207::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.18; Wed, 9 Dec
- 2020 11:34:17 +0000
+ 2020 11:37:59 +0000
 Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
  ([fe80::98c7:4612:2365:cc6b]) by DB7PR08MB3689.eurprd08.prod.outlook.com
  ([fe80::98c7:4612:2365:cc6b%5]) with mapi id 15.20.3632.023; Wed, 9 Dec 2020
- 11:34:17 +0000
+ 11:37:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,12 +69,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5c7f4ce-e73e-4392-adce-96e34b14a115
+X-Inumbo-ID: c3f74adc-5408-4342-a952-f1d44500b9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cCsIW8HwRg6tCtIHiltBiyAFuFodchcZeoGi09AQt48=;
- b=hxp2ZWsG+PmVq3rsDcNNnjcKJk1oHIQuBZYgaoakSRZOIVpwoIyBFE9gMfP16WqqqmldpDIUpaTV7kIVnVqoHwpd36+KbX8Q31e/6RidSOZ4b+kxA3ahaxaGun0w1MswCSt8mhaZZoTJvUAMreXhKWHFZ7qDi5Y5WEXfbr8tcc0=
+ bh=A+muicTQYv5AUi/cxy5BXbMIrHWiNucm/gPOaEvKUXU=;
+ b=0u4Pcp32N1C1x2A8uvIM1DNd1fnFFaQtpDAoMm1E9iK+MajTz5ZIPjYo1RUW8Ie47KCu7vidRXih/cZ9udl5UXNs40ROoqPXKAsqETs6wEwJm6AhTL37J5YB3qOGEYLpXDKKkYT06JCJ2aUzt498Fbb4FkulklfViJfAbzjj718=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
  verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
@@ -84,23 +83,23 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 85614dc067c1c540
+X-CR-MTA-CID: 12c22f426be2257c
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BDh7hxQfl/xiJ8iH9rVbvQ2HHWC4PjNSzoSRJO2JyAjip2asYg9QDyFl6D+siZ6revU0FSRAWvm2ACMNNhUP+GgCNL852vzvUUWQbhvsXdWBsT3CkLa1mvBzZTnD4l/8VBdRLYGwo77e/90mCkpWQukf5e9nS7Xzm1rM4ks/cL3m24cs48hpSTrrig9HUaXCapl7KAFu3y+iMpelRkNc2wB+dpk2ZvZPi/UAXpC6jFM54+oHAGHC2D//4KI2i2mNuH1QdFy2C40NvwF0iLd6VO5WrpTmzJxsMgpC9HUSYVb4WwS5Cs6gY/lAOpUqpXOvjlY0O74miC4YcMbOYQYSeA==
+ b=GtZDoaqOvOBrRSVBz9zGX/s0qUOQWtf6Ygyi/1WbpmgXWUSlovhH+6yABDaxRKtBcOMq2skjOPhenhT0UqlUwzkfAaKGITDYOOGuPjAgFHNpPsNJww7lxc3tV9PAV19X4G4VLzWrLfhtJa21fCsZsgbZ1LBiM9E+HGQq5JPOEsFN+G8C6ohZ8/lVT0nB0e5ADvrka8Uq19lGTKYAs1wgJ4oErEwG/ytmYruuO1Dp58yH9pHhx0s5VViVgh6eHgXDOYkqyGswAD8WZzVGtwo5hvC71gIKEluqYCBeFQiRnsVUDeVnIEIxZ3gOxurT5wjXhALzMevgJglRkdR4QTD6LA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cCsIW8HwRg6tCtIHiltBiyAFuFodchcZeoGi09AQt48=;
- b=Qeuczp/PGWCrp2eioY46nBT+Bo5u0fDjPZ1gxsQMS5Bbn7FLy/kdiOmZMNTNnIoh4BM2kzd0my+h9UDMc3JaJyMuDlVWj7fwAQSl+Q2W5XwT6q14cbzVG7MrP2y8X9avcKOE1iJfdPl6a68XESsclWIqnMfJfEg6TOyY5CoDLHncv8nWwyVaEfHbWDizuj0+QTfzuz00J9dBh1JN0Owu1WSbxuA14qv5f7AZpjYirtWg5E4NUYA5cgahtvtAHi57fsV/OF51lPDl2t7EKluBskKI4gE7A3Q0XmQdxHbAiqZj0oXeAIga/puAQElqpgLhfPcN6lPsGXqXm4VRHisYrw==
+ bh=A+muicTQYv5AUi/cxy5BXbMIrHWiNucm/gPOaEvKUXU=;
+ b=Bp23UCsVYxlLysXPaex59cxIIBPRnn3ofk9pZX7HklwAmewKVCFr/bjTaBUrNKyy5ijPRBcMZJZWw/+9HU2SQj4WWPYQts5CqhO3kst0/IOKnriZAEOrkiQAr+FzTux8ug1Q0UnomFJGqFpADWxD9JSPtRtRIidTrVpuiPwOZsagvP3tTbjLhf0HBe3e7jai3C3pF0gQ2svVLth7zbpCVyjWtXeBQpCzSWEeB6uUVYAwvfc59CchFQ1to7ACTmH3WlZpfSEGBHNH+v9B2va9Gnu04xecSI1T9gxM3YhwErT6BEkGNwz4eO3p23JCON/sB1MMof5lnYFH5S9h/r5wlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cCsIW8HwRg6tCtIHiltBiyAFuFodchcZeoGi09AQt48=;
- b=hxp2ZWsG+PmVq3rsDcNNnjcKJk1oHIQuBZYgaoakSRZOIVpwoIyBFE9gMfP16WqqqmldpDIUpaTV7kIVnVqoHwpd36+KbX8Q31e/6RidSOZ4b+kxA3ahaxaGun0w1MswCSt8mhaZZoTJvUAMreXhKWHFZ7qDi5Y5WEXfbr8tcc0=
+ bh=A+muicTQYv5AUi/cxy5BXbMIrHWiNucm/gPOaEvKUXU=;
+ b=0u4Pcp32N1C1x2A8uvIM1DNd1fnFFaQtpDAoMm1E9iK+MajTz5ZIPjYo1RUW8Ie47KCu7vidRXih/cZ9udl5UXNs40ROoqPXKAsqETs6wEwJm6AhTL37J5YB3qOGEYLpXDKKkYT06JCJ2aUzt498Fbb4FkulklfViJfAbzjj718=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Jan Beulich <jbeulich@suse.com>
 CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
@@ -108,16 +107,14 @@ CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
 	<George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
 	<julien@xen.org>, Wei Liu <wl@xen.org>, Stefano Stabellini
 	<sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>
-Subject: Re: [PATCH v3 1/8] xen: fix build when $(obj-y) consists of just
- blanks
-Thread-Topic: [PATCH v3 1/8] xen: fix build when $(obj-y) consists of just
- blanks
-Thread-Index: AQHWwaxOoKHklwCvRUixoNq5gGL6M6nuuxuA
-Date: Wed, 9 Dec 2020 11:34:17 +0000
-Message-ID: <371B84F7-C2E7-48BA-8591-DC6F95D4412F@arm.com>
+Subject: Re: [PATCH v3 2/8] lib: collect library files in an archive
+Thread-Topic: [PATCH v3 2/8] lib: collect library files in an archive
+Thread-Index: AQHWwaxzwnlkqyYO/Ea2tJ3MHVbjvKnuvCIA
+Date: Wed, 9 Dec 2020 11:37:59 +0000
+Message-ID: <E7B41B4F-98F9-4C52-8549-F407D6FB8251@arm.com>
 References: <1a6bac6a-7d83-f5b6-c5b9-8b3b39824d40@suse.com>
- <511be84d-9a13-17ae-f3d9-d6daf9c02711@suse.com>
-In-Reply-To: <511be84d-9a13-17ae-f3d9-d6daf9c02711@suse.com>
+ <21714b83-8619-5aa9-be5b-3015d05a26a4@suse.com>
+In-Reply-To: <21714b83-8619-5aa9-be5b-3015d05a26a4@suse.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -125,44 +122,44 @@ X-MS-TNEF-Correlator:
 x-mailer: Apple Mail (2.3608.120.23.2.4)
 Authentication-Results-Original: suse.com; dkim=none (message not signed)
  header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [217.140.99.251]
+x-originating-ip: [82.9.225.195]
 x-ms-publictraffictype: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 804ea879-5555-415b-978e-08d89c36676d
-x-ms-traffictypediagnostic: DBBPR08MB6075:|AM9PR08MB6308:
+X-MS-Office365-Filtering-Correlation-Id: 7dcee07b-d579-42c5-5eaa-08d89c36eb9d
+x-ms-traffictypediagnostic: DBBPR08MB6075:|PR2PR08MB4780:
 X-Microsoft-Antispam-PRVS:
-	<AM9PR08MB6308DA7366C772C6457778079DCC0@AM9PR08MB6308.eurprd08.prod.outlook.com>
+	<PR2PR08MB47800D2D0BFA09999054EFE19DCC0@PR2PR08MB4780.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- IkQ6W+Ww6vyygOkPBuTz/D4Thi4wt5HnWM1QKSZtCepBcK31w5Nf1Qdfc/i5aD3RyOpZ33+Mp/8To7guCc3jx7/h0INJzNMH3rgzU7blKwcKTrgAE3oRLny+oKAQgi6mje8YIOAoH596VKivl0tcO6eT7Y8Fllwkfwory5VV9MkV52As/C9oWQ/XyzmX5PJm7CB2tw4VKjJ8afxkuONRCBVvDkBfN8LrPOxcZLqAKaJJaFbTufaELVMDo/6RMbu1SST8uRNDGIIDB4GjNJeNWLdc3pYwzkQbEQ5RnP+ebSOkqLjdhJ0pFEnOLzRe24xh61YqLZKmAMcLpn088ivwKj61wM5NMbR45Px6y7nL7/EXKe8uItpBzKjYlGCj/xsJ
+ TrMjizt6lOTNCxkAct3wYWoG3tvISX3xOh9uBlaQkDdFD293arJIkoq9/DNmKyHFD5KED2WBe2FVMlOB9Ij6dD2Y+szYopCnyvS8MRCkVzcMv62rrmpBXc5k30SS5McMUEf1JMbhmtfaE1u6l2E8s7rYnAjKYRf4iOu8j7tsPBB66UyhpwoClFStrKaPFwVorzy6bHfm60Fo+Gb8nZD2TpSGqIOdVpgjvXPOTz5J5qhc+wRG0HXBZuWEItat+DDp8pBVdUjgoxk1a5Gxd567cFoMg/nF2Nh7qO/DCZuIIeT33tt+jAVgoJQBXMv/JA1TOs+2mZvLJViEZ8VzYJWCF1ulreit/Kh3npYO10LpEY9yKAvjtcY3LqJ1b1IIi6bk
 X-Forefront-Antispam-Report-Untrusted:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(136003)(366004)(376002)(396003)(346002)(6512007)(5660300002)(6486002)(8936002)(53546011)(66446008)(66556008)(71200400001)(36756003)(66476007)(26005)(6506007)(186003)(4326008)(91956017)(478600001)(8676002)(6916009)(66946007)(2616005)(76116006)(33656002)(64756008)(83380400001)(316002)(2906002)(86362001)(54906003)(45980500001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?en+4R7BIoAuG185h/FOT3FmCiY8vdhCd+ZKiuBeivAadysYU+QfVXXpWVbQF?=
- =?us-ascii?Q?iT7MtDHJ5qBKmfvM2U6X8pAO+JPk78Gatqcx5cB0/mfE8AZVF5YMchLZDSH2?=
- =?us-ascii?Q?fmf7gAPqvOHd+wgd+NB+HFDSM4DGoDh1WJgy21NtKXcjeH35SYlqAQBVGInB?=
- =?us-ascii?Q?HrKKcaxL6i7pO4OQ1McIHHTtwA0II6nY+UorbcmEEAZQBaB8tRDyDc9Pevpa?=
- =?us-ascii?Q?+9yU3mZKcy6Fm5PJlWp1g43SNEv+xOTIYOBa0qmiNJ0NIWn5mD9opnZjUayf?=
- =?us-ascii?Q?ClzCTBNer0FXXKF79U/4KdIAtJiEBkN6qz+g7ktyTasMCaAhW90dcE8Adme9?=
- =?us-ascii?Q?ZGWWtUp8WCjLXXnet9CqFr8PsmuqFHPUxFhpZtnwOGhimOHrUEye9RycEjp3?=
- =?us-ascii?Q?I3n0hnpF65MM+dEmblRt7fnF1tSo/6ZO6mpJFYpsl9MzSIx9kIAMYLibw3Dd?=
- =?us-ascii?Q?mcXOCpytXt8q30U73sXnI2v0/83t2A+0tGOlgp3m1wpUh2A+MnwbuFPkAg9S?=
- =?us-ascii?Q?UliuYJv5F+qlu+IZ/G/x+KvgrWxZRDBGOmUUvL/S/NEofWlqzbXKHxv6aBiB?=
- =?us-ascii?Q?D+cXxl4osiDnCDwJ6UP0zc1XIGIyWNbXgYKNSjSAqmMu/D6Spg9+iJ6WaxII?=
- =?us-ascii?Q?Ie2eKrOkOsy6Ta47Fm0WAVTJjrK/W9PE0+Ny6EMJlEsm7MLqkAAgLIKdJ1mF?=
- =?us-ascii?Q?5IeAK0hBcectuItmAr8T2bX7sKWdD6NO36S4w+ABPQ/sfvZRraGEYITqB7eX?=
- =?us-ascii?Q?bxVBr3WX/snh/VFS8niYjGsjFx9UQx6jvlrh7dAF7f9GkvkB2+0RF8dQUlzg?=
- =?us-ascii?Q?7nHFZ5MtM5VUK/t3Ml+b6wOJXC++DkUDO9RPLVflTg/XdLH5C9P3KxyKcMqP?=
- =?us-ascii?Q?hWOcrsnC5wKMvMsleqmdOW71vOT3hWCX2ErpCRsH87jmzuG7Pu+NVI3bPZm6?=
- =?us-ascii?Q?UlxHEJ4JWKWmudJ0SXl6CUJClcB20y2qfxIUlfXZMNg4EmAboUmJ+vxdtcHZ?=
- =?us-ascii?Q?mT3K?=
+ =?us-ascii?Q?poRg2x9oa8Ski2W7piryDpikcHyDbBSi4sefBFhJk2MK76YFJFZk3dkj7BWN?=
+ =?us-ascii?Q?vSjHZkKLd+MHfMYUq5tkhifVONnKfw8lKmsZDMR6CHQWvkpuE4oFsEqAmvtk?=
+ =?us-ascii?Q?TPhfq1gmAtzPEwQ/znaSKY6xVkl3KEC0rGnt2iY9mpeXqgXYdi0CYS0fEOra?=
+ =?us-ascii?Q?Lp7g8LO1GAkoxBMcBFClxrHw6eQSGbnFgWD5rsa5UqGpmqN9Paha8rpWGCCO?=
+ =?us-ascii?Q?4K8g0tWJuxClb07Hwn1xzU62ssKFgY7biZKTlWvZ34PMRw0dyDwobSikhHWq?=
+ =?us-ascii?Q?AaQHO9tZVxuhrzq8OklbSEI+HqYp6eN23dl4O95mkqqVViejn760hMivQ2e5?=
+ =?us-ascii?Q?NypR5ENLSzlxlM9AgKHIouVMbmObLAulHh9vm3KWhPGVflUIGMKhWVbOuqeI?=
+ =?us-ascii?Q?+E3TbobLBPZ8X6e9p8Mj9oDyfx8qgvv93H4/VbpqKkeCgBPCUETkOGxE3a52?=
+ =?us-ascii?Q?IIjlaS+KzxHONyfjXGgXl3z8/jzhtRuhgHV7ench5NcO7XiUXAhwiChVO4fe?=
+ =?us-ascii?Q?nEF3sXnoU/++cLolNb3EFMfEhm+REy6pfaO7ypzIh1rfuShGAl97cgbZXMDv?=
+ =?us-ascii?Q?pZ7DHBUtamgOckFThW2PG+zSiVHRbxaZLfGrB7HXh3SJWxAvBK9rePCyQe0G?=
+ =?us-ascii?Q?7HcqhEgmgVZvLKz/02KjbbDf4JJlg1Nex7tv8bGGZPRipWmIAmqqg9h3EYnC?=
+ =?us-ascii?Q?xutIpT38Gd0fCOikKEOmUcbIAGprjkDiBsRArFp6B552D/1sKZxERcR9B0D3?=
+ =?us-ascii?Q?AZCKmTDpsqPvfevuWRJA2niV2BROxB7mX0t5UK5dcFkbwUzXXLo6oU9kZsYa?=
+ =?us-ascii?Q?rc8TDkP+wFl5YxY0TVZ07Q2vjviiwaDypQ92T3r68prUevvYNVt7qgvXw9UI?=
+ =?us-ascii?Q?Hsx6BzOrozn7T4TdO0A6hC982IEdEL8roAuzkbqp0teiTHPKCWari1SA1J7G?=
+ =?us-ascii?Q?QKzQEnJbmkQ+Yoz4ydzsI2rNJnz3icBlKsbowi924yWw5bwuAHP2gWTgCg+U?=
+ =?us-ascii?Q?3ztx?=
 x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <01C5B200E868D84E96A147794A8900E6@eurprd08.prod.outlook.com>
+Content-ID: <77984E269CF54740A87039565766E0AE@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6075
@@ -170,106 +167,216 @@ Original-Authentication-Results: suse.com; dkim=none (message not signed)
  header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT053.eop-EUR03.prod.protection.outlook.com
+ VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	511bba7c-3ef8-49d4-d534-08d89c365d04
+	611b7996-78da-4cbe-c44e-08d89c36e12b
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	4gvoS3ID4mhT0nwyfnZR1tW7zQTvIjS7o+oXAkxvtzyRXTWBtthPxCLU2f6uoHP3Ip/0ykDHwbAry9tc+xYGk4NOHKFoUQdrtW+QAvOujTSvZ7H/R7oe3q4yT/5+BmjDRbay5CLJqA/wnRGabwoLsga6vcwKAtC7QNCaxCYCR8QbHG7S0wQAixDuitJM3N/Lhj4R0GH4Tn9WQljZujJCogw5xKaZN5NzUAa9VN5xdIsYzkbUt1kQDBEV6+bdUbn+AinB/AWzlFDUt1lTd8/STHHwYvdhwyIso+YFBLGKlYAv1eZEkbJxSap6ruwK2n4m5xaNDewFRShm42NSe8VwPSCzPBLxj8Dc033avjugS5jOc0dYow/WjPgqhQiGQ0SvGI+sW+ghOwitXrysIA4YSA==
+	2ZA7Lx53osHa1vcD5P3ZMKka+Rx23uGTUKAMVYkbhT/bg7OxWs8EVdqXpnArZw42eylVIcJaa7pOaYpiKA/8PKq8je1weRTJNqJPMHhxC0jOCP0QFSid9mUFJT0PpaVdTIW1J4UHx4a8qd3LYS5rPjUHF+AKoOp/w5fW90ExPgeVp69gm7TKYkduyeRgfQU+s2VANnAa8tzdYKgiHcOjWXRbL1gMtcGP6zAk4k1IGfH2NtaQ9KaCGsu8v5cIPc/ae6nkNar9aG2lsnYW2lsmrHrhdpdcV5aFMu7ylnYHn4/L1cEZiQTJgePrLz9BnFaZMbK0JcJq2YUCESuOqoBK2oQjZM9PT+H8cxvTIS7BAjNISxS0EiBf4Xd1FxU5bEFceW1M9W+mS/V83Bl24YHU2w==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(376002)(136003)(46966005)(36756003)(26005)(2906002)(70206006)(2616005)(70586007)(33656002)(356005)(6512007)(336012)(81166007)(83380400001)(5660300002)(8936002)(86362001)(107886003)(53546011)(6486002)(8676002)(4326008)(6506007)(47076004)(82310400003)(508600001)(36906005)(186003)(6862004)(54906003);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(376002)(136003)(346002)(46966005)(107886003)(336012)(8676002)(8936002)(54906003)(70206006)(33656002)(508600001)(4326008)(70586007)(5660300002)(83380400001)(186003)(6486002)(6862004)(26005)(82310400003)(6512007)(6506007)(53546011)(2906002)(36756003)(2616005)(47076004)(356005)(81166007)(86362001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2020 11:34:34.9607
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2020 11:38:16.6712
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 804ea879-5555-415b-978e-08d89c36676d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7dcee07b-d579-42c5-5eaa-08d89c36eb9d
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT053.eop-EUR03.prod.protection.outlook.com
+	VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6308
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR2PR08MB4780
 
-Hi Jan,
+Hi,
 
-> On 23 Nov 2020, at 15:20, Jan Beulich <jbeulich@suse.com> wrote:
+> On 23 Nov 2020, at 15:21, Jan Beulich <jbeulich@suse.com> wrote:
 >=20
-> This case can occur when combining empty lists
+> In order to (subsequently) drop odd things like CONFIG_NEEDS_LIST_SORT
+> just to avoid bloating binaries when only some arch-es and/or
+> configurations need generic library routines, combine objects under lib/
+> into an archive, which the linker then can pick the necessary objects
+> out of.
 >=20
-> obj-y :=3D
-> ...
-> obj-y +=3D $(empty)
+> Note that we can't use thin archives just yet, until we've raised the
+> minimum required binutils version suitably.
 >=20
-> or
->=20
-> obj-y :=3D $(empty) $(empty)
->=20
-> where (only) blanks would accumulate. This was only a latent issue until
-> now, but would become an active issue for Arm once lib/ gets populated
-> with all respective objects going into the to be introduced lib.a.
->=20
-> Also address a related issue at this occasion: When an empty built_in.o
-> gets created, .built_in.o.d will have its dependencies recorded. If, on
-> a subsequent incremental build, an actual constituent of built_in.o
-> appeared, the $(filter-out ) would leave these recorded dependencies in
-> place. But of course the linker won't know what to do with C header
-> files. (The apparent alternative of avoiding to pass $(c_flags) or
-> $(a_flags) would not be reliable afaict, as among these flags there may
-> be some affecting information conveyed via the object file to the
-> linker. The linker, finding inconsistent flags across object files, may
-> then error out.) Using just $(obj-y) won't work either: It breaks when
-> the same object file is listed more than once.
->=20
-> Reported-by: Julien Grall <julien@xen.org>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+with one remark...
+
+
+> ---
+> xen/Rules.mk          | 29 +++++++++++++++++++++++++----
+> xen/arch/arm/Makefile |  6 +++---
+> xen/arch/x86/Makefile |  8 ++++----
+> xen/lib/Makefile      |  3 ++-
+> 4 files changed, 34 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/xen/Rules.mk b/xen/Rules.mk
+> index d5e5eb33de39..aba6ca2a90f5 100644
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -41,12 +41,16 @@ ALL_OBJS-y               +=3D $(BASEDIR)/xsm/built_in=
+.o
+> ALL_OBJS-y               +=3D $(BASEDIR)/arch/$(TARGET_ARCH)/built_in.o
+> ALL_OBJS-$(CONFIG_CRYPTO)   +=3D $(BASEDIR)/crypto/built_in.o
+>=20
+> +ALL_LIBS-y               :=3D $(BASEDIR)/lib/lib.a
+> +
+> # Initialise some variables
+> +lib-y :=3D
+> targets :=3D
+> CFLAGS-y :=3D
+> AFLAGS-y :=3D
+>=20
+> ALL_OBJS :=3D $(ALL_OBJS-y)
+> +ALL_LIBS :=3D $(ALL_LIBS-y)
+>=20
+> SPECIAL_DATA_SECTIONS :=3D rodata $(foreach a,1 2 4 8 16, \
+>                                             $(foreach w,1 2 4, \
+> @@ -60,7 +64,14 @@ include Makefile
+> # -----------------------------------------------------------------------=
+----
+>=20
+> quiet_cmd_ld =3D LD      $@
+> -cmd_ld =3D $(LD) $(XEN_LDFLAGS) -r -o $@ $(real-prereqs)
+> +cmd_ld =3D $(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out %.a,$(real-prereqs=
+)) \
+> +               --start-group $(filter %.a,$(real-prereqs)) --end-group
+
+This might be a good idea to add a comment to explain why the start/end-gro=
+up
+is needed so that someone does not change this back in the future.
+
+Something like: put libraries between start/end group to have unused symbol=
+s removed.
 
 Cheers
 Bertrand
 
-> ---
-> xen/Rules.mk | 10 +++++-----
-> 1 file changed, 5 insertions(+), 5 deletions(-)
+> +
+> +# Archive
+> +# ----------------------------------------------------------------------=
+-----
+> +
+> +quiet_cmd_ar =3D AR      $@
+> +cmd_ar =3D rm -f $@; $(AR) cPrs $@ $(real-prereqs)
 >=20
-> diff --git a/xen/Rules.mk b/xen/Rules.mk
-> index 333e19bec343..d5e5eb33de39 100644
-> --- a/xen/Rules.mk
-> +++ b/xen/Rules.mk
-> @@ -130,13 +130,13 @@ c_flags +=3D $(CFLAGS-y)
+> # Objcopy
+> # -----------------------------------------------------------------------=
+----
+> @@ -86,6 +97,10 @@ obj-y    :=3D $(patsubst %/, %/built_in.o, $(obj-y))
+> # tell kbuild to descend
+> subdir-obj-y :=3D $(filter %/built_in.o, $(obj-y))
+>=20
+> +# Libraries are always collected in one lib file.
+> +# Filter out objects already built-in
+> +lib-y :=3D $(filter-out $(obj-y), $(sort $(lib-y)))
+> +
+> $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): CFLAGS-y +=3D -DINIT=
+_SECTIONS_ONLY
+>=20
+> ifeq ($(CONFIG_COVERAGE),y)
+> @@ -129,7 +144,7 @@ include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
+> c_flags +=3D $(CFLAGS-y)
 > a_flags +=3D $(CFLAGS-y) $(AFLAGS-y)
 >=20
-> built_in.o: $(obj-y) $(extra-y)
-> -ifeq ($(obj-y),)
-> +ifeq ($(strip $(obj-y)),)
+> -built_in.o: $(obj-y) $(extra-y)
+> +built_in.o: $(obj-y) $(if $(strip $(lib-y)),lib.a) $(extra-y)
+> ifeq ($(strip $(obj-y)),)
 > 	$(CC) $(c_flags) -c -x c /dev/null -o $@
 > else
-> ifeq ($(CONFIG_LTO),y)
-> -	$(LD_LTO) -r -o $@ $(filter-out $(extra-y),$^)
-> +	$(LD_LTO) -r -o $@ $(filter $(obj-y),$^)
-> else
-> -	$(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out $(extra-y),$^)
-> +	$(LD) $(XEN_LDFLAGS) -r -o $@ $(filter $(obj-y),$^)
+> @@ -140,8 +155,14 @@ else
 > endif
 > endif
 >=20
-> @@ -145,10 +145,10 @@ targets +=3D $(filter-out $(subdir-obj-y), $(obj-y)=
-) $(extra-y)
+> +lib.a: $(lib-y) FORCE
+> +	$(call if_changed,ar)
+> +
+> targets +=3D built_in.o
+> -targets +=3D $(filter-out $(subdir-obj-y), $(obj-y)) $(extra-y)
+> +ifneq ($(strip $(lib-y)),)
+> +targets +=3D lib.a
+> +endif
+> +targets +=3D $(filter-out $(subdir-obj-y), $(obj-y) $(lib-y)) $(extra-y)
 > targets +=3D $(MAKECMDGOALS)
 >=20
 > built_in_bin.o: $(obj-bin-y) $(extra-y)
-> -ifeq ($(obj-bin-y),)
-> +ifeq ($(strip $(obj-bin-y)),)
-> 	$(CC) $(a_flags) -c -x assembler /dev/null -o $@
+> @@ -155,7 +176,7 @@ endif
+> PHONY +=3D FORCE
+> FORCE:
+>=20
+> -%/built_in.o: FORCE
+> +%/built_in.o %/lib.a: FORCE
+> 	$(MAKE) -f $(BASEDIR)/Rules.mk -C $* built_in.o
+>=20
+> %/built_in_bin.o: FORCE
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 296c5e68bbc3..612a83b315c8 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -90,14 +90,14 @@ endif
+>=20
+> ifeq ($(CONFIG_LTO),y)
+> # Gather all LTO objects together
+> -prelink_lto.o: $(ALL_OBJS)
+> -	$(LD_LTO) -r -o $@ $^
+> +prelink_lto.o: $(ALL_OBJS) $(ALL_LIBS)
+> +	$(LD_LTO) -r -o $@ $(filter-out %.a,$^) --start-group $(filter %.a,$^) =
+--end-group
+>=20
+> # Link it with all the binary objects
+> prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_=
+lto.o
+> 	$(call if_changed,ld)
 > else
-> -	$(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out $(extra-y),$^)
-> +	$(LD) $(XEN_LDFLAGS) -r -o $@ $(filter $(obj-bin-y),$^)
+> -prelink.o: $(ALL_OBJS) FORCE
+> +prelink.o: $(ALL_OBJS) $(ALL_LIBS) FORCE
+> 	$(call if_changed,ld)
 > endif
 >=20
-> # Force execution of pattern rules (for which PHONY cannot be directly us=
-ed).
-> --=20
-> 2.22.0
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index 9b368632fb43..8f2180485b2b 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -132,8 +132,8 @@ EFI_OBJS-$(XEN_BUILD_EFI) :=3D efi/relocs-dummy.o
 >=20
+> ifeq ($(CONFIG_LTO),y)
+> # Gather all LTO objects together
+> -prelink_lto.o: $(ALL_OBJS)
+> -	$(LD_LTO) -r -o $@ $^
+> +prelink_lto.o: $(ALL_OBJS) $(ALL_LIBS)
+> +	$(LD_LTO) -r -o $@ $(filter-out %.a,$^) --start-group $(filter %.a,$^) =
+--end-group
+>=20
+> # Link it with all the binary objects
+> prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_=
+lto.o $(EFI_OBJS-y) FORCE
+> @@ -142,10 +142,10 @@ prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o=
+,$(ALL_OBJS)) prelink_lto.o $
+> prelink-efi.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prel=
+ink_lto.o FORCE
+> 	$(call if_changed,ld)
+> else
+> -prelink.o: $(ALL_OBJS) $(EFI_OBJS-y) FORCE
+> +prelink.o: $(ALL_OBJS) $(ALL_LIBS) $(EFI_OBJS-y) FORCE
+> 	$(call if_changed,ld)
+>=20
+> -prelink-efi.o: $(ALL_OBJS) FORCE
+> +prelink-efi.o: $(ALL_OBJS) $(ALL_LIBS) FORCE
+> 	$(call if_changed,ld)
+> endif
+>=20
+> diff --git a/xen/lib/Makefile b/xen/lib/Makefile
+> index 53b1da025e0d..b8814361d63e 100644
+> --- a/xen/lib/Makefile
+> +++ b/xen/lib/Makefile
+> @@ -1,2 +1,3 @@
+> -obj-y +=3D ctype.o
+> obj-$(CONFIG_X86) +=3D x86/
+> +
+> +lib-y +=3D ctype.o
 >=20
 >=20
 
