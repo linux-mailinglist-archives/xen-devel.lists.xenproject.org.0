@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00AA32D4993
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 19:57:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48661.86073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C002D49A2
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 19:58:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48668.86084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn4eX-0005mv-8z; Wed, 09 Dec 2020 18:57:29 +0000
+	id 1kn4fM-0005vO-Iu; Wed, 09 Dec 2020 18:58:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48661.86073; Wed, 09 Dec 2020 18:57:29 +0000
+Received: by outflank-mailman (output) from mailman id 48668.86084; Wed, 09 Dec 2020 18:58:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn4eX-0005mW-5M; Wed, 09 Dec 2020 18:57:29 +0000
-Received: by outflank-mailman (input) for mailman id 48661;
- Wed, 09 Dec 2020 18:57:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XdhY=FN=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1kn4eV-0005mR-RC
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 18:57:27 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 47a305cb-98f8-44d9-9b34-ad0dc326ae89;
- Wed, 09 Dec 2020 18:57:25 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0B9IvJl1009568
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
- Wed, 9 Dec 2020 19:57:20 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id 2FC9C2E946C; Wed,  9 Dec 2020 19:57:14 +0100 (MET)
+	id 1kn4fM-0005v3-Fn; Wed, 09 Dec 2020 18:58:20 +0000
+Received: by outflank-mailman (input) for mailman id 48668;
+ Wed, 09 Dec 2020 18:58:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kn4fK-0005uy-HK
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 18:58:18 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kn4fJ-0007mx-I9; Wed, 09 Dec 2020 18:58:17 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kn4fJ-0007px-3x; Wed, 09 Dec 2020 18:58:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +39,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47a305cb-98f8-44d9-9b34-ad0dc326ae89
-Date: Wed, 9 Dec 2020 19:57:14 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: dom0 PV looping on search_pre_exception_table()
-Message-ID: <20201209185714.GS1469@antioche.eu.org>
-References: <20201208175738.GA3390@antioche.eu.org>
- <e73cc71d-c1a6-87c8-1b82-5d70d4f52eaa@citrix.com>
- <20201209101512.GA1299@antioche.eu.org>
- <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
- <20201209135908.GA4269@antioche.eu.org>
- <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
- <20201209154431.GA4913@antioche.eu.org>
- <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
- <20201209163049.GA6158@antioche.eu.org>
- <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=9CP0Wr+HcuavK8spAj03FIwOzghiv+hj+CI3XS6MuIw=; b=CXarsxWDoyytJ6yFV+IU80FM1b
+	+QxjOlFmrg+sCgD5pDq6QeeMz9QkPUB95zncgaNbxq4cSdC3/VVSbMn9AX7XKYTJC6MIqE+QTeELf
+	mHvLQDpctiwar2U9G5nY1PKHpTTA69kxYgH0R3baZTvUiqsqTZsFVOWYslBH2umhqV6w=;
+Subject: Re: [PATCH V3 17/23] xen/ioreq: Introduce domain_has_ioreq_server()
+To: paul@xen.org, 'Oleksandr' <olekstysh@gmail.com>
+Cc: 'Jan Beulich' <jbeulich@suse.com>,
+ 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Volodymyr Babchuk' <Volodymyr_Babchuk@epam.com>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>,
+ 'Ian Jackson' <iwj@xenproject.org>, 'Wei Liu' <wl@xen.org>,
+ 'Julien Grall' <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
+ <1606732298-22107-18-git-send-email-olekstysh@gmail.com>
+ <3bb4c3b5-a46a-ba31-292f-5c6ba49fa9be@suse.com>
+ <6026b7f3-ae6e-f98f-be65-27d7f729a37f@gmail.com>
+ <18bfd9b1-3e6a-8119-efd0-c82ad7ae681d@gmail.com>
+ <0d6c01d6cd9a$666326c0$33297440$@xen.org>
+ <57bfc007-e400-6777-0075-827daa8acf0e@gmail.com>
+ <0d7201d6ce09$e13dce80$a3b96b80$@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <84d7238d-0ec1-acdd-6cea-db78aba6f3d7@xen.org>
+Date: Wed, 9 Dec 2020 18:58:14 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Wed, 09 Dec 2020 19:57:20 +0100 (MET)
+In-Reply-To: <0d7201d6ce09$e13dce80$a3b96b80$@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Wed, Dec 09, 2020 at 06:08:53PM +0000, Andrew Cooper wrote:
-> On 09/12/2020 16:30, Manuel Bouyer wrote:
-> > On Wed, Dec 09, 2020 at 04:00:02PM +0000, Andrew Cooper wrote:
-> >> [...]
-> >>>> I wonder if the LDT is set up correctly.
-> >>> I guess it is, otherwise it wouldn't boot with a Xen 4.13 kernel, isn't it ?
-> >> Well - you said you always saw it once on 4.13, which clearly shows that
-> >> something was wonky, but it managed to unblock itself.
-> >>
-> >>>> How about this incremental delta?
-> >>> Here's the output
-> >>> (XEN) IRET fault: #PF[0000]                                                    
-> >>> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
-> >>> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
-> >>> (XEN) IRET fault: #PF[0000]                                                    
-> >>> (XEN) %cr2 ffff820000010040, LDT base ffffc4800000a000, limit 0057             
-> >>> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
-> >>> (XEN) IRET fault: #PF[0000]                                                 
-> >> Ok, so the promotion definitely fails, but we don't get as far as
-> >> inspecting the content of the LDT frame.  This probably means it failed
-> >> to change the page type, which probably means there are still
-> >> outstanding writeable references.
-> >>
-> >> I'm expecting the final printk to be the one which triggers.
-> > It's not. 
-> > Here's the output:
-> > (XEN) IRET fault: #PF[0000]
-> > (XEN) %cr2 ffff820000010040, LDT base ffffbd000000a000, limit 0057
-> > (XEN) *** LDT: gl1e 0000000000000000 not present
-> > (XEN) *** pv_map_ldt_shadow_page(0x40) failed
-> > (XEN) IRET fault: #PF[0000]
-> > (XEN) %cr2 ffff820000010040, LDT base ffffbd000000a000, limit 0057
-> > (XEN) *** LDT: gl1e 0000000000000000 not present
-> > (XEN) *** pv_map_ldt_shadow_page(0x40) failed
+Hi Oleksandr and Paul,
+
+Sorry for jumping late in the conversation.
+
+On 09/12/2020 09:01, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Oleksandr <olekstysh@gmail.com>
+>> Sent: 08 December 2020 20:17
+>> To: paul@xen.org
+>> Cc: 'Jan Beulich' <jbeulich@suse.com>; 'Oleksandr Tyshchenko' <oleksandr_tyshchenko@epam.com>;
+>> 'Stefano Stabellini' <sstabellini@kernel.org>; 'Julien Grall' <julien@xen.org>; 'Volodymyr Babchuk'
+>> <Volodymyr_Babchuk@epam.com>; 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'George Dunlap'
+>> <george.dunlap@citrix.com>; 'Ian Jackson' <iwj@xenproject.org>; 'Wei Liu' <wl@xen.org>; 'Julien Grall'
+>> <julien.grall@arm.com>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH V3 17/23] xen/ioreq: Introduce domain_has_ioreq_server()
+>>
+>>
+>> On 08.12.20 21:43, Paul Durrant wrote:
+>>
+>> Hi Paul
+>>
+>>>> -----Original Message-----
+>>>> From: Oleksandr <olekstysh@gmail.com>
+>>>> Sent: 08 December 2020 16:57
+>>>> To: Paul Durrant <paul@xen.org>
+>>>> Cc: Jan Beulich <jbeulich@suse.com>; Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Stefano
+>>>> Stabellini <sstabellini@kernel.org>; Julien Grall <julien@xen.org>; Volodymyr Babchuk
+>>>> <Volodymyr_Babchuk@epam.com>; Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap
+>>>> <george.dunlap@citrix.com>; Ian Jackson <iwj@xenproject.org>; Wei Liu <wl@xen.org>; Julien Grall
+>>>> <julien.grall@arm.com>; xen-devel@lists.xenproject.org
+>>>> Subject: Re: [PATCH V3 17/23] xen/ioreq: Introduce domain_has_ioreq_server()
+>>>>
+>>>>
+>>>> Hi Paul.
+>>>>
+>>>>
+>>>> On 08.12.20 17:33, Oleksandr wrote:
+>>>>> On 08.12.20 17:11, Jan Beulich wrote:
+>>>>>
+>>>>> Hi Jan
+>>>>>
+>>>>>> On 30.11.2020 11:31, Oleksandr Tyshchenko wrote:
+>>>>>>> --- a/xen/include/xen/ioreq.h
+>>>>>>> +++ b/xen/include/xen/ioreq.h
+>>>>>>> @@ -55,6 +55,20 @@ struct ioreq_server {
+>>>>>>>         uint8_t                bufioreq_handling;
+>>>>>>>     };
+>>>>>>>     +/*
+>>>>>>> + * This should only be used when d == current->domain and it's not
+>>>>>>> paused,
+>>>>>> Is the "not paused" part really relevant here? Besides it being rare
+>>>>>> that the current domain would be paused (if so, it's in the process
+>>>>>> of having all its vCPU-s scheduled out), does this matter at all?do
+>>>>>> any extra actionsdo any extra actions
+>>>>> No, it isn't relevant, I will drop it.
+>>>>>
+>>>>>
+>>>>>> Apart from this the patch looks okay to me, but I'm not sure it
+>>>>>> addresses Paul's concerns. Iirc he had suggested to switch back to
+>>>>>> a list if doing a swipe over the entire array is too expensive in
+>>>>>> this specific case.
+>>>>> We would like to avoid to do any extra actions in
+>>>>> leave_hypervisor_to_guest() if possible.
+>>>>> But not only there, the logic whether we check/set
+>>>>> mapcache_invalidation variable could be avoided if a domain doesn't
+>>>>> use IOREQ server...
+>>>>
+>>>> Are you OK with this patch (common part of it)?
+>>> How much of a performance benefit is this? The array is small to simply counting the non-NULL
+>> entries should be pretty quick.
+>> I didn't perform performance measurements on how much this call consumes.
+>> In our system we run three domains. The emulator is in DomD only, so I
+>> would like to avoid to call vcpu_ioreq_handle_completion() for every
+>> Dom0/DomU's vCPUs
+>> if there is no real need to do it.
 > 
-> Ok.  So the mapping registered for the LDT is not yet present.  Xen
-> should be raising #PF with the guest, and would be in every case other
-> than the weird context on IRET, where we've confused bad guest state
-> with bad hypervisor state.
+> This is not relevant to the domain that the emulator is running in; it's concerning the domains which the emulator is servicing. How many of those are there?
 
-Unfortunably it doesn't fix the problem. I'm now getting a loop of
-(XEN) *** LDT: gl1e 0000000000000000 not present                               
-(XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+AFAICT, the maximum number of IOREQ servers is 8 today.
+
+> 
+>> On Arm vcpu_ioreq_handle_completion()
+>> is called with IRQ enabled, so the call is accompanied with
+>> corresponding irq_enable/irq_disable.
+>> These unneeded actions could be avoided by using this simple one-line
+>> helper...
+>>
+> 
+> The helper may be one line but there is more to the patch than that. I still think you could just walk the array in the helper rather than keeping a running occupancy count.
+
+Right, the concern here is this function will be called in an hotpath 
+(everytime we are re-entering to the guest). At the difference of x86, 
+the entry/exit code is really small, so any additional code will have an 
+impact on the overall performance.
+
+That said, the IOREQ code is a tech preview for Arm. So I would be fine 
+going with Paul's approach until we have a better understanding on the 
+performance of virtio/IOREQ.
+
+I am going to throw some more thoughts about the optimization here. The 
+patch is focusing on performance impact when IOREQ is built-in and not 
+used. I think we can do further optimization (which may superseed this one).
+
+get_pending_vcpu() (called from handle_hvm_io_completion()) is overly 
+expensive in particular if you have no I/O forwarded to an IOREQ server. 
+Entry to the hypervisor can happen for many reasons (interrupts, system 
+registers emulation, I/O emulation...) and the I/O forwarded should be a 
+small subset.
+
+Ideally, handle_hvm_io_completion() should be a NOP (at max a few 
+instructions) if there are nothing to do. Maybe we want to introduce a 
+per-vCPU flag indicating if an I/O has been forwarded to an IOREQ server.
+
+This would also us to bypass most of the function if there is nothing to do.
+
+Any thoughts?
+
+In any case this is more a forward looking rather than a request for the 
+current series. What matters to me is we have a functional (not 
+necessarily optimized) version of IOREQ in Xen 4.15. This would be a 
+great step towards using Virto on Xen.
+
+Cheers,
 
 -- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Julien Grall
 
