@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA5962D46D2
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 17:35:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48542.85913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5BB2D46E3
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Dec 2020 17:37:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48585.85937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn2Qp-0007UW-EN; Wed, 09 Dec 2020 16:35:11 +0000
+	id 1kn2TG-000881-61; Wed, 09 Dec 2020 16:37:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48542.85913; Wed, 09 Dec 2020 16:35:11 +0000
+Received: by outflank-mailman (output) from mailman id 48585.85937; Wed, 09 Dec 2020 16:37:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kn2Qp-0007Te-9y; Wed, 09 Dec 2020 16:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 48542;
- Wed, 09 Dec 2020 16:35:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hiOm=FN=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kn2Qo-0007Fp-F9
- for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 16:35:10 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id b4d68c8c-474d-45c1-be3a-5e462c638463;
- Wed, 09 Dec 2020 16:35:01 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 108B31FB;
- Wed,  9 Dec 2020 08:35:01 -0800 (PST)
-Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com
- [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5FE4A3F68F;
- Wed,  9 Dec 2020 08:35:00 -0800 (PST)
+	id 1kn2TG-00087c-2W; Wed, 09 Dec 2020 16:37:42 +0000
+Received: by outflank-mailman (input) for mailman id 48585;
+ Wed, 09 Dec 2020 16:37:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kn2TE-00087V-Ba
+ for xen-devel@lists.xenproject.org; Wed, 09 Dec 2020 16:37:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kn2TB-0004kc-K3; Wed, 09 Dec 2020 16:37:37 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kn2TB-0001DO-CE; Wed, 09 Dec 2020 16:37:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,50 +39,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4d68c8c-474d-45c1-be3a-5e462c638463
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 7/7] xen/arm: Activate TID3 in HCR_EL2
-Date: Wed,  9 Dec 2020 16:31:00 +0000
-Message-Id: <956cf336ffce24f0cabfc7a98ae855bc71d5f028.1607524536.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <cover.1607524536.git.bertrand.marquis@arm.com>
-References: <cover.1607524536.git.bertrand.marquis@arm.com>
-In-Reply-To: <cover.1607524536.git.bertrand.marquis@arm.com>
-References: <cover.1607524536.git.bertrand.marquis@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=zq3qs2Y37oE2YD1FWHU1D6FEOZCIvFeODTkcNxNpPe0=; b=GEi5v+CU7P1Og1LNtjD5C36tJP
+	CQfvxzQtU6B+2VNzXjKODp8yf7n3se3c2OoMdzQnkg8cPHpdyOerymW6oxMFE0NJdOuShuwXEeCkF
+	2qhVasAvWNQp0vTjl12n5Abp+lBVcM/tPXR6fm6L0Y0HSs3v+x8ZLToOKEnYytGxwcYI=;
+Subject: Re: [PATCH RFC 2/3] xen/domain: add domain hypfs directories
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20201209161618.309-1-jgross@suse.com>
+ <20201209161618.309-3-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <75232058-4626-80cb-6f71-4ce5253f3ef6@xen.org>
+Date: Wed, 9 Dec 2020 16:37:35 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
+MIME-Version: 1.0
+In-Reply-To: <20201209161618.309-3-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Activate TID3 bit in HSR register when starting a guest.
-This will trap all coprecessor ID registers so that we can give to guest
-values corresponding to what they can actually use and mask some
-features to guests even though they would be supported by the underlying
-hardware (like SVE or MPAM).
+Hi Juergen,
 
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
-Changes in V2: Rebase
-Changes in V3: Rebase
+On 09/12/2020 16:16, Juergen Gross wrote:
+> Add /domain/<domid> directories to hypfs. Those are completely
+> dynamic, so the related hypfs access functions need to be implemented.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V3:
+> - new patch
+> ---
+>   docs/misc/hypfs-paths.pandoc |  10 +++
+>   xen/common/Makefile          |   1 +
+>   xen/common/hypfs_dom.c       | 137 +++++++++++++++++++++++++++++++++++
+>   3 files changed, 148 insertions(+)
+>   create mode 100644 xen/common/hypfs_dom.c
+> 
+> diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pandoc
+> index e86f7d0dbe..116642e367 100644
+> --- a/docs/misc/hypfs-paths.pandoc
+> +++ b/docs/misc/hypfs-paths.pandoc
+> @@ -34,6 +34,7 @@ not containing any '/' character. The names "." and ".." are reserved
+>   for file system internal use.
+>   
+>   VALUES are strings and can take the following forms (note that this represents
+> +>>>>>>> patched
 
----
- xen/arch/arm/traps.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This seems to be a left-over of a merge.
 
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 28d9d64558..c1a9ad6056 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -98,7 +98,7 @@ register_t get_default_hcr_flags(void)
- {
-     return  (HCR_PTW|HCR_BSU_INNER|HCR_AMO|HCR_IMO|HCR_FMO|HCR_VM|
-              (vwfi != NATIVE ? (HCR_TWI|HCR_TWE) : 0) |
--             HCR_TSC|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
-+             HCR_TID3|HCR_TSC|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
- }
- 
- static enum {
+>   only the syntax used in this document):
+>   
+>   * STRING -- an arbitrary 0-delimited byte string.
+> @@ -191,6 +192,15 @@ The scheduling granularity of a cpupool.
+>   Writing a value is allowed only for cpupools with no cpu assigned and if the
+>   architecture is supporting different scheduling granularities.
+>   
+
+[...]
+
+> +
+> +static int domain_dir_read(const struct hypfs_entry *entry,
+> +                           XEN_GUEST_HANDLE_PARAM(void) uaddr)
+> +{
+> +    int ret = 0;
+> +    const struct domain *d;
+> +
+> +    for_each_domain ( d )
+
+This is definitely going to be an issue if you have a lot of domain 
+running as Xen is not preemptible.
+
+I think the first step is to make sure that HYPFS can scale without 
+hogging a pCPU for a long time.
+
+Cheers,
+
 -- 
-2.17.1
-
+Julien Grall
 
