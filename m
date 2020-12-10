@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866E92D608F
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 16:55:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49494.87539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9EA52D609D
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 16:56:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49498.87551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knOIB-0006kl-Rr; Thu, 10 Dec 2020 15:55:43 +0000
+	id 1knOJA-0006rm-61; Thu, 10 Dec 2020 15:56:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49494.87539; Thu, 10 Dec 2020 15:55:43 +0000
+Received: by outflank-mailman (output) from mailman id 49498.87551; Thu, 10 Dec 2020 15:56:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knOIB-0006kM-Od; Thu, 10 Dec 2020 15:55:43 +0000
-Received: by outflank-mailman (input) for mailman id 49494;
- Thu, 10 Dec 2020 15:55:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>) id 1knOIA-0006kH-DA
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 15:55:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1knOI7-0002Jp-CL; Thu, 10 Dec 2020 15:55:39 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=u1bbd043a57dd5a.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1knOI6-0003EO-U3; Thu, 10 Dec 2020 15:55:39 +0000
+	id 1knOJA-0006rN-2Q; Thu, 10 Dec 2020 15:56:44 +0000
+Received: by outflank-mailman (input) for mailman id 49498;
+ Thu, 10 Dec 2020 15:56:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wMS7=FO=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1knOJ8-0006rG-7b
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 15:56:42 +0000
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 97e56119-6fb4-4c32-8946-96529e4560ad;
+ Thu, 10 Dec 2020 15:56:41 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id y23so5843888wmi.1
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Dec 2020 07:56:41 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id q143sm10724375wme.28.2020.12.10.07.56.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Dec 2020 07:56:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,85 +41,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
-	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
-	bh=5Mrh5MMqbgJNX25Z8N11CP3F098ff4zaCmN2yJECfmU=; b=mYRTGh0Sr4DDJnR+/Ndabralq7
-	S3GmJFP3F0SrzUFFPpVQ7VMx4W7xpYYVTkLOVIZ/a3RDjffyBZoA71HfENdFxkO4eZWDTQVsN3GNu
-	fxOljgcSxWd1XgjVyFBFODXP3cj+nRLo9Lry9jmdWz39z7V9TrIgnt+c5FI7cuq1zpEo=;
-Message-ID: <e484c21ccda8c0c8049655288d7bf72f74f0de38.camel@xen.org>
-Subject: Re: [PATCH] x86/HVM: refine when to send mapcache invalidation
- request to qemu
-From: Hongyan Xia <hx242@xen.org>
-To: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Roger
- Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, "olekstysh@gmail.com"
- <olekstysh@gmail.com>, George Dunlap <George.Dunlap@eu.citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Date: Thu, 10 Dec 2020 15:55:36 +0000
-In-Reply-To: <d522f01e-af5f-fc65-2888-2573dbcefcf5@suse.com>
-References: <f92f62bf-2f8d-34db-4be5-d3e6a4b9d580@suse.com>
-	 <c6bcaecf71f9e51bdac15c7f97c8ce8460bef306.camel@xen.org>
-	 <d522f01e-af5f-fc65-2888-2573dbcefcf5@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 97e56119-6fb4-4c32-8946-96529e4560ad
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=CRecanxbOToTOHGblZx5e7biwudfKmBvFc15XWLYY80=;
+        b=e5nQXa3xjaj5tFDBJRfnVl6UyDgPmXBC7TEcg8t7tbob3XQ7E63i4yDB9vUqRBDdSC
+         3eM/dUw8/4vFAU6oq/Afc9KvO8pD+1KY+DCFVQB1ZW2ITFRgo+Jy36Dp5lrWcyEB9r0Z
+         Fc652aO7H20KMfh13v9fAB4+3Ro5ZHbTC52bLqk++/qQvn36bIzGAGK/QnXK0dOSxxZx
+         GfvJLIJBybQJDll5ZiWacJdNvO6a0Yrql2jN90umF3El5WgXzAq3zkit8QkPw18685WM
+         OTZw4XuqPPuwkTbikKj8vUGu9BeslAd2KjIny6G95bwPnzCQOOdNOCrlDMycG599tMMl
+         r9Sg==
+X-Gm-Message-State: AOAM532m/pPO30gMsDQZmAul6u80DWz96sAH+pD3uSUZo7VId+nOpv5V
+	oFYdRCO7e7/gq4FfKyW6qCM=
+X-Google-Smtp-Source: ABdhPJwfl2y6tpNzmSJ22RXmEs18D6WlT1Gp+0DvFxRI6nVQQQxF1/+JtL/K1EcbwxbR6cN3hUkNpA==
+X-Received: by 2002:a05:600c:208:: with SMTP id 8mr9103445wmi.143.1607615800613;
+        Thu, 10 Dec 2020 07:56:40 -0800 (PST)
+Date: Thu, 10 Dec 2020 15:56:38 +0000
+From: Wei Liu <wl@xen.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
+	famzheng@amazon.com, cardoe@cardoe.com, Bertrand.Marquis@arm.com,
+	julien@xen.org, andrew.cooper3@citrix.com
+Subject: Re: [PATCH v6 00/25] xl / libxl: named PCI pass-through devices
+Message-ID: <20201210155638.mxjx4zmjqmcpk7z3@liuwe-devbox-debian-v2>
+References: <160746448732.12203.10647684023172140005@600e7e483b3a>
+ <alpine.DEB.2.21.2012081702420.20986@sstabellini-ThinkPad-T480s>
+ <20201209161433.d7xpx5zwtikd3fmk@liuwe-devbox-debian-v2>
+ <alpine.DEB.2.21.2012091046400.20986@sstabellini-ThinkPad-T480s>
+ <alpine.DEB.2.21.2012091839430.20986@sstabellini-ThinkPad-T480s>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2012091839430.20986@sstabellini-ThinkPad-T480s>
+User-Agent: NeoMutt/20180716
 
-On Thu, 2020-12-10 at 14:37 +0100, Jan Beulich wrote:
-> On 10.12.2020 14:09, Hongyan Xia wrote:
-> > On Mon, 2020-09-28 at 12:44 +0200, Jan Beulich wrote:
-> > > Plus finally there's no point sending the request for the local
-> > > domain
-> > > when the domain acted upon is a different one. If anything that
-> > > domain's
-> > > qemu's mapcache may need invalidating, but it's unclear how
-> > > useful
-> > > this
-> > > would be: That remote domain may not execute hypercalls at all,
-> > > and
-> > > hence may never make it to the point where the request actually
-> > > gets
-> > > issued. I guess the assumption is that such manipulation is not
-> > > supposed
-> > > to happen anymore once the guest has been started?
+On Wed, Dec 09, 2020 at 06:41:03PM -0800, Stefano Stabellini wrote:
+> On Wed, 9 Dec 2020, Stefano Stabellini wrote:
+> > On Wed, 9 Dec 2020, Wei Liu wrote:
+> > > On Tue, Dec 08, 2020 at 05:02:50PM -0800, Stefano Stabellini wrote:
+> > > > The pipeline failed because the "fedora-gcc-debug" build failed with a
+> > > > timeout: 
+> > > > 
+> > > > ERROR: Job failed: execution took longer than 1h0m0s seconds
+> > > > 
+> > > > given that all the other jobs passed (including the other Fedora job), I
+> > > > take this failed because the gitlab-ci x86 runners were overloaded?
+> > > > 
+> > > 
+> > > The CI system is configured to auto-scale as the number of jobs grows.
+> > > The limit is set to 10 (VMs) at the moment.
+> > > 
+> > > https://gitlab.com/xen-project/xen-gitlab-ci/-/commit/832bfd72ea3a227283bf3df88b418a9aae95a5a4
+> > > 
+> > > I haven't looked at the log, but the number of build jobs looks rather
+> > > larger than when we get started. Maybe the limit of 10 is not good
+> > > enough?
 > > 
-> > I may still want to set the invalidation signal to true even if the
-> > domain acted on is not the local domain. I know the remote domain
-> > may
-> > never reach the point to issue the invalidate, but it sounds to me
-> > that
-> > the problem is not whether we should set the signal but whether we
-> > can
-> > change where the signal is checked to make sure the point of issue
-> > can
-> > be reliably triggered, and the latter can be done in a future
-> > patch.
+> > Interesting! That's only for the x86 runners, not the ARM runners (we
+> > only have 1 ARM64 runner), is that right?
+> > 
+> > If we could increase the number of VMs for x86 I think that would be
+> > helpful because we have very many x86 jobs.
 > 
-> One of Paul's replies was quite helpful here: The main thing to
+> I don't know what is going on but at the moment there seems to be only
+> one x86 build active
+> (https://gitlab.com/xen-project/patchew/xen/-/pipelines/227280736).
+> Should there be at least 3 of them?
 
-Hmm, I seem to not be able to see the whole thread...
+Not sure what you meant here. That pipeline is green.
 
-> worry about is for the vCPU to not continue running before the
-> invalidation request was signaled (or else, aiui, qemu may serve
-> a subsequent emulation request by the guest incorrectly, because
-> of using the stale mapping). Hence I believe for a non-paused
-> guest remote operations simply cannot be allowed when the may
-> lead to the need for invalidation. Therefore yes, if we assume
-> the guest is paused in such cases, we could drop the "is current"
-> check, but we'd then still need to arrange for actual signaling
-> before the guest gets to run again. I wonder whether
-> handle_hvm_io_completion() (or its caller, hvm_do_resume(),
-> right after that other call) wouldn't be a good place to do so.
+It may take some time for the CI to scale up if it is "cold". By default
+there is only 1 standby runner to reduce cost.
 
-Actually, the existing code must assume that when QEMU is up, the only
-one that manipulates the p2m is the guest itself like you said. If the
-caller is XENMEM_decrease_reservation, the code does not even check
-which p2m this is for and unconditionally sets the QEMU invalidate flag
-for the current domain. Athough this assumption may simply be wrong
-now, so I agree care should be taken for remote p2m ops (I may need to
-read the code more to know how this should be done).
-
-Hongyan
-
+Wei.
 
