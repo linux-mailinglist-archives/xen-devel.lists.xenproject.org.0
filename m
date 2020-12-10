@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38CCF2D5C36
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC2C2D5C37
 	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:49:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49243.87071 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.49251.87083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMJB-0006Uq-Tt; Thu, 10 Dec 2020 13:48:37 +0000
+	id 1knMJT-0006c9-6e; Thu, 10 Dec 2020 13:48:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49243.87071; Thu, 10 Dec 2020 13:48:37 +0000
+Received: by outflank-mailman (output) from mailman id 49251.87083; Thu, 10 Dec 2020 13:48:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMJB-0006UF-PD; Thu, 10 Dec 2020 13:48:37 +0000
-Received: by outflank-mailman (input) for mailman id 49243;
- Thu, 10 Dec 2020 13:48:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1knMJT-0006bf-33; Thu, 10 Dec 2020 13:48:55 +0000
+Received: by outflank-mailman (input) for mailman id 49251;
+ Thu, 10 Dec 2020 13:48:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nlUt=FO=redhat.com=marcandre.lureau@srs-us1.protection.inumbo.net>)
- id 1knMJA-0006Tn-7F
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:48:36 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 98ee8c6c-39fc-4302-8d27-044d5a397b3e;
- Thu, 10 Dec 2020 13:48:35 +0000 (UTC)
+ id 1knMJS-0006bH-2f
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:48:54 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 4897c4a1-b609-4ecf-8209-e86397e795cd;
+ Thu, 10 Dec 2020 13:48:53 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-230-WetvPUssOgaCqGMOqlYqLw-1; Thu, 10 Dec 2020 08:48:33 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
+ us-mta-549-3rhGTMrfP0ODZkGQQriAyA-1; Thu, 10 Dec 2020 08:48:51 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 40A641005E45;
- Thu, 10 Dec 2020 13:48:31 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D45791005E45;
+ Thu, 10 Dec 2020 13:48:48 +0000 (UTC)
 Received: from localhost (unknown [10.36.110.59])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4728E1975F;
- Thu, 10 Dec 2020 13:48:22 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id D37D710016F6;
+ Thu, 10 Dec 2020 13:48:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,18 +47,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98ee8c6c-39fc-4302-8d27-044d5a397b3e
+X-Inumbo-ID: 4897c4a1-b609-4ecf-8209-e86397e795cd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607608115;
+	s=mimecast20190719; t=1607608133;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=L84sEemMXWD2SD9KwsemmLR042MHG0edSakZTzouy6E=;
-	b=ilFhJTQzvW/PwmmTq2Av8YKgSSHNU2uhDA0DI/0B+HcQ8tjPVbbx5mpgjifibPoMPInShP
-	8e+EBZS8RpIpXyJUmU4qMpn6oLqeAZn4buRoGhDf/kXNBQPFxthoWqraotUmeMlZTMpqcP
-	74LErBWJy/f9hESSi9wdM5rmP14WeKM=
-X-MC-Unique: WetvPUssOgaCqGMOqlYqLw-1
+	bh=1DdfdKdA7l8BixI1VKlgzbdz9vMe5mVRY9RuhcSENTs=;
+	b=a3GdI08aPy7uMc9VHpSQ5bstbRBapA1JHGtbR90t3jvxOyVl+h56hqIH7+K/M8NW1KoZlt
+	gCRE7kz7kKPdgtJIcdr9b0LhHG1UugYJIruL6H3RBSVtGVWK/QcloW0ROeROubIqnAsD/d
+	fqxx1j83t5mJ2zLS+XAUnkz6eCYc9ac=
+X-MC-Unique: 3rhGTMrfP0ODZkGQQriAyA-1
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: philmd@redhat.com,
@@ -74,14 +73,15 @@ Cc: philmd@redhat.com,
 	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
 	qemu-arm@nongnu.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>
-Subject: [PATCH v3 02/13] accel/tcg: Remove special case for GCC < 4.6
-Date: Thu, 10 Dec 2020 17:47:41 +0400
-Message-Id: <20201210134752.780923-3-marcandre.lureau@redhat.com>
+	Peter Maydell <peter.maydell@linaro.org>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
+Subject: [PATCH v3 03/13] compiler.h: remove GCC < 3 __builtin_expect fallback
+Date: Thu, 10 Dec 2020 17:47:42 +0400
+Message-Id: <20201210134752.780923-4-marcandre.lureau@redhat.com>
 In-Reply-To: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 References: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=marcandre.lureau@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,37 +89,34 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Philippe Mathieu-Daudé <philmd@redhat.com>
+From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Since commit efc6c070aca ("configure: Add a test for the
-minimum compiler version") the minimum compiler version
-required for GCC is 4.8.
+Since commit efc6c07 ("configure: Add a test for the minimum compiler
+version"), QEMU explicitely depends on GCC >= 4.8.
 
-We can safely remove the special case for GCC 4.6 introduced
-in commit 0448f5f8b81 ("cpu-exec: Fix compiler warning
-(-Werror=clobbered)").
-No change for Clang as we don't know.
+(clang >= 3.4 advertizes itself as GCC >= 4.2 compatible and supports
+__builtin_expect too)
 
-Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 ---
- accel/tcg/cpu-exec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/qemu/compiler.h | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/accel/tcg/cpu-exec.c b/accel/tcg/cpu-exec.c
-index 58aea605d8..37a88edb6d 100644
---- a/accel/tcg/cpu-exec.c
-+++ b/accel/tcg/cpu-exec.c
-@@ -724,7 +724,7 @@ int cpu_exec(CPUState *cpu)
+diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
+index c76281f354..226ead6c90 100644
+--- a/include/qemu/compiler.h
++++ b/include/qemu/compiler.h
+@@ -44,10 +44,6 @@
+ #endif
  
-     /* prepare setjmp context for exception handling */
-     if (sigsetjmp(cpu->jmp_env, 0) != 0) {
--#if defined(__clang__) || !QEMU_GNUC_PREREQ(4, 6)
-+#if defined(__clang__)
-         /* Some compilers wrongly smash all local variables after
-          * siglongjmp. There were bug reports for gcc 4.5.0 and clang.
-          * Reload essential local variables here for those compilers.
+ #ifndef likely
+-#if __GNUC__ < 3
+-#define __builtin_expect(x, n) (x)
+-#endif
+-
+ #define likely(x)   __builtin_expect(!!(x), 1)
+ #define unlikely(x)   __builtin_expect(!!(x), 0)
+ #endif
 -- 
 2.29.0
 
