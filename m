@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01FAE2D670E
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:42:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49696.87858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53D1C2D6700
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:42:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49701.87915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRpW-0007P5-Rm; Thu, 10 Dec 2020 19:42:22 +0000
+	id 1knRpi-0007fM-7g; Thu, 10 Dec 2020 19:42:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49696.87858; Thu, 10 Dec 2020 19:42:22 +0000
+Received: by outflank-mailman (output) from mailman id 49701.87915; Thu, 10 Dec 2020 19:42:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRpW-0007Og-Od; Thu, 10 Dec 2020 19:42:22 +0000
-Received: by outflank-mailman (input) for mailman id 49696;
- Thu, 10 Dec 2020 19:42:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1knRph-0007de-Vy; Thu, 10 Dec 2020 19:42:33 +0000
+Received: by outflank-mailman (input) for mailman id 49701;
+ Thu, 10 Dec 2020 19:42:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hbU1=FO=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1knRpV-0007OY-IW
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:21 +0000
-Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e4bee92c-cca8-415e-a525-aac2136fd8dd;
- Thu, 10 Dec 2020 19:42:19 +0000 (UTC)
+ id 1knRpg-0007NY-HN
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:32 +0000
+Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2184410b-89a9-439f-b41e-9435301c810d;
+ Thu, 10 Dec 2020 19:42:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,28 +35,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4bee92c-cca8-415e-a525-aac2136fd8dd
-Message-Id: <20201210194042.860029489@linutronix.de>
+X-Inumbo-ID: 2184410b-89a9-439f-b41e-9435301c810d
+Message-Id: <20201210194042.967177918@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607629338;
+	s=2020; t=1607629339;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=yFPV7W+/QqCKeqQACSJL6sxoKPc89zwgLkkLw3CK5Qw=;
-	b=b4xfy4bgyikTmVvFd1ABIiZ73tEfKizLVhR+VIJlwT2XXEhpCUYmv0T35kedPEaKJQVpyL
-	EZ6ZpzGOZ5IxdHU/m0CyhJdifeVKmZv6VHKNE7HVl9gYcZmfYEhjmMcUyrjO41XASIxwkE
-	9klGh5JDf3wOEU5Ed3lPXcLem5zy/i2BIvrR40gIEa/OR0IKxYWPTy1L0gdW4vYnASDXBG
-	oPlb3Y/UTUmNePPkOPES/7lQTGxRfLrcgjzM1Sg3uuPGxXkbOxvSMK9KGVtjMA1XVdJV0t
-	Q4ytattWGMjEx0ecdLFwT7qCkSF6HEiYjaunGW+F6+YzwXCTRCwunCHjVGEGUQ==
+	bh=gYsowh6i1mqGXNg6FrEIlf+Px9WkTuZjYPGZA4AoQf4=;
+	b=gQRR2ovC6G1wG0/hHfvHA26mBklNiMZtkvMBYZWjgQshlf7o+cIXoD11qJjLT48W0LHgJA
+	5Zvfg1News0uQs48erbM5kmDtHengxfmuqG2DKGnaIJ04vg1FJ7jnVpZXG8cNwMy19OeFP
+	iPFhPWqfd87RfMeVK3ZgF11+LhI8jQI6rRQAPId6pBGrjdbz5+dRwipziIghpyTp0+nYcu
+	/rMQolvJykCdajiQdhpg5/73/PAnO6jEv3XXq/Rv9w9yxTGzkAvSFeWdlWRlX1S05CmH1R
+	pxA14gUUPV2LrG7qMC56g75TqBVjQeX4kqlFmRI413CglTnFsrbWRi0PstpOew==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607629338;
+	s=2020e; t=1607629339;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=yFPV7W+/QqCKeqQACSJL6sxoKPc89zwgLkkLw3CK5Qw=;
-	b=QKWQOIKE0SKfWygdsF0p53UAxVkxHrZRTXTSBAi/APvw0tfKjTWt41c59REi77MGE+SbMx
-	F6+minehzWx00+CA==
-Date: Thu, 10 Dec 2020 20:25:39 +0100
+	bh=gYsowh6i1mqGXNg6FrEIlf+Px9WkTuZjYPGZA4AoQf4=;
+	b=rxr0RqK5G71Mdyjh0pmNkfya7BLBal4i+pBNw5B4iIspa3uaIBOFXW7QFkpv0Ae/Yof/mz
+	NtSLBAk6jBeGNuDQ==
+Date: Thu, 10 Dec 2020 20:25:40 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
@@ -110,64 +109,35 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: [patch 03/30] genirq: Move irq_set_lockdep_class() to core
+Subject: [patch 04/30] genirq: Provide irq_get_effective_affinity()
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-transfer-encoding: 8-bit
 
-irq_set_lockdep_class() is used from modules and requires irq_to_desc() to
-be exported. Move it into the core code which lifts another requirement for
-the export.
+Provide an accessor to the effective interrupt affinity mask. Going to be
+used to replace open coded fiddling with the irq descriptor.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- include/linux/irqdesc.h |   10 ++++------
- kernel/irq/irqdesc.c    |   14 ++++++++++++++
- 2 files changed, 18 insertions(+), 6 deletions(-)
+ include/linux/irq.h |    7 +++++++
+ 1 file changed, 7 insertions(+)
 
---- a/include/linux/irqdesc.h
-+++ b/include/linux/irqdesc.h
-@@ -240,16 +240,14 @@ static inline bool irq_is_percpu_devid(u
- 	return irq_check_status_bit(irq, IRQ_PER_CPU_DEVID);
+--- a/include/linux/irq.h
++++ b/include/linux/irq.h
+@@ -907,6 +907,13 @@ struct cpumask *irq_data_get_effective_a
  }
- 
-+void __irq_set_lockdep_class(unsigned int irq, struct lock_class_key *lock_class,
-+			     struct lock_class_key *request_class);
- static inline void
- irq_set_lockdep_class(unsigned int irq, struct lock_class_key *lock_class,
- 		      struct lock_class_key *request_class)
- {
--	struct irq_desc *desc = irq_to_desc(irq);
--
--	if (desc) {
--		lockdep_set_class(&desc->lock, lock_class);
--		lockdep_set_class(&desc->request_mutex, request_class);
--	}
-+	if (IS_ENABLED(CONFIG_LOCKDEP))
-+		__irq_set_lockdep_class(irq, lock_class, request_class);
- }
- 
  #endif
---- a/kernel/irq/irqdesc.c
-+++ b/kernel/irq/irqdesc.c
-@@ -968,3 +968,17 @@ unsigned int kstat_irqs_usr(unsigned int
- 	rcu_read_unlock();
- 	return sum;
- }
-+
-+#ifdef CONFIG_LOCKDEP
-+void __irq_set_lockdep_class(unsigned int irq, struct lock_class_key *lock_class,
-+			     struct lock_class_key *request_class)
+ 
++static inline struct cpumask *irq_get_effective_affinity_mask(unsigned int irq)
 +{
-+	struct irq_desc *desc = irq_to_desc(irq);
++	struct irq_data *d = irq_get_irq_data(irq);
 +
-+	if (desc) {
-+		lockdep_set_class(&desc->lock, lock_class);
-+		lockdep_set_class(&desc->request_mutex, request_class);
-+	}
++	return d ? irq_data_get_effective_affinity_mask(d) : NULL;
 +}
-+EXPORT_SYMBOL_GPL(irq_set_lockdep_class);
-+#endif
++
+ unsigned int arch_dynirq_lower_bound(unsigned int from);
+ 
+ int __irq_alloc_descs(int irq, unsigned int from, unsigned int cnt, int node,
 
 
