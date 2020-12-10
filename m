@@ -2,28 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F081D2D6975
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 22:08:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49920.88277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB8D42D69D5
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 22:28:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49929.88287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knTAg-0002tF-Qq; Thu, 10 Dec 2020 21:08:18 +0000
+	id 1knTU2-0004zG-Dc; Thu, 10 Dec 2020 21:28:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49920.88277; Thu, 10 Dec 2020 21:08:18 +0000
+Received: by outflank-mailman (output) from mailman id 49929.88287; Thu, 10 Dec 2020 21:28:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knTAg-0002sq-NM; Thu, 10 Dec 2020 21:08:18 +0000
-Received: by outflank-mailman (input) for mailman id 49920;
- Thu, 10 Dec 2020 21:08:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JUBE=FO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1knTAe-0002sl-Ph
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 21:08:16 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 23a2b38f-d31d-469a-8a06-b7fb7a38cfc7;
- Thu, 10 Dec 2020 21:08:16 +0000 (UTC)
+	id 1knTU2-0004yq-AK; Thu, 10 Dec 2020 21:28:18 +0000
+Received: by outflank-mailman (input) for mailman id 49929;
+ Thu, 10 Dec 2020 21:28:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knTU0-0004yi-Az; Thu, 10 Dec 2020 21:28:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knTU0-0001Zh-4A; Thu, 10 Dec 2020 21:28:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knTTz-0007jl-Qt; Thu, 10 Dec 2020 21:28:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1knTTz-0007BV-QQ; Thu, 10 Dec 2020 21:28:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,90 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23a2b38f-d31d-469a-8a06-b7fb7a38cfc7
-Date: Thu, 10 Dec 2020 13:08:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1607634495;
-	bh=f0+B46ne+W0cDoni+oCaiX6Lb/zEDd88jj5OahkV8GY=;
-	h=From:To:cc:Subject:In-Reply-To:References:From;
-	b=GEDiMAzM5txj/HavJrVIwc6L+aQZ+96gHeGfnWgXt8dGQVVxJLx1xHOz5dQYfztHo
-	 gJd7QfWPM2+wTOPYDd4epfRWR1B7IUuFdfWIRPLULOrhVtTdJeBpJfUkdFCYVBPUBa
-	 8TsgrFtSc08xpaYspRE0BpLZSE7vZiqoO+NkebleikrxbKM97ziuuFWcnCU4/v2MjN
-	 Q33QqVyoMp52RGGUqgnPTguLoubQfx4j1GFfmlR1MfJBQxm8xx0i91DdWz7tO1rWX6
-	 1Ey5MXZhNQiaJURStJDxpdXOKgeD5EbIlx3DzcPbmKFx3YcRFGmagTYdzQHaZe5ioI
-	 f0nfV7MElEPmQ==
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Wei Liu <wl@xen.org>, cardoe@cardoe.com
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, famzheng@amazon.com, 
-    Bertrand.Marquis@arm.com, julien@xen.org, andrew.cooper3@citrix.com
-Subject: gitlab-docker-machine-oyster failure,  Was: [PATCH v6 00/25] xl /
- libxl: named PCI pass-through devices
-In-Reply-To: <20201210155638.mxjx4zmjqmcpk7z3@liuwe-devbox-debian-v2>
-Message-ID: <alpine.DEB.2.21.2012101305510.20986@sstabellini-ThinkPad-T480s>
-References: <160746448732.12203.10647684023172140005@600e7e483b3a> <alpine.DEB.2.21.2012081702420.20986@sstabellini-ThinkPad-T480s> <20201209161433.d7xpx5zwtikd3fmk@liuwe-devbox-debian-v2> <alpine.DEB.2.21.2012091046400.20986@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.2012091839430.20986@sstabellini-ThinkPad-T480s> <20201210155638.mxjx4zmjqmcpk7z3@liuwe-devbox-debian-v2>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zLrCVpFMKXAdosZRzIdSEViL4EJd5Uo53WmGfYePtf8=; b=NBjqLn87kLhIxbC08jL3aaQs6p
+	GrkEObDjSdvCQAdm6amKsWqksmAzKDB3mCynjvPeMiSwzFYFH6u4SmewI4MzHzLeqNT+CMlPNev9c
+	FYIpihkx6SpiLwUxIBaNZYGx9yAZ/qg59GxS9u5XD67UZnqBJiPo5tbFql6RXHVPjzec=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157390-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 157390: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=10dc8c561c687c9e73e29743d04d828cca56a288
+X-Osstest-Versions-That:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 10 Dec 2020 21:28:15 +0000
 
-Hi Doug,
+flight 157390 ovmf real [real]
+flight 157393 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157390/
+http://logs.test-lab.xenproject.org/osstest/logs/157393/
 
-After chatting with Wei on IRC, it became obvious that the issue is that
-gitlab-docker-machine-oyster failed, see its grey status here under
-"Runners":
+Regressions :-(
 
-https://gitlab.com/xen-project/patchew/xen/-/settings/ci_cd
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
 
-Maybe it is just a matter of rebooting the VM? Doug, could you give it a
-try?
+version targeted for testing:
+ ovmf                 10dc8c561c687c9e73e29743d04d828cca56a288
+baseline version:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
 
-Thank you!
+Last test of basis   157345  2020-12-09 12:40:46 Z    1 days
+Failing since        157348  2020-12-09 15:39:39 Z    1 days    5 attempts
+Testing same since   157383  2020-12-10 13:09:45 Z    0 days    2 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Fan Wang <fan.wang@intel.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Siyuan Fu <siyuan.fu@intel.com>
+  Ting Ye <ting.ye@intel.com>
 
-Stefano
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Thu, 10 Dec 2020, Wei Liu wrote:
-> On Wed, Dec 09, 2020 at 06:41:03PM -0800, Stefano Stabellini wrote:
-> > On Wed, 9 Dec 2020, Stefano Stabellini wrote:
-> > > On Wed, 9 Dec 2020, Wei Liu wrote:
-> > > > On Tue, Dec 08, 2020 at 05:02:50PM -0800, Stefano Stabellini wrote:
-> > > > > The pipeline failed because the "fedora-gcc-debug" build failed with a
-> > > > > timeout: 
-> > > > > 
-> > > > > ERROR: Job failed: execution took longer than 1h0m0s seconds
-> > > > > 
-> > > > > given that all the other jobs passed (including the other Fedora job), I
-> > > > > take this failed because the gitlab-ci x86 runners were overloaded?
-> > > > > 
-> > > > 
-> > > > The CI system is configured to auto-scale as the number of jobs grows.
-> > > > The limit is set to 10 (VMs) at the moment.
-> > > > 
-> > > > https://gitlab.com/xen-project/xen-gitlab-ci/-/commit/832bfd72ea3a227283bf3df88b418a9aae95a5a4
-> > > > 
-> > > > I haven't looked at the log, but the number of build jobs looks rather
-> > > > larger than when we get started. Maybe the limit of 10 is not good
-> > > > enough?
-> > > 
-> > > Interesting! That's only for the x86 runners, not the ARM runners (we
-> > > only have 1 ARM64 runner), is that right?
-> > > 
-> > > If we could increase the number of VMs for x86 I think that would be
-> > > helpful because we have very many x86 jobs.
-> > 
-> > I don't know what is going on but at the moment there seems to be only
-> > one x86 build active
-> > (https://gitlab.com/xen-project/patchew/xen/-/pipelines/227280736).
-> > Should there be at least 3 of them?
-> 
-> Not sure what you meant here. That pipeline is green.
-> 
-> It may take some time for the CI to scale up if it is "cold". By default
-> there is only 1 standby runner to reduce cost.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 308 lines long.)
 
