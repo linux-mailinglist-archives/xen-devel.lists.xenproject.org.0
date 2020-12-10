@@ -2,32 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D51A2D5C00
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:38:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49229.87028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C3B2D5C34
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:49:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49239.87047 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knM9G-0005Fx-4M; Thu, 10 Dec 2020 13:38:22 +0000
+	id 1knMIr-0006Mm-9v; Thu, 10 Dec 2020 13:48:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49229.87028; Thu, 10 Dec 2020 13:38:22 +0000
+Received: by outflank-mailman (output) from mailman id 49239.87047; Thu, 10 Dec 2020 13:48:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knM9G-0005FY-15; Thu, 10 Dec 2020 13:38:22 +0000
-Received: by outflank-mailman (input) for mailman id 49229;
- Thu, 10 Dec 2020 13:38:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1knM9F-0005F1-A1
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:38:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1knM98-0007ky-6h; Thu, 10 Dec 2020 13:38:14 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1knM97-0001C1-UQ; Thu, 10 Dec 2020 13:38:14 +0000
+	id 1knMIr-0006MN-6K; Thu, 10 Dec 2020 13:48:17 +0000
+Received: by outflank-mailman (input) for mailman id 49239;
+ Thu, 10 Dec 2020 13:48:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nlUt=FO=redhat.com=marcandre.lureau@srs-us1.protection.inumbo.net>)
+ id 1knMIp-0006MI-2X
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:48:15 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 9b677d54-238b-4520-a7da-6b7d44d251e6;
+ Thu, 10 Dec 2020 13:48:13 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-322-p-pu4U4xNmybGAAj8pkIRQ-1; Thu, 10 Dec 2020 08:48:09 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4A6141005E48;
+ Thu, 10 Dec 2020 13:48:07 +0000 (UTC)
+Received: from localhost (unknown [10.36.110.59])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 521085D9DD;
+ Thu, 10 Dec 2020 13:47:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,113 +48,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=aYqTd/WChvNGXDV0uaxGOhHg4JZtfhldey1GEQ5D6OM=; b=b412AEuSV52OKxlkX+/14/QlJc
-	IF5HXqrP6SF3gRzg32vfgmSf0rialgpfXgg8c8D0KbCURQu9mHf+bSfQhXRFamkHGR702dFGGcCFR
-	uVwUxBMfeXsEaJtIcoK2dgkxMxDEaXNxKvij6oqrHM4wQNsuceSA3TBtyNm6eQHRXAZg=;
-Subject: Re: [PATCH V3 18/23] xen/dm: Introduce xendevicemodel_set_irq_level
- DM op
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, alex.bennee@linaro.org
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-19-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2012091802240.20986@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <d02e00e3-655f-9378-1d95-0e7895d943f4@xen.org>
-Date: Thu, 10 Dec 2020 13:38:11 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: 9b677d54-238b-4520-a7da-6b7d44d251e6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1607608093;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=anpnx/tw5p62yFhBITy05bzKP3wcJQGVw5OZrWMts1E=;
+	b=BAwICLTLxv0oGQhFhA1ceAn2wOYQBQX0BSZEsKBi36D0gnUw4vGL1QXL+t2JTxsqurA7Mu
+	NDe4KM0SWPygZUlWjPq0hXrbszlrRKnJgfBFebiKk9b9rb4fN8cGaQOciYHsFtV87YCsta
+	GuB8aWhiOmTcO65pBV24OkHYXvCoQPg=
+X-MC-Unique: p-pu4U4xNmybGAAj8pkIRQ-1
+From: marcandre.lureau@redhat.com
+To: qemu-devel@nongnu.org
+Cc: philmd@redhat.com,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Laurent Vivier <laurent@vivier.eu>,
+	Paul Durrant <paul@xen.org>,
+	xen-devel@lists.xenproject.org,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+	qemu-arm@nongnu.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
+Subject: [PATCH v3 00/13] Remove GCC < 4.8 checks
+Date: Thu, 10 Dec 2020 17:47:39 +0400
+Message-Id: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2012091802240.20986@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=marcandre.lureau@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Stefano,
+From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>=0D
 
-On 10/12/2020 02:21, Stefano Stabellini wrote:
-> On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
->> From: Julien Grall <julien.grall@arm.com>
->>
->> This patch adds ability to the device emulator to notify otherend
->> (some entity running in the guest) using a SPI and implements Arm
->> specific bits for it. Proposed interface allows emulator to set
->> the logical level of a one of a domain's IRQ lines.
->>
->> We can't reuse the existing DM op (xen_dm_op_set_isa_irq_level)
->> to inject an interrupt as the "isa_irq" field is only 8-bit and
->> able to cover IRQ 0 - 255, whereas we need a wider range (0 - 1020).
->>
->> Signed-off-by: Julien Grall <julien.grall@arm.com>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> ---
->> Please note, this is a split/cleanup/hardening of Julien's PoC:
->> "Add support for Guest IO forwarding to a device emulator"
->>
->> ***
->> Please note, I left interface untouched since there is still
->> an open discussion what interface to use/what information to pass
->> to the hypervisor. The question whether we should abstract away
->> the state of the line or not.
->> ***
-> 
-> Let's start with a simple question: is this going to work with
-> virtio-mmio emulation in QEMU that doesn't lower the state of the line
-> to end the notification (only calls qemu_set_irq(irq, high))?
-> 
-> See: hw/virtio/virtio-mmio.c:virtio_mmio_update_irq
+Hi,=0D
+=0D
+Since commit efc6c07 ("configure: Add a test for the minimum compiler versi=
+on"),=0D
+QEMU explicitely depends on GCC >=3D 4.8.=0D
+=0D
+v3:=0D
+ - drop first patch replacing QEMU_GNUC_PREREQ with G_GNUC_CHECK_VERSION=0D
+ - add last patch to remove QEMU_GNUC_PREREQ=0D
+ - tweak commit messages to replace clang 3.8 with clang 3.4=0D
+ - fix some extra coding style=0D
+ - collect r-b/a-b tags=0D
+=0D
+v2:=0D
+ - include reviewed Philippe earlier series=0D
+ - drop problematic patch to replace GCC_FMT_ATTR, but tweak the check to b=
+e clang=0D
+ - replace QEMU_GNUC_PREREQ with G_GNUC_CHECK_VERSION=0D
+ - split changes=0D
+ - add patches to drop __GNUC__ checks (clang advertizes itself as 4.2.1, u=
+nless=0D
+   -fgnuc-version=3D0)=0D
+=0D
+Marc-Andr=C3=A9 Lureau (11):=0D
+  compiler.h: remove GCC < 3 __builtin_expect fallback=0D
+  qemu-plugin.h: remove GCC < 4=0D
+  tests: remove GCC < 4 fallbacks=0D
+  virtiofsd: replace _Static_assert with QEMU_BUILD_BUG_ON=0D
+  compiler.h: explicit case for Clang printf attribute=0D
+  audio: remove GNUC & MSVC check=0D
+  poison: remove GNUC check=0D
+  xen: remove GNUC check=0D
+  compiler: remove GNUC check=0D
+  linux-user: remove GNUC check=0D
+  compiler.h: remove QEMU_GNUC_PREREQ=0D
+=0D
+Philippe Mathieu-Daud=C3=A9 (2):=0D
+  qemu/atomic: Drop special case for unsupported compiler=0D
+  accel/tcg: Remove special case for GCC < 4.6=0D
+=0D
+ include/exec/poison.h              |  2 --=0D
+ include/hw/xen/interface/io/ring.h |  9 ------=0D
+ include/qemu/atomic.h              | 17 -----------=0D
+ include/qemu/compiler.h            | 45 ++++++++----------------------=0D
+ include/qemu/qemu-plugin.h         |  9 ++----=0D
+ scripts/cocci-macro-file.h         |  1 -=0D
+ tools/virtiofsd/fuse_common.h      | 11 +-------=0D
+ accel/tcg/cpu-exec.c               |  2 +-=0D
+ audio/audio.c                      |  8 +-----=0D
+ linux-user/strace.c                |  4 ---=0D
+ tests/tcg/arm/fcvt.c               |  8 ++----=0D
+ 11 files changed, 20 insertions(+), 96 deletions(-)=0D
+=0D
+--=20=0D
+2.29.0=0D
+=0D
 
-Hmmm my version of QEMU is using:
-
-level = (qatomic_read(&vdev->isr) != 0);
-trace_virtio_mmio_setting_irq(level);
-qemu_set_irq(proxy->irq, level);
-
-So QEMU will raise/lower the interrupt based on whether there are 
-pending still interrupts.
-
-> 
-> 
-> Alex (CC'ed) might be able to confirm whether I am reading the QEMU code
-> correctly. Assuming that it is true that QEMU is only raising the level,
-> never lowering it, although the emulation is obviously not correct, I
-> would rather keep QEMU as is for efficiency reasons, and because we
-> don't want to deviate from the common implementation in QEMU.
-> 
-> 
-> Looking at this patch and at vgic_inject_irq, yes, I think it would
-> work as is.
-
-Our implementation of vgic_inject_irq() is completely bogus as soon as 
-you deal with level interrupt. We are getting away so far, because there 
-are not many fully emulated level interrupt (AFAIK this would only be 
-the pl011). In fact, we carry a gross hack in the emulation to handle them.
-
-In case of the level interrupt, we should keep injecting the interrupt 
-to the guest until the line was lowered down (e.g qemu_set_irq(irq, 0) 
-assuming active-high).
-
-> 
-> 
-> So it looks like we are going to end up with an interface that:
-> 
-> - in theory it is modelling the line closely
-
-For level interrupt we need to know whether the line is low or high. I 
-am struggling to see how this would work if we consider the variable as 
-"trigger".
-
-Cheers,
-
--- 
-Julien Grall
 
