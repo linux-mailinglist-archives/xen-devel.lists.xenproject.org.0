@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03A1D2D676A
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:51:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49805.88172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFF822D6716
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:43:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49732.88016 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRyD-0002W9-P5; Thu, 10 Dec 2020 19:51:21 +0000
+	id 1knRqA-0008V1-Oz; Thu, 10 Dec 2020 19:43:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49805.88172; Thu, 10 Dec 2020 19:51:21 +0000
+Received: by outflank-mailman (output) from mailman id 49732.88016; Thu, 10 Dec 2020 19:43:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRyD-0002UJ-AL; Thu, 10 Dec 2020 19:51:21 +0000
-Received: by outflank-mailman (input) for mailman id 49805;
- Thu, 10 Dec 2020 19:51:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1knRqA-0008UA-Io; Thu, 10 Dec 2020 19:43:02 +0000
+Received: by outflank-mailman (input) for mailman id 49732;
+ Thu, 10 Dec 2020 19:43:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hbU1=FO=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1knRqK-0007NY-Ig
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:43:12 +0000
+ id 1knRq9-0007OY-Da
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:43:01 +0000
 Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fe533430-b33d-4087-a011-f3a1e3dfc651;
- Thu, 10 Dec 2020 19:42:34 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1849d6d4-68f3-400b-86eb-04ea70ec79b6;
+ Thu, 10 Dec 2020 19:42:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,35 +36,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe533430-b33d-4087-a011-f3a1e3dfc651
-Message-Id: <20201210194044.065003856@linutronix.de>
+X-Inumbo-ID: 1849d6d4-68f3-400b-86eb-04ea70ec79b6
+Message-Id: <20201210194044.157283633@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607629353;
+	s=2020; t=1607629354;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=fEH7SfFXgNBjB2KnJKxA/TzRUtcjVN/8Utn6le7GAgY=;
-	b=jLhcNWAI6/f0h7r8+rFxJO/huD0wZGw+D4hiyZeoGMMj1an/mYZLtmxjGnZ/aSu9ajxbNk
-	p75pL7pZYF9lDXL6k6cLxjzZOwC5q8ecIjJ39xF/dSPObsyqM+yudoL9yN0v7780Bn5yyF
-	/Ve3t66EmBeMbc9BsRyBF2dkjfBuqeDKx8lYvDouLXZuAf0vFtIPH5zU4jlfdixs/IVdOS
-	vmsr5U63fIVzglTEhwYSxzXESekgTuzdOHcprErKfUMwbSexx9oDdfFa+4Z1VcZaNX5rSu
-	6l8HXwdp3e4RNwPr1pyTZfpMenA4zfmUQEoZ4/oyxWsRJm8zIR/y6ojvGi9aNQ==
+	bh=4K6qItYlSe7EBUp3WfMEzcI2y69yZ4OdOhSokF1HvFw=;
+	b=dopfjz4hp6A4Xryu0tbdegM/v0YL6lWYdnP3XlIYCgQ9pjXx9ZT1p3TI0zk4elgm5gPd+q
+	FURWbMd/ftse0CXn8TWD7Lf/LMt29YyfqJkuoxwIq2zLBOhpU5N1uQ9NTcofTSPiRoKfTO
+	PEbzx4Og6n9n+3PdfyA3eCON82LOBsb5cz2c2++JdWXn2zeffzgZ5twz3L2T1NgK3Sr/6E
+	z4hGHNQPL1mjIDXhMbZMKcry3IqKzOm1XwkJ497HBo+O7rAGzJagP8Bz95WOHjr107cL1M
+	F3z7vCp/PgmQ7w0NfOrec8JvWkd2Glw3/TrHKxQy3AjIzKLFjQ11edATiOjGMg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607629353;
+	s=2020e; t=1607629354;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=fEH7SfFXgNBjB2KnJKxA/TzRUtcjVN/8Utn6le7GAgY=;
-	b=vcq9ylrl3bvEPVRyLq7+7uNgnxo0i4JU/giqH4jOxFiIi2uv7Mz1SZNae4Tgp0yDwrMR2T
-	GgsHxKk5w8TyzfBQ==
-Date: Thu, 10 Dec 2020 20:25:51 +0100
+	bh=4K6qItYlSe7EBUp3WfMEzcI2y69yZ4OdOhSokF1HvFw=;
+	b=K3Wur5e2Woy0OzRxLAAmfcCZIUuOyHlagbFXs1H4WET0hQYXgya6h4ah4Fheh+nueTyzzX
+	ONj+v+orSFGMaLBQ==
+Date: Thu, 10 Dec 2020 20:25:52 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
  Marc Zyngier <maz@kernel.org>,
  Linus Walleij <linus.walleij@linaro.org>,
+ Lee Jones <lee.jones@linaro.org>,
  linux-arm-kernel@lists.infradead.org,
- linux-gpio@vger.kernel.org,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
  Helge Deller <deller@gmx.de>,
  afzal mohammed <afzal.mohd.ma@gmail.com>,
@@ -86,7 +87,7 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Lee Jones <lee.jones@linaro.org>,
+ linux-gpio@vger.kernel.org,
  Jon Mason <jdmason@kudzu.us>,
  Dave Jiang <dave.jiang@intel.com>,
  Allen Hubbe <allenbh@gmail.com>,
@@ -109,40 +110,62 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: [patch 15/30] pinctrl: nomadik: Use irq_has_action()
+Subject:
+ [patch 16/30] mfd: ab8500-debugfs: Remove the racy fiddling with irq_desc
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-transfer-encoding: 8-bit
 
-Let the core code do the fiddling with irq_desc.
+First of all drivers have absolutely no business to dig into the internals
+of an irq descriptor. That's core code and subject to change. All of this
+information is readily available to /proc/interrupts in a safe and race
+free way.
+
+Remove the inspection code which is a blatant violation of subsystem
+boundaries and racy against concurrent modifications of the interrupt
+descriptor.
+
+Print the irq line instead so the information can be looked up in a sane
+way in /proc/interrupts.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: Lee Jones <lee.jones@linaro.org>
 Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-gpio@vger.kernel.org
 ---
- drivers/pinctrl/nomadik/pinctrl-nomadik.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/mfd/ab8500-debugfs.c |   16 +++-------------
+ 1 file changed, 3 insertions(+), 13 deletions(-)
 
---- a/drivers/pinctrl/nomadik/pinctrl-nomadik.c
-+++ b/drivers/pinctrl/nomadik/pinctrl-nomadik.c
-@@ -948,7 +948,6 @@ static void nmk_gpio_dbg_show_one(struct
- 			   (mode < 0) ? "unknown" : modes[mode]);
- 	} else {
- 		int irq = chip->to_irq(chip, offset);
--		struct irq_desc	*desc = irq_to_desc(irq);
- 		const int pullidx = pull ? 1 : 0;
- 		int val;
- 		static const char * const pulls[] = {
-@@ -969,7 +968,7 @@ static void nmk_gpio_dbg_show_one(struct
- 		 * This races with request_irq(), set_irq_type(),
- 		 * and set_irq_wake() ... but those are "rare".
- 		 */
--		if (irq > 0 && desc && desc->action) {
-+		if (irq > 0 && irq_has_action(irq)) {
- 			char *trigger;
+--- a/drivers/mfd/ab8500-debugfs.c
++++ b/drivers/mfd/ab8500-debugfs.c
+@@ -1513,24 +1513,14 @@ static int ab8500_interrupts_show(struct
+ {
+ 	int line;
  
- 			if (nmk_chip->edge_rising & BIT(offset))
+-	seq_puts(s, "name: number:  number of: wake:\n");
++	seq_puts(s, "name: number: irq: number of: wake:\n");
+ 
+ 	for (line = 0; line < num_interrupt_lines; line++) {
+-		struct irq_desc *desc = irq_to_desc(line + irq_first);
+-
+-		seq_printf(s, "%3i:  %6i %4i",
++		seq_printf(s, "%3i:  %6i %4i %4i\n",
+ 			   line,
++			   line + irq_first,
+ 			   num_interrupts[line],
+ 			   num_wake_interrupts[line]);
+-
+-		if (desc && desc->name)
+-			seq_printf(s, "-%-8s", desc->name);
+-		if (desc && desc->action) {
+-			struct irqaction *action = desc->action;
+-
+-			seq_printf(s, "  %s", action->name);
+-			while ((action = action->next) != NULL)
+-				seq_printf(s, ", %s", action->name);
+ 		}
+ 		seq_putc(s, '\n');
+ 	}
 
 
