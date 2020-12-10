@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABE2D2D5985
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 12:44:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49117.86858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E9B12D5986
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 12:44:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49119.86870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knKMQ-0001I6-SS; Thu, 10 Dec 2020 11:43:50 +0000
+	id 1knKMh-0001Mm-7Z; Thu, 10 Dec 2020 11:44:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49117.86858; Thu, 10 Dec 2020 11:43:50 +0000
+Received: by outflank-mailman (output) from mailman id 49119.86870; Thu, 10 Dec 2020 11:44:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knKMQ-0001Hh-Oz; Thu, 10 Dec 2020 11:43:50 +0000
-Received: by outflank-mailman (input) for mailman id 49117;
- Thu, 10 Dec 2020 11:43:49 +0000
+	id 1knKMh-0001MJ-1Z; Thu, 10 Dec 2020 11:44:07 +0000
+Received: by outflank-mailman (input) for mailman id 49119;
+ Thu, 10 Dec 2020 11:44:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PZm+=FO=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1knKMP-0001HR-4z
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 11:43:49 +0000
+ id 1knKMe-0001Kj-UV
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 11:44:04 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 98f57eb2-0890-4db2-b73e-490f65edc755;
- Thu, 10 Dec 2020 11:43:46 +0000 (UTC)
+ id 6e035dd6-5185-45a5-a752-f639291cf8a5;
+ Thu, 10 Dec 2020 11:44:04 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9360AAE95;
- Thu, 10 Dec 2020 11:43:44 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 6A49CAD7C;
+ Thu, 10 Dec 2020 11:44:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,38 +38,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98f57eb2-0890-4db2-b73e-490f65edc755
+X-Inumbo-ID: 6e035dd6-5185-45a5-a752-f639291cf8a5
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607600625; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1607600643; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6mV0b3KCapS7XDKLmQWqZDjFDGoUzXK8ZrY2OYAWHlI=;
-	b=XHGRAks3Xnqi0IX6tqmwlqlfkYrQUsaskh+uBOr6JLT0gLc01GQjH4Ey5xhRZ1TgrEB5Pe
-	LEZqfuWzTZkzRWcW0kd6PiscybdODUsGQytHkASh0gbJ//AOisLgWp94/vg2rue5SHNMOP
-	9nDE8djrej3eCsMFkgCsPzpbJJwBa6c=
-Subject: Re: [PATCH RFC 0/3] xen: add hypfs per-domain abi-features
+	bh=xyHh1YlXh3D5krmV0gaGkpUq1r97cEDPdXsFnMllEUU=;
+	b=DKqIeH3h5q0p4CZs6wwn6FxTbKhI9zOixC9FJO7NfZBsjB/ahZ6r/A9mad/xrbPy3Gap9C
+	LELGFDR59flElH5Q1twrOzE0YU8aZJDECw7KHT+G4F8CFVCJQgjrV1My/H4i8dgOxNzcbh
+	ks085czZLsNKo+fwWKzKiBLeCwX772U=
+Subject: Re: [PATCH RFC 2/3] xen/domain: add domain hypfs directories
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
  <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <20201209161618.309-1-jgross@suse.com>
- <a2270efd-19d4-5d5e-2e8b-4696ba9751ab@xen.org>
+ <20201209161618.309-3-jgross@suse.com>
+ <75232058-4626-80cb-6f71-4ce5253f3ef6@xen.org>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <b2118f4d-07c5-abae-2b1b-ac8f45c02563@suse.com>
-Date: Thu, 10 Dec 2020 08:49:44 +0100
+Message-ID: <8ec5f4f5-4314-9c4d-45f0-1f4686028a82@suse.com>
+Date: Thu, 10 Dec 2020 08:54:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <a2270efd-19d4-5d5e-2e8b-4696ba9751ab@xen.org>
+In-Reply-To: <75232058-4626-80cb-6f71-4ce5253f3ef6@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="eKJZfniLu9P811YC41rrKKDkfBQt0nHGW"
+ boundary="gSdjpcUaNTrBpTrbsoW5JWlJUvXsbFLdP"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---eKJZfniLu9P811YC41rrKKDkfBQt0nHGW
-Content-Type: multipart/mixed; boundary="evVRhgtOv3cpflGTJuugJMPibqU1vSPSY";
+--gSdjpcUaNTrBpTrbsoW5JWlJUvXsbFLdP
+Content-Type: multipart/mixed; boundary="H6xg0yS6hWU500hkl23Elp9371I9TLsmN";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
@@ -77,62 +78,103 @@ Cc: paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
  <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <b2118f4d-07c5-abae-2b1b-ac8f45c02563@suse.com>
-Subject: Re: [PATCH RFC 0/3] xen: add hypfs per-domain abi-features
+Message-ID: <8ec5f4f5-4314-9c4d-45f0-1f4686028a82@suse.com>
+Subject: Re: [PATCH RFC 2/3] xen/domain: add domain hypfs directories
 References: <20201209161618.309-1-jgross@suse.com>
- <a2270efd-19d4-5d5e-2e8b-4696ba9751ab@xen.org>
-In-Reply-To: <a2270efd-19d4-5d5e-2e8b-4696ba9751ab@xen.org>
+ <20201209161618.309-3-jgross@suse.com>
+ <75232058-4626-80cb-6f71-4ce5253f3ef6@xen.org>
+In-Reply-To: <75232058-4626-80cb-6f71-4ce5253f3ef6@xen.org>
 
---evVRhgtOv3cpflGTJuugJMPibqU1vSPSY
+--H6xg0yS6hWU500hkl23Elp9371I9TLsmN
 Content-Type: multipart/mixed;
- boundary="------------E677FE150D0E218282CED8EE"
+ boundary="------------BB6929A11E713E9E6A013377"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------E677FE150D0E218282CED8EE
+--------------BB6929A11E713E9E6A013377
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 09.12.20 17:24, Julien Grall wrote:
-> Hi,
+On 09.12.20 17:37, Julien Grall wrote:
+> Hi Juergen,
 >=20
 > On 09/12/2020 16:16, Juergen Gross wrote:
->> This small series is meant as an example how to add further dynamical
->> directories to hypfs. It can be used to replace Paul's current approac=
-h
->> to specify ABI-features via domain create flags and replace those by
->> hypfs nodes.
+>> Add /domain/<domid> directories to hypfs. Those are completely
+>> dynamic, so the related hypfs access functions need to be implemented.=
+
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> V3:
+>> - new patch
+>> ---
+>> =C2=A0 docs/misc/hypfs-paths.pandoc |=C2=A0 10 +++
+>> =C2=A0 xen/common/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 +
+>> =C2=A0 xen/common/hypfs_dom.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 13=
+7 +++++++++++++++++++++++++++++++++++
+>> =C2=A0 3 files changed, 148 insertions(+)
+>> =C2=A0 create mode 100644 xen/common/hypfs_dom.c
+>>
+>> diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pand=
+oc
+>> index e86f7d0dbe..116642e367 100644
+>> --- a/docs/misc/hypfs-paths.pandoc
+>> +++ b/docs/misc/hypfs-paths.pandoc
+>> @@ -34,6 +34,7 @@ not containing any '/' character. The names "." and =
+
+>> ".." are reserved
+>> =C2=A0 for file system internal use.
+>> =C2=A0 VALUES are strings and can take the following forms (note that =
+this=20
+>> represents
+>> +>>>>>>> patched
 >=20
-> This can only work if all the ABI-features are not required at the time=
-=20
-> of creating the domain.
+> This seems to be a left-over of a merge.
 
-Yes. In case there is some further initialization needed this has to be
-done later depending on the setting.
-
-> Those features should also be set only once. Furthermore, HYPFS is so=20
-> far meant to be optional.
-
-"set once" isn't the point. They should not be able to change after the
-domain has been started, and that is covered.
+Oh, interesting that I wasn't warned about that.
 
 >=20
-> So it feels to me Paul's approach is leaner and better for the=20
-> ABI-features purpose.
+>> =C2=A0 only the syntax used in this document):
+>> =C2=A0 * STRING -- an arbitrary 0-delimited byte string.
+>> @@ -191,6 +192,15 @@ The scheduling granularity of a cpupool.
+>> =C2=A0 Writing a value is allowed only for cpupools with no cpu assign=
+ed=20
+>> and if the
+>> =C2=A0 architecture is supporting different scheduling granularities.
+>=20
+> [...]
+>=20
+>> +
+>> +static int domain_dir_read(const struct hypfs_entry *entry,
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 XEN_GUEST_HANDLE_PARAM(void) uaddr)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 int ret =3D 0;
+>> +=C2=A0=C2=A0=C2=A0 const struct domain *d;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 for_each_domain ( d )
+>=20
+> This is definitely going to be an issue if you have a lot of domain=20
+> running as Xen is not preemptible.
 
-Depends.
+In general this is correct, but in this case I don't think it will
+be a problem. The execution time for each loop iteration should be
+rather short (in the microsecond range?), so even with 32000 guests
+we would stay way below one second. And on rather slow cpus I don't
+think we'd have thousands of guests anyway.
 
-My approach doesn't need any tools side changes after first
-implementation when adding new abi-features. And it isn't expanding an
-unstable interface.
+> I think the first step is to make sure that HYPFS can scale without=20
+> hogging a pCPU for a long time.
 
-In the end this is the reason I marked this series as RFC. If using
-flags is preferred, fine.
+I agree this would be best.
 
 
 Juergen
 
---------------E677FE150D0E218282CED8EE
+
+--------------BB6929A11E713E9E6A013377
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -223,25 +265,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------E677FE150D0E218282CED8EE--
+--------------BB6929A11E713E9E6A013377--
 
---evVRhgtOv3cpflGTJuugJMPibqU1vSPSY--
+--H6xg0yS6hWU500hkl23Elp9371I9TLsmN--
 
---eKJZfniLu9P811YC41rrKKDkfBQt0nHGW
+--gSdjpcUaNTrBpTrbsoW5JWlJUvXsbFLdP
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/R0xgFAwAAAAAACgkQsN6d1ii/Ey8t
-eQgAiamucRYpdredgK4K3hsG4B/19DPFEkjE5aLRSl4wNLQDL9nsjXVBtbFxv1JIBOnCqgR4w3Kg
-ljxqxSCqPKeV/b1xOqylrJrcG2Llgn6Y7qlXXw2PUkYBGC9HGfZnbopYQeEE4JgXQDQuf4BQPYG4
-u91fn2TwFNaWgjvSZxLHmpi2PDAJUic46dEqYvIeOqjbh31k/NR1HmFE0DmW+HwqHZiBd4u+A8dz
-SPdvdgOMEXdTpQhg/tvQZw4rXuHtu6EhcHIm0PLezEShgRTUAujcLt4ywrx4+9qufse/lNZWVx+n
-/YFqCXkmJ/3J6JAbgas67RNOpoC6OZ13zRKMmPpI+w==
-=rFyB
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/R1CIFAwAAAAAACgkQsN6d1ii/Ey+o
+Agf/SWKaghqbwtnyyuxoLT/6CiHvxLUovD62MWxPPBVQh6uBeO3rPHnOD5J4Tw7KlyZkD7Hxb9Gl
+5IKh6TSEapBOGlnzF5ZiHyn9g1kOt6c6Bs047AxVfsU7r6L5HwhpgxSfGe9R9Yecq6wa6HiR0do/
+89ySZGPegJGJErvF7bXMEoPoBhhfWjYpCRy8hB4NKaMVAGDpGEbZemR6Q3b+Gb8SM2a4kyc8ZEaA
++WAJDoZXMWMytrRelrhGh6SBlJJv/uFhDmvXCqDKsRRiKVwWKsuQkJtjyq5oaD8gh4JPWZBBnG75
+3zDoWLCnMjIHyzo9iOt5b644nklKXulZ9/RT3frxKg==
+=bcmM
 -----END PGP SIGNATURE-----
 
---eKJZfniLu9P811YC41rrKKDkfBQt0nHGW--
+--gSdjpcUaNTrBpTrbsoW5JWlJUvXsbFLdP--
 
