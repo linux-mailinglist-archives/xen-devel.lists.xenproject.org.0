@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDCDF2D6862
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 21:15:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49892.88235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B17A2D6927
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 21:53:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49906.88253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knSLF-0005uI-PI; Thu, 10 Dec 2020 20:15:09 +0000
+	id 1knSur-0001Ws-4o; Thu, 10 Dec 2020 20:51:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49892.88235; Thu, 10 Dec 2020 20:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 49906.88253; Thu, 10 Dec 2020 20:51:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knSLF-0005tt-LV; Thu, 10 Dec 2020 20:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 49892;
- Thu, 10 Dec 2020 20:15:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hbU1=FO=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1knSLE-0005to-98
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 20:15:08 +0000
-Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9159a3dc-e05a-453b-a281-4af17579fb37;
- Thu, 10 Dec 2020 20:15:07 +0000 (UTC)
+	id 1knSur-0001WT-1F; Thu, 10 Dec 2020 20:51:57 +0000
+Received: by outflank-mailman (input) for mailman id 49906;
+ Thu, 10 Dec 2020 20:51:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1knSuq-0001WO-Fn
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 20:51:56 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1knSup-0000pp-3t; Thu, 10 Dec 2020 20:51:55 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1knSuo-0006EB-SO; Thu, 10 Dec 2020 20:51:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,151 +39,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9159a3dc-e05a-453b-a281-4af17579fb37
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607631305;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5fN5ChdPk6fH90ggZf7w1lWtyXdKRHqfW7WHc/pgsVs=;
-	b=ckiewzsMmQUlBqMXgP4UCM+Np8mVHkkyuYZ55dFWcuWlHfyz/tgDeQPN8gOJwL71KCuDFp
-	bTEV0UcVcW+THBv5y7dJyw0M+kQ1Riyvqn9OxQr3zwaLOv+uShsKUCjirolVbrlSa85oom
-	iI6uU+J4mWFPa2hGzIZEAOuKh5iN+4FzvPkGUwZRJzd2A30gZdT6pTvBYw/wj4wJvz45Q9
-	4xL68/ICbZjy5ErILON+zndUZYGmqVaFb9ADzRqHWrpdGoR4T6W0smF9rTYGSgd1QHwNu0
-	XdkbiN6hBQ7XZ7qyI/o8e/Rwir0XY//nkekRFelqXb/XKTsF4qfFyF4RODMkvA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607631305;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5fN5ChdPk6fH90ggZf7w1lWtyXdKRHqfW7WHc/pgsVs=;
-	b=7Sv15HRz9k3S0goiNVwWDAqqbLafPJHvp7i7jT+K4bNnOThCzVhK/tC1gQGefAlx4Qus9O
-	sPKSDB0EOeG3wDBg==
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org, luto@kernel.org, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, Deep Shah <sdeep@vmware.com>, "VMware\, Inc." <pv-drivers@vmware.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: x86/ioapic: Cleanup the timer_works() irqflags mess
-In-Reply-To: <20201210111008.GB88655@C02TD0UTHF1T.local>
-References: <20201120114630.13552-1-jgross@suse.com> <20201120114630.13552-6-jgross@suse.com> <20201120115943.GD3021@hirez.programming.kicks-ass.net> <20201209181514.GA14235@C02TD0UTHF1T.local> <87tusuzu71.fsf@nanos.tec.linutronix.de> <20201210111008.GB88655@C02TD0UTHF1T.local>
-Date: Thu, 10 Dec 2020 21:15:04 +0100
-Message-ID: <87k0tpju47.fsf@nanos.tec.linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=ZMMdUx0x9wYMaOKo/RzR5w8M61hVMj8XIkOz66DqnpI=; b=2FF2cY1USmHb7fD+gLJugPnjQa
+	vCu0p/vD4VWjbFH54bg/+3+xOju1+r9n94MkCKO0pQ1py3psWhuaKkyuLDMfH6wR/hO/libdfR+Nl
+	FGirN/vRF+77kxXEQOj7P/AhzcCCMpqZpTz28UsHWO7OXArwbpR7QKFX5VhMOgYQduh4=;
+Subject: Re: [PATCH v3] xen: add support for automatic debug key actions in
+ case of crash
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
+References: <20201126080340.6154-1-jgross@suse.com>
+ <22190c77-eb35-5b72-7d72-34800c3f052f@suse.com>
+ <98c45abd-8796-088c-e2a6-9ad494beeb9e@xen.org>
+ <59f126a3-f716-345b-b464-746e6156c15a@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <1e305cf6-aa14-54cc-a77d-88bb38ba4c6e@xen.org>
+Date: Thu, 10 Dec 2020 20:51:52 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <59f126a3-f716-345b-b464-746e6156c15a@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Mark tripped over the creative irqflags handling in the IO-APIC timer
-delivery check which ends up doing:
+Hi Jan,
 
-        local_irq_save(flags);
-	local_irq_enable();
-        local_irq_restore(flags);
+On 09/12/2020 14:29, Jan Beulich wrote:
+> On 09.12.2020 13:11, Julien Grall wrote:
+>> On 26/11/2020 11:20, Jan Beulich wrote:
+>>> On 26.11.2020 09:03, Juergen Gross wrote:
+>>>> When the host crashes it would sometimes be nice to have additional
+>>>> debug data available which could be produced via debug keys, but
+>>>> halting the server for manual intervention might be impossible due to
+>>>> the need to reboot/kexec rather sooner than later.
+>>>>
+>>>> Add support for automatic debug key actions in case of crashes which
+>>>> can be activated via boot- or runtime-parameter.
+>>>>
+>>>> Depending on the type of crash the desired data might be different, so
+>>>> support different settings for the possible types of crashes.
+>>>>
+>>>> The parameter is "crash-debug" with the following syntax:
+>>>>
+>>>>     crash-debug-<type>=<string>
+>>>>
+>>>> with <type> being one of:
+>>>>
+>>>>     panic, hwdom, watchdog, kexeccmd, debugkey
+>>>>
+>>>> and <string> a sequence of debug key characters with '+' having the
+>>>> special semantics of a 10 millisecond pause.
+>>>>
+>>>> So "crash-debug-watchdog=0+0qr" would result in special output in case
+>>>> of watchdog triggered crash (dom0 state, 10 ms pause, dom0 state,
+>>>> domain info, run queues).
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>> ---
+>>>> V2:
+>>>> - switched special character '.' to '+' (Jan Beulich)
+>>>> - 10 ms instead of 1 s pause (Jan Beulich)
+>>>> - added more text to the boot parameter description (Jan Beulich)
+>>>>
+>>>> V3:
+>>>> - added const (Jan Beulich)
+>>>> - thorough test of crash reason parameter (Jan Beulich)
+>>>> - kexeccmd case should depend on CONFIG_KEXEC (Jan Beulich)
+>>>> - added dummy get_irq_regs() helper on Arm
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>
+>>> Except for the Arm aspect, where I'm not sure using
+>>> guest_cpu_user_regs() is correct in all cases,
+>>
+>> I am not entirely sure to understand what get_irq_regs() is supposed to
+>> returned on x86. Is it the registers saved from the most recent exception?
+> 
+> An interrupt (not an exception) sets the underlying per-CPU
+> variable, such that interested parties will know the real
+> context is not guest or "normal" Xen code, but an IRQ.
 
-which triggered a new consistency check he's working on required for
-replacing the POPF based restore with a conditional STI.
+Thanks for the explanation. I am a bit confused to why we need to give a 
+regs to handle_keypress() because no-one seems to use it. Do you have an 
+explanation?
 
-That code is a historical mess and none of this is needed. Make it
-straightforward use local_irq_disable()/enable() as that's all what is
-required. It is invoked from interrupt enabled code nowadays.
+To add to the confusion, it looks like that get_irqs_regs() may return 
+NULL. So sometimes we may pass guest_cpu_regs() (which may contain 
+garbagge or a set too far).
 
-Reported-by: Mark Rutland <mark.rutland@arm.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Tested-by: Mark Rutland <mark.rutland@arm.com>
----
- arch/x86/kernel/apic/io_apic.c |   22 ++++++----------------
- 1 file changed, 6 insertions(+), 16 deletions(-)
+I guess providing the wrong information to handle_keypress() is not 
+going to matter that much because no-one use it (?). Although, I'd like 
+to make sure this is not going to bite us in the future.
 
---- a/arch/x86/kernel/apic/io_apic.c
-+++ b/arch/x86/kernel/apic/io_apic.c
-@@ -1618,21 +1618,16 @@ static void __init delay_without_tsc(voi
- static int __init timer_irq_works(void)
- {
- 	unsigned long t1 = jiffies;
--	unsigned long flags;
- 
- 	if (no_timer_check)
- 		return 1;
- 
--	local_save_flags(flags);
- 	local_irq_enable();
--
- 	if (boot_cpu_has(X86_FEATURE_TSC))
- 		delay_with_tsc();
- 	else
- 		delay_without_tsc();
- 
--	local_irq_restore(flags);
--
- 	/*
- 	 * Expect a few ticks at least, to be sure some possible
- 	 * glue logic does not lock up after one or two first
-@@ -1641,10 +1636,10 @@ static int __init timer_irq_works(void)
- 	 * least one tick may be lost due to delays.
- 	 */
- 
--	/* jiffies wrap? */
--	if (time_after(jiffies, t1 + 4))
--		return 1;
--	return 0;
-+	local_irq_disable();
-+
-+	/* Did jiffies advance? */
-+	return time_after(jiffies, t1 + 4);
- }
- 
- /*
-@@ -2117,13 +2112,12 @@ static inline void __init check_timer(vo
- 	struct irq_cfg *cfg = irqd_cfg(irq_data);
- 	int node = cpu_to_node(0);
- 	int apic1, pin1, apic2, pin2;
--	unsigned long flags;
- 	int no_pin1 = 0;
- 
- 	if (!global_clock_event)
- 		return;
- 
--	local_irq_save(flags);
-+	local_irq_disable();
- 
- 	/*
- 	 * get/set the timer IRQ vector:
-@@ -2191,7 +2185,6 @@ static inline void __init check_timer(vo
- 			goto out;
- 		}
- 		panic_if_irq_remap("timer doesn't work through Interrupt-remapped IO-APIC");
--		local_irq_disable();
- 		clear_IO_APIC_pin(apic1, pin1);
- 		if (!no_pin1)
- 			apic_printk(APIC_QUIET, KERN_ERR "..MP-BIOS bug: "
-@@ -2215,7 +2208,6 @@ static inline void __init check_timer(vo
- 		/*
- 		 * Cleanup, just in case ...
- 		 */
--		local_irq_disable();
- 		legacy_pic->mask(0);
- 		clear_IO_APIC_pin(apic2, pin2);
- 		apic_printk(APIC_QUIET, KERN_INFO "....... failed.\n");
-@@ -2232,7 +2224,6 @@ static inline void __init check_timer(vo
- 		apic_printk(APIC_QUIET, KERN_INFO "..... works.\n");
- 		goto out;
- 	}
--	local_irq_disable();
- 	legacy_pic->mask(0);
- 	apic_write(APIC_LVT0, APIC_LVT_MASKED | APIC_DM_FIXED | cfg->vector);
- 	apic_printk(APIC_QUIET, KERN_INFO "..... failed.\n");
-@@ -2251,7 +2242,6 @@ static inline void __init check_timer(vo
- 		apic_printk(APIC_QUIET, KERN_INFO "..... works.\n");
- 		goto out;
- 	}
--	local_irq_disable();
- 	apic_printk(APIC_QUIET, KERN_INFO "..... failed :(.\n");
- 	if (apic_is_x2apic_enabled())
- 		apic_printk(APIC_QUIET, KERN_INFO
-@@ -2260,7 +2250,7 @@ static inline void __init check_timer(vo
- 	panic("IO-APIC + timer doesn't work!  Boot with apic=debug and send a "
- 		"report.  Then try booting with the 'noapic' option.\n");
- out:
--	local_irq_restore(flags);
-+	local_irq_enable();
- }
- 
- /*
+Cheers,
+
+-- 
+Julien Grall
 
