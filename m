@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB6E12D6583
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 19:50:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49678.87836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BAC32D6703
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:42:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49695.87848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knR19-0002DY-IO; Thu, 10 Dec 2020 18:50:19 +0000
+	id 1knRpT-0007O2-Jw; Thu, 10 Dec 2020 19:42:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49678.87836; Thu, 10 Dec 2020 18:50:19 +0000
+Received: by outflank-mailman (output) from mailman id 49695.87848; Thu, 10 Dec 2020 19:42:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knR19-0002D8-E3; Thu, 10 Dec 2020 18:50:19 +0000
-Received: by outflank-mailman (input) for mailman id 49678;
- Thu, 10 Dec 2020 18:50:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1knR17-0002D3-KN
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 18:50:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1knR16-0006ao-2W; Thu, 10 Dec 2020 18:50:16 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1knR15-0004L6-Lc; Thu, 10 Dec 2020 18:50:15 +0000
+	id 1knRpT-0007Nd-GS; Thu, 10 Dec 2020 19:42:19 +0000
+Received: by outflank-mailman (input) for mailman id 49695;
+ Thu, 10 Dec 2020 19:42:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hbU1=FO=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
+ id 1knRpR-0007NY-MO
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:18 +0000
+Received: from galois.linutronix.de (unknown [193.142.43.55])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0c0734a9-a88a-4caa-a14b-9c0be355e987;
+ Thu, 10 Dec 2020 19:42:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,235 +35,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=XDwWIjmn41xeSxXSoYg5HaOcihHdudMxNY5/au0DBj0=; b=ABYRR+2viglG8M5ct3QeoaHbPd
-	J+8+PlXA2A2JZtUzciwKlAWhplQVmbdk4rk7PlY5MyGit+ubb/IHHXQFtJHXJNYuhp+FrOKR0mZrO
-	ynEzijvJ8RxAm9tqREteYn/J2Z0IhyTjuW2MpmQFTYOP3VbSYMltjnAhMaGgBL1NX5VQ=;
-Subject: Re: [PATCH V3 21/23] xen/arm: Add mapcache invalidation handling
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-22-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2012091822300.20986@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a6897469-f031-e49d-0b4c-b1aa10d66d6d@xen.org>
-Date: Thu, 10 Dec 2020 18:50:13 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: 0c0734a9-a88a-4caa-a14b-9c0be355e987
+Message-Id: <20201210192536.118432146@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1607629334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dqmaBUU1aX3t41xhFMZZXhwmlvXhIHW8LZkxAL3qIuw=;
+	b=h/TAwStAiTk4XvWiKPBPyDEOx218hZJC1vmF2rxVMRIvmco9q+UXf8EllPz4AjaFdOly7G
+	LH+a53gOb/6x23hHUexy7zt6RJrXCLvlfH0RT7UmulMioZYuYNOHYckgeF+NjT2uTUeh+Y
+	x4QOtIuHWxwLs6LKhedv+5hufAepZeedXGgORll6jDA+oynwB+JjiqXx/tgkxTCP8dbJ6L
+	eWUOoe8IS6Z7h2dgCBQQBehNHm1Tfe56GXWt3TBc5qz2bsl6Xo6wT+1/DTPysSy3XD7/6K
+	p0j9T2Hw/f1US+iZCI2FQmyJpu2ijKWYz9OMLgGwEfvXwTDnGAF9V1bHZmS/0A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1607629334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dqmaBUU1aX3t41xhFMZZXhwmlvXhIHW8LZkxAL3qIuw=;
+	b=njYD6xBoyWobXQbQRXgtO58qqL+V8jLaqaWB6hUvHzVko4O9Y0w527+7oT5RC78ucYDSLL
+	sPAJGjvbV9zCgIAw==
+Date: Thu, 10 Dec 2020 20:25:36 +0100
+From: Thomas Gleixner <tglx@linutronix.de>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+ Marc Zyngier <maz@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>,
+ afzal mohammed <afzal.mohd.ma@gmail.com>,
+ linux-parisc@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org,
+ Mark Rutland <mark.rutland@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>,
+ linux-s390@vger.kernel.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Wambui Karuga <wambui.karugax@gmail.com>,
+ intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ linux-gpio@vger.kernel.org,
+ Lee Jones <lee.jones@linaro.org>,
+ Jon Mason <jdmason@kudzu.us>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Allen Hubbe <allenbh@gmail.com>,
+ linux-ntb@googlegroups.com,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ linux-pci@vger.kernel.org,
+ Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
+ Tariq Toukan <tariqt@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org,
+ Saeed Mahameed <saeedm@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Subject: [patch 00/30] genirq: Treewide hunt for irq descriptor abuse and
+ assorted fixes
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2012091822300.20986@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Stefano,
-
-On 10/12/2020 02:30, Stefano Stabellini wrote:
-> On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> We need to send mapcache invalidation request to qemu/demu everytime
->> the page gets removed from a guest.
->>
->> At the moment, the Arm code doesn't explicitely remove the existing
->> mapping before inserting the new mapping. Instead, this is done
->> implicitely by __p2m_set_entry().
->>
->> So we need to recognize a case when old entry is a RAM page *and*
->> the new MFN is different in order to set the corresponding flag.
->> The most suitable place to do this is p2m_free_entry(), there
->> we can find the correct leaf type. The invalidation request
->> will be sent in do_trap_hypercall() later on.
-> 
-> Why is it sent in do_trap_hypercall() ?
-
-I believe this is following the approach used by x86. There are actually 
-some discussion about it (see [1]).
-
-Leaving aside the toolstack case for now, AFAIK, the only way a guest 
-can modify its p2m is via an hypercall. Do you have an example otherwise?
-
-When sending the invalidation request, the vCPU will be blocked until 
-all the IOREQ server have acknowledged the invalidation. So the 
-hypercall seems to be the best position to do it.
-
-Alternatively, we could use check_for_vcpu_work() to check if the 
-mapcache needs to be invalidated. The inconvenience is we would execute 
-a few more instructions in each entry/exit path.
-
-> 
-> 
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> CC: Julien Grall <julien.grall@arm.com>
->>
->> ---
->> Please note, this is a split/cleanup/hardening of Julien's PoC:
->> "Add support for Guest IO forwarding to a device emulator"
->>
->> Changes V1 -> V2:
->>     - new patch, some changes were derived from (+ new explanation):
->>       xen/ioreq: Make x86's invalidate qemu mapcache handling common
->>     - put setting of the flag into __p2m_set_entry()
->>     - clarify the conditions when the flag should be set
->>     - use domain_has_ioreq_server()
->>     - update do_trap_hypercall() by adding local variable
->>
->> Changes V2 -> V3:
->>     - update patch description
->>     - move check to p2m_free_entry()
->>     - add a comment
->>     - use "curr" instead of "v" in do_trap_hypercall()
->> ---
->> ---
->>   xen/arch/arm/p2m.c   | 24 ++++++++++++++++--------
->>   xen/arch/arm/traps.c | 13 ++++++++++---
->>   2 files changed, 26 insertions(+), 11 deletions(-)
->>
->> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->> index 5b8d494..9674f6f 100644
->> --- a/xen/arch/arm/p2m.c
->> +++ b/xen/arch/arm/p2m.c
->> @@ -1,6 +1,7 @@
->>   #include <xen/cpu.h>
->>   #include <xen/domain_page.h>
->>   #include <xen/iocap.h>
->> +#include <xen/ioreq.h>
->>   #include <xen/lib.h>
->>   #include <xen/sched.h>
->>   #include <xen/softirq.h>
->> @@ -749,17 +750,24 @@ static void p2m_free_entry(struct p2m_domain *p2m,
->>       if ( !p2m_is_valid(entry) )
->>           return;
->>   
->> -    /* Nothing to do but updating the stats if the entry is a super-page. */
->> -    if ( p2m_is_superpage(entry, level) )
->> +    if ( p2m_is_superpage(entry, level) || (level == 3) )
->>       {
->> -        p2m->stats.mappings[level]--;
->> -        return;
->> -    }
->> +#ifdef CONFIG_IOREQ_SERVER
->> +        /*
->> +         * If this gets called (non-recursively) then either the entry
->> +         * was replaced by an entry with a different base (valid case) or
->> +         * the shattering of a superpage was failed (error case).
->> +         * So, at worst, the spurious mapcache invalidation might be sent.
->> +         */
->> +        if ( domain_has_ioreq_server(p2m->domain) &&
->> +             (p2m->domain == current->domain) && p2m_is_ram(entry.p2m.type) )
->> +            p2m->domain->mapcache_invalidate = true;
-> 
-> Why the (p2m->domain == current->domain) check? Shouldn't we set
-> mapcache_invalidate to true anyway? What happens if p2m->domain !=
-> current->domain? We wouldn't want the domain to lose the
-> mapcache_invalidate notification.
-
-This is also discussed in [1]. :) The main question is why would a 
-toolstack/device model modify the guest memory after boot?
-
-If we assume it does, then the device model would need to pause the 
-domain before modifying the RAM.
-
-We also need to make sure that all the IOREQ servers have invalidated
-the mapcache before the domain run again.
-
-This would require quite a bit of work. I am not sure the effort is 
-worth if there are no active users today.
-
-> 
-> 
->> +#endif
->>   
->> -    if ( level == 3 )
->> -    {
->>           p2m->stats.mappings[level]--;
->> -        p2m_put_l3_page(entry);
->> +        /* Nothing to do if the entry is a super-page. */
->> +        if ( level == 3 )
->> +            p2m_put_l3_page(entry);
->>           return;
->>       }
->>   
->> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
->> index b6077d2..151c626 100644
->> --- a/xen/arch/arm/traps.c
->> +++ b/xen/arch/arm/traps.c
->> @@ -1443,6 +1443,7 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
->>                                 const union hsr hsr)
->>   {
->>       arm_hypercall_fn_t call = NULL;
->> +    struct vcpu *curr = current;
-> 
-> Is this just to save 3 characters?
-
-Because current is not cheap to read and the compiler cannot optimize it 
-(we obfuscate it as this is a per-cpu variable). So we commonly store 
-'current'  in a local variable if there are multiple use.
-
-> 
-> 
->>       BUILD_BUG_ON(NR_hypercalls < ARRAY_SIZE(arm_hypercall_table) );
->>   
->> @@ -1459,7 +1460,7 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
->>           return;
->>       }
->>   
->> -    current->hcall_preempted = false;
->> +    curr->hcall_preempted = false;
->>   
->>       perfc_incra(hypercalls, *nr);
->>       call = arm_hypercall_table[*nr].fn;
->> @@ -1472,7 +1473,7 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
->>       HYPERCALL_RESULT_REG(regs) = call(HYPERCALL_ARGS(regs));
->>   
->>   #ifndef NDEBUG
->> -    if ( !current->hcall_preempted )
->> +    if ( !curr->hcall_preempted )
->>       {
->>           /* Deliberately corrupt parameter regs used by this hypercall. */
->>           switch ( arm_hypercall_table[*nr].nr_args ) {
->> @@ -1489,8 +1490,14 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
->>   #endif
->>   
->>       /* Ensure the hypercall trap instruction is re-executed. */
->> -    if ( current->hcall_preempted )
->> +    if ( curr->hcall_preempted )
->>           regs->pc -= 4;  /* re-execute 'hvc #XEN_HYPERCALL_TAG' */
->> +
->> +#ifdef CONFIG_IOREQ_SERVER
->> +    if ( unlikely(curr->domain->mapcache_invalidate) &&
->> +         test_and_clear_bool(curr->domain->mapcache_invalidate) )
->> +        ioreq_signal_mapcache_invalidate();
-> 
-> Why not just:
-> 
-> if ( unlikely(test_and_clear_bool(curr->domain->mapcache_invalidate)) )
->      ioreq_signal_mapcache_invalidate();
-> 
-
-This seems to match the x86 code. My guess is they tried to prevent the 
-cost of the atomic operation if there is no chance mapcache_invalidate 
-is true.
-
-I am split whether the first check is worth it. The atomic operation 
-should be uncontended most of the time, so it should be quick. But it 
-will always be slower than just a read because there is always a store 
-involved.
-
-On a related topic, Jan pointed out that the invalidation would not work 
-properly if you have multiple vCPU modifying the P2M at the same time.
-
-Cheers,
-
-[1] 
-https://lore.kernel.org/xen-devel/f92f62bf-2f8d-34db-4be5-d3e6a4b9d580@suse.com/
-
--- 
-Julien Grall
+QSByZWNlbnQgcmVxdWVzdCB0byBleHBvcnQga3N0YXRfaXJxcygpIHBvaW50ZWQgdG8gYSBjb3B5
+IG9mIHRoZSBzYW1lIGluCnRoZSBpOTE1IGNvZGUsIHdoaWNoIG1hZGUgbWUgbG9vayBmb3IgZnVy
+dGhlciB1c2FnZSBvZiBpcnEgZGVzY3JpcHRvcnMgaW4KZHJpdmVycy4KClRoZSB1c2FnZSBpbiBk
+cml2ZXJzIHJhbmdlcyBmcm9tIGNyZWF0aXZlIHRvIGJyb2tlbiBpbiBhbGwgY29sb3Vycy4KCmly
+cWRlc2MuaCBjbGVhcmx5IHNheXMgdGhhdCB0aGlzIGlzIGNvcmUgZnVuY3Rpb25hbGl0eSBhbmQg
+dGhlIGZhY3QgQyBkb2VzCm5vdCBhbGxvdyBmdWxsIGVuY2Fwc3VsYXRpb24gaXMgbm90IGEganVz
+dGlmaWNhdGlvbiB0byBmaWRkbGUgd2l0aCBpdCBqdXN0CmJlY2F1c2UuIEl0IHRvb2sgdXMgYSBs
+b3Qgb2YgZWZmb3J0IHRvIG1ha2UgdGhlIGNvcmUgZnVuY3Rpb25hbGl0eSBwcm92aWRlCndoYXQg
+ZHJpdmVycyBuZWVkLgoKSWYgdGhlcmUgaXMgYSBzaG9ydGNvbWluZywgaXQncyBub3QgYXNrZWQg
+dG9vIG11Y2ggdG8gdGFsayB0byB0aGUgcmVsZXZhbnQKbWFpbnRhaW5lcnMgaW5zdGVhZCBvZiBn
+b2luZyBvZmYgYW5kIGZpZGRsaW5nIHdpdGggdGhlIGd1dHMgb2YgaW50ZXJydXB0CmRlc2NyaXB0
+b3JzIGFuZCBvZnRlbiBlbm91Z2ggd2l0aG91dCB1bmRlcnN0YW5kaW5nIGxpZmV0aW1lIGFuZCBs
+b2NraW5nCnJ1bGVzLgoKQXMgcGVvcGxlIGluc2lzdCBvbiBub3QgcmVzcGVjdGluZyBib3VuZGFy
+aWVzLCB0aGlzIHNlcmllcyBjbGVhbnMgdXAgdGhlCihhYil1c2UgYW5kIGF0IHRoZSBlbmQgcmVt
+b3ZlcyB0aGUgZXhwb3J0IG9mIGlycV90b19kZXNjKCkgdG8gbWFrZSBpdCBhdApsZWFzdCBoYXJk
+ZXIuIEFsbCBsZWdpdGltYXRlIHVzZXJzIG9mIHRoaXMgYXJlIGJ1aWx0IGluLgoKV2hpbGUgYXQg
+aXQgSSBzdHVtYmxlZCBvdmVyIHNvbWUgb3RoZXIgb2RkaXRpZXMgcmVsYXRlZCB0byBpbnRlcnJ1
+cHQKY291bnRpbmcgYW5kIGNsZWFuZWQgdGhlbSB1cCBhcyB3ZWxsLgoKVGhlIHNlcmllcyBhcHBs
+aWVzIG9uIHRvcCBvZgoKICAgZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJu
+ZWwvZ2l0L3RpcC90aXAuZ2l0IGlycS9jb3JlCgphbmQgaXMgYWxzbyBhdmFpbGFibGUgZnJvbSBn
+aXQ6CgogIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90Z2x4
+L2RldmVsLmdpdCBnZW5pcnEKClRoYW5rcywKCgl0Z2x4Ci0tLQogYXJjaC9hbHBoYS9rZXJuZWwv
+c3lzX2plbnNlbi5jICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDIgCiBhcmNoL2FybS9rZXJu
+ZWwvc21wLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgMiAKIGFyY2gvcGFy
+aXNjL2tlcm5lbC9pcnEuYyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICA3IAogYXJj
+aC9zMzkwL2tlcm5lbC9pcnEuYyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgIDIg
+CiBhcmNoL3g4Ni9rZXJuZWwvdG9wb2xvZ3kuYyAgICAgICAgICAgICAgICAgICAgICAgICAgIHwg
+ICAgMSAKIGFyY2gvYXJtNjQva2VybmVsL3NtcC5jICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgfCAgICAyIAogZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9scGVfYXVkaW8u
+YyAgICAgICB8ICAgIDQgCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2lycS5jICAgICAgICAg
+ICAgICAgICAgICAgIHwgICAzNCArKysKIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfcG11LmMg
+ICAgICAgICAgICAgICAgICAgICAgfCAgIDE4IC0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVf
+cG11LmggICAgICAgICAgICAgICAgICAgICAgfCAgICA4IAogZHJpdmVycy9tZmQvYWI4NTAwLWRl
+YnVnZnMuYyAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMTYgLQogZHJpdmVycy9uZXQvZXRo
+ZXJuZXQvbWVsbGFub3gvbWx4NC9lbl9jcS5jICAgICAgICAgICB8ICAgIDggCiBkcml2ZXJzL25l
+dC9ldGhlcm5ldC9tZWxsYW5veC9tbHg0L2VuX3J4LmMgICAgICAgICAgIHwgICAgNiAKIGRyaXZl
+cnMvbmV0L2V0aGVybmV0L21lbGxhbm94L21seDQvbWx4NF9lbi5oICAgICAgICAgfCAgICAzIAog
+ZHJpdmVycy9uZXQvZXRoZXJuZXQvbWVsbGFub3gvbWx4NS9jb3JlL2VuLmggICAgICAgICB8ICAg
+IDIgCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9tZWxsYW5veC9tbHg1L2NvcmUvZW5fbWFpbi5jICAg
+IHwgICAgMiAKIGRyaXZlcnMvbmV0L2V0aGVybmV0L21lbGxhbm94L21seDUvY29yZS9lbl90eHJ4
+LmMgICAgfCAgICA2IAogZHJpdmVycy9udGIvbXNpLmMgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB8ICAgIDQgCiBkcml2ZXJzL3BjaS9jb250cm9sbGVyL21vYml2ZWlsL3BjaWUt
+bW9iaXZlaWwtaG9zdC5jIHwgICAgOCAKIGRyaXZlcnMvcGNpL2NvbnRyb2xsZXIvcGNpZS14aWxp
+bngtbndsLmMgICAgICAgICAgICAgfCAgICA4IAogZHJpdmVycy9waW5jdHJsL25vbWFkaWsvcGlu
+Y3RybC1ub21hZGlrLmMgICAgICAgICAgICB8ICAgIDMgCiBkcml2ZXJzL3hlbi9ldmVudHMvZXZl
+bnRzX2Jhc2UuYyAgICAgICAgICAgICAgICAgICAgIHwgIDE3MiArKysrKysrKysrKy0tLS0tLS0t
+CiBkcml2ZXJzL3hlbi9ldnRjaG4uYyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwg
+ICAzNCAtLS0KIGluY2x1ZGUvbGludXgvaW50ZXJydXB0LmggICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgfCAgICAxIAogaW5jbHVkZS9saW51eC9pcnEuaCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICB8ICAgIDcgCiBpbmNsdWRlL2xpbnV4L2lycWRlc2MuaCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHwgICA0MCArLS0tCiBpbmNsdWRlL2xpbnV4L2tlcm5lbF9zdGF0Lmgg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgMSAKIGtlcm5lbC9pcnEvaXJxZGVzYy5jICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDQyICsrLS0KIGtlcm5lbC9pcnEvbWFu
+YWdlLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDM3ICsrKysKIGtlcm5l
+bC9pcnEvcHJvYy5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICA1IAog
+MzAgZmlsZXMgY2hhbmdlZCwgMjYzIGluc2VydGlvbnMoKyksIDIyMiBkZWxldGlvbnMoLSkKCgo=
 
