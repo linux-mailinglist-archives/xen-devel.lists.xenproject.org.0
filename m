@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114502D5B2C
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:05:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49188.86956 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C0BD2D5B4B
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:09:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49199.86969 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knLcp-0001W6-43; Thu, 10 Dec 2020 13:04:51 +0000
+	id 1knLh9-0001j7-Pz; Thu, 10 Dec 2020 13:09:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49188.86956; Thu, 10 Dec 2020 13:04:51 +0000
+Received: by outflank-mailman (output) from mailman id 49199.86969; Thu, 10 Dec 2020 13:09:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knLco-0001Vf-T9; Thu, 10 Dec 2020 13:04:50 +0000
-Received: by outflank-mailman (input) for mailman id 49188;
- Thu, 10 Dec 2020 13:04:49 +0000
+	id 1knLh9-0001ii-MR; Thu, 10 Dec 2020 13:09:19 +0000
+Received: by outflank-mailman (input) for mailman id 49199;
+ Thu, 10 Dec 2020 13:09:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1knLcn-0001VX-0y; Thu, 10 Dec 2020 13:04:49 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <hx242@xen.org>) id 1knLh9-0001id-53
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:09:19 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1knLcm-00074c-Le; Thu, 10 Dec 2020 13:04:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1knLcm-0003w6-Dr; Thu, 10 Dec 2020 13:04:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1knLcm-0005es-DO; Thu, 10 Dec 2020 13:04:48 +0000
+ (envelope-from <hx242@xen.org>)
+ id 1knLh8-0007AJ-9H; Thu, 10 Dec 2020 13:09:18 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=u1bbd043a57dd5a.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1knLh7-0007Rm-Sx; Thu, 10 Dec 2020 13:09:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,324 +40,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/ltSuwyEgmlKF3X3oJFm5jKjr3juCZEvxiISf1EvbnQ=; b=De+jGkec+8MrSAVJ58xOlQ6fyU
-	437djacLcSc20pPkj8eBS6spJJ5EPMKUSuppUlJ89Sr6+v+hC7PINWGlPwJKuQU8Cc2hILPrRSc7F
-	zZAyH1zLxfnLm8xddeZpycQ0xsgZkyW3+/xs5Cf9YUTfOHfgi8Bj/1dmMS2YApWFOzVM=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157366-mainreport@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+	References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID;
+	bh=keotjG6VPy7Ty3zMpaGQu/RhUQ507IS5vmtwzCQ8to8=; b=EhfDU7yfo5+hggnBpFZR9MLhvV
+	nltuBwp2q0vWmO+16nFH0HJjv2F1p70hvqCr5o6FAx6VbhgJmfDPdgf1WrwSuOdbistBm+HNz1tU/
+	B1EjeH6IhB1czGwhCOBW6noawpxE5IO5iYIQqGtAZC9EkISewMeVXR7byikgU1Bs0QlA=;
+Message-ID: <c6bcaecf71f9e51bdac15c7f97c8ce8460bef306.camel@xen.org>
+Subject: Re: [PATCH] x86/HVM: refine when to send mapcache invalidation
+ request to qemu
+From: Hongyan Xia <hx242@xen.org>
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	 <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Roger
+	Pau =?ISO-8859-1?Q?Monn=E9?=
+	 <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>, "olekstysh@gmail.com"
+	 <olekstysh@gmail.com>, George Dunlap <George.Dunlap@eu.citrix.com>
+Date: Thu, 10 Dec 2020 13:09:15 +0000
+In-Reply-To: <f92f62bf-2f8d-34db-4be5-d3e6a4b9d580@suse.com>
+References: <f92f62bf-2f8d-34db-4be5-d3e6a4b9d580@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 157366: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=272a1db63a09087ce3da4cf44ec7b758611ff1ed
-X-Osstest-Versions-That:
-    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 10 Dec 2020 13:04:48 +0000
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-flight 157366 ovmf real [real]
-flight 157381 ovmf real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157366/
-http://logs.test-lab.xenproject.org/osstest/logs/157381/
+I came across the same issue when QEMU was holding an extra reference
+to a page removed from p2m, via XENMEM_add_to_physmap. Please tell me
+if I am talking nonsense since my knowledge around QEMU invalidation is
+limited.
 
-Regressions :-(
+On Mon, 2020-09-28 at 12:44 +0200, Jan Beulich wrote:
+> For one it was wrong to send the request only upon a completed
+> hypercall: Even if only part of it completed before getting
+> preempted,
+> invalidation ought to occur. Therefore fold the two return
+> statements.
+> 
+> And then XENMEM_decrease_reservation isn't the only means by which
+> pages
+> can get removed from a guest, yet all removals ought to be signaled
+> to
+> qemu. Put setting of the flag into the central p2m_remove_page()
+> underlying all respective hypercalls.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
+Sounds good. I know this still does not catch everything, but at least
+a nice improvement from before.
 
-version targeted for testing:
- ovmf                 272a1db63a09087ce3da4cf44ec7b758611ff1ed
-baseline version:
- ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+> 
+> Plus finally there's no point sending the request for the local
+> domain
+> when the domain acted upon is a different one. If anything that
+> domain's
+> qemu's mapcache may need invalidating, but it's unclear how useful
+> this
+> would be: That remote domain may not execute hypercalls at all, and
+> hence may never make it to the point where the request actually gets
+> issued. I guess the assumption is that such manipulation is not
+> supposed
+> to happen anymore once the guest has been started?
 
-Last test of basis   157345  2020-12-09 12:40:46 Z    1 days
-Testing same since   157348  2020-12-09 15:39:39 Z    0 days    3 attempts
+I may still want to set the invalidation signal to true even if the
+domain acted on is not the local domain. I know the remote domain may
+never reach the point to issue the invalidate, but it sounds to me that
+the problem is not whether we should set the signal but whether we can
+change where the signal is checked to make sure the point of issue can
+be reliably triggered, and the latter can be done in a future patch.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Pierre Gondois <Pierre.Gondois@arm.com>
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Putting the check in guest_physmap_remove_page() might also suffice,
+> but then a separate is_hvm_domain() would need adding again.
+> 
+> --- a/xen/arch/x86/hvm/hypercall.c
+> +++ b/xen/arch/x86/hvm/hypercall.c
+> @@ -31,7 +31,6 @@
+>  
+>  static long hvm_memory_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>  {
+> -    const struct vcpu *curr = current;
+>      long rc;
+>  
+>      switch ( cmd & MEMOP_CMD_MASK )
+> @@ -41,14 +40,11 @@ static long hvm_memory_op(int cmd, XEN_G
+>          return -ENOSYS;
+>      }
+>  
+> -    if ( !curr->hcall_compat )
+> +    if ( !current->hcall_compat )
+>          rc = do_memory_op(cmd, arg);
+>      else
+>          rc = compat_memory_op(cmd, arg);
+>  
+> -    if ( (cmd & MEMOP_CMD_MASK) == XENMEM_decrease_reservation )
+> -        curr->domain->arch.hvm.qemu_mapcache_invalidate = true;
+> -
+>      return rc;
+>  }
+>  
+> @@ -326,14 +322,11 @@ int hvm_hypercall(struct cpu_user_regs *
+>  
+>      HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu -> %lx", eax, regs->rax);
+>  
+> -    if ( curr->hcall_preempted )
+> -        return HVM_HCALL_preempted;
+> -
+>      if ( unlikely(currd->arch.hvm.qemu_mapcache_invalidate) &&
+>           test_and_clear_bool(currd-
+> >arch.hvm.qemu_mapcache_invalidate) )
+>          send_invalidate_req();
+>  
+> -    return HVM_HCALL_completed;
+> +    return curr->hcall_preempted ? HVM_HCALL_preempted :
+> HVM_HCALL_completed;
+>  }
+>  
+>  /*
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -812,6 +812,9 @@ p2m_remove_page(struct p2m_domain *p2m,
+>          }
+>      }
+>  
+> +    if ( p2m->domain == current->domain )
+> +        p2m->domain->arch.hvm.qemu_mapcache_invalidate = true;
+> +
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+So my comment above makes me want to remove the condition.
 
+>      return p2m_set_entry(p2m, gfn, INVALID_MFN, page_order,
+> p2m_invalid,
+>                           p2m->default_access);
+>  }
+> 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Hongyan
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 272a1db63a09087ce3da4cf44ec7b758611ff1ed
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Nov 13 11:31:01 2020 +0000
-
-    ArmPlatformPkg: Fix cspell reported spelling/wording
-    
-    The edk2 CI runs the "cspell" spell checker tool. Some words
-    are not recognized by the tool, triggering errors.
-    This patch modifies some spelling/wording detected by cspell.
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 061cbbc1115eb7360f2c7627d53d13e35d63cbe3
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Nov 20 10:01:13 2020 +0000
-
-    ArmPlatformPkg: Fix Ecc error 8001 in PrePi
-    
-    This patch fixes the following Ecc reported error:
-    Only capital letters are allowed to be used for #define
-    declarations
-    
-    The "SerialPrint" macro is definied for the PrePi module
-    residing in the ArmPlatformPkg. It is never used in the module.
-    The macro is thus removed.
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 2dfd81aaf50ca2bd1e2d33ed5687620de90810ce
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Nov 6 09:47:47 2020 +0000
-
-    ArmPlatformPkg: Fix Ecc error 10006 in ArmPlatformPkg.dsc
-    
-    This patch fixes the following Ecc reported error:
-    There should be no unnecessary inclusion of library
-    classes in the INF file
-    
-    This comes with the additional information:
-    "The Library Class [TimeBaseLib] is not used
-    in any platform"
-    "The Library Class [PL011UartClockLib] is not used
-    in any platform"
-    "The Library Class [PL011UartLib] is not used
-    in any platform"
-    
-    Indeed, the PL011SerialPortLib module requires the
-    PL011UartClockLib and PL011UartLib libraries.
-    The PL031RealTimeClockLib module requires the TimeBaseLib
-    library.
-    ArmPlatformPkg/ArmPlatformPkg.dsc builds the two modules,
-    but doesn't build the required libraries. This patch adds
-    the missing libraries to the [LibraryClasses.common] section.
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 42bec8c8104c9db4891dfd1b208032c9c413d861
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 15:33:12 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 10014 in SP805WatchdogDxe
-    
-    This patch fixes the following Ecc reported error:
-    No used module files found
-    
-    The source file
-    [ArmPlatformPkg/Drivers/SP805WatchdogDxe/SP805Watchdog.h]
-    is existing in module directory but it is not described
-    in INF file.
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 2e0cbfcbed96505953ef09fcfb72d4ea83cc8df2
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 15:32:42 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 10014 in PL061GpioDxe
-    
-    This patch fixes the following Ecc reported error:
-    No used module files found
-    
-    The source file
-    [ArmPlatformPkg/Drivers/PL061GpioDxe/PL061Gpio.h]
-    is existing in module directory but it is not described
-    in INF file.
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit a36a0f1d81a2502a922617cf99be0bb81de2f57a
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 15:32:26 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 10014 in LcdGraphicsOutputDxe
-    
-    This patch fixes the following Ecc reported error:
-    No used module files found
-    
-    The source file
-    [ArmPlatformPkg/Drivers/LcdGraphicsOutputDxe/LcdGraphicsOutputDxe.h]
-    is existing in module directory but it is not described
-    in INF file.
-    
-    Files in [Sources.common] are also alphabetically re-ordered.
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit c5d970a01e76c1a20f6bb009b32e479ad2444548
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 15:18:04 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 10016 in LcdPlatformNullLib
-    
-    This patch fixes the following Ecc reported error:
-    Module file has FILE_GUID collision with other
-    module file
-    
-    The two .inf files with clashing GUID are:
-    edk2\ArmPlatformPkg\PrePeiCore\PrePeiCoreMPCore.inf
-    edk2\ArmPlatformPkg\Library\LcdPlatformNullLib\LcdPlatformNullLib.inf
-    
-    The PrePeiCoreMPCore module has been imported in 2011 and the
-    LcdPlatformNullLib module has been created in 2017. The
-    PrePeiCoreMPCore has the precedence.
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 746dda63b2d612a2ad9e0b4c05722920586d2e60
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 14:37:14 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 10016 in PrePi
-    
-    This patch fixes the following Ecc reported error:
-    Module file has FILE_GUID collision with other
-    module file
-    
-    The two .inf files with clashing GUID are:
-    edk2\ArmPlatformPkg\PrePi\PeiUniCore.inf
-    edk2\ArmPlatformPkg\PrePi\PeiMPCore.inf
-    
-    Both files seem to have been imported from the previous
-    svn repository as the same time.
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 28978df0bdafce1d26ff337fd67ee6c3a5b3876e
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 14:36:19 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 5007 in PL031RealTimeClockLib
-    
-    This patch fixes the following Ecc reported error:
-    There should be no initialization of a variable as
-    part of its declaration
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 1485e8bbc86e9a7e1954cfe5697fbd45d8e3b04e
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 14:36:01 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 5007 in PL061GpioDxe
-    
-    This patch fixes the following Ecc reported error:
-    There should be no initialization of a variable as
-    part of its declaration
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit 4c7e107810cacd1dbd4c6f7d6d4d22e3de2f8db1
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 14:35:36 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 5007 in NorFlashDxe
-    
-    This patch fixes the following Ecc reported error:
-    There should be no initialization of a variable as
-    part of its declaration
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit eb97f13839fd64ce3e4ff9dd39ea9950db48207d
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 14:35:07 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 5007 in LcdGraphicsOutputDxe
-    
-    This patch fixes the following Ecc reported error:
-    There should be no initialization of a variable as
-    part of its declaration
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit d315bd2286cde306f1ef5256026038e610505cca
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 14:32:40 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 3002 in PL061GpioDxe
-    
-    This patch fixes the following Ecc reported error:
-    Non-Boolean comparisons should use a compare operator
-    (==, !=, >, < >=, <=)
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit ee78edceca89057ab9854f7e5070391a8229ece4
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 14:31:50 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 3002 in PL011UartLib
-    
-    This patch fixes the following Ecc reported error:
-    Non-Boolean comparisons should use a compare operator
-    (==, !=, >, < >=, <=)
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
-
-commit dd917bae85396055ff5d6ea760bff3702d154101
-Author: Pierre Gondois <Pierre.Gondois@arm.com>
-Date:   Fri Oct 23 13:31:40 2020 +0100
-
-    ArmPlatformPkg: Fix Ecc error 3001 in NorFlashDxe
-    
-    This patch fixes the following Ecc reported error:
-    Boolean values and variable type BOOLEAN should not use
-    explicit comparisons to TRUE or FALSE
-    
-    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
-    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
