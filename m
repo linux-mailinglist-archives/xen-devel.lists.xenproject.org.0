@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8F352D5872
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 11:44:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49054.86777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00D222D58FA
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 12:11:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49070.86789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knJQ2-0003Gh-L6; Thu, 10 Dec 2020 10:43:30 +0000
+	id 1knJpw-00065r-Sl; Thu, 10 Dec 2020 11:10:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49054.86777; Thu, 10 Dec 2020 10:43:30 +0000
+Received: by outflank-mailman (output) from mailman id 49070.86789; Thu, 10 Dec 2020 11:10:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knJQ2-0003GI-Ht; Thu, 10 Dec 2020 10:43:30 +0000
-Received: by outflank-mailman (input) for mailman id 49054;
- Thu, 10 Dec 2020 10:43:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1knJpw-00065S-PP; Thu, 10 Dec 2020 11:10:16 +0000
+Received: by outflank-mailman (input) for mailman id 49070;
+ Thu, 10 Dec 2020 11:10:16 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gO0O=FO=arm.com=luca.fancellu@srs-us1.protection.inumbo.net>)
- id 1knJQ0-0003GD-IB
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 10:43:28 +0000
+ <SRS0=gD3s=FO=arm.com=mark.rutland@srs-us1.protection.inumbo.net>)
+ id 1knJpw-00065N-3L
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 11:10:16 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 4ad526f4-b2db-4788-94e3-8b8c52186b02;
- Thu, 10 Dec 2020 10:43:26 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 31dfe8db-e3aa-45be-bda6-2bd8ac4fbb66;
+ Thu, 10 Dec 2020 11:10:15 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 49C9C30E;
- Thu, 10 Dec 2020 02:43:26 -0800 (PST)
-Received: from localhost.localdomain (unknown [10.57.62.29])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8AFDC3F718;
- Thu, 10 Dec 2020 02:43:24 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B642F30E;
+ Thu, 10 Dec 2020 03:10:14 -0800 (PST)
+Received: from C02TD0UTHF1T.local (unknown [10.57.27.13])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C06353F718;
+ Thu, 10 Dec 2020 03:10:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,126 +42,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ad526f4-b2db-4788-94e3-8b8c52186b02
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] xen/arm: Add workaround for Cortex-A53 erratum #843419
-Date: Thu, 10 Dec 2020 10:42:58 +0000
-Message-Id: <20201210104258.111-1-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
+X-Inumbo-ID: 31dfe8db-e3aa-45be-bda6-2bd8ac4fbb66
+Date: Thu, 10 Dec 2020 11:10:08 +0000
+From: Mark Rutland <mark.rutland@arm.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>,
+	xen-devel@lists.xenproject.org, x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org, luto@kernel.org,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>, Deep Shah <sdeep@vmware.com>,
+	"VMware, Inc." <pv-drivers@vmware.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 05/12] x86: rework arch_local_irq_restore() to not use
+ popf
+Message-ID: <20201210111008.GB88655@C02TD0UTHF1T.local>
+References: <20201120114630.13552-1-jgross@suse.com>
+ <20201120114630.13552-6-jgross@suse.com>
+ <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+ <20201209181514.GA14235@C02TD0UTHF1T.local>
+ <87tusuzu71.fsf@nanos.tec.linutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87tusuzu71.fsf@nanos.tec.linutronix.de>
 
-On the Cortex A53, when executing in AArch64 state, a load or store instruction
-which uses the result of an ADRP instruction as a base register, or which uses
-a base register written by an instruction immediately after an ADRP to the
-same register, might access an incorrect address.
+On Wed, Dec 09, 2020 at 07:54:26PM +0100, Thomas Gleixner wrote:
+> On Wed, Dec 09 2020 at 18:15, Mark Rutland wrote:
+> > In arch/x86/kernel/apic/io_apic.c's timer_irq_works() we do:
+> >
+> > 	local_irq_save(flags);
+> > 	local_irq_enable();
+> >
+> > 	[ trigger an IRQ here ]
+> >
+> > 	local_irq_restore(flags);
+> >
+> > ... and in check_timer() we call that a number of times after either a
+> > local_irq_save() or local_irq_disable(), eventually trailing with a
+> > local_irq_disable() that will balance things up before calling
+> > local_irq_restore().
 
-The workaround is to enable the linker flag --fix-cortex-a53-843419
-if present, to check and fix the affected sequence. Otherwise print a warning
-that Xen may be susceptible to this errata
+I gave the patchlet below a spin with my debug patch, and it boots
+cleanly for me under QEMU. If you spin it as a real patch, feel free to
+add:
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
- docs/misc/arm/silicon-errata.txt |  1 +
- xen/arch/arm/Kconfig             | 19 +++++++++++++++++++
- xen/arch/arm/Makefile            |  8 ++++++++
- xen/scripts/Kbuild.include       | 12 ++++++++++++
- 4 files changed, 40 insertions(+)
+Tested-by: Mark Rutland <mark.rutland@arm.com>
 
-diff --git a/docs/misc/arm/silicon-errata.txt b/docs/misc/arm/silicon-errata.txt
-index 27bf957ebf..1925d8fd4e 100644
---- a/docs/misc/arm/silicon-errata.txt
-+++ b/docs/misc/arm/silicon-errata.txt
-@@ -45,6 +45,7 @@ stable hypervisors.
- | ARM            | Cortex-A53      | #827319         | ARM64_ERRATUM_827319    |
- | ARM            | Cortex-A53      | #824069         | ARM64_ERRATUM_824069    |
- | ARM            | Cortex-A53      | #819472         | ARM64_ERRATUM_819472    |
-+| ARM            | Cortex-A53      | #843419         | ARM64_ERRATUM_843419    |
- | ARM            | Cortex-A55      | #1530923        | N/A                     |
- | ARM            | Cortex-A57      | #852523         | N/A                     |
- | ARM            | Cortex-A57      | #832075         | ARM64_ERRATUM_832075    |
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index f5b1bcda03..41bde2f401 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -186,6 +186,25 @@ config ARM64_ERRATUM_819472
- 
- 	  If unsure, say Y.
- 
-+config ARM64_ERRATUM_843419
-+	bool "Cortex-A53: 843419: A load or store might access an incorrect address"
-+	default y
-+	depends on ARM_64
-+	help
-+	  This option adds an alternative code sequence to work around ARM
-+	  erratum 843419 on Cortex-A53 parts up to r0p4.
-+
-+	  When executing in AArch64 state, a load or store instruction which uses
-+	  the result of an ADRP instruction as a base register, or which uses a
-+	  base register written by an instruction immediately after an ADRP to the
-+	  same register, might access an incorrect address.
-+
-+	  The workaround enables the linker to check if the affected sequence is
-+	  produced and it will fix it with an alternative not affected sequence
-+	  that produce the same behavior.
-+
-+	  If unsure, say Y.
-+
- config ARM64_ERRATUM_832075
- 	bool "Cortex-A57: 832075: possible deadlock on mixing exclusive memory accesses with device loads"
- 	default y
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 296c5e68bb..ad2d497c45 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -101,6 +101,14 @@ prelink.o: $(ALL_OBJS) FORCE
- 	$(call if_changed,ld)
- endif
- 
-+ifeq ($(CONFIG_ARM64_ERRATUM_843419),y)
-+    ifeq ($(call ld-option, --fix-cortex-a53-843419),n)
-+        $(warning ld does not support --fix-cortex-a53-843419; xen may be susceptible to erratum)
-+    else
-+        XEN_LDFLAGS += --fix-cortex-a53-843419
-+    endif
-+endif
-+
- targets += prelink.o
- 
- $(TARGET)-syms: prelink.o xen.lds
-diff --git a/xen/scripts/Kbuild.include b/xen/scripts/Kbuild.include
-index e62eddc365..83c7e1457b 100644
---- a/xen/scripts/Kbuild.include
-+++ b/xen/scripts/Kbuild.include
-@@ -43,6 +43,18 @@ define as-option-add-closure
-     endif
- endef
- 
-+# $(if-success,<command>,<then>,<else>)
-+# Return <then> if <command> exits with 0, <else> otherwise.
-+if-success = $(shell { $(1); } >/dev/null 2>&1 && echo "$(2)" || echo "$(3)")
-+
-+# $(success,<command>)
-+# Return y if <command> exits with 0, n otherwise
-+success = $(call if-success,$(1),y,n)
-+
-+# $(ld-option,<flag>)
-+# Return y if the linker supports <flag>, n otherwise
-+ld-option = $(call success,$(LD) -v $(1))
-+
- # cc-ifversion
- # Usage:  EXTRA_CFLAGS += $(call cc-ifversion, -lt, 0402, -O1)
- cc-ifversion = $(shell [ $(CONFIG_GCC_VERSION)0 $(1) $(2)000 ] && echo $(3) || echo $(4))
--- 
-2.17.1
+Mark.
 
+> ---
+>  arch/x86/kernel/apic/io_apic.c |   22 ++++++----------------
+>  1 file changed, 6 insertions(+), 16 deletions(-)
+> 
+> --- a/arch/x86/kernel/apic/io_apic.c
+> +++ b/arch/x86/kernel/apic/io_apic.c
+> @@ -1618,21 +1618,16 @@ static void __init delay_without_tsc(voi
+>  static int __init timer_irq_works(void)
+>  {
+>  	unsigned long t1 = jiffies;
+> -	unsigned long flags;
+>  
+>  	if (no_timer_check)
+>  		return 1;
+>  
+> -	local_save_flags(flags);
+>  	local_irq_enable();
+> -
+>  	if (boot_cpu_has(X86_FEATURE_TSC))
+>  		delay_with_tsc();
+>  	else
+>  		delay_without_tsc();
+>  
+> -	local_irq_restore(flags);
+> -
+>  	/*
+>  	 * Expect a few ticks at least, to be sure some possible
+>  	 * glue logic does not lock up after one or two first
+> @@ -1641,10 +1636,10 @@ static int __init timer_irq_works(void)
+>  	 * least one tick may be lost due to delays.
+>  	 */
+>  
+> -	/* jiffies wrap? */
+> -	if (time_after(jiffies, t1 + 4))
+> -		return 1;
+> -	return 0;
+> +	local_irq_disable();
+> +
+> +	/* Did jiffies advance? */
+> +	return time_after(jiffies, t1 + 4);
+>  }
+>  
+>  /*
+> @@ -2117,13 +2112,12 @@ static inline void __init check_timer(vo
+>  	struct irq_cfg *cfg = irqd_cfg(irq_data);
+>  	int node = cpu_to_node(0);
+>  	int apic1, pin1, apic2, pin2;
+> -	unsigned long flags;
+>  	int no_pin1 = 0;
+>  
+>  	if (!global_clock_event)
+>  		return;
+>  
+> -	local_irq_save(flags);
+> +	local_irq_disable();
+>  
+>  	/*
+>  	 * get/set the timer IRQ vector:
+> @@ -2191,7 +2185,6 @@ static inline void __init check_timer(vo
+>  			goto out;
+>  		}
+>  		panic_if_irq_remap("timer doesn't work through Interrupt-remapped IO-APIC");
+> -		local_irq_disable();
+>  		clear_IO_APIC_pin(apic1, pin1);
+>  		if (!no_pin1)
+>  			apic_printk(APIC_QUIET, KERN_ERR "..MP-BIOS bug: "
+> @@ -2215,7 +2208,6 @@ static inline void __init check_timer(vo
+>  		/*
+>  		 * Cleanup, just in case ...
+>  		 */
+> -		local_irq_disable();
+>  		legacy_pic->mask(0);
+>  		clear_IO_APIC_pin(apic2, pin2);
+>  		apic_printk(APIC_QUIET, KERN_INFO "....... failed.\n");
+> @@ -2232,7 +2224,6 @@ static inline void __init check_timer(vo
+>  		apic_printk(APIC_QUIET, KERN_INFO "..... works.\n");
+>  		goto out;
+>  	}
+> -	local_irq_disable();
+>  	legacy_pic->mask(0);
+>  	apic_write(APIC_LVT0, APIC_LVT_MASKED | APIC_DM_FIXED | cfg->vector);
+>  	apic_printk(APIC_QUIET, KERN_INFO "..... failed.\n");
+> @@ -2251,7 +2242,6 @@ static inline void __init check_timer(vo
+>  		apic_printk(APIC_QUIET, KERN_INFO "..... works.\n");
+>  		goto out;
+>  	}
+> -	local_irq_disable();
+>  	apic_printk(APIC_QUIET, KERN_INFO "..... failed :(.\n");
+>  	if (apic_is_x2apic_enabled())
+>  		apic_printk(APIC_QUIET, KERN_INFO
+> @@ -2260,7 +2250,7 @@ static inline void __init check_timer(vo
+>  	panic("IO-APIC + timer doesn't work!  Boot with apic=debug and send a "
+>  		"report.  Then try booting with the 'noapic' option.\n");
+>  out:
+> -	local_irq_restore(flags);
+> +	local_irq_enable();
+>  }
+>  
+>  /*
 
