@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 194652D5987
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 12:44:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49127.86882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F832D5976
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 12:43:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49112.86846 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knKN6-0001VZ-IR; Thu, 10 Dec 2020 11:44:32 +0000
+	id 1knKLr-0001Bk-I9; Thu, 10 Dec 2020 11:43:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49127.86882; Thu, 10 Dec 2020 11:44:32 +0000
+Received: by outflank-mailman (output) from mailman id 49112.86846; Thu, 10 Dec 2020 11:43:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knKN6-0001V9-FJ; Thu, 10 Dec 2020 11:44:32 +0000
-Received: by outflank-mailman (input) for mailman id 49127;
- Thu, 10 Dec 2020 11:44:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1knKLr-0001BI-Es; Thu, 10 Dec 2020 11:43:15 +0000
+Received: by outflank-mailman (input) for mailman id 49112;
+ Thu, 10 Dec 2020 11:43:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wUnW=FO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1knKN5-0001Uu-01
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 11:44:31 +0000
+ id 1knKLq-0001BD-Hb
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 11:43:14 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1151a45e-295f-45b5-a6c1-8421fcc2c5ae;
- Thu, 10 Dec 2020 11:44:29 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 47aa3161-e3fd-4813-bf34-523b5cf023db;
+ Thu, 10 Dec 2020 11:43:13 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BA173AD5C;
- Thu, 10 Dec 2020 11:44:27 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id DB7F3ACE0;
+ Thu, 10 Dec 2020 11:43:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,94 +38,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1151a45e-295f-45b5-a6c1-8421fcc2c5ae
+X-Inumbo-ID: 47aa3161-e3fd-4813-bf34-523b5cf023db
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607600669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1607600592; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kGZ1v2zV5ELcG+fBrSPDafSIORbvLPX59cOeyhmcLHo=;
-	b=F/SWGT1zGXxFxZwqDhu2D0nzaR+3ozKgQgmsgi5iW2vZ32xE53WK5fvEPDklugr8Vjz9d5
-	wenkjsDSbG9OwzxdfUFsuJozVeREbsTKjwd3NYa2BFTqupsbPz2Yc53feKf8vp8DhVfDR9
-	4ruP9BzmCpMB2vB4daK+c3G8RwLk/EU=
-Subject: Re: [PATCH v3 1/8] xen: fix build when $(obj-y) consists of just
- blanks
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <1a6bac6a-7d83-f5b6-c5b9-8b3b39824d40@suse.com>
- <511be84d-9a13-17ae-f3d9-d6daf9c02711@suse.com>
- <X9EL90SMyqrs9GaL@perard.uk.xensource.com>
+	bh=rHv+vrHEFSnyiqfyOw9O5XBc5B+d/fjAEKvyLvCM0lM=;
+	b=kQCIyifVts2rpvwOjc76Imytuj+L6BlkEke93rCarW/DCzlGbZujZM213j3JzrgnW+NQPR
+	kfL85k548bNxIg7eGOwGtn1165K+KYLxQcudt4IeWwFdnwoc27KUA0jubuoxyuWheohUU9
+	lvSsjJuVuozOIdqE2Q4KsiCEVcwWRPE=
+Subject: Re: dom0 PV looping on search_pre_exception_table()
+To: Manuel Bouyer <bouyer@antioche.eu.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20201209101512.GA1299@antioche.eu.org>
+ <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
+ <20201209135908.GA4269@antioche.eu.org>
+ <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
+ <20201209154431.GA4913@antioche.eu.org>
+ <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
+ <20201209163049.GA6158@antioche.eu.org>
+ <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
+ <20201209185714.GS1469@antioche.eu.org>
+ <6c06abf1-7efe-f02c-536a-337a2704e265@citrix.com>
+ <20201210095139.GA455@antioche.eu.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <50fc5143-5b5e-46ae-56a3-6eba2707f293@suse.com>
-Date: Thu, 10 Dec 2020 11:21:53 +0100
+Message-ID: <27f113f3-01a3-e5a4-eea5-e593693625fe@suse.com>
+Date: Thu, 10 Dec 2020 11:41:03 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <X9EL90SMyqrs9GaL@perard.uk.xensource.com>
+In-Reply-To: <20201210095139.GA455@antioche.eu.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 09.12.2020 18:40, Anthony PERARD wrote:
-> On Mon, Nov 23, 2020 at 04:20:52PM +0100, Jan Beulich wrote:
->> This case can occur when combining empty lists
+On 10.12.2020 10:51, Manuel Bouyer wrote:
+> On Wed, Dec 09, 2020 at 07:08:41PM +0000, Andrew Cooper wrote:
+>> Oh of course - we don't follow the exit-to-guest path on the way out here.
 >>
->> obj-y :=
->> ...
->> obj-y += $(empty)
->>
->> or
->>
->> obj-y := $(empty) $(empty)
->>
->> where (only) blanks would accumulate. This was only a latent issue until
->> now, but would become an active issue for Arm once lib/ gets populated
->> with all respective objects going into the to be introduced lib.a.
->>
->> Also address a related issue at this occasion: When an empty built_in.o
->> gets created, .built_in.o.d will have its dependencies recorded. If, on
->> a subsequent incremental build, an actual constituent of built_in.o
->> appeared, the $(filter-out ) would leave these recorded dependencies in
->> place. But of course the linker won't know what to do with C header
->> files. (The apparent alternative of avoiding to pass $(c_flags) or
->> $(a_flags) would not be reliable afaict, as among these flags there may
->> be some affecting information conveyed via the object file to the
->> linker. The linker, finding inconsistent flags across object files, may
+>> As a gross hack to check that we've at least diagnosed the issue
+>> appropriately, could you modify NetBSD to explicitly load the %ss
+>> selector into %es (or any other free segment) before first entering user
+>> context?
 > 
-> How about using $(XEN_CFLAGS) instead of $(c_flags)? That should prevent
-> CC from generating the .*.o.d files while keeping the relevant flags.
-
-What does "relevant" cover? For an empty .o it may not be important
-right now, but I could see
-
-c_flags = -MMD -MP -MF $(@D)/.$(@F).d $(XEN_CFLAGS) '-D__OBJECT_FILE__="$@"'
-a_flags = -MMD -MP -MF $(@D)/.$(@F).d $(XEN_AFLAGS)
-
-include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
-
-c_flags += $(CFLAGS-y)
-a_flags += $(CFLAGS-y) $(AFLAGS-y)
-
-leading to CFLAGS-y / AFLAGS-y which need to be consistent across
-_all_ object files (e.g. some recording of ABI used).
-
-> I
-> was planing to do that to avoid the issue, see:
-> https://lore.kernel.org/xen-devel/20200421161208.2429539-10-anthony.perard@citrix.com
+> If I understood it properly, the user %ss is loaded by Xen from the
+> trapframe when the guest swictes from kernel to user mode, isn't it ?
+> So you mean setting %es to the same value in the trapframe ?
 > 
->> then error out.) Using just $(obj-y) won't work either: It breaks when
->> the same object file is listed more than once.
+> Actually I used %fs because %es is set equal to %ds.
+> Xen 4.13 boots fine with this change, but with 4.15 I get a loop of:
 > 
-> Do we need to worry about having a object file been listed twice?
-> Wouldn't that be a mistake?
+> 
+> (XEN) *** LDT: gl1e 0000000000000000 not present                               
+> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+> [  12.3586540] Process (pid 1) got sig 11                                      
+> 
+> which means that the dom0 gets the trap, and decides that the fault address
+> is not mapped. Without the change the dom0 doesn't show the
+> "Process (pid 1) got sig 11"
+> 
+> I activated the NetBSD trap debug code, and this shows:
+> [   6.7165877] kern.module.path=/stand/amd64-xen/9.1/modules                    (XEN) *** LDT: gl1e 0000000000000000 not present                                
+> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                   
+> [   6.9462322] pid 1.1 (init): signal 11 code=1 (trap 0x6) @rip 0x7f7ef0c007d0 a
+> ddr 0xffffbd800000a040 error=14
+> [   7.0647896] trapframe 0xffffbd80381cff00
+> [   7.1126288] rip 0x00007f7ef0c007d0  rsp 0x00007f7fff10aa30  rfl 0x00000000000
+> 00202
+> [   7.2041518] rdi 000000000000000000  rsi 000000000000000000  rdx 0000000000000
+> 00000
+> [   7.2956758] rcx 000000000000000000  r8  000000000000000000  r9  0000000000000
+> 00000
+> [   7.3872013] r10 000000000000000000  r11 000000000000000000  r12 0000000000000
+> 00000
+> [   7.4787216] r13 000000000000000000  r14 000000000000000000  r15 0000000000000
+> 00000
+> [   7.5702439] rbp 000000000000000000  rbx 0x00007f7fff10afe0  rax 0000000000000
+> 00000
+> [   7.6617663] cs 0x47  ds 0x23  es 0x23  fs 0000  gs 0000  ss 0x3f
+> [   7.7345663] fsbase 000000000000000000 gsbase 000000000000000000
+> 
+> so it looks like something resets %fs to 0 ...
+> 
+> Anyway the fault address 0xffffbd800000a040 is in the hypervisor's range,
+> isn't it ?
 
-No. The list approach (obj-$(CONFIG_xyz) += ...) easily allows for
-this to happen. See xen/arch/x86/mm/Makefile for an existing example.
+No, the hypervisor range is 0xffff800000000000-0xffff880000000000.
 
 Jan
 
