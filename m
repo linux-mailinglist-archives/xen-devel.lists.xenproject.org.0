@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 874EC2D5D65
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 15:21:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49329.87227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 727FF2D5D85
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 15:27:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49337.87242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMo6-0003JN-6v; Thu, 10 Dec 2020 14:20:34 +0000
+	id 1knMu4-0003e3-Uo; Thu, 10 Dec 2020 14:26:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49329.87227; Thu, 10 Dec 2020 14:20:34 +0000
+Received: by outflank-mailman (output) from mailman id 49337.87242; Thu, 10 Dec 2020 14:26:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMo6-0003Iy-3S; Thu, 10 Dec 2020 14:20:34 +0000
-Received: by outflank-mailman (input) for mailman id 49329;
- Thu, 10 Dec 2020 14:20:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1knMu4-0003df-QX; Thu, 10 Dec 2020 14:26:44 +0000
+Received: by outflank-mailman (input) for mailman id 49337;
+ Thu, 10 Dec 2020 14:26:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1knMo4-0003Iq-W0; Thu, 10 Dec 2020 14:20:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1knMo4-0000J1-KJ; Thu, 10 Dec 2020 14:20:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1knMo4-0006gM-CR; Thu, 10 Dec 2020 14:20:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1knMo4-0007pZ-Bz; Thu, 10 Dec 2020 14:20:32 +0000
+ (envelope-from <SRS0=Anpp=FO=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1knMu2-0003da-ND
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 14:26:42 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 5ed05038-207d-4f7e-bad3-00de52d3f290;
+ Thu, 10 Dec 2020 14:26:41 +0000 (UTC)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-514-13Qwd3tkOn-axT977J48wg-1; Thu, 10 Dec 2020 09:26:40 -0500
+Received: by mail-wm1-f69.google.com with SMTP id w204so1293804wmb.1
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Dec 2020 06:26:39 -0800 (PST)
+Received: from [192.168.1.36] (101.red-88-21-206.staticip.rima-tde.net.
+ [88.21.206.101])
+ by smtp.gmail.com with ESMTPSA id b9sm9483846wmd.32.2020.12.10.06.26.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Dec 2020 06:26:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,190 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=UUqXxPSsItJ5010qRD0JUk/Gdag5QMLhHX1UyXLQtRI=; b=jE8umKoHrrjmXFzTqh0ahxKpDK
-	/ozkmdOKUc6RAomu0Jny/p2t2+wzwd5K8JBWd+0D38gt6FJFWM4XajduwxbIhbhehhSpXhCQe+1Pz
-	EOnXzz1eEjusuUnq2gqLjerKO2W4lrzXVxvvoQf90HqPHE7MYVKnKEKtbGfrwmxydAbo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [ovmf bisection] complete test-amd64-i386-xl-qemuu-ovmf-amd64
-Message-Id: <E1knMo4-0007pZ-Bz@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 10 Dec 2020 14:20:32 +0000
+X-Inumbo-ID: 5ed05038-207d-4f7e-bad3-00de52d3f290
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1607610401;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wwzUYSWq/h6EtaDoCvUeshJJpFiXqC6zBbdC+3h4P3k=;
+	b=PBRQfeaHriwLyAXVmlv/JplQaG9lrRd/D+rmZ+S0fl2BMJmH79/TTgraV9IBULy67HnnQl
+	6mCHEJyWz9A7qy29YB7F7rtExVwc1kLWYegHPgxbhVhWki+2fakKnhZUdx/MoLRmmmpz8U
+	hv7gKU5z3vAcz+abE7PWqL/HVy3u8eY=
+X-MC-Unique: 13Qwd3tkOn-axT977J48wg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=wwzUYSWq/h6EtaDoCvUeshJJpFiXqC6zBbdC+3h4P3k=;
+        b=hmXzCkhHAMuM3H+qQhNhfQUNfK8Ws0pHHWzu3Z2pvcKbSAfS319x5eTEJ9H6uCVa1K
+         FLjXomy8cS077coxo1FRJpjqB5dlw9zYdLXN6WAs2hhmLHxeBgBY+DpGDoZy0R8Az46J
+         vqORnZUKLEbdtMod8ZxsARgWNHtWGLdigs9hS2U4XzJRjNZo3+2QfA1rzOIHNuEhaOXB
+         1oOfSXnzEgfTb8RZjL3usTCWjFsp2sBlEbH1PH44xKGACgS632+T2MDGWFx08icM2vYX
+         1SRhJmc+uwCk+6lx4kaaHTwcA297WjuiCoVpAltr8h6093h6Hs3jzTgKetLwcEfm5rjx
+         Ho4w==
+X-Gm-Message-State: AOAM53126/9roSNblvHmf9wMP/xVmn3vmKVaRtojjsRLHGzRs4P3NaTC
+	w7RmYV7f7IoNCoPM9m5t2UIvTTeLC1ugAKf3U6evVFuRqfVvKZcdlGmZstUJt3lZNR6CELw6iEG
+	Ltz4LDXCOar3VqNjI9zMOd9bD+/8=
+X-Received: by 2002:a1c:4c14:: with SMTP id z20mr8646313wmf.149.1607610398621;
+        Thu, 10 Dec 2020 06:26:38 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzaUj7tpOFO2508Lw7v7CE5X685qxDLYndPVRSbnJIXc50ft6ZIJ81hdHJIppshYmFGwc18AA==
+X-Received: by 2002:a1c:4c14:: with SMTP id z20mr8646296wmf.149.1607610398481;
+        Thu, 10 Dec 2020 06:26:38 -0800 (PST)
+Subject: Re: [PATCH v3 08/13] audio: remove GNUC & MSVC check
+To: marcandre.lureau@redhat.com, qemu-devel@nongnu.org
+Cc: Richard Henderson <richard.henderson@linaro.org>,
+ Laurent Vivier <laurent@vivier.eu>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org, Stefan Hajnoczi <stefanha@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-arm@nongnu.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Maydell <peter.maydell@linaro.org>
+References: <20201210134752.780923-1-marcandre.lureau@redhat.com>
+ <20201210134752.780923-9-marcandre.lureau@redhat.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
+Message-ID: <a162ec7c-4dc3-5784-866e-dc95f6919b1f@redhat.com>
+Date: Thu, 10 Dec 2020 15:26:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
+MIME-Version: 1.0
+In-Reply-To: <20201210134752.780923-9-marcandre.lureau@redhat.com>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=philmd@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-xl-qemuu-ovmf-amd64
-testid debian-hvm-install
+On 12/10/20 2:47 PM, marcandre.lureau@redhat.com wrote:
+> From: Marc-André Lureau <marcandre.lureau@redhat.com>
+> 
+> QEMU requires either GCC or Clang, which both advertize __GNUC__.
+> Drop MSVC fallback path.
+> 
+> Note: I intentionally left further cleanups for a later work.
+> 
+> Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+> ---
+>  audio/audio.c | 8 +-------
+>  1 file changed, 1 insertion(+), 7 deletions(-)
+> 
+> diff --git a/audio/audio.c b/audio/audio.c
+> index 46578e4a58..d7a00294de 100644
+> --- a/audio/audio.c
+> +++ b/audio/audio.c
+> @@ -122,13 +122,7 @@ int audio_bug (const char *funcname, int cond)
+>  
+>  #if defined AUDIO_BREAKPOINT_ON_BUG
+>  #  if defined HOST_I386
+> -#    if defined __GNUC__
+> -        __asm__ ("int3");
+> -#    elif defined _MSC_VER
+> -        _asm _emit 0xcc;
+> -#    else
+> -        abort ();
+> -#    endif
+> +      __asm__ ("int3");
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf https://github.com/tianocore/edk2.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+This was 15 years ago... Why not simply use abort() today?
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  ovmf https://github.com/tianocore/edk2.git
-  Bug introduced:  cee5b0441af39dd6f76cc4e0447a1c7f788cbb00
-  Bug not present: 8e4cb8fbceb84b66b3b2fc45b9e93d70f732e970
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/157384/
-
-
-  commit cee5b0441af39dd6f76cc4e0447a1c7f788cbb00
-  Author: Guo Dong <guo.dong@intel.com>
-  Date:   Wed Dec 2 14:18:18 2020 -0700
-  
-      UefiCpuPkg/CpuDxe: Fix boot error
-      
-      REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3084
-      
-      When DXE drivers are dispatched above 4GB memory and
-      the system is already in 64bit mode, the address
-      setCodeSelectorLongJump in stack will be override
-      by parameter. so change to use 64bit address and
-      jump to qword address.
-      
-      Signed-off-by: Guo Dong <guo.dong@intel.com>
-      Reviewed-by: Ray Ni <ray.ni@intel.com>
-      Reviewed-by: Eric Dong <eric.dong@intel.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/ovmf/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/ovmf/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install --summary-out=tmp/157384.bisection-summary --basis-template=157345 --blessings=real,real-bisect,real-retry ovmf test-amd64-i386-xl-qemuu-ovmf-amd64 debian-hvm-install
-Searching for failure / basis pass:
- 157366 fail [host=pinot1] / 157345 [host=elbling0] 157338 [host=chardonnay0] 157333 [host=fiano1] 157323 [host=pinot0] 157255 [host=elbling1] 157214 [host=huxelrebe1] 157204 [host=chardonnay1] 157194 [host=huxelrebe0] 157191 [host=albana0] 157184 [host=albana1] 157178 [host=fiano1] 157167 [host=fiano0] 157117 [host=chardonnay0] 157104 [host=elbling0] 157060 [host=rimava1] 157055 [host=pinot0] 157042 [host=elbling1] 157025 [host=chardonnay1] 157018 ok.
-Failure / basis pass flights: 157366 / 157018
-(tree with no url: minios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf https://github.com/tianocore/edk2.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 272a1db63a09087ce3da4cf44ec7b758611ff1ed 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e9d62effa37ea13fe04fc89b21d2de7776f183a2 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 8147e00e4fbfcc43b665dc6bf279b204c501ba04
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 https://github.com/tianocore/edk2.git#e9d62effa37ea13fe04fc89b21d2de7776f183a2-272a1db63a09087ce3da4cf44ec7b758611ff1ed git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c743\
- 7ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/osstest/seabios.git#748d619be3282fba35f99446098ac2d0579f6063-748d619be3282fba35f99446098ac2d0579f6063 git://xenbits.xen.org/xen.git#8147e00e4fbfcc43b665dc6bf279b204c501ba04-777e3590f154e6a8af560dd318b9465fa168db20
-Loaded 10001 nodes in revision graph
-Searching for test results:
- 157018 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e9d62effa37ea13fe04fc89b21d2de7776f183a2 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 8147e00e4fbfcc43b665dc6bf279b204c501ba04
- 157025 [host=chardonnay1]
- 157042 [host=elbling1]
- 157055 [host=pinot0]
- 157060 [host=rimava1]
- 157104 [host=elbling0]
- 157117 [host=chardonnay0]
- 157167 [host=fiano0]
- 157178 [host=fiano1]
- 157184 [host=albana1]
- 157191 [host=albana0]
- 157194 [host=huxelrebe0]
- 157204 [host=chardonnay1]
- 157214 [host=huxelrebe1]
- 157255 [host=elbling1]
- 157323 [host=pinot0]
- 157333 [host=fiano1]
- 157338 [host=chardonnay0]
- 157345 [host=elbling0]
- 157348 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 272a1db63a09087ce3da4cf44ec7b758611ff1ed 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157352 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e9d62effa37ea13fe04fc89b21d2de7776f183a2 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 8147e00e4fbfcc43b665dc6bf279b204c501ba04
- 157356 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 272a1db63a09087ce3da4cf44ec7b758611ff1ed 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157357 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 375e9b190e37041129b35a1c667993ea145e5b7e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 be3755af37263833cb3b1c6b1f2ba219bdf97ec3
- 157354 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 272a1db63a09087ce3da4cf44ec7b758611ff1ed 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157360 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4b69fab6e20a98f56acd3c717bd53812950fe5b5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 30d430b2126697dda0bd53d19fe267fb4d30e9b8
- 157363 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ee78edceca89057ab9854f7e5070391a8229ece4 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157367 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4b69fab6e20a98f56acd3c717bd53812950fe5b5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157370 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7061294be500de021bef3d4bc5218134d223315f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157372 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8e4cb8fbceb84b66b3b2fc45b9e93d70f732e970 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157375 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cee5b0441af39dd6f76cc4e0447a1c7f788cbb00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157378 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8e4cb8fbceb84b66b3b2fc45b9e93d70f732e970 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157366 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 272a1db63a09087ce3da4cf44ec7b758611ff1ed 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157380 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cee5b0441af39dd6f76cc4e0447a1c7f788cbb00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157382 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8e4cb8fbceb84b66b3b2fc45b9e93d70f732e970 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157384 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cee5b0441af39dd6f76cc4e0447a1c7f788cbb00 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
-Searching for interesting versions
- Result found: flight 157018 (pass), for basis pass
- For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8e4cb8fbceb84b66b3b2fc45b9e93d70f732e970 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20, results HASH(0x55ebf437e0b0) HASH(0x55ebf38fb810) HASH(0x55ebf43891a8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1\
- e6a472b0eb9558310b518f0dfcd8860 4b69fab6e20a98f56acd3c717bd53812950fe5b5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20, results HASH(0x55ebf4395800) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4b69fab6e20a98f56acd3c717bd53812950fe5b5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0\
- bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 30d430b2126697dda0bd53d19fe267fb4d30e9b8, results HASH(0x55ebf43866f8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 375e9b190e37041129b35a1c667993ea145e5b7e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 be3755af37263833cb3b1c6b1f2ba219bdf97ec3, results HASH(0x55ebf4387c20) For basis\
-  failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e9d62effa37ea13fe04fc89b21d2de7776f183a2 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 8147e00e4fbfcc43b665dc6bf279b204c501ba04, results HASH(0x55ebf438bab0) HASH(0x55ebf4396728) Result found: flight 157348 (fail), for basis failure (at ancestor ~5611)
- Repro found: flight 157352 (pass), for basis pass
- Repro found: flight 157354 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8e4cb8fbceb84b66b3b2fc45b9e93d70f732e970 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7ea428895af2840d85c524f0bd11a38aac308308 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
-No revisions left to test, checking graph state.
- Result found: flight 157372 (pass), for last pass
- Result found: flight 157375 (fail), for first failure
- Repro found: flight 157378 (pass), for last pass
- Repro found: flight 157380 (fail), for first failure
- Repro found: flight 157382 (pass), for last pass
- Repro found: flight 157384 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  ovmf https://github.com/tianocore/edk2.git
-  Bug introduced:  cee5b0441af39dd6f76cc4e0447a1c7f788cbb00
-  Bug not present: 8e4cb8fbceb84b66b3b2fc45b9e93d70f732e970
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/157384/
-
-
-  commit cee5b0441af39dd6f76cc4e0447a1c7f788cbb00
-  Author: Guo Dong <guo.dong@intel.com>
-  Date:   Wed Dec 2 14:18:18 2020 -0700
-  
-      UefiCpuPkg/CpuDxe: Fix boot error
-      
-      REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3084
-      
-      When DXE drivers are dispatched above 4GB memory and
-      the system is already in 64bit mode, the address
-      setCodeSelectorLongJump in stack will be override
-      by parameter. so change to use 64bit address and
-      jump to qword address.
-      
-      Signed-off-by: Guo Dong <guo.dong@intel.com>
-      Reviewed-by: Ray Ni <ray.ni@intel.com>
-      Reviewed-by: Eric Dong <eric.dong@intel.com>
-
-Revision graph left in /home/logs/results/bisect/ovmf/test-amd64-i386-xl-qemuu-ovmf-amd64.debian-hvm-install.{dot,ps,png,html,svg}.
-----------------------------------------
-157384: tolerable ALL FAIL
-
-flight 157384 ovmf real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157384/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail baseline untested
-
-
-jobs:
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>  #  else
+>          abort ();
+>  #  endif
+> 
 
 
