@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C91D22D6769
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:51:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49801.88160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8939F2D6765
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:51:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49779.88110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRyC-0002RV-1S; Thu, 10 Dec 2020 19:51:20 +0000
+	id 1knRxz-0001uj-W7; Thu, 10 Dec 2020 19:51:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49801.88160; Thu, 10 Dec 2020 19:51:19 +0000
+Received: by outflank-mailman (output) from mailman id 49779.88110; Thu, 10 Dec 2020 19:51:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRyB-0002Ps-MO; Thu, 10 Dec 2020 19:51:19 +0000
-Received: by outflank-mailman (input) for mailman id 49801;
- Thu, 10 Dec 2020 19:51:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1knRxz-0001tW-QF; Thu, 10 Dec 2020 19:51:07 +0000
+Received: by outflank-mailman (input) for mailman id 49779;
+ Thu, 10 Dec 2020 19:51:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hbU1=FO=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1knRqZ-0007NY-It
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:43:27 +0000
+ id 1knRqT-0007OY-EY
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:43:21 +0000
 Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4c6e5196-7580-4ef1-982b-c587c955aa15;
- Thu, 10 Dec 2020 19:42:40 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6cc394ac-31c7-4a10-9ba6-c8a1e38799fb;
+ Thu, 10 Dec 2020 19:42:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,28 +36,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c6e5196-7580-4ef1-982b-c587c955aa15
-Message-Id: <20201210194044.580936243@linutronix.de>
+X-Inumbo-ID: 6cc394ac-31c7-4a10-9ba6-c8a1e38799fb
+Message-Id: <20201210194044.672935978@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607629359;
+	s=2020; t=1607629361;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=KrhhIjbt5v6ZrRAi/JobWuMkwODXuYkNejeEJ8r5wYA=;
-	b=O2jdDNolMgwdeqbdehl1p9TNp5CMFEegQIULELNgmYRztgIcL4c3f02Qf6SlZ5l3g40OIQ
-	RgS4jJlX+w2xWwCBcvE8uOXoWkE+AICi/Nh5GaOHSq9qtJLjJ382ImsNRhJ2OXUKqHjpIF
-	I8MjuSPpVTKBCKMHB0jWJJqdHHehIe0RI7sKzCawI6DUxBj2zGutPRs1VZRztMy0HnwSsf
-	OI5cZWwaKtKyxElh00AwZXcb13cApJGdpe1cNRwNFz3Ty/Mas6lCOq0rRGjsr5nCkNgDIf
-	ZfeC1Cgjfe3pwIQtGOuNMnkwwWQv4/tiKJan+K2zSJCygXvLKALGPkNvkXEO8Q==
+	bh=Qj+nUJLINsvJ1wGGRtokQbSqazbntoaovZZiHCUfEoU=;
+	b=mj3Kocu4reYCYLMxNnXCB7pRMj/V2SipP9aFrWWSpDZJXbRGUx/etWSEc4UA9axZe8vH6Z
+	zCNVDaK1BEFqY4IWswwKyY8R7IgAyKxoeqPwRK9IXNNmGiGmnhY15xlempvvXuPFw2/rOc
+	mTCNzl+Tvzsv8H1Zumi6u4b7ahs/w0J8EI2jeDxL0Y5ZADiAONcn7tXXZuRD+mnMyLrQkH
+	8jP8OkOSyfio3wKvjr3Z/OVEvqX5ZlAghchZfn24t0pny2f/12ifma3CZVk+AVM0PtaOxp
+	ZDpdmrDdGhcDUTfi8/G7SVOrzhh/vhKhIeACLrs9VfJAm1rl5JDinUE3lR6YsQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607629359;
+	s=2020e; t=1607629361;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=KrhhIjbt5v6ZrRAi/JobWuMkwODXuYkNejeEJ8r5wYA=;
-	b=AYssMWVwzMPlm7xFPvozIcusMMzaZeOC4IJgbRnnFFntYh+XGLTcZ4I1FH/Z2XIwzAjKaN
-	H21cttJmA1LtW+AQ==
-Date: Thu, 10 Dec 2020 20:25:56 +0100
+	bh=Qj+nUJLINsvJ1wGGRtokQbSqazbntoaovZZiHCUfEoU=;
+	b=BJ2Ps/crskKu+hAqmkYsokffZfoswWJHgtK94U0YlOuWVRLji6xjfgt0Ui2ooTzFtjd00H
+	sqLSJBfAAw+mcaDw==
+Date: Thu, 10 Dec 2020 20:25:57 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
@@ -109,21 +110,19 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: [patch 20/30] net/mlx4: Replace irq_to_desc() abuse
+Subject: [patch 21/30] net/mlx4: Use effective interrupt affinity
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-transfer-encoding: 8-bit
 
-No driver has any business with the internals of an interrupt
-descriptor. Storing a pointer to it just to use yet another helper at the
-actual usage site to retrieve the affinity mask is creative at best. Just
-because C does not allow encapsulation does not mean that the kernel has no
-limits.
+Using the interrupt affinity mask for checking locality is not really
+working well on architectures which support effective affinity masks.
 
-Retrieve a pointer to the affinity mask itself and use that. It's still
-using an interface which is usually not for random drivers, but definitely
-less hideous than the previous hack.
+The affinity mask is either the system wide default or set by user space,
+but the architecture can or even must reduce the mask to the effective set,
+which means that checking the affinity mask itself does not really tell
+about the actual target CPUs.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Cc: Tariq Toukan <tariqt@nvidia.com>
@@ -132,76 +131,19 @@ Cc: Jakub Kicinski <kuba@kernel.org>
 Cc: netdev@vger.kernel.org
 Cc: linux-rdma@vger.kernel.org
 ---
- drivers/net/ethernet/mellanox/mlx4/en_cq.c   |    8 +++-----
- drivers/net/ethernet/mellanox/mlx4/en_rx.c   |    6 +-----
- drivers/net/ethernet/mellanox/mlx4/mlx4_en.h |    3 ++-
- 3 files changed, 6 insertions(+), 11 deletions(-)
+ drivers/net/ethernet/mellanox/mlx4/en_cq.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 --- a/drivers/net/ethernet/mellanox/mlx4/en_cq.c
 +++ b/drivers/net/ethernet/mellanox/mlx4/en_cq.c
-@@ -90,7 +90,7 @@ int mlx4_en_activate_cq(struct mlx4_en_p
- 			int cq_idx)
- {
- 	struct mlx4_en_dev *mdev = priv->mdev;
--	int err = 0;
-+	int irq, err = 0;
- 	int timestamp_en = 0;
- 	bool assigned_eq = false;
- 
-@@ -116,10 +116,8 @@ int mlx4_en_activate_cq(struct mlx4_en_p
- 
+@@ -117,7 +117,7 @@ int mlx4_en_activate_cq(struct mlx4_en_p
  			assigned_eq = true;
  		}
--
--		cq->irq_desc =
--			irq_to_desc(mlx4_eq_get_irq(mdev->dev,
--						    cq->vector));
-+		irq = mlx4_eq_get_irq(mdev->dev, cq->vector);
-+		cq->aff_mask = irq_get_affinity_mask(irq);
+ 		irq = mlx4_eq_get_irq(mdev->dev, cq->vector);
+-		cq->aff_mask = irq_get_affinity_mask(irq);
++		cq->aff_mask = irq_get_effective_affinity_mask(irq);
  	} else {
  		/* For TX we use the same irq per
  		ring we assigned for the RX    */
---- a/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-+++ b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-@@ -959,8 +959,6 @@ int mlx4_en_poll_rx_cq(struct napi_struc
- 
- 	/* If we used up all the quota - we're probably not done yet... */
- 	if (done == budget || !clean_complete) {
--		const struct cpumask *aff;
--		struct irq_data *idata;
- 		int cpu_curr;
- 
- 		/* in case we got here because of !clean_complete */
-@@ -969,10 +967,8 @@ int mlx4_en_poll_rx_cq(struct napi_struc
- 		INC_PERF_COUNTER(priv->pstats.napi_quota);
- 
- 		cpu_curr = smp_processor_id();
--		idata = irq_desc_get_irq_data(cq->irq_desc);
--		aff = irq_data_get_affinity_mask(idata);
- 
--		if (likely(cpumask_test_cpu(cpu_curr, aff)))
-+		if (likely(cpumask_test_cpu(cpu_curr, cq->aff_mask)))
- 			return budget;
- 
- 		/* Current cpu is not according to smp_irq_affinity -
---- a/drivers/net/ethernet/mellanox/mlx4/mlx4_en.h
-+++ b/drivers/net/ethernet/mellanox/mlx4/mlx4_en.h
-@@ -46,6 +46,7 @@
- #endif
- #include <linux/cpu_rmap.h>
- #include <linux/ptp_clock_kernel.h>
-+#include <linux/irq.h>
- #include <net/xdp.h>
- 
- #include <linux/mlx4/device.h>
-@@ -380,7 +381,7 @@ struct mlx4_en_cq {
- 	struct mlx4_cqe *buf;
- #define MLX4_EN_OPCODE_ERROR	0x1e
- 
--	struct irq_desc *irq_desc;
-+	const struct cpumask *aff_mask;
- };
- 
- struct mlx4_en_port_profile {
 
 
