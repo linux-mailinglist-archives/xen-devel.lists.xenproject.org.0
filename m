@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48EE2D6704
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:42:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49709.87968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 887182D670B
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:42:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49700.87908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRpt-00080Z-8B; Thu, 10 Dec 2020 19:42:45 +0000
+	id 1knRph-0007dc-J1; Thu, 10 Dec 2020 19:42:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49709.87968; Thu, 10 Dec 2020 19:42:45 +0000
+Received: by outflank-mailman (output) from mailman id 49700.87908; Thu, 10 Dec 2020 19:42:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRps-0007zL-QU; Thu, 10 Dec 2020 19:42:44 +0000
-Received: by outflank-mailman (input) for mailman id 49709;
- Thu, 10 Dec 2020 19:42:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1knRph-0007cN-E0; Thu, 10 Dec 2020 19:42:33 +0000
+Received: by outflank-mailman (input) for mailman id 49700;
+ Thu, 10 Dec 2020 19:42:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hbU1=FO=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1knRpq-0007NY-Hc
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:42 +0000
+ id 1knRpf-0007OY-Cn
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:31 +0000
 Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8510efe7-e1de-4095-840d-46e2bdeb12cf;
- Thu, 10 Dec 2020 19:42:24 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 37bf2da7-5f6e-44d6-b7ea-6278350e7d51;
+ Thu, 10 Dec 2020 19:42:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,28 +36,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8510efe7-e1de-4095-840d-46e2bdeb12cf
-Message-Id: <20201210194043.268774449@linutronix.de>
+X-Inumbo-ID: 37bf2da7-5f6e-44d6-b7ea-6278350e7d51
+Message-Id: <20201210194043.362094758@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607629343;
+	s=2020; t=1607629344;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=KtzFp0nR+dJW1v891+1wc4D+KUTADWJVxpq6j1ykdfo=;
-	b=BwWrBYP0c3Z0lFh3V6qC90H7c5G9PHEfLbQKd0hztOiqwJ4kBCiNk+VDHIcCk1P/HxJJE+
-	zt6CbhOUy0zFcpFdRmOFsyfb9chR0Qx1RUaHNJMzGPe4/YSaExFvgbHq6rbAS7kLyxP5tj
-	50aob2dpVHhgmHdoE9LrAgft46kAteQH0u20dVmWOXNd76SQCmuGq0ygZQrP10YFFulxyu
-	/qBwgM/QVkALrmRL+BjjJvZRX8irP6Tqn07c/GO5qIfUgWd74BWRs6KIHsrquTbtL84IH6
-	+M3rrImgxsn11U5KirO7h0p+JsOWwXjhPDlffX4TftaAXSN1Xiplo1xF1UMXlQ==
+	bh=xI8ipC8kVjJGltjSHu5Mwub/dbA42XKOSuIg0xDxbuM=;
+	b=D/de10U4HoG38vblr7IeySKjPU1LbUwG6rWRmeGYZrTiPhh//Hh7l/GxJreJ0rFcvzRPJy
+	uoauNylV8dWf/MoltroGmVGhvJ2oJ5Y1i1Hdh3B/UY4mD9pwH+y7Dg4V+Vuar0V4FZXmUS
+	6T9k0+65HYvYSEKNJ4TVXxdcFWWUmHXiCvk5q873lejGHd1ZF8kDnbNFZOuvndA/bZ6hqk
+	upKi4g8D5MCEBYYTgyELzJKcRa+JlxwqpINFEbwiyouRus62LMleSD5uCsPspz8eEzaopF
+	eLafHsQRj846r/5tje8mdg+dCV5YsColFl6docNWF4RiFgqrORcZz2o154ST/Q==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607629343;
+	s=2020e; t=1607629344;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=KtzFp0nR+dJW1v891+1wc4D+KUTADWJVxpq6j1ykdfo=;
-	b=YlMcwWy3vQ5LbjypUKpYuIGaMi15XbC955aXBdrVoJspoFoOrPcJRpjqt+rHhF7aRCDnxi
-	VzPUfEGKZfuiRjBQ==
-Date: Thu, 10 Dec 2020 20:25:43 +0100
+	bh=xI8ipC8kVjJGltjSHu5Mwub/dbA42XKOSuIg0xDxbuM=;
+	b=uhk8uY0rFu42URnjai4w+dmeZE7ul5z78imfPTBVOwBrf5zNSXRAMP26aad4ZYcrnfPUQU
+	IQRkkJ1oiqPOXJDw==
+Date: Thu, 10 Dec 2020 20:25:44 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
@@ -109,67 +110,54 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: [patch 07/30] genirq: Make kstat_irqs() static
+Subject: [patch 08/30] genirq: Provide kstat_irqdesc_cpu()
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-transfer-encoding: 8-bit
 
-No more users outside the core code.
+Most users of kstat_irqs_cpu() have the irq descriptor already. No point in
+calling into the core code and looking it up once more.
+
+Use it in per_cpu_count_show() to start with.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- include/linux/kernel_stat.h |    1 -
- kernel/irq/irqdesc.c        |   19 ++++++-------------
- 2 files changed, 6 insertions(+), 14 deletions(-)
+ include/linux/irqdesc.h |    6 ++++++
+ kernel/irq/irqdesc.c    |    4 ++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
---- a/include/linux/kernel_stat.h
-+++ b/include/linux/kernel_stat.h
-@@ -67,7 +67,6 @@ static inline unsigned int kstat_softirq
- /*
-  * Number of interrupts per specific IRQ source, since bootup
-  */
--extern unsigned int kstat_irqs(unsigned int irq);
- extern unsigned int kstat_irqs_usr(unsigned int irq);
+--- a/include/linux/irqdesc.h
++++ b/include/linux/irqdesc.h
+@@ -113,6 +113,12 @@ static inline void irq_unlock_sparse(voi
+ extern struct irq_desc irq_desc[NR_IRQS];
+ #endif
  
- /*
++static inline unsigned int irq_desc_kstat_cpu(struct irq_desc *desc,
++					      unsigned int cpu)
++{
++	return desc->kstat_irqs ? *per_cpu_ptr(desc->kstat_irqs, cpu) : 0;
++}
++
+ static inline struct irq_desc *irq_data_to_desc(struct irq_data *data)
+ {
+ 	return container_of(data->common, struct irq_desc, irq_common_data);
 --- a/kernel/irq/irqdesc.c
 +++ b/kernel/irq/irqdesc.c
-@@ -924,15 +924,7 @@ static bool irq_is_nmi(struct irq_desc *
- 	return desc->istate & IRQS_NMI;
- }
- 
--/**
-- * kstat_irqs - Get the statistics for an interrupt
-- * @irq:	The interrupt number
-- *
-- * Returns the sum of interrupt counts on all cpus since boot for
-- * @irq. The caller must ensure that the interrupt is not removed
-- * concurrently.
-- */
--unsigned int kstat_irqs(unsigned int irq)
-+static unsigned int kstat_irqs(unsigned int irq)
+@@ -147,12 +147,12 @@ static ssize_t per_cpu_count_show(struct
+ 				  struct kobj_attribute *attr, char *buf)
  {
- 	struct irq_desc *desc = irq_to_desc(irq);
- 	unsigned int sum = 0;
-@@ -951,13 +943,14 @@ unsigned int kstat_irqs(unsigned int irq
- }
+ 	struct irq_desc *desc = container_of(kobj, struct irq_desc, kobj);
+-	int cpu, irq = desc->irq_data.irq;
+ 	ssize_t ret = 0;
+ 	char *p = "";
++	int cpu;
  
- /**
-- * kstat_irqs_usr - Get the statistics for an interrupt
-+ * kstat_irqs_usr - Get the statistics for an interrupt from thread context
-  * @irq:	The interrupt number
-  *
-  * Returns the sum of interrupt counts on all cpus since boot for @irq.
-- * Contrary to kstat_irqs() this can be called from any context.
-- * It uses rcu since a concurrent removal of an interrupt descriptor is
-- * observing an rcu grace period before delayed_free_desc()/irq_kobj_release().
-+ *
-+ * It uses rcu to protect the access since a concurrent removal of an
-+ * interrupt descriptor is observing an rcu grace period before
-+ * delayed_free_desc()/irq_kobj_release().
-  */
- unsigned int kstat_irqs_usr(unsigned int irq)
- {
+ 	for_each_possible_cpu(cpu) {
+-		unsigned int c = kstat_irqs_cpu(irq, cpu);
++		unsigned int c = irq_desc_kstat_cpu(desc, cpu);
+ 
+ 		ret += scnprintf(buf + ret, PAGE_SIZE - ret, "%s%u", p, c);
+ 		p = ",";
 
 
