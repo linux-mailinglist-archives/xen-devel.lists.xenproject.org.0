@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEB372D6442
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 18:59:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49658.87809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 938362D649E
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 19:15:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49666.87822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knQDR-0004og-At; Thu, 10 Dec 2020 17:58:57 +0000
+	id 1knQSZ-0006sN-OL; Thu, 10 Dec 2020 18:14:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49658.87809; Thu, 10 Dec 2020 17:58:57 +0000
+Received: by outflank-mailman (output) from mailman id 49666.87822; Thu, 10 Dec 2020 18:14:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knQDR-0004oJ-7W; Thu, 10 Dec 2020 17:58:57 +0000
-Received: by outflank-mailman (input) for mailman id 49658;
- Thu, 10 Dec 2020 17:58:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1knQSZ-0006rv-Jz; Thu, 10 Dec 2020 18:14:35 +0000
+Received: by outflank-mailman (input) for mailman id 49666;
+ Thu, 10 Dec 2020 18:14:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=57pE=FO=alien8.de=bp@srs-us1.protection.inumbo.net>)
- id 1knQDP-0004oE-90
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 17:58:55 +0000
-Received: from mail.skyhub.de (unknown [2a01:4f8:190:11c2::b:1457])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 944c9135-2f20-4747-ba46-25eed1eb33df;
- Thu, 10 Dec 2020 17:58:52 +0000 (UTC)
-Received: from zn.tnic (p200300ec2f0d410017205789a0fcbfc3.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f0d:4100:1720:5789:a0fc:bfc3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BC6941EC0266;
- Thu, 10 Dec 2020 18:58:51 +0100 (CET)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knQSX-0006rk-PA; Thu, 10 Dec 2020 18:14:33 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knQSX-0005u0-IX; Thu, 10 Dec 2020 18:14:33 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knQSX-0007dv-AM; Thu, 10 Dec 2020 18:14:33 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1knQSX-0004T4-9r; Thu, 10 Dec 2020 18:14:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,74 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 944c9135-2f20-4747-ba46-25eed1eb33df
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1607623131;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MwyvOQBqxuMUG7KzYXJrCDdCJAVHNYnOubZCd9QHgEo=;
-	b=QAbiXUnnXNeeVEl8f1bWlVdTRkQaqyuO5GwcX57rzx5YgNGyAoPsKd8SiHoQhEKOL3cswb
-	xJFTBEQqrivdDf2SutMFerrTsDT8f2MUOi3bt/x+qDD+kGByiHPn6aZFFd6jQgbpBKA5EE
-	NQZ4t6DTvpVHfanMjclYCmWpEGp+G0c=
-Date: Thu, 10 Dec 2020 18:58:46 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
-	linux-kernel@vger.kernel.org, peterz@infradead.org, luto@kernel.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH v2 07/12] x86: add new features for paravirt patching
-Message-ID: <20201210175846.GE26529@zn.tnic>
-References: <20201120114630.13552-1-jgross@suse.com>
- <20201120114630.13552-8-jgross@suse.com>
- <20201208184315.GE27920@zn.tnic>
- <2510752e-5d3d-f71c-8a4c-a5d2aae0075e@suse.com>
- <20201209120307.GB18203@zn.tnic>
- <9e989b07-84e8-b07b-ba6e-c2a3ed19d7b1@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cDrMs2xTLhY5XOm87GJ+PJ3EuAHhDugmFNXvb+bT5Co=; b=gENof2CrNvuIlKSp9qUplJ50/c
+	NaGoosD6gPlR6GPTkjxpkbn7dXDvSs0hmR0MPUQuqAbvnpFnam1BXc9LT9idQxF44YAcQWICKnnQ4
+	C1j4sfDMvL+WqPDAtkKmXcydGaOQJvBFCCrqtT06EAEWkYlg3K436emLUfalsA+hF3m0=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157383-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9e989b07-84e8-b07b-ba6e-c2a3ed19d7b1@suse.com>
+MIME-Version: 1.0
+Subject: [ovmf test] 157383: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=10dc8c561c687c9e73e29743d04d828cca56a288
+X-Osstest-Versions-That:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 10 Dec 2020 18:14:33 +0000
 
-On Wed, Dec 09, 2020 at 01:22:24PM +0100, Jürgen Groß wrote:
-> Lets take the spin_unlock() case. With patch 11 of the series this is
-> 
-> PVOP_ALT_VCALLEE1(lock.queued_spin_unlock, lock,
->                   "movb $0, (%%" _ASM_ARG1 ");",
->                   X86_FEATURE_NO_PVUNLOCK);
-> 
-> which boils down to ALTERNATIVE "call *lock.queued_spin_unlock"
->                                 "movb $0,(%rdi)" X86_FEATURE_NO_PVUNLOCK
-> 
-> The initial (paravirt) code is an indirect call in order to allow
-> spin_unlock() before paravirt/alternative patching takes place.
-> 
-> Paravirt patching will then replace the indirect call with a direct call
-> to the correct unlock function. Then alternative patching might replace
-> the direct call to the bare metal unlock with a plain "movb $0,(%rdi)"
-> in case pvlocks are not enabled.
+flight 157383 ovmf real [real]
+flight 157387 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157383/
+http://logs.test-lab.xenproject.org/osstest/logs/157387/
 
-Aha, that zeros the locking var on unlock, I see.
+Regressions :-(
 
-> In case alternative patching would occur first, the indirect call might
-> be replaced with the "movb ...", and then paravirt patching would
-> clobber that with the direct call, resulting in the bare metal
-> optimization being removed again.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
 
-Yeah, that explains the whole situation much better - thanks - and
-considering how complex the whole patching is, I wouldn't mind the gist
-of it as text in alternative_instructions() or in a comment above it so
-that we don't have to swap everything back in, months and years from
-now, when we optimize it yet again. :-}
+version targeted for testing:
+ ovmf                 10dc8c561c687c9e73e29743d04d828cca56a288
+baseline version:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
 
-Thx.
+Last test of basis   157345  2020-12-09 12:40:46 Z    1 days
+Failing since        157348  2020-12-09 15:39:39 Z    1 days    4 attempts
+Testing same since   157383  2020-12-10 13:09:45 Z    0 days    1 attempts
 
--- 
-Regards/Gruss,
-    Boris.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Fan Wang <fan.wang@intel.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Siyuan Fu <siyuan.fu@intel.com>
+  Ting Ye <ting.ye@intel.com>
 
-https://people.kernel.org/tglx/notes-about-netiquette
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 308 lines long.)
 
