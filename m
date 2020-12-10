@@ -2,63 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33FF52D5FDC
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 16:37:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49458.87466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 663CA2D6040
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 16:46:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49464.87479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knNzl-00047C-MK; Thu, 10 Dec 2020 15:36:41 +0000
+	id 1knO8V-0005C0-Jd; Thu, 10 Dec 2020 15:45:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49458.87466; Thu, 10 Dec 2020 15:36:41 +0000
+Received: by outflank-mailman (output) from mailman id 49464.87479; Thu, 10 Dec 2020 15:45:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knNzl-00046n-JA; Thu, 10 Dec 2020 15:36:41 +0000
-Received: by outflank-mailman (input) for mailman id 49458;
- Thu, 10 Dec 2020 15:36:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N/MM=FO=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1knNzk-00046h-Po
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 15:36:40 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe0d::610])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0da8f9a7-21b9-41b2-bc82-9f3d52fe316d;
- Thu, 10 Dec 2020 15:36:39 +0000 (UTC)
-Received: from DB6PR0301CA0029.eurprd03.prod.outlook.com (2603:10a6:4:3e::39)
- by VI1PR08MB3968.eurprd08.prod.outlook.com (2603:10a6:803:e5::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.18; Thu, 10 Dec
- 2020 15:36:36 +0000
-Received: from DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:3e:cafe::ae) by DB6PR0301CA0029.outlook.office365.com
- (2603:10a6:4:3e::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
- Transport; Thu, 10 Dec 2020 15:36:36 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT035.mail.protection.outlook.com (10.152.20.65) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3654.12 via Frontend Transport; Thu, 10 Dec 2020 15:36:35 +0000
-Received: ("Tessian outbound 6af064f543d4:v71");
- Thu, 10 Dec 2020 15:36:35 +0000
-Received: from 5754061f6571.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 28A81783-8BDF-4E17-9F3F-8B7F4D753DC3.1; 
- Thu, 10 Dec 2020 15:36:29 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 5754061f6571.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 10 Dec 2020 15:36:29 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
- by DBBPR08MB6252.eurprd08.prod.outlook.com (2603:10a6:10:20b::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.20; Thu, 10 Dec
- 2020 15:36:28 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::98c7:4612:2365:cc6b]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::98c7:4612:2365:cc6b%5]) with mapi id 15.20.3632.023; Thu, 10 Dec 2020
- 15:36:28 +0000
+	id 1knO8V-0005Bb-Fw; Thu, 10 Dec 2020 15:45:43 +0000
+Received: by outflank-mailman (input) for mailman id 49464;
+ Thu, 10 Dec 2020 15:45:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1knO8U-0005BW-JY
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 15:45:42 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1knO8T-00026h-1l; Thu, 10 Dec 2020 15:45:41 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1knO8S-0002VE-K5; Thu, 10 Dec 2020 15:45:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,163 +39,386 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0da8f9a7-21b9-41b2-bc82-9f3d52fe316d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KcRXd9RF3nGiJPD5Q9wbQ6foiJEShdxvoSLTCVIWw+Q=;
- b=Au8fj9RUkz95QQTm7pDCR9rQ8ExJ766yuom4dbi1oVm3bDgzRYP2+sXIEE5j/VyDWHI/SAn6kc5uxNt/ZiWVAl1b2oBf3I7KNUSeVsEBLRDw9Yq1umrGOLbaDpo8o0dYMRI5SFOf4Yk33zU7ZbsiJNmgNfLoqtvpbtXH4lY8UXs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 03d8f3fe86f71e60
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k6a2CRPNzmfAVAxcGOSbp+Npl0L0/5j4kf0fMBoQni9BwKT2uUNu9VcXTJXwwzWrikV8u+Sn8DQAC53ig/y/S+LqcWVMu5D33a0qyVYBCHVzjop01VtGsEOFR+ZnggqgDwO6RB7KnvrLqqx5G7FHXUJaSnejw+ivTGPJrGdGq6Z0/LM/t2D8RfyRjmetH0Kx7feQJJuaJfzArlChINNFHTN9z85i3H7wGR1Nj+vFbEsPh/awDEbLdo3b3Bi0DaJpEB1VudAiYjGAkt18fH76QjFLonE2BBVJRIcGiaUr5+1dXLR39La8XGFuyZlMKc9zDOnKFwX4dkRpyYwtNTr0nQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KcRXd9RF3nGiJPD5Q9wbQ6foiJEShdxvoSLTCVIWw+Q=;
- b=U+8zBEkcOyCzazU8meIEQLVaOurams9nrNHzYKMeq6yfzHau7C4su/EgLoAqC0uJg1qj7rrE1ZR14MIrmoSCnOIqYuVLvbNLG5lE9lcYabK/3OUy1Cf/NNcvWugFstfw4UVrcD9mBmVJiv5LZtv1Xcupprek22b7aC0kk9U8NQy6jYr+feh7aClhB20RPpx1KlfV6JS43Im9pSlit3mbxRb7CFvOT5Se686xRvivzpu48PnGDwHx7YnsUVgKhncHh+owdiU0mJYUt9i69OaadjTEpkETZ59hsQioevbIt9c4of64EkMeD+3hkfIV167ftWKUZD9cebS0c6n4oKQIpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KcRXd9RF3nGiJPD5Q9wbQ6foiJEShdxvoSLTCVIWw+Q=;
- b=Au8fj9RUkz95QQTm7pDCR9rQ8ExJ766yuom4dbi1oVm3bDgzRYP2+sXIEE5j/VyDWHI/SAn6kc5uxNt/ZiWVAl1b2oBf3I7KNUSeVsEBLRDw9Yq1umrGOLbaDpo8o0dYMRI5SFOf4Yk33zU7ZbsiJNmgNfLoqtvpbtXH4lY8UXs=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 7/7] xen/arm: Activate TID3 in HCR_EL2
-Thread-Topic: [PATCH v3 7/7] xen/arm: Activate TID3 in HCR_EL2
-Thread-Index: AQHWzkl013/0PfAuCEKW6HlWdTiWa6nvZnoAgAERZAA=
-Date: Thu, 10 Dec 2020 15:36:28 +0000
-Message-ID: <C38106BC-5FDB-49A7-A36C-2584748A7054@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=MPZgRJbPYZax3D2hee6VK8GTc8eosRP/c3EZNBRT+uk=; b=3nAaBMh58Rq3hK6OyZDzXA7lX5
+	6AiAGearzY9MwzAb7D7g/rlKD5zd4yiycvFoHCBg3WSGyUWsNV1f4ooHyW7lwOYc6o9jhFNLrHKQk
+	Xy6fB/SZcJu4rYibHS7UWjkEqeC7i0DSJiqdVPXcoqhau0jUS/7ighUwmkxbH/VRxxxc=;
+Subject: Re: [PATCH v3 1/7] xen/arm: Add ID registers and complete cpuinfo
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <cover.1607524536.git.bertrand.marquis@arm.com>
- <956cf336ffce24f0cabfc7a98ae855bc71d5f028.1607524536.git.bertrand.marquis@arm.com>
- <6e81e7ff-9cfc-aaec-e1fc-336dec06dd6d@xen.org>
-In-Reply-To: <6e81e7ff-9cfc-aaec-e1fc-336dec06dd6d@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3608.120.23.2.4)
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [82.9.225.195]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7beff5c9-73ea-476f-f224-08d89d2160e8
-x-ms-traffictypediagnostic: DBBPR08MB6252:|VI1PR08MB3968:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR08MB3968B9B11D65731ABAE6B98D9DCB0@VI1PR08MB3968.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- +OM7R2+LIsdPmegoQ0dWsADD7XIyw96vhYSJio8/5WZ3kbCo4orxng53BpcuCw5gQ7jDBr4eTxAd2Zmcn0csNwgKFfVtISMgTudz7UoOF9S/48pyQ1OM5VExtCXnbnjuOfV537D7krJPdRgdvNbLwJbkw56C9fkzajxaMi0lcqm8CvcZJuEbHLsnBBzeg6ogIzsO7DLB7R9j68xY8OuakQLkdULVbApbB5fKTyCqSYgvSWEIkdPKiEoMDF2Rnb9LclysB0TUO/Z/PyaKnH7Cw1T5/OhUKT6voLFTyI3hFS5EzAtR+Z/FJfIOztnkKiWHWNicexB/0/F5651rSbcd28evCuiSvK2dQjNkCHvHsMnPW+pwe9cOGRrqD/ukE8+a
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(346002)(39860400002)(366004)(376002)(136003)(66946007)(54906003)(36756003)(33656002)(6486002)(6916009)(186003)(66446008)(8676002)(26005)(6512007)(5660300002)(316002)(2906002)(91956017)(478600001)(66476007)(6506007)(71200400001)(2616005)(86362001)(4326008)(64756008)(53546011)(76116006)(83380400001)(66556008)(8936002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?VDMWxokBqQxNmV4EBD2Wd3CMBeRP1+gZxNKazzkjeYyLwMgc4zoLvCZ2TGG4?=
- =?us-ascii?Q?VdkbUyDapDlzfKj5OXJPx4wYuk5VoP3ZUP1au+kILprflCNGLe4Mz5DxJRrG?=
- =?us-ascii?Q?PJ5n24VUxj6fJAUsCSMV2sYKQa0e4UoAWc9ZtYzmfZnDlRKSUIphyDrjAAql?=
- =?us-ascii?Q?UDmYB82A8p+1MLJp6njkGItlMNgHrlGTZbbTmnXZyJNvaObccZTGTzcb0Pf2?=
- =?us-ascii?Q?BQgnyB/po3NhwcI6bMmegJJzBqaEe9Lq1AvptzIRL3PQ2NkirZZ4g3dw0d+7?=
- =?us-ascii?Q?oK1otQK7KhlmHISKxx21oZ32a2S9fX4prmjrHU7LKmcKoEhkeg6auF5ncWxR?=
- =?us-ascii?Q?aEVNroOOj1L9sEwYh6h0wNgrpjJ5PZmOEkkvXP5YPE3Y4cMMtSQN+tvT4KBr?=
- =?us-ascii?Q?Fqt6ta1D+yY4rX1V2be9yb81M2TpFpPzlQNDkEnnakRbOyYxcCqsFknMQJnA?=
- =?us-ascii?Q?XBpfDxqGnVqGsa5Fj1mAnFfIWvH8Qz4IE0qgUiQbT11jJx4qb6g1YOZNsnn4?=
- =?us-ascii?Q?B0t+Z2ZQSTX2UR5yiNsw/eQCIBIbeJAHaPr07RSlqc9DuvN8VwKUG/0AVqon?=
- =?us-ascii?Q?IDlyTdo1a5PUT1CNpfXGaReOo0oPWsYXxtwyUWDvPjRhQM6M747/wbbvDVkg?=
- =?us-ascii?Q?u5J50W+35ZwcXr6kXkc85TnnyZR1PZ2NKiRcuVF2I6V8enxzWhq4kQ1xC+Hs?=
- =?us-ascii?Q?Khm05XGR3q4v1wsGcJjSIYpzTyIb9qtFJywE20FEf/W5jW6zhLZRiTjVlVyV?=
- =?us-ascii?Q?orf/EAvRvWMCuMpKcZDMrC8JamdsAoeiGXp1XCfS/BH1dYkdXVZ3dvmIdmzI?=
- =?us-ascii?Q?Ktsy0j8okFTVBUp20if59UIX6GZ7Ta3dDzxTbkh3AuMdBbqDtAQ9oFvZ320g?=
- =?us-ascii?Q?D0GQWBpjQ3rJa5/AJ8G/cNyrr//Wki3ymgFX2MGKXMjYqDxI0hWt5Le0CFw0?=
- =?us-ascii?Q?fSqVMpbo9qXF72lf5cnFO0BpCUA77Jji0oHchbPaLBeCXMZq5kGPw+ch70Rz?=
- =?us-ascii?Q?Haze?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <E1A59F816D87A84A99C41C89AD6ECFCF@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+ <aab713989bec4dc843bd513c03b305c83028851b.1607524536.git.bertrand.marquis@arm.com>
+ <62484fa0-fa86-523a-12e0-54d69934d791@xen.org>
+ <8D31DCB1-3529-4785-A18B-CFE69CC0E846@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <157559b2-7d95-ff46-204c-f875e617d464@xen.org>
+Date: Thu, 10 Dec 2020 15:45:37 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6252
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	e3b6bbba-50be-4529-28c1-08d89d215c7e
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	pGQTlzeX9RSL3sHzUnt9ffgVpUKBRnvBNF+Rjyub8Bx7beNKymg4ZSAk9X7ViMaUootcjAG1oM/qSsfr5HFkbyZcr7er+AKFC303YnvRif0Jd8maXKxi/OVlvoknyJAN2unwJKWNl1wYCSPoxV/tSTZ4r1MkDRJ0xPktuSKCMNnZCP2IctDULjRoKMXGJMab0oFgApX2UVst2nqkQP0HKXovLTFWmOu+byC636owipp1VJpKpj7a9Rvqs4XPqe67oIaavWHeitQg02NolsOPB5cnrJYqFTGwYS2A1KSQnW2EsBoS5N7LlfUyp1r0AlH9QvkfUxN0dx2UsttzL+43iHDa5V0CwB2ottPjvlKwicioYFcCXrvk1EJ6FqKt3GEEW84VWrsizOqRVnauOq566w==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(396003)(376002)(39860400002)(346002)(46966005)(33656002)(356005)(54906003)(36756003)(8676002)(8936002)(6486002)(86362001)(70586007)(6512007)(186003)(81166007)(2906002)(316002)(6506007)(26005)(478600001)(2616005)(107886003)(53546011)(82310400003)(4326008)(6862004)(47076004)(82740400003)(70206006)(5660300002)(83380400001)(336012);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2020 15:36:35.8225
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7beff5c9-73ea-476f-f224-08d89d2160e8
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT035.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3968
+In-Reply-To: <8D31DCB1-3529-4785-A18B-CFE69CC0E846@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Hi Julien,
+Hi Bertrand,
 
-> On 9 Dec 2020, at 23:17, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi Bertrand,
->=20
-> On 09/12/2020 16:31, Bertrand Marquis wrote:
->> Activate TID3 bit in HSR register when starting a guest.
->=20
-> s/HSR/HCR/
->=20
+On 10/12/2020 15:14, Bertrand Marquis wrote:
+> Hi Julien,
+> 
+>> On 9 Dec 2020, at 23:03, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Bertrand,
+>>
+>> On 09/12/2020 16:30, Bertrand Marquis wrote:
+>>> Add definition and entries in cpuinfo for ID registers introduced in
+>>> newer Arm Architecture reference manual:
+>>> - ID_PFR2: processor feature register 2
+>>> - ID_DFR1: debug feature register 1
+>>> - ID_MMFR4 and ID_MMFR5: Memory model feature registers 4 and 5
+>>> - ID_ISA6: ISA Feature register 6
+>>> Add more bitfield definitions in PFR fields of cpuinfo.
+>>> Add MVFR2 register definition for aarch32.
+>>> Add mvfr values in cpuinfo.
+>>> Add some registers definition for arm64 in sysregs as some are not
+>>> always know by compilers.
+>>> Initialize the new values added in cpuinfo in identify_cpu during init.
+>>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>>> ---
+>>> Changes in V2:
+>>>    Fix dbg32 table size and add proper initialisation of the second entry
+>>>    of the table by reading ID_DFR1 register.
+>>> Changes in V3:
+>>>    Fix typo in commit title
+>>>    Add MVFR2 definition and handling on aarch32 and remove specific case
+>>>    for mvfr field in cpuinfo (now the same on arm64 and arm32).
+>>>    Add MMFR4 definition if not known by the compiler.
+>>> ---
+>>>   xen/arch/arm/cpufeature.c           | 18 ++++++++++
+>>>   xen/include/asm-arm/arm64/sysregs.h | 28 +++++++++++++++
+>>>   xen/include/asm-arm/cpregs.h        | 12 +++++++
+>>>   xen/include/asm-arm/cpufeature.h    | 56 ++++++++++++++++++++++++-----
+>>>   4 files changed, 105 insertions(+), 9 deletions(-)
+>>> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+>>> index 44126dbf07..bc7ee5ac95 100644
+>>> --- a/xen/arch/arm/cpufeature.c
+>>> +++ b/xen/arch/arm/cpufeature.c
+>>> @@ -114,15 +114,20 @@ void identify_cpu(struct cpuinfo_arm *c)
+>>>             c->mm64.bits[0]  = READ_SYSREG64(ID_AA64MMFR0_EL1);
+>>>           c->mm64.bits[1]  = READ_SYSREG64(ID_AA64MMFR1_EL1);
+>>> +        c->mm64.bits[2]  = READ_SYSREG64(ID_AA64MMFR2_EL1);
+>>>             c->isa64.bits[0] = READ_SYSREG64(ID_AA64ISAR0_EL1);
+>>>           c->isa64.bits[1] = READ_SYSREG64(ID_AA64ISAR1_EL1);
+>>> +
+>>> +        c->zfr64.bits[0] = READ_SYSREG64(ID_AA64ZFR0_EL1);
+>>>   #endif
+>>>             c->pfr32.bits[0] = READ_SYSREG32(ID_PFR0_EL1);
+>>>           c->pfr32.bits[1] = READ_SYSREG32(ID_PFR1_EL1);
+>>> +        c->pfr32.bits[2] = READ_SYSREG32(ID_PFR2_EL1);
+>>>             c->dbg32.bits[0] = READ_SYSREG32(ID_DFR0_EL1);
+>>> +        c->dbg32.bits[1] = READ_SYSREG32(ID_DFR1_EL1);
+>>>             c->aux32.bits[0] = READ_SYSREG32(ID_AFR0_EL1);
+>>>   @@ -130,6 +135,8 @@ void identify_cpu(struct cpuinfo_arm *c)
+>>>           c->mm32.bits[1]  = READ_SYSREG32(ID_MMFR1_EL1);
+>>>           c->mm32.bits[2]  = READ_SYSREG32(ID_MMFR2_EL1);
+>>>           c->mm32.bits[3]  = READ_SYSREG32(ID_MMFR3_EL1);
+>>> +        c->mm32.bits[4]  = READ_SYSREG32(ID_MMFR4_EL1);
+>>> +        c->mm32.bits[5]  = READ_SYSREG32(ID_MMFR5_EL1);
+>>
+>> Please don't introduce any more use of READ_SYSREG32(), they are wrong on Armv8 because system registers are always 64-bit.
+> 
+> I followed the existing implementation but ...
+> 
+>>
+>>>             c->isa32.bits[0] = READ_SYSREG32(ID_ISAR0_EL1);
+>>>           c->isa32.bits[1] = READ_SYSREG32(ID_ISAR1_EL1);
+>>> @@ -137,6 +144,17 @@ void identify_cpu(struct cpuinfo_arm *c)
+>>>           c->isa32.bits[3] = READ_SYSREG32(ID_ISAR3_EL1);
+>>>           c->isa32.bits[4] = READ_SYSREG32(ID_ISAR4_EL1);
+>>>           c->isa32.bits[5] = READ_SYSREG32(ID_ISAR5_EL1);
+>>> +        c->isa32.bits[6] = READ_SYSREG32(ID_ISAR6_EL1);
+>>> +
+>>> +#ifdef CONFIG_ARM_64
+>>> +        c->mvfr.bits[0] = READ_SYSREG64(MVFR0_EL1);
+>>> +        c->mvfr.bits[1] = READ_SYSREG64(MVFR1_EL1);
+>>> +        c->mvfr.bits[2] = READ_SYSREG64(MVFR2_EL1);
+>>> +#else
+>>> +        c->mvfr.bits[0] = READ_CP32(MVFR0);
+>>> +        c->mvfr.bits[1] = READ_CP32(MVFR1);
+>>> +        c->mvfr.bits[2] = READ_CP32(MVFR2);
+>>> +#endif
+>>
+>> READ_SYSREG() will do the job to either use READ_SYSREG64() or READ_CP32() depending on the arch used.
+> 
+> .. I can modify the ones I added and the existing ones to user READ_SYSREG instead.
+> Please confirm if you want me to do that.
 
-Right, I did it a lot thanks for the review.
-I will fix that in V4.
+Yes, please use READ_SYSREG() for the new ones. We can convert the 
+others separately.
 
->> This will trap all coprecessor ID registers so that we can give to guest
->> values corresponding to what they can actually use and mask some
->> features to guests even though they would be supported by the underlying
->> hardware (like SVE or MPAM).
->=20
-> So this will make sure the guest will not be able to identify the feature=
-. Did you check that the features are effectively not accessible by the gue=
-st? IOW it should trap.
+> 
+>>
+>>>   }
+>>>     /*
+>>> diff --git a/xen/include/asm-arm/arm64/sysregs.h b/xen/include/asm-arm/arm64/sysregs.h
+>>> index c60029d38f..077fd95fb7 100644
+>>> --- a/xen/include/asm-arm/arm64/sysregs.h
+>>> +++ b/xen/include/asm-arm/arm64/sysregs.h
+>>> @@ -57,6 +57,34 @@
+>>>   #define ICH_AP1R2_EL2             __AP1Rx_EL2(2)
+>>>   #define ICH_AP1R3_EL2             __AP1Rx_EL2(3)
+>>>   +/*
+>>> + * Define ID coprocessor registers if they are not
+>>> + * already defined by the compiler.
+>>> + *
+>>> + * Values picked from linux kernel
+>>> + */
+>>> +#ifndef ID_AA64MMFR2_EL1
+>>
+>> I am a bit puzzled how this meant to work. Will the libc/compiler headers define ID_AA64MMFR2_EL1?
+> 
+> I tested this and if the compiler has a definition for the register, I am not entering the ifndef.
+> So there is no header defining this but if the compiler has the definition for this the ifndef will
+> not be entered.
 
-For SVE yes I checked and with the serie a Linux kernel with SVE support ac=
-tivated on a target with SVE is now working (was crashing before).
-For MPAM, I have no target available with MPAM support so I could not test =
-that but your recent XSA patch did turn the access to the guest off.
+Good to hear :).
 
-With my SVE test, I could confirm that access are trapped and properly emul=
-ated.
+> 
+>>
+>>> +#define ID_AA64MMFR2_EL1            S3_0_C0_C7_2
+>>> +#endif
+>>> +#ifndef ID_PFR2_EL1
+>>> +#define ID_PFR2_EL1                 S3_0_C0_C3_4
+>>> +#endif
+>>> +#ifndef ID_MMFR4_EL1
+>>> +#define ID_MMFR4_EL1                S3_0_C0_C2_6
+>>> +#endif
+>>> +#ifndef ID_MMFR5_EL1
+>>> +#define ID_MMFR5_EL1                S3_0_C0_C3_6
+>>> +#endif
+>>> +#ifndef ID_ISAR6_EL1
+>>> +#define ID_ISAR6_EL1                S3_0_C0_C2_7
+>>> +#endif
+>>> +#ifndef ID_AA64ZFR0_EL1
+>>> +#define ID_AA64ZFR0_EL1             S3_0_C0_C4_4
+>>> +#endif
+>>> +#ifndef ID_DFR1_EL1
+>>> +#define ID_DFR1_EL1                 S3_0_C0_C3_5
+>>> +#endif
+>>> +
+>>>   /* Access to system registers */
+>>>     #define READ_SYSREG32(name) ((uint32_t)READ_SYSREG64(name))
+>>> diff --git a/xen/include/asm-arm/cpregs.h b/xen/include/asm-arm/cpregs.h
+>>> index 8fd344146e..2690ddeb7a 100644
+>>> --- a/xen/include/asm-arm/cpregs.h
+>>> +++ b/xen/include/asm-arm/cpregs.h
+>>> @@ -63,6 +63,8 @@
+>>>   #define FPSID           p10,7,c0,c0,0   /* Floating-Point System ID Register */
+>>>   #define FPSCR           p10,7,c1,c0,0   /* Floating-Point Status and Control Register */
+>>>   #define MVFR0           p10,7,c7,c0,0   /* Media and VFP Feature Register 0 */
+>>> +#define MVFR1           p10,7,c6,c0,0   /* Media and VFP Feature Register 1 */
+>>> +#define MVFR2           p10,7,c5,c0,0   /* Media and VFP Feature Register 2 */
+>>>   #define FPEXC           p10,7,c8,c0,0   /* Floating-Point Exception Control Register */
+>>>   #define FPINST          p10,7,c9,c0,0   /* Floating-Point Instruction Register */
+>>>   #define FPINST2         p10,7,c10,c0,0  /* Floating-point Instruction Register 2 */
+>>> @@ -108,18 +110,23 @@
+>>>   #define MPIDR           p15,0,c0,c0,5   /* Multiprocessor Affinity Register */
+>>>   #define ID_PFR0         p15,0,c0,c1,0   /* Processor Feature Register 0 */
+>>>   #define ID_PFR1         p15,0,c0,c1,1   /* Processor Feature Register 1 */
+>>> +#define ID_PFR2         p15,0,c0,c3,4   /* Processor Feature Register 2 */
+>>>   #define ID_DFR0         p15,0,c0,c1,2   /* Debug Feature Register 0 */
+>>> +#define ID_DFR1         p15,0,c0,c3,5   /* Debug Feature Register 1 */
+>>>   #define ID_AFR0         p15,0,c0,c1,3   /* Auxiliary Feature Register 0 */
+>>>   #define ID_MMFR0        p15,0,c0,c1,4   /* Memory Model Feature Register 0 */
+>>>   #define ID_MMFR1        p15,0,c0,c1,5   /* Memory Model Feature Register 1 */
+>>>   #define ID_MMFR2        p15,0,c0,c1,6   /* Memory Model Feature Register 2 */
+>>>   #define ID_MMFR3        p15,0,c0,c1,7   /* Memory Model Feature Register 3 */
+>>> +#define ID_MMFR4        p15,0,c0,c2,6   /* Memory Model Feature Register 4 */
+>>> +#define ID_MMFR5        p15,0,c0,c3,6   /* Memory Model Feature Register 5 */
+>>>   #define ID_ISAR0        p15,0,c0,c2,0   /* ISA Feature Register 0 */
+>>>   #define ID_ISAR1        p15,0,c0,c2,1   /* ISA Feature Register 1 */
+>>>   #define ID_ISAR2        p15,0,c0,c2,2   /* ISA Feature Register 2 */
+>>>   #define ID_ISAR3        p15,0,c0,c2,3   /* ISA Feature Register 3 */
+>>>   #define ID_ISAR4        p15,0,c0,c2,4   /* ISA Feature Register 4 */
+>>>   #define ID_ISAR5        p15,0,c0,c2,5   /* ISA Feature Register 5 */
+>>> +#define ID_ISAR6        p15,0,c0,c2,7   /* ISA Feature Register 6 */
+>>>   #define CCSIDR          p15,1,c0,c0,0   /* Cache Size ID Registers */
+>>>   #define CLIDR           p15,1,c0,c0,1   /* Cache Level ID Register */
+>>>   #define CSSELR          p15,2,c0,c0,0   /* Cache Size Selection Register */
+>>> @@ -312,18 +319,23 @@
+>>>   #define HSTR_EL2                HSTR
+>>>   #define ID_AFR0_EL1             ID_AFR0
+>>>   #define ID_DFR0_EL1             ID_DFR0
+>>> +#define ID_DFR1_EL1             ID_DFR1
+>>>   #define ID_ISAR0_EL1            ID_ISAR0
+>>>   #define ID_ISAR1_EL1            ID_ISAR1
+>>>   #define ID_ISAR2_EL1            ID_ISAR2
+>>>   #define ID_ISAR3_EL1            ID_ISAR3
+>>>   #define ID_ISAR4_EL1            ID_ISAR4
+>>>   #define ID_ISAR5_EL1            ID_ISAR5
+>>> +#define ID_ISAR6_EL1            ID_ISAR6
+>>>   #define ID_MMFR0_EL1            ID_MMFR0
+>>>   #define ID_MMFR1_EL1            ID_MMFR1
+>>>   #define ID_MMFR2_EL1            ID_MMFR2
+>>>   #define ID_MMFR3_EL1            ID_MMFR3
+>>> +#define ID_MMFR4_EL1            ID_MMFR4
+>>> +#define ID_MMFR5_EL1            ID_MMFR5
+>>>   #define ID_PFR0_EL1             ID_PFR0
+>>>   #define ID_PFR1_EL1             ID_PFR1
+>>> +#define ID_PFR2_EL1             ID_PFR2
+>>>   #define IFSR32_EL2              IFSR
+>>>   #define MDCR_EL2                HDCR
+>>>   #define MIDR_EL1                MIDR
+>>> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+>>> index c7b5052992..6cf83d775b 100644
+>>> --- a/xen/include/asm-arm/cpufeature.h
+>>> +++ b/xen/include/asm-arm/cpufeature.h
+>>> @@ -148,6 +148,7 @@ struct cpuinfo_arm {
+>>>       union {
+>>>           uint64_t bits[2];
+>>>           struct {
+>>> +            /* PFR0 */
+>>>               unsigned long el0:4;
+>>>               unsigned long el1:4;
+>>>               unsigned long el2:4;
+>>> @@ -155,9 +156,23 @@ struct cpuinfo_arm {
+>>>               unsigned long fp:4;   /* Floating Point */
+>>>               unsigned long simd:4; /* Advanced SIMD */
+>>>               unsigned long gic:4;  /* GIC support */
+>>> -            unsigned long __res0:28;
+>>> +            unsigned long ras:4;
+>>> +            unsigned long sve:4;
+>>> +            unsigned long sel2:4;
+>>> +            unsigned long mpam:4;
+>>> +            unsigned long amu:4;
+>>> +            unsigned long dit:4;
+>>> +            unsigned long __res0:4;
+>>>               unsigned long csv2:4;
+>>> -            unsigned long __res1:4;
+>>> +            unsigned long cvs3:4;
+>>> +
+>>> +            /* PFR1 */
+>>> +            unsigned long bt:4;
+>>> +            unsigned long ssbs:4;
+>>> +            unsigned long mte:4;
+>>> +            unsigned long ras_frac:4;
+>>> +            unsigned long mpam_frac:4;
+>>> +            unsigned long __res1:44;
+>>>           };
+>>>       } pfr64;
+>>>   @@ -170,7 +185,7 @@ struct cpuinfo_arm {
+>>>       } aux64;
+>>>         union {
+>>> -        uint64_t bits[2];
+>>> +        uint64_t bits[3];
+>>>           struct {
+>>>               unsigned long pa_range:4;
+>>>               unsigned long asid_bits:4;
+>>> @@ -190,6 +205,8 @@ struct cpuinfo_arm {
+>>>               unsigned long pan:4;
+>>>               unsigned long __res1:8;
+>>>               unsigned long __res2:32;
+>>> +
+>>> +            unsigned long __res3:64;
+>>>           };
+>>>       } mm64;
+>>>   @@ -197,6 +214,10 @@ struct cpuinfo_arm {
+>>>           uint64_t bits[2];
+>>>       } isa64;
+>>>   +    struct {
+>>> +        uint64_t bits[1];
+>>> +    } zfr64;
+>>> +
+>>>   #endif
+>>>         /*
+>>> @@ -204,25 +225,38 @@ struct cpuinfo_arm {
+>>>        * when running in 32-bit mode.
+>>>        */
+>>>       union {
+>>> -        uint32_t bits[2];
+>>> +        uint32_t bits[3];
+>>>           struct {
+>>> +            /* PFR0 */
+>>>               unsigned long arm:4;
+>>>               unsigned long thumb:4;
+>>>               unsigned long jazelle:4;
+>>>               unsigned long thumbee:4;
+>>> -            unsigned long __res0:16;
+>>> +            unsigned long csv2:4;
+>>> +            unsigned long amu:4;
+>>> +            unsigned long dit:4;
+>>> +            unsigned long ras:4;
+>>>   +            /* PFR1 */
+>>>               unsigned long progmodel:4;
+>>>               unsigned long security:4;
+>>>               unsigned long mprofile:4;
+>>>               unsigned long virt:4;
+>>>               unsigned long gentimer:4;
+>>> -            unsigned long __res1:12;
+>>> +            unsigned long sec_frac:4;
+>>> +            unsigned long virt_frac:4;
+>>> +            unsigned long gic:4;
+>>> +
+>>> +            /* PFR2 */
+>>> +            unsigned long csv3:4;
+>>> +            unsigned long ssbs:4;
+>>> +            unsigned long ras_frac:4;
+>>> +            unsigned long __res2:20;
+>>>           };
+>>>       } pfr32;
+>>>         struct {
+>>> -        uint32_t bits[1];
+>>> +        uint32_t bits[2];
+>>>       } dbg32;
+>>>         struct {
+>>> @@ -230,12 +264,16 @@ struct cpuinfo_arm {
+>>>       } aux32;
+>>>         struct {
+>>> -        uint32_t bits[4];
+>>> +        uint32_t bits[6];
+>>>       } mm32;
+>>>         struct {
+>>> -        uint32_t bits[6];
+>>> +        uint32_t bits[7];
+>>>       } isa32;
+>>> +
+>>> +    struct {
+>>> +        uint64_t bits[3];
+>>
+>> Shouldn't this be register_t?
+> 
+> I followed the scheme of the rest of the structure which
+> is always using uint64_t or uint32_t for bits definitions.
 
-Cheers
-Bertrand
+Right, but I am sure you will not be surprised if I tell you this is 
+buggy ;). The historical reason is, IIRC, the original spec of Armv8.0 
+described them as 32-bit registers.
 
->=20
-> Cheers,
->=20
-> --=20
-> Julien Grall
->=20
+The spec was updated a while ago to clarify they are 64-bit when running 
+in AArch64. But a majority of them still have the top 32-bit RES0 
+(thankfully!).
 
+> 
+> Why should I use register_t type for this one ?
+
+Because the value is 32-bit on AArch32 and 64-bit for AArch64. I am ok 
+to use 64-bit still for AArch32, but it sounds a bit of a waste of memory.
+
+What I care the most here is we use 64-bit for the new registers on 
+AArch64. Otherwise, we are going to soon discover that a bit above 32 
+was allocated and not detected by Xen. I don't want to be the one doing 
+the debugging!
+
+Admittly, this is not a new issue. However, the more offending code we 
+had the more it will be difficul to get Xen to be fully compliant with 
+the Armv8 spec.
+
+Cheers,
+
+-- 
+Julien Grall
 
