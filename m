@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67B4C2D5B08
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 13:58:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49182.86942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 114502D5B2C
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:05:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49188.86956 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knLWe-0000Uy-99; Thu, 10 Dec 2020 12:58:28 +0000
+	id 1knLcp-0001W6-43; Thu, 10 Dec 2020 13:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49182.86942; Thu, 10 Dec 2020 12:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 49188.86956; Thu, 10 Dec 2020 13:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knLWe-0000UZ-5c; Thu, 10 Dec 2020 12:58:28 +0000
-Received: by outflank-mailman (input) for mailman id 49182;
- Thu, 10 Dec 2020 12:58:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ykji=FO=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1knLWc-0000UP-Fa
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 12:58:26 +0000
-Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c2beb07-3afe-4d07-b38a-6e95b861d811;
- Thu, 10 Dec 2020 12:58:25 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id m12so8055290lfo.7
- for <xen-devel@lists.xenproject.org>; Thu, 10 Dec 2020 04:58:25 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id f2sm595273ljc.118.2020.12.10.04.58.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Dec 2020 04:58:23 -0800 (PST)
+	id 1knLco-0001Vf-T9; Thu, 10 Dec 2020 13:04:50 +0000
+Received: by outflank-mailman (input) for mailman id 49188;
+ Thu, 10 Dec 2020 13:04:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knLcn-0001VX-0y; Thu, 10 Dec 2020 13:04:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knLcm-00074c-Le; Thu, 10 Dec 2020 13:04:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knLcm-0003w6-Dr; Thu, 10 Dec 2020 13:04:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1knLcm-0005es-DO; Thu, 10 Dec 2020 13:04:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,136 +42,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c2beb07-3afe-4d07-b38a-6e95b861d811
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=ohwkoyODvJw6BcZ33Iln+najISdwGwnci2zjmYTgWbU=;
-        b=T/OWrY4Yd1rnYS0alT3/ZO5DD++RxEMUbtUPShKmTtIW9m/V6E25ljoIOEkvwXdQJw
-         h9hDm2tH7pzehWl4CKbIZfl9mY661XMf2nCcGb3D8DSrvHYfcbGHxxBSoK6sMl4TP4Rt
-         aElWoxOOjjZiH0z0EcRchtpjtuYWdj9JAfkMfoJHdZG8labIwT0Vcg8wOQ0h/G8IYuzC
-         XbIgBYKx2wbsRqkrNFRWQu4i0rq8yKkNjEGiPwHGmsk+g8VdJfjtEtxM4oQq++PwOfDR
-         GeqsARsuFOey7eUqsKidRCF8nZg7AiArrkmtfNfO0ULcHRQdBoqIl5wQRgaev6VF6BJd
-         0SxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=ohwkoyODvJw6BcZ33Iln+najISdwGwnci2zjmYTgWbU=;
-        b=V83MmwCozs8niIqOSiKjwfN+WVU5hU17oIjarTGxxwf5JVW/XoCusG3IFrJElU1r2N
-         j6CqodltUN55YRJFdJPRnnF8RQ7XUJAdMCVfFYCUMxPXDNkTB6HSlSV0ueWWrUnt/+Ge
-         WQFOUCntSxVmdeNmNlJzNmsVBR6mAa0Oi4N9PDvrrLKBPvt8PLNWwETpMR+Q5AK4XVXX
-         /5OLDr12tpOETvjKGKQRS+xcr+VIsxG8xBj5tsCR2SxzS5wdlhooq9a28UiG1yhGkyEG
-         z4XWULc0wY39BHz7psgPEcvX/PUoPEwstLAAOZykTvAVjXv3gp8sv4JYaDX25Sj4tS5C
-         0RIg==
-X-Gm-Message-State: AOAM533lNHvzxTZym/vr0PasWlg1Ni7IAWYzpZRhMQMylfLbReAuEA4J
-	I9g2NEaDmcR/F0boR7azRTY=
-X-Google-Smtp-Source: ABdhPJxCP+weIO1KUKDIM65V/3MvzqmAhHEEe+b3TXaDEJ6q276HTDGTrw79px3ruqERDNWD/6GU6g==
-X-Received: by 2002:a05:6512:481:: with SMTP id v1mr2584455lfq.132.1607605104174;
-        Thu, 10 Dec 2020 04:58:24 -0800 (PST)
-Subject: Re: [PATCH V3 18/23] xen/dm: Introduce xendevicemodel_set_irq_level
- DM op
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, alex.bennee@linaro.org
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com>
- <1606732298-22107-19-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2012091802240.20986@sstabellini-ThinkPad-T480s>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <ca3ddec2-dd93-7b6e-fd65-5be730418200@gmail.com>
-Date: Thu, 10 Dec 2020 14:58:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/ltSuwyEgmlKF3X3oJFm5jKjr3juCZEvxiISf1EvbnQ=; b=De+jGkec+8MrSAVJ58xOlQ6fyU
+	437djacLcSc20pPkj8eBS6spJJ5EPMKUSuppUlJ89Sr6+v+hC7PINWGlPwJKuQU8Cc2hILPrRSc7F
+	zZAyH1zLxfnLm8xddeZpycQ0xsgZkyW3+/xs5Cf9YUTfOHfgi8Bj/1dmMS2YApWFOzVM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157366-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2012091802240.20986@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Subject: [ovmf test] 157366: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=272a1db63a09087ce3da4cf44ec7b758611ff1ed
+X-Osstest-Versions-That:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 10 Dec 2020 13:04:48 +0000
+
+flight 157366 ovmf real [real]
+flight 157381 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157366/
+http://logs.test-lab.xenproject.org/osstest/logs/157381/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
+
+version targeted for testing:
+ ovmf                 272a1db63a09087ce3da4cf44ec7b758611ff1ed
+baseline version:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+
+Last test of basis   157345  2020-12-09 12:40:46 Z    1 days
+Testing same since   157348  2020-12-09 15:39:39 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Pierre Gondois <Pierre.Gondois@arm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
-On 10.12.20 04:21, Stefano Stabellini wrote:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Hi Stefano
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
->> From: Julien Grall <julien.grall@arm.com>
->>
->> This patch adds ability to the device emulator to notify otherend
->> (some entity running in the guest) using a SPI and implements Arm
->> specific bits for it. Proposed interface allows emulator to set
->> the logical level of a one of a domain's IRQ lines.
->>
->> We can't reuse the existing DM op (xen_dm_op_set_isa_irq_level)
->> to inject an interrupt as the "isa_irq" field is only 8-bit and
->> able to cover IRQ 0 - 255, whereas we need a wider range (0 - 1020).
->>
->> Signed-off-by: Julien Grall <julien.grall@arm.com>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> ---
->> Please note, this is a split/cleanup/hardening of Julien's PoC:
->> "Add support for Guest IO forwarding to a device emulator"
->>
->> ***
->> Please note, I left interface untouched since there is still
->> an open discussion what interface to use/what information to pass
->> to the hypervisor. The question whether we should abstract away
->> the state of the line or not.
->> ***
-> Let's start with a simple question: is this going to work with
-> virtio-mmio emulation in QEMU that doesn't lower the state of the line
-> to end the notification (only calls qemu_set_irq(irq, high))?
->
-> See: hw/virtio/virtio-mmio.c:virtio_mmio_update_irq
->
->
-> Alex (CC'ed) might be able to confirm whether I am reading the QEMU code
-> correctly. Assuming that it is true that QEMU is only raising the level,
-> never lowering it, although the emulation is obviously not correct, I
-> would rather keep QEMU as is for efficiency reasons, and because we
-> don't want to deviate from the common implementation in QEMU.
->
->
-> Looking at this patch and at vgic_inject_irq, yes, I think it would
-> work as is.
-Not sure whether QEMU lowers the level or not, but in virtio-disk 
-backend example we don't set level to 0.
-IIRC there was a discussion about that from which I took that "setting 
-level to 0 still does nothing on Arm if IRQ edge triggered".
-So, looks like, yes, it would work as is.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
->
-> So it looks like we are going to end up with an interface that:
->
-> - in theory it is modelling the line closely
-> - in practice it is only called to "trigger the IRQ"
->
->
-> Hence my preference for being explicit about it and just call it
-> trigger_irq.
+Not pushing.
 
-I got it, just rename with retaining the level parameter?
+------------------------------------------------------------
+commit 272a1db63a09087ce3da4cf44ec7b758611ff1ed
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Nov 13 11:31:01 2020 +0000
 
+    ArmPlatformPkg: Fix cspell reported spelling/wording
+    
+    The edk2 CI runs the "cspell" spell checker tool. Some words
+    are not recognized by the tool, triggering errors.
+    This patch modifies some spelling/wording detected by cspell.
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
->
-> If we keep the patch as is, should we at least add a comment to document
-> the "QEMU style" use model?
+commit 061cbbc1115eb7360f2c7627d53d13e35d63cbe3
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Nov 20 10:01:13 2020 +0000
 
-Sure, I will describe that QEMU is only raising the level and never 
-lowering it, if I have a confirmation this is true.
+    ArmPlatformPkg: Fix Ecc error 8001 in PrePi
+    
+    This patch fixes the following Ecc reported error:
+    Only capital letters are allowed to be used for #define
+    declarations
+    
+    The "SerialPrint" macro is definied for the PrePi module
+    residing in the ArmPlatformPkg. It is never used in the module.
+    The macro is thus removed.
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
+commit 2dfd81aaf50ca2bd1e2d33ed5687620de90810ce
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Nov 6 09:47:47 2020 +0000
 
--- 
-Regards,
+    ArmPlatformPkg: Fix Ecc error 10006 in ArmPlatformPkg.dsc
+    
+    This patch fixes the following Ecc reported error:
+    There should be no unnecessary inclusion of library
+    classes in the INF file
+    
+    This comes with the additional information:
+    "The Library Class [TimeBaseLib] is not used
+    in any platform"
+    "The Library Class [PL011UartClockLib] is not used
+    in any platform"
+    "The Library Class [PL011UartLib] is not used
+    in any platform"
+    
+    Indeed, the PL011SerialPortLib module requires the
+    PL011UartClockLib and PL011UartLib libraries.
+    The PL031RealTimeClockLib module requires the TimeBaseLib
+    library.
+    ArmPlatformPkg/ArmPlatformPkg.dsc builds the two modules,
+    but doesn't build the required libraries. This patch adds
+    the missing libraries to the [LibraryClasses.common] section.
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
-Oleksandr Tyshchenko
+commit 42bec8c8104c9db4891dfd1b208032c9c413d861
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 15:33:12 2020 +0100
 
+    ArmPlatformPkg: Fix Ecc error 10014 in SP805WatchdogDxe
+    
+    This patch fixes the following Ecc reported error:
+    No used module files found
+    
+    The source file
+    [ArmPlatformPkg/Drivers/SP805WatchdogDxe/SP805Watchdog.h]
+    is existing in module directory but it is not described
+    in INF file.
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 2e0cbfcbed96505953ef09fcfb72d4ea83cc8df2
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 15:32:42 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 10014 in PL061GpioDxe
+    
+    This patch fixes the following Ecc reported error:
+    No used module files found
+    
+    The source file
+    [ArmPlatformPkg/Drivers/PL061GpioDxe/PL061Gpio.h]
+    is existing in module directory but it is not described
+    in INF file.
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit a36a0f1d81a2502a922617cf99be0bb81de2f57a
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 15:32:26 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 10014 in LcdGraphicsOutputDxe
+    
+    This patch fixes the following Ecc reported error:
+    No used module files found
+    
+    The source file
+    [ArmPlatformPkg/Drivers/LcdGraphicsOutputDxe/LcdGraphicsOutputDxe.h]
+    is existing in module directory but it is not described
+    in INF file.
+    
+    Files in [Sources.common] are also alphabetically re-ordered.
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit c5d970a01e76c1a20f6bb009b32e479ad2444548
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 15:18:04 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 10016 in LcdPlatformNullLib
+    
+    This patch fixes the following Ecc reported error:
+    Module file has FILE_GUID collision with other
+    module file
+    
+    The two .inf files with clashing GUID are:
+    edk2\ArmPlatformPkg\PrePeiCore\PrePeiCoreMPCore.inf
+    edk2\ArmPlatformPkg\Library\LcdPlatformNullLib\LcdPlatformNullLib.inf
+    
+    The PrePeiCoreMPCore module has been imported in 2011 and the
+    LcdPlatformNullLib module has been created in 2017. The
+    PrePeiCoreMPCore has the precedence.
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 746dda63b2d612a2ad9e0b4c05722920586d2e60
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 14:37:14 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 10016 in PrePi
+    
+    This patch fixes the following Ecc reported error:
+    Module file has FILE_GUID collision with other
+    module file
+    
+    The two .inf files with clashing GUID are:
+    edk2\ArmPlatformPkg\PrePi\PeiUniCore.inf
+    edk2\ArmPlatformPkg\PrePi\PeiMPCore.inf
+    
+    Both files seem to have been imported from the previous
+    svn repository as the same time.
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 28978df0bdafce1d26ff337fd67ee6c3a5b3876e
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 14:36:19 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 5007 in PL031RealTimeClockLib
+    
+    This patch fixes the following Ecc reported error:
+    There should be no initialization of a variable as
+    part of its declaration
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 1485e8bbc86e9a7e1954cfe5697fbd45d8e3b04e
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 14:36:01 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 5007 in PL061GpioDxe
+    
+    This patch fixes the following Ecc reported error:
+    There should be no initialization of a variable as
+    part of its declaration
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit 4c7e107810cacd1dbd4c6f7d6d4d22e3de2f8db1
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 14:35:36 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 5007 in NorFlashDxe
+    
+    This patch fixes the following Ecc reported error:
+    There should be no initialization of a variable as
+    part of its declaration
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit eb97f13839fd64ce3e4ff9dd39ea9950db48207d
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 14:35:07 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 5007 in LcdGraphicsOutputDxe
+    
+    This patch fixes the following Ecc reported error:
+    There should be no initialization of a variable as
+    part of its declaration
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit d315bd2286cde306f1ef5256026038e610505cca
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 14:32:40 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 3002 in PL061GpioDxe
+    
+    This patch fixes the following Ecc reported error:
+    Non-Boolean comparisons should use a compare operator
+    (==, !=, >, < >=, <=)
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit ee78edceca89057ab9854f7e5070391a8229ece4
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 14:31:50 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 3002 in PL011UartLib
+    
+    This patch fixes the following Ecc reported error:
+    Non-Boolean comparisons should use a compare operator
+    (==, !=, >, < >=, <=)
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
+
+commit dd917bae85396055ff5d6ea760bff3702d154101
+Author: Pierre Gondois <Pierre.Gondois@arm.com>
+Date:   Fri Oct 23 13:31:40 2020 +0100
+
+    ArmPlatformPkg: Fix Ecc error 3001 in NorFlashDxe
+    
+    This patch fixes the following Ecc reported error:
+    Boolean values and variable type BOOLEAN should not use
+    explicit comparisons to TRUE or FALSE
+    
+    Signed-off-by: Pierre Gondois <Pierre.Gondois@arm.com>
+    Reviewed-by: Ard Biesheuvel <ard.biesheuvel@arm.com>
 
