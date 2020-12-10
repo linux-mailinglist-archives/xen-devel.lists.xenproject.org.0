@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C362D50DC
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 03:30:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48922.86565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BC452D50DD
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 03:30:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48923.86577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knBiZ-0003jo-Cq; Thu, 10 Dec 2020 02:30:07 +0000
+	id 1knBij-0003pU-PH; Thu, 10 Dec 2020 02:30:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48922.86565; Thu, 10 Dec 2020 02:30:07 +0000
+Received: by outflank-mailman (output) from mailman id 48923.86577; Thu, 10 Dec 2020 02:30:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knBiZ-0003hL-8K; Thu, 10 Dec 2020 02:30:07 +0000
-Received: by outflank-mailman (input) for mailman id 48922;
- Thu, 10 Dec 2020 02:30:06 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1knBij-0003oo-La; Thu, 10 Dec 2020 02:30:17 +0000
+Received: by outflank-mailman (input) for mailman id 48923;
+ Thu, 10 Dec 2020 02:30:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JUBE=FO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1knBiY-0003dc-1Q
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 02:30:06 +0000
+ id 1knBih-0003oG-SB
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 02:30:15 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id aaf3bc85-c222-4439-9148-6c7d3081ec26;
- Thu, 10 Dec 2020 02:30:05 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 60240eae-14cd-464b-8292-29a1952fbf7a;
+ Thu, 10 Dec 2020 02:30:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,122 +35,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aaf3bc85-c222-4439-9148-6c7d3081ec26
-Date: Wed, 9 Dec 2020 18:30:03 -0800 (PST)
+X-Inumbo-ID: 60240eae-14cd-464b-8292-29a1952fbf7a
+Date: Wed, 9 Dec 2020 18:30:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1607567404;
-	bh=Yv5v27nCDnCoS0ad6Hjwta6gTf838NB2wyUr57grFwc=;
+	s=k20201202; t=1607567414;
+	bh=ed5jc+mIWtIVT1XojWkam9DBGIYbXtUNab+lKWwMA+0=;
 	h=From:To:cc:Subject:In-Reply-To:References:From;
-	b=MNpIdRgN9ngy1hGK0AL6CoHv3GKV5tUgerT6Y+zFfq0iGrHj9ey5XbIdrEvchFqAQ
-	 tvCR6ncoVw9kB35KFZe01IyGgSbKt2xFam7rdJL6AHYwvnOKUSWrHpfW10d9v76//y
-	 dcitEKAi+CGO9qEM1S3Z62UPq5JGgW00VnltZT769kHngpClfpX1X7/OJEU1mBzphh
-	 jPybJrmtWLxR4cIqFYHDZjK7siIrlPsqzbx98Rm2+REH/AW59kZeknMig08p3R6VXW
-	 nE2otkClR1O0yyjixHUFxZxo3rSnZr9WKEtMep1b6HLK0CeGtB+5mEAhzL3TDcB/RR
-	 Eq7buPSrck0TA==
+	b=rM2ba7IaiEiImZuBlJeOxwdHw91iTBTmVndc3yYoAgoY5tvGV7iuyH8r8QnSIDGqP
+	 Vw3UhK4WPUfROU/j4ASwNVahNwX7qt53OVL1KXDA07A1WyGtPdsI2SuXtb1hdrud6v
+	 mBZzEGUeWPzZFpw94lGAnYaDrzqjNb9weF4nniROpfIIVWjjGS1w8Ufjh7YnufCwxt
+	 QsetyxW/E7CqIkXt6LKQTQTuBalJtU16NHNKCXLsUvxjD7lEJdkKZbfiZRvcvsJUcR
+	 dIqMPaOn4wY1MB6BrFou8eXG02slqkREBEONGv6tH9gytWUZhlqHO5FuueBp7TiW2W
+	 51t4N9s/r0aTQ==
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
+To: Oleksandr <olekstysh@gmail.com>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org, 
+    xen-devel@lists.xenproject.org, 
     Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Julien Grall <julien.grall@arm.com>
-Subject: Re: [PATCH V3 15/23] xen/arm: Stick around in leave_hypervisor_to_guest
- until I/O has completed
-In-Reply-To: <52799b99-6405-03f4-2a46-3a0a4aac597f@xen.org>
-Message-ID: <alpine.DEB.2.21.2012091745550.20986@sstabellini-ThinkPad-T480s>
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com> <1606732298-22107-16-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2012091432450.20986@sstabellini-ThinkPad-T480s> <alpine.DEB.2.21.2012091521480.20986@sstabellini-ThinkPad-T480s>
- <52799b99-6405-03f4-2a46-3a0a4aac597f@xen.org>
+    Paul Durrant <paul@xen.org>, Julien Grall <julien.grall@arm.com>
+Subject: Re: [PATCH V3 13/23] xen/ioreq: Use guest_cmpxchg64() instead of
+ cmpxchg()
+In-Reply-To: <e9ba97b2-01e4-f657-fceb-ccf4857e91c2@gmail.com>
+Message-ID: <alpine.DEB.2.21.2012091750230.20986@sstabellini-ThinkPad-T480s>
+References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com> <1606732298-22107-14-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2012091329480.20986@sstabellini-ThinkPad-T480s> <e9ba97b2-01e4-f657-fceb-ccf4857e91c2@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 9 Dec 2020, Julien Grall wrote:
-> On 09/12/2020 23:35, Stefano Stabellini wrote:
-> > On Wed, 9 Dec 2020, Stefano Stabellini wrote:
-> > > On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
-> > > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > > 
-> > > > This patch adds proper handling of return value of
-> > > > vcpu_ioreq_handle_completion() which involves using a loop
-> > > > in leave_hypervisor_to_guest().
-> > > > 
-> > > > The reason to use an unbounded loop here is the fact that vCPU
-> > > > shouldn't continue until an I/O has completed. In Xen case, if an I/O
-> > > > never completes then it most likely means that something went horribly
-> > > > wrong with the Device Emulator. And it is most likely not safe to
-> > > > continue. So letting the vCPU to spin forever if I/O never completes
-> > > > is a safer action than letting it continue and leaving the guest in
-> > > > unclear state and is the best what we can do for now.
-> > > > 
-> > > > This wouldn't be an issue for Xen as do_softirq() would be called at
-> > > > every loop. In case of failure, the guest will crash and the vCPU
-> > > > will be unscheduled.
+On Thu, 10 Dec 2020, Oleksandr wrote:
+> > On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
+> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > > > 
-> > > Imagine that we have two guests: one that requires an ioreq server and
-> > > one that doesn't. If I am not mistaken this loop could potentially spin
-> > > forever on a pcpu, thus preventing any other guest being scheduled, even
-> > > if the other guest doesn't need any ioreq servers.
+> > > The cmpxchg() in ioreq_send_buffered() operates on memory shared
+> > > with the emulator domain (and the target domain if the legacy
+> > > interface is used).
 > > > 
+> > > In order to be on the safe side we need to switch
+> > > to guest_cmpxchg64() to prevent a domain to DoS Xen on Arm.
 > > > 
-> > > My other concern is that we are busy-looping. Could we call something
-> > > like wfi() or do_idle() instead? The ioreq server event notification of
-> > > completion should wake us up?
+> > > As there is no plan to support the legacy interface on Arm,
+> > > we will have a page to be mapped in a single domain at the time,
+> > > so we can use s->emulator in guest_cmpxchg64() safely.
 > > > 
-> > > Following this line of thinking, I am wondering if instead of the
-> > > busy-loop we should call vcpu_block_unless_event_pending(current) in
-> > > try_handle_mmio if IO_RETRY. Then when the emulation is done, QEMU (or
-> > > equivalent) calls xenevtchn_notify which ends up waking up the domU
-> > > vcpu. Would that work?
+> > > Thankfully the only user of the legacy interface is x86 so far
+> > > and there is not concern regarding the atomics operations.
+> > > 
+> > > Please note, that the legacy interface *must* not be used on Arm
+> > > without revisiting the code.
+> > > 
+> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > CC: Julien Grall <julien.grall@arm.com>
+> > > 
+> > > ---
+> > > Please note, this is a split/cleanup/hardening of Julien's PoC:
+> > > "Add support for Guest IO forwarding to a device emulator"
+> > > 
+> > > Changes RFC -> V1:
+> > >     - new patch
+> > > 
+> > > Changes V1 -> V2:
+> > >     - move earlier to avoid breaking arm32 compilation
+> > >     - add an explanation to commit description and hvm_allow_set_param()
+> > >     - pass s->emulator
+> > > 
+> > > Changes V2 -> V3:
+> > >     - update patch description
+> > > ---
+> > > ---
+> > >   xen/arch/arm/hvm.c | 4 ++++
+> > >   xen/common/ioreq.c | 3 ++-
+> > >   2 files changed, 6 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/xen/arch/arm/hvm.c b/xen/arch/arm/hvm.c
+> > > index 8951b34..9694e5a 100644
+> > > --- a/xen/arch/arm/hvm.c
+> > > +++ b/xen/arch/arm/hvm.c
+> > > @@ -31,6 +31,10 @@
+> > >     #include <asm/hypercall.h>
+> > >   +/*
+> > > + * The legacy interface (which involves magic IOREQ pages) *must* not be
+> > > used
+> > > + * without revisiting the code.
+> > > + */
+> > This is a NIT, but I'd prefer if you moved the comment a few lines
+> > below, maybe just before the existing comment starting with "The
+> > following parameters".
 > > 
-> > I read now Julien's reply: we are already doing something similar to
-> > what I suggested with the following call chain:
-> > 
-> > check_for_vcpu_work -> vcpu_ioreq_handle_completion -> wait_for_io ->
-> > wait_on_xen_event_channel
-> > 
-> > So the busy-loop here is only a safety-belt in cause of a spurious
-> > wake-up, in which case we are going to call again check_for_vcpu_work,
-> > potentially causing a guest reschedule.
-> > 
-> > Then, this is fine and addresses both my concerns. Maybe let's add a note
-> > in the commit message about it.
-> 
-> Damm, I hit the "sent" button just a second before seen your reply. :/ Oh
-> well. I suggested the same because I have seen the same question multiple
-> time.
+> > The reason is that as it is now it is not clear which set_params
+> > interfaces should not be used without revisiting the code.
+> OK, but maybe this comment wants dropping at all? It was actual when the
+> legacy interface was the part of the common code (V2). Now the legacy
+> interface is
+> x86 specific so I am not sure this comment should be here.
 
-:-)
+Yeah, fine by me.
 
  
-> > I am also wondering if there is any benefit in calling wait_for_io()
-> > earlier, maybe from try_handle_mmio if IO_RETRY?
+> > 
+> > With that:
+> > 
+> > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > 
-> wait_for_io() may end up to deschedule the vCPU. I would like to avoid this to
-> happen in the middle of the I/O emulation because we need to happen it without
-> lock held at all.
-> 
-> I don't think there are locks involved today, but the deeper in the call stack
-> the scheduling happens, the more chance we may screw up in the future.
-> 
-> However...
-> 
-> > leave_hypervisor_to_guest is very late for that.
-> 
-> ... I am not sure what's the problem with that. The IOREQ will be notified of
-> the pending I/O as soon as try_handle_mmio() put the I/O in the shared page.
-> 
-> If the IOREQ server is running on a different pCPU, then it might be possible
-> that the I/O has completed before reached leave_hypervisor_to_guest(). In this
-> case, we would not have to wait for the I/O.
+> Thank you
 
-Yeah, I was thinking about that too. Actually it could be faster
-this way we end up being lucky.
-
-The reason for moving it earlier would be that by the time
-leave_hypervisor_to_guest is called "Xen" has already decided to
-continue running this particular vcpu. If we called wait_for_io()
-earlier, we would give important information to the scheduler before any
-decision is made. This is more "philosophical" than practical though.
-Let's leave it as is.
 
