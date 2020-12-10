@@ -2,63 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC2272D6060
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 16:50:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49481.87515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 812CB2D6072
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 16:52:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49486.87527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knOD2-0006H2-RS; Thu, 10 Dec 2020 15:50:24 +0000
+	id 1knOEV-0006YT-BB; Thu, 10 Dec 2020 15:51:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49481.87515; Thu, 10 Dec 2020 15:50:24 +0000
+Received: by outflank-mailman (output) from mailman id 49486.87527; Thu, 10 Dec 2020 15:51:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knOD2-0006Gd-Nu; Thu, 10 Dec 2020 15:50:24 +0000
-Received: by outflank-mailman (input) for mailman id 49481;
- Thu, 10 Dec 2020 15:50:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1knOEV-0006Y4-7p; Thu, 10 Dec 2020 15:51:55 +0000
+Received: by outflank-mailman (input) for mailman id 49486;
+ Thu, 10 Dec 2020 15:51:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N/MM=FO=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1knOD1-0006GY-A1
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 15:50:23 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
- [40.107.7.78]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 37f1ddea-58ff-46a8-b0c5-c3f26560992f;
- Thu, 10 Dec 2020 15:50:22 +0000 (UTC)
-Received: from DB7PR05CA0063.eurprd05.prod.outlook.com (2603:10a6:10:2e::40)
- by AM0PR08MB5362.eurprd08.prod.outlook.com (2603:10a6:208:180::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.13; Thu, 10 Dec
- 2020 15:50:20 +0000
-Received: from DB5EUR03FT012.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2e:cafe::9a) by DB7PR05CA0063.outlook.office365.com
- (2603:10a6:10:2e::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
- Transport; Thu, 10 Dec 2020 15:50:20 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT012.mail.protection.outlook.com (10.152.20.161) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3654.12 via Frontend Transport; Thu, 10 Dec 2020 15:50:20 +0000
-Received: ("Tessian outbound fc5cc0046d61:v71");
- Thu, 10 Dec 2020 15:50:20 +0000
-Received: from e1da092aec17.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- A9E26798-CEF6-4CAA-969A-0A8D6E9D0A7D.1; 
- Thu, 10 Dec 2020 15:49:51 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id e1da092aec17.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 10 Dec 2020 15:49:51 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
- by DB6PR0801MB1798.eurprd08.prod.outlook.com (2603:10a6:4:3c::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.17; Thu, 10 Dec
- 2020 15:49:49 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::98c7:4612:2365:cc6b]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::98c7:4612:2365:cc6b%5]) with mapi id 15.20.3632.023; Thu, 10 Dec 2020
- 15:49:49 +0000
+ <SRS0=25P7=FO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1knOET-0006Xy-Rp
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 15:51:53 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4e906db7-7393-46a7-b4bb-e4e3b1551fa9;
+ Thu, 10 Dec 2020 15:51:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,145 +35,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37f1ddea-58ff-46a8-b0c5-c3f26560992f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zm9M4Gm06IJ1PiQn+j/Tr0+qmJf3CBRgdTVfNx51KG0=;
- b=I7A8qy7ynmHGOcH2AoM45r40DSR2xmE7YzThUOOl1SFqGLGd9JVbKeulcg5WlVwzJgEbhUiRZMxtJf8dCC0iiZp12yGhyaVuEa7/eucX+uNrstoVLJvqDEulqKjKFLJmtJ7WHOD0l3OgJFIZS9g+3J3WjFZUPDQQenuxvEikw7I=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: ff05f758596b8a88
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AdJlWe3Hgdfgld1eoZUTICgQ9tZRKRxS5YdS4kdYebi9W2ubVZZffKIN+Wjzeg8Nl4ScTR+WecHPGrJZ4uG3G3KNc/r6GevibdPJbPwSUAjgbcFzdDmkcoY7cxptOyePZt5vnC3UvPVmfEuD4nwjfCbAspojDxUiXyCvZfM2jzAI77jDjgPaFMrfdnNmaCDthd1S6GoaZjdjPtcOYJNUyje/oqMRNQOqx11DhT1m3tNxL3+zpa0qfqF2sMZERSBmKemhFUhrrxamx+tJExkkJHgVwV6MVyPJRbaAZeZnvFzxXIdX8Wrx8Di6/pWYsYaBahssQl8YudGRvper5PSzsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zm9M4Gm06IJ1PiQn+j/Tr0+qmJf3CBRgdTVfNx51KG0=;
- b=PbPt+x3/WKmHUnMkHpckdgIIRU7/8RQH7s9y/4k3gEGYNO1KM2k+y4BesXMCY5/8U9ZXgK8rr3HUbH7VHEek98uE+YpxPWGcqHlaj3N7HuxwOyOxbxCdIyQYW2CaCCqsP7+vKn4u4l62iX4njlmCz8UbXBtvALL83sFs5ritm8d9yP5fh5eks6YnyIAoXOv8ezY4x+b185DOK6IWF5xIXGY5IubfM7fQo8BGyeaHb8Jzl1KdkuVmVyTSsPgnoQa4Z82tn+b9CO1PXqu6WZ/RL4H0A+xnQSRgmC+IJlNr84Hm9+Q6XsYP8J3c1IkMSGf7+WRY9nSRE0v1t6Y/DT/V+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zm9M4Gm06IJ1PiQn+j/Tr0+qmJf3CBRgdTVfNx51KG0=;
- b=I7A8qy7ynmHGOcH2AoM45r40DSR2xmE7YzThUOOl1SFqGLGd9JVbKeulcg5WlVwzJgEbhUiRZMxtJf8dCC0iiZp12yGhyaVuEa7/eucX+uNrstoVLJvqDEulqKjKFLJmtJ7WHOD0l3OgJFIZS9g+3J3WjFZUPDQQenuxvEikw7I=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 3/7] xen/arm: create a cpuinfo structure for guest
-Thread-Topic: [PATCH v3 3/7] xen/arm: create a cpuinfo structure for guest
-Thread-Index: AQHWzklW+4XymezDRUeCGhvhzW8UY6nvZ8mAgAET0oA=
-Date: Thu, 10 Dec 2020 15:49:49 +0000
-Message-ID: <873A3EA8-DAE4-49AD-840B-1832E0249DCC@arm.com>
-References: <cover.1607524536.git.bertrand.marquis@arm.com>
- <33f39e7f521e6f73a0dba57a8be9fb50656e1807.1607524536.git.bertrand.marquis@arm.com>
- <6cf80971-e9aa-f9e4-cb9b-4f102b84a99b@xen.org>
-In-Reply-To: <6cf80971-e9aa-f9e4-cb9b-4f102b84a99b@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3608.120.23.2.4)
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [82.9.225.195]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: b9b24715-21c7-4546-148c-08d89d234c4e
-x-ms-traffictypediagnostic: DB6PR0801MB1798:|AM0PR08MB5362:
-X-Microsoft-Antispam-PRVS:
-	<AM0PR08MB53624E1803889BB98D2131CB9DCB0@AM0PR08MB5362.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- tsqVm3N5sQaGD7pF0S3fPDePZdyrCl1wKAF/etxJYKGxn+rVavg38UQE5kmZvESe1m2Rj2tvKJzyrc7z19sXxmCV6X0V3Q3+Qhz08UKSRXJXBVYTyr59SSyeApXChx5a2dmQi3vzY0IcYFTaeY9czLxx+Nji000ngcUGgrMhpluUhq11kGvOj1XQKKrNJxUaGF99JFvjv1OG8bOXX9+QPbMgDPyZSZBYE9nOGz+EnIbQwwegGSIiD94IqufwUGPj66MmObNIBR2kLC7+rfZsa4d17YiAQIeMmNQrUM0mLqCov9puk5jAvRipo9fyle1qpmHYFnqnC1/WNvXxvCG92efMOZledCN7trAVjpbDx/JFWRonTG8XDxJPMOKYjexO
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(346002)(376002)(136003)(396003)(366004)(8936002)(36756003)(66476007)(76116006)(4326008)(66446008)(64756008)(66556008)(91956017)(2906002)(71200400001)(8676002)(26005)(6506007)(5660300002)(186003)(2616005)(316002)(33656002)(54906003)(53546011)(6916009)(4744005)(478600001)(86362001)(6486002)(6512007)(66946007)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?iJWbYLZ8DI0DPOo2dSlyeGCPO92F/cjrpjg+mEN2bO0Yf+7pnCPItbKCXCAF?=
- =?us-ascii?Q?cfANoLUu1Je8otUoTfIIByLT311NKKJVHrTx66ZP5SGGo5j649l2ADORZLPn?=
- =?us-ascii?Q?h48k38eeMdph4WqdMBn9LTPcaYn00HREvUpSwMTtCHNhFREIjnPgDMX3FYda?=
- =?us-ascii?Q?x5WZjiSylbsiepJ7FVrrXxtsq7twOp0RB45A44HGPesN8kdAuLPe1lw3U8IY?=
- =?us-ascii?Q?W33Uctu627wvgKDxWNScu7L70NhTQTch+yWs456WQ3ApXaYv/NCZe+RIxuEC?=
- =?us-ascii?Q?UNC3c35rlLWuqz8f2cs48sge0vo8/ViSTEeXh0fOBVDJiYg94fd+PtymIVS8?=
- =?us-ascii?Q?sBkuWUUTntpqYaPbEUQlkGnDs/PJu2Pn73IdfpUfCuiVkOWexuHKi7i0AWwe?=
- =?us-ascii?Q?o+TUhbD96wFgHm1GWcwvWiuLYtOiXmIVQ0BiPicwB/lLmz366hR/akJEkUuR?=
- =?us-ascii?Q?bQ1OZaBEregdt6brLDq14UAAhRnfhwLrmtyPB9n8zvn6uUGbVcPI0yFw+Ho+?=
- =?us-ascii?Q?6ENEajCCHXe3PTsl5OQ6XW9ddXV7bpKsb5wYgdnkCapi1/fOxcjxH8xxNUUi?=
- =?us-ascii?Q?Ry7l6XzfBbYDrlcGoG53xtZ45qjrGuN7vJP2zA5H77yJH7QIzIOR+t2QUaCw?=
- =?us-ascii?Q?/K2y7B5qAZPlM8PjmVbjF3r4AIIJw8JvzCiObW9GtRck59WA0BhqoZo4WwD5?=
- =?us-ascii?Q?dCIeU3Di/tio5GRL+P55rlaOt+oo8vToscgmG7/NSGNdbeEeopnPkDExdjum?=
- =?us-ascii?Q?44dBfhVWGX+CBHuQwVehBcYHI3br+GXOB06belNZ3og1G1fGeT3eeMJK+Jmu?=
- =?us-ascii?Q?/vT5RIDgorSMDQ90ix9J0/3xfHaRmT8mKIK+BOFP+FrnDTn7oN6Im+20r6CS?=
- =?us-ascii?Q?0CncFueuyxveGHMQvgKG2GDgdgTpVTx2CR8EkJ2ohffJX/vhBlo4AuYGKUVl?=
- =?us-ascii?Q?SFWACHlP9XDIJgPpVuSmZJKZpsH3zGf7shvQa2BULp4Me+rKYK+XqnyExlD+?=
- =?us-ascii?Q?eSNW?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <682C7DF4E953474180E26C965E61A79A@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 4e906db7-7393-46a7-b4bb-e4e3b1551fa9
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1607615512;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=ALbDrC7Mm1GrMzfB1WylaHcfB2cS8558iTIts2riVhk=;
+  b=Ez1oAV7lFsB89aj9mLbd0tgN+zhtPBc79ZBD5f3V2FAo6x9ayfEHhceO
+   U0048ttoe7SnaKx6pgW1B7LmFsTMk5lplPyXMymduvpp8CZGg4fe6pbIn
+   rhqTwMpP2sK9hjyYm/rH0pn1ZVZ3SgKxLc44gcJoHg9+Y5WmGscFkAFpa
+   8=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: mWw8NNhDzR65AO5zwlAJMmTflC/7BP7swKtiNWBIeWtsmGXmcIv5KaaaZG37sxx+WGHagocYrF
+ otAv/wAr56cWWIsRDQwM4cOwlc2p8GjEFbBjhP3ZTkKVAN11X0WXnpVwSTZXYpeVMGv0nSfoKH
+ g0wPI0XQva1TQzDsZ1F7OCeVzAcKYLbs32PgsC60fSfTTn+amQ2+noyJOd817vbE1VbBiYfmEn
+ w9uT04uTm2dQkcy+s4UsKyWW2jgt20dhOT99t41hjlwLxkA2+xq8bhndixPQiq5rYmfuo4A5AN
+ fis=
+X-SBRS: 5.2
+X-MesageID: 34165577
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,408,1599537600"; 
+   d="scan'208";a="34165577"
+Subject: Re: dom0 PV looping on search_pre_exception_table()
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: <xen-devel@lists.xenproject.org>
+References: <20201209101512.GA1299@antioche.eu.org>
+ <3f7e50bb-24ad-1e32-9ea1-ba87007d3796@citrix.com>
+ <20201209135908.GA4269@antioche.eu.org>
+ <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
+ <20201209154431.GA4913@antioche.eu.org>
+ <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
+ <20201209163049.GA6158@antioche.eu.org>
+ <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
+ <20201209185714.GS1469@antioche.eu.org>
+ <6c06abf1-7efe-f02c-536a-337a2704e265@citrix.com>
+ <20201210095139.GA455@antioche.eu.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <4c3bff12-821b-83fb-e054-61b07b97fa70@citrix.com>
+Date: Thu, 10 Dec 2020 15:51:46 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1798
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT012.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	59ecd4c5-3335-4160-8d63-08d89d2339fd
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	fsuX3KM/MD0LdsQEqEyZQDKDXOwB36W97HPKtiFzQqBxBwxAWuErzTQtVt4seOT6ZOx9jBfseefjO9AgqK2M9ljW+28QHEzuIWj3LDrf7Xe3lCI0OuaxiSusIWYSsU8QDXo2wJRswJXOzWd4AtAzpofSPoDYl4psLMVl/jH9y2FJPoWhWUgd86bK7z5/QBug9FFB4JQ2RyE47CxbXFtV5XdCRTPVPgbi/mDTXpRW8BdbQAdBL52WQNNRqi1dtqcGvlxg8Go/1GiLjm3DRd2mJML0t19chp2mD5x05SpVS2CGi7rFOWj1n4lay6ixgIWwOyJ62mooxVJN76iVQw8KC9DfktjzvLYxe48cNNFWgez6NA6d2Eq9RDxMtxs0NJTb3E+vqRIBdOIrQ2LajmmTjA==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(396003)(136003)(39860400002)(376002)(346002)(46966005)(316002)(6862004)(336012)(8936002)(82740400003)(107886003)(6486002)(186003)(478600001)(47076004)(2906002)(82310400003)(4326008)(70586007)(70206006)(6506007)(54906003)(356005)(2616005)(86362001)(8676002)(5660300002)(26005)(33656002)(4744005)(6512007)(53546011)(81166007)(36756003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2020 15:50:20.2466
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9b24715-21c7-4546-148c-08d89d234c4e
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT012.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5362
+In-Reply-To: <20201210095139.GA455@antioche.eu.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL03.citrite.net (10.13.108.165)
 
-Hi,
+On 10/12/2020 09:51, Manuel Bouyer wrote:
+> On Wed, Dec 09, 2020 at 07:08:41PM +0000, Andrew Cooper wrote:
+>> Oh of course - we don't follow the exit-to-guest path on the way out here.
+>>
+>> As a gross hack to check that we've at least diagnosed the issue
+>> appropriately, could you modify NetBSD to explicitly load the %ss
+>> selector into %es (or any other free segment) before first entering user
+>> context?
+> If I understood it properly, the user %ss is loaded by Xen from the
+> trapframe when the guest swictes from kernel to user mode, isn't it ?
 
-> On 9 Dec 2020, at 23:22, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi,
->=20
-> On 09/12/2020 16:30, Bertrand Marquis wrote:
->> +    /* Disable MPAM as xen does not support it */
->=20
-> I am going to be picky :). I think we want to say "hide" rather than "dis=
-able" because the latter is done differently via the HCR_EL2.
+Yes.  The kernel involves HYPERCALL_iret, and Xen copies/audits the
+provided trapframe, and uses it to actually enter userspace.
 
-That does make sense as we are not really disabling but hiding you are righ=
-t.
-I will fix that in V4.
+> So you mean setting %es to the same value in the trapframe ?
 
-Cheers
-Bertrand
+Yes - specifically I wanted to force the LDT reference to happen in a
+context where demand-faulting should work, so all the mappings get set
+up properly before we first encounter the LDT reference in Xen's IRET
+instruction.
 
->=20
-> Cheers,
->=20
-> --=20
-> Julien Grall
+And to be clear, there is definitely a bug needing fixing here in Xen in
+terms of handling IRET faults caused by guest state.  However, it looks
+like this isn't the root of the problem - merely some very weird
+collateral damage.
 
+> Actually I used %fs because %es is set equal to %ds.
+> Xen 4.13 boots fine with this change, but with 4.15 I get a loop of:
+>
+>
+> (XEN) *** LDT: gl1e 0000000000000000 not present                               
+> (XEN) *** pv_map_ldt_shadow_page(0x40) failed                                  
+> [  12.3586540] Process (pid 1) got sig 11                                      
+>
+> which means that the dom0 gets the trap, and decides that the fault address
+> is not mapped. Without the change the dom0 doesn't show the
+> "Process (pid 1) got sig 11"
+>
+> I activated the NetBSD trap debug code, and this shows:
+> [   6.7165877] kern.module.path=/stand/amd64-xen/9.1/modules
+> (XEN) *** LDT: gl1e 0000000000000000 not present                                
+> (XEN) *** pv_map_ldt_shadow_page(0x40) failed
+> [   6.9462322] pid 1.1 (init): signal 11 code=1 (trap 0x6) @rip 0x7f7ef0c007d0 addr 0xffffbd800000a040 error=14
+> [   7.0647896] trapframe 0xffffbd80381cff00
+> [   7.1126288] rip 0x00007f7ef0c007d0  rsp 0x00007f7fff10aa30  rfl 0x0000000000000202
+> [   7.2041518] rdi 000000000000000000  rsi 000000000000000000  rdx 000000000000000000
+> [   7.2956758] rcx 000000000000000000  r8  000000000000000000  r9  000000000000000000
+> [   7.3872013] r10 000000000000000000  r11 000000000000000000  r12 000000000000000000
+> [   7.4787216] r13 000000000000000000  r14 000000000000000000  r15 000000000000000000
+> [   7.5702439] rbp 000000000000000000  rbx 0x00007f7fff10afe0  rax 000000000000000000
+> [   7.6617663] cs 0x47  ds 0x23  es 0x23  fs 0000  gs 0000  ss 0x3f
+> [   7.7345663] fsbase 000000000000000000 gsbase 000000000000000000
+>
+> so it looks like something resets %fs to 0 ...
+>
+> Anyway the fault address 0xffffbd800000a040 is in the hypervisor's range,
+> isn't it ?
+
+No.  Its the kernel's LDT.  From previous debugging:
+> (XEN) %cr2 ffff820000010040, LDT base ffffbd000000a000, limit 0057
+
+LDT handling in Xen is a bit complicated.  To maintain host safety, we
+must map it into Xen's range, and we explicitly support a PV guest doing
+on-demand mapping of the LDT.  (This pertains to the experimental
+Windows XP PV support which never made it beyond a prototype.  Windows
+can page out the LDT.)  Either way, we lazily map the LDT frames on
+first use.
+
+So %cr2 is the real hardware faulting address, and is in the Xen range. 
+We spot that it is an LDT access, and try to lazily map the frame (at
+LDT base), but find that the kernel's virtual address mapping
+0xffffbd000000a000 is not present (the gl1e printk).
+
+Therefore, we pass #PF to the guest kernel, adjusting vCR2 to what would
+have happened had Xen not mapped the real LDT elsewhere, which is
+expected to cause the guest kernel to do whatever demand mapping is
+necessary to pull the LDT back in.
+
+
+I suppose it is worth taking a step back and ascertaining how exactly
+NetBSD handles (or, should be handling) the LDT.
+
+Do you mind elaborating on how it is supposed to work?
+
+~Andrew
 
