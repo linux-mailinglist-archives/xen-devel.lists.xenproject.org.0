@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BC452D50DD
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 03:30:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.48923.86577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40E8E2D50DE
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 03:30:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.48924.86589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knBij-0003pU-PH; Thu, 10 Dec 2020 02:30:17 +0000
+	id 1knBis-0003ub-3l; Thu, 10 Dec 2020 02:30:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 48923.86577; Thu, 10 Dec 2020 02:30:17 +0000
+Received: by outflank-mailman (output) from mailman id 48924.86589; Thu, 10 Dec 2020 02:30:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knBij-0003oo-La; Thu, 10 Dec 2020 02:30:17 +0000
-Received: by outflank-mailman (input) for mailman id 48923;
- Thu, 10 Dec 2020 02:30:15 +0000
+	id 1knBir-0003tv-W4; Thu, 10 Dec 2020 02:30:25 +0000
+Received: by outflank-mailman (input) for mailman id 48924;
+ Thu, 10 Dec 2020 02:30:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JUBE=FO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1knBih-0003oG-SB
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 02:30:15 +0000
+ id 1knBiq-0003tB-1I
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 02:30:24 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 60240eae-14cd-464b-8292-29a1952fbf7a;
- Thu, 10 Dec 2020 02:30:15 +0000 (UTC)
+ id efbef8a4-8b7f-41ae-bfed-d1116a81e6e2;
+ Thu, 10 Dec 2020 02:30:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,110 +35,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60240eae-14cd-464b-8292-29a1952fbf7a
-Date: Wed, 9 Dec 2020 18:30:13 -0800 (PST)
+X-Inumbo-ID: efbef8a4-8b7f-41ae-bfed-d1116a81e6e2
+Date: Wed, 9 Dec 2020 18:30:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1607567414;
-	bh=ed5jc+mIWtIVT1XojWkam9DBGIYbXtUNab+lKWwMA+0=;
+	s=k20201202; t=1607567422;
+	bh=PdaMRgLLFYsRMRdD15V8WbneeRY6Ve49Y+a9ouPszoU=;
 	h=From:To:cc:Subject:In-Reply-To:References:From;
-	b=rM2ba7IaiEiImZuBlJeOxwdHw91iTBTmVndc3yYoAgoY5tvGV7iuyH8r8QnSIDGqP
-	 Vw3UhK4WPUfROU/j4ASwNVahNwX7qt53OVL1KXDA07A1WyGtPdsI2SuXtb1hdrud6v
-	 mBZzEGUeWPzZFpw94lGAnYaDrzqjNb9weF4nniROpfIIVWjjGS1w8Ufjh7YnufCwxt
-	 QsetyxW/E7CqIkXt6LKQTQTuBalJtU16NHNKCXLsUvxjD7lEJdkKZbfiZRvcvsJUcR
-	 dIqMPaOn4wY1MB6BrFou8eXG02slqkREBEONGv6tH9gytWUZhlqHO5FuueBp7TiW2W
-	 51t4N9s/r0aTQ==
+	b=MKBtfF870VSV7oIWK/93lGGVs+Gz9P5jdsBZSgepUS7C/fOIikaVWn9VoB6OYZyBm
+	 d28m0fjvLMw9JjwR8OQFnmGaGsQh+NPcmuXQVO+OGh4Cpdwj/yZjZg0grnlGwntudD
+	 PflyUFclYm/1DW1gfj+XQQQhfK5YpHujxXykBJPkI5cXeTgsVtRNuz89DWXFoPFieW
+	 vRaq63Rcpp70lM9oVe74riKdnCuKLdTftPyTuvUWz4TEVr75BvN+zM0HbJ4EJJyeLr
+	 cYJ/kLm6mlaVRKmtdFzqvbEBRaXdNdkC4rQB4uf7baQ6M+b8IGa3NTdlsruq34egbe
+	 3unM1ZIgrcZzg==
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Oleksandr <olekstysh@gmail.com>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>, 
     Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Paul Durrant <paul@xen.org>, Julien Grall <julien.grall@arm.com>
-Subject: Re: [PATCH V3 13/23] xen/ioreq: Use guest_cmpxchg64() instead of
- cmpxchg()
-In-Reply-To: <e9ba97b2-01e4-f657-fceb-ccf4857e91c2@gmail.com>
-Message-ID: <alpine.DEB.2.21.2012091750230.20986@sstabellini-ThinkPad-T480s>
-References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com> <1606732298-22107-14-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2012091329480.20986@sstabellini-ThinkPad-T480s> <e9ba97b2-01e4-f657-fceb-ccf4857e91c2@gmail.com>
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, jbeulich@suse.com, 
+    xadimgnik@gmail.com
+Subject: Re: [PATCH V3 14/23] arm/ioreq: Introduce arch specific bits for
+ IOREQ/DM features
+In-Reply-To: <31e35f5d-5ab4-19bf-e36b-8e7c0b7bf7d4@gmail.com>
+Message-ID: <alpine.DEB.2.21.2012091750420.20986@sstabellini-ThinkPad-T480s>
+References: <1606732298-22107-1-git-send-email-olekstysh@gmail.com> <1606732298-22107-15-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2012091357430.20986@sstabellini-ThinkPad-T480s> <31e35f5d-5ab4-19bf-e36b-8e7c0b7bf7d4@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 10 Dec 2020, Oleksandr wrote:
-> > On Mon, 30 Nov 2020, Oleksandr Tyshchenko wrote:
-> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > 
-> > > The cmpxchg() in ioreq_send_buffered() operates on memory shared
-> > > with the emulator domain (and the target domain if the legacy
-> > > interface is used).
-> > > 
-> > > In order to be on the safe side we need to switch
-> > > to guest_cmpxchg64() to prevent a domain to DoS Xen on Arm.
-> > > 
-> > > As there is no plan to support the legacy interface on Arm,
-> > > we will have a page to be mapped in a single domain at the time,
-> > > so we can use s->emulator in guest_cmpxchg64() safely.
-> > > 
-> > > Thankfully the only user of the legacy interface is x86 so far
-> > > and there is not concern regarding the atomics operations.
-> > > 
-> > > Please note, that the legacy interface *must* not be used on Arm
-> > > without revisiting the code.
-> > > 
-> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > CC: Julien Grall <julien.grall@arm.com>
-> > > 
-> > > ---
-> > > Please note, this is a split/cleanup/hardening of Julien's PoC:
-> > > "Add support for Guest IO forwarding to a device emulator"
-> > > 
-> > > Changes RFC -> V1:
-> > >     - new patch
-> > > 
-> > > Changes V1 -> V2:
-> > >     - move earlier to avoid breaking arm32 compilation
-> > >     - add an explanation to commit description and hvm_allow_set_param()
-> > >     - pass s->emulator
-> > > 
-> > > Changes V2 -> V3:
-> > >     - update patch description
-> > > ---
-> > > ---
-> > >   xen/arch/arm/hvm.c | 4 ++++
-> > >   xen/common/ioreq.c | 3 ++-
-> > >   2 files changed, 6 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/xen/arch/arm/hvm.c b/xen/arch/arm/hvm.c
-> > > index 8951b34..9694e5a 100644
-> > > --- a/xen/arch/arm/hvm.c
-> > > +++ b/xen/arch/arm/hvm.c
-> > > @@ -31,6 +31,10 @@
-> > >     #include <asm/hypercall.h>
-> > >   +/*
-> > > + * The legacy interface (which involves magic IOREQ pages) *must* not be
-> > > used
-> > > + * without revisiting the code.
-> > > + */
-> > This is a NIT, but I'd prefer if you moved the comment a few lines
-> > below, maybe just before the existing comment starting with "The
-> > following parameters".
+> > > +#ifdef CONFIG_IOREQ_SERVER
+> > > +enum io_state handle_ioserv(struct cpu_user_regs *regs, struct vcpu *v);
+> > > +enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
+> > > +                             struct vcpu *v, mmio_info_t *info);
+> > > +#else
+> > > +static inline enum io_state handle_ioserv(struct cpu_user_regs *regs,
+> > > +                                          struct vcpu *v)
+> > > +{
+> > > +    return IO_UNHANDLED;
+> > > +}
+> > > +
+> > > +static inline enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
+> > > +                                           struct vcpu *v, mmio_info_t
+> > > *info)
+> > > +{
+> > > +    return IO_UNHANDLED;
+> > > +}
+> > > +#endif
+> > If we are providing stub functions, then we can also provide stub
+> > functions for:
 > > 
-> > The reason is that as it is now it is not clear which set_params
-> > interfaces should not be used without revisiting the code.
-> OK, but maybe this comment wants dropping at all? It was actual when the
-> legacy interface was the part of the common code (V2). Now the legacy
-> interface is
-> x86 specific so I am not sure this comment should be here.
-
-Yeah, fine by me.
-
+> > ioreq_domain_init
+> > ioreq_server_destroy_all
+> > 
+> > and avoid the ifdefs.
+> I got your point. These are common IOREQ interface functions, which
+> declarations live in the common header, should I provide
+> stubs in the common ioreq.h?
  
-> > 
-> > With that:
-> > 
-> > Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Thank you
-
+I'd prefer that, but if Jan and Paul don't want to have them I won't insist.
+ 
+ 
+> > > +bool ioreq_complete_mmio(void);
+> > > +
+> > > +static inline bool handle_pio(uint16_t port, unsigned int size, int dir)
+> > > +{
+> > > +    /*
+> > > +     * TODO: For Arm64, the main user will be PCI. So this should be
+> > > +     * implemented when we add support for vPCI.
+> > > +     */
+> > > +    ASSERT_UNREACHABLE();
+> > > +    return true;
+> > > +}
+> > > +
+> > > +static inline void msix_write_completion(struct vcpu *v)
+> > > +{
+> > > +}
+> > > +
+> > > +static inline bool arch_vcpu_ioreq_completion(enum io_completion
+> > > io_completion)
+> > > +{
+> > > +    ASSERT_UNREACHABLE();
+> > > +    return true;
+> > > +}
+> > > +
+> > > +/*
+> > > + * The "legacy" mechanism of mapping magic pages for the IOREQ servers
+> > > + * is x86 specific, so the following hooks don't need to be implemented
+> > > on Arm:
+> > > + * - arch_ioreq_server_map_pages
+> > > + * - arch_ioreq_server_unmap_pages
+> > > + * - arch_ioreq_server_enable
+> > > + * - arch_ioreq_server_disable
+> > > + */
+> > > +static inline int arch_ioreq_server_map_pages(struct ioreq_server *s)
+> > > +{
+> > > +    return -EOPNOTSUPP;
+> > > +}
+> > > +
+> > > +static inline void arch_ioreq_server_unmap_pages(struct ioreq_server *s)
+> > > +{
+> > > +}
+> > > +
+> > > +static inline void arch_ioreq_server_enable(struct ioreq_server *s)
+> > > +{
+> > > +}
+> > > +
+> > > +static inline void arch_ioreq_server_disable(struct ioreq_server *s)
+> > > +{
+> > > +}
+> > > +
+> > > +static inline void arch_ioreq_server_destroy(struct ioreq_server *s)
+> > > +{
+> > > +}
+> > > +
+> > > +static inline int arch_ioreq_server_map_mem_type(struct domain *d,
+> > > +                                                 struct ioreq_server *s,
+> > > +                                                 uint32_t flags)
+> > > +{
+> > > +    return -EOPNOTSUPP;
+> > > +}
+> > > +
+> > > +static inline bool arch_ioreq_server_destroy_all(struct domain *d)
+> > > +{
+> > > +    return true;
+> > > +}
+> > > +
+> > > +static inline int arch_ioreq_server_get_type_addr(const struct domain *d,
+> > > +                                                  const ioreq_t *p,
+> > > +                                                  uint8_t *type,
+> > > +                                                  uint64_t *addr)
+> > > +{
+> > > +    if ( p->type != IOREQ_TYPE_COPY && p->type != IOREQ_TYPE_PIO )
+> > > +        return -EINVAL;
+> > > +
+> > > +    *type = (p->type == IOREQ_TYPE_PIO) ?
+> > > +             XEN_DMOP_IO_RANGE_PORT : XEN_DMOP_IO_RANGE_MEMORY;
+> > > +    *addr = p->addr;
+> > This function is not used in this patch and PIOs are left unimplemented
+> > according to a few comments, so I am puzzled by this code here. Do we
+> > need it?
+> Yes. It is called from ioreq_server_select (common/ioreq.c). I could just skip
+> PIO case and use
+> *type = XEN_DMOP_IO_RANGE_MEMORY, but I didn't want to diverge.
+ 
+I see. OK then.
 
