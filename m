@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 537A72D6709
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E0162D6708
 	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:42:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49702.87932 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.49708.87955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRpm-0007nQ-Kx; Thu, 10 Dec 2020 19:42:38 +0000
+	id 1knRpr-0007xJ-Ij; Thu, 10 Dec 2020 19:42:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49702.87932; Thu, 10 Dec 2020 19:42:38 +0000
+Received: by outflank-mailman (output) from mailman id 49708.87955; Thu, 10 Dec 2020 19:42:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRpm-0007mE-BI; Thu, 10 Dec 2020 19:42:38 +0000
-Received: by outflank-mailman (input) for mailman id 49702;
- Thu, 10 Dec 2020 19:42:36 +0000
+	id 1knRpr-0007vn-CI; Thu, 10 Dec 2020 19:42:43 +0000
+Received: by outflank-mailman (input) for mailman id 49708;
+ Thu, 10 Dec 2020 19:42:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hbU1=FO=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1knRpk-0007OY-Cm
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:36 +0000
+ id 1knRpp-0007OY-Cs
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:41 +0000
 Received: from galois.linutronix.de (unknown [193.142.43.55])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 16ba92d4-2e4c-40c8-9093-2e56ce350ec4;
- Thu, 10 Dec 2020 19:42:28 +0000 (UTC)
+ id 41499f2c-83a5-41a7-9bc2-45586ee5240f;
+ Thu, 10 Dec 2020 19:42:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,41 +36,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16ba92d4-2e4c-40c8-9093-2e56ce350ec4
-Message-Id: <20201210194043.546326568@linutronix.de>
+X-Inumbo-ID: 41499f2c-83a5-41a7-9bc2-45586ee5240f
+Message-Id: <20201210194043.659522455@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607629347;
+	s=2020; t=1607629348;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=5nQTlSWs0aM1JwskkO++sgVx3e7r1A0iUoENDct9w0g=;
-	b=QPllCmzoid7R7QOyZWHCOYQKMI+juGJWW7IXPn4ldqvXap5zOWqeLwIujbfic04O+qhazO
-	0xgWWwKg3GbwssA1OWCHaW+e3v13fVknyR8JXjPDh7PwNE+Ckpns9v0fFT+ZM3yGQ/k3Vv
-	GCsqZz06V+zRI8tFVRs2T2IovMxYUYd8eD6JafQc5V2xJxNbrsWbTKI93mSM/Ta7w2MVgk
-	H0DCRjstAo+JEpF+kGbxIAfIodj4WQwAN11f4kvj+YdByF1NUUzPqO+eeo3F+Zo17kc0So
-	XSotZsWfd7b5nXWYK0Zyq3GvoLnhjvZlI0o0fsviKiEzV4hSu6MDcZkJycE3/A==
+	bh=b1npAX3rdKpi0zxYsfY5Z+OgET1V6fz47IjXP2N2S30=;
+	b=XVTknQmD0+t9vnaeIeIdlOsx1km0mt60yX3sLzQQo1Ss1/zAJ0V4dKHa6DvwjgOabag8/L
+	cdAIIF6lZarTaeoLKetYm0pzGwl8kcckN80Dn3W3jMGiKQboR+gMBzt00I83ziyHabYe8b
+	NtMvjO2a5WGqd9peY6AIorbHYlQYKzPUUQ5sgSHC+l4y5YIFim4X7GOcwjhvZ7Git47A37
+	gmcxNDaJq1jS9foBWYoWsrYgrXjv0vr506Cf/8Zt24Pt75S4yTc5RSKsMNiLugnEQs66lu
+	JY2BKtk7vw81ebNMg9AR+ndNy6um/c3Nr6OXjzxeLIyPUkLePe2OzZqJJSi+0A==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607629347;
+	s=2020e; t=1607629348;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=5nQTlSWs0aM1JwskkO++sgVx3e7r1A0iUoENDct9w0g=;
-	b=vR1W3s1vgzWnaT5Q7BZrP5IMwXx2MgiIHJAS9ztGZt4iF+7Bkm46E7nJWgDdHbgllL9/0G
-	km2qINIgPXSFZ2CQ==
-Date: Thu, 10 Dec 2020 20:25:46 +0100
+	bh=b1npAX3rdKpi0zxYsfY5Z+OgET1V6fz47IjXP2N2S30=;
+	b=WNYux1er1Ehidg7p8CyS69i/jC/6HS8muln7aTCmBy2Y4C4fUCVrgJw4x7KlJp6BDc2l6Z
+	2PdGgfz2rCEe0FAA==
+Date: Thu, 10 Dec 2020 20:25:47 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
  Marc Zyngier <maz@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
  Helge Deller <deller@gmx.de>,
  afzal mohammed <afzal.mohd.ma@gmail.com>,
  linux-parisc@vger.kernel.org,
  Russell King <linux@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org,
+ Mark Rutland <mark.rutland@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
  Christian Borntraeger <borntraeger@de.ibm.com>,
  Heiko Carstens <hca@linux.ibm.com>,
  linux-s390@vger.kernel.org,
@@ -111,7 +111,7 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 Subject:
- [patch 10/30] arm64/smp: Use irq_desc_kstat_cpu() in arch_show_interrupts()
+ [patch 11/30] parisc/irq: Use irq_desc_kstat_cpu() in show_interrupts()
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -120,25 +120,24 @@ Content-transfer-encoding: 8-bit
 The irq descriptor is already there, no need to look it up again.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Helge Deller <deller@gmx.de>
+Cc: afzal mohammed <afzal.mohd.ma@gmail.com>
+Cc: linux-parisc@vger.kernel.org
 ---
- arch/arm64/kernel/smp.c |    2 +-
+ arch/parisc/kernel/irq.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/arch/arm64/kernel/smp.c
-+++ b/arch/arm64/kernel/smp.c
-@@ -809,7 +809,7 @@ int arch_show_interrupts(struct seq_file
- 		seq_printf(p, "%*s%u:%s", prec - 1, "IPI", i,
- 			   prec >= 4 ? " " : "");
- 		for_each_online_cpu(cpu)
--			seq_printf(p, "%10u ", kstat_irqs_cpu(irq, cpu));
-+			seq_printf(p, "%10u ", irq_desc_kstat_cpu(ipi_desc[i], cpu));
- 		seq_printf(p, "      %s\n", ipi_types[i]);
- 	}
+--- a/arch/parisc/kernel/irq.c
++++ b/arch/parisc/kernel/irq.c
+@@ -218,7 +218,7 @@ int show_interrupts(struct seq_file *p,
+ 		seq_printf(p, "%3d: ", i);
  
+ 		for_each_online_cpu(j)
+-			seq_printf(p, "%10u ", kstat_irqs_cpu(i, j));
++			seq_printf(p, "%10u ", irq_desc_kstat_cpu(desc, j));
+ 
+ 		seq_printf(p, " %14s", irq_desc_get_chip(desc)->name);
+ #ifndef PARISC_IRQ_CR16_COUNTS
 
 
