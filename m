@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F3A2D5C35
+	by mail.lfdr.de (Postfix) with ESMTPS id 38CCF2D5C36
 	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:49:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49240.87059 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.49243.87071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMJ1-0006Pq-Kb; Thu, 10 Dec 2020 13:48:27 +0000
+	id 1knMJB-0006Uq-Tt; Thu, 10 Dec 2020 13:48:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49240.87059; Thu, 10 Dec 2020 13:48:27 +0000
+Received: by outflank-mailman (output) from mailman id 49243.87071; Thu, 10 Dec 2020 13:48:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMJ1-0006PK-GL; Thu, 10 Dec 2020 13:48:27 +0000
-Received: by outflank-mailman (input) for mailman id 49240;
- Thu, 10 Dec 2020 13:48:25 +0000
+	id 1knMJB-0006UF-PD; Thu, 10 Dec 2020 13:48:37 +0000
+Received: by outflank-mailman (input) for mailman id 49243;
+ Thu, 10 Dec 2020 13:48:36 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nlUt=FO=redhat.com=marcandre.lureau@srs-us1.protection.inumbo.net>)
- id 1knMIz-0006Ou-Pz
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:48:25 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ id 1knMJA-0006Tn-7F
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:48:36 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 458557fb-3582-4815-a092-145740b29281;
- Thu, 10 Dec 2020 13:48:25 +0000 (UTC)
+ id 98ee8c6c-39fc-4302-8d27-044d5a397b3e;
+ Thu, 10 Dec 2020 13:48:35 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-63-8PrYjN8sPoKWRVQm0sBUGQ-1; Thu, 10 Dec 2020 08:48:20 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+ us-mta-230-WetvPUssOgaCqGMOqlYqLw-1; Thu, 10 Dec 2020 08:48:33 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 044E1107ACE4;
- Thu, 10 Dec 2020 13:48:19 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 40A641005E45;
+ Thu, 10 Dec 2020 13:48:31 +0000 (UTC)
 Received: from localhost (unknown [10.36.110.59])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 428966064B;
- Thu, 10 Dec 2020 13:48:10 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4728E1975F;
+ Thu, 10 Dec 2020 13:48:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,18 +48,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 458557fb-3582-4815-a092-145740b29281
+X-Inumbo-ID: 98ee8c6c-39fc-4302-8d27-044d5a397b3e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607608105;
+	s=mimecast20190719; t=1607608115;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ulMUWJhPnu4f0g/wIardZXW7c36v91u4ATkIG/ONjyg=;
-	b=ArTQTcy3FXFs1jzLmExg4fo+1a9AkfgT5G2UqXmmCrl8lHbQyNhfBSQRpRj6E0pMBAGCMl
-	5hdqmu1bftOnBvh18399JQ8Ns8TrvpEsOBB+dMETawNM5DoDOYWH5sch7U7YLUBlDCC50Q
-	qALAWN7A/cDuPetGh9AEsCUotFOLkGQ=
-X-MC-Unique: 8PrYjN8sPoKWRVQm0sBUGQ-1
+	bh=L84sEemMXWD2SD9KwsemmLR042MHG0edSakZTzouy6E=;
+	b=ilFhJTQzvW/PwmmTq2Av8YKgSSHNU2uhDA0DI/0B+HcQ8tjPVbbx5mpgjifibPoMPInShP
+	8e+EBZS8RpIpXyJUmU4qMpn6oLqeAZn4buRoGhDf/kXNBQPFxthoWqraotUmeMlZTMpqcP
+	74LErBWJy/f9hESSi9wdM5rmP14WeKM=
+X-MC-Unique: WetvPUssOgaCqGMOqlYqLw-1
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: philmd@redhat.com,
@@ -75,13 +75,13 @@ Cc: philmd@redhat.com,
 	qemu-arm@nongnu.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Peter Maydell <peter.maydell@linaro.org>
-Subject: [PATCH v3 01/13] qemu/atomic: Drop special case for unsupported compiler
-Date: Thu, 10 Dec 2020 17:47:40 +0400
-Message-Id: <20201210134752.780923-2-marcandre.lureau@redhat.com>
+Subject: [PATCH v3 02/13] accel/tcg: Remove special case for GCC < 4.6
+Date: Thu, 10 Dec 2020 17:47:41 +0400
+Message-Id: <20201210134752.780923-3-marcandre.lureau@redhat.com>
 In-Reply-To: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 References: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=marcandre.lureau@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,48 +93,33 @@ From: Philippe Mathieu-Daudé <philmd@redhat.com>
 
 Since commit efc6c070aca ("configure: Add a test for the
 minimum compiler version") the minimum compiler version
-required for GCC is 4.8, which has the GCC BZ#36793 bug fixed.
+required for GCC is 4.8.
 
-We can safely remove the special case introduced in commit
-a281ebc11a6 ("virtio: add missing mb() on notification").
-
-With clang 3.4, __ATOMIC_RELAXED is defined, so the chunk to
-remove (which is x86-specific), isn't reached either.
+We can safely remove the special case for GCC 4.6 introduced
+in commit 0448f5f8b81 ("cpu-exec: Fix compiler warning
+(-Werror=clobbered)").
+No change for Clang as we don't know.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
 Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 ---
- include/qemu/atomic.h | 17 -----------------
- 1 file changed, 17 deletions(-)
+ accel/tcg/cpu-exec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/qemu/atomic.h b/include/qemu/atomic.h
-index c1d211a351..8f4b3a80fb 100644
---- a/include/qemu/atomic.h
-+++ b/include/qemu/atomic.h
-@@ -241,23 +241,6 @@
+diff --git a/accel/tcg/cpu-exec.c b/accel/tcg/cpu-exec.c
+index 58aea605d8..37a88edb6d 100644
+--- a/accel/tcg/cpu-exec.c
++++ b/accel/tcg/cpu-exec.c
+@@ -724,7 +724,7 @@ int cpu_exec(CPUState *cpu)
  
- #else /* __ATOMIC_RELAXED */
- 
--/*
-- * We use GCC builtin if it's available, as that can use mfence on
-- * 32-bit as well, e.g. if built with -march=pentium-m. However, on
-- * i386 the spec is buggy, and the implementation followed it until
-- * 4.3 (http://gcc.gnu.org/bugzilla/show_bug.cgi?id=36793).
-- */
--#if defined(__i386__) || defined(__x86_64__)
--#if !QEMU_GNUC_PREREQ(4, 4)
--#if defined __x86_64__
--#define smp_mb()    ({ asm volatile("mfence" ::: "memory"); (void)0; })
--#else
--#define smp_mb()    ({ asm volatile("lock; addl $0,0(%%esp) " ::: "memory"); (void)0; })
--#endif
--#endif
--#endif
--
--
- #ifdef __alpha__
- #define smp_read_barrier_depends()   asm volatile("mb":::"memory")
- #endif
+     /* prepare setjmp context for exception handling */
+     if (sigsetjmp(cpu->jmp_env, 0) != 0) {
+-#if defined(__clang__) || !QEMU_GNUC_PREREQ(4, 6)
++#if defined(__clang__)
+         /* Some compilers wrongly smash all local variables after
+          * siglongjmp. There were bug reports for gcc 4.5.0 and clang.
+          * Reload essential local variables here for those compilers.
 -- 
 2.29.0
 
