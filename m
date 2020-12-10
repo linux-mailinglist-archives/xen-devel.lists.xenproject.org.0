@@ -2,41 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C3472D5C50
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:51:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49300.87203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C2492D5C8D
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:58:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49323.87215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMLs-00007n-EP; Thu, 10 Dec 2020 13:51:24 +0000
+	id 1knMSD-0000V6-9V; Thu, 10 Dec 2020 13:57:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49300.87203; Thu, 10 Dec 2020 13:51:24 +0000
+Received: by outflank-mailman (output) from mailman id 49323.87215; Thu, 10 Dec 2020 13:57:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMLs-000071-9V; Thu, 10 Dec 2020 13:51:24 +0000
-Received: by outflank-mailman (input) for mailman id 49300;
- Thu, 10 Dec 2020 13:51:22 +0000
+	id 1knMSD-0000Uh-6B; Thu, 10 Dec 2020 13:57:57 +0000
+Resent-Date: Thu, 10 Dec 2020 13:57:57 +0000
+Resent-Message-Id: <E1knMSD-0000Uh-6B@lists.xenproject.org>
+Received: by outflank-mailman (input) for mailman id 49323;
+ Thu, 10 Dec 2020 13:57:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nlUt=FO=redhat.com=marcandre.lureau@srs-us1.protection.inumbo.net>)
- id 1knMLq-0008WE-Cf
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:51:22 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id ef0ec818-f874-4358-809c-3e5f2609a83f;
- Thu, 10 Dec 2020 13:51:21 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-305-BuJ90PEsPry3jN9awvrssA-1; Thu, 10 Dec 2020 08:51:19 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1D778100C66B;
- Thu, 10 Dec 2020 13:51:18 +0000 (UTC)
-Received: from localhost (unknown [10.36.110.59])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 287FA5C260;
- Thu, 10 Dec 2020 13:51:06 +0000 (UTC)
+ <SRS0=31WP=FO=patchew.org=no-reply@srs-us1.protection.inumbo.net>)
+ id 1knMSB-0000Uc-Go
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:57:55 +0000
+Received: from sender4-of-o56.zoho.com (unknown [136.143.188.56])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 939a9c36-487b-4f88-8b91-b10ade743df1;
+ Thu, 10 Dec 2020 13:57:54 +0000 (UTC)
+Received: from [172.17.0.3] (23.253.156.214 [23.253.156.214]) by
+ mx.zohomail.com with SMTPS id 1607608665218928.6832951833587;
+ Thu, 10 Dec 2020 05:57:45 -0800 (PST)
+Resent-From: 
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,93 +42,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef0ec818-f874-4358-809c-3e5f2609a83f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607608281;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RTnJJ5tS3uEIm5t/A/GM2tAIUagEhic34ZpOQ1Fixxo=;
-	b=MzzaiFGiq5q00qM+WC0yYAQIUCamN/FMe+DNajHbr+952OM6aIpt6RrbpxL6W090qVxYLr
-	2tIgozo2X4yyzSIuKZKyJNfRt2ACzEUrKcRRkAFlCBd4xiZMQKl26h9+I06HSzcLHiiaLB
-	EhtUTVjkPCV/BFWh9HKgBguJfAlHCSM=
-X-MC-Unique: BuJ90PEsPry3jN9awvrssA-1
-From: marcandre.lureau@redhat.com
-To: qemu-devel@nongnu.org
-Cc: philmd@redhat.com,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Laurent Vivier <laurent@vivier.eu>,
-	Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
-	qemu-arm@nongnu.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
-Subject: [PATCH v3 13/13] compiler.h: remove QEMU_GNUC_PREREQ
-Date: Thu, 10 Dec 2020 17:47:52 +0400
-Message-Id: <20201210134752.780923-14-marcandre.lureau@redhat.com>
+X-Inumbo-ID: 939a9c36-487b-4f88-8b91-b10ade743df1
+ARC-Seal: i=1; a=rsa-sha256; t=1607608667; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=J7yP/bEcqUv7RGlQn2+HOgTRvXtN83USY+vfvkEnpC3H3bveRAvH2vBshR99WVsDPGSkx4siWC2XRiIJBBPevmrfZHEreKZmVgUi5jqGTFSUslwc+va7/dfG2zMY6Q+/Hj0DKDWTxAZvoWK2zD1raWa60/ZeWnBeCTbw6pZ6Ojs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1607608667; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:Reply-To:Subject:To; 
+	bh=FqEloFzX8R1oXIXHz5gZRze20BKsfvsbNvg1Fkrpw5E=; 
+	b=nnlYfeVVM2I51k1BWBbq+ctE0KKAmNCJRNn2KkvSoV6WAm37gKQr219+RBgDo7ECHccOXcj0k4IOTd2nQkbDfIxtJnpX1OT7dfaK2B+hJYGDD500SY1lXfgPtfljDEQMp4QTDq+7xgAs4r0lcgLKGKl7CGt/iuTEsZfSncVnjrU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	spf=pass  smtp.mailfrom=no-reply@patchew.org;
+	dmarc=pass header.from=<no-reply@patchew.org> header.from=<no-reply@patchew.org>
 In-Reply-To: <20201210134752.780923-1-marcandre.lureau@redhat.com>
-References: <20201210134752.780923-1-marcandre.lureau@redhat.com>
+Reply-To: <qemu-devel@nongnu.org>
+Subject: Re: [PATCH v3 00/13] Remove GCC < 4.8 checks
+Message-ID: <160760866227.10419.11672890973023491886@600e7e483b3a>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=marcandre.lureau@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+From: no-reply@patchew.org
+To: marcandre.lureau@redhat.com
+Cc: qemu-devel@nongnu.org, philmd@redhat.com, richard.henderson@linaro.org, laurent@vivier.eu, paul@xen.org, xen-devel@lists.xenproject.org, stefanha@redhat.com, kraxel@redhat.com, sstabellini@kernel.org, anthony.perard@citrix.com, dgilbert@redhat.com, qemu-arm@nongnu.org, pbonzini@redhat.com, peter.maydell@linaro.org, marcandre.lureau@redhat.com
+Date: Thu, 10 Dec 2020 05:57:45 -0800 (PST)
+X-ZohoMailClient: External
 
-From: Marc-André Lureau <marcandre.lureau@redhat.com>
-
-When needed, the G_GNUC_CHECK_VERSION() glib macro can be used instead.
-
-Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
----
- include/qemu/compiler.h    | 11 -----------
- scripts/cocci-macro-file.h |  1 -
- 2 files changed, 12 deletions(-)
-
-diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
-index 5e6cf2c8e8..1b9e58e82b 100644
---- a/include/qemu/compiler.h
-+++ b/include/qemu/compiler.h
-@@ -11,17 +11,6 @@
- #define QEMU_STATIC_ANALYSIS 1
- #endif
- 
--/*----------------------------------------------------------------------------
--| The macro QEMU_GNUC_PREREQ tests for minimum version of the GNU C compiler.
--| The code is a copy of SOFTFLOAT_GNUC_PREREQ, see softfloat-macros.h.
--*----------------------------------------------------------------------------*/
--#if defined(__GNUC__) && defined(__GNUC_MINOR__)
--# define QEMU_GNUC_PREREQ(maj, min) \
--         ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
--#else
--# define QEMU_GNUC_PREREQ(maj, min) 0
--#endif
--
- #define QEMU_NORETURN __attribute__ ((__noreturn__))
- 
- #define QEMU_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
-diff --git a/scripts/cocci-macro-file.h b/scripts/cocci-macro-file.h
-index c6bbc05ba3..20eea6b708 100644
---- a/scripts/cocci-macro-file.h
-+++ b/scripts/cocci-macro-file.h
-@@ -19,7 +19,6 @@
-  */
- 
- /* From qemu/compiler.h */
--#define QEMU_GNUC_PREREQ(maj, min) 1
- #define QEMU_NORETURN __attribute__ ((__noreturn__))
- #define QEMU_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
- #define QEMU_SENTINEL __attribute__((sentinel))
--- 
-2.29.0
-
+UGF0Y2hldyBVUkw6IGh0dHBzOi8vcGF0Y2hldy5vcmcvUUVNVS8yMDIwMTIxMDEzNDc1Mi43ODA5
+MjMtMS1tYXJjYW5kcmUubHVyZWF1QHJlZGhhdC5jb20vCgoKCkhpLAoKVGhpcyBzZXJpZXMgc2Vl
+bXMgdG8gaGF2ZSBzb21lIGNvZGluZyBzdHlsZSBwcm9ibGVtcy4gU2VlIG91dHB1dCBiZWxvdyBm
+b3IKbW9yZSBpbmZvcm1hdGlvbjoKClR5cGU6IHNlcmllcwpNZXNzYWdlLWlkOiAyMDIwMTIxMDEz
+NDc1Mi43ODA5MjMtMS1tYXJjYW5kcmUubHVyZWF1QHJlZGhhdC5jb20KU3ViamVjdDogW1BBVENI
+IHYzIDAwLzEzXSBSZW1vdmUgR0NDIDwgNC44IGNoZWNrcwoKPT09IFRFU1QgU0NSSVBUIEJFR0lO
+ID09PQojIS9iaW4vYmFzaApnaXQgcmV2LXBhcnNlIGJhc2UgPiAvZGV2L251bGwgfHwgZXhpdCAw
+CmdpdCBjb25maWcgLS1sb2NhbCBkaWZmLnJlbmFtZWxpbWl0IDAKZ2l0IGNvbmZpZyAtLWxvY2Fs
+IGRpZmYucmVuYW1lcyBUcnVlCmdpdCBjb25maWcgLS1sb2NhbCBkaWZmLmFsZ29yaXRobSBoaXN0
+b2dyYW0KLi9zY3JpcHRzL2NoZWNrcGF0Y2gucGwgLS1tYWlsYmFjayBiYXNlLi4KPT09IFRFU1Qg
+U0NSSVBUIEVORCA9PT0KClVwZGF0aW5nIDNjOGNmNWE5YzIxZmY4NzgyMTY0ZDFkZWY3ZjQ0YmQ4
+ODg3MTMzODQKRnJvbSBodHRwczovL2dpdGh1Yi5jb20vcGF0Y2hldy1wcm9qZWN0L3FlbXUKICAg
+NWU3YjIwNC4uMTgwODM0ZCAgbWFzdGVyICAgICAtPiBtYXN0ZXIKIC0gW3RhZyB1cGRhdGVdICAg
+ICAgcGF0Y2hldy8yMDIwMTIwODA1NTA0My4zMTU0OC0xLWxlcnNla0ByZWRoYXQuY29tIC0+IHBh
+dGNoZXcvMjAyMDEyMDgwNTUwNDMuMzE1NDgtMS1sZXJzZWtAcmVkaGF0LmNvbQogLSBbdGFnIHVw
+ZGF0ZV0gICAgICBwYXRjaGV3LzIwMjAxMjA5MTAwODExLjE5MDMxNi0xLWFuZHJleS5ncnV6ZGV2
+QHZpcnR1b3p6by5jb20gLT4gcGF0Y2hldy8yMDIwMTIwOTEwMDgxMS4xOTAzMTYtMS1hbmRyZXku
+Z3J1emRldkB2aXJ0dW96em8uY29tCiAqIFtuZXcgdGFnXSAgICAgICAgIHBhdGNoZXcvMjAyMDEy
+MTAxMjU5MjkuMTEzNjM5MC0xLW1sZXZpdHNrQHJlZGhhdC5jb20gLT4gcGF0Y2hldy8yMDIwMTIx
+MDEyNTkyOS4xMTM2MzkwLTEtbWxldml0c2tAcmVkaGF0LmNvbQogKiBbbmV3IHRhZ10gICAgICAg
+ICBwYXRjaGV3LzIwMjAxMjEwMTM0NzUyLjc4MDkyMy0xLW1hcmNhbmRyZS5sdXJlYXVAcmVkaGF0
+LmNvbSAtPiBwYXRjaGV3LzIwMjAxMjEwMTM0NzUyLjc4MDkyMy0xLW1hcmNhbmRyZS5sdXJlYXVA
+cmVkaGF0LmNvbQpTd2l0Y2hlZCB0byBhIG5ldyBicmFuY2ggJ3Rlc3QnCjc3OGEyZTMgY29tcGls
+ZXIuaDogcmVtb3ZlIFFFTVVfR05VQ19QUkVSRVEKMGEzZjQxMCBsaW51eC11c2VyOiByZW1vdmUg
+R05VQyBjaGVjawo5Njc4YzFlIGNvbXBpbGVyOiByZW1vdmUgR05VQyBjaGVjawphMDEzOGY4IHhl
+bjogcmVtb3ZlIEdOVUMgY2hlY2sKNDBmMzE3MCBwb2lzb246IHJlbW92ZSBHTlVDIGNoZWNrCmI4
+MGY1Y2IgYXVkaW86IHJlbW92ZSBHTlVDICYgTVNWQyBjaGVjawpiNjM1ZjVmIGNvbXBpbGVyLmg6
+IGV4cGxpY2l0IGNhc2UgZm9yIENsYW5nIHByaW50ZiBhdHRyaWJ1dGUKZDUyZjNjNCB2aXJ0aW9m
+c2Q6IHJlcGxhY2UgX1N0YXRpY19hc3NlcnQgd2l0aCBRRU1VX0JVSUxEX0JVR19PTgo5YmJlMmEw
+IHRlc3RzOiByZW1vdmUgR0NDIDwgNCBmYWxsYmFja3MKN2MzMzBjYiBxZW11LXBsdWdpbi5oOiBy
+ZW1vdmUgR0NDIDwgNAo0MzRkZTVkIGNvbXBpbGVyLmg6IHJlbW92ZSBHQ0MgPCAzIF9fYnVpbHRp
+bl9leHBlY3QgZmFsbGJhY2sKMDY5OWU3OCBhY2NlbC90Y2c6IFJlbW92ZSBzcGVjaWFsIGNhc2Ug
+Zm9yIEdDQyA8IDQuNgowM2UyMzE4IHFlbXUvYXRvbWljOiBEcm9wIHNwZWNpYWwgY2FzZSBmb3Ig
+dW5zdXBwb3J0ZWQgY29tcGlsZXIKCj09PSBPVVRQVVQgQkVHSU4gPT09CjEvMTMgQ2hlY2tpbmcg
+Y29tbWl0IDAzZTIzMTgzZmI1NSAocWVtdS9hdG9taWM6IERyb3Agc3BlY2lhbCBjYXNlIGZvciB1
+bnN1cHBvcnRlZCBjb21waWxlcikKMi8xMyBDaGVja2luZyBjb21taXQgMDY5OWU3OGEyNWZiIChh
+Y2NlbC90Y2c6IFJlbW92ZSBzcGVjaWFsIGNhc2UgZm9yIEdDQyA8IDQuNikKV0FSTklORzogYXJj
+aGl0ZWN0dXJlIHNwZWNpZmljIGRlZmluZXMgc2hvdWxkIGJlIGF2b2lkZWQKIzMwOiBGSUxFOiBh
+Y2NlbC90Y2cvY3B1LWV4ZWMuYzo3Mjc6CisjaWYgZGVmaW5lZChfX2NsYW5nX18pCgp0b3RhbDog
+MCBlcnJvcnMsIDEgd2FybmluZ3MsIDggbGluZXMgY2hlY2tlZAoKUGF0Y2ggMi8xMyBoYXMgc3R5
+bGUgcHJvYmxlbXMsIHBsZWFzZSByZXZpZXcuICBJZiBhbnkgb2YgdGhlc2UgZXJyb3JzCmFyZSBm
+YWxzZSBwb3NpdGl2ZXMgcmVwb3J0IHRoZW0gdG8gdGhlIG1haW50YWluZXIsIHNlZQpDSEVDS1BB
+VENIIGluIE1BSU5UQUlORVJTLgozLzEzIENoZWNraW5nIGNvbW1pdCA0MzRkZTVkMjQ0MWEgKGNv
+bXBpbGVyLmg6IHJlbW92ZSBHQ0MgPCAzIF9fYnVpbHRpbl9leHBlY3QgZmFsbGJhY2spCjQvMTMg
+Q2hlY2tpbmcgY29tbWl0IDdjMzMwY2I2ZTQ0YyAocWVtdS1wbHVnaW4uaDogcmVtb3ZlIEdDQyA8
+IDQpCjUvMTMgQ2hlY2tpbmcgY29tbWl0IDliYmUyYTAwYTIyOCAodGVzdHM6IHJlbW92ZSBHQ0Mg
+PCA0IGZhbGxiYWNrcykKRVJST1I6IHNwYWNlIHByb2hpYml0ZWQgYmV0d2VlbiBmdW5jdGlvbiBu
+YW1lIGFuZCBvcGVuIHBhcmVudGhlc2lzICcoJwojMzA6IEZJTEU6IHRlc3RzL3RjZy9hcm0vZmN2
+dC5jOjc2OgorIyBkZWZpbmUgU05BTkYgKF9fYnVpbHRpbl9uYW5zZiAoIiIpKQoKRVJST1I6IHNw
+YWNlIHByb2hpYml0ZWQgYmV0d2VlbiBmdW5jdGlvbiBuYW1lIGFuZCBvcGVuIHBhcmVudGhlc2lz
+ICcoJwojMzE6IEZJTEU6IHRlc3RzL3RjZy9hcm0vZmN2dC5jOjc3OgorIyBkZWZpbmUgU05BTiAo
+X19idWlsdGluX25hbnMgKCIiKSkKCkVSUk9SOiBzcGFjZSBwcm9oaWJpdGVkIGJldHdlZW4gZnVu
+Y3Rpb24gbmFtZSBhbmQgb3BlbiBwYXJlbnRoZXNpcyAnKCcKIzMyOiBGSUxFOiB0ZXN0cy90Y2cv
+YXJtL2ZjdnQuYzo3ODoKKyMgZGVmaW5lIFNOQU5MIChfX2J1aWx0aW5fbmFuc2wgKCIiKSkKCnRv
+dGFsOiAzIGVycm9ycywgMCB3YXJuaW5ncywgMTQgbGluZXMgY2hlY2tlZAoKUGF0Y2ggNS8xMyBo
+YXMgc3R5bGUgcHJvYmxlbXMsIHBsZWFzZSByZXZpZXcuICBJZiBhbnkgb2YgdGhlc2UgZXJyb3Jz
+CmFyZSBmYWxzZSBwb3NpdGl2ZXMgcmVwb3J0IHRoZW0gdG8gdGhlIG1haW50YWluZXIsIHNlZQpD
+SEVDS1BBVENIIGluIE1BSU5UQUlORVJTLgoKNi8xMyBDaGVja2luZyBjb21taXQgZDUyZjNjNDll
+N2Y4ICh2aXJ0aW9mc2Q6IHJlcGxhY2UgX1N0YXRpY19hc3NlcnQgd2l0aCBRRU1VX0JVSUxEX0JV
+R19PTikKNy8xMyBDaGVja2luZyBjb21taXQgYjYzNWY1ZjBmMWMwIChjb21waWxlci5oOiBleHBs
+aWNpdCBjYXNlIGZvciBDbGFuZyBwcmludGYgYXR0cmlidXRlKQpXQVJOSU5HOiBhcmNoaXRlY3R1
+cmUgc3BlY2lmaWMgZGVmaW5lcyBzaG91bGQgYmUgYXZvaWRlZAojMzg6IEZJTEU6IGluY2x1ZGUv
+cWVtdS9jb21waWxlci5oOjEwMjoKKyNpZiBkZWZpbmVkKF9fY2xhbmdfXykKCnRvdGFsOiAwIGVy
+cm9ycywgMSB3YXJuaW5ncywgMzAgbGluZXMgY2hlY2tlZAoKUGF0Y2ggNy8xMyBoYXMgc3R5bGUg
+cHJvYmxlbXMsIHBsZWFzZSByZXZpZXcuICBJZiBhbnkgb2YgdGhlc2UgZXJyb3JzCmFyZSBmYWxz
+ZSBwb3NpdGl2ZXMgcmVwb3J0IHRoZW0gdG8gdGhlIG1haW50YWluZXIsIHNlZQpDSEVDS1BBVENI
+IGluIE1BSU5UQUlORVJTLgo4LzEzIENoZWNraW5nIGNvbW1pdCBiODBmNWNiMTUzYWUgKGF1ZGlv
+OiByZW1vdmUgR05VQyAmIE1TVkMgY2hlY2spCjkvMTMgQ2hlY2tpbmcgY29tbWl0IDQwZjMxNzA2
+YzU1NCAocG9pc29uOiByZW1vdmUgR05VQyBjaGVjaykKMTAvMTMgQ2hlY2tpbmcgY29tbWl0IGEw
+MTM4ZjhiOGNhMSAoeGVuOiByZW1vdmUgR05VQyBjaGVjaykKMTEvMTMgQ2hlY2tpbmcgY29tbWl0
+IDk2NzhjMWUxYjBkOCAoY29tcGlsZXI6IHJlbW92ZSBHTlVDIGNoZWNrKQoxMi8xMyBDaGVja2lu
+ZyBjb21taXQgMGEzZjQxMDJiY2ZhIChsaW51eC11c2VyOiByZW1vdmUgR05VQyBjaGVjaykKMTMv
+MTMgQ2hlY2tpbmcgY29tbWl0IDc3OGEyZTMxYzVjZSAoY29tcGlsZXIuaDogcmVtb3ZlIFFFTVVf
+R05VQ19QUkVSRVEpCj09PSBPVVRQVVQgRU5EID09PQoKVGVzdCBjb21tYW5kIGV4aXRlZCB3aXRo
+IGNvZGU6IDEKCgpUaGUgZnVsbCBsb2cgaXMgYXZhaWxhYmxlIGF0Cmh0dHA6Ly9wYXRjaGV3Lm9y
+Zy9sb2dzLzIwMjAxMjEwMTM0NzUyLjc4MDkyMy0xLW1hcmNhbmRyZS5sdXJlYXVAcmVkaGF0LmNv
+bS90ZXN0aW5nLmNoZWNrcGF0Y2gvP3R5cGU9bWVzc2FnZS4KLS0tCkVtYWlsIGdlbmVyYXRlZCBh
+dXRvbWF0aWNhbGx5IGJ5IFBhdGNoZXcgW2h0dHBzOi8vcGF0Y2hldy5vcmcvXS4KUGxlYXNlIHNl
+bmQgeW91ciBmZWVkYmFjayB0byBwYXRjaGV3LWRldmVsQHJlZGhhdC5jb20=
 
