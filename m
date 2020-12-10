@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 864242D5C3C
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:49:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49257.87095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A47E2D5C3D
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:49:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49262.87107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMJn-0006jT-Hc; Thu, 10 Dec 2020 13:49:15 +0000
+	id 1knMK7-0006rb-RY; Thu, 10 Dec 2020 13:49:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49257.87095; Thu, 10 Dec 2020 13:49:15 +0000
+Received: by outflank-mailman (output) from mailman id 49262.87107; Thu, 10 Dec 2020 13:49:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMJn-0006iu-DZ; Thu, 10 Dec 2020 13:49:15 +0000
-Received: by outflank-mailman (input) for mailman id 49257;
- Thu, 10 Dec 2020 13:49:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1knMK7-0006r8-Nt; Thu, 10 Dec 2020 13:49:35 +0000
+Received: by outflank-mailman (input) for mailman id 49262;
+ Thu, 10 Dec 2020 13:49:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nlUt=FO=redhat.com=marcandre.lureau@srs-us1.protection.inumbo.net>)
- id 1knMJl-0006hu-QX
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:49:13 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 21b8f01f-55b9-48e6-bbe1-a4a823d5b3bd;
- Thu, 10 Dec 2020 13:49:13 +0000 (UTC)
+ id 1knMK6-0006qi-1z
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:49:34 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 0b1dd360-49ae-47d2-93a4-9ab387acf17a;
+ Thu, 10 Dec 2020 13:49:33 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-277-tt29vyJuMMCsKfnRw_kDUw-1; Thu, 10 Dec 2020 08:49:08 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+ us-mta-100-nqVUJhY8NMCkTQFWY4kjLQ-1; Thu, 10 Dec 2020 08:49:25 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 08B9315732;
- Thu, 10 Dec 2020 13:49:07 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC6A6800D53;
+ Thu, 10 Dec 2020 13:49:23 +0000 (UTC)
 Received: from localhost (unknown [10.36.110.59])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E42817046C;
- Thu, 10 Dec 2020 13:48:52 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5511D19713;
+ Thu, 10 Dec 2020 13:49:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,18 +48,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21b8f01f-55b9-48e6-bbe1-a4a823d5b3bd
+X-Inumbo-ID: 0b1dd360-49ae-47d2-93a4-9ab387acf17a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607608153;
+	s=mimecast20190719; t=1607608173;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7laBw/T720iHN/BJanY29fxaiafvWQ3ZmcJva9ZXuMM=;
-	b=ANqaQT1lsdDYaddE5Ao3ia4AWUQA6ms+ISiHhRX+lcKKyTSCFUrGPnDEFz+eLKc5CF2UCA
-	2mANAcMRDg5sCa1RoVnPdOfoJZ5xc/ec1phnziOgzQz1vEFZXc8EcMgVyu4driASHBiTm9
-	Pbrh87A2JLiFpCt7MEJwhJmsipW8M2U=
-X-MC-Unique: tt29vyJuMMCsKfnRw_kDUw-1
+	bh=UPLHk9PCXdFlionEQtiO0kTXHb3i/E1vdNJvbkD9DzE=;
+	b=NlJWsN9ZQl1y5xFXt1IMrt+nS8p59zoCaIRnx6+hdsg5kUGkBf4wjC3vLZAdsodqS83wbl
+	SlcNiaL/LGpOZC7gbMsfRsj6uh3u18ZNK5WrIF9CzeEd9tLuDypnM3Co7yj/ufSDM0YxF+
+	7H5WJmRhYfieh2AfEPkEj1mOPaQEpxc=
+X-MC-Unique: nqVUJhY8NMCkTQFWY4kjLQ-1
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: philmd@redhat.com,
@@ -75,13 +76,13 @@ Cc: philmd@redhat.com,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Peter Maydell <peter.maydell@linaro.org>,
 	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
-Subject: [PATCH v3 04/13] qemu-plugin.h: remove GCC < 4
-Date: Thu, 10 Dec 2020 17:47:43 +0400
-Message-Id: <20201210134752.780923-5-marcandre.lureau@redhat.com>
+Subject: [PATCH v3 05/13] tests: remove GCC < 4 fallbacks
+Date: Thu, 10 Dec 2020 17:47:44 +0400
+Message-Id: <20201210134752.780923-6-marcandre.lureau@redhat.com>
 In-Reply-To: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 References: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=marcandre.lureau@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -97,31 +98,31 @@ version"), QEMU explicitely depends on GCC >= 4.8.
 (clang >= 3.4 advertizes itself as GCC >= 4.2 compatible)
 
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
 Acked-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- include/qemu/qemu-plugin.h | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ tests/tcg/arm/fcvt.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/include/qemu/qemu-plugin.h b/include/qemu/qemu-plugin.h
-index bab8b0d4b3..5775e82c4e 100644
---- a/include/qemu/qemu-plugin.h
-+++ b/include/qemu/qemu-plugin.h
-@@ -28,13 +28,8 @@
-   #endif
-   #define QEMU_PLUGIN_LOCAL
- #else
--  #if __GNUC__ >= 4
--    #define QEMU_PLUGIN_EXPORT __attribute__((visibility("default")))
--    #define QEMU_PLUGIN_LOCAL  __attribute__((visibility("hidden")))
--  #else
--    #define QEMU_PLUGIN_EXPORT
--    #define QEMU_PLUGIN_LOCAL
--  #endif
-+  #define QEMU_PLUGIN_EXPORT __attribute__((visibility("default")))
-+  #define QEMU_PLUGIN_LOCAL  __attribute__((visibility("hidden")))
+diff --git a/tests/tcg/arm/fcvt.c b/tests/tcg/arm/fcvt.c
+index 617626bc63..7ac47b564e 100644
+--- a/tests/tcg/arm/fcvt.c
++++ b/tests/tcg/arm/fcvt.c
+@@ -73,11 +73,9 @@ static void print_int64(int i, int64_t num)
+ 
+ #ifndef SNANF
+ /* Signaling NaN macros, if supported.  */
+-# if __GNUC_PREREQ(3, 3)
+-#  define SNANF (__builtin_nansf (""))
+-#  define SNAN (__builtin_nans (""))
+-#  define SNANL (__builtin_nansl (""))
+-# endif
++# define SNANF (__builtin_nansf (""))
++# define SNAN (__builtin_nans (""))
++# define SNANL (__builtin_nansl (""))
  #endif
  
- typedef uint64_t qemu_plugin_id_t;
+ float single_numbers[] = { -SNANF,
 -- 
 2.29.0
 
