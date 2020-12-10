@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4369A47FD4E
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Dec 2021 14:23:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.251985.432970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87E37480147
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Dec 2021 16:57:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.252022.433048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n1pxh-000285-DN; Mon, 27 Dec 2021 13:22:49 +0000
+	id 1n1sMr-0002VS-Np; Mon, 27 Dec 2021 15:56:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 251985.432970; Mon, 27 Dec 2021 13:22:49 +0000
+Received: by outflank-mailman (output) from mailman id 252022.433048; Mon, 27 Dec 2021 15:56:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n1pxh-000255-AO; Mon, 27 Dec 2021 13:22:49 +0000
-Received: by outflank-mailman (input) for mailman id 251985;
- Mon, 27 Dec 2021 13:22:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I4x1=RM=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1n1pxg-00024z-0c
- for xen-devel@lists.xenproject.org; Mon, 27 Dec 2021 13:22:48 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12aaea15-6718-11ec-9e60-abaf8a552007;
- Mon, 27 Dec 2021 14:22:46 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6977AB8102E;
- Mon, 27 Dec 2021 13:22:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0687C36AEA;
- Mon, 27 Dec 2021 13:22:40 +0000 (UTC)
+	id 1n1sMr-0002S4-It; Mon, 27 Dec 2021 15:56:57 +0000
+Received: by outflank-mailman (input) for mailman id 252022;
+ Mon, 27 Dec 2021 15:56:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jnZ2=RM=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1n1sMq-0000AO-L3
+ for xen-devel@lists.xenproject.org; Mon, 27 Dec 2021 15:56:56 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d13fa6c-672d-11ec-bb0b-79c175774b5d;
+ Mon, 27 Dec 2021 16:56:55 +0100 (CET)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 1BRFujqi054523
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 27 Dec 2021 10:56:52 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 1BRFujIk054522;
+ Mon, 27 Dec 2021 07:56:45 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +43,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12aaea15-6718-11ec-9e60-abaf8a552007
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1640611361;
-	bh=oIhYMV0TNwWQ1DJ3amUeZe8z+/TaiKP3lJFVwv/2FtI=;
-	h=Subject:To:Cc:From:Date:In-Reply-To:From;
-	b=gnFdWFPzWEZWTuBHCnbA45zveqXYJRm/xDyIUypleIlCcdBUwxr1VfZa5eBGksY2N
-	 yf0eeNPTVBFaQo28VRSZCkpHuFdn6xlWlhyI3Nqtjr6nPB78I0oC1GyEa3uURO6xhU
-	 gFnaR5cuU+/j+V4llvRU+0+knHof/0jhSD7VyZHE=
-Subject: Patch "xen/blkfront: fix bug in backported patch" has been added to the 4.4-stable tree
-To: gregkh@linuxfoundation.org,jgross@suse.com,xen-devel@lists.xenproject.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 27 Dec 2021 14:22:30 +0100
-In-Reply-To: <20211223105308.17077-1-jgross@suse.com>
-Message-ID: <164061135021254@kroah.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+X-Inumbo-ID: 9d13fa6c-672d-11ec-bb0b-79c175774b5d
+Message-Id: <2d1335a4056558d172d9aa3e59982eb761647418.1640590794.git.ehem+xen@m5p.com>
+In-Reply-To: <cover.1640590794.git.ehem+xen@m5p.com>
+References: <cover.1640590794.git.ehem+xen@m5p.com>
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>
+Cc: Anthony PERARD <anthony.perard@citrix.com>
+Date: Thu, 10 Dec 2020 15:09:06 -0800
+Subject: [PATCH 5/5] tools/xl: Fix potential deallocation bug
+X-Spam-Status: No, score=2.5 required=10.0 tests=DATE_IN_PAST_96_XX,
+	KHOP_HELO_FCRDNS autolearn=no autolearn_force=no version=3.4.5
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
 
+There is potential for the info and info_free variable's purposes to
+diverge.  If info was overwritten with a distinct value, yet info_free
+still needed deallocation a bug would occur on this line.  Preemptively
+address this issue (making use of divergent info/info_free values is
+under consideration).
 
-This is a note to let you know that I've just added the patch titled
-
-    xen/blkfront: fix bug in backported patch
-
-to the 4.4-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     xen-blkfront-fix-bug-in-backported-patch.patch
-and it can be found in the queue-4.4 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From jgross@suse.com  Mon Dec 27 13:38:43 2021
-From: Juergen Gross <jgross@suse.com>
-Date: Thu, 23 Dec 2021 11:53:08 +0100
-Subject: xen/blkfront: fix bug in backported patch
-To: stable@vger.kernel.org
-Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
-Message-ID: <20211223105308.17077-1-jgross@suse.com>
-
-From: Juergen Gross <jgross@suse.com>
-
-The backport of commit 8f5a695d99000fc ("xen/blkfront: don't take local
-copy of a request from the ring page") to stable 4.4 kernel introduced
-a bug when adding the needed blkif_ring_get_request() function, as
-info->ring.req_prod_pvt was incremented twice now.
-
-Fix that be deleting the now superfluous increments after calling that
-function.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
 ---
- drivers/block/xen-blkfront.c |    4 ----
- 1 file changed, 4 deletions(-)
+ tools/xl/xl_info.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -493,8 +493,6 @@ static int blkif_queue_discard_req(struc
- 	else
- 		ring_req->u.discard.flag = 0;
+diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
+index 3647468420..938f06f1a8 100644
+--- a/tools/xl/xl_info.c
++++ b/tools/xl/xl_info.c
+@@ -579,7 +579,7 @@ int main_list(int argc, char **argv)
+                      info, nb_domain);
  
--	info->ring.req_prod_pvt++;
--
- 	/* Copy the request to the ring page. */
- 	*final_ring_req = *ring_req;
- 	info->shadow[id].inflight = true;
-@@ -711,8 +709,6 @@ static int blkif_queue_rw_req(struct req
- 	if (setup.segments)
- 		kunmap_atomic(setup.segments);
+     if (info_free)
+-        libxl_dominfo_list_free(info, nb_domain);
++        libxl_dominfo_list_free(info_free, nb_domain);
  
--	info->ring.req_prod_pvt++;
--
- 	/* Copy request(s) to the ring page. */
- 	*final_ring_req = *ring_req;
- 	info->shadow[id].inflight = true;
+     libxl_dominfo_dispose(&info_buf);
+ 
+-- 
+2.30.2
 
-
-Patches currently in stable-queue which might be from jgross@suse.com are
-
-queue-4.4/xen-blkfront-fix-bug-in-backported-patch.patch
 
