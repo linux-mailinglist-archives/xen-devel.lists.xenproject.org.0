@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2C902D62D6
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 18:01:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49605.87755 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44DA92D62E9
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 18:03:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49627.87765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knPJT-0007aQ-Bo; Thu, 10 Dec 2020 17:01:07 +0000
+	id 1knPLt-0007uy-Ns; Thu, 10 Dec 2020 17:03:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49605.87755; Thu, 10 Dec 2020 17:01:07 +0000
+Received: by outflank-mailman (output) from mailman id 49627.87765; Thu, 10 Dec 2020 17:03:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knPJT-0007Zz-79; Thu, 10 Dec 2020 17:01:07 +0000
-Received: by outflank-mailman (input) for mailman id 49605;
- Thu, 10 Dec 2020 17:01:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1knPLt-0007uc-Kl; Thu, 10 Dec 2020 17:03:37 +0000
+Received: by outflank-mailman (input) for mailman id 49627;
+ Thu, 10 Dec 2020 17:03:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BLK9=FO=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
- id 1knPJR-0007YB-7R
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 17:01:05 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 416ef82b-5042-482d-978e-15753698a07b;
- Thu, 10 Dec 2020 17:01:04 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EA64D30E;
- Thu, 10 Dec 2020 09:01:03 -0800 (PST)
-Received: from scm-wfh-server-rahsin01.stack04.eu02.mi.arm.com (unknown
- [10.58.246.76])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0FBCE3F66B;
- Thu, 10 Dec 2020 09:01:02 -0800 (PST)
+ <SRS0=oBdS=FO=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1knPLs-0007uQ-4Z
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 17:03:36 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6f1fba60-e35e-4e97-9cb2-02710a4af8a0;
+ Thu, 10 Dec 2020 17:03:33 +0000 (UTC)
+Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
+ 0BAH3PYb016977
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Thu, 10 Dec 2020 18:03:26 +0100 (MET)
+Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
+ id EA5A42E9383; Thu, 10 Dec 2020 18:03:19 +0100 (MET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,121 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 416ef82b-5042-482d-978e-15753698a07b
-From: Rahul Singh <rahul.singh@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	rahul.singh@arm.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 8/8] xen/arm: smmuv3: Remove linux compatibility functions.
-Date: Thu, 10 Dec 2020 16:57:06 +0000
-Message-Id: <c38df3122a9e74e2324936c8bd36d372cdc3009a.1607617848.git.rahul.singh@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <cover.1607617848.git.rahul.singh@arm.com>
-References: <cover.1607617848.git.rahul.singh@arm.com>
-In-Reply-To: <cover.1607617848.git.rahul.singh@arm.com>
-References: <cover.1607617848.git.rahul.singh@arm.com>
+X-Inumbo-ID: 6f1fba60-e35e-4e97-9cb2-02710a4af8a0
+Date: Thu, 10 Dec 2020 18:03:19 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: dom0 PV looping on search_pre_exception_table()
+Message-ID: <20201210170319.GG455@antioche.eu.org>
+References: <20201209135908.GA4269@antioche.eu.org>
+ <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
+ <20201209154431.GA4913@antioche.eu.org>
+ <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
+ <20201209163049.GA6158@antioche.eu.org>
+ <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
+ <20201209185714.GS1469@antioche.eu.org>
+ <6c06abf1-7efe-f02c-536a-337a2704e265@citrix.com>
+ <20201210095139.GA455@antioche.eu.org>
+ <4c3bff12-821b-83fb-e054-61b07b97fa70@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4c3bff12-821b-83fb-e054-61b07b97fa70@citrix.com>
+X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Thu, 10 Dec 2020 18:03:26 +0100 (MET)
 
-Replace all Linux compatible device tree handling function with the XEN
-functions.
+On Thu, Dec 10, 2020 at 03:51:46PM +0000, Andrew Cooper wrote:
+> > [   7.6617663] cs 0x47  ds 0x23  es 0x23  fs 0000  gs 0000  ss 0x3f
+> > [   7.7345663] fsbase 000000000000000000 gsbase 000000000000000000
+> >
+> > so it looks like something resets %fs to 0 ...
+> >
+> > Anyway the fault address 0xffffbd800000a040 is in the hypervisor's range,
+> > isn't it ?
+> 
+> No.  Its the kernel's LDT.  From previous debugging:
+> > (XEN) %cr2 ffff820000010040, LDT base ffffbd000000a000, limit 0057
+> 
+> LDT handling in Xen is a bit complicated.  To maintain host safety, we
+> must map it into Xen's range, and we explicitly support a PV guest doing
+> on-demand mapping of the LDT.  (This pertains to the experimental
+> Windows XP PV support which never made it beyond a prototype.  Windows
+> can page out the LDT.)  Either way, we lazily map the LDT frames on
+> first use.
+> 
+> So %cr2 is the real hardware faulting address, and is in the Xen range. 
+> We spot that it is an LDT access, and try to lazily map the frame (at
+> LDT base), but find that the kernel's virtual address mapping
+> 0xffffbd000000a000 is not present (the gl1e printk).
+> 
+> Therefore, we pass #PF to the guest kernel, adjusting vCR2 to what would
+> have happened had Xen not mapped the real LDT elsewhere, which is
+> expected to cause the guest kernel to do whatever demand mapping is
+> necessary to pull the LDT back in.
+> 
+> 
+> I suppose it is worth taking a step back and ascertaining how exactly
+> NetBSD handles (or, should be handling) the LDT.
+> 
+> Do you mind elaborating on how it is supposed to work?
 
-Replace all Linux ktime function with the XEN time functions.
+Note that I'm not familiar with this selector stuff; and I usually get
+it wrong the first time I go back to it.
 
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
----
-Changes in v3:
- - This patch is introduce in this version.
+AFAIK, in the Xen PV case, a page is allocated an mapped in kernel
+space, and registered to Xen with MMUEXT_SET_LDT.
+From what I found, in the common case the LDT is the same for all processes.
+Does it make sense ?
 
----
- xen/drivers/passthrough/arm/smmu-v3.c | 32 +++++++--------------------
- 1 file changed, 8 insertions(+), 24 deletions(-)
-
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-index 65b3db94ad..c19c56ebc8 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -101,22 +101,6 @@ typedef unsigned int		gfp_t;
- 
- #define GFP_KERNEL		0
- 
--/* Alias to Xen device tree helpers */
--#define device_node			dt_device_node
--#define of_phandle_args		dt_phandle_args
--#define of_device_id		dt_device_match
--#define of_match_node		dt_match_node
--#define of_property_read_u32(np, pname, out)	\
--		(!dt_property_read_u32(np, pname, out))
--#define of_property_read_bool		dt_property_read_bool
--#define of_parse_phandle_with_args	dt_parse_phandle_with_args
--
--/* Alias to Xen time functions */
--#define ktime_t s_time_t
--#define ktime_get()			(NOW())
--#define ktime_add_us(t, i)		(t + MICROSECS(i))
--#define ktime_compare(t, i)		(t > (i))
--
- /* Alias to Xen allocation helpers */
- #define kzalloc(size, flags)	_xzalloc(size, sizeof(void *))
- #define kfree	xfree
-@@ -922,7 +906,7 @@ static void parse_driver_options(struct arm_smmu_device *smmu)
- 	int i = 0;
- 
- 	do {
--		if (of_property_read_bool(smmu->dev->of_node,
-+		if (dt_property_read_bool(smmu->dev->of_node,
- 						arm_smmu_options[i].prop)) {
- 			smmu->options |= arm_smmu_options[i].opt;
- 			dev_notice(smmu->dev, "option %s\n",
-@@ -994,17 +978,17 @@ static void queue_inc_prod(struct arm_smmu_ll_queue *q)
-  */
- static int queue_poll_cons(struct arm_smmu_queue *q, bool sync, bool wfe)
- {
--	ktime_t timeout;
-+	s_time_t timeout;
- 	unsigned int delay = 1, spin_cnt = 0;
- 
- 	/* Wait longer if it's a CMD_SYNC */
--	timeout = ktime_add_us(ktime_get(), sync ?
-+	timeout = NOW() + MICROSECS(sync ?
- 					    ARM_SMMU_CMDQ_SYNC_TIMEOUT_US :
- 					    ARM_SMMU_POLL_TIMEOUT_US);
- 
- 	while (queue_sync_cons_in(q),
- 	      (sync ? !queue_empty(&q->llq) : queue_full(&q->llq))) {
--		if (ktime_compare(ktime_get(), timeout) > 0)
-+		if ((NOW() > timeout) > 0)
- 			return -ETIMEDOUT;
- 
- 		if (wfe) {
-@@ -1232,13 +1216,13 @@ static void arm_smmu_cmdq_issue_cmd(struct arm_smmu_device *smmu,
-  */
- static int __arm_smmu_sync_poll_msi(struct arm_smmu_device *smmu, u32 sync_idx)
- {
--	ktime_t timeout;
-+	s_time_t timeout;
- 	u32 val;
- 
--	timeout = ktime_add_us(ktime_get(), ARM_SMMU_CMDQ_SYNC_TIMEOUT_US);
-+	timeout = NOW() + MICROSECS(ARM_SMMU_CMDQ_SYNC_TIMEOUT_US);
- 	val = smp_cond_load_acquire(&smmu->sync_count,
- 				    (int)(VAL - sync_idx) >= 0 ||
--				    !ktime_before(ktime_get(), timeout));
-+				    !(NOW() < timeout));
- 
- 	return (int)(val - sync_idx) < 0 ? -ETIMEDOUT : 0;
- }
-@@ -2969,7 +2953,7 @@ static int arm_smmu_device_dt_probe(struct platform_device *pdev,
- 	u32 cells;
- 	int ret = -EINVAL;
- 
--	if (of_property_read_u32(dev->of_node, "#iommu-cells", &cells))
-+	if (!dt_property_read_u32(dev->of_node, "#iommu-cells", &cells))
- 		dev_err(dev, "missing #iommu-cells property\n");
- 	else if (cells != 1)
- 		dev_err(dev, "invalid #iommu-cells value (%d)\n", cells);
 -- 
-2.17.1
-
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
