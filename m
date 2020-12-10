@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A47E2D5C3D
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:49:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49262.87107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8261D2D5C3E
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 14:49:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49265.87120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMK7-0006rb-RY; Thu, 10 Dec 2020 13:49:35 +0000
+	id 1knMKM-0006y1-8u; Thu, 10 Dec 2020 13:49:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49262.87107; Thu, 10 Dec 2020 13:49:35 +0000
+Received: by outflank-mailman (output) from mailman id 49265.87120; Thu, 10 Dec 2020 13:49:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knMK7-0006r8-Nt; Thu, 10 Dec 2020 13:49:35 +0000
-Received: by outflank-mailman (input) for mailman id 49262;
- Thu, 10 Dec 2020 13:49:34 +0000
+	id 1knMKM-0006xZ-2I; Thu, 10 Dec 2020 13:49:50 +0000
+Received: by outflank-mailman (input) for mailman id 49265;
+ Thu, 10 Dec 2020 13:49:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nlUt=FO=redhat.com=marcandre.lureau@srs-us1.protection.inumbo.net>)
- id 1knMK6-0006qi-1z
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:49:34 +0000
+ id 1knMKK-0006vX-Ep
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 13:49:48 +0000
 Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 0b1dd360-49ae-47d2-93a4-9ab387acf17a;
- Thu, 10 Dec 2020 13:49:33 +0000 (UTC)
+ id 63ae00f5-a893-456d-8a2a-2acd1aef07f7;
+ Thu, 10 Dec 2020 13:49:45 +0000 (UTC)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-100-nqVUJhY8NMCkTQFWY4kjLQ-1; Thu, 10 Dec 2020 08:49:25 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
+ us-mta-548-wSJyU3UuOkCKoQd_7B4-4g-1; Thu, 10 Dec 2020 08:49:41 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC6A6800D53;
- Thu, 10 Dec 2020 13:49:23 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B9659107ACE4;
+ Thu, 10 Dec 2020 13:49:39 +0000 (UTC)
 Received: from localhost (unknown [10.36.110.59])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 5511D19713;
- Thu, 10 Dec 2020 13:49:10 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 1AE7B5C1C4;
+ Thu, 10 Dec 2020 13:49:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,18 +48,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b1dd360-49ae-47d2-93a4-9ab387acf17a
+X-Inumbo-ID: 63ae00f5-a893-456d-8a2a-2acd1aef07f7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607608173;
+	s=mimecast20190719; t=1607608185;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UPLHk9PCXdFlionEQtiO0kTXHb3i/E1vdNJvbkD9DzE=;
-	b=NlJWsN9ZQl1y5xFXt1IMrt+nS8p59zoCaIRnx6+hdsg5kUGkBf4wjC3vLZAdsodqS83wbl
-	SlcNiaL/LGpOZC7gbMsfRsj6uh3u18ZNK5WrIF9CzeEd9tLuDypnM3Co7yj/ufSDM0YxF+
-	7H5WJmRhYfieh2AfEPkEj1mOPaQEpxc=
-X-MC-Unique: nqVUJhY8NMCkTQFWY4kjLQ-1
+	bh=iHYSa9kEpwoKzIqL0kHciIz6Aw/ueVjJb1/YiLOQ2lU=;
+	b=PWeD6ogERY3OVZgXFvXfWlGIDhAxwR6vP3/codNXBXPdxcBFtkAvgyUdlpA30lwt3MhfG3
+	Fw0MX0bYKMd4exQojM4bnVJJv1+igCJLJfssAR/C29c1mdt0bUIqxJcOKXa3uaLi2v8U/j
+	j+cK0TyVY4g3A7yWg6CHfcaQCg13PQM=
+X-MC-Unique: wSJyU3UuOkCKoQd_7B4-4g-1
 From: marcandre.lureau@redhat.com
 To: qemu-devel@nongnu.org
 Cc: philmd@redhat.com,
@@ -76,13 +76,13 @@ Cc: philmd@redhat.com,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Peter Maydell <peter.maydell@linaro.org>,
 	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>
-Subject: [PATCH v3 05/13] tests: remove GCC < 4 fallbacks
-Date: Thu, 10 Dec 2020 17:47:44 +0400
-Message-Id: <20201210134752.780923-6-marcandre.lureau@redhat.com>
+Subject: [PATCH v3 06/13] virtiofsd: replace _Static_assert with QEMU_BUILD_BUG_ON
+Date: Thu, 10 Dec 2020 17:47:45 +0400
+Message-Id: <20201210134752.780923-7-marcandre.lureau@redhat.com>
 In-Reply-To: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 References: <20201210134752.780923-1-marcandre.lureau@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=marcandre.lureau@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -92,37 +92,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Marc-André Lureau <marcandre.lureau@redhat.com>
 
-Since commit efc6c07 ("configure: Add a test for the minimum compiler
-version"), QEMU explicitely depends on GCC >= 4.8.
-
-(clang >= 3.4 advertizes itself as GCC >= 4.2 compatible)
+This allows to get rid of a check for older GCC version (which was a bit
+bogus too since it was falling back on c++ version..)
 
 Signed-off-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-Acked-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- tests/tcg/arm/fcvt.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ tools/virtiofsd/fuse_common.h | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
-diff --git a/tests/tcg/arm/fcvt.c b/tests/tcg/arm/fcvt.c
-index 617626bc63..7ac47b564e 100644
---- a/tests/tcg/arm/fcvt.c
-+++ b/tests/tcg/arm/fcvt.c
-@@ -73,11 +73,9 @@ static void print_int64(int i, int64_t num)
+diff --git a/tools/virtiofsd/fuse_common.h b/tools/virtiofsd/fuse_common.h
+index 5aee5193eb..a2484060b6 100644
+--- a/tools/virtiofsd/fuse_common.h
++++ b/tools/virtiofsd/fuse_common.h
+@@ -809,15 +809,6 @@ void fuse_remove_signal_handlers(struct fuse_session *se);
+  *
+  * On 32bit systems please add -D_FILE_OFFSET_BITS=64 to your compile flags!
+  */
+-
+-#if defined(__GNUC__) &&                                      \
+-    (__GNUC__ > 4 || __GNUC__ == 4 && __GNUC_MINOR__ >= 6) && \
+-    !defined __cplusplus
+-_Static_assert(sizeof(off_t) == 8, "fuse: off_t must be 64bit");
+-#else
+-struct _fuse_off_t_must_be_64bit_dummy_struct {
+-    unsigned _fuse_off_t_must_be_64bit:((sizeof(off_t) == 8) ? 1 : -1);
+-};
+-#endif
++QEMU_BUILD_BUG_ON(sizeof(off_t) != 8);
  
- #ifndef SNANF
- /* Signaling NaN macros, if supported.  */
--# if __GNUC_PREREQ(3, 3)
--#  define SNANF (__builtin_nansf (""))
--#  define SNAN (__builtin_nans (""))
--#  define SNANL (__builtin_nansl (""))
--# endif
-+# define SNANF (__builtin_nansf (""))
-+# define SNAN (__builtin_nans (""))
-+# define SNANL (__builtin_nansl (""))
- #endif
- 
- float single_numbers[] = { -SNANF,
+ #endif /* FUSE_COMMON_H_ */
 -- 
 2.29.0
 
