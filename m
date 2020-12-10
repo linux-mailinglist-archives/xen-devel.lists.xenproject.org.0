@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53D1C2D6700
+	by mail.lfdr.de (Postfix) with ESMTPS id 655E72D6702
 	for <lists+xen-devel@lfdr.de>; Thu, 10 Dec 2020 20:42:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49701.87915 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.49703.87944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRpi-0007fM-7g; Thu, 10 Dec 2020 19:42:34 +0000
+	id 1knRpn-0007qi-W1; Thu, 10 Dec 2020 19:42:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49701.87915; Thu, 10 Dec 2020 19:42:34 +0000
+Received: by outflank-mailman (output) from mailman id 49703.87944; Thu, 10 Dec 2020 19:42:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knRph-0007de-Vy; Thu, 10 Dec 2020 19:42:33 +0000
-Received: by outflank-mailman (input) for mailman id 49701;
- Thu, 10 Dec 2020 19:42:32 +0000
+	id 1knRpn-0007pd-Qc; Thu, 10 Dec 2020 19:42:39 +0000
+Received: by outflank-mailman (input) for mailman id 49703;
+ Thu, 10 Dec 2020 19:42:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hbU1=FO=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1knRpg-0007NY-HN
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:32 +0000
+ id 1knRpl-0007NY-HQ
+ for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 19:42:37 +0000
 Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2184410b-89a9-439f-b41e-9435301c810d;
- Thu, 10 Dec 2020 19:42:20 +0000 (UTC)
+ id b4d33a7a-fefc-4ebe-981c-ea5d03fd709c;
+ Thu, 10 Dec 2020 19:42:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,28 +35,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2184410b-89a9-439f-b41e-9435301c810d
-Message-Id: <20201210194042.967177918@linutronix.de>
+X-Inumbo-ID: b4d33a7a-fefc-4ebe-981c-ea5d03fd709c
+Message-Id: <20201210194043.067097663@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607629339;
+	s=2020; t=1607629341;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=gYsowh6i1mqGXNg6FrEIlf+Px9WkTuZjYPGZA4AoQf4=;
-	b=gQRR2ovC6G1wG0/hHfvHA26mBklNiMZtkvMBYZWjgQshlf7o+cIXoD11qJjLT48W0LHgJA
-	5Zvfg1News0uQs48erbM5kmDtHengxfmuqG2DKGnaIJ04vg1FJ7jnVpZXG8cNwMy19OeFP
-	iPFhPWqfd87RfMeVK3ZgF11+LhI8jQI6rRQAPId6pBGrjdbz5+dRwipziIghpyTp0+nYcu
-	/rMQolvJykCdajiQdhpg5/73/PAnO6jEv3XXq/Rv9w9yxTGzkAvSFeWdlWRlX1S05CmH1R
-	pxA14gUUPV2LrG7qMC56g75TqBVjQeX4kqlFmRI413CglTnFsrbWRi0PstpOew==
+	bh=an/0SlT10gC/rfGB9cofMBAbBc2y8gDRMVN0GHlSQuQ=;
+	b=4P4kE5RTAFQxk4E9p2NZ5tVZaT/fVdqT6FUBVR+n0VlRr8uKLCY6ouByJWK/y9MigmPqnb
+	tesyONzFlkjZdJe1WWdFvx3h+r+GXjLB7sIlmHBZwN8ZTN8764SDWmNv/29J0LI/juCzrG
+	5AR2DIz8iI4y5+WrS2Gk+rZPh543USYMAHoeudVHDJ9Wges2zOPIJ3rC2brtEkqswFGEBV
+	qoEKpCAHt2vMMptUuKRYjL5+zlSE91zw5P4yyaAjNJTKm8BCJhUlMmWxn/QqILbbs/4fJM
+	zRFVwll3IxpXJvkmkahKFPnuLZWACJTleFizSON231iYySZCGseiBRgkWQqHew==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607629339;
+	s=2020e; t=1607629341;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:  references:references;
-	bh=gYsowh6i1mqGXNg6FrEIlf+Px9WkTuZjYPGZA4AoQf4=;
-	b=rxr0RqK5G71Mdyjh0pmNkfya7BLBal4i+pBNw5B4iIspa3uaIBOFXW7QFkpv0Ae/Yof/mz
-	NtSLBAk6jBeGNuDQ==
-Date: Thu, 10 Dec 2020 20:25:40 +0100
+	bh=an/0SlT10gC/rfGB9cofMBAbBc2y8gDRMVN0GHlSQuQ=;
+	b=0D9iZlJLFfBnhtOaF8MIaZu0T6LGBg7Mhm2UH/Vr6qq568TJA8295HDu2RHkjE+w+f0eVZ
+	+xYpdmSgjdKynXCQ==
+Date: Thu, 10 Dec 2020 20:25:41 +0100
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>,
@@ -109,35 +109,51 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
  Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-Subject: [patch 04/30] genirq: Provide irq_get_effective_affinity()
+Subject: [patch 05/30] genirq: Annotate irq stats data races
 References: <20201210192536.118432146@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-transfer-encoding: 8-bit
 
-Provide an accessor to the effective interrupt affinity mask. Going to be
-used to replace open coded fiddling with the irq descriptor.
+Both the per cpu stats and the accumulated count are accessed lockless and
+can be concurrently modified. That's intentional and the stats are a rough
+estimate anyway. Annotate them with data_race().
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- include/linux/irq.h |    7 +++++++
- 1 file changed, 7 insertions(+)
+ kernel/irq/irqdesc.c |    4 ++--
+ kernel/irq/proc.c    |    5 +++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
---- a/include/linux/irq.h
-+++ b/include/linux/irq.h
-@@ -907,6 +907,13 @@ struct cpumask *irq_data_get_effective_a
+--- a/kernel/irq/irqdesc.c
++++ b/kernel/irq/irqdesc.c
+@@ -943,10 +943,10 @@ unsigned int kstat_irqs(unsigned int irq
+ 	if (!irq_settings_is_per_cpu_devid(desc) &&
+ 	    !irq_settings_is_per_cpu(desc) &&
+ 	    !irq_is_nmi(desc))
+-	    return desc->tot_count;
++		return data_race(desc->tot_count);
+ 
+ 	for_each_possible_cpu(cpu)
+-		sum += *per_cpu_ptr(desc->kstat_irqs, cpu);
++		sum += data_race(*per_cpu_ptr(desc->kstat_irqs, cpu));
+ 	return sum;
  }
- #endif
  
-+static inline struct cpumask *irq_get_effective_affinity_mask(unsigned int irq)
-+{
-+	struct irq_data *d = irq_get_irq_data(irq);
-+
-+	return d ? irq_data_get_effective_affinity_mask(d) : NULL;
-+}
-+
- unsigned int arch_dynirq_lower_bound(unsigned int from);
+--- a/kernel/irq/proc.c
++++ b/kernel/irq/proc.c
+@@ -488,9 +488,10 @@ int show_interrupts(struct seq_file *p,
+ 	if (!desc || irq_settings_is_hidden(desc))
+ 		goto outsparse;
  
- int __irq_alloc_descs(int irq, unsigned int from, unsigned int cnt, int node,
+-	if (desc->kstat_irqs)
++	if (desc->kstat_irqs) {
+ 		for_each_online_cpu(j)
+-			any_count |= *per_cpu_ptr(desc->kstat_irqs, j);
++			any_count |= data_race(*per_cpu_ptr(desc->kstat_irqs, j));
++	}
+ 
+ 	if ((!desc->action || irq_desc_is_chained(desc)) && !any_count)
+ 		goto outsparse;
 
 
