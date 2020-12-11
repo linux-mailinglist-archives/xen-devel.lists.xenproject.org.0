@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69DBB2D72FC
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 10:43:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.50250.88832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 134BA2D7314
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 10:53:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.50261.88844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knex8-0001jD-13; Fri, 11 Dec 2020 09:43:06 +0000
+	id 1knf62-0002oH-VB; Fri, 11 Dec 2020 09:52:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 50250.88832; Fri, 11 Dec 2020 09:43:05 +0000
+Received: by outflank-mailman (output) from mailman id 50261.88844; Fri, 11 Dec 2020 09:52:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knex7-0001io-U7; Fri, 11 Dec 2020 09:43:05 +0000
-Received: by outflank-mailman (input) for mailman id 50250;
- Fri, 11 Dec 2020 09:43:03 +0000
+	id 1knf62-0002nr-RW; Fri, 11 Dec 2020 09:52:18 +0000
+Received: by outflank-mailman (input) for mailman id 50261;
+ Fri, 11 Dec 2020 09:52:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9HZb=FP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1knex5-0001ij-SF
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 09:43:03 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d0pw=FP=intel.com=jani.nikula@srs-us1.protection.inumbo.net>)
+ id 1knf61-0002nm-Bq
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 09:52:17 +0000
+Received: from mga12.intel.com (unknown [192.55.52.136])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9902b670-8dfe-4c8a-8bc7-d7ae342bf8c8;
- Fri, 11 Dec 2020 09:43:01 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9B8BBAD5A;
- Fri, 11 Dec 2020 09:43:00 +0000 (UTC)
+ id ed09696d-d007-410e-996f-ce74805d79dc;
+ Fri, 11 Dec 2020 09:52:15 +0000 (UTC)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 01:52:14 -0800
+Received: from dkreft-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.249.158.206])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 01:52:00 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,117 +43,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9902b670-8dfe-4c8a-8bc7-d7ae342bf8c8
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607679780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MPNDFknFct4DE2OXIeQwMKd20dtrKuTG5KpVP1Qra+I=;
-	b=agW2rTLblAgeGwkpaRGwKeGidQEsnkVC/OxBwxkV+vPYEFQ/XENhljH6ITmLlEyrpf+Gva
-	aH0b7vTv2/PvQooWyWxR9WZb9TB6PwUwYXzhd+i3CbhmnSfEAzi8Cy+IpxcBa4dyDLVV54
-	qDKZ30XU5I9weF9AwaBndbaiySvPHlI=
-Subject: Re: [PATCH] x86/HVM: refine when to send mapcache invalidation
- request to qemu
-To: Hongyan Xia <hx242@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "olekstysh@gmail.com" <olekstysh@gmail.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>
-References: <f92f62bf-2f8d-34db-4be5-d3e6a4b9d580@suse.com>
- <c6bcaecf71f9e51bdac15c7f97c8ce8460bef306.camel@xen.org>
- <d522f01e-af5f-fc65-2888-2573dbcefcf5@suse.com>
- <e484c21ccda8c0c8049655288d7bf72f74f0de38.camel@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <af2d462e-be7c-9a8d-8421-69e3d6e0d948@suse.com>
-Date: Fri, 11 Dec 2020 10:43:00 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+X-Inumbo-ID: ed09696d-d007-410e-996f-ce74805d79dc
+IronPort-SDR: s2Qni574t8YgehTm1gtnv3CLeXL4biW8f6va+2fW2T0jWbJkUwAyRi47+ynMTKOytygnmCDDB8
+ AS3VIAzDE4Rw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="153640765"
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; 
+   d="scan'208";a="153640765"
+IronPort-SDR: PVl8OU8ROdRYNRcuuI1cwHnm0Pahwqqsf4O0coU6GZWsYYiN/hRTouvAiYE5Ccs0+xvEJJqBLa
+ InJ3eAdxnHfQ==
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; 
+   d="scan'208";a="440808660"
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Thomas
+ Gleixner <tglx@linutronix.de>
+Cc: Mark Rutland <mark.rutland@arm.com>, Karthikeyan Mitran
+ <m.karthikeyan@mobiveil.co.in>, Peter Zijlstra <peterz@infradead.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Linus Walleij
+ <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org, Chris Wilson
+ <chris@chris-wilson.co.uk>, "James E.J. Bottomley"
+ <James.Bottomley@hansenpartnership.com>, Russell King
+ <linux@armlinux.org.uk>, afzal mohammed <afzal.mohd.ma@gmail.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Rob Herring <robh@kernel.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Dave Jiang
+ <dave.jiang@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ linux-rdma@vger.kernel.org, Marc Zyngier <maz@kernel.org>, Helge Deller
+ <deller@gmx.de>, Michal Simek <michal.simek@xilinx.com>, Christian
+ Borntraeger <borntraeger@de.ibm.com>, linux-pci@vger.kernel.org,
+ xen-devel@lists.xenproject.org, intel-gfx@lists.freedesktop.org, Wambui
+ Karuga <wambui.karugax@gmail.com>, Allen Hubbe <allenbh@gmail.com>, Will
+ Deacon <will@kernel.org>, linux-s390@vger.kernel.org, Heiko Carstens
+ <hca@linux.ibm.com>, linux-gpio@vger.kernel.org, Stefano Stabellini
+ <sstabellini@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, Juergen Gross <jgross@suse.com>,
+ David Airlie <airlied@linux.ie>, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, LKML
+ <linux-kernel@vger.kernel.org>, Tariq Toukan <tariqt@nvidia.com>, Jon
+ Mason <jdmason@kudzu.us>, linux-ntb@googlegroups.com, Saeed Mahameed
+ <saeedm@nvidia.com>, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Intel-gfx] [patch 13/30] drm/i915/lpe_audio: Remove pointless irq_to_desc() usage
+In-Reply-To: <X9J7h+myHaraeoKH@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20201210192536.118432146@linutronix.de> <20201210194043.862572239@linutronix.de> <X9J7h+myHaraeoKH@intel.com>
+Date: Fri, 11 Dec 2020 11:51:57 +0200
+Message-ID: <87zh2k7jr6.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <e484c21ccda8c0c8049655288d7bf72f74f0de38.camel@xen.org>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 10.12.2020 16:55, Hongyan Xia wrote:
-> On Thu, 2020-12-10 at 14:37 +0100, Jan Beulich wrote:
->> On 10.12.2020 14:09, Hongyan Xia wrote:
->>> On Mon, 2020-09-28 at 12:44 +0200, Jan Beulich wrote:
->>>> Plus finally there's no point sending the request for the local
->>>> domain
->>>> when the domain acted upon is a different one. If anything that
->>>> domain's
->>>> qemu's mapcache may need invalidating, but it's unclear how
->>>> useful
->>>> this
->>>> would be: That remote domain may not execute hypercalls at all,
->>>> and
->>>> hence may never make it to the point where the request actually
->>>> gets
->>>> issued. I guess the assumption is that such manipulation is not
->>>> supposed
->>>> to happen anymore once the guest has been started?
->>>
->>> I may still want to set the invalidation signal to true even if the
->>> domain acted on is not the local domain. I know the remote domain
->>> may
->>> never reach the point to issue the invalidate, but it sounds to me
->>> that
->>> the problem is not whether we should set the signal but whether we
->>> can
->>> change where the signal is checked to make sure the point of issue
->>> can
->>> be reliably triggered, and the latter can be done in a future
->>> patch.
->>
->> One of Paul's replies was quite helpful here: The main thing to
-> 
-> Hmm, I seem to not be able to see the whole thread...
+On Thu, 10 Dec 2020, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Thu, Dec 10, 2020 at 08:25:49PM +0100, Thomas Gleixner wrote:
+>> Nothing uses the result and nothing should ever use it in driver code.
+>>=20
+>> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+>> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>> Cc: David Airlie <airlied@linux.ie>
+>> Cc: Daniel Vetter <daniel@ffwll.ch>
+>> Cc: Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
+>> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+>> Cc: Wambui Karuga <wambui.karugax@gmail.com>
+>> Cc: intel-gfx@lists.freedesktop.org
+>> Cc: dri-devel@lists.freedesktop.org
+>
+> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-This may have been on the thread which had prompted the creation
-of this patch.
+Thomas, I presume you want to merge this series as a whole.
 
->> worry about is for the vCPU to not continue running before the
->> invalidation request was signaled (or else, aiui, qemu may serve
->> a subsequent emulation request by the guest incorrectly, because
->> of using the stale mapping). Hence I believe for a non-paused
->> guest remote operations simply cannot be allowed when the may
->> lead to the need for invalidation. Therefore yes, if we assume
->> the guest is paused in such cases, we could drop the "is current"
->> check, but we'd then still need to arrange for actual signaling
->> before the guest gets to run again. I wonder whether
->> handle_hvm_io_completion() (or its caller, hvm_do_resume(),
->> right after that other call) wouldn't be a good place to do so.
-> 
-> Actually, the existing code must assume that when QEMU is up, the only
-> one that manipulates the p2m is the guest itself like you said.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-Not sure what "that" you mean existing code must assume, and why
-you would outright exclude external p2m manipulation when the
-guest is up. At the very least in a hypothetical memory-hot-
-unplug scenario manipulation would still necessarily occur from
-outside the guest (yet without real need for pausing it). And
-obviously mem-sharing and mem-paging are also doing external
-manipulations, albeit maybe they pause the guest for every
-change.
+for merging via whichever tree makes most sense. Please let us know if
+you want us to pick this up via drm-intel instead.
 
-> If the
-> caller is XENMEM_decrease_reservation, the code does not even check
-> which p2m this is for and unconditionally sets the QEMU invalidate flag
-> for the current domain.
+>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_lpe_audio.c |    4 ----
+>>  1 file changed, 4 deletions(-)
+>>=20
+>> --- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+>> @@ -297,13 +297,9 @@ int intel_lpe_audio_init(struct drm_i915
+>>   */
+>>  void intel_lpe_audio_teardown(struct drm_i915_private *dev_priv)
+>>  {
+>> -	struct irq_desc *desc;
+>> -
+>>  	if (!HAS_LPE_AUDIO(dev_priv))
+>>  		return;
+>>=20=20
+>> -	desc =3D irq_to_desc(dev_priv->lpe_audio.irq);
+>> -
+>>  	lpe_audio_platdev_destroy(dev_priv);
+>>=20=20
+>>  	irq_free_desc(dev_priv->lpe_audio.irq);
+>>=20
+>> _______________________________________________
+>> Intel-gfx mailing list
+>> Intel-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
 
-This observation is part of what had prompted the change here.
-
-> Athough this assumption may simply be wrong
-> now, so I agree care should be taken for remote p2m ops (I may need to
-> read the code more to know how this should be done).
-
-I believe the assumption stems from the time where the controlling
-domain would necessarily be PV, and hence a decrease-reservation
-request by a HVM domain could only have been for itself.
-
-Jan
+--=20
+Jani Nikula, Intel Open Source Graphics Center
 
