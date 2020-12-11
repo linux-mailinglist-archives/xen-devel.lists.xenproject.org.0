@@ -2,28 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1D222D7796
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 15:17:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.50640.89362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942302D77A3
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 15:19:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.50647.89373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knjDv-0007f5-KY; Fri, 11 Dec 2020 14:16:43 +0000
+	id 1knjGL-0007pC-21; Fri, 11 Dec 2020 14:19:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 50640.89362; Fri, 11 Dec 2020 14:16:43 +0000
+Received: by outflank-mailman (output) from mailman id 50647.89373; Fri, 11 Dec 2020 14:19:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knjDv-0007eg-H3; Fri, 11 Dec 2020 14:16:43 +0000
-Received: by outflank-mailman (input) for mailman id 50640;
- Fri, 11 Dec 2020 14:16:42 +0000
+	id 1knjGK-0007oq-V3; Fri, 11 Dec 2020 14:19:12 +0000
+Received: by outflank-mailman (input) for mailman id 50647;
+ Fri, 11 Dec 2020 14:19:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nv6e=FP=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1knjDu-0007ea-Ac
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 14:16:42 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d12eb43e-2f46-4a07-8aeb-58085b813241;
- Fri, 11 Dec 2020 14:16:40 +0000 (UTC)
+ <SRS0=Aoib=FP=aculab.com=david.laight@srs-us1.protection.inumbo.net>)
+ id 1knjGK-0007ol-2S
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 14:19:12 +0000
+Received: from eu-smtp-delivery-151.mimecast.com (unknown [185.58.86.151])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 504687d0-e28a-4fed-a5ed-2672fa0832d0;
+ Fri, 11 Dec 2020 14:19:11 +0000 (UTC)
+Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ uk-mta-53-s0AncPC_O7qxZEyLU7X13A-1; Fri, 11 Dec 2020 14:19:07 +0000
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
+ AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
+ Server (TLS) id 15.0.1347.2; Fri, 11 Dec 2020 14:19:05 +0000
+Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
+ AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000; 
+ Fri, 11 Dec 2020 14:19:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,140 +44,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d12eb43e-2f46-4a07-8aeb-58085b813241
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1607696200;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=8H42SUW0bR+8N2cMiG0OFcydNJK4AD9EAmy9cNPqMes=;
-  b=QxJtiGo33lnCKH0ix7z83xnvm1wNLPujhUocW8KSYQIcMIaufICcv0XC
-   0EhMCX10iOVitVaHwwz8uF9xc2oU7vqNdCaNGQ0W23LjM0WaoQx5vL+bj
-   LhL1XdvPbYWrPpfrHiysa+r2mjPNkowZ2sdCvUE7TGH5Bf8bazvpzvu53
-   I=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: K/hnHrSfABfZTpsNhA/pGdRyqzpZOXPhq4DhGpjVbeyslbvyAzd555Hm/LJfPGmox3HTuwdg0B
- 9Z7WudJnerU5NJImmkowFvFY77OTACjec7QwG9FK1GKfACUzuWs6Kw5tgFybJ5KnSq9+xkYqGQ
- 3eNrwh9MDHkpxez4suqGwhE9g4GVv5goSUca0JDb8jKTjGN2Zu/u2HPt2susyjNerec37Mlf6C
- UaqviWFTx5e2fN8PMELHvoyP4H5A6jbq/b+Fh8k+LHb0sO6Utz6oBIy/FezKO3dDTtVt/6GyI2
- OO4=
-X-SBRS: 5.2
-X-MesageID: 33012202
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,411,1599537600"; 
-   d="scan'208";a="33012202"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Manuel Bouyer
-	<bouyer@antioche.eu.org>
-Subject: [PATCH] Revert "x86/mm: drop guest_get_eff_l1e()"
-Date: Fri, 11 Dec 2020 14:16:15 +0000
-Message-ID: <20201211141615.12489-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: 504687d0-e28a-4fed-a5ed-2672fa0832d0
+X-MC-Unique: s0AncPC_O7qxZEyLU7X13A-1
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Thomas Gleixner' <tglx@linutronix.de>, Tvrtko Ursulin
+	<tvrtko.ursulin@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>
+CC: Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>, Jani
+ Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+	<joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "James
+ E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller
+	<deller@gmx.de>, afzal mohammed <afzal.mohd.ma@gmail.com>,
+	"linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>, Russell King
+	<linux@armlinux.org.uk>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, Mark Rutland <mark.rutland@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+	Christian Borntraeger <borntraeger@de.ibm.com>, Heiko Carstens
+	<hca@linux.ibm.com>, "linux-s390@vger.kernel.org"
+	<linux-s390@vger.kernel.org>, Pankaj Bharadiya
+	<pankaj.laxminarayan.bharadiya@intel.com>, Chris Wilson
+	<chris@chris-wilson.co.uk>, Wambui Karuga <wambui.karugax@gmail.com>, "Linus
+ Walleij" <linus.walleij@linaro.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, Lee Jones <lee.jones@linaro.org>, Jon Mason
+	<jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, Allen Hubbe
+	<allenbh@gmail.com>, "linux-ntb@googlegroups.com"
+	<linux-ntb@googlegroups.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, "Michal
+ Simek" <michal.simek@xilinx.com>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, Karthikeyan Mitran
+	<m.karthikeyan@mobiveil.co.in>, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, "Tariq
+ Toukan" <tariqt@nvidia.com>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-rdma@vger.kernel.org"
+	<linux-rdma@vger.kernel.org>, Saeed Mahameed <saeedm@nvidia.com>, "Leon
+ Romanovsky" <leon@kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [patch 14/30] drm/i915/pmu: Replace open coded kstat_irqs() copy
+Thread-Topic: [patch 14/30] drm/i915/pmu: Replace open coded kstat_irqs() copy
+Thread-Index: AQHWz72qwjNpP0n0UkWT70W8RrLS8qnx7xrw
+Date: Fri, 11 Dec 2020 14:19:05 +0000
+Message-ID: <d6cbfa118490459bb0671394f00323fc@AcuMS.aculab.com>
+References: <20201210192536.118432146@linutronix.de>
+ <20201210194043.957046529@linutronix.de>
+ <ad05af1a-5463-2a80-0887-7629721d6863@linux.intel.com>
+ <87y2i4h54i.fsf@nanos.tec.linutronix.de>
+In-Reply-To: <87y2i4h54i.fsf@nanos.tec.linutronix.de>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-This reverts commit 9ff9705647646aa937b5f5c1426a64c69a62b3bd.
+From: Thomas Gleixner
+> Sent: 11 December 2020 12:58
+..
+> > After my failed hasty sketch from last night I had a different one whic=
+h
+> > was kind of heuristics based (re-reading the upper dword and retrying i=
+f
+> > it changed on 32-bit).
+>=20
+> The problem is that there will be two seperate modifications for the low
+> and high word. Several ways how the compiler can translate this, but the
+> problem is the same for all of them:
+>=20
+> CPU 0                           CPU 1
+>         load low
+>         load high
+>         add  low, 1
+>         addc high, 0
+>         store low               load high
+> --> NMI                         load low
+>                                 load high and compare
+>         store high
+>=20
+> You can't catch that. If this really becomes an issue you need a
+> sequence counter around it.
 
-The change is only correct in the original context of XSA-286, where Xen's use
-of the linear pagetables were dropped.  However, performance problems
-interfered with that plan, and XSA-286 was fixed differently.
+Or just two copies of the high word.
+Provided the accesses are sequenced:
+writer:
+=09load high:low
+=09add small_value,high:low
+=09store high
+=09store low
+=09store high_copy
+reader:
+=09load high_copy
+=09load low
+=09load high
+=09if (high !=3D high_copy)
+=09=09low =3D 0;
 
-This broke Xen's lazy faulting of the LDT for 64bit PV guests when an access
-was first encountered in user context.  Xen would proceed to read the
-registered LDT virtual address out of the user pagetables, not the kernel
-pagetables.
+The read value is always stale, so it probably doesn't
+matter that the value you have is one that is between the
+value when you started and that when you finished.
 
-Given the nature of the bug, it would have also interfered with the IO
-permisison bitmap functionality of userspace, which similarly needs to read
-data using the kernel pagetables.
+=09David
 
-Reported-by: Manuel Bouyer <bouyer@antioche.eu.org>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Tested-by: Manuel Bouyer <bouyer@antioche.eu.org>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Manuel Bouyer <bouyer@antioche.eu.org>
-
-There is also a bug with Xen's IRET handling, but that has been broken forever
-and is much more complicated to fix.  I'll put it on my TODO list, but no idea
-when I'll get around to addressing it.
----
- xen/arch/x86/pv/mm.c            | 21 +++++++++++++++++++++
- xen/arch/x86/pv/mm.h            |  7 ++-----
- xen/arch/x86/pv/ro-page-fault.c |  2 +-
- 3 files changed, 24 insertions(+), 6 deletions(-)
-
-diff --git a/xen/arch/x86/pv/mm.c b/xen/arch/x86/pv/mm.c
-index 5d74d11cba..14cb0f2d4e 100644
---- a/xen/arch/x86/pv/mm.c
-+++ b/xen/arch/x86/pv/mm.c
-@@ -56,6 +56,27 @@ l1_pgentry_t *map_guest_l1e(unsigned long linear, mfn_t *gl1mfn)
- }
- 
- /*
-+ * Read the guest's l1e that maps this address, from the kernel-mode
-+ * page tables.
-+ */
-+static l1_pgentry_t guest_get_eff_kern_l1e(unsigned long linear)
-+{
-+    struct vcpu *curr = current;
-+    const bool user_mode = !(curr->arch.flags & TF_kernel_mode);
-+    l1_pgentry_t l1e;
-+
-+    if ( user_mode )
-+        toggle_guest_pt(curr);
-+
-+    l1e = guest_get_eff_l1e(linear);
-+
-+    if ( user_mode )
-+        toggle_guest_pt(curr);
-+
-+    return l1e;
-+}
-+
-+/*
-  * Map a guest's LDT page (covering the byte at @offset from start of the LDT)
-  * into Xen's virtual range.  Returns true if the mapping changed, false
-  * otherwise.
-diff --git a/xen/arch/x86/pv/mm.h b/xen/arch/x86/pv/mm.h
-index 2a21859dd4..b1b66e46c8 100644
---- a/xen/arch/x86/pv/mm.h
-+++ b/xen/arch/x86/pv/mm.h
-@@ -5,11 +5,8 @@ l1_pgentry_t *map_guest_l1e(unsigned long linear, mfn_t *gl1mfn);
- 
- int new_guest_cr3(mfn_t mfn);
- 
--/*
-- * Read the guest's l1e that maps this address, from the kernel-mode
-- * page tables.
-- */
--static inline l1_pgentry_t guest_get_eff_kern_l1e(unsigned long linear)
-+/* Read a PV guest's l1e that maps this linear address. */
-+static inline l1_pgentry_t guest_get_eff_l1e(unsigned long linear)
- {
-     l1_pgentry_t l1e;
- 
-diff --git a/xen/arch/x86/pv/ro-page-fault.c b/xen/arch/x86/pv/ro-page-fault.c
-index 8d0007ede5..7f6fbc92fb 100644
---- a/xen/arch/x86/pv/ro-page-fault.c
-+++ b/xen/arch/x86/pv/ro-page-fault.c
-@@ -342,7 +342,7 @@ int pv_ro_page_fault(unsigned long addr, struct cpu_user_regs *regs)
-     bool mmio_ro;
- 
-     /* Attempt to read the PTE that maps the VA being accessed. */
--    pte = guest_get_eff_kern_l1e(addr);
-+    pte = guest_get_eff_l1e(addr);
- 
-     /* We are only looking for read-only mappings */
-     if ( ((l1e_get_flags(pte) & (_PAGE_PRESENT | _PAGE_RW)) != _PAGE_PRESENT) )
--- 
-2.11.0
+-
+Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
+PT, UK
+Registration No: 1397386 (Wales)
 
 
