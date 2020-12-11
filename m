@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A9F2D6C06
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 01:05:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49990.88391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 360B92D6C09
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 01:07:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.49995.88403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knVvP-0005WX-0b; Fri, 11 Dec 2020 00:04:43 +0000
+	id 1knVxf-0005fC-DY; Fri, 11 Dec 2020 00:07:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49990.88391; Fri, 11 Dec 2020 00:04:42 +0000
+Received: by outflank-mailman (output) from mailman id 49995.88403; Fri, 11 Dec 2020 00:07:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knVvO-0005WA-T9; Fri, 11 Dec 2020 00:04:42 +0000
-Received: by outflank-mailman (input) for mailman id 49990;
- Fri, 11 Dec 2020 00:04:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1knVxf-0005eo-AA; Fri, 11 Dec 2020 00:07:03 +0000
+Received: by outflank-mailman (input) for mailman id 49995;
+ Fri, 11 Dec 2020 00:07:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YvCS=FP=linutronix.de=tglx@srs-us1.protection.inumbo.net>)
- id 1knVvM-0005W5-Un
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 00:04:40 +0000
-Received: from galois.linutronix.de (unknown [193.142.43.55])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 19051dbb-3b0b-4225-bd80-a9665a49555a;
- Fri, 11 Dec 2020 00:04:39 +0000 (UTC)
+ id 1knVxe-0005ei-Bp
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 00:07:02 +0000
+Received: from galois.linutronix.de (unknown [2a0a:51c0:0:12e:550::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9db10e3d-6517-4091-b077-8ae4bd4b2d4b;
+ Fri, 11 Dec 2020 00:07:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,27 +35,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19051dbb-3b0b-4225-bd80-a9665a49555a
+X-Inumbo-ID: 9db10e3d-6517-4091-b077-8ae4bd4b2d4b
 From: Thomas Gleixner <tglx@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1607645077;
+	s=2020; t=1607645220;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=u4caiGj9t4ml+Fg2/LjvRAStceu1HqnXy5JxnlwmdFA=;
-	b=eJe5C3lGb4euYOQ5NqFfsUko6q7Wl5m2rZaxuQ1CHGu4Pm86NUNkZ6G0XU9RxY87NzbBDc
-	ldDhHBRuz8FurePK9zxQgdZ8itpY4Ib/oRUPYjSjeYReInLr9h7ip+USHGm7wSsyPmDxLv
-	kj/1ZDcjtWRNli3PMHxskKmD4HwrP9Z+f8gXizycgXKbIaIDlgPtawVOXPrlZTSGX8Zfnf
-	IWYCSqSxGsHEKzkDR85bq7gyV8KfYwwNkrQ2+SYN1BD6txCpqD9nrnJuEv/HOAgcIkRmdB
-	DiW9PCPEtazOZRhcxwcj1i5rFCGn+T95DeUWuc+jttPExN8BouNdQm/34fvnLQ==
+	bh=QO8ZPs/aGTq6EeeiALBW4EwIli8xcBfNVbHQE3SuKNs=;
+	b=gGpzgKDIdOJvLB57zkDYdB5nPR7tx5lmvyUREbAkcjTKLREnSTar6ATS+ovX5gwzQX+6as
+	+gKXjZ78+gchUrT83h8ptRu8KDTcmgA5V5jrxe+Iroa2IR3dW4mzdsbfdAz67KCaNXJRFh
+	HyT/Fqjz1nJPJbfByhhTG/yrTVt1YV6bo+ZpfwQUI97MYBpnXtPk3xo0rt3TJ6ElYxaC8x
+	LYoOgKlBWXABRporT9mN8YQ9yVhNAWvziSIf5Q/k/u/zwNWg/xf9bb8eHNApJHV92yI6Fh
+	8Vq/6Agy+63spk92uys0SUp9GgNSiQePxXptHhOLRD+usYLs0evVgfm0CC10Uw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1607645077;
+	s=2020e; t=1607645220;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=u4caiGj9t4ml+Fg2/LjvRAStceu1HqnXy5JxnlwmdFA=;
-	b=z8XrxSbQKj1sp6kNzbU4BhMX1SALkTHGkd40WvYT5KLsIfRVa3pnqtOT9ywbS00FEUqpMv
-	tXHEfFQ9bRMVcSAg==
+	bh=QO8ZPs/aGTq6EeeiALBW4EwIli8xcBfNVbHQE3SuKNs=;
+	b=fI8WyKpmQQfuF7v98I0m9jYr52j6v9il/Y1kYa+Nz5btUfOeJehvfvrp82h91pkkXnG/cc
+	g+EFTi6ulxrthHDw==
 To: boris.ostrovsky@oracle.com, LKML <linux-kernel@vger.kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>,
  Juergen Gross <jgross@suse.com>, Stefano Stabellini
@@ -86,19 +87,41 @@ Cc: Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>,
  Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
  netdev@vger.kernel.org, linux-rdma@vger.kernel.org, Saeed Mahameed
  <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>
-Subject: Re: [patch 24/30] xen/events: Remove unused bind_evtchn_to_irq_lateeoi()
-In-Reply-To: <748d8d81-ac0f-aee2-1a56-ba9c40fee52f@oracle.com>
-References: <20201210192536.118432146@linutronix.de> <20201210194044.972064156@linutronix.de> <748d8d81-ac0f-aee2-1a56-ba9c40fee52f@oracle.com>
-Date: Fri, 11 Dec 2020 01:04:37 +0100
-Message-ID: <87im99i4x6.fsf@nanos.tec.linutronix.de>
+Subject: Re: [patch 27/30] xen/events: Only force affinity mask for percpu interrupts
+In-Reply-To: <7f7af60f-567f-cdef-f8db-8062a44758ce@oracle.com>
+References: <20201210192536.118432146@linutronix.de> <20201210194045.250321315@linutronix.de> <7f7af60f-567f-cdef-f8db-8062a44758ce@oracle.com>
+Date: Fri, 11 Dec 2020 01:06:59 +0100
+Message-ID: <87ft4di4t8.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Dec 10 2020 at 18:19, boris ostrovsky wrote:
+On Thu, Dec 10 2020 at 18:20, boris ostrovsky wrote:
 > On 12/10/20 2:26 PM, Thomas Gleixner wrote:
->> -EXPORT_SYMBOL_GPL(bind_evtchn_to_irq_lateeoi);
+>> All event channel setups bind the interrupt on CPU0 or the target CPU for
+>> percpu interrupts and overwrite the affinity mask with the corresponding
+>> cpumask. That does not make sense.
+>>
+>> The XEN implementation of irqchip::irq_set_affinity() already picks a
+>> single target CPU out of the affinity mask and the actual target is stor=
+ed
+>> in the effective CPU mask, so destroying the user chosen affinity mask
+>> which might contain more than one CPU is wrong.
+>>
+>> Change the implementation so that the channel is bound to CPU0 at the XEN
+>> level and leave the affinity mask alone. At startup of the interrupt
+>> affinity will be assigned out of the affinity mask and the XEN binding w=
+ill
+>> be updated.=20
 >
-> include/xen/events.h also needs to be updated (and in the next patch for xen_set_affinity_evtchn() as well).
+> If that's the case then I wonder whether we need this call at all and
+> instead bind at startup time.
 
-Darn, I lost that.
+I was wondering about that, but my knowledge about the Xen internal
+requirements is pretty limited. The current set at least survived basic
+testing by J=C3=BCrgen.
+
+Thanks,
+
+        tglx
 
