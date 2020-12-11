@@ -2,32 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F12E32D77D3
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 15:29:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.50663.89401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB9922D77D9
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 15:31:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.50676.89431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knjQN-0000cT-Bh; Fri, 11 Dec 2020 14:29:35 +0000
+	id 1knjSI-0001ek-6p; Fri, 11 Dec 2020 14:31:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 50663.89401; Fri, 11 Dec 2020 14:29:35 +0000
+Received: by outflank-mailman (output) from mailman id 50676.89431; Fri, 11 Dec 2020 14:31:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knjQN-0000c7-88; Fri, 11 Dec 2020 14:29:35 +0000
-Received: by outflank-mailman (input) for mailman id 50663;
- Fri, 11 Dec 2020 14:29:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1knjQL-0000bz-Na
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 14:29:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1knjQH-0007YB-VR; Fri, 11 Dec 2020 14:29:29 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1knjQH-0006jH-Nv; Fri, 11 Dec 2020 14:29:29 +0000
+	id 1knjSI-0001eL-2l; Fri, 11 Dec 2020 14:31:34 +0000
+Received: by outflank-mailman (input) for mailman id 50676;
+ Fri, 11 Dec 2020 14:31:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cAXP=FP=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1knjSG-0001bD-DI
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 14:31:32 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e159b767-0166-4098-b978-6e322948493a;
+ Fri, 11 Dec 2020 14:31:31 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BBEK3q4153543;
+ Fri, 11 Dec 2020 14:29:21 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 3581mratkd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 11 Dec 2020 14:29:21 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BBEPIII069767;
+ Fri, 11 Dec 2020 14:29:20 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 358kstfcjw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 11 Dec 2020 14:29:20 +0000
+Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0BBETD7i006093;
+ Fri, 11 Dec 2020 14:29:13 GMT
+Received: from [10.39.222.144] (/10.39.222.144)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 11 Dec 2020 06:29:13 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,71 +55,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=QAvuEyVoXxjXe/JQfwr5Wkh2jPuI7x0e83APCvioKjY=; b=CnplNqXsDHJwa2Dh5oeDrTlf3J
-	Wee/RRdilYzOSJd9RXDtXPw2Gu+a6zqhUvWmIrav8/E64/eKjdHOJ+Ba2ENrf6JaZm4uhXN0egqpq
-	59zmG4T2h2KI67Pp68BwIuWRta2Pp4S7Q7AXmqWtld/iODgw1Mh8CCu6mQPzI9/JBvPY=;
-Subject: Re: [PATCH v3 0/8] xen/arm: Add support for SMMUv3 driver
-To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>
-References: <cover.1607617848.git.rahul.singh@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <ea121c23-4deb-c566-4d1d-bb9dd4959015@xen.org>
-Date: Fri, 11 Dec 2020 14:29:27 +0000
+X-Inumbo-ID: e159b767-0166-4098-b978-6e322948493a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=XwmNJXsce0biO7XLe+zGaIsjtrmRfK/vTz0mYn6nQBU=;
+ b=bR7yH4+1kTFS/uaRb9qwsHTyFm2EoNVmWnQB/6uOrO708u+eqNtBobFpmn1ttrRdH1ys
+ eWZmcv+9rBDGS0S9dxVH7WJEjVIq3kan/8A2J+2JEfl4cmi6SdTHDxhFZ9FOjgghK0i/
+ gSlqjyBs3FtwP3+ZAOMx//Xrh2s4GGZVNmZZvw8Dg7A8ucgqyFuZ1jZz6HYR0R/QX3KB
+ jq1go8jZfLC3JdZILS9AqGFwicAYPALMmwsEwRd+5bZO9goG03a6o19lTH5pgGTEdXEs
+ I4ECgSmCCiTYqeMDSavCaEpGT9QkWsYwEp7lVPsTzWiLDfHkK38lg3Q5ATAnYCJ8Q3TZ zQ== 
+Subject: Re: [patch 27/30] xen/events: Only force affinity mask for percpu
+ interrupts
+To: Thomas Gleixner <tglx@linutronix.de>,
+        =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>,
+        LKML <linux-kernel@vger.kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        xen-devel@lists.xenproject.org,
+        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+        Helge Deller <deller@gmx.de>, afzal mohammed <afzal.mohd.ma@gmail.com>,
+        linux-parisc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+        linux-arm-kernel@lists.infradead.org,
+        Mark Rutland <mark.rutland@arm.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>,
+        Christian Borntraeger <borntraeger@de.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>, linux-s390@vger.kernel.org,
+        Jani Nikula <jani.nikula@linux.intel.com>,
+        Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+        Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
+        Daniel Vetter <daniel@ffwll.ch>,
+        Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
+        Chris Wilson <chris@chris-wilson.co.uk>,
+        Wambui Karuga <wambui.karugax@gmail.com>,
+        intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+        Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+        Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org,
+        Lee Jones <lee.jones@linaro.org>, Jon Mason <jdmason@kudzu.us>,
+        Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
+        linux-ntb@googlegroups.com,
+        Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+        Michal Simek <michal.simek@xilinx.com>, linux-pci@vger.kernel.org,
+        Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
+        Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+        linux-rdma@vger.kernel.org, Saeed Mahameed <saeedm@nvidia.com>,
+        Leon Romanovsky <leon@kernel.org>
+References: <20201210192536.118432146@linutronix.de>
+ <20201210194045.250321315@linutronix.de>
+ <7f7af60f-567f-cdef-f8db-8062a44758ce@oracle.com>
+ <2164a0ce-0e0d-c7dc-ac97-87c8f384ad82@suse.com>
+ <871rfwiknd.fsf@nanos.tec.linutronix.de>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <9806692f-24a3-4b6f-ae55-86bd66481271@oracle.com>
+Date: Fri, 11 Dec 2020 09:29:09 -0500
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <cover.1607617848.git.rahul.singh@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <871rfwiknd.fsf@nanos.tec.linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9831 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 suspectscore=0
+ bulkscore=0 malwarescore=0 phishscore=0 mlxscore=0 spamscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012110094
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9831 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 mlxlogscore=999
+ clxscore=1015 malwarescore=0 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 phishscore=0 spamscore=0 impostorscore=0 mlxscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012110093
 
-Hi Rahul,
 
-On 10/12/2020 16:56, Rahul Singh wrote:
-> This patch series is v3 of the work to add support for the SMMUv3 driver.
-> 
-> Approach taken is to first merge the Linux copy of the SMMUv3 driver
-> (tag v5.8.18) and then modify the driver to build on XEN.
-> 
-> MSI and PCI ATS functionality are not supported. Code is not tested and
-> compiled. Code is guarded by the flag CONFIG_PCI_ATS and CONFIG_MSI to compile
-> the driver.
-> 
-> Code specific to Linux is removed from the driver to avoid dead code.
-> 
-> Driver is currently supported as tech preview.
-> 
-> Following functionality should be supported before driver is out for tech
-> preview
-> 1. Investigate the timing analysis of using spin lock in place of mutex when
->     attaching a  device to SMMU.
-> 2. Merged the latest Linux SMMUv3 driver code once atomic operation is
->     available in XEN.
-> 3. PCI ATS and MSI interrupts should be supported.
-> 4. Investigate side-effect of using tasklet in place of threaded IRQ and fix
->     if any.
-In your last e-mail, you wrote that you would investigate and then come 
-back to use. It wasn't clear that this meant you will not deal with it 
-in this series.
+On 12/11/20 7:37 AM, Thomas Gleixner wrote:
+> On Fri, Dec 11 2020 at 13:10, Jürgen Groß wrote:
+>> On 11.12.20 00:20, boris.ostrovsky@oracle.com wrote:
+>>> On 12/10/20 2:26 PM, Thomas Gleixner wrote:
+>>>> All event channel setups bind the interrupt on CPU0 or the target CPU for
+>>>> percpu interrupts and overwrite the affinity mask with the corresponding
+>>>> cpumask. That does not make sense.
+>>>>
+>>>> The XEN implementation of irqchip::irq_set_affinity() already picks a
+>>>> single target CPU out of the affinity mask and the actual target is stored
+>>>> in the effective CPU mask, so destroying the user chosen affinity mask
+>>>> which might contain more than one CPU is wrong.
+>>>>
+>>>> Change the implementation so that the channel is bound to CPU0 at the XEN
+>>>> level and leave the affinity mask alone. At startup of the interrupt
+>>>> affinity will be assigned out of the affinity mask and the XEN binding will
+>>>> be updated.
+>>>
+>>> If that's the case then I wonder whether we need this call at all and instead bind at startup time.
+>> After some discussion with Thomas on IRC and xen-devel archaeology the
+>> result is: this will be needed especially for systems running on a
+>> single vcpu (e.g. small guests), as the .irq_set_affinity() callback
+>> won't be called in this case when starting the irq.
 
-> 5. fallthorugh keyword should be supported.
 
-This one should really be done now... It is not a complicated one...
+On UP are we not then going to end up with an empty affinity mask? Or are we guaranteed to have it set to 1 by interrupt generic code?
 
-> 6. Implement the ffsll function in bitops.h file.
 
-... same here.
+This is actually why I brought this up in the first place --- a potential mismatch between the affinity mask and Xen-specific data (e.g. info->cpu and then protocol-specific data in event channel code). Even if they are re-synchronized later, at startup time (for SMP).
 
-Cheers,
 
--- 
-Julien Grall
+I don't see anything that would cause a problem right now but I worry that this inconsistency may come up at some point.
+
+
+-boris
+
+
+> That's right, but not limited to ARM. The same problem exists on x86 UP.
+> So yes, the call makes sense, but the changelog is not really useful.
+> Let me add a comment to this.
+>
+> Thanks,
+>
+>         tglx
+>
 
