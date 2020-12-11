@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2BB42D772E
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 14:57:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.50624.89329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 795522D772F
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 14:57:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.50629.89340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kniui-0005PQ-I7; Fri, 11 Dec 2020 13:56:52 +0000
+	id 1knivN-0005VC-SV; Fri, 11 Dec 2020 13:57:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 50624.89329; Fri, 11 Dec 2020 13:56:52 +0000
+Received: by outflank-mailman (output) from mailman id 50629.89340; Fri, 11 Dec 2020 13:57:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kniui-0005P1-FB; Fri, 11 Dec 2020 13:56:52 +0000
-Received: by outflank-mailman (input) for mailman id 50624;
- Fri, 11 Dec 2020 13:56:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nv6e=FP=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kniug-0005Ow-V8
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 13:56:50 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b62ecfc1-3390-4ead-827b-32d980ad6ff0;
- Fri, 11 Dec 2020 13:56:49 +0000 (UTC)
+	id 1knivN-0005Un-OE; Fri, 11 Dec 2020 13:57:33 +0000
+Received: by outflank-mailman (input) for mailman id 50629;
+ Fri, 11 Dec 2020 13:57:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1knivL-0005Ui-Rw
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 13:57:31 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1knivK-0006nl-Q2; Fri, 11 Dec 2020 13:57:30 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1knivK-0004OD-JE; Fri, 11 Dec 2020 13:57:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,69 +39,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b62ecfc1-3390-4ead-827b-32d980ad6ff0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1607695009;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=Y9q/K51kNVP1X62NUU7bPzV0ysaWRI9CTxHOwDYR8cg=;
-  b=ZQUc9v3ko9tDvDGkzK9cp994xESiwy+8bIvmg5Ph0uHygWBPwVxr84BP
-   qDgHx2R1G2LP7jA2iYEhJmdpKZB7mCnp99IpurqNlZtEmS7F5Nyst49ai
-   cWBmyt2k1pMDDuG+llAvfA9W8nfFkmxjrKu/rmtCwHZ02fKi07PFKj/Hu
-   U=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 2AX/flIBpSAkFKmEn8A5EmZ9AIVTEcTNs7qkHBgYHDsWdg45+5R3AocvWAzhEaCGSKNuNP2gOG
- /a7gyjz0uzos6JvXet4SEk+piKEzpQn9S79yv32wf+Rjyw/AMdBK4Nfm35doFVerF6fapLop9R
- peLqKXVyfKdm9WUO04iTrqfkJLwl58aL6PFaaTnAFa9UfiEehaKrHZFYBFgLNdYd/oWvou60M3
- tKt5eTZX80rJ5+Y87E8vjLy6cwKFW+AbUexJzC0oP7RflPEQJLVkJ6qDPJyFjj83XtFzV7ma3r
- 4Jk=
-X-SBRS: 5.2
-X-MesageID: 33051843
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,411,1599537600"; 
-   d="scan'208";a="33051843"
-Subject: Re: dom0 PV looping on search_pre_exception_table()
-To: Manuel Bouyer <bouyer@antioche.eu.org>, Jan Beulich <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>
-References: <20201209135908.GA4269@antioche.eu.org>
- <c612616a-3fcd-be93-7594-20c0c3b71b7a@citrix.com>
- <20201209154431.GA4913@antioche.eu.org>
- <52e1b10d-75d4-63ac-f91e-cb8f0dcca493@citrix.com>
- <20201209163049.GA6158@antioche.eu.org>
- <30a71c9d-3eff-3727-9c61-e387b5bccc95@citrix.com>
- <20201209185714.GS1469@antioche.eu.org>
- <6c06abf1-7efe-f02c-536a-337a2704e265@citrix.com>
- <20201210095139.GA455@antioche.eu.org>
- <2c345ef9-1f05-f883-d294-7ac1b3851f08@suse.com>
- <20201211111546.GE1423@antioche.eu.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <cfb58d3a-e74e-77a5-9974-6782f5b500af@citrix.com>
-Date: Fri, 11 Dec 2020 13:56:43 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=8u4AlIr54MyFnBOLLT1YxcwplyAh8qmp63OX2KUl6xA=; b=AWp6dcRI+8Dk1si+csAZ/wR2L5
+	7Z/GarNkPRZaPA9d0/LK+k0xtFcCia3tYwZvhi1Md8sc8HHTH20oWtmCQ1v0ZzTLmT/w+/AHDbpge
+	TT6kRRxFH1LpKveK48CHZRka4s2SHQZIj5EKGtyJLHKjkD223xDM8ImQhSVDyP5NwurQ=;
+Subject: Re: [PATCH v3 8/8] xen/arm: smmuv3: Remove linux compatibility
+ functions.
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1607617848.git.rahul.singh@arm.com>
+ <c38df3122a9e74e2324936c8bd36d372cdc3009a.1607617848.git.rahul.singh@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <aa6fbfa5-3afa-776e-287c-177932fd4764@xen.org>
+Date: Fri, 11 Dec 2020 13:57:28 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <20201211111546.GE1423@antioche.eu.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <c38df3122a9e74e2324936c8bd36d372cdc3009a.1607617848.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL03.citrite.net (10.13.108.165)
+Content-Transfer-Encoding: 7bit
 
-On 11/12/2020 11:15, Manuel Bouyer wrote:
-> On Fri, Dec 11, 2020 at 09:58:54AM +0100, Jan Beulich wrote:
->> Could you please revert 9ff970564764 ("x86/mm: drop guest_get_eff_l1e()")?
->> I think there was a thinko there in that the change can't be split from
->> the bigger one which was part of the originally planned set for XSA-286.
->> We mustn't avoid the switching of page tables as long as
->> guest_get_eff{,_kern}_l1e() makes use of the linear page tables.
-> Yes, reverting this commit also makes the dom0 boot.
->
+Hi Rahul,
 
-This was going to be my next area of investigation.  Thanks for confirming.
+On 10/12/2020 16:57, Rahul Singh wrote:
+> Replace all Linux compatible device tree handling function with the XEN
+> functions.
 
-In hindsight, the bug is very obvious...
+Right, but they were introduced in the previous patch. I dislike the 
+idea to add code for removing afterwards (in some cases you actually do 
+the renaming directly...).
 
-~Andrew
+So I would rather move this patch before patch #7 so we don't undo what 
+we just did.
+
+Cheers,
+
+-- 
+Julien Grall
 
