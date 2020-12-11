@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69FD2D6D8A
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 02:30:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.50043.88517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95FDB2D6DE6
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 03:01:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.50068.88539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knXFs-0006OX-Cb; Fri, 11 Dec 2020 01:29:56 +0000
+	id 1knXjw-0002Yf-7g; Fri, 11 Dec 2020 02:01:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 50043.88517; Fri, 11 Dec 2020 01:29:56 +0000
+Received: by outflank-mailman (output) from mailman id 50068.88539; Fri, 11 Dec 2020 02:01:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knXFs-0006O3-9I; Fri, 11 Dec 2020 01:29:56 +0000
-Received: by outflank-mailman (input) for mailman id 50043;
- Fri, 11 Dec 2020 01:29:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZKjA=FP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1knXFq-0006Nj-BQ
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 01:29:54 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ce061d52-3ccd-4a1f-9c14-36802c769ca3;
- Fri, 11 Dec 2020 01:29:52 +0000 (UTC)
+	id 1knXjw-0002YJ-3G; Fri, 11 Dec 2020 02:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 50068;
+ Fri, 11 Dec 2020 02:00:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knXjv-0002YB-8V; Fri, 11 Dec 2020 02:00:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knXju-0007h1-WD; Fri, 11 Dec 2020 02:00:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1knXju-0004S8-OD; Fri, 11 Dec 2020 02:00:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1knXju-00045Q-NG; Fri, 11 Dec 2020 02:00:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,694 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce061d52-3ccd-4a1f-9c14-36802c769ca3
-Date: Thu, 10 Dec 2020 17:29:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1607650191;
-	bh=wms8r2GXZPyGcW2c4gqwUeeLzGWJcKfBGN2LinPga7A=;
-	h=From:To:cc:Subject:In-Reply-To:References:From;
-	b=PVIRv23WVPOyrXAtjLJYPhpqsYlhhHJYsQR2aaJsePQLz31Wodome4WvC7NhPdurB
-	 /P67hg2S4kwJxVUQZ1K2XqS5Nf0wuPFosmEbIo6GxOEUZWFn8vNoWc36wNf2pw9wQ6
-	 VvxW6P1o8vfH22TNhZem7UcT7YgKUOj5QOT+7E2lEYDMv2UsIQs7D8G4bCqcqgTsGR
-	 nVsXe+0jdwEGwNUzP0X9TBYaD/Y2f0+c9cyFusbKPj8HGsx9FJrKB9qonfAP7XHZay
-	 DDYMhm/wQrp3z7YPwXnUpsUVWdnx/HRgPiJru8DUiZ6SGm7q7X1x3alVnwi6BAhxTT
-	 O9bikxw4U2CkQ==
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 6/8] xen/arm: Remove Linux specific code that is not
- usable in XEN
-In-Reply-To: <91b9845a03068d92aeaaa86fa67d4d06b2824652.1607617848.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2012101555100.6285@sstabellini-ThinkPad-T480s>
-References: <cover.1607617848.git.rahul.singh@arm.com> <91b9845a03068d92aeaaa86fa67d4d06b2824652.1607617848.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=QMzcs9QWyLBhUpFJURdyOokQnSSRliMWmdgN6M7Flqg=; b=jj+/zYtj5z1WBRGtf510/MAfix
+	zF3QWHD8XvflqUNch7m/dNYe1u6LFo6CkOVxVADTk02O4rbXuIKU2p8T+cJaQ3UK8xe2IBM/66u78
+	dS8foL5qyo4B7GwPjL4swM+1laM/uAjUGAkSIoXZQF1bW+DRJNT5FDLqacXtqVcFP/wk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157394-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 157394: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=10dc8c561c687c9e73e29743d04d828cca56a288
+X-Osstest-Versions-That:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 11 Dec 2020 02:00:58 +0000
 
-On Thu, 10 Dec 2020, Rahul Singh wrote:
-> Remove code that is related to below functionality :
->  1. struct io_pgtable_ops
->  2. struct io_pgtable_cfg
->  3. struct iommu_flush_ops,
->  4. struct iommu_ops
->  5. module_param_named, MODULE_PARM_DESC, module_platform_driver,
->     MODULE_*
->  6. IOMMU domain-types
->  7. arm_smmu_set_bus_ops
->  8. iommu_device_sysfs_add, iommu_device_register,
->     iommu_device_set_fwnode
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+flight 157394 ovmf real [real]
+flight 157397 ovmf real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157394/
+http://logs.test-lab.xenproject.org/osstest/logs/157397/
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
+
+version targeted for testing:
+ ovmf                 10dc8c561c687c9e73e29743d04d828cca56a288
+baseline version:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+
+Last test of basis   157345  2020-12-09 12:40:46 Z    1 days
+Failing since        157348  2020-12-09 15:39:39 Z    1 days    6 attempts
+Testing same since   157383  2020-12-10 13:09:45 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Fan Wang <fan.wang@intel.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Siyuan Fu <siyuan.fu@intel.com>
+  Ting Ye <ting.ye@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
-> ---
-> Changes in v3:
-> - Commit message is updated to add more detail what is removed in this
->   patch.
-> - remove instances of io_pgtable_cfg.
-> - Added back ARM_SMMU_FEAT_COHERENCY feature.
-> 
-> ---
->  xen/drivers/passthrough/arm/smmu-v3.c | 475 ++------------------------
->  1 file changed, 21 insertions(+), 454 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-> index 0f16c63c49..2966015e5d 100644
-> --- a/xen/drivers/passthrough/arm/smmu-v3.c
-> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
-> @@ -394,13 +394,7 @@
->  #define ARM_SMMU_CMDQ_SYNC_TIMEOUT_US	1000000 /* 1s! */
->  #define ARM_SMMU_CMDQ_SYNC_SPIN_COUNT	10
->  
-> -#define MSI_IOVA_BASE			0x8000000
-> -#define MSI_IOVA_LENGTH			0x100000
-> -
->  static bool disable_bypass = 1;
-> -module_param_named(disable_bypass, disable_bypass, bool, S_IRUGO);
-> -MODULE_PARM_DESC(disable_bypass,
-> -	"Disable bypass streams such that incoming transactions from devices that are not attached to an iommu domain will report an abort back to the device and will not be allowed to pass through the SMMU.");
->  
->  enum pri_resp {
->  	PRI_RESP_DENY = 0,
-> @@ -552,6 +546,19 @@ struct arm_smmu_strtab_cfg {
->  	u32				strtab_base_cfg;
->  };
->  
-> +struct arm_lpae_s2_cfg {
-> +	u64			vttbr;
-> +	struct {
-> +		u32			ps:3;
-> +		u32			tg:2;
-> +		u32			sh:2;
-> +		u32			orgn:2;
-> +		u32			irgn:2;
-> +		u32			sl:2;
-> +		u32			tsz:6;
-> +	} vtcr;
-> +};
-> +
->  /* An SMMUv3 instance */
->  struct arm_smmu_device {
->  	struct device			*dev;
-> @@ -633,7 +640,6 @@ struct arm_smmu_domain {
->  	struct arm_smmu_device		*smmu;
->  	struct mutex			init_mutex; /* Protects smmu pointer */
->  
-> -	struct io_pgtable_ops		*pgtbl_ops;
->  	bool				non_strict;
->  	atomic_t			nr_ats_masters;
->  
-> @@ -1493,7 +1499,6 @@ static int arm_smmu_atc_inv_domain(struct arm_smmu_domain *smmu_domain,
->  	return ret ? -ETIMEDOUT : 0;
->  }
->  
-> -/* IO_PGTABLE API */
->  static void arm_smmu_tlb_inv_context(void *cookie)
->  {
->  	struct arm_smmu_domain *smmu_domain = cookie;
-> @@ -1514,86 +1519,10 @@ static void arm_smmu_tlb_inv_context(void *cookie)
->  	arm_smmu_cmdq_issue_sync(smmu);
->  }
->  
-> -static void arm_smmu_tlb_inv_range_nosync(unsigned long iova, size_t size,
-> -					  size_t granule, bool leaf, void *cookie)
-> -{
-> -	struct arm_smmu_domain *smmu_domain = cookie;
-> -	struct arm_smmu_device *smmu = smmu_domain->smmu;
-> -	struct arm_smmu_cmdq_ent cmd = {
-> -		.tlbi = {
-> -			.leaf	= leaf,
-> -			.addr	= iova,
-> -		},
-> -	};
-> -
-> -	if (!size)
-> -		return;
-> -
-> -	cmd.opcode	= CMDQ_OP_TLBI_S2_IPA;
-> -	cmd.tlbi.vmid	= smmu_domain->s2_cfg.vmid;
-> -
-> -	do {
-> -		arm_smmu_cmdq_issue_cmd(smmu, &cmd);
-> -		cmd.tlbi.addr += granule;
-> -	} while (size -= granule);
-> -}
-> -
-> -static void arm_smmu_tlb_inv_page_nosync(struct iommu_iotlb_gather *gather,
-> -					 unsigned long iova, size_t granule,
-> -					 void *cookie)
-> -{
-> -	arm_smmu_tlb_inv_range_nosync(iova, granule, granule, true, cookie);
-> -}
-> -
-> -static void arm_smmu_tlb_inv_walk(unsigned long iova, size_t size,
-> -				  size_t granule, void *cookie)
-> -{
-> -	struct arm_smmu_domain *smmu_domain = cookie;
-> -	struct arm_smmu_device *smmu = smmu_domain->smmu;
-> -
-> -	arm_smmu_tlb_inv_range_nosync(iova, size, granule, false, cookie);
-> -	arm_smmu_cmdq_issue_sync(smmu);
-> -}
-> -
-> -static void arm_smmu_tlb_inv_leaf(unsigned long iova, size_t size,
-> -				  size_t granule, void *cookie)
-> -{
-> -	struct arm_smmu_domain *smmu_domain = cookie;
-> -	struct arm_smmu_device *smmu = smmu_domain->smmu;
-> -
-> -	arm_smmu_tlb_inv_range_nosync(iova, size, granule, true, cookie);
-> -	arm_smmu_cmdq_issue_sync(smmu);
-> -}
-> -
-> -static const struct iommu_flush_ops arm_smmu_flush_ops = {
-> -	.tlb_flush_all	= arm_smmu_tlb_inv_context,
-> -	.tlb_flush_walk = arm_smmu_tlb_inv_walk,
-> -	.tlb_flush_leaf = arm_smmu_tlb_inv_leaf,
-> -	.tlb_add_page	= arm_smmu_tlb_inv_page_nosync,
-> -};
-> -
-> -/* IOMMU API */
-> -static bool arm_smmu_capable(enum iommu_cap cap)
-> -{
-> -	switch (cap) {
-> -	case IOMMU_CAP_CACHE_COHERENCY:
-> -		return true;
-> -	case IOMMU_CAP_NOEXEC:
-> -		return true;
-> -	default:
-> -		return false;
-> -	}
-> -}
-> -
-> -static struct iommu_domain *arm_smmu_domain_alloc(unsigned type)
-> +static struct iommu_domain *arm_smmu_domain_alloc(void)
->  {
->  	struct arm_smmu_domain *smmu_domain;
->  
-> -	if (type != IOMMU_DOMAIN_UNMANAGED &&
-> -	    type != IOMMU_DOMAIN_DMA &&
-> -	    type != IOMMU_DOMAIN_IDENTITY)
-> -		return NULL;
-> -
->  	/*
->  	 * Allocate the domain and initialise some of its data structures.
->  	 * We can't really do anything meaningful until we've added a
-> @@ -1603,12 +1532,6 @@ static struct iommu_domain *arm_smmu_domain_alloc(unsigned type)
->  	if (!smmu_domain)
->  		return NULL;
->  
-> -	if (type == IOMMU_DOMAIN_DMA &&
-> -	    iommu_get_dma_cookie(&smmu_domain->domain)) {
-> -		kfree(smmu_domain);
-> -		return NULL;
-> -	}
-> -
->  	mutex_init(&smmu_domain->init_mutex);
->  	INIT_LIST_HEAD(&smmu_domain->devices);
->  	spin_lock_init(&smmu_domain->devices_lock);
-> @@ -1640,9 +1563,6 @@ static void arm_smmu_domain_free(struct iommu_domain *domain)
->  	struct arm_smmu_device *smmu = smmu_domain->smmu;
->  	struct arm_smmu_s2_cfg *cfg = &smmu_domain->s2_cfg;
->  
-> -	iommu_put_dma_cookie(domain);
-> -	free_io_pgtable_ops(smmu_domain->pgtbl_ops);
-> -
->  	if (cfg->vmid)
->  		arm_smmu_bitmap_free(smmu->vmid_map, cfg->vmid);
->  
-> @@ -1651,21 +1571,20 @@ static void arm_smmu_domain_free(struct iommu_domain *domain)
->  
->  
->  static int arm_smmu_domain_finalise_s2(struct arm_smmu_domain *smmu_domain,
-> -				       struct arm_smmu_master *master,
-> -				       struct io_pgtable_cfg *pgtbl_cfg)
-> +				       struct arm_smmu_master *master)
->  {
->  	int vmid;
-> +	struct arm_lpae_s2_cfg arm_lpae_s2_cfg;
->  	struct arm_smmu_device *smmu = smmu_domain->smmu;
->  	struct arm_smmu_s2_cfg *cfg = &smmu_domain->s2_cfg;
-> -	typeof(&pgtbl_cfg->arm_lpae_s2_cfg.vtcr) vtcr;
-> +	typeof(&arm_lpae_s2_cfg.vtcr) vtcr = &arm_lpae_s2_cfg.vtcr;
->  
->  	vmid = arm_smmu_bitmap_alloc(smmu->vmid_map, smmu->vmid_bits);
->  	if (vmid < 0)
->  		return vmid;
->  
-> -	vtcr = &pgtbl_cfg->arm_lpae_s2_cfg.vtcr;
->  	cfg->vmid	= (u16)vmid;
-> -	cfg->vttbr	= pgtbl_cfg->arm_lpae_s2_cfg.vttbr;
-> +	cfg->vttbr	= arm_lpae_s2_cfg.vttbr;
->  	cfg->vtcr	= FIELD_PREP(STRTAB_STE_2_VTCR_S2T0SZ, vtcr->tsz) |
->  			  FIELD_PREP(STRTAB_STE_2_VTCR_S2SL0, vtcr->sl) |
->  			  FIELD_PREP(STRTAB_STE_2_VTCR_S2IR0, vtcr->irgn) |
-> @@ -1680,49 +1599,15 @@ static int arm_smmu_domain_finalise(struct iommu_domain *domain,
->  				    struct arm_smmu_master *master)
->  {
->  	int ret;
-> -	unsigned long ias, oas;
-> -	enum io_pgtable_fmt fmt;
-> -	struct io_pgtable_cfg pgtbl_cfg;
-> -	struct io_pgtable_ops *pgtbl_ops;
->  	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
-> -	struct arm_smmu_device *smmu = smmu_domain->smmu;
-> -
-> -	if (domain->type == IOMMU_DOMAIN_IDENTITY) {
-> -		smmu_domain->stage = ARM_SMMU_DOMAIN_BYPASS;
-> -		return 0;
-> -	}
->  
->  	/* Restrict the stage to what we can actually support */
->  	smmu_domain->stage = ARM_SMMU_DOMAIN_S2;
->  
-> -
-> -	pgtbl_cfg = (struct io_pgtable_cfg) {
-> -		.pgsize_bitmap	= smmu->pgsize_bitmap,
-> -		.ias		= ias,
-> -		.oas		= oas,
-> -		.coherent_walk	= smmu->features & ARM_SMMU_FEAT_COHERENCY,
-> -		.tlb		= &arm_smmu_flush_ops,
-> -		.iommu_dev	= smmu->dev,
-> -	};
-> -
-> -	if (smmu_domain->non_strict)
-> -		pgtbl_cfg.quirks |= IO_PGTABLE_QUIRK_NON_STRICT;
-> -
-> -	pgtbl_ops = alloc_io_pgtable_ops(fmt, &pgtbl_cfg, smmu_domain);
-> -	if (!pgtbl_ops)
-> -		return -ENOMEM;
-> -
-> -	domain->pgsize_bitmap = pgtbl_cfg.pgsize_bitmap;
-> -	domain->geometry.aperture_end = (1UL << pgtbl_cfg.ias) - 1;
-> -	domain->geometry.force_aperture = true;
-> -
-> -	ret = arm_smmu_domain_finalise_s2(smmu_domain, master, &pgtbl_cfg);
-> -	if (ret < 0) {
-> -		free_io_pgtable_ops(pgtbl_ops);
-> +	ret = arm_smmu_domain_finalise_s2(smmu_domain, master);
-> +	if (ret < 0)
->  		return ret;
-> -	}
->  
-> -	smmu_domain->pgtbl_ops = pgtbl_ops;
->  	return 0;
->  }
->  
-> @@ -1939,76 +1824,6 @@ out_unlock:
->  	return ret;
->  }
->  
-> -static int arm_smmu_map(struct iommu_domain *domain, unsigned long iova,
-> -			phys_addr_t paddr, size_t size, int prot, gfp_t gfp)
-> -{
-> -	struct io_pgtable_ops *ops = to_smmu_domain(domain)->pgtbl_ops;
-> -
-> -	if (!ops)
-> -		return -ENODEV;
-> -
-> -	return ops->map(ops, iova, paddr, size, prot);
-> -}
-> -
-> -static size_t arm_smmu_unmap(struct iommu_domain *domain, unsigned long iova,
-> -			     size_t size, struct iommu_iotlb_gather *gather)
-> -{
-> -	int ret;
-> -	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
-> -	struct io_pgtable_ops *ops = smmu_domain->pgtbl_ops;
-> -
-> -	if (!ops)
-> -		return 0;
-> -
-> -	ret = ops->unmap(ops, iova, size, gather);
-> -	if (ret && arm_smmu_atc_inv_domain(smmu_domain, 0, iova, size))
-> -		return 0;
-> -
-> -	return ret;
-> -}
-> -
-> -static void arm_smmu_flush_iotlb_all(struct iommu_domain *domain)
-> -{
-> -	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
-> -
-> -	if (smmu_domain->smmu)
-> -		arm_smmu_tlb_inv_context(smmu_domain);
-> -}
-> -
-> -static void arm_smmu_iotlb_sync(struct iommu_domain *domain,
-> -				struct iommu_iotlb_gather *gather)
-> -{
-> -	struct arm_smmu_device *smmu = to_smmu_domain(domain)->smmu;
-> -
-> -	if (smmu)
-> -		arm_smmu_cmdq_issue_sync(smmu);
-> -}
-> -
-> -static phys_addr_t
-> -arm_smmu_iova_to_phys(struct iommu_domain *domain, dma_addr_t iova)
-> -{
-> -	struct io_pgtable_ops *ops = to_smmu_domain(domain)->pgtbl_ops;
-> -
-> -	if (domain->type == IOMMU_DOMAIN_IDENTITY)
-> -		return iova;
-> -
-> -	if (!ops)
-> -		return 0;
-> -
-> -	return ops->iova_to_phys(ops, iova);
-> -}
-> -
-> -static struct platform_driver arm_smmu_driver;
-> -
-> -static
-> -struct arm_smmu_device *arm_smmu_get_by_fwnode(struct fwnode_handle *fwnode)
-> -{
-> -	struct device *dev = driver_find_device_by_fwnode(&arm_smmu_driver.driver,
-> -							  fwnode);
-> -	put_device(dev);
-> -	return dev ? dev_get_drvdata(dev) : NULL;
-> -}
-> -
->  static bool arm_smmu_sid_in_range(struct arm_smmu_device *smmu, u32 sid)
->  {
->  	unsigned long limit = smmu->strtab_cfg.num_l1_ents;
-> @@ -2019,8 +1834,6 @@ static bool arm_smmu_sid_in_range(struct arm_smmu_device *smmu, u32 sid)
->  	return sid < limit;
->  }
->  
-> -static struct iommu_ops arm_smmu_ops;
-> -
->  static struct iommu_device *arm_smmu_probe_device(struct device *dev)
->  {
->  	int i, ret;
-> @@ -2028,16 +1841,12 @@ static struct iommu_device *arm_smmu_probe_device(struct device *dev)
->  	struct arm_smmu_master *master;
->  	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
->  
-> -	if (!fwspec || fwspec->ops != &arm_smmu_ops)
-> +	if (!fwspec)
->  		return ERR_PTR(-ENODEV);
->  
->  	if (WARN_ON_ONCE(dev_iommu_priv_get(dev)))
->  		return ERR_PTR(-EBUSY);
->  
-> -	smmu = arm_smmu_get_by_fwnode(fwspec->iommu_fwnode);
-> -	if (!smmu)
-> -		return ERR_PTR(-ENODEV);
-> -
->  	master = kzalloc(sizeof(*master), GFP_KERNEL);
->  	if (!master)
->  		return ERR_PTR(-ENOMEM);
-> @@ -2083,153 +1892,11 @@ err_free_master:
->  	return ERR_PTR(ret);
->  }
->  
-> -static void arm_smmu_release_device(struct device *dev)
-> -{
-> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> -	struct arm_smmu_master *master;
-> -
-> -	if (!fwspec || fwspec->ops != &arm_smmu_ops)
-> -		return;
-> -
-> -	master = dev_iommu_priv_get(dev);
-> -	arm_smmu_detach_dev(master);
-> -	arm_smmu_disable_pasid(master);
-> -	kfree(master);
-> -	iommu_fwspec_free(dev);
-> -}
-> -
-> -static struct iommu_group *arm_smmu_device_group(struct device *dev)
-> -{
-> -	struct iommu_group *group;
-> -
-> -	/*
-> -	 * We don't support devices sharing stream IDs other than PCI RID
-> -	 * aliases, since the necessary ID-to-device lookup becomes rather
-> -	 * impractical given a potential sparse 32-bit stream ID space.
-> -	 */
-> -	if (dev_is_pci(dev))
-> -		group = pci_device_group(dev);
-> -	else
-> -		group = generic_device_group(dev);
-> -
-> -	return group;
-> -}
-> -
-> -static int arm_smmu_domain_get_attr(struct iommu_domain *domain,
-> -				    enum iommu_attr attr, void *data)
-> -{
-> -	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
-> -
-> -	switch (domain->type) {
-> -	case IOMMU_DOMAIN_UNMANAGED:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_NESTING:
-> -			*(int *)data = (smmu_domain->stage == ARM_SMMU_DOMAIN_NESTED);
-> -			return 0;
-> -		default:
-> -			return -ENODEV;
-> -		}
-> -		break;
-> -	case IOMMU_DOMAIN_DMA:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
-> -			*(int *)data = smmu_domain->non_strict;
-> -			return 0;
-> -		default:
-> -			return -ENODEV;
-> -		}
-> -		break;
-> -	default:
-> -		return -EINVAL;
-> -	}
-> -}
-> -
-> -static int arm_smmu_domain_set_attr(struct iommu_domain *domain,
-> -				    enum iommu_attr attr, void *data)
-> -{
-> -	int ret = 0;
-> -	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
-> -
-> -	mutex_lock(&smmu_domain->init_mutex);
-> -
-> -	switch (domain->type) {
-> -	case IOMMU_DOMAIN_UNMANAGED:
-> -		switch (attr) {
-> -		case DOMAIN_ATTR_NESTING:
-> -			if (smmu_domain->smmu) {
-> -				ret = -EPERM;
-> -				goto out_unlock;
-> -			}
-> -
-> -			if (*(int *)data)
-> -				smmu_domain->stage = ARM_SMMU_DOMAIN_NESTED;
-> -			else
-> -				smmu_domain->stage = ARM_SMMU_DOMAIN_S1;
-> -			break;
-> -		default:
-> -			ret = -ENODEV;
-> -		}
-> -		break;
-> -	case IOMMU_DOMAIN_DMA:
-> -		switch(attr) {
-> -		case DOMAIN_ATTR_DMA_USE_FLUSH_QUEUE:
-> -			smmu_domain->non_strict = *(int *)data;
-> -			break;
-> -		default:
-> -			ret = -ENODEV;
-> -		}
-> -		break;
-> -	default:
-> -		ret = -EINVAL;
-> -	}
-> -
-> -out_unlock:
-> -	mutex_unlock(&smmu_domain->init_mutex);
-> -	return ret;
-> -}
-> -
->  static int arm_smmu_of_xlate(struct device *dev, struct of_phandle_args *args)
->  {
->  	return iommu_fwspec_add_ids(dev, args->args, 1);
->  }
->  
-> -static void arm_smmu_get_resv_regions(struct device *dev,
-> -				      struct list_head *head)
-> -{
-> -	struct iommu_resv_region *region;
-> -	int prot = IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_MMIO;
-> -
-> -	region = iommu_alloc_resv_region(MSI_IOVA_BASE, MSI_IOVA_LENGTH,
-> -					 prot, IOMMU_RESV_SW_MSI);
-> -	if (!region)
-> -		return;
-> -
-> -	list_add_tail(&region->list, head);
-> -
-> -	iommu_dma_get_resv_regions(dev, head);
-> -}
-> -
-> -static struct iommu_ops arm_smmu_ops = {
-> -	.capable		= arm_smmu_capable,
-> -	.domain_alloc		= arm_smmu_domain_alloc,
-> -	.domain_free		= arm_smmu_domain_free,
-> -	.attach_dev		= arm_smmu_attach_dev,
-> -	.map			= arm_smmu_map,
-> -	.unmap			= arm_smmu_unmap,
-> -	.flush_iotlb_all	= arm_smmu_flush_iotlb_all,
-> -	.iotlb_sync		= arm_smmu_iotlb_sync,
-> -	.iova_to_phys		= arm_smmu_iova_to_phys,
-> -	.probe_device		= arm_smmu_probe_device,
-> -	.release_device		= arm_smmu_release_device,
-> -	.device_group		= arm_smmu_device_group,
-> -	.domain_get_attr	= arm_smmu_domain_get_attr,
-> -	.domain_set_attr	= arm_smmu_domain_set_attr,
-> -	.of_xlate		= arm_smmu_of_xlate,
-> -	.get_resv_regions	= arm_smmu_get_resv_regions,
-> -	.put_resv_regions	= generic_iommu_put_resv_regions,
-> -	.pgsize_bitmap		= -1UL, /* Restricted during device attach */
-> -};
-> -
->  /* Probing and initialisation functions */
->  static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
->  				   struct arm_smmu_queue *q,
-> @@ -2929,16 +2596,6 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
->  		smmu->oas = 48;
->  	}
->  
-> -	if (arm_smmu_ops.pgsize_bitmap == -1UL)
-> -		arm_smmu_ops.pgsize_bitmap = smmu->pgsize_bitmap;
-> -	else
-> -		arm_smmu_ops.pgsize_bitmap |= smmu->pgsize_bitmap;
-> -
-> -	/* Set the DMA mask for our table walker */
-> -	if (dma_set_mask_and_coherent(smmu->dev, DMA_BIT_MASK(smmu->oas)))
-> -		dev_warn(smmu->dev,
-> -			 "failed to set DMA mask for table walker\n");
-> -
->  	smmu->ias = max(smmu->ias, smmu->oas);
->  
->  	dev_info(smmu->dev, "ias %lu-bit, oas %lu-bit (features 0x%08x)\n",
-> @@ -3018,43 +2675,6 @@ static unsigned long arm_smmu_resource_size(struct arm_smmu_device *smmu)
->  		return SZ_128K;
->  }
->  
-> -static int arm_smmu_set_bus_ops(struct iommu_ops *ops)
-> -{
-> -	int err;
-> -
-> -#ifdef CONFIG_PCI
-> -	if (pci_bus_type.iommu_ops != ops) {
-> -		err = bus_set_iommu(&pci_bus_type, ops);
-> -		if (err)
-> -			return err;
-> -	}
-> -#endif
-> -#ifdef CONFIG_ARM_AMBA
-> -	if (amba_bustype.iommu_ops != ops) {
-> -		err = bus_set_iommu(&amba_bustype, ops);
-> -		if (err)
-> -			goto err_reset_pci_ops;
-> -	}
-> -#endif
-> -	if (platform_bus_type.iommu_ops != ops) {
-> -		err = bus_set_iommu(&platform_bus_type, ops);
-> -		if (err)
-> -			goto err_reset_amba_ops;
-> -	}
-> -
-> -	return 0;
-> -
-> -err_reset_amba_ops:
-> -#ifdef CONFIG_ARM_AMBA
-> -	bus_set_iommu(&amba_bustype, NULL);
-> -#endif
-> -err_reset_pci_ops: __maybe_unused;
-> -#ifdef CONFIG_PCI
-> -	bus_set_iommu(&pci_bus_type, NULL);
-> -#endif
-> -	return err;
-> -}
-> -
->  static void __iomem *arm_smmu_ioremap(struct device *dev, resource_size_t start,
->  				      resource_size_t size)
->  {
-> @@ -3147,68 +2767,15 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
->  	if (ret)
->  		return ret;
->  
-> -	/* Record our private device structure */
-> -	platform_set_drvdata(pdev, smmu);
-> -
->  	/* Reset the device */
->  	ret = arm_smmu_device_reset(smmu, bypass);
->  	if (ret)
->  		return ret;
->  
-> -	/* And we're up. Go go go! */
-> -	ret = iommu_device_sysfs_add(&smmu->iommu, dev, NULL,
-> -				     "smmu3.%pa", &ioaddr);
-> -	if (ret)
-> -		return ret;
-> -
-> -	iommu_device_set_ops(&smmu->iommu, &arm_smmu_ops);
-> -	iommu_device_set_fwnode(&smmu->iommu, dev->fwnode);
-> -
-> -	ret = iommu_device_register(&smmu->iommu);
-> -	if (ret) {
-> -		dev_err(dev, "Failed to register iommu\n");
-> -		return ret;
-> -	}
-> -
-> -	return arm_smmu_set_bus_ops(&arm_smmu_ops);
-> -}
-> -
-> -static int arm_smmu_device_remove(struct platform_device *pdev)
-> -{
-> -	struct arm_smmu_device *smmu = platform_get_drvdata(pdev);
-> -
-> -	arm_smmu_set_bus_ops(NULL);
-> -	iommu_device_unregister(&smmu->iommu);
-> -	iommu_device_sysfs_remove(&smmu->iommu);
-> -	arm_smmu_device_disable(smmu);
-> -
->  	return 0;
->  }
->  
-> -static void arm_smmu_device_shutdown(struct platform_device *pdev)
-> -{
-> -	arm_smmu_device_remove(pdev);
-> -}
-> -
->  static const struct of_device_id arm_smmu_of_match[] = {
->  	{ .compatible = "arm,smmu-v3", },
->  	{ },
->  };
-> -MODULE_DEVICE_TABLE(of, arm_smmu_of_match);
-> -
-> -static struct platform_driver arm_smmu_driver = {
-> -	.driver	= {
-> -		.name			= "arm-smmu-v3",
-> -		.of_match_table		= arm_smmu_of_match,
-> -		.suppress_bind_attrs	= true,
-> -	},
-> -	.probe	= arm_smmu_device_probe,
-> -	.remove	= arm_smmu_device_remove,
-> -	.shutdown = arm_smmu_device_shutdown,
-> -};
-> -module_platform_driver(arm_smmu_driver);
-> -
-> -MODULE_DESCRIPTION("IOMMU API for ARM architected SMMUv3 implementations");
-> -MODULE_AUTHOR("Will Deacon <will@kernel.org>");
-> -MODULE_ALIAS("platform:arm-smmu-v3");
-> -MODULE_LICENSE("GPL v2");
-> -- 
-> 2.17.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 308 lines long.)
 
