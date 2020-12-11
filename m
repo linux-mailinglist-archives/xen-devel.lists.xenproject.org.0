@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE7A92D733A
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 11:00:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.50285.88882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274B32D7359
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 11:05:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.50295.88895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knfDq-00045Q-Kr; Fri, 11 Dec 2020 10:00:22 +0000
+	id 1knfI3-0004Q3-6L; Fri, 11 Dec 2020 10:04:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 50285.88882; Fri, 11 Dec 2020 10:00:22 +0000
+Received: by outflank-mailman (output) from mailman id 50295.88895; Fri, 11 Dec 2020 10:04:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knfDq-000454-HH; Fri, 11 Dec 2020 10:00:22 +0000
-Received: by outflank-mailman (input) for mailman id 50285;
- Fri, 11 Dec 2020 10:00:21 +0000
+	id 1knfI3-0004Pe-2i; Fri, 11 Dec 2020 10:04:43 +0000
+Received: by outflank-mailman (input) for mailman id 50295;
+ Fri, 11 Dec 2020 10:04:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9HZb=FP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1knfDp-00044z-BX
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 10:00:21 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RkSQ=FP=linaro.org=lee.jones@srs-us1.protection.inumbo.net>)
+ id 1knfI2-0004PZ-B6
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 10:04:42 +0000
+Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 16ee8f74-13de-448a-ae1b-8a0c953f4ab0;
- Fri, 11 Dec 2020 10:00:20 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9BD5EACF1;
- Fri, 11 Dec 2020 10:00:19 +0000 (UTC)
+ id f5967531-dcf0-4cf9-96dc-5d72e79b4b80;
+ Fri, 11 Dec 2020 10:04:41 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id c5so4770098wrp.6
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Dec 2020 02:04:41 -0800 (PST)
+Received: from dell ([91.110.221.240])
+ by smtp.gmail.com with ESMTPSA id 125sm14307876wmc.27.2020.12.11.02.04.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Dec 2020 02:04:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,73 +41,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16ee8f74-13de-448a-ae1b-8a0c953f4ab0
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607680819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JKr0IU1OHPnTj92qY4obtwJ5XOYnO0ZBGpisAWTb8pU=;
-	b=GQS6a5T2PJwKxC88/EptTmt84koBd3kSBG9w2c9LN6wld1KHhjEEgNzM0oSR140o2jBC0B
-	FkKrXsHPGvDT6vPyVZVSWsF7WD7M3mZx2+b3ZNYC+0wKSEvPfV4YUiaCGjSGVtOXXDPVvD
-	hxkCZTVR8lWMOQt05wYRPf8kbQSxKC0=
-Subject: Re: [PATCH v3 2/8] lib: collect library files in an archive
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <1a6bac6a-7d83-f5b6-c5b9-8b3b39824d40@suse.com>
- <21714b83-8619-5aa9-be5b-3015d05a26a4@suse.com>
- <X9I1GCAM2nn8W8eN@perard.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <65b94fd1-c840-cb1b-51f7-c9a5b158cc1e@suse.com>
-Date: Fri, 11 Dec 2020 11:00:19 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+X-Inumbo-ID: f5967531-dcf0-4cf9-96dc-5d72e79b4b80
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=1m1097L8Z65yNEwPVsqCFAhMTO7JcIQztqm0XMNCEPQ=;
+        b=QxFc8GC7E8T+U1gL6XJZvjeXxiWbuXfRqv6+3/ZJOEoQYn8YiRuOLDZAWueGTraddr
+         xPqz2bb/8UoAjcvd5vsoN8LW5Iq1Lp0AqSabcEPsXCi+l/VkgtRG+OzcSz2lDjE/Pdix
+         jshzcxstN+qosX02zQCGS+/I2FYEYzEAEBcOtJSJ1mr8h1MxoB17ALXOASyS2RwWORLD
+         sYyHzWywWpvht4yy3yfrgCqZgrWTC9ga2KkmmQ+oI2PP2v+Qn9n0ORXRDwcKBkqiCMKf
+         N0XznwYuSkPJfUeKcTzGZ2pjw4N1X+j5jdnHapfeS7fwZVeyxQTBUj+e7/XfSTgXR3Ap
+         ykzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=1m1097L8Z65yNEwPVsqCFAhMTO7JcIQztqm0XMNCEPQ=;
+        b=uGIfWrH1tv6o94axE00EL+tx6RWBN1ZhPM1+3qERSqYiFY1kPXL3QBQFEGETiYbPen
+         vfH7bgvgMQQqs+DqbgvSh6H0VkIy/9T6fzLZQ7IZ9xUsxsVak5VK7QzsakalPijGfN4j
+         +4kUnY6MMGHeZsqTUYEptK9wjdZDL5W9NzaZEFTwSXR4ko812anN4gtT/NVZE3p2X66B
+         kc+pmWyZzWaOKxScmeQAsk4vL1lsVibuGf8szAGP1fA2st0vLfvW+gdZ/X57rTnoYQQQ
+         /whJo1/cIuiz96MltxCdKxaEfeeJa0sSvM3a0T91Y2p8W11ATqeCAkyqFLSZaZiVf1lx
+         8UbA==
+X-Gm-Message-State: AOAM531ZSA+kP+e4a0T9kbFObPFT91AB/lkeSrU+v8L1VbW48u48D7aF
+	l7Yc5T838qIywHmzou5xaDU58g==
+X-Google-Smtp-Source: ABdhPJwPXfTZPDeiEu60EOOVLfjPDebdQDfkcu30zCcF3k07tbHpbRDSiAPsDeGxO9u3bWjkQ8cNJw==
+X-Received: by 2002:a5d:6ccc:: with SMTP id c12mr13142414wrc.4.1607681080467;
+        Fri, 11 Dec 2020 02:04:40 -0800 (PST)
+Date: Fri, 11 Dec 2020 10:04:36 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	linux-arm-kernel@lists.infradead.org,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	afzal mohammed <afzal.mohd.ma@gmail.com>,
+	linux-parisc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Christian Borntraeger <borntraeger@de.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>, linux-s390@vger.kernel.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+	Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Wambui Karuga <wambui.karugax@gmail.com>,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	linux-gpio@vger.kernel.org, Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
+	linux-ntb@googlegroups.com,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Michal Simek <michal.simek@xilinx.com>, linux-pci@vger.kernel.org,
+	Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
+	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org, Saeed Mahameed <saeedm@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [patch 16/30] mfd: ab8500-debugfs: Remove the racy fiddling with
+ irq_desc
+Message-ID: <20201211100436.GC5029@dell>
+References: <20201210192536.118432146@linutronix.de>
+ <20201210194044.157283633@linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <X9I1GCAM2nn8W8eN@perard.uk.xensource.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201210194044.157283633@linutronix.de>
 
-On 10.12.2020 15:47, Anthony PERARD wrote:
-> On Mon, Nov 23, 2020 at 04:21:19PM +0100, Jan Beulich wrote:
->> --- a/xen/Rules.mk
->> +++ b/xen/Rules.mk
->> @@ -60,7 +64,14 @@ include Makefile
->>  # ---------------------------------------------------------------------------
->>  
->>  quiet_cmd_ld = LD      $@
->> -cmd_ld = $(LD) $(XEN_LDFLAGS) -r -o $@ $(real-prereqs)
->> +cmd_ld = $(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out %.a,$(real-prereqs)) \
->> +               --start-group $(filter %.a,$(real-prereqs)) --end-group
+On Thu, 10 Dec 2020, Thomas Gleixner wrote:
+
+> First of all drivers have absolutely no business to dig into the internals
+> of an irq descriptor. That's core code and subject to change. All of this
+> information is readily available to /proc/interrupts in a safe and race
+> free way.
 > 
-> It might be a bit weird to modify the generic LD command for the benefit
-> of only prelink.o objects but it's probably fine as long as we only use
-> archives for lib.a. libelf and libfdt will just have --start/end-group
-> added to there ld command line. So I guess the change is fine.
+> Remove the inspection code which is a blatant violation of subsystem
+> boundaries and racy against concurrent modifications of the interrupt
+> descriptor.
+> 
+> Print the irq line instead so the information can be looked up in a sane
+> way in /proc/interrupts.
+> 
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Lee Jones <lee.jones@linaro.org>
+> Cc: linux-arm-kernel@lists.infradead.org
+> ---
+>  drivers/mfd/ab8500-debugfs.c |   16 +++-------------
+>  1 file changed, 3 insertions(+), 13 deletions(-)
 
-I'm afraid I don't understand what the concern is. Neither libelf
-nor libfdt use any %.a right now. Or are you referring to them
-merely because it's just them which have got converted to using
-$(call if-changed ...), and your remark would eventually apply to
-e.g. built_in.o as well? And then further is all you're worried
-about the fact that there may be "--start-group  --end-group" on
-the command line, i.e. with nothing inbetween? If so, besides
-possibly looking a little odd if someone inspected the command
-lines closely, what possible issue do you see? (If there is one,
-making the addition of both options conditional upon there being
-any/multiple %.a in the first place wouldn't be a big problem,
-albeit Linux also doesn't care whether ${KBUILD_VMLINUX_LIBS} is
-empty.)
+Acked-by: Lee Jones <lee.jones@linaro.org>
 
-> The rest looks good,
-> Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-Thanks, but I'd prefer the above clarified.
-
-Jan
+-- 
+Lee Jones [李琼斯]
+Senior Technical Lead - Developer Services
+Linaro.org │ Open source software for Arm SoCs
+Follow Linaro: Facebook | Twitter | Blog
 
