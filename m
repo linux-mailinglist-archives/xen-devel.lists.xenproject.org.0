@@ -2,41 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCF2E2D7DAA
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 19:09:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.50811.89596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB8E92D7DC4
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 19:12:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.50823.89610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knmqP-0007Do-UT; Fri, 11 Dec 2020 18:08:41 +0000
+	id 1knmu2-0008Fe-Eu; Fri, 11 Dec 2020 18:12:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 50811.89596; Fri, 11 Dec 2020 18:08:41 +0000
+Received: by outflank-mailman (output) from mailman id 50823.89610; Fri, 11 Dec 2020 18:12:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knmqP-0007DN-RJ; Fri, 11 Dec 2020 18:08:41 +0000
-Received: by outflank-mailman (input) for mailman id 50811;
- Fri, 11 Dec 2020 18:08:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ekOa=FP=kernel.org=maz@srs-us1.protection.inumbo.net>)
- id 1knmqP-0007DB-14
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 18:08:41 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2a9d3618-424e-44ba-9941-7085f118400d;
- Fri, 11 Dec 2020 18:08:40 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3300923EF3;
- Fri, 11 Dec 2020 18:08:39 +0000 (UTC)
-Received: from 78.163-31-62.static.virginmediabusiness.co.uk ([62.31.163.78]
- helo=wait-a-minute.misterjones.org)
- by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94)
- (envelope-from <maz@kernel.org>)
- id 1knmqL-000Wxd-8Z; Fri, 11 Dec 2020 18:08:37 +0000
+	id 1knmu2-0008FF-BU; Fri, 11 Dec 2020 18:12:26 +0000
+Received: by outflank-mailman (input) for mailman id 50823;
+ Fri, 11 Dec 2020 18:12:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pcPH=FP=gmail.com=andy.shevchenko@srs-us1.protection.inumbo.net>)
+ id 1knmu1-0008FA-FL
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 18:12:25 +0000
+Received: from mail-pg1-x52a.google.com (unknown [2607:f8b0:4864:20::52a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 65348a7e-327b-40e1-9d88-b9f5d3ecd324;
+ Fri, 11 Dec 2020 18:12:24 +0000 (UTC)
+Received: by mail-pg1-x52a.google.com with SMTP id w16so7648879pga.9
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Dec 2020 10:12:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,107 +37,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a9d3618-424e-44ba-9941-7085f118400d
-Date: Fri, 11 Dec 2020 18:08:34 +0000
-Message-ID: <87y2i443ml.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
+X-Inumbo-ID: 65348a7e-327b-40e1-9d88-b9f5d3ecd324
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=q/1zdMH3DpxGtZ8QgtITmolgonObU/7AjOPUuWKrWNo=;
+        b=Pm8buLXst2LcV9x4pk4vIxyybuwSbvL97o6tQP/6i0ZC0zOJ6xhhPvOmmJHnVFkhgw
+         sQfgcxJImHA+DnVZbZxb64zhatDbthp68cZ4iRaEqM/K8XSe9UZnfE94uYtkDbOOpabu
+         L1rj/JPmJET4DAk/lcrawpEkrx9i3ul2i6qGlaQuFoK2UkPf+SMWdOeOPPS8QAdKSG2Q
+         g24KIZVw1nm3kfJCayecl50J7bltlRshvQcWiGMUSmazoa8KfAW/iwqyejRvRxGzsh3A
+         q/OBzRHzggVvK36H+lQNs9ICk+Z16dfzwLBUVGvlOwEUqmBMnCQtHV8wDQuwIxn+Jo8v
+         0Yfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=q/1zdMH3DpxGtZ8QgtITmolgonObU/7AjOPUuWKrWNo=;
+        b=HUzHojBGCWGhBPpgV/zA3WQ2D6vjaZLwtQ3nqx60IOUJIG1dIcSX2jWSw9mkk3fDuo
+         AdxvNqi5rafwV+07Iykgn01kcb/VxzlQ6sqSte6R1NhoG7VDg/tNXEyuanEdlyKl+Bs2
+         7y4iVe7zZDGiuxI2PpqdLnIm4JoCA0c0tVyEGBiFb2+uwGw2wNRm1UStSWHzwKRdgDwn
+         iEFXSsoYDUpMH7u5DNCcUz0Ywg5xEoa/WqLpuFB8xZV80DYA8E3a6OIChVCtyqLXKEEt
+         kzPSebDKzYHRsbF5sRFNGLuuokbP5USWyYE1tgcu9mCysWUu6cnK7+PuG9QM1gNSBcJQ
+         w7tw==
+X-Gm-Message-State: AOAM5317bKwsAx64UINu5ehzbA84dB2HfW4tJctwkR0GVf/JWvZKkT8w
+	0p9vqKU5t8W2quZW2Qyaco0iYtrSsO4J01uWeSs=
+X-Google-Smtp-Source: ABdhPJzPNFm8swDHOmLl35eT5h+YQB676NTtT2BWFgfALxfYZ8r2UnWa+iJwNQSLiKZOMQcPIak2nNSo7eC4Ue1vtXA=
+X-Received: by 2002:a63:4002:: with SMTP id n2mr13054398pga.4.1607710343875;
+ Fri, 11 Dec 2020 10:12:23 -0800 (PST)
+MIME-Version: 1.0
+References: <20201210192536.118432146@linutronix.de> <20201210194044.157283633@linutronix.de>
+In-Reply-To: <20201210194044.157283633@linutronix.de>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 11 Dec 2020 20:12:07 +0200
+Message-ID: <CAHp75Veo9aQLCp9ZuCcoexPLHM=R_PEu6uhP_P2bSpsVzyUaNQ@mail.gmail.com>
+Subject: Re: [patch 16/30] mfd: ab8500-debugfs: Remove the racy fiddling with irq_desc
 To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	afzal mohammed <afzal.mohd.ma@gmail.com>,
-	linux-parisc@vger.kernel.org,
-	Russell King <linux@armlinux.org.uk>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	linux-s390@vger.kernel.org,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@linux.ie>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
-	Chris Wilson <chris@chris-wilson.co.uk>,
-	Wambui Karuga <wambui.karugax@gmail.com>,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	linux-gpio@vger.kernel.org,
-	Lee Jones <lee.jones@linaro.org>,
-	Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	linux-ntb@googlegroups.com,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Michal Simek <michal.simek@xilinx.com>,
-	linux-pci@vger.kernel.org,
-	Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
-	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [patch 10/30] arm64/smp: Use irq_desc_kstat_cpu() in arch_show_interrupts()
-In-Reply-To: <20201210194043.546326568@linutronix.de>
-References: <20201210192536.118432146@linutronix.de>
-	<20201210194043.546326568@linutronix.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 Emacs/27.1
- (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 62.31.163.78
-X-SA-Exim-Rcpt-To: tglx@linutronix.de, linux-kernel@vger.kernel.org, peterz@infradead.org, mark.rutland@arm.com, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, James.Bottomley@HansenPartnership.com, deller@gmx.de, afzal.mohd.ma@gmail.com, linux-parisc@vger.kernel.org, linux@armlinux.org.uk, borntraeger@de.ibm.com, hca@linux.ibm.com, linux-s390@vger.kernel.org, jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, airlied@linux.ie, daniel@ffwll.ch, pankaj.laxminarayan.bharadiya@intel.com, chris@chris-wilson.co.uk, wambui.karugax@gmail.com, intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, tvrtko.ursulin@linux.intel.com, linus.walleij@linaro.org, linux-gpio@vger.kernel.org, lee.jones@linaro.org, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, linux-ntb@googlegroups.com, lorenzo.pieralisi@arm.com, robh@kernel.org, bhelgaas@google.com, michal.simek@xilinx.com, linux-pci@vger.kernel.org, m.karthike
- yan@mobiveil.co.in, Zhiqiang.Hou@nxp.com, tariqt@nvidia.com, davem@davemloft.net, kuba@kernel.org, netdev@vger.kernel.org, linux-rdma@vger.kernel.org, saeedm@nvidia.com, leon@kernel.org, boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org, xen-devel@lists.xenproject.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+Cc: LKML <linux-kernel@vger.kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Marc Zyngier <maz@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, 
+	Lee Jones <lee.jones@linaro.org>, 
+	linux-arm Mailing List <linux-arm-kernel@lists.infradead.org>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	afzal mohammed <afzal.mohd.ma@gmail.com>, linux-parisc@vger.kernel.org, 
+	Russell King <linux@armlinux.org.uk>, Mark Rutland <mark.rutland@arm.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Christian Borntraeger <borntraeger@de.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, linux-s390@vger.kernel.org, 
+	Jani Nikula <jani.nikula@linux.intel.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
+	Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>, 
+	Chris Wilson <chris@chris-wilson.co.uk>, Wambui Karuga <wambui.karugax@gmail.com>, 
+	intel-gfx <intel-gfx@lists.freedesktop.org>, 
+	dri-devel <dri-devel@lists.freedesktop.org>, 
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
+	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, Jon Mason <jdmason@kudzu.us>, 
+	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, linux-ntb@googlegroups.com, 
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Michal Simek <michal.simek@xilinx.com>, 
+	linux-pci <linux-pci@vger.kernel.org>, 
+	Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, 
+	Tariq Toukan <tariqt@nvidia.com>, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, netdev <netdev@vger.kernel.org>, 
+	"open list:HFI1 DRIVER" <linux-rdma@vger.kernel.org>, Saeed Mahameed <saeedm@nvidia.com>, 
+	Leon Romanovsky <leon@kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 10 Dec 2020 19:25:46 +0000,
-Thomas Gleixner <tglx@linutronix.de> wrote:
-> 
-> The irq descriptor is already there, no need to look it up again.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: linux-arm-kernel@lists.infradead.org
-> ---
->  arch/arm64/kernel/smp.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> --- a/arch/arm64/kernel/smp.c
-> +++ b/arch/arm64/kernel/smp.c
-> @@ -809,7 +809,7 @@ int arch_show_interrupts(struct seq_file
->  		seq_printf(p, "%*s%u:%s", prec - 1, "IPI", i,
->  			   prec >= 4 ? " " : "");
->  		for_each_online_cpu(cpu)
-> -			seq_printf(p, "%10u ", kstat_irqs_cpu(irq, cpu));
-> +			seq_printf(p, "%10u ", irq_desc_kstat_cpu(ipi_desc[i], cpu));
->  		seq_printf(p, "      %s\n", ipi_types[i]);
->  	}
->  
-> 
-> 
+On Thu, Dec 10, 2020 at 9:57 PM Thomas Gleixner <tglx@linutronix.de> wrote:
+>
+> First of all drivers have absolutely no business to dig into the internals
+> of an irq descriptor. That's core code and subject to change. All of this
+> information is readily available to /proc/interrupts in a safe and race
+> free way.
+>
+> Remove the inspection code which is a blatant violation of subsystem
+> boundaries and racy against concurrent modifications of the interrupt
+> descriptor.
+>
+> Print the irq line instead so the information can be looked up in a sane
+> way in /proc/interrupts.
 
-Acked-by: Marc Zyngier <maz@kernel.org>
+...
+
+> -               seq_printf(s, "%3i:  %6i %4i",
+> +               seq_printf(s, "%3i:  %6i %4i %4i\n",
+
+Seems different specifiers, I think the intention was something like
+               seq_printf(s, "%3i:  %4i %6i %4i\n",
+
+>                            line,
+> +                          line + irq_first,
+>                            num_interrupts[line],
+>                            num_wake_interrupts[line]);
+
 
 -- 
-Without deviation from the norm, progress is not possible.
+With Best Regards,
+Andy Shevchenko
 
