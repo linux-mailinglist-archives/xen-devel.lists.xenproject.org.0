@@ -2,42 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 341D82D84E8
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CD72D84E9
 	for <lists+xen-devel@lfdr.de>; Sat, 12 Dec 2020 06:45:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.50783.89948 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.50912.89959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knxhf-0003Lo-SY; Sat, 12 Dec 2020 05:44:23 +0000
+	id 1knxiR-0003Rp-6Z; Sat, 12 Dec 2020 05:45:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 50783.89948; Sat, 12 Dec 2020 05:44:23 +0000
+Received: by outflank-mailman (output) from mailman id 50912.89959; Sat, 12 Dec 2020 05:45:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knxhf-0003LP-P6; Sat, 12 Dec 2020 05:44:23 +0000
-Received: by outflank-mailman (input) for mailman id 50783;
- Fri, 11 Dec 2020 17:03:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1knxiR-0003RP-3Q; Sat, 12 Dec 2020 05:45:11 +0000
+Received: by outflank-mailman (input) for mailman id 50912;
+ Fri, 11 Dec 2020 21:27:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o6lN=FP=redhat.com=wainersm@srs-us1.protection.inumbo.net>)
- id 1knlpf-0000wk-Iu
- for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 17:03:51 +0000
+ <SRS0=tmXl=FP=redhat.com=wrampazz@srs-us1.protection.inumbo.net>)
+ id 1knpwZ-0002f2-I9
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 21:27:15 +0000
 Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id a81dd4fe-f9fd-4ad7-ad25-1476d485ed22;
- Fri, 11 Dec 2020 17:03:48 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-336-j0uHi-AaORKFbfD_QMHVaQ-1; Fri, 11 Dec 2020 12:03:44 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DDC751087D78;
- Fri, 11 Dec 2020 17:03:40 +0000 (UTC)
-Received: from wainer-laptop.localdomain (ovpn-114-123.rdu2.redhat.com
- [10.10.114.123])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E77FB5D9E8;
- Fri, 11 Dec 2020 17:03:31 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 90ff68e5-2648-47d5-b9af-f152df81388b;
+ Fri, 11 Dec 2020 21:27:14 +0000 (UTC)
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
+ [209.85.222.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-72-3dGxt_KeNhCxA8d0MZeqwQ-1; Fri, 11 Dec 2020 16:27:13 -0500
+Received: by mail-ua1-f69.google.com with SMTP id b3so1934601uas.10
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Dec 2020 13:27:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,76 +40,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a81dd4fe-f9fd-4ad7-ad25-1476d485ed22
+X-Inumbo-ID: 90ff68e5-2648-47d5-b9af-f152df81388b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607706228;
+	s=mimecast20190719; t=1607722034;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Leog1T7cuecv5R6fqJMs7ncd85agCnp/s8z42hrWKr0=;
-	b=eVAKegW8IydJQr3d398gO9kE7OusJBSimgGMoJwdpli45Dxuy/vQVDtyn3H6UtPL9EiJij
-	UHx1e4lUSwLpPdej8E9PlP9N1yrDrAzJx1VXGb6mdJODEmv6wTXqqX21199/xA7DVbpN/9
-	wGWrJTYXccckuvAEn70DkeMSFareqlU=
-X-MC-Unique: j0uHi-AaORKFbfD_QMHVaQ-1
+	bh=2baaQLSNBEeqb8s4I052o+MuhTpKsGsOVMcltvWRcFE=;
+	b=MS/6rZbU/buc9zcnquU9rlpJ7y6a29qJAmOsKrzkVtmTZyxPFJ0NPAiB0rgEoJFTJvx2V1
+	Z9YEI0TC0K0ndOiqNDziy+/tOtgq41Zpah5T2qcJLr10T/LTEsUh6KFqu4MK8Yty+J+5DT
+	UQLIzxVDLGm2q9BGWkNvwWa/gAsIOsc=
+X-MC-Unique: 3dGxt_KeNhCxA8d0MZeqwQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=2baaQLSNBEeqb8s4I052o+MuhTpKsGsOVMcltvWRcFE=;
+        b=LxlaL3RPN8X0OgE9FJ9vcv4FTLJLCChyOuIfyVra8D12XbVIeE9Ee8hiFTklSHICNy
+         blW8bkfjrZh7g6fj39jdEgjqVZxcRvPGtF2N8Jqeju1WEGgIUrKyFimFZSCxg+CyEoTO
+         0YOwieTZ6yfc1/zMB4wJpmr6jjsbNdTxAODggnixbZsqFKcCxSXaSYrg0PU9kvl2iFyr
+         MA2Ho2Ihm6BNNnHtmkG6lFp6YKBUTgrhd3RN0NIehJ6mJFDT1/Ftnj2hrLD/qoDKPuDL
+         0a9Jn5rQwQg605EPF71YKTiTDBKSGJ3Ao3ky5QtzikF2pRDjRVj2MUDALoCCxJkwR1QF
+         yCWg==
+X-Gm-Message-State: AOAM530aD05i+5Z43ToDV6zIxG5pHFsyO2y/uZufmmpbVXIRZqrYbv2U
+	w60VUCC0IoX5wha0i+Y7WOZO70Pz0lNwoP+J53YjXiOQbq2hxcQAavgWM7KI15yX9/VBonTtV4W
+	eOqrjsmDpJTc8j4aFBDbE2s5+chgTDJSgZxKUZsxVnp4=
+X-Received: by 2002:a1f:3216:: with SMTP id y22mr16017730vky.1.1607722032623;
+        Fri, 11 Dec 2020 13:27:12 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzoAxYS7LmWjUd46I3qBH/wmX8+rEnzXAY9WUS8yNPb88aaCCmUw66PGF9HvP9W43g/thyTvGXx+ar4+M0xIEI=
+X-Received: by 2002:a1f:3216:: with SMTP id y22mr16017712vky.1.1607722032420;
+ Fri, 11 Dec 2020 13:27:12 -0800 (PST)
+MIME-Version: 1.0
+References: <20201207131503.3858889-1-philmd@redhat.com> <20201207131503.3858889-2-philmd@redhat.com>
+In-Reply-To: <20201207131503.3858889-2-philmd@redhat.com>
+From: Willian Rampazzo <wrampazz@redhat.com>
+Date: Fri, 11 Dec 2020 18:27:01 -0300
+Message-ID: <CAKJDGDYwUdGxHC4ctzqO6JfrsGQDv7uwdCC29x5Ty61=fzV2RA@mail.gmail.com>
 Subject: Re: [PATCH v3 1/5] gitlab-ci: Document 'build-tcg-disabled' is a KVM
  X86 job
-To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
- qemu-devel@nongnu.org
-Cc: Thomas Huth <thuth@redhat.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Marcelo Tosatti <mtosatti@redhat.com>, kvm@vger.kernel.org,
- Paolo Bonzini <pbonzini@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, qemu-s390x@nongnu.org,
- Halil Pasic <pasic@linux.ibm.com>, Willian Rampazzo <wrampazz@redhat.com>,
- Paul Durrant <paul@xen.org>, Cornelia Huck <cohuck@redhat.com>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
- <alex.bennee@linaro.org>, Claudio Fontana <cfontana@suse.de>
-References: <20201207131503.3858889-1-philmd@redhat.com>
- <20201207131503.3858889-2-philmd@redhat.com>
-From: Wainer dos Santos Moschetta <wainersm@redhat.com>
-Message-ID: <41db8ee1-23bf-bbde-f99a-5a314fac215d@redhat.com>
-Date: Fri, 11 Dec 2020 14:03:30 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-MIME-Version: 1.0
-In-Reply-To: <20201207131503.3858889-2-philmd@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
+Cc: qemu-devel <qemu-devel@nongnu.org>, Thomas Huth <thuth@redhat.com>, 
+	Christian Borntraeger <borntraeger@de.ibm.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Marcelo Tosatti <mtosatti@redhat.com>, kvm@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Anthony Perard <anthony.perard@citrix.com>, qemu-s390x@nongnu.org, 
+	Halil Pasic <pasic@linux.ibm.com>, Paul Durrant <paul@xen.org>, Cornelia Huck <cohuck@redhat.com>, 
+	xen-devel@lists.xenproject.org, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+	Claudio Fontana <cfontana@suse.de>, Wainer dos Santos Moschetta <wainersm@redhat.com>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=wrampazz@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On 12/7/20 10:14 AM, Philippe Mathieu-Daudé wrote:
+On Mon, Dec 7, 2020 at 10:15 AM Philippe Mathieu-Daud=C3=A9
+<philmd@redhat.com> wrote:
+>
 > Document what this job cover (build X86 targets with
 > KVM being the single accelerator available).
 >
 > Reviewed-by: Thomas Huth <thuth@redhat.com>
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
 > ---
->   .gitlab-ci.yml | 5 +++++
->   1 file changed, 5 insertions(+)
+>  .gitlab-ci.yml | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-Reviewed-by: Wainer dos Santos Moschetta <wainersm@redhat.com>
-
->
-> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-> index d0173e82b16..ee31b1020fe 100644
-> --- a/.gitlab-ci.yml
-> +++ b/.gitlab-ci.yml
-> @@ -220,6 +220,11 @@ build-disabled:
->         s390x-softmmu i386-linux-user
->       MAKE_CHECK_ARGS: check-qtest SPEED=slow
->   
-> +# This jobs explicitly disable TCG (--disable-tcg), KVM is detected by
-> +# the configure script. The container doesn't contain Xen headers so
-> +# Xen accelerator is not detected / selected. As result it build the
-> +# i386-softmmu and x86_64-softmmu with KVM being the single accelerator
-> +# available.
->   build-tcg-disabled:
->     <<: *native_build_job_definition
->     variables:
+Reviewed-by: WIllian Rampazzo <willianr@redhat.com>
 
 
