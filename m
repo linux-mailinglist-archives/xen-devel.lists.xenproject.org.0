@@ -2,67 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 198D92D6F7C
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 06:09:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.49900.88616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 992342D6F80
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Dec 2020 06:10:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.50109.88631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knafx-0004l7-Qi; Fri, 11 Dec 2020 05:09:05 +0000
+	id 1knahb-0005fU-7r; Fri, 11 Dec 2020 05:10:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 49900.88616; Fri, 11 Dec 2020 05:09:05 +0000
+Received: by outflank-mailman (output) from mailman id 50109.88631; Fri, 11 Dec 2020 05:10:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1knafx-0004kU-MM; Fri, 11 Dec 2020 05:09:05 +0000
-Received: by outflank-mailman (input) for mailman id 49900;
- Thu, 10 Dec 2020 20:33:22 +0000
+	id 1knahb-0005ey-3J; Fri, 11 Dec 2020 05:10:47 +0000
+Received: by outflank-mailman (input) for mailman id 50109;
+ Fri, 11 Dec 2020 05:10:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sId8=FO=linux.ibm.com=hca@srs-us1.protection.inumbo.net>)
- id 1knScs-00080H-5P
- for xen-devel@lists.xenproject.org; Thu, 10 Dec 2020 20:33:22 +0000
-Received: from mx0b-001b2d01.pphosted.com (unknown [148.163.158.5])
+ (envelope-from <SRS0=XUOP=FP=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1knahZ-0005d2-JH
+ for xen-devel@lists.xenproject.org; Fri, 11 Dec 2020 05:10:45 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 75e5151a-52c4-4a32-af2c-843197825ba8;
- Thu, 10 Dec 2020 20:33:20 +0000 (UTC)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0BAK4Fvx057985; Thu, 10 Dec 2020 15:31:40 -0500
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 35bst29qva-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Dec 2020 15:31:40 -0500
-Received: from m0098421.ppops.net (m0098421.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0BAK4GjK058200;
- Thu, 10 Dec 2020 15:31:39 -0500
-Received: from ppma03ams.nl.ibm.com (62.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.98])
- by mx0a-001b2d01.pphosted.com with ESMTP id 35bst29qu4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Dec 2020 15:31:39 -0500
-Received: from pps.filterd (ppma03ams.nl.ibm.com [127.0.0.1])
- by ppma03ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0BAKRkNd013529;
- Thu, 10 Dec 2020 20:31:36 GMT
-Received: from b06cxnps4074.portsmouth.uk.ibm.com
- (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
- by ppma03ams.nl.ibm.com with ESMTP id 3581u865vj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Dec 2020 20:31:36 +0000
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 0BAKVYT024117666
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 10 Dec 2020 20:31:34 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DFC83AE045;
- Thu, 10 Dec 2020 20:31:33 +0000 (GMT)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E2863AE051;
- Thu, 10 Dec 2020 20:31:31 +0000 (GMT)
-Received: from osiris (unknown [9.171.22.54])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Thu, 10 Dec 2020 20:31:31 +0000 (GMT)
+ id bc0a885a-a840-4914-9d8f-436b4e632912;
+ Fri, 11 Dec 2020 05:10:44 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 89C2DAB91;
+ Fri, 11 Dec 2020 05:10:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,83 +39,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75e5151a-52c4-4a32-af2c-843197825ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=date : from : to : cc :
- subject : message-id : references : mime-version : content-type :
- in-reply-to; s=pp1; bh=3Ov7MsWd2WvcFRWayPftrhptP83tCk6eaRZKMJ1S1Ic=;
- b=qJ2qXmRZHShK3+KCGTAQ+GLO7T5ClcHbRucTlMptHMZtELrH8qgXcIaAHVB6PID/nku1
- ByEtEVbJsiJYGI03QlfGkQ1cRWQd6oOEMn8yuCkftiInCUBb7cOBy+jxJoIaI5JGWhnb
- ReeNDn1ZxIP8QeHupKbq+wYT9Qp4BCHp8SfaSiQ9Ullxz+NVNlETe0UEchxkp3jV8B2g
- WzhBnCQf3xdIuJ0+HTPpMuRtk6+5Tkn4guG5jhcrwWTqI/FxJkyWrFviDJx1F+MGhTWO
- qZWE27Ax0tV7PUfy/8exNPVSXkxQALqNVg6/vWplCQaefgrg6FRXhrzr6Klx6j7s6nnk /w== 
-Date: Thu, 10 Dec 2020 21:31:30 +0100
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-        Marc Zyngier <maz@kernel.org>,
-        Christian Borntraeger <borntraeger@de.ibm.com>,
-        linux-s390@vger.kernel.org,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        Helge Deller <deller@gmx.de>, afzal mohammed <afzal.mohd.ma@gmail.com>,
-        linux-parisc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-        linux-arm-kernel@lists.infradead.org,
-        Mark Rutland <mark.rutland@arm.com>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>,
-        Jani Nikula <jani.nikula@linux.intel.com>,
-        Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-        Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>,
-        Daniel Vetter <daniel@ffwll.ch>,
-        Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>,
-        Chris Wilson <chris@chris-wilson.co.uk>,
-        Wambui Karuga <wambui.karugax@gmail.com>,
-        intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-        Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-        Linus Walleij <linus.walleij@linaro.org>, linux-gpio@vger.kernel.org,
-        Lee Jones <lee.jones@linaro.org>, Jon Mason <jdmason@kudzu.us>,
-        Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
-        linux-ntb@googlegroups.com,
-        Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-        Michal Simek <michal.simek@xilinx.com>, linux-pci@vger.kernel.org,
-        Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
-        Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
-        linux-rdma@vger.kernel.org, Saeed Mahameed <saeedm@nvidia.com>,
-        Leon Romanovsky <leon@kernel.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        xen-devel@lists.xenproject.org
-Subject: Re: [patch 12/30] s390/irq: Use irq_desc_kstat_cpu() in
- show_msi_interrupt()
-Message-ID: <20201210203130.GB4250@osiris>
-References: <20201210192536.118432146@linutronix.de>
- <20201210194043.769108348@linutronix.de>
+X-Inumbo-ID: bc0a885a-a840-4914-9d8f-436b4e632912
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1607663443; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Tw8WaYEedOoP6uhdqQDj4FZ0EAnAR9qHZSp5wafjsIg=;
+	b=RSe3GVINPA6mwnWqpxRj8C9UTL+BPcbllw0Jd3tlnuM7c4kwSeqEQEIxImNXBlC8vx+2u1
+	lA6EJ0XwdoFW1xEM2TtixXyMKKnxqwvVltg4iWOvd6RBHTgkMnSUT7RGpYUltKe435KCOq
+	6Dor5nBpZV8g2Lp2ly+q87J7HUENxLQ=
+Subject: Re: x86/ioapic: Cleanup the timer_works() irqflags mess
+To: Thomas Gleixner <tglx@linutronix.de>, Mark Rutland <mark.rutland@arm.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, xen-devel@lists.xenproject.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, luto@kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ "H. Peter Anvin" <hpa@zytor.com>, Deep Shah <sdeep@vmware.com>,
+ "VMware, Inc." <pv-drivers@vmware.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20201120114630.13552-1-jgross@suse.com>
+ <20201120114630.13552-6-jgross@suse.com>
+ <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+ <20201209181514.GA14235@C02TD0UTHF1T.local>
+ <87tusuzu71.fsf@nanos.tec.linutronix.de>
+ <20201210111008.GB88655@C02TD0UTHF1T.local>
+ <87k0tpju47.fsf@nanos.tec.linutronix.de>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <0a90cfff-05d6-1475-43f8-e41b5af24281@suse.com>
+Date: Fri, 11 Dec 2020 06:10:42 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201210194043.769108348@linutronix.de>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343,18.0.737
- definitions=2020-12-10_08:2020-12-09,2020-12-10 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 phishscore=0
- lowpriorityscore=0 mlxlogscore=996 clxscore=1011 adultscore=0 mlxscore=0
- bulkscore=0 suspectscore=1 spamscore=0 impostorscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012100122
+In-Reply-To: <87k0tpju47.fsf@nanos.tec.linutronix.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="ut1CfDbO7XZTjsKp0jfE35exNGTBAXJ4U"
 
-On Thu, Dec 10, 2020 at 08:25:48PM +0100, Thomas Gleixner wrote:
-> The irq descriptor is already there, no need to look it up again.
-> 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--ut1CfDbO7XZTjsKp0jfE35exNGTBAXJ4U
+Content-Type: multipart/mixed; boundary="FClLxLK0RQjd7JNbzYVWLfCZWmbD9gnXP";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Thomas Gleixner <tglx@linutronix.de>, Mark Rutland <mark.rutland@arm.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, xen-devel@lists.xenproject.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, luto@kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ "H. Peter Anvin" <hpa@zytor.com>, Deep Shah <sdeep@vmware.com>,
+ "VMware, Inc." <pv-drivers@vmware.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <0a90cfff-05d6-1475-43f8-e41b5af24281@suse.com>
+Subject: Re: x86/ioapic: Cleanup the timer_works() irqflags mess
+References: <20201120114630.13552-1-jgross@suse.com>
+ <20201120114630.13552-6-jgross@suse.com>
+ <20201120115943.GD3021@hirez.programming.kicks-ass.net>
+ <20201209181514.GA14235@C02TD0UTHF1T.local>
+ <87tusuzu71.fsf@nanos.tec.linutronix.de>
+ <20201210111008.GB88655@C02TD0UTHF1T.local>
+ <87k0tpju47.fsf@nanos.tec.linutronix.de>
+In-Reply-To: <87k0tpju47.fsf@nanos.tec.linutronix.de>
+
+--FClLxLK0RQjd7JNbzYVWLfCZWmbD9gnXP
+Content-Type: multipart/mixed;
+ boundary="------------3B73900FA14EEF59C60EECEC"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------3B73900FA14EEF59C60EECEC
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 10.12.20 21:15, Thomas Gleixner wrote:
+> Mark tripped over the creative irqflags handling in the IO-APIC timer
+> delivery check which ends up doing:
+>=20
+>          local_irq_save(flags);
+> 	local_irq_enable();
+>          local_irq_restore(flags);
+>=20
+> which triggered a new consistency check he's working on required for
+> replacing the POPF based restore with a conditional STI.
+>=20
+> That code is a historical mess and none of this is needed. Make it
+> straightforward use local_irq_disable()/enable() as that's all what is
+> required. It is invoked from interrupt enabled code nowadays.
+>=20
+> Reported-by: Mark Rutland <mark.rutland@arm.com>
 > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Christian Borntraeger <borntraeger@de.ibm.com>
-> Cc: Heiko Carstens <hca@linux.ibm.com>
-> Cc: linux-s390@vger.kernel.org
-> ---
->  arch/s390/kernel/irq.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Tested-by: Mark Rutland <mark.rutland@arm.com>
 
-Acked-by: Heiko Carstens <hca@linux.ibm.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+
+
+Juergen
+
+--------------3B73900FA14EEF59C60EECEC
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------3B73900FA14EEF59C60EECEC--
+
+--FClLxLK0RQjd7JNbzYVWLfCZWmbD9gnXP--
+
+--ut1CfDbO7XZTjsKp0jfE35exNGTBAXJ4U
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/S/1IFAwAAAAAACgkQsN6d1ii/Ey8w
+Zwf9FLP8Fj1JNG2NYn58CzNrRiyr6YDBpKBiJh+uBmcJAAc34XAwkzDVUYbbaFsr12h2bICSlnJ8
+jEN0pu4X53sJVw2xxOEfx2HlGI/ksGGRhrAFARK/h8staI70tGsbSOHJQNJCbmZKHOn55OkNQR0H
+yA4TBnoai2gnYd1Tc96EnKJ40Pch1hg2X3C+9sWGqwd31dbv0wsnLeMOiORzwikM8mIVKrzutkCC
+p8AySw3U0kMObQPydcJO3Ub4msqzkccfByYDWWOCsEi+1kfIEYqv28eTTfRW5FMYpQF0VCRSkQec
+oU3arD7srQaZGLOwwClaEpgS3z5yk8VDOxX++d8Eiw==
+=eb6p
+-----END PGP SIGNATURE-----
+
+--ut1CfDbO7XZTjsKp0jfE35exNGTBAXJ4U--
 
