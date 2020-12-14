@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 741FD2D94E2
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 10:20:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52011.90995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06CD32D94E5
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 10:21:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52016.91007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kok1P-0003gZ-5F; Mon, 14 Dec 2020 09:19:59 +0000
+	id 1kok2b-0004TX-FT; Mon, 14 Dec 2020 09:21:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52011.90995; Mon, 14 Dec 2020 09:19:59 +0000
+Received: by outflank-mailman (output) from mailman id 52016.91007; Mon, 14 Dec 2020 09:21:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kok1P-0003gA-1R; Mon, 14 Dec 2020 09:19:59 +0000
-Received: by outflank-mailman (input) for mailman id 52011;
- Mon, 14 Dec 2020 09:19:57 +0000
+	id 1kok2b-0004T8-C2; Mon, 14 Dec 2020 09:21:13 +0000
+Received: by outflank-mailman (input) for mailman id 52016;
+ Mon, 14 Dec 2020 09:21:12 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XC/h=FS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kok1N-0003g5-L1
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 09:19:57 +0000
+ id 1kok2a-0004T2-A1
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 09:21:12 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 883f80e2-fb5a-45db-b464-bb6f6fec97ee;
- Mon, 14 Dec 2020 09:19:56 +0000 (UTC)
+ id 466c4478-7568-4d82-a470-dd0f3fa97898;
+ Mon, 14 Dec 2020 09:21:11 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C9FA7AC10;
- Mon, 14 Dec 2020 09:19:55 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 66389B714;
+ Mon, 14 Dec 2020 09:21:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,127 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 883f80e2-fb5a-45db-b464-bb6f6fec97ee
+X-Inumbo-ID: 466c4478-7568-4d82-a470-dd0f3fa97898
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607937595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1607937670; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zAWigpfJMXrhYnFqL7KXlLIgod5mhUz+XtyC+Hf5HJw=;
-	b=ibYgMUFpBOA71Ll9iOVZp0+vLTzm4EFPn+aFsjERMT4E2c6zlSRsSO1aam706yjMwVTCsG
-	KZerycvaMS71uwEdH8yF16h1V06Ji9EtJdD1+8WEmBYUzqNGqN4qp7vKNIGjr1mR+88NrX
-	9O2FsY4U33jFQFAR/xeDJdYxXuqSPXU=
-Subject: Re: [PATCH v4 3/3] xen: add support for automatic debug key actions
+	bh=a1s8p/1Ns9DLckuJmuLLbMHBJnhiw3xo0zbi3k79Kf0=;
+	b=soSy7R4O6ubpb/UNuEuk3t3n7V+r9y0GiPwAhLhqkbSZspdpSFF5vQXsUEVtwO9cJ2JdMu
+	Gv76Y1+2MldXA8wJx1z9ITTYmxC7tu5uU9nZSSat7KwXQ8YvbPSKXDO7geq0LL5YJbyNtB
+	SKW/AfLdf6ogw/Qb7bYoj0HDNghlXJg=
+Subject: Re: [PATCH v4 0/3] xen: add support for automatic debug key actions
  in case of crash
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20201214075615.25038-1-jgross@suse.com>
- <20201214075615.25038-4-jgross@suse.com>
- <d1b33e7f-2dd8-9d44-62c9-86ec46d919fe@suse.com>
+ <247d9c9c-5ab1-c733-6960-e406040c28ac@suse.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <858755cd-ea76-c537-00ba-8670465871be@suse.com>
-Date: Mon, 14 Dec 2020 10:19:54 +0100
+Message-ID: <dd39f92b-e0b0-135b-faf2-379c21652df3@suse.com>
+Date: Mon, 14 Dec 2020 10:21:09 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <d1b33e7f-2dd8-9d44-62c9-86ec46d919fe@suse.com>
+In-Reply-To: <247d9c9c-5ab1-c733-6960-e406040c28ac@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="es9mkHtinfBtJHjT5515SHq3r67F6URJ0"
+ boundary="lC4azOJXGLRXtv8hAEbuDSagBdcDtjWQi"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---es9mkHtinfBtJHjT5515SHq3r67F6URJ0
-Content-Type: multipart/mixed; boundary="xyp1LgC1FKjWYb7HihTA5FkQ0HiAxhxzY";
+--lC4azOJXGLRXtv8hAEbuDSagBdcDtjWQi
+Content-Type: multipart/mixed; boundary="RxaJQnM42FSKvxsjjWsczO2cUwYBkWsE5";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <858755cd-ea76-c537-00ba-8670465871be@suse.com>
-Subject: Re: [PATCH v4 3/3] xen: add support for automatic debug key actions
+Message-ID: <dd39f92b-e0b0-135b-faf2-379c21652df3@suse.com>
+Subject: Re: [PATCH v4 0/3] xen: add support for automatic debug key actions
  in case of crash
 References: <20201214075615.25038-1-jgross@suse.com>
- <20201214075615.25038-4-jgross@suse.com>
- <d1b33e7f-2dd8-9d44-62c9-86ec46d919fe@suse.com>
-In-Reply-To: <d1b33e7f-2dd8-9d44-62c9-86ec46d919fe@suse.com>
+ <247d9c9c-5ab1-c733-6960-e406040c28ac@suse.com>
+In-Reply-To: <247d9c9c-5ab1-c733-6960-e406040c28ac@suse.com>
 
---xyp1LgC1FKjWYb7HihTA5FkQ0HiAxhxzY
+--RxaJQnM42FSKvxsjjWsczO2cUwYBkWsE5
 Content-Type: multipart/mixed;
- boundary="------------1F1D5D90A7A4BF8D9F983D81"
+ boundary="------------9A2342D1207237E138C14F0B"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------1F1D5D90A7A4BF8D9F983D81
+--------------9A2342D1207237E138C14F0B
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 14.12.20 10:16, Jan Beulich wrote:
+On 14.12.20 10:09, Jan Beulich wrote:
 > On 14.12.2020 08:56, Juergen Gross wrote:
->> @@ -519,6 +521,59 @@ void __init initialize_keytable(void)
->>       }
->>   }
->>  =20
->> +#define CRASHACTION_SIZE  32
->> +static char crash_debug_panic[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-panic", crash_debug_panic);
->> +static char crash_debug_hwdom[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-hwdom", crash_debug_hwdom);
->> +static char crash_debug_watchdog[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-watchdog", crash_debug_watchdog);
->> +#ifdef CONFIG_KEXEC
->> +static char crash_debug_kexeccmd[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-kexeccmd", crash_debug_kexeccmd);
->> +#else
->> +#define crash_debug_kexeccmd NULL
->> +#endif
->> +static char crash_debug_debugkey[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-debugkey", crash_debug_debugkey);
->> +
->> +void keyhandler_crash_action(enum crash_reason reason)
->> +{
->> +    static const char *const crash_action[] =3D {
->> +        [CRASHREASON_PANIC] =3D crash_debug_panic,
->> +        [CRASHREASON_HWDOM] =3D crash_debug_hwdom,
->> +        [CRASHREASON_WATCHDOG] =3D crash_debug_watchdog,
->> +        [CRASHREASON_KEXECCMD] =3D crash_debug_kexeccmd,
->> +        [CRASHREASON_DEBUGKEY] =3D crash_debug_debugkey,
->> +    };
->> +    static bool ignore;
->> +    const char *action;
->> +
->> +    /* Some handlers are not functional too early. */
->> +    if ( system_state < SYS_STATE_smp_boot )
->> +        return;
->> +
->> +    /* Avoid recursion. */
->> +    if ( ignore )
->> +        return;
->> +    ignore =3D true;
->> +
->> +    if ( (unsigned int)reason >=3D ARRAY_SIZE(crash_action) )
->> +        return;
->> +    action =3D crash_action[reason];
->> +    if ( !action )
->> +        return;
->=20
-> If we consider either of the last two "return"s to possibly be
-> taken, I think the "ignore" logic wants to live below them, not
-> above, avoiding no output at all when a recursive invocation
-> turns out to be a "good" one. Then, as before,
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> Patch 2 opens up more potential for simplification: in theory there is=
 
-Fine with me.
+>> no need any more to call any key handler with the regs parameter,
+>> allowing to use the same prototype for all handlers. The downside woul=
+d
+>> be to have an additional irq frame on the stack for the dump_registers=
+()
+>> and the do_debug_key() handlers.
+>=20
+> This isn't the only downside, is it? We'd then also need to be able
+> to (sufficiently cleanly) unwind through the new frame to reach the
+> prior one, in order to avoid logging less reliable information. Plus
+> decompose the prior frame as well to avoid logging less easy to
+> consume data.
+
+Yes, this was implied by the "additional irq frame on the stack".
 
 
 Juergen
 
-
---------------1F1D5D90A7A4BF8D9F983D81
+--------------9A2342D1207237E138C14F0B
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -250,25 +211,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------1F1D5D90A7A4BF8D9F983D81--
+--------------9A2342D1207237E138C14F0B--
 
---xyp1LgC1FKjWYb7HihTA5FkQ0HiAxhxzY--
+--RxaJQnM42FSKvxsjjWsczO2cUwYBkWsE5--
 
---es9mkHtinfBtJHjT5515SHq3r67F6URJ0
+--lC4azOJXGLRXtv8hAEbuDSagBdcDtjWQi
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/XLjoFAwAAAAAACgkQsN6d1ii/Ey/c
-5wf/cWKLNaGKZUioY+HjtU9k0sUXbRsKUBSxeEv0glPrRtnd28FEhiZMErngoGB/6QCs07PeM9Wk
-RNjYSKfTTI4bjSalehydpVYmBoe+/z1780OQVDZMwHSuARuF2Z1akV7drLwmfTxhmlUYNAMODm33
-YtzJqumb5NihIdqDJLEARLlss8uIRqiiFbUL06D3vLEt/kfOVZzeJq4LtTRoNNPcTMnht96EzIuJ
-yK7EAQJT1pcdylG619z361G4yNnP7JyH/OZ2AThS2ekwZSAfwBpL5sQpShZajAzbcr67hOCQpkHO
-9q3g8BVUZe5/PZzv/hst3IW3lHwfUhDuILA3KOfuUA==
-=LSUw
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/XLoUFAwAAAAAACgkQsN6d1ii/Ey/n
+swf/SdjPfYcvout4T0zfjTdv3ftsQwoAUkAV4X03ToA1OTahTzY1WFnTn9OCxWoD8Gu05+nxY83h
+4cTopiFDYLiLMckhO7JoDFrF4sQPrJHYgmVLeSo0n22KzqIZFA50H57GBh8oXptk0rfLQn6F/47p
+gWHMQfumpvxolVwbiXCJdickzFpU2uCpK+cNn9tASbR3lf2mQWidVn3g58l+lb4WJlp2cMph8oYP
+wz+rOA3745TsfsYjeAhah7gosLQWY1nwTAOV1N3gVLON7IV/mII+7476EGkZ6shpP6reRFTcNfUl
+TN3k4c0+DV7pgR0tFxs2lsGPo+Assk9qf5d+96sCVw==
+=+faX
 -----END PGP SIGNATURE-----
 
---es9mkHtinfBtJHjT5515SHq3r67F6URJ0--
+--lC4azOJXGLRXtv8hAEbuDSagBdcDtjWQi--
 
