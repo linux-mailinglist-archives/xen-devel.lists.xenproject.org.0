@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CA32D93B2
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 08:47:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.51916.90817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3BA2D93BA
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 08:56:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.51922.90833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1koiZr-00070X-Rb; Mon, 14 Dec 2020 07:47:27 +0000
+	id 1koiiS-00085T-Ux; Mon, 14 Dec 2020 07:56:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 51916.90817; Mon, 14 Dec 2020 07:47:27 +0000
+Received: by outflank-mailman (output) from mailman id 51922.90833; Mon, 14 Dec 2020 07:56:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1koiZr-000707-Nx; Mon, 14 Dec 2020 07:47:27 +0000
-Received: by outflank-mailman (input) for mailman id 51916;
- Mon, 14 Dec 2020 07:47:25 +0000
+	id 1koiiS-000854-RX; Mon, 14 Dec 2020 07:56:20 +0000
+Received: by outflank-mailman (input) for mailman id 51922;
+ Mon, 14 Dec 2020 07:56:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fVEM=FS=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1koiZp-0006zx-Rx
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 07:47:25 +0000
-Received: from mail-wm1-x334.google.com (unknown [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XC/h=FS=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1koiiR-00084u-39
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 07:56:19 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 138eebf9-10a6-48e3-b5c0-3c474a0619b5;
- Mon, 14 Dec 2020 07:47:25 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id v14so12784677wml.1
- for <xen-devel@lists.xenproject.org>; Sun, 13 Dec 2020 23:47:25 -0800 (PST)
-Received: from CBGR90WXYV0
- (host109-146-187-221.range109-146.btcentralplus.com. [109.146.187.221])
- by smtp.gmail.com with ESMTPSA id x66sm27844024wmg.26.2020.12.13.23.47.23
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 13 Dec 2020 23:47:23 -0800 (PST)
+ id 04d04060-3d0f-4ddf-96bd-56a524aa508e;
+ Mon, 14 Dec 2020 07:56:18 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 41D90AC10;
+ Mon, 14 Dec 2020 07:56:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,115 +38,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 138eebf9-10a6-48e3-b5c0-3c474a0619b5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:content-language
-         :thread-index;
-        bh=q9f0dLrgKME11QwP+Lz1f8G042/xNt7QORwsmse8W30=;
-        b=Z8fdp8uibo5J7i6A5eXX0hVDeL/FKch5Y6Uz+fhYFztuVApB2vT3A+AIAZzChqJFLn
-         Br84u47JhMVvg4OeLycAsmc4zEXKi4lOhMxbJbb005dTFLs7u1a4e5+PwJQh2jFqiOBY
-         22aFebb+8xibP+rQonKnqKDLB6jSK48r7YcDlzZJFLrLdUOB2mVMQLznYW/1swZjE4NP
-         tqMfb290URo2+yTH+n6CMeBpO610UsNIPvTifnY76RjBoAC7teDOHURK0r8PjqwRUmfv
-         zmooEKMqub62XwLcdV1s91g+zy19S3lqMBRY6q3rgTMEwF2Fc8NrDo/9uwACGqhiHYOh
-         VrEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :content-language:thread-index;
-        bh=q9f0dLrgKME11QwP+Lz1f8G042/xNt7QORwsmse8W30=;
-        b=f4G7cq4obCwQVf6YXy3mmu/m/ffgR3hDDjc6vhEri3/K/2FKiJ3GIKZw1dqetByBmK
-         Xd6gA3o4kqtvbGZEms1XHg2vnFfUsuJ/2yIS7lq+9iga1qH4WuXcDmEbI2iPLb9Y44r4
-         IkxKxJ9mAVYceS0cP2PVXDw/bboDhdYM/uYKlgHKGpBgwTd5Ak3fmu7y927avTip7eVh
-         k92JyCwqeKzpmxXqbSW3Q66XCkhywMugKbhEPDD8ukZ1qkug819wHuxpLDOHkCMjlcx+
-         bs5x63o5Kn0hs5UAZnpJyH3ZBJyUD8vQnyiKlGWbG8S0mNjcvEJvPnmUPmMcsAW3Y4Df
-         Cipw==
-X-Gm-Message-State: AOAM530780EOfAg65FkgINIO8qEfEaL3W2ywNklPVn5N7691ZGl/sOqG
-	vM0E1miQBN9AEALkZvB8ALc=
-X-Google-Smtp-Source: ABdhPJzu+zNeTRFRPazIHL+E4xY5IryYTfv2xhHMgRDdh02X4K6G7ujVJ7rk339hArcq0uo/hSscZw==
-X-Received: by 2002:a7b:c145:: with SMTP id z5mr26334263wmi.164.1607932044358;
-        Sun, 13 Dec 2020 23:47:24 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Eduardo Habkost'" <ehabkost@redhat.com>,
-	<qemu-devel@nongnu.org>
-Cc: "'Markus Armbruster'" <armbru@redhat.com>,
-	"'Igor Mammedov'" <imammedo@redhat.com>,
-	"'Stefan Berger'" <stefanb@linux.ibm.com>,
-	=?UTF-8?Q?'Marc-Andr=C3=A9_Lureau'?= <marcandre.lureau@redhat.com>,
-	"'Daniel P. Berrange'" <berrange@redhat.com>,
-	=?UTF-8?Q?'Philippe_Mathieu-Daud=C3=A9'?= <philmd@redhat.com>,
-	"'John Snow'" <jsnow@redhat.com>,
-	"'Kevin Wolf'" <kwolf@redhat.com>,
-	"'Eric Blake'" <eblake@redhat.com>,
-	"'Paolo Bonzini'" <pbonzini@redhat.com>,
-	"'Stefan Berger'" <stefanb@linux.vnet.ibm.com>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Anthony Perard'" <anthony.perard@citrix.com>,
-	"'Max Reitz'" <mreitz@redhat.com>,
-	"'Cornelia Huck'" <cohuck@redhat.com>,
-	"'Halil Pasic'" <pasic@linux.ibm.com>,
-	"'Christian Borntraeger'" <borntraeger@de.ibm.com>,
-	"'Richard Henderson'" <rth@twiddle.net>,
-	"'David Hildenbrand'" <david@redhat.com>,
-	"'Thomas Huth'" <thuth@redhat.com>,
-	"'Matthew Rosato'" <mjrosato@linux.ibm.com>,
-	"'Alex Williamson'" <alex.williamson@redhat.com>,
-	<xen-devel@lists.xenproject.org>,
-	<qemu-block@nongnu.org>,
-	<qemu-s390x@nongnu.org>
-References: <20201211220529.2290218-1-ehabkost@redhat.com> <20201211220529.2290218-31-ehabkost@redhat.com>
-In-Reply-To: <20201211220529.2290218-31-ehabkost@redhat.com>
-Subject: RE: [PATCH v4 30/32] qdev: Rename qdev_get_prop_ptr() to object_field_prop_ptr()
-Date: Mon, 14 Dec 2020 07:47:25 -0000
-Message-ID: <009d01d6d1ed$5da99ee0$18fcdca0$@xen.org>
+X-Inumbo-ID: 04d04060-3d0f-4ddf-96bd-56a524aa508e
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1607932577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=M+3a3E8bow1XpCbEoYeJd2DUDpP7T6AQXwF6GP582zA=;
+	b=Qvs2RwsUE39y6vI3cPpHrlaAursFOniDfvKEMCna0UL/iCcmwyCplpS+cx3+5LKjJ876+2
+	A6WWSKDSyHk/Rw2emh1aLL9gcUNbrus7SsPqGyt2sUOFJD/XPazuCjqyK2AUdR2LxgB9I3
+	15lk7CxfG0dd+FvqUc5wJ6Oyc6931aA=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v4 0/3] xen: add support for automatic debug key actions in case of crash
+Date: Mon, 14 Dec 2020 08:56:12 +0100
+Message-Id: <20201214075615.25038-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQLXjZRr+qbM/S7ZJ9VMMfP1SWcevwIpMTjHp+N10QA=
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Eduardo Habkost <ehabkost@redhat.com>
-> Sent: 11 December 2020 22:05
-> To: qemu-devel@nongnu.org
-> Cc: Markus Armbruster <armbru@redhat.com>; Igor Mammedov =
-<imammedo@redhat.com>; Stefan Berger
-> <stefanb@linux.ibm.com>; Marc-Andr=C3=A9 Lureau =
-<marcandre.lureau@redhat.com>; Daniel P. Berrange
-> <berrange@redhat.com>; Philippe Mathieu-Daud=C3=A9 =
-<philmd@redhat.com>; John Snow <jsnow@redhat.com>; Kevin
-> Wolf <kwolf@redhat.com>; Eric Blake <eblake@redhat.com>; Paolo Bonzini =
-<pbonzini@redhat.com>; Stefan
-> Berger <stefanb@linux.vnet.ibm.com>; Stefano Stabellini =
-<sstabellini@kernel.org>; Anthony Perard
-> <anthony.perard@citrix.com>; Paul Durrant <paul@xen.org>; Max Reitz =
-<mreitz@redhat.com>; Cornelia Huck
-> <cohuck@redhat.com>; Halil Pasic <pasic@linux.ibm.com>; Christian =
-Borntraeger
-> <borntraeger@de.ibm.com>; Richard Henderson <rth@twiddle.net>; David =
-Hildenbrand <david@redhat.com>;
-> Thomas Huth <thuth@redhat.com>; Matthew Rosato =
-<mjrosato@linux.ibm.com>; Alex Williamson
-> <alex.williamson@redhat.com>; xen-devel@lists.xenproject.org; =
-qemu-block@nongnu.org; qemu-
-> s390x@nongnu.org
-> Subject: [PATCH v4 30/32] qdev: Rename qdev_get_prop_ptr() to =
-object_field_prop_ptr()
->=20
-> The function will be moved to common QOM code, as it is not
-> specific to TYPE_DEVICE anymore.
->=20
-> Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
-> Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
+When the host crashes it would sometimes be nice to have additional
+debug data available which could be produced via debug keys, but
+halting the server for manual intervention might be impossible due to
+the need to reboot/kexec rather sooner than later.
 
-Xen parts...
+Add support for automatic debug key actions in case of crashes which
+can be activated via boot- or runtime-parameter.
 
-Acked-by: Paul Durrant <paul@xen.org>
+Changes in V4:
+- addressed comments (now patch 3)
+- added patches 1 and 2
+
+Some further remarks to the new patches added:
+
+Patch 1 adds Arm support for run_in_exception_handler(). Constructing
+the related bug_frame is unfortunately not as easy as on x86.
+
+I have verified that %c in inline assembly isn't supported by gcc 7 for
+arm64, so this was the only way I've found to support this feature. In
+theory it might be possible to add a variable referencing the called
+function and to discard that variable again when linking, but I'd like
+to add this more intrusive modification only if really wanted.
+
+There is more potential for unifying struct bug_frame between x86 and
+Arm, either by:
+- using the Arm layout on x86, too (resulting in a grow of the bugframe
+  data for the cases without messages)
+- trying to construct the data in C instead of inline assembly, which
+  will need to either keep the x86 assembler BUG_FRAME construction, or
+  to add a few functions issuing the ASSERT/BUG/WARN which would then
+  need to be called from *.S files.
+
+Patch 2 opens up more potential for simplification: in theory there is
+no need any more to call any key handler with the regs parameter,
+allowing to use the same prototype for all handlers. The downside would
+be to have an additional irq frame on the stack for the dump_registers()
+and the do_debug_key() handlers. In case this is acceptable I'd be
+happy to send a related cleanup patch.
+
+Juergen Gross (3):
+  xen/arm: add support for run_in_exception_handler()
+  xen: enable keyhandlers to work without register set specified
+  xen: add support for automatic debug key actions in case of crash
+
+ docs/misc/xen-command-line.pandoc | 41 +++++++++++++++++
+ xen/arch/arm/traps.c              | 10 ++++-
+ xen/common/kexec.c                |  8 ++--
+ xen/common/keyhandler.c           | 73 +++++++++++++++++++++++++++++--
+ xen/common/shutdown.c             |  4 +-
+ xen/drivers/char/console.c        |  2 +-
+ xen/drivers/char/ns16550.c        |  3 +-
+ xen/include/asm-arm/bug.h         | 32 +++++++++-----
+ xen/include/xen/kexec.h           | 10 ++++-
+ xen/include/xen/keyhandler.h      | 10 +++++
+ 10 files changed, 169 insertions(+), 24 deletions(-)
+
+-- 
+2.26.2
 
 
