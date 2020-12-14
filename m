@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B29112D93B0
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 08:46:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.51910.90806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4CA32D93B2
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 08:47:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.51916.90817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1koiZ5-0006sz-I2; Mon, 14 Dec 2020 07:46:39 +0000
+	id 1koiZr-00070X-Rb; Mon, 14 Dec 2020 07:47:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 51910.90806; Mon, 14 Dec 2020 07:46:39 +0000
+Received: by outflank-mailman (output) from mailman id 51916.90817; Mon, 14 Dec 2020 07:47:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1koiZ5-0006sZ-Do; Mon, 14 Dec 2020 07:46:39 +0000
-Received: by outflank-mailman (input) for mailman id 51910;
- Mon, 14 Dec 2020 07:46:37 +0000
+	id 1koiZr-000707-Nx; Mon, 14 Dec 2020 07:47:27 +0000
+Received: by outflank-mailman (input) for mailman id 51916;
+ Mon, 14 Dec 2020 07:47:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fVEM=FS=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1koiZ3-0006sO-Ob
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 07:46:37 +0000
-Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
+ id 1koiZp-0006zx-Rx
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 07:47:25 +0000
+Received: from mail-wm1-x334.google.com (unknown [2a00:1450:4864:20::334])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 09ee6bb4-1e0a-4f04-8e39-c84790cbcc61;
- Mon, 14 Dec 2020 07:46:36 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id i9so15409176wrc.4
- for <xen-devel@lists.xenproject.org>; Sun, 13 Dec 2020 23:46:36 -0800 (PST)
+ id 138eebf9-10a6-48e3-b5c0-3c474a0619b5;
+ Mon, 14 Dec 2020 07:47:25 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id v14so12784677wml.1
+ for <xen-devel@lists.xenproject.org>; Sun, 13 Dec 2020 23:47:25 -0800 (PST)
 Received: from CBGR90WXYV0
  (host109-146-187-221.range109-146.btcentralplus.com. [109.146.187.221])
- by smtp.gmail.com with ESMTPSA id l8sm22757751wrb.73.2020.12.13.23.46.34
+ by smtp.gmail.com with ESMTPSA id x66sm27844024wmg.26.2020.12.13.23.47.23
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 13 Dec 2020 23:46:35 -0800 (PST)
+ Sun, 13 Dec 2020 23:47:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,36 +42,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09ee6bb4-1e0a-4f04-8e39-c84790cbcc61
+X-Inumbo-ID: 138eebf9-10a6-48e3-b5c0-3c474a0619b5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
          :mime-version:content-transfer-encoding:content-language
          :thread-index;
-        bh=BHdVfpz+ocsNz74gAxwIP81g3moH3iC8iFGO8Kw/XoA=;
-        b=EqIYR0tThu0qgNT9T9xuUohREN7uU3/nYv2o9PZnwkOoy01/33JaIyu7qjOqsBcuBt
-         ttZXZnErtJvmoG+OdZZuREtbZKdtqk1cClVT5cU94+1MAhbExhdJUJ+wLJrr0OPNsnds
-         WnljGaZ+nCGc0loroMGOehmrR4mhGjlb/nyZz2nzFZ2I5EwLb0JQZ4tgue3wh9DA8wBQ
-         LPCqWQ1saSnEsV2iewf7sACgyqhbZtNSpil3n9GJA+y+9HIJSZ9aBAmIrNkpBRmm5bki
-         cdHT6QneiqzWsET313O/4GTy/f5RqgWPwTsgQw7dbD1zUi5olGdsus9Mp1k8WVixPPth
-         ymCg==
+        bh=q9f0dLrgKME11QwP+Lz1f8G042/xNt7QORwsmse8W30=;
+        b=Z8fdp8uibo5J7i6A5eXX0hVDeL/FKch5Y6Uz+fhYFztuVApB2vT3A+AIAZzChqJFLn
+         Br84u47JhMVvg4OeLycAsmc4zEXKi4lOhMxbJbb005dTFLs7u1a4e5+PwJQh2jFqiOBY
+         22aFebb+8xibP+rQonKnqKDLB6jSK48r7YcDlzZJFLrLdUOB2mVMQLznYW/1swZjE4NP
+         tqMfb290URo2+yTH+n6CMeBpO610UsNIPvTifnY76RjBoAC7teDOHURK0r8PjqwRUmfv
+         zmooEKMqub62XwLcdV1s91g+zy19S3lqMBRY6q3rgTMEwF2Fc8NrDo/9uwACGqhiHYOh
+         VrEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
          :subject:date:message-id:mime-version:content-transfer-encoding
          :content-language:thread-index;
-        bh=BHdVfpz+ocsNz74gAxwIP81g3moH3iC8iFGO8Kw/XoA=;
-        b=nBz0zMzVbs8dl3NN+6HHKQR7Av1VFc/Raxhw7KKr+2P6oTRNm4sLeTrFuA82LOh0GT
-         iXXJShnXI6qvU7uLEbtL/lSaFZ83c1VATzqkTS9xyKVrycX3O2CyS8vpZ2/5oMiEIALD
-         uxBGEz4CMAzx7JnAJe27WGao4bQ9Wfo3Njsbcq0Z1zw/pwXZ5rmcBu6C235dsK69zMmN
-         jlBkmjeEWhtNgdODgXMRMFQSRoD41+7IkmGFCy7UGb9IU4NagySDFZPX2iU80I33M3Lf
-         R6ygRFrtTtXPee3XCqOkW+EayGxJQrcZMSPz057m1DXvVXiwi0M5wP3d5bPdDPRXuAJ8
-         +xEA==
-X-Gm-Message-State: AOAM533sLqO5ttm5WH0WnFyz5iJI7eZHsUric8yQzYtZMey4HZGzh+HS
-	KkcL89Z984yPlVE5hFTMKJA=
-X-Google-Smtp-Source: ABdhPJx1o2F74k/LxZ5tJsRx38QeGjW5/fG5PrI1cslg1GHy7K/GNOmK8lswMQAkQ3sLyeXEW4rXaA==
-X-Received: by 2002:adf:e688:: with SMTP id r8mr27357468wrm.20.1607931996233;
-        Sun, 13 Dec 2020 23:46:36 -0800 (PST)
+        bh=q9f0dLrgKME11QwP+Lz1f8G042/xNt7QORwsmse8W30=;
+        b=f4G7cq4obCwQVf6YXy3mmu/m/ffgR3hDDjc6vhEri3/K/2FKiJ3GIKZw1dqetByBmK
+         Xd6gA3o4kqtvbGZEms1XHg2vnFfUsuJ/2yIS7lq+9iga1qH4WuXcDmEbI2iPLb9Y44r4
+         IkxKxJ9mAVYceS0cP2PVXDw/bboDhdYM/uYKlgHKGpBgwTd5Ak3fmu7y927avTip7eVh
+         k92JyCwqeKzpmxXqbSW3Q66XCkhywMugKbhEPDD8ukZ1qkug819wHuxpLDOHkCMjlcx+
+         bs5x63o5Kn0hs5UAZnpJyH3ZBJyUD8vQnyiKlGWbG8S0mNjcvEJvPnmUPmMcsAW3Y4Df
+         Cipw==
+X-Gm-Message-State: AOAM530780EOfAg65FkgINIO8qEfEaL3W2ywNklPVn5N7691ZGl/sOqG
+	vM0E1miQBN9AEALkZvB8ALc=
+X-Google-Smtp-Source: ABdhPJzu+zNeTRFRPazIHL+E4xY5IryYTfv2xhHMgRDdh02X4K6G7ujVJ7rk339hArcq0uo/hSscZw==
+X-Received: by 2002:a7b:c145:: with SMTP id z5mr26334263wmi.164.1607932044358;
+        Sun, 13 Dec 2020 23:47:24 -0800 (PST)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
 Reply-To: <paul@xen.org>
@@ -99,23 +99,21 @@ Cc: "'Markus Armbruster'" <armbru@redhat.com>,
 	"'Thomas Huth'" <thuth@redhat.com>,
 	"'Matthew Rosato'" <mjrosato@linux.ibm.com>,
 	"'Alex Williamson'" <alex.williamson@redhat.com>,
-	"'Mark Cave-Ayland'" <mark.cave-ayland@ilande.co.uk>,
-	"'Artyom Tarasenko'" <atar4qemu@gmail.com>,
 	<xen-devel@lists.xenproject.org>,
 	<qemu-block@nongnu.org>,
 	<qemu-s390x@nongnu.org>
-References: <20201211220529.2290218-1-ehabkost@redhat.com> <20201211220529.2290218-24-ehabkost@redhat.com>
-In-Reply-To: <20201211220529.2290218-24-ehabkost@redhat.com>
-Subject: RE: [PATCH v4 23/32] qdev: Move dev->realized check to qdev_property_set()
-Date: Mon, 14 Dec 2020 07:46:36 -0000
-Message-ID: <009c01d6d1ed$40f216b0$c2d64410$@xen.org>
+References: <20201211220529.2290218-1-ehabkost@redhat.com> <20201211220529.2290218-31-ehabkost@redhat.com>
+In-Reply-To: <20201211220529.2290218-31-ehabkost@redhat.com>
+Subject: RE: [PATCH v4 30/32] qdev: Rename qdev_get_prop_ptr() to object_field_prop_ptr()
+Date: Mon, 14 Dec 2020 07:47:25 -0000
+Message-ID: <009d01d6d1ed$5da99ee0$18fcdca0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: en-gb
-Thread-Index: AQLXjZRr+qbM/S7ZJ9VMMfP1SWcevwGTHZYap+gmSaA=
+Thread-Index: AQLXjZRr+qbM/S7ZJ9VMMfP1SWcevwIpMTjHp+N10QA=
 
 > -----Original Message-----
 > From: Eduardo Habkost <ehabkost@redhat.com>
@@ -139,19 +137,14 @@ Borntraeger
 Hildenbrand <david@redhat.com>;
 > Thomas Huth <thuth@redhat.com>; Matthew Rosato =
 <mjrosato@linux.ibm.com>; Alex Williamson
-> <alex.williamson@redhat.com>; Mark Cave-Ayland =
-<mark.cave-ayland@ilande.co.uk>; Artyom Tarasenko
-> <atar4qemu@gmail.com>; xen-devel@lists.xenproject.org; =
-qemu-block@nongnu.org; qemu-s390x@nongnu.org
-> Subject: [PATCH v4 23/32] qdev: Move dev->realized check to =
-qdev_property_set()
+> <alex.williamson@redhat.com>; xen-devel@lists.xenproject.org; =
+qemu-block@nongnu.org; qemu-
+> s390x@nongnu.org
+> Subject: [PATCH v4 30/32] qdev: Rename qdev_get_prop_ptr() to =
+object_field_prop_ptr()
 >=20
-> Every single qdev property setter function manually checks
-> dev->realized.  We can just check dev->realized inside
-> qdev_property_set() instead.
->=20
-> The check is being added as a separate function
-> (qdev_prop_allow_set()) because it will become a callback later.
+> The function will be moved to common QOM code, as it is not
+> specific to TYPE_DEVICE anymore.
 >=20
 > Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
 > Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
