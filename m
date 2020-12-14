@@ -2,31 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59CB02D951B
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 10:25:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52031.91042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 606622D951F
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 10:26:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52036.91055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kok6D-0004r0-Ge; Mon, 14 Dec 2020 09:24:57 +0000
+	id 1kok7i-00050o-0I; Mon, 14 Dec 2020 09:26:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52031.91042; Mon, 14 Dec 2020 09:24:57 +0000
+Received: by outflank-mailman (output) from mailman id 52036.91055; Mon, 14 Dec 2020 09:26:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kok6D-0004qb-Ca; Mon, 14 Dec 2020 09:24:57 +0000
-Received: by outflank-mailman (input) for mailman id 52031;
- Mon, 14 Dec 2020 09:24:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XC/h=FS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kok6B-0004qT-Qm
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 09:24:55 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7ac5c23c-1502-4ff5-b335-ede851a614d5;
- Mon, 14 Dec 2020 09:24:54 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 10251AE87;
- Mon, 14 Dec 2020 09:24:54 +0000 (UTC)
+	id 1kok7h-00050P-TG; Mon, 14 Dec 2020 09:26:29 +0000
+Received: by outflank-mailman (input) for mailman id 52036;
+ Mon, 14 Dec 2020 09:26:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WSiX=FS=amazon.com=prvs=61050d9d8=havanur@srs-us1.protection.inumbo.net>)
+ id 1kok7g-00050K-E7
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 09:26:28 +0000
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cc78b409-2c44-4424-990a-ce9bf15fde16;
+ Mon, 14 Dec 2020 09:26:27 +0000 (UTC)
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-1e-42f764a0.us-east-1.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 14 Dec 2020 09:26:19 +0000
+Received: from EX13D36EUC002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+ by email-inbound-relay-1e-42f764a0.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 24C42E0E99; Mon, 14 Dec 2020 09:26:19 +0000 (UTC)
+Received: from EX13D36EUC004.ant.amazon.com (10.43.164.126) by
+ EX13D36EUC002.ant.amazon.com (10.43.164.99) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Mon, 14 Dec 2020 09:26:18 +0000
+Received: from EX13D36EUC004.ant.amazon.com ([10.43.164.126]) by
+ EX13D36EUC004.ant.amazon.com ([10.43.164.126]) with mapi id 15.00.1497.006;
+ Mon, 14 Dec 2020 09:26:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,222 +48,64 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ac5c23c-1502-4ff5-b335-ede851a614d5
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607937894; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8ADO6RmQyG6N+pY5hxnecOdwh6Mv2lf30QT5YbGl/t0=;
-	b=RuGVJ3vptgkxFmvtZqrpSty5c5CtYTLErmK6V+pVdiYdyrgFW2+8X5pAl3AkcY4i6Z/qzb
-	jjIA8oH42SSlTxQ4GwEKtzZXQw488xK92ztuwwAai1xyuRUR7Rs2EUJsVueLQ9k5P3o78+
-	Ap8R3BzKOJ4R+j41Xdrm5pq7KXpYePk=
-Subject: Re: [PATCH v4 1/3] xen/arm: add support for
- run_in_exception_handler()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201214075615.25038-1-jgross@suse.com>
- <20201214075615.25038-2-jgross@suse.com>
- <74be05c2-375e-6b7e-ef87-31d4f7338a03@suse.com>
- <9a6a397d-2c4c-acdc-d3ff-b286e522c9bc@suse.com>
- <8c86ccf6-0384-f91f-1fd5-6a179158d91e@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <1935b802-e121-4678-4653-a5503def7f72@suse.com>
-Date: Mon, 14 Dec 2020 10:24:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-MIME-Version: 1.0
-In-Reply-To: <8c86ccf6-0384-f91f-1fd5-6a179158d91e@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Dc9aT2nPf0PPwCxdP7D24kIN4iq2WLueu"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Dc9aT2nPf0PPwCxdP7D24kIN4iq2WLueu
-Content-Type: multipart/mixed; boundary="xmopCqjAWIlTx21Fxnnl8RDjI5Kw02Ea7";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <1935b802-e121-4678-4653-a5503def7f72@suse.com>
-Subject: Re: [PATCH v4 1/3] xen/arm: add support for
- run_in_exception_handler()
-References: <20201214075615.25038-1-jgross@suse.com>
- <20201214075615.25038-2-jgross@suse.com>
- <74be05c2-375e-6b7e-ef87-31d4f7338a03@suse.com>
- <9a6a397d-2c4c-acdc-d3ff-b286e522c9bc@suse.com>
- <8c86ccf6-0384-f91f-1fd5-6a179158d91e@suse.com>
-In-Reply-To: <8c86ccf6-0384-f91f-1fd5-6a179158d91e@suse.com>
-
---xmopCqjAWIlTx21Fxnnl8RDjI5Kw02Ea7
-Content-Type: multipart/mixed;
- boundary="------------73D03E1E121A34B35F433949"
+X-Inumbo-ID: cc78b409-2c44-4424-990a-ce9bf15fde16
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1607937987; x=1639473987;
+  h=from:to:cc:date:message-id:references:in-reply-to:
+   content-id:content-transfer-encoding:mime-version:subject;
+  bh=n6clB3GoZQv+CZQo8AmhQkhJkKd7F62DVSjTX3yClHo=;
+  b=LV8a1C96Y2XjrGcFYAbQpr4B0Wsk3fFcQWPbsFP5JrZi2e2m0V4kA8FJ
+   yOQQynosCkxR1cV6ef6lbnAV9Ubefd/o/EifsNYmypbIZ4h+bIlqrel1Y
+   QBVB8wq3eLZGN+hFpxg4oIhKdQZhU+BKpp4s/YJQaJfguNEeAYWM1yLUm
+   I=;
+X-IronPort-AV: E=Sophos;i="5.78,418,1599523200"; 
+   d="scan'208";a="95702571"
+Subject: Re: [XEN PATCH v1 1/1] Invalidate cache for cpus affinitized to the domain
+Thread-Topic: [XEN PATCH v1 1/1] Invalidate cache for cpus affinitized to the domain
+From: "Shamsundara Havanur, Harsha" <havanur@amazon.com>
+To: "jbeulich@suse.com" <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Index: AQHWz7MJSRGqvamGtEii6iRZ4MXyYqn2TWsAgAAJiIA=
+Date: Mon, 14 Dec 2020 09:26:17 +0000
+Message-ID: <81b5d64b0a08d217e0ae53606cd1b8afd59283e4.camel@amazon.com>
+References: <cover.1607686878.git.havanur@amazon.com>
+	 <aad47c43b7cd7a391492b8be7b881cd37e9764c7.1607686878.git.havanur@amazon.com>
+	 <149f7f6e-0ff4-affc-b65d-0f880fa27b13@suse.com>
+In-Reply-To: <149f7f6e-0ff4-affc-b65d-0f880fa27b13@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.164.78]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <32E7025488A69E4689051D4A87B5827A@amazon.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Precedence: Bulk
 
-This is a multi-part message in MIME format.
---------------73D03E1E121A34B35F433949
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 14.12.20 10:22, Jan Beulich wrote:
-> On 14.12.2020 10:15, J=C3=BCrgen Gro=C3=9F wrote:
->> On 14.12.20 10:03, Jan Beulich wrote:
->>> On 14.12.2020 08:56, Juergen Gross wrote:
->>>> Add support to run a function in an exception handler for Arm. Do it=
-
->>>> the same way as on x86 via a bug_frame.
->>>>
->>>> Unfortunately inline assembly on Arm seems to be less capable than o=
-n
->>>> x86, leading to functions called via run_in_exception_handler() havi=
-ng
->>>> to be globally visible.
->>>
->>> Could you extend on this? I don't understand what the relevant
->>> difference is, from just looking at the changes.
->>
->> The problem seems to be that a static symbol referenced from the inlin=
-e
->> asm seems not to silence the error that this static symbol isn't being=
-
->> used. On x86 the bug_frame is constructed using the %c modifier, which=
-
->> is not supported for Arm (at least gcc 7 used in my compile test
->> complained), but seems to be enough for gcc on x86 to not complain.
->=20
-> But this isn't tied to %c not working on older gcc, is it? It looks
-> instead to be tied to you not specifying the function pointer as an
-> input in the asm(). The compiler would know the symbol is referenced
-> even if the input wasn't used at all in any of the asm()'s operands
-> (but of course it would be better to use the operand once you have
-> it, if it can be used in some way despite %c not being possible to
-> use).
-
-Let me check that.
-
-
-Juergen
-
---------------73D03E1E121A34B35F433949
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------73D03E1E121A34B35F433949--
-
---xmopCqjAWIlTx21Fxnnl8RDjI5Kw02Ea7--
-
---Dc9aT2nPf0PPwCxdP7D24kIN4iq2WLueu
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/XL2UFAwAAAAAACgkQsN6d1ii/Ey+d
-vAgAh8gUaOf1hZRsAGxkRIQ9RC+p/NLWF1MFVSGc58GrLCBaCcAO3r79B8nZVSQEc/6chCEzqEAX
-GQU4N0WyPbv0G/dAkaaKe24/2BJyHsBd9FAtu/UCrqWF/UZWbD2FjsRPwYHbqPqBg7ojiC7Ka91u
-emauYOtiqJ8hOEfpZ9PBwWznpyqncIg91khG9z1rZsh01rwc5vKeC1el566iQo4/OSK3Nloldthe
-wRaMOyiqySEKi5/KLiZymmt12aKvdCANiLmiulinaqRykOuNdgZnk/ztgjJk/UnDpCw5H0tPGSQh
-LZaIyC/ORTHN+mT5TiahCRb0ASutadivZWHtlzaBmQ==
-=lYV6
------END PGP SIGNATURE-----
-
---Dc9aT2nPf0PPwCxdP7D24kIN4iq2WLueu--
+T24gTW9uLCAyMDIwLTEyLTE0IGF0IDA5OjUyICswMTAwLCBKYW4gQmV1bGljaCB3cm90ZToNCj4g
+Q0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3JnYW5p
+emF0aW9uLiBEbw0KPiBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3Mg
+eW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXINCj4gYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2Fm
+ZS4NCj4gDQo+IA0KPiANCj4gT24gMTEuMTIuMjAyMCAxMjo0NCwgSGFyc2hhIFNoYW1zdW5kYXJh
+IEhhdmFudXIgd3JvdGU6DQo+ID4gQSBIVk0gZG9tYWluIGZsdXNoZXMgY2FjaGUgb24gYWxsIHRo
+ZSBjcHVzIHVzaW5nDQo+ID4gYGZsdXNoX2FsbGAgbWFjcm8gd2hpY2ggdXNlcyBjcHVfb25saW5l
+X21hcCwgZHVyaW5nDQo+ID4gaSkgY3JlYXRpb24gb2YgYSBuZXcgZG9tYWluDQo+ID4gaWkpIHdo
+ZW4gZGV2aWNlLW1vZGVsIG9wIGlzIHBlcmZvcm1lZA0KPiA+IGlpaSkgd2hlbiBkb21haW4gaXMg
+ZGVzdHJ1Y3RlZC4NCj4gPiANCj4gPiBUaGlzIHRyaWdnZXJzIElQSSBvbiBhbGwgdGhlIGNwdXMs
+IHRodXMgYWZmZWN0aW5nIG90aGVyDQo+ID4gZG9tYWlucyB0aGF0IGFyZSBwaW5uZWQgdG8gZGlm
+ZmVyZW50IHBjcHVzLiBUaGlzIHBhdGNoDQo+ID4gcmVzdHJpY3RzIGNhY2hlIGZsdXNoIHRvIHRo
+ZSBzZXQgb2YgY3B1cyBhZmZpbml0aXplZCB0bw0KPiA+IHRoZSBjdXJyZW50IGRvbWFpbiB1c2lu
+ZyBgZG9tYWluLT5kaXJ0eV9jcHVtYXNrYC4NCj4gDQo+IEJ1dCB0aGVuIHlvdSBuZWVkIHRvIGVm
+ZmVjdCBjYWNoZSBmbHVzaGluZyB3aGVuIGEgQ1BVIGdldHMNCj4gdGFrZW4gb3V0IG9mIGRvbWFp
+bi0+ZGlydHlfY3B1bWFzay4gSSBkb24ndCB0aGluayB5b3Uvd2Ugd2FudA0KPiB0byBkbyB0aGF0
+Lg0KPiANCklmIHdlIGRvIG5vdCByZXN0cmljdCwgaXQgY291bGQgbGVhZCB0byBEb1MgYXR0YWNr
+LCB3aGVyZSBhIG1hbGljaW91cw0KZ3Vlc3QgY291bGQga2VlcCB3cml0aW5nIHRvIE1UUlIgcmVn
+aXN0ZXJzIG9yIGRvIGEgY2FjaGUgZmx1c2ggdGhyb3VnaA0KRE0gT3AgYW5kIGtlZXAgc2VuZGlu
+ZyBJUElzIHRvIG90aGVyIG5laWdoYm9yaW5nIGd1ZXN0cy4NCg0KLUhhcnNoYQ0KPiBKYW4NCj4g
+DQo=
 
