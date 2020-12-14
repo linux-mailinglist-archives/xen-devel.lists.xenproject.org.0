@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF5B12D96B0
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 11:57:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52121.91200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AF942D96B1
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 11:57:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52123.91213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kolX8-00066V-Kp; Mon, 14 Dec 2020 10:56:50 +0000
+	id 1kolXU-0006DG-UT; Mon, 14 Dec 2020 10:57:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52121.91200; Mon, 14 Dec 2020 10:56:50 +0000
+Received: by outflank-mailman (output) from mailman id 52123.91213; Mon, 14 Dec 2020 10:57:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kolX8-000669-Hd; Mon, 14 Dec 2020 10:56:50 +0000
-Received: by outflank-mailman (input) for mailman id 52121;
- Mon, 14 Dec 2020 10:56:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kolXU-0006Cq-R3; Mon, 14 Dec 2020 10:57:12 +0000
+Received: by outflank-mailman (input) for mailman id 52123;
+ Mon, 14 Dec 2020 10:57:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kolX6-000664-Ej
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 10:56:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kolX5-0003VM-Ml; Mon, 14 Dec 2020 10:56:47 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kolX5-0008Hg-Fa; Mon, 14 Dec 2020 10:56:47 +0000
+ (envelope-from <SRS0=UiKs=FS=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
+ id 1kolXT-0006Cd-FC
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 10:57:11 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 90338825-5843-47a3-97aa-cbf92c8ef737;
+ Mon, 14 Dec 2020 10:57:09 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-301-0FiotJxVMLufwGePF1JPOQ-1; Mon, 14 Dec 2020 05:57:07 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 57EC818C89C4;
+ Mon, 14 Dec 2020 10:57:05 +0000 (UTC)
+Received: from gondolin (ovpn-113-171.ams2.redhat.com [10.36.113.171])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 71D1671C94;
+ Mon, 14 Dec 2020 10:56:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,93 +47,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=6+RzVgD5q5DCgFXmvhUasC2LankJp1uJjdkB4X1yTZY=; b=6y7FngxccCVmAdcZeaASuuqYqa
-	7uXiYI8B2KLd0fynhadj8GDtluQJQzi6HtDeNxyvfUsx4H03pcEW2AiWDHb7EgRO1LJYXUrnWJ3Ni
-	77ZNGu+I9f/KqPjTua1NDphzsEfipNb0xBDXl+WWU2spVy8R3i5uwG5f7LWIpER/yWPU=;
-Subject: Re: [XEN PATCH v1 1/1] Invalidate cache for cpus affinitized to the
- domain
-To: "Shamsundara Havanur, Harsha" <havanur@amazon.com>,
- "jbeulich@suse.com" <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
-References: <cover.1607686878.git.havanur@amazon.com>
- <aad47c43b7cd7a391492b8be7b881cd37e9764c7.1607686878.git.havanur@amazon.com>
- <149f7f6e-0ff4-affc-b65d-0f880fa27b13@suse.com>
- <81b5d64b0a08d217e0ae53606cd1b8afd59283e4.camel@amazon.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <bf70db2d-cf03-11cb-887e-aa38094b3d5f@xen.org>
-Date: Mon, 14 Dec 2020 10:56:45 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: 90338825-5843-47a3-97aa-cbf92c8ef737
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1607943429;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ihKJQubl2WVLBfE3VRV687ZDrqvVtE5WofmHPnkT1gY=;
+	b=btSuYfTF4wTpftgYXh/YNlCyco5d5MX283/MGnPIT9aj1ZEFX9ILEKAqi9+Oto9qCpJ09a
+	WGFlTyicsYEYCRu8WnZ3XfqwUlRWHo/UnPjkMAohoxYbEkRZdZHphCNgt4RAlROns8naK1
+	7ohlZMqnxZKquzD2pVLxTFPf0rMKUNU=
+X-MC-Unique: 0FiotJxVMLufwGePF1JPOQ-1
+Date: Mon, 14 Dec 2020 11:56:46 +0100
+From: Cornelia Huck <cohuck@redhat.com>
+To: Eduardo Habkost <ehabkost@redhat.com>
+Cc: qemu-devel@nongnu.org, Markus Armbruster <armbru@redhat.com>, Igor
+ Mammedov <imammedo@redhat.com>, Stefan Berger <stefanb@linux.ibm.com>,
+ =?UTF-8?B?TWFyYy1BbmRyw6k=?= Lureau <marcandre.lureau@redhat.com>, "Daniel
+ P. Berrange" <berrange@redhat.com>, Philippe =?UTF-8?B?TWF0aGlldS1EYXVk?=
+ =?UTF-8?B?w6k=?= <philmd@redhat.com>, John Snow <jsnow@redhat.com>, Kevin
+ Wolf <kwolf@redhat.com>, Eric Blake <eblake@redhat.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Stefan Berger <stefanb@linux.vnet.ibm.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Anthony Perard
+ <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, Max Reitz
+ <mreitz@redhat.com>, Halil Pasic <pasic@linux.ibm.com>, Christian
+ Borntraeger <borntraeger@de.ibm.com>, Richard Henderson <rth@twiddle.net>,
+ David Hildenbrand <david@redhat.com>, Thomas Huth <thuth@redhat.com>,
+ Matthew Rosato <mjrosato@linux.ibm.com>, Alex Williamson
+ <alex.williamson@redhat.com>, xen-devel@lists.xenproject.org,
+ qemu-block@nongnu.org, qemu-s390x@nongnu.org
+Subject: Re: [PATCH v4 30/32] qdev: Rename qdev_get_prop_ptr() to
+ object_field_prop_ptr()
+Message-ID: <20201214115646.42998a6e.cohuck@redhat.com>
+In-Reply-To: <20201211220529.2290218-31-ehabkost@redhat.com>
+References: <20201211220529.2290218-1-ehabkost@redhat.com>
+	<20201211220529.2290218-31-ehabkost@redhat.com>
+Organization: Red Hat GmbH
 MIME-Version: 1.0
-In-Reply-To: <81b5d64b0a08d217e0ae53606cd1b8afd59283e4.camel@amazon.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=cohuck@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Harsha,
+On Fri, 11 Dec 2020 17:05:27 -0500
+Eduardo Habkost <ehabkost@redhat.com> wrote:
 
-On 14/12/2020 09:26, Shamsundara Havanur, Harsha wrote:
-> On Mon, 2020-12-14 at 09:52 +0100, Jan Beulich wrote:
->> CAUTION: This email originated from outside of the organization. Do
->> not click links or open attachments unless you can confirm the sender
->> and know the content is safe.
->>
->>
->>
->> On 11.12.2020 12:44, Harsha Shamsundara Havanur wrote:
->>> A HVM domain flushes cache on all the cpus using
->>> `flush_all` macro which uses cpu_online_map, during
->>> i) creation of a new domain
->>> ii) when device-model op is performed
->>> iii) when domain is destructed.
->>>
->>> This triggers IPI on all the cpus, thus affecting other
->>> domains that are pinned to different pcpus. This patch
->>> restricts cache flush to the set of cpus affinitized to
->>> the current domain using `domain->dirty_cpumask`.
->>
->> But then you need to effect cache flushing when a CPU gets
->> taken out of domain->dirty_cpumask. I don't think you/we want
->> to do that.
->>
-> If we do not restrict, it could lead to DoS attack, where a malicious
-> guest could keep writing to MTRR registers or do a cache flush through
-> DM Op and keep sending IPIs to other neighboring guests.
+> The function will be moved to common QOM code, as it is not
+> specific to TYPE_DEVICE anymore.
+>=20
+> Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
+> Signed-off-by: Eduardo Habkost <ehabkost@redhat.com>
+> ---
+> Changes v1 -> v2:
+> * Rename to object_field_prop_ptr() instead of object_static_prop_ptr()
+> ---
+> Cc: Stefan Berger <stefanb@linux.vnet.ibm.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Anthony Perard <anthony.perard@citrix.com>
+> Cc: Paul Durrant <paul@xen.org>
+> Cc: Kevin Wolf <kwolf@redhat.com>
+> Cc: Max Reitz <mreitz@redhat.com>
+> Cc: Paolo Bonzini <pbonzini@redhat.com>
+> Cc: "Daniel P. Berrang=C3=A9" <berrange@redhat.com>
+> Cc: Eduardo Habkost <ehabkost@redhat.com>
+> Cc: Cornelia Huck <cohuck@redhat.com>
+> Cc: Halil Pasic <pasic@linux.ibm.com>
+> Cc: Christian Borntraeger <borntraeger@de.ibm.com>
+> Cc: Richard Henderson <rth@twiddle.net>
+> Cc: David Hildenbrand <david@redhat.com>
+> Cc: Thomas Huth <thuth@redhat.com>
+> Cc: Matthew Rosato <mjrosato@linux.ibm.com>
+> Cc: Alex Williamson <alex.williamson@redhat.com>
+> Cc: qemu-devel@nongnu.org
+> Cc: xen-devel@lists.xenproject.org
+> Cc: qemu-block@nongnu.org
+> Cc: qemu-s390x@nongnu.org
+> ---
+>  include/hw/qdev-properties.h     |  2 +-
+>  backends/tpm/tpm_util.c          |  6 ++--
+>  hw/block/xen-block.c             |  4 +--
+>  hw/core/qdev-properties-system.c | 50 +++++++++++++-------------
+>  hw/core/qdev-properties.c        | 60 ++++++++++++++++----------------
+>  hw/s390x/css.c                   |  4 +--
+>  hw/s390x/s390-pci-bus.c          |  4 +--
+>  hw/vfio/pci-quirks.c             |  4 +--
+>  8 files changed, 67 insertions(+), 67 deletions(-)
 
-I saw Jan already answered about the alleged DoS, so I will just focus 
-on the resolution.
+Reviewed-by: Cornelia Huck <cohuck@redhat.com>
 
-I agree that in the ideal situation we want to limit the impact on the 
-other vCPUs. However, we also need to make sure the cure is not worse 
-than the symptoms.
-
-The cache flush cannot be restricted in all the pinning situation 
-because pinning doesn't imply the pCPU will be dedicated to a given vCPU 
-or even the vCPU will stick on pCPU (we may allow floating on a NUMA 
-socket). Although your setup may offer this guarantee.
-
-My knowledge in this area is quite limited. But below a few question 
-that hopefully will help to make a decision.
-
-The first question to answer is: can the flush can be restricted in a 
-setup where each vCPUs are running on a decicated pCPU (i.e partionned 
-system)?
-
-If the answer is yes, then we should figure out whether using 
-domain->dirty_cpumask would always be correct? For instance, a vCPU may 
-not have yet run, so can we consider the associated pCPU cache would be 
-consistent?
-
-Another line of question is what can we do on system supporting 
-self-snooping? IOW, would it be possible to restrict the flush for all 
-the setup?
-
-Cheers,
-
--- 
-Julien Grall
 
