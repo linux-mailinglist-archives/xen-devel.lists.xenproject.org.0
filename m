@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4B02D93B9
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 08:56:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.51925.90869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 037332D93C6
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 09:05:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.51946.90884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1koiib-0008Cs-UV; Mon, 14 Dec 2020 07:56:29 +0000
+	id 1koirC-0001c3-7P; Mon, 14 Dec 2020 08:05:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 51925.90869; Mon, 14 Dec 2020 07:56:29 +0000
+Received: by outflank-mailman (output) from mailman id 51946.90884; Mon, 14 Dec 2020 08:05:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1koiib-0008C4-P9; Mon, 14 Dec 2020 07:56:29 +0000
-Received: by outflank-mailman (input) for mailman id 51925;
- Mon, 14 Dec 2020 07:56:29 +0000
+	id 1koirC-0001be-43; Mon, 14 Dec 2020 08:05:22 +0000
+Received: by outflank-mailman (input) for mailman id 51946;
+ Mon, 14 Dec 2020 08:05:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XC/h=FS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1koiib-00084u-13
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 07:56:29 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K590=FS=gmail.com=marcandre.lureau@srs-us1.protection.inumbo.net>)
+ id 1koirA-0001bZ-5M
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 08:05:20 +0000
+Received: from mail-ej1-x644.google.com (unknown [2a00:1450:4864:20::644])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc7a59b2-24d4-49b6-bf31-c7e39c17db19;
- Mon, 14 Dec 2020 07:56:18 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ED18CADE1;
- Mon, 14 Dec 2020 07:56:17 +0000 (UTC)
+ id 9972717d-5d78-4853-ae96-9d20773f3514;
+ Mon, 14 Dec 2020 08:05:19 +0000 (UTC)
+Received: by mail-ej1-x644.google.com with SMTP id q22so3509953eja.2
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Dec 2020 00:05:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,345 +37,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc7a59b2-24d4-49b6-bf31-c7e39c17db19
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607932578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=suR4RG6T/UXhQCsJzrD78qjsYpHI44RyxZHYiYIhyhw=;
-	b=ZtZ4p22y1wIsbwX5UkkNEa8JLGpdr1YGd8rGp9CFD2oinxfY/TU+5H5Hx5w23+vQYkcrRY
-	P7dM1MX9lxk3rDH6NP1hUB+tsFy03al58u66BlH5dufaxtLvrkSF/dNmeC62k+Pm5Mxr0t
-	iGtCsuCU2EyLHcugQwD3yMiBOtkr3nk=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v4 3/3] xen: add support for automatic debug key actions in case of crash
-Date: Mon, 14 Dec 2020 08:56:15 +0100
-Message-Id: <20201214075615.25038-4-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201214075615.25038-1-jgross@suse.com>
-References: <20201214075615.25038-1-jgross@suse.com>
+X-Inumbo-ID: 9972717d-5d78-4853-ae96-9d20773f3514
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=TiB2F/QWVAlfD2IsKZXhLFiZ75QHq0FFdQ/Lizli0g0=;
+        b=F315ig/6/Gu7lB+D3/eCEGRGZzsyMTap3fAtk2tQ6P6Vkm6DEJK15FNnVvp+jcjujD
+         liTiZGjVI7uNM6WbG2ZYdCjObA9P6KKY9/b0f59rKrPIkStxpyIh/NncDp242+VgBmvd
+         /KJlqgHxBNhrr4y/RVZyDMBjYn2aU3JMZa0J7xmyhVvBe9crJTCIjg39wsbnTFBgl89J
+         nWn7w83o/TFQhoXB313BkvWEgzVRDFgSWDBGg83JL/JbTKtsOexswDFm/K2wTqOyRCCv
+         MqIzh6tZuacUZEokI5s1Wwx9/4kNP8vr4/csavrGM9gm61kIO19ZHdpjQXH9ueNQNxXN
+         /lgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=TiB2F/QWVAlfD2IsKZXhLFiZ75QHq0FFdQ/Lizli0g0=;
+        b=HvlDIeTB2pUtLPQi81tqiGtIelknn6BgqfX6mqTV1AHBdgNWgfAdi3x/A4x85vL+ek
+         D+9Y/+bA03Oj4+C8MTjknNLyiMnlQe/VD9qen+u/nFe2Jbw34UojuYa6wN3poZIBVy8o
+         Mr2qrT/n9K6gYdsbx3bRbxj0u/wpmoNV9sqoInL4yhEoYJElVEWVqk/AuoxBwSdKgiwb
+         pmHOlpGm8ITHXe53a503ASAuvKjwHGn5g94/CJwlf4iUOx9Q3Rnr+XQgEHDgh9YLV2AM
+         R51OG1GqhBTqPotpF/ZZ09BcHL2QIp4QS+GvP+spwD5GSZPZ7lMkHuVbWf01M+01MMSp
+         pjMA==
+X-Gm-Message-State: AOAM532iHADdkzDIlHiIAbUlrVU5ji/c3ERAr/mlJgl5Dlb0e36XyMoW
+	zfdM2H3pK6PzjytWSEHbhKKtDBrWUTSwIj9oLI4=
+X-Google-Smtp-Source: ABdhPJznfNt7s53g5IQ7FIyvHkE8ul5p+FofIGYKbfcP6yJUlWHy0cPXR1+relJpFBG9qlDzAUw/X9v5sYr7YLru7eo=
+X-Received: by 2002:a17:906:9452:: with SMTP id z18mr12709453ejx.389.1607933118217;
+ Mon, 14 Dec 2020 00:05:18 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20201210134752.780923-1-marcandre.lureau@redhat.com> <20201210134752.780923-14-marcandre.lureau@redhat.com>
+In-Reply-To: <20201210134752.780923-14-marcandre.lureau@redhat.com>
+From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
+Date: Mon, 14 Dec 2020 12:05:05 +0400
+Message-ID: <CAJ+F1C+_CE5uaQ7QMkaca498WFcRWSb+zez2zwi_BqUMCTK2zA@mail.gmail.com>
+Subject: Re: [PATCH v3 13/13] compiler.h: remove QEMU_GNUC_PREREQ
+To: QEMU <qemu-devel@nongnu.org>
+Cc: Peter Maydell <peter.maydell@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Paul Durrant <paul@xen.org>, Richard Henderson <richard.henderson@linaro.org>, 
+	Laurent Vivier <laurent@vivier.eu>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>, 
+	"open list:ARM" <qemu-arm@nongnu.org>, Gerd Hoffmann <kraxel@redhat.com>, 
+	Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org, 
+	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
+Content-Type: multipart/alternative; boundary="0000000000005583ba05b6681a42"
 
-When the host crashes it would sometimes be nice to have additional
-debug data available which could be produced via debug keys, but
-halting the server for manual intervention might be impossible due to
-the need to reboot/kexec rather sooner than later.
+--0000000000005583ba05b6681a42
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for automatic debug key actions in case of crashes which
-can be activated via boot- or runtime-parameter.
+Hi
 
-Depending on the type of crash the desired data might be different, so
-support different settings for the possible types of crashes.
+On Thu, Dec 10, 2020 at 6:07 PM <marcandre.lureau@redhat.com> wrote:
 
-The parameter is "crash-debug" with the following syntax:
+> From: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+>
+> When needed, the G_GNUC_CHECK_VERSION() glib macro can be used instead.
+>
+> Signed-off-by: Marc-Andr=C3=A9 Lureau <marcandre.lureau@redhat.com>
+> ---
+>  include/qemu/compiler.h    | 11 -----------
+>  scripts/cocci-macro-file.h |  1 -
+>  2 files changed, 12 deletions(-)
+>
+> diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h
+> index 5e6cf2c8e8..1b9e58e82b 100644
+> --- a/include/qemu/compiler.h
+> +++ b/include/qemu/compiler.h
+> @@ -11,17 +11,6 @@
+>  #define QEMU_STATIC_ANALYSIS 1
+>  #endif
+>
+>
+> -/*----------------------------------------------------------------------=
+------
+> -| The macro QEMU_GNUC_PREREQ tests for minimum version of the GNU C
+> compiler.
+> -| The code is a copy of SOFTFLOAT_GNUC_PREREQ, see softfloat-macros.h.
+>
+> -*-----------------------------------------------------------------------=
+-----*/
+> -#if defined(__GNUC__) && defined(__GNUC_MINOR__)
+> -# define QEMU_GNUC_PREREQ(maj, min) \
+> -         ((__GNUC__ << 16) + __GNUC_MINOR__ >=3D ((maj) << 16) + (min))
+> -#else
+> -# define QEMU_GNUC_PREREQ(maj, min) 0
+> -#endif
+> -
+>  #define QEMU_NORETURN __attribute__ ((__noreturn__))
+>
+>  #define QEMU_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
+> diff --git a/scripts/cocci-macro-file.h b/scripts/cocci-macro-file.h
+> index c6bbc05ba3..20eea6b708 100644
+> --- a/scripts/cocci-macro-file.h
+> +++ b/scripts/cocci-macro-file.h
+> @@ -19,7 +19,6 @@
+>   */
+>
+>  /* From qemu/compiler.h */
+> -#define QEMU_GNUC_PREREQ(maj, min) 1
+>  #define QEMU_NORETURN __attribute__ ((__noreturn__))
+>  #define QEMU_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
+>  #define QEMU_SENTINEL __attribute__((sentinel))
+>
 
-  crash-debug-<type>=<string>
+ping, thanks
 
-with <type> being one of:
+--=20
+Marc-Andr=C3=A9 Lureau
 
-  panic, hwdom, watchdog, kexeccmd, debugkey
+--0000000000005583ba05b6681a42
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-and <string> a sequence of debug key characters with '+' having the
-special semantics of a 10 millisecond pause.
+<div dir=3D"ltr"><div dir=3D"ltr">Hi<br></div><br><div class=3D"gmail_quote=
+"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 10, 2020 at 6:07 PM &lt=
+;<a href=3D"mailto:marcandre.lureau@redhat.com">marcandre.lureau@redhat.com=
+</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+From: Marc-Andr=C3=A9 Lureau &lt;<a href=3D"mailto:marcandre.lureau@redhat.=
+com" target=3D"_blank">marcandre.lureau@redhat.com</a>&gt;<br>
+<br>
+When needed, the G_GNUC_CHECK_VERSION() glib macro can be used instead.<br>
+<br>
+Signed-off-by: Marc-Andr=C3=A9 Lureau &lt;<a href=3D"mailto:marcandre.lurea=
+u@redhat.com" target=3D"_blank">marcandre.lureau@redhat.com</a>&gt;<br>
+---<br>
+=C2=A0include/qemu/compiler.h=C2=A0 =C2=A0 | 11 -----------<br>
+=C2=A0scripts/cocci-macro-file.h |=C2=A0 1 -<br>
+=C2=A02 files changed, 12 deletions(-)<br>
+<br>
+diff --git a/include/qemu/compiler.h b/include/qemu/compiler.h<br>
+index 5e6cf2c8e8..1b9e58e82b 100644<br>
+--- a/include/qemu/compiler.h<br>
++++ b/include/qemu/compiler.h<br>
+@@ -11,17 +11,6 @@<br>
+=C2=A0#define QEMU_STATIC_ANALYSIS 1<br>
+=C2=A0#endif<br>
+<br>
+-/*------------------------------------------------------------------------=
+----<br>
+-| The macro QEMU_GNUC_PREREQ tests for minimum version of the GNU C compil=
+er.<br>
+-| The code is a copy of SOFTFLOAT_GNUC_PREREQ, see softfloat-macros.h.<br>
+-*-------------------------------------------------------------------------=
+---*/<br>
+-#if defined(__GNUC__) &amp;&amp; defined(__GNUC_MINOR__)<br>
+-# define QEMU_GNUC_PREREQ(maj, min) \<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0((__GNUC__ &lt;&lt; 16) + __GNUC_MINOR__=
+ &gt;=3D ((maj) &lt;&lt; 16) + (min))<br>
+-#else<br>
+-# define QEMU_GNUC_PREREQ(maj, min) 0<br>
+-#endif<br>
+-<br>
+=C2=A0#define QEMU_NORETURN __attribute__ ((__noreturn__))<br>
+<br>
+=C2=A0#define QEMU_WARN_UNUSED_RESULT __attribute__((warn_unused_result))<b=
+r>
+diff --git a/scripts/cocci-macro-file.h b/scripts/cocci-macro-file.h<br>
+index c6bbc05ba3..20eea6b708 100644<br>
+--- a/scripts/cocci-macro-file.h<br>
++++ b/scripts/cocci-macro-file.h<br>
+@@ -19,7 +19,6 @@<br>
+=C2=A0 */<br>
+<br>
+=C2=A0/* From qemu/compiler.h */<br>
+-#define QEMU_GNUC_PREREQ(maj, min) 1<br>
+=C2=A0#define QEMU_NORETURN __attribute__ ((__noreturn__))<br>
+=C2=A0#define QEMU_WARN_UNUSED_RESULT __attribute__((warn_unused_result))<b=
+r>
+=C2=A0#define QEMU_SENTINEL __attribute__((sentinel))<br></blockquote><div>=
+<br></div><div>ping, thanks <br></div></div><br>-- <br><div dir=3D"ltr" cla=
+ss=3D"gmail_signature">Marc-Andr=C3=A9 Lureau<br></div></div>
 
-So "crash-debug-watchdog=0+0qr" would result in special output in case
-of watchdog triggered crash (dom0 state, 10 ms pause, dom0 state,
-domain info, run queues).
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- switched special character '.' to '+' (Jan Beulich)
-- 10 ms instead of 1 s pause (Jan Beulich)
-- added more text to the boot parameter description (Jan Beulich)
-
-V3:
-- added const (Jan Beulich)
-- thorough test of crash reason parameter (Jan Beulich)
-- kexeccmd case should depend on CONFIG_KEXEC (Jan Beulich)
-- added dummy get_irq_regs() helper on Arm
-
-V4:
-- call keyhandlers with NULL for regs
-- use ARRAY_SIZE() (Jan Beulich)
-- don't activate handlers in early boot (Jan Beulich)
-- avoid recursion
-- extend documentation a bit
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- docs/misc/xen-command-line.pandoc | 41 +++++++++++++++++++++++
- xen/common/kexec.c                |  8 +++--
- xen/common/keyhandler.c           | 55 +++++++++++++++++++++++++++++++
- xen/common/shutdown.c             |  4 +--
- xen/drivers/char/console.c        |  2 +-
- xen/include/xen/kexec.h           | 10 ++++--
- xen/include/xen/keyhandler.h      | 10 ++++++
- 7 files changed, 122 insertions(+), 8 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index b4a0d60c11..e4c0a144fc 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -574,6 +574,47 @@ reduction of features at Xen's disposal to manage guests.
- ### cpuinfo (x86)
- > `= <boolean>`
- 
-+### crash-debug-debugkey
-+### crash-debug-hwdom
-+### crash-debug-kexeccmd
-+### crash-debug-panic
-+### crash-debug-watchdog
-+> `= <string>`
-+
-+> Can be modified at runtime
-+
-+Specify debug-key actions in cases of crashes. Each of the parameters applies
-+to a different crash reason. The `<string>` is a sequence of debug key
-+characters, with `+` having the special meaning of a 10 millisecond pause.
-+
-+`crash-debug-debugkey` will be used for crashes induced by the `C` debug
-+key (i.e. manually induced crash).
-+
-+`crash-debug-hwdom` denotes a crash of dom0.
-+
-+`crash-debug-kexeccmd` is an explicit request of dom0 to continue with the
-+kdump kernel via kexec. Only available on hypervisors built with CONFIG_KEXEC.
-+
-+`crash-debug-panic` is a crash of the hypervisor.
-+
-+`crash-debug-watchdog` is a crash due to the watchdog timer expiring.
-+
-+It should be noted that dumping diagnosis data to the console can fail in
-+multiple ways (missing data, hanging system, ...) depending on the reason
-+of the crash, which might have left the hypervisor in a bad state. In case
-+a debug-key action leads to another crash recursion will be avoided, so no
-+additional debug-key actions will be performed in this case. A crash in the
-+early boot phase will not result in any debug-key action, as the system
-+might not yet be in a state where the handlers can work.
-+
-+So e.g. `crash-debug-watchdog=0+0r` would dump dom0 state twice with 10
-+milliseconds between the two state dumps, followed by the run queues of the
-+hypervisor, if the system crashes due to a watchdog timeout.
-+
-+Depending on the reason of the system crash it might happen that triggering
-+some debug key action will result in a hang instead of dumping data and then
-+doing a reboot or crash dump.
-+
- ### crashinfo_maxaddr
- > `= <size>`
- 
-diff --git a/xen/common/kexec.c b/xen/common/kexec.c
-index 52cdc4ebc3..ebeee6405a 100644
---- a/xen/common/kexec.c
-+++ b/xen/common/kexec.c
-@@ -373,10 +373,12 @@ static int kexec_common_shutdown(void)
-     return 0;
- }
- 
--void kexec_crash(void)
-+void kexec_crash(enum crash_reason reason)
- {
-     int pos;
- 
-+    keyhandler_crash_action(reason);
-+
-     pos = (test_bit(KEXEC_FLAG_CRASH_POS, &kexec_flags) != 0);
-     if ( !test_bit(KEXEC_IMAGE_CRASH_BASE + pos, &kexec_flags) )
-         return;
-@@ -409,7 +411,7 @@ static long kexec_reboot(void *_image)
- static void do_crashdump_trigger(unsigned char key)
- {
-     printk("'%c' pressed -> triggering crashdump\n", key);
--    kexec_crash();
-+    kexec_crash(CRASHREASON_DEBUGKEY);
-     printk(" * no crash kernel loaded!\n");
- }
- 
-@@ -840,7 +842,7 @@ static int kexec_exec(XEN_GUEST_HANDLE_PARAM(void) uarg)
-         ret = continue_hypercall_on_cpu(0, kexec_reboot, image);
-         break;
-     case KEXEC_TYPE_CRASH:
--        kexec_crash(); /* Does not return */
-+        kexec_crash(CRASHREASON_KEXECCMD); /* Does not return */
-         break;
-     }
- 
-diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-index de120fa092..806355ed8b 100644
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -3,7 +3,9 @@
-  */
- 
- #include <asm/regs.h>
-+#include <xen/delay.h>
- #include <xen/keyhandler.h>
-+#include <xen/param.h>
- #include <xen/shutdown.h>
- #include <xen/event.h>
- #include <xen/console.h>
-@@ -519,6 +521,59 @@ void __init initialize_keytable(void)
-     }
- }
- 
-+#define CRASHACTION_SIZE  32
-+static char crash_debug_panic[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-panic", crash_debug_panic);
-+static char crash_debug_hwdom[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-hwdom", crash_debug_hwdom);
-+static char crash_debug_watchdog[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-watchdog", crash_debug_watchdog);
-+#ifdef CONFIG_KEXEC
-+static char crash_debug_kexeccmd[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-kexeccmd", crash_debug_kexeccmd);
-+#else
-+#define crash_debug_kexeccmd NULL
-+#endif
-+static char crash_debug_debugkey[CRASHACTION_SIZE];
-+string_runtime_param("crash-debug-debugkey", crash_debug_debugkey);
-+
-+void keyhandler_crash_action(enum crash_reason reason)
-+{
-+    static const char *const crash_action[] = {
-+        [CRASHREASON_PANIC] = crash_debug_panic,
-+        [CRASHREASON_HWDOM] = crash_debug_hwdom,
-+        [CRASHREASON_WATCHDOG] = crash_debug_watchdog,
-+        [CRASHREASON_KEXECCMD] = crash_debug_kexeccmd,
-+        [CRASHREASON_DEBUGKEY] = crash_debug_debugkey,
-+    };
-+    static bool ignore;
-+    const char *action;
-+
-+    /* Some handlers are not functional too early. */
-+    if ( system_state < SYS_STATE_smp_boot )
-+        return;
-+
-+    /* Avoid recursion. */
-+    if ( ignore )
-+        return;
-+    ignore = true;
-+
-+    if ( (unsigned int)reason >= ARRAY_SIZE(crash_action) )
-+        return;
-+    action = crash_action[reason];
-+    if ( !action )
-+        return;
-+
-+    while ( *action )
-+    {
-+        if ( *action == '+' )
-+            mdelay(10);
-+        else
-+            handle_keypress(*action, NULL);
-+        action++;
-+    }
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/common/shutdown.c b/xen/common/shutdown.c
-index 912593915b..abde48aa4c 100644
---- a/xen/common/shutdown.c
-+++ b/xen/common/shutdown.c
-@@ -43,7 +43,7 @@ void hwdom_shutdown(u8 reason)
-     case SHUTDOWN_crash:
-         debugger_trap_immediate();
-         printk("Hardware Dom%u crashed: ", hardware_domain->domain_id);
--        kexec_crash();
-+        kexec_crash(CRASHREASON_HWDOM);
-         maybe_reboot();
-         break; /* not reached */
- 
-@@ -56,7 +56,7 @@ void hwdom_shutdown(u8 reason)
-     case SHUTDOWN_watchdog:
-         printk("Hardware Dom%u shutdown: watchdog rebooting machine\n",
-                hardware_domain->domain_id);
--        kexec_crash();
-+        kexec_crash(CRASHREASON_WATCHDOG);
-         machine_restart(0);
-         break; /* not reached */
- 
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 861ad53a8f..acec277f5e 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -1271,7 +1271,7 @@ void panic(const char *fmt, ...)
- 
-     debugger_trap_immediate();
- 
--    kexec_crash();
-+    kexec_crash(CRASHREASON_PANIC);
- 
-     if ( opt_noreboot )
-         machine_halt();
-diff --git a/xen/include/xen/kexec.h b/xen/include/xen/kexec.h
-index e85ba16405..9f7a912e97 100644
---- a/xen/include/xen/kexec.h
-+++ b/xen/include/xen/kexec.h
-@@ -1,6 +1,8 @@
- #ifndef __XEN_KEXEC_H__
- #define __XEN_KEXEC_H__
- 
-+#include <xen/keyhandler.h>
-+
- #ifdef CONFIG_KEXEC
- 
- #include <public/kexec.h>
-@@ -48,7 +50,7 @@ void machine_kexec_unload(struct kexec_image *image);
- void machine_kexec_reserved(xen_kexec_reserve_t *reservation);
- void machine_reboot_kexec(struct kexec_image *image);
- void machine_kexec(struct kexec_image *image);
--void kexec_crash(void);
-+void kexec_crash(enum crash_reason reason);
- void kexec_crash_save_cpu(void);
- struct crash_xen_info *kexec_crash_save_info(void);
- void machine_crash_shutdown(void);
-@@ -82,7 +84,11 @@ void vmcoreinfo_append_str(const char *fmt, ...)
- #define kexecing 0
- 
- static inline void kexec_early_calculations(void) {}
--static inline void kexec_crash(void) {}
-+static inline void kexec_crash(enum crash_reason reason)
-+{
-+    keyhandler_crash_action(reason);
-+}
-+
- static inline void kexec_crash_save_cpu(void) {}
- static inline void set_kexec_crash_area_size(u64 system_ram) {}
- 
-diff --git a/xen/include/xen/keyhandler.h b/xen/include/xen/keyhandler.h
-index 5131e86cbc..9c5830a037 100644
---- a/xen/include/xen/keyhandler.h
-+++ b/xen/include/xen/keyhandler.h
-@@ -48,4 +48,14 @@ void register_irq_keyhandler(unsigned char key,
- /* Inject a keypress into the key-handling subsystem. */
- extern void handle_keypress(unsigned char key, struct cpu_user_regs *regs);
- 
-+enum crash_reason {
-+    CRASHREASON_PANIC,
-+    CRASHREASON_HWDOM,
-+    CRASHREASON_WATCHDOG,
-+    CRASHREASON_KEXECCMD,
-+    CRASHREASON_DEBUGKEY,
-+};
-+
-+void keyhandler_crash_action(enum crash_reason reason);
-+
- #endif /* __XEN_KEYHANDLER_H__ */
--- 
-2.26.2
-
+--0000000000005583ba05b6681a42--
 
