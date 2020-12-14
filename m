@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5850D2DA2A9
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 22:43:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52702.92032 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B9862DA28B
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 22:26:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52706.91992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kovcm-0006YP-S3; Mon, 14 Dec 2020 21:43:20 +0000
+	id 1kovLX-0004eK-D6; Mon, 14 Dec 2020 21:25:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52702.92032; Mon, 14 Dec 2020 21:43:20 +0000
+Received: by outflank-mailman (output) from mailman id 52706.91992; Mon, 14 Dec 2020 21:25:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kovcm-0006XS-Mo; Mon, 14 Dec 2020 21:43:20 +0000
-Received: by outflank-mailman (input) for mailman id 52702;
- Mon, 14 Dec 2020 21:13:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kovLX-0004du-8G; Mon, 14 Dec 2020 21:25:31 +0000
+Received: by outflank-mailman (input) for mailman id 52706;
+ Mon, 14 Dec 2020 21:25:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6luh=FS=kernel.org=saeed@srs-us1.protection.inumbo.net>)
- id 1kov9c-0003j1-Pw
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 21:13:12 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 43b336df-5a5c-4021-b07e-fe6cca59fadb;
- Mon, 14 Dec 2020 21:13:12 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1kovLV-0004dp-Fd
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 21:25:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kovLV-0006YJ-2Z; Mon, 14 Dec 2020 21:25:29 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kovLU-0002kx-RO; Mon, 14 Dec 2020 21:25:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,119 +39,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43b336df-5a5c-4021-b07e-fe6cca59fadb
-Message-ID: <0f8eda3bbed1100c1c1f7015dd5c172f8d735c94.camel@kernel.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1607980391;
-	bh=Pzvi/5ISTUEc02BC83hB6nniQmkTHPAhNCBBNcfKAUY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=Ks3P3xnvXkJSp+uh7CcZoik6MJkEKtx2PvE0VYPE/pepC3FjT65YOm45Ebhka542Q
-	 KDRZnMtG6PVk8azMh03nN0D62HLqcKsXaM3NGfl0cnBfDn4M/eCG3Bapi5UEiWJojE
-	 Wz5xGjdq/ndTqDY7tNprPuvOQMJrfpTrREHq07hUDedim+JiPcYSm9y/a+CVpdgIGp
-	 tK5qViUVIaC1nIaet1VMQYFfwNA6Uv7knO5wHsw+J306Af6r5YPeiXS/tptiFYTABJ
-	 2yXmYvRm101qHL41Iu7+0L42D5JI7GLbb235mT9lCcvuGwm/DUlfBNloCq8GKc5F9/
-	 KjhGS5BzrCEJg==
-Subject: Re: [patch 22/30] net/mlx5: Replace irq_to_desc() abuse
-From: Saeed Mahameed <saeed@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge
- Deller <deller@gmx.de>, afzal mohammed <afzal.mohd.ma@gmail.com>,
- linux-parisc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- linux-arm-kernel@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Christian Borntraeger <borntraeger@de.ibm.com>, Heiko Carstens
- <hca@linux.ibm.com>, linux-s390@vger.kernel.org, Jani Nikula
- <jani.nikula@linux.intel.com>,  Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Pankaj
- Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>, Chris Wilson
- <chris@chris-wilson.co.uk>, Wambui Karuga <wambui.karugax@gmail.com>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Tvrtko
- Ursulin <tvrtko.ursulin@linux.intel.com>, Linus Walleij
- <linus.walleij@linaro.org>,  linux-gpio@vger.kernel.org, Lee Jones
- <lee.jones@linaro.org>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
- <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
- linux-ntb@googlegroups.com, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Michal
- Simek <michal.simek@xilinx.com>,  linux-pci@vger.kernel.org, Karthikeyan
- Mitran <m.karthikeyan@mobiveil.co.in>,  Hou Zhiqiang
- <Zhiqiang.Hou@nxp.com>, Tariq Toukan <tariqt@nvidia.com>, "David S. Miller"
- <davem@davemloft.net>,  Jakub Kicinski <kuba@kernel.org>,
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org, Leon Romanovsky
- <leon@kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen
- Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
- xen-devel@lists.xenproject.org
-Date: Mon, 14 Dec 2020 13:13:07 -0800
-In-Reply-To: <20201210194044.769458162@linutronix.de>
-References: <20201210192536.118432146@linutronix.de>
-	 <20201210194044.769458162@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.5 (3.36.5-1.fc32) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:
+	Message-ID:Subject:From:Cc:To;
+	bh=W3CUiMegB4BVkOevPrxxwlz9k2sF0VIgjinR7mJO+zE=; b=GJjfM94GNzkD7aFMOC4OuSnRby
+	vXidysS/3DsaeOhU9ZvF6l5ynXOe0eNB78/m57sdxESt2jdQw40qybnQEycOhEH0vBKy/faEEpkmu
+	uP6u5mG7GM+15WpbQTUs1v6awvkCX41TyEbguIREKlGEZK8s+gfpmBAxxjXWCwAbQdBM=;
+To: aams@amazon.de, Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ foersleo@amazon.de
+From: Julien Grall <julien@xen.org>
+Subject: xen/evtchn: Interrupt for port 34, but apparently not enabled;
+ per-user 00000000a86a4c1b on 5.10
+Message-ID: <ce881240-284f-8470-10f1-5cce353ee903@xen.org>
+Date: Mon, 14 Dec 2020 21:25:27 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2020-12-10 at 20:25 +0100, Thomas Gleixner wrote:
-> No driver has any business with the internals of an interrupt
-> descriptor. Storing a pointer to it just to use yet another helper at
-> the
-> actual usage site to retrieve the affinity mask is creative at best.
-> Just
-> because C does not allow encapsulation does not mean that the kernel
-> has no
-> limits.
-> 
+Hi Juergen,
 
-you can't blame the developers for using stuff from include/linux/
-Not all developers are the same, and sometime we don't read in between
-the lines, you can't assume all driver developers to be expert on irq
-APIs disciplines.
+When testing Linux 5.10 dom0, I could reliably hit the following warning 
+with using event 2L ABI:
 
-your rules must be programmatically expressed, for instance,
-you can just hide struct irq_desc and irq_to_desc() in kernel/irq/ and
-remove them from include/linux/ header files, if you want privacy in
-your subsystem, don't put all your header files on display under
-include/linux.
+[  589.591737] Interrupt for port 34, but apparently not enabled; 
+per-user 00000000a86a4c1b
+[  589.593259] WARNING: CPU: 0 PID: 1111 at 
+/home/ANT.AMAZON.COM/jgrall/works/oss/linux/drivers/xen/evtchn.c:170 
+evtchn_interrupt+0xeb/0x100
+[  589.595514] Modules linked in:
+[  589.596145] CPU: 0 PID: 1111 Comm: qemu-system-i38 Tainted: G 
+W         5.10.0+ #180
+[  589.597708] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 
+rel-1.12.0-59-gc9ba5276e321-prebuilt.qemu.org 04/01/2014
+[  589.599782] RIP: e030:evtchn_interrupt+0xeb/0x100
+[  589.600698] Code: 48 8d bb d8 01 00 00 ba 01 00 00 00 be 1d 00 00 00 
+e8 d9 10 ca ff eb b2 8b 75 20 48 89 da 48 c7 c7 a8 31 3d 82 e8 65 29 a0 
+ff <0f> 0b e9 42 ff ff ff 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 00 00 0f
+[  589.604087] RSP: e02b:ffffc90040003e70 EFLAGS: 00010086
+[  589.605102] RAX: 0000000000000000 RBX: ffff888102091800 RCX: 
+0000000000000027
+[  589.606445] RDX: 0000000000000000 RSI: ffff88817fe19150 RDI: 
+ffff88817fe19158
+[  589.607790] RBP: ffff88810f5ab980 R08: 0000000000000001 R09: 
+0000000000328980
+[  589.609134] R10: 0000000000000000 R11: ffffc90040003c70 R12: 
+ffff888107fd3c00
+[  589.610484] R13: ffffc90040003ed4 R14: 0000000000000000 R15: 
+ffff88810f5ffd80
+[  589.611828] FS:  00007f960c4b8ac0(0000) GS:ffff88817fe00000(0000) 
+knlGS:0000000000000000
+[  589.613348] CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  589.614525] CR2: 00007f17ee72e000 CR3: 000000010f5b6000 CR4: 
+0000000000050660
+[  589.615874] Call Trace:
+[  589.616402]  <IRQ>
+[  589.616855]  __handle_irq_event_percpu+0x4e/0x2c0
+[  589.617784]  handle_irq_event_percpu+0x30/0x80
+[  589.618660]  handle_irq_event+0x3a/0x60
+[  589.619428]  handle_edge_irq+0x9b/0x1f0
+[  589.620209]  generic_handle_irq+0x4f/0x60
+[  589.621008]  evtchn_2l_handle_events+0x160/0x280
+[  589.621913]  __xen_evtchn_do_upcall+0x66/0xb0
+[  589.622767]  __xen_pv_evtchn_do_upcall+0x11/0x20
+[  589.623665]  asm_call_irq_on_stack+0x12/0x20
+[  589.624511]  </IRQ>
+[  589.624978]  xen_pv_evtchn_do_upcall+0x77/0xf0
+[  589.625848]  exc_xen_hypervisor_callback+0x8/0x10
 
+This can be reproduced when creating/destroying guest in a loop. 
+Although, I have struggled to reproduce it on a vanilla Xen.
 
-> Retrieve a pointer to the affinity mask itself and use that. It's
-> still
-> using an interface which is usually not for random drivers, but
-> definitely
-> less hideous than the previous hack.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> ---
->  drivers/net/ethernet/mellanox/mlx5/core/en.h      |    2 +-
->  drivers/net/ethernet/mellanox/mlx5/core/en_main.c |    2 +-
->  drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c |    6 +-----
->  3 files changed, 3 insertions(+), 7 deletions(-)
-> 
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en.h
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en.h
-> @@ -669,7 +669,7 @@ struct mlx5e_channel {
->  	spinlock_t                 async_icosq_lock;
->  
->  	/* data path - accessed per napi poll */
-> -	struct irq_desc *irq_desc;
-> +	const struct cpumask	  *aff_mask;
->  	struct mlx5e_ch_stats     *stats;
->  
->  	/* control */
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-> @@ -1998,7 +1998,7 @@ static int mlx5e_open_channel(struct mlx
->  	c->num_tc   = params->num_tc;
->  	c->xdp      = !!params->xdp_prog;
->  	c->stats    = &priv->channel_stats[ix].ch;
-> -	c->irq_desc = irq_to_desc(irq);
-> +	c->aff_mask = irq_get_affinity_mask(irq);
+After several hours of debugging, I think I have found the root cause.
 
-as long as the affinity mask pointer stays the same for the lifetime of
-the irq vector.
+While we only expect the unmask to happen when the event channel is 
+EOIed, there is an unmask happening as part of handle_edge_irq() because 
+the interrupt was seen as pending by another vCPU (IRQS_PENDING is set).
 
-Assuming that:
-Acked-by: Saeed Mahameed <saeedm@nvidia.com>
+It turns out that the event channel is set for multiple vCPU is in 
+cpu_evtchn_mask. This is happening because the affinity is not cleared 
+when freeing an event channel.
 
+The implementation of evtchn_2l_handle_events() will look for all the 
+active interrupts for the current vCPU and later on clear the pending 
+bit (via the ack() callback). IOW, I believe, this is not an atomic 
+operation.
 
+Even if Xen will notify the event to a single vCPU, evtchn_pending_sel 
+may still be set on the other vCPU (thanks to a different event 
+channel). Therefore, there is a chance that two vCPUs will try to handle 
+the same interrupt.
+
+The IRQ handler handle_edge_irq() is able to deal with that and will 
+mask/unmask the interrupt. This will mess us with the lateeoi logic 
+(although, I managed to reproduce it once without XSA-332).
+
+My initial idea to fix the problem was to switch the affinity from CPU X 
+to CPU0 when the event channel is freed.
+
+However, I am not sure this is enough because I haven't found anything 
+yet preventing a race between evtchn_2l_handle_events9) and 
+evtchn_2l_bind_vcpu().
+
+So maybe we want to introduce a refcounting (if there is nothing 
+provided by the IRQ framework) and only unmask when the counter drop to 0.
+
+Any opinions?
+
+Cheers,
+
+-- 
+Julien Grall
 
