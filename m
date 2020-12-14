@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 648E22D971D
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 12:11:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52139.91239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E18AE2D972A
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 12:15:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52145.91252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kollI-0008Ec-GK; Mon, 14 Dec 2020 11:11:28 +0000
+	id 1kolob-0008OT-26; Mon, 14 Dec 2020 11:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52139.91239; Mon, 14 Dec 2020 11:11:28 +0000
+Received: by outflank-mailman (output) from mailman id 52145.91252; Mon, 14 Dec 2020 11:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kollI-0008ED-Cx; Mon, 14 Dec 2020 11:11:28 +0000
-Received: by outflank-mailman (input) for mailman id 52139;
- Mon, 14 Dec 2020 11:11:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1koloa-0008O2-U2; Mon, 14 Dec 2020 11:14:52 +0000
+Received: by outflank-mailman (input) for mailman id 52145;
+ Mon, 14 Dec 2020 11:14:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XC/h=FS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kollG-0008E8-DL
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 11:11:26 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab620cb7-f03d-42ab-9152-9c1195cf0725;
- Mon, 14 Dec 2020 11:11:25 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A023CAC10;
- Mon, 14 Dec 2020 11:11:24 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1koloZ-0008Nx-0o
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 11:14:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1koloW-0003q3-9B; Mon, 14 Dec 2020 11:14:48 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1koloV-0001Ar-TR; Mon, 14 Dec 2020 11:14:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,239 +39,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab620cb7-f03d-42ab-9152-9c1195cf0725
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1607944284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=emJZN2S2qXQhrmBMSpLQuldS8IQJcUyy+pQmjM0bZu0=;
-	b=IACYz4Db6DT/EV5dDwRA0N7mLhoub7jhdkNj8d7WouS5Ko1H/6733h45EOR2JpK83E/ow2
-	uia2bjaEJA9TfTVKeZVY789KBQb9v5R7oYl8fm0Bz7rjH+uYMKjWREsyVuWss0HGNloa0C
-	mIuTXOKJgV4/KtvOFYOTIz/fCebSFZY=
-Subject: Re: [PATCH v4 3/3] xen: add support for automatic debug key actions
- in case of crash
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=zGBYvUDhrp4vJoOWJ+Hmfmk6AM3uCACamJcia3BpCSo=; b=I1bJFLQIgLkmewfbGnhIxnw2hQ
+	WyitygjzISJGrr8L3xbEKSDWKFNGjkka7YnEs0ihFSlKithJdFeBqHP8SKCjC4a94C9Iz+9HuFoI7
+	87fegHPOnIjaaIAvCCinoPO5BxJOML74H6qRWB4cBEiCPaovhuZW4mIvo1O3h575a03s=;
+Subject: Re: [PATCH v4 1/3] xen/arm: add support for
+ run_in_exception_handler()
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
 References: <20201214075615.25038-1-jgross@suse.com>
- <20201214075615.25038-4-jgross@suse.com>
- <8dc62a3f-db2d-51b9-1264-28af3a13052d@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <08c72f15-c89b-5887-b828-a7cfdeb4834a@suse.com>
-Date: Mon, 14 Dec 2020 12:11:23 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ <20201214075615.25038-2-jgross@suse.com>
+ <9d3f8583-cfba-0174-3275-b418648f3f31@xen.org>
+ <3042ff2f-5d55-a132-a5fc-b214ec53e7a1@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <4a632e73-87ea-c037-09e1-dfc88d19d9b2@xen.org>
+Date: Mon, 14 Dec 2020 11:14:45 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <8dc62a3f-db2d-51b9-1264-28af3a13052d@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="9U3WsiJymg4oJTBtMr0uOCQM3lKl1Fs1k"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---9U3WsiJymg4oJTBtMr0uOCQM3lKl1Fs1k
-Content-Type: multipart/mixed; boundary="83vukAr0ktrel4PgkgiFLSgP8sMRwveNy";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <08c72f15-c89b-5887-b828-a7cfdeb4834a@suse.com>
-Subject: Re: [PATCH v4 3/3] xen: add support for automatic debug key actions
- in case of crash
-References: <20201214075615.25038-1-jgross@suse.com>
- <20201214075615.25038-4-jgross@suse.com>
- <8dc62a3f-db2d-51b9-1264-28af3a13052d@xen.org>
-In-Reply-To: <8dc62a3f-db2d-51b9-1264-28af3a13052d@xen.org>
-
---83vukAr0ktrel4PgkgiFLSgP8sMRwveNy
-Content-Type: multipart/mixed;
- boundary="------------C3C4FBCB5B66B8C291814506"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------C3C4FBCB5B66B8C291814506
+In-Reply-To: <3042ff2f-5d55-a132-a5fc-b214ec53e7a1@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-On 14.12.20 11:24, Julien Grall wrote:
-> Hi Juergen,
->=20
-> On 14/12/2020 07:56, Juergen Gross wrote:
->> diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
->> index de120fa092..806355ed8b 100644
->> --- a/xen/common/keyhandler.c
->> +++ b/xen/common/keyhandler.c
->> @@ -3,7 +3,9 @@
->> =C2=A0=C2=A0 */
->> =C2=A0 #include <asm/regs.h>
->> +#include <xen/delay.h>
->> =C2=A0 #include <xen/keyhandler.h>
->> +#include <xen/param.h>
->> =C2=A0 #include <xen/shutdown.h>
->> =C2=A0 #include <xen/event.h>
->> =C2=A0 #include <xen/console.h>
->> @@ -519,6 +521,59 @@ void __init initialize_keytable(void)
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->> =C2=A0 }
->> +#define CRASHACTION_SIZE=C2=A0 32
->> +static char crash_debug_panic[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-panic", crash_debug_panic);
->> +static char crash_debug_hwdom[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-hwdom", crash_debug_hwdom);
->> +static char crash_debug_watchdog[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-watchdog", crash_debug_watchdog);
->> +#ifdef CONFIG_KEXEC
->> +static char crash_debug_kexeccmd[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-kexeccmd", crash_debug_kexeccmd);
->> +#else
->> +#define crash_debug_kexeccmd NULL
->> +#endif
->> +static char crash_debug_debugkey[CRASHACTION_SIZE];
->> +string_runtime_param("crash-debug-debugkey", crash_debug_debugkey);
->> +
->> +void keyhandler_crash_action(enum crash_reason reason)
->> +{
->> +=C2=A0=C2=A0=C2=A0 static const char *const crash_action[] =3D {
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CRASHREASON_PANIC] =3D cr=
-ash_debug_panic,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CRASHREASON_HWDOM] =3D cr=
-ash_debug_hwdom,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CRASHREASON_WATCHDOG] =3D=
- crash_debug_watchdog,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CRASHREASON_KEXECCMD] =3D=
- crash_debug_kexeccmd,
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CRASHREASON_DEBUGKEY] =3D=
- crash_debug_debugkey,
->> +=C2=A0=C2=A0=C2=A0 };
->> +=C2=A0=C2=A0=C2=A0 static bool ignore;
->> +=C2=A0=C2=A0=C2=A0 const char *action;
->> +
->> +=C2=A0=C2=A0=C2=A0 /* Some handlers are not functional too early. */
->=20
-> Can you explain in the commit message why this is necessary (An example=
-=20
-> would be useful)?
+Hi Juergen,
 
-Okay.
+On 14/12/2020 10:51, Jürgen Groß wrote:
+> On 14.12.20 11:17, Julien Grall wrote:
+>> Hi Juergen,
+>>
+>> On 14/12/2020 07:56, Juergen Gross wrote:
+>>> Add support to run a function in an exception handler for Arm. Do it
+>>> the same way as on x86 via a bug_frame.
+>>>
+>>> Unfortunately inline assembly on Arm seems to be less capable than on
+>>> x86, leading to functions called via run_in_exception_handler() having
+>>> to be globally visible.
+>>
+>> Jan already commented on this, so I am not going to comment again.
+> 
+> Maybe I can ask some Arm specific question related to this:
+> 
+> In my experiments the only working solution was using the "i" constraint
+> for the function pointer. Do you know whether this is supported for all
+> gcc versions we care about?
 
+I don't know for sure. However, Linux has been using "i" since 2012. So 
+I would assume it ought to be fine for all the version we care.
 
-Juergen
+> 
+> Or is there another way to achieve the desired functionality? I'm using
+> now the following macros:
+> 
+> #define BUG_FRAME_run_fn(fn) do {                                      \
+>      asm ("1:"BUG_INSTR"\n"                                             \
+>           ".pushsection .bug_frames." __stringify(BUGFRAME_run_fn)      \
+>                         ", \"a\", %%progbits\n"                         \
+>           "2:\n"                                                        \
+>           ".p2align 2\n"                                                \
+>           ".long (1b - 2b)\n"                                           \
+>           ".long (%0 - 2b)\n"                                           \
+>           ".long 0\n"                                                   \
+>           ".hword 0, 0\n"                                               \
+>           ".popsection" :: "i" (fn));                                   \
+> } while (0)
 
---------------C3C4FBCB5B66B8C291814506
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+May I ask why we need a new macro?
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> 
+> #define run_in_exception_handler(fn) BUG_FRAME_run_fn(fn)
+> 
+>>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> ---
+>>> V4:
+>>> - new patch
+>>>
+>>> I have verified the created bugframe is correct by inspecting the
+>>> created binary.
+>>>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> ---
+>>>   xen/arch/arm/traps.c       | 10 +++++++++-
+>>>   xen/drivers/char/ns16550.c |  3 ++-
+>>>   xen/include/asm-arm/bug.h  | 32 +++++++++++++++++++++-----------
+>>>   3 files changed, 32 insertions(+), 13 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+>>> index 22bd1bd4c6..6e677affe2 100644
+>>> --- a/xen/arch/arm/traps.c
+>>> +++ b/xen/arch/arm/traps.c
+>>> @@ -1236,8 +1236,16 @@ int do_bug_frame(const struct cpu_user_regs 
+>>> *regs, vaddr_t pc)
+>>>       if ( !bug )
+>>>           return -ENOENT;
+>>> +    if ( id == BUGFRAME_run_fn )
+>>> +    {
+>>> +        void (*fn)(const struct cpu_user_regs *) = bug_ptr(bug);
+>>> +
+>>> +        fn(regs);
+>>> +        return 0;
+>>> +    }
+>>> +
+>>>       /* WARN, BUG or ASSERT: decode the filename pointer and line 
+>>> number. */
+>>> -    filename = bug_file(bug);
+>>> +    filename = bug_ptr(bug);
+>>>       if ( !is_kernel(filename) )
+>>>           return -EINVAL;
+>>>       fixup = strlen(filename);
+>>> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+>>> index 9235d854fe..dd6500acc8 100644
+>>> --- a/xen/drivers/char/ns16550.c
+>>> +++ b/xen/drivers/char/ns16550.c
+>>> @@ -192,7 +192,8 @@ static void ns16550_interrupt(
+>>>   /* Safe: ns16550_poll() runs as softirq so not reentrant on a given 
+>>> CPU. */
+>>>   static DEFINE_PER_CPU(struct serial_port *, poll_port);
+>>> -static void __ns16550_poll(struct cpu_user_regs *regs)
+>>> +/* run_in_exception_handler() on Arm requires globally visible 
+>>> symbol. */
+>>> +void __ns16550_poll(struct cpu_user_regs *regs)
+>>>   {
+>>>       struct serial_port *port = this_cpu(poll_port);
+>>>       struct ns16550 *uart = port->uart;
+>>> diff --git a/xen/include/asm-arm/bug.h b/xen/include/asm-arm/bug.h
+>>> index 36c803357c..a7da2c306f 100644
+>>> --- a/xen/include/asm-arm/bug.h
+>>> +++ b/xen/include/asm-arm/bug.h
+>>> @@ -15,34 +15,38 @@
+>>>   struct bug_frame {
+>>>       signed int loc_disp;    /* Relative address to the bug address */
+>>> -    signed int file_disp;   /* Relative address to the filename */
+>>> +    signed int ptr_disp;    /* Relative address to the filename or 
+>>> function */
+>>>       signed int msg_disp;    /* Relative address to the predicate 
+>>> (for ASSERT) */
+>>>       uint16_t line;          /* Line number */
+>>>       uint32_t pad0:16;       /* Padding for 8-bytes align */
+>>>   };
+>>>   #define bug_loc(b) ((const void *)(b) + (b)->loc_disp)
+>>> -#define bug_file(b) ((const void *)(b) + (b)->file_disp);
+>>> +#define bug_ptr(b) ((const void *)(b) + (b)->ptr_disp);
+>>>   #define bug_line(b) ((b)->line)
+>>>   #define bug_msg(b) ((const char *)(b) + (b)->msg_disp)
+>>> -#define BUGFRAME_warn   0
+>>> -#define BUGFRAME_bug    1
+>>> -#define BUGFRAME_assert 2
+>>> +#define BUGFRAME_run_fn 0
+>>> +#define BUGFRAME_warn   1
+>>> +#define BUGFRAME_bug    2
+>>> +#define BUGFRAME_assert 3
+>>
+>> Why did you renumber it? IOW, why can't BUGFRAME_run_fn be defined as 3?
+> 
+> This matches x86 definition. IMO there is no reason to have a different
+> definition and this will make it more obvious that it might be a good
+> idea to have a common include/xen/bug.h header.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+I agree that common header would be nice. Although, I am not sure if 
+this is achievable. However, my point here is this change would have 
+deserved half-sentence in the commit message because to me this look 
+like unwanted churn.
 
---------------C3C4FBCB5B66B8C291814506--
+Cheers,
 
---83vukAr0ktrel4PgkgiFLSgP8sMRwveNy--
-
---9U3WsiJymg4oJTBtMr0uOCQM3lKl1Fs1k
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/XSFsFAwAAAAAACgkQsN6d1ii/Ey+2
-Cgf5AZZ6mmzodkEf0x9u02teHJYOe+U9e4jZ7BbR99T8F9O3HNPDDATzflxznFEa3OjzvJOh1hXN
-tgiLLOnTJsRnJ87Mjuj/qAnWNDQ7Gaxd235ToFslR00jjbe12u29mOoZ7Xem1atZ7oYLjdFuxqmk
-oDG2Un+oIe0v22zjQU/edMWEkCv0BfBaVrin4bLjedxZQXfyMowmWvPxo/uEOlqvXVkqmIrv+xpc
-+O12R4oJzaZLqt5+IwXkeLsbWm8NIda6OJM7V7kAwxieZftj7EFm4GA1fzU+YqSC1OU8ou6P0Nd+
-Sdtgx996QUqmgfD4sd2w/dT3+2+zxI7mC7Owd9BdQQ==
-=BbKb
------END PGP SIGNATURE-----
-
---9U3WsiJymg4oJTBtMr0uOCQM3lKl1Fs1k--
+-- 
+Julien Grall
 
