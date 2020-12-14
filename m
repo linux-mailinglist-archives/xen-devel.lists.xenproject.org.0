@@ -2,43 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 606622D951F
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 10:26:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52036.91055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47B5A2D9563
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 10:40:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52047.91067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kok7i-00050o-0I; Mon, 14 Dec 2020 09:26:30 +0000
+	id 1kokL7-0006sl-85; Mon, 14 Dec 2020 09:40:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52036.91055; Mon, 14 Dec 2020 09:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 52047.91067; Mon, 14 Dec 2020 09:40:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kok7h-00050P-TG; Mon, 14 Dec 2020 09:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 52036;
- Mon, 14 Dec 2020 09:26:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WSiX=FS=amazon.com=prvs=61050d9d8=havanur@srs-us1.protection.inumbo.net>)
- id 1kok7g-00050K-E7
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 09:26:28 +0000
-Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc78b409-2c44-4424-990a-ce9bf15fde16;
- Mon, 14 Dec 2020 09:26:27 +0000 (UTC)
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1e-42f764a0.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
- 14 Dec 2020 09:26:19 +0000
-Received: from EX13D36EUC002.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
- by email-inbound-relay-1e-42f764a0.us-east-1.amazon.com (Postfix) with ESMTPS
- id 24C42E0E99; Mon, 14 Dec 2020 09:26:19 +0000 (UTC)
-Received: from EX13D36EUC004.ant.amazon.com (10.43.164.126) by
- EX13D36EUC002.ant.amazon.com (10.43.164.99) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 14 Dec 2020 09:26:18 +0000
-Received: from EX13D36EUC004.ant.amazon.com ([10.43.164.126]) by
- EX13D36EUC004.ant.amazon.com ([10.43.164.126]) with mapi id 15.00.1497.006;
- Mon, 14 Dec 2020 09:26:18 +0000
+	id 1kokL7-0006sM-5J; Mon, 14 Dec 2020 09:40:21 +0000
+Received: by outflank-mailman (input) for mailman id 52047;
+ Mon, 14 Dec 2020 09:40:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MGmN=FS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kokL6-0006sH-2W
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 09:40:20 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7b68e3b1-666a-48c2-9162-a32995cbf4bf;
+ Mon, 14 Dec 2020 09:40:18 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 01F46AE87;
+ Mon, 14 Dec 2020 09:40:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,64 +36,176 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc78b409-2c44-4424-990a-ce9bf15fde16
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1607937987; x=1639473987;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   content-id:content-transfer-encoding:mime-version:subject;
-  bh=n6clB3GoZQv+CZQo8AmhQkhJkKd7F62DVSjTX3yClHo=;
-  b=LV8a1C96Y2XjrGcFYAbQpr4B0Wsk3fFcQWPbsFP5JrZi2e2m0V4kA8FJ
-   yOQQynosCkxR1cV6ef6lbnAV9Ubefd/o/EifsNYmypbIZ4h+bIlqrel1Y
-   QBVB8wq3eLZGN+hFpxg4oIhKdQZhU+BKpp4s/YJQaJfguNEeAYWM1yLUm
-   I=;
-X-IronPort-AV: E=Sophos;i="5.78,418,1599523200"; 
-   d="scan'208";a="95702571"
-Subject: Re: [XEN PATCH v1 1/1] Invalidate cache for cpus affinitized to the domain
-Thread-Topic: [XEN PATCH v1 1/1] Invalidate cache for cpus affinitized to the domain
-From: "Shamsundara Havanur, Harsha" <havanur@amazon.com>
-To: "jbeulich@suse.com" <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Thread-Index: AQHWz7MJSRGqvamGtEii6iRZ4MXyYqn2TWsAgAAJiIA=
-Date: Mon, 14 Dec 2020 09:26:17 +0000
-Message-ID: <81b5d64b0a08d217e0ae53606cd1b8afd59283e4.camel@amazon.com>
-References: <cover.1607686878.git.havanur@amazon.com>
-	 <aad47c43b7cd7a391492b8be7b881cd37e9764c7.1607686878.git.havanur@amazon.com>
-	 <149f7f6e-0ff4-affc-b65d-0f880fa27b13@suse.com>
-In-Reply-To: <149f7f6e-0ff4-affc-b65d-0f880fa27b13@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.164.78]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <32E7025488A69E4689051D4A87B5827A@amazon.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 7b68e3b1-666a-48c2-9162-a32995cbf4bf
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1607938818; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Vi+x2SPWeGDmWZlef6Aw3glcFvJM18v/vG+w+YwbMrM=;
+	b=vRrtWqXbroA8bOH1X0Ajz/f2mSpsCF8cKK11PMTLxAKgJhw/gcW2y5/FYCtQqlQDUO1OCF
+	NLEvIM4bmZ99T0Ik/JJ+rpcC2FGnuy7bIGr5YBFsKuWh8gooQpHx+NOvgQZqHKZhz6xPFx
+	aYjKg6W8G33H0/LfEy7LHBGgrL4NETo=
+Subject: Re: [PATCH v3 4/5] evtchn: convert domain event lock to an r/w one
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
+ <a333387e-f9e5-7051-569a-1a9a37da53ca@suse.com>
+ <074be931-54b0-1b0f-72d8-5bd577884814@xen.org>
+ <6e34fd25-14a2-f655-b019-aca94ce086c8@suse.com>
+ <55dc24b4-88c6-1b22-411e-267231632377@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <cf3faa68-ba4a-b864-66e0-f379a24a48ce@suse.com>
+Date: Mon, 14 Dec 2020 10:40:19 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Precedence: Bulk
+In-Reply-To: <55dc24b4-88c6-1b22-411e-267231632377@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-T24gTW9uLCAyMDIwLTEyLTE0IGF0IDA5OjUyICswMTAwLCBKYW4gQmV1bGljaCB3cm90ZToNCj4g
-Q0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3JnYW5p
-emF0aW9uLiBEbw0KPiBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3Mg
-eW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXINCj4gYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2Fm
-ZS4NCj4gDQo+IA0KPiANCj4gT24gMTEuMTIuMjAyMCAxMjo0NCwgSGFyc2hhIFNoYW1zdW5kYXJh
-IEhhdmFudXIgd3JvdGU6DQo+ID4gQSBIVk0gZG9tYWluIGZsdXNoZXMgY2FjaGUgb24gYWxsIHRo
-ZSBjcHVzIHVzaW5nDQo+ID4gYGZsdXNoX2FsbGAgbWFjcm8gd2hpY2ggdXNlcyBjcHVfb25saW5l
-X21hcCwgZHVyaW5nDQo+ID4gaSkgY3JlYXRpb24gb2YgYSBuZXcgZG9tYWluDQo+ID4gaWkpIHdo
-ZW4gZGV2aWNlLW1vZGVsIG9wIGlzIHBlcmZvcm1lZA0KPiA+IGlpaSkgd2hlbiBkb21haW4gaXMg
-ZGVzdHJ1Y3RlZC4NCj4gPiANCj4gPiBUaGlzIHRyaWdnZXJzIElQSSBvbiBhbGwgdGhlIGNwdXMs
-IHRodXMgYWZmZWN0aW5nIG90aGVyDQo+ID4gZG9tYWlucyB0aGF0IGFyZSBwaW5uZWQgdG8gZGlm
-ZmVyZW50IHBjcHVzLiBUaGlzIHBhdGNoDQo+ID4gcmVzdHJpY3RzIGNhY2hlIGZsdXNoIHRvIHRo
-ZSBzZXQgb2YgY3B1cyBhZmZpbml0aXplZCB0bw0KPiA+IHRoZSBjdXJyZW50IGRvbWFpbiB1c2lu
-ZyBgZG9tYWluLT5kaXJ0eV9jcHVtYXNrYC4NCj4gDQo+IEJ1dCB0aGVuIHlvdSBuZWVkIHRvIGVm
-ZmVjdCBjYWNoZSBmbHVzaGluZyB3aGVuIGEgQ1BVIGdldHMNCj4gdGFrZW4gb3V0IG9mIGRvbWFp
-bi0+ZGlydHlfY3B1bWFzay4gSSBkb24ndCB0aGluayB5b3Uvd2Ugd2FudA0KPiB0byBkbyB0aGF0
-Lg0KPiANCklmIHdlIGRvIG5vdCByZXN0cmljdCwgaXQgY291bGQgbGVhZCB0byBEb1MgYXR0YWNr
-LCB3aGVyZSBhIG1hbGljaW91cw0KZ3Vlc3QgY291bGQga2VlcCB3cml0aW5nIHRvIE1UUlIgcmVn
-aXN0ZXJzIG9yIGRvIGEgY2FjaGUgZmx1c2ggdGhyb3VnaA0KRE0gT3AgYW5kIGtlZXAgc2VuZGlu
-ZyBJUElzIHRvIG90aGVyIG5laWdoYm9yaW5nIGd1ZXN0cy4NCg0KLUhhcnNoYQ0KPiBKYW4NCj4g
-DQo=
+On 11.12.2020 11:57, Julien Grall wrote:
+> On 11/12/2020 10:32, Jan Beulich wrote:
+>> On 09.12.2020 12:54, Julien Grall wrote:
+>>> On 23/11/2020 13:29, Jan Beulich wrote:
+>>>> @@ -620,7 +620,7 @@ int evtchn_close(struct domain *d1, int
+>>>>        long           rc = 0;
+>>>>    
+>>>>     again:
+>>>> -    spin_lock(&d1->event_lock);
+>>>> +    write_lock(&d1->event_lock);
+>>>>    
+>>>>        if ( !port_is_valid(d1, port1) )
+>>>>        {
+>>>> @@ -690,13 +690,11 @@ int evtchn_close(struct domain *d1, int
+>>>>                    BUG();
+>>>>    
+>>>>                if ( d1 < d2 )
+>>>> -            {
+>>>> -                spin_lock(&d2->event_lock);
+>>>> -            }
+>>>> +                read_lock(&d2->event_lock);
+>>>
+>>> This change made me realized that I don't quite understand how the
+>>> rwlock is meant to work for event_lock. I was actually expecting this to
+>>> be a write_lock() given there are state changed in the d2 events.
+>>
+>> Well, the protection needs to be against racing changes, i.e.
+>> parallel invocations of this same function, or evtchn_close().
+>> It is debatable whether evtchn_status() and
+>> domain_dump_evtchn_info() would better also be locked out
+>> (other read_lock() uses aren't applicable to interdomain
+>> channels).
+>>
+>>> Could you outline how a developper can find out whether he/she should
+>>> use read_lock or write_lock?
+>>
+>> I could try to, but it would again be a port type dependent
+>> model, just like for the per-channel locks.
+> 
+> It is quite important to have clear locking strategy (in particular 
+> rwlock) so we can make correct decision when to use read_lock or write_lock.
+> 
+>> So I'd like it to
+>> be clarified first whether you aren't instead indirectly
+>> asking for these to become write_lock()
+> 
+> Well, I don't understand why this is a read_lock() (even with your 
+> previous explanation). I am not suggesting to switch to a write_lock(), 
+> but instead asking for the reasoning behind the decision.
+
+So if what I've said in my previous reply isn't enough (including the
+argument towards using two write_lock() here), I'm struggling to
+figure what else to say. The primary goal is to exclude changes to
+the same ports. For this it is sufficient to hold just one of the two
+locks in writer mode, as the other (racing) one will acquire that
+same lock for at least reading. The question whether both need to use
+writer mode can only be decided when looking at the sites acquiring
+just one of the locks in reader mode (hence the reference to
+evtchn_status() and domain_dump_evtchn_info()) - if races with them
+are deemed to be a problem, switching to both-writers will be needed.
+
+>>>> --- a/xen/common/rwlock.c
+>>>> +++ b/xen/common/rwlock.c
+>>>> @@ -102,6 +102,14 @@ void queue_write_lock_slowpath(rwlock_t
+>>>>        spin_unlock(&lock->lock);
+>>>>    }
+>>>>    
+>>>> +void _rw_barrier(rwlock_t *lock)
+>>>> +{
+>>>> +    check_barrier(&lock->lock.debug);
+>>>> +    smp_mb();
+>>>> +    while ( _rw_is_locked(lock) )
+>>>> +        arch_lock_relax();
+>>>> +    smp_mb();
+>>>> +}
+>>>
+>>> As I pointed out when this implementation was first proposed (see [1]),
+>>> there is a risk that the loop will never exit.
+>>
+>> The [1] reference was missing, but I recall you saying so.
+>>
+>>> I think the following implementation would be better (although it is ugly):
+>>>
+>>> write_lock();
+>>> /* do nothing */
+>>> write_unlock();
+>>>
+>>> This will act as a barrier between lock held before and after the call.
+>>
+>> Right, and back then I indicated agreement. When getting to
+>> actually carry out the change, I realized though that then the less
+>> restrictive check_barrier() can't be used anymore (or to be precise,
+>> it could be used, but the stronger check_lock() would subsequently
+>> still come into play). This isn't a problem here, but would be for
+>> any IRQ-safe r/w lock that the barrier may want to be used on down
+>> the road.
+>>
+>> Thinking about it, a read_lock() / read_unlock() pair would suffice
+>> though. But this would then still have check_lock() involved.
+>>
+>> Given all of this, maybe it's better not to introduce the function
+>> at all and instead open-code the read_lock() / read_unlock() pair at
+>> the use site.
+> 
+> IIUC, the read_lock() would be sufficient because we only care about 
+> "write" side and not read. Is that correct?
+
+Correct - as the comment says, what we need to guard against is only
+the allocation of new ports (which isn't even all "write" sides, but
+exactly one of them).
+
+>>> As an aside, I think the introduction of rw_barrier() deserve to be a in
+>>> separate patch to help the review.
+>>
+>> I'm aware there are differing views on this - to me, putting this in
+>> a separate patch would be introduction of dead code. 
+> 
+> This is only dead code if we decide to not use rw_barrier() :).
+> 
+> The idea behind introducing rw_barrier() in its own patch is so you can 
+> explanation why it was implemented like that. Arguably, this explanation 
+> can be added in the same patch...
+> 
+> There are other added benefits such as making a hint to the reviewer 
+> that this part will require more careful review. I am sure one will say 
+> that reviewer should always be careful...
+> 
+> But, personally, my level of carefulness will depend on the author and 
+> the type of the patch.
+> 
+> Anyway, I am happy with the open-coded version with an explanation in 
+> the code/commit message.
+
+Okay, will change to that then.
+
+Jan
 
