@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 524F82D9BD2
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 17:08:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52357.91444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 624342D9CAB
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 17:28:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52365.91455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1koqOT-00040Y-Ai; Mon, 14 Dec 2020 16:08:13 +0000
+	id 1koqho-0005wj-3k; Mon, 14 Dec 2020 16:28:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52357.91444; Mon, 14 Dec 2020 16:08:13 +0000
+Received: by outflank-mailman (output) from mailman id 52365.91455; Mon, 14 Dec 2020 16:28:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1koqOT-00040C-7G; Mon, 14 Dec 2020 16:08:13 +0000
-Received: by outflank-mailman (input) for mailman id 52357;
- Mon, 14 Dec 2020 16:08:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C0N7=FS=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1koqOS-000407-D8
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 16:08:12 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c264d67d-0e2c-434d-b970-2024800322d5;
- Mon, 14 Dec 2020 16:08:10 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0BEG82mf024267
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
- Mon, 14 Dec 2020 17:08:03 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id BF20C2E936F; Mon, 14 Dec 2020 17:07:57 +0100 (MET)
+	id 1koqho-0005wG-0I; Mon, 14 Dec 2020 16:28:12 +0000
+Received: by outflank-mailman (input) for mailman id 52365;
+ Mon, 14 Dec 2020 16:28:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1koqhm-0005w7-5r; Mon, 14 Dec 2020 16:28:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1koqhl-0001IZ-UD; Mon, 14 Dec 2020 16:28:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1koqhl-0002zE-Lp; Mon, 14 Dec 2020 16:28:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1koqhl-0003we-LM; Mon, 14 Dec 2020 16:28:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,41 +42,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c264d67d-0e2c-434d-b970-2024800322d5
-Date: Mon, 14 Dec 2020 17:07:57 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH] x86/PV: guest_get_eff_kern_l1e() may still need to
- switch page tables
-Message-ID: <20201214160757.GA5165@antioche.eu.org>
-References: <89ae6a3b-bfbf-a701-53f5-4dfc80065924@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=OZZ6uVho4OT6ln3uhkORbuiRyIGhOVe+kBFqgQGyP4U=; b=Y1p2IRz3E/Jzgl4U0UV9bjj4w/
+	tXMtWZ7Nhl3V23QK6v5R3p/7pcRFVqJqHYt0sfYLMXW+AKIw/ZjcYiFfqILnAZwc81JWKkTFRljcT
+	qHII7Hk59rbKK9sy8cLfJW04e0TflRH5pRhVcKtfjQChcOZhU16JLsgoDXvt2+0t+jm8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157525-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <89ae6a3b-bfbf-a701-53f5-4dfc80065924@suse.com>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Mon, 14 Dec 2020 17:08:04 +0100 (MET)
+Subject: [ovmf test] 157525: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=793c59da135be023b02ff93a57a3bb6b34044906
+X-Osstest-Versions-That:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 14 Dec 2020 16:28:09 +0000
 
-On Mon, Dec 14, 2020 at 02:57:53PM +0100, Jan Beulich wrote:
-> While indeed unnecessary for pv_ro_page_fault(), pv_map_ldt_shadow_page()
-> may run when guest user mode is active, and hence may need to switch to
-> the kernel page tables in order to retrieve an LDT page mapping.
-> 
-> Fixes: 9ff970564764 ("x86/mm: drop guest_get_eff_l1e()")
-> Reported-by: Manuel Bouyer <bouyer@antioche.eu.org>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> Manuel, could you test this again, just to be on the safe side
-> before we throw it in (at which point we could then also again
-> add a Tested-by)? Thanks.
+flight 157525 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157525/
 
-Yes, this works for me. thanks !
+Regressions :-(
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
+
+version targeted for testing:
+ ovmf                 793c59da135be023b02ff93a57a3bb6b34044906
+baseline version:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+
+Last test of basis   157345  2020-12-09 12:40:46 Z    5 days
+Failing since        157348  2020-12-09 15:39:39 Z    5 days   37 attempts
+Testing same since   157521  2020-12-14 11:09:46 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Baraneedharan Anbazhagan <anbazhagan@hp.com>
+  Baraneedharan Anbazhagan <anbazhgan@hp.com>
+  Fan Wang <fan.wang@intel.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Marc Moisson-Franckhauser <marc.moisson-franckhauser@arm.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Siyuan Fu <siyuan.fu@intel.com>
+  Star Zeng <star.zeng@intel.com>
+  Ting Ye <ting.ye@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 428 lines long.)
 
