@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B9862DA28B
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 22:26:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52706.91992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73DCC2DA309
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 23:12:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52731.92052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kovLX-0004eK-D6; Mon, 14 Dec 2020 21:25:31 +0000
+	id 1kow4R-0001D8-WE; Mon, 14 Dec 2020 22:11:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52706.91992; Mon, 14 Dec 2020 21:25:31 +0000
+Received: by outflank-mailman (output) from mailman id 52731.92052; Mon, 14 Dec 2020 22:11:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kovLX-0004du-8G; Mon, 14 Dec 2020 21:25:31 +0000
-Received: by outflank-mailman (input) for mailman id 52706;
- Mon, 14 Dec 2020 21:25:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kow4R-0001Cj-Sr; Mon, 14 Dec 2020 22:11:55 +0000
+Received: by outflank-mailman (input) for mailman id 52731;
+ Mon, 14 Dec 2020 22:11:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kovLV-0004dp-Fd
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 21:25:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kovLV-0006YJ-2Z; Mon, 14 Dec 2020 21:25:29 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kovLU-0002kx-RO; Mon, 14 Dec 2020 21:25:28 +0000
+ (envelope-from <SRS0=nAAc=FS=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1kow4P-0001B7-Rp
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 22:11:53 +0000
+Received: from mail-il1-x12c.google.com (unknown [2607:f8b0:4864:20::12c])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7aea62ea-7663-44e8-8099-1bc20991033c;
+ Mon, 14 Dec 2020 22:11:52 +0000 (UTC)
+Received: by mail-il1-x12c.google.com with SMTP id p5so17321779iln.8
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Dec 2020 14:11:52 -0800 (PST)
+Received: from [100.64.72.3] ([173.245.215.240])
+ by smtp.gmail.com with ESMTPSA id l78sm12417573ild.30.2020.12.14.14.11.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Dec 2020 14:11:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,119 +41,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:
-	Message-ID:Subject:From:Cc:To;
-	bh=W3CUiMegB4BVkOevPrxxwlz9k2sF0VIgjinR7mJO+zE=; b=GJjfM94GNzkD7aFMOC4OuSnRby
-	vXidysS/3DsaeOhU9ZvF6l5ynXOe0eNB78/m57sdxESt2jdQw40qybnQEycOhEH0vBKy/faEEpkmu
-	uP6u5mG7GM+15WpbQTUs1v6awvkCX41TyEbguIREKlGEZK8s+gfpmBAxxjXWCwAbQdBM=;
-To: aams@amazon.de, Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- foersleo@amazon.de
-From: Julien Grall <julien@xen.org>
-Subject: xen/evtchn: Interrupt for port 34, but apparently not enabled;
- per-user 00000000a86a4c1b on 5.10
-Message-ID: <ce881240-284f-8470-10f1-5cce353ee903@xen.org>
-Date: Mon, 14 Dec 2020 21:25:27 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 7aea62ea-7663-44e8-8099-1bc20991033c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=content-transfer-encoding:from:mime-version:subject:date:message-id
+         :references:cc:in-reply-to:to;
+        bh=Ehqbtw+xjl33wXScdfoTBtwSesAfNQAHAc1Tvg1WS/A=;
+        b=bhDZlepEmyvUsTHOGP1ik251oafXHlXFWOowM7IaOoqg0iS/8Icif5UA/xTazcBvJq
+         1JwCHqmgvAHo4BaG8hhclCPdJbpBuZVF17Z2I4fJMDLX3MD3LpOwrG284On/N5xLm097
+         lb9sKFV1cH8ZlK+bUVDu1Je7HPc7uEHZYsR0vdbkc2A00ZEVzwzBNywrbj2asvHZ6gqV
+         tyJ2x8mRcsLt+yFR9DmWRa2MbHEuxOnHauD4bINQjJFNL2uMy0smD2TGPLAX0eKtqCBf
+         I+88KM04l6lDjr5tSxhzAc4YNXzfTrSoagXE9oHuGQu6MXT7bi07kWZpQb+2+LUFLtaO
+         bGvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:content-transfer-encoding:from:mime-version
+         :subject:date:message-id:references:cc:in-reply-to:to;
+        bh=Ehqbtw+xjl33wXScdfoTBtwSesAfNQAHAc1Tvg1WS/A=;
+        b=aUE5MQ5U0iVEtPan/aYzB4R1aI+boaQkEmo4GNZ6OXF82DwJVtYn0x+htgB3DDFfvU
+         4Us80fM4Q2GKGX3ikhgtbhdc9TmTYbAk6ggO/bcQpcnINlcvJKXYZA25IyqVJKAisGfT
+         dDCGoqjp8X0TOcAwH5/tzdq2vlF1/jGiLTi0KQZatGSybtJJ7O/3Wg+4HilLu+9eV1tM
+         nMcA2iRHSpKIP492BRaxTDuaWQFD1+IanwvfEWrTsvFWNHVswGVpYJBD4wBQliXfQn8v
+         ZTQbY5KNs0Kdc0UhMDgUqKVZb3GdKaYs+ZHDNZcRBdhq8xyFOtpTAvHmU9cejE/3XM2l
+         jJrg==
+X-Gm-Message-State: AOAM533mzUZJo1FJ1gePV9OfZ2ACp9yBhqwC6q2WOdD0soBX1ungDJZ3
+	mpkMvADVq5iT1+NmpTSQ1N8=
+X-Google-Smtp-Source: ABdhPJyNHNP//MQMvEkBPFkEEZAWMHVXNF+rWzY7xlXJMdRAxwhhXwmaBf3gvE9hKilmEQePahazEg==
+X-Received: by 2002:a92:da46:: with SMTP id p6mr24745755ilq.136.1607983912338;
+        Mon, 14 Dec 2020 14:11:52 -0800 (PST)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Rich Persaud <persaur@gmail.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: [openxt-dev] Re: Follow up on libxl-fix-reboot.patch
+Date: Mon, 14 Dec 2020 17:11:50 -0500
+Message-Id: <3ACCFEC6-A8B7-48E6-AA3F-48D4CDE75FA4@gmail.com>
+References: <CAKf6xps-nM13E19SVS3NJwq6LwOJLUwN+FC6k_Sp9-_YaRt-EA@mail.gmail.com>
+Cc: Chris Rogers <crogers122@gmail.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+In-Reply-To: <CAKf6xps-nM13E19SVS3NJwq6LwOJLUwN+FC6k_Sp9-_YaRt-EA@mail.gmail.com>
+To: openxt <openxt@googlegroups.com>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+ Olivier Lambert <olivier.lambert@vates.fr>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+X-Mailer: iPhone Mail (18C66)
 
-Hi Juergen,
+(adding xen-devel & toolstack devs)
 
-When testing Linux 5.10 dom0, I could reliably hit the following warning 
-with using event 2L ABI:
+On Dec 14, 2020, at 16:12, Jason Andryuk <jandryuk@gmail.com> wrote:
+>=20
+> =EF=BB=BFOn Fri, Dec 11, 2020 at 3:56 PM Chris Rogers <crogers122@gmail.co=
+m> wrote:
+>>=20
+>> This is a follow up to a request during our roadmapping meeting to clarif=
+y the purpose of libxl-fix-reboot.patch on the current version of Xen in Ope=
+nXT (4.12).  It's pretty simple.  While the domctl API does define a trigger=
+ for reset in xen/include/public/domctl.h:
+>>=20
+>=20
+>> The call stack looks like this:
+>>> libxl_send_trigger(ctx, domid, LIBXL_TRIGGER_RESET, 0);
+>>> xc_domain_send_trigger(ctx->xch, domid, XEN_DOMCTL_SENDTRIGGER_RESET, vc=
+upid);
+>>> do_domctl()
+>>> arch_do_domctl()
+>> and reaching the case statement in arch_do_domctl() for XEN_DOMCTL_sendtr=
+igger, with RESET, we get -ENOSYS as illustrated above.
+>=20
+> Thanks, Chris.  It's surprising that xl trigger reset exists, but
+> isn't wired through to do anything.  And that reboot has a fallback
+> command to something that doesn't work.
+>=20
+> If we have to turn reboot into shutdown + start, it seems like that
+> could be done in xenmgr instead of libxl.  Similarly, this may avoid
+> the signaling between xenmgr and libxl.
 
-[  589.591737] Interrupt for port 34, but apparently not enabled; 
-per-user 00000000a86a4c1b
-[  589.593259] WARNING: CPU: 0 PID: 1111 at 
-/home/ANT.AMAZON.COM/jgrall/works/oss/linux/drivers/xen/evtchn.c:170 
-evtchn_interrupt+0xeb/0x100
-[  589.595514] Modules linked in:
-[  589.596145] CPU: 0 PID: 1111 Comm: qemu-system-i38 Tainted: G 
-W         5.10.0+ #180
-[  589.597708] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 
-rel-1.12.0-59-gc9ba5276e321-prebuilt.qemu.org 04/01/2014
-[  589.599782] RIP: e030:evtchn_interrupt+0xeb/0x100
-[  589.600698] Code: 48 8d bb d8 01 00 00 ba 01 00 00 00 be 1d 00 00 00 
-e8 d9 10 ca ff eb b2 8b 75 20 48 89 da 48 c7 c7 a8 31 3d 82 e8 65 29 a0 
-ff <0f> 0b e9 42 ff ff ff 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 00 00 0f
-[  589.604087] RSP: e02b:ffffc90040003e70 EFLAGS: 00010086
-[  589.605102] RAX: 0000000000000000 RBX: ffff888102091800 RCX: 
-0000000000000027
-[  589.606445] RDX: 0000000000000000 RSI: ffff88817fe19150 RDI: 
-ffff88817fe19158
-[  589.607790] RBP: ffff88810f5ab980 R08: 0000000000000001 R09: 
-0000000000328980
-[  589.609134] R10: 0000000000000000 R11: ffffc90040003c70 R12: 
-ffff888107fd3c00
-[  589.610484] R13: ffffc90040003ed4 R14: 0000000000000000 R15: 
-ffff88810f5ffd80
-[  589.611828] FS:  00007f960c4b8ac0(0000) GS:ffff88817fe00000(0000) 
-knlGS:0000000000000000
-[  589.613348] CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  589.614525] CR2: 00007f17ee72e000 CR3: 000000010f5b6000 CR4: 
-0000000000050660
-[  589.615874] Call Trace:
-[  589.616402]  <IRQ>
-[  589.616855]  __handle_irq_event_percpu+0x4e/0x2c0
-[  589.617784]  handle_irq_event_percpu+0x30/0x80
-[  589.618660]  handle_irq_event+0x3a/0x60
-[  589.619428]  handle_edge_irq+0x9b/0x1f0
-[  589.620209]  generic_handle_irq+0x4f/0x60
-[  589.621008]  evtchn_2l_handle_events+0x160/0x280
-[  589.621913]  __xen_evtchn_do_upcall+0x66/0xb0
-[  589.622767]  __xen_pv_evtchn_do_upcall+0x11/0x20
-[  589.623665]  asm_call_irq_on_stack+0x12/0x20
-[  589.624511]  </IRQ>
-[  589.624978]  xen_pv_evtchn_do_upcall+0x77/0xf0
-[  589.625848]  exc_xen_hypervisor_callback+0x8/0x10
+If upstream Xen's libxl cannot support VM reset, can we drop/hide reset supp=
+ort from the OpenXT CLI and UIVM? That would avoid incurring costs for a fak=
+e feature with no long-term future. A reset is not the same as shutdown + st=
+art.  If reset is not supportable, the user can perform shutdown + reboot ma=
+nually. Then they would at least be aware of the consequences, e.g. temporar=
+y storage snapshots will be deleted and changes lost immediately.
 
-This can be reproduced when creating/destroying guest in a loop. 
-Although, I have struggled to reproduce it on a vanilla Xen.
+OpenXT derivatives which need reset support can use another Xen toolstack wh=
+ich provides this capability, e.g. the Citrix XenServer xapi ocaml toolstack=
+, for this single function.  Or the old XenClient xenops fork of xapi.
 
-After several hours of debugging, I think I have found the root cause.
+The long-term direction, based on an upstream prototype in Rust, is a low le=
+vel toolstack daemon that accepts input over an RPC protocol that is stable a=
+nd versioned, which will drive a stable hypercall ABI for Xen. We can ask fo=
+r reset support to be prioritized in the Rust prototype, which would then en=
+able testing of OpenXT integration.
 
-While we only expect the unmask to happen when the event channel is 
-EOIed, there is an unmask happening as part of handle_edge_irq() because 
-the interrupt was seen as pending by another vCPU (IRQS_PENDING is set).
+Hopefully an upstream Xen LibXL developer will recall why the reset logic is=
+n't yet fully wired up.
 
-It turns out that the event channel is set for multiple vCPU is in 
-cpu_evtchn_mask. This is happening because the affinity is not cleared 
-when freeing an event channel.
-
-The implementation of evtchn_2l_handle_events() will look for all the 
-active interrupts for the current vCPU and later on clear the pending 
-bit (via the ack() callback). IOW, I believe, this is not an atomic 
-operation.
-
-Even if Xen will notify the event to a single vCPU, evtchn_pending_sel 
-may still be set on the other vCPU (thanks to a different event 
-channel). Therefore, there is a chance that two vCPUs will try to handle 
-the same interrupt.
-
-The IRQ handler handle_edge_irq() is able to deal with that and will 
-mask/unmask the interrupt. This will mess us with the lateeoi logic 
-(although, I managed to reproduce it once without XSA-332).
-
-My initial idea to fix the problem was to switch the affinity from CPU X 
-to CPU0 when the event channel is freed.
-
-However, I am not sure this is enough because I haven't found anything 
-yet preventing a race between evtchn_2l_handle_events9) and 
-evtchn_2l_bind_vcpu().
-
-So maybe we want to introduce a refcounting (if there is nothing 
-provided by the IRQ framework) and only unmask when the counter drop to 0.
-
-Any opinions?
-
-Cheers,
-
--- 
-Julien Grall
+Rich=
 
