@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 434B82DA09E
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 20:35:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52635.91930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA0A12DA0A0
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Dec 2020 20:37:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52640.91942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kotcp-0002iv-E6; Mon, 14 Dec 2020 19:35:15 +0000
+	id 1koteO-0002qR-Q2; Mon, 14 Dec 2020 19:36:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52635.91930; Mon, 14 Dec 2020 19:35:15 +0000
+Received: by outflank-mailman (output) from mailman id 52640.91942; Mon, 14 Dec 2020 19:36:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kotcp-0002iW-Ay; Mon, 14 Dec 2020 19:35:15 +0000
-Received: by outflank-mailman (input) for mailman id 52635;
- Mon, 14 Dec 2020 19:35:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kotco-0002iR-6F
- for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 19:35:14 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kotcj-0004cA-Vb; Mon, 14 Dec 2020 19:35:09 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kotcj-0003q3-NF; Mon, 14 Dec 2020 19:35:09 +0000
+	id 1koteO-0002q2-Mn; Mon, 14 Dec 2020 19:36:52 +0000
+Received: by outflank-mailman (input) for mailman id 52640;
+ Mon, 14 Dec 2020 19:36:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Oe/o=FS=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1koteN-0002pt-2u
+ for xen-devel@lists.xenproject.org; Mon, 14 Dec 2020 19:36:51 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f7fe405d-4cb2-423a-acae-cbb1c81e465c;
+ Mon, 14 Dec 2020 19:36:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,99 +36,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=QC56/L8dZ8gMmsCuXnU4A4bTJ9SlqYisdqCPjcMZX7A=; b=nrvCYkD1StrE1F7l4AJVc4UFxV
-	LOZpPUalC4cvPWK2GlNwCGKWM9Vhgkvuud7RaKfsaO9X0cDmcismLb9Pnv//j9XPAFpe0GOhldOi5
-	4lK7eSeQNuzGzvuX9MXumGPyMv7HGvRUBEPpQVfP25KgDmdNjS5WlsEaQ/MYeZ00Edf4=;
-Subject: Re: [PATCH v3 7/8] xen/arm: Add support for SMMUv3 driver
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1607617848.git.rahul.singh@arm.com>
- <33645b592bc5935a3b28ad576a819d06ed81e8dd.1607617848.git.rahul.singh@arm.com>
- <e26c96cb-245b-6927-c4a7-224c2114df42@xen.org>
- <1660236F-7BB0-4F3E-8CDD-10AE9282E2A3@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <6d693361-220c-fa1b-a04f-12a80f0aec4a@xen.org>
-Date: Mon, 14 Dec 2020 19:35:06 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.1
+X-Inumbo-ID: f7fe405d-4cb2-423a-acae-cbb1c81e465c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1607974608;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=TIChKZk7bNLsqNN8smKs6e/5++JrlSASiflxKxbc3Nc=;
+  b=WDEOpY2X+GPlEWLoYPO3j6mYmCOaWSNb7UgBGqd+2pg+DqqMo8IgJ3MG
+   2gj+ZLsI6UeLXYBT02eQoO8JHjVCCZlXfULcgEOBaGSGkoaW8SY4fZtk/
+   IMHuvGuIi+LbZkWhVoMYX3vllQkxI0J21w16tEecMyLZJhg57XGUNYUP6
+   U=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: wtCuCDQwScHCQiG/4yeCa/ENPylAvlOauVV7w7qg6IT0th/SGpBIOsYgSyHUbyBnHpCJK0zr82
+ DHwzdcQ+tltBJAy1MI92e0kFvncwNA2469s5OkHdqUuj01X57i/nGPfPgN9T90HsP7rF/OFX0g
+ 4+kRkOd4QQMXaZDU5Fbw+/j37OvTs7Y8+lvK8p3OcWdaDtXZ+I8PxMQlngmWOhxxNj2QfCLFzY
+ AvySKUPJgGL753mOPKDWZzltCj0qgCuYrHplyFogJEJ5zC6kSthOsIb1i5/gFD3IbC1AU9O3D6
+ P5Q=
+X-SBRS: 5.2
+X-MesageID: 33172448
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,420,1599537600"; 
+   d="scan'208";a="33172448"
+Subject: Re: [XEN PATCH v1 1/1] Invalidate cache for cpus affinitized to the
+ domain
+To: "Shamsundara Havanur, Harsha" <havanur@amazon.com>, "jbeulich@suse.com"
+	<jbeulich@suse.com>, "julien@xen.org" <julien@xen.org>
+CC: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"paul@xen.org" <paul@xen.org>
+References: <cover.1607686878.git.havanur@amazon.com>
+ <aad47c43b7cd7a391492b8be7b881cd37e9764c7.1607686878.git.havanur@amazon.com>
+ <149f7f6e-0ff4-affc-b65d-0f880fa27b13@suse.com>
+ <81b5d64b0a08d217e0ae53606cd1b8afd59283e4.camel@amazon.com>
+ <bf70db2d-cf03-11cb-887e-aa38094b3d5f@xen.org>
+ <607cba7c-15b6-0197-6000-cc823038d320@citrix.com>
+ <eef19ecad32ac9379b6535ec2a4b444e78b29058.camel@amazon.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <d41f91ae-4df5-abe1-e58e-92a2424c077a@citrix.com>
+Date: Mon, 14 Dec 2020 19:36:42 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1660236F-7BB0-4F3E-8CDD-10AE9282E2A3@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <eef19ecad32ac9379b6535ec2a4b444e78b29058.camel@amazon.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL03.citrite.net (10.13.108.165)
 
-
-
-On 14/12/2020 19:08, Rahul Singh wrote:
-> Hello Julien,
-
-Hi Rahul,
-
-> 
->> On 11 Dec 2020, at 2:25 pm, Julien Grall <julien@xen.org> wrote:
+On 14/12/2020 19:05, Shamsundara Havanur, Harsha wrote:
+> On Mon, 2020-12-14 at 16:01 +0000, Andrew Cooper wrote:
+>> CAUTION: This email originated from outside of the organization. Do
+>> not click links or open attachments unless you can confirm the sender
+>> and know the content is safe.
 >>
->> Hi Rahul,
 >>
->> On 10/12/2020 16:57, Rahul Singh wrote:
->>>   struct arm_smmu_strtab_cfg {
->>> @@ -613,8 +847,13 @@ struct arm_smmu_device {
->>>   		u64			padding;
->>>   	};
->>>   -	/* IOMMU core code handle */
->>> -	struct iommu_device		iommu;
->>> +	/* Need to keep a list of SMMU devices */
->>> +	struct list_head		devices;
->>> +
->>> +	/* Tasklets for handling evts/faults and pci page request IRQs*/
->>> +	struct tasklet		evtq_irq_tasklet;
->>> +	struct tasklet		priq_irq_tasklet;
->>> +	struct tasklet		combined_irq_tasklet;
->>>   };
->>>     /* SMMU private data for each master */
->>> @@ -638,7 +877,6 @@ enum arm_smmu_domain_stage {
->>>     struct arm_smmu_domain {
->>>   	struct arm_smmu_device		*smmu;
->>> -	struct mutex			init_mutex; /* Protects smmu pointer */
 >>
->> Hmmm... Your commit message says the mutex would be replaced by a spinlock. However, you are dropping the lock. What I did miss?
-> 
-> Linux code using the mutex in the function arm_smmu_attach_dev() but in XEN this function is called from arm_smmu_assign_dev() which already has the spin_lock when arm_smmu_attach_dev() function I called so I drop the mutex to avoid nested spinlock.
-> Timing analysis of using spin lock in place of mutex as compared to linux  when attaching a  device to SMMU is still valid.
+>> On 14/12/2020 10:56, Julien Grall wrote:
+>>> Hi Harsha,
+>>>
+>>> On 14/12/2020 09:26, Shamsundara Havanur, Harsha wrote:
+>>>> On Mon, 2020-12-14 at 09:52 +0100, Jan Beulich wrote:
+>>>>> CAUTION: This email originated from outside of the
+>>>>> organization. Do
+>>>>> not click links or open attachments unless you can confirm the
+>>>>> sender
+>>>>> and know the content is safe.
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 11.12.2020 12:44, Harsha Shamsundara Havanur wrote:
+>>>>>> A HVM domain flushes cache on all the cpus using
+>>>>>> `flush_all` macro which uses cpu_online_map, during
+>>>>>> i) creation of a new domain
+>>>>>> ii) when device-model op is performed
+>>>>>> iii) when domain is destructed.
+>>>>>>
+>>>>>> This triggers IPI on all the cpus, thus affecting other
+>>>>>> domains that are pinned to different pcpus. This patch
+>>>>>> restricts cache flush to the set of cpus affinitized to
+>>>>>> the current domain using `domain->dirty_cpumask`.
+>>>>> But then you need to effect cache flushing when a CPU gets
+>>>>> taken out of domain->dirty_cpumask. I don't think you/we want
+>>>>> to do that.
+>>>>>
+>>>> If we do not restrict, it could lead to DoS attack, where a
+>>>> malicious
+>>>> guest could keep writing to MTRR registers or do a cache flush
+>>>> through
+>>>> DM Op and keep sending IPIs to other neighboring guests.
+>>> I saw Jan already answered about the alleged DoS, so I will just
+>>> focus
+>>> on the resolution.
+>>>
+>>> I agree that in the ideal situation we want to limit the impact on
+>>> the
+>>> other vCPUs. However, we also need to make sure the cure is not
+>>> worse
+>>> than the symptoms.
+>> And specifically, only a change which is correct.  This patch very
+>> definitely isn't.
+>>
+>> Lines can get cached on other cpus from, e.g. qemu mappings and PV
+>> backends.
+>>
+>>> The cache flush cannot be restricted in all the pinning situation
+>>> because pinning doesn't imply the pCPU will be dedicated to a given
+>>> vCPU or even the vCPU will stick on pCPU (we may allow floating on
+>>> a
+>>> NUMA socket). Although your setup may offer this guarantee.
+>>>
+>>> My knowledge in this area is quite limited. But below a few
+>>> question
+>>> that hopefully will help to make a decision.
+>>>
+>>> The first question to answer is: can the flush can be restricted in
+>>> a
+>>> setup where each vCPUs are running on a decicated pCPU (i.e
+>>> partionned
+>>> system)?
+>> Not really.  Lines can become cached even from speculation in the
+>> directmap.
+>>
+>> If you need to flush the caches (and don't have a virtual mapping to
+>> issue clflush/clflushopt/clwb over), it must be on all CPUs.
+> If lines are cached due to aggressive speculation from a different
+> guest, wouldn't they be invalidated at the speculation boundary, since
+> it's a wrong speculation? Would it still require to be flushed
+> explicitly?
 
-I think it would be better to keep the current locking until the 
-investigation is done.
+No.  Caches are microarchitectural state (just like TLBs, linefill
+buffers, etc.)
 
-But if you still want to make this change, then you should explain in 
-the commit message why the lock is dropped.
+The entire mess surrounding speculative security issues is that the
+perturbance from bad speculation survive, and can be recovered at a
+later point.
 
-[...]
-
-> WARN_ON(q->base_dma & (qsz - 1));
-> if (!unlikely(q->base_dma & (qsz - 1))) {
-> 	dev_info(smmu->dev, "allocated %u entries for %s\n",
-> 		1 << q->llq.max_n_shift, name);
-> }
-
-Right, but this doesn't address the second part of my comment.
-
-This change would *not* be necessary if the implementation of WARN_ON() 
-in Xen return whether the warn was triggered.
-
-Before considering to change the SMMU code, you should first attempt to 
-modify implementation of the WARN_ON(). We can discuss other approach if 
-the discussion goes nowhere.
-
-Cheers,
-
--- 
-Julien Grall
+~Andrew
 
