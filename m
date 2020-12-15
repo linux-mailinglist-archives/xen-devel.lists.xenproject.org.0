@@ -2,50 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FB322DB177
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:33:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54499.94720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41C302DB188
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:36:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54533.94884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDFr-0005Wi-JJ; Tue, 15 Dec 2020 16:32:51 +0000
+	id 1kpDJH-0006Ng-9t; Tue, 15 Dec 2020 16:36:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54499.94720; Tue, 15 Dec 2020 16:32:51 +0000
+Received: by outflank-mailman (output) from mailman id 54533.94884; Tue, 15 Dec 2020 16:36:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDFr-0005WJ-Fy; Tue, 15 Dec 2020 16:32:51 +0000
-Received: by outflank-mailman (input) for mailman id 54499;
- Tue, 15 Dec 2020 16:32:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1gTI=FT=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
- id 1kpDFp-0005WD-U7
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:32:50 +0000
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ebf22e93-3046-4853-af95-96e5c538d4e1;
- Tue, 15 Dec 2020 16:32:49 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BFGK4w8157495;
- Tue, 15 Dec 2020 16:32:47 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2120.oracle.com with ESMTP id 35cntm3fp4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 15 Dec 2020 16:32:47 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BFGLBOJ119059;
- Tue, 15 Dec 2020 16:32:47 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3030.oracle.com with ESMTP id 35d7en91tn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 15 Dec 2020 16:32:46 +0000
-Received: from abhmp0012.oracle.com (abhmp0012.oracle.com [141.146.116.18])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0BFGWkEM011567;
- Tue, 15 Dec 2020 16:32:46 GMT
-Received: from char.us.oracle.com (/10.152.32.25)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 15 Dec 2020 08:32:45 -0800
-Received: by char.us.oracle.com (Postfix, from userid 1000)
- id B54586A00F4; Tue, 15 Dec 2020 11:34:52 -0500 (EST)
+	id 1kpDJH-0006MQ-5m; Tue, 15 Dec 2020 16:36:23 +0000
+Received: by outflank-mailman (input) for mailman id 54533;
+ Tue, 15 Dec 2020 16:36:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2CwE=FT=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kpDJF-00066M-HU
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:36:21 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0cd1ba9f-404d-4d83-925f-64f686129a6d;
+ Tue, 15 Dec 2020 16:36:08 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AF608AC7F;
+ Tue, 15 Dec 2020 16:36:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,63 +39,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebf22e93-3046-4853-af95-96e5c538d4e1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=dEzuJZYdwQshX1RFzGp+3lUMPPjUeZnIpK7xkDUWxjA=;
- b=fyerFR+RzpDkgqlU8NwrZXmLK4pxCcAiv01Dk06x0j9rVF/7Febv7M9ZaRKwVg7NlK7w
- AqnJDurlP9MG3ad2Xvi0TjtduauvbNIVRGBY2FYy/JmFhZtJupxfOeYl03s6hHkJ0Gxl
- U+CUVltwIEFOPd0yxv5KBa2Uv3Ixg9+NhQ4vG2x66YnDF0uAr7EKLvMSD6dNy8MizvMQ
- V1KEmkmVdnG9pK1hUQcUoKsoDqZiD84zN0O402Mez7EBxqHTv52s/wG0Q9Oxy4D2kV28
- GKI3qnzGDqzKa6AXtoVa1W8zv54NpZB8fZmv2toNK+c724GemOZUJ65VNA9fNbY5gYEG Gw== 
-Date: Tue, 15 Dec 2020 11:34:52 -0500
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: Re: [PATCH v2 4/4] livepatch: adjust a stale comment
-Message-ID: <20201215163452.GA349@char.us.oracle.com>
-References: <f4179ee3-56e4-ab18-7aae-55281c4d4412@suse.com>
- <659b188d-d26e-3351-2285-3e75197e2c5f@suse.com>
+X-Inumbo-ID: 0cd1ba9f-404d-4d83-925f-64f686129a6d
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1608050167; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=kYVC+qKjmu1QH58TZR0/l7X0f2towWcVsvAHjXP8k6o=;
+	b=oEofi3aD1RzuCCCnkM7DE40w5NnFiOaY5aVlC6P8XioMkDfign/z1L9h8x+v9zrqK9eEAD
+	GdykhfR1mLbO9bxrN0dqZnTC0jB29oeos9EfiX1WBMRxK173cuuSe4AXHnlB+NtB3WyfdS
+	d0xsr49SxsRL/N+qhy0slWpg79WA9yU=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v10 00/25] tools/xenstore: support live update for xenstored
+Date: Tue, 15 Dec 2020 17:35:38 +0100
+Message-Id: <20201215163603.21700-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <659b188d-d26e-3351-2285-3e75197e2c5f@suse.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9836 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 spamscore=0 bulkscore=0
- suspectscore=0 adultscore=0 mlxscore=0 mlxlogscore=999 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012150111
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9836 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 phishscore=0 mlxscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
- mlxlogscore=999 impostorscore=0 priorityscore=1501 clxscore=1011
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012150111
+Content-Transfer-Encoding: 8bit
 
-On Tue, Dec 15, 2020 at 05:13:43PM +0100, Jan Beulich wrote:
-> As of 005de45c887e ("xen: do live patching only from main idle loop")
-> the comment ahead of livepatch_do_action() has been stale.
-> 
-Reviewed-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Today Xenstore is not restartable. This means a Xen server needing an
+update of xenstored has to be rebooted in order to let this update
+become effective.
 
-Thank you!
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> --- a/xen/common/livepatch.c
-> +++ b/xen/common/livepatch.c
-> @@ -1392,8 +1392,8 @@ static inline bool was_action_consistent
->  }
->  
->  /*
-> - * This function is executed having all other CPUs with no deep stack (we may
-> - * have cpu_idle on it) and IRQs disabled.
-> + * This function is executed having all other CPUs with no deep stack (when
-> + * idle) and IRQs disabled.
->   */
->  static void livepatch_do_action(void)
->  {
-> 
+This patch series is changing that: The internal state of xenstored
+(the contents of Xenstore, all connections to various clients like
+programs or other domains, and watches) is saved in a defined format
+and a new binary is being activated consuming the old state. All
+connections are being restored and the new Xenstore binary will
+continue where the old one stopped.
+
+This patch series has been under (secret) development for quite some
+time. It hasn't been posted to xen-devel until now due to the various
+Xenstore related security issues which have become public only today.
+
+There will be a similar series for oxenstored posted.
+
+Xenstore-stubdom is not yet supported, but I'm planning to start
+working on that soon.
+
+Changes in V10 (for the members of the security team):
+- dropped patch 6 as requested by Andrew
+
+Juergen Gross (24):
+  tools/xenstore: switch barf[_perror]() to use syslog()
+  tools/xenstore: make set_tdb_key() non-static
+  tools/xenstore: remove unused cruft from xenstored_domain.c
+  tools/libxenevtchn: add possibility to not close file descriptor on
+    exec
+  tools/xenstore: refactor XS_CONTROL handling
+  tools/xenstore: add live update command to xenstore-control
+  tools/xenstore: add basic live-update command parsing
+  tools/xenstore: introduce live update status block
+  tools/xenstore: save new binary for live update
+  tools/xenstore: add command line handling for live update
+  tools/xenstore: add the basic framework for doing the live update
+  tools/xenstore: allow live update only with no transaction active
+  docs: update the xenstore migration stream documentation
+  tools/xenstore: add include file for state structure definitions
+  tools/xenstore: dump the xenstore state for live update
+  tools/xenstore: handle CLOEXEC flag for local files and pipes
+  tools/xenstore: split off domain introduction from do_introduce()
+  tools/xenstore: evaluate the live update flag when starting
+  tools/xenstore: read internal state when doing live upgrade
+  tools/xenstore: add reading global state for live update
+  tools/xenstore: add read connection state for live update
+  tools/xenstore: add read node state for live update
+  tools/xenstore: add read watch state for live update
+  tools/xenstore: activate new binary for live update
+
+Julien Grall (1):
+  tools/xenstore: handle dying domains in live update
+
+ docs/designs/xenstore-migration.md      |  19 +-
+ docs/misc/xenstore.txt                  |  21 +
+ tools/include/xenevtchn.h               |  16 +-
+ tools/libs/evtchn/Makefile              |   2 +-
+ tools/libs/evtchn/core.c                |  45 +-
+ tools/libs/evtchn/freebsd.c             |   9 +-
+ tools/libs/evtchn/libxenevtchn.map      |   4 +
+ tools/libs/evtchn/linux.c               |   9 +-
+ tools/libs/evtchn/minios.c              |   6 +-
+ tools/libs/evtchn/netbsd.c              |   2 +-
+ tools/libs/evtchn/private.h             |   2 +-
+ tools/libs/evtchn/solaris.c             |   2 +-
+ tools/xenstore/Makefile                 |   3 +-
+ tools/xenstore/include/xenstore_state.h | 131 +++++
+ tools/xenstore/utils.c                  |  20 +
+ tools/xenstore/utils.h                  |   6 +
+ tools/xenstore/xenstore_control.c       | 332 ++++++++++++-
+ tools/xenstore/xenstored_control.c      | 612 +++++++++++++++++++++++-
+ tools/xenstore/xenstored_control.h      |   1 +
+ tools/xenstore/xenstored_core.c         | 510 ++++++++++++++++++--
+ tools/xenstore/xenstored_core.h         |  40 ++
+ tools/xenstore/xenstored_domain.c       | 312 +++++++++---
+ tools/xenstore/xenstored_domain.h       |  14 +-
+ tools/xenstore/xenstored_posix.c        |  13 +-
+ tools/xenstore/xenstored_transaction.c  |  11 +-
+ tools/xenstore/xenstored_watch.c        | 171 +++++--
+ tools/xenstore/xenstored_watch.h        |   5 +
+ 27 files changed, 2103 insertions(+), 215 deletions(-)
+ create mode 100644 tools/xenstore/include/xenstore_state.h
+
+-- 
+2.26.2
+
 
