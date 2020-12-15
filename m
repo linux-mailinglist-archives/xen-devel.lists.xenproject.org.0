@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3707C2DB18E
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:36:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54550.94957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 294882DB185
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:36:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54529.94843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDJW-0006tc-QT; Tue, 15 Dec 2020 16:36:38 +0000
+	id 1kpDJA-0006Bd-RY; Tue, 15 Dec 2020 16:36:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54550.94957; Tue, 15 Dec 2020 16:36:38 +0000
+Received: by outflank-mailman (output) from mailman id 54529.94843; Tue, 15 Dec 2020 16:36:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDJW-0006rP-CS; Tue, 15 Dec 2020 16:36:38 +0000
-Received: by outflank-mailman (input) for mailman id 54550;
- Tue, 15 Dec 2020 16:36:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kpDJA-0006Aa-LS; Tue, 15 Dec 2020 16:36:16 +0000
+Received: by outflank-mailman (input) for mailman id 54529;
+ Tue, 15 Dec 2020 16:36:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2CwE=FT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kpDJU-00066M-Hk
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:36:36 +0000
+ id 1kpDJ9-000667-G7
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:36:15 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6a6e8cc7-3db9-4848-9c53-86f1bff27f9a;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4b221cee-1501-4820-a7ad-4edc5e463149;
  Tue, 15 Dec 2020 16:36:12 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2C46CAF8D;
+ by mx2.suse.de (Postfix) with ESMTP id 5FD9BB1C2;
  Tue, 15 Dec 2020 16:36:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a6e8cc7-3db9-4848-9c53-86f1bff27f9a
+X-Inumbo-ID: 4b221cee-1501-4820-a7ad-4edc5e463149
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1608050169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=sDAZDUZnLGJmS+Y9/23vLX8k1ckhg9TgdsR5cTt0Hbc=;
-	b=IesJbGGKovHNVj2Tp6PkcohkjOpjXZ3paIMcB9zpe1vd2KjLssLMRNYaVnk5SWT7v7+cS8
-	jzvleg+GbmH7LwMiSq5sZWLL5XXxg+fxqlfYoVPgGiZ2SC/vE4Nf8S1Z3S07uHq37UeYky
-	V2vourtvMtnWNDDn9qqGCAnnGQMZuzE=
+	bh=iKglzi+e/kMABxTXOe4mkJUbHkqRBfPcECtQZuhy+sI=;
+	b=rQZEyMKQtaBrARu/AF3NFyPJOgady/KeQKZZHwxeIIfTQ+l1JateQ6igqIly/Jw19A91Hy
+	3Jag1SaEI0V0Zdts0K5kaj0vsTljkXwjMNFd/LPhAkQFhSWaglNClKnigir+uGdjPj2yP3
+	tYU/zT4r9wl0NaO6vO1TQxAtG1mf9TU=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -57,170 +56,160 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Paul Durrant <paul@xen.org>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v10 07/25] tools/xenstore: add basic live-update command parsing
-Date: Tue, 15 Dec 2020 17:35:45 +0100
-Message-Id: <20201215163603.21700-8-jgross@suse.com>
+Subject: [PATCH v10 08/25] tools/xenstore: introduce live update status block
+Date: Tue, 15 Dec 2020 17:35:46 +0100
+Message-Id: <20201215163603.21700-9-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201215163603.21700-1-jgross@suse.com>
 References: <20201215163603.21700-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the basic parts for parsing the live-update control command.
+Live update of Xenstore is done in multiple steps. It needs a status
+block holding the current state of live update and related data. It
+is allocated as child of the connection live update was started over
+in order to abort live update in case the connection is closed.
 
-For now only add the parameter evaluation and calling appropriate
-functions. Those function only print a message for now and return
-success.
+Allocation of the block is done in lu_binary[_alloc](), freeing in
+lu_abort() (and for now in lu_start() as long as no real live-update
+is happening).
+
+Add tests in all live-update command handlers other than lu_abort()
+and lu_binary[_alloc]() for being started via the same connection
+as the begin of live-update.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Paul Durrant <paul@xen.org>
 Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
 V2:
-- keep consistent style in lu_arch() (Pawel Wieczorkiewicz)
-- fix handling of force flag (Pawel Wieczorkiewicz)
-- use xprintf() instead of trace() for better stubdom diag
-- add conn parameter to subfunctions
+- use talloc_zero() for allocating the status area (Julien Grall)
 
 V4:
-- make several parameters/variables const (Julien Grall)
-- don't reject an option specified multiple times (Julien Grall)
-- use syslog() for messages
+- const (Julien Grall)
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstore/xenstored_control.c | 105 ++++++++++++++++++++++++++++-
- 1 file changed, 104 insertions(+), 1 deletion(-)
+ tools/xenstore/xenstored_control.c | 63 ++++++++++++++++++++++++++++++
+ 1 file changed, 63 insertions(+)
 
 diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 00fda5acdb..e3f0d34528 100644
+index e3f0d34528..7854b7f46f 100644
 --- a/tools/xenstore/xenstored_control.c
 +++ b/tools/xenstore/xenstored_control.c
-@@ -19,7 +19,9 @@
- #include <errno.h>
- #include <stdarg.h>
- #include <stdio.h>
-+#include <stdlib.h>
- #include <string.h>
-+#include <syslog.h>
+@@ -28,6 +28,34 @@
+ #include "xenstored_core.h"
+ #include "xenstored_control.h"
  
- #include "utils.h"
- #include "talloc.h"
-@@ -149,12 +151,113 @@ static int do_control_print(void *ctx, struct connection *conn,
- 	return 0;
- }
- 
-+static const char *lu_abort(const void *ctx, struct connection *conn)
++struct live_update {
++	/* For verification the correct connection is acting. */
++	struct connection *conn;
++};
++
++static struct live_update *lu_status;
++
++static int lu_destroy(void *data)
 +{
-+	syslog(LOG_INFO, "live-update: abort\n");
++	lu_status = NULL;
++
++	return 0;
++}
++
++static const char *lu_begin(struct connection *conn)
++{
++	if (lu_status)
++		return "live-update session already active.";
++
++	lu_status = talloc_zero(conn, struct live_update);
++	if (!lu_status)
++		return "Allocation failure.";
++	lu_status->conn = conn;
++	talloc_set_destructor(lu_status, lu_destroy);
++
 +	return NULL;
 +}
 +
-+static const char *lu_cmdline(const void *ctx, struct connection *conn,
-+			      const char *cmdline)
-+{
-+	syslog(LOG_INFO, "live-update: cmdline %s\n", cmdline);
-+	return NULL;
-+}
-+
-+#ifdef __MINIOS__
-+static const char *lu_binary_alloc(const void *ctx, struct connection *conn,
-+				   unsigned long size)
-+{
-+	syslog(LOG_INFO, "live-update: binary size %lu\n", size);
-+	return NULL;
-+}
-+
-+static const char *lu_binary_save(const void *ctx, struct connection *conn,
-+				  unsigned int size, const char *data)
-+{
-+	return NULL;
-+}
-+
-+static const char *lu_arch(const void *ctx, struct connection *conn,
-+			   char **vec, int num)
-+{
-+	if (num == 2 && !strcmp(vec[0], "-b"))
-+		return lu_binary_alloc(ctx, conn, atol(vec[1]));
-+	if (num > 2 && !strcmp(vec[0], "-d"))
-+		return lu_binary_save(ctx, conn, atoi(vec[1]), vec[2]);
-+
-+	errno = EINVAL;
-+	return NULL;
-+}
-+#else
-+static const char *lu_binary(const void *ctx, struct connection *conn,
-+			     const char *filename)
-+{
-+	syslog(LOG_INFO, "live-update: binary %s\n", filename);
-+	return NULL;
-+}
-+
-+static const char *lu_arch(const void *ctx, struct connection *conn,
-+			   char **vec, int num)
-+{
-+	if (num == 2 && !strcmp(vec[0], "-f"))
-+		return lu_binary(ctx, conn, vec[1]);
-+
-+	errno = EINVAL;
-+	return NULL;
-+}
-+#endif
-+
-+static const char *lu_start(const void *ctx, struct connection *conn,
-+			    bool force, unsigned int to)
-+{
-+	syslog(LOG_INFO, "live-update: start, force=%d, to=%u\n", force, to);
-+	return NULL;
-+}
-+
- static int do_control_lu(void *ctx, struct connection *conn,
- 			 char **vec, int num)
+ struct cmd_s {
+ 	char *cmd;
+ 	int (*func)(void *, struct connection *, char **, int);
+@@ -154,6 +182,13 @@ static int do_control_print(void *ctx, struct connection *conn,
+ static const char *lu_abort(const void *ctx, struct connection *conn)
  {
- 	const char *resp;
-+	const char *ret = NULL;
-+	unsigned int i;
-+	bool force = false;
-+	unsigned int to = 0;
+ 	syslog(LOG_INFO, "live-update: abort\n");
 +
-+	if (num < 1)
-+		return EINVAL;
++	if (!lu_status)
++		return "No live-update session active.";
 +
-+	if (!strcmp(vec[0], "-a")) {
-+		if (num == 1)
-+			ret = lu_abort(ctx, conn);
-+		else
-+			return EINVAL;
-+	} else if (!strcmp(vec[0], "-c")) {
-+		if (num == 2)
-+			ret = lu_cmdline(ctx, conn, vec[1]);
-+		else
-+			return EINVAL;
-+	} else if (!strcmp(vec[0], "-s")) {
-+		for (i = 1; i < num; i++) {
-+			if (!strcmp(vec[i], "-F"))
-+				force = true;
-+			else if (!strcmp(vec[i], "-t") && i < num - 1) {
-+				i++;
-+				to = atoi(vec[i]);
-+			} else
-+				return EINVAL;
-+		}
-+		ret = lu_start(ctx, conn, force, to);
-+	} else {
-+		errno = 0;
-+		ret = lu_arch(ctx, conn, vec, num);
-+		if (errno)
-+			return errno;
-+	}
- 
--	resp = talloc_strdup(ctx, "NYI");
-+	if (!ret)
-+		ret = "OK";
-+	resp = talloc_strdup(ctx, ret);
- 	send_reply(conn, XS_CONTROL, resp, strlen(resp) + 1);
- 	return 0;
++	/* Destructor will do the real abort handling. */
++	talloc_free(lu_status);
++
+ 	return NULL;
  }
+ 
+@@ -161,6 +196,10 @@ static const char *lu_cmdline(const void *ctx, struct connection *conn,
+ 			      const char *cmdline)
+ {
+ 	syslog(LOG_INFO, "live-update: cmdline %s\n", cmdline);
++
++	if (!lu_status || lu_status->conn != conn)
++		return "Not in live-update session.";
++
+ 	return NULL;
+ }
+ 
+@@ -168,13 +207,23 @@ static const char *lu_cmdline(const void *ctx, struct connection *conn,
+ static const char *lu_binary_alloc(const void *ctx, struct connection *conn,
+ 				   unsigned long size)
+ {
++	const char *ret;
++
+ 	syslog(LOG_INFO, "live-update: binary size %lu\n", size);
++
++	ret = lu_begin(conn);
++	if (ret)
++		return ret;
++
+ 	return NULL;
+ }
+ 
+ static const char *lu_binary_save(const void *ctx, struct connection *conn,
+ 				  unsigned int size, const char *data)
+ {
++	if (!lu_status || lu_status->conn != conn)
++		return "Not in live-update session.";
++
+ 	return NULL;
+ }
+ 
+@@ -193,7 +242,14 @@ static const char *lu_arch(const void *ctx, struct connection *conn,
+ static const char *lu_binary(const void *ctx, struct connection *conn,
+ 			     const char *filename)
+ {
++	const char *ret;
++
+ 	syslog(LOG_INFO, "live-update: binary %s\n", filename);
++
++	ret = lu_begin(conn);
++	if (ret)
++		return ret;
++
+ 	return NULL;
+ }
+ 
+@@ -212,6 +268,13 @@ static const char *lu_start(const void *ctx, struct connection *conn,
+ 			    bool force, unsigned int to)
+ {
+ 	syslog(LOG_INFO, "live-update: start, force=%d, to=%u\n", force, to);
++
++	if (!lu_status || lu_status->conn != conn)
++		return "Not in live-update session.";
++
++	/* Will be replaced by real live-update later. */
++	talloc_free(lu_status);
++
+ 	return NULL;
+ }
+ 
 -- 
 2.26.2
 
