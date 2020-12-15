@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A977E2DB193
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:36:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54562.95008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C88C92DB18F
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:36:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54555.94976 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDJg-0007GU-Fq; Tue, 15 Dec 2020 16:36:48 +0000
+	id 1kpDJb-00073z-7w; Tue, 15 Dec 2020 16:36:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54562.95008; Tue, 15 Dec 2020 16:36:48 +0000
+Received: by outflank-mailman (output) from mailman id 54555.94976; Tue, 15 Dec 2020 16:36:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDJg-0007E7-7N; Tue, 15 Dec 2020 16:36:48 +0000
-Received: by outflank-mailman (input) for mailman id 54562;
- Tue, 15 Dec 2020 16:36:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kpDJa-00072X-UE; Tue, 15 Dec 2020 16:36:42 +0000
+Received: by outflank-mailman (input) for mailman id 54555;
+ Tue, 15 Dec 2020 16:36:40 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2CwE=FT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kpDJe-00066M-Hz
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:36:46 +0000
+ id 1kpDJY-000667-H0
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:36:40 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 98f00c5d-0b3c-4ea8-a28f-445388c7de8c;
- Tue, 15 Dec 2020 16:36:12 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a03c5e1c-191b-4771-8d9f-49c7b8d4e651;
+ Tue, 15 Dec 2020 16:36:13 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 315FBB271;
+ by mx2.suse.de (Postfix) with ESMTP id 7E212B272;
  Tue, 15 Dec 2020 16:36:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,139 +38,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98f00c5d-0b3c-4ea8-a28f-445388c7de8c
+X-Inumbo-ID: a03c5e1c-191b-4771-8d9f-49c7b8d4e651
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1608050170; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3OGXhmDpavRgcLL+iSFnJ3xYl7jjDOEuqGoMRL/Y0AQ=;
-	b=gFVrZOXtO3pkUFa6HLadEJ50eh//1ChSYICzygJvi8f2Sw4H5IAMxKGZXR9Tv4oRCsaxLl
-	Y6RuHXQOcRob14xQBSWUzgBD3Ur9qvr+57mV19fUEhP4ey1flqIGrHwpvF4WLJVxTIHEt4
-	zX/HYtNgraWlUi0roWnKFvcm1uSFdcw=
+	bh=9hLKS3tqGavquprb3POoginKf8qVTOiNwihT9d+dpjc=;
+	b=HakO0z1+oS4Nyk2uj5il+A2MjsGmAQ+Kgs86MOoGuaTnRVK8BMtBE9dUT264E0QVbBiVZU
+	K2lLq1RjnDVsS+/sQkfj9Ur9laNLqqa0qDWvKI118ti2wYYPFonTWDE7YeO2IlhzDWifEu
+	iUXZTCvmhxwAfz5veszeyb8PzT7NDeU=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v10 12/25] tools/xenstore: allow live update only with no transaction active
-Date: Tue, 15 Dec 2020 17:35:50 +0100
-Message-Id: <20201215163603.21700-13-jgross@suse.com>
+Subject: [PATCH v10 13/25] docs: update the xenstore migration stream documentation
+Date: Tue, 15 Dec 2020 17:35:51 +0100
+Message-Id: <20201215163603.21700-14-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201215163603.21700-1-jgross@suse.com>
 References: <20201215163603.21700-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to simplify live update state dumping only allow live update
-to happen when no transaction is active.
+For live update of Xenstore some records defined in the migration
+stream document need to be changed:
 
-A timeout is used to detect guests which have a transaction active for
-longer periods of time. In case such a guest is detected when trying
-to do a live update it will be reported and the update will fail.
+- Support of the read-only socket has been dropped from all Xenstore
+  implementations, so ro-socket-fd in the global record can be removed.
 
-The admin can then either use a longer timeout, or use the force flag
-to just ignore the transactions of such a guest, or kill the guest
-before retrying.
+- Some guests require the event channel to Xenstore to remain the same
+  on Xenstore side, so Xenstore has to keep the event channel interface
+  open across a live update. For this purpose an evtchn-fd needs to be
+  added to the global record.
 
-Transactions that have been active for a shorter time than the timeout
-will end in the live update starting to respond "BUSY" without
-aborting the complete live update process. The xenstore-control
-program will then just repeat the live update starting until a
-different result is returned.
+- With no read-only support the flags field in the connection record
+  can be dropped.
+
+- The evtchn field in the connection record needs to be switched to
+  hold the port of the Xenstore side of the event channel.
+
+- A flags field needs to be added to permission specifiers in order to
+  be able to mark a permission as stale (XSA-322).
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Paul Durrant <paul@xen.org>
-Acked-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
- tools/xenstore/xenstored_control.c     | 20 +++++++++++++++++++-
- tools/xenstore/xenstored_core.h        |  1 +
- tools/xenstore/xenstored_transaction.c |  5 +++++
- 3 files changed, 25 insertions(+), 1 deletion(-)
+V8:
+- split off from following patch (Julien Grall)
+---
+ docs/designs/xenstore-migration.md | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 940b717741..af64a9a2d4 100644
---- a/tools/xenstore/xenstored_control.c
-+++ b/tools/xenstore/xenstored_control.c
-@@ -22,6 +22,7 @@ Interactive commands for Xen Store Daemon.
- #include <stdlib.h>
- #include <string.h>
- #include <syslog.h>
-+#include <time.h>
- #include <sys/types.h>
- #include <sys/stat.h>
- #include <unistd.h>
-@@ -307,7 +308,24 @@ static const char *lu_arch(const void *ctx, struct connection *conn,
- static const char *lu_check_lu_allowed(const void *ctx, bool force,
- 				       unsigned int to)
- {
--	return NULL;
-+	char *ret = NULL;
-+	struct connection *conn;
-+	time_t now = time(NULL);
-+	bool busy = false;
-+
-+	list_for_each_entry(conn, &connections, list) {
-+		if (conn->ta_start_time - now >= to && !force) {
-+			ret = talloc_asprintf(ctx, "%s\nDomain %u: %ld s",
-+					      ret ? : "Domains with long running transactions:",
-+					      conn->id,
-+					      conn->ta_start_time - now);
-+			if (!ret)
-+				busy = true;
-+		} else if (conn->ta_start_time)
-+			busy = true;
-+	}
-+
-+	return ret ? (const char *)ret : (busy ? "BUSY" : NULL);
- }
+diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
+index 2ce2c836f5..1a5b94b31d 100644
+--- a/docs/designs/xenstore-migration.md
++++ b/docs/designs/xenstore-migration.md
+@@ -116,7 +116,7 @@ xenstored state that needs to be restored.
+ +-------+-------+-------+-------+
+ | rw-socket-fd                  |
+ +-------------------------------+
+-| ro-socket-fd                  |
++| evtchn-fd                     |
+ +-------------------------------+
+ ```
  
- static const char *lu_dump_state(const void *ctx, struct connection *conn)
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 27826c125c..a009b182fd 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -93,6 +93,7 @@ struct connection
- 	struct list_head transaction_list;
- 	uint32_t next_transaction_id;
- 	unsigned int transaction_started;
-+	time_t ta_start_time;
+@@ -126,8 +126,8 @@ xenstored state that needs to be restored.
+ | `rw-socket-fd` | The file descriptor of the socket accepting  |
+ |                | read-write connections                       |
+ |                |                                              |
+-| `ro-socket-fd` | The file descriptor of the socket accepting  |
+-|                | read-only connections                        |
++| `evtchn-fd`    | The file descriptor used to communicate with |
++|                | the event channel driver                     |
  
- 	/* The domain I'm associated with, if any. */
- 	struct domain *domain;
-diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
-index 52355f4ed8..cd07fb0f21 100644
---- a/tools/xenstore/xenstored_transaction.c
-+++ b/tools/xenstore/xenstored_transaction.c
-@@ -473,6 +473,8 @@ int do_transaction_start(struct connection *conn, struct buffered_data *in)
- 	list_add_tail(&trans->list, &conn->transaction_list);
- 	talloc_steal(conn, trans);
- 	talloc_set_destructor(trans, destroy_transaction);
-+	if (!conn->transaction_started)
-+		conn->ta_start_time = time(NULL);
- 	conn->transaction_started++;
- 	wrl_ntransactions++;
+ xenstored will resume in the original process context. Hence `rw-socket-fd` and
+ `ro-socket-fd` simply specify the file descriptors of the sockets. Sockets
+@@ -147,7 +147,7 @@ the domain being migrated.
+ ```
+     0       1       2       3       4       5       6       7    octet
+ +-------+-------+-------+-------+-------+-------+-------+-------+
+-| conn-id                       | conn-type     | flags         |
++| conn-id                       | conn-type     |               |
+ +-------------------------------+---------------+---------------+
+ | conn-spec
+ ...
+@@ -169,9 +169,6 @@ the domain being migrated.
+ |                | 0x0001: socket                               |
+ |                | 0x0002 - 0xFFFF: reserved for future use     |
+ |                |                                              |
+-| `flags`        | A bit-wise OR of:                            |
+-|                | 0001: read-only                              |
+-|                |                                              |
+ | `conn-spec`    | See below                                    |
+ |                |                                              |
+ | `in-data-len`  | The length (in octets) of any data read      |
+@@ -216,7 +213,7 @@ For `shared ring` connections it is as follows:
+ |           | operation [2] or DOMID_INVALID [3] otherwise      |
+ |           |                                                   |
+ | `evtchn`  | The port number of the interdomain channel used   |
+-|           | by `domid` to communicate with xenstored          |
++|           | by xenstored to communicate with `domid`          |
+ |           |                                                   |
  
-@@ -511,6 +513,8 @@ int do_transaction_end(struct connection *conn, struct buffered_data *in)
- 	conn->transaction = NULL;
- 	list_del(&trans->list);
- 	conn->transaction_started--;
-+	if (!conn->transaction_started)
-+		conn->ta_start_time = 0;
+ Since the ABI guarantees that entry 1 in `domid`'s grant table will always
+@@ -386,7 +383,7 @@ A node permission specifier has the following format:
+ ```
+     0       1       2       3    octet
+ +-------+-------+-------+-------+
+-| perm  | pad   | domid         |
++| perm  | flags | domid         |
+ +-------+-------+---------------+
+ ```
  
- 	/* Attach transaction to in for auto-cleanup */
- 	talloc_steal(in, trans);
-@@ -589,6 +593,7 @@ void conn_delete_all_transactions(struct connection *conn)
- 	assert(conn->transaction == NULL);
+@@ -395,6 +392,10 @@ A node permission specifier has the following format:
+ | `perm`  | One of the ASCII values `w`, `r`, `b` or `n` as     |
+ |         | specified for the `SET_PERMS` operation [2]         |
+ |         |                                                     |
++| `flags` | A bit-wise OR of:                                   |
++|         | 0x01: stale permission, ignore when checking        |
++|         |       permissions                                   |
++|         |                                                     |
+ | `domid` | The domain-id to which the permission relates       |
  
- 	conn->transaction_started = 0;
-+	conn->ta_start_time = 0;
- }
- 
- int check_transactions(struct hashtable *hash)
+ Note that perm1 defines the domain owning the code. See [4] for more
 -- 
 2.26.2
 
