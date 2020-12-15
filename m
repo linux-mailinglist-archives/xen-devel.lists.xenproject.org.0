@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E77A2DB160
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:29:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54476.94672 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0319A2DB163
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:29:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54484.94684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDC2-000482-6N; Tue, 15 Dec 2020 16:28:54 +0000
+	id 1kpDCj-0004PT-FW; Tue, 15 Dec 2020 16:29:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54476.94672; Tue, 15 Dec 2020 16:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 54484.94684; Tue, 15 Dec 2020 16:29:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDC2-00047V-1A; Tue, 15 Dec 2020 16:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 54476;
- Tue, 15 Dec 2020 16:28:52 +0000
+	id 1kpDCj-0004P2-Bo; Tue, 15 Dec 2020 16:29:37 +0000
+Received: by outflank-mailman (input) for mailman id 54484;
+ Tue, 15 Dec 2020 16:29:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SBK9=FT=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kpDC0-000475-H1
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:28:52 +0000
-Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ADE+=FT=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1kpDCi-0004Ow-MN
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:29:36 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.161])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 37fc0100-5474-4e73-bfe1-b4af6e62d9c9;
- Tue, 15 Dec 2020 16:28:51 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id n16so236732wmc.0
- for <xen-devel@lists.xenproject.org>; Tue, 15 Dec 2020 08:28:51 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id s133sm38197648wmf.38.2020.12.15.08.28.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Dec 2020 08:28:50 -0800 (PST)
+ id 52abdeaf-96af-4caf-b3ac-4297c68be352;
+ Tue, 15 Dec 2020 16:29:35 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.8.3 DYNA|AUTH)
+ with ESMTPSA id D005cbwBFGTV4WN
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 15 Dec 2020 17:29:31 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,46 +40,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37fc0100-5474-4e73-bfe1-b4af6e62d9c9
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=KY5wz41Enh2tKod7R02tcFCNNgU7dvd2/e/Rsy9POQ4=;
-        b=KtwI6fsRxAWc0dS2Rb2bQKtGLY+DiOocvoj/Jbx8/9uiyP4YGFjfjmzYJcD5XddWDE
-         J5Xwl8JgalMa1ixuwObrkjUUj4dqd4rCTkVY5yYAw3KPvNvCohLALSl6W552NPqfY2Vw
-         QKYfpt0cOIxB2zxLhryNSsLJ73QbfQgEfRpNMz7DWnz4QdvOwrjveKLLCJ4luNHK0n3h
-         d2Jur5ykRSrhOXXbw/1jYDCUDPxqFHGLrfH+14z2BXm0XVktYFh2xJWF0qwXkvNItdak
-         Ga2DoXdC9JeaT+wVvF3xaB4/hLGuiNIwBy0yvMN2S5FPQI9lRIYXwYmhKBuYWzB505aZ
-         o05Q==
-X-Gm-Message-State: AOAM531jMN9JqxiU0CZJewU+fUewVEI9pGKFGsJII9RdqZH/OJXra5X1
-	7FFL9JeaKtdjQFGzv+MFIZE=
-X-Google-Smtp-Source: ABdhPJyFcS62rGLLZ0EjAwY0p9t8w/nlk+P69zOcR/Ub+6SBHdiRFu9Da86aHG305c8OK9PsWgEuhw==
-X-Received: by 2002:a1c:cc14:: with SMTP id h20mr14143517wmb.180.1608049731193;
-        Tue, 15 Dec 2020 08:28:51 -0800 (PST)
-Date: Tue, 15 Dec 2020 16:28:49 +0000
-From: Wei Liu <wl@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 2/4] x86: clobber registers in switch_stack_and_jump()
- when !LIVEPATCH
-Message-ID: <20201215162849.khcagkpxe3ccnohj@liuwe-devbox-debian-v2>
-References: <f4179ee3-56e4-ab18-7aae-55281c4d4412@suse.com>
- <28db518c-da59-8e56-b8dc-ccc814f91131@suse.com>
+X-Inumbo-ID: 52abdeaf-96af-4caf-b3ac-4297c68be352
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1608049774;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:From:
+	Subject:Sender;
+	bh=46DZN/VEJ99V4ZgVjeUCEK5Kzd6YvHl26d9HkIJ5Wj0=;
+	b=aQeY5xTH/kFAYMQLYcHgm2JP3uY7kNJ3tTZcKEbCWESReXPwVPe+u+WaKc4JfO4Fws
+	DjvfwOtpsSX3PhWxFjpVISQ9fE1sWF0Si59sm8PnDqReNOxA+1EW0ElLNsInraVLjOG+
+	CBRasayLIpTRoQWd/N8p3sI+6yBXhDZCi+fGoq/jUgGsXg+6sJDnHoLLNy++L2o/f3mw
+	Ebh2qZZeEj3IbMPp648jkbN2NdZuTYun5Vm7xRdyFsq5bCn1F8MnOMv98jODd1mhtSjE
+	XJQ12OOVpNtTh4QD1tFfcsbmGA/Mo8xjFzFN9VYS0pCeQpiwDFosUhKC7c78yqvBSmXl
+	+bVQ==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTWOnz/A=="
+X-RZG-CLASS-ID: mo00
+Date: Tue, 15 Dec 2020 17:29:17 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: Wei Liu <wl@xen.org>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
+Subject: Re: [PATCH v1 3/3] tools: add API to work with sevaral bits at once
+Message-ID: <20201215172917.556071ff.olaf@aepfle.de>
+In-Reply-To: <20201215162244.mln6xm5qj7pmvauc@liuwe-devbox-debian-v2>
+References: <20201209155452.28376-1-olaf@aepfle.de>
+	<20201209155452.28376-3-olaf@aepfle.de>
+	<20201215162244.mln6xm5qj7pmvauc@liuwe-devbox-debian-v2>
+X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <28db518c-da59-8e56-b8dc-ccc814f91131@suse.com>
-User-Agent: NeoMutt/20180716
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/pGuc=7kWgqwdQnd8HcUA8Na"; protocol="application/pgp-signature"
 
-On Tue, Dec 15, 2020 at 05:12:12PM +0100, Jan Beulich wrote:
-> In order to have the same effect on registers as a call to
-> check_for_livepatch_work() may have, clobber all call-clobbered
-> registers in debug builds.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+--Sig_/pGuc=7kWgqwdQnd8HcUA8Na
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Wei Liu <wl@xen.org>
+Am Tue, 15 Dec 2020 16:22:44 +0000
+schrieb Wei Liu <wl@xen.org>:
+
+> What's wrong with requiring the input addr be const unsigned long *?
+
+Probably nothing. In the end I just borrowed the prototypes from the other =
+functions in this file.
+
+I will resend with this change once I have the consumers ready.
+
+Olaf
+
+--Sig_/pGuc=7kWgqwdQnd8HcUA8Na
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl/Y5F0ACgkQ86SN7mm1
+DoAUXw/+PoC5o52SIW7bjQ+tTgh3eAQ8RU+nDiRJsV5Ym3zQfcD51XnFdQyhKlq9
+dv0sKi2D4SiDObiPEesm673mF/AnOXE/PF3PMFOfu5Wi57FHy6b00L0Elj0ZzhGQ
+kLCUikzkjY3bchjmnMkXKZthIXB3pVVwdW4osBBslbnB718jEYh/nHQD1U/9K1tS
+Jzd9z7khJxcjSsLuHe95iva/bsXmeh1vohYSBFP8gE3sZL7z9KyJqLSHyc42NYL2
+LdhY6nneTMG6O69EeazIaUUD3jdLZ2kDzGSMUaIUFHltEoKN6z+uT1CtsVVwU+ck
+3rYNOaEq+MiDgxePSTg7jvwia3OrM127SNp95esBnec/yk1Ai3jjMLJLBfi/XX8B
+4w3k6lX9yZG8qNDW6lXDf/z3qq9/oJ1VGwMJ8l2A5lrL3TasWlvYac/bhnWAlukt
+2rxplqZP87jsIsXunGSj4OhZPL7LAY2OtOjPrCQZKMCJsNkdYFV0XHsABWd051iQ
+6e6vlbwHoQnKJ6SsWHbPEAiEDoAOGdWggcV8W6nmRdPHHM7QtofKw1P0+Gb1Px4K
+Bgaz4lMLD0zX9HXFgORuSHnkntNyNLbHFsTMnWb6yf0aDBJqhhH/2VWragyu58AJ
+1mbhkXgSukGIjmUIoia/e55ObuYIph2UkPb18McufLE4/Q2Y3a4=
+=X7kn
+-----END PGP SIGNATURE-----
+
+--Sig_/pGuc=7kWgqwdQnd8HcUA8Na--
 
