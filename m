@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D25F2DB534
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 21:36:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54833.95416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AFD32DB586
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 22:00:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54849.95427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpH29-000095-Ip; Tue, 15 Dec 2020 20:34:57 +0000
+	id 1kpHQ6-0002E7-JX; Tue, 15 Dec 2020 20:59:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54833.95416; Tue, 15 Dec 2020 20:34:57 +0000
+Received: by outflank-mailman (output) from mailman id 54849.95427; Tue, 15 Dec 2020 20:59:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpH29-00008g-Fb; Tue, 15 Dec 2020 20:34:57 +0000
-Received: by outflank-mailman (input) for mailman id 54833;
- Tue, 15 Dec 2020 20:25:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xjw9=FT=google.com=sjg@srs-us1.protection.inumbo.net>)
- id 1kpGsy-0007fk-Jz
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 20:25:28 +0000
-Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e4ca9329-08aa-42d1-abe6-0ece8b4e08f0;
- Tue, 15 Dec 2020 20:25:27 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id x22so424021wmc.5
- for <xen-devel@lists.xenproject.org>; Tue, 15 Dec 2020 12:25:27 -0800 (PST)
+	id 1kpHQ6-0002Dk-G6; Tue, 15 Dec 2020 20:59:42 +0000
+Received: by outflank-mailman (input) for mailman id 54849;
+ Tue, 15 Dec 2020 20:59:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6ufw=FT=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kpHQ4-0002Df-SV
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 20:59:40 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 258133db-4552-4f80-a05c-69c4a8a8e9b3;
+ Tue, 15 Dec 2020 20:59:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,200 +36,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4ca9329-08aa-42d1-abe6-0ece8b4e08f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=DKgedKEtb5mnSfvh4xlmj/r1V3a4kPz3KEPIfj5KHQI=;
-        b=dvYbP6TUERJsKbDFxZbdxZzIE8DNpnd6A06uozqtUq7LhX4cXVtUbBAiVtR79WfZ5w
-         0HvIER4UPQWC9gGqh56/kIFXpyY4oXuDM8SZcmvrbgTwLhkE+AAsyAlfBreoUJwuBYam
-         nKo6Tqps+C58xcXy69jk4lsy9StBWGLoNOOgM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=DKgedKEtb5mnSfvh4xlmj/r1V3a4kPz3KEPIfj5KHQI=;
-        b=eSSVQDR0BgfE8q5YCHLzgjoyC5UDHhmhE664HwTUz6sDWkXmdoU854PlyMqMkdAcTE
-         XeBowTXwHzwjVQ/yrSPjPM+E2IpJSr7rywWXaBWd8onFNYk6QEn2qXKWFpqV2cvs5Nso
-         ZniuhRwIRmdg0poCPRDHGjWs+ANbEbLbYkNcWyEoP/Sm2s7zlWaQ3oo8EaAqcKPrb+rS
-         dDpw7kq82IjtHtXppWJfKqRaz34+FBzZFDi9dUxxXQ13OhJ4QcHC7aLxOJ/C2fZ0yP5Z
-         7+gP7ExUzvIjQOl/lIFExswdFQiVPfZWnPXWw3zJHR/8GeNUqHok8YQKYw/4UWGovGGH
-         iNnA==
-X-Gm-Message-State: AOAM530p07Sx6VsErKyWsfFIjqb4whlijIi1hDRtkpT0hI6YfluLAQWS
-	llHiW3ix8DeM4OzHYeJiE8seZW0rhOx7zzA8nBFRCg==
-X-Google-Smtp-Source: ABdhPJxLA99SR44IbyCAzhlr5dVrSinm0a/tZD0GiKoMvdNv7FPsSRxYrHstKKbx77iIrtQuc2sgy0E5I1H64h3mosg=
-X-Received: by 2002:a7b:cf0d:: with SMTP id l13mr552217wmg.168.1608063925901;
- Tue, 15 Dec 2020 12:25:25 -0800 (PST)
+X-Inumbo-ID: 258133db-4552-4f80-a05c-69c4a8a8e9b3
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1608065978;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=twnfeOO/nJh+7Yqrwe0fs8m/4jH5/Yo3yi9Jp0z/Lss=;
+  b=FoiQYpDytOcoFzfBWnV4vVzqp2A2Mf57D6pAA7yJMbwxyI6POc169uNn
+   UK8skzwNZmHxiW9UfAubNlI9gOvRpwQGX54dEmE7SeVQltVl/otWYEsKw
+   Rk9IbJcuWJOOm+J+uR5O1avHDvzsJ7L6Uvk8Xri28In6Bfhy27lZlDOqr
+   Q=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: uuatwPkBk2JlFNvnKxCJz1fCleazbEJAfO+UCKhDHk/N1fJ6YIIb3Me8H7vmAP/wC4OOPR92M3
+ Ljp+e5tikssU7acjBxZrayROOdojYqfTc57bvGwSBQkDNkPh2Zg1dnVi0S0P36ChXKPTthy94K
+ uBJCWhda77S2AUZc0x84cppZ/tF2VKl+CZC+FstSAd6IlZsThgc6a+3O/5t3OHTOOkB7Xxg01C
+ VnRQHy+6IEWa7QpkIJfZ5+92YLk5y8JNhfhxnw6IxvaR30I8wctCDDtdNIljbssIT9vzqVm5o+
+ gbQ=
+X-SBRS: 5.2
+X-MesageID: 33639630
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,422,1599537600"; 
+   d="scan'208";a="33639630"
+Subject: Re: [PATCH v2] xen/xenbus: make xs_talkv() interruptible
+To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+	<sstabellini@kernel.org>
+References: <20201215111055.3810-1-jgross@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <2deac9ce-0c27-a472-7d51-b91a640d92ed@citrix.com>
+Date: Tue, 15 Dec 2020 20:59:32 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20201113235242.k6fzlwmwm2xqhqsi@tomti.i.net-space.pl>
-In-Reply-To: <20201113235242.k6fzlwmwm2xqhqsi@tomti.i.net-space.pl>
-From: Simon Glass <sjg@chromium.org>
-Date: Tue, 15 Dec 2020 13:25:14 -0700
-Message-ID: <CAPnjgZ3zCuLd7G-bOFp38OoyboAbHG21L_5oogN_7tLmba-ShQ@mail.gmail.com>
-Subject: Re: [SPECIFICATION RFC] The firmware and bootloader log specification
-To: Daniel Kiper <daniel.kiper@oracle.com>
-Cc: Coreboot <coreboot@coreboot.org>, grub-devel@gnu.org, 
-	lk <linux-kernel@vger.kernel.org>, systemd-devel@lists.freedesktop.org, 
-	trenchboot-devel@googlegroups.com, U-Boot Mailing List <u-boot@lists.denx.de>, x86@kernel.org, 
-	xen-devel@lists.xenproject.org, alecb@umass.edu, 
-	alexander.burmashev@oracle.com, allen.cryptic@gmail.com, 
-	andrew.cooper3@citrix.com, Ard Biesheuvel <ard.biesheuvel@linaro.org>, btrotter@gmail.com, 
-	dpsmith@apertussolutions.com, eric.devolder@oracle.com, 
-	eric.snowberg@oracle.com, "H. Peter Anvin" <hpa@zytor.com>, hun@n-dimensional.de, 
-	javierm@redhat.com, joao.m.martins@oracle.com, kanth.ghatraju@oracle.com, 
-	konrad.wilk@oracle.com, krystian.hebel@3mdeb.com, 
-	Leif Lindholm <leif@nuviainc.com>, lukasz.hawrylko@intel.com, luto@amacapital.net, 
-	michal.zygowski@3mdeb.com, mjg59@google.com, mtottenh@akamai.com, 
-	=?UTF-8?Q?Vladimir_=27=CF=86=2Dcoder=2Fphcoder=27_Serbinenko?= <phcoder@gmail.com>, 
-	=?UTF-8?Q?Piotr_Kr=C3=B3l?= <piotr.krol@3mdeb.com>, 
-	Peter Jones <pjones@redhat.com>, Paul Menzel <pmenzel@molgen.mpg.de>, roger.pau@citrix.com, 
-	ross.philipson@oracle.com, tyhicks@linux.microsoft.com
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20201215111055.3810-1-jgross@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL03.citrite.net (10.13.108.165)
 
-Hi Daniel,
+On 15/12/2020 11:10, Juergen Gross wrote:
+> In case a process waits for any Xenstore action in the xenbus driver
+> it should be interruptible by signals.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - don't special case SIGKILL as libxenstore is handling -EINTR fine
+> ---
+>  drivers/xen/xenbus/xenbus_xs.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/xen/xenbus/xenbus_xs.c b/drivers/xen/xenbus/xenbus_xs.c
+> index 3a06eb699f33..17c8f8a155fd 100644
+> --- a/drivers/xen/xenbus/xenbus_xs.c
+> +++ b/drivers/xen/xenbus/xenbus_xs.c
+> @@ -205,8 +205,15 @@ static bool test_reply(struct xb_req_data *req)
+>  
+>  static void *read_reply(struct xb_req_data *req)
+>  {
+> +	int ret;
+> +
+>  	do {
+> -		wait_event(req->wq, test_reply(req));
+> +		ret = wait_event_interruptible(req->wq, test_reply(req));
+> +
+> +		if (ret == -ERESTARTSYS && signal_pending(current)) {
+> +			req->msg.type = XS_ERROR;
+> +			return ERR_PTR(-EINTR);
+> +		}
 
-On Fri, 13 Nov 2020 at 19:07, Daniel Kiper <daniel.kiper@oracle.com> wrote:
->
-> Hey,
->
-> This is next attempt to create firmware and bootloader log specification.
-> Due to high interest among industry it is an extension to the initial
-> bootloader log only specification. It takes into the account most of the
-> comments which I got up until now.
->
-> The goal is to pass all logs produced by various boot components to the
-> running OS. The OS kernel should expose these logs to the user space
-> and/or process them internally if needed. The content of these logs
-> should be human readable. However, they should also contain the
-> information which allows admins to do e.g. boot time analysis.
->
-> The log specification should be as much as possible platform agnostic
-> and self contained. The final version of this spec should be merged into
-> existing specifications, e.g. UEFI, ACPI, Multiboot2, or be a standalone
-> spec, e.g. as a part of OASIS Standards. The former seems better but is
-> not perfect too...
->
-> Here is the description (pseudocode) of the structures which will be
-> used to store the log data.
->
->   struct bf_log
->   {
->     uint32_t   version;
->     char       producer[64];
->     uint64_t   flags;
->     uint64_t   next_bf_log_addr;
->     uint32_t   next_msg_off;
->     bf_log_msg msgs[];
->   }
->
->   struct bf_log_msg
->   {
->     uint32_t size;
->     uint64_t ts_nsec;
->     uint32_t level;
->     uint32_t facility;
->     uint32_t msg_off;
->     char     strings[];
->   }
->
-> The members of struct bf_log:
->   - version: the firmware and bootloader log format version number, 1 for now,
->   - producer: the producer/firmware/bootloader/... type; the length
->     allows ASCII UUID storage if somebody needs that functionality,
->   - flags: it can be used to store information about log state, e.g.
->     it was truncated or not (does it make sense to have an information
->     about the number of lost messages?),
->   - next_bf_log_addr: address of next bf_log struct; none if zero (I think
->     newer spec versions should not change anything in first 5 bf_log members;
->     this way older log parsers will be able to traverse/copy all logs regardless
->     of version used in one log or another),
->   - next_msg_off: the offset, in bytes, from the beginning of the bf_log struct,
->     of the next byte after the last log message in the msgs[]; i.e. the offset
->     of the next available log message slot; it is equal to the total size of
->     the log buffer including the bf_log struct,
->   - msgs: the array of log messages,
->   - should we add CRC or hash or signatures here?
->
-> The members of struct bf_log_msg:
->   - size: total size of bf_log_msg struct,
->   - ts_nsec: timestamp expressed in nanoseconds starting from 0,
->   - level: similar to syslog meaning; can be used to differentiate normal messages
->     from debug messages; the exact interpretation depends on the current producer
->     type specified in the bf_log.producer,
->   - facility: similar to syslog meaning; can be used to differentiate the sources of
->     the messages, e.g. message produced by networking module; the exact interpretation
->     depends on the current producer type specified in the bf_log.producer,
->   - msg_off: the log message offset in strings[],
->   - strings[0]: the beginning of log message type, similar to the facility member but
->     NUL terminated string instead of integer; this will be used by, e.g., the GRUB2
->     for messages printed using grub_dprintf(),
->   - strings[msg_off]: the beginning of log message, NUL terminated string.
->
-> Note: The producers are free to use/ignore any given set of level, facility and/or
->       log type members. Though the usage of these members has to be clearly defined.
->       Ignored integer members should be set to 0. Ignored log message type should
->       contain an empty NUL terminated string. The log message is mandatory but can
->       be an empty NUL terminated string.
->
-> There is still not fully solved problem how the logs should be presented to the OS.
-> On the UEFI platforms we can use config tables to do that. Then probably
-> bf_log.next_bf_log_addr should not be used. On the ACPI and Device Tree platforms
-> we can use these mechanisms to present the logs to the OSes. The situation gets more
-> difficult if neither of these mechanisms are present. However, maybe we should not
-> bother too much about that because probably these platforms getting less and less
-> common.
->
-> Anyway, I am aware that this is not specification per se. The goal of this email is
-> to continue the discussion about the idea of the firmware and booloader log and to
-> find out where the final specification should land. Of course taking into the account
-> assumptions made above.
->
-> You can find previous discussions about related topics at [1], [2] and [3].
->
-> Additionally, I am going to present this during GRUB mini-summit session on Tuesday,
-> 17th of November at 15:45 UTC. So, if you want to discuss the log design please join
-> us. You can find more details here [4].
+So now I can talk fully about the situations which lead to this, I think
+there is a bit more complexity.
 
-I hesitate to add my opinions here since it is probably more important
-to settle on something than get everyone happy.
+It turns out there are a number of issues related to running a Xen
+system with no xenstored.
 
-It would be nice if the format were extensible in a simple way. As
-others have mentioned, we may want to provide logs from various
-different sources (EC, AP firmware through various
-read-only/read-write paths, trusted firmware). Each of these is
-presumably its own separate log, but with a coherent timestamp. I
-think the log level and 'facility' (category) that you have are
-important features, because they help to provide hierarchy and
-attribution to the messages, allowing filtering out debugging, etc.
+1) If a xenstore-write occurs during startup before init-xenstore-domain
+runs, the former blocks on /dev/xen/xenbus waiting for xenstored to
+reply, while the latter blocks on /dev/xen/xenbus_backend when trying to
+tell the dom0 kernel that xenstored is in dom1.  This effectively
+deadlocks the system.
 
-It could be more compact - e.g. a byte is enough for the level, use \0
-instead of size, add a flags bytes to allow things to be optional. Is
-ns necessary it would it be good enough and we could use 32-bit and
-have an hour before wrapping.
+2) If xenstore-watch is running when xenstored dies, it spins at 100%
+cpu usage making no system calls at all.  This is caused by bad error
+handling from xs_watch(), and attempting to debug found:
 
-Thinking about U-Boot TPL, where every byte counts, we would likely
-store it in a different format and expand it later, but it would be
-better if the format were efficient enough that it did not matter. A
-flag byte indicating what fields are present? Overall, is it important
-to have a simple struct for this, or is something more compact
-possible?
+3) (this issue).  If anyone starts xenstore-watch with no xenstored
+running at all, it blocks in D in the kernel.
 
-IMO timestamp 0 should be the time the SoC comes out of reset, so far
-as it can be known / estimated.
+The cause is the special handling for watch/unwatch commands which,
+instead of just queuing up the data for xenstore, explicitly waits for
+an OK for registering the watch.  This causes a write() system call to
+block waiting for a non-existent entity to reply.
 
-Also if we can repurpose something existing that is extensible, that
-would be nice. I'm not arguing for legacy, just for retiring old
-things.
+So while this patch does resolve the major usability issue I found (I
+can't even SIGINT and get my terminal back), I think there are issues.
 
-Regards,
-Simon
+The reason why XS_WATCH/XS_UNWATCH are special cased is because they do
+require special handling.  The main kernel thread for processing
+incoming data from xenstored does need to know how to associate each
+async XS_WATCH_EVENT to the caller who watched the path.
 
->
-> Daniel
->
-> [1] https://lists.gnu.org/archive/html/grub-devel/2019-10/msg00107.html
-> [2] https://lists.gnu.org/archive/html/grub-devel/2019-11/msg00079.html
-> [3] https://lists.gnu.org/archive/html/grub-devel/2020-05/msg00223.html
-> [4] https://twitter.com/3mdeb_com/status/1327278804100931587
+Therefore, depending on when this cancellation hits, we might be in any
+of the following states:
+
+1) the watch is queued in the kernel, but not even sent to xenstored yet
+2) the watch is queued in the xenstored ring, but not acted upon
+3) the watch is queued in the xenstored ring, and the xenstored has seen
+it but not replied yet
+4) the watch has been processed, but the XS_WATCH reply hasn't been
+received yet
+5) the watch has been processed, and the XS_WATCH reply received
+
+State 5 (and a little bit) is the normal success path when xenstored has
+acted upon the request, and the internal kernel infrastructure is set up
+appropriately to handle XS_WATCH_EVENTs.
+
+States 1 and 2 can be very common if there is no xenstored (or at least,
+it hasn't started up yet).  In reality, there is either no xenstored, or
+it is up and running (and for a period of time during system startup,
+these cases occur in sequence).
+
+As soon as the XS_WATCH event has been written into the xenstored ring,
+it is not safe to cancel.  You've committed to xenstored processing the
+request (if it is up).
+
+If xenstored is actually up and running, its fine and necessary to
+block.  The request will be processed in due course (timing subject to
+the client and server load).  If xenstored isn't up, blocking isn't ok.
+
+Therefore, I think we need to distinguish "not yet on the ring" from "on
+the ring", as our distinction as to whether cancelling is safe, and
+ensure we don't queue anything on the ring before we're sure xenstored
+has started up.
+
+Does this make sense?
+
+~Andrew
 
