@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0319A2DB163
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:29:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54484.94684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4839F2DB164
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:29:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54485.94696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDCj-0004PT-FW; Tue, 15 Dec 2020 16:29:37 +0000
+	id 1kpDCo-0004SY-O8; Tue, 15 Dec 2020 16:29:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54484.94684; Tue, 15 Dec 2020 16:29:37 +0000
+Received: by outflank-mailman (output) from mailman id 54485.94696; Tue, 15 Dec 2020 16:29:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDCj-0004P2-Bo; Tue, 15 Dec 2020 16:29:37 +0000
-Received: by outflank-mailman (input) for mailman id 54484;
- Tue, 15 Dec 2020 16:29:36 +0000
+	id 1kpDCo-0004Rt-KG; Tue, 15 Dec 2020 16:29:42 +0000
+Received: by outflank-mailman (input) for mailman id 54485;
+ Tue, 15 Dec 2020 16:29:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ADE+=FT=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kpDCi-0004Ow-MN
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:29:36 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.161])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SBK9=FT=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kpDCn-0004Ow-LM
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:29:41 +0000
+Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 52abdeaf-96af-4caf-b3ac-4297c68be352;
- Tue, 15 Dec 2020 16:29:35 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.8.3 DYNA|AUTH)
- with ESMTPSA id D005cbwBFGTV4WN
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 15 Dec 2020 17:29:31 +0100 (CET)
+ id 69d3f5d6-df17-4451-ba3b-4abd5894ee80;
+ Tue, 15 Dec 2020 16:29:38 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id r7so20488577wrc.5
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Dec 2020 08:29:38 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id h29sm26837793wrc.68.2020.12.15.08.29.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Dec 2020 08:29:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,71 +41,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52abdeaf-96af-4caf-b3ac-4297c68be352
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1608049774;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:From:
-	Subject:Sender;
-	bh=46DZN/VEJ99V4ZgVjeUCEK5Kzd6YvHl26d9HkIJ5Wj0=;
-	b=aQeY5xTH/kFAYMQLYcHgm2JP3uY7kNJ3tTZcKEbCWESReXPwVPe+u+WaKc4JfO4Fws
-	DjvfwOtpsSX3PhWxFjpVISQ9fE1sWF0Si59sm8PnDqReNOxA+1EW0ElLNsInraVLjOG+
-	CBRasayLIpTRoQWd/N8p3sI+6yBXhDZCi+fGoq/jUgGsXg+6sJDnHoLLNy++L2o/f3mw
-	Ebh2qZZeEj3IbMPp648jkbN2NdZuTYun5Vm7xRdyFsq5bCn1F8MnOMv98jODd1mhtSjE
-	XJQ12OOVpNtTh4QD1tFfcsbmGA/Mo8xjFzFN9VYS0pCeQpiwDFosUhKC7c78yqvBSmXl
-	+bVQ==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTWOnz/A=="
-X-RZG-CLASS-ID: mo00
-Date: Tue, 15 Dec 2020 17:29:17 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: Wei Liu <wl@xen.org>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
-Subject: Re: [PATCH v1 3/3] tools: add API to work with sevaral bits at once
-Message-ID: <20201215172917.556071ff.olaf@aepfle.de>
-In-Reply-To: <20201215162244.mln6xm5qj7pmvauc@liuwe-devbox-debian-v2>
-References: <20201209155452.28376-1-olaf@aepfle.de>
-	<20201209155452.28376-3-olaf@aepfle.de>
-	<20201215162244.mln6xm5qj7pmvauc@liuwe-devbox-debian-v2>
-X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 69d3f5d6-df17-4451-ba3b-4abd5894ee80
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=uOABWkSAvdD198SSsGdA5XhgKek8Zb4ci4zIBiaJPzE=;
+        b=RCaAmS47yMmtfJ7GC3ssy5sp4kiMjAX2MGAF8540gioQ64+XH8WToqNMyxaUDl8vZQ
+         8NcIe8KkkNFbI3sRcFgUlmMaFUBI26CSo4S8X1q40fRcS6lAXst2KSg3d4hFIpFwmB2r
+         NuwQ1kQIV5amHKn2EJviqGN/BBh9MCb9cgXBrnzLQ0an4ku2c4SdwQaTsb/F4+Q9ommn
+         iWYEexUCA1/CpVVEICuh0lodF2TukUL+LIzUO6nF6gLU3PqarmFtJGxg5KYQOf6E7JVq
+         auGDXuUpk9Yai/h4+w+eY9jTgcXwFz79AwZH5ehBRA4SqRLkwl0VkQVADVWHf4AOqFhO
+         Pwhg==
+X-Gm-Message-State: AOAM531eFacCytgVy24y8eD3EF8NUjTJJjWI7GoR/lXTZ4hk670PANwv
+	jKMVHRMdThq8GcnFUOhpAXI=
+X-Google-Smtp-Source: ABdhPJzt0bdUPI5AlsVeen9j9jU1OdH+99+4LMPrnhLYVuL8ETKWJwu3VPm7TAFLUDvP1SKuxN9nNw==
+X-Received: by 2002:adf:e590:: with SMTP id l16mr35018336wrm.294.1608049778235;
+        Tue, 15 Dec 2020 08:29:38 -0800 (PST)
+Date: Tue, 15 Dec 2020 16:29:36 +0000
+From: Wei Liu <wl@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2 3/4] x86/PV: avoid double stack reset during schedule
+ tail handling
+Message-ID: <20201215162936.vwex5yvwzg6nsi7u@liuwe-devbox-debian-v2>
+References: <f4179ee3-56e4-ab18-7aae-55281c4d4412@suse.com>
+ <00befc54-58f7-1891-031e-cdb848fb5787@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/pGuc=7kWgqwdQnd8HcUA8Na"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <00befc54-58f7-1891-031e-cdb848fb5787@suse.com>
+User-Agent: NeoMutt/20180716
 
---Sig_/pGuc=7kWgqwdQnd8HcUA8Na
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Tue, Dec 15, 2020 at 05:12:36PM +0100, Jan Beulich wrote:
+> Invoking check_wakeup_from_wait() from assembly allows the new
+> continue_pv_domain() to replace the prior continue_nonidle_domain() as
+> the tail hook, eliminating an extra reset_stack_and_jump().
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Juergen Gross <jgross@suse.com>
 
-Am Tue, 15 Dec 2020 16:22:44 +0000
-schrieb Wei Liu <wl@xen.org>:
-
-> What's wrong with requiring the input addr be const unsigned long *?
-
-Probably nothing. In the end I just borrowed the prototypes from the other =
-functions in this file.
-
-I will resend with this change once I have the consumers ready.
-
-Olaf
-
---Sig_/pGuc=7kWgqwdQnd8HcUA8Na
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl/Y5F0ACgkQ86SN7mm1
-DoAUXw/+PoC5o52SIW7bjQ+tTgh3eAQ8RU+nDiRJsV5Ym3zQfcD51XnFdQyhKlq9
-dv0sKi2D4SiDObiPEesm673mF/AnOXE/PF3PMFOfu5Wi57FHy6b00L0Elj0ZzhGQ
-kLCUikzkjY3bchjmnMkXKZthIXB3pVVwdW4osBBslbnB718jEYh/nHQD1U/9K1tS
-Jzd9z7khJxcjSsLuHe95iva/bsXmeh1vohYSBFP8gE3sZL7z9KyJqLSHyc42NYL2
-LdhY6nneTMG6O69EeazIaUUD3jdLZ2kDzGSMUaIUFHltEoKN6z+uT1CtsVVwU+ck
-3rYNOaEq+MiDgxePSTg7jvwia3OrM127SNp95esBnec/yk1Ai3jjMLJLBfi/XX8B
-4w3k6lX9yZG8qNDW6lXDf/z3qq9/oJ1VGwMJ8l2A5lrL3TasWlvYac/bhnWAlukt
-2rxplqZP87jsIsXunGSj4OhZPL7LAY2OtOjPrCQZKMCJsNkdYFV0XHsABWd051iQ
-6e6vlbwHoQnKJ6SsWHbPEAiEDoAOGdWggcV8W6nmRdPHHM7QtofKw1P0+Gb1Px4K
-Bgaz4lMLD0zX9HXFgORuSHnkntNyNLbHFsTMnWb6yf0aDBJqhhH/2VWragyu58AJ
-1mbhkXgSukGIjmUIoia/e55ObuYIph2UkPb18McufLE4/Q2Y3a4=
-=X7kn
------END PGP SIGNATURE-----
-
---Sig_/pGuc=7kWgqwdQnd8HcUA8Na--
+Reviewed-by: Wei Liu <wl@xen.org>
 
