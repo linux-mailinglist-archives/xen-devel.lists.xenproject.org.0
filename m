@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D332DAD41
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 13:31:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.53428.93198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C75CC2DADBC
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 14:08:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54047.93576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp9TX-0002RI-2m; Tue, 15 Dec 2020 12:30:43 +0000
+	id 1kpA36-0002o2-Mw; Tue, 15 Dec 2020 13:07:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 53428.93198; Tue, 15 Dec 2020 12:30:42 +0000
+Received: by outflank-mailman (output) from mailman id 54047.93576; Tue, 15 Dec 2020 13:07:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp9TW-0002Pt-SW; Tue, 15 Dec 2020 12:30:42 +0000
-Received: by outflank-mailman (input) for mailman id 53428;
- Tue, 15 Dec 2020 12:30:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kpA36-0002nd-Jf; Tue, 15 Dec 2020 13:07:28 +0000
+Received: by outflank-mailman (input) for mailman id 54047;
+ Tue, 15 Dec 2020 13:07:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2CwE=FT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kp9QP-0004tM-Mx
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 12:27:29 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6d6c641c-de9c-40d7-a22d-998d6435a25d;
- Tue, 15 Dec 2020 12:26:07 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0DD0DADB3;
- Tue, 15 Dec 2020 12:26:07 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kpA36-0002nV-39; Tue, 15 Dec 2020 13:07:28 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kpA35-0006kg-VE; Tue, 15 Dec 2020 13:07:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kpA35-0000mG-Ku; Tue, 15 Dec 2020 13:07:27 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kpA35-0008Oa-KQ; Tue, 15 Dec 2020 13:07:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,65 +42,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d6c641c-de9c-40d7-a22d-998d6435a25d
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608035167; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=W/+NQPp9SmxciIO27W4TJTaEMziV4Us8QYmGpci5wz8=;
-	b=I7pIBULyYlgvQCQb2uACyroNg/x7g7yRZRQ8osRIwFf+LwlSltp1xO9j3rtNnH/XkB83xy
-	8NEbXjaNtGe6WDyPSkUp5gsdOWp0UYxvpyALuB2SJRvz1Y+GSL/Lp6p2CPub0Ivl3QzdQu
-	00/E6V/N+BxbQZyoP4wEJ2Cn5mgYG/g=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	boris.ostrovsky@oracle.com
-Subject: [GIT PULL] xen: branch for v5.11-rc1
-Date: Tue, 15 Dec 2020 13:26:06 +0100
-Message-Id: <20201215122606.6874-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=sHteU6LjM1FXOPVr9/wjsoqz8KT0wOIipWTcan40jVc=; b=jZteqDPW4p1t20z3lQkXir1p3O
+	M9X7lO+V8pFoJgK9IwrwaPyCIMi+ppTQa6GFPo28lVCmc5tvYu6x1gE3WLmIF6A9Vj4mtlh83nwsh
+	MeUblXeg9lkDJm06enwqDjhiqwRMC8Y8uHXCgBQOoX6aD5m/M4XAkUtE1V/IkcdfUIcc=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157549-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 157549: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=532f907b753ef99b47371629187d5f53ea3c83e2
+X-Osstest-Versions-That:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 15 Dec 2020 13:07:27 +0000
 
-Linus,
+flight 157549 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157549/
 
-Please git pull the following tag:
+Regressions :-(
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.11-rc1-tag
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
 
-xen: branch for v5.11-rc1
+version targeted for testing:
+ ovmf                 532f907b753ef99b47371629187d5f53ea3c83e2
+baseline version:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
 
-It contains fixes for security issues just having been disclosed:
+Last test of basis   157345  2020-12-09 12:40:46 Z    6 days
+Failing since        157348  2020-12-09 15:39:39 Z    5 days   48 attempts
+Testing same since   157549  2020-12-15 08:40:42 Z    0 days    1 attempts
 
-- a 5 patch series for fixing of XSA-349 (DoS via resource depletion in
-  Xen dom0)
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Ard Biesheuvel <ard.biesheuvel@arm.com>
+  Baraneedharan Anbazhagan <anbazhagan@hp.com>
+  Baraneedharan Anbazhagan <anbazhgan@hp.com>
+  Bret Barkelew <Bret.Barkelew@microsoft.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Fan Wang <fan.wang@intel.com>
+  James Bottomley <jejb@linux.ibm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Marc Moisson-Franckhauser <marc.moisson-franckhauser@arm.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Siyuan Fu <siyuan.fu@intel.com>
+  Star Zeng <star.zeng@intel.com>
+  Ting Ye <ting.ye@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
 
-- a patch fixing XSA-350 (access of stale pointer in a Xen dom0)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
-Thanks.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Juergen
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
- drivers/block/xen-blkback/xenbus.c        |  4 +++-
- drivers/net/xen-netback/xenbus.c          |  6 +++++-
- drivers/xen/xen-pciback/xenbus.c          |  2 +-
- drivers/xen/xenbus/xenbus.h               |  2 ++
- drivers/xen/xenbus/xenbus_client.c        |  8 +++++++-
- drivers/xen/xenbus/xenbus_probe.c         |  1 +
- drivers/xen/xenbus/xenbus_probe_backend.c |  7 +++++++
- drivers/xen/xenbus/xenbus_xs.c            | 34 ++++++++++++++++++++-----------
- include/xen/xenbus.h                      | 15 +++++++++++++-
- 9 files changed, 62 insertions(+), 17 deletions(-)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Pawel Wieczorkiewicz (1):
-      xen-blkback: set ring->xenblkd to NULL after kthread_stop()
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-SeongJae Park (5):
-      xen/xenbus: Allow watches discard events before queueing
-      xen/xenbus: Add 'will_handle' callback support in xenbus_watch_path()
-      xen/xenbus/xen_bus_type: Support will_handle watch callback
-      xen/xenbus: Count pending messages for each watch
-      xenbus/xenbus_backend: Disallow pending watch messages
+
+Not pushing.
+
+(No revision log; it would be 641 lines long.)
 
