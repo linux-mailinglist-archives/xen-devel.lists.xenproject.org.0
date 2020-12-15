@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1948D2DB1BF
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:47:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54683.95199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB9B52DB1BC
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:46:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54669.95160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDTn-000268-81; Tue, 15 Dec 2020 16:47:15 +0000
+	id 1kpDTJ-0001mL-Vh; Tue, 15 Dec 2020 16:46:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54683.95199; Tue, 15 Dec 2020 16:47:15 +0000
+Received: by outflank-mailman (output) from mailman id 54669.95160; Tue, 15 Dec 2020 16:46:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpDTn-00025T-3r; Tue, 15 Dec 2020 16:47:15 +0000
-Received: by outflank-mailman (input) for mailman id 54683;
- Tue, 15 Dec 2020 16:47:13 +0000
+	id 1kpDTJ-0001lw-SO; Tue, 15 Dec 2020 16:46:45 +0000
+Received: by outflank-mailman (input) for mailman id 54669;
+ Tue, 15 Dec 2020 16:46:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2CwE=FT=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kpDK3-00066M-J8
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:37:11 +0000
+ id 1kpDJt-00066M-Ib
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:37:01 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9484f92d-f7fe-4499-b74a-209d001bc347;
+ id ef3335b5-2c28-45c3-b9c3-4c4ff1e53e81;
  Tue, 15 Dec 2020 16:36:15 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 929D8B711;
+ by mx2.suse.de (Postfix) with ESMTP id AA173B712;
  Tue, 15 Dec 2020 16:36:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,233 +39,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9484f92d-f7fe-4499-b74a-209d001bc347
+X-Inumbo-ID: ef3335b5-2c28-45c3-b9c3-4c4ff1e53e81
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1608050172; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NilqGYTQhpkTDabJtW0PbsSjQkzIJ61e98qt7CTEwA4=;
-	b=sMeTI8HgyVysSVPzViBQusG8SejoZRzLIT8SAiJBx1tj/3vZdKYMWR3YS7EPPo7Si+K+g5
-	GhOlM5rHqlvd5ESlZvtmcrVV6YOjpEExhwbU+aU4PuHd26ssYFkTTkT06M9Q8sP5DbFc8o
-	7aC8Xvr0Y9svcUJLz+dOgefYWiiJr58=
+	bh=FspAu+0zxN5f+kBxTUaFqpiXMEMEL35uaqc65DYbH+U=;
+	b=WYjMGffV3cHOlieIVijpD/JpBAYGwjWoFeZF+pBfxCAeriK5IAr+ISrP0xfa/hcw6SuHCt
+	jVVXGRZY/WKCML5J9L3bMHYydkYN5FEnpFZdSTQM+vHbq/qv1JjkYMn4SgqMgGmGZVsbCt
+	kV3F5wAAexfDePQ4yB2IC1tJrdS4XMI=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
+Cc: Julien Grall <jgrall@amazon.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>,
 	Paul Durrant <paul@xen.org>
-Subject: [PATCH v10 23/25] tools/xenstore: add read watch state for live update
-Date: Tue, 15 Dec 2020 17:36:01 +0100
-Message-Id: <20201215163603.21700-24-jgross@suse.com>
+Subject: [PATCH v10 24/25] tools/xenstore: handle dying domains in live update
+Date: Tue, 15 Dec 2020 17:36:02 +0100
+Message-Id: <20201215163603.21700-25-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201215163603.21700-1-jgross@suse.com>
 References: <20201215163603.21700-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add reading the watch state records for live update.
+From: Julien Grall <jgrall@amazon.com>
 
-This requires factoring out some of the add watch functionality into a
-dedicated function.
+A domain could just be dying when live updating Xenstore, so the case
+of not being able to map the ring page or to connect to the event
+channel must be handled gracefully.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 Reviewed-by: Paul Durrant <paul@xen.org>
 ---
 V4:
-- add comment (Julien Grall)
+- new patch (Julien, I hope adding the Sob: is okay?)
 
-V6:
-- correct check_watch_path() (setting errno)
+V10:
+- removed "XXX..." comment (Julien Grall)
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstore/xenstored_control.c |   2 +
- tools/xenstore/xenstored_watch.c   | 114 +++++++++++++++++++++--------
- tools/xenstore/xenstored_watch.h   |   2 +
- 3 files changed, 88 insertions(+), 30 deletions(-)
+ tools/xenstore/xenstored_control.c |  7 +++++++
+ tools/xenstore/xenstored_domain.c  | 25 +++++++++++++++++--------
+ tools/xenstore/xenstored_domain.h  |  2 ++
+ 3 files changed, 26 insertions(+), 8 deletions(-)
 
 diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index a978ccf17e..8a1e3b35fe 100644
+index 8a1e3b35fe..dee55de264 100644
 --- a/tools/xenstore/xenstored_control.c
 +++ b/tools/xenstore/xenstored_control.c
-@@ -35,6 +35,7 @@ Interactive commands for Xen Store Daemon.
- #include "xenstored_core.h"
- #include "xenstored_control.h"
- #include "xenstored_domain.h"
-+#include "xenstored_watch.h"
+@@ -544,6 +544,13 @@ void lu_read_state(void)
+ 	lu_close_dump_state(&state);
  
- /* Mini-OS only knows about MAP_ANON. */
- #ifndef MAP_ANONYMOUS
-@@ -525,6 +526,7 @@ void lu_read_state(void)
- 			read_state_connection(ctx, head + 1);
- 			break;
- 		case XS_STATE_TYPE_WATCH:
-+			read_state_watch(ctx, head + 1);
- 			break;
- 		case XS_STATE_TYPE_TA:
- 			xprintf("live-update: ignore transaction record\n");
-diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstore/xenstored_watch.c
-index 9248f08bd9..db89e0141f 100644
---- a/tools/xenstore/xenstored_watch.c
-+++ b/tools/xenstore/xenstored_watch.c
-@@ -205,6 +205,62 @@ static int destroy_watch(void *_watch)
- 	return 0;
+ 	talloc_free(ctx);
++
++	/*
++	 * We may have missed the VIRQ_DOM_EXC notification and a domain may
++	 * have died while we were live-updating. So check all the domains are
++	 * still alive.
++	 */
++	check_domains(true);
  }
  
-+static int check_watch_path(struct connection *conn, const void *ctx,
-+			    char **path, bool *relative)
-+{
-+	/* Check if valid event. */
-+	if (strstarts(*path, "@")) {
-+		*relative = false;
-+		if (strlen(*path) > XENSTORE_REL_PATH_MAX)
-+			goto inval;
-+	} else {
-+		*relative = !strstarts(*path, "/");
-+		*path = canonicalize(conn, ctx, *path);
-+		if (!*path)
-+			return errno;
-+		if (!is_valid_nodename(*path))
-+			goto inval;
-+	}
-+
-+	return 0;
-+
-+ inval:
-+	errno = EINVAL;
-+	return errno;
-+}
-+
-+static struct watch *add_watch(struct connection *conn, char *path, char *token,
-+			       bool relative)
-+{
-+	struct watch *watch;
-+
-+	watch = talloc(conn, struct watch);
-+	if (!watch)
-+		goto nomem;
-+	watch->node = talloc_strdup(watch, path);
-+	watch->token = talloc_strdup(watch, token);
-+	if (!watch->node || !watch->token)
-+		goto nomem;
-+
-+	if (relative)
-+		watch->relative_path = get_implicit_path(conn);
-+	else
-+		watch->relative_path = NULL;
-+
-+	INIT_LIST_HEAD(&watch->events);
-+
-+	domain_watch_inc(conn);
-+	list_add_tail(&watch->list, &conn->watches);
-+	talloc_set_destructor(watch, destroy_watch);
-+
-+	return watch;
-+
-+ nomem:
-+	talloc_free(watch);
-+	errno = ENOMEM;
-+	return NULL;
-+}
-+
- int do_watch(struct connection *conn, struct buffered_data *in)
+ static const char *lu_activate_binary(const void *ctx)
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 0cd8234bd1..dfda90c791 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -220,7 +220,7 @@ static bool get_domain_info(unsigned int domid, xc_dominfo_t *dominfo)
+ 	       dominfo->domid == domid;
+ }
+ 
+-static void domain_cleanup(void)
++void check_domains(bool restore)
  {
- 	struct watch *watch;
-@@ -214,19 +270,9 @@ int do_watch(struct connection *conn, struct buffered_data *in)
- 	if (get_strings(in, vec, ARRAY_SIZE(vec)) != ARRAY_SIZE(vec))
- 		return EINVAL;
+ 	xc_dominfo_t dominfo;
+ 	struct domain *domain;
+@@ -244,7 +244,14 @@ static void domain_cleanup(void)
+ 				domain->shutdown = true;
+ 				notify = 1;
+ 			}
+-			if (!dominfo.dying)
++			/*
++			 * On Restore, we may have been unable to remap the
++			 * interface and the port. As we don't know whether
++			 * this was because of a dying domain, we need to
++			 * check if the interface and port are still valid.
++			 */
++			if (!dominfo.dying && domain->port &&
++			    domain->interface)
+ 				continue;
+ 		}
+ 		if (domain->conn) {
+@@ -270,7 +277,7 @@ void handle_event(void)
+ 		barf_perror("Failed to read from event fd");
  
--	if (strstarts(vec[0], "@")) {
--		relative = false;
--		if (strlen(vec[0]) > XENSTORE_REL_PATH_MAX)
--			return EINVAL;
--		/* check if valid event */
--	} else {
--		relative = !strstarts(vec[0], "/");
--		vec[0] = canonicalize(conn, in, vec[0]);
--		if (!vec[0])
--			return ENOMEM;
--		if (!is_valid_nodename(vec[0]))
--			return EINVAL;
--	}
-+	errno = check_watch_path(conn, in, &(vec[0]), &relative);
-+	if (errno)
-+		return errno;
+ 	if (port == virq_port)
+-		domain_cleanup();
++		check_domains(false);
  
- 	/* Check for duplicates. */
- 	list_for_each_entry(watch, &conn->watches, list) {
-@@ -238,26 +284,11 @@ int do_watch(struct connection *conn, struct buffered_data *in)
- 	if (domain_watch(conn) > quota_nb_watch_per_domain)
- 		return E2BIG;
+ 	if (xenevtchn_unmask(xce_handle, port) == -1)
+ 		barf_perror("Failed to write to event fd");
+@@ -442,14 +449,16 @@ static struct domain *introduce_domain(const void *ctx,
+ 	if (!domain->introduced) {
+ 		interface = is_master_domain ? xenbus_map()
+ 					     : map_interface(domid);
+-		if (!interface)
++		if (!interface && !restore)
+ 			return NULL;
+ 		if (new_domain(domain, port, restore)) {
+ 			rc = errno;
+-			if (is_master_domain)
+-				unmap_xenbus(interface);
+-			else
+-				unmap_interface(interface);
++			if (interface) {
++				if (is_master_domain)
++					unmap_xenbus(interface);
++				else
++					unmap_interface(interface);
++			}
+ 			errno = rc;
+ 			return NULL;
+ 		}
+diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
+index 8f3b4e0f8b..1cc1c03ed8 100644
+--- a/tools/xenstore/xenstored_domain.h
++++ b/tools/xenstore/xenstored_domain.h
+@@ -21,6 +21,8 @@
  
--	watch = talloc(conn, struct watch);
-+	watch = add_watch(conn, vec[0], vec[1], relative);
- 	if (!watch)
--		return ENOMEM;
--	watch->node = talloc_strdup(watch, vec[0]);
--	watch->token = talloc_strdup(watch, vec[1]);
--	if (!watch->node || !watch->token) {
--		talloc_free(watch);
--		return ENOMEM;
--	}
--	if (relative)
--		watch->relative_path = get_implicit_path(conn);
--	else
--		watch->relative_path = NULL;
-+		return errno;
+ void handle_event(void);
  
--	INIT_LIST_HEAD(&watch->events);
--
--	domain_watch_inc(conn);
--	list_add_tail(&watch->list, &conn->watches);
- 	trace_create(watch, "watch");
--	talloc_set_destructor(watch, destroy_watch);
- 	send_ack(conn, XS_WATCH);
- 
- 	/* We fire once up front: simplifies clients and restart. */
-@@ -338,6 +369,29 @@ const char *dump_state_watches(FILE *fp, struct connection *conn,
- 	return ret;
- }
- 
-+void read_state_watch(const void *ctx, const void *state)
-+{
-+	const struct xs_state_watch *sw = state;
-+	struct connection *conn;
-+	char *path, *token;
-+	bool relative;
++void check_domains(bool restore);
 +
-+	conn = get_connection_by_id(sw->conn_id);
-+	if (!conn)
-+		barf("connection not found for read watch");
-+
-+	path = (char *)sw->data;
-+	token = path + sw->path_length;
-+
-+	/* Don't check success, we want the relative information only. */
-+	check_watch_path(conn, ctx, &path, &relative);
-+	if (!path)
-+		barf("allocation error for read watch");
-+
-+	if (!add_watch(conn, path, token, relative))
-+		barf("error adding watch");
-+}
-+
- /*
-  * Local variables:
-  *  mode: C
-diff --git a/tools/xenstore/xenstored_watch.h b/tools/xenstore/xenstored_watch.h
-index 3d81645f45..0e693f0839 100644
---- a/tools/xenstore/xenstored_watch.h
-+++ b/tools/xenstore/xenstored_watch.h
-@@ -33,4 +33,6 @@ void conn_delete_all_watches(struct connection *conn);
- const char *dump_state_watches(FILE *fp, struct connection *conn,
- 			       unsigned int conn_id);
+ /* domid, mfn, eventchn, path */
+ int do_introduce(struct connection *conn, struct buffered_data *in);
  
-+void read_state_watch(const void *ctx, const void *state);
-+
- #endif /* _XENSTORED_WATCH_H */
 -- 
 2.26.2
 
