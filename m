@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7CCB2DA964
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 09:45:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52972.92437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AE9E2DA99A
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 10:02:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52983.92455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp5wh-000088-K9; Tue, 15 Dec 2020 08:44:35 +0000
+	id 1kp6E1-00020a-Co; Tue, 15 Dec 2020 09:02:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52972.92437; Tue, 15 Dec 2020 08:44:35 +0000
+Received: by outflank-mailman (output) from mailman id 52983.92455; Tue, 15 Dec 2020 09:02:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp5wh-00007j-Gm; Tue, 15 Dec 2020 08:44:35 +0000
-Received: by outflank-mailman (input) for mailman id 52972;
- Tue, 15 Dec 2020 08:44:34 +0000
+	id 1kp6E1-00020B-9c; Tue, 15 Dec 2020 09:02:29 +0000
+Received: by outflank-mailman (input) for mailman id 52983;
+ Tue, 15 Dec 2020 09:02:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C2hg=FT=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1kp5wg-00007e-MH
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 08:44:34 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Vckb=FT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kp6Dz-000206-Tt
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 09:02:27 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7fae789a-7964-4171-855c-b65bf073a094;
- Tue, 15 Dec 2020 08:44:32 +0000 (UTC)
-Received: from sandettie.soc.lip6.fr (82-64-3-41.subs.proxad.net [82.64.3.41])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTPS id
- 0BF8iUdu022065
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK)
- for <xen-devel@lists.xenproject.org>; Tue, 15 Dec 2020 09:44:31 +0100 (MET)
-Received: by sandettie.soc.lip6.fr (Postfix, from userid 373)
- id 499E22E992E; Tue, 15 Dec 2020 09:44:25 +0100 (MET)
+ id 1142cad0-147c-4da7-8e4b-719e062fa78a;
+ Tue, 15 Dec 2020 09:02:26 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D0A88ACC6;
+ Tue, 15 Dec 2020 09:02:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,32 +38,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fae789a-7964-4171-855c-b65bf073a094
-Date: Tue, 15 Dec 2020 09:44:25 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 14/24] Pass bridge name to qemu and set XEN_DOMAIN_ID
-Message-ID: <20201215084425.GA1447@antioche.eu.org>
-References: <20201214163623.2127-1-bouyer@netbsd.org>
- <20201214163623.2127-15-bouyer@netbsd.org>
+X-Inumbo-ID: 1142cad0-147c-4da7-8e4b-719e062fa78a
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1608022946; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bAmMwBy6AtYV+lM/clxgOraoypqXS/jSPLvVclLrz+Y=;
+	b=nbnw1fETW4MN2c2OKoXOOFmuOBn4MmZlBrLrcs4r10WJ/tSvY67Aai702Bnf1lViczM/tT
+	lQu0doBiBl3VSgudnZXpQZD36+IBL4jK6Y0pssbHdQFwflZEOIRNbi6JeYdfj9Vr8isWM9
+	p7UpUh5q0Uhl822nsRHSq8yk42DwJ0M=
+Subject: Re: [PATCH v5 1/3] xen/arm: add support for
+ run_in_exception_handler()
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201215063319.23290-1-jgross@suse.com>
+ <20201215063319.23290-2-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <94e85d88-b0f0-01f6-99e0-386326bc044a@suse.com>
+Date: Tue, 15 Dec 2020 10:02:24 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201214163623.2127-15-bouyer@netbsd.org>
-X-Greylist: Sender succeeded STARTTLS authentication, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Tue, 15 Dec 2020 09:44:31 +0100 (MET)
+In-Reply-To: <20201215063319.23290-2-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Dec 14, 2020 at 05:36:13PM +0100, Manuel Bouyer wrote:
-> Pass bridge name to qemu
-> When starting qemu, set an environnement variable XEN_DOMAIN_ID,
-> to be used by qemu helper scripts
+On 15.12.2020 07:33, Juergen Gross wrote:
+> --- a/xen/include/asm-arm/bug.h
+> +++ b/xen/include/asm-arm/bug.h
+> @@ -15,65 +15,62 @@
+>  
+>  struct bug_frame {
+>      signed int loc_disp;    /* Relative address to the bug address */
+> -    signed int file_disp;   /* Relative address to the filename */
+> +    signed int ptr_disp;    /* Relative address to the filename or function */
+>      signed int msg_disp;    /* Relative address to the predicate (for ASSERT) */
+>      uint16_t line;          /* Line number */
+>      uint32_t pad0:16;       /* Padding for 8-bytes align */
+>  };
+>  
+>  #define bug_loc(b) ((const void *)(b) + (b)->loc_disp)
+> -#define bug_file(b) ((const void *)(b) + (b)->file_disp);
+> +#define bug_ptr(b) ((const void *)(b) + (b)->ptr_disp);
+>  #define bug_line(b) ((b)->line)
+>  #define bug_msg(b) ((const char *)(b) + (b)->msg_disp)
+>  
+> -#define BUGFRAME_warn   0
+> -#define BUGFRAME_bug    1
+> -#define BUGFRAME_assert 2
+> +#define BUGFRAME_run_fn 0
+> +#define BUGFRAME_warn   1
+> +#define BUGFRAME_bug    2
+> +#define BUGFRAME_assert 3
+>  
+> -#define BUGFRAME_NR     3
+> +#define BUGFRAME_NR     4
+>  
+>  /* Many versions of GCC doesn't support the asm %c parameter which would
+>   * be preferable to this unpleasantness. We use mergeable string
+>   * sections to avoid multiple copies of the string appearing in the
+>   * Xen image.
+>   */
+> -#define BUG_FRAME(type, line, file, has_msg, msg) do {                      \
+> +#define BUG_FRAME(type, line, ptr, msg) do {                                \
+>      BUILD_BUG_ON((line) >> 16);                                             \
+>      BUILD_BUG_ON((type) >= BUGFRAME_NR);                                    \
+>      asm ("1:"BUG_INSTR"\n"                                                  \
+> -         ".pushsection .rodata.str, \"aMS\", %progbits, 1\n"                \
+> -         "2:\t.asciz " __stringify(file) "\n"                               \
+> -         "3:\n"                                                             \
+> -         ".if " #has_msg "\n"                                               \
+> -         "\t.asciz " #msg "\n"                                              \
+> -         ".endif\n"                                                         \
+> -         ".popsection\n"                                                    \
+> -         ".pushsection .bug_frames." __stringify(type) ", \"a\", %progbits\n"\
+> -         "4:\n"                                                             \
+> +         ".pushsection .bug_frames." __stringify(type) ", \"a\", %%progbits\n"\
+> +         "2:\n"                                                             \
+>           ".p2align 2\n"                                                     \
+> -         ".long (1b - 4b)\n"                                                \
+> -         ".long (2b - 4b)\n"                                                \
+> -         ".long (3b - 4b)\n"                                                \
+> +         ".long (1b - 2b)\n"                                                \
+> +         ".long (%0 - 2b)\n"                                                \
+> +         ".long (%1 - 2b)\n"                                                \
+>           ".hword " __stringify(line) ", 0\n"                                \
+> -         ".popsection");                                                    \
+> +         ".popsection" :: "i" (ptr), "i" (msg));                            \
+>  } while (0)
 
-This one is not NetBSD related, I should have sent is as a separate
-git mail ... I guess (i'm not familiar with git, sorry).
+The comment ahead of the construct now looks to be at best stale, if
+not entirely pointless. The reference to %c looks quite strange here
+to me anyway - I can only guess it appeared here because on x86 one
+has to use %c to output constants as operands for .long and alike,
+and this was then tried to use on Arm as well without there really
+being a need.
 
-But I think it can be usefull for the comunity.
-
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Jan
 
