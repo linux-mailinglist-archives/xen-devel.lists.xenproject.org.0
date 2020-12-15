@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 050E02DA6A0
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 04:04:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52848.92235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CBEE2DA6D7
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 04:31:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52855.92249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp0cz-0001hd-Py; Tue, 15 Dec 2020 03:03:53 +0000
+	id 1kp134-0004Me-Uq; Tue, 15 Dec 2020 03:30:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52848.92235; Tue, 15 Dec 2020 03:03:53 +0000
+Received: by outflank-mailman (output) from mailman id 52855.92249; Tue, 15 Dec 2020 03:30:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp0cz-0001hE-Mc; Tue, 15 Dec 2020 03:03:53 +0000
-Received: by outflank-mailman (input) for mailman id 52848;
- Tue, 15 Dec 2020 03:03:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kp134-0004MD-RK; Tue, 15 Dec 2020 03:30:50 +0000
+Received: by outflank-mailman (input) for mailman id 52855;
+ Tue, 15 Dec 2020 03:30:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1f4I=FT=zededa.com=roman@srs-us1.protection.inumbo.net>)
- id 1kp0cx-0001h9-O1
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 03:03:51 +0000
-Received: from mail-qt1-x82f.google.com (unknown [2607:f8b0:4864:20::82f])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e55b74dd-a02b-4dc6-8deb-0b039bfd4178;
- Tue, 15 Dec 2020 03:03:50 +0000 (UTC)
-Received: by mail-qt1-x82f.google.com with SMTP id u21so13560520qtw.11
- for <xen-devel@lists.xenproject.org>; Mon, 14 Dec 2020 19:03:50 -0800 (PST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kp133-0004M5-U9; Tue, 15 Dec 2020 03:30:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kp133-0003mH-I5; Tue, 15 Dec 2020 03:30:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kp133-00042i-Al; Tue, 15 Dec 2020 03:30:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kp133-0000IR-AK; Tue, 15 Dec 2020 03:30:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,90 +42,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e55b74dd-a02b-4dc6-8deb-0b039bfd4178
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=zededa.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=ggYZD+SM3a3cNaKWBnWmpkSzvr816tA57UspaGTVGlY=;
-        b=eQkbVRf3FGEyfkNY89DlkWxcAnOdAmU82TXGScLnqc1Nk5kmUB1VI+olhELuYORfJT
-         r3z4K0fcvay0YCPjOxqTS1XnWSMwzpruF+hD4v3XU94z/mtRoW5pg4dHZedUiXBbYxtg
-         dkHzOtz452+G1xut+MlCrPhEg9P2cpG52kysIXmV8ntQ/Qr5zaY+mKrdBfvbFdDZQIse
-         EVD1ZuULicQKwtgTd/LO3zX+TEXaUnQ1pQPvGE02oyBOnNo9f45GI4BWtLYiwohZ0SG5
-         krS+NyoIZnbiNwg764dKAkTobZ6YLtUen93eHsn63ODuLaf56zOjH3zWJNWkj3n781o5
-         cRuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=ggYZD+SM3a3cNaKWBnWmpkSzvr816tA57UspaGTVGlY=;
-        b=Nrogw82++41V+WAAYWfFNFeoQgGCC9IlS3DyOnX5Uw/TtH2ltFcwf+CBnZZ2H1dLWc
-         WKc5aUTvdvN4BRV86EpJWEjwBE+/YzlqCtJOfg9t8jvvc3zkt5JL5AcKDxWXPluUPHsh
-         HferTjafj8jNs4u3BSYEh21mc2kCbNk9Ym/A7XoMkD0soW1DSFZxj1Bb3UyPjlDCFprU
-         vzOtE/GBa6l2vR5A75Hz+Rk5eTMwsnD+t/qJOpJcC8UFCF75iJVNc/DmtlMquyfzrylT
-         E3ByC7BJ2HswhEXY6B5lK+iii0ivreX4pdcWvh5gve4pLTeTNNJZHKqSb4qJFxae+LQ8
-         /jSQ==
-X-Gm-Message-State: AOAM530M1xWmzBpOUQUQ9crjRQfE6ROIOzxB+bvI5gWfCaj3uFyOzYii
-	55fpf1O0JALFejHqT8UBjuzwIdTmZN45CTAx+qHmjRbCUUg=
-X-Google-Smtp-Source: ABdhPJwIKdMJMIdCiR6utTsmb8zT6ut1Nlm7Hm/UCaozFHHtczKspI3WBxkqzsLe/W7XzxTZQRQmBPl6gAynKs1xdDk=
-X-Received: by 2002:ac8:4e39:: with SMTP id d25mr34409481qtw.266.1608001430531;
- Mon, 14 Dec 2020 19:03:50 -0800 (PST)
-MIME-Version: 1.0
-References: <X9gcZu5uJpXx8wNn@mattapan.m5p.com> <CAMmSBy_8+PRWiSQxwRN2oB9mLmOnyoCr0mH4L-uUYhm=1GK7Xg@mail.gmail.com>
- <X9gmkGhQQBOmmBe5@mattapan.m5p.com>
-In-Reply-To: <X9gmkGhQQBOmmBe5@mattapan.m5p.com>
-From: Roman Shaposhnik <roman@zededa.com>
-Date: Mon, 14 Dec 2020 19:03:39 -0800
-Message-ID: <CAMmSBy-NbZnfifROX8-BRLCSWt8OYUKHdW9S5ob+k9QJ4w_30g@mail.gmail.com>
-Subject: Re: Xen-ARM DomUs
-To: Elliott Mitchell <ehem+undef@m5p.com>
-Cc: Elliott Mitchell <ehem+xen@m5p.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=VvZ4hFoF5+VMbA9BVYhuhsxNJQofFVJDzJ4dWznjfuU=; b=IWOYrowmbRBHcxcBdfufqV4Ron
+	qlLSmI9LN1AYcgFX2QvtXQLd3JROFIwDL4d7lhVK8ggeXPw39EpecKMoCSCmvwPOXVviL/qB8PphH
+	vTMp/c/SCfHvx2Wpmuc5EKqEL3vy9/PmQBDuB7LXx9NeI9wh3fXxhKnst9xKbG1yyyPw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157540-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 157540: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=01726b6d23d4c8a870dbd5b96c0b9e3caf38ef3c
+X-Osstest-Versions-That:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 15 Dec 2020 03:30:49 +0000
 
-On Mon, Dec 14, 2020 at 6:59 PM Elliott Mitchell <ehem+undef@m5p.com> wrote:
->
-> On Mon, Dec 14, 2020 at 06:35:14PM -0800, Roman Shaposhnik wrote:
-> > On Mon, Dec 14, 2020 at 6:16 PM Elliott Mitchell <ehem+xen@m5p.com> wrote:
-> > >
-> > > Finally getting to the truly productive stages of my project with Xen on
-> > > ARM.
-> > >
-> > > How many of the OSes which function as x86 DomUs for Xen, function as
-> > > ARM DomUs?  Getting Linux operational was straightforward, but what of
-> > > others?
-> >
-> > On EVE we have Windows running as a pretty much a customer-facing demo:
-> >     https://wiki.lfedge.org/display/EVE/How+get+Windows+10+running+on+a+Raspberry+Pi
-> >
->
-> Sorry to spoil the achievement, but Tianocore beat you to having
-> Windows on a RP4 by 4 months:
-> https://rpi4-uefi.dev/alternate-guide-running-windows-10-on-the-pi-4/
+flight 157540 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157540/
 
-Not to be pedantic, but Stefano and I beat them -- we made it possible
-around August ;-)
+Regressions :-(
 
-> > > The available examples seem geared towards Linux DomUs.  I'm looking at a
-> > > FreeBSD installation image and it appears to expect an EFI firmware.
-> > > Beyond having a bunch of files appearing oriented towards booting on EFI
-> > > I can't say much about (booting) FreeBSD/ARM DomUs.
-> >
-> > Personally I'm about to make Plan9 (well 9front really) run as well ;-)
->
-> Some people may like those types of instructions, but I really hate them.
-> I like Tianocore's better, since I can do my type of adjustment better.
-> (using different amount of storage or other virtual devices)
->
-> I've already got FreeBSD installation media, issue is setting up a xl.cfg
-> file and/or figuring out which bits I need to extract off their media
-> (ah, actual kernel is /boot/kernel/kernel; an ELF file using the
-> interpreter /red/herring).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386                    6 xen-build                fail REGR. vs. 157345
+ build-amd64                   6 xen-build                fail REGR. vs. 157345
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 157345
+ build-i386-xsm                6 xen-build                fail REGR. vs. 157345
 
-Well, Xen requires some kind of a management solution underneath, so until
-Xen/RPi4 support shows up in Raspbian -- the choice is to either stick with
-EVE or follow long lists of instructions.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Thanks,
-Roman.
+version targeted for testing:
+ ovmf                 01726b6d23d4c8a870dbd5b96c0b9e3caf38ef3c
+baseline version:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+
+Last test of basis   157345  2020-12-09 12:40:46 Z    5 days
+Failing since        157348  2020-12-09 15:39:39 Z    5 days   42 attempts
+Testing same since   157531  2020-12-14 22:40:42 Z    0 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Ard Biesheuvel <ard.biesheuvel@arm.com>
+  Baraneedharan Anbazhagan <anbazhagan@hp.com>
+  Baraneedharan Anbazhagan <anbazhgan@hp.com>
+  Fan Wang <fan.wang@intel.com>
+  James Bottomley <jejb@linux.ibm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Marc Moisson-Franckhauser <marc.moisson-franckhauser@arm.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Siyuan Fu <siyuan.fu@intel.com>
+  Star Zeng <star.zeng@intel.com>
+  Ting Ye <ting.ye@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 561 lines long.)
 
