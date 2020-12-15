@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AFD32DB586
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 22:00:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54849.95427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 200BF2DB67C
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 23:24:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54891.95457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpHQ6-0002E7-JX; Tue, 15 Dec 2020 20:59:42 +0000
+	id 1kpIiW-0001v5-AA; Tue, 15 Dec 2020 22:22:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54849.95427; Tue, 15 Dec 2020 20:59:42 +0000
+Received: by outflank-mailman (output) from mailman id 54891.95457; Tue, 15 Dec 2020 22:22:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpHQ6-0002Dk-G6; Tue, 15 Dec 2020 20:59:42 +0000
-Received: by outflank-mailman (input) for mailman id 54849;
- Tue, 15 Dec 2020 20:59:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kpIiW-0001uk-6i; Tue, 15 Dec 2020 22:22:48 +0000
+Received: by outflank-mailman (input) for mailman id 54891;
+ Tue, 15 Dec 2020 22:22:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6ufw=FT=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kpHQ4-0002Df-SV
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 20:59:40 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 258133db-4552-4f80-a05c-69c4a8a8e9b3;
- Tue, 15 Dec 2020 20:59:39 +0000 (UTC)
+ <SRS0=GCyV=FT=gmail.com=crogers122@srs-us1.protection.inumbo.net>)
+ id 1kpIiU-0001uf-QK
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 22:22:46 +0000
+Received: from mail-qk1-x72d.google.com (unknown [2607:f8b0:4864:20::72d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9014b889-5974-44f0-b9aa-017223c1e4cf;
+ Tue, 15 Dec 2020 22:22:45 +0000 (UTC)
+Received: by mail-qk1-x72d.google.com with SMTP id c7so20831068qke.1
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Dec 2020 14:22:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,145 +37,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 258133db-4552-4f80-a05c-69c4a8a8e9b3
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1608065978;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=twnfeOO/nJh+7Yqrwe0fs8m/4jH5/Yo3yi9Jp0z/Lss=;
-  b=FoiQYpDytOcoFzfBWnV4vVzqp2A2Mf57D6pAA7yJMbwxyI6POc169uNn
-   UK8skzwNZmHxiW9UfAubNlI9gOvRpwQGX54dEmE7SeVQltVl/otWYEsKw
-   Rk9IbJcuWJOOm+J+uR5O1avHDvzsJ7L6Uvk8Xri28In6Bfhy27lZlDOqr
-   Q=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: uuatwPkBk2JlFNvnKxCJz1fCleazbEJAfO+UCKhDHk/N1fJ6YIIb3Me8H7vmAP/wC4OOPR92M3
- Ljp+e5tikssU7acjBxZrayROOdojYqfTc57bvGwSBQkDNkPh2Zg1dnVi0S0P36ChXKPTthy94K
- uBJCWhda77S2AUZc0x84cppZ/tF2VKl+CZC+FstSAd6IlZsThgc6a+3O/5t3OHTOOkB7Xxg01C
- VnRQHy+6IEWa7QpkIJfZ5+92YLk5y8JNhfhxnw6IxvaR30I8wctCDDtdNIljbssIT9vzqVm5o+
- gbQ=
-X-SBRS: 5.2
-X-MesageID: 33639630
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,422,1599537600"; 
-   d="scan'208";a="33639630"
-Subject: Re: [PATCH v2] xen/xenbus: make xs_talkv() interruptible
-To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>,
-	<linux-kernel@vger.kernel.org>
-CC: Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-References: <20201215111055.3810-1-jgross@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <2deac9ce-0c27-a472-7d51-b91a640d92ed@citrix.com>
-Date: Tue, 15 Dec 2020 20:59:32 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 9014b889-5974-44f0-b9aa-017223c1e4cf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=wA0NS6LYMdsQ75agvCmT0E+X2ITs6qTXBs67m6lU3U4=;
+        b=SamdIYmE09sby8EOWZ2uy7CskOJNNL/aFUy2sUdpWqB76z+RjpAtFrbC4Dax8yE94O
+         dJOUCTwPCs7wz9LEW4KLEnJkU8xFTMOEu4lDmiS+MCSghBUQjSZerh1/lSlGKnECMSFN
+         Jof8LLQHMPP6V8UdEQ3N+RGbpAT/NtM/JWcUXOidoE/m0ZpWVZ0P0EPGQ8KQt63kTF0A
+         /BlereSFNYHYlWLF1ZzhttUzhc60Cgo4GA4W++khagvY6DOF60J2/2E/FjiBvI1jCwu9
+         6yrYsY4msS2KzqfNmHwCSI5emXSCjBoxH6XnqRfIfgbJ5UBBnZT4i80oX6njGpkNqYVn
+         z1jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=wA0NS6LYMdsQ75agvCmT0E+X2ITs6qTXBs67m6lU3U4=;
+        b=KnaKytzkN33/qE7W3QLO2y7lwsMR3qA6igMbDPRq/lc6fjiYyzQYoQc4wWqxF42w8x
+         93q56vGcj5e0c/QtCiimczzCRLako5bYjNW+QRcu5i8BQ5GGzX2Usdl20v+g5cHK/mFy
+         NDvDKHwAExKzhi+7I+xPbSmpqWBwS3fwzbD5nfsI54s28CSGMq1ZYlJRKnCWmvA+Ei2U
+         j8Yy1JQHTizTnLNJQl91jt0QCTr/lEzL4wUajluGM6ZEONtUJ6x0dyrI6ioFkSegE1c0
+         0fVtTSA93Y4YMIqaAkyhdMjxEJc0Ev6wy6ybnXzAa571GV8bNRX1qYxyNY8XGNcijC99
+         1BuA==
+X-Gm-Message-State: AOAM531zY3X5b0PSegSAtqdL7YycAdAkpmqFRU2A20BM/P0qwoWftdBX
+	Gm+tHvLcpIRUo8a1tnopPEVDrKBpznuobB+qlxg=
+X-Google-Smtp-Source: ABdhPJzpaf1KS/3u9aEsVJ6JCo3oOKSQDcucIyRGGWeRU4nIHtNWIUi5ZnoSNTm4fA58GtzH+zQ8o/LCEBBj1i72UDc=
+X-Received: by 2002:a05:620a:1265:: with SMTP id b5mr40488098qkl.27.1608070965041;
+ Tue, 15 Dec 2020 14:22:45 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201215111055.3810-1-jgross@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL03.citrite.net (10.13.108.165)
+References: <CAKf6xps-nM13E19SVS3NJwq6LwOJLUwN+FC6k_Sp9-_YaRt-EA@mail.gmail.com>
+ <3ACCFEC6-A8B7-48E6-AA3F-48D4CDE75FA4@gmail.com> <alpine.DEB.2.21.2012141632020.4040@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2012141632020.4040@sstabellini-ThinkPad-T480s>
+From: Chris Rogers <crogers122@gmail.com>
+Date: Tue, 15 Dec 2020 17:22:33 -0500
+Message-ID: <CAC4Yorgk89vaDsbygvebiBOan-3OWE=D9xKiri_JwQAVWZ19GQ@mail.gmail.com>
+Subject: Re: [openxt-dev] Re: Follow up on libxl-fix-reboot.patch
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Rich Persaud <persaur@gmail.com>, openxt <openxt@googlegroups.com>, 
+	xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@citrix.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Olivier Lambert <olivier.lambert@vates.fr>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Jason Andryuk <jandryuk@gmail.com>, wl@xen.org, jbeulich@suse.com, roger.pau@citrix.com
+Content-Type: multipart/alternative; boundary="000000000000a51de505b6883228"
 
-On 15/12/2020 11:10, Juergen Gross wrote:
-> In case a process waits for any Xenstore action in the xenbus driver
-> it should be interruptible by signals.
+--000000000000a51de505b6883228
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hopefully I can provide a little more context.  Here is a link to the patch=
+:
+
+https://github.com/OpenXT/xenclient-oe/blob/master/recipes-extended/xen/fil=
+es/libxl-fix-reboot.patch
+
+The patch is a bit mis-named.  It does not implement
+XEN_DOMCTL_SENDTRIGGER_RESET.  It's just a workaround to handle the missing
+RESET implementation.
+
+Its purpose is to make an HVM guest "reboot" regardless of whether PV tools
+have been installed and the xenstore interface is listening or not.  From
+the client perspective that OpenXT is concerned with, this is for
+ease-of-use for working with HVM guests before PV tools are installed.  To
+summarize the flow of the patch:
+
+- User input causes high level toolstack, xenmgr, to do xl reboot <domid>
+- libxl hits "PV interface not available", so it tries the fallback ACPI
+reset trigger (but that's not implemented in domctl)
+- therefore, the patch changes the RESET trigger to POWER trigger, and sets
+a 'reboot' flag
+- when the xl create process handles the domain_death event for
+LIBXL_SHUTDOWN_REASON_POWEROFF, we check for our 'reboot' flag.
+- It's set, so we set "action" as if we came from a real restart, which
+makes the xl create process take the 'goto start' codepath to rebuild the
+domain.
+
+I think we'd like to get rid of this patch, but at the moment I don't have
+any code or a design to propose that would implement the
+XEN_DOMCTL_SENDTRIGGER_RESET.
+
+On Mon, Dec 14, 2020 at 7:42 PM Stefano Stabellini <sstabellini@kernel.org>
+wrote:
+
+> On Mon, 14 Dec 2020, Rich Persaud wrote:
+> > (adding xen-devel & toolstack devs)
+> >
+> > On Dec 14, 2020, at 16:12, Jason Andryuk <jandryuk@gmail.com> wrote:
+> > >
+> > > =EF=BB=BFOn Fri, Dec 11, 2020 at 3:56 PM Chris Rogers <crogers122@gma=
+il.com>
+> wrote:
+> > >>
+> > >> This is a follow up to a request during our roadmapping meeting to
+> clarify the purpose of libxl-fix-reboot.patch on the current version of X=
+en
+> in OpenXT (4.12).  It's pretty simple.  While the domctl API does define =
+a
+> trigger for reset in xen/include/public/domctl.h:
+> > >>
+> > >
+> > >> The call stack looks like this:
+> > >>> libxl_send_trigger(ctx, domid, LIBXL_TRIGGER_RESET, 0);
+> > >>> xc_domain_send_trigger(ctx->xch, domid,
+> XEN_DOMCTL_SENDTRIGGER_RESET, vcupid);
+> > >>> do_domctl()
+> > >>> arch_do_domctl()
+> > >> and reaching the case statement in arch_do_domctl() for
+> XEN_DOMCTL_sendtrigger, with RESET, we get -ENOSYS as illustrated above.
+> > >
+> > > Thanks, Chris.  It's surprising that xl trigger reset exists, but
+> > > isn't wired through to do anything.  And that reboot has a fallback
+> > > command to something that doesn't work.
 >
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V2:
-> - don't special case SIGKILL as libxenstore is handling -EINTR fine
-> ---
->  drivers/xen/xenbus/xenbus_xs.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
+> I miss some of the context of this thread -- let me try to understand
+> the issue properly.
 >
-> diff --git a/drivers/xen/xenbus/xenbus_xs.c b/drivers/xen/xenbus/xenbus_xs.c
-> index 3a06eb699f33..17c8f8a155fd 100644
-> --- a/drivers/xen/xenbus/xenbus_xs.c
-> +++ b/drivers/xen/xenbus/xenbus_xs.c
-> @@ -205,8 +205,15 @@ static bool test_reply(struct xb_req_data *req)
->  
->  static void *read_reply(struct xb_req_data *req)
->  {
-> +	int ret;
-> +
->  	do {
-> -		wait_event(req->wq, test_reply(req));
-> +		ret = wait_event_interruptible(req->wq, test_reply(req));
-> +
-> +		if (ret == -ERESTARTSYS && signal_pending(current)) {
-> +			req->msg.type = XS_ERROR;
-> +			return ERR_PTR(-EINTR);
-> +		}
+> It looks like HVM reboot doesn't work properly, or is it HVM reset
+> (in-guest reset)? It looks like it is implemented by calling "xl trigger
+> reset", which is implemented by libxl_send_trigger. The call chain leads
+> to a XEN_DOMCTL_sendtrigger domctl with XEN_DOMCTL_SENDTRIGGER_RESET as
+> a parameter that is not implemented on x86.
+>
+> That looks like a pretty serious bug :-)
+>
+>
+> I imagine the reason why it is in that state is that the main way to
+> reboot would be to call "xl reboot" which is implemented with the PV
+> protocol "reboot" write to xenstore?  Either way, the bug should be
+> fixed.
+>
+> What does your libxl-fix-reboot.patch patch do? Does it add an
+> implementation of XEN_DOMCTL_SENDTRIGGER_RESET?
 
-So now I can talk fully about the situations which lead to this, I think
-there is a bit more complexity.
+--000000000000a51de505b6883228
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-It turns out there are a number of issues related to running a Xen
-system with no xenstored.
+<div dir=3D"ltr"><div>Hopefully I can provide a little more context.=C2=A0 =
+Here is a link to the patch:<br></div><div><br></div><div><a href=3D"https:=
+//github.com/OpenXT/xenclient-oe/blob/master/recipes-extended/xen/files/lib=
+xl-fix-reboot.patch">https://github.com/OpenXT/xenclient-oe/blob/master/rec=
+ipes-extended/xen/files/libxl-fix-reboot.patch</a></div><div><br></div><div=
+>The patch is a bit mis-named.=C2=A0 It does not implement XEN_DOMCTL_SENDT=
+RIGGER_RESET.=C2=A0 It&#39;s just a workaround to handle the missing RESET =
+implementation.<br></div><div><br></div><div>Its purpose is to make an HVM =
+guest &quot;reboot&quot; regardless of whether PV tools have been installed=
+ and the xenstore interface is listening or not.=C2=A0 From the client pers=
+pective that OpenXT is concerned with, this is for ease-of-use for working =
+with HVM guests before  PV tools are installed.=C2=A0 To summarize the flow=
+ of the patch:</div><div><br></div><div>- User input causes high level tool=
+stack, xenmgr, to do xl reboot &lt;domid&gt; <br></div><div>- libxl hits &q=
+uot;PV interface not available&quot;, so it tries the fallback ACPI reset t=
+rigger (but that&#39;s not implemented in domctl)<br></div><div>- therefore=
+, the patch changes the RESET trigger to POWER trigger, and sets a &#39;reb=
+oot&#39; flag<br></div><div>- when the xl create process handles the domain=
+_death event for LIBXL_SHUTDOWN_REASON_POWEROFF, we check for our &#39;rebo=
+ot&#39; flag.<br>- It&#39;s set, so we set &quot;action&quot; as if we came=
+ from a real restart, which makes the xl create process take the &#39;goto =
+start&#39; codepath to rebuild the domain. </div><div><br></div><div>I thin=
+k we&#39;d like to get rid of this patch, but at the moment I don&#39;t hav=
+e any code or a design to propose that would implement the XEN_DOMCTL_SENDT=
+RIGGER_RESET.</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cl=
+ass=3D"gmail_attr">On Mon, Dec 14, 2020 at 7:42 PM Stefano Stabellini &lt;<=
+a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wro=
+te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Mon, 14 D=
+ec 2020, Rich Persaud wrote:<br>
+&gt; (adding xen-devel &amp; toolstack devs)<br>
+&gt; <br>
+&gt; On Dec 14, 2020, at 16:12, Jason Andryuk &lt;<a href=3D"mailto:jandryu=
+k@gmail.com" target=3D"_blank">jandryuk@gmail.com</a>&gt; wrote:<br>
+&gt; &gt; <br>
+&gt; &gt; =EF=BB=BFOn Fri, Dec 11, 2020 at 3:56 PM Chris Rogers &lt;<a href=
+=3D"mailto:crogers122@gmail.com" target=3D"_blank">crogers122@gmail.com</a>=
+&gt; wrote:<br>
+&gt; &gt;&gt; <br>
+&gt; &gt;&gt; This is a follow up to a request during our roadmapping meeti=
+ng to clarify the purpose of libxl-fix-reboot.patch on the current version =
+of Xen in OpenXT (4.12).=C2=A0 It&#39;s pretty simple.=C2=A0 While the domc=
+tl API does define a trigger for reset in xen/include/public/domctl.h:<br>
+&gt; &gt;&gt; <br>
+&gt; &gt; <br>
+&gt; &gt;&gt; The call stack looks like this:<br>
+&gt; &gt;&gt;&gt; libxl_send_trigger(ctx, domid, LIBXL_TRIGGER_RESET, 0);<b=
+r>
+&gt; &gt;&gt;&gt; xc_domain_send_trigger(ctx-&gt;xch, domid, XEN_DOMCTL_SEN=
+DTRIGGER_RESET, vcupid);<br>
+&gt; &gt;&gt;&gt; do_domctl()<br>
+&gt; &gt;&gt;&gt; arch_do_domctl()<br>
+&gt; &gt;&gt; and reaching the case statement in arch_do_domctl() for XEN_D=
+OMCTL_sendtrigger, with RESET, we get -ENOSYS as illustrated above.<br>
+&gt; &gt; <br>
+&gt; &gt; Thanks, Chris.=C2=A0 It&#39;s surprising that xl trigger reset ex=
+ists, but<br>
+&gt; &gt; isn&#39;t wired through to do anything.=C2=A0 And that reboot has=
+ a fallback<br>
+&gt; &gt; command to something that doesn&#39;t work.<br>
+<br>
+I miss some of the context of this thread -- let me try to understand<br>
+the issue properly.<br>
+<br>
+It looks like HVM reboot doesn&#39;t work properly, or is it HVM reset<br>
+(in-guest reset)? It looks like it is implemented by calling &quot;xl trigg=
+er<br>
+reset&quot;, which is implemented by libxl_send_trigger. The call chain lea=
+ds<br>
+to a XEN_DOMCTL_sendtrigger domctl with XEN_DOMCTL_SENDTRIGGER_RESET as<br>
+a parameter that is not implemented on x86.<br>
+<br>
+That looks like a pretty serious bug :-)<br>
+<br>
+<br>
+I imagine the reason why it is in that state is that the main way to<br>
+reboot would be to call &quot;xl reboot&quot; which is implemented with the=
+ PV<br>
+protocol &quot;reboot&quot; write to xenstore?=C2=A0 Either way, the bug sh=
+ould be<br>
+fixed.<br>
+<br>
+What does your libxl-fix-reboot.patch patch do? Does it add an<br>
+implementation of XEN_DOMCTL_SENDTRIGGER_RESET?</blockquote></div>
 
-1) If a xenstore-write occurs during startup before init-xenstore-domain
-runs, the former blocks on /dev/xen/xenbus waiting for xenstored to
-reply, while the latter blocks on /dev/xen/xenbus_backend when trying to
-tell the dom0 kernel that xenstored is in dom1.  This effectively
-deadlocks the system.
-
-2) If xenstore-watch is running when xenstored dies, it spins at 100%
-cpu usage making no system calls at all.  This is caused by bad error
-handling from xs_watch(), and attempting to debug found:
-
-3) (this issue).  If anyone starts xenstore-watch with no xenstored
-running at all, it blocks in D in the kernel.
-
-The cause is the special handling for watch/unwatch commands which,
-instead of just queuing up the data for xenstore, explicitly waits for
-an OK for registering the watch.  This causes a write() system call to
-block waiting for a non-existent entity to reply.
-
-So while this patch does resolve the major usability issue I found (I
-can't even SIGINT and get my terminal back), I think there are issues.
-
-The reason why XS_WATCH/XS_UNWATCH are special cased is because they do
-require special handling.  The main kernel thread for processing
-incoming data from xenstored does need to know how to associate each
-async XS_WATCH_EVENT to the caller who watched the path.
-
-Therefore, depending on when this cancellation hits, we might be in any
-of the following states:
-
-1) the watch is queued in the kernel, but not even sent to xenstored yet
-2) the watch is queued in the xenstored ring, but not acted upon
-3) the watch is queued in the xenstored ring, and the xenstored has seen
-it but not replied yet
-4) the watch has been processed, but the XS_WATCH reply hasn't been
-received yet
-5) the watch has been processed, and the XS_WATCH reply received
-
-State 5 (and a little bit) is the normal success path when xenstored has
-acted upon the request, and the internal kernel infrastructure is set up
-appropriately to handle XS_WATCH_EVENTs.
-
-States 1 and 2 can be very common if there is no xenstored (or at least,
-it hasn't started up yet).  In reality, there is either no xenstored, or
-it is up and running (and for a period of time during system startup,
-these cases occur in sequence).
-
-As soon as the XS_WATCH event has been written into the xenstored ring,
-it is not safe to cancel.  You've committed to xenstored processing the
-request (if it is up).
-
-If xenstored is actually up and running, its fine and necessary to
-block.  The request will be processed in due course (timing subject to
-the client and server load).  If xenstored isn't up, blocking isn't ok.
-
-Therefore, I think we need to distinguish "not yet on the ring" from "on
-the ring", as our distinction as to whether cancelling is safe, and
-ensure we don't queue anything on the ring before we're sure xenstored
-has started up.
-
-Does this make sense?
-
-~Andrew
+--000000000000a51de505b6883228--
 
