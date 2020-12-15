@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C142DAEC3
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 15:20:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54265.94218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02CBB2DAED8
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 15:24:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54282.94246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpBAl-0004mA-FQ; Tue, 15 Dec 2020 14:19:27 +0000
+	id 1kpBFh-0005iz-8r; Tue, 15 Dec 2020 14:24:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54265.94218; Tue, 15 Dec 2020 14:19:27 +0000
+Received: by outflank-mailman (output) from mailman id 54282.94246; Tue, 15 Dec 2020 14:24:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpBAl-0004ll-Bg; Tue, 15 Dec 2020 14:19:27 +0000
-Received: by outflank-mailman (input) for mailman id 54265;
- Tue, 15 Dec 2020 14:19:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kpBFh-0005ia-5C; Tue, 15 Dec 2020 14:24:33 +0000
+Received: by outflank-mailman (input) for mailman id 54282;
+ Tue, 15 Dec 2020 14:24:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iDkq=FT=infradead.org=peterz@srs-us1.protection.inumbo.net>)
- id 1kpBAj-0004lN-5p
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 14:19:25 +0000
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id db42cfca-a869-4ccb-949f-2eafe5a9e9ec;
- Tue, 15 Dec 2020 14:19:20 +0000 (UTC)
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kpB9x-0007Qz-Vq; Tue, 15 Dec 2020 14:18:38 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id C214A300446;
- Tue, 15 Dec 2020 15:18:34 +0100 (CET)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id A8CE3200CFB30; Tue, 15 Dec 2020 15:18:34 +0100 (CET)
+ <SRS0=AeOo=FT=redhat.com=imammedo@srs-us1.protection.inumbo.net>)
+ id 1kpBFg-0005iV-G8
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 14:24:32 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id e633bffd-4d2e-4982-b50c-96d9494dc207;
+ Tue, 15 Dec 2020 14:24:30 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-463-FIzfC_48MYiPhrV1QHKixw-1; Tue, 15 Dec 2020 09:24:28 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6D39810054FF;
+ Tue, 15 Dec 2020 14:24:26 +0000 (UTC)
+Received: from localhost (ovpn-113-127.ams2.redhat.com [10.36.113.127])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A633A179B3;
+ Tue, 15 Dec 2020 14:24:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,80 +48,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db42cfca-a869-4ccb-949f-2eafe5a9e9ec
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=n3MIZt3/znb4uRxmCaPyGVKsSFg4njtwCHLsmpqHHtc=; b=j5aJJbiLj/qdgQPvO1H9cZO69S
-	cghj1tVt1MmeFUvrTyb7sI8SjpJMY/zf9c3AF09ZpaS3kpNRMq7Qcza+a+4SVPftUg92+de3j06ij
-	TpvnEmE1F1M9N0xpaIyBwLxOwyzPMjM1Fuu/184ceVPJZHJ8yc8/CxeiHpKLfHNVY2JdoHHrZrv/6
-	52/R56RdCA7sZvOvf5pukk87Nrmwsfm/qV5Ymb9hkIGZ805z6H/EQBg+eqwMVq1zBU/Ekh8ZN0Wyq
-	bkHOj3MQ8RLBs8mNaGQ8LQey8vYZ+0uPL6pOynf1wFmF5Sb2xwez3kwxSkQndlTWxEbDpMaIXx+2n
-	SfEy17IQ==;
-Date: Tue, 15 Dec 2020 15:18:34 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	linux-hyperv@vger.kernel.org, kvm@vger.kernel.org, luto@kernel.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Deep Shah <sdeep@vmware.com>,
-	"VMware, Inc." <pv-drivers@vmware.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <sean.j.christopherson@intel.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Daniel Bristot de Oliveira <bristot@redhat.com>,
-	Josh Poimboeuf <jpoimboe@redhat.com>
-Subject: Re: [PATCH v2 00/12] x86: major paravirt cleanup
-Message-ID: <20201215141834.GG3040@hirez.programming.kicks-ass.net>
-References: <20201120114630.13552-1-jgross@suse.com>
- <20201120125342.GC3040@hirez.programming.kicks-ass.net>
- <20201123134317.GE3092@hirez.programming.kicks-ass.net>
- <6771a12c-051d-1655-fb3a-cc45a3c82e29@suse.com>
+X-Inumbo-ID: e633bffd-4d2e-4982-b50c-96d9494dc207
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1608042270;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=z+cQ0iEhkWfsQjRdH/t6R2th3kreynHohts1awCUh9o=;
+	b=LllXFXE7rrTc8cS3G7F6KkdNKMl58YSExNmZTQznDQuVDErKoK8CkArKgggYCDljAhR1eR
+	ikdmBAyC5iawQ7KM4wq+3JYLbPsKenNuKClgX7+MgiLe8UssolBQ9PCk+eZbwyhNZQbK1K
+	GLvh/7XDFeSl1kF6UEZc2I1zEx6ATyY=
+X-MC-Unique: FIzfC_48MYiPhrV1QHKixw-1
+Date: Tue, 15 Dec 2020 15:24:18 +0100
+From: Igor Mammedov <imammedo@redhat.com>
+To: Eduardo Habkost <ehabkost@redhat.com>
+Cc: qemu-devel@nongnu.org, Markus Armbruster <armbru@redhat.com>, Stefan
+ Berger <stefanb@linux.ibm.com>, =?UTF-8?B?TWFyYy1BbmRyw6k=?= Lureau
+ <marcandre.lureau@redhat.com>, "Daniel P. Berrange" <berrange@redhat.com>,
+ Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@redhat.com>, John Snow
+ <jsnow@redhat.com>, Kevin Wolf <kwolf@redhat.com>, Eric Blake
+ <eblake@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, Stefan Berger
+ <stefanb@linux.vnet.ibm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Max Reitz <mreitz@redhat.com>, Cornelia Huck <cohuck@redhat.com>, Halil
+ Pasic <pasic@linux.ibm.com>, Christian Borntraeger
+ <borntraeger@de.ibm.com>, Richard Henderson <rth@twiddle.net>, David
+ Hildenbrand <david@redhat.com>, Thomas Huth <thuth@redhat.com>, Matthew
+ Rosato <mjrosato@linux.ibm.com>, Alex Williamson
+ <alex.williamson@redhat.com>, Mark Cave-Ayland
+ <mark.cave-ayland@ilande.co.uk>, Artyom Tarasenko <atar4qemu@gmail.com>,
+ xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
+ qemu-s390x@nongnu.org
+Subject: Re: [PATCH v4 23/32] qdev: Move dev->realized check to
+ qdev_property_set()
+Message-ID: <20201215152418.0e8dff6b@redhat.com>
+In-Reply-To: <20201214172418.GK1289986@habkost.net>
+References: <20201211220529.2290218-1-ehabkost@redhat.com>
+	<20201211220529.2290218-24-ehabkost@redhat.com>
+	<20201214155530.55f80cd6@redhat.com>
+	<20201214172418.GK1289986@habkost.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <6771a12c-051d-1655-fb3a-cc45a3c82e29@suse.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=imammedo@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 15, 2020 at 12:42:45PM +0100, J=FCrgen Gro=DF wrote:
-> Peter,
->=20
-> On 23.11.20 14:43, Peter Zijlstra wrote:
-> > On Fri, Nov 20, 2020 at 01:53:42PM +0100, Peter Zijlstra wrote:
-> > > On Fri, Nov 20, 2020 at 12:46:18PM +0100, Juergen Gross wrote:
-> > > >   30 files changed, 325 insertions(+), 598 deletions(-)
-> > >=20
-> > > Much awesome ! I'll try and get that objtool thing sorted.
-> >=20
-> > This seems to work for me. It isn't 100% accurate, because it doesn't
-> > know about the direct call instruction, but I can either fudge that or
-> > switching to static_call() will cure that.
-> >=20
-> > It's not exactly pretty, but it should be straight forward.
->=20
-> Are you planning to send this out as an "official" patch, or should I
-> include it in my series (in this case I'd need a variant with a proper
-> commit message)?
+On Mon, 14 Dec 2020 12:24:18 -0500
+Eduardo Habkost <ehabkost@redhat.com> wrote:
 
-Ah, I was waiting for Josh to have an opinion (and then sorta forgot
-about the whole thing again). Let me refresh and provide at least a
-Changelog.
+> On Mon, Dec 14, 2020 at 03:55:30PM +0100, Igor Mammedov wrote:
+> > On Fri, 11 Dec 2020 17:05:20 -0500
+> > Eduardo Habkost <ehabkost@redhat.com> wrote:
+> >   
+> > > Every single qdev property setter function manually checks
+> > > dev->realized.  We can just check dev->realized inside
+> > > qdev_property_set() instead.
+> > > 
+> > > The check is being added as a separate function
+> > > (qdev_prop_allow_set()) because it will become a callback later.  
+> > 
+> > is callback added within this series?
+> > and I'd add here what's the purpose of it.  
+> 
+> It will be added in part 2 of the series.  See v3:
+> https://lore.kernel.org/qemu-devel/20201112214350.872250-35-ehabkost@redhat.com/
+> 
+> I don't know what else I could say about its purpose, in addition
+> to what I wrote above, and the comment below[1].
+> 
+> If you are just curious about the callback and confused because
+> it is not anywhere in this series, I can just remove the
+> paragraph above from the commit message.  Would that be enough?
+lets remove it for now to avoid confusion
+
+Reviewed-by: Igor Mammedov <imammedo@redhat.com>
+
+> 
+> >   
+> [...]
+> > > +/* returns: true if property is allowed to be set, false otherwise */  
+> 
+> [1] ^^^
+> 
+> > > +static bool qdev_prop_allow_set(Object *obj, const char *name,
+> > > +                                Error **errp)
+> > > +{
+> > > +    DeviceState *dev = DEVICE(obj);
+> > > +
+> > > +    if (dev->realized) {
+> > > +        qdev_prop_set_after_realize(dev, name, errp);
+> > > +        return false;
+> > > +    }
+> > > +    return true;
+> > > +}
+> > > +  
+> 
+
 
