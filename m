@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 788CE2DB13B
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:23:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54437.94560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1530C2DB141
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 17:24:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54442.94572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpD69-000321-94; Tue, 15 Dec 2020 16:22:49 +0000
+	id 1kpD7o-0003AS-LX; Tue, 15 Dec 2020 16:24:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54437.94560; Tue, 15 Dec 2020 16:22:49 +0000
+Received: by outflank-mailman (output) from mailman id 54442.94572; Tue, 15 Dec 2020 16:24:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpD69-00031e-5n; Tue, 15 Dec 2020 16:22:49 +0000
-Received: by outflank-mailman (input) for mailman id 54437;
- Tue, 15 Dec 2020 16:22:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SBK9=FT=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1kpD67-00031X-P0
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:22:47 +0000
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2681c8cd-97b0-4f8f-82b5-0a06d9ca39e5;
- Tue, 15 Dec 2020 16:22:47 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id 3so19065218wmg.4
- for <xen-devel@lists.xenproject.org>; Tue, 15 Dec 2020 08:22:47 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id j13sm36619380wmi.36.2020.12.15.08.22.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Dec 2020 08:22:45 -0800 (PST)
+	id 1kpD7o-00039v-HW; Tue, 15 Dec 2020 16:24:32 +0000
+Received: by outflank-mailman (input) for mailman id 54442;
+ Tue, 15 Dec 2020 16:24:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Vckb=FT=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kpD7m-00039g-F7
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 16:24:30 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c382944c-bec9-4204-bdde-59123e1c277b;
+ Tue, 15 Dec 2020 16:24:29 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 985FFAF73;
+ Tue, 15 Dec 2020 16:24:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,64 +39,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2681c8cd-97b0-4f8f-82b5-0a06d9ca39e5
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=LPVhR5UAWejAwKJd+I2ZO/5ggdQlOv2pSnWqNxfe7XU=;
-        b=lAoCyljHmWu8LGKf4VYevyDtEVfWiuEWxBkw7l4jxKhjLxhd/xEnAtojKeJ5CNs59w
-         i/X/AcC7CKmWRmwVxiFf7mw6TNJlmTeqOJtHqP9btPXfH15er0g8++uOHbyNgVtP0T11
-         FQlCOfgg0gLqke+UGNJGQFIRXpAQgpQXPlEo+/gcAA1vSsJ59ewkRHYFgwquPhed/x7w
-         cuA4S3cRP7eVCzKwuUL0PZRUOkkEZ2QEFPf3ORvy+J77xF3zNBBth2bV4ruv50iB9VsZ
-         /7o2kUc/BRMozEsbqKG9Z09fNOqaNLihTC+YWrgKjVfqDgty1s8DCjhb5rhsPPdyb+RY
-         Q64Q==
-X-Gm-Message-State: AOAM533osW5yPni3JMzO4cX+crEeP1osbv4d0DpkgeZt0yoRgvj/lnpA
-	sifkv0l8yPgX/26xfYKtrM8=
-X-Google-Smtp-Source: ABdhPJwpAwtMIm6fDqxm9jAFAoS5W2OrNEbLoYH1bx8nwOZywJZFvkTJ4QGl+Zr40CZybgvxjlx+oA==
-X-Received: by 2002:a1c:1bc9:: with SMTP id b192mr33365654wmb.136.1608049366385;
-        Tue, 15 Dec 2020 08:22:46 -0800 (PST)
-Date: Tue, 15 Dec 2020 16:22:44 +0000
-From: Wei Liu <wl@xen.org>
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v1 3/3] tools: add API to work with sevaral bits at once
-Message-ID: <20201215162244.mln6xm5qj7pmvauc@liuwe-devbox-debian-v2>
-References: <20201209155452.28376-1-olaf@aepfle.de>
- <20201209155452.28376-3-olaf@aepfle.de>
+X-Inumbo-ID: c382944c-bec9-4204-bdde-59123e1c277b
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1608049468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=gVCt0CoeLEWyBtqA7+1996CM9kjAXGCRYWC5E2fe0g0=;
+	b=Th903HUBkmzuJEqNShcickwqkobSTqlH6ddfMUkgExf9FyY4X7r6CgQaQVp+3+/uMDs5rN
+	K9JscCJmWA7eQGOFjr3ETvzEB2p8ddmwvNswon+Q5tJz1fKXU3dZvNbRBDgbEHlRV90hb4
+	HHVuYbrizBO6e91fYGgi/QHYdxq/gB4=
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/6] x86/p2m: restrict more code to build just for HVM
+Message-ID: <be9ce75e-9119-2b5a-9e7b-437beb7ee446@suse.com>
+Date: Tue, 15 Dec 2020 17:24:28 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201209155452.28376-3-olaf@aepfle.de>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Wed, Dec 09, 2020 at 04:54:51PM +0100, Olaf Hering wrote:
-> Introduce new API to test if a fixed number of bits is clear or set,
-> and clear or set them all at once.
-> 
-> The caller has to make sure the input bitnumber is a multiply of BITS_PER_LONG.
-> 
-> This API avoids the loop over each bit in a known range just to see
-> if all of them are either clear or set.
-> 
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+1: p2m: tidy p2m_add_foreign() a little
+2: mm: p2m_add_foreign() is HVM-only
+3: p2m: set_{foreign,mmio}_p2m_entry() are HVM-only
+4: p2m: {,un}map_mmio_regions() are HVM-only
+5: mm: the gva_to_gfn() hook is HVM-only
+6: p2m: set_shared_p2m_entry() is MEM_SHARING-only
 
-I would rather these be introduced along side their callers.
-
-> ---
->  tools/libs/ctrl/xc_bitops.h | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> 
-> diff --git a/tools/libs/ctrl/xc_bitops.h b/tools/libs/ctrl/xc_bitops.h
-> index f0bac4a071..92f38872fb 100644
-> --- a/tools/libs/ctrl/xc_bitops.h
-> +++ b/tools/libs/ctrl/xc_bitops.h
-> @@ -77,4 +77,29 @@ static inline void bitmap_or(void *_dst, const void *_other,
->          dst[i] |= other[i];
->  }
->  
-> +static inline int test_bit_long_set(unsigned long nr_base, const void *_addr)
-
-What's wrong with requiring the input addr be const unsigned long *?
+Jan
 
