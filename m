@@ -2,33 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3300A2DB47E
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 20:32:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.54789.95356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E44E12DB483
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 20:36:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.54794.95386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpG2g-0002Qz-6U; Tue, 15 Dec 2020 19:31:26 +0000
+	id 1kpG7B-0002eY-Lv; Tue, 15 Dec 2020 19:36:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 54789.95356; Tue, 15 Dec 2020 19:31:26 +0000
+Received: by outflank-mailman (output) from mailman id 54794.95386; Tue, 15 Dec 2020 19:36:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpG2g-0002Qa-2x; Tue, 15 Dec 2020 19:31:26 +0000
-Received: by outflank-mailman (input) for mailman id 54789;
- Tue, 15 Dec 2020 19:31:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kpG2e-0002QV-NC
- for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 19:31:24 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kpG2d-00066z-J6; Tue, 15 Dec 2020 19:31:23 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kpG2d-0006Hh-B8; Tue, 15 Dec 2020 19:31:23 +0000
+	id 1kpG7B-0002e6-Hq; Tue, 15 Dec 2020 19:36:05 +0000
+Received: by outflank-mailman (input) for mailman id 54794;
+ Tue, 15 Dec 2020 19:36:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qx/l=FT=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kpG79-0002dt-Nv
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 19:36:03 +0000
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 51b1f04b-56e2-42a6-8ef0-da9e77fdff67;
+ Tue, 15 Dec 2020 19:36:03 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BFJXqZR156836;
+ Tue, 15 Dec 2020 19:35:58 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 35cntm4dwn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 15 Dec 2020 19:35:58 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BFJZ9UW009806;
+ Tue, 15 Dec 2020 19:35:58 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 35e6jrmaqq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 15 Dec 2020 19:35:57 +0000
+Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0BFJZv03011217;
+ Tue, 15 Dec 2020 19:35:57 GMT
+Received: from [10.39.237.186] (/10.39.237.186)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 15 Dec 2020 11:35:56 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,116 +56,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=sW1I+YEDrMePCyLq/HFc207N4WzhJW7c49godHdP1UE=; b=CLGNByGtonUId8vtf+wG7PqSe1
-	kMjq1yDpk8r+UvmOwEuO1lCDvrhXmpDRYgdfzNxtQC34aYbzNG7bCmoZv+/59hTfMC7bTsnYBA6Tk
-	Us59p2QLqO2NvApBQ9YRVCJrGVNNQbg9nvQw5mTvxJDmoNwjW1nMy066qBHt3gVJvFco=;
-Subject: Re: [RFC PATCH v2 00/15] xen/arm: port Linux LL/SC and LSE atomics
- helpers to Xen.
-To: Ash Wilding <ash.j.wilding@gmail.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, rahul.singh@arm.com,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20201111215203.80336-1-ash.j.wilding@gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <cb0f7055-6d9a-5c39-6198-109593fd3424@xen.org>
-Date: Tue, 15 Dec 2020 19:31:21 +0000
+X-Inumbo-ID: 51b1f04b-56e2-42a6-8ef0-da9e77fdff67
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=s0Cs1JEkSZnaprExuXHSIt4siSUpbCCqvHiWI9iK+Dc=;
+ b=Ro0VZ1qVg2R7st409/BXYUjldRN15ppn5/7vDVpnV4wjD6w0NRhRg0F3GxDfUffJdrcj
+ J/Sn0PRL/olk8HDRkDJses0JNQLQPMRmzEx6U5SVqz7G/HMIRhNbP6tV5eZbaIdNL8KL
+ OSHjhYovQUtqDjo4Mjd7kw+2HNP4kOdZDoTVhGrNuBiPM3gr6YAjkgy/PKM+QvNXkJ9z
+ ynGyBfTY56XK5Gf/ocSXBrOOfi1RUrToOBmJ+angZ7hhisKhy8gC6pErPGa9frP2FIA+
+ MSzvk6Q6HhKO++64dLImSbUWzf0qet0e5d1UXVlwwMM7SbrJu1clVyWUaq5OESlfWV1m AQ== 
+Subject: Re: [PATCH v2] xen/xenbus: make xs_talkv() interruptible
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+        linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+References: <20201215111055.3810-1-jgross@suse.com>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <bd15d0d7-e4d9-74e8-31d5-131434af7f1e@oracle.com>
+Date: Tue, 15 Dec 2020 14:35:55 -0500
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <20201111215203.80336-1-ash.j.wilding@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <20201215111055.3810-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9836 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 mlxscore=0 bulkscore=0
+ malwarescore=0 adultscore=0 mlxlogscore=999 phishscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012150130
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9836 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 phishscore=0 mlxscore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ mlxlogscore=999 impostorscore=0 priorityscore=1501 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012150130
+
+
+On 12/15/20 6:10 AM, Juergen Gross wrote:
+> In case a process waits for any Xenstore action in the xenbus driver
+> it should be interruptible by signals.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - don't special case SIGKILL as libxenstore is handling -EINTR fine
+
+
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com
 
 
 
-On 11/11/2020 21:51, Ash Wilding wrote:
-> From: Ash Wilding <ash.j.wilding@gmail.com>
-> 
-> 
-> Hey,
-
-Hi Ash,
-
-> 
-> I've found some time to improve this series a bit:
-> 
-> 
-> Changes since RFC v1
-> ====================
-> 
->   - Broken up patches into smaller chunks to aid in readability.
-> 
->   - As per Julien's feedback I've also introduced intermediary patches
->     that first remove Xen's existing headers, then pull in the current
->     Linux versions as-is. This means we only need to review the changes
->     made while porting to Xen, rather than reviewing the existing Linux
->     code.
-> 
->   - Pull in Linux's <asm-generic/rwonce.h> as <xen/rwonce.h> for
->     __READ_ONCE()/__WRITE_ONCE() instead of putting these in Xen's
->     <xen/compiler.h>. While doing this, provide justification for
->     dropping Linux's <linux/compiler_types.h> and relaxing the
->     __READ_ONCE() usage of __unqual_scalar_typeof() to just typeof()
->     (see patches #5 and #6).
-> 
-> 
-> 
-> Keeping the rest of the cover-letter unchanged as it would still be
-> good to discuss these things:
-> 
-> 
-> Arguments in favour of doing this
-> =================================
-> 
->      - Lets SMMUv3 driver switch to using <asm/atomic.h> rather than
->        maintaining its own implementation of the helpers.
-> 
->      - Provides mitigation against XSA-295 [2], which affects both arm32
->        and arm64, across all versions of Xen, and may allow a domU to
->        maliciously or erroneously DoS the hypervisor.
-> 
->      - All Armv8-A core implementations since ~2017 implement LSE so
->        there is an argument to be made we are long overdue support in
->        Xen. This is compounded by LSE atomics being more performant than
->        LL/SC atomics in most real-world applications, especially at high
->        core counts.
-> 
->      - We may be able to get improved performance when using LL/SC too
->        as Linux provides helpers with relaxed ordering requirements which
->        are currently not available in Xen, though for this we would need
->        to go back through existing code to see where the more relaxed
->        versions can be safely used.
-> 
->      - Anything else?
-> 
-> 
-> Arguments against doing this
-> ============================
-> 
->      - Limited testing infrastructure in place to ensure use of new
->        atomics helpers does not introduce new bugs and regressions. This
->        is a particularly strong argument given how difficult it can be to
->        identify and debug malfunctioning atomics. The old adage applies,
->        "If it ain't broke, don't fix it."
-
-I am not too concerned about the Linux atomics implementation. They are 
-well tested and your changes doesn't seem to touch the implementation 
-itself.
-
-However, I vaguely remember that some of the atomics helper in Xen are 
-somewhat much stronger than the Linux counterpart.
-
-Would you be able to look at all the existing helpers and see whether 
-the memory ordering diverge?
-
-Once we have a list we could decide whether we want to make them 
-stronger again or check the callers.
-
-Cheers,
-
--- 
-Julien Grall
 
