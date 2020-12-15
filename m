@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E11992DAD42
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 13:31:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.53421.93171 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4B4E2DAD3A
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 13:29:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.53335.93065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp9TU-0002KL-B7; Tue, 15 Dec 2020 12:30:40 +0000
+	id 1kp9ST-0000CF-0I; Tue, 15 Dec 2020 12:29:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 53421.93171; Tue, 15 Dec 2020 12:30:40 +0000
+Received: by outflank-mailman (output) from mailman id 53335.93065; Tue, 15 Dec 2020 12:29:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp9TU-0002Jb-3g; Tue, 15 Dec 2020 12:30:40 +0000
-Received: by outflank-mailman (input) for mailman id 53421;
- Tue, 15 Dec 2020 12:30:38 +0000
+	id 1kp9SS-0000Ak-Or; Tue, 15 Dec 2020 12:29:36 +0000
+Received: by outflank-mailman (input) for mailman id 53335;
+ Tue, 15 Dec 2020 12:29:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tdgx=FT=xenbits.xen.org=gdunlap@srs-us1.protection.inumbo.net>)
- id 1kp9LA-0004tM-4b
- for xen-devel@lists.xen.org; Tue, 15 Dec 2020 12:22:04 +0000
+ id 1kp9LK-0004tM-55
+ for xen-devel@lists.xen.org; Tue, 15 Dec 2020 12:22:14 +0000
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e67aa02f-9b8c-4dd9-a4d0-60106c7525b1;
- Tue, 15 Dec 2020 12:20:31 +0000 (UTC)
+ id 9eead270-3558-4f71-b4c2-f23cd526df3c;
+ Tue, 15 Dec 2020 12:20:32 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <gdunlap@xenbits.xen.org>)
- id 1kp9Jb-0005kJ-Cm; Tue, 15 Dec 2020 12:20:27 +0000
+ id 1kp9Jc-0005ke-AN; Tue, 15 Dec 2020 12:20:28 +0000
 Received: from gdunlap by xenbits.xenproject.org with local (Exim 4.92)
  (envelope-from <gdunlap@xenbits.xen.org>)
- id 1kp9Jb-0007Au-Bq; Tue, 15 Dec 2020 12:20:27 +0000
+ id 1kp9Jc-0007Bp-9a; Tue, 15 Dec 2020 12:20:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,13 +43,13 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e67aa02f-9b8c-4dd9-a4d0-60106c7525b1
+X-Inumbo-ID: 9eead270-3558-4f71-b4c2-f23cd526df3c
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
 	Content-Transfer-Encoding:Content-Type;
-	bh=LY96pn3vSH/hD6YioZ1DWoLiSBci+jA7YDmltUbIXqE=; b=TYAyDH+o2yI6kX9ThFdwxQc+jU
-	vlKEqaIzAzIqYJo1VGh2hUOgS/ja/oSEx0cocBeR4k+AWSONaEggQhvNqCnz5bELmIHn5xV5GX005
-	xsW4embEE4tSzhg6mzRqQuR7LeAPtrmSN+NIT941L1u+x2nvnHMPENMYH1eFG60uODM4=;
+	bh=qwX7c8Iq4udLBN2i+1bIIl7S6k70oFw1h75yc/A/GH8=; b=WaOy0XVVA/VZUwpBih3i5GNSiH
+	CJZN7Dw0VxwgSaoxeUHepeKMzzy/Q/DGubTRElChX4cjmwwjseIyUKNugI/4JN3rf7KYwjMRLHd2k
+	sQORxrR1lb7IlaLD6e4fzItcF0/p8451p/HxgvEPYYYCCAUdwyxpJ33uOjsoIqMaBvF4=;
 Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
 Content-Transfer-Encoding: binary
 MIME-Version: 1.0
@@ -58,10 +58,10 @@ To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
  xen-users@lists.xen.org, oss-security@lists.openwall.com
 From: Xen.org security team <security@xen.org>
 CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 356 v3 (CVE-2020-29567) - infinite loop
- when cleaning up IRQ vectors
-Message-Id: <E1kp9Jb-0007Au-Bq@xenbits.xenproject.org>
-Date: Tue, 15 Dec 2020 12:20:27 +0000
+Subject: Xen Security Advisory 358 v4 (CVE-2020-29570) - FIFO event
+ channels control block related ordering
+Message-Id: <E1kp9Jc-0007Bp-9a@xenbits.xenproject.org>
+Date: Tue, 15 Dec 2020 12:20:28 +0000
 
 --=separator
 Content-Type: text/plain; charset="utf-8"
@@ -71,12 +71,12 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-            Xen Security Advisory CVE-2020-29567 / XSA-356
-                               version 3
+            Xen Security Advisory CVE-2020-29570 / XSA-358
+                               version 4
 
-              infinite loop when cleaning up IRQ vectors
+          FIFO event channels control block related ordering
 
-UPDATES IN VERSION 3
+UPDATES IN VERSION 4
 ====================
 
 Public release.
@@ -84,33 +84,22 @@ Public release.
 ISSUE DESCRIPTION
 =================
 
-When moving IRQs between CPUs to distribute the load of IRQ handling,
-IRQ vectors are dynamically allocated and de-allocated on the relevant
-CPUs.  De-allocation has to happen when certain constraints are met.
-If these conditions are not met when first checked, the checking CPU
-may send an interrupt to itself, in the expectation that this IRQ will
-be delivered only after the condition preventing the cleanup has
-cleared.  For two specific IRQ vectors this expectation was violated,
-resulting in a continuous stream of self-interrupts, which renders the
-CPU effectively unusable.
+Recording of the per-vCPU control block mapping maintained by Xen and
+that of pointers into the control block is reversed.  The consumer
+assumes, seeing the former initialized, that the latter are also ready
+for use.
 
 IMPACT
 ======
 
-A domain with a passed through PCI device can cause lockup of a
-physical CPU, resulting in a Denial of Service (DoS) to the entire
-host.
+Malicious or buggy guest kernels can mount a Denial of Service (DoS)
+attack affecting the entire system.
 
 VULNERABLE SYSTEMS
 ==================
 
-Only Xen 4.14 is affected.  Xen versions 4.13 and older are not
-affected.
-
-Only x86 systems are vulnerable.  Arm systems are not vulnerable.
-
-Only guests with physical PCI devices passed through to them can exploit
-the vulnerability.
+All Xen versions from 4.4 onwards are vulnerable.  Xen versions 4.3 and
+earlier are not vulnerable.
 
 MITIGATION
 ==========
@@ -120,23 +109,23 @@ There is no known mitigation.
 CREDITS
 =======
 
-This issue was discovered by Roger Pau Monné of Citrix.
+This issue was discovered by Julien Grall of Amazon.
 
 RESOLUTION
 ==========
 
-Applying the attached patch resolves this issue.
+Applying the appropriate attached patch resolves this issue.
 
 Note that patches for released versions are generally prepared to
 apply to the stable branches, and may not apply cleanly to the most
 recent release tarball.  Downstreams are encouraged to update to the
 tip of the stable branch before applying these patches.
 
-xsa356.patch           xen-unstable - Xen 4.14.x
+xsa358.patch           xen-unstable - 4.10
 
-$ sha256sum xsa356*
-77316e3b86e2482ee9741db7484d323a399028762af1c88734f8c83e78069fb3  xsa356.meta
-21c217e41549bf74d5fcc26f1d23b6d902c5c72de5e2c8490842aea9f999b036  xsa356.patch
+$ sha256sum xsa358*
+c8392659f71ea31574f9f82ab80a37e1359e8b8178d7b060167500bfb134eecc  xsa358.meta
+ee719ff8dbf30794ddac1464267cb47c1aac7e39da32d82263f4aebc1a9b509b  xsa358.patch
 $
 
 DEPLOYMENT DURING EMBARGO
@@ -165,103 +154,129 @@ consult the Xen Project community's agreed Security Policy:
 -----BEGIN PGP SIGNATURE-----
 
 iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl/YqeAMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZv4cIAIdqAn7O/TicwVod/L1Lktuk94g73LQlhRxMFnQ2
-CoFrIBJtvyFq0m0OqRcVav3hb8wa7EdbmbJXgvoC4emKUcIcUkMA/dyvUi9SKdGP
-5iQDL0Vsasq7rQN5vjuUA6KIDp4qyT87mxNLUwMzwrXDORFHT9YZO/SZLY37WU7S
-UX0qaDh9FpwtdB4nDULqNimAZcy1yonXkD8bb6jDmHIeTx33cfe4BNvYqApwTPD8
-fxctAlsYHLuwfnEBdQ+cadfcjF/PqkRcsGtMk6hGRn2hEscEfHWMH9I/R9lZvyj5
-CjfFKzb2WpDu3KUuJJJBTavkZ97Bs+flVNGLrQ/AgKoitQs=
-=vDoA
+b3JnAAoJEIP+FMlX6CvZlv0H/0tFfvZ8aKiUPFYwu/9WgNwLZIZJUgqIt1q1ooxt
+6S+e8yHGhg3mBoAmfqN38sffVdD14z9DVFfIpMtrZpyfGzX2kmCPwC+MAtPliaNC
+8rH7CDJHuQU35z5c/3q12pldtAFKLBhhqulg3Q5jLHi/HAKvypJFibLyqmqY+Uoo
+yEMqpE1UtzhoYD4RsttcT1chGiBn8Gk8wBVcLx/SzzcU6xJ+X0F37VaIyTPW+69l
+74ov4jzpt667mr4VtNOCmIAHuRZNLhValRUwzwSvGGjmiF8ACKbeKZ5IQ3m7gCBA
+7fNRaRDdsKJi9amdifKfyn28u/+ltkPoCK6jAQcO1Eg/+0Q=
+=lxX6
 -----END PGP SIGNATURE-----
 
 --=separator
-Content-Type: application/octet-stream; name="xsa356.meta"
-Content-Disposition: attachment; filename="xsa356.meta"
+Content-Type: application/octet-stream; name="xsa358.meta"
+Content-Disposition: attachment; filename="xsa358.meta"
 Content-Transfer-Encoding: base64
 
-ewogICJYU0EiOiAzNTYsCiAgIlN1cHBvcnRlZFZlcnNpb25zIjogWwogICAg
-Im1hc3RlciIsCiAgICAiNC4xNCIKICBdLAogICJUcmVlcyI6IFsKICAgICJ4
-ZW4iCiAgXSwKICAiUmVjaXBlcyI6IHsKICAgICI0LjE0IjogewogICAgICAi
-UmVjaXBlcyI6IHsKICAgICAgICAieGVuIjogewogICAgICAgICAgIlN0YWJs
-ZVJlZiI6ICIxZDFkMWY1MzkxOTc2NDU2YTc5ZGFhYzBkY2ZlNzE1N2RhMWU1
-NGY3IiwKICAgICAgICAgICJQcmVyZXFzIjogWwogICAgICAgICAgICAzNTMs
-CiAgICAgICAgICAgIDExNSwKICAgICAgICAgICAgMzIyLAogICAgICAgICAg
-ICAzMjMsCiAgICAgICAgICAgIDMyNCwKICAgICAgICAgICAgMzI1LAogICAg
-ICAgICAgICAzMzAsCiAgICAgICAgICAgIDM1MiwKICAgICAgICAgICAgMzQ4
-CiAgICAgICAgICBdLAogICAgICAgICAgIlBhdGNoZXMiOiBbCiAgICAgICAg
-ICAgICJ4c2EzNTYucGF0Y2giCiAgICAgICAgICBdCiAgICAgICAgfQogICAg
-ICB9CiAgICB9LAogICAgIm1hc3RlciI6IHsKICAgICAgIlJlY2lwZXMiOiB7
-CiAgICAgICAgInhlbiI6IHsKICAgICAgICAgICJTdGFibGVSZWYiOiAiM2Fl
-NDY5YWY4ZTY4MGRmMzFlZWNkMGEyYWM2YTgzYjU4YWQ3Y2U1MyIsCiAgICAg
-ICAgICAiUHJlcmVxcyI6IFsKICAgICAgICAgICAgMzUzLAogICAgICAgICAg
-ICAxMTUsCiAgICAgICAgICAgIDMyMiwKICAgICAgICAgICAgMzIzLAogICAg
-ICAgICAgICAzMjQsCiAgICAgICAgICAgIDMyNSwKICAgICAgICAgICAgMzMw
-LAogICAgICAgICAgICAzNTIsCiAgICAgICAgICAgIDM0OAogICAgICAgICAg
-XSwKICAgICAgICAgICJQYXRjaGVzIjogWwogICAgICAgICAgICAieHNhMzU2
-LnBhdGNoIgogICAgICAgICAgXQogICAgICAgIH0KICAgICAgfQogICAgfQog
-IH0KfQ==
+ewogICJYU0EiOiAzNTgsCiAgIlN1cHBvcnRlZFZlcnNpb25zIjogWwogICAg
+Im1hc3RlciIsCiAgICAiNC4xNCIsCiAgICAiNC4xMyIsCiAgICAiNC4xMiIs
+CiAgICAiNC4xMSIsCiAgICAiNC4xMCIKICBdLAogICJUcmVlcyI6IFsKICAg
+ICJ4ZW4iCiAgXSwKICAiUmVjaXBlcyI6IHsKICAgICI0LjEwIjogewogICAg
+ICAiUmVjaXBlcyI6IHsKICAgICAgICAieGVuIjogewogICAgICAgICAgIlN0
+YWJsZVJlZiI6ICIxZDcyZDk5MTVlZGZmMGRkNDFmNjAxYmJiMGIxZjgzYzAy
+ZmYxNjg5IiwKICAgICAgICAgICJQcmVyZXFzIjogWwogICAgICAgICAgICAz
+NTMsCiAgICAgICAgICAgIDExNSwKICAgICAgICAgICAgMzIyLAogICAgICAg
+ICAgICAzMjMsCiAgICAgICAgICAgIDMyNCwKICAgICAgICAgICAgMzI1LAog
+ICAgICAgICAgICAzMzAsCiAgICAgICAgICAgIDM1MiwKICAgICAgICAgICAg
+MzQ4LAogICAgICAgICAgICAzNTYKICAgICAgICAgIF0sCiAgICAgICAgICAi
+UGF0Y2hlcyI6IFsKICAgICAgICAgICAgInhzYTM1OC5wYXRjaCIKICAgICAg
+ICAgIF0KICAgICAgICB9CiAgICAgIH0KICAgIH0sCiAgICAiNC4xMSI6IHsK
+ICAgICAgIlJlY2lwZXMiOiB7CiAgICAgICAgInhlbiI6IHsKICAgICAgICAg
+ICJTdGFibGVSZWYiOiAiNDFhODIyYzM5MjYzNTBmMjY5MTdkNzQ3YzhkZmVk
+MWM0NGEyY2Y0MiIsCiAgICAgICAgICAiUHJlcmVxcyI6IFsKICAgICAgICAg
+ICAgMzUzLAogICAgICAgICAgICAxMTUsCiAgICAgICAgICAgIDMyMiwKICAg
+ICAgICAgICAgMzIzLAogICAgICAgICAgICAzMjQsCiAgICAgICAgICAgIDMy
+NSwKICAgICAgICAgICAgMzMwLAogICAgICAgICAgICAzNTIsCiAgICAgICAg
+ICAgIDM0OCwKICAgICAgICAgICAgMzU2CiAgICAgICAgICBdLAogICAgICAg
+ICAgIlBhdGNoZXMiOiBbCiAgICAgICAgICAgICJ4c2EzNTgucGF0Y2giCiAg
+ICAgICAgICBdCiAgICAgICAgfQogICAgICB9CiAgICB9LAogICAgIjQuMTIi
+OiB7CiAgICAgICJSZWNpcGVzIjogewogICAgICAgICJ4ZW4iOiB7CiAgICAg
+ICAgICAiU3RhYmxlUmVmIjogIjgxNDVkMzhiNDgwMDkyNTVhMzJhYjg3YTAy
+ZTQ4MWNkMDljODExZjkiLAogICAgICAgICAgIlByZXJlcXMiOiBbCiAgICAg
+ICAgICAgIDM1MywKICAgICAgICAgICAgMTE1LAogICAgICAgICAgICAzMjIs
+CiAgICAgICAgICAgIDMyMywKICAgICAgICAgICAgMzI0LAogICAgICAgICAg
+ICAzMjUsCiAgICAgICAgICAgIDMzMCwKICAgICAgICAgICAgMzUyLAogICAg
+ICAgICAgICAzNDgsCiAgICAgICAgICAgIDM1NgogICAgICAgICAgXSwKICAg
+ICAgICAgICJQYXRjaGVzIjogWwogICAgICAgICAgICAieHNhMzU4LnBhdGNo
+IgogICAgICAgICAgXQogICAgICAgIH0KICAgICAgfQogICAgfSwKICAgICI0
+LjEzIjogewogICAgICAiUmVjaXBlcyI6IHsKICAgICAgICAieGVuIjogewog
+ICAgICAgICAgIlN0YWJsZVJlZiI6ICJiNTMwMjI3M2UyYzUxOTQwMTcyNDAw
+NDg2NjQ0NjM2ZjJmNGZjNjRhIiwKICAgICAgICAgICJQcmVyZXFzIjogWwog
+ICAgICAgICAgICAzNTMsCiAgICAgICAgICAgIDExNSwKICAgICAgICAgICAg
+MzIyLAogICAgICAgICAgICAzMjMsCiAgICAgICAgICAgIDMyNCwKICAgICAg
+ICAgICAgMzI1LAogICAgICAgICAgICAzMzAsCiAgICAgICAgICAgIDM1MiwK
+ICAgICAgICAgICAgMzQ4LAogICAgICAgICAgICAzNTYKICAgICAgICAgIF0s
+CiAgICAgICAgICAiUGF0Y2hlcyI6IFsKICAgICAgICAgICAgInhzYTM1OC5w
+YXRjaCIKICAgICAgICAgIF0KICAgICAgICB9CiAgICAgIH0KICAgIH0sCiAg
+ICAiNC4xNCI6IHsKICAgICAgIlJlY2lwZXMiOiB7CiAgICAgICAgInhlbiI6
+IHsKICAgICAgICAgICJTdGFibGVSZWYiOiAiMWQxZDFmNTM5MTk3NjQ1NmE3
+OWRhYWMwZGNmZTcxNTdkYTFlNTRmNyIsCiAgICAgICAgICAiUHJlcmVxcyI6
+IFsKICAgICAgICAgICAgMzUzLAogICAgICAgICAgICAxMTUsCiAgICAgICAg
+ICAgIDMyMiwKICAgICAgICAgICAgMzIzLAogICAgICAgICAgICAzMjQsCiAg
+ICAgICAgICAgIDMyNSwKICAgICAgICAgICAgMzMwLAogICAgICAgICAgICAz
+NTIsCiAgICAgICAgICAgIDM0OCwKICAgICAgICAgICAgMzU2CiAgICAgICAg
+ICBdLAogICAgICAgICAgIlBhdGNoZXMiOiBbCiAgICAgICAgICAgICJ4c2Ez
+NTgucGF0Y2giCiAgICAgICAgICBdCiAgICAgICAgfQogICAgICB9CiAgICB9
+LAogICAgIm1hc3RlciI6IHsKICAgICAgIlJlY2lwZXMiOiB7CiAgICAgICAg
+InhlbiI6IHsKICAgICAgICAgICJTdGFibGVSZWYiOiAiM2FlNDY5YWY4ZTY4
+MGRmMzFlZWNkMGEyYWM2YTgzYjU4YWQ3Y2U1MyIsCiAgICAgICAgICAiUHJl
+cmVxcyI6IFsKICAgICAgICAgICAgMzUzLAogICAgICAgICAgICAxMTUsCiAg
+ICAgICAgICAgIDMyMiwKICAgICAgICAgICAgMzIzLAogICAgICAgICAgICAz
+MjQsCiAgICAgICAgICAgIDMyNSwKICAgICAgICAgICAgMzMwLAogICAgICAg
+ICAgICAzNTIsCiAgICAgICAgICAgIDM0OCwKICAgICAgICAgICAgMzU2CiAg
+ICAgICAgICBdLAogICAgICAgICAgIlBhdGNoZXMiOiBbCiAgICAgICAgICAg
+ICJ4c2EzNTgucGF0Y2giCiAgICAgICAgICBdCiAgICAgICAgfQogICAgICB9
+CiAgICB9CiAgfQp9
 
 --=separator
-Content-Type: application/octet-stream; name="xsa356.patch"
-Content-Disposition: attachment; filename="xsa356.patch"
+Content-Type: application/octet-stream; name="xsa358.patch"
+Content-Disposition: attachment; filename="xsa358.patch"
 Content-Transfer-Encoding: base64
 
-RnJvbTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+
-ClN1YmplY3Q6IHg4Ni9pcnE6IGZpeCBpbmZpbml0ZSBsb29wIGluIGlycV9t
-b3ZlX2NsZWFudXBfaW50ZXJydXB0CgpJZiBYZW4gZW50ZXJzIGlycV9tb3Zl
-X2NsZWFudXBfaW50ZXJydXB0IHdpdGggYSBkeW5hbWljIHZlY3RvciBiZWxv
-dwpJUlFfTU9WRV9DTEVBTlVQX1ZFQ1RPUiBwZW5kaW5nIGluIElSUiAoMHgy
-MCBvciAweDIxKSB0aGF0J3MgYWxzbwpkZXNpZ25hdGVkIGZvciBhIGNsZWFu
-dXAgaXQgd2lsbCBlbnRlciBhIGxvb3Agd2hlcmUKaXJxX21vdmVfY2xlYW51
-cF9pbnRlcnJ1cHQgY29udGludW91c2x5IHNlbmRzIGEgY2xlYW51cCBJUEkg
-KHZlY3RvcgoweDIyKSB0byBpdHNlbGYgd2hpbGUgd2FpdGluZyBmb3IgdGhl
-IHZlY3RvciB3aXRoIGxvd2VyIHByaW9yaXR5IHRvIGJlCmluamVjdGVkIC0g
-d2hpY2ggd2lsbCBuZXZlciBoYXBwZW4gYmVjYXVzZSBJUlFfTU9WRV9DTEVB
-TlVQX1ZFQ1RPUgp0YWtlcyBwcmVjZWRlbmNlIGFuZCBpdCdzIGFsd2F5cyBp
-bmplY3RlZCBmaXJzdC4KCkZpeCB0aGlzIGJ5IG1ha2luZyBzdXJlIHZlY3Rv
-cnMgYmVsb3cgSVJRX01PVkVfQ0xFQU5VUF9WRUNUT1IgYXJlCm1hcmtlZCBh
-cyB1c2VkIGFuZCB0aHVzIG5vdCBhdmFpbGFibGUgZm9yIEFQcy4gQWxzbyBh
-ZGQgc29tZSBsb2dpYyB0bwphc3NlcnQgYW5kIHByZXZlbnQgaXJxX21vdmVf
-Y2xlYW51cF9pbnRlcnJ1cHQgZnJvbSBlbnRlcmluZyBzdWNoIGFuCmluZmlu
-aXRlIGxvb3AsIGFsYmVpdCB0aGF0IHNob3VsZCBuZXZlciBoYXBwZW4gZ2l2
-ZW4gdGhlIGN1cnJlbnQgY29kZS4KClRoaXMgaXMgWFNBLTM1NiAvIENWRS0y
-MDIwLTI5NTY3LgoKRml4ZXM6IDNmYmEwNmJhOWY4ICgneDg2L0lSUTogcmUt
-dXNlIGxlZ2FjeSB2ZWN0b3IgcmFuZ2VzIG9uIEFQcycpClNpZ25lZC1vZmYt
-Ynk6IFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpS
-ZXZpZXdlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoK
-LS0tIGEveGVuL2FyY2gveDg2L2lycS5jCisrKyBiL3hlbi9hcmNoL3g4Ni9p
-cnEuYwpAQCAtNDQxLDggKzQ0MSwxNSBAQCBpbnQgX19pbml0IGluaXRfaXJx
-X2RhdGEodm9pZCkKICAgICBzZXRfYml0KEhZUEVSQ0FMTF9WRUNUT1IsIHVz
-ZWRfdmVjdG9ycyk7CiAjZW5kaWYKICAgICAKLSAgICAvKiBJUlFfTU9WRV9D
-TEVBTlVQX1ZFQ1RPUiB1c2VkIGZvciBjbGVhbiB1cCB2ZWN0b3JzICovCi0g
-ICAgc2V0X2JpdChJUlFfTU9WRV9DTEVBTlVQX1ZFQ1RPUiwgdXNlZF92ZWN0
-b3JzKTsKKyAgICAvKgorICAgICAqIE1hcmsgdmVjdG9ycyB1cCB0byB0aGUg
-Y2xlYW51cCBvbmUgYXMgdXNlZCwgdG8gcHJldmVudCBhbiBpbmZpbml0ZSBs
-b29wCisgICAgICogaW52b2tpbmcgaXJxX21vdmVfY2xlYW51cF9pbnRlcnJ1
-cHQuCisgICAgICovCisgICAgQlVJTERfQlVHX09OKElSUV9NT1ZFX0NMRUFO
-VVBfVkVDVE9SIDwgRklSU1RfRFlOQU1JQ19WRUNUT1IpOworICAgIGZvciAo
-IHZlY3RvciA9IEZJUlNUX0RZTkFNSUNfVkVDVE9SOworICAgICAgICAgIHZl
-Y3RvciA8PSBJUlFfTU9WRV9DTEVBTlVQX1ZFQ1RPUjsKKyAgICAgICAgICB2
-ZWN0b3IrKyApCisgICAgICAgIF9fc2V0X2JpdCh2ZWN0b3IsIHVzZWRfdmVj
-dG9ycyk7CiAKICAgICByZXR1cm4gMDsKIH0KQEAgLTcyNywxMCArNzM0LDYg
-QEAgdm9pZCBpcnFfbW92ZV9jbGVhbnVwX2ludGVycnVwdChzdHJ1Y3QgY3B1
-X3VzZXJfcmVncyAqcmVncykKIHsKICAgICB1bnNpZ25lZCB2ZWN0b3IsIG1l
-OwogCi0gICAgLyogVGhpcyBpbnRlcnJ1cHQgc2hvdWxkIG5vdCBuZXN0IGlu
-c2lkZSBvdGhlcnMuICovCi0gICAgQlVJTERfQlVHX09OKEFQSUNfUFJJT19D
-TEFTUyhJUlFfTU9WRV9DTEVBTlVQX1ZFQ1RPUikgIT0KLSAgICAgICAgICAg
-ICAgICAgQVBJQ19QUklPX0NMQVNTKEZJUlNUX0RZTkFNSUNfVkVDVE9SKSk7
-Ci0KICAgICBhY2tfQVBJQ19pcnEoKTsKIAogICAgIG1lID0gc21wX3Byb2Nl
-c3Nvcl9pZCgpOwpAQCAtNzc0LDYgKzc3NywxMSBAQCB2b2lkIGlycV9tb3Zl
-X2NsZWFudXBfaW50ZXJydXB0KHN0cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdz
-KQogICAgICAgICAgKi8KICAgICAgICAgaWYgKCBpcnIgJiAoMXUgPDwgKHZl
-Y3RvciAlIDMyKSkgKQogICAgICAgICB7CisgICAgICAgICAgICBpZiAoIHZl
-Y3RvciA8IElSUV9NT1ZFX0NMRUFOVVBfVkVDVE9SICkKKyAgICAgICAgICAg
-IHsKKyAgICAgICAgICAgICAgICBBU1NFUlRfVU5SRUFDSEFCTEUoKTsKKyAg
-ICAgICAgICAgICAgICBnb3RvIHVubG9jazsKKyAgICAgICAgICAgIH0KICAg
-ICAgICAgICAgIHNlbmRfSVBJX3NlbGYoSVJRX01PVkVfQ0xFQU5VUF9WRUNU
-T1IpOwogICAgICAgICAgICAgVFJBQ0VfM0QoVFJDX0hXX0lSUV9NT1ZFX0NM
-RUFOVVBfREVMQVksCiAgICAgICAgICAgICAgICAgICAgICBpcnEsIHZlY3Rv
-ciwgc21wX3Byb2Nlc3Nvcl9pZCgpKTsK
+RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
+OiBldnRjaG4vRklGTzogcmUtb3JkZXIgYW5kIHN5bmNocm9uaXplICh3aXRo
+KSBtYXBfY29udHJvbF9ibG9jaygpCgpGb3IgZXZ0Y2huX2ZpZm9fc2V0X3Bl
+bmRpbmcoKSdzIGNoZWNrIG9mIHRoZSBjb250cm9sIGJsb2NrIGhhdmluZyBi
+ZWVuCnNldCB0byBiZSBlZmZlY3RpdmUsIG9yZGVyaW5nIG9mIHJlc3BlY3Rp
+dmUgcmVhZHMgYW5kIHdyaXRlcyBuZWVkcyB0byBiZQplbnN1cmVkOiBUaGUg
+Y29udHJvbCBibG9jayBwb2ludGVyIG5lZWRzIHRvIGJlIHJlY29yZGVkIHN0
+cmljdGx5IGFmdGVyCnRoZSBzZXR0aW5nIG9mIGFsbCB0aGUgcXVldWUgaGVh
+ZHMsIGFuZCBpdCBuZWVkcyBjaGVja2luZyBzdHJpY3RseQpiZWZvcmUgYW55
+IHVzZXMgb2YgdGhlbSAodGhpcyBsYXR0ZXIgYXNwZWN0IHdhcyBhbHJlYWR5
+IGd1YXJhbnRlZWQpLgoKVGhpcyBpcyBYU0EtMzU4IC8gQ1ZFLTIwMjAtMjk1
+NzAuCgpSZXBvcnRlZC1ieTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9u
+LmNvbT4KU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1
+c2UuY29tPgpBY2tlZC1ieTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9u
+LmNvbT4KLS0tCnYzOiBEcm9wIHJlYWQtc2lkZSBiYXJyaWVyIGFnYWluLCBs
+ZXZlcmFnaW5nIGd1ZXN0X3Rlc3RfYW5kX3NldF9iaXQoKS4KdjI6IFJlLWJh
+c2Ugb3ZlciBxdWV1ZSBsb2NraW5nIHJlLXdvcmsuCgotLS0gYS94ZW4vY29t
+bW9uL2V2ZW50X2ZpZm8uYworKysgYi94ZW4vY29tbW9uL2V2ZW50X2ZpZm8u
+YwpAQCAtMjQ5LDYgKzI0OSwxMCBAQCBzdGF0aWMgdm9pZCBldnRjaG5fZmlm
+b19zZXRfcGVuZGluZyhzdHJ1CiAgICAgICAgICAgICBnb3RvIHVubG9jazsK
+ICAgICAgICAgfQogCisgICAgICAgIC8qCisgICAgICAgICAqIFRoaXMgYWxz
+byBhY3RzIGFzIHRoZSByZWFkIGNvdW50ZXJwYXJ0IG9mIHRoZSBzbXBfd21i
+KCkgaW4KKyAgICAgICAgICogbWFwX2NvbnRyb2xfYmxvY2soKS4KKyAgICAg
+ICAgICovCiAgICAgICAgIGlmICggZ3Vlc3RfdGVzdF9hbmRfc2V0X2JpdChk
+LCBFVlRDSE5fRklGT19MSU5LRUQsIHdvcmQpICkKICAgICAgICAgICAgIGdv
+dG8gdW5sb2NrOwogCkBAIC00NzQsNiArNDc4LDcgQEAgc3RhdGljIGludCBz
+ZXR1cF9jb250cm9sX2Jsb2NrKHN0cnVjdCB2Ywogc3RhdGljIGludCBtYXBf
+Y29udHJvbF9ibG9jayhzdHJ1Y3QgdmNwdSAqdiwgdWludDY0X3QgZ2ZuLCB1
+aW50MzJfdCBvZmZzZXQpCiB7CiAgICAgdm9pZCAqdmlydDsKKyAgICBzdHJ1
+Y3QgZXZ0Y2huX2ZpZm9fY29udHJvbF9ibG9jayAqY29udHJvbF9ibG9jazsK
+ICAgICB1bnNpZ25lZCBpbnQgaTsKICAgICBpbnQgcmM7CiAKQEAgLTQ4NCwx
+MCArNDg5LDE1IEBAIHN0YXRpYyBpbnQgbWFwX2NvbnRyb2xfYmxvY2soc3Ry
+dWN0IHZjcHUKICAgICBpZiAoIHJjIDwgMCApCiAgICAgICAgIHJldHVybiBy
+YzsKIAotICAgIHYtPmV2dGNobl9maWZvLT5jb250cm9sX2Jsb2NrID0gdmly
+dCArIG9mZnNldDsKKyAgICBjb250cm9sX2Jsb2NrID0gdmlydCArIG9mZnNl
+dDsKIAogICAgIGZvciAoIGkgPSAwOyBpIDw9IEVWVENITl9GSUZPX1BSSU9S
+SVRZX01JTjsgaSsrICkKLSAgICAgICAgdi0+ZXZ0Y2huX2ZpZm8tPnF1ZXVl
+W2ldLmhlYWQgPSAmdi0+ZXZ0Y2huX2ZpZm8tPmNvbnRyb2xfYmxvY2stPmhl
+YWRbaV07CisgICAgICAgIHYtPmV2dGNobl9maWZvLT5xdWV1ZVtpXS5oZWFk
+ID0gJmNvbnRyb2xfYmxvY2stPmhlYWRbaV07CisKKyAgICAvKiBBbGwgcXVl
+dWUgaGVhZHMgbXVzdCBoYXZlIGJlZW4gc2V0IGJlZm9yZSBzZXR0aW5nIHRo
+ZSBjb250cm9sIGJsb2NrLiAqLworICAgIHNtcF93bWIoKTsKKworICAgIHYt
+PmV2dGNobl9maWZvLT5jb250cm9sX2Jsb2NrID0gY29udHJvbF9ibG9jazsK
+IAogICAgIHJldHVybiAwOwogfQo=
 
 --=separator--
 
