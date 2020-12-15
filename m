@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECCF72DA7B5
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 06:30:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.52885.92297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4594A2DA822
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Dec 2020 07:34:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.52899.92328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp2tO-0006O6-B9; Tue, 15 Dec 2020 05:28:58 +0000
+	id 1kp3tn-00048I-I4; Tue, 15 Dec 2020 06:33:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 52885.92297; Tue, 15 Dec 2020 05:28:58 +0000
+Received: by outflank-mailman (output) from mailman id 52899.92328; Tue, 15 Dec 2020 06:33:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kp2tO-0006NW-4Z; Tue, 15 Dec 2020 05:28:58 +0000
-Received: by outflank-mailman (input) for mailman id 52885;
- Tue, 15 Dec 2020 05:28:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kp3tn-00047u-EG; Tue, 15 Dec 2020 06:33:27 +0000
+Received: by outflank-mailman (input) for mailman id 52899;
+ Tue, 15 Dec 2020 06:33:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kp2tL-0006NO-UM; Tue, 15 Dec 2020 05:28:55 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kp2tL-0006Tc-Mj; Tue, 15 Dec 2020 05:28:55 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kp2tL-00071V-Ep; Tue, 15 Dec 2020 05:28:55 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kp2tL-0001l1-EN; Tue, 15 Dec 2020 05:28:55 +0000
+ (envelope-from <SRS0=2CwE=FT=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kp3tl-00047p-Ur
+ for xen-devel@lists.xenproject.org; Tue, 15 Dec 2020 06:33:25 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e06a5c88-f9b1-40dc-8a91-4d75e497c552;
+ Tue, 15 Dec 2020 06:33:23 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1024BAF4C;
+ Tue, 15 Dec 2020 06:33:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,112 +39,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0pLDOVGpaUKXfsOPvtSTjDubAMPpKTb6UU7/1GLBwiQ=; b=J19QYm30dH0T5qMMRnIZiWP5Lt
-	d25YC14k22SArk7+Wy5LnI4JaPYXKEZDOukXeBkjdZhfplr+zux6gaKBU2O3slkwug2xhzQ6QeFy+
-	8/0VCrY5YUNl2Z6xwXwxQX742bf8TEfnuVgvbN9ZgDRfox00k2MHIT7nwHDfj72mwY0E=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157544-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e06a5c88-f9b1-40dc-8a91-4d75e497c552
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1608014002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=FZ5UAMInL92tsy7p0fKAS4wnHgF6N3gV+HXzR4TUUhA=;
+	b=kAea/Wdq/pzknwBoRRrBRNHqcVMoUlIaDn0qElGeEKc5AlKD3cz1Me49pNpviWtdbgPye+
+	tUWACvotwXajtfVWyo27HT61QRyk+a8tmq0BckW84DenH6Gd+rfcIzhOfCEddK7Z/B6+65
+	PO7LxJjRs6ewqwGx0yxc+z10A0/jgd8=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v5 0/3] xen: add support for automatic debug key actions in case of crash
+Date: Tue, 15 Dec 2020 07:33:16 +0100
+Message-Id: <20201215063319.23290-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Subject: [ovmf test] 157544: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=01726b6d23d4c8a870dbd5b96c0b9e3caf38ef3c
-X-Osstest-Versions-That:
-    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 15 Dec 2020 05:28:55 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 157544 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157544/
+When the host crashes it would sometimes be nice to have additional
+debug data available which could be produced via debug keys, but
+halting the server for manual intervention might be impossible due to
+the need to reboot/kexec rather sooner than later.
 
-Regressions :-(
+Add support for automatic debug key actions in case of crashes which
+can be activated via boot- or runtime-parameter.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386                    6 xen-build                fail REGR. vs. 157345
- build-amd64                   6 xen-build                fail REGR. vs. 157345
- build-amd64-xsm               6 xen-build                fail REGR. vs. 157345
- build-i386-xsm                6 xen-build                fail REGR. vs. 157345
+Changes in V4:
+- addressed comments (now patch 3)
+- added patches 1 and 2
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Changes in V5:
+- better bug frame construction on Arm (patch 1)
+- addressed comments
 
-version targeted for testing:
- ovmf                 01726b6d23d4c8a870dbd5b96c0b9e3caf38ef3c
-baseline version:
- ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+Juergen Gross (3):
+  xen/arm: add support for run_in_exception_handler()
+  xen: enable keyhandlers to work without register set specified
+  xen: add support for automatic debug key actions in case of crash
 
-Last test of basis   157345  2020-12-09 12:40:46 Z    5 days
-Failing since        157348  2020-12-09 15:39:39 Z    5 days   45 attempts
-Testing same since   157531  2020-12-14 22:40:42 Z    0 days    7 attempts
+ docs/misc/xen-command-line.pandoc | 41 ++++++++++++++++++
+ xen/arch/arm/traps.c              | 10 ++++-
+ xen/arch/arm/xen.lds.S            |  2 +
+ xen/common/kexec.c                |  8 ++--
+ xen/common/keyhandler.c           | 72 +++++++++++++++++++++++++++++--
+ xen/common/shutdown.c             |  4 +-
+ xen/common/virtual_region.c       |  2 -
+ xen/drivers/char/console.c        |  2 +-
+ xen/include/asm-arm/bug.h         | 45 +++++++++----------
+ xen/include/xen/kexec.h           | 10 ++++-
+ xen/include/xen/keyhandler.h      | 10 +++++
+ 11 files changed, 168 insertions(+), 38 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Ard Biesheuvel <ard.biesheuvel@arm.com>
-  Baraneedharan Anbazhagan <anbazhagan@hp.com>
-  Baraneedharan Anbazhagan <anbazhgan@hp.com>
-  Fan Wang <fan.wang@intel.com>
-  James Bottomley <jejb@linux.ibm.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Marc Moisson-Franckhauser <marc.moisson-franckhauser@arm.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Pierre Gondois <Pierre.Gondois@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Siyuan Fu <siyuan.fu@intel.com>
-  Star Zeng <star.zeng@intel.com>
-  Ting Ye <ting.ye@intel.com>
+-- 
+2.26.2
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 561 lines long.)
 
