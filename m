@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B51292DBBC5
+	by mail.lfdr.de (Postfix) with ESMTPS id ADECF2DBBC4
 	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 08:02:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55067.95809 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.55069.95821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpQo9-0007mf-8L; Wed, 16 Dec 2020 07:01:09 +0000
+	id 1kpQod-0007rR-J6; Wed, 16 Dec 2020 07:01:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55067.95809; Wed, 16 Dec 2020 07:01:09 +0000
+Received: by outflank-mailman (output) from mailman id 55069.95821; Wed, 16 Dec 2020 07:01:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpQo9-0007mG-57; Wed, 16 Dec 2020 07:01:09 +0000
-Received: by outflank-mailman (input) for mailman id 55067;
- Wed, 16 Dec 2020 07:01:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kpQod-0007r2-Et; Wed, 16 Dec 2020 07:01:39 +0000
+Received: by outflank-mailman (input) for mailman id 55069;
+ Wed, 16 Dec 2020 07:01:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DJND=FU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kpQo7-0007mB-K9
- for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 07:01:07 +0000
+ id 1kpQoc-0007qt-CO
+ for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 07:01:38 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bae1d43d-4dfa-4c40-b424-7f7e24b7f89e;
- Wed, 16 Dec 2020 07:01:04 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 68ebd9c3-ecd5-436b-ac90-6ee35073282d;
+ Wed, 16 Dec 2020 07:01:33 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BC97BAD2B;
- Wed, 16 Dec 2020 07:01:03 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 325C3AD18;
+ Wed, 16 Dec 2020 07:01:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,74 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bae1d43d-4dfa-4c40-b424-7f7e24b7f89e
+X-Inumbo-ID: 68ebd9c3-ecd5-436b-ac90-6ee35073282d
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608102063; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608102092; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RNPw9wGxeqKZXJZNzwqN89RLD5ziumjabqjjdT3MtS8=;
-	b=Wnx9I1wvLZEBxXQCIoToaKF0qU3BHZhloZI0qQakbYXOfSD/R+ZTJWCIIIIbPuUbTWonI7
-	nS9SE8VsuSNf6Z5RylD3e/tjs0AbrvjarIZCNfT6G3HkfD6G3uHqLcoFUADcHaxSEEBqrD
-	jcXDoNKUKq+eUESeoeYv3dlqp4YJn0A=
-Subject: Re: [PATCH -next v2] x86/xen: Convert to DEFINE_SHOW_ATTRIBUTE
-To: Qinglang Miao <miaoqinglang@huawei.com>,
+	bh=7hLPFvKf0KQ27daJnHMmIn6IkafDM/HKPtdm/WK3604=;
+	b=DgJMjfvVtLQrPPlGp7CIbNRypFymSBqQzHQ6whX/d5Ra5ZVv7ui2d8Jll/j54vb3lSx6LQ
+	PhlUhpLghfaejmbh9K30IdcMMKoYg0ZydYNxGc+kZqljep9GQaJ5htAX3awTbCo1FOK62+
+	ru1FMTj1DRPHMa3g1dwuo7L7nGMDlMo=
+Subject: Re: [PATCH 0/2] Remove Xen PVH dependency on PCI
+To: Jason Andryuk <jandryuk@gmail.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20200917125547.104472-1-miaoqinglang@huawei.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
+References: <20201014175342.152712-1-jandryuk@gmail.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <08e16e36-b086-814c-20a9-9d0748c4d497@suse.com>
-Date: Wed, 16 Dec 2020 08:01:01 +0100
+Message-ID: <5aa9a54c-207e-6cf6-7fbb-37782c016161@suse.com>
+Date: Wed, 16 Dec 2020 08:01:31 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200917125547.104472-1-miaoqinglang@huawei.com>
+In-Reply-To: <20201014175342.152712-1-jandryuk@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="u0MRvIWpSOyDyK7F8P5WPQ7Bno9KY37UB"
+ boundary="BsaiQXjF7kB1T2vSWMShDAGTM0x5njbvC"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---u0MRvIWpSOyDyK7F8P5WPQ7Bno9KY37UB
-Content-Type: multipart/mixed; boundary="qFCxlpEBAVtXCyXhiMKSMwIXwzRcosJx8";
+--BsaiQXjF7kB1T2vSWMShDAGTM0x5njbvC
+Content-Type: multipart/mixed; boundary="u1wK4B18JdUdPmsfAj57AHy2IhYDrXhYt";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Qinglang Miao <miaoqinglang@huawei.com>,
+To: Jason Andryuk <jandryuk@gmail.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <08e16e36-b086-814c-20a9-9d0748c4d497@suse.com>
-Subject: Re: [PATCH -next v2] x86/xen: Convert to DEFINE_SHOW_ATTRIBUTE
-References: <20200917125547.104472-1-miaoqinglang@huawei.com>
-In-Reply-To: <20200917125547.104472-1-miaoqinglang@huawei.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
+Message-ID: <5aa9a54c-207e-6cf6-7fbb-37782c016161@suse.com>
+Subject: Re: [PATCH 0/2] Remove Xen PVH dependency on PCI
+References: <20201014175342.152712-1-jandryuk@gmail.com>
+In-Reply-To: <20201014175342.152712-1-jandryuk@gmail.com>
 
---qFCxlpEBAVtXCyXhiMKSMwIXwzRcosJx8
+--u1wK4B18JdUdPmsfAj57AHy2IhYDrXhYt
 Content-Type: multipart/mixed;
- boundary="------------C6B20E965551A682523F7056"
+ boundary="------------C4653AF006164DD645B3036F"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------C6B20E965551A682523F7056
+--------------C4653AF006164DD645B3036F
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 17.09.20 14:55, Qinglang Miao wrote:
-> Use DEFINE_SHOW_ATTRIBUTE macro to simplify the code.
+On 14.10.20 19:53, Jason Andryuk wrote:
+> A Xen PVH domain doesn't have a PCI bus or devices, so it doesn't need
+> PCI support built in.  Currently, XEN_PVH depends on XEN_PVHVM which
+> depends on PCI.
 >=20
-> Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
+> The first patch introduces XEN_PVHVM_GUEST as a toplevel item and
+> changes XEN_PVHVM to a hidden variable.  This allows XEN_PVH to depend
+> on XEN_PVHVM without PCI while XEN_PVHVM_GUEST depends on PCI.
+>=20
+> The second patch moves XEN_512GB to clean up the option nesting.
+>=20
+> Jason Andryuk (2):
+>    xen: Remove Xen PVH/PVHVM dependency on PCI
+>    xen: Kconfig: nest Xen guest options
+>=20
+>   arch/x86/xen/Kconfig | 38 ++++++++++++++++++++++----------------
+>   drivers/xen/Makefile |  2 +-
+>   2 files changed, 23 insertions(+), 17 deletions(-)
+>=20
 
-Applied to: xen/tip.git for-linus-5.11
+Series applied to: xen/tip.git for-linus-5.11
 
 
 Juergen
 
---------------C6B20E965551A682523F7056
+--------------C4653AF006164DD645B3036F
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -196,25 +206,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------C6B20E965551A682523F7056--
+--------------C4653AF006164DD645B3036F--
 
---qFCxlpEBAVtXCyXhiMKSMwIXwzRcosJx8--
+--u1wK4B18JdUdPmsfAj57AHy2IhYDrXhYt--
 
---u0MRvIWpSOyDyK7F8P5WPQ7Bno9KY37UB
+--BsaiQXjF7kB1T2vSWMShDAGTM0x5njbvC
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/ZsK0FAwAAAAAACgkQsN6d1ii/Ey/E
-nwf8D3sy39qtCyZ/WHaKKMaCCo0pT8KZ5m8n4Z0x4sSMEfUWP8iqezOesALJhOsk8FlczmQOMGW+
-cWF+QvB1QD5n24RqqKz3Zfhlf5xrp0NXN9f67n3wE8z+PFsnamWi79kBH3VkgPLfzNqVqTvsguoO
-nt33hGvnWEjInfWALRMmX/FNoWWeFOhfNJRh7Oaa4snc1kO06ydl2QrwtmeUAdd4uxpNdTkuFCuZ
-vHQaAm7Hm5xLXvcbZT9J5s3Wk2nV+ySA3Cyz3uw2qtDuzgQWYzdJYts7RFKRKRMaM1kGomAQEWPX
-fQU0LpIDY0GnM8jcqFQdC/z/corvq5fiAjaBsmyjLQ==
-=jvQV
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/ZsMsFAwAAAAAACgkQsN6d1ii/Ey/A
+4gf9ESVC95o0zgF1KYkEqsfbAijfO6wWfJ+jEUzU+qL0rSkdsxXW3J9tfeRQTAdZAhaEro4hg3B2
+QMHD5XpFjgwc+NLftcpf3S3a3hR4giHmttHDF8rnc7PaaMZLuDJyJ2ZbRp4jGROg+iOKYfghyzS3
+MIzbQUp3tH/cWhCY5kctQkpb3r1rEr6axWtThSXxAdysRLG08f9Mw7ShO0Y1NQ537VRIWjSSRMXE
+soYapjCPRZ/nRQWpvpe0bSFRTHOQszD6EBh4f6RZEgSZRb7LCEwuJKTeXrO5ESrnowNJNox2Gyus
+bNeru9g3AjpYJa2tltvb0SrIjQuotZlbBOoFriCplA==
+=Z21z
 -----END PGP SIGNATURE-----
 
---u0MRvIWpSOyDyK7F8P5WPQ7Bno9KY37UB--
+--BsaiQXjF7kB1T2vSWMShDAGTM0x5njbvC--
 
