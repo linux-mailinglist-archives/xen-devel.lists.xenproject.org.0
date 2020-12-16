@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0C932DC1D9
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 15:09:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55265.96298 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 682182DC1EC
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 15:14:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55271.96310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpXU3-0007Xw-97; Wed, 16 Dec 2020 14:08:51 +0000
+	id 1kpXZN-0008UZ-TX; Wed, 16 Dec 2020 14:14:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55265.96298; Wed, 16 Dec 2020 14:08:51 +0000
+Received: by outflank-mailman (output) from mailman id 55271.96310; Wed, 16 Dec 2020 14:14:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpXU3-0007XX-5l; Wed, 16 Dec 2020 14:08:51 +0000
-Received: by outflank-mailman (input) for mailman id 55265;
- Wed, 16 Dec 2020 14:08:49 +0000
+	id 1kpXZN-0008UA-QL; Wed, 16 Dec 2020 14:14:21 +0000
+Received: by outflank-mailman (input) for mailman id 55271;
+ Wed, 16 Dec 2020 14:14:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vvT0=FU=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1kpXU1-0007XS-Ei
- for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 14:08:49 +0000
-Received: from mail-qv1-xf34.google.com (unknown [2607:f8b0:4864:20::f34])
+ id 1kpXZL-0008U5-Km
+ for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 14:14:19 +0000
+Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 345bef11-c01a-431d-b5aa-d78300b88282;
- Wed, 16 Dec 2020 14:08:48 +0000 (UTC)
-Received: by mail-qv1-xf34.google.com with SMTP id s6so11341455qvn.6
- for <xen-devel@lists.xenproject.org>; Wed, 16 Dec 2020 06:08:48 -0800 (PST)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:b150:92df:fbb7:5df0])
- by smtp.gmail.com with ESMTPSA id
- h25sm1113717qkh.122.2020.12.16.06.08.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Dec 2020 06:08:47 -0800 (PST)
+ id af4c21cb-67c7-4440-9643-779c25332bea;
+ Wed, 16 Dec 2020 14:14:18 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id o19so23060789lfo.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Dec 2020 06:14:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,82 +37,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 345bef11-c01a-431d-b5aa-d78300b88282
+X-Inumbo-ID: af4c21cb-67c7-4440-9643-779c25332bea
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=hw1VUdj7oe+RFhOiOdtGs39fzND3Jk6BzojvG/18LqQ=;
-        b=IYJrC+opx3RLldMMxKa+dnCdhBtLbYnq411h7iiYF9ef0/eKjQCrJCFdC/xXxARHVk
-         hgZwqhemvIbeEUYojpXPZXFaec6MC4EjE6iifV5CmhRH4Uso7deUtBEcv3C48KwOe2IX
-         AotAwfUYy2E0EMxePt6fwTcyKngYQULGVSl4IX7xZ/O/Rwe1FU/L6us/62Sxw6UXoeYJ
-         BU8zIp3SVIBnlWZL77U4Oz1DD+DTx9/+ZFjLeDwFau2PJCBAYKnUvJLmK4v1KMzXtZgE
-         4sZoG8ojDbjl79lpO6NII5VuzUB9gIvdeUTI1RUvZsA1QGDsIvKZX8O76zWgRA+o8MzL
-         7D/g==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=DmwvF8IgzoA7KtVGEtd76/gZKuxggmaZRur5HyvCvwE=;
+        b=Ko3OAcqjdApXNL1BXkFY7dSl+PGJ603F2A74GFwxfm7vOt1Et4fhUVNdbN0B1YxodZ
+         c/nIWNmYImbg2MPHraAv1jO/3MMcK8Xc1q9pOOIYBtndnawOwafSiIV6G3DfFSgSArLW
+         K9gjkYHCjf76IboFmufr4q112g3ReFzUFLxs1aEMxlKOdc7FGz7GMKGPcsjlNgj2Ytd+
+         JF4hMVOWPrCBINulnmrJSFX5VIBpanDgUdSjPRQb6X4xwHQWzzakf9Pc5rx7llSwimJ8
+         eXmTY77EBQeAAPm4c0HjCuXWxrZRj2FLksYCzbqHx98/QcCAX0l2o+gA1wXCUS7hjrIp
+         vaYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=hw1VUdj7oe+RFhOiOdtGs39fzND3Jk6BzojvG/18LqQ=;
-        b=rEHmUbWoOAl3HFdpmMZHLAwqmXGz9Y/fUefV2lGOlfaqhPBTqcgPswhlXwZ5u48hZO
-         XcFRZBM1DoGUYgJtTh9SMU7tKPD06O94D7KJpXrwDFl/gZg8FMeAyTLwj/vlBASzFaif
-         PjzOPdFhk8yh7yw4R8AE7qMtkk4XT8xk4tfInmi1r/CR1lfjcF17LHp7JevQADeGXyZy
-         bnA2PyU3GgWp81BU/9Kir/bVN1jvC4N/2xhgkFPbKCLypbrqDTp+Ie8VvtdYILb8hkgs
-         42renoIAcoI38k5VH0C3Y83oNlu323mTaPBgBySwqlDAg0G1Z5M6vaaO5Ob29DiKB4mx
-         LMbw==
-X-Gm-Message-State: AOAM533CKMZcvTZFBJ9zWZ9jb4t2CwMLty0xgN/kquoOW81Wi1EGzhYu
-	vg8k8vuIS88PFIMwMzNZGqw=
-X-Google-Smtp-Source: ABdhPJx2O7S7enSJUDMETKVJkTVEahKzf1Jq4arGE9gh5ELFFQGqLEFuiPeVji+PzJ9hBGu27Ah8kw==
-X-Received: by 2002:a05:6214:1764:: with SMTP id et4mr39801202qvb.2.1608127728273;
-        Wed, 16 Dec 2020 06:08:48 -0800 (PST)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jason Andryuk <jandryuk@gmail.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] xen: Kconfig: remove X86_64 depends from XEN_512GB
-Date: Wed, 16 Dec 2020 09:08:38 -0500
-Message-Id: <20201216140838.16085-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.29.2
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=DmwvF8IgzoA7KtVGEtd76/gZKuxggmaZRur5HyvCvwE=;
+        b=PO5RJH0qQTl1DPbTuEkrP9ErLp8PAN3h0/cp2o1uNc6V1GgZaIruHL7BpVcShRrnYV
+         BM7/ZuipOGFieGZIVpUVX+MXxhFuXNShgIqgjwVv/zZ+JZ1/a6JQbwgQyMO6sL/50yhz
+         Vftz4/aiyK7Gk1wrGZ36ooO/BXltj41Ui5KdfDtws8HoS54wKhQCCyXVPllOltb+QVqL
+         Gtn6S+kkJxT53YIoEzZM3sHt0rjSJRR22GnQQXWX4LrWz6Wv0TC9kYjkI3wa0gG8SfeI
+         kJ5+IeSJmZKSpFIL5t4PmR5f3IMa8F0X9nS+QON1i7+dB1QnEVrb9ZOiI9VJf4khvTVk
+         GtDQ==
+X-Gm-Message-State: AOAM5308zPRCqbc1qQzHvI6LcMVJ5/bKVo0ycX1NB4cPcHZS64CV/Qa6
+	LInsMVh2TT5aVmeUswBTLXPv8X5CAbuqroroImY=
+X-Google-Smtp-Source: ABdhPJzaEUDZszSAZI7uVluoFu9iNADRW+yux5PR6VdcF7NZZG/a3c8YTYmUEY9zdq8ObbVQYOeADPZ7hcomGYvuyjU=
+X-Received: by 2002:a2e:8745:: with SMTP id q5mr13934227ljj.77.1608128057330;
+ Wed, 16 Dec 2020 06:14:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAKf6xps-nM13E19SVS3NJwq6LwOJLUwN+FC6k_Sp9-_YaRt-EA@mail.gmail.com>
+ <3ACCFEC6-A8B7-48E6-AA3F-48D4CDE75FA4@gmail.com> <alpine.DEB.2.21.2012141632020.4040@sstabellini-ThinkPad-T480s>
+ <CAC4Yorgk89vaDsbygvebiBOan-3OWE=D9xKiri_JwQAVWZ19GQ@mail.gmail.com>
+In-Reply-To: <CAC4Yorgk89vaDsbygvebiBOan-3OWE=D9xKiri_JwQAVWZ19GQ@mail.gmail.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 16 Dec 2020 09:14:05 -0500
+Message-ID: <CAKf6xpvpyA6E6gC6cmZ-Ewayyue-C5WcnGtatsxf_Cefg1CxaA@mail.gmail.com>
+Subject: Re: [openxt-dev] Re: Follow up on libxl-fix-reboot.patch
+To: Chris Rogers <crogers122@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Rich Persaud <persaur@gmail.com>, 
+	openxt <openxt@googlegroups.com>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Olivier Lambert <olivier.lambert@vates.fr>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-commit bfda93aee0ec ("xen: Kconfig: nest Xen guest options")
-accidentally re-added X86_64 as a dependency to XEN_512GB.  It was
-originally removed in commit a13f2ef168cb ("x86/xen: remove 32-bit Xen
-PV guest support").  Remove it again.
+On Tue, Dec 15, 2020 at 5:22 PM Chris Rogers <crogers122@gmail.com> wrote:
+>
+> Hopefully I can provide a little more context.  Here is a link to the pat=
+ch:
+>
+> https://github.com/OpenXT/xenclient-oe/blob/master/recipes-extended/xen/f=
+iles/libxl-fix-reboot.patch
+>
+> The patch is a bit mis-named.  It does not implement XEN_DOMCTL_SENDTRIGG=
+ER_RESET.  It's just a workaround to handle the missing RESET implementatio=
+n.
+>
+> Its purpose is to make an HVM guest "reboot" regardless of whether PV too=
+ls have been installed and the xenstore interface is listening or not.  Fro=
+m the client perspective that OpenXT is concerned with, this is for ease-of=
+-use for working with HVM guests before PV tools are installed.  To summari=
+ze the flow of the patch:
+>
+> - User input causes high level toolstack, xenmgr, to do xl reboot <domid>
+> - libxl hits "PV interface not available", so it tries the fallback ACPI =
+reset trigger (but that's not implemented in domctl)
+> - therefore, the patch changes the RESET trigger to POWER trigger, and se=
+ts a 'reboot' flag
+> - when the xl create process handles the domain_death event for LIBXL_SHU=
+TDOWN_REASON_POWEROFF, we check for our 'reboot' flag.
+> - It's set, so we set "action" as if we came from a real restart, which m=
+akes the xl create process take the 'goto start' codepath to rebuild the do=
+main.
+>
+> I think we'd like to get rid of this patch, but at the moment I don't hav=
+e any code or a design to propose that would implement the XEN_DOMCTL_SENDT=
+RIGGER_RESET.
 
-Fixes: bfda93aee0ec ("xen: Kconfig: nest Xen guest options")
-Reported-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
-This fixes Boris's review comment.  I lost track of posting a v2 with it
-fixed.
----
- arch/x86/xen/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm not sure it's possible to implement one.  Does an ACPI
+reset/reboot button exist?  And then you'd have the problem that the
+guest needs to be configured to react to the button.
 
-diff --git a/arch/x86/xen/Kconfig b/arch/x86/xen/Kconfig
-index 2b105888927c..afc1da68b06d 100644
---- a/arch/x86/xen/Kconfig
-+++ b/arch/x86/xen/Kconfig
-@@ -28,7 +28,7 @@ config XEN_PV
- 
- config XEN_512GB
- 	bool "Limit Xen pv-domain memory to 512GB"
--	depends on XEN_PV && X86_64
-+	depends on XEN_PV
- 	default y
- 	help
- 	  Limit paravirtualized user domains to 512GB of RAM.
--- 
-2.29.2
-
+Regards,
+Jason
 
