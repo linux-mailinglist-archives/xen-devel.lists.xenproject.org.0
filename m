@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADECF2DBBC4
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 08:02:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55069.95821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1A52DBBC6
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 08:02:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55073.95831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpQod-0007rR-J6; Wed, 16 Dec 2020 07:01:39 +0000
+	id 1kpQp2-0007ys-SD; Wed, 16 Dec 2020 07:02:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55069.95821; Wed, 16 Dec 2020 07:01:39 +0000
+Received: by outflank-mailman (output) from mailman id 55073.95831; Wed, 16 Dec 2020 07:02:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpQod-0007r2-Et; Wed, 16 Dec 2020 07:01:39 +0000
-Received: by outflank-mailman (input) for mailman id 55069;
- Wed, 16 Dec 2020 07:01:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kpQp2-0007yS-Oz; Wed, 16 Dec 2020 07:02:04 +0000
+Received: by outflank-mailman (input) for mailman id 55073;
+ Wed, 16 Dec 2020 07:02:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DJND=FU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kpQoc-0007qt-CO
- for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 07:01:38 +0000
+ id 1kpQp1-0007yF-09
+ for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 07:02:03 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 68ebd9c3-ecd5-436b-ac90-6ee35073282d;
- Wed, 16 Dec 2020 07:01:33 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d4f49800-f483-4dca-a24d-bd50a474dfee;
+ Wed, 16 Dec 2020 07:02:02 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 325C3AD18;
- Wed, 16 Dec 2020 07:01:32 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 63288AD2B;
+ Wed, 16 Dec 2020 07:02:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +38,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68ebd9c3-ecd5-436b-ac90-6ee35073282d
+X-Inumbo-ID: d4f49800-f483-4dca-a24d-bd50a474dfee
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608102092; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608102121; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7hLPFvKf0KQ27daJnHMmIn6IkafDM/HKPtdm/WK3604=;
-	b=DgJMjfvVtLQrPPlGp7CIbNRypFymSBqQzHQ6whX/d5Ra5ZVv7ui2d8Jll/j54vb3lSx6LQ
-	PhlUhpLghfaejmbh9K30IdcMMKoYg0ZydYNxGc+kZqljep9GQaJ5htAX3awTbCo1FOK62+
-	ru1FMTj1DRPHMa3g1dwuo7L7nGMDlMo=
-Subject: Re: [PATCH 0/2] Remove Xen PVH dependency on PCI
-To: Jason Andryuk <jandryuk@gmail.com>,
+	bh=QoiSX8Hvxn2fqq9nVOof5al//6vCWiVhYQsloyKMYqs=;
+	b=V7RGybcqbrSuNn8RDRU4KdMeHTf8rCq9V4f0ei6fcelVjbMzqDSPQI0pA50/UWOoXrx9jp
+	Dj659JTp/MJB+CDr4pUHRQuU1IhYcc/ezbkf7aQjnBjueFWtuu9sv98Her4boxx4uukNu4
+	A/Sut2UcOy18cDJ3Ov9eS8Y0Hi4YgmY=
+Subject: Re: [PATCH 058/141] xen-blkfront: Fix fall-through warnings for Clang
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
-References: <20201014175342.152712-1-jandryuk@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Jens Axboe <axboe@kernel.dk>
+Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <33057688012c34dd60315ad765ff63f070e98c0c.1605896059.git.gustavoars@kernel.org>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <5aa9a54c-207e-6cf6-7fbb-37782c016161@suse.com>
-Date: Wed, 16 Dec 2020 08:01:31 +0100
+Message-ID: <41ed666b-739e-80c2-5714-c488b17c8500@suse.com>
+Date: Wed, 16 Dec 2020 08:02:00 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20201014175342.152712-1-jandryuk@gmail.com>
+In-Reply-To: <33057688012c34dd60315ad765ff63f070e98c0c.1605896059.git.gustavoars@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="BsaiQXjF7kB1T2vSWMShDAGTM0x5njbvC"
+ boundary="gvEDSSw8t26PSNBbUdz9PTbLgUC3pfy9W"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---BsaiQXjF7kB1T2vSWMShDAGTM0x5njbvC
-Content-Type: multipart/mixed; boundary="u1wK4B18JdUdPmsfAj57AHy2IhYDrXhYt";
+--gvEDSSw8t26PSNBbUdz9PTbLgUC3pfy9W
+Content-Type: multipart/mixed; boundary="acehXDoNClKCL8Daxb7vBCy06W0iwoyi8";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jason Andryuk <jandryuk@gmail.com>,
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
-Message-ID: <5aa9a54c-207e-6cf6-7fbb-37782c016161@suse.com>
-Subject: Re: [PATCH 0/2] Remove Xen PVH dependency on PCI
-References: <20201014175342.152712-1-jandryuk@gmail.com>
-In-Reply-To: <20201014175342.152712-1-jandryuk@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Jens Axboe <axboe@kernel.dk>
+Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Message-ID: <41ed666b-739e-80c2-5714-c488b17c8500@suse.com>
+Subject: Re: [PATCH 058/141] xen-blkfront: Fix fall-through warnings for Clang
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <33057688012c34dd60315ad765ff63f070e98c0c.1605896059.git.gustavoars@kernel.org>
+In-Reply-To: <33057688012c34dd60315ad765ff63f070e98c0c.1605896059.git.gustavoars@kernel.org>
 
---u1wK4B18JdUdPmsfAj57AHy2IhYDrXhYt
+--acehXDoNClKCL8Daxb7vBCy06W0iwoyi8
 Content-Type: multipart/mixed;
- boundary="------------C4653AF006164DD645B3036F"
+ boundary="------------AC7D4EB44FC6ED9CCA3EFC5F"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------C4653AF006164DD645B3036F
+--------------AC7D4EB44FC6ED9CCA3EFC5F
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 14.10.20 19:53, Jason Andryuk wrote:
-> A Xen PVH domain doesn't have a PCI bus or devices, so it doesn't need
-> PCI support built in.  Currently, XEN_PVH depends on XEN_PVHVM which
-> depends on PCI.
->=20
-> The first patch introduces XEN_PVHVM_GUEST as a toplevel item and
-> changes XEN_PVHVM to a hidden variable.  This allows XEN_PVH to depend
-> on XEN_PVHVM without PCI while XEN_PVHVM_GUEST depends on PCI.
->=20
-> The second patch moves XEN_512GB to clean up the option nesting.
->=20
-> Jason Andryuk (2):
->    xen: Remove Xen PVH/PVHVM dependency on PCI
->    xen: Kconfig: nest Xen guest options
->=20
->   arch/x86/xen/Kconfig | 38 ++++++++++++++++++++++----------------
->   drivers/xen/Makefile |  2 +-
->   2 files changed, 23 insertions(+), 17 deletions(-)
->=20
+On 20.11.20 19:32, Gustavo A. R. Silva wrote:
+> In preparation to enable -Wimplicit-fallthrough for Clang, fix a warnin=
+g
+> by explicitly adding a break statement instead of letting the code fall=
 
-Series applied to: xen/tip.git for-linus-5.11
+> through to the next case.
+>=20
+> Link: https://github.com/KSPP/linux/issues/115
+> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+
+Applied to: xen/tip.git for-linus-5.11
 
 
 Juergen
 
---------------C4653AF006164DD645B3036F
+--------------AC7D4EB44FC6ED9CCA3EFC5F
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -206,25 +203,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------C4653AF006164DD645B3036F--
+--------------AC7D4EB44FC6ED9CCA3EFC5F--
 
---u1wK4B18JdUdPmsfAj57AHy2IhYDrXhYt--
+--acehXDoNClKCL8Daxb7vBCy06W0iwoyi8--
 
---BsaiQXjF7kB1T2vSWMShDAGTM0x5njbvC
+--gvEDSSw8t26PSNBbUdz9PTbLgUC3pfy9W
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/ZsMsFAwAAAAAACgkQsN6d1ii/Ey/A
-4gf9ESVC95o0zgF1KYkEqsfbAijfO6wWfJ+jEUzU+qL0rSkdsxXW3J9tfeRQTAdZAhaEro4hg3B2
-QMHD5XpFjgwc+NLftcpf3S3a3hR4giHmttHDF8rnc7PaaMZLuDJyJ2ZbRp4jGROg+iOKYfghyzS3
-MIzbQUp3tH/cWhCY5kctQkpb3r1rEr6axWtThSXxAdysRLG08f9Mw7ShO0Y1NQ537VRIWjSSRMXE
-soYapjCPRZ/nRQWpvpe0bSFRTHOQszD6EBh4f6RZEgSZRb7LCEwuJKTeXrO5ESrnowNJNox2Gyus
-bNeru9g3AjpYJa2tltvb0SrIjQuotZlbBOoFriCplA==
-=Z21z
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/ZsOgFAwAAAAAACgkQsN6d1ii/Ey+V
+Gwf7B5XLWILGCq3WNwhMi7WFHqun6smQ5tXZ/zhc3ROrAk8C8hvonGGkapDULRVea7cFex5OJeYD
+szTs2qp1NV2bACyDLl+/Z3TybRkQj8JSmehQHr3cOknMs2sBQL8aRLPNSGrYgmmyv7SKB8bJp4LG
+5A633sbbylbfBUhmPB13rncb4WI0suuGoCOHqcL+uCHLHDM/+hlbudM8cg34iMc+Sv668uXp4V1B
+L/KfVdUPT0Tp1ZY6KhXoWGCSM6PKz5dSbmGGlTzaG+tuegSgIRFTSrN4amrVU0mDqe74N5TIBh2B
+8+R4stIvl5eTFkZ91BZyivSkQMfRZyqND3aCGhd+FQ==
+=fQHh
 -----END PGP SIGNATURE-----
 
---BsaiQXjF7kB1T2vSWMShDAGTM0x5njbvC--
+--gvEDSSw8t26PSNBbUdz9PTbLgUC3pfy9W--
 
