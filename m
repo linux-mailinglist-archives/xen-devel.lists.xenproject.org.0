@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D3102DC792
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 21:15:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55577.96739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CDB2DC79B
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 21:16:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55582.96750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpdBN-0004IR-QL; Wed, 16 Dec 2020 20:13:57 +0000
+	id 1kpdDv-0004QD-8V; Wed, 16 Dec 2020 20:16:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55577.96739; Wed, 16 Dec 2020 20:13:57 +0000
+Received: by outflank-mailman (output) from mailman id 55582.96750; Wed, 16 Dec 2020 20:16:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpdBN-0004I2-Mq; Wed, 16 Dec 2020 20:13:57 +0000
-Received: by outflank-mailman (input) for mailman id 55577;
- Wed, 16 Dec 2020 20:13:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kpdDv-0004Po-5L; Wed, 16 Dec 2020 20:16:35 +0000
+Received: by outflank-mailman (input) for mailman id 55582;
+ Wed, 16 Dec 2020 20:16:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ehtw=FU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kpdBM-0004Hx-1H
- for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 20:13:56 +0000
+ <SRS0=BvyZ=FU=kernel.org=pr-tracker-bot@srs-us1.protection.inumbo.net>)
+ id 1kpdDt-0004Pj-KH
+ for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 20:16:33 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8699f4fb-d4ff-49a4-9aa3-4e9909a94125;
- Wed, 16 Dec 2020 20:13:55 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 62ddce1c-6b13-4e30-8fd6-4c1485986fc0;
+ Wed, 16 Dec 2020 20:16:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,69 +36,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8699f4fb-d4ff-49a4-9aa3-4e9909a94125
-Date: Wed, 16 Dec 2020 12:13:53 -0800 (PST)
+X-Inumbo-ID: 62ddce1c-6b13-4e30-8fd6-4c1485986fc0
+Subject: Re: [GIT PULL] xen: branch for v5.11-rc1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1608149634;
-	bh=IJ4Mr7DeeTOalLyT7XjVXCXQlaTQ8u0dmKNL/VnGG2I=;
-	h=From:To:cc:Subject:In-Reply-To:References:From;
-	b=Gfn7GygXSmuVfYvoxVehZcyahmbZuqu8uiNW3H00Es93FmVz3CugGgzvBIl4srA3W
-	 hudeY8pgjNWXdHf4vkPTSQj+Y1088GMH44aputV7V+/Be9IctNnAGasLmIiuGstgG8
-	 obUJMsu4lSpVZA4tsvaZQnnKqB0q87txOElKQHcMkU/jnt2QwlDtML19qJW07w2Vko
-	 RCJITIX5Jqqx4+oXDOVFQGfche3PKL4ZC+Dvyrl7TCiUAxI8ZUkTYuZSQpGbpIGv8u
-	 9Au77uvJNqre8zHCG4/Ilk3zTBMgAYWMowhKz4D2O4g+kCDIdTp19dEebAJDpRUX+j
-	 rKULVX53s/4sg==
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Elliott Mitchell <ehem+xen@m5p.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Roman Shaposhnik <roman@zededa.com>, Julien Grall <julien@xen.org>, 
-    Oleksandr_Andrushchenko@epam.com, 
-    Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Xen-ARM DomUs
-In-Reply-To: <X9mGH9SPoC5cfpSu@mattapan.m5p.com>
-Message-ID: <alpine.DEB.2.21.2012161206420.4040@sstabellini-ThinkPad-T480s>
-References: <X9gcZu5uJpXx8wNn@mattapan.m5p.com> <alpine.DEB.2.21.2012150828170.4040@sstabellini-ThinkPad-T480s> <X9mGH9SPoC5cfpSu@mattapan.m5p.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	s=k20201202; t=1608149792;
+	bh=WmvOvSHb+S4MEfDf4FDvtuOcycVfyBfLfxYt/7dEbqE=;
+	h=From:In-Reply-To:References:Date:To:Cc:From;
+	b=sbTo8Pu/8B6VP/I4Q+uo+QgmEF37N3agNCMau5MSMHQEmJziEF+dKx4UNeyUmiOCV
+	 n6YAtpOMungGOeyPit3YKcMbQVmgPgwqsX4YMy3AQFa5Pp+2eT3xf9sfxkvfot69LY
+	 vhg8kwpqwS+a2puZcXn0K0oigK0c9LZMGFiFY2yTo55SjnKZmwA4JqIEz8FnLWgHGz
+	 Y34krmmS4Y166UqNGYsOozBQX6wOfizY4RSVSfT4f1nfDlAOJTCIpHYmHtHYNo5I7n
+	 6aEqAJAk+69iud3uhDPmecICoHN/YuM3aDUjCjr2IvcNR0PM/J21htvoll5C22YCRa
+	 z3q3KzcUXrlNw==
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20201215122606.6874-1-jgross@suse.com>
+References: <20201215122606.6874-1-jgross@suse.com>
+X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
+X-PR-Tracked-Message-Id: <20201215122606.6874-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.11-rc1-tag
+X-PR-Tracked-Commit-Id: 1c728719a4da6e654afb9cc047164755072ed7c9
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 7acfd4274e26e05a4f12ad31bf331fef11ebc6a3
+Message-Id: <160814979215.31129.10861518322757012100.pr-tracker-bot@kernel.org>
+Date: Wed, 16 Dec 2020 20:16:32 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 
-On Tue, 15 Dec 2020, Elliott Mitchell wrote:
-> On Tue, Dec 15, 2020 at 08:36:34AM -0800, Stefano Stabellini wrote:
-> > On Mon, 14 Dec 2020, Elliott Mitchell wrote:
-> > > The available examples seem geared towards Linux DomUs.  I'm looking at a
-> > > FreeBSD installation image and it appears to expect an EFI firmware.
-> > > Beyond having a bunch of files appearing oriented towards booting on EFI
-> > > I can't say much about (booting) FreeBSD/ARM DomUs.
-> > 
-> > Running EFI firmware in a domU is possible with both Tianocore and
-> > U-Boot. You should be able to build the firmware and pass it as a
-> > kernel= binary in the xl file. Then the firmware will be able to load
-> > the necessary binaries from the virtual disk.
-> 
-> Hmm, no mention of this on:
-> https://wiki.xenproject.org/wiki/OVMF
-> 
-> In fact that appears 100% x86.  Perhaps tools/firmware needs to be
-> adjusted to make it work on ARM?
-> 
-> Really the xlexample files in tools/examples need equivalents for ARM...
-> 
-> *This* reads like the approach I'm looking for, but building Tianocore
-> is an adventure even with a good guide.
+The pull request you sent on Tue, 15 Dec 2020 13:26:06 +0100:
 
-Tianocore has been working for many years as domU kernel, but I haven't
-tried it in a while. You should definitely be able to get it to boot.
-Linaro offers pre-built binaries of it with Xen enabled:
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.11-rc1-tag
 
-http://snapshots.linaro.org/components/kernel/leg-virt-tianocore-edk2-upstream/4123/XEN-AARCH64/RELEASE_GCC5/
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/7acfd4274e26e05a4f12ad31bf331fef11ebc6a3
 
+Thank you!
 
-> > I ran Tianocore this way years ago. Recently, u-boot has been ported to
-> > be run in a domU by Oleksandr Andrushchenko (CCed).
-> 
-> The Xen wiki has no information on this.
-
-This is relatively new. Maybe Oleksandr should add a page to the wiki
-when he gets a chance :-)
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
