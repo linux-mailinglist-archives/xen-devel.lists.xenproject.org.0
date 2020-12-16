@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3DA12DBCAD
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 09:28:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55111.95900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A7612DBCD1
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 09:42:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55119.95912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpSAE-0007yE-TJ; Wed, 16 Dec 2020 08:28:02 +0000
+	id 1kpSNX-0001Kn-4G; Wed, 16 Dec 2020 08:41:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55111.95900; Wed, 16 Dec 2020 08:28:02 +0000
+Received: by outflank-mailman (output) from mailman id 55119.95912; Wed, 16 Dec 2020 08:41:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpSAE-0007xl-PS; Wed, 16 Dec 2020 08:28:02 +0000
-Received: by outflank-mailman (input) for mailman id 55111;
- Wed, 16 Dec 2020 08:28:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kpSAD-0007xd-8B; Wed, 16 Dec 2020 08:28:01 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kpSAD-0002Y3-0p; Wed, 16 Dec 2020 08:28:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kpSAC-0003ng-Pi; Wed, 16 Dec 2020 08:28:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kpSAC-000091-PE; Wed, 16 Dec 2020 08:28:00 +0000
+	id 1kpSNX-0001KR-1G; Wed, 16 Dec 2020 08:41:47 +0000
+Received: by outflank-mailman (input) for mailman id 55119;
+ Wed, 16 Dec 2020 08:41:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OuYO=FU=infradead.org=peterz@srs-us1.protection.inumbo.net>)
+ id 1kpSNW-0001KM-8s
+ for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 08:41:46 +0000
+Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b9c5a53e-b926-4c2c-a8b4-9247d80b7e75;
+ Wed, 16 Dec 2020 08:41:40 +0000 (UTC)
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kpSMu-0005UY-Qg; Wed, 16 Dec 2020 08:41:09 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id AB87E307697;
+ Wed, 16 Dec 2020 09:40:59 +0100 (CET)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 967842CADD880; Wed, 16 Dec 2020 09:40:59 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,96 +47,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: b9c5a53e-b926-4c2c-a8b4-9247d80b7e75
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=iAzLUajVOUzfEva4QFmWTDDttDIdosm+LhIxgEIr5Ss=; b=AYz/VDLz+Pa9JVUyJYjV4wVdcb
-	LKHh1cTacrGeWDruD4hYIQRNVEFufqvMllWH0dISqdmo7G5ciIkKEsgT+u9dy9tlERqsqCzAhjNux
-	IYpIDdK/KoHBfsW+n1Bjehb9OjgZD0gnvA/F6c6fL8NpURGuzI51yKiJKm4lls6e4jeY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157598-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=0Vl8v+K48CQ1CpDPZyiLdlZ3QZd1xhq2vGyfDmO1QSk=; b=d0ukNEGopW7xSAvf4l6oxB/hVo
+	FRyEdkJ6gVh6WhW3HqIsdfeYXWYQ1HLOyEXl/M8OOjMOALFor8DXrwW8OkhssqBZWj2qY+dOjn3WQ
+	w+eOTFIjqNLK3/OUKiTAiR7DfaZ2tzpDvvAr4qqHg7G/gm2EllebQ0U87v/0G0msGEUvStoO64DY+
+	jRApct0VEjBdukFFaWwT/w5fpgGG2r/xGFbqZ+y+RR+1foywG9EkTHpqpIVFJmYZHyDNnwWxdOg8q
+	B4pWQSqNEGAgqHIW+S7+CgCiPXoMiutaQwIno90DVH6FICQhR2vzciTHwxWeaxxT1doUmhnq8aMrv
+	PjYDhOMw==;
+Date: Wed, 16 Dec 2020 09:40:59 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Josh Poimboeuf <jpoimboe@redhat.com>
+Cc: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
+	xen-devel@lists.xenproject.org, x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	linux-hyperv@vger.kernel.org, kvm@vger.kernel.org, luto@kernel.org,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Deep Shah <sdeep@vmware.com>,
+	"VMware, Inc." <pv-drivers@vmware.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <sean.j.christopherson@intel.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Daniel Bristot de Oliveira <bristot@redhat.com>
+Subject: Re: [PATCH v2 00/12] x86: major paravirt cleanup
+Message-ID: <20201216084059.GL3040@hirez.programming.kicks-ass.net>
+References: <20201120114630.13552-1-jgross@suse.com>
+ <20201120125342.GC3040@hirez.programming.kicks-ass.net>
+ <20201123134317.GE3092@hirez.programming.kicks-ass.net>
+ <6771a12c-051d-1655-fb3a-cc45a3c82e29@suse.com>
+ <20201215141834.GG3040@hirez.programming.kicks-ass.net>
+ <20201215145408.GR3092@hirez.programming.kicks-ass.net>
+ <20201216003802.5fpklvx37yuiufrt@treble>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 157598: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=8bf0fab14256057bbd145563151814300476bb28
-X-Osstest-Versions-That:
-    xen=904148ecb4a59d4c8375d8e8d38117b8605e10ac
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 16 Dec 2020 08:28:00 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201216003802.5fpklvx37yuiufrt@treble>
 
-flight 157598 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157598/
+On Tue, Dec 15, 2020 at 06:38:02PM -0600, Josh Poimboeuf wrote:
+> On Tue, Dec 15, 2020 at 03:54:08PM +0100, Peter Zijlstra wrote:
+> > The problem is that a single instance of unwind information (ORC) must
+> > capture and correctly unwind all alternatives. Since the trivially
+> > correct mandate is out, implement the straight forward brute-force
+> > approach:
+> > 
+> >  1) generate CFI information for each alternative
+> > 
+> >  2) unwind every alternative with the merge-sort of the previously
+> >     generated CFI information -- O(n^2)
+> > 
+> >  3) for any possible conflict: yell.
+> > 
+> >  4) Generate ORC with merge-sort
+> > 
+> > Specifically for 3 there are two possible classes of conflicts:
+> > 
+> >  - the merge-sort itself could find conflicting CFI for the same
+> >    offset.
+> > 
+> >  - the unwind can fail with the merged CFI.
+> 
+> So much algorithm.
 
-Regressions :-(
+:-)
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 157560
+It's not really hard, but it has a few pesky details (as always).
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+> Could we make it easier by caching the shared
+> per-alt-group CFI state somewhere along the way?
 
-version targeted for testing:
- xen                  8bf0fab14256057bbd145563151814300476bb28
-baseline version:
- xen                  904148ecb4a59d4c8375d8e8d38117b8605e10ac
+Yes, but when I tried it grew the code required. Runtime costs would be
+less, but I figured that since alternatives are typically few and small,
+that wasn't a real consideration.
 
-Last test of basis   157560  2020-12-15 13:00:26 Z    0 days
-Testing same since   157570  2020-12-15 17:00:30 Z    0 days    5 attempts
+That is, it would basically cache the results of find_alt_unwind(), but
+you still need find_alt_unwind() to generate that data, and so you gain
+the code for filling and using the extra data structure.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Christian Lindig <christian.lindig@citrix.com>
-  Elliott Mitchell <ehem+xen@m5p.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Nick Rosbrook <rosbrookn@ainfosec.com>
-  Olaf Hering <olaf@aepfle.de>
-  Paul Durrant <pdurrant@amazon.com>
-  Wei Liu <wl@xen.org>
+Yes, computing it 3 times is naf, but meh.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     blocked 
+> [ 'offset' is a byte offset from the beginning of the group.  It could
+>   be calculated based on 'orig_insn' or 'orig_insn->alts', depending on
+>   whether 'insn' is an original or a replacement. ]
 
+That's exactly what it already does ofcourse ;-)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> If the array entry is NULL, just update it with a pointer to the CFI.
+> If it's not NULL, make sure it matches the existing CFI, and WARN if it
+> doesn't.
+> 
+> Also, with this data structure, the ORC generation should also be a lot
+> more straightforward, just ignore the NULL entries.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Yeah, I suppose it gets rid of the memcmp-prev thing.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> Thoughts?  This is all theoretical of course, I could try to do a patch
+> tomorrow.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 556 lines long.)
+No real objection, I just didn't do it because 1) it works, and 2) even
+moar lines.
 
