@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A6E2DBBC7
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 08:02:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55078.95845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41CDA2DBBC8
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 08:03:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55084.95857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpQpS-00085g-Cr; Wed, 16 Dec 2020 07:02:30 +0000
+	id 1kpQps-0008DL-LK; Wed, 16 Dec 2020 07:02:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55078.95845; Wed, 16 Dec 2020 07:02:30 +0000
+Received: by outflank-mailman (output) from mailman id 55084.95857; Wed, 16 Dec 2020 07:02:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpQpS-00085G-8S; Wed, 16 Dec 2020 07:02:30 +0000
-Received: by outflank-mailman (input) for mailman id 55078;
- Wed, 16 Dec 2020 07:02:28 +0000
+	id 1kpQps-0008Cx-Hc; Wed, 16 Dec 2020 07:02:56 +0000
+Received: by outflank-mailman (input) for mailman id 55084;
+ Wed, 16 Dec 2020 07:02:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DJND=FU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kpQpQ-00084C-SX
- for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 07:02:28 +0000
+ id 1kpQpq-0008CS-6x
+ for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 07:02:54 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2395e5db-fbdb-4959-b0be-0a1f43c293ce;
- Wed, 16 Dec 2020 07:02:26 +0000 (UTC)
+ id fc2f82fa-1ef6-471a-b5c8-ef09126140d1;
+ Wed, 16 Dec 2020 07:02:53 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 17B1FACF9;
- Wed, 16 Dec 2020 07:02:26 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A58F4AD2B;
+ Wed, 16 Dec 2020 07:02:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,77 +38,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2395e5db-fbdb-4959-b0be-0a1f43c293ce
+X-Inumbo-ID: fc2f82fa-1ef6-471a-b5c8-ef09126140d1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608102146; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608102172; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LwfxpmJUNoS4imRrEZDa/hsgsQBDnZ5aeqpNh/UFg8E=;
-	b=Mirc5V+tUR/gfl5ALiNhaxZKI8cOb1x2TCv3Y7DHXqXwQos14+yo7107em1XhF9dnTh/gH
-	m4U9kcDXbUjgxZH586Uc49/yfINb6UuRmN/2D/824V4QeIeAcPaYeWLFiqXhUoHs49GNhn
-	lr6o/MI36fNfXamsixEhW4szEVuLcSo=
-Subject: Re: [PATCH 138/141] xen/manage: Fix fall-through warnings for Clang
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <5cfc00b1d8ed68eb2c2b6317806a0aa7e57d27f1.1605896060.git.gustavoars@kernel.org>
+	bh=X05gtw4kgTwX17yOh6ryFaZQNp8HrbmMgmLTjKIzlq8=;
+	b=PgoMg50ca2BU6FbkT16JT2azHdchaw2R7U9Nia7MJroXzwQUqvix5JtrttGw9EzaMkHuvw
+	wJwE8e2OqfsNjXRrmogJ1YJST/9n3qyRqqftpZcffpRnE79iFK/yFxw8SG5kpdzXuqNXye
+	kKcPYORa58LtmuweT/5Yq1rbYO/NGwU=
+Subject: Re: [PATCH] xen: remove trailing semicolon in macro definition
+To: trix@redhat.com, boris.ostrovsky@oracle.com, sstabellini@kernel.org,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com
+Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+References: <20201127160707.2622061-1-trix@redhat.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <15031ddc-e2ef-4fb0-185b-d2d8a7f45c2f@suse.com>
-Date: Wed, 16 Dec 2020 08:02:25 +0100
+Message-ID: <49ea103f-c506-2252-f17c-5488fc03988e@suse.com>
+Date: Wed, 16 Dec 2020 08:02:51 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <5cfc00b1d8ed68eb2c2b6317806a0aa7e57d27f1.1605896060.git.gustavoars@kernel.org>
+In-Reply-To: <20201127160707.2622061-1-trix@redhat.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="vxs4o6JTSmrfNdGUcKhNa1wkMf9uuVgXl"
+ boundary="WF9Uk85fbX9051r9PAIpsoQaKUjFHYNE3"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---vxs4o6JTSmrfNdGUcKhNa1wkMf9uuVgXl
-Content-Type: multipart/mixed; boundary="rv4BO9JJTrt9PkbcxMXWgncgAJtJftkwI";
+--WF9Uk85fbX9051r9PAIpsoQaKUjFHYNE3
+Content-Type: multipart/mixed; boundary="Gm9EMK5W9xjZeuzmTGz4bE0qkfDBP2Ewx";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Message-ID: <15031ddc-e2ef-4fb0-185b-d2d8a7f45c2f@suse.com>
-Subject: Re: [PATCH 138/141] xen/manage: Fix fall-through warnings for Clang
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <5cfc00b1d8ed68eb2c2b6317806a0aa7e57d27f1.1605896060.git.gustavoars@kernel.org>
-In-Reply-To: <5cfc00b1d8ed68eb2c2b6317806a0aa7e57d27f1.1605896060.git.gustavoars@kernel.org>
+To: trix@redhat.com, boris.ostrovsky@oracle.com, sstabellini@kernel.org,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com
+Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <49ea103f-c506-2252-f17c-5488fc03988e@suse.com>
+Subject: Re: [PATCH] xen: remove trailing semicolon in macro definition
+References: <20201127160707.2622061-1-trix@redhat.com>
+In-Reply-To: <20201127160707.2622061-1-trix@redhat.com>
 
---rv4BO9JJTrt9PkbcxMXWgncgAJtJftkwI
+--Gm9EMK5W9xjZeuzmTGz4bE0qkfDBP2Ewx
 Content-Type: multipart/mixed;
- boundary="------------59288F99C9D4FF0AAA5C05DA"
+ boundary="------------6E8CD34F2C319CA262AEFC06"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------59288F99C9D4FF0AAA5C05DA
+--------------6E8CD34F2C319CA262AEFC06
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 20.11.20 19:40, Gustavo A. R. Silva wrote:
-> In preparation to enable -Wimplicit-fallthrough for Clang, fix a warnin=
-g
-> by explicitly adding a break statement instead of letting the code fall=
-
-> through to the next case.
+On 27.11.20 17:07, trix@redhat.com wrote:
+> From: Tom Rix <trix@redhat.com>
 >=20
-> Link: https://github.com/KSPP/linux/issues/115
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> The macro use will already have a semicolon.
+>=20
+> Signed-off-by: Tom Rix <trix@redhat.com>
 
 Applied to: xen/tip.git for-linus-5.11
 
 
 Juergen
 
---------------59288F99C9D4FF0AAA5C05DA
+--------------6E8CD34F2C319CA262AEFC06
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -199,25 +192,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------59288F99C9D4FF0AAA5C05DA--
+--------------6E8CD34F2C319CA262AEFC06--
 
---rv4BO9JJTrt9PkbcxMXWgncgAJtJftkwI--
+--Gm9EMK5W9xjZeuzmTGz4bE0qkfDBP2Ewx--
 
---vxs4o6JTSmrfNdGUcKhNa1wkMf9uuVgXl
+--WF9Uk85fbX9051r9PAIpsoQaKUjFHYNE3
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/ZsQEFAwAAAAAACgkQsN6d1ii/Ey9g
-XAgAn7bnr9HNcb0zfKbhmYUH1+52a8N6mfVY6l1LFvcmsuFVTt/qA9nSYKb7iQWcMPr1kMfKedOu
-+gSPfJoDj+bSSRstcd9u7+CK/044jEJlWknl+tsbBVbfGxdscWHKQHb6mBLbr9eNgTwKHTmf/Afq
-Ujp/d+EFon+yP4pXdqShlxnhzAhjLS/T2Jc35Vnhko8X8wMHt2QIOLjYjH5nx0jjfNxdlaaKH27K
-I8IF6BMImMFvhVPBiWNOZpWNe0sDIQDzftwafjpYgq1HubtvZllt9l72F1sec30tRCSngPYdCUz8
-kDGln56K+x3Ru+DMlE/AW5XFyB1F/AhhK1yCg80m5w==
-=YviI
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/ZsRsFAwAAAAAACgkQsN6d1ii/Ey/B
+lQgAkcpAKfTn6Y+Jbp1HsZdXkanY7gB1wcou5exvBPIv434XKG5IhsClwhlXMAIYQoYJE5hGAUOj
+LpmSPsIn/9tnKMy86CiaPYXprpcatYhvQPYwKwcPiXWR26JFqo7btLTwYletYqDRNl1j7sG8Ab8H
+E6ZLnLu/igF7SNIyCEUe2SJss1PMmMPtKE8Wqsjla95KzJFg+XNP8nxKDfv3rzm7D95FOQlPIce5
++50h/SAGQF+XgyUXlW6ZuryJGUoJeDagWy1Aezh6q5PDBeNYAPbvK3vCRlfJpu4W+A6YkU0WfgzU
+0BR7qiFv0n/1GeqcONMOPRWZVpPLFFLSUIBRtTL1IQ==
+=Vt1f
 -----END PGP SIGNATURE-----
 
---vxs4o6JTSmrfNdGUcKhNa1wkMf9uuVgXl--
+--WF9Uk85fbX9051r9PAIpsoQaKUjFHYNE3--
 
