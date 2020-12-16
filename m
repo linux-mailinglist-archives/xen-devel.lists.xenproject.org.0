@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F83B2DC4FF
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 18:05:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55424.96626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E3A2DC519
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 18:12:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55527.96639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpaEY-0001gk-M7; Wed, 16 Dec 2020 17:05:02 +0000
+	id 1kpaLb-0003el-FE; Wed, 16 Dec 2020 17:12:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55424.96626; Wed, 16 Dec 2020 17:05:02 +0000
+Received: by outflank-mailman (output) from mailman id 55527.96639; Wed, 16 Dec 2020 17:12:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpaEY-0001g5-Hk; Wed, 16 Dec 2020 17:05:02 +0000
-Received: by outflank-mailman (input) for mailman id 55424;
- Wed, 16 Dec 2020 17:05:01 +0000
+	id 1kpaLb-0003eM-Bj; Wed, 16 Dec 2020 17:12:19 +0000
+Received: by outflank-mailman (input) for mailman id 55527;
+ Wed, 16 Dec 2020 17:12:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DfXp=FU=xenbits.xen.org=iwj@srs-us1.protection.inumbo.net>)
- id 1kpaEX-0001Ls-8H
- for xen-devel@lists.xen.org; Wed, 16 Dec 2020 17:05:01 +0000
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=DJND=FU=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kpaLZ-0003eH-PR
+ for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 17:12:17 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eca3f244-30d2-4811-90bd-f80ecdddecbf;
- Wed, 16 Dec 2020 17:04:39 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1kpaE5-0003ne-JC; Wed, 16 Dec 2020 17:04:33 +0000
-Received: from iwj by xenbits.xenproject.org with local (Exim 4.92)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1kpaE5-0006zV-Gk; Wed, 16 Dec 2020 17:04:33 +0000
+ id ba015c2c-2d2e-4928-971b-296d855c24e6;
+ Wed, 16 Dec 2020 17:12:16 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5C191AC7F;
+ Wed, 16 Dec 2020 17:12:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,287 +39,334 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eca3f244-30d2-4811-90bd-f80ecdddecbf
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
-	Content-Transfer-Encoding:Content-Type;
-	bh=VjL2K3I6xHxwJ5PIAY3BGQUreSWLBHFBY5XsSudfb48=; b=QJZmExHmf5/+4nUx6r3uN9LFw7
-	nL/D0QNv0eGMVzZ2rbCmJKu225eHoyOn49rseQu2SLx7AQa8mcowXvVKU5OqDZnxDaPWEH7No0DAc
-	shtGlg5cRo8zz38EPF2j1JLEcd8k+wMg4LBoAyAbO0hiLbhe0ME1uJ5k4unmHXT64aeY=;
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+X-Inumbo-ID: ba015c2c-2d2e-4928-971b-296d855c24e6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1608138735; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JyoICodWswFOjhkfImLaYWuoNHW5VwMCeyaAzQoPIVY=;
+	b=E2ovRRhDq8qZA6ADoDLBDC84/LosqcHTTNZz3rhuOzf1Nu2znr0k74INyOaHAUqzgx/VO1
+	kMywhfbVajrodQnJ6H6F0AngQ4gOwzxjAocwtE1s/GoIHHsGgkRpHPpsuxkq6SDXzji9Fm
+	tdOOq2eLTxgjmJtMfaq6FOcloiVugTo=
+Subject: Re: [PATCH v3 3/8] xen/hypfs: add new enter() and exit() per node
+ callbacks
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201209160956.32456-1-jgross@suse.com>
+ <20201209160956.32456-4-jgross@suse.com>
+ <36469295-8c77-0e58-654a-35fd992c11a1@suse.com>
+ <aad9131f-ca42-94b4-1ce2-18c6db0ac381@suse.com>
+ <227825e7-d704-fd36-a327-1dbd6aa391c8@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <6b0cda5f-596f-f390-c22b-c922dee04a55@suse.com>
+Date: Wed, 16 Dec 2020 18:12:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.509 (Entity 5.509)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 358 v5 (CVE-2020-29570) - FIFO event
- channels control block related ordering
-Message-Id: <E1kpaE5-0006zV-Gk@xenbits.xenproject.org>
-Date: Wed, 16 Dec 2020 17:04:33 +0000
+In-Reply-To: <227825e7-d704-fd36-a327-1dbd6aa391c8@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="diajpoYnltilczuPMwLTp2FoHHS9ZxUM9"
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--diajpoYnltilczuPMwLTp2FoHHS9ZxUM9
+Content-Type: multipart/mixed; boundary="2jEMZxHgzjF8ZuqZQnmYb1JUL8Mq3hJGs";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Message-ID: <6b0cda5f-596f-f390-c22b-c922dee04a55@suse.com>
+Subject: Re: [PATCH v3 3/8] xen/hypfs: add new enter() and exit() per node
+ callbacks
+References: <20201209160956.32456-1-jgross@suse.com>
+ <20201209160956.32456-4-jgross@suse.com>
+ <36469295-8c77-0e58-654a-35fd992c11a1@suse.com>
+ <aad9131f-ca42-94b4-1ce2-18c6db0ac381@suse.com>
+ <227825e7-d704-fd36-a327-1dbd6aa391c8@suse.com>
+In-Reply-To: <227825e7-d704-fd36-a327-1dbd6aa391c8@suse.com>
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+--2jEMZxHgzjF8ZuqZQnmYb1JUL8Mq3hJGs
+Content-Type: multipart/mixed;
+ boundary="------------65F4E64037C290A0B9B4D7C9"
+Content-Language: en-US
 
-            Xen Security Advisory CVE-2020-29570 / XSA-358
-                               version 5
+This is a multi-part message in MIME format.
+--------------65F4E64037C290A0B9B4D7C9
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-          FIFO event channels control block related ordering
+On 16.12.20 17:36, Jan Beulich wrote:
+> On 16.12.2020 17:24, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 16.12.20 17:16, Jan Beulich wrote:
+>>> On 09.12.2020 17:09, Juergen Gross wrote:
+>>>> In order to better support resource allocation and locking for dynam=
+ic
+>>>> hypfs nodes add enter() and exit() callbacks to struct hypfs_funcs.
+>>>>
+>>>> The enter() callback is called when entering a node during hypfs use=
+r
+>>>> actions (traversing, reading or writing it), while the exit() callba=
+ck
+>>>> is called when leaving a node (accessing another node at the same or=
+ a
+>>>> higher directory level, or when returning to the user).
+>>>>
+>>>> For avoiding recursion this requires a parent pointer in each node.
+>>>> Let the enter() callback return the entry address which is stored as=
 
-UPDATES IN VERSION 5
-====================
+>>>> the last accessed node in order to be able to use a template entry f=
+or
+>>>> that purpose in case of dynamic entries.
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>> ---
+>>>> V2:
+>>>> - new patch
+>>>>
+>>>> V3:
+>>>> - add ASSERT(entry); (Jan Beulich)
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>> ---
+>>>>    xen/common/hypfs.c      | 80 ++++++++++++++++++++++++++++++++++++=
++++++
+>>>>    xen/include/xen/hypfs.h |  5 +++
+>>>>    2 files changed, 85 insertions(+)
+>>>>
+>>>> diff --git a/xen/common/hypfs.c b/xen/common/hypfs.c
+>>>> index 6f822ae097..f04934db10 100644
+>>>> --- a/xen/common/hypfs.c
+>>>> +++ b/xen/common/hypfs.c
+>>>> @@ -25,30 +25,40 @@ CHECK_hypfs_dirlistentry;
+>>>>         ROUNDUP((name_len) + 1, alignof(struct xen_hypfs_direntry)))=
 
-"Unstable" patch updated (needed re-basing).
+>>>>   =20
+>>>>    const struct hypfs_funcs hypfs_dir_funcs =3D {
+>>>> +    .enter =3D hypfs_node_enter,
+>>>> +    .exit =3D hypfs_node_exit,
+>>>>        .read =3D hypfs_read_dir,
+>>>>        .write =3D hypfs_write_deny,
+>>>>        .getsize =3D hypfs_getsize,
+>>>>        .findentry =3D hypfs_dir_findentry,
+>>>>    };
+>>>>    const struct hypfs_funcs hypfs_leaf_ro_funcs =3D {
+>>>> +    .enter =3D hypfs_node_enter,
+>>>> +    .exit =3D hypfs_node_exit,
+>>>>        .read =3D hypfs_read_leaf,
+>>>>        .write =3D hypfs_write_deny,
+>>>>        .getsize =3D hypfs_getsize,
+>>>>        .findentry =3D hypfs_leaf_findentry,
+>>>>    };
+>>>>    const struct hypfs_funcs hypfs_leaf_wr_funcs =3D {
+>>>> +    .enter =3D hypfs_node_enter,
+>>>> +    .exit =3D hypfs_node_exit,
+>>>>        .read =3D hypfs_read_leaf,
+>>>>        .write =3D hypfs_write_leaf,
+>>>>        .getsize =3D hypfs_getsize,
+>>>>        .findentry =3D hypfs_leaf_findentry,
+>>>>    };
+>>>>    const struct hypfs_funcs hypfs_bool_wr_funcs =3D {
+>>>> +    .enter =3D hypfs_node_enter,
+>>>> +    .exit =3D hypfs_node_exit,
+>>>>        .read =3D hypfs_read_leaf,
+>>>>        .write =3D hypfs_write_bool,
+>>>>        .getsize =3D hypfs_getsize,
+>>>>        .findentry =3D hypfs_leaf_findentry,
+>>>>    };
+>>>>    const struct hypfs_funcs hypfs_custom_wr_funcs =3D {
+>>>> +    .enter =3D hypfs_node_enter,
+>>>> +    .exit =3D hypfs_node_exit,
+>>>>        .read =3D hypfs_read_leaf,
+>>>>        .write =3D hypfs_write_custom,
+>>>>        .getsize =3D hypfs_getsize,
+>>>> @@ -63,6 +73,8 @@ enum hypfs_lock_state {
+>>>>    };
+>>>>    static DEFINE_PER_CPU(enum hypfs_lock_state, hypfs_locked);
+>>>>   =20
+>>>> +static DEFINE_PER_CPU(const struct hypfs_entry *, hypfs_last_node_e=
+ntered);
+>>>> +
+>>>>    HYPFS_DIR_INIT(hypfs_root, "");
+>>>>   =20
+>>>>    static void hypfs_read_lock(void)
+>>>> @@ -100,11 +112,59 @@ static void hypfs_unlock(void)
+>>>>        }
+>>>>    }
+>>>>   =20
+>>>> +const struct hypfs_entry *hypfs_node_enter(const struct hypfs_entry=
+ *entry)
+>>>> +{
+>>>> +    return entry;
+>>>> +}
+>>>> +
+>>>> +void hypfs_node_exit(const struct hypfs_entry *entry)
+>>>> +{
+>>>> +}
+>>>> +
+>>>> +static int node_enter(const struct hypfs_entry *entry)
+>>>> +{
+>>>> +    const struct hypfs_entry **last =3D &this_cpu(hypfs_last_node_e=
+ntered);
+>>>> +
+>>>> +    entry =3D entry->funcs->enter(entry);
+>>>> +    if ( IS_ERR(entry) )
+>>>> +        return PTR_ERR(entry);
+>>>> +
+>>>> +    ASSERT(entry);
+>>>> +    ASSERT(!*last || *last =3D=3D entry->parent);
+>>>> +
+>>>> +    *last =3D entry;
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +static void node_exit(const struct hypfs_entry *entry)
+>>>> +{
+>>>> +    const struct hypfs_entry **last =3D &this_cpu(hypfs_last_node_e=
+ntered);
+>>>> +
+>>>> +    if ( !*last )
+>>>> +        return;
+>>>
+>>> To my question regarding this in v2 you replied
+>>>
+>>> "I rechecked and have found that this was a remnant from an earlier
+>>>    variant. *last won't ever be NULL, so the if can be dropped (a NUL=
+L
+>>>    will be catched by the following ASSERT())."
+>>>
+>>> Now this if() is still there. Why?
+>>
+>> I really thought I did remove the if(). Seems as if I did that on
+>> my test machine only and not in my git tree. Sorry for that.
+>=20
+> So should I drop it while committing and adding
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ?
 
-ISSUE DESCRIPTION
-=================
+Yes, please.
 
-Recording of the per-vCPU control block mapping maintained by Xen and
-that of pointers into the control block is reversed.  The consumer
-assumes, seeing the former initialized, that the latter are also ready
-for use.
 
-IMPACT
-======
+Juergen
 
-Malicious or buggy guest kernels can mount a Denial of Service (DoS)
-attack affecting the entire system.
 
-VULNERABLE SYSTEMS
-==================
+--------------65F4E64037C290A0B9B4D7C9
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-All Xen versions from 4.4 onwards are vulnerable.  Xen versions 4.3 and
-earlier are not vulnerable.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-MITIGATION
-==========
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-There is no known mitigation.
+--------------65F4E64037C290A0B9B4D7C9--
 
-CREDITS
-=======
+--2jEMZxHgzjF8ZuqZQnmYb1JUL8Mq3hJGs--
 
-This issue was discovered by Julien Grall of Amazon.
+--diajpoYnltilczuPMwLTp2FoHHS9ZxUM9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-RESOLUTION
-==========
-
-Applying the appropriate attached patch resolves this issue.
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa358.patch           xen-unstable
-xsa358-4.14.patch      Xen 4.14 - 4.10
-
-$ sha256sum xsa358*
-0e8428a52e9bedafb2d8cbbb8dffae4e882e4b0898e4e7df3576c99e0e607167  xsa358.meta
-c0763c85287d138a02dc795aa5d2e903ca7efc641390bee53ea2f7473f4f95af  xsa358.patch
-937a3786d3d0147aef63eed373ed1df9ede75d1fabf5ad8f6ccaacfbf7fbcf42  xsa358-4.14.patch
-$
-
-DEPLOYMENT DURING EMBARGO
-=========================
-
-Deployment of the patches and/or mitigations described above (or
-others which are substantially similar) is permitted during the
-embargo, even on public-facing systems with untrusted guest users and
-administrators.
-
-But: Distribution of updated software is prohibited (except to other
-members of the predisclosure list).
-
-Predisclosure list members who wish to deploy significantly different
-patches and/or mitigations, please contact the Xen Project Security
-Team.
-
-(Note: this during-embargo deployment notice is retained in
-post-embargo publicly released Xen Project advisories, even though it
-is then no longer applicable.  This is to enable the community to have
-oversight of the Xen Project Security Team's decisionmaking.)
-
-For more information about permissible uses of embargoed information,
-consult the Xen Project community's agreed Security Policy:
-  http://www.xenproject.org/security-policy.html
 -----BEGIN PGP SIGNATURE-----
 
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl/aPhoMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZhWkH/08MG6OKo6O0vXv9PuznO/6JPjpSmAgkQYUBqYkw
-cAp/yq1kXo3kA+TyHQUPZwBzWx+B0OAG7OBDIoyDlVRhj5Z24YINY+knWzocyXmn
-7b6p8RdEf47cvWYn3Nugh2KXDdVo+CZ2C597kUBJSSuAJicT3BU3NIexXXLM9phU
-zeGcm39u4/ucZoBAAzP8IlsjxTs3woZG8ZlNNRrcF2QF98AWK1joIR3j54bWqwKs
-xvI+BLOXjhpr9Q2P/WY7zQsvWfw2dRsYpGMtPRpug+jpYOV51q//CnrDoSF7mXj9
-oHMklW1n/C+U0NeXMXdiwb+PhcP40m1ltya0Vfal8rPH1G4=
-=GzHh
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/aP+4FAwAAAAAACgkQsN6d1ii/Ey8+
+IAf9EdFKA1dXsq5RDt1fsBNTPhU9fT/S059wAZbyz/0g5CzSY5sPSBiSoWWiZR4ADd4Blo7BQeiX
+dy5XK/R2FesO9PcfD3ALrvT7clmswd9qcHP0AtgkVEVjiWMlDNRyLvtBw88o5PmUzkRnp7KgRUXJ
+RlHEtSLbxLFlmQMQYwxPjI63kfRCo7Pynlfw07H2+WCdtSFXbrhHqUW8nco+xH2JABwL/rSVrj26
+6BrrQ5SY8OyVvEnVisqxcNmnRNz0jnsv3vB9voQWJRv6N2Joqf85vMUeLliItwSmz5MxEVq0uhUp
+HaQ/ZwNoBYZj56WPrBPHI5XjJ2PbMb79aF/VXVg23A==
+=xLBZ
 -----END PGP SIGNATURE-----
 
---=separator
-Content-Type: application/octet-stream; name="xsa358.meta"
-Content-Disposition: attachment; filename="xsa358.meta"
-Content-Transfer-Encoding: base64
-
-ewogICJYU0EiOiAzNTgsCiAgIlN1cHBvcnRlZFZlcnNpb25zIjogWwogICAg
-Im1hc3RlciIsCiAgICAiNC4xNCIsCiAgICAiNC4xMyIsCiAgICAiNC4xMiIs
-CiAgICAiNC4xMSIsCiAgICAiNC4xMCIKICBdLAogICJUcmVlcyI6IFsKICAg
-ICJ4ZW4iCiAgXSwKICAiUmVjaXBlcyI6IHsKICAgICI0LjEwIjogewogICAg
-ICAiUmVjaXBlcyI6IHsKICAgICAgICAieGVuIjogewogICAgICAgICAgIlN0
-YWJsZVJlZiI6ICIxZDcyZDk5MTVlZGZmMGRkNDFmNjAxYmJiMGIxZjgzYzAy
-ZmYxNjg5IiwKICAgICAgICAgICJQcmVyZXFzIjogWwogICAgICAgICAgICAz
-NTMsCiAgICAgICAgICAgIDExNSwKICAgICAgICAgICAgMzIyLAogICAgICAg
-ICAgICAzMjMsCiAgICAgICAgICAgIDMyNCwKICAgICAgICAgICAgMzI1LAog
-ICAgICAgICAgICAzMzAsCiAgICAgICAgICAgIDM1MiwKICAgICAgICAgICAg
-MzQ4LAogICAgICAgICAgICAzNTYKICAgICAgICAgIF0sCiAgICAgICAgICAi
-UGF0Y2hlcyI6IFsKICAgICAgICAgICAgInhzYTM1OC00LjE0LnBhdGNoIgog
-ICAgICAgICAgXQogICAgICAgIH0KICAgICAgfQogICAgfSwKICAgICI0LjEx
-IjogewogICAgICAiUmVjaXBlcyI6IHsKICAgICAgICAieGVuIjogewogICAg
-ICAgICAgIlN0YWJsZVJlZiI6ICI0MWE4MjJjMzkyNjM1MGYyNjkxN2Q3NDdj
-OGRmZWQxYzQ0YTJjZjQyIiwKICAgICAgICAgICJQcmVyZXFzIjogWwogICAg
-ICAgICAgICAzNTMsCiAgICAgICAgICAgIDExNSwKICAgICAgICAgICAgMzIy
-LAogICAgICAgICAgICAzMjMsCiAgICAgICAgICAgIDMyNCwKICAgICAgICAg
-ICAgMzI1LAogICAgICAgICAgICAzMzAsCiAgICAgICAgICAgIDM1MiwKICAg
-ICAgICAgICAgMzQ4LAogICAgICAgICAgICAzNTYKICAgICAgICAgIF0sCiAg
-ICAgICAgICAiUGF0Y2hlcyI6IFsKICAgICAgICAgICAgInhzYTM1OC00LjE0
-LnBhdGNoIgogICAgICAgICAgXQogICAgICAgIH0KICAgICAgfQogICAgfSwK
-ICAgICI0LjEyIjogewogICAgICAiUmVjaXBlcyI6IHsKICAgICAgICAieGVu
-IjogewogICAgICAgICAgIlN0YWJsZVJlZiI6ICI4MTQ1ZDM4YjQ4MDA5MjU1
-YTMyYWI4N2EwMmU0ODFjZDA5YzgxMWY5IiwKICAgICAgICAgICJQcmVyZXFz
-IjogWwogICAgICAgICAgICAzNTMsCiAgICAgICAgICAgIDExNSwKICAgICAg
-ICAgICAgMzIyLAogICAgICAgICAgICAzMjMsCiAgICAgICAgICAgIDMyNCwK
-ICAgICAgICAgICAgMzI1LAogICAgICAgICAgICAzMzAsCiAgICAgICAgICAg
-IDM1MiwKICAgICAgICAgICAgMzQ4LAogICAgICAgICAgICAzNTYKICAgICAg
-ICAgIF0sCiAgICAgICAgICAiUGF0Y2hlcyI6IFsKICAgICAgICAgICAgInhz
-YTM1OC00LjE0LnBhdGNoIgogICAgICAgICAgXQogICAgICAgIH0KICAgICAg
-fQogICAgfSwKICAgICI0LjEzIjogewogICAgICAiUmVjaXBlcyI6IHsKICAg
-ICAgICAieGVuIjogewogICAgICAgICAgIlN0YWJsZVJlZiI6ICJiNTMwMjI3
-M2UyYzUxOTQwMTcyNDAwNDg2NjQ0NjM2ZjJmNGZjNjRhIiwKICAgICAgICAg
-ICJQcmVyZXFzIjogWwogICAgICAgICAgICAzNTMsCiAgICAgICAgICAgIDEx
-NSwKICAgICAgICAgICAgMzIyLAogICAgICAgICAgICAzMjMsCiAgICAgICAg
-ICAgIDMyNCwKICAgICAgICAgICAgMzI1LAogICAgICAgICAgICAzMzAsCiAg
-ICAgICAgICAgIDM1MiwKICAgICAgICAgICAgMzQ4LAogICAgICAgICAgICAz
-NTYKICAgICAgICAgIF0sCiAgICAgICAgICAiUGF0Y2hlcyI6IFsKICAgICAg
-ICAgICAgInhzYTM1OC00LjE0LnBhdGNoIgogICAgICAgICAgXQogICAgICAg
-IH0KICAgICAgfQogICAgfSwKICAgICI0LjE0IjogewogICAgICAiUmVjaXBl
-cyI6IHsKICAgICAgICAieGVuIjogewogICAgICAgICAgIlN0YWJsZVJlZiI6
-ICIxZDFkMWY1MzkxOTc2NDU2YTc5ZGFhYzBkY2ZlNzE1N2RhMWU1NGY3IiwK
-ICAgICAgICAgICJQcmVyZXFzIjogWwogICAgICAgICAgICAzNTMsCiAgICAg
-ICAgICAgIDExNSwKICAgICAgICAgICAgMzIyLAogICAgICAgICAgICAzMjMs
-CiAgICAgICAgICAgIDMyNCwKICAgICAgICAgICAgMzI1LAogICAgICAgICAg
-ICAzMzAsCiAgICAgICAgICAgIDM1MiwKICAgICAgICAgICAgMzQ4LAogICAg
-ICAgICAgICAzNTYKICAgICAgICAgIF0sCiAgICAgICAgICAiUGF0Y2hlcyI6
-IFsKICAgICAgICAgICAgInhzYTM1OC00LjE0LnBhdGNoIgogICAgICAgICAg
-XQogICAgICAgIH0KICAgICAgfQogICAgfSwKICAgICJtYXN0ZXIiOiB7CiAg
-ICAgICJSZWNpcGVzIjogewogICAgICAgICJ4ZW4iOiB7CiAgICAgICAgICAi
-U3RhYmxlUmVmIjogImRjOGIwMWFmZmQ3ZjZmMzZkMzRjMzg1NGY1MWRmMDg0
-N2RmM2VjMGUiLAogICAgICAgICAgIlByZXJlcXMiOiBbXSwKICAgICAgICAg
-ICJQYXRjaGVzIjogWwogICAgICAgICAgICAieHNhMzU4LnBhdGNoIgogICAg
-ICAgICAgXQogICAgICAgIH0KICAgICAgfQogICAgfQogIH0KfQ==
-
---=separator
-Content-Type: application/octet-stream; name="xsa358.patch"
-Content-Disposition: attachment; filename="xsa358.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
-OiBldnRjaG4vRklGTzogcmUtb3JkZXIgYW5kIHN5bmNocm9uaXplICh3aXRo
-KSBtYXBfY29udHJvbF9ibG9jaygpCgpGb3IgZXZ0Y2huX2ZpZm9fc2V0X3Bl
-bmRpbmcoKSdzIGNoZWNrIG9mIHRoZSBjb250cm9sIGJsb2NrIGhhdmluZyBi
-ZWVuCnNldCB0byBiZSBlZmZlY3RpdmUsIG9yZGVyaW5nIG9mIHJlc3BlY3Rp
-dmUgcmVhZHMgYW5kIHdyaXRlcyBuZWVkcyB0byBiZQplbnN1cmVkOiBUaGUg
-Y29udHJvbCBibG9jayBwb2ludGVyIG5lZWRzIHRvIGJlIHJlY29yZGVkIHN0
-cmljdGx5IGFmdGVyCnRoZSBzZXR0aW5nIG9mIGFsbCB0aGUgcXVldWUgaGVh
-ZHMsIGFuZCBpdCBuZWVkcyBjaGVja2luZyBzdHJpY3RseQpiZWZvcmUgYW55
-IHVzZXMgb2YgdGhlbSAodGhpcyBsYXR0ZXIgYXNwZWN0IHdhcyBhbHJlYWR5
-IGd1YXJhbnRlZWQpLgoKVGhpcyBpcyBYU0EtMzU4IC8gQ1ZFLTIwMjAtMjk1
-NzAuCgpSZXBvcnRlZC1ieTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9u
-LmNvbT4KU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1
-c2UuY29tPgpBY2tlZC1ieTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9u
-LmNvbT4KLS0tCnY0OiBSZS1iYXNlLgp2MzogRHJvcCByZWFkLXNpZGUgYmFy
-cmllciBhZ2FpbiwgbGV2ZXJhZ2luZyBndWVzdF90ZXN0X2FuZF9zZXRfYml0
-KCkuCnYyOiBSZS1iYXNlIG92ZXIgcXVldWUgbG9ja2luZyByZS13b3JrLgoK
-LS0tIGEveGVuL2NvbW1vbi9ldmVudF9maWZvLmMKKysrIGIveGVuL2NvbW1v
-bi9ldmVudF9maWZvLmMKQEAgLTI0OSw2ICsyNDksMTAgQEAgc3RhdGljIHZv
-aWQgZXZ0Y2huX2ZpZm9fc2V0X3BlbmRpbmcoc3RydQogICAgICAqIExpbmsg
-dGhlIGV2ZW50IGlmIGl0IHVubWFza2VkIGFuZCBub3QgYWxyZWFkeSBsaW5r
-ZWQuCiAgICAgICovCiAgICAgaWYgKCAhZ3Vlc3RfdGVzdF9iaXQoZCwgRVZU
-Q0hOX0ZJRk9fTUFTS0VELCB3b3JkKSAmJgorICAgICAgICAgLyoKKyAgICAg
-ICAgICAqIFRoaXMgYWxzbyBhY3RzIGFzIHRoZSByZWFkIGNvdW50ZXJwYXJ0
-IG9mIHRoZSBzbXBfd21iKCkgaW4KKyAgICAgICAgICAqIG1hcF9jb250cm9s
-X2Jsb2NrKCkuCisgICAgICAgICAgKi8KICAgICAgICAgICFndWVzdF90ZXN0
-X2FuZF9zZXRfYml0KGQsIEVWVENITl9GSUZPX0xJTktFRCwgd29yZCkgKQog
-ICAgIHsKICAgICAgICAgLyoKQEAgLTQ3NCw2ICs0NzgsNyBAQCBzdGF0aWMg
-aW50IHNldHVwX2NvbnRyb2xfYmxvY2soc3RydWN0IHZjCiBzdGF0aWMgaW50
-IG1hcF9jb250cm9sX2Jsb2NrKHN0cnVjdCB2Y3B1ICp2LCB1aW50NjRfdCBn
-Zm4sIHVpbnQzMl90IG9mZnNldCkKIHsKICAgICB2b2lkICp2aXJ0OworICAg
-IHN0cnVjdCBldnRjaG5fZmlmb19jb250cm9sX2Jsb2NrICpjb250cm9sX2Js
-b2NrOwogICAgIHVuc2lnbmVkIGludCBpOwogICAgIGludCByYzsKIApAQCAt
-NDg0LDEwICs0ODksMTUgQEAgc3RhdGljIGludCBtYXBfY29udHJvbF9ibG9j
-ayhzdHJ1Y3QgdmNwdQogICAgIGlmICggcmMgPCAwICkKICAgICAgICAgcmV0
-dXJuIHJjOwogCi0gICAgdi0+ZXZ0Y2huX2ZpZm8tPmNvbnRyb2xfYmxvY2sg
-PSB2aXJ0ICsgb2Zmc2V0OworICAgIGNvbnRyb2xfYmxvY2sgPSB2aXJ0ICsg
-b2Zmc2V0OwogCiAgICAgZm9yICggaSA9IDA7IGkgPD0gRVZUQ0hOX0ZJRk9f
-UFJJT1JJVFlfTUlOOyBpKysgKQotICAgICAgICB2LT5ldnRjaG5fZmlmby0+
-cXVldWVbaV0uaGVhZCA9ICZ2LT5ldnRjaG5fZmlmby0+Y29udHJvbF9ibG9j
-ay0+aGVhZFtpXTsKKyAgICAgICAgdi0+ZXZ0Y2huX2ZpZm8tPnF1ZXVlW2ld
-LmhlYWQgPSAmY29udHJvbF9ibG9jay0+aGVhZFtpXTsKKworICAgIC8qIEFs
-bCBxdWV1ZSBoZWFkcyBtdXN0IGhhdmUgYmVlbiBzZXQgYmVmb3JlIHNldHRp
-bmcgdGhlIGNvbnRyb2wgYmxvY2suICovCisgICAgc21wX3dtYigpOworCisg
-ICAgdi0+ZXZ0Y2huX2ZpZm8tPmNvbnRyb2xfYmxvY2sgPSBjb250cm9sX2Js
-b2NrOwogCiAgICAgcmV0dXJuIDA7CiB9Cg==
-
---=separator
-Content-Type: application/octet-stream; name="xsa358-4.14.patch"
-Content-Disposition: attachment; filename="xsa358-4.14.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
-OiBldnRjaG4vRklGTzogcmUtb3JkZXIgYW5kIHN5bmNocm9uaXplICh3aXRo
-KSBtYXBfY29udHJvbF9ibG9jaygpCgpGb3IgZXZ0Y2huX2ZpZm9fc2V0X3Bl
-bmRpbmcoKSdzIGNoZWNrIG9mIHRoZSBjb250cm9sIGJsb2NrIGhhdmluZyBi
-ZWVuCnNldCB0byBiZSBlZmZlY3RpdmUsIG9yZGVyaW5nIG9mIHJlc3BlY3Rp
-dmUgcmVhZHMgYW5kIHdyaXRlcyBuZWVkcyB0byBiZQplbnN1cmVkOiBUaGUg
-Y29udHJvbCBibG9jayBwb2ludGVyIG5lZWRzIHRvIGJlIHJlY29yZGVkIHN0
-cmljdGx5IGFmdGVyCnRoZSBzZXR0aW5nIG9mIGFsbCB0aGUgcXVldWUgaGVh
-ZHMsIGFuZCBpdCBuZWVkcyBjaGVja2luZyBzdHJpY3RseQpiZWZvcmUgYW55
-IHVzZXMgb2YgdGhlbSAodGhpcyBsYXR0ZXIgYXNwZWN0IHdhcyBhbHJlYWR5
-IGd1YXJhbnRlZWQpLgoKVGhpcyBpcyBYU0EtMzU4IC8gQ1ZFLTIwMjAtMjk1
-NzAuCgpSZXBvcnRlZC1ieTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9u
-LmNvbT4KU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1
-c2UuY29tPgpBY2tlZC1ieTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9u
-LmNvbT4KCi0tLSBhL3hlbi9jb21tb24vZXZlbnRfZmlmby5jCisrKyBiL3hl
-bi9jb21tb24vZXZlbnRfZmlmby5jCkBAIC0yNDksNiArMjQ5LDEwIEBAIHN0
-YXRpYyB2b2lkIGV2dGNobl9maWZvX3NldF9wZW5kaW5nKHN0cnUKICAgICAg
-ICAgICAgIGdvdG8gdW5sb2NrOwogICAgICAgICB9CiAKKyAgICAgICAgLyoK
-KyAgICAgICAgICogVGhpcyBhbHNvIGFjdHMgYXMgdGhlIHJlYWQgY291bnRl
-cnBhcnQgb2YgdGhlIHNtcF93bWIoKSBpbgorICAgICAgICAgKiBtYXBfY29u
-dHJvbF9ibG9jaygpLgorICAgICAgICAgKi8KICAgICAgICAgaWYgKCBndWVz
-dF90ZXN0X2FuZF9zZXRfYml0KGQsIEVWVENITl9GSUZPX0xJTktFRCwgd29y
-ZCkgKQogICAgICAgICAgICAgZ290byB1bmxvY2s7CiAKQEAgLTQ3NCw2ICs0
-NzgsNyBAQCBzdGF0aWMgaW50IHNldHVwX2NvbnRyb2xfYmxvY2soc3RydWN0
-IHZjCiBzdGF0aWMgaW50IG1hcF9jb250cm9sX2Jsb2NrKHN0cnVjdCB2Y3B1
-ICp2LCB1aW50NjRfdCBnZm4sIHVpbnQzMl90IG9mZnNldCkKIHsKICAgICB2
-b2lkICp2aXJ0OworICAgIHN0cnVjdCBldnRjaG5fZmlmb19jb250cm9sX2Js
-b2NrICpjb250cm9sX2Jsb2NrOwogICAgIHVuc2lnbmVkIGludCBpOwogICAg
-IGludCByYzsKIApAQCAtNDg0LDEwICs0ODksMTUgQEAgc3RhdGljIGludCBt
-YXBfY29udHJvbF9ibG9jayhzdHJ1Y3QgdmNwdQogICAgIGlmICggcmMgPCAw
-ICkKICAgICAgICAgcmV0dXJuIHJjOwogCi0gICAgdi0+ZXZ0Y2huX2ZpZm8t
-PmNvbnRyb2xfYmxvY2sgPSB2aXJ0ICsgb2Zmc2V0OworICAgIGNvbnRyb2xf
-YmxvY2sgPSB2aXJ0ICsgb2Zmc2V0OwogCiAgICAgZm9yICggaSA9IDA7IGkg
-PD0gRVZUQ0hOX0ZJRk9fUFJJT1JJVFlfTUlOOyBpKysgKQotICAgICAgICB2
-LT5ldnRjaG5fZmlmby0+cXVldWVbaV0uaGVhZCA9ICZ2LT5ldnRjaG5fZmlm
-by0+Y29udHJvbF9ibG9jay0+aGVhZFtpXTsKKyAgICAgICAgdi0+ZXZ0Y2hu
-X2ZpZm8tPnF1ZXVlW2ldLmhlYWQgPSAmY29udHJvbF9ibG9jay0+aGVhZFtp
-XTsKKworICAgIC8qIEFsbCBxdWV1ZSBoZWFkcyBtdXN0IGhhdmUgYmVlbiBz
-ZXQgYmVmb3JlIHNldHRpbmcgdGhlIGNvbnRyb2wgYmxvY2suICovCisgICAg
-c21wX3dtYigpOworCisgICAgdi0+ZXZ0Y2huX2ZpZm8tPmNvbnRyb2xfYmxv
-Y2sgPSBjb250cm9sX2Jsb2NrOwogCiAgICAgcmV0dXJuIDA7CiB9Cg==
-
---=separator--
+--diajpoYnltilczuPMwLTp2FoHHS9ZxUM9--
 
