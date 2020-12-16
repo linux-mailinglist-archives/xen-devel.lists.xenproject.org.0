@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41CDA2DBBC8
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 08:03:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55084.95857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CE322DBC78
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 09:13:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55101.95875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpQps-0008DL-LK; Wed, 16 Dec 2020 07:02:56 +0000
+	id 1kpRvQ-0006lf-4Z; Wed, 16 Dec 2020 08:12:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55084.95857; Wed, 16 Dec 2020 07:02:56 +0000
+Received: by outflank-mailman (output) from mailman id 55101.95875; Wed, 16 Dec 2020 08:12:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpQps-0008Cx-Hc; Wed, 16 Dec 2020 07:02:56 +0000
-Received: by outflank-mailman (input) for mailman id 55084;
- Wed, 16 Dec 2020 07:02:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kpRvQ-0006lG-0n; Wed, 16 Dec 2020 08:12:44 +0000
+Received: by outflank-mailman (input) for mailman id 55101;
+ Wed, 16 Dec 2020 08:12:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DJND=FU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kpQpq-0008CS-6x
- for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 07:02:54 +0000
+ (envelope-from <SRS0=uZEz=FU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kpRvP-0006lB-5X
+ for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 08:12:43 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fc2f82fa-1ef6-471a-b5c8-ef09126140d1;
- Wed, 16 Dec 2020 07:02:53 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6ff6bf1a-01bf-424c-a5be-d29a118f6f37;
+ Wed, 16 Dec 2020 08:12:41 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A58F4AD2B;
- Wed, 16 Dec 2020 07:02:52 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id ECEBAACBD;
+ Wed, 16 Dec 2020 08:12:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,179 +39,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc2f82fa-1ef6-471a-b5c8-ef09126140d1
+X-Inumbo-ID: 6ff6bf1a-01bf-424c-a5be-d29a118f6f37
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608102172; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608106361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=X05gtw4kgTwX17yOh6ryFaZQNp8HrbmMgmLTjKIzlq8=;
-	b=PgoMg50ca2BU6FbkT16JT2azHdchaw2R7U9Nia7MJroXzwQUqvix5JtrttGw9EzaMkHuvw
-	wJwE8e2OqfsNjXRrmogJ1YJST/9n3qyRqqftpZcffpRnE79iFK/yFxw8SG5kpdzXuqNXye
-	kKcPYORa58LtmuweT/5Yq1rbYO/NGwU=
-Subject: Re: [PATCH] xen: remove trailing semicolon in macro definition
-To: trix@redhat.com, boris.ostrovsky@oracle.com, sstabellini@kernel.org,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com
-Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20201127160707.2622061-1-trix@redhat.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <49ea103f-c506-2252-f17c-5488fc03988e@suse.com>
-Date: Wed, 16 Dec 2020 08:02:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+	bh=7ValLgEYg1KF55nl6jtub6eAGN5kJomEIMPabfj9FNg=;
+	b=L9k5pgKgmcGhB75QAL5J+KZORFEZIh8g3YapR0dsEfJSZaRegsqssj27mT2SDiB5+J598m
+	PCvsNgorp7Wc+3U+C8gA1sPlsC3/WjxQ7ZTgCOPegrEntF9ZbunaxD1+8fOMj6mqV9M63i
+	RGkQL2xUKm6ZF2YtrVwKuA25facusOA=
+Subject: Re: Recent upgrade of 4.13 -> 4.14 issue
+To: Liwei <xieliwei@gmail.com>
+Cc: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>,
+ Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+References: <mailman.2112.1604414193.711.xen-devel@lists.xenproject.org>
+ <CAPE0SYz0be1ZOoNqDHpeJWeZS-1BM_zy50=Cmeo+4Aq1Na0eNQ@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <4a0d9b00-5f1f-e9e1-fccf-1f26762134e8@suse.com>
+Date: Wed, 16 Dec 2020 09:12:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <20201127160707.2622061-1-trix@redhat.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="WF9Uk85fbX9051r9PAIpsoQaKUjFHYNE3"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---WF9Uk85fbX9051r9PAIpsoQaKUjFHYNE3
-Content-Type: multipart/mixed; boundary="Gm9EMK5W9xjZeuzmTGz4bE0qkfDBP2Ewx";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: trix@redhat.com, boris.ostrovsky@oracle.com, sstabellini@kernel.org,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com
-Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Message-ID: <49ea103f-c506-2252-f17c-5488fc03988e@suse.com>
-Subject: Re: [PATCH] xen: remove trailing semicolon in macro definition
-References: <20201127160707.2622061-1-trix@redhat.com>
-In-Reply-To: <20201127160707.2622061-1-trix@redhat.com>
-
---Gm9EMK5W9xjZeuzmTGz4bE0qkfDBP2Ewx
-Content-Type: multipart/mixed;
- boundary="------------6E8CD34F2C319CA262AEFC06"
+In-Reply-To: <CAPE0SYz0be1ZOoNqDHpeJWeZS-1BM_zy50=Cmeo+4Aq1Na0eNQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------6E8CD34F2C319CA262AEFC06
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+On 15.12.2020 20:08, Liwei wrote:
+> Hi list,
+>     This is a reply to the thread of the same title (linked here:
+> https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg84916.html
+> ) which I could not reply to because I receive this list by digest.
+> 
+>     I'm unclear if this is exactly the reason, but I experienced the
+> same symptoms when upgrading to 4.14. The issue does not occur if I
+> downgrade to 4.11 (the previous version that was provided by Debian).
+> Kernel is 5.9.11 and unchanged between xen versions.
+> 
+>     One thing I noticed is that if I disable the monitor/mwait
+> instructions on my CPU (Intel Xeon E5-2699 v4 ES), the stalls seem to
+> occur later into the boot. With the instructions enabled, the system
+> usually stalls less than a few minutes after boot; disabled, it can
+> last for tens of minutes.
+> 
+>     Further disabling the HPET or forcing the kernel to use PIT causes
+> it to be somewhat usable. The stalls still occur tens of minutes in
+> but somehow everything seems to continue chugging along fine?
 
-On 27.11.20 17:07, trix@redhat.com wrote:
-> From: Tom Rix <trix@redhat.com>
->=20
-> The macro use will already have a semicolon.
->=20
-> Signed-off-by: Tom Rix <trix@redhat.com>
+By "the kernel" do you really mean the kernel, or Xen?
 
-Applied to: xen/tip.git for-linus-5.11
+>     I've also verified that the stalls do not occur in all the above
+> cases if I just boot into the kernel without xen.
+> 
+>     When the stalls happen, I get the "rcu: INFO: rcu_sched detected
+> stalls on CPUs/tasks" backtraces printed on the console periodically,
+> but keystrokes don't do anything on the console, and I can't spawn new
+> SSH sessions even though pinging the system produces a reply. The last
+> item in the call trace is usually "xen_safe_halt", but I've seen it
+> occur for other functions related to btrfs and the network adapter as
+> well.
 
+The kernel log may not be the only relevant thing here - the hypervisor
+log may also need looking at (with full verbosity enabled and
+preferably a debug build in use).
 
-Juergen
+>     Do let me know if there's anything I can provide to help
+> troubleshoot this. At the moment I've reverted to 4.11, but I can
+> temporarily switch over to 4.14 to collect any necessary information.
 
---------------6E8CD34F2C319CA262AEFC06
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+In that earlier thread a number of things to try were suggested, iirc
+(switching scheduler or disabling use of deep C states come to mind).
+Did you experiment with those? If so, can you let us know of the
+results, so we can see whether there's a pattern?
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------6E8CD34F2C319CA262AEFC06--
-
---Gm9EMK5W9xjZeuzmTGz4bE0qkfDBP2Ewx--
-
---WF9Uk85fbX9051r9PAIpsoQaKUjFHYNE3
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/ZsRsFAwAAAAAACgkQsN6d1ii/Ey/B
-lQgAkcpAKfTn6Y+Jbp1HsZdXkanY7gB1wcou5exvBPIv434XKG5IhsClwhlXMAIYQoYJE5hGAUOj
-LpmSPsIn/9tnKMy86CiaPYXprpcatYhvQPYwKwcPiXWR26JFqo7btLTwYletYqDRNl1j7sG8Ab8H
-E6ZLnLu/igF7SNIyCEUe2SJss1PMmMPtKE8Wqsjla95KzJFg+XNP8nxKDfv3rzm7D95FOQlPIce5
-+50h/SAGQF+XgyUXlW6ZuryJGUoJeDagWy1Aezh6q5PDBeNYAPbvK3vCRlfJpu4W+A6YkU0WfgzU
-0BR7qiFv0n/1GeqcONMOPRWZVpPLFFLSUIBRtTL1IQ==
-=Vt1f
------END PGP SIGNATURE-----
-
---WF9Uk85fbX9051r9PAIpsoQaKUjFHYNE3--
+Jan
 
