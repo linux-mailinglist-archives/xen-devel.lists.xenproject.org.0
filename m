@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F5EE2DC05A
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 13:36:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55212.96145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1111D2DC08C
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Dec 2020 13:57:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55229.96206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpW1q-0006qK-7j; Wed, 16 Dec 2020 12:35:38 +0000
+	id 1kpWMT-0000a8-Jo; Wed, 16 Dec 2020 12:56:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55212.96145; Wed, 16 Dec 2020 12:35:38 +0000
+Received: by outflank-mailman (output) from mailman id 55229.96206; Wed, 16 Dec 2020 12:56:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpW1q-0006pv-4I; Wed, 16 Dec 2020 12:35:38 +0000
-Received: by outflank-mailman (input) for mailman id 55212;
- Wed, 16 Dec 2020 12:35:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kpWMT-0000Zd-FU; Wed, 16 Dec 2020 12:56:57 +0000
+Received: by outflank-mailman (input) for mailman id 55229;
+ Wed, 16 Dec 2020 12:56:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hnmN=FU=redhat.com=kwolf@srs-us1.protection.inumbo.net>)
- id 1kpW1o-0006pl-1X
- for xen-devel@lists.xenproject.org; Wed, 16 Dec 2020 12:35:36 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id ad8e701d-6b5a-499b-ab13-6d2981795dec;
- Wed, 16 Dec 2020 12:35:34 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-159-hCDAhdqZMsqRsPvKKMnrMQ-1; Wed, 16 Dec 2020 07:35:31 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3CA8C100C600;
- Wed, 16 Dec 2020 12:35:29 +0000 (UTC)
-Received: from merkur.fritz.box (ovpn-115-50.ams2.redhat.com [10.36.115.50])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D8DD5D9C0;
- Wed, 16 Dec 2020 12:35:15 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kpWMS-0000ZO-3M; Wed, 16 Dec 2020 12:56:56 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kpWMR-00077M-VY; Wed, 16 Dec 2020 12:56:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kpWMR-0001lQ-MH; Wed, 16 Dec 2020 12:56:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kpWMR-0003Ue-Lq; Wed, 16 Dec 2020 12:56:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,236 +42,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad8e701d-6b5a-499b-ab13-6d2981795dec
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1608122134;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UtNZYdo9xoytjzGiKwk4LzakyNj0adxhgOtO55qRA30=;
-	b=hP7Sgvfg/3paJ/4nXIJJiMkYve/McVngcPYsKcHqLIySp/vRTnJXQ8yQfDUhxN5U08McsQ
-	ZldUz/MrY4SqM0QdYGdgw+RnyIiQ1d0J6uFnz0JI9EsYgJmDpFn0DlARBaySUmGof3pLVy
-	ud4iFU5/amsD7+1SYOiuLKiawhItahg=
-X-MC-Unique: hCDAhdqZMsqRsPvKKMnrMQ-1
-Date: Wed, 16 Dec 2020 13:35:14 +0100
-From: Kevin Wolf <kwolf@redhat.com>
-To: Sergio Lopez <slp@redhat.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
-	qemu-block@nongnu.org, Anthony Perard <anthony.perard@citrix.com>,
-	xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>, Fam Zheng <fam@euphon.net>,
-	Eric Blake <eblake@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	Max Reitz <mreitz@redhat.com>
-Subject: Re: [PATCH v2 2/4] block: Avoid processing BDS twice in
- bdrv_set_aio_context_ignore()
-Message-ID: <20201216123514.GD7548@merkur.fritz.box>
-References: <20201214170519.223781-1-slp@redhat.com>
- <20201214170519.223781-3-slp@redhat.com>
- <20201215121233.GD8185@merkur.fritz.box>
- <20201215131527.evpidxevevtfy54n@mhamilton>
- <20201215150119.GE8185@merkur.fritz.box>
- <20201215172337.w7vcn2woze2ejgco@mhamilton>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=gjz0y/NxrJEI5E3jVn0vvWI4wnzql1YY+YlsG9NxnxM=; b=zrXmIsmnBYWNq5SZy3+wng3E32
+	6B5eAQy4fanGU80svC6z2habqF3v7ETui6qsF1FN9a6v3CKxyIiKpo/q0jYWrFb7e3t6803tlV0BN
+	bx0s0DIyb8dZK5YzS3VwB1VDW5ss4frDId4qTQBtxwmM8ddh4Fr+0zMquDGUqDiMH2HA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157566-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20201215172337.w7vcn2woze2ejgco@mhamilton>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=kwolf@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="UugvWAfsgieZRqgk"
-Content-Disposition: inline
+Subject: [xen-4.11-testing test] 157566: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    xen-4.11-testing:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    xen-4.11-testing:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.11-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-4.11-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=310ab79875cb705cc2c7daddff412b5a4899f8c9
+X-Osstest-Versions-That:
+    xen=41a822c3926350f26917d747c8dfed1c44a2cf42
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 16 Dec 2020 12:56:55 +0000
 
---UugvWAfsgieZRqgk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+flight 157566 xen-4.11-testing real [real]
+flight 157605 xen-4.11-testing real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157566/
+http://logs.test-lab.xenproject.org/osstest/logs/157605/
 
-Am 15.12.2020 um 18:23 hat Sergio Lopez geschrieben:
-> On Tue, Dec 15, 2020 at 04:01:19PM +0100, Kevin Wolf wrote:
-> > Am 15.12.2020 um 14:15 hat Sergio Lopez geschrieben:
-> > > On Tue, Dec 15, 2020 at 01:12:33PM +0100, Kevin Wolf wrote:
-> > > > Am 14.12.2020 um 18:05 hat Sergio Lopez geschrieben:
-> > > > > While processing the parents of a BDS, one of the parents may pro=
-cess
-> > > > > the child that's doing the tail recursion, which leads to a BDS b=
-eing
-> > > > > processed twice. This is especially problematic for the aio_notif=
-iers,
-> > > > > as they might attempt to work on both the old and the new AIO
-> > > > > contexts.
-> > > > >=20
-> > > > > To avoid this, add the BDS pointer to the ignore list, and check =
-the
-> > > > > child BDS pointer while iterating over the children.
-> > > > >=20
-> > > > > Signed-off-by: Sergio Lopez <slp@redhat.com>
-> > > >=20
-> > > > Ugh, so we get a mixed list of BdrvChild and BlockDriverState? :-/
-> > >=20
-> > > I know, it's effective but quite ugly...
-> > >=20
-> > > > What is the specific scenario where you saw this breaking? Did you =
-have
-> > > > multiple BdrvChild connections between two nodes so that we would g=
-o to
-> > > > the parent node through one and then come back to the child node th=
-rough
-> > > > the other?
-> > >=20
-> > > I don't think this is a corner case. If the graph is walked top->down=
-,
-> > > there's no problem since children are added to the ignore list before
-> > > getting processed, and siblings don't process each other. But, if the
-> > > graph is walked bottom->up, a BDS will start processing its parents
-> > > without adding itself to the ignore list, so there's nothing
-> > > preventing them from processing it again.
-> >=20
-> > I don't understand. child is added to ignore before calling the parent
-> > callback on it, so how can we come back through the same BdrvChild?
-> >=20
-> >     QLIST_FOREACH(child, &bs->parents, next_parent) {
-> >         if (g_slist_find(*ignore, child)) {
-> >             continue;
-> >         }
-> >         assert(child->klass->set_aio_ctx);
-> >         *ignore =3D g_slist_prepend(*ignore, child);
-> >         child->klass->set_aio_ctx(child, new_context, ignore);
-> >     }
->=20
-> Perhaps I'm missing something, but the way I understand it, that loop
-> is adding the BdrvChild pointer of each of its parents, but not the
-> BdrvChild pointer of the BDS that was passed as an argument to
-> b_s_a_c_i.
+Failures :-/ but no regressions.
 
-Generally, the caller has already done that.
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 157605-retest
 
-In the theoretical case that it was the outermost call in the recursion
-and it hasn't (I couldn't find any such case), I think we should still
-call the callback for the passed BdrvChild like we currently do.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail like 157137
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail like 157137
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 157137
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 157137
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 157137
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 157137
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 157137
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 157137
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 157137
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 157137
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 157137
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 157137
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 157137
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> > You didn't dump the BdrvChild here. I think that would add some
-> > information on why we re-entered 0x555ee2fbf660. Maybe you can also add
-> > bs->drv->format_name for each node to make the scenario less abstract?
->=20
-> I've generated another trace with more data:
->=20
-> bs=3D0x565505e48030 (backup-top) enter
-> bs=3D0x565505e48030 (backup-top) processing children
-> bs=3D0x565505e48030 (backup-top) calling bsaci child=3D0x565505e42090 (ch=
-ild->bs=3D0x565505e5d420)
-> bs=3D0x565505e5d420 (qcow2) enter
-> bs=3D0x565505e5d420 (qcow2) processing children
-> bs=3D0x565505e5d420 (qcow2) calling bsaci child=3D0x565505e41ea0 (child->=
-bs=3D0x565505e52060)
-> bs=3D0x565505e52060 (file) enter
-> bs=3D0x565505e52060 (file) processing children
-> bs=3D0x565505e52060 (file) processing parents
-> bs=3D0x565505e52060 (file) processing itself
-> bs=3D0x565505e5d420 (qcow2) processing parents
-> bs=3D0x565505e5d420 (qcow2) calling set_aio_ctx child=3D0x5655066a34d0
-> bs=3D0x565505fbf660 (qcow2) enter
-> bs=3D0x565505fbf660 (qcow2) processing children
-> bs=3D0x565505fbf660 (qcow2) calling bsaci child=3D0x565505e41d20 (child->=
-bs=3D0x565506bc0c00)
-> bs=3D0x565506bc0c00 (file) enter
-> bs=3D0x565506bc0c00 (file) processing children
-> bs=3D0x565506bc0c00 (file) processing parents
-> bs=3D0x565506bc0c00 (file) processing itself
-> bs=3D0x565505fbf660 (qcow2) processing parents
-> bs=3D0x565505fbf660 (qcow2) calling set_aio_ctx child=3D0x565505fc7aa0
-> bs=3D0x565505fbf660 (qcow2) calling set_aio_ctx child=3D0x5655068b8510
-> bs=3D0x565505e48030 (backup-top) enter
-> bs=3D0x565505e48030 (backup-top) processing children
-> bs=3D0x565505e48030 (backup-top) calling bsaci child=3D0x565505e3c450 (ch=
-ild->bs=3D0x565505fbf660)
-> bs=3D0x565505fbf660 (qcow2) enter
-> bs=3D0x565505fbf660 (qcow2) processing children
-> bs=3D0x565505fbf660 (qcow2) processing parents
-> bs=3D0x565505fbf660 (qcow2) processing itself
-> bs=3D0x565505e48030 (backup-top) processing parents
-> bs=3D0x565505e48030 (backup-top) calling set_aio_ctx child=3D0x565505e402=
-d0
-> bs=3D0x565505e48030 (backup-top) processing itself
-> bs=3D0x565505fbf660 (qcow2) processing itself
+version targeted for testing:
+ xen                  310ab79875cb705cc2c7daddff412b5a4899f8c9
+baseline version:
+ xen                  41a822c3926350f26917d747c8dfed1c44a2cf42
 
-Hm, is this complete? Is see no "processing itself" for
-bs=3D0x565505e5d420. Or is this because it crashed before getting there?
+Last test of basis   157137  2020-12-01 16:36:48 Z   14 days
+Testing same since   157566  2020-12-15 14:05:54 Z    0 days    1 attempts
 
-Anyway, trying to reconstruct the block graph with BdrvChild pointers
-annotated at the edges:
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Christian Lindig <christian.lindig@citrix.com>
+  Edwin Török <edvin.torok@citrix.com>
+  Harsha Shamsundara Havanur <havanur@amazon.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Julien Grall <julien@amazon.com>
 
-BlockBackend
-      |
-      v
-  backup-top ------------------------+
-      |   |                          |
-      |   +-----------------------+  |
-      |            0x5655068b8510 |  | 0x565505e3c450
-      |                           |  |
-      | 0x565505e42090            |  |
-      v                           |  |
-    qcow2 ---------------------+  |  |
-      |                        |  |  |
-      | 0x565505e52060         |  |  | ??? [1]
-      |                        |  |  |  |
-      v         0x5655066a34d0 |  |  |  | 0x565505fc7aa0
-    file                       v  v  v  v
-                             qcow2 (backing)
-                                    |
-                                    | 0x565505e41d20
-                                    v
-                                  file
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-[1] This seems to be a BdrvChild with a non-BDS parent. Probably a
-    BdrvChild directly owned by the backup job.
 
-> So it seems this is happening:
->=20
-> backup-top (5e48030) <---------| (5)
->    |    |                      |
->    |    | (6) ------------> qcow2 (5fbf660)
->    |                           ^    |
->    |                       (3) |    | (4)
->    |-> (1) qcow2 (5e5d420) -----    |-> file (6bc0c00)
->    |
->    |-> (2) file (5e52060)
->=20
-> backup-top (5e48030), the BDS that was passed as argument in the first
-> bdrv_set_aio_context_ignore() call, is re-entered when qcow2 (5fbf660)
-> is processing its parents, and the latter is also re-entered when the
-> first one starts processing its children again.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Yes, but look at the BdrvChild pointers, it is through different edges
-that we come back to the same node. No BdrvChild is used twice.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-If backup-top had added all of its children to the ignore list before
-calling into the overlay qcow2, the backing qcow2 wouldn't eventually
-have called back into backup-top.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Kevin
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---UugvWAfsgieZRqgk
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+Pushing revision :
 
-iQIzBAEBCAAdFiEE3D3rFZqa+V09dFb+fwmycsiPL9YFAl/Z/wEACgkQfwmycsiP
-L9YaAhAAwCX3qwQuucObmD7XW3Qh3RFNxDtaTW8d1vXXPnMXZdogTbG2SiC5TQ4q
-JciH/JgUMisvgGZLLKeNDPjOKh5lLLCoqOjd7Vp6G6R/yDQLaUqgDEtk/fOifAp0
-9USYSM6Z20xIhkCGwWsgDcMiFtlkNq5UxJxJ8ObB5BzLeIBXX99hK2xntEhZ3RZk
-prxmsGMhWz8XDP2smTSANz99rpszTRDqNM1r8aFhlZ6BySBntJQ0fpjcjq04Xt2X
-B7B8WFkWgTP2tf6FS75f7p+uQoM7mllN03Unn9Tr7ZmnVeF3PvVo6p4G5kr1raIC
-Qrdo6btc7AhJJGTLE8CYHp3Zc22VDbniNeTqDhk8xfo4u21WZ+qZLg+jQE/jRq6R
-EiJVW7kS05P3+zGGV4F6JbqS1NItQFYtu41Tiop68R3YpdyFKviUkzGoXxj1DrxA
-h5oQq4jv4xp8eq6dBpBveoPph377pxi76nJE/OLu3+rH/xoyqk8XHfWYiQLuvM8I
-FtdYejAnuE/s2/wQpjLa/Jga8A3NSnIs6XRTOhcZ0kHkyeNMnxfYy0hd+uSy8CMw
-34Ljkssf/zNnytkDJuKlbckEJTstubpkkYy+t2FUfViqbzAC50diU6MQuO8enDv5
-TGcxnqhFGThQU3ZKMQEdVnWyulO2CycskOLBmTYN3jC3ZkuaK9A=
-=sPmL
------END PGP SIGNATURE-----
-
---UugvWAfsgieZRqgk--
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   41a822c392..310ab79875  310ab79875cb705cc2c7daddff412b5a4899f8c9 -> stable-4.11
 
