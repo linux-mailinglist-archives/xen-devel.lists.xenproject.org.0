@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FAE32DDBB9
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Dec 2020 00:03:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.56214.98266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296352DDBCD
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Dec 2020 00:17:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.56219.98282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kq2IT-000178-Fa; Thu, 17 Dec 2020 23:02:57 +0000
+	id 1kq2WB-0002GE-Qx; Thu, 17 Dec 2020 23:17:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 56214.98266; Thu, 17 Dec 2020 23:02:57 +0000
+Received: by outflank-mailman (output) from mailman id 56219.98282; Thu, 17 Dec 2020 23:17:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kq2IT-00016m-CQ; Thu, 17 Dec 2020 23:02:57 +0000
-Received: by outflank-mailman (input) for mailman id 56214;
- Thu, 17 Dec 2020 23:02:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kq2WB-0002Fp-Nc; Thu, 17 Dec 2020 23:17:07 +0000
+Received: by outflank-mailman (input) for mailman id 56219;
+ Thu, 17 Dec 2020 23:17:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BHja=FV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1kq2IR-00016h-Vv
- for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 23:02:56 +0000
+ id 1kq2WA-0002Fk-E8
+ for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 23:17:06 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id aadaaac4-5c45-4e9e-b86f-2cae4a78d93c;
- Thu, 17 Dec 2020 23:02:55 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 819e3839-668e-4748-869a-2df1ff976175;
+ Thu, 17 Dec 2020 23:17:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,96 +36,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aadaaac4-5c45-4e9e-b86f-2cae4a78d93c
-Date: Thu, 17 Dec 2020 15:02:53 -0800 (PST)
+X-Inumbo-ID: 819e3839-668e-4748-869a-2df1ff976175
+Date: Thu, 17 Dec 2020 15:17:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1608246174;
-	bh=MhszyCe1+FYfdc91t8oZfrS6Fvqvd3u3aMqB4kZ3N+w=;
+	s=k20201202; t=1608247024;
+	bh=jXN3v4FSewTv18rQKuXwSbNEsWTYD9/bX50bkqSnTm8=;
 	h=From:To:cc:Subject:In-Reply-To:References:From;
-	b=G3I62Na6SRYto3lBUVqN4dE9T45P/s+yaZlhjUBRJEzIFf3XreZWyEdN3z+FuCDX2
-	 ChSYnjg6aMBZCBTcDBBRmUKzgnzFJDxcy4RMXcwyy8Gq1YPYTlamNEg48IdU1UDN0h
-	 +8lAX7HYGsOZZ/CJWbTCOWHwzSrcbXrUnfgSCg0WMUy3A5Uu0eVvsFI0MJC9ncyoMu
-	 RoN7CriOFToRVy+FIxHsriUJ3Cw470qj81yJ0ndcLef35MHhd8Ag0L5By6DGlYOeXQ
-	 osDOxcBEhKuOQiaJROrvLx+3ttPEA7yfjNNNeTXP9dafY/YGr1mxypYC7lH3Is8Xe1
-	 eF/YhGbA1swJw==
+	b=M6CiytJl/u9uAeakUziOfAFov3lalJ18c4+YeKU7McaIj72LALvQatMAVdGbmGWYC
+	 Jh9EyBpSYPMrkknn2J9O+69KMW8jW37gmTDGZOWYaZP+XBq5bsqYGTnyEkPKm+Een9
+	 56rN1WsPGrDwCjqGQmVdd6N53uqSzH1DO2IRezCNEKBdXg4a4xNybopqHkYPx5wy9y
+	 pYq77U/tim8DK2XxkULvtXZVyu//YIHL4NzUWzpd+vL6dvY8csFrgSwB0eQlgrunvX
+	 7YVZqOf6t+UlhPwZ7f16T53h2e9Qj9SpTryy8yPTQ+Ndc9LAjJLUo7ie8K9Um2O0pl
+	 51dYJiVo3UKCA==
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: xen-devel@lists.xenproject.org
-cc: famzheng@amazon.com, sstabellini@kernel.org, cardoe@cardoe.com, wl@xen.org, 
-    Bertrand.Marquis@arm.com, julien@xen.org
-Subject: Re: [PATCH v4 0/8] xen/arm: Emulate ID registers
-In-Reply-To: <160823586491.13274.572144728643942444@600e7e483b3a>
-Message-ID: <alpine.DEB.2.21.2012171502300.4040@sstabellini-ThinkPad-T480s>
-References: <160823586491.13274.572144728643942444@600e7e483b3a>
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v4 1/8] xen/arm: Use READ_SYSREG instead of 32/64
+ versions
+In-Reply-To: <75ab5c84ed6ce1d004316ca4677735aa0543ecdc.1608214355.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.21.2012171505430.4040@sstabellini-ThinkPad-T480s>
+References: <cover.1608214355.git.bertrand.marquis@arm.com> <75ab5c84ed6ce1d004316ca4677735aa0543ecdc.1608214355.git.bertrand.marquis@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-Actually it passed. It was just a transient internet issue.
+On Thu, 17 Dec 2020, Bertrand Marquis wrote:
+> Modify identify_cpu function to use READ_SYSREG instead of READ_SYSREG32
+> or READ_SYSREG64.
+> The aarch32 versions of the registers are 64bit on an aarch64 processor
+> so it was wrong to access them as 32bit registers.
+
+This sentence is a bit confusing because, as an example, MIDR_EL1 is
+also an aarch64 register, not only an aarch32 register. Maybe we should
+clarify.
+
+Aside from that:
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-On Thu, 17 Dec 2020, no-reply@patchew.org wrote:
-> Hi,
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>
+> ---
+> Change in V4:
+>   This patch was introduced in v4.
 > 
-> Patchew automatically ran gitlab-ci pipeline with this patch (series) applied, but the job failed. Maybe there's a bug in the patches?
+> ---
+>  xen/arch/arm/cpufeature.c | 50 +++++++++++++++++++--------------------
+>  1 file changed, 25 insertions(+), 25 deletions(-)
 > 
-> You can find the link to the pipeline near the end of the report below:
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index 44126dbf07..115e1b164d 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -99,44 +99,44 @@ int enable_nonboot_cpu_caps(const struct arm_cpu_capabilities *caps)
+>  
+>  void identify_cpu(struct cpuinfo_arm *c)
+>  {
+> -        c->midr.bits = READ_SYSREG32(MIDR_EL1);
+> +        c->midr.bits = READ_SYSREG(MIDR_EL1);
+>          c->mpidr.bits = READ_SYSREG(MPIDR_EL1);
+>  
+>  #ifdef CONFIG_ARM_64
+> -        c->pfr64.bits[0] = READ_SYSREG64(ID_AA64PFR0_EL1);
+> -        c->pfr64.bits[1] = READ_SYSREG64(ID_AA64PFR1_EL1);
+> +        c->pfr64.bits[0] = READ_SYSREG(ID_AA64PFR0_EL1);
+> +        c->pfr64.bits[1] = READ_SYSREG(ID_AA64PFR1_EL1);
+>  
+> -        c->dbg64.bits[0] = READ_SYSREG64(ID_AA64DFR0_EL1);
+> -        c->dbg64.bits[1] = READ_SYSREG64(ID_AA64DFR1_EL1);
+> +        c->dbg64.bits[0] = READ_SYSREG(ID_AA64DFR0_EL1);
+> +        c->dbg64.bits[1] = READ_SYSREG(ID_AA64DFR1_EL1);
+>  
+> -        c->aux64.bits[0] = READ_SYSREG64(ID_AA64AFR0_EL1);
+> -        c->aux64.bits[1] = READ_SYSREG64(ID_AA64AFR1_EL1);
+> +        c->aux64.bits[0] = READ_SYSREG(ID_AA64AFR0_EL1);
+> +        c->aux64.bits[1] = READ_SYSREG(ID_AA64AFR1_EL1);
+>  
+> -        c->mm64.bits[0]  = READ_SYSREG64(ID_AA64MMFR0_EL1);
+> -        c->mm64.bits[1]  = READ_SYSREG64(ID_AA64MMFR1_EL1);
+> +        c->mm64.bits[0]  = READ_SYSREG(ID_AA64MMFR0_EL1);
+> +        c->mm64.bits[1]  = READ_SYSREG(ID_AA64MMFR1_EL1);
+>  
+> -        c->isa64.bits[0] = READ_SYSREG64(ID_AA64ISAR0_EL1);
+> -        c->isa64.bits[1] = READ_SYSREG64(ID_AA64ISAR1_EL1);
+> +        c->isa64.bits[0] = READ_SYSREG(ID_AA64ISAR0_EL1);
+> +        c->isa64.bits[1] = READ_SYSREG(ID_AA64ISAR1_EL1);
+>  #endif
+>  
+> -        c->pfr32.bits[0] = READ_SYSREG32(ID_PFR0_EL1);
+> -        c->pfr32.bits[1] = READ_SYSREG32(ID_PFR1_EL1);
+> +        c->pfr32.bits[0] = READ_SYSREG(ID_PFR0_EL1);
+> +        c->pfr32.bits[1] = READ_SYSREG(ID_PFR1_EL1);
+>  
+> -        c->dbg32.bits[0] = READ_SYSREG32(ID_DFR0_EL1);
+> +        c->dbg32.bits[0] = READ_SYSREG(ID_DFR0_EL1);
+>  
+> -        c->aux32.bits[0] = READ_SYSREG32(ID_AFR0_EL1);
+> +        c->aux32.bits[0] = READ_SYSREG(ID_AFR0_EL1);
+>  
+> -        c->mm32.bits[0]  = READ_SYSREG32(ID_MMFR0_EL1);
+> -        c->mm32.bits[1]  = READ_SYSREG32(ID_MMFR1_EL1);
+> -        c->mm32.bits[2]  = READ_SYSREG32(ID_MMFR2_EL1);
+> -        c->mm32.bits[3]  = READ_SYSREG32(ID_MMFR3_EL1);
+> +        c->mm32.bits[0]  = READ_SYSREG(ID_MMFR0_EL1);
+> +        c->mm32.bits[1]  = READ_SYSREG(ID_MMFR1_EL1);
+> +        c->mm32.bits[2]  = READ_SYSREG(ID_MMFR2_EL1);
+> +        c->mm32.bits[3]  = READ_SYSREG(ID_MMFR3_EL1);
+>  
+> -        c->isa32.bits[0] = READ_SYSREG32(ID_ISAR0_EL1);
+> -        c->isa32.bits[1] = READ_SYSREG32(ID_ISAR1_EL1);
+> -        c->isa32.bits[2] = READ_SYSREG32(ID_ISAR2_EL1);
+> -        c->isa32.bits[3] = READ_SYSREG32(ID_ISAR3_EL1);
+> -        c->isa32.bits[4] = READ_SYSREG32(ID_ISAR4_EL1);
+> -        c->isa32.bits[5] = READ_SYSREG32(ID_ISAR5_EL1);
+> +        c->isa32.bits[0] = READ_SYSREG(ID_ISAR0_EL1);
+> +        c->isa32.bits[1] = READ_SYSREG(ID_ISAR1_EL1);
+> +        c->isa32.bits[2] = READ_SYSREG(ID_ISAR2_EL1);
+> +        c->isa32.bits[3] = READ_SYSREG(ID_ISAR3_EL1);
+> +        c->isa32.bits[4] = READ_SYSREG(ID_ISAR4_EL1);
+> +        c->isa32.bits[5] = READ_SYSREG(ID_ISAR5_EL1);
+>  }
+>  
+>  /*
+> -- 
+> 2.17.1
 > 
-> Type: series
-> Message-id: cover.1608214355.git.bertrand.marquis@arm.com
-> Subject: [PATCH v4 0/8] xen/arm: Emulate ID registers
-> 
-> === TEST SCRIPT BEGIN ===
-> #!/bin/bash
-> sleep 10
-> patchew gitlab-pipeline-check -p xen-project/patchew/xen
-> === TEST SCRIPT END ===
-> 
-> warning: redirecting to https://gitlab.com/xen-project/patchew/xen.git/
-> From https://gitlab.com/xen-project/patchew/xen
->    8e0fe4fe5f..904148ecb4  master     -> master
-> warning: redirecting to https://gitlab.com/xen-project/patchew/xen.git/
-> From https://gitlab.com/xen-project/patchew/xen
->  * [new tag]               patchew/cover.1608214355.git.bertrand.marquis@arm.com -> patchew/cover.1608214355.git.bertrand.marquis@arm.com
-> Switched to a new branch 'test'
-> 4fc8dff44c xen/arm: Activate TID3 in HCR_EL2
-> d72e6d1faa xen/arm: Add CP10 exception support to handle MVFR
-> 9ef18928a0 xen/arm: Add handler for cp15 ID registers
-> 09f61edd55 xen/arm: Add handler for ID registers on arm64
-> 0a14368a8f xen/arm: create a cpuinfo structure for guest
-> 01fd2fca83 xen/arm: Add arm64 ID registers definitions
-> e87a25c913 xen/arm: Add ID registers and complete cpuinfo
-> 66f3ee6d1a xen/arm: Use READ_SYSREG instead of 32/64 versions
-> 
-> === OUTPUT BEGIN ===
-> [2020-12-17 16:52:57] Looking up pipeline...
-> [2020-12-17 16:52:58] Found pipeline 231473331:
-> 
-> https://gitlab.com/xen-project/patchew/xen/-/pipelines/231473331
-> 
-> [2020-12-17 16:52:58] Waiting for pipeline to finish...
-> [2020-12-17 17:08:03] Still waiting...
-> [2020-12-17 17:23:09] Still waiting...
-> [2020-12-17 17:38:13] Still waiting...
-> [2020-12-17 17:53:18] Still waiting...
-> [2020-12-17 18:08:22] Still waiting...
-> [2020-12-17 18:23:27] Still waiting...
-> [2020-12-17 18:38:32] Still waiting...
-> [2020-12-17 18:53:36] Still waiting...
-> [2020-12-17 19:08:42] Still waiting...
-> [2020-12-17 19:23:48] Still waiting...
-> [2020-12-17 19:38:53] Still waiting...
-> [2020-12-17 19:53:58] Still waiting...
-> [2020-12-17 20:09:03] Still waiting...
-> [2020-12-17 20:11:03] Pipeline failed
-> [2020-12-17 20:11:04] Job 'qemu-smoke-x86-64-clang-pvh' in stage 'test' is skipped
-> [2020-12-17 20:11:04] Job 'qemu-smoke-x86-64-gcc-pvh' in stage 'test' is skipped
-> [2020-12-17 20:11:04] Job 'qemu-smoke-x86-64-clang' in stage 'test' is skipped
-> [2020-12-17 20:11:04] Job 'qemu-smoke-x86-64-gcc' in stage 'test' is skipped
-> [2020-12-17 20:11:04] Job 'build-each-commit-gcc' in stage 'test' is skipped
-> [2020-12-17 20:11:04] Job 'debian-unstable-gcc-debug-arm64' in stage 'build' is failed
-> [2020-12-17 20:11:04] Job 'debian-unstable-gcc-arm64' in stage 'build' is failed
-> === OUTPUT END ===
-> 
-> Test command exited with code: 1
 
