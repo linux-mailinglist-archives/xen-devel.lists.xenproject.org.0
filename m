@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF8F22DCE60
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Dec 2020 10:32:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55784.97300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F14AC2DCE62
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Dec 2020 10:32:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.55788.97322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kppdr-000727-D4; Thu, 17 Dec 2020 09:32:11 +0000
+	id 1kppdw-0007CB-10; Thu, 17 Dec 2020 09:32:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55784.97300; Thu, 17 Dec 2020 09:32:11 +0000
+Received: by outflank-mailman (output) from mailman id 55788.97322; Thu, 17 Dec 2020 09:32:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kppdr-00070m-4P; Thu, 17 Dec 2020 09:32:11 +0000
-Received: by outflank-mailman (input) for mailman id 55784;
- Thu, 17 Dec 2020 09:32:09 +0000
+	id 1kppdv-00079z-Mq; Thu, 17 Dec 2020 09:32:15 +0000
+Received: by outflank-mailman (input) for mailman id 55788;
+ Thu, 17 Dec 2020 09:32:14 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gjir=FV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kppdo-0006RQ-UK
- for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 09:32:08 +0000
+ id 1kppdt-0006RQ-UZ
+ for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 09:32:13 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e8d3504b-9db0-4650-92c8-b11bf05e908e;
+ id 7c79e4cd-2721-4e36-874a-d57d52af3a86;
  Thu, 17 Dec 2020 09:31:49 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2EA20B71A;
+ by mx2.suse.de (Postfix) with ESMTP id 6A6B5B71C;
  Thu, 17 Dec 2020 09:31:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,17 +39,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8d3504b-9db0-4650-92c8-b11bf05e908e
+X-Inumbo-ID: 7c79e4cd-2721-4e36-874a-d57d52af3a86
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1608197508; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TvIYSNPdBSefisWFtTOksv3sxjm38mYHs1Pyg9aHYqE=;
-	b=nvEwT2oDeGIskBzFViVMmay8X7b3n/OSFIxRxooevtQ/kgewzkhr5nPy+Aucg2f9zx0LjE
-	LFY8Mx3cQe3AWA7NjKrb3ADoMWFUoFwjFSWjiP+WM7y+OWTC91NI0Uj3Wvu5+bATZcNUQ4
-	2Kw25F56RY3EpTGm9xoWP0r5mG7nFL8=
+	bh=f7wMr3rCKeUgxXFk8LrwUaFxcJhxPpDbM3TMdRt3vHc=;
+	b=ZxRpHnPLouJGWl0qvClnnvw5rU/SYAMpP+qybw/K+Uy0fLrHnnu5ahxvF0cCDOZeqZlvyZ
+	dlR9w0GMgGxy9KFsuKFvnomGmDS65MgZNHk5x24aIFmT/GaUidfJrqQXQlfvoGrGqb0z2i
+	ENfyfKAHzdoZsjSKRBdvzoLmTj5g32g=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
 	x86@kernel.org,
@@ -59,130 +59,118 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>,
 	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v3 07/15] x86/alternative: support "not feature" and ALTERNATIVE_TERNARY
-Date: Thu, 17 Dec 2020 10:31:25 +0100
-Message-Id: <20201217093133.1507-8-jgross@suse.com>
+Subject: [PATCH v3 08/15] x86: add new features for paravirt patching
+Date: Thu, 17 Dec 2020 10:31:26 +0100
+Message-Id: <20201217093133.1507-9-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201217093133.1507-1-jgross@suse.com>
 References: <20201217093133.1507-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of only supporting to modify instructions when a specific
-feature is set, support doing so for the case a feature is not set.
+For being able to switch paravirt patching from special cased custom
+code sequences to ALTERNATIVE handling some X86_FEATURE_* are needed
+as new features. This enables to have the standard indirect pv call
+as the default code and to patch that with the non-Xen custom code
+sequence via ALTERNATIVE patching later.
 
-As today a feature is specified using a 16 bit quantity and the highest
-feature number in use is around 600, using a negated feature number for
-specifying the inverted case seems to be appropriate.
-
-  ALTERNATIVE "default_instr", "patched_instr", ~FEATURE_NR
-
-will start with "default_instr" and patch that with "patched_instr" in
-case FEATURE_NR is not set.
-
-Using that add ALTERNATIVE_TERNARY:
-
-  ALTERNATIVE_TERNARY "default_instr", FEATURE_NR,
-                      "feature_on_instr", "feature_off_instr"
-
-which will start with "default_instr" and at patch time will, depending
-on FEATURE_NR being set or not, patch that with either
-"feature_on_instr" or "feature_off_instr".
+Make sure paravirt patching is performed before alternative patching.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V3:
-- new patch
+- add comment (Boris Petkov)
+- no negative features (Boris Petkov)
 ---
- arch/x86/include/asm/alternative-asm.h |  3 +++
- arch/x86/include/asm/alternative.h     |  7 +++++++
- arch/x86/kernel/alternative.c          | 17 ++++++++++++-----
- 3 files changed, 22 insertions(+), 5 deletions(-)
+ arch/x86/include/asm/cpufeatures.h |  2 ++
+ arch/x86/kernel/alternative.c      | 40 ++++++++++++++++++++++++++++--
+ 2 files changed, 40 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/include/asm/alternative-asm.h b/arch/x86/include/asm/alternative-asm.h
-index 464034db299f..b6989995fddf 100644
---- a/arch/x86/include/asm/alternative-asm.h
-+++ b/arch/x86/include/asm/alternative-asm.h
-@@ -109,6 +109,9 @@
- 	.popsection
- .endm
+diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
+index f5ef2d5b9231..1077b675a008 100644
+--- a/arch/x86/include/asm/cpufeatures.h
++++ b/arch/x86/include/asm/cpufeatures.h
+@@ -237,6 +237,8 @@
+ #define X86_FEATURE_VMCALL		( 8*32+18) /* "" Hypervisor supports the VMCALL instruction */
+ #define X86_FEATURE_VMW_VMMCALL		( 8*32+19) /* "" VMware prefers VMMCALL hypercall instruction */
+ #define X86_FEATURE_SEV_ES		( 8*32+20) /* AMD Secure Encrypted Virtualization - Encrypted State */
++#define X86_FEATURE_PVUNLOCK		( 8*32+21) /* "" PV unlock function */
++#define X86_FEATURE_VCPUPREEMPT		( 8*32+22) /* "" PV vcpu_is_preempted function */
  
-+#define ALTERNATIVE_TERNARY(oldinstr, feature, newinstr1, newinstr2)	\
-+	ALTERNATIVE_2 oldinstr, newinstr1, feature, newinstr2, ~(feature)
-+
- #endif  /*  __ASSEMBLY__  */
- 
- #endif /* _ASM_X86_ALTERNATIVE_ASM_H */
-diff --git a/arch/x86/include/asm/alternative.h b/arch/x86/include/asm/alternative.h
-index 13adca37c99a..a0f8f33609aa 100644
---- a/arch/x86/include/asm/alternative.h
-+++ b/arch/x86/include/asm/alternative.h
-@@ -59,6 +59,7 @@ struct alt_instr {
- 	s32 instr_offset;	/* original instruction */
- 	s32 repl_offset;	/* offset to replacement instruction */
- 	u16 cpuid;		/* cpuid bit set for replacement */
-+#define ALT_INSTR_CPUID_INV	0x8000	/* patch if ~cpuid bit is NOT set */
- 	u8  instrlen;		/* length of original instruction */
- 	u8  replacementlen;	/* length of new instruction */
- 	u8  padlen;		/* length of build-time padding */
-@@ -175,6 +176,9 @@ static inline int alternatives_text_reserved(void *start, void *end)
- 	ALTINSTR_REPLACEMENT(newinstr2, feature2, 2)			\
- 	".popsection\n"
- 
-+#define ALTERNATIVE_TERNARY(oldinstr, feature, newinstr1, newinstr2)	\
-+	ALTERNATIVE_2(oldinstr, newinstr1, feature, newinstr2, ~(feature))
-+
- #define ALTERNATIVE_3(oldinsn, newinsn1, feat1, newinsn2, feat2, newinsn3, feat3) \
- 	OLDINSTR_3(oldinsn, 1, 2, 3)						\
- 	".pushsection .altinstructions,\"a\"\n"					\
-@@ -206,6 +210,9 @@ static inline int alternatives_text_reserved(void *start, void *end)
- #define alternative_2(oldinstr, newinstr1, feature1, newinstr2, feature2) \
- 	asm_inline volatile(ALTERNATIVE_2(oldinstr, newinstr1, feature1, newinstr2, feature2) ::: "memory")
- 
-+#define alternative_ternary(oldinstr, feature, newinstr1, newinstr2)	\
-+	asm_inline volatile(ALTERNATIVE_TERNARY(oldinstr, feature, newinstr1, newinstr2) ::: "memory")
-+
- /*
-  * Alternative inline assembly with input.
-  *
+ /* Intel-defined CPU features, CPUID level 0x00000007:0 (EBX), word 9 */
+ #define X86_FEATURE_FSGSBASE		( 9*32+ 0) /* RDFSBASE, WRFSBASE, RDGSBASE, WRGSBASE instructions*/
 diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index 8d778e46725d..0a904fb2678b 100644
+index 0a904fb2678b..abb481808811 100644
 --- a/arch/x86/kernel/alternative.c
 +++ b/arch/x86/kernel/alternative.c
-@@ -388,21 +388,28 @@ void __init_or_module noinline apply_alternatives(struct alt_instr *start,
+@@ -600,6 +600,15 @@ int alternatives_text_reserved(void *start, void *end)
+ #endif /* CONFIG_SMP */
+ 
+ #ifdef CONFIG_PARAVIRT
++static void __init paravirt_set_cap(void)
++{
++	if (!pv_is_native_spin_unlock())
++		setup_force_cpu_cap(X86_FEATURE_PVUNLOCK);
++
++	if (!pv_is_native_vcpu_is_preempted())
++		setup_force_cpu_cap(X86_FEATURE_VCPUPREEMPT);
++}
++
+ void __init_or_module apply_paravirt(struct paravirt_patch_site *start,
+ 				     struct paravirt_patch_site *end)
+ {
+@@ -623,6 +632,8 @@ void __init_or_module apply_paravirt(struct paravirt_patch_site *start,
+ }
+ extern struct paravirt_patch_site __start_parainstructions[],
+ 	__stop_parainstructions[];
++#else
++static void __init paravirt_set_cap(void) { }
+ #endif	/* CONFIG_PARAVIRT */
+ 
+ /*
+@@ -730,6 +741,33 @@ void __init alternative_instructions(void)
+ 	 * patching.
  	 */
- 	for (a = start; a < end; a++) {
- 		int insn_buff_sz = 0;
-+		u16 feature;
-+		bool not_feature;
  
- 		instr = (u8 *)&a->instr_offset + a->instr_offset;
- 		replacement = (u8 *)&a->repl_offset + a->repl_offset;
-+		feature = a->cpuid;
-+		not_feature = feature & ALT_INSTR_CPUID_INV;
-+		if (not_feature)
-+			feature = ~feature;
- 		BUG_ON(a->instrlen > sizeof(insn_buff));
--		BUG_ON(a->cpuid >= (NCAPINTS + NBUGINTS) * 32);
--		if (!boot_cpu_has(a->cpuid)) {
-+		BUG_ON(feature >= (NCAPINTS + NBUGINTS) * 32);
-+		if (!!boot_cpu_has(feature) == not_feature) {
- 			if (a->padlen > 1)
- 				optimize_nops(a, instr);
++	/*
++	 * Paravirt patching and alternative patching can be combined to
++	 * replace a function call with a short direct code sequence (e.g.
++	 * by setting a constant return value instead of doing that in an
++	 * external function).
++	 * In order to make this work the following sequence is required:
++	 * 1. set (artificial) features depending on used paravirt
++	 *    functions which can later influence alternative patching
++	 * 2. apply paravirt patching (generally replacing an indirect
++	 *    function call with a direct one)
++	 * 3. apply alternative patching (e.g. replacing a direct function
++	 *    call with a custom code sequence)
++	 * Doing paravirt patching after alternative patching would clobber
++	 * the optimization of the custom code with a function call again.
++	 */
++	paravirt_set_cap();
++
++	/*
++	 * First patch paravirt functions, such that we overwrite the indirect
++	 * call with the direct call.
++	 */
++	apply_paravirt(__parainstructions, __parainstructions_end);
++
++	/*
++	 * Then patch alternatives, such that those paravirt calls that are in
++	 * alternatives can be overwritten by their immediate fragments.
++	 */
+ 	apply_alternatives(__alt_instructions, __alt_instructions_end);
  
- 			continue;
- 		}
+ #ifdef CONFIG_SMP
+@@ -748,8 +786,6 @@ void __init alternative_instructions(void)
+ 	}
+ #endif
  
--		DPRINTK("feat: %d*32+%d, old: (%pS (%px) len: %d), repl: (%px, len: %d), pad: %d",
--			a->cpuid >> 5,
--			a->cpuid & 0x1f,
-+		DPRINTK("feat: %s%d*32+%d, old: (%pS (%px) len: %d), repl: (%px, len: %d), pad: %d",
-+			not_feature ? "~" : "",
-+			feature >> 5,
-+			feature & 0x1f,
- 			instr, instr, a->instrlen,
- 			replacement, a->replacementlen, a->padlen);
- 
+-	apply_paravirt(__parainstructions, __parainstructions_end);
+-
+ 	restart_nmi();
+ 	alternatives_patched = 1;
+ }
 -- 
 2.26.2
 
