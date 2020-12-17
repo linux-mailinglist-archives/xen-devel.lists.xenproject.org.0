@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A79AE2DD44E
+	by mail.lfdr.de (Postfix) with ESMTPS id C803C2DD44F
 	for <lists+xen-devel@lfdr.de>; Thu, 17 Dec 2020 16:38:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.55964.97629 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.55968.97641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpvLg-00031g-7N; Thu, 17 Dec 2020 15:37:48 +0000
+	id 1kpvMa-00037J-Hy; Thu, 17 Dec 2020 15:38:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 55964.97629; Thu, 17 Dec 2020 15:37:48 +0000
+Received: by outflank-mailman (output) from mailman id 55968.97641; Thu, 17 Dec 2020 15:38:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpvLg-00031H-4C; Thu, 17 Dec 2020 15:37:48 +0000
-Received: by outflank-mailman (input) for mailman id 55964;
- Thu, 17 Dec 2020 15:37:46 +0000
+	id 1kpvMa-00036u-E8; Thu, 17 Dec 2020 15:38:44 +0000
+Received: by outflank-mailman (input) for mailman id 55968;
+ Thu, 17 Dec 2020 15:38:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1kpvLe-00031C-BF
- for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 15:37:46 +0000
-Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fb212da8-73e2-461b-9f87-ddbc31422f42;
- Thu, 17 Dec 2020 15:37:45 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id t16so27022849wra.3
- for <xen-devel@lists.xenproject.org>; Thu, 17 Dec 2020 07:37:45 -0800 (PST)
-Received: from C02ZJ1BNLVDN.emea.arm.com (5ec3281d.skybroadband.com.
- [94.195.40.29])
- by smtp.gmail.com with ESMTPSA id d9sm10008684wrc.87.2020.12.17.07.37.43
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 17 Dec 2020 07:37:43 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xKjN=FV=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1kpvMZ-00036o-16
+ for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 15:38:43 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id c6f92b50-9181-4828-8132-41458fb8ad54;
+ Thu, 17 Dec 2020 15:38:41 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 109C130E;
+ Thu, 17 Dec 2020 07:38:41 -0800 (PST)
+Received: from e109506-lin.cambridge.arm.com (e109506-lin.cambridge.arm.com
+ [10.1.199.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4CCB03F66B;
+ Thu, 17 Dec 2020 07:38:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,166 +42,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb212da8-73e2-461b-9f87-ddbc31422f42
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=HifGYkonzOaa8e9gq3lwyEK5YpbFloCuVkFZZE//Dn8=;
-        b=BJdq2+Gg6ucbV3e4puCHrkiW+r8sxPc9HXDsKD+SHx6ZheXXdbhiQtN7ZWtYITA/8n
-         BpDeBMDmogmcj2l8aRgrbp5JRZUodpWuHDEkrDO2J6AbGVXx2aHI3MyPqj3Bp9F8cL9q
-         ZdjMuQGRptlMgx3Ixx2/AYBgUDLSpTrnQ24Imn4xGk9B74C3I9nyPXuyfZyrKUxhysDv
-         toTRx9DaJGyVGbkUuaWUxAbpmHp94sivrAGWqjw3d5S1sNpDqMXQHWYdgUdLtmMXXwBT
-         T4vKui/VMgg7EZUNOzTvmfncokMHnBVmnwQlx3Fm79Xd+QN7XVcH5kVs43PRJi1v01ZX
-         kuHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=HifGYkonzOaa8e9gq3lwyEK5YpbFloCuVkFZZE//Dn8=;
-        b=Rk+JsknUv+rOnFkreOUJw3K54pkhPtbRNwRJKqi994IyhbdINNa6GaUNmUoXXUv5kr
-         fpjBfIIJRzFBLXAE21ftsep1nDLAkfiFIwY+zQS+Z4zGLb+Pi8HfQNvERGN5n4k61iDV
-         47mlwTclT/ksR4lUeaifnev5iRY+gsI+OKuCGN+6suHPcUKDEWJTaPHCaiKm7qTF3UEk
-         5Mm1UVHDJfyKvw4f6Uln4wNkBADVWaxMMF29VcsdBSiUR6bVAcdmQG1W8RbU5EqUxdPB
-         bNC51ueumBXo+987oSRfBODBNdeDuB8noX/owxHtRds8jOQwFQeFZ4wcd+60lTBT8KCR
-         p52A==
-X-Gm-Message-State: AOAM530gpEjKBp+X8RJDTikXrXJLfEE3pcWIbmh6paQuuUkIkiYvwf7g
-	Q/x39DwUqb6XshumEh58Tdc=
-X-Google-Smtp-Source: ABdhPJxwW3MrkDmrvh4uSwb9sFgw7sW2BzBK07zY2jWRiUh9rvrwTZ6+bMiO6Xk2M/sQ3ITTYzL0DA==
-X-Received: by 2002:adf:9525:: with SMTP id 34mr45707362wrs.389.1608219464168;
-        Thu, 17 Dec 2020 07:37:44 -0800 (PST)
-From: Ash Wilding <ash.j.wilding@gmail.com>
-X-Google-Original-From: Ash Wilding
-To: julien@xen.org
-Cc: ash.j.wilding@gmail.com,
-	bertrand.marquis@arm.com,
-	rahul.singh@arm.com,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [RFC PATCH v2 00/15] xen/arm: port Linux LL/SC and LSE atomics helpers to Xen
-Date: Thu, 17 Dec 2020 15:37:42 +0000
-Message-Id: <20201217153742.14034-1-ash.j.wilding@gmail.com>
-X-Mailer: git-send-email 2.24.3 (Apple Git-128)
-In-Reply-To: <cb0f7055-6d9a-5c39-6198-109593fd3424@xen.org>
-References: <cb0f7055-6d9a-5c39-6198-109593fd3424@xen.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c6f92b50-9181-4828-8132-41458fb8ad54
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v4 0/8] xen/arm: Emulate ID registers
+Date: Thu, 17 Dec 2020 15:38:00 +0000
+Message-Id: <cover.1608214355.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-Hi Julien,
+The goal of this serie is to emulate coprocessor ID registers so that
+Xen only publish to guest features that are supported by Xen and can
+actually be used by guests.
+One practical example where this is required are SVE support which is
+forbidden by Xen as it is not supported, but if Linux is compiled with
+it, it will crash on boot. An other one is AMU which is also forbidden
+by Xen but one Linux compiled with it would crash if the platform
+supports it.
 
-Thanks for taking a look at the patches and providing feedback. I've seen your
-other comments and will reply to those separately when I get a chance (maybe at
-the weekend or over the Christmas break).
+To be able to emulate the coprocessor registers defining what features
+are supported by the hardware, the TID3 bit of HCR must be disabled and
+Xen must emulated the values of those registers when an exception is
+catched when a guest is accessing it.
 
-RE the differences in ordering semantics between Xen's and Linux's atomics
-helpers, please find my notes below.
+This serie is first creating a guest cpuinfo structure which will
+contain the values that we want to publish to the guests and then
+provides the proper emulationg for those registers when Xen is getting
+an exception due to an access to any of those registers.
 
-Thoughts?
+This is a first simple implementation to solve the problem and the way
+to define the values that we provide to guests and which features are
+disabled will be in a future patchset enhance so that we could decide
+per guest what can be used or not and depending on this deduce the bits
+to activate in HCR and the values that we must publish on ID registers.
 
-Cheers,
-Ash.
+---
+Changes in V2:
+  Fix First patch to properly handle DFR1 register and increase dbg32
+  size. Other patches have just been rebased.
 
+Changes in V3:
+  Add handling of reserved registers as RAZ
+  Minor fixes described in each patch
 
-The tables below use format AAA/BBB/CCC/DDD/EEE, where:
+Changes in V4:
+  Add a patch to switch implementation to use READ_SYSREG instead of the
+  32/64 bit version of it.
+  Move cases for reserved register handling from macros to the code
+  itself.
+  Various typos fixes.
 
- - AAA is the memory barrier before the operation
- - BBB is the acquire semantics of the atomic operation
- - CCC is the release semantics of the atomic operation
- - DDD is whether the asm() block clobbers memory
- - EEE is the memory barrier after the operation
+Bertrand Marquis (8):
+  xen/arm: Use READ_SYSREG instead of 32/64 versions
+  xen/arm: Add ID registers and complete cpuinfo
+  xen/arm: Add arm64 ID registers definitions
+  xen/arm: create a cpuinfo structure for guest
+  xen/arm: Add handler for ID registers on arm64
+  xen/arm: Add handler for cp15 ID registers
+  xen/arm: Add CP10 exception support to handle MVFR
+  xen/arm: Activate TID3 in HCR_EL2
 
-For example, ---/---/rel/mem/dmb would mean:
+ xen/arch/arm/arm64/vsysreg.c        |  82 ++++++++++++++++++++
+ xen/arch/arm/cpufeature.c           | 113 ++++++++++++++++++++++------
+ xen/arch/arm/traps.c                |   7 +-
+ xen/arch/arm/vcpreg.c               | 102 +++++++++++++++++++++++++
+ xen/include/asm-arm/arm64/hsr.h     |  37 +++++++++
+ xen/include/asm-arm/arm64/sysregs.h |  28 +++++++
+ xen/include/asm-arm/cpregs.h        |  15 ++++
+ xen/include/asm-arm/cpufeature.h    |  58 +++++++++++---
+ xen/include/asm-arm/perfc_defn.h    |   1 +
+ xen/include/asm-arm/traps.h         |   1 +
+ 10 files changed, 409 insertions(+), 35 deletions(-)
 
- - No memory barrier before the operation
- - The atomic does *not* have acquire semantics
- - The atomic *does* have release semantics
- - The asm() block clobbers memory
- - There is a DMB memory barrier after the atomic operation
+-- 
+2.17.1
 
-
-    arm64 LL/SC
-    ===========
-
-        Xen Function            Xen                     Linux                   Inconsistent
-        ============            ===                     =====                   ============
-
-        atomic_add              ---/---/---/---/---     ---/---/---/---/---     ---
-        atomic_add_return       ---/---/rel/mem/dmb     ---/---/rel/mem/dmb     --- (1)
-        atomic_sub              ---/---/---/---/---     ---/---/---/---/---     ---
-        atomic_sub_return       ---/---/rel/mem/dmb     ---/---/rel/mem/dmb     --- (1)        
-        atomic_and              ---/---/---/---/---     ---/---/---/---/---     ---
-        atomic_cmpxchg          dmb/---/---/---/dmb     ---/---/rel/mem/---     YES (2)
-        atomic_xchg             ---/---/rel/mem/dmb     ---/acq/rel/mem/dmb     YES (3)
-
-(1) It's actually interesting to me that Linux does it this way. As with the
-    LSE atomics below, I'd have expected acq/rel semantics and ditch the DMB.
-    Unless I'm missing something where there is a concern around taking an IRQ
-    between the LDAXR and the STLXR, which can't happen in the LSE atomic case
-    since it's a single instruction. But the exclusive monitor is cleared on
-    exception return in AArch64 so I'm struggling to see what that potential
-    issue may be. Regardless, Linux and Xen are consistent so we're OK ;-)
-
-(2) The Linux version uses either STLXR with rel semantics if the comparison
-    passes, or DMB if the comparison fails. This is weaker than Xen's version,
-    which is quite blunt in always wrapping the operation between two DMBs. This
-    may be a holdover from Xen's arm32 versions being ported to arm64, as we
-    didn't support acq/rel semantics on LDREX and STREX in Armv7-A? Regardless,
-    this is quite a big discrepancy and I've not yet given it enough thought to
-    determine whether it would actually cause an issue. My feeling is that the
-    Linux LL/SC atomic_cmpxchg() should have have acq semantics on the LL, but
-    like you said these helpers are well tested so I'd be surprised if there
-    is a bug. See (5) below though, where the Linux LSE atomic_cmpxchg() *does*
-    have acq semantics.
-
-(3) The Linux version just adds acq semantics to the LL, so we're OK here.
-
-
-    arm64 LSE (comparison to Xen's LL/SC)
-    =====================================
-
-        Xen Function            Xen                     Linux                   Inconsistent
-        ============            ===                     =====                   ============
-
-        atomic_add              ---/---/---/---/---     ---/---/---/---/---     ---
-        atomic_add_return       ---/---/rel/mem/dmb     ---/acq/rel/mem/---     YES (4)
-        atomic_sub              ---/---/---/---/---     ---/---/---/---/---     ---
-        atomic_sub_return       ---/---/rel/mem/dmb     ---/acq/rel/mem/---     YES (4)
-        atomic_and              ---/---/---/---/---     ---/---/---/---/---     ---
-        atomic_cmpxchg          dmb/---/---/---/dmb     ---/acq/rel/mem/---     YES (5)
-        atomic_xchg             ---/---/rel/mem/dmb     ---/acq/rel/mem/---     YES (4)
-
-(4) As noted in (1), this is how I would have expected Linux's LL/SC atomics to
-    work too. I don't think this discrepancy will cause any issues.
-
-(5) As with (2) above, this is quite a big discrepancy to Xen. However at least
-    this version has acq semantics unlike the LL/SC version in (2), so I'm more
-    confident that there won't be regressions going from Xen LL/SC to Linux LSE
-    version of atomic_cmpxchg().
-
-
-    arm32 LL/SC
-    ===========
-
-        Xen Function            Xen                     Linux                   Inconsistent
-        ============            ===                     =====                   ============
-
-        atomic_add              ---/---/---/---/---     ---/---/---/---/---     ---
-        atomic_add_return       dmb/---/---/---/dmb     XXX/XXX/XXX/XXX/XXX     YES (6)
-        atomic_sub              ---/---/---/---/---     ---/---/---/---/---     ---
-        atomic_sub_return       dmb/---/---/---/dmb     XXX/XXX/XXX/XXX/XXX     YES (6)
-        atomic_and              ---/---/---/---/---     ---/---/---/---/---     ---  
-        atomic_cmpxchg          dmb/---/---/---/dmb     XXX/XXX/XXX/XXX/XXX     YES (6)
-        atomic_xchg             dmb/---/---/---/dmb     XXX/XXX/XXX/XXX/XXX     YES (6)
-
-(6) Linux only provides relaxed variants of these functions, such as
-    atomic_add_return_relaxed() and atomic_xchg_relaxed(). Patches #13 and #14
-    in the series add the stricter versions expected by Xen, wrapping calls to
-    Linux's relaxed variants inbetween two calls to smb_mb(). This makes them
-    consistent with Xen's existing helpers, though is quite blunt. It is worth
-    noting that Armv8-A AArch32 does support acq/rel semantics on exclusive
-    accesses, with LDAEX and STLEX, so I could imagine us introducing a new
-    arm32 hwcap to detect whether we're on actual Armv7-A hardware or Armv8-A
-    AArch32, then swap to lighterweight STLEX versions of these helpers rather
-    than the heavyweight double DMB versions. Whether that would actually give
-    measurable performance improvements is another story!
 
