@@ -2,36 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE622DD64B
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Dec 2020 18:34:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.56071.97882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8715A2DD693
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Dec 2020 18:50:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.56075.97894 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpxAs-0000O6-Kf; Thu, 17 Dec 2020 17:34:46 +0000
+	id 1kpxPE-0001gQ-Sw; Thu, 17 Dec 2020 17:49:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 56071.97882; Thu, 17 Dec 2020 17:34:46 +0000
+Received: by outflank-mailman (output) from mailman id 56075.97894; Thu, 17 Dec 2020 17:49:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpxAs-0000Nj-Gt; Thu, 17 Dec 2020 17:34:46 +0000
-Received: by outflank-mailman (input) for mailman id 56071;
- Thu, 17 Dec 2020 17:34:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kpxPE-0001g1-PV; Thu, 17 Dec 2020 17:49:36 +0000
+Received: by outflank-mailman (input) for mailman id 56075;
+ Thu, 17 Dec 2020 17:49:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uYxM=FV=canonical.com=guilherme.piccoli@srs-us1.protection.inumbo.net>)
- id 1kpxAr-0000Ne-1g
- for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 17:34:45 +0000
-Received: from youngberry.canonical.com (unknown [91.189.89.112])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1d86692f-2b8e-4c7f-8d85-a5e1a5a3295a;
- Thu, 17 Dec 2020 17:34:44 +0000 (UTC)
-Received: from mail-ej1-f69.google.com ([209.85.218.69])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <guilherme.piccoli@canonical.com>) id 1kpxAp-0001SS-Dx
- for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 17:34:43 +0000
-Received: by mail-ej1-f69.google.com with SMTP id d19so6989055ejo.18
- for <xen-devel@lists.xenproject.org>; Thu, 17 Dec 2020 09:34:43 -0800 (PST)
+ <SRS0=tHkA=FV=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kpxPC-0001fw-Dj
+ for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 17:49:34 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id aef84541-a856-4e21-92e5-ac96e50afeb0;
+ Thu, 17 Dec 2020 17:49:33 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BHHiMec172221;
+ Thu, 17 Dec 2020 17:49:29 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 35cn9rppav-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 17 Dec 2020 17:49:29 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BHHjKjx174922;
+ Thu, 17 Dec 2020 17:49:28 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 35d7er7q8g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 17 Dec 2020 17:49:28 +0000
+Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0BHHnR5m005112;
+ Thu, 17 Dec 2020 17:49:27 GMT
+Received: from [10.39.250.121] (/10.39.250.121)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 17 Dec 2020 09:49:27 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,80 +55,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d86692f-2b8e-4c7f-8d85-a5e1a5a3295a
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=SPFRd5wk7DzLoWCgRoXY8TxuOzCkUgHlVxVwC36uc/k=;
-        b=reQh+/t2ClTa63KUOcPRxsUTDGrCbvBaGKVhDED48cVvAcDnGYjLKK9DlwzH8AZyDw
-         cl7jueFJPGAb2ul3iNP/N5tFq5tDVCS/yv9AY8xwv3oxX0FuYj7c9B5Zvr2yOUf6AhVV
-         1XpMa64cmgdLzHL/MQ1YkpbK52JUoe23PSCB2LK8TubXKHTZxFGKahIc1Jlf3zMxCotx
-         Yuc6nd9RGJI9/Hluruds9era9oBr8yXvvJUsWFkVuI3KMS2GJNmHpKj92bV9o+Hsqfcc
-         l6POxOJus8zcJVsMXkc6jDkz2T7ShH4VbVU/gAHE+jNFT6AI8V1YgSDfNghpZQ1TgMei
-         GS4g==
-X-Gm-Message-State: AOAM531fB3vDrvvk8Vm23I8Bj+kP6S50VsjURZboO3y65H3S+YOWzdSH
-	ARyU2gTNSKK9IrpxSNITsfZFJFKQi63QKdRsWs0fR0BpiJO1hiObuahijJoTGbwnm0Q4bAujfiV
-	24YbV/qtp0GEIIYm/woacs+/+AtlxGDNjmq/P3g1T6zETZe7jpFoO1UaKOv51
-X-Received: by 2002:a17:906:af49:: with SMTP id ly9mr109284ejb.38.1608226483104;
-        Thu, 17 Dec 2020 09:34:43 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzJkOCJR6Gowu5dIgYxfW5ocfxx7MhUz7e1MdKgnL5q38tShG3Uwa7Kq9s8kzjXXNOPRBmcnzKU85/lj+6LuhI=
-X-Received: by 2002:a17:906:af49:: with SMTP id ly9mr109263ejb.38.1608226482844;
- Thu, 17 Dec 2020 09:34:42 -0800 (PST)
+X-Inumbo-ID: aef84541-a856-4e21-92e5-ac96e50afeb0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=YbAHKLgMgETX0KzOa8PyAW+RsrrKIcquYoJvCL3P3vU=;
+ b=ayT7jH0qYKhDJfv+NyxbbBbVB4biv5ZybKiAILSwpUUGrnMWpK9JrcQaT0eMqPpfprDg
+ 1wxY6c8JpacvTKg6iWYe1gsphxkMFV+sbS0ZgJmgIJE7tIGS6xJzNk6hAxXOoRjir3Kf
+ R4rJ8HfkVpzP3r6rzdPO4qe9mCUTCZ3vi/kQecBQap52xMkDmUZza5nfmQsb427m3VOV
+ /CtIf+Kg+HpQipoMrzFoP/TkCa6m/OcYmk+yjLHvp2ERUlVu3F9ML9nSM0Nqcuoi/WMK
+ Sj7k7ZVIF8U7dngmbiz1qltMNK2axaIsMue/Mbtl5I7P7wTmwPaCMraJgz7GwDIUSj5E ow== 
+Subject: Re: XSA-351 causing Solaris-11 systems to panic during boot.
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Cheyenne Wills <cheyenne.wills@gmail.com>
+References: <CAHpsFVc4AAm6L0rKUuV47ydOjtw7XAgFnDZxRjdCL0OHXJERDw@mail.gmail.com>
+ <7bca24cb-a3af-b54d-b224-3c2a316859dd@suse.com>
+ <4fc3532b-f53f-2a15-ce64-f857816b0566@oracle.com>
+ <f4ff3d16-40f6-e8a1-fcdd-ca52e1f52ca6@suse.com>
+ <c90622c4-f9e0-8b6d-ab46-bba0cbfc0fd9@oracle.com>
+ <0430337a-6fcd-9471-4455-838390401220@citrix.com>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <c6e05b63-b066-9bd0-9da1-1fc089cd1aea@oracle.com>
+Date: Thu, 17 Dec 2020 12:49:26 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.1
 MIME-Version: 1.0
-References: <87h7oudcbx.fsf@vps.thesusis.net> <CAHD1Q_zcruQ6KVHApvhb=0+mG0m80T+tmg1UzjQBki8j+aR51A@mail.gmail.com>
- <87czzcdtir.fsf@vps.thesusis.net>
-In-Reply-To: <87czzcdtir.fsf@vps.thesusis.net>
-From: "Guilherme G. Piccoli" <guilherme.piccoli@canonical.com>
-Date: Thu, 17 Dec 2020 14:34:07 -0300
-Message-ID: <CAHD1Q_z+WW36rfr1RAFYKjU5bocA90OonBmSKECRnpacvWyPmQ@mail.gmail.com>
-Subject: Re: kexec not working in xen domU?
-To: Phillip Susi <phill@thesusis.net>
-Cc: kexec mailing list <kexec@lists.infradead.org>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <0430337a-6fcd-9471-4455-838390401220@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9838 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 adultscore=0 mlxscore=0 mlxlogscore=999 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012170122
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9838 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 mlxlogscore=999
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 priorityscore=1501 phishscore=0 mlxscore=0 bulkscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012170122
 
-On Mon, Dec 14, 2020 at 5:25 PM Phillip Susi <phill@thesusis.net> wrote:
-> The regular xen cosole should work for this shouldn't it?  So
-> earlyprintk=hvc0 I guess?  I also threw in console=hvc0 and loglevel=7:
+
+On 12/17/20 11:46 AM, Andrew Cooper wrote:
+> On 17/12/2020 16:25, boris.ostrovsky@oracle.com wrote:
+>> On 12/17/20 2:40 AM, Jan Beulich wrote:
+>>> On 17.12.2020 02:51, boris.ostrovsky@oracle.com wrote:
+>>> I think this is acceptable as a workaround, albeit we may want to
+>>> consider further restricting this (at least on staging), like e.g.
+>>> requiring a guest config setting to enable the workaround. 
+>> Maybe, but then someone migrating from a stable release to 4.15 will have to modify guest configuration.
+>>
+>>
+>>> But
+>>> maybe this will need to be part of the MSR policy for the domain
+>>> instead, down the road. We'll definitely want Andrew's view here.
+>>>
+>>> Speaking of staging - before applying anything to the stable
+>>> branches, I think we want to have this addressed on the main
+>>> branch. I can't see how Solaris would work there.
+>> Indeed it won't. I'll need to do that as well (I misinterpreted the statement in the XSA about only 4.14- being vulnerable)
+> It's hopefully obvious now why we suddenly finished the "lets turn all
+> unknown MSRs to #GP" work at the point that we did (after dithering on
+> the point for several years).
 >
-> [  184.734810] systemd-shutdown[1]: Syncing filesystems and block
-> devices.
-> [  185.772511] systemd-shutdown[1]: Sending SIGTERM to remaining
-> processes...
-> [  185.896957] systemd-shutdown[1]: Sending SIGKILL to remaining
-> processes...
-> [  185.901111] systemd-shutdown[1]: Unmounting file systems.
-> [  185.902180] [1035]: Remounting '/' read-only in with options
-> 'errors=remount-ro'.
-> [  185.990634] EXT4-fs (xvda1): re-mounted. Opts: errors=remount-ro
-> [  186.002373] systemd-shutdown[1]: All filesystems unmounted.
-> [  186.002411] systemd-shutdown[1]: Deactivating swaps.
-> [  186.002502] systemd-shutdown[1]: All swaps deactivated.
-> [  186.002529] systemd-shutdown[1]: Detaching loop devices.
-> [  186.002699] systemd-shutdown[1]: All loop devices detached.
-> [  186.002727] systemd-shutdown[1]: Stopping MD devices.
-> [  186.002814] systemd-shutdown[1]: All MD devices stopped.
-> [  186.002840] systemd-shutdown[1]: Detaching DM devices.
-> [  186.002974] systemd-shutdown[1]: All DM devices detached.
-> [  186.003017] systemd-shutdown[1]: All filesystems, swaps, loop
-> devices, MD devices and DM devices detached.
-> [  186.168475] systemd-shutdown[1]: Syncing filesystems and block
-> devices.
-> [  186.169150] systemd-shutdown[1]: Rebooting with kexec.
-> [  186.418653] xenbus_probe_frontend: xenbus_frontend_dev_shutdown:
-> device/vbd/5632: Initialising != Connected, skipping
-> [  186.427377] kexec_core: Starting new kernel
+> To put it bluntly, default MSR readability was not a clever decision at all.
 >
+> There is a large risk that there is a similar vulnerability elsewhere,
+> given how poorly documented the MSRs are (and one contemporary CPU I've
+> got the manual open for has more than 6000 *documented* MSRs).  We did
+> debate for a while whether the readability of the PPIN MSRs was a
+> vulnerability or not, before eventually deciding not.
 
-Hm..not many prints, either earlyprintk didn't work, or it's a really
-early boot issue. Might worth to investigate if it's not a purgatory
-issue too - did you try to use the ""new"" kexec syscall, by running
-"kexec -s -l" instead of just "kexec -l" ?
-Also, worth to try that with upstream kernel and kexec-tools - I
-assume you're doing that already?
-
-Cheers,
+> Irrespective of what we do to fix this in Xen, has anyone fixed Solaris yet?
 
 
-Guilherme
+I am not aware of anyone working on this (not that I would be).
+
+
+-boris
+
 
