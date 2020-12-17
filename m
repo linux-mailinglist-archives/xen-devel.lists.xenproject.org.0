@@ -2,63 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD05D2DD6AB
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Dec 2020 18:59:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.56082.97909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E92022DD840
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Dec 2020 19:26:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.56092.97924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpxYr-0002di-0s; Thu, 17 Dec 2020 17:59:33 +0000
+	id 1kpxyU-0005dT-8s; Thu, 17 Dec 2020 18:26:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 56082.97909; Thu, 17 Dec 2020 17:59:32 +0000
+Received: by outflank-mailman (output) from mailman id 56092.97924; Thu, 17 Dec 2020 18:26:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kpxYq-0002dJ-TZ; Thu, 17 Dec 2020 17:59:32 +0000
-Received: by outflank-mailman (input) for mailman id 56082;
- Thu, 17 Dec 2020 17:59:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kpxyU-0005d8-5S; Thu, 17 Dec 2020 18:26:02 +0000
+Received: by outflank-mailman (input) for mailman id 56092;
+ Thu, 17 Dec 2020 18:26:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xKjN=FV=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1kpxYq-0002d1-0k
- for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 17:59:32 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:7d00::614])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b0e204af-5e1d-4ef4-8994-a323229850e5;
- Thu, 17 Dec 2020 17:59:30 +0000 (UTC)
-Received: from AM6PR04CA0039.eurprd04.prod.outlook.com (2603:10a6:20b:f0::16)
- by VI1PR08MB4255.eurprd08.prod.outlook.com (2603:10a6:803:100::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.15; Thu, 17 Dec
- 2020 17:59:28 +0000
-Received: from AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:f0:cafe::b3) by AM6PR04CA0039.outlook.office365.com
- (2603:10a6:20b:f0::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12 via Frontend
- Transport; Thu, 17 Dec 2020 17:59:28 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT048.mail.protection.outlook.com (10.152.17.177) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3676.22 via Frontend Transport; Thu, 17 Dec 2020 17:59:27 +0000
-Received: ("Tessian outbound eeda57fffe7b:v71");
- Thu, 17 Dec 2020 17:59:27 +0000
-Received: from ef11484e9eb8.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 5FFEDDD9-74B0-4519-873D-0805036EE5D4.1; 
- Thu, 17 Dec 2020 17:58:49 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id ef11484e9eb8.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 17 Dec 2020 17:58:49 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (2603:10a6:10:79::16)
- by DB6PR08MB2870.eurprd08.prod.outlook.com (2603:10a6:6:20::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12; Thu, 17 Dec
- 2020 17:58:47 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::98c7:4612:2365:cc6b]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::98c7:4612:2365:cc6b%5]) with mapi id 15.20.3654.025; Thu, 17 Dec 2020
- 17:58:47 +0000
+ <SRS0=WIZe=FV=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kpxyS-0005d3-KW
+ for xen-devel@lists.xenproject.org; Thu, 17 Dec 2020 18:26:00 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d556b491-7573-468f-a6f3-1952de10c748;
+ Thu, 17 Dec 2020 18:25:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,155 +36,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0e204af-5e1d-4ef4-8994-a323229850e5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iiHxLp0JFQ0tSsAhUhQWsLavame0QxLqrK1DWj0v9vA=;
- b=yHHXtpYTlKJCLEpCAMHCkQVsRUP2lTWNfZtrZKSGBwzKyBY1+rDggbLzf+WQ8jWFZX+TiXfutelmLWY13XPQB4Be26WpGYKDVxIwGVesef68Yn/StmUqYaY98Ng9cdzuEhnqHfrOgFuQLB9nwmm4d8Qu3JYxR3BLqepeEv8xXeA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 2c485c349efbe95a
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VWDnuhuroEyCb0BkXRrc7mPTrmNYFVYUR6nTejRamcimmFRPD+d6dXnVPDUq4SdWyH84iymYHl5VVZpnKJIJqypPeCmOXBbt96EI1GUeaasKeRM6q/bM1f9ST0OINJOh1V08D4NUQKPdHM0fdo7V7W18ABxS5bnupdKikjIhkO9w4gBik/ZHP0TOKrWWINrGABjp1XS+QsidwdZ4mj2P7SYckeT2VbIZRPw9sB3YmO0acUpzX1/TzU8ch1BxJP6MFw9rfipAjLSuidEddtFu+XpGYC7+J5FfN+TToSAtWebe9WCLURgob2kVq1QCK0aygMYwZLuvCPcXGawVJ4o9QQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iiHxLp0JFQ0tSsAhUhQWsLavame0QxLqrK1DWj0v9vA=;
- b=V8cVuoYp9pqLpF/toRjyGfwGIqdkZFL3LqyLTelYVDenZh+pkpftiRVazXbK5mEgvw4AAx7O15Z8eX+VSDCgXvjsXtEhRZHnRekbzieVjNEMbXAsys27+UFs3a+KiYSZAN52Djpa8W8B78RNhjRMbbOEhkqVR/P3Ps5KzWkphdfUqQRj5Y56twRobmJGDZz/dJyYqDU64U380VGg8nNfloW2jcOnta3QF6Al9M8KC47QPcVwnAaIInFHThOojT31W7ABKr5blwNPdCWTLbXbB9wHDZV6xrlI5SvwA74+GQAUFKyXLOm9qTtRXncIkZ/PyjCvqMBkMubq36PZlzJ2HA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iiHxLp0JFQ0tSsAhUhQWsLavame0QxLqrK1DWj0v9vA=;
- b=yHHXtpYTlKJCLEpCAMHCkQVsRUP2lTWNfZtrZKSGBwzKyBY1+rDggbLzf+WQ8jWFZX+TiXfutelmLWY13XPQB4Be26WpGYKDVxIwGVesef68Yn/StmUqYaY98Ng9cdzuEhnqHfrOgFuQLB9nwmm4d8Qu3JYxR3BLqepeEv8xXeA=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Rahul
- Singh <Rahul.Singh@arm.com>, Julien Grall <jgrall@amazon.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen: Rework WARN_ON() to return whether a warning was
- triggered
-Thread-Topic: [PATCH] xen: Rework WARN_ON() to return whether a warning was
- triggered
-Thread-Index: AQHW0tUr2p4F3png40a2lvBeLGQljqn4BhSAgAAb6ACAA3ThAA==
-Date: Thu, 17 Dec 2020 17:58:47 +0000
-Message-ID: <FE04E596-2E53-4950-A9DC-8C5EEEF9124E@arm.com>
-References: <20201215112610.1986-1-julien@xen.org>
- <c45407e5-3173-4f0d-453b-1a01969b667c@suse.com>
- <cbae7c17-829e-f48f-3a6a-7fee489711c2@xen.org>
-In-Reply-To: <cbae7c17-829e-f48f-3a6a-7fee489711c2@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3608.120.23.2.4)
-Authentication-Results-Original: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-x-originating-ip: [82.9.225.195]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f0eaf26b-4764-414b-b6e8-08d8a2b57f17
-x-ms-traffictypediagnostic: DB6PR08MB2870:|VI1PR08MB4255:
-x-ms-exchange-transport-forked: True
-X-Microsoft-Antispam-PRVS:
-	<VI1PR08MB42553580FBF17735BCC3C86B9DC40@VI1PR08MB4255.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:117;OLM:117;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 9EJOylkmC5XkAwCah6vNVK8ess5t7Na3qgdz5CD4N7LqEj5qWoyWJLG/KM4sEhbBJAL09oVMsHxhiJE1BdHZb8vWK4cct/Dn+l2BkOlr6SBpFY1xop79dOr2Upl49kNSsgcRM8s/yx0bwW4tlFZHNmFABEKn8YJ2I1LO0RoVC6NYGWVt8BUYzLYEsbvW1T32fIiXTzlJ0/bLiLAL5kXbISkhnu+Mzxi3RMNhllNnK0lCCaKZDJ8fFjaTHzke+xdBuU/OdEyR15wly/6XSqngVUDr+wkjwqrZB6Gnmu7t7cF/mXBkp76HBA20584MareN2JSu1qAlXoSNxqOWwE0+3m9kasD80fJ0kZlu6OUnZTO6hL6rru1qfNOnYAwQ+bgc
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3689.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(346002)(366004)(136003)(376002)(39860400002)(6512007)(478600001)(6916009)(7416002)(186003)(26005)(66556008)(4326008)(8936002)(53546011)(33656002)(316002)(66574015)(76116006)(2906002)(66946007)(83380400001)(2616005)(6506007)(6486002)(64756008)(66476007)(8676002)(66446008)(71200400001)(5660300002)(91956017)(36756003)(86362001)(54906003)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata:
- =?utf-8?B?c3VXdDkreU92K2w1VFJhZ1F0RGpxSFZaT0lCa08yR2lXN1FQdndwZUNwWnpR?=
- =?utf-8?B?aFJHY1VaRjVvMmZFbzRTQUk4ZDFWSTcyN0VLbWVqMExQdzBwMlVWckIvcjNK?=
- =?utf-8?B?NmlncmJPcGdRSjV6Sm9wQnp5QWxGR0JXbmFGa0pxY1J0NnN6ejZCTTFESjM0?=
- =?utf-8?B?cDQyY0NIVzNwRTgrS2l0N3JvT1hEakxITHpCMks2WllFZHMvcnphS3lDQVZB?=
- =?utf-8?B?Wm1Xc01ydEEwM2JEU0JhYkh6R2t6M0Vnd21IUWxTVUZHdDVoMWJsRFBOMjVq?=
- =?utf-8?B?SHJYZytQYjc1MVRvaHp4OHVSaDFIK0crRktHa0NVRTl3NHlGa09JWnVDU3V2?=
- =?utf-8?B?YVIzZXhGbnNmN2thWjVCWXdMSkJEV09kYUQzNm1lTmcyWVZRRXhMOVVHUXlV?=
- =?utf-8?B?dlo1RXRkNjdPS2E5TitjUUJ0YzdBb2hmY0lLd29xTjAxRnRmL3RzMVQva1lB?=
- =?utf-8?B?cnRLNnRQbk5wMDB0WmEwbkdINTN4Nm9QOEVyclc1VHdDNG83dVlMSEJENzNZ?=
- =?utf-8?B?T0FKTVRYTnVzcG9xenlPQkRWQ0VRWUVPZklWWHhFRWtneVIxdkZ1YUFla3Vr?=
- =?utf-8?B?VG53aVRZcDBJNklycDJnaGtza3NUUkhmc3RqN3pSK3d3VmRRa3k5dVF4Zi9D?=
- =?utf-8?B?OHBaMEVJdjNxUDRXQXFkR2hRWUlhVG9JcFhrNVJrbGs5THVaS21YbU5SUDJL?=
- =?utf-8?B?dGYyaG51N2YySVJZTTd3cElYMFZYejRJcHFQdUZYbkg1TnJDSk92OHZHcHpE?=
- =?utf-8?B?cHNrc3hHUFJSTzNVenUrSTcwRXZnbGIwYm1CM1JqejhBbEoyMnp2NVI5dTFL?=
- =?utf-8?B?OC81eEVGRHVhZDA4akNaRGhmbFhiWmZQbm5NMGJxWGI5QmRkbDl0Yk9hYlBV?=
- =?utf-8?B?ZVl0NE10V1oyNDkzU0ZiTXBtcE9YcVZhM3hWQUZ6Q3ZBUFhQR0xFMllzTmlK?=
- =?utf-8?B?MWo4M0ZRdHZueFBMWDdTeUJ3YkgvMzNyWHFUVVNNTmNsMXNmSlg4TmRlODR2?=
- =?utf-8?B?TS9mNWoxSjdibEVydk4wUm5LRnVVNVY3RG5yck5aV29xK0krN09LZVN1WUE2?=
- =?utf-8?B?T09UVWlqdzJZYy9uZkJveEtmcCtpdXg0WHE5d3RLZElCZ2l3MlY4dW5Od2dY?=
- =?utf-8?B?RmYxQ0V1NVc5MW9YY0NRV1NnNkoyY1A3RjQrTjVFVlRsb2pXcUZROWFyd3Zo?=
- =?utf-8?B?WTFBNTNEaWQ3ZUUzZ1crcjJqQzB0L0JSWis2c3AxMmJZWTlUYkhZK2VmaXIw?=
- =?utf-8?B?YmhPOW0xM1dna3oxRHBjUndHT1FyenFBdTVsN2FrajlxeFVVVnlDazV0MFhB?=
- =?utf-8?Q?BRo4ZUWPhsDj5ByELILGWGz7DJoRhjACwt?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0D48321E61A4AC4D946C8F9386F0A410@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: d556b491-7573-468f-a6f3-1952de10c748
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1608229558;
+  h=subject:to:cc:references:from:message-id:date:
+   mime-version:in-reply-to:content-transfer-encoding;
+  bh=0JnxpV5kSnzrC5FbbL8YNG1KAvQnfLMRnXpPN2OIrj0=;
+  b=Eed2niLyV8JRD1i+aNCJtjHyDEVz4DJJG/+xnXGEXQxhV4Ur7qsqdiyE
+   7t5L0gtTvK8noaigQSpqvb66YhhyNJaTXg6uLid7ywtpL3toll6hyT7lX
+   PoYKpxYcLSzF5doqI74QNPeipqv7hJLqa3Uo5qc4C1f6Uvb3cDB4JKPi2
+   E=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 00tXMVKz+bqsvoJATU8UhkG0eBARLmv5IpviZufx/bZc56Toigz1exXkaq/60al/HMtc0VNN9g
+ k1QKMN0UehcqDT62F4WnbUjWK+u/kwbUPTkrS1h/l3YEhMC+8o7G9iRsiXIsYI9DydJJGpDWyd
+ QSC5FwiSno+b9sn3UcJbmC9EQ1kdZMvZmZZJh+jJ/YWqaqU9+gLhru6eCHDx8A6/NMalhCeFkQ
+ CwWXMpJnNZqRs2epeeF571ULEE5+T1kMsOrBOWiF3YoWDij5uJKUfkJ71GQKwF5sOV5fwk9E13
+ 3Zs=
+X-SBRS: 5.2
+X-MesageID: 33507226
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,428,1599537600"; 
+   d="scan'208";a="33507226"
+Subject: Re: [PATCH v2] xen/xenbus: make xs_talkv() interruptible
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	<xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
+CC: Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
+	<sstabellini@kernel.org>
+References: <20201215111055.3810-1-jgross@suse.com>
+ <2deac9ce-0c27-a472-7d51-b91a640d92ed@citrix.com>
+ <8d26b752-b7ba-159f-5bed-bb015a06d819@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <2414c191-ff55-e446-b555-c9d0ccca6b93@citrix.com>
+Date: Thu, 17 Dec 2020 18:25:52 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR08MB2870
-Original-Authentication-Results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	c38b25bf-ebc2-43e9-7e9b-08d8a2b566fb
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	aUaeFHqNf40ZCXH2sAaoEomK0tTQDitFzcW0gN91m2OHUSisHEL8uL4K7bdtlY9MmQifOkFkIsow6qcNQfIcC1M6PFh/ErC7hLHK1TR+lTkvoshK2h2DrHiZIuwSHfrkNO0ygIrV+LabsnXi/TGbYrBdzJo/fQucSrOc8cZfl2reRPV2AMYszSolrpe02vkbSI6E8TcvHCOQqVi9SUdVhy5MLM7dXHlVxPTgxluK++D5ClqRQoWT87IwLHv39HO0sYsPL/CLQ6p73iP1KjFi2odhm1qVH8MRMrUaOzxTIeEW0Gym/QZeTaGeyQqKwbLNIVqKnB+OLnhGEBxg7EH+ZPVtbzGugTEfmXQWECEHY0VqYRACuS3ED0DcLwMSwyezSwuK1bTP4Hg3zJ78VlwnJA==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(136003)(396003)(376002)(39860400002)(46966005)(83380400001)(6486002)(33656002)(336012)(6862004)(66574015)(81166007)(54906003)(356005)(2616005)(5660300002)(70586007)(316002)(6512007)(82310400003)(47076004)(8676002)(86362001)(4326008)(36756003)(53546011)(26005)(70206006)(2906002)(8936002)(6506007)(82740400003)(186003)(478600001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2020 17:59:27.7406
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0eaf26b-4764-414b-b6e8-08d8a2b57f17
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT048.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4255
+In-Reply-To: <8d26b752-b7ba-159f-5bed-bb015a06d819@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL03.citrite.net (10.13.108.165)
 
-SGkgSnVsaWVuLA0KDQo+IE9uIDE1IERlYyAyMDIwLCBhdCAxMzoxMSwgSnVsaWVuIEdyYWxsIDxq
-dWxpZW5AeGVuLm9yZz4gd3JvdGU6DQo+IA0KPiBIaSBKdWVyZ2VuLA0KPiANCj4gT24gMTUvMTIv
-MjAyMCAxMTozMSwgSsO8cmdlbiBHcm/DnyB3cm90ZToNCj4+IE9uIDE1LjEyLjIwIDEyOjI2LCBK
-dWxpZW4gR3JhbGwgd3JvdGU6DQo+Pj4gRnJvbTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxAYW1hem9u
-LmNvbT4NCj4+PiANCj4+PiBTbyBmYXIsIG91ciBpbXBsZW1lbnRhdGlvbiBvZiBXQVJOX09OKCkg
-Y2Fubm90IGJlIHVzZWQgaW4gdGhlIGZvbGxvd2luZw0KPj4+IHNpdHVhdGlvbjoNCj4+PiANCj4+
-PiBpZiAoIFdBUk5fT04oKSApDQo+Pj4gICAgICAuLi4NCj4+PiANCj4+PiBUaGlzIGlzIGJlY2F1
-c2UgdGhlIFdBUk5fT04oKSBkb2Vzbid0IHJldHVybiB3aGV0aGVyIGEgd2FybmluZy4gU3VjaA0K
-Pj4gLi4uIHdhcm5pbmcgaGFzIGJlZW4gdHJpZ2dlcmVkLg0KPiANCj4gSSB3aWxsIGFkZCBpdC4N
-Cj4gDQo+Pj4gY29uc3RydWN0aW9uIGNhbiBiZSBoYW5keSB0byBoYXZlIGlmIHlvdSBoYXZlIHRv
-IHByaW50IG1vcmUgaW5mb3JtYXRpb24NCj4+PiBhbmQgbm93IHRoZSBzdGFjayB0cmFjay4NCj4+
-IFNvcnJ5LCBJJ20gbm90IGFibGUgdG8gcGFyc2UgdGhhdCBzZW50ZW5jZS4NCj4gDQo+IFVyZ2gg
-Oi8uIEhvdyBhYm91dCB0aGUgZm9sbG93aW5nIGNvbW1pdCBtZXNzYWdlOg0KPiANCj4gIlNvIGZh
-ciwgb3VyIGltcGxlbWVudGF0aW9uIG9mIFdBUk5fT04oKSBjYW5ub3QgYmUgdXNlZCBpbiB0aGUg
-Zm9sbG93aW5nIHNpdHVhdGlvbjoNCj4gDQo+IGlmICggV0FSTl9PTigpICkNCj4gIC4uLg0KPiAN
-Cj4gVGhpcyBpcyBiZWNhdXNlIFdBUk5fT04oKSBkb2Vzbid0IHJldHVybiB3aGV0aGVyIGEgd2Fy
-bmluZyBoYXMgYmVlbiB0cmlnZ2VyZWQuIFN1Y2ggY29uc3RydWNpdG9uIGNhbiBiZSBoYW5keSBp
-ZiB5b3Ugd2FudCB0byBwcmludCBtb3JlIGluZm9ybWF0aW9uIGFuZCBhbHNvIGR1bXAgdGhlIHN0
-YWNrIHRyYWNlLg0KPiANCj4gVGhlcmVmb3JlLCByZXdvcmsgdGhlIFdBUk5fT04oKSBpbXBsZW1l
-bnRhdGlvbiB0byByZXR1cm4gd2hldGhlciBhIHdhcm5pbmcgd2FzIHRyaWdnZXJlZC4gVGhlIGlk
-ZWEgd2FzIGJvcnJvd2VkIGZyb20gTGludXgiLg0KDQpXaXRoIHRoYXQuDQoNClJldmlld2VkLWJ5
-OiBCZXJ0cmFuZCBNYXJxdWlzIDxiZXJ0cmFuZC5tYXJxdWlzQGFybS5jb20+DQoNCkFuZCB0aGFu
-a3MgYSBsb3QgZm9yIHRoaXMgOi0pDQoNCkNoZWVycw0KQmVydHJhbmQNCg0KPiANCj4gQ2hlZXJz
-LA0KPiANCj4gLS0gDQo+IEp1bGllbiBHcmFsbA0KDQo=
+On 16/12/2020 08:21, Jürgen Groß wrote:
+> On 15.12.20 21:59, Andrew Cooper wrote:
+>> On 15/12/2020 11:10, Juergen Gross wrote:
+>>> In case a process waits for any Xenstore action in the xenbus driver
+>>> it should be interruptible by signals.
+>>>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> ---
+>>> V2:
+>>> - don't special case SIGKILL as libxenstore is handling -EINTR fine
+>>> ---
+>>>   drivers/xen/xenbus/xenbus_xs.c | 9 ++++++++-
+>>>   1 file changed, 8 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/xen/xenbus/xenbus_xs.c
+>>> b/drivers/xen/xenbus/xenbus_xs.c
+>>> index 3a06eb699f33..17c8f8a155fd 100644
+>>> --- a/drivers/xen/xenbus/xenbus_xs.c
+>>> +++ b/drivers/xen/xenbus/xenbus_xs.c
+>>> @@ -205,8 +205,15 @@ static bool test_reply(struct xb_req_data *req)
+>>>     static void *read_reply(struct xb_req_data *req)
+>>>   {
+>>> +    int ret;
+>>> +
+>>>       do {
+>>> -        wait_event(req->wq, test_reply(req));
+>>> +        ret = wait_event_interruptible(req->wq, test_reply(req));
+>>> +
+>>> +        if (ret == -ERESTARTSYS && signal_pending(current)) {
+>>> +            req->msg.type = XS_ERROR;
+>>> +            return ERR_PTR(-EINTR);
+>>> +        }
+>>
+>> So now I can talk fully about the situations which lead to this, I think
+>> there is a bit more complexity.
+>>
+>> It turns out there are a number of issues related to running a Xen
+>> system with no xenstored.
+>>
+>> 1) If a xenstore-write occurs during startup before init-xenstore-domain
+>> runs, the former blocks on /dev/xen/xenbus waiting for xenstored to
+>> reply, while the latter blocks on /dev/xen/xenbus_backend when trying to
+>> tell the dom0 kernel that xenstored is in dom1.  This effectively
+>> deadlocks the system.
+>
+> This should be easy to solve: any request to /dev/xen/xenbus should
+> block upfront in case xenstored isn't up yet (could e.g. wait
+> interruptible until xenstored_ready is non-zero).
+
+I'm not sure that that would fix the problem.  The problem is that
+setting the ring details via /dev/xen/xenbus_backend blocks, which
+prevents us launching the xenstored stubdomain, which prevents the
+earlier xenbus write being completed.
+
+So long as /dev/xen/xenbus_backend doesn't block, there's no problem
+with other /dev/xen/xenbus activity being pending briefly.
+
+
+Looking at the current logic, I'm not completely convinced.  Even
+finding a filled-in evtchn/gfn doesn't mean that xenstored is actually
+ready.
+
+There are 3 possible cases.
+
+1) PV guest, and details in start_info
+2) HVM guest, and details in HVM_PARAMs
+3) No details (expected for dom0).  Something in userspace must provide
+details at a later point.
+
+So the setup phases go from nothing, to having ring details, to finding
+the ring working.
+
+I think it would be prudent to try reading a key between having details
+and declaring the xenstored_ready.  Any activity, even XS_ERROR,
+indicates that the other end of the ring is listening.
+
+>
+>> 2) If xenstore-watch is running when xenstored dies, it spins at 100%
+>> cpu usage making no system calls at all.  This is caused by bad error
+>> handling from xs_watch(), and attempting to debug found:
+>
+> Can you expand on "bad error handling from xs_watch()", please?
+
+do_watch() has
+
+    for ( ... ) { // defaults to an infinite loop
+        vec = xs_read_watch();
+        if (vec == NULL)
+            continue;
+        ...
+    }
+
+
+My next plan was to experiment with break instead of continue, which
+I'll get to at some point.
+
+>
+>>
+>> 3) (this issue).  If anyone starts xenstore-watch with no xenstored
+>> running at all, it blocks in D in the kernel.
+>
+> Should be handled with solution for 1).
+>
+>>
+>> The cause is the special handling for watch/unwatch commands which,
+>> instead of just queuing up the data for xenstore, explicitly waits for
+>> an OK for registering the watch.  This causes a write() system call to
+>> block waiting for a non-existent entity to reply.
+>>
+>> So while this patch does resolve the major usability issue I found (I
+>> can't even SIGINT and get my terminal back), I think there are issues.
+>>
+>> The reason why XS_WATCH/XS_UNWATCH are special cased is because they do
+>> require special handling.  The main kernel thread for processing
+>> incoming data from xenstored does need to know how to associate each
+>> async XS_WATCH_EVENT to the caller who watched the path.
+>>
+>> Therefore, depending on when this cancellation hits, we might be in any
+>> of the following states:
+>>
+>> 1) the watch is queued in the kernel, but not even sent to xenstored yet
+>> 2) the watch is queued in the xenstored ring, but not acted upon
+>> 3) the watch is queued in the xenstored ring, and the xenstored has seen
+>> it but not replied yet
+>> 4) the watch has been processed, but the XS_WATCH reply hasn't been
+>> received yet
+>> 5) the watch has been processed, and the XS_WATCH reply received
+>>
+>> State 5 (and a little bit) is the normal success path when xenstored has
+>> acted upon the request, and the internal kernel infrastructure is set up
+>> appropriately to handle XS_WATCH_EVENTs.
+>>
+>> States 1 and 2 can be very common if there is no xenstored (or at least,
+>> it hasn't started up yet).  In reality, there is either no xenstored, or
+>> it is up and running (and for a period of time during system startup,
+>> these cases occur in sequence).
+>
+> Yes. this is the reason we can't just reject a user request if xenstored
+> hasn't been detected yet: it could be just starting.
+
+Right, and I'm not suggesting that we'd want to reject accesses while
+xenstored is starting up.
+
+>
+>>
+>> As soon as the XS_WATCH event has been written into the xenstored ring,
+>> it is not safe to cancel.  You've committed to xenstored processing the
+>> request (if it is up).
+>
+> I'm not sure this is true. Cancelling it might result in a stale watch
+> in xenstored, but there shouldn't be a problem related to that. In case
+> that watch fires the event will normally be discarded by the kernel as
+> no matching watch is found in the kernel's data. In case a new watch
+> has been setup with the same struct xenbus_watch address (which is used
+> as the token), then this new watch might fire without the node of the
+> new watch having changed, but spurious watch events are defined to be
+> okay (OTOH the path in the event might look strange to the handler).
+
+Watches are a quota'd resource in (at least some) xenstored
+configurations.  Losing track of the registration is a resource leak,
+even if the kernel can filter and discard the unexpected watch events.
+
+>> If xenstored is actually up and running, its fine and necessary to
+>> block.  The request will be processed in due course (timing subject to
+>> the client and server load).  If xenstored isn't up, blocking isn't ok.
+>>
+>> Therefore, I think we need to distinguish "not yet on the ring" from "on
+>> the ring", as our distinction as to whether cancelling is safe, and
+>> ensure we don't queue anything on the ring before we're sure xenstored
+>> has started up.
+>>
+>> Does this make sense?
+>
+> Basically, yes.
+
+Great.  If I get any time, I'll try to look into some fixes along the
+above lines.
+
+~Andrew
 
