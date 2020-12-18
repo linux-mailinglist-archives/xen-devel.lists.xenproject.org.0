@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C23C42DDF80
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Dec 2020 09:27:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.56379.98701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B61862DDF8A
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Dec 2020 09:31:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.56386.98716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kqB6o-0008QT-Rm; Fri, 18 Dec 2020 08:27:30 +0000
+	id 1kqBAK-00010A-IR; Fri, 18 Dec 2020 08:31:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 56379.98701; Fri, 18 Dec 2020 08:27:30 +0000
+Received: by outflank-mailman (output) from mailman id 56386.98716; Fri, 18 Dec 2020 08:31:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kqB6o-0008Q4-O0; Fri, 18 Dec 2020 08:27:30 +0000
-Received: by outflank-mailman (input) for mailman id 56379;
- Fri, 18 Dec 2020 08:27:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kqBAK-0000zl-FM; Fri, 18 Dec 2020 08:31:08 +0000
+Received: by outflank-mailman (input) for mailman id 56386;
+ Fri, 18 Dec 2020 08:31:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ets7=FW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kqB6m-0008Pz-PH
- for xen-devel@lists.xenproject.org; Fri, 18 Dec 2020 08:27:28 +0000
+ id 1kqBAJ-0000zg-IE
+ for xen-devel@lists.xenproject.org; Fri, 18 Dec 2020 08:31:07 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 51ff92f1-5ae2-4bcf-a004-262658c7d973;
- Fri, 18 Dec 2020 08:27:27 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2b5e67ab-8141-4541-b11a-b785ec3bc5c2;
+ Fri, 18 Dec 2020 08:31:06 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 86E71ACC4;
- Fri, 18 Dec 2020 08:27:26 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 86ADBACC4;
+ Fri, 18 Dec 2020 08:31:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +38,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51ff92f1-5ae2-4bcf-a004-262658c7d973
+X-Inumbo-ID: 2b5e67ab-8141-4541-b11a-b785ec3bc5c2
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608280046; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608280265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+6moIg9ArN4Y+PEYC9f+3+7ugZX6EBBqarTBEIg1Rn8=;
-	b=U3cFEsB1FkmIsImROYSit1Ow2pC+A5gfqD3eERVHUVaE8xO/HngT7nPVhcyp/DPYrMpZ79
-	dZPD1hsuCtsTwR6asqY520BZBd98HIUxeVnynKnBdOc/ESmVVLPf/8/58aoU/4jaUMXbKy
-	61qrXOOhPzs8ynNU967mAzr+k9Ew/Cw=
-Subject: Re: [PATCH] xen/x86: Fix memory leak in vcpu_create() error path
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@eu.citrix.com>,
- Tim Deegan <tim@xen.org>, =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?=
- <michal.leszczynski@cert.pl>
-References: <20200928154741.2366-1-andrew.cooper3@citrix.com>
- <33331c3a-1fd5-1ef6-16a3-21d2a6672e90@suse.com>
- <9556aeb3-2a7c-7aea-4386-6e561dd9ef6e@citrix.com>
+	bh=PevfJibHyhM1P5bTVcOjupsdgI/avU0PT8NKlUKEqtk=;
+	b=NlUt7uXWU8HzOg6zFuNl68+SkTymNK2ynG3lgaEOEYS03BA7tjBU2fIBOCNoVpyKxsK/Fa
+	M8Goyt01J3xAk3yBVWUg/Iq5HdtmPVNBkstWc/0fR4BG0uxwhjNpJBPtX4r6xOq8mxE4eT
+	2+tjEyBWZ4KpF3IRZ3edrx8B6QJH6nM=
+Subject: Re: [PATCH] xen: Rework WARN_ON() to return whether a warning was
+ triggered
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, bertrand.marquis@arm.com,
+ Rahul.Singh@arm.com, Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201215112610.1986-1-julien@xen.org>
+ <c5ac88e6-4e06-553d-2996-d2b027acd782@suse.com>
+ <04455739-f07f-3da8-f764-33600a9cab6f@xen.org>
+ <3f165cf8-88a4-590a-6e86-2435e8a7e554@suse.com>
+ <alpine.DEB.2.21.2012171553340.4040@sstabellini-ThinkPad-T480s>
+ <81ea6132-b8b6-90b9-2c5c-9ca89ee6c0d0@suse.com>
+ <142e7b4d-649d-07d0-26cf-185a434a365c@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9e652863-5ada-0327-5817-cdb2e652e066@suse.com>
-Date: Fri, 18 Dec 2020 09:27:27 +0100
+Message-ID: <19553beb-db02-c23c-e176-c5c52a5be7ed@suse.com>
+Date: Fri, 18 Dec 2020 09:31:06 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <9556aeb3-2a7c-7aea-4386-6e561dd9ef6e@citrix.com>
+In-Reply-To: <142e7b4d-649d-07d0-26cf-185a434a365c@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 17.12.2020 22:46, Andrew Cooper wrote:
-> On 29/09/2020 07:18, Jan Beulich wrote:
->> On 28.09.2020 17:47, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/mm/hap/hap.c
->>> +++ b/xen/arch/x86/mm/hap/hap.c
->>> @@ -563,30 +563,37 @@ void hap_final_teardown(struct domain *d)
->>>      paging_unlock(d);
->>>  }
->>>  
->>> +void hap_vcpu_teardown(struct vcpu *v)
->>> +{
->>> +    struct domain *d = v->domain;
->>> +    mfn_t mfn;
->>> +
->>> +    paging_lock(d);
->>> +
->>> +    if ( !paging_mode_hap(d) || !v->arch.paging.mode )
->>> +        goto out;
->> Any particular reason you don't use paging_get_hostmode() (as the
->> original code did) here? Any particular reason for the seemingly
->> redundant (and hence somewhat in conflict with the description's
->> "with the minimum number of safety checks possible")
->> paging_mode_hap()?
+On 18.12.2020 09:19, Jürgen Groß wrote:
+> On 18.12.20 08:54, Jan Beulich wrote:
+>> On 18.12.2020 00:54, Stefano Stabellini wrote:
+>>> On Tue, 15 Dec 2020, Jan Beulich wrote:
+>>>> On 15.12.2020 14:19, Julien Grall wrote:
+>>>>> On 15/12/2020 11:46, Jan Beulich wrote:
+>>>>>> On 15.12.2020 12:26, Julien Grall wrote:
+>>>>>>> --- a/xen/include/xen/lib.h
+>>>>>>> +++ b/xen/include/xen/lib.h
+>>>>>>> @@ -23,7 +23,13 @@
+>>>>>>>    #include <asm/bug.h>
+>>>>>>>    
+>>>>>>>    #define BUG_ON(p)  do { if (unlikely(p)) BUG();  } while (0)
+>>>>>>> -#define WARN_ON(p) do { if (unlikely(p)) WARN(); } while (0)
+>>>>>>> +#define WARN_ON(p)  ({                  \
+>>>>>>> +    bool __ret_warn_on = (p);           \
+>>>>>>
+>>>>>> Please can you avoid leading underscores here?
+>>>>>
+>>>>> I can.
+>>>>>
+>>>>>>
+>>>>>>> +                                        \
+>>>>>>> +    if ( unlikely(__ret_warn_on) )      \
+>>>>>>> +        WARN();                         \
+>>>>>>> +    unlikely(__ret_warn_on);            \
+>>>>>>> +})
+>>>>>>
+>>>>>> Is this latter unlikely() having any effect? So far I thought it
+>>>>>> would need to be immediately inside a control construct or be an
+>>>>>> operand to && or ||.
+>>>>>
+>>>>> The unlikely() is directly taken from the Linux implementation.
+>>>>>
+>>>>> My guess is the compiler is still able to use the information for the
+>>>>> branch prediction in the case of:
+>>>>>
+>>>>> if ( WARN_ON(...) )
+>>>>
+>>>> Maybe. Or maybe not. I don't suppose the Linux commit introducing
+>>>> it clarifies this?
+>>>
+>>> I did a bit of digging but it looks like the unlikely has been there
+>>> forever. I'd just keep it as is.
+>>
+>> I'm afraid I don't view this as a reason to inherit code unchanged.
+>> If it was introduced with a clear indication that compilers can
+>> recognize it despite the somewhat unusual placement, then fine. But
+>> likely() / unlikely() quite often get put in more or less blindly -
+>> see the not uncommon unlikely(a && b) style of uses, which don't
+>> typically have the intended effect and would instead need to be
+>> unlikely(a) && unlikely(b) [assuming each condition alone is indeed
+>> deemed unlikely], unless compilers have learned to guess/infer
+>> what's meant between when I last looked at this and now.
 > 
-> Yes to both.  As you spotted, I converted the shadow side first, and
-> made the two consistent.
-> 
-> The paging_mode_{shadow,hap})() is necessary for idempotency.  These
-> functions really might get called before paging is set up, for an early
-> failure in domain_create().
+> I have made a little experiment and found that the unlikely() at the
+> end of a macro is having effect.
 
-In which case how would v->arch.paging.mode be non-NULL already?
-They get set in {hap,shadow}_vcpu_init() only.
-
-> The paging mode has nothing really to do with hostmode/guestmode/etc. 
-> It is the only way of expressing the logic where it is clear that the
-> lower pointer dereferences are trivially safe.
-
-Well, yes and no - the other uses of course should then also use
-paging_get_hostmode(), like various of the wrappers in paging.h
-do. Or else I question why we have paging_get_hostmode() in the
-first place. There are more examples in shadow code where this
-gets open-coded when it probably shouldn't be. There haven't been
-any such cases in HAP code so far ...
-
-Additionally (noticing only now) in the shadow case you may now
-loop over all vCPU-s in shadow_teardown() just for
-shadow_vcpu_teardown() to bail right away. Wouldn't it make sense
-to retain the "if ( shadow_mode_enabled(d) )" there around the
-loop?
+Okay, thanks - then my concern vanishes.
 
 Jan
 
