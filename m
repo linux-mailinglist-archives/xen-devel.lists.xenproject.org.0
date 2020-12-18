@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BA602DE65A
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Dec 2020 16:17:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.56535.99024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD1A2DE69D
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Dec 2020 16:32:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.56545.99044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kqHVP-0000k9-U0; Fri, 18 Dec 2020 15:17:19 +0000
+	id 1kqHjZ-0002l8-A9; Fri, 18 Dec 2020 15:31:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 56535.99024; Fri, 18 Dec 2020 15:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 56545.99044; Fri, 18 Dec 2020 15:31:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kqHVP-0000jh-Pp; Fri, 18 Dec 2020 15:17:19 +0000
-Received: by outflank-mailman (input) for mailman id 56535;
- Fri, 18 Dec 2020 15:17:18 +0000
+	id 1kqHjZ-0002ki-6G; Fri, 18 Dec 2020 15:31:57 +0000
+Received: by outflank-mailman (input) for mailman id 56545;
+ Fri, 18 Dec 2020 15:31:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kqHVO-0000jZ-Bi; Fri, 18 Dec 2020 15:17:18 +0000
+ id 1kqHjX-0002kM-CD; Fri, 18 Dec 2020 15:31:55 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kqHVO-0001aK-4w; Fri, 18 Dec 2020 15:17:18 +0000
+ id 1kqHjX-0001oO-3C; Fri, 18 Dec 2020 15:31:55 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1kqHVN-00052W-Qk; Fri, 18 Dec 2020 15:17:17 +0000
+ id 1kqHjW-0005he-Sc; Fri, 18 Dec 2020 15:31:54 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kqHVN-0006Du-QH; Fri, 18 Dec 2020 15:17:17 +0000
+ id 1kqHjW-0002L1-S9; Fri, 18 Dec 2020 15:31:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +45,219 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=jakYRnAQglZMW1sfVdf/J3FBCVI6sREMon6Wt2VyANQ=; b=3G3L3WQl5Cvv+MkmqBtVNxdLTE
-	vYT8t+ym6DR864OlIPK+b99QP4O3J2MFfX1OPQLTyOlRzU8UMD96pGH1knoILpmSievsboxoq6cbP
-	0Rpu/MFwIiz0kUyeKvJOxMOiyBPP20tcXOtOik2Uatii6BU8fPLIBMyOX3G7RK/sNrCg=;
+	bh=kuANxrxMpYRwA7soAHR2AWeUnO9yjxKBYDzBLbdXsBI=; b=kZuW1YHssndoByQjyRzRADQRVn
+	4/VUkvL+AAKTDwdzqKBbv436I/Nkb4lneUfex/wxAx/ONFi0b2j7baQrIVpCQFYx5U/EBAkBlIDXm
+	/FO+BF4guPSEugksemMhkhOC/RI3vyavALbb0K2keXyFbFiOAy1n0KGEav9NNxGkA6Rg=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-157668-mainreport@xen.org>
+Message-ID: <osstest-157661-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 157668: regressions - FAIL
+Subject: [libvirt test] 157661: regressions - FAIL
 X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
 X-Osstest-Versions-This:
-    xen=8009c33b5179536e2ecce54462fe4cd069060f77
+    libvirt=9d5f9b7ae8bf518ade951117b2da629bf26faf97
 X-Osstest-Versions-That:
-    xen=7a3b691a8f3aa7720eecaab0e7bd090aa392885a
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 18 Dec 2020 15:17:17 +0000
+Date: Fri, 18 Dec 2020 15:31:54 +0000
 
-flight 157668 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157668/
+flight 157661 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157661/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 157656
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
 Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
  test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
 version targeted for testing:
- xen                  8009c33b5179536e2ecce54462fe4cd069060f77
+ libvirt              9d5f9b7ae8bf518ade951117b2da629bf26faf97
 baseline version:
- xen                  7a3b691a8f3aa7720eecaab0e7bd090aa392885a
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-Last test of basis   157656  2020-12-17 23:02:14 Z    0 days
-Testing same since   157668  2020-12-18 13:00:30 Z    0 days    1 attempts
+Last test of basis   151777  2020-07-10 04:19:19 Z  161 days
+Failing since        151818  2020-07-11 04:18:52 Z  160 days  155 attempts
+Testing same since   157661  2020-12-18 04:20:12 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Wei Liu <wl@xen.org>
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
 
 jobs:
+ build-amd64-xsm                                              pass    
  build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
  build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
  test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
 ------------------------------------------------------------
@@ -133,158 +278,5 @@ Test harness code can be found at
 
 Not pushing.
 
-------------------------------------------------------------
-commit 8009c33b5179536e2ecce54462fe4cd069060f77
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:29:14 2020 +0100
-
-    x86/mm: p2m_add_foreign() is HVM-only
-    
-    This is the case also for xenmem_add_to_physmap_one(), as is it's only
-    caller of the function. Move the latter next to p2m_add_foreign(),
-    allowing it one to become static at the same time. While moving, adjust
-    indentation of the body of the main switch().
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 173ae325026bd161ae5eecebda28dab2c7a80668
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:28:30 2020 +0100
-
-    x86/p2m: tidy p2m_add_foreign() a little
-    
-    Drop a bogus ASSERT() - we don't typically assert incoming domain
-    pointers to be non-NULL, and there's no particular reason to do so here.
-    
-    Replace the open-coded DOMID_SELF check by use of
-    rcu_lock_remote_domain_by_id(), at the same time covering the request
-    being made with the current domain's actual ID.
-    
-    Move the "both domains same" check into just the path where it really
-    is meaningful.
-    
-    Swap the order of the two puts, such that
-    - the p2m lock isn't needlessly held across put_page(),
-    - a separate put_page() on an error path can be avoided,
-    - they're inverse to the order of the respective gets.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit f772b592b75d3144174d4c645b916f2718d9cce5
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:25:40 2020 +0100
-
-    lib: move sort code
-    
-    Build this code into an archive, partly paralleling bsearch().
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-commit 7c3af561acb70ddd16069b9c9cab3ce503a10987
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:23:42 2020 +0100
-
-    lib: move bsearch code
-    
-    Convert this code to an inline function (backed by an instance in an
-    archive in case the compiler decides against inlining), which results
-    in not having it in x86 final binaries. This saves a little bit of dead
-    code.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-commit c54212261dc3305429344fe1d1cb298b30830155
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:22:54 2020 +0100
-
-    lib: move rbtree code
-    
-    Build this code into an archive, which results in not linking it into
-    x86 final binaries. This saves about 1.5k of dead code.
-    
-    While moving the source file, take the opportunity and drop the
-    pointless EXPORT_SYMBOL() and an instance of trailing whitespace.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-commit 3b1d8eb4744d210abcd1c033bf07d20345b926ba
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:22:10 2020 +0100
-
-    lib: move init_constructors()
-    
-    ... into its own CU, for being unrelated to other things in
-    common/lib.c.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-commit 65fdf25768deba4e8bea751773f2ec4f7ff67ea5
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:21:25 2020 +0100
-
-    lib: move parse_size_and_unit()
-    
-    ... into its own CU, to build it into an archive.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-commit 26dfde919cac720c29d076bc8fd38ad0af1b2abb
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:20:42 2020 +0100
-
-    lib: move list sorting code
-    
-    Build the source file always, as by putting it into an archive it still
-    won't be linked into final binaries when not needed. This way possible
-    build breakage will be easier to notice, and it's more consistent with
-    us unconditionally building other library kind of code (e.g. sort() or
-    bsearch()).
-    
-    While moving the source file, take the opportunity and drop the
-    pointless EXPORT_SYMBOL() and an unnecessary #include.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit f301f9a9e84f3cfd18750065f8a3794c8182c7f0
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Dec 18 13:17:57 2020 +0100
-
-    lib: collect library files in an archive
-    
-    In order to (subsequently) drop odd things like CONFIG_NEEDS_LIST_SORT
-    just to avoid bloating binaries when only some arch-es and/or
-    configurations need generic library routines, combine objects under lib/
-    into an archive, which the linker then can pick the necessary objects
-    out of.
-    
-    Note that we can't use thin archives just yet, until we've raised the
-    minimum required binutils version suitably.
-    
-    Note further that --start-group / --end-group get put in place right
-    away to allow for symbol resolution across all archives, once we gain
-    multuiple ones.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+(No revision log; it would be 33398 lines long.)
 
