@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AE352DEAD5
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Dec 2020 22:15:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.56699.99334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4346F2DEB4D
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Dec 2020 22:52:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.56714.99363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kqN5g-0004a4-Rl; Fri, 18 Dec 2020 21:15:08 +0000
+	id 1kqNem-00009f-21; Fri, 18 Dec 2020 21:51:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 56699.99334; Fri, 18 Dec 2020 21:15:08 +0000
+Received: by outflank-mailman (output) from mailman id 56714.99363; Fri, 18 Dec 2020 21:51:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kqN5g-0004Zf-O2; Fri, 18 Dec 2020 21:15:08 +0000
-Received: by outflank-mailman (input) for mailman id 56699;
- Fri, 18 Dec 2020 21:15:07 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qCeU=FW=vps.thesusis.net=psusi@srs-us1.protection.inumbo.net>)
- id 1kqN5f-0004Za-SW
- for xen-devel@lists.xenproject.org; Fri, 18 Dec 2020 21:15:07 +0000
-Received: from vps.thesusis.net (unknown [34.202.238.73])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5022b878-a54b-47f3-98f0-642aa90b78ac;
- Fri, 18 Dec 2020 21:15:07 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by vps.thesusis.net (Postfix) with ESMTP id F006328B05;
- Fri, 18 Dec 2020 16:15:06 -0500 (EST)
-Received: from vps.thesusis.net ([127.0.0.1])
- by localhost (vps.thesusis.net [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id zjEvRrHH1fWO; Fri, 18 Dec 2020 16:15:06 -0500 (EST)
-Received: by vps.thesusis.net (Postfix, from userid 1000)
- id BF74928AFD; Fri, 18 Dec 2020 16:15:06 -0500 (EST)
+	id 1kqNel-00009D-UT; Fri, 18 Dec 2020 21:51:23 +0000
+Received: by outflank-mailman (input) for mailman id 56714;
+ Fri, 18 Dec 2020 21:51:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kqNek-000095-2P; Fri, 18 Dec 2020 21:51:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kqNej-0000GJ-QB; Fri, 18 Dec 2020 21:51:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kqNej-00056g-C8; Fri, 18 Dec 2020 21:51:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kqNej-00023q-Bh; Fri, 18 Dec 2020 21:51:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,28 +42,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5022b878-a54b-47f3-98f0-642aa90b78ac
-References: <87h7oudcbx.fsf@vps.thesusis.net> <CAHD1Q_zcruQ6KVHApvhb=0+mG0m80T+tmg1UzjQBki8j+aR51A@mail.gmail.com> <87czzcdtir.fsf@vps.thesusis.net> <CAHD1Q_z+WW36rfr1RAFYKjU5bocA90OonBmSKECRnpacvWyPmQ@mail.gmail.com> <873604p1i6.fsf@vps.thesusis.net>
-User-agent: mu4e 1.5.7; emacs 26.3
-From: Phillip Susi <phill@thesusis.net>
-To: "Guilherme G. Piccoli" <guilherme.piccoli@canonical.com>
-Cc: kexec mailing list <kexec@lists.infradead.org>, xen-devel@lists.xenproject.org
-Subject: Re: kexec not working in xen domU?
-Date: Fri, 18 Dec 2020 15:59:02 -0500
-In-reply-to: <873604p1i6.fsf@vps.thesusis.net>
-Message-ID: <877dpevmsl.fsf@vps.thesusis.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=QE5GFTP+abvn9EhbbMeH9DmbuyHRFPG9Sab9dWDgDwU=; b=gsnDrZQDid7EE02B2E43qj+lPV
+	zied7AUkWcZTlXDfzyyrRloapKVR0eRoPj/dBK6k9DJubjxPx6BYtJdf+qIAMgZD8Kx/N7FtXV32T
+	dH21nnVqdklf8u0psOc5zpKN554jElGhPrJbTVQSE03MO4WW2wykk4nroa6tdwnF0aB0=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157662-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [ovmf test] 157662: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=e6ae24e1d676bb2bdc0fc715b49b04908f41fc10
+X-Osstest-Versions-That:
+    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Dec 2020 21:51:21 +0000
+
+flight 157662 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157662/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 157345
+
+version targeted for testing:
+ ovmf                 e6ae24e1d676bb2bdc0fc715b49b04908f41fc10
+baseline version:
+ ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+
+Last test of basis   157345  2020-12-09 12:40:46 Z    9 days
+Failing since        157348  2020-12-09 15:39:39 Z    9 days   53 attempts
+Testing same since   157612  2020-12-16 21:09:14 Z    2 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Ard Biesheuvel <ard.biesheuvel@arm.com>
+  Baraneedharan Anbazhagan <anbazhagan@hp.com>
+  Baraneedharan Anbazhagan <anbazhgan@hp.com>
+  Bret Barkelew <Bret.Barkelew@microsoft.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Fan Wang <fan.wang@intel.com>
+  James Bottomley <jejb@linux.ibm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Marc Moisson-Franckhauser <marc.moisson-franckhauser@arm.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@nuviainc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Brogan <sean.brogan@microsoft.com>
+  Sheng Wei <w.sheng@intel.com>
+  Siyuan Fu <siyuan.fu@intel.com>
+  Star Zeng <star.zeng@intel.com>
+  Ting Ye <ting.ye@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
-Phillip Susi writes:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> I tried with -s and it didn't help.  So far I tried it originally on my
-> Ubuntu 20.04 amazon vps, then on my debian testing ( linux 5.9.0 ) on my
-> local xen server.  I'll try building the latest upstream kernel and
-> kexec tomorrow.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Built the latest kexec-tools and linux kernel from git today and get
-the same results.  Is there a minimum version of xen required for this
-to work?  I have no idea what Amazon is running but my server has 4.9.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 699 lines long.)
 
