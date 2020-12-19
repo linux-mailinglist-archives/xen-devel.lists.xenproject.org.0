@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D19B12DF0AB
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Dec 2020 18:22:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.56957.99642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AEEA2DF1BA
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Dec 2020 22:08:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.56984.99668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kqfvG-0006tW-Mm; Sat, 19 Dec 2020 17:21:38 +0000
+	id 1kqjR6-0002qg-EU; Sat, 19 Dec 2020 21:06:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 56957.99642; Sat, 19 Dec 2020 17:21:38 +0000
+Received: by outflank-mailman (output) from mailman id 56984.99668; Sat, 19 Dec 2020 21:06:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kqfvG-0006tA-JV; Sat, 19 Dec 2020 17:21:38 +0000
-Received: by outflank-mailman (input) for mailman id 56957;
- Sat, 19 Dec 2020 17:21:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kqfvF-0006t1-Tg; Sat, 19 Dec 2020 17:21:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kqfvF-000326-Q6; Sat, 19 Dec 2020 17:21:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kqfvF-0008Rz-IE; Sat, 19 Dec 2020 17:21:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kqfvF-0005H9-Hl; Sat, 19 Dec 2020 17:21:37 +0000
+	id 1kqjR6-0002qH-BS; Sat, 19 Dec 2020 21:06:44 +0000
+Received: by outflank-mailman (input) for mailman id 56984;
+ Sat, 19 Dec 2020 21:06:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NQRv=FX=kernel.org=pr-tracker-bot@srs-us1.protection.inumbo.net>)
+ id 1kqjR5-0002qC-A9
+ for xen-devel@lists.xenproject.org; Sat, 19 Dec 2020 21:06:43 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5df17a51-13b5-443b-96df-25a4400f6199;
+ Sat, 19 Dec 2020 21:06:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,102 +35,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=c39ERMJg27at1TNLWsQAbbQCeDiN5USe8+BylwQG9k8=; b=ZqgAhL6IhcCv6TsbO4HAWCaY+H
-	Hb4xeheUAZ25AfGEC5AGxrcGwyOxb6tpaA6N+XT7podS84eDnjMrqbqWJ7M7tIR4wunSIKSdw7HMs
-	fDp+Jn8zo2nEnUltow/zleumk4lBmfmt34rosPwsTIVpUESKfV4OrrJSFuCx951i1nuU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157708-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 157708: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=1159fc3230aee02acc60aa245ce047217fd8b87e
-X-Osstest-Versions-That:
-    ovmf=f95e80d832e923046c92cd6f0b8208cec147138e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 19 Dec 2020 17:21:37 +0000
+X-Inumbo-ID: 5df17a51-13b5-443b-96df-25a4400f6199
+Subject: Re: [GIT PULL] xen: branch for v5.11-rc1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1608412001;
+	bh=f5biQxtgpOle2K8edxfWw3ThimfyDmYI41acGeS0PZE=;
+	h=From:In-Reply-To:References:Date:To:Cc:From;
+	b=joPvXhHC0NDC8iOfyqRBKoyqp76EpSOJ3VbLoTBEL/J/UKgnMTI94v7bdrw4vpwJR
+	 rjRtKvtbjGHcZZxAAwv/1mKzNV4J4+Bm7/5/zIfOCgO0g2HBdKV1+kYaspNrJ8m4pZ
+	 HTfNjZle+5/P9p5VyDAxUlr18p1Ikg4P53QgygxDrCq4vYbfOSkesyUDHa9EVuaynS
+	 irS2323/EMxJOHhgqydtVkRjkFW0PfcrFbtPoc4j2mm1rJgIXbGPMX0weU17/Wahnd
+	 bcfldX1GVDT9wSJRVykcSp/52i9W6V0G5SxLQ3y0ik5S/Mxjcibucfq9MvFbjbxX1C
+	 VJY/HMXlQ35fg==
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20201219063136.5828-1-jgross@suse.com>
+References: <20201219063136.5828-1-jgross@suse.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20201219063136.5828-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.11-rc1b-tag
+X-PR-Tracked-Commit-Id: 6190c0ccaf5dfee845df9c9cd8ad9fdc5856bb41
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 3872f516aab34e3adeb7eda43b29c1ecd852cee1
+Message-Id: <160841200137.20285.209923367667109463.pr-tracker-bot@kernel.org>
+Date: Sat, 19 Dec 2020 21:06:41 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 
-flight 157708 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157708/
+The pull request you sent on Sat, 19 Dec 2020 07:31:36 +0100:
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 1159fc3230aee02acc60aa245ce047217fd8b87e
-baseline version:
- ovmf                 f95e80d832e923046c92cd6f0b8208cec147138e
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.11-rc1b-tag
 
-Last test of basis   157345  2020-12-09 12:40:46 Z   10 days
-Failing since        157348  2020-12-09 15:39:39 Z   10 days   54 attempts
-Testing same since   157708  2020-12-18 22:09:58 Z    0 days    1 attempts
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/3872f516aab34e3adeb7eda43b29c1ecd852cee1
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Ard Biesheuvel <ard.biesheuvel@arm.com>
-  Baraneedharan Anbazhagan <anbazhagan@hp.com>
-  Baraneedharan Anbazhagan <anbazhgan@hp.com>
-  Borghorst, Hendrik via groups.io <hborghor=amazon.de@groups.io>
-  Bret Barkelew <Bret.Barkelew@microsoft.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Fan Wang <fan.wang@intel.com>
-  Hendrik Borghorst <hborghor@amazon.de>
-  James Bottomley <James.Bottomley@HansenPartnership.com>
-  James Bottomley <jejb@linux.ibm.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <leif@nuviainc.com>
-  Marc Moisson-Franckhauser <marc.moisson-franckhauser@arm.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Pierre Gondois <Pierre.Gondois@arm.com>
-  Quan Nguyen <quan@os.amperecomputing.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@nuviainc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Brogan <sean.brogan@microsoft.com>
-  Sheng Wei <w.sheng@intel.com>
-  Siyuan Fu <siyuan.fu@intel.com>
-  Star Zeng <star.zeng@intel.com>
-  Ting Ye <ting.ye@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
+Thank you!
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   f95e80d832..1159fc3230  1159fc3230aee02acc60aa245ce047217fd8b87e -> xen-tested-master
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
