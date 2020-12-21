@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE4372DFE2F
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 17:51:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57450.100510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C4A12DFE3B
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 17:56:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57456.100522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krOOk-000104-Tc; Mon, 21 Dec 2020 16:51:02 +0000
+	id 1krOTV-0001FD-G7; Mon, 21 Dec 2020 16:55:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57450.100510; Mon, 21 Dec 2020 16:51:02 +0000
+Received: by outflank-mailman (output) from mailman id 57456.100522; Mon, 21 Dec 2020 16:55:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krOOk-0000zg-P4; Mon, 21 Dec 2020 16:51:02 +0000
-Received: by outflank-mailman (input) for mailman id 57450;
- Mon, 21 Dec 2020 16:51:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1krOTV-0001Eo-By; Mon, 21 Dec 2020 16:55:57 +0000
+Received: by outflank-mailman (input) for mailman id 57456;
+ Mon, 21 Dec 2020 16:55:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DEM5=FZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1krOOj-0000zT-Ji
- for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 16:51:01 +0000
+ id 1krOTT-0001Ej-Bj
+ for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 16:55:55 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6bf484a2-9655-435e-ac0f-9f6c64cc40a8;
- Mon, 21 Dec 2020 16:51:00 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 221e57ce-b1dc-4874-91e3-f26c037c5003;
+ Mon, 21 Dec 2020 16:55:54 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EECF4AD2B;
- Mon, 21 Dec 2020 16:50:59 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5FFCBAD2B;
+ Mon, 21 Dec 2020 16:55:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,89 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bf484a2-9655-435e-ac0f-9f6c64cc40a8
+X-Inumbo-ID: 221e57ce-b1dc-4874-91e3-f26c037c5003
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608569460; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608569753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=z33w4NnckJIjEIg6P5/FDLUWP2vj8GC6Nipm75K0hVo=;
-	b=vA9IDJMYYmlHzBQf8tPr9ymbupTHpMKii+Smyh/ienwTecOtiUYcpICKZG3dv5x0oF/k7G
-	zoxxDV/HtWLtvgP6ZWJ2ib8z9QpBlnsZPy9pcNqidiYdBGkPHat/OEEdSg2oeIcdQGlYVF
-	ItR+vfgXNFF7Lp3FXucLnNZtqrCZKz0=
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wM2QmjhwXz7QS9UN/SlgvatkLyo0wr5EUvEu2sjxZAY=;
+	b=sv+jXz7hoxyDU3qYICaIyESTTDpO/S5qEclcJi2Axpa6d3Tp5QQu24dZU31LkvA1hsnZtv
+	N3o4JW9SwnH5b1GQ3DvoeMhyqxGXUND9Mr0xll4RP7GVNiQTABRmQX/03D4H8ten52KFuf
+	FRtzckdt4bTA21NKe68Br2idEAQ9nRc=
+Subject: Re: XSA-351 causing Solaris-11 systems to panic during boot.
+To: boris.ostrovsky@oracle.com
+Cc: xen-devel@lists.xenproject.org, Cheyenne Wills
+ <cheyenne.wills@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <CAHpsFVc4AAm6L0rKUuV47ydOjtw7XAgFnDZxRjdCL0OHXJERDw@mail.gmail.com>
+ <7bca24cb-a3af-b54d-b224-3c2a316859dd@suse.com>
+ <4fc3532b-f53f-2a15-ce64-f857816b0566@oracle.com>
+ <f4ff3d16-40f6-e8a1-fcdd-ca52e1f52ca6@suse.com>
+ <c90622c4-f9e0-8b6d-ab46-bba0cbfc0fd9@oracle.com>
+ <0430337a-6fcd-9471-4455-838390401220@citrix.com>
+ <c6e05b63-b066-9bd0-9da1-1fc089cd1aea@oracle.com>
+ <10958d4a-154f-a524-35e9-a75eaf50fe55@oracle.com>
+ <90740e33-c69a-16d7-2622-fa57a1f34272@suse.com>
+ <0dbfa20a-5c3d-77c5-1ef0-4baf74e60195@oracle.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] lib: drop debug_build()
-Message-ID: <143333c9-154b-77c3-a66a-6b81696ecded@suse.com>
-Date: Mon, 21 Dec 2020 17:50:59 +0100
+Message-ID: <c869736a-afbf-a52b-e7ce-d7f4bb3d7faf@suse.com>
+Date: Mon, 21 Dec 2020 17:55:52 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
+In-Reply-To: <0dbfa20a-5c3d-77c5-1ef0-4baf74e60195@oracle.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Its expansion shouldn't be tied to NDEBUG - down the road we may want to
-allow enabling assertions independently of CONFIG_DEBUG. Replace the few
-uses by IS_ENABLED(CONFIG_DEBUG).
+On 21.12.2020 17:21, boris.ostrovsky@oracle.com wrote:
+> 
+> On 12/21/20 3:21 AM, Jan Beulich wrote:
+>> On 18.12.2020 21:43, boris.ostrovsky@oracle.com wrote:
+>>> Can we do something like KVM's ignore_msrs (but probably return 0 on reads to avoid leaks from the system)? It would allow to deal with cases when a guest is suddenly unable to boot after hypervisor update (especially from pre-4.14). It won't help in all cases since some MSRs may be expected to be non-zero but I think it will cover large number of them. (and it will certainly do what Jan is asking above but will not be specific to this particular breakage)
+>> This would re-introduce the problem with detection (by guests) of certain
+>> features lacking suitable CPUID bits. Guests would no longer observe the
+>> expected #GP(0), and hence be at risk of misbehaving. Hence at the very
+>> least such an option would need to be per-domain rather than (like for
+>> KVM) global,
+> 
+> 
+> Yes, of course.
+> 
+> 
+>>  and use of it should then imo be explicitly unsupported.
+> 
+> 
+> Unsupported or not recommended? There are options that are not recommended from security perspective but they are still supported. For example, `spec-ctrl=no` (although it's a global setting)
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I wonder whether we shouldn't further abstract this into, say, a
-xen_build_info() helper, seeing that all use sites want "debug=[yn]".
-This could then also include gcov_string right away.
+"Security unsupported", i.e. use of it causing what might look like
+a security issue would not get an XSA.
 
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -182,7 +182,7 @@ static void print_xen_info(void)
- #else
-            "arm64",
- #endif
--           debug_build() ? 'y' : 'n', print_tainted(taint_str));
-+           IS_ENABLED(CONFIG_DEBUG) ? 'y' : 'n', print_tainted(taint_str));
- }
- 
- #ifdef CONFIG_ARM_32
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -31,7 +31,7 @@ static void print_xen_info(void)
- 
-     printk("----[ Xen-%d.%d%s  x86_64  debug=%c " gcov_string "  %s ]----\n",
-            xen_major_version(), xen_minor_version(), xen_extra_version(),
--           debug_build() ? 'y' : 'n', print_tainted(taint_str));
-+           IS_ENABLED(CONFIG_DEBUG) ? 'y' : 'n', print_tainted(taint_str));
- }
- 
- enum context { CTXT_hypervisor, CTXT_pv_guest, CTXT_hvm_guest };
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -1004,8 +1004,8 @@ void __init console_init_preirq(void)
-     spin_unlock(&console_lock);
-     printk("Xen version %d.%d%s (%s@%s) (%s) debug=%c " gcov_string " %s\n",
-            xen_major_version(), xen_minor_version(), xen_extra_version(),
--           xen_compile_by(), xen_compile_domain(),
--           xen_compiler(), debug_build() ? 'y' : 'n', xen_compile_date());
-+           xen_compile_by(), xen_compile_domain(), xen_compiler(),
-+           IS_ENABLED(CONFIG_DEBUG) ? 'y' : 'n', xen_compile_date());
-     printk("Latest ChangeSet: %s\n", xen_changeset());
- 
-     /* Locate and print the buildid, if applicable. */
---- a/xen/include/xen/lib.h
-+++ b/xen/include/xen/lib.h
-@@ -52,11 +52,9 @@
- #define ASSERT(p) \
-     do { if ( unlikely(!(p)) ) assert_failed(#p); } while (0)
- #define ASSERT_UNREACHABLE() assert_failed("unreachable")
--#define debug_build() 1
- #else
- #define ASSERT(p) do { if ( 0 && (p) ) {} } while (0)
- #define ASSERT_UNREACHABLE() do { } while (0)
--#define debug_build() 0
- #endif
- 
- #define ABS(_x) ({                              \
+Jan
 
