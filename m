@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32E52DF9D9
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 09:21:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57311.100256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43EB32DF9E6
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 09:26:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57315.100268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krGRd-0005zY-JX; Mon, 21 Dec 2020 08:21:29 +0000
+	id 1krGWL-0006AA-7Q; Mon, 21 Dec 2020 08:26:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57311.100256; Mon, 21 Dec 2020 08:21:29 +0000
+Received: by outflank-mailman (output) from mailman id 57315.100268; Mon, 21 Dec 2020 08:26:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krGRd-0005z9-G8; Mon, 21 Dec 2020 08:21:29 +0000
-Received: by outflank-mailman (input) for mailman id 57311;
- Mon, 21 Dec 2020 08:21:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1krGWL-00069l-43; Mon, 21 Dec 2020 08:26:21 +0000
+Received: by outflank-mailman (input) for mailman id 57315;
+ Mon, 21 Dec 2020 08:26:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DEM5=FZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1krGRb-0005z4-6m
- for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 08:21:27 +0000
+ id 1krGWJ-00069g-Kh
+ for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 08:26:19 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3be7f542-3a3b-47f8-a57e-0ca89e1bd8f6;
- Mon, 21 Dec 2020 08:21:26 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 259d0f0c-cad5-42f8-acf5-5eb5a48fbc13;
+ Mon, 21 Dec 2020 08:26:18 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 471E7AD09;
- Mon, 21 Dec 2020 08:21:25 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 04DB3ACF5;
+ Mon, 21 Dec 2020 08:26:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,82 +39,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3be7f542-3a3b-47f8-a57e-0ca89e1bd8f6
+X-Inumbo-ID: 259d0f0c-cad5-42f8-acf5-5eb5a48fbc13
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608538885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608539178; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IHHULxBeROb4X9ndbiEFbdSTahhG/Wv9UHgWmaUIokg=;
-	b=sxGpf1wYjz6c0IV6UQuWiJQZpC1aF5KUP20qRa04yhy3i5+zbUoK4QqSPydtaLntj7f0+Q
-	KIcVD2x2UGHaLwB0ZvVaoKIx9/BLwDB7IAQfOchw1D9rJr9+HWIJjmpCiJVB8gcBDYYezK
-	OkZvhAScuEGt+hMDoOFH259dyh3skk0=
-Subject: Re: XSA-351 causing Solaris-11 systems to panic during boot.
-To: boris.ostrovsky@oracle.com
-Cc: xen-devel@lists.xenproject.org, Cheyenne Wills
- <cheyenne.wills@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <CAHpsFVc4AAm6L0rKUuV47ydOjtw7XAgFnDZxRjdCL0OHXJERDw@mail.gmail.com>
- <7bca24cb-a3af-b54d-b224-3c2a316859dd@suse.com>
- <4fc3532b-f53f-2a15-ce64-f857816b0566@oracle.com>
- <f4ff3d16-40f6-e8a1-fcdd-ca52e1f52ca6@suse.com>
- <c90622c4-f9e0-8b6d-ab46-bba0cbfc0fd9@oracle.com>
- <0430337a-6fcd-9471-4455-838390401220@citrix.com>
- <c6e05b63-b066-9bd0-9da1-1fc089cd1aea@oracle.com>
- <10958d4a-154f-a524-35e9-a75eaf50fe55@oracle.com>
+	bh=rcNhHZOQ+BWlMFyFjB9vWDIxHCi+ydtvzyMz/lIF4vc=;
+	b=BQtT51yyFkA6ODsLjMM8gaVM/82LgHCeTL2geVykwFVGFwvghjwnXbr06P24GYqRxwWtav
+	fYrcEGhPy5K6EDZ2HmMVXPWPNj0FFizpFI1NxxU9mb6bHOGB4Dk6Attp4B0J7pD1ACz24M
+	OBZaj8gRC6KN9oUjheA3Iaf3XocpKUg=
+Subject: Re: [PATCH v3 5/8] xen/hypfs: add support for id-based dynamic
+ directories
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201209160956.32456-1-jgross@suse.com>
+ <20201209160956.32456-6-jgross@suse.com>
+ <2894a231-9150-7c09-cc5c-7ef52087acf5@suse.com>
+ <d4c408eb-08d8-42a8-0c0a-6580fce0e181@suse.com>
+ <5e0ac85e-ecba-86ad-b350-ff30e3a40a68@suse.com>
+ <bde3d3b1-a512-e1fe-cfd4-287fa0ea95cd@suse.com>
+ <a515ead2-f732-ddcd-f29b-788b8997fd2a@suse.com>
+ <0c56129d-dcfa-2a52-dc66-221f103e6735@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <90740e33-c69a-16d7-2622-fa57a1f34272@suse.com>
-Date: Mon, 21 Dec 2020 09:21:27 +0100
+Message-ID: <e4767946-99b6-40bb-c606-5a7d21dc3803@suse.com>
+Date: Mon, 21 Dec 2020 09:26:20 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <10958d4a-154f-a524-35e9-a75eaf50fe55@oracle.com>
+In-Reply-To: <0c56129d-dcfa-2a52-dc66-221f103e6735@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 18.12.2020 21:43, boris.ostrovsky@oracle.com wrote:
-> On 12/17/20 12:49 PM, boris.ostrovsky@oracle.com wrote:
->> On 12/17/20 11:46 AM, Andrew Cooper wrote:
->>> On 17/12/2020 16:25, boris.ostrovsky@oracle.com wrote:
->>>> On 12/17/20 2:40 AM, Jan Beulich wrote:
->>>>> On 17.12.2020 02:51, boris.ostrovsky@oracle.com wrote:
->>>>> I think this is acceptable as a workaround, albeit we may want to
->>>>> consider further restricting this (at least on staging), like e.g.
->>>>> requiring a guest config setting to enable the workaround. 
->>>> Maybe, but then someone migrating from a stable release to 4.15 will have to modify guest configuration.
->>>>
->>>>
->>>>> But
->>>>> maybe this will need to be part of the MSR policy for the domain
->>>>> instead, down the road. We'll definitely want Andrew's view here.
+On 18.12.2020 13:41, Jürgen Groß wrote:
+> On 18.12.20 10:09, Jan Beulich wrote:
+>> On 18.12.2020 09:57, Jürgen Groß wrote:
+>>> On 17.12.20 13:14, Jan Beulich wrote:
+>>>> On 17.12.2020 12:32, Jürgen Groß wrote:
+>>>>> On 17.12.20 12:28, Jan Beulich wrote:
+>>>>>> On 09.12.2020 17:09, Juergen Gross wrote:
+>>>>>>> +static const struct hypfs_entry *hypfs_dyndir_enter(
+>>>>>>> +    const struct hypfs_entry *entry)
+>>>>>>> +{
+>>>>>>> +    const struct hypfs_dyndir_id *data;
+>>>>>>> +
+>>>>>>> +    data = hypfs_get_dyndata();
+>>>>>>> +
+>>>>>>> +    /* Use template with original enter function. */
+>>>>>>> +    return data->template->e.funcs->enter(&data->template->e);
+>>>>>>> +}
+>>>>>>
+>>>>>> At the example of this (applies to other uses as well): I realize
+>>>>>> hypfs_get_dyndata() asserts that the pointer is non-NULL, but
+>>>>>> according to the bottom of ./CODING_STYLE this may not be enough
+>>>>>> when considering the implications of a NULL deref in the context
+>>>>>> of a PV guest. Even this living behind a sysctl doesn't really
+>>>>>> help, both because via XSM not fully privileged domains can be
+>>>>>> granted access, and because speculation may still occur all the
+>>>>>> way into here. (I'll send a patch to address the latter aspect in
+>>>>>> a few minutes.) While likely we have numerous existing examples
+>>>>>> with similar problems, I guess in new code we'd better be as
+>>>>>> defensive as possible.
 >>>>>
->>>>> Speaking of staging - before applying anything to the stable
->>>>> branches, I think we want to have this addressed on the main
->>>>> branch. I can't see how Solaris would work there.
->>>> Indeed it won't. I'll need to do that as well (I misinterpreted the statement in the XSA about only 4.14- being vulnerable)
->>> It's hopefully obvious now why we suddenly finished the "lets turn all
->>> unknown MSRs to #GP" work at the point that we did (after dithering on
->>> the point for several years).
+>>>>> What do you suggest? BUG_ON()?
+>>>>
+>>>> Well, BUG_ON() would be a step in the right direction, converting
+>>>> privilege escalation to DoS. The question is if we can't do better
+>>>> here, gracefully failing in such a case (the usual pair of
+>>>> ASSERT_UNREACHABLE() plus return/break/goto approach doesn't fit
+>>>> here, at least not directly).
+>>>>
+>>>>> You are aware that this is nothing a user can influence, so it would
+>>>>> be a clear coding error in the hypervisor?
+>>>>
+>>>> A user (or guest) can't arrange for there to be a NULL pointer,
+>>>> but if there is one that can be run into here, this would still
+>>>> require an XSA afaict.
 >>>
->>> To put it bluntly, default MSR readability was not a clever decision at all.
->>>
->>> There is a large risk that there is a similar vulnerability elsewhere,
->>> given how poorly documented the MSRs are (and one contemporary CPU I've
->>> got the manual open for has more than 6000 *documented* MSRs).  We did
->>> debate for a while whether the readability of the PPIN MSRs was a
->>> vulnerability or not, before eventually deciding not.
+>>> I still don't see how this could happen without a major coding bug,
+>>> which IMO wouldn't go unnoticed during a really brief test (this is
+>>> the reason for ASSERT() in hypfs_get_dyndata() after all).
+>>
+>> True. Yet the NULL derefs wouldn't go unnoticed either.
+>>
+>>> Its not as if the control flow would allow many different ways to reach
+>>> any of the hypfs_get_dyndata() calls.
+>>
+>> I'm not convinced of this - this is a non-static function, and the
+>> call patch 8 adds (just to take an example) is not very obvious to
+>> have a guarantee that allocation did happen and was checked for
+>> success. Yes, in principle cpupool_gran_write() isn't supposed to
+>> be called in such a case, but it's the nature of bugs assumptions
+>> get broken.
 > 
+> Yes, but we do have tons of assumptions like that. I don't think we
+> should add tests for non-NULL pointers everywhere just because we
+> happen to dereference something. Where do we stop?
 > 
-> Can we do something like KVM's ignore_msrs (but probably return 0 on reads to avoid leaks from the system)? It would allow to deal with cases when a guest is suddenly unable to boot after hypervisor update (especially from pre-4.14). It won't help in all cases since some MSRs may be expected to be non-zero but I think it will cover large number of them. (and it will certainly do what Jan is asking above but will not be specific to this particular breakage)
+>>
+>>> I can add security checks at the appropriate places, but I think this
+>>> would be just dead code. OTOH if you are feeling strong here lets go
+>>> with it.
+>>
+>> Going with it isn't the only possible route. The other is to drop
+>> the ASSERT()s altogether. It simply seems to me that their addition
+>> is a half-hearted attempt when considering what was added to
+>> ./CODING_STYLE not all that long ago.
+> 
+> No. The ASSERT() is clearly an attempt to catch a programming error
+> early. It is especially not trying to catch a situation which is thought
+> to be possible. The situation should really never happen, and I'm not
+> aware how it could happen without a weird code modification.
+> 
+> Dropping the ASSERT() would really add risk to not notice a bug being
+> introduced by a code modification.
 
-This would re-introduce the problem with detection (by guests) of certain
-features lacking suitable CPUID bits. Guests would no longer observe the
-expected #GP(0), and hence be at risk of misbehaving. Hence at the very
-least such an option would need to be per-domain rather than (like for
-KVM) global, and use of it should then imo be explicitly unsupported. And
-along the lines of what KVM has, this may want to be a tristate so the
-ignoring can be both silent and verbose.
+Is this the case? Wouldn't the NULL be de-referenced almost immediately,
+and hence the bug be noticed right away anyway? I don't think it is
+typical for PV guests to have a valid mapping for address 0. Putting in
+place such a mapping could at least be a hint towards possible malice
+imo.
 
 Jan
 
