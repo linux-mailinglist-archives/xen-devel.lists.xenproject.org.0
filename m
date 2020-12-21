@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFAC92DFEC0
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 18:08:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57465.100549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EDB52DFF00
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 18:32:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57470.100563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krOf8-0002OD-1i; Mon, 21 Dec 2020 17:07:58 +0000
+	id 1krP1K-0004ut-0w; Mon, 21 Dec 2020 17:30:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57465.100549; Mon, 21 Dec 2020 17:07:58 +0000
+Received: by outflank-mailman (output) from mailman id 57470.100563; Mon, 21 Dec 2020 17:30:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krOf7-0002No-Uj; Mon, 21 Dec 2020 17:07:57 +0000
-Received: by outflank-mailman (input) for mailman id 57465;
- Mon, 21 Dec 2020 17:07:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1krP1J-0004uU-U7; Mon, 21 Dec 2020 17:30:53 +0000
+Received: by outflank-mailman (input) for mailman id 57470;
+ Mon, 21 Dec 2020 17:30:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UJ16=FZ=redhat.com=slp@srs-us1.protection.inumbo.net>)
- id 1krOf6-0002Nj-Fh
- for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 17:07:56 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 341aaed0-5ab3-4888-9864-5a8fdecaadfd;
- Mon, 21 Dec 2020 17:07:53 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-101-mdHOWa_6MG2mqk5i0E4Gjg-1; Mon, 21 Dec 2020 12:07:49 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A15171054F8B;
- Mon, 21 Dec 2020 17:07:47 +0000 (UTC)
-Received: from localhost (ovpn-117-28.rdu2.redhat.com [10.10.117.28])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 58BC85B695;
- Mon, 21 Dec 2020 17:07:37 +0000 (UTC)
+ (envelope-from <SRS0=MXr/=FZ=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1krP1J-0004uP-06
+ for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 17:30:53 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 400ffe58-c914-4293-816a-ab04875593e1;
+ Mon, 21 Dec 2020 17:30:52 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 0BLHUYPq078964
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 21 Dec 2020 12:30:40 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 0BLHUYRm078963;
+ Mon, 21 Dec 2020 09:30:34 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,119 +43,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 341aaed0-5ab3-4888-9864-5a8fdecaadfd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1608570473;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ql3QY2EZmY15Osz1anO3jVM9GRD3QvHydriR29vDEaE=;
-	b=HivKIw9/SOjS4obWNyF2SHA0S0i4rsY3TelFbwXpvovZihoIjXt1L/EW+uEmA1DuITLHnX
-	0LzLRp4FnGgiP9jeDkoF2Z6LsRcWeoEgQIUR59ks82oSEq9skaTia+Y+w6pgo5VmyFAid4
-	po170njrXNzZ158nkugVjxhVAcbaCnQ=
-X-MC-Unique: mdHOWa_6MG2mqk5i0E4Gjg-1
-Date: Mon, 21 Dec 2020 18:07:36 +0100
-From: Sergio Lopez <slp@redhat.com>
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
-	qemu-block@nongnu.org, Anthony Perard <anthony.perard@citrix.com>,
-	xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>, Fam Zheng <fam@euphon.net>,
-	Eric Blake <eblake@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	Max Reitz <mreitz@redhat.com>
-Subject: Re: [PATCH v2 4/4] block: Close block exports in two steps
-Message-ID: <20201221170736.6rf4ip7xpvcho2eq@mhamilton>
-References: <20201214170519.223781-1-slp@redhat.com>
- <20201214170519.223781-5-slp@redhat.com>
- <20201215153405.GF8185@merkur.fritz.box>
+X-Inumbo-ID: 400ffe58-c914-4293-816a-ab04875593e1
+Date: Mon, 21 Dec 2020 09:30:34 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+        Ian Jackson <iwj@xenproject.org>
+Subject: [RESEND] [RFC PATCH] xen/arm: domain_build: Ignore empty memory bank
+Message-ID: <X+DbupqYE3rrFaIM@mattapan.m5p.com>
 MIME-Version: 1.0
-In-Reply-To: <20201215153405.GF8185@merkur.fritz.box>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=slp@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="nrplgk2vygihh27c"
-Content-Disposition: inline
-
---nrplgk2vygihh27c
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-On Tue, Dec 15, 2020 at 04:34:05PM +0100, Kevin Wolf wrote:
-> Am 14.12.2020 um 18:05 hat Sergio Lopez geschrieben:
-> > There's a cross-dependency between closing the block exports and
-> > draining the block layer. The latter needs that we close all export's
-> > client connections to ensure they won't queue more requests, but the
-> > exports may have coroutines yielding in the block layer, which implies
-> > they can't be fully closed until we drain it.
->=20
-> A coroutine that yielded must have some way to be reentered. So I guess
-> the quesiton becomes why they aren't reentered until drain. We do
-> process events:
->=20
->     AIO_WAIT_WHILE(NULL, blk_exp_has_type(type));
->=20
-> So in theory, anything that would finalise the block export closing
-> should still execute.
->=20
-> What is the difference that drain makes compared to a simple
-> AIO_WAIT_WHILE, so that coroutine are reentered during drain, but not
-> during AIO_WAIT_WHILE?
->=20
-> This is an even more interesting question because the NBD server isn't a
-> block node nor a BdrvChildClass implementation, so it shouldn't even
-> notice a drain operation.
+Previously Xen had stopped processing Device Trees if an empty
+(size == 0) memory bank was found.
 
-OK, took a deeper dive into the issue. While shutting down the guest,
-some co-routines from the NBD server are stuck here:
+Commit 5a37207df52066efefe419c677b089a654d37afc changed this behavior to
+ignore such banks.  Unfortunately this means these empty nodes are
+visible to code which accesses the device trees.  Have domain_build also
+ignore these entries.
 
-nbd_trip
- nbd_handle_request
-  nbd_do_cmd_read
-   nbd_co_send_sparse_read
-    blk_pread
-     blk_prw
-      blk_read_entry
-       blk_do_preadv
-        blk_wait_while_drained
-         qemu_co_queue_wait
+---
+This is tagged "RFC" due to issues.
 
-This happens because bdrv_close_all() is called after
-bdrv_drain_all_begin(), so all block backends are quiesced.
+Authorship of this is unclean.  In the first version (checked in, but
+never sent to the list and never compiled) a different condition was used
+and the comment was absent.  When examing the code it became clear a
+condition identical to
+5a37207df52066efefe419c677b089a654d37afc was appropriate and so I changed
+to !size.  Since what the code is doing was sufficiently similar, the
+comment was grabbed.
+How far does this dilute authorship?  I diagnosed the bug and figured out
+where to add the lines, but the amount inspired by Julien Grall gives
+Julien Grall some level of claim of authorship.  Advice is needed.
 
-An alternative approach to this patch would be moving
-blk_exp_close_all() to vl.c:qemu_cleanup, before
-bdrv_drain_all_begin().
+Commit 7d2b21fd36c2a47799eed71c67bae7faa1ec4272 is an outright bug for
+me.  I don't know what percentage of users will experience this bug, but
+being observed this quickly suggests this is major enough to be urgent
+for the stable-4.14 branch.
 
-Do you have a preference for one of these options?
+I doubt this is the only bug exposed by
+5a37207df52066efefe419c677b089a654d37afc.  This might actually effect
+most uses of the device-tree code.  I think either the core needs to be
+fixed to hide zero-sized entries from anything outside of
+xen/common/device_tree.c, otherwise all uses of the device-tree core need
+to be audited to ensure they ignore zero-sized entries.  Notably this is
+the second location where zero-size device-tree entries need to be
+ignored, preemptive action should be taken before a third is found by
+bugreport.
 
-Thanks,
-Sergio.
+Perhaps this fix is appropriate for the stable-4.14 branch and a proper
+solution should be implemented for the main branch?
 
---nrplgk2vygihh27c
-Content-Type: application/pgp-signature; name="signature.asc"
+The error message which first showed was
+"Unable to retrieve address %u for %s\n".  Where the number in %u was
+0, this seems a poor error message.  Version 0.1 (which never got
+compiled) had been:  if(!addr) continue;
 
------BEGIN PGP SIGNATURE-----
+As I thought the 0 it was reporting was an address of 0.  Perhaps the
+message should instead be:
+"Unable to retrieve address for index %u of %s\n"?
+---
+ xen/arch/arm/domain_build.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-iQIzBAABCAAdFiEEvtX891EthoCRQuii9GknjS8MAjUFAl/g1lcACgkQ9GknjS8M
-AjUBEg/9HoD49y3ShNbcRWwXbZD0eTwreK8HAvqk328INIakQIFw5Y398rFnHUoW
-z5tMH/NritkqYA/x6a9qBvH+zEhJW+r4skdFmgqcs5N5DQQA/ImemCD2Oc9ytdXc
-CTZYjxx90Mz+X5MO9PUY3Ngbx6+oOCGwGQyVlKD/IqPrMd5Fkq/gQpVdShp7oWY9
-guFRVAzTdkH36rMvkmxEwbo4x+1CmKuhiQk7IeKcDS7t45TuPGZXCOqE8HGREH29
-z7NjRrdatwlmbta14V5YmU4FOZTJy6vq4wSM23evZ3cNjng4D6d92hjxFS9V8fc6
-slwv2Dtj4uZZPg+zxvNjq92j0qUKOuiXNfLsEoPaQWwjsZTa9n6P3qHRo3OFp4Ww
-leJiVpNVPD+f/5ophXKbTAB/zaw3a8uMx7oXMgYnXjUS4snIWdJ4h1DnuTIPKBA1
-VUyh93uCEInT0VlSYrlYeIDu+lZv9/J3wwtpM/CR/P2xFfxFHNzWpoT461YJgHXU
-TMto49ag5KSWya+IWjfUiscWuj0nq2RvZVziYNN93o4ekDaMEC2UV65qZZRdxtI7
-mgH1oVmQUruWjiSaCVIxwMPT8KCVkngpOlVHkSuY0nSzTebxxjsoJIynhfy/xJwK
-GcFjTLpua/nREnq3qg3WBJHJ1Mo9QjKIQ+/1MLxNU+uYo+lGgZc=
-=cw1v
------END PGP SIGNATURE-----
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index e824ba34b0..0b83384bd3 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -1405,6 +1405,11 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
+     {
+         struct map_range_data mr_data = { .d = d, .p2mt = p2mt };
+         res = dt_device_get_address(dev, i, &addr, &size);
++
++        /* Some DT may describe empty bank, ignore them */
++        if ( !size )
++            continue;
++
+         if ( res )
+         {
+             printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
---nrplgk2vygihh27c--
 
 
