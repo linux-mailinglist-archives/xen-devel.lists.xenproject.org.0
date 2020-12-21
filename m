@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EDB52DFF00
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 18:32:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57470.100563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 489B52DFF01
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 18:34:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57474.100578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krP1K-0004ut-0w; Mon, 21 Dec 2020 17:30:54 +0000
+	id 1krP4p-00055L-JQ; Mon, 21 Dec 2020 17:34:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57470.100563; Mon, 21 Dec 2020 17:30:53 +0000
+Received: by outflank-mailman (output) from mailman id 57474.100578; Mon, 21 Dec 2020 17:34:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krP1J-0004uU-U7; Mon, 21 Dec 2020 17:30:53 +0000
-Received: by outflank-mailman (input) for mailman id 57470;
- Mon, 21 Dec 2020 17:30:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1krP4p-00054q-Dy; Mon, 21 Dec 2020 17:34:31 +0000
+Received: by outflank-mailman (input) for mailman id 57474;
+ Mon, 21 Dec 2020 17:34:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MXr/=FZ=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1krP1J-0004uP-06
- for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 17:30:53 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 400ffe58-c914-4293-816a-ab04875593e1;
- Mon, 21 Dec 2020 17:30:52 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 0BLHUYPq078964
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 21 Dec 2020 12:30:40 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 0BLHUYRm078963;
- Mon, 21 Dec 2020 09:30:34 -0800 (PST) (envelope-from ehem)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krP4o-00054i-4c; Mon, 21 Dec 2020 17:34:30 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krP4o-00029i-0t; Mon, 21 Dec 2020 17:34:30 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krP4n-0005gF-Os; Mon, 21 Dec 2020 17:34:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1krP4n-0005T5-Ns; Mon, 21 Dec 2020 17:34:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,95 +42,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 400ffe58-c914-4293-816a-ab04875593e1
-Date: Mon, 21 Dec 2020 09:30:34 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-        Ian Jackson <iwj@xenproject.org>
-Subject: [RESEND] [RFC PATCH] xen/arm: domain_build: Ignore empty memory bank
-Message-ID: <X+DbupqYE3rrFaIM@mattapan.m5p.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=OzPBTuUtX6LSWGi9pHe+D+Z4zqDl14AewGVG49VXnPg=; b=qYXCSw5wZusMRP/19eNJLBcdIz
+	cmDQfYfJ1zsyeNaUKrTZ0KhnOM0kk3IxLIVdg/3gPfsf5FzywYOjPi/7H/gg2cphX191FuK3d41Sj
+	TvgUWEtUxXucwS216razt+9XtCyPDMb0ig3BZNaa/IEtlphynHJ9yQhWcfBJzDHfBQdY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157761-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+Subject: [xen-unstable-smoke test] 157761: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=d162f36848c4a98a782cc05820b0aa7ec1ae297d
+X-Osstest-Versions-That:
+    xen=357db96a66e47e609c3b14768f1062e13eedbd93
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 21 Dec 2020 17:34:29 +0000
 
-Previously Xen had stopped processing Device Trees if an empty
-(size == 0) memory bank was found.
+flight 157761 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157761/
 
-Commit 5a37207df52066efefe419c677b089a654d37afc changed this behavior to
-ignore such banks.  Unfortunately this means these empty nodes are
-visible to code which accesses the device trees.  Have domain_build also
-ignore these entries.
+Regressions :-(
 
----
-This is tagged "RFC" due to issues.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 157696
 
-Authorship of this is unclean.  In the first version (checked in, but
-never sent to the list and never compiled) a different condition was used
-and the comment was absent.  When examing the code it became clear a
-condition identical to
-5a37207df52066efefe419c677b089a654d37afc was appropriate and so I changed
-to !size.  Since what the code is doing was sufficiently similar, the
-comment was grabbed.
-How far does this dilute authorship?  I diagnosed the bug and figured out
-where to add the lines, but the amount inspired by Julien Grall gives
-Julien Grall some level of claim of authorship.  Advice is needed.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Commit 7d2b21fd36c2a47799eed71c67bae7faa1ec4272 is an outright bug for
-me.  I don't know what percentage of users will experience this bug, but
-being observed this quickly suggests this is major enough to be urgent
-for the stable-4.14 branch.
+version targeted for testing:
+ xen                  d162f36848c4a98a782cc05820b0aa7ec1ae297d
+baseline version:
+ xen                  357db96a66e47e609c3b14768f1062e13eedbd93
 
-I doubt this is the only bug exposed by
-5a37207df52066efefe419c677b089a654d37afc.  This might actually effect
-most uses of the device-tree code.  I think either the core needs to be
-fixed to hide zero-sized entries from anything outside of
-xen/common/device_tree.c, otherwise all uses of the device-tree core need
-to be audited to ensure they ignore zero-sized entries.  Notably this is
-the second location where zero-size device-tree entries need to be
-ignored, preemptive action should be taken before a third is found by
-bugreport.
+Last test of basis   157696  2020-12-18 19:01:31 Z    2 days
+Testing same since   157761  2020-12-21 15:00:25 Z    0 days    1 attempts
 
-Perhaps this fix is appropriate for the stable-4.14 branch and a proper
-solution should be implemented for the main branch?
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
 
-The error message which first showed was
-"Unable to retrieve address %u for %s\n".  Where the number in %u was
-0, this seems a poor error message.  Version 0.1 (which never got
-compiled) had been:  if(!addr) continue;
-
-As I thought the 0 it was reporting was an address of 0.  Perhaps the
-message should instead be:
-"Unable to retrieve address for index %u of %s\n"?
----
- xen/arch/arm/domain_build.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index e824ba34b0..0b83384bd3 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -1405,6 +1405,11 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
-     {
-         struct map_range_data mr_data = { .d = d, .p2mt = p2mt };
-         res = dt_device_get_address(dev, i, &addr, &size);
-+
-+        /* Some DT may describe empty bank, ignore them */
-+        if ( !size )
-+            continue;
-+
-         if ( res )
-         {
-             printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit d162f36848c4a98a782cc05820b0aa7ec1ae297d
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Sep 28 15:25:44 2020 +0100
+
+    xen/x86: Fix memory leak in vcpu_create() error path
+    
+    Various paths in vcpu_create() end up calling paging_update_paging_modes(),
+    which eventually allocate a monitor pagetable if one doesn't exist.
+    
+    However, an error in vcpu_create() results in the vcpu being cleaned up
+    locally, and not put onto the domain's vcpu list.  Therefore, the monitor
+    table is not freed by {hap,shadow}_teardown()'s loop.  This is caught by
+    assertions later that we've successfully freed the entire hap/shadow memory
+    pool.
+    
+    The per-vcpu loops in domain teardown logic is conceptually wrong, but exist
+    due to insufficient existing structure in the existing logic.
+    
+    Break paging_vcpu_teardown() out of paging_teardown(), with mirrored breakouts
+    in the hap/shadow code, and use it from arch_vcpu_create()'s error path.  This
+    fixes the memory leak.
+    
+    The new {hap,shadow}_vcpu_teardown() must be idempotent, and are written to be
+    as tolerable as possible, with the minimum number of safety checks possible.
+    In particular, drop the mfn_valid() check - if these fields are junk, then Xen
+    is going to explode anyway.
+    
+    Reported-by: Michał Leszczyński <michal.leszczynski@cert.pl>
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 6131dab5f2c8059a0fc7fd884bc6d4ff78ba44c2
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Dec 18 23:30:04 2020 +0000
+
+    xen/Kconfig: Correct the NR_CPUS description
+    
+    The description "physical CPUs" is especially wrong, as it implies the number
+    of sockets, which tops out at 8 on all but the very biggest servers.
+    
+    NR_CPUS is the number of logical entities the scheduler can use.
+    
+    Reported-by: hanetzer@startmail.com
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
