@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43EB32DF9E6
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 09:26:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57315.100268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B7692DF9F0
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Dec 2020 09:31:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57319.100280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krGWL-0006AA-7Q; Mon, 21 Dec 2020 08:26:21 +0000
+	id 1krGaY-00072a-QE; Mon, 21 Dec 2020 08:30:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57315.100268; Mon, 21 Dec 2020 08:26:21 +0000
+Received: by outflank-mailman (output) from mailman id 57319.100280; Mon, 21 Dec 2020 08:30:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krGWL-00069l-43; Mon, 21 Dec 2020 08:26:21 +0000
-Received: by outflank-mailman (input) for mailman id 57315;
- Mon, 21 Dec 2020 08:26:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1krGaY-00072B-Mj; Mon, 21 Dec 2020 08:30:42 +0000
+Received: by outflank-mailman (input) for mailman id 57319;
+ Mon, 21 Dec 2020 08:30:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DEM5=FZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1krGWJ-00069g-Kh
- for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 08:26:19 +0000
+ id 1krGaX-000726-Lr
+ for xen-devel@lists.xenproject.org; Mon, 21 Dec 2020 08:30:41 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 259d0f0c-cad5-42f8-acf5-5eb5a48fbc13;
- Mon, 21 Dec 2020 08:26:18 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8f315c31-13dc-4c57-bbbf-afa96beb07a7;
+ Mon, 21 Dec 2020 08:30:40 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 04DB3ACF5;
- Mon, 21 Dec 2020 08:26:18 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id DD951ACC4;
+ Mon, 21 Dec 2020 08:30:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,131 +38,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 259d0f0c-cad5-42f8-acf5-5eb5a48fbc13
+X-Inumbo-ID: 8f315c31-13dc-4c57-bbbf-afa96beb07a7
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608539178; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608539440; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rcNhHZOQ+BWlMFyFjB9vWDIxHCi+ydtvzyMz/lIF4vc=;
-	b=BQtT51yyFkA6ODsLjMM8gaVM/82LgHCeTL2geVykwFVGFwvghjwnXbr06P24GYqRxwWtav
-	fYrcEGhPy5K6EDZ2HmMVXPWPNj0FFizpFI1NxxU9mb6bHOGB4Dk6Attp4B0J7pD1ACz24M
-	OBZaj8gRC6KN9oUjheA3Iaf3XocpKUg=
-Subject: Re: [PATCH v3 5/8] xen/hypfs: add support for id-based dynamic
- directories
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201209160956.32456-1-jgross@suse.com>
- <20201209160956.32456-6-jgross@suse.com>
- <2894a231-9150-7c09-cc5c-7ef52087acf5@suse.com>
- <d4c408eb-08d8-42a8-0c0a-6580fce0e181@suse.com>
- <5e0ac85e-ecba-86ad-b350-ff30e3a40a68@suse.com>
- <bde3d3b1-a512-e1fe-cfd4-287fa0ea95cd@suse.com>
- <a515ead2-f732-ddcd-f29b-788b8997fd2a@suse.com>
- <0c56129d-dcfa-2a52-dc66-221f103e6735@suse.com>
+	bh=k/cKh/D7mlPJ8p5jVTAb/X7PKFm2Alm16NCrQWwImh0=;
+	b=pE0g9vk2yT/NovCusbKukYp3cv3BneEhOFJjSJRZD6oPm+58MAYg4qDycIh5t2ipQ7WYd2
+	+0aKVu8jE5HpHNPhOxQQbQ6J0FvISfHkdArA9FwaHD8+UkxxCM7IzYce6hTFdW9Hs//yTf
+	h6jLQkD4VCe0QEDK1u+uES6+Paor3HA=
+Subject: Re: [PATCH] xen/x86: Fix memory leak in vcpu_create() error path
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@eu.citrix.com>,
+ Tim Deegan <tim@xen.org>, =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?=
+ <michal.leszczynski@cert.pl>
+References: <20200928154741.2366-1-andrew.cooper3@citrix.com>
+ <33331c3a-1fd5-1ef6-16a3-21d2a6672e90@suse.com>
+ <9556aeb3-2a7c-7aea-4386-6e561dd9ef6e@citrix.com>
+ <9e652863-5ada-0327-5817-cdb2e652e066@suse.com>
+ <e26f0cc3-1893-6cd9-71b3-4e0c011318b3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e4767946-99b6-40bb-c606-5a7d21dc3803@suse.com>
-Date: Mon, 21 Dec 2020 09:26:20 +0100
+Message-ID: <baaa6ce0-5434-5b65-da12-bdf9487ebf74@suse.com>
+Date: Mon, 21 Dec 2020 09:30:42 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <0c56129d-dcfa-2a52-dc66-221f103e6735@suse.com>
+In-Reply-To: <e26f0cc3-1893-6cd9-71b3-4e0c011318b3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 18.12.2020 13:41, Jürgen Groß wrote:
-> On 18.12.20 10:09, Jan Beulich wrote:
->> On 18.12.2020 09:57, Jürgen Groß wrote:
->>> On 17.12.20 13:14, Jan Beulich wrote:
->>>> On 17.12.2020 12:32, Jürgen Groß wrote:
->>>>> On 17.12.20 12:28, Jan Beulich wrote:
->>>>>> On 09.12.2020 17:09, Juergen Gross wrote:
->>>>>>> +static const struct hypfs_entry *hypfs_dyndir_enter(
->>>>>>> +    const struct hypfs_entry *entry)
->>>>>>> +{
->>>>>>> +    const struct hypfs_dyndir_id *data;
->>>>>>> +
->>>>>>> +    data = hypfs_get_dyndata();
->>>>>>> +
->>>>>>> +    /* Use template with original enter function. */
->>>>>>> +    return data->template->e.funcs->enter(&data->template->e);
->>>>>>> +}
->>>>>>
->>>>>> At the example of this (applies to other uses as well): I realize
->>>>>> hypfs_get_dyndata() asserts that the pointer is non-NULL, but
->>>>>> according to the bottom of ./CODING_STYLE this may not be enough
->>>>>> when considering the implications of a NULL deref in the context
->>>>>> of a PV guest. Even this living behind a sysctl doesn't really
->>>>>> help, both because via XSM not fully privileged domains can be
->>>>>> granted access, and because speculation may still occur all the
->>>>>> way into here. (I'll send a patch to address the latter aspect in
->>>>>> a few minutes.) While likely we have numerous existing examples
->>>>>> with similar problems, I guess in new code we'd better be as
->>>>>> defensive as possible.
->>>>>
->>>>> What do you suggest? BUG_ON()?
->>>>
->>>> Well, BUG_ON() would be a step in the right direction, converting
->>>> privilege escalation to DoS. The question is if we can't do better
->>>> here, gracefully failing in such a case (the usual pair of
->>>> ASSERT_UNREACHABLE() plus return/break/goto approach doesn't fit
->>>> here, at least not directly).
->>>>
->>>>> You are aware that this is nothing a user can influence, so it would
->>>>> be a clear coding error in the hypervisor?
->>>>
->>>> A user (or guest) can't arrange for there to be a NULL pointer,
->>>> but if there is one that can be run into here, this would still
->>>> require an XSA afaict.
+On 18.12.2020 14:58, Andrew Cooper wrote:
+> On 18/12/2020 08:27, Jan Beulich wrote:
+>> On 17.12.2020 22:46, Andrew Cooper wrote:
+>>> On 29/09/2020 07:18, Jan Beulich wrote:
+>>>> On 28.09.2020 17:47, Andrew Cooper wrote:
+>>>>> --- a/xen/arch/x86/mm/hap/hap.c
+>>>>> +++ b/xen/arch/x86/mm/hap/hap.c
+>>>>> @@ -563,30 +563,37 @@ void hap_final_teardown(struct domain *d)
+>>>>>      paging_unlock(d);
+>>>>>  }
+>>>>>  
+>>>>> +void hap_vcpu_teardown(struct vcpu *v)
+>>>>> +{
+>>>>> +    struct domain *d = v->domain;
+>>>>> +    mfn_t mfn;
+>>>>> +
+>>>>> +    paging_lock(d);
+>>>>> +
+>>>>> +    if ( !paging_mode_hap(d) || !v->arch.paging.mode )
+>>>>> +        goto out;
+>>>> Any particular reason you don't use paging_get_hostmode() (as the
+>>>> original code did) here? Any particular reason for the seemingly
+>>>> redundant (and hence somewhat in conflict with the description's
+>>>> "with the minimum number of safety checks possible")
+>>>> paging_mode_hap()?
+>>> Yes to both.  As you spotted, I converted the shadow side first, and
+>>> made the two consistent.
 >>>
->>> I still don't see how this could happen without a major coding bug,
->>> which IMO wouldn't go unnoticed during a really brief test (this is
->>> the reason for ASSERT() in hypfs_get_dyndata() after all).
->>
->> True. Yet the NULL derefs wouldn't go unnoticed either.
->>
->>> Its not as if the control flow would allow many different ways to reach
->>> any of the hypfs_get_dyndata() calls.
->>
->> I'm not convinced of this - this is a non-static function, and the
->> call patch 8 adds (just to take an example) is not very obvious to
->> have a guarantee that allocation did happen and was checked for
->> success. Yes, in principle cpupool_gran_write() isn't supposed to
->> be called in such a case, but it's the nature of bugs assumptions
->> get broken.
+>>> The paging_mode_{shadow,hap})() is necessary for idempotency.  These
+>>> functions really might get called before paging is set up, for an early
+>>> failure in domain_create().
+>> In which case how would v->arch.paging.mode be non-NULL already?
+>> They get set in {hap,shadow}_vcpu_init() only.
 > 
-> Yes, but we do have tons of assumptions like that. I don't think we
-> should add tests for non-NULL pointers everywhere just because we
-> happen to dereference something. Where do we stop?
+> Right, but we also might end up here with an error early in
+> vcpu_create(), where d->arch.paging is set up, but v->arch.paging isn't.
 > 
->>
->>> I can add security checks at the appropriate places, but I think this
->>> would be just dead code. OTOH if you are feeling strong here lets go
->>> with it.
->>
->> Going with it isn't the only possible route. The other is to drop
->> the ASSERT()s altogether. It simply seems to me that their addition
->> is a half-hearted attempt when considering what was added to
->> ./CODING_STYLE not all that long ago.
+> This logic needs to be safe to use at any point of partial initialisation.
 > 
-> No. The ASSERT() is clearly an attempt to catch a programming error
-> early. It is especially not trying to catch a situation which is thought
-> to be possible. The situation should really never happen, and I'm not
-> aware how it could happen without a weird code modification.
+> (And to be clear, I found I needed both of these based on some
+> artificial error injection testing.)
 > 
-> Dropping the ASSERT() would really add risk to not notice a bug being
-> introduced by a code modification.
+>>> The paging mode has nothing really to do with hostmode/guestmode/etc. 
+>>> It is the only way of expressing the logic where it is clear that the
+>>> lower pointer dereferences are trivially safe.
+>> Well, yes and no - the other uses of course should then also use
+>> paging_get_hostmode(), like various of the wrappers in paging.h
+>> do. Or else I question why we have paging_get_hostmode() in the
+>> first place.
+> 
+> I'm not convinced it is an appropriate abstraction to have, and I don't
+> expect it to survive the nested virt work.
+> 
+>> There are more examples in shadow code where this
+>> gets open-coded when it probably shouldn't be. There haven't been
+>> any such cases in HAP code so far ...
+> 
+> Doesn't matter.  Its use here would obfuscate the code (this is one part
+> of why I think it is a bad abstraction to begin with), and if the
+> implementation ever changed, the function would lose its safety.
+> 
+>> Additionally (noticing only now) in the shadow case you may now
+>> loop over all vCPU-s in shadow_teardown() just for
+>> shadow_vcpu_teardown() to bail right away. Wouldn't it make sense
+>> to retain the "if ( shadow_mode_enabled(d) )" there around the
+>> loop?
+> 
+> I'm not entirely convinced that was necessarily safe.  Irrespective, see
+> the TODO.  The foreach_vcpu() is only a stopgap until some cleanup
+> structure changes come along (which I had queued behind this patch anyway).
 
-Is this the case? Wouldn't the NULL be de-referenced almost immediately,
-and hence the bug be noticed right away anyway? I don't think it is
-typical for PV guests to have a valid mapping for address 0. Putting in
-place such a mapping could at least be a hint towards possible malice
-imo.
+Well, fair enough (for all of the points). You have my R-b already,
+and all you need to do (if you haven't already) is re-base the
+change, as the conflicting one of mine (which was triggered by
+reviewing yours) has gone in already.
 
 Jan
 
