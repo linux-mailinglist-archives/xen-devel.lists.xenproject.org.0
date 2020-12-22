@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5819C2E0B07
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Dec 2020 14:45:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57860.101430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF3852E0B0D
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Dec 2020 14:47:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57864.101442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krhyk-0003aU-9O; Tue, 22 Dec 2020 13:45:30 +0000
+	id 1kri0r-0003jh-Mw; Tue, 22 Dec 2020 13:47:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57860.101430; Tue, 22 Dec 2020 13:45:30 +0000
+Received: by outflank-mailman (output) from mailman id 57864.101442; Tue, 22 Dec 2020 13:47:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krhyk-0003a5-5n; Tue, 22 Dec 2020 13:45:30 +0000
-Received: by outflank-mailman (input) for mailman id 57860;
- Tue, 22 Dec 2020 13:45:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kri0r-0003jG-IS; Tue, 22 Dec 2020 13:47:41 +0000
+Received: by outflank-mailman (input) for mailman id 57864;
+ Tue, 22 Dec 2020 13:47:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9/vU=F2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1krhyj-0003a0-Ct
- for xen-devel@lists.xenproject.org; Tue, 22 Dec 2020 13:45:29 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7b155724-1d3a-454f-bad1-4dfe5ef6c525;
- Tue, 22 Dec 2020 13:45:28 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 48CEFB1C2;
- Tue, 22 Dec 2020 13:45:27 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kri0q-0003j8-68; Tue, 22 Dec 2020 13:47:40 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kri0p-0008Gx-Va; Tue, 22 Dec 2020 13:47:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kri0p-00021D-OR; Tue, 22 Dec 2020 13:47:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kri0p-0003yO-Nv; Tue, 22 Dec 2020 13:47:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,75 +42,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b155724-1d3a-454f-bad1-4dfe5ef6c525
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608644727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7piISWuDwlyJQQ+sseEC12064PAEKVH/Rn56hAAVO5E=;
-	b=ELPRDMQG1gxEYOsZHplyJcirxNivha0NLVgk37hpd5izhxEmN7VhEtMwjm/dLUfR0iVm8e
-	LWEgZ9KF9AbIiBtfMHnEZUQ9kOAXHP0/sRQ1cqE48F9i8N3+o0LZkIA9vIFJhypz5+KDSv
-	rKMBlj/7S0ZSYfRE7QnXoywgH/EvtMQ=
-Subject: Re: [PATCH 3/3] xen/evtchn: Clean up teardown handling
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20201221181446.7791-1-andrew.cooper3@citrix.com>
- <20201221181446.7791-4-andrew.cooper3@citrix.com>
- <3d72bcb6-dabf-2b26-cecd-5f2d36505bd5@suse.com>
- <683f7808-aad7-1c42-e9e9-3e251e1a4561@citrix.com>
- <5d66a8c9-e3d6-e329-7daf-6b1d0e220e13@suse.com>
- <91ec88c5-fa7b-e700-2466-322dd3db7397@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b7dd510f-58bd-213f-922f-fe24df68babe@suse.com>
-Date: Tue, 22 Dec 2020 14:45:26 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
-MIME-Version: 1.0
-In-Reply-To: <91ec88c5-fa7b-e700-2466-322dd3db7397@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BINYNGEuUkFPAcTRJBxm50T1vKjInzrKK46/6eOdcrs=; b=UsWMdnfRj/uikk6MgFfahCwvDJ
+	8KZhlGoPWdknYqSkEisN4+urZ4AXya71QO6Zi1gnL+zhlJizwidIqx2TbQ+qiwGJ+c9nDC2rpxYiD
+	Uj9KdJ90oz/vUFxQ3xFXTOBdDrIM8mGdqkyEtwCaddXUEYaaSSlsKUELZCPgC7oMNBc4=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157787-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 157787: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=d4945b102730a54f58be6bda3369c6844565b7ee
+X-Osstest-Versions-That:
+    ovmf=35ed29f207fd9c3683cfee5492c5c4e96ee0a0eb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 22 Dec 2020 13:47:39 +0000
 
-On 22.12.2020 14:33, Andrew Cooper wrote:
-> On 22/12/2020 11:52, Jan Beulich wrote:
->> On 22.12.2020 12:28, Andrew Cooper wrote:
->>> On 22/12/2020 10:48, Jan Beulich wrote:
->>>> On 21.12.2020 19:14, Andrew Cooper wrote:
->>>>> First of all, rename the evtchn APIs:
->>>>>  * evtchn_destroy       => evtchn_teardown
->>>>>  * evtchn_destroy_final => evtchn_destroy
->>>> I wonder in how far this is going to cause confusion with backports
->>>> down the road. May I suggest to do only the first of the two renames,
->>>> at least until in a couple of year's time? Or make the second rename
->>>> to e.g. evtchn_cleanup() or evtchn_deinit()?
->>> I considered backports, but I don't think it will be an issue.  The
->>> contents of the two functions are very different, and we're not likely
->>> to be moving the callers in backports.
->> Does the same also apply to the old and new call sites of the functions?
-> 
-> I don't understand your question.  I don't intend the new callsites to
-> ever move again, now they're part of the properly idempotent path, and
-> any movement in the older trees would be wrong for anything other than
-> backporting this fix, which clearly isn't a backport candidate.
-> 
-> (That said - there's a memory leak I need to create a backport for...)
+flight 157787 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157787/
 
-My thinking was that call sites of functions also serve as references
-or anchors when you do backports. Having identically named functions
-with different purposes may be misleading people - both ones doing
-backports on a very occasional basis, but also us who may be doing
-this regularly, but only on halfway recent trees. I, for one, keep
-forgetting to check for bool/true/false when moving to 4.7, or the
--ERESTART <=> -EAGAIN change after 4.4(?). For the former I'll be
-saved by the compiler yelling at me, but for the latter one needs to
-recognize the need for an adjustment. I'm afraid of the same thing
-(granted at a lower probability) potentially happening here, down the
-road.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 d4945b102730a54f58be6bda3369c6844565b7ee
+baseline version:
+ ovmf                 35ed29f207fd9c3683cfee5492c5c4e96ee0a0eb
 
-Jan
+Last test of basis   157778  2020-12-21 22:42:56 Z    0 days
+Testing same since   157787  2020-12-22 09:58:43 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ming Tan <ming.tan@intel.com>
+  Pierre Gondois <Pierre.Gondois@arm.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Tan, Ming <ming.tan@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Yunhua Feng <fengyunhua@byosoft.com.cn>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   35ed29f207..d4945b1027  d4945b102730a54f58be6bda3369c6844565b7ee -> xen-tested-master
 
