@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B49C2E085C
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Dec 2020 10:57:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57703.101047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF0462E0872
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Dec 2020 11:01:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57709.101060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krePr-0006Z7-4B; Tue, 22 Dec 2020 09:57:15 +0000
+	id 1kreTI-0007UG-JN; Tue, 22 Dec 2020 10:00:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57703.101047; Tue, 22 Dec 2020 09:57:15 +0000
+Received: by outflank-mailman (output) from mailman id 57709.101060; Tue, 22 Dec 2020 10:00:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krePq-0006YV-VZ; Tue, 22 Dec 2020 09:57:14 +0000
-Received: by outflank-mailman (input) for mailman id 57703;
- Tue, 22 Dec 2020 09:57:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kreTI-0007Tr-Fu; Tue, 22 Dec 2020 10:00:48 +0000
+Received: by outflank-mailman (input) for mailman id 57709;
+ Tue, 22 Dec 2020 10:00:47 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1krePp-0006YN-2V; Tue, 22 Dec 2020 09:57:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1krePo-0001ZR-U6; Tue, 22 Dec 2020 09:57:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1krePo-0001Mu-OE; Tue, 22 Dec 2020 09:57:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1krePo-00034T-Nj; Tue, 22 Dec 2020 09:57:12 +0000
+ (envelope-from <SRS0=9/vU=F2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kreTH-0007Tl-9X
+ for xen-devel@lists.xenproject.org; Tue, 22 Dec 2020 10:00:47 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 14ef9e35-a23c-4520-9efb-f31dd067d171;
+ Tue, 22 Dec 2020 10:00:46 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 94B2CABA1;
+ Tue, 22 Dec 2020 10:00:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +38,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4Pk2lWbzSWg4LUgsO1rISuEHtYzThJ7wuTiRPl0OkS8=; b=0jCRfcaF0AE3P0UoDXWMei6dyg
-	uvQnsI7TQSCbSF4XwU1faPanssTMPvUB0g1dlGme+8WwlNyvd/dIDhCfzyL13+ImjjWagTZ8nUpfm
-	YAHFA0txh1LKBlr7E7gB/nMNcSrHkYLY8aMZ9FvgiAqML4miXdRKyKv04BTOxOX6lnRY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157778-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 14ef9e35-a23c-4520-9efb-f31dd067d171
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1608631245; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1Aa1Z0Z/VpucUq1qQ6jB3GXJQseOfoDV75m3ScP+dts=;
+	b=npCnIBlQfqD5ZT9HlztLnXfLDdU6Or1C9OuLqT+ainGPMGJ3HOuPx0v6vLjtfiLtN/dI2D
+	iMdkyfQWAwFPUudDjhPuEtKWixMg75+nUl0Oske3f0laYskADNxURxe+jt7HNzPDj05JkX
+	pOh/vPGCRHZ5QXsa9Mh6zK6mNxrmTY4=
+Subject: Re: Hypercall fault injection (Was [PATCH 0/3] xen/domain: More
+ structured teardown)
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Juergen Gross <jgross@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20201221181446.7791-1-andrew.cooper3@citrix.com>
+ <ac552c84-144c-c213-7985-84d92cbb5601@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <983a3fef-c80f-ec2a-bf3c-5e054fc6a7a9@suse.com>
+Date: Tue, 22 Dec 2020 11:00:44 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Subject: [ovmf test] 157778: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=35ed29f207fd9c3683cfee5492c5c4e96ee0a0eb
-X-Osstest-Versions-That:
-    ovmf=3ce3274a5ea41134fafb983c0198de89007d471e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 22 Dec 2020 09:57:12 +0000
+In-Reply-To: <ac552c84-144c-c213-7985-84d92cbb5601@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-flight 157778 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157778/
+On 21.12.2020 20:36, Andrew Cooper wrote:
+> Hello,
+> 
+> We have some very complicated hypercalls, createdomain, and max_vcpus a
+> close second, with immense complexity, and very hard-to-test error handling.
+> 
+> It is no surprise that the error handling is riddled with bugs.
+> 
+> Random failures from core functions is one way, but I'm not sure that
+> will be especially helpful.  In particular, we'd need a way to exclude
+> "dom0 critical" operations so we've got a usable system to run testing on.
+> 
+> As an alternative, how about adding a fault_ttl field into the hypercall?
+> 
+> The exact paths taken in {domain,vcpu}_create() are sensitive to the
+> hardware, Xen Kconfig, and other parameters passed into the
+> hypercall(s).  The testing logic doesn't really want to care about what
+> failed; simply that the error was handled correctly.
+> 
+> So a test for this might look like:
+> 
+> cfg = { ... };
+> while ( xc_create_domain(xch, cfg) < 0 )
+>     cfg.fault_ttl++;
+> 
+> 
+> The pro's of this approach is that for a specific build of Xen on a
+> piece of hardware, it ought to check every failure path in
+> domain_create(), until the ttl finally gets higher than the number of
+> fail-able actions required to construct a domain.  Also, the test
+> doesn't need changing as the complexity of domain_create() changes.
+> 
+> The main con will mostly likely be the invasiveness of code in Xen, but
+> I suppose any fault injection is going to be invasive to a certain extent.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 35ed29f207fd9c3683cfee5492c5c4e96ee0a0eb
-baseline version:
- ovmf                 3ce3274a5ea41134fafb983c0198de89007d471e
+While I like the idea in principle, the innocent looking
 
-Last test of basis   157759  2020-12-21 14:39:51 Z    0 days
-Testing same since   157778  2020-12-21 22:42:56 Z    0 days    1 attempts
+cfg = { ... };
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ard.biesheuvel@arm.com>
-  Laszlo Ersek <lersek@redhat.com>
+is quite a bit of a concern here as well: Depending on the precise
+settings, paths taken in the hypervisor may heavily vary, and hence
+such a test will only end up being useful if it covers a wide
+variety of settings. Even if the number of tests to execute turned
+out to still be manageable today, it may quickly turn out not
+sufficiently scalable as we add new settings controllable right at
+domain creation (which I understand is the plan).
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   3ce3274a5e..35ed29f207  35ed29f207fd9c3683cfee5492c5c4e96ee0a0eb -> xen-tested-master
+Jan
 
