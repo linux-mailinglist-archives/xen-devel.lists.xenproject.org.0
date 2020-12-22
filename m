@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 853752E09E0
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Dec 2020 12:55:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57792.101286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 049042E09EB
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Dec 2020 13:04:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57797.101301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krgGI-0001rb-Ah; Tue, 22 Dec 2020 11:55:30 +0000
+	id 1krgOW-0002qw-Gb; Tue, 22 Dec 2020 12:04:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57792.101286; Tue, 22 Dec 2020 11:55:30 +0000
+Received: by outflank-mailman (output) from mailman id 57797.101301; Tue, 22 Dec 2020 12:04:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krgGI-0001rC-7L; Tue, 22 Dec 2020 11:55:30 +0000
-Received: by outflank-mailman (input) for mailman id 57792;
- Tue, 22 Dec 2020 11:55:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1krgOW-0002qX-D8; Tue, 22 Dec 2020 12:04:00 +0000
+Received: by outflank-mailman (input) for mailman id 57797;
+ Tue, 22 Dec 2020 12:03:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9/vU=F2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1krgGH-0001r7-20
- for xen-devel@lists.xenproject.org; Tue, 22 Dec 2020 11:55:29 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 05dcea81-18cf-4a05-97d8-1245155ad82f;
- Tue, 22 Dec 2020 11:55:28 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 610BDACF9;
- Tue, 22 Dec 2020 11:55:27 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krgOV-0002qP-SH; Tue, 22 Dec 2020 12:03:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krgOV-00061i-FG; Tue, 22 Dec 2020 12:03:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krgOV-0006UP-75; Tue, 22 Dec 2020 12:03:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1krgOV-00079Q-6a; Tue, 22 Dec 2020 12:03:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,115 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05dcea81-18cf-4a05-97d8-1245155ad82f
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608638127; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c4x5NnSKa3GHmGh/u3YbUsIngcrZNDOYXe5Jaxt7bmE=;
-	b=qo/C/79joJ3eDMolrY3SZG47C9jo1UifXAftbr/3BqSN3UpYy3OzGvW0bekHYcUO5L1GgA
-	XpuWGxCYeLON9EVM9TtzP8hiXGV5+zjOHRqlaOByuM/BXb/RkDaqXghlWy+fQU66TW/cTk
-	6MVsDeuLod+YUY2kQHY0taQIt8Rx328=
-Subject: Re: [PATCH 2/3] xen/domain: Introduce domain_teardown()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20201221181446.7791-1-andrew.cooper3@citrix.com>
- <20201221181446.7791-3-andrew.cooper3@citrix.com>
- <b3d1cb55-2793-f37e-13d1-b9e8de2057da@suse.com>
- <49d46056-2b99-3ec6-cf93-3f40be259330@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4dca168c-93e4-8852-9649-f3713aaa180c@suse.com>
-Date: Tue, 22 Dec 2020 12:55:26 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
-MIME-Version: 1.0
-In-Reply-To: <49d46056-2b99-3ec6-cf93-3f40be259330@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BoqHHtRPelHrHKGg0eHET3CPcAq2Z1xRySV/DiLnaCA=; b=RMn7bl9xXa8gCbt2srBBrZIUD7
+	P9oyN5hHYwCntSPvAGJOcGVlCrWnRu/E8Qe1Vu6wR7UfYAIiEZ9vyIKy+Ri/KCEZ1QEkZvL4suxvs
+	EG2ByUIgaJunuD27r5mOVx5XeYkvYbE64LXAeWL9J0HO6tnGmXMfEUyTGMvokHok8ifw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157786-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 157786: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=e93c3712d67098453760fd61c338cbf62dd08da1
+X-Osstest-Versions-That:
+    xen=8c8938dcc1bd37dd61f705410053e08804ca2b55
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 22 Dec 2020 12:03:59 +0000
 
-On 22.12.2020 12:46, Andrew Cooper wrote:
-> On 22/12/2020 10:35, Jan Beulich wrote:
->> On 21.12.2020 19:14, Andrew Cooper wrote:
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -273,6 +273,59 @@ static int __init parse_extra_guest_irqs(const char *s)
->>>  custom_param("extra_guest_irqs", parse_extra_guest_irqs);
->>>  
->>>  /*
->>> + * Release resources held by a domain.  There may or may not be live
->>> + * references to the domain, and it may or may not be fully constructed.
->>> + *
->>> + * d->is_dying differing between DOMDYING_dying and DOMDYING_dead can be used
->>> + * to determine if live references to the domain exist, and also whether
->>> + * continuations are permitted.
->>> + *
->>> + * If d->is_dying is DOMDYING_dead, this must not return non-zero.
->>> + */
->>> +static int domain_teardown(struct domain *d)
->>> +{
->>> +    BUG_ON(!d->is_dying);
->>> +
->>> +    /*
->>> +     * This hypercall can take minutes of wallclock time to complete.  This
->>> +     * logic implements a co-routine, stashing state in struct domain across
->>> +     * hypercall continuation boundaries.
->>> +     */
->>> +    switch ( d->teardown.val )
->>> +    {
->>> +        /*
->>> +         * Record the current progress.  Subsequent hypercall continuations
->>> +         * will logically restart work from this point.
->>> +         *
->>> +         * PROGRESS() markers must not be in the middle of loops.  The loop
->>> +         * variable isn't preserved across a continuation.
->>> +         *
->>> +         * To avoid redundant work, there should be a marker before each
->>> +         * function which may return -ERESTART.
->>> +         */
->>> +#define PROGRESS(x)                             \
->>> +        d->teardown.val = PROG_ ## x;           \
->>> +        /* Fallthrough */                       \
->>> +    case PROG_ ## x
->>> +
->>> +        enum {
->>> +            PROG_done = 1,
->>> +        };
->>> +
->>> +    case 0:
->>> +    PROGRESS(done):
->>> +        break;
->>> +
->>> +#undef PROGRESS
->>> +
->>> +    default:
->>> +        BUG();
->>> +    }
->>> +
->>> +    return 0;
->>> +}
->> While as an initial step this may be okay, I envision ordering issues
->> with domain_relinquish_resources() - there may be per-arch things that
->> want doing before certain common ones, and others which should only
->> be done when certain common teardown was already performed. Therefore
->> rather than this being a "common equivalent of
->> domain_relinquish_resources()", I'd rather see (and call) it a
->> (designated) replacement, where individual per-arch functions would
->> get called at appropriate times.
-> 
-> Over time, I do expect it to replace domain_relinquish_resources().  I'm
-> not sure if that will take the form of a specific arch_domain_teardown()
-> call (and reserving some space in teardown.val for arch use), or whether
-> it will be a load of possibly-CONFIG'd stubs.
+flight 157786 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157786/
 
-I'd consider helpful if you could slightly re-word the description then.
+Failures :-/ but no regressions.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Jan
+version targeted for testing:
+ xen                  e93c3712d67098453760fd61c338cbf62dd08da1
+baseline version:
+ xen                  8c8938dcc1bd37dd61f705410053e08804ca2b55
+
+Last test of basis   157779  2020-12-21 23:00:27 Z    0 days
+Testing same since   157786  2020-12-22 09:01:24 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Maximilian Engelhardt <maxi@daemonizer.de>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   8c8938dcc1..e93c3712d6  e93c3712d67098453760fd61c338cbf62dd08da1 -> smoke
 
