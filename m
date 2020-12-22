@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC0152E0CE8
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Dec 2020 16:48:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.57979.101693 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1ED02E0D12
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Dec 2020 17:07:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.57986.101711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krjtS-0007DG-DN; Tue, 22 Dec 2020 15:48:10 +0000
+	id 1krkBS-00016R-1M; Tue, 22 Dec 2020 16:06:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 57979.101693; Tue, 22 Dec 2020 15:48:10 +0000
+Received: by outflank-mailman (output) from mailman id 57986.101711; Tue, 22 Dec 2020 16:06:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1krjtS-0007Cr-AA; Tue, 22 Dec 2020 15:48:10 +0000
-Received: by outflank-mailman (input) for mailman id 57979;
- Tue, 22 Dec 2020 15:48:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HKaq=F2=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
- id 1krjtQ-0007Cm-NY
- for xen-devel@lists.xenproject.org; Tue, 22 Dec 2020 15:48:08 +0000
-Received: from MTA-06-3.privateemail.com (unknown [198.54.127.59])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c2e5fee-7d25-4964-8da7-0ae8d91e68bb;
- Tue, 22 Dec 2020 15:48:07 +0000 (UTC)
-Received: from MTA-06.privateemail.com (localhost [127.0.0.1])
- by MTA-06.privateemail.com (Postfix) with ESMTP id 85D1660078
- for <xen-devel@lists.xenproject.org>; Tue, 22 Dec 2020 10:48:06 -0500 (EST)
-Received: from mail-wr1-f41.google.com (unknown [10.20.151.226])
- by MTA-06.privateemail.com (Postfix) with ESMTPA id 47EA860083
- for <xen-devel@lists.xenproject.org>; Tue, 22 Dec 2020 15:48:06 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id r3so14980023wrt.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Dec 2020 07:48:06 -0800 (PST)
+	id 1krkBR-00015y-Tr; Tue, 22 Dec 2020 16:06:45 +0000
+Received: by outflank-mailman (input) for mailman id 57986;
+ Tue, 22 Dec 2020 16:06:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krkBQ-00015q-MM; Tue, 22 Dec 2020 16:06:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krkBQ-0002ln-E7; Tue, 22 Dec 2020 16:06:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1krkBQ-0002Zv-5Y; Tue, 22 Dec 2020 16:06:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1krkBQ-0000Pc-50; Tue, 22 Dec 2020 16:06:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,246 +42,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c2e5fee-7d25-4964-8da7-0ae8d91e68bb
-X-Gm-Message-State: AOAM530im1YhObsMcqqppCGCKnxOUr6Ix+GVqoi2kUEKbxpP525/rXEM
-	/H9bciMbqgY6vhLsfP9jZOX4ClWt13Twn7zSmZE=
-X-Google-Smtp-Source: ABdhPJwVN0QXztzIqWecfxud2MfcmFEVd0HM5OFpRAvx25S7QIy0Dqgau5kHncjRvXYVXGMry1+8gq2Z9cNB92HWawY=
-X-Received: by 2002:adf:d082:: with SMTP id y2mr25279530wrh.301.1608652084792;
- Tue, 22 Dec 2020 07:48:04 -0800 (PST)
-MIME-Version: 1.0
-References: <20201221181446.7791-1-andrew.cooper3@citrix.com>
- <ac552c84-144c-c213-7985-84d92cbb5601@citrix.com> <983a3fef-c80f-ec2a-bf3c-5e054fc6a7a9@suse.com>
- <760969b0-743e-fdd7-3577-72612e3a88b7@citrix.com>
-In-Reply-To: <760969b0-743e-fdd7-3577-72612e3a88b7@citrix.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Tue, 22 Dec 2020 10:47:27 -0500
-X-Gmail-Original-Message-ID: <CABfawh=nS2nuFEyx+7Hi5S5HUYtqXTJ6LMTLpZErs5_d22GWgQ@mail.gmail.com>
-Message-ID: <CABfawh=nS2nuFEyx+7Hi5S5HUYtqXTJ6LMTLpZErs5_d22GWgQ@mail.gmail.com>
-Subject: Re: Hypercall fault injection (Was [PATCH 0/3] xen/domain: More
- structured teardown)
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Juergen Gross <jgross@suse.com>, 
-	Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="00000000000014d2cc05b70f802a"
-X-Virus-Scanned: ClamAV using ClamSMTP
-
---00000000000014d2cc05b70f802a
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=il1CBejvLpAsLC0GkDZgkzrKY2ZMO1DCIK0QMQYJ0uo=; b=Eet3zmIuzW/PmaXNLItLnmop6i
+	z888S11vGt8/GHZI0RKsvfABm2sv3NkJbKWs8zFJk1E+E1rGd0uVDqxDurnPvBUNKAQalMC0YLsQh
+	0hvjvXnUrEhC1WocRNrAT+fl//u/hM4bCK+SinpeF7eB/0EmU4TvQvmBTRVKcr8hx9XI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-157776-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 157776: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
+    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
+    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:debian-install:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
+    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:debian-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-examine:examine-iommu:fail:regression
+    linux-linus:test-amd64-amd64-amd64-pvgrub:guest-localmigrate/x10:fail:regression
+    linux-linus:test-amd64-amd64-i386-pvgrub:guest-stop:fail:regression
+    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-arm64-arm64-libvirt-xsm:leak-check/basis(11):fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:leak-check/basis(11):fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=8653b778e454a7708847aeafe689bce07aeeb94e
+X-Osstest-Versions-That:
+    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 22 Dec 2020 16:06:44 +0000
 
-On Tue, Dec 22, 2020 at 6:14 AM Andrew Cooper <andrew.cooper3@citrix.com>
-wrote:
+flight 157776 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/157776/
 
-> On 22/12/2020 10:00, Jan Beulich wrote:
-> > On 21.12.2020 20:36, Andrew Cooper wrote:
-> >> Hello,
-> >>
-> >> We have some very complicated hypercalls, createdomain, and max_vcpus a
-> >> close second, with immense complexity, and very hard-to-test error
-> handling.
-> >>
-> >> It is no surprise that the error handling is riddled with bugs.
-> >>
-> >> Random failures from core functions is one way, but I'm not sure that
-> >> will be especially helpful.  In particular, we'd need a way to exclude
-> >> "dom0 critical" operations so we've got a usable system to run testing
-> on.
-> >>
-> >> As an alternative, how about adding a fault_ttl field into the
-> hypercall?
-> >>
-> >> The exact paths taken in {domain,vcpu}_create() are sensitive to the
-> >> hardware, Xen Kconfig, and other parameters passed into the
-> >> hypercall(s).  The testing logic doesn't really want to care about what
-> >> failed; simply that the error was handled correctly.
-> >>
-> >> So a test for this might look like:
-> >>
-> >> cfg = { ... };
-> >> while ( xc_create_domain(xch, cfg) < 0 )
-> >>     cfg.fault_ttl++;
-> >>
-> >>
-> >> The pro's of this approach is that for a specific build of Xen on a
-> >> piece of hardware, it ought to check every failure path in
-> >> domain_create(), until the ttl finally gets higher than the number of
-> >> fail-able actions required to construct a domain.  Also, the test
-> >> doesn't need changing as the complexity of domain_create() changes.
-> >>
-> >> The main con will mostly likely be the invasiveness of code in Xen, but
-> >> I suppose any fault injection is going to be invasive to a certain
-> extent.
-> > While I like the idea in principle, the innocent looking
-> >
-> > cfg = { ... };
-> >
-> > is quite a bit of a concern here as well: Depending on the precise
-> > settings, paths taken in the hypervisor may heavily vary, and hence
-> > such a test will only end up being useful if it covers a wide
-> > variety of settings. Even if the number of tests to execute turned
-> > out to still be manageable today, it may quickly turn out not
-> > sufficiently scalable as we add new settings controllable right at
-> > domain creation (which I understand is the plan).
->
-> Well - there are two aspects here.
->
-> First, 99% of all VMs in practice are one of 3 or 4 configurations.  An
-> individual configuration is O(n) time complexity to test with fault_ttl,
-> depending on the size of Xen's logic, and we absolutely want to be able
-> to test these deterministically and to completion.
->
-> For the plethora of other configurations, I agree that it is infeasible
-> to test them all.  However, a hypercall like this is easy to wire up
-> into a fuzzing harness.
->
-> TBH, I was thinking of something like
-> https://github.com/intel/kernel-fuzzer-for-xen-project with a PVH Xen
-> and XTF "dom0" poking just this hypercall.  All the other complicated
-> bits of wiring AFL up appear to have been done.
->
-> Perhaps when we exhaust that as a source of bugs, we move onto fuzzing
-> the L0 Xen, because running on native will give it more paths to
-> explore.  We'd need some way of reporting path/trace data back to AFL in
-> dom0 which might require a bit plumbing.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
+ test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
+ test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
+ test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
+ test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
+ test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 152332
+ test-arm64-arm64-xl-seattle  12 debian-install           fail REGR. vs. 152332
+ test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 152332
+ test-amd64-amd64-xl-credit2  14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-xl-xsm      14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
+ test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 152332
+ test-amd64-amd64-xl-credit1  14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 152332
+ test-amd64-amd64-xl-multivcpu 14 guest-start             fail REGR. vs. 152332
+ test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 152332
+ test-arm64-arm64-xl-xsm      12 debian-install           fail REGR. vs. 152332
+ test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 152332
+ test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 152332
+ test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 152332
+ test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 152332
+ test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 152332
+ test-arm64-arm64-examine     13 examine-iommu            fail REGR. vs. 152332
+ test-amd64-amd64-amd64-pvgrub 19 guest-localmigrate/x10  fail REGR. vs. 152332
+ test-amd64-amd64-i386-pvgrub 20 guest-stop               fail REGR. vs. 152332
+ test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 152332
+
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 152332
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt-xsm 11 leak-check/basis(11)    fail blocked in 152332
+ test-arm64-arm64-xl-credit1  11 leak-check/basis(11)    fail blocked in 152332
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
+ test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 152332
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152332
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152332
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                8653b778e454a7708847aeafe689bce07aeeb94e
+baseline version:
+ linux                deacdb3e3979979016fcd0ffd518c320a62ad166
+
+Last test of basis   152332  2020-07-31 19:41:23 Z  143 days
+Failing since        152366  2020-08-01 20:49:34 Z  142 days  246 attempts
+Testing same since   157776  2020-12-21 21:40:31 Z    0 days    1 attempts
+
+------------------------------------------------------------
+4305 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           fail    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-i386-xl-xsm                                       fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      fail    
+ test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-i386-qemut-rhel6hvm-intel                         fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-i386-pair                                         fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-amd64-pvgrub                                fail    
+ test-amd64-amd64-i386-pvgrub                                 fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-amd64-i386-xl-shadow                                    fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-This is a pretty cool idea, I would be very interested in trying this out.
-If running Xen nested in a HVM domain is possible (my experiments with
-nested setups using Xen have only worked on ancient hw last time I tried)
-then running the fuzzer would be entirely possible using VM forks. You
-don't even need a special "dom0", you could just add the fuzzer's CPUID
-harness to Xen's hypercall handler and the only thing needed from the
-nested dom0 would be to trigger the hypercall with a normal config. The
-fuzzer would take it from there and replace the config with the fuzzed
-version directly in VM forks. Defining what to report as a "crash" to AFL
-would still need to be defined manually for Xen as the current sink points
-are Linux specific (
-https://github.com/intel/kernel-fuzzer-for-xen-project/blob/master/src/sink.h),
-but that should be straight forward.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Also, running the fuzzer with PVH guests hasn't been tested but since all
-VM forking needs is EPT it should work.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Tamas
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---00000000000014d2cc05b70f802a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Dec 22, 2020 at 6:14 AM Andre=
-w Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com">andrew.cooper3@ci=
-trix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
-"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
-ft:1ex">On 22/12/2020 10:00, Jan Beulich wrote:<br>
-&gt; On 21.12.2020 20:36, Andrew Cooper wrote:<br>
-&gt;&gt; Hello,<br>
-&gt;&gt;<br>
-&gt;&gt; We have some very complicated hypercalls, createdomain, and max_vc=
-pus a<br>
-&gt;&gt; close second, with immense complexity, and very hard-to-test error=
- handling.<br>
-&gt;&gt;<br>
-&gt;&gt; It is no surprise that the error handling is riddled with bugs.<br=
->
-&gt;&gt;<br>
-&gt;&gt; Random failures from core functions is one way, but I&#39;m not su=
-re that<br>
-&gt;&gt; will be especially helpful.=C2=A0 In particular, we&#39;d need a w=
-ay to exclude<br>
-&gt;&gt; &quot;dom0 critical&quot; operations so we&#39;ve got a usable sys=
-tem to run testing on.<br>
-&gt;&gt;<br>
-&gt;&gt; As an alternative, how about adding a fault_ttl field into the hyp=
-ercall?<br>
-&gt;&gt;<br>
-&gt;&gt; The exact paths taken in {domain,vcpu}_create() are sensitive to t=
-he<br>
-&gt;&gt; hardware, Xen Kconfig, and other parameters passed into the<br>
-&gt;&gt; hypercall(s).=C2=A0 The testing logic doesn&#39;t really want to c=
-are about what<br>
-&gt;&gt; failed; simply that the error was handled correctly.<br>
-&gt;&gt;<br>
-&gt;&gt; So a test for this might look like:<br>
-&gt;&gt;<br>
-&gt;&gt; cfg =3D { ... };<br>
-&gt;&gt; while ( xc_create_domain(xch, cfg) &lt; 0 )<br>
-&gt;&gt; =C2=A0=C2=A0=C2=A0 cfg.fault_ttl++;<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; The pro&#39;s of this approach is that for a specific build of Xen=
- on a<br>
-&gt;&gt; piece of hardware, it ought to check every failure path in<br>
-&gt;&gt; domain_create(), until the ttl finally gets higher than the number=
- of<br>
-&gt;&gt; fail-able actions required to construct a domain.=C2=A0 Also, the =
-test<br>
-&gt;&gt; doesn&#39;t need changing as the complexity of domain_create() cha=
-nges.<br>
-&gt;&gt;<br>
-&gt;&gt; The main con will mostly likely be the invasiveness of code in Xen=
-, but<br>
-&gt;&gt; I suppose any fault injection is going to be invasive to a certain=
- extent.<br>
-&gt; While I like the idea in principle, the innocent looking<br>
-&gt;<br>
-&gt; cfg =3D { ... };<br>
-&gt;<br>
-&gt; is quite a bit of a concern here as well: Depending on the precise<br>
-&gt; settings, paths taken in the hypervisor may heavily vary, and hence<br=
->
-&gt; such a test will only end up being useful if it covers a wide<br>
-&gt; variety of settings. Even if the number of tests to execute turned<br>
-&gt; out to still be manageable today, it may quickly turn out not<br>
-&gt; sufficiently scalable as we add new settings controllable right at<br>
-&gt; domain creation (which I understand is the plan).<br>
-<br>
-Well - there are two aspects here.<br>
-<br>
-First, 99% of all VMs in practice are one of 3 or 4 configurations.=C2=A0 A=
-n<br>
-individual configuration is O(n) time complexity to test with fault_ttl,<br=
->
-depending on the size of Xen&#39;s logic, and we absolutely want to be able=
-<br>
-to test these deterministically and to completion.<br>
-<br>
-For the plethora of other configurations, I agree that it is infeasible<br>
-to test them all.=C2=A0 However, a hypercall like this is easy to wire up<b=
-r>
-into a fuzzing harness.<br>
-<br>
-TBH, I was thinking of something like<br>
-<a href=3D"https://github.com/intel/kernel-fuzzer-for-xen-project" rel=3D"n=
-oreferrer" target=3D"_blank">https://github.com/intel/kernel-fuzzer-for-xen=
--project</a> with a PVH Xen<br>
-and XTF &quot;dom0&quot; poking just this hypercall.=C2=A0 All the other co=
-mplicated<br>
-bits of wiring AFL up appear to have been done.<br>
-<br>
-Perhaps when we exhaust that as a source of bugs, we move onto fuzzing<br>
-the L0 Xen, because running on native will give it more paths to<br>
-explore.=C2=A0 We&#39;d need some way of reporting path/trace data back to =
-AFL in<br>
-dom0 which might require a bit plumbing.</blockquote><div><br></div><div>Th=
-is is a pretty cool idea, I would be very interested in trying this out. If=
- running Xen nested in a HVM domain is possible (my experiments with nested=
- setups using Xen have only worked on ancient hw last time I tried) then ru=
-nning the fuzzer would be entirely possible using VM forks. You don&#39;t e=
-ven need a special &quot;dom0&quot;, you could just add the fuzzer&#39;s CP=
-UID harness to Xen&#39;s hypercall handler and the only thing needed from t=
-he nested dom0 would be to trigger the hypercall with a normal config. The =
-fuzzer would take it from there and replace the config with the fuzzed vers=
-ion directly in VM forks. Defining what to report as a &quot;crash&quot; to=
- AFL would still need to be defined manually for Xen as the current sink po=
-ints are Linux specific (<a href=3D"https://github.com/intel/kernel-fuzzer-=
-for-xen-project/blob/master/src/sink.h">https://github.com/intel/kernel-fuz=
-zer-for-xen-project/blob/master/src/sink.h</a>), but that should be straigh=
-t forward.</div><div><br></div><div>Also, running the fuzzer with PVH guest=
-s hasn&#39;t been tested but since all VM forking needs is EPT it should wo=
-rk.</div><div><br></div><div>Tamas</div><div><br></div><div>=C2=A0</div></d=
-iv></div>
 
---00000000000014d2cc05b70f802a--
+Not pushing.
+
+(No revision log; it would be 963314 lines long.)
 
