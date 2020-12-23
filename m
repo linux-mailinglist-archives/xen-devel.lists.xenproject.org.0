@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A78252E1D87
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 15:44:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58404.102659 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DF882E1D9A
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 15:51:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58408.102672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks5N4-00051Y-TZ; Wed, 23 Dec 2020 14:44:10 +0000
+	id 1ks5Tm-0005vI-MJ; Wed, 23 Dec 2020 14:51:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58404.102659; Wed, 23 Dec 2020 14:44:10 +0000
+Received: by outflank-mailman (output) from mailman id 58408.102672; Wed, 23 Dec 2020 14:51:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks5N4-000519-QM; Wed, 23 Dec 2020 14:44:10 +0000
-Received: by outflank-mailman (input) for mailman id 58404;
- Wed, 23 Dec 2020 14:44:09 +0000
+	id 1ks5Tm-0005ut-Iw; Wed, 23 Dec 2020 14:51:06 +0000
+Received: by outflank-mailman (input) for mailman id 58408;
+ Wed, 23 Dec 2020 14:51:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ks5N3-000514-R5
- for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 14:44:09 +0000
+ (envelope-from <julien@xen.org>) id 1ks5Tl-0005uo-7W
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 14:51:05 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ks5N2-0008VW-6Y; Wed, 23 Dec 2020 14:44:08 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ id 1ks5Tk-0000Co-Ub; Wed, 23 Dec 2020 14:51:04 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ks5N1-00017O-Uq; Wed, 23 Dec 2020 14:44:08 +0000
+ id 1ks5Tk-0001Vf-J1; Wed, 23 Dec 2020 14:51:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,104 +42,100 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=WJjkdlNdwkLx1Zcf3xRAV5oKtc6B48Kt5A71CejeDiA=; b=G0bvFQEt8NTKESQbKOAwPDTPK3
-	hsq90rqZIbXoKflFnHdY6RXJroK7gN8KPlZILYsswvs9vONfmsheMLJdk1GehRS8TYbxlUBiwxj02
-	OK6gWeH3k0ux8QTxgZmHTFX2QlZJS0K9lb72W+QWIhVYvNySgZYodkoXJSZ+AS7pHYp8=;
-Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
- per-channel lock held
-To: Jan Beulich <jbeulich@suse.com>,
- Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <lengyelt@ainfosec.com>,
- Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
- <d821c715-966a-b48b-a877-c5dac36822f0@suse.com>
- <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
- <7a768bcd-80c1-d193-8796-7fb6720fa22a@suse.com>
- <1a8250f5-ea49-ac3a-e992-be7ec40deba9@xen.org>
- <CABfawhkQcUD4f62zpg0cyrdQgG82XtpYRZZ_-50hjagooT530A@mail.gmail.com>
- <5862eb24-d894-455a-13ac-61af54f949e7@xen.org>
- <CABfawhkWQiOhLL8f3NzoWbeuag-f+YOOK0i_LJzZq5Yvoh=oHQ@mail.gmail.com>
- <fd384990-376e-40f4-f0b8-1a889b3a0c51@suse.com>
- <9ee6016a-d3b3-c847-4775-0e05c8578110@xen.org>
- <CABfawhkcHX+FSRRfYwUNd8DweW04=91sSg2PTWy7vjq_DXwMQg@mail.gmail.com>
- <d365ce00-bc3a-de7c-565a-c4cb61063e74@suse.com>
- <ed5fc3e2-42b1-477a-c424-05ddf7fd3bf4@xen.org>
- <3b339f30-57db-caf6-fd7e-84199f98546f@suse.com>
+	bh=S7o+EeqIdIJBX3fRCfK7TTLHGtlVHL1LzmI9tHSpEao=; b=UwmwhydUhevpSaavUJrCPchwTB
+	P+h3VkUsKojhNY/VwYNllWY2SqtzqDXKcwrphsIUjLZjHV7cVzD2z7Zy2Axs0mktnH9RAzKbSTbPt
+	+ELZXmESGj2FepaeWonFqT7903a8c8cwsbCaAGlKywUIhkSiwZ3ALuPaxk12yidVHB+g=;
+Subject: Re: [PATCH for-4.15 1/4] xen/iommu: Check if the IOMMU was
+ initialized before tearing down
+To: Jan Beulich <jbeulich@suse.com>
+Cc: hongyxia@amazon.co.uk, Julien Grall <jgrall@amazon.com>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20201222154338.9459-1-julien@xen.org>
+ <20201222154338.9459-2-julien@xen.org>
+ <d9dd2fbc-d4bb-6b12-73e7-52a4fdda9020@suse.com>
+ <eaba5e4c-91c9-9341-cc8f-d58aa08358a2@xen.org>
+ <6339b4ab-9be3-0b70-a474-14213e8609c0@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <9c214bc1-61db-5b33-f610-40c2a59edb75@xen.org>
-Date: Wed, 23 Dec 2020 14:44:05 +0000
+Message-ID: <903075fe-6482-0e1b-c124-932db4790382@xen.org>
+Date: Wed, 23 Dec 2020 14:51:02 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <3b339f30-57db-caf6-fd7e-84199f98546f@suse.com>
+In-Reply-To: <6339b4ab-9be3-0b70-a474-14213e8609c0@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
+Hi Jan,
 
-
-On 23/12/2020 13:41, Jan Beulich wrote:
-> On 23.12.2020 14:33, Julien Grall wrote:
->> On 23/12/2020 13:12, Jan Beulich wrote:
->>>  From the input by both of you I still can't
->>> conclude whether this patch should remain as is in v4, or revert
->>> back to its v2 version. Please can we get this settled so I can get
->>> v4 out?
+On 23/12/2020 13:59, Jan Beulich wrote:
+> On 23.12.2020 14:50, Julien Grall wrote:
+>> On 23/12/2020 13:27, Jan Beulich wrote:
+>>> On 22.12.2020 16:43, Julien Grall wrote:
+>>>> --- a/xen/drivers/passthrough/iommu.c
+>>>> +++ b/xen/drivers/passthrough/iommu.c
+>>>> @@ -226,7 +226,15 @@ static void iommu_teardown(struct domain *d)
+>>>>    
+>>>>    void iommu_domain_destroy(struct domain *d)
+>>>>    {
+>>>> -    if ( !is_iommu_enabled(d) )
+>>>> +    struct domain_iommu *hd = dom_iommu(d);
+>>>> +
+>>>> +    /*
+>>>> +     * In case of failure during the domain construction, it would be
+>>>> +     * possible to reach this function with the IOMMU enabled but not
+>>>> +     * yet initialized. We assume that hd->platforms will be non-NULL as
+>>>> +     * soon as we start to initialize the IOMMU.
+>>>> +     */
+>>>> +    if ( !is_iommu_enabled(d) || !hd->platform_ops )
+>>>>            return;
+>>>
+>>>   From your description I'd rather say is_iommu_enabled() is the
+>>> wrong predicate to use here. IOW I'd rather see it be replaced.
 >>
->> I haven't had time to investigate the rest of the VM event code to find
->> other cases where this may happen. I still think there is a bigger
->> problem in the VM event code, but the maintainer disagrees here.
->>
->> At which point, I see limited reason to try to paper over in the common
->> code. So I would rather ack/merge v2 rather than v3.
+>> !hd->platform_ops should be sufficient. So, I think we can drop
+>> !is_iommu_enabled(d). Would that be fine with you?
 > 
-> Since I expect Tamas and/or the Bitdefender folks to be of the
-> opposite opinion, there's still no way out, at least if "rather
-> ack" implies a nak for v3.
+> Well, that's what I was trying to suggest.
+> 
+>>> A couple of additional nits: "hd" isn't really necessary to
+>>> have as a local variable, but if you insist on introducing it
+>>> despite being used just once, it should be pointer-to-const.
+>>> Plus the comment would better spell correctly the field it
+>>> talks about. But I consider this comment excessive anyway, as
+>>> the check of ->platform_ops is quite clear by itself.
+>>
+>> Well, I added the comment because I think check hd->platform_ops may not
+>> be that obvious (see more below).
+>>
+>>> And finally "we assume" is in at least latent conflict with
+>>> ->platform_ops getting set only after arch_iommu_domain_init()
+>>> was called. Right now neither x86'es nor Arm's do anything
+>>> that would need undoing, but I'd still suggest to replace
+>>> "assume" here (if you want to keep the comment in the first
+>>> place) and move the assignment up a few lines (right after the
+>>> is_iommu_enabled() check there).
+>> My initial implementation of this patch moved the initialization of
+>> hd->platform_ops before arch_iommu_domain_init().
+>>
+>> However, this is going to lead to some issues with Paul's series which
+>> add an IOMMU page-table pool ([1]).
+>>
+>> The function arch_iommu_domain_init() may now fail. If we initialize
+>> hd->platform_ops earlier on, then the ->teardown() will be called before
+>> ->init().
+>>
+>> This may be an issue if ->teardown() expects some list pointer to be
+>> initialized by ->init(). I am not aware of any today, but this seems
+>> quite risky to me.
+> 
+> In such a case the obvious thing is to make the teardown handler
+> check whether its init counterpart has run before. This will then
+> fit our apparently much wider goal of making cleanup functions
+> idempotent.
 
-The only way out here is for someone to justify why this patch is 
-sufficient for the VM event race. I am not convinced it is (see more below).
-
-> Personally, if this expectation of
-> mine is correct, I'd prefer to keep the accounting but make it
-> optional (as suggested in a post-commit-message remark).
-> That'll eliminate the overhead you appear to be concerned of,
-> but of course it'll further complicate the logic (albeit just
-> slightly).
-
-I am more concerned about adding over complex code that would just 
-papering over a bigger problem. I also can't see use of it outside of 
-the VM event discussion.
-
-I had another look at the code. As I mentioned in the past, 
-vm_put_event_request() is able to deal with d != current->domain (it 
-will set VM_EVENT_FLAG_FOREIGN). There are 4 callers for the function:
-    1) p2m_mem_paging_drop_page()
-    2) p2m_mem_paging_populate()
-    3) mem_sharing_notify_enomem()
-    4) monitor_traps()
-
-1) and 2) belongs to the mem paging subsystem. Tamas suggested that it 
-was abandoned.
-
-4) can only be called with the current domain.
-
-This leave us 3) in the mem sharing subsystem. As this is call the 
-memory hypercalls, it looks possible to me that d != current->domain. 
-The code also seems to be maintained (there were recent non-trivial 
-changes).
-
-Can one of the VM event developper come up with a justification why this 
-patch enough to make the VM event subsystem safe?
-
-FAOD, the justification should be solely based on the hypervisor code 
-(IOW not external trusted software).
+I will have a look. This may require another boolean which I wanted to 
+avoid.
 
 Cheers,
 
