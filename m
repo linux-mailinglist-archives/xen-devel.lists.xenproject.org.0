@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DF9E2E1BC4
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 12:23:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58315.102432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5B172E1C1B
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 13:12:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58326.102443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks2Dn-0002kc-62; Wed, 23 Dec 2020 11:22:23 +0000
+	id 1ks2zj-0007AP-C7; Wed, 23 Dec 2020 12:11:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58315.102432; Wed, 23 Dec 2020 11:22:23 +0000
+Received: by outflank-mailman (output) from mailman id 58326.102443; Wed, 23 Dec 2020 12:11:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks2Dn-0002kD-2q; Wed, 23 Dec 2020 11:22:23 +0000
-Received: by outflank-mailman (input) for mailman id 58315;
- Wed, 23 Dec 2020 11:22:21 +0000
+	id 1ks2zj-00079l-8i; Wed, 23 Dec 2020 12:11:55 +0000
+Received: by outflank-mailman (input) for mailman id 58326;
+ Wed, 23 Dec 2020 12:11:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ks2Dl-0002k6-LS
- for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 11:22:21 +0000
+ (envelope-from <julien@xen.org>) id 1ks2zh-00078v-DI
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 12:11:53 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ks2Dk-0005Ah-Co; Wed, 23 Dec 2020 11:22:20 +0000
+ id 1ks2zh-0005yT-09; Wed, 23 Dec 2020 12:11:53 +0000
 Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ks2Dk-0004Yr-0G; Wed, 23 Dec 2020 11:22:20 +0000
+ id 1ks2zg-000808-I3; Wed, 23 Dec 2020 12:11:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,163 +42,239 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=StB7O/4hGb7k4MeHNLujDpS/algM4RjyptBAZ0qLXjw=; b=bJeBfNAdaEOWAe5trS7OejCHxy
-	8hXQYjZ14RKpK9p7WPWTuXuUiAG1vjY5Zf/4DKgJ1g2cgneehboUPtjX2MjX95wXEC3LKB+7NYWCF
-	0Ym2x97q/+DWzdSRU/mG6FoQWYc86l20+TmqoJh7p+y/R84ew+t89q56O2zY5dSDpyz8=;
-Subject: Re: [PATCH v3 4/5] evtchn: convert domain event lock to an r/w one
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
- <a333387e-f9e5-7051-569a-1a9a37da53ca@suse.com>
- <074be931-54b0-1b0f-72d8-5bd577884814@xen.org>
- <6e34fd25-14a2-f655-b019-aca94ce086c8@suse.com>
- <55dc24b4-88c6-1b22-411e-267231632377@xen.org>
- <cf3faa68-ba4a-b864-66e0-f379a24a48ce@suse.com>
- <1f3571eb-5aec-e76e-0b61-2602356fb436@xen.org>
- <099b99bc-c544-0aa8-c3b4-4871ef618e4a@suse.com>
+	bh=F6fSyM14HFpSsU75WnH6iy/6U807IzlHqi196s7yAv0=; b=DTU1mjfuD/nWu/HUv19zFxr5tx
+	mSoy7JW6wZwaaOC1//V2VbelPTVWkmsK2PYuPsp+DvQ9zIZOHzKUNDsbTTeWipyK8+wBwFd7uB7lL
+	SVggZHmkDQkQugerLknmNtJdTc4r/gHffAfThG6x7b0omZT4bQYjyGqidIRrbdLyreaE=;
+Subject: Re: xen/evtchn: Interrupt for port 34, but apparently not enabled;
+ per-user 00000000a86a4c1b on 5.10
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, aams@amazon.de
+Cc: linux-kernel@vger.kernel.org,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ foersleo@amazon.de
+References: <ce881240-284f-8470-10f1-5cce353ee903@xen.org>
+ <b5c32c48-3e74-2045-62ec-560b19766389@suse.com>
+ <da65a69e-389b-1602-1479-6799ce10c101@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <aa169dc2-77f2-b3e9-80f4-d5f4d6ea54f1@xen.org>
-Date: Wed, 23 Dec 2020 11:22:18 +0000
+Message-ID: <0a577a27-2d7d-4717-a959-1d6b3adc580c@xen.org>
+Date: Wed, 23 Dec 2020 12:11:50 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <099b99bc-c544-0aa8-c3b4-4871ef618e4a@suse.com>
+In-Reply-To: <da65a69e-389b-1602-1479-6799ce10c101@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+Hi Juergen,
 
-On 22/12/2020 09:46, Jan Beulich wrote:
-> On 21.12.2020 18:45, Julien Grall wrote:
->> On 14/12/2020 09:40, Jan Beulich wrote:
->>> On 11.12.2020 11:57, Julien Grall wrote:
->>>> On 11/12/2020 10:32, Jan Beulich wrote:
->>>>> On 09.12.2020 12:54, Julien Grall wrote:
->>>>>> On 23/11/2020 13:29, Jan Beulich wrote:
->>>>>>> @@ -620,7 +620,7 @@ int evtchn_close(struct domain *d1, int
->>>>>>>          long           rc = 0;
->>>>>>>      
->>>>>>>       again:
->>>>>>> -    spin_lock(&d1->event_lock);
->>>>>>> +    write_lock(&d1->event_lock);
->>>>>>>      
->>>>>>>          if ( !port_is_valid(d1, port1) )
->>>>>>>          {
->>>>>>> @@ -690,13 +690,11 @@ int evtchn_close(struct domain *d1, int
->>>>>>>                      BUG();
->>>>>>>      
->>>>>>>                  if ( d1 < d2 )
->>>>>>> -            {
->>>>>>> -                spin_lock(&d2->event_lock);
->>>>>>> -            }
->>>>>>> +                read_lock(&d2->event_lock);
->>>>>>
->>>>>> This change made me realized that I don't quite understand how the
->>>>>> rwlock is meant to work for event_lock. I was actually expecting this to
->>>>>> be a write_lock() given there are state changed in the d2 events.
->>>>>
->>>>> Well, the protection needs to be against racing changes, i.e.
->>>>> parallel invocations of this same function, or evtchn_close().
->>>>> It is debatable whether evtchn_status() and
->>>>> domain_dump_evtchn_info() would better also be locked out
->>>>> (other read_lock() uses aren't applicable to interdomain
->>>>> channels).
->>>>>
->>>>>> Could you outline how a developper can find out whether he/she should
->>>>>> use read_lock or write_lock?
->>>>>
->>>>> I could try to, but it would again be a port type dependent
->>>>> model, just like for the per-channel locks.
->>>>
->>>> It is quite important to have clear locking strategy (in particular
->>>> rwlock) so we can make correct decision when to use read_lock or write_lock.
->>>>
->>>>> So I'd like it to
->>>>> be clarified first whether you aren't instead indirectly
->>>>> asking for these to become write_lock()
->>>>
->>>> Well, I don't understand why this is a read_lock() (even with your
->>>> previous explanation). I am not suggesting to switch to a write_lock(),
->>>> but instead asking for the reasoning behind the decision.
+On 15/12/2020 10:20, Jürgen Groß wrote:
+> On 15.12.20 08:27, Jürgen Groß wrote:
+>> On 14.12.20 22:25, Julien Grall wrote:
+>>> Hi Juergen,
 >>>
->>> So if what I've said in my previous reply isn't enough (including the
->>> argument towards using two write_lock() here), I'm struggling to
->>> figure what else to say. The primary goal is to exclude changes to
->>> the same ports. For this it is sufficient to hold just one of the two
->>> locks in writer mode, as the other (racing) one will acquire that
->>> same lock for at least reading. The question whether both need to use
->>> writer mode can only be decided when looking at the sites acquiring
->>> just one of the locks in reader mode (hence the reference to
->>> evtchn_status() and domain_dump_evtchn_info()) - if races with them
->>> are deemed to be a problem, switching to both-writers will be needed.
+>>> When testing Linux 5.10 dom0, I could reliably hit the following 
+>>> warning with using event 2L ABI:
+>>>
+>>> [  589.591737] Interrupt for port 34, but apparently not enabled; 
+>>> per-user 00000000a86a4c1b
+>>> [  589.593259] WARNING: CPU: 0 PID: 1111 at 
+>>> /home/ANT.AMAZON.COM/jgrall/works/oss/linux/drivers/xen/evtchn.c:170 
+>>> evtchn_interrupt+0xeb/0x100
+>>> [  589.595514] Modules linked in:
+>>> [  589.596145] CPU: 0 PID: 1111 Comm: qemu-system-i38 Tainted: G 
+>>> W         5.10.0+ #180
+>>> [  589.597708] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), 
+>>> BIOS rel-1.12.0-59-gc9ba5276e321-prebuilt.qemu.org 04/01/2014
+>>> [  589.599782] RIP: e030:evtchn_interrupt+0xeb/0x100
+>>> [  589.600698] Code: 48 8d bb d8 01 00 00 ba 01 00 00 00 be 1d 00 00 
+>>> 00 e8 d9 10 ca ff eb b2 8b 75 20 48 89 da 48 c7 c7 a8 31 3d 82 e8 65 
+>>> 29 a0 ff <0f> 0b e9 42 ff ff ff 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 
+>>> 00 00 0f
+>>> [  589.604087] RSP: e02b:ffffc90040003e70 EFLAGS: 00010086
+>>> [  589.605102] RAX: 0000000000000000 RBX: ffff888102091800 RCX: 
+>>> 0000000000000027
+>>> [  589.606445] RDX: 0000000000000000 RSI: ffff88817fe19150 RDI: 
+>>> ffff88817fe19158
+>>> [  589.607790] RBP: ffff88810f5ab980 R08: 0000000000000001 R09: 
+>>> 0000000000328980
+>>> [  589.609134] R10: 0000000000000000 R11: ffffc90040003c70 R12: 
+>>> ffff888107fd3c00
+>>> [  589.610484] R13: ffffc90040003ed4 R14: 0000000000000000 R15: 
+>>> ffff88810f5ffd80
+>>> [  589.611828] FS:  00007f960c4b8ac0(0000) GS:ffff88817fe00000(0000) 
+>>> knlGS:0000000000000000
+>>> [  589.613348] CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+>>> [  589.614525] CR2: 00007f17ee72e000 CR3: 000000010f5b6000 CR4: 
+>>> 0000000000050660
+>>> [  589.615874] Call Trace:
+>>> [  589.616402]  <IRQ>
+>>> [  589.616855]  __handle_irq_event_percpu+0x4e/0x2c0
+>>> [  589.617784]  handle_irq_event_percpu+0x30/0x80
+>>> [  589.618660]  handle_irq_event+0x3a/0x60
+>>> [  589.619428]  handle_edge_irq+0x9b/0x1f0
+>>> [  589.620209]  generic_handle_irq+0x4f/0x60
+>>> [  589.621008]  evtchn_2l_handle_events+0x160/0x280
+>>> [  589.621913]  __xen_evtchn_do_upcall+0x66/0xb0
+>>> [  589.622767]  __xen_pv_evtchn_do_upcall+0x11/0x20
+>>> [  589.623665]  asm_call_irq_on_stack+0x12/0x20
+>>> [  589.624511]  </IRQ>
+>>> [  589.624978]  xen_pv_evtchn_do_upcall+0x77/0xf0
+>>> [  589.625848]  exc_xen_hypervisor_callback+0x8/0x10
+>>>
+>>> This can be reproduced when creating/destroying guest in a loop. 
+>>> Although, I have struggled to reproduce it on a vanilla Xen.
+>>>
+>>> After several hours of debugging, I think I have found the root cause.
+>>>
+>>> While we only expect the unmask to happen when the event channel is 
+>>> EOIed, there is an unmask happening as part of handle_edge_irq() 
+>>> because the interrupt was seen as pending by another vCPU 
+>>> (IRQS_PENDING is set).
+>>>
+>>> It turns out that the event channel is set for multiple vCPU is in 
+>>> cpu_evtchn_mask. This is happening because the affinity is not 
+>>> cleared when freeing an event channel.
+>>>
+>>> The implementation of evtchn_2l_handle_events() will look for all the 
+>>> active interrupts for the current vCPU and later on clear the pending 
+>>> bit (via the ack() callback). IOW, I believe, this is not an atomic 
+>>> operation.
+>>>
+>>> Even if Xen will notify the event to a single vCPU, 
+>>> evtchn_pending_sel may still be set on the other vCPU (thanks to a 
+>>> different event channel). Therefore, there is a chance that two vCPUs 
+>>> will try to handle the same interrupt.
+>>>
+>>> The IRQ handler handle_edge_irq() is able to deal with that and will 
+>>> mask/unmask the interrupt. This will mess us with the lateeoi logic 
+>>> (although, I managed to reproduce it once without XSA-332).
 >>
->> I had another look at the code based on your explanation. I don't think
->> it is fine to allow evtchn_status() to be concurrently called with
->> evtchn_close().
+>> Thanks for the analysis!
 >>
->> evtchn_close() contains the following code:
+>>> My initial idea to fix the problem was to switch the affinity from 
+>>> CPU X to CPU0 when the event channel is freed.
+>>>
+>>> However, I am not sure this is enough because I haven't found 
+>>> anything yet preventing a race between evtchn_2l_handle_events9) and 
+>>> evtchn_2l_bind_vcpu().
+>>>
+>>> So maybe we want to introduce a refcounting (if there is nothing 
+>>> provided by the IRQ framework) and only unmask when the counter drop 
+>>> to 0.
+>>>
+>>> Any opinions?
 >>
->>     chn2->state = ECS_UNBOUND;
->>     chn2->u.unbound.remote_domid = d1->domain_id;
+>> I think we don't need a refcount, but just the internal states "masked"
+>> and "eoi_pending" and unmask only if both are false. "masked" will be
+>> set when the event is being masked. When delivering a lateeoi irq
+>> "eoi_pending" will be set and "masked "reset. "masked" will be reset
+>> when a normal unmask is happening. And "eoi_pending" will be reset
+>> when a lateeoi is signaled. Any reset of "masked" and "eoi_pending"
+>> will check the other flag and do an unmask if both are false.
 >>
->> Where chn2 is a event channel of the remote domain (d2). Your patch will
->> only held the read lock for d2.
->>
->> However evtchn_status() expects the event channel state to not change
->> behind its back. This assumption doesn't hold for d2, and you could
->> possibly end up to see the new value of chn2->state after the new
->> chn2->u.unbound.remote_domid.
->>
->> Thanksfully, it doesn't look like chn2->u.interdomain.remote_domain
->> would be overwritten. Otherwise, this would be a straight dereference of
->> an invalid pointer.
->>
->> So I think, we need to held the write event lock for both domain.
+>> I'll write a patch.
 > 
-> Well, okay. Three considerations though:
-> 
-> 1) Neither evtchn_status() nor domain_dump_evtchn_info() appear to
-> have a real need to acquire the per-domain lock. They could as well
-> acquire the per-channel ones. (In the latter case this will then
-> also allow inserting the so far missing process_pending_softirqs()
-> call; it shouldn't be made with a lock held.)
-I agree that evtchn_status() doesn't need to acquire the per-domain 
-lock. I am not entirely sure about domain_dump_evtchn_info() because 
-AFAICT the PIRQ tree (used by domain_pirq_to_irq()) is protected with 
-d->event_lock.
+> Julien, could you please test the attached (only build tested) patch?
 
-> 
-> 2) With the double-locking changed and with 1) addressed, there's
-> going to be almost no read_lock() left. hvm_migrate_pirqs() and
-> do_physdev_op()'s PHYSDEVOP_eoi handling, evtchn_move_pirqs(), and
-> hvm_dpci_msi_eoi(). While for these it may still be helpful to be
-> possible to run in parallel, I then nevertheless wonder whether the
-> change as a whole is still worthwhile.
+I can boot dom0 and a guest. However, if I destroy the guest and create 
+a new one, I will get hundreds of WARN() similar to the one I originally 
+reported and the guest wouldn't boot.
 
-I can see some value in one future case. As we are going to support 
-non-cooperative migration of guest, we will need to restore event 
-channels (including PIRQs) for the domain. From my understanding, when 
-the vCPU is first scheduled we will end up to migrate all the interrupts 
-as the vCPU may not be created on the targeted pCPU.
+The same issue can now be reproduced on a vanilla Xen 4.15 and Linux 
+5.10 (no change expect your patch). I haven't looked at the code but it 
+looks like to me the interrupt state is getting de-synchronized when 
+re-used.
 
-So allowing evtchn_mode_pirqs() and hvm_migrate_pirqs() to run in 
-parallel would slighlty reduce the downtime. Although, I don't have any 
-numbers backing this statement.
+I also got the below splat once, so I am not entirely sure if this is 
+related:
 
-> 3) With the per-channel double locking and with 1) addressed I
-> can't really see the need for the double per-domain locking in
-> evtchn_bind_interdomain() and evtchn_close(). The write lock is
-> needed for the domain allocating a new port or freeing one. But why
-> is there any need for holding the remote domain's lock, when its
-> side of the channel gets guarded by the per-channel lock anyway?
-
-If 1) is addressed, then I think it should be fine to just acquire the 
-read event lock of the remote domain.
+[   86.134903] ------------[ cut here ]------------
+[   86.135950] WARNING: CPU: 0 PID: 904 at linux/kernel/softirq.c:175 
+__local_bh_enable_ip+0x9a/0xd0
+[   86.138232] Modules linked in:
+[   86.138937] CPU: 0 PID: 904 Comm: xenstored Not tainted 5.10.0+ #183
+[   86.140162] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 
+rel-1.14.0-0-g155821a1990b-prebuilt.qemu.org 04/01/2014
+[   86.142221] RIP: e030:__local_bh_enable_ip+0x9a/0xd0
+[   86.143204] Code: 00 ff ff 00 74 3e 65 ff 0d 63 fa f2 7e e8 0e 15 13 
+00 e8 59 55 f4 ff 66 90 48 83 c4 08 5b c3 65 8b 05 46 0a f3 7e 85 c0 75 
+99 <0f> 0b eb 95 48 89 3c 24 e8 93
+[   86.146587] RSP: e02b:ffffc90040003ad0 EFLAGS: 00010246
+[   86.147632] RAX: 0000000000000000 RBX: 0000000000000200 RCX: 
+ffffe8ffffc05000
+[   86.148986] RDX: 00000000000000f7 RSI: 0000000000000200 RDI: 
+ffffffff81a4e9c3
+[   86.150354] RBP: ffff8881003124b0 R08: 0000000000000001 R09: 
+0000000000000000
+[   86.151722] R10: 0000000000000000 R11: 0000000000000000 R12: 
+ffff88810d150600
+[   86.153078] R13: ffff88810d2b3f8e R14: ffff8881030b0000 R15: 
+ffffc90040003c10
+[   86.154422] FS:  00007f39a12f5240(0000) GS:ffff88817fe00000(0000) 
+knlGS:0000000000000000
+[   86.155958] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   86.157063] CR2: 00007f0754002858 CR3: 000000010e13a000 CR4: 
+0000000000050660
+[   86.158409] Call Trace:
+[   86.158959]  <IRQ>
+[   86.159425]  ? __local_bh_disable_ip+0x4b/0x60
+[   86.160329]  ipt_do_table+0x36f/0x660
+[   86.161079]  ? lock_acquire+0x252/0x3a0
+[   86.161846]  ? ip_local_deliver+0x70/0x200
+[   86.162664]  nf_hook_slow+0x43/0xb0
+[   86.163398]  ip_local_deliver+0x15b/0x200
+[   86.164200]  ? ip_protocol_deliver_rcu+0x270/0x270
+[   86.165146]  ip_rcv+0x13a/0x210
+[   86.165794]  ? __lock_acquire+0x2e2/0x1a30
+[   86.166610]  ? lock_is_held_type+0xe9/0x110
+[   86.167477]  __netif_receive_skb_core+0x414/0xf60
+[   86.168468]  ? find_held_lock+0x2d/0x90
+[   86.169279]  ? __netif_receive_skb_list_core+0x134/0x2d0
+[   86.170353]  __netif_receive_skb_list_core+0x134/0x2d0
+[   86.171373]  netif_receive_skb_list_internal+0x1ef/0x3c0
+[   86.172402]  ? e1000_clean_rx_irq+0x338/0x3d0
+[   86.173285]  gro_normal_list.part.149+0x19/0x40
+[   86.174171]  napi_complete_done+0xf3/0x1a0
+[   86.175013]  e1000e_poll+0xc9/0x2b0
+[   86.175738]  net_rx_action+0x176/0x4e0
+[   86.176500]  __do_softirq+0xd4/0x432
+[   86.177230]  irq_exit_rcu+0xbc/0xc0
+[   86.177946]  asm_call_irq_on_stack+0xf/0x20
+[   86.178780]  </IRQ>
+[   86.179267]  xen_pv_evtchn_do_upcall+0x77/0xf0
+[   86.180169]  exc_xen_hypervisor_callback+0x8/0x10
+[   86.181098] RIP: e030:xen_hypercall_domctl+0xa/0x20
+[   86.182055] Code: 51 41 53 b8 23 00 00 00 0f 05 41 5b 59 c3 cc cc cc 
+cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc 51 41 53 b8 24 00 00 00 0f 
+05 <41> 5b 59 c3 cc cc cc cc cc cc
+[   86.185490] RSP: e02b:ffffc900407dbe18 EFLAGS: 00000282
+[   86.186563] RAX: 0000000000000000 RBX: ffff888104f7b000 RCX: 
+ffffffff8100248a
+[   86.187973] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 
+deadbeefdeadf00d
+[   86.189381] RBP: ffffffffffffffff R08: 0000000000000000 R09: 
+0000000000000000
+[   86.190753] R10: 0000000000000000 R11: 0000000000000282 R12: 
+0000000000305000
+[   86.192113] R13: 00007ffdc8d6a5a0 R14: 0000000000000008 R15: 
+0000000000000000
+[   86.193473]  ? xen_hypercall_domctl+0xa/0x20
+[   86.194324]  ? privcmd_ioctl+0x179/0xa80
+[   86.195131]  ? common_file_perm+0x84/0x2c0
+[   86.195956]  ? __x64_sys_ioctl+0x8e/0xd0
+[   86.196744]  ? lockdep_hardirqs_on+0x4d/0xf0
+[   86.197598]  ? do_syscall_64+0x33/0x80
+[   86.198347]  ? entry_SYSCALL_64_after_hwframe+0x44/0xa9
+[   86.199402] irq event stamp: 39806070
+[   86.200168] hardirqs last  enabled at (39806078): 
+[<ffffffff8116c714>] console_unlock+0x4b4/0x5b0
+[   86.201832] hardirqs last disabled at (39806085): 
+[<ffffffff8116c670>] console_unlock+0x410/0x5b0
+[   86.203508] softirqs last  enabled at (39685022): 
+[<ffffffff81e0030f>] __do_softirq+0x30f/0x432
+[   86.205140] softirqs last disabled at (39805575): 
+[<ffffffff810e857c>] irq_exit_rcu+0xbc/0xc0
+[   86.206739] ---[ end trace 178144c74d23e738 ]---
 
 Cheers,
 
