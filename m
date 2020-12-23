@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0686B2E2131
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 21:16:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58587.103192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E60C82E21B0
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 21:45:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58594.103206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ksAYA-0004yN-U2; Wed, 23 Dec 2020 20:15:58 +0000
+	id 1ksB0X-0007bx-7b; Wed, 23 Dec 2020 20:45:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58587.103192; Wed, 23 Dec 2020 20:15:58 +0000
+Received: by outflank-mailman (output) from mailman id 58594.103206; Wed, 23 Dec 2020 20:45:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ksAYA-0004xv-Pd; Wed, 23 Dec 2020 20:15:58 +0000
-Received: by outflank-mailman (input) for mailman id 58587;
- Wed, 23 Dec 2020 20:15:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ksAY9-0004xn-4d; Wed, 23 Dec 2020 20:15:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ksAY8-0006Kk-WE; Wed, 23 Dec 2020 20:15:57 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ksAY8-0004Hi-NW; Wed, 23 Dec 2020 20:15:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ksAY8-0001Uh-N3; Wed, 23 Dec 2020 20:15:56 +0000
+	id 1ksB0X-0007bY-4B; Wed, 23 Dec 2020 20:45:17 +0000
+Received: by outflank-mailman (input) for mailman id 58594;
+ Wed, 23 Dec 2020 20:45:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UxwC=F3=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1ksB0V-0007bQ-N3
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 20:45:15 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e571ab90-7c47-4c0c-9450-a477725d5b69;
+ Wed, 23 Dec 2020 20:45:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +35,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=YWeaA31/Lp9l6y1vHKTQMMFW82B1I2yzjGSo+WxjEk8=; b=PGBYurlrq5S+AMlJq0ehLGVGar
-	xps+P/V/EGz1vyK3TrHIZimqpg6tElKbb8cSbFZMHeFbkE9JaE7/cihh7q+bRjHX/UDDMOXWEVcy1
-	XJs5yRDLiWYFOj/udpZGMLsiITySDinQ62HAV9170wqmq4HG5iv49+P3pEoJRyCDlHCw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157856-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e571ab90-7c47-4c0c-9450-a477725d5b69
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1608756314;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=VcDRdLCPQ0tSFy5EC+0JfufBLFLHQk9/isCxuNjtbeo=;
+  b=K0SKGjgvFuvPeWQ9OQ3kweB+lPmA9iDqI9pBCSNcJCR9YvjMC02c2V95
+   wdp67k3pFeYhufSWZGIHW+iBnT1JpxpI8Hlwr3sWZtuBn7mmrgeAI+hdE
+   lv4y/vSivOWPH/O++ik+LOKW/K6T2LeJvHlMJ+boyQ/HYvjp7ibuXrs9U
+   I=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: VnFW6XtpNTgxgsucMleoa7VtQwCPaiAWgwpLBQbSgIPy4UYG26PJ/4YX7rPDzoD5llRp+mdmS5
+ DacpOHVnyz8iqUi66OMzyYq2C8SZ/kDOBPgQKm9R3NPxYNDZRFvcAIyB+o5zN+ktZZEVIzaY8r
+ 0YxReaHoQ5X8gNNodSJx8EZtQsgH79w73k6Xcu3ZkF+yhdHYuhBQPwApOAgNEkVYXp4emnZoQH
+ VuXRrK/apZM8ntihWFeIYfOubcC5hO2+xbBXDr3MQQHsrR+x+GVWIXdwmIT7pagoHaaz3aVBGz
+ oo4=
+X-SBRS: 5.2
+X-MesageID: 35121504
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,442,1599537600"; 
+   d="scan'208";a="35121504"
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>,
+	<wl@xen.org>, <jun.nakajima@intel.com>, <kevin.tian@intel.com>, "Igor
+ Druzhinin" <igor.druzhinin@citrix.com>
+Subject: [PATCH v3] x86/intel: insert Ice Lake-X (server) and Ice Lake-D model numbers
+Date: Wed, 23 Dec 2020 20:32:00 +0000
+Message-ID: <1608755520-1277-1-git-send-email-igor.druzhinin@citrix.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Subject: [ovmf test] 157856: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=e2747dbb5a44f4a463ecc6dd0f7fd113ee57bd67
-X-Osstest-Versions-That:
-    ovmf=d15d0d3d8aee1c7d5dab7b636601370061b32612
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 23 Dec 2020 20:15:56 +0000
+Content-Type: text/plain
 
-flight 157856 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157856/
+LBR, C-state MSRs should correspond to Ice Lake desktop according to
+External Design Specification vol.2 for both models.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 e2747dbb5a44f4a463ecc6dd0f7fd113ee57bd67
-baseline version:
- ovmf                 d15d0d3d8aee1c7d5dab7b636601370061b32612
+Ice Lake-X is known to expose IF_PSCHANGE_MC_NO in IA32_ARCH_CAPABILITIES MSR
+(confirmed on Whitley SDP) which means the erratum is fixed in hardware for
+that model and therefore it shouldn't be present in has_if_pschange_mc list.
+Provisionally assume the same to be the case for Ice Lake-D.
 
-Last test of basis   157848  2020-12-23 07:52:03 Z    0 days
-Testing same since   157856  2020-12-23 14:11:47 Z    0 days    1 attempts
+Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+---
+Changes in v3:
+- Add Ice Lake-D model numbers
+- Drop has_if_pschange_mc hunk following Tiger Lake related discussion -
+  IF_PSCHANGE_MC_NO is confimed to be exposed on Whitley SDP
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Masahisa Kojima <masahisa.kojima@linaro.org>
+---
+ xen/arch/x86/acpi/cpu_idle.c | 2 ++
+ xen/arch/x86/hvm/vmx/vmx.c   | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
+index c092086..d788c8b 100644
+--- a/xen/arch/x86/acpi/cpu_idle.c
++++ b/xen/arch/x86/acpi/cpu_idle.c
+@@ -181,6 +181,8 @@ static void do_get_hw_residencies(void *arg)
+     case 0x55:
+     case 0x5E:
+     /* Ice Lake */
++    case 0x6A:
++    case 0x6C:
+     case 0x7D:
+     case 0x7E:
+     /* Tiger Lake */
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 2d4475e..bff5979 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2775,7 +2775,7 @@ static const struct lbr_info *last_branch_msr_get(void)
+         /* Goldmont Plus */
+         case 0x7a:
+         /* Ice Lake */
+-        case 0x7d: case 0x7e:
++        case 0x6a: case 0x6c: case 0x7d: case 0x7e:
+         /* Tiger Lake */
+         case 0x8c: case 0x8d:
+         /* Tremont */
+-- 
+2.7.4
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   d15d0d3d8a..e2747dbb5a  e2747dbb5a44f4a463ecc6dd0f7fd113ee57bd67 -> xen-tested-master
 
