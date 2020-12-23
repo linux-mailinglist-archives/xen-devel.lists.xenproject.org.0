@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 717212E2221
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 22:33:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58600.103221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84F642E226F
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 23:32:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58605.103235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ksBjr-0003YE-Ql; Wed, 23 Dec 2020 21:32:07 +0000
+	id 1ksCfT-0000Iy-BS; Wed, 23 Dec 2020 22:31:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58600.103221; Wed, 23 Dec 2020 21:32:07 +0000
+Received: by outflank-mailman (output) from mailman id 58605.103235; Wed, 23 Dec 2020 22:31:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ksBjr-0003Xp-N8; Wed, 23 Dec 2020 21:32:07 +0000
-Received: by outflank-mailman (input) for mailman id 58600;
- Wed, 23 Dec 2020 21:32:05 +0000
+	id 1ksCfT-0000IO-8S; Wed, 23 Dec 2020 22:31:39 +0000
+Received: by outflank-mailman (input) for mailman id 58605;
+ Wed, 23 Dec 2020 22:31:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GNZT=F3=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1ksBjp-0003Xk-C9
- for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 21:32:05 +0000
-Received: from mail-qv1-xf35.google.com (unknown [2607:f8b0:4864:20::f35])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ehhk=F3=protonmail.com=dylangerdaly@srs-us1.protection.inumbo.net>)
+ id 1ksCfR-0000IJ-HX
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 22:31:38 +0000
+Received: from mail-40134.protonmail.ch (unknown [185.70.40.134])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 047fbef8-d796-49e9-a86f-6644070ac8df;
- Wed, 23 Dec 2020 21:32:03 +0000 (UTC)
-Received: by mail-qv1-xf35.google.com with SMTP id a13so450880qvv.0
- for <xen-devel@lists.xenproject.org>; Wed, 23 Dec 2020 13:32:03 -0800 (PST)
-Received: from ?IPv6:2607:fb90:2490:9cc4:2476:fb1f:29f7:9ad4?
- ([2607:fb90:2490:9cc4:2476:fb1f:29f7:9ad4])
- by smtp.gmail.com with ESMTPSA id a5sm16395870qtn.57.2020.12.23.13.32.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Dec 2020 13:32:02 -0800 (PST)
+ id f4d70cbf-f8b9-42e9-a91e-acd12361d1c4;
+ Wed, 23 Dec 2020 22:31:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,441 +35,440 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 047fbef8-d796-49e9-a86f-6644070ac8df
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=content-transfer-encoding:from:mime-version:subject:message-id:date
-         :cc:to;
-        bh=IF1Fi9WNO+Q0ToX2Z2DXtCfABhDvr6W+0befsdetbaI=;
-        b=lZH3bozJ52vLj99A3hrkj1uiy+EB3Kd2JmD8SDAgC3njxg/4b/IF7IqdXN+O4vsxkq
-         BhR7y8dZr82iPGimKOcnK7Ct5jBTUNUul+3geuwgDzYcv616tkH2k94bJn3jX9i5vSuK
-         fhbXIQv1/SN2aHmEc73RjS+3IwDGuhfpifr0119xEg+wse4QxCajw7od9RpdU7W4miHF
-         Q9+AFUJtBZJPXrkhImRwIxm7zGhiOsOedKZOkJ2nuv4A20orFH6JkU6WXaWDk9XizmIu
-         vlDukYb/wrb/vx6Ct+HCLEVpvMb4kWiA+5gJ3KE6lqWAggmsrNYY2ybVhGYuBPkHAyaj
-         lFKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:content-transfer-encoding:from:mime-version
-         :subject:message-id:date:cc:to;
-        bh=IF1Fi9WNO+Q0ToX2Z2DXtCfABhDvr6W+0befsdetbaI=;
-        b=JAdcBauZBTFpZCkiX3GF0AQ2hyKf2l0qWudWYawduKLwaGodg1tMBCo7WulKERWWpA
-         CAEwC945qUJRPf/zfBFDwAq2gXLlCaKVwIeCenAYx/sJ0I9368l6Qg0BqG1RiNAAZUsK
-         ifETgxhDhB6ch2awIcRBBatlXJaryznsqCPW+m8zv51dcX5cTxX5O90snDLG0hJH1xPw
-         GAipTfDg9y73WQnUkzLj8+s8enqbvY16ruloEpRZIhlki8LR77pfNUiw2uiszMnEqxdF
-         vJu3PGLYEf2VM7e40rrKW9k9mNxpJwFD8tpza5eLY/Lr4ixmzkO67megbfjNrqbLNavJ
-         NxRg==
-X-Gm-Message-State: AOAM533NxpRp/PsvEjJTGPeUFhn4NBfBuSj/+n7M7PkwQuTOsMyYVt3Z
-	Tg9dVOvCYbD9u7oi4Eh0FBE=
-X-Google-Smtp-Source: ABdhPJwZci8g2Fb/fio8uJCdyyOvKcgrANAPQwLXQtOKtle9eyks701oNx/oQqbT8YwTR3m0oDIivg==
-X-Received: by 2002:a0c:b21e:: with SMTP id x30mr28485289qvd.21.1608759122814;
-        Wed, 23 Dec 2020 13:32:02 -0800 (PST)
-Content-Type: multipart/alternative; boundary=Apple-Mail-1EDF01CF-DC35-4301-BB7C-E7B738FFF897
-Content-Transfer-Encoding: 7bit
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [openxt-dev] VirtIO-Argo initial development proposal
-Message-Id: <DBCC8190-7228-483E-AE8A-09880B28F516@gmail.com>
-Date: Wed, 23 Dec 2020 16:32:01 -0500
-Cc: Christopher Clark <christopher.w.clark@gmail.com>,
- openxt <openxt@googlegroups.com>, xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <olekstysh@gmail.com>, roger.pau@citrix.com,
- Julien Grall <jgrall@amazon.com>, James McKenzie <james@bromium.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Paul Durrant <pdurrant@amazon.co.uk>
-To: Jean-Philippe Ouellet <jpo@vt.edu>
-X-Mailer: iPhone Mail (18C66)
-
-
---Apple-Mail-1EDF01CF-DC35-4301-BB7C-E7B738FFF897
-Content-Type: text/plain;
-	charset=utf-8
+X-Inumbo-ID: f4d70cbf-f8b9-42e9-a91e-acd12361d1c4
+Date: Wed, 23 Dec 2020 22:31:26 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail; t=1608762690;
+	bh=f66g+qZIboOqSZhmi7qd5JGQeF+vAKCetIFSrUaG8AU=;
+	h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+	b=Ox6gZ1jepMc4rhl+bFqtZyAKjed6Z9Kr0JT3tR1TIAsB3SiF7Ts0XpNRs352pIpYl
+	 6n/jlXAVEys46Uvwl18Cqk10uxn8Iqh9YsFSnpnkVRx6T7BxCD0Yz4exC0U7Qqy29j
+	 5kkRHbNBjCgFmjTG3B3fetWaFGjewMta9yt/PoAw=
+To: Dario Faggioli <dfaggioli@suse.com>
+From: Dylanger Daly <dylangerdaly@protonmail.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
+Subject: Re: Ryzen 4000 (Mobile) Softlocks/Micro-stutters
+Message-ID: <YpdaXYxTuQqTe8UiFzMxsHQfY-cANXdoOaLH9_nrbz-mGgWcuCMSd-p1RWfnyva7zhn-CybnECNp5YAHhamjsehHJ6Roc7WUz6TYYh79INM=@protonmail.com>
+In-Reply-To: <815f3bc3a28a165e8fa41c6954a6d00db656e3c3.camel@suse.com>
+References: <9lQU_gCfRzGyyNb2j86pxTMi1IET1Iq7iK3994agUZPrTI5Xd-aCJAaRYuJlD3L5LT2WaV4N3-YF4xKl5ukialT0M_YD0ve6gmDFFfatpXw=@protonmail.com> <2cc5da3e-0ad0-4647-f1ca-190788c2910b@citrix.com> <3pKjdPYCiRimYjqHQP0xd_vqhoTOJqthTXOrY_rLeNvnQEpIF24gXDKgRhmr95JfARJzbVJVbfTrrJeiovGVHGbV0QBSZ2jez2Y_wt6db7g=@protonmail.com> <768d9dbb-4387-099f-b489-7952d7e883b0@suse.com> <T95F2Mi9RUUZ4w2wdeRqqM4uRyKgOFQNyooqEoTTDByK-0t9hZ1izG68lf90iExeYabEPSEv8puUeg0SEJtOmz8vYbVox2za28DXLd_h-_s=@protonmail.com> <eba12ea4-5dda-f112-0e33-714e859b9b03@suse.com> <815f3bc3a28a165e8fa41c6954a6d00db656e3c3.camel@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+	T_FILL_THIS_FORM_SHORT shortcircuit=no autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+	mailout.protonmail.ch
 
-=EF=BB=BFOn Dec 17, 2020, at 07:13, Jean-Philippe Ouellet <jpo@vt.edu> wrote=
-:
-> =EF=BB=BFOn Wed, Dec 16, 2020 at 2:37 PM Christopher Clark
-> <christopher.w.clark@gmail.com> wrote:
->> Hi all,
->>=20
->> I have written a page for the OpenXT wiki describing a proposal for
->> initial development towards the VirtIO-Argo transport driver, and the
->> related system components to support it, destined for OpenXT and
->> upstream projects:
->>=20
->> https://openxt.atlassian.net/wiki/spaces/~cclark/pages/1696169985/VirtIO-=
-Argo+Development+Phase+1
->>=20
->> Please review ahead of tomorrow's OpenXT Community Call.
->>=20
->> I would draw your attention to the Comparison of Argo interface options s=
-ection:
->>=20
->> https://openxt.atlassian.net/wiki/spaces/~cclark/pages/1696169985/VirtIO-=
-Argo+Development+Phase+1#Comparison-of-Argo-interface-options
->>=20
->> where further input to the table would be valuable;
->> and would also appreciate input on the IOREQ project section:
->>=20
->> https://openxt.atlassian.net/wiki/spaces/~cclark/pages/1696169985/VirtIO-=
-Argo+Development+Phase+1#Project:-IOREQ-for-VirtIO-Argo
->>=20
->> in particular, whether an IOREQ implementation to support the
->> provision of devices to the frontends can replace the need for any
->> userspace software to interact with an Argo kernel interface for the
->> VirtIO-Argo implementation.
->>=20
->> thanks,
->> Christopher
->=20
-> Hi,
->=20
-> Really excited to see this happening, and disappointed that I'm not
-> able to contribute at this time. I don't think I'll be able to join
-> the call, but wanted to share some initial thoughts from my
-> middle-of-the-night review anyway.
->=20
-> Super rough notes in raw unedited notes-to-self form:
->=20
-> main point of feedback is: I love the desire to get a non-shared-mem
-> transport backend for virtio standardized. It moves us closer to an
-> HMX-only world. BUT: virtio is relevant to many hypervisors beyond
-> Xen, not all of which have the same views on how policy enforcement
-> should be done, namely some have a preference for capability-oriented
-> models over type-enforcement / MAC models. It would be nice if any
-> labeling encoded into the actual specs / guest-boundary protocols
-> would be strictly a mechanism, and be policy-agnostic, in particular
-> not making implicit assumptions about XSM / SELinux / similar. I don't
-> have specific suggestions at this point, but would love to discuss.
->=20
-> thoughts on how to handle device enumeration? hotplug notifications?
-> - can't rely on xenstore
-> - need some internal argo messaging for this?
-> - name service w/ well-known names? starts to look like xenstore
-> pretty quickly...
-> - granular disaggregation of backend device-model providers desirable
->=20
-> how does resource accounting work? each side pays for their own delivery r=
-ing?
-> - init in already-guest-mapped mem & simply register?
-> - how does it compare to grant tables?
->  - do you need to go through linux driver to alloc (e.g. xengntalloc)
-> or has way to share arbitrary otherwise not-special userspace pages
-> (e.g. u2mfn, with all its issues (pinning, reloc, etc.))?
->=20
-> ioreq is tangled with grant refs, evt chans, generic vmexit
-> dispatcher, instruction decoder, etc. none of which seems desirable if
-> trying to move towards world with strictly safer guest interfaces
-> exposed (e.g. HMX-only)
-> - there's no io to trap/decode here, it's explicitly exclusively via
-> hypercall to HMX, no?
-> - also, do we want argo sendv hypercall to be always blocking & synchronou=
-s?
->  - or perhaps async notify & background copy to other vm addr space?
->  - possibly better scaling?
->  - accounting of in-flight io requests to handle gets complicated
-> (see recent XSA)
->  - PCI-like completion request semantics? (argo as cross-domain
-> software dma engine w/ some basic protocol enforcement?)
->=20
-> "port" v4v driver =3D> argo:
-> - yes please! something without all the confidence-inspiring
-> DEBUG_{APPLE,ORANGE,BANANA} indicators of production-worthy code would
-> be great ;)
-> - seems like you may want to redo argo hypercall interface too? (at
-> least the syscall interface...)
->  - targeting synchronous blocking sendv()?
->  - or some async queue/completion thing too? (like PF_RING, but with
-> *iov entries?)
->  - both could count as HMX, both could enforce no double-write racing
-> games at dest ring, etc.
->=20
-> re v4vchar & doing similar for argo:
-> - we may prefer "can write N bytes? -> yes/no" or "how many bytes can
-> write? -> N" over "try to write N bytes -> only wrote M, EAGAIN"
-> - the latter can be implemented over the former, but not the other way aro=
-und
-> - starts to matter when you want to be able to implement in userspace
-> & provide backpressure to peer userspace without additional buffering
-> & potential lying about durability of writes
-> - breaks cross-domain EPIPE boundary correctness
-> - Qubes ran into same issues when porting vchan from Xen to KVM
-> initially via vsock
->=20
-> some virtio drivers explicitly use shared mem for more than just
-> communication rings:
-> - e.g. virtio-fs, which can map pages as DAX-like fs backing to share page=
- cache
-> - e.g. virtio-gpu, virtio-wayland, virtio-video, which deal in framebuffer=
-s
-> - needs thought about how best to map semantics to (or at least
-> interoperate cleanly & safely with) HMX-{only,mostly} world
->  - the performance of shared mem actually can meaningfully matter for
-> e.g. large framebuffers in particular due to fundamental memory
-> bandwidth constraints
->=20
-> what is mentioned PX hypervisor? presumably short for PicoXen? any
-> public information?
+Hi Dario,
 
-Not much at the moment, but there is prior public work.  PX is an OSS L0 "Pr=
-otection Hypervisor" in the Hardened Access Terminal (HAT) architecture pres=
-ented by Daniel Smith at the 2020 Xen Summit: https://youtube.com/watch?v=3D=
-Wt-SBhFnDZY&t=3D3m48s
+Thank you for your reply
 
-PX is intended to build on lessons learned from IBM Ultravisor, HP/Bromium A=
-X and AIS Bareflank L0 hypervisors:
+This issue is made much worse with: https://github.com/QubesOS/qubes-vmm-xe=
+n/commit/c28754bdb458281a22e9a9779213c941531b6dff#diff-d98b01176d360f55f58c=
+25d2dfbfadc115718806181ef40d1838d2efa6b2bea1
 
-IBM: https://www.platformsecuritysummit.com/2019/speaker/hunt/
+Reverting `xen: credit2: limit the max number of CPUs in a
+ runqueue` results in stuttering even with dom0 pinned with 1vcpu, currentl=
+y AMD Ryzen 4000 users are maintain a separate build without this change, I=
+ think this commit has something to do with the issues we're experiencing.
 
-HP/Bromium: https://www.platformsecuritysummit.com/2018/speaker/pratt/
-Dec 2019 meeting in Cambridge, Day2 discussion included L0 nesting hyperviso=
-r, UUID semantics, Argo, communication between nested hypervisors: https://l=
-ists.archive.carbon60.com/xen/devel/577800
+Without pinning dom0 1 vcpu this is what the lockups look like: https://img=
+ur.com/a/q7MQRez. Another weird artifact is the mouse (trackpad) will quick=
+ly jerk when being moved.
 
-Bareflank: https://youtube.com/channel/UCH-7Pw96K5V1RHAPn5-cmYA
-Xen Summit 2020 design session notes: https://lists.archive.carbon60.com/xen=
-/devel/591509
+The other interesting thing is appVMs can only use 2 vcpus, allocating more=
+ results in that appVM exibiting stuttering/microlockups
 
-In the long-term, efficient hypervisor nesting will require close cooperatio=
-n with silicon and firmware vendors. Note that Intel is introducing TDX (Tru=
-st Domain Extensions):
+So to get the device working, the following is required
+1. Not revert `xen: credit2: limit the max number of CPUs in a
+ runqueue`
+2. Pin 1 vcpu for donm0
+3. Limit 2 vcpus per appVM
 
-https://software.intel.com/content/www/us/en/develop/articles/intel-trust-do=
-main-extensions.html
-https://www.brighttalk.com/webcast/18206/453600
+> So, just to be sure I am understanding the symptoms correctly: here you
+> say that Credit (and RTDS) "don't boot correctly". In another mail, I
+> think you said that Credit boots, but is unusable due to lag and
+> lockups... Which is which?
 
-There are also a couple of recent papers from Shanghai Jiao Tong University,=
- on using hardware instructions to accelerate inter-domain HMX.
+credit2 is the only scheduler that I can get working, other schedulers don'=
+t boot at all
 
-March 2019: https://ipads.se.sjtu.edu.cn/_media/publications/skybridge-euros=
-ys19.pdf
+> Also, since this looks like it is SMT related, is Credit bootable
+> and/or usable with SMT off? And with SMT on?
 
-> we present SkyBridge, a new communication facility designed and optimized f=
-or synchronous IPC in microkernels. SkyBridge requires no involvement of ker=
-nels during communication and allows a process to directly switch to the vir=
-tual address space of the target process and invoke the target function. Sky=
-Bridge retains the traditional virtual address space isolation and thus can b=
-e easily integrated into existing microkernels. The key idea of SkyBridge is=
- to leverage a commodity hardware feature for virtualization (i.e., [Intel E=
-PT] VMFUNC) to achieve efficient IPC. To leverage the hardware feature, SkyB=
-ridge inserts a tiny virtualization layer (Rootkernel) beneath the original m=
-icrokernel (Subkernel). The Rootkernel is carefully designed to eliminate mo=
-st virtualization overheads. SkyBridge also integrates a series of technique=
-s to guarantee the security properties of IPC. We have implemented SkyBridge=
- on three popular open-source microkernels (seL4, Fiasco.OC, and Google Zirc=
-on). The evaluation results show that SkyBridge improves the speed of IPC by=
- 1.49x to 19.6x for microbenchmarks. For real-world applications (e.g., SQLi=
-te3 database), SkyBridge improves the throughput by 81.9%, 1.44x and 9.59x f=
-or the three microkernels on average.
+Qubes by default disables SMT, just after I sent my email yesterday I was a=
+ctually able to boot with smt enabled as long as I had dom0 allocated 1 vcp=
+u, without dom0 being allocated 1 vcpu the device won't boot at all.
 
-July 2020: https://ipads.se.sjtu.edu.cn/_media/publications/guatc20.pdf
+> It'd be "wonderful" to see _how_ it does that, by seeing the
+> stacktrace (preferrably of a debug build), if there is one. Or, if
+> the system locks, e.g., knowing whether it is responsive at least
+> to debug keys (and, if yest, how the output of the 'r' debug key
+> looks like)
 
-> a redesign of traditional microkernel OSes to harmonize the tension betwee=
-n messaging performance and isolation. UnderBridge moves the OS components o=
-f a microkernel between user space and kernel space at runtime while enforci=
-ng consistent isolation. It retrofits Intel Memory Protection Key for Usersp=
-ace (PKU) in kernel space to achieve such isolation efficiently and design a=
- fast IPC mechanism across those OS components. Thanks to PKU=E2=80=99s extr=
-emely low overhead, the inter-process communication (IPC) roundtrip cost in U=
-nderBridge can be as low as 109 cycles. We have designed and implemented a n=
-ew microkernel called ChCore based on UnderBridge and have also ported Under=
-Bridge to three mainstream microkernels, i.e., seL4, Google Zircon, and Fias=
-co.OC. Evaluations show that UnderBridge speeds up the IPC by 3.0=C3=97 comp=
-ared with the state-of-the-art (e.g., SkyBridge) and improves the performanc=
-e of IPC-intensive applications by up to 13.1=C3=97 for the above three micr=
-okernels
+Because I'm compiling Xen myself, I should absolutely be able to enable deb=
+ug/verbose logging, I'll try to capture more logging today
+
+Here's what I can dig up currently
+
+```
+[chairman@dom0 ~]$ xl info
+host                   : dom0
+release                : 5.8.18-200.fc32.x86_64
+version                : #1 SMP Mon Nov 2 19:49:11 UTC 2020
+machine                : x86_64
+nr_cpus                : 8
+max_cpu_id             : 15
+nr_nodes               : 1
+cores_per_socket       : 8
+threads_per_core       : 1
+cpu_mhz                : 1696.837
+hw_caps                : 178bf3ff:76d8320b:2e500800:244037ff:0000000f:219c9=
+1a9:00400004:00000500
+virt_caps              : pv hvm hvm_directio pv_directio hap
+total_memory           : 30439
+free_memory            : 6644
+sharing_freed_memory   : 0
+sharing_used_memory    : 0
+outstanding_claims     : 0
+free_cpus              : 0
+xen_major              : 4
+xen_minor              : 14
+xen_extra              : .0
+xen_version            : 4.14.0
+xen_caps               : xen-3.0-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-=
+3.0-x86_64
+xen_scheduler          : credit2
+xen_pagesize           : 4096
+platform_params        : virt_start=3D0xffff800000000000
+xen_changeset          :
+xen_commandline        : placeholder console=3Dnone dom0_mem=3Dmin:1024M do=
+m0_mem=3Dmax:4096M dom0_max_vcpus=3D1 dom0_vcpus_pin ucode=3Dscan smt=3Doff=
+ gnttab_max_frames=3D2048 gnttab_max_maptrack_frames=3D4096 ept=3Dexec-sp n=
+o-real-mode edd=3Doff
+cc_compiler            : gcc (GCC) 10.2.1 20201125 (Red Hat 10.2.1-9)
+cc_compile_by          : user
+cc_compile_domain      : [unknown]
+cc_compile_date        : Wed Dec 16 00:00:00 UTC 2020
+build_id               : 9eb1d06c8bbc4686c4a8a6c9ee46d91e106df81d
+xend_config_format     : 4
+
+[chairman@dom0 ~]$ xl vcpu-list
+Name                                ID  VCPU   CPU State   Time(s) Affinity=
+ (Hard / Soft)
+Domain-0                             0     0    0   r--     367.3  0 / 0,2,=
+4,6,8,10,12,14
+sys-net                              1     0   12   -b-      59.9  all / al=
+l
+sys-net                              1     1   10   -b-      61.0  all / al=
+l
+sys-net-dm                           2     0   10   -b-      19.4  all / al=
+l
+sys-usb                              3     0    8   -b-      31.0  all / al=
+l
+sys-usb                              3     1   14   -b-      36.9  all / al=
+l
+sys-usb                              3     2   10   -b-      34.5  all / al=
+l
+sys-usb                              3     3   12   -b-      32.8  all / al=
+l
+sys-usb-dm                           4     0   12   -b-      20.8  all / al=
+l
+sys-firewall                         5     0   10   -b-       1.4  all / al=
+l
+sys-firewall                         5     1   14   -b-      11.0  all / al=
+l
+xxxxxxxxxxxxxx                       6     0   12   -b-       9.2  all / al=
+l
+xxxxxxxxxxxxxx                       6     1   12   -b-       8.0  all / al=
+l
+xxxxxxxxxxxxxxx                      7     0    8   -b-       8.9  all / al=
+l
+xxxxxxxxxxxxxxx                      7     1    8   -b-       6.1  all / al=
+l
+xxxxxxxxxxx                          8     0   14   -b-     399.2  all / al=
+l
+xxxxxxxxxxx                          8     1   12   -b-     454.6  all / al=
+l
+xxxxxxxxxxxxxxxx                     9     0   14   -b-      33.7  all / al=
+l
+xxxxxxxxxxxxxxxx                     9     1    8   -b-      54.1  all / al=
+l
+xxxxxxxxxxxxxxx                     10     0   10   -b-       4.2  all / al=
+l
+xxxxxxxxxxxxxxx                     10     1    8   -b-       7.3  all / al=
+l
+xxxxxxxxxxxx                        11     0    2   -b-      39.7  all / al=
+l
+xxxxxxxxxxxx                        11     1   12   -b-     121.9  all / al=
+l
+email                               12     0    8   -b-      29.2  all / al=
+l
+email                               12     1   14   -b-      84.2  all / al=
+l
 
 
+[2020-12-24 08:34:49] Logfile Opened
+[2020-12-24 08:34:49] (XEN) Built-in command line: ept=3Dexec-sp
+[2020-12-24 08:34:49] (XEN) parameter no-real-mode unknown!
+[2020-12-24 08:34:49] (XEN) parameter edd unknown!
+[2020-12-24 08:34:49]  Xen 4.14.0
+[2020-12-24 08:34:49] (XEN) Xen version 4.14.0 (user@[unknown]) (gcc (GCC) =
+10.2.1 20201125 (Red Hat 10.2.1-9)) debug=3Dn  Wed Dec 16 00:00:00 UTC 2020
+[2020-12-24 08:34:49] (XEN) Latest ChangeSet:
+[2020-12-24 08:34:49] (XEN) Bootloader: GRUB 2.04
+[2020-12-24 08:34:49] (XEN) Command line: placeholder console=3Dnone dom0_m=
+em=3Dmin:1024M dom0_mem=3Dmax:4096M dom0_max_vcpus=3D1 dom0_vcpus_pin ucode=
+=3Dscan smt=3Doff gnttab_max_frames=3D2048 gnttab_max_maptrack_frames=3D409=
+6 ept=3Dexec-sp no-real-mode edd=3Doff
+[2020-12-24 08:34:49] (XEN) Xen image load base address: 0xb8e00000
+[2020-12-24 08:34:49] (XEN) Video information:
+[2020-12-24 08:34:49] (XEN)  VGA is graphics mode 1920x1080, 32 bpp
+[2020-12-24 08:34:49] (XEN) Disc information:
+[2020-12-24 08:34:49] (XEN)  Found 0 MBR signatures
+[2020-12-24 08:34:49] (XEN)  Found 2 EDD information structures
+[2020-12-24 08:34:49] (XEN) EFI RAM map:
+[2020-12-24 08:34:49] (XEN)  [0000000000000000, 000000000009efff] (usable)
+[2020-12-24 08:34:49] (XEN)  [000000000009f000, 000000000009ffff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN)  [00000000000e0000, 00000000000fffff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN)  [0000000000100000, 0000000009bfffff] (usable)
+[2020-12-24 08:34:49] (XEN)  [0000000009c00000, 0000000009d00fff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN)  [0000000009d01000, 0000000009efffff] (usable)
+[2020-12-24 08:34:49] (XEN)  [0000000009f00000, 0000000009f0ffff] (ACPI NVS=
+)
+[2020-12-24 08:34:49] (XEN)  [0000000009f10000, 00000000bd9ddfff] (usable)
+[2020-12-24 08:34:49] (XEN)  [00000000bd9de000, 00000000ca37dfff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN)  [00000000ca37e000, 00000000cc37dfff] (ACPI NVS=
+)
+[2020-12-24 08:34:49] (XEN)  [00000000cc37e000, 00000000cc3fdfff] (ACPI dat=
+a)
+[2020-12-24 08:34:49] (XEN)  [00000000cc3fe000, 00000000cdffffff] (usable)
+[2020-12-24 08:34:49] (XEN)  [00000000ce000000, 00000000cfffffff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN)  [00000000f8000000, 00000000fbffffff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN)  [00000000fde00000, 00000000fdefffff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN)  [00000000fed80000, 00000000fed80fff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN)  [0000000100000000, 00000007af33ffff] (usable)
+[2020-12-24 08:34:49] (XEN)  [00000007af340000, 000000082fffffff] (reserved=
+)
+[2020-12-24 08:34:49] (XEN) ACPI: RSDP CC3FD014, 0024 (r2 LENOVO)
+[2020-12-24 08:34:49] (XEN) ACPI: XSDT CC3FB188, 0104 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: FACP BE499000, 0114 (r6 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: DSDT BE484000, F08E (r1 LENOVO TP-R1C    =
+   1290 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: FACS CC218000, 0040
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BF751000, 00A2 (r1 LENOVO PID0Ssdt  =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BF750000, 0CCC (r1 LENOVO UsbCTabl  =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BF743000, 7216 (r2 LENOVO TP-R1C    =
+      2 MSFT  4000000)
+[2020-12-24 08:34:49] (XEN) ACPI: IVRS BF742000, 01A4 (r2 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BF704000, 0266 (r1 LENOVO     STD3  =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BF6F0000, 0632 (r2 LENOVO Tpm2Tabl  =
+   1000 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: TPM2 BF6EF000, 0034 (r3 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BF6EE000, 0924 (r1 LENOVO WmiTable  =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: MSDM BF6B5000, 0055 (r3 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: BATB BF6A0000, 004A (r2 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: HPET BE498000, 0038 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: APIC BE497000, 0138 (r2 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: MCFG BE496000, 003C (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: SBST BE495000, 0030 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: WSMT BE494000, 0028 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: VFCT BE476000, D484 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BE472000, 39F4 (r1 LENOVO TP-R1C    =
+      1 AMD         1)
+[2020-12-24 08:34:49] (XEN) ACPI: CRAT BE471000, 0F00 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: CDIT BE470000, 0029 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: FPDT BF6C7000, 0034 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BE46E000, 13CF (r1 LENOVO TP-R1C    =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BE46C000, 1576 (r1 LENOVO TP-R1C    =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BE468000, 353C (r1 LENOVO TP-R1C    =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: BGRT BE467000, 0038 (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: UEFI CC217000, 013E (r1 LENOVO TP-R1C    =
+   1290 PTEC        2)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BF74F000, 0090 (r1 LENOVO TP-R1C    =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) ACPI: SSDT BF74E000, 09AD (r1 LENOVO TP-R1C    =
+      1 INTL 20180313)
+[2020-12-24 08:34:49] (XEN) System RAM: 30439MB (31170232kB)
+[2020-12-24 08:34:49] (XEN) Domain heap initialised
+[2020-12-24 08:34:49] (XEN) ACPI: 32/64X FACS address mismatch in FADT - cc=
+218000/0000000000000000, using 32
+[2020-12-24 08:34:49] (XEN) IOAPIC[0]: apic_id 32, version 33, address 0xfe=
+c00000, GSI 0-23
+[2020-12-24 08:34:49] (XEN) IOAPIC[1]: apic_id 33, version 33, address 0xfe=
+c01000, GSI 24-55
+[2020-12-24 08:34:49] (XEN) Enabling APIC mode:  Phys.  Using 2 I/O APICs
+[2020-12-24 08:34:49] (XEN) CPU0: 1400..1700 MHz
+[2020-12-24 08:34:49] (XEN) xstate: size: 0x380 and states: 0x207
+[2020-12-24 08:34:49] (XEN) Speculative mitigation facilities:
+[2020-12-24 08:34:49] (XEN)   Hardware features: IBPB
+[2020-12-24 08:34:49] (XEN)   Compiled-in support: INDIRECT_THUNK
+[2020-12-24 08:34:49] (XEN)   Xen settings: BTI-Thunk LFENCE, SPEC_CTRL: No=
+, Other: IBPB BRANCH_HARDEN
+[2020-12-24 08:34:49] (XEN)   Support for HVM VMs: RSB
+[2020-12-24 08:34:49] (XEN)   Support for PV VMs: RSB
+[2020-12-24 08:34:49] (XEN)   XPTI (64-bit PV only): Dom0 disabled, DomU di=
+sabled (without PCID)
+[2020-12-24 08:34:49] (XEN)   PV L1TF shadowing: Dom0 disabled, DomU disabl=
+ed
+[2020-12-24 08:34:49] (XEN) Using scheduler: SMP Credit Scheduler rev2 (cre=
+dit2)
+[2020-12-24 08:34:49] (XEN) Initializing Credit2 scheduler
+[2020-12-24 08:34:49] (XEN) Platform timer is 14.318MHz HPET
+[2020-12-24 08:34:49] (XEN) Detected 1696.837 MHz processor.
+[2020-12-24 08:34:49] (XEN) Unknown cachability for MFNs 0xe0-0xff
+[2020-12-24 08:34:49] (XEN) AMD-Vi: IOMMU Extended Features:
+[2020-12-24 08:34:49] (XEN) - Peripheral Page Service Request
+[2020-12-24 08:34:49] (XEN) - x2APIC
+[2020-12-24 08:34:49] (XEN) - NX bit
+[2020-12-24 08:34:49] (XEN) - Invalidate All Command
+[2020-12-24 08:34:49] (XEN) - Guest APIC
+[2020-12-24 08:34:49] (XEN) - Performance Counters
+[2020-12-24 08:34:49] (XEN) - Host Address Translation Size: 0x2
+[2020-12-24 08:34:49] (XEN) - Guest Address Translation Size: 0
+[2020-12-24 08:34:49] (XEN) - Guest CR3 Root Table Level: 0x1
+[2020-12-24 08:34:49] (XEN) - Maximum PASID: 0xf
+[2020-12-24 08:34:49] (XEN) - SMI Filter Register: 0x1
+[2020-12-24 08:34:49] (XEN) - SMI Filter Register Count: 0x1
+[2020-12-24 08:34:49] (XEN) - Guest Virtual APIC Modes: 0x1
+[2020-12-24 08:34:49] (XEN) - Dual PPR Log: 0x2
+[2020-12-24 08:34:49] (XEN) - Dual Event Log: 0x2
+[2020-12-24 08:34:49] (XEN) - User / Supervisor Page Protection
+[2020-12-24 08:34:49] (XEN) - Device Table Segmentation: 0x3
+[2020-12-24 08:34:49] (XEN) - PPR Log Overflow Early Warning
+[2020-12-24 08:34:49] (XEN) - PPR Automatic Response
+[2020-12-24 08:34:49] (XEN) - Memory Access Routing and Control: 0
+[2020-12-24 08:34:49] (XEN) - Block StopMark Message
+[2020-12-24 08:34:49] (XEN) - Performance Optimization
+[2020-12-24 08:34:49] (XEN) - MSI Capability MMIO Access
+[2020-12-24 08:34:49] (XEN) - Guest I/O Protection
+[2020-12-24 08:34:49] (XEN) - Enhanced PPR Handling
+[2020-12-24 08:34:49] (XEN) - Attribute Forward
+[2020-12-24 08:34:49] (XEN) - Invalidate IOTLB Type
+[2020-12-24 08:34:49] (XEN) - VM Table Size: 0
+[2020-12-24 08:34:49] (XEN) - Guest Access Bit Update Disable
+[2020-12-24 08:34:49] (XEN) AMD-Vi: IOMMU 0 Enabled.
+[2020-12-24 08:34:49] (XEN) I/O virtualisation enabled
+[2020-12-24 08:34:49] (XEN)  - Dom0 mode: Relaxed
+[2020-12-24 08:34:49] (XEN) Interrupt remapping enabled
+[2020-12-24 08:34:49] (XEN) ENABLING IO-APIC IRQs
+[2020-12-24 08:34:49] (XEN)  -> Using new ACK method
+[2020-12-24 08:34:49] (XEN) Allocated console ring of 32 KiB.
+[2020-12-24 08:34:49] (XEN) HVM: ASIDs enabled.
+[2020-12-24 08:34:49] (XEN) SVM: Supported advanced features:
+[2020-12-24 08:34:49] (XEN)  - Nested Page Tables (NPT)
+[2020-12-24 08:34:49] (XEN)  - Last Branch Record (LBR) Virtualisation
+[2020-12-24 08:34:49] (XEN)  - Next-RIP Saved on #VMEXIT
+[2020-12-24 08:34:49] (XEN)  - VMCB Clean Bits
+[2020-12-24 08:34:49] (XEN)  - DecodeAssists
+[2020-12-24 08:34:49] (XEN)  - Virtual VMLOAD/VMSAVE
+[2020-12-24 08:34:49] (XEN)  - Virtual GIF
+[2020-12-24 08:34:49] (XEN)  - Pause-Intercept Filter
+[2020-12-24 08:34:49] (XEN)  - Pause-Intercept Filter Threshold
+[2020-12-24 08:34:49] (XEN)  - TSC Rate MSR
+[2020-12-24 08:34:49] (XEN) HVM: SVM enabled
+[2020-12-24 08:34:49] (XEN) HVM: Hardware Assisted Paging (HAP) detected
+[2020-12-24 08:34:49] (XEN) HVM: HAP page sizes: 4kB, 2MB, 1GB
+[2020-12-24 08:34:49] (XEN) CPU 1 still not dead...
+[2020-12-24 08:34:49] (XEN) CPU 1 still not dead...
+[2020-12-24 08:34:49] (XEN) Brought up 8 CPUs
+[2020-12-24 08:34:49] (XEN) Scheduling granularity: cpu, 1 CPU per sched-re=
+source
+[2020-12-24 08:34:49] (XEN) xenoprof: Initialization failed. AMD processor =
+family 23 is not supported
+[2020-12-24 08:34:49] (XEN) TSC warp detected, disabling TSC_RELIABLE
+[2020-12-24 08:34:49] (XEN) Dom0 has maximum 264 PIRQs
+[2020-12-24 08:34:49] (XEN)  Xen  kernel: 64-bit, lsb, compat32
+[2020-12-24 08:34:49] (XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000=
+ -> 0x3e00000
+[2020-12-24 08:34:49] (XEN) PHYSICAL MEMORY ARRANGEMENT:
+[2020-12-24 08:34:49] (XEN)  Dom0 alloc.:   000000078c000000->0000000790000=
+000 (1022908 pages to be allocated)
+[2020-12-24 08:34:49] (XEN)  Init. ramdisk: 00000007acdbc000->00000007af1ff=
+5cd
+[2020-12-24 08:34:49] (XEN) VIRTUAL MEMORY ARRANGEMENT:
+[2020-12-24 08:34:49] (XEN)  Loaded kernel: ffffffff81000000->ffffffff83e00=
+000
+[2020-12-24 08:34:49] (XEN)  Init. ramdisk: 0000000000000000->0000000000000=
+000
+[2020-12-24 08:34:49] (XEN)  Phys-Mach map: 0000008000000000->0000008000800=
+000
+[2020-12-24 08:34:49] (XEN)  Start info:    ffffffff83e00000->ffffffff83e00=
+4b8
+[2020-12-24 08:34:49] (XEN)  Xenstore ring: 0000000000000000->0000000000000=
+000
+[2020-12-24 08:34:49] (XEN)  Console ring:  0000000000000000->0000000000000=
+000
+[2020-12-24 08:34:49] (XEN)  Page tables:   ffffffff83e01000->ffffffff83e24=
+000
+[2020-12-24 08:34:49] (XEN)  Boot stack:    ffffffff83e24000->ffffffff83e25=
+000
+[2020-12-24 08:34:49] (XEN)  TOTAL:         ffffffff80000000->ffffffff84000=
+000
+[2020-12-24 08:34:49] (XEN)  ENTRY ADDRESS: ffffffff83128180
+[2020-12-24 08:34:49] (XEN) Dom0 has maximum 1 VCPUs
+[2020-12-24 08:34:49] (XEN) Initial low memory virq threshold set at 0x4000=
+ pages.
+[2020-12-24 08:34:49] (XEN) Scrubbing Free RAM in background
+[2020-12-24 08:34:49] (XEN) Std. Loglevel: Errors and warnings
+[2020-12-24 08:34:49] (XEN) Guest Loglevel: Nothing (Rate-limited: Errors a=
+nd warnings)
+[2020-12-24 08:34:49] (XEN) *** Serial input to DOM0 (type 'CTRL-a' three t=
+imes to switch input)
+[2020-12-24 08:34:49] (XEN) Freed 536kB init memory
+```
 
-For those interested in Argo and VirtIO, there will be a conference call on T=
-hursday, Jan 14th 2021, at 1600 UTC.
+> In absence of that, I only have more questions. :-/ E.g., how are you
+> enabling and disabling SMT, via the command line parameter, or via
+> BIOS?
 
-Rich=
+Currently via Xen's CMDLINE, the Lenovo X13 doesn't have an option to disab=
+le SMT :(
 
---Apple-Mail-1EDF01CF-DC35-4301-BB7C-E7B738FFF897
-Content-Type: text/html;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+> Also, can you perhaps try either upstream 4.14 Xen (from sources, I
+> mean) or the packages for a distro different than QubesOS (perhaps
+> installing such distro, temporarily, in an external HD or whatever).
 
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"></head><body dir=3D"auto"><div dir=3D"ltr">=EF=BB=BFOn Dec 17, 2020, a=
-t 07:13, Jean-Philippe Ouellet &lt;jpo@vt.edu&gt; wrote:<div dir=3D"ltr"><di=
-v dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><blockquote type=3D"cite"><b=
-r></blockquote></div><blockquote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF<sp=
-an>On Wed, Dec 16, 2020 at 2:37 PM Christopher Clark</span><br><span>&lt;chr=
-istopher.w.clark@gmail.com&gt; wrote:</span><br><blockquote type=3D"cite"><s=
-pan>Hi all,</span><br></blockquote><blockquote type=3D"cite"><span></span><b=
-r></blockquote><blockquote type=3D"cite"><span>I have written a page for the=
- OpenXT wiki describing a proposal for</span><br></blockquote><blockquote ty=
-pe=3D"cite"><span>initial development towards the VirtIO-Argo transport driv=
-er, and the</span><br></blockquote><blockquote type=3D"cite"><span>related s=
-ystem components to support it, destined for OpenXT and</span><br></blockquo=
-te><blockquote type=3D"cite"><span>upstream projects:</span><br></blockquote=
-><blockquote type=3D"cite"><span></span><br></blockquote><blockquote type=3D=
-"cite"><span>https://openxt.atlassian.net/wiki/spaces/~cclark/pages/16961699=
-85/VirtIO-Argo+Development+Phase+1</span><br></blockquote><blockquote type=3D=
-"cite"><span></span><br></blockquote><blockquote type=3D"cite"><span>Please r=
-eview ahead of tomorrow's OpenXT Community Call.</span><br></blockquote><blo=
-ckquote type=3D"cite"><span></span><br></blockquote><blockquote type=3D"cite=
-"><span>I would draw your attention to the Comparison of Argo interface opti=
-ons section:</span><br></blockquote><blockquote type=3D"cite"><span></span><=
-br></blockquote><blockquote type=3D"cite"><span>https://openxt.atlassian.net=
-/wiki/spaces/~cclark/pages/1696169985/VirtIO-Argo+Development+Phase+1#Compar=
-ison-of-Argo-interface-options</span><br></blockquote><blockquote type=3D"ci=
-te"><span></span><br></blockquote><blockquote type=3D"cite"><span>where furt=
-her input to the table would be valuable;</span><br></blockquote><blockquote=
- type=3D"cite"><span>and would also appreciate input on the IOREQ project se=
-ction:</span><br></blockquote><blockquote type=3D"cite"><span></span><br></b=
-lockquote><blockquote type=3D"cite"><span>https://openxt.atlassian.net/wiki/=
-spaces/~cclark/pages/1696169985/VirtIO-Argo+Development+Phase+1#Project:-IOR=
-EQ-for-VirtIO-Argo</span><br></blockquote><blockquote type=3D"cite"><span></=
-span><br></blockquote><blockquote type=3D"cite"><span>in particular, whether=
- an IOREQ implementation to support the</span><br></blockquote><blockquote t=
-ype=3D"cite"><span>provision of devices to the frontends can replace the nee=
-d for any</span><br></blockquote><blockquote type=3D"cite"><span>userspace s=
-oftware to interact with an Argo kernel interface for the</span><br></blockq=
-uote><blockquote type=3D"cite"><span>VirtIO-Argo implementation.</span><br><=
-/blockquote><blockquote type=3D"cite"><span></span><br></blockquote><blockqu=
-ote type=3D"cite"><span>thanks,</span><br></blockquote><blockquote type=3D"c=
-ite"><span>Christopher</span><br></blockquote><span></span><br><span>Hi,</sp=
-an><br><span></span><br><span>Really excited to see this happening, and disa=
-ppointed that I'm not</span><br><span>able to contribute at this time. I don=
-'t think I'll be able to join</span><br><span>the call, but wanted to share s=
-ome initial thoughts from my</span><br><span>middle-of-the-night review anyw=
-ay.</span><br><span></span><br><span>Super rough notes in raw unedited notes=
--to-self form:</span><br><span></span><br><span>main point of feedback is: I=
- love the desire to get a non-shared-mem</span><br><span>transport backend f=
-or virtio standardized. It moves us closer to an</span><br><span>HMX-only wo=
-rld. BUT: virtio is relevant to many hypervisors beyond</span><br><span>Xen,=
- not all of which have the same views on how policy enforcement</span><br><s=
-pan>should be done, namely some have a preference for capability-oriented</s=
-pan><br><span>models over type-enforcement / MAC models. It would be nice if=
- any</span><br><span>labeling encoded into the actual specs / guest-boundary=
- protocols</span><br><span>would be strictly a mechanism, and be policy-agno=
-stic, in particular</span><br><span>not making implicit assumptions about XS=
-M / SELinux / similar. I don't</span><br><span>have specific suggestions at t=
-his point, but would love to discuss.</span><br><span></span><br><span>thoug=
-hts on how to handle device enumeration? hotplug notifications?</span><br><s=
-pan>- can't rely on xenstore</span><br><span>- need some internal argo messa=
-ging for this?</span><br><span>- name service w/ well-known names? starts to=
- look like xenstore</span><br><span>pretty quickly...</span><br><span>- gran=
-ular disaggregation of backend device-model providers desirable</span><br><s=
-pan></span><br><span>how does resource accounting work? each side pays for t=
-heir own delivery ring?</span><br><span>- init in already-guest-mapped mem &=
-amp; simply register?</span><br><span>- how does it compare to grant tables?=
-</span><br><span> &nbsp;- do you need to go through linux driver to alloc (e=
-.g. xengntalloc)</span><br><span>or has way to share arbitrary otherwise not=
--special userspace pages</span><br><span>(e.g. u2mfn, with all its issues (p=
-inning, reloc, etc.))?</span><br><span></span><br><span>ioreq is tangled wit=
-h grant refs, evt chans, generic vmexit</span><br><span>dispatcher, instruct=
-ion decoder, etc. none of which seems desirable if</span><br><span>trying to=
- move towards world with strictly safer guest interfaces</span><br><span>exp=
-osed (e.g. HMX-only)</span><br><span>- there's no io to trap/decode here, it=
-'s explicitly exclusively via</span><br><span>hypercall to HMX, no?</span><b=
-r><span>- also, do we want argo sendv hypercall to be always blocking &amp; s=
-ynchronous?</span><br><span> &nbsp;- or perhaps async notify &amp; backgroun=
-d copy to other vm addr space?</span><br><span> &nbsp;- possibly better scal=
-ing?</span><br><span> &nbsp;- accounting of in-flight io requests to handle g=
-ets complicated</span><br><span>(see recent XSA)</span><br><span> &nbsp;- PC=
-I-like completion request semantics? (argo as cross-domain</span><br><span>s=
-oftware dma engine w/ some basic protocol enforcement?)</span><br><span></sp=
-an><br><span>"port" v4v driver =3D&gt; argo:</span><br><span>- yes please! s=
-omething without all the confidence-inspiring</span><br><span>DEBUG_{APPLE,O=
-RANGE,BANANA} indicators of production-worthy code would</span><br><span>be g=
-reat ;)</span><br><span>- seems like you may want to redo argo hypercall int=
-erface too? (at</span><br><span>least the syscall interface...)</span><br><s=
-pan> &nbsp;- targeting synchronous blocking sendv()?</span><br><span> &nbsp;=
-- or some async queue/completion thing too? (like PF_RING, but with</span><b=
-r><span>*iov entries?)</span><br><span> &nbsp;- both could count as HMX, bot=
-h could enforce no double-write racing</span><br><span>games at dest ring, e=
-tc.</span><br><span></span><br><span>re v4vchar &amp; doing similar for argo=
-:</span><br><span>- we may prefer "can write N bytes? -&gt; yes/no" or "how m=
-any bytes can</span><br><span>write? -&gt; N" over "try to write N bytes -&g=
-t; only wrote M, EAGAIN"</span><br><span>- the latter can be implemented ove=
-r the former, but not the other way around</span><br><span>- starts to matte=
-r when you want to be able to implement in userspace</span><br><span>&amp; p=
-rovide backpressure to peer userspace without additional buffering</span><br=
-><span>&amp; potential lying about durability of writes</span><br><span>- br=
-eaks cross-domain EPIPE boundary correctness</span><br><span>- Qubes ran int=
-o same issues when porting vchan from Xen to KVM</span><br><span>initially v=
-ia vsock</span><br><span></span><br><span>some virtio drivers explicitly use=
- shared mem for more than just</span><br><span>communication rings:</span><b=
-r><span>- e.g. virtio-fs, which can map pages as DAX-like fs backing to shar=
-e page cache</span><br><span>- e.g. virtio-gpu, virtio-wayland, virtio-video=
-, which deal in framebuffers</span><br><span>- needs thought about how best t=
-o map semantics to (or at least</span><br><span>interoperate cleanly &amp; s=
-afely with) HMX-{only,mostly} world</span><br><span> &nbsp;- the performance=
- of shared mem actually can meaningfully matter for</span><br><span>e.g. lar=
-ge framebuffers in particular due to fundamental memory</span><br><span>band=
-width constraints</span><br><span></span><br><span>what is mentioned PX hype=
-rvisor? presumably short for PicoXen? any</span><br><span>public information=
-?</span><br></div></blockquote><br><div>Not much at the moment, but there is=
- prior public work. &nbsp;PX is an OSS L0 "Protection Hypervisor" in the Har=
-dened Access Terminal (HAT) architecture presented by Daniel Smith at the 20=
-20 Xen Summit:&nbsp;<a href=3D"https://m.youtube.com/watch?v=3DWt-SBhFnDZY&a=
-mp;t=3D3m48s">https://youtube.com/watch?v=3DWt-SBhFnDZY&amp;t=3D3m48s</a></d=
-iv><div><br></div><div>PX is intended to build on lessons learned from IBM U=
-ltravisor, HP/Bromium AX and AIS Bareflank L0 hypervisors:</div><div><br></d=
-iv><div>IBM:&nbsp;<a href=3D"https://www.platformsecuritysummit.com/2019/spe=
-aker/hunt/">https://www.platformsecuritysummit.com/2019/speaker/hunt/</a></d=
-iv><div><br></div><div>HP/Bromium:&nbsp;<a href=3D"https://www.platformsecur=
-itysummit.com/2018/speaker/pratt/">https://www.platformsecuritysummit.com/20=
-18/speaker/pratt/</a></div><div>Dec 2019 meeting in Cambridge, Day2 discussi=
-on included L0 nesting hypervisor, UUID semantics, Argo, communication betwe=
-en nested hypervisors:&nbsp;<a href=3D"https://lists.archive.carbon60.com/xe=
-n/devel/577800?search_string=3Ddecember%20f2f;#577800">https://lists.archive=
-.carbon60.com/xen/devel/577800</a></div><div><br></div><div>Bareflank:&nbsp;=
-<a href=3D"https://m.youtube.com/channel/UCH-7Pw96K5V1RHAPn5-cmYA">https://<=
-/a><a href=3D"https://m.youtube.com/channel/UCH-7Pw96K5V1RHAPn5-cmYA">youtub=
-e.com/channel/UCH-7Pw96K5V1RHAPn5-cmYA</a></div><div>Xen Summit 2020 design s=
-ession notes:&nbsp;<a href=3D"https://lists.archive.carbon60.com/xen/devel/5=
-91509?search_string=3Dbareflank;#591509">https://lists.archive.carbon60.com/=
-xen/devel/591509</a></div><div><br></div><div>In the long-term, efficient hy=
-pervisor nesting will require close cooperation with silicon and firmware ve=
-ndors. Note that Intel is introducing TDX (Trust Domain Extensions):</div><d=
-iv><br></div><div><a href=3D"https://software.intel.com/content/www/us/en/de=
-velop/articles/intel-trust-domain-extensions.html">https://software.intel.co=
-m/content/www/us/en/develop/articles/intel-trust-domain-extensions.html</a><=
-/div><div><a href=3D"https://www.brighttalk.com/webcast/18206/453600">https:=
-//www.brighttalk.com/webcast/18206/453600</a></div><div><br></div><div>There=
- are also a couple of recent papers from Shanghai Jiao Tong University, on u=
-sing hardware instructions to accelerate inter-domain HMX.</div><div><br></d=
-iv><div><div>March 2019: https://ipads.se.sjtu.edu.cn/_media/publications/sk=
-ybridge-eurosys19.pdf</div><div><br></div><div>&gt; we present SkyBridge, a n=
-ew communication facility designed and optimized for synchronous IPC in micr=
-okernels. SkyBridge requires no involvement of kernels during communication a=
-nd allows a process to directly switch to the virtual address space of the t=
-arget process and invoke the target function. SkyBridge retains the traditio=
-nal virtual address space isolation and thus can be easily integrated into e=
-xisting microkernels. The key idea of SkyBridge is to leverage a commodity h=
-ardware feature for virtualization (i.e., [Intel EPT] VMFUNC) to achieve eff=
-icient IPC. To leverage the hardware feature, SkyBridge inserts a tiny virtu=
-alization layer (Rootkernel) beneath the original microkernel (Subkernel). T=
-he Rootkernel is carefully designed to eliminate most virtualization overhea=
-ds. SkyBridge also integrates a series of techniques to guarantee the securi=
-ty properties of IPC. We have implemented SkyBridge on three popular open-so=
-urce microkernels (seL4, Fiasco.OC, and Google Zircon). The evaluation resul=
-ts show that SkyBridge improves the speed of IPC by 1.49x to 19.6x for micro=
-benchmarks. For real-world applications (e.g., SQLite3 database), SkyBridge i=
-mproves the throughput by 81.9%, 1.44x and 9.59x for the three microkernels o=
-n average.</div></div><div><br></div><div><div>July 2020: https://ipads.se.s=
-jtu.edu.cn/_media/publications/guatc20.pdf</div><div><br></div><div>&gt; a r=
-edesign of traditional microkernel OSes to harmonize the tension between mes=
-saging performance and isolation. UnderBridge moves the OS components of a m=
-icrokernel between user space and kernel space at runtime while enforcing co=
-nsistent isolation. It retrofits Intel Memory Protection Key for Userspace (=
-PKU) in kernel space to achieve such isolation efficiently and design a fast=
- IPC mechanism across those OS components. Thanks to PKU=E2=80=99s extremely=
- low overhead, the inter-process communication (IPC) roundtrip cost in Under=
-Bridge can be as low as 109 cycles. We have designed and implemented a new m=
-icrokernel called ChCore based on UnderBridge and have also ported UnderBrid=
-ge to three mainstream microkernels, i.e., seL4, Google Zircon, and Fiasco.O=
-C. Evaluations show that UnderBridge speeds up the IPC by 3.0=C3=97 compared=
- with the state-of-the-art (e.g., SkyBridge) and improves the performance of=
- IPC-intensive applications by up to 13.1=C3=97 for the above three microker=
-nels</div></div><div><br></div><div><br></div><div><br></div><div>For those i=
-nterested in Argo and VirtIO, there will be a conference call on Thursday, J=
-an 14th 2021, at 1600 UTC.</div><div><br></div><div>Rich</div></div></div></=
-div></div></body></html>=
+I can give this a shot, I'll try and dump out as much logging as I can, the=
+n I'll try build from the master branch of xen
 
---Apple-Mail-1EDF01CF-DC35-4301-BB7C-E7B738FFF897--
+> I can try Credit as well, later, but if this is something CPU arch/gen
+> related, it seems to be a Ryzen rather than a Zen 2 thing...
+
+Absolutely, I agree, this seems to be Ryzen 3000/4000 related, another Qube=
+s user running a Ryzen 9 3900X CPU appears to be having the same issue: htt=
+ps://imgur.com/a/EYOMmRe
 
