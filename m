@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73AA52E1DD0
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 16:16:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58444.102780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E3C2E1DD1
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 16:16:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58446.102792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks5sB-0000HI-VK; Wed, 23 Dec 2020 15:16:19 +0000
+	id 1ks5sN-0000Ln-8O; Wed, 23 Dec 2020 15:16:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58444.102780; Wed, 23 Dec 2020 15:16:19 +0000
+Received: by outflank-mailman (output) from mailman id 58446.102792; Wed, 23 Dec 2020 15:16:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks5sB-0000Gs-Rf; Wed, 23 Dec 2020 15:16:19 +0000
-Received: by outflank-mailman (input) for mailman id 58444;
- Wed, 23 Dec 2020 15:16:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Alxq=F3=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1ks5sA-0000Gl-Ab
- for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 15:16:18 +0000
-Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0c320921-ec4e-435e-9c11-a253089fee79;
- Wed, 23 Dec 2020 15:16:17 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id 91so18950471wrj.7
- for <xen-devel@lists.xenproject.org>; Wed, 23 Dec 2020 07:16:17 -0800 (PST)
+	id 1ks5sN-0000LJ-4a; Wed, 23 Dec 2020 15:16:31 +0000
+Received: by outflank-mailman (input) for mailman id 58446;
+ Wed, 23 Dec 2020 15:16:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ks5sL-0000Kz-SG
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 15:16:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ks5sL-0000hy-CR; Wed, 23 Dec 2020 15:16:29 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ks5sL-0003L7-3X; Wed, 23 Dec 2020 15:16:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,120 +39,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c320921-ec4e-435e-9c11-a253089fee79
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=6yuXk0UjfvyrDacLoijz4xrdR4nujCvawwyyWsbeONQ=;
-        b=YTkPoJ6Ruste6+sV1cDa2MxDDAUzR28uvUVRwze75nCAV9l7nlEDo8OsozjmWRLKTY
-         Hv/9CUUF3oe+K6OsoB874smceRCKoybDc9ZXrdPfBHr/qwIYHM1oPqajTaF8nLNCOm9L
-         eEc60Li6eKTyocWRBPbu8sxl68axuzczmYRWbxRQCCPS/oqyl2vlR2Do06QN+d3Ke3Ww
-         RHFo2JeQuB021sCxtUjimXtRBoTqSKrRTV0nz5nR3SW0CI3dZf2XItHIIfT5K6i+VJ4d
-         XSx3KKz1qrucXeCOg8bDkCDYQfqT4QGZSa9rdNuAS/A1UFm7nVN3niunV58Pe78MdxdQ
-         t/Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=6yuXk0UjfvyrDacLoijz4xrdR4nujCvawwyyWsbeONQ=;
-        b=lnh2ny7tS6++vfEM3mrAVSzESSJhkfl1LCTWhupGGBYaT/OGq8uUlaM6cNps58KnTN
-         xKoqGXuJOYsI2U/00zNwRnuFl+mpH3h9IO91VMutlS8rgC8OtXOk/5gKHADohfZwN41J
-         BM/dzdIPL28dLbBHeJSnc5cg1wsqOuZNDnLHgwUlBqYMuitEvU2PlYHi8Mzu8oRG3tnR
-         Yttfci+dXvR5N4uP6ANfTPnODwEHRySlUmNzHwmuzCQDLOWyF0a6pTjzG7sOTqJXV3ht
-         KeRSxM73PCleigUBhnvsP6/YyZDzyMNpJCDgUEG1zoSYAxtiKRaA4MGhyi8CraNIjyVJ
-         GzOg==
-X-Gm-Message-State: AOAM531TqtICIZ/rNFVcHl+He9yNTy8lxrU6mkt/n8KrSjHyzaI5iOES
-	dALPUPpt9mb8k+U4sJQW8SaRkW7lH6iLOvZBuGY=
-X-Google-Smtp-Source: ABdhPJwzZ1SON9OQ3yANlPnl9YUx32njXGwkngb8UFMl0Xp1sT56FfqonwOki49qI4Fbi6C7HVZ2rhvcwjmrnL/VmqU=
-X-Received: by 2002:a5d:68ce:: with SMTP id p14mr29733998wrw.386.1608736576412;
- Wed, 23 Dec 2020 07:16:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=c31ZVpZuYw6FZc1yugj2Tp6Yz1OI6OYjHMuor1fy1sw=; b=DroT8KAWSUUA3zdxadjslA025D
+	5fXNPgQfb91sNp7y3wYSdAe3w8xl8y0VQP8TXHGvCpUifJTRTnDoXHC4lzmzqvwO7q/NAXMcRi33Z
+	FEG5FczGXVskTWDefMxAQHu34qVtn170VEmoQ3UK+XZyhM8wd6uIZ/7bTJcz95wKTnEk=;
+Subject: Re: [PATCH for-4.15 3/4] [RFC] xen/iommu: x86: Clear the root
+ page-table before freeing the page-tables
+To: Jan Beulich <jbeulich@suse.com>
+Cc: hongyxia@amazon.co.uk, Julien Grall <jgrall@amazon.com>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20201222154338.9459-1-julien@xen.org>
+ <20201222154338.9459-4-julien@xen.org>
+ <499e6d5a-e8ac-56db-1af9-70469b6a06b9@suse.com>
+ <8b394c44-5bdb-9d82-b211-5a4ee3473568@xen.org>
+ <19e92d90-ed9a-4bd6-79f4-b761b5a039c6@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <96ce1b10-9764-b71e-ac26-982ba8dcc34d@xen.org>
+Date: Wed, 23 Dec 2020 15:16:27 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
- <d821c715-966a-b48b-a877-c5dac36822f0@suse.com> <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
- <7a768bcd-80c1-d193-8796-7fb6720fa22a@suse.com> <1a8250f5-ea49-ac3a-e992-be7ec40deba9@xen.org>
- <CABfawhkQcUD4f62zpg0cyrdQgG82XtpYRZZ_-50hjagooT530A@mail.gmail.com>
- <5862eb24-d894-455a-13ac-61af54f949e7@xen.org> <CABfawhkWQiOhLL8f3NzoWbeuag-f+YOOK0i_LJzZq5Yvoh=oHQ@mail.gmail.com>
- <fd384990-376e-40f4-f0b8-1a889b3a0c51@suse.com> <9ee6016a-d3b3-c847-4775-0e05c8578110@xen.org>
- <CABfawhkcHX+FSRRfYwUNd8DweW04=91sSg2PTWy7vjq_DXwMQg@mail.gmail.com>
- <d365ce00-bc3a-de7c-565a-c4cb61063e74@suse.com> <ed5fc3e2-42b1-477a-c424-05ddf7fd3bf4@xen.org>
- <3b339f30-57db-caf6-fd7e-84199f98546f@suse.com> <9c214bc1-61db-5b33-f610-40c2a59edb75@xen.org>
-In-Reply-To: <9c214bc1-61db-5b33-f610-40c2a59edb75@xen.org>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Wed, 23 Dec 2020 10:15:39 -0500
-Message-ID: <CABfawhkFhn-f_6akvq74v2pZJi=fkBVENRTxm_NUwJkN+pMkAg@mail.gmail.com>
-Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
- per-channel lock held
-To: Julien Grall <julien@xen.org>
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Tamas K Lengyel <lengyelt@ainfosec.com>, 
-	Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>, Alexandru Isaila <aisaila@bitdefender.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <19e92d90-ed9a-4bd6-79f4-b761b5a039c6@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Wed, Dec 23, 2020 at 9:44 AM Julien Grall <julien@xen.org> wrote:
->
->
->
-> On 23/12/2020 13:41, Jan Beulich wrote:
-> > On 23.12.2020 14:33, Julien Grall wrote:
-> >> On 23/12/2020 13:12, Jan Beulich wrote:
-> >>>  From the input by both of you I still can't
-> >>> conclude whether this patch should remain as is in v4, or revert
-> >>> back to its v2 version. Please can we get this settled so I can get
-> >>> v4 out?
-> >>
-> >> I haven't had time to investigate the rest of the VM event code to find
-> >> other cases where this may happen. I still think there is a bigger
-> >> problem in the VM event code, but the maintainer disagrees here.
-> >>
-> >> At which point, I see limited reason to try to paper over in the common
-> >> code. So I would rather ack/merge v2 rather than v3.
-> >
-> > Since I expect Tamas and/or the Bitdefender folks to be of the
-> > opposite opinion, there's still no way out, at least if "rather
-> > ack" implies a nak for v3.
->
-> The only way out here is for someone to justify why this patch is
-> sufficient for the VM event race. I am not convinced it is (see more below).
->
-> > Personally, if this expectation of
-> > mine is correct, I'd prefer to keep the accounting but make it
-> > optional (as suggested in a post-commit-message remark).
-> > That'll eliminate the overhead you appear to be concerned of,
-> > but of course it'll further complicate the logic (albeit just
-> > slightly).
->
-> I am more concerned about adding over complex code that would just
-> papering over a bigger problem. I also can't see use of it outside of
-> the VM event discussion.
->
-> I had another look at the code. As I mentioned in the past,
-> vm_put_event_request() is able to deal with d != current->domain (it
-> will set VM_EVENT_FLAG_FOREIGN). There are 4 callers for the function:
->     1) p2m_mem_paging_drop_page()
->     2) p2m_mem_paging_populate()
->     3) mem_sharing_notify_enomem()
->     4) monitor_traps()
->
-> 1) and 2) belongs to the mem paging subsystem. Tamas suggested that it
-> was abandoned.
->
-> 4) can only be called with the current domain.
->
-> This leave us 3) in the mem sharing subsystem. As this is call the
-> memory hypercalls, it looks possible to me that d != current->domain.
-> The code also seems to be maintained (there were recent non-trivial
-> changes).
->
-> Can one of the VM event developper come up with a justification why this
-> patch enough to make the VM event subsystem safe?
+Hi Jan,
 
-3) is an unused feature as well that likely should be dropped at some
-point. It can also only be called with current->domain, it effectively
-just signals an out-of-memory error to a vm_event listener in dom0
-that populating an entry for the VM that EPT faulted failed. I guess
-the idea was that the dom0 agent would be able to make a decision on
-how to proceed (ie which VM to kill to free up memory).
+On 23/12/2020 15:00, Jan Beulich wrote:
+> On 23.12.2020 15:56, Julien Grall wrote:
+>> On 23/12/2020 14:12, Jan Beulich wrote:
+>>> On 22.12.2020 16:43, Julien Grall wrote:
+>>>> This is an RFC because it would break AMD IOMMU driver. One option would
+>>>> be to move the call to the teardown callback earlier on. Any opinions?
+>>>
+>>> We already have
+>>>
+>>> static void amd_iommu_domain_destroy(struct domain *d)
+>>> {
+>>>       dom_iommu(d)->arch.amd.root_table = NULL;
+>>> }
+>>>
+>>> and this function is AMD's teardown handler. Hence I suppose
+>>> doing the same for VT-d would be quite reasonable. And really
+>>> VT-d's iommu_domain_teardown() also already has
+>>>
+>>>       hd->arch.vtd.pgd_maddr = 0;
+>>
+>> Let me have a look if that works.
+>>
+>>>
+>>> I guess what's missing is prevention of the root table
+>>> getting re-setup.
+>>
+>> This is taken care in the follow-up patch by forbidding page-table
+>> allocation. I can mention it in the commit message.
+> 
+> My expectation is that with that subsequent change the change here
+> (or any variant of it) would become unnecessary.
+
+I am not be sure. iommu_unmap() would still get called from put_page(). 
+Are you suggesting to gate the code if d->is_dying as well?
+
+Even if this patch is deemed to be unecessary to fix the issue.
+This issue was quite hard to chase/reproduce.
+
+I think it would still be good to harden the code by zeroing 
+hd->arch.vtd.pgd_maddr to avoid anyone else wasting 2 days because the 
+pointer was still "valid".
+
+Cheers,
+
+-- 
+Julien Grall
 
