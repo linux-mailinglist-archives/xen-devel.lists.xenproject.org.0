@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 392822E1CBB
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 14:45:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58369.102562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF02E2E1CDA
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 14:48:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58375.102575 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks4Ro-0007Qc-PM; Wed, 23 Dec 2020 13:45:00 +0000
+	id 1ks4Ux-0007ao-87; Wed, 23 Dec 2020 13:48:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58369.102562; Wed, 23 Dec 2020 13:45:00 +0000
+Received: by outflank-mailman (output) from mailman id 58375.102575; Wed, 23 Dec 2020 13:48:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks4Ro-0007QB-KD; Wed, 23 Dec 2020 13:45:00 +0000
-Received: by outflank-mailman (input) for mailman id 58369;
- Wed, 23 Dec 2020 13:44:58 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ks4Ux-0007aR-4v; Wed, 23 Dec 2020 13:48:15 +0000
+Received: by outflank-mailman (input) for mailman id 58375;
+ Wed, 23 Dec 2020 13:48:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ks4Rm-0007Q2-QD; Wed, 23 Dec 2020 13:44:58 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ks4Rm-0007St-JQ; Wed, 23 Dec 2020 13:44:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ks4Rm-0001nE-CS; Wed, 23 Dec 2020 13:44:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ks4Rm-0000du-Bz; Wed, 23 Dec 2020 13:44:58 +0000
+ (envelope-from <SRS0=zN8f=F3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ks4Uv-0007aM-9X
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 13:48:13 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 54dcbf10-41f2-4e60-a6bc-665da71067af;
+ Wed, 23 Dec 2020 13:48:12 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 80B40ACF1;
+ Wed, 23 Dec 2020 13:48:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mDpyedJtM8glQu93LSIQkpra6kkzmgeGfeE5fUHpEFc=; b=laUCozbI62S5ukILQOSB22S0Ai
-	ISpszq5ySpvCytur+VXhTbJ1Wch9OPgjOkoPRnSCpr/BVS6+JB9Oo7t08y6V9Jer+UlHn+kERzdUw
-	D5zoJ8PhS879RZcBdtZ7xlHuX95u+UgcRGF27G+wJUlVQ5muPtg8fExDaGm1fuDIKYHE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157848-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 54dcbf10-41f2-4e60-a6bc-665da71067af
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1608731291; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=F48pFlYLzVYDwP2hSzOyTZwKTk1U25C/OR+Scc23UpQ=;
+	b=Mh6PiI7zR6XM7xtex46qb9ABN8yaTGL9cJJQ7AzvsTWvH+0/TcP3mnvnAyNkSzgU+x1OiJ
+	FJGCHJ1e4+Px23CGQ+Q0QxLsWFIp4JsvuSTm355DilADM0lwmda2BfAI2nrjPiZXjI6mmn
+	gobmS8lukvUlQkYVlFtjERtCpgM6Bv4=
+Subject: Re: [PATCH for-4.15 2/4] xen/iommu: x86: Free the IOMMU page-tables
+ with the pgtables.lock held
+To: Julien Grall <julien@xen.org>
+Cc: hongyxia@amazon.co.uk, Julien Grall <jgrall@amazon.com>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20201222154338.9459-1-julien@xen.org>
+ <20201222154338.9459-3-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3148db2a-ff3f-5993-dd57-7f4376f2f0ad@suse.com>
+Date: Wed, 23 Dec 2020 14:48:11 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Subject: [ovmf test] 157848: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=d15d0d3d8aee1c7d5dab7b636601370061b32612
-X-Osstest-Versions-That:
-    ovmf=d21d2706761bede7db38929abc5613f3e71c64ba
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 23 Dec 2020 13:44:58 +0000
+In-Reply-To: <20201222154338.9459-3-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 157848 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157848/
+On 22.12.2020 16:43, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> The pgtables.lock is protecting access to the page list pgtables.list.
+> However, iommu_free_pgtables() will not held it. I guess it was assumed
+> that page-tables cannot be allocated while the domain is dying.
+> 
+> Unfortunately, there is no guarantee that iommu_map() will not be
+> called while a domain is dying (it looks like to be possible from
+> XEN_DOMCTL_memory_mapping).
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d15d0d3d8aee1c7d5dab7b636601370061b32612
-baseline version:
- ovmf                 d21d2706761bede7db38929abc5613f3e71c64ba
+I'd rather disallow any new allocations for a dying domain, not
+the least because ...
 
-Last test of basis   157840  2020-12-22 22:40:48 Z    0 days
-Testing same since   157848  2020-12-23 07:52:03 Z    0 days    1 attempts
+> So it would be possible to be concurrently
+> allocate memory and free the page-tables.
+> 
+> Therefore, we need to held the lock when freeing the page tables.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Yunhua Feng <fengyunhua@byosoft.com.cn>
+... we should try to avoid holding locks across allocation /
+freeing functions wherever possible.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+As to where to place a respective check - I wonder if we wouldn't
+be better off disallowing a majority of domctl-s (and perhaps
+other operations) on dying domains. Thoughts?
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   d21d270676..d15d0d3d8a  d15d0d3d8aee1c7d5dab7b636601370061b32612 -> xen-tested-master
+Jan
 
