@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 673452E1C72
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 13:58:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58336.102470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078CC2E1C84
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 14:13:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58343.102483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks3iK-0002Pg-Dl; Wed, 23 Dec 2020 12:58:00 +0000
+	id 1ks3wT-0004CE-IX; Wed, 23 Dec 2020 13:12:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58336.102470; Wed, 23 Dec 2020 12:58:00 +0000
+Received: by outflank-mailman (output) from mailman id 58343.102483; Wed, 23 Dec 2020 13:12:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks3iK-0002PE-AN; Wed, 23 Dec 2020 12:58:00 +0000
-Received: by outflank-mailman (input) for mailman id 58336;
- Wed, 23 Dec 2020 12:57:58 +0000
+	id 1ks3wT-0004Bp-FF; Wed, 23 Dec 2020 13:12:37 +0000
+Received: by outflank-mailman (input) for mailman id 58343;
+ Wed, 23 Dec 2020 13:12:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zN8f=F3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ks3iI-0002P6-Co
- for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 12:57:58 +0000
+ id 1ks3wR-0004Bk-Vw
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 13:12:36 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4197f79d-6117-4178-bad3-463784b843e4;
- Wed, 23 Dec 2020 12:57:57 +0000 (UTC)
+ id ca4430d4-0964-4241-bc90-333077a17f65;
+ Wed, 23 Dec 2020 13:12:34 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 679A1ACF5;
- Wed, 23 Dec 2020 12:57:56 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id BD26FB77E;
+ Wed, 23 Dec 2020 13:12:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,170 +38,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4197f79d-6117-4178-bad3-463784b843e4
+X-Inumbo-ID: ca4430d4-0964-4241-bc90-333077a17f65
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1608728276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1608729153; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TTSZKHnJ9KUXBRG35fiTp3KF/r3oGEaIooh6/1OmZRk=;
-	b=fR3HCEhUMLl6B5MUAUTff/kiFstL8yTchF6MRLL8wE/AD3Ei7knURiAjPh9F3+bZU2FZ01
-	oaYXNUiZZ58NdIP9itqlDZTGLdqDmuuOC3xgKkLzkbBxyuWHgJzZZp1LxhqxPyR0LyBrjP
-	d3AvRoyRITjOFLVVHP0JUXFkDgRDrnw=
-Subject: Re: [PATCH v3 4/5] evtchn: convert domain event lock to an r/w one
-To: Julien Grall <julien@xen.org>
+	bh=vwaCuitpl43jC5mKAl/ZWKsNe0TgpOjirYi+f8gVAKM=;
+	b=nZXmi5AoqJ5SLxQEAlkPhZVW+5/swI3iT5Ze0INRzbjvbZ2wvQW4/5XLqU7SW5gQ7Pm+eG
+	Et0+qb8y1sJsrvcOkqWyEy1fHbnQ/zNseb6UJr6OxVbrcN8NqEzhZPEdZdOBoS2lsFUD+W
+	ruINWLEOmcjtTjxbUf/TyL3nNtais5U=
+Subject: Re: [PATCH v3 5/5] evtchn: don't call Xen consumer callback with
+ per-channel lock held
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>, Julien Grall <julien@xen.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
  <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <lengyelt@ainfosec.com>,
+ Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <9d7a052a-6222-80ff-cbf1-612d4ca50c2a@suse.com>
- <a333387e-f9e5-7051-569a-1a9a37da53ca@suse.com>
- <074be931-54b0-1b0f-72d8-5bd577884814@xen.org>
- <6e34fd25-14a2-f655-b019-aca94ce086c8@suse.com>
- <55dc24b4-88c6-1b22-411e-267231632377@xen.org>
- <cf3faa68-ba4a-b864-66e0-f379a24a48ce@suse.com>
- <1f3571eb-5aec-e76e-0b61-2602356fb436@xen.org>
- <099b99bc-c544-0aa8-c3b4-4871ef618e4a@suse.com>
- <aa169dc2-77f2-b3e9-80f4-d5f4d6ea54f1@xen.org>
+ <d821c715-966a-b48b-a877-c5dac36822f0@suse.com>
+ <17c90493-b438-fbc1-ca10-3bc4d89c4e5e@xen.org>
+ <7a768bcd-80c1-d193-8796-7fb6720fa22a@suse.com>
+ <1a8250f5-ea49-ac3a-e992-be7ec40deba9@xen.org>
+ <CABfawhkQcUD4f62zpg0cyrdQgG82XtpYRZZ_-50hjagooT530A@mail.gmail.com>
+ <5862eb24-d894-455a-13ac-61af54f949e7@xen.org>
+ <CABfawhkWQiOhLL8f3NzoWbeuag-f+YOOK0i_LJzZq5Yvoh=oHQ@mail.gmail.com>
+ <fd384990-376e-40f4-f0b8-1a889b3a0c51@suse.com>
+ <9ee6016a-d3b3-c847-4775-0e05c8578110@xen.org>
+ <CABfawhkcHX+FSRRfYwUNd8DweW04=91sSg2PTWy7vjq_DXwMQg@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d0b3079b-ae83-a14e-1fc6-ea76bdc7db79@suse.com>
-Date: Wed, 23 Dec 2020 13:57:55 +0100
+Message-ID: <d365ce00-bc3a-de7c-565a-c4cb61063e74@suse.com>
+Date: Wed, 23 Dec 2020 14:12:32 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <aa169dc2-77f2-b3e9-80f4-d5f4d6ea54f1@xen.org>
+In-Reply-To: <CABfawhkcHX+FSRRfYwUNd8DweW04=91sSg2PTWy7vjq_DXwMQg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 23.12.2020 12:22, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 22/12/2020 09:46, Jan Beulich wrote:
->> On 21.12.2020 18:45, Julien Grall wrote:
->>> On 14/12/2020 09:40, Jan Beulich wrote:
->>>> On 11.12.2020 11:57, Julien Grall wrote:
->>>>> On 11/12/2020 10:32, Jan Beulich wrote:
->>>>>> On 09.12.2020 12:54, Julien Grall wrote:
->>>>>>> On 23/11/2020 13:29, Jan Beulich wrote:
->>>>>>>> @@ -620,7 +620,7 @@ int evtchn_close(struct domain *d1, int
->>>>>>>>          long           rc = 0;
->>>>>>>>      
->>>>>>>>       again:
->>>>>>>> -    spin_lock(&d1->event_lock);
->>>>>>>> +    write_lock(&d1->event_lock);
->>>>>>>>      
->>>>>>>>          if ( !port_is_valid(d1, port1) )
->>>>>>>>          {
->>>>>>>> @@ -690,13 +690,11 @@ int evtchn_close(struct domain *d1, int
->>>>>>>>                      BUG();
->>>>>>>>      
->>>>>>>>                  if ( d1 < d2 )
->>>>>>>> -            {
->>>>>>>> -                spin_lock(&d2->event_lock);
->>>>>>>> -            }
->>>>>>>> +                read_lock(&d2->event_lock);
+On 07.12.2020 18:35, Tamas K Lengyel wrote:
+> On Mon, Dec 7, 2020 at 12:30 PM Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Jan,
+>>
+>> On 07/12/2020 15:28, Jan Beulich wrote:
+>>> On 04.12.2020 20:15, Tamas K Lengyel wrote:
+>>>> On Fri, Dec 4, 2020 at 10:29 AM Julien Grall <julien@xen.org> wrote:
+>>>>> On 04/12/2020 15:21, Tamas K Lengyel wrote:
+>>>>>> On Fri, Dec 4, 2020 at 6:29 AM Julien Grall <julien@xen.org> wrote:
+>>>>>>> On 03/12/2020 10:09, Jan Beulich wrote:
+>>>>>>>> On 02.12.2020 22:10, Julien Grall wrote:
+>>>>>>>>> On 23/11/2020 13:30, Jan Beulich wrote:
+>>>>>>>>>> While there don't look to be any problems with this right now, the lock
+>>>>>>>>>> order implications from holding the lock can be very difficult to follow
+>>>>>>>>>> (and may be easy to violate unknowingly). The present callbacks don't
+>>>>>>>>>> (and no such callback should) have any need for the lock to be held.
+>>>>>>>>>>
+>>>>>>>>>> However, vm_event_disable() frees the structures used by respective
+>>>>>>>>>> callbacks and isn't otherwise synchronized with invocations of these
+>>>>>>>>>> callbacks, so maintain a count of in-progress calls, for evtchn_close()
+>>>>>>>>>> to wait to drop to zero before freeing the port (and dropping the lock).
+>>>>>>>>>
+>>>>>>>>> AFAICT, this callback is not the only place where the synchronization is
+>>>>>>>>> missing in the VM event code.
+>>>>>>>>>
+>>>>>>>>> For instance, vm_event_put_request() can also race against
+>>>>>>>>> vm_event_disable().
+>>>>>>>>>
+>>>>>>>>> So shouldn't we handle this issue properly in VM event?
+>>>>>>>>
+>>>>>>>> I suppose that's a question to the VM event folks rather than me?
 >>>>>>>
->>>>>>> This change made me realized that I don't quite understand how the
->>>>>>> rwlock is meant to work for event_lock. I was actually expecting this to
->>>>>>> be a write_lock() given there are state changed in the d2 events.
+>>>>>>> Yes. From my understanding of Tamas's e-mail, they are relying on the
+>>>>>>> monitoring software to do the right thing.
+>>>>>>>
+>>>>>>> I will refrain to comment on this approach. However, given the race is
+>>>>>>> much wider than the event channel, I would recommend to not add more
+>>>>>>> code in the event channel to deal with such problem.
+>>>>>>>
+>>>>>>> Instead, this should be fixed in the VM event code when someone has time
+>>>>>>> to harden the subsystem.
 >>>>>>
->>>>>> Well, the protection needs to be against racing changes, i.e.
->>>>>> parallel invocations of this same function, or evtchn_close().
->>>>>> It is debatable whether evtchn_status() and
->>>>>> domain_dump_evtchn_info() would better also be locked out
->>>>>> (other read_lock() uses aren't applicable to interdomain
->>>>>> channels).
->>>>>>
->>>>>>> Could you outline how a developper can find out whether he/she should
->>>>>>> use read_lock or write_lock?
->>>>>>
->>>>>> I could try to, but it would again be a port type dependent
->>>>>> model, just like for the per-channel locks.
+>>>>>> I double-checked and the disable route is actually more robust, we
+>>>>>> don't just rely on the toolstack doing the right thing. The domain
+>>>>>> gets paused before any calls to vm_event_disable. So I don't think
+>>>>>> there is really a race-condition here.
 >>>>>
->>>>> It is quite important to have clear locking strategy (in particular
->>>>> rwlock) so we can make correct decision when to use read_lock or write_lock.
+>>>>> The code will *only* pause the monitored domain. I can see two issues:
+>>>>>      1) The toolstack is still sending event while destroy is happening.
+>>>>> This is the race discussed here.
+>>>>>      2) The implement of vm_event_put_request() suggests that it can be
+>>>>> called with not-current domain.
 >>>>>
->>>>>> So I'd like it to
->>>>>> be clarified first whether you aren't instead indirectly
->>>>>> asking for these to become write_lock()
->>>>>
->>>>> Well, I don't understand why this is a read_lock() (even with your
->>>>> previous explanation). I am not suggesting to switch to a write_lock(),
->>>>> but instead asking for the reasoning behind the decision.
+>>>>> I don't see how just pausing the monitored domain is enough here.
 >>>>
->>>> So if what I've said in my previous reply isn't enough (including the
->>>> argument towards using two write_lock() here), I'm struggling to
->>>> figure what else to say. The primary goal is to exclude changes to
->>>> the same ports. For this it is sufficient to hold just one of the two
->>>> locks in writer mode, as the other (racing) one will acquire that
->>>> same lock for at least reading. The question whether both need to use
->>>> writer mode can only be decided when looking at the sites acquiring
->>>> just one of the locks in reader mode (hence the reference to
->>>> evtchn_status() and domain_dump_evtchn_info()) - if races with them
->>>> are deemed to be a problem, switching to both-writers will be needed.
+>>>> Requests only get generated by the monitored domain. So if the domain
+>>>> is not running you won't get more of them. The toolstack can only send
+>>>> replies.
 >>>
->>> I had another look at the code based on your explanation. I don't think
->>> it is fine to allow evtchn_status() to be concurrently called with
->>> evtchn_close().
+>>> Julien,
 >>>
->>> evtchn_close() contains the following code:
->>>
->>>     chn2->state = ECS_UNBOUND;
->>>     chn2->u.unbound.remote_domid = d1->domain_id;
->>>
->>> Where chn2 is a event channel of the remote domain (d2). Your patch will
->>> only held the read lock for d2.
->>>
->>> However evtchn_status() expects the event channel state to not change
->>> behind its back. This assumption doesn't hold for d2, and you could
->>> possibly end up to see the new value of chn2->state after the new
->>> chn2->u.unbound.remote_domid.
->>>
->>> Thanksfully, it doesn't look like chn2->u.interdomain.remote_domain
->>> would be overwritten. Otherwise, this would be a straight dereference of
->>> an invalid pointer.
->>>
->>> So I think, we need to held the write event lock for both domain.
+>>> does this change your view on the refcounting added by the patch
+>>> at the root of this sub-thread?
 >>
->> Well, okay. Three considerations though:
+>> I still think the code is at best fragile. One example I can find is:
 >>
->> 1) Neither evtchn_status() nor domain_dump_evtchn_info() appear to
->> have a real need to acquire the per-domain lock. They could as well
->> acquire the per-channel ones. (In the latter case this will then
->> also allow inserting the so far missing process_pending_softirqs()
->> call; it shouldn't be made with a lock held.)
-> I agree that evtchn_status() doesn't need to acquire the per-domain 
-> lock. I am not entirely sure about domain_dump_evtchn_info() because 
-> AFAICT the PIRQ tree (used by domain_pirq_to_irq()) is protected with 
-> d->event_lock.
-
-It is, but calling it without the lock just to display the IRQ
-is not a problem afaict.
-
->> 3) With the per-channel double locking and with 1) addressed I
->> can't really see the need for the double per-domain locking in
->> evtchn_bind_interdomain() and evtchn_close(). The write lock is
->> needed for the domain allocating a new port or freeing one. But why
->> is there any need for holding the remote domain's lock, when its
->> side of the channel gets guarded by the per-channel lock anyway?
+>>    -> guest_remove_page()
+>>      -> p2m_mem_paging_drop_page()
+>>       -> vm_event_put_request()
+>>
+>> guest_remove_page() is not always call on the current domain. So there
+>> are possibility for vm_event_put_request() to happen on a foreign domain
+>> and therefore wouldn't be protected by the current hypercall.
+>>
+>> Anyway, I don't think the refcounting should be part of the event
+>> channel without any idea on how this would fit in fixing the VM event race.
 > 
-> If 1) is addressed, then I think it should be fine to just acquire the 
-> read event lock of the remote domain.
+> If the problematic patterns only appear with mem_paging I would
+> suggest just removing the mem_paging code completely. It's been
+> abandoned for several years now.
 
-For bind-interdomain I've eliminated the double locking, so the
-question goes away there altogether. While for close I thought
-I had managed to eliminate it too, the change looks to be
-causing a deadlock of some sort, which I'll have to figure out.
-However, the change might be controversial anyway, because I
-need to play games already prior to fixing that bug ...
+Since this is nothing I'm fancying doing, the way forward here needs
+to be a different one. From the input by both of you I still can't
+conclude whether this patch should remain as is in v4, or revert
+back to its v2 version. Please can we get this settled so I can get
+v4 out?
 
-All of this said - for the time being it'll be both write_lock()
-in evtchn_close(), as I consider it risky to make the remote one
-a read_lock() merely based on the observation that there is
-currently (i.e. with 1) addressed) no conflict.
-
-Jan
+Thanks, Jan
 
