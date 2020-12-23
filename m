@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086152E1FB7
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 18:08:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58552.103098 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 297312E1FF5
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 18:27:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58556.103109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks7bk-0004kD-GB; Wed, 23 Dec 2020 17:07:28 +0000
+	id 1ks7uH-0006Xu-4s; Wed, 23 Dec 2020 17:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58552.103098; Wed, 23 Dec 2020 17:07:28 +0000
+Received: by outflank-mailman (output) from mailman id 58556.103109; Wed, 23 Dec 2020 17:26:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks7bk-0004jo-D2; Wed, 23 Dec 2020 17:07:28 +0000
-Received: by outflank-mailman (input) for mailman id 58552;
- Wed, 23 Dec 2020 17:07:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0ifz=F3=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1ks7bj-0004jj-HH
- for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 17:07:27 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c75ce1f2-83aa-4962-8277-b325d403f43f;
- Wed, 23 Dec 2020 17:07:26 +0000 (UTC)
+	id 1ks7uH-0006XV-1X; Wed, 23 Dec 2020 17:26:37 +0000
+Received: by outflank-mailman (input) for mailman id 58556;
+ Wed, 23 Dec 2020 17:26:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ks7uF-0006XA-Ph
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 17:26:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ks7uF-0003UH-AI; Wed, 23 Dec 2020 17:26:35 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ks7uE-0008WH-V7; Wed, 23 Dec 2020 17:26:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,66 +39,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c75ce1f2-83aa-4962-8277-b325d403f43f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1608743246;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=XGtcxtIP85AkoJ1oo6T1oa1vfCR93ZORyNz7qwenv/I=;
-  b=RBwRxHuZdjrdl7o5FXMdKWZpNlBERAcx/yxWtXMNbA3/7TtYrvOPPCGE
-   Tqmdh/IdvYCoPvv/9ah/w3gB9BIZzE13JKNhC2NpIXGtaQQxH3jBRKuB+
-   7VI8UBjtsy+e/dPIX9MEdyGPSXH77VXIR2R/Z0zc7c+jfhJE6XjdTGIXe
-   Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 7fTt9hNMSvSsH9vBvGXPFqKIzKCBjfP8/SqEm4SzL9RNG7rcw3n6pU+BJehzvLHyEGZAw4qlIr
- /MoXRgKzYHmm+7QM30HsN0nVj+MHjWSj/iQRrjEbwQZOhfYUMPct9RgU8MGr/pwJ9oJ4j0XXeu
- Er3K+NwQ03+1cn7JaRQvolXErdUoJlSlnDWZ+uUti/vzBJftuUNufO/2R4ZQO44zDMG2DT84mx
- y7m3HXSaN3ZCd4VnjLgz+SkRU31ZGM1GR9V17KEMWa6jqm4VZzVtYCn0dbOCEIxBh8+AO9B4tA
- sic=
-X-SBRS: 5.2
-X-MesageID: 33866419
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,441,1599537600"; 
-   d="scan'208";a="33866419"
-Subject: Re: [PATCH] lib: drop debug_build()
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=RVjN2Xj0UI+Y2gdhRH5W34wQ//kli7CKgHmezDOMQIY=; b=mBu0mgIoIUq8zGjn6RhGDZmZED
+	bqwiEQnt00LRuNfIYbMxDSGygeVoBWvlh+0MGkzn74qGh3SKmu+DllaCEDlFRACJUfa4GzNO8DWdJ
+	/KEFXF6uRDzJ1r90eY04nWjSyrTM1oblJdzbEQK8byU3BTo6oh9r+ba22I/6UJj9OQsI=;
+Subject: Re: [PATCH for-4.15 3/4] [RFC] xen/iommu: x86: Clear the root
+ page-table before freeing the page-tables
 To: Jan Beulich <jbeulich@suse.com>
-CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <143333c9-154b-77c3-a66a-6b81696ecded@suse.com>
- <2575d75a-ce1d-c725-4f37-b7c9c10a2ecd@citrix.com>
- <266f673e-0158-13fe-9ea7-69a3c5dc2903@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <7129ab6a-df30-a995-5a2c-b35c094bb629@citrix.com>
-Date: Wed, 23 Dec 2020 17:07:01 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Cc: hongyxia@amazon.co.uk, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>
+References: <20201222154338.9459-1-julien@xen.org>
+ <20201222154338.9459-4-julien@xen.org>
+ <499e6d5a-e8ac-56db-1af9-70469b6a06b9@suse.com>
+ <8b394c44-5bdb-9d82-b211-5a4ee3473568@xen.org>
+ <19e92d90-ed9a-4bd6-79f4-b761b5a039c6@suse.com>
+ <96ce1b10-9764-b71e-ac26-982ba8dcc34d@xen.org>
+ <092e5199-7eab-2722-7f0b-43fb3c8b2065@suse.com>
+ <281188a0-f632-c0a1-4591-0a66ef0068f5@xen.org>
+ <d7b866b6-118a-f873-f8df-eb112b708fe3@suse.com>
+ <0699ad7a-7c3b-e1e8-c7f7-0bfb54d03c78@xen.org>
+ <63091edf-a870-cac1-587a-59cb9d0f8d8d@suse.com>
+ <6582c77e-114c-1ad7-0179-7e2e58a23745@xen.org>
+ <2f3b546c-c075-bfb1-a17b-b0c987bee682@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <55be5b1e-20bb-bf59-6f46-be8eb456dfba@xen.org>
+Date: Wed, 23 Dec 2020 17:26:32 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <266f673e-0158-13fe-9ea7-69a3c5dc2903@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <2f3b546c-c075-bfb1-a17b-b0c987bee682@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL03.citrite.net (10.13.108.165)
+Content-Transfer-Encoding: 7bit
 
-On 22/12/2020 07:42, Jan Beulich wrote:
-> On 21.12.2020 19:07, Andrew Cooper wrote:
->> On 21/12/2020 16:50, Jan Beulich wrote:
->>> Its expansion shouldn't be tied to NDEBUG - down the road we may want to
->>> allow enabling assertions independently of CONFIG_DEBUG.
->> I'm not sure I agree that we'll ever want to do this, but...
-> Didn't you once say XenServer keeps (or kept) assertions enabled
-> even in release builds?
+Hi Jan,
 
-The hypervisor RPM has two xen.gz's, a release and debug build from the
-same source.
+On 23/12/2020 17:02, Jan Beulich wrote:
+> On 23.12.2020 17:54, Julien Grall wrote:
+>>
+>>
+>> On 23/12/2020 16:46, Jan Beulich wrote:
+>>> On 23.12.2020 17:29, Julien Grall wrote:
+>>>> On 23/12/2020 16:24, Jan Beulich wrote:
+>>>>> On 23.12.2020 17:16, Julien Grall wrote:
+>>>>>> On 23/12/2020 16:11, Jan Beulich wrote:
+>>>>>>> On 23.12.2020 16:16, Julien Grall wrote:
+>>>>>>>> On 23/12/2020 15:00, Jan Beulich wrote:
+>>>>>>>>> On 23.12.2020 15:56, Julien Grall wrote:
+>>>>>>>>>> On 23/12/2020 14:12, Jan Beulich wrote:
+>>>>>>>>>>> On 22.12.2020 16:43, Julien Grall wrote:
+>>>>>>>>>>>> This is an RFC because it would break AMD IOMMU driver. One option would
+>>>>>>>>>>>> be to move the call to the teardown callback earlier on. Any opinions?
+>>>>>
+>>>>> Please note this (in your original submission). I simply ...
+>>>>>
+>>>>>>>>>>> We already have
+>>>>>>>>>>>
+>>>>>>>>>>> static void amd_iommu_domain_destroy(struct domain *d)
+>>>>>>>>>>> {
+>>>>>>>>>>>           dom_iommu(d)->arch.amd.root_table = NULL;
+>>>>>>>>>>> }
+>>>>>>>>>>>
+>>>>>>>>>>> and this function is AMD's teardown handler. Hence I suppose
+>>>>>>>>>>> doing the same for VT-d would be quite reasonable. And really
+>>>>>>>>>>> VT-d's iommu_domain_teardown() also already has
+>>>>>>>>>>>
+>>>>>>>>>>>           hd->arch.vtd.pgd_maddr = 0;
+>>>>>>>>>>
+>>>>>>>>>> Let me have a look if that works.
+>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> I guess what's missing is prevention of the root table
+>>>>>>>>>>> getting re-setup.
+>>>>>>>>>>
+>>>>>>>>>> This is taken care in the follow-up patch by forbidding page-table
+>>>>>>>>>> allocation. I can mention it in the commit message.
+>>>>>>>>>
+>>>>>>>>> My expectation is that with that subsequent change the change here
+>>>>>>>>> (or any variant of it) would become unnecessary.
+>>>>>>>>
+>>>>>>>> I am not be sure. iommu_unmap() would still get called from put_page().
+>>>>>>>> Are you suggesting to gate the code if d->is_dying as well?
+>>>>>>>
+>>>>>>> Unmap shouldn't be allocating any memory right now, as in
+>>>>>>> non-shared-page-table mode we don't install any superpages
+>>>>>>> (unless I misremember).
+>>>>>>
+>>>>>> It doesn't allocate memory, but it will try to access the IOMMU
+>>>>>> page-tables (see more below).
+>>>>>>
+>>>>>>>
+>>>>>>>> Even if this patch is deemed to be unecessary to fix the issue.
+>>>>>>>> This issue was quite hard to chase/reproduce.
+>>>>>>>>
+>>>>>>>> I think it would still be good to harden the code by zeroing
+>>>>>>>> hd->arch.vtd.pgd_maddr to avoid anyone else wasting 2 days because the
+>>>>>>>> pointer was still "valid".
+>>>>>>>
+>>>>>>> But my point was that this zeroing already happens.
+>>>>>>> What I
+>>>>>>> suspect is that it gets re-populated after it was zeroed,
+>>>>>>> because of page table manipulation that shouldn't be
+>>>>>>> occurring anymore for a dying domain.
+>>>>>>
+>>>>>> AFAICT, the zeroing is happening in ->teardown() helper.
+>>>>>>
+>>>>>> It is only called when the domain is fully destroyed (see call in
+>>>>>> arch_domain_destroy()). This will happen much after relinquishing the code.
+>>>>>>
+>>>>>> Could you clarify why you think it is already zeroed and by who?
+>>>>>
+>>>>> ... trusted you on what you stated there. But perhaps I somehow
+>>>>> misunderstood that sentence to mean you want to put your addition
+>>>>> into the teardown functions, when apparently you meant to invoke
+>>>>> them earlier in the process. Without clearly identifying why this
+>>>>> would be a safe thing to do, I couldn't imagine that's what you
+>>>>> suggest as alternative.
+>>>>
+>>>> This was a wording issue. I meant moving ->teardown() before (or calling
+>>>> from) iommu_free_pgtables().
+>>>>
+>>>> Shall I introduce a new callback then?
+>>>
+>>> Earlier zeroing won't help unless you prevent re-population, or
+>>> unless you make the code capable of telling "still zero" from
+>>> "already zero". But I have to admit I'd like to also have Paul's
+>>> opinion on the matter.
+>>
+>> Patch #4 is meant to prevent that with the d->is_dying check in the
+>> IOMMU page-table allocation.
+>>
+>> Do you think this is not enough?
+> 
+> It probably is; I think that other patch would want to come first
+> then, or both be folded. 
 
-So yes - a debug hypervisor is available in a normal XenServer release,
-but its not assertions in a release build of Xen.
+I would like to keep them separated. But I am happy to re-order them.
 
-~Andrew
+> Nevertheless I'm not fully convinced
+> putting the check there is the best course of action.
+
+As you pointed out in a previous e-mail, the IOMMU code is pretty hard 
+to follow at times. The check in the allocator is quite simple, so I 
+think it would be best to keep it.
+
+It doesn't mean this should be the only change, but it will avoid a 
+whole lot of potential issues if we missed any path that may touch the 
+IOMMU page-tables while the domain is dying.
+
+The other checks can just be shortcut to prevent extra work that will 
+result to a failure.
+
+I will wait for Paul's input before reworking the series.
+
+Cheers,
+
+-- 
+Julien Grall
 
