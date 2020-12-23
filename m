@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 069DA2E1F46
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 17:10:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58468.102846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C452B2E1F48
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 17:11:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58472.102858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks6iV-0006No-C9; Wed, 23 Dec 2020 16:10:23 +0000
+	id 1ks6jc-0006Vr-NT; Wed, 23 Dec 2020 16:11:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58468.102846; Wed, 23 Dec 2020 16:10:23 +0000
+Received: by outflank-mailman (output) from mailman id 58472.102858; Wed, 23 Dec 2020 16:11:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks6iV-0006NP-8o; Wed, 23 Dec 2020 16:10:23 +0000
-Received: by outflank-mailman (input) for mailman id 58468;
- Wed, 23 Dec 2020 16:10:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lNd7=F3=daemonizer.de=maxi@srs-us1.protection.inumbo.net>)
- id 1ks6iT-0006NK-Ov
- for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 16:10:21 +0000
-Received: from mx1.somlen.de (unknown [89.238.87.226])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 69215828-7abd-4150-a7a0-c600245441f3;
- Wed, 23 Dec 2020 16:10:19 +0000 (UTC)
-Received: by mx1.somlen.de with ESMTPSA id C16B7C3AF0B;
- Wed, 23 Dec 2020 17:10:17 +0100 (CET)
+	id 1ks6jc-0006VQ-Jl; Wed, 23 Dec 2020 16:11:32 +0000
+Received: by outflank-mailman (input) for mailman id 58472;
+ Wed, 23 Dec 2020 16:11:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zN8f=F3=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1ks6jb-0006VL-OB
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 16:11:31 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id eb2e82df-bc3e-48a0-bc9a-c0167ebe6207;
+ Wed, 23 Dec 2020 16:11:30 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id F419CACF1;
+ Wed, 23 Dec 2020 16:11:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,87 +38,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69215828-7abd-4150-a7a0-c600245441f3
-From: Maximilian Engelhardt <maxi@daemonizer.de>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 3/3] docs: set date to SOURCE_DATE_EPOCH if available
-Date: Wed, 23 Dec 2020 17:10:12 +0100
-Message-ID: <2354439.sqZyMsV9Az@localhost>
-In-Reply-To: <3c3edc91-7d22-289f-575b-9fd3c2ec4bc8@suse.com>
-References: <cover.1608319634.git.maxi@daemonizer.de> <23352f4835ae58c5cae6f425d5a8378f3d694055.1608319634.git.maxi@daemonizer.de> <3c3edc91-7d22-289f-575b-9fd3c2ec4bc8@suse.com>
+X-Inumbo-ID: eb2e82df-bc3e-48a0-bc9a-c0167ebe6207
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1608739890; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zwk9KLTT7CXqu/qK9JkhsegVSNfBkTc2e6kLd1GHfjg=;
+	b=YyRaIYcl9MtMb14cnU5lwOX+FBgqKvlCa6Y7zaiGM20JpMtTZD7vgWpCk/Zl+7DoCX9XBk
+	kM3BSgAK2CzE977fIjBslVkXYmHBilFCQMEKLVqXSHjdf1yEXqHbcOO4nHCxUam4Qyy5eD
+	x+UFjrh7zDXTlAdzVCOvvd0q/Q6kaBY=
+Subject: Re: [PATCH for-4.15 3/4] [RFC] xen/iommu: x86: Clear the root
+ page-table before freeing the page-tables
+To: Julien Grall <julien@xen.org>
+Cc: hongyxia@amazon.co.uk, Julien Grall <jgrall@amazon.com>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20201222154338.9459-1-julien@xen.org>
+ <20201222154338.9459-4-julien@xen.org>
+ <499e6d5a-e8ac-56db-1af9-70469b6a06b9@suse.com>
+ <8b394c44-5bdb-9d82-b211-5a4ee3473568@xen.org>
+ <19e92d90-ed9a-4bd6-79f4-b761b5a039c6@suse.com>
+ <96ce1b10-9764-b71e-ac26-982ba8dcc34d@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <092e5199-7eab-2722-7f0b-43fb3c8b2065@suse.com>
+Date: Wed, 23 Dec 2020 17:11:29 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart2033718.9jYyLHQttZ"; micalg="pgp-sha512"; protocol="application/pgp-signature"
+In-Reply-To: <96ce1b10-9764-b71e-ac26-982ba8dcc34d@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---nextPart2033718.9jYyLHQttZ
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-
-On Montag, 21. Dezember 2020 10:01:14 CET Jan Beulich wrote:
-> On 18.12.2020 21:42, Maximilian Engelhardt wrote:
-> > --- a/docs/Makefile
-> > +++ b/docs/Makefile
-> > @@ -3,7 +3,13 @@ include $(XEN_ROOT)/Config.mk
-> > 
-> >  -include $(XEN_ROOT)/config/Docs.mk
-> >  
-> >  VERSION		:= $(shell $(MAKE) -C $(XEN_ROOT)/xen --no-print-directory
-> >  xenversion)> 
-> > -DATE		:= $(shell date +%Y-%m-%d)
-> > +
-> > +DATE_FMT	:= +%Y-%m-%d
-> > +ifdef SOURCE_DATE_EPOCH
-> > +DATE		:= $(shell date -u -d "@$(SOURCE_DATE_EPOCH)" "$(DATE_FMT)"
-> > 2>/dev/null || date -u -r "$(SOURCE_DATE_EPOCH)" "$(DATE_FMT)"
-> > 2>/dev/null || date -u "$(DATE_FMT)")
-> Looking at the doc for a (deliberately) old "date", I can't find
-> any mention of the -d "@..." syntax. I take it the command would
-> fail on that system. It would then go on to try the -r variant,
-> which has entirely different meaning on GNU (Linux) systems.
+On 23.12.2020 16:16, Julien Grall wrote:
+> On 23/12/2020 15:00, Jan Beulich wrote:
+>> On 23.12.2020 15:56, Julien Grall wrote:
+>>> On 23/12/2020 14:12, Jan Beulich wrote:
+>>>> On 22.12.2020 16:43, Julien Grall wrote:
+>>>>> This is an RFC because it would break AMD IOMMU driver. One option would
+>>>>> be to move the call to the teardown callback earlier on. Any opinions?
+>>>>
+>>>> We already have
+>>>>
+>>>> static void amd_iommu_domain_destroy(struct domain *d)
+>>>> {
+>>>>       dom_iommu(d)->arch.amd.root_table = NULL;
+>>>> }
+>>>>
+>>>> and this function is AMD's teardown handler. Hence I suppose
+>>>> doing the same for VT-d would be quite reasonable. And really
+>>>> VT-d's iommu_domain_teardown() also already has
+>>>>
+>>>>       hd->arch.vtd.pgd_maddr = 0;
+>>>
+>>> Let me have a look if that works.
+>>>
+>>>>
+>>>> I guess what's missing is prevention of the root table
+>>>> getting re-setup.
+>>>
+>>> This is taken care in the follow-up patch by forbidding page-table
+>>> allocation. I can mention it in the commit message.
+>>
+>> My expectation is that with that subsequent change the change here
+>> (or any variant of it) would become unnecessary.
 > 
-> docs/ being subject to configuring, why don't you determine the
-> capabilities of "date" there and invoke just the one command
-> that was found suitable for the system?
+> I am not be sure. iommu_unmap() would still get called from put_page(). 
+> Are you suggesting to gate the code if d->is_dying as well?
+
+Unmap shouldn't be allocating any memory right now, as in
+non-shared-page-table mode we don't install any superpages
+(unless I misremember).
+
+> Even if this patch is deemed to be unecessary to fix the issue.
+> This issue was quite hard to chase/reproduce.
 > 
-> Jan
+> I think it would still be good to harden the code by zeroing 
+> hd->arch.vtd.pgd_maddr to avoid anyone else wasting 2 days because the 
+> pointer was still "valid".
 
-Hi Jan,
+But my point was that this zeroing already happens. What I
+suspect is that it gets re-populated after it was zeroed,
+because of page table manipulation that shouldn't be
+occurring anymore for a dying domain.
 
-I did some research. The -d "@..." syntax was introduced about 2005. Testing a 
-live CD from 2006 (KNOPPIX_V5.0.1CD-2006-06-01-EN.iso) it was supported there. 
-The documentation about this syntax has only been added in 2011 to the date 
-command. I'm wondering if anybody running such an old system wants to use 
-SOURCE_DATE_EPOCH.
-
-However, I came up with a patch to determine which suitable date version is 
-available and only call that, as you suggested. I will post the new patch 
-soon.
-
-Maxi
---nextPart2033718.9jYyLHQttZ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEQ8gZ7vwsPje0uPkIgepkfSQr0hUFAl/ja+QACgkQgepkfSQr
-0hW5+g/+L51OAqHpwGZtFGlFb0eJxdq10ARcuU/iiB3dwyRVXAyMAhrBsMa288IH
-m7ZnBGV8MMhp/OVY5CeR+L0y5x+H6UhxvvSesqxcP617ngi8SKtPHSbadsA1gV5Z
-bkMUuZI8h4RfkyUxx1u18doF1IUGlXRu4/wujrUzLloY8XUp06x+x2dehNQJ9aj/
-kMH5UNZbqPUOnCxcvjZwGxlWIyH45iIwTWgdrUzXhIXOhzueA9egudL8/07/cOss
-e6UK+BlmXGJb+jFZyYds1EN0SZxbgAIuNGz0iAKvzRwmz3zQL6lqQByNeZ4YZaeD
-ec8qdSNgbQj7aitV4XtuSaKvXZ11Lwiaus4FiEeo4/I1CntuzFieBFvQFGY6gEOE
-kBKNfMycSKheZ8xk6dFUPZSdXC17TWvOHqEQqEh4MyIug4LO0lbkXuyLE0F0geAx
-kcsjPpCxoHy7dmTSdPQIdn4bYK1ufpKFiQSPvPoUEQ+XKpd2UMIBnR3BNwsb8/ey
-g+s8YVyxsPEozvyKNvNzfCIq2DzqrDWI/nQyv1CWxuT+nb98VzwWxwX0CJCPSPee
-qOSWB5abRT+zR5X9I+nkpEahQLTxcn92jr5Sk1+oVBjTdOOUqVdJJv7kqisJEPcG
-sWiHUeJVhlq4r2iwcjGK6S0f4Okfd2vVKEZ42Rb/RODnoGK7Fpw=
-=DFB4
------END PGP SIGNATURE-----
-
---nextPart2033718.9jYyLHQttZ--
-
-
-
+Jan
 
