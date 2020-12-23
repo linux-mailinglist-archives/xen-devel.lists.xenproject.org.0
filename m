@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C042E1F45
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 17:08:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58464.102834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 069DA2E1F46
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Dec 2020 17:10:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58468.102846 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks6gF-0005YO-Vt; Wed, 23 Dec 2020 16:08:03 +0000
+	id 1ks6iV-0006No-C9; Wed, 23 Dec 2020 16:10:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58464.102834; Wed, 23 Dec 2020 16:08:03 +0000
+Received: by outflank-mailman (output) from mailman id 58468.102846; Wed, 23 Dec 2020 16:10:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ks6gF-0005Xz-SM; Wed, 23 Dec 2020 16:08:03 +0000
-Received: by outflank-mailman (input) for mailman id 58464;
- Wed, 23 Dec 2020 16:08:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ks6gE-0005Xu-FL
- for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 16:08:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ks6gD-00025h-Jt; Wed, 23 Dec 2020 16:08:01 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ks6gD-00076i-7m; Wed, 23 Dec 2020 16:08:01 +0000
+	id 1ks6iV-0006NP-8o; Wed, 23 Dec 2020 16:10:23 +0000
+Received: by outflank-mailman (input) for mailman id 58468;
+ Wed, 23 Dec 2020 16:10:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lNd7=F3=daemonizer.de=maxi@srs-us1.protection.inumbo.net>)
+ id 1ks6iT-0006NK-Ov
+ for xen-devel@lists.xenproject.org; Wed, 23 Dec 2020 16:10:21 +0000
+Received: from mx1.somlen.de (unknown [89.238.87.226])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 69215828-7abd-4150-a7a0-c600245441f3;
+ Wed, 23 Dec 2020 16:10:19 +0000 (UTC)
+Received: by mx1.somlen.de with ESMTPSA id C16B7C3AF0B;
+ Wed, 23 Dec 2020 17:10:17 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,165 +38,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=s+60IexXiUolqy8XRvL8J+jmzDMc6K5mUc89JEwWjJM=; b=Qrl4jxatJGi9Jjne4xMbFbdZK3
-	syFb4mN4b97qbPKHoozSCFWkn7a+E3G1EfUFScr6ON5FjO48MigzCrAxvGQ1ypFSKNHcdsFNkXHHu
-	nhsEzM0rThDi+b1+NwPcAS6T4g+R6/7j0YUPfr71otBNWwDYi27q741tO1Z/IGMgvwiM=;
-Subject: Re: [PATCH for-4.15 4/4] xen/iommu: x86: Don't leak the IOMMU
- page-tables
+X-Inumbo-ID: 69215828-7abd-4150-a7a0-c600245441f3
+From: Maximilian Engelhardt <maxi@daemonizer.de>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: hongyxia@amazon.co.uk, Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-References: <20201222154338.9459-1-julien@xen.org>
- <20201222154338.9459-5-julien@xen.org>
- <beb22b59-701e-462c-5080-e99033079204@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <d62f8851-b417-b22a-4527-c2c43b536446@xen.org>
-Date: Wed, 23 Dec 2020 16:07:58 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.0
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 3/3] docs: set date to SOURCE_DATE_EPOCH if available
+Date: Wed, 23 Dec 2020 17:10:12 +0100
+Message-ID: <2354439.sqZyMsV9Az@localhost>
+In-Reply-To: <3c3edc91-7d22-289f-575b-9fd3c2ec4bc8@suse.com>
+References: <cover.1608319634.git.maxi@daemonizer.de> <23352f4835ae58c5cae6f425d5a8378f3d694055.1608319634.git.maxi@daemonizer.de> <3c3edc91-7d22-289f-575b-9fd3c2ec4bc8@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <beb22b59-701e-462c-5080-e99033079204@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="nextPart2033718.9jYyLHQttZ"; micalg="pgp-sha512"; protocol="application/pgp-signature"
 
+--nextPart2033718.9jYyLHQttZ
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-
-On 23/12/2020 14:34, Jan Beulich wrote:
-> On 22.12.2020 16:43, Julien Grall wrote:
->> From: Julien Grall <jgrall@amazon.com>
->>
->> The new IOMMU page-tables allocator will release the pages when
->> relinquish the domain resources. However, this is not sufficient in two
->> cases:
->>      1) domain_relinquish_resources() is not called when the domain
->>      creation fails.
+On Montag, 21. Dezember 2020 10:01:14 CET Jan Beulich wrote:
+> On 18.12.2020 21:42, Maximilian Engelhardt wrote:
+> > --- a/docs/Makefile
+> > +++ b/docs/Makefile
+> > @@ -3,7 +3,13 @@ include $(XEN_ROOT)/Config.mk
+> > 
+> >  -include $(XEN_ROOT)/config/Docs.mk
+> >  
+> >  VERSION		:= $(shell $(MAKE) -C $(XEN_ROOT)/xen --no-print-directory
+> >  xenversion)> 
+> > -DATE		:= $(shell date +%Y-%m-%d)
+> > +
+> > +DATE_FMT	:= +%Y-%m-%d
+> > +ifdef SOURCE_DATE_EPOCH
+> > +DATE		:= $(shell date -u -d "@$(SOURCE_DATE_EPOCH)" "$(DATE_FMT)"
+> > 2>/dev/null || date -u -r "$(SOURCE_DATE_EPOCH)" "$(DATE_FMT)"
+> > 2>/dev/null || date -u "$(DATE_FMT)")
+> Looking at the doc for a (deliberately) old "date", I can't find
+> any mention of the -d "@..." syntax. I take it the command would
+> fail on that system. It would then go on to try the -r variant,
+> which has entirely different meaning on GNU (Linux) systems.
 > 
-> Could you remind me of what IOMMU page table insertions there
-> are during domain creation? No memory got allocated to the
-> domain at that point yet, so it would seem to me there simply
-> is nothing to map.
-
-The P2M is first modified in hvm_domain_initialise():
-
-(XEN) Xen call trace:
-(XEN)    [<ffff82d04026b9ec>] R iommu_alloc_pgtable+0x11/0x137
-(XEN)    [<ffff82d04025f9f5>] F 
-drivers/passthrough/vtd/iommu.c#addr_to_dma_page_maddr+0x146/0x1d8
-(XEN)    [<ffff82d04025fcc5>] F 
-drivers/passthrough/vtd/iommu.c#intel_iommu_map_page+0x6a/0x14b
-(XEN)    [<ffff82d04026d949>] F iommu_map+0x6d/0x16f
-(XEN)    [<ffff82d04026da71>] F iommu_legacy_map+0x26/0x63
-(XEN)    [<ffff82d040301bdc>] F 
-arch/x86/mm/p2m-ept.c#ept_set_entry+0x6b2/0x730
-(XEN)    [<ffff82d0402f67e7>] F p2m_set_entry+0x91/0x128
-(XEN)    [<ffff82d0402f6b5c>] F 
-arch/x86/mm/p2m.c#set_typed_p2m_entry+0xfe/0x3f7
-(XEN)    [<ffff82d0402f7f4c>] F set_mmio_p2m_entry+0x65/0x6e
-(XEN)    [<ffff82d04029a080>] F 
-arch/x86/hvm/vmx/vmx.c#vmx_domain_initialise+0xf6/0x137
-(XEN)    [<ffff82d0402af421>] F hvm_domain_initialise+0x357/0x4c7
-(XEN)    [<ffff82d04031eae7>] F arch_domain_create+0x478/0x4ff
-(XEN)    [<ffff82d04020476e>] F domain_create+0x4f2/0x778
-(XEN)    [<ffff82d04023b0d2>] F do_domctl+0xb1e/0x18b8
-(XEN)    [<ffff82d040311dbf>] F pv_hypercall+0x2f0/0x55f
-(XEN)    [<ffff82d040390432>] F lstar_enter+0x112/0x120
-
+> docs/ being subject to configuring, why don't you determine the
+> capabilities of "date" there and invoke just the one command
+> that was found suitable for the system?
 > 
->>      2) There is nothing preventing page-table allocations when the
->>      domain is dying.
->>
->> In both cases, this can be solved by freeing the page-tables again
->> when the domain destruction. Although, this may result to an high
->> number of page-tables to free.
-> 
-> Since I've seen this before in this series, and despite me also
-> not being a native speaker, as a nit: I don't think it can
-> typically be other than "result in".
+> Jan
 
-I think you are right.
+Hi Jan,
 
-> 
->> --- a/xen/arch/x86/domain.c
->> +++ b/xen/arch/x86/domain.c
->> @@ -2290,7 +2290,7 @@ int domain_relinquish_resources(struct domain *d)
->>   
->>       PROGRESS(iommu_pagetables):
->>   
->> -        ret = iommu_free_pgtables(d);
->> +        ret = iommu_free_pgtables(d, false);
-> 
-> I suppose you mean "true" here, but I also think the other
-> approach (checking for DOMDYING_dead, which you don't seem to
-> like very much) is better, if for no other reason than it
-> already being used elsewhere.
+I did some research. The -d "@..." syntax was introduced about 2005. Testing a 
+live CD from 2006 (KNOPPIX_V5.0.1CD-2006-06-01-EN.iso) it was supported there. 
+The documentation about this syntax has only been added in 2011 to the date 
+command. I'm wondering if anybody running such an old system wants to use 
+SOURCE_DATE_EPOCH.
 
-I think "don't like very much" is an understatement :). There seems to 
-be more function using an extra parameter (such as hap_set_allocation() 
-which was introduced before your DOMDYING_dead). So I only followed what 
-they did.
+However, I came up with a patch to determine which suitable date version is 
+available and only call that, as you suggested. I will post the new patch 
+soon.
 
-> 
->> @@ -305,6 +320,19 @@ struct page_info *iommu_alloc_pgtable(struct domain *d)
->>           memflags = MEMF_node(hd->node);
->>   #endif
->>   
->> +    /*
->> +     * The IOMMU page-tables are freed when relinquishing the domain, but
->> +     * nothing prevent allocation to happen afterwards. There is no valid
->> +     * reasons to continue to update the IOMMU page-tables while the
->> +     * domain is dying.
->> +     *
->> +     * So prevent page-table allocation when the domain is dying. Note
->> +     * this doesn't fully prevent the race because d->is_dying may not
->> +     * yet be seen.
->> +     */
->> +    if ( d->is_dying )
->> +        return NULL;
->> +
->>       pg = alloc_domheap_page(NULL, memflags);
->>       if ( !pg )
->>           return NULL;
-> 
-> As said in reply to an earlier patch - with a suitable
-> spin_barrier() you can place your check further down, along the
-> lines of
-> 
->      spin_lock(&hd->arch.pgtables.lock);
->      if ( likely(!d->is_dying) )
->      {
->          page_list_add(pg, &hd->arch.pgtables.list);
->          p = NULL;
->      }
->      spin_unlock(&hd->arch.pgtables.lock);
-> 
->      if ( p )
->      {
->          free_domheap_page(pg);
->          pg = NULL;
->      }
-> 
-> (albeit I'm relatively sure you won't like the re-purposing of
-> p, but that's a minor detail). (FREE_DOMHEAP_PAGE() would be
-> nice to use here, but we seem to only have FREE_XENHEAP_PAGE()
-> so far.)
+Maxi
+--nextPart2033718.9jYyLHQttZ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-In fact I don't mind the re-purposing of p. However, I dislike the 
-allocation and then freeing when the domain is dying.
+-----BEGIN PGP SIGNATURE-----
 
-I think I prefer the small race introduced (the pages will still be 
-freed) over this solution.
+iQIzBAABCgAdFiEEQ8gZ7vwsPje0uPkIgepkfSQr0hUFAl/ja+QACgkQgepkfSQr
+0hW5+g/+L51OAqHpwGZtFGlFb0eJxdq10ARcuU/iiB3dwyRVXAyMAhrBsMa288IH
+m7ZnBGV8MMhp/OVY5CeR+L0y5x+H6UhxvvSesqxcP617ngi8SKtPHSbadsA1gV5Z
+bkMUuZI8h4RfkyUxx1u18doF1IUGlXRu4/wujrUzLloY8XUp06x+x2dehNQJ9aj/
+kMH5UNZbqPUOnCxcvjZwGxlWIyH45iIwTWgdrUzXhIXOhzueA9egudL8/07/cOss
+e6UK+BlmXGJb+jFZyYds1EN0SZxbgAIuNGz0iAKvzRwmz3zQL6lqQByNeZ4YZaeD
+ec8qdSNgbQj7aitV4XtuSaKvXZ11Lwiaus4FiEeo4/I1CntuzFieBFvQFGY6gEOE
+kBKNfMycSKheZ8xk6dFUPZSdXC17TWvOHqEQqEh4MyIug4LO0lbkXuyLE0F0geAx
+kcsjPpCxoHy7dmTSdPQIdn4bYK1ufpKFiQSPvPoUEQ+XKpd2UMIBnR3BNwsb8/ey
+g+s8YVyxsPEozvyKNvNzfCIq2DzqrDWI/nQyv1CWxuT+nb98VzwWxwX0CJCPSPee
+qOSWB5abRT+zR5X9I+nkpEahQLTxcn92jr5Sk1+oVBjTdOOUqVdJJv7kqisJEPcG
+sWiHUeJVhlq4r2iwcjGK6S0f4Okfd2vVKEZ42Rb/RODnoGK7Fpw=
+=DFB4
+-----END PGP SIGNATURE-----
 
-Note that Paul's IOMMU series will completely rework the function. So 
-this is only temporary.
+--nextPart2033718.9jYyLHQttZ--
 
-Cheers,
 
--- 
-Julien Grall
+
 
