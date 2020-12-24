@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36DD52E2683
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Dec 2020 12:54:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.58703.103436 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4690F2E2684
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Dec 2020 12:54:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.58701.103412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ksPBw-0002f7-6K; Thu, 24 Dec 2020 11:54:00 +0000
+	id 1ksPBl-0002Y0-Iz; Thu, 24 Dec 2020 11:53:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 58703.103436; Thu, 24 Dec 2020 11:54:00 +0000
+Received: by outflank-mailman (output) from mailman id 58701.103412; Thu, 24 Dec 2020 11:53:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ksPBw-0002eX-10; Thu, 24 Dec 2020 11:54:00 +0000
-Received: by outflank-mailman (input) for mailman id 58703;
- Thu, 24 Dec 2020 11:53:58 +0000
+	id 1ksPBl-0002Xc-FR; Thu, 24 Dec 2020 11:53:49 +0000
+Received: by outflank-mailman (input) for mailman id 58701;
+ Thu, 24 Dec 2020 11:53:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OdH5=F4=casper.srs.infradead.org=batv+cd7a9cfaa2a0215fac24+6332+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1ksPBu-0002WC-9F
- for xen-devel@lists.xenproject.org; Thu, 24 Dec 2020 11:53:58 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ <SRS0=5Kri=F4=merlin.srs.infradead.org=batv+2cb6e212460c613e05ba+6332+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
+ id 1ksPBk-0002WC-8u
+ for xen-devel@lists.xenproject.org; Thu, 24 Dec 2020 11:53:48 +0000
+Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a9c3c9f7-f28f-4b01-8d0b-17da43b60027;
- Thu, 24 Dec 2020 11:53:39 +0000 (UTC)
+ id 839ae6fa-46d6-4ec2-9691-18c61f485f5d;
+ Thu, 24 Dec 2020 11:53:38 +0000 (UTC)
 Received: from i7.infradead.org ([2001:8b0:10b:1:21e:67ff:fecb:7a92])
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1ksPBN-0001IL-UT; Thu, 24 Dec 2020 11:53:26 +0000
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1ksPBO-0002b1-JE; Thu, 24 Dec 2020 11:53:26 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.94 #2 (Red Hat
- Linux)) id 1ksPBN-00Er3t-HI; Thu, 24 Dec 2020 11:53:25 +0000
+ Linux)) id 1ksPBN-00Er3w-Hp; Thu, 24 Dec 2020 11:53:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,17 +39,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: a9c3c9f7-f28f-4b01-8d0b-17da43b60027
+X-Inumbo-ID: 839ae6fa-46d6-4ec2-9691-18c61f485f5d
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=merlin.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=IRb1VunvIiJxLPUFQ4utXydsXUgkW5BhNr6SXAIAjkE=; b=Z63QCpTsmbNseE3AFM3QFE8rHW
-	4QIp3TdV9LwRqaoJgFRzIRJ1v2wP0BNaTdOOYVAZvxn7gnbES94Ygsdy4hhWEPpkmm12F7KSgl0+e
-	F2W6ndobGrou3JlpyCQLKsawu19yJSEJTXYLEzp5CKoJOyzdqCjnkZeNiXm+2rHhh7gDGf9rLmdjW
-	3SFLvjf/pfKIFmh+17m2ffIMXgZ6+cnpHnKT6TEevoUipz+MSixmf3u6HxZz16859Yba1pHa1l8ML
-	4kWgCP5YlertuYHd5iDaf8vQp2UmDbaMfrTjUMBQqgrmGpUC3WOwqFQsCQESlsNhwteM5PgeCJpPt
-	BAJsowfQ==;
+	bh=529q7/1gaAJwNhvRKFVZNAtSN1/LIWxT+b3mgEbuAUg=; b=NICvtL4896QMhOF1HTfxSmrS72
+	p8d8PA2yocHzLDIM3daetiJEmh4/NglWvaNG3qsGW+4SHQmC4x7CZmZ6IoaALTuRJ7QntYlY52FEc
+	H/XwQaYtBOtDdYi6anterI6y7VZ3B3ASgDnJBVoIrClNAH40YAF/sGJ1FRnUmGQozDD3l51AX9i+n
+	/KQtzoyhrjDO8DFESvLXDx9r1ViHK8C9XaUhLshO7d7Etxv6iG65UXfxjPpIS/gumxmpZ43ttID3p
+	VWxOJ/vZIHR+NZl5OSv+teiaf8k3DXJKDX9n+ivm5NEfLLD0cr/6114tLiqhjAAmoIkWLBMAXhdRt
+	YAM0hMjg==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: x86@kernel.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -59,45 +59,58 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	jgrall@amazon.com,
 	karahmed@amazon.de,
 	xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 4/5] x86/xen: Don't register Xen IPIs when they aren't going to be used
-Date: Thu, 24 Dec 2020 11:53:22 +0000
-Message-Id: <20201224115323.3540130-5-dwmw2@infradead.org>
+Subject: [PATCH 5/5] x86/xen: Don't register PV spinlock IPI when it isn't going to be used
+Date: Thu, 24 Dec 2020 11:53:23 +0000
+Message-Id: <20201224115323.3540130-6-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201224115323.3540130-1-dwmw2@infradead.org>
 References: <20201224115323.3540130-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by merlin.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-In the case where xen_have_vector_callback is false, we still register
-the IPI vectors in xen_smp_intr_init() for the secondary CPUs even
-though they aren't going to be used. Stop doing that.
+When xen_have_vector_callback is false, we still register the PV spinlock
+kicker IPI on the secondary CPUs. Stop doing that.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/xen/enlighten_hvm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/x86/xen/spinlock.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-index a1c07e0c888e..7a6ef517e81a 100644
---- a/arch/x86/xen/enlighten_hvm.c
-+++ b/arch/x86/xen/enlighten_hvm.c
-@@ -164,10 +164,10 @@ static int xen_cpu_up_prepare_hvm(unsigned int cpu)
- 	else
- 		per_cpu(xen_vcpu_id, cpu) = cpu;
- 	rc = xen_vcpu_setup(cpu);
--	if (rc)
-+	if (rc || !xen_have_vector_callback)
- 		return rc;
+diff --git a/arch/x86/xen/spinlock.c b/arch/x86/xen/spinlock.c
+index 799f4eba0a62..b240ea483e63 100644
+--- a/arch/x86/xen/spinlock.c
++++ b/arch/x86/xen/spinlock.c
+@@ -68,7 +68,7 @@ void xen_init_lock_cpu(int cpu)
+ 	int irq;
+ 	char *name;
  
--	if (xen_have_vector_callback && xen_feature(XENFEAT_hvm_safe_pvclock))
-+	if (xen_feature(XENFEAT_hvm_safe_pvclock))
- 		xen_setup_timer(cpu);
+-	if (!xen_pvspin)
++	if (!xen_pvspin || !xen_have_vector_callback)
+ 		return;
  
- 	rc = xen_smp_intr_init(cpu);
+ 	WARN(per_cpu(lock_kicker_irq, cpu) >= 0, "spinlock on CPU%d exists on IRQ%d!\n",
+@@ -93,7 +93,7 @@ void xen_init_lock_cpu(int cpu)
+ 
+ void xen_uninit_lock_cpu(int cpu)
+ {
+-	if (!xen_pvspin)
++	if (!xen_pvspin || !xen_have_vector_callback)
+ 		return;
+ 
+ 	unbind_from_irqhandler(per_cpu(lock_kicker_irq, cpu), NULL);
+@@ -115,7 +115,7 @@ PV_CALLEE_SAVE_REGS_THUNK(xen_vcpu_stolen);
+ void __init xen_init_spinlocks(void)
+ {
+ 	/*  Don't need to use pvqspinlock code if there is only 1 vCPU. */
+-	if (num_possible_cpus() == 1 || nopvspin)
++	if (num_possible_cpus() == 1 || nopvspin || !xen_have_vector_callback)
+ 		xen_pvspin = false;
+ 
+ 	if (!xen_pvspin) {
 -- 
 2.26.2
 
