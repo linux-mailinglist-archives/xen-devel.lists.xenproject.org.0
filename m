@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D1BB2E69FD
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Dec 2020 19:24:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.59567.104568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53F862E6A0F
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Dec 2020 19:50:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.59572.104581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ktxBs-0004nV-4o; Mon, 28 Dec 2020 18:24:20 +0000
+	id 1ktxZv-0006gC-6U; Mon, 28 Dec 2020 18:49:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 59567.104568; Mon, 28 Dec 2020 18:24:20 +0000
+Received: by outflank-mailman (output) from mailman id 59572.104581; Mon, 28 Dec 2020 18:49:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ktxBs-0004n7-1P; Mon, 28 Dec 2020 18:24:20 +0000
-Received: by outflank-mailman (input) for mailman id 59567;
- Mon, 28 Dec 2020 18:24:18 +0000
+	id 1ktxZv-0006fp-2u; Mon, 28 Dec 2020 18:49:11 +0000
+Received: by outflank-mailman (input) for mailman id 59572;
+ Mon, 28 Dec 2020 18:49:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=shBg=GA=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1ktxBq-0004n2-MY
- for xen-devel@lists.xenproject.org; Mon, 28 Dec 2020 18:24:18 +0000
+ <SRS0=GUIM=GA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1ktxZt-0006fh-DM
+ for xen-devel@lists.xenproject.org; Mon, 28 Dec 2020 18:49:09 +0000
 Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 474be9e3-ac94-47bf-b6fc-860b8c971072;
- Mon, 28 Dec 2020 18:24:16 +0000 (UTC)
+ id 20d01331-dc4b-4e42-9b77-e4ca6f0a5bef;
+ Mon, 28 Dec 2020 18:49:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,166 +36,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 474be9e3-ac94-47bf-b6fc-860b8c971072
+X-Inumbo-ID: 20d01331-dc4b-4e42-9b77-e4ca6f0a5bef
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1609179856;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=aiHen9JT4PeYKMzQFcFqnfx+rv1IBcBTuskJWWUR4fE=;
-  b=edLh36iNFIa/7VjXd6/ZUVkIEqOjaQREfZNgHmtE903R6EteWYLP0jR6
-   oqxhFxj0hYKZeV+V6Yi0tP28NkH6CEqrNT2NnJwAZlAoVnNVK+dzLKmLg
-   oBgYJQykk5VN5Yn9RRNi7/N7iK7J4dDm5ewRGgEu3A2JZJLuD6EpYazEI
-   Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: G0MHHDGztW8jcpVC85qqgKHT74YdiMdmaHUOTZQTNNlBFLrmaybYIwt7qNZWULfTqIY/qEN3aZ
- NDrPCskRkmIc1e38iO5KOuGGFcuxxS8dOSifEPrcuLb8xkmBtxLDhK3holL5LAThlFsUu2iE+a
- rLBXQq9eIvpAwlEc9XitOeDRcJA0Jn7nGgN2H3agzzYZ1MFxryPvJUGVUv3eC3l5CaGjrEn4lP
- 7pQ7OwvxF6CnqWr8ifm/mDwGv0COFomZnrzzvHf2L0nIyeRo1gLZTYnvkGW+wwkdUtZuca1/M7
- kc0=
+  d=citrix.com; s=securemail; t=1609181347;
+  h=subject:to:references:from:message-id:date:mime-version:
+   in-reply-to:content-transfer-encoding;
+  bh=9G6AIxDAf2ARK1SZTcq77GtBN9D79SabgF89Tvyag2k=;
+  b=Go67pWi7jVGCaxPp91+yQZ7tKVz5bA1b1FHsn046NV6ekz95LpZZfKkX
+   QjDhERBIi7tlmYO6SnaMo9DQ2fE5pAheE4jEeiXUSNFLWbLp6/SwozgHR
+   WfG0qKdto+qZO9cQS/sb3oNChbHEdZo2UKwySGwA2fKpWcsqXs4bi6Dub
+   k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: OyifZlA7HP97Z7lMId07ePIBuLTiPoKc40saqnyKzG9YKsKvsbbwdw/MVGrpbJSKaPsRQXwx6q
+ 9tcm0xNO86FphL42CUvcWL3E27o10J/EhIIW+GTM74WFC5LZSYEcUpIPhj9uGzHG6DWXQXt706
+ j30NjPJDo4DcN/9sYNSriocvIhZDQ7CYPZnJBJ6ZsZygvpYV/G0qCKsBtFtqY6U6yD0npO4A2E
+ E10+udtLDW8XVTIu/GGbBhoR9FXOIDbLSenMFhGEl58IccSXSfZSYrbnIqkfV2pbGyVsoukCEQ
+ TrE=
 X-SBRS: 5.2
-X-MesageID: 35298032
+X-MesageID: 35299876
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.78,455,1599537600"; 
-   d="scan'208";a="35298032"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jXHYvzvr2PZtJwSIdx4lqsBqTXur6Okn1LoT/HFokKd5DIWk2jqfDVBkSm/fjmLg+hkCjdG25T6O2+dnN3O86jxvtBM7XSTKiZRxBlXidNIfGvUIxZxJglDESu/V9M3Ve3r/m3UgE7EzKpJjhErGiQIjtKWTea81o5mhit17+7P60C6QdQVRIMXTngB9E3Xdqq4M+VD5Ae7s1/Qa9ewrtvvMgoncDIksRmpBrPwGSuvVDIqmotKcN/0bmBZmms1v0lSIY2cxo8oVReZhZTtACjFzYqF3R9Yq6ejPeDp+gMAyCKj8MmRHCCbmG8Y/raCJeeJ0bYwZdnYMDaS+6HSWjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UFXoTKwokUNFL67JtthriUpbVVuEHjE1CFWaQMsXsEM=;
- b=mF5m8Q7GkTd9Ah5l7Fi93A5zSfe324yKD1AUAz4WQPUx2QY2bfXHVZJkeuI+7cEJ2JNtej3kc85FM2Y6SetLvkxY51khpMMdhQbcYr/fJips3iOY1d0EoZj/r8dIwJigoU87vu8yKa1dW0BCvtvfPsnGqEwdkWK7UF9TtHk0qA+RdjF9Bp3mPRdQNhvw/QUUq/NvPXGFJ3jBjledTryj+iLZ4rPo2iRLYCMFxJhiN+z5KMn3MRvAYXQxEkEi4EsArtZToIv+1EuAhO2mS+iRp3ReuhMMSTUwnD86IATzvjuYM0mGwbmiHh7XuczC/CtiCcnZfIpc4udikWn6nzqm4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UFXoTKwokUNFL67JtthriUpbVVuEHjE1CFWaQMsXsEM=;
- b=l+CbRnGrhABJFtcWH18L3X2vWQiv0ARPZyHHiWBnHXyO3i/RsSJQpe9DBRJF8LDbz1D0mNnSgXz9SuSm/UIwJZy+haZSiLQNiqW+rsWBgVJMdaHtoi/kafQw+KbsYr9jk/7y1tLz8cyNUjEU+THGE9viyoiRSMPzh4ZjSmEBnCI=
-Date: Mon, 28 Dec 2020 19:24:07 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Manuel Bouyer
-	<bouyer@antioche.eu.org>
-Subject: Re: [PATCH 1/5] x86/vPCI: tolerate (un)masking a disabled MSI-X entry
-Message-ID: <20201228182407.5ntx7qppe4vu7fvu@Air-de-Roger>
-References: <f93efb14-f088-ca84-7d0a-f1b53ff6316c@suse.com>
- <fef14892-f21d-e304-d9b1-7484e0ea3415@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fef14892-f21d-e304-d9b1-7484e0ea3415@suse.com>
-X-ClientProxiedBy: MRXP264CA0042.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:14::30) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+   d="scan'208";a="35299876"
+Subject: Re: [BUG] Unable to boot Xen 4.11 (shipped with Ubuntu) on Intel 10i3
+ CPU
+To: Ondrej Balaz <blami@blami.net>, <xen-devel@lists.xenproject.org>
+References: <CACmg6stNxXu3-SFdK_WtREbL2i7N522-DRRVr1ZXVOTqZ9j02Q@mail.gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <f3346d45-e8d5-5b37-a9df-f410af54469f@citrix.com>
+Date: Mon, 28 Dec 2020 18:49:01 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 960016ae-50e3-4c23-5e98-08d8ab5dc6a5
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2491:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR03MB2491BF6A28DBD9898BDC5CF58FD90@DM5PR03MB2491.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SExZkCHxlRQgEx4pSuKam/31c0JsupyYN9liMT/D0NTHzHJxgcYevjBGP2CRISh7UVHPFzGLoPwe/sopZEPLeNsytrymJXmj5rUBP0CySI5QfeqWVCtNzxngRMwGABN6bk0ti/ZLxH1qdjbzlBinMfBWPazZ25QZkCRpSYm+1Cs8pUwObcgRBQXSN3baKdyLLPJ27XK6BrPEjN/xgn4Pcmf4M0b0MNJ26B3sNTIFFcnqV0HjYg/JlVFf7UlfgNKvzB2rTRpYEeWm6hCae4OjkG445orrEWQ2/3OLPKyaih/AswzVvuzT5DnHCXsOJk4gKksoFyGduD52SdZLgjeizpdlPYpwkhfJn9BacVVIG/XRAzGHoR/YDT1UAay+WFI5lCUZjuM0jmpIm9Pd5C9vZA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(396003)(346002)(376002)(39860400002)(136003)(4326008)(956004)(66946007)(9686003)(85182001)(478600001)(8936002)(16526019)(26005)(54906003)(1076003)(66476007)(86362001)(66556008)(6916009)(6486002)(8676002)(5660300002)(316002)(6666004)(186003)(2906002)(83380400001)(6496006)(33716001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?aVEzUzRnUkQzaWFoQWJ3UitvTHFlVFJjeGJVZFVoRGo5N0RYZENPMHQxZFdo?=
- =?utf-8?B?ZkNSNzRlQ1EyclpBS0dSOG5STjR5QWc2OXhBdHFCQjMyNGhtT0ZNT1VqcC81?=
- =?utf-8?B?d3NDTTVDZ0tFZEZTNGxSS2UrdHVpN3ZuUElVK1RaODEyS2ZtWUVHcUhpbW1h?=
- =?utf-8?B?OWRoNjhwRWVlRUpmZzVTRTB0bmZyY1V3Q0s4U1dQMVp0M0JvaVlyQndrY1dN?=
- =?utf-8?B?b2dkZXluWGZMdFRxeGpoSVZOeHdNdldLRUJZR0l5QWtic2x4QmNERDI0b3Vp?=
- =?utf-8?B?ZmMxY1k2YU9ubWJuM3h6Q3JUaU9SZDZXT2RBZFVJenYxYjNsRlNVekV1ZG0v?=
- =?utf-8?B?SEE2NmJZL3VrdUJueFlJKzIrb1ZqaFd5NHV3U3Nvb2IxdHdmV0d1MWFvc1M3?=
- =?utf-8?B?VkN5czMzeVJWZjc3cGZCSmpHdkVqNjA3Nko0VWVHVU9XNG83UURPTW1PV0Ev?=
- =?utf-8?B?NWpaRFNIbFoxdllKNnI4eU1DM09PVEVpbnlwbGwvNHBXV0V5TWpXeUttZWpY?=
- =?utf-8?B?Q2M5S3MyYjBkYnR3ajMzK3NMdmx1bmhNMDEzY09wbmJGNkkxRWY3Q1E5Vm5p?=
- =?utf-8?B?Ym1RRnNyK0t1S3dwY0hRTjlJMVhZZ1FOYncwdGEvNnZ2SmVkR3lPRVBCL0dz?=
- =?utf-8?B?ZEI3Wi9YUWpPV1VzK1NtUDBBRWZZN1c2TThrMVZJeTRxNkhkVS9WbzJBbi85?=
- =?utf-8?B?K0hwZnVWci9sSG9IYjZ5V1BwSHBrWHVDaGVtbDRkL3d1QThDWEFiRTNLYkp1?=
- =?utf-8?B?NlppeHd6Q2xXZ2lmNjI4VHphRSthM290NEVUcWVob2hXUnJQUnpKakxmY2tk?=
- =?utf-8?B?V016WUJPbVhmWGNUdEtqdnBhckNScndYamVVajdoQWlleWRTaTdoUGxJU1NM?=
- =?utf-8?B?Zzk0U0x5K1hhRHJrSzBReCs3MzNiT3Y1RTExcGZLWURud25VRDllUkc5Q1Vl?=
- =?utf-8?B?NHFWUUpaK055KzczVlltWWRGMWJ4RVpYNW5vVVJqaytmN2lRQkM4R2EvMmQ1?=
- =?utf-8?B?Wm1Zdmszbmt3Q2o5dU4zYUZrSlFWL0x1OXV0Sm9Tb09TT3hJWXB6RnpxTFM1?=
- =?utf-8?B?L1dYeEVWYkxGNkRNRkp4R3g4RFBBZUM3aEhwRU9MaEJYUXl1cVNMaDhheVFX?=
- =?utf-8?B?dmw0Q3JQeUJ3aCsxeTg5NUtjSTdSMmlLaFlzcEVwdlVWNFdyc3B3bnI3cmZv?=
- =?utf-8?B?b25MNFN3VGovREhJR1JNUWlhcXFIRHlxc0VPeFRBRkYreFl1TzRCSnNBQTZm?=
- =?utf-8?B?aTRlNjhZZUhzbmpRUTVYaDkvN1g3OG1lTExEOWFqa2YzUjhSMlhnekZtYW00?=
- =?utf-8?Q?JpaqbPkU5kiNtax9q1UvdE/OpPbQBEE/iX?=
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Dec 2020 18:24:12.4391
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-Network-Message-Id: 960016ae-50e3-4c23-5e98-08d8ab5dc6a5
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OT6GIIwu+u/iSC2Fk2O0giGrmNosiv5ad1fG31+zDYrSf1oQn7iPAHeP67Q/NGFNjJLzjzlhfC6xaJeXHVvfWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2491
-X-OriginatorOrg: citrix.com
+In-Reply-To: <CACmg6stNxXu3-SFdK_WtREbL2i7N522-DRRVr1ZXVOTqZ9j02Q@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ FTLPEX02CL03.citrite.net (10.13.108.165)
 
-On Mon, Dec 07, 2020 at 11:36:38AM +0100, Jan Beulich wrote:
-> None of the four reasons causing vpci_msix_arch_mask_entry() to get
-> called (there's just a single call site) are impossible or illegal prior
-> to an entry actually having got set up:
-> - the entry may remain masked (in this case, however, a prior masked ->
->   unmasked transition would already not have worked),
-> - MSI-X may not be enabled,
-> - the global mask bit may be set,
-> - the entry may not otherwise have been updated.
-> Hence the function asserting that the entry was previously set up was
-> simply wrong. Since the caller tracks the masked state (and setting up
-> of an entry would only be effected when that software bit is clear),
-> it's okay to skip both masking and unmasking requests in this case.
+On 28/12/2020 18:08, Ondrej Balaz wrote:
+> Hi,
+> I recently updated my home server running Ubuntu 20.04 (Focal) with
+> Xen hypervisor 4.11 (installed using Ubuntu packages). Before the
+> upgrade all was running fine and both dom0 and all domUs were booting
+> fine. Upgrade was literally taking harddrive from 6th gen Intel CPU
+> system to 10th gen Intel CPU one and redoing EFI entries from Ubuntu
+> live USB.
+>
+> After doing so standalone Ubuntu (without Xen multiboot) boots just
+> fine but Ubuntu as dom0 with Xen fails pretty early on with following
+> error (hand-copied from phone snaps I took with loglvl=all as this is
+> barebone system without serial port and I don't know how to dump full
+> logs in case of panic):
+>
+> (XEN) ACPI: IOAPIC (id[0x02] address[0xfec00000] gsi_base[01])
+> (XEN) IOAPIC[0]: apic_id 2, version 32, address 0xfec00000, GSI 0-119
+> (XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+> (XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+> (XEN) ACPI: IRQ0 used by override.
+> (XEN) ACPI: IRQ2 used by override 
+> (XEN) ACPI: IRQ9 used by override
+> (XEN) Enabling APIC mode: Flat.  Using 1 I/O APICs
+> (XEN) ACPI: HPET id: 0x8086a201 base: 0xfed00000
+> (XEN) ERST table was not found
+> (XEN) ACPI: BGRT: invalidating v1 image at 0x7d7c1018
+> (XEN) Using ACPI (MADT) for SMP configuration information
+> ...
+> (XEN) Switched to APIC driver x2apic_cluster
+> ...  
+> (XEN) Initing memory sharing.
+> (XEN) alt table ffff82d08042b840 -> ffff82d08042d7ce
+> ...
+> (XEN) Intel VT-d iommu 0 supported page sizes: 4kB, 2MB, 1GB.
+> (XEN) Intel VT-d iommu 1 supported page sizes: 4kB, 2MB, 1GB.
+> (XEN) Intel VT-d Snoop Control not enabled 
+> (XEN) Intel VT-d Dom0 DMA Passthrough not enabled 
+> (XEN) Intel VT-d Queued Invalidation enabled 
+> (XEN) Intel VT-d Interrupt Remapping enabled
+> (XEN) Intel VT-d Posted Interrupt not enabled  
+> (XEN) Intel VT-d Shared EPT tables enabled
+> (XEN) I/O virtualisation enabled
+> (XEN)  - Dom0 mode: Relaxed
+> (XEN) Interrupt remapping enabled
+> (XEN) nr_sockets: 1
+> (XEN) Enabled directed EOI with ioapic_ack_old on!
+> (XEN) ENABLING IO-APIC IRQs
+> (XEN)  -> Using old ACK method
+> (XEN) ..TIMER: vector=0xF0 apic1=0 pin1=2 apic2=-1 pin2=-1
+> (XEN) ..MP-BIOS bug: 8254 timer not connected to IO-APIC
+> (XEN) ...trying to set up timer (IRQ0) through the 8259A ... failed.
+> (XEN) ...trying to set up timer as Virtual Wire IRQ... failed.
+> (XEN) ...trying to set up timer as ExtINT IRQ...spurious 8259A
+> interrupt IRQ7.
+> (XEN) CPU0: No irq handler for vector e7 (IRQ -8)
+> (XEN) IRQ7 a=0001[0001,0000] v=60[ffffffff] t=IO-APIC-edge s=00000002
+> (XEN)  failed :(.
+> (XEN)
+> (XEN) *******************************
+> (XEN) Panic on CPU 0:
+> (XEN) IO-APIC + timer doesn't work!  Boot with apic_verbosity=debug
+> and send report.  Then try booting with the `noapic` option
+> (XEN) *******************************
+>
+> I suspected that migration of drive could cause problem so I took an
+> empty SSD and installed fresh Ubuntu and added Xen hypervisor, after
+> reboot I ended up with same panic. I tried booting with noapic (gave
+> general page fault) and iommu=0 (said it needs iommu=required/force).
+> Trying to boot this exact fresh install on older (6th gen) Intel CPU
+> succeeded. I happen to have access to one more system with 10th gen
+> Intel CPUs (Lenovo laptop) and no luck booting Xen there too and same
+> panic in the end.
+>
+> Back to my barebone I tried to match BIOS settings between working and
+> non-working but it didn't help. Virtualization is enabled, both
+> systems are from the same maker (Intel NUC barebones), both systems
+> are EFI enabled/secure boot disabled (the later one doesn't seem to
+> have an option to disable EFI boot and boot using MBR).
+>
+> Is this something known? Are there any boot options that can
+> potentially fix this?
+>
+> Any help (including how to dump full Xen boot logs without serial)
+> appreciated.
 
-On the original approach I just added this because I convinced myself
-that scenario was impossible. I think we could also do:
+Yes we're aware of it.  It is because modern Intel systems no longer
+have a legacy PIT configured by default, and Xen depends on this.  (The
+error message is misleading.  It's not checking for a timer, so much as
+checking that interrupts works, and depends on the legacy PIT "working"
+as the source of interrupts.)
 
-diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index 64dd0a929c..509cf3962c 100644
---- a/xen/drivers/vpci/msix.c
-+++ b/xen/drivers/vpci/msix.c
-@@ -357,7 +357,11 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
-          * so that it picks the new state.
-          */
-         entry->masked = new_masked;
--        if ( !new_masked && msix->enabled && !msix->masked && entry->updated )
-+
-+        if ( !msix->enabled )
-+            break;
-+
-+        if ( !new_masked && !msix->masked && entry->updated )
-         {
-             /*
-              * If MSI-X is enabled, the function mask is not active, the entry
-@@ -470,6 +474,7 @@ static int init_msix(struct pci_dev *pdev)
-     for ( i = 0; i < pdev->vpci->msix->max_entries; i++)
-     {
-         pdev->vpci->msix->entries[i].masked = true;
-+        pdev->vpci->msix->entries[i].updated = true;
-         vpci_msix_arch_init_entry(&pdev->vpci->msix->entries[i]);
-     }
+I'm working on a fix.
 
-In order to solve the issue.
-
-As pointed out in another patch, regardless of what we end up doing
-with the issue at hand we might have to consider setting updated to
-true in init_msix in case we want to somehow support enabling an entry
-that has it's address and data fields set to 0.
-
-> 
-> Fixes: d6281be9d0145 ('vpci/msix: add MSI-X handlers')
-> Reported-by: Manuel Bouyer <bouyer@antioche.eu.org>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Manuel, can we get confirmation that this fixes your issue?
-
-Thanks, Roger.
+~Andrew
 
