@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F54D2E69F2
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Dec 2020 19:11:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.59553.104544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE672E69F5
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Dec 2020 19:11:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.59560.104557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ktwyV-0003ad-Hy; Mon, 28 Dec 2020 18:10:31 +0000
+	id 1ktwza-0003iS-W5; Mon, 28 Dec 2020 18:11:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 59553.104544; Mon, 28 Dec 2020 18:10:31 +0000
+Received: by outflank-mailman (output) from mailman id 59560.104557; Mon, 28 Dec 2020 18:11:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ktwyV-0003aD-Dy; Mon, 28 Dec 2020 18:10:31 +0000
-Received: by outflank-mailman (input) for mailman id 59553;
- Mon, 28 Dec 2020 18:08:32 +0000
+	id 1ktwza-0003i3-Su; Mon, 28 Dec 2020 18:11:38 +0000
+Received: by outflank-mailman (input) for mailman id 59560;
+ Mon, 28 Dec 2020 18:11:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H/to=GA=gmail.com=obalaz85@srs-us1.protection.inumbo.net>)
- id 1ktwwa-0002qU-Os
- for xen-devel@lists.xenproject.org; Mon, 28 Dec 2020 18:08:32 +0000
-Received: from mail-wm1-f53.google.com (unknown [209.85.128.53])
+ <SRS0=Po3/=GA=yahoo.com=akm2tosher@srs-us1.protection.inumbo.net>)
+ id 1ktwzZ-0003hw-Rk
+ for xen-devel@lists.xenproject.org; Mon, 28 Dec 2020 18:11:37 +0000
+Received: from sonic315-20.consmr.mail.ne1.yahoo.com (unknown [66.163.190.146])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 596fc759-5d05-4068-b714-1378bb6384d6;
- Mon, 28 Dec 2020 18:08:31 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id c133so91771wme.4
- for <xen-devel@lists.xenproject.org>; Mon, 28 Dec 2020 10:08:31 -0800 (PST)
+ id ec7ab366-7289-4d03-b204-dda487f7f00f;
+ Mon, 28 Dec 2020 18:11:37 +0000 (UTC)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic315.consmr.mail.ne1.yahoo.com with HTTP; Mon, 28 Dec 2020 18:11:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,186 +37,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 596fc759-5d05-4068-b714-1378bb6384d6
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=Kta5IartLP/8dxe1dhpSNV4aATyrsPJh2h6ciKZbwi4=;
-        b=q+J6TJSKxJ3JVQfvownQnCBJpryK6wuCUjzt+TMyCPlpxNJHUZGCqwGyMNgWYydEOs
-         i5S3SFu/u12d57zgrHjp/uiqMQqHe5r/EHmqVcQUscGUf32cbjPvkTCiGzwYxa8h2dkT
-         CAPzLXQQxeJSA/+5Gt7BRqlkqod/CIHZXHThVFg8zWPisaQQ0Zih+e/E4BIaXZtfVmcx
-         SkFj/lILcbistWCW2Ky/SPdxORau8oI5ledlXbHp8uRE8j8gVyK38X2zanivo/0skmeu
-         2FDial8Hu7YP9N3VZojUUi5tEVf1BFd8f/T0dpCfClMPGp3MZf9XzC1EBfaw2vy2lXRq
-         ZkCA==
-X-Gm-Message-State: AOAM533svKpxCNcVZdlUrOsF7DfCM9tGJt83sEMCXarnoK79gEhGCrF9
-	x1aZZXNRsOkwrodWokuRye4IDhnd/f6+ypnGPAcevkV0i9CrDQ==
-X-Google-Smtp-Source: ABdhPJxeDdm8S7ubobUlEgfUUeg8dRtjmezYGG9LDKX+DsP7fTijQljfo+HlTrelr9h1ebJ2p2PWgOhKpezEppIz7Gw=
-X-Received: by 2002:a1c:5402:: with SMTP id i2mr122421wmb.12.1609178910124;
- Mon, 28 Dec 2020 10:08:30 -0800 (PST)
+X-Inumbo-ID: ec7ab366-7289-4d03-b204-dda487f7f00f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1609179096; bh=WP98efsM6H8bg7zFkKRHilzfsV0c9NVgFjLAel6r56A=; h=Date:From:To:Subject:References:From:Subject; b=FyFPpKutEzf6F8qAEZ+ULyvC2azcLPvhUZX3nCSNVyuehuQ3Zk1BLFUp05rCA4zZWrro8be3wBEa5OH1EgqvecoNik1l985kRaO14uIP+/A1wsTcfgvrjIj6u9lmx/B0KFTOEF0Xb7DOSCekmy4eAxicojdNuv8fVCBTAsjsair28KFtDB+HAGRwkLw6+VOthDWk4arh3oOeN+2JOEsAM+3H3KpFPYSe2FA16fGWaVu1YURbkYFt8Bbgf/T2grJwzwGwykO15EHqADsbuJNf0eOZ2gap0uoIzH7yS8JMf1XYOFUVUatNcsk0y+I6/dwcDtTAXZPk+FDbDE0OjfcPYw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1609179096; bh=K8lIQrUBVwP9f85FbQQJNWle0cvPmBQBjueJVoES0iG=; h=Date:From:To:Subject:From:Subject; b=qisNkQtdz440F+g0xYvOsydPyBZhlZclqvttIfxhfdUS38rwkPBBebqb2t5eGT2XHAcbcjP8aH7ihKXuQ0GC/oeQ0ONvYi8mJnGKwvvSDAesXx7QSsACYvOXydsBpLurWDzoATvAr+swmr/VABGXxPaSh0gL7b1mKOBIN2bt8AVPcXtTUxWaCOkgxkYO/F92AyPKS07rh9ifq0fHU7S1SQUEqrVbPfoXBVmPW5JHY+yfUL5vSR6EKQctm78m6BxK6KT5FnaI8lk1yH29Uygrwek3gZuPTcxU4iH1zjlc6PFiD6nuR+hN3VNcFKUAz8kr39Qc9FAgyb6x1+mWxR2tNA==
+X-YMail-OSG: oWcB6zIVM1naWPxnX0lXmfzZ7ygwvXFiB7nCQQ4NIU09R_0VKkM7S.3zibP4uHH
+ E4oDcjd58GiE2FrgAGCzS_e3UAmaftrCKZ0GfuGP5hAPXpv32ypNqF1Uxw4o7AFXifhSUdT5zZxk
+ 3bRCEf0AfGzrdkgbgLns56W4GPm0gvpMtNRqHwMG7QutOlL.6Emn.4BHwufb_f6JmEYxJ6QoAeCG
+ JlaQSl2DS9FWjFdA5g9y12JTpGy.GU2kZG93uxoPFfxJTJJKmMJEhwiWbbjdCnZANfPdJIyhzswj
+ K4oyT7JoXvRbiFsi04kgoBwyiDRbMcDlF8sCgQ5sNe79IHPrSe7t9YKwFnwtA4z6nMKDUPDR35jz
+ WRFKPADLpCAqS_jSSDm.OBlE_nKNliQA3iGajDsbv5U02gkdOV4LU.brm1DHtTt2hNZSvnmFvt4s
+ fR_LfMtm.DouMB9fo0F_xg8.UqOplFf8ZYWsdBsFEqMpbOTj4Hk7g_dkmG6zeP__j_8PmbboOWtN
+ Oml9KrPO4j1ztY0A4DZvMMgPBZxFWMXka6LrwZMMc11TcYEIarvkrtUqkX2F3PiCfZgFamEPL710
+ RZETsH0p_dJ8Nw0CNVf_MzZb3Dnd7RokwAMXQNQMcGSEyZRyjhYpdO6JVvz3sgkiyJAlSlzSXz07
+ T8B4pI0TswgBlmHALaf61PfFm7Uao6ZgQkEsyqvaGMAUgDzDVKFDp2bw4F5GJKublyz31s1GpZs9
+ pvCL93F5n3LOCpoBZ17Bs_Jt5MIy3EKC4UTiWkZKtAqjdEX.SOEfLa3vt8I7OeEkWZaTCazOSw37
+ GTGiL2NHLcyTYT43QeEIQgfyUPy9GaejPKKvzpSKOaj_CEXOIRX3uraARwgA6vt8xG7XAIyqh2U3
+ E7oBLLIeG7acpaGaiyr9Kslm0wuxKhBFkTwGW0K_8zQ7eGDMJY8NBr51Ekvn7rnxBk_yc0fDgv.0
+ bTIAbVXqUX70.oUYTsd6MWqkFVp6_aRxioA6bpMSWvUpqdcZ2tF8sOja_4_bhSvjXBOLD.OVYN.K
+ Sn_kuX9Gzrbeqs3jIMUr2H0GF86MBVXptLEydu_R_FOIqLoRdpG8zAJpioWMuFZmCoXoGzMmFzbq
+ .T8RwiXzMENHhY.KAQUWDMUrqV11FXp1Ig16.cxUY5Y42nUKcimXTNdVr4ZUrPHO6Zn30dTJW1It
+ N3mFs9clNCZWmnNWS2t8slnUellXnJD2BPbzy_PsoP_cIXx8Y6e6GvGi34HLsb5CFQTQqJ.YQ0OW
+ 800ABVH6sLKTG9w9RRGSwMaDpKphn4qqtl0afNxcaYwsRP59gn1HkJeS.PCiI8Hwm509FI.tatzi
+ By3inpthiz3Br910uBy7tAaxszEoCQVKhefl_zDgMXjEain2SUwsIB71Fl11TaLBO2B_sa2RKJdl
+ nqFi7oybv4Ex0su5OK_s8ynuOENOpZvCQkjmRR1oP82uJjHUD18iWXOUQ7fxrot2CN66KXWPx8z7
+ b67xxpsbacU10J.OdiAFbT2Uhq.dVQ.KDhEBvmfcWttDoYs5.uosTBgjrsobMSbIMYNq4Z_rtfuY
+ hFHpIw3YAXlQpPaq6erQtvJhewXPtYHCLfVlrZF3LT7BGdr7rkWDFmh2Wov1YVMIZmvqZDC2Uwpv
+ dI4jSK88pN3SBF6kR2wTxqPJXLo0iPkBDKiN2IfE7SaT5j53.Y8Rw32s8lqFcobfjoHr2dYvq26g
+ NOgoyWS85WG4gna0XQhxY7XAIEItjlpETupR1UvdGyxUYJ1cSXkLndkCUsYooqiCswNpYPAq.gV4
+ BcaRRkrfpVXmNC8POIS1XTtZJOPhVLnjoVaq1rN5Q5LxzdNzaBrJ.8jrKBZRQqTJe.I6JRaq3cKb
+ 86xfKi6kEBaIhpAnnvlTAssaI3wtyYuoikouS8gZJCrHb55CXFfs2bhN1WkEfUzQf6eYw0y6Gq4y
+ geAZPkF9ml7So05Wf8VZsbjx5860.P8ziH5l4VF.3XHMNYXVIRj6e2N83YCBN3yKfr6yYALF1pOq
+ jvZ.ldqA_shjdxzK2AK3EBNRUGx8S6FbfwJxqehgwRQdYrJ2.13Zhcjo4O8ccir4TcuNG12UAlrV
+ haIRFGISX1BdiBWhvH24z.ouesdDqb9za2_6Vv6F_ctG8XuJcrTPM1RwAFiB1ENrWrjOyook3D38
+ pX.VZ0O2K7lI9x0AD47vLY4Me_09q_d7Wlh1EnFUekGIzjEp5izEtmfW2WNLxkVIxlZOYPGOWhys
+ ttTnckSJakY151C9qq0GRthf1ZXymoNBpEGY554fAUNVqI4kTVSqS_liCdri_OVle0tY2P6Np4en
+ EDZQmIpdNX8uVpw2Zq23795NH1u0yUOHLdc9xu4OjYeN9C_J61APJecU1kGYwyMHkXZkuGgO0OjW
+ JWdY3MnK.
+Date: Mon, 28 Dec 2020 18:11:08 +0000 (UTC)
+From: tosher 1 <akm2tosher@yahoo.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <943136031.5051796.1609179068383@mail.yahoo.com>
+Subject: PVH mode PCI passthrough status
 MIME-Version: 1.0
-From: Ondrej Balaz <blami@blami.net>
-Date: Tue, 29 Dec 2020 03:08:19 +0900
-Message-ID: <CACmg6stNxXu3-SFdK_WtREbL2i7N522-DRRVr1ZXVOTqZ9j02Q@mail.gmail.com>
-Subject: [BUG] Unable to boot Xen 4.11 (shipped with Ubuntu) on Intel 10i3 CPU
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000516d4a05b78a2920"
-
---000000000000516d4a05b78a2920
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <943136031.5051796.1609179068383.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.17278 YMailNorrin Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0
 
 Hi,
-I recently updated my home server running Ubuntu 20.04 (Focal) with Xen
-hypervisor 4.11 (installed using Ubuntu packages). Before the upgrade all
-was running fine and both dom0 and all domUs were booting fine. Upgrade was
-literally taking harddrive from 6th gen Intel CPU system to 10th gen Intel
-CPU one and redoing EFI entries from Ubuntu live USB.
 
-After doing so standalone Ubuntu (without Xen multiboot) boots just fine
-but Ubuntu as dom0 with Xen fails pretty early on with following error
-(hand-copied from phone snaps I took with loglvl=all as this is barebone
-system without serial port and I don't know how to dump full logs in case
-of panic):
+As of Xen 4.10, PCI passthrough support was not available in PVH mode. I was wondering if the PCI passthrough support was added in a later version.
 
-(XEN) ACPI: IOAPIC (id[0x02] address[0xfec00000] gsi_base[01])
-(XEN) IOAPIC[0]: apic_id 2, version 32, address 0xfec00000, GSI 0-119
-(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
-(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
-(XEN) ACPI: IRQ0 used by override.
-(XEN) ACPI: IRQ2 used by override
-(XEN) ACPI: IRQ9 used by override
-(XEN) Enabling APIC mode: Flat.  Using 1 I/O APICs
-(XEN) ACPI: HPET id: 0x8086a201 base: 0xfed00000
-(XEN) ERST table was not found
-(XEN) ACPI: BGRT: invalidating v1 image at 0x7d7c1018
-(XEN) Using ACPI (MADT) for SMP configuration information
-...
-(XEN) Switched to APIC driver x2apic_cluster
-...
-(XEN) Initing memory sharing.
-(XEN) alt table ffff82d08042b840 -> ffff82d08042d7ce
-...
-(XEN) Intel VT-d iommu 0 supported page sizes: 4kB, 2MB, 1GB.
-(XEN) Intel VT-d iommu 1 supported page sizes: 4kB, 2MB, 1GB.
-(XEN) Intel VT-d Snoop Control not enabled
-(XEN) Intel VT-d Dom0 DMA Passthrough not enabled
-(XEN) Intel VT-d Queued Invalidation enabled
-(XEN) Intel VT-d Interrupt Remapping enabled
-(XEN) Intel VT-d Posted Interrupt not enabled
-(XEN) Intel VT-d Shared EPT tables enabled
-(XEN) I/O virtualisation enabled
-(XEN)  - Dom0 mode: Relaxed
-(XEN) Interrupt remapping enabled
-(XEN) nr_sockets: 1
-(XEN) Enabled directed EOI with ioapic_ack_old on!
-(XEN) ENABLING IO-APIC IRQs
-(XEN)  -> Using old ACK method
-(XEN) ..TIMER: vector=0xF0 apic1=0 pin1=2 apic2=-1 pin2=-1
-(XEN) ..MP-BIOS bug: 8254 timer not connected to IO-APIC
-(XEN) ...trying to set up timer (IRQ0) through the 8259A ... failed.
-(XEN) ...trying to set up timer as Virtual Wire IRQ... failed.
-(XEN) ...trying to set up timer as ExtINT IRQ...spurious 8259A interrupt
-IRQ7.
-(XEN) CPU0: No irq handler for vector e7 (IRQ -8)
-(XEN) IRQ7 a=0001[0001,0000] v=60[ffffffff] t=IO-APIC-edge s=00000002
-(XEN)  failed :(.
-(XEN)
-(XEN) *******************************
-(XEN) Panic on CPU 0:
-(XEN) IO-APIC + timer doesn't work!  Boot with apic_verbosity=debug and
-send report.  Then try booting with the `noapic` option
-(XEN) *******************************
+It would be great to know the latest status of the PCI passthrough support for the Xen PVM mode. Please let me know if you have any updates on this.
 
-I suspected that migration of drive could cause problem so I took an empty
-SSD and installed fresh Ubuntu and added Xen hypervisor, after reboot I
-ended up with same panic. I tried booting with noapic (gave general page
-fault) and iommu=0 (said it needs iommu=required/force). Trying to boot
-this exact fresh install on older (6th gen) Intel CPU succeeded. I happen
-to have access to one more system with 10th gen Intel CPUs (Lenovo laptop)
-and no luck booting Xen there too and same panic in the end.
-
-Back to my barebone I tried to match BIOS settings between working and
-non-working but it didn't help. Virtualization is enabled, both systems are
-from the same maker (Intel NUC barebones), both systems are EFI
-enabled/secure boot disabled (the later one doesn't seem to have an option
-to disable EFI boot and boot using MBR).
-
-Is this something known? Are there any boot options that can potentially
-fix this?
-
-Any help (including how to dump full Xen boot logs without serial)
-appreciated.
-
-Thanks,
-Ondrej
-
---000000000000516d4a05b78a2920
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<br>I recently updated my home server running Ubuntu 20=
-.04 (Focal) with Xen hypervisor 4.11 (installed using Ubuntu packages). Bef=
-ore the upgrade all was running fine and both dom0 and all domUs were booti=
-ng fine. Upgrade was literally taking harddrive from 6th gen Intel CPU syst=
-em to 10th gen Intel CPU one and redoing EFI entries from Ubuntu live USB.<=
-br><br>After doing so standalone Ubuntu (without Xen multiboot) boots just =
-fine but Ubuntu as dom0 with Xen fails pretty early on with following error=
- (hand-copied from phone snaps I took with loglvl=3Dall as this is barebone=
- system without serial port and I don&#39;t know how to dump full logs in c=
-ase of panic):<br><br>(XEN) ACPI: IOAPIC (id[0x02] address[0xfec00000] gsi_=
-base[01])<br>(XEN) IOAPIC[0]: apic_id 2, version 32, address 0xfec00000, GS=
-I 0-119<br>(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)<b=
-r>(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)<br>(XEN=
-) ACPI: IRQ0 used by override.<br>
-
-(XEN) ACPI: IRQ2 used by override=C2=A0<div>
-
-(XEN) ACPI: IRQ9 used by override<br>(XEN) Enabling APIC mode: Flat.=C2=A0 =
-Using 1 I/O APICs<br>(XEN) ACPI: HPET id: 0x8086a201 base: 0xfed00000<br>(X=
-EN) ERST table was not found<br>(XEN) ACPI: BGRT: invalidating v1 image at =
-0x7d7c1018<br>(XEN) Using ACPI (MADT) for SMP configuration information<br>=
-...<br>(XEN) Switched to APIC driver x2apic_cluster<br>...=C2=A0=C2=A0<br>(=
-XEN) Initing memory sharing.</div><div>(XEN) alt table ffff82d08042b840 -&g=
-t; ffff82d08042d7ce<br>...<br>(XEN) Intel VT-d iommu 0 supported page sizes=
-: 4kB, 2MB, 1GB.</div><div>(XEN) Intel VT-d iommu 1 supported page sizes: 4=
-kB, 2MB, 1GB.<br>(XEN) Intel VT-d Snoop Control not enabled=C2=A0<br>(XEN) =
-Intel VT-d Dom0 DMA Passthrough not enabled=C2=A0<br>(XEN) Intel VT-d Queue=
-d Invalidation enabled=C2=A0<br>
-
-(XEN) Intel VT-d Interrupt Remapping enabled<br>
-
-(XEN) Intel VT-d Posted Interrupt not enabled=C2=A0=C2=A0<br>
-
-(XEN) Intel VT-d Shared EPT tables enabled<br>(XEN) I/O virtualisation enab=
-led<br>
-
-(XEN)=C2=A0 - Dom0 mode: Relaxed<br>(XEN) Interrupt remapping enabled<br>(X=
-EN) nr_sockets: 1<br>(XEN) Enabled directed EOI with ioapic_ack_old on!<br>=
-(XEN) ENABLING IO-APIC IRQs<br>(XEN)=C2=A0 -&gt; Using old ACK method<br>(X=
-EN) ..TIMER: vector=3D0xF0 apic1=3D0 pin1=3D2 apic2=3D-1 pin2=3D-1<br>(XEN)=
- ..MP-BIOS bug: 8254 timer not connected to IO-APIC<br>(XEN) ...trying to s=
-et up timer (IRQ0) through the 8259A ... failed.<br>(XEN) ...trying to set =
-up timer as Virtual Wire IRQ... failed.<br>(XEN) ...trying to set up timer =
-as ExtINT IRQ...spurious 8259A interrupt IRQ7.<br>(XEN) CPU0: No irq handle=
-r for vector e7 (IRQ -8)<br>(XEN) IRQ7 a=3D0001[0001,0000] v=3D60[ffffffff]=
- t=3DIO-APIC-edge s=3D00000002<br>(XEN)=C2=A0 failed :(.<br>(XEN)<br>(XEN) =
-*******************************<br>(XEN) Panic on CPU 0:<br>(XEN) IO-APIC=
-=C2=A0+ timer doesn&#39;t work!=C2=A0 Boot with apic_verbosity=3Ddebug and =
-send report.=C2=A0 Then try booting with the `noapic` option<br>(XEN) *****=
-**************************<br><br>I suspected that migration of drive could=
- cause problem so I took an empty SSD and installed fresh Ubuntu and added =
-Xen hypervisor, after reboot I ended up with same panic. I tried booting wi=
-th noapic (gave general page fault) and iommu=3D0 (said it needs iommu=3Dre=
-quired/force). Trying to boot this exact fresh install on older (6th gen) I=
-ntel CPU succeeded. I happen to have access to one more system with 10th ge=
-n Intel CPUs (Lenovo laptop) and no luck booting Xen there too and same pan=
-ic in the end.<br><br>Back to my barebone I tried to match BIOS settings be=
-tween working and non-working but it didn&#39;t help. Virtualization is ena=
-bled, both systems are from the same maker (Intel NUC barebones), both syst=
-ems are EFI enabled/secure boot disabled (the later one doesn&#39;t seem to=
- have an option to disable EFI boot and boot using MBR).<br><br>Is this som=
-ething known? Are there any boot options that can potentially fix this?<br>=
-<br>Any help (including how to dump full Xen boot logs without serial) appr=
-eciated.<br><br>Thanks,<br>Ondrej=C2=A0</div></div>
-
---000000000000516d4a05b78a2920--
+ Thanks,
+Mehrab
 
