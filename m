@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5E022E6DB8
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Dec 2020 05:09:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.59650.104698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 551A72E6DD6
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Dec 2020 06:02:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.59660.104716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ku6Ig-0003Kw-Jt; Tue, 29 Dec 2020 04:07:58 +0000
+	id 1ku78k-0000QV-0x; Tue, 29 Dec 2020 05:01:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 59650.104698; Tue, 29 Dec 2020 04:07:58 +0000
+Received: by outflank-mailman (output) from mailman id 59660.104716; Tue, 29 Dec 2020 05:01:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ku6Ig-0003KI-Bg; Tue, 29 Dec 2020 04:07:58 +0000
-Received: by outflank-mailman (input) for mailman id 59650;
- Tue, 29 Dec 2020 04:07:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ku6If-0003KA-5d; Tue, 29 Dec 2020 04:07:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ku6Ie-0006da-Q1; Tue, 29 Dec 2020 04:07:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ku6Ie-0001kQ-F4; Tue, 29 Dec 2020 04:07:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ku6Ie-0007Jz-EZ; Tue, 29 Dec 2020 04:07:56 +0000
+	id 1ku78j-0000Q6-Ta; Tue, 29 Dec 2020 05:01:45 +0000
+Received: by outflank-mailman (input) for mailman id 59660;
+ Tue, 29 Dec 2020 05:01:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=py5/=GB=gmail.com=obalaz85@srs-us1.protection.inumbo.net>)
+ id 1ku78i-0000Q1-DQ
+ for xen-devel@lists.xenproject.org; Tue, 29 Dec 2020 05:01:44 +0000
+Received: from mail-pj1-f47.google.com (unknown [209.85.216.47])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id dd259b3e-f815-4ff1-bac8-cb4abfc259a5;
+ Tue, 29 Dec 2020 05:01:42 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id m5so908923pjv.5
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Dec 2020 21:01:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,364 +38,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=o2enxGtVfSiL99Qyh+bEXAY1N6dSwSzNQ4tloEWs8DA=; b=SeXb3NE1F52xfgHm0DOESRgj6U
-	bVWumINjouNc2D1BgpNrYJ+AULigqN8wKCa5wQaASlca5LCmHKbP4H1qGd4Z5I/VxtrIGXq+WwEdy
-	wMQvXL8UQtR7pPO/9Nvl5bj51i+ZeshrgXF0kj5P36KIC+ccxo2yxq3zFwi4nbuW8+LE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-157945-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: dd259b3e-f815-4ff1-bac8-cb4abfc259a5
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=A5ftFIaw22N/OwluJNptEt3v5S8n6hXob6Vg4193/U4=;
+        b=mlrT0F8LyTUpvCD3U+UedkmE3Np16pmz0w0tWEH11i6Nh24zENTe6/ZS/FlFemY9P7
+         a/scmkhB20FCK0R/c0qmxmo2oZM0lfFYBz6lGDQShv5VSjWqhURIVPO1iuEVh9H7Gd1j
+         QXwNBTTXemMl+695p79NtgHYutAGfH064gTtXQ4/YT1DpBCv4rTY0sHgtM/Uy8KYMiV7
+         E6tEvZvkXNPfWQ54sRai/kegJ+n1QsjkKLsVUsDWMP9QbvX/oq/JnuNC/jHCM5nUMzhr
+         ZXiE14CRKZvIG33TOyUuzgbb7Q2Cn8faIHiig3UC47i8OBzG6zVughMFjB5WjuE6kBLs
+         JuIQ==
+X-Gm-Message-State: AOAM530lOV3NIWaE6W21EgNch1i3s8LbUqCPg123V8kdKx0kBROsuvuB
+	So1n5xkZAKMJzE1TrMCXqc5XhE336E/siXZXgSo=
+X-Google-Smtp-Source: ABdhPJyFdD5NLyGV2pbJ38UOrplAnL05jzGOCLzYM+EpXhsZeP3hsg2ngT7Zri46h7/EQSh5lYSQB/Y4MWvrAeS2ii8=
+X-Received: by 2002:a17:90a:c20b:: with SMTP id e11mr2313777pjt.43.1609218101768;
+ Mon, 28 Dec 2020 21:01:41 -0800 (PST)
 MIME-Version: 1.0
-Subject: [linux-linus test] 157945: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-examine:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
-    linux-linus:test-amd64-i386-pair:xen-install/src_host:fail:regression
-    linux-linus:test-amd64-i386-pair:xen-install/dst_host:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-freebsd10-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-raw:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-shadow:xen-install:fail:regression
-    linux-linus:test-amd64-i386-freebsd10-i386:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-install:fail:regression
-    linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-install:fail:regression
-    linux-linus:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
-    linux-linus:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
-    linux-linus:test-amd64-coresched-i386-xl:xen-install:fail:regression
-    linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
-    linux-linus:test-arm64-arm64-xl:debian-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
-    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-examine:examine-iommu:fail:regression
-    linux-linus:test-amd64-amd64-amd64-pvgrub:guest-stop:fail:regression
-    linux-linus:test-amd64-amd64-i386-pvgrub:guest-stop:fail:regression
-    linux-linus:test-amd64-i386-xl-pvshim:xen-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:host-ping-check-xen:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:debian-install:fail:regression
-    linux-linus:test-arm64-arm64-xl:host-ping-check-xen:fail:heisenbug
-    linux-linus:test-arm64-arm64-examine:reboot:fail:heisenbug
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:heisenbug
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:heisenbug
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
-    linux-linus:test-arm64-arm64-xl-credit1:leak-check/basis(11):fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:leak-check/basis(11):fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:leak-check/basis(11):fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=5c8fe583cce542aa0b84adc939ce85293de36e5e
-X-Osstest-Versions-That:
-    linux=deacdb3e3979979016fcd0ffd518c320a62ad166
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 29 Dec 2020 04:07:56 +0000
+References: <CACmg6stNxXu3-SFdK_WtREbL2i7N522-DRRVr1ZXVOTqZ9j02Q@mail.gmail.com>
+ <f3346d45-e8d5-5b37-a9df-f410af54469f@citrix.com>
+In-Reply-To: <f3346d45-e8d5-5b37-a9df-f410af54469f@citrix.com>
+From: Ondrej Balaz <blami@blami.net>
+Date: Tue, 29 Dec 2020 14:01:31 +0900
+Message-ID: <CACmg6stadwW8ZHm118QtQRKP=kopHULm3QQLsS6-AdVF9wt3RQ@mail.gmail.com>
+Subject: Re: [BUG] Unable to boot Xen 4.11 (shipped with Ubuntu) on Intel 10i3 CPU
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000005276c305b79349fe"
 
-flight 157945 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/157945/
+--0000000000005276c305b79349fe
+Content-Type: text/plain; charset="UTF-8"
 
-Regressions :-(
+Thanks for explanation! I'll stick with older HW until this is out.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-ws16-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-xsm        7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-qemut-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
- test-amd64-i386-qemuu-rhel6hvm-intel  7 xen-install      fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
- test-amd64-i386-examine       6 xen-install              fail REGR. vs. 152332
- test-amd64-i386-libvirt       7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install  fail REGR. vs. 152332
- test-amd64-i386-libvirt-xsm   7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl            7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
- test-amd64-i386-pair         10 xen-install/src_host     fail REGR. vs. 152332
- test-amd64-i386-pair         11 xen-install/dst_host     fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-ws16-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-freebsd10-amd64  7 xen-install           fail REGR. vs. 152332
- test-amd64-i386-xl-raw        7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-xl-shadow     7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-freebsd10-i386  7 xen-install            fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-win7-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemuu-win7-amd64  7 xen-install       fail REGR. vs. 152332
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 7 xen-install fail REGR. vs. 152332
- test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 152332
- test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 152332
- test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 152332
- test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 152332
- test-amd64-amd64-xl-multivcpu 14 guest-start             fail REGR. vs. 152332
- test-amd64-amd64-xl-credit2  14 guest-start              fail REGR. vs. 152332
- test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 152332
- test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 152332
- test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 152332
- test-amd64-coresched-i386-xl  7 xen-install              fail REGR. vs. 152332
- test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 152332
- test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 152332
- test-amd64-amd64-xl-xsm      14 guest-start              fail REGR. vs. 152332
- test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 152332
- test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 152332
- test-arm64-arm64-xl          12 debian-install           fail REGR. vs. 152332
- test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 152332
- test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 152332
- test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 152332
- test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 152332
- test-arm64-arm64-examine     13 examine-iommu            fail REGR. vs. 152332
- test-amd64-amd64-amd64-pvgrub 20 guest-stop              fail REGR. vs. 152332
- test-amd64-amd64-i386-pvgrub 20 guest-stop               fail REGR. vs. 152332
- test-amd64-i386-xl-pvshim     7 xen-install              fail REGR. vs. 152332
- test-amd64-amd64-xl-credit1  14 guest-start              fail REGR. vs. 152332
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 152332
- test-arm64-arm64-libvirt-xsm 10 host-ping-check-xen fail in 157937 REGR. vs. 152332
- test-arm64-arm64-xl-credit1  12 debian-install fail in 157937 REGR. vs. 152332
+On Tue, 29 Dec 2020 at 03:49, Andrew Cooper <andrew.cooper3@citrix.com>
+wrote:
 
-Tests which are failing intermittently (not blocking):
- test-arm64-arm64-xl       10 host-ping-check-xen fail in 157937 pass in 157945
- test-arm64-arm64-examine      8 reboot           fail in 157937 pass in 157945
- test-arm64-arm64-libvirt-xsm  8 xen-boot                   fail pass in 157937
- test-arm64-arm64-xl-credit2   8 xen-boot                   fail pass in 157937
- test-arm64-arm64-xl-seattle   8 xen-boot                   fail pass in 157937
+> On 28/12/2020 18:08, Ondrej Balaz wrote:
+> > Hi,
+> > I recently updated my home server running Ubuntu 20.04 (Focal) with
+> > Xen hypervisor 4.11 (installed using Ubuntu packages). Before the
+> > upgrade all was running fine and both dom0 and all domUs were booting
+> > fine. Upgrade was literally taking harddrive from 6th gen Intel CPU
+> > system to 10th gen Intel CPU one and redoing EFI entries from Ubuntu
+> > live USB.
+> >
+> > After doing so standalone Ubuntu (without Xen multiboot) boots just
+> > fine but Ubuntu as dom0 with Xen fails pretty early on with following
+> > error (hand-copied from phone snaps I took with loglvl=all as this is
+> > barebone system without serial port and I don't know how to dump full
+> > logs in case of panic):
+> >
+> > (XEN) ACPI: IOAPIC (id[0x02] address[0xfec00000] gsi_base[01])
+> > (XEN) IOAPIC[0]: apic_id 2, version 32, address 0xfec00000, GSI 0-119
+> > (XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+> > (XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+> > (XEN) ACPI: IRQ0 used by override.
+> > (XEN) ACPI: IRQ2 used by override
+> > (XEN) ACPI: IRQ9 used by override
+> > (XEN) Enabling APIC mode: Flat.  Using 1 I/O APICs
+> > (XEN) ACPI: HPET id: 0x8086a201 base: 0xfed00000
+> > (XEN) ERST table was not found
+> > (XEN) ACPI: BGRT: invalidating v1 image at 0x7d7c1018
+> > (XEN) Using ACPI (MADT) for SMP configuration information
+> > ...
+> > (XEN) Switched to APIC driver x2apic_cluster
+> > ...
+> > (XEN) Initing memory sharing.
+> > (XEN) alt table ffff82d08042b840 -> ffff82d08042d7ce
+> > ...
+> > (XEN) Intel VT-d iommu 0 supported page sizes: 4kB, 2MB, 1GB.
+> > (XEN) Intel VT-d iommu 1 supported page sizes: 4kB, 2MB, 1GB.
+> > (XEN) Intel VT-d Snoop Control not enabled
+> > (XEN) Intel VT-d Dom0 DMA Passthrough not enabled
+> > (XEN) Intel VT-d Queued Invalidation enabled
+> > (XEN) Intel VT-d Interrupt Remapping enabled
+> > (XEN) Intel VT-d Posted Interrupt not enabled
+> > (XEN) Intel VT-d Shared EPT tables enabled
+> > (XEN) I/O virtualisation enabled
+> > (XEN)  - Dom0 mode: Relaxed
+> > (XEN) Interrupt remapping enabled
+> > (XEN) nr_sockets: 1
+> > (XEN) Enabled directed EOI with ioapic_ack_old on!
+> > (XEN) ENABLING IO-APIC IRQs
+> > (XEN)  -> Using old ACK method
+> > (XEN) ..TIMER: vector=0xF0 apic1=0 pin1=2 apic2=-1 pin2=-1
+> > (XEN) ..MP-BIOS bug: 8254 timer not connected to IO-APIC
+> > (XEN) ...trying to set up timer (IRQ0) through the 8259A ... failed.
+> > (XEN) ...trying to set up timer as Virtual Wire IRQ... failed.
+> > (XEN) ...trying to set up timer as ExtINT IRQ...spurious 8259A
+> > interrupt IRQ7.
+> > (XEN) CPU0: No irq handler for vector e7 (IRQ -8)
+> > (XEN) IRQ7 a=0001[0001,0000] v=60[ffffffff] t=IO-APIC-edge s=00000002
+> > (XEN)  failed :(.
+> > (XEN)
+> > (XEN) *******************************
+> > (XEN) Panic on CPU 0:
+> > (XEN) IO-APIC + timer doesn't work!  Boot with apic_verbosity=debug
+> > and send report.  Then try booting with the `noapic` option
+> > (XEN) *******************************
+> >
+> > I suspected that migration of drive could cause problem so I took an
+> > empty SSD and installed fresh Ubuntu and added Xen hypervisor, after
+> > reboot I ended up with same panic. I tried booting with noapic (gave
+> > general page fault) and iommu=0 (said it needs iommu=required/force).
+> > Trying to boot this exact fresh install on older (6th gen) Intel CPU
+> > succeeded. I happen to have access to one more system with 10th gen
+> > Intel CPUs (Lenovo laptop) and no luck booting Xen there too and same
+> > panic in the end.
+> >
+> > Back to my barebone I tried to match BIOS settings between working and
+> > non-working but it didn't help. Virtualization is enabled, both
+> > systems are from the same maker (Intel NUC barebones), both systems
+> > are EFI enabled/secure boot disabled (the later one doesn't seem to
+> > have an option to disable EFI boot and boot using MBR).
+> >
+> > Is this something known? Are there any boot options that can
+> > potentially fix this?
+> >
+> > Any help (including how to dump full Xen boot logs without serial)
+> > appreciated.
+>
+> Yes we're aware of it.  It is because modern Intel systems no longer
+> have a legacy PIT configured by default, and Xen depends on this.  (The
+> error message is misleading.  It's not checking for a timer, so much as
+> checking that interrupts works, and depends on the legacy PIT "working"
+> as the source of interrupts.)
+>
+> I'm working on a fix.
+>
+> ~Andrew
+>
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 152332
+--0000000000005276c305b79349fe
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-credit1  11 leak-check/basis(11)    fail blocked in 152332
- test-arm64-arm64-xl-credit2 11 leak-check/basis(11) fail in 157937 blocked in 152332
- test-arm64-arm64-xl-seattle 11 leak-check/basis(11) fail in 157937 blocked in 152332
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 152332
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152332
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152332
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 152332
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152332
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152332
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152332
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+<div dir=3D"ltr">Thanks for explanation! I&#39;ll stick with older HW until=
+ this is out.</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
+"gmail_attr">On Tue, 29 Dec 2020 at 03:49, Andrew Cooper &lt;<a href=3D"mai=
+lto:andrew.cooper3@citrix.com">andrew.cooper3@citrix.com</a>&gt; wrote:<br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">On 28/12/2020 18:08=
+, Ondrej Balaz wrote:<br>
+&gt; Hi,<br>
+&gt; I recently updated my home server running Ubuntu 20.04 (Focal) with<br=
+>
+&gt; Xen hypervisor 4.11 (installed using Ubuntu packages). Before the<br>
+&gt; upgrade all was running fine and both dom0 and all domUs were booting<=
+br>
+&gt; fine. Upgrade was literally taking harddrive from 6th gen Intel CPU<br=
+>
+&gt; system to 10th gen Intel CPU one and redoing EFI entries from Ubuntu<b=
+r>
+&gt; live USB.<br>
+&gt;<br>
+&gt; After doing so standalone Ubuntu (without Xen multiboot) boots just<br=
+>
+&gt; fine but Ubuntu as dom0 with Xen fails pretty early on with following<=
+br>
+&gt; error (hand-copied from phone snaps I took with loglvl=3Dall as this i=
+s<br>
+&gt; barebone system without serial port and I don&#39;t know how to dump f=
+ull<br>
+&gt; logs in case of panic):<br>
+&gt;<br>
+&gt; (XEN) ACPI: IOAPIC (id[0x02] address[0xfec00000] gsi_base[01])<br>
+&gt; (XEN) IOAPIC[0]: apic_id 2, version 32, address 0xfec00000, GSI 0-119<=
+br>
+&gt; (XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)<br>
+&gt; (XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)<br>
+&gt; (XEN) ACPI: IRQ0 used by override.<br>
+&gt; (XEN) ACPI: IRQ2 used by override=C2=A0<br>
+&gt; (XEN) ACPI: IRQ9 used by override<br>
+&gt; (XEN) Enabling APIC mode: Flat.=C2=A0 Using 1 I/O APICs<br>
+&gt; (XEN) ACPI: HPET id: 0x8086a201 base: 0xfed00000<br>
+&gt; (XEN) ERST table was not found<br>
+&gt; (XEN) ACPI: BGRT: invalidating v1 image at 0x7d7c1018<br>
+&gt; (XEN) Using ACPI (MADT) for SMP configuration information<br>
+&gt; ...<br>
+&gt; (XEN) Switched to APIC driver x2apic_cluster<br>
+&gt; ...=C2=A0=C2=A0<br>
+&gt; (XEN) Initing memory sharing.<br>
+&gt; (XEN) alt table ffff82d08042b840 -&gt; ffff82d08042d7ce<br>
+&gt; ...<br>
+&gt; (XEN) Intel VT-d iommu 0 supported page sizes: 4kB, 2MB, 1GB.<br>
+&gt; (XEN) Intel VT-d iommu 1 supported page sizes: 4kB, 2MB, 1GB.<br>
+&gt; (XEN) Intel VT-d Snoop Control not enabled=C2=A0<br>
+&gt; (XEN) Intel VT-d Dom0 DMA Passthrough not enabled=C2=A0<br>
+&gt; (XEN) Intel VT-d Queued Invalidation enabled=C2=A0<br>
+&gt; (XEN) Intel VT-d Interrupt Remapping enabled<br>
+&gt; (XEN) Intel VT-d Posted Interrupt not enabled=C2=A0=C2=A0<br>
+&gt; (XEN) Intel VT-d Shared EPT tables enabled<br>
+&gt; (XEN) I/O virtualisation enabled<br>
+&gt; (XEN)=C2=A0 - Dom0 mode: Relaxed<br>
+&gt; (XEN) Interrupt remapping enabled<br>
+&gt; (XEN) nr_sockets: 1<br>
+&gt; (XEN) Enabled directed EOI with ioapic_ack_old on!<br>
+&gt; (XEN) ENABLING IO-APIC IRQs<br>
+&gt; (XEN)=C2=A0 -&gt; Using old ACK method<br>
+&gt; (XEN) ..TIMER: vector=3D0xF0 apic1=3D0 pin1=3D2 apic2=3D-1 pin2=3D-1<b=
+r>
+&gt; (XEN) ..MP-BIOS bug: 8254 timer not connected to IO-APIC<br>
+&gt; (XEN) ...trying to set up timer (IRQ0) through the 8259A ... failed.<b=
+r>
+&gt; (XEN) ...trying to set up timer as Virtual Wire IRQ... failed.<br>
+&gt; (XEN) ...trying to set up timer as ExtINT IRQ...spurious 8259A<br>
+&gt; interrupt IRQ7.<br>
+&gt; (XEN) CPU0: No irq handler for vector e7 (IRQ -8)<br>
+&gt; (XEN) IRQ7 a=3D0001[0001,0000] v=3D60[ffffffff] t=3DIO-APIC-edge s=3D0=
+0000002<br>
+&gt; (XEN)=C2=A0 failed :(.<br>
+&gt; (XEN)<br>
+&gt; (XEN) *******************************<br>
+&gt; (XEN) Panic on CPU 0:<br>
+&gt; (XEN) IO-APIC=C2=A0+ timer doesn&#39;t work!=C2=A0 Boot with apic_verb=
+osity=3Ddebug<br>
+&gt; and send report.=C2=A0 Then try booting with the `noapic` option<br>
+&gt; (XEN) *******************************<br>
+&gt;<br>
+&gt; I suspected that migration of drive could cause problem so I took an<b=
+r>
+&gt; empty SSD and installed fresh Ubuntu and added Xen hypervisor, after<b=
+r>
+&gt; reboot I ended up with same panic. I tried booting with noapic (gave<b=
+r>
+&gt; general page fault) and iommu=3D0 (said it needs iommu=3Drequired/forc=
+e).<br>
+&gt; Trying to boot this exact fresh install on older (6th gen) Intel CPU<b=
+r>
+&gt; succeeded. I happen to have access to one more system with 10th gen<br=
+>
+&gt; Intel CPUs (Lenovo laptop) and no luck booting Xen there too and same<=
+br>
+&gt; panic in the end.<br>
+&gt;<br>
+&gt; Back to my barebone I tried to match BIOS settings between working and=
+<br>
+&gt; non-working but it didn&#39;t help. Virtualization is enabled, both<br=
+>
+&gt; systems are from the same maker (Intel NUC barebones), both systems<br=
+>
+&gt; are EFI enabled/secure boot disabled (the later one doesn&#39;t seem t=
+o<br>
+&gt; have an option to disable EFI boot and boot using MBR).<br>
+&gt;<br>
+&gt; Is this something known? Are there any boot options that can<br>
+&gt; potentially fix this?<br>
+&gt;<br>
+&gt; Any help (including how to dump full Xen boot logs without serial)<br>
+&gt; appreciated.<br>
+<br>
+Yes we&#39;re aware of it.=C2=A0 It is because modern Intel systems no long=
+er<br>
+have a legacy PIT configured by default, and Xen depends on this.=C2=A0 (Th=
+e<br>
+error message is misleading.=C2=A0 It&#39;s not checking for a timer, so mu=
+ch as<br>
+checking that interrupts works, and depends on the legacy PIT &quot;working=
+&quot;<br>
+as the source of interrupts.)<br>
+<br>
+I&#39;m working on a fix.<br>
+<br>
+~Andrew<br>
+</blockquote></div>
 
-version targeted for testing:
- linux                5c8fe583cce542aa0b84adc939ce85293de36e5e
-baseline version:
- linux                deacdb3e3979979016fcd0ffd518c320a62ad166
-
-Last test of basis   152332  2020-07-31 19:41:23 Z  150 days
-Failing since        152366  2020-08-01 20:49:34 Z  149 days  262 attempts
-Testing same since   157930  2020-12-28 00:10:08 Z    1 days    3 attempts
-
-------------------------------------------------------------
-4329 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           fail    
- test-amd64-coresched-i386-xl                                 fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-i386-xl-xsm                                       fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-i386-qemut-rhel6hvm-amd                           fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              fail    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      fail    
- test-amd64-i386-freebsd10-i386                               fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-i386-qemut-rhel6hvm-intel                         fail    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      fail    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        fail    
- test-amd64-i386-pair                                         fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-i386-libvirt-pair                                 fail    
- test-amd64-amd64-amd64-pvgrub                                fail    
- test-amd64-amd64-i386-pvgrub                                 fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       fail    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-amd64-i386-xl-shadow                                    fail    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 976090 lines long.)
+--0000000000005276c305b79349fe--
 
