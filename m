@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA4642E758D
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Dec 2020 02:34:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.60060.105314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C44A92E758E
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Dec 2020 02:36:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.60065.105326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kuQMb-0001uW-Ah; Wed, 30 Dec 2020 01:33:21 +0000
+	id 1kuQPB-000237-R8; Wed, 30 Dec 2020 01:36:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 60060.105314; Wed, 30 Dec 2020 01:33:21 +0000
+Received: by outflank-mailman (output) from mailman id 60065.105326; Wed, 30 Dec 2020 01:36:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kuQMb-0001u6-3X; Wed, 30 Dec 2020 01:33:21 +0000
-Received: by outflank-mailman (input) for mailman id 60060;
- Wed, 30 Dec 2020 01:33:19 +0000
+	id 1kuQPB-00022p-Lg; Wed, 30 Dec 2020 01:36:01 +0000
+Received: by outflank-mailman (input) for mailman id 60065;
+ Wed, 30 Dec 2020 01:35:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=e+AK=GC=gmail.com=christopher.w.clark@srs-us1.protection.inumbo.net>)
- id 1kuQMZ-0001ti-0Y
- for xen-devel@lists.xenproject.org; Wed, 30 Dec 2020 01:33:19 +0000
-Received: from mail-oi1-x234.google.com (unknown [2607:f8b0:4864:20::234])
+ id 1kuQP9-00022k-9l
+ for xen-devel@lists.xenproject.org; Wed, 30 Dec 2020 01:35:59 +0000
+Received: from mail-ot1-x32d.google.com (unknown [2607:f8b0:4864:20::32d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6578238a-08e7-423b-8cf2-8e3b8c136071;
- Wed, 30 Dec 2020 01:33:17 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id 15so17167756oix.8
- for <xen-devel@lists.xenproject.org>; Tue, 29 Dec 2020 17:33:17 -0800 (PST)
+ id 57f04fda-d968-4db1-9c17-d7997681e421;
+ Wed, 30 Dec 2020 01:35:58 +0000 (UTC)
+Received: by mail-ot1-x32d.google.com with SMTP id x13so14124890oto.8
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Dec 2020 17:35:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,270 +37,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6578238a-08e7-423b-8cf2-8e3b8c136071
+X-Inumbo-ID: 57f04fda-d968-4db1-9c17-d7997681e421
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=IsCxKkk4R0Ca2wayNnrtXj9WZLPTQjHY2sPylFL2k4Y=;
-        b=suinbuHavSNxJwdI442sIFHWVXKlACqpdMfZxDTWZkwvygyS5c2KzU2wW8lPTMKppF
-         j6DhLZYB3mRe9PORHwUTRxYlmGumIGi1136m1FZ1wRsjMD6PkWsX+Ygp86/muV3SRbYp
-         R5fY45sdYXZwSG2eILLKazvMZJ7b8GaLx5JcKqFnIkvrAoSlKy3DPYVP9YY1ORrt6Rd7
-         uFQXvUMYj5vVKO+fodCRWlAsg8HaTz4/VN2687HvhgdBYXg2m5P02EaT12R0/BQYu4Mc
-         7Lt9EddNdIz6oAmir8kWf8qS96vMKjOSLYPMMHuDcYfl113lJvN9fvKT079U8RpF6bfV
-         91oQ==
+         :cc:content-transfer-encoding;
+        bh=amZAfth7N9MHObaEskJ2oVMxQjustQxHhRiheZhvHLA=;
+        b=Vir7fZetbSUYu4IoHFg7/ScmhYg81ChVEz4mjz0nIDkOqpDwZwxsBT5YduSbMRlD1x
+         1GHrWBmXM/EpFoL/C3JKvaGMRdi679aOXLiYAHCQtisubDyp9+DohpGE6+X6uHVUuoE1
+         vFnEdavop72iHz66/NcDpBLtya52pXKRXX6p7AZYmPnormMW488BNGiQm+Tiigz2WNyZ
+         98sUnU+1kK8Sb6lM4Me29lnx2ZBZ3iDccrkGhB5BwSDAlttfH7lcxQ6VduvqYAtvzRvA
+         jwpuyYVmgbJ3vwB4MK4YRge/cSHTl/UHuWOS92/cxtF0V1V7/kXg8R9kGp3RSLMYs13p
+         CZbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=IsCxKkk4R0Ca2wayNnrtXj9WZLPTQjHY2sPylFL2k4Y=;
-        b=ONmCm0oT5XsnYrjUWg8WLT3usqvOPjwpPNtKRZfYAcftYnssjX7IaOtO+F+MkZU4KM
-         E5JNG8mSIlQCUACRagpybQM7KnpoTfctCBa2k66QvEkf8ku7QdeP7EwB07NL5v73CxbN
-         mtc20BQr0C0BPaFkUSxtlIa0RwGwMy2DN8J7uyH9l+4CB5YXz3hOLzeE52YLyVS5AFrH
-         a57axu5L4DItb85LinapVr5Iu2pw2n2lu5i/acUpZTCIMH5TRzoc2xGwiBtkkuOoy0+X
-         77wKzn1QPjO6A9MuNLYb18NmG5pQT9ONSwGtw/wWvmB9MDZiQQFHeWgXrYZiUjunL1Ko
-         t7Zg==
-X-Gm-Message-State: AOAM533+PvNhE9YhJiq6EgUYN8K4u/gKFQSEit7zKng3/gRef9tyTe4t
-	OQiRz7EtCK+DePzE04w/MaYS+0uTCDbkwdgJiXc=
-X-Google-Smtp-Source: ABdhPJzSeqatiQAcxuU0aJoQO6GFStGFjYOOCpTGA88mg530E07wS1Hti6QnUhjGk1N9atGxMq0SvNPlrwQZ3cymV14=
-X-Received: by 2002:aca:4fd0:: with SMTP id d199mr3941243oib.33.1609291996366;
- Tue, 29 Dec 2020 17:33:16 -0800 (PST)
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=amZAfth7N9MHObaEskJ2oVMxQjustQxHhRiheZhvHLA=;
+        b=dtntHo4UbggoBABv/cmOR21RoQHaJ+954nMBtURixiFMt+5lkh7qqnHe/0+Mxv8thn
+         IisejUQ0Mb9+Tkh7haHAYBTI5aShiSa4VB7Q2P5Lx4LL0kGnOR/lEzgWYQcKa3MlOJN5
+         euVC3Fd7ZUj7N85MRQZzGz06gKklhgjA1SoFwIEFDsIlYkY5Blvyk8VWnEVfY4DI9+Na
+         3qGJl4oy67V1RDEitEj2gUyK6qhAswHG66BY/7NJ0jYg24IuJkJemPMM10VLuet7m577
+         MGsBMxs9L0cVVKRyQ5ns1dL+zDVDf2zw9LM4er8FZJxbboEti0sGWjZGrSsNGLI6XMMC
+         C+yg==
+X-Gm-Message-State: AOAM532NoZRpV2SYQYBmQLjbVx4P5J1TkzicW0chxIYl0RK2H6NkxyZ4
+	WEZwHjDTTwvKzRWc4GPNmsX0Dc+G9ADNwElKfTY=
+X-Google-Smtp-Source: ABdhPJyS9oo7nhjhS0DwOdV/OPSUIf6YjS9H9E9RIrbI0yBVtE6AbgTnH4rLv5XK2Y9q9hTCVDnOUSgb2gp+vcKIiPw=
+X-Received: by 2002:a9d:6048:: with SMTP id v8mr38017652otj.183.1609292157801;
+ Tue, 29 Dec 2020 17:35:57 -0800 (PST)
 MIME-Version: 1.0
-References: <CACMJ4GbQ4ZDB0RVbK+EU0+9yyGi0hTtVNxmBnNWDgY56QeDfyg@mail.gmail.com>
- <CABQWM_AXce2OJep8u0c1hL0s2ukb9LGwLtiX5e7315qQJeMgaQ@mail.gmail.com>
-In-Reply-To: <CABQWM_AXce2OJep8u0c1hL0s2ukb9LGwLtiX5e7315qQJeMgaQ@mail.gmail.com>
+References: <DBCC8190-7228-483E-AE8A-09880B28F516@gmail.com> <20201229091730.owgpdeekb7pcex7t@Air-de-Roger>
+In-Reply-To: <20201229091730.owgpdeekb7pcex7t@Air-de-Roger>
 From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Tue, 29 Dec 2020 17:33:05 -0800
-Message-ID: <CACMJ4GbKyvt9-ii4jmhb7TgrXxZicKkAx0BOxM+N0zEqT+4r+w@mail.gmail.com>
+Date: Tue, 29 Dec 2020 17:35:46 -0800
+Message-ID: <CACMJ4GbT8w_ndH4ULhD9Eq3y+s1vB5n2u=Wk4pRPQLBO-TwS+A@mail.gmail.com>
 Subject: Re: [openxt-dev] VirtIO-Argo initial development proposal
-To: Jean-Philippe Ouellet <jpo@vt.edu>
-Cc: openxt <openxt@googlegroups.com>, Rich Persaud <persaur@gmail.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Rich Persaud <persaur@gmail.com>, Jean-Philippe Ouellet <jpo@vt.edu>, openxt <openxt@googlegroups.com>, 
 	xen-devel <xen-devel@lists.xenproject.org>, Oleksandr Tyshchenko <olekstysh@gmail.com>, 
 	Julien Grall <jgrall@amazon.com>, James McKenzie <james@bromium.com>, 
 	Andrew Cooper <Andrew.Cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.co.uk>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Dec 17, 2020 at 4:13 AM Jean-Philippe Ouellet <jpo@vt.edu> wrote:
+On Tue, Dec 29, 2020 at 1:17 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com>=
+ wrote:
 >
-> On Wed, Dec 16, 2020 at 2:37 PM Christopher Clark
-> <christopher.w.clark@gmail.com> wrote:
-> > Hi all,
-> >
-> > I have written a page for the OpenXT wiki describing a proposal for
-> > initial development towards the VirtIO-Argo transport driver, and the
-> > related system components to support it, destined for OpenXT and
-> > upstream projects:
-> >
-> > https://openxt.atlassian.net/wiki/spaces/~cclark/pages/1696169985/VirtIO-Argo+Development+Phase+1
-> >
-> > Please review ahead of tomorrow's OpenXT Community Call.
-> >
-> > I would draw your attention to the Comparison of Argo interface options section:
-> >
-> > https://openxt.atlassian.net/wiki/spaces/~cclark/pages/1696169985/VirtIO-Argo+Development+Phase+1#Comparison-of-Argo-interface-options
-> >
-> > where further input to the table would be valuable;
-> > and would also appreciate input on the IOREQ project section:
-> >
-> > https://openxt.atlassian.net/wiki/spaces/~cclark/pages/1696169985/VirtIO-Argo+Development+Phase+1#Project:-IOREQ-for-VirtIO-Argo
-> >
-> > in particular, whether an IOREQ implementation to support the
-> > provision of devices to the frontends can replace the need for any
-> > userspace software to interact with an Argo kernel interface for the
-> > VirtIO-Argo implementation.
-> >
-> > thanks,
-> > Christopher
+> On Wed, Dec 23, 2020 at 04:32:01PM -0500, Rich Persaud wrote:
+> > =EF=BB=BFOn Dec 17, 2020, at 07:13, Jean-Philippe Ouellet <jpo@vt.edu> =
+wrote:
+> > > =EF=BB=BFOn Wed, Dec 16, 2020 at 2:37 PM Christopher Clark
+> > > <christopher.w.clark@gmail.com> wrote:
+> > >> Hi all,
+> > >>
+> > >> I have written a page for the OpenXT wiki describing a proposal for
+> > >> initial development towards the VirtIO-Argo transport driver, and th=
+e
+> > >> related system components to support it, destined for OpenXT and
+> > >> upstream projects:
+> > >>
+> > >> https://openxt.atlassian.net/wiki/spaces/~cclark/pages/1696169985/Vi=
+rtIO-Argo+Development+Phase+1
 >
-> Hi,
+> Thanks for the detailed document, I've taken a look and there's indeed
+> a lot of work to do listed there :). I have some suggestion and
+> questions.
 >
-> Really excited to see this happening, and disappointed that I'm not
-> able to contribute at this time. I don't think I'll be able to join
-> the call, but wanted to share some initial thoughts from my
-> middle-of-the-night review anyway.
+> Overall I think it would be easier for VirtIO to take a new transport
+> if it's not tied to a specific hypervisor. The way Argo is implemented
+> right now is using hypercalls, which is a mechanism specific to Xen.
+> IMO it might be easier to start by having an Argo interface using
+> MSRs, that all hypervisors can implement, and then base the VirtIO
+> implementation on top of that interface. It could be presented as a
+> hypervisor agnostic mediated interface for inter-domain communication
+> or some such.
 
-Thanks for the review and positive feedback - appreciated.
+Thanks - that is an interesting option for a new interface and it
+would definitely be advantageous to be able to extend the benefits of
+this approach beyond the Xen hypervisor. I have added it to our
+planning document to investigate.
 
-> Super rough notes in raw unedited notes-to-self form:
+> That kind of links to a question, has any of this been discussed with
+> the VirtIO folks, either at OASIS or the Linux kernel?
+
+We identified a need within the Automotive Grade Linux community for
+the ability to enforce access control, and they want to use VirtIO for
+the usual reasons of standardization and to use the existing pool of
+available drivers, but there is currently but no good answer for
+having both, so we put Argo forward in a presentation the AGL
+Virtualization Experts group in August, and they are discussing it.
+
+The slides are available here:
+https://lists.automotivelinux.org/g/agl-dev-community/attachment/8595/0/Arg=
+o%20and%20VirtIO.pdf
+
+If you think there's anyone we should invite to the upcoming call on
+the 14th of January, please let me know off-list.
+
+> The document mentions: "Destination: mainline Linux kernel, via the
+> Xen community" regarding the upstreamability of the VirtIO-Argo
+> transport driver, but I think this would have to go through the VirtIO
+> maintainers and not the Xen ones, hence you might want their feedback
+> quite early to make sure they are OK with the approach taken, and in
+> turn this might also require OASIS to agree to have a new transport
+> documented.
+
+We're aiming to get requirements within the Xen community first, since
+there are multiple approaches to VirtIO with Xen ongoing at the
+moment, but you are right that a design review by the VirtIO community
+in the near term is important. I think it would be helpful to that
+process if the Xen community has tried to reach a consensus on the
+design beforehand.
+
+> > > thoughts on how to handle device enumeration? hotplug notifications?
+> > > - can't rely on xenstore
+> > > - need some internal argo messaging for this?
+> > > - name service w/ well-known names? starts to look like xenstore
+> > > pretty quickly...
+> > > - granular disaggregation of backend device-model providers desirable
 >
-> main point of feedback is: I love the desire to get a non-shared-mem
-> transport backend for virtio standardized. It moves us closer to an
-> HMX-only world. BUT: virtio is relevant to many hypervisors beyond
-> Xen, not all of which have the same views on how policy enforcement
-> should be done, namely some have a preference for capability-oriented
-> models over type-enforcement / MAC models. It would be nice if any
-> labeling encoded into the actual specs / guest-boundary protocols
-> would be strictly a mechanism, and be policy-agnostic, in particular
-> not making implicit assumptions about XSM / SELinux / similar. I don't
-> have specific suggestions at this point, but would love to discuss.
+> I'm also curious about this part and I was assuming this would be
+> done using some kind of Argo messages, but there's no mention in the
+> document. Would be nice to elaborate a little more about this in the
+> document.
 
-That is an interesting point; thanks. It is more about the features
-and specification of Argo itself and its interfaces than the use of it
-to implement a VirtIO transport, but is good to consider. We have a
-OpenXT wiki page for Argo development, and have a related item
-described there about having the hypervisor and remote guest kernel
-provide message context about the communication source to the
-receiver, to support policy decisions:
+Ack, noted: some further design work is needed on this.
 
-https://openxt.atlassian.net/wiki/spaces/DC/pages/737345538/Argo+Hypervisor-Mediated+data+eXchange+Development
+> > > how does resource accounting work? each side pays for their own deliv=
+ery ring?
+> > > - init in already-guest-mapped mem & simply register?
+> > > - how does it compare to grant tables?
+> > >  - do you need to go through linux driver to alloc (e.g. xengntalloc)
+> > > or has way to share arbitrary otherwise not-special userspace pages
+> > > (e.g. u2mfn, with all its issues (pinning, reloc, etc.))?
+> > >
+> > > ioreq is tangled with grant refs, evt chans, generic vmexit
+> > > dispatcher, instruction decoder, etc. none of which seems desirable i=
+f
+> > > trying to move towards world with strictly safer guest interfaces
+> > > exposed (e.g. HMX-only)
+>
+> I think this needs Christopher's clarification, but it's my
+> understanding that the Argo transport wouldn't need IOREQs at all,
+> since all data exchange would be done using the Argo interfaces, there
+> would be no MMIO emulation or anything similar. The mention about
+> IOREQs is because the Arm folks are working on using IOREQs in Arm to
+> enable virtio-mmio on Xen.
 
-> thoughts on how to handle device enumeration? hotplug notifications?
-> - can't rely on xenstore
-> - need some internal argo messaging for this?
-> - name service w/ well-known names? starts to look like xenstore
-> pretty quickly...
+Yes, that is correct.
 
-I don't think we have a firm decision on this. We have been
-considering using ACPI-tables and/or Device Tree for device
-enumeration, which is viable for devices that are statically assigned,
-and hotplug is an additional case to design for. We'll be looking at
-the existing VirtIO transports too.
+> Fro my reading of the document, it seem Argo VirtIO would still rely
+> on event channels, it would IMO be better if instead interrupts are
+> delivered using a native mechanism, something like MSI delivery by
+> using a destination APIC ID, vector, delivery mode and trigger mode.
 
-Handling notifications on a well-known Argo port is a reasonable
-direction to go and fits with applying XSM policy to govern Argo port
-connectivity between domains.
+Yes, Argo could deliver interrupts via another mechanism rather than
+event channels; have added this to our planning doc for investigation.
+https://openxt.atlassian.net/wiki/spaces/DC/pages/1696169985/VirtIO-Argo+De=
+velopment+Phase+1
 
-https://openxt.atlassian.net/wiki/spaces/DC/pages/1333428225/Analysis+of+Argo+as+a+transport+medium+for+VirtIO#Argo:-Device-discovery-and-driver-registration-with-Virtio-Argo-transport
-
-> - granular disaggregation of backend device-model providers desirable
-
-agreed
-
-> how does resource accounting work? each side pays for their own delivery ring?
-> - init in already-guest-mapped mem & simply register?
-
-Yes: rings are registered with a domain's own memory for receiving messages.
-
-> - how does it compare to grant tables?
-
-The grant tables are the Xen mechanism for a VM to instruct the
-hypervisor to grant another VM permission to establish shared memory
-mappings, or to copy data between domains. Argo is an alternative
-mechanism for communicating between VMs that does not share memory
-between them and provides different properties that are supportive of
-isolation and access control.
-
-There's a presentation with an overview of Argo from the 2019 Xen
-Design and Developer Summit:
-https://static.sched.com/hosted_files/xensummit19/92/Argo%20and%20HMX%20-%20OpenXT%20-%20Christopher%20Clark%20-%20Xen%20Summit%202019.pdf
-https://www.youtube.com/watch?v=cnC0Tg3jqJQ&list=PLYyw7IQjL-zHmP6CuqwuqfXNK5QLmU7Ur&index=15
-
->   - do you need to go through linux driver to alloc (e.g. xengntalloc)
-> or has way to share arbitrary otherwise not-special userspace pages
-> (e.g. u2mfn, with all its issues (pinning, reloc, etc.))?
-
-In the current Argo device driver implementations, userspace does not
-have direct access to Argo message rings. Instead the kernel provides
-devices that can be used to send and receive data with familiar I/O
-primitives via those.
-
-For the VirtIO-Argo transport, userspace would not need to be aware of
-the use of Argo - the VirtIO virtual devices will present themselves
-to userspace with the same VirtIO device interfaces as when they use
-any other transport.
-
-> ioreq is tangled with grant refs, evt chans, generic vmexit
-> dispatcher, instruction decoder, etc. none of which seems desirable if
-> trying to move towards world with strictly safer guest interfaces
-> exposed (e.g. HMX-only)
-
-ack
-
-> - there's no io to trap/decode here, it's explicitly exclusively via
-> hypercall to HMX, no?
-
-Yes; as Roger noted in his reply in this thread, the interest in IOREQ
-has been motivated by other recent VirtIO activity in the Xen
-Community, and whether some potential might exist for alignment with
-that work.
-
-> - also, do we want argo sendv hypercall to be always blocking & synchronous?
->   - or perhaps async notify & background copy to other vm addr space?
->   - possibly better scaling?
->   - accounting of in-flight io requests to handle gets complicated
-> (see recent XSA)
->   - PCI-like completion request semantics? (argo as cross-domain
-> software dma engine w/ some basic protocol enforcement?)
-
-I think implementation of an asynchronous delivery primitive for Argo
-is worth exploring given its potential for achieving different
-performance characteristics which could enable it to support
-additional use cases.
-It is likely beyond the scope of the initial VirtIO-Argo driver
-development, but enabling VirtIO guest drivers to use Argo will allow
-testing to determine which uses of it could benefit from further
-investment.
-
-> "port" v4v driver => argo:
-> - yes please! something without all the confidence-inspiring
-> DEBUG_{APPLE,ORANGE,BANANA} indicators of production-worthy code would
-> be great ;)
-> - seems like you may want to redo argo hypercall interface too?
-
-The Xen community has plans to remove all the uses of virtual
-addresses from the hypervisor interface, and the Argo interface will
-need to be updated as part of that work. In addition, work to
-incorporate further features from v4v, and some updates to Argo per
-items on the OpenXT Argo development wiki page, will also involve some
-updates to the interface.
-
-> (at least the syscall interface...)
-
-Yes: a new Argo Linux driver will likely have quite a different
-interface to userspace to the current one; it's been discussed in the
-OpenXT community and the notes from the discussion are here:
-
-https://openxt.atlassian.net/wiki/spaces/DC/pages/775389197/New+Linux+Driver+for+Argo
-
-There is motivation to support both a networking and non-networking
-interface, so that network-enabled guest OSes can use familiar
-primitives and software, and non-network-enabled guests are still able
-to use Argo communication.
-
->   - targeting synchronous blocking sendv()?
->   - or some async queue/completion thing too? (like PF_RING, but with
-> *iov entries?)
->   - both could count as HMX, both could enforce no double-write racing
-> games at dest ring, etc.
-
-The immediate focus is on building a modern, hopefully simple, driver
-that unblocks the immediate use cases we have, allowing us to retire
-the existing driver, and is suitable for submission and maintenance in
-the kernel upstream.
-
-> re v4vchar & doing similar for argo:
-> - we may prefer "can write N bytes? -> yes/no" or "how many bytes can
-> write? -> N" over "try to write N bytes -> only wrote M, EAGAIN"
-> - the latter can be implemented over the former, but not the other way around
-> - starts to matter when you want to be able to implement in userspace
-> & provide backpressure to peer userspace without additional buffering
-> & potential lying about durability of writes
-> - breaks cross-domain EPIPE boundary correctness
-> - Qubes ran into same issues when porting vchan from Xen to KVM
-> initially via vsock
-
-Thanks - that's helpful and will look at that when the driver work proceeds.
-
-> some virtio drivers explicitly use shared mem for more than just
-> communication rings:
-> - e.g. virtio-fs, which can map pages as DAX-like fs backing to share page cache
-> - e.g. virtio-gpu, virtio-wayland, virtio-video, which deal in framebuffers
-> - needs thought about how best to map semantics to (or at least
-> interoperate cleanly & safely with) HMX-{only,mostly} world
->   - the performance of shared mem actually can meaningfully matter for
-> e.g. large framebuffers in particular due to fundamental memory
-> bandwidth constraints
-
-This is an important point and given the clear utility of these
-drivers it will be worth exploring what can be done to meet their
-performance requirements and satisfy the semantics needed for them to
-function.  It may be the case that shared memory regions are going to
-be necessary for some classes of driver - some investigation required.
-Along the lines of the research that Rich included in his reply, it
-would be interesting to see whether modern hardware provides
-primitives that can support efficient cross-domain data transport that
-could be used for this. Thanks for raising it.
+thanks,
 
 Christopher
 
