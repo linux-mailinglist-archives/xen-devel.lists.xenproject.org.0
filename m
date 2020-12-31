@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E80542E81D9
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Dec 2020 20:53:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.60608.106373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CE1C2E81DD
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Dec 2020 21:00:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.60617.106387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kv3zx-0003di-1d; Thu, 31 Dec 2020 19:52:37 +0000
+	id 1kv47F-0004cP-QJ; Thu, 31 Dec 2020 20:00:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 60608.106373; Thu, 31 Dec 2020 19:52:37 +0000
+Received: by outflank-mailman (output) from mailman id 60617.106387; Thu, 31 Dec 2020 20:00:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kv3zw-0003dG-T2; Thu, 31 Dec 2020 19:52:36 +0000
-Received: by outflank-mailman (input) for mailman id 60608;
- Thu, 31 Dec 2020 19:52:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kv3zv-0003d8-5m; Thu, 31 Dec 2020 19:52:35 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kv3zu-0005PK-VG; Thu, 31 Dec 2020 19:52:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kv3zu-0005ZL-Ns; Thu, 31 Dec 2020 19:52:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kv3zu-0003od-MX; Thu, 31 Dec 2020 19:52:34 +0000
+	id 1kv47F-0004c0-N7; Thu, 31 Dec 2020 20:00:09 +0000
+Received: by outflank-mailman (input) for mailman id 60617;
+ Thu, 31 Dec 2020 20:00:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=i6T7=GD=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1kv47E-0004Y9-AK
+ for xen-devel@lists.xenproject.org; Thu, 31 Dec 2020 20:00:08 +0000
+Received: from MTA-05-4.privateemail.com (unknown [68.65.122.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d45a2668-e911-40ec-9fc7-3dc6ca1f9412;
+ Thu, 31 Dec 2020 20:00:06 +0000 (UTC)
+Received: from MTA-05.privateemail.com (localhost [127.0.0.1])
+ by MTA-05.privateemail.com (Postfix) with ESMTP id 4718760236
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Dec 2020 15:00:05 -0500 (EST)
+Received: from mail-wr1-f47.google.com (unknown [10.20.151.221])
+ by MTA-05.privateemail.com (Postfix) with ESMTPA id 10A7E6018A
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Dec 2020 20:00:05 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id d13so20781114wrc.13
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Dec 2020 12:00:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +44,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=WUO3741uQuzDkmXCQJfM7sMUvZP+KB4HZ65lhZKuNa4=; b=GvDnmIGXfCk9HlZxeDp30QAHX5
-	E9t8TrWqxFsC7jvOPZkYRo4vUnpA0ccGzFg4fpSCfwdJd3ZLljRvFEgnd8ZYMsyAJljtYfu0FuepT
-	rnC1p77IvUmGaCyro7F3tUOAoTfsWV2Yi7BBj0abOWlJ9SCcYDK9l+M2/rLfTSWx996U=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158056-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d45a2668-e911-40ec-9fc7-3dc6ca1f9412
+X-Gm-Message-State: AOAM530kANXDOJmcYmmBg6iiQZ1WacMYkQeVnTYBGKRtQpMvc2kRPI3n
+	eTpyM2frypjX8RLgPWUrIxi3y5Vh6m6x2pfpsCo=
+X-Google-Smtp-Source: ABdhPJxZhw6NDENndEkcXPL9VOVTvvxPV4LrXBDvzqZna5NOVwlu2yj3m+guF7f3GYHr1laYL6doeDveSsCN8V5IeDo=
+X-Received: by 2002:adf:fad0:: with SMTP id a16mr68389750wrs.390.1609444803649;
+ Thu, 31 Dec 2020 12:00:03 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158056: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=1516ecd6f55fe3608f374f4f2548491472d1c9a1
-X-Osstest-Versions-That:
-    xen=98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 31 Dec 2020 19:52:34 +0000
+References: <20201231171021.10361-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20201231171021.10361-1-andrew.cooper3@citrix.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 31 Dec 2020 14:59:34 -0500
+X-Gmail-Original-Message-ID: <CABfawh=cnYpFDGP89=VfJ34fPeVufi7LixeNaTHEMRWHsxSSAw@mail.gmail.com>
+Message-ID: <CABfawh=cnYpFDGP89=VfJ34fPeVufi7LixeNaTHEMRWHsxSSAw@mail.gmail.com>
+Subject: Re: [PATCH] x86/p2m: Fix paging_gva_to_gfn() for nested virt
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-flight 158056 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158056/
+On Thu, Dec 31, 2020 at 12:11 PM Andrew Cooper
+<andrew.cooper3@citrix.com> wrote:
+>
+> nestedhap_walk_L1_p2m() takes guest physical addresses, not frame numbers=
+.
+> This means the l2 input is off-by-PAGE_SHIFT, as is the l1 value eventual=
+ly
+> returned to the caller.
+>
+> Delete the misleading comment as well.
+>
+> Fixes: bab2bd8e222de ("xen/nested_p2m: Don't walk EPT tables with a regul=
+ar PT walker")
+> Reported-by: Tamas K Lengyel <tamas@tklengyel.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Tamas K Lengyel <tamas@tklengyel.com>
 
-Failures :-/ but no regressions.
+Thanks, issue is resolved with this patch applied.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  1516ecd6f55fe3608f374f4f2548491472d1c9a1
-baseline version:
- xen                  98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
-
-Last test of basis   157813  2020-12-22 16:00:27 Z    9 days
-Testing same since   158056  2020-12-31 18:00:27 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   98d4d6d8a6..1516ecd6f5  1516ecd6f55fe3608f374f4f2548491472d1c9a1 -> smoke
+Tested-by: Tamas K Lengyel <tamas@tklengyel.com>
 
