@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21BBB2E9751
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 15:33:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61275.107669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23DA72E9786
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 15:45:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61280.107681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwQve-0000K8-E5; Mon, 04 Jan 2021 14:33:50 +0000
+	id 1kwR64-0001H3-Dz; Mon, 04 Jan 2021 14:44:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61275.107669; Mon, 04 Jan 2021 14:33:50 +0000
+Received: by outflank-mailman (output) from mailman id 61280.107681; Mon, 04 Jan 2021 14:44:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwQve-0000Jj-Ax; Mon, 04 Jan 2021 14:33:50 +0000
-Received: by outflank-mailman (input) for mailman id 61275;
- Mon, 04 Jan 2021 14:33:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kwR64-0001Ge-AC; Mon, 04 Jan 2021 14:44:36 +0000
+Received: by outflank-mailman (input) for mailman id 61280;
+ Mon, 04 Jan 2021 14:44:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kwQvc-0000JO-PO
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 14:33:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kwQva-00033Y-Tf; Mon, 04 Jan 2021 14:33:46 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kwQva-0007nz-N8; Mon, 04 Jan 2021 14:33:46 +0000
+ (envelope-from <SRS0=e1rq=GH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kwR62-0001GZ-Vo
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 14:44:35 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7c524f25-e4ed-4cad-b325-a16a55ec0294;
+ Mon, 04 Jan 2021 14:44:33 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6A447ACBA;
+ Mon,  4 Jan 2021 14:44:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,98 +38,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=BesCYGbECSWzOCPtjf2/rRCO08kcjVAxgwox1cz2siY=; b=adTK3KX6lln8gwrKx3Zu2jS2Ob
-	0zVoGo7iaSE48dvKvEUefbrjPtQh2jHdLxTX5kTH6grrY/Ypo2KLWK4+2L0gAVDhXqmTfg0d92bH+
-	r402s3Rgcu21CRNcUyxu+eIkmXDC0GBCxaI8vfvJCYDer6/wMyCovz/XUg+9HgANBHjs=;
-Subject: Re: [PATCH for-4.15 1/4] xen/iommu: Check if the IOMMU was
- initialized before tearing down
-To: paul@xen.org, xen-devel@lists.xenproject.org
-Cc: hongyxia@amazon.co.uk, 'Julien Grall' <jgrall@amazon.com>,
- 'Jan Beulich' <jbeulich@suse.com>
-References: <20201222154338.9459-1-julien@xen.org>
- <20201222154338.9459-2-julien@xen.org>
- <002301d6e27b$f9eaae90$edc00bb0$@xen.org>
-From: Julien Grall <julien@xen.org>
-Message-ID: <c0d64023-ab07-d368-cb32-ff5b1f391c61@xen.org>
-Date: Mon, 4 Jan 2021 14:33:45 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.0
+X-Inumbo-ID: 7c524f25-e4ed-4cad-b325-a16a55ec0294
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1609771472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Nxvf797BqsiGlAXHtyfbskLU9VIpW++nRTZwaucmmFM=;
+	b=R2h44IuVlBqzWz8Eo4AWlhwKXPghQtecaBXFNem8K1jBBX4w//Q59s2jeydvmT6kF4V/Te
+	0WB7S37HEpgTmw6fS0mB4zgruOtxYbcOccfZnu4WltQfKDgHB/WhhKaV0jEgd51G4FO9C5
+	1q2lDPmvqJu2rqb9sI0cN0Er+X6YQ6M=
+Subject: Re: [PATCH v2] gnttab: defer allocation of status frame tracking
+ array
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <57dc915c-c373-5003-80f7-279dd300d571@suse.com>
+ <bab2f11f-dd59-87fb-1311-2732a71543d0@xen.org>
+ <9535c420-9fd7-a8e6-6efe-7494ef6611db@suse.com>
+ <f82ddfe7-853d-ca15-2373-a38068f65ef7@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <7dbb3b5a-1d7f-43e4-90b0-d731fa8f08c9@suse.com>
+Date: Mon, 4 Jan 2021 15:44:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <002301d6e27b$f9eaae90$edc00bb0$@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <f82ddfe7-853d-ca15-2373-a38068f65ef7@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Hi Paul,
-
-On 04/01/2021 09:28, Paul Durrant wrote:
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: 22 December 2020 15:44
->> To: xen-devel@lists.xenproject.org
->> Cc: hongyxia@amazon.co.uk; Julien Grall <jgrall@amazon.com>; Jan Beulich <jbeulich@suse.com>; Paul
->> Durrant <paul@xen.org>
->> Subject: [PATCH for-4.15 1/4] xen/iommu: Check if the IOMMU was initialized before tearing down
->>
->> From: Julien Grall <jgrall@amazon.com>
->>
->> is_iommu_enabled() will return true even if the IOMMU has not been
->> initialized (e.g. the ops are not set).
->>
->> In the case of an early failure in arch_domain_init(), the function
->> iommu_destroy_domain() will be called even if the IOMMU is initialized.
->>
->> This will result to dereference the ops which will be NULL and an host
->> crash.
->>
->> Fix the issue by checking that ops has been set before accessing it.
->> Note that we are assuming that arch_iommu_domain_init() will cleanup an
->> intermediate failure if it failed.
->>
->> Fixes: 71e617a6b8f6 ("use is_iommu_enabled() where appropriate...")
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
->> ---
->>   xen/drivers/passthrough/iommu.c | 10 +++++++++-
->>   1 file changed, 9 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
->> index 2358b6eb09f4..f976d5a0b0a5 100644
->> --- a/xen/drivers/passthrough/iommu.c
->> +++ b/xen/drivers/passthrough/iommu.c
->> @@ -226,7 +226,15 @@ static void iommu_teardown(struct domain *d)
->>
->>   void iommu_domain_destroy(struct domain *d)
->>   {
->> -    if ( !is_iommu_enabled(d) )
->> +    struct domain_iommu *hd = dom_iommu(d);
->> +
->> +    /*
->> +     * In case of failure during the domain construction, it would be
->> +     * possible to reach this function with the IOMMU enabled but not
->> +     * yet initialized. We assume that hd->platforms will be non-NULL as
->> +     * soon as we start to initialize the IOMMU.
->> +     */
->> +    if ( !is_iommu_enabled(d) || !hd->platform_ops )
->>           return;
+On 04.01.2021 15:16, Julien Grall wrote:
+> Hi Jan,
 > 
-> TBH, this seems like the wrong way to fix it. The ops dereference is done in iommu_teardown() so that ought to be doing the check,
-> but given it is single line function then it could be inlined at the same time. That said, I think arch_iommu_domain_destroy() needs
-> to be call unconditionally as it arch_iommu_domain_init() is called before the ops pointer is set.
+> On 04/01/2021 13:37, Jan Beulich wrote:
+>> On 24.12.2020 10:57, Julien Grall wrote:
+>>> Hi Jan,
+>>>
+>>> On 23/12/2020 15:13, Jan Beulich wrote:
+>>>> This array can be large when many grant frames are permitted; avoid
+>>>> allocating it when it's not going to be used anyway, by doing this only
+>>>> in gnttab_populate_status_frames().
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> v2: Defer allocation to when a domain actually switches to the v2 grant
+>>>>       API.
+>>>>
+>>>> --- a/xen/common/grant_table.c
+>>>> +++ b/xen/common/grant_table.c
+>>>> @@ -1725,6 +1728,17 @@ gnttab_populate_status_frames(struct dom
+>>>>        /* Make sure, prior version checks are architectural visible */
+>>>>        block_speculation();
+>>>>    
+>>>> +    if ( gt->status == ZERO_BLOCK_PTR )
+>>>> +    {
+>>>> +        gt->status = xzalloc_array(grant_status_t *,
+>>>> +                                   grant_to_status_frames(gt->max_grant_frames));
+>>>> +        if ( !gt->status )
+>>>> +        {
+>>>> +            gt->status = ZERO_BLOCK_PTR;
+>>>> +            return -ENOMEM;
+>>>> +        }
+>>>> +    }
+>>>> +
+>>>>        for ( i = nr_status_frames(gt); i < req_status_frames; i++ )
+>>>>        {
+>>>>            if ( (gt->status[i] = alloc_xenheap_page()) == NULL )
+>>>> @@ -1745,18 +1759,23 @@ status_alloc_failed:
+>>>>            free_xenheap_page(gt->status[i]);
+>>>>            gt->status[i] = NULL;
+>>>>        }
+>>>> +    if ( !nr_status_frames(gt) )
+>>>> +    {
+>>>> +        xfree(gt->status);
+>>>> +        gt->status = ZERO_BLOCK_PTR;
+>>>> +    }
+>>>>        return -ENOMEM;
+>>>>    }
+>>>>    
+>>>>    static int
+>>>>    gnttab_unpopulate_status_frames(struct domain *d, struct grant_table *gt)
+>>>>    {
+>>>> -    unsigned int i;
+>>>> +    unsigned int i, n = nr_status_frames(gt);
+>>>>    
+>>>>        /* Make sure, prior version checks are architectural visible */
+>>>>        block_speculation();
+>>>>    
+>>>> -    for ( i = 0; i < nr_status_frames(gt); i++ )
+>>>> +    for ( i = 0; i < n; i++ )
+>>>>        {
+>>>>            struct page_info *pg = virt_to_page(gt->status[i]);
+>>>>            gfn_t gfn = gnttab_get_frame_gfn(gt, true, i);
+>>>> @@ -1811,12 +1830,12 @@ gnttab_unpopulate_status_frames(struct d
+>>>>            page_set_owner(pg, NULL);
+>>>>        }
+>>>>    
+>>>> -    for ( i = 0; i < nr_status_frames(gt); i++ )
+>>>> -    {
+>>>> -        free_xenheap_page(gt->status[i]);
+>>>> -        gt->status[i] = NULL;
+>>>> -    }
+>>>>        gt->nr_status_frames = 0;
+>>>> +    smp_wmb(); /* Just in case - all accesses should be under lock. */
+>>>
+>>> I think gt->status cannot be accessed locklessly. If a entity read
+>>> gt->nr_status_frames != 0, then there is no promise the array will be
+>>> accessible when trying to access it as it may have been freed.
+>>
+>> Yet the common principle of (pointer,count) pairs to describe arrays
+>> to be updated / accessed in sequences guaranteeing a non-zero count
+>> implies a valid pointer could as well be considered to apply here.
+>> I.e. when freeing, at least in principle clearing count first would
+>> be a sensible thing to do, wouldn't it?
+> 
+> I am not arguing on whether this is a sensible thing to do but how 
+> someone else can make use of it. The common lockless pattern to access 
+> the array would be checking the count and if it is not zero, then access 
+> the array. Imagine the following:
+> 
+> CPU0 (free the array)       | CPU1 (access the array)
+>                              |
+>                              | if ( !gt->nr_status_frames )
+> gt->nr_status_frames = 0;   |   return;
+> smp_wmb();                  |
+> gt->status = NULL;          |
+>                              | smp_rmb();
+>                              | access gt->status[X];
+> 
+> Without any lock (or refcounting), I can't see how the example above 
+> would be safe.
 
-I originally resolved this way to avoid arch_iommu_domain_init() and 
-iommu_teardown() to be called when the failure may happen before 
-iommu_domain_init() is called. IOW, the lists/locks would be unitialized.
+Sure, I shouldn't have over-simplified. You can't guard against
+a racing free this way. You can guard against an incomplete
+allocation by setting count strictly after pointer. And the
+natural order of freeing then is clearing count before freeing
+pointer. I'll go and check that accesses indeed do all happen
+under lock, and drop the barrier if so.
 
-After discussing with Jan, it turns out that we could check whether the 
-list was initialized or not. So I have reworked the code to now call 
-arch_iommu_domain_init() unconditionally and move the ops check in 
-iommu_teardown().
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
