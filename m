@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F4642E940E
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 12:25:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61134.107305 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96FFA2E9417
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 12:31:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61144.107323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwNyl-0006c2-8q; Mon, 04 Jan 2021 11:24:51 +0000
+	id 1kwO4Y-0007Vw-VY; Mon, 04 Jan 2021 11:30:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61134.107305; Mon, 04 Jan 2021 11:24:51 +0000
+Received: by outflank-mailman (output) from mailman id 61144.107323; Mon, 04 Jan 2021 11:30:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwNyl-0006bY-4k; Mon, 04 Jan 2021 11:24:51 +0000
-Received: by outflank-mailman (input) for mailman id 61134;
- Mon, 04 Jan 2021 11:24:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kwNyk-0006bQ-Bh; Mon, 04 Jan 2021 11:24:50 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kwNyj-0008Fk-Vr; Mon, 04 Jan 2021 11:24:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kwNyj-0006GB-Op; Mon, 04 Jan 2021 11:24:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kwNyj-0002fL-ON; Mon, 04 Jan 2021 11:24:49 +0000
+	id 1kwO4Y-0007VX-S7; Mon, 04 Jan 2021 11:30:50 +0000
+Received: by outflank-mailman (input) for mailman id 61144;
+ Mon, 04 Jan 2021 11:30:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jmHV=GH=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kwO4Y-0007VS-0K
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 11:30:50 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1a541c8a-c2b0-4183-87ad-912d35031e40;
+ Mon, 04 Jan 2021 11:30:48 +0000 (UTC)
+Received: from rochebonne.antioche.eu.org (rochebonne
+ [IPv6:2001:41d0:fe9d:1100:221:70ff:fe0c:9885])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 104BUicL006959;
+ Mon, 4 Jan 2021 12:30:44 +0100 (MET)
+Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
+ id 555D9281D; Mon,  4 Jan 2021 12:30:44 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,128 +41,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=fo9qN1VgGgj9hKPcZT+HvaT3PGIxMTxrDLRHVvJu2Xs=; b=HvPEEZcM7qa/f7lT81lNNqH0pU
-	7EBFxC/neHFr+MZp30YDUjG80iA8qSOWxPzApXEX6sXgica5/Yi6jPcQDCj7hQWmLL29qDZ4ORsch
-	RW11u+2WwmYf5l3M0SxlhApvumocuFSu6CM1dO2txgiXLa1KQJIWmA9gldyy+UDOPdZg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158121-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1a541c8a-c2b0-4183-87ad-912d35031e40
+Date: Mon, 4 Jan 2021 12:30:44 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 11/24] Implement foreignmemory on NetBSD
+Message-ID: <20210104113044.GA1530@antioche.eu.org>
+References: <20201214163623.2127-1-bouyer@netbsd.org>
+ <20201214163623.2127-12-bouyer@netbsd.org>
+ <20201229124630.5ld2dt5o6awa53db@Air-de-Roger>
 MIME-Version: 1.0
-Subject: [ovmf test] 158121: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=0785c619a58a450091d2bf6755591012533b80b8
-X-Osstest-Versions-That:
-    ovmf=140674a4601f804302e79d08cb06f91c882ddf28
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 04 Jan 2021 11:24:49 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201229124630.5ld2dt5o6awa53db@Air-de-Roger>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [IPv6:2001:41d0:fe9d:1101:0:0:0:1]); Mon, 04 Jan 2021 12:30:44 +0100 (MET)
 
-flight 158121 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158121/
+On Tue, Dec 29, 2020 at 01:46:30PM +0100, Roger Pau Monné wrote:
+> [...]
+> > diff --git a/tools/libs/foreignmemory/private.h b/tools/libs/foreignmemory/private.h
+> > index 8f1bf081ed..abeceb8720 100644
+> > --- a/tools/libs/foreignmemory/private.h
+> > +++ b/tools/libs/foreignmemory/private.h
+> > @@ -8,7 +8,13 @@
+> >  #include <xentoolcore_internal.h>
+> >  
+> >  #include <xen/xen.h>
+> > +
+> > +#ifdef __NetBSD__
+> > +#include <xen/xen.h>
+> > +#include <xen/xenio.h>
+> > +#else
+> >  #include <xen/sys/privcmd.h>
+> > +#endif
+> >  
+> >  #ifndef PAGE_SHIFT /* Mini-os, Yukk */
+> >  #define PAGE_SHIFT           12
+> > @@ -38,7 +44,7 @@ int osdep_xenforeignmemory_unmap(xenforeignmemory_handle *fmem,
+> >  
+> >  #if defined(__NetBSD__) || defined(__sun__)
+> >  /* Strictly compat for those two only only */
+> > -void *compat_mapforeign_batch(xenforeignmem_handle *fmem, uint32_t dom,
+> > +void *osdep_map_foreign_batch(xenforeignmemory_handle *fmem, uint32_t dom,
+> >                                void *addr, int prot, int flags,
+> >                                xen_pfn_t *arr, int num);
+> 
+> You will have to split this into NetBSD and Solaris variants now if
+> this is really required, but AFAICT you replace
+> osdep_map_foreign_batch with osdep_xenforeignmemory_map, so this
+> prototype is stale?
 
-Regressions :-(
+I think on solaris too, compat_mapforeign_batch() has to be changed to
+osdep_map_foreign_batch() as compat.c and solaris.c has something called
+osdep_map_foreign_batch(), but nothing defines compat_mapforeign_batch().
+Looks like a rename that missed private.h
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 157875
- build-amd64                   6 xen-build                fail REGR. vs. 157875
- build-i386-xsm                6 xen-build                fail REGR. vs. 157875
+Indeed osdep_map_foreign_batch() should not be needed on NetBSD now
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+> 
+> Also a little bit below these prototypes are the dummy implementations
+> of osdep_xenforeignmemory_restrict,
+> osdep_xenforeignmemory_map_resource and
+> osdep_xenforeignmemory_unmap_resource. I think you at least need to
+> modify the condition below so that on NetBSD the dummy inlines are not
+> used?
 
-version targeted for testing:
- ovmf                 0785c619a58a450091d2bf6755591012533b80b8
-baseline version:
- ovmf                 140674a4601f804302e79d08cb06f91c882ddf28
+This is !defined(__NetBSD__) so it should not be used ?
 
-Last test of basis   157875  2020-12-24 14:39:42 Z   10 days
-Testing same since   158121  2021-01-04 08:39:43 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Heng Luo <heng.luo@intel.com>
-  Luo, Heng <heng.luo@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   pass    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 0785c619a58a450091d2bf6755591012533b80b8
-Author: Luo, Heng <heng.luo@intel.com>
-Date:   Mon Jan 4 14:59:54 2021 +0800
-
-    MdeModulePkg/Bus/Pci/PciBusDxe: Support PCIe Resizable BAR Capability
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=313
-    
-    Add PcdPcieResizableBarSupport to enable/disable PCIe Resizable
-    BAR Capability fearture.
-    Program the Resizable BAR Register if the device suports PCIe Resizable
-    BAR Capability and PcdPcieResizableBarSupport is TRUE.
-    
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Signed-off-by: Heng Luo <heng.luo@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-
-commit 42fe8ca453f1ab19d03d8dc945398997b00b0777
-Author: Luo, Heng <heng.luo@intel.com>
-Date:   Mon Jan 4 14:59:53 2021 +0800
-
-    MdePkg: Define structures for Resizable BAR Capability
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3138
-    
-    Define structures for Resizable BAR Capability in
-    MdePkg/Include/IndustryStandard/PciExpress21.h,
-    Change ShellPkg/Library/UefiShellDebug1CommandsLib/Pci.c
-    to use new structures.
-    
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Signed-off-by: Heng Luo <heng.luo@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Reviewed-by: Liming Gao <liming.gao@intel.com>
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
