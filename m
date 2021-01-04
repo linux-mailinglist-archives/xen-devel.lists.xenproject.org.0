@@ -2,31 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DA72E9786
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 15:45:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61280.107681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93C562E97C1
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 15:57:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61284.107693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwR64-0001H3-Dz; Mon, 04 Jan 2021 14:44:36 +0000
+	id 1kwRHx-0002Hv-IS; Mon, 04 Jan 2021 14:56:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61280.107681; Mon, 04 Jan 2021 14:44:36 +0000
+Received: by outflank-mailman (output) from mailman id 61284.107693; Mon, 04 Jan 2021 14:56:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwR64-0001Ge-AC; Mon, 04 Jan 2021 14:44:36 +0000
-Received: by outflank-mailman (input) for mailman id 61280;
- Mon, 04 Jan 2021 14:44:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=e1rq=GH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwR62-0001GZ-Vo
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 14:44:35 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7c524f25-e4ed-4cad-b325-a16a55ec0294;
- Mon, 04 Jan 2021 14:44:33 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6A447ACBA;
- Mon,  4 Jan 2021 14:44:32 +0000 (UTC)
+	id 1kwRHx-0002HW-FD; Mon, 04 Jan 2021 14:56:53 +0000
+Received: by outflank-mailman (input) for mailman id 61284;
+ Mon, 04 Jan 2021 14:56:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=N5j7=GH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kwRHv-0002HR-NX
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 14:56:51 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c03d387e-1bec-49ec-94a0-93ecc139f4f5;
+ Mon, 04 Jan 2021 14:56:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,147 +36,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c524f25-e4ed-4cad-b325-a16a55ec0294
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609771472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nxvf797BqsiGlAXHtyfbskLU9VIpW++nRTZwaucmmFM=;
-	b=R2h44IuVlBqzWz8Eo4AWlhwKXPghQtecaBXFNem8K1jBBX4w//Q59s2jeydvmT6kF4V/Te
-	0WB7S37HEpgTmw6fS0mB4zgruOtxYbcOccfZnu4WltQfKDgHB/WhhKaV0jEgd51G4FO9C5
-	1q2lDPmvqJu2rqb9sI0cN0Er+X6YQ6M=
-Subject: Re: [PATCH v2] gnttab: defer allocation of status frame tracking
- array
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <57dc915c-c373-5003-80f7-279dd300d571@suse.com>
- <bab2f11f-dd59-87fb-1311-2732a71543d0@xen.org>
- <9535c420-9fd7-a8e6-6efe-7494ef6611db@suse.com>
- <f82ddfe7-853d-ca15-2373-a38068f65ef7@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7dbb3b5a-1d7f-43e4-90b0-d731fa8f08c9@suse.com>
-Date: Mon, 4 Jan 2021 15:44:40 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
-MIME-Version: 1.0
-In-Reply-To: <f82ddfe7-853d-ca15-2373-a38068f65ef7@xen.org>
+X-Inumbo-ID: c03d387e-1bec-49ec-94a0-93ecc139f4f5
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1609772210;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=kLmNVsxs09uIBbJ26ouP/AblOTlGCEc4i+9wDry82KU=;
+  b=huYaTz5bGS8L2y222uApRZu43QAYpVMblIaQGwhjHoXGFdzaRWpogN3G
+   0qfC8ZfQ5P6orkHcur7uQXmoSzYzoLDT9tW3iExpXJTiz8SN8YiU3Y5nz
+   T0uZtGwZaCqaYtpwBh29URA4P7Ay4rBMnqyBG/3hjE1CWhGNzvexanKTE
+   g=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 2dliIfz8kgL1ZypgNMbLSWlENo/obU4ymTmzeH8PyjiamdedY4W8WYtCshoHmZNg9u9UVA2g8L
+ zzZe0biE7DhaSOx0xL89I1ZdbKDSWdI2fqRguq5+g1yDYSri9iOAZErtXketb2qVsJoM8z3ad0
+ Pmyu/bedmoMF5GEYb1D1k8XW+yDiblJNJ0+wF86QKGWqQ4up61Rold8MVvsJtcOWOiMTwcEc4H
+ WbF2uFCMgzxwxw+IpG8O2+QrykcgeR8h2NdOrl0FtPiMoMFBneyU5MIbJ3yaQzjY9SClWCgtpC
+ Gvs=
+X-SBRS: 5.2
+X-MesageID: 34349054
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,474,1599537600"; 
+   d="scan'208";a="34349054"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Hm+atFD9RHgRX80I9JrIiRkxDotpyaNzZAV8/QkRG343Vk1PlCYGumeCXJ+2i3Lr3sKS8mAPmhD+C6YuNsl4DLnqTavgZm56Esx23hx62JFxiFzO3KjhkBLrWuy5PRLv4IfcVDd5teh3sOuP1FzsE9hN6ke7wV4e61NiMxr+FXA3maoqM5f4YmOgM+Cel1QfX2AEZQLh54wZ6lWY8lvJCm0sCue91uL35MwzcRFz6e2YwIGDjIkjBLN2ujZ0CDfRZfSQOemQesebsbCBwQUcMiUN/IKbz+CK778iJDRnfFZ5Qh7dh5jzsXWYgmZTTYvtrErpgH7f28CMVx6spLsbKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uck64sDDJvtXANtk7yZlrc+V5UynT/cxC7P43X4SiBo=;
+ b=m+s31lnrR5cJGcXHT9RC6PB5ddXG00Xbgxo8XU4MK8f/1OQ+6eL846yrMLww8BeInB/NYALPE4Xydz7c2XyUygCmmWDkLv3xAyrd7xA7bkN2thMaGvLYk4iNAM/I981uC/HHn4xqR7dTMlfMKTsO84vUriDkNuaO+aQgr8OnG9p0vlXuXVG37haJ17gYTEkBPF1zZw5CmvGDIa3OrpXbi3e7wRLkYOs3VBMRaB7cm1WpKZxIZyZlukIs1/rl42JbCs6L1tqYJGZh1EMwG2lQfgUO6RUjaYCpoP3AH4wnk4pdTpdT+uOOvmX1x47mqp1OfKI9+gVAeXXs0Nhehe4O+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uck64sDDJvtXANtk7yZlrc+V5UynT/cxC7P43X4SiBo=;
+ b=tY2G1eDesRofhVGEwjWIaRNBcqmeRrf9TDnt0PZs7sLaNKg1nKKdI8tX6Hw/OtwPB1z6ZaXXQg32pAB6M4iW2lPFqFf9DlwlcJ4low0PszExIu91wNhFdVHQg+39vKkX3tRkPYH2vnYyHrqNxBgStRV+iRSgZrxkwejuogrwPSo=
+Date: Mon, 4 Jan 2021 15:56:40 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/CPUID: suppress IOMMU related hypervisor leaf data
+Message-ID: <20210104145640.dmufekd2qb5gemud@Air-de-Roger>
+References: <c640463a-d088-aaf5-0c3c-d82b1c98ee4f@suse.com>
+ <20201228105400.dzkyrgyvkjuevzsj@Air-de-Roger>
+ <cb289033-9e7c-b51e-dd02-5c6d05285a8c@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cb289033-9e7c-b51e-dd02-5c6d05285a8c@suse.com>
+X-ClientProxiedBy: MR2P264CA0085.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:32::25) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 950fa38e-457d-4494-1d8a-08d8b0c0f585
+X-MS-TrafficTypeDiagnostic: DM5PR03MB2969:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR03MB296927C3A9FAC26AACD48E478FD20@DM5PR03MB2969.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PKjlBMZLtsud3eKKAz9Zt8g1vT4Q9jr/suJLsveqiF74ScVkLsB74ChXVUQXyi7fwqnzpXAiKYZJW1L3JQ6d3490Fywup3QQmmu/FZJVAKcBMo2gXjda/3po6BriN32I7jtX3H0v2lonvog7Br2aIYlr6s4/CWXerJvlbfrTOYT+J6n93uLRmT5cuQh4a8nvsyuUV6DyIv2DnF61FZHE5MHbgWLV4fGD2vYDXDFrhBaxya0h1L6sQ68jndMIbhwb3IcFFQCleJ6L3AzKxOp5PFQX4NRvalkmlGvXaRJEnU6MdRkf5cYXn02rsbL7srqc4gUI5sd1tXLSxORhFwJAxXMBlxU3Qmfsmy9QOIseT1+0ma+jpplscjQHdF0RffSYTtcvoj1YsUySm71VnviCTw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(16526019)(186003)(6666004)(1076003)(26005)(956004)(2906002)(5660300002)(6486002)(83380400001)(498600001)(86362001)(33716001)(8936002)(54906003)(66476007)(66556008)(53546011)(6916009)(66946007)(8676002)(9686003)(4326008)(6496006)(85182001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Ym1hS1B5ak1hN3dsV09DaFQ0a0hKRXFhMU1IeWlNVmRtKzcvazBBM2tDL3d2?=
+ =?utf-8?B?YlpzVnBtcytLOXh2aDZQVXFLTXg1M2lrQ3BKelF6REtoRmwxaWlOTjlNQlM0?=
+ =?utf-8?B?dVJvU0ptZGpJaEdqYk91bFFBNWY4RVBjMFB0MnBZY3ZlckZ3NkdVTWRhaTNK?=
+ =?utf-8?B?dGQ1SVBqbXl6cFVVeUdvOTZ0ejl4OWVCbHBoaGxmbkU4dmlLWVBjNjhybGNh?=
+ =?utf-8?B?ZlFTTW5HamYxQWVhUWYrVU9Zc1Bva2dnK29qWmhhTllqdk05d3J4Qk90M3Jx?=
+ =?utf-8?B?LzFmNkZ4aUFVV2w2bENxSkJ5TklCOWxQbFJ2VDhEM0UveHBoU3lVcnB0N0sr?=
+ =?utf-8?B?WVBUMmFpTlB2Mlc4b1ZNMytLam02UnNKK3BhS0FmTTAwSCtMRXE0eFpYb2NS?=
+ =?utf-8?B?R2Y2aTdabDZWWWlKRDFWV1c4c3ZiUGRkQnpLUC9wWmtGdzQ0UGc1ZC9lb2FR?=
+ =?utf-8?B?bVhjT0R4TlBqVTB3MGtWMHpIcDdjRjE0eG1INHBlZ2diaHoxeXF1Q21ESkFM?=
+ =?utf-8?B?UzhzQTNFT3dNSmo5Q3lwTGk1OHl0L2FGYU5HVUh0c1ZXT0hOcDA0SFMyM1Jz?=
+ =?utf-8?B?ZzNwNFZmRzJKMjAxMTNZTWx1MHFVcVdBNmRPS2NZM0wvWjF6dFRValNhamZS?=
+ =?utf-8?B?TlNYZHZ1V2lEMG00R1B4NVhZUDBuMnZEaElPelpWWHVXb1Z1Y2EvS21pNWtk?=
+ =?utf-8?B?dFByNUVzWnhBNUt0K0NQNldWQ0tTOVZZOXhTc0UrNk9vK0pTY0JXalVEaldF?=
+ =?utf-8?B?bllYTy91YTd4RklGSG54UCtFeDRxMnRGWG9Yd1lVK2o1L1lTcGRPbWlXODVw?=
+ =?utf-8?B?SVVYN1d4RlI3R2s3V2tRTmtpWXozWklRbUxhZzFhYmMrblFTWHp6RU9TY0Zs?=
+ =?utf-8?B?aUx0dDBqTG9lM280RFFlWGc1OFB5SzFUbGc3NnlMYS8rbjJyRGZEa1RpUDBC?=
+ =?utf-8?B?c3VLRS9nbUlnREZCc0lXaEo5cmVmM2NldTdPUEFEWDY1Q3JlaWtkRkJESVRr?=
+ =?utf-8?B?UG9icC9JZWJBNDkwTnNFMzBnNFROR0RiK3VLR2YwWDFqZDdSUUhZNk8xa3Vr?=
+ =?utf-8?B?a0c0Z05PSXh0L25VSkxMdHFoV0ZlcGQrUTNWNFhqb1BwZngvNmVmRjRuMDg0?=
+ =?utf-8?B?YmhuaEdwZXJqMGUyM0hoaXhDMVpRTnNuZXZGbkZVNTNXWkx1Skw3b3pOMHNh?=
+ =?utf-8?B?bGhFTXl2RHM4bU9uOGhJOU1PeXVMSm1pYklUdis0T2xJSnpoV2RtTmk2RDhX?=
+ =?utf-8?B?TGZoa3ZwTW5Nd1Z6NzNjR1JJeS9TdlVGN2ZHSGJCN0NoZS9nRGdyelQwS0Ev?=
+ =?utf-8?Q?08EWTw9kuvbMACZfCUZAwInYmi9saaOaKu?=
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 14:56:47.1479
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 950fa38e-457d-4494-1d8a-08d8b0c0f585
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yHVd72iX7k7WqldmFx9x+YW6KAU/dKBaQMTUF2UBBEo/BHgZwvPgPh2hMNGaMZaYpWNKU+r1LrMfHU+50KrZMA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2969
+X-OriginatorOrg: citrix.com
 
-On 04.01.2021 15:16, Julien Grall wrote:
-> Hi Jan,
+On Mon, Jan 04, 2021 at 02:43:52PM +0100, Jan Beulich wrote:
+> On 28.12.2020 11:54, Roger Pau Monné wrote:
+> > On Mon, Nov 09, 2020 at 11:54:09AM +0100, Jan Beulich wrote:
+> >> Now that the IOMMU for guests can't be enabled "on demand" anymore,
+> >> there's also no reason to expose the related CPUID bit "just in case".
+> >>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > I'm not sure this is helpful from a guest PoV.
+> > 
+> > How does the guest know whether it has pass through devices, and thus
+> > whether it needs to check if this flag is present or not in order to
+> > safely pass foreign mapped pages (or grants) to the underlying devices?
+> > 
+> > Ie: prior to this change I would just check whether the flag is
+> > present in CPUID to know whether FreeBSD needs to use a bounce buffer
+> > in blkback and netback when running as a domU. If this is now
+> > conditionally set only when the IOMMU is enabled for the guest I
+> > also need to figure a way to know whether the domU has any passed
+> > through device or not, which doesn't seem trivial.
 > 
-> On 04/01/2021 13:37, Jan Beulich wrote:
->> On 24.12.2020 10:57, Julien Grall wrote:
->>> Hi Jan,
->>>
->>> On 23/12/2020 15:13, Jan Beulich wrote:
->>>> This array can be large when many grant frames are permitted; avoid
->>>> allocating it when it's not going to be used anyway, by doing this only
->>>> in gnttab_populate_status_frames().
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> ---
->>>> v2: Defer allocation to when a domain actually switches to the v2 grant
->>>>       API.
->>>>
->>>> --- a/xen/common/grant_table.c
->>>> +++ b/xen/common/grant_table.c
->>>> @@ -1725,6 +1728,17 @@ gnttab_populate_status_frames(struct dom
->>>>        /* Make sure, prior version checks are architectural visible */
->>>>        block_speculation();
->>>>    
->>>> +    if ( gt->status == ZERO_BLOCK_PTR )
->>>> +    {
->>>> +        gt->status = xzalloc_array(grant_status_t *,
->>>> +                                   grant_to_status_frames(gt->max_grant_frames));
->>>> +        if ( !gt->status )
->>>> +        {
->>>> +            gt->status = ZERO_BLOCK_PTR;
->>>> +            return -ENOMEM;
->>>> +        }
->>>> +    }
->>>> +
->>>>        for ( i = nr_status_frames(gt); i < req_status_frames; i++ )
->>>>        {
->>>>            if ( (gt->status[i] = alloc_xenheap_page()) == NULL )
->>>> @@ -1745,18 +1759,23 @@ status_alloc_failed:
->>>>            free_xenheap_page(gt->status[i]);
->>>>            gt->status[i] = NULL;
->>>>        }
->>>> +    if ( !nr_status_frames(gt) )
->>>> +    {
->>>> +        xfree(gt->status);
->>>> +        gt->status = ZERO_BLOCK_PTR;
->>>> +    }
->>>>        return -ENOMEM;
->>>>    }
->>>>    
->>>>    static int
->>>>    gnttab_unpopulate_status_frames(struct domain *d, struct grant_table *gt)
->>>>    {
->>>> -    unsigned int i;
->>>> +    unsigned int i, n = nr_status_frames(gt);
->>>>    
->>>>        /* Make sure, prior version checks are architectural visible */
->>>>        block_speculation();
->>>>    
->>>> -    for ( i = 0; i < nr_status_frames(gt); i++ )
->>>> +    for ( i = 0; i < n; i++ )
->>>>        {
->>>>            struct page_info *pg = virt_to_page(gt->status[i]);
->>>>            gfn_t gfn = gnttab_get_frame_gfn(gt, true, i);
->>>> @@ -1811,12 +1830,12 @@ gnttab_unpopulate_status_frames(struct d
->>>>            page_set_owner(pg, NULL);
->>>>        }
->>>>    
->>>> -    for ( i = 0; i < nr_status_frames(gt); i++ )
->>>> -    {
->>>> -        free_xenheap_page(gt->status[i]);
->>>> -        gt->status[i] = NULL;
->>>> -    }
->>>>        gt->nr_status_frames = 0;
->>>> +    smp_wmb(); /* Just in case - all accesses should be under lock. */
->>>
->>> I think gt->status cannot be accessed locklessly. If a entity read
->>> gt->nr_status_frames != 0, then there is no promise the array will be
->>> accessible when trying to access it as it may have been freed.
->>
->> Yet the common principle of (pointer,count) pairs to describe arrays
->> to be updated / accessed in sequences guaranteeing a non-zero count
->> implies a valid pointer could as well be considered to apply here.
->> I.e. when freeing, at least in principle clearing count first would
->> be a sensible thing to do, wouldn't it?
-> 
-> I am not arguing on whether this is a sensible thing to do but how 
-> someone else can make use of it. The common lockless pattern to access 
-> the array would be checking the count and if it is not zero, then access 
-> the array. Imagine the following:
-> 
-> CPU0 (free the array)       | CPU1 (access the array)
->                              |
->                              | if ( !gt->nr_status_frames )
-> gt->nr_status_frames = 0;   |   return;
-> smp_wmb();                  |
-> gt->status = NULL;          |
->                              | smp_rmb();
->                              | access gt->status[X];
-> 
-> Without any lock (or refcounting), I can't see how the example above 
-> would be safe.
+> I'm afraid I don't understand your concern and/or description of
+> the scenario. Prior to the change, the bit was set unconditionally.
+> To me, _that_ was making the bit useless - no point in checking
+> something which is always set anyway (leaving aside old Xen
+> versions).
 
-Sure, I shouldn't have over-simplified. You can't guard against
-a racing free this way. You can guard against an incomplete
-allocation by setting count strictly after pointer. And the
-natural order of freeing then is clearing count before freeing
-pointer. I'll go and check that accesses indeed do all happen
-under lock, and drop the barrier if so.
+This bit was used to differentiate between versions of Xen that don't
+create IOMMU mappings for grants/foreign maps (and so are broken) vs
+versions of Xen that do create such mappings. If the bit is not set
+HVM domains need a bounce buffer in blkback/netback in order to avoid
+sending grants to devices.
 
-Jan
+Now it's my understand that with this change sometimes the bit might
+not be set not because we are running on an unfixed Xen version, but
+because there's no IOMMU assigned to the domain, so the guest will
+fallback to use a bounce buffer.
+
+Thanks, Roger.
 
