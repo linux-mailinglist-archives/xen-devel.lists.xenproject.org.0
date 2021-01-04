@@ -2,32 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5155B2E9B20
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:35:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61363.107906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8E82E9B22
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:36:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61367.107918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwSpC-0004oE-U8; Mon, 04 Jan 2021 16:35:18 +0000
+	id 1kwSqV-0004vZ-98; Mon, 04 Jan 2021 16:36:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61363.107906; Mon, 04 Jan 2021 16:35:18 +0000
+Received: by outflank-mailman (output) from mailman id 61367.107918; Mon, 04 Jan 2021 16:36:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwSpC-0004np-R2; Mon, 04 Jan 2021 16:35:18 +0000
-Received: by outflank-mailman (input) for mailman id 61363;
- Mon, 04 Jan 2021 16:35:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=e1rq=GH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwSpB-0004nk-Lm
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:35:17 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7720006b-af6a-4ac8-af29-414bd9d83edd;
- Mon, 04 Jan 2021 16:35:16 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4876EAE63;
- Mon,  4 Jan 2021 16:35:15 +0000 (UTC)
+	id 1kwSqV-0004vA-5x; Mon, 04 Jan 2021 16:36:39 +0000
+Received: by outflank-mailman (input) for mailman id 61367;
+ Mon, 04 Jan 2021 16:36:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yCAg=GH=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kwSqT-0004v1-6o
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:36:37 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 22422037-9e61-44ca-8175-84e48679250f;
+ Mon, 04 Jan 2021 16:36:36 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104GZSPW071017;
+ Mon, 4 Jan 2021 16:36:26 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2130.oracle.com with ESMTP id 35tg8qw3uq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 04 Jan 2021 16:36:26 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104GZx3F138732;
+ Mon, 4 Jan 2021 16:36:25 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3020.oracle.com with ESMTP id 35v1f7jkmx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 04 Jan 2021 16:36:24 +0000
+Received: from abhmp0014.oracle.com (abhmp0014.oracle.com [141.146.116.20])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 104GZmkc025064;
+ Mon, 4 Jan 2021 16:35:48 GMT
+Received: from [10.39.231.107] (/10.39.231.107)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 04 Jan 2021 16:35:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +55,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7720006b-af6a-4ac8-af29-414bd9d83edd
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609778115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=76TcmsviJqQ8Ltgx9VCPL+P9wTomxStRQa2Rg+vOQ5I=;
-	b=hzc9FVKkMTSqmtYjK2xGZ5YIFCMvrzxCnkIz1rDqeTvbSvO+62mXhHfK6dto6kxfljutDJ
-	9SSxLpkPBpps5+5unEyT4787N14tjbNcYqOBA0y0H2F7sRfFOROHolgx/ms/6d7SC5E5pF
-	KkOgtYTXll8ZiecoUtV6ShDQ4PqcUeQ=
-Subject: Re: [PATCH 1/5] x86/vPCI: tolerate (un)masking a disabled MSI-X entry
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Manuel Bouyer <bouyer@antioche.eu.org>
-References: <f93efb14-f088-ca84-7d0a-f1b53ff6316c@suse.com>
- <fef14892-f21d-e304-d9b1-7484e0ea3415@suse.com>
- <20201228182407.5ntx7qppe4vu7fvu@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <255866b7-8bc1-6bdc-2188-e772a3b9fa7e@suse.com>
-Date: Mon, 4 Jan 2021 17:35:23 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+X-Inumbo-ID: 22422037-9e61-44ca-8175-84e48679250f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=Tfjp9xoNOD8V0NWIpGkUBujBbCraoYZWwsm9QDWhYm8=;
+ b=tVXUN1EWuQDztnMm+va5C7M/ER4JDUHKq/CPw4uSIqoDbwsvPPbHygEOCHkAovjnml2Q
+ RqNFzbP5MPtPKYlo/L+lhmqAYLyJ8+x03VMLcJJ+EeRh3hYZl/s6D/ooSv29UdYmOGoh
+ +2WFu20zly5DJnGifMAm2/aC4WCjrtSG/hNCMTYa6OEIV1DXff3UlA62fBdCBgChIdSp
+ Mtn9tUO6Yd5dk6Z4KTmt//q8V5zcndvJjmY57ScRcDjB4zvQA8sXX/LEeSldvspzY0SD
+ YTxgI4kKgEnHUamnJxZDmaQaNoLEj52jo+tKHFBSm6L3UnjSoFudASaqT7VqFM1zE9Xu Yg== 
+Subject: Re: [PATCH 1/5] xen: Fix event channel callback via INTX/GSI
+To: David Woodhouse <dwmw2@infradead.org>, x86@kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        Juergen Gross <jgross@suse.com>, Paul Durrant <pdurrant@amazon.com>,
+        jgrall@amazon.com, karahmed@amazon.de,
+        xen-devel <xen-devel@lists.xenproject.org>
+References: <20201224115323.3540130-1-dwmw2@infradead.org>
+ <20201224115323.3540130-2-dwmw2@infradead.org>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <b7717356-a15f-40d4-eb29-386cf110b5c6@oracle.com>
+Date: Mon, 4 Jan 2021 11:35:47 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20201228182407.5ntx7qppe4vu7fvu@Air-de-Roger>
+In-Reply-To: <20201224115323.3540130-2-dwmw2@infradead.org>
 Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 phishscore=0
+ suspectscore=0 spamscore=0 bulkscore=0 adultscore=0 mlxscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2101040107
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015 phishscore=0 bulkscore=0
+ spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
+ mlxscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101040107
 
-On 28.12.2020 19:24, Roger Pau Monné wrote:
-> On Mon, Dec 07, 2020 at 11:36:38AM +0100, Jan Beulich wrote:
->> None of the four reasons causing vpci_msix_arch_mask_entry() to get
->> called (there's just a single call site) are impossible or illegal prior
->> to an entry actually having got set up:
->> - the entry may remain masked (in this case, however, a prior masked ->
->>   unmasked transition would already not have worked),
->> - MSI-X may not be enabled,
->> - the global mask bit may be set,
->> - the entry may not otherwise have been updated.
->> Hence the function asserting that the entry was previously set up was
->> simply wrong. Since the caller tracks the masked state (and setting up
->> of an entry would only be effected when that software bit is clear),
->> it's okay to skip both masking and unmasking requests in this case.
-> 
-> On the original approach I just added this because I convinced myself
-> that scenario was impossible. I think we could also do:
-> 
-> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-> index 64dd0a929c..509cf3962c 100644
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -357,7 +357,11 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
->           * so that it picks the new state.
->           */
->          entry->masked = new_masked;
-> -        if ( !new_masked && msix->enabled && !msix->masked && entry->updated )
-> +
-> +        if ( !msix->enabled )
-> +            break;
-> +
-> +        if ( !new_masked && !msix->masked && entry->updated )
->          {
->              /*
->               * If MSI-X is enabled, the function mask is not active, the entry
-> @@ -470,6 +474,7 @@ static int init_msix(struct pci_dev *pdev)
->      for ( i = 0; i < pdev->vpci->msix->max_entries; i++)
->      {
->          pdev->vpci->msix->entries[i].masked = true;
-> +        pdev->vpci->msix->entries[i].updated = true;
->          vpci_msix_arch_init_entry(&pdev->vpci->msix->entries[i]);
->      }
-> 
-> In order to solve the issue.
-> 
-> As pointed out in another patch, regardless of what we end up doing
-> with the issue at hand we might have to consider setting updated to
-> true in init_msix in case we want to somehow support enabling an entry
-> that has it's address and data fields set to 0.
 
-Yes, but I view this as an orthogonal aspect to consider (down
-the road).
+On 12/24/20 6:53 AM, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>
+> For a while, event channel notification via the PCI platform device
+> has been broken, because we attempt to communicate with xenstore before
+> we even have notifications working, with the xs_reset_watches() call
+> in xs_init().
+>
+> We tend to get away with this on Xen versions below 4.0 because we avoid
+> calling xs_reset_watches() anyway, because xenstore might not cope with
+> reading a non-existent key. And newer Xen *does* have the vector
+> callback support, so we rarely fall back to INTX/GSI delivery.
+>
+> To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
+> startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
+> case, deferring it to be called from xenbus_probe() in the XS_HVM case
+> instead.
+>
+> Then fix up the invocation of xenbus_probe() to happen either from its
+> device_initcall if the callback is available early enough, or when the
+> callback is finally set up. This means that the hack of calling
+> xenbus_probe() from a workqueue after the first interrupt, or directly
+> from the PCI platform device setup, is no longer needed.
+>
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 
->> Fixes: d6281be9d0145 ('vpci/msix: add MSI-X handlers')
->> Reported-by: Manuel Bouyer <bouyer@antioche.eu.org>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thanks.
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
-> Manuel, can we get confirmation that this fixes your issue?
 
-I'll give it some time before committing for him to confirm,
-but I guess I'd like to time out by the end of the week.
-
-Jan
 
