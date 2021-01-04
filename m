@@ -2,28 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDCE72E9B50
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:48:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61383.107965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBEF72E9B5C
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:53:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61387.107978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwT1j-0006H6-66; Mon, 04 Jan 2021 16:48:15 +0000
+	id 1kwT6W-0007Ap-PF; Mon, 04 Jan 2021 16:53:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61383.107965; Mon, 04 Jan 2021 16:48:15 +0000
+Received: by outflank-mailman (output) from mailman id 61387.107978; Mon, 04 Jan 2021 16:53:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwT1j-0006Gh-2u; Mon, 04 Jan 2021 16:48:15 +0000
-Received: by outflank-mailman (input) for mailman id 61383;
- Mon, 04 Jan 2021 16:48:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kwT6W-0007AQ-Lb; Mon, 04 Jan 2021 16:53:12 +0000
+Received: by outflank-mailman (input) for mailman id 61387;
+ Mon, 04 Jan 2021 16:53:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+rg9=GH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kwT1h-0006Gc-Gh
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:48:13 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ab7b4375-798a-4a72-a6fe-aea5d0b17815;
- Mon, 04 Jan 2021 16:48:11 +0000 (UTC)
+ <SRS0=yCAg=GH=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kwT6V-0007AL-DH
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:53:11 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3132754d-2fb1-40ca-8a8b-8085e50fe943;
+ Mon, 04 Jan 2021 16:53:10 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104GnK1a098957;
+ Mon, 4 Jan 2021 16:53:00 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 35tg8qw6c9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 04 Jan 2021 16:53:00 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104GoLQ4071848;
+ Mon, 4 Jan 2021 16:50:59 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 35v4rad74j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 04 Jan 2021 16:50:59 +0000
+Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 104GovLu004300;
+ Mon, 4 Jan 2021 16:50:57 GMT
+Received: from [10.39.231.107] (/10.39.231.107)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 04 Jan 2021 08:50:56 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,128 +56,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab7b4375-798a-4a72-a6fe-aea5d0b17815
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1609778891;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=3mQTiJMWz0j5lM/kMYze7BSwpdHCWkjLq3FzJjCPQwI=;
-  b=HJKHrKhzSif8ya0er13TCXPEs/Gp0rno3kJS1aAmr6SuTMXJNWYbZVSx
-   pqUr8bgr/G68hCezp3q12jdPx4M3Qm409UU8wTyKT3pKT8afY57gP9mu7
-   a1YZlJr2hbAt6Tn/FzHlchw9rvfG3HDd+272hOL8EMkGQ+zBZz1KCUYfy
-   M=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 0uzDxMBKnU9TFKuzhdlc4iajg7Mpi2PfIWHGvAk8Fwa5rogjM4hJJM/uxszrBWrF2Qcc72gjyV
- dysbyQbR9yZVeCrDlHtp2j+jprA3VyEt9178zUfzlB2n+OK80g6YH8LjqwZ1JBSuTA+b448mnd
- yCuX/8wnm9cetRXbTMEqwDJ8A6m/xIhVagsQVmw/Md1Cj/dbxex8N2Ev3iT1Elxed72In32xQE
- H6BPRAwYcJZV6koUhvTPYR0q62H7XvRFzs4RfP+PzfA1YgGJqCkykh8cl9sLcD54eoJlpODfqp
- mZs=
-X-SBRS: 5.2
-X-MesageID: 34353879
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,474,1599537600"; 
-   d="scan'208";a="34353879"
-Subject: Re: [PATCH] x86/vm_event: transfer nested p2m base info
-To: Tamas K Lengyel <tamas@tklengyel.com>, Jan Beulich <jbeulich@suse.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Alexandru Isaila
-	<aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20210103184117.57692-1-tamas@tklengyel.com>
- <6a1d7087-5ae2-6a70-bee5-fdf521310d3d@citrix.com>
- <CABfawhmBM7nFCVm_61xJ9u5VpKaeGKoBm2i56NiqMMMoG2bVmQ@mail.gmail.com>
- <43da1c6d-3c33-59dc-a235-383192c8062b@suse.com>
- <CABfawhk1s-U7JjPUt0BKcjUafxemRtVnnr2xGM4sWTTTfbZUqA@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <922bea1f-3a08-d023-2121-009eb6e4e42d@citrix.com>
-Date: Mon, 4 Jan 2021 16:47:28 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 3132754d-2fb1-40ca-8a8b-8085e50fe943
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=dIKUNFQXfKBLzwh06y3u/YF6xxzMrgkIGvxKrRgqYgA=;
+ b=aIG0FeGjxOJtsruOwX4G69QifAoHMvGCA1UUWlmpAipf+1VO9AOSXua3w2TICEufqGpL
+ fhIOb8NvGQQBfJreaHZG0g7kcvWrilZTmbd6J4teLCTFMmYHAGEb3MKIbZPca0SS2Uq9
+ rw0rrigIjgT2Ali0kY+esDeNy7OvJ+mLxuGyPY3DYpp6YC+81Snf0V0Nlw4Vg23KVCLJ
+ o0mXNBsqzEBYvIA4v1FO4ZTkkmn2NtsoNgRxY7kuk0VysMW/oly5Zbjavyt5ZVG9yXr2
+ aSatIe9Aq4G2aj1fta0CLoa19dYZamI2O8UhoYN+yivnMQfH0XK0bJ+4N4pQEWUK5Z6W cg== 
+Subject: Re: [PATCH 4/5] x86/xen: Don't register Xen IPIs when they aren't
+ going to be used
+To: David Woodhouse <dwmw2@infradead.org>, x86@kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        Juergen Gross <jgross@suse.com>, Paul Durrant <pdurrant@amazon.com>,
+        jgrall@amazon.com, karahmed@amazon.de,
+        xen-devel <xen-devel@lists.xenproject.org>
+References: <20201224115323.3540130-1-dwmw2@infradead.org>
+ <20201224115323.3540130-5-dwmw2@infradead.org>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <a683f09b-30c9-bae2-7cc3-709196a90d9b@oracle.com>
+Date: Mon, 4 Jan 2021 11:50:55 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <CABfawhk1s-U7JjPUt0BKcjUafxemRtVnnr2xGM4sWTTTfbZUqA@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20201224115323.3540130-5-dwmw2@infradead.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL03.citrite.net (10.13.108.165)
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 mlxscore=0 bulkscore=0
+ suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101040109
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015 phishscore=0 bulkscore=0
+ spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
+ mlxscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101040109
 
-On 04/01/2021 16:32, Tamas K Lengyel wrote:
-> On Mon, Jan 4, 2021 at 11:21 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 04.01.2021 14:28, Tamas K Lengyel wrote:
->>> On Mon, Jan 4, 2021 at 6:57 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->>>> On 03/01/2021 18:41, Tamas K Lengyel wrote:
->>>>> Required to introspect events originating from nested VMs.
->>>>>
->>>>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
->>>>> ---
->>>>>  xen/arch/x86/hvm/monitor.c    | 32 ++++++++++++++++++++++++++++++--
->>>>>  xen/include/public/vm_event.h |  7 ++++++-
->>>>>  2 files changed, 36 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
->>>>> index e4a09964a0..eb4afe81b3 100644
->>>>> --- a/xen/arch/x86/hvm/monitor.c
->>>>> +++ b/xen/arch/x86/hvm/monitor.c
->>>>> @@ -26,6 +26,7 @@
->>>>>  #include <xen/mem_access.h>
->>>>>  #include <xen/monitor.h>
->>>>>  #include <asm/hvm/monitor.h>
->>>>> +#include <asm/hvm/nestedhvm.h>
->>>>>  #include <asm/altp2m.h>
->>>>>  #include <asm/monitor.h>
->>>>>  #include <asm/p2m.h>
->>>>> @@ -33,6 +34,15 @@
->>>>>  #include <asm/vm_event.h>
->>>>>  #include <public/vm_event.h>
->>>>>
->>>>> +static inline void set_npt_base(struct vcpu *curr, vm_event_request_t *req)
->>>> No need for inline here.  Can fix on commit.
->>>>
->>>>> diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
->>>>> index fdd3ad8a30..8415bc7618 100644
->>>>> --- a/xen/include/public/vm_event.h
->>>>> +++ b/xen/include/public/vm_event.h
->>>>> @@ -208,6 +212,7 @@ struct vm_event_regs_x86 {
->>>>>      uint64_t msr_star;
->>>>>      uint64_t msr_lstar;
->>>>>      uint64_t gdtr_base;
->>>>> +    uint64_t npt_base;
->>>> This needs enough description to actually use it correctly.
->>>>
->>>> /* Guest physical address.  On Intel hardware, this is the EPT_POINTER
->>>> field from the L1 hypervisors VMCS, including all architecturally
->>>> defined metadata. */
->>>>
->>>> Except, its not.  nvmx_vcpu_eptp_base() masks out the lower metadata, so
->>>> the walk length is missing, and the introspection agent can't
->>>> distinguish between 4 and 5 level EPT.  Same on the AMD side (except it
->>>> could be any paging mode, including 2 and 3 level).
->>> AMD is AFAIK not supported for vm_events. Also, only 4L EPT is
->>> available at this time, so that information is irrelevant anyway.
->> I suppose we should try to avoid having to change the interface
->> again to allow going from "implied 4-level" to "4- or 5-level",
->> so I'm with Andrew that this information wants providing even if
->> there's going to be only a single value at this time (but you
->> wouldn't store a literal number anyway, but instead use the walk
->> length associated with the base, so no change to the producer of
->> the code would be needed once 5-level walks become an option).
-> Once 5-level paging is supported a new flag can be added that will
-> distinguish the tables, for example VM_EVENT_FLAG_NESTED_P2M_5L, if
-> necessary. So at this time I don't think we really need to do anything
-> different. If you prefer to change the current flag's name to say _4L,
-> sure, that's cosmetic.
 
-The way this is currently specified will force a new interface version
-just to add the metadata.
+On 12/24/20 6:53 AM, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>
+> In the case where xen_have_vector_callback is false, we still register
+> the IPI vectors in xen_smp_intr_init() for the secondary CPUs even
+> though they aren't going to be used. Stop doing that.
+>
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>  arch/x86/xen/enlighten_hvm.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
+> index a1c07e0c888e..7a6ef517e81a 100644
+> --- a/arch/x86/xen/enlighten_hvm.c
+> +++ b/arch/x86/xen/enlighten_hvm.c
+> @@ -164,10 +164,10 @@ static int xen_cpu_up_prepare_hvm(unsigned int cpu)
+>  	else
+>  		per_cpu(xen_vcpu_id, cpu) = cpu;
+>  	rc = xen_vcpu_setup(cpu);
 
-It would suffice to explicitly state that the bottom 12 bits are
-reserved for future metadata, and must be masked out for now, and all
-users of this interface may assume 4L by default.
 
-Basically, what we don't want to happen is for libvmi to take the value,
-not mask out the bottom 12 bits, and start using that, because the
-software will break as soon as we try to encode 5L in there.
+Without vector callback we will not be calling xen_vcpu_setup(0) so why should we still call it here for APs?
 
-~Andrew
+
+-boris
+
+
+> -	if (rc)
+> +	if (rc || !xen_have_vector_callback)
+>  		return rc;
+>  
+> -	if (xen_have_vector_callback && xen_feature(XENFEAT_hvm_safe_pvclock))
+> +	if (xen_feature(XENFEAT_hvm_safe_pvclock))
+>  		xen_setup_timer(cpu);
+>  
+>  	rc = xen_smp_intr_init(cpu);
 
