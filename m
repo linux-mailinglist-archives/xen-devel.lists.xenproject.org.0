@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBAFC2E9958
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:01:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61332.107825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75A4C2E9A1B
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:10:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61337.107837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwSHk-0001Tl-4x; Mon, 04 Jan 2021 16:00:44 +0000
+	id 1kwSQd-0001lW-5l; Mon, 04 Jan 2021 16:09:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61332.107825; Mon, 04 Jan 2021 16:00:44 +0000
+Received: by outflank-mailman (output) from mailman id 61337.107837; Mon, 04 Jan 2021 16:09:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwSHk-0001TL-15; Mon, 04 Jan 2021 16:00:44 +0000
-Received: by outflank-mailman (input) for mailman id 61332;
- Mon, 04 Jan 2021 16:00:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kwSQd-0001l7-2n; Mon, 04 Jan 2021 16:09:55 +0000
+Received: by outflank-mailman (input) for mailman id 61337;
+ Mon, 04 Jan 2021 16:09:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=e1rq=GH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwSHj-0001TG-4p
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:00:43 +0000
+ id 1kwSQb-0001l2-CB
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:09:53 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c69eb414-fa89-47f8-b979-e75235b6781d;
- Mon, 04 Jan 2021 16:00:41 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d41ef622-c9db-40ea-9579-da635d29a6a9;
+ Mon, 04 Jan 2021 16:09:50 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 95203AE1F;
- Mon,  4 Jan 2021 16:00:40 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0B1E7AD6A;
+ Mon,  4 Jan 2021 16:09:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,98 +39,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c69eb414-fa89-47f8-b979-e75235b6781d
+X-Inumbo-ID: d41ef622-c9db-40ea-9579-da635d29a6a9
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609776040; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1609776590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=V7dVDBH7c8cGIPSIDgEPtZ5ABQn7lw8ZYRQ+1zXtPII=;
-	b=cb0sQVW0H1Mp0j3IXSqvMz9DEL3ud5XzNmA7OiTxVVhLICpLxcfLmGI4F/3H06ngeY5SVV
-	WGVedZ0dN7rboML7rlySgbek2TNXeSey4X/s+cXzuOmX7I6fDxjh8cdWjaAbMB0j7jcZqG
-	Q+NPlS+4mKL2B21vh5CH98oq2xFNAXQ=
-Subject: Re: [PATCH v2] gnttab: defer allocation of status frame tracking
- array
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <57dc915c-c373-5003-80f7-279dd300d571@suse.com>
- <920f3df3-3343-3947-e318-da3b8dd8a56c@citrix.com>
- <ec21a8d6-744c-0f02-cedd-c35d36097a8a@suse.com>
- <25c6efe0-fb29-eb83-badf-70cd2dade0d7@citrix.com>
+	bh=WO91PKyDYcXiiqq4FrFWzQpV1WW48nkuGtOsUw4j7Jw=;
+	b=Pv474iGbDpBTvNeuYQEWmrnoBJ9SF+Tori033Ztof1G3KfMFmTb+pUZ0BIUGOk+enrN96Z
+	LKcfnLRxGQIvz9BpCdeaY9rPdK+x+7zgQHkKzrPfr/cf9oaMjOfQtTYR78H//FhlbHi+Ht
+	5OeToYmoK9O1PwuoEHC9QtYxDgpN8Rk=
+Subject: Re: [PATCH] x86/CPUID: suppress IOMMU related hypervisor leaf data
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <c640463a-d088-aaf5-0c3c-d82b1c98ee4f@suse.com>
+ <20201228105400.dzkyrgyvkjuevzsj@Air-de-Roger>
+ <cb289033-9e7c-b51e-dd02-5c6d05285a8c@suse.com>
+ <20210104145640.dmufekd2qb5gemud@Air-de-Roger>
+ <c4397698-d93f-ca64-34cc-8b7f3f76e3bf@suse.com>
+ <20210104154507.teikuuhyqr7kk3td@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1d8e0cbd-1250-70aa-5b6a-038744530052@suse.com>
-Date: Mon, 4 Jan 2021 17:00:48 +0100
+Message-ID: <4440f81c-f2c7-bd2f-f7a7-d3aa8d248435@suse.com>
+Date: Mon, 4 Jan 2021 17:09:58 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <25c6efe0-fb29-eb83-badf-70cd2dade0d7@citrix.com>
+In-Reply-To: <20210104154507.teikuuhyqr7kk3td@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 04.01.2021 16:41, Andrew Cooper wrote:
-> On 04/01/2021 15:22, Jan Beulich wrote:
->> On 04.01.2021 16:04, Andrew Cooper wrote:
->>> On 23/12/2020 15:13, Jan Beulich wrote:
->>>> This array can be large when many grant frames are permitted; avoid
->>>> allocating it when it's not going to be used anyway, by doing this only
->>>> in gnttab_populate_status_frames().
+On 04.01.2021 16:45, Roger Pau Monné wrote:
+> On Mon, Jan 04, 2021 at 04:16:18PM +0100, Jan Beulich wrote:
+>> On 04.01.2021 15:56, Roger Pau Monné wrote:
+>>> On Mon, Jan 04, 2021 at 02:43:52PM +0100, Jan Beulich wrote:
+>>>> On 28.12.2020 11:54, Roger Pau Monné wrote:
+>>>>> On Mon, Nov 09, 2020 at 11:54:09AM +0100, Jan Beulich wrote:
+>>>>>> Now that the IOMMU for guests can't be enabled "on demand" anymore,
+>>>>>> there's also no reason to expose the related CPUID bit "just in case".
+>>>>>>
+>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>>
+>>>>> I'm not sure this is helpful from a guest PoV.
+>>>>>
+>>>>> How does the guest know whether it has pass through devices, and thus
+>>>>> whether it needs to check if this flag is present or not in order to
+>>>>> safely pass foreign mapped pages (or grants) to the underlying devices?
+>>>>>
+>>>>> Ie: prior to this change I would just check whether the flag is
+>>>>> present in CPUID to know whether FreeBSD needs to use a bounce buffer
+>>>>> in blkback and netback when running as a domU. If this is now
+>>>>> conditionally set only when the IOMMU is enabled for the guest I
+>>>>> also need to figure a way to know whether the domU has any passed
+>>>>> through device or not, which doesn't seem trivial.
 >>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> ---
->>>> v2: Defer allocation to when a domain actually switches to the v2 grant
->>>>     API.
->>> I see this as a backwards step.  It turns a build-time -ENOMEM into a
->>> runtime -ENOMEM, and if you recall from one of the XSAs, the Windows PV
->>> drivers will BUG() if set_version fails.  (Yes - this is dumb behaviour,
->>> but it is in the field now.)
->> Well, if this was the only source of -ENOMEM (i.e. none was there
->> previously), I'd surely understand the concern. But there have been
->> memory allocations before on this path.
+>>>> I'm afraid I don't understand your concern and/or description of
+>>>> the scenario. Prior to the change, the bit was set unconditionally.
+>>>> To me, _that_ was making the bit useless - no point in checking
+>>>> something which is always set anyway (leaving aside old Xen
+>>>> versions).
+>>>
+>>> This bit was used to differentiate between versions of Xen that don't
+>>> create IOMMU mappings for grants/foreign maps (and so are broken) vs
+>>> versions of Xen that do create such mappings. If the bit is not set
+>>> HVM domains need a bounce buffer in blkback/netback in order to avoid
+>>> sending grants to devices.
+>>
+>> Neither the comment in cpuid.h nor that in traps.c have any mention
+>> of this, and the constant's name also doesn't imply such.
+>>
+>>> Now it's my understand that with this change sometimes the bit might
+>>> not be set not because we are running on an unfixed Xen version, but
+>>> because there's no IOMMU assigned to the domain, so the guest will
+>>> fallback to use a bounce buffer.
+>>
+>> ... if it expects to ever map a foreign domain's pages.
+>>
+>> I can see that reverting the change is one way to address the issue.
+>> Such a revert shouldn't be a plain one then, but one adjusting one
+>> or both of the the comments to indicate the _real_ purpose of this
+>> flag. (We probably better don't rename the constant, as we can't
+>> easily drop the old name from the public interface anyway.)
 > 
-> ... you're literally writing a patch saying "avoid large allocation at
-> domain create time, and make it at runtime instead" and then trying to
-> argue that it isn't a concern because there are other memory allocations.
+> I'm happy to send the revert, but do you have any suggestion about the
+> fixed comments?
 > 
-> It is very definitely a backwards step irrespective of the size of the
-> allocation, even if the current behaviour isn't necessarily perfect.
-
-I agree when taking this one possible perspective. There's the other
-one as well: For domains never switching to the v2 API, allocating
-the table at build time is purely a waste of memory. Note also how
-the description says "This array can be large" - it doesn't have to
-be, and hence the other involved allocations may be at higher risk
-of yielding -ENOMEM.
-
->>  In any event, this will
->> need settling between you and Julien, as it was him to request the
->> change.
+> Maybe adding something like:
 > 
-> Well - that's because gnttab v2 is disabled in general on ARM.
+> /*
+>  * Unditionally set the flag to notice this version of Xen has been
+>  * fixed to create IOMMU mappings for grant/foreign maps.
+>  */
 
-I'm afraid I don't understand the "because" here: For Arm it's
-irrelevant whether v1 or v2 of this patch gets used - the table
-would never be allocated anymore in either case.
-
-> Conditionally avoiding the allocation because of opt_gnttab_max_version
-> being 1 would be ok, because it doesn't introduce new runtime failures
-> for guests. 
-> 
-> The correctness of this change does depend on opt_gnttab_max_version
-> being invariant for the lifetime of a domain.  If it were to become a
-> runtime parameter, it would need caching per domain, (which is frankly
-> how it should have been implemented all along, along with a parameter in
-> XEN_DOMCTL_createdomain).
-
-I think it is well understood that conversion of boot time
-(command line) options to runtime ones needs careful inspection
-of the consumers of the controlled variable(s). The option isn't
-a runtime one right now, which is all that counts. (I agree this
-would better be a per-domain property set when creating one.)
+Sounds reasonable. I assume you mean "Unconditionally". And my
+English isn't sufficient to tell whether "notice" is suitable
+here; I would have used e.g. "indicate".
 
 Jan
 
