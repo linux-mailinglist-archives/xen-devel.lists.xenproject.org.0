@@ -2,42 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B47D2E928C
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 10:25:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61029.107076 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 335552E9295
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 10:28:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61034.107088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwM6W-0002vo-6b; Mon, 04 Jan 2021 09:24:44 +0000
+	id 1kwMAJ-00036r-Nj; Mon, 04 Jan 2021 09:28:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61029.107076; Mon, 04 Jan 2021 09:24:44 +0000
+Received: by outflank-mailman (output) from mailman id 61034.107088; Mon, 04 Jan 2021 09:28:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwM6W-0002vP-38; Mon, 04 Jan 2021 09:24:44 +0000
-Received: by outflank-mailman (input) for mailman id 61029;
- Mon, 04 Jan 2021 09:11:36 +0000
+	id 1kwMAJ-00036S-KB; Mon, 04 Jan 2021 09:28:39 +0000
+Received: by outflank-mailman (input) for mailman id 61034;
+ Mon, 04 Jan 2021 09:28:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AZHm=GH=amazon.com=prvs=631e8c9b0=famzheng@srs-us1.protection.inumbo.net>)
- id 1kwLto-00023f-2E
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 09:11:36 +0000
-Received: from smtp-fw-9103.amazon.com (unknown [207.171.188.200])
+ <SRS0=AAMM=GH=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1kwMAH-00036N-Mc
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 09:28:37 +0000
+Received: from mail-wr1-x42d.google.com (unknown [2a00:1450:4864:20::42d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c77addfb-541c-46ef-9405-334a8c7b3f99;
- Mon, 04 Jan 2021 09:11:34 +0000 (UTC)
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9103.sea19.amazon.com with ESMTP;
- 04 Jan 2021 09:11:26 +0000
-Received: from EX13D38EUB001.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
- by email-inbound-relay-1a-e34f1ddc.us-east-1.amazon.com (Postfix) with ESMTPS
- id A6B7CA1BB0; Mon,  4 Jan 2021 09:11:23 +0000 (UTC)
-Received: from EX13D38EUB001.ant.amazon.com (10.43.166.110) by
- EX13D38EUB001.ant.amazon.com (10.43.166.110) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 4 Jan 2021 09:11:22 +0000
-Received: from EX13D38EUB001.ant.amazon.com ([10.43.166.110]) by
- EX13D38EUB001.ant.amazon.com ([10.43.166.110]) with mapi id 15.00.1497.010;
- Mon, 4 Jan 2021 09:11:22 +0000
+ id 6c78426a-f29c-438c-b06e-0f42d650be2c;
+ Mon, 04 Jan 2021 09:28:36 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id 91so31421962wrj.7
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Jan 2021 01:28:36 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-165-42-133.range86-165.btcentralplus.com.
+ [86.165.42.133])
+ by smtp.gmail.com with ESMTPSA id r2sm90323955wrn.83.2021.01.04.01.28.35
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 04 Jan 2021 01:28:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,123 +42,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c77addfb-541c-46ef-9405-334a8c7b3f99
+X-Inumbo-ID: 6c78426a-f29c-438c-b06e-0f42d650be2c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1609751494; x=1641287494;
-  h=from:to:cc:date:message-id:references:in-reply-to:
-   content-id:content-transfer-encoding:mime-version:subject;
-  bh=G/Gk61z/69CmpXuzyeY2pMaAD3csR4rmPw7tEqtA0sI=;
-  b=eqT1hcQUuaLTcF8n1o3tgf0cs9YXfAXiZRtscjgPoF4zO2Sd7cZbDwAV
-   CU/dnnb4QtqKiw4nQ67iRURSs9DSbxQA9i+AyVZwxn+5wpy5N4w6RfsYY
-   9hHbDWeKU2A31P05gF5KNHeGrzY43qGJXiAWTojSEG5G6YoIyCoYEPxZy
-   g=;
-X-IronPort-AV: E=Sophos;i="5.78,473,1599523200"; 
-   d="scan'208";a="907879233"
-Subject: Re: [PATCH 0/4] xen: domain-tracked allocations, and fault injection
-Thread-Topic: [PATCH 0/4] xen: domain-tracked allocations, and fault injection
-From: "Zheng, Fam" <famzheng@amazon.com>
-To: "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-CC: "cardoe@cardoe.com" <cardoe@cardoe.com>, "wl@xen.org" <wl@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"julien@xen.org" <julien@xen.org>, "Bertrand.Marquis@arm.com"
-	<Bertrand.Marquis@arm.com>
-Thread-Index: AQHW2VTFCzXmxkCGdUebUXB7tJ/uvaoFFc2AgAAEeQCAAAJygIASI8IA
-Date: Mon, 4 Jan 2021 09:11:22 +0000
-Message-ID: <b0e0eabd442f910817c74f406af887cf673f6ef9.camel@amazon.com>
-References: <160874604800.15699.17952392608790984041@600e7e483b3a>
-	 <alpine.DEB.2.21.2012231143430.4040@sstabellini-ThinkPad-T480s>
-	 <e7ad4670-7e7e-99f3-1800-b097b6a1695f@citrix.com>
-	 <alpine.DEB.2.21.2012231209170.4040@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2012231209170.4040@sstabellini-ThinkPad-T480s>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.164.204]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F0650CAB7B2AE642B0D6AD4DDB160FF5@amazon.com>
-Content-Transfer-Encoding: base64
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:content-language
+         :thread-index;
+        bh=iGNng4Hg1jfuvBKz+O8Pd6DG7R4B7mgDsA/LrrbdQdg=;
+        b=FgZ6kaFtkSiYUuj1e795Wxiu42CUpQl089V2tAOEjrx1kdjsw8dxiM2CVooiAj6+mj
+         J/9XDSYgKGaWro4ravM1RzHFU43CbiDeftoAjXkiIu7j+dx7ZxBj/eGl64uE0/KQ4MuD
+         jbHa7s1D4viLapNXJgWpjT0nCidYv6xuOkRMIX9WN0FI6Qxbmhh8Hj2Z6WxbS5Ym/I58
+         pRfUX5u6bIyK7x5BImDI/mzdrgpZ59dXDyurp6QzjC1xzHilBkeSzMThSMsPkreoqlGZ
+         MJ+8gJOmT845viC2LytX87bg3rnWQR8sdp0b02ukMlCq85DXQka6ItMdGSQ/oDUzFIPW
+         AD7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :content-language:thread-index;
+        bh=iGNng4Hg1jfuvBKz+O8Pd6DG7R4B7mgDsA/LrrbdQdg=;
+        b=QtTRayH+/EgajuhtXcvw52p6WeWEPswE/+kmq6Tdd/h64RUX93VNYYqhMPgXhgKeGu
+         JemmBh1MFVEeE3x8uKdyps7QHCHiltYXUMrdPrivETKLM+p+Qfn2U5o7Eyp5kRGy2HOB
+         C3r94jdAtohS7BnUVd8FzUD7MiDsN1YAHveSxOSk2ROooTBkPEcDz6Jnnhap7DLzicfT
+         PG7fjhXh6ZDj03qmGqYAQD2Z+AipZ3Gm33fdEpfyJH57SeaIlPm6ncZP+3+zGJLrTw82
+         yRIZ6Q/nfd73WBQY/nDzQrBHb90FzvSzCTCdUf7/Ao8l4cW5Ir5Pd7kv8ce2XtSXXsiR
+         QsQw==
+X-Gm-Message-State: AOAM531d1Pd1qNH7QtPpyDJasexK6d8WIS1/yKxYiprbRKWYD1+mcWDt
+	3lQhOw3kBEb+uHWlEW2agfQ=
+X-Google-Smtp-Source: ABdhPJwwQmXrSdt5eRfdrvIbQOTK4WhLVgcytOUKX+tsOdHCj/WO2yf9G/QO4mrwxtB3zyQY5lkdUA==
+X-Received: by 2002:a5d:43cc:: with SMTP id v12mr52437853wrr.319.1609752516009;
+        Mon, 04 Jan 2021 01:28:36 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Cc: <hongyxia@amazon.co.uk>,
+	"'Julien Grall'" <jgrall@amazon.com>,
+	"'Jan Beulich'" <jbeulich@suse.com>
+References: <20201222154338.9459-1-julien@xen.org> <20201222154338.9459-2-julien@xen.org>
+In-Reply-To: <20201222154338.9459-2-julien@xen.org>
+Subject: RE: [PATCH for-4.15 1/4] xen/iommu: Check if the IOMMU was initialized before tearing down
+Date: Mon, 4 Jan 2021 09:28:34 -0000
+Message-ID: <002301d6e27b$f9eaae90$edc00bb0$@xen.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQH2TO5SqTDQ1dUiy31gxFMl+4NKXAJy9PyCqcTFpjA=
 
-T24gV2VkLCAyMDIwLTEyLTIzIGF0IDEyOjEwIC0wODAwLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3Jv
-dGU6DQo+IENBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhl
-IG9yZ2FuaXphdGlvbi4gRG8NCj4gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMg
-dW5sZXNzIHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyDQo+IGFuZCBrbm93IHRoZSBjb250ZW50
-IGlzIHNhZmUuDQo+IA0KPiANCj4gDQo+IE9uIFdlZCwgMjMgRGVjIDIwMjAsIEFuZHJldyBDb29w
-ZXIgd3JvdGU6DQo+ID4gT24gMjMvMTIvMjAyMCAxOTo0NSwgU3RlZmFubyBTdGFiZWxsaW5pIHdy
-b3RlOg0KPiA+ID4gT24gV2VkLCAyMyBEZWMgMjAyMCwgbm8tcmVwbHlAcGF0Y2hldy5vcmcgd3Jv
-dGU6DQo+ID4gPiA+IEhpLA0KPiA+ID4gPiANCj4gPiA+ID4gUGF0Y2hldyBhdXRvbWF0aWNhbGx5
-IHJhbiBnaXRsYWItY2kgcGlwZWxpbmUgd2l0aCB0aGlzIHBhdGNoDQo+ID4gPiA+IChzZXJpZXMp
-IGFwcGxpZWQsIGJ1dCB0aGUgam9iIGZhaWxlZC4gTWF5YmUgdGhlcmUncyBhIGJ1ZyBpbg0KPiA+
-ID4gPiB0aGUgcGF0Y2hlcz8NCj4gPiA+ID4gDQo+ID4gPiA+IFlvdSBjYW4gZmluZCB0aGUgbGlu
-ayB0byB0aGUgcGlwZWxpbmUgbmVhciB0aGUgZW5kIG9mIHRoZQ0KPiA+ID4gPiByZXBvcnQgYmVs
-b3c6DQo+ID4gPiA+IA0KPiA+ID4gPiBUeXBlOiBzZXJpZXMNCj4gPiA+ID4gTWVzc2FnZS1pZDog
-MjAyMDEyMjMxNjM0NDIuODg0MC0xLWFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20NCj4gPiA+ID4g
-U3ViamVjdDogW1BBVENIIDAvNF0geGVuOiBkb21haW4tdHJhY2tlZCBhbGxvY2F0aW9ucywgYW5k
-IGZhdWx0DQo+ID4gPiA+IGluamVjdGlvbg0KPiA+ID4gPiANCj4gPiA+ID4gPT09IFRFU1QgU0NS
-SVBUIEJFR0lOID09PQ0KPiA+ID4gPiAjIS9iaW4vYmFzaA0KPiA+ID4gPiBzbGVlcCAxMA0KPiA+
-ID4gPiBwYXRjaGV3IGdpdGxhYi1waXBlbGluZS1jaGVjayAtcCB4ZW4tcHJvamVjdC9wYXRjaGV3
-L3hlbg0KPiA+ID4gPiA9PT0gVEVTVCBTQ1JJUFQgRU5EID09PQ0KPiA+ID4gDQo+ID4gPiBbLi4u
-XQ0KPiA+ID4gDQo+ID4gPiA+ID09PSBPVVRQVVQgQkVHSU4gPT09DQo+ID4gPiA+IFsyMDIwLTEy
-LTIzIDE2OjM4OjQzXSBMb29raW5nIHVwIHBpcGVsaW5lLi4uDQo+ID4gPiA+IFsyMDIwLTEyLTIz
-IDE2OjM4OjQzXSBGb3VuZCBwaXBlbGluZSAyMzM4ODk3NjM6DQo+ID4gPiA+IA0KPiA+ID4gPiAN
-Cmh0dHBzOi8vZ2l0bGFiLmNvbS94ZW4tcHJvamVjdC9wYXRjaGV3L3hlbi8tL3BpcGVsaW5lcy8y
-MzM4ODk3NjMNCj4gPiA+IA0KPiA+ID4gVGhpcyBzZWVtcyB0byBiZSBhIGdlbnVpbmUgZmFpbHVy
-ZS4gTG9va2luZyBhdCB0aGUgYWxwaW5lLTMuMTItDQo+ID4gPiBnY2MtYXJtNjQNCj4gPiA+IGJ1
-aWxkIHRlc3QsIHRoZSBidWlsZCBlcnJvciBpcyBhcHBlbmRlZCBiZWxvdy4gVGhpcyBpcyBhIGxp
-bmsgdG8NCj4gPiA+IHRoZQ0KPiA+ID4gZmFpbGVkIGpvYjogDQo+ID4gPiBodHRwczovL2dpdGxh
-Yi5jb20veGVuLXByb2plY3QvcGF0Y2hldy94ZW4vLS9qb2JzLzkyOTg0MjYyOA0KPiA+ID4gDQo+
-ID4gPiANCj4gPiA+IA0KPiA+ID4gZ2NjICAtREJVSUxEX0lEIC1mbm8tc3RyaWN0LWFsaWFzaW5n
-IC1zdGQ9Z251OTkgLVdhbGwgLVdzdHJpY3QtDQo+ID4gPiBwcm90b3R5cGVzIC1XZGVjbGFyYXRp
-b24tYWZ0ZXItc3RhdGVtZW50IC1Xbm8tdW51c2VkLWJ1dC1zZXQtDQo+ID4gPiB2YXJpYWJsZSAt
-V25vLXVudXNlZC1sb2NhbC10eXBlZGVmcyAgIC1PMiAtZm9taXQtZnJhbWUtcG9pbnRlcg0KPiA+
-ID4gLURfX1hFTl9JTlRFUkZBQ0VfVkVSU0lPTl9fPV9fWEVOX0xBVEVTVF9JTlRFUkZBQ0VfVkVS
-U0lPTl9fIC1NTUQNCj4gPiA+IC1NUCAtTUYgLnhlbi1kaWFnLm8uZCAtRF9MQVJHRUZJTEVfU09V
-UkNFDQo+ID4gPiAtRF9MQVJHRUZJTEU2NF9TT1VSQ0UgICAtV2Vycm9yIC1pbmNsdWRlIC9idWls
-ZHMveGVuLQ0KPiA+ID4gcHJvamVjdC9wYXRjaGV3L3hlbi90b29scy9taXNjLy4uLy4uL3Rvb2xz
-L2NvbmZpZy5oDQo+ID4gPiAtSS9idWlsZHMveGVuLXByb2plY3QvcGF0Y2hldy94ZW4vdG9vbHMv
-bWlzYy8uLi8uLi90b29scy9pbmNsdWRlDQo+ID4gPiAtSS9idWlsZHMveGVuLXByb2plY3QvcGF0
-Y2hldy94ZW4vdG9vbHMvbWlzYy8uLi8uLi90b29scy9pbmNsdWRlDQo+ID4gPiAtRF9fWEVOX1RP
-T0xTX18gLUkvYnVpbGRzL3hlbi0NCj4gPiA+IHByb2plY3QvcGF0Y2hldy94ZW4vdG9vbHMvbWlz
-Yy8uLi8uLi90b29scy9pbmNsdWRlIC1JL2J1aWxkcy94ZW4tDQo+ID4gPiBwcm9qZWN0L3BhdGNo
-ZXcveGVuL3Rvb2xzL21pc2MvLi4vLi4vdG9vbHMvaW5jbHVkZSAtSS9idWlsZHMveGVuLQ0KPiA+
-ID4gcHJvamVjdC9wYXRjaGV3L3hlbi90b29scy9taXNjLy4uLy4uL3Rvb2xzL2luY2x1ZGUgLVdu
-by0NCj4gPiA+IGRlY2xhcmF0aW9uLWFmdGVyLXN0YXRlbWVudCAgLWMgLW8geGVuLWRpYWcubyB4
-ZW4tZGlhZy5jDQo+ID4gPiB4ZW4tZmF1bHQtdHRsLmM6IEluIGZ1bmN0aW9uICdtYWluJzoNCj4g
-PiA+IHhlbi1mYXVsdC10dGwuYzoyNToxNDogZXJyb3I6ICdzdHJ1Y3QgeGVuX2FyY2hfZG9tYWlu
-Y29uZmlnJyBoYXMNCj4gPiA+IG5vIG1lbWJlciBuYW1lZCAnZW11bGF0aW9uX2ZsYWdzJw0KPiA+
-ID4gICAgMjUgfCAgICAgICAgICAgICAuZW11bGF0aW9uX2ZsYWdzID0gWEVOX1g4Nl9FTVVfTEFQ
-SUMsDQo+ID4gPiAgICAgICB8ICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn4NCj4gPiA+IHhl
-bi1mYXVsdC10dGwuYzoyNTozMjogZXJyb3I6ICdYRU5fWDg2X0VNVV9MQVBJQycgdW5kZWNsYXJl
-ZA0KPiA+ID4gKGZpcnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKQ0KPiA+ID4gICAgMjUgfCAgICAg
-ICAgICAgICAuZW11bGF0aW9uX2ZsYWdzID0gWEVOX1g4Nl9FTVVfTEFQSUMsDQo+ID4gPiAgICAg
-ICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fg0KPiA+
-ID4geGVuLWZhdWx0LXR0bC5jOjI1OjMyOiBub3RlOiBlYWNoIHVuZGVjbGFyZWQgaWRlbnRpZmll
-ciBpcw0KPiA+ID4gcmVwb3J0ZWQgb25seSBvbmNlIGZvciBlYWNoIGZ1bmN0aW9uIGl0IGFwcGVh
-cnMgaW4NCj4gPiA+IG1ha2VbNF06ICoqKiBbL2J1aWxkcy94ZW4tDQo+ID4gPiBwcm9qZWN0L3Bh
-dGNoZXcveGVuL3Rvb2xzL21pc2MvLi4vLi4vdG9vbHMvUnVsZXMubWs6MTQ0OiB4ZW4tDQo+ID4g
-PiBmYXVsdC10dGwub10gRXJyb3IgMQ0KPiA+ID4gbWFrZVs0XTogKioqIFdhaXRpbmcgZm9yIHVu
-ZmluaXNoZWQgam9icy4uLi4NCj4gPiA+IG1ha2VbNF06IExlYXZpbmcgZGlyZWN0b3J5ICcvYnVp
-bGRzL3hlbi0NCj4gPiA+IHByb2plY3QvcGF0Y2hldy94ZW4vdG9vbHMvbWlzYycNCj4gPiA+IG1h
-a2VbM106ICoqKiBbL2J1aWxkcy94ZW4tDQo+ID4gPiBwcm9qZWN0L3BhdGNoZXcveGVuL3Rvb2xz
-Ly4uL3Rvb2xzL1J1bGVzLm1rOjE2MDogc3ViZGlyLWluc3RhbGwtDQo+ID4gPiBtaXNjXSBFcnJv
-ciAyDQo+ID4gPiBtYWtlWzNdOiBMZWF2aW5nIGRpcmVjdG9yeSAnL2J1aWxkcy94ZW4tDQo+ID4g
-PiBwcm9qZWN0L3BhdGNoZXcveGVuL3Rvb2xzJw0KPiA+ID4gbWFrZVsyXTogKioqIFsvYnVpbGRz
-L3hlbi0NCj4gPiA+IHByb2plY3QvcGF0Y2hldy94ZW4vdG9vbHMvLi4vdG9vbHMvUnVsZXMubWs6
-MTU1OiBzdWJkaXJzLWluc3RhbGxdIA0KPiA+ID4gRXJyb3IgMg0KPiA+ID4gbWFrZVsyXTogTGVh
-dmluZyBkaXJlY3RvcnkgJy9idWlsZHMveGVuLQ0KPiA+ID4gcHJvamVjdC9wYXRjaGV3L3hlbi90
-b29scycNCj4gPiA+IG1ha2VbMV06ICoqKiBbTWFrZWZpbGU6Njc6IGluc3RhbGxdIEVycm9yIDIN
-Cj4gPiA+IG1ha2VbMV06IExlYXZpbmcgZGlyZWN0b3J5ICcvYnVpbGRzL3hlbi0NCj4gPiA+IHBy
-b2plY3QvcGF0Y2hldy94ZW4vdG9vbHMnDQo+ID4gPiBtYWtlOiAqKiogW01ha2VmaWxlOjEzNDog
-aW5zdGFsbC10b29sc10gRXJyb3IgMg0KPiA+IA0KPiA+IFllYWggLSB0aGF0IGlzIGEgcmVhbCBm
-YWlsdXJlLCB3aGljaCBjYW4gYmUgZml4ZWQgd2l0aCBhIGxpdHRsZSBiaXQNCj4gPiBvZg0KPiA+
-IGlmZGVmLWFyeS4gIEknbSBjb25mdXNlZCBhcyB0byB3aHkgSSBkaWRuJ3QgZ2V0IHRoYXQgZW1h
-aWwNCj4gPiBkaXJlY3RseS4NCj4gDQo+IEl0IGxvb2tzIGxpa2UgcGF0Y2hldyBkb2Vzbid0IHll
-dCBDQyB0aGUgb3JpZ2luYWwgYXV0aG9yPw0KPiANCj4gQWxzbyBub3Qgc3VyZSB3aHkgeW91IHdl
-cmVuJ3QgcGFydCBvZiB0aGUgZGVmYXVsdCBDQyBncm91cCBhbnl3YXkuDQoNCkkndmUgYWRkZWQg
-QW5kcmV3IHRvIHRoZSBkZWZhdWx0IENjIGxpc3Qgbm93Lg0KDQpGYW0NCg==
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 22 December 2020 15:44
+> To: xen-devel@lists.xenproject.org
+> Cc: hongyxia@amazon.co.uk; Julien Grall <jgrall@amazon.com>; Jan Beulich <jbeulich@suse.com>; Paul
+> Durrant <paul@xen.org>
+> Subject: [PATCH for-4.15 1/4] xen/iommu: Check if the IOMMU was initialized before tearing down
+> 
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> is_iommu_enabled() will return true even if the IOMMU has not been
+> initialized (e.g. the ops are not set).
+> 
+> In the case of an early failure in arch_domain_init(), the function
+> iommu_destroy_domain() will be called even if the IOMMU is initialized.
+> 
+> This will result to dereference the ops which will be NULL and an host
+> crash.
+> 
+> Fix the issue by checking that ops has been set before accessing it.
+> Note that we are assuming that arch_iommu_domain_init() will cleanup an
+> intermediate failure if it failed.
+> 
+> Fixes: 71e617a6b8f6 ("use is_iommu_enabled() where appropriate...")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> ---
+>  xen/drivers/passthrough/iommu.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+> index 2358b6eb09f4..f976d5a0b0a5 100644
+> --- a/xen/drivers/passthrough/iommu.c
+> +++ b/xen/drivers/passthrough/iommu.c
+> @@ -226,7 +226,15 @@ static void iommu_teardown(struct domain *d)
+> 
+>  void iommu_domain_destroy(struct domain *d)
+>  {
+> -    if ( !is_iommu_enabled(d) )
+> +    struct domain_iommu *hd = dom_iommu(d);
+> +
+> +    /*
+> +     * In case of failure during the domain construction, it would be
+> +     * possible to reach this function with the IOMMU enabled but not
+> +     * yet initialized. We assume that hd->platforms will be non-NULL as
+> +     * soon as we start to initialize the IOMMU.
+> +     */
+> +    if ( !is_iommu_enabled(d) || !hd->platform_ops )
+>          return;
+
+TBH, this seems like the wrong way to fix it. The ops dereference is done in iommu_teardown() so that ought to be doing the check,
+but given it is single line function then it could be inlined at the same time. That said, I think arch_iommu_domain_destroy() needs
+to be call unconditionally as it arch_iommu_domain_init() is called before the ops pointer is set.
+
+  Paul
+
+> 
+>      iommu_teardown(d);
+> --
+> 2.17.1
+
+
 
