@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 242E82E9BB7
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 18:09:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61395.108002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2779C2E9BC3
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 18:13:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61403.108026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwTM9-0008Ol-Cm; Mon, 04 Jan 2021 17:09:21 +0000
+	id 1kwTPf-0000vj-81; Mon, 04 Jan 2021 17:12:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61395.108002; Mon, 04 Jan 2021 17:09:21 +0000
+Received: by outflank-mailman (output) from mailman id 61403.108026; Mon, 04 Jan 2021 17:12:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwTM9-0008OI-7X; Mon, 04 Jan 2021 17:09:21 +0000
-Received: by outflank-mailman (input) for mailman id 61395;
- Mon, 04 Jan 2021 17:09:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kwTPf-0000vK-4o; Mon, 04 Jan 2021 17:12:59 +0000
+Received: by outflank-mailman (input) for mailman id 61403;
+ Mon, 04 Jan 2021 17:12:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N5j7=GH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kwTM6-0008OD-NN
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 17:09:18 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a6abc34f-369f-4f2c-95ae-3b092fae65e3;
- Mon, 04 Jan 2021 17:09:17 +0000 (UTC)
+ <SRS0=25yB=GH=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1kwTPe-0000vF-1E
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 17:12:58 +0000
+Received: from MTA-05-4.privateemail.com (unknown [68.65.122.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bf60b255-baee-4b12-b008-e5d681c47cc5;
+ Mon, 04 Jan 2021 17:12:57 +0000 (UTC)
+Received: from MTA-05.privateemail.com (localhost [127.0.0.1])
+ by MTA-05.privateemail.com (Postfix) with ESMTP id 1CBBB600B5
+ for <xen-devel@lists.xenproject.org>; Mon,  4 Jan 2021 12:12:56 -0500 (EST)
+Received: from mail-wr1-f42.google.com (unknown [10.20.151.241])
+ by MTA-05.privateemail.com (Postfix) with ESMTPA id D737060066
+ for <xen-devel@lists.xenproject.org>; Mon,  4 Jan 2021 17:12:55 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id t30so32965270wrb.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Jan 2021 09:12:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,130 +43,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6abc34f-369f-4f2c-95ae-3b092fae65e3
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1609780157;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=gGZaYqxk6kGvWHq6w/3wYYOwvXOD/y3XDpcnLIYzu2E=;
-  b=eiyAvwDfEaW2tB60XRSEnkenQGm7toq1asWEigvD2VvDGedIrCwb9EX0
-   NUx6ZTGenk38fm5ezuGWhUtcPkBWVTDmF4k/9ibIUWrzAL+EdeLMoBbcM
-   38GyX2D2eF3fY0hXQ/FZJn9XUGUyUicjem9l93kbEG5y4/+kyMYe9bBIU
-   s=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: fnUqZQSTRNtmaysbVfSKhUv+CP2W5cXjIkA2SpkmgujYoWLxBHNDuQ6QEqurpsjvXAv66g7P8P
- DGBoAR6KHwr+ADrosqtCV80ZmMdECQk84WMqKTZzCJs4TVM1CwjFdwgJsfKVMcfF/xPH4t8aTi
- 1KM/QWbecVA4YB6/oLa8HzvcrOE5GJMTB8R1skrLpR2dlvAJdcnWgC57FJ7sOWWKK8r0Hjgefn
- iUJD5uofFMKs9t/rkFkoNbwBkQe2ahX3tkPDw3KJcx78EnyKaTBowAKafe/Um7pUgP6VnXmbHJ
- fik=
-X-SBRS: 5.2
-X-MesageID: 34360155
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,474,1599537600"; 
-   d="scan'208";a="34360155"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l7NbxAhgQxTsCsJlrloJjx0H/9P8mchcKi3tdpWCZYPyrwefrYxezPCacUDdzJGpqpNsF3x5wA7lBwtSpKO5ARZHbKpsdKs1+sFnAfphWVfPuF+1UrJ3deYXi3KxN6F1Xlg3f3PwWYxrCuj82S6vcAJb4ahKJC5sF0YiM8FxB9QwpMMINeXIRW7vAti/ZTVVII+M5Y1yTJVjs1Lw2TuOQzE0ogCB4MAtc+AmlD/sr/gAIKxBosEFmqpenn4/+3g6RPubZHEgITAHnDpMgBAPrJErKDFWt4ASddu7P+VVtQzBjc7GEuvUVXZgqgnH+mFRByNJpL4lZlRPJNPrJPb+0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7nWgcY/Tgu0b7J4VRGJFjE5oHlVpiCAnhaOAbPHmjVY=;
- b=i72MCsqhTMxea0yyhVGz7rAD1Gd2hzyUaodajyQBuq8UK3KRU0E4Smr10ehLOjDwNhXPZVMk0sOfDfPa7bnBjOIFGpDf61PL5B9xxROHVcAU4ieZsn8sOgdqCNx/sRhwESD6cT/S6Ax6gYQ7ieCycjfnB+RakKenJ/c6vIXglTO97x1ki7mcZTfcuvmiKZLm6tDqFEl5qyi68lWrV7x8DCTz097Hc9luQ8e9PS74YzForVrWDuhlw68TbiRh/M9WiA9IkPuHjKFcFFdHhaLLOz9uyTLX85wGDynSbsmeFcmVWRnvH3nZ4CiX0vB/cjt5W7MsHiIJSnFH6QqFJO5T3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7nWgcY/Tgu0b7J4VRGJFjE5oHlVpiCAnhaOAbPHmjVY=;
- b=AzdFLFH57arvPNLkCBVo65Ayn4rHH+hWEtjjd8h9rAD2a1LxCuxBru9Agpr7xoq9REYO3/XoAPScql13tgGnBrRZktmIQzZXusVjUXj/U5ZixkzSsPPzcd/gz2uzaNGn9b5iMBqtdvSFfuqwoX4xlT7vfwcUYcmoV54vwAGBNWI=
-Date: Mon, 4 Jan 2021 18:09:07 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-CC: <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 07/24] Remove NetBSD's system headers. We'll use the
- system-provided ones, which are up to date.
-Message-ID: <20210104170907.hrj4aa6u4hjvidhu@Air-de-Roger>
-References: <20201214163623.2127-1-bouyer@netbsd.org>
- <20201214163623.2127-8-bouyer@netbsd.org>
- <20201229114638.yegfswyqzhz7tj25@Air-de-Roger>
- <20210104102552.GC2005@antioche.eu.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210104102552.GC2005@antioche.eu.org>
-X-ClientProxiedBy: MR2P264CA0087.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:32::27) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-Inumbo-ID: bf60b255-baee-4b12-b008-e5d681c47cc5
+X-Gm-Message-State: AOAM533ZFg8DJmfWcvP7dgrtjAtv3xwt9chqMDus6aMDqGxpcbmU9q6t
+	jGyTfnV1gcigZuk0ywhPpA0kPWq2SESMIgFnZ0w=
+X-Google-Smtp-Source: ABdhPJyfwWlZSLl9nhobkp2flYDPsXV8D079NSXgL5RluHYGTScq6FaRcS/ZApKSZ/2e+zqwMUWev+upTQO6/xsOjtU=
+X-Received: by 2002:a5d:68ce:: with SMTP id p14mr80201016wrw.386.1609780374447;
+ Mon, 04 Jan 2021 09:12:54 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 80d13609-6409-4ff6-be55-08d8b0d37610
-X-MS-TrafficTypeDiagnostic: DS7PR03MB5606:
-X-Microsoft-Antispam-PRVS: <DS7PR03MB56065934DC8314A7011E621D8FD20@DS7PR03MB5606.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KNrRzmQWDhmC8sDzWZN+gGIgzEaYjX9L4VHWriIis7C4/AANHKVPQWyOzT2FQBAz6B07mSh6ccKXYOkhF2dm583BJDCu82ZTTTOjJvKIFCgDDqdNC/fZVt9QQYrMvwthr1TrFTpfHofRm9d6U5qnLPUaBiQ6Wxi+Vuy5STKGoFe1DAGlreyVU0njNkys8fcsUhmlnUt4xCGVGyjp9Pw4cbkJ0aSQZIjEJ2TsCRUlxhI+g4JApMYHzK9fDmyCcJxXHJrJtekEflHnYT0dFmXV0uNwoFP5w6mxz9NZ0Y1Ov+1wUtukG23X7gdSt8xRmmHULSNMPIEpFa9F/palz9PRS/+cwD7i4PYpg5Bl0WmghlwRB/o4RMZ0F8iX9Edi3wa3LNSDI+GSeXwLcC/EY+uCZQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(39860400002)(136003)(366004)(396003)(376002)(346002)(66556008)(6486002)(66946007)(66476007)(86362001)(5660300002)(2906002)(956004)(4326008)(26005)(9686003)(478600001)(16526019)(186003)(83380400001)(8936002)(6666004)(316002)(1076003)(85182001)(8676002)(6496006)(33716001)(6916009);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UkVjNnl6ZlJOelh6d3kwTXdjeTdVWE9TUWI3YTI2N2NiVG1SZ0JOREs4MzZF?=
- =?utf-8?B?VEJqOEtuRGdteHo3bWcyMWdxMkJkSGRLNkREdG1jeTRUQWE4RW01SFVDUmRz?=
- =?utf-8?B?Q0ZnWWJ0TisvbHlOQm9mMXp6TnlHdGU0c0JMRDY1bDUzbko1ZlFMenVFQjU1?=
- =?utf-8?B?QmtQbFE4YW5pZE5hRTJhOGt4Q3E1Nmk3RjlaNkhlVGZCaW9CWEVGZ2ZmcUo5?=
- =?utf-8?B?Z2RPakhxSGluaWRpTzlxVHkvbEl6NHA0T2NCdVR5NzB4K2pVc0locDlaK3BZ?=
- =?utf-8?B?SmpSSm50dDRoR0RMMER0NjRsOGU4VWJjVXZhOXBKYjhmbHgvVHlMNEM3UW4x?=
- =?utf-8?B?NDB6d3g3UnJ1SGlYTzFKRlNGY3hKckxEVCtVWlA0bVFUZisra0VrZUlIVDBy?=
- =?utf-8?B?RW96eEpaL0dSZDlQL0lhZDM2SndhZi9HeXJNbmR5eWZIak4wUlFBVWhCTFkw?=
- =?utf-8?B?cEE4Zmcvbm9VeU8xWjNIV1dEZVFZUms3d3NmTTZNMEEvb3VuNW84SGh3YnRI?=
- =?utf-8?B?Z0RnMllmTkc0SHhXWkdKVWR2MWFrMXdGOUpOUHdjUWpaV21hZzIyTTltVXV0?=
- =?utf-8?B?STFOczIzSG93QjFJOWhEdm85VnpHZFBhb1g5cXpUcldDSGJoRkpoUjVveXlI?=
- =?utf-8?B?Y3RNYTlRWjBnYThuWGpTcnZFc3gvL1JvZWk4WXY0SFlUeXc5MEYzVkQ3aEIv?=
- =?utf-8?B?czA4SDNUNVpVZDZYeThmMUh6OCtndVFlTGdaZG8wQ3NFRzB1MjVzcGdsTm9T?=
- =?utf-8?B?dXltdmhpbENlMDJkT0RYQ3FzeENmMTVZVzR3SFR2Tmllenp0K2o2SEZUc2xJ?=
- =?utf-8?B?NGx4eEdQYit0bTcwdFJ1U2ZhU1VGNXdkOEFBZnMzSUlxY1lBcUtVSVJkbDdO?=
- =?utf-8?B?VURjSGRJQkZmbkhlWU5KSVdtNUFDMXJ2MDcyVEVkL3kxUmdqZzBmRnRLUEFT?=
- =?utf-8?B?bGgra0dFZ2ZueUx6b0ZnclFZcFBCS3VENStXekl5Y0NiVTVqMHYwMlFtZ2Nt?=
- =?utf-8?B?eGF1NHRQcmh3WFJqL2l6ZEo1NjB3ZDYrbEp2czZjVDluNTlna2dNdlk0V2hR?=
- =?utf-8?B?c3RlUXdsMWd2Qk0wSG1BNXBRcTBqeFBCTjhXVklSalZ2enAxYWxHYmxlQk05?=
- =?utf-8?B?eGc2OStPbVc3WVdrZUtxd042ZVh5S3VnQzQrZDhBTm5Db0UvMm1EdUliYUVT?=
- =?utf-8?B?TVpZbEpDbmVOdzNpMXFUaXMrZ0lpM013dWZCVFV2bGpKNGRaWURLQ1hkZEI0?=
- =?utf-8?B?bmRSV2xPaUFieDN6aWxmSDhwZjhUSEFacDRFNGhQb3JMTFMrOFIySWxjZHIx?=
- =?utf-8?Q?C/LLHu+YOvf9eYb0NDUh1US/UbszMOKaie?=
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 17:09:13.6808
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80d13609-6409-4ff6-be55-08d8b0d37610
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y8pLNQNLrVz5KKqG5QXe1zBrdDVLRBqKMO9qZf7CqzPRXuzNPfKU2rNskvbuTFUaW4BiHG66EO3Qyrywkpt96A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5606
-X-OriginatorOrg: citrix.com
+References: <20210103184117.57692-1-tamas@tklengyel.com> <6a1d7087-5ae2-6a70-bee5-fdf521310d3d@citrix.com>
+ <CABfawhmBM7nFCVm_61xJ9u5VpKaeGKoBm2i56NiqMMMoG2bVmQ@mail.gmail.com>
+ <43da1c6d-3c33-59dc-a235-383192c8062b@suse.com> <CABfawhk1s-U7JjPUt0BKcjUafxemRtVnnr2xGM4sWTTTfbZUqA@mail.gmail.com>
+ <922bea1f-3a08-d023-2121-009eb6e4e42d@citrix.com>
+In-Reply-To: <922bea1f-3a08-d023-2121-009eb6e4e42d@citrix.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 4 Jan 2021 12:12:18 -0500
+X-Gmail-Original-Message-ID: <CABfawhmFEhFWcXDHkc95eKxyfvh7Z84tBHqBXOY+A6o8tArrYw@mail.gmail.com>
+Message-ID: <CABfawhmFEhFWcXDHkc95eKxyfvh7Z84tBHqBXOY+A6o8tArrYw@mail.gmail.com>
+Subject: Re: [PATCH] x86/vm_event: transfer nested p2m base info
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Mon, Jan 04, 2021 at 11:25:52AM +0100, Manuel Bouyer wrote:
-> On Tue, Dec 29, 2020 at 12:46:38PM +0100, Roger Pau Monné wrote:
-> > What would happen when a new device (or ioctl to and existing one) is
-> > added?
-> > 
-> > You would then run into issues of newer versions of Xen not building on
-> > older NetBSD systems, or would have to appropriately gate the newly
-> > added code to only be built when the headers are available.
-> 
-> I prefer to have the build fail if the system isn't new enough, than
-> have it build and then fail to run. We already have version requirements
-> for e.g. bug fixes.
+On Mon, Jan 4, 2021 at 11:48 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>
+> On 04/01/2021 16:32, Tamas K Lengyel wrote:
+> > On Mon, Jan 4, 2021 at 11:21 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >> On 04.01.2021 14:28, Tamas K Lengyel wrote:
+> >>> On Mon, Jan 4, 2021 at 6:57 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+> >>>> On 03/01/2021 18:41, Tamas K Lengyel wrote:
+> >>>>> Required to introspect events originating from nested VMs.
+> >>>>>
+> >>>>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> >>>>> ---
+> >>>>>  xen/arch/x86/hvm/monitor.c    | 32 ++++++++++++++++++++++++++++++--
+> >>>>>  xen/include/public/vm_event.h |  7 ++++++-
+> >>>>>  2 files changed, 36 insertions(+), 3 deletions(-)
+> >>>>>
+> >>>>> diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+> >>>>> index e4a09964a0..eb4afe81b3 100644
+> >>>>> --- a/xen/arch/x86/hvm/monitor.c
+> >>>>> +++ b/xen/arch/x86/hvm/monitor.c
+> >>>>> @@ -26,6 +26,7 @@
+> >>>>>  #include <xen/mem_access.h>
+> >>>>>  #include <xen/monitor.h>
+> >>>>>  #include <asm/hvm/monitor.h>
+> >>>>> +#include <asm/hvm/nestedhvm.h>
+> >>>>>  #include <asm/altp2m.h>
+> >>>>>  #include <asm/monitor.h>
+> >>>>>  #include <asm/p2m.h>
+> >>>>> @@ -33,6 +34,15 @@
+> >>>>>  #include <asm/vm_event.h>
+> >>>>>  #include <public/vm_event.h>
+> >>>>>
+> >>>>> +static inline void set_npt_base(struct vcpu *curr, vm_event_request_t *req)
+> >>>> No need for inline here.  Can fix on commit.
+> >>>>
+> >>>>> diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
+> >>>>> index fdd3ad8a30..8415bc7618 100644
+> >>>>> --- a/xen/include/public/vm_event.h
+> >>>>> +++ b/xen/include/public/vm_event.h
+> >>>>> @@ -208,6 +212,7 @@ struct vm_event_regs_x86 {
+> >>>>>      uint64_t msr_star;
+> >>>>>      uint64_t msr_lstar;
+> >>>>>      uint64_t gdtr_base;
+> >>>>> +    uint64_t npt_base;
+> >>>> This needs enough description to actually use it correctly.
+> >>>>
+> >>>> /* Guest physical address.  On Intel hardware, this is the EPT_POINTER
+> >>>> field from the L1 hypervisors VMCS, including all architecturally
+> >>>> defined metadata. */
+> >>>>
+> >>>> Except, its not.  nvmx_vcpu_eptp_base() masks out the lower metadata, so
+> >>>> the walk length is missing, and the introspection agent can't
+> >>>> distinguish between 4 and 5 level EPT.  Same on the AMD side (except it
+> >>>> could be any paging mode, including 2 and 3 level).
+> >>> AMD is AFAIK not supported for vm_events. Also, only 4L EPT is
+> >>> available at this time, so that information is irrelevant anyway.
+> >> I suppose we should try to avoid having to change the interface
+> >> again to allow going from "implied 4-level" to "4- or 5-level",
+> >> so I'm with Andrew that this information wants providing even if
+> >> there's going to be only a single value at this time (but you
+> >> wouldn't store a literal number anyway, but instead use the walk
+> >> length associated with the base, so no change to the producer of
+> >> the code would be needed once 5-level walks become an option).
+> > Once 5-level paging is supported a new flag can be added that will
+> > distinguish the tables, for example VM_EVENT_FLAG_NESTED_P2M_5L, if
+> > necessary. So at this time I don't think we really need to do anything
+> > different. If you prefer to change the current flag's name to say _4L,
+> > sure, that's cosmetic.
+>
+> The way this is currently specified will force a new interface version
+> just to add the metadata.
+>
+> It would suffice to explicitly state that the bottom 12 bits are
+> reserved for future metadata, and must be masked out for now, and all
+> users of this interface may assume 4L by default.
+>
+> Basically, what we don't want to happen is for libvmi to take the value,
+> not mask out the bottom 12 bits, and start using that, because the
+> software will break as soon as we try to encode 5L in there.
 
-We usually take a different approach for Linux and FreeBSD in
-order to support all kernels: test if the new ioctl is available, or
-else fallback to the old implementation. But this requires having the
-new header even on old systems in order to have the ioctl definition
-for the build, even if it's not implemented on the currently running
-kernel.
+Sure, if you just want to add that in a comment I don't see an issue.
+Do you want me to resend or can you do it at commit?
 
-I guess you would have to use preprocessor conditionals in order to
-keep the build on older versions when adding the new features.
-
-Roger.
+Tamas
 
