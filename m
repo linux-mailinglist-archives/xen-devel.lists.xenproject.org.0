@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 945F12E9C11
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 18:33:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61436.108122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84A212E9C18
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 18:36:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61440.108133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwTjm-0003Yw-0d; Mon, 04 Jan 2021 17:33:46 +0000
+	id 1kwTli-0003ha-Cc; Mon, 04 Jan 2021 17:35:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61436.108122; Mon, 04 Jan 2021 17:33:45 +0000
+Received: by outflank-mailman (output) from mailman id 61440.108133; Mon, 04 Jan 2021 17:35:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwTjl-0003YX-Ta; Mon, 04 Jan 2021 17:33:45 +0000
-Received: by outflank-mailman (input) for mailman id 61436;
- Mon, 04 Jan 2021 17:33:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N5j7=GH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kwTjj-0003YQ-Us
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 17:33:43 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3e7bb8a1-6020-41bc-93ad-df5a39a57afb;
- Mon, 04 Jan 2021 17:33:42 +0000 (UTC)
+	id 1kwTli-0003hB-9T; Mon, 04 Jan 2021 17:35:46 +0000
+Received: by outflank-mailman (input) for mailman id 61440;
+ Mon, 04 Jan 2021 17:35:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kwTlg-0003h6-UH
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 17:35:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kwTlf-0006hZ-UW; Mon, 04 Jan 2021 17:35:43 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kwTlf-0006ul-KB; Mon, 04 Jan 2021 17:35:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,115 +39,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e7bb8a1-6020-41bc-93ad-df5a39a57afb
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1609781622;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=dkCEH15hgt0+2Fefsz2gURAatM71fgCDRHUmaichmYo=;
-  b=dIKoGjNn9I2hrS2MH55c7Of2Q/+gz+J9DK0yj2kMuQSyDc8b/5/8Rkf4
-   NiHjgrslnX55/39Sbxt0QiJHtAph5QIHgcljS9q6yPSGdku8SGPT+Up8k
-   g7mBiuz3Qsv9cLU9vzRcGSxWXxOumG7swFhWQzIno4i7B9etPUErdGLvz
-   A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 7lawoXKQzD8JgWo5ViCY2r+PbY9jYuvOJSpTBTmx9htVRY141iivN2XRcbFBW7TVfO/LLQiSAs
- nvARSE1dQTmKTWbUzhf2t4x8H5TqWHppX9LGq6wui+NkJA7amxwjfY19Re+nEv2qjNEVonbI33
- wQHfKyRekpqpVhJCkYgHNZFvwQxn3bty/c7OWOnB5D+5ndAICEmlu9NhXWNoztfRv2U+xxJyaz
- 4IYakppk0Q73Aibw+bPOM5rm0Ni6oUhBpoHsem9Y7Hk0xRs0ubNaRkPQoMgDGSPgw/vlgwF5At
- C5g=
-X-SBRS: 5.2
-X-MesageID: 34723003
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,474,1599537600"; 
-   d="scan'208";a="34723003"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SUMg5Ep0lbDD6u8dX1VmLq8rLZq1AMMS492EFIYzspnMBI3huTypDimBQ/1XVigLNn3AOResgjoMf/JrGa4kuoZgmK4EHZ46lF6Jh9V0eFXu0n48GC3LiUuv6D8ctBegdkglVnnk9G3UDjkqodn9jS849vgOTQWSuXlv9YLO5AACvAElNJ3jB3WTuJ8KPZNDvCo9zgT4x1Lf69zWx0WrpRs9wcf2JcodNc2oV8kPk6iB/DnZ95iqvzqhxnj2n94P0B9ohTJQ4aMmw3tW023ErSch2yBxIGQOWjJtvVWF3nB3cNnbGIBp0ZI3tPuvTtQ2PAQPsGTXbRUf8WXwbexkfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rau/qVNuqHf+E87QDYPfetCIub198Ef1Rc1cA0u1rTM=;
- b=EcF/VrGU/a9QCPJz+H1C5Eqgz3XaJwjAifdbUf4zjMJrgIGSa2G5pTfz4j6uj+BDerE1tYGOm+RJwM2PI+R+paDh+R9wpNr9mQ1wUY9M0orSFkO0foqCFLUH70M1d2S09c6GYd7ekYbn4eGpUqa5Pg/m5SW1+k2fj81aaa0uarvbM4lzS6nhvVvW5aMPexurUV3K1mf5YZR1BrQ1hqiXSAqBv+iGZNxlLH6BAEfmeeBYvAHPMn9Y5EdRebtQnBLJlg4IahPJnxNrVZioBTJcrs1IfHCYUuZa4UxbtuC5h4xWlKDng9IlkmSTnuqFnRS4BGwfJ6Y9J4L1MxAf9y2cWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rau/qVNuqHf+E87QDYPfetCIub198Ef1Rc1cA0u1rTM=;
- b=pEE76lBpgPECwfgx9mL5niP97liKye6J5dqUqmZZkC3wRbGgNSAnXvHY795fqCCC9Xg5YchRz9wdSPsD/0vJn+VVxL3OnEjVm6MwN68ehNk8MNe9ziEbpgxzr/iHZULRUdcyrO1i8+Ee0VpDiMJpY0kP96qnGjNtriPnGEzOLL4=
-Date: Mon, 4 Jan 2021 18:33:35 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] libs/devicemodel: fix test for DM_OP availability
-Message-ID: <20210104173335.h3kojpev4hol3xxp@Air-de-Roger>
-References: <20210104141202.71724-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20210104141202.71724-1-roger.pau@citrix.com>
-X-ClientProxiedBy: MR2P264CA0037.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::25)
- To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=B1EBLGi/rsOKad71TOBbvTqiOv05+PSxJSJHpZI59zQ=; b=41stwcj4NQlz1qQVKA4YOqNNCx
+	qzSQXuNUktmCJ4gNrKDnX7ulbb2rBdTiTjNJ847Jr7dT/uxeMXoEG3tJyDIkkjND5NqigCqfMoWz7
+	Z/K5lzQkqzLOaUVhfoUQFzjxdfmpdBWMa9QPV1ful5C+SFrYoWyPSHpotaHy00tXVfr4=;
+Subject: Re: [PATCH 0/4] xen: domain-tracked allocations, and fault injection
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ "Zheng, Fam" <famzheng@amazon.com>
+Cc: "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ "cardoe@cardoe.com" <cardoe@cardoe.com>, "wl@xen.org" <wl@xen.org>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>
+References: <160874604800.15699.17952392608790984041@600e7e483b3a>
+ <alpine.DEB.2.21.2012231143430.4040@sstabellini-ThinkPad-T480s>
+ <e7ad4670-7e7e-99f3-1800-b097b6a1695f@citrix.com>
+ <alpine.DEB.2.21.2012231209170.4040@sstabellini-ThinkPad-T480s>
+ <20210104093839.2tjtxyjhu4e6okra@Air-de-Roger>
+ <42a74737f4f04d3f0ee21c299193a268b60f6fc8.camel@amazon.com>
+ <alpine.DEB.2.21.2101040930090.3465@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <1309fce9-edc8-194e-f530-d77d31972410@xen.org>
+Date: Mon, 4 Jan 2021 17:35:41 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ddbebd0f-50fe-4a5c-49a1-08d8b0d6dfd3
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5356:
-X-Microsoft-Antispam-PRVS: <DM6PR03MB5356A76AD86F9C10A72A87538FD20@DM6PR03MB5356.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uHhlTNHGndlvzxEdNa2k6FYZlMdYpxXhQRFMR2oRI4N1TWyPQSD/1Mf6Z30+d9sO/iIQCrekWqwsGqIaP6PbZUjYbKXsDMrNdllAT12piRQ3/AmyLhStm/MLyhuAujx+gSBo2snE8EiKrtrezNY6JGq5WtJ52ThjFlx7IofzZK8Y9lKsmQZRda7PJAIhg590FeIxYQUFGnoD/I4NkubJts5FfxoIIzxmGOv/lJmkqm1b9llnme2Y1TUe0/waVzMbwXLwzbuSLpXf6uDRzw+lRf5+YzPmDwu1U49aoSKBhx8LMANciAVsvFtAHLC5QrNgJ9HIlC0xvFkDsKiZV9c57UAXc0+HjEviqjNOhojOmRaMLjH5qGmGlffNZu10UG6rQhyzWX/yV0cr1iQ2o0Gbjw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(39860400002)(366004)(396003)(136003)(376002)(346002)(478600001)(4326008)(6666004)(8676002)(33716001)(6486002)(9686003)(956004)(85182001)(316002)(54906003)(66556008)(5660300002)(1076003)(66476007)(86362001)(26005)(4744005)(6916009)(186003)(16526019)(6496006)(2906002)(66946007)(8936002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Tlc5MVIwdktEcUZVZFFRSTJUZ052Q1NKU3BUQStVUnNYdldwbDk0YVlKNlU0?=
- =?utf-8?B?a1FDZ1JxN2dxakREWG11bTA0WFpyRVRmWWE5TmthbDc5NDM0dmk3dnJXL05V?=
- =?utf-8?B?cXNZbENxWm9YeU1YQWQ3c09ndmVGZjFaM2UzSU81bjdDZXMyb2VXVUFsUmZx?=
- =?utf-8?B?QXNNOHVjcGF5RjhEdERvL3JBUjdNWGJLcTJ6ZmJxV1VmVjVITDlDMkI1RUtV?=
- =?utf-8?B?Y3R3NXVtdytjZFprRlNWNzVrU29LTmpuSmZBS09sTkkyM1Z2Nng5VFRYTGV6?=
- =?utf-8?B?cy90YWNseGd1ZUcrdkE4VS96ZWxNU2FjQWNVSjJ1NCthL3lyVEROZjZsTFVS?=
- =?utf-8?B?OWFKMk9pQnIyL1AvZm13OCtlaW95RGx6cjR6MGhza2cza1g0ZVZBRUhBellS?=
- =?utf-8?B?YlAwZWRiZzF0MkNORUMxYmFxdnRUQVJSdmUvbXJHZE0wanRoaXRQNEErL0ZC?=
- =?utf-8?B?SzVleFR3WUdYZldlci9ZU0JjR1JYaFZHQi9kdXV0MDI5eS9ySmFoeTlFU01u?=
- =?utf-8?B?ZXpka0lsK0NBNjJubm9aWk5qeFV3WExkTVh4enhTS3AvbnZxaGlSYUttbEJP?=
- =?utf-8?B?YXhBY0ZtQXpYZjJtSzBSSTBuS0UrbVhtMTZUaFNNRCt1SFlQN0hmak1ZMEV2?=
- =?utf-8?B?VnlRSWdSeVVnZDNwVkN4TStYWjg4QVhrR0FzMVYrNitSbFJoSUdueEUxQXla?=
- =?utf-8?B?Tks5NklNdHVSR216NnRjTFFhVXZBLzF4L3BpMmx2R1lMeWl1MktPMjNvUDFs?=
- =?utf-8?B?V243azVqMXEyVXFKbGRkR3ZzRVp4S04rSnJweVJZakxuL1g1TjFibFFGdWRa?=
- =?utf-8?B?WUNlb2ZSQWtadE16YkJaUDNqa3pSNDYvejZNZ29pWDMrelNQTlpFdWUvWDRK?=
- =?utf-8?B?NW8vd01LMEtEOXNDL2t6WEdrcjQ3OXE3NjZvcU5UWHpucVJaNDRtWWpaY3Q5?=
- =?utf-8?B?akhpck1adU8yVjBNb1g5UlB6VDZvOGQrOTJja3N3cFppSEx3Vm4vLzFXalFp?=
- =?utf-8?B?dVZ0QWdhUTR6YUhkVmUyUGZjb0JGblRFdUJTeFdwREpjZHhLblNuQTVOVWV3?=
- =?utf-8?B?dThBbXd1bVRveU82OVVDUk53bjVUUmk5UDBlRHlMS25QdFdhZlpRdmVUM25T?=
- =?utf-8?B?cFNXS3hDYVlRR1MxcldkTGZyVUx6c2UyVWlROUladnVPZENEbXM4OG45YXdw?=
- =?utf-8?B?a0Ntc2xlbytXRjRXWlBNditadVFPdlZtQmsyRjIzK0R4UXM4UWJQeHI3aUIv?=
- =?utf-8?B?ZVFpdm1QRjFGalpQWU00dWt6czRuNWtFQk5VS2JadktyTFZncTRXdzgwWjF6?=
- =?utf-8?Q?gOX8HazKrVBarrLWbtkPHuWa4iE6SGescp?=
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 17:33:39.7023
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddbebd0f-50fe-4a5c-49a1-08d8b0d6dfd3
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +/eD6SKVQGSiWEcH2xdnD3Z31h6irbQADdavRo//2Y26pYmL1dYs9FtJ8M+h7RL+KanycBkLSmT/zhjMudzlvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5356
-X-OriginatorOrg: citrix.com
+In-Reply-To: <alpine.DEB.2.21.2101040930090.3465@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jan 04, 2021 at 03:12:02PM +0100, Roger Pau Monne wrote:
-> Current check for DM_OP availability in osdep_xendevicemodel_open will
-> always fail, because using DOMID_INVALID as the domain parameter will
-> make the hypervisor return -ESRCH, which will disable the usage of
-> the DOM_OP interface.
+
+
+On 04/01/2021 17:30, Stefano Stabellini wrote:
+> On Mon, 4 Jan 2021, Zheng, Fam wrote:
+>> On Mon, 2021-01-04 at 10:38 +0100, Roger Pau Monné wrote:
+>>> On Wed, Dec 23, 2020 at 12:10:43PM -0800, Stefano Stabellini wrote:
+>>>> On Wed, 23 Dec 2020, Andrew Cooper wrote:
+>>>>> On 23/12/2020 19:45, Stefano Stabellini wrote:
+>>>>>> On Wed, 23 Dec 2020, no-reply@patchew.org wrote:
+>>>>>>> Hi,
+>>>>>>>
+>>>>>>> Patchew automatically ran gitlab-ci pipeline with this patch
+>>>>>>> (series) applied, but the job failed. Maybe there's a bug in
+>>>>>>> the patches?
+>>>>>>>
+>>>>>>> You can find the link to the pipeline near the end of the
+>>>>>>> report below:
+>>>>>>>
+>>>>>>> Type: series
+>>>>>>> Message-id: 20201223163442.8840-1-andrew.cooper3@citrix.com
+>>>>>>> Subject: [PATCH 0/4] xen: domain-tracked allocations, and
+>>>>>>> fault injection
+>>>>>>>
+>>>>>>> === TEST SCRIPT BEGIN ===
+>>>>>>> #!/bin/bash
+>>>>>>> sleep 10
+>>>>>>> patchew gitlab-pipeline-check -p xen-project/patchew/xen
+>>>>>>> === TEST SCRIPT END ===
+>>>>>>
+>>>>>> [...]
+>>>>>>
+>>>>>>> === OUTPUT BEGIN ===
+>>>>>>> [2020-12-23 16:38:43] Looking up pipeline...
+>>>>>>> [2020-12-23 16:38:43] Found pipeline 233889763:
+>>>>>>>
+>>>>>>>
+>> https://gitlab.com/xen-project/patchew/xen/-/pipelines/233889763
+>>>>>>
+>>>>>> This seems to be a genuine failure. Looking at the alpine-3.12-
+>>>>>> gcc-arm64
+>>>>>> build test, the build error is appended below. This is a link
+>>>>>> to the
+>>>>>> failed job:
+>>>>>> https://gitlab.com/xen-project/patchew/xen/-/jobs/929842628
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> gcc  -DBUILD_ID -fno-strict-aliasing -std=gnu99 -Wall -Wstrict-
+>>>>>> prototypes -Wdeclaration-after-statement -Wno-unused-but-set-
+>>>>>> variable -Wno-unused-local-typedefs   -O2 -fomit-frame-pointer
+>>>>>> -D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__
+>>>>>> -MMD -MP -MF .xen-diag.o.d -D_LARGEFILE_SOURCE
+>>>>>> -D_LARGEFILE64_SOURCE   -Werror -include /builds/xen-
+>>>>>> project/patchew/xen/tools/misc/../../tools/config.h
+>>>>>> -I/builds/xen-
+>>>>>> project/patchew/xen/tools/misc/../../tools/include
+>>>>>> -I/builds/xen-
+>>>>>> project/patchew/xen/tools/misc/../../tools/include
+>>>>>> -D__XEN_TOOLS__ -I/builds/xen-
+>>>>>> project/patchew/xen/tools/misc/../../tools/include
+>>>>>> -I/builds/xen-
+>>>>>> project/patchew/xen/tools/misc/../../tools/include
+>>>>>> -I/builds/xen-
+>>>>>> project/patchew/xen/tools/misc/../../tools/include -Wno-
+>>>>>> declaration-after-statement  -c -o xen-diag.o xen-diag.c
+>>>>>> xen-fault-ttl.c: In function 'main':
+>>>>>> xen-fault-ttl.c:25:14: error: 'struct xen_arch_domainconfig'
+>>>>>> has no member named 'emulation_flags'
+>>>>>>     25 |             .emulation_flags = XEN_X86_EMU_LAPIC,
+>>>>>>        |              ^~~~~~~~~~~~~~~
+>>>>>> xen-fault-ttl.c:25:32: error: 'XEN_X86_EMU_LAPIC' undeclared
+>>>>>> (first use in this function)
+>>>>>>     25 |             .emulation_flags = XEN_X86_EMU_LAPIC,
+>>>>>>        |                                ^~~~~~~~~~~~~~~~~
+>>>>>> xen-fault-ttl.c:25:32: note: each undeclared identifier is
+>>>>>> reported only once for each function it appears in
+>>>>>> make[4]: *** [/builds/xen-
+>>>>>> project/patchew/xen/tools/misc/../../tools/Rules.mk:144: xen-
+>>>>>> fault-ttl.o] Error 1
+>>>>>> make[4]: *** Waiting for unfinished jobs....
+>>>>>> make[4]: Leaving directory '/builds/xen-
+>>>>>> project/patchew/xen/tools/misc'
+>>>>>> make[3]: *** [/builds/xen-
+>>>>>> project/patchew/xen/tools/../tools/Rules.mk:160: subdir-
+>>>>>> install-misc] Error 2
+>>>>>> make[3]: Leaving directory '/builds/xen-
+>>>>>> project/patchew/xen/tools'
+>>>>>> make[2]: *** [/builds/xen-
+>>>>>> project/patchew/xen/tools/../tools/Rules.mk:155: subdirs-
+>>>>>> install] Error 2
+>>>>>> make[2]: Leaving directory '/builds/xen-
+>>>>>> project/patchew/xen/tools'
+>>>>>> make[1]: *** [Makefile:67: install] Error 2
+>>>>>> make[1]: Leaving directory '/builds/xen-
+>>>>>> project/patchew/xen/tools'
+>>>>>> make: *** [Makefile:134: install-tools] Error 2
+>>>>>
+>>>>> Yeah - that is a real failure, which can be fixed with a little
+>>>>> bit of
+>>>>> ifdef-ary.  I'm confused as to why I didn't get that email
+>>>>> directly.
+>>>>
+>>>> It looks like patchew doesn't yet CC the original author?
+>>>
+>>> Where do patchew emails go? I haven't seen any of them, and they
+>>> don't
+>>> seem to go to xen-devel.
+>>
+>> It's to limit the noise level. We intend to stablize the workflow a
+>> little more esp. wrt false positives before making every reply go to
+>> xen-devel. There's a few things to tweak in patchew.
+>>
+>> The next logical step should be including the patch author in the loop
+>> I think.
 > 
-> Fix this by checking the errno code of the test ioctl against
-> the privcmd unimplemented errno.
+> Let's do it.
 
-Forget about this patch, it's my fault for not realizing Linux privcmd
-checks that the num is != 0 before issuing the hypercall.
+Fam's e-mail suggested that the workflow is not fully stabilized. So I 
+would suggest to add a warning at the top of the e-mail avoiding more 
+noise on the thread.
 
-Sorry for the noise.
+Cheers,
 
-Roger.
+-- 
+Julien Grall
 
