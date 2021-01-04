@@ -2,29 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B422E9CFF
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 19:28:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61483.108256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EFFD2E9DF3
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 20:07:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61490.108274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwUZn-0000qV-0i; Mon, 04 Jan 2021 18:27:31 +0000
+	id 1kwVBj-00055K-ES; Mon, 04 Jan 2021 19:06:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61483.108256; Mon, 04 Jan 2021 18:27:30 +0000
+Received: by outflank-mailman (output) from mailman id 61490.108274; Mon, 04 Jan 2021 19:06:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwUZm-0000q6-TY; Mon, 04 Jan 2021 18:27:30 +0000
-Received: by outflank-mailman (input) for mailman id 61483;
- Mon, 04 Jan 2021 18:27:29 +0000
+	id 1kwVBj-00054v-BV; Mon, 04 Jan 2021 19:06:43 +0000
+Received: by outflank-mailman (input) for mailman id 61490;
+ Mon, 04 Jan 2021 19:06:42 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N5j7=GH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kwUZl-0000q1-Ku
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 18:27:29 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=yCAg=GH=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kwVBh-00054q-VU
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 19:06:42 +0000
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 82c4d160-f860-49f3-a919-6c2eeda826db;
- Mon, 04 Jan 2021 18:27:28 +0000 (UTC)
+ id 38f065b5-c631-4b68-9bb0-f59ed3222108;
+ Mon, 04 Jan 2021 19:06:40 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104Ij2hG123656;
+ Mon, 4 Jan 2021 19:06:35 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 35tgsknrnb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 04 Jan 2021 19:06:35 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104IjIBI090315;
+ Mon, 4 Jan 2021 19:06:34 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 35v2axk7vb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 04 Jan 2021 19:06:34 +0000
+Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 104J6Woo014790;
+ Mon, 4 Jan 2021 19:06:32 GMT
+Received: from [10.39.231.107] (/10.39.231.107)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 04 Jan 2021 11:06:32 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,120 +56,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82c4d160-f860-49f3-a919-6c2eeda826db
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1609784847;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=7J5jk8K8yLp1ghrAyGnHWSUvzTgtCvAxnVcUBMBe6bM=;
-  b=AVjzkehUnHmD+F7XmYgg8i1w9xEv4HHeP/cylGINuyOUzDxSsY2GgMi0
-   MO2Sh7bWk69wMNUh84I7T6S/DIMnzeSNkkXdMfFGpSqIII2YGR9YChoTH
-   1W72SJxE5uQpr+KadS6oRaOpQIb5qK+0CtQAeiE9fIzsshZVqUjg1JapW
-   Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: IZT8R2Tgf4t40tyHjUj2HSONtZjc9TKipu+fFSlfju9a+fSOzcmHDjrz9e02GtV6yg0W5ol5wi
- UKIDeGMNJJs/zm3Sc/98Ba1KCTV4V6ksX+iIAcAktRsNgBFl6aD6ryzSOodZ9PPSquDGKub2gQ
- oMBtBzRhLUzV+Ns5z42nV8Noftfq1Y3nagD+zQMJ6VjX4Vu4qkTMyz7tHCb/+wj9m5sH5XnIOx
- xFLatqDHUF0j3Vbdl86zJcnjNkgfjyeVuNE4j7XYhW7vEnLEdC5SChbernyD0/U9m655U5NR5F
- p5s=
-X-SBRS: 5.2
-X-MesageID: 35625105
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,474,1599537600"; 
-   d="scan'208";a="35625105"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I5/o0NYCmU50l3fiXU1dkKz44HFOwXqK9FHixVrLfB34rllUcbMyyy2QsPKznfcq3f/HJgx87TKAAHrOO+fXBU6O6DcnQttdmvw1RwpnbuC6KgBOwBzVveqUvH2EIikuHrO2ysXZYoHzuRQMx1SIz7Jt/04I9XfqMGzOgPIPe8XNS8W1nQiA0YmbZETFTYVf743sK3T4AT1VYyi67RRwr1GUWdGWOkXRPcat3U4gWPD3Gc70dF0lqEmViPLtmD0jL1WIYA7Pe9uN1hDG7X0ZElaMXNZSOWoA1oqopMdfFjN0mlsBMhOVFcbTkv7b21BbC0AlXHyrGPbGoP535MaL6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AfR4UOGY9rPW9TbQq5Dsh/1rtUJMduJz1sBLjTzmvWk=;
- b=UerlriztP0+AeyBjb+x3dGm2FZJ9oGO7rJhu05X0r1TFXPehqx/AEif3b+r3agxPcOeddfC8TOUiqPaPGvVBMxfNoUrCzQxLShj9cBBnLMlBkZp5z47xddL8dGyArz2Kcz5ZmdVIYZngw8vfgFqX3Jg70Gu/+BrtuzhNeIBi9yzMOm5pq1j2vdN7u/ddcjk/NM+N54zyP0sIAL/iTkoqNbxPmzFijHXGOdMkOdIkxe3oA71gehjnRVgVmTFxBfN5ARp6HMlSnnQRxN7gMmmNmeVsip6813CpXQ4v9W9GBRQclKMFKQ/HfCK4GloBoqH3MsNWan8FNEKR0kJjXLLpnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AfR4UOGY9rPW9TbQq5Dsh/1rtUJMduJz1sBLjTzmvWk=;
- b=NDbtZXLpgKT7xh9rhcLQWOAcEIefZESckeeP8+NkWBfIBL9I4UGpANr5jIISgCj4t0+Z4WAXuLsYTVj8H6iBKe1MffRdKkfgI5Odgj4M1v2OPz/Gn9vZPuEl9XLHebRjcQR4d5ouXcxQFZ+JO7Dk46htuXz7khGzmDCkFLJu2H8=
-Date: Mon, 4 Jan 2021 19:24:41 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-CC: <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 11/24] Implement foreignmemory on NetBSD
-Message-ID: <20210104182441.e45vp7wj2s3gkdua@Air-de-Roger>
-References: <20201214163623.2127-1-bouyer@netbsd.org>
- <20201214163623.2127-12-bouyer@netbsd.org>
- <20201229124630.5ld2dt5o6awa53db@Air-de-Roger>
- <20210104113044.GA1530@antioche.eu.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210104113044.GA1530@antioche.eu.org>
-X-ClientProxiedBy: LO2P265CA0504.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13b::11) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-Inumbo-ID: 38f065b5-c631-4b68-9bb0-f59ed3222108
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=3pT4+CY1Dh0s2VEu43pfDDziCYSS+IiUVXWJ0Y/C9cE=;
+ b=Nw6McFHNuQNnzG4E8+w3f+E8AJ78QO4SMvmAKKYVTmrel2jQV16MQqD3muE7ynMkJ/oQ
+ nldFXFtYqU/w+IR6Js6n9IubjeXF07uLM/VONF9ps5/6PrioQ5Ht3p/iqvYWaKWxjHfg
+ kq27LnI5+JMAixztWiSy1iDmTPqNgGeWfIa9q3cDpIPFaTyyY5QysGKu7BqVGYT9yGAp
+ Qz1dJTzwBn69fJ6HS5h7bo3Hr6qsBuvL6hnxUhRl2E8eMC8u1SLiCchDgLtBQCUSNyNY
+ HXf44x0UEUtHl32ZrOWfFtAHaRBZW3EDn4rI+Llmt9MuF4a6SQal3FvQw86BGotcdZdG 7w== 
+Subject: Re: [PATCH 5/5] x86/xen: Don't register PV spinlock IPI when it isn't
+ going to be used
+To: David Woodhouse <dwmw2@infradead.org>, x86@kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        Juergen Gross <jgross@suse.com>, Paul Durrant <pdurrant@amazon.com>,
+        jgrall@amazon.com, karahmed@amazon.de,
+        xen-devel <xen-devel@lists.xenproject.org>
+References: <20201224115323.3540130-1-dwmw2@infradead.org>
+ <20201224115323.3540130-6-dwmw2@infradead.org>
+ <b6681a06-4c00-61a9-2112-63ee3eb8d86d@oracle.com>
+ <eb7378cdbbdbff2548d510c453ede8baa917647f.camel@infradead.org>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <f681dfe6-d0fb-e451-a58f-ad5cafa1cd62@oracle.com>
+Date: Mon, 4 Jan 2021 14:06:30 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b436f201-7a63-4841-567f-08d8b0de0328
-X-MS-TrafficTypeDiagnostic: DM5PR03MB3065:
-X-Microsoft-Antispam-PRVS: <DM5PR03MB3065AEF4BAA439CFBBDDCE598FD20@DM5PR03MB3065.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Mt79qdb8qJa6RXMdNFYSUs5tixLwwqqa2qD8RbjI1dtpluXxNxtHIEeMYeXjEVWZ4cKpbqrWGQPBNr5H0QpYzSkRGpeSk7Ig8EdGg1tPQxiyTozWswckwek9th3tG94J7rOwndRD4wsJJCrPqRlbZ1mw0dyRJzgtezZnVI1m1BZ/0B4mYsYntRmPKqXHe3Tqf5KSKBBV9hF2gpGGSODJkGIqQWgiw/ObMvVQfIDP8bs3+BOvIkvVPitkex40DEd3YZgIexKwKbaqOQE/+olDYtslcBIVtwV04kt5lI36PxvMiKU6ikdezh1yAjnlAtWhdFPKvpl4rl7t7YBPjLHmqOfiKqmd0EzETQyq7rZx9hStMzezhQklFMEPJ+dY0RwYX/7WVK8ArNEyS2c59w2/CA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(376002)(39860400002)(346002)(396003)(136003)(26005)(8936002)(86362001)(316002)(956004)(2906002)(4326008)(1076003)(6486002)(33716001)(8676002)(16526019)(186003)(66476007)(478600001)(6916009)(85182001)(6496006)(66556008)(66946007)(4744005)(9686003)(6666004)(5660300002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?N2lPK3FXL2NYT3hEdWpoS2Z5ZjNJZENucitRMjh1eDJmRzFJT2FEYUFsSHk2?=
- =?utf-8?B?aWRINk1iRjNnekVjRm05MlRmUlBvcEdqUHJjdkkrTjhESjc3S24rYysvYlp3?=
- =?utf-8?B?cGVXWEphZFZKbzZVL2UrNmQ1TTluVVNOTHZFSG9BclFDQUpnZjJRTFh2NHJu?=
- =?utf-8?B?TDl1aC9CcVZxZzJ0RVdubGVlL2VQRSszbHErR0lPVlkxMFpwZ0U3M2FJcDN6?=
- =?utf-8?B?d2FneDN3UlhEYlBoRlNzNnNqRm5RNlZsVkZId2oxaFd6Yjg2UHlMYlVkeVBW?=
- =?utf-8?B?dWpwUUVycWtvOWNQQ0JDRzh4bmVxMUhOdDFYT3htRzM1Q05xcnNNcGVraVA2?=
- =?utf-8?B?YitmTzBoSitkSGcxdk9zUTBSZXNLMW0vRllGZ3JhSWpXVVV1NWVjWElSR1Jt?=
- =?utf-8?B?MTVDMlZkTVpDSzVCQTU0aHg4VktLNkl1NnFxdzNiNWhCYzh5VjNyenJuYTF0?=
- =?utf-8?B?eGtudldIQkhrcnZ6K2lDbTYvV25EREhXS0dERUt5RHpyZXgwVVdwcGhScHJn?=
- =?utf-8?B?V0RpejRiMGEwWHMwYkt0Q3Vtci84dHhkTUtqbThraHZOc2FsaG5jZUdsd3oz?=
- =?utf-8?B?ZUZNUFI3d0FaWTRoZDFrMGtESWpxYkJTVXRXNDRoRm5ienNTWlF0KzE4SXdP?=
- =?utf-8?B?eXo0TnJmRGdZcEQ3MGRlVnUyZmh1dDdseEdRdm82cWc1YWZIM3drbGZvQ0RW?=
- =?utf-8?B?ZkE2RDNoUEEzVGQyS2JMMUlmL1JDSWxQZWl2SVVIZXlmN1pqUGJCdXZNL01E?=
- =?utf-8?B?SGhaRS93Y3Q0Nm5pTkRCZU5HMkRzNTRKdDNKTnRYTVIwVStNampWR2xGMXFC?=
- =?utf-8?B?cjF2RFhBU29SSTlOOFBldmVJS3loWENjZmVsajlhZXR1L0RoZnQ2MDRvMURx?=
- =?utf-8?B?U3o1UTBaTnFuQW02QlJLZzNmSEpHNGtZZ0VwK0t0OXAxU0gvVy9JTWVlRmt3?=
- =?utf-8?B?MDl5bnczODE0SUZGTkxnSXpiRVZQZkFERFJQL21BR0UvRXpHWlVyRENXV2s0?=
- =?utf-8?B?WnhLa0NBYlc0bXV3M29rNlZFdldtQWtBOGZZVVZ6YnppdnR5RGlTak9wRndK?=
- =?utf-8?B?SWdMdUEvSE9SUThLWkpad2Y3OHg1OEVNeEJHWkVpM1JNb1FXaFZFMTR4c2Uy?=
- =?utf-8?B?ZWRsa1c3Z2V3cHgxYStpcjVLejk5bFNiN2hlLzVveFRvOUFwdExTeS9LVm9X?=
- =?utf-8?B?UDZHbGFpZmUvelhTVWJ3NkFVeVNZenJ4LzRFTlVRRThtckEyWlZaYTJUYUNB?=
- =?utf-8?B?V3dUUFlEdzRPTmhoblFGZVl2RWhjR2JaME9DRlNJZFZVVWxHYkRRd09nZFJV?=
- =?utf-8?Q?Vfdh80GlkiVJ1Y2wQddK5qHCYSH2iyUgfX?=
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 18:24:45.4362
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-Network-Message-Id: b436f201-7a63-4841-567f-08d8b0de0328
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e5ulJCQayZ4kQBs9pjxbc9LQ6jRV4D3Gw9h0A0lYvOac8e5+rSLol0/S6pHFGcIwWe7qvOgA+hawiUZJmq03gA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3065
-X-OriginatorOrg: citrix.com
+In-Reply-To: <eb7378cdbbdbff2548d510c453ede8baa917647f.camel@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 phishscore=0
+ suspectscore=0 spamscore=0 malwarescore=0 adultscore=0 bulkscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2101040120
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 spamscore=0 malwarescore=0
+ phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 suspectscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101040120
 
-On Mon, Jan 04, 2021 at 12:30:44PM +0100, Manuel Bouyer wrote:
-> On Tue, Dec 29, 2020 at 01:46:30PM +0100, Roger Pau Monné wrote:
-> > Also a little bit below these prototypes are the dummy implementations
-> > of osdep_xenforeignmemory_restrict,
-> > osdep_xenforeignmemory_map_resource and
-> > osdep_xenforeignmemory_unmap_resource. I think you at least need to
-> > modify the condition below so that on NetBSD the dummy inlines are not
-> > used?
-> 
-> This is !defined(__NetBSD__) so it should not be used ?
 
-Right, I think I somehow overlooked that part of the patch. You are
-indeed tweaking the define so it should be fine.
+On 1/4/21 12:32 PM, David Woodhouse wrote:
+> On Mon, 2021-01-04 at 12:06 -0500, boris.ostrovsky@oracle.com wrote:
+>>> @@ -115,7 +115,7 @@ PV_CALLEE_SAVE_REGS_THUNK(xen_vcpu_stolen);
+>>>   void __init xen_init_spinlocks(void)
+>>>   {
+>>>        /*  Don't need to use pvqspinlock code if there is only 1 vCPU. */
+>>> -     if (num_possible_cpus() == 1 || nopvspin)
+>>> +     if (num_possible_cpus() == 1 || nopvspin || !xen_have_vector_callback)
+>>
+>> xen_init_spinlock() will not be called without vector callbacks so
+>> this test is not really necessary.
+> Right, that's just paranoia to make the conditions consistent and safe.
 
-Thanks, Roger.
+
+OK, but we still need to do something about virt_spin_lock_key.
+
+
+-boris
+
 
