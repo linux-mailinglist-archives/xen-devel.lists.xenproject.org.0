@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CB0A2E9C10
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 18:33:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61432.108110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 945F12E9C11
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 18:33:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61436.108122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwTil-0003RN-Hs; Mon, 04 Jan 2021 17:32:43 +0000
+	id 1kwTjm-0003Yw-0d; Mon, 04 Jan 2021 17:33:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61432.108110; Mon, 04 Jan 2021 17:32:43 +0000
+Received: by outflank-mailman (output) from mailman id 61436.108122; Mon, 04 Jan 2021 17:33:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwTil-0003Qy-Df; Mon, 04 Jan 2021 17:32:43 +0000
-Received: by outflank-mailman (input) for mailman id 61432;
- Mon, 04 Jan 2021 17:32:42 +0000
+	id 1kwTjl-0003YX-Ta; Mon, 04 Jan 2021 17:33:45 +0000
+Received: by outflank-mailman (input) for mailman id 61436;
+ Mon, 04 Jan 2021 17:33:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u3qI=GH=merlin.srs.infradead.org=batv+18f79699eb9a94d65072+6343+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1kwTij-0003Qs-W1
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 17:32:42 +0000
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
+ <SRS0=N5j7=GH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kwTjj-0003YQ-Us
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 17:33:43 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 867916dd-0b80-423f-8eb8-dc7b10e580e1;
- Mon, 04 Jan 2021 17:32:39 +0000 (UTC)
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=u3832b3a9db3152.ant.amazon.com)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kwTia-0003dB-C6; Mon, 04 Jan 2021 17:32:32 +0000
+ id 3e7bb8a1-6020-41bc-93ad-df5a39a57afb;
+ Mon, 04 Jan 2021 17:33:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,156 +35,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 867916dd-0b80-423f-8eb8-dc7b10e580e1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=2ZRgfqY0pvtHH+cQ7WQG7GEgwcdRs4vo9U5LHhmF5gs=; b=oLqrHCeDTeMAtd/qC+mMJ/0+dJ
-	iWGJfzrqBtENiJRUrVwBmtFXfFNq6LO66Q95yi5bMUO+bh7QqLUHEjf9G0Qx0OqREKzZ7C4KurO6r
-	JtrW/Dy0FNNYPkoa12hKwOqW3eaE5zFaz3yMIK2eCWTEzFaYqTcWYO7DzLuWulFOp4qrPCSQeAfSC
-	2PCk61C2WaI488kB8b7eeT5cdS7XCVQ9Cr7AaRV3XUaG6Gl1cazNOLBeUTZ/H8k/sBQQQC6UfPite
-	s7xT7I6yTVDokXmjcYf7OOSXeA1cj5D/IeGqzzLOXnPu4hPW6P1g3DvibqGtdM0WRowEu3qYOHejI
-	bGIRmo7A==;
-Message-ID: <eb7378cdbbdbff2548d510c453ede8baa917647f.camel@infradead.org>
-Subject: Re: [PATCH 5/5] x86/xen: Don't register PV spinlock IPI when it
- isn't going to be used
-From: David Woodhouse <dwmw2@infradead.org>
-To: boris.ostrovsky@oracle.com, x86@kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>,  Paul Durrant <pdurrant@amazon.com>, jgrall@amazon.com,
- karahmed@amazon.de, xen-devel <xen-devel@lists.xenproject.org>
-Date: Mon, 04 Jan 2021 17:32:30 +0000
-In-Reply-To: <b6681a06-4c00-61a9-2112-63ee3eb8d86d@oracle.com>
-References: <20201224115323.3540130-1-dwmw2@infradead.org>
-	 <20201224115323.3540130-6-dwmw2@infradead.org>
-	 <b6681a06-4c00-61a9-2112-63ee3eb8d86d@oracle.com>
-Content-Type: multipart/signed; micalg="sha-256";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-oM5JPf1ImQxlJr/kZuAL"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by merlin.infradead.org. See http://www.infradead.org/rpr.html
+X-Inumbo-ID: 3e7bb8a1-6020-41bc-93ad-df5a39a57afb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1609781622;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=dkCEH15hgt0+2Fefsz2gURAatM71fgCDRHUmaichmYo=;
+  b=dIKoGjNn9I2hrS2MH55c7Of2Q/+gz+J9DK0yj2kMuQSyDc8b/5/8Rkf4
+   NiHjgrslnX55/39Sbxt0QiJHtAph5QIHgcljS9q6yPSGdku8SGPT+Up8k
+   g7mBiuz3Qsv9cLU9vzRcGSxWXxOumG7swFhWQzIno4i7B9etPUErdGLvz
+   A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 7lawoXKQzD8JgWo5ViCY2r+PbY9jYuvOJSpTBTmx9htVRY141iivN2XRcbFBW7TVfO/LLQiSAs
+ nvARSE1dQTmKTWbUzhf2t4x8H5TqWHppX9LGq6wui+NkJA7amxwjfY19Re+nEv2qjNEVonbI33
+ wQHfKyRekpqpVhJCkYgHNZFvwQxn3bty/c7OWOnB5D+5ndAICEmlu9NhXWNoztfRv2U+xxJyaz
+ 4IYakppk0Q73Aibw+bPOM5rm0Ni6oUhBpoHsem9Y7Hk0xRs0ubNaRkPQoMgDGSPgw/vlgwF5At
+ C5g=
+X-SBRS: 5.2
+X-MesageID: 34723003
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,474,1599537600"; 
+   d="scan'208";a="34723003"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SUMg5Ep0lbDD6u8dX1VmLq8rLZq1AMMS492EFIYzspnMBI3huTypDimBQ/1XVigLNn3AOResgjoMf/JrGa4kuoZgmK4EHZ46lF6Jh9V0eFXu0n48GC3LiUuv6D8ctBegdkglVnnk9G3UDjkqodn9jS849vgOTQWSuXlv9YLO5AACvAElNJ3jB3WTuJ8KPZNDvCo9zgT4x1Lf69zWx0WrpRs9wcf2JcodNc2oV8kPk6iB/DnZ95iqvzqhxnj2n94P0B9ohTJQ4aMmw3tW023ErSch2yBxIGQOWjJtvVWF3nB3cNnbGIBp0ZI3tPuvTtQ2PAQPsGTXbRUf8WXwbexkfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rau/qVNuqHf+E87QDYPfetCIub198Ef1Rc1cA0u1rTM=;
+ b=EcF/VrGU/a9QCPJz+H1C5Eqgz3XaJwjAifdbUf4zjMJrgIGSa2G5pTfz4j6uj+BDerE1tYGOm+RJwM2PI+R+paDh+R9wpNr9mQ1wUY9M0orSFkO0foqCFLUH70M1d2S09c6GYd7ekYbn4eGpUqa5Pg/m5SW1+k2fj81aaa0uarvbM4lzS6nhvVvW5aMPexurUV3K1mf5YZR1BrQ1hqiXSAqBv+iGZNxlLH6BAEfmeeBYvAHPMn9Y5EdRebtQnBLJlg4IahPJnxNrVZioBTJcrs1IfHCYUuZa4UxbtuC5h4xWlKDng9IlkmSTnuqFnRS4BGwfJ6Y9J4L1MxAf9y2cWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rau/qVNuqHf+E87QDYPfetCIub198Ef1Rc1cA0u1rTM=;
+ b=pEE76lBpgPECwfgx9mL5niP97liKye6J5dqUqmZZkC3wRbGgNSAnXvHY795fqCCC9Xg5YchRz9wdSPsD/0vJn+VVxL3OnEjVm6MwN68ehNk8MNe9ziEbpgxzr/iHZULRUdcyrO1i8+Ee0VpDiMJpY0kP96qnGjNtriPnGEzOLL4=
+Date: Mon, 4 Jan 2021 18:33:35 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] libs/devicemodel: fix test for DM_OP availability
+Message-ID: <20210104173335.h3kojpev4hol3xxp@Air-de-Roger>
+References: <20210104141202.71724-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20210104141202.71724-1-roger.pau@citrix.com>
+X-ClientProxiedBy: MR2P264CA0037.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::25)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ddbebd0f-50fe-4a5c-49a1-08d8b0d6dfd3
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5356:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB5356A76AD86F9C10A72A87538FD20@DM6PR03MB5356.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uHhlTNHGndlvzxEdNa2k6FYZlMdYpxXhQRFMR2oRI4N1TWyPQSD/1Mf6Z30+d9sO/iIQCrekWqwsGqIaP6PbZUjYbKXsDMrNdllAT12piRQ3/AmyLhStm/MLyhuAujx+gSBo2snE8EiKrtrezNY6JGq5WtJ52ThjFlx7IofzZK8Y9lKsmQZRda7PJAIhg590FeIxYQUFGnoD/I4NkubJts5FfxoIIzxmGOv/lJmkqm1b9llnme2Y1TUe0/waVzMbwXLwzbuSLpXf6uDRzw+lRf5+YzPmDwu1U49aoSKBhx8LMANciAVsvFtAHLC5QrNgJ9HIlC0xvFkDsKiZV9c57UAXc0+HjEviqjNOhojOmRaMLjH5qGmGlffNZu10UG6rQhyzWX/yV0cr1iQ2o0Gbjw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(39860400002)(366004)(396003)(136003)(376002)(346002)(478600001)(4326008)(6666004)(8676002)(33716001)(6486002)(9686003)(956004)(85182001)(316002)(54906003)(66556008)(5660300002)(1076003)(66476007)(86362001)(26005)(4744005)(6916009)(186003)(16526019)(6496006)(2906002)(66946007)(8936002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Tlc5MVIwdktEcUZVZFFRSTJUZ052Q1NKU3BUQStVUnNYdldwbDk0YVlKNlU0?=
+ =?utf-8?B?a1FDZ1JxN2dxakREWG11bTA0WFpyRVRmWWE5TmthbDc5NDM0dmk3dnJXL05V?=
+ =?utf-8?B?cXNZbENxWm9YeU1YQWQ3c09ndmVGZjFaM2UzSU81bjdDZXMyb2VXVUFsUmZx?=
+ =?utf-8?B?QXNNOHVjcGF5RjhEdERvL3JBUjdNWGJLcTJ6ZmJxV1VmVjVITDlDMkI1RUtV?=
+ =?utf-8?B?Y3R3NXVtdytjZFprRlNWNzVrU29LTmpuSmZBS09sTkkyM1Z2Nng5VFRYTGV6?=
+ =?utf-8?B?cy90YWNseGd1ZUcrdkE4VS96ZWxNU2FjQWNVSjJ1NCthL3lyVEROZjZsTFVS?=
+ =?utf-8?B?OWFKMk9pQnIyL1AvZm13OCtlaW95RGx6cjR6MGhza2cza1g0ZVZBRUhBellS?=
+ =?utf-8?B?YlAwZWRiZzF0MkNORUMxYmFxdnRUQVJSdmUvbXJHZE0wanRoaXRQNEErL0ZC?=
+ =?utf-8?B?SzVleFR3WUdYZldlci9ZU0JjR1JYaFZHQi9kdXV0MDI5eS9ySmFoeTlFU01u?=
+ =?utf-8?B?ZXpka0lsK0NBNjJubm9aWk5qeFV3WExkTVh4enhTS3AvbnZxaGlSYUttbEJP?=
+ =?utf-8?B?YXhBY0ZtQXpYZjJtSzBSSTBuS0UrbVhtMTZUaFNNRCt1SFlQN0hmak1ZMEV2?=
+ =?utf-8?B?VnlRSWdSeVVnZDNwVkN4TStYWjg4QVhrR0FzMVYrNitSbFJoSUdueEUxQXla?=
+ =?utf-8?B?Tks5NklNdHVSR216NnRjTFFhVXZBLzF4L3BpMmx2R1lMeWl1MktPMjNvUDFs?=
+ =?utf-8?B?V243azVqMXEyVXFKbGRkR3ZzRVp4S04rSnJweVJZakxuL1g1TjFibFFGdWRa?=
+ =?utf-8?B?WUNlb2ZSQWtadE16YkJaUDNqa3pSNDYvejZNZ29pWDMrelNQTlpFdWUvWDRK?=
+ =?utf-8?B?NW8vd01LMEtEOXNDL2t6WEdrcjQ3OXE3NjZvcU5UWHpucVJaNDRtWWpaY3Q5?=
+ =?utf-8?B?akhpck1adU8yVjBNb1g5UlB6VDZvOGQrOTJja3N3cFppSEx3Vm4vLzFXalFp?=
+ =?utf-8?B?dVZ0QWdhUTR6YUhkVmUyUGZjb0JGblRFdUJTeFdwREpjZHhLblNuQTVOVWV3?=
+ =?utf-8?B?dThBbXd1bVRveU82OVVDUk53bjVUUmk5UDBlRHlMS25QdFdhZlpRdmVUM25T?=
+ =?utf-8?B?cFNXS3hDYVlRR1MxcldkTGZyVUx6c2UyVWlROUladnVPZENEbXM4OG45YXdw?=
+ =?utf-8?B?a0Ntc2xlbytXRjRXWlBNditadVFPdlZtQmsyRjIzK0R4UXM4UWJQeHI3aUIv?=
+ =?utf-8?B?ZVFpdm1QRjFGalpQWU00dWt6czRuNWtFQk5VS2JadktyTFZncTRXdzgwWjF6?=
+ =?utf-8?Q?gOX8HazKrVBarrLWbtkPHuWa4iE6SGescp?=
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 17:33:39.7023
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddbebd0f-50fe-4a5c-49a1-08d8b0d6dfd3
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +/eD6SKVQGSiWEcH2xdnD3Z31h6irbQADdavRo//2Y26pYmL1dYs9FtJ8M+h7RL+KanycBkLSmT/zhjMudzlvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5356
+X-OriginatorOrg: citrix.com
 
+On Mon, Jan 04, 2021 at 03:12:02PM +0100, Roger Pau Monne wrote:
+> Current check for DM_OP availability in osdep_xendevicemodel_open will
+> always fail, because using DOMID_INVALID as the domain parameter will
+> make the hypervisor return -ESRCH, which will disable the usage of
+> the DOM_OP interface.
+> 
+> Fix this by checking the errno code of the test ioctl against
+> the privcmd unimplemented errno.
 
---=-oM5JPf1ImQxlJr/kZuAL
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Forget about this patch, it's my fault for not realizing Linux privcmd
+checks that the num is != 0 before issuing the hypercall.
 
-On Mon, 2021-01-04 at 12:06 -0500, boris.ostrovsky@oracle.com wrote:
-> > @@ -115,7 +115,7 @@ PV_CALLEE_SAVE_REGS_THUNK(xen_vcpu_stolen);
-> >   void __init xen_init_spinlocks(void)
-> >   {
-> >        /*  Don't need to use pvqspinlock code if there is only 1 vCPU. =
-*/
-> > -     if (num_possible_cpus() =3D=3D 1 || nopvspin)
-> > +     if (num_possible_cpus() =3D=3D 1 || nopvspin || !xen_have_vector_=
-callback)
->=20
->=20
-> xen_init_spinlock() will not be called without vector callbacks so
-> this test is not really necessary.
+Sorry for the noise.
 
-Right, that's just paranoia to make the conditions consistent and safe.
-
---=-oM5JPf1ImQxlJr/kZuAL
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCECow
-ggUcMIIEBKADAgECAhEA4rtJSHkq7AnpxKUY8ZlYZjANBgkqhkiG9w0BAQsFADCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMTkwMTAyMDAwMDAwWhcNMjIwMTAxMjM1
-OTU5WjAkMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZyYWRlYWQub3JnMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEAsv3wObLTCbUA7GJqKj9vHGf+Fa+tpkO+ZRVve9EpNsMsfXhvFpb8
-RgL8vD+L133wK6csYoDU7zKiAo92FMUWaY1Hy6HqvVr9oevfTV3xhB5rQO1RHJoAfkvhy+wpjo7Q
-cXuzkOpibq2YurVStHAiGqAOMGMXhcVGqPuGhcVcVzVUjsvEzAV9Po9K2rpZ52FE4rDkpDK1pBK+
-uOAyOkgIg/cD8Kugav5tyapydeWMZRJQH1vMQ6OVT24CyAn2yXm2NgTQMS1mpzStP2ioPtTnszIQ
-Ih7ASVzhV6csHb8Yrkx8mgllOyrt9Y2kWRRJFm/FPRNEurOeNV6lnYAXOymVJwIDAQABo4IB0zCC
-Ac8wHwYDVR0jBBgwFoAUgq9sjPjF/pZhfOgfPStxSF7Ei8AwHQYDVR0OBBYEFLfuNf820LvaT4AK
-xrGK3EKx1DE7MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUF
-BwMEBggrBgEFBQcDAjBGBgNVHSAEPzA9MDsGDCsGAQQBsjEBAgEDBTArMCkGCCsGAQUFBwIBFh1o
-dHRwczovL3NlY3VyZS5jb21vZG8ubmV0L0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3Js
-LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWls
-Q0EuY3JsMIGLBggrBgEFBQcBAQR/MH0wVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuY29tb2RvY2Eu
-Y29tL0NPTU9ET1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwJAYI
-KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAeBgNVHREEFzAVgRNkd213MkBpbmZy
-YWRlYWQub3JnMA0GCSqGSIb3DQEBCwUAA4IBAQALbSykFusvvVkSIWttcEeifOGGKs7Wx2f5f45b
-nv2ghcxK5URjUvCnJhg+soxOMoQLG6+nbhzzb2rLTdRVGbvjZH0fOOzq0LShq0EXsqnJbbuwJhK+
-PnBtqX5O23PMHutP1l88AtVN+Rb72oSvnD+dK6708JqqUx2MAFLMevrhJRXLjKb2Mm+/8XBpEw+B
-7DisN4TMlLB/d55WnT9UPNHmQ+3KFL7QrTO8hYExkU849g58Dn3Nw3oCbMUgny81ocrLlB2Z5fFG
-Qu1AdNiBA+kg/UxzyJZpFbKfCITd5yX49bOriL692aMVDyqUvh8fP+T99PqorH4cIJP6OxSTdxKM
-MIIFHDCCBASgAwIBAgIRAOK7SUh5KuwJ6cSlGPGZWGYwDQYJKoZIhvcNAQELBQAwgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTE5MDEwMjAwMDAwMFoXDTIyMDEwMTIz
-NTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBALL98Dmy0wm1AOxiaio/bxxn/hWvraZDvmUVb3vRKTbDLH14bxaW
-/EYC/Lw/i9d98CunLGKA1O8yogKPdhTFFmmNR8uh6r1a/aHr301d8YQea0DtURyaAH5L4cvsKY6O
-0HF7s5DqYm6tmLq1UrRwIhqgDjBjF4XFRqj7hoXFXFc1VI7LxMwFfT6PStq6WedhROKw5KQytaQS
-vrjgMjpICIP3A/CroGr+bcmqcnXljGUSUB9bzEOjlU9uAsgJ9sl5tjYE0DEtZqc0rT9oqD7U57My
-ECIewElc4VenLB2/GK5MfJoJZTsq7fWNpFkUSRZvxT0TRLqznjVepZ2AFzsplScCAwEAAaOCAdMw
-ggHPMB8GA1UdIwQYMBaAFIKvbIz4xf6WYXzoHz0rcUhexIvAMB0GA1UdDgQWBBS37jX/NtC72k+A
-CsaxitxCsdQxOzAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEF
-BQcDBAYIKwYBBQUHAwIwRgYDVR0gBD8wPTA7BgwrBgEEAbIxAQIBAwUwKzApBggrBgEFBQcCARYd
-aHR0cHM6Ly9zZWN1cmUuY29tb2RvLm5ldC9DUFMwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
-bC5jb21vZG9jYS5jb20vQ09NT0RPUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFp
-bENBLmNybDCBiwYIKwYBBQUHAQEEfzB9MFUGCCsGAQUFBzAChklodHRwOi8vY3J0LmNvbW9kb2Nh
-LmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3J0MCQG
-CCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAC20spBbrL71ZEiFrbXBHonzhhirO1sdn+X+O
-W579oIXMSuVEY1LwpyYYPrKMTjKECxuvp24c829qy03UVRm742R9Hzjs6tC0oatBF7KpyW27sCYS
-vj5wbal+TttzzB7rT9ZfPALVTfkW+9qEr5w/nSuu9PCaqlMdjABSzHr64SUVy4ym9jJvv/FwaRMP
-gew4rDeEzJSwf3eeVp0/VDzR5kPtyhS+0K0zvIWBMZFPOPYOfA59zcN6AmzFIJ8vNaHKy5QdmeXx
-RkLtQHTYgQPpIP1Mc8iWaRWynwiE3ecl+PWzq4i+vdmjFQ8qlL4fHz/k/fT6qKx+HCCT+jsUk3cS
-jDCCBeYwggPOoAMCAQICEGqb4Tg7/ytrnwHV2binUlYwDQYJKoZIhvcNAQEMBQAwgYUxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYDVQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRp
-b24gQXV0aG9yaXR5MB4XDTEzMDExMDAwMDAwMFoXDTI4MDEwOTIzNTk1OVowgZcxCzAJBgNVBAYT
-AkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNV
-BAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAvrOeV6wodnVAFsc4A5jTxhh2IVDzJXkLTLWg0X06WD6cpzEup/Y0dtmEatrQPTRI5Or1u6zf
-+bGBSyD9aH95dDSmeny1nxdlYCeXIoymMv6pQHJGNcIDpFDIMypVpVSRsivlJTRENf+RKwrB6vcf
-WlP8dSsE3Rfywq09N0ZfxcBa39V0wsGtkGWC+eQKiz4pBZYKjrc5NOpG9qrxpZxyb4o4yNNwTqza
-aPpGRqXB7IMjtf7tTmU2jqPMLxFNe1VXj9XB1rHvbRikw8lBoNoSWY66nJN/VCJv5ym6Q0mdCbDK
-CMPybTjoNCQuelc0IAaO4nLUXk0BOSxSxt8kCvsUtQIDAQABo4IBPDCCATgwHwYDVR0jBBgwFoAU
-u69+Aj36pvE8hI6t7jiY7NkyMtQwHQYDVR0OBBYEFIKvbIz4xf6WYXzoHz0rcUhexIvAMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQKMAgwBgYEVR0gADBMBgNVHR8E
-RTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9u
-QXV0aG9yaXR5LmNybDBxBggrBgEFBQcBAQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29t
-b2RvY2EuY29tL0NPTU9ET1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2Nz
-cC5jb21vZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAHhcsoEoNE887l9Wzp+XVuyPomsX9vP2
-SQgG1NgvNc3fQP7TcePo7EIMERoh42awGGsma65u/ITse2hKZHzT0CBxhuhb6txM1n/y78e/4ZOs
-0j8CGpfb+SJA3GaBQ+394k+z3ZByWPQedXLL1OdK8aRINTsjk/H5Ns77zwbjOKkDamxlpZ4TKSDM
-KVmU/PUWNMKSTvtlenlxBhh7ETrN543j/Q6qqgCWgWuMAXijnRglp9fyadqGOncjZjaaSOGTTFB+
-E2pvOUtY+hPebuPtTbq7vODqzCM6ryEhNhzf+enm0zlpXK7q332nXttNtjv7VFNYG+I31gnMrwfH
-M5tdhYF/8v5UY5g2xANPECTQdu9vWPoqNSGDt87b3gXb1AiGGaI06vzgkejL580ul+9hz9D0S0U4
-jkhJiA7EuTecP/CFtR72uYRBcunwwH3fciPjviDDAI9SnC/2aPY8ydehzuZutLbZdRJ5PDEJM/1t
-yZR2niOYihZ+FCbtf3D9mB12D4ln9icgc7CwaxpNSCPt8i/GqK2HsOgkL3VYnwtx7cJUmpvVdZ4o
-gnzgXtgtdk3ShrtOS1iAN2ZBXFiRmjVzmehoMof06r1xub+85hFQzVxZx5/bRaTKTlL8YXLI8nAb
-R9HWdFqzcOoB/hxfEyIQpx9/s81rgzdEZOofSlZHynoSMYIDyjCCA8YCAQEwga0wgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
-ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjEw
-MTA0MTczMjMwWjAvBgkqhkiG9w0BCQQxIgQgZECnqu7itVNGG3mHl2H02WoJ1z1bbw+SAoepxu2k
-eQgwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
-TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
-PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBALAQWCwYzOezCDMPaa51o4a+qD0aqkUrX7KWRrqMMwA/cgOl6pkyr7DGPVWvUObY
-hDEMc5vUX7NNaK9DemSqe+pKUulhPcejJp+R93VPQy9VI0nnVOoK0+lIGF8XG+9PKdnB5O3D+fem
-qHeWEJkHLqyan7ld2G8TZiqCoHjIC8MWR5IsdaZIIkBHiwV5oId36cvof6pTGoE8YnQ8SomWStsi
-3KQZdRrvGJok1uEbgK6R3SSc13lUtZwQTjjXl/0MkCP8EMWYNMCkS6Dq7cBrIMlT+vWkAcFOGED7
-DlC1BoMlZ5Fjt/BKfa8PJSsxDDwFZkUU6Z6gwiEToaLhEfOnK2gAAAAAAAA=
-
-
---=-oM5JPf1ImQxlJr/kZuAL--
-
+Roger.
 
