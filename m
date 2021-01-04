@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 736F82E9584
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 14:05:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61174.107392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3F0B2E95B0
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 14:17:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61180.107411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwPXH-000795-BN; Mon, 04 Jan 2021 13:04:35 +0000
+	id 1kwPje-00089L-Kq; Mon, 04 Jan 2021 13:17:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61174.107392; Mon, 04 Jan 2021 13:04:35 +0000
+Received: by outflank-mailman (output) from mailman id 61180.107411; Mon, 04 Jan 2021 13:17:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwPXH-00078g-7z; Mon, 04 Jan 2021 13:04:35 +0000
-Received: by outflank-mailman (input) for mailman id 61174;
- Mon, 04 Jan 2021 13:04:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+rg9=GH=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kwPXF-00078b-WC
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 13:04:34 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5aa65db0-209e-4c8a-a25c-58123592809d;
- Mon, 04 Jan 2021 13:04:32 +0000 (UTC)
+	id 1kwPje-00088r-Fp; Mon, 04 Jan 2021 13:17:22 +0000
+Received: by outflank-mailman (input) for mailman id 61180;
+ Mon, 04 Jan 2021 13:17:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwPjd-00088j-9s; Mon, 04 Jan 2021 13:17:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwPjd-0001fj-4f; Mon, 04 Jan 2021 13:17:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwPjc-0003Sd-R2; Mon, 04 Jan 2021 13:17:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwPjc-0004cy-QV; Mon, 04 Jan 2021 13:17:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,77 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5aa65db0-209e-4c8a-a25c-58123592809d
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1609765472;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=CND6jxnJaYJv5nt2FSw1L9xfW1pSToBJX9byiRnGst4=;
-  b=D+zJj6hbvHSyxUAsxrOVi3xae5kyAYfK1UGQU3WSv+/Cr2a0VUtGOqwx
-   FOS7gQggg0W2voewkvyILhmqp2Kl//txRDJnkB1ASgmR+Voc1GLvy8rBO
-   Rur6obsgzROaJN87f4v5NznDCuK/KCnlGDPqJn63VoYhI1gtCq1jdISot
-   Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: cxRPBf6yUiLaslgfwlA1emDKk2PbaHa7wOMglopootDNRF776uPwBOTJ4pQA1/GBxVZ4EeGX0d
- JZaMjnbRFiGfRoLabtrsSG76votc2wrE4yujRumyuXPnikD6Ykek/0Vf7fCY90QN2gwtfsJ9Su
- TX+/qxByGy6Q1SocZP7nmqBT/vpg9mkqDxXy84p9VUobc7XQkzvmo/yH2t+4kLLoCSq/cgI7/v
- 0fCIhQpaXzlNnu2U4mG3KoOCqh0NxbKdKOLWv57K4n/WeFMg8c2mdm1EZPe1REn6YLvusp4mZG
- yR8=
-X-SBRS: 5.2
-X-MesageID: 34334461
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.78,474,1599537600"; 
-   d="scan'208";a="34334461"
-Subject: Re: [PATCH] x86/monitor: add option to disable Xen's pagetable
- walking on events
-To: Tamas K Lengyel <tamas@tklengyel.com>, <xen-devel@lists.xenproject.org>
-CC: Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu
-	<ppircalabu@bitdefender.com>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <992f16e8331363f4bc1eef49763810948ad5fff2.1609700210.git.tamas@tklengyel.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <fb8bea63-665e-f230-ef39-25f53c8ba0be@citrix.com>
-Date: Mon, 4 Jan 2021 13:04:18 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <992f16e8331363f4bc1eef49763810948ad5fff2.1609700210.git.tamas@tklengyel.com>
-Content-Type: text/plain; charset="utf-8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=wNhzedL1Z1p8CVCnoXh1R1vVcAoJ7XGCNp093WOVfMA=; b=o48bvquTAiFbJYdTjr2E7o88gU
+	v/JHSlcd8Svhyz9iV8upNKNsc7fw6j9TZJCc70E12qMlPljdfoW0Rywd1m/9RISKhEmeSYZYtKkko
+	YBwcGZNzMD9rBpF5tz8pJjJ2QtanakDWqdd0HNwlgL1rHq7n693rjURYdowuHPtNxtUM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158125-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- FTLPEX02CL03.citrite.net (10.13.108.165)
+MIME-Version: 1.0
+Subject: [ovmf test] 158125: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=0785c619a58a450091d2bf6755591012533b80b8
+X-Osstest-Versions-That:
+    ovmf=140674a4601f804302e79d08cb06f91c882ddf28
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 04 Jan 2021 13:17:20 +0000
 
-On 03/01/2021 19:01, Tamas K Lengyel wrote:
-> Add option to the monitor interface to disable walking of the guest pagetable
-> on certain events. This is a performance optimization for tools that never
-> require that information or prefer to do it themselves. For example LibVMI
-> maintains a virtual TLB which is faster to lookup then what Xen does here.
+flight 158125 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158125/
 
-There is no plausible way that a remote agent can do this (correctly)
-faster than Xen can.  Even if you foreign map the entire VM up front,
-and track every PTE write (to maintain the vTLB properly), the best you
-can achieve is the same speed as Xen, but that would also require
-intercepting the TLB management instructions which isn't available in
-the monitor API.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 0785c619a58a450091d2bf6755591012533b80b8
+baseline version:
+ ovmf                 140674a4601f804302e79d08cb06f91c882ddf28
 
-Also, there is an important side effect of setting A/D bits which libVMI
-doesn't handle, but is relevant for gla-not-valid faults.
+Last test of basis   157875  2020-12-24 14:39:42 Z   10 days
+Testing same since   158121  2021-01-04 08:39:43 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Heng Luo <heng.luo@intel.com>
+  Luo, Heng <heng.luo@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-I accept that "not doing things the agent doesn't care about" is a valid
-reason, but this isn't the only place where a pagewalk occurs, and some
-cases require pagewalks before we can even generate the event (e.g. LMSW
-on AMD for CR0 monitoring).
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-As such, I don't think "disable pagewalks" is something we can actually
-do.  Wouldn't it be better to call this "auto translate rip to gfn" or
-similar, seeing as it is ancillary information?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-~Andrew
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   140674a460..0785c619a5  0785c619a58a450091d2bf6755591012533b80b8 -> xen-tested-master
 
