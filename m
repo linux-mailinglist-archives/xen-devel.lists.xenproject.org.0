@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D05C2E9B17
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:33:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61359.107894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5155B2E9B20
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:35:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61363.107906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwSml-0004gA-GL; Mon, 04 Jan 2021 16:32:47 +0000
+	id 1kwSpC-0004oE-U8; Mon, 04 Jan 2021 16:35:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61359.107894; Mon, 04 Jan 2021 16:32:47 +0000
+Received: by outflank-mailman (output) from mailman id 61363.107906; Mon, 04 Jan 2021 16:35:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwSml-0004fl-D7; Mon, 04 Jan 2021 16:32:47 +0000
-Received: by outflank-mailman (input) for mailman id 61359;
- Mon, 04 Jan 2021 16:32:46 +0000
+	id 1kwSpC-0004np-R2; Mon, 04 Jan 2021 16:35:18 +0000
+Received: by outflank-mailman (input) for mailman id 61363;
+ Mon, 04 Jan 2021 16:35:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=25yB=GH=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
- id 1kwSmk-0004fg-8Q
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:32:46 +0000
-Received: from MTA-13-3.privateemail.com (unknown [198.54.118.204])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=e1rq=GH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kwSpB-0004nk-Lm
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:35:17 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 50b1247c-a038-4289-b22d-0da2662921a7;
- Mon, 04 Jan 2021 16:32:44 +0000 (UTC)
-Received: from mta-13.privateemail.com (localhost [127.0.0.1])
- by mta-13.privateemail.com (Postfix) with ESMTP id 5B9C58007D
- for <xen-devel@lists.xenproject.org>; Mon,  4 Jan 2021 11:32:43 -0500 (EST)
-Received: from mail-wr1-f50.google.com (unknown [10.20.151.202])
- by mta-13.privateemail.com (Postfix) with ESMTPA id 23F8F800A4
- for <xen-devel@lists.xenproject.org>; Mon,  4 Jan 2021 16:32:43 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id 91so32782649wrj.7
- for <xen-devel@lists.xenproject.org>; Mon, 04 Jan 2021 08:32:43 -0800 (PST)
+ id 7720006b-af6a-4ac8-af29-414bd9d83edd;
+ Mon, 04 Jan 2021 16:35:16 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4876EAE63;
+ Mon,  4 Jan 2021 16:35:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50b1247c-a038-4289-b22d-0da2662921a7
-X-Gm-Message-State: AOAM531l+yssgi2e2LRUQOq+sVZxPHn80TlsKy/MezwhC9lObBZmDGY8
-	NnRRwoDeo9hG1SYcDnOTq2J6DGzZsKtKDq3JGVQ=
-X-Google-Smtp-Source: ABdhPJzeYU0nqGZRZd6mklGvsMCatElqJM+cPF9B1FVBlppc/x6uBRm2yVEcYAWTr1Rv8kQ1akJ1+yh7agVSpnMo1hg=
-X-Received: by 2002:a5d:68ce:: with SMTP id p14mr80057947wrw.386.1609777961732;
- Mon, 04 Jan 2021 08:32:41 -0800 (PST)
+X-Inumbo-ID: 7720006b-af6a-4ac8-af29-414bd9d83edd
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1609778115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=76TcmsviJqQ8Ltgx9VCPL+P9wTomxStRQa2Rg+vOQ5I=;
+	b=hzc9FVKkMTSqmtYjK2xGZ5YIFCMvrzxCnkIz1rDqeTvbSvO+62mXhHfK6dto6kxfljutDJ
+	9SSxLpkPBpps5+5unEyT4787N14tjbNcYqOBA0y0H2F7sRfFOROHolgx/ms/6d7SC5E5pF
+	KkOgtYTXll8ZiecoUtV6ShDQ4PqcUeQ=
+Subject: Re: [PATCH 1/5] x86/vPCI: tolerate (un)masking a disabled MSI-X entry
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Manuel Bouyer <bouyer@antioche.eu.org>
+References: <f93efb14-f088-ca84-7d0a-f1b53ff6316c@suse.com>
+ <fef14892-f21d-e304-d9b1-7484e0ea3415@suse.com>
+ <20201228182407.5ntx7qppe4vu7fvu@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <255866b7-8bc1-6bdc-2188-e772a3b9fa7e@suse.com>
+Date: Mon, 4 Jan 2021 17:35:23 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-References: <20210103184117.57692-1-tamas@tklengyel.com> <6a1d7087-5ae2-6a70-bee5-fdf521310d3d@citrix.com>
- <CABfawhmBM7nFCVm_61xJ9u5VpKaeGKoBm2i56NiqMMMoG2bVmQ@mail.gmail.com> <43da1c6d-3c33-59dc-a235-383192c8062b@suse.com>
-In-Reply-To: <43da1c6d-3c33-59dc-a235-383192c8062b@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 4 Jan 2021 11:32:05 -0500
-X-Gmail-Original-Message-ID: <CABfawhk1s-U7JjPUt0BKcjUafxemRtVnnr2xGM4sWTTTfbZUqA@mail.gmail.com>
-Message-ID: <CABfawhk1s-U7JjPUt0BKcjUafxemRtVnnr2xGM4sWTTTfbZUqA@mail.gmail.com>
-Subject: Re: [PATCH] x86/vm_event: transfer nested p2m base info
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Alexandru Isaila <aisaila@bitdefender.com>, 
-	Petre Pircalabu <ppircalabu@bitdefender.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Virus-Scanned: ClamAV using ClamSMTP
+In-Reply-To: <20201228182407.5ntx7qppe4vu7fvu@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jan 4, 2021 at 11:21 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 04.01.2021 14:28, Tamas K Lengyel wrote:
-> > On Mon, Jan 4, 2021 at 6:57 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
-> >>
-> >> On 03/01/2021 18:41, Tamas K Lengyel wrote:
-> >>> Required to introspect events originating from nested VMs.
-> >>>
-> >>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
-> >>> ---
-> >>>  xen/arch/x86/hvm/monitor.c    | 32 ++++++++++++++++++++++++++++++--
-> >>>  xen/include/public/vm_event.h |  7 ++++++-
-> >>>  2 files changed, 36 insertions(+), 3 deletions(-)
-> >>>
-> >>> diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
-> >>> index e4a09964a0..eb4afe81b3 100644
-> >>> --- a/xen/arch/x86/hvm/monitor.c
-> >>> +++ b/xen/arch/x86/hvm/monitor.c
-> >>> @@ -26,6 +26,7 @@
-> >>>  #include <xen/mem_access.h>
-> >>>  #include <xen/monitor.h>
-> >>>  #include <asm/hvm/monitor.h>
-> >>> +#include <asm/hvm/nestedhvm.h>
-> >>>  #include <asm/altp2m.h>
-> >>>  #include <asm/monitor.h>
-> >>>  #include <asm/p2m.h>
-> >>> @@ -33,6 +34,15 @@
-> >>>  #include <asm/vm_event.h>
-> >>>  #include <public/vm_event.h>
-> >>>
-> >>> +static inline void set_npt_base(struct vcpu *curr, vm_event_request_t *req)
-> >>
-> >> No need for inline here.  Can fix on commit.
-> >>
-> >>> diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
-> >>> index fdd3ad8a30..8415bc7618 100644
-> >>> --- a/xen/include/public/vm_event.h
-> >>> +++ b/xen/include/public/vm_event.h
-> >>> @@ -208,6 +212,7 @@ struct vm_event_regs_x86 {
-> >>>      uint64_t msr_star;
-> >>>      uint64_t msr_lstar;
-> >>>      uint64_t gdtr_base;
-> >>> +    uint64_t npt_base;
-> >>
-> >> This needs enough description to actually use it correctly.
-> >>
-> >> /* Guest physical address.  On Intel hardware, this is the EPT_POINTER
-> >> field from the L1 hypervisors VMCS, including all architecturally
-> >> defined metadata. */
-> >>
-> >> Except, its not.  nvmx_vcpu_eptp_base() masks out the lower metadata, so
-> >> the walk length is missing, and the introspection agent can't
-> >> distinguish between 4 and 5 level EPT.  Same on the AMD side (except it
-> >> could be any paging mode, including 2 and 3 level).
-> >
-> > AMD is AFAIK not supported for vm_events. Also, only 4L EPT is
-> > available at this time, so that information is irrelevant anyway.
->
-> I suppose we should try to avoid having to change the interface
-> again to allow going from "implied 4-level" to "4- or 5-level",
-> so I'm with Andrew that this information wants providing even if
-> there's going to be only a single value at this time (but you
-> wouldn't store a literal number anyway, but instead use the walk
-> length associated with the base, so no change to the producer of
-> the code would be needed once 5-level walks become an option).
+On 28.12.2020 19:24, Roger Pau Monné wrote:
+> On Mon, Dec 07, 2020 at 11:36:38AM +0100, Jan Beulich wrote:
+>> None of the four reasons causing vpci_msix_arch_mask_entry() to get
+>> called (there's just a single call site) are impossible or illegal prior
+>> to an entry actually having got set up:
+>> - the entry may remain masked (in this case, however, a prior masked ->
+>>   unmasked transition would already not have worked),
+>> - MSI-X may not be enabled,
+>> - the global mask bit may be set,
+>> - the entry may not otherwise have been updated.
+>> Hence the function asserting that the entry was previously set up was
+>> simply wrong. Since the caller tracks the masked state (and setting up
+>> of an entry would only be effected when that software bit is clear),
+>> it's okay to skip both masking and unmasking requests in this case.
+> 
+> On the original approach I just added this because I convinced myself
+> that scenario was impossible. I think we could also do:
+> 
+> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+> index 64dd0a929c..509cf3962c 100644
+> --- a/xen/drivers/vpci/msix.c
+> +++ b/xen/drivers/vpci/msix.c
+> @@ -357,7 +357,11 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
+>           * so that it picks the new state.
+>           */
+>          entry->masked = new_masked;
+> -        if ( !new_masked && msix->enabled && !msix->masked && entry->updated )
+> +
+> +        if ( !msix->enabled )
+> +            break;
+> +
+> +        if ( !new_masked && !msix->masked && entry->updated )
+>          {
+>              /*
+>               * If MSI-X is enabled, the function mask is not active, the entry
+> @@ -470,6 +474,7 @@ static int init_msix(struct pci_dev *pdev)
+>      for ( i = 0; i < pdev->vpci->msix->max_entries; i++)
+>      {
+>          pdev->vpci->msix->entries[i].masked = true;
+> +        pdev->vpci->msix->entries[i].updated = true;
+>          vpci_msix_arch_init_entry(&pdev->vpci->msix->entries[i]);
+>      }
+> 
+> In order to solve the issue.
+> 
+> As pointed out in another patch, regardless of what we end up doing
+> with the issue at hand we might have to consider setting updated to
+> true in init_msix in case we want to somehow support enabling an entry
+> that has it's address and data fields set to 0.
 
-Once 5-level paging is supported a new flag can be added that will
-distinguish the tables, for example VM_EVENT_FLAG_NESTED_P2M_5L, if
-necessary. So at this time I don't think we really need to do anything
-different. If you prefer to change the current flag's name to say _4L,
-sure, that's cosmetic.
+Yes, but I view this as an orthogonal aspect to consider (down
+the road).
 
-Tamas
+>> Fixes: d6281be9d0145 ('vpci/msix: add MSI-X handlers')
+>> Reported-by: Manuel Bouyer <bouyer@antioche.eu.org>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks.
+
+> Manuel, can we get confirmation that this fixes your issue?
+
+I'll give it some time before committing for him to confirm,
+but I guess I'd like to time out by the end of the week.
+
+Jan
 
