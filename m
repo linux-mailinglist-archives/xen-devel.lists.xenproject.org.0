@@ -2,32 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D73F72EA09F
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 00:20:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61669.108557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 647722EA108
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 00:45:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61673.108569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwZ8D-0004ZV-TR; Mon, 04 Jan 2021 23:19:21 +0000
+	id 1kwZXF-00079e-1B; Mon, 04 Jan 2021 23:45:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61669.108557; Mon, 04 Jan 2021 23:19:21 +0000
+Received: by outflank-mailman (output) from mailman id 61673.108569; Mon, 04 Jan 2021 23:45:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwZ8D-0004Z6-Q1; Mon, 04 Jan 2021 23:19:21 +0000
-Received: by outflank-mailman (input) for mailman id 61669;
- Mon, 04 Jan 2021 23:19:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kwZXE-00079H-UA; Mon, 04 Jan 2021 23:45:12 +0000
+Received: by outflank-mailman (input) for mailman id 61673;
+ Mon, 04 Jan 2021 23:45:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u3qI=GH=merlin.srs.infradead.org=batv+18f79699eb9a94d65072+6343+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1kwZ8B-0004Z1-Ih
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 23:19:20 +0000
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0c963155-988b-429a-9cf1-aec40c0f61e8;
- Mon, 04 Jan 2021 23:19:14 +0000 (UTC)
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=u3832b3a9db3152.ant.amazon.com)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kwZ7x-00041h-Uw; Mon, 04 Jan 2021 23:19:06 +0000
+ <SRS0=yCAg=GH=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kwZXD-00079C-Tt
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 23:45:11 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d1d194cd-0bc9-4a72-bf4e-2e0890cbd77c;
+ Mon, 04 Jan 2021 23:45:10 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104NXKbp058802;
+ Mon, 4 Jan 2021 23:45:03 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 35tg8qxneh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 04 Jan 2021 23:45:02 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104NfU5r191740;
+ Mon, 4 Jan 2021 23:45:02 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 35v4rarr83-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 04 Jan 2021 23:45:01 +0000
+Received: from abhmp0014.oracle.com (abhmp0014.oracle.com [141.146.116.20])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 104NixSs011067;
+ Mon, 4 Jan 2021 23:44:59 GMT
+Received: from [10.39.231.107] (/10.39.231.107)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 04 Jan 2021 23:44:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,228 +56,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c963155-988b-429a-9cf1-aec40c0f61e8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=i/Czqh9lsw91/J+nXqbMpgVOGZFLacS8Sg/CFT8pq0g=; b=jCYa+mfcoxY9+rCqnQw6DWZ7tb
-	LiKRTu5XH9YQXaEptFmXNCQPMZeBS59dV1bE/Tl3LaEiIjuNofq+B9v76NsDRIKf1W/p1ymHFQGxS
-	LyAoFwBtI+ebaVpDScLYP/yDjY+jiU+lMmXQ7q3ZxTfgKDm6Yhn9uWcFr0lXtgp8NWdBmyJX7QZ04
-	Hs+/S1HOFg2Ec0pijpHZX0d0XfUrHj1jCakqU9hg6b997XK8kV0I+1F1jTBKo4/h9WpOYd/TAeY9j
-	PvDg01IgpoBiTpKwHD87SUPm6Q5CSi6pql9yYhfOEWC+ZjOVlF2caw7AaLPG/CmzxEQRi3s72uFnE
-	ITD5L1cQ==;
-Message-ID: <8a61ecbf527f1402ea19f0d1910f0af651b11229.camel@infradead.org>
-Subject: Re: [PATCH 5/5] x86/xen: Don't register PV spinlock IPI when it
- isn't going to be used
-From: David Woodhouse <dwmw2@infradead.org>
-To: boris.ostrovsky@oracle.com, x86@kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>,  Paul Durrant <pdurrant@amazon.com>, jgrall@amazon.com,
- karahmed@amazon.de, xen-devel <xen-devel@lists.xenproject.org>
-Date: Mon, 04 Jan 2021 23:19:02 +0000
-In-Reply-To: <3c27abbb-2f1d-2641-51c6-2f6bdbcf559b@oracle.com>
+X-Inumbo-ID: d1d194cd-0bc9-4a72-bf4e-2e0890cbd77c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=/PQG8chkDvNe7p+iJ2IRqk9zr3HWvNOw8RmqZf0x53g=;
+ b=ew74IVbUbZJmgDpyPHrM8rIph4FdgrZv6er1Y8HBHzcltlFPLIto42hmfoty0fZk8oQA
+ KqGV+i4HFsjN5s5dQ2LjYSb6bVGyCPIo738Ua8kVm8rWyvDXBAdDpgmjz9hEGRxm6D1g
+ BMkxZ1rJ1solBE9qOOKfwNyq8nnxp1ntdQxHVceg4CP5IwHZ3BlT9SY4WewOztwOGNfS
+ I/+SOSfaCP2Y6SLwCtTb0+DT5PjHZIZalCBsYTDO0SJksQTjFsrK4GNbqeUogwHOCJF8
+ 0EbipIbwrU4RugeNP60mylx+dhUxiGSzyYEX+H7CYUyEKvsuDrf7/Ti0NCGRywZZDHOq EQ== 
+Subject: Re: [PATCH 5/5] x86/xen: Don't register PV spinlock IPI when it isn't
+ going to be used
+To: David Woodhouse <dwmw2@infradead.org>, x86@kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        Juergen Gross <jgross@suse.com>, Paul Durrant <pdurrant@amazon.com>,
+        jgrall@amazon.com, karahmed@amazon.de,
+        xen-devel <xen-devel@lists.xenproject.org>
 References: <20201224115323.3540130-1-dwmw2@infradead.org>
-	 <20201224115323.3540130-6-dwmw2@infradead.org>
-	 <b6681a06-4c00-61a9-2112-63ee3eb8d86d@oracle.com>
-	 <eb7378cdbbdbff2548d510c453ede8baa917647f.camel@infradead.org>
-	 <f681dfe6-d0fb-e451-a58f-ad5cafa1cd62@oracle.com>
-	 <706a569a1321deafb3ae7a4e8d569fb6f2291f50.camel@infradead.org>
-	 <ea05c086-3b0c-0deb-c4c6-08a25beecb38@oracle.com>
-	 <6a032d2ff0d52ee19b2a88ac6813e25c6efc3733.camel@infradead.org>
-	 <3c27abbb-2f1d-2641-51c6-2f6bdbcf559b@oracle.com>
-Content-Type: multipart/signed; micalg="sha-256";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-hbtpRVe1Fk27bjPaFcXg"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by merlin.infradead.org. See http://www.infradead.org/rpr.html
+ <20201224115323.3540130-6-dwmw2@infradead.org>
+ <b6681a06-4c00-61a9-2112-63ee3eb8d86d@oracle.com>
+ <eb7378cdbbdbff2548d510c453ede8baa917647f.camel@infradead.org>
+ <f681dfe6-d0fb-e451-a58f-ad5cafa1cd62@oracle.com>
+ <706a569a1321deafb3ae7a4e8d569fb6f2291f50.camel@infradead.org>
+ <ea05c086-3b0c-0deb-c4c6-08a25beecb38@oracle.com>
+ <6a032d2ff0d52ee19b2a88ac6813e25c6efc3733.camel@infradead.org>
+ <3c27abbb-2f1d-2641-51c6-2f6bdbcf559b@oracle.com>
+ <8a61ecbf527f1402ea19f0d1910f0af651b11229.camel@infradead.org>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <1cf261fd-0062-8bc5-c3de-53b281accb82@oracle.com>
+Date: Mon, 4 Jan 2021 18:44:57 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
+MIME-Version: 1.0
+In-Reply-To: <8a61ecbf527f1402ea19f0d1910f0af651b11229.camel@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 mlxscore=0 bulkscore=0
+ suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101040143
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015 phishscore=0 bulkscore=0
+ spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
+ mlxscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101040143
 
 
---=-hbtpRVe1Fk27bjPaFcXg
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2021-01-04 at 18:04 -0500, boris.ostrovsky@oracle.com wrote:
-> On 1/4/21 5:37 PM, David Woodhouse wrote:
-> >=20
-> > @@ -33,9 +33,11 @@ static void __init
-> > xen_hvm_smp_prepare_cpus(unsigned int max_cpus)
-> >  	int cpu;
-> > =20
-> >  	native_smp_prepare_cpus(max_cpus);
-> > -	WARN_ON(xen_smp_intr_init(0));
-> > =20
-> > -	xen_init_lock_cpu(0);
-> > +	if (xen_have_vector_callback) {
-> > +		WARN_ON(xen_smp_intr_init(0));
-> > +		xen_init_lock_cpu(0);
->=20
->=20
-> By now you have nopvspin set so you might as well leave
-> xen_init_lock_cpu(0) as is. (and then move the check inside
-> xen_smp_intr_init())
-
-I originally started doing it that way but PV guests use
-xen_smp_intr_init() too, and want it to work even if nopvspin is set.
-And don't set xen_have_vector_callback.
-
-So the condition would need to be xen_pv_domain() ||
-xen_have_vector_callback... or something like that. Or I could keep it
-simple by keeping the new condition purely in the HVM code path, as I
-did.
-
->=20
-> > +	}
-> > =20
-> >  	for_each_possible_cpu(cpu) {
-> >  		if (cpu =3D=3D 0)
-> > @@ -64,14 +66,17 @@ static void xen_hvm_cpu_die(unsigned int cpu)
-> > =20
-> >  void __init xen_hvm_smp_init(void)
-> >  {
-> > -	if (!xen_have_vector_callback)
-> > +	smp_ops.smp_prepare_boot_cpu =3D xen_hvm_smp_prepare_boot_cpu;
-> > +	smp_ops.smp_prepare_cpus =3D xen_hvm_smp_prepare_cpus;
-> > +	smp_ops.smp_cpus_done =3D xen_smp_cpus_done;
-> > +
-> > +	if (!xen_have_vector_callback) {
-> > +		nopvspin =3D true;
-> >  		return;
-> > +	}
-> > =20
-> > -	smp_ops.smp_prepare_cpus =3D xen_hvm_smp_prepare_cpus;
-> >  	smp_ops.smp_send_reschedule =3D xen_smp_send_reschedule;
-> >  	smp_ops.cpu_die =3D xen_hvm_cpu_die;
->=20
->=20
-> Why not xen_hvm_cpu_die too? common_cpu_die() sounds like something
-> we should do, and the other three we call there will be nops.
-
-native_cpu_die() calls that, and isn't that the function that gets
-installed if we don't install our own?
-
->=20
-> >  	smp_ops.send_call_func_ipi =3D xen_smp_send_call_function_ipi;
-> >  	smp_ops.send_call_func_single_ipi =3D xen_smp_send_call_function_sing=
-le_ipi;
-> > -	smp_ops.smp_prepare_boot_cpu =3D xen_hvm_smp_prepare_boot_cpu;
-> > -	smp_ops.smp_cpus_done =3D xen_smp_cpus_done;
-> >  }
-> >=20
-> > > Also, for the spinlock changes specifically --- I wonder whether it
-> > > would be better to reverse initial value of xen_pvspin and set it to
-> > > 'true' only if initialization succeeds.
-> >=20
-> > I looked at that but it would need to be tristate, since the
-> > 'xen_nopvspin' command line option clears it from its default of being
-> > enabled.
->=20
->=20
-> Ah, right. How about setting nopvspin in xen_parse_nopvspin()?
-
-That would make the xen_nopvspin command line option disable PV
-spinlocks even under KVM.
+On 1/4/21 6:19 PM, David Woodhouse wrote:
+> On Mon, 2021-01-04 at 18:04 -0500, boris.ostrovsky@oracle.com wrote:
+>> On 1/4/21 5:37 PM, David Woodhouse wrote:
+>>> @@ -33,9 +33,11 @@ static void __init
+>>> xen_hvm_smp_prepare_cpus(unsigned int max_cpus)
+>>>  	int cpu;
+>>>  
+>>>  	native_smp_prepare_cpus(max_cpus);
+>>> -	WARN_ON(xen_smp_intr_init(0));
+>>>  
+>>> -	xen_init_lock_cpu(0);
+>>> +	if (xen_have_vector_callback) {
+>>> +		WARN_ON(xen_smp_intr_init(0));
+>>> +		xen_init_lock_cpu(0);
+>>
+>> By now you have nopvspin set so you might as well leave
+>> xen_init_lock_cpu(0) as is. (and then move the check inside
+>> xen_smp_intr_init())
+> I originally started doing it that way but PV guests use
+> xen_smp_intr_init() too, and want it to work even if nopvspin is set.
+> And don't set xen_have_vector_callback.
+>
+> So the condition would need to be xen_pv_domain() ||
+> xen_have_vector_callback... or something like that. Or I could keep it
+> simple by keeping the new condition purely in the HVM code path, as I
+> did.
 
 
---=-hbtpRVe1Fk27bjPaFcXg
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCECow
-ggUcMIIEBKADAgECAhEA4rtJSHkq7AnpxKUY8ZlYZjANBgkqhkiG9w0BAQsFADCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMTkwMTAyMDAwMDAwWhcNMjIwMTAxMjM1
-OTU5WjAkMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZyYWRlYWQub3JnMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEAsv3wObLTCbUA7GJqKj9vHGf+Fa+tpkO+ZRVve9EpNsMsfXhvFpb8
-RgL8vD+L133wK6csYoDU7zKiAo92FMUWaY1Hy6HqvVr9oevfTV3xhB5rQO1RHJoAfkvhy+wpjo7Q
-cXuzkOpibq2YurVStHAiGqAOMGMXhcVGqPuGhcVcVzVUjsvEzAV9Po9K2rpZ52FE4rDkpDK1pBK+
-uOAyOkgIg/cD8Kugav5tyapydeWMZRJQH1vMQ6OVT24CyAn2yXm2NgTQMS1mpzStP2ioPtTnszIQ
-Ih7ASVzhV6csHb8Yrkx8mgllOyrt9Y2kWRRJFm/FPRNEurOeNV6lnYAXOymVJwIDAQABo4IB0zCC
-Ac8wHwYDVR0jBBgwFoAUgq9sjPjF/pZhfOgfPStxSF7Ei8AwHQYDVR0OBBYEFLfuNf820LvaT4AK
-xrGK3EKx1DE7MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUF
-BwMEBggrBgEFBQcDAjBGBgNVHSAEPzA9MDsGDCsGAQQBsjEBAgEDBTArMCkGCCsGAQUFBwIBFh1o
-dHRwczovL3NlY3VyZS5jb21vZG8ubmV0L0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3Js
-LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWls
-Q0EuY3JsMIGLBggrBgEFBQcBAQR/MH0wVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuY29tb2RvY2Eu
-Y29tL0NPTU9ET1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwJAYI
-KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAeBgNVHREEFzAVgRNkd213MkBpbmZy
-YWRlYWQub3JnMA0GCSqGSIb3DQEBCwUAA4IBAQALbSykFusvvVkSIWttcEeifOGGKs7Wx2f5f45b
-nv2ghcxK5URjUvCnJhg+soxOMoQLG6+nbhzzb2rLTdRVGbvjZH0fOOzq0LShq0EXsqnJbbuwJhK+
-PnBtqX5O23PMHutP1l88AtVN+Rb72oSvnD+dK6708JqqUx2MAFLMevrhJRXLjKb2Mm+/8XBpEw+B
-7DisN4TMlLB/d55WnT9UPNHmQ+3KFL7QrTO8hYExkU849g58Dn3Nw3oCbMUgny81ocrLlB2Z5fFG
-Qu1AdNiBA+kg/UxzyJZpFbKfCITd5yX49bOriL692aMVDyqUvh8fP+T99PqorH4cIJP6OxSTdxKM
-MIIFHDCCBASgAwIBAgIRAOK7SUh5KuwJ6cSlGPGZWGYwDQYJKoZIhvcNAQELBQAwgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTE5MDEwMjAwMDAwMFoXDTIyMDEwMTIz
-NTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBALL98Dmy0wm1AOxiaio/bxxn/hWvraZDvmUVb3vRKTbDLH14bxaW
-/EYC/Lw/i9d98CunLGKA1O8yogKPdhTFFmmNR8uh6r1a/aHr301d8YQea0DtURyaAH5L4cvsKY6O
-0HF7s5DqYm6tmLq1UrRwIhqgDjBjF4XFRqj7hoXFXFc1VI7LxMwFfT6PStq6WedhROKw5KQytaQS
-vrjgMjpICIP3A/CroGr+bcmqcnXljGUSUB9bzEOjlU9uAsgJ9sl5tjYE0DEtZqc0rT9oqD7U57My
-ECIewElc4VenLB2/GK5MfJoJZTsq7fWNpFkUSRZvxT0TRLqznjVepZ2AFzsplScCAwEAAaOCAdMw
-ggHPMB8GA1UdIwQYMBaAFIKvbIz4xf6WYXzoHz0rcUhexIvAMB0GA1UdDgQWBBS37jX/NtC72k+A
-CsaxitxCsdQxOzAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEF
-BQcDBAYIKwYBBQUHAwIwRgYDVR0gBD8wPTA7BgwrBgEEAbIxAQIBAwUwKzApBggrBgEFBQcCARYd
-aHR0cHM6Ly9zZWN1cmUuY29tb2RvLm5ldC9DUFMwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
-bC5jb21vZG9jYS5jb20vQ09NT0RPUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFp
-bENBLmNybDCBiwYIKwYBBQUHAQEEfzB9MFUGCCsGAQUFBzAChklodHRwOi8vY3J0LmNvbW9kb2Nh
-LmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3J0MCQG
-CCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAC20spBbrL71ZEiFrbXBHonzhhirO1sdn+X+O
-W579oIXMSuVEY1LwpyYYPrKMTjKECxuvp24c829qy03UVRm742R9Hzjs6tC0oatBF7KpyW27sCYS
-vj5wbal+TttzzB7rT9ZfPALVTfkW+9qEr5w/nSuu9PCaqlMdjABSzHr64SUVy4ym9jJvv/FwaRMP
-gew4rDeEzJSwf3eeVp0/VDzR5kPtyhS+0K0zvIWBMZFPOPYOfA59zcN6AmzFIJ8vNaHKy5QdmeXx
-RkLtQHTYgQPpIP1Mc8iWaRWynwiE3ecl+PWzq4i+vdmjFQ8qlL4fHz/k/fT6qKx+HCCT+jsUk3cS
-jDCCBeYwggPOoAMCAQICEGqb4Tg7/ytrnwHV2binUlYwDQYJKoZIhvcNAQEMBQAwgYUxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYDVQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRp
-b24gQXV0aG9yaXR5MB4XDTEzMDExMDAwMDAwMFoXDTI4MDEwOTIzNTk1OVowgZcxCzAJBgNVBAYT
-AkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNV
-BAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAvrOeV6wodnVAFsc4A5jTxhh2IVDzJXkLTLWg0X06WD6cpzEup/Y0dtmEatrQPTRI5Or1u6zf
-+bGBSyD9aH95dDSmeny1nxdlYCeXIoymMv6pQHJGNcIDpFDIMypVpVSRsivlJTRENf+RKwrB6vcf
-WlP8dSsE3Rfywq09N0ZfxcBa39V0wsGtkGWC+eQKiz4pBZYKjrc5NOpG9qrxpZxyb4o4yNNwTqza
-aPpGRqXB7IMjtf7tTmU2jqPMLxFNe1VXj9XB1rHvbRikw8lBoNoSWY66nJN/VCJv5ym6Q0mdCbDK
-CMPybTjoNCQuelc0IAaO4nLUXk0BOSxSxt8kCvsUtQIDAQABo4IBPDCCATgwHwYDVR0jBBgwFoAU
-u69+Aj36pvE8hI6t7jiY7NkyMtQwHQYDVR0OBBYEFIKvbIz4xf6WYXzoHz0rcUhexIvAMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQKMAgwBgYEVR0gADBMBgNVHR8E
-RTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9u
-QXV0aG9yaXR5LmNybDBxBggrBgEFBQcBAQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29t
-b2RvY2EuY29tL0NPTU9ET1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2Nz
-cC5jb21vZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAHhcsoEoNE887l9Wzp+XVuyPomsX9vP2
-SQgG1NgvNc3fQP7TcePo7EIMERoh42awGGsma65u/ITse2hKZHzT0CBxhuhb6txM1n/y78e/4ZOs
-0j8CGpfb+SJA3GaBQ+394k+z3ZByWPQedXLL1OdK8aRINTsjk/H5Ns77zwbjOKkDamxlpZ4TKSDM
-KVmU/PUWNMKSTvtlenlxBhh7ETrN543j/Q6qqgCWgWuMAXijnRglp9fyadqGOncjZjaaSOGTTFB+
-E2pvOUtY+hPebuPtTbq7vODqzCM6ryEhNhzf+enm0zlpXK7q332nXttNtjv7VFNYG+I31gnMrwfH
-M5tdhYF/8v5UY5g2xANPECTQdu9vWPoqNSGDt87b3gXb1AiGGaI06vzgkejL580ul+9hz9D0S0U4
-jkhJiA7EuTecP/CFtR72uYRBcunwwH3fciPjviDDAI9SnC/2aPY8ydehzuZutLbZdRJ5PDEJM/1t
-yZR2niOYihZ+FCbtf3D9mB12D4ln9icgc7CwaxpNSCPt8i/GqK2HsOgkL3VYnwtx7cJUmpvVdZ4o
-gnzgXtgtdk3ShrtOS1iAN2ZBXFiRmjVzmehoMof06r1xub+85hFQzVxZx5/bRaTKTlL8YXLI8nAb
-R9HWdFqzcOoB/hxfEyIQpx9/s81rgzdEZOofSlZHynoSMYIDyjCCA8YCAQEwga0wgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
-ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjEw
-MTA0MjMxOTAyWjAvBgkqhkiG9w0BCQQxIgQgAjihLFpS5HnDzQrRYBtGgALrVjwVJepk9dgzJN5N
-o6Awgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
-TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
-PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBADdXDkwOTvNSzpj5AgaRndgQTEiy7HfTrPlpp5TD06VImUuQkxj1yuuWABxEq71a
-AhnrMJEQg20epgKnh+Aufu7+6mcMsuVl6/IPYNZ+vDR1LsVOB1Cc82W5EPhdhG+96xi5rg9uo0IE
-tMmtI7DYXKszX2v9zBZBYA39YfdZZumjSQt6p/1pBn5ArJu9QHtqNy3zuIB/WI7S29O2sl3gbM5e
-Qa04cZu8OGgobgRT7DHfI3hWKEjfqMjay8tt+VIHBCTSmW54Dnwj6E0/2sdlXTLLUOBtXFqZJmHk
-ewPxjKARnFfBYa1W19dsvB5ePynb7Z2KwYza/PBbkfF0T5e6wGoAAAAAAAA=
+OK.
 
 
---=-hbtpRVe1Fk27bjPaFcXg--
+>
+>>> +	}
+>>>  
+>>>  	for_each_possible_cpu(cpu) {
+>>>  		if (cpu == 0)
+>>> @@ -64,14 +66,17 @@ static void xen_hvm_cpu_die(unsigned int cpu)
+>>>  
+>>>  void __init xen_hvm_smp_init(void)
+>>>  {
+>>> -	if (!xen_have_vector_callback)
+>>> +	smp_ops.smp_prepare_boot_cpu = xen_hvm_smp_prepare_boot_cpu;
+>>> +	smp_ops.smp_prepare_cpus = xen_hvm_smp_prepare_cpus;
+>>> +	smp_ops.smp_cpus_done = xen_smp_cpus_done;
+>>> +
+>>> +	if (!xen_have_vector_callback) {
+>>> +		nopvspin = true;
+>>>  		return;
+>>> +	}
+>>>  
+>>> -	smp_ops.smp_prepare_cpus = xen_hvm_smp_prepare_cpus;
+>>>  	smp_ops.smp_send_reschedule = xen_smp_send_reschedule;
+>>>  	smp_ops.cpu_die = xen_hvm_cpu_die;
+>>
+>> Why not xen_hvm_cpu_die too? common_cpu_die() sounds like something
+>> we should do, and the other three we call there will be nops.
+> native_cpu_die() calls that, and isn't that the function that gets
+> installed if we don't install our own?
+
+
+True.
+
+
+Still, a Xen guest should call Xen-specific cpu_die() routine if possible. Especially since (now) other cpu (i.e. non-IPI) ops will call Xen versions.
+
+
+>
+>>>  	smp_ops.send_call_func_ipi = xen_smp_send_call_function_ipi;
+>>>  	smp_ops.send_call_func_single_ipi = xen_smp_send_call_function_single_ipi;
+>>> -	smp_ops.smp_prepare_boot_cpu = xen_hvm_smp_prepare_boot_cpu;
+>>> -	smp_ops.smp_cpus_done = xen_smp_cpus_done;
+>>>  }
+>>>
+>>>> Also, for the spinlock changes specifically --- I wonder whether it
+>>>> would be better to reverse initial value of xen_pvspin and set it to
+>>>> 'true' only if initialization succeeds.
+>>> I looked at that but it would need to be tristate, since the
+>>> 'xen_nopvspin' command line option clears it from its default of being
+>>> enabled.
+>>
+>> Ah, right. How about setting nopvspin in xen_parse_nopvspin()?
+> That would make the xen_nopvspin command line option disable PV
+> spinlocks even under KVM.
+
+
+xen_nopvspin is deprecated and nopvspin is recommended anyway so I think it should be OK, no?
+
+
+
+-boris
 
 
