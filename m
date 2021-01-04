@@ -2,36 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2779C2E9BC3
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 18:13:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61403.108026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED06C2E9BCC
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 18:15:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61407.108038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwTPf-0000vj-81; Mon, 04 Jan 2021 17:12:59 +0000
+	id 1kwTSB-00013Y-Lr; Mon, 04 Jan 2021 17:15:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61403.108026; Mon, 04 Jan 2021 17:12:59 +0000
+Received: by outflank-mailman (output) from mailman id 61407.108038; Mon, 04 Jan 2021 17:15:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwTPf-0000vK-4o; Mon, 04 Jan 2021 17:12:59 +0000
-Received: by outflank-mailman (input) for mailman id 61403;
- Mon, 04 Jan 2021 17:12:58 +0000
+	id 1kwTSB-000139-Ig; Mon, 04 Jan 2021 17:15:35 +0000
+Received: by outflank-mailman (input) for mailman id 61407;
+ Mon, 04 Jan 2021 17:15:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=25yB=GH=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
- id 1kwTPe-0000vF-1E
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 17:12:58 +0000
-Received: from MTA-05-4.privateemail.com (unknown [68.65.122.25])
+ <SRS0=N5j7=GH=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kwTSA-000134-AX
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 17:15:34 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bf60b255-baee-4b12-b008-e5d681c47cc5;
- Mon, 04 Jan 2021 17:12:57 +0000 (UTC)
-Received: from MTA-05.privateemail.com (localhost [127.0.0.1])
- by MTA-05.privateemail.com (Postfix) with ESMTP id 1CBBB600B5
- for <xen-devel@lists.xenproject.org>; Mon,  4 Jan 2021 12:12:56 -0500 (EST)
-Received: from mail-wr1-f42.google.com (unknown [10.20.151.241])
- by MTA-05.privateemail.com (Postfix) with ESMTPA id D737060066
- for <xen-devel@lists.xenproject.org>; Mon,  4 Jan 2021 17:12:55 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id t30so32965270wrb.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Jan 2021 09:12:55 -0800 (PST)
+ id 4420c15b-35cc-4468-9e6c-5f52be276817;
+ Mon, 04 Jan 2021 17:15:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,111 +35,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf60b255-baee-4b12-b008-e5d681c47cc5
-X-Gm-Message-State: AOAM533ZFg8DJmfWcvP7dgrtjAtv3xwt9chqMDus6aMDqGxpcbmU9q6t
-	jGyTfnV1gcigZuk0ywhPpA0kPWq2SESMIgFnZ0w=
-X-Google-Smtp-Source: ABdhPJyfwWlZSLl9nhobkp2flYDPsXV8D079NSXgL5RluHYGTScq6FaRcS/ZApKSZ/2e+zqwMUWev+upTQO6/xsOjtU=
-X-Received: by 2002:a5d:68ce:: with SMTP id p14mr80201016wrw.386.1609780374447;
- Mon, 04 Jan 2021 09:12:54 -0800 (PST)
+X-Inumbo-ID: 4420c15b-35cc-4468-9e6c-5f52be276817
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1609780532;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=NpJwomGt9/Q+IgNffIvtdwFKCL0v92g6gcCtXsCKdGs=;
+  b=JoOT89rLAmf3tF6FHnYIJ9Yf2NvydNgHHtyfocLgQkK0IePImw8qxja0
+   wJmJELoNm3ktSKZdKnaE8167SfvRWEJVv1Y2I8n+pvumDJlf6PTR6+zf9
+   08qnxYfz0ARWlldrcNeKvt2TTWNY3xcxQviZVotxEEwOyiNXhWSDc+JGM
+   4=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: PeRZbu+4DbBiNnlCaWPibRl2HtbZSl0YRyI9TmPh3+izfIvJ72Hsyq1xyGvmJWMyPD65Y8Yev2
+ hlpCrffLOKpMz+HJ/uG/nA7hE/Kfpf16ICrzVCJTznKmjxiDj0+kNnw7+17y/9MTUPz7gw2Lt1
+ MdfPgBY2xppUjjUg9G69/Xnt+kS5a/t9gUadstGSurXPONrqxDMSCSiGOOBUpUF9BJOehuHDgC
+ bJdTfgQpz+kW2n9x82600l+iB+Up+Xs7K7C7p+VYdG2mXGpmYAwGff6zxiCuKwICDSa26W8iVg
+ mi0=
+X-SBRS: 5.2
+X-MesageID: 34396145
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.78,474,1599537600"; 
+   d="scan'208";a="34396145"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RnMZ2BUiwqOT1AX3XbjhQ/lV5jyFFIZbkZGw0Wwb0DtFaiI0MNeAVhO0XjgDRR8ReRfqTNxQSw0azt9oksWw2dq7diR5Gr79ufDp+nZx91HdrZepM3twV6UgBNbaVdQxwGQvvE0UNmKJbjFgBishfGZQUrYPSHpclNFQK84z7pmNfT80FOOXfNyeBIMyWeXIms3eqg/Lm1615OiRvDVIovDQbHC5ImQ0Fjhf22Z+KxjaFh/JN3RvZMi4R6j5XWrjKtaDw0emXrRz0YNIdbTgG6p4JDnP1EztgTIf8h335pwyWKhGEzX2tYKtSJU6Mkj0D8bqnPv2bZ946UW8URBjag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l+lJ+kYmXHrmJtASUrorOoVPOX6FxQ1g932D2st4rA4=;
+ b=oM9bZy9rVl0DBRuaWiWIK9/7JPDJMFwUAiZ5qyExQJgyDyiYyYu03+xfOdYnSizDoCtLE5Mh1TWsUKAekqMLbLUsd2BM33/yR9LpUK2SxN55WXGwsaofwByXve/7MNJqWEE/xwJ27kRA/mpbC8a/Kj4kyMZJtcVV02x4xdORtQRVap0fdjVnZL784zSDiszT4R3LuegnKii/+UlzbFIP327FFN+O9SJXgjAzTLWXp3TWDKFcCPJLCwiqiMiHMOKy2UUphjLu4fILw8IXUdADPwTnXpZxAUEeWjhz6Ei4UXtyik05u4SQc95lH8MTdDzYgIZaA6MU3K7VSZ74K/L//w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l+lJ+kYmXHrmJtASUrorOoVPOX6FxQ1g932D2st4rA4=;
+ b=UzqtDMut9VSb7AvFgJZEEjTdrLYX6Kp6hKo1bdkHWbTs3i1jKZ1Be9bBJiDejOgdRiIfPBjY6VA4Hg8BiuVCA8ba90An7fO+teZr9TADZ8fMYj//zugG/ZKfVCtAYJ6qSEHQPH2m0C7iT05zBrc5WuOBo5Y4KnDWkn6Ol6ElZww=
+Date: Mon, 4 Jan 2021 18:15:24 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 10/24] Make libs/evtchn build on NetBSD
+Message-ID: <20210104171524.drvnwbqd2y5i4m66@Air-de-Roger>
+References: <20201214163623.2127-1-bouyer@netbsd.org>
+ <20201214163623.2127-11-bouyer@netbsd.org>
+ <20201229115243.itpzsuriclqiljs7@Air-de-Roger>
+ <20210104102645.GD2005@antioche.eu.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210104102645.GD2005@antioche.eu.org>
+X-ClientProxiedBy: LO4P123CA0478.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a8::15) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-References: <20210103184117.57692-1-tamas@tklengyel.com> <6a1d7087-5ae2-6a70-bee5-fdf521310d3d@citrix.com>
- <CABfawhmBM7nFCVm_61xJ9u5VpKaeGKoBm2i56NiqMMMoG2bVmQ@mail.gmail.com>
- <43da1c6d-3c33-59dc-a235-383192c8062b@suse.com> <CABfawhk1s-U7JjPUt0BKcjUafxemRtVnnr2xGM4sWTTTfbZUqA@mail.gmail.com>
- <922bea1f-3a08-d023-2121-009eb6e4e42d@citrix.com>
-In-Reply-To: <922bea1f-3a08-d023-2121-009eb6e4e42d@citrix.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 4 Jan 2021 12:12:18 -0500
-X-Gmail-Original-Message-ID: <CABfawhmFEhFWcXDHkc95eKxyfvh7Z84tBHqBXOY+A6o8tArrYw@mail.gmail.com>
-Message-ID: <CABfawhmFEhFWcXDHkc95eKxyfvh7Z84tBHqBXOY+A6o8tArrYw@mail.gmail.com>
-Subject: Re: [PATCH] x86/vm_event: transfer nested p2m base info
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Virus-Scanned: ClamAV using ClamSMTP
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b0167232-a2aa-4d91-5e4f-08d8b0d45566
+X-MS-TrafficTypeDiagnostic: DM5PR03MB3210:
+X-Microsoft-Antispam-PRVS: <DM5PR03MB3210489EB5C4274374F2FB158FD20@DM5PR03MB3210.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: flGbj+AQUuMGW469W6mFG9wbxhcPM6/vO7zy1v7EKj7bSkESRPqrPw3/fduzjNtkR10lC8W+0VTdD113wk2jrkg5HkVe+J7rKAcugDm4TKCRIjaD7MsCfn7kLU8cRpr2WtSIKbQtZrOi1l40LKMUT6nVe8IOFHv/0w0dj+UI6dd0bVLLdvGXv+/bPZaCp4D3ivsc1c+PxEm/6e1z89Z4+B5QY2QOb+DBaj4U89024QKX1htDHZDcTdvO8gHErI2av9Xbrf5BSZcMp97JwudqFE5jGj8LsymM2MKSY7v7efiDT0d6NXsMI+LCZRG0b3I+S3vTpRB2UG2XU11TSqK30b7gB7FLRJJ2hWCa+dzeGPc5lmWFnHYL+adaFnjsfIOOORyXpD1pErkF8Y8wzNhXNg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(346002)(376002)(136003)(396003)(39860400002)(366004)(5660300002)(9686003)(8676002)(478600001)(26005)(1076003)(186003)(6916009)(66946007)(4326008)(16526019)(6666004)(66476007)(66556008)(86362001)(85182001)(6496006)(33716001)(956004)(8936002)(316002)(83380400001)(6486002)(2906002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Z2h4ajdUVE1RNUtmdmRPUVpZS3VZVEZJYWtUaDNLUmNOS0ZzWmJGQnBWcEln?=
+ =?utf-8?B?bmhZekZCNStHMk82cDlQMlNuaGh2NlYrSWE0NUx4R0k5aGxUcnl1OWVxcnE1?=
+ =?utf-8?B?endpaE9aVUZlRC9PeU9zQjJ0LzQ0SVluY1RwaU8yaDBXT2w5eEE0TFk3L2ZD?=
+ =?utf-8?B?RVlsQWtCVkVoTHlmOExCWjFiSFVKZHl1cG5vc0p3NXBjMGJMRnN4dGVMSnQy?=
+ =?utf-8?B?L2dsb1d3WmhzVEIvRVgxZlMvcDQzUU9pRVFreWZQdnF0UUxKUy8xdmNRL0w1?=
+ =?utf-8?B?N2toYWd2eEQ4UWYwL2dzZGpyeUY5TERuclJxaENpNTZVNzU4TUpxQWpYL1NH?=
+ =?utf-8?B?Z3lPcGR6M1h2cmU4TUQvRHArY1pEWm5saDh1WHptMDY4dGRYaWM2RlhLcUJO?=
+ =?utf-8?B?QllEd0doWEtaVmtmM2ZKdUE1aHhSdzVVU3R4RmN4YVAreGc5M21oSG0vUU9S?=
+ =?utf-8?B?WTJ5d3YzV29DKy93UnBHeGVvTVFPaElta3ZwWUZ4NjlwbFVoZDd2d3VrOFFo?=
+ =?utf-8?B?K2RJd1pLNjBURmFPMUd3UkVIaTNBMENkQk5rZHE0YkRMbmhjVXN2U0ZzWEVJ?=
+ =?utf-8?B?cVQzc084M2tsVjNHdllXblJwajdPRWNQamFSdC9wYk5CQWNJMjZ1Wkc5dnFk?=
+ =?utf-8?B?SjU1dC9RcGkvOStPY1lNREFHc0xPeFJmVmtvUEFINll4WUlZUmlYNFU5SVZF?=
+ =?utf-8?B?ZWFLYUlFcFVlT1g2VkdKMTUrTEZxa0JIelB3THh0VjI0Q3l0MHlsTWxsWlNS?=
+ =?utf-8?B?L1JXcmdyT3grMldvQjhLbmFHTVhRb0FDMkxuZjQ1WEsxNUMxY2VwbjlLUnJQ?=
+ =?utf-8?B?ZU5NMW4yRi9BSXNYLzRjekhSdmw5dm1KR2hMdHcrS3NSb3lPZFNXc2RQT0xv?=
+ =?utf-8?B?dXNHR2haSTJGTzFXSDlCckQ4dUZlazJibUlBM2ZHMXRZWGllMHpnaFNwVlRM?=
+ =?utf-8?B?TDVBd0tmbWhCdjhYT0JFdm10YWdkamo3Tmc5MW05RTRRNVVYeUJpNE9VZkZM?=
+ =?utf-8?B?U2VUcUV4OVRnM05FS1BFMlE4SW1NcVAxa2s5aDhFTWFxODYwbmZJWmhWOHVC?=
+ =?utf-8?B?REVhOUl6NHkrUXFtT3VtblpNVGR3SjEzd3lWSkMzZXVEcmE0blBuVHc5UTM5?=
+ =?utf-8?B?Q1JKRkoyaUpwbnQwV3hqNnR4SHRscGxmWTVMeFJsK3ZrYWQ5b0syZFRrK2Vs?=
+ =?utf-8?B?azJFQUlrOW53eWJkVUs0dTBoell4VkIwQkc2TThxR3pGNUVjMnFmSE8rZy9y?=
+ =?utf-8?B?ZFVxS3FGUnpYWmttSG9YZmRLNWFhdmZ5emdRQUkyRVdSWXJ4VEZyZy85UVAr?=
+ =?utf-8?Q?oTfqVbLJ4Uq83Fxt74v8sU9COWI16QNL4O?=
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2021 17:15:28.4406
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0167232-a2aa-4d91-5e4f-08d8b0d45566
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5R8KSD/Ixrclaikg+V3QtQ/vD+pwssEIvq+UVbuXEpDzL+Ghv5ai1RLpj0TCK/skh57jgOiV28qCas7ygQbU3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3210
+X-OriginatorOrg: citrix.com
 
-On Mon, Jan 4, 2021 at 11:48 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->
-> On 04/01/2021 16:32, Tamas K Lengyel wrote:
-> > On Mon, Jan 4, 2021 at 11:21 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >> On 04.01.2021 14:28, Tamas K Lengyel wrote:
-> >>> On Mon, Jan 4, 2021 at 6:57 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
-> >>>> On 03/01/2021 18:41, Tamas K Lengyel wrote:
-> >>>>> Required to introspect events originating from nested VMs.
-> >>>>>
-> >>>>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
-> >>>>> ---
-> >>>>>  xen/arch/x86/hvm/monitor.c    | 32 ++++++++++++++++++++++++++++++--
-> >>>>>  xen/include/public/vm_event.h |  7 ++++++-
-> >>>>>  2 files changed, 36 insertions(+), 3 deletions(-)
-> >>>>>
-> >>>>> diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
-> >>>>> index e4a09964a0..eb4afe81b3 100644
-> >>>>> --- a/xen/arch/x86/hvm/monitor.c
-> >>>>> +++ b/xen/arch/x86/hvm/monitor.c
-> >>>>> @@ -26,6 +26,7 @@
-> >>>>>  #include <xen/mem_access.h>
-> >>>>>  #include <xen/monitor.h>
-> >>>>>  #include <asm/hvm/monitor.h>
-> >>>>> +#include <asm/hvm/nestedhvm.h>
-> >>>>>  #include <asm/altp2m.h>
-> >>>>>  #include <asm/monitor.h>
-> >>>>>  #include <asm/p2m.h>
-> >>>>> @@ -33,6 +34,15 @@
-> >>>>>  #include <asm/vm_event.h>
-> >>>>>  #include <public/vm_event.h>
-> >>>>>
-> >>>>> +static inline void set_npt_base(struct vcpu *curr, vm_event_request_t *req)
-> >>>> No need for inline here.  Can fix on commit.
-> >>>>
-> >>>>> diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
-> >>>>> index fdd3ad8a30..8415bc7618 100644
-> >>>>> --- a/xen/include/public/vm_event.h
-> >>>>> +++ b/xen/include/public/vm_event.h
-> >>>>> @@ -208,6 +212,7 @@ struct vm_event_regs_x86 {
-> >>>>>      uint64_t msr_star;
-> >>>>>      uint64_t msr_lstar;
-> >>>>>      uint64_t gdtr_base;
-> >>>>> +    uint64_t npt_base;
-> >>>> This needs enough description to actually use it correctly.
-> >>>>
-> >>>> /* Guest physical address.  On Intel hardware, this is the EPT_POINTER
-> >>>> field from the L1 hypervisors VMCS, including all architecturally
-> >>>> defined metadata. */
-> >>>>
-> >>>> Except, its not.  nvmx_vcpu_eptp_base() masks out the lower metadata, so
-> >>>> the walk length is missing, and the introspection agent can't
-> >>>> distinguish between 4 and 5 level EPT.  Same on the AMD side (except it
-> >>>> could be any paging mode, including 2 and 3 level).
-> >>> AMD is AFAIK not supported for vm_events. Also, only 4L EPT is
-> >>> available at this time, so that information is irrelevant anyway.
-> >> I suppose we should try to avoid having to change the interface
-> >> again to allow going from "implied 4-level" to "4- or 5-level",
-> >> so I'm with Andrew that this information wants providing even if
-> >> there's going to be only a single value at this time (but you
-> >> wouldn't store a literal number anyway, but instead use the walk
-> >> length associated with the base, so no change to the producer of
-> >> the code would be needed once 5-level walks become an option).
-> > Once 5-level paging is supported a new flag can be added that will
-> > distinguish the tables, for example VM_EVENT_FLAG_NESTED_P2M_5L, if
-> > necessary. So at this time I don't think we really need to do anything
-> > different. If you prefer to change the current flag's name to say _4L,
-> > sure, that's cosmetic.
->
-> The way this is currently specified will force a new interface version
-> just to add the metadata.
->
-> It would suffice to explicitly state that the bottom 12 bits are
-> reserved for future metadata, and must be masked out for now, and all
-> users of this interface may assume 4L by default.
->
-> Basically, what we don't want to happen is for libvmi to take the value,
-> not mask out the bottom 12 bits, and start using that, because the
-> software will break as soon as we try to encode 5L in there.
+On Mon, Jan 04, 2021 at 11:26:45AM +0100, Manuel Bouyer wrote:
+> On Tue, Dec 29, 2020 at 12:52:43PM +0100, Roger Pau Monné wrote:
+> > On Mon, Dec 14, 2020 at 05:36:09PM +0100, Manuel Bouyer wrote:
+> > > ---
+> > >  tools/libs/evtchn/netbsd.c | 8 ++++----
+> > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > > 
+> > > diff --git a/tools/libs/evtchn/netbsd.c b/tools/libs/evtchn/netbsd.c
+> > > index 8b8545d2f9..6d4ce28011 100644
+> > > --- a/tools/libs/evtchn/netbsd.c
+> > > +++ b/tools/libs/evtchn/netbsd.c
+> > > @@ -25,10 +25,10 @@
+> > >  
+> > >  #include <sys/ioctl.h>
+> > >  
+> > > -#include <xen/sys/evtchn.h>
+> > > -
+> > >  #include "private.h"
+> > >  
+> > > +#include <xen/xenio3.h>
+> > > +
+> > >  #define EVTCHN_DEV_NAME  "/dev/xenevt"
+> > >  
+> > >  int osdep_evtchn_open(xenevtchn_handle *xce)
+> > > @@ -131,7 +131,7 @@ xenevtchn_port_or_error_t xenevtchn_pending(xenevtchn_handle *xce)
+> > >      int fd = xce->fd;
+> > >      evtchn_port_t port;
+> > >  
+> > > -    if ( read_exact(fd, (char *)&port, sizeof(port)) == -1 )
+> > > +    if ( read(fd, (char *)&port, sizeof(port)) == -1 )
+> > >          return -1;
+> > >  
+> > >      return port;
+> > > @@ -140,7 +140,7 @@ xenevtchn_port_or_error_t xenevtchn_pending(xenevtchn_handle *xce)
+> > >  int xenevtchn_unmask(xenevtchn_handle *xce, evtchn_port_t port)
+> > >  {
+> > >      int fd = xce->fd;
+> > > -    return write_exact(fd, (char *)&port, sizeof(port));
+> > > +    return write(fd, (char *)&port, sizeof(port));
+> > 
+> > I'm afraid we will need some context as to why {read/write}_exact
+> > doesn't work here.
+> 
+> It just doesn't exists on NetBSD
 
-Sure, if you just want to add that in a comment I don't see an issue.
-Do you want me to resend or can you do it at commit?
+But those are not part of libc or any external library, they are
+implemented in tools/libs/ctrl/xc_private.c and should be available to
+the NetBSD build AFAICT.
 
-Tamas
+They are just helpers build on top of the standard read/write calls.
+
+Roger.
 
