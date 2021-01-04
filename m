@@ -2,31 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB732E983C
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 16:16:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61301.107741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 742432E983D
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 16:16:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61305.107752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwRaf-0004Qx-2t; Mon, 04 Jan 2021 15:16:13 +0000
+	id 1kwRbD-0004Wb-Aw; Mon, 04 Jan 2021 15:16:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61301.107741; Mon, 04 Jan 2021 15:16:13 +0000
+Received: by outflank-mailman (output) from mailman id 61305.107752; Mon, 04 Jan 2021 15:16:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwRae-0004QY-VU; Mon, 04 Jan 2021 15:16:12 +0000
-Received: by outflank-mailman (input) for mailman id 61301;
- Mon, 04 Jan 2021 15:16:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=e1rq=GH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwRad-0004QT-HE
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 15:16:11 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 48af24d1-3b7b-4275-9f32-c303148b50d6;
- Mon, 04 Jan 2021 15:16:10 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A2710ACAF;
- Mon,  4 Jan 2021 15:16:09 +0000 (UTC)
+	id 1kwRbD-0004WB-7w; Mon, 04 Jan 2021 15:16:47 +0000
+Received: by outflank-mailman (input) for mailman id 61305;
+ Mon, 04 Jan 2021 15:16:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hjF3=GH=redhat.com=jpoimboe@srs-us1.protection.inumbo.net>)
+ id 1kwRbB-0004W3-DX
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 15:16:45 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 3c4a3169-f972-469b-b2cf-7b20f5c9270a;
+ Mon, 04 Jan 2021 15:16:42 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-492-AVlI2Q0uMIqfVxh8hDZZLQ-1; Mon, 04 Jan 2021 10:16:38 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4EBC6190A7A0;
+ Mon,  4 Jan 2021 15:16:37 +0000 (UTC)
+Received: from treble (ovpn-113-48.rdu2.redhat.com [10.10.113.48])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A35C271B6;
+ Mon,  4 Jan 2021 15:16:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,96 +48,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48af24d1-3b7b-4275-9f32-c303148b50d6
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609773369; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: 3c4a3169-f972-469b-b2cf-7b20f5c9270a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1609773402;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rp7EZoRCCBiFAmZ+Zenm9VGPJhdZGGMX71BhFLDUiJM=;
-	b=d7dIdwV7gX+Q7ANLGf3pjo+FUlsdEwpvFIZdiOKDcYl3HiI87q/WrrlKzEyCFDuTW8Jxx5
-	5aFqW9+vHl3LH05t1w7H87dmJ4h9ZA3fdO3+yFP+pXnjcokkeTdCA03IYLgDwqae0q04X5
-	nRDdgFuCoos3u4B72d3JMkH6uBPryMM=
-Subject: Re: [PATCH] x86/CPUID: suppress IOMMU related hypervisor leaf data
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <c640463a-d088-aaf5-0c3c-d82b1c98ee4f@suse.com>
- <20201228105400.dzkyrgyvkjuevzsj@Air-de-Roger>
- <cb289033-9e7c-b51e-dd02-5c6d05285a8c@suse.com>
- <20210104145640.dmufekd2qb5gemud@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c4397698-d93f-ca64-34cc-8b7f3f76e3bf@suse.com>
-Date: Mon, 4 Jan 2021 16:16:18 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	bh=2NNGGIsCzmJcVG4Le5Juli3XgCVUNleJrw+22odZ79o=;
+	b=XdfYzlxpNExxfXWv7CFp5BXnhgPH3iSgv6QzKr8svjTPCOwQPfj+dy2LBmwDxtbKE5nZ7d
+	x9x2wK1fa3yWNLdv8pVVwJNQKxKiVQ1QQBrN+GeH6pzdFmMexJiQL0yNOI6kATdxLVBJsj
+	mP39zaMY2hCQvI/7y8xH4T3dT8l2M0k=
+X-MC-Unique: AVlI2Q0uMIqfVxh8hDZZLQ-1
+Date: Mon, 4 Jan 2021 09:16:33 -0600
+From: Josh Poimboeuf <jpoimboe@redhat.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org, Miroslav Benes <mbenes@suse.cz>,
+	Shinichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Subject: Re: [PATCH 3/3] objtool: Support stack layout changes in alternatives
+Message-ID: <20210104151633.ojv3wggzpxzn2alx@treble>
+References: <cover.1608700338.git.jpoimboe@redhat.com>
+ <9f78604e49b400eb3b2ca613591f8c357474ed4e.1608700338.git.jpoimboe@redhat.com>
+ <20210104140952.GQ3021@hirez.programming.kicks-ass.net>
 MIME-Version: 1.0
-In-Reply-To: <20210104145640.dmufekd2qb5gemud@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
+In-Reply-To: <20210104140952.GQ3021@hirez.programming.kicks-ass.net>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 
-On 04.01.2021 15:56, Roger Pau Monné wrote:
-> On Mon, Jan 04, 2021 at 02:43:52PM +0100, Jan Beulich wrote:
->> On 28.12.2020 11:54, Roger Pau Monné wrote:
->>> On Mon, Nov 09, 2020 at 11:54:09AM +0100, Jan Beulich wrote:
->>>> Now that the IOMMU for guests can't be enabled "on demand" anymore,
->>>> there's also no reason to expose the related CPUID bit "just in case".
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> I'm not sure this is helpful from a guest PoV.
->>>
->>> How does the guest know whether it has pass through devices, and thus
->>> whether it needs to check if this flag is present or not in order to
->>> safely pass foreign mapped pages (or grants) to the underlying devices?
->>>
->>> Ie: prior to this change I would just check whether the flag is
->>> present in CPUID to know whether FreeBSD needs to use a bounce buffer
->>> in blkback and netback when running as a domU. If this is now
->>> conditionally set only when the IOMMU is enabled for the guest I
->>> also need to figure a way to know whether the domU has any passed
->>> through device or not, which doesn't seem trivial.
->>
->> I'm afraid I don't understand your concern and/or description of
->> the scenario. Prior to the change, the bit was set unconditionally.
->> To me, _that_ was making the bit useless - no point in checking
->> something which is always set anyway (leaving aside old Xen
->> versions).
+On Mon, Jan 04, 2021 at 03:09:52PM +0100, Peter Zijlstra wrote:
+> On Tue, Dec 22, 2020 at 11:18:10PM -0600, Josh Poimboeuf wrote:
 > 
-> This bit was used to differentiate between versions of Xen that don't
-> create IOMMU mappings for grants/foreign maps (and so are broken) vs
-> versions of Xen that do create such mappings. If the bit is not set
-> HVM domains need a bounce buffer in blkback/netback in order to avoid
-> sending grants to devices.
+> > For example, this scenario is allowed:
+> > 
+> >           Alt1                    Alt2                    Alt3
+> > 
+> >    0x00   CALL *pv_ops.save_fl    CALL xen_save_fl        PUSHF
+> >    0x01                                                   POP %RAX
+> >    0x02                                                   NOP
+> >    ...
+> >    0x05                           NOP
+> >    ...
+> >    0x07   <insn>
+> > 
+> 
+> > This scenario is NOT allowed:
+> > 
+> >           Alt1                    Alt2
+> > 
+> >    0x00   CALL *pv_ops.save_fl    PUSHF
+> >    0x01                           NOP6
+> >    ...
+> >    0x07   NOP                     POP %RAX
+> > 
+> 
+> > The problem here is that offset-0x7, which is an instruction boundary in
+> > both possible instruction patch streams, has two conflicting stack
+> > layouts.
+> 
+> There's another fun scenario:
+> 
+>   0x00	CALL *pv_ops.save_fl		PUSHF
+>   0x01					NOP2
+>   ..
+>   0x03					NOP5
+>   ..
+>   0x07	NOP2
+>   0x08					POP %RAX
+>   0x09	<insn>
+> 
+> No conflicting boundary at 0x07, but still buggered.
+> 
+> Let me go read the actual patch to see if this is handled.
 
-Neither the comment in cpuid.h nor that in traps.c have any mention
-of this, and the constant's name also doesn't imply such.
+That scenario looks good, see ORC below:
 
-> Now it's my understand that with this change sometimes the bit might
-> not be set not because we are running on an unfixed Xen version, but
-> because there's no IOMMU assigned to the domain, so the guest will
-> fallback to use a bounce buffer.
+.diff --git a/arch/x86/entry/entry_64.S b/arch/x86/entry/entry_64.S
+index cad08703c4ad..4079a430ab3f 100644
+--- a/arch/x86/entry/entry_64.S
++++ b/arch/x86/entry/entry_64.S
+@@ -1483,3 +1483,8 @@ SYM_CODE_START(rewind_stack_do_exit)
+ 	call	do_exit
+ SYM_CODE_END(rewind_stack_do_exit)
+ .popsection
++
++SYM_FUNC_START(peter)
++	ALTERNATIVE "call *pv_ops+288(%rip); .byte 0x66,0x90", "pushf; .byte 0x66,0x90; .byte 0x66,0x66,0x66,0x90; popq %rax", X86_FEATURE_ALWAYS
++	ret
++SYM_FUNC_END(peter)
 
-... if it expects to ever map a foreign domain's pages.
 
-I can see that reverting the change is one way to address the issue.
-Such a revert shouldn't be a plain one then, but one adjusting one
-or both of the the comments to indicate the _real_ purpose of this
-flag. (We probably better don't rename the constant, as we can't
-easily drop the old name from the public interface anyway.)
+00000000000014e0 <peter>:
+    14e0:       ff 15 00 00 00 00       callq  *0x0(%rip)        # 14e6 <peter+0x6>
+                        14e2: R_X86_64_PC32     pv_ops+0x11c
+    14e6:       66 90                   xchg   %ax,%ax
+    14e8:       c3                      retq
 
-This said, I wonder though what the scenario is where the difference
-matters: Dom0 will get the IOMMU enabled whenever Xen has it
-enabled. And I'm not sure how useful a driver domain would be
-without passed through device(s), implying an enabled IOMMU. IOW I'm
-not really certain there's any change in behavior for any sensible
-setup (and hence there wouldn't be any need to extend any logic, to
-e.g. figure out whether there are passed through devices). (Yes, a
-backend could sit on top of another frontend, acting in a proxy-like
-fashion. In this case the double buffering would indeed be
-unnecessary.)
+alt replacement:
+  cf:   9c                      pushfq
+  d0:   66 90                   xchg   %ax,%ax
+  d2:   66 66 66 90             data16 data16 xchg %ax,%ax
+  d6:   58                      pop    %rax
 
-Jan
+
+
+ORC:
+
+.entry.text+14e0: sp:sp+8 bp:(und) type:call end:0
+.entry.text+14e1: sp:sp+16 bp:(und) type:call end:0
+.entry.text+14e6: sp:sp+8 bp:(und) type:call end:0
+.entry.text+14e7: sp:sp+16 bp:(und) type:call end:0
+.entry.text+14e8: sp:sp+8 bp:(und) type:call end:0
+.entry.text+14e9: sp:(und) bp:(und) type:call end:0
+
+-- 
+Josh
+
 
