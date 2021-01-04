@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FFA2E9417
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 12:31:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61144.107323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07B7B2E945A
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 12:53:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61153.107341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwO4Y-0007Vw-VY; Mon, 04 Jan 2021 11:30:50 +0000
+	id 1kwOPe-0000sy-Tk; Mon, 04 Jan 2021 11:52:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61144.107323; Mon, 04 Jan 2021 11:30:50 +0000
+Received: by outflank-mailman (output) from mailman id 61153.107341; Mon, 04 Jan 2021 11:52:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwO4Y-0007VX-S7; Mon, 04 Jan 2021 11:30:50 +0000
-Received: by outflank-mailman (input) for mailman id 61144;
- Mon, 04 Jan 2021 11:30:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jmHV=GH=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1kwO4Y-0007VS-0K
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 11:30:50 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1a541c8a-c2b0-4183-87ad-912d35031e40;
- Mon, 04 Jan 2021 11:30:48 +0000 (UTC)
-Received: from rochebonne.antioche.eu.org (rochebonne
- [IPv6:2001:41d0:fe9d:1100:221:70ff:fe0c:9885])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 104BUicL006959;
- Mon, 4 Jan 2021 12:30:44 +0100 (MET)
-Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
- id 555D9281D; Mon,  4 Jan 2021 12:30:44 +0100 (CET)
+	id 1kwOPe-0000sZ-QD; Mon, 04 Jan 2021 11:52:38 +0000
+Received: by outflank-mailman (input) for mailman id 61153;
+ Mon, 04 Jan 2021 11:52:37 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RuZS=GH=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1kwOPc-0000sT-Fs
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 11:52:37 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (unknown [81.169.146.162])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id adfcf999-0afb-45e8-af69-283516671105;
+ Mon, 04 Jan 2021 11:52:34 +0000 (UTC)
+Received: from sender by smtp.strato.de (RZmta 47.10.7 DYNA|AUTH)
+ with ESMTPSA id N09c26x04BqRQ7D
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 4 Jan 2021 12:52:27 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,76 +41,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a541c8a-c2b0-4183-87ad-912d35031e40
-Date: Mon, 4 Jan 2021 12:30:44 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 11/24] Implement foreignmemory on NetBSD
-Message-ID: <20210104113044.GA1530@antioche.eu.org>
-References: <20201214163623.2127-1-bouyer@netbsd.org>
- <20201214163623.2127-12-bouyer@netbsd.org>
- <20201229124630.5ld2dt5o6awa53db@Air-de-Roger>
+X-Inumbo-ID: adfcf999-0afb-45e8-af69-283516671105
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1609761153;
+	s=strato-dkim-0002; d=aepfle.de;
+	h=Message-Id:Date:Subject:Cc:To:From:From:Subject:Sender;
+	bh=nOdnhHQz8spfHd1Op4s5uZ4IVKUQVT3PNBGft1GM2p0=;
+	b=bfPafi1xkvaCxQZyS02lkBNY/pef8qNQSeM7T3NX1SWIy4/l7yrQWfRahMzFx96Sjb
+	ODWwy7gB74+BUxhQlUtNST2TC7W8tXTB4EHgFY13hYYsjPZBdbjFzgoaZVqeN1V+p673
+	HvUFR4PBBebxP/FqQjHz9Zp0q729N+6uZJErAYXa5yhokP6cfcPbENe2gr2lVq8EmZ5+
+	yVe0kPUgko4arCvUK/sB075EGJFieLpamE9RdvCm3XkP6Q3anp65R4XXuXk6ho6haV8p
+	lpRmmJJpCJ2SXXQ7nlwuWO9lH3kFg/Z2B5ZsDUrh0S+xaj+4MzXS9P2rEuyePPrZpCfr
+	jN3Q==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS321Mjw=="
+X-RZG-CLASS-ID: mo00
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Olaf Hering <olaf@aepfle.de>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v1] tools: ipxe: update for fixing build with GCC10
+Date: Mon,  4 Jan 2021 12:52:23 +0100
+Message-Id: <20210104115223.25403-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201229124630.5ld2dt5o6awa53db@Air-de-Roger>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [IPv6:2001:41d0:fe9d:1101:0:0:0:1]); Mon, 04 Jan 2021 12:30:44 +0100 (MET)
 
-On Tue, Dec 29, 2020 at 01:46:30PM +0100, Roger Pau Monné wrote:
-> [...]
-> > diff --git a/tools/libs/foreignmemory/private.h b/tools/libs/foreignmemory/private.h
-> > index 8f1bf081ed..abeceb8720 100644
-> > --- a/tools/libs/foreignmemory/private.h
-> > +++ b/tools/libs/foreignmemory/private.h
-> > @@ -8,7 +8,13 @@
-> >  #include <xentoolcore_internal.h>
-> >  
-> >  #include <xen/xen.h>
-> > +
-> > +#ifdef __NetBSD__
-> > +#include <xen/xen.h>
-> > +#include <xen/xenio.h>
-> > +#else
-> >  #include <xen/sys/privcmd.h>
-> > +#endif
-> >  
-> >  #ifndef PAGE_SHIFT /* Mini-os, Yukk */
-> >  #define PAGE_SHIFT           12
-> > @@ -38,7 +44,7 @@ int osdep_xenforeignmemory_unmap(xenforeignmemory_handle *fmem,
-> >  
-> >  #if defined(__NetBSD__) || defined(__sun__)
-> >  /* Strictly compat for those two only only */
-> > -void *compat_mapforeign_batch(xenforeignmem_handle *fmem, uint32_t dom,
-> > +void *osdep_map_foreign_batch(xenforeignmemory_handle *fmem, uint32_t dom,
-> >                                void *addr, int prot, int flags,
-> >                                xen_pfn_t *arr, int num);
-> 
-> You will have to split this into NetBSD and Solaris variants now if
-> this is really required, but AFAICT you replace
-> osdep_map_foreign_batch with osdep_xenforeignmemory_map, so this
-> prototype is stale?
+Update to v1.21.1 to fix build in Tumbleweed, which has been broken
+since months due to lack of new release.
 
-I think on solaris too, compat_mapforeign_batch() has to be changed to
-osdep_map_foreign_batch() as compat.c and solaris.c has something called
-osdep_map_foreign_batch(), but nothing defines compat_mapforeign_batch().
-Looks like a rename that missed private.h
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ tools/firmware/etherboot/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Indeed osdep_map_foreign_batch() should not be needed on NetBSD now
-
-> 
-> Also a little bit below these prototypes are the dummy implementations
-> of osdep_xenforeignmemory_restrict,
-> osdep_xenforeignmemory_map_resource and
-> osdep_xenforeignmemory_unmap_resource. I think you at least need to
-> modify the condition below so that on NetBSD the dummy inlines are not
-> used?
-
-This is !defined(__NetBSD__) so it should not be used ?
-
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+diff --git a/tools/firmware/etherboot/Makefile b/tools/firmware/etherboot/Makefile
+index 0de30599bf..ed9e11305f 100644
+--- a/tools/firmware/etherboot/Makefile
++++ b/tools/firmware/etherboot/Makefile
+@@ -10,7 +10,7 @@ else
+ IPXE_GIT_URL ?= git://git.ipxe.org/ipxe.git
+ endif
+ 
+-IPXE_GIT_TAG := 1dd56dbd11082fb622c2ed21cfaced4f47d798a6
++IPXE_GIT_TAG := 988d2c13cdf0f0b4140685af35ced70ac5b3283c
+ 
+ IPXE_TARBALL_URL ?= $(XEN_EXTFILES_URL)/ipxe-git-$(IPXE_GIT_TAG).tar.gz
+ 
 
