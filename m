@@ -2,49 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBEF72E9B5C
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:53:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61387.107978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E46D82E9B67
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:58:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61391.107990 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwT6W-0007Ap-PF; Mon, 04 Jan 2021 16:53:12 +0000
+	id 1kwTBH-0007LX-Cb; Mon, 04 Jan 2021 16:58:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61387.107978; Mon, 04 Jan 2021 16:53:12 +0000
+Received: by outflank-mailman (output) from mailman id 61391.107990; Mon, 04 Jan 2021 16:58:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwT6W-0007AQ-Lb; Mon, 04 Jan 2021 16:53:12 +0000
-Received: by outflank-mailman (input) for mailman id 61387;
- Mon, 04 Jan 2021 16:53:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kwTBH-0007L6-93; Mon, 04 Jan 2021 16:58:07 +0000
+Received: by outflank-mailman (input) for mailman id 61391;
+ Mon, 04 Jan 2021 16:58:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yCAg=GH=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kwT6V-0007AL-DH
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:53:11 +0000
-Received: from userp2130.oracle.com (unknown [156.151.31.86])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3132754d-2fb1-40ca-8a8b-8085e50fe943;
- Mon, 04 Jan 2021 16:53:10 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104GnK1a098957;
- Mon, 4 Jan 2021 16:53:00 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2130.oracle.com with ESMTP id 35tg8qw6c9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 04 Jan 2021 16:53:00 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 104GoLQ4071848;
- Mon, 4 Jan 2021 16:50:59 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by aserp3030.oracle.com with ESMTP id 35v4rad74j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 04 Jan 2021 16:50:59 +0000
-Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 104GovLu004300;
- Mon, 4 Jan 2021 16:50:57 GMT
-Received: from [10.39.231.107] (/10.39.231.107)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 04 Jan 2021 08:50:56 -0800
+ <SRS0=AaoZ=GH=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kwTBF-0007L1-4d
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:58:05 +0000
+Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 18e455b4-2a34-41a9-ac5e-f31d7c1d3afd;
+ Mon, 04 Jan 2021 16:58:03 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id q18so32928163wrn.1
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Jan 2021 08:58:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,84 +37,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3132754d-2fb1-40ca-8a8b-8085e50fe943
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=dIKUNFQXfKBLzwh06y3u/YF6xxzMrgkIGvxKrRgqYgA=;
- b=aIG0FeGjxOJtsruOwX4G69QifAoHMvGCA1UUWlmpAipf+1VO9AOSXua3w2TICEufqGpL
- fhIOb8NvGQQBfJreaHZG0g7kcvWrilZTmbd6J4teLCTFMmYHAGEb3MKIbZPca0SS2Uq9
- rw0rrigIjgT2Ali0kY+esDeNy7OvJ+mLxuGyPY3DYpp6YC+81Snf0V0Nlw4Vg23KVCLJ
- o0mXNBsqzEBYvIA4v1FO4ZTkkmn2NtsoNgRxY7kuk0VysMW/oly5Zbjavyt5ZVG9yXr2
- aSatIe9Aq4G2aj1fta0CLoa19dYZamI2O8UhoYN+yivnMQfH0XK0bJ+4N4pQEWUK5Z6W cg== 
-Subject: Re: [PATCH 4/5] x86/xen: Don't register Xen IPIs when they aren't
- going to be used
-To: David Woodhouse <dwmw2@infradead.org>, x86@kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-        Juergen Gross <jgross@suse.com>, Paul Durrant <pdurrant@amazon.com>,
-        jgrall@amazon.com, karahmed@amazon.de,
-        xen-devel <xen-devel@lists.xenproject.org>
-References: <20201224115323.3540130-1-dwmw2@infradead.org>
- <20201224115323.3540130-5-dwmw2@infradead.org>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <a683f09b-30c9-bae2-7cc3-709196a90d9b@oracle.com>
-Date: Mon, 4 Jan 2021 11:50:55 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.0
+X-Inumbo-ID: 18e455b4-2a34-41a9-ac5e-f31d7c1d3afd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=AISa4LI6Am9s0B0I2KO/fhKUg7R+vgA9tphxnedbjEA=;
+        b=pt8GkoCxgHoaF2EJrKS0BbN6btxqnvVKwp43ZhtyPdTzGm1Wlg6rMKatTI7lCK7IT/
+         3E1ffWjDAN9z2zE4Zuoo0nHmTZmLTfwzemSsMKlqIb0CgDA71MmLmqdjrv/pYvFGkxWx
+         IYaNulprWQxqwHZvlR127Ntw+b7Kf902gX8NHAQbWgrzEh8b3hSHPXw6APlK7CBQ+Ubn
+         CgbyKnyOHiAuHlo6NNJcP8GWqkt9ZRjCVFoOwG0waF3We+ykSPRqreTBAwnssz9dW2Sy
+         GhuWLP7jH+TDhSndc2BnYinFYdpdObb9PtBp9VMmB9RCYQV/cpTZt5isBYX5h6dpTkyu
+         vy/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=AISa4LI6Am9s0B0I2KO/fhKUg7R+vgA9tphxnedbjEA=;
+        b=GuMAio0P8FZn8sk6s2MblWmnti9XJaANSYWA5F0UIHW8BI7Rf5RwtPvOiO3AJm4JS1
+         THpauvePUmQj9F7Kx2+tqiDxojsyoW+LIJ33dHaRXgujysa5NlJGd/rlAB4KR2T8VK7K
+         X8lzBcs0S3ovb9j7t6hGkojd0BKCQKWgITga1mqoczW9m/Ie2z4QazMqlVwilmfv9YoI
+         MSFI2GyG63mvXkcaHxnHSdCqIbztzTBvzL0DE0bNI8OQ3Cp3l2xVHX0A/vfvDqv8o4Zn
+         EEOASC0bf+nXi7r3kz/DpvWyfTKTKBnEf7AEtyR+y7IvV9kQ4AsIJjGJg86DT3THKJDi
+         qF1g==
+X-Gm-Message-State: AOAM533yR0RryYoH7I5vRxZ/SfFHOA5wUAnTuibIu7fj4IPkwTP6Vfiv
+	ahz2abwV12nN9cio6Qe5rTkARInC73a7x0AuL6M=
+X-Google-Smtp-Source: ABdhPJw3d6ifTiiSTCC3ZanFBDWD0DuxYzWnnnz6hk9u+pwO0Rqtg6XZvU2/TIyv8/4jQYFfN1Ba6AD0sPsBlv4UByo=
+X-Received: by 2002:a5d:5147:: with SMTP id u7mr82447818wrt.114.1609779482689;
+ Mon, 04 Jan 2021 08:58:02 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201224115323.3540130-5-dwmw2@infradead.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 mlxscore=0 bulkscore=0
- suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101040109
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015 phishscore=0 bulkscore=0
- spamscore=0 impostorscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
- mlxscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101040109
+References: <be9ce75e-9119-2b5a-9e7b-437beb7ee446@suse.com>
+ <cf4569c5-a9c5-7b4b-d576-d1521c369418@suse.com> <f736244b-ece7-af35-1517-2e5fdd9705c7@citrix.com>
+ <e2ee99fc-e3f8-bdaf-fe4a-d048da34731a@suse.com> <b4abbe2f-5e3d-5f43-80b8-cfa3fd97061e@citrix.com>
+In-Reply-To: <b4abbe2f-5e3d-5f43-80b8-cfa3fd97061e@citrix.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Mon, 4 Jan 2021 18:57:51 +0200
+Message-ID: <CAPD2p-nZyf_i_bGh5sSs2fC4S7nxB1Mk_zbSKtqF=zvBOp3X+Q@mail.gmail.com>
+Subject: Re: [PATCH 2/6] x86/mm: p2m_add_foreign() is HVM-only
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>
+Content-Type: multipart/alternative; boundary="0000000000003b82df05b815fea0"
 
+--0000000000003b82df05b815fea0
+Content-Type: text/plain; charset="UTF-8"
 
-On 12/24/20 6:53 AM, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
+Hello all.
+
+[Sorry for the possible format issues]
+
+On Tue, Dec 22, 2020 at 12:41 PM Andrew Cooper <andrew.cooper3@citrix.com>
+wrote:
+
+> On 21/12/2020 08:10, Jan Beulich wrote:
+> > On 17.12.2020 20:18, Andrew Cooper wrote:
+> >> On 15/12/2020 16:26, Jan Beulich wrote:
+> >>> This is together with its only caller, xenmem_add_to_physmap_one().
+> >> I can't parse this sentence.  Perhaps "... as is it's only caller," as a
+> >> follow-on from the subject sentence.
+> >>
+> >>>  Move
+> >>> the latter next to p2m_add_foreign(), allowing this one to become
+> static
+> >>> at the same time.
+> >>>
+> >>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > So I had to ask Andrew to revert this (I was already at home when
+> > noticing the breakage), as it turned out to break the shim build.
+> > The problem is that xenmem_add_to_physmap() is non-static and
+> > hence can't be eliminated altogether by the compiler when !HVM.
+> > We could make the function conditionally static
+> > "#if !defined(CONFIG_X86) && !defined(CONFIG_HVM)", but this
+> > looks uglier to me than this extra hunk:
+> >
+> > --- unstable.orig/xen/common/memory.c
+> > +++ unstable/xen/common/memory.c
+> > @@ -788,7 +788,11 @@ int xenmem_add_to_physmap(struct domain
+> >      union add_to_physmap_extra extra = {};
+> >      struct page_info *pages[16];
+> >
+> > -    ASSERT(paging_mode_translate(d));
+> > +    if ( !paging_mode_translate(d) )
+> > +    {
+> > +        ASSERT_UNREACHABLE();
+> > +        return -EACCES;
+> > +    }
+> >
+> >      if ( xatp->space == XENMAPSPACE_gmfn_foreign )
+> >          extra.foreign_domid = DOMID_INVALID;
+> >
+> > Andrew, please let me know whether your ack stands with this (or
+> > said alternative) added, or whether you'd prefer me to re-post.
 >
-> In the case where xen_have_vector_callback is false, we still register
-> the IPI vectors in xen_smp_intr_init() for the secondary CPUs even
-> though they aren't going to be used. Stop doing that.
+> Yeah, this is probably neater than the ifdefary.  My ack stands.
 >
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> ---
->  arch/x86/xen/enlighten_hvm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> ~Andrew
 >
-> diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-> index a1c07e0c888e..7a6ef517e81a 100644
-> --- a/arch/x86/xen/enlighten_hvm.c
-> +++ b/arch/x86/xen/enlighten_hvm.c
-> @@ -164,10 +164,10 @@ static int xen_cpu_up_prepare_hvm(unsigned int cpu)
->  	else
->  		per_cpu(xen_vcpu_id, cpu) = cpu;
->  	rc = xen_vcpu_setup(cpu);
 
+I might miss something or did incorrect tests, but ...
+... trying to build current staging
+(7ba2ab495be54f608cb47440e1497b2795bd301a) for x86 (with # CONFIG_HVM is
+not set) I got the following:
 
-Without vector callback we will not be calling xen_vcpu_setup(0) so why should we still call it here for APs?
+/media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb-r0/git/xen/common/memory.c:941:
+undefined reference to `xenmem_add_to_physmap_one'
+/media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb-r0/git/xen/common/memory.c:941:(.text+0x1e391):
+relocation truncated to fit: R_X86_64_PC32 against undefined symbol
+`xenmem_add_to_physmap_one'
+ld:
+/media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb-r0/git/xen/.xen-syms.0:
+hidden symbol `xenmem_add_to_physmap_one' isn't defined
+ld: final link failed: Bad value
 
+It is worth mentioning that I do not use pvshim_defconfig (I disable HVM
+support via menuconfig manually before building).
 
--boris
+-- 
+Regards,
 
+Oleksandr Tyshchenko
 
-> -	if (rc)
-> +	if (rc || !xen_have_vector_callback)
->  		return rc;
->  
-> -	if (xen_have_vector_callback && xen_feature(XENFEAT_hvm_safe_pvclock))
-> +	if (xen_feature(XENFEAT_hvm_safe_pvclock))
->  		xen_setup_timer(cpu);
->  
->  	rc = xen_smp_intr_init(cpu);
+--0000000000003b82df05b815fea0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><div>Hello all.</div><div><br><=
+/div><div>[Sorry for the possible format issues]</div><br><div class=3D"gma=
+il_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Dec 22, 2020 at 12:=
+41 PM Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com" target=
+=3D"_blank">andrew.cooper3@citrix.com</a>&gt; wrote:<br></div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">On 21/12/2020 08:10, Jan Beulich wrote=
+:<br>
+&gt; On 17.12.2020 20:18, Andrew Cooper wrote:<br>
+&gt;&gt; On 15/12/2020 16:26, Jan Beulich wrote:<br>
+&gt;&gt;&gt; This is together with its only caller, xenmem_add_to_physmap_o=
+ne().<br>
+&gt;&gt; I can&#39;t parse this sentence.=C2=A0 Perhaps &quot;... as is it&=
+#39;s only caller,&quot; as a<br>
+&gt;&gt; follow-on from the subject sentence.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 Move<br>
+&gt;&gt;&gt; the latter next to p2m_add_foreign(), allowing this one to bec=
+ome static<br>
+&gt;&gt;&gt; at the same time.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse=
+.com" target=3D"_blank">jbeulich@suse.com</a>&gt;<br>
+&gt;&gt; Acked-by: Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citri=
+x.com" target=3D"_blank">andrew.cooper3@citrix.com</a>&gt;<br>
+&gt; So I had to ask Andrew to revert this (I was already at home when<br>
+&gt; noticing the breakage), as it turned out to break the shim build.<br>
+&gt; The problem is that xenmem_add_to_physmap() is non-static and<br>
+&gt; hence can&#39;t be eliminated altogether by the compiler when !HVM.<br=
+>
+&gt; We could make the function conditionally static<br>
+&gt; &quot;#if !defined(CONFIG_X86) &amp;&amp; !defined(CONFIG_HVM)&quot;, =
+but this<br>
+&gt; looks uglier to me than this extra hunk:<br>
+&gt;<br>
+&gt; --- unstable.orig/xen/common/memory.c<br>
+&gt; +++ unstable/xen/common/memory.c<br>
+&gt; @@ -788,7 +788,11 @@ int xenmem_add_to_physmap(struct domain<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 union add_to_physmap_extra extra =3D {};<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 struct page_info *pages[16];<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 ASSERT(paging_mode_translate(d));<br>
+&gt; +=C2=A0 =C2=A0 if ( !paging_mode_translate(d) )<br>
+&gt; +=C2=A0 =C2=A0 {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 ASSERT_UNREACHABLE();<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EACCES;<br>
+&gt; +=C2=A0 =C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 if ( xatp-&gt;space =3D=3D XENMAPSPACE_gmfn_foreig=
+n )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 extra.foreign_domid =3D DOMID_INVALI=
+D;<br>
+&gt;<br>
+&gt; Andrew, please let me know whether your ack stands with this (or<br>
+&gt; said alternative) added, or whether you&#39;d prefer me to re-post.<br=
+>
+<br>
+Yeah, this is probably neater than the ifdefary.=C2=A0 My ack stands.<br>
+<br>
+~Andrew<br></blockquote><div><br></div><div>I might miss something or did i=
+ncorrect=C2=A0tests, but ...=C2=A0</div><div>... trying to build current st=
+aging (7ba2ab495be54f608cb47440e1497b2795bd301a) for x86 (with # CONFIG_HVM=
+ is not set) I got the following:=C2=A0<br></div></div><div><br></div><div>=
+/media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0-r0/repo=
+/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb-r0/git/=
+xen/common/memory.c:941: undefined reference to `xenmem_add_to_physmap_one&=
+#39;<br>/media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0=
+-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb=
+-r0/git/xen/common/memory.c:941:(.text+0x1e391): relocation truncated to fi=
+t: R_X86_64_PC32 against undefined symbol `xenmem_add_to_physmap_one&#39;<b=
+r>ld: /media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0-r=
+0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb-r=
+0/git/xen/.xen-syms.0: hidden symbol `xenmem_add_to_physmap_one&#39; isn&#3=
+9;t defined<br>ld: final link failed: Bad value<br></div><div><br></div><di=
+v>It is worth mentioning that I do not use=C2=A0pvshim_defconfig (I disable=
+ HVM support via menuconfig manually before building).<br></div><div><br></=
+div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><di=
+v dir=3D"ltr"><span style=3D"background-color:rgb(255,255,255)"><font size=
+=3D"2"><span style=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Reg=
+ards,</span></font></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"=
+><div><span style=3D"background-color:rgb(255,255,255)"><font size=3D"2">Ol=
+eksandr Tyshchenko</font></span></div></div></div></div></div></div></div><=
+/div>
+
+--0000000000003b82df05b815fea0--
 
