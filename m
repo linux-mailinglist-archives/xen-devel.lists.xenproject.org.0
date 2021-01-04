@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 880622E9A1C
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:11:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61342.107852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C61C22E9AEE
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 17:22:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61347.107867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwSSB-0002aa-QD; Mon, 04 Jan 2021 16:11:31 +0000
+	id 1kwSbs-0003Vx-0p; Mon, 04 Jan 2021 16:21:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61342.107852; Mon, 04 Jan 2021 16:11:31 +0000
+Received: by outflank-mailman (output) from mailman id 61347.107867; Mon, 04 Jan 2021 16:21:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwSSB-0002aB-Mv; Mon, 04 Jan 2021 16:11:31 +0000
-Received: by outflank-mailman (input) for mailman id 61342;
- Mon, 04 Jan 2021 16:11:31 +0000
+	id 1kwSbr-0003VY-Tk; Mon, 04 Jan 2021 16:21:31 +0000
+Received: by outflank-mailman (input) for mailman id 61347;
+ Mon, 04 Jan 2021 16:21:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=e1rq=GH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwSSB-0002a5-46
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:11:31 +0000
+ id 1kwSbq-0003VT-3a
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 16:21:30 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fc36cfe6-cd0e-4304-a2e1-c2d01e5d0713;
- Mon, 04 Jan 2021 16:11:30 +0000 (UTC)
+ id 90bd5d64-86c3-4731-856b-da9c55d80db1;
+ Mon, 04 Jan 2021 16:21:29 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 947F8AD6A;
- Mon,  4 Jan 2021 16:11:29 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 3E12DACAF;
+ Mon,  4 Jan 2021 16:21:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,65 +38,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc36cfe6-cd0e-4304-a2e1-c2d01e5d0713
+X-Inumbo-ID: 90bd5d64-86c3-4731-856b-da9c55d80db1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609776689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1609777288; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=aLgfKIo1GmOGoGHnciCkAXy4NF0V4UxdvT7tJXiEW3I=;
-	b=pDDAQHaa0fMEn3GCOTazYzzkgaEqVUtxc8I81fTgETaxOHXpBu8WrLJg9n0mT2RIsDECe3
-	SLl7TKTTkm8ZDQaOPO1rSte/YJN94gUiUEB5faKGkTHrh8vyOBXZ5/ecZ6qF0oyNIDOKTS
-	2F/dz3YSnYWkdT4Zu7co8utrtdJpAa0=
-Subject: Re: [PATCH 5/5] x86: don't build unused entry code when !PV32
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <46d83c92-0b06-fc09-4832-7a7d7935d5c2@suse.com>
- <d417d3f9-3278-ed08-1ff6-45a13b5e3757@suse.com>
- <20201228153004.qip3v6er5rk22fnu@Air-de-Roger>
- <0341c1f1-dc50-552c-f246-56605ae7c83a@suse.com>
- <20210104155358.snzakj4kcs47tt22@Air-de-Roger>
+	bh=p1pLx0U4Z0Bz0f2F1Y97H5KDUZFJoN8PxhDiyAZyrn0=;
+	b=fgrXSonannw7ArpWlkPkRBnQrx8DS4m+uCOZs8o7hNL+urqYvCRyywJeRnD0dq1G76q299
+	HrfgeaJIUfOVWNjuMP676Dq94Me5kZMDO0HGxvJzSj5JY9ClJu8lhWzTF+qU5FIE4D8zpp
+	R9r3urc0ctOlSxDqbRUTI/aJDf8RCHg=
+Subject: Re: [PATCH] x86/vm_event: transfer nested p2m base info
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20210103184117.57692-1-tamas@tklengyel.com>
+ <6a1d7087-5ae2-6a70-bee5-fdf521310d3d@citrix.com>
+ <CABfawhmBM7nFCVm_61xJ9u5VpKaeGKoBm2i56NiqMMMoG2bVmQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b9709b10-2dd0-087d-836d-d1ae089643ad@suse.com>
-Date: Mon, 4 Jan 2021 17:11:38 +0100
+Message-ID: <43da1c6d-3c33-59dc-a235-383192c8062b@suse.com>
+Date: Mon, 4 Jan 2021 17:21:36 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210104155358.snzakj4kcs47tt22@Air-de-Roger>
+In-Reply-To: <CABfawhmBM7nFCVm_61xJ9u5VpKaeGKoBm2i56NiqMMMoG2bVmQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.01.2021 16:53, Roger Pau Monné wrote:
-> On Mon, Jan 04, 2021 at 02:56:12PM +0100, Jan Beulich wrote:
->> On 28.12.2020 16:30, Roger Pau Monné wrote:
->>> I would like to have Andrew's opinion on this one (as you and him tend
->>> to modify more asm code than myself). There are quite a lot of
->>> addition to the assembly code, and IMO it makes the code more complex
->>> which I think we should try to avoid, as assembly is already hard
->>> enough.
+On 04.01.2021 14:28, Tamas K Lengyel wrote:
+> On Mon, Jan 4, 2021 at 6:57 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
 >>
->> Well, while I can see your point (and I indeed asked myself the same
->> question when making this change), this merely follows the route
->> started with the addition on CONFIG_PV conditionals. If we think that
->> prior step didn't set a good precedent, we ought to undo it.
->> Otherwise I see no good argument against doing the same kind of
->> transformation a 2nd time (and further ones, if need be down the
->> road).
+>> On 03/01/2021 18:41, Tamas K Lengyel wrote:
+>>> Required to introspect events originating from nested VMs.
+>>>
+>>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+>>> ---
+>>>  xen/arch/x86/hvm/monitor.c    | 32 ++++++++++++++++++++++++++++++--
+>>>  xen/include/public/vm_event.h |  7 ++++++-
+>>>  2 files changed, 36 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+>>> index e4a09964a0..eb4afe81b3 100644
+>>> --- a/xen/arch/x86/hvm/monitor.c
+>>> +++ b/xen/arch/x86/hvm/monitor.c
+>>> @@ -26,6 +26,7 @@
+>>>  #include <xen/mem_access.h>
+>>>  #include <xen/monitor.h>
+>>>  #include <asm/hvm/monitor.h>
+>>> +#include <asm/hvm/nestedhvm.h>
+>>>  #include <asm/altp2m.h>
+>>>  #include <asm/monitor.h>
+>>>  #include <asm/p2m.h>
+>>> @@ -33,6 +34,15 @@
+>>>  #include <asm/vm_event.h>
+>>>  #include <public/vm_event.h>
+>>>
+>>> +static inline void set_npt_base(struct vcpu *curr, vm_event_request_t *req)
+>>
+>> No need for inline here.  Can fix on commit.
+>>
+>>> diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
+>>> index fdd3ad8a30..8415bc7618 100644
+>>> --- a/xen/include/public/vm_event.h
+>>> +++ b/xen/include/public/vm_event.h
+>>> @@ -208,6 +212,7 @@ struct vm_event_regs_x86 {
+>>>      uint64_t msr_star;
+>>>      uint64_t msr_lstar;
+>>>      uint64_t gdtr_base;
+>>> +    uint64_t npt_base;
+>>
+>> This needs enough description to actually use it correctly.
+>>
+>> /* Guest physical address.  On Intel hardware, this is the EPT_POINTER
+>> field from the L1 hypervisors VMCS, including all architecturally
+>> defined metadata. */
+>>
+>> Except, its not.  nvmx_vcpu_eptp_base() masks out the lower metadata, so
+>> the walk length is missing, and the introspection agent can't
+>> distinguish between 4 and 5 level EPT.  Same on the AMD side (except it
+>> could be any paging mode, including 2 and 3 level).
 > 
-> I think we need to apply some common sense and reach consensus about
-> where it's fine to make code conditional at build time as to not make
-> the existing code much harder to read and reason about. This is mostly
-> a subjective decision, so I understand your concern.
-> 
-> I still think I would like Andrew opinion on this one, as said you and
-> him are the ones mostly doing assembly coding. I find it already hard
-> to follow myself without the conditionals.
+> AMD is AFAIK not supported for vm_events. Also, only 4L EPT is
+> available at this time, so that information is irrelevant anyway.
 
-Oh, sure - my prior response in no way meant to be an objection to
-your request for Andrew's take on this.
+I suppose we should try to avoid having to change the interface
+again to allow going from "implied 4-level" to "4- or 5-level",
+so I'm with Andrew that this information wants providing even if
+there's going to be only a single value at this time (but you
+wouldn't store a literal number anyway, but instead use the walk
+length associated with the base, so no change to the producer of
+the code would be needed once 5-level walks become an option).
 
 Jan
 
