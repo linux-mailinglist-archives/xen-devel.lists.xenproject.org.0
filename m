@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE5512E9625
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 14:38:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61209.107487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 472B02E9643
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jan 2021 14:44:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61214.107503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwQ3M-00024l-Ur; Mon, 04 Jan 2021 13:37:44 +0000
+	id 1kwQ9D-0002yH-Sw; Mon, 04 Jan 2021 13:43:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61209.107487; Mon, 04 Jan 2021 13:37:44 +0000
+Received: by outflank-mailman (output) from mailman id 61214.107503; Mon, 04 Jan 2021 13:43:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwQ3M-00024M-Rn; Mon, 04 Jan 2021 13:37:44 +0000
-Received: by outflank-mailman (input) for mailman id 61209;
- Mon, 04 Jan 2021 13:37:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kwQ9D-0002xu-PH; Mon, 04 Jan 2021 13:43:47 +0000
+Received: by outflank-mailman (input) for mailman id 61214;
+ Mon, 04 Jan 2021 13:43:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=e1rq=GH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwQ3L-00024H-Tr
- for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 13:37:43 +0000
+ id 1kwQ9C-0002xp-4a
+ for xen-devel@lists.xenproject.org; Mon, 04 Jan 2021 13:43:46 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5a231363-4380-4056-a5b7-051fe40578a3;
- Mon, 04 Jan 2021 13:37:38 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e6e4af2d-1b1b-483a-9060-8c1f0e59c0f7;
+ Mon, 04 Jan 2021 13:43:45 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 360F9B768;
- Mon,  4 Jan 2021 13:37:37 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 6422CAD4E;
+ Mon,  4 Jan 2021 13:43:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,127 +38,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a231363-4380-4056-a5b7-051fe40578a3
+X-Inumbo-ID: e6e4af2d-1b1b-483a-9060-8c1f0e59c0f7
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609767457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1609767824; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pHCG2PYGrENryepFWf4AkoGA8ic6FQ1pPGTihpGPL3c=;
-	b=dQu00RUPyWwIIdQUKOlIS7vbWTXUldzWbN3p/WezzDC/+ZN0rkI0L+XlnNHmhoLMbCf/2i
-	zP9DKYbdBaOArBKlgCE4aodIMH4Zj/aZM4+uZVaXljFEZM9hVE6bWt+doeVv5dvSD3cavD
-	kgfAiScEBZ8PhmrfXflhDSsiX52mxb4=
-Subject: Re: [PATCH v2] gnttab: defer allocation of status frame tracking
- array
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <57dc915c-c373-5003-80f7-279dd300d571@suse.com>
- <bab2f11f-dd59-87fb-1311-2732a71543d0@xen.org>
+	bh=DqqtnVoQDkogX9jxo3IPHyO3S4Q/syaq5rJIMQYZCXM=;
+	b=m+hxYoLfdCLeGXddbebXyWx/bs1XAPXftSVZ49hu2rvloelqzQ2NALCNQqvyCEsd/zE9UI
+	Dg7wggkEbuSRs/2nsEl/pdQ30UGku9UoA/PP1KILOfq+WvqIJIKmQkkvnn0T43+htCNQ7b
+	joFsi9WPoAryrXXjxIrWi6ZV07PEyp8=
+Subject: Re: [PATCH] x86/CPUID: suppress IOMMU related hypervisor leaf data
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <c640463a-d088-aaf5-0c3c-d82b1c98ee4f@suse.com>
+ <20201228105400.dzkyrgyvkjuevzsj@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9535c420-9fd7-a8e6-6efe-7494ef6611db@suse.com>
-Date: Mon, 4 Jan 2021 14:37:45 +0100
+Message-ID: <cb289033-9e7c-b51e-dd02-5c6d05285a8c@suse.com>
+Date: Mon, 4 Jan 2021 14:43:52 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <bab2f11f-dd59-87fb-1311-2732a71543d0@xen.org>
+In-Reply-To: <20201228105400.dzkyrgyvkjuevzsj@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.12.2020 10:57, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 23/12/2020 15:13, Jan Beulich wrote:
->> This array can be large when many grant frames are permitted; avoid
->> allocating it when it's not going to be used anyway, by doing this only
->> in gnttab_populate_status_frames().
+On 28.12.2020 11:54, Roger Pau Monné wrote:
+> On Mon, Nov 09, 2020 at 11:54:09AM +0100, Jan Beulich wrote:
+>> Now that the IOMMU for guests can't be enabled "on demand" anymore,
+>> there's also no reason to expose the related CPUID bit "just in case".
 >>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> v2: Defer allocation to when a domain actually switches to the v2 grant
->>      API.
->>
->> --- a/xen/common/grant_table.c
->> +++ b/xen/common/grant_table.c
->> @@ -1725,6 +1728,17 @@ gnttab_populate_status_frames(struct dom
->>       /* Make sure, prior version checks are architectural visible */
->>       block_speculation();
->>   
->> +    if ( gt->status == ZERO_BLOCK_PTR )
->> +    {
->> +        gt->status = xzalloc_array(grant_status_t *,
->> +                                   grant_to_status_frames(gt->max_grant_frames));
->> +        if ( !gt->status )
->> +        {
->> +            gt->status = ZERO_BLOCK_PTR;
->> +            return -ENOMEM;
->> +        }
->> +    }
->> +
->>       for ( i = nr_status_frames(gt); i < req_status_frames; i++ )
->>       {
->>           if ( (gt->status[i] = alloc_xenheap_page()) == NULL )
->> @@ -1745,18 +1759,23 @@ status_alloc_failed:
->>           free_xenheap_page(gt->status[i]);
->>           gt->status[i] = NULL;
->>       }
->> +    if ( !nr_status_frames(gt) )
->> +    {
->> +        xfree(gt->status);
->> +        gt->status = ZERO_BLOCK_PTR;
->> +    }
->>       return -ENOMEM;
->>   }
->>   
->>   static int
->>   gnttab_unpopulate_status_frames(struct domain *d, struct grant_table *gt)
->>   {
->> -    unsigned int i;
->> +    unsigned int i, n = nr_status_frames(gt);
->>   
->>       /* Make sure, prior version checks are architectural visible */
->>       block_speculation();
->>   
->> -    for ( i = 0; i < nr_status_frames(gt); i++ )
->> +    for ( i = 0; i < n; i++ )
->>       {
->>           struct page_info *pg = virt_to_page(gt->status[i]);
->>           gfn_t gfn = gnttab_get_frame_gfn(gt, true, i);
->> @@ -1811,12 +1830,12 @@ gnttab_unpopulate_status_frames(struct d
->>           page_set_owner(pg, NULL);
->>       }
->>   
->> -    for ( i = 0; i < nr_status_frames(gt); i++ )
->> -    {
->> -        free_xenheap_page(gt->status[i]);
->> -        gt->status[i] = NULL;
->> -    }
->>       gt->nr_status_frames = 0;
->> +    smp_wmb(); /* Just in case - all accesses should be under lock. */
 > 
-> I think gt->status cannot be accessed locklessly. If a entity read 
-> gt->nr_status_frames != 0, then there is no promise the array will be 
-> accessible when trying to access it as it may have been freed.
+> I'm not sure this is helpful from a guest PoV.
+> 
+> How does the guest know whether it has pass through devices, and thus
+> whether it needs to check if this flag is present or not in order to
+> safely pass foreign mapped pages (or grants) to the underlying devices?
+> 
+> Ie: prior to this change I would just check whether the flag is
+> present in CPUID to know whether FreeBSD needs to use a bounce buffer
+> in blkback and netback when running as a domU. If this is now
+> conditionally set only when the IOMMU is enabled for the guest I
+> also need to figure a way to know whether the domU has any passed
+> through device or not, which doesn't seem trivial.
 
-Yet the common principle of (pointer,count) pairs to describe arrays
-to be updated / accessed in sequences guaranteeing a non-zero count
-implies a valid pointer could as well be considered to apply here.
-I.e. when freeing, at least in principle clearing count first would
-be a sensible thing to do, wouldn't it? Subsequently allocation and
-consumers could be updated to follow suit ...
-
-> So I would drop the barrier here.
-
-I certainly can (unless double checking would tell me otherwise),
-but I'm not convinced this is a good idea. I'd rather have a barrier
-too many in the code than one too little, even if the "too little"
-may only be the result of a future change. And this isn't a path
-where performance considerations would suggest avoiding barriers
-when they're not strictly needed.
+I'm afraid I don't understand your concern and/or description of
+the scenario. Prior to the change, the bit was set unconditionally.
+To me, _that_ was making the bit useless - no point in checking
+something which is always set anyway (leaving aside old Xen
+versions). I also don't follow how presence / absence of a passed
+through device mattering (or not) would have changed with this
+patch.
 
 Jan
 
