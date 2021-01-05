@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 282A02EB4C8
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 22:17:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62193.109977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBBCE2EB51A
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 22:59:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62200.109992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwtgv-0001aI-7r; Tue, 05 Jan 2021 21:16:33 +0000
+	id 1kwuLk-0005Rh-O1; Tue, 05 Jan 2021 21:58:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62193.109977; Tue, 05 Jan 2021 21:16:33 +0000
+Received: by outflank-mailman (output) from mailman id 62200.109992; Tue, 05 Jan 2021 21:58:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwtgv-0001Zt-3u; Tue, 05 Jan 2021 21:16:33 +0000
-Received: by outflank-mailman (input) for mailman id 62193;
- Tue, 05 Jan 2021 21:16:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kwtgu-0001Zl-K3; Tue, 05 Jan 2021 21:16:32 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kwtgu-0001lP-Ff; Tue, 05 Jan 2021 21:16:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kwtgu-0001W9-8C; Tue, 05 Jan 2021 21:16:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kwtgu-00008R-7h; Tue, 05 Jan 2021 21:16:32 +0000
+	id 1kwuLk-0005RI-Ke; Tue, 05 Jan 2021 21:58:44 +0000
+Received: by outflank-mailman (input) for mailman id 62200;
+ Tue, 05 Jan 2021 21:58:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=w1U5=GI=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
+ id 1kwuLj-0005RD-ED
+ for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 21:58:43 +0000
+Received: from mga17.intel.com (unknown [192.55.52.151])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7a87c966-cade-45a5-aac9-5b2b749e8781;
+ Tue, 05 Jan 2021 21:58:40 +0000 (UTC)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2021 13:58:39 -0800
+Received: from rcsacra-mobl2.amr.corp.intel.com (HELO ubuntu.localdomain)
+ ([10.212.99.154])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2021 13:58:38 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,101 +42,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=W8Y2TwMDjGL+kBZNnssfpHws7FjdLpZUZJULgiyROno=; b=dzikuUyVuvQ9N13MI4pi3iWtG0
-	U+mJJdGPyQ+/SYDGrY8chwJpZtjwX993dcZf7BZIPRINdgioWiTayHIaczRAFO1H879wWlJGBBqc7
-	NRJ3iX/Hq36F4fEOUa+9nxDPYNrvdN3Qi8l5W0OxPjSRhc14YgimKf50ANcQbU0NJ/CQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158168-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 7a87c966-cade-45a5-aac9-5b2b749e8781
+IronPort-SDR: 88jrulC637oeIS4Q2FX1tZScfvhKRA9SWpFdJ9Izi7mr6NzKctxlvFMta4QCfXj2KtdLBLZ102
+ LbUoxT4eiMrg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9855"; a="156969088"
+X-IronPort-AV: E=Sophos;i="5.78,478,1599548400"; 
+   d="scan'208";a="156969088"
+IronPort-SDR: PrttMIuNSGm+P72OiBWro9um9lhK4mp2TRApsI+PVSrNxEePg+3P4pRr54ZAVPBBY42KgMNg+q
+ sotnKY+EKArw==
+X-IronPort-AV: E=Sophos;i="5.78,478,1599548400"; 
+   d="scan'208";a="462456825"
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] x86/mem_sharing: copy cpuid and msrs during vm forking
+Date: Tue,  5 Jan 2021 13:58:23 -0800
+Message-Id: <5ceda1696c935730c2b2925e2454a7502c6560f0.1609883742.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158168: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=c992efd06a4c092f6fb3b8ab10d4f8ca35d42bbd
-X-Osstest-Versions-That:
-    xen=7ba2ab495be54f608cb47440e1497b2795bd301a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 05 Jan 2021 21:16:32 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 158168 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158168/
+Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+---
+ xen/arch/x86/mm/mem_sharing.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Regressions :-(
+diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
+index c428fd16ce..fc7b2a4102 100644
+--- a/xen/arch/x86/mm/mem_sharing.c
++++ b/xen/arch/x86/mm/mem_sharing.c
+@@ -1764,6 +1764,8 @@ static int fork(struct domain *cd, struct domain *d)
+ 
+         domain_pause(d);
+         cd->max_pages = d->max_pages;
++        *cd->arch.cpuid = *d->arch.cpuid;
++        *cd->arch.msrs = *d->arch.msrs;
+         cd->parent = d;
+     }
+ 
+-- 
+2.25.1
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 158134
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 158134
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  c992efd06a4c092f6fb3b8ab10d4f8ca35d42bbd
-baseline version:
- xen                  7ba2ab495be54f608cb47440e1497b2795bd301a
-
-Last test of basis   158134  2021-01-04 15:01:26 Z    1 days
-Failing since        158142  2021-01-05 02:00:25 Z    0 days    4 attempts
-Testing same since   158164  2021-01-05 14:00:28 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Manuel Bouyer <bouyer@antioche.eu.org>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Olaf Hering <olaf@aepfle.de>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 397 lines long.)
 
