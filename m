@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2055B2EB04C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 17:39:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62083.109705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2552F2EB0AF
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 17:58:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62087.109715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwpMq-0006oH-9d; Tue, 05 Jan 2021 16:39:32 +0000
+	id 1kwpdz-0000HH-T4; Tue, 05 Jan 2021 16:57:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62083.109705; Tue, 05 Jan 2021 16:39:32 +0000
+Received: by outflank-mailman (output) from mailman id 62087.109715; Tue, 05 Jan 2021 16:57:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwpMq-0006ns-6U; Tue, 05 Jan 2021 16:39:32 +0000
-Received: by outflank-mailman (input) for mailman id 62083;
- Tue, 05 Jan 2021 16:39:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kwpdz-0000Gs-Oq; Tue, 05 Jan 2021 16:57:15 +0000
+Received: by outflank-mailman (input) for mailman id 62087;
+ Tue, 05 Jan 2021 16:57:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hFWs=GI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwpMo-0006nn-NJ
- for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 16:39:30 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e90c9cb6-f0cf-4796-bd48-436200305fdb;
- Tue, 05 Jan 2021 16:39:29 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 15384AA7C;
- Tue,  5 Jan 2021 16:39:29 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwpdy-0000Gk-TM; Tue, 05 Jan 2021 16:57:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwpdy-0005T7-LF; Tue, 05 Jan 2021 16:57:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwpdy-0006Y0-Aw; Tue, 05 Jan 2021 16:57:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwpdy-0006Wt-AS; Tue, 05 Jan 2021 16:57:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,74 +42,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e90c9cb6-f0cf-4796-bd48-436200305fdb
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609864769; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=znRVwlmzHraFEzooLiJ9sHODpAkG7p0BL1iV5YqA+no=;
-	b=E5l3YwUtCKb+E7+7ayjEyIoccna0oHTYn1asW2xvnKvM8thttf1uuD97/+X0GmB9ZhxNea
-	HUZgxfOFSodUjQE2F2M65EIeo7eYCENnnKm6UEInXAT6O3uFD3x9tV6YNp2AMLpaN64gbb
-	xmBAzo5ubVxiDHZYFJQQbFgi2D4VK5Y=
-Subject: Re: [PATCH 3/4] xen/domctl: Introduce fault_ttl
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Tamas K Lengyel <tamas@tklengyel.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20201223163442.8840-1-andrew.cooper3@citrix.com>
- <20201223163442.8840-4-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c8956065-1528-d85a-a222-187ae737178a@suse.com>
-Date: Tue, 5 Jan 2021 17:39:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=uSLsUTauN/P3jLgWXNto0PY/xqWwozQkx9ldy2FEDCM=; b=qEV4n1T099lFIjxnw0E9kwGBVS
+	zatsujU1vwmkBWPHlOM5QV56Le2bGHTVVL5R5bt1syL5nzsTVY0qqEOXpqpdJmk3OFpJDCDDh0fb2
+	Ceu1jvVTSahfCOgOR2+zfDF0lFdMXMjIin7FcOdM9MzfPdO/3/Q4B5PQebEU6J/3oIe0=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158164-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20201223163442.8840-4-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 158164: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c992efd06a4c092f6fb3b8ab10d4f8ca35d42bbd
+X-Osstest-Versions-That:
+    xen=7ba2ab495be54f608cb47440e1497b2795bd301a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 05 Jan 2021 16:57:14 +0000
 
-On 23.12.2020 17:34, Andrew Cooper wrote:
-> To inject a simulated resource failure, for testing purposes.
-> 
-> Given a specific set of hypercall parameters, the failure is in a repeatable
-> position, for the currently booted Xen.  The exact position of failures is
-> highly dependent on the build of Xen, and hardware support.
+flight 158164 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158164/
 
-What about other kinds of resources, or ones only indirectly
-related to memory allocations (e.g. where we don't mean to
-associate them with the domain)?
+Regressions :-(
 
-> RFC:
->  * Probably wants to be Kconfig'd
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 158134
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 158134
 
-Yes.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
->  * I'm thinking of dropping handle from xen_domctl_createdomain because it's a
->    waste of valuable space.
+version targeted for testing:
+ xen                  c992efd06a4c092f6fb3b8ab10d4f8ca35d42bbd
+baseline version:
+ xen                  7ba2ab495be54f608cb47440e1497b2795bd301a
 
-Looks entirely unrelated, but yes - as long as Xen itself has no
-consumer of the field. The more that there already is
-XEN_DOMCTL_setdomainhandle.
+Last test of basis   158134  2021-01-04 15:01:26 Z    1 days
+Failing since        158142  2021-01-05 02:00:25 Z    0 days    3 attempts
+Testing same since   158164  2021-01-05 14:00:28 Z    0 days    1 attempts
 
-> --- a/xen/common/dmalloc.c
-> +++ b/xen/common/dmalloc.c
-> @@ -10,7 +10,13 @@ void dfree(struct domain *d, void *ptr)
->  
->  void *_dzalloc(struct domain *d, size_t size, size_t align)
->  {
-> -    void *ptr = _xmalloc(size, align);
-> +    void *ptr;
-> +
-> +    if ( atomic_read(&d->fault_ttl) &&
-> +         atomic_dec_and_test(&d->fault_ttl) )
-> +        return NULL;
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Manuel Bouyer <bouyer@antioche.eu.org>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Olaf Hering <olaf@aepfle.de>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Wei Liu <wl@xen.org>
 
-Perhaps we want to introduce Linux'es atomic_add_unless()?
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
-Jan
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 397 lines long.)
 
