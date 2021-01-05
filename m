@@ -2,48 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5963E2EAD93
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 15:46:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62021.109519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C0642EADB3
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 15:47:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62025.109531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwnaV-0002qY-V3; Tue, 05 Jan 2021 14:45:31 +0000
+	id 1kwnc5-0002z2-A0; Tue, 05 Jan 2021 14:47:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62021.109519; Tue, 05 Jan 2021 14:45:31 +0000
+Received: by outflank-mailman (output) from mailman id 62025.109531; Tue, 05 Jan 2021 14:47:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwnaV-0002q9-Rk; Tue, 05 Jan 2021 14:45:31 +0000
-Received: by outflank-mailman (input) for mailman id 62021;
- Tue, 05 Jan 2021 14:45:30 +0000
+	id 1kwnc5-0002yd-6i; Tue, 05 Jan 2021 14:47:09 +0000
+Received: by outflank-mailman (input) for mailman id 62025;
+ Tue, 05 Jan 2021 14:47:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V+iM=GI=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1kwnaU-0002q4-DK
- for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 14:45:30 +0000
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hFWs=GI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kwnc3-0002yW-SV
+ for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 14:47:07 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a5e8fb34-fe98-4704-9dbb-b1fc4020b6c0;
- Tue, 05 Jan 2021 14:45:29 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 105Eisf5062836;
- Tue, 5 Jan 2021 14:45:23 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 35tgsks2va-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 05 Jan 2021 14:45:23 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 105EjLwY118200;
- Tue, 5 Jan 2021 14:45:22 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3030.oracle.com with ESMTP id 35vct5xdrb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 05 Jan 2021 14:45:22 +0000
-Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 105EjDhu027880;
- Tue, 5 Jan 2021 14:45:14 GMT
-Received: from [10.39.197.37] (/10.39.197.37)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 05 Jan 2021 14:45:13 +0000
+ id add2f3be-5470-4337-9f4a-c6785c01104b;
+ Tue, 05 Jan 2021 14:47:06 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 167DEAA7C;
+ Tue,  5 Jan 2021 14:47:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,113 +38,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5e8fb34-fe98-4704-9dbb-b1fc4020b6c0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=YURjE9i6SLpMhiNU1nsYQ0Z9VL0H6kze5Bf3OHaUssE=;
- b=Y1ByHfgrVnKLS5ksM42qeM2nrc71FnYi55bveQfuZG8cJMUzBIui4oJtiT0+Ou1GVpei
- MbXUGvXBDY8DsB7xWCo5H/V0TW1YKMQDMVIX3mvKhC+2YPdEEQL/hocZ+Q9hLfyLP+ep
- jpwDQkhCHVnW8ffr9lg2Gnksn3Z111YdHkrxDuMC13cVRUtrj5lsodn6hghIXeUzd+4T
- rVnn6TiSoSL9N0q4H4uB7wMokPUaK/o1+R+qUYvE1PEj2PnNUKr8aUYF3H+c/vp7UQ6C
- OBnvptft8q8haeZNBmIO23zCimyYq7oCoLhtHdB8Xui52sYuTWj0DQ3Q1xXBes9CIvZz qw== 
-Subject: Re: [PATCH 5/5] x86/xen: Don't register PV spinlock IPI when it isn't
- going to be used
-To: David Woodhouse <dwmw2@infradead.org>, x86@kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-        Juergen Gross <jgross@suse.com>, Paul Durrant <pdurrant@amazon.com>,
-        jgrall@amazon.com, karahmed@amazon.de,
-        xen-devel <xen-devel@lists.xenproject.org>
-References: <20201224115323.3540130-1-dwmw2@infradead.org>
- <20201224115323.3540130-6-dwmw2@infradead.org>
- <b6681a06-4c00-61a9-2112-63ee3eb8d86d@oracle.com>
- <eb7378cdbbdbff2548d510c453ede8baa917647f.camel@infradead.org>
- <f681dfe6-d0fb-e451-a58f-ad5cafa1cd62@oracle.com>
- <706a569a1321deafb3ae7a4e8d569fb6f2291f50.camel@infradead.org>
- <ea05c086-3b0c-0deb-c4c6-08a25beecb38@oracle.com>
- <6a032d2ff0d52ee19b2a88ac6813e25c6efc3733.camel@infradead.org>
- <3c27abbb-2f1d-2641-51c6-2f6bdbcf559b@oracle.com>
- <8a61ecbf527f1402ea19f0d1910f0af651b11229.camel@infradead.org>
- <1cf261fd-0062-8bc5-c3de-53b281accb82@oracle.com>
- <575e71c6f0bb672770390d45a0218d3064ce4860.camel@infradead.org>
-From: boris.ostrovsky@oracle.com
-Organization: Oracle Corporation
-Message-ID: <312dff57-f7da-7c9e-0e1f-2bbb28d3c3a5@oracle.com>
-Date: Tue, 5 Jan 2021 09:45:12 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.0
+X-Inumbo-ID: add2f3be-5470-4337-9f4a-c6785c01104b
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1609858026; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eKe8X2YEOx6i+NnPh2d4vzoW4AVTKnJD+NJ4Y7ik2z0=;
+	b=kdz+dHsG2J1LdnPWTOfXKCS3QFtikXWRN8o25ceUIoyMox8wmrIkTLfs1KqL4bl/W6GA6H
+	6wj8opiXAgBQUSz0qnuKsQH5jtmziY8TvjraFvUcsDKak2GzfbDasLGcKY8AedRFwOqs4v
+	jsk3za9sGqnVityeXObgUDuWOdf8ReU=
+Subject: Re: [PATCH RFC] lib: extend ASSERT()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <8afb661c-a2eb-3188-8351-01de16ff1b22@suse.com>
+ <4d46370c-44a5-07de-9e7d-ab4611e941bf@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5d032a58-c79c-e8b7-1caa-1e229e14e866@suse.com>
+Date: Tue, 5 Jan 2021 15:47:05 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <575e71c6f0bb672770390d45a0218d3064ce4860.camel@infradead.org>
+In-Reply-To: <4d46370c-44a5-07de-9e7d-ab4611e941bf@citrix.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 malwarescore=0
- phishscore=0 bulkscore=0 mlxlogscore=999 suspectscore=0 mlxscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2101050094
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 spamscore=0 malwarescore=0
- phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 adultscore=0 suspectscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101050094
+Content-Transfer-Encoding: 8bit
 
-
-On 1/4/21 8:41 PM, David Woodhouse wrote:
-> On Mon, 2021-01-04 at 18:44 -0500, boris.ostrovsky@oracle.com wrote:
->> On 1/4/21 6:19 PM, David Woodhouse wrote:
->>> On Mon, 2021-01-04 at 18:04 -0500, boris.ostrovsky@oracle.com
->>> wrote:
->>>> Why not xen_hvm_cpu_die too? common_cpu_die() sounds like something
->>>> we should do, and the other three we call there will be nops.
->>> native_cpu_die() calls that, and isn't that the function that gets
->>> installed if we don't install our own?
+On 05.01.2021 14:56, Andrew Cooper wrote:
+> On 05/01/2021 12:45, Jan Beulich wrote:
+>> The increasing amount of constructs along the lines of
 >>
->> True.
+>>     if ( !condition )
+>>     {
+>>         ASSERT_UNREACHABLE();
+>>         return;
+>>     }
 >>
+>> is not only longer than necessary, but also doesn't produce incident
+>> specific console output (except for file name and line number). Allow
+>> the intended effect to be achieved with ASSERT(), by giving it a second
+>> parameter allowing specification of the action to take in release builds
+>> in case an assertion would have triggered in a debug one. The example
+>> above then becomes
 >>
->> Still, a Xen guest should call Xen-specific cpu_die() routine if
->> possible. Especially since (now) other cpu (i.e. non-IPI) ops will
->> call Xen versions.
-> But as you said, the other three things that xen_hvm_cpu_die() does are
-> all no-ops (or at least we'd have to make them no-ops; I haven't
-> checked). I don't see the point in calling it, only for it to do
-> nothing.
-
-
-For maintenance purposes. When something gets added in initialization path (prepare_boot_cpu() and such) we likely want to tear it down in cpu_die(). Today both native and Xen cpu_die() ops work the same but things change. And chances are people will not test no_vector_callback case so we will then have to hunt down what broke when.
-
-
-no_vector_callback is a pretty esoteric case already so making it take different code path from common case, when there is little or no penalty for doing the latter, seems undesirable to me.
-
-
->
->>>>>  	smp_ops.send_call_func_ipi = xen_smp_send_call_function_ipi;
->>>>>  	smp_ops.send_call_func_single_ipi = xen_smp_send_call_function_single_ipi;
->>>>> -	smp_ops.smp_prepare_boot_cpu = xen_hvm_smp_prepare_boot_cpu;
->>>>> -	smp_ops.smp_cpus_done = xen_smp_cpus_done;
->>>>>  }
->>>>>
->>>>>> Also, for the spinlock changes specifically --- I wonder whether it
->>>>>> would be better to reverse initial value of xen_pvspin and set it to
->>>>>> 'true' only if initialization succeeds.
->>>>> I looked at that but it would need to be tristate, since the
->>>>> 'xen_nopvspin' command line option clears it from its default of being
->>>>> enabled.
->>>> Ah, right. How about setting nopvspin in xen_parse_nopvspin()?
->>> That would make the xen_nopvspin command line option disable PV
->>> spinlocks even under KVM.
+>>     ASSERT(condition, return);
 >>
->> xen_nopvspin is deprecated and nopvspin is recommended anyway so I think it should be OK, no?
-> They do different things. If someone has an image (which might run on
-> both Xen and KVM) which has xen_nopvspin, we don't suddenly want that
-> to start disabling PV spinlocks on KVM too.
+>> Make sure the condition will continue to not get evaluated when just a
+>> single argument gets passed to ASSERT().
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> RFC: The use of a control flow construct as a macro argument may be
+>>      controversial.
+> 
+> So I had been putting some consideration towards this.  I agree that the
+> current use of ASSERT_UNREACHABLE() isn't great, and that we ought to do
+> something to improve the status quo.
+> 
+> However, the more interesting constructs to consider are the ones with
+> printk()'s and/or domain_crash().  While a straight return or goto in
+> alt... is perhaps acceptable, anything more complicated probably isn't.
 
+Since syntactically this is no problem, it is up to us whether we
+consider this unacceptable. Personally I wouldn't mind as long as
+the set of statements doesn't get excessive. Otoh I'm not sure
+the more complex uses are in need of such a transformation - the
+relatively simple ones are where the current arrangement has most
+significant impact.
 
-True, but this option is deprecated and will be removed in the future.
+> I also found, with my still-pending domain_crash() cleanup series, that
+> domain_crash()/ASSERT_UNREACHABE()/return/goto became an increasingly
+> common combination.
 
+Which may call for further abstraction along the lines of what I'm
+doing here?
 
--boris
+>> --- a/xen/include/xen/lib.h
+>> +++ b/xen/include/xen/lib.h
+>> @@ -55,12 +55,14 @@
+>>  #endif
+>>  
+>>  #ifndef NDEBUG
+>> -#define ASSERT(p) \
+>> +#define ASSERT(p, ...) \
+>>      do { if ( unlikely(!(p)) ) assert_failed(#p); } while (0)
+>>  #define ASSERT_UNREACHABLE() assert_failed("unreachable")
+>>  #define debug_build() 1
+>>  #else
+>> -#define ASSERT(p) do { if ( 0 && (p) ) {} } while (0)
+>> +#define ASSERT(p, alt...) do { \
+>> +        if ( !count_args(alt) || unlikely(!(p)) ) { alt; } \
+> 
+> I'd strongly recommend naming this failsafe... rather than alt, to make
+> it clear what its purpose is.
 
+No problem. Albeit I wonder whether "failsafe" is really better -
+maybe "fallback"?
+
+> Also, we really can't have (p) conditionally evaluated depending on
+> whether there are any failsafe arguments or not.  It is already bad
+> enough that its state of evaluation differs between debug and release
+> builds.
+
+Are you suggesting to evaluate it unconditionally, producing
+unnecessary binary code in release builds _and_ diverging from the
+C standard's assert()? I'm not outright against, but I'm also not
+sure this is a good idea. But like you I also don't really like
+the new asymmetry, but I thought it would be best to leave
+existing uses of ASSERT() entirely unchanged in their behavior.
+
+Jan
 
