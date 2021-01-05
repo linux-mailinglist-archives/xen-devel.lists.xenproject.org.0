@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3597A2EAB9E
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 14:12:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61942.109294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B07102EABA0
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 14:13:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61947.109318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwm8I-0000u7-QH; Tue, 05 Jan 2021 13:12:18 +0000
+	id 1kwm8n-00016B-JN; Tue, 05 Jan 2021 13:12:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61942.109294; Tue, 05 Jan 2021 13:12:18 +0000
+Received: by outflank-mailman (output) from mailman id 61947.109318; Tue, 05 Jan 2021 13:12:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwm8I-0000ti-Mk; Tue, 05 Jan 2021 13:12:18 +0000
-Received: by outflank-mailman (input) for mailman id 61942;
- Tue, 05 Jan 2021 13:12:17 +0000
+	id 1kwm8n-00015j-Fm; Tue, 05 Jan 2021 13:12:49 +0000
+Received: by outflank-mailman (input) for mailman id 61947;
+ Tue, 05 Jan 2021 13:12:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hFWs=GI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwm8H-0000tZ-Qa
- for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 13:12:17 +0000
+ id 1kwm8m-00015X-13
+ for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 13:12:48 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 93e5ae14-b21a-4246-9a5f-affa686567d1;
- Tue, 05 Jan 2021 13:12:16 +0000 (UTC)
+ id bedf2ede-ad0b-4576-825b-85acd2643572;
+ Tue, 05 Jan 2021 13:12:46 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C2905AD0B;
- Tue,  5 Jan 2021 13:12:15 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0DD73AD0B;
+ Tue,  5 Jan 2021 13:12:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,19 +39,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93e5ae14-b21a-4246-9a5f-affa686567d1
+X-Inumbo-ID: bedf2ede-ad0b-4576-825b-85acd2643572
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609852335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1609852366; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lq6jmPFxyGjXjD9MsCgMeKHr6YBRuiaVaAtrxirfbsc=;
-	b=Yqs11mE5pYFEholJIsyvQ1omhKx0WfPOBJOAg5Zh4xaOOaFacuHEQs+w+zvDtL3r0KIUaK
-	znENz2MWIK0fqJWS/npczgOMh64mECuMvHhrjzdq73hkFu7Xl8lRdDdgtHPYpFm+Dpwdk1
-	/4ssc/XzWemGZYvUPfecdffOJrSYMCE=
-Subject: [PATCH v4 07/10] evtchn: add helper for port_is_valid() +
- evtchn_from_port()
+	bh=SpxX4mM7UaE7DIJT+8KP+Q3gPOhRwR0g9uwFVjsXk70=;
+	b=khjXkNwI6PJYcqEEAgnTtfuyU4bQg64gRx9mIqjGtNOzxK5jauiEQr1naFjBQym0DkNabe
+	f5L5a/8bK6yl6n8MJfJX8veEnzlIeYcgX0s+0hYqP8Iu30TS/mG8TwhIFjcfL2bXfturYS
+	59umq4qyDlKD8nslxj9YRQbZDVEbpIo=
+Subject: [PATCH v4 08/10] evtchn: closing of ports doesn't need to hold both
+ domains' event locks
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -59,8 +59,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <cf0a1c24-0146-1017-7310-9536f2ed0ad1@suse.com>
-Message-ID: <a2f29b53-c79a-6440-fcaa-97ad28bab0b5@suse.com>
-Date: Tue, 5 Jan 2021 14:12:15 +0100
+Message-ID: <495496e6-710d-bec0-cbd7-46c78f20fcf0@suse.com>
+Date: Tue, 5 Jan 2021 14:12:45 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
@@ -69,10 +69,18 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-The combination is pretty common, so adding a simple local helper seems
-worthwhile. Make it const- and type-correct, in turn requiring the
-two called function to also be const-correct (and at this occasion also
-make them type-correct).
+The local domain's lock is needed for the port freeing, but for the
+remote side the per-channel lock is sufficient. Other logic then needs
+rearranging, though, including the early dropping of both locks (and the
+remote domain ref) in the ECS_PIRQ and ECS_VIRQ cases.
+
+Note in particular that there is no real race with evtchn_bind_vcpu():
+ECS_INTERDOMAIN and ECS_UNBOUND get treated identically there, and
+evtchn_close() doesn't care about the notification vCPU ID.
+
+Note also that we can't use double_evtchn_unlock() or
+evtchn_write_unlock() when releasing locks to cover for possible races.
+See the respective code comment.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
@@ -80,215 +88,190 @@ v4: New.
 
 --- a/xen/common/event_channel.c
 +++ b/xen/common/event_channel.c
-@@ -147,6 +147,11 @@ static bool virq_is_global(unsigned int
-     return true;
- }
- 
-+static struct evtchn *_evtchn_from_port(const struct domain *d,
-+                                        evtchn_port_t port)
-+{
-+    return port_is_valid(d, port) ? evtchn_from_port(d, port) : NULL;
-+}
- 
- static struct evtchn *alloc_evtchn_bucket(struct domain *d, unsigned int port)
- {
-@@ -361,9 +366,9 @@ static long evtchn_bind_interdomain(evtc
-         ERROR_EXIT(lport);
-     lchn = evtchn_from_port(ld, lport);
- 
--    if ( !port_is_valid(rd, rport) )
-+    rchn = _evtchn_from_port(rd, rport);
-+    if ( !rchn )
-         ERROR_EXIT_DOM(-EINVAL, rd);
--    rchn = evtchn_from_port(rd, rport);
- 
-     double_evtchn_lock(lchn, rchn);
- 
-@@ -600,15 +605,12 @@ static long evtchn_bind_pirq(evtchn_bind
+@@ -605,15 +605,15 @@ static long evtchn_bind_pirq(evtchn_bind
  int evtchn_close(struct domain *d1, int port1, bool guest)
  {
      struct domain *d2 = NULL;
--    struct evtchn *chn1, *chn2;
--    int            port2;
-+    struct evtchn *chn1 = _evtchn_from_port(d1, port1), *chn2;
+-    struct evtchn *chn1 = _evtchn_from_port(d1, port1), *chn2;
++    struct evtchn *chn1 = _evtchn_from_port(d1, port1), *chn2 = NULL;
      long           rc = 0;
  
--    if ( !port_is_valid(d1, port1) )
-+    if ( !chn1 )
+     if ( !chn1 )
          return -EINVAL;
  
--    chn1 = evtchn_from_port(d1, port1);
--
-  again:
+- again:
      write_lock(&d1->event_lock);
  
-@@ -695,10 +697,8 @@ int evtchn_close(struct domain *d1, int
++ again:
+     /* Guest cannot close a Xen-attached event channel. */
+     if ( unlikely(consumer_is_xen(chn1)) && guest )
+     {
+@@ -634,6 +634,22 @@ int evtchn_close(struct domain *d1, int
+     case ECS_PIRQ: {
+         struct pirq *pirq = pirq_info(d1, chn1->u.pirq.irq);
+ 
++        /*
++         * We don't require the per-channel lock here, so in case a race
++         * happened on the interdomain path below better release both.
++         */
++        if ( unlikely(chn2) )
++        {
++            /*
++             * See evtchn_write_unlock() vs plain write_unlock() comment in
++             * ECS_INTERDOMAIN handling below.
++             */
++            write_unlock(&chn1->lock);
++            write_unlock(&chn2->lock);
++            put_domain(d2);
++            chn2 = NULL;
++        }
++
+         if ( pirq )
+         {
+             if ( !is_hvm_domain(d1) )
+@@ -653,6 +669,22 @@ int evtchn_close(struct domain *d1, int
+         struct vcpu *v;
+         unsigned long flags;
+ 
++        /*
++         * The per-channel locks nest inside the vIRQ ones, so we must release
++         * them if a race happened on the interdomain path below.
++         */
++        if ( unlikely(chn2) )
++        {
++            /*
++             * See evtchn_write_unlock() vs plain write_unlock() comment in
++             * ECS_INTERDOMAIN handling below.
++             */
++            write_unlock(&chn1->lock);
++            write_unlock(&chn2->lock);
++            put_domain(d2);
++            chn2 = NULL;
++        }
++
+         v = d1->vcpu[virq_is_global(chn1->u.virq) ? 0 : chn1->notify_vcpu_id];
+ 
+         write_lock_irqsave(&v->virq_lock, flags);
+@@ -669,63 +701,87 @@ int evtchn_close(struct domain *d1, int
+     case ECS_INTERDOMAIN:
+         if ( d2 == NULL )
+         {
+-            d2 = chn1->u.interdomain.remote_dom;
++            evtchn_write_lock(chn1);
+ 
+-            /* If we unlock d1 then we could lose d2. Must get a reference. */
+-            if ( unlikely(!get_domain(d2)) )
+-                BUG();
+-
+-            if ( d1 < d2 )
+-                write_lock(&d2->event_lock);
+-            else if ( d1 != d2 )
+-            {
+-                write_unlock(&d1->event_lock);
+-                write_lock(&d2->event_lock);
+-                goto again;
+-            }
++            if ( chn1->state == ECS_INTERDOMAIN )
++                d2 = chn1->u.interdomain.remote_dom;
++            else
++                /* See comment further down. */
++                write_unlock(&chn1->lock);
+         }
+-        else if ( d2 != chn1->u.interdomain.remote_dom )
++
++        if ( d2 != chn1->u.interdomain.remote_dom )
+         {
+             /*
+-             * We can only get here if the port was closed and re-bound after
+-             * unlocking d1 but before locking d2 above. We could retry but
+-             * it is easier to return the same error as if we had seen the
+-             * port in ECS_FREE. It must have passed through that state for
+-             * us to end up here, so it's a valid error to return.
++             * We can only get here if the port was closed and re-bound
++             * - before locking chn1 or
++             * - after unlocking chn1 but before locking both channels
++             * above.  We could retry but it is easier to return the same error
++             * as if we had seen the port in ECS_FREE.  It must have passed
++             * through that state for us to end up here, so it's a valid error
++             * to return.
+              */
++            if ( d2 && !chn2 )
++                write_unlock(&chn1->lock);
+             rc = -EINVAL;
              goto out;
          }
  
--        port2 = chn1->u.interdomain.remote_port;
--        BUG_ON(!port_is_valid(d2, port2));
--
--        chn2 = evtchn_from_port(d2, port2);
-+        chn2 = _evtchn_from_port(d2, chn1->u.interdomain.remote_port);
-+        BUG_ON(!chn2);
-         BUG_ON(chn2->state != ECS_INTERDOMAIN);
-         BUG_ON(chn2->u.interdomain.remote_dom != d1);
+-        chn2 = _evtchn_from_port(d2, chn1->u.interdomain.remote_port);
+-        BUG_ON(!chn2);
+-        BUG_ON(chn2->state != ECS_INTERDOMAIN);
+-        BUG_ON(chn2->u.interdomain.remote_dom != d1);
++        if ( !chn2 )
++        {
++            /* If we unlock chn1 then we could lose d2. Must get a reference. */
++            if ( unlikely(!get_domain(d2)) )
++                BUG();
  
-@@ -736,15 +736,13 @@ int evtchn_close(struct domain *d1, int
+-        double_evtchn_lock(chn1, chn2);
++            chn2 = _evtchn_from_port(d2, chn1->u.interdomain.remote_port);
++            BUG_ON(!chn2);
  
- int evtchn_send(struct domain *ld, unsigned int lport)
- {
--    struct evtchn *lchn, *rchn;
-+    struct evtchn *lchn = _evtchn_from_port(ld, lport), *rchn;
-     struct domain *rd;
-     int            rport, ret = 0;
- 
--    if ( !port_is_valid(ld, lport) )
-+    if ( !lchn )
-         return -EINVAL;
- 
--    lchn = evtchn_from_port(ld, lport);
--
-     evtchn_read_lock(lchn);
- 
-     /* Guest cannot send via a Xen-attached event channel. */
-@@ -956,7 +954,6 @@ int evtchn_status(evtchn_status_t *statu
- {
-     struct domain   *d;
-     domid_t          dom = status->dom;
--    int              port = status->port;
-     struct evtchn   *chn;
-     long             rc = 0;
- 
-@@ -964,14 +961,13 @@ int evtchn_status(evtchn_status_t *statu
-     if ( d == NULL )
-         return -ESRCH;
- 
--    if ( !port_is_valid(d, port) )
-+    chn = _evtchn_from_port(d, status->port);
-+    if ( !chn )
-     {
-         rcu_unlock_domain(d);
-         return -EINVAL;
-     }
- 
--    chn = evtchn_from_port(d, port);
--
-     evtchn_read_lock(chn);
- 
-     if ( consumer_is_xen(chn) )
-@@ -1036,11 +1032,10 @@ long evtchn_bind_vcpu(unsigned int port,
-     if ( (v = domain_vcpu(d, vcpu_id)) == NULL )
-         return -ENOENT;
- 
--    if ( !port_is_valid(d, port) )
-+    chn = _evtchn_from_port(d, port);
-+    if ( !chn )
-         return -EINVAL;
- 
--    chn = evtchn_from_port(d, port);
--
-     write_lock(&d->event_lock);
- 
-     /* Guest cannot re-bind a Xen-attached event channel. */
-@@ -1086,13 +1081,11 @@ long evtchn_bind_vcpu(unsigned int port,
- int evtchn_unmask(unsigned int port)
- {
-     struct domain *d = current->domain;
--    struct evtchn *evtchn;
-+    struct evtchn *evtchn = _evtchn_from_port(d, port);
- 
--    if ( unlikely(!port_is_valid(d, port)) )
-+    if ( unlikely(!evtchn) )
-         return -EINVAL;
- 
--    evtchn = evtchn_from_port(d, port);
--
-     evtchn_read_lock(evtchn);
- 
-     evtchn_port_unmask(d, evtchn);
-@@ -1175,14 +1168,12 @@ static long evtchn_set_priority(const st
- {
-     struct domain *d = current->domain;
-     unsigned int port = set_priority->port;
--    struct evtchn *chn;
-+    struct evtchn *chn = _evtchn_from_port(d, port);
-     long ret;
- 
--    if ( !port_is_valid(d, port) )
-+    if ( !chn )
-         return -EINVAL;
- 
--    chn = evtchn_from_port(d, port);
--
-     evtchn_read_lock(chn);
- 
-     ret = evtchn_port_set_priority(d, chn, set_priority->priority);
-@@ -1408,10 +1399,10 @@ void free_xen_event_channel(struct domai
- 
- void notify_via_xen_event_channel(struct domain *ld, int lport)
- {
--    struct evtchn *lchn, *rchn;
-+    struct evtchn *lchn = _evtchn_from_port(ld, lport), *rchn;
-     struct domain *rd;
- 
--    if ( !port_is_valid(ld, lport) )
-+    if ( !lchn )
-     {
-         /*
-          * Make sure ->is_dying is read /after/ ->valid_evtchns, pairing
-@@ -1422,8 +1413,6 @@ void notify_via_xen_event_channel(struct
-         return;
-     }
- 
--    lchn = evtchn_from_port(ld, lport);
--
-     if ( !evtchn_read_trylock(lchn) )
-         return;
- 
-@@ -1577,16 +1566,17 @@ static void domain_dump_evtchn_info(stru
-            "Polling vCPUs: {%*pbl}\n"
-            "    port [p/m/s]\n", d->domain_id, d->max_vcpus, d->poll_mask);
- 
--    for ( port = 1; port_is_valid(d, port); ++port )
-+    for ( port = 1; ; ++port )
-     {
--        struct evtchn *chn;
-+        struct evtchn *chn = _evtchn_from_port(d, port);
-         char *ssid;
- 
-+        if ( !chn )
-+            break;
+-        evtchn_free(d1, chn1);
++            if ( chn1 > chn2 )
++            {
++                /*
++                 * Cannot use evtchn_write_unlock() here, as its assertion
++                 * likely won't hold.  However, a race - as per the comment
++                 * below - indicates a transition through ECS_FREE must
++                 * have occurred, so the assumptions by users of
++                 * evtchn_read_trylock() still hold (i.e. they're similarly
++                 * fine to bail).
++                 */
++                write_unlock(&chn1->lock);
++                double_evtchn_lock(chn2, chn1);
++                goto again;
++            }
 +
-         if ( !(port & 0x3f) )
-             process_pending_softirqs();
++            evtchn_write_lock(chn2);
++        }
++
++        BUG_ON(chn2->state != ECS_INTERDOMAIN);
++        BUG_ON(chn2->u.interdomain.remote_dom != d1);
  
--        chn = evtchn_from_port(d, port);
+         chn2->state = ECS_UNBOUND;
+         chn2->u.unbound.remote_domid = d1->domain_id;
+ 
+-        double_evtchn_unlock(chn1, chn2);
 -
-         if ( !evtchn_read_trylock(chn) )
-         {
-             printk("    %4u in flux\n", port);
---- a/xen/include/xen/event.h
-+++ b/xen/include/xen/event.h
-@@ -120,7 +120,7 @@ static inline void evtchn_read_unlock(st
-     read_unlock(&evtchn->lock);
- }
+-        goto out;
++        break;
  
--static inline bool_t port_is_valid(struct domain *d, unsigned int p)
-+static inline bool port_is_valid(const struct domain *d, evtchn_port_t p)
- {
-     if ( p >= read_atomic(&d->valid_evtchns) )
-         return false;
-@@ -135,7 +135,8 @@ static inline bool_t port_is_valid(struc
-     return true;
- }
+     default:
+         BUG();
+     }
  
--static inline struct evtchn *evtchn_from_port(struct domain *d, unsigned int p)
-+static inline struct evtchn *evtchn_from_port(const struct domain *d,
-+                                              evtchn_port_t p)
- {
-     if ( p < EVTCHNS_PER_BUCKET )
-         return &d->evtchn[array_index_nospec(p, EVTCHNS_PER_BUCKET)];
+-    evtchn_write_lock(chn1);
++    if ( !chn2 )
++        evtchn_write_lock(chn1);
+     evtchn_free(d1, chn1);
+-    evtchn_write_unlock(chn1);
++    if ( !chn2 )
++        evtchn_write_unlock(chn1);
+ 
+  out:
+-    if ( d2 != NULL )
++    if ( chn2 )
+     {
+-        if ( d1 != d2 )
+-            write_unlock(&d2->event_lock);
++        /*
++         * See evtchn_write_unlock() vs plain write_unlock() comment in
++         * ECS_INTERDOMAIN handling above.  In principle we could use
++         * double_evtchn_unlock() on the ECS_INTERDOMAIN success path.
++         */
++        write_unlock(&chn1->lock);
++        write_unlock(&chn2->lock);
+         put_domain(d2);
+     }
+ 
 
 
