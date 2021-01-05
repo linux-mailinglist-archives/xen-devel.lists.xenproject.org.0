@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 660E82EA922
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 11:49:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61795.108864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B0202EA957
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 12:01:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61799.108875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwjtA-0000hW-0M; Tue, 05 Jan 2021 10:48:32 +0000
+	id 1kwk5I-0002WM-8y; Tue, 05 Jan 2021 11:01:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61795.108864; Tue, 05 Jan 2021 10:48:31 +0000
+Received: by outflank-mailman (output) from mailman id 61799.108875; Tue, 05 Jan 2021 11:01:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwjt9-0000h7-Sz; Tue, 05 Jan 2021 10:48:31 +0000
-Received: by outflank-mailman (input) for mailman id 61795;
- Tue, 05 Jan 2021 10:48:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zF08=GI=gmail.com=charles.fg@srs-us1.protection.inumbo.net>)
- id 1kwjt8-0000h2-42
- for xen-devel@lists.xen.org; Tue, 05 Jan 2021 10:48:30 +0000
-Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 35f8978d-86dc-4cff-ad4f-66f740976d2c;
- Tue, 05 Jan 2021 10:48:28 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id w5so35656201wrm.11
- for <xen-devel@lists.xen.org>; Tue, 05 Jan 2021 02:48:28 -0800 (PST)
+	id 1kwk5I-0002Vx-5w; Tue, 05 Jan 2021 11:01:04 +0000
+Received: by outflank-mailman (input) for mailman id 61799;
+ Tue, 05 Jan 2021 11:01:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kwk5G-0002VZ-Py
+ for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 11:01:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kwk5G-0007BU-Ja; Tue, 05 Jan 2021 11:01:02 +0000
+Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kwk5G-0007bP-DG; Tue, 05 Jan 2021 11:01:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,170 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35f8978d-86dc-4cff-ad4f-66f740976d2c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=B4s1wqZUNwFqLwZb2O7OPQ2QFx6FMKbC+mk48XPWiZ8=;
-        b=Ncy06VpGh/JW6GEn1Hr/nrundZqlVeOedPY9c53dtyWxLiwcHocizp3vfFYf9r5CzP
-         GxT6wLq+JGL4MwBmAQZld6c6EN0dHgyLmeeOmcpp0VGCPh7ZugImAMJYTcKVOTTdXwoT
-         zwlq5T/SVNvFncv83Gq7dROrvQ9RjjGdIKs0EC8mKVCmcTN7xXSOXtp0wTaRnrAO1iP4
-         NbldUKTMQtfrxV+6JTAtn9WHP++FAo36sp/1KFlJ5TlnsuPoFbDUbwKFC+9/mo0GX5IU
-         ekWjxTJEj17/zSc9QoEseASyNHftF7YirTd1uiivvvAZMCzRdh2AAMLtkubMbutyhpzi
-         67iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=B4s1wqZUNwFqLwZb2O7OPQ2QFx6FMKbC+mk48XPWiZ8=;
-        b=lvSGKtjFJI4fuUgmfzXvasfjt3rqdHQUei4nvHaHUyoY/2LhQLno822K63+7bf/0H9
-         jurLDKMZadPVbk3H8mYukN9z2mNs7xkyijzUpslzZsj22piijdZ+Pjg7D6LuuDkg0Odj
-         ZJ6YUlMDoikuH8nGXxM7sYqTOdQuexzUfTMkWs88EaZyYFTE7uMRdKiAQmNp25lvpwRZ
-         MOs6K+N+7qhi+O7tJ6GVpa55QxdX6SwaABLyIBKgcCcyLnlDLaULOPhJJZDGkYGFLKiO
-         ij51S8FCi6+lKVJKRe5gm9dlfFPKIhpYaTt2KCwuz/eoP0JuY5uhQFVVe/XTYRfDr5px
-         ba0Q==
-X-Gm-Message-State: AOAM532saaOk/qqaqGif9FIRp2gtIU9Z8qz3wbCCqWD9uVZfghgiqmRE
-	xoAVu4/MyTky2byVwmap4GpN0yTAZzzOQwVo0rU=
-X-Google-Smtp-Source: ABdhPJyw8+zQTWAbidBwMByylF9CV1UctbPIONG2a/9JPbsQcTo+2TeJ73JTlfEEi5WzPSaHwpKeybvGHh2lh8Wt67E=
-X-Received: by 2002:a5d:62c7:: with SMTP id o7mr32001733wrv.257.1609843708067;
- Tue, 05 Jan 2021 02:48:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=91sGRpex+PTuhSXmNa1taCMfZfJjuZTKzsFqlNGbBqM=; b=kx4wYaDgaFj7hPjmPxavJ3Jc1n
+	sJTi6XBjarAqUxvEKP7LcyhZ0vrBtecJow1otjxaj8TEv4cofyklgbL2ZhcJJb79xaA1GpIBMm+tg
+	e26muC+X+BFMG6Sg0zHnzFdBeGvrjlSxOA3L7jhMcqGMME5tUS7Lr9ppdE77ZY+dST9A=;
+Subject: Re: [PATCH] xen/arm: Using unsigned long for arm64 MPIDR mask
+To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+Cc: Bertrand.Marquis@arm.com, Penny.Zheng@arm.com, Jiamei.Xie@arm.com,
+ nd@arm.com
+References: <20210105101751.1972883-1-wei.chen@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <c3896575-a256-add3-2603-71e627bceba7@xen.org>
+Date: Tue, 5 Jan 2021 11:01:00 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-References: <CAAQRGoBko2ksX7s_DvbwK5L82-tLz0YXsV0vqfToZHeODJBtbQ@mail.gmail.com>
- <21be2d74-a1d9-176f-70fb-7f86724a965b@citrix.com> <CAAQRGoDcTxDyQh_2gES6L7wEEn8YES0MHp4zS5mLhhjC5j0w5g@mail.gmail.com>
- <a415871e-9f90-6beb-55b0-5cf9c9656dd1@citrix.com>
-In-Reply-To: <a415871e-9f90-6beb-55b0-5cf9c9656dd1@citrix.com>
-From: =?UTF-8?Q?Charles_Gon=C3=A7alves?= <charles.fg@gmail.com>
-Date: Tue, 5 Jan 2021 10:47:54 +0000
-Message-ID: <CAAQRGoCPdoGf+dQPcTpyLCid24wAJMRxq83YaQ0OY_jW+4GFog@mail.gmail.com>
-Subject: Re: Identify an specific DomU inpecting all pages in memory
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xen.org
-Content-Type: multipart/alternative; boundary="0000000000005d00ec05b824f277"
+In-Reply-To: <20210105101751.1972883-1-wei.chen@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
---0000000000005d00ec05b824f277
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Wei,
 
-Thanks Andrew,
+On 05/01/2021 10:17, Wei Chen wrote:
+> Curretly, Xen is using UINT32 for MPIDR mask to retrieve
 
-I'll certainly follow your suggestion of getting used to coding into Xen
-context.
-I've just got started programming into Xen, and this will be crucial to my
-goal.
+s/Curretly/Currently/
 
-Right now, my approach to detect a dom0 memory page is to walk across all
-pages in memory and identify one that holds an unspecific start_info
-struct, and then check the SIF_INITDOMAIN.
-If I had a way to identify which domU this unspecific page referee to from
-this data structure, it will ease the work.
+> affinity[0,1,2,3] values for MPIDR_EL1 register. The value
+> of MPIDR_EL1 is 64-bit unsigned long. The operation of 64-bit
+> and 32-bit integers are compiler related. This means the value
+> is unpredictable.
 
+So I agree that ~MPIDR_AFF0_MASK will do the negation in 32-bit rather 
+than 64-bit. However, I disagree that this is unpredicable or compiler 
+specific.
 
+> 
+> For example, when we are using MPIDR_AFF0_MASK to get
+> cluster_id from a 64-bit integer in gic-v3 driver:
+> uint64_t cluster_id = cpu_logical_map(cpu) & ~MPIDR_AFF0_MASK;
+> 
+> When MPIDR_AFF0_MASK is UINT32, compiler output:
+>      f7c: 92785c16 and x22, x0, #0xffffff00
+> When MPIDR_AFF0_MASK is unsigned long, compiler output:
+>      f88: 9278dc75 and x21, x3, #0xffffffffffffff00
+> 
+> If we have a cpu_logical_map(cpu)= 0x1,00000000. We except
+> to get a cluster_id 1, but with UINT32 MPIDR_AFF0_MASK, we
+> will get 0.
 
-Atenciosamente,
-*Charles Ferreira Gon=C3=A7alves *
+Something doesn't match here. If the cluster_id were 1, then it should 
+surely be 1 as well even with the 32-bit mask because there is no shift.
 
+So did you intend to say 0x1,00000000?
 
+> 
+> So, in this patch, we force aarch64 to use unsigned long
+> as MPIDR mask to avoid such unpredictable operations.
 
+Per above, I don't think this is unpredictable.
 
-On Mon, Jan 4, 2021 at 6:18 PM Andrew Cooper <andrew.cooper3@citrix.com>
-wrote:
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>   xen/include/asm-arm/processor.h | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/include/asm-arm/processor.h b/xen/include/asm-arm/processor.h
+> index 87c8136022..5c1768cdec 100644
+> --- a/xen/include/asm-arm/processor.h
+> +++ b/xen/include/asm-arm/processor.h
+> @@ -75,11 +75,11 @@
+>   
+>   /* MPIDR Multiprocessor Affinity Register */
+>   #define _MPIDR_UP           (30)
+> -#define MPIDR_UP            (_AC(1,U) << _MPIDR_UP)
+> +#define MPIDR_UP            (_AC(1,UL) << _MPIDR_UP)
+>   #define _MPIDR_SMP          (31)
+> -#define MPIDR_SMP           (_AC(1,U) << _MPIDR_SMP)
+> +#define MPIDR_SMP           (_AC(1,UL) << _MPIDR_SMP)
+>   #define MPIDR_AFF0_SHIFT    (0)
+> -#define MPIDR_AFF0_MASK     (_AC(0xff,U) << MPIDR_AFF0_SHIFT)
+> +#define MPIDR_AFF0_MASK     (_AC(0xff,UL) << MPIDR_AFF0_SHIFT)
+>   #ifdef CONFIG_ARM_64
+>   #define MPIDR_HWID_MASK     _AC(0xff00ffffff,UL)
+>   #else
+> 
 
-> On 02/01/2021 19:20, Charles Gon=C3=A7alves wrote:
-> > Sure.
-> >
-> > The goal is to emulate a scenario where a compromised guest attacks
-> > another
-> > tenant in the same physical host reading/changing the memory content.
-> > E.g., extract the RSA key.
-> >
-> > I'll be in the domU kernel space. I'm assuming that the guest is able
-> > to exploit
-> > any vulnerability possible.
-> > Effectively I'll be changing Xen's code (at least possible) to
-> > *emulate* a vulnerability
-> > (e.g., undo a patch).
->
-> Ok, so in this scenario, you've successfully exploited a privilege
-> escalation vulnerability in Xen and obtained code execution in
-> hypervisor context.  There are some security fixes to choose to revert
-> for this purpose, but none I'm aware of which will make the attack
-> payload trivial to pull off.
->
-> However, I'd suggest that you first try writing a new hypercall to do
-> what you want, so you can get used to coding in Xen context, before
-> adding the complexity of trying to retrofit it into an attack payload.
->
-> If you've already got code with works for dom0, I presume you're keying
-> off the hardware_domain pointer?  Either way, you can look at the
-> for_each_domain() construct for how to walk the domain list, or
-> get_domain_by_id() for how to use the hashtable to look up a domain by
-> its domid.
->
-> ~Andrew
->
-
---0000000000005d00ec05b824f277
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks Andrew,=C2=A0<div><br></div><div>I&#39;ll certainly=
- follow your suggestion of getting used to coding into Xen context.</div><d=
-iv>I&#39;ve just got started programming into Xen, and this will be crucial=
- to my goal.</div><div><br></div><div>Right now, my approach to detect a do=
-m0 memory page is to walk across all pages in memory and identify one that =
-holds an unspecific start_info struct, and then check the SIF_INITDOMAIN.</=
-div><div>If I had a way to identify which domU this unspecific page referee=
-=C2=A0to from this data structure, it will ease the work.</div><div><br></d=
-iv><div><br></div><div><div><div dir=3D"ltr" class=3D"gmail_signature" data=
--smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><br></div><div>Atencio=
-samente,=C2=A0</div><b>Charles Ferreira Gon=C3=A7alves </b><br><font color=
-=3D"#666666"><br></font><font color=3D"#666666" size=3D"1"><br></font></div=
-></div></div><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr=
-" class=3D"gmail_attr">On Mon, Jan 4, 2021 at 6:18 PM Andrew Cooper &lt;<a =
-href=3D"mailto:andrew.cooper3@citrix.com">andrew.cooper3@citrix.com</a>&gt;=
- wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 02/01=
-/2021 19:20, Charles Gon=C3=A7alves wrote:<br>
-&gt; Sure.=C2=A0<br>
-&gt;<br>
-&gt; The goal is to emulate a scenario where a compromised guest attacks<br=
->
-&gt; another=C2=A0<br>
-&gt; tenant in the same physical host reading/changing the memory content.=
-=C2=A0=C2=A0<br>
-&gt; E.g., extract the RSA key.<br>
-&gt;<br>
-&gt; I&#39;ll be in the domU kernel space. I&#39;m assuming that the guest =
-is able<br>
-&gt; to exploit=C2=A0<br>
-&gt; any vulnerability possible.=C2=A0<br>
-&gt; Effectively I&#39;ll be changing Xen&#39;s code (at least possible) to=
-<br>
-&gt; *emulate* a vulnerability=C2=A0<br>
-&gt; (e.g., undo a patch).<br>
-<br>
-Ok, so in this scenario, you&#39;ve successfully exploited a privilege<br>
-escalation vulnerability in Xen and obtained code execution in<br>
-hypervisor context.=C2=A0 There are some security fixes to choose to revert=
-<br>
-for this purpose, but none I&#39;m aware of which will make the attack<br>
-payload trivial to pull off.<br>
-<br>
-However, I&#39;d suggest that you first try writing a new hypercall to do<b=
-r>
-what you want, so you can get used to coding in Xen context, before<br>
-adding the complexity of trying to retrofit it into an attack payload.<br>
-<br>
-If you&#39;ve already got code with works for dom0, I presume you&#39;re ke=
-ying<br>
-off the hardware_domain pointer?=C2=A0 Either way, you can look at the<br>
-for_each_domain() construct for how to walk the domain list, or<br>
-get_domain_by_id() for how to use the hashtable to look up a domain by<br>
-its domid.<br>
-<br>
-~Andrew<br>
-</blockquote></div>
-
---0000000000005d00ec05b824f277--
+-- 
+Julien Grall
 
