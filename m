@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AABE2EAA7B
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 13:14:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61847.109004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4792EAA88
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 13:18:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61851.109017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwlE7-0001Xy-Oi; Tue, 05 Jan 2021 12:14:15 +0000
+	id 1kwlHt-0001iP-A8; Tue, 05 Jan 2021 12:18:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61847.109004; Tue, 05 Jan 2021 12:14:15 +0000
+Received: by outflank-mailman (output) from mailman id 61851.109017; Tue, 05 Jan 2021 12:18:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwlE7-0001Xc-LZ; Tue, 05 Jan 2021 12:14:15 +0000
-Received: by outflank-mailman (input) for mailman id 61847;
- Tue, 05 Jan 2021 12:14:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YjHi=GI=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kwlE6-0001XX-Tk
- for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 12:14:14 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (unknown [85.215.255.22])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e40627be-d0a4-446d-85ad-aa757948ada3;
- Tue, 05 Jan 2021 12:14:13 +0000 (UTC)
-Received: from sender by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
- with ESMTPSA id h0968ex05CE50gt
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 5 Jan 2021 13:14:05 +0100 (CET)
+	id 1kwlHt-0001hz-70; Tue, 05 Jan 2021 12:18:09 +0000
+Received: by outflank-mailman (input) for mailman id 61851;
+ Tue, 05 Jan 2021 12:18:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=apNQ=GI=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1kwlHr-0001hu-QK
+ for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 12:18:07 +0000
+Received: from mail-wr1-f42.google.com (unknown [209.85.221.42])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8aea51ab-163d-40bd-8c2d-a460e1c9f32f;
+ Tue, 05 Jan 2021 12:18:07 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id 91so35949829wrj.7
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Jan 2021 04:18:07 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id r20sm106928463wrg.66.2021.01.05.04.18.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Jan 2021 04:18:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,69 +41,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e40627be-d0a4-446d-85ad-aa757948ada3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1609848852;
-	s=strato-dkim-0002; d=aepfle.de;
-	h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:From:
-	Subject:Sender;
-	bh=FjTuLPxKIbT8iYTtqvBI41sxL/Ufdq8VUPoYGkhkJaw=;
-	b=VO4zy5JtF8MiOGyaQpWGjZ80q3viEjgBbkVBtQUOiUsaJ7D72jNokJ2C1Sc6Z/zluH
-	d2LrfMNlCaEVxNmx1Ufcv2Xljg2bhCUAN/hptg5aQUlfhBojBG/zmRNciHdvPC+YXDBi
-	yjvgbjWuBG7U3148oatJUFyGUBw/df+6CE6Eb7b84gDCoX5TdbvbMo/Tf8UflUlqhQZ1
-	Hi9jvK28mq1YRf0SZCySKwd3t1EtwTgoAERtINUNvMm7ofM3DpS+gxHSZ5/kASOEjHcO
-	rSFirO1XyLeI/kO1dzWT3AvOos/g+ZzO5Iv1NAq9sQKTKJjdQsHT2p6ry5ESY9BuTd70
-	5rfg==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDXdoX8l8pYAcz5OTWOr7/A=="
-X-RZG-CLASS-ID: mo00
-Date: Tue, 5 Jan 2021 13:13:52 +0100
-From: Olaf Hering <olaf@aepfle.de>
-To: Maximilian Engelhardt <maxi@daemonizer.de>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>, Wei
- Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>
-Subject: Re: [XEN PATCH v2] docs: set date to SOURCE_DATE_EPOCH if available
-Message-ID: <20210105131352.31c9feda.olaf@aepfle.de>
-In-Reply-To: <8b4564696cae00041848af8c5793172b80edadd5.1608742171.git.maxi@daemonizer.de>
-References: <8b4564696cae00041848af8c5793172b80edadd5.1608742171.git.maxi@daemonizer.de>
-X-Mailer: Claws Mail 2020.08.19 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 8aea51ab-163d-40bd-8c2d-a460e1c9f32f
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to:user-agent;
+        bh=cskje6h7lV46JU0ZKMKbeH/DqSKnxHiO6DslqFB21j8=;
+        b=Ba5N3nu1YTsmig2O8ugVHZhCIubZRdeJ2hiq89fWpfA/1qSG2M0gOpIcKQrVbpwl1M
+         tVSrKHrM6Npe54KciA4Q9brkoej/qXdN8OM0YEPkIF/yB/u8WgJuQYlqTTG4C2G6ALgh
+         2juCUUVWm/y4VtqH+e6SL5Bv+UFXLgtWlQWQHUwQv+J1JBeWubHkF9PRenoto1Jw1GLO
+         CKlj6B+yHi3F7xbNrBIMyhGY7kg6W27ATa7b441mK+rgYCe820FJdwnGWNqXI3Ey32lj
+         j6j1EqRljFRhUxx2qMItYZB6z7fpR5j+oBwZzOhrHoNqouo8w2yCfolkKso7TM/4jbS4
+         Tl/w==
+X-Gm-Message-State: AOAM532xpExMkPFPI2CGuROGmnRBUiJTG7STjn9BWzkkT2edMGB4ENbV
+	zaiRmDiq3g/QTuXYgXig7K4=
+X-Google-Smtp-Source: ABdhPJzodcP0HUzUMI8pqYtCpuzB8rcegN35rZjt0TfplgsR+gJ2jc2QX6MfZ0Rl7APJds/EEECEGw==
+X-Received: by 2002:a5d:51cc:: with SMTP id n12mr82669066wrv.375.1609849086365;
+        Tue, 05 Jan 2021 04:18:06 -0800 (PST)
+Date: Tue, 5 Jan 2021 12:18:04 +0000
+From: Wei Liu <wl@xen.org>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] libxl: cleanup remaining backend xs dirs after driver
+ domain
+Message-ID: <20210105121804.ovuq6eiccdd3hmot@liuwe-devbox-debian-v2>
+References: <20201108145942.3089012-1-marmarek@invisiblethingslab.com>
+ <20201209150121.GM1244@mail-itl>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/VBrpYdPv3rC8rTcisupMW32"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201209150121.GM1244@mail-itl>
+User-Agent: NeoMutt/20180716
 
---Sig_/VBrpYdPv3rC8rTcisupMW32
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Wed, Dec 09, 2020 at 04:01:21PM +0100, Marek Marczykowski-Górecki wrote:
+> On Sun, Nov 08, 2020 at 03:59:42PM +0100, Marek Marczykowski-Górecki wrote:
+> > When device is removed, backend domain (which may be a driver domain) is
+> > responsible for removing backend entries from xenstore. But in case of
+> > driver domain, it has no access to remove all of them - specifically the
+> > directory named after frontend-id remains. This may accumulate enough to
+> > exceed xenstore quote of the driver domain, breaking further devices.
+> > 
+> > Fix this by calling libxl__xs_path_cleanup() on the backend path from
+> > libxl__device_destroy() in the toolstack domain too. Note
+> > libxl__device_destroy() is called when the driver domain already removed
+> > what it can (see device_destroy_be_watch_cb()->device_hotplug_done()).
+> > 
+> > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> 
+> Ping?
 
-Am Wed, 23 Dec 2020 17:56:53 +0100
-schrieb Maximilian Engelhardt <maxi@daemonizer.de>:
-
-> reproducible builds
-
-Just wipe all built-in timestamps.
-They serve no purpose.
-Use git hashes to refer to specific build.
-
-Olaf
-
---Sig_/VBrpYdPv3rC8rTcisupMW32
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl/0WAEACgkQ86SN7mm1
-DoCjyRAAjUvu363K6Rvs/6aqZX9I+YH+pUSB+yJH28W1csV0jlZPnBQmusvJj1oO
-dXZRkpU9V0Xy+I52K4MlMFPdvg+WCU8VRIdOimk4bOKyY4IhATvD+CThD9AWg/kI
-gKwa952Fng7cg2RCNKZBCoVYz8eXdJqBROQWHKF7BfEGbd3IRyGvt3kUQuleTbVc
-V0Y0lMnxahJm21OI9jcvzy+rMqqJsnlBZbWpH/6KTLMRT2WhJB9PvJT73Oh8XN1c
-TBN4Dk9Pc67DFwm1WMTZmJN7jnxPl256oKPLc4dzuObxvikYOFx/GUNHSLlgHsrc
-KjsUVJqKwqgUb6RG31wA63NmEKF4Hx8JBjEz6ici+kKiRZ4TrQrvgnKeUqvMKsrU
-zsI+uTBKyl7kCE4ct/dysS5qUemAGP17daFKmHhwVu4IDQpgko9KqAAjpj40M/Da
-xywftEv8rQdBwuk4k65s1CA2ndtUPi+hCbzFSuPLoPstvl2f3kE1Pp8Hi5ZCAF9b
-2TWN9bT7lPFQ7xmWEe9TbohmQwmsUkeAqVAvxS6wqXMKtp+WRFb6vKe85k9jCV+4
-bAIwRHhjN3MnVBRbIpJAxhnv7WJQJKBVsEL9AXFOznf0RjKQYeP2V0CChl3pk9LM
-OajGBtL0WCPbrwEzwciUDFaZIPlF8r+eSxrIfPJRqxDMz34+01w=
-=RxKS
------END PGP SIGNATURE-----
-
---Sig_/VBrpYdPv3rC8rTcisupMW32--
+Acked-by: Wei Liu <wl@xen.org>
 
