@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D197C2EAAFA
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 13:37:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61878.109108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C9042EAAFB
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 13:38:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61882.109121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwlae-0004AH-5N; Tue, 05 Jan 2021 12:37:32 +0000
+	id 1kwlbT-0004HG-IH; Tue, 05 Jan 2021 12:38:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61878.109108; Tue, 05 Jan 2021 12:37:32 +0000
+Received: by outflank-mailman (output) from mailman id 61882.109121; Tue, 05 Jan 2021 12:38:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwlae-00049q-1q; Tue, 05 Jan 2021 12:37:32 +0000
-Received: by outflank-mailman (input) for mailman id 61878;
- Tue, 05 Jan 2021 12:37:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kwlbT-0004Gr-FA; Tue, 05 Jan 2021 12:38:23 +0000
+Received: by outflank-mailman (input) for mailman id 61882;
+ Tue, 05 Jan 2021 12:38:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hFWs=GI=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kwlac-00049l-Gs
- for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 12:37:30 +0000
+ id 1kwlbR-0004Gl-Is
+ for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 12:38:21 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 88a125af-a2e7-4153-93c2-ea6cd2aa6231;
- Tue, 05 Jan 2021 12:37:29 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d1a8807e-a10d-4f61-8005-3a19eccfbbc0;
+ Tue, 05 Jan 2021 12:38:20 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 40666AA35;
- Tue,  5 Jan 2021 12:37:28 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 6F3AFAD19;
+ Tue,  5 Jan 2021 12:38:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,29 +39,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88a125af-a2e7-4153-93c2-ea6cd2aa6231
+X-Inumbo-ID: d1a8807e-a10d-4f61-8005-3a19eccfbbc0
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609850248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1609850299; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=s5egbOvQ8JCUEwmlpyEXcyxMM+tf45M1HlfrQ/ptzDc=;
-	b=mjXAilYYsYkE8dQVs4FhRCRVeTwgMQMK5Ja5Wq/nER+voltpwjHkdxLbgOwLf7qv0W7x3U
-	iw20a0NPE0PYE6Uo4ITtz/2ocAIjzoAbhoZ1U+JoAS7pWef3HshzSzbBB6ahl61NEkXc6y
-	JeVfVvSEsTGVB9S7WX5jPvhO5rj4d0k=
-Subject: [PATCH v2 1/2] include: don't use asm/page.h from common headers
+	bh=OLo+eLuFO+qSJkiKaQjIJIluspQqVBByMeCRuM98qq0=;
+	b=q605Oo3gH5PxZJWs5UGdVD9PvmdK7JAaj1Yn05yqExRAQNMwPNDMxhfExhLMM3AFc+Hj74
+	S7gEkdrTE0xOb+Vz9o3SBD5HlB54lFew21wzpvg6a2TOon4cu8tfsa2+pzz5ht5Y2rgVdr
+	PBU/fvhjUS31WrFuzeUtt+2w4nAv3uY=
+Subject: [PATCH v2 2/2] mm: split out mfn_t / gfn_t / pfn_t definitions and
+ helpers
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>, Hongyan Xia <hx242@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <b2368cb9-5c9a-3e85-c048-383825cc5efe@suse.com>
-Message-ID: <ea286f72-6f30-58ef-fe53-b29df89fcc2a@suse.com>
-Date: Tue, 5 Jan 2021 13:37:27 +0100
+Message-ID: <53312a94-91c5-2cf5-47f0-6c3b130d2e47@suse.com>
+Date: Tue, 5 Jan 2021 13:38:18 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
@@ -69,338 +70,326 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Doing so limits what can be done in (in particular included by) this per-
-arch header. Abstract out page shift/size related #define-s, which is all
-the respective headers care about. Extend the replacement / removal to
-some x86 headers as well; some others now need to include page.h (and
-they really should have before).
+xen/mm.h has heavy dependencies, while in a number of cases only these
+type definitions are needed. This separation then also allows pulling in
+these definitions when including xen/mm.h would cause cyclic
+dependencies.
 
-Arm's VADDR_BITS gets dropped altogether: Its current value is clearly
-wrong for 64-bit, but the constant also isn't used anywhere right now.
+Replace xen/mm.h inclusion where possible in include/xen/. (In
+xen/iommu.h also take the opportunity and correct the few remaining
+sorting issues.)
 
-While Arm used vaddr_t in PAGE_OFFSET(), this use is compatible with
-that of unsigned long in the new common implementation.
-
-Also drop the dead PAGE_FLAG_MASK at this occasion.
+While the change could be dropped, remove an unnecessary asm/io.h
+inclusion from xen/arch/x86/acpi/power.c. This was the initial attempt
+to address build issues with it, until it became clear that the header
+itself needs adjustment.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Have just a single PAGE_OFFSET(). Rename per-arch headers to
-    page-bits.h. Drop VADDR_BITS altogether for Arm.
+v2: Rename header to mm-frame.h.
 
---- a/xen/arch/arm/arm64/lib/clear_page.S
-+++ b/xen/arch/arm/arm64/lib/clear_page.S
-@@ -14,6 +14,8 @@
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+--- a/xen/arch/x86/acpi/power.c
++++ b/xen/arch/x86/acpi/power.c
+@@ -10,7 +10,6 @@
+  * Slimmed with Xen specific support.
   */
  
-+#include <xen/page-size.h>
-+
- /*
-  * Clear page @dest
-  *
---- a/xen/include/asm-arm/config.h
-+++ b/xen/include/asm-arm/config.h
-@@ -176,11 +176,6 @@
- #define FIXMAP_ACPI_BEGIN  2  /* Start mappings of ACPI tables */
- #define FIXMAP_ACPI_END    (FIXMAP_ACPI_BEGIN + NUM_FIXMAP_ACPI_PAGES - 1)  /* End mappings of ACPI tables */
+-#include <asm/io.h>
+ #include <xen/acpi.h>
+ #include <xen/errno.h>
+ #include <xen/iocap.h>
+--- a/xen/drivers/char/meson-uart.c
++++ b/xen/drivers/char/meson-uart.c
+@@ -18,7 +18,9 @@
+  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
+  */
  
--#define PAGE_SHIFT              12
--#define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
--#define PAGE_MASK           (~(PAGE_SIZE-1))
--#define PAGE_FLAG_MASK      (~0)
--
- #define NR_hypercalls 64
++#include <xen/errno.h>
+ #include <xen/irq.h>
++#include <xen/mm.h>
+ #include <xen/serial.h>
+ #include <xen/vmap.h>
+ #include <asm/io.h>
+--- a/xen/drivers/char/mvebu-uart.c
++++ b/xen/drivers/char/mvebu-uart.c
+@@ -18,7 +18,9 @@
+  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
+  */
  
- #define STACK_ORDER 3
---- a/xen/include/asm-arm/current.h
-+++ b/xen/include/asm-arm/current.h
-@@ -1,6 +1,7 @@
- #ifndef __ARM_CURRENT_H__
- #define __ARM_CURRENT_H__
- 
-+#include <xen/page-size.h>
- #include <xen/percpu.h>
- 
- #include <asm/processor.h>
---- a/xen/include/asm-arm/page.h
-+++ b/xen/include/asm-arm/page.h
-@@ -2,21 +2,11 @@
- #define __ARM_PAGE_H__
- 
- #include <public/xen.h>
-+#include <xen/page-size.h>
- #include <asm/processor.h>
- #include <asm/lpae.h>
- #include <asm/sysregs.h>
- 
--#ifdef CONFIG_ARM_64
--#define PADDR_BITS              48
--#else
--#define PADDR_BITS              40
--#endif
--#define PADDR_MASK              ((1ULL << PADDR_BITS)-1)
--#define PAGE_OFFSET(ptr)        ((vaddr_t)(ptr) & ~PAGE_MASK)
--
--#define VADDR_BITS              32
--#define VADDR_MASK              (~0UL)
--
- /* Shareability values for the LPAE entries */
- #define LPAE_SH_NON_SHAREABLE 0x0
- #define LPAE_SH_UNPREDICTALE  0x1
---- /dev/null
-+++ b/xen/include/asm-arm/page-bits.h
-@@ -0,0 +1,12 @@
-+#ifndef __ARM_PAGE_SHIFT_H__
-+#define __ARM_PAGE_SHIFT_H__
-+
-+#define PAGE_SHIFT              12
-+
-+#ifdef CONFIG_ARM_64
-+#define PADDR_BITS              48
-+#else
-+#define PADDR_BITS              40
-+#endif
-+
-+#endif /* __ARM_PAGE_SHIFT_H__ */
---- a/xen/include/asm-x86/current.h
-+++ b/xen/include/asm-x86/current.h
-@@ -8,8 +8,8 @@
- #define __X86_CURRENT_H__
- 
- #include <xen/percpu.h>
-+#include <xen/page-size.h>
- #include <public/xen.h>
--#include <asm/page.h>
- 
- /*
-  * Xen's cpu stacks are 8 pages (8-page aligned), arranged as:
---- a/xen/include/asm-x86/desc.h
-+++ b/xen/include/asm-x86/desc.h
-@@ -1,6 +1,8 @@
- #ifndef __ARCH_DESC_H
- #define __ARCH_DESC_H
- 
-+#include <asm/page.h>
-+
- /*
-  * Xen reserves a memory page of GDT entries.
-  * No guest GDT entries exist beyond the Xen reserved area.
---- a/xen/include/asm-x86/fixmap.h
-+++ b/xen/include/asm-x86/fixmap.h
-@@ -12,7 +12,7 @@
- #ifndef _ASM_FIXMAP_H
- #define _ASM_FIXMAP_H
- 
--#include <asm/page.h>
-+#include <xen/page-size.h>
- 
- #define FIXADDR_TOP (VMAP_VIRT_END - PAGE_SIZE)
- #define FIXADDR_X_TOP (XEN_VIRT_END - PAGE_SIZE)
---- a/xen/include/asm-x86/guest/hyperv-hcall.h
-+++ b/xen/include/asm-x86/guest/hyperv-hcall.h
-@@ -20,12 +20,12 @@
- #define __X86_HYPERV_HCALL_H__
- 
- #include <xen/lib.h>
-+#include <xen/page-size.h>
- #include <xen/types.h>
- 
- #include <asm/asm_defns.h>
- #include <asm/fixmap.h>
- #include <asm/guest/hyperv-tlfs.h>
--#include <asm/page.h>
- 
- static inline uint64_t hv_do_hypercall(uint64_t control, paddr_t input_addr,
-                                        paddr_t output_addr)
---- a/xen/include/asm-x86/guest/hyperv-tlfs.h
-+++ b/xen/include/asm-x86/guest/hyperv-tlfs.h
-@@ -10,8 +10,8 @@
- #define _ASM_X86_HYPERV_TLFS_H
- 
- #include <xen/bitops.h>
-+#include <xen/page-size.h>
- #include <xen/types.h>
--#include <asm/page.h>
- 
- /*
-  * While not explicitly listed in the TLFS, Hyper-V always runs with a page size
++#include <xen/errno.h>
+ #include <xen/irq.h>
++#include <xen/mm.h>
+ #include <xen/serial.h>
+ #include <xen/vmap.h>
+ #include <asm/io.h>
 --- a/xen/include/asm-x86/io.h
 +++ b/xen/include/asm-x86/io.h
-@@ -3,7 +3,6 @@
+@@ -49,6 +49,7 @@ __OUT(l,,int)
  
- #include <xen/vmap.h>
- #include <xen/types.h>
--#include <asm/page.h>
- 
- #define readb(x) (*(volatile uint8_t  *)(x))
- #define readw(x) (*(volatile uint16_t *)(x))
---- a/xen/include/asm-x86/mm.h
-+++ b/xen/include/asm-x86/mm.h
-@@ -6,6 +6,7 @@
- #include <xen/spinlock.h>
- #include <xen/rwlock.h>
- #include <asm/io.h>
-+#include <asm/page.h>
- #include <asm/uaccess.h>
- #include <asm/x86_emulate.h>
- 
---- a/xen/include/asm-x86/page.h
-+++ b/xen/include/asm-x86/page.h
-@@ -2,15 +2,7 @@
- #define __X86_PAGE_H__
- 
- #include <xen/const.h>
--
--/*
-- * It is important that the masks are signed quantities. This ensures that
-- * the compiler sign-extends a 32-bit mask to 64 bits if that is required.
-- */
--#define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
--#define PAGE_MASK           (~(PAGE_SIZE-1))
--#define PAGE_FLAG_MASK      (~0)
--#define PAGE_OFFSET(ptr)    ((unsigned long)(ptr) & ~PAGE_MASK)
-+#include <xen/page-size.h>
- 
- #define PAGE_ORDER_4K       0
- #define PAGE_ORDER_2M       9
---- /dev/null
-+++ b/xen/include/asm-x86/page-bits.h
-@@ -0,0 +1,26 @@
-+#ifndef __X86_PAGE_SHIFT_H__
-+#define __X86_PAGE_SHIFT_H__
-+
-+#define L1_PAGETABLE_SHIFT      12
-+#define L2_PAGETABLE_SHIFT      21
-+#define L3_PAGETABLE_SHIFT      30
-+#define L4_PAGETABLE_SHIFT      39
-+#define PAGE_SHIFT              L1_PAGETABLE_SHIFT
-+#define SUPERPAGE_SHIFT         L2_PAGETABLE_SHIFT
-+#define ROOT_PAGETABLE_SHIFT    L4_PAGETABLE_SHIFT
-+
-+#define PAGETABLE_ORDER         9
-+#define L1_PAGETABLE_ENTRIES    (1 << PAGETABLE_ORDER)
-+#define L2_PAGETABLE_ENTRIES    (1 << PAGETABLE_ORDER)
-+#define L3_PAGETABLE_ENTRIES    (1 << PAGETABLE_ORDER)
-+#define L4_PAGETABLE_ENTRIES    (1 << PAGETABLE_ORDER)
-+#define ROOT_PAGETABLE_ENTRIES  L4_PAGETABLE_ENTRIES
-+
-+#define SUPERPAGE_ORDER         PAGETABLE_ORDER
-+#define SUPERPAGE_PAGES         (1 << SUPERPAGE_ORDER)
-+
-+/* These are architectural limits. */
-+#define PADDR_BITS              52
-+#define VADDR_BITS              48
-+
-+#endif /* __X86_PAGE_SHIFT_H__ */
---- a/xen/include/asm-x86/uaccess.h
-+++ b/xen/include/asm-x86/uaccess.h
-@@ -6,7 +6,6 @@
- #include <xen/errno.h>
- #include <xen/prefetch.h>
- #include <asm/asm_defns.h>
--#include <asm/page.h>
- 
- #include <asm/x86_64/uaccess.h>
- 
---- a/xen/include/asm-x86/x86_64/page.h
-+++ b/xen/include/asm-x86/x86_64/page.h
-@@ -2,31 +2,8 @@
- #ifndef __X86_64_PAGE_H__
- #define __X86_64_PAGE_H__
- 
--#define L1_PAGETABLE_SHIFT      12
--#define L2_PAGETABLE_SHIFT      21
--#define L3_PAGETABLE_SHIFT      30
--#define L4_PAGETABLE_SHIFT      39
--#define PAGE_SHIFT              L1_PAGETABLE_SHIFT
--#define SUPERPAGE_SHIFT         L2_PAGETABLE_SHIFT
--#define ROOT_PAGETABLE_SHIFT    L4_PAGETABLE_SHIFT
--
--#define PAGETABLE_ORDER         9
--#define L1_PAGETABLE_ENTRIES    (1<<PAGETABLE_ORDER)
--#define L2_PAGETABLE_ENTRIES    (1<<PAGETABLE_ORDER)
--#define L3_PAGETABLE_ENTRIES    (1<<PAGETABLE_ORDER)
--#define L4_PAGETABLE_ENTRIES    (1<<PAGETABLE_ORDER)
--#define ROOT_PAGETABLE_ENTRIES  L4_PAGETABLE_ENTRIES
--#define SUPERPAGE_ORDER         PAGETABLE_ORDER
--#define SUPERPAGE_PAGES         (1<<SUPERPAGE_ORDER)
--
- #define __XEN_VIRT_START        XEN_VIRT_START
- 
--/* These are architectural limits. Current CPUs support only 40-bit phys. */
--#define PADDR_BITS              52
--#define VADDR_BITS              48
--#define PADDR_MASK              ((_AC(1,UL) << PADDR_BITS) - 1)
--#define VADDR_MASK              ((_AC(1,UL) << VADDR_BITS) - 1)
--
- #define VADDR_TOP_BIT           (1UL << (VADDR_BITS - 1))
- #define CANONICAL_MASK          (~0UL & ~VADDR_MASK)
- 
---- a/xen/include/xen/gdbstub.h
-+++ b/xen/include/xen/gdbstub.h
-@@ -20,8 +20,8 @@
- #ifndef __XEN_GDBSTUB_H__
- #define __XEN_GDBSTUB_H__
- 
-+#include <xen/page-size.h>
- #include <asm/atomic.h>
--#include <asm/page.h>
- 
- #ifdef CONFIG_CRASH_DEBUG
+ /* Function pointer used to handle platform specific I/O port emulation. */
+ #define IOEMUL_QUIRK_STUB_BYTES 9
++struct cpu_user_regs;
+ extern unsigned int (*ioemul_handle_quirk)(
+     u8 opcode, char *io_emul_stub, struct cpu_user_regs *regs);
  
 --- a/xen/include/xen/grant_table.h
 +++ b/xen/include/xen/grant_table.h
-@@ -26,7 +26,6 @@
- #include <xen/mm.h>
+@@ -23,7 +23,7 @@
+ #ifndef __XEN_GRANT_TABLE_H__
+ #define __XEN_GRANT_TABLE_H__
+ 
+-#include <xen/mm.h>
++#include <xen/mm-frame.h>
  #include <xen/rwlock.h>
  #include <public/grant_table.h>
--#include <asm/page.h>
  #include <asm/grant_table.h>
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -19,14 +19,13 @@
+ #ifndef _IOMMU_H_
+ #define _IOMMU_H_
  
- #ifdef CONFIG_GRANT_TABLE
++#include <xen/mm-frame.h>
+ #include <xen/init.h>
+ #include <xen/page-defs.h>
+-#include <xen/spinlock.h>
+ #include <xen/pci.h>
+-#include <xen/typesafe.h>
+-#include <xen/mm.h>
+-#include <public/hvm/ioreq.h>
++#include <xen/spinlock.h>
+ #include <public/domctl.h>
++#include <public/hvm/ioreq.h>
+ #include <asm/device.h>
+ 
+ TYPE_SAFE(uint64_t, dfn);
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -51,103 +51,13 @@
+ #define __XEN_MM_H__
+ 
+ #include <xen/compiler.h>
++#include <xen/mm-frame.h>
+ #include <xen/types.h>
+ #include <xen/list.h>
+ #include <xen/spinlock.h>
+-#include <xen/typesafe.h>
+-#include <xen/kernel.h>
+ #include <xen/perfc.h>
+ #include <public/memory.h>
+ 
+-TYPE_SAFE(unsigned long, mfn);
+-#define PRI_mfn          "05lx"
+-#define INVALID_MFN      _mfn(~0UL)
+-/*
+- * To be used for global variable initialization. This workaround a bug
+- * in GCC < 5.0.
+- */
+-#define INVALID_MFN_INITIALIZER { ~0UL }
+-
+-#ifndef mfn_t
+-#define mfn_t /* Grep fodder: mfn_t, _mfn() and mfn_x() are defined above */
+-#define _mfn
+-#define mfn_x
+-#undef mfn_t
+-#undef _mfn
+-#undef mfn_x
+-#endif
+-
+-static inline mfn_t mfn_add(mfn_t mfn, unsigned long i)
+-{
+-    return _mfn(mfn_x(mfn) + i);
+-}
+-
+-static inline mfn_t mfn_max(mfn_t x, mfn_t y)
+-{
+-    return _mfn(max(mfn_x(x), mfn_x(y)));
+-}
+-
+-static inline mfn_t mfn_min(mfn_t x, mfn_t y)
+-{
+-    return _mfn(min(mfn_x(x), mfn_x(y)));
+-}
+-
+-static inline bool_t mfn_eq(mfn_t x, mfn_t y)
+-{
+-    return mfn_x(x) == mfn_x(y);
+-}
+-
+-TYPE_SAFE(unsigned long, gfn);
+-#define PRI_gfn          "05lx"
+-#define INVALID_GFN      _gfn(~0UL)
+-/*
+- * To be used for global variable initialization. This workaround a bug
+- * in GCC < 5.0 https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64856
+- */
+-#define INVALID_GFN_INITIALIZER { ~0UL }
+-
+-#ifndef gfn_t
+-#define gfn_t /* Grep fodder: gfn_t, _gfn() and gfn_x() are defined above */
+-#define _gfn
+-#define gfn_x
+-#undef gfn_t
+-#undef _gfn
+-#undef gfn_x
+-#endif
+-
+-static inline gfn_t gfn_add(gfn_t gfn, unsigned long i)
+-{
+-    return _gfn(gfn_x(gfn) + i);
+-}
+-
+-static inline gfn_t gfn_max(gfn_t x, gfn_t y)
+-{
+-    return _gfn(max(gfn_x(x), gfn_x(y)));
+-}
+-
+-static inline gfn_t gfn_min(gfn_t x, gfn_t y)
+-{
+-    return _gfn(min(gfn_x(x), gfn_x(y)));
+-}
+-
+-static inline bool_t gfn_eq(gfn_t x, gfn_t y)
+-{
+-    return gfn_x(x) == gfn_x(y);
+-}
+-
+-TYPE_SAFE(unsigned long, pfn);
+-#define PRI_pfn          "05lx"
+-#define INVALID_PFN      (~0UL)
+-
+-#ifndef pfn_t
+-#define pfn_t /* Grep fodder: pfn_t, _pfn() and pfn_x() are defined above */
+-#define _pfn
+-#define pfn_x
+-#undef pfn_t
+-#undef _pfn
+-#undef pfn_x
+-#endif
+-
+ struct page_info;
+ 
+ void put_page(struct page_info *);
 --- /dev/null
-+++ b/xen/include/xen/page-size.h
-@@ -0,0 +1,18 @@
-+#ifndef __XEN_PAGE_SIZE_H__
-+#define __XEN_PAGE_SIZE_H__
++++ b/xen/include/xen/mm-frame.h
+@@ -0,0 +1,96 @@
++#ifndef __XEN_FRAME_NUM_H__
++#define __XEN_FRAME_NUM_H__
 +
-+#include <xen/const.h>
-+#include <asm/page-bits.h>
++#include <xen/kernel.h>
++#include <xen/typesafe.h>
 +
++TYPE_SAFE(unsigned long, mfn);
++#define PRI_mfn          "05lx"
++#define INVALID_MFN      _mfn(~0UL)
 +/*
-+ * It is important that the masks are signed quantities. This ensures that
-+ * the compiler sign-extends a 32-bit mask to 64 bits if that is required.
++ * To be used for global variable initialization. This workaround a bug
++ * in GCC < 5.0.
 + */
-+#define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
-+#define PAGE_MASK           (~(PAGE_SIZE-1))
-+#define PAGE_OFFSET(ptr)   ((unsigned long)(ptr) & ~PAGE_MASK)
++#define INVALID_MFN_INITIALIZER { ~0UL }
 +
-+#define PADDR_MASK          ((_AC(1,ULL) << PADDR_BITS) - 1)
-+#define VADDR_MASK          (~_AC(0,UL) >> (BITS_PER_LONG - VADDR_BITS))
++#ifndef mfn_t
++#define mfn_t /* Grep fodder: mfn_t, _mfn() and mfn_x() are defined above */
++#define _mfn
++#define mfn_x
++#undef mfn_t
++#undef _mfn
++#undef mfn_x
++#endif
 +
-+#endif /* __XEN_PAGE_SIZE__ */
---- a/xen/include/xen/pfn.h
-+++ b/xen/include/xen/pfn.h
++static inline mfn_t mfn_add(mfn_t mfn, unsigned long i)
++{
++    return _mfn(mfn_x(mfn) + i);
++}
++
++static inline mfn_t mfn_max(mfn_t x, mfn_t y)
++{
++    return _mfn(max(mfn_x(x), mfn_x(y)));
++}
++
++static inline mfn_t mfn_min(mfn_t x, mfn_t y)
++{
++    return _mfn(min(mfn_x(x), mfn_x(y)));
++}
++
++static inline bool_t mfn_eq(mfn_t x, mfn_t y)
++{
++    return mfn_x(x) == mfn_x(y);
++}
++
++TYPE_SAFE(unsigned long, gfn);
++#define PRI_gfn          "05lx"
++#define INVALID_GFN      _gfn(~0UL)
++/*
++ * To be used for global variable initialization. This workaround a bug
++ * in GCC < 5.0 https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64856
++ */
++#define INVALID_GFN_INITIALIZER { ~0UL }
++
++#ifndef gfn_t
++#define gfn_t /* Grep fodder: gfn_t, _gfn() and gfn_x() are defined above */
++#define _gfn
++#define gfn_x
++#undef gfn_t
++#undef _gfn
++#undef gfn_x
++#endif
++
++static inline gfn_t gfn_add(gfn_t gfn, unsigned long i)
++{
++    return _gfn(gfn_x(gfn) + i);
++}
++
++static inline gfn_t gfn_max(gfn_t x, gfn_t y)
++{
++    return _gfn(max(gfn_x(x), gfn_x(y)));
++}
++
++static inline gfn_t gfn_min(gfn_t x, gfn_t y)
++{
++    return _gfn(min(gfn_x(x), gfn_x(y)));
++}
++
++static inline bool_t gfn_eq(gfn_t x, gfn_t y)
++{
++    return gfn_x(x) == gfn_x(y);
++}
++
++TYPE_SAFE(unsigned long, pfn);
++#define PRI_pfn          "05lx"
++#define INVALID_PFN      (~0UL)
++
++#ifndef pfn_t
++#define pfn_t /* Grep fodder: pfn_t, _pfn() and pfn_x() are defined above */
++#define _pfn
++#define pfn_x
++#undef pfn_t
++#undef _pfn
++#undef pfn_x
++#endif
++
++#endif /* __XEN_FRAME_NUM_H__ */
+--- a/xen/include/xen/p2m-common.h
++++ b/xen/include/xen/p2m-common.h
 @@ -1,7 +1,7 @@
- #ifndef __XEN_PFN_H__
- #define __XEN_PFN_H__
+ #ifndef _XEN_P2M_COMMON_H
+ #define _XEN_P2M_COMMON_H
  
--#include <asm/page.h>
-+#include <xen/page-size.h>
+-#include <xen/mm.h>
++#include <xen/mm-frame.h>
  
- #define PFN_DOWN(x)   ((x) >> PAGE_SHIFT)
- #define PFN_UP(x)     (((x) + PAGE_SIZE-1) >> PAGE_SHIFT)
+ /* Remove a page from a domain's p2m table */
+ int __must_check
 --- a/xen/include/xen/vmap.h
 +++ b/xen/include/xen/vmap.h
-@@ -2,7 +2,7 @@
+@@ -1,7 +1,7 @@
+ #if !defined(__XEN_VMAP_H__) && defined(VMAP_VIRT_START)
  #define __XEN_VMAP_H__
  
- #include <xen/mm.h>
--#include <asm/page.h>
-+#include <xen/page-size.h>
+-#include <xen/mm.h>
++#include <xen/mm-frame.h>
+ #include <xen/page-size.h>
  
  enum vmap_region {
-     VMAP_DEFAULT,
 
 
