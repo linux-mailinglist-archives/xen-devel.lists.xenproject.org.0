@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 335D22EB1B8
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 18:47:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62117.109852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75CA22EB1B9
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 18:47:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62131.109865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwqQ5-0005h4-Ch; Tue, 05 Jan 2021 17:46:57 +0000
+	id 1kwqQL-00065I-Si; Tue, 05 Jan 2021 17:47:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62117.109852; Tue, 05 Jan 2021 17:46:57 +0000
+Received: by outflank-mailman (output) from mailman id 62131.109865; Tue, 05 Jan 2021 17:47:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwqQ4-0005fp-V7; Tue, 05 Jan 2021 17:46:56 +0000
-Received: by outflank-mailman (input) for mailman id 62117;
- Tue, 05 Jan 2021 17:46:53 +0000
+	id 1kwqQL-00064b-L6; Tue, 05 Jan 2021 17:47:13 +0000
+Received: by outflank-mailman (input) for mailman id 62131;
+ Tue, 05 Jan 2021 17:47:12 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>) id 1kwqQ1-0005XS-ID
- for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 17:46:53 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwqQK-00063f-6l; Tue, 05 Jan 2021 17:47:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1kwqQ0-0006Iu-On; Tue, 05 Jan 2021 17:46:52 +0000
-Received: from ec2-34-243-106-223.eu-west-1.compute.amazonaws.com
- ([34.243.106.223] helo=ip-10-0-70-185.eu-west-1.compute.internal)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <paul@xen.org>)
- id 1kwqQ0-0008Uy-HX; Tue, 05 Jan 2021 17:46:52 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwqQK-0006JN-4H; Tue, 05 Jan 2021 17:47:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwqQJ-0000KS-Se; Tue, 05 Jan 2021 17:47:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwqQJ-0005BF-SC; Tue, 05 Jan 2021 17:47:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,182 +42,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	 bh=3UwAO3+6UIsalZmR5nIJ2Wrt6//kBgYPmyOdrIp1odM=; b=Dx3y9Zm4sNBzfbKi16OuVAR3u
-	dHnXh1vOWxN50fD0hCfV3y+hNphTVnCNUHVRPNk20R3FGI1gRmhk7EuR0L0p6cRmO2nSe6yiVDhT9
-	n+InEBbiKyZjW4Km7K6fhk+9SoAO6u121rKcaoN/2VEQ+EVyH3uUqU6bXhpGaMZ4av+GM=;
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
-	Wei Liu <wl@xen.org>,
-	Ian Jackson <iwj@xenproject.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v7 7/7] libxl / libxlu: support 'xl pci-attach/detach' by name
-Date: Tue,  5 Jan 2021 17:46:42 +0000
-Message-Id: <20210105174642.2754-8-paul@xen.org>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20210105174642.2754-1-paul@xen.org>
-References: <20210105174642.2754-1-paul@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=8r2AsBqCyCuEV045wV9zpAKSx5qXXO6w72JYNPNjMYc=; b=ifZlLqrNYbMg0ZHZZ2tGH7ZVX7
+	ey4ee1GdaJmnrI3zLb0QKta9AHpKi2tGg50nFKsz2qJDrc98LvyKvKA/lCv0/kw8mAkIMTHSf8zRA
+	p72POZ+W8YuSXOF7Wc6v2zCbfqWKszDJ5HO+A7n1loPq30dc5f2PuJycPssx7H0D7cnw=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158146-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable test] 158146: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    xen-unstable:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:heisenbug
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=7ba2ab495be54f608cb47440e1497b2795bd301a
+X-Osstest-Versions-That:
+    xen=62dde2c1eff6d4e5d45883b78bdae5447e7d2d9c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 05 Jan 2021 17:47:11 +0000
 
-From: Paul Durrant <pdurrant@amazon.com>
+flight 158146 xen-unstable real [real]
+flight 158167 xen-unstable real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158146/
+http://logs.test-lab.xenproject.org/osstest/logs/158167/
 
-This patch modifies libxlu_pci_parse_spec_string() to parse the new 'name'
-parameter of PCI_SPEC_STRING detailed in the updated documention in
-xl-pci-configuration(5) and populate the 'name' field of 'libxl_device_pci'.
+Failures :-/ but no regressions.
 
-If the 'name' field is non-NULL then both libxl_device_pci_add() and
-libxl_device_pci_remove() will use it to look up the device BDF in
-the list of assignable devices.
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail pass in 158167-retest
 
-Signed-off-by: Paul Durrant <pdurrant@amazon.com>
----
-Cc: Wei Liu <wl@xen.org>
-Cc: Ian Jackson <iwj@xenproject.org>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 158132
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 158132
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 158132
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 158132
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 158132
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 158132
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 158132
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 158132
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 158132
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 158132
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 158132
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
 
-v7:
- - Re-worked (mainly because 'libxl_device_pci' already has a 'name' field)
- - Dropped Wei's A-b because of the re-work
+version targeted for testing:
+ xen                  7ba2ab495be54f608cb47440e1497b2795bd301a
+baseline version:
+ xen                  62dde2c1eff6d4e5d45883b78bdae5447e7d2d9c
 
-v6:
- - Re-base
- - Slight modification to the patch name
- - Kept Wei's A-b since modifications are small
----
- tools/libs/light/libxl_pci.c | 43 ++++++++++++++++++++++++++++++++++++++-----
- tools/libs/util/libxlu_pci.c |  7 ++++++-
- 2 files changed, 44 insertions(+), 6 deletions(-)
+Last test of basis   158132  2021-01-04 14:37:37 Z    1 days
+Testing same since   158146  2021-01-05 04:13:23 Z    0 days    1 attempts
 
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 9e3a90dcda..1a1c263080 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -58,6 +58,8 @@ static void libxl_create_pci_backend_device(libxl__gc *gc,
-     flexarray_append(back, GCSPRINTF(PCI_BDF, pci->domain, pci->bus, pci->dev, pci->func));
-     if (pci->vdevfn)
-         flexarray_append_pair(back, GCSPRINTF("vdevfn-%d", num), GCSPRINTF("%x", pci->vdevfn));
-+    if (pci->name)
-+        flexarray_append_pair(back, GCSPRINTF("name-%d", num), GCSPRINTF("%s", pci->name));
-     flexarray_append(back, GCSPRINTF("opts-%d", num));
-     flexarray_append(back,
-               GCSPRINTF("msitranslate=%d,power_mgmt=%d,permissive=%d,rdm_policy=%s",
-@@ -282,6 +284,7 @@ retry_transaction2:
-     xs_rm(ctx->xsh, t, GCSPRINTF("%s/vdev-%d", be_path, i));
-     xs_rm(ctx->xsh, t, GCSPRINTF("%s/opts-%d", be_path, i));
-     xs_rm(ctx->xsh, t, GCSPRINTF("%s/vdevfn-%d", be_path, i));
-+    xs_rm(ctx->xsh, t, GCSPRINTF("%s/name-%d", be_path, i));
-     libxl__xs_printf(gc, t, num_devs_path, "%d", num - 1);
-     for (j = i + 1; j < num; j++) {
-         tmppath = GCSPRINTF("%s/state-%d", be_path, j);
-@@ -314,6 +317,12 @@ retry_transaction2:
-             xs_write(ctx->xsh, t, GCSPRINTF("%s/vdevfn-%d", be_path, j - 1), tmp, strlen(tmp));
-             xs_rm(ctx->xsh, t, tmppath);
-         }
-+        tmppath = GCSPRINTF("%s/name-%d", be_path, j);
-+        tmp = libxl__xs_read(gc, t, tmppath);
-+        if (tmp) {
-+            xs_write(ctx->xsh, t, GCSPRINTF("%s/name-%d", be_path, j - 1), tmp, strlen(tmp));
-+            xs_rm(ctx->xsh, t, tmppath);
-+        }
-     }
-     if (!xs_transaction_end(ctx->xsh, t, 0))
-         if (errno == EAGAIN)
-@@ -1589,6 +1598,12 @@ void libxl__device_pci_add(libxl__egc *egc, uint32_t domid,
-     libxl_device_pci_copy(CTX, &pas->pci, pci);
-     pci = &pas->pci;
- 
-+    /* If the device is named then we need to look up the BDF */
-+    if (pci->name) {
-+        rc = name2bdf(gc, pci);
-+        if (rc) goto out;
-+    }
-+
-     pas->starting = starting;
-     pas->callback = device_pci_add_stubdom_done;
- 
-@@ -1739,11 +1754,19 @@ static void device_pci_add_done(libxl__egc *egc,
-     libxl_device_pci *pci = &pas->pci;
- 
-     if (rc) {
--        LOGD(ERROR, domid,
--             "libxl__device_pci_add  failed for "
--             "PCI device %x:%x:%x.%x (rc %d)",
--             pci->domain, pci->bus, pci->dev, pci->func,
--             rc);
-+        if (pci->name) {
-+            LOGD(ERROR, domid,
-+                 "libxl__device_pci_add failed for "
-+                 "PCI device '%s' (rc %d)",
-+                 pci->name,
-+                 rc);
-+        } else {
-+            LOGD(ERROR, domid,
-+                 "libxl__device_pci_add failed for "
-+                 "PCI device %x:%x:%x.%x (rc %d)",
-+                 pci->domain, pci->bus, pci->dev, pci->func,
-+                 rc);
-+        }
-         pci_info_xs_remove(gc, pci, "domid");
-     }
-     libxl_device_pci_dispose(pci);
-@@ -2250,6 +2273,12 @@ static void libxl__device_pci_remove_common(libxl__egc *egc,
-     libxl_device_pci_copy(CTX, &prs->pci, pci);
-     pci = &prs->pci;
- 
-+    /* If the device is named then we need to look up the BDF */
-+    if (pci->name) {
-+        rc = name2bdf(gc, pci);
-+        if (rc) goto out;
-+    }
-+
-     prs->force = force;
-     libxl__xswait_init(&prs->xswait);
-     libxl__ev_qmp_init(&prs->qmp);
-@@ -2372,6 +2401,10 @@ static int libxl__device_pci_from_xs_be(libxl__gc *gc,
-     if (s)
-         pci->vdevfn = strtol(s, (char **) NULL, 16);
- 
-+    s = libxl__xs_read(gc, XBT_NULL, GCSPRINTF("%s/name-%d", be_path, nr));
-+    if (s)
-+        pci->name = strdup(s);
-+
-     s = libxl__xs_read(gc, XBT_NULL, GCSPRINTF("%s/opts-%d", be_path, nr));
-     if (s) {
-         char *saveptr;
-diff --git a/tools/libs/util/libxlu_pci.c b/tools/libs/util/libxlu_pci.c
-index 05472a0bd1..ad88fee088 100644
---- a/tools/libs/util/libxlu_pci.c
-+++ b/tools/libs/util/libxlu_pci.c
-@@ -147,6 +147,7 @@ int xlu_pci_parse_spec_string(XLU_Config *cfg, libxl_device_pci *pci,
- {
-     const char *ptr = str;
-     bool bdf_present = false;
-+    bool name_present = false;
-     int ret;
- 
-     /* Attempt to parse 'bdf' as positional parameter */
-@@ -189,6 +190,10 @@ int xlu_pci_parse_spec_string(XLU_Config *cfg, libxl_device_pci *pci,
-             pci->power_mgmt = atoi(val);
-         } else if (!strcmp(key, "rdm_policy")) {
-             ret = parse_rdm_policy(cfg, &pci->rdm_policy, val);
-+        } else if (!strcmp(key, "name")) {
-+            name_present = true;
-+            pci->name = strdup(val);
-+            if (!pci->name) ret = ERROR_NOMEM;
-         } else {
-             XLU__PCI_ERR(cfg, "Unknown PCI_SPEC_STRING option: %s", key);
-             ret = ERROR_INVAL;
-@@ -201,7 +206,7 @@ int xlu_pci_parse_spec_string(XLU_Config *cfg, libxl_device_pci *pci,
-             return ret;
-     }
- 
--    if (!bdf_present)
-+    if (!(bdf_present ^ name_present))
-         return ERROR_INVAL;
- 
-     return 0;
--- 
-2.11.0
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tamas K Lengyel <tamas@tklengyel.com>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   62dde2c1ef..7ba2ab495b  7ba2ab495be54f608cb47440e1497b2795bd301a -> master
 
