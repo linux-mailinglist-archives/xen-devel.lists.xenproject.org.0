@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D87EA2EA9A5
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 12:17:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.61811.108912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06092EA9F8
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jan 2021 12:36:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.61815.108924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwkKv-0003pY-AR; Tue, 05 Jan 2021 11:17:13 +0000
+	id 1kwkcF-0005fH-Th; Tue, 05 Jan 2021 11:35:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 61811.108912; Tue, 05 Jan 2021 11:17:13 +0000
+Received: by outflank-mailman (output) from mailman id 61815.108924; Tue, 05 Jan 2021 11:35:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kwkKv-0003p9-74; Tue, 05 Jan 2021 11:17:13 +0000
-Received: by outflank-mailman (input) for mailman id 61811;
- Tue, 05 Jan 2021 11:17:11 +0000
+	id 1kwkcF-0005er-OQ; Tue, 05 Jan 2021 11:35:07 +0000
+Received: by outflank-mailman (input) for mailman id 61815;
+ Tue, 05 Jan 2021 11:35:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kwkKt-0003p4-KT
- for xen-devel@lists.xenproject.org; Tue, 05 Jan 2021 11:17:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwkcE-0005ej-MG; Tue, 05 Jan 2021 11:35:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kwkKt-0007S1-9n; Tue, 05 Jan 2021 11:17:11 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kwkKt-0000Dr-0m; Tue, 05 Jan 2021 11:17:11 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwkcE-0007iC-CZ; Tue, 05 Jan 2021 11:35:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwkcE-0001fU-5s; Tue, 05 Jan 2021 11:35:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kwkcE-0005IP-5I; Tue, 05 Jan 2021 11:35:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,156 +42,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=LsI0Avom9OlbDvrvvI8tC+YgPSjieqm8KrJhTuFkFt8=; b=DmB7zqClto/9ZHYpWq/zo00vme
-	vQRcFVet0hUtDsNXWD6eCQE4Ok9KzWok5xhfZZuPoKy8tRHajkZ61UtKmEE+ygLwVHLwQUiuW2xS+
-	/DOFnT0Q01yYNjG+VkmYbKhK2xbxr1cWKBhknhwb6BtVW8smdtm1ucrFeODtfpyGr7w4=;
-Subject: Re: [PATCH 2/2] xen/arm: Add defensive barrier in get_cycles for
- Arm64
-To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org
-Cc: Bertrand.Marquis@arm.com, Penny.Zheng@arm.com, Jiamei.Xie@arm.com,
- nd@arm.com
-References: <20210105071946.1971229-1-wei.chen@arm.com>
- <20210105071946.1971229-2-wei.chen@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <522b798d-5f89-648e-bfe2-6fe36cc7a571@xen.org>
-Date: Tue, 5 Jan 2021 11:17:09 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Umfd1UB21JNMb2njnXGH942hgMo2Ijxx7klDdTJoF+0=; b=EoeEUhfhPm/RIFBAm7M+yLPld2
+	Wc2EhkK5nGjaY1eKj06hZpJgR63phAYUl+2HzCcSI9dzE6pbLGDexD8l5yWXvz+IM3aoGyVgNiNDH
+	tv/Oy4LFBZxNZhBXdwAQER5lQ7nTKrRAqSrCZxxlNO65DueLaqMVDadIPlD4Bp+cPLzk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158147-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20210105071946.1971229-2-wei.chen@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 158147: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=487de3c33a07e3d540562096040ed3b73c97c568
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 05 Jan 2021 11:35:06 +0000
 
-Hi Wei,
+flight 158147 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158147/
 
-On 05/01/2021 07:19, Wei Chen wrote:
-> As the dicsussion [1] in mailing list. We'd better to have
+Regressions :-(
 
-I would say "Per the discussion [1] on the ...". I would also suggest to 
-replace the "." with ",".
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
 
-> a barrier after reading CNTPCT in get_cycles. If there is
-> not any barrier there. When get_cycles being used in some
-> seqlock critical context in the future, the seqlock can be
-> speculated potentially.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
 
-This comment seems a little off because we don't have seqlock on Xen. I 
-think it would be best if you re-use the Linux commit as it would be 
-clear that this is a backport.
+version targeted for testing:
+ libvirt              487de3c33a07e3d540562096040ed3b73c97c568
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-Something like:
+Last test of basis   151777  2020-07-10 04:19:19 Z  179 days
+Failing since        151818  2020-07-11 04:18:52 Z  178 days  173 attempts
+Testing same since   158147  2021-01-05 04:19:23 Z    0 days    1 attempts
 
-"Import commit .... from Linux:
+------------------------------------------------------------
+People who touched revisions under test:
+  Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Ian Wienand <iwienand@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Laine Stump <laine@redhat.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Neal Gompa <ngompa13@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Orion Poplawski <orion@nwra.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  Weblate <noreply@weblate.org>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
 
-<entire commit message indented by one>
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
-While we are not aware of such use in Xen, it would be best to add the 
-barrier to avoid any suprise."
-"
 
-> 
-> In order to reduce the impact of new barrier, we perfer to
-> use enforce order instead of ISB [2].
-> 
-> Currently, enforce order is not applied to arm32 as this is
-> not done in Linux at the date of this patch. If this is done
-> in Linux it will need to be also done in Xen.
-> 
-> [1] https://lists.xenproject.org/archives/html/xen-devel/2020-12/msg00181.html
-> [2] https://lkml.org/lkml/2020/3/13/645
-> 
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> ---
->   xen/include/asm-arm/time.h | 43 ++++++++++++++++++++++++++++++++++++--
->   1 file changed, 41 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/include/asm-arm/time.h b/xen/include/asm-arm/time.h
-> index 5c4529ebb5..3ef4e7cd3d 100644
-> --- a/xen/include/asm-arm/time.h
-> +++ b/xen/include/asm-arm/time.h
-> @@ -11,9 +11,26 @@
->   
->   typedef uint64_t cycles_t;
->   
-> -static inline cycles_t get_cycles(void)
-> +/*
-> + * Ensure that reads of the counter are treated the same as memory reads
-> + * for the purposes of ordering by subsequent memory barriers.
-> + */
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-The comment is before the #ifdef which suggests the ordering is required 
-for Arm as well. I would suggest to either mention that oddity or move 
-the comment after the #ifdef.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> +#if defined(CONFIG_ARM_64)
-> +#define read_cntpct_enforce_ordering(val) do { \
-> +    u64 tmp, _val = (val);                     \
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Please use uint64_t here.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> +                                               \
-> +    asm volatile(                              \
-> +    "eor %0, %1, %1\n"                         \
-> +    "add %0, sp, %0\n"                         \
-> +    "ldr xzr, [%0]"                            \
-> +    : "=r" (tmp) : "r" (_val));                \
-> +} while (0)
-> +#else
-> +#define read_cntpct_enforce_ordering(val) do {} while (0)
-> +#endif
-> +
-> +static inline cycles_t read_cntpct_stable(void)
->   {
-> -    isb();
->       /*
->        * ARM_WORKAROUND_858921: Cortex-A73 (all versions) counter read
->        * can return a wrong value when the counter crosses a 32bit boundary.
-> @@ -36,6 +53,28 @@ static inline cycles_t get_cycles(void)
->       }
->   }
->   
-> +static inline cycles_t get_cycles(void)
-> +{
-> +    cycles_t cnt;
-> +
-> +    isb();
-> +    cnt = read_cntpct_stable();
-> +
-> +    /*
-> +     * If there is not any barrier here. When get_cycles being used in
-> +     * some seqlock critical context in the future, the seqlock can be
-> +     * speculated potentially.
-> +     *
-> +     * To prevent seqlock from being speculated silently, we add a barrier
-> +     * here defensively. Normally, we just need an ISB here is enough, but
-> +     * considering the minimum performance cost. We prefer to use enforce
-> +     * order here.
-> +     */
 
-We don't use seqlock in Xen, so this comment looks quite confusing.. I 
-think the comment on top of reach_cntpct_enforce_ordering() is 
-sufficient, so I would drop this one. The alternative is to find a way 
-to make the comment more Xen focused.
+Not pushing.
 
-Although, I don't have a good suggestion so far.
-
-> +    read_cntpct_enforce_ordering(cnt);
-> +
-> +    return cnt;
-> +}
-> +
->   /* List of timer's IRQ */
->   enum timer_ppi
->   {
-> 
-
-Cheers,
-
--- 
-Julien Grall
+(No revision log; it would be 34193 lines long.)
 
