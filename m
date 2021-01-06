@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155BD2EB98E
+	by mail.lfdr.de (Postfix) with ESMTPS id 97F1D2EB991
 	for <lists+xen-devel@lfdr.de>; Wed,  6 Jan 2021 06:43:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62306.110354 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.62308.110365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kx1bF-0001Cm-17; Wed, 06 Jan 2021 05:43:13 +0000
+	id 1kx1bF-0001EX-L9; Wed, 06 Jan 2021 05:43:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62306.110354; Wed, 06 Jan 2021 05:43:12 +0000
+Received: by outflank-mailman (output) from mailman id 62308.110365; Wed, 06 Jan 2021 05:43:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kx1bE-0001BI-Mi; Wed, 06 Jan 2021 05:43:12 +0000
-Received: by outflank-mailman (input) for mailman id 62306;
- Wed, 06 Jan 2021 03:42:11 +0000
+	id 1kx1bF-0001CS-CP; Wed, 06 Jan 2021 05:43:13 +0000
+Received: by outflank-mailman (input) for mailman id 62308;
+ Wed, 06 Jan 2021 03:42:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mBi8=GJ=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1kwzi7-0005he-3a
- for xen-devel@lists.xenproject.org; Wed, 06 Jan 2021 03:42:11 +0000
-Received: from mail-pl1-x632.google.com (unknown [2607:f8b0:4864:20::632])
+ id 1kwziE-0005iZ-7X
+ for xen-devel@lists.xenproject.org; Wed, 06 Jan 2021 03:42:18 +0000
+Received: from mail-pf1-x42b.google.com (unknown [2607:f8b0:4864:20::42b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b505af66-e4ae-4d63-a98a-e23d4e1b6bb8;
- Wed, 06 Jan 2021 03:42:10 +0000 (UTC)
-Received: by mail-pl1-x632.google.com with SMTP id e2so862388plt.12
- for <xen-devel@lists.xenproject.org>; Tue, 05 Jan 2021 19:42:10 -0800 (PST)
+ id ef479265-0f1c-44ef-9aa4-d83a65a3aef0;
+ Wed, 06 Jan 2021 03:42:17 +0000 (UTC)
+Received: by mail-pf1-x42b.google.com with SMTP id q22so928404pfk.12
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Jan 2021 19:42:17 -0800 (PST)
 Received: from localhost ([2401:fa00:1:10:3e52:82ff:fe5e:cc9d])
- by smtp.gmail.com with ESMTPSA id f7sm581725pjs.25.2021.01.05.19.42.04
+ by smtp.gmail.com with ESMTPSA id er23sm565730pjb.12.2021.01.05.19.42.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Jan 2021 19:42:09 -0800 (PST)
+ Tue, 05 Jan 2021 19:42:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,31 +41,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b505af66-e4ae-4d63-a98a-e23d4e1b6bb8
+X-Inumbo-ID: ef479265-0f1c-44ef-9aa4-d83a65a3aef0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=FZGRSIKNWZAaAhyn9I46mv2qEvPmwpxpVmXsznFggAw=;
-        b=gGxBXOihHsm3ZVDHLv31fDSdj1SXhYQbdn9k5cmAoncGt12QQUfM/c3IHcaEnDkA5J
-         ocQxp+U8gmPg/aUt1mhhV6zZJ8VXZG4qoywct4SKLATrpd2CnwkRGzp6iVjwWvWh4uPB
-         8z3i8pIB+5J9HuYE/Sxl8iNS0nIPHFjKwJX1c=
+        bh=n/86gZ2YH2sPTM8FXS5odMzg67Ac9T6AO13ElIbtDDg=;
+        b=cO8PVUda8Bx3SiBfo8qLV3f+sGuoG1tsrJdvV5+xtnmv+FltCXbPO19IOiNV2arX1e
+         MfsIwE8A6Knc0SP2qleJACUoPMyYpzQZDZm9mnnFZGjxFwvgCZj6whF/RxWqHYYM1e+/
+         wdRgR2lnWWnPiXx/LyJKGIMg1QVQFfB7OO6nA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=FZGRSIKNWZAaAhyn9I46mv2qEvPmwpxpVmXsznFggAw=;
-        b=PxIIMV7mvAGib28GROplbU9zOmNqgVJNWB4KrGiSEmmvqaxJr9Wc55JIePDtR//9W9
-         wLCo7HHIoVdiH8RiMFr+WIqGURNEH5AhJOULUj00ZUmONwe5+z0QJVlbFLwH1wzoM7dK
-         zHLxksbYOPDdzrgi0irw+fFtSbor/7uHFUZVghgaCpKViu6A6jopZqJTgs7pAA0Ujfn/
-         Fgypd7UlAKSimtb1n9RaGbe6vkY8WOeXzeUID21J9eSA8h4MowyigNVfdb+1Kig0z5Sl
-         /WijGUFEHI5LZ7jUgnKpPn2HiyEhiHbDZKhroI6ZSu++ADPtnnYcEnGE6vG+GrjfYksF
-         g6MQ==
-X-Gm-Message-State: AOAM530EbNUxqif5zJaxUL3IGs4ywLN3FhWpIWamcdGrolLhHiPsBOLp
-	jtotZ3GZX5OQbIRK59vUSbQgQQ==
-X-Google-Smtp-Source: ABdhPJz3c69cs7bN5kIpvTYTxsM3wMIyOYfyNKD7ypyEM9IFVwp2OokHNuXw3jIYJjMTgHoQH4pU0Q==
-X-Received: by 2002:a17:90a:5802:: with SMTP id h2mr2368082pji.68.1609904529594;
-        Tue, 05 Jan 2021 19:42:09 -0800 (PST)
+        bh=n/86gZ2YH2sPTM8FXS5odMzg67Ac9T6AO13ElIbtDDg=;
+        b=Askj8rLxSvDiQPR99i8LdBx+j0dgnlwqNPikteilIyYYLHM4a7hUE2kwqZsd+OYtWd
+         j9t51LIJ0ed/cmUvp21XcfqTlZn/2MVQj3/NQnI2vFgmTWe8P0OmjzRc+kFRYqfO4Fi7
+         0cw7kx6VX+z9COe59M92HPLRvGufBltG5N3I5W5x+CpzNTtv637AjQm3WXf6rI5bkkZZ
+         KTuXOSUI0eKNVxPgo39Da+MiMMVJyEJ8ymOdqF53fbwv+CGVreokie8cIjqClNGVmDgp
+         QGN2fRQuDBHIPtpDCGU+jRyk6vW6dxoZxhH6oSHm04DYJkrY4hGDxdmt5FlaUaAEEBs6
+         TaIA==
+X-Gm-Message-State: AOAM532Y+c0NeW1QXXmxF2CzRScqQGqA7htNzfsCFXoktvH9S3dfun1x
+	bjrwjHVhR5+Ecc8IMYYQBlLTlQ==
+X-Google-Smtp-Source: ABdhPJyc8aEv7i+WmUMkW4PXzO0Jf/pJZ6vWz1r98byTGcdBBPjMldkIqPaeDl28qDIQ4NNN7+TicQ==
+X-Received: by 2002:a65:6382:: with SMTP id h2mr2332953pgv.365.1609904536826;
+        Tue, 05 Jan 2021 19:42:16 -0800 (PST)
 From: Claire Chang <tientzu@chromium.org>
 To: robh+dt@kernel.org,
 	mpe@ellerman.id.au,
@@ -103,71 +103,98 @@ Cc: grant.likely@arm.com,
 	tfiga@chromium.org,
 	drinkcat@chromium.org,
 	Claire Chang <tientzu@chromium.org>
-Subject: [RFC PATCH v3 5/6] dt-bindings: of: Add restricted DMA pool
-Date: Wed,  6 Jan 2021 11:41:23 +0800
-Message-Id: <20210106034124.30560-6-tientzu@chromium.org>
+Subject: [RFC PATCH v3 6/6] of: Add plumbing for restricted DMA pool
+Date: Wed,  6 Jan 2021 11:41:24 +0800
+Message-Id: <20210106034124.30560-7-tientzu@chromium.org>
 X-Mailer: git-send-email 2.29.2.729.g45daf8777d-goog
 In-Reply-To: <20210106034124.30560-1-tientzu@chromium.org>
 References: <20210106034124.30560-1-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce the new compatible string, restricted-dma-pool, for restricted
-DMA. One can specify the address and length of the restricted DMA memory
-region by restricted-dma-pool in the device tree.
+If a device is not behind an IOMMU, we look up the device node and set
+up the restricted DMA when the restricted-dma-pool is presented.
 
 Signed-off-by: Claire Chang <tientzu@chromium.org>
 ---
- .../reserved-memory/reserved-memory.txt       | 24 +++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/of/address.c    | 21 +++++++++++++++++++++
+ drivers/of/device.c     |  4 ++++
+ drivers/of/of_private.h |  5 +++++
+ 3 files changed, 30 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt b/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-index e8d3096d922c..44975e2a1fd2 100644
---- a/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-+++ b/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-@@ -51,6 +51,20 @@ compatible (optional) - standard definition
-           used as a shared pool of DMA buffers for a set of devices. It can
-           be used by an operating system to instantiate the necessary pool
-           management subsystem if necessary.
-+        - restricted-dma-pool: This indicates a region of memory meant to be
-+          used as a pool of restricted DMA buffers for a set of devices. The
-+          memory region would be the only region accessible to those devices.
-+          When using this, the no-map and reusable properties must not be set,
-+          so the operating system can create a virtual mapping that will be used
-+          for synchronization. The main purpose for restricted DMA is to
-+          mitigate the lack of DMA access control on systems without an IOMMU,
-+          which could result in the DMA accessing the system memory at
-+          unexpected times and/or unexpected addresses, possibly leading to data
-+          leakage or corruption. The feature on its own provides a basic level
-+          of protection against the DMA overwriting buffer contents at
-+          unexpected times. However, to protect against general data leakage and
-+          system memory corruption, the system needs to provide way to restrict
-+          the DMA to a predefined memory region.
-         - vendor specific string in the form <vendor>,[<device>-]<usage>
- no-map (optional) - empty property
-     - Indicates the operating system must not create a virtual mapping
-@@ -120,6 +134,11 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
- 			compatible = "acme,multimedia-memory";
- 			reg = <0x77000000 0x4000000>;
- 		};
+diff --git a/drivers/of/address.c b/drivers/of/address.c
+index 73ddf2540f3f..94eca8249854 100644
+--- a/drivers/of/address.c
++++ b/drivers/of/address.c
+@@ -8,6 +8,7 @@
+ #include <linux/logic_pio.h>
+ #include <linux/module.h>
+ #include <linux/of_address.h>
++#include <linux/of_reserved_mem.h>
+ #include <linux/pci.h>
+ #include <linux/pci_regs.h>
+ #include <linux/sizes.h>
+@@ -1094,3 +1095,23 @@ bool of_dma_is_coherent(struct device_node *np)
+ 	return false;
+ }
+ EXPORT_SYMBOL_GPL(of_dma_is_coherent);
 +
-+		restricted_dma_mem_reserved: restricted_dma_mem_reserved {
-+			compatible = "restricted-dma-pool";
-+			reg = <0x50000000 0x400000>;
-+		};
- 	};
++int of_dma_set_restricted_buffer(struct device *dev)
++{
++	struct device_node *node;
++	int count, i;
++
++	if (!dev->of_node)
++		return 0;
++
++	count = of_property_count_elems_of_size(dev->of_node, "memory-region",
++						sizeof(phandle));
++	for (i = 0; i < count; i++) {
++		node = of_parse_phandle(dev->of_node, "memory-region", i);
++		if (of_device_is_compatible(node, "restricted-dma-pool"))
++			return of_reserved_mem_device_init_by_idx(
++				dev, dev->of_node, i);
++	}
++
++	return 0;
++}
+diff --git a/drivers/of/device.c b/drivers/of/device.c
+index aedfaaafd3e7..e2c7409956ab 100644
+--- a/drivers/of/device.c
++++ b/drivers/of/device.c
+@@ -182,6 +182,10 @@ int of_dma_configure_id(struct device *dev, struct device_node *np,
+ 	arch_setup_dma_ops(dev, dma_start, size, iommu, coherent);
  
- 	/* ... */
-@@ -138,4 +157,9 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
- 		memory-region = <&multimedia_reserved>;
- 		/* ... */
- 	};
+ 	dev->dma_range_map = map;
 +
-+	pcie_device: pcie_device@0,0 {
-+		memory-region = <&restricted_dma_mem_reserved>;
-+		/* ... */
-+	};
- };
++	if (!iommu)
++		return of_dma_set_restricted_buffer(dev);
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(of_dma_configure_id);
+diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
+index d9e6a324de0a..28a2dfa197ba 100644
+--- a/drivers/of/of_private.h
++++ b/drivers/of/of_private.h
+@@ -161,12 +161,17 @@ struct bus_dma_region;
+ #if defined(CONFIG_OF_ADDRESS) && defined(CONFIG_HAS_DMA)
+ int of_dma_get_range(struct device_node *np,
+ 		const struct bus_dma_region **map);
++int of_dma_set_restricted_buffer(struct device *dev);
+ #else
+ static inline int of_dma_get_range(struct device_node *np,
+ 		const struct bus_dma_region **map)
+ {
+ 	return -ENODEV;
+ }
++static inline int of_dma_get_restricted_buffer(struct device *dev)
++{
++	return -ENODEV;
++}
+ #endif
+ 
+ #endif /* _LINUX_OF_PRIVATE_H */
 -- 
 2.29.2.729.g45daf8777d-goog
 
