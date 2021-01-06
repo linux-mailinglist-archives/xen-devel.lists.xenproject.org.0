@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 230942EBD09
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jan 2021 12:10:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62420.110534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24CAC2EBD19
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jan 2021 12:22:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62426.110552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kx6i3-0001aA-Gb; Wed, 06 Jan 2021 11:10:35 +0000
+	id 1kx6tD-0002iO-M5; Wed, 06 Jan 2021 11:22:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62420.110534; Wed, 06 Jan 2021 11:10:35 +0000
+Received: by outflank-mailman (output) from mailman id 62426.110552; Wed, 06 Jan 2021 11:22:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kx6i3-0001Zl-Co; Wed, 06 Jan 2021 11:10:35 +0000
-Received: by outflank-mailman (input) for mailman id 62420;
- Wed, 06 Jan 2021 11:10:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kx6tD-0002hz-IL; Wed, 06 Jan 2021 11:22:07 +0000
+Received: by outflank-mailman (input) for mailman id 62426;
+ Wed, 06 Jan 2021 11:22:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=eU9S=GJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kx6i1-0001Zg-Rq
- for xen-devel@lists.xenproject.org; Wed, 06 Jan 2021 11:10:33 +0000
+ id 1kx6tC-0002hs-2f
+ for xen-devel@lists.xenproject.org; Wed, 06 Jan 2021 11:22:06 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5e19bae1-520a-4e07-a4e6-5e58beb9883d;
- Wed, 06 Jan 2021 11:10:32 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 22ca98bb-3d4e-4f7f-b6df-384900871021;
+ Wed, 06 Jan 2021 11:22:05 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 964EAABC4;
- Wed,  6 Jan 2021 11:10:31 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 498F8ABC4;
+ Wed,  6 Jan 2021 11:22:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,70 +38,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e19bae1-520a-4e07-a4e6-5e58beb9883d
+X-Inumbo-ID: 22ca98bb-3d4e-4f7f-b6df-384900871021
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1609931431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1609932124; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3i1379Fz+m8CbNwFB0lAkVzFXoJgTqqJV7axUIm/oiM=;
-	b=Hei6cpiCwXl7DnETN67XmuJleBbxRVwMc0RilkZd4qLK9XLFVD+nsVuAfPRhJnzhvklRyQ
-	BuBceJhYR51dcMVFPl3bDfWM5bouLZn8zCP0Xj7aEEJt1/b/s1qmxK2Whxyf2LHC+y7uzc
-	2iE4UXJqOgoh3XQdB7qJ1F/HEw+pKb8=
-Subject: Re: [xen-unstable-smoke test] 158191: regressions - FAIL
-To: Olaf Hering <olaf@aepfle.de>, Ian Jackson <iwj@xenproject.org>
-References: <osstest-158191-mainreport@xen.org>
-Cc: xen-devel@lists.xenproject.org,
- osstest service owner <osstest-admin@xenproject.org>
+	bh=pewbCdDG99R4wtJepMFQOb3k0otLqPgMbULIV78F5T8=;
+	b=vPZctkRZ1IJlta4/D3Li2T2H++TyAMLk6V2tJLaV+/Uix4TdkT/LUmK2oIkeCH8GyXyjTb
+	C24bWjZYPdqKrhH1ZuavWmJixomhObLe+pYsGEunaMtqfHxP0Fy2gvilip4yXJA0RiqKtd
+	BXA2YynJ7DNqGKVwXJf/CBybMmYyGrg=
+Subject: Re: [PATCH] x86/dpci: EOI interrupt regardless of it's masking status
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20210105183143.94547-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0f144f19-2f06-9df1-c7f2-055b37970cf7@suse.com>
-Date: Wed, 6 Jan 2021 12:10:31 +0100
+Message-ID: <696e5198-9634-bf5f-d870-99614aeb5c2a@suse.com>
+Date: Wed, 6 Jan 2021 12:22:03 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <osstest-158191-mainreport@xen.org>
+In-Reply-To: <20210105183143.94547-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.01.2021 07:46, osstest service owner wrote:
-> flight 158191 xen-unstable-smoke real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/158191/
+On 05.01.2021 19:31, Roger Pau Monne wrote:
+> Modify hvm_pirq_eoi to always EOI the interrupt if required, instead
+> of not doing such EOI if the interrupt is routed through the vIO-APIC
+> and the entry is masked at the time the EOI is performed.
 > 
-> Regressions :-(
+> Further unmask of the vIO-APIC pin won't EOI the interrupt, and thus
+> the guest OS has to wait for the timeout to expire and the automatic
+> EOI to be performed.
 > 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  build-amd64                   6 xen-build                fail REGR. vs. 158134
+> This allows to simplify the helpers and drop the vioapic_redir_entry
+> parameter from all of them.
+> 
+> Fixes: ccfe4e08455 ('Intel vt-d specific changes in arch/x86/hvm/vmx/vtd.')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Perhaps an unwanted effect of c7115531ea8e "tools: ipxe: update for
-fixing build with GCC10"? Did the build perhaps fetch a pre-cooked
-tarball before?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+> ---
+> Kind of RFC, I've been trying to figure out how this was supposed to
+> work, and couldn't find any reason why the EOI is not performed if the
+> interrupt is masked on the emulated IO-APIC. I might be missing
+> something, but relying on the EOI timeout in that case seems wrong.
+
+Fully agree. If archeology didn't surface an explanation, I'd
+assume the dependency was put in mistakenly, perhaps because
+most other operations need to respect the mask bit.
 
 Jan
-
-make[6]: Entering directory '/home/osstest/build.158191.build-amd64/xen/tools/firmware/etherboot'
-set -e; if ! /usr/bin/wget -c -O _ipxe.tar.gz http://xenbits.xen.org/xen-extfiles/ipxe-git-988d2c13cdf0f0b4140685af35ced70ac5b3283c.tar.gz; then \
-	git clone file:////osstest/IPXE-GIT-FORBIDDEN ipxe.git; \
-	(cd ipxe.git && git archive --format=tar --prefix=ipxe/ \
-	988d2c13cdf0f0b4140685af35ced70ac5b3283c | gzip -n >../_ipxe.tar.gz); \
-	rm -rf ipxe.git; \
-fi
---2021-01-06 05:12:39--  http://xenbits.xen.org/xen-extfiles/ipxe-git-988d2c13cdf0f0b4140685af35ced70ac5b3283c.tar.gz
-Resolving cache (cache)... 172.16.148.6
-Connecting to cache (cache)|172.16.148.6|:3128... connected.
-Proxy request sent, awaiting response... 404 Not Found
-2021-01-06 05:12:39 ERROR 404: Not Found.
-
-Cloning into 'ipxe.git'...
-fatal: '//osstest/IPXE-GIT-FORBIDDEN' does not appear to be a git repository
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-make[6]: Leaving directory '/home/osstest/build.158191.build-amd64/xen/tools/firmware/etherboot'
-make[6]: *** [Makefile:36: ipxe.tar.gz] Error 128
-
-
 
