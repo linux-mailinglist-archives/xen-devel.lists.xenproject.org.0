@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E01B02EC33B
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jan 2021 19:30:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62641.111031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 257F32EC372
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jan 2021 19:49:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62646.111043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxDYU-0006Ln-O9; Wed, 06 Jan 2021 18:29:10 +0000
+	id 1kxDrB-0008QH-BM; Wed, 06 Jan 2021 18:48:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62641.111031; Wed, 06 Jan 2021 18:29:10 +0000
+Received: by outflank-mailman (output) from mailman id 62646.111043; Wed, 06 Jan 2021 18:48:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxDYU-0006LN-JE; Wed, 06 Jan 2021 18:29:10 +0000
-Received: by outflank-mailman (input) for mailman id 62641;
- Wed, 06 Jan 2021 18:29:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kxDYS-0006Kq-Vm
- for xen-devel@lists.xenproject.org; Wed, 06 Jan 2021 18:29:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kxDYS-0006Zk-KJ; Wed, 06 Jan 2021 18:29:08 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kxDYS-0006AF-9I; Wed, 06 Jan 2021 18:29:08 +0000
+	id 1kxDrB-0008Ps-82; Wed, 06 Jan 2021 18:48:29 +0000
+Received: by outflank-mailman (input) for mailman id 62646;
+ Wed, 06 Jan 2021 18:48:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rX25=GJ=gmail.com=f.fainelli@srs-us1.protection.inumbo.net>)
+ id 1kxDr9-0008Pn-8R
+ for xen-devel@lists.xenproject.org; Wed, 06 Jan 2021 18:48:27 +0000
+Received: from mail-pl1-x632.google.com (unknown [2607:f8b0:4864:20::632])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 39bfcd54-b251-4020-886b-ae98ac3f03b5;
+ Wed, 06 Jan 2021 18:48:26 +0000 (UTC)
+Received: by mail-pl1-x632.google.com with SMTP id x18so1994516pln.6
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Jan 2021 10:48:26 -0800 (PST)
+Received: from [10.67.48.230] ([192.19.223.252])
+ by smtp.googlemail.com with ESMTPSA id j1sm3316730pfd.181.2021.01.06.10.48.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Jan 2021 10:48:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,244 +41,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=Ey2FaPja2bhlkL7bLSrd2E7HpkWAI3Mm7gR1+9rsigM=; b=tMThluKd7Sc5lOw+hEGTtD8Dpy
-	AxL4/RfGPxQY2ODwR3l3E3p7zhhm6INTtYyk0+nTNz6RdAg5/Umwd/ze9vfHywAOaLKxfoZ/ZcWgT
-	4xJbjqueUa3TdGVs95yjObTg8Ev90J+w2qcj67gaI1zv3GMeFPS0Dm+mBG7ggHVZyjXk=;
-Subject: Re: Smoke test failure on Arm (was Re: [PATCH v4 0/8] xen/arm:
- Emulate ID registers)
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: =?UTF-8?Q?Andr=c3=a9_Przywara?= <andre.przywara@arm.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org,
- Ian Jackson <iwj@xenproject.org>
-References: <cover.1608214355.git.bertrand.marquis@arm.com>
- <ea8e117c-26c0-5c94-e06a-12027d25d7d6@xen.org>
- <338ef917-4b67-d839-82e4-164bbf46f85e@arm.com>
- <alpine.DEB.2.21.2101051042230.4307@sstabellini-ThinkPad-T480s>
- <7942af32-6bae-36c4-e1ee-dd3edc85097a@xen.org>
- <alpine.DEB.2.21.2101051425360.4307@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <db69c99b-d7b5-fe10-b24b-2a673c7b9e28@xen.org>
-Date: Wed, 6 Jan 2021 18:29:06 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.0
+X-Inumbo-ID: 39bfcd54-b251-4020-886b-ae98ac3f03b5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=sfS6nTsuJEQ2KUXwVWPiX/YqzyBLIXbNHEW6uRUFTRg=;
+        b=NXfPqMjHZ1m+VSU2wCfyZSczPeoOaBqBO0y2hL9GIKKxEphY6j8qF+HY02PdeGCcs1
+         IQKTTvuyCu/yb41s9PMHCdzfylbfSIsoGRTujMAEYOAHEIoOUuC4F3HXSrsva9rZnarc
+         wQzQwDRcTkXjoJI9B76T2Yb69woBzux1ysRUAdnV4dEvsgBNf2Vc8hINoNV24B/BYpLj
+         tkvlN8emBhxmIEY4VFqVedjbpmZ27tQyVfmi1xQk8ZMM88xZwfefkjV0nHHWYUkFKAoA
+         egZxDPYVUcE7sO7mQ8St8vYTWGlg5GEZk93ImN/z4CSdViI0lT4W4/opitma5jXSxW8H
+         3nwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=sfS6nTsuJEQ2KUXwVWPiX/YqzyBLIXbNHEW6uRUFTRg=;
+        b=fAdmAHM8M3weyYr85XvSAI6H6o0lFWDkwoIt1TIrvVNbtlsliauMlyIimrlyNFWWQD
+         NaEp5vUUQuJrmFsufLEqDVD9yMjELpi9lExGeXkf2QREyNnLyU5hZ5E75fd20Z4+SQy2
+         OoFeK1mqV4BQJFDyyfORwOxFPgoVxzIe3XLtKs3pu6J9cg3R2hsdNYXJwpyIe2fg/TEC
+         Kk+0kR8DVf4eeD+UiigEqxKbdvaraStFClV+TdPq9jtGTSi/clvE7a9/u/3fhyDoR0xJ
+         JUQ7Irt99N3F92l3fytVYbvPxbPil7AprdPg92RAwNJZCtCEUDyCP+soommulPAXs2vU
+         u4HA==
+X-Gm-Message-State: AOAM533fm1pdf/4WY/yvYK59CZVThU5cDNl+aQ2qieEYRhM0+LEKqR0J
+	NXzWGEsXtf3yK5x+dWWa2Ds=
+X-Google-Smtp-Source: ABdhPJxEguQ7A+MqU7jQUet1bSnBHupg1s5yXoia2QcjJObylZzSHE2hX4KCXbbiaouJ8Qtgy4wdEw==
+X-Received: by 2002:a17:90a:7d08:: with SMTP id g8mr5557718pjl.180.1609958905361;
+        Wed, 06 Jan 2021 10:48:25 -0800 (PST)
+Subject: Re: [RFC PATCH v3 0/6] Restricted DMA
+To: Claire Chang <tientzu@chromium.org>, robh+dt@kernel.org,
+ mpe@ellerman.id.au, benh@kernel.crashing.org, paulus@samba.org,
+ joro@8bytes.org, will@kernel.org, frowand.list@gmail.com,
+ konrad.wilk@oracle.com, boris.ostrovsky@oracle.com, jgross@suse.com,
+ sstabellini@kernel.org, hch@lst.de, m.szyprowski@samsung.com,
+ robin.murphy@arm.com
+Cc: grant.likely@arm.com, xypron.glpk@gmx.de, treding@nvidia.com,
+ mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org,
+ gregkh@linuxfoundation.org, saravanak@google.com,
+ rafael.j.wysocki@intel.com, heikki.krogerus@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, rdunlap@infradead.org,
+ dan.j.williams@intel.com, bgolaszewski@baylibre.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, iommu@lists.linux-foundation.org,
+ xen-devel@lists.xenproject.org, tfiga@chromium.org, drinkcat@chromium.org,
+ Jim Quinlan <james.quinlan@broadcom.com>
+References: <20210106034124.30560-1-tientzu@chromium.org>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Autocrypt: addr=f.fainelli@gmail.com; prefer-encrypt=mutual; keydata=
+ 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
+ M5kY0ACeNhCZJvZ5g4C2Lc9fcTHu8jxmEkI=
+Message-ID: <d7043239-12cf-3636-4726-2e3b90917dc6@gmail.com>
+Date: Wed, 6 Jan 2021 10:48:21 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2101051425360.4307@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <20210106034124.30560-1-tientzu@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
+Hi,
 
-On 05/01/2021 22:43, Stefano Stabellini wrote:
-> On Tue, 5 Jan 2021, Julien Grall wrote:
->> Hi Stefano,
->>
->> On 05/01/2021 18:44, Stefano Stabellini wrote:
->>> On Tue, 5 Jan 2021, André Przywara wrote:
->>>> On 05/01/2021 16:06, Julien Grall wrote:
->>>>> (+ Ian and Andre)
->>>>>
->>>>> Hi Bertrand,
->>>>>
->>>>> On IRC, Ian pointed out that the smoke test was failing on Cubietruck.
->>>>> The only patches because the last success and the failure are your
->>>>> series.
->>>>>
->>>>> This seems to be a very early failure as there is no output from Xen
->>>>> [1].
->>>>>
->>>>> I originally thought the problem was because some of the ID registers
->>>>> (such as ID_PFR2) introduced in patch #2 doesn't exist in Armv7.
->>>>>
->>>>> But per B7.2.1 in ARM DDI 0406C.d, unallocated ID registers should be
->>>>> RAZ. So it would result to a crash. Andre confirmed that PFR2 can be
->>>>> accessed by writing a small baremetal code and booted on Cortex-A7 and
->>>>> Cortex-A20.
->>>>>
->>>>> So I am not entirely sure what's the problem. Andre kindly accepted to
->>>>> try to boot Xen on his board. Hopefully, this will give us a clue on the
->>>>> problem.
->>>>>
->>>>> If not, I will borrow a Cubietruck in OssTest and see if I can reproduce
->>>>> it and debug it.
->>>>
->>>>
->>>> So I just compiled master and staging and ran just that on an Allwinner
->>>> H3 (Cortex-A7 r0p5). Master boots fine (till it complains about the
->>>> missing Dom0, as expected). However staging indeed fails:
->>>>
->>>> (XEN) Xen version 4.15-unstable (andprz01@slackpad.lan)
->>>> (arm-slackware-linux-gnueabihf-gcc (GCC) 8.2.0) debug=y  Tue Jan  5
->>>> 16:09:40 GMT 2021
->>>> (XEN) Latest ChangeSet: Sun Nov 8 15:59:42 2020 +0100 git:c992efd06a
->>>> (XEN) build-id: 85d361b8565b90d4e0defe2beb2419e191fd76b4
->>>> (XEN) CPU0: Unexpected Trap: Undefined Instruction
->>>> (XEN) ----[ Xen-4.15-unstable  arm32  debug=y   Not tainted ]----
->>>> (XEN) CPU:    0
->>>> (XEN) PC:     0026b8c8 identify_cpu+0xc0/0xd4
->>>> (XEN) CPSR:   600001da MODE:Hypervisor
->>>> (XEN)      R0: 002acb20 R1: 00000000 R2: 00000000 R3: 11111111
->>>> (XEN)      R4: 002acb1c R5: 002acb20 R6: 4e000000 R7: 00000000
->>>> (XEN)      R8: 00000002 R9: 002d8200 R10:00008000 R11:002f7e6c
->>>> R12:00000080
->>>> (XEN) HYP: SP: 002f7e68 LR: 002c419c
->>>> (XEN)
->>>> (XEN)   VTCR_EL2: 80002646
->>>> (XEN)  VTTBR_EL2: 00000018e628bb80
->>>> (XEN)
->>>> (XEN)  SCTLR_EL2: 30cd187f
->>>> (XEN)    HCR_EL2: 00000038
->>>> (XEN)  TTBR0_EL2: 000000004013a000
->>>> (XEN)
->>>> (XEN)    ESR_EL2: 00000000
->>>> (XEN)  HPFAR_EL2: 0003fff0
->>>> (XEN)      HDFAR: 9d110000
->>>> (XEN)      HIFAR: 0000a04a
->>>> (XEN)
->>>> (XEN) Xen stack trace from sp=002f7e68:
->>>> (XEN)    00000000 002f7f54 00008000 00000000 00002000 002a4584 00000000
->>>> 00000000
->>>> (XEN)    00000000 00008000 49ff5000 002d81f0 40000000 00000000 00002000
->>>> 00000001
->>>> (XEN)    00000000 50000000 49ffd000 00000000 50000000 00000000 00000000
->>>> 50000000
->>>> (XEN)    4c000000 00000000 4e000000 00000000 ffffffff ffffffff 50000000
->>>> 00000000
->>>> (XEN)    50000000 00000000 50000000 00000000 00000000 00000000 00000000
->>>> 00000000
->>>> (XEN)    00000000 00000003 00000000 00000000 ffffffff 00000040 ffffffff
->>>> 00000000
->>>> (XEN)    00000000 00000000 00000000 002a7000 40008050 0000001a 00000000
->>>> 49ff5000
->>>> (XEN)    40008000 3fe08000 00000004 0020006c 00000000 00000000 00000000
->>>> 00000000
->>>> (XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000
->>>> 00000000
->>>> (XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000
->>>> 00000000
->>>> (XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000
->>>> 00000000
->>>> (XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000
->>>> 00000000
->>>> (XEN)    00000000 00000000 00000000 00000000 00000000 00000000
->>>> (XEN) Xen call trace:
->>>> (XEN)    [<0026b8c8>] identify_cpu+0xc0/0xd4 (PC)
->>>> (XEN)    [<002c419c>] start_xen+0x778/0xe50 (LR)
->>>> (XEN)    [<002f7f54>] 002f7f54
->>>> (XEN)
->>>> (XEN)
->>>> (XEN) ****************************************
->>>> (XEN) Panic on CPU 0:
->>>> (XEN) CPU0: Unexpected Trap: Undefined Instruction
->>>> (XEN) ****************************************
->>>> (XEN)
->>>> (XEN) Reboot in five seconds...
->>>>
->>>>
->>>> The code in question:
->>>>     26b8c0:       eef63a10        vmrs    r3, mvfr1
->>>>     26b8c4:       e5803058        str     r3, [r0, #88]   ; 0x58
->>>>> 26b8c8:       eef53a10        vmrs    r3, mvfr2
->>>>     26b8cc:       e580305c        str     r3, [r0, #92]   ; 0x5c
->>>>     26b8d0:       e28bd000        add     sp, fp, #0
->>>>     26b8d4:       e49db004        pop     {fp}       ; (ldr fp, [sp], #4)
->>>>     26b8d8:       e12fff1e        bx      lr
->>>>
->>>> And indeed MVFR2 is not mentioned in the ARMv7 ARM, and in contrast to
->>>> the CP15 CPUID registers this is using the VMRS instruction, so it's not
->>>> protected by future-proof CPUID register scheme.
->>>>
->>>> Not sure what to do about this, maybe #ifdef'ing this register access
->>>> with arm64?
->>>> I guess this comes from the slightly too optimistic code-sharing between
->>>> arm32 and arm64?
->>>
->>> Yes and #ifdef'ing is what we have been doing with the other registers.
->>
->> There is a catch here. This register is accessible from AArch32 on all Armv8
->> HW. It is just not accessible on Armv7.
->>
->> So hiding the MVFR2 behind #ifdef CONFIG_ARM_64 is technically not correct.
->>
->> I know that we said that we don't officially support Xen on Arm32 on Armv8 HW
->> (I can't find where it is written though). So we could argue that shadowing
->> MVFR2 is not worth it.
->>
->> I do use Armv8 HW to test 32-bit, so I would at least like to get Xen booting.
-> 
-> Yep, me too.
-> 
-> 
->> In addition to that, Linux 32-bit doesn't access MVFR2 at the moment.
->>
->> Therefore, a #ifdef may be acceptable for now. However, I would suggest to
->> introduce name it MAY_BE_UNDEFINED (or similar) that will be used to avoid
->> reading the system register on 32-bit.
->>
->> For the 32-bit case, I would just hardcode the value based on the Arm (it
->> looks like for Armv8-A there is only one valid value).
->>
->> IOW, the hack would be self-contained in cpufeature.c.
-> 
-> I think it makes sense that the hack should be self-contained in
-> cpufeature.c, leaving the definition of struct mvfr to 3 register_t also
-> on arm32 as it is today. Also leaving vcpreg.c as it is today so that a
-> guest can try to read mvfr2 without crashing thanks to
-> GENERATE_TID3_INFO(MVFR2, mvfr, 2).
-> 
-> For the arm32 case in cpufeature.c:identify_cpu, the two permitted
-> values are 0 and 0b0100, which one did you have in mind? I take you
-> meant 0 which stands for "not implemented, or no support for
-> miscellaneous features"?
+First of all let me say that I am glad that someone is working on a
+upstream solution for this issue, would appreciate if you could CC and
+Jim Quinlan on subsequent submissions.
 
-It looks like I misread the spec. :/ I thought it would only be a single 
-possible value.
-
-Hmmm... I am not sure about the value here as I don't know what would be 
-the impact.
-
-It might be better to detect whether we are running on Armv8 HW or Armv7 
-HW. I haven't figured out an obvious way for that yet.
-
-On IRC, Andre suggested a couple of options on IRC
-
-  1) read ISAR5: This doesn't  seem to work as it is UNK on Armv7
-  2) detect the VFP subarchitecture: It is not clear how this can be 
-leveraged
-
-While skimming through the spec, I noticed that ID_DFR0.CopDbg requires 
-a specific value for Armv8.x spec. This is the debug architecture, but 
-maybe we can leverage it?
-
-Any better ideas?
-
+On 1/5/21 7:41 PM, Claire Chang wrote:
+> This series implements mitigations for lack of DMA access control on
+> systems without an IOMMU, which could result in the DMA accessing the
+> system memory at unexpected times and/or unexpected addresses, possibly
+> leading to data leakage or corruption.
 > 
+> For example, we plan to use the PCI-e bus for Wi-Fi and that PCI-e bus is
+> not behind an IOMMU. As PCI-e, by design, gives the device full access to
+> system memory, a vulnerability in the Wi-Fi firmware could easily escalate
+> to a full system exploit (remote wifi exploits: [1a], [1b] that shows a
+> full chain of exploits; [2], [3]).
 > 
-> In regards to:
->> I would suggest to introduce name it MAY_BE_UNDEFINED (or similar)
->> that will be used to avoid reading the system register on 32-bit.
-> 
-> Did you mean something like the following on arm32 (maybe to
-> xen/include/asm-arm/arm32/sysregs.h):
-> 
-> #define MVFR2_MAYBE_UNDEFINED
-> 
-> 
-> Then in identify_cpu:
-> 
-> #ifndef MVFR2_MAYBE_UNDEFINED
->      c->mvfr.bits[2] = READ_SYSREG(MVFR2_EL1);
-> #endif
-> 
+> To mitigate the security concerns, we introduce restricted DMA. Restricted
+> DMA utilizes the existing swiotlb to bounce streaming DMA in and out of a
+> specially allocated region and does memory allocation from the same region.
+> The feature on its own provides a basic level of protection against the DMA
+> overwriting buffer contents at unexpected times. However, to protect
+> against general data leakage and system memory corruption, the system needs
+> to provide a way to restrict the DMA to a predefined memory region (this is
+> usually done at firmware level, e.g. in ATF on some ARM platforms).
 
-Yes. But this may not work if we can't decide on the fixed value (see 
-above).
+Can you explain how ATF gets involved and to what extent it does help,
+besides enforcing a secure region from the ARM CPU's perpsective? Does
+the PCIe root complex not have an IOMMU but can somehow be denied access
+to a region that is marked NS=0 in the ARM CPU's MMU? If so, that is
+still some sort of basic protection that the HW enforces, right?
 
-Cheers,
+On Broadcom STB SoCs we have had something similar for a while however
+and while we don't have an IOMMU for the PCIe bridge, we do have a a
+basic protection mechanism whereby we can configure a region in DRAM to
+be PCIe read/write and CPU read/write which then gets used as the PCIe
+inbound region for the PCIe EP. By default the PCIe bridge is not
+allowed access to DRAM so we must call into a security agent to allow
+the PCIe bridge to access the designated DRAM region.
 
+We have done this using a private CMA area region assigned via Device
+Tree, assigned with a and requiring the PCIe EP driver to use
+dma_alloc_from_contiguous() in order to allocate from this device
+private CMA area. The only drawback with that approach is that it
+requires knowing how much memory you need up front for buffers and DMA
+descriptors that the PCIe EP will need to process. The problem is that
+it requires driver modifications and that does not scale over the number
+of PCIe EP drivers, some we absolutely do not control, but there is no
+need to bounce buffer. Your approach scales better across PCIe EP
+drivers however it does require bounce buffering which could be a
+performance hit.
+
+Thanks!
 -- 
-Julien Grall
+Florian
 
