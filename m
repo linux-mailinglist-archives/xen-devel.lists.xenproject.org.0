@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00B822ED667
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Jan 2021 19:09:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63044.111910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B712ED678
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Jan 2021 19:15:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63049.111922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxZiq-0003rJ-U9; Thu, 07 Jan 2021 18:09:20 +0000
+	id 1kxZoV-0004oy-Js; Thu, 07 Jan 2021 18:15:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63044.111910; Thu, 07 Jan 2021 18:09:20 +0000
+Received: by outflank-mailman (output) from mailman id 63049.111922; Thu, 07 Jan 2021 18:15:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxZiq-0003qu-Qk; Thu, 07 Jan 2021 18:09:20 +0000
-Received: by outflank-mailman (input) for mailman id 63044;
- Thu, 07 Jan 2021 18:09:19 +0000
+	id 1kxZoV-0004oZ-GY; Thu, 07 Jan 2021 18:15:11 +0000
+Received: by outflank-mailman (input) for mailman id 63049;
+ Thu, 07 Jan 2021 18:15:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2UJN=GK=gmail.com=f.fainelli@srs-us1.protection.inumbo.net>)
- id 1kxZip-0003ql-MF
- for xen-devel@lists.xenproject.org; Thu, 07 Jan 2021 18:09:19 +0000
-Received: from mail-pj1-x1035.google.com (unknown [2607:f8b0:4864:20::1035])
+ id 1kxZoU-0004oU-0S
+ for xen-devel@lists.xenproject.org; Thu, 07 Jan 2021 18:15:10 +0000
+Received: from mail-pl1-x633.google.com (unknown [2607:f8b0:4864:20::633])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1862c76b-fb14-45aa-a0fd-001a46af272e;
- Thu, 07 Jan 2021 18:09:18 +0000 (UTC)
-Received: by mail-pj1-x1035.google.com with SMTP id f14so1904085pju.4
- for <xen-devel@lists.xenproject.org>; Thu, 07 Jan 2021 10:09:18 -0800 (PST)
+ id 5dc19f3b-90e2-4114-be74-1a84e740ac9c;
+ Thu, 07 Jan 2021 18:15:09 +0000 (UTC)
+Received: by mail-pl1-x633.google.com with SMTP id be12so3967398plb.4
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Jan 2021 10:15:09 -0800 (PST)
 Received: from [10.67.48.230] ([192.19.223.252])
- by smtp.googlemail.com with ESMTPSA id 73sm6854065pga.26.2021.01.07.10.09.15
+ by smtp.googlemail.com with ESMTPSA id z11sm2922783pjn.5.2021.01.07.10.14.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Jan 2021 10:09:17 -0800 (PST)
+ Thu, 07 Jan 2021 10:15:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,36 +41,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1862c76b-fb14-45aa-a0fd-001a46af272e
+X-Inumbo-ID: 5dc19f3b-90e2-4114-be74-1a84e740ac9c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=vw+3fRUkfsBW4QbvQXU0qs0vfRYiwwo/FP9gAc8ddJM=;
-        b=YZm7VyoGVhqHtD1FsmJ/k39LqGH3CzXZDAPcNPkuO69ds5omJ3no6GgI7/xQM878yH
-         79dDv+LBBMHcj6uk3FYEwQ3pT8yJF7xn+BfZE+PQT60r4Lui6xikZO+W4fl4aYpmym66
-         5hkhMFywFQPUAJ1ygS0VFd8zxUlyCk9YnpM0oVd8fu2hkvEa/Rq/FpCp4U5avTd+Sogf
-         TTB5LgMS/c6r+Xsk+6+e0Sbj1F+ND0+arqcCA9xYxjOF/cu8Z9lZmhmsHLVus+fkbk0p
-         tC+tYdwsHfWipxuj11enoTlGiF/M1XGCl7Eh0SQNInPpcaJC3PTQs376g2qUfHCytPZA
-         oyOA==
+        bh=GPXiFjMF8fWndZATnzyHcSdqJ5FPFuQpQwMD+TwmAO8=;
+        b=H5VFNkBXv9CPh04t38BxTR2JzV402cjEBPUI/b1EZSosxY03LkYvfGEA5gyxCPeUzF
+         w4N3KbaXcFr8yhBDxXLTtU1PlCM5YYdCj5y+Mfv4avOhEXtwk1PQxBDpxj6+xvK9P+wU
+         l3PRW1F27YLXc7Ck4f9YukrhKT8o/KgxXtLvdYD03cvmqv+wLdhniiszT/8Gfb+PJvaO
+         x+lzY4kb7UaslIOiWkyi6y5XE22zWtAtX4DxXGqp58tx0mfFao1W+rcLmgepMgIzEVAY
+         MN+Wo2ZbdaFWh3A4aywl9F0nb/b8BtRtwy+AqvlNjbTMAGFf+c/B/mAJU9BFLmLJJNY7
+         yLTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:autocrypt
          :message-id:date:user-agent:mime-version:in-reply-to
          :content-language:content-transfer-encoding;
-        bh=vw+3fRUkfsBW4QbvQXU0qs0vfRYiwwo/FP9gAc8ddJM=;
-        b=rpZ6d+7q+ZkPSUNqgV/jidmer9VWLb8yunEzIWyrl/oILAqCHz7Ah5KPRB8EQSytJa
-         YCQJshdnouWJsCXM/cEtx30vWbKCIMSVtt5AVXRrsmmFrgsmElRsLyOE1iQvO7FjKpTj
-         gkKFIaHv7En4pRb9evODVIG8hSy0khj7c55ii035+Oo9TA+tnjkIWtMJpxbuCNG7kj+U
-         LXSChBL1ThqynnLCGjbgTjLVrmGdniYrXrUKMGwIQsdLSzXaelTUyvO7UCeMjT6Q/J9k
-         IbQZ5KO2Ll/629Spl91mfM+3FI69hA6S/34AWKf12SysK281JG48N8ixPeCQvA/r0pPm
-         DZTQ==
-X-Gm-Message-State: AOAM531iw9pbgfVitd1GCsI3rZL0fhlep0MD4Y8Bb0aUzuvWq4t70pO6
-	uFgdkrY9XkjM8VRc9UseKZ4=
-X-Google-Smtp-Source: ABdhPJx1xoy1ym4Tw7x4gRoJsL4200DE01Znf0lWr3Vuy9ojCIaAyzQSqEaRuQMdpfdFepL4c54dig==
-X-Received: by 2002:a17:90a:398d:: with SMTP id z13mr10369314pjb.1.1610042958180;
-        Thu, 07 Jan 2021 10:09:18 -0800 (PST)
-Subject: Re: [RFC PATCH v3 2/6] swiotlb: Add restricted DMA pool
+        bh=GPXiFjMF8fWndZATnzyHcSdqJ5FPFuQpQwMD+TwmAO8=;
+        b=tZDO5xrUrKNXzV6E+WquPVH9WINzidj6rXYKjQ/m1wSZDTLZRWHTS1t/M+TxrRMACL
+         /qVfIJhJaR3C041LqGeMNvm+fymA8OZQ0CddUhDEN6/iWssZdOwg+LaMw4qjf7DvcbO7
+         c+8Fahi3z86TjoGJ03dwlNq8Mzcly4bUYlGcvL8wKP4sabvbpIqkLK9R3tg9Fc1k5MyR
+         7W1BtUawWYoNDQSg/phF5lEuQ+8Y7Dh8t16XRhLWew170Qm6tR7zcs800+RzIzWF00eb
+         U5Zzip2PBnCLgcxzZy+/JLqTSEJuxcaqdR7RpcDEdO9NZTJEauoC3XHS5h0n8cwyQuas
+         geZg==
+X-Gm-Message-State: AOAM531M5uqghlHhoVVV7+o1eYSIvRkou9a+fJ5fJNt5D1aUAAI50TYh
+	s5HFFaJmzVoATSmjwR3KOlM=
+X-Google-Smtp-Source: ABdhPJwZ7i4xy5938TdwenlmcCb1DmPgeI8SUnHvQTgcl5VwtBOB44uc0fGSo2cH3NjCWADPyGPZQw==
+X-Received: by 2002:a17:902:ed45:b029:da:c274:d7ac with SMTP id y5-20020a170902ed45b02900dac274d7acmr77396plb.69.1610043308449;
+        Thu, 07 Jan 2021 10:15:08 -0800 (PST)
+Subject: Re: [RFC PATCH v3 5/6] dt-bindings: of: Add restricted DMA pool
 To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  Claire Chang <tientzu@chromium.org>
 Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
@@ -95,10 +95,10 @@ Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
  xen-devel@lists.xenproject.org, Tomasz Figa <tfiga@chromium.org>,
  Nicolas Boichat <drinkcat@chromium.org>
 References: <20210106034124.30560-1-tientzu@chromium.org>
- <20210106034124.30560-3-tientzu@chromium.org>
- <20210106185241.GA109735@localhost.localdomain>
- <CALiNf2-HDf6tFcvVgCttr-ta=88ZMH=OvB5XoryTPc6MNvwV+Q@mail.gmail.com>
- <20210107175740.GA16519@char.us.oracle.com>
+ <20210106034124.30560-6-tientzu@chromium.org>
+ <20210106185757.GB109735@localhost.localdomain>
+ <CALiNf2_dV13jbHqLt-r1eK+dtOcAKBGcWQCVMQn+eL6MuOrETQ@mail.gmail.com>
+ <20210107180032.GB16519@char.us.oracle.com>
 From: Florian Fainelli <f.fainelli@gmail.com>
 Autocrypt: addr=f.fainelli@gmail.com; prefer-encrypt=mutual; keydata=
  mQGiBEjPuBIRBACW9MxSJU9fvEOCTnRNqG/13rAGsj+vJqontvoDSNxRgmafP8d3nesnqPyR
@@ -154,39 +154,31 @@ Autocrypt: addr=f.fainelli@gmail.com; prefer-encrypt=mutual; keydata=
  caxTGgc5zzQHeX67eMzrGomG3ZnIxmd1sAbgvJUDaD2GrYlulfwGWwWyTNbWRvMighVdPkSF
  6XFgQaosWxkV0OELLy2N485YrTr2Uq64VKyxpncLh50e2RnyAJ9Za0Dx0yyp44iD1OvHtkEI
  M5kY0ACeNhCZJvZ5g4C2Lc9fcTHu8jxmEkI=
-Message-ID: <aa5af7d1-779e-f0f6-e6ba-8040e603523f@gmail.com>
-Date: Thu, 7 Jan 2021 10:09:14 -0800
+Message-ID: <4cce7692-7184-9b25-70f2-b821065f3b25@gmail.com>
+Date: Thu, 7 Jan 2021 10:14:50 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210107175740.GA16519@char.us.oracle.com>
+In-Reply-To: <20210107180032.GB16519@char.us.oracle.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 1/7/21 9:57 AM, Konrad Rzeszutek Wilk wrote:
-> On Fri, Jan 08, 2021 at 01:39:18AM +0800, Claire Chang wrote:
->> Hi Greg and Konrad,
+On 1/7/21 10:00 AM, Konrad Rzeszutek Wilk wrote:
+>>>
+>>>
+>>>  - Nothing stops the physical device from bypassing the SWIOTLB buffer.
+>>>    That is if an errant device screwed up the length or DMA address, the
+>>>    SWIOTLB would gladly do what the device told it do?
 >>
->> This change is intended to be non-arch specific. Any arch that lacks DMA access
->> control and has devices not behind an IOMMU can make use of it. Could you share
->> why you think this should be arch specific?
+>> So the system needs to provide a way to lock down the memory access, e.g. MPU.
 > 
-> The idea behind non-arch specific code is it to be generic. The devicetree
-> is specific to PowerPC, Sparc, and ARM, and not to x86 - hence it should
-> be in arch specific code.
+> OK! Would it be prudent to have this in the description above perhaps?
 
-In premise the same code could be used with an ACPI enabled system with
-an appropriate service to identify the restricted DMA regions and unlock
-them.
-
-More than 1 architecture requiring this function (ARM and ARM64 are the
-two I can think of needing this immediately) sort of calls for making
-the code architecture agnostic since past 2, you need something that scales.
-
-There is already code today under kernel/dma/contiguous.c that is only
-activated on a CONFIG_OF=y && CONFIG_OF_RESERVED_MEM=y system, this is
-no different.
+Yes this is something that must be documented as a requirement for the
+restricted DMA pool users, otherwise attempting to do restricted DMA
+pool is no different than say, using a device private CMA region.
+Without the enforcement, this is just a best effort.
 -- 
 Florian
 
