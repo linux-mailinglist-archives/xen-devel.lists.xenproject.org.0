@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00852ECF1B
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Jan 2021 12:52:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62852.111475 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DABB2ECF93
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Jan 2021 13:27:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62866.111492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxTq8-0005X2-KD; Thu, 07 Jan 2021 11:52:28 +0000
+	id 1kxUMa-0000Ss-Nl; Thu, 07 Jan 2021 12:26:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62852.111475; Thu, 07 Jan 2021 11:52:28 +0000
+Received: by outflank-mailman (output) from mailman id 62866.111492; Thu, 07 Jan 2021 12:26:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxTq8-0005WL-FC; Thu, 07 Jan 2021 11:52:28 +0000
-Received: by outflank-mailman (input) for mailman id 62852;
- Thu, 07 Jan 2021 11:52:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1kxUMa-0000SW-KX; Thu, 07 Jan 2021 12:26:00 +0000
+Received: by outflank-mailman (input) for mailman id 62866;
+ Thu, 07 Jan 2021 12:25:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxTq6-0005Vx-Az; Thu, 07 Jan 2021 11:52:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxTq6-00082I-4r; Thu, 07 Jan 2021 11:52:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxTq5-0006EO-Ts; Thu, 07 Jan 2021 11:52:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kxTq5-00026Q-TL; Thu, 07 Jan 2021 11:52:25 +0000
+ (envelope-from <SRS0=3gRj=GK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kxUMZ-0000SR-9c
+ for xen-devel@lists.xenproject.org; Thu, 07 Jan 2021 12:25:59 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7e09dd16-9fc1-4728-9b3e-9b36aed72bed;
+ Thu, 07 Jan 2021 12:25:57 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D99DBAD24;
+ Thu,  7 Jan 2021 12:25:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,516 +38,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=6gq+zdGLc6k/6DrwlMAA87Ht3GSCDJxR/Urudzxya+8=; b=rRg2r0c/O6pobsG5/r0TGba55V
-	NG0RR9gk843AtFWpMgZv+guSvM1z2tWA+hIaLb++LcQq5Vvcn1H9zK3Q85XC10iR4YU8QYDVCvycf
-	IfROFCTSVkumY/OnIZ/H1S54tlI/2vsgRuHnnVFr0ov1t3XuD8EXahV791o2wQnFdDH0=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete test-amd64-amd64-libvirt-vhd
-Message-Id: <E1kxTq5-00026Q-TL@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 07 Jan 2021 11:52:25 +0000
+X-Inumbo-ID: 7e09dd16-9fc1-4728-9b3e-9b36aed72bed
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610022357; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CQUf/czZQglwcUlpPhqoJ/Tuib8qN5SbEOqYf7QYs2A=;
+	b=ZnJuxzrb8R/GfKYWYXYZJlZGFy0n2PxDMCn6s+iX7UmwXp+3xChUZ/8hWN2T4zGzxsWXFc
+	rsgY9zDG9pQHbcLoD8sN20gAaEsd18WYLFpFlSQkzgKNrPet0MSAKMyDcDyWH/X4XrVlwt
+	V03MQHqnX5NWt8SXDfcJkpgMtPeXroI=
+Subject: Re: [PATCH 2/2] x86/hap: Resolve mm-lock order violations when
+ forking VMs with nested p2m
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <6d5ca8a57a2745e933f00706bff306844611f64d.1609781242.git.tamas.lengyel@intel.com>
+ <19aab6220bf191a31902488ed38c51d239572269.1609781242.git.tamas.lengyel@intel.com>
+ <158cf7ca-17cf-c886-20e8-b53519bec1b5@suse.com>
+ <CABfawhn3OBbpHW9e1Dd9n4UCOe_KaymBS0QwnJC2tLr-oAnBmg@mail.gmail.com>
+ <a3f12f54-926e-9810-f78f-534f057449de@suse.com>
+ <CABfawh=+nd+Lm59Ofy31yDVvcQ9fYXNbm_NBNvu8xsnxti+8sQ@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ba51a8bf-a2cb-0572-8f8d-4c4246580b59@suse.com>
+Date: Thu, 7 Jan 2021 13:25:56 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
+MIME-Version: 1.0
+In-Reply-To: <CABfawh=+nd+Lm59Ofy31yDVvcQ9fYXNbm_NBNvu8xsnxti+8sQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-amd64-libvirt-vhd
-testid guest-start/debian.repeat
+On 06.01.2021 17:26, Tamas K Lengyel wrote:
+> On Wed, Jan 6, 2021 at 11:11 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 06.01.2021 16:29, Tamas K Lengyel wrote:
+>>> On Wed, Jan 6, 2021 at 7:03 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 04.01.2021 18:41, Tamas K Lengyel wrote:
+>>>>> +        for ( i = 0; i < MAX_NESTEDP2M; i++ )
+>>>>> +            p2m_lock(d->arch.nested_p2m[i]);
+>>>>
+>>>> From a brief scan, this is the first instance of acquiring all
+>>>> nested p2m locks in one go. Ordering these by index is perhaps
+>>>> fine, but I think this wants spelling out in e.g. mm-locks.h. Of
+>>>> course the question is if you really need to go this far, i.e.
+>>>> whether really all of the locks need holding. This is even more
+>>>> so with p2m_flush_table_locked() not really looking to be a
+>>>> quick operation, when there have many pages accumulated for it.
+>>>> I.e. the overall lock holding time may turn out even more
+>>>> excessive this way than it apparently already is.
+>>>
+>>> I agree this is not ideal but it gets things working without Xen
+>>> crashing. I would prefer if we could get rid of the mm lock ordering
+>>> altogether in this context.
+>>
+>> How would this do any good? You'd then be at risk of ac"ually
+>> hitting a lock order violation. These are often quite hard to
+>> debug.
+> 
+> The whole lock ordering is just a pain and it gets us into situations
+> like this where we are forced to take a bunch of locks to just change
+> one thing. I don't have a better solution but I'm also not 100%
+> convinced that this lock ordering setup is even sane. Sometimes it
+> really ought to be enough to just take one "mm master lock" without
+> having to chase down all of them individually.
 
-Tree: libvirt git://xenbits.xen.org/libvirt.git
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+The concept of a "master lock" would imply all parties wanting to
+make _any_ change anywhere (or even just not being certain whether
+a change will need making) would need to hold it for writing. This
+is clearly against the overall goal of reducing lock contention on
+in particular the p2m lock. 
 
-*** Found and reproduced problem changeset ***
+>>>>> --- a/xen/arch/x86/mm/p2m.c
+>>>>> +++ b/xen/arch/x86/mm/p2m.c
+>>>>> @@ -1598,8 +1598,17 @@ void
+>>>>>  p2m_flush_nestedp2m(struct domain *d)
+>>>>>  {
+>>>>>      int i;
+>>>>> +    struct p2m_domain *p2m;
+>>>>> +
+>>>>>      for ( i = 0; i < MAX_NESTEDP2M; i++ )
+>>>>> -        p2m_flush_table(d->arch.nested_p2m[i]);
+>>>>> +    {
+>>>>> +        p2m = d->arch.nested_p2m[i];
+>>>>
+>>>> Please move the declaration here, making this the variable's
+>>>> initializer (unless line length constraints make the latter
+>>>> undesirable).
+>>>
+>>> I really don't get what difference this would make.
+>>
+>> Both choice of (generally) inappropriate types (further up)
+>> and placement of declarations (here) (and of course also
+>> other style violations) can set bad precedents even if in a
+>> specific case it may not matter much. So yes, it may be
+>> good enough here, but it would violate our desire to
+>> - use unsigned types when a variable will hold only non-
+>>   negative values (which in the general case may improve
+>>   generated code in particular on x86-64),
+>> - limit the scopes of variables as much as possible, to
+>>   more easily spot inappropriate uses (like bypassing
+>>   initialization).
+>>
+>> This code here actually demonstrates such a bad precedent,
+>> using plain int for the loop induction variable. While I
+>> can't be any way near sure, there's a certain chance you
+>> actually took it and copied it to
+>> __mem_sharing_unshare_page(). The chance of such happening
+>> is what we'd like to reduce over time.
+> 
+> Yes, I copied it from p2m.c. All I meant was that such minor changes
+> are generally speaking not worth a round-trip of sending new patches.
+> I obviously don't care whether this is signed or unsigned. Minor stuff
+> like that could be changed on commit and is not even worth having a
+> discussion about.
 
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  2d24a64661549732fc77f632928318dd52f5bce5
-  Bug not present: 7bed89958bfbf40df9ca681cefbdca63abdde39d
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/158249/
+I'm sorry, but no. Committing ought to be a purely mechanical
+thing. It is a _courtesy_ of the committer if they offer to
+make adjustments. If us offering this regularly gets taken as
+"expected behavior", I'm afraid I personally would stop making
+such an offer, and instead insist on further round trips.
 
-
-  commit 2d24a64661549732fc77f632928318dd52f5bce5
-  Author: Maxim Levitsky <mlevitsk@redhat.com>
-  Date:   Tue Oct 6 15:38:59 2020 +0300
-  
-      device-core: use RCU for list of children of a bus
-      
-      This fixes the race between device emulation code that tries to find
-      a child device to dispatch the request to (e.g a scsi disk),
-      and hotplug of a new device to that bus.
-      
-      Note that this doesn't convert all the readers of the list
-      but only these that might go over that list without BQL held.
-      
-      This is a very small first step to make this code thread safe.
-      
-      Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-      Signed-off-by: Maxim Levitsky <mlevitsk@redhat.com>
-      Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-      Message-Id: <20200913160259.32145-5-mlevitsk@redhat.com>
-      [Use RCU_READ_LOCK_GUARD in more places, adjust testcase now that
-       the delay in DEVICE_DELETED due to RCU is more consistent. - Paolo]
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-      Message-Id: <20201006123904.610658-9-mlevitsk@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-vhd.guest-start--debian.repeat.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-vhd.guest-start--debian.repeat --summary-out=tmp/158249.bisection-summary --basis-template=152631 --blessings=real,real-bisect,real-retry qemu-mainline test-amd64-amd64-libvirt-vhd guest-start/debian.repeat
-Searching for failure / basis pass:
- 158217 fail [host=pinot0] / 155754 [host=albana0] 155743 [host=chardonnay1] 155729 [host=pinot1] 155713 [host=chardonnay0] 155703 [host=huxelrebe0] 155695 [host=chardonnay1] 155675 [host=huxelrebe1] 155665 [host=fiano1] 155645 [host=fiano0] 155613 [host=albana0] 155585 [host=albana1] 155544 [host=godello1] 155518 [host=godello0] 155509 [host=elbling1] 152631 [host=huxelrebe0] 152615 [host=godello1] 152573 [host=godello0] 152563 [host=fiano0] 152497 [host=huxelrebe0] 152480 [host=albana1] 152456\
-  [host=chardonnay1] 152411 [host=pinot1] 152380 [host=albana0] 152337 [host=elbling0] 152324 [host=godello1] 152309 [host=chardonnay0] 152295 [host=godello0] 152284 [host=elbling1] 152266 [host=huxelrebe1] 152241 [host=huxelrebe0] 152227 [host=fiano0] 152219 [host=fiano1] 152211 [host=godello0] 152200 ok.
-Failure / basis pass flights: 158217 / 152200
-(tree with no url: minios)
-Tree: libvirt git://xenbits.xen.org/libvirt.git
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 67e0e4caa5bacdd65327d8b302eace2d9ebd209f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 aadac5b3d9fdce28030495f80fc76a4336e97328 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 7ba2ab495be54f608cb47440e1497b2795bd301a
-Basis pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 91e4bcb313f0c1f0f19b87b5849f5486aa076be4 3c659044118e34603161457db9934a34f816d78b 7adfbea8fd1efce36019a0c2f198ca73be9d3f18 6ada2285d9918859699c92e09540e023e0a16054 8c4532f19d6925538fb0c938f7de9a97da8c5c3b
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/libvirt.git#2c846fa6bcc11929c9fb857a22430fb9945654ad-2c846fa6bcc11929c9fb857a22430fb9945654ad https://gitlab.com/keycodemap/keycodemapdb.git#27acf0ef828bf719b2053ba398b195829413dbdd-27acf0ef828bf719b2053ba398b195829413dbdd git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0\
- dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#91e4bcb313f0c1f0f19b87b5849f5486aa076be4-67e0e4caa5bacdd65327d8b302eace2d9ebd209f git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db9934a34f816d78b-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#7adfbea8fd1efce36019a0c2f198ca73be9d3f18-aadac5b3d9fdce28030495f80fc76a4336e97328 git://xenbits.xen.org/osstest/seabios.git#6ada2285d9918859699c92e09540e023e0a16054-ef88eea\
- f052c8a7d28c5f85e790c5e45bcffa45e git://xenbits.xen.org/xen.git#8c4532f19d6925538fb0c938f7de9a97da8c5c3b-7ba2ab495be54f608cb47440e1497b2795bd301a
-Loaded 90220 nodes in revision graph
-Searching for test results:
- 152200 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 91e4bcb313f0c1f0f19b87b5849f5486aa076be4 3c659044118e34603161457db9934a34f816d78b 7adfbea8fd1efce36019a0c2f198ca73be9d3f18 6ada2285d9918859699c92e09540e023e0a16054 8c4532f19d6925538fb0c938f7de9a97da8c5c3b
- 152189 [host=chardonnay1]
- 152211 [host=godello0]
- 152219 [host=fiano1]
- 152227 [host=fiano0]
- 152241 [host=huxelrebe0]
- 152266 [host=huxelrebe1]
- 152284 [host=elbling1]
- 152295 [host=godello0]
- 152324 [host=godello1]
- 152309 [host=chardonnay0]
- 152337 [host=elbling0]
- 152380 [host=albana0]
- 152411 [host=pinot1]
- 152480 [host=albana1]
- 152456 [host=chardonnay1]
- 152497 [host=huxelrebe0]
- 152563 [host=fiano0]
- 152573 [host=godello0]
- 152615 [host=godello1]
- 152631 [host=huxelrebe0]
- 152659 [host=elbling1]
- 152668 [host=elbling1]
- 152682 [host=elbling1]
- 152696 [host=elbling1]
- 152712 [host=elbling1]
- 152726 [host=elbling1]
- 152771 [host=elbling1]
- 152793 [host=elbling1]
- 152836 [host=elbling1]
- 152856 [host=elbling1]
- 152878 [host=elbling1]
- 152911 []
- 152923 []
- 152946 []
- 152965 []
- 152992 []
- 153007 []
- 153025 []
- 153047 []
- 153075 []
- 153113 []
- 153138 []
- 153166 []
- 153270 []
- 153288 []
- 153311 []
- 153336 []
- 153362 []
- 153383 []
- 153406 []
- 153435 []
- 153452 []
- 153478 []
- 153502 []
- 153531 []
- 153548 []
- 153576 []
- 153597 []
- 153611 []
- 153625 []
- 153663 []
- 153692 []
- 153762 []
- 153776 []
- 153793 []
- 153818 []
- 153847 []
- 153891 []
- 153922 []
- 153946 []
- 153971 []
- 153998 []
- 154023 [host=elbling1]
- 154038 [host=elbling1]
- 154061 [host=elbling1]
- 154096 [host=elbling1]
- 154316 [host=elbling1]
- 154317 [host=elbling1]
- 154319 [host=elbling1]
- 154320 [host=elbling1]
- 154321 [host=elbling1]
- 154322 [host=elbling1]
- 154325 [host=elbling1]
- 154326 [host=elbling1]
- 154328 [host=elbling1]
- 154466 [host=elbling1]
- 154485 [host=elbling1]
- 154496 [host=elbling1]
- 154508 [host=elbling1]
- 154526 [host=elbling1]
- 154544 [host=elbling1]
- 154552 [host=elbling1]
- 154566 [host=elbling1]
- 154583 [host=elbling1]
- 154607 [host=elbling1]
- 154629 [host=elbling1]
- 155018 [host=elbling1]
- 155098 [host=elbling1]
- 155184 [host=elbling1]
- 155318 [host=elbling1]
- 155434 [host=elbling1]
- 155483 [host=elbling1]
- 155509 [host=elbling1]
- 155518 [host=godello0]
- 155544 [host=godello1]
- 155585 [host=albana1]
- 155613 [host=albana0]
- 155645 [host=fiano0]
- 155665 [host=fiano1]
- 155675 [host=huxelrebe1]
- 155695 [host=chardonnay1]
- 155703 [host=huxelrebe0]
- 155713 [host=chardonnay0]
- 155729 [host=pinot1]
- 155743 [host=chardonnay1]
- 155754 [host=albana0]
- 155769 fail irrelevant
- 155785 fail irrelevant
- 155802 fail irrelevant
- 155819 fail irrelevant
- 155841 fail irrelevant
- 155877 fail irrelevant
- 155905 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 91e4bcb313f0c1f0f19b87b5849f5486aa076be4 3c659044118e34603161457db9934a34f816d78b 7adfbea8fd1efce36019a0c2f198ca73be9d3f18 6ada2285d9918859699c92e09540e023e0a16054 8c4532f19d6925538fb0c938f7de9a97da8c5c3b
- 155907 fail irrelevant
- 155888 fail irrelevant
- 155909 pass irrelevant
- 155913 fail irrelevant
- 155915 pass irrelevant
- 155916 pass irrelevant
- 155918 pass irrelevant
- 155919 pass irrelevant
- 155922 pass irrelevant
- 155911 fail irrelevant
- 155931 fail irrelevant
- 155953 fail irrelevant
- 155971 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 73e3cb6c7eea4f5db81c87574dcefe1282de4772 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e12ce85b2c79d83a340953291912875c30b3af06 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 155979 []
- 155994 []
- 156008 []
- 156011 []
- 156015 []
- 156019 []
- 156022 []
- 156025 []
- 156028 []
- 156040 []
- 156057 []
- 156081 []
- 156094 []
- 156100 []
- 156109 []
- 156110 []
- 156111 []
- 156113 []
- 156115 []
- 156118 []
- 156122 []
- 156130 []
- 156160 []
- 156165 []
- 156170 []
- 156172 []
- 156174 []
- 156176 []
- 156179 []
- 156183 []
- 156186 []
- 156191 []
- 156194 []
- 156198 []
- 156203 []
- 156205 []
- 156208 []
- 156210 []
- 156213 []
- 156215 []
- 156216 []
- 156219 []
- 156221 []
- 156224 []
- 156227 []
- 156231 []
- 156234 []
- 156240 []
- 156242 []
- 156246 []
- 156249 []
- 156250 fail irrelevant
- 156257 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a3212009d95bbcba7d08076aba2eee51eb1f8e7c 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1dc887329a10903940501b43e8c0cc67af7c06d5 58a44be024f69d2e4d2b58553529230abdd3935e 964781c6f162893677c50a779b7d562a299727ba
- 156267 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 eb520b93d279e901a593c57e30649fb08f4290c5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 725ca3313a5b9cbef89eaa1c728567684f37990a 58a44be024f69d2e4d2b58553529230abdd3935e 964781c6f162893677c50a779b7d562a299727ba
- 156287 fail irrelevant
- 156313 fail irrelevant
- 156326 fail irrelevant
- 156338 fail irrelevant
- 156347 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8ead7af22bc596de23cdcc46e1f1a8c4e721d6d0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2ab6c494339652e69ec405dc779d83c46c8faf98 94f0510dc75e910400aad6c169048d672c8c7193 7056f2f89f03f2f804ac7e776c7b2b000cd716cd
- 156356 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8ead7af22bc596de23cdcc46e1f1a8c4e721d6d0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 700d20b49e303549b32d3a7a3efbfcee8c7a4f6c 94f0510dc75e910400aad6c169048d672c8c7193 7056f2f89f03f2f804ac7e776c7b2b000cd716cd
- 156371 fail irrelevant
- 156378 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 ffddac3e0f2e0af54b48a86848193a5ad30def10 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8680d6e36468f1ca00e2fe749bef50585d632401 94f0510dc75e910400aad6c169048d672c8c7193 7056f2f89f03f2f804ac7e776c7b2b000cd716cd
- 156388 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 375683654d46380e4e557502141e9823f6b68445 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3d6e32347a3b57dac7f469a07c5f520e69bd070a 94f0510dc75e910400aad6c169048d672c8c7193 7056f2f89f03f2f804ac7e776c7b2b000cd716cd
- 156393 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 375683654d46380e4e557502141e9823f6b68445 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3d6e32347a3b57dac7f469a07c5f520e69bd070a 94f0510dc75e910400aad6c169048d672c8c7193 7056f2f89f03f2f804ac7e776c7b2b000cd716cd
- 156403 []
- 156424 fail irrelevant
- 156522 fail irrelevant
- 156552 fail irrelevant
- 156575 fail irrelevant
- 156585 fail irrelevant
- 156603 fail irrelevant
- 156646 fail irrelevant
- 156705 fail irrelevant
- 156733 fail irrelevant
- 156768 fail irrelevant
- 156810 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d448574e73108f031ea6b02994f2579bb574785a 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b50ea0d54bbca7d440315c3d0c0f7a4d6537b180 94f0510dc75e910400aad6c169048d672c8c7193 5505f5f8e7e805365cfe70b6a4af6115940bb749
- 156813 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d448574e73108f031ea6b02994f2579bb574785a 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b50ea0d54bbca7d440315c3d0c0f7a4d6537b180 94f0510dc75e910400aad6c169048d672c8c7193 5505f5f8e7e805365cfe70b6a4af6115940bb749
- 156818 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d448574e73108f031ea6b02994f2579bb574785a 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b50ea0d54bbca7d440315c3d0c0f7a4d6537b180 94f0510dc75e910400aad6c169048d672c8c7193 5505f5f8e7e805365cfe70b6a4af6115940bb749
- 156823 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d448574e73108f031ea6b02994f2579bb574785a 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2f7c9dd5181524ceaf75ba3ef8d84090b1e9e8d8 94f0510dc75e910400aad6c169048d672c8c7193 5505f5f8e7e805365cfe70b6a4af6115940bb749
- 156831 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 124b3f9289f11479d9f042ea6e39bea2b1d5cee3 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b17d3b7b77f043f0e76f0e6ce6def3c1b1d5ee8b 748d619be3282fba35f99446098ac2d0579f6063 5505f5f8e7e805365cfe70b6a4af6115940bb749
- 156840 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 29d59baa3907277782e9f26ecaa99704ff57e3f1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c8e5c4b246584da36694a3c259a7dbb8a7e7b1f3 748d619be3282fba35f99446098ac2d0579f6063 5505f5f8e7e805365cfe70b6a4af6115940bb749
- 156853 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e6a12a0fc817e26ac05e8301e89433c2367ff362 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 66a300a107ec286725bdc943601cbd4247b82158 748d619be3282fba35f99446098ac2d0579f6063 5505f5f8e7e805365cfe70b6a4af6115940bb749
- 156866 fail irrelevant
- 156878 fail irrelevant
- 156890 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6c8dd15c4ae42501438a525ec41299f365f223cb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7fbd7e710323c8f4c5f6a38a8ae0e6726b5a4599 748d619be3282fba35f99446098ac2d0579f6063 415f904254b7343a90db895134980cbb7f7f0479
- 156902 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6c8dd15c4ae42501438a525ec41299f365f223cb 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7fbd7e710323c8f4c5f6a38a8ae0e6726b5a4599 748d619be3282fba35f99446098ac2d0579f6063 415f904254b7343a90db895134980cbb7f7f0479
- 156912 fail irrelevant
- 156925 fail irrelevant
- 156934 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e3a232cccd2445e5d9e607a65a78cdbc33ff8a0f 748d619be3282fba35f99446098ac2d0579f6063 b659a5cebd611dbe698e63c03485b5fe8cd964ad
- 156945 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e3a232cccd2445e5d9e607a65a78cdbc33ff8a0f 748d619be3282fba35f99446098ac2d0579f6063 b659a5cebd611dbe698e63c03485b5fe8cd964ad
- 156953 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8cc30eb1400fc01f2b139cdd3dc524f8b84dbe07 748d619be3282fba35f99446098ac2d0579f6063 b659a5cebd611dbe698e63c03485b5fe8cd964ad
- 156962 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8cc30eb1400fc01f2b139cdd3dc524f8b84dbe07 748d619be3282fba35f99446098ac2d0579f6063 b659a5cebd611dbe698e63c03485b5fe8cd964ad
- 156970 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 fb764373eaf7f65fd9e85377736f83aae09817b2 748d619be3282fba35f99446098ac2d0579f6063 b659a5cebd611dbe698e63c03485b5fe8cd964ad
- 156978 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7bd0dd26db7e56aa8ca70132d6ea916ee6f3db0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 23895cbd82be95428e90168b12e925d0d3ca2f06 748d619be3282fba35f99446098ac2d0579f6063 b659a5cebd611dbe698e63c03485b5fe8cd964ad
- 156994 fail irrelevant
- 157020 fail irrelevant
- 157037 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 21f984cedec1c613218480bc3eb5e92349a7a812 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dd3d2340c4076d1735cd0f7cb61f4d8622b9562d 748d619be3282fba35f99446098ac2d0579f6063 181f2c224ccd0a2900d6ae94ec390a546731f593
- 157048 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 21f984cedec1c613218480bc3eb5e92349a7a812 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6cfdaa88cfde716ebc8538f60a9648483049edf4 748d619be3282fba35f99446098ac2d0579f6063 181f2c224ccd0a2900d6ae94ec390a546731f593
- 157056 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 872f953262d68a11da7bc2fb3ded16df234b8700 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ea8208249d1082eae0444934efb3b59cd3183f05 748d619be3282fba35f99446098ac2d0579f6063 181f2c224ccd0a2900d6ae94ec390a546731f593
- 157069 fail irrelevant
- 157076 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f69a2b9a42029bcbcf88d074425ebe63495b0a08 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 944fdc5e27a5b5adbb765891e8e70e88ba9a00ec 748d619be3282fba35f99446098ac2d0579f6063 f7d7d53f6464cff94ead4c15d21e79ce4d9173f5
- 157088 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f69a2b9a42029bcbcf88d074425ebe63495b0a08 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 944fdc5e27a5b5adbb765891e8e70e88ba9a00ec 748d619be3282fba35f99446098ac2d0579f6063 f7d7d53f6464cff94ead4c15d21e79ce4d9173f5
- 157097 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f69a2b9a42029bcbcf88d074425ebe63495b0a08 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 944fdc5e27a5b5adbb765891e8e70e88ba9a00ec 748d619be3282fba35f99446098ac2d0579f6063 f7d7d53f6464cff94ead4c15d21e79ce4d9173f5
- 157103 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f69a2b9a42029bcbcf88d074425ebe63495b0a08 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 944fdc5e27a5b5adbb765891e8e70e88ba9a00ec 748d619be3282fba35f99446098ac2d0579f6063 f7d7d53f6464cff94ead4c15d21e79ce4d9173f5
- 157116 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8501bb0c05ad9dd7ef6504803678866b1d23f6ab 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 944fdc5e27a5b5adbb765891e8e70e88ba9a00ec 748d619be3282fba35f99446098ac2d0579f6063 f7d7d53f6464cff94ead4c15d21e79ce4d9173f5
- 157129 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fb629edd75e1ae1e7f4e85b0876107a7180899b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 944fdc5e27a5b5adbb765891e8e70e88ba9a00ec 748d619be3282fba35f99446098ac2d0579f6063 3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
- 157142 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fb629edd75e1ae1e7f4e85b0876107a7180899b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
- 157162 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fb629edd75e1ae1e7f4e85b0876107a7180899b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
- 157174 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9fb629edd75e1ae1e7f4e85b0876107a7180899b 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 3ae469af8e680df31eecd0a2ac6a83b58ad7ce53
- 157186 fail irrelevant
- 157198 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6af76adbbfccd31f4f8753fb0ddbbd9f4372f572 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 aec46884784c2494a30221da775d4ac2c43a4d42
- 157209 fail irrelevant
- 157231 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 265eabc905eaa38b7c6deb3fedb83fe6d37e9b11 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 5e666356a9d55fbd9eb5b8506088aa760e107b5b
- 157222 fail irrelevant
- 157239 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 265eabc905eaa38b7c6deb3fedb83fe6d37e9b11 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 5e666356a9d55fbd9eb5b8506088aa760e107b5b
- 157245 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 265eabc905eaa38b7c6deb3fedb83fe6d37e9b11 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 5e666356a9d55fbd9eb5b8506088aa760e107b5b
- 157253 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 265eabc905eaa38b7c6deb3fedb83fe6d37e9b11 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 5e666356a9d55fbd9eb5b8506088aa760e107b5b
- 157261 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4b69fab6e20a98f56acd3c717bd53812950fe5b5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 5e666356a9d55fbd9eb5b8506088aa760e107b5b
- 157268 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4b69fab6e20a98f56acd3c717bd53812950fe5b5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 5e666356a9d55fbd9eb5b8506088aa760e107b5b
- 157328 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4b69fab6e20a98f56acd3c717bd53812950fe5b5 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d73c46e4a84e47ffc61b8bf7c378b1383e7316b5 748d619be3282fba35f99446098ac2d0579f6063 4b0e0db86194b5e9e18c9f2c10b3910f3394c56f
- 157337 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8e4cb8fbceb84b66b3b2fc45b9e93d70f732e970 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 553032db17440f8de011390e5a1cfddd13751b0b 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157349 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f95e80d832e923046c92cd6f0b8208cec147138e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c923a30481baf87f631659085f94cd6000116192 748d619be3282fba35f99446098ac2d0579f6063 777e3590f154e6a8af560dd318b9465fa168db20
- 157361 fail irrelevant
- 157376 fail irrelevant
- 157392 fail irrelevant
- 157411 []
- 157438 fail irrelevant
- 157456 fail irrelevant
- 157463 fail irrelevant
- 157474 []
- 157487 []
- 157504 fail irrelevant
- 157514 fail irrelevant
- 157526 fail irrelevant
- 157533 []
- 157548 fail irrelevant
- 157569 fail irrelevant
- 157613 fail irrelevant
- 157644 fail irrelevant
- 157670 fail irrelevant
- 157723 fail irrelevant
- 157741 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6932f4bfe552c1704c5715430de6045c78a5b62f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 748d619be3282fba35f99446098ac2d0579f6063 357db96a66e47e609c3b14768f1062e13eedbd93
- 157752 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6932f4bfe552c1704c5715430de6045c78a5b62f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 748d619be3282fba35f99446098ac2d0579f6063 357db96a66e47e609c3b14768f1062e13eedbd93
- 157763 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6932f4bfe552c1704c5715430de6045c78a5b62f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 748d619be3282fba35f99446098ac2d0579f6063 357db96a66e47e609c3b14768f1062e13eedbd93
- 157784 fail irrelevant
- 157838 fail irrelevant
- 157852 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 d21d2706761bede7db38929abc5613f3e71c64ba 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157862 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e2747dbb5a44f4a463ecc6dd0f7fd113ee57bd67 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157881 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157872 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e2747dbb5a44f4a463ecc6dd0f7fd113ee57bd67 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157889 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157895 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157903 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157928 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157936 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157943 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157949 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157957 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157964 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157973 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 157980 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 158012 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a05f8ecd88f15273d033b6f044b850a8af84a5b8 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 158054 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 65a3c5984074313602fb5f61cc5f464abfb020c7 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 98d4d6d8a6329ea3a8dcf8aab65acdd70c6397fc
- 158061 fail irrelevant
- 158071 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c7e48f91653d6ace9dc42ec6b5b627b57d5d49e0 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 1516ecd6f55fe3608f374f4f2548491472d1c9a1
- 158078 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 83734919c408ba02adb6ea616d68cd1a72837fbe ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 1516ecd6f55fe3608f374f4f2548491472d1c9a1
- 158087 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 83734919c408ba02adb6ea616d68cd1a72837fbe ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 1516ecd6f55fe3608f374f4f2548491472d1c9a1
- 158093 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 41192db338588051f21501abc13743e62b0a5605 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 1516ecd6f55fe3608f374f4f2548491472d1c9a1
- 158101 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 41192db338588051f21501abc13743e62b0a5605 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 1516ecd6f55fe3608f374f4f2548491472d1c9a1
- 158109 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 41192db338588051f21501abc13743e62b0a5605 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 1516ecd6f55fe3608f374f4f2548491472d1c9a1
- 158116 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 140674a4601f804302e79d08cb06f91c882ddf28 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 41192db338588051f21501abc13743e62b0a5605 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 1516ecd6f55fe3608f374f4f2548491472d1c9a1
- 158133 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 0785c619a58a450091d2bf6755591012533b80b8 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 41192db338588051f21501abc13743e62b0a5605 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 1516ecd6f55fe3608f374f4f2548491472d1c9a1
- 158143 fail irrelevant
- 158171 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 91e4bcb313f0c1f0f19b87b5849f5486aa076be4 3c659044118e34603161457db9934a34f816d78b 7adfbea8fd1efce36019a0c2f198ca73be9d3f18 6ada2285d9918859699c92e09540e023e0a16054 8c4532f19d6925538fb0c938f7de9a97da8c5c3b
- 158173 blocked irrelevant
- 158175 fail irrelevant
- 158177 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 30f0ec8d80072ae3ab58e08014e6b2ffe3ef97e1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7daf8f8d011cdd5d3e86930ed2bde969425c790c 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 158178 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a7d977040bd82b89d1fe5ef32d488bfd10db2dbc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6214addcc6b6bf6b444934833144bab10cbe6a1a 58a44be024f69d2e4d2b58553529230abdd3935e 0dfddb2116e3757f77a691a3fe335173088d69dc
- 158162 fail irrelevant
- 158182 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 19c87b7d446c3273e84b238cb02cd1c0ae69c43e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3e40748834923798aa57e3751db13a069e2c617b 58a44be024f69d2e4d2b58553529230abdd3935e 6ee2e66674f36b6d27a95f4ddf27226905cc63a4
- 158186 fail irrelevant
- 158192 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 19c87b7d446c3273e84b238cb02cd1c0ae69c43e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 57c98ea9acdcef5021f5671efa6475a5794a51c4 58a44be024f69d2e4d2b58553529230abdd3935e 6ee2e66674f36b6d27a95f4ddf27226905cc63a4
- 158194 blocked 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5d0a827122cccd1f884faf75b2a065d88a58bce1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 96292515c07e3a99f5a29540ed2f257b1ff75111 c685fe3ff2d402caefc1487d99bb486c4a510b8b 884ef07f4f66b9d12fc4811047db95ba649db85c
- 158197 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9380177354387f03c8ff9eadb7ae94aa453b9469 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b37da837630ca7cdbc45de4c5339bbfc6d21beed c685fe3ff2d402caefc1487d99bb486c4a510b8b 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158200 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a0bdf866873467271eff9a92f179ab0f77d735cb 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158203 blocked 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c45a70d8c271056896a057fbcdc7743a2942d0ec 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158204 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9380177354387f03c8ff9eadb7ae94aa453b9469 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a4339de2de4def4beb33e22e6f506bcc8b9d9326 c685fe3ff2d402caefc1487d99bb486c4a510b8b 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158207 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 07a47d4a1879370009baab44f1f387610d88a299 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158189 fail irrelevant
- 158211 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d9f24bf57241453e078dba28d16fe3a430f06da1 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158214 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 91e4bcb313f0c1f0f19b87b5849f5486aa076be4 3c659044118e34603161457db9934a34f816d78b 7adfbea8fd1efce36019a0c2f198ca73be9d3f18 6ada2285d9918859699c92e09540e023e0a16054 8c4532f19d6925538fb0c938f7de9a97da8c5c3b
- 158219 fail irrelevant
- 158222 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 bab88ead6fcbc7097ed75981622cce7850da1cc7 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158226 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7bed89958bfbf40df9ca681cefbdca63abdde39d 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158227 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a23151e8cc8cc08546252dc9c7671171d9c44615 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158229 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2d24a64661549732fc77f632928318dd52f5bce5 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158217 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 67e0e4caa5bacdd65327d8b302eace2d9ebd209f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 aadac5b3d9fdce28030495f80fc76a4336e97328 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 7ba2ab495be54f608cb47440e1497b2795bd301a
- 158234 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7bed89958bfbf40df9ca681cefbdca63abdde39d 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158239 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 91e4bcb313f0c1f0f19b87b5849f5486aa076be4 3c659044118e34603161457db9934a34f816d78b 7adfbea8fd1efce36019a0c2f198ca73be9d3f18 6ada2285d9918859699c92e09540e023e0a16054 8c4532f19d6925538fb0c938f7de9a97da8c5c3b
- 158241 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 67e0e4caa5bacdd65327d8b302eace2d9ebd209f 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 aadac5b3d9fdce28030495f80fc76a4336e97328 ef88eeaf052c8a7d28c5f85e790c5e45bcffa45e 7ba2ab495be54f608cb47440e1497b2795bd301a
- 158244 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2d24a64661549732fc77f632928318dd52f5bce5 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158248 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7bed89958bfbf40df9ca681cefbdca63abdde39d 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
- 158249 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2d24a64661549732fc77f632928318dd52f5bce5 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
-Searching for interesting versions
- Result found: flight 152200 (pass), for basis pass
- Result found: flight 158217 (fail), for basis failure
- Repro found: flight 158239 (pass), for basis pass
- Repro found: flight 158241 (fail), for basis failure
- 0 revisions at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 cc942105ede58a300ba46f3df0edfa86b3abd4dd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 7bed89958bfbf40df9ca681cefbdca63abdde39d 849c5e50b6f474df6cc113130575bcdccfafcd9e 534b3d09958fdc4df64872c2ab19feb4b1eebc5a
-No revisions left to test, checking graph state.
- Result found: flight 158226 (pass), for last pass
- Result found: flight 158229 (fail), for first failure
- Repro found: flight 158234 (pass), for last pass
- Repro found: flight 158244 (fail), for first failure
- Repro found: flight 158248 (pass), for last pass
- Repro found: flight 158249 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  2d24a64661549732fc77f632928318dd52f5bce5
-  Bug not present: 7bed89958bfbf40df9ca681cefbdca63abdde39d
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/158249/
-
-
-  commit 2d24a64661549732fc77f632928318dd52f5bce5
-  Author: Maxim Levitsky <mlevitsk@redhat.com>
-  Date:   Tue Oct 6 15:38:59 2020 +0300
-  
-      device-core: use RCU for list of children of a bus
-      
-      This fixes the race between device emulation code that tries to find
-      a child device to dispatch the request to (e.g a scsi disk),
-      and hotplug of a new device to that bus.
-      
-      Note that this doesn't convert all the readers of the list
-      but only these that might go over that list without BQL held.
-      
-      This is a very small first step to make this code thread safe.
-      
-      Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
-      Signed-off-by: Maxim Levitsky <mlevitsk@redhat.com>
-      Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-      Message-Id: <20200913160259.32145-5-mlevitsk@redhat.com>
-      [Use RCU_READ_LOCK_GUARD in more places, adjust testcase now that
-       the delay in DEVICE_DELETED due to RCU is more consistent. - Paolo]
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-      Message-Id: <20201006123904.610658-9-mlevitsk@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-neato: graph is too large for cairo-renderer bitmaps. Scaling by 0.160844 to fit
-pnmtopng: 150 colors found
-Revision graph left in /home/logs/results/bisect/qemu-mainline/test-amd64-amd64-libvirt-vhd.guest-start--debian.repeat.{dot,ps,png,html,svg}.
-----------------------------------------
-158249: tolerable FAIL
-
-flight 158249 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158249/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail baseline untested
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
-
-
-jobs:
- build-amd64-libvirt                                          pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+Jan
 
