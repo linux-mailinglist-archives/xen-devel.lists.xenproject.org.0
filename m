@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 677012ED0A2
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Jan 2021 14:23:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62891.111553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 142F52ED0AB
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Jan 2021 14:29:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62897.111565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxVG6-0006bO-UI; Thu, 07 Jan 2021 13:23:22 +0000
+	id 1kxVL9-0006zQ-LX; Thu, 07 Jan 2021 13:28:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62891.111553; Thu, 07 Jan 2021 13:23:22 +0000
+Received: by outflank-mailman (output) from mailman id 62897.111565; Thu, 07 Jan 2021 13:28:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxVG6-0006b2-Ph; Thu, 07 Jan 2021 13:23:22 +0000
-Received: by outflank-mailman (input) for mailman id 62891;
- Thu, 07 Jan 2021 13:23:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kxVL9-0006z1-Ho; Thu, 07 Jan 2021 13:28:35 +0000
+Received: by outflank-mailman (input) for mailman id 62897;
+ Thu, 07 Jan 2021 13:28:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mofb=GK=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
- id 1kxVG5-0006aw-FD
- for xen-devel@lists.xenproject.org; Thu, 07 Jan 2021 13:23:21 +0000
-Received: from mga03.intel.com (unknown [134.134.136.65])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d259c9a0-0bc4-4eb1-852a-cf6cf2e34b42;
- Thu, 07 Jan 2021 13:23:18 +0000 (UTC)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2021 05:23:16 -0800
-Received: from mlupinac-mobl1.amr.corp.intel.com (HELO ubuntu.localdomain)
- ([10.209.25.187])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2021 05:23:15 -0800
+ <SRS0=PbtA=GK=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1kxVL7-0006yw-RD
+ for xen-devel@lists.xenproject.org; Thu, 07 Jan 2021 13:28:33 +0000
+Received: from MTA-07-4.privateemail.com (unknown [68.65.122.27])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9a2d11c8-97d4-4d20-b038-ce7d685bc439;
+ Thu, 07 Jan 2021 13:28:32 +0000 (UTC)
+Received: from MTA-07.privateemail.com (localhost [127.0.0.1])
+ by MTA-07.privateemail.com (Postfix) with ESMTP id 86E566011C
+ for <xen-devel@lists.xenproject.org>; Thu,  7 Jan 2021 08:28:31 -0500 (EST)
+Received: from mail-wr1-f49.google.com (unknown [10.20.151.234])
+ by MTA-07.privateemail.com (Postfix) with ESMTPA id 4B06B60118
+ for <xen-devel@lists.xenproject.org>; Thu,  7 Jan 2021 13:28:31 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id 91so5640242wrj.7
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Jan 2021 05:28:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,187 +44,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d259c9a0-0bc4-4eb1-852a-cf6cf2e34b42
-IronPort-SDR: LJf6MuIw538QlIcDNE8pkuC/Iz64jqftCzbya7dua7B/APgaS9Y1/9bQj4GuseGXsxFN384X1n
- IPXdp8OCr0nw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9856"; a="177521183"
-X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; 
-   d="scan'208";a="177521183"
-IronPort-SDR: TxK5tS4WBIB5J2ovBAmkb79eO7BI+jKY1dNedabkw9QkYj3UP5tmtQYBPPxulJPjVhQM2DFSVC
- oK5y7H3xYs7g==
-X-IronPort-AV: E=Sophos;i="5.79,329,1602572400"; 
-   d="scan'208";a="398620017"
-From: Tamas K Lengyel <tamas.lengyel@intel.com>
-To: xen-devel@lists.xenproject.org
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2] x86/mem_sharing: Resolve mm-lock order violations when forking VMs with nested p2m
-Date: Thu,  7 Jan 2021 05:23:03 -0800
-Message-Id: <253be1190a5cdc452611b3741d852d1c7d2bc8d4.1610025394.git.tamas.lengyel@intel.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 9a2d11c8-97d4-4d20-b038-ce7d685bc439
+X-Gm-Message-State: AOAM533HQmenRwFjz04zuEML9CEC0piFwv6S/NrMgoer/SG31efuCcIR
+	x+03GJdcc9Gzd0XZ6RBdOaU0cuR15X6EEPhZSQk=
+X-Google-Smtp-Source: ABdhPJxkQ71lQdayjoYMX7Q8TIZDpVeJtyWt9ChGy5tgT1AzoziUpxW2pJuPpnZfteJtchhjC3+pfpJNQfNerVGCrIQ=
+X-Received: by 2002:a5d:68ce:: with SMTP id p14mr8952306wrw.386.1610026109700;
+ Thu, 07 Jan 2021 05:28:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <6d5ca8a57a2745e933f00706bff306844611f64d.1609781242.git.tamas.lengyel@intel.com>
+ <19aab6220bf191a31902488ed38c51d239572269.1609781242.git.tamas.lengyel@intel.com>
+ <158cf7ca-17cf-c886-20e8-b53519bec1b5@suse.com> <CABfawhn3OBbpHW9e1Dd9n4UCOe_KaymBS0QwnJC2tLr-oAnBmg@mail.gmail.com>
+ <a3f12f54-926e-9810-f78f-534f057449de@suse.com> <CABfawh=+nd+Lm59Ofy31yDVvcQ9fYXNbm_NBNvu8xsnxti+8sQ@mail.gmail.com>
+ <ba51a8bf-a2cb-0572-8f8d-4c4246580b59@suse.com> <CABfawhk6NPYeCbiXZ00gy+iyESrXu5ciWg0bvsUeCUL9q0k1Qg@mail.gmail.com>
+ <c0657049-bb1b-7397-45b4-aeaf8e8c15e8@suse.com>
+In-Reply-To: <c0657049-bb1b-7397-45b4-aeaf8e8c15e8@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 7 Jan 2021 08:27:53 -0500
+X-Gmail-Original-Message-ID: <CABfawh=bgzJfb-VgrsLKtOn5pNa3JO3SBRwAa_hcuCeRh4Q3-g@mail.gmail.com>
+Message-ID: <CABfawh=bgzJfb-VgrsLKtOn5pNa3JO3SBRwAa_hcuCeRh4Q3-g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] x86/hap: Resolve mm-lock order violations when
+ forking VMs with nested p2m
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-Several lock-order violations have been encountered while attempting to fork
-VMs with nestedhvm=1 set. This patch resolves the issues.
+On Thu, Jan 7, 2021 at 7:56 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 07.01.2021 13:43, Tamas K Lengyel wrote:
+> > On Thu, Jan 7, 2021 at 7:26 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >> On 06.01.2021 17:26, Tamas K Lengyel wrote:
+> >>> On Wed, Jan 6, 2021 at 11:11 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >>>> On 06.01.2021 16:29, Tamas K Lengyel wrote:
+> >>>>> On Wed, Jan 6, 2021 at 7:03 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>>> On 04.01.2021 18:41, Tamas K Lengyel wrote:
+> >>>>>>> --- a/xen/arch/x86/mm/p2m.c
+> >>>>>>> +++ b/xen/arch/x86/mm/p2m.c
+> >>>>>>> @@ -1598,8 +1598,17 @@ void
+> >>>>>>>  p2m_flush_nestedp2m(struct domain *d)
+> >>>>>>>  {
+> >>>>>>>      int i;
+> >>>>>>> +    struct p2m_domain *p2m;
+> >>>>>>> +
+> >>>>>>>      for ( i = 0; i < MAX_NESTEDP2M; i++ )
+> >>>>>>> -        p2m_flush_table(d->arch.nested_p2m[i]);
+> >>>>>>> +    {
+> >>>>>>> +        p2m = d->arch.nested_p2m[i];
+> >>>>>>
+> >>>>>> Please move the declaration here, making this the variable's
+> >>>>>> initializer (unless line length constraints make the latter
+> >>>>>> undesirable).
+> >>>>>
+> >>>>> I really don't get what difference this would make.
+> >>>>
+> >>>> Both choice of (generally) inappropriate types (further up)
+> >>>> and placement of declarations (here) (and of course also
+> >>>> other style violations) can set bad precedents even if in a
+> >>>> specific case it may not matter much. So yes, it may be
+> >>>> good enough here, but it would violate our desire to
+> >>>> - use unsigned types when a variable will hold only non-
+> >>>>   negative values (which in the general case may improve
+> >>>>   generated code in particular on x86-64),
+> >>>> - limit the scopes of variables as much as possible, to
+> >>>>   more easily spot inappropriate uses (like bypassing
+> >>>>   initialization).
+> >>>>
+> >>>> This code here actually demonstrates such a bad precedent,
+> >>>> using plain int for the loop induction variable. While I
+> >>>> can't be any way near sure, there's a certain chance you
+> >>>> actually took it and copied it to
+> >>>> __mem_sharing_unshare_page(). The chance of such happening
+> >>>> is what we'd like to reduce over time.
+> >>>
+> >>> Yes, I copied it from p2m.c. All I meant was that such minor changes
+> >>> are generally speaking not worth a round-trip of sending new patches.
+> >>> I obviously don't care whether this is signed or unsigned. Minor stuff
+> >>> like that could be changed on commit and is not even worth having a
+> >>> discussion about.
+> >>
+> >> I'm sorry, but no. Committing ought to be a purely mechanical
+> >> thing. It is a _courtesy_ of the committer if they offer to
+> >> make adjustments. If us offering this regularly gets taken as
+> >> "expected behavior", I'm afraid I personally would stop making
+> >> such an offer, and instead insist on further round trips.
+> >
+> > So you requested changes I consider purely cosmetic, no objections to
+> > any of them. It would be faster if you just made those changes -
+> > literally 2 seconds - instead of insisting on this back and forth. I
+> > really have no idea under what metric this saves *you* time. Now you
+> > have to write emails to point out the issues and review the patch
+> > twice, including the lag time of when the sender has time to do the
+> > changes and resend the patches.
+>
+> For one, I didn't talk about either process saving time, I don't
+> think. Then I had comments beyond these purely cosmetic ones.
+> Therefore I didn't think it was justified to offer making the
+> mechanical adjustments at commit time. Making such an offer will
+> please remain subject to the individual's judgement, without
+> having to justify _at all_ when not making such an offer.
+>
+> As to time savings - even if I had offered making these changes,
+> I'd still have to give the respective comments. Both for your
+> awareness (after all I'd be changing your patch, and you might
+> not like me doing so), and to hopefully have the effect that in
+> future submissions you'd take care of such aspects yourself
+> right away (plus same for any possible observers of the thread).
+>
+> > I think this process is just bad for
+> > everyone involved. And now you are saying out of principle you would
+> > be insisting on more of this just to prove a point? Yea, that would
+> > certainly solve the problem of commit lag and backlog of reviewing
+> > patches. But it's your call, I really don't care enough to argue any
+> > more about it.
+>
+> I have to admit that I find this odd: If there's disagreement,
+> wouldn't it generally be better to get it resolved?
+>
 
-The order violations stems from a call to p2m_flush_nestedp2m being performed
-whenever the hostp2m changes. This functions always takes the p2m lock for the
-nested_p2m. However, with sharing the p2m locks always have to be taken before
-the sharing lock. To resolve this issue we avoid taking the sharing lock where
-possible (and was actually unecessary to begin with). But we also make
-p2m_flush_nestedp2m aware that the p2m lock may have already been taken and
-preemptively take all nested_p2m locks before unsharing a page where taking the
-sharing lock is necessary.
+I don't see where the disagreement was, I had no objections to the
+changes you requested. I don't like this unnecessary back and forth on
+trivia. But v2 is sent. I'm moving on.
 
-Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
----
-v2: cosmetic fixes
----
- xen/arch/x86/mm/mem_sharing.c | 44 ++++++++++++++++++++++++-----------
- xen/arch/x86/mm/p2m.c         | 12 ++++++++--
- 2 files changed, 40 insertions(+), 16 deletions(-)
-
-diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index fc7b2a4102..ebce11e0e0 100644
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -39,6 +39,7 @@
- #include <asm/event.h>
- #include <asm/hap.h>
- #include <asm/hvm/hvm.h>
-+#include <asm/hvm/nestedhvm.h>
- #include <xsm/xsm.h>
- 
- #include <public/hvm/params.h>
-@@ -893,13 +894,11 @@ static int nominate_page(struct domain *d, gfn_t gfn,
-         goto out;
- 
-     /*
--     * Now that the page is validated, we can lock it. There is no
--     * race because we're holding the p2m entry, so no one else
--     * could be nominating this gfn.
-+     * Now that the page is validated, we can make it shared. There is no race
-+     * because we're holding the p2m entry, so no one else could be nominating
-+     * this gfn & and it is evidently not yet shared with any other VM, thus we
-+     * don't need to take the mem_sharing_page_lock here.
-      */
--    ret = -ENOENT;
--    if ( !mem_sharing_page_lock(page) )
--        goto out;
- 
-     /* Initialize the shared state */
-     ret = -ENOMEM;
-@@ -935,7 +934,6 @@ static int nominate_page(struct domain *d, gfn_t gfn,
- 
-     *phandle = page->sharing->handle;
-     audit_add_list(page);
--    mem_sharing_page_unlock(page);
-     ret = 0;
- 
- out:
-@@ -1214,7 +1212,8 @@ int __mem_sharing_unshare_page(struct domain *d,
-     p2m_type_t p2mt;
-     mfn_t mfn;
-     struct page_info *page, *old_page;
--    int last_gfn;
-+    bool last_gfn;
-+    int rc = 0;
-     gfn_info_t *gfn_info = NULL;
- 
-     mfn = get_gfn(d, gfn, &p2mt);
-@@ -1226,6 +1225,15 @@ int __mem_sharing_unshare_page(struct domain *d,
-         return 0;
-     }
- 
-+    /* lock nested p2ms to avoid lock-order violation with sharing lock */
-+    if ( unlikely(nestedhvm_enabled(d)) )
-+    {
-+        unsigned int i;
-+
-+        for ( i = 0; i < MAX_NESTEDP2M; i++ )
-+            p2m_lock(d->arch.nested_p2m[i]);
-+    }
-+
-     page = __grab_shared_page(mfn);
-     if ( page == NULL )
-     {
-@@ -1276,9 +1284,7 @@ int __mem_sharing_unshare_page(struct domain *d,
-             put_page_alloc_ref(page);
- 
-         put_page_and_type(page);
--        put_gfn(d, gfn);
--
--        return 0;
-+        goto out;
-     }
- 
-     if ( last_gfn )
-@@ -1295,12 +1301,12 @@ int __mem_sharing_unshare_page(struct domain *d,
-         /* Undo dec of nr_saved_mfns, as the retry will decrease again. */
-         atomic_inc(&nr_saved_mfns);
-         mem_sharing_page_unlock(old_page);
--        put_gfn(d, gfn);
-         /*
-          * Caller is responsible for placing an event
-          * in the ring.
-          */
--        return -ENOMEM;
-+        rc = -ENOMEM;
-+        goto out;
-     }
- 
-     copy_domain_page(page_to_mfn(page), page_to_mfn(old_page));
-@@ -1327,8 +1333,18 @@ int __mem_sharing_unshare_page(struct domain *d,
-      */
-     paging_mark_dirty(d, page_to_mfn(page));
-     /* We do not need to unlock a private page */
-+
-+ out:
-+    if ( unlikely(nestedhvm_enabled(d)) )
-+    {
-+        unsigned int i;
-+
-+        for ( i = 0; i < MAX_NESTEDP2M; i++ )
-+            p2m_unlock(d->arch.nested_p2m[i]);
-+    }
-+
-     put_gfn(d, gfn);
--    return 0;
-+    return rc;
- }
- 
- int relinquish_shared_pages(struct domain *d)
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index ad4bb94514..a32301c343 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -1597,9 +1597,17 @@ p2m_flush(struct vcpu *v, struct p2m_domain *p2m)
- void
- p2m_flush_nestedp2m(struct domain *d)
- {
--    int i;
-+    unsigned int i;
-+
-     for ( i = 0; i < MAX_NESTEDP2M; i++ )
--        p2m_flush_table(d->arch.nested_p2m[i]);
-+    {
-+        struct p2m_domain *p2m = d->arch.nested_p2m[i];
-+
-+        if ( p2m_locked_by_me(p2m) )
-+            p2m_flush_table_locked(p2m);
-+        else
-+            p2m_flush_table(p2m);
-+    }
- }
- 
- void np2m_flush_base(struct vcpu *v, unsigned long np2m_base)
--- 
-2.25.1
-
+Tamas
 
