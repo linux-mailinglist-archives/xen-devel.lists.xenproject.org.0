@@ -2,37 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 142F52ED0AB
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Jan 2021 14:29:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.62897.111565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8E3A2ED133
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Jan 2021 14:53:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.62902.111577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxVL9-0006zQ-LX; Thu, 07 Jan 2021 13:28:35 +0000
+	id 1kxVj1-0001Kk-Nn; Thu, 07 Jan 2021 13:53:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 62897.111565; Thu, 07 Jan 2021 13:28:35 +0000
+Received: by outflank-mailman (output) from mailman id 62902.111577; Thu, 07 Jan 2021 13:53:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxVL9-0006z1-Ho; Thu, 07 Jan 2021 13:28:35 +0000
-Received: by outflank-mailman (input) for mailman id 62897;
- Thu, 07 Jan 2021 13:28:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PbtA=GK=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
- id 1kxVL7-0006yw-RD
- for xen-devel@lists.xenproject.org; Thu, 07 Jan 2021 13:28:33 +0000
-Received: from MTA-07-4.privateemail.com (unknown [68.65.122.27])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9a2d11c8-97d4-4d20-b038-ce7d685bc439;
- Thu, 07 Jan 2021 13:28:32 +0000 (UTC)
-Received: from MTA-07.privateemail.com (localhost [127.0.0.1])
- by MTA-07.privateemail.com (Postfix) with ESMTP id 86E566011C
- for <xen-devel@lists.xenproject.org>; Thu,  7 Jan 2021 08:28:31 -0500 (EST)
-Received: from mail-wr1-f49.google.com (unknown [10.20.151.234])
- by MTA-07.privateemail.com (Postfix) with ESMTPA id 4B06B60118
- for <xen-devel@lists.xenproject.org>; Thu,  7 Jan 2021 13:28:31 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id 91so5640242wrj.7
- for <xen-devel@lists.xenproject.org>; Thu, 07 Jan 2021 05:28:31 -0800 (PST)
+	id 1kxVj1-0001KL-KJ; Thu, 07 Jan 2021 13:53:15 +0000
+Received: by outflank-mailman (input) for mailman id 62902;
+ Thu, 07 Jan 2021 13:53:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3gRj=GK=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kxVj0-0001KG-OK
+ for xen-devel@lists.xenproject.org; Thu, 07 Jan 2021 13:53:14 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ae64f9f0-cf11-40b7-b794-b04ecae7c3c8;
+ Thu, 07 Jan 2021 13:53:13 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 88A9BACAF;
+ Thu,  7 Jan 2021 13:53:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,128 +38,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a2d11c8-97d4-4d20-b038-ce7d685bc439
-X-Gm-Message-State: AOAM533HQmenRwFjz04zuEML9CEC0piFwv6S/NrMgoer/SG31efuCcIR
-	x+03GJdcc9Gzd0XZ6RBdOaU0cuR15X6EEPhZSQk=
-X-Google-Smtp-Source: ABdhPJxkQ71lQdayjoYMX7Q8TIZDpVeJtyWt9ChGy5tgT1AzoziUpxW2pJuPpnZfteJtchhjC3+pfpJNQfNerVGCrIQ=
-X-Received: by 2002:a5d:68ce:: with SMTP id p14mr8952306wrw.386.1610026109700;
- Thu, 07 Jan 2021 05:28:29 -0800 (PST)
+X-Inumbo-ID: ae64f9f0-cf11-40b7-b794-b04ecae7c3c8
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610027592; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=h4ja43Ckh3ZAmrOzQT3YVlQhiwfDgKEu9JSAX1OJGSQ=;
+	b=Wlv4LLxAnVbqzOY/mXxp+84vdYvGeJLl9MKYVnsDmhTL7EJ/p4csWDBXHu3hwhsPb8Gj5m
+	YmVnIFMvRzvw2xp8bVLbWgP2XoggATcuhe1Wl7f6lHAnTS+mOnw3L5umjDsT3vYH7BSWyQ
+	tpWKv57mKDYfvogoscuap4xgID0OQ4w=
+Subject: Re: [PATCH] x86/timer: Fix boot on Intel systems using ITSSPRC static
+ PIT clock gating
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Aaron Janse <aaron@ajanse.me>,
+ Jason Andryuk <jandryuk@gmail.com>, Ondrej Balaz <blami@blami.net>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210107010625.5993-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <6be85030-11aa-4143-b202-48a086bb5595@suse.com>
+Date: Thu, 7 Jan 2021 14:53:11 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-References: <6d5ca8a57a2745e933f00706bff306844611f64d.1609781242.git.tamas.lengyel@intel.com>
- <19aab6220bf191a31902488ed38c51d239572269.1609781242.git.tamas.lengyel@intel.com>
- <158cf7ca-17cf-c886-20e8-b53519bec1b5@suse.com> <CABfawhn3OBbpHW9e1Dd9n4UCOe_KaymBS0QwnJC2tLr-oAnBmg@mail.gmail.com>
- <a3f12f54-926e-9810-f78f-534f057449de@suse.com> <CABfawh=+nd+Lm59Ofy31yDVvcQ9fYXNbm_NBNvu8xsnxti+8sQ@mail.gmail.com>
- <ba51a8bf-a2cb-0572-8f8d-4c4246580b59@suse.com> <CABfawhk6NPYeCbiXZ00gy+iyESrXu5ciWg0bvsUeCUL9q0k1Qg@mail.gmail.com>
- <c0657049-bb1b-7397-45b4-aeaf8e8c15e8@suse.com>
-In-Reply-To: <c0657049-bb1b-7397-45b4-aeaf8e8c15e8@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Thu, 7 Jan 2021 08:27:53 -0500
-X-Gmail-Original-Message-ID: <CABfawh=bgzJfb-VgrsLKtOn5pNa3JO3SBRwAa_hcuCeRh4Q3-g@mail.gmail.com>
-Message-ID: <CABfawh=bgzJfb-VgrsLKtOn5pNa3JO3SBRwAa_hcuCeRh4Q3-g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] x86/hap: Resolve mm-lock order violations when
- forking VMs with nested p2m
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Virus-Scanned: ClamAV using ClamSMTP
+In-Reply-To: <20210107010625.5993-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 7, 2021 at 7:56 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 07.01.2021 13:43, Tamas K Lengyel wrote:
-> > On Thu, Jan 7, 2021 at 7:26 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >> On 06.01.2021 17:26, Tamas K Lengyel wrote:
-> >>> On Wed, Jan 6, 2021 at 11:11 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >>>> On 06.01.2021 16:29, Tamas K Lengyel wrote:
-> >>>>> On Wed, Jan 6, 2021 at 7:03 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >>>>>> On 04.01.2021 18:41, Tamas K Lengyel wrote:
-> >>>>>>> --- a/xen/arch/x86/mm/p2m.c
-> >>>>>>> +++ b/xen/arch/x86/mm/p2m.c
-> >>>>>>> @@ -1598,8 +1598,17 @@ void
-> >>>>>>>  p2m_flush_nestedp2m(struct domain *d)
-> >>>>>>>  {
-> >>>>>>>      int i;
-> >>>>>>> +    struct p2m_domain *p2m;
-> >>>>>>> +
-> >>>>>>>      for ( i = 0; i < MAX_NESTEDP2M; i++ )
-> >>>>>>> -        p2m_flush_table(d->arch.nested_p2m[i]);
-> >>>>>>> +    {
-> >>>>>>> +        p2m = d->arch.nested_p2m[i];
-> >>>>>>
-> >>>>>> Please move the declaration here, making this the variable's
-> >>>>>> initializer (unless line length constraints make the latter
-> >>>>>> undesirable).
-> >>>>>
-> >>>>> I really don't get what difference this would make.
-> >>>>
-> >>>> Both choice of (generally) inappropriate types (further up)
-> >>>> and placement of declarations (here) (and of course also
-> >>>> other style violations) can set bad precedents even if in a
-> >>>> specific case it may not matter much. So yes, it may be
-> >>>> good enough here, but it would violate our desire to
-> >>>> - use unsigned types when a variable will hold only non-
-> >>>>   negative values (which in the general case may improve
-> >>>>   generated code in particular on x86-64),
-> >>>> - limit the scopes of variables as much as possible, to
-> >>>>   more easily spot inappropriate uses (like bypassing
-> >>>>   initialization).
-> >>>>
-> >>>> This code here actually demonstrates such a bad precedent,
-> >>>> using plain int for the loop induction variable. While I
-> >>>> can't be any way near sure, there's a certain chance you
-> >>>> actually took it and copied it to
-> >>>> __mem_sharing_unshare_page(). The chance of such happening
-> >>>> is what we'd like to reduce over time.
-> >>>
-> >>> Yes, I copied it from p2m.c. All I meant was that such minor changes
-> >>> are generally speaking not worth a round-trip of sending new patches.
-> >>> I obviously don't care whether this is signed or unsigned. Minor stuff
-> >>> like that could be changed on commit and is not even worth having a
-> >>> discussion about.
-> >>
-> >> I'm sorry, but no. Committing ought to be a purely mechanical
-> >> thing. It is a _courtesy_ of the committer if they offer to
-> >> make adjustments. If us offering this regularly gets taken as
-> >> "expected behavior", I'm afraid I personally would stop making
-> >> such an offer, and instead insist on further round trips.
-> >
-> > So you requested changes I consider purely cosmetic, no objections to
-> > any of them. It would be faster if you just made those changes -
-> > literally 2 seconds - instead of insisting on this back and forth. I
-> > really have no idea under what metric this saves *you* time. Now you
-> > have to write emails to point out the issues and review the patch
-> > twice, including the lag time of when the sender has time to do the
-> > changes and resend the patches.
->
-> For one, I didn't talk about either process saving time, I don't
-> think. Then I had comments beyond these purely cosmetic ones.
-> Therefore I didn't think it was justified to offer making the
-> mechanical adjustments at commit time. Making such an offer will
-> please remain subject to the individual's judgement, without
-> having to justify _at all_ when not making such an offer.
->
-> As to time savings - even if I had offered making these changes,
-> I'd still have to give the respective comments. Both for your
-> awareness (after all I'd be changing your patch, and you might
-> not like me doing so), and to hopefully have the effect that in
-> future submissions you'd take care of such aspects yourself
-> right away (plus same for any possible observers of the thread).
->
-> > I think this process is just bad for
-> > everyone involved. And now you are saying out of principle you would
-> > be insisting on more of this just to prove a point? Yea, that would
-> > certainly solve the problem of commit lag and backlog of reviewing
-> > patches. But it's your call, I really don't care enough to argue any
-> > more about it.
->
-> I have to admit that I find this odd: If there's disagreement,
-> wouldn't it generally be better to get it resolved?
->
+On 07.01.2021 02:06, Andrew Cooper wrote:
+> Slightly RFC.  On older platforms this does generate some spurious PIC
+> interrupts during boot, but they're benign.  I was hoping to have time to fix
+> those too, but I'm getting an increasing number of requests to post this
+> patch.
 
-I don't see where the disagreement was, I had no objections to the
-changes you requested. I don't like this unnecessary back and forth on
-trivia. But v2 is sent. I'm moving on.
+We still will want to try to suppress those by the release of 4.15,
+and ideally even before we backport this one.
 
-Tamas
+> @@ -793,6 +793,71 @@ u64 __init hpet_setup(void)
+>      if ( (rem * 2) > hpet_period )
+>          hpet_rate++;
+>  
+> +    /*
+> +     * Intel chipsets from Skylake/ApolloLake onwards can statically clock
+> +     * gate the 8259 PIT.  This option is enabled by default in slightly later
+> +     * systems, as turning the PIT off is a prerequisite to entering the C11
+> +     * power saving state.
+> +     *
+> +     * Xen currently depends on the legacy timer interrupt being active while
+> +     * IRQ routing is configured.
+> +     *
+> +     * Reconfigure the HPET into legacy mode to re-establish the timer
+> +     * interrupt.
+> +     */
+> +    if ( hpet_id & HPET_ID_LEGSUP &&
+
+Add parentheses here?
+
+> +         !((hpet_cfg = hpet_read32(HPET_CFG)) & HPET_CFG_LEGACY) )
+> +    {
+> +        unsigned int c0_cfg, ticks, count;
+> +
+> +        /* Stop the main counter. */
+> +        hpet_write32(hpet_cfg & ~HPET_CFG_ENABLE, HPET_CFG);
+> +
+> +        /* Reconfigure channel 0 to be 32bit periodic. */
+> +        c0_cfg = hpet_read32(HPET_Tn_CFG(0));
+> +        c0_cfg |= (HPET_TN_ENABLE | HPET_TN_PERIODIC | HPET_TN_SETVAL |
+> +                   HPET_TN_32BIT);
+> +        hpet_write32(c0_cfg, HPET_Tn_CFG(0));
+> +
+> +        /*
+> +         * The exact period doesn't have to match a legacy PIT.  All we need
+> +         * is an interrupt queued up via the IO-APIC to check routing.
+> +         *
+> +         * Use HZ as the frequency.
+> +         */
+> +        ticks = (SECONDS(1) / HZ) * div_sc(hpet_rate, SECONDS(1), 32)) >> 32;
+> +
+> +        count = hpet_read32(HPET_COUNTER);
+> +
+> +        /*
+> +         * HPET_TN_SETVAL above is atrociously documented in the spec.
+> +         *
+> +         * Periodic HPET channels have a main comparator register, and cache
+> +         * the "last write to cmp", as a hidden register.
+> +         *
+> +         * The semantics on generating a periodic interrupt is:
+> +         *   cmp += "last value written to the cmp register"
+> +         * which will reload a new period.
+> +         *
+> +         * Normally, writes to cmp update the main comparator as well as being
+> +         * cached for the reload value.  However, under these semantics, the
+> +         * HPET main counter needs resetting to 0 to be able to configure the
+> +         * period correctly.
+> +         *
+> +         * Instead, HPET_TN_SETVAL is a self-clearing control bit which we can
+> +         * use for periodic timers to mean that the second write to the
+> +         * comparator updates only the "last written" cache, and not the
+> +         * absolute comparator value.
+> +         *
+> +         * This lets us set a period when the main counter isn't at 0.
+> +         */
+> +        hpet_write32(count + ticks, HPET_Tn_CMP(0));
+> +        hpet_write32(ticks,         HPET_Tn_CMP(0));
+
+As you say, documentation is poor here. In fact the wording in the
+HPET spec talks about updating of the "accumulator" instead;
+perhaps just an unhelpful use of a different term. (Respective
+Linux code has a comment indicating this is needed on a specific
+AMD chipset only.)
+
+It would seem more natural to me if things were explained a little
+differently: Writes to the comparator with SETVAL clear always
+update the "last written" value, i.e. the increment to be used
+once the main counter equals the comparator. Writes with SETVAL set
+update the comparator itself. (Assuming that's how it really is, of
+course, but that's what I infer from the doc available.)
+
+Linux additionally puts udelay(1) between the two writes. Do you
+think we're fine without such, on all platforms?
+
+> +        /* Restart the main counter, and legacy mode. */
+> +        hpet_write32(hpet_cfg | HPET_CFG_ENABLE | HPET_CFG_LEGACY, HPET_CFG);
+
+This isn't necessarily "restart" - you may start the counter for
+the first time. Hence in the comment maybe "(Re)start ..."?
+
+As to the spurious IRQs, does it perhaps matter at which point
+CFG_LEGACY gets set? We could try setting it when clearing
+CFG_ENABLE further up, or we could also try two separate writes
+each setting just one of the bits. (At least I can't deduce
+from the spec that we ought to be prepared to observe spurious
+IRQs here.)
+
+Jan
 
