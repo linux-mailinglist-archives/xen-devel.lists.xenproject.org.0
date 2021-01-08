@@ -2,31 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD65F2EF4F5
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 16:38:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63648.112967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE2902EF4F6
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 16:38:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63650.112980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxtqD-0005jb-Af; Fri, 08 Jan 2021 15:38:17 +0000
+	id 1kxtqa-0005oP-Jz; Fri, 08 Jan 2021 15:38:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63648.112967; Fri, 08 Jan 2021 15:38:17 +0000
+Received: by outflank-mailman (output) from mailman id 63650.112980; Fri, 08 Jan 2021 15:38:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxtqD-0005jF-7F; Fri, 08 Jan 2021 15:38:17 +0000
-Received: by outflank-mailman (input) for mailman id 63648;
- Fri, 08 Jan 2021 15:38:15 +0000
+	id 1kxtqa-0005o2-GN; Fri, 08 Jan 2021 15:38:40 +0000
+Received: by outflank-mailman (input) for mailman id 63650;
+ Fri, 08 Jan 2021 15:38:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3tJ2=GL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kxtqB-0005jA-Af
- for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 15:38:15 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mh2R=GL=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kxtqY-0005nn-VP
+ for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 15:38:38 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id efa5b7e6-0042-4512-bee6-15153a3ab0e6;
- Fri, 08 Jan 2021 15:38:14 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8105AAD89;
- Fri,  8 Jan 2021 15:38:13 +0000 (UTC)
+ id f5943130-fa7d-4714-9c3a-37d01459ca4b;
+ Fri, 08 Jan 2021 15:38:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,80 +35,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efa5b7e6-0042-4512-bee6-15153a3ab0e6
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610120293; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nn6HPY4yJDUjBBIi4BmkXFmESHtgqGjNNQkl09oNOqc=;
-	b=L5e2c2wuBNmVTaHZB5GIWKg/veHoe4x9vibQLm4ZR82oDgzAGvaEmgQIKXpE8QUF14xWVm
-	vjNcltt+uwYv8ErvDGliWScqLiueamBcUTORXMk3O0wd/aLUr1G5oPz+n+EGyueclZtYIa
-	ff6Jf/bEYBGnjNa+XkAHU6VaMYIYdcw=
-Subject: Re: [PATCH RFC 1/3] xen/hypfs: add support for bool leafs in dynamic
- directories
-To: Juergen Gross <jgross@suse.com>
-Cc: paul@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20201209161618.309-1-jgross@suse.com>
- <20201209161618.309-2-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e37ff901-1d40-b5ef-61ec-9a51bcedbc37@suse.com>
-Date: Fri, 8 Jan 2021 16:38:13 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
-MIME-Version: 1.0
-In-Reply-To: <20201209161618.309-2-jgross@suse.com>
+X-Inumbo-ID: f5943130-fa7d-4714-9c3a-37d01459ca4b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610120317;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=5YEX6s5rI2F6DIQzKmPkrm9MhsBW98z9G5KbGvBH9SY=;
+  b=RGd4zgGOamHbsi6XEhns3BRixJRZd64NoEZc9BsDzUPMYBOfbmNGobCl
+   YgM3n/7a3Z0soKOESugOwi+t9mH4060W4KUMUsE6Yg99nOHaPffw+aK/3
+   MM/QCna3EiZBXaYd/VaFUC8akEFWML8Pz8cstdBFMJYC3N4oucirSbSby
+   8=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: MaV1h2Ot5W3i2Nu0a/XqNz3O+zEkBL4DPSVhD3d6Oqrle3BeB+qZMq2rM3UAtf8WoBtCT6jqtU
+ B8S7WSqKrQR1Bfg82s44SuSJc6mj/YBiNFjL95rFeCwW0Ay96c0mh4leJiDemzzvqRqPec1w3+
+ DkbOFYU25gqo/cvRRA50Q0Byc0CIUPm1mYKLdFmfRprrzvt6pyBeBoUq1nYKmUHVnqbRGX8oWt
+ NcYK10h3A4FH9AXa3BzsooFt5Omt2GV6hA1CZTqzRpPGCI/LIasDIejdd1jULbPTtwmkHcaWAj
+ fGQ=
+X-SBRS: 5.2
+X-MesageID: 34710227
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,331,1602561600"; 
+   d="scan'208";a="34710227"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UnD725JCmin/gzupC5niDFAvBwEcNn43N2XISnOEd8rOkBHTgblw4uENZWkoE2hCJIX6WIxsT/jBASzh0o1QEt8azWhWkQcRJIzPfibWgHHcfE1JNjpYKNdE4+/iZrrgOzTJqPbHfJWsIvXzQOLxUfR3hES3sr6+T2M3aFL71NAfA6BsVH00eXHupdD0AUUNeVbKwWkZGwGMKoTKWXy27pNLpTh8KYqtiewPiJvDOVZ4dSS7tg9CAdQNGVH/1xBhCayFSvzJf6bypqP5aNSMVYCMSmuIVtC7/ecb5LZjM6QSu/3dTps7lMma62tC9SiWBkqpRGmtxlwuhZfh3ujfoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oL8nIqqTbXjIE7TbilB8EyZ9oVa08ewr2MVRgYVq81s=;
+ b=GmkXurMLXAHSwzViCcsbpsiVqUrk/l+dxmUcXgJm0o+/UPlWzZ/sEEfOxvBR0iiWPkKPgU6VN2LP9nESVKdtYabKhvAiK0KJc+iG+8IWXbuIE9N0G9LEQVUBUqqRSe/xSgBOU/ZYiMrz4u8yRYtab3rieOtGSoXMrP5zAv+sDjmiQryxulDH9XgV1Tjl6PBMxrsAIt5irqL8aNODGY1IbxALkcJ9QO5zS5+yRpAlxKWK8WI7MMUikoSqxMW1hnfejATF46/NS/+DUgYsQ7+pml31/WI1xvgFFtxc1vuarU0dpe1nKSmFEqOoztk4jclbLm6gkk5UWZXOagbQYBFt9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oL8nIqqTbXjIE7TbilB8EyZ9oVa08ewr2MVRgYVq81s=;
+ b=b2pmGntU3tA+nF6OjZU4LcbUuB1ocddBPSsO04AT0vtyo830hU25y85gapNzpCnTS9QBYeUDl7ITVgb0v/etrQbKgsVuN5lh9go4SC0YSb5YdO2ASxwHf5p/rl7GD+Ig7RC0uRKejiQryejYwVTrI8pfnzC5gkbSugmTpsHaMZo=
+Date: Fri, 8 Jan 2021 16:38:27 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<George.Dunlap@eu.citrix.com>
+Subject: Re: [PATCH v2 6/9] x86/p2m: avoid unnecessary calls of
+ write_p2m_entry_pre() hook
+Message-ID: <20210108153827.yk7mdog57m3jnis3@Air-de-Roger>
+References: <4b63025f-164c-2e93-3d54-7a7f145ad046@suse.com>
+ <3386a823-5560-9cf3-5711-219d5bd0e54e@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3386a823-5560-9cf3-5711-219d5bd0e54e@suse.com>
+X-ClientProxiedBy: PR0P264CA0251.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100::23)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 64bcba6d-b659-48a0-bef6-08d8b3eb74b7
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5324:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB532489CA4DC82F011D769C4A8FAE0@DM6PR03MB5324.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jreFknrWpB5QvLHQ9wHtQQgCjSki9J7XRMW83dVAHWhxO/zCZL3eRwyBeHR90/AtgTbOSebk+3u+scHQS7ECe6131aZJLbmySxdhuPh0u2FGROVPeelz3g0C7cLSa/jF6clMbk7bq6ppXqt3YgQZNk6zlPKwkSgb9+AJk38HlGFkDJLtwwHqre+x9BO0cFuo+9bzrVqJdszqgiy1DuGTHQX740w54ku40YlK1E4E8oLQQAOJS+YWy4pTtsmdgDlndvOVFs5NqOOg5vtoIyp0W2WI1NVvgR1wHh2oavPA9MFdwe0/KUtezoFx3Kqprm86726A44wHuvCR4YHyAoAuCxZCpEu5dY+aFvDuZzFy8HIy3R9d0thNyyc0n5qRAH43QFcRFiwE8zZ4dbt0WTQq9emL6Sf3zz/Bt1wvMNvaF7KJ3Ypx46OT86w7F4FAKcfT
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(376002)(346002)(39860400002)(396003)(366004)(136003)(956004)(8936002)(107886003)(66946007)(33716001)(9686003)(4744005)(16526019)(66556008)(2906002)(54906003)(66476007)(85182001)(6486002)(6916009)(83380400001)(316002)(5660300002)(478600001)(8676002)(86362001)(6666004)(4326008)(6496006)(186003)(26005)(1076003)(70780200001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?T21Hc2xhVkJ2T2dnNkxPSTNWT1BUUEEvYlZvSTg5TXNFR0lvNHFGK0lQT2Fw?=
+ =?utf-8?B?aDNDK2xIQUdkU2RnMjJ5WTNRdEwvWnhHd01seHByM0poWVU4cjNRN1M3NGhU?=
+ =?utf-8?B?RG5zQkZJQ0NXRGE1ZktTbTZ6L0pGbDBIamdHWFRFZG9PQzIyalorTldiSXpp?=
+ =?utf-8?B?dzJUNFpPWWtoUDRXcVFzMFgyNE9kc0s5a1liTVYwSi9KUEo3MTQ0cU8rUjYz?=
+ =?utf-8?B?S1RCeXMyWTlIdlhHUjdIcnhEUGU0ajdPa2Z0TklUcVRJYnJtSHpNdnRsYjVH?=
+ =?utf-8?B?RDdtdytKdHd4bTJxUllaVy9RZ1ZBOFV5azdTRGhHZi8wQmxpbFJzZm96VGJX?=
+ =?utf-8?B?LzU4QW9CR2gyTTVpOUlMWE5ocUxCdklZaHdYSUliVUdINnhnTnJ4TVViVU81?=
+ =?utf-8?B?UENaODAyRFdtQUZ4ODdUMVBiSTBUU1VsRFZXRWhpVmpldks4Z1ZKRTlSZG1J?=
+ =?utf-8?B?QzZmcVcyVm9DT0tOUmY5Q3pnc3lNM2JYd0RCekQrZWlGRkVsQ2VhUWJhYXhW?=
+ =?utf-8?B?ZTFIY2ZqTzM0dHB0bGVJL041eUFjK0F4U1ZkRU84MHp2YTdLSDBTaCtHMmM4?=
+ =?utf-8?B?LzRtK1ZxZ3RmcTViUzFNRFByaXkxMUIwRHQvaHlUc0hkSXIrUWxQajJnOTVM?=
+ =?utf-8?B?WWJRSzVBT08ySWo5blVQajVDZm1qOEVrSVVoQUNqL2YvY0ZMODJCRlRhaysx?=
+ =?utf-8?B?ZVEvZitBRDFiTFJLaCtUZUEvMFF3SkhVNTFxS0U2cFpKbjBMVTN2N2tqRm94?=
+ =?utf-8?B?L3RhTTlXY0RNMnJSa251MEh0UGt4UUVxQ3grUlhEclhwRWlYdWxUQnc2a3Vo?=
+ =?utf-8?B?Q2dYWTJleVJBMStMckZxNXI5MDdhckk1d0RNUkQzV3YvSlFyd3ZOcDY0NkZ5?=
+ =?utf-8?B?STBoeUZGZjFkeEg4b0RXMG8zZzRwOFo2cDM3bDA4NFRqRVZKTG9uWHNzaFk5?=
+ =?utf-8?B?d2RWc1NwOW1RdWk4VUpRNEJSUVhxcyt0aGd3bnAwbEkrUm9LNGhFMCs4cDVX?=
+ =?utf-8?B?V1FhZWp0RnZBVDc0TEZFN2FqcUVEUlo3YWZ4bmVRTXp5bEEwVld3Ulp1ekI5?=
+ =?utf-8?B?d3RycXdPczFKS2NOU2JRWC9BRlFaa3BsZ1oyMXFJVXF4aUpmS2NFRldLUXFT?=
+ =?utf-8?B?OVhSZXZVN2trckJQY3F3eVlJSklWSVd5QVBmYUxOZkM4UkdyL2NQdTFuaUMy?=
+ =?utf-8?B?Y04vR0k3bnJ3dkVuZEFJM21wR2hRL0hGY2Nxb1hKcVIxRk12eHdPUlpmemp5?=
+ =?utf-8?B?T3Jpa2hWUE5NMjRUMWFSbUJPbE9MeFRSSUIxSjJQdHUyelYrcHNzZVpXMllj?=
+ =?utf-8?Q?sAKef9bp5Wskgh6b9WOVYzy7KqWQf9TWoF?=
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2021 15:38:32.4902
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64bcba6d-b659-48a0-bef6-08d8b3eb74b7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UaodM/ZLiIh8SW/SbAUR5tiDHG99j7tCX6jQTy6/VL2DlVDN6+QLA5+pCE/uv8Geeg3XFwD5Zik2y7MA1k4M0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5324
+X-OriginatorOrg: citrix.com
 
-On 09.12.2020 17:16, Juergen Gross wrote:
-> --- a/xen/common/hypfs.c
-> +++ b/xen/common/hypfs.c
-> @@ -501,17 +501,26 @@ int hypfs_read_dir(const struct hypfs_entry *entry,
->      return 0;
->  }
->  
-> -int hypfs_read_leaf(const struct hypfs_entry *entry,
-> -                    XEN_GUEST_HANDLE_PARAM(void) uaddr)
-> +static int hypfs_read_leaf_off(const struct hypfs_entry *entry,
-> +                               XEN_GUEST_HANDLE_PARAM(void) uaddr,
-> +                               void *off)
->  {
->      const struct hypfs_entry_leaf *l;
->      unsigned int size = entry->funcs->getsize(entry);
-> +    const void *ptr;
->  
->      ASSERT(this_cpu(hypfs_locked) != hypfs_unlocked);
->  
->      l = container_of(entry, const struct hypfs_entry_leaf, e);
-> +    ptr = off ? off + (unsigned long)l->u.content : l->u.content;
+On Fri, Nov 06, 2020 at 10:37:35AM +0100, Jan Beulich wrote:
+> When shattering a large page, we first construct the new page table page
+> and only then hook it up. The "pre" hook in this case does nothing, for
+> the page starting out all blank. Avoid 512 calls into shadow code in
+> this case by passing in INVALID_GFN, indicating the page being updated
+> is (not yet) associated with any GFN. (The alternative to this change
+> would be to actually pass in a correct GFN, which can't be all the same
+> on every loop iteration.)
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-This is very irritating - you effectively add together two
-pointers. And even if this was correct for some reason, it
-would seem better readable as
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-    ptr = l->u.content + (unsigned long)off;
+I agree it's silly to pass the gfn when populating the page table
+page, as there's no gfn being updated (yet).
 
-to me.
-
-> --- a/xen/include/xen/hypfs.h
-> +++ b/xen/include/xen/hypfs.h
-> @@ -160,6 +160,8 @@ static inline void hypfs_string_set_reference(struct hypfs_entry_leaf *leaf,
->      HYPFS_FIXEDSIZE_INIT(var, XEN_HYPFS_TYPE_BOOL, nam, contvar, \
->                           &hypfs_bool_wr_funcs, 1)
->  
-> +#define HYPFS_STRUCT_ELEM(type, elem)    (((type *)NULL)->elem)
-
-Kind of similar here - this very much looks like a NULL
-deref, avoidable by a user only if it takes the address of
-the construct. If there's really some non-pointer value
-to be encoded here, it would be better to avoid misuse by
-making the construct safe in a self-contained way.
-
-Jan
+Thanks, Roger.
 
