@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B65E2EF698
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 18:39:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63759.113114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70DA22EF6CB
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 18:53:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63782.113126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxviD-0002a5-4o; Fri, 08 Jan 2021 17:38:09 +0000
+	id 1kxvwl-0004hq-Ex; Fri, 08 Jan 2021 17:53:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63759.113114; Fri, 08 Jan 2021 17:38:09 +0000
+Received: by outflank-mailman (output) from mailman id 63782.113126; Fri, 08 Jan 2021 17:53:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxviD-0002Ze-1Q; Fri, 08 Jan 2021 17:38:09 +0000
-Received: by outflank-mailman (input) for mailman id 63759;
- Fri, 08 Jan 2021 17:38:07 +0000
+	id 1kxvwl-0004hR-Bf; Fri, 08 Jan 2021 17:53:11 +0000
+Received: by outflank-mailman (input) for mailman id 63782;
+ Fri, 08 Jan 2021 17:53:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5LZb=GL=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kxviB-0002ZZ-R2
- for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 17:38:07 +0000
-Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TfFo=GL=cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
+ id 1kxvwi-0004hL-Qb
+ for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 17:53:09 +0000
+Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cf94bb2b-e66f-425d-b2c9-35243dd2e4a2;
- Fri, 08 Jan 2021 17:38:06 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id l11so24891281lfg.0
- for <xen-devel@lists.xenproject.org>; Fri, 08 Jan 2021 09:38:06 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id t131sm2084251lff.81.2021.01.08.09.38.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Jan 2021 09:38:04 -0800 (PST)
+ id 28b07034-526d-4fa2-8a98-cc692bcfeaa2;
+ Fri, 08 Jan 2021 17:53:07 +0000 (UTC)
+Received: from 88-111-124-141.dynamic.dsl.as9105.com ([88.111.124.141]:40462
+ helo=[192.168.1.219])
+ by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
+ with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ id 1kxvwZ-000PFX-LH (Exim 4.92.3)
+ (return-path <amc96@cam.ac.uk>); Fri, 08 Jan 2021 17:52:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,185 +41,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf94bb2b-e66f-425d-b2c9-35243dd2e4a2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=CFEF+8YuiX5u08e8ad/3SwWbWFJSb4VP5bGC2OS3RRE=;
-        b=l7oL50ge8PHPqnaNEvjlQrCKhcUSVJdjFaVtUtsxooegyu4q0MaguI9mulWDLLdOvB
-         X0RovykD4FkSbL3mBvFUWzAYu5V5s5G7EK/so0xmqbkDETXQ6+BM2VuTOTH9qRLO2Ren
-         JsU6Mbud3v9vjFeSbQXN8ejGxsR9ytMru27zIAfGOEJuplkedzCkVNnnBnt3OQGA7sWE
-         V/s3JSsec0e/ctTTQL65iob4pOTmeT+ZZ2vCApt/pqIJpmh4UfhPZN89p4CLEek90Fmq
-         K7lhQzQlX7vzecKJd+7tEpstcDLjN9GMRdH6HXhH+nfVSOLfdNlCsRqPI084cMB0xdcc
-         5S/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=CFEF+8YuiX5u08e8ad/3SwWbWFJSb4VP5bGC2OS3RRE=;
-        b=kUxXpZ1THpbOpW8KXgiefw7zs9rgO3iwVqncxC/BAqk8c+rrspWnUbkbhDlTR/gkvz
-         x3TDLrsXIg7nNjiXVeAM+Szsu77zsQuFotCY4g4UaDI5PhNA4To4MJT3sr4Ja7Dj1OGs
-         aF5VEus354gfYxPe14NSOFUM6SHaH+URin9VzfxmdNLK21eI98d7QgxnnIBz/cyNiM9B
-         9pM6JwwG7c4wotaDmLwWxu16b/HSkM6t3X1SthskIjNEocCrwDNpNwbIcNBUVyup0Eai
-         b0oZaJQWWm3ksdHS+bpOrc57cvviNbdt//Lvs8ZYmg2pevToIToLxTdIPDqGW6cy5ykE
-         VL/Q==
-X-Gm-Message-State: AOAM530ZbyYHf2Hl/Be1z003vXOiWejc63q+3JAzZe7Pct47m3gCEmi9
-	7T0ldxcM0+GQ9boPnX6lkRc=
-X-Google-Smtp-Source: ABdhPJxwZE2hD4C4Ws602z5jOg6ZWq3LAYjwJtjw72suf4uozCdpNCOS88zMhK06bqV7+Q4Ak3u9TQ==
-X-Received: by 2002:ac2:504e:: with SMTP id a14mr1934825lfm.524.1610127485589;
-        Fri, 08 Jan 2021 09:38:05 -0800 (PST)
-Subject: Re: [PATCH 2/6] x86/mm: p2m_add_foreign() is HVM-only
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <be9ce75e-9119-2b5a-9e7b-437beb7ee446@suse.com>
- <cf4569c5-a9c5-7b4b-d576-d1521c369418@suse.com>
- <f736244b-ece7-af35-1517-2e5fdd9705c7@citrix.com>
- <e2ee99fc-e3f8-bdaf-fe4a-d048da34731a@suse.com>
- <b4abbe2f-5e3d-5f43-80b8-cfa3fd97061e@citrix.com>
- <CAPD2p-nZyf_i_bGh5sSs2fC4S7nxB1Mk_zbSKtqF=zvBOp3X+Q@mail.gmail.com>
- <2dcbe286-4112-e4b3-dc12-9691154365b3@suse.com>
- <448a6ef3-2cbd-da9c-e4ef-88122d246833@gmail.com>
- <18c21c64-d350-482a-c778-c8478d3daf2c@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <c8315e16-6130-e990-3d16-d0d42b2f92c4@gmail.com>
-Date: Fri, 8 Jan 2021 19:37:59 +0200
+X-Inumbo-ID: 28b07034-526d-4fa2-8a98-cc692bcfeaa2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cam.ac.uk;
+	 s=20180806.ppsw; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=e3bmFR/UoqtFuuF/Sn1ZMjP5hdagzhYKEZ8hIPFmhSY=; b=hyM0sqXMFxcKHkQlOhlerKvIv9
+	GnZUoFo+FsAmE/7NAG2tCNO6MFFRX8s0WqFu9CdKtGnu92gN1NqSn/q/NdMeJeLrDIj+ce6bbrsM5
+	AZ58I4FT6picRGFp+rGRGVRE+K9GewBaS8YUWXYemsDIrHBvx+SCwLxLu+Gcq3fWuOuw=;
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
+Subject: Re: [PATCH v2 05/11] tools/foreignmem: Support querying the size of a
+ resource
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>,
+ =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
+ Tamas K Lengyel <tamas@tklengyel.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Andrew Cooper <amc96@cam.ac.uk>
+References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
+ <20200922182444.12350-6-andrew.cooper3@citrix.com>
+From: Andrew Cooper <amc96@cam.ac.uk>
+Autocrypt: addr=amc96@cam.ac.uk; keydata=
+ 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
+Message-ID: <22be067c-1e6f-c87d-f910-ced27091a87a@cam.ac.uk>
+Date: Fri, 8 Jan 2021 17:52:36 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <18c21c64-d350-482a-c778-c8478d3daf2c@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20200922182444.12350-6-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Language: en-GB
 
+On 22/09/2020 19:24, Andrew Cooper wrote:
+> diff --git a/tools/libs/foreignmemory/linux.c b/tools/libs/foreignmemory/linux.c
+> index fe73d5ab72..eec089e232 100644
+> --- a/tools/libs/foreignmemory/linux.c
+> +++ b/tools/libs/foreignmemory/linux.c
+> @@ -339,6 +342,39 @@ int osdep_xenforeignmemory_map_resource(
+>      return 0;
+>  }
+>  
+> +int osdep_xenforeignmemory_resource_size(
+> +    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
+> +    unsigned int id, unsigned long *nr_frames)
+> +{
+> +    int rc;
+> +    struct xen_mem_acquire_resource *xmar =
+> +        xencall_alloc_buffer(fmem->xcall, sizeof(*xmar));
+> +
+> +    if ( !xmar )
+> +    {
+> +        PERROR("Could not bounce memory for acquire_resource hypercall");
+> +        return -1;
+> +    }
+> +
+> +    *xmar = (struct xen_mem_acquire_resource){
+> +        .domid = domid,
+> +        .type = type,
+> +        .id = id,
+> +    };
+> +
+> +    rc = xencall2(fmem->xcall, __HYPERVISOR_memory_op,
+> +                  XENMEM_acquire_resource, (uintptr_t)xmar);
+> +    if ( rc )
+> +        goto out;
+> +
+> +    *nr_frames = xmar->nr_frames;
+> +
+> + out:
+> +    xencall_free_buffer(fmem->xcall, xmar);
+> +
+> +    return rc;
+> +}
 
-On 08.01.21 19:01, Jan Beulich wrote:
+Having talked this through with Roger, it's broken.
 
-Hi Jan
+In the meantime, foreignmem has gained acquire_resource on FreeBSD.
+Nothing in this osdep function is linux-specific, so it oughtn't to be
+osdep.
 
-> On 08.01.2021 17:38, Oleksandr wrote:
->> On 05.01.21 10:48, Jan Beulich wrote:
->>> On 04.01.2021 17:57, Oleksandr Tyshchenko wrote:
->>>> Hello all.
->>>>
->>>> [Sorry for the possible format issues]
->>>>
->>>> On Tue, Dec 22, 2020 at 12:41 PM Andrew Cooper <andrew.cooper3@citrix.com>
->>>> wrote:
->>>>
->>>>> On 21/12/2020 08:10, Jan Beulich wrote:
->>>>>> On 17.12.2020 20:18, Andrew Cooper wrote:
->>>>>>> On 15/12/2020 16:26, Jan Beulich wrote:
->>>>>>>> This is together with its only caller, xenmem_add_to_physmap_one().
->>>>>>> I can't parse this sentence.  Perhaps "... as is it's only caller," as a
->>>>>>> follow-on from the subject sentence.
->>>>>>>
->>>>>>>>    Move
->>>>>>>> the latter next to p2m_add_foreign(), allowing this one to become
->>>>> static
->>>>>>>> at the same time.
->>>>>>>>
->>>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>>> So I had to ask Andrew to revert this (I was already at home when
->>>>>> noticing the breakage), as it turned out to break the shim build.
->>>>>> The problem is that xenmem_add_to_physmap() is non-static and
->>>>>> hence can't be eliminated altogether by the compiler when !HVM.
->>>>>> We could make the function conditionally static
->>>>>> "#if !defined(CONFIG_X86) && !defined(CONFIG_HVM)", but this
->>>>>> looks uglier to me than this extra hunk:
->>>>>>
->>>>>> --- unstable.orig/xen/common/memory.c
->>>>>> +++ unstable/xen/common/memory.c
->>>>>> @@ -788,7 +788,11 @@ int xenmem_add_to_physmap(struct domain
->>>>>>        union add_to_physmap_extra extra = {};
->>>>>>        struct page_info *pages[16];
->>>>>>
->>>>>> -    ASSERT(paging_mode_translate(d));
->>>>>> +    if ( !paging_mode_translate(d) )
->>>>>> +    {
->>>>>> +        ASSERT_UNREACHABLE();
->>>>>> +        return -EACCES;
->>>>>> +    }
->>>>>>
->>>>>>        if ( xatp->space == XENMAPSPACE_gmfn_foreign )
->>>>>>            extra.foreign_domid = DOMID_INVALID;
->>>>>>
->>>>>> Andrew, please let me know whether your ack stands with this (or
->>>>>> said alternative) added, or whether you'd prefer me to re-post.
->>>>> Yeah, this is probably neater than the ifdefary.  My ack stands.
->>>>>
->>>>> ~Andrew
->>>>>
->>>> I might miss something or did incorrect tests, but ...
->>>> ... trying to build current staging
->>>> (7ba2ab495be54f608cb47440e1497b2795bd301a) for x86 (with # CONFIG_HVM is
->>>> not set) I got the following:
->>>>
->>>> /media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb-r0/git/xen/common/memory.c:941:
->>>> undefined reference to `xenmem_add_to_physmap_one'
->>>> /media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb-r0/git/xen/common/memory.c:941:(.text+0x1e391):
->>>> relocation truncated to fit: R_X86_64_PC32 against undefined symbol
->>>> `xenmem_add_to_physmap_one'
->>>> ld:
->>>> /media/b/build/build/tmp/work/x86_64-xt-linux/domd-image-weston/1.0-r0/repo/build/tmp/work/aarch64-poky-linux/xen/4.14.0+gitAUTOINC+2c6e5a8ceb-r0/git/xen/.xen-syms.0:
->>>> hidden symbol `xenmem_add_to_physmap_one' isn't defined
->>>> ld: final link failed: Bad value
->>>>
->>>> It is worth mentioning that I do not use pvshim_defconfig (I disable HVM
->>>> support via menuconfig manually before building).
->>> The specific .config may matter. The specific compiler version may
->>> also matter. Things work fine for me, both for the shim config and
->>> a custom !HVM one, with gcc10.
->> ok, after updating my a little bit ancient compiler to the latest
->> possible (?) on xenial gcc-9 the build issue had gone away. Sorry for
->> the noise.
-> There's no reason to be sorry - we want Xen to build with a wide
-> range of compiler versions. It's just that if a build issue is
-> version dependent, it is often up to the person running into it
-> to determine how to address the issue (and submit a patch).
+However, its also not permitted to make hypercalls like this in
+restricted mode, and that isn't something we should be breaking. 
+Amongst other things, it will prevent us from supporting >128 cpus, as
+Qemu needs updating to use this interface in due course.
 
-ok, the issue was observed with gcc (Ubuntu 5.4.0-6ubuntu1~16.04.12) 
-5.4.0 20160609
+The only solution (which keeps restricted mode working) is to fix
+Linux's ioctl() to be able to understand size requests.  This also
+avoids foreignmem needing to open a xencall handle which was fugly in
+the first place.
 
-I think (but not 100% sure), to address the build issue something like 
-the stub below could help:
+This patch (well - a subset of it) will be needed to remain, to make a
+usable interface in userspace.
 
-
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 85a8df9..ed35352 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -609,9 +609,19 @@ union add_to_physmap_extra {
-      domid_t foreign_domid;
-  };
-
-+#ifdef CONFIG_HVM
-  int xenmem_add_to_physmap_one(struct domain *d, unsigned int space,
-                                union add_to_physmap_extra extra,
-                                unsigned long idx, gfn_t gfn);
-+#else
-+static inline int xenmem_add_to_physmap_one(struct domain *d,
-+                                            unsigned int space,
-+                                            union add_to_physmap_extra 
-extra,
-+                                            unsigned long idx, gfn_t gfn)
-+{
-+    return -EACCES;
-+}
-+#endif
-
-  int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap 
-*xatp,
-                            unsigned int start);
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+~Andrew
 
