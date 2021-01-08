@@ -2,32 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB0872EF939
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 21:32:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63834.113215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E5632EF96C
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 21:40:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63840.113228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxyQb-0003vE-UV; Fri, 08 Jan 2021 20:32:09 +0000
+	id 1kxyYD-0004HR-MV; Fri, 08 Jan 2021 20:40:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63834.113215; Fri, 08 Jan 2021 20:32:09 +0000
+Received: by outflank-mailman (output) from mailman id 63840.113228; Fri, 08 Jan 2021 20:40:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxyQb-0003un-R4; Fri, 08 Jan 2021 20:32:09 +0000
-Received: by outflank-mailman (input) for mailman id 63834;
- Fri, 08 Jan 2021 20:32:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kxyQb-0003uc-2p
- for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 20:32:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kxyQX-0000MT-1f; Fri, 08 Jan 2021 20:32:05 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kxyQW-0007ln-KA; Fri, 08 Jan 2021 20:32:04 +0000
+	id 1kxyYD-0004H2-JD; Fri, 08 Jan 2021 20:40:01 +0000
+Received: by outflank-mailman (input) for mailman id 63840;
+ Fri, 08 Jan 2021 20:40:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FVqY=GL=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1kxyYC-0004Gx-6h
+ for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 20:40:00 +0000
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0a135188-cf55-4605-9641-85a488505eea;
+ Fri, 08 Jan 2021 20:39:58 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 108KJNvo113124;
+ Fri, 8 Jan 2021 20:39:54 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by aserp2120.oracle.com with ESMTP id 35wepmjud9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 08 Jan 2021 20:39:54 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 108KKdQG070011;
+ Fri, 8 Jan 2021 20:39:53 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3030.oracle.com with ESMTP id 35v4rfptvc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 08 Jan 2021 20:39:53 +0000
+Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 108Kdqm9003219;
+ Fri, 8 Jan 2021 20:39:52 GMT
+Received: from [10.39.253.22] (/10.39.253.22)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 08 Jan 2021 20:39:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,241 +56,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=DUov5tXuZGkhZ9xt1Ow5i5JkmeVo5a7uGpqB1zLq0Ng=; b=Plidu1v/N6d6Tyva7mqSINDmLj
-	2HpHoXK3Til7V+5GHD2IicTHf+yb0gZInhDVrHaI+aLyXzyjvioBOQfUt4iBT7L/mAExHJI18fR0D
-	BLFxCSeK1Hb1X9xicvFEtt+lTsVC8GTPvOOTABiXmPjoLPJPo2/kqMiqFw0gnSo2IOY8=;
-Subject: Re: [PATCH v4 01/10] evtchn: use per-channel lock where possible
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cf0a1c24-0146-1017-7310-9536f2ed0ad1@suse.com>
- <e03cb246-c08b-5977-9137-a38974364445@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <3c393170-09f9-6d31-c227-b599f8769e35@xen.org>
-Date: Fri, 8 Jan 2021 20:32:02 +0000
+X-Inumbo-ID: 0a135188-cf55-4605-9641-85a488505eea
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=jdNoowAPcwPxYa/KjsKtFLJ9xqQkH7y7qOXGYOihLSo=;
+ b=COuMloOXBbANg1ky2/mmXy0HNobNLGXxLMUUih5VEJjeImA4l7MuviX+LJHDnSATe73L
+ FIby5zaHiTZw+xuSaQK/hgKfv8o9M7KdSKNJZEj13z3BhjfNeeMhNJsns7S4ZARjARge
+ 3RSCixMLNdzNc6hTYJAdHOumpWvieWT0ihA7qgM/LK/TS3VfvUBJJF0DneigAV0fNbML
+ raIr/1VcNJWfcZ+7fXFY4ls7LFeBcx4/ImoQuOaKxSZzb2ZQk/Xq2vWi9bCNoQPFIfFM
+ av4cWnSc6/5JujxDymKLicDX3jM2TR3QwvUZYZDiUWsNmiMYzVHb3+nM2+T2HH6vcsii gw== 
+Subject: Re: [PATCH 3/4] x86: Allow non-faulting accesses to non-emulated MSRs
+ if policy permits this
+To: Jan Beulich <jbeulich@suse.com>
+Cc: iwj@xenproject.org, wl@xen.org, anthony.perard@citrix.com,
+        andrew.cooper3@citrix.com, roger.pau@citrix.com,
+        jun.nakajima@intel.com, kevin.tian@intel.com,
+        xen-devel@lists.xenproject.org
+References: <1610051698-23675-1-git-send-email-boris.ostrovsky@oracle.com>
+ <1610051698-23675-4-git-send-email-boris.ostrovsky@oracle.com>
+ <0e5c0b85-5e3c-676c-e402-fa06e09cf5cb@suse.com>
+From: boris.ostrovsky@oracle.com
+Organization: Oracle Corporation
+Message-ID: <b2de26e9-24b2-efdb-4bfb-627055f008a1@oracle.com>
+Date: Fri, 8 Jan 2021 15:39:50 -0500
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <e03cb246-c08b-5977-9137-a38974364445@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <0e5c0b85-5e3c-676c-e402-fa06e09cf5cb@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-
-Hi Jan,
-
-On 05/01/2021 13:09, Jan Beulich wrote:
-> Neither evtchn_status() nor domain_dump_evtchn_info() nor
-> flask_get_peer_sid() need to hold the per-domain lock - they all only
-> read a single channel's state (at a time, in the dump case).
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v4: New.
-> 
-> --- a/xen/common/event_channel.c
-> +++ b/xen/common/event_channel.c
-> @@ -968,15 +968,16 @@ int evtchn_status(evtchn_status_t *statu
->       if ( d == NULL )
->           return -ESRCH;
->   
-> -    spin_lock(&d->event_lock);
-> -
->       if ( !port_is_valid(d, port) )
-
-There is one issue that is now becoming more apparent. To be clear, the 
-problem is not in this patch, but I think it is the best place to 
-discuss it as d->event_lock may be part of the solution.
-
-After XSA-344, evtchn_destroy() will end up to decrement d->valid_evtchns.
-
-Given that evtchn_status() can work on the non-current domain, it would 
-be possible to run it concurrently with evtchn_destroy(). As a 
-consequence, port_is_valid() will be unstable as a valid event channel 
-may turn invalid.
-
-AFAICT, we are getting away so far, as the memory is not freed until the 
-domain is fully destroyed. However, we re-introduced XSA-338 in a 
-different way.
-
-To be clear this is not the fault of this patch. But I don't think this 
-is sane to re-introduce a behavior that lead us to an XSA.
-
-I can see two solutions:
-   1) Use d->event_lock to protect port_is_valid() when d != 
-current->domain. This would require evtchn_destroy() to grab the lock 
-when updating d->valid_evtchns.
-   2) Never decrement d->valid_evtchns and use a different field for 
-closing ports
-
-I am not a big fan of 1) because this is muddying the already complex 
-locking situation in the event channel code. But I suggested it because 
-I wasn't sure whether you would be happy with 2).
-
-If you are happy with 2), then the lock can be dropped here. I would be 
-happy to send the patch for either 1) or 2) depending on the agreement here.
-
-Cheers,
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9858 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 mlxscore=0 bulkscore=0
+ suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101080106
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9858 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 bulkscore=0 spamscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 mlxscore=0 malwarescore=0 clxscore=1015 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101080106
 
 
->       {
-> -        rc = -EINVAL;
-> -        goto out;
-> +        rcu_unlock_domain(d);
-> +        return -EINVAL;
->       }
->   
->       chn = evtchn_from_port(d, port);
-> +
-> +    evtchn_read_lock(chn);
-> +
->       if ( consumer_is_xen(chn) )
->       {
->           rc = -EACCES;
-> @@ -1021,7 +1022,7 @@ int evtchn_status(evtchn_status_t *statu
->       status->vcpu = chn->notify_vcpu_id;
->   
->    out:
-> -    spin_unlock(&d->event_lock);
-> +    evtchn_read_unlock(chn);
->       rcu_unlock_domain(d);
->   
->       return rc;
-> @@ -1576,22 +1577,32 @@ void evtchn_move_pirqs(struct vcpu *v)
->   static void domain_dump_evtchn_info(struct domain *d)
->   {
->       unsigned int port;
-> -    int irq;
->   
->       printk("Event channel information for domain %d:\n"
->              "Polling vCPUs: {%*pbl}\n"
->              "    port [p/m/s]\n", d->domain_id, d->max_vcpus, d->poll_mask);
->   
-> -    spin_lock(&d->event_lock);
-> -
->       for ( port = 1; port_is_valid(d, port); ++port )
->       {
-> -        const struct evtchn *chn;
-> +        struct evtchn *chn;
->           char *ssid;
->   
-> +        if ( !(port & 0x3f) )
-> +            process_pending_softirqs();
-> +
->           chn = evtchn_from_port(d, port);
-> +
-> +        if ( !evtchn_read_trylock(chn) )
-> +        {
-> +            printk("    %4u in flux\n", port);
-> +            continue;
-> +        }
-> +
->           if ( chn->state == ECS_FREE )
-> +        {
-> +            evtchn_read_unlock(chn);
->               continue;
-> +        }
->   
->           printk("    %4u [%d/%d/",
->                  port,
-> @@ -1601,26 +1612,49 @@ static void domain_dump_evtchn_info(stru
->           printk("]: s=%d n=%d x=%d",
->                  chn->state, chn->notify_vcpu_id, chn->xen_consumer);
->   
-> +        ssid = xsm_show_security_evtchn(d, chn);
-> +
->           switch ( chn->state )
->           {
->           case ECS_UNBOUND:
->               printk(" d=%d", chn->u.unbound.remote_domid);
->               break;
-> +
->           case ECS_INTERDOMAIN:
->               printk(" d=%d p=%d",
->                      chn->u.interdomain.remote_dom->domain_id,
->                      chn->u.interdomain.remote_port);
->               break;
-> -        case ECS_PIRQ:
-> -            irq = domain_pirq_to_irq(d, chn->u.pirq.irq);
-> -            printk(" p=%d i=%d", chn->u.pirq.irq, irq);
-> +
-> +        case ECS_PIRQ: {
-> +            unsigned int pirq = chn->u.pirq.irq;
-> +
-> +            /*
-> +             * The per-channel locks nest inside the per-domain one, so we
-> +             * can't acquire the latter without first letting go of the former.
-> +             */
-> +            evtchn_read_unlock(chn);
-> +            chn = NULL;
-> +            if ( spin_trylock(&d->event_lock) )
-> +            {
-> +                int irq = domain_pirq_to_irq(d, pirq);
-> +
-> +                spin_unlock(&d->event_lock);
-> +                printk(" p=%u i=%d", pirq, irq);
-> +            }
-> +            else
-> +                printk(" p=%u i=?", pirq);
->               break;
-> +        }
-> +
->           case ECS_VIRQ:
->               printk(" v=%d", chn->u.virq);
->               break;
->           }
->   
-> -        ssid = xsm_show_security_evtchn(d, chn);
-> +        if ( chn )
-> +            evtchn_read_unlock(chn);
-> +
->           if (ssid) {
->               printk(" Z=%s\n", ssid);
->               xfree(ssid);
-> @@ -1628,8 +1662,6 @@ static void domain_dump_evtchn_info(stru
->               printk("\n");
->           }
->       }
-> -
-> -    spin_unlock(&d->event_lock);
->   }
->   
->   static void dump_evtchn_info(unsigned char key)
-> --- a/xen/xsm/flask/flask_op.c
-> +++ b/xen/xsm/flask/flask_op.c
-> @@ -555,12 +555,13 @@ static int flask_get_peer_sid(struct xen
->       struct evtchn *chn;
->       struct domain_security_struct *dsec;
->   
-> -    spin_lock(&d->event_lock);
-> -
->       if ( !port_is_valid(d, arg->evtchn) )
-> -        goto out;
-> +        return -EINVAL;
->   
->       chn = evtchn_from_port(d, arg->evtchn);
-> +
-> +    evtchn_read_lock(chn);
-> +
->       if ( chn->state != ECS_INTERDOMAIN )
->           goto out;
->   
-> @@ -573,7 +574,7 @@ static int flask_get_peer_sid(struct xen
->       rv = 0;
->   
->    out:
-> -    spin_unlock(&d->event_lock);
-> +    evtchn_read_unlock(chn);
->       return rv;
->   }
->   
-> 
+On 1/8/21 10:18 AM, Jan Beulich wrote:
+> On 07.01.2021 21:34, Boris Ostrovsky wrote:
+>> Starting with commit 84e848fd7a16 ("x86/hvm: disallow access to unknown MSRs")
+>> accesses to unhandled MSRs result in #GP sent to the guest. This caused a
+>> regression for Solaris who tries to acccess MSR_RAPL_POWER_UNIT and (unlike,
+> Nit: One c too many.
+>
+>> for example, Linux) does not catch exceptions when accessing MSRs that
+>> potentially may not be present.
+> Just to re-raise the question raised by Andrew already earlier
+> on: Has Solaris been fixed in the meantime, or is this at least
+> firmly planned to happen?
 
--- 
-Julien Grall
+
+I was told they will open a bug.
+
+
+>  done:
+> @@ -3319,10 +3319,8 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
+>               is_last_branch_msr(msr) )
+>              break;
+>  
+> -        gdprintk(XENLOG_WARNING,
+> -                 "WRMSR 0x%08x val 0x%016"PRIx64" unimplemented\n",
+> -                 msr, msr_content);
+> -        goto gp_fault;
+> +        if ( guest_unhandled_msr(v, msr, &msr_content, true) )
+> +            goto gp_fault;
+>      }
+>  
+>      return X86EMUL_OKAY;
+> These functions also get used from the insn emulator, when it
+> needs to fetch an MSR value (not necessarily in the context of
+> emulating RDMSR or WRMSR). I wonder whether applying this
+> behavior in that case is actually correct. It would only be if
+> we would settle on it being a requirement that any such MSRs
+> have to have emulation present in one of the handlers.
+
+
+Hmm.. Yes, I did not consider this. I am not convinced this will always result in correct behavior for the emulator so I will need to pass down a parameter. Unless there is a way to figure out whether we are running in the emulator (which I don't immediately see)
+
+
+-boris
 
