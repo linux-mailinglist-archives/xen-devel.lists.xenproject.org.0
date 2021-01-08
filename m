@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E192EEAFD
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 02:39:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63158.112151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6CBB2EEB1C
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 02:50:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63165.112167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxgk1-0006Uo-G4; Fri, 08 Jan 2021 01:39:01 +0000
+	id 1kxguc-0007hY-LP; Fri, 08 Jan 2021 01:49:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63158.112151; Fri, 08 Jan 2021 01:39:01 +0000
+Received: by outflank-mailman (output) from mailman id 63165.112167; Fri, 08 Jan 2021 01:49:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxgk1-0006UI-C7; Fri, 08 Jan 2021 01:39:01 +0000
-Received: by outflank-mailman (input) for mailman id 63158;
- Fri, 08 Jan 2021 01:39:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxgk0-0006UA-89; Fri, 08 Jan 2021 01:39:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxgjz-00048B-Vo; Fri, 08 Jan 2021 01:38:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxgjz-0006x6-Mk; Fri, 08 Jan 2021 01:38:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kxgjz-0008HT-MK; Fri, 08 Jan 2021 01:38:59 +0000
+	id 1kxguc-0007hB-I5; Fri, 08 Jan 2021 01:49:58 +0000
+Received: by outflank-mailman (input) for mailman id 63165;
+ Fri, 08 Jan 2021 01:49:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AkaL=GL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kxgua-0007h6-LR
+ for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 01:49:56 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 645fb9a5-0695-4c44-92c5-e9ce637e206e;
+ Fri, 08 Jan 2021 01:49:55 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8583723435;
+ Fri,  8 Jan 2021 01:49:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +37,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=wM290UjtZ5gqZ/A05nbDf0h/1maNCoxBhfILf+G5CvM=; b=dC2haMKm92Ts8hSQ/+JQO9G+Ey
-	yoWGD5AXLF7n9pGwanaoTNyhDOFIqAnOk/6Fa9n6PPr0AycQ8A3klzpVlBDGYFBmrz5NwTMHg5gBC
-	QMehhjipN80SOGqxFgmGBl98wYVGkcFFEmmXpn13PO9rUDy21H7PUIpFsyB05iTo+KPo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158267-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 645fb9a5-0695-4c44-92c5-e9ce637e206e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1610070595;
+	bh=c//G4/JeheFGqwfhAaIOF1BRXynRCOB+vWwQTT/INpI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=nHyS2UZ6li2j82jBfylpWqF49owZxkWnUTkFTl2zLXBMzsvn+GiSuI7k1a6ToZEKa
+	 dd9S5cZHBnoQEsSsHYosNGvRi7HEJxPdzZZU1EQUa7JHUefAMFEbMHCM2j20bOjYKY
+	 V7Nz1el5A/MFzaLjLheWgdA0sBvOcRpm1c4kp1A947IDu1TIG3Xa6HPK8pPTqWO7Ky
+	 USIW+lIXqkowC1KVmRC3R5qlIbAH5GQeD4zntvFiPYk67v1wiMOJFnxzTCKxVkTmZi
+	 467jqiJ9H38mUNN5/ZBL5RcRSwutZS28oedMPzQJR1fSx0oS5mi4S70rBZae2LTOAS
+	 f7G19LFjPuu4g==
+Date: Thu, 7 Jan 2021 17:49:53 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Jan Beulich <JBeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [PATCH 0/4] xen: domain-tracked allocations, and fault
+ injection
+In-Reply-To: <20201223163442.8840-1-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.21.2101071630480.7075@sstabellini-ThinkPad-T480s>
+References: <20201223163442.8840-1-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [ovmf test] 158267: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=85b8eac59b8c5bd9c7eb9afdb64357ce1aa2e803
-X-Osstest-Versions-That:
-    ovmf=55ee36b0c490d9a6582e083bb3ac78a22d33053f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 Jan 2021 01:38:59 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 158267 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158267/
+On Wed, 23 Dec 2020, Andrew Cooper wrote:
+> This was not the christmas hacking project that I was planning to do, but it
+> has had some exciting results.
+> 
+> After some discussion on an earlier thread, Tamas has successfully got fuzzing
+> of Xen working via kfx, and this series is a prototype for providing better
+> testing infrastructure.
+> 
+> And to prove a point, this series has already found a memory leak in ARM's
+> dom0less smoke test.
+> 
+> >From https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/929518792
+> 
+>   (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+>   (XEN) Freed 328kB init memory.
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER4
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER8
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER12
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER16
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER20
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER24
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER28
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER32
+>   (XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER0
+>   (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=25: not implemented
+>   (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=15: not implemented
+>   (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=15: not implemented
+>   (XEN)
+>   (XEN) ****************************************
+>   (XEN) Panic on CPU 0:
+>   (XEN) d1 has 2 outstanding heap allocations
+>   (XEN) ****************************************
+>   (XEN)
+>   (XEN) Reboot in five seconds...
+> 
+> For some reason, neither of the evtchn default memory allocations are freed,
+> but it's not clear why d1 shut down to being with.  Stefano - any ideas?
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 85b8eac59b8c5bd9c7eb9afdb64357ce1aa2e803
-baseline version:
- ovmf                 55ee36b0c490d9a6582e083bb3ac78a22d33053f
+Right, this is confusing. It is not hard to believe that memory leaks
+exist on the dom0less shutdown path because dom0less domains are not
+really shutdown today. I imagine there could be issues.
 
-Last test of basis   158262  2021-01-07 18:44:01 Z    0 days
-Testing same since   158267  2021-01-07 23:09:45 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   55ee36b0c4..85b8eac59b  85b8eac59b8c5bd9c7eb9afdb64357ce1aa2e803 -> xen-tested-master
+But I don't understand why _domain_destroy gets called in the first
+place for d1. Maybe a domain_create failure leads to goto fail and
+_domain_destroy(). I wanted to run a test but ran out of time.
 
