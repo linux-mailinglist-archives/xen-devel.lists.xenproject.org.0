@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D29192EF825
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 20:31:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63813.113165 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBABE2EF826
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 20:31:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63816.113180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxxTO-0006Cv-Gc; Fri, 08 Jan 2021 19:30:58 +0000
+	id 1kxxTg-0006J4-VZ; Fri, 08 Jan 2021 19:31:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63813.113165; Fri, 08 Jan 2021 19:30:58 +0000
+Received: by outflank-mailman (output) from mailman id 63816.113180; Fri, 08 Jan 2021 19:31:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxxTO-0006CE-Bq; Fri, 08 Jan 2021 19:30:58 +0000
-Received: by outflank-mailman (input) for mailman id 63813;
- Fri, 08 Jan 2021 19:30:56 +0000
+	id 1kxxTg-0006IR-QA; Fri, 08 Jan 2021 19:31:16 +0000
+Received: by outflank-mailman (input) for mailman id 63816;
+ Fri, 08 Jan 2021 19:31:15 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxxTM-0006C6-Op; Fri, 08 Jan 2021 19:30:56 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1kxxTf-0006IG-45
+ for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 19:31:15 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxxTM-0007ex-A3; Fri, 08 Jan 2021 19:30:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxxTM-0002zP-3q; Fri, 08 Jan 2021 19:30:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kxxTM-0000Dg-3M; Fri, 08 Jan 2021 19:30:56 +0000
+ (envelope-from <julien@xen.org>)
+ id 1kxxTc-0007h4-Ky; Fri, 08 Jan 2021 19:31:12 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kxxTc-0003cP-DP; Fri, 08 Jan 2021 19:31:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,103 +39,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0gv8f7gGSCVj2E55BXBxj1BA2svymBqyQ1/SEATj+NA=; b=SNv/wOXMIIOE3i1LSBtrEUPQmD
-	8SxreiJD/ud4/pzqmCfo8B1VKJlrwmSFRJ/JR61tihBFeG7e484wyPUom0VR4iFSXbz7ZIWQH91Aj
-	utlZsYTleIhtvJEws1JsNL+Vh5CBN8eTfCx9XM5eB+xq2IN/joA5bI3ppjQOxsNHGs2I=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158282-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=zF29XQELzKvC6FplAuyKujlZ8n2GsUcbFbDogQphsC8=; b=m/nOmAs5CgrbEo8H1hQMtMosqN
+	VlyxS/rVHrYgW0R5HWy4sLs50sqaYswT6UG6lS4BJF1hIsdp+rWvP35HilLpe9qwW/KgUM9f0Qom9
+	kjuERrkj0xwlr6a2vZ9NtfUvbue3Lvy+bSiSMHUNLzLA4dZtIl+jlQbGk6HnCmAbtEzo=;
+Subject: Re: [PATCH v2] xen/arm: do not read MVFR2 when is not defined
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <20210108192243.25889-1-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <39db01ff-4e05-d8fd-5fef-3c85f4292b2f@xen.org>
+Date: Fri, 8 Jan 2021 19:31:10 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158282: regressions - trouble: broken/fail/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:<job status>:broken:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:host-install(5):broken:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=b468b464c89e92629bd52cec58e9f51eee2e950a
-X-Osstest-Versions-That:
-    xen=7ba2ab495be54f608cb47440e1497b2795bd301a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 Jan 2021 19:30:56 +0000
+In-Reply-To: <20210108192243.25889-1-sstabellini@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 158282 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158282/
+Hi Stefano,
 
-Regressions :-(
+On 08/01/2021 19:22, Stefano Stabellini wrote:
+> MVFR2 is not available on ARMv7. It is available on ARMv8 aarch32 and
+> aarch64. If Xen reads MVFR2 on ARMv7 it could crash.
+> 
+> Avoid the issue by doing the following:
+> 
+> - define MVFR2_MAYBE_UNDEFINED on arm32
+> - if MVFR2_MAYBE_UNDEFINED, do not attempt to read MVFR2 in Xen
+> - keep the 3rd register_t in struct cpuinfo_arm.mvfr on arm32 so that a
+>    guest read to the register returns '0' instead of crashing the guest.
+> 
+> '0' is an appropriate value to return to the guest because it is defined
+> as "no support for miscellaneous features".
+> 
+> Aarch64 Xen is not affected by this patch.
+> 
+> Fixes: 9cfdb489af81 ("xen/arm: Add ID registers and complete cpuinfo")
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm         <job status>                 broken
- test-arm64-arm64-xl-xsm       5 host-install(5)        broken REGR. vs. 158134
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 158134
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+With one question below:
 
-version targeted for testing:
- xen                  b468b464c89e92629bd52cec58e9f51eee2e950a
-baseline version:
- xen                  7ba2ab495be54f608cb47440e1497b2795bd301a
+> ---
+>   xen/arch/arm/cpufeature.c           | 2 ++
+>   xen/include/asm-arm/arm32/sysregs.h | 3 +++
+>   2 files changed, 5 insertions(+)
+> 
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index 1f6a85aafe..698bfa0201 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -150,7 +150,9 @@ void identify_cpu(struct cpuinfo_arm *c)
+>   
+>           c->mvfr.bits[0] = READ_SYSREG(MVFR0_EL1);
+>           c->mvfr.bits[1] = READ_SYSREG(MVFR1_EL1);
+> +#ifndef MVFR2_MAYBE_UNDEFINED
+>           c->mvfr.bits[2] = READ_SYSREG(MVFR2_EL1);
+> +#endif
 
-Last test of basis   158134  2021-01-04 15:01:26 Z    4 days
-Failing since        158142  2021-01-05 02:00:25 Z    3 days   22 attempts
-Testing same since   158282  2021-01-08 17:01:23 Z    0 days    1 attempts
+Is there any guarantee that c->mvfr.bits[2] will be zeroed by default?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Manuel Bouyer <bouyer@antioche.eu.org>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Olaf Hering <olaf@aepfle.de>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Roman Skakun <roman_skakun@epam.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Tamas K Lengyel <tamas.lengyel@intel.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Tim Deegan <tim@xen.org>
-  Volodymyr Babchyk <volodymyr_babchuk@epam.com>
-  Wei Liu <wl@xen.org>
+Cheers,
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      broken  
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job test-arm64-arm64-xl-xsm broken
-broken-step test-arm64-arm64-xl-xsm host-install(5)
-
-Not pushing.
-
-(No revision log; it would be 725 lines long.)
+-- 
+Julien Grall
 
