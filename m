@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 588EF2EF081
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 11:16:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63280.112375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B6592EF084
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jan 2021 11:17:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63285.112390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxoov-0002FN-Bv; Fri, 08 Jan 2021 10:16:37 +0000
+	id 1kxopT-0002Ng-Lu; Fri, 08 Jan 2021 10:17:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63280.112375; Fri, 08 Jan 2021 10:16:37 +0000
+Received: by outflank-mailman (output) from mailman id 63285.112390; Fri, 08 Jan 2021 10:17:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kxoov-0002Ex-7t; Fri, 08 Jan 2021 10:16:37 +0000
-Received: by outflank-mailman (input) for mailman id 63280;
- Fri, 08 Jan 2021 10:16:36 +0000
+	id 1kxopT-0002NG-IJ; Fri, 08 Jan 2021 10:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 63285;
+ Fri, 08 Jan 2021 10:17:10 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxoou-0002Ep-NS; Fri, 08 Jan 2021 10:16:36 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1kxopS-0002NB-9n
+ for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 10:17:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxoou-0005u0-HQ; Fri, 08 Jan 2021 10:16:36 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kxoou-0007Jm-9H; Fri, 08 Jan 2021 10:16:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kxoou-000346-8o; Fri, 08 Jan 2021 10:16:36 +0000
+ (envelope-from <julien@xen.org>)
+ id 1kxopR-0005ug-Kf; Fri, 08 Jan 2021 10:17:09 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kxopR-0001uL-DM; Fri, 08 Jan 2021 10:17:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,99 +39,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AhpjboiRDfXwYFBrZ3qNflJwTcz/YRtQA/Roiea3ewc=; b=4ugvLal11C7ynv/CNQZzvIaOGl
-	Rb+7s4L/bBbsR26X//48aaonkASzdInWoEo6imyYo4mHu4cpkRfYPtA18I/RDZc7zE5IhQPGbC0EG
-	83bRnK9/HYJcyYgZtHBjZeeZwGj0hAaqQL1SopYVeHO4nDrpWGRn7kJ71BU1Rdgce69Q=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158275-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=agVGDTGTBDPv6VHfCzOEi8t69GHd1YIwrVzm3OOhYaQ=; b=ipaAKSQ9s9aXZrvAGMMFcaCNgZ
+	slcP5775y3zetnCciUeEcy8Dq2oa7VMJZnVM2jaCi0HpnY5eEFPBE7GO9zvZ5kEJOLwQXpDlS1mr2
+	uv9aLsfkWRycFEDON5yA8JB9BcMLcKaJxop5G5b5MbV3B6+WhQmk9qvAhfbKosvpRGK8=;
+Subject: Re: [PATCH v2] gnttab: defer allocation of status frame tracking
+ array
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <57dc915c-c373-5003-80f7-279dd300d571@suse.com>
+ <920f3df3-3343-3947-e318-da3b8dd8a56c@citrix.com>
+ <ec21a8d6-744c-0f02-cedd-c35d36097a8a@suse.com>
+ <25c6efe0-fb29-eb83-badf-70cd2dade0d7@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <e991cf59-89fb-3d5f-98eb-21ba16b0910c@xen.org>
+Date: Fri, 8 Jan 2021 10:17:07 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158275: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=994f6478a48a60e3b407c7defc2d36a80f880b04
-X-Osstest-Versions-That:
-    xen=7ba2ab495be54f608cb47440e1497b2795bd301a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 Jan 2021 10:16:36 +0000
+In-Reply-To: <25c6efe0-fb29-eb83-badf-70cd2dade0d7@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-flight 158275 xen-unstable-smoke real [real]
-flight 158277 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158275/
-http://logs.test-lab.xenproject.org/osstest/logs/158277/
+Hi Andrew and Jan,
 
-Regressions :-(
+On 04/01/2021 15:41, Andrew Cooper wrote:
+> On 04/01/2021 15:22, Jan Beulich wrote:
+>> On 04.01.2021 16:04, Andrew Cooper wrote:
+>>> On 23/12/2020 15:13, Jan Beulich wrote:
+>>>> This array can be large when many grant frames are permitted; avoid
+>>>> allocating it when it's not going to be used anyway, by doing this only
+>>>> in gnttab_populate_status_frames().
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> v2: Defer allocation to when a domain actually switches to the v2 grant
+>>>>      API.
+>>> I see this as a backwards step.  It turns a build-time -ENOMEM into a
+>>> runtime -ENOMEM, and if you recall from one of the XSAs, the Windows PV
+>>> drivers will BUG() if set_version fails.  (Yes - this is dumb behaviour,
+>>> but it is in the field now.)
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 158134
+During yesterday call, Paul pointed that this is a behavior from old 
+Windows driver. New Windows PV driver will not use Grant Table v2.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+However, AFAICT, there is already runtime -ENOMEM failure in set_version 
+when trying to populate the status frame (see the call to 
+gnttab_populate_status_frames()).
 
-version targeted for testing:
- xen                  994f6478a48a60e3b407c7defc2d36a80f880b04
-baseline version:
- xen                  7ba2ab495be54f608cb47440e1497b2795bd301a
+>> Well, if this was the only source of -ENOMEM (i.e. none was there
+>> previously), I'd surely understand the concern. But there have been
+>> memory allocations before on this path.
+> 
+> ... you're literally writing a patch saying "avoid large allocation at
+> domain create time, and make it at runtime instead" and then trying to
+> argue that it isn't a concern because there are other memory allocations.
+> 
+> It is very definitely a backwards step irrespective of the size of the
+> allocation, even if the current behaviour isn't necessarily perfect.
+> 
+>>   In any event, this will
+>> need settling between you and Julien, as it was him to request the
+>> change.
+> 
+> Well - that's because gnttab v2 is disabled in general on ARM.
 
-Last test of basis   158134  2021-01-04 15:01:26 Z    3 days
-Failing since        158142  2021-01-05 02:00:25 Z    3 days   19 attempts
-Testing same since   158256  2021-01-07 15:00:25 Z    0 days    4 attempts
+I didn't have Arm in mind when I originally requested Jan the change.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bertrand Marquis <bertrand.marquis@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Manuel Bouyer <bouyer@antioche.eu.org>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Olaf Hering <olaf@aepfle.de>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Tamas K Lengyel <tamas.lengyel@intel.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Wei Liu <wl@xen.org>
+Instead, the request was based on the fact that most of the guests don't 
+use of grant-table v2. To me this feels a waste of memory and if it can 
+be avoid then it is best.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+> 
+> Conditionally avoiding the allocation because of opt_gnttab_max_version
+> being 1 would be ok, because it doesn't introduce new runtime failures
+> for guests.
 
+Based on my answer above, I would not consider it as a new runtime 
+failure -ENOMEM is already possible when switching from v1 to v2.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+In fact, the allocation is going to be much smaller than the other 
+allocations (we may be allocating multiple pages). So if we are 
+concerned about this, then we should already be concerned about the 
+existings one.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Anyway, the array itself is likely going to be small (I haven't computed 
+the size) so I would be OK to not defer the allocation.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+However, I would like to seek clarification on whether your end goal is 
+to remove any -ENOMEM failure from set_version.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Not pushing.
-
-(No revision log; it would be 554 lines long.)
+-- 
+Julien Grall
 
