@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5F752EFBE7
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Jan 2021 00:58:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63937.113337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A5A92EFC3E
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Jan 2021 01:36:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63943.113348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ky1dI-0007SW-R8; Fri, 08 Jan 2021 23:57:28 +0000
+	id 1ky2E9-0003R3-RL; Sat, 09 Jan 2021 00:35:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63937.113337; Fri, 08 Jan 2021 23:57:28 +0000
+Received: by outflank-mailman (output) from mailman id 63943.113348; Sat, 09 Jan 2021 00:35:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ky1dI-0007S7-NZ; Fri, 08 Jan 2021 23:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 63937;
- Fri, 08 Jan 2021 23:57:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AkaL=GL=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1ky1dH-0007S0-EA
- for xen-devel@lists.xenproject.org; Fri, 08 Jan 2021 23:57:27 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9c9aa76f-b7cc-4bef-b71c-d29ef94502a1;
- Fri, 08 Jan 2021 23:57:26 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7860423998;
- Fri,  8 Jan 2021 23:57:25 +0000 (UTC)
+	id 1ky2E9-0003QU-NE; Sat, 09 Jan 2021 00:35:33 +0000
+Received: by outflank-mailman (input) for mailman id 63943;
+ Sat, 09 Jan 2021 00:35:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ky2E8-0003QM-K9; Sat, 09 Jan 2021 00:35:32 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ky2E8-0004wd-Cv; Sat, 09 Jan 2021 00:35:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ky2E8-0007zs-5z; Sat, 09 Jan 2021 00:35:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ky2E8-0006Nh-5T; Sat, 09 Jan 2021 00:35:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,112 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c9aa76f-b7cc-4bef-b71c-d29ef94502a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1610150245;
-	bh=0qt9XGDd6KoFo/KtDd0N/hHWQnNWLl2zkglQQC921sg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=OjnhyyWk7DUB5zmbwVwlmBC5CqHUFatJAHJ+VQnePv9stvl4+pCspKuQ8Qny1LcNe
-	 mESs3at21uBOoLvJYWtT19lzII5H3DwCJfQyt69W0DWGAiLZxgGlnvyDSrfHo4ZKgz
-	 AQOSDWOefuFZNftBgGxV7+O6xZAljro69y471qby+T91V9b6HfhJxb1ZIKxurh75+p
-	 GzIsnCuX5E790mFUx7V2upj7We4LfSRx/v7Ui5OtDf98IrY44eq86nbROl6C4ITgGG
-	 Pj5FKKAYffMrybFNgjC+wd/cCDX1vfCvOTstojUTOWVo1ema2FTTWVSYr+sRUF+X/z
-	 ciBwQIRtkuynA==
-Date: Fri, 8 Jan 2021 15:57:24 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v4 06/11] xen/device-tree: Add dt_property_match_string
- helper
-In-Reply-To: <0df414d5496574269c58415f7bff8f069efce94d.1610115608.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2101081557150.26153@sstabellini-ThinkPad-T480s>
-References: <cover.1610115608.git.rahul.singh@arm.com> <0df414d5496574269c58415f7bff8f069efce94d.1610115608.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=8xZGJHX/yg95GAKaaxW1fwGgdkAvfSOxqCIeRPcOOjU=; b=GeYcoHxjpGQXrn8VPtylrnBlCO
+	Mth+W+Lm84HO6YaC06VKFVit9/CWaMb2IHtFZyjYIBlHAHKS/AZcsLJYbPWxHrj0xayo5RN3vsXA2
+	lIhxtMwt7I+dtacgYkMbL/347GYg3awRhvVVxV7pX7MYS43BkG7p2aVg4fRyO9DtH1uA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158286-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 158286: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=9783767fcfc253c74fe3ad87abf74d17e1fe6399
+X-Osstest-Versions-That:
+    ovmf=fabeffb09e3bbf38748c4c073fb7fc6b7e64c20c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 09 Jan 2021 00:35:32 +0000
 
-On Fri, 8 Jan 2021, Rahul Singh wrote:
-> Import the Linux helper of_property_match_string. This function searches
-> a string list property and returns the index of a specific string value.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+flight 158286 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158286/
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 9783767fcfc253c74fe3ad87abf74d17e1fe6399
+baseline version:
+ ovmf                 fabeffb09e3bbf38748c4c073fb7fc6b7e64c20c
+
+Last test of basis   158280  2021-01-08 14:39:45 Z    0 days
+Testing same since   158286  2021-01-08 21:09:41 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Leif Lindholm <leif@nuviainc.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-> ---
-> Changes in V3:
->  - This patch is introduce in this verison.
-> Changes in V4: Rebase
-> ---
->  xen/common/device_tree.c      | 27 +++++++++++++++++++++++++++
->  xen/include/xen/device_tree.h | 12 ++++++++++++
->  2 files changed, 39 insertions(+)
-> 
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index e107c6f89f..18825e333e 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -208,6 +208,33 @@ int dt_property_read_string(const struct dt_device_node *np,
->      return 0;
->  }
->  
-> +int dt_property_match_string(const struct dt_device_node *np,
-> +                             const char *propname, const char *string)
-> +{
-> +    const struct dt_property *dtprop = dt_find_property(np, propname, NULL);
-> +    size_t l;
-> +    int i;
-> +    const char *p, *end;
-> +
-> +    if ( !dtprop )
-> +        return -EINVAL;
-> +    if ( !dtprop->value )
-> +        return -ENODATA;
-> +
-> +    p = dtprop->value;
-> +    end = p + dtprop->length;
-> +
-> +    for ( i = 0; p < end; i++, p += l )
-> +    {
-> +        l = strnlen(p, end - p) + 1;
-> +        if ( p + l > end )
-> +            return -EILSEQ;
-> +        if ( strcmp(string, p) == 0 )
-> +            return i; /* Found it; return index */
-> +    }
-> +    return -ENODATA;
-> +}
-> +
->  bool_t dt_device_is_compatible(const struct dt_device_node *device,
->                                 const char *compat)
->  {
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index f2ad22b79c..b02696be94 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -400,6 +400,18 @@ static inline bool_t dt_property_read_bool(const struct dt_device_node *np,
->  int dt_property_read_string(const struct dt_device_node *np,
->                              const char *propname, const char **out_string);
->  
-> +/**
-> + * dt_property_match_string() - Find string in a list and return index
-> + * @np: pointer to node containing string list property
-> + * @propname: string list property name
-> + * @string: pointer to string to search for in string list
-> + *
-> + * This function searches a string list property and returns the index
-> + * of a specific string value.
-> + */
-> +int dt_property_match_string(const struct dt_device_node *np,
-> +                             const char *propname, const char *string);
-> +
->  /**
->   * Checks if the given "compat" string matches one of the strings in
->   * the device's "compatible" property
-> -- 
-> 2.17.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   fabeffb09e..9783767fcf  9783767fcfc253c74fe3ad87abf74d17e1fe6399 -> xen-tested-master
 
