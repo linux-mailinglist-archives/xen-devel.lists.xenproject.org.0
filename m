@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 806C52EFCCC
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Jan 2021 02:45:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63956.113388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BDB02EFCCD
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Jan 2021 02:45:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.63958.113399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ky3JC-0008MP-Oi; Sat, 09 Jan 2021 01:44:50 +0000
+	id 1ky3JK-0008RU-3c; Sat, 09 Jan 2021 01:44:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63956.113388; Sat, 09 Jan 2021 01:44:50 +0000
+Received: by outflank-mailman (output) from mailman id 63958.113399; Sat, 09 Jan 2021 01:44:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ky3JC-0008Ly-LD; Sat, 09 Jan 2021 01:44:50 +0000
-Received: by outflank-mailman (input) for mailman id 63956;
- Sat, 09 Jan 2021 01:44:49 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ky3JK-0008R3-0D; Sat, 09 Jan 2021 01:44:58 +0000
+Received: by outflank-mailman (input) for mailman id 63958;
+ Sat, 09 Jan 2021 01:44:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KEI1=GM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1ky3JB-0008Lp-Tg
- for xen-devel@lists.xenproject.org; Sat, 09 Jan 2021 01:44:49 +0000
+ id 1ky3JI-0008QN-Pj
+ for xen-devel@lists.xenproject.org; Sat, 09 Jan 2021 01:44:56 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a52a1741-84a6-459d-9f1e-8a4653e58463;
- Sat, 09 Jan 2021 01:44:49 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3994F23A1E;
- Sat,  9 Jan 2021 01:44:48 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3c8f33f0-5935-4864-8aee-d3c7aa76c862;
+ Sat, 09 Jan 2021 01:44:56 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C488023A1E;
+ Sat,  9 Jan 2021 01:44:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,68 +38,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a52a1741-84a6-459d-9f1e-8a4653e58463
+X-Inumbo-ID: 3c8f33f0-5935-4864-8aee-d3c7aa76c862
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1610156688;
-	bh=I3ZyY++peroLAL78alsHx6phuWnZD1dBdy606yTgCUU=;
+	s=k20201202; t=1610156695;
+	bh=LImtzh9L+28t8QGrCbjyYBQCHWo+LgWSdBK2ulvYEAo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nIbh5kAa0BXi79VimUt56Fxc3qrDufHeXHAWPL3fafgrBfRIxgc5vmhmb+vFt3idB
-	 ZrlJ0uVT+RhWTWcNH/N2WErI4o2TnPMQ2Hkaa6Xdze9uFjqVOAIVaZ3wgkPyopBE9p
-	 nZuYexXLeNXfnX1lPXDApAZg4JfFV55znwqwdpgFrdP6LQlQ3v4Sld/R0doSJba6NH
-	 g94L5QRoAx3KELa6fyDQeGLesKYXmzzYwXHAnEpQG2O53r+phL8TzfICCAwo3Lg8o8
-	 QKdfzd7Q7VYE3BJeYUPJ0YhaW+jl+7JFGyXkmSN6hM5P1CgfTKSc0ZjmQ3K8AUxkAq
-	 zhwZ3HT/rA0Sg==
-Date: Fri, 8 Jan 2021 17:44:47 -0800 (PST)
+	b=CiXsavEH/8i6wAV8OzF3M2PI9PJ6AtbZZTlks7nyyFgzJdE2hFvb/NGYDH+Q0b+fv
+	 q68fMyVLqGIGjAvAiT+D8hTv8A33lw5Il7jsHfRuwmRJBnkxW2TMcLISpqPtgsOIkq
+	 If2cT/AL9T2IZ/OlFizeKa5zROJqgIOYHBA15XnRWW633m1YFVpQH6Vb1XXHuwSYBN
+	 cAnUJMsMoJ2bFusWI5OWhX0pDqTsXVahFlQHw+70yRxNs9n2Yat64bUhB5fZ1aNwNw
+	 PmpyF4C283ZvtfuviM1yYY85uPVQkfxnQoDaOfb3NDdaQAR5+PV7EA4nPg2j/RrPrN
+	 5nSFcdJI1WmWQ==
+Date: Fri, 8 Jan 2021 17:44:54 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Rahul Singh <rahul.singh@arm.com>
 cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v4 07/11] xen/arm: bitops: Implement a ffsll function
-In-Reply-To: <7c0410f150d78bae49c1d8ae0d918b56c2b0c7de.1610115608.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2101081622490.26153@sstabellini-ThinkPad-T480s>
-References: <cover.1610115608.git.rahul.singh@arm.com> <7c0410f150d78bae49c1d8ae0d918b56c2b0c7de.1610115608.git.rahul.singh@arm.com>
+Subject: Re: [PATCH v4 09/11] xen/arm: smmuv3: Use fallthrough
+ pseudo-keyword
+In-Reply-To: <36f9a1e88eea2f2c4cc413688c7210583a3433fe.1610115608.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2101081640190.26153@sstabellini-ThinkPad-T480s>
+References: <cover.1610115608.git.rahul.singh@arm.com> <36f9a1e88eea2f2c4cc413688c7210583a3433fe.1610115608.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Fri, 8 Jan 2021, Rahul Singh wrote:
-> Implement the ffsll based on built-in function "__builtin_ffsll()"
+> Merge the patch from linux to use fallthrough pseudo-keyword.
 > 
-> ffsll will return one plus the index of the least significant 1-bit in
-> doublewords or if doublewords is zero, returns zero.
+> Replace the existing /* fall through */ comments and its variants with
+> the new pseudo-keyword macro fallthrough[1]. Also, remove unnecessary
+> fall-through markings when it is the case.
 > 
 > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 > ---
 > Changes in V4:
 >  - This patch is introduce in this verison.
 > ---
->  xen/include/asm-arm/bitops.h | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
+>  xen/drivers/passthrough/arm/smmu-v3.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
 > 
-> diff --git a/xen/include/asm-arm/bitops.h b/xen/include/asm-arm/bitops.h
-> index 71ae14cab3..7f83ee1828 100644
-> --- a/xen/include/asm-arm/bitops.h
-> +++ b/xen/include/asm-arm/bitops.h
-> @@ -170,6 +170,18 @@ static inline unsigned int find_first_set_bit(unsigned long word)
->          return ffsl(word) - 1;
->  }
->  
-> +/**
-> + * ffsll - find the first least significant set bit
-> + * @doubleword: double word to search
-> + *
-> + * Returns one plus the index of the least significant 1-bit in @doubleword
-> + * or if doubleword is zero, returns zero.
-> + */
-> +static inline int ffsll(long long doubleword)
-> +{
-> +        return __builtin_ffsll(doubleword);
-> +}
+> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
+> index 5ce14850b4..f5f8b4c981 100644
+> --- a/xen/drivers/passthrough/arm/smmu-v3.c
+> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
+> @@ -932,7 +932,6 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_device *smmu)
+>  		 */
+>  		return;
+>  	case CMDQ_ERR_CERROR_ILL_IDX:
+> -		/* Fallthrough */
 
-This compiles fine with my old 4.9 compiler and in gitlab too, so I am
-OK with this, even better because it is less code to maintain.
+The fallthrough keyword is unnecessary here because of default, right?
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+>  	default:
+>  		break;
+>  	}
+> @@ -2488,7 +2487,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
+>  	switch (FIELD_GET(IDR0_STALL_MODEL, reg)) {
+>  	case IDR0_STALL_MODEL_FORCE:
+>  		smmu->features |= ARM_SMMU_FEAT_STALL_FORCE;
+> -		/* Fallthrough */
+> +		fallthrough;
+>  	case IDR0_STALL_MODEL_STALL:
+>  		smmu->features |= ARM_SMMU_FEAT_STALLS;
+>  	}
+> @@ -2505,7 +2504,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
+>  	switch (FIELD_GET(IDR0_TTF, reg)) {
+>  	case IDR0_TTF_AARCH32_64:
+>  		smmu->ias = 40;
+> -		/* Fallthrough */
+> +		fallthrough;
+>  	case IDR0_TTF_AARCH64:
+>  		break;
+>  	default:
+> @@ -2589,7 +2588,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
+>  	default:
+>  		dev_info(smmu->dev,
+>  			"unknown output address size. Truncating to 48-bit\n");
+> -		/* Fallthrough */
+> +		fallthrough;
+>  	case IDR5_OAS_48_BIT:
+>  		smmu->oas = 48;
+>  	}
+> -- 
+> 2.17.1
+> 
 
