@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EFC12EFCCB
+	by mail.lfdr.de (Postfix) with ESMTPS id 806C52EFCCC
 	for <lists+xen-devel@lfdr.de>; Sat,  9 Jan 2021 02:45:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.63955.113375 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.63956.113388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ky3J6-0008Kt-Fl; Sat, 09 Jan 2021 01:44:44 +0000
+	id 1ky3JC-0008MP-Oi; Sat, 09 Jan 2021 01:44:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 63955.113375; Sat, 09 Jan 2021 01:44:44 +0000
+Received: by outflank-mailman (output) from mailman id 63956.113388; Sat, 09 Jan 2021 01:44:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ky3J6-0008KX-CH; Sat, 09 Jan 2021 01:44:44 +0000
-Received: by outflank-mailman (input) for mailman id 63955;
- Sat, 09 Jan 2021 01:44:42 +0000
+	id 1ky3JC-0008Ly-LD; Sat, 09 Jan 2021 01:44:50 +0000
+Received: by outflank-mailman (input) for mailman id 63956;
+ Sat, 09 Jan 2021 01:44:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KEI1=GM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1ky3J4-0008KS-8z
- for xen-devel@lists.xenproject.org; Sat, 09 Jan 2021 01:44:42 +0000
+ id 1ky3JB-0008Lp-Tg
+ for xen-devel@lists.xenproject.org; Sat, 09 Jan 2021 01:44:49 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e3a30813-12f9-49a0-96e8-05f007125935;
- Sat, 09 Jan 2021 01:44:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 884D123A1E;
- Sat,  9 Jan 2021 01:44:39 +0000 (UTC)
+ id a52a1741-84a6-459d-9f1e-8a4653e58463;
+ Sat, 09 Jan 2021 01:44:49 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3994F23A1E;
+ Sat,  9 Jan 2021 01:44:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,102 +37,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3a30813-12f9-49a0-96e8-05f007125935
+X-Inumbo-ID: a52a1741-84a6-459d-9f1e-8a4653e58463
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1610156680;
-	bh=351HKwkGWVcvQsgEaoO4Vmz/waATAbhe/CLgZBfwiEw=;
+	s=k20201202; t=1610156688;
+	bh=I3ZyY++peroLAL78alsHx6phuWnZD1dBdy606yTgCUU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NKwgJPIFzW6zmOe0NztlOV/STl1syOGwItT2n0eX8yi7cu0+H+zv//pAwI48ojiih
-	 0oyKA4i5b/iyorTGNCZ3Ryq7r+oiO5XBc72xiLO2O4gEIVjNZhafKCpLb/maWiZF0A
-	 qj26d5fbNqFcE5wLTbrmDRqbDqMu/6kRiqU8Unc0Lgl8OZM+Ub5aDSITTcKReq12PK
-	 NZUPnOfJaUzNodcxZqLD5TkxTttP5zSc5fTp9DpATozbMjdi4qKAIb0/9ljfvDSsZ6
-	 DqXrZv+mHQ3hOWOVllyoD+HyAR/tkkeFsJGpMy0KHNkg5MOCO52N72QXq1Uu2ErHlq
-	 MLSpYa2GS8iOQ==
-Date: Fri, 8 Jan 2021 17:44:38 -0800 (PST)
+	b=nIbh5kAa0BXi79VimUt56Fxc3qrDufHeXHAWPL3fafgrBfRIxgc5vmhmb+vFt3idB
+	 ZrlJ0uVT+RhWTWcNH/N2WErI4o2TnPMQ2Hkaa6Xdze9uFjqVOAIVaZ3wgkPyopBE9p
+	 nZuYexXLeNXfnX1lPXDApAZg4JfFV55znwqwdpgFrdP6LQlQ3v4Sld/R0doSJba6NH
+	 g94L5QRoAx3KELa6fyDQeGLesKYXmzzYwXHAnEpQG2O53r+phL8TzfICCAwo3Lg8o8
+	 QKdfzd7Q7VYE3BJeYUPJ0YhaW+jl+7JFGyXkmSN6hM5P1CgfTKSc0ZjmQ3K8AUxkAq
+	 zhwZ3HT/rA0Sg==
+Date: Fri, 8 Jan 2021 17:44:47 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Rahul Singh <rahul.singh@arm.com>
 cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v4 08/11] xen/compiler: import 'fallthrough' keyword from
- linux
-In-Reply-To: <aab15a158f6acb5f5a1cfd0dad1d4493b1fcace9.1610115608.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2101081626460.26153@sstabellini-ThinkPad-T480s>
-References: <cover.1610115608.git.rahul.singh@arm.com> <aab15a158f6acb5f5a1cfd0dad1d4493b1fcace9.1610115608.git.rahul.singh@arm.com>
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v4 07/11] xen/arm: bitops: Implement a ffsll function
+In-Reply-To: <7c0410f150d78bae49c1d8ae0d918b56c2b0c7de.1610115608.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.21.2101081622490.26153@sstabellini-ThinkPad-T480s>
+References: <cover.1610115608.git.rahul.singh@arm.com> <7c0410f150d78bae49c1d8ae0d918b56c2b0c7de.1610115608.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Fri, 8 Jan 2021, Rahul Singh wrote:
-> -Wimplicit-fallthrough warns when a switch case falls through. Warning
-> can be suppress by either adding a /* fallthrough */ comment, or by
-> using a null statement: __attribute__ ((fallthrough))
+> Implement the ffsll based on built-in function "__builtin_ffsll()"
 > 
-> Define the pseudo keyword 'fallthrough' for the ability to convert the
-> various case block /* fallthrough */ style comments to null statement
-> "__attribute__((__fallthrough__))"
-> 
-> In C mode, GCC supports the __fallthrough__ attribute since 7.1,
-> the same time the warning and the comment parsing were introduced.
-> 
-> fallthrough devolves to an empty "do {} while (0)" if the compiler
-> version (any version less than gcc 7) does not support the attribute.
+> ffsll will return one plus the index of the least significant 1-bit in
+> doublewords or if doublewords is zero, returns zero.
 > 
 > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 > ---
 > Changes in V4:
 >  - This patch is introduce in this verison.
 > ---
->  xen/include/xen/compiler.h | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
+>  xen/include/asm-arm/bitops.h | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
-> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
-> index e643e69128..0ec0b4698e 100644
-> --- a/xen/include/xen/compiler.h
-> +++ b/xen/include/xen/compiler.h
-> @@ -33,6 +33,22 @@
->  #define unreachable() __builtin_unreachable()
->  #endif
+> diff --git a/xen/include/asm-arm/bitops.h b/xen/include/asm-arm/bitops.h
+> index 71ae14cab3..7f83ee1828 100644
+> --- a/xen/include/asm-arm/bitops.h
+> +++ b/xen/include/asm-arm/bitops.h
+> @@ -170,6 +170,18 @@ static inline unsigned int find_first_set_bit(unsigned long word)
+>          return ffsl(word) - 1;
+>  }
 >  
-> +/*
-> + * Add the pseudo keyword 'fallthrough' so case statement blocks
-> + * must end with any of these keywords:
-> + *   break;
-> + *   fallthrough;
-> + *   goto <label>;
-> + *   return [expression];
+> +/**
+> + * ffsll - find the first least significant set bit
+> + * @doubleword: double word to search
 > + *
-> + *  gcc: https://gcc.gnu.org/onlinedocs/gcc/Statement-Attributes.html#Statement-Attributes
+> + * Returns one plus the index of the least significant 1-bit in @doubleword
+> + * or if doubleword is zero, returns zero.
 > + */
-> +#if (!defined(__clang__) && (__GNUC__ >= 7))
-> +# define fallthrough        __attribute__((__fallthrough__))
-> +#else
-> +# define fallthrough        do {} while (0)  /* fallthrough */
-> +#endif
-> +
->  #ifdef __clang__
->  /* Clang can replace some vars with new automatic ones that go in .data;
->   * mark all explicit-segment vars 'used' to prevent that. */
+> +static inline int ffsll(long long doubleword)
+> +{
+> +        return __builtin_ffsll(doubleword);
+> +}
 
-It would be nicer to use __has_attribute to check if fallthrough is
-supported by the compiler, but I wouldn't want to have to implement
-__has_attribute by hand for the old compilers that don't have it. If we
-are in doubt whether the compiler has has_attribute or not, then I think
-it is better to do what you did here and avoid the problem altogether.
-
-
-Linux states:
-
- * __has_attribute is supported on gcc >= 5, clang >= 2.9 and icc >= 17.
-
-
-Unfortunately gcc 4.9 is old but still around. I don't think we made any
-statements in Xen about gcc support >= 5. Hence, I think your patch is
-good as it is.
-
+This compiles fine with my old 4.9 compiler and in gitlab too, so I am
+OK with this, even better because it is less code to maintain.
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
