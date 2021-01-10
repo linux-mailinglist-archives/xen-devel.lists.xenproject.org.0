@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A8D82F06D1
-	for <lists+xen-devel@lfdr.de>; Sun, 10 Jan 2021 12:57:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64435.113868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1C932F0728
+	for <lists+xen-devel@lfdr.de>; Sun, 10 Jan 2021 13:23:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64452.113889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyZKk-0004Ks-Tn; Sun, 10 Jan 2021 11:56:34 +0000
+	id 1kyZkQ-00077W-9z; Sun, 10 Jan 2021 12:23:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64435.113868; Sun, 10 Jan 2021 11:56:34 +0000
+Received: by outflank-mailman (output) from mailman id 64452.113889; Sun, 10 Jan 2021 12:23:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyZKk-0004KH-Og; Sun, 10 Jan 2021 11:56:34 +0000
-Received: by outflank-mailman (input) for mailman id 64435;
- Sun, 10 Jan 2021 11:56:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kyZKj-0004K4-HU; Sun, 10 Jan 2021 11:56:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kyZKj-0006SL-D4; Sun, 10 Jan 2021 11:56:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1kyZKj-0006Vf-6g; Sun, 10 Jan 2021 11:56:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1kyZKj-0000Qd-6A; Sun, 10 Jan 2021 11:56:33 +0000
+	id 1kyZkQ-000777-6y; Sun, 10 Jan 2021 12:23:06 +0000
+Received: by outflank-mailman (input) for mailman id 64452;
+ Sun, 10 Jan 2021 12:23:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lRBP=GN=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1kyZkO-000772-N0
+ for xen-devel@lists.xenproject.org; Sun, 10 Jan 2021 12:23:04 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0fa64bf4-f657-48d0-9560-7ac2bef8ee57;
+ Sun, 10 Jan 2021 12:23:00 +0000 (UTC)
+Received: from rochebonne.antioche.eu.org (rochebonne
+ [IPv6:2001:41d0:fe9d:1100:221:70ff:fe0c:9885])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 10ACMoHh014961;
+ Sun, 10 Jan 2021 13:22:50 +0100 (MET)
+Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
+ id 84761281D; Sun, 10 Jan 2021 13:22:50 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,176 +41,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=bVDyasubXItteTjPSfCRwvRhENjdo6lc8VaCQbscK/U=; b=sXQEKNmBZH4XcQDiuxawlJFtT2
-	WYkxeMiuQWyPwHRGJEegcOdTd+MQakQqperQ3qa2IsQkHqhav3B4BwwvCInNYVev1+9u+qdpXfrFc
-	E1V81cYa87V+IhW/VvPx4lAZZCuYSWYmmQD3BGeTmMkCIlUXyR1BYHdDZU+woUvwP4/k=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-unstable bisection] complete test-arm64-arm64-examine
-Message-Id: <E1kyZKj-0000Qd-6A@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 10 Jan 2021 11:56:33 +0000
+X-Inumbo-ID: 0fa64bf4-f657-48d0-9560-7ac2bef8ee57
+Date: Sun, 10 Jan 2021 13:22:50 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 10/24] Make libs/evtchn build on NetBSD
+Message-ID: <20210110122250.GA1966@antioche.eu.org>
+References: <20201214163623.2127-1-bouyer@netbsd.org>
+ <20201214163623.2127-11-bouyer@netbsd.org>
+ <20201229115243.itpzsuriclqiljs7@Air-de-Roger>
+ <20210104102645.GD2005@antioche.eu.org>
+ <20210104171524.drvnwbqd2y5i4m66@Air-de-Roger>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210104171524.drvnwbqd2y5i4m66@Air-de-Roger>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [IPv6:2001:41d0:fe9d:1100:a00:20ff:fe1c:276e]); Sun, 10 Jan 2021 13:22:51 +0100 (MET)
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-arm64-arm64-examine
-testid reboot
+On Mon, Jan 04, 2021 at 06:15:24PM +0100, Roger Pau Monné wrote:
+> On Mon, Jan 04, 2021 at 11:26:45AM +0100, Manuel Bouyer wrote:
+> > On Tue, Dec 29, 2020 at 12:52:43PM +0100, Roger Pau Monné wrote:
+> > > On Mon, Dec 14, 2020 at 05:36:09PM +0100, Manuel Bouyer wrote:
+> > > > ---
+> > > >  tools/libs/evtchn/netbsd.c | 8 ++++----
+> > > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > > > 
+> > > > diff --git a/tools/libs/evtchn/netbsd.c b/tools/libs/evtchn/netbsd.c
+> > > > index 8b8545d2f9..6d4ce28011 100644
+> > > > --- a/tools/libs/evtchn/netbsd.c
+> > > > +++ b/tools/libs/evtchn/netbsd.c
+> > > > @@ -25,10 +25,10 @@
+> > > >  
+> > > >  #include <sys/ioctl.h>
+> > > >  
+> > > > -#include <xen/sys/evtchn.h>
+> > > > -
+> > > >  #include "private.h"
+> > > >  
+> > > > +#include <xen/xenio3.h>
+> > > > +
+> > > >  #define EVTCHN_DEV_NAME  "/dev/xenevt"
+> > > >  
+> > > >  int osdep_evtchn_open(xenevtchn_handle *xce)
+> > > > @@ -131,7 +131,7 @@ xenevtchn_port_or_error_t xenevtchn_pending(xenevtchn_handle *xce)
+> > > >      int fd = xce->fd;
+> > > >      evtchn_port_t port;
+> > > >  
+> > > > -    if ( read_exact(fd, (char *)&port, sizeof(port)) == -1 )
+> > > > +    if ( read(fd, (char *)&port, sizeof(port)) == -1 )
+> > > >          return -1;
+> > > >  
+> > > >      return port;
+> > > > @@ -140,7 +140,7 @@ xenevtchn_port_or_error_t xenevtchn_pending(xenevtchn_handle *xce)
+> > > >  int xenevtchn_unmask(xenevtchn_handle *xce, evtchn_port_t port)
+> > > >  {
+> > > >      int fd = xce->fd;
+> > > > -    return write_exact(fd, (char *)&port, sizeof(port));
+> > > > +    return write(fd, (char *)&port, sizeof(port));
+> > > 
+> > > I'm afraid we will need some context as to why {read/write}_exact
+> > > doesn't work here.
+> > 
+> > It just doesn't exists on NetBSD
+> 
+> But those are not part of libc or any external library, they are
+> implemented in tools/libs/ctrl/xc_private.c and should be available to
+> the NetBSD build AFAICT.
+> 
+> They are just helpers build on top of the standard read/write calls.
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+Yes, I misremembered (I have this patch for a long time, since 4.11 at last,
+maybe even older).
+Anyway the build fails with:
+netbsd.c: In function 'xenevtchn_pending':
+netbsd.c:134:10: error: implicit declaration of function 'read_exact'; did you mean 'readlinkat'? [-Werror=implicit-function-declaration]
 
-*** Found and reproduced problem changeset ***
+The only header where I see this function defined is
+tools/libs/ctrl/xc_private.h, so I would need something like
+#include "../../ctrl/xc_private.h"
+but this doesn't look right.
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  9cfdb489af810f71acb7dcdb87075dc7b3b313a0
-  Bug not present: a9f1f03b2710f5ce84f69c1c4516349531053fac
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/158321/
+I didn't find where other OSes are getting the prototype from (or maybe
+they just have this -Werror turned off ?)
 
+Anyway I think NetBSD doesn't need this read_exact/write_exact thing,
+the underlying pseudo-device won't to partial read/write.
 
-  commit 9cfdb489af810f71acb7dcdb87075dc7b3b313a0
-  Author: Bertrand Marquis <bertrand.marquis@arm.com>
-  Date:   Thu Dec 17 15:38:02 2020 +0000
-  
-      xen/arm: Add ID registers and complete cpuinfo
-      
-      Add definition and entries in cpuinfo for ID registers introduced in
-      newer Arm Architecture reference manual:
-      - ID_PFR2: processor feature register 2
-      - ID_DFR1: debug feature register 1
-      - ID_MMFR4 and ID_MMFR5: Memory model feature registers 4 and 5
-      - ID_ISA6: ISA Feature register 6
-      Add more bitfield definitions in PFR fields of cpuinfo.
-      Add MVFR2 register definition for aarch32.
-      Add MVFRx_EL1 defines for aarch32.
-      Add mvfr values in cpuinfo.
-      Add some registers definition for arm64 in sysregs as some are not
-      always know by compilers.
-      Initialize the new values added in cpuinfo in identify_cpu during init.
-      
-      Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-arm64-arm64-examine.reboot.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-arm64-arm64-examine.reboot --summary-out=tmp/158321.bisection-summary --basis-template=158290 --blessings=real,real-bisect,real-retry xen-unstable test-arm64-arm64-examine reboot
-Searching for failure / basis pass:
- 158303 fail [host=rochester1] / 158290 [host=laxton1] 158269 [host=laxton0] 158231 [host=rochester0] 158183 ok.
-Failure / basis pass flights: 158303 / 158183
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 ce59e3dda5f99afbe7257e1e9a22dffd5c4d033c
-Basis pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 7ba2ab495be54f608cb47440e1497b2795bd301a
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9-a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#7ba2ab495be54f608cb47440e1497b2795bd301a-ce59e3d\
- da5f99afbe7257e1e9a22dffd5c4d033c
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 158132 [host=laxton0]
- 158146 [host=laxton1]
- 158183 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 7ba2ab495be54f608cb47440e1497b2795bd301a
- 158231 [host=rochester0]
- 158269 [host=laxton0]
- 158290 [host=laxton1]
- 158296 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 ce59e3dda5f99afbe7257e1e9a22dffd5c4d033c
- 158302 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 7ba2ab495be54f608cb47440e1497b2795bd301a
- 158305 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 ce59e3dda5f99afbe7257e1e9a22dffd5c4d033c
- 158306 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 c7115531ea8ede5c6ab27f972c1be6ecad388f55
- 158308 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 7d2d7a43d0141de69d837854ce139bcd47a7b859
- 158309 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 07b9acea116e8329d613004766b8606756986db5
- 158318 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 a9f1f03b2710f5ce84f69c1c4516349531053fac
- 158311 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 9cfdb489af810f71acb7dcdb87075dc7b3b313a0
- 158313 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 a9f1f03b2710f5ce84f69c1c4516349531053fac
- 158314 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 9cfdb489af810f71acb7dcdb87075dc7b3b313a0
- 158316 pass a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 a9f1f03b2710f5ce84f69c1c4516349531053fac
- 158317 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 9cfdb489af810f71acb7dcdb87075dc7b3b313a0
- 158303 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 ce59e3dda5f99afbe7257e1e9a22dffd5c4d033c
- 158321 fail a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 9cfdb489af810f71acb7dcdb87075dc7b3b313a0
-Searching for interesting versions
- Result found: flight 158183 (pass), for basis pass
- For basis failure, parent search stopping at a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 a9f1f03b2710f5ce84f69c1c4516349531053fac, results HASH(0x562171ce2c68) HASH(0x562171c8fab0) HASH(0x562171c7def8) For basis failure, parent search stopping at a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 7ba2ab495be54f608cb47440e1497b2795bd301a, results \
- HASH(0x562171c7e9a0) HASH(0x562171c7f120) Result found: flight 158296 (fail), for basis failure (at ancestor ~771)
- Repro found: flight 158302 (pass), for basis pass
- Repro found: flight 158303 (fail), for basis failure
- 0 revisions at a6c5dd1dbaffe4cc398d8454546ba9246b9a95c9 c530a75c1e6a472b0eb9558310b518f0dfcd8860 7ea428895af2840d85c524f0bd11a38aac308308 a9f1f03b2710f5ce84f69c1c4516349531053fac
-No revisions left to test, checking graph state.
- Result found: flight 158313 (pass), for last pass
- Result found: flight 158314 (fail), for first failure
- Repro found: flight 158316 (pass), for last pass
- Repro found: flight 158317 (fail), for first failure
- Repro found: flight 158318 (pass), for last pass
- Repro found: flight 158321 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  9cfdb489af810f71acb7dcdb87075dc7b3b313a0
-  Bug not present: a9f1f03b2710f5ce84f69c1c4516349531053fac
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/158321/
-
-
-  commit 9cfdb489af810f71acb7dcdb87075dc7b3b313a0
-  Author: Bertrand Marquis <bertrand.marquis@arm.com>
-  Date:   Thu Dec 17 15:38:02 2020 +0000
-  
-      xen/arm: Add ID registers and complete cpuinfo
-      
-      Add definition and entries in cpuinfo for ID registers introduced in
-      newer Arm Architecture reference manual:
-      - ID_PFR2: processor feature register 2
-      - ID_DFR1: debug feature register 1
-      - ID_MMFR4 and ID_MMFR5: Memory model feature registers 4 and 5
-      - ID_ISA6: ISA Feature register 6
-      Add more bitfield definitions in PFR fields of cpuinfo.
-      Add MVFR2 register definition for aarch32.
-      Add MVFRx_EL1 defines for aarch32.
-      Add mvfr values in cpuinfo.
-      Add some registers definition for arm64 in sysregs as some are not
-      always know by compilers.
-      Initialize the new values added in cpuinfo in identify_cpu during init.
-      
-      Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable/test-arm64-arm64-examine.reboot.{dot,ps,png,html,svg}.
-----------------------------------------
-158321: tolerable ALL FAIL
-
-flight 158321 xen-unstable real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158321/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-arm64-arm64-examine      8 reboot                  fail baseline untested
-
-
-jobs:
- test-arm64-arm64-examine                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
