@@ -2,35 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A95F82F0EF6
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 10:22:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64707.114343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 975C02F0F05
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 10:27:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64713.114358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kytNh-00011d-HK; Mon, 11 Jan 2021 09:20:57 +0000
+	id 1kytTa-0001Hs-3I; Mon, 11 Jan 2021 09:27:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64707.114343; Mon, 11 Jan 2021 09:20:57 +0000
+Received: by outflank-mailman (output) from mailman id 64713.114358; Mon, 11 Jan 2021 09:27:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kytNh-00011O-9h; Mon, 11 Jan 2021 09:20:57 +0000
-Received: by outflank-mailman (input) for mailman id 64707;
- Mon, 11 Jan 2021 09:20:55 +0000
+	id 1kytTZ-0001HT-WA; Mon, 11 Jan 2021 09:27:01 +0000
+Received: by outflank-mailman (input) for mailman id 64713;
+ Mon, 11 Jan 2021 09:27:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O+Cs=GO=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kytNf-00011I-7X
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 09:20:55 +0000
-Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
+ <SRS0=/ci+=GO=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kytTZ-0001HO-4p
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 09:27:01 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c754ddc5-5ee2-4297-958d-9dfc32d38c20;
- Mon, 11 Jan 2021 09:20:53 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id 91so15599858wrj.7
- for <xen-devel@lists.xenproject.org>; Mon, 11 Jan 2021 01:20:53 -0800 (PST)
-Received: from CBGR90WXYV0 (host86-165-42-133.range86-165.btcentralplus.com.
- [86.165.42.133])
- by smtp.gmail.com with ESMTPSA id b19sm20440190wmj.37.2021.01.11.01.20.51
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 11 Jan 2021 01:20:52 -0800 (PST)
+ id 0eefc26b-06ba-4fcb-b379-4f187223049c;
+ Mon, 11 Jan 2021 09:26:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,106 +35,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c754ddc5-5ee2-4297-958d-9dfc32d38c20
+X-Inumbo-ID: 0eefc26b-06ba-4fcb-b379-4f187223049c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610357219;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=D3GfdfjH8H7PalqT3xf6yFYI8yx+KCQtbCKsO/H1cF4=;
+  b=d7dXLeLlhLAy0Q2QvZJEI61VF6+sG1zRuoDI3IWWuSbPcAMWj4ssNXbp
+   hjKmlL3yg8A0T47Yj31tG/NLpWv0GDmrMcZQlfA5YsdNruZxCraNQAsYp
+   nAfATabXvZA1swbkLoqPB8yB4jIB1dJlPE2Z7IGbOR5OrcAIq/OsHwd1I
+   8=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: cIaMMCDAbsde45zJPIr4K+QHJarlzPWAYLpy78FhvSOGdQwX1GJwa8TZxDdDjIJuL4XKe9jQty
+ UnRo02RNbFvh/HMi3rd2eloIfTtmGdpi0tVgkfBPBdu5RByy9p3lt5RI8bmhHYtL3AR9W5bJJz
+ +SmXATD1dtR7VcEoS/UgbTQPgHosTXP/upLrnxSJP9Lgnet3TNFEfYFR1uvsT4O9B+aRzflnzj
+ EdAYSfDFMwC8AEZAquvG7fglMjc2ISwuMdFsNh4p0cpx5ml+xaM9S3MYkOT7hZn6qFXjkipxdB
+ 55g=
+X-SBRS: 5.2
+X-MesageID: 34799006
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,338,1602561600"; 
+   d="scan'208";a="34799006"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=caYoh5zt2LOHqBjSkyaD2JfnkwR4DZjuQVXiXeM+nIt3C0foGmDLmQGX3iBkWQ/EV3zqDVTkhZ/FqLOpEU5yuKJgTscV7DfEFv8xg9N/V3lnlPM3r7tj307YCUSjfoRTR65CnDr1k+A/HSSdZvByAy0gc7gm50J0jIKNwqlprT36bVGbMWsvb8SoOzfWd98tx117A30K4mZoNt1tWusV5/dHbva6BU7tw/48udPpAJEFefPPlexXLrbX2wy9c0VrwiwEgxHVNqx0EwzDym8wrOHycZP9R4aB4podggfLsuESaBjfkRPZqAWavWBgj/IPgmayJEgTieYqQU8Do13oqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lVc0omBGxQy5myioyBcmnTwUPIFu9YdivSgFQh+am0U=;
+ b=BZpVqr7oCedJLfOzxIqRnvIf532qGtNTMGO5nUsLn/v+A0obNTua9X8wvZvhQKL4QIUL/RpYg0K0BgLt6T9CW0F5hWvB0UNrruAmq2kUI+c/JPkDUc11PizL0kgd0IXjyFc36V+zF9uRzumZsuVGvJ5uXgJ7o3f5ed4FyhaBI9kI7pmJ0l/QbgE0fLnqeGBj873J39w7nU33yPtP2e/Lw0dNtevEsvI/EOv1xrqjvavzep6IM1OqW0lyMkUW1Ar815ZnWU0xAcRPrvhq3sH3FXhmpA/dgEfbkDWlMWVLyM/WbIRusa0ss7Z/w9b3TVjkHCddSIQlDiIrvcJ+MjvYAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:content-language
-         :thread-index;
-        bh=mhjobAz7S8ZYZjC/AJtRfD9yDXmC6EiUO2FAcCowUl8=;
-        b=Tt4bbnFtRCg3fkWLfRoxset0yO2LFHUC+V9juhClItA2KIiCOdCU+ubNgZI1eZL9gr
-         MBKrhtkwA9GucenEt8g6N/GfdemGImf9LA6XLD0hSp8LsWtTUaFE8FnzPoEgJnN6Q9Tc
-         UiiK4WAVKuhhs/p3hdWU9vucO3xorXMhZZIrBC8ehwfuN9myfWxWfFvoZ3Nw0rAgaW63
-         fa5SuiEKIVXzc+z/j6BYuhvMISKe8Ni8TnQaV5vzAYq8SdirhASlrdie0HQ8ovEYtk7g
-         YQw0KY3GiTyTEIkIKsrTyn3hXjSDVnwmWjSRIBA5ZJIyBNAMu1GQMVHd/go/Qv83nI3c
-         c0ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :content-language:thread-index;
-        bh=mhjobAz7S8ZYZjC/AJtRfD9yDXmC6EiUO2FAcCowUl8=;
-        b=DYM8RFeb9O/ldzHv80a3crNQYydNXxIU6xWuFzjDtEWA1QQHARkKP0bs/pcW/y+KtA
-         Nl7/GuezhV/PezSBH2WGqRXS0jEDI1lIzJ+j9+Dw/Fx8qgkd/2v9TfEfAOEYsJShFNkZ
-         bfAnFQzJsypg3wn/xxKJAbjDhEvE2L3mAjJZF48ADJ9MjQ+fUJ8R20jnOvOpvzJ/QZw1
-         2X22xgmtmuahLJl8mC8FyGFhCGbCnvAol57Yp43RyJfsiCV2C+Yx81Qcb2m01QoA9kCV
-         LL2gO8kNX8DQSoZfqwxoGK9sTwXjQWJJDNeXC1QD1NBzXE3mB02kcGZUHfKkwMCYlIYc
-         sxoQ==
-X-Gm-Message-State: AOAM530WXChLt7bGo1yOhLp8MU/4HJpsjjxNXWX0TDDEp7deUuKLzWnC
-	qUsPfVzChJUBCfmxDAWm3qA=
-X-Google-Smtp-Source: ABdhPJw0rOnzz0z8TfLE1j1euzVCXhsOWKdBQQaA1jjwafPFEcPrFNi5x42E9KdrfZqrVdb5VPCa8w==
-X-Received: by 2002:a5d:498a:: with SMTP id r10mr15208139wrq.238.1610356853072;
-        Mon, 11 Jan 2021 01:20:53 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-Cc: <wl@xen.org>,
-	<iwj@xenproject.org>,
-	<anthony.perard@citrix.com>,
-	<andrew.cooper3@citrix.com>,
-	<george.dunlap@citrix.com>,
-	<julien@xen.org>,
-	<sstabellini@kernel.org>,
-	<roger.pau@citrix.com>,
-	<xen-devel@lists.xenproject.org>,
-	"'Igor Druzhinin'" <igor.druzhinin@citrix.com>
-References: <1610066796-17266-1-git-send-email-igor.druzhinin@citrix.com> <009d01d6e598$bfdd0110$3f970330$@xen.org> <ce4814a8-4f18-c17c-c3e2-99a0ad18e4f1@citrix.com> <00ad01d6e7f6$1ebbe610$5c33b230$@xen.org> <33322763-6810-3bfc-9573-1e326b38293e@suse.com> <00b001d6e7f9$80937a30$81ba6e90$@xen.org> <00b101d6e7f9$e342ff20$a9c8fd60$@xen.org> <d5e7f52e-2ec4-a722-e6cf-4b0b9b1cd1d5@suse.com>
-In-Reply-To: <d5e7f52e-2ec4-a722-e6cf-4b0b9b1cd1d5@suse.com>
-Subject: RE: [PATCH 1/2] viridian: remove implicit limit of 64 VPs per partition
-Date: Mon, 11 Jan 2021 09:20:51 -0000
-Message-ID: <00b201d6e7fb$0ecc83e0$2c658ba0$@xen.org>
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lVc0omBGxQy5myioyBcmnTwUPIFu9YdivSgFQh+am0U=;
+ b=MWBh/yt8EVWFf5GXqasKUHOdaugIMNOjauNog7dJhlsQHJjvOIZm/qAcDe1Qwm0T2PDyof0y4Ex3RhFomUb3ONockNak0Wyc3HnWZaEWSZsPH4HBK8PhDAUBn9s5OWeVwrBcn6O5ggmAhmlVZD/hZC8Q8UeDBEqLkexgsSnVdz0=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/acpi: remove dead code
+Date: Mon, 11 Jan 2021 10:26:40 +0100
+Message-ID: <20210111092640.98423-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.29.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MRXP264CA0001.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:15::13) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIZObzvX1fStk6d0If1Grmzp4ChNQKH77KyAjM4vxoA8ianTwIvmyEuAapfz8YBmnsfowGbd8zyqTeXv8A=
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7c7a043d-95d0-4392-76a6-08d8b6130954
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4604:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4604E5B3DCE5109503432FF58FAB0@DM6PR03MB4604.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: e0ScVwqDAzoYRc4EeTlhrMQpvyZuMOd6y3anJJzctXb4X/RmtLs6o11Q2cDM1X+bOG4x8+bAZtDva6in6yZJ3c6pujfySuUJS5S+hyNDXmgrV79h1i/kG3ZEZV5npGIlZ179ErcSk/n81FhlXiBXQ0QyvsrBxV7AwaHEbHVw9Qod4Q9W4IeTJRn/23RZyRepumuBYe4tKUSXPZa30S1et+2NRtrX1rITc6uskdJr35KTEm6lr+fyEbI9/WAsrIunedg9NRsmJg1xEZacGBUmdDUntbJjVcyIyi8lhZhpcnQAJgOv1+PE9RBh7HXpcwB9UobuDDZdnphaXYbJ4NMECKNthkm+YnIc3cyf6movo3W5pBa8JZKGSguhfBfynRsJz0id9Fmm9Z3eLYo/2zAxgg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(366004)(396003)(346002)(39850400004)(136003)(186003)(26005)(2616005)(478600001)(956004)(5660300002)(1076003)(54906003)(2906002)(316002)(6916009)(6486002)(8676002)(16526019)(66556008)(83380400001)(66946007)(6666004)(86362001)(8936002)(36756003)(6496006)(4326008)(66476007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?KzlKSmxNLy9mV0wyMUxhK0FwRFV4OVAwY2RiZmVVSmN2Wm5jTWhjRWpJUWtn?=
+ =?utf-8?B?c2NSeVRaVWFwc0pLMVV4Y0QzdG9GVkZkWncxZVBvNzJvbjVhaWxEYmJxNXUr?=
+ =?utf-8?B?RU4xcE1JNndSN1NPRXBCSFV4MEE1SENyQ2tZaERONnFqakdtd1dYWDBVWTRB?=
+ =?utf-8?B?NGR2L2NDWGhtREpVcC93bGRmeXJQWXBzR3kxbWlWQVpyR3FNWUpDU0tHaVJs?=
+ =?utf-8?B?SjVNSlhrTmY5NGc5aVh1MFVJanROVE8rT001dEtUNEl5ZXR4NUY3Vm5UZmtP?=
+ =?utf-8?B?bUM2TVVaSnNaTm5hZVhkTUJOTnExS0x0ZTN5dko5ZlJMd3Bjamoxd21zSytE?=
+ =?utf-8?B?SmtMdkVvWWIxKzV4Rm1UMFl2UVpaUnVwVHI5Ylh3aGV2OWdsVzJ1WEhYY1F0?=
+ =?utf-8?B?WldubkZyY29hdTR0dDl0aFdqN1NSNzNDWFhtVnd0RkYyMGx5NGl5QW5ySHdH?=
+ =?utf-8?B?WTJ5eW5QVDY0Q3RqL3pWZk9pRmVHTVpIeHdBRUNCRWhLUXQrZnRMQjhEejNK?=
+ =?utf-8?B?c1pzSENBVlRvem5Nbk9LWUJyWjJDV1RUcklmSkFZTFc1Zk9sMUxvSXR4Uzdh?=
+ =?utf-8?B?dTd0dGthUXFKUVdaU2hrYjBxVWlSMXFQbEJXSFFiUlZoVkYvZ1lEYlRrczNK?=
+ =?utf-8?B?QUVvamdGT3FNSGs3TnlxWUFUUVRyRkQ1UVVFYnVxUjB2M0cweTFqV2hRTDVX?=
+ =?utf-8?B?NzhmNmt3WVVoeWhTWXJlZTUzUjRoK2JPRkNIR0MvVWVvSVVKVksrbERBWmhL?=
+ =?utf-8?B?THJ2MW1ERHVvbHUrSlQxS0RQZ3NaMlJHRkFpOGlwY2RjSm5OaHVFZk9rSWtr?=
+ =?utf-8?B?eWRFeGg0MHI0SThrYUt4UFlGcWdTRHFTUkxsZVYzakdqQ0NaT09Fem5HUGlE?=
+ =?utf-8?B?azhibUdCSjhxM2lNOHpocUYzMEY1UWwwL2tmV3BYVkVoa3hYTWpYaU90cHRr?=
+ =?utf-8?B?YzNYcENoR0I2ZnZmbGZXRlRmSEZPT28vRXBXTTMrUllES1FOOTB1Q1NoeHdq?=
+ =?utf-8?B?YjRXa1ZUc3BOZUpUeE9NbjlORDJadmtRTU9mOXJZV2E5SUVQcnN1d3djZSt2?=
+ =?utf-8?B?eVRXV1dYS3lyZmlmamVtUTdHd0V1QmcwQ0x1TFZvNlYrNnEvdkZySHo2UFpZ?=
+ =?utf-8?B?TW55K1d0QTFpL1VCQnlhRWNHVGJaeWZBVW81VkJ1d3IrTW55Z2xPRmcwNVAr?=
+ =?utf-8?B?bjNrVi9neG1Fa2JJOVhZYU12OHRjVHdmSmQ2cEdtdjYxV3UrYTUwK2VQU0g5?=
+ =?utf-8?B?WWxMclBPY3Zaa2pOY0c3NEUwNzJmNnVqaHZGcFdTb0dKakFMNE5NT1BybUk5?=
+ =?utf-8?Q?VuOdtyECrwHkjqS76oKxgIVC+RNw1w+z1Z?=
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2021 09:26:54.9551
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c7a043d-95d0-4392-76a6-08d8b6130954
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QoMaWrrnk474hD6e5bz9c9eqX2e5g3A6Z9SPxr4aVX8ZWOk9YSANSrCP17oE1kgXvN+t9IYjWGFx9fW/n+L9Xg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4604
+X-OriginatorOrg: citrix.com
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 11 January 2021 09:16
-> To: paul@xen.org
-> Cc: wl@xen.org; iwj@xenproject.org; anthony.perard@citrix.com; andrew.cooper3@citrix.com;
-> george.dunlap@citrix.com; julien@xen.org; sstabellini@kernel.org; roger.pau@citrix.com; xen-
-> devel@lists.xenproject.org; 'Igor Druzhinin' <igor.druzhinin@citrix.com>
-> Subject: Re: [PATCH 1/2] viridian: remove implicit limit of 64 VPs per partition
-> 
-> On 11.01.2021 10:12, Paul Durrant wrote:
-> >> From: Paul Durrant <xadimgnik@gmail.com>
-> >> Sent: 11 January 2021 09:10
-> >>
-> >>> From: Jan Beulich <jbeulich@suse.com>
-> >>> Sent: 11 January 2021 09:00
-> >>>
-> >>> On 11.01.2021 09:45, Paul Durrant wrote:
-> >>>> You can add my R-b to the patch.
-> >>>
-> >>> That's the unchanged patch then, including the libxl change that
-> >>> I had asked about and that I have to admit I don't fully follow
-> >>> Igor's responses? I'm hesitant to give an ack for that aspect of
-> >>> the change, yet I suppose the libxl maintainers will defer to
-> >>> x86 ones there. Alternatively Andrew or Roger could of course
-> >>> ack this ...
-> >>>
-> >>
-> >> I don't think we really need specific control in xl.cfg as this is a fix for some poorly documented
-> >> semantics in the spec. The flag simply prevents the leaf magically appearing on migrate and I think
-> >> that's enough.
-> >
-> > ... although adding an option in xl/libxl isn't that much work, I suppose.
-> >
-> > Igor, would you be ok plumbing it through?
-> 
-> This back and forth leaves unclear to me what I should do. I
-> would have asked on irc, but you're not there as it seems.
+After the recent changes to acpi_fadt_parse_sleep_info the bad label
+can never be called with facs mapped, and hence the unmap can be
+removed.
 
-No, VPN issues make use of IRC painful I'm afraid. Let's see what Igor says.
+Additionally remove the whole label, since it was used by a
+single caller. Move the relevant code from the label.
 
-  Paul
+No functional change intended.
 
-> 
-> Jan
+CID: 1471722
+Fixes: 16ca5b3f873 ('x86/ACPI: don't invalidate S5 data when S3 wakeup vector cannot be determined')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/acpi/boot.c | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
+
+diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
+index 6345490f93..73a321d83c 100644
+--- a/xen/arch/x86/acpi/boot.c
++++ b/xen/arch/x86/acpi/boot.c
+@@ -389,8 +389,14 @@ acpi_fadt_parse_sleep_info(struct acpi_table_fadt *fadt)
+ 		}
+ 	}
+ 
+-	if (fadt->flags & ACPI_FADT_HW_REDUCED)
+-		goto bad;
++	if (fadt->flags & ACPI_FADT_HW_REDUCED) {
++		memset(&acpi_sinfo, 0,
++		       offsetof(struct acpi_sleep_info, sleep_control));
++		memset(&acpi_sinfo.sleep_status + 1, 0,
++		       (long)(&acpi_sinfo + 1) -
++		       (long)(&acpi_sinfo.sleep_status + 1));
++		return;
++	}
+ 
+ 	acpi_fadt_copy_address(pm1a_cnt, pm1a_control, pm1_control);
+ 	acpi_fadt_copy_address(pm1b_cnt, pm1b_control, pm1_control);
+@@ -458,15 +464,6 @@ acpi_fadt_parse_sleep_info(struct acpi_table_fadt *fadt)
+ 	printk(KERN_INFO PREFIX
+ 	       "            wakeup_vec[%"PRIx64"], vec_size[%x]\n",
+ 	       acpi_sinfo.wakeup_vector, acpi_sinfo.vector_width);
+-	return;
+-
+- bad:
+-	if (facs)
+-		acpi_os_unmap_memory(facs, sizeof(*facs));
+-	memset(&acpi_sinfo, 0,
+-	       offsetof(struct acpi_sleep_info, sleep_control));
+-	memset(&acpi_sinfo.sleep_status + 1, 0,
+-	       (long)(&acpi_sinfo + 1) - (long)(&acpi_sinfo.sleep_status + 1));
+ }
+ 
+ static int __init acpi_parse_fadt(struct acpi_table_header *table)
+-- 
+2.29.2
 
 
