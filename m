@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 036962F199E
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 16:27:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64971.114944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CA442F19A7
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 16:30:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64977.114958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyz6N-0004Hz-1h; Mon, 11 Jan 2021 15:27:27 +0000
+	id 1kyz99-0005DM-Hx; Mon, 11 Jan 2021 15:30:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64971.114944; Mon, 11 Jan 2021 15:27:27 +0000
+Received: by outflank-mailman (output) from mailman id 64977.114958; Mon, 11 Jan 2021 15:30:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyz6M-0004Hc-Uc; Mon, 11 Jan 2021 15:27:26 +0000
-Received: by outflank-mailman (input) for mailman id 64971;
- Mon, 11 Jan 2021 15:27:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kyz99-0005Cx-DT; Mon, 11 Jan 2021 15:30:19 +0000
+Received: by outflank-mailman (input) for mailman id 64977;
+ Mon, 11 Jan 2021 15:30:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZM29=GO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kyz6K-0004HT-Mj
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 15:27:24 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6f87ff1d-a43d-4242-a915-1728fc872e8e;
- Mon, 11 Jan 2021 15:27:23 +0000 (UTC)
+ <SRS0=/ci+=GO=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kyz98-0005Cs-Ja
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 15:30:18 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4b656d6c-178e-49cb-910b-9821ac510742;
+ Mon, 11 Jan 2021 15:30:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,257 +35,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f87ff1d-a43d-4242-a915-1728fc872e8e
+X-Inumbo-ID: 4b656d6c-178e-49cb-910b-9821ac510742
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610378843;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=gJr1hxRm9ymy+c8//PR+2qhjSIwGoGg8/8553KbxLqE=;
-  b=UAFIIelY3xeiQRVzy/6TpOcYA5is/umm3tb5ipBnB0CbDvJlzFtdonxY
-   4LydwrLfi1pTiRv9Nq7tpTkjKn+6nyXDYKtQRGeL/Aie9NetIVXgmI258
-   dS6IHzVOIZxdiMSWL2JIBvSaqGUrkeYm4QTRm6w15PEeKICgqPtXrMfSg
-   o=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: HrJT28L45/yd7Dbxl12PCg/wbAUsaeKsYEvrylm3wGoTkJvrcywrxbKf5+xN5RArmvMhXB1xyc
- juPhHJjE+PsoOzHDwmGCbSXHhL0mwhTDbxnDmc1C34ARQB1c+4TVfAq51gzOkP8FqDXdVmLoiK
- H7ajyoEUdR/ufUdx1QuEt+bioLXb3P1TEdBZAGb/X4vhvDWRzaERP5gze+BSPk7f2Pg1LDTqdA
- w1FxXVs/3NmR3aZkH2KXiR5ZpZmxUsCtI5yshf1uhdyYSKL68YYAZYnnDSHQOlsCYUdG9LO55k
- bUs=
+  d=citrix.com; s=securemail; t=1610379017;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=Rt2LzJOvPFMD+7Yw3EKRh4qiQ7pcKwrXD4R9KU3JgbE=;
+  b=Oxmv36PjAQ61hV+lN8Z5wph3uTIkHcqXJAENbegqxHWQwuxB4/GYIjkI
+   oqAbrn02dotoly2gNnBHTRtTq+lWQWaqqGCyEOva+JqD9tKJW85M2otPU
+   j1Pm/wyzdwhR6lH3YITo1Ud9sdlY2q4YUW3FZBAkZ2uWFc2k5gj6XrFE2
+   U=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: Qcsklfd+gK2LhOdJ7tNk0t/2RUZU1pXQLFnqI8I4SAH0sLlYFfdpmVVlNaYl9tA7FMcASKziun
+ 2A0BSB2McHmLbTiycnhr/IM1izb+B7fm/QP0I00z07CNKpkHElAvcxCi+UxRwQVo+N7kU2HUBl
+ bwY+kneOGotFmUp5CErF0eEcxMjrGcDWiajsxdWRgm8Nc8wBvfQFDV3sh2iIRONNUMvXr0v8ht
+ 440B7SGC3zvRbEEQKl+y9jOBZHO8VTXLTgYiZH10QzwDgiweAyxCe3dSNmltGJjTUyY6vVHt4U
+ ZDY=
 X-SBRS: 5.2
-X-MesageID: 34824427
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
+X-MesageID: 34875826
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,338,1602561600"; 
-   d="scan'208";a="34824427"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <amc96@cam.ac.uk>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
-	<paul@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>, =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?=
-	<michal.leszczynski@cert.pl>, Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
-	Tamas K Lengyel <tamas@tklengyel.com>
-Subject: [PATCH v3 05/11] tools/foreignmem: Support querying the size of a resource
-Date: Mon, 11 Jan 2021 15:26:57 +0000
-Message-ID: <20210111152657.30868-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20200922182444.12350-6-andrew.cooper3@citrix.com>
-References: <20200922182444.12350-6-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+   d="scan'208";a="34875826"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YB3gLsSWaFL8isb9tw97LvCzFfyhjP7eHUtj0+oG0XVYRdGe0eEYvqC9GO1/tkvTIT33+uHZsEurDwhD+Mf04/zaQwJWKciJNzbqdop+OdFf10hVX5Ni+AK6kRMsCLh2OzI5iJUVq6GJ9RjKCqIFjyY6wg/8+7jdvZ/kAb7zuTuhPXIoHL9Q0hd44C8y/WGARHWnn59ngFma5DJvVQzbUZvQV5uadwev4S5C5pRgPcmOlUjyWpLDQzmMCc3lQcTVcwcjqANff4BWd+J+TZQMZxEWw0bkMwH6stE7a+xtJLVZKVmLIROvMX23g9z4jjhtV5C+iVWPkds+TYgg7F60lA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GMv+D5XNXaUs7jlSi3vF8u/xKZa1WRXWQ+kXGL1O4rw=;
+ b=W80ogAYczVifSzSXjz22UguUcPBd+30yBixwRuAzYrBnYm9wyIYH6/AtqDdVfKEejrvqzR0oFF70e55cGIMziX2Pb8krPPLwmDA/6dhojwDukn1MbEt2V1uY+VkAF2TM+HTb69tZM+2st+VOH9J5nUUJgt3bx/uQcLPsiAOWdOBdEQ5OEsRaJO7ZtsM4eeIbMajbTYRuNtex+4ewJ1POEjCqRUUDTNAPkwSMasPvYTxJABKcc7spWj/TbMxuk4gHIGeYDuTJlqcmaeh+GuWktK9I7xDuXWi4QVtsKH5vKwHKSsooSH4cwWh6rKQ9NAIesb2pNVbYhqNNKfTzhtuf/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GMv+D5XNXaUs7jlSi3vF8u/xKZa1WRXWQ+kXGL1O4rw=;
+ b=jH65inIfaW+FPoj0ivQApSlApYp4n0i6ndH+qGKlJiNbAp/2nbZ0nlILd6mOkb15n5zB3SDtgk/nLHFRRb5aVAi1WsyG28962LAU/USfM/Lfe6b065ffomDT4ifBawr0pSfF83tsPv6B/UOezz9qdhceESfy9SEmUXeEQObR3mA=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <linux-kernel@vger.kernel.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Paul Durrant <paul.durrant@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: [PATCH] xen/privcmd: allow fetching resource sizes
+Date: Mon, 11 Jan 2021 16:29:58 +0100
+Message-ID: <20210111152958.7166-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.29.2
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MR2P264CA0091.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:32::31) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 40583e6c-0543-4618-5abf-08d8b645ca88
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5445:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DS7PR03MB54454B6E3E387EA12173E5C48FAB0@DS7PR03MB5445.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DlqyfIfcs7wZnmdzi/K3eVPJCF88nTDxRSGGSxrdxyHrNSRiovh0ynIJAQkYenlAzd+Ctec3Vh5hpS9o//mVrsD04AWnG1q/vubzJiOQmU4pUAeApyUSR3A3WBxD81wwuNwaDzWSt276qgd86BXt2oq8OrKmDZ+BFiYjwCPKPA7h0K34vFFSaC0iOUv8H2LmiusIgO7o3XP9R0C6e1KED5O/NFfjLG86ZxWN+loXXPUz/bAw0iv1DJfLxruBbS4WyCKE9PYBDPgirCMkJ4Zy+vWDafi3XeFx7GAW1VPkapMQURlMRTsvZ/S45CaNvWbgs7XeWbXGxRJ8y+FnBTa7CvVoBeq0F36rdkkh8qrcObFXa9NzoIoCHloZ+032qbEE/P1oGovWVVq4eJjQB36S5g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(6916009)(6496006)(956004)(4326008)(316002)(2616005)(66946007)(66476007)(26005)(6486002)(478600001)(1076003)(66556008)(83380400001)(86362001)(8936002)(2906002)(186003)(16526019)(36756003)(54906003)(6666004)(8676002)(5660300002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RVY0TEsvcFVpSmlUSkYvTEpKS0lNSXdtbmxXV2FpUTlCN3lrOVlPY2YyTFRh?=
+ =?utf-8?B?YVA2MWlzWTZ2MXdKckJOa2tRN25iN0tveTVaV2J6UDlXTW42Tks4TFNBd1lo?=
+ =?utf-8?B?cWFjc3AxY3lUbExtZndpN21HbmxWeWwvaEFOL2lYUDRxaUJCN3JXcHExQ0Vz?=
+ =?utf-8?B?RWxpOFhsbmExeGY3czFvazU3Mlg3MVNKZjFjRzRBcXB2cE01U29YNzZrcWtj?=
+ =?utf-8?B?TmhKTkk4NTVNYzluaDVRZFNOL290Q0t0WjBpN0x2aTUwRE1XODBwc0c1WThW?=
+ =?utf-8?B?bDh1cG9sTEJFTmxMc2g4ekN6dUJaOStFTElsSkY3ODdOODVTUzc3dnBTbHBP?=
+ =?utf-8?B?KzBFeXZsM3JyckZlVmxMZjNMb2QxdDJMTGRLbnhuUS9USUc0QXFiUFhXRTVk?=
+ =?utf-8?B?bHY3UDZRWG5UT2dRaU9UMlpRR1BPditOa1ZGcEFLWFFSeFFrb0h1NTdBbll3?=
+ =?utf-8?B?ZDhWK3FPN0x0bEl2ZVhTTWdHbEZpZ2ZuRFdEaE9QY0RRdzMvYmQxRnZzanlB?=
+ =?utf-8?B?Z3h1OUlsdG11Mmd1Z1VLY3FQS3JidUtGeDVEU1phZnBidnd4MmtJMkloMFlw?=
+ =?utf-8?B?U3ZjU2ZLcFNpVEVZdm1rNEJoa1BncFBlbTJ0MCsreHRIQkpIMS9WdzRpR0Jy?=
+ =?utf-8?B?UTlQZktKOXdtTFJ4TEpWSTQwUmpGbk1TREs5Y3VrTzR4Q1Zic1Y1U1hwM0lR?=
+ =?utf-8?B?WW50L3ovRFBacC8zTTRHalF2akcwQW1RbXdGK1JNeElGN0cxUkRVUjJuczdq?=
+ =?utf-8?B?L2tKUXBKMjd3c2YxOXgraU1TTE1wSGEyZW9LZ3EzRDFQbklCcmUwWWJ1c3RJ?=
+ =?utf-8?B?NEpXR0UxY0NxcWhPeFk3RkJLUEF0OUt6bm85SnZXY0NLeEpJamJjMWQwTkdm?=
+ =?utf-8?B?ZFR3M3h1UCt5Mmg4cTIzVTRpd1dMTzU2UmVVWjVmSFVqc0hSOENSVVJZYUoz?=
+ =?utf-8?B?NGx3bUk1Q1dNNFZTVXovSVZ5eFpPTEtrdVh0Z3E3NUhveGhRcTg3ZUMyVHc2?=
+ =?utf-8?B?elJ0ZUwzMERsWm5wK25EcXhiQWY1TThrQTZNRUZLV1B4YnM3SW4zc3krNkdy?=
+ =?utf-8?B?bEwrWldnTUlkMWkyVExZTFJobU1jYmZ2ZzNOL0FDK2dOa2FRY1psMXJZOCtV?=
+ =?utf-8?B?MXRsWlhocVRRa0hGUlk5czVFS3FENG4xZDhRZFQ3QXN6SUR1d29NY1FsRytT?=
+ =?utf-8?B?MW40TU9lL3BVV3VvbGQ0bWNEZDJQbzdpQjBvRFplSUdPVjJPL2FPUkJ0SjdF?=
+ =?utf-8?B?K05pSGdPMXVxRXR6OEw2alAvZEhXOUM5VkJIU3pVS1R3Qnh2a0l1NnZiaFFn?=
+ =?utf-8?Q?nVny3zW267jKHqRxCef3XG6d0d205GkbYQ?=
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2021 15:30:13.8861
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40583e6c-0543-4618-5abf-08d8b645ca88
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xd0gq8wMWFODL27AZFjUwk949HEdj3zNezyti4ZTv/fIwCoLw5KcNZGSYeKGlcYGoJxhYsvcda9F2glL2jJ3zA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5445
+X-OriginatorOrg: citrix.com
 
-With the Xen side of this interface fixed to return real sizes, userspace
-needs to be able to make the query.
+Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num = 0 and
+addr = 0 in order to fetch the size of a specific resource.
 
-Introduce xenforeignmemory_resource_size() for the purpose, bumping the
-library minor version.
+Add a shortcut to the default map resource path, since fetching the
+size requires no address to be passed in, and thus no VMA to setup.
 
-Update both Linux and FreeBSD's osdep_xenforeignmemory_map_resource() to
-understand size requests, skip the mmap() operation, and copy back the
-nr_frames field.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Fixes: 3ad0876554caf ('xen/privcmd: add IOCTL_PRIVCMD_MMAP_RESOURCE')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-CC: Wei Liu <wl@xen.org>
-CC: Paul Durrant <paul@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Michał Leszczyński <michal.leszczynski@cert.pl>
-CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-CC: Tamas K Lengyel <tamas@tklengyel.com>
-
-This depends on a bugfix to the Linux IOCTL to understand size requests and
-pass them on to Xen.
-
-v3:
- * Rewrite from scratch, to avoid breaking restricted domid situations.  In
-   particular, we cannot open a xencall interface and issue blind hypercalls.
+NB: fetching the size of a resource shouldn't trigger an hypercall
+preemption, and hence I've dropped the preempt indications.
 ---
- tools/include/xenforeignmemory.h                 | 15 +++++++++++++++
- tools/libs/foreignmemory/Makefile                |  2 +-
- tools/libs/foreignmemory/core.c                  | 18 ++++++++++++++++++
- tools/libs/foreignmemory/freebsd.c               | 18 +++++++++++++++---
- tools/libs/foreignmemory/libxenforeignmemory.map |  4 ++++
- tools/libs/foreignmemory/linux.c                 | 18 +++++++++++++++---
- 6 files changed, 68 insertions(+), 7 deletions(-)
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Paul Durrant <paul.durrant@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+---
+ drivers/xen/privcmd.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/tools/include/xenforeignmemory.h b/tools/include/xenforeignmemory.h
-index d594be8df0..1ba2f5316b 100644
---- a/tools/include/xenforeignmemory.h
-+++ b/tools/include/xenforeignmemory.h
-@@ -179,6 +179,21 @@ xenforeignmemory_resource_handle *xenforeignmemory_map_resource(
- int xenforeignmemory_unmap_resource(
-     xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres);
- 
-+/**
-+ * Determine the maximum size of a specific resource.
-+ *
-+ * @parm fmem handle to the open foreignmemory interface
-+ * @parm domid the domain id
-+ * @parm type the resource type
-+ * @parm id the type-specific resource identifier
-+ *
-+ * Return 0 on success and fills in *nr_frames.  Sets errno and return -1 on
-+ * error.
-+ */
-+int xenforeignmemory_resource_size(
-+    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
-+    unsigned int id, unsigned long *nr_frames);
-+
- #endif
- 
- /*
-diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
-index 13850f7988..90d80a49ae 100644
---- a/tools/libs/foreignmemory/Makefile
-+++ b/tools/libs/foreignmemory/Makefile
-@@ -2,7 +2,7 @@ XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
--MINOR    = 3
-+MINOR    = 4
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/foreignmemory/core.c b/tools/libs/foreignmemory/core.c
-index 63f12e2450..1e92c567e1 100644
---- a/tools/libs/foreignmemory/core.c
-+++ b/tools/libs/foreignmemory/core.c
-@@ -188,6 +188,24 @@ int xenforeignmemory_unmap_resource(
-     return rc;
+diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+index b0c73c58f987..a6e7e6e4286f 100644
+--- a/drivers/xen/privcmd.c
++++ b/drivers/xen/privcmd.c
+@@ -717,14 +717,15 @@ static long privcmd_ioctl_restrict(struct file *file, void __user *udata)
+ 	return 0;
  }
  
-+int xenforeignmemory_resource_size(
-+    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
-+    unsigned int id, unsigned long *nr_frames)
-+{
-+    xenforeignmemory_resource_handle fres = {
-+        .domid = domid,
-+        .type  = type,
-+        .id    = id,
-+    };
-+    int rc = osdep_xenforeignmemory_map_resource(fmem, &fres);
+-static long privcmd_ioctl_mmap_resource(struct file *file, void __user *udata)
++static long privcmd_ioctl_mmap_resource(struct file *file,
++				struct privcmd_mmap_resource __user *udata)
+ {
+ 	struct privcmd_data *data = file->private_data;
+ 	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma;
+ 	struct privcmd_mmap_resource kdata;
+ 	xen_pfn_t *pfns = NULL;
+-	struct xen_mem_acquire_resource xdata;
++	struct xen_mem_acquire_resource xdata = { };
+ 	int rc;
+ 
+ 	if (copy_from_user(&kdata, udata, sizeof(kdata)))
+@@ -734,6 +735,18 @@ static long privcmd_ioctl_mmap_resource(struct file *file, void __user *udata)
+ 	if (data->domid != DOMID_INVALID && data->domid != kdata.dom)
+ 		return -EPERM;
+ 
++	xdata.domid = kdata.dom;
++	xdata.type = kdata.type;
++	xdata.id = kdata.id;
 +
-+    if ( rc )
-+        return rc;
++	if (!kdata.addr && !kdata.num) {
++		/* Query the size of the resource. */
++		rc = HYPERVISOR_memory_op(XENMEM_acquire_resource, &xdata);
++		if (rc)
++			return rc;
++		return __put_user(xdata.nr_frames, &udata->num);
++	}
 +
-+    *nr_frames = fres.nr_frames;
-+    return 0;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/tools/libs/foreignmemory/freebsd.c b/tools/libs/foreignmemory/freebsd.c
-index 3d403a7cd0..9a2796f0b7 100644
---- a/tools/libs/foreignmemory/freebsd.c
-+++ b/tools/libs/foreignmemory/freebsd.c
-@@ -119,6 +119,10 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
-     };
-     int rc;
+ 	mmap_write_lock(mm);
  
-+    if ( !fres->addr && !fres->nr_frames )
-+        /* Request for resource size.  Skip mmap(). */
-+        goto skip_mmap;
-+
-     fres->addr = mmap(fres->addr, fres->nr_frames << PAGE_SHIFT,
-                       fres->prot, fres->flags | MAP_SHARED, fmem->fd, 0);
-     if ( fres->addr == MAP_FAILED )
-@@ -126,6 +130,7 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
+ 	vma = find_vma(mm, kdata.addr);
+@@ -768,10 +781,6 @@ static long privcmd_ioctl_mmap_resource(struct file *file, void __user *udata)
+ 	} else
+ 		vma->vm_private_data = PRIV_VMA_LOCKED;
  
-     mr.addr = (uintptr_t)fres->addr;
- 
-+ skip_mmap:
-     rc = ioctl(fmem->fd, IOCTL_PRIVCMD_MMAP_RESOURCE, &mr);
-     if ( rc )
-     {
-@@ -136,13 +141,20 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
-         else
-             errno = EOPNOTSUPP;
- 
--        saved_errno = errno;
--        osdep_xenforeignmemory_unmap_resource(fmem, fres);
--        errno = saved_errno;
-+        if ( fres->addr )
-+        {
-+            saved_errno = errno;
-+            osdep_xenforeignmemory_unmap_resource(fmem, fres);
-+            errno = saved_errno;
-+        }
- 
-         return -1;
-     }
- 
-+    /* If requesting size, copy back. */
-+    if ( !fres->addr )
-+        fres->nr_frames = mr.num;
-+
-     return 0;
- }
- 
-diff --git a/tools/libs/foreignmemory/libxenforeignmemory.map b/tools/libs/foreignmemory/libxenforeignmemory.map
-index d5323c87d9..8aca341b99 100644
---- a/tools/libs/foreignmemory/libxenforeignmemory.map
-+++ b/tools/libs/foreignmemory/libxenforeignmemory.map
-@@ -19,3 +19,7 @@ VERS_1.3 {
- 		xenforeignmemory_map_resource;
- 		xenforeignmemory_unmap_resource;
- } VERS_1.2;
-+VERS_1.4 {
-+	global:
-+		xenforeignmemory_resource_size;
-+} VERS_1.3;
-diff --git a/tools/libs/foreignmemory/linux.c b/tools/libs/foreignmemory/linux.c
-index fe73d5ab72..d0eead1196 100644
---- a/tools/libs/foreignmemory/linux.c
-+++ b/tools/libs/foreignmemory/linux.c
-@@ -312,6 +312,10 @@ int osdep_xenforeignmemory_map_resource(
-     };
-     int rc;
- 
-+    if ( !fres->addr && !fres->nr_frames )
-+        /* Request for resource size.  Skip mmap(). */
-+        goto skip_mmap;
-+
-     fres->addr = mmap(fres->addr, fres->nr_frames << PAGE_SHIFT,
-                       fres->prot, fres->flags | MAP_SHARED, fmem->fd, 0);
-     if ( fres->addr == MAP_FAILED )
-@@ -319,6 +323,7 @@ int osdep_xenforeignmemory_map_resource(
- 
-     mr.addr = (uintptr_t)fres->addr;
- 
-+ skip_mmap:
-     rc = ioctl(fmem->fd, IOCTL_PRIVCMD_MMAP_RESOURCE, &mr);
-     if ( rc )
-     {
-@@ -329,13 +334,20 @@ int osdep_xenforeignmemory_map_resource(
-         else
-             errno = EOPNOTSUPP;
- 
--        saved_errno = errno;
--        (void)osdep_xenforeignmemory_unmap_resource(fmem, fres);
--        errno = saved_errno;
-+        if ( fres->addr )
-+        {
-+            saved_errno = errno;
-+            osdep_xenforeignmemory_unmap_resource(fmem, fres);
-+            errno = saved_errno;
-+        }
- 
-         return -1;
-     }
- 
-+    /* If requesting size, copy back. */
-+    if ( !fres->addr )
-+        fres->nr_frames = mr.num;
-+
-     return 0;
- }
- 
+-	memset(&xdata, 0, sizeof(xdata));
+-	xdata.domid = kdata.dom;
+-	xdata.type = kdata.type;
+-	xdata.id = kdata.id;
+ 	xdata.frame = kdata.idx;
+ 	xdata.nr_frames = kdata.num;
+ 	set_xen_guest_handle(xdata.frame_list, pfns);
 -- 
-2.11.0
+2.29.2
 
 
