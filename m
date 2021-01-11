@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66DF92F1652
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 14:52:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64862.114688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1AF32F14CF
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 14:31:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64836.114622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyxbx-0002Un-QR; Mon, 11 Jan 2021 13:51:57 +0000
+	id 1kyxHt-000092-Sm; Mon, 11 Jan 2021 13:31:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64862.114688; Mon, 11 Jan 2021 13:51:57 +0000
+Received: by outflank-mailman (output) from mailman id 64836.114622; Mon, 11 Jan 2021 13:31:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyxbx-0002UN-Mq; Mon, 11 Jan 2021 13:51:57 +0000
-Received: by outflank-mailman (input) for mailman id 64862;
- Mon, 11 Jan 2021 13:51:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZM29=GO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kyxbv-0002UF-De
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 13:51:55 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 44831a7c-bb63-4c0e-a857-de2a9a7e4b38;
- Mon, 11 Jan 2021 13:51:54 +0000 (UTC)
+	id 1kyxHt-00008b-Oj; Mon, 11 Jan 2021 13:31:13 +0000
+Received: by outflank-mailman (input) for mailman id 64836;
+ Mon, 11 Jan 2021 13:31:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ekcf=GO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kyxHs-00008W-EU
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 13:31:12 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id af7a4497-36e8-49cf-abe5-c2e2e3f358ae;
+ Mon, 11 Jan 2021 13:31:11 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D318FAB92;
+ Mon, 11 Jan 2021 13:31:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,102 +38,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44831a7c-bb63-4c0e-a857-de2a9a7e4b38
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610373114;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=HAcV3pYDeQumGZkHBAwCTK57xhRyJmySWgKKlDPRnHk=;
-  b=LyFuE/vsld87GICCYY9FJcOdoZNFPUccMwtN5dFXftZQmrClrbtLxwE0
-   tBuq6mN+g6d2tcdMqTo14Kn5a1w8uf/wIpugbSpXcu9/l/pAgghqS5SjX
-   umedRGEswQP0OKX4GpBWUU8RthmzaptQB4MsvPzxgqAd1c8C/nsK6S12M
-   4=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: Pbnybj48aW/KHLPzOZqhAUWjPfLt6eZwSSzSVzgcoTDkCD6Yfr4wJlMflMoHnFcrIfdQHuZdz0
- dEsF658fALDFTUbazOFa35WmGTj7+oQHwGIkaV9TUzOb5FNtmBFaBo0MGwqerDVOrLxFzfJshY
- FwcskRh5uXOIhMgjASpuTZnpcx6trEw3c+FLH+SrNnt9tGvwvJdqC87cgtI27G+WcBYytC/osU
- WQU2NT6+NIfvEzcDG9nsYPQSkRg1rOCtYYvDp+mT34GKXL0pV81cXLpcN+yZqp01dlzF5I3k3r
- RQI=
-X-SBRS: 5.2
-X-MesageID: 35192170
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,338,1602561600"; 
-   d="scan'208";a="35192170"
-Subject: Re: [PATCH v2 09/11] xen/memory: Fix mapping grant tables with
- XENMEM_acquire_resource
-To: <paul@xen.org>, 'Xen-devel' <xen-devel@lists.xenproject.org>
-CC: 'George Dunlap' <George.Dunlap@eu.citrix.com>, 'Ian Jackson'
-	<iwj@xenproject.org>, 'Jan Beulich' <JBeulich@suse.com>, 'Stefano Stabellini'
-	<sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>, 'Julien Grall'
-	<julien@xen.org>, =?UTF-8?B?J01pY2hhxYIgTGVzemN6ecWEc2tpJw==?=
-	<michal.leszczynski@cert.pl>, 'Hubert Jasudowicz'
-	<hubert.jasudowicz@cert.pl>, 'Tamas K Lengyel' <tamas@tklengyel.com>
-References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
- <20200922182444.12350-10-andrew.cooper3@citrix.com>
- <007a01d69260$248a2fc0$6d9e8f40$@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <320c7ac7-aa89-71e0-8ff4-f95be04fa242@citrix.com>
-Date: Fri, 8 Jan 2021 19:36:02 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: af7a4497-36e8-49cf-abe5-c2e2e3f358ae
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610371870; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CmJqRfbO9GIu/BE78wUPUZSAE3wb0fspx5cHDEnD+xs=;
+	b=AUTrDBjp0rYuxKFt9G5EsdlkOZsaGkFC0oU4cGhS93GE+AsdRCIAkYz2h9599Gm2JH+HYq
+	uvGKfI8nfBQ7fdnemxyTBGs3U0U3l359skyVvg/B5YACb1rEYcwBwdPyL3Ei9P4bmOCH04
+	rZYO+xx+zJhqOwWZ2aSUR8IEKKAgiec=
+Subject: Re: [PATCH 3/5] x86/PV: _PAGE_RW changes may take fast path of
+ mod_l[234]_entry()
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>
+References: <10a01f61-197b-7df4-192d-917fe135df70@suse.com>
+ <11633161-6809-db0c-44e6-e5f383f4ebd2@suse.com>
+ <20210111110841.timv43eteslr54xz@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a0e9df02-5eed-55cc-7fba-0a9acd93d15b@suse.com>
+Date: Mon, 11 Jan 2021 14:31:10 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <007a01d69260$248a2fc0$6d9e8f40$@xen.org>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20210111110841.timv43eteslr54xz@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: FTLPEX02CAS01.citrite.net (10.13.99.120) To
- FTLPEX02CL03.citrite.net (10.13.108.165)
 
-On 24/09/2020 11:47, Paul Durrant wrote:
->> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
->> index e82307bdae..8628f51402 100644
->> --- a/xen/arch/x86/mm.c
->> +++ b/xen/arch/x86/mm.c
->> @@ -4632,7 +4632,6 @@ int arch_acquire_resource(struct domain *d, unsigned int type,
->>          if ( id != (unsigned int)ioservid )
->>              break;
->>
->> -        rc = 0;
->>          for ( i = 0; i < nr_frames; i++ )
->>          {
->>              mfn_t mfn;
->> @@ -4643,6 +4642,9 @@ int arch_acquire_resource(struct domain *d, unsigned int type,
->>
->>              mfn_list[i] = mfn_x(mfn);
->>          }
->> +        if ( i == nr_frames )
->> +            /* Success.  Passed nr_frames back to the caller. */
-> Nit: s/passed/pass
+On 11.01.2021 12:08, Roger Pau Monné wrote:
+> On Tue, Nov 03, 2020 at 11:57:10AM +0100, Jan Beulich wrote:
+>> The only time _PAGE_RW matters when validating an L2 or higher entry is
+>> when a linear page table is tried to be installed. Therefore when we
+>> disallow such at build time, we can allow _PAGE_RW changes to take the
+>> fast paths there.
+> 
+> I think it would be helpful to note why PDEs with linear page tables
+> aren't allowed to have the RW bit set, likely here and in the comment
+> below.
 
-That would change the meaning of the comment, and it would no longer be
-accurate.
+I've changed the description to
 
->
->> +            rc = nr_frames;
->>          break;
->>      }
->>  #endif
->> diff --git a/xen/common/compat/memory.c b/xen/common/compat/memory.c
->> index 834c5e19d1..17619f26ed 100644
->> --- a/xen/common/compat/memory.c
->> +++ b/xen/common/compat/memory.c
->> @@ -611,6 +622,21 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
->>                  break;
->>              }
->>
->> +            if ( split < 0 )
->> +            {
->> +                /* Contintuation occured. */
->> +                ASSERT(rc != XENMEM_acquire_resource);
-> Do you mean "op !=" here?
+"The only time _PAGE_RW matters when validating an L2 or higher entry is
+ when a linear page table is tried to be installed (see the comment ahead
+ of define_get_linear_pagetable()). Therefore when we disallow such at
+ build time, we can allow _PAGE_RW changes to take the fast paths there."
 
-No.  Such an assertion had better trigger every time we hit this path.
+Considering there already is a code comment explaining this, I'm
+less convinced of also editing the comment. An option might be to
+move up the #define-s next to define_get_linear_pagetable(), but
+imo this should then involve moving FASTPATH_FLAG_WHITELIST as
+well.
 
-rc is the continuation information that we're in the middle of
-processing.  See also the comment about this being a giant undebuggable
-mess.
-
-~Andrew
+Jan
 
