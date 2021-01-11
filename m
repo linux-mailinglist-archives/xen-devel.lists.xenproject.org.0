@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA592F1CC1
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 18:43:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65110.115317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3CFD2F1CC4
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 18:43:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65115.115355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kz1DU-000330-Ul; Mon, 11 Jan 2021 17:42:56 +0000
+	id 1kz1Db-0003IJ-SA; Mon, 11 Jan 2021 17:43:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65110.115317; Mon, 11 Jan 2021 17:42:56 +0000
+Received: by outflank-mailman (output) from mailman id 65115.115355; Mon, 11 Jan 2021 17:43:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kz1DU-000321-Mz; Mon, 11 Jan 2021 17:42:56 +0000
-Received: by outflank-mailman (input) for mailman id 65110;
- Mon, 11 Jan 2021 17:42:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kz1Db-0003GQ-EL; Mon, 11 Jan 2021 17:43:03 +0000
+Received: by outflank-mailman (input) for mailman id 65115;
+ Mon, 11 Jan 2021 17:43:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CE/i=GO=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kz1DS-0002a6-WA
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 17:42:55 +0000
-Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.81])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 995c1bff-5d15-4f52-b935-8350b21bd9cd;
- Mon, 11 Jan 2021 17:42:40 +0000 (UTC)
+ id 1kz1DY-0002aB-PE
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 17:43:00 +0000
+Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.80])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c1a01310-3ed6-46e9-896c-386918dfcdbd;
+ Mon, 11 Jan 2021 17:42:39 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.12.1 SBL|AUTH)
- with ESMTPSA id h0968ex0BHgWM3R
+ with ESMTPSA id h0968ex0BHgXM3S
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
  (Client did not present a certificate);
- Mon, 11 Jan 2021 18:42:32 +0100 (CET)
+ Mon, 11 Jan 2021 18:42:33 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +40,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 995c1bff-5d15-4f52-b935-8350b21bd9cd
+X-Inumbo-ID: c1a01310-3ed6-46e9-896c-386918dfcdbd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1610386959;
 	s=strato-dkim-0002; d=aepfle.de;
 	h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:From:
 	Subject:Sender;
-	bh=yv4/vNzbLjhhKaj2O8jZKB9GBNc7GvmmLKVV7dABzFU=;
-	b=lF8D0wpkkGCbRjwRjGkJAZMm66oo/3sv1k9DcojkZua3fsqAQ7Mol6A0QMmeZonhnB
-	/GxiQY9BfHjbAOqbgknuTAOhBfdi1jNZejJBBFodnLQaT72PZabkRCzUxwUShaem1i2c
-	hKwn8bMYQ0TPYZmVTJa0PjfbBy5gijg6m2lcWzCVYwXW1yL4nj4m6wbRFYW8FCE/n52h
-	a7pXx2o5rSH4gfUKcfFtKnB4EW5HQ6ajU9uov60oOHuveY/CGmKtbl6njshIzHIPfqSt
-	B/zFlKS4aCj29o812q54k56XJiQuIIdUavm5AlrfAk42gqdegXOhIsPTzw3FXVXcGjIV
-	8oHQ==
+	bh=o9fNhJYfzxfmis0d+C/AMAb8WbNRM5iWlhebvKPfTxA=;
+	b=ErZhKJvBGNa8Kl03YsgC5oI8KESr88R2w0srAtwgpWH+W+6fANXyeaIhpreMDCDouj
+	ngQCcBgyKA1t3017VbMDIzW3zVAMZousuKUQSU1TPW0yPoXjdYQQ8gGUw4glZ9gv4I0+
+	20I7CHvgMuCOPWOVmZ6EB/KTLel3B3C7Ob3pKxYYX1nT3O+UXWIcbQU8T1BxmQR0UMv6
+	MnWcLKXK4BX3ei2L0WAwJP33zuLwNLU9+o1dPl90A6uHXIH5z2hNp88ntGnzc8I+hsG7
+	hxZGA2rhlMe3fupsGtFT0H3SzXc8KJej86NIn3M+hLabvHb7NQ3ftc0lL82whMIqVYRQ
+	kxmQ==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS2W0g"
 X-RZG-CLASS-ID: mo00
 From: Olaf Hering <olaf@aepfle.de>
@@ -61,155 +60,125 @@ Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v20210111 12/39] tools: unify type checking for data pfns in migration stream
-Date: Mon, 11 Jan 2021 18:41:57 +0100
-Message-Id: <20210111174224.24714-13-olaf@aepfle.de>
+Subject: [PATCH v20210111 13/39] tools: show migration transfer rate in send_dirty_pages
+Date: Mon, 11 Jan 2021 18:41:58 +0100
+Message-Id: <20210111174224.24714-14-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210111174224.24714-1-olaf@aepfle.de>
 References: <20210111174224.24714-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce a helper which decides if a given pfn type has data
-for the migration stream.
+Show how fast domU pages are transferred in each iteration.
 
-No change in behavior intended.
+The relevant data is how fast the pfns travel, not so much how much
+protocol overhead exists. So the reported MiB/sec is just for pfns.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/libs/guest/xg_sr_common.h  | 17 ++++++++++++++++
- tools/libs/guest/xg_sr_restore.c | 34 +++++---------------------------
- tools/libs/guest/xg_sr_save.c    | 14 ++-----------
- 3 files changed, 24 insertions(+), 41 deletions(-)
+ tools/libs/guest/xg_sr_common.h |  2 ++
+ tools/libs/guest/xg_sr_save.c   | 47 +++++++++++++++++++++++++++++++++
+ 2 files changed, 49 insertions(+)
 
 diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
-index cc3ad1c394..70e328e951 100644
+index 70e328e951..f3a7a29298 100644
 --- a/tools/libs/guest/xg_sr_common.h
 +++ b/tools/libs/guest/xg_sr_common.h
-@@ -455,6 +455,23 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
- /* Handle a STATIC_DATA_END record. */
- int handle_static_data_end(struct xc_sr_context *ctx);
+@@ -238,6 +238,8 @@ struct xc_sr_context
+             bool debug;
  
-+static inline bool page_type_has_stream_data(uint32_t type)
-+{
-+    bool ret;
-+
-+    switch (type)
-+    {
-+    case XEN_DOMCTL_PFINFO_XTAB:
-+    case XEN_DOMCTL_PFINFO_XALLOC:
-+    case XEN_DOMCTL_PFINFO_BROKEN:
-+        ret = false;
-+        break;
-+    default:
-+        ret = true;
-+        break;
-+    }
-+    return ret;
-+}
- #endif
- /*
-  * Local variables:
-diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/guest/xg_sr_restore.c
-index f1c3169229..0332ae9f32 100644
---- a/tools/libs/guest/xg_sr_restore.c
-+++ b/tools/libs/guest/xg_sr_restore.c
-@@ -152,9 +152,8 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
+             unsigned long p2m_size;
++            size_t pages_sent;
++            size_t overhead_sent;
  
-     for ( i = 0; i < count; ++i )
-     {
--        if ( (!types || (types &&
--                         (types[i] != XEN_DOMCTL_PFINFO_XTAB &&
--                          types[i] != XEN_DOMCTL_PFINFO_BROKEN))) &&
-+        if ( (!types ||
-+              (types && page_type_has_stream_data(types[i]) == true)) &&
-              !pfn_is_populated(ctx, original_pfns[i]) )
-         {
-             rc = pfn_set_populated(ctx, original_pfns[i]);
-@@ -233,25 +232,8 @@ static int process_page_data(struct xc_sr_context *ctx, unsigned int count,
-     {
-         ctx->restore.ops.set_page_type(ctx, pfns[i], types[i]);
+             struct precopy_stats stats;
  
--        switch ( types[i] )
--        {
--        case XEN_DOMCTL_PFINFO_NOTAB:
--
--        case XEN_DOMCTL_PFINFO_L1TAB:
--        case XEN_DOMCTL_PFINFO_L1TAB | XEN_DOMCTL_PFINFO_LPINTAB:
--
--        case XEN_DOMCTL_PFINFO_L2TAB:
--        case XEN_DOMCTL_PFINFO_L2TAB | XEN_DOMCTL_PFINFO_LPINTAB:
--
--        case XEN_DOMCTL_PFINFO_L3TAB:
--        case XEN_DOMCTL_PFINFO_L3TAB | XEN_DOMCTL_PFINFO_LPINTAB:
--
--        case XEN_DOMCTL_PFINFO_L4TAB:
--        case XEN_DOMCTL_PFINFO_L4TAB | XEN_DOMCTL_PFINFO_LPINTAB:
--
-+        if ( page_type_has_stream_data(types[i]) == true )
-             mfns[nr_pages++] = ctx->restore.ops.pfn_to_gfn(ctx, pfns[i]);
--            break;
--        }
-     }
- 
-     /* Nothing to do? */
-@@ -271,14 +253,8 @@ static int process_page_data(struct xc_sr_context *ctx, unsigned int count,
- 
-     for ( i = 0, j = 0; i < count; ++i )
-     {
--        switch ( types[i] )
--        {
--        case XEN_DOMCTL_PFINFO_XTAB:
--        case XEN_DOMCTL_PFINFO_BROKEN:
--        case XEN_DOMCTL_PFINFO_XALLOC:
--            /* No page data to deal with. */
-+        if ( page_type_has_stream_data(types[i]) == false )
-             continue;
--        }
- 
-         if ( map_errs[j] )
-         {
-@@ -413,7 +389,7 @@ static int handle_page_data(struct xc_sr_context *ctx, struct xc_sr_record *rec)
-             goto err;
-         }
- 
--        if ( type < XEN_DOMCTL_PFINFO_BROKEN )
-+        if ( page_type_has_stream_data(type) == true )
-             /* NOTAB and all L1 through L4 tables (including pinned) should
-              * have a page worth of data in the record. */
-             pages_of_data++;
 diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.c
-index 044d0ae3aa..0546d3d9e6 100644
+index 0546d3d9e6..da031fcfce 100644
 --- a/tools/libs/guest/xg_sr_save.c
 +++ b/tools/libs/guest/xg_sr_save.c
-@@ -153,13 +153,8 @@ static int write_batch(struct xc_sr_context *ctx)
-             goto err;
-         }
+@@ -1,5 +1,6 @@
+ #include <assert.h>
+ #include <arpa/inet.h>
++#include <time.h>
  
--        switch ( types[i] )
--        {
--        case XEN_DOMCTL_PFINFO_BROKEN:
--        case XEN_DOMCTL_PFINFO_XALLOC:
--        case XEN_DOMCTL_PFINFO_XTAB:
-+        if ( page_type_has_stream_data(types[i]) == false )
-             continue;
--        }
+ #include "xg_sr_common.h"
  
-         mfns[nr_pages++] = mfns[i];
-     }
-@@ -177,13 +172,8 @@ static int write_batch(struct xc_sr_context *ctx)
+@@ -238,6 +239,8 @@ static int write_batch(struct xc_sr_context *ctx)
+     iov[3].iov_len = nr_pfns * sizeof(*rec_pfns);
  
-         for ( i = 0, p = 0; i < nr_pfns; ++i )
-         {
--            switch ( types[i] )
--            {
--            case XEN_DOMCTL_PFINFO_BROKEN:
--            case XEN_DOMCTL_PFINFO_XALLOC:
--            case XEN_DOMCTL_PFINFO_XTAB:
-+            if ( page_type_has_stream_data(types[i]) == false )
-                 continue;
--            }
+     iovcnt = 4;
++    ctx->save.pages_sent += nr_pages;
++    ctx->save.overhead_sent += sizeof(rec) + sizeof(hdr) + nr_pfns * sizeof(*rec_pfns);
  
-             if ( errors[p] )
-             {
+     if ( nr_pages )
+     {
+@@ -357,6 +360,43 @@ static int suspend_domain(struct xc_sr_context *ctx)
+     return 0;
+ }
+ 
++static void show_transfer_rate(struct xc_sr_context *ctx, struct timespec *start)
++{
++    xc_interface *xch = ctx->xch;
++    struct timespec end = {}, diff = {};
++    size_t ms, MiB_sec = ctx->save.pages_sent * PAGE_SIZE;
++
++    if (!MiB_sec)
++        return;
++
++    if ( clock_gettime(CLOCK_MONOTONIC, &end) )
++        PERROR("clock_gettime");
++
++    if ( (end.tv_nsec - start->tv_nsec) < 0 )
++    {
++        diff.tv_sec = end.tv_sec - start->tv_sec - 1;
++        diff.tv_nsec = end.tv_nsec - start->tv_nsec + (1000U*1000U*1000U);
++    }
++    else
++    {
++        diff.tv_sec = end.tv_sec - start->tv_sec;
++        diff.tv_nsec = end.tv_nsec - start->tv_nsec;
++    }
++
++    ms = (diff.tv_nsec / (1000U*1000U));
++    if (!ms)
++        ms = 1;
++    ms += (diff.tv_sec * 1000U);
++
++    MiB_sec *= 1000U;
++    MiB_sec /= ms;
++    MiB_sec /= 1024U*1024U;
++
++    errno = 0;
++    IPRINTF("%s: %zu bytes + %zu pages in %ld.%09ld sec, %zu MiB/sec", __func__,
++            ctx->save.overhead_sent, ctx->save.pages_sent, diff.tv_sec, diff.tv_nsec, MiB_sec);
++}
++
+ /*
+  * Send a subset of pages in the guests p2m, according to the dirty bitmap.
+  * Used for each subsequent iteration of the live migration loop.
+@@ -370,9 +410,15 @@ static int send_dirty_pages(struct xc_sr_context *ctx,
+     xen_pfn_t p;
+     unsigned long written;
+     int rc;
++    struct timespec start = {};
+     DECLARE_HYPERCALL_BUFFER_SHADOW(unsigned long, dirty_bitmap,
+                                     &ctx->save.dirty_bitmap_hbuf);
+ 
++    ctx->save.pages_sent = 0;
++    ctx->save.overhead_sent = 0;
++    if ( clock_gettime(CLOCK_MONOTONIC, &start) )
++        PERROR("clock_gettime");
++
+     for ( p = 0, written = 0; p < ctx->save.p2m_size; ++p )
+     {
+         if ( !test_bit(p, dirty_bitmap) )
+@@ -396,6 +442,7 @@ static int send_dirty_pages(struct xc_sr_context *ctx,
+     if ( written > entries )
+         DPRINTF("Bitmap contained more entries than expected...");
+ 
++    show_transfer_rate(ctx, &start);
+     xc_report_progress_step(xch, entries, entries);
+ 
+     return ctx->save.ops.check_vm_state(ctx);
 
