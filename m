@@ -2,34 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 536CF2F1024
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 11:34:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64753.114451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 315102F1033
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 11:37:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64757.114463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyuWn-0008IR-Tb; Mon, 11 Jan 2021 10:34:25 +0000
+	id 1kyuZM-0008Qf-Bd; Mon, 11 Jan 2021 10:37:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64753.114451; Mon, 11 Jan 2021 10:34:25 +0000
+Received: by outflank-mailman (output) from mailman id 64757.114463; Mon, 11 Jan 2021 10:37:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyuWn-0008I2-QG; Mon, 11 Jan 2021 10:34:25 +0000
-Received: by outflank-mailman (input) for mailman id 64753;
- Mon, 11 Jan 2021 10:34:24 +0000
+	id 1kyuZM-0008QG-8J; Mon, 11 Jan 2021 10:37:04 +0000
+Received: by outflank-mailman (input) for mailman id 64757;
+ Mon, 11 Jan 2021 10:37:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oy8T=GO=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kyuWm-0008Hx-Dv
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 10:34:24 +0000
-Received: from mail-ed1-x52e.google.com (unknown [2a00:1450:4864:20::52e])
+ <SRS0=/ci+=GO=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kyuZK-0008QB-B3
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 10:37:02 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7554025f-6159-4956-8df8-17e16980fd58;
- Mon, 11 Jan 2021 10:34:23 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id u19so18278720edx.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Jan 2021 02:34:23 -0800 (PST)
-Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id s12sm7512751edu.28.2021.01.11.02.34.21
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 11 Jan 2021 02:34:22 -0800 (PST)
+ id 20ded69b-1c37-44e7-b017-788f136e59d4;
+ Mon, 11 Jan 2021 10:37:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,79 +35,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7554025f-6159-4956-8df8-17e16980fd58
+X-Inumbo-ID: 20ded69b-1c37-44e7-b017-788f136e59d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610361420;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=1izhtoUn9hLXGbT+UF0mIvWpVF4nqbKOXmnLVycxsOs=;
+  b=hTQAOEdnOy1EDCxRIGcsrxJO0lrvhzd8dGnAfMbQFQhuZMh4l8Wvka8s
+   puZgcIWtDry1026WNUHN+7XTULTrbN6knRuTVw8v9haqbb1u6awJ+VeWd
+   3K2bP8XmBMcx48g6uHu7Rit3tLUginG8XJfqnzkBSE9hijm0h8vkrGaXv
+   g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: hPGRCCtk3OmrrLPqn8KVKjfQt5fOccAzdpYb8+1EYGR0LFV6ThIR1KJM4wguOBuETnjOBhVN1X
+ 7RkZLLp1/gHQhXebz5JM6l+aGJ8leOKIbS8LjHf8zagTluFgiFadpqeeLA+WTDyIjPEoaJxJ8o
+ qEBsTxXqa0jTlSwraV6lfKf3GCGQsBmJhFWHwEpaKjZQWH48N5r3ePfC6nt/l8/geudXvk1D65
+ if4GqFmKAr7ENw54P+0RtqFGgVMCQthXTu522YmivfFA6aYX3/fVGK+UG1cZEC7DWHtt5xzruQ
+ 4p4=
+X-SBRS: 5.2
+X-MesageID: 35179592
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,338,1602561600"; 
+   d="scan'208";a="35179592"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ga83IX+RHKpWMBmOSXhCdgsSXKhKL5UCu5uxesnkbI0yd+yA4f6K/J8qGurZeBBLFCSyc1plCl2lcp87U8CTQW2MzxOkPKJ8RtBAhXaubRkhrNfrwtsy7TAFLsD8G5sxbBJ/FcwUFgMwBjPxTrRTJQ4sZ9pMUpAkBJ0ADt9dSd6ftKrQnnMJMpdzE3nIgY1SqbE1+LSJ/DxRoWfbF65R9pI/3bIpLozbEE8u8wSE8b5JpHA4VSXpt6gLj4PRD0tORQy0wU8BfcTvfx1hB9tYD4Uv2tGRuBlsFetLd9We/eg5ob1VjjQ25pmROvEt7705bgnx4z6hhgau3aMZWDjK8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i791hPIHS+GdEsm1BbPjsZfKF067/VAD0sO+e6MAg24=;
+ b=f4bGxyFOiMo19ioXjBTzIIy9gDS/zoF+eEi4/NoP2zcACz7s8n48bHH9jke0kodR1JjQT9tF/ESSI6gontjxfT18t4dxUOuKcvqP+E8KXVq2fXLnyHvz+194IqfS5wCuI/dtkc3Y4b1sGiA2+JONfOKJS6ib18Pn+SovK/BX9fCSoohkZfyEgqwy7J4LgU3WvJSKiwYXAt23BqPsZf03awYZeUBgm/sFhZ0x5ZMFRtGZ6kpw9HvXvEtaf0AxpPJXUZII3EbtzwlnjiPTSaQ+TBJ5GWNsDTeyU0fZruS48L92Ls5MHRqo0OEOBY7RXWM9n4pZtuQf8w2Amlm4Juhhog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id;
-        bh=16BITi26fvnPZ+bW1x44iKt3A3MofOdfGc9DNjTblBU=;
-        b=nas2UMjr/AZS03wz2sjhP9Rtgk5KvgBoikfxituT2RTFrkKVU2Azvjra5/HLpMem/k
-         gBbY92fNe9JtBY7DDVKh4LvjojNfWeB4NAYqLyLd8o8Tdx2tM523nIuKbx2/hi2h75Zr
-         FhlgUPwZWeh1RzRxnD/7F/e6euYSt6LYNy0+06gFozr6G/ZkVX0dL5Rodo6hiWyMY5vD
-         kevXs7RzMQ1+J4oErAUAVkwco3SPhcMwHbgSZm6WNqmwfQH5G9Qku74Vqyz+cXZG+TNB
-         E5hMserERnv7iJHDP6iK0UVFX7zp+fwa+TBFqfLkQM2O16GFgLTr7Q1x4yxmvwdrCdDK
-         NWow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=16BITi26fvnPZ+bW1x44iKt3A3MofOdfGc9DNjTblBU=;
-        b=N9d1KenaYT+rXbzaiyAuAAEoXM/qVW0Rlj8kz+FYbJg4+j5zavqi+zAsIHknr1lEF9
-         HdyQ7QnAGl+qXkMH9TKrSJkus2L1+/9VKVXwPq0KMYgYURRZeWS17Rl3KNjPK4V3HWyi
-         lEIgXQ84O0rTlYszaEAfqaoIprZY8KcVZtNeHEEYIbSNMm5vcwbO0xl1WEz5hkqvt3UX
-         zWaJKB8QHJK6u6+LQYnb7oqCji0JpYSvBwrVpQpJSDAZ5wlDtj1mws+u7Jb2NILivpNz
-         W59ST48ZpGyTMHtElGG+fw378fRcaN34FlmCKakznzXQxPPZzMpIszyoMM/TsHh/MgI6
-         5NTg==
-X-Gm-Message-State: AOAM531d11gslZk5aVPmbl8m++cQZysExiM+9NNmzfS8fOuIQ7RSSUC1
-	Our/u+1S2AZNIESBuE9gZA68DEwtbCfEOQ==
-X-Google-Smtp-Source: ABdhPJwfKhdLs1E5ZP/3XltROBBM1kd9ZhJq8LBnffbI2E4DcBG3w9L8AjPPqsbyayRpNe3fE7pdAA==
-X-Received: by 2002:aa7:cdc3:: with SMTP id h3mr13421471edw.52.1610361262611;
-        Mon, 11 Jan 2021 02:34:22 -0800 (PST)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] iommu/arm: ipmmu-vmsa: Use 1U << 31 rather than 1 << 31
-Date: Mon, 11 Jan 2021 12:33:55 +0200
-Message-Id: <1610361235-32697-1-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i791hPIHS+GdEsm1BbPjsZfKF067/VAD0sO+e6MAg24=;
+ b=EWH3IVA+SzKQfOqpm3hW26YxRKH4BniAIxGSiiaDgIqlN4L23UrzV3ozpqht2kAUnPkBO7hClrMqdo9FfD3Mz6fNd9PwP7JmdVT483SclIb78nt7Buo0U5CL7hSNdDsiP/x12oo/2iWSj5u+k5o8lkKvFeexLC83RL9QK+xp4EM=
+Date: Mon, 11 Jan 2021 11:36:48 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>
+Subject: Re: [PATCH 2/5] x86/PV: fold redundant calls to adjust_guest_l<N>e()
+Message-ID: <20210111103648.qhe2pwspekxeizrs@Air-de-Roger>
+References: <10a01f61-197b-7df4-192d-917fe135df70@suse.com>
+ <0199d771-a138-702a-2514-9139d0881175@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0199d771-a138-702a-2514-9139d0881175@suse.com>
+X-ClientProxiedBy: PR3PR09CA0004.eurprd09.prod.outlook.com
+ (2603:10a6:102:b7::9) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 69b35060-2c74-4e7c-f9c2-08d8b61cd0a6
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3738:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB373810EBF4DD6DFBCE4709468FAB0@DM6PR03MB3738.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QBgLIB0gwYogsHF2UGhmrQGOc7GG9nsZzpKhC4GRMzyrpNAFYYgIq70I+VRydZeiuQaaz7+z+IOmNYnR5+qmCtWFnsED66ybjDcfc/98lSPN/p+asTlQeN0XQS/tYXSTgXxFZxOZBThU7+r7jJ/ktiyVAhy2VmnTz0CvrO3QMU6LQO7bx/6l27jRNqbBks8C1P8ORZIBnazMpriqp0V7G6pGgPg3jfnLmRcDFyXage1D5MNWfAIuqRtEFYF+LRnWgKyVY9GmwWVx0iNmCGuQUieY+jj03JEnHL30gW7lQ3mQCzybhOVASEzU+KdeGLFDIx1nUUjKFEjy75uNCrjpx+deB/0bEltHyCp9Hs0clLD3jdOz/aJB3oGlxGHM4yxJpp9MrElWUiWkO76gEYY2FQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(346002)(136003)(396003)(39850400004)(376002)(66556008)(2906002)(5660300002)(478600001)(33716001)(8676002)(9686003)(6666004)(956004)(54906003)(8936002)(16526019)(6496006)(26005)(186003)(85182001)(316002)(6916009)(66946007)(107886003)(66476007)(86362001)(4326008)(6486002)(1076003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?K1U0czBRWHFBdEFSSDZNZ3NDRWVscmc4cFBPYWdhemxQQ3EwQ0NhZVBXeVRG?=
+ =?utf-8?B?bWh6NEozdWEzU3lOb2tZRjBRUThrb3VIQmdFblYyejVBeFJJQ1kvOXBkNHJW?=
+ =?utf-8?B?QXNNc0lWdzJFVEhZTG1kQmd1MmN3UU1icGxxWjVENE1paHpyRGhJcitxT0VT?=
+ =?utf-8?B?a09QcHpLRmRnVW03Ym92b3NBL040Z3ZxSWJleGdVNzRJMnJtQmJPUXlpc3NV?=
+ =?utf-8?B?ZVBDV0FQQjQyOHU0WlZoUlNNenVVcFpreDdHK1lmZXBEMmF3K0NHc3RETU5l?=
+ =?utf-8?B?WWJ0Q2gxNGR5aXhzUW1tQitSNS8waXAzbzdBV3ZCTHBSQ25SMEFhcTkzUCtB?=
+ =?utf-8?B?Rmg3bmpUek5GUFYwbWhrN1QvQkI1ZmNzNGNGbG0zS2NTLzRyOHZ1Y2dac0Rx?=
+ =?utf-8?B?TjYwRlpFMWNRV3hQUW1kRHoyNU4zT0JmUUZxc0ZXQlhaNExRRUJDN3hxRzNz?=
+ =?utf-8?B?cFdvenB1ZzMvT2hzdlhBMWV5QitRdm5TeHQ5RS95Z295amFuM0tZSGdDeW1Y?=
+ =?utf-8?B?VFhHaVMzU1FFa002bnhyTmxtSm4rUko4YmdyMHVsektRNmRXY3U0S292L1I1?=
+ =?utf-8?B?cit3eVdtMjdwRjdXQ3JlYzgvazBza3VIczdMditka1VzZ1JkNk5DWS9YOEtl?=
+ =?utf-8?B?b0JkMGkrbXhmdUcyWVE1cHR2S1M0YWFXcGFZR3J4Z0NKZnRyRVlYYWh3M1gz?=
+ =?utf-8?B?YUhTeWk0RUwzMkpqUG9KQjZEeS8rUWZ3WjgvajBIb0U5K09TTjVGQ1hXUmti?=
+ =?utf-8?B?YWpuUUZqb3hLWWwyRHpVWnNyWE5OOS9ubWdMUGQzNzN6a3l4cytBNSt1NGRa?=
+ =?utf-8?B?S2Fua09OYTY2WTAvVlVzZXczclpGR25sTWt2TmszT2R0RWRMK3c0NXpRUEVC?=
+ =?utf-8?B?eFBUWExkaUQyemdyOVM0YUJxRm9Nc0xPQlQxbmFoOW9vSHBOdFE5YzJFazM5?=
+ =?utf-8?B?YWVkVDUxY0IrS2RNdDFVWE9NeWZtVjdxTEd4Q0s5dy9WbVVxeCtoZWhXOCt5?=
+ =?utf-8?B?Y0ZLNTZQYzgwZ1c0K083Nm0rQkZhMUJ3b0YvMk1GS0tFM05kVFZMd1FhZUQ4?=
+ =?utf-8?B?MUIwREhBM2ZIL3NKVy8yOXNEdDFUeHVGMjRvS1RibUZnQytpNzRhNEpnWUhL?=
+ =?utf-8?B?TVh1OVVWdzZQTitVUUJHZXZrbEJxUjRENXRqemhMemZXTml3dFNiM3BndkxO?=
+ =?utf-8?B?ZDRkTEVpTkN0ZnVzOElhT0V4UUI0VmdySHRRTW9oLzRPclprQlY1dDl2V3dP?=
+ =?utf-8?B?RkFlS3F6WXhyWVA3SUpNbGRtdk5yaUZMamprQllkdnNMSk4rN1A0cElzOVJJ?=
+ =?utf-8?Q?JpSsDqTwsPGxrmYtmG+mpRyTQMfApAEW5T?=
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2021 10:36:54.7355
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69b35060-2c74-4e7c-f9c2-08d8b61cd0a6
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tGLFQkggxLsVH8weQ48sdbbgXN0FLSVL7+c6r8TRp9FLoeo7mdfKMGTx7yhx4yPxF7EZkwuPlTIAWcsrSzxE8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3738
+X-OriginatorOrg: citrix.com
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On Tue, Nov 03, 2020 at 11:56:44AM +0100, Jan Beulich wrote:
+> At least from an abstract perspective it is quite odd for us to compare
+> adjusted old and unadjusted new page table entries when determining
+> whether the fast path can be used. This is largely benign because
+> FASTPATH_FLAG_WHITELIST covers most of the flags which the adjustments
+> may set, and the flags getting set don't affect the outcome of
+> get_page_from_l<N>e(). There's one exception: 32-bit L3 entries get
+> _PAGE_RW set, but get_page_from_l3e() doesn't allow linear page tables
+> to be created at this level for such guests. Apart from this _PAGE_RW
+> is unused by get_page_from_l<N>e() (for N > 1), and hence forcing the
+> bit on early has no functional effect.
+> 
+> The main reason for the change, however, is that adjust_guest_l<N>e()
+> aren't exactly cheap - both in terms of pure code size and because each
+> one has at least one evaluate_nospec() by way of containing
+> is_pv_32bit_domain() conditionals.
+> 
+> Call the functions once ahead of the fast path checks, instead of twice
+> after.
 
-Replace all the use of 1 << 31 with 1U << 31 to prevent undefined
-behavior in the IPMMU-VMSA driver.
+I guess part of the reasoning for doing it that way is because you can
+avoid the adjust_guest_l1e in the slow path if get_page_from_l1e
+fails?
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-This is a follow-up to
-https://patchew.org/Xen/20201224152419.22453-1-julien@xen.org/
----
- xen/drivers/passthrough/arm/ipmmu-vmsa.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+In any case, adjust_guest_l1e was only called once from either the
+fast or the slow paths.
 
-diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-index 346165c..aef358d 100644
---- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-+++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-@@ -187,7 +187,7 @@ static DEFINE_SPINLOCK(ipmmu_devices_lock);
- #define IMCAAR               0x0004
- 
- #define IMTTBCR                        0x0008
--#define IMTTBCR_EAE                    (1 << 31)
-+#define IMTTBCR_EAE                    (1U << 31)
- #define IMTTBCR_PMB                    (1 << 30)
- #define IMTTBCR_SH1_NON_SHAREABLE      (0 << 28)
- #define IMTTBCR_SH1_OUTER_SHAREABLE    (2 << 28)
-@@ -251,7 +251,7 @@ static DEFINE_SPINLOCK(ipmmu_devices_lock);
- #define IMUCTR(n)              ((n) < 32 ? IMUCTR0(n) : IMUCTR32(n))
- #define IMUCTR0(n)             (0x0300 + ((n) * 16))
- #define IMUCTR32(n)            (0x0600 + (((n) - 32) * 16))
--#define IMUCTR_FIXADDEN        (1 << 31)
-+#define IMUCTR_FIXADDEN        (1U << 31)
- #define IMUCTR_FIXADD_MASK     (0xff << 16)
- #define IMUCTR_FIXADD_SHIFT    16
- #define IMUCTR_TTSEL_MMU(n)    ((n) << 4)
--- 
-2.7.4
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks, Roger.
 
