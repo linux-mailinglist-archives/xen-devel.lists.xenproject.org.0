@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F14EF2F0F0D
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 10:27:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64717.114369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 186AF2F0F27
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 10:33:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64723.114382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kytU5-0001Mz-BX; Mon, 11 Jan 2021 09:27:33 +0000
+	id 1kytZt-0002Lt-4s; Mon, 11 Jan 2021 09:33:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64717.114369; Mon, 11 Jan 2021 09:27:33 +0000
+Received: by outflank-mailman (output) from mailman id 64723.114382; Mon, 11 Jan 2021 09:33:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kytU5-0001MZ-8e; Mon, 11 Jan 2021 09:27:33 +0000
-Received: by outflank-mailman (input) for mailman id 64717;
- Mon, 11 Jan 2021 09:27:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kytZt-0002LU-1F; Mon, 11 Jan 2021 09:33:33 +0000
+Received: by outflank-mailman (input) for mailman id 64723;
+ Mon, 11 Jan 2021 09:33:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ekcf=GO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1kytU4-0001MS-93
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 09:27:32 +0000
+ id 1kytZq-0002LN-Sb
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 09:33:30 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c3dff549-bf93-4627-80b8-4a96bcf61afa;
- Mon, 11 Jan 2021 09:27:30 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cef59463-cbe4-4dae-ba2f-01b2154ee0bf;
+ Mon, 11 Jan 2021 09:33:30 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E7143AD26;
- Mon, 11 Jan 2021 09:27:29 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 3C4D5AE40;
+ Mon, 11 Jan 2021 09:33:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,102 +38,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3dff549-bf93-4627-80b8-4a96bcf61afa
+X-Inumbo-ID: cef59463-cbe4-4dae-ba2f-01b2154ee0bf
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610357250; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610357609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=C8QbALRVsgiAbV6fDH+A846dYGzwTGWKztkynP0oJBs=;
-	b=tuZiSPPFdWPuEjlhUXGsyywhOCA/pkNKSr3dtzin61yutOP1WT2/jCR2G9WemDTw1h10nm
-	tvNKu7gAdP3EltD4xGQcLRDK/GHhJZGAs1Yn+lLG2TDiAbnO23jjTV4vBAY4MU6eXXjcax
-	N6V/EEIsv5OozhsV9UPFzCIs9DY/24s=
-Subject: Re: [PATCH] hvmloader: pass PCI MMIO layout to OVMF as an info table
-To: Igor Druzhinin <igor.druzhinin@citrix.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
- iwj@xenproject.org, anthony.perard@citrix.com, xen-devel@lists.xenproject.org
-References: <1610340812-24397-1-git-send-email-igor.druzhinin@citrix.com>
+	bh=PkvVtBbM0CZRHOZiwBqhW6FK+qkS3P/q0oJdKVbwvlY=;
+	b=KUR9V/84ECyT2Hi1canAV3qbRRtu6gWL5aEXFZWgDffNInDwZRJXNOFbODdxuj13s1xFbm
+	j6y/cTX+wtq7bDj9ION5dNlrcFJT6d0IhRrITFsqlacVLBIptv2qjdi64vbnVPWOiZDyoV
+	BzIun/UVgz/8JZAs6ZWviL5mnYBILD4=
+Subject: Re: [PATCH] x86/acpi: remove dead code
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210111092640.98423-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b2ac8d2c-2c63-67e1-6b2b-14afefb2090a@suse.com>
-Date: Mon, 11 Jan 2021 10:27:29 +0100
+Message-ID: <fe2bcd17-f51b-4b0c-ff60-4a09d3973ad0@suse.com>
+Date: Mon, 11 Jan 2021 10:33:28 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <1610340812-24397-1-git-send-email-igor.druzhinin@citrix.com>
+In-Reply-To: <20210111092640.98423-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.01.2021 05:53, Igor Druzhinin wrote:
-> We faced a problem with passing through a PCI device with 64GB BAR to
-> UEFI guest. The BAR is expectedly programmed into 64-bit PCI aperture at
-> 64G address which pushes physical address space to 37 bits. OVMF uses
-> address width early in PEI phase to make DXE identity pages covering
-> the whole addressable space so it needs to know the last address it needs
-> to cover but at the same time not overdo the mappings.
+On 11.01.2021 10:26, Roger Pau Monne wrote:
+> After the recent changes to acpi_fadt_parse_sleep_info the bad label
+> can never be called with facs mapped, and hence the unmap can be
+> removed.
 > 
-> As there is seemingly no other way to pass or get this information in
-> OVMF at this early phase (ACPI is not yet available, PCI is not yet enumerated,
-> xenstore is not yet initialized) - extend the info structure with a new
-> table. Since the structure was initially created to be extendable -
-> the change is backward compatible.
+> Additionally remove the whole label, since it was used by a
+> single caller. Move the relevant code from the label.
+> 
+> No functional change intended.
+> 
+> CID: 1471722
+> Fixes: 16ca5b3f873 ('x86/ACPI: don't invalidate S5 data when S3 wakeup vector cannot be determined')
 
-How does UEFI handle the same situation on baremetal? I'd guess it is
-in even more trouble there, as it couldn't even read addresses from
-BARs, but would first need to assign them (or at least calculate
-their intended positions).
+I kind of consider a "Fixes:" tag contrary to "No functional change
+intended", but I guess Coverity considering this an issue warrants
+the tag at least in a way.
 
-> --- a/tools/firmware/hvmloader/ovmf.c
-> +++ b/tools/firmware/hvmloader/ovmf.c
-> @@ -61,6 +61,14 @@ struct ovmf_info {
->      uint32_t e820_nr;
->  } __attribute__ ((packed));
->  
-> +#define OVMF_INFO_PCI_TABLE 0
-> +struct ovmf_pci_info {
-> +    uint64_t low_start;
-> +    uint64_t low_end;
-> +    uint64_t hi_start;
-> +    uint64_t hi_end;
-> +} __attribute__ ((packed));
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Forming part of ABI, I believe this belongs in a public header,
-which consumers could at least in principle use verbatim if
-they wanted to.
-
-> @@ -74,9 +82,21 @@ static void ovmf_setup_bios_info(void)
->  static void ovmf_finish_bios_info(void)
->  {
->      struct ovmf_info *info = (void *)OVMF_INFO_PHYSICAL_ADDRESS;
-> +    struct ovmf_pci_info *pci_info;
-> +    uint64_t *tables = scratch_alloc(sizeof(uint64_t)*OVMF_INFO_MAX_TABLES, 0);
-
-I wasn't able to locate OVMF_INFO_MAX_TABLES in either
-xen/include/public/ or tools/firmware/. Where does it get
-defined?
-
-Also (nit) missing blanks around * .
-
->      uint32_t i;
->      uint8_t checksum;
->  
-> +    pci_info = scratch_alloc(sizeof(struct ovmf_pci_info), 0);
-
-Is "scratch" correct here and above? I guess intended usage /
-scope will want spelling out somewhere.
-
-> +    pci_info->low_start = pci_mem_start;
-> +    pci_info->low_end = pci_mem_end;
-> +    pci_info->hi_start = pci_hi_mem_start;
-> +    pci_info->hi_end = pci_hi_mem_end;
-> +
-> +    tables[OVMF_INFO_PCI_TABLE] = (uint32_t)pci_info;
-> +    info->tables = (uint32_t)tables;
-> +    info->tables_nr = 1;
-
-In how far is this problem (and hence solution / workaround) OVMF
-specific? IOW don't we need a more generic approach here?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
