@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E862F10CE
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 12:07:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64775.114504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB4F92F10D5
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 12:09:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64779.114517 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyv2B-0002zS-59; Mon, 11 Jan 2021 11:06:51 +0000
+	id 1kyv48-00037K-IP; Mon, 11 Jan 2021 11:08:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64775.114504; Mon, 11 Jan 2021 11:06:51 +0000
+Received: by outflank-mailman (output) from mailman id 64779.114517; Mon, 11 Jan 2021 11:08:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyv2B-0002z6-22; Mon, 11 Jan 2021 11:06:51 +0000
-Received: by outflank-mailman (input) for mailman id 64775;
- Mon, 11 Jan 2021 11:06:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1kyv29-0002z1-7j
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 11:06:49 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kyv28-0002DQ-9S; Mon, 11 Jan 2021 11:06:48 +0000
-Received: from [54.239.6.190] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1kyv27-0007cm-RC; Mon, 11 Jan 2021 11:06:48 +0000
+	id 1kyv48-00036v-F0; Mon, 11 Jan 2021 11:08:52 +0000
+Received: by outflank-mailman (input) for mailman id 64779;
+ Mon, 11 Jan 2021 11:08:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/ci+=GO=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1kyv46-00036X-Ti
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 11:08:50 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f17eb617-0926-4cf6-b66a-47e0533372ec;
+ Mon, 11 Jan 2021 11:08:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,162 +35,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=sjx11oUENH/8fzYRD9Znuw8t9gpoah1S9bhEDvxtS+U=; b=XaEVHS1CbJK736FvMtSOWgq/Yo
-	E9sk3imOUGM56/V2pA4d3Pdf/mbh0B7t9F2Wuc65fzsQAGTYDEmL6gak2V5bjXwVDyPbfTPmiIW+y
-	qGqZRln1rmn2cjAdEfYljjl9qWBq9h6uAwBzzM3jLR2gjcI/M+hA+NnrFZs78LNuBfc4=;
-Subject: Re: [PATCH v4 01/10] evtchn: use per-channel lock where possible
+X-Inumbo-ID: f17eb617-0926-4cf6-b66a-47e0533372ec
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610363329;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=VBlCmPSb9SLCfJbzEYb1L7r6U0Y8EXORYiw2NM5roCU=;
+  b=QJMuFIxKHurzEr5+I4KDKO6h6z+jzeHT6Gb8MYDJXIkzrCldmNaopaA9
+   zCSn5saGt7V+A9AW4CqHYwcp7Z+iXvNWW/O0QwJyhWb7GyRJ3BKMJvXqp
+   USuzaA2KYb/9nNSCrIAenrJ2sYpriOtG43oach8MWGU6Ub5pMRt1bfiqV
+   U=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: HLcvZl4+BxUoMTTuq0z7UqDF5q3M+HtW2hksAEyo6oOBW//QsN1nZMlrZ85E8ZrEd3KdJ6PMky
+ x33QxNdwSTU9/qR03Tu5F9pGPN5EkZSByx4TCQpKY+2cGmisXU+r0zpcO2uABuvShtqIdOrLxP
+ it0C+60gLX82+1uM8A9GyQYLlSpu2Mi6bQ3DCMX6Vr0MumURvYUJuANpkgGf/mId334f9svFPF
+ mJjL65u6Lw+bU7/k0R4CXaxHdIvEYLiPTghxoyFBn+RVOW4W1a034SbmwnE/F9UPRmpTjDjqBS
+ xIQ=
+X-SBRS: 5.2
+X-MesageID: 34804076
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,338,1602561600"; 
+   d="scan'208";a="34804076"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AJrLgCXgBhyAZdxtZXaSh3Al4HuBf9JXXhl9ELEfQPHnAellNig07sRDiowBr6vmX3DSt+Au8p9QeZ016fGx0qqagXJPAn2R2CvBo8KjpUkojQsyr6+tZY9QR1PQK8RRvfMrbhd/WPTTYDI5hErQBckomCWmLojinrQ0cYoa50LGBpUTtHXZSUFFhLWJ8iBdO7UqsX3IUwLmAB74optawEq5pHJXlg9rbLcli8HOpeD9rUCaLf0h0vOM1SRMnyp49AULUMK1/NgvrdQgdZPcki/14k/cwxFnhab6fJzkUtPzOWcegvW901hqmm3u7q3ZW6aZBchPPVbwOEsDcBP2cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VBlCmPSb9SLCfJbzEYb1L7r6U0Y8EXORYiw2NM5roCU=;
+ b=B7LETVRJ30GfdmlGUu0pdR9fO7FnY3DPrIBhyo5FbV6a1ZYYp25UL60wl3P7MLUl9YN5hasgDhpDeuNzmTLTA1SCCwcu/ygNvA/rfaastoR9yBX5PD3D7qdo1cSQrJWHlnkU+ayVXtcw9vMuunOZkXTLig5zMCtgZREQriYlTD+jnNxq5ZfLXb/Sn8qIwNBZcgeH5AR/tYhWLXJ4TII+tkBbqANLKmDNFJLJLPzG4y81qPim0wdlEjzbpuhYqrjQdZMVdruJJzCTyAWp8/kHX1e/vVsA3J7FlRQjVFGYPl7M3WpcKEV6ouMF69jNNzHZn3RzCUC6XAYBkAfZZceIRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VBlCmPSb9SLCfJbzEYb1L7r6U0Y8EXORYiw2NM5roCU=;
+ b=H1R1iofwS9bH1zyxJpx8DHbFrkLk9poUCdCkVpMlnK336hRTDqYtYROSlCdf7rsoGrtdDNLLFCCmEVk3yxcw25CjFgVu7Rch/6wZjkDz3F3Q52BXKM5KJ6Jnt5Rl3ZdmSJFO8HCDtQa48rHBs6gOfG3iDHxkYdc4Mvspc/Uji3A=
+Date: Mon, 11 Jan 2021 12:08:41 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cf0a1c24-0146-1017-7310-9536f2ed0ad1@suse.com>
- <e03cb246-c08b-5977-9137-a38974364445@suse.com>
- <3c393170-09f9-6d31-c227-b599f8769e35@xen.org>
- <69e94f3e-5fca-e77e-0b85-56057e7fce19@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a0978c49-7bda-3fb5-2c95-ba53b49b55ab@xen.org>
-Date: Mon, 11 Jan 2021 11:06:45 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.0
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>
+Subject: Re: [PATCH 3/5] x86/PV: _PAGE_RW changes may take fast path of
+ mod_l[234]_entry()
+Message-ID: <20210111110841.timv43eteslr54xz@Air-de-Roger>
+References: <10a01f61-197b-7df4-192d-917fe135df70@suse.com>
+ <11633161-6809-db0c-44e6-e5f383f4ebd2@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <11633161-6809-db0c-44e6-e5f383f4ebd2@suse.com>
+X-ClientProxiedBy: LO2P265CA0253.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:8a::25) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <69e94f3e-5fca-e77e-0b85-56057e7fce19@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 995ee79e-0b09-42aa-a355-08d8b621444d
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5178:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB51780BB7084CC61B39A8BF2B8FAB0@DM6PR03MB5178.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: G89ELdGWT2+hwepMooxKicUMOAVrDopRQFClnWNcBMYGH6c5fgKqgCVzkSTT+gIxZ5QW1qcgJc1F/1tYX0CkXSh/AV+5V6Yj3uA6lJ7J7Kgt02BzaLWVsOPTx6I/3kuFh6IvDt/gzcp47OhYmDdbB1hFQXo/3vl2vkaH+qlvJjKLEkbBpnkghz4w8HcbxAb5LEyKxrphFZblbv99p5mHk1NTtEIjyxoeU6Q9Cn2cjH3rxfI8spHe7mQkbpCpX0HqPewZ0K0L+1KwUK9cJBR1jqKke2LDPbuLY1F2qqNd4cF00k72nLklV2wvNY3OiWXxCRUDFYcgu4MZu2c8+EVWsOXkd6GEpmn8CHkZ7ux6nMVM+91OqCJqrKOaIV5ysVq+7M7r7qLeU6IavUiBsEw3nA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(346002)(376002)(39850400004)(136003)(396003)(366004)(66476007)(66556008)(66946007)(54906003)(8936002)(4326008)(956004)(6486002)(6916009)(85182001)(1076003)(107886003)(5660300002)(8676002)(6666004)(6496006)(33716001)(26005)(9686003)(316002)(2906002)(186003)(478600001)(86362001)(16526019)(4744005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WFkzcG1jNWY0eE82WWlHanhKL3B0L2x3WGR0QkwweGI5a3NtL3dNd3lteE45?=
+ =?utf-8?B?WGxtWHhxQkN3cCtJdksrTUxSWFdFK0hSZGJobWI0aTFJUzhsY2NhSGY1V0VO?=
+ =?utf-8?B?ZmN2NXRYdHJsU3ZtUzIzVkNhWlB4RCtqdm1yRjNIYjFDY3lCWTVJY2NVd1d4?=
+ =?utf-8?B?VTNvWW9PWTR3TkNld0NrQnExUVpNSVFiSVRNTllyMmcxQWFmTHkrekRzUXgx?=
+ =?utf-8?B?L3NiQ0w3SDRFV3liWWFYcXdyVlFkZ0lqbUh1cEFvNzJzbUVUcnJBVDMrNUMz?=
+ =?utf-8?B?N0RScDVSTmpFQjNwTVFGQnF0eXdjVE5Dc0JSQWFTM0JlWi93a3BsZzEva1Ev?=
+ =?utf-8?B?RytUcjFjUEhyNkxLVi96OEUxZUxsS2tBdkE1MG1aUTd1aGlEWWk3SWRJMWVj?=
+ =?utf-8?B?YVBCUHdWNW5RTndqOGN1M0RlU3FNa3VJa2pCMGQ2MWRKVDlEQ2VZWGF3QnJ3?=
+ =?utf-8?B?M2lKbkU3N08rQVp1NWZNcW4wWWpwa25jRURtUlg4aVFUcVNucHc3M2FCNXRp?=
+ =?utf-8?B?RlBadlcwRFVVSFc0MDZEME9PRWcwU3hQU1ZBODZLYjBYTVV1eEI1azZvaTRm?=
+ =?utf-8?B?bkZPU2ZjaHBIOUdpQ2Y4ZjF0eXFyT3JPQnNuaWszOU1OUjNGdU0rN1V4U1pI?=
+ =?utf-8?B?Q3c3NVRnbDRWYmFvRlJRTEl4MkVRbFNVb2k5M3FiS1kxV3JlZzM4VWJ2dnBK?=
+ =?utf-8?B?MlB3RVZBcTM2dDdUTmEwaHpHWDlVNEp0UnNPNzdRVTZMZzl1N3BqRlhWcnM4?=
+ =?utf-8?B?bXJ5R3dibFk1VGJzSmNUeTVHNzZNekNZbkdwV2NWd1VqUktNeWpXeENBNXBL?=
+ =?utf-8?B?SFNTQlVGMG1yRm5wYWRCejJaNXd2MVM1UHgrdzEwakZySTRFYWg1WFFiRVhL?=
+ =?utf-8?B?RnhOTGFkU00vTGJBY1JrRTdKWTVtQ3hLQVZnZkVCZUk3aXQ0MEtuSmJ4Umpi?=
+ =?utf-8?B?Ymx5S2d0dXRDY0JNU3BETTd5MDB6ek80ckJjM2VqOVo3azhSS25mVTVkWThS?=
+ =?utf-8?B?N0hWTXRMVmp5Sm5JN0lMYTRlYm1TZXdNM1c1b2xUVVBhK1hsNmx1NGVKRkdu?=
+ =?utf-8?B?UTRyNlVrUlBzT3RjNTErNzlMVjkraWYveWRkblR2NlFGMy9rUGFtbi9WbUxF?=
+ =?utf-8?B?MUVaVEF4RTZMMVNUK1Y2dEhla1FESzNzd0RzTVU0dEJYOG9VSzhsQXNpdmJV?=
+ =?utf-8?B?cyt6dlhjL1A0YlBjMHVVb2tPa0h5U21CaU1KY2k4akMrS2xNTHVIRWVBVnlr?=
+ =?utf-8?B?WFdkSjBrakJkU0d0TDQvaVNNYU5MYmdoQ3c1cFRzcEJWS2ZIa1Bjd0NUV0FN?=
+ =?utf-8?Q?65hRE4WpQoDgWlN67EW87nKmrN8gVDZ0re?=
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2021 11:08:46.8392
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 995ee79e-0b09-42aa-a355-08d8b621444d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WK7rJUvNCbRTgi//KyRv3BSEyfltvPEXqhUFjD6eWKyFagPnxFClTI4TGAzwGCS7DIdFa576HaidQ1d7jQfsdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5178
+X-OriginatorOrg: citrix.com
 
-Hi Jan,
+On Tue, Nov 03, 2020 at 11:57:10AM +0100, Jan Beulich wrote:
+> The only time _PAGE_RW matters when validating an L2 or higher entry is
+> when a linear page table is tried to be installed. Therefore when we
+> disallow such at build time, we can allow _PAGE_RW changes to take the
+> fast paths there.
 
-On 11/01/2021 10:14, Jan Beulich wrote:
-> On 08.01.2021 21:32, Julien Grall wrote:
->> Hi Jan,
->>
->> On 05/01/2021 13:09, Jan Beulich wrote:
->>> Neither evtchn_status() nor domain_dump_evtchn_info() nor
->>> flask_get_peer_sid() need to hold the per-domain lock - they all only
->>> read a single channel's state (at a time, in the dump case).
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>> ---
->>> v4: New.
->>>
->>> --- a/xen/common/event_channel.c
->>> +++ b/xen/common/event_channel.c
->>> @@ -968,15 +968,16 @@ int evtchn_status(evtchn_status_t *statu
->>>        if ( d == NULL )
->>>            return -ESRCH;
->>>    
->>> -    spin_lock(&d->event_lock);
->>> -
->>>        if ( !port_is_valid(d, port) )
->>
->> There is one issue that is now becoming more apparent. To be clear, the
->> problem is not in this patch, but I think it is the best place to
->> discuss it as d->event_lock may be part of the solution.
->>
->> After XSA-344, evtchn_destroy() will end up to decrement d->valid_evtchns.
->>
->> Given that evtchn_status() can work on the non-current domain, it would
->> be possible to run it concurrently with evtchn_destroy(). As a
->> consequence, port_is_valid() will be unstable as a valid event channel
->> may turn invalid.
->>
->> AFAICT, we are getting away so far, as the memory is not freed until the
->> domain is fully destroyed. However, we re-introduced XSA-338 in a
->> different way.
->>
->> To be clear this is not the fault of this patch. But I don't think this
->> is sane to re-introduce a behavior that lead us to an XSA.
-> 
-> I'm getting confused, I'm afraid, from the varying statements above:
-> Are you suggesting this patch does re-introduce bad behavior or not?
+I think it would be helpful to note why PDEs with linear page tables
+aren't allowed to have the RW bit set, likely here and in the comment
+below.
 
-No. I am pointing out that this is widening the bad behavior (again).
-
-> 
-> Yes, the decrementing of ->valid_evtchns has a similar effect, but
-> I'm not convinced it gets us into XSA territory again. The problem
-> wasn't the reducing of ->max_evtchns as such, but the derived
-> assumptions elsewhere in the code. If there were any such again, I
-> suppose we'd have reason to issue another XSA.
-
-I don't think it get us to the XSA territory yet. However, the 
-locking/interaction in the event channel code is quite complex.
-
-To give a concrete example, below the current implementation of 
-free_xen_event_channel():
-
-     if ( !port_is_valid(d, port) )
-     {
-         /*
-          * Make sure ->is_dying is read /after/ ->valid_evtchns, pairing
-          * with the spin_barrier() and BUG_ON() in evtchn_destroy().
-          */
-         smp_rmb();
-         BUG_ON(!d->is_dying);
-         return;
-     }
-
-     evtchn_close(d, port, 0);
-
-It would be fair for a developer to assume that after the check above, 
-port_is_valid() would return true. However, this is not the case...
-
-I am not aware of any issue so far... But I am not ready to be this is 
-not going to be missed out. How about you?
-
- > If there were any such again, I
- > suppose we'd have reason to issue another XSA.
-
-The point of my e-mail is to prevent this XSA to happen. I am pretty 
-sure you want the same.
-
-> 
-> Furthermore there are other paths already using port_is_valid()
-> without holding the domain's event lock; I've not been able to spot
-> a problem with this though, so far.
-
-Right. Most of the fine are fine because d == current. Therefore, the 
-domain must be running and evtchn_destroy() couldn't happen concurrently.
-
-> 
->> I can see two solutions:
->>     1) Use d->event_lock to protect port_is_valid() when d !=
->> current->domain. This would require evtchn_destroy() to grab the lock
->> when updating d->valid_evtchns.
->>     2) Never decrement d->valid_evtchns and use a different field for
->> closing ports
->>
->> I am not a big fan of 1) because this is muddying the already complex
->> locking situation in the event channel code. But I suggested it because
->> I wasn't sure whether you would be happy with 2).
-> 
-> I agree 1) wouldn't be very nice, and you're right in assuming I
-> wouldn't like 2) very much. For the moment I'm not (yet) convinced
-> we need to do anything at all - as you say yourself, while the
-> result of port_is_valid() is potentially unstable when a domain is
-> in the process of being cleaned up, the state guarded by such
-> checks remains usable in (I think) a race free manner.
-
-It remains usable *today*, the question is how long this will last?
-
-All the recent XSAs in the event channel taught me that the 
-locking/interaction is extremely complex. This series is another proof.
-
-We would save us quite a bit of trouble by making port_is_valid() stable 
-no matter the state of the domain.
-
-I think an extra field (option 2) is quite a good compromise with space 
-use, maintenance, speed.
-
-I am would be interested to hear from others.
-
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
