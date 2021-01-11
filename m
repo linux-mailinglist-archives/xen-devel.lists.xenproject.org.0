@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 476662F199D
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 16:27:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64968.114934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 036962F199E
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 16:27:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64971.114944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyz5j-0004CF-Ot; Mon, 11 Jan 2021 15:26:47 +0000
+	id 1kyz6N-0004Hz-1h; Mon, 11 Jan 2021 15:27:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64968.114934; Mon, 11 Jan 2021 15:26:47 +0000
+Received: by outflank-mailman (output) from mailman id 64971.114944; Mon, 11 Jan 2021 15:27:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyz5j-0004Bq-Lb; Mon, 11 Jan 2021 15:26:47 +0000
-Received: by outflank-mailman (input) for mailman id 64968;
- Mon, 11 Jan 2021 15:26:46 +0000
+	id 1kyz6M-0004Hc-Uc; Mon, 11 Jan 2021 15:27:26 +0000
+Received: by outflank-mailman (input) for mailman id 64971;
+ Mon, 11 Jan 2021 15:27:24 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E/gp=GO=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1kyz5h-0004Bl-W7
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 15:26:46 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=ZM29=GO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1kyz6K-0004HT-Mj
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 15:27:24 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8926d3ae-714d-4988-ac03-a0b80eed9bf5;
- Mon, 11 Jan 2021 15:26:44 +0000 (UTC)
+ id 6f87ff1d-a43d-4242-a915-1728fc872e8e;
+ Mon, 11 Jan 2021 15:27:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,98 +36,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8926d3ae-714d-4988-ac03-a0b80eed9bf5
+X-Inumbo-ID: 6f87ff1d-a43d-4242-a915-1728fc872e8e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610378804;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=6ppwAdSPIsj8lcmwpaaqZDhulVB7njcWo8us4WtLNJ4=;
-  b=FcMAQJ+4XBjVro/0kRGlNPOlh3b1uO6w2Od+SnwvJ5ucXiV8wEswr+mQ
-   SwBnPOJLH6ouzj/AeOvzs7T6gEEcMgQihwqLJXFgFCkfznBRgSw8OEW+c
-   yRXwOLJKIRkRxdD3uF0SjRgeVO/J5lvInF/KIr9L2IQRQQWvyFIOhSADf
-   g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: yWsQaJ4wndvxwpUqaZYmZLg/GVQ5UgrL/+k9twNgzNZC/VLDFmoCYImTi310LCbvhCuSSJ/JhX
- Fu3fRjaNquV3xE7Dyuc5+DivglJLytrVgVtWRG0yKY4Ahb3jmWesDLV73xMZ6Fk4JurV8AvDC7
- eZbnZPds+nYkweTh+szBGem7avgkB8dINKeh0kCSEsAC/Hyzq022Hp1MOo4KtDhwOHV/VIfqin
- 4PjKA9tT9USzTYblu9NWPgDKIHGeDDHf9ZArFJfLslx5ZXLCmQvYDf7CdC75kai+BIqA3TQxVh
- A68=
+  d=citrix.com; s=securemail; t=1610378843;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=gJr1hxRm9ymy+c8//PR+2qhjSIwGoGg8/8553KbxLqE=;
+  b=UAFIIelY3xeiQRVzy/6TpOcYA5is/umm3tb5ipBnB0CbDvJlzFtdonxY
+   4LydwrLfi1pTiRv9Nq7tpTkjKn+6nyXDYKtQRGeL/Aie9NetIVXgmI258
+   dS6IHzVOIZxdiMSWL2JIBvSaqGUrkeYm4QTRm6w15PEeKICgqPtXrMfSg
+   o=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: HrJT28L45/yd7Dbxl12PCg/wbAUsaeKsYEvrylm3wGoTkJvrcywrxbKf5+xN5RArmvMhXB1xyc
+ juPhHJjE+PsoOzHDwmGCbSXHhL0mwhTDbxnDmc1C34ARQB1c+4TVfAq51gzOkP8FqDXdVmLoiK
+ H7ajyoEUdR/ufUdx1QuEt+bioLXb3P1TEdBZAGb/X4vhvDWRzaERP5gze+BSPk7f2Pg1LDTqdA
+ w1FxXVs/3NmR3aZkH2KXiR5ZpZmxUsCtI5yshf1uhdyYSKL68YYAZYnnDSHQOlsCYUdG9LO55k
+ bUs=
 X-SBRS: 5.2
-X-MesageID: 35202085
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 34824427
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,338,1602561600"; 
-   d="scan'208";a="35202085"
-Subject: Re: [PATCH] hvmloader: pass PCI MMIO layout to OVMF as an info table
-To: Jan Beulich <jbeulich@suse.com>, Laszlo Ersek <lersek@redhat.com>
-CC: <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>, <wl@xen.org>,
-	<iwj@xenproject.org>, <anthony.perard@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-References: <1610340812-24397-1-git-send-email-igor.druzhinin@citrix.com>
- <b2ac8d2c-2c63-67e1-6b2b-14afefb2090a@suse.com>
- <dd7c459e-43ff-7601-956f-180a1f7c31ff@citrix.com>
- <20b1fe43-370b-9afc-6938-379480908578@redhat.com>
- <aacd5a3b-228d-c93f-31ca-34f29f1ec6e8@suse.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <ef643d22-c547-5ed0-1d2b-b3b1beeab359@citrix.com>
-Date: Mon, 11 Jan 2021 15:26:38 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+   d="scan'208";a="34824427"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <amc96@cam.ac.uk>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Paul Durrant
+	<paul@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>, =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?=
+	<michal.leszczynski@cert.pl>, Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
+	Tamas K Lengyel <tamas@tklengyel.com>
+Subject: [PATCH v3 05/11] tools/foreignmem: Support querying the size of a resource
+Date: Mon, 11 Jan 2021 15:26:57 +0000
+Message-ID: <20210111152657.30868-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20200922182444.12350-6-andrew.cooper3@citrix.com>
+References: <20200922182444.12350-6-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <aacd5a3b-228d-c93f-31ca-34f29f1ec6e8@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 11/01/2021 15:21, Jan Beulich wrote:
-> On 11.01.2021 15:49, Laszlo Ersek wrote:
->> On 01/11/21 15:00, Igor Druzhinin wrote:
->>> On 11/01/2021 09:27, Jan Beulich wrote:
->>>> On 11.01.2021 05:53, Igor Druzhinin wrote:
->>>>> We faced a problem with passing through a PCI device with 64GB BAR to
->>>>> UEFI guest. The BAR is expectedly programmed into 64-bit PCI aperture at
->>>>> 64G address which pushes physical address space to 37 bits. OVMF uses
->>>>> address width early in PEI phase to make DXE identity pages covering
->>>>> the whole addressable space so it needs to know the last address it needs
->>>>> to cover but at the same time not overdo the mappings.
->>>>>
->>>>> As there is seemingly no other way to pass or get this information in
->>>>> OVMF at this early phase (ACPI is not yet available, PCI is not yet enumerated,
->>>>> xenstore is not yet initialized) - extend the info structure with a new
->>>>> table. Since the structure was initially created to be extendable -
->>>>> the change is backward compatible.
->>>>
->>>> How does UEFI handle the same situation on baremetal? I'd guess it is
->>>> in even more trouble there, as it couldn't even read addresses from
->>>> BARs, but would first need to assign them (or at least calculate
->>>> their intended positions).
->>>
->>> Maybe Laszlo or Anthony could answer this question quickly while I'm investigating?
->>
->> On the bare metal, the phys address width of the processor is known.
-> 
-> From CPUID I suppose.
-> 
->> OVMF does the whole calculation in reverse because there's no way for it
->> to know the physical address width of the physical (= host) CPU.
->> "Overdoing" the mappings doesn't only waste resources, it breaks hard
->> with EPT -- access to a GPA that is inexpressible with the phys address
->> width of the host CPU (= not mappable successfully with the nested page
->> tables) will behave super bad. I don't recall the exact symptoms, but it
->> prevents booting the guest OS.
->>
->> This is why the most conservative 36-bit width is assumed by default.
-> 
-> IOW you don't trust virtualized CPUID output?
+With the Xen side of this interface fixed to return real sizes, userspace
+needs to be able to make the query.
 
-I'm discussing this with Andrew and it appears we're certainly more lax in
-wiring physical address width into the guest from hardware directly rather
-than KVM.
+Introduce xenforeignmemory_resource_size() for the purpose, bumping the
+library minor version.
 
-Another problem that I faced while experimenting is that creating page
-tables for 46-bits (that CPUID returned in my case) of address space takes
-about a minute on a modern CPU.
+Update both Linux and FreeBSD's osdep_xenforeignmemory_map_resource() to
+understand size requests, skip the mmap() operation, and copy back the
+nr_frames field.
 
-Igor
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Wei Liu <wl@xen.org>
+CC: Paul Durrant <paul@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Michał Leszczyński <michal.leszczynski@cert.pl>
+CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+CC: Tamas K Lengyel <tamas@tklengyel.com>
+
+This depends on a bugfix to the Linux IOCTL to understand size requests and
+pass them on to Xen.
+
+v3:
+ * Rewrite from scratch, to avoid breaking restricted domid situations.  In
+   particular, we cannot open a xencall interface and issue blind hypercalls.
+---
+ tools/include/xenforeignmemory.h                 | 15 +++++++++++++++
+ tools/libs/foreignmemory/Makefile                |  2 +-
+ tools/libs/foreignmemory/core.c                  | 18 ++++++++++++++++++
+ tools/libs/foreignmemory/freebsd.c               | 18 +++++++++++++++---
+ tools/libs/foreignmemory/libxenforeignmemory.map |  4 ++++
+ tools/libs/foreignmemory/linux.c                 | 18 +++++++++++++++---
+ 6 files changed, 68 insertions(+), 7 deletions(-)
+
+diff --git a/tools/include/xenforeignmemory.h b/tools/include/xenforeignmemory.h
+index d594be8df0..1ba2f5316b 100644
+--- a/tools/include/xenforeignmemory.h
++++ b/tools/include/xenforeignmemory.h
+@@ -179,6 +179,21 @@ xenforeignmemory_resource_handle *xenforeignmemory_map_resource(
+ int xenforeignmemory_unmap_resource(
+     xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres);
+ 
++/**
++ * Determine the maximum size of a specific resource.
++ *
++ * @parm fmem handle to the open foreignmemory interface
++ * @parm domid the domain id
++ * @parm type the resource type
++ * @parm id the type-specific resource identifier
++ *
++ * Return 0 on success and fills in *nr_frames.  Sets errno and return -1 on
++ * error.
++ */
++int xenforeignmemory_resource_size(
++    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
++    unsigned int id, unsigned long *nr_frames);
++
+ #endif
+ 
+ /*
+diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
+index 13850f7988..90d80a49ae 100644
+--- a/tools/libs/foreignmemory/Makefile
++++ b/tools/libs/foreignmemory/Makefile
+@@ -2,7 +2,7 @@ XEN_ROOT = $(CURDIR)/../../..
+ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ MAJOR    = 1
+-MINOR    = 3
++MINOR    = 4
+ 
+ SRCS-y                 += core.c
+ SRCS-$(CONFIG_Linux)   += linux.c
+diff --git a/tools/libs/foreignmemory/core.c b/tools/libs/foreignmemory/core.c
+index 63f12e2450..1e92c567e1 100644
+--- a/tools/libs/foreignmemory/core.c
++++ b/tools/libs/foreignmemory/core.c
+@@ -188,6 +188,24 @@ int xenforeignmemory_unmap_resource(
+     return rc;
+ }
+ 
++int xenforeignmemory_resource_size(
++    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
++    unsigned int id, unsigned long *nr_frames)
++{
++    xenforeignmemory_resource_handle fres = {
++        .domid = domid,
++        .type  = type,
++        .id    = id,
++    };
++    int rc = osdep_xenforeignmemory_map_resource(fmem, &fres);
++
++    if ( rc )
++        return rc;
++
++    *nr_frames = fres.nr_frames;
++    return 0;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/tools/libs/foreignmemory/freebsd.c b/tools/libs/foreignmemory/freebsd.c
+index 3d403a7cd0..9a2796f0b7 100644
+--- a/tools/libs/foreignmemory/freebsd.c
++++ b/tools/libs/foreignmemory/freebsd.c
+@@ -119,6 +119,10 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
+     };
+     int rc;
+ 
++    if ( !fres->addr && !fres->nr_frames )
++        /* Request for resource size.  Skip mmap(). */
++        goto skip_mmap;
++
+     fres->addr = mmap(fres->addr, fres->nr_frames << PAGE_SHIFT,
+                       fres->prot, fres->flags | MAP_SHARED, fmem->fd, 0);
+     if ( fres->addr == MAP_FAILED )
+@@ -126,6 +130,7 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
+ 
+     mr.addr = (uintptr_t)fres->addr;
+ 
++ skip_mmap:
+     rc = ioctl(fmem->fd, IOCTL_PRIVCMD_MMAP_RESOURCE, &mr);
+     if ( rc )
+     {
+@@ -136,13 +141,20 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
+         else
+             errno = EOPNOTSUPP;
+ 
+-        saved_errno = errno;
+-        osdep_xenforeignmemory_unmap_resource(fmem, fres);
+-        errno = saved_errno;
++        if ( fres->addr )
++        {
++            saved_errno = errno;
++            osdep_xenforeignmemory_unmap_resource(fmem, fres);
++            errno = saved_errno;
++        }
+ 
+         return -1;
+     }
+ 
++    /* If requesting size, copy back. */
++    if ( !fres->addr )
++        fres->nr_frames = mr.num;
++
+     return 0;
+ }
+ 
+diff --git a/tools/libs/foreignmemory/libxenforeignmemory.map b/tools/libs/foreignmemory/libxenforeignmemory.map
+index d5323c87d9..8aca341b99 100644
+--- a/tools/libs/foreignmemory/libxenforeignmemory.map
++++ b/tools/libs/foreignmemory/libxenforeignmemory.map
+@@ -19,3 +19,7 @@ VERS_1.3 {
+ 		xenforeignmemory_map_resource;
+ 		xenforeignmemory_unmap_resource;
+ } VERS_1.2;
++VERS_1.4 {
++	global:
++		xenforeignmemory_resource_size;
++} VERS_1.3;
+diff --git a/tools/libs/foreignmemory/linux.c b/tools/libs/foreignmemory/linux.c
+index fe73d5ab72..d0eead1196 100644
+--- a/tools/libs/foreignmemory/linux.c
++++ b/tools/libs/foreignmemory/linux.c
+@@ -312,6 +312,10 @@ int osdep_xenforeignmemory_map_resource(
+     };
+     int rc;
+ 
++    if ( !fres->addr && !fres->nr_frames )
++        /* Request for resource size.  Skip mmap(). */
++        goto skip_mmap;
++
+     fres->addr = mmap(fres->addr, fres->nr_frames << PAGE_SHIFT,
+                       fres->prot, fres->flags | MAP_SHARED, fmem->fd, 0);
+     if ( fres->addr == MAP_FAILED )
+@@ -319,6 +323,7 @@ int osdep_xenforeignmemory_map_resource(
+ 
+     mr.addr = (uintptr_t)fres->addr;
+ 
++ skip_mmap:
+     rc = ioctl(fmem->fd, IOCTL_PRIVCMD_MMAP_RESOURCE, &mr);
+     if ( rc )
+     {
+@@ -329,13 +334,20 @@ int osdep_xenforeignmemory_map_resource(
+         else
+             errno = EOPNOTSUPP;
+ 
+-        saved_errno = errno;
+-        (void)osdep_xenforeignmemory_unmap_resource(fmem, fres);
+-        errno = saved_errno;
++        if ( fres->addr )
++        {
++            saved_errno = errno;
++            osdep_xenforeignmemory_unmap_resource(fmem, fres);
++            errno = saved_errno;
++        }
+ 
+         return -1;
+     }
+ 
++    /* If requesting size, copy back. */
++    if ( !fres->addr )
++        fres->nr_frames = mr.num;
++
+     return 0;
+ }
+ 
+-- 
+2.11.0
+
 
