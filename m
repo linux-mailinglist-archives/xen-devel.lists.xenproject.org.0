@@ -2,28 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB4F92F10D5
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 12:09:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64779.114517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8597C2F10FF
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 12:20:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64787.114527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyv48-00037K-IP; Mon, 11 Jan 2021 11:08:52 +0000
+	id 1kyvEg-0004Bd-Hv; Mon, 11 Jan 2021 11:19:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64779.114517; Mon, 11 Jan 2021 11:08:52 +0000
+Received: by outflank-mailman (output) from mailman id 64787.114527; Mon, 11 Jan 2021 11:19:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyv48-00036v-F0; Mon, 11 Jan 2021 11:08:52 +0000
-Received: by outflank-mailman (input) for mailman id 64779;
- Mon, 11 Jan 2021 11:08:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/ci+=GO=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kyv46-00036X-Ti
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 11:08:50 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f17eb617-0926-4cf6-b66a-47e0533372ec;
- Mon, 11 Jan 2021 11:08:49 +0000 (UTC)
+	id 1kyvEg-0004BG-En; Mon, 11 Jan 2021 11:19:46 +0000
+Received: by outflank-mailman (input) for mailman id 64787;
+ Mon, 11 Jan 2021 11:19:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1kyvEe-0004BB-5v
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 11:19:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1kyvEe-0002Q7-3P
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 11:19:44 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1kyvEe-0008PV-2a
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 11:19:44 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1kyvEW-0003SH-GO; Mon, 11 Jan 2021 11:19:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,118 +41,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f17eb617-0926-4cf6-b66a-47e0533372ec
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610363329;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=VBlCmPSb9SLCfJbzEYb1L7r6U0Y8EXORYiw2NM5roCU=;
-  b=QJMuFIxKHurzEr5+I4KDKO6h6z+jzeHT6Gb8MYDJXIkzrCldmNaopaA9
-   zCSn5saGt7V+A9AW4CqHYwcp7Z+iXvNWW/O0QwJyhWb7GyRJ3BKMJvXqp
-   USuzaA2KYb/9nNSCrIAenrJ2sYpriOtG43oach8MWGU6Ub5pMRt1bfiqV
-   U=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: HLcvZl4+BxUoMTTuq0z7UqDF5q3M+HtW2hksAEyo6oOBW//QsN1nZMlrZ85E8ZrEd3KdJ6PMky
- x33QxNdwSTU9/qR03Tu5F9pGPN5EkZSByx4TCQpKY+2cGmisXU+r0zpcO2uABuvShtqIdOrLxP
- it0C+60gLX82+1uM8A9GyQYLlSpu2Mi6bQ3DCMX6Vr0MumURvYUJuANpkgGf/mId334f9svFPF
- mJjL65u6Lw+bU7/k0R4CXaxHdIvEYLiPTghxoyFBn+RVOW4W1a034SbmwnE/F9UPRmpTjDjqBS
- xIQ=
-X-SBRS: 5.2
-X-MesageID: 34804076
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,338,1602561600"; 
-   d="scan'208";a="34804076"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AJrLgCXgBhyAZdxtZXaSh3Al4HuBf9JXXhl9ELEfQPHnAellNig07sRDiowBr6vmX3DSt+Au8p9QeZ016fGx0qqagXJPAn2R2CvBo8KjpUkojQsyr6+tZY9QR1PQK8RRvfMrbhd/WPTTYDI5hErQBckomCWmLojinrQ0cYoa50LGBpUTtHXZSUFFhLWJ8iBdO7UqsX3IUwLmAB74optawEq5pHJXlg9rbLcli8HOpeD9rUCaLf0h0vOM1SRMnyp49AULUMK1/NgvrdQgdZPcki/14k/cwxFnhab6fJzkUtPzOWcegvW901hqmm3u7q3ZW6aZBchPPVbwOEsDcBP2cA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VBlCmPSb9SLCfJbzEYb1L7r6U0Y8EXORYiw2NM5roCU=;
- b=B7LETVRJ30GfdmlGUu0pdR9fO7FnY3DPrIBhyo5FbV6a1ZYYp25UL60wl3P7MLUl9YN5hasgDhpDeuNzmTLTA1SCCwcu/ygNvA/rfaastoR9yBX5PD3D7qdo1cSQrJWHlnkU+ayVXtcw9vMuunOZkXTLig5zMCtgZREQriYlTD+jnNxq5ZfLXb/Sn8qIwNBZcgeH5AR/tYhWLXJ4TII+tkBbqANLKmDNFJLJLPzG4y81qPim0wdlEjzbpuhYqrjQdZMVdruJJzCTyAWp8/kHX1e/vVsA3J7FlRQjVFGYPl7M3WpcKEV6ouMF69jNNzHZn3RzCUC6XAYBkAfZZceIRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VBlCmPSb9SLCfJbzEYb1L7r6U0Y8EXORYiw2NM5roCU=;
- b=H1R1iofwS9bH1zyxJpx8DHbFrkLk9poUCdCkVpMlnK336hRTDqYtYROSlCdf7rsoGrtdDNLLFCCmEVk3yxcw25CjFgVu7Rch/6wZjkDz3F3Q52BXKM5KJ6Jnt5Rl3ZdmSJFO8HCDtQa48rHBs6gOfG3iDHxkYdc4Mvspc/Uji3A=
-Date: Mon, 11 Jan 2021 12:08:41 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>
-Subject: Re: [PATCH 3/5] x86/PV: _PAGE_RW changes may take fast path of
- mod_l[234]_entry()
-Message-ID: <20210111110841.timv43eteslr54xz@Air-de-Roger>
-References: <10a01f61-197b-7df4-192d-917fe135df70@suse.com>
- <11633161-6809-db0c-44e6-e5f383f4ebd2@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <11633161-6809-db0c-44e6-e5f383f4ebd2@suse.com>
-X-ClientProxiedBy: LO2P265CA0253.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:8a::25) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:To:Date:
+	Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=abQFr/bjbaXdVNUIugjmdexVUay4cR2FBp+VyIx50Mc=; b=F5Nv1GSuirB3DU1m5wq6JnKq6n
+	mKhci1DQHbFMm+Tpo9QNy6tQ/6JQi9YxGJahM5lNT9mgYt5M5TOFEDr7053s+iEwbeBVaGq8yKhLb
+	uepW+eJeLWL8mcJOkbfHsrD+YMduABswhzLWOs4cxlzmjK0XiQN0ZGfSUSIXQnghZNts=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 995ee79e-0b09-42aa-a355-08d8b621444d
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5178:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB51780BB7084CC61B39A8BF2B8FAB0@DM6PR03MB5178.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: G89ELdGWT2+hwepMooxKicUMOAVrDopRQFClnWNcBMYGH6c5fgKqgCVzkSTT+gIxZ5QW1qcgJc1F/1tYX0CkXSh/AV+5V6Yj3uA6lJ7J7Kgt02BzaLWVsOPTx6I/3kuFh6IvDt/gzcp47OhYmDdbB1hFQXo/3vl2vkaH+qlvJjKLEkbBpnkghz4w8HcbxAb5LEyKxrphFZblbv99p5mHk1NTtEIjyxoeU6Q9Cn2cjH3rxfI8spHe7mQkbpCpX0HqPewZ0K0L+1KwUK9cJBR1jqKke2LDPbuLY1F2qqNd4cF00k72nLklV2wvNY3OiWXxCRUDFYcgu4MZu2c8+EVWsOXkd6GEpmn8CHkZ7ux6nMVM+91OqCJqrKOaIV5ysVq+7M7r7qLeU6IavUiBsEw3nA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(346002)(376002)(39850400004)(136003)(396003)(366004)(66476007)(66556008)(66946007)(54906003)(8936002)(4326008)(956004)(6486002)(6916009)(85182001)(1076003)(107886003)(5660300002)(8676002)(6666004)(6496006)(33716001)(26005)(9686003)(316002)(2906002)(186003)(478600001)(86362001)(16526019)(4744005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WFkzcG1jNWY0eE82WWlHanhKL3B0L2x3WGR0QkwweGI5a3NtL3dNd3lteE45?=
- =?utf-8?B?WGxtWHhxQkN3cCtJdksrTUxSWFdFK0hSZGJobWI0aTFJUzhsY2NhSGY1V0VO?=
- =?utf-8?B?ZmN2NXRYdHJsU3ZtUzIzVkNhWlB4RCtqdm1yRjNIYjFDY3lCWTVJY2NVd1d4?=
- =?utf-8?B?VTNvWW9PWTR3TkNld0NrQnExUVpNSVFiSVRNTllyMmcxQWFmTHkrekRzUXgx?=
- =?utf-8?B?L3NiQ0w3SDRFV3liWWFYcXdyVlFkZ0lqbUh1cEFvNzJzbUVUcnJBVDMrNUMz?=
- =?utf-8?B?N0RScDVSTmpFQjNwTVFGQnF0eXdjVE5Dc0JSQWFTM0JlWi93a3BsZzEva1Ev?=
- =?utf-8?B?RytUcjFjUEhyNkxLVi96OEUxZUxsS2tBdkE1MG1aUTd1aGlEWWk3SWRJMWVj?=
- =?utf-8?B?YVBCUHdWNW5RTndqOGN1M0RlU3FNa3VJa2pCMGQ2MWRKVDlEQ2VZWGF3QnJ3?=
- =?utf-8?B?M2lKbkU3N08rQVp1NWZNcW4wWWpwa25jRURtUlg4aVFUcVNucHc3M2FCNXRp?=
- =?utf-8?B?RlBadlcwRFVVSFc0MDZEME9PRWcwU3hQU1ZBODZLYjBYTVV1eEI1azZvaTRm?=
- =?utf-8?B?bkZPU2ZjaHBIOUdpQ2Y4ZjF0eXFyT3JPQnNuaWszOU1OUjNGdU0rN1V4U1pI?=
- =?utf-8?B?Q3c3NVRnbDRWYmFvRlJRTEl4MkVRbFNVb2k5M3FiS1kxV3JlZzM4VWJ2dnBK?=
- =?utf-8?B?MlB3RVZBcTM2dDdUTmEwaHpHWDlVNEp0UnNPNzdRVTZMZzl1N3BqRlhWcnM4?=
- =?utf-8?B?bXJ5R3dibFk1VGJzSmNUeTVHNzZNekNZbkdwV2NWd1VqUktNeWpXeENBNXBL?=
- =?utf-8?B?SFNTQlVGMG1yRm5wYWRCejJaNXd2MVM1UHgrdzEwakZySTRFYWg1WFFiRVhL?=
- =?utf-8?B?RnhOTGFkU00vTGJBY1JrRTdKWTVtQ3hLQVZnZkVCZUk3aXQ0MEtuSmJ4Umpi?=
- =?utf-8?B?Ymx5S2d0dXRDY0JNU3BETTd5MDB6ek80ckJjM2VqOVo3azhSS25mVTVkWThS?=
- =?utf-8?B?N0hWTXRMVmp5Sm5JN0lMYTRlYm1TZXdNM1c1b2xUVVBhK1hsNmx1NGVKRkdu?=
- =?utf-8?B?UTRyNlVrUlBzT3RjNTErNzlMVjkraWYveWRkblR2NlFGMy9rUGFtbi9WbUxF?=
- =?utf-8?B?MUVaVEF4RTZMMVNUK1Y2dEhla1FESzNzd0RzTVU0dEJYOG9VSzhsQXNpdmJV?=
- =?utf-8?B?cyt6dlhjL1A0YlBjMHVVb2tPa0h5U21CaU1KY2k4akMrS2xNTHVIRWVBVnlr?=
- =?utf-8?B?WFdkSjBrakJkU0d0TDQvaVNNYU5MYmdoQ3c1cFRzcEJWS2ZIa1Bjd0NUV0FN?=
- =?utf-8?Q?65hRE4WpQoDgWlN67EW87nKmrN8gVDZ0re?=
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2021 11:08:46.8392
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-Network-Message-Id: 995ee79e-0b09-42aa-a355-08d8b621444d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WK7rJUvNCbRTgi//KyRv3BSEyfltvPEXqhUFjD6eWKyFagPnxFClTI4TGAzwGCS7DIdFa576HaidQ1d7jQfsdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5178
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24572.13383.933043.911224@mariner.uk.xensource.com>
+Date: Mon, 11 Jan 2021 11:19:35 +0000
+To: Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    =?iso-8859-1?Q?Andr=E9?= Przywara <andre.przywara@arm.com>,
+    Bertrand Marquis <bertrand.marquis@arm.com>,
+    xen-devel@lists.xenproject.org
+Subject: Re: Smoke test failure on Arm (was Re: [PATCH v4 0/8] xen/arm:
+ Emulate ID registers) [and 2 more messages]
+In-Reply-To: <094d2819-8658-d74f-e7da-c61cdeb14608@xen.org>,
+	<osstest-158303-mainreport@xen.org>,
+	<E1kyZKj-0000Qd-6A@osstest.test-lab.xenproject.org>
+References: <E1kyZKj-0000Qd-6A@osstest.test-lab.xenproject.org>
+	<osstest-158303-mainreport@xen.org>
+	<cover.1608214355.git.bertrand.marquis@arm.com>
+	<ea8e117c-26c0-5c94-e06a-12027d25d7d6@xen.org>
+	<338ef917-4b67-d839-82e4-164bbf46f85e@arm.com>
+	<alpine.DEB.2.21.2101051042230.4307@sstabellini-ThinkPad-T480s>
+	<7942af32-6bae-36c4-e1ee-dd3edc85097a@xen.org>
+	<alpine.DEB.2.21.2101051425360.4307@sstabellini-ThinkPad-T480s>
+	<db69c99b-d7b5-fe10-b24b-2a673c7b9e28@xen.org>
+	<alpine.DEB.2.21.2101061235160.7075@sstabellini-ThinkPad-T480s>
+	<094d2819-8658-d74f-e7da-c61cdeb14608@xen.org>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On Tue, Nov 03, 2020 at 11:57:10AM +0100, Jan Beulich wrote:
-> The only time _PAGE_RW matters when validating an L2 or higher entry is
-> when a linear page table is tried to be installed. Therefore when we
-> disallow such at build time, we can allow _PAGE_RW changes to take the
-> fast paths there.
+It seems there is still something wrong with ARM in staging.  Whatever
+change was made passed the smoke test but now the main flights are
+failing:
 
-I think it would be helpful to note why PDEs with linear page tables
-aren't allowed to have the RW bit set, likely here and in the comment
-below.
+osstest service owner writes:
+> flight 158303 xen-unstable real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/158303/
+> 
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-arm64-arm64-xl-thunderx  8 xen-boot             fail REGR. vs. 158290
+>  test-arm64-arm64-examine      8 reboot               fail REGR. vs. 158290
+>  test-arm64-arm64-xl-xsm       8 xen-boot             fail REGR. vs. 158290
+>  test-arm64-arm64-xl-credit1   8 xen-boot             fail REGR. vs. 158290
 
-Thanks, Roger.
+The bisector has fingered the same commit in unstable as it did in the
+smoke tests.  That might be because the fix made to staging, to get
+the smoke tests to pass, was not complete enough.  It also might be
+because something different broke the other tests and the tree was
+briefly working in between.
+
+fx: puts on Release Manager hat.  Can one of you ARM folks please take
+a look at this and fix it ASAP ?
+
+Thanks,
+Ian.
+
+osstest service owner writes ("[xen-unstable bisection] complete test-arm64-arm64-xl-xsm"):
+> branch xen-unstable
+> xenbranch xen-unstable
+> job test-arm64-arm64-xl-xsm
+> testid xen-boot
+> 
+> Tree: linux git://xenbits.xen.org/linux-pvops.git
+> Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+> Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+> Tree: xen git://xenbits.xen.org/xen.git
+> 
+> *** Found and reproduced problem changeset ***
+> 
+>   Bug is in tree:  xen git://xenbits.xen.org/xen.git
+>   Bug introduced:  9cfdb489af810f71acb7dcdb87075dc7b3b313a0
+>   Bug not present: a9f1f03b2710f5ce84f69c1c4516349531053fac
+>   Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/158347/
+> 
+> 
+>   commit 9cfdb489af810f71acb7dcdb87075dc7b3b313a0
+>   Author: Bertrand Marquis <bertrand.marquis@arm.com>
+>   Date:   Thu Dec 17 15:38:02 2020 +0000
+>   
+>       xen/arm: Add ID registers and complete cpuinfo
+>       
+>       Add definition and entries in cpuinfo for ID registers introduced in
+>       newer Arm Architecture reference manual:
+>       - ID_PFR2: processor feature register 2
+>       - ID_DFR1: debug feature register 1
+>       - ID_MMFR4 and ID_MMFR5: Memory model feature registers 4 and 5
+>       - ID_ISA6: ISA Feature register 6
+>       Add more bitfield definitions in PFR fields of cpuinfo.
+>       Add MVFR2 register definition for aarch32.
+>       Add MVFRx_EL1 defines for aarch32.
+>       Add mvfr values in cpuinfo.
+>       Add some registers definition for arm64 in sysregs as some are not
+>       always know by compilers.
+>       Initialize the new values added in cpuinfo in identify_cpu during init.
+>       
+>       Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>       Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
