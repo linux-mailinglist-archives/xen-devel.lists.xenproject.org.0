@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB32C2F1CBA
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 18:43:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65107.115282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A37902F1CBE
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 18:43:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65105.115257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kz1DL-0002li-EE; Mon, 11 Jan 2021 17:42:47 +0000
+	id 1kz1DG-0002fC-Px; Mon, 11 Jan 2021 17:42:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65107.115282; Mon, 11 Jan 2021 17:42:47 +0000
+Received: by outflank-mailman (output) from mailman id 65105.115257; Mon, 11 Jan 2021 17:42:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kz1DL-0002km-8p; Mon, 11 Jan 2021 17:42:47 +0000
-Received: by outflank-mailman (input) for mailman id 65107;
- Mon, 11 Jan 2021 17:42:45 +0000
+	id 1kz1DG-0002eh-MW; Mon, 11 Jan 2021 17:42:42 +0000
+Received: by outflank-mailman (input) for mailman id 65105;
+ Mon, 11 Jan 2021 17:42:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CE/i=GO=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kz1DJ-0002aB-Oe
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 17:42:45 +0000
-Received: from mo4-p02-ob.smtp.rzone.de (unknown [85.215.255.84])
+ id 1kz1DE-0002aB-OJ
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 17:42:40 +0000
+Received: from mo4-p02-ob.smtp.rzone.de (unknown [81.169.146.169])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 600a19f3-5a87-4ffe-a35e-cb644ab77342;
+ id fb0e6280-3445-41bb-b592-5befaa3f0abd;
  Mon, 11 Jan 2021 17:42:36 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.12.1 SBL|AUTH)
- with ESMTPSA id h0968ex0BHgVM3O
+ with ESMTPSA id h0968ex0BHgVM3P
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
  (Client did not present a certificate);
  Mon, 11 Jan 2021 18:42:31 +0100 (CET)
@@ -40,18 +40,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 600a19f3-5a87-4ffe-a35e-cb644ab77342
+X-Inumbo-ID: fb0e6280-3445-41bb-b592-5befaa3f0abd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1610386955;
 	s=strato-dkim-0002; d=aepfle.de;
 	h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:From:
 	Subject:Sender;
-	bh=5m93ctia/WnTzxirdrXBAXbAAhmoz3AnrSBGz7krrzI=;
-	b=QZwVtYGwHGjQhie9XA7xJdBjSUpm1Fi5dnCmV9p4sRqonqZamNfi4o2xMqrSqR03qA
-	WI2SVEE1h0hBMV1WQP7BmtIJgJqX9hz7PR1Btl3gtscH7e8JmdfHbQ5sgOGW4uC3XYat
-	PsNEj9N0AAsgUOTvu0LgSe5ZKjJcGI91Vp65UFoHx3/MVRSLfOt7Q3KQbK0vG9AmHBns
-	S5xea2p8OdiG3jdUg5f868WINHCAkqZd6SN6cnum7n1rxuPrDSeV2jZ0KgM7F+73/4Sk
-	Qn/Qsd/p4KXtRJr1fDFdOGHWg1i4am6RsqxQGkGVPVmQQzC9LRv2YqttyApC1uNKgLSn
-	quvA==
+	bh=8EOjWvQk239Wp/aWNifZAKC+Sjf+9ZihUrmLiKkJAAc=;
+	b=S1kioc05rNbum7ScMsIe8sGAf2BhR5SDIpPpfZXni0frqonfBi9xWkGmlwDY6JikGQ
+	8f0A+N86OJfkaWC6S1xaIPQbjHu5H7B/pBXtIcPZ25HNraz564+tqMwAyuZ89mgQhAE3
+	SKp2DoquSB2vYoGHmKBKVETqyqKWYx7rLhUGKjaUWh1F4oQpHnN6JH+CyxSS1VNodZb/
+	oB92lrRQzCnO0I+V1ixSVR/XNiiyzODTmYjU0fwPFc0vzB9r0UbWf4qHjb+UeCnd42LV
+	g3eLIieN03M+h6rI8LSnCLRG62fSY/hZvgXhIBHMZuJJ+8DRHSW+6kyJnO+MTfdD1Cm3
+	Q1cg==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS2W0g"
 X-RZG-CLASS-ID: mo00
 From: Olaf Hering <olaf@aepfle.de>
@@ -59,109 +59,65 @@ To: xen-devel@lists.xenproject.org
 Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v20210111 09/39] tools: add readv_exact to libxenctrl
-Date: Mon, 11 Jan 2021 18:41:54 +0100
-Message-Id: <20210111174224.24714-10-olaf@aepfle.de>
+Subject: [PATCH v20210111 10/39] tools: add xc_is_known_page_type to libxenctrl
+Date: Mon, 11 Jan 2021 18:41:55 +0100
+Message-Id: <20210111174224.24714-11-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210111174224.24714-1-olaf@aepfle.de>
 References: <20210111174224.24714-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Read a batch of iovec's.
-
-In the common case of short reads, finish individual iov's with read_exact.
+Users of xc_get_pfn_type_batch may want to sanity check the data
+returned by Xen. Add a simple helper for this purpose.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/libs/ctrl/xc_private.c | 55 +++++++++++++++++++++++++++++++++++-
- tools/libs/ctrl/xc_private.h |  1 +
- 2 files changed, 55 insertions(+), 1 deletion(-)
+ tools/libs/ctrl/xc_private.h | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/tools/libs/ctrl/xc_private.c b/tools/libs/ctrl/xc_private.c
-index d94f846686..ea420b9ba8 100644
---- a/tools/libs/ctrl/xc_private.c
-+++ b/tools/libs/ctrl/xc_private.c
-@@ -659,8 +659,23 @@ int write_exact(int fd, const void *data, size_t size)
- 
- #if defined(__MINIOS__)
- /*
-- * MiniOS's libc doesn't know about writev(). Implement it as multiple write()s.
-+ * MiniOS's libc doesn't know about readv/writev().
-+ * Implement it as multiple read/write()s.
-  */
-+int readv_exact(int fd, const struct iovec *iov, int iovcnt)
-+{
-+    int rc, i;
-+
-+    for ( i = 0; i < iovcnt; ++i )
-+    {
-+        rc = read_exact(fd, iov[i].iov_base, iov[i].iov_len);
-+        if ( rc )
-+            return rc;
-+    }
-+
-+    return 0;
-+}
-+
- int writev_exact(int fd, const struct iovec *iov, int iovcnt)
- {
-     int rc, i;
-@@ -675,6 +690,44 @@ int writev_exact(int fd, const struct iovec *iov, int iovcnt)
-     return 0;
- }
- #else
-+int readv_exact(int fd, const struct iovec *iov, int iovcnt)
-+{
-+    int rc = 0, idx = 0;
-+    ssize_t len;
-+
-+    while ( idx < iovcnt )
-+    {
-+        len = readv(fd, &iov[idx], min(iovcnt - idx, IOV_MAX));
-+        if ( len == -1 && errno == EINTR )
-+            continue;
-+        if ( len <= 0 )
-+        {
-+            rc = -1;
-+            goto out;
-+        }
-+        while ( len > 0 && idx < iovcnt )
-+        {
-+            if ( len >= iov[idx].iov_len )
-+            {
-+                len -= iov[idx].iov_len;
-+            }
-+            else
-+            {
-+                void *p = iov[idx].iov_base + len;
-+                size_t l = iov[idx].iov_len - len;
-+
-+                rc = read_exact(fd, p, l);
-+                if ( rc )
-+                    goto out;
-+                len = 0;
-+            }
-+            idx++;
-+        }
-+    }
-+out:
-+    return rc;
-+}
-+
- int writev_exact(int fd, const struct iovec *iov, int iovcnt)
- {
-     struct iovec *local_iov = NULL;
 diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
-index f0b5f83ac8..5d2c7274fb 100644
+index 5d2c7274fb..afb08aafe1 100644
 --- a/tools/libs/ctrl/xc_private.h
 +++ b/tools/libs/ctrl/xc_private.h
-@@ -441,6 +441,7 @@ int xc_flush_mmu_updates(xc_interface *xch, struct xc_mmu *mmu);
+@@ -421,6 +421,39 @@ void *xc_map_foreign_ranges(xc_interface *xch, uint32_t dom,
+ int xc_get_pfn_type_batch(xc_interface *xch, uint32_t dom,
+                           unsigned int num, xen_pfn_t *);
  
- /* Return 0 on success; -1 on error setting errno. */
- int read_exact(int fd, void *data, size_t size); /* EOF => -1, errno=0 */
-+int readv_exact(int fd, const struct iovec *iov, int iovcnt);
- int write_exact(int fd, const void *data, size_t size);
- int writev_exact(int fd, const struct iovec *iov, int iovcnt);
++/* Sanitiy check for types returned by Xen */
++static inline bool xc_is_known_page_type(xen_pfn_t type)
++{
++    bool ret;
++
++    switch (type)
++    {
++    case XEN_DOMCTL_PFINFO_NOTAB:
++
++    case XEN_DOMCTL_PFINFO_L1TAB:
++    case XEN_DOMCTL_PFINFO_L1TAB | XEN_DOMCTL_PFINFO_LPINTAB:
++
++    case XEN_DOMCTL_PFINFO_L2TAB:
++    case XEN_DOMCTL_PFINFO_L2TAB | XEN_DOMCTL_PFINFO_LPINTAB:
++
++    case XEN_DOMCTL_PFINFO_L3TAB:
++    case XEN_DOMCTL_PFINFO_L3TAB | XEN_DOMCTL_PFINFO_LPINTAB:
++
++    case XEN_DOMCTL_PFINFO_L4TAB:
++    case XEN_DOMCTL_PFINFO_L4TAB | XEN_DOMCTL_PFINFO_LPINTAB:
++
++    case XEN_DOMCTL_PFINFO_XTAB:
++    case XEN_DOMCTL_PFINFO_XALLOC:
++    case XEN_DOMCTL_PFINFO_BROKEN:
++        ret = true;
++        break;
++    default:
++        ret = false;
++        break;
++    }
++    return ret;
++}
++
+ void bitmap_64_to_byte(uint8_t *bp, const uint64_t *lp, int nbits);
+ void bitmap_byte_to_64(uint64_t *lp, const uint8_t *bp, int nbits);
  
 
