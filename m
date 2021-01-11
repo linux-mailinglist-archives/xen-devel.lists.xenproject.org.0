@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87EBD2F1D0A
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 18:50:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65215.115593 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D7E52F1D10
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 18:50:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65245.115666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kz1KL-0005sM-7y; Mon, 11 Jan 2021 17:50:01 +0000
+	id 1kz1Km-0007E8-TO; Mon, 11 Jan 2021 17:50:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65215.115593; Mon, 11 Jan 2021 17:50:01 +0000
+Received: by outflank-mailman (output) from mailman id 65245.115666; Mon, 11 Jan 2021 17:50:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kz1KL-0005rD-0k; Mon, 11 Jan 2021 17:50:01 +0000
-Received: by outflank-mailman (input) for mailman id 65215;
- Mon, 11 Jan 2021 17:49:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kz1Km-0007D3-OM; Mon, 11 Jan 2021 17:50:28 +0000
+Received: by outflank-mailman (input) for mailman id 65245;
+ Mon, 11 Jan 2021 17:50:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CE/i=GO=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1kz1Eb-0002a6-23
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 17:44:05 +0000
-Received: from mo4-p03-ob.smtp.rzone.de (unknown [85.215.255.101])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d7e6dcb0-eb1c-4ab7-b91a-f1c06ce0161b;
+ id 1kz1EW-0002aB-RZ
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 17:44:00 +0000
+Received: from mo4-p03-ob.smtp.rzone.de (unknown [85.215.255.100])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id af6d430f-bfed-49f6-aca3-479af83c7426;
  Mon, 11 Jan 2021 17:42:48 +0000 (UTC)
 Received: from sender by smtp.strato.de (RZmta 47.12.1 SBL|AUTH)
- with ESMTPSA id h0968ex0BHgeM3l
+ with ESMTPSA id h0968ex0BHgfM3m
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
  (Client did not present a certificate);
- Mon, 11 Jan 2021 18:42:40 +0100 (CET)
+ Mon, 11 Jan 2021 18:42:41 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +40,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7e6dcb0-eb1c-4ab7-b91a-f1c06ce0161b
+X-Inumbo-ID: af6d430f-bfed-49f6-aca3-479af83c7426
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1610386967;
 	s=strato-dkim-0002; d=aepfle.de;
 	h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:From:
 	Subject:Sender;
-	bh=bBxHDLx7AeMPpHXep28OEFmN0H0Z0pHfYy9VAoYWQzc=;
-	b=LSKiUnZR9jv5XVA8GywjywVeLB7puA+0qUSS5ltXOOAPGUWFcoYpwTEdALq5daYn7A
-	pHB/oNTom8As00JgLtspLY4HpfvhEE/PRyYGbjSFheGTcSBt/l7TrHdTCH02Ck7dqyxC
-	0fQz6TbMpq49jVf1Gz8MrRLX2P9pLdIZChRLfFD8ElmplysVGPUjawv0wHH0LWWueKEW
-	653fGt35iyKz+LSqgHWut03GVsyesEoBZr7YpQEKc3WzcGahaRLiy/pB3PMVElI118JI
-	lQrXdkSG1El3B8UmVJ9wMBBhsFxo8mVOk0lKsqoIkMsryY/mAAznnXMvj4SXPG2XJSWR
-	FbQA==
+	bh=WwDDnhse8CduXneDRBL6YsHp+XW3yq2GXbQKQDe3Eoo=;
+	b=BBz3Ubpeblvh003qSTSy9QYMgqExG/Aq37NgN10K6F5WpEiTqY6Qd7O26qDvMjOt31
+	pnnmc9HATKkdgvqF6OOUW8dYYtLCxT55zOzZYxVGzgQgzr59ALY6y5OydAjrmBr5+TG3
+	2d3whHsmMhFcr1cjPDORNY6Sj+M/ZtyMCEegWyjweHH/S43miYpQkrYea7SfrLfQxbmK
+	Fi1BvxFQgKlLSsPLw3Zu8GKnCIRuvwbgdWJr/9CYRoSd43D61UxjfPeedu5/uBLZeFlg
+	4d3jEI5lRrWJvz3jT0WSBcDdBSQpa9CY8B/36Evx65ftAG5SPRPBD3zbJYLFBAHjJIHR
+	AdAg==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS2W0g"
 X-RZG-CLASS-ID: mo00
 From: Olaf Hering <olaf@aepfle.de>
@@ -61,186 +60,93 @@ Cc: Olaf Hering <olaf@aepfle.de>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v20210111 31/39] tools/guest: restore: write data directly into guest
-Date: Mon, 11 Jan 2021 18:42:16 +0100
-Message-Id: <20210111174224.24714-32-olaf@aepfle.de>
+Subject: [PATCH v20210111 32/39] tools: remove tabs from code produced by libxl_save_msgs_gen.pl
+Date: Mon, 11 Jan 2021 18:42:17 +0100
+Message-Id: <20210111174224.24714-33-olaf@aepfle.de>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210111174224.24714-1-olaf@aepfle.de>
 References: <20210111174224.24714-1-olaf@aepfle.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Read incoming migration stream directly into the guest memory.
-This avoids the memory allocation and copying, and the resulting
-performance penalty.
-
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/libs/guest/xg_sr_common.h  |   1 +
- tools/libs/guest/xg_sr_restore.c | 132 ++++++++++++++++++++++++++++++-
- 2 files changed, 129 insertions(+), 4 deletions(-)
+ tools/libs/light/libxl_save_msgs_gen.pl | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
-index 7ec8867b88..f76af23bcc 100644
---- a/tools/libs/guest/xg_sr_common.h
-+++ b/tools/libs/guest/xg_sr_common.h
-@@ -231,6 +231,7 @@ struct xc_sr_restore_arrays {
-     xen_pfn_t mfns[MAX_BATCH_SIZE];
-     int map_errs[MAX_BATCH_SIZE];
-     void *guest_data[MAX_BATCH_SIZE];
-+    struct iovec iov[MAX_BATCH_SIZE];
+diff --git a/tools/libs/light/libxl_save_msgs_gen.pl b/tools/libs/light/libxl_save_msgs_gen.pl
+index 5bfbd4fd10..9d425b1dee 100755
+--- a/tools/libs/light/libxl_save_msgs_gen.pl
++++ b/tools/libs/light/libxl_save_msgs_gen.pl
+@@ -120,8 +120,8 @@ sub typeid ($) { my ($t) = @_; $t =~ s/\W/_/; return $t; };
  
-     /* populate_pfns */
-     xen_pfn_t pp_mfns[MAX_BATCH_SIZE];
-diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/guest/xg_sr_restore.c
-index 060f3d1f4e..2f575d7dd9 100644
---- a/tools/libs/guest/xg_sr_restore.c
-+++ b/tools/libs/guest/xg_sr_restore.c
-@@ -392,6 +392,122 @@ err:
-     return rc;
+ $out_body{'callout'} .= <<END;
+ static int bytes_get(const unsigned char **msg,
+-		     const unsigned char *const endmsg,
+-		     void *result, int rlen)
++                     const unsigned char *const endmsg,
++                     void *result, int rlen)
+ {
+     if (endmsg - *msg < rlen) return 0;
+     memcpy(result, *msg, rlen);
+@@ -132,11 +132,11 @@ static int bytes_get(const unsigned char **msg,
+ END
+ $out_body{'helper'} .= <<END;
+ static void bytes_put(unsigned char *const buf, int *len,
+-		      const void *value, int vlen)
++                      const void *value, int vlen)
+ {
+     assert(vlen < INT_MAX/2 - *len);
+     if (buf)
+-	memcpy(buf + *len, value, vlen);
++        memcpy(buf + *len, value, vlen);
+     *len += vlen;
  }
  
-+/*
-+ * Handle PAGE_DATA record from the stream.
-+ * Given a list of pfns, their types, and a block of page data from the
-+ * stream, populate and record their types, map the relevant subset and copy
-+ * the data into the guest.
-+ */
-+static int handle_incoming_page_data(struct xc_sr_context *ctx,
-+                                     struct xc_sr_rhdr *rhdr)
-+{
-+    xc_interface *xch = ctx->xch;
-+    struct xc_sr_restore_arrays *m = ctx->restore.m;
-+    struct xc_sr_rec_page_data_header *pages = &m->pages;
-+    uint64_t *pfn_nums = m->pages.pfn;
-+    uint32_t i;
-+    int rc, iov_idx;
-+
-+    rc = handle_static_data_end_v2(ctx);
-+    if ( rc )
-+        goto err;
-+
-+    /* First read and verify the header */
-+    rc = read_exact(ctx->fd, pages, sizeof(*pages));
-+    if ( rc )
-+    {
-+        PERROR("Could not read rec_pfn header");
-+        goto err;
-+    }
-+
-+    if ( verify_rec_page_hdr(ctx, rhdr->length, pages) == false )
-+    {
-+        rc = -1;
-+        goto err;
-+    }
-+
-+    /* Then read and verify the incoming pfn numbers */
-+    rc = read_exact(ctx->fd, pfn_nums, sizeof(*pfn_nums) * pages->count);
-+    if ( rc )
-+    {
-+        PERROR("Could not read rec_pfn data");
-+        goto err;
-+    }
-+
-+    if ( verify_rec_page_pfns(ctx, rhdr->length, pages) == false )
-+    {
-+        rc = -1;
-+        goto err;
-+    }
-+
-+    /* Finally read and verify the incoming pfn data */
-+    rc = map_guest_pages(ctx, pages);
-+    if ( rc )
-+        goto err;
-+
-+    /* Prepare read buffers, either guest or throw away memory */
-+    for ( i = 0, iov_idx = 0; i < pages->count; i++ )
-+    {
-+        if ( !m->guest_data[i] )
-+            continue;
-+
-+        m->iov[iov_idx].iov_len = PAGE_SIZE;
-+        if ( ctx->restore.verify )
-+            m->iov[iov_idx].iov_base = ctx->restore.verify_buf + i * PAGE_SIZE;
-+        else
-+            m->iov[iov_idx].iov_base = m->guest_data[i];
-+        iov_idx++;
-+    }
-+
-+    if ( !iov_idx )
-+        goto done;
-+
-+    rc = readv_exact(ctx->fd, m->iov, iov_idx);
-+    if ( rc )
-+    {
-+        PERROR("read of %d pages failed", iov_idx);
-+        goto err;
-+    }
-+
-+    /* Post-processing of pfn data */
-+    for ( i = 0, iov_idx = 0; i < pages->count; i++ )
-+    {
-+        if ( !m->guest_data[i] )
-+            continue;
-+
-+        rc = ctx->restore.ops.localise_page(ctx, m->types[i], m->iov[iov_idx].iov_base);
-+        if ( rc )
-+        {
-+            ERROR("Failed to localise pfn %#"PRIpfn" (type %#"PRIx32")",
-+                  m->pfns[i], m->types[i] >> XEN_DOMCTL_PFINFO_LTAB_SHIFT);
-+            goto err;
-+
-+        }
-+
-+        if ( ctx->restore.verify )
-+        {
-+            if ( memcmp(m->guest_data[i], m->iov[iov_idx].iov_base, PAGE_SIZE) )
-+            {
-+                ERROR("verify pfn %#"PRIpfn" failed (type %#"PRIx32")",
-+                      m->pfns[i], m->types[i] >> XEN_DOMCTL_PFINFO_LTAB_SHIFT);
-+            }
-+        }
-+
-+        iov_idx++;
-+    }
-+
-+done:
-+    rc = 0;
-+
-+err:
-+    if ( ctx->restore.guest_mapping )
-+    {
-+        xenforeignmemory_unmap(xch->fmem, ctx->restore.guest_mapping, ctx->restore.nr_mapped_pages);
-+        ctx->restore.guest_mapping = NULL;
-+    }
-+    return rc;
-+}
-+
- /*
-  * Handle PAGE_DATA record from an existing buffer
-  * Given a list of pfns, their types, and a block of page data from the
-@@ -773,11 +889,19 @@ static int process_incoming_record_header(struct xc_sr_context *ctx, struct xc_s
-     struct xc_sr_record rec;
-     int rc;
- 
--    rc = read_record_data(ctx, ctx->fd, rhdr, &rec);
--    if ( rc )
--        return rc;
-+    switch ( rhdr->type )
-+    {
-+    case REC_TYPE_PAGE_DATA:
-+        rc = handle_incoming_page_data(ctx, rhdr);
-+        break;
-+    default:
-+        rc = read_record_data(ctx, ctx->fd, rhdr, &rec);
-+        if ( rc == 0 )
-+            rc = process_buffered_record(ctx, &rec);;
-+        break;
-+    }
- 
--    return process_buffered_record(ctx, &rec);
-+    return rc;
+@@ -155,7 +155,7 @@ static int ${typeid}_get(const unsigned char **msg,
+ END
+     $out_body{'helper'} .= <<END;
+ static void ${typeid}_put(unsigned char *const buf, int *len,
+-			 const $simpletype value)
++                          const $simpletype value)
+ {
+     bytes_put(buf, len, &value, sizeof(value));
+ }
+@@ -192,15 +192,15 @@ END
+ $out_body{'helper'} .= <<END;
+ static void BLOCK_put(unsigned char *const buf,
+                       int *len,
+-		      const uint8_t *bytes, uint32_t size)
++                      const uint8_t *bytes, uint32_t size)
+ {
+     uint32_t_put(buf, len, size);
+     bytes_put(buf, len, bytes, size);
  }
  
+ static void STRING_put(unsigned char *const buf,
+-		       int *len,
+-		       const char *string)
++                       int *len,
++                       const char *string)
+ {
+     size_t slen = strlen(string);
+     assert(slen < INT_MAX / 4);
+@@ -216,7 +216,7 @@ foreach my $sr (qw(save restore)) {
+            "(void *data)");
  
+     f_decl("${receiveds}_${sr}", 'callout', 'int',
+-	   "(const unsigned char *msg, uint32_t len, void *user)");
++           "(const unsigned char *msg, uint32_t len, void *user)");
+ 
+     f_decl("${enumcallbacks}_${sr}", 'callout', 'unsigned',
+            "(const ".cbtype($sr)." *cbs)");
+@@ -301,7 +301,7 @@ END_ALWAYS
+ 	$c_callback_args .= "$c_args, ";
+ 	$c_recv.=
+             "        if (!${typeid}_get(&msg, endmsg, $c_get_args)) return 0;\n";
+-        f_more("${encode}_$name", "	${typeid}_put(buf, &len, $c_args);\n");
++        f_more("${encode}_$name", "        ${typeid}_put(buf, &len, $c_args);\n");
+     }
+     $f_more_sr->($c_recv);
+     $c_decl .= "void *user)";
 
