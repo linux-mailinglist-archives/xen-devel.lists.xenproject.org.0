@@ -2,29 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF5B42F188C
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 15:44:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.64922.114832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 358AC2F18AA
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jan 2021 15:49:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.64929.114843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyyQM-00087S-Aj; Mon, 11 Jan 2021 14:44:02 +0000
+	id 1kyyVN-0008Oo-UH; Mon, 11 Jan 2021 14:49:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 64922.114832; Mon, 11 Jan 2021 14:44:02 +0000
+Received: by outflank-mailman (output) from mailman id 64929.114843; Mon, 11 Jan 2021 14:49:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kyyQM-000873-7E; Mon, 11 Jan 2021 14:44:02 +0000
-Received: by outflank-mailman (input) for mailman id 64922;
- Mon, 11 Jan 2021 14:44:00 +0000
+	id 1kyyVN-0008OT-RB; Mon, 11 Jan 2021 14:49:13 +0000
+Received: by outflank-mailman (input) for mailman id 64929;
+ Mon, 11 Jan 2021 14:49:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E/gp=GO=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1kyyQK-00086y-TF
- for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 14:44:00 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0131aea9-8654-43d4-baeb-dd1509e5c72f;
- Mon, 11 Jan 2021 14:43:59 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BX5B=GO=redhat.com=lersek@srs-us1.protection.inumbo.net>)
+ id 1kyyVL-0008MJ-Hp
+ for xen-devel@lists.xenproject.org; Mon, 11 Jan 2021 14:49:11 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id bd9d63fd-559e-4e6a-978a-638ccae146ec;
+ Mon, 11 Jan 2021 14:49:10 +0000 (UTC)
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-142-hvzRynkXM9KpBt8AfFQTRA-1; Mon, 11 Jan 2021 09:49:06 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0AA4AAFA80;
+ Mon, 11 Jan 2021 14:49:05 +0000 (UTC)
+Received: from lacos-laptop-7.usersys.redhat.com (ovpn-113-91.ams2.redhat.com
+ [10.36.113.91])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 36FF46A910;
+ Mon, 11 Jan 2021 14:49:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,151 +49,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0131aea9-8654-43d4-baeb-dd1509e5c72f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610376239;
-  h=subject:to:cc:references:from:message-id:date:
-   mime-version:in-reply-to:content-transfer-encoding;
-  bh=jzXwiyDjAc8+4hEErsfOdmByM0+8xw5Onz8PW5s9Fnc=;
-  b=THcLO54lq/5JxGUQsW0q+Dr+ULF99hPEtaLD/WI/ZGDebErs79yIE2gG
-   B5RRxSFIDysrBiviX48K6XWNJbVFThFBWFuNgAtr2/FApOVfvZKtQhz5q
-   lWidWOHXjiMSML0GJEKNm1cDwsCuweqi3dpvGFmSaRBOQtywhHeCETT72
-   0=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: owpQjhqg9XVyvsI3hOYQ4FGXQ0h+YDvd29SK6c9QAMUrEyfj+mtKeeXG+AQN5CLNckZTeWuxHL
- W/oBL6CKYNuVXTGk+lFjSQXwb6702aKHkm3ncE7wktx4b3v0N60vjtNZhaYf8DYlBKbrGw6O+7
- u0FNW+MqTv3Llhkm9o/Cg9iy6+KCP/e3mGYYVneMFaGbOZFAGNhljXEtpxJect+RW2TeUsuLFd
- xggGM+5Unw+gLXsmTrnVcUvV5tMrPoKP74Anvrgc3naSPsZdYSWH3zVJ9Rbkg4fDZTpkkSBbth
- 8ng=
-X-SBRS: 5.2
-X-MesageID: 35046807
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,338,1602561600"; 
-   d="scan'208";a="35046807"
+X-Inumbo-ID: bd9d63fd-559e-4e6a-978a-638ccae146ec
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1610376550;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aPwqYchVna9tB0hZzABObhVrCgBFA7oVs3S7v+ezjRc=;
+	b=agN5yMpm2Q7+7hPynga1Uz4bGttMcRRr/8Ds/TURDPwj9bK0+TlaCjsPSXSSdR+5S47VA2
+	99iwU9puUCG4Blk1RlBeuIEpkijmVXiSUr5/pFAe6IlcW3WaswZ0/1t5XW0bpmV5/1PrYy
+	s9W3FZgaybpIyzc6cEIlHlg6qmtOg4I=
+X-MC-Unique: hvzRynkXM9KpBt8AfFQTRA-1
 Subject: Re: [PATCH] hvmloader: pass PCI MMIO layout to OVMF as an info table
-To: Jan Beulich <jbeulich@suse.com>
-CC: <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>, <wl@xen.org>,
-	<iwj@xenproject.org>, <anthony.perard@citrix.com>,
-	<xen-devel@lists.xenproject.org>, Laszlo Ersek <lersek@redhat.com>
+To: Igor Druzhinin <igor.druzhinin@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, wl@xen.org,
+ iwj@xenproject.org, anthony.perard@citrix.com, xen-devel@lists.xenproject.org
 References: <1610340812-24397-1-git-send-email-igor.druzhinin@citrix.com>
  <b2ac8d2c-2c63-67e1-6b2b-14afefb2090a@suse.com>
  <dd7c459e-43ff-7601-956f-180a1f7c31ff@citrix.com>
- <11dce1f4-026a-0a44-da5c-9e3f4231b57d@suse.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <7aa8fc22-57ce-969c-9142-36be148d92e8@citrix.com>
-Date: Mon, 11 Jan 2021 14:43:54 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+From: Laszlo Ersek <lersek@redhat.com>
+Message-ID: <20b1fe43-370b-9afc-6938-379480908578@redhat.com>
+Date: Mon, 11 Jan 2021 15:49:02 +0100
 MIME-Version: 1.0
-In-Reply-To: <11dce1f4-026a-0a44-da5c-9e3f4231b57d@suse.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <dd7c459e-43ff-7601-956f-180a1f7c31ff@citrix.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lersek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 11/01/2021 14:14, Jan Beulich wrote:
-> On 11.01.2021 15:00, Igor Druzhinin wrote:
->> On 11/01/2021 09:27, Jan Beulich wrote:
->>> On 11.01.2021 05:53, Igor Druzhinin wrote:
->>>> --- a/tools/firmware/hvmloader/ovmf.c
->>>> +++ b/tools/firmware/hvmloader/ovmf.c
->>>> @@ -61,6 +61,14 @@ struct ovmf_info {
->>>>      uint32_t e820_nr;
->>>>  } __attribute__ ((packed));
->>>>  
->>>> +#define OVMF_INFO_PCI_TABLE 0
->>>> +struct ovmf_pci_info {
->>>> +    uint64_t low_start;
->>>> +    uint64_t low_end;
->>>> +    uint64_t hi_start;
->>>> +    uint64_t hi_end;
->>>> +} __attribute__ ((packed));
+On 01/11/21 15:00, Igor Druzhinin wrote:
+> On 11/01/2021 09:27, Jan Beulich wrote:
+>> On 11.01.2021 05:53, Igor Druzhinin wrote:
+>>> We faced a problem with passing through a PCI device with 64GB BAR to
+>>> UEFI guest. The BAR is expectedly programmed into 64-bit PCI aperture at
+>>> 64G address which pushes physical address space to 37 bits. OVMF uses
+>>> address width early in PEI phase to make DXE identity pages covering
+>>> the whole addressable space so it needs to know the last address it needs
+>>> to cover but at the same time not overdo the mappings.
 >>>
->>> Forming part of ABI, I believe this belongs in a public header,
->>> which consumers could at least in principle use verbatim if
->>> they wanted to.
+>>> As there is seemingly no other way to pass or get this information in
+>>> OVMF at this early phase (ACPI is not yet available, PCI is not yet enumerated,
+>>> xenstore is not yet initialized) - extend the info structure with a new
+>>> table. Since the structure was initially created to be extendable -
+>>> the change is backward compatible.
 >>
->> It probably does, but if we'd want to move all of hand-over structures
->> wholesale that would include seabios as well. I'd stick with the current
->> approach to avoid code churn in various repos. Besides the structures
->> are not the only bits of ABI that are implicitly shared with BIOS images.
+>> How does UEFI handle the same situation on baremetal? I'd guess it is
+>> in even more trouble there, as it couldn't even read addresses from
+>> BARs, but would first need to assign them (or at least calculate
+>> their intended positions).
 > 
-> Well, so be it then for the time being. I'm going to be
-> hesitant though ack-ing such, no matter that there are (bad)
-> precedents. What I'd like to ask for as a minimum is to have
-> a comment here clarifying this struct can't be changed
-> arbitrarily because of being part of an ABI.
+> Maybe Laszlo or Anthony could answer this question quickly while I'm investigating?
 
-Ok, I will improve information in comments in an additional commit.
+On the bare metal, the phys address width of the processor is known.
 
->>>> @@ -74,9 +82,21 @@ static void ovmf_setup_bios_info(void)
->>>>  static void ovmf_finish_bios_info(void)
->>>>  {
->>>>      struct ovmf_info *info = (void *)OVMF_INFO_PHYSICAL_ADDRESS;
->>>> +    struct ovmf_pci_info *pci_info;
->>>> +    uint64_t *tables = scratch_alloc(sizeof(uint64_t)*OVMF_INFO_MAX_TABLES, 0);
->>>
->>> I wasn't able to locate OVMF_INFO_MAX_TABLES in either
->>> xen/include/public/ or tools/firmware/. Where does it get
->>> defined?
+OVMF does the whole calculation in reverse because there's no way for it
+to know the physical address width of the physical (= host) CPU.
+"Overdoing" the mappings doesn't only waste resources, it breaks hard
+with EPT -- access to a GPA that is inexpressible with the phys address
+width of the host CPU (= not mappable successfully with the nested page
+tables) will behave super bad. I don't recall the exact symptoms, but it
+prevents booting the guest OS.
+
+This is why the most conservative 36-bit width is assumed by default.
+
+> 
+>>> --- a/tools/firmware/hvmloader/ovmf.c
+>>> +++ b/tools/firmware/hvmloader/ovmf.c
+>>> @@ -61,6 +61,14 @@ struct ovmf_info {
+>>>      uint32_t e820_nr;
+>>>  } __attribute__ ((packed));
+>>>  
+>>> +#define OVMF_INFO_PCI_TABLE 0
+>>> +struct ovmf_pci_info {
+>>> +    uint64_t low_start;
+>>> +    uint64_t low_end;
+>>> +    uint64_t hi_start;
+>>> +    uint64_t hi_end;
+>>> +} __attribute__ ((packed));
 >>
->> I expect it to be unlimited from OVMF side. It just expects an array of 
->> tables_nr elements.
+>> Forming part of ABI, I believe this belongs in a public header,
+>> which consumers could at least in principle use verbatim if
+>> they wanted to.
+
+(In OVMF I strongly prefer hand-coded structures, due to the particular
+coding style edk2 employs. Although Xen headers have been imported and
+fixed up in the past, and so further importing would not be without
+precedent for Xen in OVMF, those imported headers continue to stick out
+like a sore thumb, due to their different coding style. That's not to
+say the Xen coding style is "wrong" or anything; just that esp. when
+those structs are *used* in code, they look quite out of place.)
+
+Thanks,
+Laszlo
+
 > 
-> That wasn't the (primary) question. Me not being able to locate
-> the place where this constant gets #define-d means I wonder how
-> this code builds.
-
-It's right up there in the same file.
-
->>> Also (nit) missing blanks around * .
->>>
->>>>      uint32_t i;
->>>>      uint8_t checksum;
->>>>  
->>>> +    pci_info = scratch_alloc(sizeof(struct ovmf_pci_info), 0);
->>>
->>> Is "scratch" correct here and above? I guess intended usage /
->>> scope will want spelling out somewhere.
+> It probably does, but if we'd want to move all of hand-over structures
+> wholesale that would include seabios as well. I'd stick with the current
+> approach to avoid code churn in various repos. Besides the structures
+> are not the only bits of ABI that are implicitly shared with BIOS images.
+> 
+>>> @@ -74,9 +82,21 @@ static void ovmf_setup_bios_info(void)
+>>>  static void ovmf_finish_bios_info(void)
+>>>  {
+>>>      struct ovmf_info *info = (void *)OVMF_INFO_PHYSICAL_ADDRESS;
+>>> +    struct ovmf_pci_info *pci_info;
+>>> +    uint64_t *tables = scratch_alloc(sizeof(uint64_t)*OVMF_INFO_MAX_TABLES, 0);
 >>
->> Again, scratch_alloc is used universally for handing over info between hvmloader
->> and BIOS images. Where would you want it to be spelled out?
+>> I wasn't able to locate OVMF_INFO_MAX_TABLES in either
+>> xen/include/public/ or tools/firmware/. Where does it get
+>> defined?
 > 
-> Next to where all the involved structures get declared.
-> Consumers need to be aware they may need to take precautions to
-> avoid clobbering the contents before consuming it. But as per
-> above there doesn't look to be such a central place (yet).
-
-I will duplicate the comments for now in all places involved.
-The struct checksum I believe servers exactly the purpose you described -
-to catch that sort of bugs early.
-
->>>> +    pci_info->low_start = pci_mem_start;
->>>> +    pci_info->low_end = pci_mem_end;
->>>> +    pci_info->hi_start = pci_hi_mem_start;
->>>> +    pci_info->hi_end = pci_hi_mem_end;
->>>> +
->>>> +    tables[OVMF_INFO_PCI_TABLE] = (uint32_t)pci_info;
->>>> +    info->tables = (uint32_t)tables;
->>>> +    info->tables_nr = 1;
->>>
->>> In how far is this problem (and hence solution / workaround) OVMF
->>> specific? IOW don't we need a more generic approach here?
+> I expect it to be unlimited from OVMF side. It just expects an array of 
+> tables_nr elements.
+> 
+>> Also (nit) missing blanks around * .
 >>
->> I believe it's very OVMF specific given only OVMF constructs identity page
->> tables for the whole address space - that's how it was designed. Seabios to
->> the best of my knowledge only has access to lower 4G.
+>>>      uint32_t i;
+>>>      uint8_t checksum;
+>>>  
+>>> +    pci_info = scratch_alloc(sizeof(struct ovmf_pci_info), 0);
+>>
+>> Is "scratch" correct here and above? I guess intended usage /
+>> scope will want spelling out somewhere.
 > 
-> Quite likely, yet how would SeaBIOS access such a huge frame
-> buffer then? They can't possibly place it below 4G. Do systems
-> with such video cards get penalized by e.g. not surfacing VESA
-> mode changing functionality?
+> Again, scratch_alloc is used universally for handing over info between hvmloader
+> and BIOS images. Where would you want it to be spelled out?
+> 
+>>> +    pci_info->low_start = pci_mem_start;
+>>> +    pci_info->low_end = pci_mem_end;
+>>> +    pci_info->hi_start = pci_hi_mem_start;
+>>> +    pci_info->hi_end = pci_hi_mem_end;
+>>> +
+>>> +    tables[OVMF_INFO_PCI_TABLE] = (uint32_t)pci_info;
+>>> +    info->tables = (uint32_t)tables;
+>>> +    info->tables_nr = 1;
+>>
+>> In how far is this problem (and hence solution / workaround) OVMF
+>> specific? IOW don't we need a more generic approach here?
+> 
+> I believe it's very OVMF specific given only OVMF constructs identity page
+> tables for the whole address space - that's how it was designed. Seabios to
+> the best of my knowledge only has access to lower 4G.
+> 
+> Igor
+> 
 
-Yes, VESA FB pointer is 32 bit only.
-The framebuffer itself from my experience is located in a separate smaller BAR
-on real cards. That makes it usually land in below 4G that masks the problem
-in most scenarios.
-
-Igor
 
