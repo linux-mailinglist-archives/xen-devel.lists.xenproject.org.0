@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD3912F2924
+	by mail.lfdr.de (Postfix) with ESMTPS id DEF032F2925
 	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 08:48:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65495.116053 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.65499.116065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzEPE-0000RV-UU; Tue, 12 Jan 2021 07:47:56 +0000
+	id 1kzEPp-0000Wg-9B; Tue, 12 Jan 2021 07:48:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65495.116053; Tue, 12 Jan 2021 07:47:56 +0000
+Received: by outflank-mailman (output) from mailman id 65499.116065; Tue, 12 Jan 2021 07:48:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzEPE-0000R6-RE; Tue, 12 Jan 2021 07:47:56 +0000
-Received: by outflank-mailman (input) for mailman id 65495;
- Tue, 12 Jan 2021 07:47:55 +0000
+	id 1kzEPp-0000WG-4d; Tue, 12 Jan 2021 07:48:33 +0000
+Received: by outflank-mailman (input) for mailman id 65499;
+ Tue, 12 Jan 2021 07:48:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YNLj=GP=chromium.org=tientzu@srs-us1.protection.inumbo.net>)
- id 1kzEPD-0000R1-Ba
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 07:47:55 +0000
-Received: from mail-qk1-x72e.google.com (unknown [2607:f8b0:4864:20::72e])
+ id 1kzEPo-0000WA-33
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 07:48:32 +0000
+Received: from mail-io1-xd2b.google.com (unknown [2607:f8b0:4864:20::d2b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0a494c3c-b5dd-4948-8f12-72d22f174c01;
- Tue, 12 Jan 2021 07:47:54 +0000 (UTC)
-Received: by mail-qk1-x72e.google.com with SMTP id 143so1110682qke.10
- for <xen-devel@lists.xenproject.org>; Mon, 11 Jan 2021 23:47:54 -0800 (PST)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com.
- [209.85.160.181])
- by smtp.gmail.com with ESMTPSA id f5sm807312qto.67.2021.01.11.23.47.51
+ id 04f8e8f9-dc61-49e3-86f1-b67b1ffd5e7b;
+ Tue, 12 Jan 2021 07:48:31 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id w18so2167973iot.0
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Jan 2021 23:48:31 -0800 (PST)
+Received: from mail-io1-f48.google.com (mail-io1-f48.google.com.
+ [209.85.166.48])
+ by smtp.gmail.com with ESMTPSA id r21sm1427051ioa.20.2021.01.11.23.48.29
  for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Jan 2021 23:47:52 -0800 (PST)
-Received: by mail-qt1-f181.google.com with SMTP id j26so1013711qtq.8
- for <xen-devel@lists.xenproject.org>; Mon, 11 Jan 2021 23:47:51 -0800 (PST)
+ Mon, 11 Jan 2021 23:48:29 -0800 (PST)
+Received: by mail-io1-f48.google.com with SMTP id u17so2155299iow.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Jan 2021 23:48:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,81 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a494c3c-b5dd-4948-8f12-72d22f174c01
+X-Inumbo-ID: 04f8e8f9-dc61-49e3-86f1-b67b1ffd5e7b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=j7gLFMlxBCQENVWtNxS2npLHFlF1Oh0HPmJ2b4uXz4E=;
-        b=Muj3J6AUcKeWXk2QVKpBxfCJmD1ZNU3ECoTrLMhnZ3l10BcmT1KWV3KJZVJiyjnmgp
-         tXnYNLGybukalejR/JL4Ccq0hthA+yksiWl3Xj9n38DlJXhcHL4x7k7Hi60j74u9oC5X
-         xVXg0JvakYs/Mgnk3DB5tWgDJ2Wm5qz5NT8oI=
+        bh=M6gti34JNoWz5z3B8Kij1up+0ymqSqmekx/99+4faKU=;
+        b=X6l/XLromsTlU6NHa0DWJ/v5avCPE+tbWy6cx1R1IpoHKfbhgU6MF+gZNi4A3oZMQA
+         aDXLX9RnsLGW3PS+TKQP3dv3P0XkS3dWXlHp8BVT2WpAIYitmTledVhp8sQu29+3epTn
+         3vsNGErl3t1pJGKPEpwPU9LYUv1Ianz/yayzo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=j7gLFMlxBCQENVWtNxS2npLHFlF1Oh0HPmJ2b4uXz4E=;
-        b=Oa3apcbV4wI0tAteR7VEip+i9Zzp0LL1r/WbgLTnSpkwsB4iaUe3IXnC2ggtWWvCL+
-         juolOOVk0O3NSOI+r8n6DDyMdsFb3Ifz/BAJMDwwE6JaJJr2jSSoQn403QHN3QUMFyHk
-         YYL15yL+myslJ7kMay7UmoUDRtMcmykWK2UycXS003XX1ims9QmZMTSiODz5jLTrVLhr
-         7NFdJKzj4hIWQPk7bWEwKlzCjuevAy+T++eam41jVqFL1kQtBToUsxyv4Es/v+xbG6QB
-         0bkkPOiKlXqf8tn64FBCquoWgyYwsOEh+Lv/gCUTBZX1x82d5HhMpf91zxOOQwzU4aRG
-         urow==
-X-Gm-Message-State: AOAM531v/9JHE3RZQmLucQOuAJVyVvfn+WLgMp22jt7QdZRSN+O2Eusj
-	2DEMgAC/FbbSKlG+lbQ9dSN3VD+u/URqKg==
-X-Google-Smtp-Source: ABdhPJzYBBUNiHzy/KAKPt3FBBXb8dzo48raxZMt12xAAHNxtCZeyLYwC4fg0m4z/eCZ8wn01L1a9w==
-X-Received: by 2002:a05:620a:14a:: with SMTP id e10mr3090958qkn.103.1610437672704;
-        Mon, 11 Jan 2021 23:47:52 -0800 (PST)
-X-Received: by 2002:a05:6638:c52:: with SMTP id g18mr3073726jal.84.1610437670186;
- Mon, 11 Jan 2021 23:47:50 -0800 (PST)
+        bh=M6gti34JNoWz5z3B8Kij1up+0ymqSqmekx/99+4faKU=;
+        b=GfCjVjA3wk2G0DNTq1MO8zOmGJT0BCL3yvyJ/ZWBKGvmxFDgPzN+rf8TsFTgrdR3fJ
+         nIUR1iaQZ19UhRy3+eddJCExE6EtSeGxEQT5m+jBiFLCtD9g4Yt1NJq78mvtvPAUgjoC
+         0ZjpuQDGvhloFkfx3xxNYtGyR0XSjjg5tpDXiz0vHt9NkMF9MLq/CH8S2upwqZRgwkK1
+         s9DQ+EXiM/mj6tB2UdNTy9b1xJafSjSXY0m7IV9cKXH/o86g6ISyhZnJWbY/5wA0hApS
+         w5B1U1GWGeaZEWe3Ix8JaFkg1yJuNzMhJBpQxXeCdjnrSorr1gxxXwnnwawFSWd5jYzZ
+         peaQ==
+X-Gm-Message-State: AOAM530gDbcpPLiqyhCwWQibsEGCUlkXv2AljxyE5HIpRaJZxJZKeKSF
+	iIsJXgS2dSX+bVNNZEKbCnygJkBoHqJ4Gzsv
+X-Google-Smtp-Source: ABdhPJwV2CrauIDef7iD6KqZAS3Y6a5g3bf2yWZotqHmbTbstSDuHWrWfhguk7+2EMCVdXAFbcp4ng==
+X-Received: by 2002:a92:180b:: with SMTP id 11mr2859179ily.30.1610437710216;
+        Mon, 11 Jan 2021 23:48:30 -0800 (PST)
+X-Received: by 2002:a6b:7f0b:: with SMTP id l11mr2402150ioq.34.1610437707606;
+ Mon, 11 Jan 2021 23:48:27 -0800 (PST)
 MIME-Version: 1.0
-References: <20210106034124.30560-1-tientzu@chromium.org> <20210106034124.30560-6-tientzu@chromium.org>
- <20210106185757.GB109735@localhost.localdomain> <CALiNf2_dV13jbHqLt-r1eK+dtOcAKBGcWQCVMQn+eL6MuOrETQ@mail.gmail.com>
- <20210107180032.GB16519@char.us.oracle.com> <4cce7692-7184-9b25-70f2-b821065f3b25@gmail.com>
-In-Reply-To: <4cce7692-7184-9b25-70f2-b821065f3b25@gmail.com>
+References: <20210106034124.30560-1-tientzu@chromium.org> <d7043239-12cf-3636-4726-2e3b90917dc6@gmail.com>
+ <CALiNf28sU1VtGB7LeTXExkMwQiCeg8N5arqyEjw0CPZP72R4dg@mail.gmail.com> <78871151-947d-b085-db03-0d0bd0b55632@gmail.com>
+In-Reply-To: <78871151-947d-b085-db03-0d0bd0b55632@gmail.com>
 From: Claire Chang <tientzu@chromium.org>
-Date: Tue, 12 Jan 2021 15:47:39 +0800
-X-Gmail-Original-Message-ID: <CALiNf29Kqr1WP3BEjX-y5Xtife7AinqiXAcRD2g4eB9isTaXfQ@mail.gmail.com>
-Message-ID: <CALiNf29Kqr1WP3BEjX-y5Xtife7AinqiXAcRD2g4eB9isTaXfQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 5/6] dt-bindings: of: Add restricted DMA pool
+Date: Tue, 12 Jan 2021 15:48:16 +0800
+X-Gmail-Original-Message-ID: <CALiNf29_PmLJTVLksSHp3NFAaL52idqehSMOtatJ=jaM2Muq1g@mail.gmail.com>
+Message-ID: <CALiNf29_PmLJTVLksSHp3NFAaL52idqehSMOtatJ=jaM2Muq1g@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 0/6] Restricted DMA
 To: Florian Fainelli <f.fainelli@gmail.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, 
-	benh@kernel.crashing.org, paulus@samba.org, 
+Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au, benh@kernel.crashing.org, 
+	paulus@samba.org, 
 	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, Joerg Roedel <joro@8bytes.org>, will@kernel.org, 
-	Frank Rowand <frowand.list@gmail.com>, boris.ostrovsky@oracle.com, jgross@suse.com, 
-	sstabellini@kernel.org, Christoph Hellwig <hch@lst.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, 
-	xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>, mingo@kernel.org, 
-	bauerman@linux.ibm.com, peterz@infradead.org, 
-	Greg KH <gregkh@linuxfoundation.org>, Saravana Kannan <saravanak@google.com>, 
-	rafael.j.wysocki@intel.com, heikki.krogerus@linux.intel.com, 
+	Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+	boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org, 
+	Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com, xypron.glpk@gmx.de, 
+	Thierry Reding <treding@nvidia.com>, mingo@kernel.org, bauerman@linux.ibm.com, 
+	peterz@infradead.org, Greg KH <gregkh@linuxfoundation.org>, 
+	Saravana Kannan <saravanak@google.com>, rafael.j.wysocki@intel.com, 
+	heikki.krogerus@linux.intel.com, 
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, rdunlap@infradead.org, 
 	dan.j.williams@intel.com, Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
 	linux-devicetree <devicetree@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>, 
 	linuxppc-dev@lists.ozlabs.org, xen-devel@lists.xenproject.org, 
-	Tomasz Figa <tfiga@chromium.org>, Nicolas Boichat <drinkcat@chromium.org>
+	Tomasz Figa <tfiga@chromium.org>, Nicolas Boichat <drinkcat@chromium.org>, 
+	Jim Quinlan <james.quinlan@broadcom.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Jan 8, 2021 at 2:15 AM Florian Fainelli <f.fainelli@gmail.com> wrote:
+On Fri, Jan 8, 2021 at 1:59 AM Florian Fainelli <f.fainelli@gmail.com> wrote:
 >
-> On 1/7/21 10:00 AM, Konrad Rzeszutek Wilk wrote:
-> >>>
-> >>>
-> >>>  - Nothing stops the physical device from bypassing the SWIOTLB buffer.
-> >>>    That is if an errant device screwed up the length or DMA address, the
-> >>>    SWIOTLB would gladly do what the device told it do?
-> >>
-> >> So the system needs to provide a way to lock down the memory access, e.g. MPU.
+> On 1/7/21 9:42 AM, Claire Chang wrote:
+>
+> >> Can you explain how ATF gets involved and to what extent it does help,
+> >> besides enforcing a secure region from the ARM CPU's perpsective? Does
+> >> the PCIe root complex not have an IOMMU but can somehow be denied access
+> >> to a region that is marked NS=0 in the ARM CPU's MMU? If so, that is
+> >> still some sort of basic protection that the HW enforces, right?
 > >
-> > OK! Would it be prudent to have this in the description above perhaps?
+> > We need the ATF support for memory MPU (memory protection unit).
+> > Restricted DMA (with reserved-memory in dts) makes sure the predefined memory
+> > region is for PCIe DMA only, but we still need MPU to locks down PCIe access to
+> > that specific regions.
 >
-> Yes this is something that must be documented as a requirement for the
-> restricted DMA pool users, otherwise attempting to do restricted DMA
-> pool is no different than say, using a device private CMA region.
-> Without the enforcement, this is just a best effort.
+> OK so you do have a protection unit of some sort to enforce which region
+> in DRAM the PCIE bridge is allowed to access, that makes sense,
+> otherwise the restricted DMA region would only be a hint but nothing you
+> can really enforce. This is almost entirely analogous to our systems then.
 
-Will add in the next version.
+Here is the example of setting the MPU:
+https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/mediatek/mt8183/drivers/emi_mpu/emi_mpu.c#L132
 
+>
+> There may be some value in standardizing on an ARM SMCCC call then since
+> you already support two different SoC vendors.
+>
+> >
+> >>
+> >> On Broadcom STB SoCs we have had something similar for a while however
+> >> and while we don't have an IOMMU for the PCIe bridge, we do have a a
+> >> basic protection mechanism whereby we can configure a region in DRAM to
+> >> be PCIe read/write and CPU read/write which then gets used as the PCIe
+> >> inbound region for the PCIe EP. By default the PCIe bridge is not
+> >> allowed access to DRAM so we must call into a security agent to allow
+> >> the PCIe bridge to access the designated DRAM region.
+> >>
+> >> We have done this using a private CMA area region assigned via Device
+> >> Tree, assigned with a and requiring the PCIe EP driver to use
+> >> dma_alloc_from_contiguous() in order to allocate from this device
+> >> private CMA area. The only drawback with that approach is that it
+> >> requires knowing how much memory you need up front for buffers and DMA
+> >> descriptors that the PCIe EP will need to process. The problem is that
+> >> it requires driver modifications and that does not scale over the number
+> >> of PCIe EP drivers, some we absolutely do not control, but there is no
+> >> need to bounce buffer. Your approach scales better across PCIe EP
+> >> drivers however it does require bounce buffering which could be a
+> >> performance hit.
+> >
+> > Only the streaming DMA (map/unmap) needs bounce buffering.
+>
+> True, and typically only on transmit since you don't really control
+> where the sk_buff are allocated from, right? On RX since you need to
+> hand buffer addresses to the WLAN chip prior to DMA, you can allocate
+> them from a pool that already falls within the restricted DMA region, right?
+>
+
+Right, but applying bounce buffering to RX will make it more secure.
+The device won't be able to modify the content after unmap. Just like what
+iommu_unmap does.
+
+> > I also added alloc/free support in this series
+> > (https://lore.kernel.org/patchwork/patch/1360995/), so dma_direct_alloc() will
+> > try to allocate memory from the predefined memory region.
+> >
+> > As for the performance hit, it should be similar to the default swiotlb.
+> > Here are my experiment results. Both SoCs lack IOMMU for PCIe.
+> >
+> > PCIe wifi vht80 throughput -
+> >
+> >   MTK SoC                  tcp_tx     tcp_rx    udp_tx   udp_rx
+> >   w/o Restricted DMA  244.1     134.66   312.56   350.79
+> >   w/ Restricted DMA    246.95   136.59   363.21   351.99
+> >
+> >   Rockchip SoC           tcp_tx     tcp_rx    udp_tx   udp_rx
+> >   w/o Restricted DMA  237.87   133.86   288.28   361.88
+> >   w/ Restricted DMA    256.01   130.95   292.28   353.19
+>
+> How come you get better throughput with restricted DMA? Is it because
+> doing DMA to/from a contiguous region allows for better grouping of
+> transactions from the DRAM controller's perspective somehow?
+
+I'm not sure, but actually, enabling the default swiotlb for wifi also helps the
+throughput a little bit for me.
+
+>
+> >
+> > The CPU usage doesn't increase too much either.
+> > Although I didn't measure the CPU usage very precisely, it's ~3% with a single
+> > big core (Cortex-A72) and ~5% with a single small core (Cortex-A53).
+> >
+> > Thanks!
+> >
+> >>
+> >> Thanks!
+> >> --
+> >> Florian
+>
+>
 > --
 > Florian
 
