@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0AA2F2EE0
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 13:18:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65663.116365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E0BC2F2F54
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 13:47:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65670.116377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzIcE-0002VH-5t; Tue, 12 Jan 2021 12:17:38 +0000
+	id 1kzJ4L-0005Dg-H8; Tue, 12 Jan 2021 12:46:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65663.116365; Tue, 12 Jan 2021 12:17:38 +0000
+Received: by outflank-mailman (output) from mailman id 65670.116377; Tue, 12 Jan 2021 12:46:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzIcE-0002Us-2P; Tue, 12 Jan 2021 12:17:38 +0000
-Received: by outflank-mailman (input) for mailman id 65663;
- Tue, 12 Jan 2021 12:17:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kzJ4L-0005DH-Di; Tue, 12 Jan 2021 12:46:41 +0000
+Received: by outflank-mailman (input) for mailman id 65670;
+ Tue, 12 Jan 2021 12:46:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WoC4=GP=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kzIcC-0002Un-GU
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 12:17:36 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b3ff9415-2666-4a8e-9d42-9d44ebb1215b;
- Tue, 12 Jan 2021 12:17:34 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5F9C5AE47;
- Tue, 12 Jan 2021 12:17:33 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1kzJ4J-0005DC-Qm
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 12:46:39 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kzJ4I-00043o-Lv; Tue, 12 Jan 2021 12:46:38 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kzJ4I-00058s-FW; Tue, 12 Jan 2021 12:46:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,187 +39,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3ff9415-2666-4a8e-9d42-9d44ebb1215b
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610453853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eNi+94E66uio2OkQC2ZDsis31fIDKcqJUOSlzyn0qcA=;
-	b=aH1VBqKDJ+LW343MjZUDL4/nexSBTOxJpHWwEcH0uCC9uBnfpbA8oQSZ77gstr9a6l3HNj
-	go1kToU9kqspFfyzynv5cLMe3kw2EKZ+xvoWkvgenXHa/TCulKaI6sQ6cS4uRPLgGMddwS
-	l7wUJd2nwRxpD3FA79k8um0bpVmX6os=
-Subject: Re: [PATCH v2] xen/privcmd: allow fetching resource sizes
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Paul Durrant <paul.durrant@citrix.com>, amc96@cam.ac.uk,
- andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
-References: <20210112115358.23346-1-roger.pau@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <2d853ee1-b671-78ad-f634-0fd1c4f7d2ce@suse.com>
-Date: Tue, 12 Jan 2021 13:17:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=S83t/QpAw0pJKCGM282xck/CpUXP8hWg9erKLVcD/oQ=; b=FjsovrfxsINSw8dZW1itH3DnY5
+	CRl03bdHb2w5jeScid3bKendKTwbcRxHM62Vn4ZSCsijnBjEx7agYZwIGkE2wONZ8WGBUVHMPqZgU
+	AvgEyEgdpr9AldQjN1gzEZ8i/aj0wPVEEr5+9PjR7AaJLrdAJRNNsFSIOwXfNLuZdfpI=;
+Subject: Re: [PATCH] xen/arm: don't read aarch32 regs when aarch32 isn't
+ available
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <20210112001623.28421-1-sstabellini@kernel.org>
+ <05DC1229-9A51-421F-8BBB-73D719CD0F93@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <acc5c206-ae0c-8671-beae-c890c50f04ca@xen.org>
+Date: Tue, 12 Jan 2021 12:46:37 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <20210112115358.23346-1-roger.pau@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="jYtKnRD9tmvDLXLmmkPIFC3p72jUfy0Qw"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---jYtKnRD9tmvDLXLmmkPIFC3p72jUfy0Qw
-Content-Type: multipart/mixed; boundary="B1LoI9kgvEq0QWqZ5ZOnbTlbSLww2g5kl";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Paul Durrant <paul.durrant@citrix.com>, amc96@cam.ac.uk,
- andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
-Message-ID: <2d853ee1-b671-78ad-f634-0fd1c4f7d2ce@suse.com>
-Subject: Re: [PATCH v2] xen/privcmd: allow fetching resource sizes
-References: <20210112115358.23346-1-roger.pau@citrix.com>
-In-Reply-To: <20210112115358.23346-1-roger.pau@citrix.com>
-
---B1LoI9kgvEq0QWqZ5ZOnbTlbSLww2g5kl
-Content-Type: multipart/mixed;
- boundary="------------E8CFA5CA18BF14542689ABC5"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------E8CFA5CA18BF14542689ABC5
+In-Reply-To: <05DC1229-9A51-421F-8BBB-73D719CD0F93@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 12.01.21 12:53, Roger Pau Monne wrote:
-> Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num =3D 0 and
-> addr =3D 0 in order to fetch the size of a specific resource.
->=20
-> Add a shortcut to the default map resource path, since fetching the
-> size requires no address to be passed in, and thus no VMA to setup.
->=20
-> This is missing from the initial implementation, and causes issues
-> when mapping resources that don't have fixed or known sizes.
->=20
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> Cc: stable@vger.kernel.org # >=3D 4.18
-
-Reviewed-by: Juergen Gross <jgross@suse.com>
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
 
-Juergen
 
---------------E8CFA5CA18BF14542689ABC5
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+On 12/01/2021 10:50, Bertrand Marquis wrote:
+> Hi Stefano,
+> 
+>> On 12 Jan 2021, at 00:16, Stefano Stabellini <sstabellini@kernel.org> wrote:
+>>
+>> Don't read aarch32 system registers at boot time when the aarch32 state
+>> is not available. They are UNKNOWN, so it is not useful to read them.
+>> Moreover, on Cavium ThunderX reading ID_PFR2_EL1 causes a Xen crash.
+>> Instead, only read them when aarch32 is available.
+>>
+>> Leave the corresponding fields in struct cpuinfo_arm so that they
+>> are read-as-zero from a guest.
+> 
+> I agree with the fact that all users of identify_cpu are currently using spaces
+> which are 0 but to make the core a bit more robust we could do a memset(0)
+> of the structure at the beginning of the function.
+> 
+>>
+>> Since we are editing identify_cpu, also fix the indentation: 4 spaces
+>> instead of 8.
+>>
+>> Fixes: 9cfdb489af81 ("xen/arm: Add ID registers and complete cpuinfo")
+>> Link: https://marc.info/?l=xen-devel&m=161035501118086
+>> Link: http://logs.test-lab.xenproject.org/osstest/logs/158293/test-arm64-arm64-xl-xsm/info.html
+>> Suggested-by: Julien Grall <julien@xen.org>
+>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>> ---
+>> xen/arch/arm/cpufeature.c | 35 +++++++++++++++++++++--------------
+>> 1 file changed, 21 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+>> index 698bfa0201..b1c82ade49 100644
+>> --- a/xen/arch/arm/cpufeature.c
+>> +++ b/xen/arch/arm/cpufeature.c
+>> @@ -101,29 +101,35 @@ int enable_nonboot_cpu_caps(const struct arm_cpu_capabilities *caps)
+>>
+>> void identify_cpu(struct cpuinfo_arm *c)
+>> {
+>> -        c->midr.bits = READ_SYSREG(MIDR_EL1);
+>> -        c->mpidr.bits = READ_SYSREG(MPIDR_EL1);
+>> +    bool aarch32 = true;
+>> +
+>> +    c->midr.bits = READ_SYSREG(MIDR_EL1);
+>> +    c->mpidr.bits = READ_SYSREG(MPIDR_EL1);
+>>
+>> #ifdef CONFIG_ARM_64
+>> -        c->pfr64.bits[0] = READ_SYSREG(ID_AA64PFR0_EL1);
+>> -        c->pfr64.bits[1] = READ_SYSREG(ID_AA64PFR1_EL1);
+>> +    c->pfr64.bits[0] = READ_SYSREG(ID_AA64PFR0_EL1);
+>> +    c->pfr64.bits[1] = READ_SYSREG(ID_AA64PFR1_EL1);
+>> +
+>> +    c->dbg64.bits[0] = READ_SYSREG(ID_AA64DFR0_EL1);
+>> +    c->dbg64.bits[1] = READ_SYSREG(ID_AA64DFR1_EL1);
+>>
+>> -        c->dbg64.bits[0] = READ_SYSREG(ID_AA64DFR0_EL1);
+>> -        c->dbg64.bits[1] = READ_SYSREG(ID_AA64DFR1_EL1);
+>> +    c->aux64.bits[0] = READ_SYSREG(ID_AA64AFR0_EL1);
+>> +    c->aux64.bits[1] = READ_SYSREG(ID_AA64AFR1_EL1);
+>>
+>> -        c->aux64.bits[0] = READ_SYSREG(ID_AA64AFR0_EL1);
+>> -        c->aux64.bits[1] = READ_SYSREG(ID_AA64AFR1_EL1);
+>> +    c->mm64.bits[0]  = READ_SYSREG(ID_AA64MMFR0_EL1);
+>> +    c->mm64.bits[1]  = READ_SYSREG(ID_AA64MMFR1_EL1);
+>> +    c->mm64.bits[2]  = READ_SYSREG(ID_AA64MMFR2_EL1);
+>>
+>> -        c->mm64.bits[0]  = READ_SYSREG(ID_AA64MMFR0_EL1);
+>> -        c->mm64.bits[1]  = READ_SYSREG(ID_AA64MMFR1_EL1);
+>> -        c->mm64.bits[2]  = READ_SYSREG(ID_AA64MMFR2_EL1);
+>> +    c->isa64.bits[0] = READ_SYSREG(ID_AA64ISAR0_EL1);
+>> +    c->isa64.bits[1] = READ_SYSREG(ID_AA64ISAR1_EL1);
+>>
+>> -        c->isa64.bits[0] = READ_SYSREG(ID_AA64ISAR0_EL1);
+>> -        c->isa64.bits[1] = READ_SYSREG(ID_AA64ISAR1_EL1);
+>> +    c->zfr64.bits[0] = READ_SYSREG(ID_AA64ZFR0_EL1);
+>>
+>> -        c->zfr64.bits[0] = READ_SYSREG(ID_AA64ZFR0_EL1);
+>> +    aarch32 = c->pfr64.el1 == 2;
+> 
+> I would put some () around the test.
+> 
+>> #endif
+>>
+>> +    if ( aarch32 )
+>> +    {
+>>          c->pfr32.bits[0] = READ_SYSREG(ID_PFR0_EL1);
+>>          c->pfr32.bits[1] = READ_SYSREG(ID_PFR1_EL1);
+>>          c->pfr32.bits[2] = READ_SYSREG(ID_PFR2_EL1);
+>> @@ -153,6 +159,7 @@ void identify_cpu(struct cpuinfo_arm *c)
+>> #ifndef MVFR2_MAYBE_UNDEFINED
+>>          c->mvfr.bits[2] = READ_SYSREG(MVFR2_EL1);
+>> #endif
+> 
+> If we test for aarch32, the ifndef here should not be needed anymore.
+>  > Is your previous patch really still needed if we go with the aarch32 
+path ?
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+There were two undefs discovered:
+    1) On Armv7 when accessing MVFR2_EL1
+    2) On Cavium Thunder-X (Armv8) when accessing ID_PFR2_EL1
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+If you remove the #ifdef, then you will re-introduce the UNDEF on Armv7.
 
---------------E8CFA5CA18BF14542689ABC5--
+Cheers,
 
---B1LoI9kgvEq0QWqZ5ZOnbTlbSLww2g5kl--
-
---jYtKnRD9tmvDLXLmmkPIFC3p72jUfy0Qw
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/9k1wFAwAAAAAACgkQsN6d1ii/Ey/t
-TAf/bSNR706+IWIFGfbldW858fOvX2OZk0SEk8/VVvQ19exmbqLWpNVz7FKoe+vwD1Sy4dqvtozv
-xqgbwsXSWWQEODWvoZce4ffdmkWGZzxxY795AwfFMMlhpuqIUFGd1yQl1CLTJi/MVFd3KGm0ADok
-rGBxcblckAA6sZoV0oYyRtqpRNpy0rWvLl5J8jZsBLZD8xKSP3e8R0emEt2MeYRxtxNjHxVM+tHH
-p+YoksQBQIAa6NM19Z5+IQDUMNMiLC6NkXPUkKCD3jeN971TP1+YCncobUUAaNOaN5pYjBAm62nt
-S1yULIE/WrLa9vS8J+TvRNGZgX44YO3u/00Lk0pnsg==
-=hZk7
------END PGP SIGNATURE-----
-
---jYtKnRD9tmvDLXLmmkPIFC3p72jUfy0Qw--
+-- 
+Julien Grall
 
