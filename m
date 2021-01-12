@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49CD92F3AFC
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 20:49:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65955.116924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB3962F3B03
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 20:49:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65966.117006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzPf5-00066X-QP; Tue, 12 Jan 2021 19:49:03 +0000
+	id 1kzPfU-0006bl-Hv; Tue, 12 Jan 2021 19:49:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65955.116924; Tue, 12 Jan 2021 19:49:03 +0000
+Received: by outflank-mailman (output) from mailman id 65966.117006; Tue, 12 Jan 2021 19:49:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzPf5-00065u-Mu; Tue, 12 Jan 2021 19:49:03 +0000
-Received: by outflank-mailman (input) for mailman id 65955;
- Tue, 12 Jan 2021 19:49:02 +0000
+	id 1kzPfU-0006b2-C9; Tue, 12 Jan 2021 19:49:28 +0000
+Received: by outflank-mailman (input) for mailman id 65966;
+ Tue, 12 Jan 2021 19:49:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Zh5d=GP=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1kzPf4-00064W-Dx
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 19:49:02 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1kzPfT-00064W-9x
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 19:49:27 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0270dff3-6b96-4fa3-96c3-cb9d8f935b3c;
- Tue, 12 Jan 2021 19:49:01 +0000 (UTC)
+ id 0d843cb8-1e7a-4e10-97f5-df9f4a6e9bae;
+ Tue, 12 Jan 2021 19:49:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,29 +35,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0270dff3-6b96-4fa3-96c3-cb9d8f935b3c
+X-Inumbo-ID: 0d843cb8-1e7a-4e10-97f5-df9f4a6e9bae
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610480941;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=iE13RUcD0LCfmwDPzILuUpQqklk3hQiqvE4K9FjRnYI=;
-  b=cOWjLUQwsJZtZ/6QI5FJCzyKcN2ZreLoEaToLqPuL5ZKgl1Pbd94Fyrs
-   PK6DjLUvmo4EQg/m0xa7BZsU4LIIwqfFcY/61QkwsZlhfNbLQSqxxY84C
-   UhD5kXiOBcj46frj9cdfNjC6+rF+tuqp1v5QNLiNFRyyl1bpT6dJ2hOje
-   c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: cngRamuSrKtD+2VlE9HdTcTHxs5gH34Wk7MOuiZTXQBNSimR8f2FCEYGvvnhgMF4M0PuosR9nU
- 0f1T5huggXaegJKRnoSOwJPE3C8ppkFUGDIkeBYoNapeRCSGtTfSOPLqhntPfFE00kURbJmvVl
- KVkjnUNbSkpGwegkF9Iqd3jUI9E4NKKNLMLQJQPhTTYmmObNYbUNla4fMhWMLtAzThF1BeuZge
- YhJnY2Lb+N+k+/tyAscodmqnBkWpTgkb+7sHwDuMKhTf/Gb8MogjJxBYV5ktQir74Itbip366L
- gKM=
+  d=citrix.com; s=securemail; t=1610480945;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=QP34gUd0yVaYagIl+iAquadIBVEzTLaCpk9INm1PzbU=;
+  b=UiRAtP14rF8+Aaen6AXCdpOEyQquQc9B4Kkn4DecxEVE+XCf46oPhFnS
+   Mmc6ILvMLewLFugsl6mutFVlqIJH3x0R0J+etGWw7C9Io4uk/Ml3wZFEy
+   zGyduw6V0HPiZ2Xh2nebpyLPl30kaD2oeSnZpvN+VEj8IDTn/B7u1CxEk
+   o=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: hbTK65Tba221UsgBf/E7NkDFhhPx7vv8w4GZdv6KpeizVuIybV1NjGFvm6dLQzidSeN3AH8i4l
+ h9C4nSyLBJdDbA//nIFpDIvIaGS9tHXlWVFgQbBKdycCS6rthe3Mpi2lKyU5UJQrBXRlhXAsZV
+ xgfEuWqxXlkkr6OSl8u4PHFEgYJuQ5PstqxzpqiZK47pFlClTLvEtoe3FHfDkEXzTIdw0XW/vU
+ BPUT+Jj6pU6vpiNHaUGJ/SqwUKKJtK1OX5mSTEIfhGA40HWG0aCKZZCX0FIAh8B7lowZIHwuVj
+ uy4=
 X-SBRS: 5.2
-X-MesageID: 35167846
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 36235817
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,342,1602561600"; 
-   d="scan'208";a="35167846"
+   d="scan'208";a="36235817"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
@@ -66,63 +66,248 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<wl@xen.org>, Julien Grall <julien@xen.org>, Paul Durrant <paul@xen.org>,
 	=?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
 	Hubert Jasudowicz <hubert.jasudowicz@cert.pl>, Tamas K Lengyel
-	<tamas@tklengyel.com>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH v3 0/7] Multiple fixes to XENMEM_acquire_resource
-Date: Tue, 12 Jan 2021 19:48:34 +0000
-Message-ID: <20210112194841.1537-1-andrew.cooper3@citrix.com>
+	<tamas@tklengyel.com>
+Subject: [PATCH v3 1/7] xen/gnttab: Rework resource acquisition
+Date: Tue, 12 Jan 2021 19:48:35 +0000
+Message-ID: <20210112194841.1537-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20210112194841.1537-1-andrew.cooper3@citrix.com>
+References: <20210112194841.1537-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-I thought this was going to be a very simple small bugfix for Michał's
-Processor Trace series.  Serves me right for expecting it not to be full of
-bear traps...
+The existing logic doesn't function in the general case for mapping a guests
+grant table, due to arbitrary 32 frame limit, and the default grant table
+limit being 64.
 
-The sole implementation of acquire_resource never asks for size, so its little
-surprise that Xen is broken for compat callers, and returns incorrect
-information for regular callers.
+In order to start addressing this, rework the existing grant table logic by
+implementing a single gnttab_acquire_resource().  This is far more efficient
+than the previous acquire_grant_table() in memory.c because it doesn't take
+the grant table write lock, and attempt to grow the table, for every single
+frame.
 
-v2 was delayed substantially due to the discovery of XSA-334, but is complete
-now, permitting the mapping of arbitrary sized resouces, along with fixes to
-the compat XLAT logic.
+The new gnttab_acquire_resource() function subsumes the previous two
+gnttab_get_{shared,status}_frame() helpers.
 
-v3 was delayed substanitally due to other security work.  The major change
-from v2 is how the size request works from userspace, which now depends on:
+No functional change.
 
-  https://lore.kernel.org/xen-devel/20210112115358.23346-1-roger.pau@citrix.com/T/#u
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Ian Jackson <iwj@xenproject.org>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+CC: Paul Durrant <paul@xen.org>
+CC: Michał Leszczyński <michal.leszczynski@cert.pl>
+CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+CC: Tamas K Lengyel <tamas@tklengyel.com>
 
-to fix the IOCTL in Linux without breaking ioctl-restrict usecases.
+v3:
+ * Fold switch statements in gnttab_acquire_resource()
+---
+ xen/common/grant_table.c      | 80 ++++++++++++++++++++++++++++---------------
+ xen/common/memory.c           | 42 ++---------------------
+ xen/include/xen/grant_table.h | 19 ++++------
+ 3 files changed, 62 insertions(+), 79 deletions(-)
 
-A branch can be obtained from:
-
-  https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=shortlog;h=refs/heads/xen-acquire-resource
-
-Andrew Cooper (7):
-  xen/gnttab: Rework resource acquisition
-  xen/memory: Fix acquire_resource size semantics
-  tools/foreignmem: Support querying the size of a resource
-  xen/memory: Clarify the XENMEM_acquire_resource ABI description
-  xen/memory: Improve compat XENMEM_acquire_resource handling
-  xen/memory: Indent part of acquire_resource()
-  xen/memory: Fix mapping grant tables with XENMEM_acquire_resource
-
- tools/include/xenforeignmemory.h                 |  15 ++
- tools/libs/foreignmemory/Makefile                |   2 +-
- tools/libs/foreignmemory/core.c                  |  18 ++
- tools/libs/foreignmemory/freebsd.c               |  18 +-
- tools/libs/foreignmemory/libxenforeignmemory.map |   4 +
- tools/libs/foreignmemory/linux.c                 |  18 +-
- xen/arch/x86/mm.c                                |  24 ++-
- xen/common/compat/memory.c                       | 147 ++++++++++++----
- xen/common/grant_table.c                         | 106 +++++++++---
- xen/common/memory.c                              | 210 ++++++++++++++---------
- xen/include/asm-x86/mm.h                         |   3 +
- xen/include/public/memory.h                      |  23 ++-
- xen/include/xen/grant_table.h                    |  21 ++-
- xen/include/xen/mm.h                             |   6 +
- 14 files changed, 445 insertions(+), 170 deletions(-)
-
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index a5d3ed8bda..f560c250d7 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -4013,6 +4013,59 @@ static int gnttab_get_shared_frame_mfn(struct domain *d,
+     return 0;
+ }
+ 
++int gnttab_acquire_resource(
++    struct domain *d, unsigned int id, unsigned long frame,
++    unsigned int nr_frames, xen_pfn_t mfn_list[])
++{
++    struct grant_table *gt = d->grant_table;
++    unsigned int i = nr_frames, tot_frames;
++    mfn_t tmp;
++    void **vaddrs;
++    int rc;
++
++    /* Overflow checks */
++    if ( frame + nr_frames < frame )
++        return -EINVAL;
++
++    tot_frames = frame + nr_frames;
++    if ( tot_frames != frame + nr_frames )
++        return -EINVAL;
++
++    /* Grow table if necessary. */
++    grant_write_lock(gt);
++    rc = -EINVAL;
++    switch ( id )
++    {
++    case XENMEM_resource_grant_table_id_shared:
++        vaddrs = gt->shared_raw;
++        rc = gnttab_get_shared_frame_mfn(d, tot_frames - 1, &tmp);
++        break;
++
++    case XENMEM_resource_grant_table_id_status:
++        if ( gt->gt_version != 2 )
++            break;
++
++        /* Check that void ** is a suitable representation for gt->status. */
++        BUILD_BUG_ON(!__builtin_types_compatible_p(
++                         typeof(gt->status), grant_status_t **));
++        vaddrs = (void **)gt->status;
++        rc = gnttab_get_status_frame_mfn(d, tot_frames - 1, &tmp);
++        break;
++    }
++
++    /* Any errors?  Bad id, or from growing the table? */
++    if ( rc )
++        goto out;
++
++    for ( i = 0; i < nr_frames; ++i )
++        mfn_list[i] = virt_to_mfn(vaddrs[frame + i]);
++
++ out:
++    grant_write_unlock(gt);
++
++    return rc;
++}
++
+ int gnttab_map_frame(struct domain *d, unsigned long idx, gfn_t gfn, mfn_t *mfn)
+ {
+     int rc = 0;
+@@ -4047,33 +4100,6 @@ int gnttab_map_frame(struct domain *d, unsigned long idx, gfn_t gfn, mfn_t *mfn)
+     return rc;
+ }
+ 
+-int gnttab_get_shared_frame(struct domain *d, unsigned long idx,
+-                            mfn_t *mfn)
+-{
+-    struct grant_table *gt = d->grant_table;
+-    int rc;
+-
+-    grant_write_lock(gt);
+-    rc = gnttab_get_shared_frame_mfn(d, idx, mfn);
+-    grant_write_unlock(gt);
+-
+-    return rc;
+-}
+-
+-int gnttab_get_status_frame(struct domain *d, unsigned long idx,
+-                            mfn_t *mfn)
+-{
+-    struct grant_table *gt = d->grant_table;
+-    int rc;
+-
+-    grant_write_lock(gt);
+-    rc = (gt->gt_version == 2) ?
+-        gnttab_get_status_frame_mfn(d, idx, mfn) : -EINVAL;
+-    grant_write_unlock(gt);
+-
+-    return rc;
+-}
+-
+ static void gnttab_usage_print(struct domain *rd)
+ {
+     int first = 1;
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index b21b6c452d..82cf7b41ee 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1052,44 +1052,6 @@ static long xatp_permission_check(struct domain *d, unsigned int space)
+     return xsm_add_to_physmap(XSM_TARGET, current->domain, d);
+ }
+ 
+-static int acquire_grant_table(struct domain *d, unsigned int id,
+-                               unsigned long frame,
+-                               unsigned int nr_frames,
+-                               xen_pfn_t mfn_list[])
+-{
+-    unsigned int i = nr_frames;
+-
+-    /* Iterate backwards in case table needs to grow */
+-    while ( i-- != 0 )
+-    {
+-        mfn_t mfn = INVALID_MFN;
+-        int rc;
+-
+-        switch ( id )
+-        {
+-        case XENMEM_resource_grant_table_id_shared:
+-            rc = gnttab_get_shared_frame(d, frame + i, &mfn);
+-            break;
+-
+-        case XENMEM_resource_grant_table_id_status:
+-            rc = gnttab_get_status_frame(d, frame + i, &mfn);
+-            break;
+-
+-        default:
+-            rc = -EINVAL;
+-            break;
+-        }
+-
+-        if ( rc )
+-            return rc;
+-
+-        ASSERT(!mfn_eq(mfn, INVALID_MFN));
+-        mfn_list[i] = mfn_x(mfn);
+-    }
+-
+-    return 0;
+-}
+-
+ static int acquire_resource(
+     XEN_GUEST_HANDLE_PARAM(xen_mem_acquire_resource_t) arg)
+ {
+@@ -1144,8 +1106,8 @@ static int acquire_resource(
+     switch ( xmar.type )
+     {
+     case XENMEM_resource_grant_table:
+-        rc = acquire_grant_table(d, xmar.id, xmar.frame, xmar.nr_frames,
+-                                 mfn_list);
++        rc = gnttab_acquire_resource(d, xmar.id, xmar.frame, xmar.nr_frames,
++                                     mfn_list);
+         break;
+ 
+     default:
+diff --git a/xen/include/xen/grant_table.h b/xen/include/xen/grant_table.h
+index 98603604b8..5a2c75b880 100644
+--- a/xen/include/xen/grant_table.h
++++ b/xen/include/xen/grant_table.h
+@@ -56,10 +56,10 @@ int mem_sharing_gref_to_gfn(struct grant_table *gt, grant_ref_t ref,
+ 
+ int gnttab_map_frame(struct domain *d, unsigned long idx, gfn_t gfn,
+                      mfn_t *mfn);
+-int gnttab_get_shared_frame(struct domain *d, unsigned long idx,
+-                            mfn_t *mfn);
+-int gnttab_get_status_frame(struct domain *d, unsigned long idx,
+-                            mfn_t *mfn);
++
++int gnttab_acquire_resource(
++    struct domain *d, unsigned int id, unsigned long frame,
++    unsigned int nr_frames, xen_pfn_t mfn_list[]);
+ 
+ #else
+ 
+@@ -93,14 +93,9 @@ static inline int gnttab_map_frame(struct domain *d, unsigned long idx,
+     return -EINVAL;
+ }
+ 
+-static inline int gnttab_get_shared_frame(struct domain *d, unsigned long idx,
+-                                          mfn_t *mfn)
+-{
+-    return -EINVAL;
+-}
+-
+-static inline int gnttab_get_status_frame(struct domain *d, unsigned long idx,
+-                                          mfn_t *mfn)
++static inline int gnttab_acquire_resource(
++    struct domain *d, unsigned int id, unsigned long frame,
++    unsigned int nr_frames, xen_pfn_t mfn_list[])
+ {
+     return -EINVAL;
+ }
 -- 
 2.11.0
 
