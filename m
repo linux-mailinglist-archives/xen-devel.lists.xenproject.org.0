@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47C42F3C05
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 22:59:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66072.117223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0ECE2F3C0C
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 22:59:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66105.117400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzRgl-0003Yo-LU; Tue, 12 Jan 2021 21:58:55 +0000
+	id 1kzRhA-0004fc-Tt; Tue, 12 Jan 2021 21:59:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66072.117223; Tue, 12 Jan 2021 21:58:55 +0000
+Received: by outflank-mailman (output) from mailman id 66105.117400; Tue, 12 Jan 2021 21:59:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzRgl-0003Y3-HH; Tue, 12 Jan 2021 21:58:55 +0000
-Received: by outflank-mailman (input) for mailman id 66072;
- Tue, 12 Jan 2021 21:58:54 +0000
+	id 1kzRhA-0004bo-Aa; Tue, 12 Jan 2021 21:59:20 +0000
+Received: by outflank-mailman (input) for mailman id 66105;
+ Tue, 12 Jan 2021 21:59:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OoN1=GP=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kzRco-0002PK-K1
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 21:54:50 +0000
-Received: from mail-wr1-x42e.google.com (unknown [2a00:1450:4864:20::42e])
+ id 1kzRct-0002PK-K1
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 21:54:55 +0000
+Received: from mail-wr1-x42b.google.com (unknown [2a00:1450:4864:20::42b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id db1f7416-fb6b-40cb-ae21-f4816f6bc00a;
+ id 89569031-775c-4f8d-9bf7-33356974a3f3;
  Tue, 12 Jan 2021 21:53:16 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id m4so111wrx.9
+Received: by mail-wr1-x42b.google.com with SMTP id i9so22313wrc.4
  for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 13:53:13 -0800 (PST)
 Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id 138sm6574053wma.41.2021.01.12.13.53.11
+ by smtp.gmail.com with ESMTPSA id 138sm6574053wma.41.2021.01.12.13.53.12
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 12 Jan 2021 13:53:11 -0800 (PST)
+ Tue, 12 Jan 2021 13:53:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,76 +41,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db1f7416-fb6b-40cb-ae21-f4816f6bc00a
+X-Inumbo-ID: 89569031-775c-4f8d-9bf7-33356974a3f3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=RGoEQJCEmcPoETIax9GErbN7obEbYOgZDwowTTTEDII=;
-        b=fayvXEdHuOf096l4NKJ0f4wnVhXkt6Xds+Oybn5bihzDG9Sur+/hmB/YdxsSJ/mJE4
-         CIU8aT1qH1U6JjYr9W5Ab/Zae4F1EBvYSfUcxQCasauC1o1C88HapUsExhK5Idn/rrxB
-         Pb39Ip7ByGctiZQdGYqx8pmXfE7E8+lv1yRQYb5fu4eWe6IQyi9/L2pCJeFWp+8Xr7cW
-         d0oUYf+n7EWflsAkksQcAiRj65Ekt5vRww/+qxg7/Wxg2QtLxG8vvlUKh8dUn3OV/+sz
-         ztl97v+H+5AvKUSOBSKHwWIhgbugfOhJnrzAo1VC3Rs77kbSo+7SRcFNM3wqvZ0EZ50h
-         nddw==
+        bh=mGbtY4ekbbtE/VZfKxRi6ik4jZjcmPPDvGdUbgYeomY=;
+        b=R+KM6NJLAAKJRp7GgcdcfKDebUTS1tYsg7s8PNMs32duBdOOSHDAiFmuTxw3ljud6U
+         pz8/RAdUTkggEQoNMQZDV1+3xsHaELYNwJaky3kgjt5yhxjX8SXv0QhVg+qJrDR4LC2K
+         y7zE4YhCkRI0ezGxEwXuAy+meRrD1qFo4Mss4b+QRlQP/ewP9+OM9byYz2I+fRxd8kgV
+         edG/QgsClP883OhknDNyBhNqJev40JTtqXYVjGOd2tQCdGkxhN007bS5bFxNleEe8laP
+         OSGI61+prNTupZqWZjgWPKtBELS7zH4ko6fdOjTyht4fNH/i6ZsTw3JCXt2j5e/HhcrU
+         uNOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references;
-        bh=RGoEQJCEmcPoETIax9GErbN7obEbYOgZDwowTTTEDII=;
-        b=Tt/UL2TTc72YiWCGBwZlCociIqW3cG7VigyQBdCPfg28cwMA3fwhmQDQLHBTCLJAXM
-         5Nz5OgaHl6KnPsRdyTkPqcrvM7bNKRJENQ4W9cU7aXr4kzf//o/CV4Rgz0mCLJp+Ue2Z
-         CpEcN8dt+VKDSsZnAEcjdD6Z7LqxbWC0aNTAsvFw8viIotRDvOZoAMi1nmudtETpRUxh
-         CStSX88+m4j7BEtKEismR7gERUUe2epLNGgelJHnu47rxgnEcmQ+z2g+dsHiUOrkLIp9
-         5Qdh1WJyLq2ecQNK/2FjQ8jj3Vmx37Htw7Pt+ahe/gTFSf1sI9Tb2Kk4Yuxo7myV+u2I
-         INlA==
-X-Gm-Message-State: AOAM532BYxuS1FmleFnY0YUqdDMd6TcyQ9y0fmh4Q+nxuKLcOSR4PD0V
-	w/2vZWBTD6kb+JxoKaxACEfEZI29GTdemA==
-X-Google-Smtp-Source: ABdhPJyqUYZ8nN9Ya3Bercumh+QsDqOVCfec1mvmV4j6aPkVyi7LceyCrMvEYYtrZePrr93Rm7UxQA==
-X-Received: by 2002:adf:e9d0:: with SMTP id l16mr768128wrn.376.1610488392094;
+        bh=mGbtY4ekbbtE/VZfKxRi6ik4jZjcmPPDvGdUbgYeomY=;
+        b=DzaytzZpgYjAWRGGPWDgSXIjeNAyzsVvpijFJY56Q347pCkhwag9H0lxYHQqv6Mo8j
+         8T8bifzEO5lWG0plHpi+yL2Vqe8uMOvtryvW4Egurpb3OMhEU7EMEc4EVgtSzoN2wXk1
+         0yPtqIdcNwpueXDT9urwHx0kxEkkTOnPLdBBPMZgFB7Lf8TAvFq3I14NPbopkVP5cCci
+         jEV4tWKugGquGq7QcsEbbQIeXCImRg4MVgyAyDYHqSqJ8WT7ph04/+17ySENFwbl/pup
+         6mAwThOAdd3JWVYzWqgfw+lp27l7CwiF4T+quXJ7M6Kbv3S4xHhdA1ba38ksB1JztHGV
+         aQbQ==
+X-Gm-Message-State: AOAM5327G2q9ByByiurpJLIh1a2MW+dpI7jjh4nGwgcjjbBXJ5vRERkE
+	agvXpYDZ/kSdOqHo2bbZXfwasAZt8RFrBw==
+X-Google-Smtp-Source: ABdhPJz2KezndcVpBKfrPhdwl3q8eh6cVscb/37x6CQuUAYyjsjvgpDboQyklYrp6d/4BcKc77wzWg==
+X-Received: by 2002:adf:e9d2:: with SMTP id l18mr765538wrn.179.1610488392939;
         Tue, 12 Jan 2021 13:53:12 -0800 (PST)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Julien Grall <julien.grall@arm.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH V4 18/24] xen/dm: Introduce xendevicemodel_set_irq_level DM op
-Date: Tue, 12 Jan 2021 23:52:26 +0200
-Message-Id: <1610488352-18494-19-git-send-email-olekstysh@gmail.com>
+	Julien Grall <julien.grall@arm.com>
+Subject: [PATCH V4 19/24] xen/arm: io: Abstract sign-extension
+Date: Tue, 12 Jan 2021 23:52:27 +0200
+Message-Id: <1610488352-18494-20-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
 References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
 
-From: Julien Grall <julien.grall@arm.com>
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-This patch adds ability to the device emulator to notify otherend
-(some entity running in the guest) using a SPI and implements Arm
-specific bits for it. Proposed interface allows emulator to set
-the logical level of a one of a domain's IRQ lines.
+In order to avoid code duplication (both handle_read() and
+handle_ioserv() contain the same code for the sign-extension)
+put this code to a common helper to be used for both.
 
-We can't reuse the existing DM op (xen_dm_op_set_isa_irq_level)
-to inject an interrupt as the "isa_irq" field is only 8-bit and
-able to cover IRQ 0 - 255, whereas we need a wider range (0 - 1020).
-
-Please note, for egde-triggered interrupt (which is used for
-the virtio-mmio emulation) we only trigger the interrupt on Arm
-if the level is asserted (rising edge) and do nothing if the level
-is deasserted (falling edge), so the call could be named "trigger_irq"
-(without the level parameter). But, in order to model the line closely
-(to be able to support level-triggered interrupt) we need to know whether
-the line is low or high, so the proposed interface has been chosen.
-However, it is worth mentioning that in case of the level-triggered
-interrupt, we should keep injecting the interrupt to the guest until
-the line is deasserted (this is not covered by current patch).
-
-Signed-off-by: Julien Grall <julien.grall@arm.com>
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+CC: Julien Grall <julien.grall@arm.com>
 [On Arm only]
 Tested-by: Wei Chen <Wei.Chen@arm.com>
 
@@ -118,203 +97,131 @@ Tested-by: Wei Chen <Wei.Chen@arm.com>
 Please note, this is a split/cleanup/hardening of Julien's PoC:
 "Add support for Guest IO forwarding to a device emulator"
 
-Changes RFC -> V1:
-   - check incoming parameters in arch_dm_op()
-   - add explicit padding to struct xen_dm_op_set_irq_level
-
 Changes V1 -> V2:
-   - update the author of a patch
-   - update patch description
-   - check that padding is always 0
-   - mention that interface is Arm only and only SPIs are
-     supported for now
-   - allow to set the logical level of a line for non-allocated
-     interrupts only
-   - add xen_dm_op_set_irq_level_t
+   - new patch
 
 Changes V2 -> V3:
    - no changes
 
 Changes V3 -> V4:
-   - update patch description
-   - update patch according to the IOREQ related dm-op handling changes
+   - no changes here, but in new patch:
+     "xen/arm: io: Harden sign extension check"
 ---
- tools/include/xendevicemodel.h               |  4 +++
- tools/libs/devicemodel/core.c                | 18 ++++++++++
- tools/libs/devicemodel/libxendevicemodel.map |  1 +
- xen/arch/arm/dm.c                            | 54 +++++++++++++++++++++++++++-
- xen/include/public/hvm/dm_op.h               | 16 +++++++++
- 5 files changed, 92 insertions(+), 1 deletion(-)
+ xen/arch/arm/io.c           | 18 ++----------------
+ xen/arch/arm/ioreq.c        | 17 +----------------
+ xen/include/asm-arm/traps.h | 24 ++++++++++++++++++++++++
+ 3 files changed, 27 insertions(+), 32 deletions(-)
 
-diff --git a/tools/include/xendevicemodel.h b/tools/include/xendevicemodel.h
-index e877f5c..c06b3c8 100644
---- a/tools/include/xendevicemodel.h
-+++ b/tools/include/xendevicemodel.h
-@@ -209,6 +209,10 @@ int xendevicemodel_set_isa_irq_level(
-     xendevicemodel_handle *dmod, domid_t domid, uint8_t irq,
-     unsigned int level);
+diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+index 9814481..307c521 100644
+--- a/xen/arch/arm/io.c
++++ b/xen/arch/arm/io.c
+@@ -24,6 +24,7 @@
+ #include <asm/cpuerrata.h>
+ #include <asm/current.h>
+ #include <asm/mmio.h>
++#include <asm/traps.h>
+ #include <asm/hvm/ioreq.h>
  
-+int xendevicemodel_set_irq_level(
-+    xendevicemodel_handle *dmod, domid_t domid, unsigned int irq,
-+    unsigned int level);
-+
- /**
-  * This function maps a PCI INTx line to a an IRQ line.
-  *
-diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
-index 4d40639..30bd79f 100644
---- a/tools/libs/devicemodel/core.c
-+++ b/tools/libs/devicemodel/core.c
-@@ -430,6 +430,24 @@ int xendevicemodel_set_isa_irq_level(
-     return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
+ #include "decode.h"
+@@ -40,26 +41,11 @@ static enum io_state handle_read(const struct mmio_handler *handler,
+      * setting r).
+      */
+     register_t r = 0;
+-    uint8_t size = (1 << dabt.size) * 8;
+ 
+     if ( !handler->ops->read(v, info, &r, handler->priv) )
+         return IO_ABORT;
+ 
+-    /*
+-     * Sign extend if required.
+-     * Note that we expect the read handler to have zeroed the bits
+-     * outside the requested access size.
+-     */
+-    if ( dabt.sign && (r & (1UL << (size - 1))) )
+-    {
+-        /*
+-         * We are relying on register_t using the same as
+-         * an unsigned long in order to keep the 32-bit assembly
+-         * code smaller.
+-         */
+-        BUILD_BUG_ON(sizeof(register_t) != sizeof(unsigned long));
+-        r |= (~0UL) << size;
+-    }
++    r = sign_extend(dabt, r);
+ 
+     set_user_reg(regs, dabt.reg, r);
+ 
+diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+index 3c4a24d..40b9e59 100644
+--- a/xen/arch/arm/ioreq.c
++++ b/xen/arch/arm/ioreq.c
+@@ -28,7 +28,6 @@ enum io_state handle_ioserv(struct cpu_user_regs *regs, struct vcpu *v)
+     const union hsr hsr = { .bits = regs->hsr };
+     const struct hsr_dabt dabt = hsr.dabt;
+     /* Code is similar to handle_read */
+-    uint8_t size = (1 << dabt.size) * 8;
+     register_t r = v->io.req.data;
+ 
+     /* We are done with the IO */
+@@ -37,21 +36,7 @@ enum io_state handle_ioserv(struct cpu_user_regs *regs, struct vcpu *v)
+     if ( dabt.write )
+         return IO_HANDLED;
+ 
+-    /*
+-     * Sign extend if required.
+-     * Note that we expect the read handler to have zeroed the bits
+-     * outside the requested access size.
+-     */
+-    if ( dabt.sign && (r & (1UL << (size - 1))) )
+-    {
+-        /*
+-         * We are relying on register_t using the same as
+-         * an unsigned long in order to keep the 32-bit assembly
+-         * code smaller.
+-         */
+-        BUILD_BUG_ON(sizeof(register_t) != sizeof(unsigned long));
+-        r |= (~0UL) << size;
+-    }
++    r = sign_extend(dabt, r);
+ 
+     set_user_reg(regs, dabt.reg, r);
+ 
+diff --git a/xen/include/asm-arm/traps.h b/xen/include/asm-arm/traps.h
+index 997c378..e301c44 100644
+--- a/xen/include/asm-arm/traps.h
++++ b/xen/include/asm-arm/traps.h
+@@ -83,6 +83,30 @@ static inline bool VABORT_GEN_BY_GUEST(const struct cpu_user_regs *regs)
+         (unsigned long)abort_guest_exit_end == regs->pc;
  }
  
-+int xendevicemodel_set_irq_level(
-+    xendevicemodel_handle *dmod, domid_t domid, uint32_t irq,
-+    unsigned int level)
++/* Check whether the sign extension is required and perform it */
++static inline register_t sign_extend(const struct hsr_dabt dabt, register_t r)
 +{
-+    struct xen_dm_op op;
-+    struct xen_dm_op_set_irq_level *data;
++    uint8_t size = (1 << dabt.size) * 8;
 +
-+    memset(&op, 0, sizeof(op));
++    /*
++     * Sign extend if required.
++     * Note that we expect the read handler to have zeroed the bits
++     * outside the requested access size.
++     */
++    if ( dabt.sign && (r & (1UL << (size - 1))) )
++    {
++        /*
++         * We are relying on register_t using the same as
++         * an unsigned long in order to keep the 32-bit assembly
++         * code smaller.
++         */
++        BUILD_BUG_ON(sizeof(register_t) != sizeof(unsigned long));
++        r |= (~0UL) << size;
++    }
 +
-+    op.op = XEN_DMOP_set_irq_level;
-+    data = &op.u.set_irq_level;
-+
-+    data->irq = irq;
-+    data->level = level;
-+
-+    return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
++    return r;
 +}
 +
- int xendevicemodel_set_pci_link_route(
-     xendevicemodel_handle *dmod, domid_t domid, uint8_t link, uint8_t irq)
- {
-diff --git a/tools/libs/devicemodel/libxendevicemodel.map b/tools/libs/devicemodel/libxendevicemodel.map
-index 561c62d..a0c3012 100644
---- a/tools/libs/devicemodel/libxendevicemodel.map
-+++ b/tools/libs/devicemodel/libxendevicemodel.map
-@@ -32,6 +32,7 @@ VERS_1.2 {
- 	global:
- 		xendevicemodel_relocate_memory;
- 		xendevicemodel_pin_memory_cacheattr;
-+		xendevicemodel_set_irq_level;
- } VERS_1.1;
- 
- VERS_1.3 {
-diff --git a/xen/arch/arm/dm.c b/xen/arch/arm/dm.c
-index e6dedf4..804830a 100644
---- a/xen/arch/arm/dm.c
-+++ b/xen/arch/arm/dm.c
-@@ -20,6 +20,8 @@
- #include <xen/ioreq.h>
- #include <xen/nospec.h>
- 
-+#include <asm/vgic.h>
-+
- static int dm_op(const struct dmop_args *op_args)
- {
-     struct domain *d;
-@@ -35,6 +37,7 @@ static int dm_op(const struct dmop_args *op_args)
-         [XEN_DMOP_unmap_io_range_from_ioreq_server] = sizeof(struct xen_dm_op_ioreq_server_range),
-         [XEN_DMOP_set_ioreq_server_state]           = sizeof(struct xen_dm_op_set_ioreq_server_state),
-         [XEN_DMOP_destroy_ioreq_server]             = sizeof(struct xen_dm_op_destroy_ioreq_server),
-+        [XEN_DMOP_set_irq_level]                    = sizeof(struct xen_dm_op_set_irq_level),
-     };
- 
-     rc = rcu_lock_remote_domain_by_id(op_args->domid, &d);
-@@ -73,7 +76,56 @@ static int dm_op(const struct dmop_args *op_args)
-     if ( op.pad )
-         goto out;
- 
--    rc = ioreq_server_dm_op(&op, d, &const_op);
-+    switch ( op.op )
-+    {
-+    case XEN_DMOP_set_irq_level:
-+    {
-+        const struct xen_dm_op_set_irq_level *data =
-+            &op.u.set_irq_level;
-+        unsigned int i;
-+
-+        /* Only SPIs are supported */
-+        if ( (data->irq < NR_LOCAL_IRQS) || (data->irq >= vgic_num_irqs(d)) )
-+        {
-+            rc = -EINVAL;
-+            break;
-+        }
-+
-+        if ( data->level != 0 && data->level != 1 )
-+        {
-+            rc = -EINVAL;
-+            break;
-+        }
-+
-+        /* Check that padding is always 0 */
-+        for ( i = 0; i < sizeof(data->pad); i++ )
-+        {
-+            if ( data->pad[i] )
-+            {
-+                rc = -EINVAL;
-+                break;
-+            }
-+        }
-+
-+        /*
-+         * Allow to set the logical level of a line for non-allocated
-+         * interrupts only.
-+         */
-+        if ( test_bit(data->irq, d->arch.vgic.allocated_irqs) )
-+        {
-+            rc = -EINVAL;
-+            break;
-+        }
-+
-+        vgic_inject_irq(d, NULL, data->irq, data->level);
-+        rc = 0;
-+        break;
-+    }
-+
-+    default:
-+        rc = ioreq_server_dm_op(&op, d, &const_op);
-+        break;
-+    }
- 
-     if ( (!rc || rc == -ERESTART) &&
-          !const_op && copy_to_guest_offset(op_args->buf[0].h, offset,
-diff --git a/xen/include/public/hvm/dm_op.h b/xen/include/public/hvm/dm_op.h
-index 66cae1a..1f70d58 100644
---- a/xen/include/public/hvm/dm_op.h
-+++ b/xen/include/public/hvm/dm_op.h
-@@ -434,6 +434,21 @@ struct xen_dm_op_pin_memory_cacheattr {
- };
- typedef struct xen_dm_op_pin_memory_cacheattr xen_dm_op_pin_memory_cacheattr_t;
- 
-+/*
-+ * XEN_DMOP_set_irq_level: Set the logical level of a one of a domain's
-+ *                         IRQ lines (currently Arm only).
-+ * Only SPIs are supported.
-+ */
-+#define XEN_DMOP_set_irq_level 19
-+
-+struct xen_dm_op_set_irq_level {
-+    uint32_t irq;
-+    /* IN - Level: 0 -> deasserted, 1 -> asserted */
-+    uint8_t level;
-+    uint8_t pad[3];
-+};
-+typedef struct xen_dm_op_set_irq_level xen_dm_op_set_irq_level_t;
-+
- struct xen_dm_op {
-     uint32_t op;
-     uint32_t pad;
-@@ -447,6 +462,7 @@ struct xen_dm_op {
-         xen_dm_op_track_dirty_vram_t track_dirty_vram;
-         xen_dm_op_set_pci_intx_level_t set_pci_intx_level;
-         xen_dm_op_set_isa_irq_level_t set_isa_irq_level;
-+        xen_dm_op_set_irq_level_t set_irq_level;
-         xen_dm_op_set_pci_link_route_t set_pci_link_route;
-         xen_dm_op_modified_memory_t modified_memory;
-         xen_dm_op_set_mem_type_t set_mem_type;
+ #endif /* __ASM_ARM_TRAPS__ */
+ /*
+  * Local variables:
 -- 
 2.7.4
 
