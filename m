@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 634C12F3BA7
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 21:58:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66016.117061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73B5E2F3BA8
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 21:59:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66021.117074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzQjp-00057E-Oy; Tue, 12 Jan 2021 20:58:01 +0000
+	id 1kzQlX-0005La-91; Tue, 12 Jan 2021 20:59:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66016.117061; Tue, 12 Jan 2021 20:58:01 +0000
+Received: by outflank-mailman (output) from mailman id 66021.117074; Tue, 12 Jan 2021 20:59:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzQjp-00056p-LF; Tue, 12 Jan 2021 20:58:01 +0000
-Received: by outflank-mailman (input) for mailman id 66016;
- Tue, 12 Jan 2021 20:57:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=v4LF=GP=cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1kzQjn-00056h-SL
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 20:57:59 +0000
-Received: from ppsw-41.csi.cam.ac.uk (unknown [131.111.8.141])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fd2c1171-cfe0-48c8-a2b8-aa3dcfe3189d;
- Tue, 12 Jan 2021 20:57:56 +0000 (UTC)
-Received: from 88-111-124-141.dynamic.dsl.as9105.com ([88.111.124.141]:59034
- helo=[192.168.1.219])
- by ppsw-41.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.159]:465)
- with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1kzQjY-0007vT-RK (Exim 4.92.3)
- (return-path <amc96@cam.ac.uk>); Tue, 12 Jan 2021 20:57:44 +0000
+	id 1kzQlX-0005LB-60; Tue, 12 Jan 2021 20:59:47 +0000
+Received: by outflank-mailman (input) for mailman id 66021;
+ Tue, 12 Jan 2021 20:59:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OoN1=GP=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kzQlW-0005L6-6d
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 20:59:46 +0000
+Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7bdd6ec0-f143-44b7-9e57-c8f8b009c81a;
+ Tue, 12 Jan 2021 20:59:45 +0000 (UTC)
+Received: by mail-lf1-x12d.google.com with SMTP id a12so5452704lfl.6
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 12:59:44 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id a24sm525349lfg.256.2021.01.12.12.59.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Jan 2021 12:59:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,101 +41,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd2c1171-cfe0-48c8-a2b8-aa3dcfe3189d
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cam.ac.uk;
-	 s=20180806.ppsw; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=dego4v4Zh+WI+DqstNx6chBLMb2OBpto/QNpt8D+Bac=; b=ZzNqf89yyRLUN8TGrpPHbHqmYz
-	QqODEdVaTiUI0raz4P0kX+R2WSRKHAt0xHPuYZ1RMmCvmA+NOI+srWSbf/tSGo4ASJJtTpUDx3Lx9
-	ATZCkqFLvghqQJQ34UMCaNRmF/98gWXQ6jv2QcOWeZLVwTc7BDCPFD3aWEzusDfm+o3Y=;
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Subject: Re: [PATCH v3 2/7] xen/memory: Fix acquire_resource size semantics
-To: Julien Grall <julien.grall.oss@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Jan Beulich <JBeulich@suse.com>,
+X-Inumbo-ID: 7bdd6ec0-f143-44b7-9e57-c8f8b009c81a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=uRbkaCl6BSBOHmzEKK0ca04L7PbAGqtZ+HNYJ0/3r6w=;
+        b=Cqt/s5A7BaGa+2EoWSQC9m2/nqr2oWNaBX32qJ+J3ExyPYoBrg+3MPZrllSnJXmQY0
+         U+mbz19EmBKZVauZXpbyQRh6Vdd0YpFX+0JOdhcyvwRoHe8+3ndoBuJX6KjpMisji4On
+         WGp8foRRz1agK77Rp61DS/jHvhgoR8Qyi9uIFAiCFyb/bEbKXLE4Ek3enikkoEMNboPY
+         JRVGbtz1Um0B8bc45NWvrW4SiYY1oVro4aaY3IeKcAS+Uod+yZYtKJUp2QQqEXb5g7jS
+         MK4H/1xBJewnGE4UevYnrs2oGG8zY56rJenKgx8Vxx5E/1NMDFf4eibPv0el02MEWIdA
+         Ab5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=uRbkaCl6BSBOHmzEKK0ca04L7PbAGqtZ+HNYJ0/3r6w=;
+        b=amya1encQrcC5A08JWRG+mJAvtLlIbNdFPMqeghtx1yTJNPwE+skt5LuLwjbjbd8+v
+         0RSTle3ZF3d04Yn9mGy2fcsjAd3DIg0Jp1c2X1JT4Xp61p7NdLg0XtU2WWAwMQzNtnlQ
+         qqWTBT5mQQBaSPYsgTMBxClCR0eFl1qzmBO04ppT1PQ0s5/vj+xI8Iu8/1DaXjkogoN8
+         FN6ReDluQcb88bDOTbw1BP2o9vjTpjg+nM/y4bvIjCCrncTARuQSPQeYbnTxIyBfiROn
+         3xg131TC5GYueeBMv8fvXaTdUvIiZEe8OuCi03NeG3LmKUR1FcwkaeIfpnLDF7oXzn7e
+         gqcQ==
+X-Gm-Message-State: AOAM5310vj9FzdDJ/ma/bDDGwwYiPPZ/ezqqxwzTbbx2TgOE1g195vu8
+	LZqqKvaMGmc3e6oU3lx8fhk=
+X-Google-Smtp-Source: ABdhPJw3nQ2uRPkqkGJeLs2KPXVa82d0yBEAQ+GCECGWTyLSFJ+QpfS8v8/cXjVRnJdoEyGLZsxbbA==
+X-Received: by 2002:a19:cc52:: with SMTP id c79mr307951lfg.490.1610485183821;
+        Tue, 12 Jan 2021 12:59:43 -0800 (PST)
+Subject: Re: [PATCH v4 11/11] xen/arm: smmuv3: Add support for SMMUv3 driver
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?=
- <michal.leszczynski@cert.pl>, Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
- Tamas K Lengyel <tamas@tklengyel.com>, Andrew Cooper <amc96@cam.ac.uk>
-References: <20210112194841.1537-1-andrew.cooper3@citrix.com>
- <20210112194841.1537-3-andrew.cooper3@citrix.com>
- <CAJ=z9a30MFcV4=5YU9O2oHmNeMU3vdPwSJ6vYCpDi5Zoi6aNtQ@mail.gmail.com>
-From: Andrew Cooper <amc96@cam.ac.uk>
-Message-ID: <ac46431b-3d68-e758-f598-0d39c6c39aeb@cam.ac.uk>
-Date: Tue, 12 Jan 2021 20:57:43 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ Paul Durrant <paul@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1610115608.git.rahul.singh@arm.com>
+ <9ba174516e01e2a53390420fa957ea563219141f.1610115608.git.rahul.singh@arm.com>
+ <7762de2c-da11-5643-8f70-fdd87a7583eb@gmail.com>
+ <A92B97AF-953C-4523-A438-CED1D8C1F1AC@arm.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <3485d705-9063-59b9-f282-9661883265f3@gmail.com>
+Date: Tue, 12 Jan 2021 22:59:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <CAJ=z9a30MFcV4=5YU9O2oHmNeMU3vdPwSJ6vYCpDi5Zoi6aNtQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
+In-Reply-To: <A92B97AF-953C-4523-A438-CED1D8C1F1AC@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On 12/01/2021 20:15, Julien Grall wrote:
-> Hi Andrew,
+
+On 12.01.21 11:41, Rahul Singh wrote:
+
+Hi Rahul
+
+
 >
-> On Tue, 12 Jan 2021 at 19:49, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->> Calling XENMEM_acquire_resource with a NULL frame_list is a request for the
->> size of the resource, but the returned 32 is bogus.
+>>>   -static int arm_smmu_of_xlate(struct device *dev, struct of_phandle_args *args)
+>>> +static int arm_smmu_dt_xlate(struct device *dev,
+>>> +				const struct dt_phandle_args *args)
+>>>   {
+>>> -	return iommu_fwspec_add_ids(dev, args->args, 1);
+>>> +	int ret;
+>>> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+>> Please bear in mind I am not familiar with the SMMU, but don't we need to perform a some kind
+>> of sanity check of passed DT IOMMU specifier here?
+> I checked the code follow we will never hit the dt_xlate without IOMMU specifier but anyway I will add the sanity check.
+By sanity check I meant to make sure that device ID (stream ID) is in 
+allowed range (of course, if this is relevant for SMMU).
+For example, for IPMMU-VMSA we have a check that device ID (uTLB) is 
+less than max uTLB number.
+
+
+>   
+>
+>
+>>> +
+>>> +static int arm_smmu_iommu_xen_domain_init(struct domain *d)
+>>> +{
+>>> +	struct arm_smmu_xen_domain *xen_domain;
+>>> +
+>>> +	xen_domain = xzalloc(struct arm_smmu_xen_domain);
+>>> +	if (!xen_domain)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	spin_lock_init(&xen_domain->lock);
+>>> +	INIT_LIST_HEAD(&xen_domain->contexts);
+>>> +
+>>> +	dom_iommu(d)->arch.priv = xen_domain;
+>>> +	return 0;
+>>> +
+>>> +}
+>>> +
+>>> +static void __hwdom_init arm_smmu_iommu_hwdom_init(struct domain *d)
+>>> +{
+>> Both SMMUv2 and IPMMU perform some actions here. Any reason we don't need to do the same here?
 >>
->> If someone tries to follow it for XENMEM_resource_ioreq_server, the acquire
->> call will fail as IOREQ servers currently top out at 2 frames, and it is only
->> half the size of the default grant table limit for guests.
-> I haven't yet looked at the code, just wanted to seek some clarification here.
-> Are we expecting someone else outside the tools (e.g. QEMU) to rely on
-> the new behavior? If so, what would happen if such code ran on older
-> Xen?
->
-> IOW, will that code require some compatibility layer to function?
+>>      /* Set to false options not supported on ARM. */
+>>      if ( iommu_hwdom_inclusive )
+>>          printk(XENLOG_WARNING
+>>          "map-inclusive dom0-iommu option is not supported on ARM\n");
+>>      iommu_hwdom_inclusive = false;
+>>      if ( iommu_hwdom_reserved == 1 )
+>>          printk(XENLOG_WARNING
+>>          "map-reserved dom0-iommu option is not supported on ARM\n");
+>>      iommu_hwdom_reserved = 0;
+>>
+>>      arch_iommu_hwdom_init(d);
+> I will add the above code for SMMUv3 also.
 
-This is total mess.
+Great.
 
-Requesting the size of a resource was never implemented for userspace. 
-The two current users of this interface (domain builder for gnttab
-seeding, qemu for ioreq server) make blind mapping calls with a priori
-knowledge of the offsets and sizes.
+I was thinking about it, this is the third IOMMU driver on Arm which has 
+to disable the _same_ unsupported options, probably this code wants to 
+be folded in arch_iommu_hwdom_init() to avoid duplication?
 
-The next patch in this series adds the xenforeignmemory_resource_size()
-API for userspace, so we can reliably say that anything built against
-anything earlier than Xen 4.15 isn't making size requests.
+-- 
+Regards,
 
-The added complication is that if you have Xen 4.15, and Linux 4.18 or
-later without the kernel fix provided by Roger (which is CC stable),
-you'll get a bogus 32 back from the size requests.
+Oleksandr Tyshchenko
 
-But that is fine because nothing is making size requests yet.
-
-The first concrete user of size requests will be Michał's Processor
-Trace series, where there is a daemon to map the PT buffer and shuffle
-the contents into a file.  That will also depend on new content in 4.15.
-
-At some point in the future, Qemu is going to have to change it's
-approach, when we want to support more than 128 vcpus.  This is the
-point at which the synchronous ioreq page needs to turn into two pages. 
-In practice, qemu could make a size call, or could make the same
-calculation as Xen makes, as Qemu does know d->max_vcpus via other means.
-
-
-Honestly, I'm expecting that Linux stable will do the rounds faster than
-Xen 4.15 gets rolled out to distros.  The chances of having a bleeding
-edge Xen, and not an up-to-date (or at least patched) dom0 kernel is
-minimal.
-
->> Also, no users actually request a resource size, because it was never wired up
->> in the sole implementaion of resource acquisition in Linux.
-> s/implementation/
->
->> Introduce a new resource_max_frames() to calculate the size of a resource, and
->> implement it the IOREQ and grant subsystems.
-> in the?
-
-Fixed, thanks,
-
-~Andrew
 
