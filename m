@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6F1D2F3869
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 19:19:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65876.116818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEBAC2F39AE
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 20:10:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65940.116892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzOGJ-0005Ae-KS; Tue, 12 Jan 2021 18:19:23 +0000
+	id 1kzP31-0002Le-Ao; Tue, 12 Jan 2021 19:09:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65876.116818; Tue, 12 Jan 2021 18:19:23 +0000
+Received: by outflank-mailman (output) from mailman id 65940.116892; Tue, 12 Jan 2021 19:09:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzOGJ-00058p-7x; Tue, 12 Jan 2021 18:19:23 +0000
-Received: by outflank-mailman (input) for mailman id 65876;
- Tue, 12 Jan 2021 18:19:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kzP31-0002LF-7Y; Tue, 12 Jan 2021 19:09:43 +0000
+Received: by outflank-mailman (input) for mailman id 65940;
+ Tue, 12 Jan 2021 19:09:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gu5a=GP=lip6.fr=manuel.bouyer@srs-us1.protection.inumbo.net>)
- id 1kzOCe-0003Yo-1e
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 18:15:36 +0000
-Received: from isis.lip6.fr (unknown [2001:660:3302:283c::2])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5148e491-bdb8-4783-90d4-f3ea69b84284;
- Tue, 12 Jan 2021 18:14:01 +0000 (UTC)
-Received: from asim.lip6.fr (asim.lip6.fr [132.227.86.2])
- by isis.lip6.fr (8.15.2/8.15.2) with ESMTP id 10CIE0BO020395;
- Tue, 12 Jan 2021 19:14:00 +0100 (CET)
-Received: from armandeche.soc.lip6.fr (armandeche [132.227.63.133])
- by asim.lip6.fr (8.15.2/8.14.4) with ESMTP id 10CIDxEQ025995;
- Tue, 12 Jan 2021 19:13:59 +0100 (MET)
-Received: by armandeche.soc.lip6.fr (Postfix, from userid 20331)
- id 2C2937218; Tue, 12 Jan 2021 19:13:59 +0100 (MET)
+ <SRS0=UmZ/=GP=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1kzP30-0002L6-7f
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 19:09:42 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 46eacc29-19f4-4d2a-ba9b-b43f340513f2;
+ Tue, 12 Jan 2021 19:09:41 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 945B5230F9;
+ Tue, 12 Jan 2021 19:09:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,62 +38,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5148e491-bdb8-4783-90d4-f3ea69b84284
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: xen-devel@lists.xenproject.org
-Cc: Manuel Bouyer <bouyer@netbsd.org>, Ian Jackson <iwj@xenproject.org>,
-        Wei Liu <wl@xen.org>
-Subject: [PATCH] xenstat_netbsd: remove usused code
-Date: Tue, 12 Jan 2021 19:12:42 +0100
-Message-Id: <20210112181242.1570-22-bouyer@antioche.eu.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210112181242.1570-1-bouyer@antioche.eu.org>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+X-Inumbo-ID: 46eacc29-19f4-4d2a-ba9b-b43f340513f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1610478580;
+	bh=41T5rpogzUmFkabtjEbSnxtUgy5ZLwwO0F919YRV4aw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=mUIEOLPypEgFD85cjy92O5UOzPdnthGpJpgUbUDioaQ6sMLVrRSnRCICyFt+ptINL
+	 Fhs3E3Z5QvJNVbYAVd9MUoe26slVhxg+yVkRxQ+csfiw09Lvys3Kpy7qLkRnfVdBHS
+	 l6VGNB3TkezncR8OCER+p3VPY+dheFTAY2kZ393LSAmjPQwQw9ABzfJUsvalPOa5a4
+	 YWl0L9yGP7Ob7Zjwt3S7oNe7mqGnlj6uzFpJHpp2i5bLKRPUbc3/rO/voB3+9iQQyx
+	 eJYbKmeNnds7VQ99w2Fl9R4sJQY/kiLTLg7SPODW84Qy3yPwmZDVGloOOGeP65cLRS
+	 GhGckeM+E9QVA==
+Date: Tue, 12 Jan 2021 11:09:38 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Volodymyr_Babchuk@epam.com, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH] xen/arm: don't read aarch32 regs when aarch32 isn't
+ available
+In-Reply-To: <db6949f1-6b19-b1bb-9bec-8b56a2ad83a1@xen.org>
+Message-ID: <alpine.DEB.2.21.2101121015100.2495@sstabellini-ThinkPad-T480s>
+References: <20210112001623.28421-1-sstabellini@kernel.org> <db6949f1-6b19-b1bb-9bec-8b56a2ad83a1@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (isis.lip6.fr [132.227.60.2]); Tue, 12 Jan 2021 19:14:00 +0100 (CET)
-X-Scanned-By: MIMEDefang 2.78 on 132.227.60.2
+Content-Type: text/plain; charset=US-ASCII
 
-From: Manuel Bouyer <bouyer@netbsd.org>
+On Tue, 12 Jan 2021, Julien Grall wrote:
+> > +    aarch32 = c->pfr64.el1 == 2;
+> 
+> This is checking that AArch32 is available in EL1. However, it may not be the
+> case yet it would be available in EL0.
+> 
+> As a consequence, 32-bit userspace wouldn't work properly after this patch.
+> 
+> The Arm Arm mandates that if AArch32 is available at EL(n), then it must be
+> available at EL(n - 1).
+> 
+> So we should check that AArch32 is available at EL0 because this would
+> cover the case where AArch32 is enabled at EL1.
 
-remove PROCNETDEV_HEADER[] and read_attributes_vbd(), gcc complains that they
-are unused
+OK
 
-Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
----
- tools/libs/stat/xenstat_netbsd.c | 11 -----------
- 1 file changed, 11 deletions(-)
 
-diff --git a/tools/libs/stat/xenstat_netbsd.c b/tools/libs/stat/xenstat_netbsd.c
-index 6e9d6aee10..64eda9e1ae 100644
---- a/tools/libs/stat/xenstat_netbsd.c
-+++ b/tools/libs/stat/xenstat_netbsd.c
-@@ -55,11 +55,6 @@ get_priv_data(xenstat_handle *handle)
- }
- 
- /* Expected format of /proc/net/dev */
--static const char PROCNETDEV_HEADER[] =
--    "Inter-|   Receive                                                |"
--    "  Transmit\n"
--    " face |bytes    packets errs drop fifo frame compressed multicast|"
--    "bytes    packets errs drop fifo colls carrier compressed\n";
- 
- /* Collect information about networks */
- int xenstat_collect_networks(xenstat_node * node)
-@@ -76,12 +71,6 @@ void xenstat_uninit_networks(xenstat_handle * handle)
- 		fclose(priv->procnetdev);
- }
- 
--static int read_attributes_vbd(const char *vbd_directory, const char *what, char *ret, int cap)
--{
--	/* XXX implement */
--	return 0;
--}
--
- /* Collect information about VBDs */
- int xenstat_collect_vbds(xenstat_node * node)
- {
--- 
-2.29.2
+> Furthermore, I would also like to avoid hardcoding value in the code as it is
+> less readable. We already define cpu_has_el0_32 which use the boot CPU
+> feature. Maybe we want to expand the macro or split it?
 
+I agree
+
+Technically, cpu_has_el0_32 works as is, because it is called after
+boot_cpu_data has been updated. So we could just use it. What do you
+think?
+
+
+> >   #endif
+> >   +    if ( aarch32 )
+> I read this check as "If AArch32 is not available at any EL". But you are
+> checking whether it is available at a given level. So I would suggest to
+> suffix with the EL for clarification.
+> 
+> In this case, I think you will want to call it aarch32_el0.
+
+OK
 
