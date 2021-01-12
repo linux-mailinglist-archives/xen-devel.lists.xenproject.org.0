@@ -2,45 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6692F2F3CA0
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 00:48:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66209.117521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A242F3CA2
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 00:48:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66211.117533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzTOb-0007p7-MQ; Tue, 12 Jan 2021 23:48:17 +0000
+	id 1kzTOp-0007t9-1D; Tue, 12 Jan 2021 23:48:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66209.117521; Tue, 12 Jan 2021 23:48:17 +0000
+Received: by outflank-mailman (output) from mailman id 66211.117533; Tue, 12 Jan 2021 23:48:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzTOb-0007oi-JK; Tue, 12 Jan 2021 23:48:17 +0000
-Received: by outflank-mailman (input) for mailman id 66209;
- Tue, 12 Jan 2021 23:48:16 +0000
+	id 1kzTOo-0007sd-TK; Tue, 12 Jan 2021 23:48:30 +0000
+Received: by outflank-mailman (input) for mailman id 66211;
+ Tue, 12 Jan 2021 23:48:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fP7O=GP=epam.com=prvs=164660cab8=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1kzTOZ-0007oN-Uj
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 23:48:16 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ <SRS0=+f/N=GP=gmail.com=f.fainelli@srs-us1.protection.inumbo.net>)
+ id 1kzTOn-0007sJ-9T
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 23:48:29 +0000
+Received: from mail-pf1-x432.google.com (unknown [2607:f8b0:4864:20::432])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c151dfb0-870d-4d48-b5ed-732afe57e807;
- Tue, 12 Jan 2021 23:48:14 +0000 (UTC)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10CNixl0012011; Tue, 12 Jan 2021 23:48:12 GMT
-Received: from eur01-he1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2054.outbound.protection.outlook.com [104.47.0.54])
- by mx0a-0039f301.pphosted.com with ESMTP id 35y5h0rp5k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 Jan 2021 23:48:12 +0000
-Received: from AM0PR03MB3508.eurprd03.prod.outlook.com (2603:10a6:208:4f::23)
- by AM0PR03MB4196.eurprd03.prod.outlook.com (2603:10a6:208:c6::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Tue, 12 Jan
- 2021 23:48:05 +0000
-Received: from AM0PR03MB3508.eurprd03.prod.outlook.com
- ([fe80::2dc5:6ffb:56c8:f539]) by AM0PR03MB3508.eurprd03.prod.outlook.com
- ([fe80::2dc5:6ffb:56c8:f539%6]) with mapi id 15.20.3742.012; Tue, 12 Jan 2021
- 23:48:05 +0000
+ id d8b344fd-86d5-499a-9357-dfffe308f2d1;
+ Tue, 12 Jan 2021 23:48:28 +0000 (UTC)
+Received: by mail-pf1-x432.google.com with SMTP id c12so66313pfo.10
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 15:48:28 -0800 (PST)
+Received: from [10.67.48.230] ([192.19.223.252])
+ by smtp.googlemail.com with ESMTPSA id k3sm57763pgm.94.2021.01.12.15.48.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Jan 2021 15:48:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,275 +41,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c151dfb0-870d-4d48-b5ed-732afe57e807
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NkwlJeidMk9Y6erj7v8Oy0523MkDkaoxA0OFFf8XPICyLUgh8+LRSx8xGXqsZqbigtO+EqEGL8FioQMpkIRypE1WpUipNttg5Wa3zeAGCYOqtJgSYnmvIIry+SAVOyhl496/cMqCpLAqe+YH/DxZPx9+4NHo99f31xdGBS2RS+o9h/qgDe+BVqOTFH6XFh5YDhDBwAzjSbFVkn41pbSE3Ew75h49V4Z1HfXywEuaYtcxg5awfPdzw9nmUSJ3ZpXrbwqJ/jaR2zN1mzBXoSBRRJr9keYOaWB6itOw0ZWR7ea9EsxwvqYtknam9lD3DkYulMqb1CIxptfxgzIxhoBedQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3w1innla6aXJqnqV7t2NEYKWicYU6C5fxsltBf9xQW0=;
- b=kZaqTUoZEDlx8ElCr2l7ZvEX9b2x/cmgPvqLbtjmQGduw4gp/NxXpQDC5BZVFcbTrgcTpi9Vg1zcdt+JKVDNjDsAAxokUAubJhzBaRYLRrARIyrnQw1rs3H7ukFxAicdJDWbRk6jH6iHgJ63Lcp1nEbWGC+kZLtVrMg0Vb0TzWWEMhVWWN1yHXih8eH9fRGXkCF0YnUSQqYrfPj5B6za2rrzsnnVwwS5BECHljW9LFSUWZfUWm6ul9aMJtqHPm/1pYEwBL98cJYrF7UASYJDJkYoNbN7muJ15AVohLO866+/wn9/Pt4NHPI7brqmWRc0wfsEqWLMpZO3+/1WyQ3gQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3w1innla6aXJqnqV7t2NEYKWicYU6C5fxsltBf9xQW0=;
- b=b9S5yfQf+FB8yGpGPwn0bUkJkV9ynQLzlOlbxEE4EVKBv50IGQUnJ64b1RpIG5cdGu4KpXdN0oJ6Dn3jABDPbilNrtIwJfcQQevRYaIo/DqBRAkh39bFNH2cDisPCrhmCiFhY0p5z44lSipl6wcJmGdiF95vFVv7d+s/v5ltPSndFuY14U23kyqd33d2HwwAGfpFLovctYKtUypBRbD/95sKz1sE2W3E2Lx0imL9frGSPAVDz/kqyR8XHVtNmSnKoQE+JAcS2L3ebAGE4mOhahXzWNec2RmPMeXR6mMKBQSMesH0Bt8D9uIjwBTEQnE7cStNBHtA1NCXT+dqJLSSyA==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Julien Grall <jgrall@amazon.com>,
-        Stefano Stabellini
-	<stefano.stabellini@xilinx.com>,
-        Dario Faggioli <dario.faggioli@suse.com>
-Subject: IRQ latency measurements in hypervisor
-Thread-Topic: IRQ latency measurements in hypervisor
-Thread-Index: AQHW6T1firbO0EOYpEKUiW6vsavsPQ==
-Date: Tue, 12 Jan 2021 23:48:05 +0000
-Message-ID: <87pn294szv.fsf@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.4.10; emacs 27.1
-authentication-results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=epam.com;
-x-originating-ip: [176.36.48.175]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 792bb280-2cf3-4c41-801c-08d8b7548203
-x-ms-traffictypediagnostic: AM0PR03MB4196:
-x-microsoft-antispam-prvs: 
- <AM0PR03MB4196CB2002B23CB26CC989BAE6AA0@AM0PR03MB4196.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- gSkQ2mW19Ke1UuwFmr7XzlzbphY0Rr0aSd8Cgq1lvQC6r9EiIVmUSq0YLmso80GxKwBSRrsKpf//FZ1o6IYQXfg7omzW7lQTdSWBbp+c1XWB9TfbcfFoScl2noZRaKqdKY7PEuDzUBdVWp1pDlw/OvHKYheAs6TAeoitCvU9N0MmXzx7FCrzsFTiiwJJulRSKCKpvCgmykpQegHPnVGUJUPP3FRg6qCz31G64ZT3vvblfoONfpWju/0oxmml5oGisKJA1GaEO0C+9N/ipFOBgW6TQWpRJu0b0uwbbX+FMpNgCfHifjqYxN37WrFciGhP21N9QiwSYpRKy87Tl1cmq4uL1rEq/1lHDYdqKvBqf34RBcFP/J22hg4cit8eIw6SDYoMQlEiZcBSRDdlUTnCPRcsy57ZHuUlLFJFP3pNqyt8cuqXg0yJ6t/kEUXeN5a45D1GrLxCY00ZoVFXXjpYCw==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB3508.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(346002)(39840400004)(376002)(366004)(6916009)(83380400001)(86362001)(36756003)(2906002)(6512007)(186003)(6486002)(478600001)(66946007)(71200400001)(966005)(66556008)(26005)(5660300002)(66446008)(64756008)(4326008)(54906003)(2616005)(55236004)(316002)(66476007)(8676002)(76116006)(6506007)(8936002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: 
- =?iso-8859-1?Q?9xJ9P1mA15RS0se9YSYbZ2XL62iuIYGAZAYhmsUexHPn+x+16pOfQpz2fF?=
- =?iso-8859-1?Q?vmcD+dx5rZD0UQ0WHTXtL82KMTcZ0AiSpS299YFOkbsBRMUk6Xc3L1j6HZ?=
- =?iso-8859-1?Q?D37Wu3PT6A5+At0jPU/xSFzRcWn1W0T5/FfUoNRqjM6P+yUkPz5oB16h1v?=
- =?iso-8859-1?Q?zFqha9sWaQTNQMZBoVClqSuZOBQMsyynNmaMJx/fhmvriy2uqAE/HxVDwY?=
- =?iso-8859-1?Q?hI2zDraBVLU0OEUC9CNr9XF+AWAA9RHTK5T69yRzMxnubazF1JtoVAQEJx?=
- =?iso-8859-1?Q?PqRvW4up2IPIKQRPzyIcC6tOQbW7APg8wAuIChqkANg3nphiWlUXnjiQ4/?=
- =?iso-8859-1?Q?YEm4IPS9HzZG6860drX0UDhNpxfbIHQ1Sdiip2hl5qzshaIjGhfhfyGBy1?=
- =?iso-8859-1?Q?ruUnMqiPeKjlVJJXV6EcLeA14twJyF64yHyPrE6RZ2CrOqS+RRnAxNdPd6?=
- =?iso-8859-1?Q?ZBGGJh+jnpqoh3F42+ZFj7R2YWTBBpjo5cLavhNP6wNgvvxHuRlhi41+75?=
- =?iso-8859-1?Q?/Wk4C38gk6ts1PJZ1IHyOGSbkvPi0yzyDQpS97Cjhc6u+xaAdLiUbCXDSf?=
- =?iso-8859-1?Q?UMY3ZOS+Hu0DE9Rfq+/vVC8zROPnpmHUYh/sPNM4+2MngHsNJOZDMXjCCd?=
- =?iso-8859-1?Q?oKNpjE57m4E4beQZmuA2C4ZCR3JgFnX6JPE6D/knLwjrci8pwb23uZmKLf?=
- =?iso-8859-1?Q?sKS4+5QPOTrqvmgMylfeakEPinOHfspZmLJUixyRbS6MxecakK6+ByRxj4?=
- =?iso-8859-1?Q?Cn5I6sE2trbDTIBzKhhd6Th+6C7LzvVXAgg4GalamqFy0wq1bqBvVjgLH6?=
- =?iso-8859-1?Q?d1tTDchwMWIuLVJZRn62r6kVdm2nR47esuK05SspQGkTuDAIkLQUEp2u1v?=
- =?iso-8859-1?Q?LfkIxqPchCC/gmWSqsifeFAXw4E3L0SEO6351noafAO9yTXzOlqvOE4IUk?=
- =?iso-8859-1?Q?l3bKUsONFrxjMqS9cNCmTxe6CLplkM3ac2I90Agpo1d27vx4fKLW4FotyS?=
- =?iso-8859-1?Q?Im9X8BUNTHs24/FbTDCK3CmN/CbHTK/a4E/CVY?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: d8b344fd-86d5-499a-9357-dfffe308f2d1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=ZruxYcBQXCXWok/YmCXjga0Z3PUTOQ6pNhSzq4bpJR4=;
+        b=g0a+XeY1WpelCJ57IOHLZ5ClC3bxDfY0fE91b/U+a2JYIHKaMmcVwduCeAlYvDQQoL
+         xjVCiINgK4qb5c/LcNp+C22h/uUgi0vdQ2TGhNzY6s+CaSrHxAQGfwwzQ0rH8W+88b31
+         +XIJb8l5Nq1FsvPziTU9NZKAoS+c5TQjnwVX/6Eb1twaMPfwDQB6B2io0xNovCRZS7Ij
+         F7Je6GW1bm2Mx6XSiUeKYKWTmiprOX72+CStoB8qTs5qJrO8vTUdnJMoWGnoJdNzQpBe
+         moohYHc39LCcIAkyfVB+kDMXKifn7ejJk+tALEXkSKv8wCTdSj3tqESBUNBzgPdtMQj4
+         jzPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=ZruxYcBQXCXWok/YmCXjga0Z3PUTOQ6pNhSzq4bpJR4=;
+        b=GpqD0X0hJ3gtB+LpWjt6plrHDLLnTDcI9XSDVjAkWagrRdtqZ72qlY7tYpyjwgyWmP
+         n5LCSnVsGlmsZSb/qcQWfjfIiSBw1KtIyF8QtiGPztFsIykCN4jcJub3DxoBTF7w67Kg
+         gpM/BDc2+5FLGp/JCKf1uhMPFE+geXyK1bYyN5e/dTONSfZI2z0Z54kbKlB/iMzw9WZs
+         JVmNQdFfX8s4GHj/DkrIRZrUTXCXAtGc8D0LNl5jHeYWw8aVl4HPYO8knZ4IaHPlPR7Z
+         o2wwE2+bwNTvGdzEVmoWo3wjdTp7TUvrUbi9pUdKjuwveBH9ypQ4VC3c6BrJFx7QazlA
+         /MrQ==
+X-Gm-Message-State: AOAM530L+ZSltH0O5WUqu3S+OTaBgRTZf8tf41kZ5ZbX/JSPpzADoniP
+	0drl5vx7FaVNaTFMMHdyoa8=
+X-Google-Smtp-Source: ABdhPJzcsesZOG8VoM+izCkYUl4yjaLgepIotHJQF1QgVivbf7byOhsDdoAO8dQh9VGDhIePy7ZM6A==
+X-Received: by 2002:a63:1865:: with SMTP id 37mr1523162pgy.206.1610495307478;
+        Tue, 12 Jan 2021 15:48:27 -0800 (PST)
+Subject: Re: [RFC PATCH v3 6/6] of: Add plumbing for restricted DMA pool
+To: Claire Chang <tientzu@chromium.org>, robh+dt@kernel.org,
+ mpe@ellerman.id.au, benh@kernel.crashing.org, paulus@samba.org,
+ joro@8bytes.org, will@kernel.org, frowand.list@gmail.com,
+ konrad.wilk@oracle.com, boris.ostrovsky@oracle.com, jgross@suse.com,
+ sstabellini@kernel.org, hch@lst.de, m.szyprowski@samsung.com,
+ robin.murphy@arm.com
+Cc: grant.likely@arm.com, xypron.glpk@gmx.de, treding@nvidia.com,
+ mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org,
+ gregkh@linuxfoundation.org, saravanak@google.com,
+ rafael.j.wysocki@intel.com, heikki.krogerus@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, rdunlap@infradead.org,
+ dan.j.williams@intel.com, bgolaszewski@baylibre.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, iommu@lists.linux-foundation.org,
+ xen-devel@lists.xenproject.org, tfiga@chromium.org, drinkcat@chromium.org
+References: <20210106034124.30560-1-tientzu@chromium.org>
+ <20210106034124.30560-7-tientzu@chromium.org>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Autocrypt: addr=f.fainelli@gmail.com; prefer-encrypt=mutual; keydata=
+ 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
+ M5kY0ACeNhCZJvZ5g4C2Lc9fcTHu8jxmEkI=
+Message-ID: <95e6dd76-5e18-e445-c351-19fba18f36de@gmail.com>
+Date: Tue, 12 Jan 2021 15:48:24 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB3508.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 792bb280-2cf3-4c41-801c-08d8b7548203
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jan 2021 23:48:05.7989
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xG2vsuNLkD7Rcw8FRhMyzg684K/TwHQto+8uI+sd2wmpZmKwSpXu5PIQylGE1Rbp+6+Ga5xq7M5KGPxQ9vnj6R+e1b64+2NGZQbk9AP0O/Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4196
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 spamscore=0 mlxlogscore=999
- phishscore=0 impostorscore=0 adultscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 mlxscore=0 malwarescore=0 clxscore=1011
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101120135
+In-Reply-To: <20210106034124.30560-7-tientzu@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+
+On 1/5/21 7:41 PM, Claire Chang wrote:
+> If a device is not behind an IOMMU, we look up the device node and set
+> up the restricted DMA when the restricted-dma-pool is presented.
+> 
+> Signed-off-by: Claire Chang <tientzu@chromium.org>
+> ---
+
+[snip]
+
+> +int of_dma_set_restricted_buffer(struct device *dev)
+> +{
+> +	struct device_node *node;
+> +	int count, i;
+> +
+> +	if (!dev->of_node)
+> +		return 0;
+> +
+> +	count = of_property_count_elems_of_size(dev->of_node, "memory-region",
+> +						sizeof(phandle));
+
+You could have an early check for count < 0, along with an error
+message, if that is deemed useful.
+
+> +	for (i = 0; i < count; i++) {
+> +		node = of_parse_phandle(dev->of_node, "memory-region", i);
+> +		if (of_device_is_compatible(node, "restricted-dma-pool"))
+
+And you may want to add here an of_device_is_available(node). A platform
+that provides the Device Tree firmware and try to support multiple
+different SoCs may try to determine if an IOMMU is present, and if it
+is, it could be marking the restriced-dma-pool region with a 'status =
+"disabled"' property, or any variant of that scheme.
+
+> +			return of_reserved_mem_device_init_by_idx(
+> +				dev, dev->of_node, i);
+
+This does not seem to be supporting more than one memory region, did not
+you want something like instead:
+
+		ret = of_reserved_mem_device_init_by_idx(...);
+		if (ret)
+			return ret;
+
+> +	}
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/of/device.c b/drivers/of/device.c
+> index aedfaaafd3e7..e2c7409956ab 100644
+> --- a/drivers/of/device.c
+> +++ b/drivers/of/device.c
+> @@ -182,6 +182,10 @@ int of_dma_configure_id(struct device *dev, struct device_node *np,
+>  	arch_setup_dma_ops(dev, dma_start, size, iommu, coherent);
+>  
+>  	dev->dma_range_map = map;
+> +
+> +	if (!iommu)
+> +		return of_dma_set_restricted_buffer(dev);
+> +
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(of_dma_configure_id);
+> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
+> index d9e6a324de0a..28a2dfa197ba 100644
+> --- a/drivers/of/of_private.h
+> +++ b/drivers/of/of_private.h
+> @@ -161,12 +161,17 @@ struct bus_dma_region;
+>  #if defined(CONFIG_OF_ADDRESS) && defined(CONFIG_HAS_DMA)
+>  int of_dma_get_range(struct device_node *np,
+>  		const struct bus_dma_region **map);
+> +int of_dma_set_restricted_buffer(struct device *dev);
+>  #else
+>  static inline int of_dma_get_range(struct device_node *np,
+>  		const struct bus_dma_region **map)
+>  {
+>  	return -ENODEV;
+>  }
+> +static inline int of_dma_get_restricted_buffer(struct device *dev)
+> +{
+> +	return -ENODEV;
+> +}
+>  #endif
+>  
+>  #endif /* _LINUX_OF_PRIVATE_H */
+> 
 
 
-Hello community,
-
-Recently I was experimenting with context switching latencies in
-Xen. I want to share my findings and discuss some issues I have found.
-
-My target was to ensure that no more 30us passes between interrupt
-generation and handling in a guest VM. Main goal was to determine if
-Xen is ready for soft RT and to identify main issues that prevent
-this.
-
-TLDR: I was able to achieve mean 15us latency with tuned RTDS
-scheduler, disabled serial console and some hacks to the Xen
-toolstack. This was done on a setup with 1 PCPU.
-
-Test setup.
-
-ARMv8 platform. Namely Renesas Rcar H3 SoC on Salvator board.
-
-To accurately determine latency, I employed one of timer counter units
-(TMUs) available on the SoC. This is 32-bit timer with auto-reload,
-that can generate interrupt on underflow. I fed it with 33.275MHz
-clock, which gave me resolution of about 30ns. I programmed the timer
-to generate interrupt every 10ms. My ISR then read the current timer
-value and determined how much time passed since last underrun. This
-gave me time interval between IRQ generation and ISR invocation.
-Those values were collected and every 10 seconds statistics was
-calculated. There is an example of output from my Linux driver:
-
-[   83.873162] rt_eval_tmu e6fc0000.tmu: Mean: 44 (1320 ns) stddev: 8 (240 =
-ns)
-[   94.136632] rt_eval_tmu e6fc0000.tmu: Mean: 44 (1320 ns) stddev: 8 (240 =
-ns)
-[  104.400098] rt_eval_tmu e6fc0000.tmu: Mean: 50 (1500 ns) stddev: 129 (38=
-70 ns)
-[  114.663828] rt_eval_tmu e6fc0000.tmu: Mean: 44 (1320 ns) stddev: 8 (240 =
-ns)
-[  124.927296] rt_eval_tmu e6fc0000.tmu: Mean: 56 (1680 ns) stddev: 183 (54=
-90 ns)
-
-This is the baremetal Linux. And there is Dom0:
-
-[  237.431003] rt_eval_tmu e6fc0000.tmu: Mean: 306 (9180 ns) stddev: 25 (75=
-0 ns)
-[  247.694506] rt_eval_tmu e6fc0000.tmu: Mean: 302 (9060 ns) stddev: 17 (51=
-0 ns)
-
-Driver outputs both the raw timer value (eg. 4) and the same value
-scaled to nanoseconds (eg. 1320 ns). As you can see baremetal setup is
-much faster. But experiments showed that Linux does not provide
-consistent values, even when running in baremetal mode. You can see
-sporadic spikes in "std dev" values.
-
-So my next step was to use proper RT OS to do the measurements. I
-chose Zephyr. My PR that adds Xen support to Zephyr can be found at
-[1]. Support for RCAR Gen3 is not upstreamed, but is present on my
-GitHub([2]). At [3] you can find the source code for application that
-does the latency measurements. It behaves exactly as my linux driver,
-but provides a bit more information:
-
- *** Booting Zephyr OS build zephyr-v2.4.0-2750-g0f2c858a39fc  ***
-RT Eval app
-
-Counter freq is 33280000 Hz. Period is 30 ns
-Set alarm in 0 sec (332800 ticks)
-Mean: 600 (18000 ns) stddev: 3737 (112110 ns) above thr: 0% [265 (7950 ns) =
-- 66955 (2008650 ns)] global [265 (7950 ns) 66955 (2008650 ns)]
-Mean: 388 (11640 ns) stddev: 2059 (61770 ns) above thr: 0% [266 (7980 ns) -=
- 58830 (1764900 ns)] global [265 (7950 ns) 66955 (2008650 ns)]
-Mean: 358 (10740 ns) stddev: 1796 (53880 ns) above thr: 0% [265 (7950 ns) -=
- 57780 (1733400 ns)] global [265 (7950 ns) 66955 (2008650 ns)]
-...
-
-So there you can see: mean time, standard deviation, % of interrupts
-that was processed above 30us threshold, minimum and maximum latency
-values for the current 10s run, global minimum and maximum.
-
-Zephyr running as baremetal showed very stable results (this is an
-older build, so no extended statistics there):
-
-## Starting application at 0x480803C0 ...
- *** Booting Zephyr OS build zephyr-v2.4.0-1137-g5803ee1e8183  ***
-RT Eval app
-
-Counter freq is 33280000 Hz. Period is 30 ns
-Mean: 31 (930 ns) stddev: 0 (0 ns)
-Mean: 31 (930 ns) stddev: 0 (0 ns)
-Mean: 31 (930 ns) stddev: 0 (0 ns)
-Mean: 31 (930 ns) stddev: 0 (0 ns)
-Mean: 31 (930 ns) stddev: 0 (0 ns)
-Mean: 31 (930 ns) stddev: 0 (0 ns)
-...
-
-As Zephyr provided stable readouts with no jitter, I used it to do all
-subsequent measurements.
-
-
-IMPORTANT! All subsequent tests was conducted with only 1 CPU core
-enabled. My goal was to ensure that system can timely react to an
-external interrupt even under load.
-
-
-Test results and latency sources
-
-As you can see, baremetal OS provides latency of ~0.9us without any
-deviations. The same code running as DomU on idle system shows mean
-latency of 12us and deviation of about 10us. Range of latencies in a
-10s batch can vary from 8us to 25us. This fits into required 30us
-threshold, so no big issue there.
-
-But this worsens under certain conditions.
-
-1. Serial console. RCAR serial driver (scif) works in synchronous
-   mode, so any heavy serial console output leads to higher
-   latency. Tests shows mean latency of 1000us and deviation of 1332
-   us. 54% of interrupts are handled outside of 30us period. Real
-   values may be even higher, because in some cases timer would do
-   full cycle and instead of say 11ms ISR would read 11 % 10 =3D 1ms
-   latency. I tried to enable asynchronous mode for the serial
-   console. This made things better, but it lead to gaps in output, so
-   I just turned the serial console off completely.
-
-2. RTDS scheduler. With console disabled, things like "hexdump -v
-   /dev/zero" didn't affected the latency so badly, but anyways,
-   sometimes I got ~600us spikes. This is not a surprise, because of
-   default RTDS configuration. I changed period for DomU from default
-   10ms to 100us and things got better: with Dom0 burning CPU I am
-   rarely getting max latency of about ~30us with mean latency of ~9us
-   and deviation of ~0.5us. On other hand, when I tried to set period
-   to 30us, max latency rose up to ~60us.
-
-3. Huge latency spike during domain creation. I conducted some
-   additional tests, including use of PV drivers, but this didn't
-   affected the latency in my "real time" domain. But attempt to
-   create another domain with relatively large memory size of 2GB led
-   to huge spike in latency. Debugging led to this call path:
-
-   XENMEM_populate_physmap -> populate_physmap() ->
-   alloc_domheap_pages() -> alloc_heap_pages()-> huge
-   "for ( i =3D 0; i < (1 << order); i++ )" loop.
-
-   This loops handles struct page* for every one of 262144 pages that
-   was allocated by calling populate_physmap(). This function is not
-   preemptible and it takes about a second to complete on my
-   setup. Needless to say that it completely screws any responsiveness
-   of the hypervisor.
-
-I managed to overcome the issue #3 by commenting out all calls to
-populate_one_size() except the populate_one_size(PFN_4K_SHIFT) in
-xg_dom_arm.c. This lengthened domain construction, but my "RT" domain
-didn't experienced so big latency issues. Apparently all other
-hypercalls which are used during domain creation are either fast or
-preemptible. No doubts that my hack lead to page tables inflation and
-overall performance drop.
-
-Conclusions.
-
-I wanted to:
-
-1. Share my approach to IRQ latency measurements.
-
-2. Share results of said measurements.
-
-3. Ask for other potential scenarios, which can affect IRQ latency so I
-   can test them on my setup.
-
-4. Discuss the issue with alloc_domheap_pages(). I brooded over ways
-   to make it preemptible. But it is a) located deep in call chain and
-   b) used not only by hypercalls. So I can't see an easy way to make
-   it preemptible. The best solution would be of course to make the
-   whole hypervisor preemptible. I even heard about some work long
-   time ago...
-
-5. Show that under certain conditions Xen can be used in a soft RT
-   system. Of course, additional tests are needed, but with some minor
-   tweaks it can provide ~15us IRQ latency on a typical workload.
-
-[1] https://github.com/zephyrproject-rtos/zephyr/pull/30164
-[2] https://github.com/lorc/zephyr/tree/renesas_salvator_x
-[3] https://github.com/lorc/zephyr/blob/rt_eval/samples/rt_eval/src/main.c
-
-
---=20
-Volodymyr Babchuk at EPAM=
+-- 
+Florian
 
