@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B70B22F3806
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 19:13:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65831.116682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19FE32F380A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 19:14:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65835.116693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzOAp-0003v5-4Q; Tue, 12 Jan 2021 18:13:43 +0000
+	id 1kzOAy-000433-Hv; Tue, 12 Jan 2021 18:13:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65831.116682; Tue, 12 Jan 2021 18:13:43 +0000
+Received: by outflank-mailman (output) from mailman id 65835.116693; Tue, 12 Jan 2021 18:13:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzOAo-0003uG-UN; Tue, 12 Jan 2021 18:13:42 +0000
-Received: by outflank-mailman (input) for mailman id 65831;
- Tue, 12 Jan 2021 18:13:40 +0000
+	id 1kzOAy-00042V-Dr; Tue, 12 Jan 2021 18:13:52 +0000
+Received: by outflank-mailman (input) for mailman id 65835;
+ Tue, 12 Jan 2021 18:13:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gu5a=GP=lip6.fr=manuel.bouyer@srs-us1.protection.inumbo.net>)
- id 1kzOAm-0003Yo-TH
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 18:13:40 +0000
+ id 1kzOAw-0003Yo-To
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 18:13:50 +0000
 Received: from isis.lip6.fr (unknown [2001:660:3302:283c::2])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e29916b0-c115-4713-bbcb-0375668e652b;
- Tue, 12 Jan 2021 18:13:17 +0000 (UTC)
+ id 9630dadd-5a5b-4a3e-a413-233ad4ad276e;
+ Tue, 12 Jan 2021 18:13:22 +0000 (UTC)
 Received: from asim.lip6.fr (asim.lip6.fr [132.227.86.2])
- by isis.lip6.fr (8.15.2/8.15.2) with ESMTP id 10CIDGkB003862;
- Tue, 12 Jan 2021 19:13:16 +0100 (CET)
+ by isis.lip6.fr (8.15.2/8.15.2) with ESMTP id 10CIDKdm002780;
+ Tue, 12 Jan 2021 19:13:20 +0100 (CET)
 Received: from armandeche.soc.lip6.fr (armandeche [132.227.63.133])
- by asim.lip6.fr (8.15.2/8.14.4) with ESMTP id 10CIDEdp018852;
- Tue, 12 Jan 2021 19:13:14 +0100 (MET)
+ by asim.lip6.fr (8.15.2/8.14.4) with ESMTP id 10CIDJEQ001570;
+ Tue, 12 Jan 2021 19:13:19 +0100 (MET)
 Received: by armandeche.soc.lip6.fr (Postfix, from userid 20331)
- id D80E47218; Tue, 12 Jan 2021 19:13:14 +0100 (MET)
+ id 3E18F7218; Tue, 12 Jan 2021 19:13:19 +0100 (MET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,431 +43,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e29916b0-c115-4713-bbcb-0375668e652b
+X-Inumbo-ID: 9630dadd-5a5b-4a3e-a413-233ad4ad276e
 From: Manuel Bouyer <bouyer@antioche.eu.org>
 To: xen-devel@lists.xenproject.org
-Cc: Manuel Bouyer <bouyer@netbsd.org>, Ian Jackson <iwj@xenproject.org>,
-        Wei Liu <wl@xen.org>
-Subject: [PATCH] NetBSD: remove xenbackendd
-Date: Tue, 12 Jan 2021 19:12:26 +0100
-Message-Id: <20210112181242.1570-6-bouyer@antioche.eu.org>
+Cc: Manuel Bouyer <bouyer@netbsd.org>,
+        Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+        Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH] NetBSD: use system-provided headers
+Date: Tue, 12 Jan 2021 19:12:27 +0100
+Message-Id: <20210112181242.1570-7-bouyer@antioche.eu.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210112181242.1570-1-bouyer@antioche.eu.org>
 References: <20210112181242.1570-1-bouyer@antioche.eu.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (isis.lip6.fr [132.227.60.2]); Tue, 12 Jan 2021 19:13:16 +0100 (CET)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (isis.lip6.fr [132.227.60.2]); Tue, 12 Jan 2021 19:13:20 +0100 (CET)
 X-Scanned-By: MIMEDefang 2.78 on 132.227.60.2
 
 From: Manuel Bouyer <bouyer@netbsd.org>
 
-NetBSD doens't need xenbackendd with xl toolstack so don't build it.
-Remove now unused xenbackendd directory/files.
+On NetBSD use the system-provided headers for ioctl and related definitions,
+they are up to date and have more chances to match the kernel's idea of
+the ioctls and structures.
+Remove now-unused NetBSD/evtchn.h and NetBSD/privcmd.h.
+Don't fail install if xen/sys/*.h are not present.
 
 Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
 ---
- tools/Makefile                  |   1 -
- tools/xenbackendd/Makefile      |  45 -----
- tools/xenbackendd/xenbackendd.c | 326 --------------------------------
- 3 files changed, 372 deletions(-)
- delete mode 100644 tools/xenbackendd/Makefile
- delete mode 100644 tools/xenbackendd/xenbackendd.c
+ tools/debugger/gdbsx/xg/xg_main.c      |   4 +
+ tools/include/Makefile                 |   2 +-
+ tools/include/xen-sys/NetBSD/evtchn.h  |  86 --------------------
+ tools/include/xen-sys/NetBSD/privcmd.h | 106 -------------------------
+ tools/libs/call/private.h              |   4 +
+ tools/libs/ctrl/xc_private.h           |   4 +
+ tools/libs/foreignmemory/private.h     |   6 ++
+ 7 files changed, 19 insertions(+), 193 deletions(-)
+ delete mode 100644 tools/include/xen-sys/NetBSD/evtchn.h
+ delete mode 100644 tools/include/xen-sys/NetBSD/privcmd.h
 
-diff --git a/tools/Makefile b/tools/Makefile
-index ed71474421..757a560be0 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -18,7 +18,6 @@ SUBDIRS-$(CONFIG_X86) += firmware
- SUBDIRS-y += console
- SUBDIRS-y += xenmon
- SUBDIRS-y += xentop
--SUBDIRS-$(CONFIG_NetBSD) += xenbackendd
- SUBDIRS-y += libfsimage
- SUBDIRS-$(CONFIG_Linux) += vchan
+diff --git a/tools/debugger/gdbsx/xg/xg_main.c b/tools/debugger/gdbsx/xg/xg_main.c
+index a4e8653168..ce95648e7e 100644
+--- a/tools/debugger/gdbsx/xg/xg_main.c
++++ b/tools/debugger/gdbsx/xg/xg_main.c
+@@ -49,7 +49,11 @@
+ #include "xg_public.h"
+ #include <xen/version.h>
+ #include <xen/domctl.h>
++#ifdef __NetBSD__
++#include <xen/xenio.h>
++#else
+ #include <xen/sys/privcmd.h>
++#endif
+ #include <xen/foreign/x86_32.h>
+ #include <xen/foreign/x86_64.h>
  
-diff --git a/tools/xenbackendd/Makefile b/tools/xenbackendd/Makefile
+diff --git a/tools/include/Makefile b/tools/include/Makefile
+index 4d4ec5f974..5e90179e66 100644
+--- a/tools/include/Makefile
++++ b/tools/include/Makefile
+@@ -68,7 +68,7 @@ install: all
+ 	$(INSTALL_DATA) xen/foreign/*.h $(DESTDIR)$(includedir)/xen/foreign
+ 	$(INSTALL_DATA) xen/hvm/*.h $(DESTDIR)$(includedir)/xen/hvm
+ 	$(INSTALL_DATA) xen/io/*.h $(DESTDIR)$(includedir)/xen/io
+-	$(INSTALL_DATA) xen/sys/*.h $(DESTDIR)$(includedir)/xen/sys
++	$(INSTALL_DATA) xen/sys/*.h $(DESTDIR)$(includedir)/xen/sys || true
+ 	$(INSTALL_DATA) xen/xsm/*.h $(DESTDIR)$(includedir)/xen/xsm
+ 
+ .PHONY: uninstall
+diff --git a/tools/include/xen-sys/NetBSD/evtchn.h b/tools/include/xen-sys/NetBSD/evtchn.h
 deleted file mode 100644
-index ba53bbf7e6..0000000000
---- a/tools/xenbackendd/Makefile
+index 2d8a1f9164..0000000000
+--- a/tools/include/xen-sys/NetBSD/evtchn.h
 +++ /dev/null
-@@ -1,45 +0,0 @@
--# Copyright (c) 2009 Advanced Micro Devices, Inc.
--#
--# This program is free software; you can redistribute it and/or modify
--# it under the terms of the GNU General Public License as published by
--# the Free Software Foundation; under version 2 of the License.
--#
--# This program is distributed in the hope that it will be useful,
--# but WITHOUT ANY WARRANTY; without even the implied warranty of
--# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--# GNU General Public License for more details.
--
--XEN_ROOT=$(CURDIR)/../..
--include $(XEN_ROOT)/tools/Rules.mk
--
--CFLAGS  += -Werror
--CFLAGS  += $(CFLAGS_libxenstore)
--CPPFLAGS += -DXEN_SCRIPT_DIR="\"$(XEN_SCRIPT_DIR)\""
--LDLIBS  += $(LDLIBS_libxenstore)
--
--.PHONY: all
--all: build
--
--.PHONY: build
--build: xenbackendd
--
--.PHONY: install
--install: build
--	$(INSTALL_DIR) $(DESTDIR)$(sbindir)
--	$(INSTALL_PROG) xenbackendd $(DESTDIR)$(sbindir)
--
--.PHONY: clean
--clean:
--	$(RM) *.a *.so *.o $(DEPS_RM) xenbackendd _paths.h
--
--.PHONY: distclean
--distclean: clean
--
--xenbackendd.o: _paths.h
--xenbackendd: xenbackendd.o
--	$(CC) $(LDFLAGS) $< -o $@ $(LDLIBS) $(APPEND_LDFLAGS)
--
--genpath-target = $(call buildmakevars2header,_paths.h)
--$(eval $(genpath-target))
--
---include $(DEPS_INCLUDE)
-diff --git a/tools/xenbackendd/xenbackendd.c b/tools/xenbackendd/xenbackendd.c
-deleted file mode 100644
-index 21884af772..0000000000
---- a/tools/xenbackendd/xenbackendd.c
-+++ /dev/null
-@@ -1,326 +0,0 @@
--/* $NetBSD: xenbackendd.c,v 1.1.1.1 2008/08/07 20:26:57 cegger Exp $ */
--/*
-- * Copyright (C) 2006 Manuel Bouyer <bouyer@netbsd.org>
-- * Copyright (C) 2009 Christoph Egger <Christoph.Egger@amd.com>
-- *
-- *  This program is free software; you can redistribute it and/or modify
-- *  it under the terms of the GNU General Public License as published by
-- *  the Free Software Foundation; under version 2 of the License.
+@@ -1,86 +0,0 @@
+-/* $NetBSD: evtchn.h,v 1.1.1.1 2007/06/14 19:39:45 bouyer Exp $ */
+-/******************************************************************************
+- * evtchn.h
 - * 
-- *  This program is distributed in the hope that it will be useful,
-- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- *  GNU General Public License for more details.
+- * Interface to /dev/xen/evtchn.
 - * 
-- *  You should have received a copy of the GNU General Public License
-- *  along with this program; If not, see <http://www.gnu.org/licenses/>.
+- * Copyright (c) 2003-2005, K A Fraser
+- * 
+- * This file may be distributed separately from the Linux kernel, or
+- * incorporated into other software packages, subject to the following license:
+- * 
+- * Permission is hereby granted, free of charge, to any person obtaining a copy
+- * of this source file (the "Software"), to deal in the Software without
+- * restriction, including without limitation the rights to use, copy, modify,
+- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
+- * and to permit persons to whom the Software is furnished to do so, subject to
+- * the following conditions:
+- * 
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- * 
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+- * IN THE SOFTWARE.
 - */
 -
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <sys/wait.h>
--#include <unistd.h>
--#include <fcntl.h>
--#include <stdlib.h>
--#include <stdio.h>
--#include <stdarg.h>
--#include <string.h>
--#include <syslog.h>
+-#ifndef __NetBSD_EVTCHN_H__
+-#define __NetBSD_EVTCHN_H__
 -
--#include <xenstore.h>
+-/*
+- * Bind a fresh port to VIRQ @virq.
+- */
+-#define IOCTL_EVTCHN_BIND_VIRQ				\
+-	_IOWR('E', 4, struct ioctl_evtchn_bind_virq)
+-struct ioctl_evtchn_bind_virq {
+-	unsigned int virq;
+-	unsigned int port;
+-};
 -
--#include "_paths.h"
+-/*
+- * Bind a fresh port to remote <@remote_domain, @remote_port>.
+- */
+-#define IOCTL_EVTCHN_BIND_INTERDOMAIN			\
+-	_IOWR('E', 5, struct ioctl_evtchn_bind_interdomain)
+-struct ioctl_evtchn_bind_interdomain {
+-	unsigned int remote_domain, remote_port;
+-	unsigned int port;
+-};
 -
--#define DEVTYPE_UNKNOWN 0
--#define DEVTYPE_VIF 1
--#define DEVTYPE_VBD 2
--#define DISABLE_EXEC "libxl/disable_udev"
+-/*
+- * Allocate a fresh port for binding to @remote_domain.
+- */
+-#define IOCTL_EVTCHN_BIND_UNBOUND_PORT			\
+-	_IOWR('E', 6, struct ioctl_evtchn_bind_unbound_port)
+-struct ioctl_evtchn_bind_unbound_port {
+-	unsigned int remote_domain;
+-	unsigned int port;
+-};
 -
--#define DOMAIN_PATH "/local/domain/0"
+-/*
+- * Unbind previously allocated @port.
+- */
+-#define IOCTL_EVTCHN_UNBIND				\
+-	_IOW('E', 7, struct ioctl_evtchn_unbind)
+-struct ioctl_evtchn_unbind {
+-	unsigned int port;
+-};
 -
--#ifndef XEN_SCRIPT_DIR
--#error XEN_SCRIPT_DIR not defined
--#endif
+-/*
+- * Send event to previously allocated @port.
+- */
+-#define IOCTL_EVTCHN_NOTIFY				\
+-	_IOW('E', 8, struct ioctl_evtchn_notify)
+-struct ioctl_evtchn_notify {
+-	unsigned int port;
+-};
 -
--#ifndef VBD_SCRIPT
--#define VBD_SCRIPT XEN_SCRIPT_DIR"/block"
--#endif
--#ifndef LOG_FILE
--#define LOG_FILE XEN_LOG_DIR "xenbackendd.log"
--#endif
--#ifndef PID_FILE
--#define PID_FILE XEN_RUN_DIR "xenbackendd.pid"
--#endif
+-/* Clear and reinitialise the event buffer. Clear error condition. */
+-#define IOCTL_EVTCHN_RESET				\
+-	_IO('E', 9)
 -
+-#endif /* __NetBSD_EVTCHN_H__ */
+diff --git a/tools/include/xen-sys/NetBSD/privcmd.h b/tools/include/xen-sys/NetBSD/privcmd.h
+deleted file mode 100644
+index 555bad973e..0000000000
+--- a/tools/include/xen-sys/NetBSD/privcmd.h
++++ /dev/null
+@@ -1,106 +0,0 @@
+-/*	NetBSD: xenio.h,v 1.3 2005/05/24 12:07:12 yamt Exp $	*/
 -
--struct xs_handle *xs;
+-/******************************************************************************
+- * privcmd.h
+- * 
+- * Copyright (c) 2003-2004, K A Fraser
+- * 
+- * This file may be distributed separately from the Linux kernel, or
+- * incorporated into other software packages, subject to the following license:
+- * 
+- * Permission is hereby granted, free of charge, to any person obtaining a copy
+- * of this source file (the "Software"), to deal in the Software without
+- * restriction, including without limitation the rights to use, copy, modify,
+- * merge, publish, distribute, sublicense, and/or sell copies of the Software,
+- * and to permit persons to whom the Software is furnished to do so, subject to
+- * the following conditions:
+- * 
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- * 
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+- * IN THE SOFTWARE.
+- */
 -
--int fflag = 0;
--int dflag = 0;
+-#ifndef __NetBSD_PRIVCMD_H__
+-#define __NetBSD_PRIVCMD_H__
 -
--const char *vbd_script = NULL;
--const char *log_file = NULL;
--const char *pidfile = NULL;
+-/* Interface to /dev/xen/privcmd */
 -
--static void
--dolog(int pri, const char *fmt, ...)
+-typedef struct privcmd_hypercall
 -{
--	va_list ap;
--	va_start(ap, fmt);
--	vfprintf(stderr, fmt, ap);
--	va_end(ap);
--	fprintf(stderr, "\n");
--	fflush(stderr);
--	va_start(ap, fmt);
--	vsyslog(pri, fmt, ap);
--	va_end(ap);
--}
+-    unsigned long op;
+-    unsigned long arg[5];
+-    long retval;
+-} privcmd_hypercall_t;
 -
--static void
--dodebug(const char *fmt, ...)
+-typedef struct privcmd_mmap_entry {
+-    unsigned long va;
+-    unsigned long mfn;
+-    unsigned long npages;
+-} privcmd_mmap_entry_t; 
+-
+-typedef struct privcmd_mmap {
+-    int num;
+-    domid_t dom; /* target domain */
+-    privcmd_mmap_entry_t *entry;
+-} privcmd_mmap_t; 
+-
+-typedef struct privcmd_mmapbatch {
+-    int num;     /* number of pages to populate */
+-    domid_t dom; /* target domain */
+-    unsigned long addr;  /* virtual address */
+-    unsigned long *arr; /* array of mfns - top nibble set on err */
+-} privcmd_mmapbatch_t; 
+-
+-typedef struct privcmd_blkmsg
 -{
--	va_list ap;
+-    unsigned long op;
+-    void         *buf;
+-    int           buf_size;
+-} privcmd_blkmsg_t;
 -
--	if (dflag == 0)
--		return;
--	va_start(ap, fmt);
--	vfprintf(stdout, fmt, ap);
--	va_end(ap);
--	printf("\n");
--	fflush(stdout);
--}
+-/*
+- * @cmd: IOCTL_PRIVCMD_HYPERCALL
+- * @arg: &privcmd_hypercall_t
+- * Return: Value returned from execution of the specified hypercall.
+- */
+-#define IOCTL_PRIVCMD_HYPERCALL         \
+-    _IOWR('P', 0, privcmd_hypercall_t)
 -
--static void
--doexec(const char *cmd, const char *arg1, const char *arg2)
--{
--	dodebug("exec %s %s %s", cmd, arg1, arg2);
--	switch(vfork()) {
--	case -1:
--		dolog(LOG_ERR, "can't vfork: %s", strerror(errno));
--		break;
--	case 0:
--		execl(cmd, cmd, arg1, arg2, NULL);
--		dolog(LOG_ERR, "can't exec %s: %s", cmd, strerror(errno));
--		exit(EXIT_FAILURE);
--		/* NOTREACHED */
--		break;
--	default:
--		wait(NULL);
--		break;
--	}
--}
+-#if defined(_KERNEL)
+-/* compat */
+-#define IOCTL_PRIVCMD_INITDOMAIN_EVTCHN_OLD \
+-    _IO('P', 1)
+-#endif /* defined(_KERNEL) */
+-    
+-#define IOCTL_PRIVCMD_MMAP             \
+-    _IOW('P', 2, privcmd_mmap_t)
+-#define IOCTL_PRIVCMD_MMAPBATCH        \
+-    _IOW('P', 3, privcmd_mmapbatch_t)
+-#define IOCTL_PRIVCMD_GET_MACH2PHYS_START_MFN \
+-    _IOR('P', 4, unsigned long)
 -
--static void
--usage(void)
--{
--	fprintf(stderr,
--	    "usage: %s [-d] [-f] [-l log_file] [-p pif_file] [-s vbd_script]\n",
--	    getprogname());
--	exit(EXIT_FAILURE);
--}
+-/*
+- * @cmd: IOCTL_PRIVCMD_INITDOMAIN_EVTCHN
+- * @arg: n/a
+- * Return: Port associated with domain-controller end of control event channel
+- *         for the initial domain.
+- */
+-#define IOCTL_PRIVCMD_INITDOMAIN_EVTCHN \
+-    _IOR('P', 5, int)
 -
--static int
--xen_setup(void)
--{
--	xs = xs_open(0);
--	if (xs == NULL) {
--		dolog(LOG_ERR,
--		    "Failed to contact xenstore (%s).  Is it running?",
--		    strerror(errno));
--		goto out;
--	}
+-/* Interface to /dev/xenevt */
+-/* EVTCHN_RESET: Clear and reinit the event buffer. Clear error condition. */
+-#define EVTCHN_RESET  _IO('E', 1)
+-/* EVTCHN_BIND: Bind to the specified event-channel port. */
+-#define EVTCHN_BIND   _IOW('E', 2, unsigned long)
+-/* EVTCHN_UNBIND: Unbind from the specified event-channel port. */
+-#define EVTCHN_UNBIND _IOW('E', 3, unsigned long)
 -
--	if (!xs_watch(xs, DOMAIN_PATH, "backend")) {
--		dolog(LOG_ERR, "xenstore watch on backend fails.");
--		goto out;
--	}
--	return 0;
--
-- out:
--	if (xs) {
--		xs_close(xs);
--		xs = NULL;
--	}
--	return -1;
--}
--
--int
--main(int argc, char * const argv[])
--{
--	char **vec;
--	unsigned int num;
--	char *s;
--	int state;
--	char *sstate, *sdisable;
--	char *p;
--	char buf[80];
--	int type;
--	int ch;
--	int debug_fd;
--	FILE *pidfile_f;
--
--	while ((ch = getopt(argc, argv, "dfl:p:s:")) != -1) {
--		switch (ch) {
--		case 'd':
--			dflag = 1;
--			break;
--		case 'f':
--			fflag = 1;
--			break;
--		case 'l':
--			log_file = optarg;
--			break;
--		case 'p':
--			pidfile = optarg;
--		case 's':
--			vbd_script = optarg;
--			break;
--		default:
--			usage();
--		}
--	}
--
--	if (vbd_script == NULL)
--		vbd_script = VBD_SCRIPT;
--	if (pidfile == NULL)
--		pidfile = PID_FILE;
--	if (log_file == NULL)
--		log_file = LOG_FILE;
--
--	openlog("xenbackendd", LOG_PID | LOG_NDELAY, LOG_DAEMON);
--
--	if (fflag == 0) {
--		/* open log file */
--		debug_fd = open(log_file, O_RDWR | O_CREAT | O_TRUNC, 0644);
--		if (debug_fd == -1) {
--			dolog(LOG_ERR, "can't open %s: %s",
--			    log_file, strerror(errno));
--			exit(EXIT_FAILURE);
--		}
--	}
--
--	if (fflag == 0) {
--		/* daemonize */
--		pidfile_f = fopen(pidfile, "w");
--		if (pidfile_f == NULL) {
--			dolog(LOG_ERR, "can't open %s: %s",
--			    pidfile, strerror(errno));
--			exit(EXIT_FAILURE);
--		}
--		if (daemon(0, 0) < 0) {
--			dolog(LOG_ERR, "can't daemonize: %s",
--			    strerror(errno));
--			exit(EXIT_FAILURE);
--		}
--		fprintf(pidfile_f, "%d\n", (int)getpid());
--		fclose(pidfile_f);
--
--		/* redirect stderr to log file */
--		if (dup2(debug_fd, STDERR_FILENO) < 0) {
--			dolog(LOG_ERR, "can't redirect stderr to %s: %s\n",
--			    log_file, strerror(errno));
--			exit(EXIT_FAILURE);
--		}
--
--		/* also redirect stdout if we're in debug mode */
--		if (dflag) {
--			if (dup2(debug_fd, STDOUT_FILENO) < 0) {
--				dolog(LOG_ERR,
--				    "can't redirect stdout to %s: %s\n",
--				    log_file, strerror(errno));
--				exit(EXIT_FAILURE);
--			}
--		}
--
--		close(debug_fd);
--		debug_fd = -1;
--	}
--
--	if (xen_setup() < 0)
--		exit(EXIT_FAILURE);
--
--	for (;;) {
--		vec = xs_read_watch(xs, &num);
--		dodebug("read from xen watch: %s", *vec);
--		if (!vec) {
--			dolog(LOG_ERR, "xs_read_watch: NULL\n");
--			continue;
--		}
--
--		sdisable = xs_read(xs, XBT_NULL, DISABLE_EXEC, 0);
--		if (sdisable)
--			goto next1;
--
--		if (strlen(vec[XS_WATCH_PATH]) < sizeof("state"))
--			goto next1;
--
--		/* find last component of path, check if it's "state" */
--		p = &vec[XS_WATCH_PATH][
--		    strlen(vec[XS_WATCH_PATH]) - sizeof("state")];
--		if (p[0] != '/')
--			goto next1;
--		p[0] = '\0';
--		p++;
--		if (strcmp(p, "state") != 0)
--			goto next1;
--
--		snprintf(buf, sizeof(buf), "%s/state", vec[XS_WATCH_PATH]);
--		sstate = xs_read(xs, XBT_NULL, buf, 0);
--		if (sstate == NULL) {
--			dolog(LOG_ERR,
--			    "Failed to read %s (%s)", buf, strerror(errno));
--			goto next1;
--		}
--
--		state = atoi(sstate);
--		snprintf(buf, sizeof(buf), "%s/hotplug-status",
--		    vec[XS_WATCH_PATH]);
--		s = xs_read(xs, XBT_NULL, buf, 0);
--		if (s != NULL && state != 6 /* XenbusStateClosed */)
--			goto next2;
--
--		type = DEVTYPE_UNKNOWN;
--		if (strncmp(vec[XS_WATCH_PATH],
--		    DOMAIN_PATH "/backend/vif",
--		    strlen(DOMAIN_PATH "/backend/vif")) == 0)
--			type = DEVTYPE_VIF;
--
--		if (strncmp(vec[XS_WATCH_PATH],
--		    DOMAIN_PATH "/backend/vbd",
--		    strlen(DOMAIN_PATH "/backend/vbd")) == 0)
--			type = DEVTYPE_VBD;
--
--		switch(type) {
--		case DEVTYPE_VIF:
--			free(s);
--			snprintf(buf, sizeof(buf), "%s/script",
--			    vec[XS_WATCH_PATH]);
--			s = xs_read(xs, XBT_NULL, buf, 0);
--			if (s == NULL) {
--				dolog(LOG_ERR,
--				    "Failed to read %s (%s)", buf,
--				    strerror(errno));
--				goto next2;
--			}
--			doexec(s, vec[XS_WATCH_PATH], sstate);
--			break;
--
--		case DEVTYPE_VBD:
--			doexec(vbd_script, vec[XS_WATCH_PATH], sstate);
--			break;
--
--		default:
--			break;
--		}
--
--next2:
--		free(s);
--		free(sstate);
--
--next1:
--		free(sdisable);
--		free(vec);
--	}
--
--	return 0;
--}
+-#endif /* __NetBSD_PRIVCMD_H__ */
+diff --git a/tools/libs/call/private.h b/tools/libs/call/private.h
+index 21f992b37e..57e49356a1 100644
+--- a/tools/libs/call/private.h
++++ b/tools/libs/call/private.h
+@@ -7,7 +7,11 @@
+ #include <xencall.h>
+ 
+ #include <xen/xen.h>
++#ifdef __NetBSD__
++#include <xen/xenio.h>
++#else
+ #include <xen/sys/privcmd.h>
++#endif
+ 
+ #ifndef PAGE_SHIFT /* Mini-os, Yukk */
+ #define PAGE_SHIFT           12
+diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
+index f0b5f83ac8..68e388f488 100644
+--- a/tools/libs/ctrl/xc_private.h
++++ b/tools/libs/ctrl/xc_private.h
+@@ -39,7 +39,11 @@
+ #include <xenforeignmemory.h>
+ #include <xendevicemodel.h>
+ 
++#ifdef __NetBSD__
++#include <xen/xenio.h>
++#else
+ #include <xen/sys/privcmd.h>
++#endif
+ 
+ #include <xen-tools/libs.h>
+ 
+diff --git a/tools/libs/foreignmemory/private.h b/tools/libs/foreignmemory/private.h
+index 8f1bf081ed..b522a2b86b 100644
+--- a/tools/libs/foreignmemory/private.h
++++ b/tools/libs/foreignmemory/private.h
+@@ -8,7 +8,13 @@
+ #include <xentoolcore_internal.h>
+ 
+ #include <xen/xen.h>
++
++#ifdef __NetBSD__
++#include <xen/xen.h>
++#include <xen/xenio.h>
++#else
+ #include <xen/sys/privcmd.h>
++#endif
+ 
+ #ifndef PAGE_SHIFT /* Mini-os, Yukk */
+ #define PAGE_SHIFT           12
 -- 
 2.29.2
 
