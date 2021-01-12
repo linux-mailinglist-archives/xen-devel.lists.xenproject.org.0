@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01E352F2811
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 06:57:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65482.116029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 125412F2820
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 07:01:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65487.116040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzCgP-0007Ca-IR; Tue, 12 Jan 2021 05:57:33 +0000
+	id 1kzCju-0008Dk-12; Tue, 12 Jan 2021 06:01:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65482.116029; Tue, 12 Jan 2021 05:57:33 +0000
+Received: by outflank-mailman (output) from mailman id 65487.116040; Tue, 12 Jan 2021 06:01:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzCgP-0007CB-FI; Tue, 12 Jan 2021 05:57:33 +0000
-Received: by outflank-mailman (input) for mailman id 65482;
- Tue, 12 Jan 2021 05:57:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kzCjt-0008DL-UC; Tue, 12 Jan 2021 06:01:09 +0000
+Received: by outflank-mailman (input) for mailman id 65487;
+ Tue, 12 Jan 2021 06:01:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WoC4=GP=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kzCgO-0007C6-Ip
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 05:57:32 +0000
+ id 1kzCjs-0008DG-1N
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 06:01:08 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3e349868-8627-4ac2-a2c5-6b2281bb0c9f;
- Tue, 12 Jan 2021 05:57:31 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 36f018cc-8da0-4907-82d9-0c854500f912;
+ Tue, 12 Jan 2021 06:01:04 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D55B1AD8C;
- Tue, 12 Jan 2021 05:57:30 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 20F16AD8C;
+ Tue, 12 Jan 2021 06:01:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,73 +39,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e349868-8627-4ac2-a2c5-6b2281bb0c9f
+X-Inumbo-ID: 36f018cc-8da0-4907-82d9-0c854500f912
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610431051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610431264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YSm2zfeBQUwOnK4g4DeWOaGBaTCpOpcMvG39TE86NRQ=;
-	b=O5GauCvqTv9EA6MccHJuxn6anixZT/AhT/AKiFXx9/aqc40rKqlan0JPw9iVbLmSCkY3lm
-	cR1kUu6Gxf4WhVlijZjm5VPf2QyiQogSRXOyK+AbrbknegqhyYI+4fGv0JYnvZxHbkeg9J
-	qbBV0fM195CKk4+L2f9126DNQ5xWQGc=
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Paul Durrant <paul.durrant@citrix.com>, xen-devel@lists.xenproject.org
-References: <20210111152958.7166-1-roger.pau@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+	bh=LW50fkT9pbcIoLx27JBsLKhMoBZYtY/y9LDUYpghBOs=;
+	b=oysNYkxglUNBB4hBVlYM+gB8JlZZ4eoVgEvb6DUfiDASZNC5yodVJ1MXByK6/4SzE4FlVd
+	08IKG22O2YQ/N6OfYs29XlAWCzr6mPiPdCmS0vLcc+6Cr2V+IVWWQhhzhMfYB8yETQs5VS
+	SxOrCS1S9fJIGhc/ay+0LrR83CTgdJw=
 Subject: Re: [PATCH] xen/privcmd: allow fetching resource sizes
-Message-ID: <5063e696-5a7f-4429-048e-2bf0d14881d7@suse.com>
-Date: Tue, 12 Jan 2021 06:57:30 +0100
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Andrew Cooper <amc96@cam.ac.uk>, boris.ostrovsky@oracle.com,
+ Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Paul Durrant <paul.durrant@citrix.com>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20210111152958.7166-1-roger.pau@citrix.com>
+ <555ba53c-1b6b-6cf7-9887-52d4179f7456@oracle.com>
+ <ed089f3f-4950-f3e9-6df6-07ca9148e6a6@cam.ac.uk>
+ <22da01ad-a345-75b9-5f2d-6f8958f31749@suse.com>
+Message-ID: <86a9f7f1-1b6d-5c89-2bb5-a6fa2833fdce@suse.com>
+Date: Tue, 12 Jan 2021 07:01:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20210111152958.7166-1-roger.pau@citrix.com>
+In-Reply-To: <22da01ad-a345-75b9-5f2d-6f8958f31749@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="Fic5H41npBWyC1fo8xh1RzdpPXye8DIgp"
+ boundary="xPA2A1u4u21pSsqK89wvpojrTtW6I1fQa"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Fic5H41npBWyC1fo8xh1RzdpPXye8DIgp
-Content-Type: multipart/mixed; boundary="aA4SVzbNxqSZUAUhDVQGEcWFgscwT4Ldh";
+--xPA2A1u4u21pSsqK89wvpojrTtW6I1fQa
+Content-Type: multipart/mixed; boundary="cA4SSTpbt3B3ebaSSO0QqfTU8nhwtt1oF";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Paul Durrant <paul.durrant@citrix.com>, xen-devel@lists.xenproject.org
-Message-ID: <5063e696-5a7f-4429-048e-2bf0d14881d7@suse.com>
+To: Andrew Cooper <amc96@cam.ac.uk>, boris.ostrovsky@oracle.com,
+ Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Paul Durrant <paul.durrant@citrix.com>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <86a9f7f1-1b6d-5c89-2bb5-a6fa2833fdce@suse.com>
 Subject: Re: [PATCH] xen/privcmd: allow fetching resource sizes
 References: <20210111152958.7166-1-roger.pau@citrix.com>
-In-Reply-To: <20210111152958.7166-1-roger.pau@citrix.com>
+ <555ba53c-1b6b-6cf7-9887-52d4179f7456@oracle.com>
+ <ed089f3f-4950-f3e9-6df6-07ca9148e6a6@cam.ac.uk>
+ <22da01ad-a345-75b9-5f2d-6f8958f31749@suse.com>
+In-Reply-To: <22da01ad-a345-75b9-5f2d-6f8958f31749@suse.com>
 
---aA4SVzbNxqSZUAUhDVQGEcWFgscwT4Ldh
+--cA4SSTpbt3B3ebaSSO0QqfTU8nhwtt1oF
 Content-Type: multipart/mixed;
- boundary="------------8CCDDBD44F461898CC6BA20E"
+ boundary="------------7BA3B2B792E5707DDD688E95"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------8CCDDBD44F461898CC6BA20E
+--------------7BA3B2B792E5707DDD688E95
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 11.01.21 16:29, Roger Pau Monne wrote:
-> Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num =3D 0 and
-> addr =3D 0 in order to fetch the size of a specific resource.
->=20
-> Add a shortcut to the default map resource path, since fetching the
-> size requires no address to be passed in, and thus no VMA to setup.
->=20
-> Fixes: 3ad0876554caf ('xen/privcmd: add IOCTL_PRIVCMD_MMAP_RESOURCE')
+On 12.01.21 06:50, J=C3=BCrgen Gro=C3=9F wrote:
+> On 11.01.21 23:39, Andrew Cooper wrote:
+>> On 11/01/2021 22:09, boris.ostrovsky@oracle.com wrote:
+>>> On 1/11/21 10:29 AM, Roger Pau Monne wrote:
+>>>> +=C2=A0=C2=A0=C2=A0 xdata.domid =3D kdata.dom;
+>>>> +=C2=A0=C2=A0=C2=A0 xdata.type =3D kdata.type;
+>>>> +=C2=A0=C2=A0=C2=A0 xdata.id =3D kdata.id;
+>>>> +
+>>>> +=C2=A0=C2=A0=C2=A0 if (!kdata.addr && !kdata.num) {
+>>>
+>>> I think we should not allow only one of them to be zero. If it's only=
+=20
+>>> kdata.num then we will end up with pfns array set to ZERO_SIZE_PTR=20
+>>> (which is 0x10). We seem to be OK in that we are not derefencing pfns=
+=20
+>>> (either in kernel or in hypervisor) if number of frames is zero but=20
+>>> IMO we shouldn't be tempting the fate.
+>>>
+>>>
+>>> (And if it's only kdata.addr then we will get a vma but I am not sure=
+=20
+>>> it will do what we want.)
+>>
+>> Passing addr =3D=3D 0 without num being 0 is already an error in Xen, =
+and
+>> passing num =3D=3D 0 without addr being 0 is bogus and will be an erro=
+r by
+>> the time I'm finished fixing this.
+>>
+>> FWIW, the common usecase for non-trivial examples will be:
+>>
+>> xenforeignmem_resource_size(domid, type, id, &size);
+>> xenforeignmem_map_resource(domid, type, id, NULL, size, ...);
+>>
+>> which translates into:
+>>
+>> ioctl(MAP_RESOURCE, NULL, 0) =3D> size
+>> mmap(NULL, size, ...) =3D> ptr
+>> ioctl(MAP_RESOURCE, ptr, size)
+>>
+>> from the kernels point of view, and two hypercalls from Xen's point of=
 
-I don't think this addition is a reason to add a "Fixes:" tag. This is
-clearly new functionality.
+>> view.=C2=A0 The NULL's above are expected to be the common case for le=
+tting
+>> the kernel chose the vma, but ought to be filled in by the time the
+>> second ioctl() occurs.
+>>
+>> See
+>> https://lore.kernel.org/xen-devel/20200922182444.12350-1-andrew.cooper=
+3@citrix.com/T/#u=20
+>>
+>> for all the gory details.
+>=20
+> I don't think the kernel should rely on the hypervisor to return
+> an error in case addr !=3D 0 and num =3D=3D 0.
+>=20
+> The driver should return -EINVAL in that case IMO.
+
+And additionally I think the kernel should check num to be not too
+large (in the interface it is u64, while intermediate values are
+stored in unsigned int), limiting it to something below INT_MAX
+seems to be sensible.
 
 
 Juergen
 
---------------8CCDDBD44F461898CC6BA20E
+--------------7BA3B2B792E5707DDD688E95
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -195,25 +255,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------8CCDDBD44F461898CC6BA20E--
+--------------7BA3B2B792E5707DDD688E95--
 
---aA4SVzbNxqSZUAUhDVQGEcWFgscwT4Ldh--
+--cA4SSTpbt3B3ebaSSO0QqfTU8nhwtt1oF--
 
---Fic5H41npBWyC1fo8xh1RzdpPXye8DIgp
+--xPA2A1u4u21pSsqK89wvpojrTtW6I1fQa
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/9OkoFAwAAAAAACgkQsN6d1ii/Ey/B
-+gf/YnRTZO7yi4whwdixXbkgktuzJHpvfwwUg/s9eQ8XddZwTys/WL7gf77dgjOGpl+02T3OXxuj
-lH266Ipby6WYfA8GogsIA58z/zvVjQtktvH5zWL0aYw6FP+CSVN7h10D7vS8FxZy75D7IMK/gooO
-/VUvKvFbmiBOa0fr9cjYpVaxwWB123B/WuLz3zm2Td6tiB05GXIHkQd+npKnCqnMUI5/88Yu19vJ
-j8lLdLe+hDDsftaEng2ofLulCiiHbPo8LiWMk0B4Xav5MP9YfuGmWCm5jPV8j0GxFiv2GHcgGi1B
-XgsA0CKXOTNMF6ouxjmEg3uDIhkfL5IEy5m5s33U4A==
-=5fxI
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/9Ox8FAwAAAAAACgkQsN6d1ii/Ey8M
+kAf+LPupyNDtqEahUwQRRyanWySjxDs63i/JNSPaGlUzPDwwEu7JszEVWny+/BzUunDmSirVqrC8
+5GVZtU5Rs4AaqQdaDMc56jfYeA9pO7lEsMDpnD5y9LiDZ2EcjfToBx3GG3wrVvI/GlUvh610oXiN
+1aa+SrD0xDluvpORnhjQZFQGJw6vgyjT0GFrbVRssqVQmcgs7MgS6eD78001MJ0gVPPnewBL79EW
+CMD9LLMMNSQ72ECdXmGoP+oZf7+s6nQR5igMfVpK40ZgMZWr5V4AkB6kl+MwENOJvi4htBKZR2Si
+dCoqfkiDWZ0+YfU8l65LnHtZqBkRpniB+mcqwucNHQ==
+=tzzm
 -----END PGP SIGNATURE-----
 
---Fic5H41npBWyC1fo8xh1RzdpPXye8DIgp--
+--xPA2A1u4u21pSsqK89wvpojrTtW6I1fQa--
 
