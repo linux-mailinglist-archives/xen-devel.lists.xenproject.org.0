@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E53E2F32DB
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 15:26:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65706.116442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F7832F32ED
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 15:27:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65709.116454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzKcA-0006Qu-Kp; Tue, 12 Jan 2021 14:25:42 +0000
+	id 1kzKdp-0006Y6-1Q; Tue, 12 Jan 2021 14:27:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65706.116442; Tue, 12 Jan 2021 14:25:42 +0000
+Received: by outflank-mailman (output) from mailman id 65709.116454; Tue, 12 Jan 2021 14:27:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzKcA-0006QY-HU; Tue, 12 Jan 2021 14:25:42 +0000
-Received: by outflank-mailman (input) for mailman id 65706;
- Tue, 12 Jan 2021 14:25:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=59Pv=GP=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kzKc9-0006QT-R6
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 14:25:41 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 37b6b271-8529-446e-8227-cf04e709ab33;
- Tue, 12 Jan 2021 14:25:40 +0000 (UTC)
+	id 1kzKdo-0006Xf-UH; Tue, 12 Jan 2021 14:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 65709;
+ Tue, 12 Jan 2021 14:27:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1kzKdn-0006XX-Dr
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 14:27:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kzKdm-0005o4-44; Tue, 12 Jan 2021 14:27:22 +0000
+Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kzKdl-00038n-KV; Tue, 12 Jan 2021 14:27:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,136 +39,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37b6b271-8529-446e-8227-cf04e709ab33
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610461540;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=xeECRKo6TEP6cFw9eGwj3uW08jC8IWVVfTjOgLSNvpo=;
-  b=HvzYzfxw5VUn4ncK7ZVNWYgAujkG6NIiG4eZw3NLq35VQMXV0+4wF1XQ
-   3ZbYqHEqmE+5TiJOM60PgqKA0t/TKw1koa6mxs/4Vl5PytyZCrlKx3rE6
-   AFlopaXpr11JbbBqAOm6QMhGv+tO47J2l0g4lMPHZV0sb+5id315R57JK
-   Y=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 1cF+Hc5mEQH//U4F2Kukk/DpiAOxOqZYeOcZq7po0UKrQMKp6FoEDc59jP7MnOhZCgU3GPZ91g
- V5+i5LFG5pYqqsm64tWL7vaxFPaWxG5acFPx6GSVu+XgYEp218RpNXsz1BRIGThGjODNbWjP1e
- 5abcYdjLWVtTh8Tgq+E6ipiKR+ym48FCr3NP9eoQfD2Np2fUQJ4cWUCpXFRPPq335Spcatcd32
- aOk2aCyHUR+M5WMNwyP2iF7yl/2j7N8ENUXRHNK5/aVbQkAMepj+UvKtwn6zY4tDttQ6pnxVg4
- G2A=
-X-SBRS: 5.2
-X-MesageID: 34962775
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,341,1602561600"; 
-   d="scan'208";a="34962775"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NeZkZzl/iwmTvNurSkx26TU27hLqJwdwz0aY8+U6A5SJqovFqaqWaaAvoYT2uF2tr2LJXuRMsWR5a4IMumGAxEuW0meUkswVuTS0mevPyXS8bj9DQmymVwcVKQ3ymTEvgm4wrOOd57/kSZfY45suUBaZ1p4CpgzsGAHTNJWTJuSYsqWBrAGPhxpF/K5cCq0wNC1FtVY4fcwDMFS3pOHzPy7coTnG4si8DO5qvcU656i1mJy1U8PCwVcjv1gj0m9zyxSjngBZ7YWFDf3bpNjSD+cranVw02Izs27SiNwMgD3l6DSb35QQz9ysv530ns4oQq7ZcvNtBSIHQ6cZrRiytw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gjzr9TO2ZfQNGnkc+Oq7gn+vNyV9zHfJxuWejWGn6MI=;
- b=cyxYODYwONs5ivxbmD1Ng1x4UxmL5GImFtxCmmAlFZALz8MfVRYLp0hCa8SibKNiajxTRnPwdYi4wpq/XpKcHMJRcuFG1QoMxjjO0xzYU9XWFL7Xf4oQXDTZKowQtS9FZPhidEH95IYhAeH3yo+UaND7qn5dxWE0q6Foc5r2tvmXJr6zjprwiJk57bSeJFiaDQeawUmMx/lj+pM6sA+HpP+5pc9jOJRtYYorlGkYI196xuyxt8sl5nglYgRUpaDU3mTJNOdGrDP/4Lo0ZkZo8BjdsyQIqYpAAalpjFO+yRe/XkdgOT63fZ9Z1S0iFQ+EO6SDseNjsfK9lgFb+vsD0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gjzr9TO2ZfQNGnkc+Oq7gn+vNyV9zHfJxuWejWGn6MI=;
- b=UrEall2GjVTJcCKkoWCO8GsMpu++jOvq+ZY4uexmCvTVUCATL5/FX3QIsRAx9Ra43MsfczhgXAF1z6VPkkEM9ZNGEcB5qli2DMEHICWCmIzNHfP3yJ7yd3a3NU/wU3SDFNwwftILVtN050AHjGXchauMkSgcgui7MHuLn2qXXJQ=
-Date: Tue, 12 Jan 2021 15:25:29 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: Purpose of translate MSI interrupt into INTx for guest
- passthrough
-Message-ID: <20210112142529.btveobjtj45hcvg6@Air-de-Roger>
-References: <20210112141057.xjbslkq2em56kk3r@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210112141057.xjbslkq2em56kk3r@Air-de-Roger>
-X-ClientProxiedBy: MR2P264CA0059.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:31::23) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=oXkjiw10nCRZJMGWLEi/hlYTEwmCUhbQvRWD20meyUQ=; b=QgkwbzNSL8gcGuu9zC+YApaOJj
+	Hvxb4OAp1R3Qbe9xtUNCeffhway4Adrg/C7I+uij6LGtCsOdmqTWkfeAkiN9Ga/d1BnyfsycX7FFT
+	UIyDZo+IJOgTy950Fps/NU2zXqaiBakpOBvu8TQ94gtG4jKjcZORMFBgnNZpHvvzctxM=;
+Subject: Re: [PATCH] xen/arm: don't read aarch32 regs when aarch32 isn't
+ available
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <20210112001623.28421-1-sstabellini@kernel.org>
+ <db6949f1-6b19-b1bb-9bec-8b56a2ad83a1@xen.org>
+ <265E97F3-1AA1-4DE7-BA26-E208D953302A@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <278d0e56-830c-5730-69ab-abf6db851a8d@xen.org>
+Date: Tue, 12 Jan 2021 14:27:19 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 243e94a2-360c-4560-8d4a-08d8b705ecbc
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2777:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR03MB2777182A9EACDB65CCD8B8B18FAA0@DM5PR03MB2777.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z9DgANNSgRR+0RvKAYbkiJ00he95xSKip/9fjhtUiALHXxFzWw/3uEhhBPWa0yBHmwu+NdgswxztUcusz4+6fVG0tfilAM6cv5/GHbjHfmJrjqLCilvc5YnGIii7yJsDXkdWBdeOe42169ik4B9tWzslS/Pn1W4i59y743FWLim6OYKfQOiMI7aHCwkG2lN/LVqbxcqJR99tbdwofQ/rV+eMHpXxaF6KmG/Rmag5FjCWyyxWxMA2r7leuj/96x4qYRCMgbfhmqtGQocappz0yn1dqQiaDChW3ZRLXAHJb2vMELRlMQ76g+bEjeZBEAr0qCgKRVrk+gnU8+NOW+KKmk8Ket/ADNy5vN/MjaNquYYANnaGGg32OM2aaiJ21BwWbeABBNjjUCBDA4fAk0ia7Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(136003)(346002)(376002)(39840400004)(396003)(1076003)(66476007)(66556008)(8936002)(9686003)(66946007)(6666004)(316002)(54906003)(6916009)(85182001)(83380400001)(956004)(478600001)(5660300002)(86362001)(8676002)(186003)(2906002)(4326008)(33716001)(16526019)(6486002)(26005)(6496006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?aXZvcGhYVWpKZ2JlMzM5aElzSXlqSGtXckYwVnBxODhzR21nMFpTa3U4dWxG?=
- =?utf-8?B?UnA2SFoza0NKcnFFbzNGUDA2cWZyZGVMUmNkR1ZSUmx2WnZ1RWpPeXhWMTMr?=
- =?utf-8?B?cU1PM2RaWjBaaDlnUytCeUdFUFgxMEFyVU9FeUNZWElvVkRNbFJxNklwWi9P?=
- =?utf-8?B?cVN5Zy90OThBSjZSYWcvZitoZElRMjdLVnFwZENrYkFFZXZmYkQ4OW9mV0F5?=
- =?utf-8?B?UjdObi9nK0Q2R1ZLclcvaCtwSVg0Wm9id1IyZHAxaU1RL0Q4RHcveFlMa242?=
- =?utf-8?B?cTZPb05GM1o4WG1mQ3J1L0xsQUFhbVp6UGg1OUp6d1FJdk9rV1EySHdzcW55?=
- =?utf-8?B?U2l4a2s2UFBCQ3RBTmZPYlVhQXZLaHc1dzJJdW9lSzd4T1prcjlRRmZablVM?=
- =?utf-8?B?V21HaWlyZUNxdG5uUTRhaW9GL0hSTndnQnFtQjNkQTN5VlJJR1FSbUJQcDRH?=
- =?utf-8?B?NVNxK1M5WW8zeWl5QXg3WktpUDRPejFqdVowTWtlQkk2Q3AxYVNUU014TkRo?=
- =?utf-8?B?U2hFWGtxek90S211TmZMSmpEM2VwMVI1ZTBRMVUrbHlDNFJIQlJuOFdacWRn?=
- =?utf-8?B?SUNrbGFKNk42YkFBRS9tZ0hXRTFIczBYaUVJb2ZUZFcxOXJ4ZFNRM1RicERm?=
- =?utf-8?B?RytjM1NXK3dPZzZuZ0hoQ2xuTE9CK0hxQ052Q0N6VkRMakZpUnBNODhtS3h0?=
- =?utf-8?B?SEhwdVVIN0tOTGZ1Q2JXaUZsTENnZnFNUm9Ta0RMazd0cloreUk0OXdWK1RO?=
- =?utf-8?B?SUg0b0thN01SMEp5eHdMMU9LM1pXQjJzWFM0aDNtSWJaTk5ZTGErMFR3ai8z?=
- =?utf-8?B?TkgyZXplSGMyd3BCVzFCWWxwZnAxZXJIMTdMemcrYmRPR2gzTFYwWXROb3NU?=
- =?utf-8?B?QU9rbVJoVThKRm5telZVYmNadG1IaVR4RSt6d2FxSVR1T1BHSlByUXFvSnJp?=
- =?utf-8?B?Q0pqYmFRZXptRkYvb3NIcStneXdFL2daVkQ4TUw1NlN1M3RWSllrTFBIb3R0?=
- =?utf-8?B?SjYyOGptUzRsYksxaFJNcEIxQVpoYkY0a05yZ1ZqcHBmSVZiWFE3dFJBeXB6?=
- =?utf-8?B?dHNUYTB2LzFZVDNZWmlWNGZFeFJWbTVzbVAvUnZIWkdhcE5ZeXMraVdRbjBx?=
- =?utf-8?B?SW9vVE1kUHdhbzhIYm55R25Hc2ZhaE81NGNyVURyQytueVY0dzBQVTczYS94?=
- =?utf-8?B?V09LdW1PYVpSNWFPZGZFTzlHWVVqZjNlL01UWG1tK0wzVTZFeGNXRWNTNEZj?=
- =?utf-8?B?bGVJdVMxc2ZhbnhjZnBSTlZzcGh1RmFHaXZGMzJsWW81UWRPRnZQeGhoZVcy?=
- =?utf-8?Q?U1AMw3+o6FPxctvC2znl4++KbTZJIPrOul?=
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2021 14:25:34.6299
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-Network-Message-Id: 243e94a2-360c-4560-8d4a-08d8b705ecbc
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y6gSc4MwcIaWrGXtMFcydoHgL4wgm0AvkPnerr6xYmj7ZTF8a9ehftdthFBiYyUDnaZGOvAawXDhsjgA2+269g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2777
-X-OriginatorOrg: citrix.com
+In-Reply-To: <265E97F3-1AA1-4DE7-BA26-E208D953302A@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-Dropping Qing He as this address bounces.
 
-On Tue, Jan 12, 2021 at 03:10:57PM +0100, Roger Pau Monné wrote:
-> Hello,
+
+On 12/01/2021 13:28, Rahul Singh wrote:
+> Hello Julien,
+
+Hi Rahul,
+
 > 
-> While trying to do some cleanup of the Xen interrupt support for pci
-> pass though I came across the MSI to INTx translation that Xen is in
-> theory capable of performing (ie: use a physical MSI interrupt source
-> and inject that as an INTx to a guest).
+>> On 12 Jan 2021, at 11:00 am, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Stefano,
+>>
+>> On 12/01/2021 00:16, Stefano Stabellini wrote:
+>>> Don't read aarch32 system registers at boot time when the aarch32 state
+>>> is not available. They are UNKNOWN, so it is not useful to read them.
+>>> Moreover, on Cavium ThunderX reading ID_PFR2_EL1 causes a Xen crash.
+>>> Instead, only read them when aarch32 is available.
+>> AArch32 may be supported in EL0 but not in EL1. So I think you want to clarify in the commit message/title which EL you are referring to.
+>>
+>>> Leave the corresponding fields in struct cpuinfo_arm so that they
+>>> are read-as-zero from a guest.
+>>> Since we are editing identify_cpu, also fix the indentation: 4 spaces
+>>> instead of 8.
+>>
+>> I was going to ask to split that in a separate patch. But then, I noticed that it avoids to change the indentation of the if body twice. So I am ok with that.
+>>
+>>> Fixes: 9cfdb489af81 ("xen/arm: Add ID registers and complete cpuinfo")
+>>> Link: https://marc.info/?l=xen-devel&m=161035501118086
+>>
+>> NIT: I would suggest to use lore.kernel.org just because the link contains the message-id. So if the website goes down, it is still possible to track the original discussion.
+>>
+>>> Link: http://logs.test-lab.xenproject.org/osstest/logs/158293/test-arm64-arm64-xl-xsm/info.html
+>>
+>> IIRC we only keep the logs around for a couple of weeks. So this is going to be break quickly. Therefore, I would suggest to remove this link.
+>>
+>>> Suggested-by: Julien Grall <julien@xen.org>
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>> ---
+>>>   xen/arch/arm/cpufeature.c | 35 +++++++++++++++++++++--------------
+>>>   1 file changed, 21 insertions(+), 14 deletions(-)
+>>> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+>>> index 698bfa0201..b1c82ade49 100644
+>>> --- a/xen/arch/arm/cpufeature.c
+>>> +++ b/xen/arch/arm/cpufeature.c
+>>> @@ -101,29 +101,35 @@ int enable_nonboot_cpu_caps(const struct arm_cpu_capabilities *caps)
+>>>     void identify_cpu(struct cpuinfo_arm *c)
+>>>   {
+>>> -        c->midr.bits = READ_SYSREG(MIDR_EL1);
+>>> -        c->mpidr.bits = READ_SYSREG(MPIDR_EL1);
+>>> +    bool aarch32 = true;
+>>> +
+>>> +    c->midr.bits = READ_SYSREG(MIDR_EL1);
+>>> +    c->mpidr.bits = READ_SYSREG(MPIDR_EL1);
+>>>     #ifdef CONFIG_ARM_64
+>>> -        c->pfr64.bits[0] = READ_SYSREG(ID_AA64PFR0_EL1);
+>>> -        c->pfr64.bits[1] = READ_SYSREG(ID_AA64PFR1_EL1);
+>>> +    c->pfr64.bits[0] = READ_SYSREG(ID_AA64PFR0_EL1);
+>>> +    c->pfr64.bits[1] = READ_SYSREG(ID_AA64PFR1_EL1);
+>>> +
+>>> +    c->dbg64.bits[0] = READ_SYSREG(ID_AA64DFR0_EL1);
+>>> +    c->dbg64.bits[1] = READ_SYSREG(ID_AA64DFR1_EL1);
+>>>   -        c->dbg64.bits[0] = READ_SYSREG(ID_AA64DFR0_EL1);
+>>> -        c->dbg64.bits[1] = READ_SYSREG(ID_AA64DFR1_EL1);
+>>> +    c->aux64.bits[0] = READ_SYSREG(ID_AA64AFR0_EL1);
+>>> +    c->aux64.bits[1] = READ_SYSREG(ID_AA64AFR1_EL1);
+>>>   -        c->aux64.bits[0] = READ_SYSREG(ID_AA64AFR0_EL1);
+>>> -        c->aux64.bits[1] = READ_SYSREG(ID_AA64AFR1_EL1);
+>>> +    c->mm64.bits[0]  = READ_SYSREG(ID_AA64MMFR0_EL1);
+>>> +    c->mm64.bits[1]  = READ_SYSREG(ID_AA64MMFR1_EL1);
+>>> +    c->mm64.bits[2]  = READ_SYSREG(ID_AA64MMFR2_EL1);
+>>>   -        c->mm64.bits[0]  = READ_SYSREG(ID_AA64MMFR0_EL1);
+>>> -        c->mm64.bits[1]  = READ_SYSREG(ID_AA64MMFR1_EL1);
+>>> -        c->mm64.bits[2]  = READ_SYSREG(ID_AA64MMFR2_EL1);
+>>> +    c->isa64.bits[0] = READ_SYSREG(ID_AA64ISAR0_EL1);
+>>> +    c->isa64.bits[1] = READ_SYSREG(ID_AA64ISAR1_EL1);
+>>>   -        c->isa64.bits[0] = READ_SYSREG(ID_AA64ISAR0_EL1);
+>>> -        c->isa64.bits[1] = READ_SYSREG(ID_AA64ISAR1_EL1);
+>>> +    c->zfr64.bits[0] = READ_SYSREG(ID_AA64ZFR0_EL1);
+>>>   -        c->zfr64.bits[0] = READ_SYSREG(ID_AA64ZFR0_EL1);
+>>> +    aarch32 = c->pfr64.el1 == 2;
+>>
+>> This is checking that AArch32 is available in EL1. However, it may not be the case yet it would be available in EL0.
 > 
-> AFAICT such functionality is not wired up to the toolstack, so it's
-> hard to tell what's the indented purpose, or whether it has seen any
-> usage.
+> As per my understanding please correct me if I am wrong, if AArch32 is allowed at an EL, it must be allowed all lower Exception levels.
 
-So apparently it is wired up to the toolstack for qemu-traditional,
-albeit it's disabled by default. There's some documentation in
-xl-pci-configuration:
+This statement is correct.
 
-"When enabled, MSI-INTx translation will always enable MSI on the PCI
-device regardless of whether the guest uses INTx or MSI."
+> 
+> For example, if EL3 allows AArch32, then it must be allowed at all lower Exception levels.That means if we are checking the EL1 for AArch32 EL0 should also support AArch32.
+> I think  "aarch32 = c->pfr64.el1 == 2” is correct to check.
 
-So the main purpose seem to be to always use the MSI interrupt source
-regardless of whether the guest is using INTx or MSI. Maybe the
-purpose was to workaround some bugs when using INTx? Or buggy devices
-with INTx interrupts?
+I agree that if EL1 supports AArch32, then it means EL0 will not support.
 
-qemu-upstream doesn't seem to support it anymore, so I would still
-like to remove it if we get consensus.
+However, if EL1 doesn't support AArch32, then it doesn't imply that EL0 
+will not support AArch32.
 
-Roger
+Therefore, the check suggested would not be correct because it would 
+prevent 32-bit userspace running on HW (such as IIRC Cortex-A76) that 
+only support AArch32 in EL0.
+
+Cheers,
+
+-- 
+Julien Grall
 
