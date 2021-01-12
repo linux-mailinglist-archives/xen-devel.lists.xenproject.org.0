@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A242F3CA2
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 00:48:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66211.117533 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FCF92F3CA5
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 00:52:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66222.117545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzTOp-0007t9-1D; Tue, 12 Jan 2021 23:48:31 +0000
+	id 1kzTSc-0000Sz-MI; Tue, 12 Jan 2021 23:52:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66211.117533; Tue, 12 Jan 2021 23:48:30 +0000
+Received: by outflank-mailman (output) from mailman id 66222.117545; Tue, 12 Jan 2021 23:52:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzTOo-0007sd-TK; Tue, 12 Jan 2021 23:48:30 +0000
-Received: by outflank-mailman (input) for mailman id 66211;
- Tue, 12 Jan 2021 23:48:29 +0000
+	id 1kzTSc-0000SY-J4; Tue, 12 Jan 2021 23:52:26 +0000
+Received: by outflank-mailman (input) for mailman id 66222;
+ Tue, 12 Jan 2021 23:52:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+f/N=GP=gmail.com=f.fainelli@srs-us1.protection.inumbo.net>)
- id 1kzTOn-0007sJ-9T
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 23:48:29 +0000
-Received: from mail-pf1-x432.google.com (unknown [2607:f8b0:4864:20::432])
+ id 1kzTSb-0000SS-5R
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 23:52:25 +0000
+Received: from mail-pj1-x1033.google.com (unknown [2607:f8b0:4864:20::1033])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d8b344fd-86d5-499a-9357-dfffe308f2d1;
- Tue, 12 Jan 2021 23:48:28 +0000 (UTC)
-Received: by mail-pf1-x432.google.com with SMTP id c12so66313pfo.10
- for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 15:48:28 -0800 (PST)
+ id 1aecb8cf-5eb5-4a37-bdb1-76425cdf31d6;
+ Tue, 12 Jan 2021 23:52:24 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id w1so2202734pjc.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 15:52:24 -0800 (PST)
 Received: from [10.67.48.230] ([192.19.223.252])
- by smtp.googlemail.com with ESMTPSA id k3sm57763pgm.94.2021.01.12.15.48.24
+ by smtp.googlemail.com with ESMTPSA id a136sm234808pfd.149.2021.01.12.15.52.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Jan 2021 15:48:26 -0800 (PST)
+ Tue, 12 Jan 2021 15:52:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,53 +41,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8b344fd-86d5-499a-9357-dfffe308f2d1
+X-Inumbo-ID: 1aecb8cf-5eb5-4a37-bdb1-76425cdf31d6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ZruxYcBQXCXWok/YmCXjga0Z3PUTOQ6pNhSzq4bpJR4=;
-        b=g0a+XeY1WpelCJ57IOHLZ5ClC3bxDfY0fE91b/U+a2JYIHKaMmcVwduCeAlYvDQQoL
-         xjVCiINgK4qb5c/LcNp+C22h/uUgi0vdQ2TGhNzY6s+CaSrHxAQGfwwzQ0rH8W+88b31
-         +XIJb8l5Nq1FsvPziTU9NZKAoS+c5TQjnwVX/6Eb1twaMPfwDQB6B2io0xNovCRZS7Ij
-         F7Je6GW1bm2Mx6XSiUeKYKWTmiprOX72+CStoB8qTs5qJrO8vTUdnJMoWGnoJdNzQpBe
-         moohYHc39LCcIAkyfVB+kDMXKifn7ejJk+tALEXkSKv8wCTdSj3tqESBUNBzgPdtMQj4
-         jzPw==
+        bh=MGKtVppVEFe28L6FHuDZ+KXC/KQUieJpXieI89QBq84=;
+        b=IJQOFIMT3nopzu5tpGieKI5azx9Y0NH8Vhc2K59m4HhkC/m3oEAcrRYKlNYQsJeEkK
+         zP7eMmny6mAVPcoNorjivTXPpDujTFpzqCpQ9id/XL5Ceg9EwJGYx6ESFXkRY/ONim8w
+         Un7cc0LO4YpbvY/dAE7zeXmdQcdFUDj9KUSRIifjRk0lFFREb/mD+2H/zBfkU4cfy5k2
+         sDPmSUtFCg9gGGVsWrwuH3YDuaE+4fYg9dn6Ow9lsTujOw+kIHhQX9WjYOmoaACKDs5K
+         m/VTzIIU8JjmYiTY6EUtIFD18hj+JVVpk+Rd1rayW3K4ik+vA0P1BtLE6njaiudNCh3R
+         5ipw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:autocrypt
          :message-id:date:user-agent:mime-version:in-reply-to
          :content-language:content-transfer-encoding;
-        bh=ZruxYcBQXCXWok/YmCXjga0Z3PUTOQ6pNhSzq4bpJR4=;
-        b=GpqD0X0hJ3gtB+LpWjt6plrHDLLnTDcI9XSDVjAkWagrRdtqZ72qlY7tYpyjwgyWmP
-         n5LCSnVsGlmsZSb/qcQWfjfIiSBw1KtIyF8QtiGPztFsIykCN4jcJub3DxoBTF7w67Kg
-         gpM/BDc2+5FLGp/JCKf1uhMPFE+geXyK1bYyN5e/dTONSfZI2z0Z54kbKlB/iMzw9WZs
-         JVmNQdFfX8s4GHj/DkrIRZrUTXCXAtGc8D0LNl5jHeYWw8aVl4HPYO8knZ4IaHPlPR7Z
-         o2wwE2+bwNTvGdzEVmoWo3wjdTp7TUvrUbi9pUdKjuwveBH9ypQ4VC3c6BrJFx7QazlA
-         /MrQ==
-X-Gm-Message-State: AOAM530L+ZSltH0O5WUqu3S+OTaBgRTZf8tf41kZ5ZbX/JSPpzADoniP
-	0drl5vx7FaVNaTFMMHdyoa8=
-X-Google-Smtp-Source: ABdhPJzcsesZOG8VoM+izCkYUl4yjaLgepIotHJQF1QgVivbf7byOhsDdoAO8dQh9VGDhIePy7ZM6A==
-X-Received: by 2002:a63:1865:: with SMTP id 37mr1523162pgy.206.1610495307478;
-        Tue, 12 Jan 2021 15:48:27 -0800 (PST)
-Subject: Re: [RFC PATCH v3 6/6] of: Add plumbing for restricted DMA pool
-To: Claire Chang <tientzu@chromium.org>, robh+dt@kernel.org,
+        bh=MGKtVppVEFe28L6FHuDZ+KXC/KQUieJpXieI89QBq84=;
+        b=dgg5Cev0jwMqdkOU+Lg2bl6HOdokVSunPJjhKNR7MKxbCt1TdrahV9JyScWcSCvjOk
+         iKTWjI7yjoCaFA4IGoHCcrSI5tMum/lCddQI0qRkIydR1fdfD2HtxzcXCyLh6veSDEAf
+         /f0BPnJtS0Y4pA23k7ZUje5U2t0ZBYjPSsn8Z+vEcYA8v3H0wtQk+lwCcWLf/pJj9fvG
+         MkkJsdV11FgEK8Hn9Ei60l5RWPfHp7oHuCn0ixf3UBunTzmQOnKa66MFS7mEl8N52XMd
+         dhe+ffltYoJ9E750h3XS4WfdMCNgzMRBZ/C2HvbRekJ4cHozvRgLR1yKF8J5U8TupkpT
+         8vTQ==
+X-Gm-Message-State: AOAM531C5vCGe2dExUJeOT/k2D3L0Y31fFoqh3gm0rongkAXJMkbKN28
+	ILj/CtbVEIaZBLxJ0isTWC8=
+X-Google-Smtp-Source: ABdhPJy/60v+IQ3/cilUlX0Bj9E3m068HNwymQXPaKD3vpsxumTJ8rKuRYQYOicISQFL+EQw1gn6ww==
+X-Received: by 2002:a17:902:c1cc:b029:da:dd7c:2ac7 with SMTP id c12-20020a170902c1ccb02900dadd7c2ac7mr1401040plc.25.1610495543441;
+        Tue, 12 Jan 2021 15:52:23 -0800 (PST)
+Subject: Re: [RFC PATCH v3 2/6] swiotlb: Add restricted DMA pool
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
  mpe@ellerman.id.au, benh@kernel.crashing.org, paulus@samba.org,
- joro@8bytes.org, will@kernel.org, frowand.list@gmail.com,
- konrad.wilk@oracle.com, boris.ostrovsky@oracle.com, jgross@suse.com,
- sstabellini@kernel.org, hch@lst.de, m.szyprowski@samsung.com,
- robin.murphy@arm.com
-Cc: grant.likely@arm.com, xypron.glpk@gmx.de, treding@nvidia.com,
- mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org,
- gregkh@linuxfoundation.org, saravanak@google.com,
- rafael.j.wysocki@intel.com, heikki.krogerus@linux.intel.com,
- andriy.shevchenko@linux.intel.com, rdunlap@infradead.org,
- dan.j.williams@intel.com, bgolaszewski@baylibre.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, iommu@lists.linux-foundation.org,
- xen-devel@lists.xenproject.org, tfiga@chromium.org, drinkcat@chromium.org
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, will@kernel.org,
+ Frank Rowand <frowand.list@gmail.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, sstabellini@kernel.org, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com,
+ xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>, mingo@kernel.org,
+ bauerman@linux.ibm.com, peterz@infradead.org,
+ Greg KH <gregkh@linuxfoundation.org>, Saravana Kannan
+ <saravanak@google.com>, rafael.j.wysocki@intel.com,
+ heikki.krogerus@linux.intel.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, rdunlap@infradead.org,
+ dan.j.williams@intel.com, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ linux-devicetree <devicetree@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ xen-devel@lists.xenproject.org, Tomasz Figa <tfiga@chromium.org>,
+ Nicolas Boichat <drinkcat@chromium.org>
 References: <20210106034124.30560-1-tientzu@chromium.org>
- <20210106034124.30560-7-tientzu@chromium.org>
+ <20210106034124.30560-3-tientzu@chromium.org>
+ <20210106185241.GA109735@localhost.localdomain>
+ <CALiNf2-HDf6tFcvVgCttr-ta=88ZMH=OvB5XoryTPc6MNvwV+Q@mail.gmail.com>
+ <20210107175740.GA16519@char.us.oracle.com>
+ <aa5af7d1-779e-f0f6-e6ba-8040e603523f@gmail.com>
+ <20210107211937.GA19460@char.us.oracle.com>
 From: Florian Fainelli <f.fainelli@gmail.com>
 Autocrypt: addr=f.fainelli@gmail.com; prefer-encrypt=mutual; keydata=
  mQGiBEjPuBIRBACW9MxSJU9fvEOCTnRNqG/13rAGsj+vJqontvoDSNxRgmafP8d3nesnqPyR
@@ -143,103 +153,57 @@ Autocrypt: addr=f.fainelli@gmail.com; prefer-encrypt=mutual; keydata=
  caxTGgc5zzQHeX67eMzrGomG3ZnIxmd1sAbgvJUDaD2GrYlulfwGWwWyTNbWRvMighVdPkSF
  6XFgQaosWxkV0OELLy2N485YrTr2Uq64VKyxpncLh50e2RnyAJ9Za0Dx0yyp44iD1OvHtkEI
  M5kY0ACeNhCZJvZ5g4C2Lc9fcTHu8jxmEkI=
-Message-ID: <95e6dd76-5e18-e445-c351-19fba18f36de@gmail.com>
-Date: Tue, 12 Jan 2021 15:48:24 -0800
+Message-ID: <bb25fac5-94ee-ff61-9afb-0024b5047f94@gmail.com>
+Date: Tue, 12 Jan 2021 15:52:16 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210106034124.30560-7-tientzu@chromium.org>
+In-Reply-To: <20210107211937.GA19460@char.us.oracle.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 1/5/21 7:41 PM, Claire Chang wrote:
-> If a device is not behind an IOMMU, we look up the device node and set
-> up the restricted DMA when the restricted-dma-pool is presented.
+On 1/7/21 1:19 PM, Konrad Rzeszutek Wilk wrote:
+> On Thu, Jan 07, 2021 at 10:09:14AM -0800, Florian Fainelli wrote:
+>> On 1/7/21 9:57 AM, Konrad Rzeszutek Wilk wrote:
+>>> On Fri, Jan 08, 2021 at 01:39:18AM +0800, Claire Chang wrote:
+>>>> Hi Greg and Konrad,
+>>>>
+>>>> This change is intended to be non-arch specific. Any arch that lacks DMA access
+>>>> control and has devices not behind an IOMMU can make use of it. Could you share
+>>>> why you think this should be arch specific?
+>>>
+>>> The idea behind non-arch specific code is it to be generic. The devicetree
+>>> is specific to PowerPC, Sparc, and ARM, and not to x86 - hence it should
+>>> be in arch specific code.
+>>
+>> In premise the same code could be used with an ACPI enabled system with
+>> an appropriate service to identify the restricted DMA regions and unlock
+>> them.
 > 
-> Signed-off-by: Claire Chang <tientzu@chromium.org>
-> ---
+> Which this patchset is not.
 
-[snip]
+ACPI is not included, but the comment about Device Tree being specific
+to PowerPC, SPARC and ARM is x86 is not quite correct. There is an
+architecture specific part to obtaining where the Device Tree lives in
+memory, but the implementation itself is architecture agnostic (with
+some early SPARC/OpenFirmware shenanigans), and x86 does, or rather did
+support Device Tree to a very small extent with the CE4100 platform.
 
-> +int of_dma_set_restricted_buffer(struct device *dev)
-> +{
-> +	struct device_node *node;
-> +	int count, i;
-> +
-> +	if (!dev->of_node)
-> +		return 0;
-> +
-> +	count = of_property_count_elems_of_size(dev->of_node, "memory-region",
-> +						sizeof(phandle));
+Would you prefer that an swiotlb_of.c file be created instead or
+something along those lines to better encapsulate where the OF specific
+code lives?
 
-You could have an early check for count < 0, along with an error
-message, if that is deemed useful.
-
-> +	for (i = 0; i < count; i++) {
-> +		node = of_parse_phandle(dev->of_node, "memory-region", i);
-> +		if (of_device_is_compatible(node, "restricted-dma-pool"))
-
-And you may want to add here an of_device_is_available(node). A platform
-that provides the Device Tree firmware and try to support multiple
-different SoCs may try to determine if an IOMMU is present, and if it
-is, it could be marking the restriced-dma-pool region with a 'status =
-"disabled"' property, or any variant of that scheme.
-
-> +			return of_reserved_mem_device_init_by_idx(
-> +				dev, dev->of_node, i);
-
-This does not seem to be supporting more than one memory region, did not
-you want something like instead:
-
-		ret = of_reserved_mem_device_init_by_idx(...);
-		if (ret)
-			return ret;
-
-> +	}
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/of/device.c b/drivers/of/device.c
-> index aedfaaafd3e7..e2c7409956ab 100644
-> --- a/drivers/of/device.c
-> +++ b/drivers/of/device.c
-> @@ -182,6 +182,10 @@ int of_dma_configure_id(struct device *dev, struct device_node *np,
->  	arch_setup_dma_ops(dev, dma_start, size, iommu, coherent);
->  
->  	dev->dma_range_map = map;
-> +
-> +	if (!iommu)
-> +		return of_dma_set_restricted_buffer(dev);
-> +
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(of_dma_configure_id);
-> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-> index d9e6a324de0a..28a2dfa197ba 100644
-> --- a/drivers/of/of_private.h
-> +++ b/drivers/of/of_private.h
-> @@ -161,12 +161,17 @@ struct bus_dma_region;
->  #if defined(CONFIG_OF_ADDRESS) && defined(CONFIG_HAS_DMA)
->  int of_dma_get_range(struct device_node *np,
->  		const struct bus_dma_region **map);
-> +int of_dma_set_restricted_buffer(struct device *dev);
->  #else
->  static inline int of_dma_get_range(struct device_node *np,
->  		const struct bus_dma_region **map)
->  {
->  	return -ENODEV;
->  }
-> +static inline int of_dma_get_restricted_buffer(struct device *dev)
-> +{
-> +	return -ENODEV;
-> +}
->  #endif
->  
->  #endif /* _LINUX_OF_PRIVATE_H */
 > 
+>>
+>> More than 1 architecture requiring this function (ARM and ARM64 are the
+>> two I can think of needing this immediately) sort of calls for making
+>> the code architecture agnostic since past 2, you need something that scales.
+> 
+> I believe the use-case is for ARM64 at this moment.
 
-
+For the platforms that Claire uses, certainly for the ones we use, ARM
+and ARM64 are in scope.
 -- 
 Florian
 
