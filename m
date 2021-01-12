@@ -2,41 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9E9B2F2CE3
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 11:31:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65572.116191 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8523F2F2CEE
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 11:34:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65577.116206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzGwj-0000Lc-3B; Tue, 12 Jan 2021 10:30:41 +0000
+	id 1kzH0G-0000Xu-O8; Tue, 12 Jan 2021 10:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65572.116191; Tue, 12 Jan 2021 10:30:41 +0000
+Received: by outflank-mailman (output) from mailman id 65577.116206; Tue, 12 Jan 2021 10:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzGwi-0000LD-VN; Tue, 12 Jan 2021 10:30:40 +0000
-Received: by outflank-mailman (input) for mailman id 65572;
- Tue, 12 Jan 2021 10:30:39 +0000
+	id 1kzH0G-0000XV-L1; Tue, 12 Jan 2021 10:34:20 +0000
+Received: by outflank-mailman (input) for mailman id 65577;
+ Tue, 12 Jan 2021 10:34:19 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K8Mo=GP=redhat.com=stefanha@srs-us1.protection.inumbo.net>)
- id 1kzGwg-0000L8-WB
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 10:30:39 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 9b32f2d8-87f6-4108-9a79-d621c9eab71f;
- Tue, 12 Jan 2021 10:30:35 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-yZM83J6cMXCpTgcubcTk1A-1; Tue, 12 Jan 2021 05:30:33 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 07D87AFA81;
- Tue, 12 Jan 2021 10:30:29 +0000 (UTC)
-Received: from localhost (ovpn-115-99.ams2.redhat.com [10.36.115.99])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 978DF10023B5;
- Tue, 12 Jan 2021 10:30:15 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WoC4=GP=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1kzH0E-0000XQ-Tx
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 10:34:18 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2041c83f-b0e1-444c-a755-1452973c1816;
+ Tue, 12 Jan 2021 10:34:18 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 17F14ACB0;
+ Tue, 12 Jan 2021 10:34:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,146 +39,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b32f2d8-87f6-4108-9a79-d621c9eab71f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1610447435;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 2041c83f-b0e1-444c-a755-1452973c1816
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610447657; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YtAVZx/m5M42/sCrHG4e0vHzuv3Z13YDXpEzXvGlnvs=;
-	b=YjnSOg3jzcgDk3pKzvV3zMlScciAKIgxzGWXA2EP6qz4UU0YbVv5LU4HLJ7aw5O56FWSZe
-	eMPcfifqqVuOhPA+trqr0eoRtmgLszjJne1+iW1X1aUSbMgtigEBez19flQSwZZaJZ54VP
-	haWtEIq+4n2EjSlXNA4sQZDDcGA8bpc=
-X-MC-Unique: yZM83J6cMXCpTgcubcTk1A-1
-Date: Tue, 12 Jan 2021 10:30:14 +0000
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@redhat.com>
-Cc: qemu-devel@nongnu.org, Huacai Chen <chenhuacai@kernel.org>,
-	Greg Kurz <groug@kaod.org>, "Michael S. Tsirkin" <mst@redhat.com>,
-	qemu-trivial@nongnu.org, Amit Shah <amit@kernel.org>,
-	Dmitry Fleytman <dmitry.fleytman@gmail.com>, qemu-arm@nongnu.org,
-	John Snow <jsnow@redhat.com>, qemu-s390x@nongnu.org,
-	Paul Durrant <paul@xen.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Eduardo Habkost <ehabkost@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	Max Reitz <mreitz@redhat.com>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
-	Halil Pasic <pasic@linux.ibm.com>, Fam Zheng <fam@euphon.net>,
-	qemu-ppc@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org, Cornelia Huck <cohuck@redhat.com>,
-	David Hildenbrand <david@redhat.com>, qemu-block@nongnu.org,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	Laurent Vivier <laurent@vivier.eu>, Thomas Huth <thuth@redhat.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>
-Subject: Re: [PATCH 0/2] sysemu: Let VMChangeStateHandler take boolean
- 'running' argument
-Message-ID: <20210112103014.GB194658@stefanha-x1.localdomain>
-References: <20210111152020.1422021-1-philmd@redhat.com>
+	bh=SFZZDpfF7iQgyLB64Gjy2Ec9M50ve9zfNS2JavecGYQ=;
+	b=Bhvj3wcMfvAoe4ex0UbCsOIaj5S8seJzu2rAgpLKZlrwBtboWVJ4Vn7elSdYfakXoj3Zzp
+	cLOqwgpUu1DsEdo2LT8Jpk6RMexkdN2et408qMOSPVgpLAcdn5cjFtzh07O+kpicUVXP90
+	OwO23nPE7Lj+K7EX2r2Dp1qgsI40IAI=
+Subject: Re: [PATCH] xen/privcmd: allow fetching resource sizes
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: linux-kernel@vger.kernel.org, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Paul Durrant <paul.durrant@citrix.com>, xen-devel@lists.xenproject.org
+References: <20210111152958.7166-1-roger.pau@citrix.com>
+ <5063e696-5a7f-4429-048e-2bf0d14881d7@suse.com>
+ <20210112100324.ii34oqldfrtmfd2f@Air-de-Roger>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <67725689-2eab-fd17-d330-626f3505c6c1@suse.com>
+Date: Tue, 12 Jan 2021 11:34:16 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-In-Reply-To: <20210111152020.1422021-1-philmd@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=stefanha@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <20210112100324.ii34oqldfrtmfd2f@Air-de-Roger>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="b5gNqxB1S1yM7hjW"
-Content-Disposition: inline
+ protocol="application/pgp-signature";
+ boundary="UxwirFONVMB8JJkV5PFLwVBx0yZsMxDDs"
 
---b5gNqxB1S1yM7hjW
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--UxwirFONVMB8JJkV5PFLwVBx0yZsMxDDs
+Content-Type: multipart/mixed; boundary="RLMrMBUN4PwnA8AozxpnEc9O4jRLfXPBz";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: linux-kernel@vger.kernel.org, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Paul Durrant <paul.durrant@citrix.com>, xen-devel@lists.xenproject.org
+Message-ID: <67725689-2eab-fd17-d330-626f3505c6c1@suse.com>
+Subject: Re: [PATCH] xen/privcmd: allow fetching resource sizes
+References: <20210111152958.7166-1-roger.pau@citrix.com>
+ <5063e696-5a7f-4429-048e-2bf0d14881d7@suse.com>
+ <20210112100324.ii34oqldfrtmfd2f@Air-de-Roger>
+In-Reply-To: <20210112100324.ii34oqldfrtmfd2f@Air-de-Roger>
+
+--RLMrMBUN4PwnA8AozxpnEc9O4jRLfXPBz
+Content-Type: multipart/mixed;
+ boundary="------------51AE5625E0FB982B0C9D67DA"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------51AE5625E0FB982B0C9D67DA
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jan 11, 2021 at 04:20:18PM +0100, Philippe Mathieu-Daud=E9 wrote:
-> Trivial prototype change to clarify the use of the 'running'
-> argument of VMChangeStateHandler.
->=20
-> Green CI:
-> https://gitlab.com/philmd/qemu/-/pipelines/239497352
->=20
-> Philippe Mathieu-Daud=E9 (2):
->   sysemu/runstate: Let runstate_is_running() return bool
->   sysemu: Let VMChangeStateHandler take boolean 'running' argument
->=20
->  include/sysemu/runstate.h   | 12 +++++++++---
->  target/arm/kvm_arm.h        |  2 +-
->  target/ppc/cpu-qom.h        |  2 +-
->  accel/xen/xen-all.c         |  2 +-
->  audio/audio.c               |  2 +-
->  block/block-backend.c       |  2 +-
->  gdbstub.c                   |  2 +-
->  hw/block/pflash_cfi01.c     |  2 +-
->  hw/block/virtio-blk.c       |  2 +-
->  hw/display/qxl.c            |  2 +-
->  hw/i386/kvm/clock.c         |  2 +-
->  hw/i386/kvm/i8254.c         |  2 +-
->  hw/i386/kvmvapic.c          |  2 +-
->  hw/i386/xen/xen-hvm.c       |  2 +-
->  hw/ide/core.c               |  2 +-
->  hw/intc/arm_gicv3_its_kvm.c |  2 +-
->  hw/intc/arm_gicv3_kvm.c     |  2 +-
->  hw/intc/spapr_xive_kvm.c    |  2 +-
->  hw/misc/mac_via.c           |  2 +-
->  hw/net/e1000e_core.c        |  2 +-
->  hw/nvram/spapr_nvram.c      |  2 +-
->  hw/ppc/ppc.c                |  2 +-
->  hw/ppc/ppc_booke.c          |  2 +-
->  hw/s390x/tod-kvm.c          |  2 +-
->  hw/scsi/scsi-bus.c          |  2 +-
->  hw/usb/hcd-ehci.c           |  2 +-
->  hw/usb/host-libusb.c        |  2 +-
->  hw/usb/redirect.c           |  2 +-
->  hw/vfio/migration.c         |  2 +-
->  hw/virtio/virtio-rng.c      |  2 +-
->  hw/virtio/virtio.c          |  2 +-
->  net/net.c                   |  2 +-
->  softmmu/memory.c            |  2 +-
->  softmmu/runstate.c          |  4 ++--
->  target/arm/kvm.c            |  2 +-
->  target/i386/kvm/kvm.c       |  2 +-
->  target/i386/sev.c           |  2 +-
->  target/i386/whpx/whpx-all.c |  2 +-
->  target/mips/kvm.c           |  4 ++--
->  ui/gtk.c                    |  2 +-
->  ui/spice-core.c             |  2 +-
->  41 files changed, 51 insertions(+), 45 deletions(-)
->=20
-> --=20
-> 2.26.2
->=20
->=20
+On 12.01.21 11:03, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Jan 12, 2021 at 06:57:30AM +0100, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 11.01.21 16:29, Roger Pau Monne wrote:
+>>> Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num =3D 0 and=
 
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+>>> addr =3D 0 in order to fetch the size of a specific resource.
+>>>
+>>> Add a shortcut to the default map resource path, since fetching the
+>>> size requires no address to be passed in, and thus no VMA to setup.
+>>>
+>>> Fixes: 3ad0876554caf ('xen/privcmd: add IOCTL_PRIVCMD_MMAP_RESOURCE')=
 
---b5gNqxB1S1yM7hjW
-Content-Type: application/pgp-signature; name="signature.asc"
+>>
+>> I don't think this addition is a reason to add a "Fixes:" tag. This is=
+
+>> clearly new functionality.
+>=20
+> It could be argued that not allowing to query the resource size was a
+> shortcoming of the original implementation, but a backport request to
+> stable would be more appropriate than a fixes tag I think. Will drop
+> on next version and add a backport request if you agree.
+
+Yes, please.
+
+
+Juergen
+
+--------------51AE5625E0FB982B0C9D67DA
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------51AE5625E0FB982B0C9D67DA--
+
+--RLMrMBUN4PwnA8AozxpnEc9O4jRLfXPBz--
+
+--UxwirFONVMB8JJkV5PFLwVBx0yZsMxDDs
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAl/9ejYACgkQnKSrs4Gr
-c8idIAf/Yau6DdIvJYo0z1xlPWikqBBVOuHPdp3bLO0cxM4ShsmyJBcHVcXht/F5
-2dJf4d3ieWtl1MiBHI7VlWPtxfZXjcKLN8TT6wS7IUQOKMUTj7U+kZeplVOeHdJ5
-FaBCr4SCux3oJdDYz0V0oYxyZotxXpgV6QcnecOQ8z+3syVSKdPf5ZIDIEEJm9g8
-1ZI/HkBoJ6k2glUM83ohVS2K8gQ/eJqANxgKCFqGX2AFcIuQfD2ESotgaq263A0m
-WvGwEXcLV6ALMAANVoYBDIPACb3dJFGK4Z9HZnUoV5Cqq14MmTjsIaDCRI7ekmtl
-iifLGCKlWmb5Y8rX5WFdfJfWQf/ufg==
-=R44D
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/9eygFAwAAAAAACgkQsN6d1ii/Ey9W
+9wf/SlRDkyc7MfvskNQS68Enzp7CN4wYqum4ecVl4Z3K/agV/7NRcM63knd9fQZGroZRW5+zY6Df
+RGtoOdbzKD+3sg4XM1xilmPqFZqdJQcGnI6FW8C3qjFkxiQLMhkf803KYQfLxoFHROLOsrXrdCL5
+VxwfoJbEfggJY4jmU+ijnGDt8tc5lrOznsnho5lc+/aJjtGuJAPPW+RdSkcxFwwuIUA8iADm5X7k
+fKPpYzxbYG5yrFVXXQigPsxpsn+fazX1+UiUJtkZbQu1a3ISQQxD/vdm/9R3QdgdD0UzVZHZcpNc
+AkD8EEPyezYo7zcFuCB5mHlHXx2Er+nLlJzTdF8Ccw==
+=gOyn
 -----END PGP SIGNATURE-----
 
---b5gNqxB1S1yM7hjW--
-
+--UxwirFONVMB8JJkV5PFLwVBx0yZsMxDDs--
 
