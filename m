@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E6892F3BED
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B4962F3BEA
 	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 22:53:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66039.117116 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.66040.117128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzRay-0002Po-Ne; Tue, 12 Jan 2021 21:52:56 +0000
+	id 1kzRb4-0002Rc-3x; Tue, 12 Jan 2021 21:53:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66039.117116; Tue, 12 Jan 2021 21:52:56 +0000
+Received: by outflank-mailman (output) from mailman id 66040.117128; Tue, 12 Jan 2021 21:53:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzRay-0002PP-Jj; Tue, 12 Jan 2021 21:52:56 +0000
-Received: by outflank-mailman (input) for mailman id 66039;
- Tue, 12 Jan 2021 21:52:55 +0000
+	id 1kzRb4-0002R9-0f; Tue, 12 Jan 2021 21:53:02 +0000
+Received: by outflank-mailman (input) for mailman id 66040;
+ Tue, 12 Jan 2021 21:53:00 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OoN1=GP=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1kzRax-0002PK-MO
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 21:52:55 +0000
-Received: from mail-wr1-x434.google.com (unknown [2a00:1450:4864:20::434])
+ id 1kzRb2-0002PK-GG
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 21:53:00 +0000
+Received: from mail-wr1-x42f.google.com (unknown [2a00:1450:4864:20::42f])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 07ec54ea-aee8-42bb-816f-10674ec151a4;
- Tue, 12 Jan 2021 21:52:53 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id i9so21616wrc.4
- for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 13:52:53 -0800 (PST)
+ id d71e47a5-40f1-4fca-9139-5c2857d96a4f;
+ Tue, 12 Jan 2021 21:52:54 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id r3so29587wrt.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 13:52:54 -0800 (PST)
 Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id 138sm6574053wma.41.2021.01.12.13.52.50
+ by smtp.gmail.com with ESMTPSA id 138sm6574053wma.41.2021.01.12.13.52.52
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 12 Jan 2021 13:52:51 -0800 (PST)
+ Tue, 12 Jan 2021 13:52:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07ec54ea-aee8-42bb-816f-10674ec151a4
+X-Inumbo-ID: d71e47a5-40f1-4fca-9139-5c2857d96a4f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=qMOqvGNo5cQizioF+QaXcNlKqaHmQlnCejpQh7FTPmQ=;
-        b=OWft2gyoz9/22UmcAXlJyb0t30ul4iAbJEbO8kv6I7xvksHG/4Jk6iZY+meTCkCG2u
-         BlviA/H8db8MP0rv5GrxcbgTt/0S6y5xNreTh2aTs9OpIX3gxRxg+twoN1fTsivRcQ9/
-         Jw9ny8mBw7lgiqZEshifZ4W0u2/yWxIMqnVIPZIwzzVS6bFpq0dvvjQRSm+gbQYmCt6g
-         XLhj3o8e7WcPHVJMud86yw4kkijL5iy2ROI/npyWu/cjqSVlVIF0BpQdhdEUGuJBTuL5
-         LFeJVkuHnASomlUIHfuTBxYOl2fgx/srhUV8X3WqdNnPniZj2xksbunPVjecG1Jsymqf
-         VeSg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=gCw6lT9ULGQVEuBIpHE6YdRrisokhnjPBJH9ThI94Es=;
+        b=Iel65jIQDaBiIDMJTnFYvs9s5NcidmCoFPb8coYSd/sPXP6Ey83E6tp6BWHJGyxa5G
+         M93CteDmCBf2fEMch2HKvGsfdqQkxrO0qOZZeg9L9kAVRcjyeAl9J/CjNWeVf8LwsHrD
+         ykN+f6w8yT6IbBvh1hGex0dokjw7tozFK0s3UqwaGvAZPPhjN19IRKiH4Ya7+zq1opG4
+         CdsvUzJf+m6sRrSNycVUX8tJOawKX4CXoLr2E9a6x91JnbsNhluXrcCNgQPXowBMnBs8
+         7T/v1mydKyi+jlGMOgwqkSQo2J36T/OWav6dYPTHiB4IplN4+Dpfrsuh6wsXhr4AKv2L
+         eZkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=qMOqvGNo5cQizioF+QaXcNlKqaHmQlnCejpQh7FTPmQ=;
-        b=Hxo3goXI1wzDeqFdp0puK9GDIUq4hNy36Cx3J1AoaUFYSfVxl7m2Ul8Lh9efVDqnXj
-         VoXXfL8Is5Q2iakKa0R05Fegj57yA7b+Er2EIv5OAKRsFdN6v91PJu5eRM1+0sxJ+W7g
-         zKNbA3oO5ZX7/yoahPymlW5708JwAsWUSXnfCQkxnnSwwyhq+bQox0y+0Ad2q8pjhf6H
-         2efCgNq4Z+lg2a+9j1io37oKvyLTQXQImYtcxCClQJWy8gODAxtLHNYrs5kxgNWdYJZ6
-         Qq+GxCsBwE/LjvdlNz5yrWvwklV3AgE4zAHfCdMTeMWovqFKA68u+h8r02AphhjVpZ8/
-         ccdw==
-X-Gm-Message-State: AOAM530yTJfQZNC0YhIbFQQtcvyJs8yQHVd6pTKpjMOy8n8ph4hvARcw
-	sqmA3sA1nYKUxk9vDEEyQm7Td/1muEfxDw==
-X-Google-Smtp-Source: ABdhPJw6Om8biGNZDElw+yRQTWU29JeG9xP4XZayghW7CEwtXowqAmFGBpQvcHR65EZMAqk0emOaag==
-X-Received: by 2002:a05:6000:368:: with SMTP id f8mr821821wrf.150.1610488372030;
-        Tue, 12 Jan 2021 13:52:52 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=gCw6lT9ULGQVEuBIpHE6YdRrisokhnjPBJH9ThI94Es=;
+        b=V+20PmvGd4ConX4xq4G+m1ffI+KghA2lefhige+L2tn3JvkmD7KGL+Gm64e2CPo1N/
+         st7pk13G1aSsoi+gQxUMCCl40zugYIO3cdBmcpNZAqmDCEtNZNfF/y4vNxLms//QC12w
+         glf+y3ngAEyrPieRZKrBnEmXZ9MVuV/GF6kt7yjA1UVLDKNV4wr1NlXMibWU0nnwe4Yv
+         vgZ4TwQLWGtjOCRrXkThE2GRbD0gxt+yK7rRmKb1PwIdjzM6J3/3JuMDjTbCBAmNzqil
+         8rZESoVJadQ0vKf4VJD/HtmN3CNhjhjFGKfX4u9NXFBDKdTAjI0p9EVyhOOy5YgYqFUA
+         dE7A==
+X-Gm-Message-State: AOAM530VrSxtVRteQCbUTRocCCsXpv+STitf5shRPb++wQcZJdz9n+gq
+	YcKYe7TEgLJ+U2QIPaUlOSHXnCxOIXTCoA==
+X-Google-Smtp-Source: ABdhPJyZRIcdV9UNLz/Sv8L3h0t4tsgm1HqsTM108xOv/+7HGy51OhQ3BVuRZEBowoIYjtFzT98OOQ==
+X-Received: by 2002:a5d:45d0:: with SMTP id b16mr809939wrs.220.1610488373102;
+        Tue, 12 Jan 2021 13:52:53 -0800 (PST)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
@@ -77,241 +77,516 @@ Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
-	Julien Grall <julien.grall@arm.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Tim Deegan <tim@xen.org>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Wei Chen <Wei.Chen@arm.com>,
-	Kaly Xin <Kaly.Xin@arm.com>,
-	Artem Mygaiev <joculator@gmail.com>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
-Subject: [PATCH V4 00/24] IOREQ feature (+ virtio-mmio) on Arm
-Date: Tue, 12 Jan 2021 23:52:08 +0200
-Message-Id: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+	Julien Grall <julien.grall@arm.com>
+Subject: [PATCH V4 01/24] x86/ioreq: Prepare IOREQ feature for making it common
+Date: Tue, 12 Jan 2021 23:52:09 +0200
+Message-Id: <1610488352-18494-2-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Hello all.
+As a lot of x86 code can be re-used on Arm later on, this
+patch makes some preparation to x86/hvm/ioreq.c before moving
+to the common code. This way we will get a verbatim copy
+for a code movement in subsequent patch.
 
-The purpose of this patch series is to add IOREQ/DM support to Xen on Arm.
-You can find an initial discussion at [1] and RFC-V3 series at [2]-[5].
-Xen on Arm requires some implementation to forward guest MMIO access to a device
-model in order to implement virtio-mmio backend or even mediator outside of hypervisor.
-As Xen on x86 already contains required support this series tries to make it common
-and introduce Arm specific bits plus some new functionality. Patch series is based on
-Julien's PoC "xen/arm: Add support for Guest IO forwarding to a device emulator".
-Besides splitting existing IOREQ/DM support and introducing Arm side, the series
-also includes virtio-mmio related changes (last 2 patches for toolstack)
-for the reviewers to be able to see how the whole picture could look like
-and give it a try.
+This patch mostly introduces specific hooks to abstract arch
+specific materials taking into the account the requirment to leave
+the "legacy" mechanism of mapping magic pages for the IOREQ servers
+x86 specific and not expose it to the common code.
 
-According to the initial/subsequent discussions there are a few open
-questions/concerns regarding security, performance in VirtIO solution:
-1. virtio-mmio vs virtio-pci, SPI vs MSI, or even a composition of virtio-mmio + MSI, 
-   different use-cases require different transport...
-2. virtio backend is able to access all guest memory, some kind of protection
-   is needed: 'virtio-iommu in Xen' vs 'pre-shared-memory & memcpys in guest', etc
-   (for the first two Alex have provided valuable input at [6])
-3. interface between toolstack and 'out-of-qemu' virtio backend, avoid using
-   Xenstore in virtio backend if possible. Also, there is a desire to make VirtIO
-   backend hypervisor-agnostic.
-4. a lot of 'foreing mapping' could lead to the memory exhaustion at the host side,
-   as we are stealing the page from host memory in order to map the guest page.
-   Julien has some idea regarding that.
-5. Julien also has some ideas how to optimize the IOREQ code:
-   5.1 vcpu_ioreq_handle_completion (former handle_hvm_io_completion) which is called in
-       an hotpath on Arm (everytime we are re-entering to the guest):
-       Ideally, vcpu_ioreq_handle_completion should be a NOP (at max a few instructions)
-       if there is nothing to do (if we don't have I/O forwarded to an IOREQ server).
-       Maybe we want to introduce a per-vCPU flag indicating if an I/O has been
-       forwarded to an IOREQ server. This would allow us to bypass most of the function
-       if there is nothing to do.
-   5.2 The current way to handle MMIO is the following:
-       - Pause the vCPU
-       - Forward the access to the backend domain
-       - Schedule the backend domain
-       - Wait for the access to be handled
-       - Unpause the vCPU
-       The sequence is going to be fairly expensive on Xen.
-       It might be possible to optimize the ACK and avoid to wait for the backend
-       to handle the access.
+These hooks are named according to the more consistent new naming
+scheme right away (including dropping the "hvm" prefixes and infixes):
+- IOREQ server functions should start with "ioreq_server_"
+- IOREQ functions should start with "ioreq_"
+other functions will be renamed in subsequent patches.
 
-Looks like all of them are valid and worth considering, but the first thing
-which we need on Arm is a mechanism to forward guest IO to a device emulator,
-so let's focus on it in the first place.
+Also re-order #include-s alphabetically.
 
-***
+This support is going to be used on Arm to be able run device
+emulator outside of Xen hypervisor.
 
-There are a lot of changes since RFC series, almost all TODOs were resolved on Arm,
-Arm code was improved and hardened, common IOREQ/DM code became really arch-agnostic
-(without HVM-ism), the "legacy" mechanism of mapping magic pages for the IOREQ servers
-was left x86 specific, etc. Also patch that makes DM code public was reworked to have
-the top level dm-op handling arch-specific and call into ioreq_server_dm_op()
-for otherwise unhandled ops.
-But one TODO still remains which is "PIO handling" on Arm.
-The "PIO handling" TODO is expected to left unaddressed for the current series.
-It is not an big issue for now while Xen doesn't have support for vPCI on Arm.
-On Arm64 they are only used for PCI IO Bar and we would probably want to expose
-them to emulator as PIO access to make a DM completely arch-agnostic. So "PIO handling"
-should be implemented when we add support for vPCI.
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
+CC: Julien Grall <julien.grall@arm.com>
+[On Arm only]
+Tested-by: Wei Chen <Wei.Chen@arm.com>
 
-I left interface untouched in the following patch
-"xen/dm: Introduce xendevicemodel_set_irq_level DM op"
-since there is still an open discussion what interface to use/what
-information to pass to the hypervisor.
+---
+Please note, this is a split/cleanup/hardening of Julien's PoC:
+"Add support for Guest IO forwarding to a device emulator"
 
-There are patches on review this series depends on:
-https://patchwork.kernel.org/patch/11816689
-https://patchwork.kernel.org/patch/11803383
+Changes RFC -> V1:
+   - new patch, was split from:
+     "[RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature common"
+   - fold the check of p->type into hvm_get_ioreq_server_range_type()
+     and make it return success/failure
+   - remove relocate_portio_handler() call from arch_hvm_ioreq_destroy()
+     in arch/x86/hvm/ioreq.c
+   - introduce arch_hvm_destroy_ioreq_server()/arch_handle_hvm_io_completion()
 
-Please note, that IOREQ feature is disabled by default on Arm within current series.
+Changes V1 -> V2:
+   - update patch description
+   - make arch functions inline and put them into arch header
+     to achieve a truly rename by the subsequent patch
+   - return void in arch_hvm_destroy_ioreq_server()
+   - return bool in arch_hvm_ioreq_destroy()
+   - bring relocate_portio_handler() back to arch_hvm_ioreq_destroy()
+   - rename IOREQ_IO* to IOREQ_STATUS*
+   - remove *handle* from arch_handle_hvm_io_completion()
+   - re-order #include-s alphabetically
+   - rename hvm_get_ioreq_server_range_type() to hvm_ioreq_server_get_type_addr()
+     and add "const" to several arguments
 
-***
+Changes V2 -> V3:
+   - update patch description
+   - name new arch hooks according to the new naming scheme
+   - don't make arch hooks inline, move them ioreq.c
+   - make get_ioreq_server() local again
+   - rework the whole patch taking into the account that "legacy" interface
+     should remain x86 specific (additional arch hooks, etc)
+   - update the code to be able to use hvm_map_mem_type_to_ioreq_server()
+     in the common code (an extra arch hook, etc)
+   - don’t include <asm/hvm/emulate.h> from arch header
+   - add "arch" prefix to hvm_ioreq_server_get_type_addr()
+   - move IOREQ_STATUS_* #define-s introduction to the separate patch
+   - move HANDLE_BUFIOREQ to the arch header
+   - just return relocate_portio_handler() from arch_ioreq_server_destroy_all()
+   - misc adjustments proposed by Jan (adding const, unsigned int instead of uint32_t)
 
-Patch series [7] was rebased on recent "staging branch"
-(7ba2ab4 x86/p2m: Fix paging_gva_to_gfn() for nested virt) and tested on
-Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with virtio-mmio disk backend [8]
-running in driver domain and unmodified Linux Guest running on existing
-virtio-blk driver (frontend). No issues were observed. Guest domain 'reboot/destroy'
-use-cases work properly. Patch series was only build-tested on x86.
+Changes V3 -> V4:
+   - add Alex's R-b
+   - update patch description
+   - make arch_ioreq_server_get_type_addr return bool
+   - drop #include <xen/ctype.h>
+   - use two arch hooks in hvm_map_mem_type_to_ioreq_server()
+     to avoid calling p2m_change_entry_type_global() with lock held
+---
+ xen/arch/x86/hvm/ioreq.c        | 179 ++++++++++++++++++++++++++--------------
+ xen/include/asm-x86/hvm/ioreq.h |  22 +++++
+ 2 files changed, 141 insertions(+), 60 deletions(-)
 
-Please note, build-test passed for the following modes:
-1. x86: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y (default)
-2. x86: #CONFIG_HVM is not set / #CONFIG_IOREQ_SERVER is not set
-3. Arm64: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
-4. Arm64: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set  (default)
-5. Arm32: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
-6. Arm32: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set  (default)
-
-***
-
-Any feedback/help would be highly appreciated.
-
-[1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg00825.html
-[2] https://lists.xenproject.org/archives/html/xen-devel/2020-08/msg00071.html
-[3] https://lists.xenproject.org/archives/html/xen-devel/2020-09/msg00732.html
-[4] https://lists.xenproject.org/archives/html/xen-devel/2020-10/msg01077.html
-[5] https://lists.xenproject.org/archives/html/xen-devel/2020-11/msg02188.html
-[6] https://lists.xenproject.org/archives/html/xen-devel/2020-11/msg02212.html
-[7] https://github.com/otyshchenko1/xen/commits/ioreq_4.14_ml5
-[8] https://github.com/xen-troops/virtio-disk/commits/ioreq_ml1
-
-Julien Grall (5):
-  xen/ioreq: Make x86's IOREQ related dm-op handling common
-  xen/mm: Make x86's XENMEM_resource_ioreq_server handling common
-  arm/ioreq: Introduce arch specific bits for IOREQ/DM features
-  xen/dm: Introduce xendevicemodel_set_irq_level DM op
-  libxl: Introduce basic virtio-mmio support on Arm
-
-Oleksandr Tyshchenko (19):
-  x86/ioreq: Prepare IOREQ feature for making it common
-  x86/ioreq: Add IOREQ_STATUS_* #define-s and update code for moving
-  x86/ioreq: Provide out-of-line wrapper for the handle_mmio()
-  xen/ioreq: Make x86's IOREQ feature common
-  xen/ioreq: Make x86's hvm_ioreq_needs_completion() common
-  xen/ioreq: Make x86's hvm_mmio_first(last)_byte() common
-  xen/ioreq: Make x86's hvm_ioreq_(page/vcpu/server) structs common
-  xen/ioreq: Move x86's ioreq_server to struct domain
-  xen/ioreq: Move x86's io_completion/io_req fields to struct vcpu
-  xen/ioreq: Remove "hvm" prefixes from involved function names
-  xen/ioreq: Use guest_cmpxchg64() instead of cmpxchg()
-  xen/arm: Stick around in leave_hypervisor_to_guest until I/O has
-    completed
-  xen/mm: Handle properly reference in set_foreign_p2m_entry() on Arm
-  xen/ioreq: Introduce domain_has_ioreq_server()
-  xen/arm: io: Abstract sign-extension
-  xen/arm: io: Harden sign extension check
-  xen/ioreq: Make x86's send_invalidate_req() common
-  xen/arm: Add mapcache invalidation handling
-  [RFC] libxl: Add support for virtio-disk configuration
-
- MAINTAINERS                                  |    8 +-
- tools/include/xendevicemodel.h               |    4 +
- tools/libs/devicemodel/core.c                |   18 +
- tools/libs/devicemodel/libxendevicemodel.map |    1 +
- tools/libs/light/Makefile                    |    1 +
- tools/libs/light/libxl_arm.c                 |   94 +-
- tools/libs/light/libxl_create.c              |    1 +
- tools/libs/light/libxl_internal.h            |    1 +
- tools/libs/light/libxl_types.idl             |   16 +
- tools/libs/light/libxl_types_internal.idl    |    1 +
- tools/libs/light/libxl_virtio_disk.c         |  109 ++
- tools/xl/Makefile                            |    2 +-
- tools/xl/xl.h                                |    3 +
- tools/xl/xl_cmdtable.c                       |   15 +
- tools/xl/xl_parse.c                          |  116 +++
- tools/xl/xl_virtio_disk.c                    |   46 +
- xen/arch/arm/Makefile                        |    2 +
- xen/arch/arm/dm.c                            |  174 ++++
- xen/arch/arm/domain.c                        |    9 +
- xen/arch/arm/io.c                            |   30 +-
- xen/arch/arm/ioreq.c                         |  198 ++++
- xen/arch/arm/p2m.c                           |   51 +-
- xen/arch/arm/traps.c                         |   72 +-
- xen/arch/x86/Kconfig                         |    1 +
- xen/arch/x86/hvm/dm.c                        |  107 +-
- xen/arch/x86/hvm/emulate.c                   |  220 ++--
- xen/arch/x86/hvm/hvm.c                       |   14 +-
- xen/arch/x86/hvm/hypercall.c                 |    9 +-
- xen/arch/x86/hvm/intercept.c                 |    5 +-
- xen/arch/x86/hvm/io.c                        |   52 +-
- xen/arch/x86/hvm/ioreq.c                     | 1375 ++-----------------------
- xen/arch/x86/hvm/stdvga.c                    |   12 +-
- xen/arch/x86/hvm/svm/nestedsvm.c             |    2 +-
- xen/arch/x86/hvm/vmx/realmode.c              |    8 +-
- xen/arch/x86/hvm/vmx/vvmx.c                  |    5 +-
- xen/arch/x86/mm.c                            |   46 +-
- xen/arch/x86/mm/p2m.c                        |   17 +-
- xen/arch/x86/mm/shadow/common.c              |    2 +-
- xen/common/Kconfig                           |    3 +
- xen/common/Makefile                          |    1 +
- xen/common/ioreq.c                           | 1426 ++++++++++++++++++++++++++
- xen/common/memory.c                          |   72 +-
- xen/include/asm-arm/domain.h                 |    3 +
- xen/include/asm-arm/hvm/ioreq.h              |   72 ++
- xen/include/asm-arm/mm.h                     |    8 -
- xen/include/asm-arm/mmio.h                   |    1 +
- xen/include/asm-arm/p2m.h                    |   19 +-
- xen/include/asm-arm/traps.h                  |   25 +
- xen/include/asm-x86/hvm/domain.h             |   43 -
- xen/include/asm-x86/hvm/emulate.h            |    2 +-
- xen/include/asm-x86/hvm/io.h                 |   17 -
- xen/include/asm-x86/hvm/ioreq.h              |   39 +-
- xen/include/asm-x86/hvm/vcpu.h               |   18 -
- xen/include/asm-x86/mm.h                     |    4 -
- xen/include/asm-x86/p2m.h                    |   27 +-
- xen/include/public/arch-arm.h                |    5 +
- xen/include/public/hvm/dm_op.h               |   16 +
- xen/include/xen/dm.h                         |   39 +
- xen/include/xen/ioreq.h                      |  140 +++
- xen/include/xen/p2m-common.h                 |    4 +
- xen/include/xen/sched.h                      |   34 +
- xen/include/xsm/dummy.h                      |    4 +-
- xen/include/xsm/xsm.h                        |    6 +-
- xen/xsm/dummy.c                              |    2 +-
- xen/xsm/flask/hooks.c                        |    5 +-
- 65 files changed, 3073 insertions(+), 1809 deletions(-)
- create mode 100644 tools/libs/light/libxl_virtio_disk.c
- create mode 100644 tools/xl/xl_virtio_disk.c
- create mode 100644 xen/arch/arm/dm.c
- create mode 100644 xen/arch/arm/ioreq.c
- create mode 100644 xen/common/ioreq.c
- create mode 100644 xen/include/asm-arm/hvm/ioreq.h
- create mode 100644 xen/include/xen/dm.h
- create mode 100644 xen/include/xen/ioreq.h
-
+diff --git a/xen/arch/x86/hvm/ioreq.c b/xen/arch/x86/hvm/ioreq.c
+index 1cc27df..468fe84 100644
+--- a/xen/arch/x86/hvm/ioreq.c
++++ b/xen/arch/x86/hvm/ioreq.c
+@@ -16,16 +16,15 @@
+  * this program; If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <xen/ctype.h>
++#include <xen/domain.h>
++#include <xen/event.h>
+ #include <xen/init.h>
++#include <xen/irq.h>
+ #include <xen/lib.h>
+-#include <xen/trace.h>
++#include <xen/paging.h>
+ #include <xen/sched.h>
+-#include <xen/irq.h>
+ #include <xen/softirq.h>
+-#include <xen/domain.h>
+-#include <xen/event.h>
+-#include <xen/paging.h>
++#include <xen/trace.h>
+ #include <xen/vpci.h>
+ 
+ #include <asm/hvm/emulate.h>
+@@ -170,6 +169,29 @@ static bool hvm_wait_for_io(struct hvm_ioreq_vcpu *sv, ioreq_t *p)
+     return true;
+ }
+ 
++bool arch_vcpu_ioreq_completion(enum hvm_io_completion io_completion)
++{
++    switch ( io_completion )
++    {
++    case HVMIO_realmode_completion:
++    {
++        struct hvm_emulate_ctxt ctxt;
++
++        hvm_emulate_init_once(&ctxt, NULL, guest_cpu_user_regs());
++        vmx_realmode_emulate_one(&ctxt);
++        hvm_emulate_writeback(&ctxt);
++
++        break;
++    }
++
++    default:
++        ASSERT_UNREACHABLE();
++        break;
++    }
++
++    return true;
++}
++
+ bool handle_hvm_io_completion(struct vcpu *v)
+ {
+     struct domain *d = v->domain;
+@@ -209,19 +231,8 @@ bool handle_hvm_io_completion(struct vcpu *v)
+         return handle_pio(vio->io_req.addr, vio->io_req.size,
+                           vio->io_req.dir);
+ 
+-    case HVMIO_realmode_completion:
+-    {
+-        struct hvm_emulate_ctxt ctxt;
+-
+-        hvm_emulate_init_once(&ctxt, NULL, guest_cpu_user_regs());
+-        vmx_realmode_emulate_one(&ctxt);
+-        hvm_emulate_writeback(&ctxt);
+-
+-        break;
+-    }
+     default:
+-        ASSERT_UNREACHABLE();
+-        break;
++        return arch_vcpu_ioreq_completion(io_completion);
+     }
+ 
+     return true;
+@@ -477,9 +488,6 @@ static void hvm_update_ioreq_evtchn(struct hvm_ioreq_server *s,
+     }
+ }
+ 
+-#define HANDLE_BUFIOREQ(s) \
+-    ((s)->bufioreq_handling != HVM_IOREQSRV_BUFIOREQ_OFF)
+-
+ static int hvm_ioreq_server_add_vcpu(struct hvm_ioreq_server *s,
+                                      struct vcpu *v)
+ {
+@@ -586,7 +594,7 @@ static void hvm_ioreq_server_remove_all_vcpus(struct hvm_ioreq_server *s)
+     spin_unlock(&s->lock);
+ }
+ 
+-static int hvm_ioreq_server_map_pages(struct hvm_ioreq_server *s)
++int arch_ioreq_server_map_pages(struct hvm_ioreq_server *s)
+ {
+     int rc;
+ 
+@@ -601,7 +609,7 @@ static int hvm_ioreq_server_map_pages(struct hvm_ioreq_server *s)
+     return rc;
+ }
+ 
+-static void hvm_ioreq_server_unmap_pages(struct hvm_ioreq_server *s)
++void arch_ioreq_server_unmap_pages(struct hvm_ioreq_server *s)
+ {
+     hvm_unmap_ioreq_gfn(s, true);
+     hvm_unmap_ioreq_gfn(s, false);
+@@ -674,6 +682,12 @@ static int hvm_ioreq_server_alloc_rangesets(struct hvm_ioreq_server *s,
+     return rc;
+ }
+ 
++void arch_ioreq_server_enable(struct hvm_ioreq_server *s)
++{
++    hvm_remove_ioreq_gfn(s, false);
++    hvm_remove_ioreq_gfn(s, true);
++}
++
+ static void hvm_ioreq_server_enable(struct hvm_ioreq_server *s)
+ {
+     struct hvm_ioreq_vcpu *sv;
+@@ -683,8 +697,7 @@ static void hvm_ioreq_server_enable(struct hvm_ioreq_server *s)
+     if ( s->enabled )
+         goto done;
+ 
+-    hvm_remove_ioreq_gfn(s, false);
+-    hvm_remove_ioreq_gfn(s, true);
++    arch_ioreq_server_enable(s);
+ 
+     s->enabled = true;
+ 
+@@ -697,6 +710,12 @@ static void hvm_ioreq_server_enable(struct hvm_ioreq_server *s)
+     spin_unlock(&s->lock);
+ }
+ 
++void arch_ioreq_server_disable(struct hvm_ioreq_server *s)
++{
++    hvm_add_ioreq_gfn(s, true);
++    hvm_add_ioreq_gfn(s, false);
++}
++
+ static void hvm_ioreq_server_disable(struct hvm_ioreq_server *s)
+ {
+     spin_lock(&s->lock);
+@@ -704,8 +723,7 @@ static void hvm_ioreq_server_disable(struct hvm_ioreq_server *s)
+     if ( !s->enabled )
+         goto done;
+ 
+-    hvm_add_ioreq_gfn(s, true);
+-    hvm_add_ioreq_gfn(s, false);
++    arch_ioreq_server_disable(s);
+ 
+     s->enabled = false;
+ 
+@@ -750,7 +768,7 @@ static int hvm_ioreq_server_init(struct hvm_ioreq_server *s,
+ 
+  fail_add:
+     hvm_ioreq_server_remove_all_vcpus(s);
+-    hvm_ioreq_server_unmap_pages(s);
++    arch_ioreq_server_unmap_pages(s);
+ 
+     hvm_ioreq_server_free_rangesets(s);
+ 
+@@ -764,7 +782,7 @@ static void hvm_ioreq_server_deinit(struct hvm_ioreq_server *s)
+     hvm_ioreq_server_remove_all_vcpus(s);
+ 
+     /*
+-     * NOTE: It is safe to call both hvm_ioreq_server_unmap_pages() and
++     * NOTE: It is safe to call both arch_ioreq_server_unmap_pages() and
+      *       hvm_ioreq_server_free_pages() in that order.
+      *       This is because the former will do nothing if the pages
+      *       are not mapped, leaving the page to be freed by the latter.
+@@ -772,7 +790,7 @@ static void hvm_ioreq_server_deinit(struct hvm_ioreq_server *s)
+      *       the page_info pointer to NULL, meaning the latter will do
+      *       nothing.
+      */
+-    hvm_ioreq_server_unmap_pages(s);
++    arch_ioreq_server_unmap_pages(s);
+     hvm_ioreq_server_free_pages(s);
+ 
+     hvm_ioreq_server_free_rangesets(s);
+@@ -836,6 +854,12 @@ int hvm_create_ioreq_server(struct domain *d, int bufioreq_handling,
+     return rc;
+ }
+ 
++/* Called when target domain is paused */
++void arch_ioreq_server_destroy(struct hvm_ioreq_server *s)
++{
++    p2m_set_ioreq_server(s->target, 0, s);
++}
++
+ int hvm_destroy_ioreq_server(struct domain *d, ioservid_t id)
+ {
+     struct hvm_ioreq_server *s;
+@@ -855,7 +879,7 @@ int hvm_destroy_ioreq_server(struct domain *d, ioservid_t id)
+ 
+     domain_pause(d);
+ 
+-    p2m_set_ioreq_server(d, 0, s);
++    arch_ioreq_server_destroy(s);
+ 
+     hvm_ioreq_server_disable(s);
+ 
+@@ -900,7 +924,7 @@ int hvm_get_ioreq_server_info(struct domain *d, ioservid_t id,
+ 
+     if ( ioreq_gfn || bufioreq_gfn )
+     {
+-        rc = hvm_ioreq_server_map_pages(s);
++        rc = arch_ioreq_server_map_pages(s);
+         if ( rc )
+             goto out;
+     }
+@@ -1080,6 +1104,27 @@ int hvm_unmap_io_range_from_ioreq_server(struct domain *d, ioservid_t id,
+     return rc;
+ }
+ 
++/* Called with ioreq_server lock held */
++int arch_ioreq_server_map_mem_type(struct domain *d,
++                                   struct hvm_ioreq_server *s,
++                                   uint32_t flags)
++{
++    return p2m_set_ioreq_server(d, flags, s);
++}
++
++void arch_ioreq_server_map_mem_type_completed(struct domain *d,
++                                              struct hvm_ioreq_server *s,
++                                              uint32_t flags)
++{
++    if ( flags == 0 )
++    {
++        const struct p2m_domain *p2m = p2m_get_hostp2m(d);
++
++        if ( read_atomic(&p2m->ioreq.entry_count) )
++            p2m_change_entry_type_global(d, p2m_ioreq_server, p2m_ram_rw);
++    }
++}
++
+ /*
+  * Map or unmap an ioreq server to specific memory type. For now, only
+  * HVMMEM_ioreq_server is supported, and in the future new types can be
+@@ -1112,18 +1157,13 @@ int hvm_map_mem_type_to_ioreq_server(struct domain *d, ioservid_t id,
+     if ( s->emulator != current->domain )
+         goto out;
+ 
+-    rc = p2m_set_ioreq_server(d, flags, s);
++    rc = arch_ioreq_server_map_mem_type(d, s, flags);
+ 
+  out:
+     spin_unlock_recursive(&d->arch.hvm.ioreq_server.lock);
+ 
+-    if ( rc == 0 && flags == 0 )
+-    {
+-        struct p2m_domain *p2m = p2m_get_hostp2m(d);
+-
+-        if ( read_atomic(&p2m->ioreq.entry_count) )
+-            p2m_change_entry_type_global(d, p2m_ioreq_server, p2m_ram_rw);
+-    }
++    if ( rc == 0 )
++        arch_ioreq_server_map_mem_type_completed(d, s, flags);
+ 
+     return rc;
+ }
+@@ -1210,12 +1250,17 @@ void hvm_all_ioreq_servers_remove_vcpu(struct domain *d, struct vcpu *v)
+     spin_unlock_recursive(&d->arch.hvm.ioreq_server.lock);
+ }
+ 
++bool arch_ioreq_server_destroy_all(struct domain *d)
++{
++    return relocate_portio_handler(d, 0xcf8, 0xcf8, 4);
++}
++
+ void hvm_destroy_all_ioreq_servers(struct domain *d)
+ {
+     struct hvm_ioreq_server *s;
+     unsigned int id;
+ 
+-    if ( !relocate_portio_handler(d, 0xcf8, 0xcf8, 4) )
++    if ( !arch_ioreq_server_destroy_all(d) )
+         return;
+ 
+     spin_lock_recursive(&d->arch.hvm.ioreq_server.lock);
+@@ -1239,33 +1284,28 @@ void hvm_destroy_all_ioreq_servers(struct domain *d)
+     spin_unlock_recursive(&d->arch.hvm.ioreq_server.lock);
+ }
+ 
+-struct hvm_ioreq_server *hvm_select_ioreq_server(struct domain *d,
+-                                                 ioreq_t *p)
++bool arch_ioreq_server_get_type_addr(const struct domain *d,
++                                     const ioreq_t *p,
++                                     uint8_t *type,
++                                     uint64_t *addr)
+ {
+-    struct hvm_ioreq_server *s;
+-    uint32_t cf8;
+-    uint8_t type;
+-    uint64_t addr;
+-    unsigned int id;
++    unsigned int cf8 = d->arch.hvm.pci_cf8;
+ 
+     if ( p->type != IOREQ_TYPE_COPY && p->type != IOREQ_TYPE_PIO )
+-        return NULL;
+-
+-    cf8 = d->arch.hvm.pci_cf8;
++        return false;
+ 
+     if ( p->type == IOREQ_TYPE_PIO &&
+          (p->addr & ~3) == 0xcfc &&
+          CF8_ENABLED(cf8) )
+     {
+-        uint32_t x86_fam;
++        unsigned int x86_fam, reg;
+         pci_sbdf_t sbdf;
+-        unsigned int reg;
+ 
+         reg = hvm_pci_decode_addr(cf8, p->addr, &sbdf);
+ 
+         /* PCI config data cycle */
+-        type = XEN_DMOP_IO_RANGE_PCI;
+-        addr = ((uint64_t)sbdf.sbdf << 32) | reg;
++        *type = XEN_DMOP_IO_RANGE_PCI;
++        *addr = ((uint64_t)sbdf.sbdf << 32) | reg;
+         /* AMD extended configuration space access? */
+         if ( CF8_ADDR_HI(cf8) &&
+              d->arch.cpuid->x86_vendor == X86_VENDOR_AMD &&
+@@ -1277,16 +1317,30 @@ struct hvm_ioreq_server *hvm_select_ioreq_server(struct domain *d,
+ 
+             if ( !rdmsr_safe(MSR_AMD64_NB_CFG, msr_val) &&
+                  (msr_val & (1ULL << AMD64_NB_CFG_CF8_EXT_ENABLE_BIT)) )
+-                addr |= CF8_ADDR_HI(cf8);
++                *addr |= CF8_ADDR_HI(cf8);
+         }
+     }
+     else
+     {
+-        type = (p->type == IOREQ_TYPE_PIO) ?
+-                XEN_DMOP_IO_RANGE_PORT : XEN_DMOP_IO_RANGE_MEMORY;
+-        addr = p->addr;
++        *type = (p->type == IOREQ_TYPE_PIO) ?
++                 XEN_DMOP_IO_RANGE_PORT : XEN_DMOP_IO_RANGE_MEMORY;
++        *addr = p->addr;
+     }
+ 
++    return true;
++}
++
++struct hvm_ioreq_server *hvm_select_ioreq_server(struct domain *d,
++                                                 ioreq_t *p)
++{
++    struct hvm_ioreq_server *s;
++    uint8_t type;
++    uint64_t addr;
++    unsigned int id;
++
++    if ( !arch_ioreq_server_get_type_addr(d, p, &type, &addr) )
++        return NULL;
++
+     FOR_EACH_IOREQ_SERVER(d, id, s)
+     {
+         struct rangeset *r;
+@@ -1515,11 +1569,16 @@ static int hvm_access_cf8(
+     return X86EMUL_UNHANDLEABLE;
+ }
+ 
++void arch_ioreq_domain_init(struct domain *d)
++{
++    register_portio_handler(d, 0xcf8, 4, hvm_access_cf8);
++}
++
+ void hvm_ioreq_init(struct domain *d)
+ {
+     spin_lock_init(&d->arch.hvm.ioreq_server.lock);
+ 
+-    register_portio_handler(d, 0xcf8, 4, hvm_access_cf8);
++    arch_ioreq_domain_init(d);
+ }
+ 
+ /*
+diff --git a/xen/include/asm-x86/hvm/ioreq.h b/xen/include/asm-x86/hvm/ioreq.h
+index e2588e9..13d35e1 100644
+--- a/xen/include/asm-x86/hvm/ioreq.h
++++ b/xen/include/asm-x86/hvm/ioreq.h
+@@ -19,6 +19,9 @@
+ #ifndef __ASM_X86_HVM_IOREQ_H__
+ #define __ASM_X86_HVM_IOREQ_H__
+ 
++#define HANDLE_BUFIOREQ(s) \
++    ((s)->bufioreq_handling != HVM_IOREQSRV_BUFIOREQ_OFF)
++
+ bool hvm_io_pending(struct vcpu *v);
+ bool handle_hvm_io_completion(struct vcpu *v);
+ bool is_ioreq_server_page(struct domain *d, const struct page_info *page);
+@@ -55,6 +58,25 @@ unsigned int hvm_broadcast_ioreq(ioreq_t *p, bool buffered);
+ 
+ void hvm_ioreq_init(struct domain *d);
+ 
++bool arch_vcpu_ioreq_completion(enum hvm_io_completion io_completion);
++int arch_ioreq_server_map_pages(struct hvm_ioreq_server *s);
++void arch_ioreq_server_unmap_pages(struct hvm_ioreq_server *s);
++void arch_ioreq_server_enable(struct hvm_ioreq_server *s);
++void arch_ioreq_server_disable(struct hvm_ioreq_server *s);
++void arch_ioreq_server_destroy(struct hvm_ioreq_server *s);
++int arch_ioreq_server_map_mem_type(struct domain *d,
++                                   struct hvm_ioreq_server *s,
++                                   uint32_t flags);
++void arch_ioreq_server_map_mem_type_completed(struct domain *d,
++                                              struct hvm_ioreq_server *s,
++                                              uint32_t flags);
++bool arch_ioreq_server_destroy_all(struct domain *d);
++bool arch_ioreq_server_get_type_addr(const struct domain *d,
++                                     const ioreq_t *p,
++                                     uint8_t *type,
++                                     uint64_t *addr);
++void arch_ioreq_domain_init(struct domain *d);
++
+ #endif /* __ASM_X86_HVM_IOREQ_H__ */
+ 
+ /*
 -- 
 2.7.4
 
