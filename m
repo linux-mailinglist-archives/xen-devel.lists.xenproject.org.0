@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C49322F2A02
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 09:29:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.65528.116118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE232F2A21
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jan 2021 09:40:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.65535.116131 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzF3B-0005DQ-Jb; Tue, 12 Jan 2021 08:29:13 +0000
+	id 1kzFDf-0006SF-I7; Tue, 12 Jan 2021 08:40:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 65528.116118; Tue, 12 Jan 2021 08:29:13 +0000
+Received: by outflank-mailman (output) from mailman id 65535.116131; Tue, 12 Jan 2021 08:40:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzF3B-0005D4-Fu; Tue, 12 Jan 2021 08:29:13 +0000
-Received: by outflank-mailman (input) for mailman id 65528;
- Tue, 12 Jan 2021 08:29:11 +0000
+	id 1kzFDf-0006QD-Ep; Tue, 12 Jan 2021 08:40:03 +0000
+Received: by outflank-mailman (input) for mailman id 65535;
+ Tue, 12 Jan 2021 08:40:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CJbp=GP=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1kzF39-0005Cz-PF
- for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 08:29:11 +0000
-Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5SK+=GP=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1kzFDe-0006Je-Fm
+ for xen-devel@lists.xenproject.org; Tue, 12 Jan 2021 08:40:02 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fb774f57-c831-40e5-a9a4-bcb10f28a71c;
- Tue, 12 Jan 2021 08:29:10 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id r7so1501463wrc.5
- for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 00:29:10 -0800 (PST)
-Received: from CBGR90WXYV0 (host86-165-42-133.range86-165.btcentralplus.com.
- [86.165.42.133])
- by smtp.gmail.com with ESMTPSA id h9sm3466438wre.24.2021.01.12.00.29.08
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 12 Jan 2021 00:29:09 -0800 (PST)
+ id 8ea93bc9-ea26-4cdc-a65f-61d193054604;
+ Tue, 12 Jan 2021 08:40:01 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 88F6BAB92;
+ Tue, 12 Jan 2021 08:40:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,111 +38,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb774f57-c831-40e5-a9a4-bcb10f28a71c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:content-language
-         :thread-index;
-        bh=LTyGPzmr7a6GwIZ7pjvCFIHNC5tz7N7IC08JrjJUCwQ=;
-        b=aOCvfMmIQwSRxNmrRZeHfhT8yZuzdOo+MOAB+Pq3G/tvYdzcg/ETTTAa8zCZ1fa5MO
-         8nnipp98ZC8YUEajJsVR18DZf+ywkfim5w40xwH9qYCw+5bvqdL0QGQkd0CxIPk0SRqt
-         TZq++fSRx7MeP711XvC1qHVVUr+VarG6TFLlUkayXpJJeb2gA3xovzspbXjBGQgVH70G
-         fDxCkqrMZcoXDP0UqjXhIZgreoyXj5Kjpci9WrozExZU6sXT5nlYcDlDRJYo3t2955e3
-         d/Qw9kApNJWS1D9auZ+8eMjANsQYXyamSW8qhnBVDKAOlKcm/tZeczllQ2BkG05etgg4
-         4DWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :content-language:thread-index;
-        bh=LTyGPzmr7a6GwIZ7pjvCFIHNC5tz7N7IC08JrjJUCwQ=;
-        b=Em9TNVwMoJF7MSb4SEuXNyOwTFiIUNg4zFL0t535NjvIUgtVTXu5wrspFzGviB7H8+
-         4YRER5k5CVKczJykmDEFN3mFQ4/2HNR3Od+1rA4gMUmD91v3A/AsQz1t8dMP7Pds36/a
-         lpxiiy+2SNhmSk7aB0KhCF/c3bfqsJL+e4JpaBn6J0PJRSoFF0g/L0DgnWOHNLacQgnP
-         PpFjJ5aYiHqjjzkSQAAjkP1ooBCLeNL+s61+I37VzyoDcqrp/DL52GTwupBNnRKweZIB
-         n5AmgZiT5eciaC4Cxv2hRk/s82e/7ppVA+VtCqvHbMj6907qhRp4DR0JU7BNxqrTbEVR
-         cjHQ==
-X-Gm-Message-State: AOAM532i7I6PEa2TALpLMaUT+ENBEZmpwyYj6Id+wxnJDmx9UgPC/t9q
-	7Le65oe2kyPgpoFZgtmRXOM=
-X-Google-Smtp-Source: ABdhPJzjaCtsmtq1+uBQdCV579Zc6ZrCUONDHsEdcCKn1X2wpKCdCFCeQuIiLcqLjQ1jbs9ZjP09hQ==
-X-Received: by 2002:a5d:6682:: with SMTP id l2mr2963383wru.213.1610440150107;
-        Tue, 12 Jan 2021 00:29:10 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Andrew Cooper'" <amc96@cam.ac.uk>,
-	"'Xen-devel'" <xen-devel@lists.xenproject.org>
-Cc: "'George Dunlap'" <George.Dunlap@eu.citrix.com>,
-	"'Ian Jackson'" <iwj@xenproject.org>,
-	"'Jan Beulich'" <JBeulich@suse.com>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Wei Liu'" <wl@xen.org>,
-	"'Julien Grall'" <julien@xen.org>,
-	=?utf-8?Q?'Micha=C5=82_Leszczy=C5=84ski'?= <michal.leszczynski@cert.pl>,
-	"'Hubert Jasudowicz'" <hubert.jasudowicz@cert.pl>,
-	"'Tamas K Lengyel'" <tamas@tklengyel.com>
-References: <20200922182444.12350-1-andrew.cooper3@citrix.com> <20200922182444.12350-3-andrew.cooper3@citrix.com> <001601d69258$4d6a7c90$e83f75b0$@xen.org> <835893e1-fcd0-efa1-86ce-02af70dd1101@cam.ac.uk>
-In-Reply-To: <835893e1-fcd0-efa1-86ce-02af70dd1101@cam.ac.uk>
-Subject: RE: [PATCH v2 02/11] xen/gnttab: Rework resource acquisition
-Date: Tue, 12 Jan 2021 08:29:08 -0000
-Message-ID: <001c01d6e8bc$ffa46d70$feed4850$@xen.org>
+X-Inumbo-ID: 8ea93bc9-ea26-4cdc-a65f-61d193054604
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610440800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YiovJydfNunrj3A2jUo4VwLxJWFiY9GTf6y/bfrIAS4=;
+	b=cAPA3u+JFY8Vjtv2xEXfVDRsbOCVZy1hpJ43CxhB4VhU+DoyADCIULEG/nBOn4nd0fpYOR
+	O+jfMAzSZQg9lZpqUgTFMMpMLlXJTNBclP4BhCSOCYGgmiCWO76ENhm3zPVRxBppKbFvXE
+	gZdSoMClmQB61/n+PC8Nj+auLetxPrg=
+Subject: Re: [PATCH v2 09/11] xen/memory: Fix mapping grant tables with
+ XENMEM_acquire_resource
+To: Andrew Cooper <amc96@cam.ac.uk>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Paul Durrant <paul@xen.org>, =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?=
+ <michal.leszczynski@cert.pl>, Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
+ Tamas K Lengyel <tamas@tklengyel.com>
+References: <20200922182444.12350-1-andrew.cooper3@citrix.com>
+ <20200922182444.12350-10-andrew.cooper3@citrix.com>
+ <eb9768ad-b6cd-b01e-d689-63775f6e5914@suse.com>
+ <0462d837-947b-30a8-21ab-5a9a6b9ca4e1@cam.ac.uk>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3a661aa1-25c3-52a7-6d18-4ad5e2d9d0f7@suse.com>
+Date: Tue, 12 Jan 2021 09:39:59 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIFh6M/JBUQh1P0MghANJzmhArOyALWxT5UApWGlZkBspd8Q6mNcwkg
+In-Reply-To: <0462d837-947b-30a8-21ab-5a9a6b9ca4e1@cam.ac.uk>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Andrew Cooper <amc96@cam.ac.uk>
-> Sent: 11 January 2021 21:23
-> To: paul@xen.org; 'Xen-devel' <xen-devel@lists.xenproject.org>
-> Cc: 'George Dunlap' <George.Dunlap@eu.citrix.com>; 'Ian Jackson' =
-<iwj@xenproject.org>; 'Jan Beulich'
-> <JBeulich@suse.com>; 'Stefano Stabellini' <sstabellini@kernel.org>; =
-'Wei Liu' <wl@xen.org>; 'Julien
-> Grall' <julien@xen.org>; 'Micha=C5=82 Leszczy=C5=84ski' =
-<michal.leszczynski@cert.pl>; 'Hubert Jasudowicz'
-> <hubert.jasudowicz@cert.pl>; 'Tamas K Lengyel' <tamas@tklengyel.com>; =
-Andrew Cooper <amc96@cam.ac.uk>
-> Subject: Re: [PATCH v2 02/11] xen/gnttab: Rework resource acquisition
->=20
-> On 24/09/2020 10:51, Paul Durrant wrote:
-> >> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-> >> index a5d3ed8bda..912f07be47 100644
-> >> --- a/xen/common/grant_table.c
-> >> +++ b/xen/common/grant_table.c
-> >> @@ -4013,6 +4013,81 @@ static int =
-gnttab_get_shared_frame_mfn(struct domain *d,
-> >>      return 0;
-> >>  }
-> >>
-> >> +int gnttab_acquire_resource(
-> >> +    struct domain *d, unsigned int id, unsigned long frame,
-> >> +    unsigned int nr_frames, xen_pfn_t mfn_list[])
-> >> +{
-> >> +    struct grant_table *gt =3D d->grant_table;
-> >> +    unsigned int i =3D nr_frames, tot_frames;
-> >> +    mfn_t tmp;
-> >> +    void **vaddrs =3D NULL;
-> >> +    int rc;
-> >> +
-> >> +    /* Input sanity. */
-> > Nit: inconsistency with full stops on single line comments.
->=20
-> The whole point of relaxing the style was because feedback over =
-minutia
-> such as this was deemed detrimental to the community.
->=20
-> If I ever see feedback like this, I will commit commit the patch there
-> and then.  This is the only way upstream Xen is going to turn into a
-> less toxic environment for contributors.
+On 11.01.2021 21:05, Andrew Cooper wrote:
+> On 28/09/2020 10:37, Jan Beulich wrote:
+>> On 22.09.2020 20:24, Andrew Cooper wrote:
+>>> --- a/xen/common/compat/memory.c
+>>> +++ b/xen/common/compat/memory.c
+>>> @@ -636,15 +662,45 @@ int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
+>>>                      compat_frame_list[i] = frame;
+>>>                  }
+>>>  
+>>> -                if ( __copy_to_compat_offset(cmp.mar.frame_list, 0,
+>>> -                                             compat_frame_list,
+>>> -                                             cmp.mar.nr_frames) )
+>>> +                if ( __copy_to_compat_offset(
+>>> +                         cmp.mar.frame_list, start_extent,
+>>> +                         compat_frame_list, done) )
+>>>                      return -EFAULT;
+>>>              }
+>>> -            break;
+>>> +
+>>> +            start_extent += done;
+>>> +
+>>> +            /* Completely done. */
+>>> +            if ( start_extent == cmp.mar.nr_frames )
+>>> +                break;
+>>> +
+>>> +            /*
+>>> +             * Done a "full" batch, but we were limited by space in the xlat
+>>> +             * area.  Go around the loop again without necesserily returning
+>>> +             * to guest context.
+>>> +             */
+>>> +            if ( done == nat.mar->nr_frames )
+>>> +            {
+>>> +                split = 1;
+>>> +                break;
+>>> +            }
+>>> +
+>>> +            /* Explicit continuation request from a higher level. */
+>>> +            if ( done < nat.mar->nr_frames )
+>>> +                return hypercall_create_continuation(
+>>> +                    __HYPERVISOR_memory_op, "ih",
+>>> +                    op | (start_extent << MEMOP_EXTENT_SHIFT), compat);
+>>> +
+>>> +            /*
+>>> +             * Well... Somethings gone wrong with the two levels of chunking.
+>>> +             * My condolences to whomever next has to debug this mess.
+>>> +             */
+>> Any suggestion how to overcome this "mess"?
+> 
+> The double level of array handling is what makes it so complicated. 
+> There are enough cases in compat_memory_op() alone which can't
+> 
+> We've got two cases in practice.  A singleton object needing conversion,
+> or a large array of them.  I'm quite certain we'd have less code and
+> less complexity by having copy_$OJBECT_{to,from}_guest() helpers which
+> dealt with compat internally as appropriate.
+> 
+> We don't care about the performance of 32bit hypercalls, but not doing
+> batch conversions of 1020/etc objects in the compat layer will probably
+> result in better performance overall, as we don't throw away the work as
+> we batch things at smaller increments higher up the stack.
 
-The tone of your response rather proves that Xen is already a toxic =
-environment, I'm afraid.
+I've put this on my todo list to investigate. Maybe nowadays we
+really don't care all this much about 32-bit hypercall performance.
+The picture was surely different when the compat layer was
+introduced.
 
-  Paul
+>>> --- a/xen/common/grant_table.c
+>>> +++ b/xen/common/grant_table.c
+>>> @@ -4105,6 +4105,9 @@ int gnttab_acquire_resource(
+>>>      for ( i = 0; i < nr_frames; ++i )
+>>>          mfn_list[i] = virt_to_mfn(vaddrs[frame + i]);
+>>>  
+>>> +    /* Success.  Passed nr_frames back to the caller. */
+>> Nit: "Pass"?
+> 
+> We have already passed them back to the caller.  "Pass" is the wrong
+> tense to use.
 
+Hmm, interesting view. I personally wouldn't consider the
+passing back to have completed before we've returned.
+
+Jan
 
