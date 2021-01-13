@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53ECD2F4A35
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 12:33:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66412.117926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6876D2F4AAA
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 12:51:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66417.117937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzeOG-00078R-IL; Wed, 13 Jan 2021 11:32:40 +0000
+	id 1kzeff-0000Zc-5N; Wed, 13 Jan 2021 11:50:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66412.117926; Wed, 13 Jan 2021 11:32:40 +0000
+Received: by outflank-mailman (output) from mailman id 66417.117937; Wed, 13 Jan 2021 11:50:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzeOG-000782-Ep; Wed, 13 Jan 2021 11:32:40 +0000
-Received: by outflank-mailman (input) for mailman id 66412;
- Wed, 13 Jan 2021 11:32:39 +0000
+	id 1kzeff-0000ZD-2H; Wed, 13 Jan 2021 11:50:39 +0000
+Received: by outflank-mailman (input) for mailman id 66417;
+ Wed, 13 Jan 2021 11:50:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Jk6d=GQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1kzeOF-00077x-32
- for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 11:32:39 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=lWMo=GQ=lst.de=hch@srs-us1.protection.inumbo.net>)
+ id 1kzefd-0000Z8-MC
+ for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 11:50:37 +0000
+Received: from verein.lst.de (unknown [213.95.11.211])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bd63c323-2640-4817-8876-efd51c41655d;
- Wed, 13 Jan 2021 11:32:38 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4C1ADAF0D;
- Wed, 13 Jan 2021 11:32:37 +0000 (UTC)
+ id 8e99d760-22d1-4026-b78f-2d3932aba96f;
+ Wed, 13 Jan 2021 11:50:35 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id AA26B68AFE; Wed, 13 Jan 2021 12:50:31 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,187 +37,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd63c323-2640-4817-8876-efd51c41655d
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610537557; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RoB7qojee6lEruIFDaOraJpH/Owsm0jB//ECJa6okI4=;
-	b=M6kKuJfD6E9JWGQ5yJTayskvOlo/gpE2pAo7pc8G4WsOcclVvzdAl3FV1wHT3Hv/W2IUJr
-	jazLP1hgphxpL7CxyaRx8JaIJGHEwpZou6K+s08XUTibghtnhYnDXT3HsC4AE78C4rHu6Z
-	8rXk7Y/a5JdPqXMJhRbn6/TXtL2iC6A=
-Subject: Re: [PATCH v2] xen/privcmd: allow fetching resource sizes
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Paul Durrant <paul.durrant@citrix.com>, amc96@cam.ac.uk,
- andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
-References: <20210112115358.23346-1-roger.pau@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <f9c1d458-40c2-5b16-3eb9-8fd0ff48a175@suse.com>
-Date: Wed, 13 Jan 2021 12:32:35 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+X-Inumbo-ID: 8e99d760-22d1-4026-b78f-2d3932aba96f
+Date: Wed, 13 Jan 2021 12:50:31 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Claire Chang <tientzu@chromium.org>
+Cc: robh+dt@kernel.org, mpe@ellerman.id.au, benh@kernel.crashing.org,
+	paulus@samba.org, joro@8bytes.org, will@kernel.org,
+	frowand.list@gmail.com, konrad.wilk@oracle.com,
+	boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
+	hch@lst.de, m.szyprowski@samsung.com, robin.murphy@arm.com,
+	grant.likely@arm.com, xypron.glpk@gmx.de, treding@nvidia.com,
+	mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org,
+	gregkh@linuxfoundation.org, saravanak@google.com,
+	rafael.j.wysocki@intel.com, heikki.krogerus@linux.intel.com,
+	andriy.shevchenko@linux.intel.com, rdunlap@infradead.org,
+	dan.j.williams@intel.com, bgolaszewski@baylibre.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, iommu@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org, tfiga@chromium.org,
+	drinkcat@chromium.org
+Subject: Re: [RFC PATCH v3 1/6] swiotlb: Add io_tlb_mem struct
+Message-ID: <20210113115031.GA29376@lst.de>
+References: <20210106034124.30560-1-tientzu@chromium.org> <20210106034124.30560-2-tientzu@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <20210112115358.23346-1-roger.pau@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="pihdqaB0pJw4HCmmSyvH2wJqDe3rNPx4f"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210106034124.30560-2-tientzu@chromium.org>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---pihdqaB0pJw4HCmmSyvH2wJqDe3rNPx4f
-Content-Type: multipart/mixed; boundary="Duji9fveTOk6ai2o4nlA5d9jcc5JeZBQa";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Paul Durrant <paul.durrant@citrix.com>, amc96@cam.ac.uk,
- andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
-Message-ID: <f9c1d458-40c2-5b16-3eb9-8fd0ff48a175@suse.com>
-Subject: Re: [PATCH v2] xen/privcmd: allow fetching resource sizes
-References: <20210112115358.23346-1-roger.pau@citrix.com>
-In-Reply-To: <20210112115358.23346-1-roger.pau@citrix.com>
+On Wed, Jan 06, 2021 at 11:41:19AM +0800, Claire Chang wrote:
+> Added a new struct, io_tlb_mem, as the IO TLB memory pool descriptor and
+> moved relevant global variables into that struct.
+> This will be useful later to allow for restricted DMA pool.
 
---Duji9fveTOk6ai2o4nlA5d9jcc5JeZBQa
-Content-Type: multipart/mixed;
- boundary="------------8F2473964E221FAF140E9818"
-Content-Language: en-US
+I like where this is going, but a few comments.
 
-This is a multi-part message in MIME format.
---------------8F2473964E221FAF140E9818
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Mostly I'd love to be able to entirely hide io_tlb_default_mem
+and struct io_tlb_mem inside of swiotlb.c.
 
-On 12.01.21 12:53, Roger Pau Monne wrote:
-> Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num =3D 0 and
-> addr =3D 0 in order to fetch the size of a specific resource.
->=20
-> Add a shortcut to the default map resource path, since fetching the
-> size requires no address to be passed in, and thus no VMA to setup.
->=20
-> This is missing from the initial implementation, and causes issues
-> when mapping resources that don't have fixed or known sizes.
->=20
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> Cc: stable@vger.kernel.org # >=3D 4.18
+> --- a/arch/powerpc/platforms/pseries/svm.c
+> +++ b/arch/powerpc/platforms/pseries/svm.c
+> @@ -55,8 +55,8 @@ void __init svm_swiotlb_init(void)
+>  	if (vstart && !swiotlb_init_with_tbl(vstart, io_tlb_nslabs, false))
+>  		return;
+>  
+> -	if (io_tlb_start)
+> -		memblock_free_early(io_tlb_start,
+> +	if (io_tlb_default_mem.start)
+> +		memblock_free_early(io_tlb_default_mem.start,
+>  				    PAGE_ALIGN(io_tlb_nslabs << IO_TLB_SHIFT));
 
-Pushed to xen/tip.git for-linus-5.11
+I think this should switch to use the local vstart variable in
+prep patch.
 
+>  	panic("SVM: Cannot allocate SWIOTLB buffer");
+>  }
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 2b385c1b4a99..4d17dff7ffd2 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -192,8 +192,8 @@ int __ref xen_swiotlb_init(int verbose, bool early)
+>  	/*
+>  	 * IO TLB memory already allocated. Just use it.
+>  	 */
+> -	if (io_tlb_start != 0) {
+> -		xen_io_tlb_start = phys_to_virt(io_tlb_start);
+> +	if (io_tlb_default_mem.start != 0) {
+> +		xen_io_tlb_start = phys_to_virt(io_tlb_default_mem.start);
+>  		goto end;
 
-Juergen
+xen_io_tlb_start is interesting. It is used only in two functions:
 
---------------8F2473964E221FAF140E9818
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+ 1) is_xen_swiotlb_buffer, where I think we should be able to just use
+    is_swiotlb_buffer instead of open coding it with the extra
+    phys_to_virt/virt_to_phys cycle.
+ 2) xen_swiotlb_init, where except for the assignment it only is used
+    locally for the case not touched above and could this be replaced
+    with a local variable.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Konrad, does this make sense to you?
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+>  static inline bool is_swiotlb_buffer(phys_addr_t paddr)
+>  {
+> -	return paddr >= io_tlb_start && paddr < io_tlb_end;
+> +	struct io_tlb_mem *mem = &io_tlb_default_mem;
+> +
+> +	return paddr >= mem->start && paddr < mem->end;
 
---------------8F2473964E221FAF140E9818--
-
---Duji9fveTOk6ai2o4nlA5d9jcc5JeZBQa--
-
---pihdqaB0pJw4HCmmSyvH2wJqDe3rNPx4f
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAl/+2lMFAwAAAAAACgkQsN6d1ii/Ey+S
-bggAmM/+LYxBWzsG+km1sxALr88H4hOd44eTDHEUOfpK7XShyFUjICiYSGuBW0hxkFDPBeo99ljC
-EkhblgCAhAQXwAR5UuuazLDZ35rtNHy7OB/zDG1g1L4b4wc8/6kUm5sR4ZdPceIOpnlgJMf6DP2N
-aPgOSHc/PQ62XsF0yoC4sHPmTIyg8M3lPv4t8qt+BQYDXojYIZychVpe7GLdjlTwtwm/aHh4pBBD
-NYBdu01/NjC7nVYQH7atbJ+VxKErqf1EyE1sNx/kXySMhRX+TRDLylPCo1EMWmlaMq2eov9PyKky
-6qmM8PghAEBNfqOENFeZrR8g8QowevvPBm8HemEccQ==
-=n40h
------END PGP SIGNATURE-----
-
---pihdqaB0pJw4HCmmSyvH2wJqDe3rNPx4f--
+We'd then have to move this out of line as well.
 
