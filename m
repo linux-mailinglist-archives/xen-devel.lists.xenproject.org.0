@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E16732F47B8
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 10:40:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66382.117862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 539D22F4802
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 10:50:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66387.117875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzcdS-0005Bc-04; Wed, 13 Jan 2021 09:40:14 +0000
+	id 1kzcme-0005VJ-Vf; Wed, 13 Jan 2021 09:49:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66382.117862; Wed, 13 Jan 2021 09:40:13 +0000
+Received: by outflank-mailman (output) from mailman id 66387.117875; Wed, 13 Jan 2021 09:49:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzcdR-0005BF-TM; Wed, 13 Jan 2021 09:40:13 +0000
-Received: by outflank-mailman (input) for mailman id 66382;
- Wed, 13 Jan 2021 09:40:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dbz/=GQ=lip6.fr=manuel.bouyer@srs-us1.protection.inumbo.net>)
- id 1kzcdQ-0005BA-63
- for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 09:40:12 +0000
-Received: from isis.lip6.fr (unknown [2001:660:3302:283c::2])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c902c08a-b78a-40d1-8c43-cad69ffc027c;
- Wed, 13 Jan 2021 09:40:11 +0000 (UTC)
-Received: from asim.lip6.fr (asim.lip6.fr [132.227.86.2])
- by isis.lip6.fr (8.15.2/8.15.2) with ESMTP id 10D9e5IO018207;
- Wed, 13 Jan 2021 10:40:05 +0100 (CET)
-Received: from armandeche.soc.lip6.fr (armandeche [132.227.63.133])
- by asim.lip6.fr (8.15.2/8.14.4) with ESMTP id 10D9e5hQ024011;
- Wed, 13 Jan 2021 10:40:05 +0100 (MET)
-Received: by armandeche.soc.lip6.fr (Postfix, from userid 20331)
- id 0B0897218; Wed, 13 Jan 2021 10:40:04 +0100 (MET)
+	id 1kzcme-0005Um-RL; Wed, 13 Jan 2021 09:49:44 +0000
+Received: by outflank-mailman (input) for mailman id 66387;
+ Wed, 13 Jan 2021 09:49:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kzcmd-0005Ue-5Z; Wed, 13 Jan 2021 09:49:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kzcmc-0000s7-Rs; Wed, 13 Jan 2021 09:49:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1kzcmc-0006Kr-K2; Wed, 13 Jan 2021 09:49:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1kzcmc-0001KZ-JV; Wed, 13 Jan 2021 09:49:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,31 +42,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c902c08a-b78a-40d1-8c43-cad69ffc027c
-Date: Wed, 13 Jan 2021 10:40:04 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Christian Lindig <christian.lindig@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] ocaml/libs/eventchn: drop unneeded evtchn.h
-Message-ID: <20210113094004.GA13488@mail.soc.lip6.fr>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
- <20210112181242.1570-19-bouyer@antioche.eu.org>
- <MWHPR03MB244513C9BE100B2F07DF337BF6A90@MWHPR03MB2445.namprd03.prod.outlook.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1nzivqC/sXDjL4srCVCaXb3wvgOxsObTAf4+w+8PnJU=; b=thlSRlbUL71szd5DTjvPWKaf2u
+	/eVVaxKeNIQld6HVzph4VP2s34cvzrhhX3+QUqi/AL40xtE1NY79CaCOLPKck4Tafnr85+PCzLF+z
+	3dMR6ns4tz7rZmxZU99q7erv+E0+ZmJkuOM6RqFL9LWOpDiK6phPigwIzIIC1+kj2J9M=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158404-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <MWHPR03MB244513C9BE100B2F07DF337BF6A90@MWHPR03MB2445.namprd03.prod.outlook.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (isis.lip6.fr [132.227.60.2]); Wed, 13 Jan 2021 10:40:06 +0100 (CET)
-X-Scanned-By: MIMEDefang 2.78 on 132.227.60.2
+Subject: [xen-unstable-coverity test] 158404: all pass - PUSHED
+X-Osstest-Versions-This:
+    xen=414be7b66349e7dca42bc1fd47c2b2f5b2d27432
+X-Osstest-Versions-That:
+    xen=ce59e3dda5f99afbe7257e1e9a22dffd5c4d033c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 13 Jan 2021 09:49:42 +0000
 
-On Wed, Jan 13, 2021 at 09:22:38AM +0000, Christian Lindig wrote:
-> Acked-by: Christian Lindig <christian.lindig@citrix.com>
+flight 158404 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158404/
 
-thanks. What should I do now, submit a new patch with this tag, or just wait
-for it to be commited ?
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  414be7b66349e7dca42bc1fd47c2b2f5b2d27432
+baseline version:
+ xen                  ce59e3dda5f99afbe7257e1e9a22dffd5c4d033c
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Last test of basis   158320  2021-01-10 09:18:27 Z    3 days
+Testing same since   158404  2021-01-13 09:20:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stefano Stabellini <stefano.stabellini@xilinx.com>
+
+jobs:
+ coverity-amd64                                               pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   ce59e3dda5..414be7b663  414be7b66349e7dca42bc1fd47c2b2f5b2d27432 -> coverity-tested/smoke
 
