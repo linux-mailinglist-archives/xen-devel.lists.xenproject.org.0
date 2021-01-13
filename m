@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BBAF2F40F6
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 02:06:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66239.117574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A2DB2F4161
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 02:53:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66249.117586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzUZa-0005hj-Vq; Wed, 13 Jan 2021 01:03:42 +0000
+	id 1kzVLV-0001rN-GI; Wed, 13 Jan 2021 01:53:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66239.117574; Wed, 13 Jan 2021 01:03:42 +0000
+Received: by outflank-mailman (output) from mailman id 66249.117586; Wed, 13 Jan 2021 01:53:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzUZa-0005hK-Sh; Wed, 13 Jan 2021 01:03:42 +0000
-Received: by outflank-mailman (input) for mailman id 66239;
- Wed, 13 Jan 2021 01:03:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0X6K=GQ=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1kzUZZ-0005hF-5i
- for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 01:03:41 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e11ed003-176a-43a2-a89a-22598bab0b02;
- Wed, 13 Jan 2021 01:03:40 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 10D13Neh024620
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 12 Jan 2021 20:03:29 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 10D13MXu024619;
- Tue, 12 Jan 2021 17:03:22 -0800 (PST) (envelope-from ehem)
+	id 1kzVLV-0001r1-C5; Wed, 13 Jan 2021 01:53:13 +0000
+Received: by outflank-mailman (input) for mailman id 66249;
+ Wed, 13 Jan 2021 01:53:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UYp6=GQ=arm.com=robin.murphy@srs-us1.protection.inumbo.net>)
+ id 1kzVLT-0001qu-WC
+ for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 01:53:12 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 45aa1378-41b9-43ee-bfbd-ae8083c3234e;
+ Wed, 13 Jan 2021 01:53:10 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8E760101E;
+ Tue, 12 Jan 2021 17:53:09 -0800 (PST)
+Received: from [10.57.56.43] (unknown [10.57.56.43])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A2E913F719;
+ Tue, 12 Jan 2021 17:53:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,65 +42,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e11ed003-176a-43a2-a89a-22598bab0b02
-Date: Tue, 12 Jan 2021 17:03:22 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
-        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-        Ian Jackson <iwj@xenproject.org>
-Subject: Re: [RESEND] [RFC PATCH] xen/arm: domain_build: Ignore empty memory
- bank
-Message-ID: <X/5G2uOb5mu1pZKb@mattapan.m5p.com>
-References: <X+DbupqYE3rrFaIM@mattapan.m5p.com>
- <102a361a-a070-185f-c564-8e4c30f96ab6@xen.org>
- <X/OacwfT8/M3P30O@mattapan.m5p.com>
- <alpine.DEB.2.21.2101111649050.2495@sstabellini-ThinkPad-T480s>
+X-Inumbo-ID: 45aa1378-41b9-43ee-bfbd-ae8083c3234e
+Subject: Re: [RFC PATCH v3 2/6] swiotlb: Add restricted DMA pool
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Claire Chang <tientzu@chromium.org>
+Cc: Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
+ benh@kernel.crashing.org, paulus@samba.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, joro@8bytes.org, will@kernel.org,
+ Frank Rowand <frowand.list@gmail.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, sstabellini@kernel.org, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, grant.likely@arm.com,
+ xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>, mingo@kernel.org,
+ bauerman@linux.ibm.com, peterz@infradead.org,
+ Greg KH <gregkh@linuxfoundation.org>, Saravana Kannan
+ <saravanak@google.com>, rafael.j.wysocki@intel.com,
+ heikki.krogerus@linux.intel.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, rdunlap@infradead.org,
+ dan.j.williams@intel.com, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ linux-devicetree <devicetree@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
+ xen-devel@lists.xenproject.org, Tomasz Figa <tfiga@chromium.org>,
+ Nicolas Boichat <drinkcat@chromium.org>
+References: <20210106034124.30560-1-tientzu@chromium.org>
+ <20210106034124.30560-3-tientzu@chromium.org>
+ <20210106185241.GA109735@localhost.localdomain>
+ <CALiNf2-HDf6tFcvVgCttr-ta=88ZMH=OvB5XoryTPc6MNvwV+Q@mail.gmail.com>
+ <20210107175740.GA16519@char.us.oracle.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <41b466d0-0271-2d84-0623-4c877fcffe32@arm.com>
+Date: Wed, 13 Jan 2021 01:53:02 +0000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2101111649050.2495@sstabellini-ThinkPad-T480s>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+In-Reply-To: <20210107175740.GA16519@char.us.oracle.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 11, 2021 at 04:49:57PM -0800, Stefano Stabellini wrote:
-> On Mon, 4 Jan 2021, Elliott Mitchell wrote:
-> > On Mon, Dec 21, 2020 at 06:28:35PM +0000, Julien Grall wrote:
-> > > So I think we first need to figure out what is the offending node and 
-> > > why it is dt_device_get_address() is returning an error for it.
-> > > 
-> > > That said, I agree that we possibly want a check size == 0 (action TBD) 
-> > > in map_range_to_domain() as the code would do the wrong thing for 0.
-> > 
-> > Already stated "/scb/pcie@7d500000/pci@1,0/usb@1,0".
+On 2021-01-07 17:57, Konrad Rzeszutek Wilk wrote:
+> On Fri, Jan 08, 2021 at 01:39:18AM +0800, Claire Chang wrote:
+>> Hi Greg and Konrad,
+>>
+>> This change is intended to be non-arch specific. Any arch that lacks DMA access
+>> control and has devices not behind an IOMMU can make use of it. Could you share
+>> why you think this should be arch specific?
 > 
-> Can you please post the full node for usb@1,0? I would like to check the
-> corresponding device tree binding to see the expected format.
-> 
-> 
-> > Perhaps the code should be ignoring nodes for which
-> > which dt_device_get_address() fails, or perhaps this should only be done
-> > for Domain 0 (where it results in panic).
-> 
-> That seems reasonable
+> The idea behind non-arch specific code is it to be generic. The devicetree
+> is specific to PowerPC, Sparc, and ARM, and not to x86 - hence it should
+> be in arch specific code.
 
-What is the best approach to passing it along?  The dtb file is 46KB,
-figuring out the right dts file isn't always simple.
+Sorry, but that's an absurd argument. By the same token you'd equally 
+have to claim that bits of, say, the Broadcom WiFi driver (not to 
+mention dozens of others) should be split out into arch code, since not 
+all platforms use the devicetree parts, nor the ACPI parts, nor the PCI 
+parts...
 
-I can state it was at commit cff5fa15e5d11758db426eee3524a5dfded3c62b of
-https://github.com/raspberrypi/linux.git
+There is nothing architecture-specific about using devicetree as a 
+system description - AFAIK there *are* a handful of x86 platforms that 
+use it, besides even more architectures than you've listed above. It has 
+long been the policy that devicetree-related code for a particular 
+subsystem should just live within that subsystem. Sometimes if there's 
+enough of it it gets collected together into its own file - e.g. 
+drivers/pci/of.c - otherwise it tends to just get #ifdef'ed - e.g. 
+of_spi_parse_dt(), or the other DMA reserved-memory consumers that 
+already exist as Florian points out.
 
-No matter one's view on GitHub, this is also viewable online:
+Besides, there are far more platforms that enable CONFIG_OF than enable 
+CONFIG_SWIOTLB, so by that metric the whole of the SWIOTLB code itself 
+is even less "generic" than any DT parsing :P
 
-https://github.com/raspberrypi/linux/tree/cff5fa15e5d11758db426eee3524a5dfded3c62b/arch/arm/boot/dts
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Robin.
 
