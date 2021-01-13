@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B183E2F530C
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 20:08:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66724.118627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3695A2F5318
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 20:10:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66729.118640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzlV9-0005Jo-C6; Wed, 13 Jan 2021 19:08:15 +0000
+	id 1kzlWi-0005ay-OI; Wed, 13 Jan 2021 19:09:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66724.118627; Wed, 13 Jan 2021 19:08:15 +0000
+Received: by outflank-mailman (output) from mailman id 66729.118640; Wed, 13 Jan 2021 19:09:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzlV9-0005JP-9C; Wed, 13 Jan 2021 19:08:15 +0000
-Received: by outflank-mailman (input) for mailman id 66724;
- Wed, 13 Jan 2021 19:08:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kzlWi-0005aZ-Kt; Wed, 13 Jan 2021 19:09:52 +0000
+Received: by outflank-mailman (input) for mailman id 66729;
+ Wed, 13 Jan 2021 19:09:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jdpw=GQ=cam.ac.uk=amc96@srs-us1.protection.inumbo.net>)
- id 1kzlV6-0005JK-GD
- for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 19:08:13 +0000
-Received: from ppsw-31.csi.cam.ac.uk (unknown [131.111.8.131])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2fc52e12-10d7-431c-ac43-10164c0b6d96;
- Wed, 13 Jan 2021 19:08:10 +0000 (UTC)
-Received: from 88-111-100-194.dynamic.dsl.as9105.com ([88.111.100.194]:35986
- helo=[192.168.1.219])
- by ppsw-31.csi.cam.ac.uk (smtp.hermes.cam.ac.uk [131.111.8.157]:465)
- with esmtpsa (PLAIN:amc96) (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
- id 1kzlV3-000AmM-Lb (Exim 4.92.3)
- (return-path <amc96@cam.ac.uk>); Wed, 13 Jan 2021 19:08:09 +0000
+ (envelope-from <julien@xen.org>) id 1kzlWh-0005aU-FH
+ for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 19:09:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kzlWf-0002gB-Cq; Wed, 13 Jan 2021 19:09:49 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1kzlWf-0008A3-6S; Wed, 13 Jan 2021 19:09:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,47 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fc52e12-10d7-431c-ac43-10164c0b6d96
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cam.ac.uk;
-	 s=20180806.ppsw; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=bzwPzdsypEdwwIopWhUEHlvVB2EuVaqKXfioFHBs2ug=; b=yqtGbfRg0cTZevR9HpE+G2H1Bu
-	mECVn07tbAonxA12JFGCBAH1yid2CraBMjF9o0VwKP2p71O9SpUoOAIPK0g+ycqEjVHMKiOiwazUN
-	J2lckYe/dI1BP89wj3KhP09BKYJSsv49vrj7sF+BIe8Y3KVkuiUnwzF454rPZ7ODajKs=;
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: http://help.uis.cam.ac.uk/email-scanner-virus
-Subject: Re: [PATCH 2/3] tools: Move xen-access from tests/ to misc/
-To: Tamas K Lengyel <tamas@tklengyel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <iwj@xenproject.org>
-References: <20210113123455.23209-1-andrew.cooper3@citrix.com>
- <20210113123455.23209-3-andrew.cooper3@citrix.com>
- <CABfawhmiD-UXRBvPd-6=OayvkMf0G6pZZFawasuWiv7DNN937A@mail.gmail.com>
-From: Andrew Cooper <amc96@cam.ac.uk>
-Message-ID: <44cfc9a7-4b73-b23f-4faf-9eef0659b570@cam.ac.uk>
-Date: Wed, 13 Jan 2021 19:08:09 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=rzi+mbU2LXehHY6tL0lquPRAqa0KivnPh2+sn2d41pU=; b=22dvzUMVaiVIFGWX/+Xuv8t7Ck
+	aqnSq3CTtLa8uLxhjkkwOdRA5ZFf2xVBCumbSifWEW7TGoMAuDtkhzBmcr8mj18Cv5JPAB2sGm9Ae
+	cZf3sjFXtoXp/2qmZZ4g3fXLMfXdyP5zKMZHGw+K6/F29nBWVQ4sJnqKF2occP285/Y0=;
+Subject: Re: [PATCH] memory: avoid pointless continuation in
+ xenmem_add_to_physmap()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <e41fb847-684e-2502-5261-56108ebaeab0@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <feaa96fe-4609-0f4c-6cb0-8bac854bc7f6@xen.org>
+Date: Wed, 13 Jan 2021 19:09:47 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <CABfawhmiD-UXRBvPd-6=OayvkMf0G6pZZFawasuWiv7DNN937A@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <e41fb847-684e-2502-5261-56108ebaeab0@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 13/01/2021 18:50, Tamas K Lengyel wrote:
-> On Wed, Jan 13, 2021 at 7:35 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->> xen-access is a tool for a human to use, rather than a test.  Move it
->> into misc/ as a more appropriate location to live.
->>
->> Move the -DXC_WANT_COMPAT_DEVICEMODEL_API from CFLAGS into xen-access.c itself
->> to avoid adding Makefile complexity.
-> Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+Hi Jan,
 
-Thanks.  I'll also update the MAINTAINERs path, which I forgot to do.
+On 04/12/2020 10:43, Jan Beulich wrote:
+> Adjust so we uniformly avoid needlessly arranging for a continuation on
+> the last iteration.
+> 
+> Fixes: 5777a3742d88 ("IOMMU: hold page ref until after deferred TLB flush")
 
-~Andrew
+I view this patch as an optimization because there is nothing wrong with 
+the code. So I think "Fixes" is not entirely suitable here.
+
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Other than my remark about the tag:
+
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+> 
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -854,8 +854,9 @@ int xenmem_add_to_physmap(struct domain
+>               ++extra.ppage;
+>   
+>           /* Check for continuation if it's not the last iteration. */
+> -        if ( (++done >= ARRAY_SIZE(pages) && extra.ppage) ||
+> -             (xatp->size > done && hypercall_preempt_check()) )
+> +        if ( xatp->size > ++done &&
+> +             ((done >= ARRAY_SIZE(pages) && extra.ppage) ||
+> +              hypercall_preempt_check()) )
+>           {
+>               rc = start + done;
+>               break;
+> 
+
+-- 
+Julien Grall
 
