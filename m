@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CED2F4B74
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 13:42:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66465.118049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34DB02F4B76
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 13:44:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66469.118061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzfTb-00069p-T6; Wed, 13 Jan 2021 12:42:15 +0000
+	id 1kzfVe-0006J1-9T; Wed, 13 Jan 2021 12:44:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66465.118049; Wed, 13 Jan 2021 12:42:15 +0000
+Received: by outflank-mailman (output) from mailman id 66469.118061; Wed, 13 Jan 2021 12:44:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzfTb-00069Q-Po; Wed, 13 Jan 2021 12:42:15 +0000
-Received: by outflank-mailman (input) for mailman id 66465;
- Wed, 13 Jan 2021 12:42:14 +0000
+	id 1kzfVe-0006If-62; Wed, 13 Jan 2021 12:44:22 +0000
+Received: by outflank-mailman (input) for mailman id 66469;
+ Wed, 13 Jan 2021 12:44:20 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lWMo=GQ=lst.de=hch@srs-us1.protection.inumbo.net>)
- id 1kzfTa-00069L-Ba
- for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 12:42:14 +0000
+ id 1kzfVc-0006Ia-BH
+ for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 12:44:20 +0000
 Received: from verein.lst.de (unknown [213.95.11.211])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 48db8163-7f3d-4006-aa35-d9ec9c4ede7c;
- Wed, 13 Jan 2021 12:42:13 +0000 (UTC)
+ id 1da60801-72e5-4dae-8170-dabcd2c1d1c7;
+ Wed, 13 Jan 2021 12:44:19 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 3EA2768B02; Wed, 13 Jan 2021 13:42:09 +0100 (CET)
+ id 5DAEB68AFE; Wed, 13 Jan 2021 13:44:16 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,8 +38,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48db8163-7f3d-4006-aa35-d9ec9c4ede7c
-Date: Wed, 13 Jan 2021 13:42:09 +0100
+X-Inumbo-ID: 1da60801-72e5-4dae-8170-dabcd2c1d1c7
+Date: Wed, 13 Jan 2021 13:44:16 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Claire Chang <tientzu@chromium.org>
 Cc: robh+dt@kernel.org, mpe@ellerman.id.au, benh@kernel.crashing.org,
@@ -57,42 +57,33 @@ Cc: robh+dt@kernel.org, mpe@ellerman.id.au, benh@kernel.crashing.org,
 	linuxppc-dev@lists.ozlabs.org, iommu@lists.linux-foundation.org,
 	xen-devel@lists.xenproject.org, tfiga@chromium.org,
 	drinkcat@chromium.org
-Subject: Re: [RFC PATCH v3 2/6] swiotlb: Add restricted DMA pool
-Message-ID: <20210113124209.GA1383@lst.de>
-References: <20210106034124.30560-1-tientzu@chromium.org> <20210106034124.30560-3-tientzu@chromium.org>
+Subject: Re: [RFC PATCH v3 3/6] swiotlb: Use restricted DMA pool if
+ available
+Message-ID: <20210113124416.GB1383@lst.de>
+References: <20210106034124.30560-1-tientzu@chromium.org> <20210106034124.30560-4-tientzu@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210106034124.30560-3-tientzu@chromium.org>
+In-Reply-To: <20210106034124.30560-4-tientzu@chromium.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
 > +#ifdef CONFIG_SWIOTLB
-> +	struct io_tlb_mem	*dma_io_tlb_mem;
->  #endif
+> +	if (unlikely(swiotlb_force == SWIOTLB_FORCE) || dev->dma_io_tlb_mem)
+>  		return swiotlb_map(dev, phys, size, dir, attrs);
+> +#endif
 
-Please add a new config option for this code instead of always building
-it when swiotlb is enabled.
+Please provide a wrapper for the dev->dma_io_tlb_mem check that
+always returns false if the per-device swiotlb support is not enabled.
 
-> +static int swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
-> +				   size_t size)
+> index 7fb2ac087d23..1f05af09e61a 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -222,7 +222,6 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int verbose)
+>  		mem->orig_addr[i] = INVALID_PHYS_ADDR;
+>  	}
+>  	mem->index = 0;
+> -	no_iotlb_memory = false;
 
-Can you split the refactoring in swiotlb.c into one or more prep
-patches?
+How does this fit in here?
 
-> +static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
-> +				    struct device *dev)
-> +{
-> +	struct io_tlb_mem *mem = rmem->priv;
-> +	int ret;
-> +
-> +	if (dev->dma_io_tlb_mem)
-> +		return -EBUSY;
-> +
-> +	if (!mem) {
-> +		mem = kzalloc(sizeof(*mem), GFP_KERNEL);
-> +		if (!mem)
-> +			return -ENOMEM;
-
-What is the calling convention here that allows for a NULL and non-NULL
-private data?
 
