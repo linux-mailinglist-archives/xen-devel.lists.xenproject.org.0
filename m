@@ -2,41 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58CD32F42A8
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 04:55:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66277.117647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C4272F42AD
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 04:57:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66281.117658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzXFr-0004vb-Cq; Wed, 13 Jan 2021 03:55:31 +0000
+	id 1kzXHF-000520-OD; Wed, 13 Jan 2021 03:56:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66277.117647; Wed, 13 Jan 2021 03:55:31 +0000
+Received: by outflank-mailman (output) from mailman id 66281.117658; Wed, 13 Jan 2021 03:56:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzXFr-0004vC-9V; Wed, 13 Jan 2021 03:55:31 +0000
-Received: by outflank-mailman (input) for mailman id 66277;
- Wed, 13 Jan 2021 03:55:30 +0000
+	id 1kzXHF-00051b-Ka; Wed, 13 Jan 2021 03:56:57 +0000
+Received: by outflank-mailman (input) for mailman id 66281;
+ Wed, 13 Jan 2021 03:56:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=voKE=GQ=redhat.com=lersek@srs-us1.protection.inumbo.net>)
- id 1kzXFp-0004v7-SO
- for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 03:55:29 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 3053d8c9-b79b-424f-81ae-e0cbafba3864;
- Wed, 13 Jan 2021 03:55:27 +0000 (UTC)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-132-o5b6ravYNPC3f8dX6H_reg-1; Tue, 12 Jan 2021 22:55:23 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 01C3AA0CA0;
- Wed, 13 Jan 2021 03:55:22 +0000 (UTC)
-Received: from lacos-laptop-7.usersys.redhat.com (ovpn-112-31.ams2.redhat.com
- [10.36.112.31])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D07FD60BFA;
- Wed, 13 Jan 2021 03:55:19 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fIdB=GQ=gmail.com=f.fainelli@srs-us1.protection.inumbo.net>)
+ id 1kzXHD-00051U-On
+ for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 03:56:55 +0000
+Received: from mail-pf1-x434.google.com (unknown [2607:f8b0:4864:20::434])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f2682ede-5c08-4cdc-9cf6-57b4015e4b7d;
+ Wed, 13 Jan 2021 03:56:54 +0000 (UTC)
+Received: by mail-pf1-x434.google.com with SMTP id x126so410703pfc.7
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Jan 2021 19:56:54 -0800 (PST)
+Received: from [10.230.29.29] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id b4sm605572pju.33.2021.01.12.19.56.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Jan 2021 19:56:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,284 +41,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3053d8c9-b79b-424f-81ae-e0cbafba3864
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1610510127;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HDnfR6i4+wclQoN2h/NzWF1XfqOwAxtIMR+PA+ZgZ4U=;
-	b=LP9DkW0ZK2SPRpAysExqv/LHA7kEruS34eFGQw2bdYyM1QDBh7cxeCM9nqvkPFe8tuQ5Jm
-	OohxqIBnPQkfz24Y1wSWyGfnHfA5lLV8hJgSU+eRhpXtVREopi/XQJj/GcSTRbuTEJa3CE
-	452+CZHqc7xtMUp7p6MghKK5BfB3an8=
-X-MC-Unique: o5b6ravYNPC3f8dX6H_reg-1
-Subject: Re: [PATCH] OvmfPkg/XenPlatformPei: Use CPUID to get physical address
- width on Xen
-To: Igor Druzhinin <igor.druzhinin@citrix.com>, devel@edk2.groups.io,
- xen-devel@lists.xenproject.org
-Cc: jordan.l.justen@intel.com, ard.biesheuvel@arm.com,
- anthony.perard@citrix.com, julien@xen.org
-References: <1610509335-23314-1-git-send-email-igor.druzhinin@citrix.com>
-From: Laszlo Ersek <lersek@redhat.com>
-Message-ID: <7d64e987-e24a-e017-92e0-fcca01999438@redhat.com>
-Date: Wed, 13 Jan 2021 04:55:18 +0100
+X-Inumbo-ID: f2682ede-5c08-4cdc-9cf6-57b4015e4b7d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=tVybN2uO9LxG9ltd3tCKTHJYv7lU36O5UathtbI9Q9Q=;
+        b=jLig4OWz6r5npRBnWnkYmtzqG5FaXvnjSp/GwVihv4kwV2tapBGwAF3xjarDP4svmh
+         mmN3Em4/UnH964tt6spkMXBvTXAa1Xjxi6HY2VwIUlElZ/L/49drfsdWJz7rkYT/pJvu
+         yntpxB6D25C4BgTjLzt3HccAWYqhBQRzY5xmbmcHg9uBakUAJ4cTw8WcABTwfYSf2utS
+         bVK9ADZgPBqt1M4K8HOhkKFeNAlDtYVBHRWT6ioSEXPxxCLeolZujd32j7r9fme4RUHN
+         48XR8U765COw3RQNjeJq5sRrwMZ2sbfbQ/6nLd1YYq7tC2A1pN/yQ3g/lIYtxVpVamT0
+         EzIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=tVybN2uO9LxG9ltd3tCKTHJYv7lU36O5UathtbI9Q9Q=;
+        b=GYYx1RggFi4m4Ug+pempR4aOVYliaGPgkvlmyuhtlU2W6fWpLDAyf17I1v0RpRjp/+
+         CaQGNFjN4fHS+FtmncfoPNjnqKyI1DzsRU0agzAt/lp23Xw3TmQm3fiWgrM1z+DcyhNT
+         nwzb/6uPArXeswiQ+zM+C9y8A6CNZneJdHxiGzAVMFlFr2IMvz3F9uXnORoP847f9fw1
+         fKegzqaDfbFVNO6bg9oufv7yasXgsMPzp6Tbo1zO/uLAxRQZS566yfrsDH/3Ug4OAbUd
+         6TEUGKWQLORaDIifVBcAYARB6EmkOXo6LPM2c31DEUCDYgyORhMF9bq0prL1UW2TzVjt
+         gUHw==
+X-Gm-Message-State: AOAM530rgusw1m1WTqEPBXX4OWIS6+z/FZlybgWiJTSpUTp9oVh4JsH3
+	10gzDisOKdT8a1FMjJgbtng=
+X-Google-Smtp-Source: ABdhPJyNiwxgLNGhX03OzTQQ31jD0Jl7mxbRLHzGfQFw82uojIWRVt9otXa8r8jCLr9MzK1TtdQTHQ==
+X-Received: by 2002:a62:65c1:0:b029:1aa:ba52:fdfd with SMTP id z184-20020a6265c10000b02901aaba52fdfdmr143707pfb.7.1610510213683;
+        Tue, 12 Jan 2021 19:56:53 -0800 (PST)
+Subject: Re: [RFC PATCH v3 0/6] Restricted DMA
+To: Tomasz Figa <tfiga@chromium.org>
+Cc: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+ mpe@ellerman.id.au, benh@kernel.crashing.org, paulus@samba.org,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, boris.ostrovsky@oracle.com,
+ jgross@suse.com, sstabellini@kernel.org, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, grant.likely@arm.com,
+ xypron.glpk@gmx.de, Thierry Reding <treding@nvidia.com>, mingo@kernel.org,
+ bauerman@linux.ibm.com, peterz@infradead.org,
+ Greg KH <gregkh@linuxfoundation.org>, Saravana Kannan
+ <saravanak@google.com>, "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ heikki.krogerus@linux.intel.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Dan Williams
+ <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ linux-devicetree <devicetree@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ xen-devel@lists.xenproject.org, Nicolas Boichat <drinkcat@chromium.org>,
+ Jim Quinlan <james.quinlan@broadcom.com>
+References: <20210106034124.30560-1-tientzu@chromium.org>
+ <d7043239-12cf-3636-4726-2e3b90917dc6@gmail.com>
+ <CALiNf28sU1VtGB7LeTXExkMwQiCeg8N5arqyEjw0CPZP72R4dg@mail.gmail.com>
+ <78871151-947d-b085-db03-0d0bd0b55632@gmail.com>
+ <CALiNf29_PmLJTVLksSHp3NFAaL52idqehSMOtatJ=jaM2Muq1g@mail.gmail.com>
+ <23a09b9a-70fc-a7a8-f3ea-b0bfa60507f0@gmail.com>
+ <CAAFQd5DX=AdaYSYQbxgnrYYojkM5q7EE_Qs-BYPOiNjcQWbN1A@mail.gmail.com>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Message-ID: <c7f7941d-b8bd-f0f3-4e40-b899a77188bf@gmail.com>
+Date: Tue, 12 Jan 2021 19:56:49 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <1610509335-23314-1-git-send-email-igor.druzhinin@citrix.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lersek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <CAAFQd5DX=AdaYSYQbxgnrYYojkM5q7EE_Qs-BYPOiNjcQWbN1A@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/13/21 04:42, Igor Druzhinin wrote:
-> We faced a problem with passing through a PCI device with 64GB BAR to
-> UEFI guest. The BAR is expectedly programmed into 64-bit PCI aperture at
-> 64G address which pushes physical address space to 37 bits. That is above
-> 36-bit width that OVMF exposes currently to a guest without tweaking
-> PcdPciMmio64Size knob.
+
+
+On 1/12/2021 6:29 PM, Tomasz Figa wrote:
+> Hi Florian,
 > 
-> The reverse calculation using this knob was inhereted from QEMU-KVM platform
-> code where it serves the purpose of finding max accessible physical
-> address without necessary trusting emulated CPUID physbits value (that could
-> be different from host physbits). On Xen we expect to use CPUID policy
-> to level the data correctly to prevent situations with guest physbits >
-> host physbits e.g. across migrations.
+> On Wed, Jan 13, 2021 at 3:01 AM Florian Fainelli <f.fainelli@gmail.com> wrote:
+>>
+>> On 1/11/21 11:48 PM, Claire Chang wrote:
+>>> On Fri, Jan 8, 2021 at 1:59 AM Florian Fainelli <f.fainelli@gmail.com> wrote:
+>>>>
+>>>> On 1/7/21 9:42 AM, Claire Chang wrote:
+>>>>
+>>>>>> Can you explain how ATF gets involved and to what extent it does help,
+>>>>>> besides enforcing a secure region from the ARM CPU's perpsective? Does
+>>>>>> the PCIe root complex not have an IOMMU but can somehow be denied access
+>>>>>> to a region that is marked NS=0 in the ARM CPU's MMU? If so, that is
+>>>>>> still some sort of basic protection that the HW enforces, right?
+>>>>>
+>>>>> We need the ATF support for memory MPU (memory protection unit).
+>>>>> Restricted DMA (with reserved-memory in dts) makes sure the predefined memory
+>>>>> region is for PCIe DMA only, but we still need MPU to locks down PCIe access to
+>>>>> that specific regions.
+>>>>
+>>>> OK so you do have a protection unit of some sort to enforce which region
+>>>> in DRAM the PCIE bridge is allowed to access, that makes sense,
+>>>> otherwise the restricted DMA region would only be a hint but nothing you
+>>>> can really enforce. This is almost entirely analogous to our systems then.
+>>>
+>>> Here is the example of setting the MPU:
+>>> https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/mediatek/mt8183/drivers/emi_mpu/emi_mpu.c#L132
+>>>
+>>>>
+>>>> There may be some value in standardizing on an ARM SMCCC call then since
+>>>> you already support two different SoC vendors.
+>>>>
+>>>>>
+>>>>>>
+>>>>>> On Broadcom STB SoCs we have had something similar for a while however
+>>>>>> and while we don't have an IOMMU for the PCIe bridge, we do have a a
+>>>>>> basic protection mechanism whereby we can configure a region in DRAM to
+>>>>>> be PCIe read/write and CPU read/write which then gets used as the PCIe
+>>>>>> inbound region for the PCIe EP. By default the PCIe bridge is not
+>>>>>> allowed access to DRAM so we must call into a security agent to allow
+>>>>>> the PCIe bridge to access the designated DRAM region.
+>>>>>>
+>>>>>> We have done this using a private CMA area region assigned via Device
+>>>>>> Tree, assigned with a and requiring the PCIe EP driver to use
+>>>>>> dma_alloc_from_contiguous() in order to allocate from this device
+>>>>>> private CMA area. The only drawback with that approach is that it
+>>>>>> requires knowing how much memory you need up front for buffers and DMA
+>>>>>> descriptors that the PCIe EP will need to process. The problem is that
+>>>>>> it requires driver modifications and that does not scale over the number
+>>>>>> of PCIe EP drivers, some we absolutely do not control, but there is no
+>>>>>> need to bounce buffer. Your approach scales better across PCIe EP
+>>>>>> drivers however it does require bounce buffering which could be a
+>>>>>> performance hit.
+>>>>>
+>>>>> Only the streaming DMA (map/unmap) needs bounce buffering.
+>>>>
+>>>> True, and typically only on transmit since you don't really control
+>>>> where the sk_buff are allocated from, right? On RX since you need to
+>>>> hand buffer addresses to the WLAN chip prior to DMA, you can allocate
+>>>> them from a pool that already falls within the restricted DMA region, right?
+>>>>
+>>>
+>>> Right, but applying bounce buffering to RX will make it more secure.
+>>> The device won't be able to modify the content after unmap. Just like what
+>>> iommu_unmap does.
+>>
+>> Sure, however the goals of using bounce buffering equally applies to RX
+>> and TX in that this is the only layer sitting between a stack (block,
+>> networking, USB, etc.) and the underlying device driver that scales well
+>> in order to massage a dma_addr_t to be within a particular physical range.
+>>
+>> There is however room for improvement if the drivers are willing to
+>> change their buffer allocation strategy. When you receive Wi-Fi frames
+>> you need to allocate buffers for the Wi-Fi device to DMA into, and that
+>> happens ahead of the DMA transfers by the Wi-Fi device. At buffer
+>> allocation time you could very well allocate these frames from the
+>> restricted DMA region without having to bounce buffer them since the
+>> host CPU is in control over where and when to DMA into.
+>>
 > 
-> The next aspect raising concern - resource consumption for DXE IPL page tables
-> and time required to map the whole address space in case of using CPUID
-> bits directly. That could be mitigated by enabling support for 1G pages
-> in DXE IPL configuration. 1G pages are available on most CPUs produced in
-> the last 10 years and those without don't have many phys bits.
-> 
-> Remove all the redundant code now (including PcdPciMmio64.. handling that's
-> not used on Xen anyway) and grab physbits directly from CPUID that should
-> be what baremetal UEFI systems do.
-> 
-> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-> ---
->  OvmfPkg/OvmfXen.dsc                |   3 +
->  OvmfPkg/XenPlatformPei/MemDetect.c | 166 +++----------------------------------
->  2 files changed, 15 insertions(+), 154 deletions(-)
+> That is, however, still a trade-off between saving that one copy and
+> protection from the DMA tampering with the packet contents when the
+> kernel is reading them. Notice how the copy effectively makes a
+> snapshot of the contents, guaranteeing that the kernel has a
+> consistent view of the packet, which is not true if the DMA could
+> modify the buffer contents in the middle of CPU accesses.
 
-Acked-by: Laszlo Ersek <lersek@redhat.com>
-
-Anthony and/or Julien should also approve this patch (and anyone from
-the Xen community is welcome to comment of course, as always).
-
-Thanks
-Laszlo
-
-
-> diff --git a/OvmfPkg/OvmfXen.dsc b/OvmfPkg/OvmfXen.dsc
-> index 7d31e88..8ae6ed0 100644
-> --- a/OvmfPkg/OvmfXen.dsc
-> +++ b/OvmfPkg/OvmfXen.dsc
-> @@ -444,6 +444,9 @@
->    ## Xen vlapic's frequence is 100 MHz
->    gEfiMdePkgTokenSpaceGuid.PcdFSBClock|100000000
->  
-> +  # We populate DXE IPL tables with 1G pages preferably on Xen
-> +  gEfiMdeModulePkgTokenSpaceGuid.PcdUse1GPageTable|TRUE
-> +
->  ################################################################################
->  #
->  # Pcd Dynamic Section - list of all EDK II PCD Entries defined by this Platform
-> diff --git a/OvmfPkg/XenPlatformPei/MemDetect.c b/OvmfPkg/XenPlatformPei/MemDetect.c
-> index 1f81eee..1970b63 100644
-> --- a/OvmfPkg/XenPlatformPei/MemDetect.c
-> +++ b/OvmfPkg/XenPlatformPei/MemDetect.c
-> @@ -172,175 +172,33 @@ GetSystemMemorySizeBelow4gb (
->    return (UINT32) (((UINTN)((Cmos0x35 << 8) + Cmos0x34) << 16) + SIZE_16MB);
->  }
->  
-> -
-> -STATIC
-> -UINT64
-> -GetSystemMemorySizeAbove4gb (
-> -  )
-> -{
-> -  UINT32 Size;
-> -  UINTN  CmosIndex;
-> -
-> -  //
-> -  // In PVH case, there is no CMOS, we have to calculate the memory size
-> -  // from parsing the E820
-> -  //
-> -  if (XenPvhDetected ()) {
-> -    UINT64  HighestAddress;
-> -
-> -    HighestAddress = GetHighestSystemMemoryAddress (FALSE);
-> -    ASSERT (HighestAddress == 0 || HighestAddress >= BASE_4GB);
-> -
-> -    if (HighestAddress >= BASE_4GB) {
-> -      HighestAddress -= BASE_4GB;
-> -    }
-> -
-> -    return HighestAddress;
-> -  }
-> -
-> -  //
-> -  // CMOS 0x5b-0x5d specifies the system memory above 4GB MB.
-> -  // * CMOS(0x5d) is the most significant size byte
-> -  // * CMOS(0x5c) is the middle size byte
-> -  // * CMOS(0x5b) is the least significant size byte
-> -  // * The size is specified in 64kb chunks
-> -  //
-> -
-> -  Size = 0;
-> -  for (CmosIndex = 0x5d; CmosIndex >= 0x5b; CmosIndex--) {
-> -    Size = (UINT32) (Size << 8) + (UINT32) CmosRead8 (CmosIndex);
-> -  }
-> -
-> -  return LShiftU64 (Size, 16);
-> -}
-> -
-> -
-> -/**
-> -  Return the highest address that DXE could possibly use, plus one.
-> -**/
-> -STATIC
-> -UINT64
-> -GetFirstNonAddress (
-> -  VOID
-> -  )
-> -{
-> -  UINT64               FirstNonAddress;
-> -  UINT64               Pci64Base, Pci64Size;
-> -  RETURN_STATUS        PcdStatus;
-> -
-> -  FirstNonAddress = BASE_4GB + GetSystemMemorySizeAbove4gb ();
-> -
-> -  //
-> -  // If DXE is 32-bit, then we're done; PciBusDxe will degrade 64-bit MMIO
-> -  // resources to 32-bit anyway. See DegradeResource() in
-> -  // "PciResourceSupport.c".
-> -  //
-> -#ifdef MDE_CPU_IA32
-> -  if (!FeaturePcdGet (PcdDxeIplSwitchToLongMode)) {
-> -    return FirstNonAddress;
-> -  }
-> -#endif
-> -
-> -  //
-> -  // Otherwise, in order to calculate the highest address plus one, we must
-> -  // consider the 64-bit PCI host aperture too. Fetch the default size.
-> -  //
-> -  Pci64Size = PcdGet64 (PcdPciMmio64Size);
-> -
-> -  if (Pci64Size == 0) {
-> -    if (mBootMode != BOOT_ON_S3_RESUME) {
-> -      DEBUG ((DEBUG_INFO, "%a: disabling 64-bit PCI host aperture\n",
-> -        __FUNCTION__));
-> -      PcdStatus = PcdSet64S (PcdPciMmio64Size, 0);
-> -      ASSERT_RETURN_ERROR (PcdStatus);
-> -    }
-> -
-> -    //
-> -    // There's nothing more to do; the amount of memory above 4GB fully
-> -    // determines the highest address plus one. The memory hotplug area (see
-> -    // below) plays no role for the firmware in this case.
-> -    //
-> -    return FirstNonAddress;
-> -  }
-> -
-> -  //
-> -  // SeaBIOS aligns both boundaries of the 64-bit PCI host aperture to 1GB, so
-> -  // that the host can map it with 1GB hugepages. Follow suit.
-> -  //
-> -  Pci64Base = ALIGN_VALUE (FirstNonAddress, (UINT64)SIZE_1GB);
-> -  Pci64Size = ALIGN_VALUE (Pci64Size, (UINT64)SIZE_1GB);
-> -
-> -  //
-> -  // The 64-bit PCI host aperture should also be "naturally" aligned. The
-> -  // alignment is determined by rounding the size of the aperture down to the
-> -  // next smaller or equal power of two. That is, align the aperture by the
-> -  // largest BAR size that can fit into it.
-> -  //
-> -  Pci64Base = ALIGN_VALUE (Pci64Base, GetPowerOfTwo64 (Pci64Size));
-> -
-> -  if (mBootMode != BOOT_ON_S3_RESUME) {
-> -    //
-> -    // The core PciHostBridgeDxe driver will automatically add this range to
-> -    // the GCD memory space map through our PciHostBridgeLib instance; here we
-> -    // only need to set the PCDs.
-> -    //
-> -    PcdStatus = PcdSet64S (PcdPciMmio64Base, Pci64Base);
-> -    ASSERT_RETURN_ERROR (PcdStatus);
-> -    PcdStatus = PcdSet64S (PcdPciMmio64Size, Pci64Size);
-> -    ASSERT_RETURN_ERROR (PcdStatus);
-> -
-> -    DEBUG ((DEBUG_INFO, "%a: Pci64Base=0x%Lx Pci64Size=0x%Lx\n",
-> -      __FUNCTION__, Pci64Base, Pci64Size));
-> -  }
-> -
-> -  //
-> -  // The useful address space ends with the 64-bit PCI host aperture.
-> -  //
-> -  FirstNonAddress = Pci64Base + Pci64Size;
-> -  return FirstNonAddress;
-> -}
-> -
-> -
->  /**
-> -  Initialize the mPhysMemAddressWidth variable, based on guest RAM size.
-> +  Initialize the mPhysMemAddressWidth variable, based on CPUID data.
->  **/
->  VOID
->  AddressWidthInitialization (
->    VOID
->    )
->  {
-> -  UINT64 FirstNonAddress;
-> +  UINT32 RegEax;
->  
-> -  //
-> -  // As guest-physical memory size grows, the permanent PEI RAM requirements
-> -  // are dominated by the identity-mapping page tables built by the DXE IPL.
-> -  // The DXL IPL keys off of the physical address bits advertized in the CPU
-> -  // HOB. To conserve memory, we calculate the minimum address width here.
-> -  //
-> -  FirstNonAddress      = GetFirstNonAddress ();
-> -  mPhysMemAddressWidth = (UINT8)HighBitSet64 (FirstNonAddress);
-> -
-> -  //
-> -  // If FirstNonAddress is not an integral power of two, then we need an
-> -  // additional bit.
-> -  //
-> -  if ((FirstNonAddress & (FirstNonAddress - 1)) != 0) {
-> -    ++mPhysMemAddressWidth;
-> +  AsmCpuid (0x80000000, &RegEax, NULL, NULL, NULL);
-> +  if (RegEax >= 0x80000008) {
-> +    AsmCpuid (0x80000008, &RegEax, NULL, NULL, NULL);
-> +    mPhysMemAddressWidth = (UINT8) RegEax;
-> +  } else {
-> +    mPhysMemAddressWidth = 36;
->    }
->  
->    //
-> -  // The minimum address width is 36 (covers up to and excluding 64 GB, which
-> -  // is the maximum for Ia32 + PAE). The theoretical architecture maximum for
-> -  // X64 long mode is 52 bits, but the DXE IPL clamps that down to 48 bits. We
-> -  // can simply assert that here, since 48 bits are good enough for 256 TB.
-> +  // IA-32e paging translates 48-bit linear addresses to 52-bit physical addresses.
->    //
-> -  if (mPhysMemAddressWidth <= 36) {
-> -    mPhysMemAddressWidth = 36;
-> +  ASSERT (mPhysMemAddressWidth <= 52);
-> +  if (mPhysMemAddressWidth > 48) {
-> +    mPhysMemAddressWidth = 48;
->    }
-> -  ASSERT (mPhysMemAddressWidth <= 48);
->  }
->  
-> -
->  /**
->    Calculate the cap for the permanent PEI memory.
->  **/
-> 
-
+I would say that the window just became so much narrower for the PCIe
+end-point to overwrite contents with the copy because it would have to
+happen within the dma_unmap_{page,single} time and before the copy is
+finished to the bounce buffer.
+-- 
+Florian
 
