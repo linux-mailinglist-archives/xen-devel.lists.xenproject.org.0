@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8E882F4CA3
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 15:00:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66558.118268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCD332F4E21
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 16:08:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66564.118280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzggd-0006Np-Cb; Wed, 13 Jan 2021 13:59:47 +0000
+	id 1kzhjS-0004MV-AR; Wed, 13 Jan 2021 15:06:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66558.118268; Wed, 13 Jan 2021 13:59:47 +0000
+Received: by outflank-mailman (output) from mailman id 66564.118280; Wed, 13 Jan 2021 15:06:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzggd-0006NS-8F; Wed, 13 Jan 2021 13:59:47 +0000
-Received: by outflank-mailman (input) for mailman id 66558;
- Wed, 13 Jan 2021 13:59:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1kzhjS-0004M6-71; Wed, 13 Jan 2021 15:06:46 +0000
+Received: by outflank-mailman (input) for mailman id 66564;
+ Wed, 13 Jan 2021 15:06:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nNe3=GQ=suse.de=nsaenzjulienne@srs-us1.protection.inumbo.net>)
- id 1kzggc-0006NN-3K
- for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 13:59:46 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id aec54f4b-8750-47b0-8918-da0df57ce618;
- Wed, 13 Jan 2021 13:59:40 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 17911AB92;
- Wed, 13 Jan 2021 13:59:39 +0000 (UTC)
+ <SRS0=18+6=GQ=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1kzhjR-0004M1-G9
+ for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 15:06:45 +0000
+Received: from mail-wr1-x42f.google.com (unknown [2a00:1450:4864:20::42f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 680531a7-b635-42c4-887b-d38e196bbc48;
+ Wed, 13 Jan 2021 15:06:44 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id c5so2468683wrp.6
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Jan 2021 07:06:44 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id z130sm3357385wmb.33.2021.01.13.07.06.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Jan 2021 07:06:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,145 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aec54f4b-8750-47b0-8918-da0df57ce618
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Message-ID: <7ed51025f051f65f3dfe10a88caeb648821994b1.camel@suse.de>
-Subject: Re: [RFC PATCH v3 2/6] swiotlb: Add restricted DMA pool
-From: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
-To: Florian Fainelli <f.fainelli@gmail.com>, Claire Chang
- <tientzu@chromium.org>,  robh+dt@kernel.org, mpe@ellerman.id.au,
- benh@kernel.crashing.org, paulus@samba.org,  joro@8bytes.org,
- will@kernel.org, frowand.list@gmail.com, konrad.wilk@oracle.com, 
- boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
- hch@lst.de,  m.szyprowski@samsung.com, robin.murphy@arm.com
-Cc: drinkcat@chromium.org, devicetree@vger.kernel.org, 
- heikki.krogerus@linux.intel.com, saravanak@google.com,
- peterz@infradead.org,  xypron.glpk@gmx.de, rafael.j.wysocki@intel.com,
- linux-kernel@vger.kernel.org,  andriy.shevchenko@linux.intel.com,
- bgolaszewski@baylibre.com,  iommu@lists.linux-foundation.org,
- grant.likely@arm.com, rdunlap@infradead.org,  gregkh@linuxfoundation.org,
- xen-devel@lists.xenproject.org,  dan.j.williams@intel.com,
- treding@nvidia.com, linuxppc-dev@lists.ozlabs.org,  mingo@kernel.org
-Date: Wed, 13 Jan 2021 14:59:34 +0100
-In-Reply-To: <95ae9c1e-c1f1-5736-fe86-12ced1f648f9@gmail.com>
-References: <20210106034124.30560-1-tientzu@chromium.org>
-	 <20210106034124.30560-3-tientzu@chromium.org>
-	 <95ae9c1e-c1f1-5736-fe86-12ced1f648f9@gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-t4If4GPTxFUMkhdNPchG"
-User-Agent: Evolution 3.38.2 
+X-Inumbo-ID: 680531a7-b635-42c4-887b-d38e196bbc48
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=MeOIDaJKSJSo2RdR4NgmQsM+ZS2NEHjzQQM1jB+2O7Q=;
+        b=kcSjvJ86OiYFji/DjfxWgTd82rM9dq1exhxGKcQ2iPlqkMuO3e8RXY9/Xn9ddA7RCC
+         c40GMqkg+MWnET1fZ3+3qYDcLPw1O8/nqHL6u/g5s64CbALeAAToqFYmbphJgc3EEp43
+         3srx+imRWOGM+wsP2R58WVUc1mawV+DtQtpNzNxBkVs38g72KBCVCal9fO99GYOXF+JM
+         hqSfdCyP4O5j0yjum1XC0WD7VbYOMPW2NsQ3dBY2Bub2yKVmwgkLP2D+JBcz+jA9E8gc
+         WdIa+HHXyWm71dzw/EwQ1lBHSXAPymZEFXxxXVVb+d1/uRXfmNMsoM2ZKbW4nI7jNZaj
+         UHZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=MeOIDaJKSJSo2RdR4NgmQsM+ZS2NEHjzQQM1jB+2O7Q=;
+        b=SoiwF4I8UghUTd9Lfl/ej+uV/on44h/63l5/R8xRNlKa+m9llpZzFSvBRk1jmefzFA
+         FiVXgCGCiJxSG52TGXy4eyE3Lrfu/BpoUzuB7C3E6Ms5Iw/ng/Ey9DQzChl1BFxdDVLT
+         LH0SzG3VZopLdrnwN6O77keNfJS/0r34o6BwnD08YVgIiETLy+nM6350PC97V9C6IRRM
+         21oVNtpViR7BhdqGFb9aR6ICWSaz8U1Vi0QGKUh9Tn1JAyBVRxXbhb6Im0lVO4+UIgcr
+         pHYk7YDvn7n5uxKzx9Z8HLtW9/3rOy7VZm5/5IMyLgc6WJ/qd6cLbBOVein96ewn8GYY
+         K0ng==
+X-Gm-Message-State: AOAM532b+wDOwl2Jt7bRJKtWVPbql3tzJUfcqkZQQGqzInSLEzOrYl3A
+	3G5/CJsxhEJMEbiL6pOj2UA=
+X-Google-Smtp-Source: ABdhPJy+y+aSwF2JfcTtqJPdSd17wjuNZZpT4CQblvfpCqfWxIasiLYz3Lp2YmOrCspGOij2T40Yrw==
+X-Received: by 2002:adf:f891:: with SMTP id u17mr3112015wrp.253.1610550403872;
+        Wed, 13 Jan 2021 07:06:43 -0800 (PST)
+Subject: Re: [PATCH 2/6] x86/mm: p2m_add_foreign() is HVM-only
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <be9ce75e-9119-2b5a-9e7b-437beb7ee446@suse.com>
+ <cf4569c5-a9c5-7b4b-d576-d1521c369418@suse.com>
+ <f736244b-ece7-af35-1517-2e5fdd9705c7@citrix.com>
+ <e2ee99fc-e3f8-bdaf-fe4a-d048da34731a@suse.com>
+ <b4abbe2f-5e3d-5f43-80b8-cfa3fd97061e@citrix.com>
+ <CAPD2p-nZyf_i_bGh5sSs2fC4S7nxB1Mk_zbSKtqF=zvBOp3X+Q@mail.gmail.com>
+ <2dcbe286-4112-e4b3-dc12-9691154365b3@suse.com>
+ <448a6ef3-2cbd-da9c-e4ef-88122d246833@gmail.com>
+ <18c21c64-d350-482a-c778-c8478d3daf2c@suse.com>
+ <c8315e16-6130-e990-3d16-d0d42b2f92c4@gmail.com>
+ <ec041f81-4b80-5ffb-8219-6732f50bef36@suse.com>
+ <f6f1ffdd-619d-017e-6820-276814056845@gmail.com>
+ <257224ea-4ba3-302e-e198-e92c8c1036b3@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <898d609c-8652-e43d-4400-27986cc37371@gmail.com>
+Date: Wed, 13 Jan 2021 17:06:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <257224ea-4ba3-302e-e198-e92c8c1036b3@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
 
---=-t4If4GPTxFUMkhdNPchG
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 12.01.21 13:58, Jan Beulich wrote:
 
-Hi All,
+Hi Jan.
 
-On Tue, 2021-01-12 at 16:03 -0800, Florian Fainelli wrote:
-> On 1/5/21 7:41 PM, Claire Chang wrote:
-> > Add the initialization function to create restricted DMA pools from
-> > matching reserved-memory nodes in the device tree.
-> >=20
-> > Signed-off-by: Claire Chang <tientzu@chromium.org>
-> > ---
-> > =C2=A0include/linux/device.h  |   4 ++
-> > =C2=A0include/linux/swiotlb.h |   7 +-
-> > =C2=A0kernel/dma/Kconfig      |   1 +
-> > =C2=A0kernel/dma/swiotlb.c    | 144 ++++++++++++++++++++++++++++++++++-=
------
-> > =C2=A04 files changed, 131 insertions(+), 25 deletions(-)
-> >=20
-> > diff --git a/include/linux/device.h b/include/linux/device.h
-> > index 89bb8b84173e..ca6f71ec8871 100644
-> > --- a/include/linux/device.h
-> > +++ b/include/linux/device.h
-> > @@ -413,6 +413,7 @@ struct dev_links_info {
-> > =C2=A0=C2=A0* @dma_pools:	Dma pools (if dma'ble device).
-> > =C2=A0=C2=A0* @dma_mem:	Internal for coherent mem override.
-> > =C2=A0=C2=A0* @cma_area:	Contiguous memory area for dma allocations
-> > + * @dma_io_tlb_mem: Internal for swiotlb io_tlb_mem override.
-> > =C2=A0=C2=A0* @archdata:	For arch-specific additions.
-> > =C2=A0=C2=A0* @of_node:	Associated device tree node.
-> > =C2=A0=C2=A0* @fwnode:	Associated device node supplied by platform firm=
-ware.
-> > @@ -515,6 +516,9 @@ struct device {
-> > =C2=A0#ifdef CONFIG_DMA_CMA
-> > =C2=A0	struct cma *cma_area;		/* contiguous memory area for dma
-> > =C2=A0					   allocations */
-> > +#endif
-> > +#ifdef CONFIG_SWIOTLB
-> > +	struct io_tlb_mem	*dma_io_tlb_mem;
-> > =C2=A0#endif
-> > =C2=A0	/* arch specific additions */
-> > =C2=A0	struct dev_archdata	archdata;
-> > diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> > index dd8eb57cbb8f..a1bbd7788885 100644
-> > --- a/include/linux/swiotlb.h
-> > +++ b/include/linux/swiotlb.h
-> > @@ -76,12 +76,13 @@ extern enum swiotlb_force swiotlb_force;
-> > =C2=A0=C2=A0*
-> > =C2=A0=C2=A0* @start:	The start address of the swiotlb memory pool. Use=
-d to do a quick
-> > =C2=A0=C2=A0*		range check to see if the memory was in fact allocated b=
-y this
-> > - *		API.
-> > + *		API. For restricted DMA pool, this is device tree adjustable.
->=20
-> Maybe write it as this is "firmware adjustable" such that when/if ACPI
-> needs something like this, the description does not need updating.
->=20
-> [snip]
->=20
-> > +static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
-> > +				    struct device *dev)
-> > +{
-> > +	struct io_tlb_mem *mem =3D rmem->priv;
-> > +	int ret;
-> > +
-> > +	if (dev->dma_io_tlb_mem)
-> > +		return -EBUSY;
-> > +
-> > +	if (!mem) {
-> > +		mem =3D kzalloc(sizeof(*mem), GFP_KERNEL);
-> > +		if (!mem)
-> > +			return -ENOMEM;
-> > +
-> > +		if (!memremap(rmem->base, rmem->size, MEMREMAP_WB)) {
->=20
-> MEMREMAP_WB sounds appropriate as a default.
+> On 11.01.2021 09:23, Oleksandr wrote:
+>> On 11.01.21 09:41, Jan Beulich wrote:
+>>> If you could also provide your exact .config, I could see whether I
+>>> can repro here with some of the gcc5 versions I have laying around.
+>> Please see attached
+> Builds perfectly fine with 5.4.0 here.
 
-As per the binding 'no-map' has to be disabled here. So AFAIU, this memory =
-will
-be part of the linear mapping. Is this really needed then?
-
-> Documentation/devicetree/bindings/reserved-memory/ramoops.txt does
-> define an "unbuffered" property which in premise could be applied to the
-> generic reserved memory binding as well and that we may have to be
-> honoring here, if we were to make it more generic. Oh well, this does
-> not need to be addressed right now I guess.
+Thank you for testing.
 
 
+I wonder whether I indeed missed something. I have switched to 5.4.0 
+again (from 9.3.0) and rechecked, a build issue was still present.
+I even downloaded 5.4.0 sources and built them to try to build Xen, and 
+got the same effect.  What I noticed is that for non-debug builds the 
+build issue wasn't present.
+Then I decided to build today's staging 
+(414be7b66349e7dca42bc1fd47c2b2f5b2d27432 xen/memory: Fix compat 
+XENMEM_acquire_resource for size requests) instead of 9-day's old one when
+I had initially reported about that build issue 
+(7ba2ab495be54f608cb47440e1497b2795bd301a x86/p2m: Fix 
+paging_gva_to_gfn() for nested virt). Today's staging builds perfectly 
+fine with 5.4.0.
+It seems that commit in the middle 
+(994f6478a48a60e3b407c7defc2d36a80f880b04 xsm/dummy: harden against 
+speculative abuse) indirectly fixes that weird build issue with 5.4.0...
 
 
---=-t4If4GPTxFUMkhdNPchG
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+-- 
+Regards,
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEErOkkGDHCg2EbPcGjlfZmHno8x/4FAl/+/MYACgkQlfZmHno8
-x/57/wf8DfucOc1/3ySk20PkRc6qv7RWXbGw5RAUSZfXGpnHv1mAOnBMd6ProWeU
-mJiYuCGcljwaI92Dc4Yca/JpWSeZmXWl/HZ+T0GIF9SegR36L8j5Fwop/zptM3kF
-Je0VZZ/VIXKkgr7rp0yqFNRFB0vGuXdQz022npLJ4YKgyN1uvEaVgVCEeKuB/gSc
-7BYPkilOLaUXaBxRcA6l7mcQZc4vqCMW3Lzl/9IM+mKhrhFllZI3pvBFnWed+k2J
-JVdA5hjLI3QQrsXYH8+AfKlhLjzzMCGn5E5Gw1IPluIoeObgEwwLfYuMHbOvFplQ
-3LHRL6KrY2rpsuzPeVMDM0TFPae/Hw==
-=L05t
------END PGP SIGNATURE-----
-
---=-t4If4GPTxFUMkhdNPchG--
+Oleksandr Tyshchenko
 
 
