@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB5D2F51AA
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 19:06:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.66666.118496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C7272F51B6
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jan 2021 19:10:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.66674.118508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzkX5-0006ul-7t; Wed, 13 Jan 2021 18:06:11 +0000
+	id 1kzkb9-0007t5-Pe; Wed, 13 Jan 2021 18:10:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 66666.118496; Wed, 13 Jan 2021 18:06:11 +0000
+Received: by outflank-mailman (output) from mailman id 66674.118508; Wed, 13 Jan 2021 18:10:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1kzkX5-0006uM-4I; Wed, 13 Jan 2021 18:06:11 +0000
-Received: by outflank-mailman (input) for mailman id 66666;
- Wed, 13 Jan 2021 18:06:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1kzkb9-0007sg-Lu; Wed, 13 Jan 2021 18:10:23 +0000
+Received: by outflank-mailman (input) for mailman id 66674;
+ Wed, 13 Jan 2021 18:10:22 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nR66=GQ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1kzkX3-0006uH-9A
- for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 18:06:09 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id edfd7e55-4e6c-47e9-9a78-f8ccbf0160f3;
- Wed, 13 Jan 2021 18:06:06 +0000 (UTC)
+ id 1kzkb8-0007sb-1M
+ for xen-devel@lists.xenproject.org; Wed, 13 Jan 2021 18:10:22 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ba54f4bf-2cba-43ea-8c7e-427cd699527f;
+ Wed, 13 Jan 2021 18:10:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,213 +36,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edfd7e55-4e6c-47e9-9a78-f8ccbf0160f3
+X-Inumbo-ID: ba54f4bf-2cba-43ea-8c7e-427cd699527f
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610561166;
+  d=citrix.com; s=securemail; t=1610561420;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=9OFxgEPPDm4yCJbyIyFnGHd6DhJFG92bJ7v9fma9j1Q=;
-  b=JbDsCX13rPVWYOhIJl6dkAIpxAcjyu28F4gc9ugMEnQw27sMG6s9ZJEm
-   7bZ9T7Rdo4HAtmYFMKJthTka0OFvTodT1wxwmuklt0O6pF15/NOLOCA7k
-   OeA12Xh73FVh/9ydEQa7qRCEYvFOJIox9I5aa2HyTrOK8yzFxhZBipcI0
-   8=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: pFOwDNLCYBIfopZu1KqNxqGaJo4qtNeeszR3oX4r0B/fvvb65dNFF1Tza3FGM7bB+3OUbigVWF
- VSWWqzCfGsGSpwXBno+zwf7bRHGOD4YkVK8nx7V1W8KzEOw2SJ1kazp2mHvTd6MkIq6HBa8ugD
- hqD4T9epSFCBpCCGH0MJUWulxKcQQkKwD9Sx+C1Zp5hiPfbIFMHR+iQCBrZXSrJHCsVe+2i0ZT
- 2tu7AFsu6Xr2QkrLRv64yaYr7fnPioR4t5wKQfruMjbSJ/RkQIRlHXGQCg5YKyUHAf8XBHl1+G
- 9tE=
+  bh=mPkzgTc9FVyOUZx2jAL5owxq73EFt2bnclD47DKbmdU=;
+  b=GOpJ7+a4KBt4qjtNNeCjkBehc3wkQytTSmxvETptTvzD0NJMRX/rYCg7
+   1sh8s2DhbunO9fBnQIrb9K2ZHE0xs2V1kIBb4F391IaADEDKSr9juXQe/
+   oqGLUb8xKyjq4GoaBatdShFpKeP8dmOrgg1iK1xEqhq15Yx88TcBajm02
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 7K6gGkA8DouezM5caS3ZmrsJ9eJIeSgKsLBKH0zXcsi5283J3S8bFimWTpJCuTABUUfAG2TEN+
+ aARLLz5FBmT1E7g66ylzavHt5gR4ZLDoUxWk6DF6ZhTw0KvibwXy2foiuXTY+Mx6sDSA30W/W4
+ kGBAHBc6k5yFEGoP5bRr0TBm/p1f79EjnGlZw8N7GZ8nf5Zs4iWTgwGiiQk0CLzysqYnZsGeBc
+ D434jDNzQsZqWVDghQlw9xT4bfFkVVYQl3T9kfCvcNdH9kQgS1HAfAtLFxFYdetWs4WcS2uXJZ
+ 0SI=
 X-SBRS: 5.2
-X-MesageID: 35397185
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 36316458
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,344,1602561600"; 
-   d="scan'208";a="35397185"
+   d="scan'208";a="36316458"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CpF0hp9n48108e2Cx+0k77Imav3Ks/IhC94qR9kgNqphMYCHxIQ1KWKijvfH3+Sg48CRshRc6wG8ipvNmvUqS87jrqGYCoUXYrwo3FeI5gmuobC4Xtzc1Zv6u3OXtz5oq7539JBUn/M6FRguBhsxlTaE/or15F2EvI4HNhu4m8bpc/QCAImyl575i8LObrAeYLS1YfEwX1y7cWtqwwBD4B8ZJP9JWUWgKP12RvJJTfeCIaIPzAKwkOj6O7INcreVRtx2AZxlAMsZ70p0GZBGG7DT5NbeLKZy/sirF+LP470A33uFDLlVvSLAiWMoITMs3VGBC3PIUQiYdsv8ic3Amg==
+ b=UdX+RLg+zi5EM/NxoyowLIrLGuOIgiRmR9LAweUjaNPNx8LpMGR7qssm6FTQ+wFPQP6t+ooV+tKwixX5S5SSUDUQO2weUEYuAbHTW8wNAjuipx582spNdnKc5f6FvFDcn4l76gcMgA0H73oB3T22rcsCJjrYCndoCIois0LRXzwFo2PgJF8iX6MsQF/pizCd64iMuOlo4gCxkoNkRNaAxp1E2DTZE0Pj9XOmil4bc2KUiExVYQrYraJx3KklaIAzA0Q9X9w+fl6OSRS6+25ZqgfxE8nt7vNP5jFPsK0hzmD0WWQ5vgqCgKI5gW4BvdC6JrNVcgUgdQn75VEB4bXUNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oduB2t2cSaRvo/s3/16JM3AYCdxaFqjijJnA4rDv0s8=;
- b=ejb8R3DFTtSsiFO7jdYnkBlByyBMiuI1bEDzqGKbWjJh3KPBM7Zlwzr+DikjSARQzq4ZRtE9lXpQ1oZ5pBZtUd2YZQrcgTNYrsCxsmpu310yan9Vc4PpysfiTsOHGqYE/riifct6gyYkJGjDZcsh3zfco1HTpcaAg3SRdyzDG8GrnGwPBf5ZkvphdlPwqA0jR1cH3vstYWt0/39pyLPdx+AoKcLlX3ARUkxW0Ps6lHsZ3E1ktpR/wDvSzV9Bm8LxHr8+5e0WEUUveZneGtNM1gKkbQ89FJ20v4JmGNmjpIq2wX9YuX6lPoq67jv/xC9LaSe8/wlO+0lG673VSzMW2A==
+ bh=bANpv8rdVTh0es4gCpFv7kLEh674qA+BIay3iG06Ubk=;
+ b=lCluLjjhMg845WFeAEiZPG2FJV+t4XC4guMJB73I8sMCQjnupLICMdT8OkrjPtpNNz4FuvKWSXfgGzdY4pUhJXZcYtp4yUAvIj3JV0rvzcU21Ey6EkpAAhmWimOVfY8I6PG9MmGJXIMWnMBkTCnWWyURmxn1RYPkWlUZWTEMI/A3QrJR7/sxqceyrkvGnmbyaqrE1bcnRT1ABuDTqc3rr2QDX04tPerJcXVG38ok8anfNypkWQ0dVLpKY5gI2ggNNhbhvUVojggX4MrX/fKSUhlBF/+ILLRkfywfz0AuIMah5Ao8h5HGm3oArA3LPaK7bCAFVbXDwT+GNpftwi9edQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oduB2t2cSaRvo/s3/16JM3AYCdxaFqjijJnA4rDv0s8=;
- b=NLxxN3NIkN5zRFIVeh/KfWSzPpFKnlRCAm630D1o6q4fGrQUNZpDhjlFB23pG7sEy6bR+Q4f0GoQDuB5OjIHzdod1Ktb9LsASSbuVqSSZv6r4NqZzp5L671/SdqeNMGIDlsLJTBpUgHnCPzhcA70dmCekPYi3+EUm5CGWxUni3A=
-Date: Wed, 13 Jan 2021 19:05:58 +0100
+ bh=bANpv8rdVTh0es4gCpFv7kLEh674qA+BIay3iG06Ubk=;
+ b=jkbJ7JqzvumCxzbCwmsYwlEO/UQni+s2cF7QEUMakqLUsd8L2u1d/8Dpw6yiu7loRK7LMETRW/ptoZwi3OYXYPKTymcyAoswYh9soXgtFWJae8khIhnWV/eneZsL1HWlNQvxUe3VKjnrGKVJdLRdV0qDKtLWGjC4RMWjwJVKsr0=
+Date: Wed, 13 Jan 2021 19:09:51 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-CC: "Tian, Kevin" <kevin.tian@intel.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, "Paul
- Durrant" <paul@xen.org>, "Cooper, Andrew" <andrew.cooper3@citrix.com>, Wei
- Liu <wl@xen.org>
-Subject: Re: [PATCH] x86/dpci: remove the dpci EOI timer
-Message-ID: <20210113180558.do2xq4iaur6kyuy4@Air-de-Roger>
-References: <20210112173248.28646-1-roger.pau@citrix.com>
- <MWHPR11MB1886695BC900030C025DD09A8CA90@MWHPR11MB1886.namprd11.prod.outlook.com>
- <20210113131100.p5xiyfgtp5s5rktz@Air-de-Roger>
- <CAKf6xps-GOMSsYzDHf9wgyjDes0X4hnaq9vBsn02rCv-DadW8A@mail.gmail.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, <amc96@cam.ac.uk>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>
+Subject: Re: Inconsistent console behavior during HVM direct boot
+Message-ID: <20210113180951.zqna7y5udx37y47q@Air-de-Roger>
+References: <CABfawhkNt+rvUZXtcc9BT4Rtf+kt-dR-LPfSt+Aj1o7ACWnfHg@mail.gmail.com>
+ <20210113131809.nawfnyhrncojhfpo@Air-de-Roger>
+ <CABfawhkPNs=yV999rSPOgSvpi6OKSzUs3GsFEvT=iVxYKFBVOQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKf6xps-GOMSsYzDHf9wgyjDes0X4hnaq9vBsn02rCv-DadW8A@mail.gmail.com>
-X-ClientProxiedBy: MR2P264CA0130.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:30::22) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+In-Reply-To: <CABfawhkPNs=yV999rSPOgSvpi6OKSzUs3GsFEvT=iVxYKFBVOQ@mail.gmail.com>
+X-ClientProxiedBy: MR2P264CA0030.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::18)
+ To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: df8a9030-339d-4729-2a24-08d8b7ede42a
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5065:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Office365-Filtering-Correlation-Id: b0049857-73b0-45d0-da94-08d8b7ee6f8a
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3835:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB50655B846BD7EEB773E06E438FA90@DM6PR03MB5065.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <DM6PR03MB38350EDBF96373E0EC573EF98FA90@DM6PR03MB3835.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Al0b0Yf91gUWIW5F7rf7FYISX44P35iy0nYNMXlrBEuA9BAh4ekIG+WibDM0P9K7RpX3wfO/C6tjHKfK+i3nFFmRIkUXkC5Pa2jJfDv6cOmW7MjuPu7YW7gkVxxPeW9xWPPt+XeMUCTyfmu0OfvGv8JnoN5CAIXN5oBs7rhAelof7OUIZpYROmjmkuh97zpsdCYNou70ONpVNx2vP5rcySXppzAaG2CGh3lOM2CRdLVcgAOBgwaEi88uomPdD6a6c5phIyemp9d8pSi1hdgucSABtg9hdp/2RxdPQws3lnLgOGF5VcbDAoRZLGSbqjA576GW2/i4ErochXB7hf4qrpAf/JF8qALQYoFOb03kU/VvK76hWXfK0XCkg++bk6cdZYyfqZw6MAP/G3RkVWhb3KPY63/k6sMkugUrY0ereSxkdPu+AqnhcbIxPI3lVHOJ8V7ko+Kv/BlQJDpvVcXtcw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(396003)(366004)(346002)(136003)(376002)(39860400002)(66946007)(66476007)(54906003)(66556008)(6486002)(26005)(53546011)(83380400001)(33716001)(316002)(85182001)(16526019)(5660300002)(1076003)(86362001)(6666004)(966005)(478600001)(6496006)(186003)(8936002)(2906002)(9686003)(6916009)(4326008)(956004)(8676002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?TXpIUThON3F4ckRxdTYwOXFkamUwSlloVjNmUDhzbVhNbmw5QUgyWksxT1p1?=
- =?utf-8?B?eXJ5bmRmZzgxQ09DejlsQUJqWW9mYk43V0VhL0FCSFVIZE1FbWlIZ1QxQkUw?=
- =?utf-8?B?cFFPa2p1OTdrdFQ0MXhiYlByelIxOXdwdTBIL1d5dEtNWlR5Sm9TVUNCUUdu?=
- =?utf-8?B?Mm8zRnI1eDBncVorMEZqT29pc1kvYnRZekpLNWVzVTl1WXVCakVPL0FxQXp0?=
- =?utf-8?B?QVB5Qk5EcWxsWHdNZkRudHphRVpnd0c4SXN0NTRQS1lTQ0lYUEo5MW9TQUZn?=
- =?utf-8?B?SHJIWUk1bTFWdWpyaTNnYzh3SW10WmdDN1R2QUFBSStiSzI5ditHVG16bDJq?=
- =?utf-8?B?K2VjZDFBNGRPaEY2ejc4cm05cWhrakQxejBzR09Yb3lxaFd3M1o0UTc2dUlk?=
- =?utf-8?B?M09jb0EwREVHQ0dLU2VzdjU3ZFpLdzlCditpMHdTMERpa0prbEJBUStrUDUr?=
- =?utf-8?B?dEU0WG4rMTU3Yjg0UE5LT0QvcFNLNTNzelJrdzcyaElaZThvMWh1ZTQvcW8r?=
- =?utf-8?B?SlcrcU9CTFNpeVgvRlVlOFpwUTNMS1NHL0MxblE3VDBUMDVsK01OVkg2RXF0?=
- =?utf-8?B?YVBHUlNTU3doTmNlM2J5a282YUdrZVBYZHJSNngwOWRIYlNpVWxjbmVlejVn?=
- =?utf-8?B?SXA0MkpzaWx3OXR4MWRvbG5yek9wanhEUlM2aHZoNVRPeTd3bTVuMFZyRjBH?=
- =?utf-8?B?RUZsS2c5dDQvUnZDd0xqZUovczBqZm5DaUpaM1hHN0Fya2FUelM1cmVSVEZa?=
- =?utf-8?B?eHFac0VwalJnTHl2WUYvY0ZuZTFTR0RNWHJGQW5EUjBtVUtwWHZuaXR0c2lp?=
- =?utf-8?B?K3BzalUrSjhPaTR6M1hYMkJGeDI2dWxZNHZiNVZod2wxQ0ZZdjlLR25vRTZi?=
- =?utf-8?B?Q2tUL29mVmFCbEpGUnk5U00vUDhTVTFZUzlPOVdjeFc2aXNIcnBwc3YvUmtX?=
- =?utf-8?B?SUtXekJ6NkZrRm8yVDNWVzV3aE0zb0E3WjRGNDRTYmRkUnp4M0c3bWk2d2Fs?=
- =?utf-8?B?SExaQlQzNk5aaHpnbTM2VXdzMWs4V1hrSWVJS1hKWWw5cXlrMytzelJxYU1o?=
- =?utf-8?B?TXhKUzB3TVUxZTM3VTNuQmMwV3QvdEVYbG5tQVlXcnltNWJCcDBadW9NYU92?=
- =?utf-8?B?MXg1OVVwd25SRXRIdVdjQTFjYzdUdXdFWkdOS0VHaUh4TWw5S2tRSnRTK1BY?=
- =?utf-8?B?ZG9rRGNDbzJCQ0hmVzdXajA4MjUxQjQ4U3hnL0ZUWnJhdU1DbGVzY0FidXEv?=
- =?utf-8?B?bXFibVN1d0ZkYitLOEZ6SHQ2d0NOWkFkTlNscXFSS2dmcXVNTnpyV1VNd3Vt?=
- =?utf-8?Q?Gb5dDxZStkGnECjAiMdyg4bW0xvdj1ySsv?=
+X-Microsoft-Antispam-Message-Info: tqGjg782cB8OtLsYH2JpHHj9gtwSWrUWvRS45um+HwqLjFaWYDEpBFAWEypb4LXQ29U5v3nc/PhmD/DjbTRPisYm4mWQUmRh/HXmm42z0yIGFONBlIkYb9CcQP9DNGedh8lirRqHH+vChCUJrS4OeZ04TxdzjGnW/PpMb8l4ABR56skg1kOfZyWEt7Y10rCtv/096j5r5Ss9KdXLIshUSQqYub62GUnwb+nF6qGCZeLelmPGB0RxuDWXCOWfpfNksE3fS2IunLGD5QbxTI2z/mAyLCS45ekplsHfCPzKoZpokw4PAlqd7Z37+nRIPLeBba/bUS6cQGl06zll0AGhNm7hNF4wd1bKuSn88DjnB4iRPxCJMCyZKTkHgkN37PrnlNoGaWGX45Ea01iFZmTY9w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(396003)(136003)(346002)(376002)(39860400002)(54906003)(8936002)(9686003)(956004)(316002)(6916009)(478600001)(33716001)(107886003)(4326008)(6486002)(53546011)(8676002)(5660300002)(83380400001)(66476007)(66946007)(66556008)(1076003)(186003)(16526019)(26005)(6496006)(6666004)(2906002)(85182001)(86362001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NC95MXI4Wm1nV1VvZGFMMXBKOGFUUjY2MjhiQ0lwVVRlV0dPQlY0cFEwS3lq?=
+ =?utf-8?B?RVlVV2liWFdZV2twZ2ZHbitwMFd0WmxmRk5yajljNEY3WWNxam5nNXM4UjZn?=
+ =?utf-8?B?dkRKdXYxUnZIT0dSd1cxMzkwWk1wQnZaMFlSMTBSZjBlalZVQlRqdSs5NWFp?=
+ =?utf-8?B?cmJ2T2Q1OFAyVEo1U3FlZ2EwaHBtZEVlS3FtM3V1SThMbDRTVkJ4SzlVWmtm?=
+ =?utf-8?B?R0ozMkplaTRzQVB1WjZIay96ZVIveUlWbWZPREhidDdVUjdpS1BIV05oQ3ow?=
+ =?utf-8?B?dHpmOHF4WG5WQ0VlbTJlZ2pTTkZuZEVUdy92YUNFR0I4WjhyYWt3ekJkeDcz?=
+ =?utf-8?B?b2xjMkN1bURDZXU5WHROOVNvdk5xSUtUUGh4YVdnbWQvV2RxVzE2RVF1QStH?=
+ =?utf-8?B?RGlXSGJWbkEzbUZRd2psN0tFSmRodFBhV0lQWDdQSUxoWm9iOVFaNVoyQ1da?=
+ =?utf-8?B?T2M2YjB6QUJxejNBanBPUlIxYVhqOWVpd2h1T2J3UWpXRVdjdkdkMmJib3BH?=
+ =?utf-8?B?Mk9hellFMjE3Z0lTRjcwNmkwUlJTUXcyak52OEVnWVBXRUVYeUlBZUxOY1NX?=
+ =?utf-8?B?N0ZCazJodlk2MCtVaTIvdmc0SGdlWDJZWlVMYVF5NlE2VmIyMjA0Q0ZsY0xO?=
+ =?utf-8?B?eDYrRGhuVEJvYjBlT3dJMEJvUlRkQ2FrekRmUjNBM1krNDV4VVl4TDdMdGQ3?=
+ =?utf-8?B?MFpBb3J3S1Y2c1c0eHlRSFhINW5jelJSSWVzNGhBWkFydUhTZVgxMi91cG13?=
+ =?utf-8?B?UThqNXcyREt5SzhuNmgyZzdHamc4WWNiUEJEZEF2Q1JvMXV0dnpFM0NYMy94?=
+ =?utf-8?B?SUxJYng4OWRBcEI2WmVTQjhxUHI1aTFPSDkrZ1JPVWVMNElMckd2ZklmN0sv?=
+ =?utf-8?B?VmdIbkxBTy9oUGRMb1FBTVRZUTdRNmNGN0VOSm9TNVdETXJib2M2cnVvVU9m?=
+ =?utf-8?B?WlpRT1dDU2pRSndhRmJPK2RoclFidWNUdno1d0dyL0NxM05FY3JsbGdhaVNU?=
+ =?utf-8?B?MlAzVS9OMGhyY1EzK210RHc5TFFZUmdCQ2V6SXo2bGtYQkVjZHRhTEFTWXRJ?=
+ =?utf-8?B?U0ZaUW9ORFZsSjZ4QVl2SklHZGU2UEdvODFJdXM3Wm9MYWpYNS8xWHpjaFAx?=
+ =?utf-8?B?QmRnU2NUak84eUFkZWNzcytUNmc0VEl0MGtidThNY0R6RHc1NHF4VU5LVXRh?=
+ =?utf-8?B?dkx5UXEyMnhkc1ZXQjJuUlNlUUM0ZjM5azFqNXR4TlZQeStEOVRDcmhsM2Ex?=
+ =?utf-8?B?bGFPdEVCTTd3WFN3TmhjWVEyaWNQNjc3anRDdFg2a0EvYTc1ZEkvNGlIYXNB?=
+ =?utf-8?Q?tW61jvV9LSJwSvCiPqh/HumzH/vrg27VIP?=
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2021 18:06:03.5259
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2021 18:09:57.3370
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-Network-Message-Id: df8a9030-339d-4729-2a24-08d8b7ede42a
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0049857-73b0-45d0-da94-08d8b7ee6f8a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Mbuamz7VhQxUxQ+pwktKH2OykknbwxSXBMG8TPWWhb6vpAhffD2WTynQvsBw4sG0E4Td2owpSxpLUMQIc75KHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5065
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7oMDP44UzxGxYOmI+HooKB5Nt6FP7SPNHJyc3yaaS+M9oEFcvPbBaiWC5mX/zWE1KjPYLE5vkbyEh44CGVNcLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3835
 X-OriginatorOrg: citrix.com
 
-On Wed, Jan 13, 2021 at 10:48:52AM -0500, Jason Andryuk wrote:
-> On Wed, Jan 13, 2021 at 8:11 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
+On Wed, Jan 13, 2021 at 10:48:02AM -0500, Tamas K Lengyel wrote:
+> On Wed, Jan 13, 2021 at 8:18 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
 > >
-> > On Wed, Jan 13, 2021 at 06:21:03AM +0000, Tian, Kevin wrote:
-> > > > From: Roger Pau Monne <roger.pau@citrix.com>
-> > > > Sent: Wednesday, January 13, 2021 1:33 AM
-> > > >
-> > > > Current interrupt pass though code will setup a timer for each
-> > > > interrupt injected to the guest that requires an EOI from the guest.
-> > > > Such timer would perform two actions if the guest doesn't EOI the
-> > > > interrupt before a given period of time. The first one is deasserting
-> > > > the virtual line, the second is perform an EOI of the physical
-> > > > interrupt source if it requires such.
-> > > >
-> > > > The deasserting of the guest virtual line is wrong, since it messes
-> > > > with the interrupt status of the guest. It's not clear why this was
-> > > > odne in the first place, it should be the guest the one to EOI the
-> > > > interrupt and thus deassert the line.
-> > > >
-> > > > Performing an EOI of the physical interrupt source is redundant, since
-> > > > there's already a timer that takes care of this for all interrupts,
-> > > > not just the HVM dpci ones, see irq_guest_action_t struct eoi_timer
-> > > > field.
-> > > >
-> > > > Since both of the actions performed by the dpci timer are not
-> > > > required, remove it altogether.
-> > > >
-> > > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > > > ---
-> > > > As with previous patches, I'm having a hard time figuring out why this
-> > > > was required in the first place. I see no reason for Xen to be
-> > > > deasserting the guest virtual line. There's a comment:
-> > > >
-> > > > /*
-> > > >  * Set a timer to see if the guest can finish the interrupt or not. For
-> > > >  * example, the guest OS may unmask the PIC during boot, before the
-> > > >  * guest driver is loaded. hvm_pci_intx_assert() may succeed, but the
-> > > >  * guest will never deal with the irq, then the physical interrupt line
-> > > >  * will never be deasserted.
-> > > >  */
-> > > >
-> > > > Did this happen because the device was passed through in a bogus state
-> > > > where it would generate interrupts without the guest requesting
-> > >
-> > > It could be a case where two devices share the same interrupt line and
-> > > are assigned to different domains. In this case, the interrupt activity of
-> > > two devices interfere with each other.
+> > On Tue, Jan 12, 2021 at 09:54:18PM -0500, Tamas K Lengyel wrote:
+> > > While direct booting a Linux kernel into an HVM VM no console output
+> > > is received if serial="pty" is set in the VM config but the kernel
+> > > command line specifies "console=hvc0". If "console=ttyS0" is specified
+> > > then the console output is received as expected. Conversely, if the
+> > > serial line is commented out in the VM config but hvc0 is set on the
+> > > kernel command line then it also works. It's unclear whether this
+> > > behavior is expected or not, after some discussion it sounds like all
+> > > kernels ought to understand hvc0 irrespective of the serial="pty" line
+> > > being set or not. Reporting this in case someone has more insight
+> > > and/or inclination digging into this.
 > >
-> > This would also seem to be problematic if the device decides to use
-> > MSI instead of INTx, but due to the shared nature of the INTx line we
-> > would continue to inject INTx (generated from another device not
-> > passed through to the guest) to the guest even if the device has
-> > switched to MSI.
+> > So I think this is (as confusing as it might seem) the intended
+> > behavior.
 > >
-> > > >
-> > > > Won't the guest face the same issues when booted on bare metal, and
-> > > > thus would already have the means to deal with such issues?
-> > >
-> > > The original commit was added by me in ~13yrs ago (0f843ba00c95)
-> > > when enabling Xen in a client virtualization environment where interrupt
-> > > sharing is popular.
+> > Using serial='pty' exposes an emulated serial device to the guest and
+> > 'xl console' will fetch the output from that device by default. So on
+> > the Linux kernel command line you need to use console=ttyS0 in order
+> > to point Linux to use the emulated serial device.
 > >
-> > Thanks, the reference to the above commit is helpful, I wasn't able to
-> > find it and it contains a comment that I think has been lost, which
-> > provides the background on why this was added.
+> > however if serial='pty' is not used, there will be no emulated serial
+> > device exposed to the guest, only the PV console, and that's what 'xl
+> > console' will attach to in that case. You then need to point the Linux
+> > kernel to use the PV serial console, by adding the console=hvc0
+> > command line.
 > >
-> > > I believe above comment was recorded for a real
-> > > problem at the moment (deassert resets the intx line to unblock further
-> > > interrupts). But I'm not sure whether it is still the case after both Xen and
-> > > guest OS have changed a lot. At least some test from people who
-> > > still use Xen in shared interrupt scenario would be helpful. Or, if such
-> > > usage is already niche, maybe we can consider disallow passing through
-> > > devices which share the same interrupt line to different domains and
-> > > then safely remove this dpci EOI trick.
-> >
-> > So the deassert done by timeout only deasserts the virtual line, but
-> > doesn't for example clear the IRR bit from the vIO-APIC pin, which
-> > will cause further interrupts to not be delivered anyway until a
-> > proper EOI (or a switch to trigger mode) is done to the pin.
-> >
-> > I think it's going to be complicated for me to find a system that has
-> > two devices I can passthrough sharing the same GSI.
+> > I'm unsure how to clarify this, maybe some additions could be made to
+> > the xl.cfg man page to note that using serial='pty' will add an
+> > emulated serial device to the guest, and that by default 'xl console'
+> > will fetch the output from that device instead of the paravirtualized
+> > console?
 > 
-> I have some laptops running OpenXT where the USB controller and NIC
-> share an interrupt, and I assign them to different domains.  Qubes
-> would hit this as well.
+> Hi Roger,
+> that explanation makes sense, I wasn't aware that there would be two
+> different console's available to the guest if serial="pty" is set and
+> that xl would pick on over the other. So adding that to the
+> documentation would be helpful. Perhaps also pointing out under what
+> scenario is the emulated console vs the pv console is useful. I assume
+> the point of the emulated console would be to get console output from
+> software that's not Xen-aware (like GRUB)?
 
-Is there any chance you could try the patch and see if you can hit the
-issue it was trying to fix?
+Right, since you can run unmodified OSes (or bootloaders) in HVM mode
+it's useful to be able to get serial output from them directly when
+using 'xl console' IMO.
 
-It would be good to be able to reproduce it so that I could work on an
-alternative fix that doesn't require having two timers for each IRQ in
-flight.
-
-> (I hoped MSI translate would help me sidestep the need to XSM label
-> the shared PIRQ, but as the other thread mentions, qemu-upstream
-> doesn't support that.  I started using this instead:
-> https://lore.kernel.org/xen-devel/20201019200318.103781-1-jandryuk@gmail.com/)
-
-MSI translate is also on my sight for removal, as you have seen from
-that other thread :).
+Would you be up for writing a patch to xl.cfg man page to clarify
+it?
 
 Thanks, Roger.
 
