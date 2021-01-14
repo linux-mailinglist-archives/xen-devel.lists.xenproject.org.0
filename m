@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74E482F64D5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:38:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67224.119892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A7D22F6500
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:49:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67257.119929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04i4-0003cr-7e; Thu, 14 Jan 2021 15:38:52 +0000
+	id 1l04rq-0005WC-0t; Thu, 14 Jan 2021 15:48:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67224.119892; Thu, 14 Jan 2021 15:38:52 +0000
+Received: by outflank-mailman (output) from mailman id 67257.119929; Thu, 14 Jan 2021 15:48:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04i3-0003as-QU; Thu, 14 Jan 2021 15:38:51 +0000
-Received: by outflank-mailman (input) for mailman id 67224;
- Thu, 14 Jan 2021 15:38:49 +0000
+	id 1l04rp-0005Vn-Tx; Thu, 14 Jan 2021 15:48:57 +0000
+Received: by outflank-mailman (input) for mailman id 67257;
+ Thu, 14 Jan 2021 15:48:56 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P5GR=GR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l04i1-0002Sh-Jo
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:38:49 +0000
+ id 1l04iB-0002Sh-K6
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:38:59 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 54f688c4-5a7b-4232-b1bb-48d3d130c18b;
- Thu, 14 Jan 2021 15:38:10 +0000 (UTC)
+ id 2a398fed-cfbb-4ab9-bf50-64dde4240f45;
+ Thu, 14 Jan 2021 15:38:11 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 39D70AF16;
+ by mx2.suse.de (Postfix) with ESMTP id 5E7E8AF19;
  Thu, 14 Jan 2021 15:38:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,189 +39,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54f688c4-5a7b-4232-b1bb-48d3d130c18b
+X-Inumbo-ID: 2a398fed-cfbb-4ab9-bf50-64dde4240f45
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1610638689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2ATPpHSIhjqxOB324IDYh8lpgd0riycRlPolQ2FU7Nk=;
-	b=FCsV61u0qj5cc+qk6ztohN3L/BMeak2R35XXKwZSocj1nLYURCHC/M1S1Pm66kDq3eSf1r
-	2eZypePetyBI1MTT2f+yGy63raUC5tcNgo/UTn4sgCes2xDrSqhCKRlNsPLlAk2cl8NdnU
-	X27z9poSQ1zJdDJXZnDOVOgegDUfK4Y=
+	bh=iR6mpN6JQlOv+YSxhvafMHQDyRtw3t8nq8G7VprsFtI=;
+	b=XbzDZFd0H/6I9sGxRBGak3DJTRXlnHIsiqgnEL7dD44/DaKF9ly8emgcyBkBU2Plnee68h
+	y+bVXn3MsG3bUFlhiN+lDKLS8aVfi/39bNH65B2UED0PJVu61kYqtlXTxIo3r3dm6/DRve
+	LznHt8AAfW5Ij2b3/0tfjYzuC9hXqiw=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v11 12/27] tools/xenstore: add support for delaying execution of a xenstore request
-Date: Thu, 14 Jan 2021 16:37:48 +0100
-Message-Id: <20210114153803.2591-13-jgross@suse.com>
+Subject: [PATCH v11 13/27] tools/xenstore: add the basic framework for doing the live update
+Date: Thu, 14 Jan 2021 16:37:49 +0100
+Message-Id: <20210114153803.2591-14-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210114153803.2591-1-jgross@suse.com>
 References: <20210114153803.2591-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Today a Xenstore request is processed as soon as it is seen by
-xenstored. Add the framework for being able to delay processing of a
-request if the right conditions aren't met.
-
-Any delayed requests are executed at the end of the main processing
-loop in xenstored. They can either delay themselves again or just do
-their job. In order to enable the possibility of a timeout, the main
-loop will be paused for max one second if any requests are delayed.
+Add the main framework for executing the live update. This for now
+only defines the basic execution steps with empty dummy functions.
+This final step returning means failure, as in case of success the
+new executable will have taken over.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-V11:
-- new patch
----
- tools/xenstore/xenstored_core.c | 55 ++++++++++++++++++++++++++++++++-
- tools/xenstore/xenstored_core.h | 21 +++++++++++++
- 2 files changed, 75 insertions(+), 1 deletion(-)
+V4:
+- const (Julien Grall)
 
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 0dddf24327..23da8dafde 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -69,6 +69,7 @@ static int xce_pollfd_idx = -1;
- static struct pollfd *fds;
- static unsigned int current_array_size;
- static unsigned int nr_fds;
-+static unsigned int delayed_requests;
+V11:
+- split lu_check_lu_allowed()
+- use delay_request() framework
+---
+ tools/xenstore/xenstored_control.c | 83 +++++++++++++++++++++++++++++-
+ 1 file changed, 82 insertions(+), 1 deletion(-)
+
+diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+index 2e0827b9ef..5193c55781 100644
+--- a/tools/xenstore/xenstored_control.c
++++ b/tools/xenstore/xenstored_control.c
+@@ -22,6 +22,7 @@ Interactive commands for Xen Store Daemon.
+ #include <stdlib.h>
+ #include <string.h>
+ #include <syslog.h>
++#include <time.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <unistd.h>
+@@ -44,6 +45,11 @@ struct live_update {
+ #endif
  
- static int sock = -1;
- 
-@@ -255,6 +256,46 @@ static bool write_messages(struct connection *conn)
- 	return true;
- }
- 
-+static int undelay_request(void *_req)
-+{
-+	struct delayed_request *req = _req;
+ 	char *cmdline;
 +
-+	list_del(&req->list);
-+	delayed_requests--;
-+
-+	return 0;
-+}
-+
-+static void call_delayed(struct delayed_request *req)
-+{
-+	if (req->func(req)) {
-+		undelay_request(req);
-+		talloc_set_destructor(req, NULL);
-+	}
-+}
-+
-+int delay_request(struct connection *conn, struct buffered_data *in,
-+		  bool (*func)(struct delayed_request *), void *data)
-+{
-+	struct delayed_request *req;
-+
-+	req = talloc(in, struct delayed_request);
-+	if (!req)
-+		return ENOMEM;
-+
-+	/* For the case of connection being closed. */
-+	talloc_set_destructor(req, undelay_request);
-+
-+	req->in = in;
-+	req->func = func;
-+	req->data = data;
-+
-+	delayed_requests++;
-+	list_add(&req->list, &conn->delayed);
-+
-+	return 0;
-+}
-+
- static int destroy_conn(void *_conn)
- {
- 	struct connection *conn = _conn;
-@@ -321,7 +362,8 @@ static void initialize_fds(int *p_sock_pollfd_idx, int *ptimeout)
- 		memset(fds, 0, sizeof(struct pollfd) * current_array_size);
- 	nr_fds = 0;
- 
--	*ptimeout = -1;
-+	/* In case of delayed requests pause for max 1 second. */
-+	*ptimeout = delayed_requests ? 1000 : -1;
- 
- 	if (sock != -1)
- 		*p_sock_pollfd_idx = set_fd(sock, POLLIN|POLLPRI);
-@@ -1524,6 +1566,7 @@ struct connection *new_connection(connwritefn_t *write, connreadfn_t *read)
- 	INIT_LIST_HEAD(&new->out_list);
- 	INIT_LIST_HEAD(&new->watches);
- 	INIT_LIST_HEAD(&new->transaction_list);
-+	INIT_LIST_HEAD(&new->delayed);
- 
- 	list_add_tail(&new->list, &connections);
- 	talloc_set_destructor(new, destroy_conn);
-@@ -2215,6 +2258,16 @@ int main(int argc, char *argv[])
- 			}
- 		}
- 
-+		if (delayed_requests) {
-+			list_for_each_entry(conn, &connections, list) {
-+				struct delayed_request *req, *tmp;
-+
-+				list_for_each_entry_safe(req, tmp,
-+							 &conn->delayed, list)
-+					call_delayed(req);
-+			}
-+		}
-+
- 		initialize_fds(&sock_pollfd_idx, &timeout);
- 	}
- }
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 27826c125c..d5cdf17160 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -61,6 +61,20 @@ struct buffered_data
- 	char default_buffer[DEFAULT_BUFFER_SIZE];
++	/* Start parameters. */
++	bool force;
++	unsigned int timeout;
++	time_t started_at;
  };
  
-+struct delayed_request {
-+	/* Next delayed request. */
-+	struct list_head list;
-+
-+	/* The delayed request. */
-+	struct buffered_data *in;
-+
-+	/* Function to call. */
-+	bool (*func)(struct delayed_request *req);
-+
-+	/* Further data. */
-+	void *data;
-+};
-+
- struct connection;
- typedef int connwritefn_t(struct connection *, const void *, unsigned int);
- typedef int connreadfn_t(struct connection *, void *, unsigned int);
-@@ -94,6 +108,9 @@ struct connection
- 	uint32_t next_transaction_id;
- 	unsigned int transaction_started;
+ static struct live_update *lu_status;
+@@ -304,9 +310,64 @@ static const char *lu_arch(const void *ctx, struct connection *conn,
+ }
+ #endif
  
-+	/* List of delayed requests. */
-+	struct list_head delayed;
++static bool lu_check_lu_allowed(void)
++{
++	return true;
++}
 +
- 	/* The domain I'm associated with, if any. */
- 	struct domain *domain;
- 
-@@ -177,6 +194,10 @@ bool is_valid_nodename(const char *node);
- /* Get name of parent node. */
- char *get_parent(const void *ctx, const char *node);
- 
-+/* Delay a request. */
-+int delay_request(struct connection *conn, struct buffered_data *in,
-+		  bool (*func)(struct delayed_request *), void *data);
++static const char *lu_reject_reason(const void *ctx)
++{
++	return "BUSY";
++}
 +
- /* Tracing infrastructure. */
- void trace_create(const void *data, const char *type);
- void trace_destroy(const void *data, const char *type);
++static const char *lu_dump_state(const void *ctx, struct connection *conn)
++{
++	return NULL;
++}
++
++static const char *lu_activate_binary(const void *ctx)
++{
++	return "Not yet implemented.";
++}
++
++static bool do_lu_start(struct delayed_request *req)
++{
++	time_t now = time(NULL);
++	const char *ret;
++	char *resp;
++
++	if (!lu_check_lu_allowed()) {
++		if (now < lu_status->started_at + lu_status->timeout)
++			return false;
++		if (!lu_status->force) {
++			ret = lu_reject_reason(req);
++			goto out;
++		}
++	}
++
++	/* Dump out internal state, including "OK" for live update. */
++	ret = lu_dump_state(req->in, lu_status->conn);
++	if (!ret) {
++		/* Perform the activation of new binary. */
++		ret = lu_activate_binary(req->in);
++	}
++
++	/* We will reach this point only in case of failure. */
++ out:
++	talloc_free(lu_status);
++
++	resp = talloc_strdup(req->in, ret);
++	send_reply(lu_status->conn, XS_CONTROL, resp, strlen(resp) + 1);
++
++	return true;
++}
++
+ static const char *lu_start(const void *ctx, struct connection *conn,
+ 			    bool force, unsigned int to)
+ {
++	const char *ret;
++	int rc = 0;
++
+ 	syslog(LOG_INFO, "live-update: start, force=%d, to=%u\n", force, to);
+ 
+ 	if (!lu_status || lu_status->conn != conn)
+@@ -317,8 +378,24 @@ static const char *lu_start(const void *ctx, struct connection *conn,
+ 		return "Kernel not complete.";
+ #endif
+ 
+-	/* Will be replaced by real live-update later. */
++	lu_status->force = force;
++	lu_status->timeout = to;
++	lu_status->started_at = time(NULL);
++
++	rc = delay_request(conn, conn->in, do_lu_start, NULL);
++
++	/* Dump out internal state, including "OK" for live update. */
++	ret = lu_dump_state(ctx, conn);
++	if (ret)
++		goto out;
++
++	/* Perform the activation of new binary. */
++	ret = lu_activate_binary(ctx);
++	/* We will reach this point only in case of failure. */
++
++ out:
+ 	talloc_free(lu_status);
++	errno = rc;
+ 
+ 	return NULL;
+ }
+@@ -356,6 +433,10 @@ static int do_control_lu(void *ctx, struct connection *conn,
+ 				return EINVAL;
+ 		}
+ 		ret = lu_start(ctx, conn, force, to);
++		if (errno)
++			return errno;
++		if (!ret)
++			return 0;
+ 	} else {
+ 		errno = 0;
+ 		ret = lu_arch(ctx, conn, vec, num);
 -- 
 2.26.2
 
