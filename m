@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 798612F63A3
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:05:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67084.119449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5122F2F63AF
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:06:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67089.119461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04Bj-0005TZ-5Z; Thu, 14 Jan 2021 15:05:27 +0000
+	id 1l04CF-0005cG-Er; Thu, 14 Jan 2021 15:05:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67084.119449; Thu, 14 Jan 2021 15:05:27 +0000
+Received: by outflank-mailman (output) from mailman id 67089.119461; Thu, 14 Jan 2021 15:05:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04Bj-0005T6-1Y; Thu, 14 Jan 2021 15:05:27 +0000
-Received: by outflank-mailman (input) for mailman id 67084;
- Thu, 14 Jan 2021 15:05:25 +0000
+	id 1l04CF-0005bq-Ar; Thu, 14 Jan 2021 15:05:59 +0000
+Received: by outflank-mailman (input) for mailman id 67089;
+ Thu, 14 Jan 2021 15:05:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J1hy=GR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l04Bh-0005Sq-7V
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:05:25 +0000
+ id 1l04CE-0005bg-P3
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:05:58 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 483ed273-0f93-4ac6-b176-0503b2879029;
- Thu, 14 Jan 2021 15:05:24 +0000 (UTC)
+ id e0eebecb-d02a-4088-aabc-267bcdea1221;
+ Thu, 14 Jan 2021 15:05:57 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5A738AC5B;
- Thu, 14 Jan 2021 15:05:23 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id C61C3AE39;
+ Thu, 14 Jan 2021 15:05:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,26 +39,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 483ed273-0f93-4ac6-b176-0503b2879029
+X-Inumbo-ID: e0eebecb-d02a-4088-aabc-267bcdea1221
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610636723; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610636756; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=PKCI8/ExLlhFmX+oxuow12nmgg61oDI6flUEFtcNiaU=;
-	b=ZMb3mnA49xATiEEgFGFLnYJWyKqYszsJjhhY+hxYbvyhYNp36yok2facYVHe9AhXn9uB+K
-	Lb81vfsARCfou1PWnXBtYyj95Ia3ycFXbqqwRbtMVX8Wydh4ux787SBX55PZISN5tFkMfj
-	V5mi65zvQAOuqRVVaIrA/jSLsX3NZAE=
-Subject: [PATCH 05/17] x86: rename {get,put}_user() to {get,put}_guest()
+	bh=oki9usJBq/QICv2h7VSqyQ0su2jCZumcRJdehvqJaIs=;
+	b=i0FyEx9eCk64nNKtn6jf+RhODidenwJYPUkghESw5PnzLuhoYkNr0/Sochusfjtj4HN4Gp
+	uZWOm6OFvYfVUUS58FDjOrk6B/gy7GmqQk0x7vusuP/SKpGz1xcazVPUbs4kZnBiApndyv
+	neuCHhiBGhHR2byBsCymu0qIwpUwi20=
+Subject: [PATCH 06/17] x86/gdbsx: convert "user" to "guest" accesses
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Elena Ufimtseva <elena.ufimtseva@oracle.com>
 References: <4f1975a9-bdd9-f556-9db5-eb6c428f258f@suse.com>
-Message-ID: <f0508e90-5187-8a44-b11a-705f60ab60f8@suse.com>
-Date: Thu, 14 Jan 2021 16:05:23 +0100
+Message-ID: <0ba3d730-8bc6-0907-8e60-ce3176afa491@suse.com>
+Date: Thu, 14 Jan 2021 16:05:57 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
@@ -67,144 +68,110 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Bring them (back) in line with __{get,put}_guest().
+Using copy_{from,to}_user(), this code was assuming to be called only by
+PV guests. Use copy_{from,to}_guest() instead, transforming the incoming
+structure field into a guest handle (the field should really have been
+one in the first place). Also do not transform the debuggee address into
+a pointer.
+
+As a not originally intended side effect this also fixes a bug in
+dbg_rw_guest_mem(): At the end of the loop "addr" was incremented, but
+then in the next loop iteration (with the variable also having gone out
+of scope inbetween) re-initialized from the function parameter.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1626,19 +1626,19 @@ static void load_segments(struct vcpu *n
+--- a/xen/arch/x86/debug.c
++++ b/xen/arch/x86/debug.c
+@@ -108,14 +108,14 @@ dbg_pv_va2mfn(dbgva_t vaddr, struct doma
+ }
  
-             if ( !ring_1(regs) )
-             {
--                ret  = put_user(regs->ss,       esp-1);
--                ret |= put_user(regs->esp,      esp-2);
-+                ret  = put_guest(regs->ss,  esp - 1);
-+                ret |= put_guest(regs->esp, esp - 2);
-                 esp -= 2;
-             }
+ /* Returns: number of bytes remaining to be copied */
+-static unsigned int dbg_rw_guest_mem(struct domain *dp, void * __user gaddr,
+-                                     void * __user buf, unsigned int len,
+-                                     bool toaddr, uint64_t pgd3)
++static unsigned int dbg_rw_guest_mem(struct domain *dp, unsigned long addr,
++                                     XEN_GUEST_HANDLE_PARAM(void) buf,
++                                     unsigned int len, bool toaddr,
++                                     uint64_t pgd3)
+ {
+     while ( len > 0 )
+     {
+         char *va;
+-        unsigned long addr = (unsigned long)gaddr;
+         mfn_t mfn;
+         gfn_t gfn = INVALID_GFN;
+         unsigned long pagecnt;
+@@ -133,20 +133,18 @@ static unsigned int dbg_rw_guest_mem(str
  
-             if ( ret |
--                 put_user(rflags,              esp-1) |
--                 put_user(cs_and_mask,         esp-2) |
--                 put_user(regs->eip,           esp-3) |
--                 put_user(uregs->gs,           esp-4) |
--                 put_user(uregs->fs,           esp-5) |
--                 put_user(uregs->es,           esp-6) |
--                 put_user(uregs->ds,           esp-7) )
-+                 put_guest(rflags,      esp - 1) |
-+                 put_guest(cs_and_mask, esp - 2) |
-+                 put_guest(regs->eip,   esp - 3) |
-+                 put_guest(uregs->gs,   esp - 4) |
-+                 put_guest(uregs->fs,   esp - 5) |
-+                 put_guest(uregs->es,   esp - 6) |
-+                 put_guest(uregs->ds,   esp - 7) )
-             {
-                 gprintk(XENLOG_ERR,
-                         "error while creating compat failsafe callback frame\n");
-@@ -1667,17 +1667,17 @@ static void load_segments(struct vcpu *n
-         cs_and_mask = (unsigned long)regs->cs |
-             ((unsigned long)vcpu_info(n, evtchn_upcall_mask) << 32);
- 
--        if ( put_user(regs->ss,            rsp- 1) |
--             put_user(regs->rsp,           rsp- 2) |
--             put_user(rflags,              rsp- 3) |
--             put_user(cs_and_mask,         rsp- 4) |
--             put_user(regs->rip,           rsp- 5) |
--             put_user(uregs->gs,           rsp- 6) |
--             put_user(uregs->fs,           rsp- 7) |
--             put_user(uregs->es,           rsp- 8) |
--             put_user(uregs->ds,           rsp- 9) |
--             put_user(regs->r11,           rsp-10) |
--             put_user(regs->rcx,           rsp-11) )
-+        if ( put_guest(regs->ss,    rsp -  1) |
-+             put_guest(regs->rsp,   rsp -  2) |
-+             put_guest(rflags,      rsp -  3) |
-+             put_guest(cs_and_mask, rsp -  4) |
-+             put_guest(regs->rip,   rsp -  5) |
-+             put_guest(uregs->gs,   rsp -  6) |
-+             put_guest(uregs->fs,   rsp -  7) |
-+             put_guest(uregs->es,   rsp -  8) |
-+             put_guest(uregs->ds,   rsp -  9) |
-+             put_guest(regs->r11,   rsp - 10) |
-+             put_guest(regs->rcx,   rsp - 11) )
+         if ( toaddr )
          {
-             gprintk(XENLOG_ERR,
-                     "error while creating failsafe callback frame\n");
---- a/xen/include/asm-x86/uaccess.h
-+++ b/xen/include/asm-x86/uaccess.h
-@@ -27,14 +27,12 @@ extern void __put_user_bad(void);
- #define UA_DROP(args...)
+-            copy_from_user(va, buf, pagecnt);    /* va = buf */
++            copy_from_guest(va, buf, pagecnt);
+             paging_mark_dirty(dp, mfn);
+         }
+         else
+-        {
+-            copy_to_user(buf, va, pagecnt);    /* buf = va */
+-        }
++            copy_to_guest(buf, va, pagecnt);
  
- /**
-- * get_user: - Get a simple variable from user space.
-+ * get_guest: - Get a simple variable from guest space.
-  * @x:   Variable to store result.
-- * @ptr: Source address, in user space.
-- *
-- * Context: User context only.  This function may sleep.
-+ * @ptr: Source address, in guest space.
-  *
-- * This macro copies a single simple variable from user space to kernel
-- * space.  It supports simple types like char and int, but not larger
-+ * This macro load a single simple variable from guest space.
-+ * It supports simple types like char and int, but not larger
-  * data types like structures or arrays.
-  *
-  * @ptr must have pointer-to-simple-variable type, and the result of
-@@ -43,18 +41,15 @@ extern void __put_user_bad(void);
-  * Returns zero on success, or -EFAULT on error.
-  * On error, the variable @x is set to zero.
+         unmap_domain_page(va);
+         if ( !gfn_eq(gfn, INVALID_GFN) )
+             put_gfn(dp, gfn_x(gfn));
+ 
+         addr += pagecnt;
+-        buf += pagecnt;
++        guest_handle_add_offset(buf, pagecnt);
+         len -= pagecnt;
+     }
+ 
+@@ -160,7 +158,7 @@ static unsigned int dbg_rw_guest_mem(str
+  * pgd3: value of init_mm.pgd[3] in guest. see above.
+  * Returns: number of bytes remaining to be copied.
   */
--#define get_user(x,ptr)	\
--  __get_user_check((x),(ptr),sizeof(*(ptr)))
-+#define get_guest(x, ptr) get_guest_check(x, ptr, sizeof(*(ptr)))
+-unsigned int dbg_rw_mem(void * __user addr, void * __user buf,
++unsigned int dbg_rw_mem(unsigned long gva, XEN_GUEST_HANDLE_PARAM(void) buf,
+                         unsigned int len, domid_t domid, bool toaddr,
+                         uint64_t pgd3)
+ {
+@@ -169,7 +167,7 @@ unsigned int dbg_rw_mem(void * __user ad
+     if ( d )
+     {
+         if ( !d->is_dying )
+-            len = dbg_rw_guest_mem(d, addr, buf, len, toaddr, pgd3);
++            len = dbg_rw_guest_mem(d, gva, buf, len, toaddr, pgd3);
+         rcu_unlock_domain(d);
+     }
  
- /**
-- * put_user: - Write a simple value into user space.
-- * @x:   Value to copy to user space.
-- * @ptr: Destination address, in user space.
-- *
-- * Context: User context only.  This function may sleep.
-+ * put_guest: - Write a simple value into guest space.
-+ * @x:   Value to store in guest space.
-+ * @ptr: Destination address, in guest space.
-  *
-- * This macro copies a single simple value from kernel space to user
-- * space.  It supports simple types like char and int, but not larger
-+ * This macro stores a single simple value from to guest space.
-+ * It supports simple types like char and int, but not larger
-  * data types like structures or arrays.
-  *
-  * @ptr must have pointer-to-simple-variable type, and @x must be assignable
-@@ -62,8 +57,8 @@ extern void __put_user_bad(void);
-  *
-  * Returns zero on success, or -EFAULT on error.
-  */
--#define put_user(x,ptr)							\
--  __put_user_check((__typeof__(*(ptr)))(x),(ptr),sizeof(*(ptr)))
-+#define put_guest(x, ptr) \
-+    put_guest_check((__typeof__(*(ptr)))(x), ptr, sizeof(*(ptr)))
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -40,10 +40,8 @@
+ #ifdef CONFIG_GDBSX
+ static int gdbsx_guest_mem_io(domid_t domid, struct xen_domctl_gdbsx_memio *iop)
+ {
+-    void * __user gva = (void *)iop->gva, * __user uva = (void *)iop->uva;
+-
+-    iop->remain = dbg_rw_mem(gva, uva, iop->len, domid,
+-                             !!iop->gwr, iop->pgd3val);
++    iop->remain = dbg_rw_mem(iop->gva, guest_handle_from_ptr(iop->uva, void),
++                             iop->len, domid, iop->gwr, iop->pgd3val);
  
- /**
-  * __get_guest: - Get a simple variable from guest space, with less checking.
-@@ -119,7 +114,7 @@ extern void __put_user_bad(void);
- 	err_;								\
- })
+     return iop->remain ? -EFAULT : 0;
+ }
+--- a/xen/include/asm-x86/debugger.h
++++ b/xen/include/asm-x86/debugger.h
+@@ -93,9 +93,9 @@ static inline bool debugger_trap_entry(
+ #endif
  
--#define __put_user_check(x, ptr, size)					\
-+#define put_guest_check(x, ptr, size)					\
- ({									\
- 	__typeof__(*(ptr)) __user *ptr_ = (ptr);			\
- 	__typeof__(size) size_ = (size);				\
-@@ -141,7 +136,7 @@ extern void __put_user_bad(void);
- 	err_;								\
- })
+ #ifdef CONFIG_GDBSX
+-unsigned int dbg_rw_mem(void * __user addr, void * __user buf,
++unsigned int dbg_rw_mem(unsigned long gva, XEN_GUEST_HANDLE_PARAM(void) buf,
+                         unsigned int len, domid_t domid, bool toaddr,
+-                        uint64_t pgd3);
++                        unsigned long pgd3);
+ #endif
  
--#define __get_user_check(x, ptr, size)					\
-+#define get_guest_check(x, ptr, size)					\
- ({									\
- 	__typeof__(*(ptr)) __user *ptr_ = (ptr);			\
- 	__typeof__(size) size_ = (size);				\
+ #endif /* __X86_DEBUGGER_H__ */
 
 
