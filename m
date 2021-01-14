@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC522F639F
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:04:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67071.119411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 783982F63A1
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:04:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67075.119424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04Aa-00058v-1z; Thu, 14 Jan 2021 15:04:16 +0000
+	id 1l04At-0005Es-F2; Thu, 14 Jan 2021 15:04:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67071.119411; Thu, 14 Jan 2021 15:04:16 +0000
+Received: by outflank-mailman (output) from mailman id 67075.119424; Thu, 14 Jan 2021 15:04:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04AZ-00058Z-UZ; Thu, 14 Jan 2021 15:04:15 +0000
-Received: by outflank-mailman (input) for mailman id 67071;
- Thu, 14 Jan 2021 15:04:13 +0000
+	id 1l04At-0005ER-BO; Thu, 14 Jan 2021 15:04:35 +0000
+Received: by outflank-mailman (input) for mailman id 67075;
+ Thu, 14 Jan 2021 15:04:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J1hy=GR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l04AX-00058E-KH
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:04:13 +0000
+ id 1l04Ar-0005EA-VK
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:04:33 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 131d842a-63aa-4986-bf59-7144e53a5032;
- Thu, 14 Jan 2021 15:04:11 +0000 (UTC)
+ id d5f85c02-ac6b-4d41-a782-aec0bacb498c;
+ Thu, 14 Jan 2021 15:04:32 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EF08BAC63;
- Thu, 14 Jan 2021 15:04:10 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id C9F26AC63;
+ Thu, 14 Jan 2021 15:04:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,27 +39,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 131d842a-63aa-4986-bf59-7144e53a5032
+X-Inumbo-ID: d5f85c02-ac6b-4d41-a782-aec0bacb498c
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610636651; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610636671; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=E6cgTDDmsYBHikcxuCjozMEbdRkwMNEgGlD2Q1ohd0Y=;
-	b=plMD9HXBOdEUNp9sZ/twJU6Ae7608qlZaQRif/i/7Vjqud6qDK2SJFL6cqH4SJEs5MRyto
-	ErjI1TT+zslepr6oAII4z4FzbCzC6HOG+WtSr2aBf4Sbh7ByQTalHB3+QG1mX32RyJB/S7
-	Yy5XFcXjfIo1WmLJiP5B0Ge02sO2gVk=
-Subject: [PATCH 02/17] x86: split __{get,put}_user() into "guest" and "unsafe"
- variants
+	bh=kEOD8ziAyq6w4RKqlPNi4uvVoOz1zCU2GR0j65fmrVk=;
+	b=FKgxmfXXpvKVgKcqnsS9MzyjTUc465QCmJ5LYILDr0d6af32du0u3HVoSCztvVE9yf2Pys
+	OX0mIhaALZmeb/agVLnZpKS+/jftXq2p5USWrT7vH1+y39HvPNKXKIM3iKx1GvQQCf57tm
+	sAQKGCocMBBYbAdUdqlZti6UeLvKSSQ=
+Subject: [PATCH 03/17] x86: split __copy_{from,to}_user() into "guest" and
+ "unsafe" variants
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
 References: <4f1975a9-bdd9-f556-9db5-eb6c428f258f@suse.com>
-Message-ID: <13d1d621-21db-0e59-6603-2b22b6a9d180@suse.com>
-Date: Thu, 14 Jan 2021 16:04:11 +0100
+Message-ID: <b8112628-a2e3-2fdc-9847-1fa684283135@suse.com>
+Date: Thu, 14 Jan 2021 16:04:32 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
@@ -69,413 +69,302 @@ Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
 The "guest" variants are intended to work with (potentially) fully guest
-controlled addresses, while the "unsafe" variants are not. (For
-descriptor table accesses the low bits of the addresses may still be
-guest controlled, but this still won't allow speculation to "escape"
-into unwanted areas.) Subsequently we will want them to have different
-behavior, so as first step identify which one is which. For now, both
-groups of constructs alias one another.
+controlled addresses, while the "unsafe" variants are not. Subsequently
+we will want them to have different behavior, so as first step identify
+which one is which. For now, both groups of constructs alias one another.
 
-Double underscore prefixes are retained only on __{get,put}_guest(), to
-allow still distinguishing them from their "checking" counterparts once
-they also get renamed (to {get,put}_guest()).
+Double underscore prefixes are retained only on
+__copy_{from,to}_guest_pv(), to allow still distinguishing them from
+their "checking" counterparts once they also get renamed (to
+copy_{from,to}_guest_pv()).
 
-Since for them it's almost a full re-write, move what becomes
-{get,put}_unsafe_size() into the "common" uaccess.h (x86_64/*.h should
-disappear at some point anyway).
-
-In __copy_to_user() one of the two casts in each put_guest_size()
-invocation gets dropped. They're not needed and did break symmetry with
-__copy_from_user().
+Add previously missing __user at some call sites.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Instead of __copy_{from,to}_guest_pv(), perhaps name them just
+__copy_{from,to}_pv()?
 
+--- a/xen/arch/x86/gdbstub.c
++++ b/xen/arch/x86/gdbstub.c
+@@ -33,13 +33,13 @@ gdb_arch_signal_num(struct cpu_user_regs
+ unsigned int
+ gdb_arch_copy_from_user(void *dest, const void *src, unsigned len)
+ {
+-    return __copy_from_user(dest, src, len);
++    return copy_from_unsafe(dest, src, len);
+ }
+ 
+ unsigned int 
+ gdb_arch_copy_to_user(void *dest, const void *src, unsigned len)
+ {
+-    return __copy_to_user(dest, src, len);
++    return copy_to_unsafe(dest, src, len);
+ }
+ 
+ void
 --- a/xen/arch/x86/mm/shadow/multi.c
 +++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -776,9 +776,9 @@ shadow_write_entries(void *d, void *s, i
-     /* Because we mirror access rights at all levels in the shadow, an
-      * l2 (or higher) entry with the RW bit cleared will leave us with
-      * no write access through the linear map.
--     * We detect that by writing to the shadow with __put_user() and
-+     * We detect that by writing to the shadow with put_unsafe() and
-      * using map_domain_page() to get a writeable mapping if we need to. */
--    if ( __put_user(*dst, dst) )
-+    if ( put_unsafe(*dst, dst) )
+@@ -2614,7 +2614,7 @@ static int sh_page_fault(struct vcpu *v,
+         {
+             shadow_l2e_t sl2e;
+             mfn_t gl1mfn;
+-            if ( (__copy_from_user(&sl2e,
++            if ( (copy_from_unsafe(&sl2e,
+                                    (sh_linear_l2_table(v)
+                                     + shadow_l2_linear_offset(va)),
+                                    sizeof(sl2e)) != 0)
+@@ -2633,7 +2633,7 @@ static int sh_page_fault(struct vcpu *v,
+ #endif /* SHOPT_OUT_OF_SYNC */
+         /* The only reasons for reserved bits to be set in shadow entries
+          * are the two "magic" shadow_l1e entries. */
+-        if ( likely((__copy_from_user(&sl1e,
++        if ( likely((copy_from_unsafe(&sl1e,
+                                       (sh_linear_l1_table(v)
+                                        + shadow_l1_linear_offset(va)),
+                                       sizeof(sl1e)) == 0)
+@@ -3308,10 +3308,10 @@ static bool sh_invlpg(struct vcpu *v, un
+                    sh_linear_l4_table(v)[shadow_l4_linear_offset(linear)])
+                & _PAGE_PRESENT) )
+             return false;
+-        /* This must still be a copy-from-user because we don't have the
++        /* This must still be a copy-from-unsafe because we don't have the
+          * paging lock, and the higher-level shadows might disappear
+          * under our feet. */
+-        if ( __copy_from_user(&sl3e, (sh_linear_l3_table(v)
++        if ( copy_from_unsafe(&sl3e, (sh_linear_l3_table(v)
+                                       + shadow_l3_linear_offset(linear)),
+                               sizeof (sl3e)) != 0 )
+         {
+@@ -3330,9 +3330,9 @@ static bool sh_invlpg(struct vcpu *v, un
+         return false;
+ #endif
+ 
+-    /* This must still be a copy-from-user because we don't have the shadow
++    /* This must still be a copy-from-unsafe because we don't have the shadow
+      * lock, and the higher-level shadows might disappear under our feet. */
+-    if ( __copy_from_user(&sl2e,
++    if ( copy_from_unsafe(&sl2e,
+                           sh_linear_l2_table(v) + shadow_l2_linear_offset(linear),
+                           sizeof (sl2e)) != 0 )
      {
-         perfc_incr(shadow_linear_map_failed);
-         map = map_domain_page(mfn);
+@@ -3371,11 +3371,11 @@ static bool sh_invlpg(struct vcpu *v, un
+              * hold the paging lock yet.  Check again with the lock held. */
+             paging_lock(d);
+ 
+-            /* This must still be a copy-from-user because we didn't
++            /* This must still be a copy-from-unsafe because we didn't
+              * have the paging lock last time we checked, and the
+              * higher-level shadows might have disappeared under our
+              * feet. */
+-            if ( __copy_from_user(&sl2e,
++            if ( copy_from_unsafe(&sl2e,
+                                   sh_linear_l2_table(v)
+                                   + shadow_l2_linear_offset(linear),
+                                   sizeof (sl2e)) != 0 )
 --- a/xen/arch/x86/pv/emul-gate-op.c
 +++ b/xen/arch/x86/pv/emul-gate-op.c
-@@ -40,7 +40,7 @@ static int read_gate_descriptor(unsigned
-          ((gate_sel >> 3) + !is_pv_32bit_vcpu(v) >=
-           (gate_sel & 4 ? v->arch.pv.ldt_ents
-                         : v->arch.pv.gdt_ents)) ||
--         __get_user(desc, pdesc) )
-+         get_unsafe(desc, pdesc) )
-         return 0;
+@@ -149,12 +149,12 @@ static int read_mem(enum x86_segment seg
  
-     *sel = (desc.a >> 16) & 0x0000fffc;
-@@ -59,7 +59,7 @@ static int read_gate_descriptor(unsigned
+     addr = (uint32_t)addr;
+ 
+-    if ( (rc = __copy_from_user(p_data, (void *)addr, bytes)) )
++    if ( (rc = __copy_from_guest_pv(p_data, (void __user *)addr, bytes)) )
      {
-         if ( (*ar & 0x1f00) != 0x0c00 ||
-              /* Limit check done above already. */
--             __get_user(desc, pdesc + 1) ||
-+             get_unsafe(desc, pdesc + 1) ||
-              (desc.b & 0x1f00) )
-             return 0;
+         /*
+          * TODO: This should report PFEC_insn_fetch when goc->insn_fetch &&
+          * cpu_has_nx, but we'd then need a "fetch" variant of
+-         * __copy_from_user() respecting NX, SMEP, and protection keys.
++         * __copy_from_guest_pv() respecting NX, SMEP, and protection keys.
+          */
+         x86_emul_pagefault(0, addr + bytes - rc, ctxt);
+         return X86EMUL_EXCEPTION;
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -649,7 +649,8 @@ static int rep_ins(uint16_t port,
+         if ( rc != X86EMUL_OKAY )
+             return rc;
  
-@@ -294,7 +294,7 @@ void pv_emulate_gate_op(struct cpu_user_
-         { \
-             --stkp; \
-             esp -= 4; \
--            rc = __put_user(item, stkp); \
-+            rc = __put_guest(item, stkp); \
-             if ( rc ) \
-             { \
-                 pv_inject_page_fault(PFEC_write_access, \
-@@ -362,7 +362,7 @@ void pv_emulate_gate_op(struct cpu_user_
-                     unsigned int parm;
- 
-                     --ustkp;
--                    rc = __get_user(parm, ustkp);
-+                    rc = __get_guest(parm, ustkp);
-                     if ( rc )
-                     {
-                         pv_inject_page_fault(0, (unsigned long)(ustkp + 1) - rc);
---- a/xen/arch/x86/pv/emulate.c
-+++ b/xen/arch/x86/pv/emulate.c
-@@ -34,13 +34,13 @@ int pv_emul_read_descriptor(unsigned int
-     if ( sel < 4 ||
-          /*
-           * Don't apply the GDT limit here, as the selector may be a Xen
--          * provided one. __get_user() will fail (without taking further
-+          * provided one. get_unsafe() will fail (without taking further
-           * action) for ones falling in the gap between guest populated
-           * and Xen ones.
-           */
-          ((sel & 4) && (sel >> 3) >= v->arch.pv.ldt_ents) )
-         desc.b = desc.a = 0;
--    else if ( __get_user(desc, gdt_ldt_desc_ptr(sel)) )
-+    else if ( get_unsafe(desc, gdt_ldt_desc_ptr(sel)) )
-         return 0;
-     if ( !insn_fetch )
-         desc.b &= ~_SEGMENT_L;
---- a/xen/arch/x86/pv/iret.c
-+++ b/xen/arch/x86/pv/iret.c
-@@ -114,15 +114,15 @@ unsigned int compat_iret(void)
-     regs->rsp = (u32)regs->rsp;
- 
-     /* Restore EAX (clobbered by hypercall). */
--    if ( unlikely(__get_user(regs->eax, (u32 *)regs->rsp)) )
-+    if ( unlikely(__get_guest(regs->eax, (u32 *)regs->rsp)) )
-     {
-         domain_crash(v->domain);
-         return 0;
-     }
- 
-     /* Restore CS and EIP. */
--    if ( unlikely(__get_user(regs->eip, (u32 *)regs->rsp + 1)) ||
--        unlikely(__get_user(regs->cs, (u32 *)regs->rsp + 2)) )
-+    if ( unlikely(__get_guest(regs->eip, (u32 *)regs->rsp + 1)) ||
-+        unlikely(__get_guest(regs->cs, (u32 *)regs->rsp + 2)) )
-     {
-         domain_crash(v->domain);
-         return 0;
-@@ -132,7 +132,7 @@ unsigned int compat_iret(void)
-      * Fix up and restore EFLAGS. We fix up in a local staging area
-      * to avoid firing the BUG_ON(IOPL) check in arch_get_info_guest.
-      */
--    if ( unlikely(__get_user(eflags, (u32 *)regs->rsp + 3)) )
-+    if ( unlikely(__get_guest(eflags, (u32 *)regs->rsp + 3)) )
-     {
-         domain_crash(v->domain);
-         return 0;
-@@ -164,16 +164,16 @@ unsigned int compat_iret(void)
+-        if ( (rc = __copy_to_user((void *)addr, &data, bytes_per_rep)) != 0 )
++        if ( (rc = __copy_to_guest_pv((void __user *)addr, &data,
++                                      bytes_per_rep)) != 0 )
          {
-             for (i = 1; i < 10; ++i)
-             {
--                rc |= __get_user(x, (u32 *)regs->rsp + i);
--                rc |= __put_user(x, (u32 *)(unsigned long)ksp + i);
-+                rc |= __get_guest(x, (u32 *)regs->rsp + i);
-+                rc |= __put_guest(x, (u32 *)(unsigned long)ksp + i);
-             }
-         }
-         else if ( ksp > regs->esp )
+             x86_emul_pagefault(PFEC_write_access,
+                                addr + bytes_per_rep - rc, ctxt);
+@@ -716,7 +717,8 @@ static int rep_outs(enum x86_segment seg
+         if ( rc != X86EMUL_OKAY )
+             return rc;
+ 
+-        if ( (rc = __copy_from_user(&data, (void *)addr, bytes_per_rep)) != 0 )
++        if ( (rc = __copy_from_guest_pv(&data, (void __user *)addr,
++                                        bytes_per_rep)) != 0 )
          {
-             for ( i = 9; i > 0; --i )
-             {
--                rc |= __get_user(x, (u32 *)regs->rsp + i);
--                rc |= __put_user(x, (u32 *)(unsigned long)ksp + i);
-+                rc |= __get_guest(x, (u32 *)regs->rsp + i);
-+                rc |= __put_guest(x, (u32 *)(unsigned long)ksp + i);
-             }
-         }
-         if ( rc )
-@@ -189,7 +189,7 @@ unsigned int compat_iret(void)
-             eflags &= ~X86_EFLAGS_IF;
-         regs->eflags &= ~(X86_EFLAGS_VM|X86_EFLAGS_RF|
-                           X86_EFLAGS_NT|X86_EFLAGS_TF);
--        if ( unlikely(__put_user(0, (u32 *)regs->rsp)) )
-+        if ( unlikely(__put_guest(0, (u32 *)regs->rsp)) )
-         {
-             domain_crash(v->domain);
-             return 0;
-@@ -205,8 +205,8 @@ unsigned int compat_iret(void)
-     else if ( ring_1(regs) )
-         regs->esp += 16;
-     /* Return to ring 2/3: restore ESP and SS. */
--    else if ( __get_user(regs->ss, (u32 *)regs->rsp + 5) ||
--              __get_user(regs->esp, (u32 *)regs->rsp + 4) )
-+    else if ( __get_guest(regs->ss, (u32 *)regs->rsp + 5) ||
-+              __get_guest(regs->esp, (u32 *)regs->rsp + 4) )
+             x86_emul_pagefault(0, addr + bytes_per_rep - rc, ctxt);
+             return X86EMUL_EXCEPTION;
+@@ -1253,12 +1255,12 @@ static int insn_fetch(enum x86_segment s
+     if ( rc != X86EMUL_OKAY )
+         return rc;
+ 
+-    if ( (rc = __copy_from_user(p_data, (void *)addr, bytes)) != 0 )
++    if ( (rc = __copy_from_guest_pv(p_data, (void __user *)addr, bytes)) != 0 )
      {
-         domain_crash(v->domain);
-         return 0;
+         /*
+          * TODO: This should report PFEC_insn_fetch when goc->insn_fetch &&
+          * cpu_has_nx, but we'd then need a "fetch" variant of
+-         * __copy_from_user() respecting NX, SMEP, and protection keys.
++         * __copy_from_guest_pv() respecting NX, SMEP, and protection keys.
+          */
+         x86_emul_pagefault(0, addr + bytes - rc, ctxt);
+         return X86EMUL_EXCEPTION;
+--- a/xen/arch/x86/pv/mm.c
++++ b/xen/arch/x86/pv/mm.c
+@@ -41,7 +41,7 @@ l1_pgentry_t *map_guest_l1e(unsigned lon
+         return NULL;
+ 
+     /* Find this l1e and its enclosing l1mfn in the linear map. */
+-    if ( __copy_from_user(&l2e,
++    if ( copy_from_unsafe(&l2e,
+                           &__linear_l2_table[l2_linear_offset(linear)],
+                           sizeof(l2_pgentry_t)) )
+         return NULL;
+--- a/xen/arch/x86/pv/mm.h
++++ b/xen/arch/x86/pv/mm.h
+@@ -22,7 +22,7 @@ static inline l1_pgentry_t guest_get_eff
+         toggle_guest_pt(curr);
+ 
+     if ( unlikely(!__addr_ok(linear)) ||
+-         __copy_from_user(&l1e,
++         copy_from_unsafe(&l1e,
+                           &__linear_l1_table[l1_linear_offset(linear)],
+                           sizeof(l1_pgentry_t)) )
+         l1e = l1e_empty();
+--- a/xen/arch/x86/pv/ro-page-fault.c
++++ b/xen/arch/x86/pv/ro-page-fault.c
+@@ -43,7 +43,7 @@ static int ptwr_emulated_read(enum x86_s
+     unsigned long addr = offset;
+ 
+     if ( !__addr_ok(addr) ||
+-         (rc = __copy_from_user(p_data, (void *)addr, bytes)) )
++         (rc = __copy_from_guest_pv(p_data, (void *)addr, bytes)) )
+     {
+         x86_emul_pagefault(0, addr + bytes - rc, ctxt);  /* Read fault. */
+         return X86EMUL_EXCEPTION;
 --- a/xen/arch/x86/traps.c
 +++ b/xen/arch/x86/traps.c
-@@ -274,7 +274,7 @@ static void compat_show_guest_stack(stru
-     {
-         if ( (((long)stack - 1) ^ ((long)(stack + 1) - 1)) & mask )
-             break;
--        if ( __get_user(addr, stack) )
-+        if ( get_unsafe(addr, stack) )
-         {
-             if ( i != 0 )
-                 printk("\n    ");
-@@ -343,7 +343,7 @@ static void show_guest_stack(struct vcpu
-     {
-         if ( (((long)stack - 1) ^ ((long)(stack + 1) - 1)) & mask )
-             break;
--        if ( __get_user(addr, stack) )
-+        if ( get_unsafe(addr, stack) )
-         {
-             if ( i != 0 )
-                 printk("\n    ");
+@@ -1097,7 +1097,7 @@ void do_invalid_op(struct cpu_user_regs
+     }
+ 
+     if ( !is_active_kernel_text(regs->rip) ||
+-         __copy_from_user(bug_insn, eip, sizeof(bug_insn)) ||
++         copy_from_unsafe(bug_insn, eip, sizeof(bug_insn)) ||
+          memcmp(bug_insn, "\xf\xb", sizeof(bug_insn)) )
+         goto die;
+ 
+--- a/xen/arch/x86/usercopy.c
++++ b/xen/arch/x86/usercopy.c
+@@ -110,7 +110,7 @@ unsigned __copy_from_user_ll(void *to, c
+ unsigned copy_to_user(void __user *to, const void *from, unsigned n)
+ {
+     if ( access_ok(to, n) )
+-        n = __copy_to_user(to, from, n);
++        n = __copy_to_guest_pv(to, from, n);
+     return n;
+ }
+ 
+@@ -168,7 +168,7 @@ unsigned clear_user(void __user *to, uns
+ unsigned copy_from_user(void *to, const void __user *from, unsigned n)
+ {
+     if ( access_ok(from, n) )
+-        n = __copy_from_user(to, from, n);
++        n = __copy_from_guest_pv(to, from, n);
+     else
+         memset(to, 0, n);
+     return n;
+--- a/xen/include/asm-x86/guest_access.h
++++ b/xen/include/asm-x86/guest_access.h
+@@ -28,11 +28,11 @@
+ #define __raw_copy_to_guest(dst, src, len)      \
+     (is_hvm_vcpu(current) ?                     \
+      copy_to_user_hvm((dst), (src), (len)) :    \
+-     __copy_to_user((dst), (src), (len)))
++     __copy_to_guest_pv(dst, src, len))
+ #define __raw_copy_from_guest(dst, src, len)    \
+     (is_hvm_vcpu(current) ?                     \
+      copy_from_user_hvm((dst), (src), (len)) :  \
+-     __copy_from_user((dst), (src), (len)))
++     __copy_from_guest_pv(dst, src, len))
+ #define __raw_clear_guest(dst,  len)            \
+     (is_hvm_vcpu(current) ?                     \
+      clear_user_hvm((dst), (len)) :             \
 --- a/xen/include/asm-x86/uaccess.h
 +++ b/xen/include/asm-x86/uaccess.h
-@@ -60,13 +60,11 @@ extern void __put_user_bad(void);
-   __put_user_check((__typeof__(*(ptr)))(x),(ptr),sizeof(*(ptr)))
+@@ -197,21 +197,20 @@ do {
+ #define get_guest_size get_unsafe_size
  
  /**
-- * __get_user: - Get a simple variable from user space, with less checking.
-+ * __get_guest: - Get a simple variable from guest space, with less checking.
-  * @x:   Variable to store result.
-- * @ptr: Source address, in user space.
-+ * @ptr: Source address, in guest space.
+- * __copy_to_user: - Copy a block of data into user space, with less checking
+- * @to:   Destination address, in user space.
+- * @from: Source address, in kernel space.
++ * __copy_to_guest_pv: - Copy a block of data into guest space, with less
++ *                       checking
++ * @to:   Destination address, in guest space.
++ * @from: Source address, in hypervisor space.
+  * @n:    Number of bytes to copy.
   *
 - * Context: User context only.  This function may sleep.
 - *
-- * This macro copies a single simple variable from user space to kernel
-+ * This macro copies a single simple variable from guest space to hypervisor
-  * space.  It supports simple types like char and int, but not larger
-  * data types like structures or arrays.
+- * Copy data from kernel space to user space.  Caller must check
++ * Copy data from hypervisor space to guest space.  Caller must check
+  * the specified block with access_ok() before calling this function.
   *
-@@ -79,17 +77,15 @@ extern void __put_user_bad(void);
-  * Returns zero on success, or -EFAULT on error.
-  * On error, the variable @x is set to zero.
+  * Returns number of bytes that could not be copied.
+  * On success, this will be zero.
   */
--#define __get_user(x,ptr) \
--  __get_user_nocheck((x),(ptr),sizeof(*(ptr)))
-+#define __get_guest(x, ptr) get_guest_nocheck(x, ptr, sizeof(*(ptr)))
-+#define get_unsafe __get_guest
+ static always_inline unsigned long
+-__copy_to_user(void __user *to, const void *from, unsigned long n)
++__copy_to_guest_pv(void __user *to, const void *from, unsigned long n)
+ {
+     if (__builtin_constant_p(n)) {
+         unsigned long ret;
+@@ -233,16 +232,16 @@ __copy_to_user(void __user *to, const vo
+     }
+     return __copy_to_user_ll(to, from, n);
+ }
++#define copy_to_unsafe __copy_to_guest_pv
  
  /**
-- * __put_user: - Write a simple value into user space, with less checking.
-- * @x:   Value to copy to user space.
-- * @ptr: Destination address, in user space.
-+ * __put_guest: - Write a simple value into guest space, with less checking.
-+ * @x:   Value to store in guest space.
-+ * @ptr: Destination address, in guest space.
+- * __copy_from_user: - Copy a block of data from user space, with less checking
+- * @to:   Destination address, in kernel space.
+- * @from: Source address, in user space.
++ * __copy_from_guest_pv: - Copy a block of data from guest space, with less
++ *                         checking
++ * @to:   Destination address, in hypervisor space.
++ * @from: Source address, in guest space.
+  * @n:    Number of bytes to copy.
   *
 - * Context: User context only.  This function may sleep.
 - *
-- * This macro copies a single simple value from kernel space to user
-+ * This macro copies a single simple value from hypervisor space to guest
-  * space.  It supports simple types like char and int, but not larger
-  * data types like structures or arrays.
+- * Copy data from user space to kernel space.  Caller must check
++ * Copy data from guest space to hypervisor space.  Caller must check
+  * the specified block with access_ok() before calling this function.
   *
-@@ -101,13 +97,14 @@ extern void __put_user_bad(void);
-  *
-  * Returns zero on success, or -EFAULT on error.
+  * Returns number of bytes that could not be copied.
+@@ -252,7 +251,7 @@ __copy_to_user(void __user *to, const vo
+  * data to the requested size using zero bytes.
   */
--#define __put_user(x,ptr) \
--  __put_user_nocheck((__typeof__(*(ptr)))(x),(ptr),sizeof(*(ptr)))
-+#define __put_guest(x, ptr) \
-+    put_guest_nocheck((__typeof__(*(ptr)))(x), ptr, sizeof(*(ptr)))
-+#define put_unsafe __put_guest
- 
--#define __put_user_nocheck(x, ptr, size)				\
-+#define put_guest_nocheck(x, ptr, size)					\
- ({									\
- 	int err_; 							\
--	__put_user_size(x, ptr, size, err_, -EFAULT);			\
-+	put_guest_size(x, ptr, size, err_, -EFAULT);			\
- 	err_;								\
- })
- 
-@@ -115,14 +112,14 @@ extern void __put_user_bad(void);
- ({									\
- 	__typeof__(*(ptr)) __user *ptr_ = (ptr);			\
- 	__typeof__(size) size_ = (size);				\
--	access_ok(ptr_, size_) ? __put_user_nocheck(x, ptr_, size_)	\
-+	access_ok(ptr_, size_) ? put_guest_nocheck(x, ptr_, size_)	\
- 			       : -EFAULT;				\
- })
- 
--#define __get_user_nocheck(x, ptr, size)				\
-+#define get_guest_nocheck(x, ptr, size)					\
- ({									\
- 	int err_; 							\
--	__get_user_size(x, ptr, size, err_, -EFAULT);			\
-+	get_guest_size(x, ptr, size, err_, -EFAULT);			\
- 	err_;								\
- })
- 
-@@ -130,7 +127,7 @@ extern void __put_user_bad(void);
- ({									\
- 	__typeof__(*(ptr)) __user *ptr_ = (ptr);			\
- 	__typeof__(size) size_ = (size);				\
--	access_ok(ptr_, size_) ? __get_user_nocheck(x, ptr_, size_)	\
-+	access_ok(ptr_, size_) ? get_guest_nocheck(x, ptr_, size_)	\
- 			       : -EFAULT;				\
- })
- 
-@@ -142,7 +139,7 @@ struct __large_struct { unsigned long bu
-  * we do not write to any memory gcc knows about, so there are no
-  * aliasing issues.
-  */
--#define __put_user_asm(x, addr, err, itype, rtype, ltype, errret)	\
-+#define put_unsafe_asm(x, addr, err, itype, rtype, ltype, errret)	\
- 	stac();								\
- 	__asm__ __volatile__(						\
- 		"1:	mov"itype" %"rtype"1,%2\n"			\
-@@ -156,7 +153,7 @@ struct __large_struct { unsigned long bu
- 		: ltype (x), "m"(__m(addr)), "i"(errret), "0"(err));	\
- 	clac()
- 
--#define __get_user_asm(x, addr, err, itype, rtype, ltype, errret)	\
-+#define get_unsafe_asm(x, addr, err, itype, rtype, ltype, errret)	\
- 	stac();								\
- 	__asm__ __volatile__(						\
- 		"1:	mov"itype" %2,%"rtype"1\n"			\
-@@ -171,6 +168,34 @@ struct __large_struct { unsigned long bu
- 		: "m"(__m(addr)), "i"(errret), "0"(err));		\
- 	clac()
- 
-+#define put_unsafe_size(x, ptr, size, retval, errret)                      \
-+do {                                                                       \
-+    retval = 0;                                                            \
-+    switch ( size )                                                        \
-+    {                                                                      \
-+    case 1: put_unsafe_asm(x, ptr, retval, "b", "b", "iq", errret); break; \
-+    case 2: put_unsafe_asm(x, ptr, retval, "w", "w", "ir", errret); break; \
-+    case 4: put_unsafe_asm(x, ptr, retval, "l", "k", "ir", errret); break; \
-+    case 8: put_unsafe_asm(x, ptr, retval, "q",  "", "ir", errret); break; \
-+    default: __put_user_bad();                                             \
-+    }                                                                      \
-+} while ( false )
-+#define put_guest_size put_unsafe_size
-+
-+#define get_unsafe_size(x, ptr, size, retval, errret)                      \
-+do {                                                                       \
-+    retval = 0;                                                            \
-+    switch ( size )                                                        \
-+    {                                                                      \
-+    case 1: get_unsafe_asm(x, ptr, retval, "b", "b", "=q", errret); break; \
-+    case 2: get_unsafe_asm(x, ptr, retval, "w", "w", "=r", errret); break; \
-+    case 4: get_unsafe_asm(x, ptr, retval, "l", "k", "=r", errret); break; \
-+    case 8: get_unsafe_asm(x, ptr, retval, "q",  "", "=r", errret); break; \
-+    default: __get_user_bad();                                             \
-+    }                                                                      \
-+} while ( false )
-+#define get_guest_size get_unsafe_size
-+
- /**
-  * __copy_to_user: - Copy a block of data into user space, with less checking
-  * @to:   Destination address, in user space.
-@@ -193,16 +218,16 @@ __copy_to_user(void __user *to, const vo
- 
-         switch (n) {
-         case 1:
--            __put_user_size(*(const u8 *)from, (u8 __user *)to, 1, ret, 1);
-+            put_guest_size(*(const uint8_t *)from, to, 1, ret, 1);
-             return ret;
-         case 2:
--            __put_user_size(*(const u16 *)from, (u16 __user *)to, 2, ret, 2);
-+            put_guest_size(*(const uint16_t *)from, to, 2, ret, 2);
-             return ret;
-         case 4:
--            __put_user_size(*(const u32 *)from, (u32 __user *)to, 4, ret, 4);
-+            put_guest_size(*(const uint32_t *)from, to, 4, ret, 4);
-             return ret;
-         case 8:
--            __put_user_size(*(const u64 *)from, (u64 __user *)to, 8, ret, 8);
-+            put_guest_size(*(const uint64_t *)from, to, 8, ret, 8);
-             return ret;
-         }
+ static always_inline unsigned long
+-__copy_from_user(void *to, const void __user *from, unsigned long n)
++__copy_from_guest_pv(void *to, const void __user *from, unsigned long n)
+ {
+     if (__builtin_constant_p(n)) {
+         unsigned long ret;
+@@ -274,6 +273,7 @@ __copy_from_user(void *to, const void __
      }
-@@ -234,16 +259,16 @@ __copy_from_user(void *to, const void __
+     return __copy_from_user_ll(to, from, n);
+ }
++#define copy_from_unsafe __copy_from_guest_pv
  
-         switch (n) {
-         case 1:
--            __get_user_size(*(u8 *)to, from, 1, ret, 1);
-+            get_guest_size(*(uint8_t *)to, from, 1, ret, 1);
-             return ret;
-         case 2:
--            __get_user_size(*(u16 *)to, from, 2, ret, 2);
-+            get_guest_size(*(uint16_t *)to, from, 2, ret, 2);
-             return ret;
-         case 4:
--            __get_user_size(*(u32 *)to, from, 4, ret, 4);
-+            get_guest_size(*(uint32_t *)to, from, 4, ret, 4);
-             return ret;
-         case 8:
--            __get_user_size(*(u64*)to, from, 8, ret, 8);
-+            get_guest_size(*(uint64_t *)to, from, 8, ret, 8);
-             return ret;
-         }
-     }
---- a/xen/include/asm-x86/x86_64/uaccess.h
-+++ b/xen/include/asm-x86/x86_64/uaccess.h
-@@ -57,28 +57,4 @@ extern void *xlat_malloc(unsigned long *
-     (likely((count) < (~0U / (size))) && \
-      compat_access_ok(addr, 0 + (count) * (size)))
- 
--#define __put_user_size(x,ptr,size,retval,errret)			\
--do {									\
--	retval = 0;							\
--	switch (size) {							\
--	case 1: __put_user_asm(x,ptr,retval,"b","b","iq",errret);break;	\
--	case 2: __put_user_asm(x,ptr,retval,"w","w","ir",errret);break; \
--	case 4: __put_user_asm(x,ptr,retval,"l","k","ir",errret);break;	\
--	case 8: __put_user_asm(x,ptr,retval,"q","","ir",errret);break;	\
--	default: __put_user_bad();					\
--	}								\
--} while (0)
--
--#define __get_user_size(x,ptr,size,retval,errret)			\
--do {									\
--	retval = 0;							\
--	switch (size) {							\
--	case 1: __get_user_asm(x,ptr,retval,"b","b","=q",errret);break;	\
--	case 2: __get_user_asm(x,ptr,retval,"w","w","=r",errret);break;	\
--	case 4: __get_user_asm(x,ptr,retval,"l","k","=r",errret);break;	\
--	case 8: __get_user_asm(x,ptr,retval,"q","","=r",errret); break;	\
--	default: __get_user_bad();					\
--	}								\
--} while (0)
--
- #endif /* __X86_64_UACCESS_H */
---- a/xen/test/livepatch/xen_hello_world_func.c
-+++ b/xen/test/livepatch/xen_hello_world_func.c
-@@ -26,7 +26,7 @@ const char *xen_hello_world(void)
-      * Any BUG, or WARN_ON will contain symbol and payload name. Furthermore
-      * exceptions will be caught and processed properly.
-      */
--    rc = __get_user(tmp, non_canonical_addr);
-+    rc = get_unsafe(tmp, non_canonical_addr);
-     BUG_ON(rc != -EFAULT);
- #endif
- #if defined(CONFIG_ARM)
+ /*
+  * The exception table consists of pairs of addresses: the first is the
 
 
