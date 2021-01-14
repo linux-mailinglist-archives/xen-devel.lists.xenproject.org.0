@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1A82F6A59
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 20:03:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67502.120542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AECAC2F6A96
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 20:11:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67507.120554 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l07tu-0004At-MZ; Thu, 14 Jan 2021 19:03:18 +0000
+	id 1l081K-0005Cp-LM; Thu, 14 Jan 2021 19:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67502.120542; Thu, 14 Jan 2021 19:03:18 +0000
+Received: by outflank-mailman (output) from mailman id 67507.120554; Thu, 14 Jan 2021 19:10:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l07tu-0004AU-If; Thu, 14 Jan 2021 19:03:18 +0000
-Received: by outflank-mailman (input) for mailman id 67502;
- Thu, 14 Jan 2021 19:03:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l081K-0005CQ-IK; Thu, 14 Jan 2021 19:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 67507;
+ Thu, 14 Jan 2021 19:10:57 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EUaL=GR=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l07ts-0004AP-O4
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 19:03:16 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9f2b2ac5-2079-4303-9a8b-9d54689fbfd1;
- Thu, 14 Jan 2021 19:03:15 +0000 (UTC)
+ id 1l081J-0005CL-5t
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 19:10:57 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id be163d42-f1a4-4bc0-aaf0-0682e806c93c;
+ Thu, 14 Jan 2021 19:10:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,237 +35,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f2b2ac5-2079-4303-9a8b-9d54689fbfd1
+X-Inumbo-ID: be163d42-f1a4-4bc0-aaf0-0682e806c93c
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610650995;
-  h=subject:to:references:from:message-id:date:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=jCuAQzpxXSOOfSt5gCavhijqN08o0qV+SEzlObKWzys=;
-  b=M91q+8hStjytHJUfho2JfTpyBrBu0zY9eKEvlv9YMCNokIC+2Q++g+4U
-   JCPN+pIPCq7dffhX3kpGpR3Fk4Oh5tnqgCqPWmRCJwITUbGGgZbJoF/un
-   WVjxPUcL0ce0ivEqW0aT+kYTLjwJJs4tH2NtcTTzioOM9AtKPcFHtmxE5
+  d=citrix.com; s=securemail; t=1610651455;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=4aSSm4g/Pny+Yw63E1Bno8jWZ52ruC3UElyPceZEdiI=;
+  b=CyIzGrnwovbxnvSioJgkxGM64tfC1aWAdmd9WSOetCqSmhKqvdwu4zut
+   QBWOMLkgqzveGbeRNCRGc9r/XlocJzVb8SGRQJQT+tAOqnBiOrZQMb1zT
+   63J7XOPzz72eCpMo4SBjHJFYXYpW6/h/kFQXfwLwbi55Lm8Nf87YJ1KbI
    g=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: OKCT7B6lSDTkjVvUw4r4dQgZ3ZmWoIYXTwmXBSPN8k80YxyWcwvMgtNUSlQv3vxiCDyPQJp0X9
- YgQH+gv1V5mFUMfekXT3o1hTSFQ5zW5EO7Qji9JE+miM1Le9FLWkTMFfAtFsVhNt5qnt/MCQq0
- KBb1lW0vH//6zqOhmaJEfbsf9FW3OHQlagX2wO/6t5hI2I+IQELCzmcaGZJDKAebPwst6CDlWh
- etDbWhqTvtWbT3rr4P9mnMPIAGkGPMDoaDfZwC0u3vfVIi5iSJ4Y0YkuHUx9rMnhD3HtGBoXYn
- oRo=
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: TJN8mYHoisxlTFZTYTQuLJGJj58fcwKPRPkwwTbXPKTqGkr+iUxuaQ83J1KCjREsHDHfdrH7EL
+ Cfg8rk7/i2CaMj5r2DdLrbClw3gK/RfVZXXkXUUvABmGfFm6u1bSnCJ6Ben5nLT/W7Sw60yh1B
+ wVk0Oe8X7QlmaNAy2EEtOvIypCFUnnKq3PXwo0ziv2GjXJFep2Djf2UZXXmMysASyh+/zSx7T7
+ MIm7sqqqxwbIfVO+Hw9VH3GbwS7qGgoYf5ymHXn+2gT3MLJqIZlmHwuNu/NorYlxJ2LqJ+4QO2
+ vBQ=
 X-SBRS: 5.2
-X-MesageID: 36410150
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 35489900
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,347,1602561600"; 
-   d="scan'208";a="36410150"
+   d="scan'208";a="35489900"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mhtOGHlwXJiDMu3Gkhe3x2VFUB2gNltT8la6rDy2Fz7tNhX1bqg06R9r0IQ9WzGzQ+ev38bmuhKaMaECnsPP10QFiwzjQE9V20h/7hq+2pWpr/DOsYhlQ76yWWroZfeRIjEGF6sXmHEtDo17KHHhOahvSx2yi3jChKXcaUvJswGLz5sU+4u1b05MHODi3ZI1lVVKPCjIT8Hj7dhwlV53XJuAp0y2BOn2UENw+vsdFDLPv88/LI3V9cBThpneO08qLRBHBCxdtGezdbxYc2K13xEQLul3Fm6Tfiopd1K0UmMufQbfQZDnyiNR6cPJ5iph09iRsUYv6GMp25LS6YyVNw==
+ b=CaDsncxCQJnoOYZ327S1GbTBvADlaAQoGXjV5gROhEjy2LNpto33AirNeig6eTxYMy0T4KKkhXHQ63vpoV162NP2kCwwsvit3zJu4QIq/62QRRCNPZ8pbXKC3UrP8cWokalMSs2UQl8QTZoDa6azUsiBE9Y539e9/fY8SBm+Bgic2JKBNM/hq1Ejr/ks0OhO1zCj24aEUR3REjIUnuOHYdPytFeaC97lNEAI8Ino2ETN4nfoD6Q0HLQh72V5i/oGLmlCuFsIPEeLoEWmuwA2HFdyVEOYD+d2p7cM+IspR5CDaDFtDvMtkerE9qFNUnxp625wZM1dKvo7tjmCRHZzyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aBHCE4jeaU0sVXAtULZF3unxtgpo28yScfAxHSlmfcQ=;
- b=UXUGULjyPNkBVS8wn9m7mHHxovEl7BIzWj8NgUXff8BRAkmrnCWNKjyvGbSrn3E+WfQnLlWUpafEQ/4gC0mJKE05ZJERIPrjXPDmyOcj/zUQMTCkiWUb4y8XxMsJZhZuD6ymxSfp71sRv5w65Di0/U5RgyeKq9k35tOZy5S+fuwqCxsKuqXb52b7ivN6QCiURsB31ccco2PTdl1wGOAdna6NStQvjKI7cS7gNc/tuDjFMTYF260al/iDcg0J+uqxJWD0TR6l/1arQ5HrGDBg4ZmPnHoOxzxArxxEZS+nCeBVQPIWVXjsCgwI0lxCnxWEeIuhLS4gq0K8Q2UyZdangQ==
+ bh=FqAl7d6g7y7Mrlwhag1CctonKBE2hPKLD9s1DJ5q7Z4=;
+ b=jYLIld628zxDqxs1lpPDnaRs4xSKqvVywZ45n674NhiDMmVL2Xv/KcoAbI1o8+skkFNJ5p/8ZCJpnDShP4EPHBmfDdx66s/IT96/Pwjy7X4M9abL8LYebPbHE2gA1t01Ui+2mR5vGosCZ58nWFd0C0AFKzrmq0KrFwiB1Wil3ABDCHSot/fiQYB7q3cJsv8iKy6JBVm9uCKcMpH5dp2WUeYaMBKQV8cF8GQGh6vQ/iwbe+urYhbP1xAh+s8zG/MemXUfYYTO0jG3V4ZJI4gJPEoabpC+Z5mxgrq5uBT9aJJAWk9w8Rdp2NV6YwdIMVb5Vw+HLyCTf55X6KIhoR4xAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aBHCE4jeaU0sVXAtULZF3unxtgpo28yScfAxHSlmfcQ=;
- b=UnzQvugAhjNMp9ZSkTcB/19fPUMCt0rqwzSz54f578cbpD64oR82CTi0Rp8a3iTNOOJgUyNbbEkxPZlVtum97eowpwfeYo5353KOzLN/i033DFga6TtSzp6H0CPmFZV8iEvtYD7GGVc5OMTVc9xNBQSUYW9tbn6ESLT8vmap9sA=
-Subject: Re: [ANNOUNCE] Xen 4.15 release schedule and feature tracking
-To: Ian Jackson <iwj@xenproject.org>, <xen-devel@lists.xenproject.org>,
-	<committers@xenproject.org>, Tamas K Lengyel <tamas@tklengyel.com>,
-	=?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>
-References: <24567.7198.846779.557032@mariner.uk.xensource.com>
- <24576.27654.137226.608671@mariner.uk.xensource.com>
+ bh=FqAl7d6g7y7Mrlwhag1CctonKBE2hPKLD9s1DJ5q7Z4=;
+ b=oR46W+3pBrIRHzx6ZSJwEQAYS679DN9B31iyjDcfcFRhFkY1cEt0gzHYXaPAPdh2S5XVgMcBFU0sSPq/GA8zbRP4ZNEViZGBUOooV7egqxTKNT/B7yzY2NSmjbUL7eqoMjbabjQ92f098Z5u6NnWURSKflrh5Ko/O64soI7ELZY=
+Subject: Re: [PATCH v11 01/27] tools/libxenevtchn: switch to standard xen
+ coding style
+To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210114153803.2591-1-jgross@suse.com>
+ <20210114153803.2591-2-jgross@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <017cd214-fce8-f8b7-7134-0a89eb45c2ac@citrix.com>
-Date: Thu, 14 Jan 2021 19:02:14 +0000
+Message-ID: <5f282314-d07f-33eb-1e5b-118ce4de3687@citrix.com>
+Date: Thu, 14 Jan 2021 19:07:53 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
-In-Reply-To: <24576.27654.137226.608671@mariner.uk.xensource.com>
+In-Reply-To: <20210114153803.2591-2-jgross@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0491.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1ab::10) To BYAPR03MB4728.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO2P265CA0173.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a::17) To BYAPR03MB4728.namprd03.prod.outlook.com
  (2603:10b6:a03:13a::24)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b247fb8d-79c2-47c7-2429-08d8b8bf08cc
-X-MS-TrafficTypeDiagnostic: BY5PR03MB5112:
-X-Microsoft-Antispam-PRVS: <BY5PR03MB5112C964FDDED90E57E34826BAA80@BY5PR03MB5112.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: 0e206008-2059-4279-ea62-08d8b8bfb5d9
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4837:
+X-Microsoft-Antispam-PRVS: <BYAPR03MB4837EA082824D0C9F1EAEF96BAA80@BYAPR03MB4837.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Cv1cHgy7JPUfPc1JQpU8g+ICRvDJ7CRIKfg2WhhGbryDmhXD6vi7FgynQLfDBoffLcWl8CCC1aYUwdiZzmUPIoHhOEdZhPmP3gvoIRxDVjXeiV1l3xqJW3f1vh7BLNAbRR82oIiVpM5aWkhkZXtm2M8UH/Iy40gEdNpw36mF01g09ceWaXda7wbSHpP5GZJLGESzz+KqkGvSLq3gLR3/pgMwXuV6dTHZ9xPWcO3GE/PmmAdNb0bjCq6GW0PY9v6zgWscYdS8exlugqsLsefekBvJmEEjP8DRrCTHCIzQQtqYOR5QnUixFnuh/CAdo05eNWEpJo+N7FbNOuisVw2jsUEin/6TOTW/0ilLm6kDHku7V57MuPZJuRxyI9wLePpcuFBN3lKp+3qmFBFKJ8Lvo3cQfoSDWzlLfnDyEpM4XNchyUAfQRr0veo0v09Gf3u3R9KO/CbQyay+oWXIZuH7w0jGV/QZBKOyNuhEnFyv/jx7LE5GFITaG2fXasInEZS1FuZSAyU2tIA5FZAbvypbO9DsPRCfRdFFzcN7dQ3tY5fIOF0d1sqcKerltfwqHbqw
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(376002)(396003)(366004)(39860400002)(346002)(8936002)(86362001)(2906002)(31696002)(31686004)(110136005)(478600001)(16526019)(316002)(16576012)(966005)(83380400001)(53546011)(5660300002)(66946007)(66556008)(6486002)(66476007)(6666004)(8676002)(956004)(2616005)(36756003)(186003)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?S2RMT3NUWGJ4ZDdiT1hFL0cxcFRyallySXlQMm5TUHhaZnVEWng2Tm9zRTl3?=
- =?utf-8?B?QjFrSU9FT2RNYlZIK1lQbVlQMEcvdDZsSnA4UFZUc3h2WGg5cC9MUDZJY0lO?=
- =?utf-8?B?WUNScG96ZkRmQktjM2Q5UVRJdzIyQlFRbVExOSsyNWVrUVlZLytzb0krMkEv?=
- =?utf-8?B?UDZTd1B6c1QyYklrTEdvQW4xaGZHSTI1ZTVJUDNOTlNXaG96R0U5ZHQ1dTJU?=
- =?utf-8?B?ZE9lOGFhdXlwc1pkNW9wUHZYSU5KQnJnWU5CbkJMWGNQN0NWdlJSMll6LzJC?=
- =?utf-8?B?ZUJBaHBKYjRGZG9xUUwrMzdyQ0N6dlZvS2ZNOGYyd2hjZHhZRjV0aWl3WkM0?=
- =?utf-8?B?dkpGTUlYMXRzK00reDVlV1BaQ0QranVhR044SkFnRkZSZXh3bU5EWHJGcWE4?=
- =?utf-8?B?SGtOWEd4aEVlbGJYVUJKaGc5ZFJIc2d6cmdIR2YwZThZb0huM2J2dXp5cGdy?=
- =?utf-8?B?cXh4bzNPQ29WZTIrRHdMVXZiL1lsSS9EWEVkL0xPcFVZMi90aU4yVWs0Y1RD?=
- =?utf-8?B?L29DT1RRSnhzNWVHdzM3YmNTMEJvaWt5M0lpSXloVnF3M1lQbEZmck5QZHMx?=
- =?utf-8?B?TmZuWjRnSm91b1ZlbWxpbkUyeE9nVWxlYmdBYTlna1Y4LzMvUXYyOXoxOGR6?=
- =?utf-8?B?cmk5aTBqOHl4OG55NHcrekpabk1pTjBXdnozNURlR0R1YitlMjRzVjE2UG54?=
- =?utf-8?B?RFpMV3ZESDhGdE14SnRWNEVWNUlUTE1DOTJzbXRMTjNvdEs0OFZ6bUxHN3pD?=
- =?utf-8?B?YlBtcnE5L2ZxNWE4UTZuaXJWM20yTGFUMHFvSnROYWpvdEtSaU9Pc0JHUGE0?=
- =?utf-8?B?eTFUMnlCM0QxREoreDRYMzNaTlhIZkhpNGNHaFZuZHFFelU0MzVEQ09ia1hw?=
- =?utf-8?B?SDFEU1pPVlRmQUN2OW1WT285NFJiVTNFWStHN2pZUEtPaHhGSnFtY3lhVys1?=
- =?utf-8?B?SGxUa2lEdWhOWnVDZTZaVnk5Z21iY2VzRlBudW94R2plVThpeE1Tb3N2QWhK?=
- =?utf-8?B?SUFpVDBNRFh3TWViRm4rQ3J2NTN3QkpWd2xTMTlwaERwYVR3YVZuQ1dWdmZR?=
- =?utf-8?B?NlRVTWFUSlphM1gyMWhvWHVtN0ozSTdDa2MrMVJuWVZsc0FVR2sxS1VwNHlM?=
- =?utf-8?B?cGdJbmRNai9YNkFRWkFwMmFUZktZb0Z2WDFoOXZBY2N6OS9YWHZrWEtsRmly?=
- =?utf-8?B?VlJrek1xOTVwL3VmWVpGWEJsSDRTYkpKejVyNXVOcXRDZlYwbjdTWnFRaytY?=
- =?utf-8?B?YStEYlFKOGptM2UyWFVhazdsSG5WM216WnVvUXlKclJBOTY2aU1IYnM5OFhR?=
- =?utf-8?Q?tX5svwU8ffEEH1QhDwJIgvNRy48dRCmx3S?=
+X-Microsoft-Antispam-Message-Info: h5ViW3dGvhff/pl39AH+uddj+lePQhNrPnNk3DphItA9+xuZhjG+QcTJVg68j4aqE2lj8SC8f3llRYhmc8Pb0JepzeVJ4UayvjhbphdMU6X41nr6xe2JMP97SgQZcVPdkUlxGuqIFEu3m6i0Byg3AWoTCtuyLJe0esj8VbudHSU4X/jJdF4bAqmbJQc8zpwkZbekbyunY3b6nqWBpHMfSynTnkaL+qsXcKNRHYtQWc4Aleqhrt0FIVuIu/ayUbRBu1bHSDD9AKmEaMFTwR8POjqEijUZkU4XJlBPLOrYaU5rL19NR1jbohFfrqBfd0/9cABaOpM6rPCI7/wFvtMd7L2SvHqSSYnQF1/lCOSH59g44ityef0a1J1IZbpf2syOKNkl5AWePnm5RPZCvsFQAeg/5av/rwN9vhUfWj6Fy/jgq3othtXRpPgxRyHPE952Oav6Gj9AGOy3kQRDNROZ5O1WbwOEBAubU7ThcH7rK00=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(366004)(136003)(346002)(396003)(39860400002)(956004)(6666004)(36756003)(53546011)(2616005)(66946007)(86362001)(16526019)(66476007)(31686004)(4326008)(478600001)(26005)(16576012)(186003)(31696002)(316002)(54906003)(66556008)(6486002)(8676002)(8936002)(2906002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?TUd1VTVCY3gzeEd6QmNYT1llaDZ3SVpnWFVLNGUvYUhrYkpjak00d1BUYW9u?=
+ =?utf-8?B?eDl5ZlRCTVRkSHI5NDYvaGJTMVNkdXFOS2dnbVBScERSNStGa0RKRW5LNG0v?=
+ =?utf-8?B?MjNYa3JnZmlVQ3c3UjMwV1l5SGxtT3kxV0p3bHE5VDdHVll6cVhXQjRmYWlv?=
+ =?utf-8?B?VzFPd2xVK2NvUVlRQ3BQN0Fya21JNGRFaTM1VHcyZXkrYXlXbGxhTG45K1pH?=
+ =?utf-8?B?eTdBK2svM1BkNHk5aXFOSmZVaVE5UWNxZWZ3a1RpR2tnN1kyMkhqOHpSR2sy?=
+ =?utf-8?B?SUxVTkhBRVJBdUxUL1kwaDNtOUhkMUt2bGRzWHpNQXpCREkvenc3UWFvVDNH?=
+ =?utf-8?B?MnFWK0EzUWoyZ2hiWSsyWjh1NFR4T1YxWTJ6NGY4endWKzNON1IxNFhsamlU?=
+ =?utf-8?B?SVZ1NG5EZ09SSStzRTBrUGdsUk5ZL0lEcDNDMTVWMTgrODc2ZzVNc3pxYlJL?=
+ =?utf-8?B?UEZMTjhzdkh2Y0xoTkM0S3oyNTVHTWxHV0Q1QnkrTUdsZ2lYV2lZbHE1ZHl6?=
+ =?utf-8?B?cFFZSDZlL0wwMlV5bGtkVDdMcmhoMWpSbGRxT1hCT3V6emRla0hVNUhTRC9F?=
+ =?utf-8?B?cmlobWdNRnNGV1o4cWpIYW1RVGpCUmMzT1BjcElXdlVkMDVzNSswNGhLcDF3?=
+ =?utf-8?B?NXFTcyt5OE1GUkRuYWM4WTFUdkRYMHZNRDQzWWJYTFpFVHR0bmVRM0VZMDNy?=
+ =?utf-8?B?RUlHZFRFNVJJQ0RHRUo2MkNsWXhzZHdweGhKdmZWNE1nWWpnVllDZy9qdFV3?=
+ =?utf-8?B?czhHbVRKa0kvZ2JtTVlKVzh4U3UrVHdZRDJPMWV0cTQ5RjQ0b0x5cjBYT3RQ?=
+ =?utf-8?B?eGhLbXd2QVQrV3R4ZGNkeTZUQk1Ra3UzdU9aWFBITG9mRmxDMG1zVzlmRUdl?=
+ =?utf-8?B?S2lhS3ZPWmNYYXRQSTZNdTA4NmNVM1dJdE51azROR1p1eXAxQWlEQXUvd1VI?=
+ =?utf-8?B?RDZTcDQ0R0xFMG1IUkFvQzhWRFM3VXRobjNuSUpEYk5HMmxXYi8yWE0xYUYv?=
+ =?utf-8?B?bGlDVnNSdzNuMUxUUDlma2FKc1ErZjl1SXJLN2dEeGR2UkpNRTVwczdIbEFZ?=
+ =?utf-8?B?WkN2cVNkbFFYc282bEtnYjJjRERMekcyWHg3M2NKWVc5NWlHUk8zci9na0ln?=
+ =?utf-8?B?alBlVFFhNlE0QlBOdkhxUndjTUZCa0dwK2lvTDAwc25pMlZVZXdobDIvRHBk?=
+ =?utf-8?B?c3g0S1lTOTgvcWFYbkVsdnNST053Z3JQSzRXNW9nb2pUUlhnRXVnNVVJMERi?=
+ =?utf-8?B?MHV2Wkk5Mm1rWlUzQ2U1VG5JdlNST0kxUVlhL0NLNEFDamQ3OTRzTW8xallE?=
+ =?utf-8?Q?zBmoS1X2pHdRaVVhJZvIpaS5O8GKSzdGI8?=
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2021 19:03:09.5217
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2021 19:08:00.0637
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-Network-Message-Id: b247fb8d-79c2-47c7-2429-08d8b8bf08cc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e206008-2059-4279-ea62-08d8b8bfb5d9
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M6wcnZP1W4I2KL0MijTuUl6GmyGbA3GZ33vIeRSjz3AwSZswrGJwcMnS5BQQ7mN3iZrkUct2Y5VA5hEn9aPl6IRjBFOZnam5yDBNd1N++sU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5112
+X-MS-Exchange-CrossTenant-UserPrincipalName: JO/pz2smAoQGhMN61YiKMV+0cE2hKKpMY/FrcF2sjJ2iMX4dIyj9CaSv3i1i7cYpQNv5etL49m0RYzRKuUv977DmwFgZR+MUlbu/sXFFxfM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4837
 X-OriginatorOrg: citrix.com
 
-On 14/01/2021 16:06, Ian Jackson wrote:
-> The last posting date for new feature patches for Xen 4.15 is
-> tomorrow. [1]  We seem to be getting a reasonable good flood of stuff
-> trying to meet this deadline :-).
+On 14/01/2021 15:37, Juergen Gross wrote:
+> There is a mixture of different styles in libxenevtchn. Use the
+> standard xen style only.
 >
-> Patches for new fetures posted after tomorrow will be deferred to the
-> next Xen release after 4.15.  NB the primary responsibility for
-> driving a feature's progress to meet the release schedule, lies with
-> the feature's proponent(s).
+> No functional change.
 >
->
->   As a reminder, here is the release schedule:
-> + (unchanged information indented with spaces):
->
->    Friday 15th January    Last posting date
->
->        Patches adding new features should be posted to the mailing list
->        by this cate, although perhaps not in their final version.
->
->    Friday 29th January    Feature freeze
->
->        Patches adding new features should be committed by this date.
->        Straightforward bugfixes may continue to be accepted by
->        maintainers.
->
->    Friday 12th February **tentatve**   Code freeze
->
->        Bugfixes only, all changes to be approved by the Release Manager.
->
->    Week of 12th March **tentative**    Release
->        (probably Tuesday or Wednesday)
->
->   Any patches containing substantial refactoring are to treated as
->   new features, even if they intent is to fix bugs.
->
->   Freeze exceptions will not be routine, but may be granted in
->   exceptional cases for small changes on the basis of risk assessment.
->   Large series will not get exceptions.  Contributors *must not* rely on
->   getting, or expect, a freeze exception.
->
-> + New or improved tests (supposing they do not involve refactoring,
-> + even build system reorganisation), and documentation improvements,
-> + will generally be treated as bugfixes.
->
->   The codefreeze and release dates are provisional and will be adjusted
->   in the light of apparent code quality etc.
->
->   If as a feature proponent you feel your feature is at risk and there
->   is something the Xen Project could do to help, please consult me or
->   the Community Manager.  In such situations please reach out earlier
->   rather than later.
->
->
-> In my last update I asked this:
->
->> If you are working on a feature you want in 4.15 please let me know
->> about it.  Ideally I'd like a little stanza like this:
->>
->> S: feature name
->> O: feature owner (proponent) name
->> E: feature owner (proponent) email address
->> P: your current estimate of the probability it making 4.15, as a %age
->>
->> But free-form text is OK too.  Please reply to this mail.
-> I received one mail.  Thanks to Oleksandr Andrushchenko for his update
-> on the following feeature:
->
->   IOREQ feature (+ virtio-mmio) on Arm
->   https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg87002.html
->
->   Julien Grall <julien@xen.org>
->   Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->
-> I see that V4 of this series was just posted.  Thanks, Oleksandr.
-> I'll make a separate enquiry about your series.
->
-> I think if people don't find the traditional feature tracking useful,
-> I will try to assemble Release Notes information later, during the
-> freeze, when fewer people are rushing to try to meet the deadlines.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-(Now I have working email).
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, although if whoever
+commits could fix these as well, that would be great.
 
-Features:
+> diff --git a/tools/libs/evtchn/core.c b/tools/libs/evtchn/core.c
+> index aff6ecfaa0..5008810f4f 100644
+> --- a/tools/libs/evtchn/core.c
+> +++ b/tools/libs/evtchn/core.c
+> @@ -42,23 +44,26 @@ xenevtchn_handle *xenevtchn_open(xentoollog_logger *logger, unsigned open_flags)
+>      xce->tc_ah.restrict_callback = all_restrict_cb;
+>      xentoolcore__register_active_handle(&xce->tc_ah);
+>  
+> -    if (!xce->logger) {
+> -        xce->logger = xce->logger_tofree =
+> -            (xentoollog_logger*)
+> +    if ( !xce->logger )
+> +    {
+> +        xce->logger = xce->logger_tofree = (xentoollog_logger *)
+>              xtl_createlogger_stdiostream(stderr, XTL_PROGRESS, 0);
+> -        if (!xce->logger) goto err;
+> +        if ( !xce->logger )
+> +            goto err;
+>      }
+>  
+>      rc = osdep_evtchn_open(xce);
+> -    if ( rc  < 0 ) goto err;
+> +    if ( rc  < 0 )
+> +        goto err;
 
-1) acquire_resource fixes.
+Double Space.
 
-Not really a new feature - entirely bugfixing a preexisting one.
-Developed by me to help 2).  Reasonably well acked, but awaiting
-feedback on v3.
+> diff --git a/tools/libs/evtchn/minios.c b/tools/libs/evtchn/minios.c
+> index 9cd7636fc5..8e9f77bb6b 100644
+> --- a/tools/libs/evtchn/minios.c
+> +++ b/tools/libs/evtchn/minios.c
+> @@ -108,10 +119,12 @@ int xenevtchn_notify(xenevtchn_handle *xce, evtchn_port_t port)
+>  
+>      ret = notify_remote_via_evtchn(port);
+>  
+> -    if (ret < 0) {
+> +    if (ret < 0)
+> +    {
 
-2) External Processor Trace support.
-
-Development by Michał.  Depends on 1), and awaiting a new version being
-posted.
-
-As far as I'm aware, both Intel and CERT have production systems
-deployed using this functionality, so it is very highly desirable to get
-into 4.15.
-
-3) Initial Trenchboot+SKINIT support.
-
-I've got two patches I need to clean up and submit which is the first
-part of the Trenchboot + Dynamic Root of Trust on AMD support.  This
-will get Xen into a position where it can be started via the new grub
-"secure_launch" protocol.
-
-Later patches (i.e. post 4.15) will do support for Intel TXT (i.e.
-without tboot), as well as the common infrastructure for the TPM event
-log and further measurements during the boot process.
-
-4) "simple" autotest support.
-
-
-Bugs:
-
-1) HPET/PIT issue on newer Intel systems.  This has had literally tens
-of reports across the devel and users mailing lists, and prevents Xen
-from booting at all on the past two generations of Intel laptop.  I've
-finally got a repro and posted a fix to the list, but still in progress.
-
-2) "scheduler broken" bugs.  We've had 4 or 5 reports of Xen not
-working, and very little investigation on whats going on.  Suspicion is
-that there might be two bugs, one with smt=0 on recent AMD hardware, and
-one more general "some workloads cause negative credit" and might or
-might not be specific to credit2 (debugging feedback differs - also
-might be 3 underlying issue).
-
-All of these have had repeated bug reports.  I'd classify them as
-blockers, given the impact they're having on people.
+Lack of spaces.
 
 ~Andrew
 
