@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091452F6501
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:49:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67262.119941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76DB92F650B
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:51:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67322.120049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04sE-0005dk-Be; Thu, 14 Jan 2021 15:49:22 +0000
+	id 1l04uO-0007J6-GZ; Thu, 14 Jan 2021 15:51:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67262.119941; Thu, 14 Jan 2021 15:49:22 +0000
+Received: by outflank-mailman (output) from mailman id 67322.120049; Thu, 14 Jan 2021 15:51:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04sE-0005dG-7F; Thu, 14 Jan 2021 15:49:22 +0000
-Received: by outflank-mailman (input) for mailman id 67262;
- Thu, 14 Jan 2021 15:49:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l04uO-0007IG-A4; Thu, 14 Jan 2021 15:51:36 +0000
+Received: by outflank-mailman (input) for mailman id 67322;
+ Thu, 14 Jan 2021 15:51:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P5GR=GR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l04ia-0002Sh-Kh
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:39:24 +0000
+ id 1l04iA-0002SV-Nj
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:38:58 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b6d48066-278a-4cf7-975e-da1af403dab1;
- Thu, 14 Jan 2021 15:38:13 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 11f01b16-e4ab-40dd-ad32-d34a03110e68;
+ Thu, 14 Jan 2021 15:38:14 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 991BCAF2C;
+ by mx2.suse.de (Postfix) with ESMTP id C606CAF31;
  Thu, 14 Jan 2021 15:38:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,215 +38,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6d48066-278a-4cf7-975e-da1af403dab1
+X-Inumbo-ID: 11f01b16-e4ab-40dd-ad32-d34a03110e68
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1610638691; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4kmuVlHOspaVKDt96etixwggFxvBVpVKxBmCa9TPUeo=;
-	b=sfGsOR2FQoYyTPJqDQjwlZEn4BlIdg4SVietJnkw0a7ihFea+Fg2p9+ggWDbWAPiETXNha
-	5DFJnTNR46ISS7tus5oI1ImW3L0+NQS+ZVO0NojQepvqSCUO1VM0xPG6tXCJlgFT6OZplM
-	oTwvWspjeUwRVWL0B3X1D7ZqPNSFWyc=
+	bh=8fzisLFHra+8irPIn/ZYbpu+ZVxDRPBpXZRvcHrNvww=;
+	b=ZK7rg2EF7pui5cHKjCSm70j+6qVc4zBC7xUvTUaV+o5PvHgjgle9BUpHYKUxlotAxUFXln
+	hCEHt6SI1zzQe1pNofpaU4pr/vgW0FZPGb/oE+y9hIgPvLBMMUjTJFmWWlFMkeLwJLVtX0
+	387kbBwRHbxaCWoqngkOZZyTymGpKTk=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v11 24/27] tools/xenstore: add read node state for live update
-Date: Thu, 14 Jan 2021 16:38:00 +0100
-Message-Id: <20210114153803.2591-25-jgross@suse.com>
+	Paul Durrant <paul@xen.org>
+Subject: [PATCH v11 25/27] tools/xenstore: add read watch state for live update
+Date: Thu, 14 Jan 2021 16:38:01 +0100
+Message-Id: <20210114153803.2591-26-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210114153803.2591-1-jgross@suse.com>
 References: <20210114153803.2591-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the needed functions for reading node state for live update.
+Add reading the watch state records for live update.
 
-This requires some refactoring of current node handling in Xenstore in
-order to avoid repeating the same code patterns multiple times.
+This requires factoring out some of the add watch functionality into a
+dedicated function.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Paul Durrant <paul@xen.org>
-Acked-by: Julien Grall <jgrall@amazon.com>
 ---
 V4:
-- drop local node handling (Julien Grall)
-
-V5:
-- use set_tdb_key (Paul Durrant)
+- add comment (Julien Grall)
 
 V6:
-- add permission flag handling (Julien Grall)
+- correct check_watch_path() (setting errno)
 ---
- tools/xenstore/xenstored_control.c |   1 +
- tools/xenstore/xenstored_core.c    | 105 ++++++++++++++++++++++++++---
- tools/xenstore/xenstored_core.h    |   1 +
- 3 files changed, 96 insertions(+), 11 deletions(-)
+ tools/xenstore/xenstored_control.c |   2 +
+ tools/xenstore/xenstored_watch.c   | 114 +++++++++++++++++++++--------
+ tools/xenstore/xenstored_watch.h   |   2 +
+ 3 files changed, 88 insertions(+), 30 deletions(-)
 
 diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index d6454d4e77..d73e1dca7e 100644
+index d73e1dca7e..ba48358c31 100644
 --- a/tools/xenstore/xenstored_control.c
 +++ b/tools/xenstore/xenstored_control.c
-@@ -547,6 +547,7 @@ void lu_read_state(void)
+@@ -35,6 +35,7 @@ Interactive commands for Xen Store Daemon.
+ #include "xenstored_core.h"
+ #include "xenstored_control.h"
+ #include "xenstored_domain.h"
++#include "xenstored_watch.h"
+ 
+ /* Mini-OS only knows about MAP_ANON. */
+ #ifndef MAP_ANONYMOUS
+@@ -542,6 +543,7 @@ void lu_read_state(void)
+ 			read_state_connection(ctx, head + 1);
+ 			break;
+ 		case XS_STATE_TYPE_WATCH:
++			read_state_watch(ctx, head + 1);
+ 			break;
+ 		case XS_STATE_TYPE_TA:
  			xprintf("live-update: ignore transaction record\n");
- 			break;
- 		case XS_STATE_TYPE_NODE:
-+			read_state_node(ctx, head + 1);
- 			break;
- 		default:
- 			xprintf("live-update: unknown state record %08x\n",
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 4175b871ee..3e133b475c 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -972,13 +972,30 @@ static char *basename(const char *name)
- 	return strrchr(name, '/') + 1;
+diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstore/xenstored_watch.c
+index 9248f08bd9..db89e0141f 100644
+--- a/tools/xenstore/xenstored_watch.c
++++ b/tools/xenstore/xenstored_watch.c
+@@ -205,6 +205,62 @@ static int destroy_watch(void *_watch)
+ 	return 0;
  }
  
--static struct node *construct_node(struct connection *conn, const void *ctx,
--				   const char *name)
-+static int add_child(const void *ctx, struct node *parent, const char *name)
- {
- 	const char *base;
- 	unsigned int baselen;
-+	char *children;
-+
-+	base = basename(name);
-+	baselen = strlen(base) + 1;
-+	children = talloc_array(ctx, char, parent->childlen + baselen);
-+	if (!children)
-+		return ENOMEM;
-+	memcpy(children, parent->children, parent->childlen);
-+	memcpy(children + parent->childlen, base, baselen);
-+	parent->children = children;
-+	parent->childlen += baselen;
++static int check_watch_path(struct connection *conn, const void *ctx,
++			    char **path, bool *relative)
++{
++	/* Check if valid event. */
++	if (strstarts(*path, "@")) {
++		*relative = false;
++		if (strlen(*path) > XENSTORE_REL_PATH_MAX)
++			goto inval;
++	} else {
++		*relative = !strstarts(*path, "/");
++		*path = canonicalize(conn, ctx, *path);
++		if (!*path)
++			return errno;
++		if (!is_valid_nodename(*path))
++			goto inval;
++	}
 +
 +	return 0;
++
++ inval:
++	errno = EINVAL;
++	return errno;
 +}
 +
-+static struct node *construct_node(struct connection *conn, const void *ctx,
-+				   const char *name)
++static struct watch *add_watch(struct connection *conn, char *path, char *token,
++			       bool relative)
 +{
- 	struct node *parent, *node;
--	char *children, *parentname = get_parent(ctx, name);
-+	char *parentname = get_parent(ctx, name);
++	struct watch *watch;
++
++	watch = talloc(conn, struct watch);
++	if (!watch)
++		goto nomem;
++	watch->node = talloc_strdup(watch, path);
++	watch->token = talloc_strdup(watch, token);
++	if (!watch->node || !watch->token)
++		goto nomem;
++
++	if (relative)
++		watch->relative_path = get_implicit_path(conn);
++	else
++		watch->relative_path = NULL;
++
++	INIT_LIST_HEAD(&watch->events);
++
++	domain_watch_inc(conn);
++	list_add_tail(&watch->list, &conn->watches);
++	talloc_set_destructor(watch, destroy_watch);
++
++	return watch;
++
++ nomem:
++	talloc_free(watch);
++	errno = ENOMEM;
++	return NULL;
++}
++
+ int do_watch(struct connection *conn, struct buffered_data *in)
+ {
+ 	struct watch *watch;
+@@ -214,19 +270,9 @@ int do_watch(struct connection *conn, struct buffered_data *in)
+ 	if (get_strings(in, vec, ARRAY_SIZE(vec)) != ARRAY_SIZE(vec))
+ 		return EINVAL;
  
- 	if (!parentname)
- 		return NULL;
-@@ -991,15 +1008,8 @@ static struct node *construct_node(struct connection *conn, const void *ctx,
- 		return NULL;
+-	if (strstarts(vec[0], "@")) {
+-		relative = false;
+-		if (strlen(vec[0]) > XENSTORE_REL_PATH_MAX)
+-			return EINVAL;
+-		/* check if valid event */
+-	} else {
+-		relative = !strstarts(vec[0], "/");
+-		vec[0] = canonicalize(conn, in, vec[0]);
+-		if (!vec[0])
+-			return ENOMEM;
+-		if (!is_valid_nodename(vec[0]))
+-			return EINVAL;
+-	}
++	errno = check_watch_path(conn, in, &(vec[0]), &relative);
++	if (errno)
++		return errno;
  
- 	/* Add child to parent. */
--	base = basename(name);
--	baselen = strlen(base) + 1;
--	children = talloc_array(ctx, char, parent->childlen + baselen);
--	if (!children)
-+	if (add_child(ctx, parent, name))
- 		goto nomem;
--	memcpy(children, parent->children, parent->childlen);
--	memcpy(children + parent->childlen, base, baselen);
--	parent->children = children;
--	parent->childlen += baselen;
+ 	/* Check for duplicates. */
+ 	list_for_each_entry(watch, &conn->watches, list) {
+@@ -238,26 +284,11 @@ int do_watch(struct connection *conn, struct buffered_data *in)
+ 	if (domain_watch(conn) > quota_nb_watch_per_domain)
+ 		return E2BIG;
  
- 	/* Allocate node */
- 	node = talloc(ctx, struct node);
-@@ -2612,6 +2622,79 @@ void read_state_buffered_data(const void *ctx, struct connection *conn,
- 	}
+-	watch = talloc(conn, struct watch);
++	watch = add_watch(conn, vec[0], vec[1], relative);
+ 	if (!watch)
+-		return ENOMEM;
+-	watch->node = talloc_strdup(watch, vec[0]);
+-	watch->token = talloc_strdup(watch, vec[1]);
+-	if (!watch->node || !watch->token) {
+-		talloc_free(watch);
+-		return ENOMEM;
+-	}
+-	if (relative)
+-		watch->relative_path = get_implicit_path(conn);
+-	else
+-		watch->relative_path = NULL;
++		return errno;
+ 
+-	INIT_LIST_HEAD(&watch->events);
+-
+-	domain_watch_inc(conn);
+-	list_add_tail(&watch->list, &conn->watches);
+ 	trace_create(watch, "watch");
+-	talloc_set_destructor(watch, destroy_watch);
+ 	send_ack(conn, XS_WATCH);
+ 
+ 	/* We fire once up front: simplifies clients and restart. */
+@@ -338,6 +369,29 @@ const char *dump_state_watches(FILE *fp, struct connection *conn,
+ 	return ret;
  }
  
-+void read_state_node(const void *ctx, const void *state)
++void read_state_watch(const void *ctx, const void *state)
 +{
-+	const struct xs_state_node *sn = state;
-+	struct node *node, *parent;
-+	TDB_DATA key;
-+	char *name, *parentname;
-+	unsigned int i;
-+	struct connection conn = { .id = priv_domid };
++	const struct xs_state_watch *sw = state;
++	struct connection *conn;
++	char *path, *token;
++	bool relative;
 +
-+	name = (char *)(sn->perms + sn->perm_n);
-+	node = talloc(ctx, struct node);
-+	if (!node)
-+		barf("allocation error restoring node");
++	conn = get_connection_by_id(sw->conn_id);
++	if (!conn)
++		barf("connection not found for read watch");
 +
-+	node->name = name;
-+	node->generation = ++generation;
-+	node->datalen = sn->data_len;
-+	node->data = name + sn->path_len;
-+	node->childlen = 0;
-+	node->children = NULL;
-+	node->perms.num = sn->perm_n;
-+	node->perms.p = talloc_array(node, struct xs_permissions,
-+				     node->perms.num);
-+	if (!node->perms.p)
-+		barf("allocation error restoring node");
-+	for (i = 0; i < node->perms.num; i++) {
-+		switch (sn->perms[i].access) {
-+		case 'r':
-+			node->perms.p[i].perms = XS_PERM_READ;
-+			break;
-+		case 'w':
-+			node->perms.p[i].perms = XS_PERM_WRITE;
-+			break;
-+		case 'b':
-+			node->perms.p[i].perms = XS_PERM_READ | XS_PERM_WRITE;
-+			break;
-+		default:
-+			node->perms.p[i].perms = XS_PERM_NONE;
-+			break;
-+		}
-+		if (sn->perms[i].flags & XS_STATE_NODE_PERM_IGNORE)
-+			node->perms.p[i].perms |= XS_PERM_IGNORE;
-+		node->perms.p[i].id = sn->perms[i].domid;
-+	}
++	path = (char *)sw->data;
++	token = path + sw->path_length;
 +
-+	if (strstarts(name, "@")) {
-+		set_perms_special(&conn, name, &node->perms);
-+		talloc_free(node);
-+		return;
-+	}
++	/* Don't check success, we want the relative information only. */
++	check_watch_path(conn, ctx, &path, &relative);
++	if (!path)
++		barf("allocation error for read watch");
 +
-+	parentname = get_parent(node, name);
-+	if (!parentname)
-+		barf("allocation error restoring node");
-+	parent = read_node(NULL, node, parentname);
-+	if (!parent)
-+		barf("read parent error restoring node");
-+
-+	if (add_child(node, parent, name))
-+		barf("allocation error restoring node");
-+
-+	set_tdb_key(parentname, &key);
-+	if (write_node_raw(NULL, &key, parent, true))
-+		barf("write parent error restoring node");
-+
-+	set_tdb_key(name, &key);
-+	if (write_node_raw(NULL, &key, node, true))
-+		barf("write node error restoring node");
-+	domain_entry_inc(&conn, node);
-+
-+	talloc_free(node);
++	if (!add_watch(conn, path, token, relative))
++		barf("error adding watch");
 +}
 +
  /*
   * Local variables:
   *  mode: C
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index dcb3ad3e4b..6ac5a6fbfa 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -276,6 +276,7 @@ const char *dump_state_node_perms(FILE *fp, struct xs_state_node *sn,
- void read_state_global(const void *ctx, const void *state);
- void read_state_buffered_data(const void *ctx, struct connection *conn,
- 			      const struct xs_state_connection *sc);
-+void read_state_node(const void *ctx, const void *state);
+diff --git a/tools/xenstore/xenstored_watch.h b/tools/xenstore/xenstored_watch.h
+index 3d81645f45..0e693f0839 100644
+--- a/tools/xenstore/xenstored_watch.h
++++ b/tools/xenstore/xenstored_watch.h
+@@ -33,4 +33,6 @@ void conn_delete_all_watches(struct connection *conn);
+ const char *dump_state_watches(FILE *fp, struct connection *conn,
+ 			       unsigned int conn_id);
  
- #endif /* _XENSTORED_CORE_H */
- 
++void read_state_watch(const void *ctx, const void *state);
++
+ #endif /* _XENSTORED_WATCH_H */
 -- 
 2.26.2
 
