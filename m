@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94ACC2F64A6
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:32:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67188.119688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 951A12F64BA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:37:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67195.119701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04bM-00029Q-MZ; Thu, 14 Jan 2021 15:31:56 +0000
+	id 1l04g5-0002MO-EN; Thu, 14 Jan 2021 15:36:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67188.119688; Thu, 14 Jan 2021 15:31:56 +0000
+Received: by outflank-mailman (output) from mailman id 67195.119701; Thu, 14 Jan 2021 15:36:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04bM-000293-JD; Thu, 14 Jan 2021 15:31:56 +0000
-Received: by outflank-mailman (input) for mailman id 67188;
- Thu, 14 Jan 2021 15:31:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l04g5-0002Lz-BF; Thu, 14 Jan 2021 15:36:49 +0000
+Received: by outflank-mailman (input) for mailman id 67195;
+ Thu, 14 Jan 2021 15:36:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0pGa=GR=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l04bK-00028s-Is
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:31:54 +0000
-Received: from mail-wm1-x330.google.com (unknown [2a00:1450:4864:20::330])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 59da138c-ac48-4cda-96c2-2165bc619a26;
- Thu, 14 Jan 2021 15:31:52 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id k10so4890131wmi.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Jan 2021 07:31:52 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id u6sm11858222wrm.90.2021.01.14.07.31.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Jan 2021 07:31:50 -0800 (PST)
+ <SRS0=EUaL=GR=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l04g4-0002Lu-2h
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:36:48 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 442d4b5a-e5c8-4097-962a-82f4ed959e09;
+ Thu, 14 Jan 2021 15:36:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,327 +36,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59da138c-ac48-4cda-96c2-2165bc619a26
+X-Inumbo-ID: 442d4b5a-e5c8-4097-962a-82f4ed959e09
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610638606;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=1pCh+cDaYWrEQ14qU59wKevgRsueZO7/sFcB7OyD6Pk=;
+  b=T6k08eCzikC9cXoVrm1dCcxXnHosE113kFuAw/hXmH+INS3C87+4ZiMy
+   1tPLBZFFzLhFCHGJyjZqCdB9IeXx2ZG+gvl+O9CynRRC4KgOpHnBksb12
+   Z/RvIMusRXoKIlNaiEEAhDCWtnIMZUv9Dayfg5madW6HfAowijZ7r6wVl
+   w=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: K1c623Yl8VkgDTkOhLNj7bzx4TLcpeLccEhYnIdSqAGw/5rjmCKlXyFhOiLnZuCnryA7rL0DO/
+ +6AmGBlfLvaGqJ75/VyN8F3HiYHZ71GjevWcHIAW1pO1wmWTECFA/emSDqOLuRGHZP2wgVePNZ
+ AcjTVcxnSxPHc0GHXblEjpEJvXosrkFTh/c0TWFMGIUxDyoq2wZkt1xtUQ8xXx0XKka2r/2U4Y
+ pfvckorrqnuNQCe9LVNo55pijBPEpGBQrGmAt5cMFSjvc/epMXmUJgn84tun5vDq5QJMG+jHZ3
+ 2bw=
+X-SBRS: 5.2
+X-MesageID: 35084440
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,347,1602561600"; 
+   d="scan'208";a="35084440"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fStARZBgBRHAEvIOEswh29lAOTutVR6Hkk8hzz56J+XFolPQQC+SHjt/AV11NthbcV3vYomsj2On1e9OwGa+3oeIt8cSxngdVoMGUkjTS73pOLXX8BRbha5+xHldQPp+O1Rug4+Tl8gnCGUlust34rTnIX/KqNJz3eeMbYlIZzGwwrdReKHNLAnCQA5vfby4dBJDZGymNh9Z8r3ym9R4NHnU/Y9R0lL1PJapxve1jq1Cbyy23cQfQwfAUAPlHaVMrA1VJOXFI8FA8z0RcvqR+uuBRe5eyn7wGVE7E7iErQ6epI52oJrj4gWABLgpff5fB/mqcA1Hd2lFQ3LoEpnayg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZmcK9Y4uFBjkYUXcotUtMKLlgljfb7Qzt6kbazAoOsk=;
+ b=PhQDqOgt9M5wSZ9JWnXdSne6ye41IjuvcQze1U9ByD2Xu7I/k/S4vf7SosenLd088tpcgChCXLSXGl7xebj6Tx+fVds0AK4dXyP0VfAsOlv8guC+IslMJEzumyYO6xZN2vhiSrN7x+xXseOCFSLfMYbwxrUxBqkS52EAUOcCtmN4BI193KvDVqOJGR2P3JyacdTQJqM4uvIJHfaAw7USSYCu/+5Me9Kz7rDUWlUx1JqE3vn4YcVljZ5MP1jV1DqxTCVx0TjV18vjbI+VAKFTN2gaGnI3fJ511ApNEyPWDzXKn02Ss7lnWRDl72LELIkVWzTQRSttsG/z/uz2KwciwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=l6orc9WlmC/X97KV3CNr/WZrr6fWzZskJ6OCz/ZKcn8=;
-        b=ki8ClBddIwoAH0MeTYb1fWz0Gf6cJdlXfLPFFA14GYg2WctwFUMyBTKaXjpN63qVq8
-         kwEYdbfqMs6DTu/Pq22aXHpWUbcTZtpjcWq411Oo36HiLlife4FHSEwTgIWxzyA7BCt0
-         fFd3pUWQv1F40Zf0lwwPxZuwnv79JIocTHDakAyR3VS4baLR1ulmV5/LOtFmXc/lVruL
-         4hdUC9D0eq075UIW05pYU8mjKYxpcPvKQhBkAcUcqyFCco7ADMZzowEG1bZ7EMtEN2iy
-         9uZrTF3JrEvBj70Kp+b/yrCYDYD9GOjT/KIFXGGZGBZBcX78As1/LuSB6q3sdlRspeUo
-         A2+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=l6orc9WlmC/X97KV3CNr/WZrr6fWzZskJ6OCz/ZKcn8=;
-        b=ikM7hIjdzawRH2fnJWfdnkHZ//IPx5BCugtk5cfQqcuUh92jy4UG/5ZajM/Le5YQIJ
-         x/719GGklPxhET/64EzAkfJ6WKLB647C/B9a7+Aue2PQ95nkuQa6EnVt0Om2ABfnyHHA
-         nS2Of51AL9Ckc0uAvPDzcIbPOOIfSJznbAlxVs/p5MjtpAOp3Rermc+1H0MChoITXcDy
-         5r4DJgcTrfwV3g0yGttV0IGGoakfMMlkNvv6J1PrIjNFE5c3PW/aujLTmKSrhEUDJ49R
-         rkC+sbyB/TgMpqux8Fm3mgs+AVRE6hVRw9jGpmDGGW2BRUFMT12yNf79yBfqluf2G3dn
-         RLtg==
-X-Gm-Message-State: AOAM533Br7rvlxnWqNHNDMJWi+DeG1PhryGPOISQt51PPVhVBhLf+/sY
-	5+PYQ5eCV57CqTqErvJVupw=
-X-Google-Smtp-Source: ABdhPJydA3r56FTNyLdUpw1Dj2cuk8iFEOKTUiz+yWBkT+Y5iBb3qReIM4UX6tDCrADxxUEL0saijQ==
-X-Received: by 2002:a1c:398a:: with SMTP id g132mr2223279wma.38.1610638311306;
-        Thu, 14 Jan 2021 07:31:51 -0800 (PST)
-Subject: Re: [PATCH V4 11/24] xen/mm: Make x86's XENMEM_resource_ioreq_server
- handling common
-To: Wei Chen <Wei.Chen@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <Julien.Grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-12-git-send-email-olekstysh@gmail.com>
- <AM0PR08MB3747ECA6E3CB200C0D606F809EA80@AM0PR08MB3747.eurprd08.prod.outlook.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <5f050e2c-d5c3-668a-8163-7829a6794a12@gmail.com>
-Date: Thu, 14 Jan 2021 17:31:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZmcK9Y4uFBjkYUXcotUtMKLlgljfb7Qzt6kbazAoOsk=;
+ b=RMayFyUtWHoO4EkfVTm2gIzorjWatpulWVMlBF0WhLU2nTdK0PfZsTdvmrbm37YLlDLbPmJHIWSC1XVoLrDE2UYNzpo+I+Z5amYgmRMH7dh3ZDpFxUuqgECDxZhxngu4X3WAJmspPitAGLmCjnXMzTb9XFFB1Z1KXpAIF6RASbY=
+Subject: Re: [PATCH] common: don't require use of DOMID_SELF
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+References: <72c9f0ec-81e3-63f9-2513-46e463642219@suse.com>
+ <6b80d9bd-58a1-0854-2ff9-7153ddecae26@xen.org>
+ <a53b09f9-a1cd-2f98-35e4-d8a6b16e1cc0@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <96130e56-9054-3e7e-fa83-e8d9be6b7323@citrix.com>
+Date: Thu, 14 Jan 2021 15:36:36 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+In-Reply-To: <a53b09f9-a1cd-2f98-35e4-d8a6b16e1cc0@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0175.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a::19) To BYAPR03MB4728.namprd03.prod.outlook.com
+ (2603:10b6:a03:13a::24)
 MIME-Version: 1.0
-In-Reply-To: <AM0PR08MB3747ECA6E3CB200C0D606F809EA80@AM0PR08MB3747.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5fb5d101-2ef4-4a3e-759b-08d8b8a23178
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4773:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR03MB4773EC91F1BC46CC50EC1421BAA80@BYAPR03MB4773.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bAHARmm5pfvR1XvQU8DO2fLtSrgThSK+EiaYxIQEEATv5Q+jOg4OwRDcEypkUboPIuIiGABn/F2mS9HlelFRyxz/lG1ZhkXi6axDOtK9aFI/J/oF3aY5s0I2A1hv3dd9jIl7p5D/oup0XGm7Kr2sh1tp2YQzBfaM91lghjrbBi5gfmtk+eYs40bKIYSTEUU2RfXbcQVM2JhyPIzSrCaLZdvbLh9f4s+czfF5TJMfNcZVli59TrkHqfIkwnFmOqVAgELySixhcWkHamc4mU6KCSLq7AbNDzOZl6dT08xHrM5AVlN95JZNWWsjD/vsY39V1Ar/udLgnkTfeH23anmk4kmpt3xPqbeJ9zlkupZ3bAEYpLFGo700MIYqc6fb3fTD+imGR3vqFwYiS1oTyRQRxvHb106odp/VMoxQ3f7IQUCgRXYUbT6TByxW3wj+6gb6oEuVv/bitRY7GtAbXEU9V5knVZIsfz//2amb4Qr2kt4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(346002)(136003)(376002)(366004)(396003)(316002)(31696002)(110136005)(8676002)(83380400001)(16576012)(16526019)(6666004)(54906003)(26005)(31686004)(2906002)(36756003)(86362001)(5660300002)(8936002)(478600001)(66476007)(66946007)(53546011)(66556008)(4326008)(6486002)(2616005)(956004)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?alZTZm5kREIxSmZ4eU02a0l4MERHZldXUW1zb2cyRFU1MkloN2lsQUlxUTdx?=
+ =?utf-8?B?WTF2RjI0TmE2MXlubUlCMVUzUkdZTExrVnYzQ05JTnJrNCtSVjQ0Zjl2Q0Vh?=
+ =?utf-8?B?TXNZdUZ1ZjBGYitVaVNwb1lKeGUwcE00ZlhpYVZ1SVB6Q0t3U2lvc0NMQmJT?=
+ =?utf-8?B?VFJWZHFKQVE1SkRsZFZSR2hUa3JXZWxZcWlGWUlIZldXSmtRTWlyUGZlclVS?=
+ =?utf-8?B?TGlvZFZxMCszT0JlL0tZMktmVGc2ZFRqUUJGcHdON002MFJSV1lRdUtKdGM4?=
+ =?utf-8?B?aUp6MnlkOTZBY1NiZzhBTThtM3hNU1VNbW8rK1ZLZEhIeks4VlFrVVFMSnlo?=
+ =?utf-8?B?aUxJenpIdW5Ga0xneFIySWhQQkllcWpVTE9kaTVtbTRCK20rZS9UUmxnVnRu?=
+ =?utf-8?B?WkdadzJkanh2MEVYTHdmUUx3MWpQQ1N3OFlld0lucWZxdlJCakpVQXhiUm1Q?=
+ =?utf-8?B?SysrektubG9RVXhwVEVwTEhRYzVLcVRGdmZ0R2tnSjZpS2RsajdDWTg4VFU0?=
+ =?utf-8?B?YUtyc2lzWjlJNjJOTGhtdTZLMHJrM1JGTzFuZ01yYStkK29LdGRGVE5rT2I0?=
+ =?utf-8?B?QWhaQWx3dEljZUhZQVA5MHlWbTVwZ0lTZ1Irc05MUzhMalRMZUlIdEkrOWc5?=
+ =?utf-8?B?S1lnSHFZcW1lZVhBZ0pFM3ZxRUowQWdqYTRGNGdPL3pxWTVXV2lmTk11VEI4?=
+ =?utf-8?B?UkpxN1dqM2dOdWU4eEEvWjR4VlRBOGo0L3lyU1EyMjdUcHNBYVpkd3pLRHdj?=
+ =?utf-8?B?K2pkeWluOUlpUGllSEJxSWRrWktUMjRUZkUrM1JPa1VSQlhIeW43NjRLU0lo?=
+ =?utf-8?B?djErcVJXZTgvWGJOOUh5aWRGQ2trTjJtdkpOdXI1ZWlYSFROVzRBRU1Qbkw4?=
+ =?utf-8?B?VHprTkIydXd6ZGNWMXl4MWlxVXBmdWdpWU9zR0x3TU1iYk1GelNvSTNia2FO?=
+ =?utf-8?B?L3paajFVOFE3dXRhazJnMkNjT3BVZUtXRjR1UVUwd0cvVnp5YkpoZWhXRks1?=
+ =?utf-8?B?ZkZEckFsamowbnhkVGhGbUx3UUlpV3hIVE8xM0tvUHJGbjRDbTZhTWVXWTQz?=
+ =?utf-8?B?b2ZKRXIyQWtBSjlIZHQ2bkYxN0grQXRqbnJRK01FckhsRzdqSk1HdFZOdFd1?=
+ =?utf-8?B?Uk9GWnE3dU1qNVJRb3ZOZ3R2RzNjYWxoQW5HZk1wTmtISmRJYzY5Tm9LYjJS?=
+ =?utf-8?B?bG5ySGdSNmhzd0V4dDd3NmU1Vk41a0kwN09vZzBvTHBDeEJod1Bicnk2amJn?=
+ =?utf-8?B?SXAva0JQQ3lRdjM0TkF5RHhtUE4zdi8ybmlzWkd0bWZOSFJQaDQwckxBNzBG?=
+ =?utf-8?Q?S2kqoyR1bPBO1TjI6gG0uOeGj603sk3tzO?=
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2021 15:36:42.5996
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fb5d101-2ef4-4a3e-759b-08d8b8a23178
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /RGHGOz0IlX1G29AbWihpKGx0xm3f2u3ksaK11Kr8gMLjwgtQixf2CG77q2LoBmW8cv/9kLxRRvQ+Oha1gQ9XEOxD8BxNO1vPvkXz71fOVY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4773
+X-OriginatorOrg: citrix.com
 
-
-On 14.01.21 05:58, Wei Chen wrote:
-> Hi Oleksandr,
-
-Hi Wei
-
-
+On 14/01/2021 15:30, Jan Beulich wrote:
+> On 14.01.2021 15:43, Julien Grall wrote:
+>> On 14/01/2021 14:02, Jan Beulich wrote:
+>>> It's not overly difficult for a domain to figure out its ID, so
+>>> requiring the use of DOMID_SELF in a very limited set of places isn't
+>>> really helpful towards keeping the ID opaque to the guest.
+>> So I agree that a domid can be figured out really easily today and in 
+>> principle it would be fine to relax it.
+>>
+>> However, most of the guest OSes will care about running on older Xen 
+>> versions. Therefore they are not going to be able to use this relaxation.
+>>
+>> So I am not entirely convinced the relaxation is actually worth it for 
+>> existing hypercalls.
+> I'm aware of the concern (Andrew has voiced it both here and in
+> earlier contexts), but personally I think undue restrictions should
+> not be retained just because they used to be enforced. We've gone
+> this same route in a few other occasions not overly long ago, and
+> iirc there are two patches going in a similar direction (different
+> area of course) that I have still pending and which neither got
+> ack-ed nor firmly rejected.
 >
->> -----Original Message-----
->> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
->> Oleksandr Tyshchenko
->> Sent: 2021年1月13日 5:52
->> To: xen-devel@lists.xenproject.org
->> Cc: Julien Grall <Julien.Grall@arm.com>; Jan Beulich <jbeulich@suse.com>;
->> Andrew Cooper <andrew.cooper3@citrix.com>; Roger Pau Monné
->> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; George Dunlap
->> <george.dunlap@citrix.com>; Ian Jackson <iwj@xenproject.org>; Julien Grall
->> <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Volodymyr
->> Babchuk <Volodymyr_Babchuk@epam.com>; Oleksandr Tyshchenko
->> <oleksandr_tyshchenko@epam.com>
->> Subject: [PATCH V4 11/24] xen/mm: Make x86's
->> XENMEM_resource_ioreq_server handling common
->>
->> From: Julien Grall <julien.grall@arm.com>
->>
->> As x86 implementation of XENMEM_resource_ioreq_server can be
->> re-used on Arm later on, this patch makes it common and removes
->> arch_acquire_resource as unneeded.
->>
->> Also re-order #include-s alphabetically.
->>
->> This support is going to be used on Arm to be able run device
->> emulator outside of Xen hypervisor.
->>
->> Signed-off-by: Julien Grall <julien.grall@arm.com>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> [On Arm only]
->> Tested-by: Wei Chen <Wei.Chen@arm.com>
->>
->> ---
->> Please note, this is a split/cleanup/hardening of Julien's PoC:
->> "Add support for Guest IO forwarding to a device emulator"
->>
->> Changes RFC -> V1:
->>     - no changes
->>
->> Changes V1 -> V2:
->>     - update the author of a patch
->>
->> Changes V2 -> V3:
->>     - don't wrap #include <xen/ioreq.h>
->>     - limit the number of #ifdef-s
->>     - re-order #include-s alphabetically
->>
->> Changes V3 -> V4:
->>     - rebase
->>     - Add Jan's R-b
->> ---
->>   xen/arch/x86/mm.c        | 44 ---------------------------------
->>   xen/common/memory.c      | 63
->> +++++++++++++++++++++++++++++++++++++++---------
->>   xen/include/asm-arm/mm.h |  8 ------
->>   xen/include/asm-x86/mm.h |  4 ---
->>   4 files changed, 51 insertions(+), 68 deletions(-)
->>
->> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
->> index f6e128e..54ac398 100644
->> --- a/xen/arch/x86/mm.c
->> +++ b/xen/arch/x86/mm.c
->> @@ -4587,50 +4587,6 @@ static int handle_iomem_range(unsigned long s,
->> unsigned long e, void *p)
->>       return err || s > e ? err : _handle_iomem_range(s, e, p);
->>   }
->>
->> -int arch_acquire_resource(struct domain *d, unsigned int type,
->> -                          unsigned int id, unsigned long frame,
->> -                          unsigned int nr_frames, xen_pfn_t mfn_list[])
->> -{
->> -    int rc;
->> -
->> -    switch ( type )
->> -    {
->> -#ifdef CONFIG_HVM
->> -    case XENMEM_resource_ioreq_server:
->> -    {
->> -        ioservid_t ioservid = id;
->> -        unsigned int i;
->> -
->> -        rc = -EINVAL;
->> -        if ( !is_hvm_domain(d) )
->> -            break;
->> -
->> -        if ( id != (unsigned int)ioservid )
->> -            break;
->> -
->> -        rc = 0;
->> -        for ( i = 0; i < nr_frames; i++ )
->> -        {
->> -            mfn_t mfn;
->> -
->> -            rc = hvm_get_ioreq_server_frame(d, id, frame + i, &mfn);
->> -            if ( rc )
->> -                break;
->> -
->> -            mfn_list[i] = mfn_x(mfn);
->> -        }
->> -        break;
->> -    }
->> -#endif
->> -
->> -    default:
->> -        rc = -EOPNOTSUPP;
->> -        break;
->> -    }
->> -
->> -    return rc;
->> -}
->> -
->>   long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void)
->> arg)
->>   {
->>       int rc;
->> diff --git a/xen/common/memory.c b/xen/common/memory.c
->> index b21b6c4..7e560b5 100644
->> --- a/xen/common/memory.c
->> +++ b/xen/common/memory.c
->> @@ -8,22 +8,23 @@
->>    */
->>
->>   #include <xen/domain_page.h>
->> -#include <xen/types.h>
->> +#include <xen/errno.h>
->> +#include <xen/event.h>
->> +#include <xen/grant_table.h>
->> +#include <xen/guest_access.h>
->> +#include <xen/hypercall.h>
->> +#include <xen/iocap.h>
->> +#include <xen/ioreq.h>
->>   #include <xen/lib.h>
->> +#include <xen/mem_access.h>
->>   #include <xen/mm.h>
->> +#include <xen/numa.h>
->> +#include <xen/paging.h>
->>   #include <xen/param.h>
->>   #include <xen/perfc.h>
->>   #include <xen/sched.h>
->> -#include <xen/event.h>
->> -#include <xen/paging.h>
->> -#include <xen/iocap.h>
->> -#include <xen/guest_access.h>
->> -#include <xen/hypercall.h>
->> -#include <xen/errno.h>
->> -#include <xen/numa.h>
->> -#include <xen/mem_access.h>
->>   #include <xen/trace.h>
->> -#include <xen/grant_table.h>
->> +#include <xen/types.h>
->>   #include <asm/current.h>
->>   #include <asm/hardirq.h>
->>   #include <asm/p2m.h>
->> @@ -1090,6 +1091,40 @@ static int acquire_grant_table(struct domain *d,
->> unsigned int id,
->>       return 0;
->>   }
->>
->> +static int acquire_ioreq_server(struct domain *d,
->> +                                unsigned int id,
->> +                                unsigned long frame,
->> +                                unsigned int nr_frames,
->> +                                xen_pfn_t mfn_list[])
->> +{
->> +#ifdef CONFIG_IOREQ_SERVER
->> +    ioservid_t ioservid = id;
->> +    unsigned int i;
->> +    int rc;
->> +
->> +    if ( !is_hvm_domain(d) )
->> +        return -EINVAL;
->> +
->> +    if ( id != (unsigned int)ioservid )
->> +        return -EINVAL;
->> +
->> +    for ( i = 0; i < nr_frames; i++ )
->> +    {
->> +        mfn_t mfn;
->> +
->> +        rc = hvm_get_ioreq_server_frame(d, id, frame + i, &mfn);
->> +        if ( rc )
->> +            return rc;
->> +
->> +        mfn_list[i] = mfn_x(mfn);
->> +    }
->> +
->> +    return 0;
->> +#else
->> +    return -EOPNOTSUPP;
->> +#endif
->> +}
->> +
->>   static int acquire_resource(
->>       XEN_GUEST_HANDLE_PARAM(xen_mem_acquire_resource_t) arg)
->>   {
->> @@ -1148,9 +1183,13 @@ static int acquire_resource(
->>                                    mfn_list);
->>           break;
->>
->> +    case XENMEM_resource_ioreq_server:
->> +        rc = acquire_ioreq_server(d, xmar.id, xmar.frame, xmar.nr_frames,
->> +                                  mfn_list);
->> +        break;
->> +
->>       default:
->> -        rc = arch_acquire_resource(d, xmar.type, xmar.id, xmar.frame,
->> -                                   xmar.nr_frames, mfn_list);
->> +        rc = -EOPNOTSUPP;
->>           break;
->>       }
->>
->> diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
->> index f8ba49b..0b7de31 100644
->> --- a/xen/include/asm-arm/mm.h
->> +++ b/xen/include/asm-arm/mm.h
->> @@ -358,14 +358,6 @@ static inline void put_page_and_type(struct page_info
->> *page)
->>
->>   void clear_and_clean_page(struct page_info *page);
->>
->> -static inline
->> -int arch_acquire_resource(struct domain *d, unsigned int type, unsigned int id,
->> -                          unsigned long frame, unsigned int nr_frames,
->> -                          xen_pfn_t mfn_list[])
->> -{
->> -    return -EOPNOTSUPP;
->> -}
->> -
->>   unsigned int arch_get_dma_bitsize(void);
->>
-> This change could not be applied to the latest staging branch.
+>> Anyway, if we decide to relax it, then I think we should update the 
+>> public headers because an OS using this relaxation will not work on 
+>> older Xen. A developper will not be able to know that without looking at 
+>> the implementation.
+> Well, DOMID_SELF exists because that's the preferred form to use.
+> I can certainly add commentary, but it would feel a little odd to
+> do so. To be honest I'm also not sure how helpful this is going to
+> be, considering that consumers often have their own clones of our
+> headers.
 
-Yes, thank you noticing that.  The code around was changed a bit (patch 
-series is based on 10-days old staging), I will update for the next version.
+What I envisioned would be an RST ::warning in the "how to grant table"
+guide for guest kernel developers in the sphinx docs.
 
+Of course, this presupposed that such a doc exists, but its the only
+useful place to put a note.
 
->
->>   #endif /*  __ARCH_ARM_MM__ */
->> diff --git a/xen/include/asm-x86/mm.h b/xen/include/asm-x86/mm.h
->> index deeba75..859214e 100644
->> --- a/xen/include/asm-x86/mm.h
->> +++ b/xen/include/asm-x86/mm.h
->> @@ -639,8 +639,4 @@ static inline bool arch_mfn_in_directmap(unsigned long
->> mfn)
->>       return mfn <= (virt_to_mfn(eva - 1) + 1);
->>   }
->>
->> -int arch_acquire_resource(struct domain *d, unsigned int type,
->> -                          unsigned int id, unsigned long frame,
->> -                          unsigned int nr_frames, xen_pfn_t mfn_list[]);
->> -
->>   #endif /* __ASM_X86_MM_H__ */
->> --
->> 2.7.4
->>
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+~Andrew
 
