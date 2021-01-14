@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 832262F6509
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:51:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67316.120022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 780622F64CE
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:38:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67208.119809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04uI-0007B0-RQ; Thu, 14 Jan 2021 15:51:30 +0000
+	id 1l04hi-0002y8-8T; Thu, 14 Jan 2021 15:38:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67316.120022; Thu, 14 Jan 2021 15:51:30 +0000
+Received: by outflank-mailman (output) from mailman id 67208.119809; Thu, 14 Jan 2021 15:38:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04uI-0007AA-Jd; Thu, 14 Jan 2021 15:51:30 +0000
-Received: by outflank-mailman (input) for mailman id 67316;
- Thu, 14 Jan 2021 15:51:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l04hi-0002x6-1m; Thu, 14 Jan 2021 15:38:30 +0000
+Received: by outflank-mailman (input) for mailman id 67208;
+ Thu, 14 Jan 2021 15:38:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P5GR=GR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l04iG-0002Sh-K8
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:39:04 +0000
+ id 1l04hg-0002SV-Me
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:38:28 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 14e24599-e2b6-49e4-b10c-c01758a1667e;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 15bb4df1-c392-4237-85e9-ea5fbb819bee;
  Thu, 14 Jan 2021 15:38:11 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D7A9EAE61;
- Thu, 14 Jan 2021 15:38:09 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0A6D5AF1B;
+ Thu, 14 Jan 2021 15:38:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,138 +38,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14e24599-e2b6-49e4-b10c-c01758a1667e
+X-Inumbo-ID: 15bb4df1-c392-4237-85e9-ea5fbb819bee
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1610638690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9hLKS3tqGavquprb3POoginKf8qVTOiNwihT9d+dpjc=;
-	b=I1spA1wfRmrT8EPzJolsFnHB1Ur3rq0Jc9SEO3MkYgTmOSc1Z1mrAZzaaPhSmejg4jzsRs
-	nbahvHwTL4wmGsuaPD1mr5H6j4flgd3zH8QbWEglbpczw4zEk+qMnU4b9rL/n6U6ahR1yN
-	Ea4Luf9rV/lKjOIpxXDtZtQglrQF860=
+	bh=TIt6mjfz4m4Lbw7qhygGZfW7PH1zNiUMYf4J84ykaIY=;
+	b=p47X1EvDX3at3+DlprW2jpxt7iHhpdwilnye7qXdmarZTcRZhOmuLsxZE4MZsPHvfSU16H
+	Kpah22ifxvsdDD5e8gv9uNFWAkdstTWg+mu8gcpnfOe6Ybn73EITKetbzKeCsbN4ibbjCl
+	rfWktpKeVn8sHmd6+E5z+7aota/gQD4=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v11 15/27] docs: update the xenstore migration stream documentation
-Date: Thu, 14 Jan 2021 16:37:51 +0100
-Message-Id: <20210114153803.2591-16-jgross@suse.com>
+Subject: [PATCH v11 16/27] tools/xenstore: add include file for state structure definitions
+Date: Thu, 14 Jan 2021 16:37:52 +0100
+Message-Id: <20210114153803.2591-17-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210114153803.2591-1-jgross@suse.com>
 References: <20210114153803.2591-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For live update of Xenstore some records defined in the migration
-stream document need to be changed:
-
-- Support of the read-only socket has been dropped from all Xenstore
-  implementations, so ro-socket-fd in the global record can be removed.
-
-- Some guests require the event channel to Xenstore to remain the same
-  on Xenstore side, so Xenstore has to keep the event channel interface
-  open across a live update. For this purpose an evtchn-fd needs to be
-  added to the global record.
-
-- With no read-only support the flags field in the connection record
-  can be dropped.
-
-- The evtchn field in the connection record needs to be switched to
-  hold the port of the Xenstore side of the event channel.
-
-- A flags field needs to be added to permission specifiers in order to
-  be able to mark a permission as stale (XSA-322).
+Add an include file containing all structures and defines needed for
+dumping and restoring the internal Xenstore state.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
-V8:
-- split off from following patch (Julien Grall)
----
- docs/designs/xenstore-migration.md | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+V4:
+- drop mfn from connection record (rebase to V5 of state doc patch)
+- add #ifdef __MINIOS__ (Julien Grall)
+- correct comments (Julien Grall)
+- add data_in_len
 
-diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
-index 2ce2c836f5..1a5b94b31d 100644
---- a/docs/designs/xenstore-migration.md
-+++ b/docs/designs/xenstore-migration.md
-@@ -116,7 +116,7 @@ xenstored state that needs to be restored.
- +-------+-------+-------+-------+
- | rw-socket-fd                  |
- +-------------------------------+
--| ro-socket-fd                  |
-+| evtchn-fd                     |
- +-------------------------------+
- ```
- 
-@@ -126,8 +126,8 @@ xenstored state that needs to be restored.
- | `rw-socket-fd` | The file descriptor of the socket accepting  |
- |                | read-write connections                       |
- |                |                                              |
--| `ro-socket-fd` | The file descriptor of the socket accepting  |
--|                | read-only connections                        |
-+| `evtchn-fd`    | The file descriptor used to communicate with |
-+|                | the event channel driver                     |
- 
- xenstored will resume in the original process context. Hence `rw-socket-fd` and
- `ro-socket-fd` simply specify the file descriptors of the sockets. Sockets
-@@ -147,7 +147,7 @@ the domain being migrated.
- ```
-     0       1       2       3       4       5       6       7    octet
- +-------+-------+-------+-------+-------+-------+-------+-------+
--| conn-id                       | conn-type     | flags         |
-+| conn-id                       | conn-type     |               |
- +-------------------------------+---------------+---------------+
- | conn-spec
- ...
-@@ -169,9 +169,6 @@ the domain being migrated.
- |                | 0x0001: socket                               |
- |                | 0x0002 - 0xFFFF: reserved for future use     |
- |                |                                              |
--| `flags`        | A bit-wise OR of:                            |
--|                | 0001: read-only                              |
--|                |                                              |
- | `conn-spec`    | See below                                    |
- |                |                                              |
- | `in-data-len`  | The length (in octets) of any data read      |
-@@ -216,7 +213,7 @@ For `shared ring` connections it is as follows:
- |           | operation [2] or DOMID_INVALID [3] otherwise      |
- |           |                                                   |
- | `evtchn`  | The port number of the interdomain channel used   |
--|           | by `domid` to communicate with xenstored          |
-+|           | by xenstored to communicate with `domid`          |
- |           |                                                   |
- 
- Since the ABI guarantees that entry 1 in `domid`'s grant table will always
-@@ -386,7 +383,7 @@ A node permission specifier has the following format:
- ```
-     0       1       2       3    octet
- +-------+-------+-------+-------+
--| perm  | pad   | domid         |
-+| perm  | flags | domid         |
- +-------+-------+---------------+
- ```
- 
-@@ -395,6 +392,10 @@ A node permission specifier has the following format:
- | `perm`  | One of the ASCII values `w`, `r`, `b` or `n` as     |
- |         | specified for the `SET_PERMS` operation [2]         |
- |         |                                                     |
-+| `flags` | A bit-wise OR of:                                   |
-+|         | 0x01: stale permission, ignore when checking        |
-+|         |       permissions                                   |
-+|         |                                                     |
- | `domid` | The domain-id to which the permission relates       |
- 
- Note that perm1 defines the domain owning the code. See [4] for more
+V5:
+- add data_resp_len
+
+V6:
+- add flag byte to node permissions (Julien Grall)
+- update migration document
+
+V7:
+- add evtchn_fd
+
+V8:
+- remove ro-socket and read-only connection flag
+- split off documentation part
+
+V9:
+- add htobe32() macro if needed (Wei Liu)
+---
+ tools/xenstore/include/xenstore_state.h | 131 ++++++++++++++++++++++++
+ 1 file changed, 131 insertions(+)
+ create mode 100644 tools/xenstore/include/xenstore_state.h
+
+diff --git a/tools/xenstore/include/xenstore_state.h b/tools/xenstore/include/xenstore_state.h
+new file mode 100644
+index 0000000000..d2a9307400
+--- /dev/null
++++ b/tools/xenstore/include/xenstore_state.h
+@@ -0,0 +1,131 @@
++/*
++ * Xenstore internal state dump definitions.
++ * Copyright (C) Juergen Gross, SUSE Software Solutions Germany GmbH
++ *
++ * Used for live-update and migration, possibly across Xenstore implementations.
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
++ */
++
++#ifndef XENSTORE_STATE_H
++#define XENSTORE_STATE_H
++
++#include <endian.h>
++#include <sys/types.h>
++
++#ifndef htobe32
++#if __BYTE_ORDER == __LITTLE_ENDIAN
++#define htobe32(x) __builtin_bswap32(x)
++#else
++#define htobe32(x) (x)
++#endif
++#endif
++
++struct xs_state_preamble {
++    char ident[8];
++#define XS_STATE_IDENT    "xenstore"  /* To be used without the NUL byte. */
++    uint32_t version;                 /* Version in big endian format. */
++#define XS_STATE_VERSION  0x00000001
++    uint32_t flags;                   /* Endianess. */
++#if __BYTE_ORDER == __LITTLE_ENDIAN
++#define XS_STATE_FLAGS    0x00000000  /* Little endian. */
++#else
++#define XS_STATE_FLAGS    0x00000001  /* Big endian. */
++#endif
++};
++
++/*
++ * Each record is starting with xs_state_record_header.
++ * All records have a length of a multiple of 8 bytes.
++ */
++
++/* Common record layout: */
++struct xs_state_record_header {
++    uint32_t type;
++#define XS_STATE_TYPE_END        0x00000000
++#define XS_STATE_TYPE_GLOBAL     0x00000001
++#define XS_STATE_TYPE_CONN       0x00000002
++#define XS_STATE_TYPE_WATCH      0x00000003
++#define XS_STATE_TYPE_TA         0x00000004
++#define XS_STATE_TYPE_NODE       0x00000005
++    uint32_t length;         /* Length of record in bytes. */
++};
++
++/* Global state of Xenstore: */
++struct xs_state_global {
++    int32_t socket_fd;      /* File descriptor for socket connections or -1. */
++    int32_t evtchn_fd;      /* File descriptor for event channel operations. */
++};
++
++/* Connection to Xenstore: */
++struct xs_state_connection {
++    uint32_t conn_id;       /* Used as reference in watch and TA records. */
++    uint16_t conn_type;
++#define XS_STATE_CONN_TYPE_RING   0
++#define XS_STATE_CONN_TYPE_SOCKET 1
++    uint16_t pad;
++    union {
++        struct {
++            uint16_t domid;  /* Domain-Id. */
++            uint16_t tdomid; /* Id of target domain or DOMID_INVALID. */
++            uint32_t evtchn; /* Event channel port. */
++        } ring;
++        int32_t socket_fd;   /* File descriptor for socket connections. */
++    } spec;
++    uint16_t data_in_len;    /* Number of unprocessed bytes read from conn. */
++    uint16_t data_resp_len;  /* Size of partial response pending for conn. */
++    uint32_t data_out_len;   /* Number of bytes not yet written to conn. */
++    uint8_t  data[];         /* Pending data (read, written) + 0-7 pad bytes. */
++};
++
++/* Watch: */
++struct xs_state_watch {
++    uint32_t conn_id;       /* Connection this watch is associated with. */
++    uint16_t path_length;   /* Number of bytes of path watched (incl. 0). */
++    uint16_t token_length;  /* Number of bytes of watch token (incl. 0). */
++    uint8_t data[];         /* Path bytes, token bytes, 0-7 pad bytes. */
++};
++
++/* Transaction: */
++struct xs_state_transaction {
++    uint32_t conn_id;       /* Connection this TA is associated with. */
++    uint32_t ta_id;         /* Transaction Id. */
++};
++
++/* Node (either XS_STATE_TYPE_NODE or XS_STATE_TYPE_TANODE[_MOD]): */
++struct xs_state_node_perm {
++    uint8_t access;         /* Access rights. */
++#define XS_STATE_NODE_PERM_NONE   'n'
++#define XS_STATE_NODE_PERM_READ   'r'
++#define XS_STATE_NODE_PERM_WRITE  'w'
++#define XS_STATE_NODE_PERM_BOTH   'b'
++    uint8_t flags;
++#define XS_STATE_NODE_PERM_IGNORE 0x01 /* Stale permission, ignore for check. */
++    uint16_t domid;         /* Domain-Id. */
++};
++struct xs_state_node {
++    uint32_t conn_id;       /* Connection in case of transaction or 0. */
++    uint32_t ta_id;         /* Transaction Id or 0. */
++    uint16_t path_len;      /* Length of path string including NUL byte. */
++    uint16_t data_len;      /* Length of node data. */
++    uint16_t ta_access;
++#define XS_STATE_NODE_TA_DELETED  0x0000
++#define XS_STATE_NODE_TA_READ     0x0001
++#define XS_STATE_NODE_TA_WRITTEN  0x0002
++    uint16_t perm_n;        /* Number of permissions (0 in TA: node deleted). */
++    /* Permissions (first is owner, has full access). */
++    struct xs_state_node_perm perms[];
++    /* Path and data follows, plus 0-7 pad bytes. */
++};
++#endif /* XENSTORE_STATE_H */
 -- 
 2.26.2
 
