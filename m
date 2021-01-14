@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F8182F6508
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:51:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67315.120013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75CC92F6503
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:50:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67285.119976 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04uI-0007AC-I6; Thu, 14 Jan 2021 15:51:30 +0000
+	id 1l04t6-0006fo-CK; Thu, 14 Jan 2021 15:50:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67315.120013; Thu, 14 Jan 2021 15:51:30 +0000
+Received: by outflank-mailman (output) from mailman id 67285.119976; Thu, 14 Jan 2021 15:50:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04uI-00079h-AO; Thu, 14 Jan 2021 15:51:30 +0000
-Received: by outflank-mailman (input) for mailman id 67315;
- Thu, 14 Jan 2021 15:51:28 +0000
+	id 1l04t6-0006f6-8k; Thu, 14 Jan 2021 15:50:16 +0000
+Received: by outflank-mailman (input) for mailman id 67285;
+ Thu, 14 Jan 2021 15:50:14 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P5GR=GR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l04iV-0002Sh-KN
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:39:19 +0000
+ id 1l04iQ-0002Sh-KF
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:39:14 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5568daaa-4fe8-4273-87cc-70b70c2d129e;
+ id ecfec7a8-84de-4cba-97ea-9912c855f086;
  Thu, 14 Jan 2021 15:38:13 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D2BE2AEBB;
- Thu, 14 Jan 2021 15:38:10 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0FCAEAF28;
+ Thu, 14 Jan 2021 15:38:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,280 +39,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5568daaa-4fe8-4273-87cc-70b70c2d129e
+X-Inumbo-ID: ecfec7a8-84de-4cba-97ea-9912c855f086
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610638690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610638691; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wym2G/Xk//5XesdPJcvHSPJ7QBTUZKixDiGWfwW2+Uk=;
-	b=oP0UmhDJIuH+TXXO8/CWu/+r4vXTrgtaq4lybKs9a+nYbnDNICJQu/cqCqc28RUdHivFOV
-	xE9wYmoPkDP8Q53F1xIrIrvxoJrO3SOs3P8qhFbfXR+23lLDGop3tQNWtdB9hZqhbCPm2G
-	3H7GbaI8rK8u47jKhKcCzVK63wFg+2U=
+	bh=MVw1vj179JRzKXCrDzO0w25CFd1RFuoCwsc40azDgX4=;
+	b=Fx+SLEF1OrZAETizIC+W91U4OE3uNt11Bdc/vpOfCSQ4GAJlNqK2cRuwMp3GL2su+gEuAl
+	KZz9trbe0V6fD3/hxXAd+bR+/esTo+NJKrqnf9NpVWau28lNpBKIsZT7C/c/RictdKLDQO
+	BbZq6WUIB5Y+2Rki4nfBx20IUCPjjxw=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
+	Paul Durrant <paul@xen.org>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v11 20/27] tools/xenstore: evaluate the live update flag when starting
-Date: Thu, 14 Jan 2021 16:37:56 +0100
-Message-Id: <20210114153803.2591-21-jgross@suse.com>
+Subject: [PATCH v11 21/27] tools/xenstore: read internal state when doing live upgrade
+Date: Thu, 14 Jan 2021 16:37:57 +0100
+Message-Id: <20210114153803.2591-22-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210114153803.2591-1-jgross@suse.com>
 References: <20210114153803.2591-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In the live update case several initialization steps of xenstore must
-be omitted or modified. Add the proper handling for that.
+When started due to a live upgrade read the internal state and apply
+it to the data base and internal structures.
+
+Add the main control functions for that.
+
+For now only handle the daemon case.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
 V4:
-- set xprintf = trace in daemon case (Julien Grall)
-- only update /tool/xenstored node contents
-
-V7:
-- some restructuring to enable keeping event channel fd
+- directly mmap dump state file (Julien Grall)
+- use syslog() instead of xprintf() (Julien Grall)
 
 V8:
-- pass evtfd to domain_init() as parameter (Julien Grall)
-- call dom0_init() from main()
-
-V10:
-- remove support for remembering binary name (Andrew Cooper)
+- remove state file after reading it (Julien Grall)
 ---
- tools/xenstore/xenstored_control.c |  5 ++++
- tools/xenstore/xenstored_control.h |  1 +
- tools/xenstore/xenstored_core.c    | 44 +++++++++++++++++++++---------
- tools/xenstore/xenstored_domain.c  | 26 ++++++++----------
- tools/xenstore/xenstored_domain.h  |  3 +-
- tools/xenstore/xenstored_posix.c   |  1 -
- 6 files changed, 51 insertions(+), 29 deletions(-)
+ tools/xenstore/xenstored_control.c | 102 ++++++++++++++++++++++++++++-
+ 1 file changed, 101 insertions(+), 1 deletion(-)
 
 diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 25b407e153..1da74ef771 100644
+index 1da74ef771..7d0faa9667 100644
 --- a/tools/xenstore/xenstored_control.c
 +++ b/tools/xenstore/xenstored_control.c
-@@ -453,6 +453,11 @@ static const char *lu_dump_state(const void *ctx, struct connection *conn)
- 	return ret;
- }
+@@ -67,6 +67,14 @@ struct live_update {
  
-+void lu_read_state(void)
+ static struct live_update *lu_status;
+ 
++struct lu_dump_state {
++	void *buf;
++	unsigned int size;
++#ifndef __MINIOS__
++	int fd;
++#endif
++};
++
+ static int lu_destroy(void *data)
+ {
+ #ifdef __MINIOS__
+@@ -318,6 +326,14 @@ static void lu_dump_close(FILE *fp)
+ 
+ 	fclose(fp);
+ }
++
++static void lu_get_dump_state(struct lu_dump_state *state)
 +{
-+	xprintf("live-update: read state\n");
 +}
 +
- static const char *lu_activate_binary(const void *ctx)
- {
- 	return "Not yet implemented.";
-diff --git a/tools/xenstore/xenstored_control.h b/tools/xenstore/xenstored_control.h
-index 207e0a6fa3..aac61f0590 100644
---- a/tools/xenstore/xenstored_control.h
-+++ b/tools/xenstore/xenstored_control.h
-@@ -17,3 +17,4 @@
- */
- 
- int do_control(struct connection *conn, struct buffered_data *in);
-+void lu_read_state(void);
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index b0656eb3e4..395a120bef 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -1680,9 +1680,10 @@ static void tdb_logger(TDB_CONTEXT *tdb, int level, const char * fmt, ...)
- 	}
- }
- 
--static void setup_structure(void)
-+static void setup_structure(bool live_update)
- {
- 	char *tdbname;
-+
- 	tdbname = talloc_strdup(talloc_autofree_context(), xs_daemon_tdb());
- 	if (!tdbname)
- 		barf_perror("Could not create tdbname");
-@@ -1696,14 +1697,17 @@ static void setup_structure(void)
- 	if (!tdb_ctx)
- 		barf_perror("Could not create tdb file %s", tdbname);
- 
--	manual_node("/", "tool");
--	manual_node("/tool", "xenstored");
--	manual_node("/tool/xenstored", NULL);
-+	if (live_update)
-+		manual_node("/", NULL);
-+	else {
-+		manual_node("/", "tool");
-+		manual_node("/tool", "xenstored");
-+		manual_node("/tool/xenstored", NULL);
-+	}
- 
- 	check_store();
- }
- 
--
- static unsigned int hash_from_key_fn(void *k)
- {
- 	char *str = k;
-@@ -2109,7 +2113,8 @@ int main(int argc, char *argv[])
- 
- 	if (dofork) {
- 		openlog("xenstored", 0, LOG_DAEMON);
--		daemonize();
-+		if (!live_update)
-+			daemonize();
- 	}
- 	if (pidfile)
- 		write_pidfile(pidfile);
-@@ -2124,17 +2129,20 @@ int main(int argc, char *argv[])
- 	talloc_enable_null_tracking();
- 
- #ifndef NO_SOCKETS
--	init_sockets();
-+	if (!live_update)
-+		init_sockets();
- #endif
- 
- 	init_pipe(reopen_log_pipe);
- 
- 	/* Setup the database */
--	setup_structure();
-+	setup_structure(live_update);
- 
- 	/* Listen to hypervisor. */
--	if (!no_domain_init)
--		domain_init();
-+	if (!no_domain_init && !live_update) {
-+		domain_init(-1);
-+		dom0_init();
-+	}
- 
- 	if (outputpid) {
- 		printf("%ld\n", (long)getpid());
-@@ -2142,13 +2150,21 @@ int main(int argc, char *argv[])
- 	}
- 
- 	/* redirect to /dev/null now we're ready to accept connections */
--	if (dofork)
-+	if (dofork && !live_update)
- 		finish_daemonize();
-+#ifndef __MINIOS__
-+	if (dofork)
-+		xprintf = trace;
-+#endif
- 
- 	signal(SIGHUP, trigger_reopen_log);
- 	if (tracefile)
- 		tracefile = talloc_strdup(NULL, tracefile);
- 
-+	/* Read state in case of live update. */
-+	if (live_update)
-+		lu_read_state();
-+
- 	/* Get ready to listen to the tools. */
- 	initialize_fds(&sock_pollfd_idx, &timeout);
- 
-@@ -2156,8 +2172,10 @@ int main(int argc, char *argv[])
- 	xenbus_notify_running();
- 
- #if defined(XEN_SYSTEMD_ENABLED)
--	sd_notify(1, "READY=1");
--	fprintf(stderr, SD_NOTICE "xenstored is ready\n");
-+	if (!live_update) {
-+		sd_notify(1, "READY=1");
-+		fprintf(stderr, SD_NOTICE "xenstored is ready\n");
-+	}
- #endif
- 
- 	/* Main loop. */
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 71b078caf3..775546757b 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -706,29 +706,23 @@ bool check_perms_special(const char *name, struct connection *conn)
- 	return perm_for_conn(conn, p) & XS_PERM_READ;
- }
- 
--static int dom0_init(void) 
--{ 
-+void dom0_init(void)
++static void lu_close_dump_state(struct lu_dump_state *state)
 +{
- 	evtchn_port_t port;
- 	struct domain *dom0;
- 
- 	port = xenbus_evtchn();
- 	if (port == -1)
--		return -1;
-+		barf_perror("Failed to initialize dom0 port");
- 
- 	dom0 = introduce_domain(NULL, xenbus_master_domid(), port);
- 	if (!dom0)
--		return -1;
-+		barf_perror("Failed to initialize dom0");
- 
- 	xenevtchn_notify(xce_handle, dom0->port);
--
--	if (set_dom_perms_default(&dom_release_perms) ||
--	    set_dom_perms_default(&dom_introduce_perms))
--		return -1;
--
--	return 0; 
- }
- 
--void domain_init(void)
-+void domain_init(int evtfd)
++}
+ #else
+ static const char *lu_binary(const void *ctx, struct connection *conn,
+ 			     const char *filename)
+@@ -373,6 +389,50 @@ static void lu_dump_close(FILE *fp)
  {
- 	int rc;
+ 	fclose(fp);
+ }
++
++static void lu_get_dump_state(struct lu_dump_state *state)
++{
++	char *filename;
++	struct stat statbuf;
++
++	state->size = 0;
++
++	filename = talloc_asprintf(NULL, "%s/state_dump", xs_daemon_rootdir());
++	if (!filename)
++		barf("Allocation failure");
++
++	state->fd = open(filename, O_RDONLY);
++	talloc_free(filename);
++	if (state->fd < 0)
++		return;
++	if (fstat(state->fd, &statbuf) != 0)
++		goto out_close;
++	state->size = statbuf.st_size;
++
++	state->buf = mmap(NULL, state->size, PROT_READ, MAP_PRIVATE,
++			  state->fd, 0);
++	if (state->buf == MAP_FAILED) {
++		state->size = 0;
++		goto out_close;
++	}
++
++	return;
++
++ out_close:
++	close(state->fd);
++}
++
++static void lu_close_dump_state(struct lu_dump_state *state)
++{
++	char *filename;
++
++	munmap(state->buf, state->size);
++	close(state->fd);
++
++	filename = talloc_asprintf(NULL, "%s/state_dump", xs_daemon_rootdir());
++	unlink(filename);
++	talloc_free(filename);
++}
+ #endif
  
-@@ -758,13 +752,17 @@ void domain_init(void)
+ static bool lu_check_lu_allowed(void)
+@@ -455,7 +515,47 @@ static const char *lu_dump_state(const void *ctx, struct connection *conn)
  
- 	talloc_set_destructor(xgt_handle, close_xgt_handle);
- 
--	xce_handle = xenevtchn_open(NULL, XENEVTCHN_NO_CLOEXEC);
-+	if (evtfd < 0)
-+		xce_handle = xenevtchn_open(NULL, XENEVTCHN_NO_CLOEXEC);
-+	else
-+		xce_handle = xenevtchn_fdopen(NULL, evtfd, 0);
- 
- 	if (xce_handle == NULL)
- 		barf_perror("Failed to open evtchn device");
- 
--	if (dom0_init() != 0) 
--		barf_perror("Failed to initialize dom0 state"); 
-+	if (set_dom_perms_default(&dom_release_perms) ||
-+	    set_dom_perms_default(&dom_introduce_perms))
-+		barf_perror("Failed to set special permissions");
- 
- 	if ((rc = xenevtchn_bind_virq(xce_handle, VIRQ_DOM_EXC)) == -1)
- 		barf_perror("Failed to bind to domain exception virq port");
-diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
-index 413b974375..b20269b038 100644
---- a/tools/xenstore/xenstored_domain.h
-+++ b/tools/xenstore/xenstored_domain.h
-@@ -42,7 +42,8 @@ int do_get_domain_path(struct connection *conn, struct buffered_data *in);
- /* Allow guest to reset all watches */
- int do_reset_watches(struct connection *conn, struct buffered_data *in);
- 
--void domain_init(void);
-+void domain_init(int evtfd);
-+void dom0_init(void);
- 
- /* Returns the implicit path of a connection (only domains have this) */
- const char *get_implicit_path(const struct connection *conn);
-diff --git a/tools/xenstore/xenstored_posix.c b/tools/xenstore/xenstored_posix.c
-index ae3e63e07f..48c37ffe3e 100644
---- a/tools/xenstore/xenstored_posix.c
-+++ b/tools/xenstore/xenstored_posix.c
-@@ -85,7 +85,6 @@ void finish_daemonize(void)
- 	dup2(devnull, STDOUT_FILENO);
- 	dup2(devnull, STDERR_FILENO);
- 	close(devnull);
--	xprintf = trace;
+ void lu_read_state(void)
+ {
+-	xprintf("live-update: read state\n");
++	struct lu_dump_state state;
++	struct xs_state_record_header *head;
++	void *ctx = talloc_new(NULL); /* Work context for subfunctions. */
++	struct xs_state_preamble *pre;
++
++	syslog(LOG_INFO, "live-update: read state\n");
++	lu_get_dump_state(&state);
++	if (state.size == 0)
++		barf_perror("No state found after live-update");
++
++	pre = state.buf;
++	if (memcmp(pre->ident, XS_STATE_IDENT, sizeof(pre->ident)) ||
++	    pre->version != htobe32(XS_STATE_VERSION) ||
++	    pre->flags != XS_STATE_FLAGS)
++		barf("Unknown record identifier");
++	for (head = state.buf + sizeof(*pre);
++	     head->type != XS_STATE_TYPE_END &&
++		(void *)head - state.buf < state.size;
++	     head = (void *)head + sizeof(*head) + head->length) {
++		switch (head->type) {
++		case XS_STATE_TYPE_GLOBAL:
++			break;
++		case XS_STATE_TYPE_CONN:
++			break;
++		case XS_STATE_TYPE_WATCH:
++			break;
++		case XS_STATE_TYPE_TA:
++			xprintf("live-update: ignore transaction record\n");
++			break;
++		case XS_STATE_TYPE_NODE:
++			break;
++		default:
++			xprintf("live-update: unknown state record %08x\n",
++				head->type);
++			break;
++		}
++	}
++
++	lu_close_dump_state(&state);
++
++	talloc_free(ctx);
  }
  
- void init_pipe(int reopen_log_pipe[2])
+ static const char *lu_activate_binary(const void *ctx)
 -- 
 2.26.2
 
