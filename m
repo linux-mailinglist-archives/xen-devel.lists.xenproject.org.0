@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E5CE2F6505
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:50:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67290.119989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 032C52F64D3
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:38:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67217.119856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04tH-0006mZ-MS; Thu, 14 Jan 2021 15:50:27 +0000
+	id 1l04hy-0003Qi-94; Thu, 14 Jan 2021 15:38:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67290.119989; Thu, 14 Jan 2021 15:50:27 +0000
+Received: by outflank-mailman (output) from mailman id 67217.119856; Thu, 14 Jan 2021 15:38:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04tH-0006m6-IL; Thu, 14 Jan 2021 15:50:27 +0000
-Received: by outflank-mailman (input) for mailman id 67290;
- Thu, 14 Jan 2021 15:50:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l04hy-0003Pm-38; Thu, 14 Jan 2021 15:38:46 +0000
+Received: by outflank-mailman (input) for mailman id 67217;
+ Thu, 14 Jan 2021 15:38:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P5GR=GR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l04iL-0002Sh-K8
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:39:09 +0000
+ id 1l04hv-0002SV-NG
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:38:43 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b0c1634a-c2ba-430f-9cff-1b4cd6f169cd;
- Thu, 14 Jan 2021 15:38:12 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 947487b8-c55a-4ed2-9448-3b49d6122461;
+ Thu, 14 Jan 2021 15:38:13 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7312AAC24;
+ by mx2.suse.de (Postfix) with ESMTP id 9D113AF27;
  Thu, 14 Jan 2021 15:38:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,193 +38,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0c1634a-c2ba-430f-9cff-1b4cd6f169cd
+X-Inumbo-ID: 947487b8-c55a-4ed2-9448-3b49d6122461
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1610638690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1D5oDSY8IZ5xFhSEZYcvdGWsAxGnd0iV4qxpJqrypD8=;
-	b=AuAWNAilptXbhINgpMj6X/5mAzC4So8DCJ5V7bwG+8o+T7S5aYZJhD3oNhUDFdLucI8QkG
-	XDQL/AQ+NfLfMnw72Fdirp/Qec1Q2G781KaKoqMLXrpLYuPpYYaCxXwasaHs/5kXDo7sP0
-	j5uG1e+pTL+jAICH++hsYi7bEyQFb1E=
+	bh=/rmGIUwb7rQQbsNmDH/AGkcUN8zjvijT5247nfpjU8Q=;
+	b=H0QbV+fnQtY1tXh/tkxp0IaW3qf8SawL0/CYd7YwKAqJs2kWny9/osXFHsS9T8Gwj6d5Mt
+	kf+09JaqUm255xcE6/qx+qxf5x2DV1F0SUWyyqUfHVpidZR+f17GdQsmbvIhKH5QGgblkO
+	gnRTNS49OZnJveaYHYULzJSjgezuhRI=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
-	Julien Grall <julien.grall@amazon.com>
-Subject: [PATCH v11 18/27] tools/xenstore: handle CLOEXEC flag for local files and pipes
-Date: Thu, 14 Jan 2021 16:37:54 +0100
-Message-Id: <20210114153803.2591-19-jgross@suse.com>
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v11 19/27] tools/xenstore: split off domain introduction from do_introduce()
+Date: Thu, 14 Jan 2021 16:37:55 +0100
+Message-Id: <20210114153803.2591-20-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210114153803.2591-1-jgross@suse.com>
 References: <20210114153803.2591-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For support of live update the locally used files need to have the
-"close on exec" flag set. Fortunately the used Xen libraries are
-already doing this, so only the logging and tdb related files and
-pipes are affected. openlog() has the close on exec attribute, too.
+For live update the functionality to introduce a new domain similar to
+the XS_INTRODUCE command is needed, so split that functionality off
+into a dedicated function introduce_domain().
 
-In order to be able to keep the event channels open specify the
-XENEVTCHN_NO_CLOEXEC flag when calling xenevtchn_open().
+Switch initial dom0 initialization to use this function, too.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Acked-by: Julien Grall <julien.grall@amazon.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
-V4:
-- disable LU in case of O_CLOEXEC not supported (Julien Grall)
-
-V5:
-- add comment (Paul Durrant)
-
-V7:
-- set XENEVTCHN_NO_CLOEXEC
+V8:
+- new patch
 ---
- tools/xenstore/xenstored_control.c |  6 ++++++
- tools/xenstore/xenstored_core.c    |  6 ++++--
- tools/xenstore/xenstored_core.h    |  8 ++++++++
- tools/xenstore/xenstored_domain.c  |  2 +-
- tools/xenstore/xenstored_posix.c   | 12 ++++++++++++
- 5 files changed, 31 insertions(+), 3 deletions(-)
+ tools/xenstore/xenstored_domain.c | 95 ++++++++++++++++++-------------
+ 1 file changed, 55 insertions(+), 40 deletions(-)
 
-diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 206948d7e5..25b407e153 100644
---- a/tools/xenstore/xenstored_control.c
-+++ b/tools/xenstore/xenstored_control.c
-@@ -41,6 +41,7 @@ Interactive commands for Xen Store Daemon.
- #define MAP_ANONYMOUS MAP_ANON
- #endif
- 
-+#ifndef NO_LIVE_UPDATE
- struct live_update {
- 	/* For verification the correct connection is acting. */
- 	struct connection *conn;
-@@ -90,6 +91,7 @@ static const char *lu_begin(struct connection *conn)
- 
- 	return NULL;
- }
-+#endif
- 
- struct cmd_s {
- 	char *cmd;
-@@ -214,6 +216,7 @@ static int do_control_print(void *ctx, struct connection *conn,
- 	return 0;
- }
- 
-+#ifndef NO_LIVE_UPDATE
- static const char *lu_abort(const void *ctx, struct connection *conn)
- {
- 	syslog(LOG_INFO, "live-update: abort\n");
-@@ -575,6 +578,7 @@ static int do_control_lu(void *ctx, struct connection *conn,
- 	send_reply(conn, XS_CONTROL, resp, strlen(resp) + 1);
- 	return 0;
- }
-+#endif
- 
- static int do_control_help(void *, struct connection *, char **, int);
- 
-@@ -582,6 +586,7 @@ static struct cmd_s cmds[] = {
- 	{ "check", do_control_check, "" },
- 	{ "log", do_control_log, "on|off" },
- 
-+#ifndef NO_LIVE_UPDATE
- 	/*
- 	 * The parameters are those of the xenstore-control utility!
- 	 * Depending on environment (Mini-OS or daemon) the live-update
-@@ -601,6 +606,7 @@ static struct cmd_s cmds[] = {
- 	{ "live-update", do_control_lu,
- 		"[-c <cmdline>] [-F] [-t <timeout>] <file>\n"
- 		"    Default timeout is 60 seconds.", 4 },
-+#endif
- #ifdef __MINIOS__
- 	{ "memreport", do_control_memreport, "" },
- #else
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 97e7277791..b0656eb3e4 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -198,7 +198,8 @@ void reopen_log(void)
- 	if (tracefile) {
- 		close_log();
- 
--		tracefd = open(tracefile, O_WRONLY|O_CREAT|O_APPEND, 0600);
-+		tracefd = open(tracefile,
-+			       O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0600);
- 
- 		if (tracefd < 0)
- 			perror("Could not open tracefile");
-@@ -1689,7 +1690,8 @@ static void setup_structure(void)
- 	if (!(tdb_flags & TDB_INTERNAL))
- 		unlink(tdbname);
- 
--	tdb_ctx = tdb_open_ex(tdbname, 7919, tdb_flags, O_RDWR|O_CREAT|O_EXCL,
-+	tdb_ctx = tdb_open_ex(tdbname, 7919, tdb_flags,
-+			      O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC,
- 			      0640, &tdb_logger, NULL);
- 	if (!tdb_ctx)
- 		barf_perror("Could not create tdb file %s", tdbname);
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 22287ddfe9..c7567eaf0b 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -35,6 +35,14 @@
- #include "tdb.h"
- #include "hashtable.h"
- 
-+#ifndef O_CLOEXEC
-+#define O_CLOEXEC 0
-+/* O_CLOEXEC support is needed for Live Update in the daemon case. */
-+#ifndef __MINIOS__
-+#define NO_LIVE_UPDATE
-+#endif
-+#endif
-+
- /* DEFAULT_BUFFER_SIZE should be large enough for each errno string. */
- #define DEFAULT_BUFFER_SIZE 16
- 
 diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 919a4d98cf..38d250fbed 100644
+index 38d250fbed..71b078caf3 100644
 --- a/tools/xenstore/xenstored_domain.c
 +++ b/tools/xenstore/xenstored_domain.c
-@@ -743,7 +743,7 @@ void domain_init(void)
- 
- 	talloc_set_destructor(xgt_handle, close_xgt_handle);
- 
--	xce_handle = xenevtchn_open(NULL, 0);
-+	xce_handle = xenevtchn_open(NULL, XENEVTCHN_NO_CLOEXEC);
- 
- 	if (xce_handle == NULL)
- 		barf_perror("Failed to open evtchn device");
-diff --git a/tools/xenstore/xenstored_posix.c b/tools/xenstore/xenstored_posix.c
-index 1f9603fea2..ae3e63e07f 100644
---- a/tools/xenstore/xenstored_posix.c
-+++ b/tools/xenstore/xenstored_posix.c
-@@ -90,9 +90,21 @@ void finish_daemonize(void)
- 
- void init_pipe(int reopen_log_pipe[2])
- {
-+	int flags;
-+	unsigned int i;
-+
- 	if (pipe(reopen_log_pipe)) {
- 		barf_perror("pipe");
- 	}
-+
-+	for (i = 0; i < 2; i++) {
-+		flags = fcntl(reopen_log_pipe[i], F_GETFD);
-+		if (flags < 0)
-+			barf_perror("pipe get flags");
-+		flags |= FD_CLOEXEC;
-+		if (fcntl(reopen_log_pipe[i],  F_SETFD, flags) < 0)
-+			barf_perror("pipe set flags");
-+	}
+@@ -326,7 +326,7 @@ static struct domain *find_domain_struct(unsigned int domid)
+ 	return NULL;
  }
  
- void unmap_xenbus(void *interface)
+-static struct domain *alloc_domain(void *context, unsigned int domid)
++static struct domain *alloc_domain(const void *context, unsigned int domid)
+ {
+ 	struct domain *domain;
+ 
+@@ -347,6 +347,14 @@ static struct domain *alloc_domain(void *context, unsigned int domid)
+ 	return domain;
+ }
+ 
++static struct domain *find_or_alloc_domain(const void *ctx, unsigned int domid)
++{
++	struct domain *domain;
++
++	domain = find_domain_struct(domid);
++	return domain ? : alloc_domain(ctx, domid);
++}
++
+ static int new_domain(struct domain *domain, int port)
+ {
+ 	int rc;
+@@ -413,52 +421,41 @@ static void domain_conn_reset(struct domain *domain)
+ 	domain->interface->rsp_cons = domain->interface->rsp_prod = 0;
+ }
+ 
+-/* domid, gfn, evtchn, path */
+-int do_introduce(struct connection *conn, struct buffered_data *in)
++static struct domain *introduce_domain(const void *ctx,
++				       unsigned int domid,
++				       evtchn_port_t port)
+ {
+ 	struct domain *domain;
+-	char *vec[3];
+-	unsigned int domid;
+-	evtchn_port_t port;
+ 	int rc;
+ 	struct xenstore_domain_interface *interface;
++	bool is_master_domain = (domid == xenbus_master_domid());
+ 
+-	if (get_strings(in, vec, ARRAY_SIZE(vec)) < ARRAY_SIZE(vec))
+-		return EINVAL;
+-
+-	domid = atoi(vec[0]);
+-	/* Ignore the gfn, we don't need it. */
+-	port = atoi(vec[2]);
+-
+-	/* Sanity check args. */
+-	if (port <= 0)
+-		return EINVAL;
+-
+-	domain = find_domain_struct(domid);
+-
+-	if (domain == NULL) {
+-		/* Hang domain off "in" until we're finished. */
+-		domain = alloc_domain(in, domid);
+-		if (domain == NULL)
+-			return ENOMEM;
+-	}
++	domain = find_or_alloc_domain(ctx, domid);
++	if (!domain)
++		return NULL;
+ 
+ 	if (!domain->introduced) {
+-		interface = map_interface(domid);
++		interface = is_master_domain ? xenbus_map()
++					     : map_interface(domid);
+ 		if (!interface)
+-			return errno;
+-		/* Hang domain off "in" until we're finished. */
++			return NULL;
+ 		if (new_domain(domain, port)) {
+ 			rc = errno;
+-			unmap_interface(interface);
+-			return rc;
++			if (is_master_domain)
++				unmap_xenbus(interface);
++			else
++				unmap_interface(interface);
++			errno = rc;
++			return NULL;
+ 		}
+ 		domain->interface = interface;
+ 
+ 		/* Now domain belongs to its connection. */
+ 		talloc_steal(domain->conn, domain);
+ 
+-		fire_watches(NULL, in, "@introduceDomain", NULL, false, NULL);
++		if (!is_master_domain)
++			fire_watches(NULL, ctx, "@introduceDomain", NULL,
++				     false, NULL);
+ 	} else {
+ 		/* Use XS_INTRODUCE for recreating the xenbus event-channel. */
+ 		if (domain->port)
+@@ -467,6 +464,32 @@ int do_introduce(struct connection *conn, struct buffered_data *in)
+ 		domain->port = (rc == -1) ? 0 : rc;
+ 	}
+ 
++	return domain;
++}
++
++/* domid, gfn, evtchn, path */
++int do_introduce(struct connection *conn, struct buffered_data *in)
++{
++	struct domain *domain;
++	char *vec[3];
++	unsigned int domid;
++	evtchn_port_t port;
++
++	if (get_strings(in, vec, ARRAY_SIZE(vec)) < ARRAY_SIZE(vec))
++		return EINVAL;
++
++	domid = atoi(vec[0]);
++	/* Ignore the gfn, we don't need it. */
++	port = atoi(vec[2]);
++
++	/* Sanity check args. */
++	if (port <= 0)
++		return EINVAL;
++
++	domain = introduce_domain(in, domid, port);
++	if (!domain)
++		return errno;
++
+ 	domain_conn_reset(domain);
+ 
+ 	send_ack(conn, XS_INTRODUCE);
+@@ -692,17 +715,9 @@ static int dom0_init(void)
+ 	if (port == -1)
+ 		return -1;
+ 
+-	dom0 = alloc_domain(NULL, xenbus_master_domid());
++	dom0 = introduce_domain(NULL, xenbus_master_domid(), port);
+ 	if (!dom0)
+ 		return -1;
+-	if (new_domain(dom0, port))
+-		return -1;
+-
+-	dom0->interface = xenbus_map();
+-	if (dom0->interface == NULL)
+-		return -1;
+-
+-	talloc_steal(dom0->conn, dom0); 
+ 
+ 	xenevtchn_notify(xce_handle, dom0->port);
+ 
 -- 
 2.26.2
 
