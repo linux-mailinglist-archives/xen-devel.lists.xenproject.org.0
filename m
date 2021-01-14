@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1CB2F6504
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:50:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67281.119965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B78222F6502
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jan 2021 16:49:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67268.119952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04sw-0006XE-2T; Thu, 14 Jan 2021 15:50:06 +0000
+	id 1l04sW-0005l4-NV; Thu, 14 Jan 2021 15:49:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67281.119965; Thu, 14 Jan 2021 15:50:06 +0000
+Received: by outflank-mailman (output) from mailman id 67268.119952; Thu, 14 Jan 2021 15:49:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l04sv-0006Wn-Uw; Thu, 14 Jan 2021 15:50:05 +0000
-Received: by outflank-mailman (input) for mailman id 67281;
- Thu, 14 Jan 2021 15:50:04 +0000
+	id 1l04sW-0005kf-H3; Thu, 14 Jan 2021 15:49:40 +0000
+Received: by outflank-mailman (input) for mailman id 67268;
+ Thu, 14 Jan 2021 15:49:39 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=P5GR=GR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l04ip-0002Sh-LP
- for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:39:39 +0000
+ (envelope-from <SRS0=J1hy=GR=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l04iu-0002Sh-La
+ for xen-devel@lists.xenproject.org; Thu, 14 Jan 2021 15:39:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4ebe08d5-f8f5-4d26-9036-fe714f229409;
- Thu, 14 Jan 2021 15:38:14 +0000 (UTC)
+ id b10f933e-20d4-4214-b2bd-0791d0c6b377;
+ Thu, 14 Jan 2021 15:38:28 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 23572AF37;
- Thu, 14 Jan 2021 15:38:12 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 66A63AEAB;
+ Thu, 14 Jan 2021 15:38:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,212 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ebe08d5-f8f5-4d26-9036-fe714f229409
+X-Inumbo-ID: b10f933e-20d4-4214-b2bd-0791d0c6b377
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610638692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
+	t=1610638707; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=slP8ly01gF/AGpapuBih7H1vDBntjiFHvZ8tgMRiyM0=;
-	b=F75voBapIN3se+kN46W+BIEtJzJV+A3E5E6AA12WXPyx7FERTltRX/g+PHZQROt4aAfd/a
-	W9VMpIl6am75AYgySSFRtIkV5W4fFh0AH6EpCDWW/LGoP1IsFVvGh9zNh2l7EKbxZtgw/l
-	M0FCSgNHFeMsmadoWIUxFDyToZkIYzA=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v11 27/27] tools/xenstore: activate new binary for live update
-Date: Thu, 14 Jan 2021 16:38:03 +0100
-Message-Id: <20210114153803.2591-28-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210114153803.2591-1-jgross@suse.com>
-References: <20210114153803.2591-1-jgross@suse.com>
+	bh=oLfI5O1odNAJ2FlprWdwHJpbz3Zme4dt/wvDbg3b8jM=;
+	b=RGKIGsIHwurRRLEgvM6Cm1e6HrGnR082hNzZ1BtOaqBmqIwegQtSjm6IjPmmSEKWytd4yy
+	nnssj4qqzBSwCkdYyCA5ApC27fLFVjJWinOPcrQRpdEFoZ3vS+hwn8RpIb8L77QVC5gwnl
+	R4hw/8f3oqtYJlQLbZ8bEpjpgFhmYw0=
+Subject: Re: [PATCH] common: don't require use of DOMID_SELF
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <72c9f0ec-81e3-63f9-2513-46e463642219@suse.com>
+ <3c0ebca6-a5e9-36a8-cfeb-6abc0fc7c2af@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c6a6c3e5-ef52-51f6-261c-06ae2d477b43@suse.com>
+Date: Thu, 14 Jan 2021 16:38:27 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
+In-Reply-To: <3c0ebca6-a5e9-36a8-cfeb-6abc0fc7c2af@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-Add activation of the new binary for live update. The daemon case is
-handled completely, while for stubdom we only add stubs.
+On 14.01.2021 16:01, Andrew Cooper wrote:
+> On 14/01/2021 14:02, Jan Beulich wrote:
+>> --- a/xen/common/grant_table.c
+>> +++ b/xen/common/grant_table.c
+>> @@ -2776,15 +2776,19 @@ struct gnttab_copy_buf {
+>>  static int gnttab_copy_lock_domain(domid_t domid, bool is_gref,
+>>                                     struct gnttab_copy_buf *buf)
+>>  {
+>> -    /* Only DOMID_SELF may reference via frame. */
+>> -    if ( domid != DOMID_SELF && !is_gref )
+>> -        return GNTST_permission_denied;
+>> -
+>>      buf->domain = rcu_lock_domain_by_any_id(domid);
+>>  
+>>      if ( !buf->domain )
+>>          return GNTST_bad_domain;
+>>  
+>> +    /* Only the local domain may reference via frame. */
+>> +    if ( buf->domain != current->domain && !is_gref )
+>> +    {
+>> +        rcu_unlock_domain(buf->domain);
+>> +        buf->domain = NULL;
+>> +        return GNTST_permission_denied;
+>> +    }
+> 
+> In this case, it's also a weird asymmetry where this is one grant table
+> operation which a privileged domain can't issue on behalf of an
+> unprivileged one.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V7:
-- added unbinding dom0 and virq event channels
+Well, in a way, perhaps. If it was useful, perhaps it would have
+been made work and allowed, so I wonder whether there simply is
+no good use for it?
 
-V8:
-- no longer close dom0 evtchn (Julien Grall)
+>> --- a/xen/common/page_alloc.c
+>> +++ b/xen/common/page_alloc.c
+>> @@ -2566,13 +2566,7 @@ __initcall(register_heap_trigger);
+>>  
+>>  struct domain *get_pg_owner(domid_t domid)
+>>  {
+>> -    struct domain *pg_owner = NULL, *curr = current->domain;
+>> -
+>> -    if ( unlikely(domid == curr->domain_id) )
+>> -    {
+>> -        gdprintk(XENLOG_WARNING, "Cannot specify itself as foreign domain\n");
+>> -        goto out;
+>> -    }
+>> +    struct domain *pg_owner;
+> 
+> I'm not sure this is correct.
+> 
+> It isn't a DOMID_SELF check.  It's a "confirm the nominated domid is
+> remote" check, and I don't see all the callers of this interface having
+> appropriate checks to prohibit trying to do a foreign operation on
+> oneself, however they specify the foreign domid.
 
-V10:
-- remember original argc and argv (taken from deleted patch)
----
- tools/xenstore/xenstored_control.c | 61 +++++++++++++++++++++++++++++-
- tools/xenstore/xenstored_core.c    |  5 +++
- tools/xenstore/xenstored_core.h    |  3 ++
- tools/xenstore/xenstored_domain.c  |  6 +++
- tools/xenstore/xenstored_domain.h  |  1 +
- 5 files changed, 75 insertions(+), 1 deletion(-)
+No, I don't think so. Prior to a625c335593e ("common: don't (kind
+of) open-code rcu_lock_domain_by_any_id()") DOMID_SELF was explicitly
+permitted. As of that change, it's implicitly permitted. I don't see
+how using DOMID_SELF would be okay when using the numeric ID isn't.
+(I'm not going to exclude there may be missing checks in some of the
+callers, but from prior audits I don't recall recognizing any.)
 
-diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 900b82bd40..906beae1f9 100644
---- a/tools/xenstore/xenstored_control.c
-+++ b/tools/xenstore/xenstored_control.c
-@@ -16,6 +16,7 @@ Interactive commands for Xen Store Daemon.
-     along with this program; If not, see <http://www.gnu.org/licenses/>.
- */
- 
-+#include <ctype.h>
- #include <errno.h>
- #include <stdarg.h>
- #include <stdio.h>
-@@ -335,6 +336,11 @@ static void lu_get_dump_state(struct lu_dump_state *state)
- static void lu_close_dump_state(struct lu_dump_state *state)
- {
- }
-+
-+static char *lu_exec(const void *ctx, int argc, char **argv)
-+{
-+	return "NYI";
-+}
- #else
- static const char *lu_binary(const void *ctx, struct connection *conn,
- 			     const char *filename)
-@@ -434,6 +440,14 @@ static void lu_close_dump_state(struct lu_dump_state *state)
- 	unlink(filename);
- 	talloc_free(filename);
- }
-+
-+static char *lu_exec(const void *ctx, int argc, char **argv)
-+{
-+	argv[0] = lu_status->filename;
-+	execvp(argv[0], argv);
-+
-+	return "Error activating new binary.";
-+}
- #endif
- 
- static bool lu_check_lu_allowed(void)
-@@ -572,7 +586,52 @@ void lu_read_state(void)
- 
- static const char *lu_activate_binary(const void *ctx)
- {
--	return "Not yet implemented.";
-+	int argc;
-+	char **argv;
-+	unsigned int i;
-+
-+	if (lu_status->cmdline) {
-+		argc = 4;   /* At least one arg + progname + "-U" + NULL. */
-+		for (i = 0; lu_status->cmdline[i]; i++)
-+			if (isspace(lu_status->cmdline[i]))
-+				argc++;
-+		argv = talloc_array(ctx, char *, argc);
-+		if (!argv)
-+			return "Allocation failure.";
-+
-+		i = 0;
-+		argc = 1;
-+		argv[1] = strtok(lu_status->cmdline, " \t");
-+		while (argv[argc]) {
-+			if (!strcmp(argv[argc], "-U"))
-+				i = 1;
-+			argc++;
-+			argv[argc] = strtok(NULL, " \t");
-+		}
-+
-+		if (!i) {
-+			argv[argc++] = "-U";
-+			argv[argc] = NULL;
-+		}
-+	} else {
-+		for (i = 0; i < orig_argc; i++)
-+			if (!strcmp(orig_argv[i], "-U"))
-+				break;
-+
-+		argc = orig_argc;
-+		argv = talloc_array(ctx, char *, orig_argc + 2);
-+		if (!argv)
-+			return "Allocation failure.";
-+
-+		memcpy(argv, orig_argv, orig_argc * sizeof(*argv));
-+		if (i == orig_argc)
-+			argv[argc++] = "-U";
-+		argv[argc] = NULL;
-+	}
-+
-+	domain_deinit();
-+
-+	return lu_exec(ctx, argc, argv);
- }
- 
- static bool do_lu_start(struct delayed_request *req)
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 3e133b475c..f6980478dd 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -73,6 +73,9 @@ static unsigned int delayed_requests;
- 
- static int sock = -1;
- 
-+int orig_argc;
-+char **orig_argv;
-+
- static bool verbose = false;
- LIST_HEAD(connections);
- int tracefd = -1;
-@@ -2070,6 +2073,8 @@ int main(int argc, char *argv[])
- 	const char *pidfile = NULL;
- 	int timeout;
- 
-+	orig_argc = argc;
-+	orig_argv = argv;
- 
- 	while ((opt = getopt_long(argc, argv, "DE:F:HNPS:t:A:M:T:RVW:U", options,
- 				  NULL)) != -1) {
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 6ac5a6fbfa..589699e833 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -222,6 +222,9 @@ void dtrace_io(const struct connection *conn, const struct buffered_data *data,
- void reopen_log(void);
- void close_log(void);
- 
-+extern int orig_argc;
-+extern char **orig_argv;
-+
- extern char *tracefile;
- extern int tracefd;
- 
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index cbeb2a309c..3d4d0649a2 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -783,6 +783,12 @@ void domain_init(int evtfd)
- 	virq_port = rc;
- }
- 
-+void domain_deinit(void)
-+{
-+	if (virq_port)
-+		xenevtchn_unbind(xce_handle, virq_port);
-+}
-+
- void domain_entry_inc(struct connection *conn, struct node *node)
- {
- 	struct domain *d;
-diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
-index 1cc1c03ed8..dc97591713 100644
---- a/tools/xenstore/xenstored_domain.h
-+++ b/tools/xenstore/xenstored_domain.h
-@@ -46,6 +46,7 @@ int do_reset_watches(struct connection *conn, struct buffered_data *in);
- 
- void domain_init(int evtfd);
- void dom0_init(void);
-+void domain_deinit(void);
- 
- /* Returns the implicit path of a connection (only domains have this) */
- const char *get_implicit_path(const struct connection *conn);
--- 
-2.26.2
-
+Jan
 
