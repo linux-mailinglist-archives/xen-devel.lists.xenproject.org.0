@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F0C62F81E5
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 18:14:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68459.122588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8C142F824A
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 18:28:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68464.122600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0Sfl-00079B-Lw; Fri, 15 Jan 2021 17:14:05 +0000
+	id 1l0Ssv-0008Gq-VI; Fri, 15 Jan 2021 17:27:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68459.122588; Fri, 15 Jan 2021 17:14:05 +0000
+Received: by outflank-mailman (output) from mailman id 68464.122600; Fri, 15 Jan 2021 17:27:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0Sfl-00078m-Ii; Fri, 15 Jan 2021 17:14:05 +0000
-Received: by outflank-mailman (input) for mailman id 68459;
- Fri, 15 Jan 2021 17:14:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l0Sfk-00078h-5h
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 17:14:04 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l0Sfg-0000VA-0f; Fri, 15 Jan 2021 17:14:00 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l0Sff-0006aZ-Gt; Fri, 15 Jan 2021 17:13:59 +0000
+	id 1l0Ssv-0008GR-Rw; Fri, 15 Jan 2021 17:27:41 +0000
+Received: by outflank-mailman (input) for mailman id 68464;
+ Fri, 15 Jan 2021 17:27:40 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5h4P=GS=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l0Ssu-0008GM-Eu
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 17:27:40 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 63b15683-d67e-4184-8d12-2ae0e48b579c;
+ Fri, 15 Jan 2021 17:27:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,146 +35,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=uY6H7s2rxCziv4urw5wiiNEUNDevc4dgCDZ96v9f178=; b=aC1qJzTQWUACz9NZOlLOQ1mIEx
-	Yy7PkOwxwm3ZZxXXfi7BoC6ZPuVQTv+AeQSlrAbE6KDlVxM+QGA+ZswEITALJGfIcR5c8EjJXcDtr
-	UZcfXSVPbphhxm+riAT/Z6i8OXEMdAtkuxUwIh3/e16bYSp8w2gz0DDMoydIpUkpDcgw=;
-Subject: Re: IRQ latency measurements in hypervisor
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <jgrall@amazon.com>, Dario Faggioli <dario.faggioli@suse.com>,
- "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-References: <87pn294szv.fsf@epam.com>
- <alpine.DEB.2.21.2101141515230.31265@sstabellini-ThinkPad-T480s>
- <f31c9cca-0275-eaef-5fcd-c8484d4b5da0@xen.org> <87wnwe2ogp.fsf@epam.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <187995c9-78f4-0a1c-d912-ca5100d07321@xen.org>
-Date: Fri, 15 Jan 2021 17:13:57 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.1
+X-Inumbo-ID: 63b15683-d67e-4184-8d12-2ae0e48b579c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610731659;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=i5xUBEMFhfPGXQJMzpCgAk0sDX8BJSjnDva9h3no7N4=;
+  b=cc2i4/LsZbXuo6gl1+FAbLQ1+IfJMqIi97vLYaKZEw1Lexvzp7Vdl2WW
+   qyyZQ8DOCH3UYr3cJPSqjPpHPkwjzZb80cBRoGAR2eJ24j+H2xCQIXwf0
+   BDIiKUs6NMoRLFu6RDEDuzq7RUPSGk2r15ak4Mh2cZ3uuWxdKldNyVnXJ
+   0=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: kMtxnh2dFs+XOAZVC1oH5Os4lCkSHuuY2aUX8ccVdsE7MUufUg0E5wfA0LQEWDnb0ad3DT4+ES
+ TDUhyIXgb26yJY+smLvfyskvloPU8Zs5LwJ/7D/YeVvqq6uYVBhrr/fh0ptwMITgSUo4slhj7i
+ Z5aXtiKnW1qwdgAA7bD9zt+yx9XhAbSy0Aj3v3qpxjHlY2U0wHwv3oXMvtMxGZOkA9SoZU56Ns
+ cHxBfAznL643QF8FSCXsscITEC5x7zAtWUdsO/sk3Wt6OOMnJk3Qhyo0cr75+L0j/wjEu+g5nV
+ czw=
+X-SBRS: 5.2
+X-MesageID: 35184556
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,350,1602561600"; 
+   d="scan'208";a="35184556"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mpykWLifjTfBzAMhdOE4nMcdCxR80RfJXrIW5/zUcHdfZWA1rUW+oVa4Vj/C6BRdDODUpW85ZfAhBlWq3nA1K41BggXYEuvAW1swrCvXSIF/9gSwH+qN4lGU5DBBEnNFodeutUB3CNM3RzFSM0mkWLIbSVbgEw44/tKyW1vJbvo/N/godkhCRTVkPcAsahctRkRU0xPkIDcv6M3xQo/b/gC+Pxd+X/j1cLC0saEGcUgTLrjpT2NnQc4Z4N8tsBSDlgOO284TSX3ZyGfHlTwpnHIpTk2cGeMpnFIaJ1NoMKbJ2HDJVg9tQ2xJnW1oJB86+EVbGbLa3az3lkAOgbsipg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SiaQVdYylX/taMnLmZOdp6pPpJu+4KHB6O+qAanA6Mg=;
+ b=ckVzZJnGBFFODQIpoFEkv9tz63PsEpssBFof8CIMoEXqfPnGlnaIfMCsWfU8SWoIgi0RCaUYWzISP742P0uof5udq/E25WkcDxAWBvLOPrpI9dfwgSiBbEIoOGFOrD/VnFXuxv7d/djismkFK9tBVNXJeFJY/4uX0nenIIirKuvwdAKCXO9eMua9EEbpoN7kQsd+nimLCPKVK0qjmZwdBATPQtk4p110a4rmwiVA+ty9unzfbc3r+mDNh4Gg94eBYUdo2mhGMREXvSXu1uVwLq0yEcYqw+iP+wGBxEFU8SVQX+Yni7qW0AUHfXdF7zih4KkzJOCxrOyxiTmeYW0zXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SiaQVdYylX/taMnLmZOdp6pPpJu+4KHB6O+qAanA6Mg=;
+ b=Tb2DwZaqFlgzaRdDMrNqBhReu6cMf3k5m+xZvZdDZsE3we0e0eWd976Y9/+ewjoR19YEvmzIuneHT0wTRXrU75pMQvg7ueY2Glf98a3F+5P8+pfI73FFcghhTjKK38tIULfpb0MtCRb3dc3AHfDwWaIFEdKrHm85ltwGyeiFxw4=
+Date: Fri, 15 Jan 2021 18:27:28 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: <xen-devel@lists.xenproject.org>, Manuel Bouyer <bouyer@netbsd.org>, Ian
+ Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>
+Subject: Re: [PATCH] libs/light: fix uuid on NetBSD
+Message-ID: <20210115172728.6srpypfygemkuwgf@Air-de-Roger>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+ <20210112181242.1570-15-bouyer@antioche.eu.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210112181242.1570-15-bouyer@antioche.eu.org>
+X-ClientProxiedBy: PR0P264CA0095.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:18::35) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <87wnwe2ogp.fsf@epam.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: df9d4d7a-d32f-4022-d5d3-08d8b97ad8cf
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3914:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB391462A805EE6C39C202099B8FA70@DM6PR03MB3914.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +IsUlteGSvgbxpcgXZIKmR8rj1z8tRtfAjynCsDXd0wJq5EIfqYQlq8sJZ51AvpI4pqhIMc3kGlpOwnVEG9Zzhxfz4oWwneJDsL3eP7sNavLSerFblqWng2vc/xDE41AYPb/Og62dBB9i7c+BeIf0RAQ8fkzxNo91//aUCrpjyr7QtK1zF2DoNEQmFJbdRA1szmiQtQ6Jhp10equtUgJJHy95OVeBpQw+l8zYaWw8X9JxOH8YgXDwpisAAXnZeHKEm3zqiCxRgg0siUAUcAmwjKZN2EgClnfU3RSjASa9Dvd8RYHljcX6B8wDpb0t7+Y5UwjGDEuKZNH3cHbbH5cDNSBUzfkUvjBgxio6J3Lbiby2Q3gWKDdGyOJU9+A8RklPyvjtMQ/Vo9ViJ2HM0L7iA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(136003)(39860400002)(346002)(396003)(376002)(26005)(6666004)(83380400001)(16526019)(186003)(86362001)(6916009)(85182001)(6486002)(956004)(478600001)(5660300002)(54906003)(66946007)(2906002)(8936002)(1076003)(4744005)(4326008)(33716001)(66476007)(66556008)(316002)(6496006)(8676002)(107886003)(9686003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WC9VaG9zNkhFeTdJVWxyNW9xa2NwSHRJcmRkY2ZHQ2lDUnRkZjR5Z3Rld3lW?=
+ =?utf-8?B?NnJSblRnQ1lySG04L3gvNzVPU1pYZUhtSDBqUGVhSjF6SkRVd2FYWkcrcU9i?=
+ =?utf-8?B?VXBsVnhMSXkrbWk3ZithMmFvM0VFSllZQkUzbkxLOCtuR0dSeC81QzlMWTdx?=
+ =?utf-8?B?V1pLbVo1blJxL1hTWFhSL2I0NFRCc2h4cWg1ZFBmNHUvRldZYXZjaFg3cFRL?=
+ =?utf-8?B?SzF1NWVubVVFVFROK3Q1K0NEOUdZUGhxayt3MlBVV0s5dWJPakxwd0xuZjR4?=
+ =?utf-8?B?bXQwRjlnZDJKcVNvU2c2U3pTS0lWV0FJZ21NSVo1bitkR2o5Y0FuYnNnRTFK?=
+ =?utf-8?B?aUV5TnkxcE1yY29xcGJ4TlduSXZXMUd3bE0vS29aMy9lNENXQmREOU5BcENP?=
+ =?utf-8?B?M21raVEzR1BXNG1ad3ZhT1FNbjg0a29PNmxEZ1VhS2R2SmoycWtFWTNRUmV0?=
+ =?utf-8?B?OUNwTDY5bWpkbTYzQWZhM1UwbHFyWXZiMUVPbkZsdDRndEJHc25SaUdRempn?=
+ =?utf-8?B?dEo5MkhTSXlIdmdxQ2c2RjVmQ2dyRGF0Q1RYVkxoYklhZC9VZm84QUhRR3BW?=
+ =?utf-8?B?VmoxWmM2V0VzN0pUSnFJRWJBY2RPTkZwOWJ1cnY1NVJiTTU3WUM5dkFDczgz?=
+ =?utf-8?B?aXVDdWZrblk1a1k2NmY4cktyTWhoRHB3YWYvT0lURTcwUXlrdHFHLytJM1F2?=
+ =?utf-8?B?NWdVYS9JNUl1VE5SV0V3QXVQUkxFSXdRSTRMaWVLeklTVFpyWFFLL3pyWUJK?=
+ =?utf-8?B?bjlBY0Jtdkdxd0MycVRWNTN4WmN0Y1kreG1ka1R5OE5wU2o4eFdncng2T0VK?=
+ =?utf-8?B?cGZ6N1J2R3V6Y05VdlNyY0d4eHNveXRnc2lEOExQNm5hVFRrQzhNZDFpOWU1?=
+ =?utf-8?B?akt2Um5uOWRCUGg1em9YUTJacnJjS0Z6MVVGdzZSMXJuakpWNVlkRjc4dFo4?=
+ =?utf-8?B?dzNlNzBSbEZWNEV5VTJiY3JVYjVNOWVhTmZkcVJsTXY5UHpDQUs4TjBpS2xF?=
+ =?utf-8?B?THRBd0Q1bzZRWE91cldLYitPTWhqb0NIK0FnNmlBWE9qbFFsMmRRTnU3SVpn?=
+ =?utf-8?B?dlVWVUV2dEtzL24zWnUrYnZSSks2UmZkSW5GQnp1NWtuSmFSSXJOT0NOSTJL?=
+ =?utf-8?B?K1ZqWm41b3dKcUZDL1hRUTMrcEg1NGEzL1lrY04rY09iVHgxdXZpSlhqR05U?=
+ =?utf-8?B?N0xLYWZkQkU2bzZ1QUdqU002VzUrdzFJeklreFFNQ0lRa2RyODYxUVJsbVJS?=
+ =?utf-8?B?b2ZUVGtTK24vZXBjdUV6V1p1R2ZsM2p4d2c2bmM2cldNNGl5b1VEREdFd0Zx?=
+ =?utf-8?Q?3L2UMJjIDu1ys0nFoWwaZuXiRg41azfnrs?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: df9d4d7a-d32f-4022-d5d3-08d8b97ad8cf
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 17:27:34.8817
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qg6WqDk6b4biFoUiR1D+BrFZkaTp+HUcKkBRuUNQ6nXmHLdePpEbcWJwwy1nL9ebdZqX9bezqODO0tvWEX9Wwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3914
+X-OriginatorOrg: citrix.com
 
-
-
-On 15/01/2021 15:45, Volodymyr Babchuk wrote:
+On Tue, Jan 12, 2021 at 07:12:35PM +0100, Manuel Bouyer wrote:
+> From: Manuel Bouyer <bouyer@netbsd.org>
 > 
-> Hi Julien,
+> NetBSD uses the same uuid library as FreeBSD. As this is in a
+> __FreeBSD__ || __NetBSD__ block, just drop the #ifdef __FreeBSD__
+> and dead code.
 > 
-> Julien Grall writes:
-> 
->> Hi Volodymyr, Stefano,
->>
->> On 14/01/2021 23:33, Stefano Stabellini wrote:
->>> + Bertrand, Andrew (see comment on alloc_heap_pages())
->>
->> Long running hypercalls are usually considered security issues.
->>
->> In this case, only the control domain can issue large memory
->> allocation (2GB at a time). Guest, would only be able to allocate 2MB
->> at the time, so from the numbers below, it would only take 1ms max.
->>
->> So I think we are fine here. Next time, you find a large loop, please
->> provide an explanation why they are not security issues (e.g. cannot
->> be used by guests) or send an email to the Security Team in doubt.
-> 
-> Sure. In this case I took into account that only control domain can
-> issue this call, I just didn't stated this explicitly. Next time will
-> do.
+> Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
 
-I am afraid that's not correct. The guest can request to populate a 
-region. This is used for instance in the ballooning case.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-The main difference is a non-privileged guest will not be able to do 
-allocation larger than 2MB.
-
-[...]
-
->>> This is very interestingi too. Did you get any spikes with the
->>> period
->>> set to 100us? It would be fantastic if there were none.
->>>
->>>> 3. Huge latency spike during domain creation. I conducted some
->>>>      additional tests, including use of PV drivers, but this didn't
->>>>      affected the latency in my "real time" domain. But attempt to
->>>>      create another domain with relatively large memory size of 2GB led
->>>>      to huge spike in latency. Debugging led to this call path:
->>>>
->>>>      XENMEM_populate_physmap -> populate_physmap() ->
->>>>      alloc_domheap_pages() -> alloc_heap_pages()-> huge
->>>>      "for ( i = 0; i < (1 << order); i++ )" loop.
->>
->> There are two for loops in alloc_heap_pages() using this syntax. Which
->> one are your referring to?
-> 
-> I did some tracing with Lautrebach. It pointed to the first loop and
-> especially to flush_page_to_ram() call if I remember correctly.
-
-Thanks, I am not entirely surprised because we are clean and 
-invalidating the region line by line and across all the CPUs.
-
-If we are assuming 128 bytes cacheline, we will need to issue 32 cache 
-instructions per page. This going to involve quite a bit of traffic on 
-the system.
-
-One possibility would be to defer the cache flush when the domain is 
-created and use the hypercall XEN_DOMCTL_cacheflush to issue the flush.
-
-Note that XEN_DOMCTL_cacheflush would need some modification to be 
-preemptible. But at least, it will work on a GFN which is easier to track.
-
->>>> I managed to overcome the issue #3 by commenting out all calls to
->>>> populate_one_size() except the populate_one_size(PFN_4K_SHIFT) in
->>>> xg_dom_arm.c. This lengthened domain construction, but my "RT" domain
->>>> didn't experienced so big latency issues. Apparently all other
->>>> hypercalls which are used during domain creation are either fast or
->>>> preemptible. No doubts that my hack lead to page tables inflation and
->>>> overall performance drop.
->>> I think we need to follow this up and fix this. Maybe just by adding
->>> a hypercall continuation to the loop.
->>
->> When I read "hypercall continuation", I read we will return to the
->> guest context so it can process interrupts and potentially switch to
->> another task.
->>
->> This means that the guest could issue a second populate_physmap() from
->> the vCPU. Therefore any restart information should be part of the
->> hypercall parameters. So far, I don't see how this would be possible.
->>
->> Even if we overcome that part, this can be easily abuse by a guest as
->> the memory is not yet accounted to the domain. Imagine a guest that
->> never request the continuation of the populate_physmap(). So we would
->> need to block the vCPU until the allocation is finished.
-> 
-> Moreover, most of the alloc_heap_pages() sits under spinlock, so first
-> step would be to split this function into smaller atomic parts.
-
-Do you have any suggestion how to split it?
-
-> 
->> I think the first step is we need to figure out which part of the
->> allocation is slow (see my question above). From there, we can figure
->> out if there is a way to reduce the impact.
-> 
-> I'll do more tracing and will return with more accurate numbers. 
-> But as far as I can see, any loop on 262144 pages will take some time..
-.
-
-It really depends on the content of the loop. On any modern processors, 
-you are very likely not going to notice a loop that update just a flag.
-
-However, you are likely going to be see an impact if your loop is going 
-to clean & invalidate the cache for each page.
-
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
