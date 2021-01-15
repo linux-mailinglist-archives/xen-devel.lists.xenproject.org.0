@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3AF2F886D
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BEEF2F886C
 	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 23:30:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68655.122928 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.68659.122952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0XbA-0005xv-TS; Fri, 15 Jan 2021 22:29:40 +0000
+	id 1l0XbL-00063q-GZ; Fri, 15 Jan 2021 22:29:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68655.122928; Fri, 15 Jan 2021 22:29:40 +0000
+Received: by outflank-mailman (output) from mailman id 68659.122952; Fri, 15 Jan 2021 22:29:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0XbA-0005xZ-Q8; Fri, 15 Jan 2021 22:29:40 +0000
-Received: by outflank-mailman (input) for mailman id 68655;
- Fri, 15 Jan 2021 22:29:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l0XbL-000636-Ci; Fri, 15 Jan 2021 22:29:51 +0000
+Received: by outflank-mailman (input) for mailman id 68659;
+ Fri, 15 Jan 2021 22:29:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hVL8=GS=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
- id 1l0Xb9-0005xU-Ad
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 22:29:39 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8ce1b3db-d953-436e-bf8f-8b1765b1fc98;
- Fri, 15 Jan 2021 22:29:37 +0000 (UTC)
+ id 1l0XbJ-00062b-RB
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 22:29:49 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fcbc4171-777d-4f1f-899b-05b569a5d2ce;
+ Fri, 15 Jan 2021 22:29:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,36 +36,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ce1b3db-d953-436e-bf8f-8b1765b1fc98
+X-Inumbo-ID: fcbc4171-777d-4f1f-899b-05b569a5d2ce
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610749777;
+  d=citrix.com; s=securemail; t=1610749788;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=MRMXAAKCznyCgSXYTb+3ZlgjJBpHTfYOk0OXr6qFO7Y=;
-  b=E2TTAMqWwbPocunA5yNxuEgTpf8fLBsqvXl/i79qNC/KDVkfoKFzyzX8
-   J4An7SlAOl9S+p+UvF/XCmsTAa6WLDthWzLKomXu6K6n32Zf1fjSr6wKZ
-   J8JbFMdMCYZLIm4RfGIMSa/c8Y90Q9Dc8WRlr0JxVL1m4Tb6HxyBIhaiz
-   0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 1lKwyqH+GPZE8/aqrvXeJpMTjLDHobceXdarvyMZcQUZSpFc7J+fDsqqO3qKJHvyeXoDI6GUEK
- bIISUC2e4qjKyFqKO3CNWCdV7xRoAJApaN4GkYYEIGu+lTf1wm3uVCfGt2hnnsB8LuNwGYXBU/
- g22/3UyZE79YprhgO8gGjTM5CmICHfnVei3y+B4j6PORGagVg2Xf3ZqhBFyg2pYgYW7rqv3Crg
- nRs8qVNRVfnTkSA1eyhZ6Z7JvhyAJO26BsvIXziY+44+lMF9oayFAfsxaphzsZFqhuajIWtj9Y
- Oro=
+  bh=7FtxhcFGXeixISaf1MY+GwKw/DMXVUnwabrQqvgoO5Q=;
+  b=JWykYM3BmBX5IBiuz56DqPvpLrKLT+EzNXwo46XlMeX0j5gRjs7hGWD5
+   7u0YWVK+TILlIx0w8/VQ/u/p5ej8cZe0Bys65kIIB11D+JEWypWmjTOCE
+   eT6tuFi3gusno1Re0h/Rn7FJtFzfPiyeP1lEcCKSIsB2AKqf2FJL+w6Sk
+   g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 6PkBYPMIMklNQNl7Ds1iT2gy7F+DBMRbPnrr4njv5lnHg56aoXgovURdpyVmdROMbTHKoVUHzb
+ RKzFV9/teGPcCKMwRaUig7/jO8HBGhleNCc77DTfpZ13oex8t2Aot2YH0f9xut16Ft4qG5l8V0
+ 3KBXcHKUkVryQoF2LjYIpuMObqa9hl0wBuH34RNh/xv/utNKLIIwlUoWhgQavVIWlfkP3/Fz1D
+ j0UwlTIe1F8dhytXFt6Vq87PJbqrQeEcXO4yxWJN3FWT1jeXSHjO7kCOlMMKltH/hVnap4doXZ
+ xT0=
 X-SBRS: 5.1
-X-MesageID: 35590778
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 35216600
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,350,1602561600"; 
-   d="scan'208";a="35590778"
+   d="scan'208";a="35216600"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Doug
- Goldstein" <cardoe@cardoe.com>
-Subject: [PATCH v2 1/2] automation/: add Ubuntu:focal container
-Date: Fri, 15 Jan 2021 22:28:40 +0000
-Message-ID: <63bf3ced2500eb9be579674ff2f0016ac9d73e70.1610748224.git.edvin.torok@citrix.com>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Jan Beulich
+	<jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Christian Lindig
+	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>
+Subject: [PATCH v2 2/2] Makefile: add build-tools-oxenstored
+Date: Fri, 15 Jan 2021 22:28:41 +0000
+Message-ID: <5805ac238f841a18e86e5a396ce7446f4914cf04.1610748224.git.edvin.torok@citrix.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <cover.1610748224.git.edvin.torok@citrix.com>
 References: <cover.1610748224.git.edvin.torok@citrix.com>
@@ -72,84 +77,51 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
+As a convenience so that oxenstored patches can be compile-tested
+using upstream's build-system before submitting upstream.
+
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
-Acked-by: Doug Goldstein <cardoe@cardoe.com>
-
 ---
-Changed since v1:
-* dropped python-dev and markdown
+Changed since V1:
+* repost after XSA to avoid conflicts
 ---
- automation/build/ubuntu/focal.dockerfile | 48 ++++++++++++++++++++++++
- automation/scripts/containerize          |  1 +
- 2 files changed, 49 insertions(+)
- create mode 100644 automation/build/ubuntu/focal.dockerfile
+ Makefile             | 6 ++++++
+ tools/ocaml/Makefile | 8 ++++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/automation/build/ubuntu/focal.dockerfile b/automation/build/ubuntu/focal.dockerfile
-new file mode 100644
-index 0000000000..c1c1f8d58f
---- /dev/null
-+++ b/automation/build/ubuntu/focal.dockerfile
-@@ -0,0 +1,48 @@
-+FROM ubuntu:20.04
-+LABEL maintainer.name="The Xen Project " \
-+      maintainer.email="xen-devel@lists.xenproject.org"
+diff --git a/Makefile b/Makefile
+index 9ad2602f63..96d32cfd50 100644
+--- a/Makefile
++++ b/Makefile
+@@ -62,6 +62,12 @@ build-xen:
+ build-tools: build-tools-public-headers
+ 	$(MAKE) -C tools build
+ 
++.PHONY: build-tools-oxenstored
++build-tools-oxenstored: build-tools-public-headers
++	$(MAKE) -s -C tools/ocaml clean
++	$(MAKE) -s -C tools/libs
++	$(MAKE) -C tools/ocaml build-tools-oxenstored
 +
-+ENV DEBIAN_FRONTEND=noninteractive
-+ENV USER root
+ .PHONY: build-stubdom
+ build-stubdom: mini-os-dir build-tools-public-headers
+ 	$(MAKE) -C stubdom build
+diff --git a/tools/ocaml/Makefile b/tools/ocaml/Makefile
+index 66f2d6b131..a7c04b6546 100644
+--- a/tools/ocaml/Makefile
++++ b/tools/ocaml/Makefile
+@@ -26,3 +26,11 @@ clean: subdirs-clean
+ 
+ .PHONY: distclean
+ distclean: subdirs-distclean
 +
-+RUN mkdir /build
-+WORKDIR /build
-+
-+# build depends
-+RUN apt-get update && \
-+    apt-get --quiet --yes install \
-+        build-essential \
-+        zlib1g-dev \
-+        libncurses5-dev \
-+        libssl-dev \
-+        python3-dev \
-+        xorg-dev \
-+        uuid-dev \
-+        libyajl-dev \
-+        libaio-dev \
-+        libglib2.0-dev \
-+        clang \
-+        libpixman-1-dev \
-+        pkg-config \
-+        flex \
-+        bison \
-+        gettext \
-+        acpica-tools \
-+        bin86 \
-+        bcc \
-+        liblzma-dev \
-+        libc6-dev-i386 \
-+        libnl-3-dev \
-+        ocaml-nox \
-+        libfindlib-ocaml-dev \
-+        libsystemd-dev \
-+        transfig \
-+        pandoc \
-+        checkpolicy \
-+        wget \
-+        git \
-+        nasm \
-+        && \
-+        apt-get autoremove -y && \
-+        apt-get clean && \
-+        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
-diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index c8c3c20fa2..da45baed4e 100755
---- a/automation/scripts/containerize
-+++ b/automation/scripts/containerize
-@@ -28,6 +28,7 @@ case "_${CONTAINER}" in
-     _centos7) CONTAINER="${BASE}/centos:7" ;;
-     _centos72) CONTAINER="${BASE}/centos:7.2" ;;
-     _fedora) CONTAINER="${BASE}/fedora:29";;
-+    _focal) CONTAINER="${BASE}/ubuntu:focal" ;;
-     _jessie) CONTAINER="${BASE}/debian:jessie" ;;
-     _stretch|_) CONTAINER="${BASE}/debian:stretch" ;;
-     _unstable|_) CONTAINER="${BASE}/debian:unstable" ;;
++.PHONY: build-tools-oxenstored
++build-tools-oxenstored:
++	$(MAKE) -s -C libs/eventchn
++	$(MAKE) -s -C libs/mmap
++	$(MAKE) -s -C libs/xb
++	$(MAKE) -s -C libs/xc
++	$(MAKE) -C xenstored
 -- 
 2.29.2
 
