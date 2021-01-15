@@ -2,31 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 961792F6FC3
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 01:56:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67569.120692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE34C2F6FC6
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 02:01:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67574.120704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0DOT-00056L-A6; Fri, 15 Jan 2021 00:55:13 +0000
+	id 1l0DUK-0000jT-3i; Fri, 15 Jan 2021 01:01:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67569.120692; Fri, 15 Jan 2021 00:55:13 +0000
+Received: by outflank-mailman (output) from mailman id 67574.120704; Fri, 15 Jan 2021 01:01:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0DOT-00055v-6m; Fri, 15 Jan 2021 00:55:13 +0000
-Received: by outflank-mailman (input) for mailman id 67569;
- Fri, 15 Jan 2021 00:55:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l0DUK-0000gJ-0N; Fri, 15 Jan 2021 01:01:16 +0000
+Received: by outflank-mailman (input) for mailman id 67574;
+ Fri, 15 Jan 2021 01:01:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yB8v=GS=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l0DOR-00055q-Le
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 00:55:11 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 57c28bbe-875a-4712-9cf2-9277408b6eda;
- Fri, 15 Jan 2021 00:55:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5392723A59;
- Fri, 15 Jan 2021 00:55:08 +0000 (UTC)
+ <SRS0=+hG6=GS=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l0DUI-000092-Mn
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 01:01:14 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b086fadf-344d-4dd6-9084-bbb5832c21ca;
+ Fri, 15 Jan 2021 01:01:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,748 +35,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57c28bbe-875a-4712-9cf2-9277408b6eda
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1610672108;
-	bh=aDov20rMlgN+7BQXG08Ftz5zf7b7oqt4G/NrvUNjbr4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=oLtNPyASWPxbtxFYzlBJJmW+2K+BdTC2I9ZODY+e6v7N9LvWBKwtpnUwqjiiJBiXQ
-	 v6oQjooFzLP+otAvQIERSQmfdbDqcIHLHlQvFrxHjAhJO/RdZsfeP4rW7SCAwjzr+K
-	 oklzH4l8g/iy8AggKiJcSGFdDowCgih/xizjm+WUEKYQe5HQLEZtInNKK3mUj9q5T/
-	 iWKwL7MkaBgKj5So1ykJHtn+rYVh0X6pKEyOsqd2KSFm9f5/Q/qgj/e8h97bhGnDCT
-	 1ny93gj1Sj9PZOKZJ+icx0pO8x5MxL+knEtJdAgb70KCIUIc3FsdG5jsID3DukvvKu
-	 5JWmrVJG5NouQ==
-Date: Thu, 14 Jan 2021 16:55:07 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-In-Reply-To: <1610488352-18494-15-git-send-email-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.21.2101141652360.31265@sstabellini-ThinkPad-T480s>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-15-git-send-email-olekstysh@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: b086fadf-344d-4dd6-9084-bbb5832c21ca
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610672473;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=rBVgMlUWui3F/4NQ2hHLOEg6uDigLfn04dbXgwNMSFo=;
+  b=KWUow7BGkErSUuH1sBRTPPxmFbSMBrDF+u66a/nG03K47RINug0+yoKV
+   5uLSj0GUPAy4aN8PPwEG3gSgUiQyrjIopwZ3Plcah1yu3S9MZnHodMLwj
+   hobE92+HvaktcDVssSNxFq3T7JkCmbJt4vg8bbn4GB+TpLVmRWZNiOdF2
+   Q=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: ZGye9Iasm/c3LbFm8t1wU3rlq5TBsPqXk2jDSyyB2FwkwMtP4vDyOlWXVqIP4+vnwL8hxrE3iw
+ MqhdZFnPI8rgaRseJop9jjju1RN49GsAQ7GwfUGFtl22lxIJieimLgDJht7Riko2dNaQvtK0tS
+ WI+hNrkIiUF4FEyfrNOYAIa3syooXf655y5mYnOtRbT3oeyDdFUickmBaHODFPyS1mPiYKwuQg
+ neDqHq4aLsHbVRx8KJ3xv/iu4rZeOR+kqx7hb7NwKwEJGq0obir2cazhKJfrhgpRUHNMw7fdr9
+ YAQ=
+X-SBRS: 5.2
+X-MesageID: 35139137
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,347,1602561600"; 
+   d="scan'208";a="35139137"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SCrLgwqxw7AawLMwMIgTuNPCw3XgADF79meCVSEDkpTiGw+aF/Sae+RtsT85tyWIHLtkwomrm9pVrsQe134b8QZk+1sSgAmwoiCzxSUSNvelEyu1TF223hspiF3O1e1V6WUN/yTXJbsuUkacBf40pH/ImHigsLDZuYV7iYfluoNn8swAhoi+mMNPYFHwfFL1S6Pyo9mx1bd4qfiRGC4480lfrvwNKqBRexuCoEYAwz03h8Obvz7kLY9NGKfscGnOOK0hW8eKlFA4YAlgra/Px46QWHq6LbI8oWvmpLuihIe2p5Auac+SPewkR961b0245AYojSGLRxLQKPOlDbdBTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WEfwcTXZDXygtz6Ix3OzkOwK6AoUCxgb6Ra7TVvpWaY=;
+ b=LS3HbDiaTT4QoiYbnWGNgrZPRnhCBYcJkcuZW12fat31D5rKpiS9RQXP90EveHgR8sAAfsecJRAoe+yoogZboJVD//PG4FV+Krp7ijCWgfWj0YYykVV9DREiTwuHRGz8gVJREBsdX+ukdBlN2GT3RSR3G8ZSLtpDA4Wsa/6ZgbkH1Qdzw4jbZkrKbdwXLeg/qCkGbYkURfK2myV4tzjWtQHa3ZxlCf4nnzSwuhnIUy8TkR6atTCdyVIo/JU5ZYKI0aIvKMNtbYItVcNxXH128VETt/zDvJgWkEA4nGlNU14AmyfYlImcrgEYkQFIrkUn6bKy2rsP7SYUP0/6abd4Ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WEfwcTXZDXygtz6Ix3OzkOwK6AoUCxgb6Ra7TVvpWaY=;
+ b=XaGNlpt4ZbBGyPDsJl9U6YVm386VgFuLLsg2CH/5bByxFTcQsEMakwqOYpG4qfBWRgCNYHIi+EJq3dzNEhHJzcA0+xH3f4y8XxZcIVjP8eJ9MqaFWSLk06P0Hj/8iY6Wd/9oLXR1BFwhSE7B/mQzXnu9fMtppk/rP1EjxqokpWU=
+Subject: Re: [PATCH v11 05/27] tools/libxenevtchn: add possibility to not
+ close file descriptor on exec
+To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Julien Grall
+	<jgrall@amazon.com>
+References: <20210114153803.2591-1-jgross@suse.com>
+ <20210114153803.2591-6-jgross@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <21c113c0-9118-8c22-7c3b-50ffccb4db8c@citrix.com>
+Date: Fri, 15 Jan 2021 01:01:01 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+In-Reply-To: <20210114153803.2591-6-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P123CA0041.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600::29)
+ To BYAPR03MB4728.namprd03.prod.outlook.com (2603:10b6:a03:13a::24)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1708176374-1610672108=:31265"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 19daf193-0dba-4387-2f4e-08d8b8f10b87
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3413:
+X-Microsoft-Antispam-PRVS: <BYAPR03MB3413859051A9D32F77CF4B40BAA70@BYAPR03MB3413.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: n5q/JwOxyHX77Z+2lUaV7/FnatcIoFgR39pdXv6mS13vCKe9+8e1quy46s4gcmgXuYilBn6K5wo52hR9MC58E20vIatpfHxOsuUu+pBx3wOwUrr6YjkWdyt+LpQnUaqJrSpwsvjZddIZOx4Emljh75hIQGEVgitQF/l70MGQnuquqvDOrQxgIpMk4KkcMwrqPZSOPQCzRrC0uSdZwoboY2S+uaqdE550YaKXd3GYMceCr3gvY7T2Vl3f6XJTzf+awfxnDtEd4AWZUUmrdKWvbkvGuA7+f+6xKbpI4hbvd+JlcFAXrq5CEI4FcuDYKceOVGMClRh7A/zFq+f6n9aBnsI0oBK8IT7H8c1OVxlGSL7Z56gQPp4XWSyxcmd/aAg8rlYLHjkWvWNmpochJqjEyi4kDaCEtDXZc1p40AhDpa80MJVjaf0VAV41hwvTD8cocOg7LxbyjOtBm6yGQrelDE3NwiRDiCvNn+LaI+fgVOw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(366004)(136003)(346002)(39860400002)(396003)(4326008)(956004)(5660300002)(8936002)(2906002)(316002)(2616005)(31696002)(86362001)(53546011)(66946007)(36756003)(186003)(478600001)(6666004)(16526019)(16576012)(31686004)(66556008)(83380400001)(54906003)(26005)(6486002)(8676002)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UDVIbzlUbEc1SkRxYlpwUHRrcjYrb2RhNU5PWjJyRFdVRGtabzEwb041S2FP?=
+ =?utf-8?B?NVJOcnpSVExKS0VlbVhld1NYeWdZNFBmRU5HYm1TWDRXU21GaFFra1pLOGlm?=
+ =?utf-8?B?QVNqZElCWE5malVITldldzNHcmExcmM2WTJKNDFvVTc1OVRxUU9IRUJZSDl5?=
+ =?utf-8?B?Z1JBY21yQWtBZnNyWEhuYzF5UlB6bFJBVGlmK2NqWjY3VG94ZitwelFuZnNh?=
+ =?utf-8?B?ci9LUmYvZmt1VnZJY0s4Q1JBVStZTWQ4bzNUMi9Md3pER0Y3QmJYVTRkckFq?=
+ =?utf-8?B?TUE5ZWNrcUxSSnFZNnhzUS9xd28xR3ZMSE16eDk0Zm5QODI2YTd3MDBSektX?=
+ =?utf-8?B?Q0dGSXFtN2FWeXZMd3lXWUlUeU5tNi9YNGxuVG14eE5SMW9DQlE1TEhnNHU0?=
+ =?utf-8?B?T0xiWmUvc2U4SGVJYWZFalpnSHBSK09ZUlhqdXM4dFpVaVQ3b1hUZGhqVnEx?=
+ =?utf-8?B?YkNlL1R4dVZUdzhseU82NGowSzgwL1pqaFd4OXNWbXphMTlGT3hJVWZCeDJZ?=
+ =?utf-8?B?c29lOUs1ckV5OTcwWlBtaEpmNVpPZDNnV2RTb0RMSVQwd3J4Z3ZRdFlPMFEy?=
+ =?utf-8?B?MG9HV3dUMGFSMlBLaVRXSENpelRYc2sxRkFxc3pLTE0zcWt5RnZrMHV6dVpi?=
+ =?utf-8?B?eTJBK0tUK3AyRldCVHJWc25XT3kyMVNkQVA1Wlcvbko2Mi94cFdhQnhCeS9s?=
+ =?utf-8?B?a05FcW8rdGcrV2w3UTB1UWxmY2pOU0FFU2pEaUhoekRYSm5xQkJXdGN4ejN3?=
+ =?utf-8?B?VXY5dlJpd0s5SWhWRTdFRjMxcHRYWitRcTlnbm5oMnRiUGdZVDNJd2QwQWZo?=
+ =?utf-8?B?ZmJjdU03ZGJuRnY2amUvSnRUNzVpNTZJRzBUUVV0Vks2MVBqSnlwS1JraUE1?=
+ =?utf-8?B?a2w5MHZmRzBvQ2dEZk8vM0J3b0pKL1lvS29SVW1laFM2TEM4Ni83SktyZ25l?=
+ =?utf-8?B?Sm55THN3V0JBL3hEL0x0YnZmcitjODZDUXVoUnVSMUp3ZzNBT0loSXNYTzNY?=
+ =?utf-8?B?SDJld09qZHlxU1J1NGZtWlhWeXlKRHpIbm5GUFV1YzVSZThQTEl1c2RMaUJB?=
+ =?utf-8?B?dkoyS2Z4VjRscW1EdHozZFExS2djN3VPT0xLdTZwczNPYWxqWFNBQi9DM3lN?=
+ =?utf-8?B?b0VyRnBMeUxDS0ppV0gxdnJ5QTgvRjJVMDZUaFExN2ZwM0RiSXRkbzM0M1J2?=
+ =?utf-8?B?cEdYcEpKaXVJQ2lYblcyMldYUWdwOFN3cnZqbGx1MjFXOVhpTDd5a1EzTFc0?=
+ =?utf-8?B?aml3TkJBSmJqK3BsZ0R1eGxoYkpSR1ZFVEE4YVA2STBJLzErNmJiMXAxdkRJ?=
+ =?utf-8?Q?vVpKkwWoW4Ct2ezgeL+uwNDeQa5qeS+iNT?=
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 01:01:09.1513
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19daf193-0dba-4387-2f4e-08d8b8f10b87
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fFHamle+UJIPMvNOUkPu+fyZl3HT8LC+zdU7qq0iIyjuRdYiOOu/TQm+zDrbexNLRN3PQKsK7Vm2rFfeUqv6iqYK8jjVBWoilnsxnioLLzc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3413
+X-OriginatorOrg: citrix.com
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1708176374-1610672108=:31265
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 12 Jan 2021, Oleksandr Tyshchenko wrote:
-> From: Julien Grall <julien.grall@arm.com>
-> 
-> This patch adds basic IOREQ/DM support on Arm. The subsequent
-> patches will improve functionality and add remaining bits.
-> 
-> The IOREQ/DM features are supposed to be built with IOREQ_SERVER
-> option enabled, which is disabled by default on Arm for now.
-> 
-> Please note, the "PIO handling" TODO is expected to left unaddressed
-> for the current series. It is not an big issue for now while Xen
-> doesn't have support for vPCI on Arm. On Arm64 they are only used
-> for PCI IO Bar and we would probably want to expose them to emulator
-> as PIO access to make a DM completely arch-agnostic. So "PIO handling"
-> should be implemented when we add support for vPCI.
-> 
-> Signed-off-by: Julien Grall <julien.grall@arm.com>
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> [On Arm only]
-> Tested-by: Wei Chen <Wei.Chen@arm.com>
-> 
-> ---
-> Please note, this is a split/cleanup/hardening of Julien's PoC:
-> "Add support for Guest IO forwarding to a device emulator"
-> 
-> Changes RFC -> V1:
->    - was split into:
->      - arm/ioreq: Introduce arch specific bits for IOREQ/DM features
->      - xen/mm: Handle properly reference in set_foreign_p2m_entry() on Arm
->    - update patch description
->    - update asm-arm/hvm/ioreq.h according to the newly introduced arch functions:
->      - arch_hvm_destroy_ioreq_server()
->      - arch_handle_hvm_io_completion()
->    - update arch files to include xen/ioreq.h
->    - remove HVMOP plumbing
->    - rewrite a logic to handle properly case when hvm_send_ioreq() returns IO_RETRY
->    - add a logic to handle properly handle_hvm_io_completion() return value
->    - rename handle_mmio() to ioreq_handle_complete_mmio()
->    - move paging_mark_pfn_dirty() to asm-arm/paging.h
->    - remove forward declaration for hvm_ioreq_server in asm-arm/paging.h
->    - move try_fwd_ioserv() to ioreq.c, provide stubs if !CONFIG_IOREQ_SERVER
->    - do not remove #ifdef CONFIG_IOREQ_SERVER in memory.c for guarding xen/ioreq.h
->    - use gdprintk in try_fwd_ioserv(), remove unneeded prints
->    - update list of #include-s
->    - move has_vpci() to asm-arm/domain.h
->    - add a comment (TODO) to unimplemented yet handle_pio()
->    - remove hvm_mmio_first(last)_byte() and hvm_ioreq_(page/vcpu/server) structs
->      from the arch files, they were already moved to the common code
->    - remove set_foreign_p2m_entry() changes, they will be properly implemented
->      in the follow-up patch
->    - select IOREQ_SERVER for Arm instead of Arm64 in Kconfig
->    - remove x86's realmode and other unneeded stubs from xen/ioreq.h
->    - clafify ioreq_t p.df usage in try_fwd_ioserv()
->    - set ioreq_t p.count to 1 in try_fwd_ioserv()
-> 
-> Changes V1 -> V2:
->    - was split into:
->      - arm/ioreq: Introduce arch specific bits for IOREQ/DM features
->      - xen/arm: Stick around in leave_hypervisor_to_guest until I/O has completed
->    - update the author of a patch
->    - update patch description
->    - move a loop in leave_hypervisor_to_guest() to a separate patch
->    - set IOREQ_SERVER disabled by default
->    - remove already clarified /* XXX */
->    - replace BUG() by ASSERT_UNREACHABLE() in handle_pio()
->    - remove default case for handling the return value of try_handle_mmio()
->    - remove struct hvm_domain, enum hvm_io_completion, struct hvm_vcpu_io,
->      struct hvm_vcpu from asm-arm/domain.h, these are common materials now
->    - update everything according to the recent changes (IOREQ related function
->      names don't contain "hvm" prefixes/infixes anymore, IOREQ related fields
->      are part of common struct vcpu/domain now, etc)
-> 
-> Changes V2 -> V3:
->    - update patch according the "legacy interface" is x86 specific
->    - add dummy arch hooks
->    - remove dummy paging_mark_pfn_dirty()
->    - don’t include <xen/domain_page.h> in common ioreq.c
->    - don’t include <public/hvm/ioreq.h> in arch ioreq.h
->    - remove #define ioreq_params(d, i)
-> 
-> Changes V3 -> V4:
->    - rebase
->    - update patch according to the renaming IO_ -> VIO_ (io_ -> vio_)
->      and misc changes to arch hooks
->    - update patch according to the IOREQ related dm-op handling changes
->    - don't include <xen/ioreq.h> from arch header
->    - make all arch hooks out-of-line
->    - add a comment above IOREQ_STATUS_* #define-s
-> ---
->  xen/arch/arm/Makefile           |   2 +
->  xen/arch/arm/dm.c               | 122 +++++++++++++++++++++++
->  xen/arch/arm/domain.c           |   9 ++
->  xen/arch/arm/io.c               |  12 ++-
->  xen/arch/arm/ioreq.c            | 213 ++++++++++++++++++++++++++++++++++++++++
->  xen/arch/arm/traps.c            |  13 +++
->  xen/include/asm-arm/domain.h    |   3 +
->  xen/include/asm-arm/hvm/ioreq.h |  72 ++++++++++++++
->  xen/include/asm-arm/mmio.h      |   1 +
->  9 files changed, 446 insertions(+), 1 deletion(-)
->  create mode 100644 xen/arch/arm/dm.c
->  create mode 100644 xen/arch/arm/ioreq.c
->  create mode 100644 xen/include/asm-arm/hvm/ioreq.h
-> 
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 512ffdd..16e6523 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -13,6 +13,7 @@ obj-y += cpuerrata.o
->  obj-y += cpufeature.o
->  obj-y += decode.o
->  obj-y += device.o
-> +obj-$(CONFIG_IOREQ_SERVER) += dm.o
->  obj-y += domain.o
->  obj-y += domain_build.init.o
->  obj-y += domctl.o
-> @@ -27,6 +28,7 @@ obj-y += guest_atomics.o
->  obj-y += guest_walk.o
->  obj-y += hvm.o
->  obj-y += io.o
-> +obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
->  obj-y += irq.o
->  obj-y += kernel.init.o
->  obj-$(CONFIG_LIVEPATCH) += livepatch.o
-> diff --git a/xen/arch/arm/dm.c b/xen/arch/arm/dm.c
-> new file mode 100644
-> index 0000000..e6dedf4
-> --- /dev/null
-> +++ b/xen/arch/arm/dm.c
-> @@ -0,0 +1,122 @@
-> +/*
-> + * Copyright (c) 2019 Arm ltd.
+On 14/01/2021 15:37, Juergen Gross wrote:
+> diff --git a/tools/include/xenevtchn.h b/tools/include/xenevtchn.h
+> index 3e9b6e7323..b6dd8f3186 100644
+> --- a/tools/include/xenevtchn.h
+> +++ b/tools/include/xenevtchn.h
+> @@ -64,11 +64,25 @@ struct xentoollog_logger;
+>   *
+>   * Calling xenevtchn_close() is the only safe operation on a
+>   * xenevtchn_handle which has been inherited.
 > + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include <xen/dm.h>
-> +#include <xen/guest_access.h>
-> +#include <xen/hypercall.h>
-> +#include <xen/ioreq.h>
-> +#include <xen/nospec.h>
-> +
-> +static int dm_op(const struct dmop_args *op_args)
-> +{
-> +    struct domain *d;
-> +    struct xen_dm_op op;
-> +    bool const_op = true;
-> +    long rc;
-> +    size_t offset;
-> +
-> +    static const uint8_t op_size[] = {
-> +        [XEN_DMOP_create_ioreq_server]              = sizeof(struct xen_dm_op_create_ioreq_server),
-> +        [XEN_DMOP_get_ioreq_server_info]            = sizeof(struct xen_dm_op_get_ioreq_server_info),
-> +        [XEN_DMOP_map_io_range_to_ioreq_server]     = sizeof(struct xen_dm_op_ioreq_server_range),
-> +        [XEN_DMOP_unmap_io_range_from_ioreq_server] = sizeof(struct xen_dm_op_ioreq_server_range),
-> +        [XEN_DMOP_set_ioreq_server_state]           = sizeof(struct xen_dm_op_set_ioreq_server_state),
-> +        [XEN_DMOP_destroy_ioreq_server]             = sizeof(struct xen_dm_op_destroy_ioreq_server),
-> +    };
-> +
-> +    rc = rcu_lock_remote_domain_by_id(op_args->domid, &d);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    rc = xsm_dm_op(XSM_DM_PRIV, d);
-> +    if ( rc )
-> +        goto out;
-> +
-> +    offset = offsetof(struct xen_dm_op, u);
-> +
-> +    rc = -EFAULT;
-> +    if ( op_args->buf[0].size < offset )
-> +        goto out;
-> +
-> +    if ( copy_from_guest_offset((void *)&op, op_args->buf[0].h, 0, offset) )
-> +        goto out;
-> +
-> +    if ( op.op >= ARRAY_SIZE(op_size) )
-> +    {
-> +        rc = -EOPNOTSUPP;
-> +        goto out;
-> +    }
-> +
-> +    op.op = array_index_nospec(op.op, ARRAY_SIZE(op_size));
-> +
-> +    if ( op_args->buf[0].size < offset + op_size[op.op] )
-> +        goto out;
-> +
-> +    if ( copy_from_guest_offset((void *)&op.u, op_args->buf[0].h, offset,
-> +                                op_size[op.op]) )
-> +        goto out;
-> +
-> +    rc = -EINVAL;
-> +    if ( op.pad )
-> +        goto out;
-> +
-> +    rc = ioreq_server_dm_op(&op, d, &const_op);
-> +
-> +    if ( (!rc || rc == -ERESTART) &&
-> +         !const_op && copy_to_guest_offset(op_args->buf[0].h, offset,
-> +                                           (void *)&op.u, op_size[op.op]) )
-> +        rc = -EFAULT;
-> +
-> + out:
-> +    rcu_unlock_domain(d);
-> +
-> +    return rc;
-> +}
-> +
-> +long do_dm_op(domid_t domid,
-> +              unsigned int nr_bufs,
-> +              XEN_GUEST_HANDLE_PARAM(xen_dm_op_buf_t) bufs)
-> +{
-> +    struct dmop_args args;
-> +    int rc;
-> +
-> +    if ( nr_bufs > ARRAY_SIZE(args.buf) )
-> +        return -E2BIG;
-> +
-> +    args.domid = domid;
-> +    args.nr_bufs = array_index_nospec(nr_bufs, ARRAY_SIZE(args.buf) + 1);
-> +
-> +    if ( copy_from_guest_offset(&args.buf[0], bufs, 0, args.nr_bufs) )
-> +        return -EFAULT;
-> +
-> +    rc = dm_op(&args);
-> +
-> +    if ( rc == -ERESTART )
-> +        rc = hypercall_create_continuation(__HYPERVISOR_dm_op, "iih",
-> +                                           domid, nr_bufs, bufs);
-> +
-> +    return rc;
-> +}
-
-I might have missed something in the discussions but this function is
-identical to xen/arch/x86/hvm/dm.c:do_dm_op, why not make it common?
-
-Also the previous function dm_op is very similar to
-xen/arch/x86/hvm/dm.c:dm_op I would prefer to make them common if
-possible. Was this already discussed?
-
-
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 18cafcd..8f55aba 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -15,6 +15,7 @@
->  #include <xen/guest_access.h>
->  #include <xen/hypercall.h>
->  #include <xen/init.h>
-> +#include <xen/ioreq.h>
->  #include <xen/lib.h>
->  #include <xen/livepatch.h>
->  #include <xen/sched.h>
-> @@ -696,6 +697,10 @@ int arch_domain_create(struct domain *d,
->  
->      ASSERT(config != NULL);
->  
-> +#ifdef CONFIG_IOREQ_SERVER
-> +    ioreq_domain_init(d);
-> +#endif
-> +
->      /* p2m_init relies on some value initialized by the IOMMU subsystem */
->      if ( (rc = iommu_domain_init(d, config->iommu_opts)) != 0 )
->          goto fail;
-> @@ -1014,6 +1019,10 @@ int domain_relinquish_resources(struct domain *d)
->          if (ret )
->              return ret;
->  
-> +#ifdef CONFIG_IOREQ_SERVER
-> +        ioreq_server_destroy_all(d);
-> +#endif
-> +
->      PROGRESS(xen):
->          ret = relinquish_memory(d, &d->xenpage_list);
->          if ( ret )
-> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> index ae7ef96..9814481 100644
-> --- a/xen/arch/arm/io.c
-> +++ b/xen/arch/arm/io.c
-> @@ -16,6 +16,7 @@
->   * GNU General Public License for more details.
+> + * Setting XENEVTCHN_NO_CLOEXEC allows to keep the file descriptor used
+> + * for the event channel driver open across exec(2). In order to be able
+> + * to use that file descriptor the new binary activated via exec(2) has
+> + * to call xenevtchn_fdopen() with that file descriptor as parameter in
+> + * order to associate it with a new handle. The file descriptor can be
+> + * obtained via xenevtchn_fd() before calling exec(2).
 >   */
+
+Earlier commentary in this block is already wrong (refer to gnttab, and
+making what appear to be false claims), and/or made stale by this change.
+
+How about:
+
+/*
+ * Opens the evtchn device node.  Return a handle to the event channel
+ * driver, or NULL on failure, in which case errno will be set
+ * appropriately.
+ *
+ * On fork(2):
+ *
+ *   After fork, a child process must not use any opened evtchn handle
+ *   inherited from their parent.  This includes operations such as
+ *   poll() on the underlying file descriptor.  Calling xenevtchn_close()
+ *   is the only safe operation on a xenevtchn_handle which has been
+ *   inherited.
+ *
+ *   The child must open a new handle if they want to interact with
+ *   evtchn.
+ *
+ * On exec(2):
+ *
+ *   Wherever possible, the device node will be opened with O_CLOEXEC,
+ *   so it is not inherited by the subsequent program.
+ *
+ *   However the XENEVTCHN_NO_CLOEXEC flag may be used to avoid opening
+ *   the device node with O_CLOEXEC.  This is intended for use by
+ *   daemons which support a self-reexec method of updating themselves.
+ *
+ *   In this case, the updated daemon should pass the underlying file
+ *   descriptor it inherited to xenevtchn_fdopen() to reconstruct the
+ *   library handle.
+ */
+
+which I think is somewhat more concise?
+
+
+> -/* Currently no flags are defined */
+> +
+> +/* Don't set O_CLOEXEC when opening event channel driver node. */
+> +#define XENEVTCHN_NO_CLOEXEC 0x01
+
+Do we really want an byte-looking constant?  Wouldn't (1 << 0) be a more
+normal way of writing this?
+
+> +
+>  xenevtchn_handle *xenevtchn_open(struct xentoollog_logger *logger,
+>                                   unsigned int flags);
 >  
-> +#include <xen/ioreq.h>
->  #include <xen/lib.h>
->  #include <xen/spinlock.h>
->  #include <xen/sched.h>
-> @@ -23,6 +24,7 @@
->  #include <asm/cpuerrata.h>
->  #include <asm/current.h>
->  #include <asm/mmio.h>
-> +#include <asm/hvm/ioreq.h>
->  
->  #include "decode.h"
->  
-> @@ -123,7 +125,15 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->  
->      handler = find_mmio_handler(v->domain, info.gpa);
->      if ( !handler )
-> -        return IO_UNHANDLED;
-> +    {
-> +        int rc;
+> +/* Flag XENEVTCHN_NO_CLOEXEC is ignored by xenevtchn_fdopen(). */
+> +xenevtchn_handle *xenevtchn_fdopen(struct xentoollog_logger *logger,
+> +                                    int fd, unsigned open_flags);
+
+True, but see below...
+
 > +
-> +        rc = try_fwd_ioserv(regs, v, &info);
-> +        if ( rc == IO_HANDLED )
-> +            return handle_ioserv(regs, v);
-> +
-> +        return rc;
-> +    }
->  
->      /* All the instructions used on emulated MMIO region should be valid */
->      if ( !dabt.valid )
-> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
-> new file mode 100644
-> index 0000000..3c4a24d
-> --- /dev/null
-> +++ b/xen/arch/arm/ioreq.c
-> @@ -0,0 +1,213 @@
-> +/*
-> + * arm/ioreq.c: hardware virtual machine I/O emulation
-> + *
-> + * Copyright (c) 2019 Arm ltd.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include <xen/domain.h>
-> +#include <xen/ioreq.h>
-> +
-> +#include <asm/traps.h>
-> +
-> +#include <public/hvm/ioreq.h>
-> +
-> +enum io_state handle_ioserv(struct cpu_user_regs *regs, struct vcpu *v)
-> +{
-> +    const union hsr hsr = { .bits = regs->hsr };
-> +    const struct hsr_dabt dabt = hsr.dabt;
-> +    /* Code is similar to handle_read */
-> +    uint8_t size = (1 << dabt.size) * 8;
-> +    register_t r = v->io.req.data;
-> +
-> +    /* We are done with the IO */
-> +    v->io.req.state = STATE_IOREQ_NONE;
-> +
-> +    if ( dabt.write )
-> +        return IO_HANDLED;
-> +
-> +    /*
-> +     * Sign extend if required.
-> +     * Note that we expect the read handler to have zeroed the bits
-> +     * outside the requested access size.
-> +     */
-> +    if ( dabt.sign && (r & (1UL << (size - 1))) )
-> +    {
-> +        /*
-> +         * We are relying on register_t using the same as
-> +         * an unsigned long in order to keep the 32-bit assembly
-> +         * code smaller.
-> +         */
-> +        BUILD_BUG_ON(sizeof(register_t) != sizeof(unsigned long));
-> +        r |= (~0UL) << size;
-> +    }
-> +
-> +    set_user_reg(regs, dabt.reg, r);
-> +
-> +    return IO_HANDLED;
-> +}
-> +
-> +enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
-> +                             struct vcpu *v, mmio_info_t *info)
-> +{
-> +    struct vcpu_io *vio = &v->io;
-> +    ioreq_t p = {
-> +        .type = IOREQ_TYPE_COPY,
-> +        .addr = info->gpa,
-> +        .size = 1 << info->dabt.size,
-> +        .count = 1,
-> +        .dir = !info->dabt.write,
-> +        /*
-> +         * On x86, df is used by 'rep' instruction to tell the direction
-> +         * to iterate (forward or backward).
-> +         * On Arm, all the accesses to MMIO region will do a single
-> +         * memory access. So for now, we can safely always set to 0.
-> +         */
-> +        .df = 0,
-> +        .data = get_user_reg(regs, info->dabt.reg),
-> +        .state = STATE_IOREQ_READY,
-> +    };
-> +    struct ioreq_server *s = NULL;
-> +    enum io_state rc;
-> +
-> +    switch ( vio->req.state )
-> +    {
-> +    case STATE_IOREQ_NONE:
-> +        break;
-> +
-> +    case STATE_IORESP_READY:
-> +        return IO_HANDLED;
-> +
-> +    default:
-> +        gdprintk(XENLOG_ERR, "wrong state %u\n", vio->req.state);
-> +        return IO_ABORT;
-> +    }
-> +
-> +    s = ioreq_server_select(v->domain, &p);
-> +    if ( !s )
-> +        return IO_UNHANDLED;
-> +
-> +    if ( !info->dabt.valid )
-> +        return IO_ABORT;
-> +
-> +    vio->req = p;
-> +
-> +    rc = ioreq_send(s, &p, 0);
-> +    if ( rc != IO_RETRY || v->domain->is_shutting_down )
-> +        vio->req.state = STATE_IOREQ_NONE;
-> +    else if ( !ioreq_needs_completion(&vio->req) )
-> +        rc = IO_HANDLED;
-> +    else
-> +        vio->completion = VIO_mmio_completion;
-> +
-> +    return rc;
-> +}
-> +
-> +bool arch_ioreq_complete_mmio(void)
-> +{
-> +    struct vcpu *v = current;
-> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
-> +    const union hsr hsr = { .bits = regs->hsr };
-> +    paddr_t addr = v->io.req.addr;
-> +
-> +    if ( try_handle_mmio(regs, hsr, addr) == IO_HANDLED )
-> +    {
-> +        advance_pc(regs, hsr);
-> +        return true;
-> +    }
-> +
-> +    return false;
-> +}
-> +
-> +bool arch_vcpu_ioreq_completion(enum vio_completion completion)
-> +{
-> +    ASSERT_UNREACHABLE();
-> +    return true;
-> +}
-> +
-> +/*
-> + * The "legacy" mechanism of mapping magic pages for the IOREQ servers
-> + * is x86 specific, so the following hooks don't need to be implemented on Arm:
-> + * - arch_ioreq_server_map_pages
-> + * - arch_ioreq_server_unmap_pages
-> + * - arch_ioreq_server_enable
-> + * - arch_ioreq_server_disable
-> + */
-> +int arch_ioreq_server_map_pages(struct ioreq_server *s)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +
-> +void arch_ioreq_server_unmap_pages(struct ioreq_server *s)
-> +{
-> +}
-> +
-> +void arch_ioreq_server_enable(struct ioreq_server *s)
-> +{
-> +}
-> +
-> +void arch_ioreq_server_disable(struct ioreq_server *s)
-> +{
-> +}
-> +
-> +void arch_ioreq_server_destroy(struct ioreq_server *s)
-> +{
-> +}
-> +
-> +int arch_ioreq_server_map_mem_type(struct domain *d,
-> +                                   struct ioreq_server *s,
-> +                                   uint32_t flags)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +
-> +void arch_ioreq_server_map_mem_type_completed(struct domain *d,
-> +                                              struct ioreq_server *s,
-> +                                              uint32_t flags)
-> +{
-> +}
-> +
-> +bool arch_ioreq_server_destroy_all(struct domain *d)
-> +{
-> +    return true;
-> +}
-> +
-> +bool arch_ioreq_server_get_type_addr(const struct domain *d,
-> +                                     const ioreq_t *p,
-> +                                     uint8_t *type,
-> +                                     uint64_t *addr)
-> +{
-> +    if ( p->type != IOREQ_TYPE_COPY && p->type != IOREQ_TYPE_PIO )
-> +        return false;
-> +
-> +    *type = (p->type == IOREQ_TYPE_PIO) ?
-> +             XEN_DMOP_IO_RANGE_PORT : XEN_DMOP_IO_RANGE_MEMORY;
-> +    *addr = p->addr;
-> +
-> +    return true;
-> +}
-> +
-> +void arch_ioreq_domain_init(struct domain *d)
-> +{
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-> index 22bd1bd..036b13f 100644
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -21,6 +21,7 @@
->  #include <xen/hypercall.h>
->  #include <xen/init.h>
->  #include <xen/iocap.h>
-> +#include <xen/ioreq.h>
->  #include <xen/irq.h>
->  #include <xen/lib.h>
->  #include <xen/mem_access.h>
-> @@ -1385,6 +1386,9 @@ static arm_hypercall_t arm_hypercall_table[] = {
->  #ifdef CONFIG_HYPFS
->      HYPERCALL(hypfs_op, 5),
->  #endif
-> +#ifdef CONFIG_IOREQ_SERVER
-> +    HYPERCALL(dm_op, 3),
-> +#endif
->  };
->  
->  #ifndef NDEBUG
-> @@ -1956,6 +1960,9 @@ static void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
->              case IO_HANDLED:
->                  advance_pc(regs, hsr);
->                  return;
-> +            case IO_RETRY:
-> +                /* finish later */
-> +                return;
->              case IO_UNHANDLED:
->                  /* IO unhandled, try another way to handle it. */
->                  break;
-> @@ -2254,6 +2261,12 @@ static void check_for_vcpu_work(void)
->  {
->      struct vcpu *v = current;
->  
-> +#ifdef CONFIG_IOREQ_SERVER
-> +    local_irq_enable();
-> +    vcpu_ioreq_handle_completion(v);
-> +    local_irq_disable();
-> +#endif
-> +
->      if ( likely(!v->arch.need_flush_to_ram) )
->          return;
->  
-> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
-> index 6819a3b..c235e5b 100644
-> --- a/xen/include/asm-arm/domain.h
-> +++ b/xen/include/asm-arm/domain.h
-> @@ -10,6 +10,7 @@
->  #include <asm/gic.h>
->  #include <asm/vgic.h>
->  #include <asm/vpl011.h>
-> +#include <public/hvm/dm_op.h>
->  #include <public/hvm/params.h>
->  
->  struct hvm_domain
-> @@ -262,6 +263,8 @@ static inline void arch_vcpu_block(struct vcpu *v) {}
->  
->  #define arch_vm_assist_valid_mask(d) (1UL << VMASST_TYPE_runstate_update_flag)
->  
-> +#define has_vpci(d)    ({ (void)(d); false; })
-> +
->  #endif /* __ASM_DOMAIN_H__ */
->  
 >  /*
-> diff --git a/xen/include/asm-arm/hvm/ioreq.h b/xen/include/asm-arm/hvm/ioreq.h
-> new file mode 100644
-> index 0000000..19e1247
-> --- /dev/null
-> +++ b/xen/include/asm-arm/hvm/ioreq.h
-> @@ -0,0 +1,72 @@
-> +/*
-> + * hvm.h: Hardware virtual machine assist interface definitions.
-> + *
-> + * Copyright (c) 2016 Citrix Systems Inc.
-> + * Copyright (c) 2019 Arm ltd.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#ifndef __ASM_ARM_HVM_IOREQ_H__
-> +#define __ASM_ARM_HVM_IOREQ_H__
-> +
-> +#ifdef CONFIG_IOREQ_SERVER
-> +enum io_state handle_ioserv(struct cpu_user_regs *regs, struct vcpu *v);
-> +enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
-> +                             struct vcpu *v, mmio_info_t *info);
-> +#else
-> +static inline enum io_state handle_ioserv(struct cpu_user_regs *regs,
-> +                                          struct vcpu *v)
+>   * Close a handle previously allocated with xenevtchn_open().
+
+xenevtchn_{,fd}open(), now.
+
+> diff --git a/tools/libs/evtchn/core.c b/tools/libs/evtchn/core.c
+> index c069d5da71..f2ab27384b 100644
+> --- a/tools/libs/evtchn/core.c
+> +++ b/tools/libs/evtchn/core.c
+>
+> +xenevtchn_handle *xenevtchn_fdopen(struct xentoollog_logger *logger,
+> +                                   int fd, unsigned int flags)
 > +{
-> +    return IO_UNHANDLED;
-> +}
+> +    xenevtchn_handle *xce;
 > +
-> +static inline enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
-> +                                           struct vcpu *v, mmio_info_t *info)
-> +{
-> +    return IO_UNHANDLED;
-> +}
-> +#endif
-> +
-> +bool ioreq_complete_mmio(void);
-> +
-> +static inline bool handle_pio(uint16_t port, unsigned int size, int dir)
-> +{
-> +    /*
-> +     * TODO: For Arm64, the main user will be PCI. So this should be
-> +     * implemented when we add support for vPCI.
-> +     */
-> +    ASSERT_UNREACHABLE();
-> +    return true;
-> +}
-> +
-> +static inline void msix_write_completion(struct vcpu *v)
-> +{
-> +}
-> +
-> +/* This correlation must not be altered */
-> +#define IOREQ_STATUS_HANDLED     IO_HANDLED
-> +#define IOREQ_STATUS_UNHANDLED   IO_UNHANDLED
-> +#define IOREQ_STATUS_RETRY       IO_RETRY
-> +
-> +#endif /* __ASM_ARM_HVM_IOREQ_H__ */
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/include/asm-arm/mmio.h b/xen/include/asm-arm/mmio.h
-> index 8dbfb27..7ab873c 100644
-> --- a/xen/include/asm-arm/mmio.h
-> +++ b/xen/include/asm-arm/mmio.h
-> @@ -37,6 +37,7 @@ enum io_state
->      IO_ABORT,       /* The IO was handled by the helper and led to an abort. */
->      IO_HANDLED,     /* The IO was successfully handled by the helper. */
->      IO_UNHANDLED,   /* The IO was not handled by the helper. */
-> +    IO_RETRY,       /* Retry the emulation for some reason */
->  };
+> +    if ( flags & ~XENEVTCHN_NO_CLOEXEC )
+> +    {
+> +        errno = EINVAL;
+> +        return NULL;
+> +    }
+
+Do we really want to tolerate XENEVTCHN_NO_CLOEXEC here?  I'd suggest
+rejecting it, because nothing good can come of a caller thinking it has
+avoided setting O_CLOEXEC when in fact it hasn't.
+
+> diff --git a/tools/libs/evtchn/freebsd.c b/tools/libs/evtchn/freebsd.c
+> index bb601f350f..ed2baf3c95 100644
+> --- a/tools/libs/evtchn/freebsd.c
+> +++ b/tools/libs/evtchn/freebsd.c
+> @@ -33,8 +33,12 @@
 >  
->  typedef int (*mmio_read_t)(struct vcpu *v, mmio_info_t *info,
-> -- 
-> 2.7.4
-> 
---8323329-1708176374-1610672108=:31265--
+>  int osdep_evtchn_open(xenevtchn_handle *xce, unsigned int flags)
+>  {
+> -    int fd = open(EVTCHN_DEV, O_RDWR|O_CLOEXEC);
+> +    int open_flags = O_RDWR;
+> +    int fd;
+>  
+> +    if ( !(flags & XENEVTCHN_NO_CLOEXEC) )
+> +        open_flags |= O_CLOEXEC;
+
+As we're now consistently using hypervisor style, we ought to have an
+extra newline here and in equivalent positions.
+
+If you're happy with the suggestions, I'm happy folding them on commit,
+to avoid yet another posting.
+
+~Andrew
 
