@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E81772F7E34
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 15:31:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68168.121990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AD082F7E35
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 15:32:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68171.122002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0Q8K-0002K3-Ul; Fri, 15 Jan 2021 14:31:24 +0000
+	id 1l0Q8r-0002Q0-8L; Fri, 15 Jan 2021 14:31:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68168.121990; Fri, 15 Jan 2021 14:31:24 +0000
+Received: by outflank-mailman (output) from mailman id 68171.122002; Fri, 15 Jan 2021 14:31:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0Q8K-0002Je-RL; Fri, 15 Jan 2021 14:31:24 +0000
-Received: by outflank-mailman (input) for mailman id 68168;
- Fri, 15 Jan 2021 14:31:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FNwb=GS=cert.pl=hubert.jasudowicz@srs-us1.protection.inumbo.net>)
- id 1l0Q8J-0002JX-OB
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 14:31:23 +0000
-Received: from mx.nask.net.pl (unknown [195.187.55.89])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a7c52707-885b-4c97-8623-06fb47785cba;
- Fri, 15 Jan 2021 14:31:22 +0000 (UTC)
+	id 1l0Q8r-0002PW-4v; Fri, 15 Jan 2021 14:31:57 +0000
+Received: by outflank-mailman (input) for mailman id 68171;
+ Fri, 15 Jan 2021 14:31:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=v6X5=GS=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l0Q8p-0002PO-PX
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 14:31:55 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 36b4893d-52ef-4ac7-b1bf-ce58877b11cd;
+ Fri, 15 Jan 2021 14:31:55 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 37D88ABDA;
+ Fri, 15 Jan 2021 14:31:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,86 +38,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7c52707-885b-4c97-8623-06fb47785cba
-From: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-To: xen-devel@lists.xenproject.org
-Cc: Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-Subject: [PATCH] x86/vmx: Remove IO bitmap from minimal VMX requirements
-Date: Fri, 15 Jan 2021 15:30:50 +0100
-Message-Id: <570e73b83c18cce4dbe4c70cc14b6df7c33f0502.1610720991.git.hubert.jasudowicz@cert.pl>
-X-Mailer: git-send-email 2.30.0
+X-Inumbo-ID: 36b4893d-52ef-4ac7-b1bf-ce58877b11cd
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610721114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=H7N+SEhZ45fsxR0kXGVHPeygiOlR6ozuZnfFEqaXE/o=;
+	b=h6RJLtDDTU3b1J8TKvxwOxWBRLuNzZ8TD2zsnRN0LNJobty8gVjUU/WwFbBBLPd0mEb+HT
+	8jFmPkyJVALTJ5daj+VE7YydzSWB19jdooUdm63mEJ+VGDIVA6cNtMvzvvYKC+C8rmqnHe
+	MvtZu943WLwYwpXe5ObsV6eetz03WjI=
+From: Juergen Gross <jgross@suse.com>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	boris.ostrovsky@oracle.com
+Subject: [GIT PULL] xen: branch for v5.11-rc4
+Date: Fri, 15 Jan 2021 15:31:53 +0100
+Message-Id: <20210115143153.30040-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch is a result of a downstream bug report[1]. Xen fails to
-create a HVM domain while running under VMware Fusion 12.1.0 on
-a modern Intel Core i9 CPU:
+Linus,
 
-(XEN) VMX: CPU0 has insufficient CPU-Based Exec Control (b5b9fffe; requires 2299968c)
-(XEN) VMX: failed to initialise.
+Please git pull the following tag:
 
-It seems that Apple hypervisor API doesn't support this feature[2].
+ git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.11-rc4-tag
 
-Move this bit from minimal required features to optional.
+xen: branch for v5.11-rc4
 
-[1] https://github.com/CERT-Polska/drakvuf-sandbox/issues/418
-[2] https://developer.apple.com/documentation/hypervisor/cpu_based_io_bitmaps
+It contains:
 
-Signed-off-by: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
----
- xen/arch/x86/hvm/vmx/vmcs.c        | 8 +++++---
- xen/include/asm-x86/hvm/vmx/vmcs.h | 2 ++
- 2 files changed, 7 insertions(+), 3 deletions(-)
+- A series for fixing a regression when running as a fully virtualized
+  guest on an old Xen hypervisor not supporting PV interrupt callbacks
+  for HVM guests.
 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 164535f8f0..bad4d6e206 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -276,10 +276,10 @@ static int vmx_init_vmcs_config(void)
-            CPU_BASED_MONITOR_EXITING |
-            CPU_BASED_MWAIT_EXITING |
-            CPU_BASED_MOV_DR_EXITING |
--           CPU_BASED_ACTIVATE_IO_BITMAP |
-            CPU_BASED_USE_TSC_OFFSETING |
-            CPU_BASED_RDTSC_EXITING);
-     opt = (CPU_BASED_ACTIVATE_MSR_BITMAP |
-+           CPU_BASED_ACTIVATE_IO_BITMAP |
-            CPU_BASED_TPR_SHADOW |
-            CPU_BASED_MONITOR_TRAP_FLAG |
-            CPU_BASED_ACTIVATE_SECONDARY_CONTROLS);
-@@ -1168,8 +1168,10 @@ static int construct_vmcs(struct vcpu *v)
-     }
- 
-     /* I/O access bitmap. */
--    __vmwrite(IO_BITMAP_A, __pa(d->arch.hvm.io_bitmap));
--    __vmwrite(IO_BITMAP_B, __pa(d->arch.hvm.io_bitmap) + PAGE_SIZE);
-+    if ( cpu_has_vmx_io_bitmap ) {
-+        __vmwrite(IO_BITMAP_A, __pa(d->arch.hvm.io_bitmap));
-+        __vmwrite(IO_BITMAP_B, __pa(d->arch.hvm.io_bitmap) + PAGE_SIZE);
-+    }
- 
-     if ( cpu_has_vmx_virtual_intr_delivery )
-     {
-diff --git a/xen/include/asm-x86/hvm/vmx/vmcs.h b/xen/include/asm-x86/hvm/vmx/vmcs.h
-index 906810592f..b00830a5b3 100644
---- a/xen/include/asm-x86/hvm/vmx/vmcs.h
-+++ b/xen/include/asm-x86/hvm/vmx/vmcs.h
-@@ -342,6 +342,8 @@ extern u64 vmx_ept_vpid_cap;
-     (vmx_secondary_exec_control & SECONDARY_EXEC_XSAVES)
- #define cpu_has_vmx_tsc_scaling \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_TSC_SCALING)
-+#define cpu_has_vmx_io_bitmap \
-+    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_IO_BITMAP)
- 
- #define VMCS_RID_TYPE_MASK              0x80000000
- 
--- 
-2.30.0
+- A patch for adding support to query Xen resource sizes (setting was
+  possible already) from user mode.
 
+
+Thanks.
+
+Juergen
+
+ Documentation/admin-guide/kernel-parameters.txt |  4 ++
+ arch/arm/xen/enlighten.c                        |  2 +-
+ arch/x86/xen/enlighten_hvm.c                    | 15 ++++-
+ arch/x86/xen/smp_hvm.c                          | 27 ++++++---
+ drivers/xen/events/events_base.c                | 10 ---
+ drivers/xen/platform-pci.c                      |  8 ++-
+ drivers/xen/privcmd.c                           | 25 ++++++--
+ drivers/xen/xenbus/xenbus.h                     |  1 +
+ drivers/xen/xenbus/xenbus_comms.c               |  8 ---
+ drivers/xen/xenbus/xenbus_probe.c               | 81 ++++++++++++++++++++-----
+ include/xen/xenbus.h                            |  2 +-
+ 11 files changed, 129 insertions(+), 54 deletions(-)
+
+David Woodhouse (5):
+      xen: Fix event channel callback via INTX/GSI
+      xen: Set platform PCI device INTX affinity to CPU0
+      x86/xen: Add xen_no_vector_callback option to test PCI INTX delivery
+      x86/xen: Don't register Xen IPIs when they aren't going to be used
+      x86/xen: Fix xen_hvm_smp_init() when vector callback not available
+
+Roger Pau Monne (1):
+      xen/privcmd: allow fetching resource sizes
 
