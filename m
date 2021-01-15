@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C412F856F
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 20:30:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68577.122749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9566D2F8595
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 20:34:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68582.122761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0UnO-0004nC-6C; Fri, 15 Jan 2021 19:30:06 +0000
+	id 1l0Urk-00052q-O6; Fri, 15 Jan 2021 19:34:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68577.122749; Fri, 15 Jan 2021 19:30:06 +0000
+Received: by outflank-mailman (output) from mailman id 68582.122761; Fri, 15 Jan 2021 19:34:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0UnO-0004lA-2p; Fri, 15 Jan 2021 19:30:06 +0000
-Received: by outflank-mailman (input) for mailman id 68577;
- Fri, 15 Jan 2021 19:30:05 +0000
+	id 1l0Urk-00052R-Ka; Fri, 15 Jan 2021 19:34:36 +0000
+Received: by outflank-mailman (input) for mailman id 68582;
+ Fri, 15 Jan 2021 19:34:34 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l0UnM-0004cK-Tw
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 19:30:05 +0000
+ (envelope-from <julien@xen.org>) id 1l0Uri-00052M-HL
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 19:34:34 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1l0UnM-0002re-Dz; Fri, 15 Jan 2021 19:30:04 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=ufe34d9ed68d054.ant.amazon.com)
+ id 1l0Urc-0002wc-9i; Fri, 15 Jan 2021 19:34:28 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1l0UnM-0007hU-1b; Fri, 15 Jan 2021 19:30:04 +0000
+ id 1l0Urc-00082T-2m; Fri, 15 Jan 2021 19:34:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,74 +40,56 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From;
-	bh=iIEwED8NVg3+0QRXW1D5BpGCsMVZAFmTGQJ6WbMy8W8=; b=5sqojSb7VK/XPlgZAmUih0v5yU
-	+J5P2JzyBIy8JDG/vetGptU1+pKeW1Sg14/NhUoVgZH3sWkF9D9IqyR8siOGn58uZi2a7MiU0YFF5
-	spBj9PpjUkjqGI1NkLakzr5ufTbxTgp6wtQ7R+/c7nrWMGOj80Zh6yoESWW8K1rUD6Ns=;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=oKSADBACJYuVl5mIjwdR3088p70HNPwEklWrkw5+y2U=; b=VhqiMali4OzTaWX8xCF1iNpufZ
+	xNeSQ4dXLXY788v6T3bUj/cLDrxjNEvCx1YOXeTlYNaHKeCXmlzdq2Bqv6km+G1qrWniHGEsz2iRo
+	LtescEpERZXWo+FD40BoEVDR+bpjeMBbve/FO6LtFYt5NYfUReg+TCkbdoDqp8oLYLZM=;
+Subject: Re: [PATCH V4 10/24] xen/ioreq: Move x86's io_completion/io_req
+ fields to struct vcpu
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Julien Grall <julien.grall@arm.com>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-11-git-send-email-olekstysh@gmail.com>
 From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com,
-	Julien Grall <jgrall@amazon.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: livepatch: Include xen/mm.h rather than asm/mm.h
-Date: Fri, 15 Jan 2021 19:29:47 +0000
-Message-Id: <20210115192947.6499-1-julien@xen.org>
-X-Mailer: git-send-email 2.17.1
+Message-ID: <dc223687-170b-b8e9-d299-eeef7ba21f5b@xen.org>
+Date: Fri, 15 Jan 2021 19:34:25 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <1610488352-18494-11-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-From: Julien Grall <jgrall@amazon.com>
+Hi Oleksandr,
 
-Livepatch fails to build on Arm after commit ced9795c6cb4 "mm: split
-out mfn_t / gfn_t / pfn_t definitions and helpers":
+On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> The IOREQ is a common feature now and these fields will be used
+> on Arm as is. Move them to common struct vcpu as a part of new
+> struct vcpu_io and drop duplicating "io" prefixes. Also move
+> enum hvm_io_completion to xen/sched.h and remove "hvm" prefixes.
+> 
+> This patch completely removes layering violation in the common code.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> CC: Julien Grall <julien.grall@arm.com>
+> [On Arm only]
+> Tested-by: Wei Chen <Wei.Chen@arm.com>
 
-In file included from livepatch.c:13:0:
-/oss/xen/xen/include/asm/mm.h:32:28: error: field ‘list’ has incomplete type
-     struct page_list_entry list;
-                            ^~~~
-/oss/xen/xen/include/asm/mm.h:53:43: error: ‘MAX_ORDER’ undeclared here (not in a function); did you mean ‘PFN_ORDER’?
-                 unsigned long first_dirty:MAX_ORDER + 1;
-                                           ^~~~~~~~~
-                                           PFN_ORDER
-/oss/xen/xen/include/asm/mm.h:53:31: error: bit-field ‘first_dirty’ width not an integer constant
-                 unsigned long first_dirty:MAX_ORDER + 1;
-                               ^~~~~~~~~~~
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-This is happening because asm/mm.h is included directly by livepatch.c.
-Yet it depends on xen/mm.h to be included first so MAX_ORDER is defined.
+Cheers,
 
-Resolve the build failure by including xen/mm.h rather than asm/mm.h.
-
-Fixes: ced9795c6cb4 ("mm: split out mfn_t / gfn_t / pfn_t definitions and helpers")
-Signed-off-by: Julien Grall <jgrall@amazon.com>
----
- xen/arch/arm/livepatch.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/arch/arm/livepatch.c b/xen/arch/arm/livepatch.c
-index 915e9d926a11..75e8adcfd6a1 100644
---- a/xen/arch/arm/livepatch.c
-+++ b/xen/arch/arm/livepatch.c
-@@ -6,11 +6,11 @@
- #include <xen/lib.h>
- #include <xen/livepatch_elf.h>
- #include <xen/livepatch.h>
-+#include <xen/mm.h>
- #include <xen/vmap.h>
- 
- #include <asm/cpufeature.h>
- #include <asm/livepatch.h>
--#include <asm/mm.h>
- 
- /* Override macros from asm/page.h to make them work with mfn_t */
- #undef virt_to_mfn
 -- 
-2.17.1
-
+Julien Grall
 
