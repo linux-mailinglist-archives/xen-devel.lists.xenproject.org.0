@@ -2,28 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 788382F7ECC
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 16:02:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68235.122113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 349942F7EE0
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 16:04:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68239.122125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0Qbn-0006Q1-Uf; Fri, 15 Jan 2021 15:01:51 +0000
+	id 1l0Qdi-0006Xu-EG; Fri, 15 Jan 2021 15:03:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68235.122113; Fri, 15 Jan 2021 15:01:51 +0000
+Received: by outflank-mailman (output) from mailman id 68239.122125; Fri, 15 Jan 2021 15:03:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0Qbn-0006Pc-Q2; Fri, 15 Jan 2021 15:01:51 +0000
-Received: by outflank-mailman (input) for mailman id 68235;
- Fri, 15 Jan 2021 15:01:49 +0000
+	id 1l0Qdi-0006XV-B2; Fri, 15 Jan 2021 15:03:50 +0000
+Received: by outflank-mailman (input) for mailman id 68239;
+ Fri, 15 Jan 2021 15:03:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5h4P=GS=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l0Qbl-0006PX-Si
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 15:01:49 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=cjQ6=GS=bounce.vates.fr=bounce-md_30504962.6001aebe.v1-92ff45e39fc14decabe69ada6e8d7130@srs-us1.protection.inumbo.net>)
+ id 1l0Qdg-0006XQ-JU
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 15:03:49 +0000
+Received: from mail187-1.suw11.mandrillapp.com (unknown [198.2.187.1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 31acbc8a-4034-4844-887a-52874d056499;
- Fri, 15 Jan 2021 15:01:48 +0000 (UTC)
+ id 4823e9eb-3ace-489c-9666-cb1f1774448f;
+ Fri, 15 Jan 2021 15:03:47 +0000 (UTC)
+Received: from pmta01.mandrill.prod.suw01.rsglab.com (127.0.0.1) by
+ mail187-1.suw11.mandrillapp.com id h06nd6174i4v for
+ <xen-devel@lists.xenproject.org>;
+ Fri, 15 Jan 2021 15:03:26 +0000 (envelope-from
+ <bounce-md_30504962.6001aebe.v1-92ff45e39fc14decabe69ada6e8d7130@bounce.vates.fr>)
+Received: from [185.78.159.90] by mandrillapp.com id
+ 92ff45e39fc14decabe69ada6e8d7130; Fri, 15 Jan 2021 15:03:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,135 +42,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31acbc8a-4034-4844-887a-52874d056499
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610722908;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=m/GpP1Qd0vBazhhzpoS+3mNDOzqUacvggH8IwXLbUHA=;
-  b=g/Y2ohuYXG3YQkXfM8UbacXu2Un5YhhsWOP/lXglGJGPdY09sV0VV85J
-   hG4RSSeYn93/MMOZ5tHFEYe5sFPLUvzVFV8UhEODhwg8LZWIHO46PVk1T
-   SZRAsme/f6KrMhP56h/3sdSJ5DgsXnWc1VeYGGj1ml2GshjDC9PHJHmZO
-   Q=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: ky8z+JyekCDkVUfBcvWCVnlr3B95zXzJsU1w9RRFFWXYdJn9o6mGfWzMFARpvM81L5BXq9WSFr
- QeFU2vZwmLDFSVp6adFCvZedMAAFvqzjnKyq0BQ6zEgdJKSNHy3GTy+suYvykiHIVUbeQJxHfB
- U+O8oBK2S64o8ixO4z9qMT281Bl6QWY9cfgboM0CAP1EKaM7ruzMnwvGFIJNJko2RgVrWOKHcg
- vhNsL7WC1L8k0TEr3hkeckDzE5hf0zf8AzPQTpH8LvFtS5erHwc0ZVhP6st+SoKELiHqMOiSnj
- muM=
-X-SBRS: 5.2
-X-MesageID: 35550913
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,349,1602561600"; 
-   d="scan'208";a="35550913"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NZHTZ/H7QOjRE5BdT+sywK9urRzwoLM68+Ov9wTBhT+vSDbrSqiuoSoGCF1rO+okdUTbOd5DFr+9u8tODFgRsbJVY1hqGHvx3GMsYqeiTCxBdUDJLQ9e7In6W4CvX0ShnV6G1E9ar4x6Z4yNS7Ky2+AXb53yXTK+Z0Gn347VZJ9xvAlUxFYi83yTDwWRPiuCh53RM+1dkIRYjEplarVwnR1xzGD8rQT0/PX3txZBWzsmLzUOhEAc9aJBYajBYLPNUavzrFlDjXufSppoI0OSOlEd6sH3XD8LjRnHWstEkX04RxGik1oHY3o3y1qb5lJOezWxyBzkxk1qvvHFCWqLVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I8a0oZZtkRzO4sGC69PGNOrswxQ3kIqY/+dQJSecbxY=;
- b=miSCLxtatulA9GwbO1gJzjXu9ePLuiBDxpNIZ5SIyVdXub/nz26hNJV691bSDk3lPAmAvAR3FTImyHtIAqovz0vt9J9dw7KpvOqUVuBgw+NHPgwJzasBH7ODE1XZovvXwKBbWpRmv0R2qCziKJ/Xd0O96C8YBkp2dqol+Yqy7rEZ7XG9vluE8nDlztkdZ8dop9x29cLcHarWpkU4+IiiR9qQ+VfEl8Ox6tA7eXwq1iy9lAfaW9IwlU2sLI0hCjHROB0onx3uG2JpQ4XEOX85vadY+aYspcwTFFe6/l3kUQ+EU6U/3C5qikeIIERUmu4M8H7JHtinjZ0iLWKpDNorGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I8a0oZZtkRzO4sGC69PGNOrswxQ3kIqY/+dQJSecbxY=;
- b=H/fwtqvXoGmehQug0/+dttUjp5kH0e0qrlq6ZFhKgGw2TyMx42MBE+Axo8FrYUp/KcnSbdIzOpif/Y5ieorjYpU+G4d9JHVx9DrzoIdRzgCbxXDzhzcL9Q4hhQGuBczGlmEaGW0N6yDcP+wyQI8/pn2GKkIh2WjKFTlGfYiMEPU=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/CPUID: unconditionally set XEN_HVM_CPUID_IOMMU_MAPPINGS
-Date: Fri, 15 Jan 2021 16:01:38 +0100
-Message-ID: <20210115150138.36087-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.29.2
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR2P264CA0112.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:33::28) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-Inumbo-ID: 4823e9eb-3ace-489c-9666-cb1f1774448f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=mandrill; d=vates.fr;
+ h=From:Subject:To:Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding; i=samuel.verschelde@vates.fr;
+ bh=pEEtCL3JjBhA/0f/k2t99CCUvfcHxNK2ieq34zrxf3I=;
+ b=WMgOCkWxBc4FkLtmYuk8RqN6uca9phFOeR7zyX1BM4lQIX8obhfMJDm94mIWQgygYDHlXtlaqPR3
+   Hw6L3tQlrz29TgFdD6ySf7tNYG+/BYW+YEcXzZTWMhXca4DPf+mKYZ9iANVoktuFpJtLJaLukAGM
+   Z1Gx6F3LB4+qBEHa9i8=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
+ i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1610723006; h=From : 
+ Subject : To : Message-Id : Date : MIME-Version : Content-Type : 
+ Content-Transfer-Encoding : From : Subject : Date : X-Mandrill-User : 
+ List-Unsubscribe; bh=pEEtCL3JjBhA/0f/k2t99CCUvfcHxNK2ieq34zrxf3I=; 
+ b=a9Obdf6TRQ5hDcsuMC4r7MWlzDk/4in0UmvBK5kc35X1o+VxzOL6hka8fRM+FshgWYAjf9
+ TQmAfAUwDYVLRTOXXIy+P9pC4DEhqCjvCD9A9BkxhsThBSo8FOsojFG1KFnFBQnUYR+hHuCD
+ DMakEiJRloKew718usxH8v4TOpQn4=
+From: Samuel Verschelde <samuel.verschelde@vates.fr>
+Subject: XSA-332 kernel patch - huge network performance on pfSense VMs
+X-Virus-Scanned: amavisd-new at vates.fr
+To: xen-devel@lists.xenproject.org
+Message-Id: <dc5d60d7-1ada-5eb1-ff91-495d663ca89e@vates.fr>
+X-Report-Abuse: Please forward a copy of this message, including all headers, to abuse@mandrill.com
+X-Report-Abuse: You can also report abuse here: http://mandrillapp.com/contact/abuse?id=30504962.92ff45e39fc14decabe69ada6e8d7130
+X-Mandrill-User: md_30504962
+Date: Fri, 15 Jan 2021 15:03:26 +0000
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7bba29b4-608e-4123-2c43-08d8b9667943
-X-MS-TrafficTypeDiagnostic: DS7PR03MB5590:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DS7PR03MB5590F93D94E474D3212E103C8FA70@DS7PR03MB5590.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aIfkwK+QmoWRR2pD1Y1QqFBfHVOaTyWCsJj/RmNli5xkswt+L1/CDn4Vf5Sx8O+JOr3Qi+5KrYwCrNdFAy002fxxcOXQNRnTNgM8yk3mdlEWDHm8HrszsjL5M3X0qXVgd544jXcUJdsxJFjbK04JPRlPR6QAIW3aat+fEmHhdD/U6lW0h0pQ/AjMRKTsWeufX3sfXqjT+wl/Lg3coSs1o/r1HP83npyBunBOYtC8R0QmwwbMtoOBAfSCCG6u46NuzVIII5/UaHOSj1bBe4+kGn2+1NuqpPHW3r+qWD3BS7+OC3qQvp3BcLYAgE/Eo/WQYTtZ4c5KSfz0OCZG/2qypWVAx217LFh+t+5qFjXVe9e4we3oXo2LSFYur6FdIyikmZHxhsiM70ZZ0oCS4eoi9Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(376002)(136003)(396003)(366004)(346002)(956004)(36756003)(2616005)(5660300002)(6916009)(478600001)(66946007)(8676002)(4326008)(66476007)(83380400001)(8936002)(6486002)(2906002)(86362001)(6496006)(6666004)(54906003)(186003)(16526019)(1076003)(316002)(26005)(66556008);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?YlQ5SmZrLzVETWxHUmN0SERkRjRGOStJWkZ0VFI1UWdzcWNCL2ErNm9nb3Rt?=
- =?utf-8?B?R1U4RXFwaDgzbWwrOUVHdUQ0bEI3T2JaR0JPeTZSMU1vczUvblorcTBvc1pX?=
- =?utf-8?B?R1VFMEwwMml5UUpnNTI5ZWVjQjJ2L2Z0eG5HeEZ6dkFJTGhQOXJuUzBxM0tL?=
- =?utf-8?B?bUtDaHBGbFhzUGRLVTV4aUt6Rk8rVTRiUkExd3lOOWdhVzlZZml5MnBqTjUw?=
- =?utf-8?B?Z3pSNzJ3MmFGOVFsdTBFdC96dW5kRkM0cXhJZ2lRTDRXVi9La0g4TUR1OU5j?=
- =?utf-8?B?NzFRSHlpc3c1blQ4OUMwTm5jdmVTdVJrNXdXekVRSmc4WXdXekQ5ZlhEekRC?=
- =?utf-8?B?TGE4S0dncStoVjJyclZwZjhhWDNOelgwaEtrTGxJbGJPWlVmNkdwcHBlNVUw?=
- =?utf-8?B?Z2hYbEUzc2NFRmhUZlJpRTJoRDFCOWtKM3NjdUFkVC9CcWl3MUZ3bEVtK1dU?=
- =?utf-8?B?WmxJVWNMQ0xPYTFiOG1ZNnhFK1IzTS9wOHlZOHpqL0orN1Yybyt6MStDRjUx?=
- =?utf-8?B?TDZxYUtVUU1IaGlNM1BFT1YvVnd6M0ZzOXdmY2tIV3hBcXd2cHV5RWk1Q08w?=
- =?utf-8?B?SWFDbzB4WkRiMkdzRnRtb3BSN250MXA1MlBKSDgwbktOamU5NGVyNURGOEIr?=
- =?utf-8?B?TEtZVnRoS2ppaVY5Ylh0djdGWGlKTkk4QW8zVGFVYnNza0h6QVVpUUJ0UWVv?=
- =?utf-8?B?OGJnSkFqRUxUT0U4UUloMUpsa3kzd0J1U1JYd1U4djB3UE9SUlNveDFlVFpF?=
- =?utf-8?B?cHNJWUVUZS9vUGpHMnQvdWpnZFBqSVVJazNENE9sd0ljNDNYWDZlbGVMMmxB?=
- =?utf-8?B?cWNmNkRwWnhRditGbm10b0daUHpSR0FlVzJBZkdBaXN6V2Rvc2k3dGdSWVhs?=
- =?utf-8?B?cVpPK0psT1paTnEzK0pnbVlubXRMWTdjQzFkZWltZFJkMmxvcjhBbE9yYXBa?=
- =?utf-8?B?aEZDMzlsSFhhQWM4NlI5Wm81UlRsd056U1I5Z1NrcVh1dkRKRzdRck53cEYy?=
- =?utf-8?B?NHdmUDRzdDk0L2pCQTNvTmNGZUVFVmFDMmRETmhTRUJ4ZXYxbE5GVy95NFVh?=
- =?utf-8?B?N0J6MnFOOTN0S0xqZ2VrNE90NGgxQ3JDN1dob3BuUytLL2lUSmdjeURBdFZa?=
- =?utf-8?B?WUFTNE9talBpS0dxTjl0ZmpUUnVwOEJnRTlrK29Hclk3S21hcUJkOHo3djdw?=
- =?utf-8?B?SDBINDRSWUxkc1NSVS8rZ1BrWWZoMHlVVkgzSnEzOThLRlZZa01Qbk84UkZZ?=
- =?utf-8?B?VmpwcVNZN1V0eGlpa3dESW1udy83MVNhYlA0bnR3L1ljSDFiby82d0JYVmd6?=
- =?utf-8?Q?Gg5Y5khv2mS8+Vffs52/cTTBqXxtAshQGy?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bba29b4-608e-4123-2c43-08d8b9667943
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 15:01:44.7383
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 15XTJcuHGkQKAO2MBKQn0Iv5o/p1odiCxKGrslBEwbsQK99qTRaKxcL/fBKf+ip5hO4fyB3UXtFN6oRJJbRshQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5590
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-This is a revert of f5cfa0985673 plus a rework of the comment that
-accompanies the setting of the flag so we don't forget why it needs to
-be unconditionally set: it's indicating whether the version of Xen has
-the original issue fixed and IOMMU entries are created for
-grant/foreign maps.
+Hi list,
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/traps.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+Another "popular" thread on XCP-ng forum [1], started in october 2020, 
+allowed us to detect that patch 12 from the XSA-332 advisory [2] had a 
+very significant impact on network performance in the case of pfSense VMs.
 
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 4bd2cb6a1a..d491b1741e 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1049,11 +1049,10 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
-             res->a |= XEN_HVM_CPUID_X2APIC_VIRT;
- 
-         /*
--         * Indicate that memory mapped from other domains (either grants or
--         * foreign pages) has valid IOMMU entries.
-+         * Unconditionally set the flag to indicate this version of Xen has
-+         * been fixed to create IOMMU mappings for grant/foreign maps.
-          */
--        if ( is_iommu_enabled(d) )
--            res->a |= XEN_HVM_CPUID_IOMMU_MAPPINGS;
-+        res->a |= XEN_HVM_CPUID_IOMMU_MAPPINGS;
- 
-         /* Indicate presence of vcpu id and set it in ebx */
-         res->a |= XEN_HVM_CPUID_VCPU_ID_PRESENT;
--- 
-2.29.2
+We reproduced the issue internally (well, we reproduced "something". The 
+user setups in this thread are diverse) and our findings seem to confirm 
+what the users reported. Running iperf3 from the pfSense VM to a debian 
+VM gives results around 5 times slower than before. Reverting this 
+single patch brings the performance back. On the debian to pfSense 
+direction, the drop is about 25%.
+
+Testing environment:
+
+Host
+* XCP-ng 8.2
+* kernel 4.19.19 + backports and sec fixes [3]
+* Xen 4.13.1 + backports and sec fixes [4]
+
+VM 1 - pfSense, HVM
+VM 2 - debian, HVM
+VM 3 - debian, HVM
+
+All VMs running on the same host.
+
+I can provide more details if needed.
+
+Note: a user reported a performance drop between two windows VMs [5] and 
+another when accessing DBF files across the network [6]. They didn't 
+specify what the network setup was though. At least the second one 
+confirmed reverting patch 12 solved his issues.
+
+
+*** Test results, without reverting patch 12 ***
+
+Debian to pfSense: ~1,20 Gbit/s, stable
+
+root@samtest:~# iperf3 -c 10.0.90.1
+Connecting to host 10.0.90.1, port 5201
+[=C2=A0 5] local 10.0.90.2 port 58036 connected to 10.0.90.1 port 5201
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr=C2=A0 Cwnd
+[=C2=A0 5]=C2=A0=C2=A0 0.00-1.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 100 MBytes=C2=
+=A0=C2=A0 842 Mbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.22 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 1.00-2.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 148 MBytes=C2=
+=A0 1.24 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.00 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 2.00-3.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 145 MBytes=C2=
+=A0 1.22 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.11 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 3.00-4.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 144 MBytes=C2=
+=A0 1.21 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.11 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 4.00-5.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 141 MBytes=C2=
+=A0 1.18 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.11 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 5.00-6.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 150 MBytes=C2=
+=A0 1.26 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.11 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 6.00-7.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 144 MBytes=C2=
+=A0 1.21 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.11 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 7.00-8.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 132 MBytes=C2=
+=A0 1.11 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.11 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 8.00-9.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 140 MBytes=C2=
+=A0 1.17 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.11 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 9.00-10.00=C2=A0 sec=C2=A0=C2=A0 142 MBytes=C2=A0 1.=
+20 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 2.11 MBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0 1.35 GBytes=C2=A0 1.16 Gb=
+its/sec 0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 sender
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0 1.35 GBytes=C2=A0 1.16 Gb=
+its/sec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 
+receiver
+
+pfSense to Debian: catastrophic and not stable. We should have 2,2 
+Gbit/s here.
+
+root@samtest:~# iperf3 -c 10.0.90.1 -R
+Connecting to host 10.0.90.1, port 5201
+Reverse mode, remote host 10.0.90.1 is sending
+[=C2=A0 5] local 10.0.90.2 port 58052 connected to 10.0.90.1 port 5201
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate
+[=C2=A0 5]=C2=A0=C2=A0 0.00-1.00=C2=A0=C2=A0 sec=C2=A0 30.2 MBytes=C2=A0=C2=
+=A0 254 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 1.00-2.00=C2=A0=C2=A0 sec=C2=A0 28.5 MBytes=C2=A0=C2=
+=A0 239 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 2.00-3.00=C2=A0=C2=A0 sec=C2=A0 47.3 MBytes=C2=A0=C2=
+=A0 397 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 3.00-4.00=C2=A0=C2=A0 sec=C2=A0 96.4 MBytes=C2=A0=C2=
+=A0 809 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 4.00-5.00=C2=A0=C2=A0 sec=C2=A0 43.3 MBytes=C2=A0=C2=
+=A0 363 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 5.00-6.00=C2=A0=C2=A0 sec=C2=A0 36.9 MBytes=C2=A0=C2=
+=A0 310 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 6.00-7.00=C2=A0=C2=A0 sec=C2=A0 25.2 MBytes=C2=A0=C2=
+=A0 211 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 7.00-8.00=C2=A0=C2=A0 sec=C2=A0 43.8 MBytes=C2=A0=C2=
+=A0 368 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 8.00-9.00=C2=A0=C2=A0 sec=C2=A0 23.0 MBytes=C2=A0=C2=
+=A0 193 Mbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 9.00-10.00=C2=A0 sec=C2=A0 17.0 MBytes=C2=A0=C2=A0 1=
+43 Mbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0=C2=A0 392 MBytes=C2=A0=C2=
+=A0 329 Mbits/sec 112=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 sender
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0=C2=A0 392 MBytes=C2=A0=C2=
+=A0 329 Mbits/sec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 
+receiver
+
+Debian to debian: 8,5 Gbit/s
+
+root@samtest:~# iperf3 -c 10.0.90.3
+Connecting to host 10.0.90.3, port 5201
+[=C2=A0 5] local 10.0.90.2 port 39928 connected to 10.0.90.3 port 5201
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr=C2=A0 Cwnd
+[=C2=A0 5]=C2=A0=C2=A0 0.00-1.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 963 MBytes=C2=
+=A0 8.07 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0=C2=A0 878 KBytes
+[=C2=A0 5]=C2=A0=C2=A0 1.00-2.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 994 MBytes=C2=
+=A0 8.34 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1014 KBytes
+[=C2=A0 5]=C2=A0=C2=A0 2.00-3.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 969 MBytes=C2=
+=A0 8.13 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.10 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 3.00-4.00=C2=A0=C2=A0 sec=C2=A0 1.02 GBytes=C2=A0 8.=
+80 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.15 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 4.00-5.00=C2=A0=C2=A0 sec=C2=A0 1022 MBytes=C2=A0 8.=
+58 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.21 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 5.00-6.00=C2=A0=C2=A0 sec=C2=A0 1012 MBytes=C2=A0 8.=
+49 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.33 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 6.00-7.00=C2=A0=C2=A0 sec=C2=A0 1.01 GBytes=C2=A0 8.=
+71 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.33 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 7.00-8.00=C2=A0=C2=A0 sec=C2=A0 1.05 GBytes=C2=A0 9.=
+06 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.33 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 8.00-9.00=C2=A0=C2=A0 sec=C2=A0 1.02 GBytes=C2=A0 8.=
+74 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.40 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 9.00-10.00=C2=A0 sec=C2=A0 1018 MBytes=C2=A0 8.54 Gb=
+its/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.54 MBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0 9.95 GBytes=C2=A0 8.54 Gb=
+its/sec 0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 sender
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.04=C2=A0 sec=C2=A0 9.94 GBytes=C2=A0 8.51 Gb=
+its/sec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 
+receiver
+
+
+*** Test results, after reverting patch 12 (only) ***
+
+Debian to pfSense: better average perf, but there are big drops so it 
+does not manage to stay at 2,2 Gbit/s.
+
+root@samtest:~# iperf3 -c 10.0.90.1
+Connecting to host 10.0.90.1, port 5201
+[=C2=A0 5] local 10.0.90.2 port 46946 connected to 10.0.90.1 port 5201
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr=C2=A0 Cwnd
+[=C2=A0 5]=C2=A0=C2=A0 0.00-1.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 237 MBytes=C2=
+=A0 1.98 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.44 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 1.00-2.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 240 MBytes=C2=
+=A0 2.01 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.52 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 2.00-3.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 260 MBytes=C2=
+=A0 2.18 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.68 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 3.00-4.00=C2=A0=C2=A0 sec=C2=A0 36.2 MBytes=C2=A0=C2=
+=A0 304 Mbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.68 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 4.00-5.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 115 MBytes=C2=
+=A0=C2=A0 965 Mbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.68 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 5.00-6.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 255 MBytes=C2=
+=A0 2.14 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.78 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 6.00-7.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 181 MBytes=C2=
+=A0 1.52 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.78 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 7.00-8.00=C2=A0=C2=A0 sec=C2=A0 76.2 MBytes=C2=A0=C2=
+=A0 640 Mbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.78 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 8.00-9.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 261 MBytes=C2=
+=A0 2.19 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.78 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 9.00-10.00=C2=A0 sec=C2=A0=C2=A0 251 MBytes=C2=A0 2.=
+11 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.88 MBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0 1.87 GBytes=C2=A0 1.60 Gb=
+its/sec 0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 sender
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0 1.87 GBytes=C2=A0 1.60 Gb=
+its/sec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 
+receiver
+
+pfSense to Debian: back to stable 2,2 Gbit/s
+
+root@samtest:~# iperf3 -c 10.0.90.1 -R
+Connecting to host 10.0.90.1, port 5201
+Reverse mode, remote host 10.0.90.1 is sending
+[=C2=A0 5] local 10.0.90.2 port 46954 connected to 10.0.90.1 port 5201
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate
+[=C2=A0 5]=C2=A0=C2=A0 0.00-1.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 238 MBytes=C2=
+=A0 2.00 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 1.00-2.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 239 MBytes=C2=
+=A0 2.01 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 2.00-3.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 252 MBytes=C2=
+=A0 2.11 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 3.00-4.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 256 MBytes=C2=
+=A0 2.15 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 4.00-5.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 263 MBytes=C2=
+=A0 2.20 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 5.00-6.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 255 MBytes=C2=
+=A0 2.14 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 6.00-7.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 265 MBytes=C2=
+=A0 2.22 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 7.00-8.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 266 MBytes=C2=
+=A0 2.23 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 8.00-9.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 262 MBytes=C2=
+=A0 2.20 Gbits/sec
+[=C2=A0 5]=C2=A0=C2=A0 9.00-10.00=C2=A0 sec=C2=A0=C2=A0 273 MBytes=C2=A0 2.=
+29 Gbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0 2.51 GBytes=C2=A0 2.16 Gb=
+its/sec 123=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 sender
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0 2.51 GBytes=C2=A0 2.16 Gb=
+its/sec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 
+receiver
+
+Debian to debian : no differences.
+
+root@samtest:~# iperf3 -c 10.0.90.3
+iperf3: error - unable to connect to server: Connection refused
+root@samtest:~# iperf3 -c 10.0.90.3
+Connecting to host 10.0.90.3, port 5201
+[=C2=A0 5] local 10.0.90.2 port 59498 connected to 10.0.90.3 port 5201
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr=C2=A0 Cwnd
+[=C2=A0 5]=C2=A0=C2=A0 0.00-1.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 982 MBytes=C2=
+=A0 8.23 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0=C2=A0 779 KBytes
+[=C2=A0 5]=C2=A0=C2=A0 1.00-2.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 982 MBytes=C2=
+=A0 8.24 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0=C2=A0 904 KBytes
+[=C2=A0 5]=C2=A0=C2=A0 2.00-3.00=C2=A0=C2=A0 sec=C2=A0 1.01 GBytes=C2=A0 8.=
+65 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0=C2=A0 904 KBytes
+[=C2=A0 5]=C2=A0=C2=A0 3.00-4.00=C2=A0=C2=A0 sec=C2=A0 1.03 GBytes=C2=A0 8.=
+85 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.07 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 4.00-5.00=C2=A0=C2=A0 sec=C2=A0 1022 MBytes=C2=A0 8.=
+58 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.13 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 5.00-6.00=C2=A0=C2=A0 sec=C2=A0 1.01 GBytes=C2=A0 8.=
+69 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.13 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 6.00-7.00=C2=A0=C2=A0 sec=C2=A0=C2=A0 988 MBytes=C2=
+=A0 8.28 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.31 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 7.00-8.00=C2=A0=C2=A0 sec=C2=A0 1.01 GBytes=C2=A0 8.=
+64 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.31 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 8.00-9.00=C2=A0=C2=A0 sec=C2=A0 1.01 GBytes=C2=A0 8.=
+70 Gbits/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.38 MBytes
+[=C2=A0 5]=C2=A0=C2=A0 9.00-10.00=C2=A0 sec=C2=A0 1000 MBytes=C2=A0 8.39 Gb=
+its/sec=C2=A0=C2=A0=C2=A0 0=C2=A0=C2=A0 1.52 MBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+Transfer=C2=A0=C2=A0=C2=A0=C2=A0 Bitrate=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 Retr
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.00=C2=A0 sec=C2=A0 9.93 GBytes=C2=A0 8.53 Gb=
+its/sec 0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 sender
+[=C2=A0 5]=C2=A0=C2=A0 0.00-10.04=C2=A0 sec=C2=A0 9.92 GBytes=C2=A0 8.49 Gb=
+its/sec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 
+receiver
+
+
+Best regards,
+
+Samuel Verschelde
+
+[1] 
+https://xcp-ng.org/forum/topic/3774/poor-pfsense-wan-speeds-after-xcp-ng-up=
+dates
+[2] http://xenbits.xen.org/xsa/xsa332-linux-12.patch
+[3] https://github.com/xcp-ng-rpms/kernel/tree/8.2
+[4] https://github.com/xcp-ng-rpms/xen/tree/8.2
+[5] https://xcp-ng.org/forum/post/33264
+[6] https://xcp-ng.org/forum/post/33268
 
 
