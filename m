@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B97842F77A8
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 12:31:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67994.121590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4FA72F77D9
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 12:43:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68001.121603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0NJd-0006a3-2m; Fri, 15 Jan 2021 11:30:53 +0000
+	id 1l0NVP-0007gB-Av; Fri, 15 Jan 2021 11:43:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67994.121590; Fri, 15 Jan 2021 11:30:53 +0000
+Received: by outflank-mailman (output) from mailman id 68001.121603; Fri, 15 Jan 2021 11:43:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0NJc-0006Zd-VC; Fri, 15 Jan 2021 11:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 67994;
- Fri, 15 Jan 2021 11:30:51 +0000
+	id 1l0NVP-0007fm-7d; Fri, 15 Jan 2021 11:43:03 +0000
+Received: by outflank-mailman (input) for mailman id 68001;
+ Fri, 15 Jan 2021 11:43:01 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l0NJb-0006ZX-4v
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 11:30:51 +0000
+ (envelope-from <julien@xen.org>) id 1l0NVN-0007fh-8Y
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 11:43:01 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1l0NJa-0002GE-Bu; Fri, 15 Jan 2021 11:30:50 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ id 1l0NVK-0002To-4Z; Fri, 15 Jan 2021 11:42:58 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1l0NJa-0000qH-0w; Fri, 15 Jan 2021 11:30:50 +0000
+ id 1l0NVJ-0001Zv-OY; Fri, 15 Jan 2021 11:42:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,146 +42,247 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=g5f7jnY4nZvxAf4z4JH59zsOZuDAjdIDX0Nkp0A9MV4=; b=2UdF7H3+yoQ2208To6dkM3iwPl
-	lOIy08lj08RGd1qs7e8bo6YasW7SXG7BbP6ldzzCYFVZ1HHC5WYENljwYR4LrNxbPXcoJ+RIw0ghQ
-	IeqX529JBjagXeWnaL3G8ka2uQ5j7J0TozKIT8XYPAVTxEfmzd94UyKunYqIafiLSqlM=;
-Subject: Re: [PATCH for-4.15 4/4] xen/iommu: x86: Don't leak the IOMMU
- page-tables
-To: Jan Beulich <jbeulich@suse.com>
-Cc: hongyxia@amazon.co.uk, Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-References: <20201222154338.9459-1-julien@xen.org>
- <20201222154338.9459-5-julien@xen.org>
- <beb22b59-701e-462c-5080-e99033079204@suse.com>
- <d62f8851-b417-b22a-4527-c2c43b536446@xen.org>
- <e897e1bf-9c17-f8a9-274a-673ff7f1a009@suse.com>
- <0ff629b1-25e6-6ce4-43ab-d50af52ecb8c@xen.org>
- <a22f7364-518f-ea5f-3b87-5c0462cfc193@suse.com>
- <b6d69d54-70cc-15a3-5d06-51b0417f959b@xen.org>
- <a6804337-436d-4572-e643-4b8fd759c010@suse.com>
+	bh=vI+3blgvOHyY7ck6IbhK0URQ/1y48A6oVYlISKseZ7c=; b=PVuUWGbS0FJSNTXWFOWIs/RKSQ
+	yBuK07B4/Jef3Ltr6YJ7o7WKdmPJf/jbSDB+nTbvrmM7U6WeCvcDP7uonJaEHUpze1usv3MD3Snd+
+	JuRnbOndNbPyLNvHoM25qZr+sppWn7uTi1CF9EoZPKOajDcYmfO6y0IUc9gQiloBdWfE=;
+Subject: Re: IRQ latency measurements in hypervisor
+To: Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <jgrall@amazon.com>, Dario Faggioli <dario.faggioli@suse.com>,
+ Bertrand.Marquis@arm.com, andrew.cooper3@citrix.com
+References: <87pn294szv.fsf@epam.com>
+ <alpine.DEB.2.21.2101141515230.31265@sstabellini-ThinkPad-T480s>
 From: Julien Grall <julien@xen.org>
-Message-ID: <e36f0e4c-7cc2-c1f0-1a5b-bf0a495d058d@xen.org>
-Date: Fri, 15 Jan 2021 11:30:48 +0000
+Message-ID: <f31c9cca-0275-eaef-5fcd-c8484d4b5da0@xen.org>
+Date: Fri, 15 Jan 2021 11:42:55 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <a6804337-436d-4572-e643-4b8fd759c010@suse.com>
+In-Reply-To: <alpine.DEB.2.21.2101141515230.31265@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+Hi Volodymyr, Stefano,
 
-On 15/01/2021 11:24, Jan Beulich wrote:
-> On 14.01.2021 19:53, Julien Grall wrote:
->> On 23/12/2020 16:35, Jan Beulich wrote:
->>> On 23.12.2020 17:19, Julien Grall wrote:
->>>> On 23/12/2020 16:15, Jan Beulich wrote:
->>>>> On 23.12.2020 17:07, Julien Grall wrote:
->>>>>> I think I prefer the small race introduced (the pages will still be
->>>>>> freed) over this solution.
->>>>>
->>>>> The "will still be freed" is because of the 2nd round of freeing
->>>>> you add in an earlier patch? I'd prefer to avoid the race to in
->>>>> turn avoid that 2nd round of freeing.
->>>>
->>>> The "2nd round" of freeing is necessary at least for the domain creation
->>>> failure case (it would be the 1rst round).
->>>>
->>>> If we can avoid IOMMU page-table allocation in the domain creation path,
->>>> then yes I agree that we want to avoid that "2nd round". Otherwise, I
->>>> think it is best to take advantage of it.
->>>
->>> Well, I'm not really certain either way here. If it's really just
->>> VMX'es APIC access page that's the problem here, custom cleanup
->>> of this "fallout" from VMX code would certainly be an option.
->>
->>   From my testing, it looks like the VMX APIC page is the only entry
->> added while the domain is created.
->>
->>> Furthermore I consider it wrong to insert this page in the IOMMU
->>> page tables in the first place. This page overlaps with the MSI
->>> special address range, and hence accesses will be dealt with by
->>> interrupt remapping machinery (if enabled). If interrupt
->>> remapping is disabled, this page should be no different for I/O
->>> purposes than all other pages in this window - they shouldn't
->>> be mapped at all.
->>
->> That's a fair point. I will have a look to see if I can avoid the IOMMU
->> mapping for the VMX APIC page.
->>
->>> Perhaps, along the lines of epte_get_entry_emt(), ept_set_entry()
->>> should gain an is_special_page() check to prevent propagation to
->>> the IOMMU for such pages (we can't do anything about them in
->>> shared-page-table setups)? See also the (PV related) comment in
->>> cleanup_page_mappings(), a few lines ahead of a respective use of
->>> is_special_page(),
->>
->> There seems to be a mismatch between what the comment says and the code
->> adding the page in the IOMMU for PV domain.
->>
->> AFAICT, the IOMMU mapping will be added via _get_page_type():
->>
->>           /* Special pages should not be accessible from devices. */
->>           struct domain *d = page_get_owner(page);
->>
->>           if ( d && unlikely(need_iommu_pt_sync(d)) && is_pv_domain(d) )
->>           {
->>               mfn_t mfn = page_to_mfn(page);
->>
->>               if ( (x & PGT_type_mask) == PGT_writable_page )
->>                   rc = iommu_legacy_unmap(d, _dfn(mfn_x(mfn)),
->>                                           1ul << PAGE_ORDER_4K);
->>               else
->>                   rc = iommu_legacy_map(d, _dfn(mfn_x(mfn)), mfn,
->>                                         1ul << PAGE_ORDER_4K,
->>                                         IOMMUF_readable | IOMMUF_writable);
->>           }
->>
->> In this snippet, "special page" is interpreted as a page with no owner.
->> However is_special_page() will return true when PGC_extra is set and the
->> flag implies there is an owner (see assign_pages()).
->>
->> So it looks like to me, any pages with PGC_extra would end up to have a
->> mapping in the IOMMU pages-tables if they are writable.
->>
->> This statement also seems to apply for xenheap pages shared with a
->> domain (e.g grant-table).
->>
->> Did I miss anything?
+On 14/01/2021 23:33, Stefano Stabellini wrote:
+> + Bertrand, Andrew (see comment on alloc_heap_pages())
+
+Long running hypercalls are usually considered security issues.
+
+In this case, only the control domain can issue large memory allocation 
+(2GB at a time). Guest, would only be able to allocate 2MB at the time, 
+so from the numbers below, it would only take 1ms max.
+
+So I think we are fine here. Next time, you find a large loop, please 
+provide an explanation why they are not security issues (e.g. cannot be 
+used by guests) or send an email to the Security Team in doubt.
+
+>> ARMv8 platform. Namely Renesas Rcar H3 SoC on Salvator board.
+
+Which core is it?
+
+>> To accurately determine latency, I employed one of timer counter units
+>> (TMUs) available on the SoC. This is 32-bit timer with auto-reload,
+>> that can generate interrupt on underflow. I fed it with 33.275MHz
+>> clock, which gave me resolution of about 30ns. I programmed the timer
+>> to generate interrupt every 10ms. My ISR then read the current timer
+>> value and determined how much time passed since last underrun. This
+>> gave me time interval between IRQ generation and ISR invocation.
+>> Those values were collected and every 10 seconds statistics was
+>> calculated. There is an example of output from my Linux driver:
 > 
-> First let me point out that what you quote is not what I had
-> pointed you at - you refer to _get_page_type() when I suggested
-> to look at cleanup_page_mappings(). 
-I know and that's why I pointed out the mismatch between the comments 
-(in cleanup_page_mappings()) and the code adding the mapping in the 
-IOMMU (_get_page_type()).
-
-I only looked at _get_page_type() because I wanted to understand how the 
-IOMMU mapping works for PV.
-
-The important aspect for
-> special pages (here I mean ones having been subject to
-> share_xen_page_with_guest()) is that their type gets "pinned",
-> i.e. they'll never be subject to _get_page_type()'s
-> transitioning of types. As you likely will have noticed,
-> cleanup_page_mappings() also only gets called when the last
-> _general_ ref of a page got dropped, i.e. entirely unrelated
-> to type references.
-
-Ah, that makes sense. I added some debugging in the code and couldn't 
-really figure out why the transition wasn't happening.
+> It looks like a solid approach to collect results, similar to the one we
+> used for the cache coloring work. Just make sure to collect very many
+> results.
+> 
+> A few of questions: did you use a single physical CPU? Are you using
+> RTDS and schedule 2 vCPU on 1 pCPU? Is dom0 idle or busy? I take the
+> results were measured in domU?
+> 
+> 
+>> [   83.873162] rt_eval_tmu e6fc0000.tmu: Mean: 44 (1320 ns) stddev: 8 (240 ns)
+>> [   94.136632] rt_eval_tmu e6fc0000.tmu: Mean: 44 (1320 ns) stddev: 8 (240 ns)
+>> [  104.400098] rt_eval_tmu e6fc0000.tmu: Mean: 50 (1500 ns) stddev: 129 (3870 ns)
+>> [  114.663828] rt_eval_tmu e6fc0000.tmu: Mean: 44 (1320 ns) stddev: 8 (240 ns)
+>> [  124.927296] rt_eval_tmu e6fc0000.tmu: Mean: 56 (1680 ns) stddev: 183 (5490 ns)
+>>
+>> This is the baremetal Linux. And there is Dom0:
+>>
+>> [  237.431003] rt_eval_tmu e6fc0000.tmu: Mean: 306 (9180 ns) stddev: 25 (750 ns)
+>> [  247.694506] rt_eval_tmu e6fc0000.tmu: Mean: 302 (9060 ns) stddev: 17 (510 ns)
+>>
+>> Driver outputs both the raw timer value (eg. 4) and the same value
+>> scaled to nanoseconds (eg. 1320 ns). As you can see baremetal setup is
+>> much faster. But experiments showed that Linux does not provide
+>> consistent values, even when running in baremetal mode. You can see
+>> sporadic spikes in "std dev" values.
+> 
+> So baremetal IRQ latency is 1320-1680ns and Linux IRQ latency is
+> 9060-9180ns. I am not surprised that Linux results are inconsistent but
+> I have a couple of observations:
+> 
+> - 9us is high for Linux
+> If the system is idle, the latency should be lower, around 2-3us. I
+> imagine you are actually running some sort of interference from dom0? Or
+> using RTDS and descheduling vCPUs?
+> 
+> - the stddev of 3870ns is high for baremetal
+> In the baremetal case the stddev should be minimal if the system is
+> idle.
+> 
+> 
+>> So my next step was to use proper RT OS to do the measurements. I
+>> chose Zephyr. My PR that adds Xen support to Zephyr can be found at
+>> [1]. Support for RCAR Gen3 is not upstreamed, but is present on my
+>> GitHub([2]). At [3] you can find the source code for application that
+>> does the latency measurements. It behaves exactly as my linux driver,
+>> but provides a bit more information:
+>>
+>>   *** Booting Zephyr OS build zephyr-v2.4.0-2750-g0f2c858a39fc  ***
+>> RT Eval app
+>>
+>> Counter freq is 33280000 Hz. Period is 30 ns
+>> Set alarm in 0 sec (332800 ticks)
+>> Mean: 600 (18000 ns) stddev: 3737 (112110 ns) above thr: 0% [265 (7950 ns) - 66955 (2008650 ns)] global [265 (7950 ns) 66955 (2008650 ns)]
+>> Mean: 388 (11640 ns) stddev: 2059 (61770 ns) above thr: 0% [266 (7980 ns) - 58830 (1764900 ns)] global [265 (7950 ns) 66955 (2008650 ns)]
+>> Mean: 358 (10740 ns) stddev: 1796 (53880 ns) above thr: 0% [265 (7950 ns) - 57780 (1733400 ns)] global [265 (7950 ns) 66955 (2008650 ns)]
+>> ...
+>>
+>> So there you can see: mean time, standard deviation, % of interrupts
+>> that was processed above 30us threshold, minimum and maximum latency
+>> values for the current 10s run, global minimum and maximum.
+>>
+>> Zephyr running as baremetal showed very stable results (this is an
+>> older build, so no extended statistics there):
+>>
+>> ## Starting application at 0x480803C0 ...
+>>   *** Booting Zephyr OS build zephyr-v2.4.0-1137-g5803ee1e8183  ***
+>> RT Eval app
+>>
+>> Counter freq is 33280000 Hz. Period is 30 ns
+>> Mean: 31 (930 ns) stddev: 0 (0 ns)
+>> Mean: 31 (930 ns) stddev: 0 (0 ns)
+>> Mean: 31 (930 ns) stddev: 0 (0 ns)
+>> Mean: 31 (930 ns) stddev: 0 (0 ns)
+>> Mean: 31 (930 ns) stddev: 0 (0 ns)
+>> Mean: 31 (930 ns) stddev: 0 (0 ns)
+>> ...
+>>
+>> As Zephyr provided stable readouts with no jitter, I used it to do all
+>> subsequent measurements.
+> 
+> I am a bit confused here. Looking at the numbers above the stddev is
+> 112110 ns in the first instance. That is pretty high. Am I looking at
+> the wrong numbers?
+> 
+> 
+>   
+>> IMPORTANT! All subsequent tests was conducted with only 1 CPU core
+>> enabled. My goal was to ensure that system can timely react to an
+>> external interrupt even under load.
+> 
+> All right. FYI I have no frame of reference for 2 vCPUs on 1 pCPUs, all
+> my tests were done with 1vCPU <-> 1pCPU and the null scheduler.
+> 
+>   
+>> Test results and latency sources
+>>
+>> As you can see, baremetal OS provides latency of ~0.9us without any
+>> deviations. The same code running as DomU on idle system shows mean
+>> latency of 12us and deviation of about 10us. Range of latencies in a
+>> 10s batch can vary from 8us to 25us. This fits into required 30us
+>> threshold, so no big issue there.
+>>
+>> But this worsens under certain conditions.
+>>
+>> 1. Serial console. RCAR serial driver (scif) works in synchronous
+>>     mode, so any heavy serial console output leads to higher
+>>     latency. Tests shows mean latency of 1000us and deviation of 1332
+>>     us. 54% of interrupts are handled outside of 30us period. Real
+>>     values may be even higher, because in some cases timer would do
+>>     full cycle and instead of say 11ms ISR would read 11 % 10 = 1ms
+>>     latency. I tried to enable asynchronous mode for the serial
+>>     console. This made things better, but it lead to gaps in output, so
+>>     I just turned the serial console off completely.
+> 
+> That's very interesting. I wonder if other serial drivers would cause
+> similar issues, e.g. PL011.
+> 
+> 
+>> 2. RTDS scheduler. With console disabled, things like "hexdump -v
+>>     /dev/zero" didn't affected the latency so badly, but anyways,
+>>     sometimes I got ~600us spikes. This is not a surprise, because of
+>>     default RTDS configuration. I changed period for DomU from default
+>>     10ms to 100us and things got better: with Dom0 burning CPU I am
+>>     rarely getting max latency of about ~30us with mean latency of ~9us
+>>     and deviation of ~0.5us. On other hand, when I tried to set period
+>>     to 30us, max latency rose up to ~60us.
+In a related topic, I am not entirely sure that all the hypercalls would 
+be able to fit in the 100us slice. In particular, the one which are 
+touching the P2M and do memory allocation.
 
 > 
-> If PGC_extra pages have a similar requirement, they may need
-> similar pinning of their types. (Maybe they do; didn't check.)
+> This is very interestingi too. Did you get any spikes with the period
+> set to 100us? It would be fantastic if there were none.
+> 
+> 
+>> 3. Huge latency spike during domain creation. I conducted some
+>>     additional tests, including use of PV drivers, but this didn't
+>>     affected the latency in my "real time" domain. But attempt to
+>>     create another domain with relatively large memory size of 2GB led
+>>     to huge spike in latency. Debugging led to this call path:
+>>
+>>     XENMEM_populate_physmap -> populate_physmap() ->
+>>     alloc_domheap_pages() -> alloc_heap_pages()-> huge
+>>     "for ( i = 0; i < (1 << order); i++ )" loop.
 
-I have only looked at the VMX APIC page so far. It effectively pin the 
-types.
+There are two for loops in alloc_heap_pages() using this syntax. Which 
+one are your referring to?
 
-Thanks for the explanation!
+>>
+>>     This loops handles struct page* for every one of 262144 pages that
+>>     was allocated by calling populate_physmap().
+
+Looking at the domain creation code, 2GB will be split in two extents of 
+1GB. This means, there will be at least a preemption point between the 
+allocation of the two extents.
+
+That said, this would only half of the time. So there might be more 
+optimization to do...
+
+> This function is not
+>>     preemptible and it takes about a second to complete on my
+>>     setup. Needless to say that it completely screws any responsiveness
+>>     of the hypervisor.
+>>
+>> I managed to overcome the issue #3 by commenting out all calls to
+>> populate_one_size() except the populate_one_size(PFN_4K_SHIFT) in
+>> xg_dom_arm.c. This lengthened domain construction, but my "RT" domain
+>> didn't experienced so big latency issues. Apparently all other
+>> hypercalls which are used during domain creation are either fast or
+>> preemptible. No doubts that my hack lead to page tables inflation and
+>> overall performance drop.
+> 
+> I think we need to follow this up and fix this. Maybe just by adding
+> a hypercall continuation to the loop.
+
+When I read "hypercall continuation", I read we will return to the guest 
+context so it can process interrupts and potentially switch to another task.
+
+This means that the guest could issue a second populate_physmap() from 
+the vCPU. Therefore any restart information should be part of the 
+hypercall parameters. So far, I don't see how this would be possible.
+
+Even if we overcome that part, this can be easily abuse by a guest as 
+the memory is not yet accounted to the domain. Imagine a guest that 
+never request the continuation of the populate_physmap(). So we would 
+need to block the vCPU until the allocation is finished.
+
+I think the first step is we need to figure out which part of the 
+allocation is slow (see my question above). From there, we can figure 
+out if there is a way to reduce the impact.
 
 Cheers,
 
