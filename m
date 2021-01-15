@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A782F886F
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 23:30:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68662.122976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 864872F8875
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 23:30:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68679.123036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0XbU-0006D9-7w; Fri, 15 Jan 2021 22:30:00 +0000
+	id 1l0Xbt-0007Og-Fr; Fri, 15 Jan 2021 22:30:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68662.122976; Fri, 15 Jan 2021 22:30:00 +0000
+Received: by outflank-mailman (output) from mailman id 68679.123036; Fri, 15 Jan 2021 22:30:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0XbU-0006CP-0r; Fri, 15 Jan 2021 22:30:00 +0000
-Received: by outflank-mailman (input) for mailman id 68662;
- Fri, 15 Jan 2021 22:29:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l0Xbt-0007O8-BS; Fri, 15 Jan 2021 22:30:25 +0000
+Received: by outflank-mailman (input) for mailman id 68679;
+ Fri, 15 Jan 2021 22:30:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hVL8=GS=citrix.com=edvin.torok@srs-us1.protection.inumbo.net>)
- id 1l0XbT-00061Y-5d
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 22:29:59 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d3aabfd2-998e-4de8-9ee5-2441aabbaaf3;
- Fri, 15 Jan 2021 22:29:50 +0000 (UTC)
+ id 1l0Xbs-00062b-8r
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 22:30:24 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ef7b5529-d612-4839-bc0f-62c474490687;
+ Fri, 15 Jan 2021 22:29:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,38 +36,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3aabfd2-998e-4de8-9ee5-2441aabbaaf3
+X-Inumbo-ID: ef7b5529-d612-4839-bc0f-62c474490687
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610749790;
+  d=citrix.com; s=securemail; t=1610749799;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=6dNoOpxPMfbkvAFQKGVZg+g4DArUnz6wcJHSzYnlKes=;
-  b=gms080TbWYlCG2O3cgCyEhdn2zxvN8BlmqiDjZVJd79c+b5VKVGEZYLN
-   Iw0gCpkFNQWL8xbmgIBO2AxvWYmwXHDjuhkCHExbN9+CWUEI2LV/c1L1i
-   uOoGfNs/0p12R+cfpz07XZ3PdezQ7212siISe55V4zGcqcD08aftMy9cm
-   g=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 8JIRRQ/vTnM8hZE8q0nckRqCFDUqGtRyZFzsPEFzkfGMNg4c5LceWHyUP9Jxq7zq2wErry/YY6
- p8azCp7mDxtfmHPk5pnN0E8LDinNV9HZm7OYn6Nn1wfrJiWO8n4HQMpkv3v6JsML2mAC/G/nkF
- R7HdRGjbgRQV46p7co/hjVDRB/mieTIbLw2y/Q7LIRfsOmMwVCRzSS8cl9P8ZheLCpbdcU1orK
- Vp8BlpFnAS9hMgrqkDIaa+gTHCb07n3Ot13bPjyGuR4SfgwmnyX8ZWFg2/XvL5M8zqeHQIJOdE
- his=
+  bh=ChX2rsVn5ssD/dNJKc5/y7eY+C7iouZky4Y2USpFMDg=;
+  b=H6sUoNR2i7+FwKh1s7RElUORLN1i5UTL7SXUSmU8OMyW7NLHrAUo9pI9
+   9N9vYG6l9WEgmhNLKHK51QOMHMWU5L3GMPWDlUtfGfDs2rqQ/GW7wIy5U
+   KESqckmy5KrKdmgSf7s0yoKt2FKuTYg4aUVPVFkvhQjmLqhm7Zd6Ju2f3
+   Q=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: mHx+RKLkQwzT3oeD7dsMnyR42Pl540jrfqcz7L7sfXLrey9EYa01zjmVv4vetuOp0N8lNlWXUG
+ UczC7I/oZuEu7xb9VYVO9QS9+nyEy89N9W1YJGoC1vp/IDoQwxAN3g+u4eYnFv5FQW+8GE4Bw2
+ iEZ7VTKFerwgBtIkj4y2c/gyoAnhia0FmkOdnZHkk/iOO/FVAqVf9U5Ca+CJOett8qdCSdiz3V
+ D0b5qENmEU3sBb+AZGYy3neH6v5o9rtq4VmTZRNnco8te6VujdIjgUTu/oNUCMHpnPZzoDURY/
+ lDw=
 X-SBRS: 5.1
-X-MesageID: 36511519
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 35434458
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,350,1602561600"; 
-   d="scan'208";a="36511519"
+   d="scan'208";a="35434458"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Christian
  Lindig" <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, "Ian
  Jackson" <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Pau Ruiz Safont
 	<pau.safont@citrix.com>
-Subject: [PATCH v2 5/8] tools/ocaml/xenstored: Automatically resume when possible
-Date: Fri, 15 Jan 2021 22:28:47 +0000
-Message-ID: <d2685b9283b7658d6b0454beb35e8348d00c9ec9.1610748224.git.edvin.torok@citrix.com>
+Subject: [PATCH v2 6/8] tools/ocaml/xenstored: add cooperative live-update command
+Date: Fri, 15 Jan 2021 22:28:48 +0000
+Message-ID: <0ed42a4cb25f53620c31594de9949f150c4833cc.1610748224.git.edvin.torok@citrix.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <cover.1610748224.git.edvin.torok@citrix.com>
 References: <cover.1610748224.git.edvin.torok@citrix.com>
@@ -74,16 +75,14 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-When a `db` file exists use it to resume oxenstored.
-It will contains a xenstore tree, domain reconnection info, and watches.
+See docs/misc/xenstore.txt for documentation on live-update command.
+Validate that the binary exists and that the cmdline is valid,
+to prevent typos from taking down xenstore
+(if live-update fails there is no way back due to the use of execve).
 
-It is currently missing data about all active socket connections,
-so a toolstack should ideally be stopped and restarted too.
-
-Tell systemd about oxenstored's PID and allow it to restart on success.
-
-This should make updating oxenstored as easy as:
-`systemctl stop -s SIGTERM xenstored` on a suitable xenstored version.
+Live update only proceeds if there are no active transactions,
+and no unprocess input or unflushed output.
+It is not yet possible to force the live-update.
 
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 Reviewed-by: Pau Ruiz Safont <pau.safont@citrix.com>
@@ -93,44 +92,162 @@ Reviewed-by: Christian Lindig <christian.lindig@citrix.com>
 Changed since V1:
 * post publicly now that the XSA is out
 ---
- tools/ocaml/xenstored/xenstored.ml | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ tools/ocaml/xenstored/process.ml | 112 +++++++++++++++++++++++++++++++
+ tools/ocaml/xenstored/stdext.ml  |   6 ++
+ 2 files changed, 118 insertions(+)
 
-diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
-index 6b5381962b..500d96753b 100644
---- a/tools/ocaml/xenstored/xenstored.ml
-+++ b/tools/ocaml/xenstored/xenstored.ml
-@@ -292,9 +292,8 @@ let _ =
- 	List.iter (fun path ->
- 		Store.write store Perms.Connection.full_rights path "") Store.Path.specials;
+diff --git a/tools/ocaml/xenstored/process.ml b/tools/ocaml/xenstored/process.ml
+index 437d2dcf9e..c3c5dc58c0 100644
+--- a/tools/ocaml/xenstored/process.ml
++++ b/tools/ocaml/xenstored/process.ml
+@@ -15,6 +15,7 @@
+  *)
  
--	let filename = Paths.xen_run_stored ^ "/db" in
--	if cf.restart && Sys.file_exists filename then (
--		DB.from_file store domains cons filename;
-+	if cf.restart && Sys.file_exists Disk.xs_daemon_database then (
-+		DB.from_file store domains cons Disk.xs_daemon_database;
- 		Event.bind_dom_exc_virq eventchn
- 	) else (
- 		if !Disk.enable then (
-@@ -320,7 +319,7 @@ let _ =
- 	Sys.set_signal Sys.sigpipe Sys.Signal_ignore;
+ let error fmt = Logging.error "process" fmt
++let warn fmt = Logging.warn "process" fmt
+ let info fmt = Logging.info "process" fmt
+ let debug fmt = Logging.debug "process" fmt
  
- 	if cf.activate_access_log then begin
--		let post_rotate () = DB.to_file store cons (Paths.xen_run_stored ^ "/db") in
-+		let post_rotate () = DB.to_file store cons Disk.xs_daemon_database in
- 		Logging.init_access_log post_rotate
- 	end;
+@@ -84,11 +85,122 @@ let create_implicit_path t perm path =
+ 		List.iter (fun s -> Transaction.mkdir ~with_watch:false t perm s) ret
+ 	)
  
-@@ -494,5 +493,8 @@ let _ =
- 				raise exc
- 	done;
- 	info "stopping xenstored";
--	DB.to_file store cons (Paths.xen_run_stored ^ "/db");
-+		DB.to_file store cons Disk.xs_daemon_database;
-+		(* unlink pidfile so that launch-xenstore works again *)
-+		Unixext.unlink_safe pidfile;
-+		(match cf.pidfile with Some pidfile -> Unixext.unlink_safe pidfile | None -> ());
- 	()
++module LiveUpdate = struct
++type t =
++	{ binary: string
++		; cmdline: string list
++		; deadline: float
++	; force: bool
++	; pending: bool }
++
++let state =
++	ref
++		{ binary= Sys.executable_name
++		; cmdline= []
++		; deadline= 0.
++		; force= false
++		; pending= false }
++
++let debug = Printf.eprintf
++
++let args_of_t t = (t.binary, "--restart" :: t.cmdline)
++
++let string_of_t t =
++	let executable, rest = args_of_t t in
++	Filename.quote_command executable rest
++
++let launch_exn t =
++	let executable, rest = args_of_t t in
++	let args = Array.of_list (executable :: rest) in
++	Unix.execv args.(0) args
++
++let validate_exn t =
++	(* --help must be last to check validity of earlier arguments *)
++	let t = {t with cmdline= t.cmdline @ ["--help"]} in
++	let cmd = string_of_t t in
++	debug "Executing %s" cmd ;
++	match Unix.fork () with
++	| 0 ->
++		 ( try launch_exn t with _ -> exit 2 )
++	| pid -> (
++	match Unix.waitpid [] pid with
++		| _, Unix.WEXITED 0 ->
++				debug "Live update validated cmdline %s" cmd;
++		t
++	| _, Unix.WEXITED n ->
++		invalid_arg (Printf.sprintf "Command %s exited with code %d" cmd n)
++	| _, Unix.WSIGNALED n ->
++		invalid_arg
++		  (Printf.sprintf "Command %s killed by ocaml signal number %d" cmd n)
++	| _, Unix.WSTOPPED n ->
++		invalid_arg
++		  (Printf.sprintf "Command %s stopped by ocaml signal number %d" cmd n)
++	)
++
++let parse_live_update args =
++	try
++	(state :=
++		match args with
++		| ["-f"; file] ->
++			validate_exn {!state with binary= file}
++		| ["-a"] ->
++			debug "Live update aborted" ;
++			{!state with pending= false}
++		| "-c" :: cmdline ->
++			validate_exn {!state with cmdline}
++		| "-s" :: _ ->
++			let timeout = ref 60 in
++			let force = ref false in
++			Arg.parse_argv ~current:(ref 1) (Array.of_list args)
++				[ ( "-t"
++				, Arg.Set_int timeout
++				, "timeout in seconds to wait for active transactions to finish"
++				)
++			(*; ( "-F"
++				, Arg.Set force
++				, "force live update to happen even with running transactions \
++				   after timeout elapsed" )*) ]
++			(fun x -> raise (Arg.Bad x))
++			"live-update -s" ;
++			debug "Live update process queued" ;
++				{!state with deadline = Unix.gettimeofday () +. float !timeout
++				; force= !force; pending= true}
++		| _ ->
++			invalid_arg ("Unknown arguments: " ^ String.concat " " args)) ;
++	None
++	with
++	| Arg.Bad s | Arg.Help s | Invalid_argument s ->
++		Some s
++	| Unix.Unix_error (e, fn, args) ->
++		Some (Printf.sprintf "%s(%s): %s" fn args (Unix.error_message e))
++
++	let should_run cons =
++		let t = !state in
++		if t.pending then begin
++			match Connections.prevents_quit cons with
++			| [] -> true
++			| _ when Unix.gettimeofday () < t.deadline -> false
++			| l ->
++				 info "Live update timeout reached: %d active connections" (List.length l);
++				 List.iter (fun con -> warn "%s prevents live update" (Connection.get_domstr con)) l;
++				 if t.force then begin
++					 warn "Live update forced, some domain connections may break!";
++					 true
++				 end else begin
++					 warn "Live update aborted, try migrating or shutting down the domains/toolstack";
++					 state := { t with pending = false };
++					 false
++				end
++		end else false
++end
++
+ (* packets *)
+ let do_debug con t _domains cons data =
+ 	if not (Connection.is_dom0 con) && not !allow_debug
+ 	then None
+ 	else try match split None '\000' data with
++	| "live-update" :: params ->
++		LiveUpdate.parse_live_update params
+ 	| "print" :: msg :: _ ->
+ 		Logging.xb_op ~tid:0 ~ty:Xenbus.Xb.Op.Debug ~con:"=======>" msg;
+ 		None
+diff --git a/tools/ocaml/xenstored/stdext.ml b/tools/ocaml/xenstored/stdext.ml
+index 4f2f3a2c8c..e1567c4dfa 100644
+--- a/tools/ocaml/xenstored/stdext.ml
++++ b/tools/ocaml/xenstored/stdext.ml
+@@ -44,6 +44,12 @@ let default d v =
+ let maybe f v =
+ 	match v with None -> () | Some x -> f x
+ 
++module Filename = struct
++	include Filename
++	let quote_command cmd args =
++		cmd :: args |> List.map quote |> String.concat " "
++end
++
+ module String = struct include String
+ 
+ let of_char c = String.make 1 c
 -- 
 2.29.2
 
