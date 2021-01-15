@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80BA22F779F
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 12:28:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67982.121567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DBFB2F77A4
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 12:29:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67988.121579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0NGk-0005Up-BH; Fri, 15 Jan 2021 11:27:54 +0000
+	id 1l0NIL-0005hH-Nm; Fri, 15 Jan 2021 11:29:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67982.121567; Fri, 15 Jan 2021 11:27:54 +0000
+Received: by outflank-mailman (output) from mailman id 67988.121579; Fri, 15 Jan 2021 11:29:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0NGk-0005UQ-88; Fri, 15 Jan 2021 11:27:54 +0000
-Received: by outflank-mailman (input) for mailman id 67982;
- Fri, 15 Jan 2021 11:27:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l0NIL-0005gq-KG; Fri, 15 Jan 2021 11:29:33 +0000
+Received: by outflank-mailman (input) for mailman id 67988;
+ Fri, 15 Jan 2021 11:29:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Nfe5=GS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l0NGj-0005UK-6H
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 11:27:53 +0000
+ id 1l0NIK-0005gl-K8
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 11:29:32 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 96c46947-71d2-4f44-8c98-62d14783cc14;
- Fri, 15 Jan 2021 11:27:51 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 84aa086e-2585-4ae5-a6e5-df0b625f1f3b;
+ Fri, 15 Jan 2021 11:29:31 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 18951ACB0;
- Fri, 15 Jan 2021 11:27:51 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 25E82AC95;
+ Fri, 15 Jan 2021 11:29:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96c46947-71d2-4f44-8c98-62d14783cc14
+X-Inumbo-ID: 84aa086e-2585-4ae5-a6e5-df0b625f1f3b
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610710071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610710171; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=A2xZ5D+Cey4Q8W7tlZo5yST/p+SZDyne2XZwrRO6IPE=;
-	b=iAeCuT1vlpDu4bmekBc1Sa9XVmmoRfnTBoQIxZbWT0l8qTqM0ms68b7ooeSNi4kc0sGrqh
-	ZAt2x8S6+OCQN8EiA8chZor7uDVegAUWgZNjga3nyiobf5B5+i5KrqS2HqVe+3/2O+nQgW
-	vcU+bVbM6L+jCxJJvBCjm4SbxPjr+xU=
+	bh=ECPRqwozacYdPeXhV3VGEcOFjF3X9wY7d51Ez0mZcsU=;
+	b=Rxcs/2FcQswcztQ6owIVaFqktbUTPoDr6GX924jf2J4+ip7wMIroYYCF01TgVKKV8z/lQ7
+	pHQk9+/cAfOQ9OFAHAfTTw0uDcCNFDgMtW0bUo1z8ni3ypxOmrqg88aroGC8lykPk6JPMP
+	4LjeVid53JongaqRwgmV2mCCsyDBiZc=
 Subject: Re: [PATCH 1/3] introduce unaligned.h
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
@@ -62,8 +61,8 @@ References: <0eba95b9-66eb-2692-1da1-c27784b9f51e@suse.com>
  <12f26ab9-8a8c-19f0-ea65-8b354bd326a6@suse.com>
  <8c459039-a27a-01e5-0143-7c9b6e019e42@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <78ecd61e-bdfb-169c-1db3-b9914fca7f3d@suse.com>
-Date: Fri, 15 Jan 2021 12:27:51 +0100
+Message-ID: <b4b4b02b-f6d0-06b5-d65b-3693e16f266d@suse.com>
+Date: Fri, 15 Jan 2021 12:29:31 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
@@ -92,20 +91,10 @@ On 15.01.2021 12:13, Andrew Cooper wrote:
 > 
 > Really?  I think its going to be the only sane way of fixing up some of
 > our header tangle.
-> 
-> This series probably isn't the right place to fix this argument, so
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Thanks.
-
-> However, presumably we're going to want an ARM side of this imminently?
-
-Why? It's only used (and going to be further used) by code not
-built for Arm. So while it certainly would be nice for such a
-header to also appear there (and the x86-special casing going
-away in patch 2), it's not a strict requirement at this point.
-Therefore I'd prefer to leave this to the Arm maintainers (and
-probably for 4.16).
+Should have responded here too: It was me to suggest to put some
+header there when reviewing some patches a while ago, and iirc it
+was Julien who pushed back.
 
 Jan
 
