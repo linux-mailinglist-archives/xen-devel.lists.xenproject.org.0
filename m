@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D89612F776E
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 12:18:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67962.121519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B9322F776F
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 12:18:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67965.121531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0N7S-000469-HW; Fri, 15 Jan 2021 11:18:18 +0000
+	id 1l0N7d-00049Y-Qk; Fri, 15 Jan 2021 11:18:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67962.121519; Fri, 15 Jan 2021 11:18:18 +0000
+Received: by outflank-mailman (output) from mailman id 67965.121531; Fri, 15 Jan 2021 11:18:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0N7S-00045k-Do; Fri, 15 Jan 2021 11:18:18 +0000
-Received: by outflank-mailman (input) for mailman id 67962;
- Fri, 15 Jan 2021 11:18:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l0N7d-000493-NE; Fri, 15 Jan 2021 11:18:29 +0000
+Received: by outflank-mailman (input) for mailman id 67965;
+ Fri, 15 Jan 2021 11:18:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+hG6=GS=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l0N7R-00045f-8V
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 11:18:17 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id df64d1a9-f18c-4b4e-a797-f91d5d6ea83d;
- Fri, 15 Jan 2021 11:18:15 +0000 (UTC)
+ <SRS0=Y1kp=GS=linaro.org=lee.jones@srs-us1.protection.inumbo.net>)
+ id 1l0N7c-00048t-Pz
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 11:18:28 +0000
+Received: from mail-wm1-x32b.google.com (unknown [2a00:1450:4864:20::32b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e18df386-3bce-42da-976a-69e4f73748e8;
+ Fri, 15 Jan 2021 11:18:27 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id i63so7001928wma.4
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Jan 2021 03:18:27 -0800 (PST)
+Received: from dell ([91.110.221.158])
+ by smtp.gmail.com with ESMTPSA id i18sm14818507wrp.74.2021.01.15.03.18.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Jan 2021 03:18:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,125 +41,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df64d1a9-f18c-4b4e-a797-f91d5d6ea83d
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610709495;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=d4zsbMTVYGdj9UVCnqxaXuHZga09VL2pqpt/T3wsr1A=;
-  b=BfkE5cNlhOATWzG2QlwOXxRjuTFmpZJzCBQrYhqfv3AWw+anF7UNCAgv
-   jbIO4Z5p91QhM7sQsXQGYMGPA6bzMpzkMnoPubhUY2V5ROtH7XGgJDYk1
-   /oih8tGaiYEeGdka/fTnfUrO+1/J9/nSxwrmT8Xc6Q6isfWxPmWvmOaIt
-   s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: bcaQif4f9PKn2kDgi6qXr/VMukK8CWQg0lEpZ25uYvp8KRSMo4uEpIExdYMqixb2NEhYJ10Wat
- kQl0AomXsRhB3W/M0YzF6YuQG4+5oAR/xTWG3c6VPiey5T00zvcOMGm9MxKRzMipDo/1EKc0Ab
- bddp2QVY/chrBWAyQh1sfTWMXn61hIlDgXBTyHmpeGM0M2jT9h5ytyr8fG4XiIWTJi9FSuEvAE
- RDC1eZIMMa2/55b4ekCH8GK4pmEHrZxU3JhJ4frUXV2KbeAH1fyaxji0ePIIzLlH0eSAFonXBl
- Btw=
-X-SBRS: 5.2
-X-MesageID: 36456600
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,349,1602561600"; 
-   d="scan'208";a="36456600"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C+YQf8/5tDAUDD2x9bpxOPwWY9vx3I5o4/5JRU3SgysssWUV1s4qY2qbx5epjLFNy4Miv4rtZJfZ4mbHgknNgQSvs3xD2pemO3PuUx18UrRiAbr+L02eOwzxBUIus8eOQ1saFeHizocJP5MduztdxojmfSEDb0w3kuyMlvcTLUqDXcsuuclD04PSdow98uChCfmuIXK1ZKzGwqi3QuHsCq0RfUT33g+TDXfd2hb7UM0kJqYCA8TSlewS/0CRF778Sc7uL1SKFgtipMqn4d3n8whd1vYYjKVHpILlsAe/lBY2cjyNd+Wile8NmQ2Qpuc+jIx2E2kIg7S1P4tjGiIMmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d4zsbMTVYGdj9UVCnqxaXuHZga09VL2pqpt/T3wsr1A=;
- b=Y0D5+oM9l5RNF94Tn2kFNPloV/hjOx5onKj/pZsHv1jHHq6XixEbLtjKslgYJl37VH3W3MfLSiSqQntZLZbEoJhiTSOSmArLaBHXFt7+/cPJ3L0qlaECNGwMEw1kn8fAHj4kyUxkUX7MIbMT3ng4r2I0/7xyZg3nFFT6uYYFLZjj7IxVjdL8BePmDb8Ef61+LONvu2DW0izQ5VZb/WZcZAeqHWMHgzXC6QP7affceLvR5s/3TyNU9oYnmi5rM1Iuitwe9unW+uVz6NHimT6pJwK2881PM7MfxjsXI7os2bOc+AvYq06zbxRT00WeBnPt9Zq2uiqNbFyhthUt05ULKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: e18df386-3bce-42da-976a-69e4f73748e8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d4zsbMTVYGdj9UVCnqxaXuHZga09VL2pqpt/T3wsr1A=;
- b=cMIpkPniaJjnX7xTgmVmvSvEUFODRHYtw3RQY/0dsiXkeuCvs403JzpD5NpHRqkdN91hO6ignstglw5ppkULRNy2oxu6IMBmLaITdjTAbRy9nh9XBBYFYRTB6l1NF7x+QbSRxXkIzC6CKLVlXRrbxnYiwB9r204qSpqurw96n3E=
-Subject: Re: [PATCH 2/3] lib: introduce xxhash
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, M A Young
-	<m.a.young@durham.ac.uk>
-References: <0eba95b9-66eb-2692-1da1-c27784b9f51e@suse.com>
- <8545f5cb-8c4e-4486-6350-57de8bac36de@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <5c773c7c-2864-6174-be4c-e4c484789432@citrix.com>
-Date: Fri, 15 Jan 2021 11:18:04 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-In-Reply-To: <8545f5cb-8c4e-4486-6350-57de8bac36de@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO3P265CA0015.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::20) To BYAPR03MB4728.namprd03.prod.outlook.com
- (2603:10b6:a03:13a::24)
+        d=linaro.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=1v0kX8Ej1D5vKbj6l4aBaWcu5DlgLp/Dsh/tnFpcg+Y=;
+        b=q3yaL+9Dr08XGvGA9C6LCEyO8dv4MnZdXyFkQYqmFx0J6077BQyNrC3ZfumRsecp3C
+         jhWw5mwhLJPw0Cs1JbrRKisZLtJwnz1td5U9T0NGKs1Du/ixjp/OJBAzJfzKRI6OcJk7
+         jMEwkkp1Tkj+4L5MV7I56bqhm0b41JzVf87hKjB9+45TNRkOJr4vpR/ubLc/6rtvmcJ5
+         7mCbPO3LDc6oV5qxhdZ2mVZdYUEoFwtOSOsE5jhkTTaKb96r2hJSt5iuNgvxYG8TmgQR
+         6/dS/oeqnNfc5YG3pyRPZOkm06JhrYQzWk/YJrzGR6qgls7QN+s9q82XGRS8f8pSX4Qd
+         is3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=1v0kX8Ej1D5vKbj6l4aBaWcu5DlgLp/Dsh/tnFpcg+Y=;
+        b=O+wUJTPwkQaG2Q/Z6CytNOkUn/2xMRrEAYe1VyAYDNdKyaLXFEDvHrXrh+vkhdxDQ/
+         +ZIa+mLBci/rNGxiaoKlyWKfRE1YegMXRrZsjvovCF4MD/qe1NaNZiSdLyk42B/eYu3J
+         ShXClXaox3CR53YsqhB5sOJUvRS0y5v95uMyzHH7bzSby6i15s6rRsQ8Zpwzt5Gl2evW
+         hEEzR9T8IhoY4FIzlB6o5D4nSHommDjpda41NgbeKTMBWQ49d3t0Zy8C2kN2hsj9+3RV
+         FfEit0fNjmXYg02j/SbA+g5w9Su8kmF8yqP+mOZ7Jt3qlnuM3LIr/QpE8TTZ5jp91h4D
+         whvA==
+X-Gm-Message-State: AOAM530oqqaK75RussL0BpFW04oeIOEYPVAI3YpK+JEfGOEqTrLilctF
+	n2aMkpEgkI8Qgfl6wif8GPvjpw==
+X-Google-Smtp-Source: ABdhPJy6Ksm7TL3YP23vSBkfPg6+Ma2TEXquqULAQIh92rfS/zIKFK4APldrd16rYZnbmfKF7kRaEA==
+X-Received: by 2002:a05:600c:4417:: with SMTP id u23mr8306553wmn.100.1610709506910;
+        Fri, 15 Jan 2021 03:18:26 -0800 (PST)
+Date: Fri, 15 Jan 2021 11:18:23 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	bpf@vger.kernel.org, Daniel Borkmann <daniel@iogearbox.net>,
+	Dany Madden <drt@linux.ibm.com>, Daris A Nevil <dnevil@snmc.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Erik Stahlman <erik@vt.edu>, Geoff Levand <geoff@infradead.org>,
+	Grygorii Strashko <grygorii.strashko@ti.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Ishizaki Kou <kou.ishizaki@toshiba.co.jp>,
+	Ivan Khoronzhuk <ivan.khoronzhuk@linaro.org>,
+	Jens Osterkamp <Jens.Osterkamp@de.ibm.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Allen <jallen@linux.vnet.ibm.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Kurt Kanzenbach <kurt@linutronix.de>, Lijun Pan <ljp@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	Michael Ellerman <mpe@ellerman.id.au>, netdev@vger.kernel.org,
+	Nicolas Pitre <nico@fluxnic.net>, Paul Durrant <paul@xen.org>,
+	Paul Mackerras <paulus@samba.org>, Peter Cammaert <pc@denkart.be>,
+	Russell King <rmk@arm.linux.org.uk>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Santiago Leon <santi_leon@yahoo.com>,
+	Sukadev Bhattiprolu <sukadev@linux.ibm.com>,
+	Thomas Falcon <tlfalcon@linux.vnet.ibm.com>,
+	Utz Bacher <utz.bacher@de.ibm.com>, Wei Liu <wei.liu@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 0/7] Rid W=1 warnings in Ethernet
+Message-ID: <20210115111823.GH3975472@dell>
+References: <20210113164123.1334116-1-lee.jones@linaro.org>
+ <20210113183551.6551a6a2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <20210114083349.GI3975472@dell>
+ <20210114091453.30177d20@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <20210114195422.GB3975472@dell>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 78c26a79-8131-4b79-935a-08d8b9473eba
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5646:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SJ0PR03MB56469B7C762E968963B78E87BAA70@SJ0PR03MB5646.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1265;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nFUXykGfjUgK+tmGbp9IHvr40CUgd7XaFPGgjj+tY4CK38Nrhaxvsqrq8CZVfS3xc2BOZy5D9IujxIcMiXP8OMZ+vFMzbLtNHLrmWa0NXO/8Zu6vj+yxucQhYsP2MTw2yIxMy3y4YJY7IW94pEHNN+0Zkj1VVCv3uYZ7xAdzjyZv1IKoGM47TmWKUmdB+EqZs1Y732acObLNrt92tM2ekJkC9XNxUBVuPYzldXP7wpdLN6iezVUidtX0w5hPzzXlfsg7oAGr0ElLBm5ERUAiWJR4Tz1ZJ1hI9qYn9ZtgUiG+1korxbTqVX1Nz1gaaMyRn+4HwqBA5HK3CcU471lqrFaVsDWKksxDNYktyPM+EGz9BaQ0xqeTizvExXjalRBOnIiXum/a2sx7609mn/l8/ncjPPi7bOD3zVWEJw+wDK0TgM97ymQQpNngHEUEv+VWRVVtaKXSJiCDsZftkbjPFtAxleqQsJjjHIbjbcmv8pc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(66946007)(16576012)(54906003)(110136005)(16526019)(6486002)(8676002)(478600001)(26005)(66556008)(186003)(6666004)(66476007)(31686004)(31696002)(2906002)(36756003)(5660300002)(4326008)(2616005)(4744005)(956004)(86362001)(53546011)(296002)(83380400001)(8936002)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dk16Y291UXB4OWJ1UkFwa3F6Tkxyayt2Wm85Slp0Si82QVUxQW1OeUJNVGRh?=
- =?utf-8?B?a0JPN1ZkcmhwYStwSzMvV3NaTThYZ0d2Ui9EUnFGOS9KakkzRWFESWxadSs2?=
- =?utf-8?B?VVczQUthSzNtNWFCNDhnNllzUFhaZHJTMTFZaUUyQ0pqTkdzTC83NWQzK2pm?=
- =?utf-8?B?alBzeHd4b0NSVWhaYnlIYkdpSVNNUUJna2s0b3BUcCtaWElFditwY3RiZklX?=
- =?utf-8?B?WXptQ1VidG5WeE5kdjhZLy9BdTdGUXAyajZPZVpDMmZGb0EwWjhtYkdUSFdo?=
- =?utf-8?B?ZVBzc1lnakd2bEo4bGNMa1NxSEF3b3BzZWsxeHNUSnRobU9PTk1Ma3llWFNh?=
- =?utf-8?B?TTAxNGdJNHJTc3dhOTVaRC9FMllRVEZWUmoyZG1qMmlBNzcyMFdZT2NtdnhI?=
- =?utf-8?B?a2VHRjJRREJzS0RGWlg0cG9jNHNPMjFVWmxjZUp1cC9xbUZLZXBUTzA2Q3Zo?=
- =?utf-8?B?RjN2bk5lVUhRQWtjMThKaFlQK0dDUUtGRnA0MFNlTnJoYjFjUXBOWU5nY2JG?=
- =?utf-8?B?RHdjU3V4N2hjSHh0ZExEaWtneEJZc1MyNkpscjV1T3cxZXB4T1oyTFh1cDZo?=
- =?utf-8?B?U0htLzVtMlpidUJVdkRtWDdTay93OWFNME1ja2lqVmRzbDJodk9JVjhKQWNO?=
- =?utf-8?B?Mi90N0w1Sk1XVWluR05mUElqcUp5TTI0eVNuNGVpRXRFOVB6T3RnVlFlU0Fh?=
- =?utf-8?B?RjlvMmNrMW9DU1I3aUdrMlQrMWw2L0pnbG1jTW82TUtSOVNQQS9wUW93MmpF?=
- =?utf-8?B?T250MmxpRmswOW5IR2Q1RE02N1g1bE5lRzBwM1A3U01nUjQvWUVuQXZ6QytQ?=
- =?utf-8?B?UE5Rd1BXWjNYb1JGUXIvaGxNUVN4VHArRG5YL0JLZXcveFVSbEhZWjFpRWlr?=
- =?utf-8?B?dytPeEVBcGY5ZFdsY1lzTUdHMDlyY21pR1Z6N21ETmVNSXBXSzUxakZBOFN4?=
- =?utf-8?B?WC9lNzBYMHI4TW5vWnNWQTVKb3hTVkxSdjZIVjBxbko2K3dUNnE2ZWJJRlls?=
- =?utf-8?B?TVAzVlhRemo1ME0wdjdQWDNVT2FZT1B0NmJKR3lxVktaUTF1SUhrUlRVOXcz?=
- =?utf-8?B?a0gra0sxWEN5eER3ZXEvdmNGR3FEcWpabXoxQUJPUkxMLzhVZGo1TFlEY21R?=
- =?utf-8?B?UndYRm9GSG92eSt3QkxqQ2dIN0VFclkrZXdCKzlYWmVoWmx4WmdXeU9OV2h3?=
- =?utf-8?B?dFJGcitZUkc0c1VZZXdtVnh4MkplOHJkSElYSk9DMHJ6Q0pVZFZhRk9RYW1a?=
- =?utf-8?B?ekdBZlRqVWhUWElHaDR4Z2dDNEdCVXhGMndJVFg2UHVlYjBoODc0UlFlYkZY?=
- =?utf-8?Q?QEmKu2a8Tf2UqLJpNpMWpNCBP85WPXrlDX?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78c26a79-8131-4b79-935a-08d8b9473eba
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 11:18:12.0335
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lk9gj0XoAWL6blyCbvRChlwKhegPU9c1olEuiAM4sDYPn3tOtIVdLthP0INUc4z32KDRHjMIaskq9VCustpOgYm6in6TxdGlXP8Z5L9fauU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5646
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210114195422.GB3975472@dell>
 
-On 15/01/2021 10:06, Jan Beulich wrote:
-> Taken from Linux at commit d89775fc929c ("lib/: replace HTTP links with
-> HTTPS ones"), but split into separate 32-bit and 64-bit sources, since
-> the immediate consumer (zstd) will need only the latter.
->
-> Note that the building of this code is restricted to x86 for now because
-> of the need to sort asm/unaligned.h for Arm.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Thu, 14 Jan 2021, Lee Jones wrote:
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> On Thu, 14 Jan 2021, Jakub Kicinski wrote:
+> 
+> > On Thu, 14 Jan 2021 08:33:49 +0000 Lee Jones wrote:
+> > > On Wed, 13 Jan 2021, Jakub Kicinski wrote:
+> > > 
+> > > > On Wed, 13 Jan 2021 16:41:16 +0000 Lee Jones wrote:  
+> > > > > Resending the stragglers again.                                                                                  
+> > > > > 
+> > > > > This set is part of a larger effort attempting to clean-up W=1                                                   
+> > > > > kernel builds, which are currently overwhelmingly riddled with                                                   
+> > > > > niggly little warnings.                                                                                          
+> > > > >                                                                                                                  
+> > > > > v2:                                                                                                              
+> > > > >  - Squashed IBM patches                                                                                      
+> > > > >  - Fixed real issue in SMSC
+> > > > >  - Added Andrew's Reviewed-by tags on remainder  
+> > > > 
+> > > > Does not apply, please rebase on net-next/master.  
+> > > 
+> > > These are based on Tuesday's next/master.
+> > 
+> > What's next/master?
+> 
+> I'm not sure if this is a joke, or not? :)
+> 
+> next/master == Linux Next.  The daily merged repo where all of the
+> *-next branches end up to ensure interoperability.  It's also the
+> branch that is most heavily tested by the auto-builders to ensure the
+> vast majority of issues are ironed out before hitting Mainline.
+> 
+> > This is net-next:
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git/
+> 
+> Looks like net-next gets merged into next/master:
+> 
+> commit 452958f1f3d1c8980a8414f9c37c8c6de24c7d32
+> Merge: 1eabba209a17a f50e2f9f79164
+> Author: Stephen Rothwell <sfr@canb.auug.org.au>
+> Date:   Thu Jan 14 10:35:40 2021 +1100
+> 
+>     Merge remote-tracking branch 'net-next/master'
+> 
+> So I'm not sure what it's conflicting with.
+> 
+> Do you have patches in net-next that didn't make it into next/master
+> for some reason?
+> 
+> I'll try to rebase again tomorrow.
+> 
+> Hopefully I am able to reproduce your issue by then.
 
-I think we do need to sort ARM for 4.15, but it doesn't need to block
-this patch right now.
+Okay so my development branch rebased again with no issue.
+
+I also took the liberty to checkout net-next and cherry-pick the
+patches [0], which again didn't cause a problem.
+
+I'm not sure what else to suggest.  Is your local copy up-to-date?
+
+[0]
+
+lee@dell:~/projects/linux/kernel [net-next]$ gcp 0cea4b05acd57..924e1f46aba5e
+Auto-merging drivers/net/ethernet/smsc/smc91x.c
+[net-next 19811db3120a2] net: ethernet: smsc: smc91x: Fix function name in kernel-doc header
+ Date: Mon Oct 19 12:47:11 2020 +0100
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[net-next dc6f4490cb64e] net: xen-netback: xenbus: Demote nonconformant kernel-doc headers
+ Date: Tue Oct 20 08:00:43 2020 +0100
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+[net-next a3363cb09ae59] net: ethernet: ti: am65-cpsw-qos: Demote non-conformant function header
+ Date: Tue Oct 20 09:05:38 2020 +0100
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[net-next 005462f886c3e] net: ethernet: ti: am65-cpts: Document am65_cpts_rx_enable()'s 'en' parameter
+ Date: Tue Oct 20 09:06:57 2020 +0100
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Auto-merging drivers/net/xen-netfront.c
+[net-next 9fcc32e395e09] net: ethernet: ibm: ibmvnic: Fix some kernel-doc misdemeanours
+ Date: Tue Oct 20 09:42:19 2020 +0100
+ 2 files changed, 16 insertions(+), 17 deletions(-)
+[net-next 15ba865fef481] net: ethernet: toshiba: ps3_gelic_net: Fix some kernel-doc misdemeanours
+ Date: Tue Oct 20 10:10:14 2020 +0100
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+[net-next f815eb7cbd7f5] net: ethernet: toshiba: spider_net: Document a whole bunch of function parameters
+ Date: Tue Oct 20 10:18:21 2020 +0100
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+-- 
+Lee Jones [李琼斯]
+Senior Technical Lead - Developer Services
+Linaro.org │ Open source software for Arm SoCs
+Follow Linaro: Facebook | Twitter | Blog
 
