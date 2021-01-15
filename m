@@ -2,46 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E71C2F7FEF
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 16:46:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68383.122444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEEB52F8030
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 17:02:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68391.122456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0RIP-000525-Sy; Fri, 15 Jan 2021 15:45:53 +0000
+	id 1l0RXx-0007Xu-E4; Fri, 15 Jan 2021 16:01:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68383.122444; Fri, 15 Jan 2021 15:45:53 +0000
+Received: by outflank-mailman (output) from mailman id 68391.122456; Fri, 15 Jan 2021 16:01:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0RIP-00051g-OD; Fri, 15 Jan 2021 15:45:53 +0000
-Received: by outflank-mailman (input) for mailman id 68383;
- Fri, 15 Jan 2021 15:45:51 +0000
+	id 1l0RXx-0007XV-AV; Fri, 15 Jan 2021 16:01:57 +0000
+Received: by outflank-mailman (input) for mailman id 68391;
+ Fri, 15 Jan 2021 16:01:56 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cER4=GS=epam.com=prvs=164981b71a=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1l0RIN-00051Z-MZ
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 15:45:51 +0000
-Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
+ <SRS0=5h4P=GS=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l0RXw-0007XQ-AL
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 16:01:56 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id af901554-f1b5-4b6f-ae6a-b36c77586147;
- Fri, 15 Jan 2021 15:45:51 +0000 (UTC)
-Received: from pps.filterd (m0174682.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10FFaBqn022309; Fri, 15 Jan 2021 15:45:46 GMT
-Received: from eur03-db5-obe.outbound.protection.outlook.com
- (mail-db5eur03lp2056.outbound.protection.outlook.com [104.47.10.56])
- by mx0b-0039f301.pphosted.com with ESMTP id 362w6tjgdr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Jan 2021 15:45:45 +0000
-Received: from AM0PR03MB3508.eurprd03.prod.outlook.com (2603:10a6:208:4f::23)
- by AM0PR03MB3921.eurprd03.prod.outlook.com (2603:10a6:208:6f::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Fri, 15 Jan
- 2021 15:45:43 +0000
-Received: from AM0PR03MB3508.eurprd03.prod.outlook.com
- ([fe80::2dc5:6ffb:56c8:f539]) by AM0PR03MB3508.eurprd03.prod.outlook.com
- ([fe80::2dc5:6ffb:56c8:f539%6]) with mapi id 15.20.3763.011; Fri, 15 Jan 2021
- 15:45:43 +0000
+ id e1336066-5ccf-49ba-b121-e90b7cb0ca71;
+ Fri, 15 Jan 2021 16:01:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,213 +36,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af901554-f1b5-4b6f-ae6a-b36c77586147
+X-Inumbo-ID: e1336066-5ccf-49ba-b121-e90b7cb0ca71
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610726514;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=oI0zFH/U1BR9hqp0UHS2GQK7TBZh5yZjcUphdMNeH28=;
+  b=J3eVwR92gnqpocgtTJKfuzBPTszgCebf6zu/lQ85KrNjGEH54mEmlF2E
+   5uT/t/fYHrHmbCeNK1nGkOOEELfeZ+WK9aNzqkp2V/2GYhTHU2hXKrmKv
+   87Np1zjs8Cvv0nuYgr+fFDVK1vuJAy/AU92pnCidFk+0rTIBPC+/0Sadt
+   A=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 7YrfxHQqDkOymvRSWfmCAcBCvlJHaGmAjqP7l54cnYBN+BWI04UA+4sKVzC78ckqycDi29FOpP
+ E0K54+mEZgeSZDTjR7JyQydGBrVJRqSOEDmH+YpIVLollsjiapIWMvrEu+7M5+sZIUt9kuKny/
+ RTtx0YjssSf87K42S9y83cJduJykxyi6ThQZ6GVzvt8mt9n0/qAI20sCbVKD1s20iLY00P6vwk
+ BD/XDeNvuZJKmGSDAYOIrj12FEbhf9+TVUrqgmN3YRCu2KkyKyDtDwJyxlSdBVwMXrrODmZgSh
+ +Lk=
+X-SBRS: None
+X-MesageID: 35230594
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,349,1602561600"; 
+   d="scan'208";a="35230594"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cn1Pj4xT27jbevD2L/loq1brcr2AT7cRMGMw6x8USM/EhTilNBwUpUYAUae6va8obtqqV0bXqUx1RkIdxqNKER5qk0Q4LeSPGa7UgmnV5LZELUfORxL3bsvAD/SA9GQ6j5xrmQ2ddfZjKLqqpzqeUDR0qlWxphNNPWGQWQlSadAYH+XeGlA3U34e15sOvsWnmE2ePhB5oZUQbLGc0ZlO3wiN/sG0Ki/78jwoxljq/5s04VKZ8gA+y/UKtNoqb5FtD/JWc99ohnck6K+5krA+Opjt6xbW0WdkbSGhj0bRuUabscttxfxzIxE1uaE/kIqhr6fzCmHGj8Z6+bQxYA65Bw==
+ b=W8K+AitqvXH7Itc+8uDhIJ1ZKvBjp+MOuZhLEoqus2fauiL9Rm0P05yAfJxphn2f/MstHSd5wxSPf7TnBvQwKf2mOXazmJytCpOqroPmEy9b521O97VYjaeTa4ITOI6TQgY4Z4OBnY79/XmuMetrmnA+FJ32Br+/Ye000EXDPyEykidIBbLvTw11jiqxXJumVGHJ2K6GM2RgiEL1YyK2LP+wctwBD9dyDFL2db1fRXq7Bv69v43zhofYKrLaFc22LYXEXTL9ewsDFG+RTAhtrRnFW/8JvO4S9cF4BuSoptOCjG99w0v6VUAby2+p6bCc52YHCPyIEC7lCHpRnEEN2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2/wcs8q9dAsXPmgFnOjP7mzcJbvBdzEFD9zJ37YOJbM=;
- b=Fu6r7GluAdf6gk6dW9JRS6tuAcQVu/phrQGJlLslx1jO4tUUtCMXLQxh6guqgLcRKSgUEAdnZnedoLIxHAj9U83xenLT24b7SrLTUxki+7AuLGrInTW86yX8xFty8wpTui6T7LCoki3uYBvvlM7mYlypiTSfdBuCZRV1fv1CVgta7aq8jtCPTxYMJNkekijpgYH2/2R+ZNIF4fWOnvmM8pN4WV9rhFcCZ9z3uhCZCRTGJ/tTAmElXn/SAOrFsYx9y8S9OZ22yEuQEgQdOwC15wNptCAq2hE9yQM8ENm+RWVzdR+sJWjLG4120jFuR5hePKw9R6ajw7gBZYFSOj5gIw==
+ bh=fNzDnZS+9OVinH3EFa9o0u3gNsTH4gJSjGgvA/aD2Xk=;
+ b=HMm81+ZDidMM7amCetZ6FC6ipxLZOcmpgOdHH10aWeBgx/iDaaoMrt3VBoTwR16rHn+qNMxsFHfSe0y0TN2rID/nCdtLoBbFup/Q654Io17QlDAUu6jHhqamhnI41BGidRpXCoV79ausZdPKf53CLS3pgp1D7MEhXaFsAo1mvDTBETogYOh1m8JyfBfBS8tKWbBQ6dscRW+4MBO5BA0NFmHFifyxs5SAfv24mlXJ7sXZ7daCWAWu5fXiNgQmN+0wb2BIsmdszlr2KQfE8jK/WtZd2z0+hUY+qnZmhPDrzu7HSqtqRpRBzOzZdh+93FRgfuGQLC06mlQjPHletE/5/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2/wcs8q9dAsXPmgFnOjP7mzcJbvBdzEFD9zJ37YOJbM=;
- b=3AFoo92nHid8DtGJQB1Z2Nc3bU8gbkcmqMT/uJ+PMVFb4guP/zMc5yI4SEk8ELkw3HA1kyBD6oY83m0N3cwO1I+t8CeIVidicy3+IxyC6/NFsI7SKvaPkd1D+dNzqyHmqJPOJ/zfWznEWkwv5rHLyEn7LIpsJdYv9l+o62ESKVmxVSmDupbVkIPJld6aOFQFhuIyLVohfEA5LXBxadceue4CrZDGO1S3oAWRHfe5kdfrPZ88mHsw8pe+qtpPTt6XW0RaPjOwfLp3Ct9+hDEehZhkNY+v+02PtwELZ9i+aFmFWXB3hjUPZKEQylUs6hkf/nos5dW/HsM3qGDR4VLZCw==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <stefano.stabellini@xilinx.com>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        Julien
- Grall <jgrall@amazon.com>,
-        Dario Faggioli <dario.faggioli@suse.com>,
-        "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
-        "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-Subject: Re: IRQ latency measurements in hypervisor
-Thread-Topic: IRQ latency measurements in hypervisor
-Thread-Index: AQHW6T1firbO0EOYpEKUiW6vsavsPaonyNIAgADL04CAAEPVAA==
-Date: Fri, 15 Jan 2021 15:45:43 +0000
-Message-ID: <87wnwe2ogp.fsf@epam.com>
-References: <87pn294szv.fsf@epam.com>
- <alpine.DEB.2.21.2101141515230.31265@sstabellini-ThinkPad-T480s>
- <f31c9cca-0275-eaef-5fcd-c8484d4b5da0@xen.org>
-In-Reply-To: <f31c9cca-0275-eaef-5fcd-c8484d4b5da0@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.4.10; emacs 27.1
-authentication-results: xen.org; dkim=none (message not signed)
- header.d=none;xen.org; dmarc=none action=none header.from=epam.com;
-x-originating-ip: [176.36.48.175]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 31b6f47a-bccf-492a-044e-08d8b96c9e18
-x-ms-traffictypediagnostic: AM0PR03MB3921:
-x-microsoft-antispam-prvs: 
- <AM0PR03MB3921F3B6D1C73767A123D292E6A70@AM0PR03MB3921.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- bS+3tCGOcD/nmC061G+n/lxoAi+wX5gT9hts9Hkas1qzFF1t8rfeBV/724+UF9gugUESFdTGF8DNGZF5+xFZItZcNqLXyp/kNOjpYYTIrbKdi4fLU+q87NRLsicLt/x/G+tnSxoconk6zm4CHYVl+Lx1/SI7Uw0Sr6mklbqwgcyeC8LfcIg7Fu30bgA+tXiH1AjreOP+BEOn8lcbjIT0Ow4ryBZvMC6c1LmMh8gH4b0Tu0ESn1ghVPTGCrDw57k5E5F8i55eE3I6Np3MPrNhrFtdsftcL78e/omLTU2i2we2MeCECVh7YTw57lzZKDcUfLOfZXuUFJwo9SPTYjC7IE5zdaVSQEjsbyCIK3s8waZfhSMBrXpRp+CnG+6TUNRSY0xZojsMbxS4yGQO9ZIVeg==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB3508.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(366004)(376002)(136003)(39860400002)(346002)(6486002)(2616005)(86362001)(6916009)(8936002)(5660300002)(83380400001)(66446008)(6512007)(71200400001)(4326008)(66946007)(478600001)(53546011)(6506007)(36756003)(66476007)(186003)(54906003)(8676002)(2906002)(66556008)(316002)(26005)(76116006)(64756008)(55236004);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata: 
- =?iso-8859-1?Q?gkcmY+pVAWpdQWvcj47aUygknkPVOQTVZX2/Fqt4ERpqYlf/VR+17q7zAN?=
- =?iso-8859-1?Q?lClZWzjodNQqAC8iEHYkKD+8IkMkLP7FAMMcPfGfIxdXf/BNj6V+r7/9+Y?=
- =?iso-8859-1?Q?ka51pBBnMORamiYXngeiwxTAJD8O+GYq4YqXc6Es+3O+npjpCggp0lLmS1?=
- =?iso-8859-1?Q?7DdwNuVbdByr+kTUxpLFCsnZfkYCP8rdmGj8PEE4KGVN/0DP6Odt3/7caG?=
- =?iso-8859-1?Q?M0hRlJuIt6uydnhNOiaVFq/xKDgAmfpLACyTue8+GgIE8spir92oRsejeR?=
- =?iso-8859-1?Q?UScaxe+lrsLhMt8c+h5+TKiX1cyWX4UcrtMEZ4yr54Zah/UAVE1tkIw2Ey?=
- =?iso-8859-1?Q?RVDydYr5gOBBxRKlHunQoVzPALKvV1dqGNpjCQWvnILoXexTz9P3NeKA4N?=
- =?iso-8859-1?Q?BSZVcvTZbVTZOS7GGuXgnDVDDnTxfdvjFfWa80pBcJBl/zLR/Tk28XgDDI?=
- =?iso-8859-1?Q?G0QUBfTaa8WVwW/vWX9O9xVb27WIf71P0F5yUTkJeLkHvVUZx2QAwGyqm5?=
- =?iso-8859-1?Q?JFCXwabV7QzUrJe1y0qYWvYtX8SOUP1lW9Bmz1NlNnVxnUJfqBh5m7iucU?=
- =?iso-8859-1?Q?4Fp68GAnLkqJemHWJmL+Ek4j3dazkzf+zCFdqu+vqj4UbBLcLUyc0R7AJO?=
- =?iso-8859-1?Q?LG16k580GBII9k+m0XgDhJ32exlhbYw1wpVr5xLiAeA6Q9Msn0YqwBiNL+?=
- =?iso-8859-1?Q?dYTeg6RKaZcAxNvpxtu1PbWrMuVkQrvpqiGQTvIzZtnLd1jCDymkEZYBso?=
- =?iso-8859-1?Q?ugtkL62gw1IoTRBrlqqBpi6FyNVagTxPJhj7VEMn79Mvrzkx1P/4elMEQi?=
- =?iso-8859-1?Q?7r9scbVxeLV0BplFWSDFzrJAPIIGKBpulhwMGiHDXLjYS2F5BbOZsdC+4y?=
- =?iso-8859-1?Q?yId/bOKbUMqu3wfBQAP/Fqv2jawpJm1U7jkqFZkxzxJxUrVmvk+DJpvMUB?=
- =?iso-8859-1?Q?Lt4mKBy9oKAK4m9Ovg3Kc3J6UR9P0YBCaFXHyaoPGxOLbVAPIZIzzd5tIF?=
- =?iso-8859-1?Q?sqbxD67cbL/UDA0+WLIMVd4YRUr83t8KzICv3D?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=fNzDnZS+9OVinH3EFa9o0u3gNsTH4gJSjGgvA/aD2Xk=;
+ b=d0hDD4J9vvj4AqGEgKonjRrmWwx3xKFOOGoUqI7Cu9U03c+dc2LXN3/O9bD2GzAw0uw0voMjfTPotQC02llxVjG8upuAVnpd5plcqNptSpN/R0A8h93jAvHhFpD5kt4Uk12pQX2/OxX7vk/tGxAAa0nCUimWU+tDqlCz9EJNQdU=
+Date: Fri, 15 Jan 2021 17:01:35 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: <xen-devel@lists.xenproject.org>, Manuel Bouyer <bouyer@netbsd.org>,
+	"Elena Ufimtseva" <elena.ufimtseva@oracle.com>, Ian Jackson
+	<iwj@xenproject.org>, "Wei Liu" <wl@xen.org>
+Subject: Re: [PATCH] NetBSD: use system-provided headers
+Message-ID: <20210115160135.6zag4py7izd7f7cp@Air-de-Roger>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+ <20210112181242.1570-7-bouyer@antioche.eu.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20210112181242.1570-7-bouyer@antioche.eu.org>
+X-ClientProxiedBy: MR2P264CA0115.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:33::31) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5e0bbdf7-720c-401d-233b-08d8b96ed8c8
+X-MS-TrafficTypeDiagnostic: DS7PR03MB5445:
+X-Microsoft-Antispam-PRVS: <DS7PR03MB5445BFC26C8EFADB96EA3A7B8FA70@DS7PR03MB5445.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UbLYA7Au75AqhV23blcS8Ts3WXez9dEMloo91nV9/PgOUhOLz6LMmkYIEiW8pc/shJ6WDIiN2yRrwYDtQkDRq9U8sOKJEgUfiEGigCP/DmVhxi/XUhtOcRT5Z3rZWRJ53UT87Qla2F85alJqzPM2v5YoGgl+t04hfUa+7ugZVU6RMQsqXloK+5gIyv/jMNl/XeNf2i60qiCTB9Ty+PLkVfOd5X1le47A7t+jYXIiAyc2q/FHjbZtKVbs+IQ65DsTegpnblL6aUvxB0I2Qmrvi3FHXS3XJwJaQeBfpyc+EagHQGXkICxPmzTPVESL7L0iTbZbrNbNzeL2xyPcDDm0I2QDbh8fO9vhulVnKLLmT7ap5JJH7uTKiH7q6DAZZIjTsjEDj0HymNj76HCh8q43rg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(396003)(366004)(346002)(376002)(136003)(39860400002)(33716001)(5660300002)(186003)(86362001)(26005)(16526019)(6486002)(54906003)(2906002)(8936002)(6916009)(83380400001)(6666004)(85182001)(1076003)(4326008)(66946007)(66476007)(66556008)(478600001)(6496006)(8676002)(316002)(956004)(9686003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SjFZTUlqbDQzTzBZYUQrZXlzUmdqcmxUQ1lWV1daVFVFNVhiYjlXbEhBWHVJ?=
+ =?utf-8?B?OHAzeXMyWE5kSWV0K2tYZkZSRGkzeHIyNWoxUUNhRVdzNkpIcEZJYkhJajQ2?=
+ =?utf-8?B?a1hkTStENkFaemljN3ZOUGhOWFdrazFQUGlGMEt0VnhRK3J4QmpQdCt6ODRN?=
+ =?utf-8?B?TW9odXQxL2lOaENzendrUGFMWE1mWGZLNEdWLzBuRVF1eUR5enpKV0pPTzI4?=
+ =?utf-8?B?WWt4NnBvNDByUm53VTNZUHA0ZEFXcjNOVmRJaWZlc2tIbVZITUg3Tkl3enJt?=
+ =?utf-8?B?VlJLYzR3NFJuaVRMd0dFa1BiNStHL1RSa3ZLbHZ2VytBeUlwT0drTDFOWWpV?=
+ =?utf-8?B?MTdJSGN5MXkxWU9Ocnk1MXVlUjkvVHVwYVZJMStZQ1NWS0ZRR2JIK2ZNSEI4?=
+ =?utf-8?B?MzFnL1hiY3NYL291MlcvdDZrOEZjaFBEZWpxNzNRUGFpMWREay9uVk5Vd3ZR?=
+ =?utf-8?B?YUV0cE50d1NhelF1U3BDRHdHd3Zmc1J0Sit0M1N1bnJXUk82SWtZSHNzbTV6?=
+ =?utf-8?B?V2hST1RXZ3FnTFNTbnB2N1VJdWxtaEpmVTlmam9GUHJXd2lJVkI5UkZnb01r?=
+ =?utf-8?B?ZzcveVhucGEzcE1YUlRzTUM1QWVRZGZkMEd1bWRBZHVsVzRrRU9aOGFzaDIv?=
+ =?utf-8?B?Q1ZlY2Z0REY0VmVkYUluS2ZqNm5HN1d6dVVYOWtyNkt4ZGJlOXdPZFF4ZkpY?=
+ =?utf-8?B?d2l4cVB0SGxOWWNDTmJBZEZ1TnN2OHh6bVpZS0hVZFpxOW9sMHczZU92Tndx?=
+ =?utf-8?B?di9LU0M3REV3YlBQS1MyK3VKWGNTc1p0dGJLMzQwekVVeCtJeE9KRkxDRDVr?=
+ =?utf-8?B?WXhFTlRqZ3ZYN05MSzFxMlR5bTN5bWJBOHE1RElPNjVJODhlWG5pOEozcTFm?=
+ =?utf-8?B?VHVUOElBNkFKMThsTkdTQ3pONjU0QTFvZVV2aDZSNHNQL2oxMWMzaCs5cnhS?=
+ =?utf-8?B?cHRtYjVvSG9LbUwwNkdpdG1TakltTnloY3JDeCtydTErQWlwdVpmUEVwZ3N0?=
+ =?utf-8?B?ZlBkUGRRVzE4dm1Xd21jZHRCQ3hYcjgwZkpPRmtYRlNBM0xjZjZ6U3Z5eU4w?=
+ =?utf-8?B?RHJOVFl5KzV1bWRQMGVCMDFxQUc5ZncyM3gzYWFzSzNqdkRyMzJ4NHh1SExD?=
+ =?utf-8?B?UkVuTkFrem1CeFVaTVZBR1VJdWVrTXZLT1ZtN2dYck5Fa1FyUDZPQ3QyZjEz?=
+ =?utf-8?B?MHJ3OUMxZjNtZUQxNEJtQTVrWmtnNUxMSERsc2p6aEd6Qk51ZkM1TXdqemlZ?=
+ =?utf-8?B?YUV4S3VmelAwMFhXWHZzUkJWZVM2eS9qOG1JVVJDRHFpWEl4UVNDcFl4aFh4?=
+ =?utf-8?Q?W6OgevkFHGu7mXOYJLqHVRpMkK1sOooSid?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e0bbdf7-720c-401d-233b-08d8b96ed8c8
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB3508.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31b6f47a-bccf-492a-044e-08d8b96c9e18
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2021 15:45:43.1836
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2021 16:01:41.0039
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kQY9NcI8JkxKuGoFxcNQ8XdPHuTa1iyMXQk8rerhckHcLYSpejvBmlZpX8wBxEy3pkGuH0lsX/ZOlTKKQlVW7JfoDWiDoNp8AdXngvL+ro4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB3921
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0
- suspectscore=0 bulkscore=0 adultscore=0 clxscore=1015 malwarescore=0
- priorityscore=1501 impostorscore=0 mlxlogscore=999 spamscore=0 mlxscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2101150098
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 58YVHPa7P9+8fFj96/zB/OLPsJJd19XXjeZGZUb62fbvlE463O+PPQYGJCiuR349V4tGFgAXQbFBRm/Uf3tUvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5445
+X-OriginatorOrg: citrix.com
 
+On Tue, Jan 12, 2021 at 07:12:27PM +0100, Manuel Bouyer wrote:
+> From: Manuel Bouyer <bouyer@netbsd.org>
+> 
+> On NetBSD use the system-provided headers for ioctl and related definitions,
+> they are up to date and have more chances to match the kernel's idea of
+> the ioctls and structures.
+> Remove now-unused NetBSD/evtchn.h and NetBSD/privcmd.h.
+> Don't fail install if xen/sys/*.h are not present.
+> 
+> Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+> ---
+>  tools/debugger/gdbsx/xg/xg_main.c      |   4 +
+>  tools/include/Makefile                 |   2 +-
+>  tools/include/xen-sys/NetBSD/evtchn.h  |  86 --------------------
+>  tools/include/xen-sys/NetBSD/privcmd.h | 106 -------------------------
+>  tools/libs/call/private.h              |   4 +
+>  tools/libs/ctrl/xc_private.h           |   4 +
+>  tools/libs/foreignmemory/private.h     |   6 ++
+>  7 files changed, 19 insertions(+), 193 deletions(-)
+>  delete mode 100644 tools/include/xen-sys/NetBSD/evtchn.h
+>  delete mode 100644 tools/include/xen-sys/NetBSD/privcmd.h
+> 
+> diff --git a/tools/debugger/gdbsx/xg/xg_main.c b/tools/debugger/gdbsx/xg/xg_main.c
+> index a4e8653168..ce95648e7e 100644
+> --- a/tools/debugger/gdbsx/xg/xg_main.c
+> +++ b/tools/debugger/gdbsx/xg/xg_main.c
+> @@ -49,7 +49,11 @@
+>  #include "xg_public.h"
+>  #include <xen/version.h>
+>  #include <xen/domctl.h>
+> +#ifdef __NetBSD__
+> +#include <xen/xenio.h>
+> +#else
+>  #include <xen/sys/privcmd.h>
+> +#endif
+>  #include <xen/foreign/x86_32.h>
+>  #include <xen/foreign/x86_64.h>
+>  
+> diff --git a/tools/include/Makefile b/tools/include/Makefile
+> index 4d4ec5f974..5e90179e66 100644
+> --- a/tools/include/Makefile
+> +++ b/tools/include/Makefile
+> @@ -68,7 +68,7 @@ install: all
+>  	$(INSTALL_DATA) xen/foreign/*.h $(DESTDIR)$(includedir)/xen/foreign
+>  	$(INSTALL_DATA) xen/hvm/*.h $(DESTDIR)$(includedir)/xen/hvm
+>  	$(INSTALL_DATA) xen/io/*.h $(DESTDIR)$(includedir)/xen/io
+> -	$(INSTALL_DATA) xen/sys/*.h $(DESTDIR)$(includedir)/xen/sys
+> +	$(INSTALL_DATA) xen/sys/*.h $(DESTDIR)$(includedir)/xen/sys || true
 
-Hi Julien,
+This will mask real error on non-NetBSD OSes. My make-foo is very bad,
+but maybe you could do something like:
 
-Julien Grall writes:
+if [ "$(XEN_OS)" != "NetBSD" ]; then \
+	$(INSTALL_DATA) xen/sys/*.h $(DESTDIR)$(includedir)/xen/sys; \
+fi
 
-> Hi Volodymyr, Stefano,
->
-> On 14/01/2021 23:33, Stefano Stabellini wrote:
->> + Bertrand, Andrew (see comment on alloc_heap_pages())
->
-> Long running hypercalls are usually considered security issues.
->
-> In this case, only the control domain can issue large memory
-> allocation (2GB at a time). Guest, would only be able to allocate 2MB
-> at the time, so from the numbers below, it would only take 1ms max.
->
-> So I think we are fine here. Next time, you find a large loop, please
-> provide an explanation why they are not security issues (e.g. cannot
-> be used by guests) or send an email to the Security Team in doubt.
+Or maybe check whether the directory is not empty before attempting
+the install?
 
-Sure. In this case I took into account that only control domain can
-issue this call, I just didn't stated this explicitly. Next time will
-do.
-
->>> ARMv8 platform. Namely Renesas Rcar H3 SoC on Salvator board.
->
-> Which core is it?
-
-Cortex A57
-
-[...]
-
->> 2. RTDS scheduler. With console disabled, things like "hexdump -v
->>>     /dev/zero" didn't affected the latency so badly, but anyways,
->>>     sometimes I got ~600us spikes. This is not a surprise, because of
->>>     default RTDS configuration. I changed period for DomU from default
->>>     10ms to 100us and things got better: with Dom0 burning CPU I am
->>>     rarely getting max latency of about ~30us with mean latency of ~9us
->>>     and deviation of ~0.5us. On other hand, when I tried to set period
->>>     to 30us, max latency rose up to ~60us.
-> In a related topic, I am not entirely sure that all the hypercalls
-> would be able to fit in the 100us slice. In particular, the one which
-> are touching the P2M and do memory allocation.
-
-I agree with you. In my experiments I didn't found a case with long
-running hypercall (apart from mentioned populate_physmap), but of course
-there should be cases with such calls.
-
->
->> This is very interestingi too. Did you get any spikes with the
->> period
->> set to 100us? It would be fantastic if there were none.
->>=20
->>> 3. Huge latency spike during domain creation. I conducted some
->>>     additional tests, including use of PV drivers, but this didn't
->>>     affected the latency in my "real time" domain. But attempt to
->>>     create another domain with relatively large memory size of 2GB led
->>>     to huge spike in latency. Debugging led to this call path:
->>>
->>>     XENMEM_populate_physmap -> populate_physmap() ->
->>>     alloc_domheap_pages() -> alloc_heap_pages()-> huge
->>>     "for ( i =3D 0; i < (1 << order); i++ )" loop.
->
-> There are two for loops in alloc_heap_pages() using this syntax. Which
-> one are your referring to?
-
-I did some tracing with Lautrebach. It pointed to the first loop and
-especially to flush_page_to_ram() call if I remember correctly.
-
->>>
->>>     This loops handles struct page* for every one of 262144 pages that
->>>     was allocated by calling populate_physmap().
->
-> Looking at the domain creation code, 2GB will be split in two extents
-> of 1GB. This means, there will be at least a preemption point between
-> the allocation of the two extents.
-
-Yes. 1GB is exactly 262144 4KB pages.
-
-[...]
-
->>> I managed to overcome the issue #3 by commenting out all calls to
->>> populate_one_size() except the populate_one_size(PFN_4K_SHIFT) in
->>> xg_dom_arm.c. This lengthened domain construction, but my "RT" domain
->>> didn't experienced so big latency issues. Apparently all other
->>> hypercalls which are used during domain creation are either fast or
->>> preemptible. No doubts that my hack lead to page tables inflation and
->>> overall performance drop.
->> I think we need to follow this up and fix this. Maybe just by adding
->> a hypercall continuation to the loop.
->
-> When I read "hypercall continuation", I read we will return to the
-> guest context so it can process interrupts and potentially switch to
-> another task.
->
-> This means that the guest could issue a second populate_physmap() from
-> the vCPU. Therefore any restart information should be part of the=20
-> hypercall parameters. So far, I don't see how this would be possible.
->
-> Even if we overcome that part, this can be easily abuse by a guest as
-> the memory is not yet accounted to the domain. Imagine a guest that=20
-> never request the continuation of the populate_physmap(). So we would
-> need to block the vCPU until the allocation is finished.
-
-Moreover, most of the alloc_heap_pages() sits under spinlock, so first
-step would be to split this function into smaller atomic parts.
-
-> I think the first step is we need to figure out which part of the
-> allocation is slow (see my question above). From there, we can figure=20
-> out if there is a way to reduce the impact.
-
-I'll do more tracing and will return with more accurate numbers. But as
-far as I can see, any loop on 262144 pages will take some time...
-
---=20
-Volodymyr Babchuk at EPAM=
+Thanks, Roger.
 
