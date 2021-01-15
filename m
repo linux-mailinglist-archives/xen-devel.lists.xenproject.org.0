@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99BAB2F72C5
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 07:14:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67662.120913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F9552F72D0
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 07:19:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67670.120924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0INS-0002RB-Ep; Fri, 15 Jan 2021 06:14:30 +0000
+	id 1l0ISP-0002nb-5c; Fri, 15 Jan 2021 06:19:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67662.120913; Fri, 15 Jan 2021 06:14:30 +0000
+Received: by outflank-mailman (output) from mailman id 67670.120924; Fri, 15 Jan 2021 06:19:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0INS-0002Ql-Ba; Fri, 15 Jan 2021 06:14:30 +0000
-Received: by outflank-mailman (input) for mailman id 67662;
- Fri, 15 Jan 2021 06:14:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l0ISP-0002nE-2Y; Fri, 15 Jan 2021 06:19:37 +0000
+Received: by outflank-mailman (input) for mailman id 67670;
+ Fri, 15 Jan 2021 06:19:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v6X5=GS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l0INR-0002Qe-Ga
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 06:14:29 +0000
+ id 1l0ISN-0002n9-T1
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 06:19:35 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d39667bd-9b91-4cb1-bf5d-a84a9d256dc0;
- Fri, 15 Jan 2021 06:14:28 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 155370f8-de7f-4e09-af7b-a893300086e3;
+ Fri, 15 Jan 2021 06:19:34 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CF746AB7A;
- Fri, 15 Jan 2021 06:14:27 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0A832AD18;
+ Fri, 15 Jan 2021 06:19:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,76 +39,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d39667bd-9b91-4cb1-bf5d-a84a9d256dc0
+X-Inumbo-ID: 155370f8-de7f-4e09-af7b-a893300086e3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610691268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610691574; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tgjcNsnc+/SQoUcKU+nCYI8eBNamQeqWtdPRE+HXrYg=;
-	b=nmQqQT4jdhApvZ7PpI71QeqUv3+pp+MO8Cnruae4RGrvu6blSUkw12uHwCFQC23JNu+OUN
-	bHCua3q1QDXXuoqw7u0QYwQ9/24SjSmL17TbQg3quzjzTH06ipKQj/7ZG42xPo+NBy8q2l
-	BFxVkwl1ogif4QrPE+eDDaMLWiSOpkg=
-Subject: Re: [PATCH v11 02/27] tools/libxenevtchn: rename open_flags to flags
+	bh=/fdMrOMijy08wjKVbMIy/k3JlSd3FQP7Sghii1cRXzs=;
+	b=Y8QGuNeH/46STFF7eYk5wvGH7eUhvuziFQpYqQ0A3EZTYEtbpgwmLaizyV1De/3s+Dylib
+	pgwAQU9FiJJb17UcAlTcUVg99PtSzqx+Ae/HODFQruxMs+Is3ukXm3JnOU5aIdEsUge8gr
+	8GffZ6QzQBQwAgKctfmk7sHEgcN2N3g=
+Subject: Re: [PATCH v11 03/27] tools/libxenevtchn: check xenevtchn_open()
+ flags for not supported bits
 To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20210114153803.2591-1-jgross@suse.com>
- <20210114153803.2591-3-jgross@suse.com>
- <47ad6cc3-e75c-0a92-27dc-a6d42286d0dd@citrix.com>
+ <20210114153803.2591-4-jgross@suse.com>
+ <fb70c415-3bb4-9420-d741-d621d5bb01f7@citrix.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <5e75e2f6-92a5-9fb5-1e47-76289778db18@suse.com>
-Date: Fri, 15 Jan 2021 07:14:27 +0100
+Message-ID: <42672912-0631-a265-1024-63589c2f9ef2@suse.com>
+Date: Fri, 15 Jan 2021 07:19:33 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <47ad6cc3-e75c-0a92-27dc-a6d42286d0dd@citrix.com>
+In-Reply-To: <fb70c415-3bb4-9420-d741-d621d5bb01f7@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="tc1KF1vl8yknSF0dNtRaM7sxxKC6lsAZk"
+ boundary="BPWvT0xFZfobRWChiGrDp6QK6LZ2v07R0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---tc1KF1vl8yknSF0dNtRaM7sxxKC6lsAZk
-Content-Type: multipart/mixed; boundary="9HW8EXN64KoyTSwxmIx7Kk9tyfVBiE5LO";
+--BPWvT0xFZfobRWChiGrDp6QK6LZ2v07R0
+Content-Type: multipart/mixed; boundary="hmgJO7xdgYSG6fi5gxz2qtTkJZkhG4kET";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <5e75e2f6-92a5-9fb5-1e47-76289778db18@suse.com>
-Subject: Re: [PATCH v11 02/27] tools/libxenevtchn: rename open_flags to flags
+Message-ID: <42672912-0631-a265-1024-63589c2f9ef2@suse.com>
+Subject: Re: [PATCH v11 03/27] tools/libxenevtchn: check xenevtchn_open()
+ flags for not supported bits
 References: <20210114153803.2591-1-jgross@suse.com>
- <20210114153803.2591-3-jgross@suse.com>
- <47ad6cc3-e75c-0a92-27dc-a6d42286d0dd@citrix.com>
-In-Reply-To: <47ad6cc3-e75c-0a92-27dc-a6d42286d0dd@citrix.com>
+ <20210114153803.2591-4-jgross@suse.com>
+ <fb70c415-3bb4-9420-d741-d621d5bb01f7@citrix.com>
+In-Reply-To: <fb70c415-3bb4-9420-d741-d621d5bb01f7@citrix.com>
 
---9HW8EXN64KoyTSwxmIx7Kk9tyfVBiE5LO
+--hmgJO7xdgYSG6fi5gxz2qtTkJZkhG4kET
 Content-Type: multipart/mixed;
- boundary="------------00B59C3673CDB280E57C281D"
+ boundary="------------97D62D45127F749AE9E7AC76"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------00B59C3673CDB280E57C281D
+--------------97D62D45127F749AE9E7AC76
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 14.01.21 20:22, Andrew Cooper wrote:
+On 14.01.21 20:24, Andrew Cooper wrote:
 > On 14/01/2021 15:37, Juergen Gross wrote:
->> Rename the xenevtchn_open() parameter open_flags to flags as it might
->> be used for things not passed on to open().
->>
->> No functional change.
+>> Refuse a call of xenevtchn_open() with unsupported bits in flags being=
+
+>> set.
 >>
 >> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >> Signed-off-by: Juergen Gross <jgross@suse.com>
 >=20
 > Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >=20
-> Possibly worth stating "No API/ABI changes" seeing as this is a public
-> header?
->=20
+> Possibly worth stating that this potentially going to cause problems fo=
+r
+> callers who were already passing junk into the flags field, but this is=
 
-Yes.
+> far cleaner than the fallout of slowly changing the meaning of said jun=
+k
+> slowly as we add new parameters.
 
---------------00B59C3673CDB280E57C281D
+Added the following:
+
+This will change behavior for callers passing junk in flags today,
+but those would otherwise get probably unwanted side effects when the
+flags they specify today get any meaning. So checking flags is the
+right thing to do.
+
+
+Juergen
+
+--------------97D62D45127F749AE9E7AC76
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -198,25 +212,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------00B59C3673CDB280E57C281D--
+--------------97D62D45127F749AE9E7AC76--
 
---9HW8EXN64KoyTSwxmIx7Kk9tyfVBiE5LO--
+--hmgJO7xdgYSG6fi5gxz2qtTkJZkhG4kET--
 
---tc1KF1vl8yknSF0dNtRaM7sxxKC6lsAZk
+--BPWvT0xFZfobRWChiGrDp6QK6LZ2v07R0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmABMsMFAwAAAAAACgkQsN6d1ii/Ey+k
-Ngf/diRCjvMDTUCEX2jNg4vAr5CdlAONga1aasTexBO/6EBopiCSPSfq5pztivqlbyOdrSQU3SaM
-vBSLNuByMNax2e1CcWcJlZA7PCOTqAeIwLw/TmqxlEJNY8PV1f91JKfals94CXN/6NnRA9atavrI
-8GT/WthT6Gq1reZi44Oirt377jy+qPHu2Ovpp3fMI3cI5d2QYkj0JNgluYoTcF19QsXFfJ5Hr4XZ
-YwyRsbLwnHM/84F3RzOAmMWJWf/RI+rCUJM3nhHpmDv/GVBHhWAfOWWhiA/GGZuRK9F4VzuTHyVs
-jDQ/PuTD+v4VSyctM4EtLJJgZ7zys3PeD9mOt6O4hA==
-=fmlp
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmABM/UFAwAAAAAACgkQsN6d1ii/Ey9F
+WQf+J8ej6+YeC9P+e/gw3lDWgK7UE8km4vrA20QDjlRdheg/fqiR20iUSwyA7CTmtIGFAv3nR7E8
+RYQVdVsclNBiQNCp37K1HErXqq+hn3zVLwlto72V27IBHRvUt/x+3c4FNnZ6vIay3I5rC8YRsImM
+4YapNEKC+uNNoxUeuHCDKhQsyFZ8Pomm4KW0tfjxauZfC6wmjXpwLNjkymt69Dpury92jKhrd25Z
+Fm+Ju4YrYoETF51ZlgItiwWNFHm4PXLx9mFmcWCqri6WOFz3KpRfS5g96BvT6wwaC3p5W0SFOoOu
+QMKoQO0E0rXE/M+xvctn1wnUEl82aAWGqxV01id++w==
+=ZzVC
 -----END PGP SIGNATURE-----
 
---tc1KF1vl8yknSF0dNtRaM7sxxKC6lsAZk--
+--BPWvT0xFZfobRWChiGrDp6QK6LZ2v07R0--
 
