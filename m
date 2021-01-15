@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459C82F7F55
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 16:19:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68293.122269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F40722F7F57
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 16:19:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68299.122280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0Qsa-0000Tq-Pu; Fri, 15 Jan 2021 15:19:12 +0000
+	id 1l0Qt5-0000aB-2u; Fri, 15 Jan 2021 15:19:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68293.122269; Fri, 15 Jan 2021 15:19:12 +0000
+Received: by outflank-mailman (output) from mailman id 68299.122280; Fri, 15 Jan 2021 15:19:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0Qsa-0000TQ-Mj; Fri, 15 Jan 2021 15:19:12 +0000
-Received: by outflank-mailman (input) for mailman id 68293;
- Fri, 15 Jan 2021 15:19:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l0Qt4-0000Zk-Vm; Fri, 15 Jan 2021 15:19:42 +0000
+Received: by outflank-mailman (input) for mailman id 68299;
+ Fri, 15 Jan 2021 15:19:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Nfe5=GS=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l0QsZ-0000TF-9f
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 15:19:11 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 850864d7-e0de-4dfd-8310-8b056cc50c40;
- Fri, 15 Jan 2021 15:19:10 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BA6EFB71C;
- Fri, 15 Jan 2021 15:19:09 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1l0Qt3-0000ZW-AI
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 15:19:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l0Qsz-0006NY-0M; Fri, 15 Jan 2021 15:19:37 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l0Qsy-0001w3-R6; Fri, 15 Jan 2021 15:19:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,42 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 850864d7-e0de-4dfd-8310-8b056cc50c40
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610723949; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HqjhhGHwur4PHQBWTX6F+WV90oMEr9nHxGhc/sSnc9E=;
-	b=dlF+nKEEzkEPFSS0ASm9WCtrKtcGUV+cZPHcla1OhS5dOdqGmde5fLi2inzlCRjiDMDGc/
-	0IpMRTJjeYWUw3YrfAMhgae3BVZlK0zygy7OsZkLfkic09lh0+07sdYguAvxjA7m+RieB3
-	o48KzTg+/slifJyzssvxFKwhWYiwrWM=
-Subject: Re: [PATCH] x86/CPUID: unconditionally set
- XEN_HVM_CPUID_IOMMU_MAPPINGS
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210115150138.36087-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0bfe87df-5bbe-0a86-677d-7cdbff5264ca@suse.com>
-Date: Fri, 15 Jan 2021 16:19:10 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=cm85GZUTvVrt7rbjIrjB+pVdlwGdw8hTpVu7Or+/Q5g=; b=qst8y8kSIEpWMyizHdTJovCkpp
+	Iopg0a2PhkDLaQhwV4ZwN+bxfVNosOABYZSxzD7KyeDOanph69XCy/L//cpjKplMlLiEcawhNHRao
+	jKwBzNWasQ7S/Xe+bXJdjWGrQbclvywAOpq7zbr5m9301k0k1y6aO0Cj/WhFa8HS7llc=;
+Subject: Re: [PATCH V4 03/24] x86/ioreq: Provide out-of-line wrapper for the
+ handle_mmio()
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall@arm.com>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-4-git-send-email-olekstysh@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <61708459-6e14-0abd-4d59-4d053309067d@xen.org>
+Date: Fri, 15 Jan 2021 15:19:34 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <20210115150138.36087-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <1610488352-18494-4-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On 15.01.2021 16:01, Roger Pau Monne wrote:
-> This is a revert of f5cfa0985673 plus a rework of the comment that
-> accompanies the setting of the flag so we don't forget why it needs to
-> be unconditionally set: it's indicating whether the version of Xen has
-> the original issue fixed and IOMMU entries are created for
-> grant/foreign maps.
+Hi Oleksandr,
+
+On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> The IOREQ is about to be common feature and Arm will have its own
+> implementation.
+> 
+> But the name of the function is pretty generic and can be confusing
+> on Arm (we already have a try_handle_mmio()).
+> 
+> In order not to rename the function (which is used for a varying
+> set of purposes on x86) globally and get non-confusing variant on Arm
+> provide a wrapper arch_ioreq_complete_mmio() to be used on common
+> and Arm code.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien.grall@arm.com>
+> [On Arm only]
+> Tested-by: Wei Chen <Wei.Chen@arm.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+-- 
+Julien Grall
 
