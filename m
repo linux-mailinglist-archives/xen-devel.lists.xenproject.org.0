@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EE5A2F745C
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 09:30:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67726.121123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56D822F7461
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 09:30:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67712.120979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0KVF-0000cD-A7; Fri, 15 Jan 2021 08:30:41 +0000
+	id 1l0KUl-0008HC-OG; Fri, 15 Jan 2021 08:30:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67726.121123; Fri, 15 Jan 2021 08:30:41 +0000
+Received: by outflank-mailman (output) from mailman id 67712.120979; Fri, 15 Jan 2021 08:30:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0KVE-0000aa-RC; Fri, 15 Jan 2021 08:30:40 +0000
-Received: by outflank-mailman (input) for mailman id 67726;
- Fri, 15 Jan 2021 08:30:39 +0000
+	id 1l0KUl-0008Gm-Ka; Fri, 15 Jan 2021 08:30:11 +0000
+Received: by outflank-mailman (input) for mailman id 67712;
+ Fri, 15 Jan 2021 08:30:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v6X5=GS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l0KVD-0008Gh-Fs
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 08:30:39 +0000
+ id 1l0KUj-0008Gh-K8
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 08:30:09 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9926760f-ac98-4180-9380-4be2dff450d1;
- Fri, 15 Jan 2021 08:30:14 +0000 (UTC)
+ id 56707f11-4a43-46d7-a73c-badd76f8f5bb;
+ Fri, 15 Jan 2021 08:30:08 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7F23DB944;
- Fri, 15 Jan 2021 08:30:07 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 47370B933;
+ Fri, 15 Jan 2021 08:30:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,215 +38,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9926760f-ac98-4180-9380-4be2dff450d1
+X-Inumbo-ID: 56707f11-4a43-46d7-a73c-badd76f8f5bb
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610699408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sSnAF7fRT0i6R+7d24NOVdIRMygQrGad5fUKdqzr1pY=;
-	b=okxDcM8Ov0R+Y8piHkHPx2GuDHma6Z2tr7Lnns8sGJyPCsCv4+T0DVeCfFSIkJk8BJ1E2Q
-	MR1zXDn4y7VaFrBKig+aZbv7b328GOEXWpsyiSJM+HZTkaGykvSWgmC+n93fE6eRArlrKA
-	IQOEfuxM3oKZea5tFc+ti2fFB+9fTUw=
+	t=1610699407; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=zJeM+Gdg2B1qmBL3okj+9gejov2FJmf6wJlxw8FMvN4=;
+	b=ngI5tmrE6naHJDDic4vk0CeYdY8U9QgVO34omlX3GG2tvWpMel9GUbwCnaT4HrHGfD2imG
+	fFp0xorpIHgofaiKDFgJi1XKqVeFtp8SpHkCyL3oLhjtjGhGkmICO6DpjrPWahmi1ywi8P
+	oJmS0PTr3ZBO5FSE+tiSAvKfAb/FLwg=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v12 24/27] tools/xenstore: add read node state for live update
-Date: Fri, 15 Jan 2021 09:29:57 +0100
-Message-Id: <20210115083000.14186-25-jgross@suse.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v12 00/27] tools/xenstore: support live update for xenstored
+Date: Fri, 15 Jan 2021 09:29:33 +0100
+Message-Id: <20210115083000.14186-1-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210115083000.14186-1-jgross@suse.com>
-References: <20210115083000.14186-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the needed functions for reading node state for live update.
+Today Xenstore is not restartable. This means a Xen server needing an
+update of xenstored has to be rebooted in order to let this update
+become effective.
 
-This requires some refactoring of current node handling in Xenstore in
-order to avoid repeating the same code patterns multiple times.
+This patch series is changing that: The internal state of xenstored
+(the contents of Xenstore, all connections to various clients like
+programs or other domains, and watches) is saved in a defined format
+and a new binary is being activated consuming the old state. All
+connections are being restored and the new Xenstore binary will
+continue where the old one stopped.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Paul Durrant <paul@xen.org>
-Acked-by: Julien Grall <jgrall@amazon.com>
----
-V4:
-- drop local node handling (Julien Grall)
+This patch series has been under (secret) development until V9.
+It has been posted to xen-devel only from V10 onwards.
 
-V5:
-- use set_tdb_key (Paul Durrant)
+There will be a similar series for oxenstored posted.
 
-V6:
-- add permission flag handling (Julien Grall)
----
- tools/xenstore/xenstored_control.c |   1 +
- tools/xenstore/xenstored_core.c    | 105 ++++++++++++++++++++++++++---
- tools/xenstore/xenstored_core.h    |   1 +
- 3 files changed, 96 insertions(+), 11 deletions(-)
+Xenstore-stubdom is not yet supported, but I'm planning to start
+working on that soon.
 
-diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 7428b836a5..287417de6b 100644
---- a/tools/xenstore/xenstored_control.c
-+++ b/tools/xenstore/xenstored_control.c
-@@ -547,6 +547,7 @@ void lu_read_state(void)
- 			xprintf("live-update: ignore transaction record\n");
- 			break;
- 		case XS_STATE_TYPE_NODE:
-+			read_state_node(ctx, head + 1);
- 			break;
- 		default:
- 			xprintf("live-update: unknown state record %08x\n",
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index b2c544b165..a5c1a56c6c 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -979,13 +979,30 @@ static char *basename(const char *name)
- 	return strrchr(name, '/') + 1;
- }
- 
--static struct node *construct_node(struct connection *conn, const void *ctx,
--				   const char *name)
-+static int add_child(const void *ctx, struct node *parent, const char *name)
- {
- 	const char *base;
- 	unsigned int baselen;
-+	char *children;
-+
-+	base = basename(name);
-+	baselen = strlen(base) + 1;
-+	children = talloc_array(ctx, char, parent->childlen + baselen);
-+	if (!children)
-+		return ENOMEM;
-+	memcpy(children, parent->children, parent->childlen);
-+	memcpy(children + parent->childlen, base, baselen);
-+	parent->children = children;
-+	parent->childlen += baselen;
-+
-+	return 0;
-+}
-+
-+static struct node *construct_node(struct connection *conn, const void *ctx,
-+				   const char *name)
-+{
- 	struct node *parent, *node;
--	char *children, *parentname = get_parent(ctx, name);
-+	char *parentname = get_parent(ctx, name);
- 
- 	if (!parentname)
- 		return NULL;
-@@ -998,15 +1015,8 @@ static struct node *construct_node(struct connection *conn, const void *ctx,
- 		return NULL;
- 
- 	/* Add child to parent. */
--	base = basename(name);
--	baselen = strlen(base) + 1;
--	children = talloc_array(ctx, char, parent->childlen + baselen);
--	if (!children)
-+	if (add_child(ctx, parent, name))
- 		goto nomem;
--	memcpy(children, parent->children, parent->childlen);
--	memcpy(children + parent->childlen, base, baselen);
--	parent->children = children;
--	parent->childlen += baselen;
- 
- 	/* Allocate node */
- 	node = talloc(ctx, struct node);
-@@ -2619,6 +2629,79 @@ void read_state_buffered_data(const void *ctx, struct connection *conn,
- 	}
- }
- 
-+void read_state_node(const void *ctx, const void *state)
-+{
-+	const struct xs_state_node *sn = state;
-+	struct node *node, *parent;
-+	TDB_DATA key;
-+	char *name, *parentname;
-+	unsigned int i;
-+	struct connection conn = { .id = priv_domid };
-+
-+	name = (char *)(sn->perms + sn->perm_n);
-+	node = talloc(ctx, struct node);
-+	if (!node)
-+		barf("allocation error restoring node");
-+
-+	node->name = name;
-+	node->generation = ++generation;
-+	node->datalen = sn->data_len;
-+	node->data = name + sn->path_len;
-+	node->childlen = 0;
-+	node->children = NULL;
-+	node->perms.num = sn->perm_n;
-+	node->perms.p = talloc_array(node, struct xs_permissions,
-+				     node->perms.num);
-+	if (!node->perms.p)
-+		barf("allocation error restoring node");
-+	for (i = 0; i < node->perms.num; i++) {
-+		switch (sn->perms[i].access) {
-+		case 'r':
-+			node->perms.p[i].perms = XS_PERM_READ;
-+			break;
-+		case 'w':
-+			node->perms.p[i].perms = XS_PERM_WRITE;
-+			break;
-+		case 'b':
-+			node->perms.p[i].perms = XS_PERM_READ | XS_PERM_WRITE;
-+			break;
-+		default:
-+			node->perms.p[i].perms = XS_PERM_NONE;
-+			break;
-+		}
-+		if (sn->perms[i].flags & XS_STATE_NODE_PERM_IGNORE)
-+			node->perms.p[i].perms |= XS_PERM_IGNORE;
-+		node->perms.p[i].id = sn->perms[i].domid;
-+	}
-+
-+	if (strstarts(name, "@")) {
-+		set_perms_special(&conn, name, &node->perms);
-+		talloc_free(node);
-+		return;
-+	}
-+
-+	parentname = get_parent(node, name);
-+	if (!parentname)
-+		barf("allocation error restoring node");
-+	parent = read_node(NULL, node, parentname);
-+	if (!parent)
-+		barf("read parent error restoring node");
-+
-+	if (add_child(node, parent, name))
-+		barf("allocation error restoring node");
-+
-+	set_tdb_key(parentname, &key);
-+	if (write_node_raw(NULL, &key, parent, true))
-+		barf("write parent error restoring node");
-+
-+	set_tdb_key(name, &key);
-+	if (write_node_raw(NULL, &key, node, true))
-+		barf("write node error restoring node");
-+	domain_entry_inc(&conn, node);
-+
-+	talloc_free(node);
-+}
-+
- /*
-  * Local variables:
-  *  mode: C
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index dcb3ad3e4b..6ac5a6fbfa 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -276,6 +276,7 @@ const char *dump_state_node_perms(FILE *fp, struct xs_state_node *sn,
- void read_state_global(const void *ctx, const void *state);
- void read_state_buffered_data(const void *ctx, struct connection *conn,
- 			      const struct xs_state_connection *sc);
-+void read_state_node(const void *ctx, const void *state);
- 
- #endif /* _XENSTORED_CORE_H */
- 
+Changes in V12:
+- addressed Andrew's comments (patches 1-5)
+- fixed mangled patches 12 and 13
+
+Changes in V11:
+- dropped patches 1-3 of V10 as already appled
+- new patches 1-4 (Andrew Cooper): more libxenevtchn cleanup
+- new patch 12 (Edwin Torok): handle timeout of LU completely in
+  xenstored instead of split xenstore-control/xenstored. I've kept
+  the xenstore-control timeout handling for the case of premature
+  LU supporting downstream versions
+
+Changes in V10 (for the members of the security team):
+- dropped patch 6 as requested by Andrew
+
+Juergen Gross (26):
+  tools/libxenevtchn: switch to standard xen coding style
+  tools/libxenevtchn: rename open_flags to flags
+  tools/libxenevtchn: check xenevtchn_open() flags for not supported
+    bits
+  tools/libxenevtchn: propagate xenevtchn_open() flags parameter
+  tools/libxenevtchn: add possibility to not close file descriptor on
+    exec
+  tools/xenstore: refactor XS_CONTROL handling
+  tools/xenstore: add live update command to xenstore-control
+  tools/xenstore: add basic live-update command parsing
+  tools/xenstore: introduce live update status block
+  tools/xenstore: save new binary for live update
+  tools/xenstore: add command line handling for live update
+  tools/xenstore: add support for delaying execution of a xenstore
+    request
+  tools/xenstore: add the basic framework for doing the live update
+  tools/xenstore: allow live update only with no transaction active
+  docs: update the xenstore migration stream documentation
+  tools/xenstore: add include file for state structure definitions
+  tools/xenstore: dump the xenstore state for live update
+  tools/xenstore: handle CLOEXEC flag for local files and pipes
+  tools/xenstore: split off domain introduction from do_introduce()
+  tools/xenstore: evaluate the live update flag when starting
+  tools/xenstore: read internal state when doing live upgrade
+  tools/xenstore: add reading global state for live update
+  tools/xenstore: add read connection state for live update
+  tools/xenstore: add read node state for live update
+  tools/xenstore: add read watch state for live update
+  tools/xenstore: activate new binary for live update
+
+Julien Grall (1):
+  tools/xenstore: handle dying domains in live update
+
+ docs/designs/xenstore-migration.md      |  19 +-
+ docs/misc/xenstore.txt                  |  21 +
+ tools/include/xenevtchn.h               |  52 +-
+ tools/libs/evtchn/Makefile              |   2 +-
+ tools/libs/evtchn/core.c                |  74 ++-
+ tools/libs/evtchn/freebsd.c             |  34 +-
+ tools/libs/evtchn/libxenevtchn.map      |   4 +
+ tools/libs/evtchn/linux.c               |  12 +-
+ tools/libs/evtchn/minios.c              | 104 +++-
+ tools/libs/evtchn/netbsd.c              |  24 +-
+ tools/libs/evtchn/private.h             |   2 +-
+ tools/libs/evtchn/solaris.c             |  14 +-
+ tools/xenstore/Makefile                 |   3 +-
+ tools/xenstore/include/xenstore_state.h | 131 +++++
+ tools/xenstore/utils.c                  |  17 +
+ tools/xenstore/utils.h                  |   6 +
+ tools/xenstore/xenstore_control.c       | 333 +++++++++++-
+ tools/xenstore/xenstored_control.c      | 649 +++++++++++++++++++++++-
+ tools/xenstore/xenstored_control.h      |   1 +
+ tools/xenstore/xenstored_core.c         | 556 ++++++++++++++++++--
+ tools/xenstore/xenstored_core.h         |  59 +++
+ tools/xenstore/xenstored_domain.c       | 301 ++++++++---
+ tools/xenstore/xenstored_domain.h       |  11 +-
+ tools/xenstore/xenstored_posix.c        |  13 +-
+ tools/xenstore/xenstored_transaction.c  |   5 +
+ tools/xenstore/xenstored_watch.c        | 171 +++++--
+ tools/xenstore/xenstored_watch.h        |   5 +
+ 27 files changed, 2362 insertions(+), 261 deletions(-)
+ create mode 100644 tools/xenstore/include/xenstore_state.h
+
 -- 
 2.26.2
 
