@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 369E12F72B1
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 07:05:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67646.120870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 527AB2F72C0
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 07:13:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67653.120886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0IE1-0001CM-S4; Fri, 15 Jan 2021 06:04:45 +0000
+	id 1l0IMF-0002Cy-OZ; Fri, 15 Jan 2021 06:13:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67646.120870; Fri, 15 Jan 2021 06:04:45 +0000
+Received: by outflank-mailman (output) from mailman id 67653.120886; Fri, 15 Jan 2021 06:13:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0IE1-0001Bx-Oo; Fri, 15 Jan 2021 06:04:45 +0000
-Received: by outflank-mailman (input) for mailman id 67646;
- Fri, 15 Jan 2021 06:04:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l0IMF-0002CZ-L3; Fri, 15 Jan 2021 06:13:15 +0000
+Received: by outflank-mailman (input) for mailman id 67653;
+ Fri, 15 Jan 2021 06:13:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l0IE0-0001Bp-UX; Fri, 15 Jan 2021 06:04:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l0IE0-0004Tr-MO; Fri, 15 Jan 2021 06:04:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l0IE0-0004xF-Bm; Fri, 15 Jan 2021 06:04:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l0IE0-00041n-BG; Fri, 15 Jan 2021 06:04:44 +0000
+ (envelope-from <SRS0=v6X5=GS=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l0IMD-0002CU-My
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 06:13:13 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5fe7d817-3d81-4653-a85e-4fc145a3503c;
+ Fri, 15 Jan 2021 06:13:11 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 32CF9AB7A;
+ Fri, 15 Jan 2021 06:13:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,91 +39,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/B3RCN9fas9fFx9yMRNpBDjBAY+mPoG3qF30MfnKlZQ=; b=UlfhErhyTD4rtsxK9gJZq3rajN
-	pv5Qv1im6en3MFj6vlf9KmNit4t9JGjWw45xn6rzV/v41wFkkvTQzR7D+oDKyThVUBHQm00vR6et3
-	20JxCqVjH9b+4orqvSZwB20qwF0lzJWsl01OSNGMU9K7naHsOG+jxDuenSyA7kH9dzTI=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158429-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5fe7d817-3d81-4653-a85e-4fc145a3503c
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610691190; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+giA5pfJH9s5rBNcOv5hbgCYcbxD/Qc2+iHKn+txBzI=;
+	b=ssS+bHUy+EOcd7X6VmTOyPolzUKPP7tb+K4EDplp/6gjZQbX+VasozR9lFDl6MnAabOOVX
+	fzGJelgbLj/OC2+bQ6YTdUj1l2kM0lw0gV8Ou8KOso70v/d2+3su6oikbr3RD1DMWIiRZl
+	DWPSipIU3p62lIEMH/wIGMfhY/auazo=
+Subject: Re: [PATCH v11 01/27] tools/libxenevtchn: switch to standard xen
+ coding style
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20210114153803.2591-1-jgross@suse.com>
+ <20210114153803.2591-2-jgross@suse.com>
+ <5f282314-d07f-33eb-1e5b-118ce4de3687@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <fc93b4fd-d662-70ed-b133-3ba80051b1e5@suse.com>
+Date: Fri, 15 Jan 2021 07:13:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158429: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-localmigrate:fail:allowable
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f58976544ff40d2488c3e2b05c765916eacf3e7c
-X-Osstest-Versions-That:
-    xen=84a37d24a9e962e9c2fa8eb4671ea60c0958157d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 15 Jan 2021 06:04:44 +0000
+In-Reply-To: <5f282314-d07f-33eb-1e5b-118ce4de3687@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="N9xLf37lG1tyopdcHzv9WZZXrl2J6Rfir"
 
-flight 158429 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158429/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--N9xLf37lG1tyopdcHzv9WZZXrl2J6Rfir
+Content-Type: multipart/mixed; boundary="00AVNrkIkZcJELIETduhX0nEdScD9Ta3f";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Message-ID: <fc93b4fd-d662-70ed-b133-3ba80051b1e5@suse.com>
+Subject: Re: [PATCH v11 01/27] tools/libxenevtchn: switch to standard xen
+ coding style
+References: <20210114153803.2591-1-jgross@suse.com>
+ <20210114153803.2591-2-jgross@suse.com>
+ <5f282314-d07f-33eb-1e5b-118ce4de3687@citrix.com>
+In-Reply-To: <5f282314-d07f-33eb-1e5b-118ce4de3687@citrix.com>
 
-Failures :-/ but no regressions.
+--00AVNrkIkZcJELIETduhX0nEdScD9Ta3f
+Content-Type: multipart/mixed;
+ boundary="------------2951456F6F42C32049445C40"
+Content-Language: en-US
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 16 guest-localmigrate fail REGR. vs. 158420
+This is a multi-part message in MIME format.
+--------------2951456F6F42C32049445C40
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+On 14.01.21 20:07, Andrew Cooper wrote:
+> On 14/01/2021 15:37, Juergen Gross wrote:
+>> There is a mixture of different styles in libxenevtchn. Use the
+>> standard xen style only.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>=20
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, although if whoeve=
+r
+> commits could fix these as well, that would be great.
 
-version targeted for testing:
- xen                  f58976544ff40d2488c3e2b05c765916eacf3e7c
-baseline version:
- xen                  84a37d24a9e962e9c2fa8eb4671ea60c0958157d
-
-Last test of basis   158420  2021-01-14 13:01:30 Z    0 days
-Testing same since   158429  2021-01-15 03:01:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     pass    
+Will send v12 today with those fixes included.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Juergen
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+--------------2951456F6F42C32049445C40
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------2951456F6F42C32049445C40--
 
-Pushing revision :
+--00AVNrkIkZcJELIETduhX0nEdScD9Ta3f--
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   84a37d24a9..f58976544f  f58976544ff40d2488c3e2b05c765916eacf3e7c -> smoke
+--N9xLf37lG1tyopdcHzv9WZZXrl2J6Rfir
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmABMnUFAwAAAAAACgkQsN6d1ii/Ey/l
+Jwf9HV1BPRefF3oiIEHT8MaG6rhXehhUj71jgHXJqBwNIBPxKLp/Fkx4GolV9NyQLIgmFP8Ifw3W
+dptKrjna0z/ZQxs88dlSY1Lg5ZEPBUGBht0YJkt2WYuA5WBnPwusR8mmAusl9nQMcMYJRCiAnXWe
+KC/DZG4Z/Y/Wd7lFBf+rQntJWKVNSSWzD9PSxFaXT5r+XnC+Jq0HVa1nlTBUfjjkuyYgFZDx/Yzc
+fdjqfXmodUwv+F/Dsz4OXYS6HCzeLDJW3aMDMtfuDdSuwDahHk85ReHr1Eh33CSmPg+nK37V5HVE
+xvrfAnpUCrnUpP9JNW9elQS2+piGpSG4aAkFbdnqDQ==
+=GWeY
+-----END PGP SIGNATURE-----
+
+--N9xLf37lG1tyopdcHzv9WZZXrl2J6Rfir--
 
