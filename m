@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0822F7462
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 09:30:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67719.121063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F9582F7474
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 09:39:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.67773.121218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0KV2-0000BS-Fr; Fri, 15 Jan 2021 08:30:28 +0000
+	id 1l0KdE-0002FK-Kq; Fri, 15 Jan 2021 08:38:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67719.121063; Fri, 15 Jan 2021 08:30:28 +0000
+Received: by outflank-mailman (output) from mailman id 67773.121218; Fri, 15 Jan 2021 08:38:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0KV2-0000AR-6G; Fri, 15 Jan 2021 08:30:28 +0000
-Received: by outflank-mailman (input) for mailman id 67719;
- Fri, 15 Jan 2021 08:30:26 +0000
+	id 1l0KdE-0002Ex-HE; Fri, 15 Jan 2021 08:38:56 +0000
+Received: by outflank-mailman (input) for mailman id 67773;
+ Fri, 15 Jan 2021 08:38:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v6X5=GS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l0KV0-0008HA-NZ
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 08:30:26 +0000
+ id 1l0KVZ-0008HA-OY
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 08:31:01 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0789dfb0-94f5-4c89-92bf-a458d21bdaad;
- Fri, 15 Jan 2021 08:30:08 +0000 (UTC)
+ id f1689b74-caa3-485b-abda-2be48273fd9f;
+ Fri, 15 Jan 2021 08:30:12 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7C985B93E;
+ by mx2.suse.de (Postfix) with ESMTP id DA13BB976;
  Fri, 15 Jan 2021 08:30:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,639 +39,555 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0789dfb0-94f5-4c89-92bf-a458d21bdaad
+X-Inumbo-ID: f1689b74-caa3-485b-abda-2be48273fd9f
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1610699407; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nn9gMpfhe1E74/K4cM3t3wmRxzIvFt83elDpS8B51eA=;
-	b=B5BKDWagh7zCJ7khiwDz8pvoE3kY4Cw+wOHBo2dCEP+Xj1CzmdivLP1bW7XLWU9XLqphvz
-	C/WkCyIwPN+Wk9muBxbuSD3xWAkLOY33AsjFFQ1v/Z9R9DNdWAsyIvC+OZlJoXadkjshqU
-	A1/gGoAAMsvb5/0f9W6RTiF300ZXuaU=
+	bh=HsL6Mc3rID019qlX5MsNpyOqL+eLxMf7VkME+T0xvLY=;
+	b=nN6Sdo6GoPhsMN+yZJuGZB2FgITdGoH6cNZSX16IisYjZkTZLHVnVQ6a0dsCUXWubTuW/T
+	Ht6IWSul++usJWG7gGzUq5BekwprQqWKCeNoN8/D6PPdZ0eYVxOq+jVMP7h7VtfxBT+jnD
+	YIbfFPCBLd92PjFOgViJbdKb8q5qRd4=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
 	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v12 01/27] tools/libxenevtchn: switch to standard xen coding style
-Date: Fri, 15 Jan 2021 09:29:34 +0100
-Message-Id: <20210115083000.14186-2-jgross@suse.com>
+	Paul Durrant <paul@xen.org>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v12 07/27] tools/xenstore: add live update command to xenstore-control
+Date: Fri, 15 Jan 2021 09:29:40 +0100
+Message-Id: <20210115083000.14186-8-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210115083000.14186-1-jgross@suse.com>
 References: <20210115083000.14186-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is a mixture of different styles in libxenevtchn. Use the
-standard xen style only.
+Add the "live-update" command to xenstore-control enabling updating
+xenstored to a new version in a running Xen system.
 
-No functional change.
+With -c <arg> it is possible to pass a different command line to the
+new instance of xenstored. This will replace the command line used
+for the invocation of the just running xenstored instance.
+
+The running xenstored (or xenstore-stubdom) needs to support live
+updating, of course.
+
+For now just add a small dummy handler to C xenstore denying any
+live update action.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
+V2:
+- add 0 byte after kernel chunk
+- add comment regrading add_to_buf() semantics (Pawel Wieczorkiewicz)
+- use %u for unsigned in format (Pawel Wieczorkiewicz)
+- explain buffer size better (Pawel Wieczorkiewicz)
+- add loop around "-s" option for client side retry in case of timeout
+
+V3:
+- add live-update command to docs/misc/xenstore.txt (Paul Durrant)
+- fix indent (Paul Durrant)
+
+V4:
+- made several parameters const (Julien Grall)
+- added more details to xenstore.txt (Julien Grall)
+
+V5:
+- set old_binary to NULL initially (Paul Durrant)
+
+V6:
+- use strerror(errno) in error message (Julien Grall)
+
+V10:
+- make binary specification mandatory (Andrew Cooper)
+
 V11:
-- new patch
-
-V12:
-- fixed two other style issues (Andrew Cooper)
+- add sleep(1) in timeout loop (Edwin Torok)
 ---
- tools/libs/evtchn/core.c    | 24 +++++----
- tools/libs/evtchn/freebsd.c | 25 +++++++---
- tools/libs/evtchn/linux.c   |  4 ++
- tools/libs/evtchn/minios.c  | 98 +++++++++++++++++++++++++++----------
- tools/libs/evtchn/netbsd.c  | 22 ++++++---
- tools/libs/evtchn/solaris.c | 12 +++--
- 6 files changed, 131 insertions(+), 54 deletions(-)
+ docs/misc/xenstore.txt             |  21 ++
+ tools/xenstore/Makefile            |   3 +-
+ tools/xenstore/xenstore_control.c  | 333 +++++++++++++++++++++++++++--
+ tools/xenstore/xenstored_control.c |  30 +++
+ 4 files changed, 370 insertions(+), 17 deletions(-)
 
-diff --git a/tools/libs/evtchn/core.c b/tools/libs/evtchn/core.c
-index aff6ecfaa0..8090d0ce87 100644
---- a/tools/libs/evtchn/core.c
-+++ b/tools/libs/evtchn/core.c
-@@ -18,10 +18,11 @@
+diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+index 2081f20f55..1480742330 100644
+--- a/docs/misc/xenstore.txt
++++ b/docs/misc/xenstore.txt
+@@ -317,6 +317,27 @@ CONTROL			<command>|[<parameters>|]
+ 	Current commands are:
+ 	check
+ 		checks xenstored innards
++	live-update|<params>|+
++		perform a live-update of the Xenstore daemon, only to
++		be used via xenstore-control command.
++		<params> are implementation specific and are used for
++		different steps of the live-update processing. Currently
++		supported <params> are:
++		-f <file>  specify new daemon binary
++		-b <size>  specify size of new stubdom binary
++		-d <chunk-size> <binary-chunk>  transfer chunk of new
++			stubdom binary
++		-c <pars>  specify new command line to use
++		-s [-t <sec>] [-F]  start live update process (-t specifies
++			timeout in seconds to wait for active transactions
++			to finish, default is 60 seconds; -F will force
++			live update to happen even with running transactions
++			after timeout elapsed)
++		-a  abort live update handling
++		All sub-options will return "OK" in case of success or an
++		error string in case of failure. -s can return "BUSY" in case
++		of an active transaction, a retry of -s can be done in that
++		case.
+ 	log|on
+ 		turn xenstore logging on
+ 	log|off
+diff --git a/tools/xenstore/Makefile b/tools/xenstore/Makefile
+index 9a0f0d012d..ab89e22d3a 100644
+--- a/tools/xenstore/Makefile
++++ b/tools/xenstore/Makefile
+@@ -11,6 +11,7 @@ CFLAGS += -include $(XEN_ROOT)/tools/config.h
+ CFLAGS += -I./include
+ CFLAGS += $(CFLAGS_libxenevtchn)
+ CFLAGS += $(CFLAGS_libxenctrl)
++CFLAGS += $(CFLAGS_libxenguest)
+ CFLAGS += $(CFLAGS_libxentoolcore)
+ CFLAGS += -DXEN_LIB_STORED="\"$(XEN_LIB_STORED)\""
+ CFLAGS += -DXEN_RUN_STORED="\"$(XEN_RUN_STORED)\""
+@@ -81,7 +82,7 @@ xenstore: xenstore_client.o
+ 	$(CC) $< $(LDFLAGS) $(LDLIBS_libxenstore) $(LDLIBS_libxentoolcore) $(SOCKET_LIBS) -o $@ $(APPEND_LDFLAGS)
  
- #include "private.h"
+ xenstore-control: xenstore_control.o
+-	$(CC) $< $(LDFLAGS) $(LDLIBS_libxenstore) $(LDLIBS_libxentoolcore) $(SOCKET_LIBS) -o $@ $(APPEND_LDFLAGS)
++	$(CC) $< $(LDFLAGS) $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest) $(LDLIBS_libxentoolcore) $(SOCKET_LIBS) -o $@ $(APPEND_LDFLAGS)
  
--static int all_restrict_cb(Xentoolcore__Active_Handle *ah, domid_t domid) {
-+static int all_restrict_cb(Xentoolcore__Active_Handle *ah, domid_t domid)
+ xs_tdb_dump: xs_tdb_dump.o utils.o tdb.o talloc.o
+ 	$(CC) $^ $(LDFLAGS) -o $@ $(APPEND_LDFLAGS)
+diff --git a/tools/xenstore/xenstore_control.c b/tools/xenstore/xenstore_control.c
+index afa04495a7..6031f216c7 100644
+--- a/tools/xenstore/xenstore_control.c
++++ b/tools/xenstore/xenstore_control.c
+@@ -1,9 +1,312 @@
++#define _GNU_SOURCE
++#include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <time.h>
++#include <xenctrl.h>
++#include <xenguest.h>
+ 
+ #include "xenstore.h"
+ 
++/* Add a string plus terminating 0 byte to buf, returning new len. */
++static int add_to_buf(char **buf, const char *val, int len)
 +{
-     xenevtchn_handle *xce = CONTAINER_OF(ah, *xce, tc_ah);
- 
--    if (xce->fd < 0)
-+    if ( xce->fd < 0 )
-         /* just in case */
-         return 0;
- 
-@@ -33,7 +34,8 @@ xenevtchn_handle *xenevtchn_open(xentoollog_logger *logger, unsigned open_flags)
-     xenevtchn_handle *xce = malloc(sizeof(*xce));
-     int rc;
- 
--    if (!xce) return NULL;
-+    if ( !xce )
-+        return NULL;
- 
-     xce->fd = -1;
-     xce->logger = logger;
-@@ -42,23 +44,26 @@ xenevtchn_handle *xenevtchn_open(xentoollog_logger *logger, unsigned open_flags)
-     xce->tc_ah.restrict_callback = all_restrict_cb;
-     xentoolcore__register_active_handle(&xce->tc_ah);
- 
--    if (!xce->logger) {
--        xce->logger = xce->logger_tofree =
--            (xentoollog_logger*)
-+    if ( !xce->logger )
-+    {
-+        xce->logger = xce->logger_tofree = (xentoollog_logger *)
-             xtl_createlogger_stdiostream(stderr, XTL_PROGRESS, 0);
--        if (!xce->logger) goto err;
-+        if ( !xce->logger )
++    int vallen = strlen(val) + 1;
++
++    if (len < 0)
++        return -1;
++
++    *buf = realloc(*buf, len + vallen);
++    if (!*buf)
++        return -1;
++
++    strcpy(*buf + len, val);
++
++    return len + vallen;
++}
++
++static int live_update_start(struct xs_handle *xsh, bool force, unsigned int to)
++{
++    int len = 0;
++    char *buf = NULL, *ret;
++    time_t time_start;
++
++    if (asprintf(&ret, "%u", to) < 0)
++        return 1;
++    len = add_to_buf(&buf, "-s", len);
++    len = add_to_buf(&buf, "-t", len);
++    len = add_to_buf(&buf, ret, len);
++    free(ret);
++    if (force)
++        len = add_to_buf(&buf, "-F", len);
++    if (len < 0)
++        return 1;
++
++    for (time_start = time(NULL); time(NULL) - time_start < to;) {
++        ret = xs_control_command(xsh, "live-update", buf, len);
++        if (!ret)
 +            goto err;
-     }
- 
-     rc = osdep_evtchn_open(xce);
--    if ( rc  < 0 ) goto err;
-+    if ( rc < 0 )
++        if (strcmp(ret, "BUSY"))
++            break;
++        sleep(1);
++    }
++
++    if (strcmp(ret, "OK"))
 +        goto err;
- 
-     return xce;
- 
--err:
++
++    free(buf);
++    free(ret);
++
++    return 0;
++
 + err:
-     xentoolcore__deregister_active_handle(&xce->tc_ah);
-     osdep_evtchn_close(xce);
-     xtl_logger_destroy(xce->logger_tofree);
-     free(xce);
++    fprintf(stderr, "Starting live update failed:\n%s\n",
++            ret ? : strerror(errno));
++    free(buf);
++    free(ret);
 +
-     return NULL;
- }
- 
-@@ -73,6 +78,7 @@ int xenevtchn_close(xenevtchn_handle *xce)
-     rc = osdep_evtchn_close(xce);
-     xtl_logger_destroy(xce->logger_tofree);
-     free(xce);
++    return 3;
++}
 +
-     return rc;
- }
- 
-diff --git a/tools/libs/evtchn/freebsd.c b/tools/libs/evtchn/freebsd.c
-index 6564ed4c44..554af122c8 100644
---- a/tools/libs/evtchn/freebsd.c
-+++ b/tools/libs/evtchn/freebsd.c
-@@ -34,9 +34,12 @@
- int osdep_evtchn_open(xenevtchn_handle *xce)
- {
-     int fd = open(EVTCHN_DEV, O_RDWR|O_CLOEXEC);
-+
-     if ( fd == -1 )
-         return -1;
-+
-     xce->fd = fd;
-+
-     return 0;
- }
- 
-@@ -51,6 +54,7 @@ int osdep_evtchn_close(xenevtchn_handle *xce)
- int osdep_evtchn_restrict(xenevtchn_handle *xce, domid_t domid)
- {
-     errno = -EOPNOTSUPP;
-+
-     return -1;
- }
- 
-@@ -69,7 +73,8 @@ int xenevtchn_notify(xenevtchn_handle *xce, evtchn_port_t port)
-     return ioctl(fd, IOCTL_EVTCHN_NOTIFY, &notify);
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce, uint32_t domid)
-+xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce,
-+                                                      uint32_t domid)
- {
-     int ret, fd = xce->fd;
-     struct ioctl_evtchn_bind_unbound_port bind;
-@@ -77,11 +82,13 @@ xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce, uin
-     bind.remote_domain = domid;
- 
-     ret = ioctl(fd, IOCTL_EVTCHN_BIND_UNBOUND_PORT, &bind);
--    return ( ret == 0 ) ? bind.port : ret;
-+
-+    return ret ?: bind.port;
- }
- 
--xenevtchn_port_or_error_t
--xenevtchn_bind_interdomain(xenevtchn_handle *xce, uint32_t domid, evtchn_port_t remote_port)
-+xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce,
-+                                                     uint32_t domid,
-+                                                     evtchn_port_t remote_port)
- {
-     int ret, fd = xce->fd;
-     struct ioctl_evtchn_bind_interdomain bind;
-@@ -90,10 +97,12 @@ xenevtchn_bind_interdomain(xenevtchn_handle *xce, uint32_t domid, evtchn_port_t
-     bind.remote_port = remote_port;
- 
-     ret = ioctl(fd, IOCTL_EVTCHN_BIND_INTERDOMAIN, &bind);
--    return ( ret == 0 ) ? bind.port : ret;
-+
-+    return ret ?: bind.port;
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce, unsigned int virq)
-+xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce,
-+                                              unsigned int virq)
- {
-     int ret, fd = xce->fd;
-     struct ioctl_evtchn_bind_virq bind;
-@@ -101,7 +110,8 @@ xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce, unsigned in
-     bind.virq = virq;
- 
-     ret = ioctl(fd, IOCTL_EVTCHN_BIND_VIRQ, &bind);
--    return ( ret == 0 ) ? bind.port : ret;
-+
-+    return ret ?: bind.port;
- }
- 
- int xenevtchn_unbind(xenevtchn_handle *xce, evtchn_port_t port)
-@@ -131,6 +141,7 @@ int xenevtchn_unmask(xenevtchn_handle *xce, evtchn_port_t port)
- 
-     if ( write(fd, &port, sizeof(port)) != sizeof(port) )
-         return -1;
-+
-     return 0;
- }
- 
-diff --git a/tools/libs/evtchn/linux.c b/tools/libs/evtchn/linux.c
-index 17e64aea32..4582a58ec4 100644
---- a/tools/libs/evtchn/linux.c
-+++ b/tools/libs/evtchn/linux.c
-@@ -37,9 +37,12 @@
- int osdep_evtchn_open(xenevtchn_handle *xce)
- {
-     int fd = open("/dev/xen/evtchn", O_RDWR|O_CLOEXEC);
-+
-     if ( fd == -1 )
-         return -1;
-+
-     xce->fd = fd;
-+
-     return 0;
- }
- 
-@@ -135,6 +138,7 @@ int xenevtchn_unmask(xenevtchn_handle *xce, evtchn_port_t port)
- 
-     if ( write(fd, &port, sizeof(port)) != sizeof(port) )
-         return -1;
-+
-     return 0;
- }
- 
-diff --git a/tools/libs/evtchn/minios.c b/tools/libs/evtchn/minios.c
-index 9cd7636fc5..bbb313a521 100644
---- a/tools/libs/evtchn/minios.c
-+++ b/tools/libs/evtchn/minios.c
-@@ -43,22 +43,28 @@ extern void minios_evtchn_close_fd(int fd);
- extern struct wait_queue_head event_queue;
- 
- /* XXX Note: This is not threadsafe */
--static struct evtchn_port_info* port_alloc(int fd) {
-+static struct evtchn_port_info* port_alloc(int fd)
++static int live_update_cmdline(struct xs_handle *xsh, const char *cmdline)
 +{
-     struct evtchn_port_info *port_info;
++    int len = 0, rc = 0;
++    char *buf = NULL, *ret;
 +
-     port_info = malloc(sizeof(struct evtchn_port_info));
--    if (port_info == NULL)
-+    if ( port_info == NULL )
-         return NULL;
++    len = add_to_buf(&buf, "-c", len);
++    len = add_to_buf(&buf, cmdline, len);
++    if (len < 0)
++        return 1;
 +
-     port_info->pending = 0;
-     port_info->port = -1;
-     port_info->bound = 0;
- 
-     LIST_INSERT_HEAD(&files[fd].evtchn.ports, port_info, list);
++    ret = xs_control_command(xsh, "live-update", buf, len);
++    free(buf);
++    if (!ret || strcmp(ret, "OK")) {
++        fprintf(stderr, "Setting update binary failed:\n%s\n",
++                ret ? : strerror(errno));
++        rc = 3;
++    }
++    free(ret);
 +
-     return port_info;
- }
- 
--static void port_dealloc(struct evtchn_port_info *port_info) {
--    if (port_info->bound)
-+static void port_dealloc(struct evtchn_port_info *port_info)
++    return rc;
++}
++
++static int send_kernel_blob(struct xs_handle *xsh, const char *binary)
 +{
-+    if ( port_info->bound )
-         unbind_evtchn(port_info->port);
++    int rc = 0, len = 0;
++    xc_interface *xch;
++    struct xc_dom_image *dom;
++    char *ret, *buf = NULL;
++    size_t off, sz;
++#define BLOB_CHUNK_SZ 2048
 +
-     LIST_REMOVE(port_info, list);
-     free(port_info);
- }
-@@ -66,11 +72,14 @@ static void port_dealloc(struct evtchn_port_info *port_info) {
- int osdep_evtchn_open(xenevtchn_handle *xce)
- {
-     int fd = alloc_fd(FTYPE_EVTCHN);
++    xch = xc_interface_open(NULL, NULL, 0);
++    if (!xch) {
++        fprintf(stderr, "xc_interface_open() failed\n");
++        return 1;
++    }
 +
-     if ( fd == -1 )
-         return -1;
++    dom = xc_dom_allocate(xch, NULL, NULL);
++    if (!dom) {
++        rc = 1;
++        goto out_close;
++    }
 +
-     LIST_INIT(&files[fd].evtchn.ports);
-     xce->fd = fd;
-     printf("evtchn_open() -> %d\n", fd);
++    rc = xc_dom_kernel_file(dom, binary);
++    if (rc) {
++        rc = 1;
++        goto out_rel;
++    }
 +
-     return 0;
- }
- 
-@@ -85,12 +94,14 @@ int osdep_evtchn_close(xenevtchn_handle *xce)
- int osdep_evtchn_restrict(xenevtchn_handle *xce, domid_t domid)
- {
-     errno = -EOPNOTSUPP;
++    if (asprintf(&ret, "%zu", dom->kernel_size) < 0) {
++        rc = 1;
++        goto out_rel;
++    }
++    len = add_to_buf(&buf, "-b", len);
++    len = add_to_buf(&buf, ret, len);
++    free(ret);
++    if (len < 0) {
++        rc = 1;
++        goto out_rel;
++    }
++    ret = xs_control_command(xsh, "live-update", buf, len);
++    free(buf);
++    if (!ret || strcmp(ret, "OK")) {
++        fprintf(stderr, "Starting live update failed:\n%s\n",
++                ret ? : strerror(errno));
++        rc = 3;
++    }
++    free(ret);
++    if (rc)
++        goto out_rel;
 +
-     return -1;
- }
- 
- void minios_evtchn_close_fd(int fd)
- {
-     struct evtchn_port_info *port_info, *tmp;
++    /* buf capable to hold "-d" <1..2048> BLOB_CHUNK_SZ and a terminating 0. */
++    buf = malloc(3 + 5 + BLOB_CHUNK_SZ + 1);
++    if (!buf) {
++        rc = 1;
++        goto out_rel;
++    }
 +
-     LIST_FOREACH_SAFE(port_info, &files[fd].evtchn.ports, list, tmp)
-         port_dealloc(port_info);
- 
-@@ -108,10 +119,12 @@ int xenevtchn_notify(xenevtchn_handle *xce, evtchn_port_t port)
- 
-     ret = notify_remote_via_evtchn(port);
- 
--    if (ret < 0) {
-+    if ( ret < 0 )
-+    {
-         errno = -ret;
-         ret = -1;
-     }
++    strcpy(buf, "-d");
++    sz = BLOB_CHUNK_SZ;
++    for (off = 0; off < dom->kernel_size; off += BLOB_CHUNK_SZ) {
++        if (dom->kernel_size - off < BLOB_CHUNK_SZ)
++            sz = dom->kernel_size - off;
++        sprintf(buf + 3, "%zu", sz);
++        len = 3 + strlen(buf + 3) + 1;
++        memcpy(buf + len, dom->kernel_blob + off, sz);
++        buf[len + sz] = 0;
++        len += sz + 1;
++        ret = xs_control_command(xsh, "live-update", buf, len);
++        if (!ret || strcmp(ret, "OK")) {
++            fprintf(stderr, "Transfer of new binary failed:\n%s\n",
++                    ret ? : strerror(errno));
++            rc = 3;
++            free(ret);
++            break;
++        }
++        free(ret);
++    }
 +
-     return ret;
- }
- 
-@@ -119,12 +132,15 @@ static void evtchn_handler(evtchn_port_t port, struct pt_regs *regs, void *data)
- {
-     int fd = (int)(intptr_t)data;
-     struct evtchn_port_info *port_info;
++    free(buf);
 +
-     assert(files[fd].type == FTYPE_EVTCHN);
-     mask_evtchn(port);
--    LIST_FOREACH(port_info, &files[fd].evtchn.ports, list) {
--        if (port_info->port == port)
-+    LIST_FOREACH(port_info, &files[fd].evtchn.ports, list)
-+    {
-+        if ( port_info->port == port )
-             goto found;
-     }
++ out_rel:
++    xc_dom_release(dom);
 +
-     printk("Unknown port for handle %d\n", fd);
-     return;
- 
-@@ -134,7 +150,8 @@ static void evtchn_handler(evtchn_port_t port, struct pt_regs *regs, void *data)
-     wake_up(&event_queue);
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce, uint32_t domid)
-+xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce,
-+                                                      uint32_t domid)
- {
-     int fd = xce->fd;
-     struct evtchn_port_info *port_info;
-@@ -143,26 +160,31 @@ xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce, uin
- 
-     assert(get_current() == main_thread);
-     port_info = port_alloc(fd);
--    if (port_info == NULL)
-+    if ( port_info == NULL )
-         return -1;
- 
-     printf("xenevtchn_bind_unbound_port(%d)", domid);
--    ret = evtchn_alloc_unbound(domid, evtchn_handler, (void*)(intptr_t)fd, &port);
-+    ret = evtchn_alloc_unbound(domid, evtchn_handler,
-+                               (void *)(intptr_t)fd, &port);
-     printf(" = %d\n", ret);
- 
--    if (ret < 0) {
-+    if ( ret < 0 )
-+    {
-         port_dealloc(port_info);
-         errno = -ret;
-         return -1;
-     }
++ out_close:
++    xc_interface_close(xch);
 +
-     port_info->bound = 1;
-     port_info->port = port;
-     unmask_evtchn(port);
++    return rc;
++}
 +
-     return port;
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce, uint32_t domid,
--                                                  evtchn_port_t remote_port)
-+xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce,
-+                                                     uint32_t domid,
-+                                                     evtchn_port_t remote_port)
- {
-     int fd = xce->fd;
-     struct evtchn_port_info *port_info;
-@@ -171,21 +193,25 @@ xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce, uint
- 
-     assert(get_current() == main_thread);
-     port_info = port_alloc(fd);
--    if (port_info == NULL)
-+    if ( port_info == NULL )
-         return -1;
- 
-     printf("xenevtchn_bind_interdomain(%d, %"PRId32")", domid, remote_port);
--    ret = evtchn_bind_interdomain(domid, remote_port, evtchn_handler, (void*)(intptr_t)fd, &local_port);
-+    ret = evtchn_bind_interdomain(domid, remote_port, evtchn_handler,
-+                                  (void *)(intptr_t)fd, &local_port);
-     printf(" = %d\n", ret);
- 
--    if (ret < 0) {
-+    if ( ret < 0 )
-+    {
-         port_dealloc(port_info);
-         errno = -ret;
-         return -1;
-     }
++/*
++ * Live update of Xenstore stubdom
++ *
++ * Sequence of actions:
++ * 1. transfer new stubdom binary
++ *    a) specify size
++ *    b) transfer unpacked binary in chunks
++ * 2. transfer new cmdline (optional)
++ * 3. start update (includes flags)
++ */
++static int live_update_stubdom(struct xs_handle *xsh, const char *binary,
++                               const char *cmdline, bool force, unsigned int to)
++{
++    int rc;
 +
-     port_info->bound = 1;
-     port_info->port = local_port;
-     unmask_evtchn(local_port);
++    rc = send_kernel_blob(xsh, binary);
++    if (rc)
++        goto abort;
 +
-     return local_port;
- }
- 
-@@ -194,18 +220,24 @@ int xenevtchn_unbind(xenevtchn_handle *xce, evtchn_port_t port)
-     int fd = xce->fd;
-     struct evtchn_port_info *port_info;
- 
--    LIST_FOREACH(port_info, &files[fd].evtchn.ports, list) {
--        if (port_info->port == port) {
-+    LIST_FOREACH(port_info, &files[fd].evtchn.ports, list)
-+    {
-+        if ( port_info->port == port )
-+        {
-             port_dealloc(port_info);
-             return 0;
-         }
-     }
--    printf("Warning: couldn't find port %"PRId32" for xc handle %x\n", port, fd);
++    if (cmdline) {
++        rc = live_update_cmdline(xsh, cmdline);
++        if (rc)
++            goto abort;
++    }
 +
-+    printf("Warning: couldn't find port %"PRId32" for xc handle %x\n",
-+           port, fd);
-     errno = EINVAL;
++    rc = live_update_start(xsh, force, to);
++    if (rc)
++        goto abort;
 +
-     return -1;
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce, unsigned int virq)
-+xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce,
-+                                              unsigned int virq)
- {
-     int fd = xce->fd;
-     struct evtchn_port_info *port_info;
-@@ -213,21 +245,24 @@ xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce, unsigned in
- 
-     assert(get_current() == main_thread);
-     port_info = port_alloc(fd);
--    if (port_info == NULL)
-+    if ( port_info == NULL )
-         return -1;
- 
-     printf("xenevtchn_bind_virq(%d)", virq);
--    port = bind_virq(virq, evtchn_handler, (void*)(intptr_t)fd);
-+    port = bind_virq(virq, evtchn_handler, (void *)(intptr_t)fd);
-     printf(" = %d\n", port);
- 
--    if (port < 0) {
-+    if ( port < 0 )
-+    {
-         port_dealloc(port_info);
-         errno = -port;
-         return -1;
-     }
++    return 0;
 +
-     port_info->bound = 1;
-     port_info->port = port;
-     unmask_evtchn(port);
++ abort:
++    xs_control_command(xsh, "live-update", "-a", 3);
++    return rc;
++}
 +
-     return port;
- }
- 
-@@ -239,26 +274,35 @@ xenevtchn_port_or_error_t xenevtchn_pending(xenevtchn_handle *xce)
-     evtchn_port_t ret = -1;
- 
-     local_irq_save(flags);
++/*
++ * Live update of Xenstore daemon
++ *
++ * Sequence of actions:
++ * 1. transfer new binary filename
++ * 2. transfer new cmdline (optional)
++ * 3. start update (includes flags)
++ */
++static int live_update_daemon(struct xs_handle *xsh, const char *binary,
++                              const char *cmdline, bool force, unsigned int to)
++{
++    int len = 0, rc;
++    char *buf = NULL, *ret;
 +
-     files[fd].read = 0;
- 
--    LIST_FOREACH(port_info, &files[fd].evtchn.ports, list) {
--        if (port_info->port != -1 && port_info->pending) {
--            if (ret == -1) {
-+    LIST_FOREACH(port_info, &files[fd].evtchn.ports, list)
-+    {
-+        if ( port_info->port != -1 && port_info->pending )
-+        {
-+            if ( ret == -1 )
-+            {
-                 ret = port_info->port;
-                 port_info->pending = 0;
--            } else {
++    len = add_to_buf(&buf, "-f", len);
++    len = add_to_buf(&buf, binary, len);
++    if (len < 0)
++        return 1;
++    ret = xs_control_command(xsh, "live-update", buf, len);
++    free(buf);
++    if (!ret || strcmp(ret, "OK")) {
++        fprintf(stderr, "Setting update binary failed:\n%s\n",
++                ret ? : strerror(errno));
++        free(ret);
++        return 3;
++    }
++    free(ret);
++
++    if (cmdline) {
++        rc = live_update_cmdline(xsh, cmdline);
++        if (rc)
++            goto abort;
++    }
++
++    rc = live_update_start(xsh, force, to);
++    if (rc)
++        goto abort;
++
++    return 0;
++
++ abort:
++    xs_control_command(xsh, "live-update", "-a", 3);
++    return rc;
++}
++
++static int live_update(struct xs_handle *xsh, int argc, char **argv)
++{
++    int rc = 0;
++    unsigned int i, to = 60;
++    char *binary = NULL, *cmdline = NULL, *val;
++    bool force = false;
++
++    for (i = 0; i < argc; i++) {
++        if (!strcmp(argv[i], "-c")) {
++            i++;
++            if (i == argc) {
++                fprintf(stderr, "Missing command line value\n");
++                rc = 2;
++                goto out;
 +            }
-+            else
-+            {
-                 files[fd].read = 1;
-                 break;
-             }
-         }
++            cmdline = argv[i];
++        } else if (!strcmp(argv[i], "-t")) {
++            i++;
++            if (i == argc) {
++                fprintf(stderr, "Missing timeout value\n");
++                rc = 2;
++                goto out;
++            }
++            to = atoi(argv[i]);
++        } else if (!strcmp(argv[i], "-F"))
++            force = true;
++        else
++            binary = argv[i];
++    }
++
++    if (!binary) {
++        fprintf(stderr, "Missing binary specification\n");
++        rc = 2;
++        goto out;
++    }
++
++    val = xs_read(xsh, XBT_NULL, "/tool/xenstored/domid", &i);
++    if (val)
++        rc = live_update_stubdom(xsh, binary, cmdline, force, to);
++    else
++        rc = live_update_daemon(xsh, binary, cmdline, force, to);
++
++    free(val);
++
++ out:
++    return rc;
++}
+ 
+ int main(int argc, char **argv)
+ {
+@@ -20,22 +323,6 @@ int main(int argc, char **argv)
+         goto out;
      }
+ 
+-    for (p = 2; p < argc; p++)
+-        len += strlen(argv[p]) + 1;
+-    if (len) {
+-        par = malloc(len);
+-        if (!par) {
+-            fprintf(stderr, "Allocation error.\n");
+-            rc = 1;
+-            goto out;
+-        }
+-        len = 0;
+-        for (p = 2; p < argc; p++) {
+-            memcpy(par + len, argv[p], strlen(argv[p]) + 1);
+-            len += strlen(argv[p]) + 1;
+-        }
+-    }
+-
+     xsh = xs_open(0);
+     if (xsh == NULL) {
+         fprintf(stderr, "Failed to contact Xenstored.\n");
+@@ -43,6 +330,19 @@ int main(int argc, char **argv)
+         goto out;
+     }
+ 
++    if (!strcmp(argv[1], "live-update")) {
++        rc = live_update(xsh, argc - 2, argv + 2);
++        goto out_close;
++    }
 +
-     local_irq_restore(flags);
++    for (p = 2; p < argc; p++)
++        len = add_to_buf(&par, argv[p], len);
++    if (len < 0) {
++        fprintf(stderr, "Allocation error.\n");
++        rc = 1;
++        goto out_close;
++    }
 +
-     return ret;
+     ret = xs_control_command(xsh, argv[1], par, len);
+     if (!ret) {
+         rc = 3;
+@@ -59,6 +359,7 @@ int main(int argc, char **argv)
+     } else if (strlen(ret) > 0)
+         printf("%s\n", ret);
+ 
++ out_close:
+     xs_close(xsh);
+ 
+  out:
+diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+index 8d29db8270..00fda5acdb 100644
+--- a/tools/xenstore/xenstored_control.c
++++ b/tools/xenstore/xenstored_control.c
+@@ -149,11 +149,41 @@ static int do_control_print(void *ctx, struct connection *conn,
+ 	return 0;
  }
  
- int xenevtchn_unmask(xenevtchn_handle *xce, evtchn_port_t port)
- {
-     unmask_evtchn(port);
++static int do_control_lu(void *ctx, struct connection *conn,
++			 char **vec, int num)
++{
++	const char *resp;
 +
-     return 0;
- }
- 
-diff --git a/tools/libs/evtchn/netbsd.c b/tools/libs/evtchn/netbsd.c
-index 8b8545d2f9..53f9299ebb 100644
---- a/tools/libs/evtchn/netbsd.c
-+++ b/tools/libs/evtchn/netbsd.c
-@@ -34,9 +34,12 @@
- int osdep_evtchn_open(xenevtchn_handle *xce)
- {
-     int fd = open(EVTCHN_DEV_NAME, O_NONBLOCK|O_RDWR);
++	resp = talloc_strdup(ctx, "NYI");
++	send_reply(conn, XS_CONTROL, resp, strlen(resp) + 1);
++	return 0;
++}
 +
-     if ( fd == -1 )
-         return -1;
+ static int do_control_help(void *, struct connection *, char **, int);
+ 
+ static struct cmd_s cmds[] = {
+ 	{ "check", do_control_check, "" },
+ 	{ "log", do_control_log, "on|off" },
 +
-     xce->fd = fd;
-+
-     return 0;
- }
- 
-@@ -51,6 +54,7 @@ int osdep_evtchn_close(xenevtchn_handle *xce)
- int osdep_evtchn_restrict(xenevtchn_handle *xce, domid_t domid)
- {
-     errno = -EOPNOTSUPP;
-+
-     return -1;
- }
- 
-@@ -69,7 +73,8 @@ int xenevtchn_notify(xenevtchn_handle *xce, evtchn_port_t port)
-     return ioctl(fd, IOCTL_EVTCHN_NOTIFY, &notify);
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle * xce, uint32_t domid)
-+xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce,
-+                                                      uint32_t domid)
- {
-     int fd = xce->fd;
-     struct ioctl_evtchn_bind_unbound_port bind;
-@@ -78,14 +83,15 @@ xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle * xce, ui
-     bind.remote_domain = domid;
- 
-     ret = ioctl(fd, IOCTL_EVTCHN_BIND_UNBOUND_PORT, &bind);
--    if (ret == 0)
-+    if ( ret == 0 )
-         return bind.port;
-     else
-         return -1;
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce, uint32_t domid,
--                                                  evtchn_port_t remote_port)
-+xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce,
-+                                                     uint32_t domid,
-+                                                     evtchn_port_t remote_port)
- {
-     int fd = xce->fd;
-     struct ioctl_evtchn_bind_interdomain bind;
-@@ -95,7 +101,7 @@ xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce, uint
-     bind.remote_port = remote_port;
- 
-     ret = ioctl(fd, IOCTL_EVTCHN_BIND_INTERDOMAIN, &bind);
--    if (ret == 0)
-+    if ( ret == 0 )
-         return bind.port;
-     else
-         return -1;
-@@ -111,7 +117,8 @@ int xenevtchn_unbind(xenevtchn_handle *xce, evtchn_port_t port)
-     return ioctl(fd, IOCTL_EVTCHN_UNBIND, &unbind);
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce, unsigned int virq)
-+xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce,
-+                                              unsigned int virq)
- {
-     int fd = xce->fd;
-     struct ioctl_evtchn_bind_virq bind;
-@@ -120,7 +127,7 @@ xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce, unsigned in
-     bind.virq = virq;
- 
-     err = ioctl(fd, IOCTL_EVTCHN_BIND_VIRQ, &bind);
--    if (err)
-+    if ( err )
-         return -1;
-     else
-         return bind.port;
-@@ -140,6 +147,7 @@ xenevtchn_port_or_error_t xenevtchn_pending(xenevtchn_handle *xce)
- int xenevtchn_unmask(xenevtchn_handle *xce, evtchn_port_t port)
- {
-     int fd = xce->fd;
-+
-     return write_exact(fd, (char *)&port, sizeof(port));
- }
- 
-diff --git a/tools/libs/evtchn/solaris.c b/tools/libs/evtchn/solaris.c
-index dd41f62a24..d87abc553c 100644
---- a/tools/libs/evtchn/solaris.c
-+++ b/tools/libs/evtchn/solaris.c
-@@ -72,7 +72,8 @@ int xenevtchn_notify(xenevtchn_handle *xce, evtchn_port_t port)
-     return ioctl(fd, IOCTL_EVTCHN_NOTIFY, &notify);
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce, uint32_t domid)
-+xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce,
-+                                                      uint32_t domid)
- {
-     int fd = xce->fd;
-     struct ioctl_evtchn_bind_unbound_port bind;
-@@ -82,8 +83,9 @@ xenevtchn_port_or_error_t xenevtchn_bind_unbound_port(xenevtchn_handle *xce, uin
-     return ioctl(fd, IOCTL_EVTCHN_BIND_UNBOUND_PORT, &bind);
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce, uint32_t domid,
--                                                  evtchn_port_t remote_port)
-+xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce,
-+                                                     uint32_t domid,
-+                                                     evtchn_port_t remote_port)
- {
-     int fd = xce->fd;
-     struct ioctl_evtchn_bind_interdomain bind;
-@@ -94,7 +96,8 @@ xenevtchn_port_or_error_t xenevtchn_bind_interdomain(xenevtchn_handle *xce, uint
-     return ioctl(fd, IOCTL_EVTCHN_BIND_INTERDOMAIN, &bind);
- }
- 
--xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce, unsigned int virq)
-+xenevtchn_port_or_error_t xenevtchn_bind_virq(xenevtchn_handle *xce,
-+                                              unsigned int virq)
- {
-     int fd = xce->fd;
-     struct ioctl_evtchn_bind_virq bind;
-@@ -128,6 +131,7 @@ xenevtchn_port_or_error_t xenevtchn_pending(xenevtchn_handle *xce)
- int xenevtchn_unmask(xenevtchn_handle *xce, evtchn_port_t port)
- {
-     int fd = xce->fd;
-+
-     return write_exact(fd, (char *)&port, sizeof(port));
- }
- 
++	/*
++	 * The parameters are those of the xenstore-control utility!
++	 * Depending on environment (Mini-OS or daemon) the live-update
++	 * sequence is split into several sub-operations:
++	 * 1. Specification of new binary
++	 *    daemon:  -f <filename>
++	 *    Mini-OS: -b <binary-size>
++	 *             -d <size> <data-bytes> (multiple of those)
++	 * 2. New command-line (optional): -c <cmdline>
++	 * 3. Start of update: -s [-F] [-t <timeout>]
++	 * Any sub-operation needs to respond with the string "OK" in case
++	 * of success, any other response indicates failure.
++	 * A started live-update sequence can be aborted via "-a" (not
++	 * needed in case of failure for the first or last live-update
++	 * sub-operation).
++	 */
++	{ "live-update", do_control_lu,
++		"[-c <cmdline>] [-F] [-t <timeout>] <file>\n"
++		"    Default timeout is 60 seconds.", 4 },
+ #ifdef __MINIOS__
+ 	{ "memreport", do_control_memreport, "" },
+ #else
 -- 
 2.26.2
 
