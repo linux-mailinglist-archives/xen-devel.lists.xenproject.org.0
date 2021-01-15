@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05CAF2F7455
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EE5A2F745C
 	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 09:30:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.67720.121074 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.67726.121123 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0KV4-0000H2-VM; Fri, 15 Jan 2021 08:30:30 +0000
+	id 1l0KVF-0000cD-A7; Fri, 15 Jan 2021 08:30:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 67720.121074; Fri, 15 Jan 2021 08:30:30 +0000
+Received: by outflank-mailman (output) from mailman id 67726.121123; Fri, 15 Jan 2021 08:30:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0KV4-0000Fg-ON; Fri, 15 Jan 2021 08:30:30 +0000
-Received: by outflank-mailman (input) for mailman id 67720;
- Fri, 15 Jan 2021 08:30:29 +0000
+	id 1l0KVE-0000aa-RC; Fri, 15 Jan 2021 08:30:40 +0000
+Received: by outflank-mailman (input) for mailman id 67726;
+ Fri, 15 Jan 2021 08:30:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=v6X5=GS=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l0KV3-0008Gh-FP
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 08:30:29 +0000
+ id 1l0KVD-0008Gh-Fs
+ for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 08:30:39 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 376dc9d4-0c26-4f59-9a6f-0a1f6df6d6ad;
+ id 9926760f-ac98-4180-9380-4be2dff450d1;
  Fri, 15 Jan 2021 08:30:14 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 68486B95F;
+ by mx2.suse.de (Postfix) with ESMTP id 7F23DB944;
  Fri, 15 Jan 2021 08:30:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 376dc9d4-0c26-4f59-9a6f-0a1f6df6d6ad
+X-Inumbo-ID: 9926760f-ac98-4180-9380-4be2dff450d1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1610699408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Dqtva9i5hOWwd+C/RFxrhHjBGyOaW9BmEt02J1LO82U=;
-	b=nvyVrZGTnTv22kXzkMtZ4QopXiLwHKPd9l83UQBx0kogCA6BZ5PjVlGz/ZV2nOLUFZRZKv
-	bX4IIGQSCnnc2R5qIyn5vZ9/JcZZQ8yitODd42QeLYajsLzprSfEzHl6qZlMLR8yv9ceTD
-	xbjQcwwAEYstGN5cmZYWTg7gd02pthk=
+	bh=sSnAF7fRT0i6R+7d24NOVdIRMygQrGad5fUKdqzr1pY=;
+	b=okxDcM8Ov0R+Y8piHkHPx2GuDHma6Z2tr7Lnns8sGJyPCsCv4+T0DVeCfFSIkJk8BJ1E2Q
+	MR1zXDn4y7VaFrBKig+aZbv7b328GOEXWpsyiSJM+HZTkaGykvSWgmC+n93fE6eRArlrKA
+	IQOEfuxM3oKZea5tFc+ti2fFB+9fTUw=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -56,170 +56,197 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Paul Durrant <paul@xen.org>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v12 21/27] tools/xenstore: read internal state when doing live upgrade
-Date: Fri, 15 Jan 2021 09:29:54 +0100
-Message-Id: <20210115083000.14186-22-jgross@suse.com>
+Subject: [PATCH v12 24/27] tools/xenstore: add read node state for live update
+Date: Fri, 15 Jan 2021 09:29:57 +0100
+Message-Id: <20210115083000.14186-25-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210115083000.14186-1-jgross@suse.com>
 References: <20210115083000.14186-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When started due to a live upgrade read the internal state and apply
-it to the data base and internal structures.
+Add the needed functions for reading node state for live update.
 
-Add the main control functions for that.
-
-For now only handle the daemon case.
+This requires some refactoring of current node handling in Xenstore in
+order to avoid repeating the same code patterns multiple times.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Paul Durrant <paul@xen.org>
 Acked-by: Julien Grall <jgrall@amazon.com>
 ---
 V4:
-- directly mmap dump state file (Julien Grall)
-- use syslog() instead of xprintf() (Julien Grall)
+- drop local node handling (Julien Grall)
 
-V8:
-- remove state file after reading it (Julien Grall)
+V5:
+- use set_tdb_key (Paul Durrant)
+
+V6:
+- add permission flag handling (Julien Grall)
 ---
- tools/xenstore/xenstored_control.c | 102 ++++++++++++++++++++++++++++-
- 1 file changed, 101 insertions(+), 1 deletion(-)
+ tools/xenstore/xenstored_control.c |   1 +
+ tools/xenstore/xenstored_core.c    | 105 ++++++++++++++++++++++++++---
+ tools/xenstore/xenstored_core.h    |   1 +
+ 3 files changed, 96 insertions(+), 11 deletions(-)
 
 diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index 5151c1448e..3bced9e39e 100644
+index 7428b836a5..287417de6b 100644
 --- a/tools/xenstore/xenstored_control.c
 +++ b/tools/xenstore/xenstored_control.c
-@@ -67,6 +67,14 @@ struct live_update {
- 
- static struct live_update *lu_status;
- 
-+struct lu_dump_state {
-+	void *buf;
-+	unsigned int size;
-+#ifndef __MINIOS__
-+	int fd;
-+#endif
-+};
-+
- static int lu_destroy(void *data)
- {
- #ifdef __MINIOS__
-@@ -318,6 +326,14 @@ static void lu_dump_close(FILE *fp)
- 
- 	fclose(fp);
+@@ -547,6 +547,7 @@ void lu_read_state(void)
+ 			xprintf("live-update: ignore transaction record\n");
+ 			break;
+ 		case XS_STATE_TYPE_NODE:
++			read_state_node(ctx, head + 1);
+ 			break;
+ 		default:
+ 			xprintf("live-update: unknown state record %08x\n",
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index b2c544b165..a5c1a56c6c 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -979,13 +979,30 @@ static char *basename(const char *name)
+ 	return strrchr(name, '/') + 1;
  }
-+
-+static void lu_get_dump_state(struct lu_dump_state *state)
-+{
-+}
-+
-+static void lu_close_dump_state(struct lu_dump_state *state)
-+{
-+}
- #else
- static const char *lu_binary(const void *ctx, struct connection *conn,
- 			     const char *filename)
-@@ -373,6 +389,50 @@ static void lu_dump_close(FILE *fp)
+ 
+-static struct node *construct_node(struct connection *conn, const void *ctx,
+-				   const char *name)
++static int add_child(const void *ctx, struct node *parent, const char *name)
  {
- 	fclose(fp);
+ 	const char *base;
+ 	unsigned int baselen;
++	char *children;
++
++	base = basename(name);
++	baselen = strlen(base) + 1;
++	children = talloc_array(ctx, char, parent->childlen + baselen);
++	if (!children)
++		return ENOMEM;
++	memcpy(children, parent->children, parent->childlen);
++	memcpy(children + parent->childlen, base, baselen);
++	parent->children = children;
++	parent->childlen += baselen;
++
++	return 0;
++}
++
++static struct node *construct_node(struct connection *conn, const void *ctx,
++				   const char *name)
++{
+ 	struct node *parent, *node;
+-	char *children, *parentname = get_parent(ctx, name);
++	char *parentname = get_parent(ctx, name);
+ 
+ 	if (!parentname)
+ 		return NULL;
+@@ -998,15 +1015,8 @@ static struct node *construct_node(struct connection *conn, const void *ctx,
+ 		return NULL;
+ 
+ 	/* Add child to parent. */
+-	base = basename(name);
+-	baselen = strlen(base) + 1;
+-	children = talloc_array(ctx, char, parent->childlen + baselen);
+-	if (!children)
++	if (add_child(ctx, parent, name))
+ 		goto nomem;
+-	memcpy(children, parent->children, parent->childlen);
+-	memcpy(children + parent->childlen, base, baselen);
+-	parent->children = children;
+-	parent->childlen += baselen;
+ 
+ 	/* Allocate node */
+ 	node = talloc(ctx, struct node);
+@@ -2619,6 +2629,79 @@ void read_state_buffered_data(const void *ctx, struct connection *conn,
+ 	}
  }
-+
-+static void lu_get_dump_state(struct lu_dump_state *state)
-+{
-+	char *filename;
-+	struct stat statbuf;
-+
-+	state->size = 0;
-+
-+	filename = talloc_asprintf(NULL, "%s/state_dump", xs_daemon_rootdir());
-+	if (!filename)
-+		barf("Allocation failure");
-+
-+	state->fd = open(filename, O_RDONLY);
-+	talloc_free(filename);
-+	if (state->fd < 0)
-+		return;
-+	if (fstat(state->fd, &statbuf) != 0)
-+		goto out_close;
-+	state->size = statbuf.st_size;
-+
-+	state->buf = mmap(NULL, state->size, PROT_READ, MAP_PRIVATE,
-+			  state->fd, 0);
-+	if (state->buf == MAP_FAILED) {
-+		state->size = 0;
-+		goto out_close;
-+	}
-+
-+	return;
-+
-+ out_close:
-+	close(state->fd);
-+}
-+
-+static void lu_close_dump_state(struct lu_dump_state *state)
-+{
-+	char *filename;
-+
-+	munmap(state->buf, state->size);
-+	close(state->fd);
-+
-+	filename = talloc_asprintf(NULL, "%s/state_dump", xs_daemon_rootdir());
-+	unlink(filename);
-+	talloc_free(filename);
-+}
- #endif
  
- static bool lu_check_lu_allowed(void)
-@@ -455,7 +515,47 @@ static const char *lu_dump_state(const void *ctx, struct connection *conn)
- 
- void lu_read_state(void)
- {
--	xprintf("live-update: read state\n");
-+	struct lu_dump_state state;
-+	struct xs_state_record_header *head;
-+	void *ctx = talloc_new(NULL); /* Work context for subfunctions. */
-+	struct xs_state_preamble *pre;
++void read_state_node(const void *ctx, const void *state)
++{
++	const struct xs_state_node *sn = state;
++	struct node *node, *parent;
++	TDB_DATA key;
++	char *name, *parentname;
++	unsigned int i;
++	struct connection conn = { .id = priv_domid };
 +
-+	syslog(LOG_INFO, "live-update: read state\n");
-+	lu_get_dump_state(&state);
-+	if (state.size == 0)
-+		barf_perror("No state found after live-update");
++	name = (char *)(sn->perms + sn->perm_n);
++	node = talloc(ctx, struct node);
++	if (!node)
++		barf("allocation error restoring node");
 +
-+	pre = state.buf;
-+	if (memcmp(pre->ident, XS_STATE_IDENT, sizeof(pre->ident)) ||
-+	    pre->version != htobe32(XS_STATE_VERSION) ||
-+	    pre->flags != XS_STATE_FLAGS)
-+		barf("Unknown record identifier");
-+	for (head = state.buf + sizeof(*pre);
-+	     head->type != XS_STATE_TYPE_END &&
-+		(void *)head - state.buf < state.size;
-+	     head = (void *)head + sizeof(*head) + head->length) {
-+		switch (head->type) {
-+		case XS_STATE_TYPE_GLOBAL:
++	node->name = name;
++	node->generation = ++generation;
++	node->datalen = sn->data_len;
++	node->data = name + sn->path_len;
++	node->childlen = 0;
++	node->children = NULL;
++	node->perms.num = sn->perm_n;
++	node->perms.p = talloc_array(node, struct xs_permissions,
++				     node->perms.num);
++	if (!node->perms.p)
++		barf("allocation error restoring node");
++	for (i = 0; i < node->perms.num; i++) {
++		switch (sn->perms[i].access) {
++		case 'r':
++			node->perms.p[i].perms = XS_PERM_READ;
 +			break;
-+		case XS_STATE_TYPE_CONN:
++		case 'w':
++			node->perms.p[i].perms = XS_PERM_WRITE;
 +			break;
-+		case XS_STATE_TYPE_WATCH:
-+			break;
-+		case XS_STATE_TYPE_TA:
-+			xprintf("live-update: ignore transaction record\n");
-+			break;
-+		case XS_STATE_TYPE_NODE:
++		case 'b':
++			node->perms.p[i].perms = XS_PERM_READ | XS_PERM_WRITE;
 +			break;
 +		default:
-+			xprintf("live-update: unknown state record %08x\n",
-+				head->type);
++			node->perms.p[i].perms = XS_PERM_NONE;
 +			break;
 +		}
++		if (sn->perms[i].flags & XS_STATE_NODE_PERM_IGNORE)
++			node->perms.p[i].perms |= XS_PERM_IGNORE;
++		node->perms.p[i].id = sn->perms[i].domid;
 +	}
 +
-+	lu_close_dump_state(&state);
++	if (strstarts(name, "@")) {
++		set_perms_special(&conn, name, &node->perms);
++		talloc_free(node);
++		return;
++	}
 +
-+	talloc_free(ctx);
- }
++	parentname = get_parent(node, name);
++	if (!parentname)
++		barf("allocation error restoring node");
++	parent = read_node(NULL, node, parentname);
++	if (!parent)
++		barf("read parent error restoring node");
++
++	if (add_child(node, parent, name))
++		barf("allocation error restoring node");
++
++	set_tdb_key(parentname, &key);
++	if (write_node_raw(NULL, &key, parent, true))
++		barf("write parent error restoring node");
++
++	set_tdb_key(name, &key);
++	if (write_node_raw(NULL, &key, node, true))
++		barf("write node error restoring node");
++	domain_entry_inc(&conn, node);
++
++	talloc_free(node);
++}
++
+ /*
+  * Local variables:
+  *  mode: C
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index dcb3ad3e4b..6ac5a6fbfa 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -276,6 +276,7 @@ const char *dump_state_node_perms(FILE *fp, struct xs_state_node *sn,
+ void read_state_global(const void *ctx, const void *state);
+ void read_state_buffered_data(const void *ctx, struct connection *conn,
+ 			      const struct xs_state_connection *sc);
++void read_state_node(const void *ctx, const void *state);
  
- static const char *lu_activate_binary(const void *ctx)
+ #endif /* _XENSTORED_CORE_H */
+ 
 -- 
 2.26.2
 
