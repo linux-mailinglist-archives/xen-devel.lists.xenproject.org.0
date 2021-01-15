@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A39F2F7E81
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 15:48:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68198.122062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B652F7E9B
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jan 2021 15:52:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.68217.122073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0QOY-00043s-SM; Fri, 15 Jan 2021 14:48:10 +0000
+	id 1l0QS1-000562-D5; Fri, 15 Jan 2021 14:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68198.122062; Fri, 15 Jan 2021 14:48:10 +0000
+Received: by outflank-mailman (output) from mailman id 68217.122073; Fri, 15 Jan 2021 14:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0QOY-00043V-P2; Fri, 15 Jan 2021 14:48:10 +0000
-Received: by outflank-mailman (input) for mailman id 68198;
- Fri, 15 Jan 2021 14:48:09 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XE9r=GS=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1l0QOX-00043P-NM
- for xen-devel@lists.xenproject.org; Fri, 15 Jan 2021 14:48:09 +0000
-Received: from mail-wr1-x433.google.com (unknown [2a00:1450:4864:20::433])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d54dae21-09b4-4d1d-b3c3-97c4098e2170;
- Fri, 15 Jan 2021 14:48:08 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id 7so2300489wrz.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Jan 2021 06:48:08 -0800 (PST)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id t124sm12636120wmf.2.2021.01.15.06.48.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Jan 2021 06:48:06 -0800 (PST)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id DCEE41FF7E;
- Fri, 15 Jan 2021 14:48:05 +0000 (GMT)
+	id 1l0QS1-00055d-9A; Fri, 15 Jan 2021 14:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 68217;
+ Fri, 15 Jan 2021 14:51:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l0QRz-00055V-UY; Fri, 15 Jan 2021 14:51:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l0QRz-0005qt-Mc; Fri, 15 Jan 2021 14:51:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l0QRz-00078S-Eb; Fri, 15 Jan 2021 14:51:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l0QRz-0007BR-At; Fri, 15 Jan 2021 14:51:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,79 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d54dae21-09b4-4d1d-b3c3-97c4098e2170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=B3cfF6G3obrdA+qsX80wgLLhCOHCsTrVljEbELlPUMA=;
-        b=XvYtPQcYYheZOC90GvU4XvA9epZe49RHdEUsZau0uRchhKeoa5uJVqJ5jjUDNL4JFH
-         cL5o8fpY1sc7TMngnIPtB7I6JASv2q/hNcuTrwGMNg4HJwlwPmQ/oLhiTJ7+Mi58UvjI
-         YHRCezOsSb0p1jRJpcUqVwuinvh/mvE2sJD2Vz2wYqwiH5aJkRsk0OKICd1g9rksAJMK
-         kk/RjrC3R+QdkeiOpVzoUaR79TqIgCgoEbfPuHEGhxIFVrATj0tV5c8f9e/hbMhUSYj6
-         PuqH2mAX8PPnEcTOUM7gh+UcwsAw2RXg/+S4mouGCJzNOtmXvSr+o010MBaQho48Humd
-         KpWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=B3cfF6G3obrdA+qsX80wgLLhCOHCsTrVljEbELlPUMA=;
-        b=BcUc90rEBOIP/mzip7nSf2A0Y/iNil3EunUxHLGMAcUs1t2q3euoQFilwtLW2uQ7XN
-         TY3ELCCvzu8z0VEY2xO2wA+QGxtL13oUqcZBbPVW9hw6WUd+yapl1qzwwzCHFuoxXLU+
-         Yrh5ncwmpqTqAI/rvTWjFvwZNIDDPxlGrI42pmc8M1WR3L/8te8wk+D88jOJ39UX1ee9
-         frYvokfpCx0EPIIgEKiambjrV+p/oxYaygfUthakhVQXi6n4H0z/whMq5zDl89RBHfNy
-         HnBF9bMiw0gszWNYWr0KNTCFlIzgSPhuGlDu9zCwIzsfEmkkl5KwydHUyfV76DnnSBTa
-         qABA==
-X-Gm-Message-State: AOAM531AysflRtG6UqQ54PiFqOnrEZQjQ8YulqYxg0QqMxjEDdjQtHAV
-	1ViAQsrLZm99501I5PX7jX7pDA==
-X-Google-Smtp-Source: ABdhPJxIj3K0h+X5tYKoDSguv94hgVi5XXVubYjXL7RH8pNUZo0I/cPL5uxQA8X2VAMPF5WLHwKNcw==
-X-Received: by 2002:a5d:660b:: with SMTP id n11mr13582218wru.407.1610722087917;
-        Fri, 15 Jan 2021 06:48:07 -0800 (PST)
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-4-git-send-email-olekstysh@gmail.com>
-User-agent: mu4e 1.5.7; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Paul Durrant
- <paul@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Roger Pau =?utf-8?Q?Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei
- Liu <wl@xen.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien.grall@arm.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH V4 03/24] x86/ioreq: Provide out-of-line wrapper for the
- handle_mmio()
-Date: Fri, 15 Jan 2021 14:48:00 +0000
-In-reply-to: <1610488352-18494-4-git-send-email-olekstysh@gmail.com>
-Message-ID: <871reml0ii.fsf@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=6t29CrPXDdCmFL6ATb22TDz+CC0mS6lfGVSq+KpueAU=; b=qOAP3ohVJuFcCorIe/E87YkPKo
+	OFk0ZMhCPnbczEgg9s9C/Nd0wqaYxw+vG7wyGGw/a1ZsPbea7+cIyf2K1Y3lEJ6nlAN5qWFAzV27Z
+	tS6nZdQTKpy6QKSiKR6RqHaiyqMVTqfDabtaBSIylr+w4Y2g8o1mx+Mcf3Rj3ujelB8A=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158434-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: [xen-unstable-smoke test] 158434: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=8868a0e3f67436a5fbee750624e24a6533357f52
+X-Osstest-Versions-That:
+    xen=f58976544ff40d2488c3e2b05c765916eacf3e7c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 15 Jan 2021 14:51:43 +0000
+
+flight 158434 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158434/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  8868a0e3f67436a5fbee750624e24a6533357f52
+baseline version:
+ xen                  f58976544ff40d2488c3e2b05c765916eacf3e7c
+
+Last test of basis   158429  2021-01-15 03:01:53 Z    0 days
+Testing same since   158434  2021-01-15 12:01:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Juergen Gross <jgross@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-Oleksandr Tyshchenko <olekstysh@gmail.com> writes:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->
-> The IOREQ is about to be common feature and Arm will have its own
-> implementation.
->
-> But the name of the function is pretty generic and can be confusing
-> on Arm (we already have a try_handle_mmio()).
->
-> In order not to rename the function (which is used for a varying
-> set of purposes on x86) globally and get non-confusing variant on Arm
-> provide a wrapper arch_ioreq_complete_mmio() to be used on common
-> and Arm code.
->
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien.grall@arm.com>
-> [On Arm only]
-> Tested-by: Wei Chen <Wei.Chen@arm.com>
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---=20
-Alex Benn=C3=A9e
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   f58976544f..8868a0e3f6  8868a0e3f67436a5fbee750624e24a6533357f52 -> smoke
 
