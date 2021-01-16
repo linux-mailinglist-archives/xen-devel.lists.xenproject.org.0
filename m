@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 443BE2F8D17
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Jan 2021 12:26:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.68986.123650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4563D2F8D58
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Jan 2021 13:48:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69004.123662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0jhh-0002jh-Ac; Sat, 16 Jan 2021 11:25:13 +0000
+	id 1l0kzV-00026n-On; Sat, 16 Jan 2021 12:47:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 68986.123650; Sat, 16 Jan 2021 11:25:13 +0000
+Received: by outflank-mailman (output) from mailman id 69004.123662; Sat, 16 Jan 2021 12:47:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l0jhh-0002jL-7V; Sat, 16 Jan 2021 11:25:13 +0000
-Received: by outflank-mailman (input) for mailman id 68986;
- Sat, 16 Jan 2021 11:25:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/22O=GT=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1l0jhf-0002j0-2w
- for xen-devel@lists.xenproject.org; Sat, 16 Jan 2021 11:25:11 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ddbb874e-dc9e-470f-9a88-759ea03614a8;
- Sat, 16 Jan 2021 11:25:08 +0000 (UTC)
-Received: from rochebonne.antioche.eu.org (rochebonne
- [IPv6:2001:41d0:fe9d:1100:221:70ff:fe0c:9885])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 10GBP2VN004904;
- Sat, 16 Jan 2021 12:25:02 +0100 (MET)
-Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
- id 55E1E281D; Sat, 16 Jan 2021 12:25:02 +0100 (CET)
+	id 1l0kzV-00026O-Lp; Sat, 16 Jan 2021 12:47:41 +0000
+Received: by outflank-mailman (input) for mailman id 69004;
+ Sat, 16 Jan 2021 12:47:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1l0kzU-00026J-8J
+ for xen-devel@lists.xenproject.org; Sat, 16 Jan 2021 12:47:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l0kzQ-0003Cw-Uw; Sat, 16 Jan 2021 12:47:36 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l0kzQ-00026U-MJ; Sat, 16 Jan 2021 12:47:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,81 +39,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ddbb874e-dc9e-470f-9a88-759ea03614a8
-Date: Sat, 16 Jan 2021 12:25:02 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
-        Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH] libs/light: pass some infos to qemu
-Message-ID: <20210116112502.GA1133@antioche.eu.org>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
- <20210112181242.1570-17-bouyer@antioche.eu.org>
- <20210116101606.sogfpgzg7upunua7@Air-de-Roger>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=ddzEs/HMAC6HYKga8bDGl14SKrUIOgqRueEHozndPlQ=; b=0oiHvJJeoyySXMHYiaNr5+SNJh
+	EBqJBQ/JN3iog8CkFys0dEXvXarN9euO7dMK4pdNcziOpSBF1LUt2NjMbo+mZfSTOm5NVG7W+4djo
+	JzuoNaqzw+TxUrFE/zKv2oNBa44iIn+RJtS/xV56ReJfKRJ+Go2+2rmwy5NLkYPYDGBo=;
+Subject: Re: IRQ latency measurements in hypervisor
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <jgrall@amazon.com>, Dario Faggioli <dario.faggioli@suse.com>,
+ "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+References: <87pn294szv.fsf@epam.com>
+ <alpine.DEB.2.21.2101141515230.31265@sstabellini-ThinkPad-T480s>
+ <878s8u43vx.fsf@epam.com>
+ <alpine.DEB.2.21.2101151511010.31265@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien@xen.org>
+Message-ID: <36c4f035-2142-d2bd-790a-caf3264107ef@xen.org>
+Date: Sat, 16 Jan 2021 12:47:34 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210116101606.sogfpgzg7upunua7@Air-de-Roger>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [IPv6:2001:41d0:fe9d:1100:a00:20ff:fe1c:276e]); Sat, 16 Jan 2021 12:25:02 +0100 (MET)
+In-Reply-To: <alpine.DEB.2.21.2101151511010.31265@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-On Sat, Jan 16, 2021 at 11:16:06AM +0100, Roger Pau Monné wrote:
-> On Tue, Jan 12, 2021 at 07:12:37PM +0100, Manuel Bouyer wrote:
-> > From: Manuel Bouyer <bouyer@netbsd.org>
-> > 
-> > Pass bridge name to qemu as command line option
-> > When starting qemu, set an environnement variable XEN_DOMAIN_ID,
-> > to be used by qemu helper scripts
-> > 
-> > Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-> > ---
-> >  tools/libs/light/libxl_dm.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-> > index 3da83259c0..8866c3f5ad 100644
-> > --- a/tools/libs/light/libxl_dm.c
-> > +++ b/tools/libs/light/libxl_dm.c
-> > @@ -761,6 +761,8 @@ static int libxl__build_device_model_args_old(libxl__gc *gc,
-> >          int nr_set_cpus = 0;
-> >          char *s;
-> >  
-> > +        flexarray_append_pair(dm_envs, "XEN_DOMAIN_ID", GCSPRINTF("%d", domid));
-> > +
-> >          if (b_info->kernel) {
-> >              LOGD(ERROR, domid, "HVM direct kernel boot is not supported by "
-> >                   "qemu-xen-traditional");
-> > @@ -1547,8 +1549,10 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
-> >                  flexarray_append(dm_args, "-netdev");
-> >                  flexarray_append(dm_args,
-> >                                   GCSPRINTF("type=tap,id=net%d,ifname=%s,"
-> > +					   "br=%s,"
-> >                                             "script=%s,downscript=%s",
-> >                                             nics[i].devid, ifname,
-> > +					   nics[i].bridge,
+Hi Stefano,
+
+On 15/01/2021 23:17, Stefano Stabellini wrote:
+> On Fri, 15 Jan 2021, Volodymyr Babchuk wrote:
+>> 9us was in idle state. Interestingly enough, I got latency if 3us while
+>> Dom0 was doing some CPU-intensive tasks. So, under load latency is lower
+>> than in idle state. I didn't investigated this, so I can't tell you what
+>> causes this behavior.
 > 
-> You have some hard tabs in there.
+> Did you use vwfi=native? You should definitely be able to see ~3us
+> without interference and with 1vCPU <-> 1pCPU
 
-Yes. What's the problem ?
+vwfi=native works well in a scenario where each pCPU is dedicated to a 
+vCPU. However, if you start to oversubscribe the pCPU, the performance 
+are going to degrade quite a lot because there will be less opportunity 
+to schedule a different vCPU.
 
-> 
-> Also looking at the manual the br= option seems to only be available
-> for the bridge networking mode, while here Xen is using tap instead?
+You will also waste quite a bit of pCPU cycles because the vCPU will sit 
+doing nothing until the end of its time slice.
 
-Unless I missed something, the bridge networking mode is using the
-tap interface, to connect qemu to the bridge. And indeed, the qemu-ifup
-script is doing
-exec /sbin/brconfig $2 add $1
-
-(the script is called with: qemu-ifup <tap if> <bridge if>)
-
-This is a problem that hit me when I converted NetBSD to qemu-xen:
-qemu-traditional does call the qemu-ifup script with the 2 parameters,
-while qemu-xen calls it only with the tap if. So the qemu-ifup script can't
-know to which bridge the tap interface should be attached to.
+Cheers,
 
 -- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Julien Grall
 
