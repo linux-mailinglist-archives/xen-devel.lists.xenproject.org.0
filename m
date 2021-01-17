@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924552F951C
-	for <lists+xen-devel@lfdr.de>; Sun, 17 Jan 2021 21:23:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69335.124035 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63CC82F95E6
+	for <lists+xen-devel@lfdr.de>; Sun, 17 Jan 2021 23:24:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69345.124048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1EaC-0006PL-65; Sun, 17 Jan 2021 20:23:32 +0000
+	id 1l1GRh-0000bB-UE; Sun, 17 Jan 2021 22:22:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69335.124035; Sun, 17 Jan 2021 20:23:32 +0000
+Received: by outflank-mailman (output) from mailman id 69345.124048; Sun, 17 Jan 2021 22:22:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1EaC-0006P0-37; Sun, 17 Jan 2021 20:23:32 +0000
-Received: by outflank-mailman (input) for mailman id 69335;
- Sun, 17 Jan 2021 20:23:30 +0000
+	id 1l1GRh-0000ar-R2; Sun, 17 Jan 2021 22:22:53 +0000
+Received: by outflank-mailman (input) for mailman id 69345;
+ Sun, 17 Jan 2021 22:22:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=i0Xk=GU=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l1EaA-0006Ov-AN
- for xen-devel@lists.xenproject.org; Sun, 17 Jan 2021 20:23:30 +0000
-Received: from mail-lj1-x229.google.com (unknown [2a00:1450:4864:20::229])
+ id 1l1GRf-0000am-QJ
+ for xen-devel@lists.xenproject.org; Sun, 17 Jan 2021 22:22:51 +0000
+Received: from mail-lj1-x22a.google.com (unknown [2a00:1450:4864:20::22a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4affaefb-67ed-4812-8c58-26951b81b857;
- Sun, 17 Jan 2021 20:23:28 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id f11so16110985ljm.8
- for <xen-devel@lists.xenproject.org>; Sun, 17 Jan 2021 12:23:28 -0800 (PST)
+ id 130f717e-243f-4f74-9eb5-33d09988629c;
+ Sun, 17 Jan 2021 22:22:49 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id b10so16278251ljp.6
+ for <xen-devel@lists.xenproject.org>; Sun, 17 Jan 2021 14:22:49 -0800 (PST)
 Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id k18sm1492425ljb.80.2021.01.17.12.23.26
+ by smtp.gmail.com with ESMTPSA id h23sm1517281ljh.115.2021.01.17.14.22.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 Jan 2021 12:23:27 -0800 (PST)
+ Sun, 17 Jan 2021 14:22:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,138 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4affaefb-67ed-4812-8c58-26951b81b857
+X-Inumbo-ID: 130f717e-243f-4f74-9eb5-33d09988629c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=Bv88lNTaugpE4LOunqEdlovzc3EII7dAtSOk9h0Fvbw=;
-        b=Yyf5ivfw1doiO+hO7LoYWZp945j5tKQnzk7gNY0qyLCiGuRel4iTXbel1YmhZBWE6j
-         /t8st3KYYgW69xwKfO+ZZMlkgtUd1At14PLV4H/dOxV6mh3gFUDAgTJtKUnltZgdre2I
-         KYZUFYVy8Q0pd1KTspoEXOd3g1kvIT33p0JDywk3W18KEearOMMKJdM7FL+PN4H0DA31
-         yTGSqDJmF0wzH8rhLcyAzuhnRH7E1LbJF6+Yup8eGa44LF8XcjIiAKcAZdNIf+X6+6DW
-         3gSo4DbnA08iccTUxSEvIgaoafDbLX4P4Thv08q2+L447ur7rUdRMGmN6rA4ZKC/ht0q
-         ZKfg==
+        bh=0JnzGYtOKqerBzRqE7IvlVH4q9oMu3huJkislzXIAks=;
+        b=hNSnxfSiTUhyJPGi2LvXBiCIM66/rlhRt4mzgP0wxYDgcTaPXSgv64TPyD5ltymsqL
+         m0XAxi59YwPuXuKjQWaBhaLPkfR6y4I7Fd3JP6zlCp6cSUy4yUz+8dXA7I1gE5d/y5xJ
+         hLexpwh79ndFt0AtyaVZ8xFr/7b3cL50GjUGjqaFpHFVL0IZKiWhgVrdA7oV1sJ69ze3
+         HbXL+/HOrZOUA6pkYlIQLtsSWFty78/Ul0EdVEy+AW0JMNqN/PWWMtFlI4cqVrj6av+n
+         tPvxemYX+e6NQ52KMdR6i8cIAPBboOm6TBu2bUXJWmjMs/CwRoUUPEChn0yE4YPip4is
+         QshQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=Bv88lNTaugpE4LOunqEdlovzc3EII7dAtSOk9h0Fvbw=;
-        b=MR+LzZJwR+dF3tLZg/B6MwRx9wt2eY987463NoRevjFatRWWT8GnfOw+pSypRef/R2
-         mIHuzxa7nOnGxVmVWUQz/zZpzRbgrSvx/ui7p0RavZj32l2EbHTKttrwZ9Vp/Vuu57ll
-         LafAkAO4hN+M3w/dVZb2SqTBMiLNwMmxOtk/GSs+7NulDmRTBsalS/1h7nQxBtVeTGXP
-         DprDFx50wK4KZsUbpfJCUu6GWp72uNEuQMCbvSRYoggwhbL3yB/+CIOEL4QOlEla3GJN
-         MhkOMU3x3vPCUCM+tP8byKbBiSNtzirq5rcHJ/TlBzDKk+2QLlvD9V1+aYnNG9W+huOt
-         Ejrg==
-X-Gm-Message-State: AOAM530t5ePfJrFlgDKrVw/eJJu6pqB3s4+J/ylHKUUmaWpeaGExbQCp
-	W5QmK5zpQIVD1sUJOJ1em6k=
-X-Google-Smtp-Source: ABdhPJxTNeS4UIHHporV8DSHtnnTRq5c/shSNYTTlexyQNlri1UGWR/g3IUIRd7x5ZahF1u7T3C6Iw==
-X-Received: by 2002:a2e:a40b:: with SMTP id p11mr9002202ljn.315.1610915007738;
-        Sun, 17 Jan 2021 12:23:27 -0800 (PST)
-Subject: Re: [PATCH V4 15/24] xen/arm: Stick around in
- leave_hypervisor_to_guest until I/O has completed
+        bh=0JnzGYtOKqerBzRqE7IvlVH4q9oMu3huJkislzXIAks=;
+        b=luCSRvq+yzOnX2m71hx98QxyEoJFffNu+OfCT25Ph27Ut72W+WswdxhF7ZKu4y3WKF
+         lzgMv03t6Om9j7iOT1gwzK7m0+GJokwHWjoUtpMHyl14K544KIcxWNdWooNjM3h/yQyD
+         CJry1cR5WmbkZiwz7hQ15ySnC8swSm7vwlKnvhxmJqLncYE5H3qVMb37tzGkMHj7d/CD
+         PJORgL+UUmNNtzaIzJIjJKOD/Cnqec9waq0i2s4uc2yzzsLPmhZsXdyA3iFO86sVXQxm
+         eZVl7OxkWxTWN8zXpYgdk9Xk4X443a/onXgx3/zM8PnIjFsQxtKSG59AwOdd0ZKUF872
+         wVBg==
+X-Gm-Message-State: AOAM530QcZbCkALKhfBjUHT0NiArtUdiXxJmiKymXmpMfZ/5UX7xtb0P
+	w/9Jm8d2VM/Jz8ZuEBMk+zs=
+X-Google-Smtp-Source: ABdhPJyR32vBPkR9Zjke6H2y02RVdCWWgwyxYYPRxng4yUK7BEgz32tntIQGjtuRnmQNUJw6MnZINA==
+X-Received: by 2002:a2e:9acd:: with SMTP id p13mr9917691ljj.394.1610922168685;
+        Sun, 17 Jan 2021 14:22:48 -0800 (PST)
+Subject: Re: [PATCH V4 23/24] libxl: Introduce basic virtio-mmio support on
+ Arm
 To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-16-git-send-email-olekstysh@gmail.com>
- <1f1f910b-ebef-f071-3458-12ad493d6e79@xen.org>
+ <1610488352-18494-24-git-send-email-olekstysh@gmail.com>
+ <25b62097-9ea9-31f3-0f8f-92a7f0d01d7c@xen.org>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <e57ca0f8-f92f-1ba3-d874-4265e1031542@gmail.com>
-Date: Sun, 17 Jan 2021 22:23:21 +0200
+Message-ID: <51d44085-f178-3985-9324-da6494cd9d2e@gmail.com>
+Date: Mon, 18 Jan 2021 00:22:42 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1f1f910b-ebef-f071-3458-12ad493d6e79@xen.org>
+In-Reply-To: <25b62097-9ea9-31f3-0f8f-92a7f0d01d7c@xen.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 
 
-On 15.01.21 22:55, Julien Grall wrote:
+On 15.01.21 23:30, Julien Grall wrote:
 > Hi Oleksandr,
+
 
 Hi Julien
 
 
-
 >
 > On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> From: Julien Grall <julien.grall@arm.com>
 >>
->> This patch adds proper handling of return value of
->> vcpu_ioreq_handle_completion() which involves using a loop in
->> leave_hypervisor_to_guest().
->>
->> The reason to use an unbounded loop here is the fact that vCPU shouldn't
->> continue until the I/O has completed.
->>
->> The IOREQ code is using wait_on_xen_event_channel(). Yet, this can
->> still "exit" early if an event has been received. But this doesn't mean
->> the I/O has completed (in can be just a spurious wake-up).
+>> This patch creates specific device node in the Guest device-tree
+>> with allocated MMIO range and SPI interrupt if specific 'virtio'
+>> property is present in domain config.
 >
-> While I agree we need the loop, I don't think the reason is correct 
-> here. If you receive a spurious event, then the loop in wait_for_io() 
-> will catch it.
+> From my understanding, for each virtio device use the MMIO transparent,
+> we would need to reserve an area in memory for its exclusive use.
 >
-> The only way to get out of that loop is if the I/O has been handled or 
-> the state in the IOREQ page is invalid.
->
-> In addition to that, handle_hvm_io_completion(), will only return 
-> false if the state is invalid or there is vCPI work to do.
+> If I were an admin, I would expect to only describe the list of virtio 
+> devices I want to assign to my guest and then let the toolstack figure 
+> out how to expose them.
 
-Agree, update description.
+Yes, I think in the same way.
 
 
 >
 >
->> So we need
->> to check if the I/O has completed and wait again if it hasn't (we will
->> block the vCPU again until an event is received). This loop makes sure
->> that all the vCPU works are done before we return to the guest.
->>
->> The call chain below:
->> check_for_vcpu_work -> vcpu_ioreq_handle_completion -> wait_for_io ->
->> wait_on_xen_event_channel
->>
->> The worse that can happen here if the vCPU will never run again
->> (the I/O will never complete). But, in Xen case, if the I/O never
->> completes then it most likely means that something went horribly
->> wrong with the Device Emulator. And it is most likely not safe
->> to continue. So letting the vCPU to spin forever if the I/O never
->> completes is a safer action than letting it continue and leaving
->> the guest in unclear state and is the best what we can do for now.
->>
->> Please note, using this loop we will not spin forever on a pCPU,
->> preventing any other vCPUs from being scheduled. At every loop
->> we will call check_for_pcpu_work() that will process pending
->> softirqs. In case of failure, the guest will crash and the vCPU
->> will be unscheduled. In normal case, if the rescheduling is necessary
->> (might be set by a timer or by a caller in check_for_vcpu_work(),
->> where wait_for_io() is a preemption point) the vCPU will be rescheduled
->> to give place to someone else.
->>
-> What you describe here is a bug that was introduced by this series. If 
-> you think the code requires a separate patch, then please split off 
-> patch #14 so the code callling vcpu_ioreq_handle_completion() happen here.
-I am afraid, I don't understand which bug you are talking about, I just 
-tried to explain why using a loop is not bad (there wouldn't be any 
-impact to other vCPUs, etc) and the worse case which could happen.
-Also I don't see a reason why the code requires a separate patch 
-(probably, if I understood a bug I would see a reason ...) Could you 
-please clarify?
+> So I am not quite too sure how this new parameter can be used. Could 
+> you expand it?
+The original idea was to set it if we are going to assign virtio 
+device(s) to the guest.
+Being honest, I have a plan to remove this extra parameter. It might not 
+be obvious looking at the current patch, but next patch will show that 
+we can avoid introducing it at all.
 
 
 >
 >
+>>
+>> Signed-off-by: Julien Grall <julien.grall@arm.com>
 >> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->
->
->> CC: Julien Grall <julien.grall@arm.com>
 >> [On Arm only]
 >> Tested-by: Wei Chen <Wei.Chen@arm.com>
 >>
@@ -180,140 +142,267 @@ please clarify?
 >> Please note, this is a split/cleanup/hardening of Julien's PoC:
 >> "Add support for Guest IO forwarding to a device emulator"
 >>
+>> Changes RFC -> V1:
+>>     - was squashed with:
+>>       "[RFC PATCH V1 09/12] libxl: Handle virtio-mmio irq in more 
+>> correct way"
+>>       "[RFC PATCH V1 11/12] libxl: Insert "dma-coherent" property 
+>> into virtio-mmio device node"
+>>       "[RFC PATCH V1 12/12] libxl: Fix duplicate memory node in DT"
+>>     - move VirtIO MMIO #define-s to xen/include/public/arch-arm.h
+>>
 >> Changes V1 -> V2:
->>     - new patch, changes were derived from (+ new explanation):
->>       arm/ioreq: Introduce arch specific bits for IOREQ/DM features
+>>     - update the author of a patch
 >>
 >> Changes V2 -> V3:
->>     - update patch description
+>>     - no changes
 >>
 >> Changes V3 -> V4:
->>     - update patch description and comment in code
+>>     - no changes
 >> ---
->>   xen/arch/arm/traps.c | 38 +++++++++++++++++++++++++++++++++-----
->>   1 file changed, 33 insertions(+), 5 deletions(-)
+>>   tools/libs/light/libxl_arm.c     | 58 
+>> ++++++++++++++++++++++++++++++++++++++--
+>>   tools/libs/light/libxl_types.idl |  1 +
+>>   tools/xl/xl_parse.c              |  1 +
+>>   xen/include/public/arch-arm.h    |  5 ++++
+>>   4 files changed, 63 insertions(+), 2 deletions(-)
 >>
->> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
->> index 036b13f..4a83e1e 100644
->> --- a/xen/arch/arm/traps.c
->> +++ b/xen/arch/arm/traps.c
->> @@ -2257,18 +2257,23 @@ static void check_for_pcpu_work(void)
->>    * Process pending work for the vCPU. Any call should be fast or
->>    * implement preemption.
->>    */
->> -static void check_for_vcpu_work(void)
->> +static bool check_for_vcpu_work(void)
+>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+>> index 66e8a06..588ee5a 100644
+>> --- a/tools/libs/light/libxl_arm.c
+>> +++ b/tools/libs/light/libxl_arm.c
+>> @@ -26,8 +26,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
 >>   {
->>       struct vcpu *v = current;
->>     #ifdef CONFIG_IOREQ_SERVER
->> +    bool handled;
->> +
->>       local_irq_enable();
->> -    vcpu_ioreq_handle_completion(v);
->> +    handled = vcpu_ioreq_handle_completion(v);
->>       local_irq_disable();
->> +
->> +    if ( !handled )
->> +        return true;
->>   #endif
->>         if ( likely(!v->arch.need_flush_to_ram) )
->> -        return;
->> +        return false;
+>>       uint32_t nr_spis = 0;
+>>       unsigned int i;
+>> -    uint32_t vuart_irq;
+>> -    bool vuart_enabled = false;
+>> +    uint32_t vuart_irq, virtio_irq;
+>> +    bool vuart_enabled = false, virtio_enabled = false;
 >>         /*
->>        * Give a chance for the pCPU to process work before handling 
->> the vCPU
->> @@ -2279,6 +2284,8 @@ static void check_for_vcpu_work(void)
->>       local_irq_enable();
->>       p2m_flush_vm(v);
->>       local_irq_disable();
->> +
->> +    return false;
->>   }
->>     /*
->> @@ -2291,8 +2298,29 @@ void leave_hypervisor_to_guest(void)
->>   {
->>       local_irq_disable();
->>   -    check_for_vcpu_work();
->> -    check_for_pcpu_work();
->> +    /*
->> +     * The reason to use an unbounded loop here is the fact that vCPU
->> +     * shouldn't continue until the I/O has completed.
->> +     *
->> +     * The worse that can happen here if the vCPU will never run again
->> +     * (the I/O will never complete). But, in Xen case, if the I/O 
->> never
->> +     * completes then it most likely means that something went horribly
->> +     * wrong with the Device Emulator. And it is most likely not safe
->> +     * to continue. So letting the vCPU to spin forever if the I/O 
->> never
->> +     * completes is a safer action than letting it continue and leaving
->> +     * the guest in unclear state and is the best what we can do for 
->> now.
->> +     *
->> +     * Please note, using this loop we will not spin forever on a pCPU,
->> +     * preventing any other vCPUs from being scheduled. At every loop
->> +     * we will call check_for_pcpu_work() that will process pending
->> +     * softirqs. In case of failure, the guest will crash and the vCPU
->> +     * will be unscheduled. In normal case, if the rescheduling is 
->> necessary
->> +     * (might be set by a timer or by a caller in 
->> check_for_vcpu_work(),
->> +     * the vCPU will be rescheduled to give place to someone else.
->
-> TBH, I think this comment is a bit too much and sort of out of context 
-> because this describing the inner implementation of 
-> check_for_vcpu_work().
->
-> How about the following:
->
-> /*
->  * check_for_vcpu_work() may return true if there are more work to
->  * before the vCPU can safely resume. This gives us an opportunity
->  * to deschedule the vCPU if needed.
->  */
-
-I am fine with that.
-
-
->
+>>        * If pl011 vuart is enabled then increment the nr_spis to 
+>> allow allocation
+>> @@ -39,6 +39,17 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>>           vuart_enabled = true;
+>>       }
+>>   +    /*
+>> +     * XXX: Handle properly virtio
+>> +     * A proper solution would be the toolstack to allocate the 
+>> interrupts
+>> +     * used by each virtio backend and let the backend now which one 
+>> is used
 >> +     */
->> +    do {
->> +        check_for_pcpu_work();
->> +    } while ( check_for_vcpu_work() );
+>> +    if (libxl_defbool_val(d_config->b_info.arch_arm.virtio)) {
+>> +        nr_spis += (GUEST_VIRTIO_MMIO_SPI - 32) + 1;
+>> +        virtio_irq = GUEST_VIRTIO_MMIO_SPI;
+>> +        virtio_enabled = true;
+>> +    }
+>> +
+>>       for (i = 0; i < d_config->b_info.num_irqs; i++) {
+>>           uint32_t irq = d_config->b_info.irqs[i];
+>>           uint32_t spi;
+>> @@ -58,6 +69,12 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>>               return ERROR_FAIL;
+>>           }
+>>   +        /* The same check as for vpl011 */
+>> +        if (virtio_enabled && irq == virtio_irq) {
+>> +            LOG(ERROR, "Physical IRQ %u conflicting with virtio 
+>> SPI\n", irq);
+>> +            return ERROR_FAIL;
+>> +        }
+>> +
+>>           if (irq < 32)
+>>               continue;
+>>   @@ -658,6 +675,39 @@ static int make_vpl011_uart_node(libxl__gc 
+>> *gc, void *fdt,
+>>       return 0;
+>>   }
+>>   +static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+>> +                                 uint64_t base, uint32_t irq)
+>> +{
+>> +    int res;
+>> +    gic_interrupt intr;
+>> +    /* Placeholder for virtio@ + a 64-bit number + \0 */
+>> +    char buf[24];
+>> +
+>> +    snprintf(buf, sizeof(buf), "virtio@%"PRIx64, base);
+>> +    res = fdt_begin_node(fdt, buf);
+>> +    if (res) return res;
+>> +
+>> +    res = fdt_property_compat(gc, fdt, 1, "virtio,mmio");
+>> +    if (res) return res;
+>> +
+>> +    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, 
+>> GUEST_ROOT_SIZE_CELLS,
+>> +                            1, base, GUEST_VIRTIO_MMIO_SIZE);
+>> +    if (res) return res;
+>> +
+>> +    set_interrupt(intr, irq, 0xf, DT_IRQ_TYPE_EDGE_RISING);
+>> +    res = fdt_property_interrupts(gc, fdt, &intr, 1);
+>> +    if (res) return res;
+>> +
+>> +    res = fdt_property(fdt, "dma-coherent", NULL, 0);
+>> +    if (res) return res;
+>> +
+>> +    res = fdt_end_node(fdt);
+>> +    if (res) return res;
+>> +
+>> +    return 0;
+>> +
+>> +}
+>> +
+>>   static const struct arch_info *get_arch_info(libxl__gc *gc,
+>>                                                const struct 
+>> xc_dom_image *dom)
+>>   {
+>> @@ -961,6 +1011,9 @@ next_resize:
+>>           if (info->tee == LIBXL_TEE_TYPE_OPTEE)
+>>               FDT( make_optee_node(gc, fdt) );
+>>   +        if (libxl_defbool_val(info->arch_arm.virtio))
+>> +            FDT( make_virtio_mmio_node(gc, fdt, 
+>> GUEST_VIRTIO_MMIO_BASE, GUEST_VIRTIO_MMIO_SPI) ); > +
+>>           if (pfdt)
+>>               FDT( copy_partial_fdt(gc, fdt, pfdt) );
+>>   @@ -1178,6 +1231,7 @@ void 
+>> libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+>>   {
+>>       /* ACPI is disabled by default */
+>>       libxl_defbool_setdefault(&b_info->acpi, false);
+>> +    libxl_defbool_setdefault(&b_info->arch_arm.virtio, false);
+>>         if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
+>>           return;
+>> diff --git a/tools/libs/light/libxl_types.idl 
+>> b/tools/libs/light/libxl_types.idl
+>> index 0532473..839df86 100644
+>> --- a/tools/libs/light/libxl_types.idl
+>> +++ b/tools/libs/light/libxl_types.idl
+>> @@ -640,6 +640,7 @@ libxl_domain_build_info = 
+>> Struct("domain_build_info",[
+>>           ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
+>> +                               ("virtio", libxl_defbool),
 >
-> So there are two important changes in this new implementation:
->   1) Without CONFIG_IOREQ_SERVER=y, we will call check_for_pcpu_work() 
-> twice in a row when handling set/way.
+> Regardless the question above, this doesn't sound very Arm specific.
 
-hmm, yes
-
-
->
->   2) After handling the pCPU work, we will now return to the guest 
-> directly. Before, we gave another opportunity for Xen to schedule a 
-> different work. This means, we may return to the vCPU for a very short 
-> time and will introduce more overhead.
-
-yes, I haven't even imagined this could cause such difference in behavior
+yes
 
 
 >
 >
-> So I would rework the loop to write it as:
 >
-> while ( check_for_pcpu_work() )
->    check_for_pcpu_work();
-> check_for_pcpu_work();
+> I think we want to get the virtio configuration arch-agnostic because 
+> an admin should not need to know the arch internal to be able to 
+> assign virtio devices.
 
-makes sense, I assume you meant while ( check_for_vcpu_work() ) ...
+sounds reasonable
 
 
 >
->>         vgic_sync_to_lrs();
->>
+>
+> That said, you can leave it completely unimplemented for anything 
+> other than Arm.
+
+got it
+
+
+>
+>
+> If you add new parameters in the idl, you will also want to introduce 
+> a define in libxl.h so an external toolstack (such as libvirt) can 
+> detect whether the field is supported by the installed version of 
+> libxl. See the other LIBXL_HAVE_*.
+
+hmm, I didn't know about that, thank you.
+
+
+>
+>>                                  ("vuart", libxl_vuart_type),
+>>                                 ])),
+>>       # Alternate p2m is not bound to any architecture or guest type, 
+>> as it is
+>> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+>> index 4ebf396..2a3364b 100644
+>> --- a/tools/xl/xl_parse.c
+>> +++ b/tools/xl/xl_parse.c
+>> @@ -2581,6 +2581,7 @@ skip_usbdev:
+>>       }
+>>         xlu_cfg_get_defbool(config, "dm_restrict", 
+>> &b_info->dm_restrict, 0);
+>> +    xlu_cfg_get_defbool(config, "virtio", &b_info->arch_arm.virtio, 0);
+>
+> Regardless the question above, any addition in the configuration file 
+> should be documented docs/man/xl.cfg.5.pod.in.
+
+yes, documentation is my nearest plan.
+
+
+>
+>
+>>         if (c_info->type == LIBXL_DOMAIN_TYPE_HVM) {
+>>           if (!xlu_cfg_get_string (config, "vga", &buf, 0)) {
+>> diff --git a/xen/include/public/arch-arm.h 
+>> b/xen/include/public/arch-arm.h
+>> index c365b1b..be7595f 100644
+>> --- a/xen/include/public/arch-arm.h
+>> +++ b/xen/include/public/arch-arm.h
+>> @@ -464,6 +464,11 @@ typedef uint64_t xen_callback_t;
+>>   #define PSCI_cpu_on      2
+>>   #define PSCI_migrate     3
+>>   +/* VirtIO MMIO definitions */
+>> +#define GUEST_VIRTIO_MMIO_BASE  xen_mk_ullong(0x02000000)
+>
+> You will want to define any new region with the other *_{BASE, SIZE} 
+> above. Note that they should be ordered from bottom to the top of the 
+> memory layout.
+
+I got it, this one should be put at the very beginning (before vGIC v2 
+mappings).
+
+
+>
+>
+>> +#define GUEST_VIRTIO_MMIO_SIZE xen_mk_ullong(0x200)
+>
+> AFAICT, the size of the virtio mmio region should be 0x100. So why is 
+> it 0x200?
+
+
+I didn't find the total size requirement for the mmio region in virtio 
+specification v1.1 (the size of control registers is indeed 0x100 and 
+device-specific configuration registers starts at the offset 0x100, 
+however it's size depends on the device and the driver).
+
+kvmtool uses 0x200 [1], in some Linux device-trees we can see 0x200 [2] 
+(however, device-tree bindings example has 0x100 [3]), so what would be 
+the proper value for Xen code?
+
+
+>
+>> +#define GUEST_VIRTIO_MMIO_SPI   33
+>
+> This will want to be defined with the other GUEST_*_SPI above.
+
+ok
+
+
+>
+>
+> Most likely, you will want to reserve a range
+
+it seems yes, good point. BTW, the range is needed for the mmio region 
+as well, correct?
+
+
 >
 > Cheers,
 >
+[1] 
+https://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git/tree/include/kvm/virtio-mmio.h#n9
+[2] 
+https://elixir.bootlin.com/linux/v5.11-rc3/source/arch/arm64/boot/dts/arm/foundation-v8.dtsi#L226
+[3] 
+https://elixir.bootlin.com/linux/v5.11-rc3/source/Documentation/devicetree/bindings/virtio/mmio.txt#L31
+
+
 -- 
 Regards,
 
