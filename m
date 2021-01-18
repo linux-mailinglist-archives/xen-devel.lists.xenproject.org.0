@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EED82F9BBC
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 10:09:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69467.124331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD43F2F9BBF
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 10:10:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69470.124343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1QXS-00038N-7H; Mon, 18 Jan 2021 09:09:30 +0000
+	id 1l1QXu-0003GB-HE; Mon, 18 Jan 2021 09:09:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69467.124331; Mon, 18 Jan 2021 09:09:30 +0000
+Received: by outflank-mailman (output) from mailman id 69470.124343; Mon, 18 Jan 2021 09:09:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1QXS-00037y-3y; Mon, 18 Jan 2021 09:09:30 +0000
-Received: by outflank-mailman (input) for mailman id 69467;
- Mon, 18 Jan 2021 09:09:28 +0000
+	id 1l1QXu-0003Fm-DH; Mon, 18 Jan 2021 09:09:58 +0000
+Received: by outflank-mailman (input) for mailman id 69470;
+ Mon, 18 Jan 2021 09:09:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c1WU=GV=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1l1QXQ-00037Y-R9
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 09:09:28 +0000
-Received: from mail-wm1-x335.google.com (unknown [2a00:1450:4864:20::335])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=d36Q=GV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l1QXt-0003Fe-4j
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 09:09:57 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7a455bc1-9516-4f63-a617-dc76ad78122c;
- Mon, 18 Jan 2021 09:09:27 +0000 (UTC)
-Received: by mail-wm1-x335.google.com with SMTP id j18so1873292wmi.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 01:09:27 -0800 (PST)
-Received: from CBGR90WXYV0 (host86-183-162-242.range86-183.btcentralplus.com.
- [86.183.162.242])
- by smtp.gmail.com with ESMTPSA id y11sm24872933wmi.0.2021.01.18.01.09.25
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 18 Jan 2021 01:09:26 -0800 (PST)
+ id 5b2800fa-91f2-42ee-bc1d-70c33b80ff76;
+ Mon, 18 Jan 2021 09:09:56 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 62282ACF4;
+ Mon, 18 Jan 2021 09:09:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,97 +38,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a455bc1-9516-4f63-a617-dc76ad78122c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:thread-index
-         :content-language;
-        bh=nMLeVRmAj4wZ78pTmUjRGZ/jrFiAJ3RYHc/PTY0i/Dg=;
-        b=KT1/A4iInchM1H3LPNP3OwNhhvSBO9g5Faj2e4xBLzZ4nKf8py+pz0Bk/XxnZC0r8i
-         Z12dVgK/RtxfJhqsVhav5axI+0lT/o58FoJmX+J0n6dMeFfnCAZjsE9vFGCPHlRXSx+s
-         8aeu+lsNhfaH//bXtFFE+pZo9oTbzX5XSpWTT0uyDwNDf5r7KOP95p1A/01CR0BDIKE5
-         P9U1HhRIM1hg7HKmsBvG8XQOslJ1QIMr1iW/0tz5UBbRr9yZeAU6cG/XfKdL21Dhsnuy
-         1PWq36upLz9wSGrLkgQenizVJKFUdKTeZJkX8KsqIb2Nt7kMNmUIf1mqVm5gM21E8Ioj
-         986A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :thread-index:content-language;
-        bh=nMLeVRmAj4wZ78pTmUjRGZ/jrFiAJ3RYHc/PTY0i/Dg=;
-        b=qENXI2rSDjmscCIb/oD1ownS6pP8YJAL+Mw+WwqljKmGOGRBcHMmEFaKfhNUrdnadd
-         kSu0dh8+0wvTM19AlUMEQ0ftZV0fwi0ohaJjg7/EgqAXUsFU8vEKEUAG9muA2MPfn0Zs
-         kDrcltPhgC0zbAXCJlwst7oJglc1azfLAERFh3Ok7c2dfMgt03Tjnnm5WoBpJiOV0wyd
-         uJRPUfBbEJCoh5aezlzmEe4xKtPGFW/oEpjcICytwUPPhuc7P2J0x9JARSZHosQbcjiD
-         MiAX/vZuHsZv3SXHmJmqn/uG2nIS+Se4MZm3TI7B/44ev0TR9BalytgyLrZlubVs2NoU
-         CLng==
-X-Gm-Message-State: AOAM531Q1lMMT8EgfkfKtVuaUrMv59nvYTSG4l7I/KICRoD66V4e+q5i
-	GAjMakUmlDoLQdZlSJGjXZQ=
-X-Google-Smtp-Source: ABdhPJz0AsFPiwdDk8BXFtloGumJHmRPBBSwvUxiTU+3OCxHtlHRfaisKIj3JH3DEGw28O43uyuZLQ==
-X-Received: by 2002:a7b:c306:: with SMTP id k6mr19571376wmj.52.1610960966766;
-        Mon, 18 Jan 2021 01:09:26 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-Cc: "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
-	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
-	"'George Dunlap'" <george.dunlap@citrix.com>,
-	"'Ian Jackson'" <iwj@xenproject.org>,
-	"'Jan Beulich'" <jbeulich@suse.com>,
-	"'Julien Grall'" <julien@xen.org>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Wei Liu'" <wl@xen.org>,
-	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
-	"'Julien Grall'" <julien.grall@arm.com>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-9-git-send-email-olekstysh@gmail.com>
-In-Reply-To: <1610488352-18494-9-git-send-email-olekstysh@gmail.com>
-Subject: RE: [PATCH V4 08/24] xen/ioreq: Move x86's ioreq_server to struct domain
-Date: Mon, 18 Jan 2021 09:09:25 -0000
-Message-ID: <00c201d6ed79$9e821800$db864800$@xen.org>
+X-Inumbo-ID: 5b2800fa-91f2-42ee-bc1d-70c33b80ff76
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610960995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/qxhGDHI1HvPISsKluhf3pThKIorGhbLjGga87mJBOc=;
+	b=J+UQbgUautNrb4sz6boNYDI0VPY/zL/W0qZclR5XdDSCPegOt/Hy7F8bLzbUep3wOxHwzx
+	dFV6FDdGenYvf8uhn9ZvGUp+FrYY4QRwCQPRV7VXsN5RZN3nYmAam/GjYyHdmOPkqSKqIm
+	ohV4uLzyNb0/w9bwsd8vob95UTjiU54=
+Subject: Re: [PATCH] x86/mem_sharing: silence ubsan warning
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <7536d7bd92337933e6e23be359ca981deab50016.1609699565.git.tamas@tklengyel.com>
+ <0405f97f-ee4f-6379-c0f4-3db149386bc2@citrix.com>
+ <CABfawhnGC2S3StnzcCkS0bQr3h_J1=i6LE7ma8vkZYJK_WoQuQ@mail.gmail.com>
+ <CABfawh=7A8HAU9Jh5MU9UPApUOLJM1VbdghVC7PGn2VbodRdLw@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <857cda4e-e31e-c98c-cd67-c9175d3f6cc4@suse.com>
+Date: Mon, 18 Jan 2021 10:09:58 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJtR7ihpnpDvKGK8VeC26+r2ffFKQIvfIOVqO7lKkA=
-Content-Language: en-gb
+In-Reply-To: <CABfawh=7A8HAU9Jh5MU9UPApUOLJM1VbdghVC7PGn2VbodRdLw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
-Oleksandr Tyshchenko
-> Sent: 12 January 2021 21:52
-> To: xen-devel@lists.xenproject.org
-> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Paul Durrant =
-<paul@xen.org>; Andrew Cooper
-> <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; =
-Ian Jackson
-> <iwj@xenproject.org>; Jan Beulich <jbeulich@suse.com>; Julien Grall =
-<julien@xen.org>; Stefano
-> Stabellini <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Roger Pau =
-Monn=C3=A9 <roger.pau@citrix.com>;
-> Julien Grall <julien.grall@arm.com>
-> Subject: [PATCH V4 08/24] xen/ioreq: Move x86's ioreq_server to struct =
-domain
->=20
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->=20
-> The IOREQ is a common feature now and this struct will be used
-> on Arm as is. Move it to common struct domain. This also
-> significantly reduces the layering violation in the common code
-> (*arch.hvm* usage).
->=20
-> We don't move ioreq_gfn since it is not used in the common code
-> (the "legacy" mechanism is x86 specific).
->=20
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 18.01.2021 02:38, Tamas K Lengyel wrote:
+> On Mon, Jan 4, 2021 at 12:21 PM Tamas K Lengyel <tamas@tklengyel.com> wrote:
+>>
+>> On Mon, Jan 4, 2021 at 7:31 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>>>
+>>> On 03/01/2021 18:47, Tamas K Lengyel wrote:
+>>>> Running Xen compiled with UBSAN produces a warning for mismatched size. It's
+>>>> benign but this patch silences the warning.
+>>>>
+>>>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+>>>> ---
+>>>>  xen/arch/x86/mm/mem_sharing.c | 5 ++++-
+>>>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
+>>>> index c428fd16ce..6920077dbf 100644
+>>>> --- a/xen/arch/x86/mm/mem_sharing.c
+>>>> +++ b/xen/arch/x86/mm/mem_sharing.c
+>>>> @@ -1638,7 +1638,10 @@ static int fork_hap_allocation(struct domain *cd, struct domain *d)
+>>>>      rc = hap_set_allocation(cd, mb << (20 - PAGE_SHIFT), &preempted);
+>>>>      paging_unlock(cd);
+>>>>
+>>>> -    return preempted ? -ERESTART : rc;
+>>>> +    if ( preempted )
+>>>> +        rc = -ERESTART;
+>>>> +
+>>>> +    return rc;
+>>>
+>>> I can't repro this at all, even with some simplified examples.
+>>>
+>>> -ERESTART is int (it is an enum constant in C files), as is rc, so I
+>>> can't spot a legitimate UBSAN complaint here.
+>>>
+>>> Which compiler, and/or do you have the exact complaint available?
+>>
+>> It was with gcc-7 on debian buster but can't recreate it after a make
+>> clean & make, it's now gone ¯\_(ツ)_/¯, seems like it was just a bad
+>> build. Sorry for the noise.
+> 
+> In a recent build with gcc-10 I got the warning again:
+> 
+> (XEN) ================================================================================
+> (XEN) UBSAN: Undefined behaviour in mem_sharing.c:1659:34
+> (XEN) load of value 6 is not a valid value for type '_Bool'
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+Isn't this rather referring to the value found in "preempted"?
+After all neither 6 nor -6 is related to ERESTART. If so, your
+proposed change would paper over an issue elsewhere and the
+issue would be liable to show up again when the if() gains
+similar treatment to the conditional operator by the compiler.
 
-...and I see you fix the alignment issue as part of the code movement in =
-this patch :-)
+And indeed, looking at the two functions the issue appears to
+be that hap_set_allocation() only ever writes "true" to
+*preempted, while fork_hap_allocation() fails to initialize
+its variable to "false".
 
-
+Jan
 
