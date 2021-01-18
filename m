@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0701C2FA635
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 17:30:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69884.125252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12CA52FA678
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 17:41:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69890.125268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1XPr-000366-Ix; Mon, 18 Jan 2021 16:30:07 +0000
+	id 1l1Xa4-0004Ca-Ib; Mon, 18 Jan 2021 16:40:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69884.125252; Mon, 18 Jan 2021 16:30:07 +0000
+Received: by outflank-mailman (output) from mailman id 69890.125268; Mon, 18 Jan 2021 16:40:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1XPr-00035h-FG; Mon, 18 Jan 2021 16:30:07 +0000
-Received: by outflank-mailman (input) for mailman id 69884;
- Mon, 18 Jan 2021 16:30:05 +0000
+	id 1l1Xa4-0004CB-Ew; Mon, 18 Jan 2021 16:40:40 +0000
+Received: by outflank-mailman (input) for mailman id 69890;
+ Mon, 18 Jan 2021 16:40:38 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hh0t=GV=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l1XPp-0002y0-Gi
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 16:30:05 +0000
-Received: from mail-lf1-x133.google.com (unknown [2a00:1450:4864:20::133])
+ <SRS0=qNeq=GV=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1l1Xa2-0004C6-M6
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 16:40:38 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1c5e067a-8fc3-4b0d-addf-654d284cc66f;
- Mon, 18 Jan 2021 16:30:04 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id s26so24877873lfc.8
- for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 08:30:04 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id d11sm1943340lfe.115.2021.01.18.08.30.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Jan 2021 08:30:02 -0800 (PST)
+ id 1a37360d-893f-4ee5-9899-2329f4d8e874;
+ Mon, 18 Jan 2021 16:40:37 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B0747AC6E;
+ Mon, 18 Jan 2021 16:40:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,195 +38,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c5e067a-8fc3-4b0d-addf-654d284cc66f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=GCu1j7yLedRBB8GLV9KIi9Ed3tRCd5ondPRDH/MsBtc=;
-        b=Ffw4HUVNKY8tu7cRa9bXGBhUG/VoLRjudQlNt2FVo4VsyY9FljHZSMilrYv47pa8+W
-         Oz3Waxc6wY+WubJaljE10JROuF4PSLxl4JjymQjrbmikzq5XjXrwdYW5LVDZSmozvT3W
-         teyQpWlY24LqD6fafzipbdQEWUqj8N0vqK5ajzHP5Ikot7Y4MUTExPU4gKSd5trGvJQt
-         tXOIH/9/1mrzbha7Bo3ucaaagN4zZvBUnBOntYPuhui5RGuwEaaw6Fs/6EoLsykGtGXZ
-         fAKZS7jv7xCJoK3cMaICbsyY6HnhJdqhIRKTbj1TfHZrN+h1Y2tRcjs3BwUAhoVzUUr4
-         A4/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=GCu1j7yLedRBB8GLV9KIi9Ed3tRCd5ondPRDH/MsBtc=;
-        b=N9WWHR8Tg4MQ3KJEFYi68vHpenThXCG00UsQJgavveYld/jBHG88lBIszWz6XQ9uZr
-         zthfE/ER6Pp3QxQXuRfLOIuEpfZUI1GttckqFKahISLFGr8wlPvJ6Ed1U4KssZRkukfK
-         gm20aSweJXm5G/YnPOr5Z8OglE4UEMDbjYsprYeURwZkrvQz3aQdNgzPPz+CMCv4wzvg
-         epccZ9ed1j6Wyd9cTg7h6X49AQjmzbbcru4wvFgcMOfulaCvW8Qj8uefPguf+70Znrkz
-         BfLglBRRQSds7yz42LfZKWf7IeIckzyE/QEJCgq4oNO7T/wVAyZB2kmpyEH+FK7NUiV3
-         a1lg==
-X-Gm-Message-State: AOAM533TQhInubBdd8kLW1c0QbBRvmx9v4rhOM5D4meVq+vms3ZS2WD4
-	TzKhAVfLtlT7uMEkCaSwLTc=
-X-Google-Smtp-Source: ABdhPJzumwNwQWWYYSPURpoC2eX/sMjnyHxss30rj28W6TDt8Ll3iI5Y8PxsbMUaPDQYNFmLUP5+ig==
-X-Received: by 2002:a05:6512:3092:: with SMTP id z18mr8918207lfd.249.1610987403263;
-        Mon, 18 Jan 2021 08:30:03 -0800 (PST)
-Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien@xen.org>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-15-git-send-email-olekstysh@gmail.com>
- <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org>
- <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com>
- <9904062b-cc59-c80e-50fa-ea932c8a9bd5@suse.com>
- <758fea3f-8a67-7541-1fa6-cf9898b4c336@gmail.com>
- <6c230830-7b3a-6339-ad23-1c975c058591@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <2310c92a-3f82-b419-53b9-47e9a5f829c7@gmail.com>
-Date: Mon, 18 Jan 2021 18:29:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 1a37360d-893f-4ee5-9899-2329f4d8e874
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610988036; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lcgGk/fujg1U7gwSm9XZQirf2Fo2HNnmNkGVXFaCYKo=;
+	b=rcnPtW7PTvL2UKUZlmWMWI3rjV8WglU9zY1eCyQrF3/giucXRsZvBwWzZDjG1PYmXcpcDN
+	WST099jMoW4TAQu0LJygr0nnyukcR3jElm+5hIIpBBJALbUY4MCVtew7IzCqmE0wYf9Lj+
+	pdZI6D8Dv+46j733zH8gnDPn7u+zBp0=
+Message-ID: <e9d0a07ff4dd8f1d94922f3b8e6b415bfd9ea02f.camel@suse.com>
+Subject: Re: IRQ latency measurements in hypervisor
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr Babchuk
+	 <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+ Julien Grall <jgrall@amazon.com>, Dario Faggioli <dario.faggioli@suse.com>,
+ Bertrand.Marquis@arm.com,  andrew.cooper3@citrix.com
+Date: Mon, 18 Jan 2021 17:40:35 +0100
+In-Reply-To: <alpine.DEB.2.21.2101141515230.31265@sstabellini-ThinkPad-T480s>
+References: <87pn294szv.fsf@epam.com>
+	 <alpine.DEB.2.21.2101141515230.31265@sstabellini-ThinkPad-T480s>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-H/zas1xRqY+jxbnOyN1v"
+User-Agent: Evolution 3.38.3 (by Flathub.org) 
 MIME-Version: 1.0
-In-Reply-To: <6c230830-7b3a-6339-ad23-1c975c058591@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 
 
-On 18.01.21 18:00, Jan Beulich wrote:
+--=-H/zas1xRqY+jxbnOyN1v
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jan
+On Thu, 2021-01-14 at 15:33 -0800, Stefano Stabellini wrote:
+> On Tue, 12 Jan 2021, Volodymyr Babchuk wrote:
+> > 2. RTDS scheduler. With console disabled, things like "hexdump -v
+> > =C2=A0=C2=A0 /dev/zero" didn't affected the latency so badly, but anywa=
+ys,
+> > =C2=A0=C2=A0 sometimes I got ~600us spikes. This is not a surprise, bec=
+ause
+> > of
+> > =C2=A0=C2=A0 default RTDS configuration. I changed period for DomU from
+> > default
+> > =C2=A0=C2=A0 10ms to 100us and things got better: with Dom0 burning CPU=
+ I am
+> > =C2=A0=C2=A0 rarely getting max latency of about ~30us with mean latenc=
+y of
+> > ~9us
+> > =C2=A0=C2=A0 and deviation of ~0.5us. On other hand, when I tried to se=
+t
+> > period
+> > =C2=A0=C2=A0 to 30us, max latency rose up to ~60us.
+>=20
+> This is very interestingi too. Did you get any spikes with the period
+> set to 100us? It would be fantastic if there were none.
+>=20
+This *probably* makes some sense. Where the *probably* comes from the
+fact that all the following reasoning assumes that what I recall about
+real-time scheduling theory is correct, on which I would not bet.
 
-> On 18.01.2021 16:52, Oleksandr wrote:
->> On 18.01.21 12:44, Jan Beulich wrote:
->>> On 17.01.2021 18:11, Oleksandr wrote:
->>>> On 15.01.21 22:26, Julien Grall wrote:
->>>>> On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
->>>>>> --- a/xen/arch/arm/io.c
->>>>>> +++ b/xen/arch/arm/io.c
->>>>>> @@ -16,6 +16,7 @@
->>>>>>      * GNU General Public License for more details.
->>>>>>      */
->>>>>>     +#include <xen/ioreq.h>
->>>>>>     #include <xen/lib.h>
->>>>>>     #include <xen/spinlock.h>
->>>>>>     #include <xen/sched.h>
->>>>>> @@ -23,6 +24,7 @@
->>>>>>     #include <asm/cpuerrata.h>
->>>>>>     #include <asm/current.h>
->>>>>>     #include <asm/mmio.h>
->>>>>> +#include <asm/hvm/ioreq.h>
->>
->> Note to self:
->>
->> Remove obsolete bool ioreq_complete_mmio(void) from asm-arm/hvm/ioreq.h
->>
->>
->>
->>>>> Shouldn't this have been included by "xen/ioreq.h"?
->>>> Well, for V1 asm/hvm/ioreq.h was included by xen/ioreq.h. But, it turned
->>>> out that there was nothing inside common header required arch one to be
->>>> included and
->>>> I was asked to include arch header where it was indeed needed (several
->>>> *.c files).
->>> I guess the general usage model of the two headers needs to be
->>> established first: If the per-arch header declares only stuff
->>> needed by the soon common/ioreq.c, then indeed it should be
->>> only that file and the producer(s) of the arch_*() functions
->>> which include that header; it should then in particular not be
->>> included by xen/ioreq.h.
->>>
->>> However, with the change request on patch 1 I think that usage
->>> model goes away at least for now, at which point the question
->>> is what exactly the per-arch header still declares, and based
->>> on that it would need to be decided whether xen/ioreq.h
->>> should include it.
->> ok, well.
->>
->> x86's arch header now contains few IOREQ_STATUS_* #define-s, but Arm's
->> contains more stuff
->> besides that:
->> - stuff which is needed by common/ioreq.c, mostly stubs which are not
->> implemented yet (handle_pio, etc)
->> - stuff which is not needed by common/ioreq.c, internal Arm bits
->> (handle_ioserv, try_fwd_ioserv)
->>
->> Could we please decide based on the information above?
-> You're in the best position to tell. The IOREQ_STATUS_* you
-> mention may require including from xen/ioreq.h, but as said,
-> ...
->
->>>>>> --- a/xen/include/asm-arm/domain.h
->>>>>> +++ b/xen/include/asm-arm/domain.h
->>>>>> @@ -10,6 +10,7 @@
->>>>>>     #include <asm/gic.h>
->>>>>>     #include <asm/vgic.h>
->>>>>>     #include <asm/vpl011.h>
->>>>>> +#include <public/hvm/dm_op.h>
->>>>> May I ask, why do you need to include dm_op.h here?
->>>> I needed to include that header to make some bits visible
->>>> (XEN_DMOP_IO_RANGE_PCI, struct xen_dm_op_buf, etc). Why here - is a
->>>> really good question.
->>>> I don't remember exactly, probably I followed x86's domain.h which also
->>>> included it.
->>>> So, trying to remove the inclusion here, I get several build failures on
->>>> Arm which could be fixed if I include that header from dm.h and ioreq.h:
->>>>
->>>> Shall I do this way?
->>> The general rule ought to be that header include what they need,
->>> but not more. Header dependencies are quite problematic already,
->>> so every dependency we can avoid (or eliminate) will help. This
->>> goes as far as only forward declaring structure where possible.
->> I got it.
-> ... it depends. If xen/ioreq.h needs nothing from asm/ioreq.h,
-> the I wouldn't see why it should include it.
->
->>>>>> @@ -262,6 +263,8 @@ static inline void arch_vcpu_block(struct vcpu
->>>>>> *v) {}
->>>>>>       #define arch_vm_assist_valid_mask(d) (1UL <<
->>>>>> VMASST_TYPE_runstate_update_flag)
->>>>>>     +#define has_vpci(d)    ({ (void)(d); false; })
->>>>>> +
->>>>>>     #endif /* __ASM_DOMAIN_H__ */
->>>>>>       /*
->>>>>> diff --git a/xen/include/asm-arm/hvm/ioreq.h
->>>>>> b/xen/include/asm-arm/hvm/ioreq.h
->>>>>> new file mode 100644
->>>>>> index 0000000..19e1247
->>>>>> --- /dev/null
->>>>>> +++ b/xen/include/asm-arm/hvm/ioreq.h
->>>>> Shouldn't this directly be under asm-arm/ rather than asm-arm/hvm/ as
->>>>> the IOREQ is now meant to be agnostic?
->>>> Good question... The _common_ IOREQ code is indeed arch-agnostic. But,
->>>> can the _arch_ IOREQ code be treated as really subarch-agnostic?
->>>> I think, on Arm it can and it is most likely ok to keep it in
->>>> "asm-arm/", but how it would be correlated with x86's IOREQ code which
->>>> is HVM specific and located
->>>> in "hvm" subdir?
->>> I think for Arm's sake this should be used as asm/ioreq.h, where
->>> x86 would gain a new header consisting of just
->>>
->>> #include <asm/hvm/ioreq.h>
->>>
->>> as there the functionality is needed for HVM only.
->> For me this sounds perfectly fine. I think, this would also address
->> Julien's question.
->> May I introduce that new header together with moving IOREQ to the common
->> code (patch #4)?
-> As with about everything, introduce new things the first time you
-> need them, unless this results in overly big patches (in which
-> case suitably splitting up is desirable, but of course no always
-> possible). IOW if you introduce xen/ioreq.h and it needs to
-> include asm/ioreq.h, then of course at this point you also need
-> to introduce the asm-x86/ioreq.h wrapper.
+Perhaps Stefano can ask to my good old friend Marko Bertogna, from the
+Univeristy of Modena, as they're collaborating on cache-coloring, what
+he his team think. He was already much better than me with this things,
+back in the days of the Ph.D... So for sure he's much better than me
+know! :-)
 
+Anyway, as I was saying, having a latency which is ~ 2x of your period
+is ok, and it should be expected (when you size the period). In fact,
+let's say that your budget is Xus, and your period is 30us.=C2=A0This means
+that you get to execute for Xus every 30us. So, basically, at time t0
+you are given a budget of Xus and you are guaranteed to be able to use
+it all within time t1=3Dt0+30us. At that time (t1=3Dt0+30us) you are given
+another Xus amount of budget, and you are guaranteed to be able to use
+it all within t2=3Dt1+30us=3Dt0+60us.
 
-Thank you for the clarification.
+Now, with a period as small as 30us, your budget is also going to be
+pretty small (how much was that? If it was in your mail, I must have
+missed it). Are you sure that the vCPU is able to wake up and run until
+the point that your driver has done all the latency measurement in
+_just_one_ instance (i.e., all this takes less than the budget)?.
 
--- 
-Regards,
+In fact, lat's say your budget is 10us, and it the vCPU needs 15us for
+waking up and doing the measurements. At time t0 the vCPU is scheduler,
+and let's say that the latency at that time is exactly 0. The vCPU
+start to run but, at time t0+10us (where 10us is the budget) it is
+stopped. at time t1=3Dt0+30us, the vCPU receives a budget replenishment
+but that does not mean that it will start to run immediately, if the
+system is busy.
 
-Oleksandr Tyshchenko
+In fact, what RTDS guarantees is that the vCPU will be able to execute
+for 10us within time t2=3Dt1+30us. So, in theory, it can start to run as
+far as t2-10us, without violating any guarantee.
+
+If that is, in fact, what happens, i.e., the vCPU starts to run only at
+t2-10us, and it is only then that it manages to finish computing and
+recording the latency (after running for 5us more, as we said it takes
+15us).
+
+What it will therefore record would be a latency to t2-5us, which in
+fact is:
+
+  t1 + 30us - 5us =3D t0 + 30us + 30us - 5us =3D
+=3D 0 + 60us - 5us =3D 55us ~=3D 60us
+
+So... May this be the case?
+
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-H/zas1xRqY+jxbnOyN1v
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmAFugMACgkQFkJ4iaW4
+c+4RpA//d1ATNna4dYur2du9GnSiCdUSjVYqiCCzns3VuWDTyVJqxRuxlQo1X8eQ
+I22WG9TtMYThFVAKbBYM7urV+QRz+Rk6NTu8tzlIqmtDr+sRb+X5MBpHRC3ZqdLI
+Z88QWcH6qgUxF2riloVtmDBUX5K4VR7lQzi/SwTvFRW+PaRMSsJH+jfNvjcnKKj/
+M/Urwt1FRxmI27Sk+HuXfmaburXSGXlC+c9Ph0LWgxP6Go7lay+jnlta3z6c6zZM
+jn2/r5r5LfEeAq5GBHYC4WCkBvuINkcvtVpUq8a4+9mhozau35bGa9t4eRMMFwLY
+FPsv3e6GW8LY221yEQr1VI0R4AHV+jxNMtTVU0H383YsILTAlbOHtvxFZxMdkodo
+fNwlaBnTVlK004bhlC9jNEMlkDK+tUWIPl22CW6VWjizjUgDqsm3h8KIW1CjpoVY
+zZCX5zWPZgAW5UtsZiMFpIDtKAUmhziwXSVHFfJfPBjJSJHon91oDsWX58yYPSoO
+r6aothOkR6tH9pShoqdeDwfozlJhHe5kpBTOlB/himCLyAa+JAS/HVPm3XagCRMX
+qYJ8Mv+SHNDGBaM1+O4XUO5zPnOAAuMDiFmBzirubGAe674wdqvvydJYEE2R6axJ
+yr5vH+lYCnxI1cDlIIc/+FJevKjc57MRBX0Os2VEHKhlpwGAQbE=
+=ZidO
+-----END PGP SIGNATURE-----
+
+--=-H/zas1xRqY+jxbnOyN1v--
 
 
