@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67A412F9D56
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 11:59:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69586.124658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DD022F9D80
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 12:05:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69591.124670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1SG1-0007tr-GL; Mon, 18 Jan 2021 10:59:37 +0000
+	id 1l1SLR-0000Qx-65; Mon, 18 Jan 2021 11:05:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69586.124658; Mon, 18 Jan 2021 10:59:37 +0000
+Received: by outflank-mailman (output) from mailman id 69591.124670; Mon, 18 Jan 2021 11:05:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1SG1-0007tS-D4; Mon, 18 Jan 2021 10:59:37 +0000
-Received: by outflank-mailman (input) for mailman id 69586;
- Mon, 18 Jan 2021 10:59:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l1SLR-0000QY-2A; Mon, 18 Jan 2021 11:05:13 +0000
+Received: by outflank-mailman (input) for mailman id 69591;
+ Mon, 18 Jan 2021 11:05:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=d36Q=GV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l1SFz-0007tN-Vb
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 10:59:36 +0000
+ id 1l1SLP-0000QT-Jt
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 11:05:11 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fb040459-c7ff-4d85-b758-541d3b098e48;
- Mon, 18 Jan 2021 10:59:30 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c1d8209e-ce74-4169-81a8-55c1de40fcc6;
+ Mon, 18 Jan 2021 11:05:10 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 865E2ACF4;
- Mon, 18 Jan 2021 10:59:29 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id EC6F4ACF5;
+ Mon, 18 Jan 2021 11:05:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,118 +38,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb040459-c7ff-4d85-b758-541d3b098e48
+X-Inumbo-ID: c1d8209e-ce74-4169-81a8-55c1de40fcc6
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610967569; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610967910; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=W4tibr/Sj7BHPOd2meBDfjea1p9DSVPit3fIuT6uo3Y=;
-	b=LBnSV0NO01AQ5TU+nVSI+Sm9qp3wdTkAcJd7WyPCGrtaMZt6m/sFjOjvGIY6/dYSt/braz
-	JU6xtkvc1JcXW6Lx3JHF137m16mx0t+P8iI98SiW4/unkPUzML6h4fZiMCCDJymWDXae+M
-	bSf+Iix0T5/Fe4rR5XNLjMB6E+eRPsg=
-Subject: Re: [PATCH 1/3] introduce unaligned.h
-To: Julien Grall <julien@xen.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- M A Young <m.a.young@durham.ac.uk>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <0eba95b9-66eb-2692-1da1-c27784b9f51e@suse.com>
- <12f26ab9-8a8c-19f0-ea65-8b354bd326a6@suse.com>
- <8c459039-a27a-01e5-0143-7c9b6e019e42@citrix.com>
- <78ecd61e-bdfb-169c-1db3-b9914fca7f3d@suse.com>
- <6afa47a8-aa63-f8aa-c648-e5e8e51b845a@suse.com>
- <70ad73e4-c9d2-ec55-dc40-14567a0838af@xen.org>
+	bh=1lhbWKbFRqmnloTg8G0grSjUIKhDRA+6o4/NWlR5Y04=;
+	b=OnRC4mPKwSmr75gTuvevDy/36yvx60hLYhIzav261hcnKNf1JpKv557IdzwT/yOLHB7f1H
+	H6MOcywFm+Qog2T5c0Yv2qDcVqPiAiRkhUECsCM9GPP5sLMqxbPB8nk9gFtPSybCptlnUl
+	Rs+IZHqEAytuXTIxJqy7r2KoEA93LGs=
+Subject: Re: [PATCH] x86/CPUID: unconditionally set
+ XEN_HVM_CPUID_IOMMU_MAPPINGS
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210115150138.36087-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3aaac5be-b5ef-674f-8671-dbe27aa3fd8c@suse.com>
-Date: Mon, 18 Jan 2021 11:59:32 +0100
+Message-ID: <7535c962-bb3b-6bca-977a-9e8a3332a0f5@suse.com>
+Date: Mon, 18 Jan 2021 12:05:12 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <70ad73e4-c9d2-ec55-dc40-14567a0838af@xen.org>
+In-Reply-To: <20210115150138.36087-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 18.01.2021 11:45, Julien Grall wrote:
-> On 18/01/2021 09:33, Jan Beulich wrote:
->> On 15.01.2021 12:27, Jan Beulich wrote:
->>> On 15.01.2021 12:13, Andrew Cooper wrote:
->>>> On 15/01/2021 10:05, Jan Beulich wrote:
->>>>> Rather than open-coding commonly used constructs in yet more places when
->>>>> pulling in zstd decompression support (and its xxhash prereq), pull out
->>>>> the custom bits into a commonly used header (for the hypervisor build;
->>>>> the tool stack and stubdom builds of libxenguest will still remain in
->>>>> need of similarly taking care of). For now this is limited to x86, where
->>>>> custom logic isn't needed (considering this is going to be used in init
->>>>> code only, even using alternatives patching to use MOVBE doesn't seem
->>>>> worthwhile).
->>>>>
->>>>> No change in generated code.
->>>>>
->>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>> ---
->>>>> Iirc use of include/asm-generic/ was disliked, hence the generic header
->>>>> goes into include/xen/.
->>>>
->>>> Really?  I think its going to be the only sane way of fixing up some of
->>>> our header tangle.
->>>>
->>>> This series probably isn't the right place to fix this argument, so
->>>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>
->>> Thanks.
->>>
->>>> However, presumably we're going to want an ARM side of this imminently?
->>>
->>> Why? It's only used (and going to be further used) by code not
->>> built for Arm. So while it certainly would be nice for such a
->>> header to also appear there (and the x86-special casing going
->>> away in patch 2), it's not a strict requirement at this point.
->>> Therefore I'd prefer to leave this to the Arm maintainers (and
->>> probably for 4.16).
->>
->> I was wrong here, when it comes to an Arm64 build with ACPI
->> support enabled. xen/arch/arm/efi/efi-dom0.c has
->>
->> #define XZ_EXTERN STATIC
->> #include "../../../common/xz/crc32.c"
->>
->> in order to later do
->>
->>      xz_crc32_init();
->>      efi_sys_tbl->Hdr.CRC32 = xz_crc32((uint8_t *)efi_sys_tbl,
->>                                        efi_sys_tbl->Hdr.HeaderSize, 0);
->>
->> Urgh. Why in the world does xz code get re-used like this?
->> If we need generic crc32 support, such should imo live in
->> xen/lib/.
+On 15.01.2021 16:01, Roger Pau Monne wrote:
+> This is a revert of f5cfa0985673 plus a rework of the comment that
+> accompanies the setting of the flag so we don't forget why it needs to
+> be unconditionally set: it's indicating whether the version of Xen has
+> the original issue fixed and IOMMU entries are created for
+> grant/foreign maps.
 > 
-> I suspect this was in order to make the EFI stub completely independent 
-> to Xen (this is the case for Linux Arm). It turns out we now have an 
-> hybrid model as we re-use pass some information in the DT and other via 
-> variables.
-> 
->>
->> So we have two possible courses of action: Eliminate this
->> unsuitable re-use of code, or introduce asm/unaligned.h
->> for Arm (or at least Arm64, in case it makes a difference)
->> right away.
-> 
-> EFI stub is only supported for Arm64. So it should be sufficient to 
-> introduce the asm/unaligned.h on Arm64.
-> 
-> Note that on Arm32 we forbid unaligned access. So we may need two set of 
-> helpers (I haven't looked at what the header does).
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-IOW it might be possible that Arm64 could re-use the x86 header.
-Unless the price of unaligned accesses is much higher there. But
-anyway, I'm about to commit the series with the issues addressed
-using the 3rd approach, outlined earlier in a separate reply.
+Despite my earlier ack I came to think that the description and
+comment still don't make it quite clear what was actually wrong
+with the prior change, and hence they also don't really guard
+against the same getting done again (perhaps even by me). May I
+ask that you add a paragraph above and ...
+
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -1049,11 +1049,10 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
+>              res->a |= XEN_HVM_CPUID_X2APIC_VIRT;
+>  
+>          /*
+> -         * Indicate that memory mapped from other domains (either grants or
+> -         * foreign pages) has valid IOMMU entries.
+> +         * Unconditionally set the flag to indicate this version of Xen has
+> +         * been fixed to create IOMMU mappings for grant/foreign maps.
+>           */
+> -        if ( is_iommu_enabled(d) )
+> -            res->a |= XEN_HVM_CPUID_IOMMU_MAPPINGS;
+> +        res->a |= XEN_HVM_CPUID_IOMMU_MAPPINGS;
+
+... try to clarify the "Unconditionally" here?
 
 Jan
 
