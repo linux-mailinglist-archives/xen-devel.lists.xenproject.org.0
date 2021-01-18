@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C6312F9ACE
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 08:51:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69408.124174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 924152F9ACF
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 08:52:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69411.124187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1PJT-0002yO-TI; Mon, 18 Jan 2021 07:50:59 +0000
+	id 1l1PKO-00034D-7l; Mon, 18 Jan 2021 07:51:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69408.124174; Mon, 18 Jan 2021 07:50:59 +0000
+Received: by outflank-mailman (output) from mailman id 69411.124187; Mon, 18 Jan 2021 07:51:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1PJT-0002y3-QB; Mon, 18 Jan 2021 07:50:59 +0000
-Received: by outflank-mailman (input) for mailman id 69408;
- Mon, 18 Jan 2021 07:50:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l1PKO-00033o-4F; Mon, 18 Jan 2021 07:51:56 +0000
+Received: by outflank-mailman (input) for mailman id 69411;
+ Mon, 18 Jan 2021 07:51:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=777z=GV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l1PJS-0002xy-Ao
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 07:50:58 +0000
+ id 1l1PKM-00033i-MV
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 07:51:54 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0dce7ddf-3936-4150-8c0d-85131dc71260;
- Mon, 18 Jan 2021 07:50:57 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 545749fe-7f3b-4782-9fcb-d079f96c8160;
+ Mon, 18 Jan 2021 07:51:53 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 619F9ABDA;
- Mon, 18 Jan 2021 07:50:56 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 79A49ABDA;
+ Mon, 18 Jan 2021 07:51:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,98 +39,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dce7ddf-3936-4150-8c0d-85131dc71260
+X-Inumbo-ID: 545749fe-7f3b-4782-9fcb-d079f96c8160
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610956256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610956312; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iYY6y0yheVtMHPKzYiyBKJ4ONLF3wEWaQ6BFnR/OQjE=;
-	b=O/Flfll8fLuxwqjdkKDn+iQ+fABlZ8XsSzzkBb89vbrnFy+S42WQvGTDjBtauC487ppmAt
-	expGdF8u1rhbpX8fLDz2U1uWJYYY6zDIkNVBOHScoMUfzmu20x/Sx6bsZrO9Wf5MgY/O3y
-	DfYUb3JRRdU9WY4tZa66CaCeO9bE7I8=
-Subject: Re: [PATCH v2 1/8] tools/xenstore: add live update command to
- xenstore-control
+	bh=cNaYx4ZcsmXIJBXS2IDzyUwQgZ8h/GwSuaIht1S0yEA=;
+	b=hNge1wU7TttfvyJYe/7fSadBQwQ6Mh2ks7CODtO2kh8Aj9oHO9Snz5R51Oj3d/M9c+O3qH
+	0JLTRJYpNkhNczC/Xj1t+8QOIZ2mY2xqvtVml7xP04pniZbhL0w03uP7QGe+OycGoeTeET
+	LBZu/89CRL3QjF24njDTEZ/RvWJVgNA=
+Subject: Re: [PATCH v2 4/8] tools/ocaml/xenstored: only quit on SIGTERM when a
+ reload is possible
 To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
  xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Julien Grall <jgrall@amazon.com>
+Cc: Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Pau Ruiz Safont <pau.safont@citrix.com>
 References: <cover.1610748224.git.edvin.torok@citrix.com>
- <89d027f191af20c39dbf9d37dfcd602c2669511d.1610748224.git.edvin.torok@citrix.com>
+ <023574503750d06132e3ca260848c364ff439001.1610748224.git.edvin.torok@citrix.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <31626f43-150d-327c-8ca2-e7fd184af678@suse.com>
-Date: Mon, 18 Jan 2021 08:50:55 +0100
+Message-ID: <09b5ab23-2044-dc8c-cc61-14cd8055c21d@suse.com>
+Date: Mon, 18 Jan 2021 08:51:51 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.0
 MIME-Version: 1.0
-In-Reply-To: <89d027f191af20c39dbf9d37dfcd602c2669511d.1610748224.git.edvin.torok@citrix.com>
+In-Reply-To: <023574503750d06132e3ca260848c364ff439001.1610748224.git.edvin.torok@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="5LcSO1JOOFgnj2pRJGw2lgPF1z0qMdvP6"
+ boundary="8kvK2AVHspN0lXrztUD03pdi4DebERX7O"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---5LcSO1JOOFgnj2pRJGw2lgPF1z0qMdvP6
-Content-Type: multipart/mixed; boundary="wR6g8Ijwv6ca3vPMIPDfEHtB6eA9wWUvd";
+--8kvK2AVHspN0lXrztUD03pdi4DebERX7O
+Content-Type: multipart/mixed; boundary="fvDYvoYXZSMeCwXapyEM8MkaBRfdNNDSL";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
  xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, Julien Grall <jgrall@amazon.com>
-Message-ID: <31626f43-150d-327c-8ca2-e7fd184af678@suse.com>
-Subject: Re: [PATCH v2 1/8] tools/xenstore: add live update command to
- xenstore-control
+Cc: Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, Pau Ruiz Safont <pau.safont@citrix.com>
+Message-ID: <09b5ab23-2044-dc8c-cc61-14cd8055c21d@suse.com>
+Subject: Re: [PATCH v2 4/8] tools/ocaml/xenstored: only quit on SIGTERM when a
+ reload is possible
 References: <cover.1610748224.git.edvin.torok@citrix.com>
- <89d027f191af20c39dbf9d37dfcd602c2669511d.1610748224.git.edvin.torok@citrix.com>
-In-Reply-To: <89d027f191af20c39dbf9d37dfcd602c2669511d.1610748224.git.edvin.torok@citrix.com>
+ <023574503750d06132e3ca260848c364ff439001.1610748224.git.edvin.torok@citrix.com>
+In-Reply-To: <023574503750d06132e3ca260848c364ff439001.1610748224.git.edvin.torok@citrix.com>
 
---wR6g8Ijwv6ca3vPMIPDfEHtB6eA9wWUvd
+--fvDYvoYXZSMeCwXapyEM8MkaBRfdNNDSL
 Content-Type: multipart/mixed;
- boundary="------------3B9D372610DF1428369D0433"
+ boundary="------------04AD38452A6F9E3C93A199F0"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------3B9D372610DF1428369D0433
+--------------04AD38452A6F9E3C93A199F0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 15.01.21 23:28, Edwin T=C3=B6r=C3=B6k wrote:
-> From: Juergen Gross <jgross@suse.com>
+> Currently when oxenstored receives SIGTERM it dumps its state and quits=
+=2E
+> It is possible to then restart it if --restart is given, however that i=
+s
+> not always safe:
 >=20
-> Add the "live-update" command to xenstore-control enabling updating
-> xenstored to a new version in a running Xen system.
+> * domains could have active transactions, and after a restart they woul=
+d
+> either reuse transaction IDs of already open transactions, or get an
+> error back that the transaction doesn't exist
 >=20
-> With -c <arg> it is possible to pass a different command line to the
-> new instance of xenstored. This will replace the command line used
-> for the invocation of the just running xenstored instance.
+> * there could be pending data to send to a VM still in oxenstored's
+>    queue which would be lost
 >=20
-> The running xenstored (or xenstore-stubdom) needs to support live
-> updating, of course.
+> * there could be pending input to be processed from a VM in oxenstored'=
+s
+>    queue which would be lost
 >=20
-> For now just add a small dummy handler to C xenstore denying any
-> live update action.
+> Prevent shutting down oxenstored via SIGTERM in the above situations.
+> Also ignore domains marked as bad because oxenstored would never talk
+> to them again.
 >=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Reviewed-by: Paul Durrant <paul@xen.org>
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Edwin T=C3=B6r=C3=B6k <edvin.torok@citrix.com>
+> Reviewed-by: Pau Ruiz Safont <pau.safont@citrix.com>
+> Reviewed-by: Christian Lindig <christian.lindig@citrix.com>
+>=20
+> ---
+> Changed since V1:
+> * post publicly now that the XSA is out
+> ---
+>   tools/ocaml/xenstored/connection.ml  | 35 +++++++++++++++++++++++++++=
++
+>   tools/ocaml/xenstored/connections.ml |  8 +++++++
+>   tools/ocaml/xenstored/xenstored.ml   | 13 +++++++++--
+>   tools/xenstore/xenstored_core.c      |  7 +++++-
 
-Instead of merging multiple patches of mine into a single one and
-sending it here with my S-o-b I'd prefer a simple caveat for your
-series to depend on my C-xenstore series.
-
-This additionally reduces the risk to miss any modifications in
-my series done in a later iteration than the one you have taken.
+I don't think you should modify tools/xenstore/xenstored_core.c in your
+series.
 
 
 Juergen
 
---------------3B9D372610DF1428369D0433
+--------------04AD38452A6F9E3C93A199F0
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -220,25 +230,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------3B9D372610DF1428369D0433--
+--------------04AD38452A6F9E3C93A199F0--
 
---wR6g8Ijwv6ca3vPMIPDfEHtB6eA9wWUvd--
+--fvDYvoYXZSMeCwXapyEM8MkaBRfdNNDSL--
 
---5LcSO1JOOFgnj2pRJGw2lgPF1z0qMdvP6
+--8kvK2AVHspN0lXrztUD03pdi4DebERX7O
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAFPd8FAwAAAAAACgkQsN6d1ii/Ey/m
-sAgAmg7pxklU+dXQ27Av3L6LCd8LL/18KWtXSMzi19312AyVneoJmjUa0RoQQjSkDsxVQdY+5G5j
-7ud3TO8ec/BGbntecG/oh0G3DfQzeLO+wj5AOELdJvci/JL1iCyQdmNhXeutQztieT8Us9oKgL9t
-O9ENAa+dEKEdms6eXavpWsom7fKGfcyObrembfeZG4xsqKGjjjqhUlWdU9D9Zorjomwieq7itHi/
-6HDTQ3Gnho+4cgMgIUMOogRCjw4Nb/MiWW76Z8dF6rKSt4KauhqfPFgOUwutkx4aaPJWiWDpxoEQ
-P0Sm4OuQeBFEoULUYNmEHIWAzByLQ0q//bOkIFP5Cw==
-=bZVm
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAFPhcFAwAAAAAACgkQsN6d1ii/Ey/g
+3wf6Ahj2+o0rKqrbw7qZf3oDI+icuKQFoRNsifBRfArEbpmzg+O0ZyZvuyXOLF5cNrRtysuxRtkb
+r6rK2dsZzTpe7YRfLJrVJ7hwHMdXVb+PdR4lH8nPbIGFh9dzvVbFH5bHrovv11ldxnXRylhvwgQE
+x8icS+rfK+GI53WlbQqpArM84N5m46mmlGv2+K798+H1JJQMI+5V6c0qun24OdNEhxiAPxm6tamG
+GSYeVyoe+YAoGltb2plakN6sr13UZ5xcaOkRbcpZsv4r0WDUsYytc60vbF8EuRXvh7a8ZGwKTnll
+uc/S6bm9Fe4fzJ3AUB7tcU3ITT6p3VKHXf9SoV3kSQ==
+=jj/F
 -----END PGP SIGNATURE-----
 
---5LcSO1JOOFgnj2pRJGw2lgPF1z0qMdvP6--
+--8kvK2AVHspN0lXrztUD03pdi4DebERX7O--
 
