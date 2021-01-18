@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F0952FA999
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 20:05:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69996.125543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 337622FA99A
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 20:06:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69998.125555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1ZqL-0002t5-MT; Mon, 18 Jan 2021 19:05:37 +0000
+	id 1l1Zqg-0002xc-V9; Mon, 18 Jan 2021 19:05:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69996.125543; Mon, 18 Jan 2021 19:05:37 +0000
+Received: by outflank-mailman (output) from mailman id 69998.125555; Mon, 18 Jan 2021 19:05:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1ZqL-0002sg-J2; Mon, 18 Jan 2021 19:05:37 +0000
-Received: by outflank-mailman (input) for mailman id 69996;
- Mon, 18 Jan 2021 19:05:35 +0000
+	id 1l1Zqg-0002xG-RG; Mon, 18 Jan 2021 19:05:58 +0000
+Received: by outflank-mailman (input) for mailman id 69998;
+ Mon, 18 Jan 2021 19:05:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=skM3=GV=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1l1ZqJ-0002sZ-Mj
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 19:05:35 +0000
+ id 1l1Zqf-0002x6-4t
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 19:05:57 +0000
 Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ac86f5ee-82ca-4adc-8e54-71894376a771;
- Mon, 18 Jan 2021 19:05:34 +0000 (UTC)
-Received: from rochebonne.antioche.eu.org (rochebonne [10.0.0.1])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 10IJ5Sgm019975;
- Mon, 18 Jan 2021 20:05:28 +0100 (MET)
+ id f3209e8a-c026-4965-8973-5bf2a3250bf4;
+ Mon, 18 Jan 2021 19:05:56 +0000 (UTC)
+Received: from rochebonne.antioche.eu.org (rochebonne
+ [IPv6:2001:41d0:fe9d:1100:221:70ff:fe0c:9885])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 10IJ5qin016846;
+ Mon, 18 Jan 2021 20:05:52 +0100 (MET)
 Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
- id CDBAC281D; Mon, 18 Jan 2021 20:05:28 +0100 (CET)
+ id 654D6281D; Mon, 18 Jan 2021 20:05:52 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,71 +41,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac86f5ee-82ca-4adc-8e54-71894376a771
-Date: Mon, 18 Jan 2021 20:05:28 +0100
+X-Inumbo-ID: f3209e8a-c026-4965-8973-5bf2a3250bf4
+Date: Mon, 18 Jan 2021 20:05:52 +0100
 From: Manuel Bouyer <bouyer@antioche.eu.org>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        xen-devel@lists.xenproject.org,
-        Elena Ufimtseva <elena.ufimtseva@oracle.com>,
-        Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] gdbsx: use right path for privcmd
-Message-ID: <20210118190528.GA1106@antioche.eu.org>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+        Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] libs/store: make build without PTHREAD_STACK_MIN
+Message-ID: <20210118190552.GB1106@antioche.eu.org>
 References: <20210112181242.1570-1-bouyer@antioche.eu.org>
- <20210112181242.1570-8-bouyer@antioche.eu.org>
- <20210118180349.l52rbadmmfe4l6qm@Air-de-Roger>
- <c1375ce9-7750-8443-22aa-41e4cf4713d7@citrix.com>
+ <20210112181242.1570-18-bouyer@antioche.eu.org>
+ <00483a69-0c93-96dd-2ea7-60c91c050a88@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c1375ce9-7750-8443-22aa-41e4cf4713d7@citrix.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Mon, 18 Jan 2021 20:05:29 +0100 (MET)
+In-Reply-To: <00483a69-0c93-96dd-2ea7-60c91c050a88@citrix.com>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [IPv6:2001:41d0:fe9d:1101:0:0:0:1]); Mon, 18 Jan 2021 20:05:52 +0100 (MET)
 
-On Mon, Jan 18, 2021 at 06:45:42PM +0000, Andrew Cooper wrote:
-> On 18/01/2021 18:03, Roger Pau Monné wrote:
-> > On Tue, Jan 12, 2021 at 07:12:28PM +0100, Manuel Bouyer wrote:
-> >> From: Manuel Bouyer <bouyer@netbsd.org>
-> >>
-> >> On NetBSD the privcmd interface node is /kern/xen/privcmd
-> >>
-> >> Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-> >> ---
-> >>  tools/debugger/gdbsx/xg/xg_main.c | 10 +++++-----
-> >>  1 file changed, 5 insertions(+), 5 deletions(-)
-> >>
-> >> diff --git a/tools/debugger/gdbsx/xg/xg_main.c b/tools/debugger/gdbsx/xg/xg_main.c
-> >> index ce95648e7e..83a009c195 100644
-> >> --- a/tools/debugger/gdbsx/xg/xg_main.c
-> >> +++ b/tools/debugger/gdbsx/xg/xg_main.c
-> >> @@ -130,11 +130,11 @@ xg_init()
-> >>      int flags, saved_errno;
-> >>  
-> >>      XGTRC("E\n");
-> >> -    if ((_dom0_fd=open("/dev/xen/privcmd", O_RDWR)) == -1) {
-> >> -        if ((_dom0_fd=open("/proc/xen/privcmd", O_RDWR)) == -1) {
-> >> -            perror("Failed to open /dev/xen/privcmd or /proc/xen/privcmd\n");
-> >> -            return -1;
-> >> -        }
-> >> +    if ((_dom0_fd=open("/dev/xen/privcmd", O_RDWR)) == -1 &&
-> >> +        (_dom0_fd=open("/proc/xen/privcmd", O_RDWR)) == -1 &&
-> >> +	(_dom0_fd=open("/kern/xen/privcmd", O_RDWR)) == -1) {
-> > Nit: hard tab instead of spaces.
+On Mon, Jan 18, 2021 at 06:56:46PM +0000, Andrew Cooper wrote:
+> On 12/01/2021 18:12, Manuel Bouyer wrote:
+> > From: Manuel Bouyer <bouyer@netbsd.org>
 > >
-> >> +        perror("Failed to open /dev/xen/privcmd or /proc/xen/privcmd or /kern/xen/privcmd\n");
-> > I would have split the line, so:
+> > On NetBSD, PTHREAD_STACK_MIN is not available.
+> > Just use DEFAULT_THREAD_STACKSIZE if PTHREAD_STACK_MIN is not available.
 > >
-> >         perror("Failed to open /dev/xen/privcmd or /proc/xen/privcmd or "
-> > 	       "/kern/xen/privcmd\n");
+> > Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+> > ---
+> >  tools/libs/store/xs.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
 > >
-> > If you can resend with those fixed please add:
-> >
-> > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> > diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
+> > index 4ac73ec317..8e646b98d6 100644
+> > --- a/tools/libs/store/xs.c
+> > +++ b/tools/libs/store/xs.c
+> > @@ -811,9 +811,13 @@ bool xs_watch(struct xs_handle *h, const char *path, const char *token)
+> >  
+> >  #ifdef USE_PTHREAD
+> >  #define DEFAULT_THREAD_STACKSIZE (16 * 1024)
+> > +#ifndef PTHREAD_STACK_MIN
+> > +#define READ_THREAD_STACKSIZE DEFAULT_THREAD_STACKSIZE
+> > +#else
+> >  #define READ_THREAD_STACKSIZE 					\
+> >  	((DEFAULT_THREAD_STACKSIZE < PTHREAD_STACK_MIN) ? 	\
+> >  	PTHREAD_STACK_MIN : DEFAULT_THREAD_STACKSIZE)
+> > +#endif
 > 
-> I'd shorten it to just "Failed to open privcmd".  I can fix on commit if
-> you're happy.
+> How about this:
+> 
+> diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
+> index 4ac73ec317..3fa3abdeca 100644
+> --- a/tools/libs/store/xs.c
+> +++ b/tools/libs/store/xs.c
+> @@ -811,9 +811,14 @@ bool xs_watch(struct xs_handle *h, const char
+> *path, const char *token)
+>  
+>  #ifdef USE_PTHREAD
+>  #define DEFAULT_THREAD_STACKSIZE (16 * 1024)
+> -#define READ_THREAD_STACKSIZE                                  \
+> -       ((DEFAULT_THREAD_STACKSIZE < PTHREAD_STACK_MIN) ?       \
+> -       PTHREAD_STACK_MIN : DEFAULT_THREAD_STACKSIZE)
+> +
+> +/* NetBSD doesn't have PTHREAD_STACK_MIN. */
+> +#ifndef PTHREAD_STACK_MIN
+> +# define PTHREAD_STACK_MIN 0
+> +#endif
+> +
+> +#define READ_THREAD_STACKSIZE \
+> +       MAX(PTHREAD_STACK_MIN, DEFAULT_THREAD_STACKSIZE)
+>  
+>         /* We dynamically create a reader thread on demand. */
+>         mutex_lock(&h->request_mutex);
+> 
+> which makes things rather clearer IMO.
 
-fine with me, thanks !
+fine with me too
 
 -- 
 Manuel Bouyer <bouyer@antioche.eu.org>
