@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 112912F9B43
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 09:29:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69436.124247 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 785992F9B4C
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 09:32:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69439.124258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1Pub-000780-G0; Mon, 18 Jan 2021 08:29:21 +0000
+	id 1l1PxS-0007vc-TO; Mon, 18 Jan 2021 08:32:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69436.124247; Mon, 18 Jan 2021 08:29:21 +0000
+Received: by outflank-mailman (output) from mailman id 69439.124258; Mon, 18 Jan 2021 08:32:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1Pub-00077b-Ci; Mon, 18 Jan 2021 08:29:21 +0000
-Received: by outflank-mailman (input) for mailman id 69436;
- Mon, 18 Jan 2021 08:29:19 +0000
+	id 1l1PxS-0007vC-Pt; Mon, 18 Jan 2021 08:32:18 +0000
+Received: by outflank-mailman (input) for mailman id 69439;
+ Mon, 18 Jan 2021 08:32:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c1WU=GV=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1l1PuZ-00077W-Hh
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 08:29:19 +0000
-Received: from mail-wm1-x329.google.com (unknown [2a00:1450:4864:20::329])
+ <SRS0=hh0t=GV=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l1PxQ-0007v7-IU
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 08:32:16 +0000
+Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8477f333-667e-4631-8e9c-4e5588a83c60;
- Mon, 18 Jan 2021 08:29:18 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id v184so8767156wma.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 00:29:18 -0800 (PST)
-Received: from CBGR90WXYV0 (host86-183-162-242.range86-183.btcentralplus.com.
- [86.183.162.242])
- by smtp.gmail.com with ESMTPSA id z130sm25556769wmb.33.2021.01.18.00.29.16
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 18 Jan 2021 00:29:16 -0800 (PST)
+ id 5c74d576-4e4c-4015-9c40-b5c9333e4222;
+ Mon, 18 Jan 2021 08:32:15 +0000 (UTC)
+Received: by mail-lf1-x12c.google.com with SMTP id o19so22862454lfo.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 00:32:15 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id d11sm1817765lfe.115.2021.01.18.00.32.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Jan 2021 00:32:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,167 +41,360 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8477f333-667e-4631-8e9c-4e5588a83c60
+X-Inumbo-ID: 5c74d576-4e4c-4015-9c40-b5c9333e4222
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:thread-index
-         :content-language;
-        bh=lNvLNq5sZ9XnVgw4q+H3pHlbWBrg7v/5wz1MoQfHlrU=;
-        b=hSjKdD1mxI03attYtwnRsdVYGE+nvSmSRgZhlJE9cP/aLRaAahAWgGSsa0yHB2UqpR
-         4t6kOg8moO2QcOCh+OB/pTAGc2Wc0GMNT+8lDvoHRnmUT4pgAXdcrfBGcnxYHmnk4tHc
-         J+29FyDnH9uRyVH41mz1EL2VAKgSusoNgvjXz0kMmGgxCQ+U3jVuCJ46w2guXU4IzMHg
-         E15nNjoNYtfZN2vGEHkncQbIOEpf9xq1J/a2bUMM1KPI7iAff2lvFykEkFdSLrQTXrLU
-         mvzcnNKTyDM49V4iUqkyPKsikaSXnMHp8HPY1lqGLzUWlDc1fzHiT8ORULwNPl/xmZ4M
-         7MlA==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=cUAiSNfY0qwI70AIo04DtHLatNkF7ujaxbjX9UgOsiA=;
+        b=WE/l5Q4VWJ0TletytJwkxuSO62nSj4ASZomJKzzJ5D9pXPoJD4IoL6F3APWoEvs6TT
+         ro8Zifk/vrBps69a+cXD7k4PMxwEqh81bjiLR3FCYm9+/5w6pdDUVEGHIcFtdhkrYV4A
+         IolIuuIhucO+MD3Fz7ZY8FT0PSP8ej2KqDUODp3Nob+o0gxDqJVsWOkCaZuZVwK9Ps/G
+         gi/x5buPQP0gCVOJXNwKMdyvITfh6pFP3yu2nMWTfKPGZ7yTwGnlew/9RKSKiZ0H72yT
+         WGyLz2g+Bz0nZrZyLxcB+WZHR04+UrpHWREgpSHpCsYpltF1WZNJMrKvN8q5G5hW1hzT
+         Y8Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :thread-index:content-language;
-        bh=lNvLNq5sZ9XnVgw4q+H3pHlbWBrg7v/5wz1MoQfHlrU=;
-        b=hIf0OsDpa88eY1OoxyyE8ujdJYd3sQ/VXciwq9HmPs1sFRsN0ALxuhAoWUwgZzMt7q
-         ignBVSSZAZ8pYqcfwBeA9oKJ+HZISFaEYMM0LKCsB4nDKtC6KIBEGayrpwfVpS6PUBH2
-         vOgmMEN5CjFSjz7XTHC2jTy2gTFV/+oBDdpwBqPXXR1AoGdP3JB3dDQMBIdHZChlj+af
-         3SM2RYw9DOzfkJhj0vZBd7JmnZAq/xlBOGuUX3jCaGp6HI34jVNfJ97yGTKXsGqQnNoL
-         xf01WzOODFx72lUxcVQrafDSZ2J2IMasF1Ra1fapNz1O1if6cyMwurz0sN7iinlEuW+X
-         mlLw==
-X-Gm-Message-State: AOAM531nG8mlxQ1F40lQqCVIDptBL2PFt4lzfN+Bc/BU0ZWZuLDD9iPB
-	SIhvqlpI7iQpM4QOnvVRFag=
-X-Google-Smtp-Source: ABdhPJwfF5aqiSslzY8sanfFhn1UoGcpFOcSFvisbodGfLp2jFnsFEN1sNdYwPvcb29ZyoNypSU2pQ==
-X-Received: by 2002:a05:600c:21cb:: with SMTP id x11mr3960584wmj.29.1610958557445;
-        Mon, 18 Jan 2021 00:29:17 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-Cc: "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
-	"'Jan Beulich'" <jbeulich@suse.com>,
-	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
-	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
-	"'Wei Liu'" <wl@xen.org>,
-	"'Julien Grall'" <julien@xen.org>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Julien Grall'" <julien.grall@arm.com>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-4-git-send-email-olekstysh@gmail.com>
-In-Reply-To: <1610488352-18494-4-git-send-email-olekstysh@gmail.com>
-Subject: RE: [PATCH V4 03/24] x86/ioreq: Provide out-of-line wrapper for the handle_mmio()
-Date: Mon, 18 Jan 2021 08:29:15 -0000
-Message-ID: <00bb01d6ed74$0285ca00$07915e00$@xen.org>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=cUAiSNfY0qwI70AIo04DtHLatNkF7ujaxbjX9UgOsiA=;
+        b=qZ96TF3fbSAgAMNug3TTEOUsQfP3M26q+eo5v5SyWasznjGzLkvKkhukiYJXZGyj8C
+         3HUH1ez6miLkq1vRW+b03zVIFYimPxcK9QuHvgQiwkf+y6FhT9EqLWk4y7alU305zh8v
+         nk+/tewX9wMgxpd/ypqBSzSUoiLJhu1qEfSMm4fWKsSjBU4ZjyrNcmURowQ+PUE8fB4q
+         u2kr9Nx+Fog+Jjd1pTY1SK9hCeQwsQeZ+pXJaBMYkrJTHZd9HyMB6PaUlNAPERzedHiA
+         r7GaMU6NEOMTvEVQMtPKkdduVTGKvMTsYYFIY4DtmNKS3iwwGhtZS8kgKbzshYBMcGuG
+         oNYg==
+X-Gm-Message-State: AOAM532zVggJCz6WTizCIMZ0aP6qMurB+Etaz4ysTwHJtgUYYYr8vigb
+	8jzbU719FnffasDILKMukcM=
+X-Google-Smtp-Source: ABdhPJyF/e2vW62Vy2Mk11S/x//4oA65ZavR+JT6Ikoe0GuGptDz/srXY6E6t/W87sNf32kmmBJlDA==
+X-Received: by 2002:a19:c711:: with SMTP id x17mr10928049lff.56.1610958733830;
+        Mon, 18 Jan 2021 00:32:13 -0800 (PST)
+Subject: Re: [PATCH V4 24/24] [RFC] libxl: Add support for virtio-disk
+ configuration
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-25-git-send-email-olekstysh@gmail.com>
+ <e1da0892-5496-b438-f52f-1e5dd8d48979@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <87f92e40-6462-21ba-0c56-b77c6518fef8@gmail.com>
+Date: Mon, 18 Jan 2021 10:32:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJtR7ihpnpDvKGK8VeC26+r2ffFKQHMjd7tqPHzuiA=
-Content-Language: en-gb
+In-Reply-To: <e1da0892-5496-b438-f52f-1e5dd8d48979@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+
+On 16.01.21 00:01, Julien Grall wrote:
+> Hi Oleksandr,
+
+Hi Julien
+
+
+>
+> On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> This patch adds basic support for configuring and assisting virtio-disk
+>> backend (emualator) which is intended to run out of Qemu and could be 
+>> run
+>> in any domain.
+>>
+>> Xenstore was chosen as a communication interface for the emulator 
+>> running
+>> in non-toolstack domain to be able to get configuration either by 
+>> reading
+>> Xenstore directly or by receiving command line parameters (an updated 
+>> 'xl devd'
+>> running in the same domain would read Xenstore beforehand and call 
+>> backend
+>> executable with the required arguments).
+>>
+>> An example of domain configuration (two disks are assigned to the guest,
+>> the latter is in readonly mode):
+>>
+>> vdisk = [ 'backend=DomD, disks=rw:/dev/mmcblk0p3;ro:/dev/mmcblk1p3' ]
+>>
+>> Where per-disk Xenstore entries are:
+>> - filename and readonly flag (configured via "vdisk" property)
+>> - base and irq (allocated dynamically)
+>>
+>> Besides handling 'visible' params described in configuration file,
+>> patch also allocates virtio-mmio specific ones for each device and
+>> writes them into Xenstore. virtio-mmio params (irq and base) are
+>> unique per guest domain, they allocated at the domain creation time
+>> and passed through to the emulator. Each VirtIO device has at least
+>> one pair of these params.
+>>
+>> TODO:
+>> 1. An extra "virtio" property could be removed.
+>> 2. Update documentation.
+>>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> [On Arm only]
+>> Tested-by: Wei Chen <Wei.Chen@arm.com>
+>>
+>> ---
+>> Changes RFC -> V1:
+>>     - no changes
+>>
+>> Changes V1 -> V2:
+>>     - rebase according to the new location of libxl_virtio_disk.c
+>>
+>> Changes V2 -> V3:
+>>     - no changes
+>>
+>> Changes V3 -> V4:
+>>     - rebase according to the new argument for DEFINE_DEVICE_TYPE_STRUCT
+>>
+>> Please note, there is a real concern about VirtIO interrupts allocation.
+>> [Just copy here what Stefano said in RFC thread]
+>>
+>> So, if we end up allocating let's say 6 virtio interrupts for a domain,
+>> the chance of a clash with a physical interrupt of a passthrough 
+>> device is real.
+>
+> For the first version, I think a static approach is fine because it 
+> doesn't bind us to anything yet (there is no interface change). We can 
+> refine it on follow-ups as we figure out how virtio is going to be 
+> used in the field.
+>
+>>
+>> I am not entirely sure how to solve it, but these are a few ideas:
+>> - choosing virtio interrupts that are less likely to conflict (maybe 
+>> > 1000)
+>
+> Well, we only support 988 interrupts :). However, we will waste some 
+> memory in the vGIC structure (we would need to allocate memory for the 
+> 988 interrupts) if you chose an interrupt towards then end.
+>
+>> - make the virtio irq (optionally) configurable so that a user could
+>>    override the default irq and specify one that doesn't conflict
+>
+> This is not very ideal because it makes the use of virtio quite 
+> unfriendly with passthrough. Note that platform device passthrough is 
+> already unfriendly, but I am thinking PCI :).
+>
+>> - implementing support for virq != pirq (even the xl interface doesn't
+>>    allow to specify the virq number for passthrough devices, see "irqs")
+> I can't remember whether I had a reason to not support virq != pirq 
+> when this was initially implemented. This is one possibility, but it 
+> is as unfriendly as the previous option.
+>
+> I will add a 4th one:
+>    - Automatically allocate the virtio IRQ. This should be possible to 
+> do it without too much trouble as we know in advance which IRQs will 
+> be passthrough.
+As I understand the IRQs for passthrough are described in "irq" property 
+and stored in d_config->b_info.irqs[i], so yes we know in advance which 
+IRQs will be used for passthrough
+and we will be able to choose non-clashed ones (iterating over all IRQs 
+in a reserved range) for the virtio devices.  The question is how many 
+IRQs should be reserved.
+
+
+>
+> My preference is the 4th one, that said we may also want to pick 
+> either 2 or 3 to give some flexibility to an admin if they wish to get 
+> their hand dirty.
+
+Personally I would be ok with 4th, but without admin involvement.
+
+
+>
+>
+>>
+>> Also there is one suggestion from Wei Chen regarding a parameter for 
+>> domain
+>> config file which I haven't addressed yet.
+>> [Just copy here what Wei said in V2 thread]
+>> Can we keep use the same 'disk' parameter for virtio-disk, but add an 
+>> option like
+>> "model=virtio-disk"?
+>> For example:
+>> disk = [ 'backend=DomD, disks=rw:/dev/mmcblk0p3,model=virtio-disk' ]
+>> Just like what Xen has done for x86 virtio-net.
+>> ---
+>>   tools/libs/light/Makefile                 |   1 +
+>>   tools/libs/light/libxl_arm.c              |  56 ++++++++++++---
+>>   tools/libs/light/libxl_create.c           |   1 +
+>>   tools/libs/light/libxl_internal.h         |   1 +
+>>   tools/libs/light/libxl_types.idl          |  15 ++++
+>>   tools/libs/light/libxl_types_internal.idl |   1 +
+>>   tools/libs/light/libxl_virtio_disk.c      | 109 
+>> ++++++++++++++++++++++++++++
+>>   tools/xl/Makefile                         |   2 +-
+>>   tools/xl/xl.h                             |   3 +
+>>   tools/xl/xl_cmdtable.c                    |  15 ++++
+>>   tools/xl/xl_parse.c                       | 115 
+>> ++++++++++++++++++++++++++++++
+>>   tools/xl/xl_virtio_disk.c                 |  46 ++++++++++++
+>>   12 files changed, 354 insertions(+), 11 deletions(-)
+>>   create mode 100644 tools/libs/light/libxl_virtio_disk.c
+>>   create mode 100644 tools/xl/xl_virtio_disk.c
+>>
+>> diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
+>> index 68f6fa3..ccc91b9 100644
+>> --- a/tools/libs/light/Makefile
+>> +++ b/tools/libs/light/Makefile
+>> @@ -115,6 +115,7 @@ SRCS-y += libxl_genid.c
+>>   SRCS-y += _libxl_types.c
+>>   SRCS-y += libxl_flask.c
+>>   SRCS-y += _libxl_types_internal.c
+>> +SRCS-y += libxl_virtio_disk.c
+>>     ifeq ($(CONFIG_LIBNL),y)
+>>   CFLAGS_LIBXL += $(LIBNL3_CFLAGS)
+>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+>> index 588ee5a..9eb3022 100644
+>> --- a/tools/libs/light/libxl_arm.c
+>> +++ b/tools/libs/light/libxl_arm.c
+>> @@ -8,6 +8,12 @@
+>>   #include <assert.h>
+>>   #include <xen/device_tree_defs.h>
+>>   +#ifndef container_of
+>> +#define container_of(ptr, type, member) ({            \
+>> +        typeof( ((type *)0)->member ) *__mptr = (ptr);    \
+>> +        (type *)( (char *)__mptr - offsetof(type,member) );})
+>> +#endif
+>> +
+>>   static const char *gicv_to_string(libxl_gic_version gic_version)
+>>   {
+>>       switch (gic_version) {
+>> @@ -39,14 +45,32 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>>           vuart_enabled = true;
+>>       }
+>>   -    /*
+>> -     * XXX: Handle properly virtio
+>> -     * A proper solution would be the toolstack to allocate the 
+>> interrupts
+>> -     * used by each virtio backend and let the backend now which one 
+>> is used
+>> -     */
+>
+> Ok, so you added some code in patch #23 that is going to be mostly 
+> dropped here. I think you want to rethink how you do the split here.
+>
+> One possible approach would be to have a patch which adds the 
+> infrastructe but no call. It would contain:
+>   1) Allocate a space in the virtio region and an interrupt
+>   2) Create the bindings.
+>
+> Those helpers can then be called in this patch.
+
+Sounds reasonable.
+
+
+>
+>
+>>       if (libxl_defbool_val(d_config->b_info.arch_arm.virtio)) {
+>
+> It feels to me that this parameter is not necessary. You can easily 
+> infer it based whether you have a virtio disks attached or not.
+
+Yes!
+
+
+>
+>
+>> -        nr_spis += (GUEST_VIRTIO_MMIO_SPI - 32) + 1;
+>> +        uint64_t virtio_base;
+>> +        libxl_device_virtio_disk *virtio_disk;
+>> +
+>> +        virtio_base = GUEST_VIRTIO_MMIO_BASE;
+>>           virtio_irq = GUEST_VIRTIO_MMIO_SPI;
+>
+> Looking at patch #23, you defined a single SPI and a region that can 
+> only fit virtio device. However, here, you are going to define 
+> multiple virtio devices.
+>
+> I think you want to define the following:
+>
+>  - GUEST_VIRTIO_MMIO_BASE: Base address of the virtio window
+>  - GUEST_VIRTIO_MMIO_SIZE: Full length of the virtio window (may 
+> contain multiple devices)
+>  - GUEST_VIRTIO_SPI_FIRST: First SPI reserved for virtio
+>  - GUEST_VIRTIO_SPI_LAST: Last SPI reserved for virtio
+>
+> The per-device size doesn't need to be defined in arch-arm.h. Instead, 
+> I would only define internally (unless we can use a virtio.h header 
+> from Linux?).
+
+I think I got the idea. What are the preferences for these values?
+
+
+>
+>
+>> +
+>> +        if (!d_config->num_virtio_disks) {
+>> +            LOG(ERROR, "Virtio is enabled, but no Virtio devices 
+>> present\n");
+>> +            return ERROR_FAIL;
+>> +        }
+>> +        virtio_disk = &d_config->virtio_disks[0];
+>> +
+>> +        for (i = 0; i < virtio_disk->num_disks; i++) {
+>> +            virtio_disk->disks[i].base = virtio_base;
+>> +            virtio_disk->disks[i].irq = virtio_irq;
+>> +
+>> +            LOG(DEBUG, "Allocate Virtio MMIO params: IRQ %u BASE 
+>> 0x%"PRIx64,
+>> +                virtio_irq, virtio_base);
+>> +
+>> +            virtio_irq ++;
+>
+> NIT: We usually don't have space before ++ or ...
+
+ok
+
+
+>
+>> +            virtio_base += GUEST_VIRTIO_MMIO_SIZE;
+>> +        }
+>> +        virtio_irq --;
+>
+> ... --;
+
+ok
+
+
+>
+>> +
+>> +        nr_spis += (virtio_irq - 32) + 1;
+>>           virtio_enabled = true;
+>>       }
+>
+> [...]
+>
+>> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+>> index 2a3364b..054a0c9 100644
+>> --- a/tools/xl/xl_parse.c
+>> +++ b/tools/xl/xl_parse.c
+>> @@ -1204,6 +1204,120 @@ out:
+>>       if (rc) exit(EXIT_FAILURE);
+>>   }
+>>   +#define MAX_VIRTIO_DISKS 4
+>
+> May I ask why this is hardcoded to 4?
+
+I found 4 as a reasonable value for the initial implementation.
+This means how many disks the single device instance can handle.
+Do you think we need to change it?
+
+
+>
+> Cheers,
+>
+-- 
+Regards,
+
 Oleksandr Tyshchenko
-> Sent: 12 January 2021 21:52
-> To: xen-devel@lists.xenproject.org
-> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Paul Durrant =
-<paul@xen.org>; Jan Beulich
-> <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Roger =
-Pau Monn=C3=A9
-> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; Julien Grall =
-<julien@xen.org>; Stefano Stabellini
-> <sstabellini@kernel.org>; Julien Grall <julien.grall@arm.com>
-> Subject: [PATCH V4 03/24] x86/ioreq: Provide out-of-line wrapper for =
-the handle_mmio()
->=20
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->=20
-> The IOREQ is about to be common feature and Arm will have its own
-> implementation.
->=20
-> But the name of the function is pretty generic and can be confusing
-> on Arm (we already have a try_handle_mmio()).
->=20
-> In order not to rename the function (which is used for a varying
-> set of purposes on x86) globally and get non-confusing variant on Arm
-> provide a wrapper arch_ioreq_complete_mmio() to be used on common
-> and Arm code.
->=20
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-Reviewed-by: Paul Durrant <paul@xen.org>
-
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien.grall@arm.com>
-> [On Arm only]
-> Tested-by: Wei Chen <Wei.Chen@arm.com>
->=20
-> ---
-> Please note, this is a split/cleanup/hardening of Julien's PoC:
-> "Add support for Guest IO forwarding to a device emulator"
->=20
-> Changes RFC -> V1:
->    - new patch
->=20
-> Changes V1 -> V2:
->    - remove "handle"
->    - add Jan's A-b
->=20
-> Changes V2 -> V3:
->    - remove Jan's A-b
->    - update patch subject/description
->    - use out-of-line function instead of #define
->    - put earlier in the series to avoid breakage
->=20
-> Changes V3 -> V4:
->    - add Jan's R-b
->    - rename ioreq_complete_mmio() to arch_ioreq_complete_mmio()
-> ---
->  xen/arch/x86/hvm/ioreq.c        | 7 ++++++-
->  xen/include/asm-x86/hvm/ioreq.h | 1 +
->  2 files changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/xen/arch/x86/hvm/ioreq.c b/xen/arch/x86/hvm/ioreq.c
-> index ff9a546..00c68f5 100644
-> --- a/xen/arch/x86/hvm/ioreq.c
-> +++ b/xen/arch/x86/hvm/ioreq.c
-> @@ -35,6 +35,11 @@
->  #include <public/hvm/ioreq.h>
->  #include <public/hvm/params.h>
->=20
-> +bool arch_ioreq_complete_mmio(void)
-> +{
-> +    return handle_mmio();
-> +}
-> +
->  static void set_ioreq_server(struct domain *d, unsigned int id,
->                               struct hvm_ioreq_server *s)
->  {
-> @@ -225,7 +230,7 @@ bool handle_hvm_io_completion(struct vcpu *v)
->          break;
->=20
->      case HVMIO_mmio_completion:
-> -        return handle_mmio();
-> +        return arch_ioreq_complete_mmio();
->=20
->      case HVMIO_pio_completion:
->          return handle_pio(vio->io_req.addr, vio->io_req.size,
-> diff --git a/xen/include/asm-x86/hvm/ioreq.h =
-b/xen/include/asm-x86/hvm/ioreq.h
-> index f140ef4..0e64e76 100644
-> --- a/xen/include/asm-x86/hvm/ioreq.h
-> +++ b/xen/include/asm-x86/hvm/ioreq.h
-> @@ -58,6 +58,7 @@ unsigned int hvm_broadcast_ioreq(ioreq_t *p, bool =
-buffered);
->=20
->  void hvm_ioreq_init(struct domain *d);
->=20
-> +bool arch_ioreq_complete_mmio(void);
->  bool arch_vcpu_ioreq_completion(enum hvm_io_completion =
-io_completion);
->  int arch_ioreq_server_map_pages(struct hvm_ioreq_server *s);
->  void arch_ioreq_server_unmap_pages(struct hvm_ioreq_server *s);
-> --
-> 2.7.4
->=20
-
 
 
