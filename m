@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5697E2F9F10
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 13:06:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69649.124813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A30E52FA077
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 13:55:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69656.124824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1TIm-0007O7-VN; Mon, 18 Jan 2021 12:06:32 +0000
+	id 1l1U3A-0003ew-PJ; Mon, 18 Jan 2021 12:54:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69649.124813; Mon, 18 Jan 2021 12:06:32 +0000
+Received: by outflank-mailman (output) from mailman id 69656.124824; Mon, 18 Jan 2021 12:54:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1TIm-0007Ni-SI; Mon, 18 Jan 2021 12:06:32 +0000
-Received: by outflank-mailman (input) for mailman id 69649;
- Mon, 18 Jan 2021 12:06:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l1U3A-0003eT-M7; Mon, 18 Jan 2021 12:54:28 +0000
+Received: by outflank-mailman (input) for mailman id 69656;
+ Mon, 18 Jan 2021 12:54:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=777z=GV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l1TIm-0007Nd-2v
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 12:06:32 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id efafc66e-d45f-4b45-9678-3dcf42af7a42;
- Mon, 18 Jan 2021 12:06:30 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0ADB7ACBA;
- Mon, 18 Jan 2021 12:06:30 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l1U38-0003eK-VO; Mon, 18 Jan 2021 12:54:26 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l1U38-0001Tg-Pk; Mon, 18 Jan 2021 12:54:26 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l1U38-0000IJ-FT; Mon, 18 Jan 2021 12:54:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l1U38-0008Oa-F1; Mon, 18 Jan 2021 12:54:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,56 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efafc66e-d45f-4b45-9678-3dcf42af7a42
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610971590; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=6iNcyN7Kl6HeAw7fac0bU7X1mnM+1Tg2kyUNpDkinEE=;
-	b=rA0rkQIbp6w+ujm0yK4lXFdx1Gscaouzl4juZ+7IiMQ4cIm6B3YPT8dCqO0eQmV11M+wie
-	0j4YF70Wd71yPPkR42yRK+pf4cG7Q2bahGEp+Sy4Qyn/B3NpM4QuoTS99FaTKrSDb5+j4P
-	6ZR8xik9P7Bpg4yLw40wxRLZ4WEe9Cs=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] tools/libxenhypfs: fix reading of gzipped string
-Date: Mon, 18 Jan 2021 13:06:28 +0100
-Message-Id: <20210118120628.11722-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Q7GeNgu03lKp6Q1M0I57/7503/kH9KdZL4w8taA6jCw=; b=PWmSFKX86tkp3bewPR/7IGweOF
+	DtwLU6rWwoK4e78vkEsbB0K9QZQNO/pdrsZ4NV3CdwC45O9uClhgk0rD4NzSvpb1lUaMYf6FULXix
+	QcUJpu/GulAPYhjZfsR59UOCt/rZVvay5z9cAjtyfeB3xVVOZphtxUU5zxqfZ/mUe/OI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158484-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 158484: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=a7ef2a03b96c464c776a139c104471fb2b84e39b
+X-Osstest-Versions-That:
+    ovmf=c88736f8605eab3b0877d9301f8e845291c6fdd9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 18 Jan 2021 12:54:26 +0000
 
-Reading a gzipped string value from hypfs doesn't add a 0 byte at the
-end. Fix that.
+flight 158484 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158484/
 
-Fixes: 86234eafb95295 ("libs: add libxenhypfs")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- tools/libs/hypfs/core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 a7ef2a03b96c464c776a139c104471fb2b84e39b
+baseline version:
+ ovmf                 c88736f8605eab3b0877d9301f8e845291c6fdd9
 
-diff --git a/tools/libs/hypfs/core.c b/tools/libs/hypfs/core.c
-index f94c5ea1e2..52b30db8d7 100644
---- a/tools/libs/hypfs/core.c
-+++ b/tools/libs/hypfs/core.c
-@@ -146,12 +146,13 @@ static void *xenhypfs_inflate(void *in_data, size_t *sz)
-             break;
- 
-         out_sz = z.next_out - workbuf;
--        content = realloc(content, *sz + out_sz);
-+        content = realloc(content, *sz + out_sz + 1);
-         if (!content) {
-             ret = Z_MEM_ERROR;
-             break;
-         }
-         memcpy(content + *sz, workbuf, out_sz);
-+        *(char *)(content + *sz + out_sz) = 0;
-     }
- 
-     inflateEnd(&z);
--- 
-2.26.2
+Last test of basis   158459  2021-01-16 03:39:47 Z    2 days
+Testing same since   158479  2021-01-18 01:39:49 Z    0 days    2 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Zarcd Zhong <zarcd.zhong@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   c88736f860..a7ef2a03b9  a7ef2a03b96c464c776a139c104471fb2b84e39b -> xen-tested-master
 
