@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D59352F9ED1
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 12:56:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69616.124777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 893342F9ED5
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 12:56:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69615.124762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1T89-0005gn-Fo; Mon, 18 Jan 2021 11:55:33 +0000
+	id 1l1T85-0005bZ-5C; Mon, 18 Jan 2021 11:55:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69616.124777; Mon, 18 Jan 2021 11:55:33 +0000
+Received: by outflank-mailman (output) from mailman id 69615.124762; Mon, 18 Jan 2021 11:55:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1T89-0005g6-9j; Mon, 18 Jan 2021 11:55:33 +0000
-Received: by outflank-mailman (input) for mailman id 69616;
- Mon, 18 Jan 2021 11:55:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l1T85-0005aa-01; Mon, 18 Jan 2021 11:55:29 +0000
+Received: by outflank-mailman (input) for mailman id 69615;
+ Mon, 18 Jan 2021 11:55:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=777z=GV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l1T87-0005WJ-Cr
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 11:55:31 +0000
+ id 1l1T82-0005WK-Ps
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 11:55:26 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 99683b94-adbb-4245-b007-21442dea31e2;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ff53ab65-988a-48b3-9032-640508289ab6;
  Mon, 18 Jan 2021 11:55:20 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BF765B7C4;
- Mon, 18 Jan 2021 11:55:19 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0ACB6B8E6;
+ Mon, 18 Jan 2021 11:55:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +39,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99683b94-adbb-4245-b007-21442dea31e2
+X-Inumbo-ID: ff53ab65-988a-48b3-9032-640508289ab6
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610970919; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610970920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3Emy9rbLih902PcqSX2sNGugd9ZQYH2ntVDKxRTV0zU=;
-	b=mgtawzlIo8ZGmR69RdVUGyowAKWAu4doGUknjRzCsWneeSq28fU2+7tEAPbCMOt7Bkz7sg
-	BgZPANeMfGF2i7x9H6Z4qaYz05WMWWlQrOhyAvvf5hbEjU1/JQRdXNDLz8xt4kLb/7TCiL
-	mO7Bh+zJB1WIXayMK0oE5jLQlUdOad4=
+	bh=am94U0utN2Ue9jktg4hF/gzv3ykid5UM0GvnBsWgHyU=;
+	b=ctJACRl8JO/dMrxFUYbBGG7Gg/JqVbZFv0KKRXtD/BU/OjMeA8bj47QxRh9EOppRus9tA0
+	E5QY0yTqRg1+NYEfUEbEm6cHz7QRJJOBMVBN+Nhr0gSuFGl6DanvjlevbvVVLys0XmtG+p
+	5Ws7JlUKE9hZBv3jicAUmjIVFOoZqnQ=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -60,193 +61,169 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
 	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH v4 3/5] xen/cpupool: add cpupool directories
-Date: Mon, 18 Jan 2021 12:55:14 +0100
-Message-Id: <20210118115516.11001-4-jgross@suse.com>
+Subject: [PATCH v4 4/5] xen/cpupool: add scheduling granularity entry to cpupool entries
+Date: Mon, 18 Jan 2021 12:55:15 +0100
+Message-Id: <20210118115516.11001-5-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210118115516.11001-1-jgross@suse.com>
 References: <20210118115516.11001-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add /cpupool/<cpupool-id> directories to hypfs. Those are completely
-dynamic, so the related hypfs access functions need to be implemented.
+Add a "sched-gran" entry to the per-cpupool hypfs directories.
+
+For now make this entry read-only and let it contain one of the
+strings "cpu", "core" or "socket".
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
 ---
 V2:
 - added const (Jan Beulich)
-- call hypfs_add_dir() in helper (Dario Faggioli)
-- switch locking to enter/exit callbacks
-
-V3:
-- use generic dyndirid enter function
-- const for hypfs function vector (Jan Beulich)
-- drop size calculation from cpupool_dir_read() (Jan Beulich)
-- check cpupool id to not exceed UINT_MAX (Jan Beulich)
-- coding style (#if/#else/#endif) (Jan Beulich)
+- modify test in cpupool_gran_read() (Jan Beulich)
 ---
- docs/misc/hypfs-paths.pandoc |   9 +++
- xen/common/sched/cpupool.c   | 104 +++++++++++++++++++++++++++++++++++
- 2 files changed, 113 insertions(+)
+ docs/misc/hypfs-paths.pandoc |  4 ++
+ xen/common/sched/cpupool.c   | 72 ++++++++++++++++++++++++++++++++++--
+ 2 files changed, 72 insertions(+), 4 deletions(-)
 
 diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pandoc
-index 6c7b2f7ee3..aaca1cdf92 100644
+index aaca1cdf92..f1ce24d7fe 100644
 --- a/docs/misc/hypfs-paths.pandoc
 +++ b/docs/misc/hypfs-paths.pandoc
-@@ -175,6 +175,15 @@ The major version of Xen.
+@@ -184,6 +184,10 @@ A directory of all current cpupools.
+ The individual cpupools. Each entry is a directory with the name being the
+ cpupool-id (e.g. /cpupool/0/).
  
- The minor version of Xen.
- 
-+#### /cpupool/
++#### /cpupool/*/sched-gran = ("cpu" | "core" | "socket")
 +
-+A directory of all current cpupools.
-+
-+#### /cpupool/*/
-+
-+The individual cpupools. Each entry is a directory with the name being the
-+cpupool-id (e.g. /cpupool/0/).
++The scheduling granularity of a cpupool.
 +
  #### /params/
  
  A directory of runtime parameters.
 diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
-index 0db7d77219..f293ba0cc4 100644
+index f293ba0cc4..e2011367bd 100644
 --- a/xen/common/sched/cpupool.c
 +++ b/xen/common/sched/cpupool.c
-@@ -13,6 +13,8 @@
- 
- #include <xen/cpu.h>
- #include <xen/cpumask.h>
-+#include <xen/guest_access.h>
-+#include <xen/hypfs.h>
- #include <xen/init.h>
- #include <xen/keyhandler.h>
- #include <xen/lib.h>
-@@ -33,6 +35,7 @@ static int cpupool_moving_cpu = -1;
- static struct cpupool *cpupool_cpu_moving = NULL;
- static cpumask_t cpupool_locked_cpus;
- 
-+/* This lock nests inside sysctl or hypfs lock. */
- static DEFINE_SPINLOCK(cpupool_lock);
- 
+@@ -41,9 +41,10 @@ static DEFINE_SPINLOCK(cpupool_lock);
  static enum sched_gran __read_mostly opt_sched_granularity = SCHED_GRAN_cpu;
-@@ -1003,12 +1006,113 @@ static struct notifier_block cpu_nfb = {
-     .notifier_call = cpu_callback
+ static unsigned int __read_mostly sched_granularity = 1;
+ 
++#define SCHED_GRAN_NAME_LEN  8
+ struct sched_gran_name {
+     enum sched_gran mode;
+-    char name[8];
++    char name[SCHED_GRAN_NAME_LEN];
  };
  
-+#ifdef CONFIG_HYPFS
-+
-+static HYPFS_DIR_INIT(cpupool_pooldir, "%u");
-+
-+static int cpupool_dir_read(const struct hypfs_entry *entry,
-+                            XEN_GUEST_HANDLE_PARAM(void) uaddr)
-+{
-+    int ret = 0;
-+    const struct cpupool *c;
-+
-+    list_for_each_entry(c, &cpupool_list, list)
-+    {
-+        ret = hypfs_read_dyndir_id_entry(&cpupool_pooldir, c->cpupool_id,
-+                                         list_is_last(&c->list, &cpupool_list),
-+                                         &uaddr);
-+        if ( ret )
-+            break;
-+    }
-+
-+    return ret;
+ static const struct sched_gran_name sg_name[] = {
+@@ -52,7 +53,7 @@ static const struct sched_gran_name sg_name[] = {
+     {SCHED_GRAN_socket, "socket"},
+ };
+ 
+-static void sched_gran_print(enum sched_gran mode, unsigned int gran)
++static const char *sched_gran_get_name(enum sched_gran mode)
+ {
+     const char *name = "";
+     unsigned int i;
+@@ -66,8 +67,13 @@ static void sched_gran_print(enum sched_gran mode, unsigned int gran)
+         }
+     }
+ 
++    return name;
 +}
 +
-+static unsigned int cpupool_dir_getsize(const struct hypfs_entry *entry)
++static void sched_gran_print(enum sched_gran mode, unsigned int gran)
 +{
-+    const struct cpupool *c;
-+    unsigned int size = 0;
-+
-+    list_for_each_entry(c, &cpupool_list, list)
-+        size += hypfs_dynid_entry_size(entry, c->cpupool_id);
-+
-+    return size;
-+}
-+
-+static const struct hypfs_entry *cpupool_dir_enter(
-+    const struct hypfs_entry *entry)
-+{
+     printk("Scheduling granularity: %s, %u CPU%s per sched-resource\n",
+-           name, gran, gran == 1 ? "" : "s");
++           sched_gran_get_name(mode), gran, gran == 1 ? "" : "s");
+ }
+ 
+ #ifdef CONFIG_HAS_SCHED_GRANULARITY
+@@ -1014,10 +1020,16 @@ static int cpupool_dir_read(const struct hypfs_entry *entry,
+                             XEN_GUEST_HANDLE_PARAM(void) uaddr)
+ {
+     int ret = 0;
+-    const struct cpupool *c;
++    struct cpupool *c;
 +    struct hypfs_dyndir_id *data;
 +
-+    data = hypfs_alloc_dyndata(struct hypfs_dyndir_id);
-+    if ( !data )
-+        return ERR_PTR(-ENOMEM);
-+    data->id = CPUPOOLID_NONE;
++    data = hypfs_get_dyndata();
+ 
+     list_for_each_entry(c, &cpupool_list, list)
+     {
++        data->id = c->cpupool_id;
++        data->data = c;
 +
-+    spin_lock(&cpupool_lock);
-+
-+    return entry;
-+}
-+
-+static void cpupool_dir_exit(const struct hypfs_entry *entry)
+         ret = hypfs_read_dyndir_id_entry(&cpupool_pooldir, c->cpupool_id,
+                                          list_is_last(&c->list, &cpupool_list),
+                                          &uaddr);
+@@ -1080,6 +1092,56 @@ static struct hypfs_entry *cpupool_dir_findentry(
+     return hypfs_gen_dyndir_id_entry(&cpupool_pooldir, id, cpupool);
+ }
+ 
++static int cpupool_gran_read(const struct hypfs_entry *entry,
++                             XEN_GUEST_HANDLE_PARAM(void) uaddr)
 +{
-+    spin_unlock(&cpupool_lock);
++    const struct hypfs_dyndir_id *data;
++    const struct cpupool *cpupool;
++    const char *gran;
 +
-+    hypfs_free_dyndata();
++    data = hypfs_get_dyndata();
++    cpupool = data->data;
++    ASSERT(cpupool);
++
++    gran = sched_gran_get_name(cpupool->gran);
++
++    if ( !*gran )
++        return -ENOENT;
++
++    return copy_to_guest(uaddr, gran, strlen(gran) + 1) ? -EFAULT : 0;
 +}
 +
-+static struct hypfs_entry *cpupool_dir_findentry(
-+    const struct hypfs_entry_dir *dir, const char *name, unsigned int name_len)
++static unsigned int hypfs_gran_getsize(const struct hypfs_entry *entry)
 +{
-+    unsigned long id;
-+    const char *end;
-+    struct cpupool *cpupool;
++    const struct hypfs_dyndir_id *data;
++    const struct cpupool *cpupool;
++    const char *gran;
 +
-+    id = simple_strtoul(name, &end, 10);
-+    if ( end != name + name_len || id > UINT_MAX )
-+        return ERR_PTR(-ENOENT);
++    data = hypfs_get_dyndata();
++    cpupool = data->data;
++    ASSERT(cpupool);
 +
-+    cpupool = __cpupool_find_by_id(id, true);
++    gran = sched_gran_get_name(cpupool->gran);
 +
-+    if ( !cpupool )
-+        return ERR_PTR(-ENOENT);
-+
-+    return hypfs_gen_dyndir_id_entry(&cpupool_pooldir, id, cpupool);
++    return strlen(gran) + 1;
 +}
 +
-+static const struct hypfs_funcs cpupool_dir_funcs = {
-+    .enter = cpupool_dir_enter,
-+    .exit = cpupool_dir_exit,
-+    .read = cpupool_dir_read,
++static const struct hypfs_funcs cpupool_gran_funcs = {
++    .enter = hypfs_node_enter,
++    .exit = hypfs_node_exit,
++    .read = cpupool_gran_read,
 +    .write = hypfs_write_deny,
-+    .getsize = cpupool_dir_getsize,
-+    .findentry = cpupool_dir_findentry,
++    .getsize = hypfs_gran_getsize,
++    .findentry = hypfs_leaf_findentry,
 +};
 +
-+static HYPFS_DIR_INIT_FUNC(cpupool_dir, "cpupool", &cpupool_dir_funcs);
++static HYPFS_VARSIZE_INIT(cpupool_gran, XEN_HYPFS_TYPE_STRING, "sched-gran",
++                          0, &cpupool_gran_funcs);
++static char granstr[SCHED_GRAN_NAME_LEN] = {
++    [0 ... SCHED_GRAN_NAME_LEN - 2] = '?',
++    [SCHED_GRAN_NAME_LEN - 1] = 0
++};
 +
-+static void cpupool_hypfs_init(void)
-+{
-+    hypfs_add_dir(&hypfs_root, &cpupool_dir, true);
-+    hypfs_add_dyndir(&cpupool_dir, &cpupool_pooldir);
-+}
-+
-+#else /* CONFIG_HYPFS */
-+
-+static void cpupool_hypfs_init(void)
-+{
-+}
-+
-+#endif /* CONFIG_HYPFS */
-+
- static int __init cpupool_init(void)
+ static const struct hypfs_funcs cpupool_dir_funcs = {
+     .enter = cpupool_dir_enter,
+     .exit = cpupool_dir_exit,
+@@ -1095,6 +1157,8 @@ static void cpupool_hypfs_init(void)
  {
-     unsigned int cpu;
+     hypfs_add_dir(&hypfs_root, &cpupool_dir, true);
+     hypfs_add_dyndir(&cpupool_dir, &cpupool_pooldir);
++    hypfs_string_set_reference(&cpupool_gran, granstr);
++    hypfs_add_leaf(&cpupool_pooldir, &cpupool_gran, true);
+ }
  
-     cpupool_gran_init();
- 
-+    cpupool_hypfs_init();
-+
-     cpupool0 = cpupool_create(0, 0);
-     BUG_ON(IS_ERR(cpupool0));
-     cpupool_put(cpupool0);
+ #else /* CONFIG_HYPFS */
 -- 
 2.26.2
 
