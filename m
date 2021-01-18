@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20BD52FA587
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 17:04:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69845.125146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 069A12FA5A8
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 17:10:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69851.125159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1X0w-0007yh-9J; Mon, 18 Jan 2021 16:04:22 +0000
+	id 1l1X65-0008G7-UY; Mon, 18 Jan 2021 16:09:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69845.125146; Mon, 18 Jan 2021 16:04:22 +0000
+Received: by outflank-mailman (output) from mailman id 69851.125159; Mon, 18 Jan 2021 16:09:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1X0w-0007yM-6A; Mon, 18 Jan 2021 16:04:22 +0000
-Received: by outflank-mailman (input) for mailman id 69845;
- Mon, 18 Jan 2021 16:04:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l1X65-0008Fi-RQ; Mon, 18 Jan 2021 16:09:41 +0000
+Received: by outflank-mailman (input) for mailman id 69851;
+ Mon, 18 Jan 2021 16:09:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d36Q=GV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l1X0v-0007yH-60
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 16:04:21 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ea6f781-30e4-4789-869e-4e7fb3b0bc2b;
- Mon, 18 Jan 2021 16:04:20 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 86DDAAF9A;
- Mon, 18 Jan 2021 16:04:19 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1l1X64-0008Fc-6f
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 16:09:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l1X64-0005Pe-4Y
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 16:09:40 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l1X64-0005kt-3i
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 16:09:40 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l1X60-0007Dv-Sk; Mon, 18 Jan 2021 16:09:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,91 +41,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ea6f781-30e4-4789-869e-4e7fb3b0bc2b
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610985859; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EP+V3rFQsY5jbULi4FsTgCWy2uh3ptDsCE4cOm8ZO5U=;
-	b=VDI0e3vnnURUvBrvZZo5Q8LJnvIU2ub+vGt4s3e3KBapFZzqO0+5mQZYxj+xVxG4hJkqf6
-	zmXHSQ/xpYXGDcSigIBVxDwOXCaisRinWRcNABHFf5Kuc4w4pcF90KYyncPRPN9yFzwO7q
-	tqt7efkhmm6JYSF+jL48r9aHnOzbJX4=
-Subject: Re: [PATCH] x86/CPUID: unconditionally set
- XEN_HVM_CPUID_IOMMU_MAPPINGS
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210115150138.36087-1-roger.pau@citrix.com>
- <7535c962-bb3b-6bca-977a-9e8a3332a0f5@suse.com>
- <20210118155426.tnzw7kiceqyytqwa@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f7b3c154-7557-ce1a-c8d8-560709f6cabc@suse.com>
-Date: Mon, 18 Jan 2021 17:04:19 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=2IJozqopboH2clh74nfj43ewfR+hj7BaOkVIwaPl53s=; b=zM9IWNnpkNTqS4qScw2oH2HU8A
+	6AJkc4we/7/KSNBaBIHIVUd9d1rNLz2B9KiAoXhsD84ojvkOIBt1rPS7qT0idD2Qhbp5GVaauZ2xc
+	WVkQH9Mc9c2UOq/bNkrdEo3JdP9eNk5kdHF08o4FrVuaZfuoAHTn9/xT8Jx5SIbi9pnI=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <20210118155426.tnzw7kiceqyytqwa@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24581.45760.653861.613333@mariner.uk.xensource.com>
+Date: Mon, 18 Jan 2021 16:09:36 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] xen/decompress: make helper symbols static
+In-Reply-To: <28f15465-bfcd-606b-eb24-42bfb990ae3d@suse.com>
+References: <28f15465-bfcd-606b-eb24-42bfb990ae3d@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 18.01.2021 16:54, Roger Pau Monné wrote:
-> On Mon, Jan 18, 2021 at 12:05:12PM +0100, Jan Beulich wrote:
->> On 15.01.2021 16:01, Roger Pau Monne wrote:
->>> This is a revert of f5cfa0985673 plus a rework of the comment that
->>> accompanies the setting of the flag so we don't forget why it needs to
->>> be unconditionally set: it's indicating whether the version of Xen has
->>> the original issue fixed and IOMMU entries are created for
->>> grant/foreign maps.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Despite my earlier ack I came to think that the description and
->> comment still don't make it quite clear what was actually wrong
->> with the prior change, and hence they also don't really guard
->> against the same getting done again (perhaps even by me). May I
->> ask that you add a paragraph above and ...
+Jan Beulich writes ("[PATCH] xen/decompress: make helper symbols static"):
+> The individual decompression CUs need to only surface their top level
+> functions to other code. Arrange for everything else to be static, to
+> make sure no undue uses of that code exist or will appear without
+> explicitly noticing. (In some cases this also results in code size
+> reduction, but since this is all init-only code this probably doesn't
+> matter very much.)
 > 
-> What about adding:
-> 
-> "If the flag is only exposed when the IOMMU is enabled the guest could
-> resort to use bounce buffers when running backends as it would assume
-> the underlying Xen version still has the bug present and thus
-> grant/foreign maps cannot be used with devices."
-> 
-> To the commit log?
+> In the LZO case also take the opportunity and convert u8 where lines
+> get touched anyway.
 
-SGTM.
+AFAICT, this patch
 
->>> --- a/xen/arch/x86/traps.c
->>> +++ b/xen/arch/x86/traps.c
->>> @@ -1049,11 +1049,10 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
->>>              res->a |= XEN_HVM_CPUID_X2APIC_VIRT;
->>>  
->>>          /*
->>> -         * Indicate that memory mapped from other domains (either grants or
->>> -         * foreign pages) has valid IOMMU entries.
->>> +         * Unconditionally set the flag to indicate this version of Xen has
->>> +         * been fixed to create IOMMU mappings for grant/foreign maps.
->>>           */
->>> -        if ( is_iommu_enabled(d) )
->>> -            res->a |= XEN_HVM_CPUID_IOMMU_MAPPINGS;
->>> +        res->a |= XEN_HVM_CPUID_IOMMU_MAPPINGS;
->>
->> ... try to clarify the "Unconditionally" here?
-> 
-> I guess Unconditionally doesn't make much sense, so would be better to
-> start the sentence with 'Set ...' instead?
+* was first posted after the last posting date for Xen 4.15.
+* is not a bugfix.
 
-Hmm, this would further move us away from the goal of the comment
-making sufficiently clear that a conditional shouldn't be (re-)
-introduced here, I would think. Since I can't seem to think of a
-good way to express this more briefly than in the description,
-and if maybe you can't either, perhaps there's no choice then to
-leave it as is, hoping that people would look at the commit before
-proposing a further change here.
+In which case it has missed 4.15.
 
-Jan
+Please correct me if you think I am wrong.
+
+Thanks,
+Ian.
 
