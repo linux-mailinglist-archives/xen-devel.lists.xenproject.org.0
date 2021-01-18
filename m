@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 307272F9BD9
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 10:24:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69488.124382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 461482F9BDE
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 10:27:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69493.124394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1QmC-0005J0-G0; Mon, 18 Jan 2021 09:24:44 +0000
+	id 1l1QoJ-0005R8-T3; Mon, 18 Jan 2021 09:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69488.124382; Mon, 18 Jan 2021 09:24:44 +0000
+Received: by outflank-mailman (output) from mailman id 69493.124394; Mon, 18 Jan 2021 09:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1QmC-0005Ib-CX; Mon, 18 Jan 2021 09:24:44 +0000
-Received: by outflank-mailman (input) for mailman id 69488;
- Mon, 18 Jan 2021 09:24:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=skM3=GV=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1l1QmA-0005I7-Fy
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 09:24:42 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec63f5e7-02ca-424a-8d11-1956077a1999;
- Mon, 18 Jan 2021 09:24:41 +0000 (UTC)
-Received: from rochebonne.antioche.eu.org (rochebonne
- [IPv6:2001:41d0:fe9d:1100:221:70ff:fe0c:9885])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 10I9OYD8016356;
- Mon, 18 Jan 2021 10:24:34 +0100 (MET)
-Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
- id 9ACE2281D; Mon, 18 Jan 2021 10:24:34 +0100 (CET)
+	id 1l1QoJ-0005Qj-PK; Mon, 18 Jan 2021 09:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 69493;
+ Mon, 18 Jan 2021 09:26:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=d36Q=GV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l1QoH-0005Qb-Lj
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 09:26:53 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d7efda1a-a3b9-46c4-9175-bcaeb9c17e8c;
+ Mon, 18 Jan 2021 09:26:52 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CC0DCAB7F;
+ Mon, 18 Jan 2021 09:26:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,63 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec63f5e7-02ca-424a-8d11-1956077a1999
-Date: Mon, 18 Jan 2021 10:24:34 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
-        Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH] libs/light: pass some infos to qemu
-Message-ID: <20210118092434.GC859@antioche.eu.org>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
- <20210112181242.1570-17-bouyer@antioche.eu.org>
- <20210116101606.sogfpgzg7upunua7@Air-de-Roger>
- <20210116112502.GA1133@antioche.eu.org>
- <20210118083642.deozyeo5o6yziba7@Air-de-Roger>
- <20210118085214.GB859@antioche.eu.org>
- <20210118090722.jlf5j324mfeylp6t@Air-de-Roger>
+X-Inumbo-ID: d7efda1a-a3b9-46c4-9175-bcaeb9c17e8c
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610962011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t2o2qlb/LWJ8B5Q3NBvcEarizjAoscEdU3Yf/uk9ycE=;
+	b=QhJ3gFL6+Y1NglgFTZu1m888yDwCdHYOYTQNWjkyPZSNizr5znl8HpCIpQNtvHw+nalSRC
+	K2LUn49/GfwhgMTCINWbvK+eoO4wTuS8FAg92D99pQnemA89YVp3b3BDo9zXSv9Nmqlb0k
+	qvc79RtioO2vetltwQAhoD9VXUAnQSA=
+Subject: Re: [PATCH] xen/arm: livepatch: Include xen/mm.h rather than asm/mm.h
+To: Julien Grall <julien@xen.org>
+Cc: andrew.cooper3@citrix.com, Julien Grall <jgrall@amazon.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20210115192947.6499-1-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e5fb6b33-6656-52ee-ee66-04e2f73ab0a6@suse.com>
+Date: Mon, 18 Jan 2021 10:26:54 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+In-Reply-To: <20210115192947.6499-1-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210118090722.jlf5j324mfeylp6t@Air-de-Roger>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [IPv6:2001:41d0:fe9d:1100:a00:20ff:fe1c:276e]); Mon, 18 Jan 2021 10:24:35 +0100 (MET)
 
-On Mon, Jan 18, 2021 at 10:07:22AM +0100, Roger Pau Monn� wrote:
-> On Mon, Jan 18, 2021 at 09:52:14AM +0100, Manuel Bouyer wrote:
-> > On Mon, Jan 18, 2021 at 09:36:42AM +0100, Roger Pau Monn� wrote:
-> > > I also wonder why NetBSD needs to add the tap interface to the bridge
-> > > in the QEMU script instead of doing it from the hotplug script called
-> > > by libxl, like Linux and FreeBSD do.
-> > 
-> > the tap interface is created by qemu itself, its name is not known outside
-> > of qemu. Also, is there guarantee that qemu has created the tap before
-> > the hotplug script is called ?
+On 15.01.2021 20:29, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Yes, the toolstack will wait for QEMU to be initialized at which point
-> the tap interface has been created.
+> Livepatch fails to build on Arm after commit ced9795c6cb4 "mm: split
+> out mfn_t / gfn_t / pfn_t definitions and helpers":
 > 
-> I think I remember now why this didn't work on NetBSD. We ask QEMU to
-> create the tap interface with a specific name (using the vifname=
-> parameter), but NetBSD doesn't have the ioctl to rename network
-> interfaces implemented, and thus cannot rename the interface from tapX
-> to vifX.Y-emu, and hence you need to use the QEMU script from QEMU
-> itself because it's the only entity that knows the name of the tap
-> interface created.
-
-Yes; at some point I proposed to support name aliases to interface
-name in NetBSD but it got rejected ... so we have to use the
-name the kernel did choose for us.
-
+> In file included from livepatch.c:13:0:
+> /oss/xen/xen/include/asm/mm.h:32:28: error: field ‘list’ has incomplete type
+>      struct page_list_entry list;
+>                             ^~~~
+> /oss/xen/xen/include/asm/mm.h:53:43: error: ‘MAX_ORDER’ undeclared here (not in a function); did you mean ‘PFN_ORDER’?
+>                  unsigned long first_dirty:MAX_ORDER + 1;
+>                                            ^~~~~~~~~
+>                                            PFN_ORDER
+> /oss/xen/xen/include/asm/mm.h:53:31: error: bit-field ‘first_dirty’ width not an integer constant
+>                  unsigned long first_dirty:MAX_ORDER + 1;
+>                                ^~~~~~~~~~~
 > 
-> If you agree, can you add something along the lines to the commit
-> message? So that we remember why NetBSD needs to use the QEMU scripts.
+> This is happening because asm/mm.h is included directly by livepatch.c.
+> Yet it depends on xen/mm.h to be included first so MAX_ORDER is defined.
+> 
+> Resolve the build failure by including xen/mm.h rather than asm/mm.h.
+> 
+> Fixes: ced9795c6cb4 ("mm: split out mfn_t / gfn_t / pfn_t definitions and helpers")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Will do.
-thanks 
+Thanks for the quick fix, and I'm sorry for the breakage. I'll
+try to make sure I'll also check building with livepatch enabled
+down the road.
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+Jan
 
