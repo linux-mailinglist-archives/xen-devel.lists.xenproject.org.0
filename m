@@ -2,28 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0109B2FA4CE
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 16:33:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69764.125033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42E462FA4D6
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 16:34:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69769.125045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1WXG-0003Uv-I8; Mon, 18 Jan 2021 15:33:42 +0000
+	id 1l1WYH-0003gp-T8; Mon, 18 Jan 2021 15:34:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69764.125033; Mon, 18 Jan 2021 15:33:42 +0000
+Received: by outflank-mailman (output) from mailman id 69769.125045; Mon, 18 Jan 2021 15:34:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1WXG-0003US-EI; Mon, 18 Jan 2021 15:33:42 +0000
-Received: by outflank-mailman (input) for mailman id 69764;
- Mon, 18 Jan 2021 15:33:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l1WYH-0003gO-PX; Mon, 18 Jan 2021 15:34:45 +0000
+Received: by outflank-mailman (input) for mailman id 69769;
+ Mon, 18 Jan 2021 15:34:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wFfa=GV=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l1WXF-0003UD-Cb
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 15:33:41 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 749061fe-4f66-406b-9672-9c998485afde;
- Mon, 18 Jan 2021 15:33:40 +0000 (UTC)
+ <SRS0=ECrn=GV=arm.com=rahul.singh@srs-us1.protection.inumbo.net>)
+ id 1l1WYG-0003gF-FK
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 15:34:44 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.2.68]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 018bbaa2-5604-4f01-8222-c6b4c08b2413;
+ Mon, 18 Jan 2021 15:34:42 +0000 (UTC)
+Received: from DB6PR0202CA0011.eurprd02.prod.outlook.com (2603:10a6:4:29::21)
+ by HE1PR08MB2779.eurprd08.prod.outlook.com (2603:10a6:7:35::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.14; Mon, 18 Jan
+ 2021 15:34:08 +0000
+Received: from DB5EUR03FT031.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:29:cafe::db) by DB6PR0202CA0011.outlook.office365.com
+ (2603:10a6:4:29::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.9 via Frontend
+ Transport; Mon, 18 Jan 2021 15:34:08 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT031.mail.protection.outlook.com (10.152.20.142) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3763.12 via Frontend Transport; Mon, 18 Jan 2021 15:34:08 +0000
+Received: ("Tessian outbound 2b57fdd78668:v71");
+ Mon, 18 Jan 2021 15:34:07 +0000
+Received: from 999fd3b02cee.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ A86C7FAC-AE1F-4AE7-9485-E7BA26DCE027.1; 
+ Mon, 18 Jan 2021 15:34:02 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 999fd3b02cee.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 18 Jan 2021 15:34:02 +0000
+Received: from DB7PR08MB3500.eurprd08.prod.outlook.com (2603:10a6:10:49::10)
+ by DB8PR08MB4027.eurprd08.prod.outlook.com (2603:10a6:10:a7::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.12; Mon, 18 Jan
+ 2021 15:33:59 +0000
+Received: from DB7PR08MB3500.eurprd08.prod.outlook.com
+ ([fe80::f5c1:9694:9263:d90d]) by DB7PR08MB3500.eurprd08.prod.outlook.com
+ ([fe80::f5c1:9694:9263:d90d%2]) with mapi id 15.20.3763.014; Mon, 18 Jan 2021
+ 15:33:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,146 +70,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 749061fe-4f66-406b-9672-9c998485afde
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610984020;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=5IgWQMiytAxeLeEdXsmof0S9L2LFsUa5TMj2P3zL12k=;
-  b=AEganqievqfNadpxF53Qd+9Akfu0kDA4STGspRwCkQ1AhQFZw4RugwSI
-   JBYbFti9mEs4vMk4E0LlR/2Ysktpke+5QDgrUhcpdC6jLcMy49cPqBP68
-   sPfgwrzByqruuk5/tdLbkFYJd//gTA9LAWU5KYVmyDXI4SIPkE1G+jRQN
-   8=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: VGue1MCqGxbMfd6Neo4leRV//MEVur/8VqgbzCLedVS3x5ugx/22Jwv/scH/7MGUZVgdSDlZdR
- OhuQ38U4/1pUiyGW3KbPvfXJHAXmx/SD18Dg3loMfR3/OzghWKrnLLLhuwEsZ/JdEQ8YGc9xrr
- O/PF1NLaFDzmQusCWrJTvdlAVaSUmJuP4oRujJvKewDNFtggzWUHjUKX8zRD+Nt4u6YuRIl/Qu
- z2FqZh6PsRCl5PAmhnXpUVMyG1lYW5AabGoiUv7hqNmgUZxVfbKPtMzJWBThdMMXoUs/8RhT/o
- zQ0=
-X-SBRS: 5.2
-X-MesageID: 36604199
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,356,1602561600"; 
-   d="scan'208";a="36604199"
+X-Inumbo-ID: 018bbaa2-5604-4f01-8222-c6b4c08b2413
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XvjyKpKrg5Yo0u4yZkGArzclJ4pnHy0fgDw8P78Fjzk=;
+ b=USKawSuvm6zvbBFmLGkBWarryBFGmWx4by/9Iu6k87BHTHynwDEkWp6z38mECcnvft/rh+f9IyNbKUuMES4wqTfunkmcroHeBUo32ksAxNccWn9V9tR3HicpD3KeazWQsWnM2QXIizUAkJOB2HmZ2E/rj2S71FKSd13EyHRIs9c=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 879131a63dd80cc5
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MFK6eCmH6+D8WPgct5aBDEebF0wYe11xD+9uVv0hFopyviKeHFk0Pgx1ChSWMwElbHC19RkGxqd+DFXo3pCqTlzVId1L9AO61J0aAN9n+rqeaRtSybFj8YV3Y+qdRRLsfxJOqLVet0ltkP/XOKWD7xB5TOClQkog/CwooTLARNXQo2uBEpDsgKqHVGdFJOWWTD6NC4tJvI3mfD1zq08bRDynHJKbOwe5jFki6Dd1T3DwgJ40k7mJLIa5hk1Cz4hxuKWFTIVVr3LOwqRjpHMYDuCBfITpd2LorTst9euqzYEZvPqLw+zmqtq+J95lkeBofD4Ol66IvYIp/FoHgAZYkw==
+ b=Suqoq8kGkmRI8ICUg3hV9yqfLakUlDVJIvWo16ocW+6XXsVKqR3UKKeJm8kRQKZNKlfyQlP8RF92Z1LrP7pISbP+66W2JUwgHHJM+Ff4aSdkENYJELWgfO5oEWKzdB7J4vehWVK35ysVrmlZ/lNMiPsLZI6iAvimnhktk9esYbMpRrFBrfMirXdWhtr7RAykBBEWvSb8VkLecrw6T130eFIuAzJ/qrm+r9ulVkxAPBkCubBFf/2zF6Vttm5Z9UWqJFgAuQ73764rFdlnZOrjXVRxQp6nAiOkkoDtuqrMsbYmdeLDa7TLDakIIDMMM+cs4HTMOAULClAPjJBMB+e1nQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=414HAnI51gzZNcMd8XEwXwGUTwqdX0TMfXgV5vrF0kQ=;
- b=jYkCA2+GhmvKAOD/X17EvmllYFsnj0Evgjgk0OBaELlrl51teyQh7cU/I4kqYyEuZv9bfCLWx+ZxzfzlwttCjWQtSS/WhAmxUX8xPJx740rclxbkptNEg9fbD1z+ajSH29SGzwM/G8VFriT1LHVcubKOlCR3USQFAWfJUtP1vpeZ6LweU9B7poW/Wo6cPsz//KbmQUahj6I4t9cXssHHV8fPmwzsObfzAZBNIlqizUTf8O/F5gNWGJSwNN1PQFIz41zcjrCKtmt/P5POMtloyH0uX3sxb7a94+IQRpjKRjs6/w2u+MDuUcBOT38IeR6iLLqVFBdrSTXQX3eW6TRqKQ==
+ bh=XvjyKpKrg5Yo0u4yZkGArzclJ4pnHy0fgDw8P78Fjzk=;
+ b=NLu4S60a7MgZakgpKMHSBzWGdGmHaeP+JeNPKD0ItpIFhtwG3rLsKg+++mr965SxglmMuYdGBSX45LP07epN1hUOONduPAb0WacG/2ASkb/We/DysgzPQzDBXLgxG6wBbPAfyA0mSLoY+qRzuVejnTl/icOWXwkD5yDz6IpMQS46WcFN9vEOx0Ba4LDIbL9u8w2NJdTc4JvCq6fdH3U9MDLuvaerVv0M2haKDEdCJksCKP32CHD41W+Wvo7+LjvZlenuPcB7QRE/rltuhjajVZATT5HWkcHVJHzHkVNHvbkcJG29QEy8zaOpZNMOIDimEifJdY4E9lwiDt4L97cOvQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=414HAnI51gzZNcMd8XEwXwGUTwqdX0TMfXgV5vrF0kQ=;
- b=ShQh2PU/7T2/saAemMr1dhYCp5fE1gU1VkXDftxyDaWrxIZcgOsOSmBARW/Opw2bGIdXIcHD6gVtHNK7PtSaA5R+KMj9UDxNV3ViKlZ745uKfXmGmrqd+Ic520ok55yZ3lZ6Q8/4y9Imf7waDMK9IOMrbYaB2X+F/SheVMDB/WQ=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <qemu-devel@nongnu.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Arthur Borsboom
-	<arthurborsboom@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
-	Kevin Wolf <kwolf@redhat.com>, Max Reitz <mreitz@redhat.com>,
-	<xen-devel@lists.xenproject.org>, <qemu-block@nongnu.org>
-Subject: [PATCH] xen-block: fix reporting of discard feature
-Date: Mon, 18 Jan 2021 16:33:30 +0100
-Message-ID: <20210118153330.82324-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.29.2
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR2P264CA0073.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:32::13) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2ef8352a-9fd1-4db0-ce06-08d8bbc66bf5
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4219:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB4219BFD4FF770C2436CBC67B8FA40@DM6PR03MB4219.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
+ bh=XvjyKpKrg5Yo0u4yZkGArzclJ4pnHy0fgDw8P78Fjzk=;
+ b=USKawSuvm6zvbBFmLGkBWarryBFGmWx4by/9Iu6k87BHTHynwDEkWp6z38mECcnvft/rh+f9IyNbKUuMES4wqTfunkmcroHeBUo32ksAxNccWn9V9tR3HicpD3KeazWQsWnM2QXIizUAkJOB2HmZ2E/rj2S71FKSd13EyHRIs9c=
+From: Rahul Singh <Rahul.Singh@arm.com>
+To: Oleksandr <olekstysh@gmail.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Paul Durrant <paul@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v4 11/11] xen/arm: smmuv3: Add support for SMMUv3 driver
+Thread-Topic: [PATCH v4 11/11] xen/arm: smmuv3: Add support for SMMUv3 driver
+Thread-Index: AQHW5c4BALh9w79bakGJi7B8FnwYpqoinLCAgAAIcQCACu3xgA==
+Date: Mon, 18 Jan 2021 15:33:59 +0000
+Message-ID: <5405ECAE-F22F-4893-B302-5D48C57A8847@arm.com>
+References: <cover.1610115608.git.rahul.singh@arm.com>
+ <9ba174516e01e2a53390420fa957ea563219141f.1610115608.git.rahul.singh@arm.com>
+ <7762de2c-da11-5643-8f70-fdd87a7583eb@gmail.com>
+ <81983272-f423-f24d-3094-1f4ba7568e1b@gmail.com>
+In-Reply-To: <81983272-f423-f24d-3094-1f4ba7568e1b@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [80.1.41.211]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 9b146f37-98e6-4674-717a-08d8bbc67eeb
+x-ms-traffictypediagnostic: DB8PR08MB4027:|HE1PR08MB2779:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<HE1PR08MB2779E25F67F59CD0EF7ADDA7FCA40@HE1PR08MB2779.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ yPLuchv7x8CblKrm5VABKkPrLuOvk28A9UjbyoW1iYEIUaN3k0TzGHu0YuJKW4ds3lOgPC2wvLe7GRKxutOVjOBlenA/1tevHJ/kkYJQFeqhQTM2fswpa2TnVufN+k4bdXW5NSw19joNXUaeWoDksl+49AfQcYTTvtW/RTtZzEXdjeohNz8xHKaV902He9ow80//+zRGIAfxjptT+ZWdZN2ezO+06tMwh6bgJD0dXeWZ8ZPHLMw9JNxDNFWiab+QXFKuPoPmCy9Gw/3M/x3q8Nsr72GgDDBmkE+SfU7CQumTUz4NSGtvCUVqUh9qQaax9jcUTEFQvD7lLuSmPCL0Fup6x8DPAFk74SCVZvgfOsad1G7iZIarVQtGc2eyi5ziW9V3qO6shVm3C1IenqB3AOL3CO+ymOVsiiu90uo45Lfz/TydjEKbXJwZ0/pTEFJb1AYon1Y8OPseHZH/jTot3Fqg0rr5tLqvh1f2dlvcm8dB1+fdXHiMtbHo4JhM3v+7qqjJCsAydu3bvhY1ICo9ecucbdroqXjXpW0ApRShGsXVh9Wenj28uBtoifEFVHaH3PcSKeiblSdhJ8lVUF5T3hIK69XhXqnlqzu0A7kaqEA=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB3500.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(346002)(39860400002)(136003)(396003)(366004)(91956017)(53546011)(6506007)(5660300002)(66556008)(66446008)(64756008)(66476007)(76116006)(26005)(186003)(66946007)(86362001)(478600001)(6916009)(2616005)(7416002)(8676002)(83380400001)(8936002)(4326008)(6486002)(2906002)(33656002)(316002)(71200400001)(6512007)(36756003)(54906003)(45980500001)(309714004);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ =?us-ascii?Q?NnkR9JBe7aqPeMFCM5UGzfqcEgEKqw4CoLphKmmXUjHrmJKpLzwK8r2OxD/k?=
+ =?us-ascii?Q?3phD85JGhGqjFyYb9bj5ggcr2IqhTC3OAm7tsoRwuQ7VzW65VANvRgWvQdl2?=
+ =?us-ascii?Q?NxtGowUvnhLhnd4SH8JaxNu5FCJIqtl3DtHJppGxYAQXRJUN9ceNoKqtE4dw?=
+ =?us-ascii?Q?lG81SOxhYftkED6XJJKCUn0Suz1vbBjFX2thHTlOIEdTCEkj3ak1dbi1zCu9?=
+ =?us-ascii?Q?c88ztmkoKjfWxvxLrRl05ywbRK00X084Vz+hhgvD0SeZAuEt1gnz3Hk7e9+U?=
+ =?us-ascii?Q?wBB4sOzPZI5jBpQwYPnUppjkYB4kJPGigj8QGtSFyw1WDHbuDFGFLuedRGM5?=
+ =?us-ascii?Q?Hzeh9druU2xYIs2BgqJGSVW5VDs0tMAN9lbQNg5KAM44otpRVGcmzOg3wPnZ?=
+ =?us-ascii?Q?MgwQIaIt23usHlOgixY2rl40MQqgVana2OPmDmcsNtdbZ+QXtjbEfVkTrTHt?=
+ =?us-ascii?Q?SSmpPHzzo/x6a1ZMpgsql5kw1RUL+uJdsl9xxGKf6SUTMByQt6RLXXQAVYMx?=
+ =?us-ascii?Q?42uFeQGhN1GLhbXIBeddyWKo4sw2oPKiCtbOL2sYpef5W2O3Fk1719iMxvJC?=
+ =?us-ascii?Q?eGkrJD971vg0Z1ySD0LLVhuvQ+p6bUVIAOulMDGDfRqnDvKyFqNXn99O8n+V?=
+ =?us-ascii?Q?loPZANsrEyPBwG9XRNaWJHT2FKX5KDVmeIXIr60BXtGnfqfoW+Aspo7+O14d?=
+ =?us-ascii?Q?yUPRzrvymJs0yW9i2coYPd2hTA47vY9ydw1taJYEtcdwWxQaKTael0tWN9np?=
+ =?us-ascii?Q?3y6PdaDBIa29i2pavd91VSPE3uls27R5M7coofpiQ31n5L/hNoV53lD4ujcp?=
+ =?us-ascii?Q?Or0tbe0jKIfRPh/GQFrXYJeTTafd1aVYqVhAjvxTAgQyvFQRVKA77EITuYnm?=
+ =?us-ascii?Q?TFNxKfWMSgjkhLzA9s9Ut30+52w2hcfNuYtllWVnLPQ2xucmrz2CZZ0H8Aug?=
+ =?us-ascii?Q?fKLzgXwYQQcSycdelzPKs/K2nnO3gqvGXR0wc+Ro/yrs0taSgbIJ4ybQ/0cV?=
+ =?us-ascii?Q?QwARSW20mOXOHiz3Ddds1YbOcJc6ySeKq0Cp5/fivNY0OqVjKZHqRpFIB1kp?=
+ =?us-ascii?Q?z81m0Dny?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <7393BB7F784A2D4C9A562D4FA87E1BAE@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB4027
+Original-Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	9f847f99-34fb-4400-2ad8-08d8bbc67a03
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +BMT44CkRZPYVXWRPAN2hQn+Vd/lyny2bHlgcy3pAPiAD5irsSxLw3wjAMXWFqYTb1+HOIWkvSo5py+V7CykYy9mdwah3L6dtw0ARtcwDnA4Fpht8J3FmON7txRqthdhm/ibiR/cmj0NN792iFrA8ObdyukFFF5ZUEPgYRimimH7ooz6MVXqaVlsu/EmdT9WWLJc5lhqjTfyeKH+6Q92/JC55OygCaei07eK2/vGnKta1uka835DENSSDq9KBEpLufYpCk15axWUepV66RJ0a8MDAUHqvGmTsIQAD9oHYRmqPPqRhkBEKjf8itO9z3nXO3w3QcozQUKpc3HKPfmMrU2teCJG9EK2uyVrWTl1x4wbycNwahwPNFtyGjo229JLVf1BUl15sSf5eeICxBGSaIENI3ecGcp3xBZgQFhy4Rj7KpOlRwcud4OUjaIO8ksgTEcnlWfsFe0ujt40ujqQAw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(376002)(396003)(136003)(346002)(366004)(186003)(54906003)(2616005)(26005)(6916009)(1076003)(956004)(966005)(16526019)(83380400001)(8676002)(478600001)(316002)(86362001)(66556008)(8936002)(66476007)(5660300002)(4326008)(66946007)(36756003)(2906002)(6496006)(6486002)(6666004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?V01QMUw0RXVKdE4zV01xNXVxTlNRaldHTndTVEVrMHlZMnpMRXFyeGhLUU5O?=
- =?utf-8?B?Nm9DeG1LT3dycExIQTRiMytnRU5HaWZ2eEV3aTlDeUFpYXVIYVVkbkVncFJT?=
- =?utf-8?B?VUhPNnh3QzJEa3JkL3FNZkx1cWJHRHpTV0s4VDJUK1hXdUFadVllVDRKM21L?=
- =?utf-8?B?ZjQwMXlONnNOYTF2QUdYNWFjckVtOEswUllycG5jMmlrOHVpRDNPcnVNc2Jz?=
- =?utf-8?B?c1VwUkxieFJEYlgyZDM5andXVWZYa3ZQdVcyU01WUnNWSS9BSjNGOVgzck0r?=
- =?utf-8?B?WUo5dnBZcEsrRG95SitYWjFqS0dMLzh4WC9QU2J6cWlmQ1ZJWkY5dEN3WXlW?=
- =?utf-8?B?aDZmVkZqR0NIWFpGMlBhcVVKbi91SjlnTmRNTFkxYWRoY2dLbnRQNHFWMkdt?=
- =?utf-8?B?RFQyZDRZeTJWclRwS09sS0VpQmNjL3gvN3k5UGFoMVhmSmZvamY3UFo4S2J5?=
- =?utf-8?B?SHhycEhzNFUwaDNNc1JDbWxzUDZCUEdOeGI4UkNRUWFDUU9rNEI4dHNOYWZX?=
- =?utf-8?B?aEZOUWlxTEtCVVJTY3RINHJZeDZLaGdsc2lpZEJ2RVpxdDBOUmRKa09nZGRm?=
- =?utf-8?B?dEIzeWYxKzc2aml3a05BTHc4LzlpS1lVTmxZS1lBTVNIY1dCQlB4cXoxT0NN?=
- =?utf-8?B?M2FaUlRBR0FodGhsdlRwcGZZMGJDQkZvYTM0M0JTUG5XMXozUzNleWtsQUND?=
- =?utf-8?B?YkNZNVBzM0ROZlJicy9wbWlDTUVDK2xISEdUWFZLeklDRVpDa1VwZ3ZHTkUz?=
- =?utf-8?B?Nnh0bGxPa28wUnQ1a0ZuSUJxUkNTZVpwamxsNTZPdDAzdW4rUThFaC9Jc3FE?=
- =?utf-8?B?eDRsenhEM3d0VHU0TXp2QXlNMnEzendzYzZtcW9ROGR2Wk11QjdWYzZ0WVpT?=
- =?utf-8?B?My9qd1NROEtSYXE0aUhyd1IwcXJQaDVHd3QyTW52LzZ4c1R2REw3dVE4SDFa?=
- =?utf-8?B?NGh3NGh5M1hmZHpLaGxaNUhhUnpSZlpES2g1UG9rUDl3M01ZSGdZTDdKdk1a?=
- =?utf-8?B?em1uRzEvN3hxREZhcll6NkxBSUZnUTBmMW8wZk04ZFBjdmgyc0plTmtURU1M?=
- =?utf-8?B?NVRZNU1OMm1mRm14dHY4REdUODVMMDJ5clFKb09pTnJUV2hWRUt5NyszTFJY?=
- =?utf-8?B?WlVvY1pINFZBbDVhTEJRdnkzQTVPcUdKaHczOGUwcWtUdk4yYzZEMWpTZ3lV?=
- =?utf-8?B?c1RtWThRVFkvb24yNUg3OEc4N0NXcjM0bXNJbk1YZkpIN0tpQUNJcDBNSnJu?=
- =?utf-8?B?YmRELy94MEdBdnBiWStLWGU2NFVzMDQzd3RBRkkrWkFLc0F0Wk5lcGhqT2NN?=
- =?utf-8?Q?sw2ZsN90ZFYSjeeRIrOrwQcDXHbqhdJIdB?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ef8352a-9fd1-4db0-ce06-08d8bbc66bf5
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2021 15:33:36.3976
+X-Microsoft-Antispam-Message-Info:
+	VxNY78Xno1a7EALrhKvcTDqlyjOFwJ3u9gX+1eYdn8tZUYVB4k6zYK90Ud66I1voYMtmYFPPD76JRB5TLqalVdN91awsrx11j1pHK2wOKy49H4VG1+g8oB+drZIAIUXydSNO3PABcdFAcg4KdALb2+YYz/Ut64r/9Khoumyzf2HVRnS9IatYxjbAmztjFmvcvLa9ew1VBIKZ0zpPB04q/X5DdZ2dqiJTKcN16qoH90GLY96kZl9YmTLw05Alt64Xv8USljZndbVmFNm6Zau7y79UBp1ueGMe86mV3DZ1eMvD8VM6UW9dKQMvqUTe5ejSmw8o+MLjOm3gaxGo3opFPZ44ydmvvYosWn7qlhEH9/KDBqMsKuIQwg0eg5KSUOlQufsXZ7zNJWi/yAOFzBAyy2yLTiMbSoKv8wokI1guALybSEiao4X6FdRoxSGufgkDWNM5x1VeKBFI3g+ecrmVAwE/pB6gFffGnsmOxEDBhQI=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(346002)(39850400004)(376002)(136003)(396003)(46966006)(53546011)(6506007)(186003)(82740400003)(4326008)(316002)(26005)(81166007)(54906003)(83380400001)(82310400003)(70206006)(70586007)(478600001)(5660300002)(356005)(6486002)(36756003)(47076005)(107886003)(6862004)(8676002)(2906002)(33656002)(2616005)(336012)(8936002)(86362001)(6512007)(309714004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2021 15:34:08.0123
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d3aXhdyBLrtGMthpneCxYJ12F5+mBUVlQrZziJGefV3ia56Z5ELRIXNyuiR+XmHd2l9QWOT/VeE3waVHY1oZXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4219
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b146f37-98e6-4674-717a-08d8bbc67eeb
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR08MB2779
 
-Linux blkfront expects both "discard-granularity" and
-"discard-alignment" present on xenbus in order to properly enable the
-feature, not exposing "discard-alignment" left some Linux blkfront
-versions with a broken discard setup. This has also been addressed in
-Linux with:
+Hello Oleksandr,
 
-https://lore.kernel.org/lkml/20210118151528.81668-1-roger.pau@citrix.com/T/#u
+> On 11 Jan 2021, at 4:39 pm, Oleksandr <olekstysh@gmail.com> wrote:
+>=20
+>=20
+> Hi Rahul
+>=20
+>=20
+>>> -
+>>>   static int arm_smmu_device_probe(struct platform_device *pdev)
+>>>   {
+>>>       int irq, ret;
+>>> -    struct resource *res;
+>>> -    resource_size_t ioaddr;
+>>> +    paddr_t ioaddr, iosize;
+>>>       struct arm_smmu_device *smmu;
+>>> -    struct device *dev =3D &pdev->dev;
+>>> -    bool bypass;
+>>>   -    smmu =3D devm_kzalloc(dev, sizeof(*smmu), GFP_KERNEL);
+>>> +    smmu =3D xzalloc(struct arm_smmu_device);
+>>>       if (!smmu) {
+>>> -        dev_err(dev, "failed to allocate arm_smmu_device\n");
+>>> +        dev_err(pdev, "failed to allocate arm_smmu_device\n");
+>>>           return -ENOMEM;
+>>>       }
+>>> -    smmu->dev =3D dev;
+>>> +    smmu->dev =3D pdev;
+>>>   -    if (dev->of_node) {
+>>> +    if (pdev->of_node) {
+>>>           ret =3D arm_smmu_device_dt_probe(pdev, smmu);
+>>> +        if (ret)
+>>> +            return -EINVAL;
+>>>       } else {
+>>>           ret =3D arm_smmu_device_acpi_probe(pdev, smmu);
+>>>           if (ret =3D=3D -ENODEV)
+>>>               return ret;
+>>>       }
+>>>   -    /* Set bypass mode according to firmware probing result */
+>>> -    bypass =3D !!ret;
+>>> -
+>>>       /* Base address */
+>>> -    res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>>> -    if (resource_size(res) < arm_smmu_resource_size(smmu)) {
+>>> -        dev_err(dev, "MMIO region too small (%pr)\n", res);
+>>> +    ret =3D dt_device_get_address(dev_to_dt(pdev), 0, &ioaddr, &iosize=
+);
+>>> +    if (ret)
+>>> +        return -ENODEV;
+>>> +
+>>> +    if (iosize < arm_smmu_resource_size(smmu)) {
+>>> +        dev_err(pdev, "MMIO region too small (%lx)\n", iosize);
+>>>           return -EINVAL;
+>>>       }
+>>> -    ioaddr =3D res->start;
+>>>         /*
+>>>        * Don't map the IMPLEMENTATION DEFINED regions, since they may c=
+ontain
+>>> -     * the PMCG registers which are reserved by the PMU driver.
+>>> +     * the PMCG registers which are optional and currently not support=
+ed.
+>>>        */
+>>> -    smmu->base =3D arm_smmu_ioremap(dev, ioaddr, ARM_SMMU_REG_SZ);
+>>> +    smmu->base =3D ioremap_nocache(ioaddr, ARM_SMMU_REG_SZ);
+>>>       if (IS_ERR(smmu->base))
+>>>           return PTR_ERR(smmu->base);
+>>>   -    if (arm_smmu_resource_size(smmu) > SZ_64K) {
+>>> -        smmu->page1 =3D arm_smmu_ioremap(dev, ioaddr + SZ_64K,
+>>> +    if (iosize > SZ_64K) {
+>>> +        smmu->page1 =3D ioremap_nocache(ioaddr + SZ_64K,
+>>>                              ARM_SMMU_REG_SZ);
+>>>           if (IS_ERR(smmu->page1))
+>>>               return PTR_ERR(smmu->page1);
+>>> @@ -2765,14 +3101,262 @@ static int arm_smmu_device_probe(struct platfo=
+rm_device *pdev)
+>>>           return ret;
+>>>         /* Reset the device */
+>>> -    ret =3D arm_smmu_device_reset(smmu, bypass);
+>>> +    ret =3D arm_smmu_device_reset(smmu);
+>>>       if (ret)
+>>>           return ret;
+>>>   +    /*
+>>> +     * Keep a list of all probed devices. This will be used to query
+>>> +     * the smmu devices based on the fwnode.
+>>> +     */
+>>> +    INIT_LIST_HEAD(&smmu->devices);
+>>> +
+>>> +    spin_lock(&arm_smmu_devices_lock);
+>>> +    list_add(&smmu->devices, &arm_smmu_devices);
+>>> +    spin_unlock(&arm_smmu_devices_lock);
+>=20
+> Looks like that we need some kind of manual roll-back logic here in case =
+of error during probe (there is no real devm_*):
+>=20
+> iounmap, xfree, etc.
 
-Fix QEMU to report a "discard-alignment" of 0, in order for it to work
-with older Linux frontends.
+I agree with you that manual roll-back logic is good to have clean code but=
+ in this scenario what I have found out that if there is an error during pr=
+obe arm_smmu_device_probe() will return and XEN will not continue to boot (=
+call panic function) , in that case if we free the memory also there is no =
+much difference. That why I decided not to modify the code that we ported f=
+rom Linux.
 
-Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>
-Cc: Paul Durrant <paul@xen.org>
-Cc: Kevin Wolf <kwolf@redhat.com>
-Cc: Max Reitz <mreitz@redhat.com>
-Cc: xen-devel@lists.xenproject.org
-Cc: qemu-block@nongnu.org
----
- hw/block/xen-block.c | 1 +
- 1 file changed, 1 insertion(+)
+XEN) I/O virtualisation disabled
+(XEN)=20
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) Couldn't configure correctly all the IOMMUs.
+(XEN) ****************************************
+(XEN)=20
+(XEN) Manual reset required ('noreboot' specified)
 
-diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-index 718d886e5c..246d9c23a2 100644
---- a/hw/block/xen-block.c
-+++ b/hw/block/xen-block.c
-@@ -253,6 +253,7 @@ static void xen_block_realize(XenDevice *xendev, Error **errp)
-         xen_device_backend_printf(xendev, "feature-discard", "%u", 1);
-         xen_device_backend_printf(xendev, "discard-granularity", "%u",
-                                   conf->discard_granularity);
-+        xen_device_backend_printf(xendev, "discard-alignment", "%u", 0);
-     }
- 
-     xen_device_backend_printf(xendev, "feature-flush-cache", "%u", 1);
--- 
-2.29.2
+Do we have a requirement to continue to boot the XEN if there is an IOMMU a=
+vailable in the system and IOMMU probe is failed? If yes then I will modify=
+ the code to free all the resources if there is error during probe.
+
+
+Regards,
+Rahul
+>=20
+>=20
+>>>=20
+>>> +
+>>>       return 0;
+>>>   }
+>>=20
+> --=20
+> Regards,
+>=20
+> Oleksandr Tyshchenko
+>=20
 
 
