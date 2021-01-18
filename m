@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924152F9ACF
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 08:52:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69411.124187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 648472F9AE4
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 09:00:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69416.124199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1PKO-00034D-7l; Mon, 18 Jan 2021 07:51:56 +0000
+	id 1l1PS9-0003Pq-2o; Mon, 18 Jan 2021 07:59:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69411.124187; Mon, 18 Jan 2021 07:51:56 +0000
+Received: by outflank-mailman (output) from mailman id 69416.124199; Mon, 18 Jan 2021 07:59:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1PKO-00033o-4F; Mon, 18 Jan 2021 07:51:56 +0000
-Received: by outflank-mailman (input) for mailman id 69411;
- Mon, 18 Jan 2021 07:51:54 +0000
+	id 1l1PS8-0003PR-VY; Mon, 18 Jan 2021 07:59:56 +0000
+Received: by outflank-mailman (input) for mailman id 69416;
+ Mon, 18 Jan 2021 07:59:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=777z=GV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l1PKM-00033i-MV
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 07:51:54 +0000
+ (envelope-from <SRS0=d36Q=GV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l1PS7-0003PM-Gq
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 07:59:55 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 545749fe-7f3b-4782-9fcb-d079f96c8160;
- Mon, 18 Jan 2021 07:51:53 +0000 (UTC)
+ id e3d3f8c6-81a2-4275-9eca-c932dad413c9;
+ Mon, 18 Jan 2021 07:59:54 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 79A49ABDA;
- Mon, 18 Jan 2021 07:51:52 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 73060AB7A;
+ Mon, 18 Jan 2021 07:59:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,216 +39,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 545749fe-7f3b-4782-9fcb-d079f96c8160
+X-Inumbo-ID: e3d3f8c6-81a2-4275-9eca-c932dad413c9
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610956312; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1610956793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=cNaYx4ZcsmXIJBXS2IDzyUwQgZ8h/GwSuaIht1S0yEA=;
-	b=hNge1wU7TttfvyJYe/7fSadBQwQ6Mh2ks7CODtO2kh8Aj9oHO9Snz5R51Oj3d/M9c+O3qH
-	0JLTRJYpNkhNczC/Xj1t+8QOIZ2mY2xqvtVml7xP04pniZbhL0w03uP7QGe+OycGoeTeET
-	LBZu/89CRL3QjF24njDTEZ/RvWJVgNA=
-Subject: Re: [PATCH v2 4/8] tools/ocaml/xenstored: only quit on SIGTERM when a
- reload is possible
-To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
- xen-devel@lists.xenproject.org
-Cc: Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Pau Ruiz Safont <pau.safont@citrix.com>
-References: <cover.1610748224.git.edvin.torok@citrix.com>
- <023574503750d06132e3ca260848c364ff439001.1610748224.git.edvin.torok@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <09b5ab23-2044-dc8c-cc61-14cd8055c21d@suse.com>
-Date: Mon, 18 Jan 2021 08:51:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	bh=Tdtds8PQS/OMj5K5aVjnufqaH2P5oVL/zKE02diqvkE=;
+	b=qsRbJcoGGtyxS+v/7Lh1M9Q91A76ACI2eSKw0LoXSQhwPkOAdtFhYKV3FQ28FvKWApDTFb
+	rIzCP10iwgtqCi0vqhkJfu6PIexc0x7sPzhJUg7f503WoXsPiQ77KweWsiH6fo1+G/I17C
+	5vctGpchTj8IQ53tWoLe1W3Slj6TL7Y=
+Subject: Re: [PATCH v3 5/8] xen/hypfs: add support for id-based dynamic
+ directories
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20201209160956.32456-1-jgross@suse.com>
+ <20201209160956.32456-6-jgross@suse.com>
+ <2894a231-9150-7c09-cc5c-7ef52087acf5@suse.com>
+ <d4c408eb-08d8-42a8-0c0a-6580fce0e181@suse.com>
+ <5e0ac85e-ecba-86ad-b350-ff30e3a40a68@suse.com>
+ <bde3d3b1-a512-e1fe-cfd4-287fa0ea95cd@suse.com>
+ <a515ead2-f732-ddcd-f29b-788b8997fd2a@suse.com>
+ <18e4b437-6d25-cc3d-5521-11857f461beb@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a2cf474b-9d05-0d33-db9a-ed28718ad5fd@suse.com>
+Date: Mon, 18 Jan 2021 08:59:52 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <023574503750d06132e3ca260848c364ff439001.1610748224.git.edvin.torok@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="8kvK2AVHspN0lXrztUD03pdi4DebERX7O"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---8kvK2AVHspN0lXrztUD03pdi4DebERX7O
-Content-Type: multipart/mixed; boundary="fvDYvoYXZSMeCwXapyEM8MkaBRfdNNDSL";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
- xen-devel@lists.xenproject.org
-Cc: Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Pau Ruiz Safont <pau.safont@citrix.com>
-Message-ID: <09b5ab23-2044-dc8c-cc61-14cd8055c21d@suse.com>
-Subject: Re: [PATCH v2 4/8] tools/ocaml/xenstored: only quit on SIGTERM when a
- reload is possible
-References: <cover.1610748224.git.edvin.torok@citrix.com>
- <023574503750d06132e3ca260848c364ff439001.1610748224.git.edvin.torok@citrix.com>
-In-Reply-To: <023574503750d06132e3ca260848c364ff439001.1610748224.git.edvin.torok@citrix.com>
-
---fvDYvoYXZSMeCwXapyEM8MkaBRfdNNDSL
-Content-Type: multipart/mixed;
- boundary="------------04AD38452A6F9E3C93A199F0"
+In-Reply-To: <18e4b437-6d25-cc3d-5521-11857f461beb@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------04AD38452A6F9E3C93A199F0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+On 18.01.2021 08:25, Jürgen Groß wrote:
+> On 18.12.20 10:09, Jan Beulich wrote:
+>> On 18.12.2020 09:57, Jürgen Groß wrote:
+>>> On 17.12.20 13:14, Jan Beulich wrote:
+>>>> On 17.12.2020 12:32, Jürgen Groß wrote:
+>>>>> On 17.12.20 12:28, Jan Beulich wrote:
+>>>>>> On 09.12.2020 17:09, Juergen Gross wrote:
+>>>>>>> +static const struct hypfs_entry *hypfs_dyndir_enter(
+>>>>>>> +    const struct hypfs_entry *entry)
+>>>>>>> +{
+>>>>>>> +    const struct hypfs_dyndir_id *data;
+>>>>>>> +
+>>>>>>> +    data = hypfs_get_dyndata();
+>>>>>>> +
+>>>>>>> +    /* Use template with original enter function. */
+>>>>>>> +    return data->template->e.funcs->enter(&data->template->e);
+>>>>>>> +}
+>>>>>>
+>>>>>> At the example of this (applies to other uses as well): I realize
+>>>>>> hypfs_get_dyndata() asserts that the pointer is non-NULL, but
+>>>>>> according to the bottom of ./CODING_STYLE this may not be enough
+>>>>>> when considering the implications of a NULL deref in the context
+>>>>>> of a PV guest. Even this living behind a sysctl doesn't really
+>>>>>> help, both because via XSM not fully privileged domains can be
+>>>>>> granted access, and because speculation may still occur all the
+>>>>>> way into here. (I'll send a patch to address the latter aspect in
+>>>>>> a few minutes.) While likely we have numerous existing examples
+>>>>>> with similar problems, I guess in new code we'd better be as
+>>>>>> defensive as possible.
+>>>>>
+>>>>> What do you suggest? BUG_ON()?
+>>>>
+>>>> Well, BUG_ON() would be a step in the right direction, converting
+>>>> privilege escalation to DoS. The question is if we can't do better
+>>>> here, gracefully failing in such a case (the usual pair of
+>>>> ASSERT_UNREACHABLE() plus return/break/goto approach doesn't fit
+>>>> here, at least not directly).
+>>>>
+>>>>> You are aware that this is nothing a user can influence, so it would
+>>>>> be a clear coding error in the hypervisor?
+>>>>
+>>>> A user (or guest) can't arrange for there to be a NULL pointer,
+>>>> but if there is one that can be run into here, this would still
+>>>> require an XSA afaict.
+>>>
+>>> I still don't see how this could happen without a major coding bug,
+>>> which IMO wouldn't go unnoticed during a really brief test (this is
+>>> the reason for ASSERT() in hypfs_get_dyndata() after all).
+>>
+>> True. Yet the NULL derefs wouldn't go unnoticed either.
+>>
+>>> Its not as if the control flow would allow many different ways to reach
+>>> any of the hypfs_get_dyndata() calls.
+>>
+>> I'm not convinced of this - this is a non-static function, and the
+>> call patch 8 adds (just to take an example) is not very obvious to
+>> have a guarantee that allocation did happen and was checked for
+>> success. Yes, in principle cpupool_gran_write() isn't supposed to
+>> be called in such a case, but it's the nature of bugs assumptions
+>> get broken.
+>>
+>>> I can add security checks at the appropriate places, but I think this
+>>> would be just dead code. OTOH if you are feeling strong here lets go
+>>> with it.
+>>
+>> Going with it isn't the only possible route. The other is to drop
+>> the ASSERT()s altogether. It simply seems to me that their addition
+>> is a half-hearted attempt when considering what was added to
+>> ./CODING_STYLE not all that long ago.
+> 
+> IMO The ASSERT()s are serving two purposes here: catching errors
+> (which, as you stated already, might be catched later in any case),
+> and documenting for the code reader that the condition they are
+> testing should always be true and it a violation of it ought not to
+> happen.
+> 
+> I can drop the ASSERT() calls, but I think they should be kept due
+> to their documentation aspect.
 
-On 15.01.21 23:28, Edwin T=C3=B6r=C3=B6k wrote:
-> Currently when oxenstored receives SIGTERM it dumps its state and quits=
-=2E
-> It is possible to then restart it if --restart is given, however that i=
-s
-> not always safe:
->=20
-> * domains could have active transactions, and after a restart they woul=
-d
-> either reuse transaction IDs of already open transactions, or get an
-> error back that the transaction doesn't exist
->=20
-> * there could be pending data to send to a VM still in oxenstored's
->    queue which would be lost
->=20
-> * there could be pending input to be processed from a VM in oxenstored'=
-s
->    queue which would be lost
->=20
-> Prevent shutting down oxenstored via SIGTERM in the above situations.
-> Also ignore domains marked as bad because oxenstored would never talk
-> to them again.
->=20
-> Signed-off-by: Edwin T=C3=B6r=C3=B6k <edvin.torok@citrix.com>
-> Reviewed-by: Pau Ruiz Safont <pau.safont@citrix.com>
-> Reviewed-by: Christian Lindig <christian.lindig@citrix.com>
->=20
-> ---
-> Changed since V1:
-> * post publicly now that the XSA is out
-> ---
->   tools/ocaml/xenstored/connection.ml  | 35 +++++++++++++++++++++++++++=
-+
->   tools/ocaml/xenstored/connections.ml |  8 +++++++
->   tools/ocaml/xenstored/xenstored.ml   | 13 +++++++++--
->   tools/xenstore/xenstored_core.c      |  7 +++++-
+Well, okay, I can see your point. Keep them in then, despite us
+coming nowhere close to having similar NULL related asserts in
+all similar places, I believe.
 
-I don't think you should modify tools/xenstore/xenstored_core.c in your
-series.
-
-
-Juergen
-
---------------04AD38452A6F9E3C93A199F0
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------04AD38452A6F9E3C93A199F0--
-
---fvDYvoYXZSMeCwXapyEM8MkaBRfdNNDSL--
-
---8kvK2AVHspN0lXrztUD03pdi4DebERX7O
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAFPhcFAwAAAAAACgkQsN6d1ii/Ey/g
-3wf6Ahj2+o0rKqrbw7qZf3oDI+icuKQFoRNsifBRfArEbpmzg+O0ZyZvuyXOLF5cNrRtysuxRtkb
-r6rK2dsZzTpe7YRfLJrVJ7hwHMdXVb+PdR4lH8nPbIGFh9dzvVbFH5bHrovv11ldxnXRylhvwgQE
-x8icS+rfK+GI53WlbQqpArM84N5m46mmlGv2+K798+H1JJQMI+5V6c0qun24OdNEhxiAPxm6tamG
-GSYeVyoe+YAoGltb2plakN6sr13UZ5xcaOkRbcpZsv4r0WDUsYytc60vbF8EuRXvh7a8ZGwKTnll
-uc/S6bm9Fe4fzJ3AUB7tcU3ITT6p3VKHXf9SoV3kSQ==
-=jj/F
------END PGP SIGNATURE-----
-
---8kvK2AVHspN0lXrztUD03pdi4DebERX7O--
+Jan
 
