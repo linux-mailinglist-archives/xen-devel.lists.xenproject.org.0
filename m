@@ -2,34 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63CC82F95E6
-	for <lists+xen-devel@lfdr.de>; Sun, 17 Jan 2021 23:24:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69345.124048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFDF42F9761
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 02:40:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69356.124059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1GRh-0000bB-UE; Sun, 17 Jan 2021 22:22:53 +0000
+	id 1l1JVM-0008KO-WC; Mon, 18 Jan 2021 01:38:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69345.124048; Sun, 17 Jan 2021 22:22:53 +0000
+Received: by outflank-mailman (output) from mailman id 69356.124059; Mon, 18 Jan 2021 01:38:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1GRh-0000ar-R2; Sun, 17 Jan 2021 22:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 69345;
- Sun, 17 Jan 2021 22:22:51 +0000
+	id 1l1JVM-0008K5-Qu; Mon, 18 Jan 2021 01:38:52 +0000
+Received: by outflank-mailman (input) for mailman id 69356;
+ Mon, 18 Jan 2021 01:38:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i0Xk=GU=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l1GRf-0000am-QJ
- for xen-devel@lists.xenproject.org; Sun, 17 Jan 2021 22:22:51 +0000
-Received: from mail-lj1-x22a.google.com (unknown [2a00:1450:4864:20::22a])
+ <SRS0=k63/=GV=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1l1JVL-0008K0-MS
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 01:38:51 +0000
+Received: from MTA-09-3.privateemail.com (unknown [68.65.122.19])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 130f717e-243f-4f74-9eb5-33d09988629c;
- Sun, 17 Jan 2021 22:22:49 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id b10so16278251ljp.6
- for <xen-devel@lists.xenproject.org>; Sun, 17 Jan 2021 14:22:49 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id h23sm1517281ljh.115.2021.01.17.14.22.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 Jan 2021 14:22:48 -0800 (PST)
+ id 1ab24ecd-a8c2-40b2-930e-a9c1c300ac1b;
+ Mon, 18 Jan 2021 01:38:50 +0000 (UTC)
+Received: from MTA-09.privateemail.com (localhost [127.0.0.1])
+ by MTA-09.privateemail.com (Postfix) with ESMTP id 1BF3760067
+ for <xen-devel@lists.xenproject.org>; Sun, 17 Jan 2021 20:38:49 -0500 (EST)
+Received: from mail-wr1-f44.google.com (unknown [10.20.151.237])
+ by MTA-09.privateemail.com (Postfix) with ESMTPA id D474E60059
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 01:38:48 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id a12so14904153wrv.8
+ for <xen-devel@lists.xenproject.org>; Sun, 17 Jan 2021 17:38:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,371 +43,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 130f717e-243f-4f74-9eb5-33d09988629c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=0JnzGYtOKqerBzRqE7IvlVH4q9oMu3huJkislzXIAks=;
-        b=hNSnxfSiTUhyJPGi2LvXBiCIM66/rlhRt4mzgP0wxYDgcTaPXSgv64TPyD5ltymsqL
-         m0XAxi59YwPuXuKjQWaBhaLPkfR6y4I7Fd3JP6zlCp6cSUy4yUz+8dXA7I1gE5d/y5xJ
-         hLexpwh79ndFt0AtyaVZ8xFr/7b3cL50GjUGjqaFpHFVL0IZKiWhgVrdA7oV1sJ69ze3
-         HbXL+/HOrZOUA6pkYlIQLtsSWFty78/Ul0EdVEy+AW0JMNqN/PWWMtFlI4cqVrj6av+n
-         tPvxemYX+e6NQ52KMdR6i8cIAPBboOm6TBu2bUXJWmjMs/CwRoUUPEChn0yE4YPip4is
-         QshQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=0JnzGYtOKqerBzRqE7IvlVH4q9oMu3huJkislzXIAks=;
-        b=luCSRvq+yzOnX2m71hx98QxyEoJFffNu+OfCT25Ph27Ut72W+WswdxhF7ZKu4y3WKF
-         lzgMv03t6Om9j7iOT1gwzK7m0+GJokwHWjoUtpMHyl14K544KIcxWNdWooNjM3h/yQyD
-         CJry1cR5WmbkZiwz7hQ15ySnC8swSm7vwlKnvhxmJqLncYE5H3qVMb37tzGkMHj7d/CD
-         PJORgL+UUmNNtzaIzJIjJKOD/Cnqec9waq0i2s4uc2yzzsLPmhZsXdyA3iFO86sVXQxm
-         eZVl7OxkWxTWN8zXpYgdk9Xk4X443a/onXgx3/zM8PnIjFsQxtKSG59AwOdd0ZKUF872
-         wVBg==
-X-Gm-Message-State: AOAM530QcZbCkALKhfBjUHT0NiArtUdiXxJmiKymXmpMfZ/5UX7xtb0P
-	w/9Jm8d2VM/Jz8ZuEBMk+zs=
-X-Google-Smtp-Source: ABdhPJyR32vBPkR9Zjke6H2y02RVdCWWgwyxYYPRxng4yUK7BEgz32tntIQGjtuRnmQNUJw6MnZINA==
-X-Received: by 2002:a2e:9acd:: with SMTP id p13mr9917691ljj.394.1610922168685;
-        Sun, 17 Jan 2021 14:22:48 -0800 (PST)
-Subject: Re: [PATCH V4 23/24] libxl: Introduce basic virtio-mmio support on
- Arm
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-24-git-send-email-olekstysh@gmail.com>
- <25b62097-9ea9-31f3-0f8f-92a7f0d01d7c@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <51d44085-f178-3985-9324-da6494cd9d2e@gmail.com>
-Date: Mon, 18 Jan 2021 00:22:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 1ab24ecd-a8c2-40b2-930e-a9c1c300ac1b
+X-Gm-Message-State: AOAM533t5cikxaYg0mBiUUO9jKJsMq/TFMVv6aJfzRDO8BK6uZhv2ms/
+	exET1SGt3zVPzRUiQqJu9iaoiYeRiVYDr2kdt9s=
+X-Google-Smtp-Source: ABdhPJwE4PPYMS/7yQMlTRdk8OPvYECToS0Tp11DNDhJFq4rw5STRQk+Q415E+Y9M9OvpFe0uLAORcIpynLaTHKPJ7c=
+X-Received: by 2002:a5d:68ce:: with SMTP id p14mr23332811wrw.386.1610933927443;
+ Sun, 17 Jan 2021 17:38:47 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <25b62097-9ea9-31f3-0f8f-92a7f0d01d7c@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <7536d7bd92337933e6e23be359ca981deab50016.1609699565.git.tamas@tklengyel.com>
+ <0405f97f-ee4f-6379-c0f4-3db149386bc2@citrix.com> <CABfawhnGC2S3StnzcCkS0bQr3h_J1=i6LE7ma8vkZYJK_WoQuQ@mail.gmail.com>
+In-Reply-To: <CABfawhnGC2S3StnzcCkS0bQr3h_J1=i6LE7ma8vkZYJK_WoQuQ@mail.gmail.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Sun, 17 Jan 2021 20:38:12 -0500
+X-Gmail-Original-Message-ID: <CABfawh=7A8HAU9Jh5MU9UPApUOLJM1VbdghVC7PGn2VbodRdLw@mail.gmail.com>
+Message-ID: <CABfawh=7A8HAU9Jh5MU9UPApUOLJM1VbdghVC7PGn2VbodRdLw@mail.gmail.com>
+Subject: Re: [PATCH] x86/mem_sharing: silence ubsan warning
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, 
+	George Dunlap <george.dunlap@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-
-On 15.01.21 23:30, Julien Grall wrote:
-> Hi Oleksandr,
-
-
-Hi Julien
-
-
+On Mon, Jan 4, 2021 at 12:21 PM Tamas K Lengyel <tamas@tklengyel.com> wrote=
+:
 >
-> On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
->> From: Julien Grall <julien.grall@arm.com>
->>
->> This patch creates specific device node in the Guest device-tree
->> with allocated MMIO range and SPI interrupt if specific 'virtio'
->> property is present in domain config.
+> On Mon, Jan 4, 2021 at 7:31 AM Andrew Cooper <andrew.cooper3@citrix.com> =
+wrote:
+> >
+> > On 03/01/2021 18:47, Tamas K Lengyel wrote:
+> > > Running Xen compiled with UBSAN produces a warning for mismatched siz=
+e. It's
+> > > benign but this patch silences the warning.
+> > >
+> > > Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+> > > ---
+> > >  xen/arch/x86/mm/mem_sharing.c | 5 ++++-
+> > >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_shar=
+ing.c
+> > > index c428fd16ce..6920077dbf 100644
+> > > --- a/xen/arch/x86/mm/mem_sharing.c
+> > > +++ b/xen/arch/x86/mm/mem_sharing.c
+> > > @@ -1638,7 +1638,10 @@ static int fork_hap_allocation(struct domain *=
+cd, struct domain *d)
+> > >      rc =3D hap_set_allocation(cd, mb << (20 - PAGE_SHIFT), &preempte=
+d);
+> > >      paging_unlock(cd);
+> > >
+> > > -    return preempted ? -ERESTART : rc;
+> > > +    if ( preempted )
+> > > +        rc =3D -ERESTART;
+> > > +
+> > > +    return rc;
+> >
+> > I can't repro this at all, even with some simplified examples.
+> >
+> > -ERESTART is int (it is an enum constant in C files), as is rc, so I
+> > can't spot a legitimate UBSAN complaint here.
+> >
+> > Which compiler, and/or do you have the exact complaint available?
 >
-> From my understanding, for each virtio device use the MMIO transparent,
-> we would need to reserve an area in memory for its exclusive use.
->
-> If I were an admin, I would expect to only describe the list of virtio 
-> devices I want to assign to my guest and then let the toolstack figure 
-> out how to expose them.
+> It was with gcc-7 on debian buster but can't recreate it after a make
+> clean & make, it's now gone =C2=AF\_(=E3=83=84)_/=C2=AF, seems like it wa=
+s just a bad
+> build. Sorry for the noise.
 
-Yes, I think in the same way.
+In a recent build with gcc-10 I got the warning again:
 
+(XEN) =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
+(XEN) UBSAN: Undefined behaviour in mem_sharing.c:1659:34
+(XEN) load of value 6 is not a valid value for type '_Bool'
+(XEN) ----[ Xen-4.15-unstable  x86_64  debug=3Dy ubsan=3Dy  Not tainted ]--=
+--
+(XEN) CPU:    0
+(XEN) RIP:    e008:[<ffff82d040321271>]
+common/ubsan/ubsan.c#ubsan_epilogue+0x5/0xc6
+(XEN) RFLAGS: 0000000000010086   CONTEXT: hypervisor (d0v0)
+(XEN) rax: 0000000000000000   rbx: ffff83007fc7f930   rcx: 0000000000000000
+(XEN) rdx: ffff83007fc7ffd0   rsi: 000000000000000a   rdi: ffff83007fc7f930
+(XEN) rbp: 0000000000000006   rsp: ffff83007fc7f8f0   r8:  00000000ffffffff
+(XEN) r9:  0000000000000000   r10: ffff83007fc7f908   r11: 0000000000000000
+(XEN) r12: ffff83036bb58000   r13: ffff830241ed0000   r14: 0000000000000006
+(XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 0000000000372660
+(XEN) cr3: 00000002466ab000   cr2: 00007f32f50a514d
+(XEN) fsb: 00007f32f4e6c2c0   gsb: ffff8881f2800000   gss: 0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
+(XEN) Xen code around <ffff82d040321271>
+(common/ubsan/ubsan.c#ubsan_epilogue+0x5/0xc6):
+(XEN)  00 eb c2 55 53 48 89 fb <0f> 0b 48 8d 3d ee 22 53 00 e8 ec 2a 00 00 =
+48 85
+(XEN) Xen stack trace from rsp=3Dffff83007fc7f8f0:
+(XEN)    ffff82d040c2f7b2 0000000000000006 ffff82d0403222a2 000000000024003=
+6
+(XEN)    ffff83036bb58748 00007f32f50e9010 0000000000000000 ffff83036bb586a=
+0
+(XEN)    0000000000000202 00007f32f50e9010 0000000000000000 ffff82d0404c910=
+1
+(XEN)    0000004100000000 ffff83036bb586a0 ffff82d040f88910 ffff82d00000004=
+0
+(XEN)    ffff83007fc7fb30 ffff82d040539437 ffff82004001dfb8 000000000000000=
+1
+(XEN)    ffff83007fc7fb30 ffff83007fc7fa88 0000000000000206 ffff830241ed000=
+0
+(XEN)    0000000000000000 0000000000000003 ffff83036bb58000 000000000002000=
+9
+(XEN)    0000000000030001 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000016 0000000000000016 ffff830361f6900=
+0
+(XEN)    deadbeefdeadf00d 0000000000000000 00007f32f50e9010 ffff82d040583da=
+6
+(XEN)    00007f32f50e9010 0000000000000016 0000000000000008 ffff82d040f8ed4=
+0
+(XEN)    0000000000423000 0000000000800163 00000000000000b0 000000000000001=
+6
+(XEN)    0000000000000016 ffff830361f69000 deadbeefdeadf00d 000000000000000=
+0
+(XEN)    00007f32f50e9010 ffff82d040565a1a 00007f32f50e9010 00007d2fbf0716c=
+8
+(XEN)    0000000000ff5800 ffff82d040f8e940 ffff82d040f8ed40 000000000000010=
+0
+(XEN)    0000000000000001 0000000000000028 0000000000000001 000000000000002=
+8
+(XEN)    0000000000000000 ffff82e006d73f80 0000000000000001 000000000000001=
+6
+(XEN)    0000000000000016 ffff830361f69000 deadbeefdeadf00d 000000000000000=
+0
+(XEN)    00007f32f50e9010 ffff82d040268334 0000000000000100 000000000000000=
+0
+(XEN)    000000000012ca7c 0000000000000000 0000000000000000 ffff830364a4000=
+0
+(XEN) Xen call trace:
+(XEN)    [<ffff82d040321271>] R common/ubsan/ubsan.c#ubsan_epilogue+0x5/0xc=
+6
+(XEN)    [<ffff82d0403222a2>] S __ubsan_handle_load_invalid_value+0x92/0xc9
+(XEN)    [<ffff82d0404c9101>] S mem_sharing_memop+0x4fc4/0x5e4c
+(XEN)    [<ffff82d040539437>] S
+arch/x86/domain_page.c#mapcache_current_vcpu+0x47/0x3ea
+(XEN)    [<ffff82d040583da6>] S subarch_memory_op+0xc4f/0xc80
+(XEN)    [<ffff82d040565a1a>] S arch_memory_op+0x45/0x2bd9
+(XEN)    [<ffff82d040268334>] S do_memory_op+0x4ce/0x7330
+(XEN)    [<ffff82d0402a6ad2>] S xmem_pool_alloc+0xd61/0x1325
+(XEN)    [<ffff82d04028b8ec>] S common/timer.c#timer_lock+0x156/0x694
+(XEN)    [<ffff82d0402e21d8>] S
+common/sched/credit2.c#replenish_domain_budget+0/0x3ae
+(XEN)    [<ffff82d040309c81>] S sched_init_domain+0x14e/0x47c
+(XEN)    [<ffff82d04020b05c>] S domain_create+0x70a/0xd55
+(XEN)    [<ffff82d0402b1631>] S domctl_lock_release+0x6b/0xd9
+(XEN)    [<ffff82d0402b5f20>] S do_domctl+0x4819/0x49f5
+(XEN)    [<ffff82d04057ad4e>] S do_mmu_update+0x34ec/0x36a1
+(XEN)    [<ffff82d040564913>] S update_cr3+0x8e/0x1b0
+(XEN)    [<ffff82d040507b55>] S arch/x86/pv/domain.c#_toggle_guest_pt+0x34/=
+0x177
+(XEN)    [<ffff82d040508edd>] S toggle_guest_mode+0x143/0x45f
+(XEN)    [<ffff82d04051534d>] S do_iret+0x206/0x530
+(XEN)    [<ffff82d040513ba6>] S pv_hypercall+0x866/0xef3
+(XEN)    [<ffff82d040507b55>] S arch/x86/pv/domain.c#_toggle_guest_pt+0x34/=
+0x177
+(XEN)    [<ffff82d040508edd>] S toggle_guest_mode+0x143/0x45f
+(XEN)    [<ffff82d04062c457>] S lstar_enter+0x127/0x130
+(XEN)
+(XEN) =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
 
->
->
-> So I am not quite too sure how this new parameter can be used. Could 
-> you expand it?
-The original idea was to set it if we are going to assign virtio 
-device(s) to the guest.
-Being honest, I have a plan to remove this extra parameter. It might not 
-be obvious looking at the current patch, but next patch will show that 
-we can avoid introducing it at all.
-
-
->
->
->>
->> Signed-off-by: Julien Grall <julien.grall@arm.com>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> [On Arm only]
->> Tested-by: Wei Chen <Wei.Chen@arm.com>
->>
->> ---
->> Please note, this is a split/cleanup/hardening of Julien's PoC:
->> "Add support for Guest IO forwarding to a device emulator"
->>
->> Changes RFC -> V1:
->>     - was squashed with:
->>       "[RFC PATCH V1 09/12] libxl: Handle virtio-mmio irq in more 
->> correct way"
->>       "[RFC PATCH V1 11/12] libxl: Insert "dma-coherent" property 
->> into virtio-mmio device node"
->>       "[RFC PATCH V1 12/12] libxl: Fix duplicate memory node in DT"
->>     - move VirtIO MMIO #define-s to xen/include/public/arch-arm.h
->>
->> Changes V1 -> V2:
->>     - update the author of a patch
->>
->> Changes V2 -> V3:
->>     - no changes
->>
->> Changes V3 -> V4:
->>     - no changes
->> ---
->>   tools/libs/light/libxl_arm.c     | 58 
->> ++++++++++++++++++++++++++++++++++++++--
->>   tools/libs/light/libxl_types.idl |  1 +
->>   tools/xl/xl_parse.c              |  1 +
->>   xen/include/public/arch-arm.h    |  5 ++++
->>   4 files changed, 63 insertions(+), 2 deletions(-)
->>
->> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
->> index 66e8a06..588ee5a 100644
->> --- a/tools/libs/light/libxl_arm.c
->> +++ b/tools/libs/light/libxl_arm.c
->> @@ -26,8 +26,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->>   {
->>       uint32_t nr_spis = 0;
->>       unsigned int i;
->> -    uint32_t vuart_irq;
->> -    bool vuart_enabled = false;
->> +    uint32_t vuart_irq, virtio_irq;
->> +    bool vuart_enabled = false, virtio_enabled = false;
->>         /*
->>        * If pl011 vuart is enabled then increment the nr_spis to 
->> allow allocation
->> @@ -39,6 +39,17 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->>           vuart_enabled = true;
->>       }
->>   +    /*
->> +     * XXX: Handle properly virtio
->> +     * A proper solution would be the toolstack to allocate the 
->> interrupts
->> +     * used by each virtio backend and let the backend now which one 
->> is used
->> +     */
->> +    if (libxl_defbool_val(d_config->b_info.arch_arm.virtio)) {
->> +        nr_spis += (GUEST_VIRTIO_MMIO_SPI - 32) + 1;
->> +        virtio_irq = GUEST_VIRTIO_MMIO_SPI;
->> +        virtio_enabled = true;
->> +    }
->> +
->>       for (i = 0; i < d_config->b_info.num_irqs; i++) {
->>           uint32_t irq = d_config->b_info.irqs[i];
->>           uint32_t spi;
->> @@ -58,6 +69,12 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->>               return ERROR_FAIL;
->>           }
->>   +        /* The same check as for vpl011 */
->> +        if (virtio_enabled && irq == virtio_irq) {
->> +            LOG(ERROR, "Physical IRQ %u conflicting with virtio 
->> SPI\n", irq);
->> +            return ERROR_FAIL;
->> +        }
->> +
->>           if (irq < 32)
->>               continue;
->>   @@ -658,6 +675,39 @@ static int make_vpl011_uart_node(libxl__gc 
->> *gc, void *fdt,
->>       return 0;
->>   }
->>   +static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
->> +                                 uint64_t base, uint32_t irq)
->> +{
->> +    int res;
->> +    gic_interrupt intr;
->> +    /* Placeholder for virtio@ + a 64-bit number + \0 */
->> +    char buf[24];
->> +
->> +    snprintf(buf, sizeof(buf), "virtio@%"PRIx64, base);
->> +    res = fdt_begin_node(fdt, buf);
->> +    if (res) return res;
->> +
->> +    res = fdt_property_compat(gc, fdt, 1, "virtio,mmio");
->> +    if (res) return res;
->> +
->> +    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, 
->> GUEST_ROOT_SIZE_CELLS,
->> +                            1, base, GUEST_VIRTIO_MMIO_SIZE);
->> +    if (res) return res;
->> +
->> +    set_interrupt(intr, irq, 0xf, DT_IRQ_TYPE_EDGE_RISING);
->> +    res = fdt_property_interrupts(gc, fdt, &intr, 1);
->> +    if (res) return res;
->> +
->> +    res = fdt_property(fdt, "dma-coherent", NULL, 0);
->> +    if (res) return res;
->> +
->> +    res = fdt_end_node(fdt);
->> +    if (res) return res;
->> +
->> +    return 0;
->> +
->> +}
->> +
->>   static const struct arch_info *get_arch_info(libxl__gc *gc,
->>                                                const struct 
->> xc_dom_image *dom)
->>   {
->> @@ -961,6 +1011,9 @@ next_resize:
->>           if (info->tee == LIBXL_TEE_TYPE_OPTEE)
->>               FDT( make_optee_node(gc, fdt) );
->>   +        if (libxl_defbool_val(info->arch_arm.virtio))
->> +            FDT( make_virtio_mmio_node(gc, fdt, 
->> GUEST_VIRTIO_MMIO_BASE, GUEST_VIRTIO_MMIO_SPI) ); > +
->>           if (pfdt)
->>               FDT( copy_partial_fdt(gc, fdt, pfdt) );
->>   @@ -1178,6 +1231,7 @@ void 
->> libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
->>   {
->>       /* ACPI is disabled by default */
->>       libxl_defbool_setdefault(&b_info->acpi, false);
->> +    libxl_defbool_setdefault(&b_info->arch_arm.virtio, false);
->>         if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
->>           return;
->> diff --git a/tools/libs/light/libxl_types.idl 
->> b/tools/libs/light/libxl_types.idl
->> index 0532473..839df86 100644
->> --- a/tools/libs/light/libxl_types.idl
->> +++ b/tools/libs/light/libxl_types.idl
->> @@ -640,6 +640,7 @@ libxl_domain_build_info = 
->> Struct("domain_build_info",[
->>           ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
->> +                               ("virtio", libxl_defbool),
->
-> Regardless the question above, this doesn't sound very Arm specific.
-
-yes
-
-
->
->
->
-> I think we want to get the virtio configuration arch-agnostic because 
-> an admin should not need to know the arch internal to be able to 
-> assign virtio devices.
-
-sounds reasonable
-
-
->
->
-> That said, you can leave it completely unimplemented for anything 
-> other than Arm.
-
-got it
-
-
->
->
-> If you add new parameters in the idl, you will also want to introduce 
-> a define in libxl.h so an external toolstack (such as libvirt) can 
-> detect whether the field is supported by the installed version of 
-> libxl. See the other LIBXL_HAVE_*.
-
-hmm, I didn't know about that, thank you.
-
-
->
->>                                  ("vuart", libxl_vuart_type),
->>                                 ])),
->>       # Alternate p2m is not bound to any architecture or guest type, 
->> as it is
->> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
->> index 4ebf396..2a3364b 100644
->> --- a/tools/xl/xl_parse.c
->> +++ b/tools/xl/xl_parse.c
->> @@ -2581,6 +2581,7 @@ skip_usbdev:
->>       }
->>         xlu_cfg_get_defbool(config, "dm_restrict", 
->> &b_info->dm_restrict, 0);
->> +    xlu_cfg_get_defbool(config, "virtio", &b_info->arch_arm.virtio, 0);
->
-> Regardless the question above, any addition in the configuration file 
-> should be documented docs/man/xl.cfg.5.pod.in.
-
-yes, documentation is my nearest plan.
-
-
->
->
->>         if (c_info->type == LIBXL_DOMAIN_TYPE_HVM) {
->>           if (!xlu_cfg_get_string (config, "vga", &buf, 0)) {
->> diff --git a/xen/include/public/arch-arm.h 
->> b/xen/include/public/arch-arm.h
->> index c365b1b..be7595f 100644
->> --- a/xen/include/public/arch-arm.h
->> +++ b/xen/include/public/arch-arm.h
->> @@ -464,6 +464,11 @@ typedef uint64_t xen_callback_t;
->>   #define PSCI_cpu_on      2
->>   #define PSCI_migrate     3
->>   +/* VirtIO MMIO definitions */
->> +#define GUEST_VIRTIO_MMIO_BASE  xen_mk_ullong(0x02000000)
->
-> You will want to define any new region with the other *_{BASE, SIZE} 
-> above. Note that they should be ordered from bottom to the top of the 
-> memory layout.
-
-I got it, this one should be put at the very beginning (before vGIC v2 
-mappings).
-
-
->
->
->> +#define GUEST_VIRTIO_MMIO_SIZE xen_mk_ullong(0x200)
->
-> AFAICT, the size of the virtio mmio region should be 0x100. So why is 
-> it 0x200?
-
-
-I didn't find the total size requirement for the mmio region in virtio 
-specification v1.1 (the size of control registers is indeed 0x100 and 
-device-specific configuration registers starts at the offset 0x100, 
-however it's size depends on the device and the driver).
-
-kvmtool uses 0x200 [1], in some Linux device-trees we can see 0x200 [2] 
-(however, device-tree bindings example has 0x100 [3]), so what would be 
-the proper value for Xen code?
-
-
->
->> +#define GUEST_VIRTIO_MMIO_SPI   33
->
-> This will want to be defined with the other GUEST_*_SPI above.
-
-ok
-
-
->
->
-> Most likely, you will want to reserve a range
-
-it seems yes, good point. BTW, the range is needed for the mmio region 
-as well, correct?
-
-
->
-> Cheers,
->
-[1] 
-https://git.kernel.org/pub/scm/linux/kernel/git/will/kvmtool.git/tree/include/kvm/virtio-mmio.h#n9
-[2] 
-https://elixir.bootlin.com/linux/v5.11-rc3/source/arch/arm64/boot/dts/arm/foundation-v8.dtsi#L226
-[3] 
-https://elixir.bootlin.com/linux/v5.11-rc3/source/Documentation/devicetree/bindings/virtio/mmio.txt#L31
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Tamas
 
