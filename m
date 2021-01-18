@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AAAE2FA789
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 18:29:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69921.125340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8962FA7BC
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 18:43:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69925.125352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1YKv-0000Nh-Qv; Mon, 18 Jan 2021 17:29:05 +0000
+	id 1l1YYE-00028a-2r; Mon, 18 Jan 2021 17:42:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69921.125340; Mon, 18 Jan 2021 17:29:05 +0000
+Received: by outflank-mailman (output) from mailman id 69925.125352; Mon, 18 Jan 2021 17:42:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1YKv-0000NI-NJ; Mon, 18 Jan 2021 17:29:05 +0000
-Received: by outflank-mailman (input) for mailman id 69921;
- Mon, 18 Jan 2021 17:29:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l1YYD-00028B-Vm; Mon, 18 Jan 2021 17:42:49 +0000
+Received: by outflank-mailman (input) for mailman id 69925;
+ Mon, 18 Jan 2021 17:42:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wFfa=GV=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l1YKu-0000ND-9M
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 17:29:04 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3967e92d-635b-4e1e-9383-b8a0ee38e976;
- Mon, 18 Jan 2021 17:29:02 +0000 (UTC)
+ <SRS0=hh0t=GV=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l1YYC-00027n-El
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 17:42:48 +0000
+Received: from mail-lj1-x229.google.com (unknown [2a00:1450:4864:20::229])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c3efaccf-649a-41fd-8a29-728c19395566;
+ Mon, 18 Jan 2021 17:42:47 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id f17so19055766ljg.12
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 09:42:47 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id f25sm1969864lfk.291.2021.01.18.09.42.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Jan 2021 09:42:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,121 +41,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3967e92d-635b-4e1e-9383-b8a0ee38e976
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1610990942;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=dewQAuvVGGb2VyPQX3euRmg4dh3O50WGaaKQn5ifHuQ=;
-  b=Zbw/6j6x+gbLrorAoq9wANiiO5hfGAHfqUcssMbhdsNmdRDBEFgtHHMD
-   6Q5GxsZpXYHlD4wJeLg3C3ZKWT3hSZc5cevO1+E7NzeL12y8w/z0MJZhI
-   6CnL1AH3z4hktY+3c4+CFgKhosDUSqzrTAEG4lftP8d0w60y79RKX2tIq
-   o=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: g0MeItunwvQukE0UOsAKSsM+RSY/Vj5D+20Bm0BFvqFqvmZNK5It0X5jmovXoqnEf6/CeBD41Q
- F4kNG66QYm+4vpgI8KC6Un1u6976tgzBu2kkEzaM06wVc3XzP5cuiTC9clrbRgRNF3vCFOzfM9
- KPj31AwWH0Aj34155IklHGKaggZqzLNGe2hKzeYxIZSXYgSH3ruVtPLuyKzv9g5Wj6dJKR7/Ah
- KBGGS+cwXX9xdf6zw4EHk+5AR8uFEUcwAtpcM3EN+4tIty1U11qgKaGed8dyskWmrHvjPBQaPj
- c5w=
-X-SBRS: 5.2
-X-MesageID: 35305610
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,356,1602561600"; 
-   d="scan'208";a="35305610"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R7dfG6h5MRaIl/IQCArU1QtZ6iQ281SZ1u7/zGXYRXS6eS9lEfWW2m4NTfQqBZfc5qwvzEdGm9pIqiFc0OqF3ses+ptcvaK77We/j4BCU19rHzOeLvMlEMs8PkQRhr3DBj1FUhxJIxdbQzwPhlXRkI1HiN77N9UB6dwsqW1NQUlhHRL4b7OKPOGTP1U6kmUUm9/HyGGS87Sb0SmWzm+RkWrUm8DULzU7UpguV8ygv1XpfGJG+4xq8YpHGOxEMlGKjRhpCJtH9FilPz4thwMeB0fDraV8Biqb/YXtHnA6FTwYsiibhRpeY8fCGa2YaiUqBb0KkwJtpEfLsM6wWeM8GA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gga9SCUuSEho3qdMK+VXWNdTkd4qdqpYbQCLcUvOEwU=;
- b=FzfL5+1skJOlLTzQbmEYZqL61ftZBepcByxgOLuLEhuO+zme6OGtiH1SAmwI0ilZE7khONvQQID8zEaYPtjmo3ICKvJhA7SUseD/wBlIgNSExd/wUokJS15rcDK0eCjV4YlczzlnF6wG1cvso7NBxxakA9xk79w3F8J8EBZxHv2mJhjoxPX9zFJV0jIMDKBycnUpUwDHgDn7TYRQs1YB8Hp1d1wt2JFXCNS4ZqSJB7dA0YWKWJM3XPWQ55sroMpKbgSxtOktYDlLd3MKj6/i+9/Iu7vHBzps5MFovbmRQ6zcXwnbqI0/C28K9Yo8Wdh2iO6HSVAY6xEgD26/MElPHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: c3efaccf-649a-41fd-8a29-728c19395566
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gga9SCUuSEho3qdMK+VXWNdTkd4qdqpYbQCLcUvOEwU=;
- b=eR4txwscF0qKAYTMmZVMGyTTRM5CfeO8fL3SW0I3f1ssO5z/S/h3a31iJg5W+wf6JvG7ZCatR4YtYZjfQcsf6JTj4ORthjrkTF5Hsu7V+t0Y1e7D2iD7GWfbfJsTqKwhkZ3QhAn2ZfenoO720IuCFN3q/RavwwQ+WgFAAFk0z0c=
-Date: Mon, 18 Jan 2021 18:28:53 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-CC: <xen-devel@lists.xenproject.org>, Manuel Bouyer <bouyer@netbsd.org>, Ian
- Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>
-Subject: Re: [PATCH] libs/light: Switch NetBSD to QEMU_XEN
-Message-ID: <20210118172853.rmg2ckp4lewzc3dd@Air-de-Roger>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
- <20210112181242.1570-13-bouyer@antioche.eu.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210112181242.1570-13-bouyer@antioche.eu.org>
-X-ClientProxiedBy: AM6P195CA0090.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:86::31) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=gUs8HzFIUZ5O9Lp0tS9jaRoQ5lMApKDRr5ebSGFSZDg=;
+        b=XFoHmTF66XwaihIy5Ed0xKrUD2xI7fyuQaZ5Blh0DBV++fgR+19UJHbwgluDGJnNZb
+         GSzv9t1dJhtggTArCfffpOg4wrWK9zkT4mv1KprmtTaHXwbSLQ37qo8+QTFvOm1PLVTv
+         eDmgorDvcTzeRujGBwpOT9iuEfQNNWJdwPiGGbQRuif28wf2llvg/12rBqCnywPwEIoU
+         8bFk6zn1jc3H8pW/aRMN+FUIQ4dN7BBYv8BNQt+BIBTfzmV+9iFqsgSNYm9B7k6EUoZX
+         oZdR0hiLd9+c4AdqAvTeembgx4abhWkdKbpIiAdt4EGPY+FpB3Y63MEKBgXO91BzylAh
+         Obyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=gUs8HzFIUZ5O9Lp0tS9jaRoQ5lMApKDRr5ebSGFSZDg=;
+        b=oQJLdXk6r+JCcbTjDpUMPXpF3Jw8OST22Bnxvb5A7IhJk/xDkO3Wy91Y35Mjo/b7SK
+         JmYf+lxfZr7EbMG+9MqViVd4psqbNcq0Nq6RXrAlXmZP2n+IWElJZ4WWM0RgmvOhuosP
+         AnKHnlDGCgGBc/qOxe+UAj8/RVzOoaDFS92UxGRtSa6FAoWaJUdFqBFAzU4vqq47sa6f
+         gp9A5+6YTvEnq+xF7Qeey7Cq0nUCMFQwwCbNrICTSh0rMCplbLEyt+SwdqeQl0+5BlV/
+         K4cjyTqENAN6DGXX3Ats5SmnsKEHBLxSw0okbty4rRbtlet+lFtFApQ1MtMEowvDLeWN
+         JJBA==
+X-Gm-Message-State: AOAM532Gh6ROZgx5wLLKXt/X87IOWTZLcizNrS1U+v7fJRegUthV/VWE
+	lMPKzsls6zW7Ub0JuK4QkFBG1EvaR5rD5w==
+X-Google-Smtp-Source: ABdhPJxm+bOl4cpT5yyCoJ3QizEBxE2/MJrh1ucj0JoTztQyLHM3vE+dS8kCbQ5e2jiykbDfqaNp3A==
+X-Received: by 2002:a2e:8ec7:: with SMTP id e7mr299525ljl.249.1610991766074;
+        Mon, 18 Jan 2021 09:42:46 -0800 (PST)
+Subject: Re: [PATCH V4 11/24] xen/mm: Make x86's XENMEM_resource_ioreq_server
+ handling common
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+Cc: Wei Chen <Wei.Chen@arm.com>, Julien Grall <Julien.Grall@arm.com>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-12-git-send-email-olekstysh@gmail.com>
+ <AM0PR08MB3747ECA6E3CB200C0D606F809EA80@AM0PR08MB3747.eurprd08.prod.outlook.com>
+ <5f050e2c-d5c3-668a-8163-7829a6794a12@gmail.com> <874kjil0za.fsf@linaro.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <d830abca-0f22-402b-a89b-13dd158c2d3e@gmail.com>
+Date: Mon, 18 Jan 2021 19:42:39 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8f885dea-1551-49b6-a7ed-08d8bbd689e2
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5354:
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB5354D3D828A89E60097BC3DB8FA40@DM6PR03MB5354.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DZ0xS14i+WyXFZIZCBGpsQtItCQuONsqZs75/+oO/+eMcQwYw9S9jZuRd2wvjIqG3gXOCV+aqn2juHcxUN+Luuz3pJlp0eJiY0t81YDT+b9WjZ5cgxm+WCKPAfngL20kA0XATvyCt9po8yZKyJyeSeF5FfKGoQ6stMuP6pHQATCBzi7SOWZD369NXjIzripAsxOj3VwtUdNRmOK+p/scGHNiOuLrEh770KTBlaXIcTMlZORJOuIc74H06/tyQUR6GnLkgwDCGNbAG4w5v/eHcS9n4V2fYJdWmnk8blEF+ijI58QqsGeEfNXlxhXcX+23LzkoIvSFEeBN6acleApemgfUoiB8+kdX8Q9W2J1I2cNtFewZpcD9bSLD5cBkq7Ee6F3YmkwPgEv4zruAUt913w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(376002)(396003)(346002)(39860400002)(136003)(186003)(54906003)(85182001)(478600001)(8676002)(6666004)(8936002)(16526019)(4326008)(26005)(107886003)(9686003)(86362001)(316002)(4744005)(1076003)(2906002)(956004)(66556008)(6916009)(66946007)(6496006)(6486002)(66476007)(33716001)(5660300002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NWxRQzQyRFVaR0hYNWVoTFFNKytlRkdkYVNyRGl5WEdHNzk3SE9yRXhCQjhX?=
- =?utf-8?B?WkFKTFk4ODNSTEswMDUwZnR2UXprOGprWmRNaTZrYVE2MjZ1YU9wcy9JQkRm?=
- =?utf-8?B?dUpOZDBZS2lWb2pkNHNHTjRGM3loOTdBaXJ2bUNpMUh6UnB5L1lLK0ZuS1Vz?=
- =?utf-8?B?Zm0wYXNhWjFwdDZ6NDBmM3pzeE96dnJGYm1DUDhrTkh5NkQ2bWZiMERZNVcz?=
- =?utf-8?B?MUVmbTk0eVc3d2hyVU5LeWVvQlJCQjNoK3lIREIyalFEVXZ5VnJGQm4wVWFh?=
- =?utf-8?B?K1NqWlhlWGNkNGN6WXpMTHcrTHA3cUREc1FqeVRXb04xRUZ4Y0tHNjRhc3NT?=
- =?utf-8?B?Rm1BYTJRdUF0NFdocy9CcDZ5NVFtNldWKzNqdXI1ekRXM1Z0T3BZU080RHZR?=
- =?utf-8?B?TU5zQ0NOOEMrTmdBOXVXT09rQVFRQUljeXkxY0VpN3J4U2dGYjZnZXg2aGJV?=
- =?utf-8?B?REVPVENGYXFMY3I1RlI5Z1VON1VmRHB1a3FaVmZDUm03RFMwQVVodnBJcHFh?=
- =?utf-8?B?Ti9FRkNUVXE3WEFYdjIveDZyZzl0dVJmN3Jld0tVMjExRlVEUVU0dFdFVlVW?=
- =?utf-8?B?YWtlbXdaS3lPZ3A4ZmREQ0tnd1BlUVlnbVpnNG9OY3JiaUV0T29PeklKQm54?=
- =?utf-8?B?UFlQdVB4WlJqb3VyeUVwVm9BTTdzRXlzb2k0WmNSdms4eVF2WlFOODlyNEta?=
- =?utf-8?B?TVNvU0RaQ1ZKbmNQZzROaFhyTVByblg3UUNBK0NLcTh4em05Vk5zT1BGNFRX?=
- =?utf-8?B?N1VpdkJCNDE1T0ZSSEFuMjk0TlExRXBXQnBONjVwRHF1M3BLQWc5WmozSHJP?=
- =?utf-8?B?Qlkwc3lEcnNLb1V4bVBlLyttajlGRFBLV1loRFUvRnZMcTVuazRHZVIyTVpZ?=
- =?utf-8?B?K1VWYkplcVBhakVYTTZMZUV4WWFVYnlxNzA1WFhSRmNWVTFpSlQ0OUFSS0dj?=
- =?utf-8?B?WEZ4OHkydFhtQy9lNjRLRWVkNW0xMjJ4MmRMSHR3WXgvWmtjYXhlbDNwb0pn?=
- =?utf-8?B?bWNVU01pM0pGRG12bmtOY3pzZEw1VzFNR0Y1MjlpZlZCaXR4V1Z3MjVEWnAx?=
- =?utf-8?B?SVVUUjlodVQ0aUF5MUo0dXpMTmVsendJZ1BUc2tzTC9xRVhCTU9wRGZiS3lR?=
- =?utf-8?B?WGpZL0pkYThFNGFYRHV1YkI0bTNTVTRGMmtENkRSQy9XMHUwK3lQc293M1RZ?=
- =?utf-8?B?Z0s4T05tMTRFU1VZblFwc0t5bHFPRnkrdDliVnpRNjhQTlo0TFo0WUJ4eDMw?=
- =?utf-8?B?UGhvaG5adTN0SkZ4L0xTNVZaQmd5SE95ellZbml1eThrMVAySk9OTFZsNG4v?=
- =?utf-8?Q?g2L926n+iMyD5JN5HaYtnZn7OLn9EDT/hq?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f885dea-1551-49b6-a7ed-08d8bbd689e2
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2021 17:28:58.4629
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uuRPc8/55zhIFAghePFxxCEJjAs1IInT9hBRMLVplXNhiLsr4SWDglzVysN/OksHbUgmIZK0WVtg5YgSuGf7Nw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5354
-X-OriginatorOrg: citrix.com
+In-Reply-To: <874kjil0za.fsf@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On Tue, Jan 12, 2021 at 07:12:33PM +0100, Manuel Bouyer wrote:
-> From: Manuel Bouyer <bouyer@netbsd.org>
-> 
-> Switch NetBSD to QEMU_XEN.
-> All 3 versions of libxl__default_device_model() now return
-> LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN, so remove it and just set
-> b_info->device_model_version to LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN in
-> libxl__domain_build_info_setdefault().
-> 
-> Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+On 15.01.21 16:35, Alex Bennée wrote:
 
-Thanks, Roger.
+Hi Alex
+
+> Oleksandr <olekstysh@gmail.com> writes:
+>
+>> On 14.01.21 05:58, Wei Chen wrote:
+>>> Hi Oleksandr,
+>> Hi Wei
+> <snip>
+>>>> @@ -1090,6 +1091,40 @@ static int acquire_grant_table(struct domain *d,
+>>>> unsigned int id,
+>>>>        return 0;
+>>>>    }
+>>>>
+>>>> +static int acquire_ioreq_server(struct domain *d,
+>>>> +                                unsigned int id,
+>>>> +                                unsigned long frame,
+>>>> +                                unsigned int nr_frames,
+>>>> +                                xen_pfn_t mfn_list[])
+>>>> +{
+>>>> +#ifdef CONFIG_IOREQ_SERVER
+>>>> +    ioservid_t ioservid = id;
+>>>> +    unsigned int i;
+>>>> +    int rc;
+>>>> +
+>>>> +    if ( !is_hvm_domain(d) )
+>>>> +        return -EINVAL;
+>>>> +
+>>>> +    if ( id != (unsigned int)ioservid )
+>>>> +        return -EINVAL;
+>>>> +
+>>>> +    for ( i = 0; i < nr_frames; i++ )
+>>>> +    {
+>>>> +        mfn_t mfn;
+>>>> +
+>>>> +        rc = hvm_get_ioreq_server_frame(d, id, frame + i, &mfn);
+>>>> +        if ( rc )
+>>>> +            return rc;
+>>>> +
+>>>> +        mfn_list[i] = mfn_x(mfn);
+>>>> +    }
+>>>> +
+>>>> +    return 0;
+>>>> +#else
+>>>> +    return -EOPNOTSUPP;
+>>>> +#endif
+>>>> +}
+>>>> +
+> <snip>
+>>> This change could not be applied to the latest staging branch.
+>> Yes, thank you noticing that.  The code around was changed a bit (patch
+>> series is based on 10-days old staging), I will update for the next
+>> version.
+> I think the commit that introduced config ARCH_ACQUIRE_RESOURCE could
+> probably be reverted as it achieves pretty much the same thing as the
+> above code by moving the logic into the common code path.
+>
+> The only real practical difference is a inline stub vs a general purpose
+> function with an IOREQ specific #ifdeferry.
+> <snip>
+Hmm, thank you for noticing that.
+So, yes, I should either add an extra patch for V5 to revert 
+ARCH_ACQUIRE_RESOURCE before applying this one
+or rebase it to the current codebase (and likely drop all collected R-bs 
+because of an additional changes of removing ARCH_ACQUIRE_RESOURCE bits).
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
