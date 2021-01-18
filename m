@@ -2,34 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 785992F9B4C
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 09:32:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69439.124258 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B6782F9B5D
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 09:37:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69444.124271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1PxS-0007vc-TO; Mon, 18 Jan 2021 08:32:18 +0000
+	id 1l1Q1u-00087H-KT; Mon, 18 Jan 2021 08:36:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69439.124258; Mon, 18 Jan 2021 08:32:18 +0000
+Received: by outflank-mailman (output) from mailman id 69444.124271; Mon, 18 Jan 2021 08:36:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1PxS-0007vC-Pt; Mon, 18 Jan 2021 08:32:18 +0000
-Received: by outflank-mailman (input) for mailman id 69439;
- Mon, 18 Jan 2021 08:32:16 +0000
+	id 1l1Q1u-00086r-H0; Mon, 18 Jan 2021 08:36:54 +0000
+Received: by outflank-mailman (input) for mailman id 69444;
+ Mon, 18 Jan 2021 08:36:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hh0t=GV=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l1PxQ-0007v7-IU
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 08:32:16 +0000
-Received: from mail-lf1-x12c.google.com (unknown [2a00:1450:4864:20::12c])
+ <SRS0=wFfa=GV=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l1Q1t-00086m-Ci
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 08:36:53 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5c74d576-4e4c-4015-9c40-b5c9333e4222;
- Mon, 18 Jan 2021 08:32:15 +0000 (UTC)
-Received: by mail-lf1-x12c.google.com with SMTP id o19so22862454lfo.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 00:32:15 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id d11sm1817765lfe.115.2021.01.18.00.32.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Jan 2021 00:32:13 -0800 (PST)
+ id 3a9ebc30-5ed1-45dc-90a4-baef782ca21a;
+ Mon, 18 Jan 2021 08:36:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,360 +35,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c74d576-4e4c-4015-9c40-b5c9333e4222
+X-Inumbo-ID: 3a9ebc30-5ed1-45dc-90a4-baef782ca21a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1610959011;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=AjOcmkTga7A5RbxLgMlULRDXGacHNiEG7q8UW0chu9c=;
+  b=UlQfHPKlc/7iUW0loPEeVTZPNnMJF51drcrL1CC+umkfmU0w8J9GCo/R
+   gvIQcRZ4HwEGau7CpyVM5h/RfDeF5hMF9loFNrSYRelEOrm8EuD1DfdFy
+   pmZXzVoFS/mpM8RDNkVRELe3Qd93DIrU3a2hkTaLLQX/OSfPztASO9H6t
+   I=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: g1QNv0xjmMztcCJ5cBsJA9ua//hNz65yGSWf0LD+a/nf3GvOzVEX8H16YjpdjzxutZ1T1LHQy5
+ DNBfnnnPOa8CTTzprY/0Jcp0JhzA69NNxj22qIk31gkLxdqIiJUlFk95CxW62dJWtKz9+NcgG4
+ ZAH98UVegKQ9X+DRgfY2Q88zY9EKz9FgYphazdflgi5ifBk7JtsLKSdP8EB6oBrWw2u5woYv31
+ 58PWWVyTFzGIpoxAyr53EL8U12u3TXLNzaBvcsQ4nH5MdZ6ttBAKYPLJHw6WsRMA2NIKmtiWWn
+ sFU=
+X-SBRS: 5.2
+X-MesageID: 36578394
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,355,1602561600"; 
+   d="scan'208";a="36578394"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NB1MqlGcbAYxlM97ZP+au67iMsd8Dfsz9SulXf5qI7W60Ny/iGhoY7b7q513p/afV5vuR++zZkFwejNpA+YoCVJVNGHePvZUrNumBdFNsi+JHh6KJIm2w/qI/W6kNsNKhHZ+PiOql9Vhl2M3Ag2IKGkYbX//req7/605MbuYJctp5esdiLKYl6D73p1JzL/YLOYex7kRuBfiH/TVTCuzDNs4mDpT0Rx/02vIl/mgyijxI99AI5EogNx4QfTmLHJTWoTCUaFAu+4VXHo17+YtyBI/T9zUo9JlEM8ffG8I+nYGbJP57mm9RWfnqguyFA4NA/mtcBlTZWefc6znKnsmIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+WMtZFaI/PYvDbVoc+UqhJm8Ozkd5lD/yFCuoT5gb+c=;
+ b=Q5bG7S0RcZMc9p8VWrI+PYtJft69tTfn6m/F4+eyZoacYG3BQdPsc7JWjDe6rKvo4fcXbI1rKy84DclhEr2l/bdR5yb2AdZSH49LvRfbbLoslpc2jgr9fyV4fmO48TYiKZUpUNNuduFiKWM2FtHKqsjGK1+O/Xm6xl6mcAebO9Nu84GSNbxfmp/qLgw9XR7Zx2KS4MbrJWQUCLBD2eXsuXEurb3fTXMZasm/RkVyHhoUZ2T8udbMTayNtMneE1qkJOYlmjvmgTLHFgnt2ms3hO9+v/tI0OPOcZxuvQUeZeIoX+ncVvw3nxeYqdAmecbg0GFDbYcwlStwZAjO8fGi1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=cUAiSNfY0qwI70AIo04DtHLatNkF7ujaxbjX9UgOsiA=;
-        b=WE/l5Q4VWJ0TletytJwkxuSO62nSj4ASZomJKzzJ5D9pXPoJD4IoL6F3APWoEvs6TT
-         ro8Zifk/vrBps69a+cXD7k4PMxwEqh81bjiLR3FCYm9+/5w6pdDUVEGHIcFtdhkrYV4A
-         IolIuuIhucO+MD3Fz7ZY8FT0PSP8ej2KqDUODp3Nob+o0gxDqJVsWOkCaZuZVwK9Ps/G
-         gi/x5buPQP0gCVOJXNwKMdyvITfh6pFP3yu2nMWTfKPGZ7yTwGnlew/9RKSKiZ0H72yT
-         WGyLz2g+Bz0nZrZyLxcB+WZHR04+UrpHWREgpSHpCsYpltF1WZNJMrKvN8q5G5hW1hzT
-         Y8Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=cUAiSNfY0qwI70AIo04DtHLatNkF7ujaxbjX9UgOsiA=;
-        b=qZ96TF3fbSAgAMNug3TTEOUsQfP3M26q+eo5v5SyWasznjGzLkvKkhukiYJXZGyj8C
-         3HUH1ez6miLkq1vRW+b03zVIFYimPxcK9QuHvgQiwkf+y6FhT9EqLWk4y7alU305zh8v
-         nk+/tewX9wMgxpd/ypqBSzSUoiLJhu1qEfSMm4fWKsSjBU4ZjyrNcmURowQ+PUE8fB4q
-         u2kr9Nx+Fog+Jjd1pTY1SK9hCeQwsQeZ+pXJaBMYkrJTHZd9HyMB6PaUlNAPERzedHiA
-         r7GaMU6NEOMTvEVQMtPKkdduVTGKvMTsYYFIY4DtmNKS3iwwGhtZS8kgKbzshYBMcGuG
-         oNYg==
-X-Gm-Message-State: AOAM532zVggJCz6WTizCIMZ0aP6qMurB+Etaz4ysTwHJtgUYYYr8vigb
-	8jzbU719FnffasDILKMukcM=
-X-Google-Smtp-Source: ABdhPJyF/e2vW62Vy2Mk11S/x//4oA65ZavR+JT6Ikoe0GuGptDz/srXY6E6t/W87sNf32kmmBJlDA==
-X-Received: by 2002:a19:c711:: with SMTP id x17mr10928049lff.56.1610958733830;
-        Mon, 18 Jan 2021 00:32:13 -0800 (PST)
-Subject: Re: [PATCH V4 24/24] [RFC] libxl: Add support for virtio-disk
- configuration
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-25-git-send-email-olekstysh@gmail.com>
- <e1da0892-5496-b438-f52f-1e5dd8d48979@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <87f92e40-6462-21ba-0c56-b77c6518fef8@gmail.com>
-Date: Mon, 18 Jan 2021 10:32:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <e1da0892-5496-b438-f52f-1e5dd8d48979@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+WMtZFaI/PYvDbVoc+UqhJm8Ozkd5lD/yFCuoT5gb+c=;
+ b=n479d79B7clkRU/CRTB5s5gE4RK/ZlDcf4zkR/nTrXghgvSDOz9TU82bAFBq3mHYzGp3FZ1YkduH9fyBuHdTjVwTwyqBHy/dmYAskJtvq5x7CPLpP0CIi5WfCkqq36/u2Te4FKP3P6WaDUnsDdhoG2oeJGwzrz6ApCvVvefPfjs=
+Date: Mon, 18 Jan 2021 09:36:42 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
+ Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] libs/light: pass some infos to qemu
+Message-ID: <20210118083642.deozyeo5o6yziba7@Air-de-Roger>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+ <20210112181242.1570-17-bouyer@antioche.eu.org>
+ <20210116101606.sogfpgzg7upunua7@Air-de-Roger>
+ <20210116112502.GA1133@antioche.eu.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+In-Reply-To: <20210116112502.GA1133@antioche.eu.org>
+X-ClientProxiedBy: PR0P264CA0098.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:100:19::14) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 64b1774f-d24d-4855-9333-08d8bb8c31ba
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4601:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB46019AAEFDB119870A61EBC88FA40@DM6PR03MB4601.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YaHyfw1+q3b5O1gbt1eBld63YBkU98GMQnfU0tQXQVlRxuWQoOFX7aDrLDOIXXKBVU7ANhxpFBeLI7RaCuxQ7alaN8cyUV0FX+dRx1JYdIXv+7nrpTCTbOjgYNxCCXGVxj7W1tw83oa+pWtHojGo4sQb45LwqZ3/+1QUGNifim1u5UOI06SVxu8SBshVIpI9erWboNWVRqO0fTVUZaJfd5q/XS8Wky3+X2ppVbY0eS23wM+rUSNl6p61OCkdUcgb05Nje/wwcp6qq4EMrQwltZMukijhvdVJwwKkIH0XMEo1vK8mWUA+nOAHKdd8zVZJgx86quhvtmDa9R5fy7zyzF5qQUaqfHSoHQtknKG3EAs94JaywfzLlzQ/h885ueEpkw37/NSiaF89XOdGemIYkg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(346002)(136003)(376002)(39850400004)(396003)(366004)(66476007)(478600001)(66946007)(316002)(66556008)(8676002)(6496006)(5660300002)(6916009)(956004)(85182001)(1076003)(54906003)(33716001)(4326008)(86362001)(8936002)(6486002)(107886003)(16526019)(26005)(83380400001)(186003)(6666004)(9686003)(2906002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?U2NjNm4xcVpldWZGMnhDNFo4WFJMV01XQ0p4M3ZIWHBsN0trVmtsNCtqMmdF?=
+ =?utf-8?B?b1ZadUYzWCtNWDBGYXJoOFhFWjhEOFhvekY4MlZGaXBLNVhuNlA2VmE2Vy90?=
+ =?utf-8?B?dnhtZUhtZCtCU1RDMytOZ0VRQmtvQjkybnQvaitza0RKRUJmVUFvRHpuQnJP?=
+ =?utf-8?B?emx6WGlMS21rd3c2ZkpUbnNwbFJzZ0dHU29MMVJhUXNkQitZbnM3alB4NWw1?=
+ =?utf-8?B?Slo5NnNQV0t2aWw1NEtqb1NxUm5vWm4yczdTRmR4ZXRCSTBuQmwwNHVKdC9C?=
+ =?utf-8?B?M0dRT0NyeWgyNERXWTlSQmpaU0pzTkhtblZGODdtY1d3L1g5VGJucTRicFNo?=
+ =?utf-8?B?WG5PajRXMlMvcGhoeUQwTEhaODNscDBVZE5KMStwOXB2NE93cmlTYjl0Rjln?=
+ =?utf-8?B?NytBR3pFQzdLK2pzTGRqUU4zU0lWQ09KMlduRk1FMTRBTTd3LzVtb0dZb3Nw?=
+ =?utf-8?B?UmFWaVJreGJ3NG1EcnM5V0ZGMkoxU2xPNE12ZVlTeVFqcHFZL2l3ZFAzY3lI?=
+ =?utf-8?B?ZXBuaVhtWVN6RGMwL2UzM2o1MXg2eGJqQ1pwU2UwSlBwQlpmOHE0TlFpZkxs?=
+ =?utf-8?B?dGp5Z3VIQkRNMVl5ODJmUDlBS2ZLRXhkbVpnZTJxT0ZQTjZEWkl0K3pIMVM4?=
+ =?utf-8?B?S1g3akU5TzlpRG53N2RzTmNvQ3h4VEJUdnBpTEEzQXI0ZmxXRUhaWEpLdEkw?=
+ =?utf-8?B?d1dySld0TXpETWJoQUFLVDlYTjFKd2Z5SHJVaDhPMjAzUCtRa2dnVURVdXVO?=
+ =?utf-8?B?N0xRK0VqZlFuK1JEakg3bEZaN085V3h0SUplN1JCWURCNU54VTNWZ2pLTmJV?=
+ =?utf-8?B?RTVkS2E0azF5Z0swQ2xDUU9vWERxWjRiSzE2TDVyWlNiRDNCZ0g4WFRuYXZn?=
+ =?utf-8?B?MUgxblFRMzh5dlNRVVR5NkxkNDI4bEJqWHhZdW5sR0haekpXdUFSVURsRmt4?=
+ =?utf-8?B?WTkzVVlOMEV6WUsyZlJuUDZXMjE3ellmbEg0Sld2cGhDM0IyaHIvUC9PQit1?=
+ =?utf-8?B?a1pZOUNKaEdEcTZLejRlZG5YWnBUZCt6amRIUXorQzlkbmRJSWxvWlJPVG83?=
+ =?utf-8?B?bUFQUHlhSFBsbGtYUTNUTmh5UWhnbFdOWjF0SkNVMllyU0YwMFlBS0F2S0xY?=
+ =?utf-8?B?enNHRGVRQjZRR2c3VTA0NkdrajZ3aTd3Q25TZFo2ZnZUTWJYR0xxTS9EM1Er?=
+ =?utf-8?B?YWJrdE1DVXRkb1l2OVJMcUFYRkQ0TXdjR2hqREJUalBwYWZaeVNxUVF4aFRu?=
+ =?utf-8?B?MzhlNkNib2c5OFFZSHJYYWUyWUVCQTR0bkVVb3MyN0FvN3Q1N1VTZW96UFVO?=
+ =?utf-8?Q?pKTr+nFGSxcDyfmAucVbet00/UEC3jzA0v?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64b1774f-d24d-4855-9333-08d8bb8c31ba
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2021 08:36:47.9042
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lBSBsJx298N/A0rMMprnejxtt6hMBmFGg4LzY3rh6ymwemZEiDf3zn6cqLp1XdduLQhZVfVSlL2kZt0BUq2R8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4601
+X-OriginatorOrg: citrix.com
 
+On Sat, Jan 16, 2021 at 12:25:02PM +0100, Manuel Bouyer wrote:
+> On Sat, Jan 16, 2021 at 11:16:06AM +0100, Roger Pau Monné wrote:
+> > On Tue, Jan 12, 2021 at 07:12:37PM +0100, Manuel Bouyer wrote:
+> > > From: Manuel Bouyer <bouyer@netbsd.org>
+> > > 
+> > > Pass bridge name to qemu as command line option
+> > > When starting qemu, set an environnement variable XEN_DOMAIN_ID,
+> > > to be used by qemu helper scripts
+> > > 
+> > > Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+> > > ---
+> > >  tools/libs/light/libxl_dm.c | 6 ++++++
+> > >  1 file changed, 6 insertions(+)
+> > > 
+> > > diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+> > > index 3da83259c0..8866c3f5ad 100644
+> > > --- a/tools/libs/light/libxl_dm.c
+> > > +++ b/tools/libs/light/libxl_dm.c
+> > > @@ -761,6 +761,8 @@ static int libxl__build_device_model_args_old(libxl__gc *gc,
+> > >          int nr_set_cpus = 0;
+> > >          char *s;
+> > >  
+> > > +        flexarray_append_pair(dm_envs, "XEN_DOMAIN_ID", GCSPRINTF("%d", domid));
+> > > +
+> > >          if (b_info->kernel) {
+> > >              LOGD(ERROR, domid, "HVM direct kernel boot is not supported by "
+> > >                   "qemu-xen-traditional");
+> > > @@ -1547,8 +1549,10 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
+> > >                  flexarray_append(dm_args, "-netdev");
+> > >                  flexarray_append(dm_args,
+> > >                                   GCSPRINTF("type=tap,id=net%d,ifname=%s,"
+> > > +					   "br=%s,"
+> > >                                             "script=%s,downscript=%s",
+> > >                                             nics[i].devid, ifname,
+> > > +					   nics[i].bridge,
+> > 
+> > You have some hard tabs in there.
+> 
+> Yes. What's the problem ?
 
-On 16.01.21 00:01, Julien Grall wrote:
-> Hi Oleksandr,
+This file (and libxenlight) uses only spaces for indentation, it
+breaks the coding style.
 
-Hi Julien
+The line you added above uses spaces and it's fine.
 
+> > 
+> > Also looking at the manual the br= option seems to only be available
+> > for the bridge networking mode, while here Xen is using tap instead?
+> 
+> Unless I missed something, the bridge networking mode is using the
+> tap interface, to connect qemu to the bridge. And indeed, the qemu-ifup
+> script is doing
+> exec /sbin/brconfig $2 add $1
+> 
+> (the script is called with: qemu-ifup <tap if> <bridge if>)
+> 
+> This is a problem that hit me when I converted NetBSD to qemu-xen:
+> qemu-traditional does call the qemu-ifup script with the 2 parameters,
+> while qemu-xen calls it only with the tap if. So the qemu-ifup script can't
+> know to which bridge the tap interface should be attached to.
 
->
-> On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> This patch adds basic support for configuring and assisting virtio-disk
->> backend (emualator) which is intended to run out of Qemu and could be 
->> run
->> in any domain.
->>
->> Xenstore was chosen as a communication interface for the emulator 
->> running
->> in non-toolstack domain to be able to get configuration either by 
->> reading
->> Xenstore directly or by receiving command line parameters (an updated 
->> 'xl devd'
->> running in the same domain would read Xenstore beforehand and call 
->> backend
->> executable with the required arguments).
->>
->> An example of domain configuration (two disks are assigned to the guest,
->> the latter is in readonly mode):
->>
->> vdisk = [ 'backend=DomD, disks=rw:/dev/mmcblk0p3;ro:/dev/mmcblk1p3' ]
->>
->> Where per-disk Xenstore entries are:
->> - filename and readonly flag (configured via "vdisk" property)
->> - base and irq (allocated dynamically)
->>
->> Besides handling 'visible' params described in configuration file,
->> patch also allocates virtio-mmio specific ones for each device and
->> writes them into Xenstore. virtio-mmio params (irq and base) are
->> unique per guest domain, they allocated at the domain creation time
->> and passed through to the emulator. Each VirtIO device has at least
->> one pair of these params.
->>
->> TODO:
->> 1. An extra "virtio" property could be removed.
->> 2. Update documentation.
->>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> [On Arm only]
->> Tested-by: Wei Chen <Wei.Chen@arm.com>
->>
->> ---
->> Changes RFC -> V1:
->>     - no changes
->>
->> Changes V1 -> V2:
->>     - rebase according to the new location of libxl_virtio_disk.c
->>
->> Changes V2 -> V3:
->>     - no changes
->>
->> Changes V3 -> V4:
->>     - rebase according to the new argument for DEFINE_DEVICE_TYPE_STRUCT
->>
->> Please note, there is a real concern about VirtIO interrupts allocation.
->> [Just copy here what Stefano said in RFC thread]
->>
->> So, if we end up allocating let's say 6 virtio interrupts for a domain,
->> the chance of a clash with a physical interrupt of a passthrough 
->> device is real.
->
-> For the first version, I think a static approach is fine because it 
-> doesn't bind us to anything yet (there is no interface change). We can 
-> refine it on follow-ups as we figure out how virtio is going to be 
-> used in the field.
->
->>
->> I am not entirely sure how to solve it, but these are a few ideas:
->> - choosing virtio interrupts that are less likely to conflict (maybe 
->> > 1000)
->
-> Well, we only support 988 interrupts :). However, we will waste some 
-> memory in the vGIC structure (we would need to allocate memory for the 
-> 988 interrupts) if you chose an interrupt towards then end.
->
->> - make the virtio irq (optionally) configurable so that a user could
->>    override the default irq and specify one that doesn't conflict
->
-> This is not very ideal because it makes the use of virtio quite 
-> unfriendly with passthrough. Note that platform device passthrough is 
-> already unfriendly, but I am thinking PCI :).
->
->> - implementing support for virq != pirq (even the xl interface doesn't
->>    allow to specify the virq number for passthrough devices, see "irqs")
-> I can't remember whether I had a reason to not support virq != pirq 
-> when this was initially implemented. This is one possibility, but it 
-> is as unfriendly as the previous option.
->
-> I will add a 4th one:
->    - Automatically allocate the virtio IRQ. This should be possible to 
-> do it without too much trouble as we know in advance which IRQs will 
-> be passthrough.
-As I understand the IRQs for passthrough are described in "irq" property 
-and stored in d_config->b_info.irqs[i], so yes we know in advance which 
-IRQs will be used for passthrough
-and we will be able to choose non-clashed ones (iterating over all IRQs 
-in a reserved range) for the virtio devices.  The question is how many 
-IRQs should be reserved.
+OK, so the only functional difference of adding the br parameter is
+that it gets passed to the script. I would add that to the commit
+message:
 
+"The only functional difference of using the br parameter is that the
+bridge name gets passed to the QEMU script."
 
->
-> My preference is the 4th one, that said we may also want to pick 
-> either 2 or 3 to give some flexibility to an admin if they wish to get 
-> their hand dirty.
+Note also that there are networking modes that don't use a bridge, so
+you could likely end up with nics[i].bridge == NULL?
 
-Personally I would be ok with 4th, but without admin involvement.
+I also wonder why NetBSD needs to add the tap interface to the bridge
+in the QEMU script instead of doing it from the hotplug script called
+by libxl, like Linux and FreeBSD do.
 
-
->
->
->>
->> Also there is one suggestion from Wei Chen regarding a parameter for 
->> domain
->> config file which I haven't addressed yet.
->> [Just copy here what Wei said in V2 thread]
->> Can we keep use the same 'disk' parameter for virtio-disk, but add an 
->> option like
->> "model=virtio-disk"?
->> For example:
->> disk = [ 'backend=DomD, disks=rw:/dev/mmcblk0p3,model=virtio-disk' ]
->> Just like what Xen has done for x86 virtio-net.
->> ---
->>   tools/libs/light/Makefile                 |   1 +
->>   tools/libs/light/libxl_arm.c              |  56 ++++++++++++---
->>   tools/libs/light/libxl_create.c           |   1 +
->>   tools/libs/light/libxl_internal.h         |   1 +
->>   tools/libs/light/libxl_types.idl          |  15 ++++
->>   tools/libs/light/libxl_types_internal.idl |   1 +
->>   tools/libs/light/libxl_virtio_disk.c      | 109 
->> ++++++++++++++++++++++++++++
->>   tools/xl/Makefile                         |   2 +-
->>   tools/xl/xl.h                             |   3 +
->>   tools/xl/xl_cmdtable.c                    |  15 ++++
->>   tools/xl/xl_parse.c                       | 115 
->> ++++++++++++++++++++++++++++++
->>   tools/xl/xl_virtio_disk.c                 |  46 ++++++++++++
->>   12 files changed, 354 insertions(+), 11 deletions(-)
->>   create mode 100644 tools/libs/light/libxl_virtio_disk.c
->>   create mode 100644 tools/xl/xl_virtio_disk.c
->>
->> diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
->> index 68f6fa3..ccc91b9 100644
->> --- a/tools/libs/light/Makefile
->> +++ b/tools/libs/light/Makefile
->> @@ -115,6 +115,7 @@ SRCS-y += libxl_genid.c
->>   SRCS-y += _libxl_types.c
->>   SRCS-y += libxl_flask.c
->>   SRCS-y += _libxl_types_internal.c
->> +SRCS-y += libxl_virtio_disk.c
->>     ifeq ($(CONFIG_LIBNL),y)
->>   CFLAGS_LIBXL += $(LIBNL3_CFLAGS)
->> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
->> index 588ee5a..9eb3022 100644
->> --- a/tools/libs/light/libxl_arm.c
->> +++ b/tools/libs/light/libxl_arm.c
->> @@ -8,6 +8,12 @@
->>   #include <assert.h>
->>   #include <xen/device_tree_defs.h>
->>   +#ifndef container_of
->> +#define container_of(ptr, type, member) ({            \
->> +        typeof( ((type *)0)->member ) *__mptr = (ptr);    \
->> +        (type *)( (char *)__mptr - offsetof(type,member) );})
->> +#endif
->> +
->>   static const char *gicv_to_string(libxl_gic_version gic_version)
->>   {
->>       switch (gic_version) {
->> @@ -39,14 +45,32 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->>           vuart_enabled = true;
->>       }
->>   -    /*
->> -     * XXX: Handle properly virtio
->> -     * A proper solution would be the toolstack to allocate the 
->> interrupts
->> -     * used by each virtio backend and let the backend now which one 
->> is used
->> -     */
->
-> Ok, so you added some code in patch #23 that is going to be mostly 
-> dropped here. I think you want to rethink how you do the split here.
->
-> One possible approach would be to have a patch which adds the 
-> infrastructe but no call. It would contain:
->   1) Allocate a space in the virtio region and an interrupt
->   2) Create the bindings.
->
-> Those helpers can then be called in this patch.
-
-Sounds reasonable.
-
-
->
->
->>       if (libxl_defbool_val(d_config->b_info.arch_arm.virtio)) {
->
-> It feels to me that this parameter is not necessary. You can easily 
-> infer it based whether you have a virtio disks attached or not.
-
-Yes!
-
-
->
->
->> -        nr_spis += (GUEST_VIRTIO_MMIO_SPI - 32) + 1;
->> +        uint64_t virtio_base;
->> +        libxl_device_virtio_disk *virtio_disk;
->> +
->> +        virtio_base = GUEST_VIRTIO_MMIO_BASE;
->>           virtio_irq = GUEST_VIRTIO_MMIO_SPI;
->
-> Looking at patch #23, you defined a single SPI and a region that can 
-> only fit virtio device. However, here, you are going to define 
-> multiple virtio devices.
->
-> I think you want to define the following:
->
->  - GUEST_VIRTIO_MMIO_BASE: Base address of the virtio window
->  - GUEST_VIRTIO_MMIO_SIZE: Full length of the virtio window (may 
-> contain multiple devices)
->  - GUEST_VIRTIO_SPI_FIRST: First SPI reserved for virtio
->  - GUEST_VIRTIO_SPI_LAST: Last SPI reserved for virtio
->
-> The per-device size doesn't need to be defined in arch-arm.h. Instead, 
-> I would only define internally (unless we can use a virtio.h header 
-> from Linux?).
-
-I think I got the idea. What are the preferences for these values?
-
-
->
->
->> +
->> +        if (!d_config->num_virtio_disks) {
->> +            LOG(ERROR, "Virtio is enabled, but no Virtio devices 
->> present\n");
->> +            return ERROR_FAIL;
->> +        }
->> +        virtio_disk = &d_config->virtio_disks[0];
->> +
->> +        for (i = 0; i < virtio_disk->num_disks; i++) {
->> +            virtio_disk->disks[i].base = virtio_base;
->> +            virtio_disk->disks[i].irq = virtio_irq;
->> +
->> +            LOG(DEBUG, "Allocate Virtio MMIO params: IRQ %u BASE 
->> 0x%"PRIx64,
->> +                virtio_irq, virtio_base);
->> +
->> +            virtio_irq ++;
->
-> NIT: We usually don't have space before ++ or ...
-
-ok
-
-
->
->> +            virtio_base += GUEST_VIRTIO_MMIO_SIZE;
->> +        }
->> +        virtio_irq --;
->
-> ... --;
-
-ok
-
-
->
->> +
->> +        nr_spis += (virtio_irq - 32) + 1;
->>           virtio_enabled = true;
->>       }
->
-> [...]
->
->> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
->> index 2a3364b..054a0c9 100644
->> --- a/tools/xl/xl_parse.c
->> +++ b/tools/xl/xl_parse.c
->> @@ -1204,6 +1204,120 @@ out:
->>       if (rc) exit(EXIT_FAILURE);
->>   }
->>   +#define MAX_VIRTIO_DISKS 4
->
-> May I ask why this is hardcoded to 4?
-
-I found 4 as a reasonable value for the initial implementation.
-This means how many disks the single device instance can handle.
-Do you think we need to change it?
-
-
->
-> Cheers,
->
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Thanks, Roger.
 
