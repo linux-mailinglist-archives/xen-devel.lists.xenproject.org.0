@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14E92F9B29
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 09:24:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69427.124223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 676272F9B2A
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 09:24:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69429.124235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1PpP-0006gI-KQ; Mon, 18 Jan 2021 08:23:59 +0000
+	id 1l1Pq9-0006oH-TP; Mon, 18 Jan 2021 08:24:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69427.124223; Mon, 18 Jan 2021 08:23:59 +0000
+Received: by outflank-mailman (output) from mailman id 69429.124235; Mon, 18 Jan 2021 08:24:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1PpP-0006ft-Gm; Mon, 18 Jan 2021 08:23:59 +0000
-Received: by outflank-mailman (input) for mailman id 69427;
- Mon, 18 Jan 2021 08:23:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d36Q=GV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l1PpO-0006fo-Ci
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 08:23:58 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6cc614f1-54c0-44e5-8c20-6d128329e174;
- Mon, 18 Jan 2021 08:23:55 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6A35BAC6E;
- Mon, 18 Jan 2021 08:23:54 +0000 (UTC)
+	id 1l1Pq9-0006ns-Pz; Mon, 18 Jan 2021 08:24:45 +0000
+Received: by outflank-mailman (input) for mailman id 69429;
+ Mon, 18 Jan 2021 08:24:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=c1WU=GV=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l1Pq8-0006ni-1Y
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 08:24:44 +0000
+Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b52e4244-66c2-4bae-be94-1db5a2354c17;
+ Mon, 18 Jan 2021 08:24:43 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id 6so8234729wri.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 00:24:42 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-183-162-242.range86-183.btcentralplus.com.
+ [86.183.162.242])
+ by smtp.gmail.com with ESMTPSA id k9sm25868034wma.17.2021.01.18.00.24.41
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 18 Jan 2021 00:24:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,107 +42,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cc614f1-54c0-44e5-8c20-6d128329e174
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1610958234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LHJjg1rLr6ETwEQpo7CFn1M5j206llQzkpkudgpOfwc=;
-	b=c80LZqbs4zLqKA7U9LO5CPvuzcKACNivTwkgaXivg6byW77BZzoNte2GAvrvDGbjhndkVo
-	SJisrVg3EZFu/gEn6oRR9MDnfUYbl8xj3fpoDXykcB+l3QxZB9VLsPqJMIyK18tOYLYehZ
-	h6BVpnSrFAb8k6knIyQhW27eQIO/zdE=
-Subject: Re: [PATCH v3 1/7] xen/gnttab: Rework resource acquisition
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
- <julien@xen.org>, Paul Durrant <paul@xen.org>,
- =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
- Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210112194841.1537-1-andrew.cooper3@citrix.com>
- <20210112194841.1537-2-andrew.cooper3@citrix.com>
- <6321bce7-1826-be38-622e-088d492fb0c9@suse.com>
- <a96bed35-df20-e77b-1b98-593aa5649ad9@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <57895dd4-10c7-18cb-bc44-25a45cb688a7@suse.com>
-Date: Mon, 18 Jan 2021 09:23:57 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: b52e4244-66c2-4bae-be94-1db5a2354c17
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=HK80wLbKJkvGm5M9365zUmMZ/k5vIKOFna5l5szP7Rw=;
+        b=IfIcjdkYyyDIPLStuMxh6RJZCVVuefcn0knnh1KJ4FZPPaYtyu8qIzkPDNIBE5Noro
+         cE6EVh0qcKVmw53gCVG2oQg/KL8yNxUagoKmR6SIJ4SfkJBF5Rq16RsvxLMcFhflBeno
+         jcTpOmvscCAgiJ2DzTkvWzrSN+++HC5H+AbHyiuWch0QzTplpcFq9owlp5N0IZMWVNTq
+         c/CgmvUUjj0wlHbbo0nXUmIncPs9++YpAxvExl+tU7jw5HOmV/sgMNOCdW1jBlzP656A
+         9TDcclkxRqkqrevV+eFZgmBZti8gH6cpLR7EWUqvAGFwoGvDE3R19I4r8wq+MWeiish6
+         tTHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=HK80wLbKJkvGm5M9365zUmMZ/k5vIKOFna5l5szP7Rw=;
+        b=nEGPZfe6rY6Fp3J8ZToA7Gil2D9x9AxvisBpLE3/nzChH6SFK3tGB0CfGsQqdau60D
+         w2K6QnJp6nuKgYQPbNzBcq3YOo2k4KA45TfXfC763trn7IIiUR3lKjH2uUiFivSa6B1u
+         +9ynfL9WlrGVV4VkVNgwPApI5hlw6hUoYTdWITVYnn3ta5d7wbD5b9pTRMIGE0Tr32TS
+         aE6+noX1gJcCO53dVmlL1CU+tUgTxcXqXZgwzGH13s7bG46PX/BoFG27fAWhs28xpKI4
+         SvKLNZc+0t+bf1EzrIbON5948ZOq3wuge/yxj/fRPjm/7DUjJG3+7ZJZYht4EJlzmqXd
+         RC/g==
+X-Gm-Message-State: AOAM532ivkdTRsE+bTJ7Dnw/BwasrkED4CJgfQTj9z/ya5tvJGfUaAwi
+	faiULRhF4uNtCJZ4KH0vVDE=
+X-Google-Smtp-Source: ABdhPJzlrQNnYqKZLibCddUojhX7hngthn7sdl1f/LedkNQutVObtJyu1fYaY9dDeiU+0WkCS5Qtug==
+X-Received: by 2002:adf:8b15:: with SMTP id n21mr24091551wra.426.1610958282199;
+        Mon, 18 Jan 2021 00:24:42 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>,
+	<xen-devel@lists.xenproject.org>
+Cc: "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
+	"'Jan Beulich'" <jbeulich@suse.com>,
+	"'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Wei Liu'" <wl@xen.org>,
+	"'Julien Grall'" <julien@xen.org>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'Julien Grall'" <julien.grall@arm.com>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-3-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <1610488352-18494-3-git-send-email-olekstysh@gmail.com>
+Subject: RE: [PATCH V4 02/24] x86/ioreq: Add IOREQ_STATUS_* #define-s and update code for moving
+Date: Mon, 18 Jan 2021 08:24:40 -0000
+Message-ID: <00ba01d6ed73$5e7eab70$1b7c0250$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <a96bed35-df20-e77b-1b98-593aa5649ad9@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJtR7ihpnpDvKGK8VeC26+r2ffFKQFNQuSuqPXsx2A=
+Content-Language: en-gb
 
-On 15.01.2021 17:57, Andrew Cooper wrote:
-> On 15/01/2021 11:56, Jan Beulich wrote:
->>> +    /* Grow table if necessary. */
->>> +    grant_write_lock(gt);
->>> +    rc = -EINVAL;
->>> +    switch ( id )
->>> +    {
->>> +    case XENMEM_resource_grant_table_id_shared:
->>> +        vaddrs = gt->shared_raw;
->>> +        rc = gnttab_get_shared_frame_mfn(d, tot_frames - 1, &tmp);
->> ... this will degenerate (and still cause an error) when frame
->> is also zero, and will cause undue growing of the table when
->> frame is non-zero yet not overly large.
-> 
-> Urgh, yes - that is why I had the check.
-> 
-> In which case I retract my change between v2 and v3 here.
-> 
->> As indicated before, I'm of the clear opinion that here - like
->> elsewhere - a number of zero frames requested means that no
->> action be taken at all, and success be returned.
-> 
-> The general world we work in (POSIX) agrees with my opinion over yours
-> when it comes to this matter.
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+Oleksandr Tyshchenko
+> Sent: 12 January 2021 21:52
+> To: xen-devel@lists.xenproject.org
+> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Paul Durrant =
+<paul@xen.org>; Jan Beulich
+> <jbeulich@suse.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Roger =
+Pau Monn=C3=A9
+> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; Julien Grall =
+<julien@xen.org>; Stefano Stabellini
+> <sstabellini@kernel.org>; Julien Grall <julien.grall@arm.com>
+> Subject: [PATCH V4 02/24] x86/ioreq: Add IOREQ_STATUS_* #define-s and =
+update code for moving
+>=20
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>=20
+> This patch continues to make some preparation to x86/hvm/ioreq.c
+> before moving to the common code.
+>=20
+> Add IOREQ_STATUS_* #define-s and update candidates for moving
+> since X86EMUL_* shouldn't be exposed to the common code in
+> that form.
+>=20
+> This support is going to be used on Arm to be able run device
+> emulator outside of Xen hypervisor.
+>=20
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-I assume you are referring to mmap()? I ask because I think there
-are numerous counter examples (some even in the C standard):
-malloc() & friends allow for either behavior. memcpy() / memmove()
-happily do nothing when passed a zero size. read() / write()
-are at least allowed to read/write nothing (and return success)
-when told so. Otoh I notice that a zero vector count passed to
-readv() / writev() is indeed an error, yet nothing is said at all
-about individual vector elements specifying zero size.
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-Plus of course I don't think POSIX is the main reference point
-here, when the rest of the hypercalls allowing for some form of
-batching permit empty batches.
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+> CC: Julien Grall <julien.grall@arm.com>
+> [On Arm only]
+> Tested-by: Wei Chen <Wei.Chen@arm.com>
+>=20
+> ---
+> Please note, this is a split/cleanup/hardening of Julien's PoC:
+> "Add support for Guest IO forwarding to a device emulator"
+>=20
+> Changes V2 -> V3:
+>  - new patch, was split from
+>    [PATCH V2 01/23] x86/ioreq: Prepare IOREQ feature for making it =
+common
+>=20
+> Changes V3 -> V4:
+>  - add Alex's R-b and Jan's A-b
+>  - add a comment above IOREQ_STATUS_* #define-s
+> ---
+>  xen/arch/x86/hvm/ioreq.c        | 16 ++++++++--------
+>  xen/include/asm-x86/hvm/ioreq.h |  5 +++++
+>  2 files changed, 13 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/xen/arch/x86/hvm/ioreq.c b/xen/arch/x86/hvm/ioreq.c
+> index 468fe84..ff9a546 100644
+> --- a/xen/arch/x86/hvm/ioreq.c
+> +++ b/xen/arch/x86/hvm/ioreq.c
+> @@ -1405,7 +1405,7 @@ static int hvm_send_buffered_ioreq(struct =
+hvm_ioreq_server *s, ioreq_t *p)
+>      pg =3D iorp->va;
+>=20
+>      if ( !pg )
+> -        return X86EMUL_UNHANDLEABLE;
+> +        return IOREQ_STATUS_UNHANDLED;
+>=20
+>      /*
+>       * Return 0 for the cases we can't deal with:
+> @@ -1435,7 +1435,7 @@ static int hvm_send_buffered_ioreq(struct =
+hvm_ioreq_server *s, ioreq_t *p)
+>          break;
+>      default:
+>          gdprintk(XENLOG_WARNING, "unexpected ioreq size: %u\n", =
+p->size);
+> -        return X86EMUL_UNHANDLEABLE;
+> +        return IOREQ_STATUS_UNHANDLED;
+>      }
+>=20
+>      spin_lock(&s->bufioreq_lock);
+> @@ -1445,7 +1445,7 @@ static int hvm_send_buffered_ioreq(struct =
+hvm_ioreq_server *s, ioreq_t *p)
+>      {
+>          /* The queue is full: send the iopacket through the normal =
+path. */
+>          spin_unlock(&s->bufioreq_lock);
+> -        return X86EMUL_UNHANDLEABLE;
+> +        return IOREQ_STATUS_UNHANDLED;
+>      }
+>=20
+>      pg->buf_ioreq[pg->ptrs.write_pointer % IOREQ_BUFFER_SLOT_NUM] =3D =
+bp;
+> @@ -1476,7 +1476,7 @@ static int hvm_send_buffered_ioreq(struct =
+hvm_ioreq_server *s, ioreq_t *p)
+>      notify_via_xen_event_channel(d, s->bufioreq_evtchn);
+>      spin_unlock(&s->bufioreq_lock);
+>=20
+> -    return X86EMUL_OKAY;
+> +    return IOREQ_STATUS_HANDLED;
+>  }
+>=20
+>  int hvm_send_ioreq(struct hvm_ioreq_server *s, ioreq_t *proto_p,
+> @@ -1492,7 +1492,7 @@ int hvm_send_ioreq(struct hvm_ioreq_server *s, =
+ioreq_t *proto_p,
+>          return hvm_send_buffered_ioreq(s, proto_p);
+>=20
+>      if ( unlikely(!vcpu_start_shutdown_deferral(curr)) )
+> -        return X86EMUL_RETRY;
+> +        return IOREQ_STATUS_RETRY;
+>=20
+>      list_for_each_entry ( sv,
+>                            &s->ioreq_vcpu_list,
+> @@ -1532,11 +1532,11 @@ int hvm_send_ioreq(struct hvm_ioreq_server *s, =
+ioreq_t *proto_p,
+>              notify_via_xen_event_channel(d, port);
+>=20
+>              sv->pending =3D true;
+> -            return X86EMUL_RETRY;
+> +            return IOREQ_STATUS_RETRY;
+>          }
+>      }
+>=20
+> -    return X86EMUL_UNHANDLEABLE;
+> +    return IOREQ_STATUS_UNHANDLED;
+>  }
+>=20
+>  unsigned int hvm_broadcast_ioreq(ioreq_t *p, bool buffered)
+> @@ -1550,7 +1550,7 @@ unsigned int hvm_broadcast_ioreq(ioreq_t *p, =
+bool buffered)
+>          if ( !s->enabled )
+>              continue;
+>=20
+> -        if ( hvm_send_ioreq(s, p, buffered) =3D=3D =
+X86EMUL_UNHANDLEABLE )
+> +        if ( hvm_send_ioreq(s, p, buffered) =3D=3D =
+IOREQ_STATUS_UNHANDLED )
+>              failed++;
+>      }
+>=20
+> diff --git a/xen/include/asm-x86/hvm/ioreq.h =
+b/xen/include/asm-x86/hvm/ioreq.h
+> index 13d35e1..f140ef4 100644
+> --- a/xen/include/asm-x86/hvm/ioreq.h
+> +++ b/xen/include/asm-x86/hvm/ioreq.h
+> @@ -77,6 +77,11 @@ bool arch_ioreq_server_get_type_addr(const struct =
+domain *d,
+>                                       uint64_t *addr);
+>  void arch_ioreq_domain_init(struct domain *d);
+>=20
+> +/* This correlation must not be altered */
+> +#define IOREQ_STATUS_HANDLED     X86EMUL_OKAY
+> +#define IOREQ_STATUS_UNHANDLED   X86EMUL_UNHANDLEABLE
+> +#define IOREQ_STATUS_RETRY       X86EMUL_RETRY
+> +
+>  #endif /* __ASM_X86_HVM_IOREQ_H__ */
+>=20
+>  /*
+> --
+> 2.7.4
+>=20
 
-> I spent a lot of time and effort getting this logic correct in v2, and I
-> do not have any further time to waste adding complexity to support a
-> non-existent corner case, nor is it reasonable to further delay all the
-> work which is depending on this series.  This entire mess is already too
-> damn complicated, without taking extra complexity.
-> 
-> Entertaining the idea of supporting 0 length requests is really not as
-> simple as you seem to think it is, and is a large part of why I'm
-> stubbornly refusing to do so.
 
-I'd be really happy to be educated of the complications; sadly
-so far you've only claimed ones would exist without actually
-going into sufficient detail. In particular I don't view placing 
-
-    if ( size == 0 )
-        return 0;
-
-suitably early coming anywhere near "complexity". Even more so
-that as per your reply you mean to undo removal of a respective
-check, just that in your version it'll return an error instead
-of success.
-
-> I am going to commit this patch (with some of the other minor adjustments).
-
-I'm not concerned enough of the introduced inconsistency to
-outright veto you doing so, but I still don't think this is an
-appropriate step to take under the present conditions.
-
-Jan
 
