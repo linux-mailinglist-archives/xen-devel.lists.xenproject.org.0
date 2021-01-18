@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28DFA2F9C89
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 11:35:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.69562.124597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 122B42F9CFB
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jan 2021 11:44:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.69569.124610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1Rsw-0005Lg-E5; Mon, 18 Jan 2021 10:35:46 +0000
+	id 1l1S17-0006PF-8U; Mon, 18 Jan 2021 10:44:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 69562.124597; Mon, 18 Jan 2021 10:35:46 +0000
+Received: by outflank-mailman (output) from mailman id 69569.124610; Mon, 18 Jan 2021 10:44:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1Rsw-0005LH-AZ; Mon, 18 Jan 2021 10:35:46 +0000
-Received: by outflank-mailman (input) for mailman id 69562;
- Mon, 18 Jan 2021 10:35:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c1WU=GV=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1l1Rsu-0005Kp-Sl
- for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 10:35:44 +0000
-Received: from mail-wm1-x334.google.com (unknown [2a00:1450:4864:20::334])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9e4535b5-366e-4425-9695-dd60d8a77f30;
- Mon, 18 Jan 2021 10:35:44 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id i63so13115911wma.4
- for <xen-devel@lists.xenproject.org>; Mon, 18 Jan 2021 02:35:44 -0800 (PST)
-Received: from CBGR90WXYV0 (host86-183-162-242.range86-183.btcentralplus.com.
- [86.183.162.242])
- by smtp.gmail.com with ESMTPSA id c20sm24821042wmb.38.2021.01.18.02.35.42
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 18 Jan 2021 02:35:42 -0800 (PST)
+	id 1l1S17-0006Oq-52; Mon, 18 Jan 2021 10:44:13 +0000
+Received: by outflank-mailman (input) for mailman id 69569;
+ Mon, 18 Jan 2021 10:44:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=d36Q=GV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l1S15-0006Ol-JJ
+ for xen-devel@lists.xenproject.org; Mon, 18 Jan 2021 10:44:11 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e3641266-ce00-4ffb-883d-79731d4fdc89;
+ Mon, 18 Jan 2021 10:44:06 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 57042AB7A;
+ Mon, 18 Jan 2021 10:44:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,103 +39,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e4535b5-366e-4425-9695-dd60d8a77f30
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:thread-index
-         :content-language;
-        bh=sdjxudr61Uts0CJPUO0ptlpFH4t8XuWtSUvltKTeu/w=;
-        b=KiBcLdjEMeNXY6KCVUy9KRQrCd+oQFLbB8a3RL9tPKbShfiAw3dOZvnaApZc3dpfwI
-         b0pennEhFkL1nsy15iWZ2iz2UIp+DHObfbhe6zVSAVDs4/KMzDF0cGuA41lPvDwciD+R
-         TDRimv/OgoK44kz8gu94/SvN/OY6w1CnHk+BsXG3puZ+B+BiHlsnk1KYhmn937QV6ALp
-         r1qIer2QAB3dCrH3bTOGCDpmfm8v3PXOCS2ZdP+sBMZHNWQOt/TqSjobwjAigVsImaup
-         I8lHibktyhqQM9gC8bT/zQg/4yCPUx/kEiqqEt9h1tnyKhYdLOb1ukuZNAJjwWKBr4Qu
-         +Tnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :thread-index:content-language;
-        bh=sdjxudr61Uts0CJPUO0ptlpFH4t8XuWtSUvltKTeu/w=;
-        b=cuuOvcj38E8VHX+G5kbMGJyM4UqTFtb+2KxbZ7IEYOdIXBwOm7DrC44E/6pIjiLxv1
-         JT6EWXT+mnGzxxIygOoZLRd2PDUUs0C0NJVi3CtLQHNfvW/YwfVoBcHX5B+EjszwgXch
-         OluZ3m8Kw5Ja3Fas9Rzc1jEJqcoPoT9Z+UhPVY2Ij2jCB5DcnswzUi5nXzrqV3/550GQ
-         20pIeRDEnGLSqLyxClc9/o2Obj1FQSTT6gkLORyJcYIS9wHhFgpyU10UCDWGqMBATtuZ
-         nNpv9H09JKeZVlSMyHcfmHqcL0aY5F3K279XRNso286troaXSqZWhCyc4ldUAiXgD5D3
-         ywug==
-X-Gm-Message-State: AOAM533lBJ5e5TPHEYr/ULvNYTP5g/lMxo8rczuvbyLuOF2JPEIQwVpL
-	sybq+ODj5iLfOJm69AvJarg=
-X-Google-Smtp-Source: ABdhPJzC0Mvm9IJPrgzjYLI8UEjrhypmUYqZAuikpTgtyFJQL6Un9LpHRADBfIEfqUSzBjI2HuL3Qg==
-X-Received: by 2002:a05:600c:19cc:: with SMTP id u12mr19675937wmq.26.1610966143356;
-        Mon, 18 Jan 2021 02:35:43 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Lee Jones'" <lee.jones@linaro.org>
-Cc: <linux-kernel@vger.kernel.org>,
-	"'Wei Liu'" <wei.liu@kernel.org>,
-	"'David S. Miller'" <davem@davemloft.net>,
-	"'Jakub Kicinski'" <kuba@kernel.org>,
-	"'Alexei Starovoitov'" <ast@kernel.org>,
-	"'Daniel Borkmann'" <daniel@iogearbox.net>,
-	"'Jesper Dangaard Brouer'" <hawk@kernel.org>,
-	"'John Fastabend'" <john.fastabend@gmail.com>,
-	"'Rusty Russell'" <rusty@rustcorp.com.au>,
-	<xen-devel@lists.xenproject.org>,
-	<netdev@vger.kernel.org>,
-	<bpf@vger.kernel.org>,
-	"'Andrew Lunn'" <andrew@lunn.ch>
-References: <20210115200905.3470941-1-lee.jones@linaro.org> <20210115200905.3470941-3-lee.jones@linaro.org>
-In-Reply-To: <20210115200905.3470941-3-lee.jones@linaro.org>
-Subject: RE: [PATCH 2/7] net: xen-netback: xenbus: Demote nonconformant kernel-doc headers
-Date: Mon, 18 Jan 2021 10:35:41 -0000
-Message-ID: <00d601d6ed85$ac1d8f60$0458ae20$@xen.org>
+X-Inumbo-ID: e3641266-ce00-4ffb-883d-79731d4fdc89
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1610966645; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dJ38crIPbYLm3QraZKPx8/DunsRMNVIBCPcZkDAuWG4=;
+	b=GPild3aUOi2U1StiG8n/LdOZ3vtFqnf1380l4HLtmaj2dmwsUJhgP3L4TRwjQ2c6zZDljj
+	wzdKnyoy2F8uJQ+wlBFNSOYGKYBRFjp7RxgnX8Rx+uNCqBdPSE4etL3Ev3Mik8+HSb/fbd
+	01HmvZVuksmC31CLQQWhJuW2p3mZboE=
+Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
+ IOREQ/DM features
+To: Oleksandr <olekstysh@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Julien Grall <julien@xen.org>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-15-git-send-email-olekstysh@gmail.com>
+ <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org>
+ <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <9904062b-cc59-c80e-50fa-ea932c8a9bd5@suse.com>
+Date: Mon, 18 Jan 2021 11:44:08 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGx99OgEkOz45dOTqKA2L+6769RlgFYXaBkqmxYlxA=
-Content-Language: en-gb
+In-Reply-To: <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Lee Jones <lee.jones@linaro.org>
-> Sent: 15 January 2021 20:09
-> To: lee.jones@linaro.org
-> Cc: linux-kernel@vger.kernel.org; Wei Liu <wei.liu@kernel.org>; Paul Durrant <paul@xen.org>; David S.
-> Miller <davem@davemloft.net>; Jakub Kicinski <kuba@kernel.org>; Alexei Starovoitov <ast@kernel.org>;
-> Daniel Borkmann <daniel@iogearbox.net>; Jesper Dangaard Brouer <hawk@kernel.org>; John Fastabend
-> <john.fastabend@gmail.com>; Rusty Russell <rusty@rustcorp.com.au>; xen-devel@lists.xenproject.org;
-> netdev@vger.kernel.org; bpf@vger.kernel.org; Andrew Lunn <andrew@lunn.ch>
-> Subject: [PATCH 2/7] net: xen-netback: xenbus: Demote nonconformant kernel-doc headers
-> 
-> Fixes the following W=1 kernel build warning(s):
-> 
->  drivers/net/xen-netback/xenbus.c:419: warning: Function parameter or member 'dev' not described in
-> 'frontend_changed'
->  drivers/net/xen-netback/xenbus.c:419: warning: Function parameter or member 'frontend_state' not
-> described in 'frontend_changed'
->  drivers/net/xen-netback/xenbus.c:1001: warning: Function parameter or member 'dev' not described in
-> 'netback_probe'
->  drivers/net/xen-netback/xenbus.c:1001: warning: Function parameter or member 'id' not described in
-> 'netback_probe'
-> 
-> Cc: Wei Liu <wei.liu@kernel.org>
-> Cc: Paul Durrant <paul@xen.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Alexei Starovoitov <ast@kernel.org>
-> Cc: Daniel Borkmann <daniel@iogearbox.net>
-> Cc: Jesper Dangaard Brouer <hawk@kernel.org>
-> Cc: John Fastabend <john.fastabend@gmail.com>
-> Cc: Rusty Russell <rusty@rustcorp.com.au>
-> Cc: xen-devel@lists.xenproject.org
-> Cc: netdev@vger.kernel.org
-> Cc: bpf@vger.kernel.org
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> Signed-off-by: Lee Jones <lee.jones@linaro.org>
+On 17.01.2021 18:11, Oleksandr wrote:
+> On 15.01.21 22:26, Julien Grall wrote:
+>> On 12/01/2021 21:52, Oleksandr Tyshchenko wrote:
+>>> --- a/xen/arch/arm/io.c
+>>> +++ b/xen/arch/arm/io.c
+>>> @@ -16,6 +16,7 @@
+>>>    * GNU General Public License for more details.
+>>>    */
+>>>   +#include <xen/ioreq.h>
+>>>   #include <xen/lib.h>
+>>>   #include <xen/spinlock.h>
+>>>   #include <xen/sched.h>
+>>> @@ -23,6 +24,7 @@
+>>>   #include <asm/cpuerrata.h>
+>>>   #include <asm/current.h>
+>>>   #include <asm/mmio.h>
+>>> +#include <asm/hvm/ioreq.h>
+>>
+>> Shouldn't this have been included by "xen/ioreq.h"?
+> Well, for V1 asm/hvm/ioreq.h was included by xen/ioreq.h. But, it turned 
+> out that there was nothing inside common header required arch one to be 
+> included and
+> I was asked to include arch header where it was indeed needed (several 
+> *.c files).
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+I guess the general usage model of the two headers needs to be
+established first: If the per-arch header declares only stuff
+needed by the soon common/ioreq.c, then indeed it should be
+only that file and the producer(s) of the arch_*() functions
+which include that header; it should then in particular not be
+included by xen/ioreq.h.
 
+However, with the change request on patch 1 I think that usage
+model goes away at least for now, at which point the question
+is what exactly the per-arch header still declares, and based
+on that it would need to be decided whether xen/ioreq.h
+should include it.
+
+>>> --- a/xen/include/asm-arm/domain.h
+>>> +++ b/xen/include/asm-arm/domain.h
+>>> @@ -10,6 +10,7 @@
+>>>   #include <asm/gic.h>
+>>>   #include <asm/vgic.h>
+>>>   #include <asm/vpl011.h>
+>>> +#include <public/hvm/dm_op.h>
+>>
+>> May I ask, why do you need to include dm_op.h here?
+> I needed to include that header to make some bits visible 
+> (XEN_DMOP_IO_RANGE_PCI, struct xen_dm_op_buf, etc). Why here - is a 
+> really good question.
+> I don't remember exactly, probably I followed x86's domain.h which also 
+> included it.
+> So, trying to remove the inclusion here, I get several build failures on 
+> Arm which could be fixed if I include that header from dm.h and ioreq.h:
+> 
+> Shall I do this way?
+
+The general rule ought to be that header include what they need,
+but not more. Header dependencies are quite problematic already,
+so every dependency we can avoid (or eliminate) will help. This
+goes as far as only forward declaring structure where possible.
+
+>>> @@ -262,6 +263,8 @@ static inline void arch_vcpu_block(struct vcpu 
+>>> *v) {}
+>>>     #define arch_vm_assist_valid_mask(d) (1UL << 
+>>> VMASST_TYPE_runstate_update_flag)
+>>>   +#define has_vpci(d)    ({ (void)(d); false; })
+>>> +
+>>>   #endif /* __ASM_DOMAIN_H__ */
+>>>     /*
+>>> diff --git a/xen/include/asm-arm/hvm/ioreq.h 
+>>> b/xen/include/asm-arm/hvm/ioreq.h
+>>> new file mode 100644
+>>> index 0000000..19e1247
+>>> --- /dev/null
+>>> +++ b/xen/include/asm-arm/hvm/ioreq.h
+>>
+>> Shouldn't this directly be under asm-arm/ rather than asm-arm/hvm/ as 
+>> the IOREQ is now meant to be agnostic?
+> Good question... The _common_ IOREQ code is indeed arch-agnostic. But, 
+> can the _arch_ IOREQ code be treated as really subarch-agnostic?
+> I think, on Arm it can and it is most likely ok to keep it in 
+> "asm-arm/", but how it would be correlated with x86's IOREQ code which 
+> is HVM specific and located
+> in "hvm" subdir?
+
+I think for Arm's sake this should be used as asm/ioreq.h, where
+x86 would gain a new header consisting of just
+
+#include <asm/hvm/ioreq.h>
+
+as there the functionality is needed for HVM only.
+
+Jan
 
