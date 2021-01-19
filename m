@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1617F2FB9AF
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 15:39:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.70415.126367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F6272FB9B5
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 15:43:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.70430.126382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1s9L-0007gv-IM; Tue, 19 Jan 2021 14:38:27 +0000
+	id 1l1sE3-0000FI-Bq; Tue, 19 Jan 2021 14:43:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 70415.126367; Tue, 19 Jan 2021 14:38:27 +0000
+Received: by outflank-mailman (output) from mailman id 70430.126382; Tue, 19 Jan 2021 14:43:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1s9L-0007gW-DX; Tue, 19 Jan 2021 14:38:27 +0000
-Received: by outflank-mailman (input) for mailman id 70415;
- Tue, 19 Jan 2021 14:38:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l1sE3-0000Et-8W; Tue, 19 Jan 2021 14:43:19 +0000
+Received: by outflank-mailman (input) for mailman id 70430;
+ Tue, 19 Jan 2021 14:43:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jC7I=GW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l1s9J-0007gQ-Ao
- for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 14:38:25 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 11051b52-1cb8-4848-bda6-2ba832cef0a6;
- Tue, 19 Jan 2021 14:38:23 +0000 (UTC)
+ <SRS0=RhrS=GW=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l1sE2-0000Eo-28
+ for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 14:43:18 +0000
+Received: from mail-lj1-x232.google.com (unknown [2a00:1450:4864:20::232])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a394f012-00fb-47d2-8008-be95c54cd6e7;
+ Tue, 19 Jan 2021 14:43:16 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id 3so1980253ljc.4
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Jan 2021 06:43:16 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id h22sm2300293lfj.302.2021.01.19.06.43.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Jan 2021 06:43:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,148 +41,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11051b52-1cb8-4848-bda6-2ba832cef0a6
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611067103;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=3sa4drC31pFXZSTmlxrAH7E/br7gMHGZ0EprlZwf/uI=;
-  b=DjJ9+PdMKipjuCvlrH7ZhljwJ7Ucai0qr/Y/T+7O7WIVhG1XQFRxS6Si
-   elQXKA4vWK23Fn6cg33vGXHGR6zFamUDAFOVbgcq5QgKEUflfSoTWiWFR
-   ZwbTJPHqr9vIOMktTexuRGzEPZEugl0oBlTD6Uz7DztH9Sd8Yqi/ZElkG
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: NSQ9gwJn7Xz3scB1NEjCyYLhIriraIYxVg6SaV4x0FyW0FmEILJFuww3h9p6jIy3mcP8ewoL34
- HTisXtCo3wsxC6Ics9+xLe/QHpQPdQUBQXpHBFeq4zOiGMZ2MZujgC1n2tl9p/xJbeyqxuiNTl
- bi3tVy0QEKllmw21gzAUNpoweI2pQoEzrSRg9B/tyGS5e/mgO22mg1cKYDZOJkWM78mqfAeeDj
- a7EBYn6rrXXH6YIMVfBP8hbhRqq28+IIxfpMKuHZtfHYqbVttNsn3+kAqzDdne//Nlxv6ouZgh
- vIs=
-X-SBRS: 5.2
-X-MesageID: 35376805
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,359,1602561600"; 
-   d="scan'208";a="35376805"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eSRB+QBup0iujWehQxAfhE8zO8/9AMd4aWwwLVDPaJ2kD533p0mcBjkh3LOJEBuV4wsDCTvzCGWTdCc7iIVm/tpHKveyvG4mntFZrEpDwR+d/E/gyrrWDNRIPYAw955wR4Oa0NaNlA3SGi9VxmF1EVJB6j77+yBy556ms5rFHPwMTiFWNjAYPjJRHvPMNUyNaWRAEuIZF1W1TDqwvHmJhq2X84D44WWXDWMUNnghmTxh8sAqz/LdBcme9gHaLwZY0yzpOyaHhNdSA78sIGV4cRow5EuK5A9PM8kHqBKuH/A6Y1Ok1CBhvPdYaMOTs9KM8QfmKIvYx/Eb3kM6mVhHGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FG46/5jfbqtW7jdeIaBcf2b6zG+35QeJUJ8B67129j0=;
- b=gQbOzT+NnxDJ4NsJu2KmJ2jHS0ndQAjrDP0JWBAzZ3kEC5HzrfELfVMos3b/F77evIr38NKFV7x5arQclT3q26P5Z3lwghOXsdqbrNZyqP/ttzuG/xsWgp916rl51ufNovcMmvoNvuE+Mcmu1lz0e6FXTf9Y/W8hrqsgKK0Cu3Lk3Sj6442/302o82NsTE1/li/vbyMa9ndROa4iwiRUOjU6rH21HeqLcchw4/3xdVDlc7YB5ZKLSfxnEZQbf+F/ovE9byKZOev3NL6ZhfdcLLaqUcBk9KtzLmmALy/vrYaz53UwvXgpYVeYY5649I8YRVBYT2AFrlibAowhwOkXAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: a394f012-00fb-47d2-8008-be95c54cd6e7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FG46/5jfbqtW7jdeIaBcf2b6zG+35QeJUJ8B67129j0=;
- b=kEZ7XJsxQl8k5D8svX2ro0r1ioDR5AteHtQu8L5rM9I6fngLRnGCeo7zlZ7vfxTOFIHBb0IYq1ZwkUgV3L1EwLVOCNuoVbtb/yuYnGlTtEMjjCQPg030BKUECuG/TUDzawzxnwpizw+23/LN/LN0sQQsqLsNafM5B05LU6CN/k4=
-Date: Tue, 19 Jan 2021 15:38:14 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
-	<JBeulich@suse.com>, Wei Liu <wl@xen.org>, Marek Kasiewicz
-	<marek.kasiewicz@3mdeb.com>, Norbert =?utf-8?B?S2FtacWEc2tp?=
-	<norbert.kaminski@3mdeb.com>, Michal Zygowski <michal.zygowski@3mdeb.com>,
-	Piotr Krol <piotr.krol@3mdeb.co>, Krystian Hebel <krystian.hebel@3mdeb.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>, Rich Persaud
-	<persaur@gmail.com>, Christopher Clark <christopher.w.clark@gmail.com>
-Subject: Re: [PATCH 1/3] x86/smpboot: Re-position the call to tboot_wake_ap()
-Message-ID: <20210119143814.xtijb2ggz5yz5xvj@Air-de-Roger>
-References: <20210115231046.31785-1-andrew.cooper3@citrix.com>
- <20210115231046.31785-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210115231046.31785-2-andrew.cooper3@citrix.com>
-X-ClientProxiedBy: AM5PR0202CA0024.eurprd02.prod.outlook.com
- (2603:10a6:203:69::34) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=9aKz+C6slIhx7sTE5ZJjlJMv63nfWkoTofTuUzyr3AY=;
+        b=XMNhn6+RmkJezH8F1tdcPGS6n3h7o+x0dfvF03tzHd9rqNKBTqINoqa3crpPi4vTAh
+         tPgI5BLuPruMVdZu1PRi68iAyKP1XaTnvOjciIVr74HyICUMkle9VsEQ3A/QHM6sJ1e+
+         Wrk2vGTEtUeLngnG2rMcwj8tR2VPrzjO00hE/Cede4LLaO9aq87YXULMQs+dg6vQy706
+         uqdWmTzc8/egslsv2NU89m8CG7IPANcL5vPJAynzHnW5XRAC6e6s3rZPLvXaTxD7uUxG
+         zwRcMJTxcyyHGGBkWmrc5xY4qvRtR3jEvpKQsqCpd0x3AgQs8gggIK+NQgmmwnym4QDE
+         elcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=9aKz+C6slIhx7sTE5ZJjlJMv63nfWkoTofTuUzyr3AY=;
+        b=hHE0KmuHTePnuEAOwUDM5eWRq77avzVBm1qvsoX451EvtkC7hjzy6CrVhOraeoClSA
+         LBjYHnw81ZewKLGcg124xq6yq3atSkMMb8SoLXCWcEJYKc0ZHeQRhz7DsFWw8+KegUoj
+         AlH0zw56MRQNu8K5LkQTyWfvWwJPU4E23TMaVWM0xiG6yM1jpm+y4k6G8/DO1Elccfgv
+         +pq64lOFyf6Rghia2JP864Kv5AatoCVdyfTGukDWE2rRIs+52BiTJ3nBL+pw5VQt4ajn
+         c+kDiaXtVxYr7RI3TlopOcGMC7ZG0/sZX+7bkoylmuQLiSazYev9IDExBHjLwjVL8A5g
+         Exag==
+X-Gm-Message-State: AOAM533sA7pAz/1dIfuUj591nJK33ht3l/mL8U21m8pzsYCkTdEo04GT
+	CxPT1HX67a1Im7r1AQE84EI=
+X-Google-Smtp-Source: ABdhPJzqCAak6mSHU2AAbEaWAE+kvcfdXT2OQD8MmYb9e6ezHJeUiVo1YxlwWAhUXOt3hab2+6ngOg==
+X-Received: by 2002:a05:651c:28f:: with SMTP id b15mr2041640ljo.348.1611067395697;
+        Tue, 19 Jan 2021 06:43:15 -0800 (PST)
+Subject: Re: [PATCH v4 11/11] xen/arm: smmuv3: Add support for SMMUv3 driver
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1610115608.git.rahul.singh@arm.com>
+ <9ba174516e01e2a53390420fa957ea563219141f.1610115608.git.rahul.singh@arm.com>
+ <7762de2c-da11-5643-8f70-fdd87a7583eb@gmail.com>
+ <81983272-f423-f24d-3094-1f4ba7568e1b@gmail.com>
+ <5405ECAE-F22F-4893-B302-5D48C57A8847@arm.com>
+ <03135a22-676b-6642-0fb3-4e3bb62cf014@gmail.com>
+ <5D0E2A07-4299-41D5-BB72-4D2A59E897AD@arm.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <56877cfc-b2fe-3445-404e-60ff84cee195@gmail.com>
+Date: Tue, 19 Jan 2021 16:43:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ea8e6220-5ebf-4833-7d4a-08d8bc87dd5e
-X-MS-TrafficTypeDiagnostic: DM6PR03MB3834:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR03MB3834DCDD011FE62E86EA0E298FA30@DM6PR03MB3834.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tfzQvo/XVpvb5wZUUExPpwd6pPFoOYj81gXq8GCDmh3Ql6m8MelYz5RltYfVZ0hgmq2IVHCgTInPgzYlFyzAF8UxEEX4xzsIuvznqdvE5JYhSGM1n7Q/KZKnmQZG9CIZk51IRwt5jDekvB5xqaKVusNL2J+5jAoOfWE3wa1Lx2QNzjuKrH6rVcjf9eYNUK81+NOeXuubdIiMk7fA1y+R9IOqBGo0meCUJsuIQ+xZQIas4Ugs7DsoQcuzc5pb41cvxbkN39pi167e+D1kUxPPw0iUvQafVjIDIKO4LxdFo5pCQY4waNZZj6xoWHrT0H/bv4Hpya0m/EvKjqqOqct+ygdja+4bIw73B+t7aKvWW0UehHkHVOenC9N7fOKHzgF2P3UFOtTtHrzR2hu4t0xGbA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(346002)(366004)(376002)(396003)(136003)(39860400002)(83380400001)(33716001)(5660300002)(478600001)(956004)(6666004)(6496006)(2906002)(1076003)(7416002)(8676002)(6636002)(6486002)(66556008)(54906003)(86362001)(316002)(9686003)(8936002)(186003)(66476007)(85182001)(4326008)(6862004)(66946007)(26005)(16526019);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SlpDS1BENEI0a0J1Y1RzL2FlL04zZit1RFFuMGtHMGd5NGF1NWhjcHZ0WDVZ?=
- =?utf-8?B?M0twLzB5a3ZoK1VTQ3p3bjdEZnVrVjliZmdHTmt5Mk9TbGNNTUdPTVllY3pp?=
- =?utf-8?B?ejBORHNUYmkvb05oU3lBWXFmVnpvbnV3bklUaTBzR2oyVjIvYTE3WFdyOGJI?=
- =?utf-8?B?dkMxOThRSjZUNmNHWjBDSUNXbDVDaUl1SSswbDBXZzAvQzN2WDZ3OEhNMWVm?=
- =?utf-8?B?Ykxpb2RVUjlsMHNOa3ArVFZ1QXJ0ZjJ3ejBjdldyY3JnT1ZoUEw0eVhRR3RY?=
- =?utf-8?B?M3RweXlYWjcybktSTDYvaU9hWlphOGlJbC9hVGJ6RzVxT01OS2Y0UVBqRVZC?=
- =?utf-8?B?Y0M0Q2g3TUdqVDFZV3lPL1pxaU0wYk8zTmQ1V3FOMGJ0NDZXSFRQN3FOdE1G?=
- =?utf-8?B?WDhxdSt2VytWV2dtaEU4eUxKelhDWHljUER2Y2cxMVI3Y3VWdmFJWWJSSUc2?=
- =?utf-8?B?VWF4Q3BZNmVxamNLenYzLzQ3VEJBZU1jNHJIdVVneWxFNkZndy9tR05GZHdh?=
- =?utf-8?B?TXJFRVFJQ1lEeFJ3NEhNQytpWm5zTEY1d1JFQ3h0NjZMSC8reFNSRzdwcUdH?=
- =?utf-8?B?WG94MkR4Q0hHd0JrUkFPTmJLWVM5cHZ2V1BQQnZmZGNSQUR5NzQ0N25iaDFH?=
- =?utf-8?B?RnFzRGRaRDg2OU9UazFobTR5aHY5cXAxQkYreWMvc0J2VXYrR1RZUmV4YkJL?=
- =?utf-8?B?ZmRSU3Zrb0JIdHpwbkErNHNhTXdyTGZESFlpN1RNaEM4ZnpnRWdNVisrY0Q1?=
- =?utf-8?B?aWZUUVlqRm9EVlcydlBGV2FmNDkyd2d0djNGVnhlSUlKTVQ2ODRlWWpLRkNU?=
- =?utf-8?B?bEdJZTRtNGtEVld2SFNsb0F5Zm9IcDZvSkJ3K2lnZzFJWHVPM1lZQitTWXU3?=
- =?utf-8?B?aGhpZXA5R3dVRHJDMzZYVkFvKy9QbElyMVo1RjVRNE95cnEweEtWaFU1UDA3?=
- =?utf-8?B?U2FZOFdMaUd6cE4rcGlOb256Q1IxY1U2S1R4RVBGK1B0N21XcGlwWlFETkdi?=
- =?utf-8?B?ODJGTFdBZThaajB3ckZHNDJpNGdEYUN5VDVYUjhWNnMrVjVGeGlUS2l0V3NW?=
- =?utf-8?B?M3VXbkRVamx1NFNvWVF5ZGdueTk4RWRrVjZtWDgvUWRSTktNbDM3TUtweDA4?=
- =?utf-8?B?VTY3ZjhhS2FnUy9zeWFjNllGRzZWUFc4STdXODgyUjJLVHg2Q1l6ODNOUVJk?=
- =?utf-8?B?M2J6RjFtNHZjY0FocW9RazJjVTRmTnpaTUdmZG9NRUxkUGladWJKUml1K1Jm?=
- =?utf-8?B?aEZHeEp3VEkxRlphNG5LT05EWmNKY1ZIVVIrbHRnWkhsbG12MGlCa3V3UXl2?=
- =?utf-8?Q?Ai1IjBRF72yRvxKAHo2y6+JsbIdmWM48NL?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea8e6220-5ebf-4833-7d4a-08d8bc87dd5e
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2021 14:38:19.5540
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QESEc51Kub9nuhpxZx+wA8gX8oCQ4xuycYaw4mEiYm1lG+PamPEqpjl/FdQZttUgezbLtc5j0ibh0ErQxoFp7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3834
-X-OriginatorOrg: citrix.com
+In-Reply-To: <5D0E2A07-4299-41D5-BB72-4D2A59E897AD@arm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On Fri, Jan 15, 2021 at 11:10:44PM +0000, Andrew Cooper wrote:
-> So all the moving parts are in one function.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Marek Kasiewicz <marek.kasiewicz@3mdeb.com>
-> CC: Norbert Kamiński <norbert.kaminski@3mdeb.com>
-> CC: Michal Zygowski <michal.zygowski@3mdeb.com>
-> CC: Piotr Krol <piotr.krol@3mdeb.co>
-> CC: Krystian Hebel <krystian.hebel@3mdeb.com>
-> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-> CC: Rich Persaud <persaur@gmail.com>
-> CC: Christopher Clark <christopher.w.clark@gmail.com>
-> ---
->  xen/arch/x86/smpboot.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-> index 67e727cebd..9eca452ce1 100644
-> --- a/xen/arch/x86/smpboot.c
-> +++ b/xen/arch/x86/smpboot.c
-> @@ -426,6 +426,13 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
->      int maxlvt, timeout, i;
->  
->      /*
-> +     * Some versions of tboot might be able to handle the entire wake sequence
-> +     * on our behalf.
-> +     */
-> +    if ( tboot_in_measured_env() && tboot_wake_ap(phys_apicid, start_eip) )
 
-I think you are missing a ! in front of tboot_wake_ap?
+On 18.01.21 18:57, Rahul Singh wrote:
+> Hello Oleksandr,
 
-Thanks, Roger.
+Hi Rahul
+
+
+>
+>> On 18 Jan 2021, at 4:20 pm, Oleksandr <olekstysh@gmail.com> wrote:
+>>
+>>
+>> On 18.01.21 17:33, Rahul Singh wrote:
+>>> Hello Oleksandr,
+>>>
+>>>> On 11 Jan 2021, at 4:39 pm, Oleksandr <olekstysh@gmail.com> wrote:
+>>>>
+>>>>
+>>>> Hi Rahul
+>> Hi Rahul
+>>
+>>
+>>>>
+>>>>>> -
+>>>>>>    static int arm_smmu_device_probe(struct platform_device *pdev)
+>>>>>>    {
+>>>>>>        int irq, ret;
+>>>>>> -    struct resource *res;
+>>>>>> -    resource_size_t ioaddr;
+>>>>>> +    paddr_t ioaddr, iosize;
+>>>>>>        struct arm_smmu_device *smmu;
+>>>>>> -    struct device *dev = &pdev->dev;
+>>>>>> -    bool bypass;
+>>>>>>    -    smmu = devm_kzalloc(dev, sizeof(*smmu), GFP_KERNEL);
+>>>>>> +    smmu = xzalloc(struct arm_smmu_device);
+>>>>>>        if (!smmu) {
+>>>>>> -        dev_err(dev, "failed to allocate arm_smmu_device\n");
+>>>>>> +        dev_err(pdev, "failed to allocate arm_smmu_device\n");
+>>>>>>            return -ENOMEM;
+>>>>>>        }
+>>>>>> -    smmu->dev = dev;
+>>>>>> +    smmu->dev = pdev;
+>>>>>>    -    if (dev->of_node) {
+>>>>>> +    if (pdev->of_node) {
+>>>>>>            ret = arm_smmu_device_dt_probe(pdev, smmu);
+>>>>>> +        if (ret)
+>>>>>> +            return -EINVAL;
+>>>>>>        } else {
+>>>>>>            ret = arm_smmu_device_acpi_probe(pdev, smmu);
+>>>>>>            if (ret == -ENODEV)
+>>>>>>                return ret;
+>>>>>>        }
+>>>>>>    -    /* Set bypass mode according to firmware probing result */
+>>>>>> -    bypass = !!ret;
+>>>>>> -
+>>>>>>        /* Base address */
+>>>>>> -    res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>>>>>> -    if (resource_size(res) < arm_smmu_resource_size(smmu)) {
+>>>>>> -        dev_err(dev, "MMIO region too small (%pr)\n", res);
+>>>>>> +    ret = dt_device_get_address(dev_to_dt(pdev), 0, &ioaddr, &iosize);
+>>>>>> +    if (ret)
+>>>>>> +        return -ENODEV;
+>>>>>> +
+>>>>>> +    if (iosize < arm_smmu_resource_size(smmu)) {
+>>>>>> +        dev_err(pdev, "MMIO region too small (%lx)\n", iosize);
+>>>>>>            return -EINVAL;
+>>>>>>        }
+>>>>>> -    ioaddr = res->start;
+>>>>>>          /*
+>>>>>>         * Don't map the IMPLEMENTATION DEFINED regions, since they may contain
+>>>>>> -     * the PMCG registers which are reserved by the PMU driver.
+>>>>>> +     * the PMCG registers which are optional and currently not supported.
+>>>>>>         */
+>>>>>> -    smmu->base = arm_smmu_ioremap(dev, ioaddr, ARM_SMMU_REG_SZ);
+>>>>>> +    smmu->base = ioremap_nocache(ioaddr, ARM_SMMU_REG_SZ);
+>>>>>>        if (IS_ERR(smmu->base))
+>>>>>>            return PTR_ERR(smmu->base);
+>>>>>>    -    if (arm_smmu_resource_size(smmu) > SZ_64K) {
+>>>>>> -        smmu->page1 = arm_smmu_ioremap(dev, ioaddr + SZ_64K,
+>>>>>> +    if (iosize > SZ_64K) {
+>>>>>> +        smmu->page1 = ioremap_nocache(ioaddr + SZ_64K,
+>>>>>>                               ARM_SMMU_REG_SZ);
+>>>>>>            if (IS_ERR(smmu->page1))
+>>>>>>                return PTR_ERR(smmu->page1);
+>>>>>> @@ -2765,14 +3101,262 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+>>>>>>            return ret;
+>>>>>>          /* Reset the device */
+>>>>>> -    ret = arm_smmu_device_reset(smmu, bypass);
+>>>>>> +    ret = arm_smmu_device_reset(smmu);
+>>>>>>        if (ret)
+>>>>>>            return ret;
+>>>>>>    +    /*
+>>>>>> +     * Keep a list of all probed devices. This will be used to query
+>>>>>> +     * the smmu devices based on the fwnode.
+>>>>>> +     */
+>>>>>> +    INIT_LIST_HEAD(&smmu->devices);
+>>>>>> +
+>>>>>> +    spin_lock(&arm_smmu_devices_lock);
+>>>>>> +    list_add(&smmu->devices, &arm_smmu_devices);
+>>>>>> +    spin_unlock(&arm_smmu_devices_lock);
+>>>> Looks like that we need some kind of manual roll-back logic here in case of error during probe (there is no real devm_*):
+>>>>
+>>>> iounmap, xfree, etc.
+>>> I agree with you that manual roll-back logic is good to have clean code but in this scenario what I have found out that if there is an error during probe arm_smmu_device_probe() will return and XEN will not continue to boot (call panic function) , in that case if we free the memory also there is no much difference. That why I decided not to modify the code that we ported from Linux.
+>>>
+>>> XEN) I/O virtualisation disabled
+>>> (XEN)
+>>> (XEN) ****************************************
+>>> (XEN) Panic on CPU 0:
+>>> (XEN) Couldn't configure correctly all the IOMMUs.
+>>> (XEN) ****************************************
+>>> (XEN)
+>>> (XEN) Manual reset required ('noreboot' specified)
+>>>
+>>> Do we have a requirement to continue to boot the XEN if there is an IOMMU available in the system and IOMMU probe is failed? If yes then I will modify the code to free all the resources if there is error during probe.
+>> Xen won't call panic if IOMMU driver returns -ENODEV and will continue to boot. For example, if the IOMMU is present but cannot be used in Xen for some reason (doesn't support page table sharing, etc)
+> Yes you are right in case of IOMMU driver probe failed and return -ENODEV XEN will continue to boot.
+>
+> I am thinking of if there is a problem with configuring the IOMMU HW and return -ENODEV or  for some reason if IOMMU is present cannot not be used in XEN why we are silently allows XEN to boot and make the system insecure.
+> As end user might miss the error logs during boot and will think IOMMU is enabled and system is secure but IOMMU is either disable or is working in bypass mode.
+
+But, wouldn't end user notice that device passthrough is not functional 
+then?
+
+
+>   
+>
+> I might be wrong, in that case as per my understanding we should return error and call panic and let user decide either to fix the issue on next boot or boot XEN with cmdline option "iommu=no”
+I got your point, but I am not sure I can answer precisely how Xen 
+should behave in the situation above, I will let the maintainers comment 
+on that. Just a note, the -ENODEV is also returned by the framework if 
+the IOMMU is not present (please see iommu_hardware_setup() in 
+drivers/passthrough/arm/iommu.c for the details), either Xen doesn't 
+have a suitable driver for it or the IOMMU H/W is not available in the 
+target SoC, etc. I am not quite sure we should call panic in such cases.
+
+
+Regarding the cleanup my point is that driver should be responsible of 
+doing it if there is an error during initialization (and it cannot 
+continue) regardless on how the common code would handle that (returned 
+by driver) error. Now it panics on some conditions, tomorrow it will act 
+differently, etc. If driver called panic by itself, it could _probably_ 
+be in a position to leave resources unreleased then... This is my 
+viewpoint which might be wrong.
+
+
+>
+> Regards,
+> Rahul
+>
+>>
+>> -- 
+>> Regards,
+>>
+>> Oleksandr Tyshchenko
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
