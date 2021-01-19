@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9AE02FB5B2
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 12:35:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.70294.126112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA69F2FB5B5
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 12:36:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.70299.126129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1pIY-0005dq-Ih; Tue, 19 Jan 2021 11:35:46 +0000
+	id 1l1pJS-0005mX-Uz; Tue, 19 Jan 2021 11:36:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 70294.126112; Tue, 19 Jan 2021 11:35:46 +0000
+Received: by outflank-mailman (output) from mailman id 70299.126129; Tue, 19 Jan 2021 11:36:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1pIY-0005dQ-FE; Tue, 19 Jan 2021 11:35:46 +0000
-Received: by outflank-mailman (input) for mailman id 70294;
- Tue, 19 Jan 2021 11:35:44 +0000
+	id 1l1pJS-0005m7-RY; Tue, 19 Jan 2021 11:36:42 +0000
+Received: by outflank-mailman (input) for mailman id 70299;
+ Tue, 19 Jan 2021 11:36:41 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=299E=GW=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l1pIW-0005dF-Np
- for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 11:35:44 +0000
+ id 1l1pJR-0005m0-2L
+ for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 11:36:41 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ae755dea-bf1d-4db4-95e6-628b3c39ad6f;
- Tue, 19 Jan 2021 11:35:43 +0000 (UTC)
+ id 411d2313-d5c0-49ff-954e-974850173f4e;
+ Tue, 19 Jan 2021 11:36:40 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D4E57AC8F;
- Tue, 19 Jan 2021 11:35:42 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 1EA44AB9F;
+ Tue, 19 Jan 2021 11:36:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,168 +38,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae755dea-bf1d-4db4-95e6-628b3c39ad6f
+X-Inumbo-ID: 411d2313-d5c0-49ff-954e-974850173f4e
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611056143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611056199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gpscQ+ry3D0aBJJjBo94VXE/FRCNtrHj+UvlHFS+Veo=;
-	b=fbvIGIFuVPP6/ERbazeHt9dSawI1HjIaJUXDaFYFQtbA11bnw0Fp8vk0f+zmCxssgWaCGK
-	Meu4jhUITOG3h7IIf5w9qlWzytxY6MvI+9nRbMQKye/is+UDb3GV/lPaea6S1y1Tz6ff1M
-	nBvJ0mHX5Is85rzIfuxJ2OQ2PrDLE7M=
-Subject: Re: [PATCH v3 07/15] x86/alternative: support "not feature" and
- ALTERNATIVE_TERNARY
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
+	bh=BA18z5VqrKcytidarAoSFYLY2l1omqCAkHtcL3oW9cU=;
+	b=IZSlN6U9gI1+JtiiSVu8zkNNU2tlK7ZRdW2EoEFd9h6ixl7UuPHZXraQzuwohdOvN4ZDrE
+	ZHObA3bKHX8d6dut9BCX9AHjz295xejl7J54IUYMzukPDM+8YNA0ZNEejmPE5BmlCaLVfw
+	Ipnqnj7YaeScdwwqIQIM5dgAAkHlUd4=
+Subject: Re: [PATCH v3 06/15] x86/paravirt: switch time pvops functions to use
+ static_call()
+To: Michael Kelley <mikelley@microsoft.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ KY Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Deep Shah <sdeep@vmware.com>, "VMware, Inc." <pv-drivers@vmware.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, vkuznets <vkuznets@redhat.com>,
+ Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
+ Joerg Roedel <joro@8bytes.org>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Daniel Bristot de Oliveira <bristot@redhat.com>
 References: <20201217093133.1507-1-jgross@suse.com>
- <20201217093133.1507-8-jgross@suse.com> <20210107190819.GI14697@zn.tnic>
+ <20201217093133.1507-7-jgross@suse.com>
+ <MW2PR2101MB1052877B5376112F1BAF3D93D7C49@MW2PR2101MB1052.namprd21.prod.outlook.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <5ed34a1d-86c4-ed03-4c92-b275a555c41c@suse.com>
-Date: Tue, 19 Jan 2021 12:35:42 +0100
+Message-ID: <5e34b263-da71-daf4-8ff6-b583427f1565@suse.com>
+Date: Tue, 19 Jan 2021 12:36:37 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <20210107190819.GI14697@zn.tnic>
+In-Reply-To: <MW2PR2101MB1052877B5376112F1BAF3D93D7C49@MW2PR2101MB1052.namprd21.prod.outlook.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="0uwsXwgjCC58khCi7aVmZVWQ3hQMuwUIh"
+ boundary="MUpXQXJRqI9FNcl5WEQsoh0wg1RbQRaFG"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---0uwsXwgjCC58khCi7aVmZVWQ3hQMuwUIh
-Content-Type: multipart/mixed; boundary="2HZuOF5yMr7z4N1W9je7pKeX4DttW2NH2";
+--MUpXQXJRqI9FNcl5WEQsoh0wg1RbQRaFG
+Content-Type: multipart/mixed; boundary="QrT993NSGR0x4rfkkXRz07GavpdL5Q4yL";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <5ed34a1d-86c4-ed03-4c92-b275a555c41c@suse.com>
-Subject: Re: [PATCH v3 07/15] x86/alternative: support "not feature" and
- ALTERNATIVE_TERNARY
+To: Michael Kelley <mikelley@microsoft.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ KY Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Deep Shah <sdeep@vmware.com>, "VMware, Inc." <pv-drivers@vmware.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, vkuznets <vkuznets@redhat.com>,
+ Wanpeng Li <wanpengli@tencent.com>, Jim Mattson <jmattson@google.com>,
+ Joerg Roedel <joro@8bytes.org>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Daniel Bristot de Oliveira <bristot@redhat.com>
+Message-ID: <5e34b263-da71-daf4-8ff6-b583427f1565@suse.com>
+Subject: Re: [PATCH v3 06/15] x86/paravirt: switch time pvops functions to use
+ static_call()
 References: <20201217093133.1507-1-jgross@suse.com>
- <20201217093133.1507-8-jgross@suse.com> <20210107190819.GI14697@zn.tnic>
-In-Reply-To: <20210107190819.GI14697@zn.tnic>
+ <20201217093133.1507-7-jgross@suse.com>
+ <MW2PR2101MB1052877B5376112F1BAF3D93D7C49@MW2PR2101MB1052.namprd21.prod.outlook.com>
+In-Reply-To: <MW2PR2101MB1052877B5376112F1BAF3D93D7C49@MW2PR2101MB1052.namprd21.prod.outlook.com>
 
---2HZuOF5yMr7z4N1W9je7pKeX4DttW2NH2
+--QrT993NSGR0x4rfkkXRz07GavpdL5Q4yL
 Content-Type: multipart/mixed;
- boundary="------------A99D9741BE5A0D4DF4E23EDD"
+ boundary="------------32C8808B241E19696785B4EC"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------A99D9741BE5A0D4DF4E23EDD
+--------------32C8808B241E19696785B4EC
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 07.01.21 20:08, Borislav Petkov wrote:
-> On Thu, Dec 17, 2020 at 10:31:25AM +0100, Juergen Gross wrote:
->> Instead of only supporting to modify instructions when a specific
->> feature is set, support doing so for the case a feature is not set.
->>
->> As today a feature is specified using a 16 bit quantity and the highes=
-t
->> feature number in use is around 600, using a negated feature number fo=
-r
->> specifying the inverted case seems to be appropriate.
->>
->>    ALTERNATIVE "default_instr", "patched_instr", ~FEATURE_NR
->>
->> will start with "default_instr" and patch that with "patched_instr" in=
-
->> case FEATURE_NR is not set.
->>
->> Using that add ALTERNATIVE_TERNARY:
->>
->>    ALTERNATIVE_TERNARY "default_instr", FEATURE_NR,
->>                        "feature_on_instr", "feature_off_instr"
->>
->> which will start with "default_instr" and at patch time will, dependin=
-g
->> on FEATURE_NR being set or not, patch that with either
->> "feature_on_instr" or "feature_off_instr".
+On 17.12.20 18:31, Michael Kelley wrote:
+> From: Juergen Gross <jgross@suse.com> Sent: Thursday, December 17, 2020=
+ 1:31 AM
 >=20
-> How about an even simpler one (only build-tested):
+>> The time pvops functions are the only ones left which might be
+>> used in 32-bit mode and which return a 64-bit value.
+>>
+>> Switch them to use the static_call() mechanism instead of pvops, as
+>> this allows quite some simplification of the pvops implementation.
+>>
+>> Due to include hell this requires to split out the time interfaces
+>> into a new header file.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>   arch/x86/Kconfig                      |  1 +
+>>   arch/x86/include/asm/mshyperv.h       | 11 --------
+>>   arch/x86/include/asm/paravirt.h       | 14 ----------
+>>   arch/x86/include/asm/paravirt_time.h  | 38 +++++++++++++++++++++++++=
+++
+>>   arch/x86/include/asm/paravirt_types.h |  6 -----
+>>   arch/x86/kernel/cpu/vmware.c          |  5 ++--
+>>   arch/x86/kernel/kvm.c                 |  3 ++-
+>>   arch/x86/kernel/kvmclock.c            |  3 ++-
+>>   arch/x86/kernel/paravirt.c            | 16 ++++++++---
+>>   arch/x86/kernel/tsc.c                 |  3 ++-
+>>   arch/x86/xen/time.c                   | 12 ++++-----
+>>   drivers/clocksource/hyperv_timer.c    |  5 ++--
+>>   drivers/xen/time.c                    |  3 ++-
+>>   kernel/sched/sched.h                  |  1 +
+>>   14 files changed, 71 insertions(+), 50 deletions(-)
+>>   create mode 100644 arch/x86/include/asm/paravirt_time.h
+>>
 >=20
-> ---
-> diff --git a/arch/x86/include/asm/alternative-asm.h b/arch/x86/include/=
-asm/alternative-asm.h
-> index 464034db299f..d52b423d3cab 100644
-> --- a/arch/x86/include/asm/alternative-asm.h
-> +++ b/arch/x86/include/asm/alternative-asm.h
-> @@ -109,6 +109,9 @@
->   	.popsection
->   .endm
+> [snip]
 >  =20
-> +#define ALTERNATIVE_TERNARY(oldinstr, feature, newinstr1, newinstr2)	\=
+>> diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/ms=
+hyperv.h
+>> index ffc289992d1b..45942d420626 100644
+>> --- a/arch/x86/include/asm/mshyperv.h
+>> +++ b/arch/x86/include/asm/mshyperv.h
+>> @@ -56,17 +56,6 @@ typedef int (*hyperv_fill_flush_list_func)(
+>>   #define hv_get_raw_timer() rdtsc_ordered()
+>>   #define hv_get_vector() HYPERVISOR_CALLBACK_VECTOR
+>>
+>> -/*
+>> - * Reference to pv_ops must be inline so objtool
+>> - * detection of noinstr violations can work correctly.
+>> - */
+>> -static __always_inline void hv_setup_sched_clock(void *sched_clock)
+>> -{
+>> -#ifdef CONFIG_PARAVIRT
+>> -	pv_ops.time.sched_clock =3D sched_clock;
+>> -#endif
+>> -}
+>> -
+>>   void hyperv_vector_handler(struct pt_regs *regs);
+>>
+>>   static inline void hv_enable_stimer0_percpu_irq(int irq) {}
+>=20
+> [snip]
+>=20
+>> diff --git a/drivers/clocksource/hyperv_timer.c b/drivers/clocksource/=
+hyperv_timer.c
+>> index ba04cb381cd3..1ed79993fc50 100644
+>> --- a/drivers/clocksource/hyperv_timer.c
+>> +++ b/drivers/clocksource/hyperv_timer.c
+>> @@ -21,6 +21,7 @@
+>>   #include <clocksource/hyperv_timer.h>
+>>   #include <asm/hyperv-tlfs.h>
+>>   #include <asm/mshyperv.h>
+>> +#include <asm/paravirt_time.h>
+>>
+>>   static struct clock_event_device __percpu *hv_clock_event;
+>>   static u64 hv_sched_clock_offset __ro_after_init;
+>> @@ -445,7 +446,7 @@ static bool __init hv_init_tsc_clocksource(void)
+>>   	clocksource_register_hz(&hyperv_cs_tsc, NSEC_PER_SEC/100);
+>>
+>>   	hv_sched_clock_offset =3D hv_read_reference_counter();
+>> -	hv_setup_sched_clock(read_hv_sched_clock_tsc);
+>> +	paravirt_set_sched_clock(read_hv_sched_clock_tsc);
+>>
+>>   	return true;
+>>   }
+>> @@ -470,6 +471,6 @@ void __init hv_init_clocksource(void)
+>>   	clocksource_register_hz(&hyperv_cs_msr, NSEC_PER_SEC/100);
+>>
+>>   	hv_sched_clock_offset =3D hv_read_reference_counter();
+>> -	hv_setup_sched_clock(read_hv_sched_clock_msr);
+>> +	static_call_update(pv_sched_clock, read_hv_sched_clock_msr);
+>>   }
+>>   EXPORT_SYMBOL_GPL(hv_init_clocksource);
+>=20
+> These Hyper-V changes are problematic as we want to keep hyperv_timer.c=
 
-> +	ALTERNATIVE_2 oldinstr, newinstr1, feature, newinstr2, X86_FEATURE_TE=
-RNARY
-> +
->   #endif  /*  __ASSEMBLY__  */
->  =20
->   #endif /* _ASM_X86_ALTERNATIVE_ASM_H */
-> diff --git a/arch/x86/include/asm/alternative.h b/arch/x86/include/asm/=
-alternative.h
-> index 13adca37c99a..f170cbe89539 100644
-> --- a/arch/x86/include/asm/alternative.h
-> +++ b/arch/x86/include/asm/alternative.h
-> @@ -175,6 +175,9 @@ static inline int alternatives_text_reserved(void *=
-start, void *end)
->   	ALTINSTR_REPLACEMENT(newinstr2, feature2, 2)			\
->   	".popsection\n"
->  =20
-> +#define ALTERNATIVE_TERNARY(oldinstr, feature, newinstr1, newinstr2)	\=
+> architecture independent.  While only the code for x86/x64 is currently=
 
-> +	ALTERNATIVE_2(oldinstr, newinstr1, feature, newinstr2, X86_FEATURE_TE=
-RNARY)
-> +
->   #define ALTERNATIVE_3(oldinsn, newinsn1, feat1, newinsn2, feat2, newi=
-nsn3, feat3) \
->   	OLDINSTR_3(oldinsn, 1, 2, 3)						\
->   	".pushsection .altinstructions,\"a\"\n"					\
-> @@ -206,6 +209,9 @@ static inline int alternatives_text_reserved(void *=
-start, void *end)
->   #define alternative_2(oldinstr, newinstr1, feature1, newinstr2, featu=
-re2) \
->   	asm_inline volatile(ALTERNATIVE_2(oldinstr, newinstr1, feature1, new=
-instr2, feature2) ::: "memory")
->  =20
-> +#define alternative_ternary(oldinstr, feature, newinstr1, newinstr2)	\=
+> accepted upstream, code for ARM64 support is in progress.   So we need
+> to use hv_setup_sched_clock() in hyperv_timer.c, and have the per-arch
+> implementation in mshyperv.h.
 
-> +	asm_inline volatile(ALTERNATIVE_TERNARY(oldinstr, feature, newinstr1,=
- newinstr2) ::: "memory")
-> +
->   /*
->    * Alternative inline assembly with input.
->    *
-> diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/=
-cpufeatures.h
-> index 84b887825f12..cc634db0b91f 100644
-> --- a/arch/x86/include/asm/cpufeatures.h
-> +++ b/arch/x86/include/asm/cpufeatures.h
-> @@ -108,7 +108,7 @@
->   #define X86_FEATURE_EXTD_APICID		( 3*32+26) /* Extended APICID (8 bit=
-s) */
->   #define X86_FEATURE_AMD_DCM		( 3*32+27) /* AMD multi-node processor *=
-/
->   #define X86_FEATURE_APERFMPERF		( 3*32+28) /* P-State hardware coordi=
-nation feedback capability (APERF/MPERF MSRs) */
-> -/* free					( 3*32+29) */
-> +#define X86_FEATURE_TERNARY		( 3*32+29) /* "" Synthetic bit for ALTERN=
-ATIVE_TERNARY() */
-
-In fact this should rather be named "X86_FEATURE_TRUE", as this is its
-semantics.
-
-And I think I can define it to the value 0xffff instead of using a
-"real" bit for it.
+Okay, will switch back to old setup.
 
 
 Juergen
 
---------------A99D9741BE5A0D4DF4E23EDD
+--------------32C8808B241E19696785B4EC
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -290,25 +332,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------A99D9741BE5A0D4DF4E23EDD--
+--------------32C8808B241E19696785B4EC--
 
---2HZuOF5yMr7z4N1W9je7pKeX4DttW2NH2--
+--QrT993NSGR0x4rfkkXRz07GavpdL5Q4yL--
 
---0uwsXwgjCC58khCi7aVmZVWQ3hQMuwUIh
+--MUpXQXJRqI9FNcl5WEQsoh0wg1RbQRaFG
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAGxA4FAwAAAAAACgkQsN6d1ii/Ey/u
-RAf9HxBCYh293K63rqFeErBKKWecXKPDZ19v+uspx8+kijFzuDHkuHEBz1ZDMccDGlzgqVyQVGEK
-shiMgntfBbPr28QDR7UEEM1+HUISa9bXctMjepv8Xp61da8QWSTFDEjmb+oYM9XPsYNGWDJD6M5/
-iEJDPwn91tdLPRmPqqAe7D0l/K9imPQbdftuZF6P4bgppgEu5IEetjzelmJa8lGHAaKql5NZ1uOF
-zv8lGdGJ5XPLunXtFzJA+2LNNEJAIK5ULL4FnpMMDqU+ZL7DjeegaFXZ3W8ly/r8GFbRlkk5e0ov
-bTXzkMIFEcIg4YPxPtOhkNEouQEWj4fin4MzKoPzBw==
-=5QW4
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAGxEUFAwAAAAAACgkQsN6d1ii/Ey/e
+Awf+O4iqom4Eij8DMvjvErPmOh0eAOIU4lUY2nIxHUNLRJWlamwLfALvTyFPgTS/rywLovXjfCgs
+a/mGEXOH2P7gXOZ/1S9cfDTogJ3SRh1UGf8Ce3mQJUVhyKNEsbnLxAr84U2xhD+JertrtiV5mbgU
+bUVHMXt84h4jwlGB5KGEZX5sgWVqXu+6Egs3w6f9FP31Md/DfZlU/eKtcOpZW5uquwglI00un1EH
+hxM9j1HhrVWPvTYmoyw6UoRS8h7PN+HanPTy4jj2UWhFLGiyd1/KJawRTaLKl2jSbxej43JFZXQu
+KRf8zj56PSIsyMujCQndphLV+bR0L39rnb4PDEeK+Q==
+=m9RS
 -----END PGP SIGNATURE-----
 
---0uwsXwgjCC58khCi7aVmZVWQ3hQMuwUIh--
+--MUpXQXJRqI9FNcl5WEQsoh0wg1RbQRaFG--
 
