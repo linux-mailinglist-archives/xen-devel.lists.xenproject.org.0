@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29A492FBADC
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 16:17:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.70488.126552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A89C2FBAE9
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 16:20:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.70507.126564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1sku-0004Vl-Ro; Tue, 19 Jan 2021 15:17:16 +0000
+	id 1l1snn-0005ZS-Gy; Tue, 19 Jan 2021 15:20:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 70488.126552; Tue, 19 Jan 2021 15:17:16 +0000
+Received: by outflank-mailman (output) from mailman id 70507.126564; Tue, 19 Jan 2021 15:20:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1sku-0004VK-Mf; Tue, 19 Jan 2021 15:17:16 +0000
-Received: by outflank-mailman (input) for mailman id 70488;
- Tue, 19 Jan 2021 15:17:14 +0000
+	id 1l1snn-0005Z3-DT; Tue, 19 Jan 2021 15:20:15 +0000
+Received: by outflank-mailman (input) for mailman id 70507;
+ Tue, 19 Jan 2021 15:20:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=U8Ox=GW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l1sks-0004Uw-Pr
- for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 15:17:14 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RhrS=GW=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l1snl-0005Yy-PU
+ for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 15:20:13 +0000
+Received: from mail-lf1-x130.google.com (unknown [2a00:1450:4864:20::130])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 01b5de42-3fdd-4bab-9cd0-7807e18462aa;
- Tue, 19 Jan 2021 15:17:13 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 74A25ADD6;
- Tue, 19 Jan 2021 15:17:12 +0000 (UTC)
+ id 8162b55a-43d9-42e8-89f5-5eb8c153b49f;
+ Tue, 19 Jan 2021 15:20:12 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id o13so29599100lfr.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Jan 2021 07:20:12 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id f9sm2309093lft.114.2021.01.19.07.20.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Jan 2021 07:20:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,485 +41,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01b5de42-3fdd-4bab-9cd0-7807e18462aa
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611069432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GzQ/TMLxOp954HatIYsp8zXkUc5E4Inz83HkcZgnzwg=;
-	b=BUR1zZUKk4eezMmxuGDQoUbMmlnmoobycDRIxFqQGz99LBXpX+eI+IaaiDV7mxR17BqR8s
-	ZVmCZIEHcgBJ+T26Z01nHhzBZRKdo+9VIit+Kz10+tAVtAsjrUSE47lmGGG3d6RCMhUZqx
-	nxcPuInS9wkE3Ygt+bBWxot6hW7r/p4=
-Subject: [PATCH v2 5/5] libxenguest: simplify kernel decompression
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-References: <aab9e3e6-5125-6b0a-6cd4-960fd783b1b2@suse.com>
-Message-ID: <a94cdffe-d31c-ad83-67f6-f1c25d520dd1@suse.com>
-Date: Tue, 19 Jan 2021 16:17:12 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: 8162b55a-43d9-42e8-89f5-5eb8c153b49f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=FzGS9umngqsjnVotLh4pOKKI9E6E9dxSXXo+W2PjZRg=;
+        b=YRPN3KWp/4WVCJAy7rsIeW36NYMpG+WYZ0CBszAIGDuH9GCQgy9bOx6eG0ziFTxA8c
+         k8lpoTsaBvrgZyBM0cA8NY4Ije4ASSMPW0ofni1jr3p+pOalAYIvO3dUEYf9Caf+sT9N
+         owRtNubrXfZ6il9WS5UwixiFm0drZKi3Q/bSUPmSHHFQujRHh5aSrt7m1QCvbkBFWLIN
+         tPshHLa7mk5zLXPlo0B/gPMxLfjmEq13EHiN9gv+egLL6az5hUEPg0yZhLN1Z2cZSYpV
+         tLhwuxuElDiOvObvh3CU3HG4fYOb+wFSbZiPHEptySA/zW0qeEU6byl77jjD0zb1W4vb
+         lyMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=FzGS9umngqsjnVotLh4pOKKI9E6E9dxSXXo+W2PjZRg=;
+        b=g4zaZ9S/x7voshxJU2HLJs9gk257hjtgYb9qGJ9/CdXNKH4pE5C83ioNYIpZ3ChsVw
+         97UglZsVnIrM71dJgw0TocfR85AO3asxVYIEo0BjlSUA9fohatNEaCpKpe1f2ql7KXjx
+         FYaZtaDkpj9NRoFvOqFFr4dlzQq0xfbusEFQVkQnevNDHJIjjlTo+AvlOytMGwv5kWCG
+         5WSKDDd3mhbM9zolPfzNcr4FhDuXiZ5I3gGFGJoSbD8II7p7TX06ZCxLa22Fy2R5K4tA
+         Bk5oz8okZkBuWIVybnnsEYR0MOa2RxB+GEqu3Tyc+gEr49tC6Zw0g95DXRjZWF/miZYZ
+         UGhg==
+X-Gm-Message-State: AOAM532/9F97GceB5k+ep09xIfmDyYV95Y0B+H1jaMo3N3ROQ388R/s5
+	sd1IDlLuo5OtQtuxIG9A8OM=
+X-Google-Smtp-Source: ABdhPJz9hYaakoFeUR4mJGF5eTOFN2aZhjkBCGMgv0acWYw+fxzCQ8/6isFO0pwMP2uuhXN6EzmmuA==
+X-Received: by 2002:a19:c215:: with SMTP id l21mr1970871lfc.142.1611069611615;
+        Tue, 19 Jan 2021 07:20:11 -0800 (PST)
+Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
+ IOREQ/DM features
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-15-git-send-email-olekstysh@gmail.com>
+ <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org>
+ <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com>
+ <06704224-bb57-c55e-a2ee-23032095e8ea@xen.org>
+ <e2dcc876-291f-1244-933c-179f97a84e07@gmail.com>
+ <b79b07eb-02db-16bb-2d8b-a55b0c355dbb@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <a7b26b16-cdec-3734-284e-a907e3cc356c@gmail.com>
+Date: Tue, 19 Jan 2021 17:20:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <aab9e3e6-5125-6b0a-6cd4-960fd783b1b2@suse.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <b79b07eb-02db-16bb-2d8b-a55b0c355dbb@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 
-In all cases the kernel build makes available the uncompressed size in
-the final 4 bytes of the bzImage payload. Utilize this to avoid
-repeated realloc()ing of the output buffer.
 
-As a side effect this also addresses the previous mistaken return of 0
-(success) from xc_try_{bzip2,lzma,xz}_decode() in case
-xc_dom_register_external() would have failed.
+Hi Julien
 
-As another side effect this also addresses the first error path of
-_xc_try_lzma_decode() previously bypassing lzma_end().
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: New.
+>>
+>>
+>>>
+>>>>>
+>>>>>> +
+>>>>>>       PROGRESS(xen):
+>>>>>>           ret = relinquish_memory(d, &d->xenpage_list);
+>>>>>>           if ( ret )
+>>>>>> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+>>>>>> index ae7ef96..9814481 100644
+>>>>>> --- a/xen/arch/arm/io.c
+>>>>>> +++ b/xen/arch/arm/io.c
+>>>>>> @@ -16,6 +16,7 @@
+>>>>>>    * GNU General Public License for more details.
+>>>>>>    */
+>>>>>>   +#include <xen/ioreq.h>
+>>>>>>   #include <xen/lib.h>
+>>>>>>   #include <xen/spinlock.h>
+>>>>>>   #include <xen/sched.h>
+>>>>>> @@ -23,6 +24,7 @@
+>>>>>>   #include <asm/cpuerrata.h>
+>>>>>>   #include <asm/current.h>
+>>>>>>   #include <asm/mmio.h>
+>>>>>> +#include <asm/hvm/ioreq.h>
+>>>>>
+>>>>> Shouldn't this have been included by "xen/ioreq.h"?
+>>>> Well, for V1 asm/hvm/ioreq.h was included by xen/ioreq.h. But, it 
+>>>> turned out that there was nothing inside common header required 
+>>>> arch one to be included and
+>>>> I was asked to include arch header where it was indeed needed 
+>>>> (several *.c files).
+>>>
+>>> Fair enough.
+>>>
+>>> [...]
+>>>
+>>>>>
+>>>>> If you return IO_HANDLED here, then it means the we will take care 
+>>>>> of previous I/O but the current one is going to be ignored. 
+>>>> Which current one? As I understand, if try_fwd_ioserv() gets called 
+>>>> with vio->req.state == STATE_IORESP_READY then this is a second 
+>>>> round after emulator completes the emulation (the first round was when
+>>>> we returned IO_RETRY down the function and claimed that we would 
+>>>> need a completion), so we are still dealing with previous I/O.
+>>>> vcpu_ioreq_handle_completion() -> arch_ioreq_complete_mmio() -> 
+>>>> try_handle_mmio() -> try_fwd_ioserv() -> handle_ioserv()
+>>>> And after we return IO_HANDLED here, handle_ioserv() will be called 
+>>>> to complete the handling of this previous I/O emulation.
+>>>> Or I really missed something?
+>>>
+>>> Hmmm... I somehow thought try_fw_ioserv() would only be called the 
+>>> first time. Do you have a branch with your code applied? This would 
+>>> help to follow the different paths.
+>> Yes, I mentioned about it in cover letter.
+>>
+>> Please see
+>> https://github.com/otyshchenko1/xen/commits/ioreq_4.14_ml5
+>> why 5 - because I started counting from the RFC)
+>
+> Oh, I looked at the cover letter and didn't find it. Hence why I 
+> asked. I should have looked more carefully. Thanks!
+>
+> I have looked closer at the question and I am not sure to understand 
+> why arch_ioreq_complete_mmio() is going to call try_handle_mmio().
+>
+> This looks pretty innefficient to me because we already now the IO was 
+> handled by the IOREQ server.
+>
+> I realize that x86 is calling handle_mmio() again. However, I don't 
+> think we need the same on Arm because the instruction for accessing 
+> device memory are a lot simpler (you can only read or store at most a 
+> 64-bit value).
 
---- a/tools/libs/guest/xg_dom_bzimageloader.c
-+++ b/tools/libs/guest/xg_dom_bzimageloader.c
-@@ -48,18 +48,16 @@ static int xc_try_bzip2_decode(
-     bz_stream stream;
-     int ret;
-     char *out_buf;
--    char *tmp_buf;
-     int retval = -1;
--    unsigned int outsize;
--    uint64_t total;
-+    unsigned int insize, outsize;
- 
-     stream.bzalloc = NULL;
-     stream.bzfree = NULL;
-     stream.opaque = NULL;
- 
--    if ( dom->kernel_size == 0)
-+    if ( *size <= 8 )
-     {
--        DOMPRINTF("BZIP2: Input is 0 size");
-+        DOMPRINTF("BZIP2: insufficient input data");
-         return -1;
-     }
- 
-@@ -70,22 +68,25 @@ static int xc_try_bzip2_decode(
-         return -1;
-     }
- 
--    /* sigh.  We don't know up-front how much memory we are going to need
--     * for the output buffer.  Allocate the output buffer to be equal
--     * the input buffer to start, and we'll realloc as needed.
--     */
--    outsize = dom->kernel_size;
-+    insize = *size - 4;
-+    outsize = *(uint32_t *)(*blob + insize);
- 
-     /*
--     * stream.avail_in and outsize are unsigned int, while kernel_size
-+     * stream.avail_in and insize are unsigned int, while *size
-      * is a size_t. Check we aren't overflowing.
-      */
--    if ( outsize != dom->kernel_size )
-+    if ( insize + 4 != *size )
-     {
-         DOMPRINTF("BZIP2: Input too large");
-         goto bzip2_cleanup;
-     }
- 
-+    if ( xc_dom_kernel_check_size(dom, outsize) )
-+    {
-+        DOMPRINTF("BZIP2: output too large");
-+        goto bzip2_cleanup;
-+    }
-+
-     out_buf = malloc(outsize);
-     if ( out_buf == NULL )
-     {
-@@ -94,86 +95,45 @@ static int xc_try_bzip2_decode(
-     }
- 
-     stream.next_in = dom->kernel_blob;
--    stream.avail_in = dom->kernel_size;
-+    stream.avail_in = insize;
- 
-     stream.next_out = out_buf;
--    stream.avail_out = dom->kernel_size;
-+    stream.avail_out = outsize;
- 
--    for ( ; ; )
-+    ret = BZ2_bzDecompress(&stream);
-+    if ( ret == BZ_STREAM_END )
-+        DOMPRINTF("BZIP2: Saw data stream end");
-+    else if ( ret != BZ_OK )
-     {
--        ret = BZ2_bzDecompress(&stream);
--        if ( ret == BZ_STREAM_END )
--        {
--            DOMPRINTF("BZIP2: Saw data stream end");
--            retval = 0;
--            break;
--        }
--        if ( ret != BZ_OK )
--        {
--            DOMPRINTF("BZIP2: error %d", ret);
--            free(out_buf);
--            goto bzip2_cleanup;
--        }
-+        DOMPRINTF("BZIP2: error %d", ret);
-+        free(out_buf);
-+        goto bzip2_cleanup;
-+    }
- 
--        if ( stream.avail_out == 0 )
--        {
--            /* Protect against output buffer overflow */
--            if ( outsize > UINT_MAX / 2 )
--            {
--                DOMPRINTF("BZIP2: output buffer overflow");
--                free(out_buf);
--                goto bzip2_cleanup;
--            }
--
--            if ( xc_dom_kernel_check_size(dom, outsize * 2) )
--            {
--                DOMPRINTF("BZIP2: output too large");
--                free(out_buf);
--                goto bzip2_cleanup;
--            }
--
--            tmp_buf = realloc(out_buf, outsize * 2);
--            if ( tmp_buf == NULL )
--            {
--                DOMPRINTF("BZIP2: Failed to realloc memory");
--                free(out_buf);
--                goto bzip2_cleanup;
--            }
--            out_buf = tmp_buf;
--
--            stream.next_out = out_buf + outsize;
--            stream.avail_out = (outsize * 2) - outsize;
--            outsize *= 2;
--        }
--        else if ( stream.avail_in == 0 )
--        {
--            /*
--             * If there is output buffer available then this indicates
--             * that BZ2_bzDecompress would like more input data to be
--             * provided.  However our complete input buffer is in
--             * memory and provided upfront so if avail_in is zero this
--             * actually indicates a truncated input.
--             */
--            DOMPRINTF("BZIP2: not enough input");
--            free(out_buf);
--            goto bzip2_cleanup;
--        }
-+    if ( stream.total_out_lo32 != outsize || stream.total_out_hi32 )
-+    {
-+        DOMPRINTF("BZIP2: got 0x%x%08x bytes instead of 0x%09x",
-+                  stream.total_out_hi32, stream.total_out_lo32, outsize);
-+        free(out_buf);
-+        goto bzip2_cleanup;
-     }
- 
--    total = (((uint64_t)stream.total_out_hi32) << 32) | stream.total_out_lo32;
-+    if ( stream.avail_in )
-+        DOMPRINTF("BZIP2: Warning: %#x unconsumed bytes", stream.avail_in);
- 
--    if ( xc_dom_register_external(dom, out_buf, total) )
-+    if ( xc_dom_register_external(dom, out_buf, outsize) )
-     {
-         DOMPRINTF("BZIP2: Error registering stream output");
-         free(out_buf);
-         goto bzip2_cleanup;
-     }
- 
--    DOMPRINTF("%s: BZIP2 decompress OK, 0x%zx -> 0x%lx",
--              __FUNCTION__, *size, (long unsigned int) total);
-+    DOMPRINTF("%s: BZIP2 decompress OK, 0x%zx -> 0x%x",
-+              __FUNCTION__, *size, outsize);
- 
-     *blob = out_buf;
--    *size = total;
-+    *size = outsize;
-+    retval = 0;
- 
-  bzip2_cleanup:
-     BZ2_bzDecompressEnd(&stream);
-@@ -205,22 +165,24 @@ static int _xc_try_lzma_decode(
-     lzma_ret ret;
-     lzma_action action = LZMA_RUN;
-     unsigned char *out_buf;
--    unsigned char *tmp_buf;
-     int retval = -1;
--    size_t outsize;
--    const char *msg;
-+    size_t insize, outsize;
- 
--    if ( dom->kernel_size == 0)
-+    if ( *size < 8 )
-     {
--        DOMPRINTF("%s: Input is 0 size", what);
--        return -1;
-+        DOMPRINTF("%s: insufficient input data", what);
-+        goto lzma_cleanup;
-+    }
-+
-+    insize = *size - 4;
-+    outsize = *(uint32_t *)(*blob + insize);
-+
-+    if ( xc_dom_kernel_check_size(dom, outsize) )
-+    {
-+        DOMPRINTF("%s: output too large", what);
-+        goto lzma_cleanup;
-     }
- 
--    /* sigh.  We don't know up-front how much memory we are going to need
--     * for the output buffer.  Allocate the output buffer to be equal
--     * the input buffer to start, and we'll realloc as needed.
--     */
--    outsize = dom->kernel_size;
-     out_buf = malloc(outsize);
-     if ( out_buf == NULL )
-     {
-@@ -229,92 +191,68 @@ static int _xc_try_lzma_decode(
-     }
- 
-     stream->next_in = dom->kernel_blob;
--    stream->avail_in = dom->kernel_size;
-+    stream->avail_in = insize;
- 
-     stream->next_out = out_buf;
--    stream->avail_out = dom->kernel_size;
-+    stream->avail_out = outsize;
- 
--    for ( ; ; )
-+    ret = lzma_code(stream, action);
-+    if ( ret == LZMA_STREAM_END )
-+        DOMPRINTF("%s: Saw data stream end", what);
-+    else if ( ret != LZMA_OK )
-     {
--        ret = lzma_code(stream, action);
--        if ( ret == LZMA_STREAM_END )
-+        const char *msg;
-+
-+        switch ( ret )
-         {
--            DOMPRINTF("%s: Saw data stream end", what);
--            retval = 0;
-+        case LZMA_MEM_ERROR:
-+            msg = strerror(ENOMEM);
-             break;
--        }
--        if ( ret != LZMA_OK )
--        {
--            switch ( ret )
--            {
--            case LZMA_MEM_ERROR:
--                msg = strerror(ENOMEM);
--                break;
- 
--            case LZMA_MEMLIMIT_ERROR:
--                msg = "Memory usage limit reached";
--                break;
-+        case LZMA_MEMLIMIT_ERROR:
-+            msg = "Memory usage limit reached";
-+            break;
- 
--            case LZMA_FORMAT_ERROR:
--                msg = "File format not recognized";
--                break;
-+        case LZMA_FORMAT_ERROR:
-+            msg = "File format not recognized";
-+            break;
- 
--            case LZMA_OPTIONS_ERROR:
--                // FIXME: Better message?
--                msg = "Unsupported compression options";
--                break;
-+        case LZMA_OPTIONS_ERROR:
-+            // FIXME: Better message?
-+            msg = "Unsupported compression options";
-+            break;
- 
--            case LZMA_DATA_ERROR:
--                msg = "File is corrupt";
--                break;
-+        case LZMA_DATA_ERROR:
-+            msg = "File is corrupt";
-+            break;
- 
--            case LZMA_BUF_ERROR:
--                msg = "Unexpected end of input";
--                break;
-+        case LZMA_BUF_ERROR:
-+            msg = "Unexpected end of input";
-+            break;
- 
--            default:
--                msg = "Internal program error (bug)";
--                break;
--            }
--            DOMPRINTF("%s: %s decompression error: %s",
--                      __FUNCTION__, what, msg);
--            free(out_buf);
--            goto lzma_cleanup;
-+         default:
-+            msg = "Internal program error (bug)";
-+            break;
-         }
- 
--        if ( stream->avail_out == 0 )
--        {
--            /* Protect against output buffer overflow */
--            if ( outsize > SIZE_MAX / 2 )
--            {
--                DOMPRINTF("%s: output buffer overflow", what);
--                free(out_buf);
--                goto lzma_cleanup;
--            }
--
--            if ( xc_dom_kernel_check_size(dom, outsize * 2) )
--            {
--                DOMPRINTF("%s: output too large", what);
--                free(out_buf);
--                goto lzma_cleanup;
--            }
--
--            tmp_buf = realloc(out_buf, outsize * 2);
--            if ( tmp_buf == NULL )
--            {
--                DOMPRINTF("%s: Failed to realloc memory", what);
--                free(out_buf);
--                goto lzma_cleanup;
--            }
--            out_buf = tmp_buf;
--
--            stream->next_out = out_buf + outsize;
--            stream->avail_out = (outsize * 2) - outsize;
--            outsize *= 2;
--        }
-+        DOMPRINTF("%s: %s decompression error: %s",
-+                  __FUNCTION__, what, msg);
-+        free(out_buf);
-+        goto lzma_cleanup;
-+    }
-+
-+    if ( stream->total_out != outsize )
-+    {
-+        DOMPRINTF("%s: got 0x%"PRIx64" bytes instead of 0x%zx",
-+                  what, stream->total_out, outsize);
-+        free(out_buf);
-+        goto lzma_cleanup;
-     }
- 
--    if ( xc_dom_register_external(dom, out_buf, stream->total_out) )
-+    if ( stream->avail_in )
-+        DOMPRINTF("%s: Warning: %#zx unconsumed bytes", what, stream->avail_in);
-+
-+    if ( xc_dom_register_external(dom, out_buf, outsize) )
-     {
-         DOMPRINTF("%s: Error registering stream output", what);
-         free(out_buf);
-@@ -322,10 +260,11 @@ static int _xc_try_lzma_decode(
-     }
- 
-     DOMPRINTF("%s: %s decompress OK, 0x%zx -> 0x%zx",
--              __FUNCTION__, what, *size, (size_t)stream->total_out);
-+              __FUNCTION__, what, *size, outsize);
- 
-     *blob = out_buf;
--    *size = stream->total_out;
-+    *size = outsize;
-+    retval = 0;
- 
-  lzma_cleanup:
-     lzma_end(stream);
-@@ -408,8 +347,8 @@ static int xc_try_lzo1x_decode(
- {
-     int ret;
-     const unsigned char *cur = dom->kernel_blob;
--    unsigned char *out_buf = NULL;
--    size_t left = dom->kernel_size, outsize;
-+    unsigned char *out_buf;
-+    size_t left = dom->kernel_size, outsize, outtot;
-     const char *msg;
-     unsigned version;
-     static const unsigned char magic[] = {
-@@ -435,6 +374,15 @@ static int xc_try_lzo1x_decode(
-         return -1;
-     }
- 
-+    left -= 4;
-+    outtot = *(uint32_t *)(*blob + left);
-+
-+    if ( xc_dom_kernel_check_size(dom, outtot) )
-+    {
-+        DOMPRINTF("LZO1x: output too large");
-+        return -1;
-+    }
-+
-     /* get version (2bytes), skip library version (2),
-      * 'need to be extracted' version (2) and method (1) */
-     version = lzo_read_16(cur + 9);
-@@ -471,10 +419,16 @@ static int xc_try_lzo1x_decode(
-     cur += ret;
-     left -= ret;
- 
-+    out_buf = malloc(outtot);
-+    if ( !out_buf )
-+    {
-+        DOMPRINTF("LZO1x: failed to alloc memory");
-+        return -1;
-+    }
-+
-     for ( outsize = 0; ; )
-     {
-         lzo_uint src_len, dst_len, out_len;
--        unsigned char *tmp_buf;
- 
-         msg = "Short input";
-         if ( left < 4 )
-@@ -483,6 +437,13 @@ static int xc_try_lzo1x_decode(
-         dst_len = lzo_read_32(cur);
-         if ( !dst_len )
-         {
-+            msg = "Unexpected output size";
-+            if ( outsize != outtot )
-+                break;
-+
-+            if ( left != 4 )
-+                DOMPRINTF("LZO1x: Warning: %#zx unconsumed bytes", left - 4);
-+
-             msg = "Error registering stream output";
-             if ( xc_dom_register_external(dom, out_buf, outsize) )
-                 break;
-@@ -514,19 +475,9 @@ static int xc_try_lzo1x_decode(
-             break;
- 
-         msg = "Output buffer overflow";
--        if ( outsize > SIZE_MAX - dst_len )
--            break;
--
--        msg = "Decompressed image too large";
--        if ( xc_dom_kernel_check_size(dom, outsize + dst_len) )
--            break;
--
--        msg = "Failed to (re)alloc memory";
--        tmp_buf = realloc(out_buf, outsize + dst_len);
--        if ( tmp_buf == NULL )
-+        if ( dst_len > outtot - outsize )
-             break;
- 
--        out_buf = tmp_buf;
-         out_len = dst_len;
- 
-         ret = lzo1x_decompress_safe(cur, src_len,
+I think, I agree.
+
+
+>
+> So I would like to keep our emulation simple and not rely on 
+> try_ioserv_fw() to always return true when call from completion 
+> (AFAICT it is not possible to return false then).
+
+
+So what you are proposing is just a replacement try_ioserv_fw() by 
+handle_ioserv() technically?
+
+
+diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+index 40b9e59..0508bd8 100644
+--- a/xen/arch/arm/ioreq.c
++++ b/xen/arch/arm/ioreq.c
+@@ -101,12 +101,10 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs 
+*regs,
+
+  bool arch_ioreq_complete_mmio(void)
+  {
+-    struct vcpu *v = current;
+      struct cpu_user_regs *regs = guest_cpu_user_regs();
+      const union hsr hsr = { .bits = regs->hsr };
+-    paddr_t addr = v->io.req.addr;
+
+-    if ( try_handle_mmio(regs, hsr, addr) == IO_HANDLED )
++    if ( handle_ioserv(regs, current) == IO_HANDLED )
+      {
+          advance_pc(regs, hsr);
+          return true;
+
+
+>
+> I will answer to the rest separately.
+
+Thank you.
+
+
+>
+> Cheers,
+>
+-- 
+Regards,
+
+Oleksandr Tyshchenko
 
 
