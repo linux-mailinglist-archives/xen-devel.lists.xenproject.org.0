@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8443C2FB541
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 11:22:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.70246.126004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29C5F2FB580
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 11:58:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.70256.126028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1o92-0006kW-Kn; Tue, 19 Jan 2021 10:21:52 +0000
+	id 1l1ohu-0001FM-OD; Tue, 19 Jan 2021 10:57:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 70246.126004; Tue, 19 Jan 2021 10:21:52 +0000
+Received: by outflank-mailman (output) from mailman id 70256.126028; Tue, 19 Jan 2021 10:57:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1o92-0006k7-HW; Tue, 19 Jan 2021 10:21:52 +0000
-Received: by outflank-mailman (input) for mailman id 70246;
- Tue, 19 Jan 2021 10:21:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l1ohu-0001Ew-Kj; Tue, 19 Jan 2021 10:57:54 +0000
+Received: by outflank-mailman (input) for mailman id 70256;
+ Tue, 19 Jan 2021 10:57:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jC7I=GW=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l1o91-0006k2-Ro
- for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 10:21:51 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cbf037e1-b2bc-4d27-8907-7db592b8d57e;
- Tue, 19 Jan 2021 10:21:50 +0000 (UTC)
+ id 1l1oht-0001Er-BL
+ for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 10:57:53 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5c5a55ee-f701-4724-96ea-15fa3ae4163e;
+ Tue, 19 Jan 2021 10:57:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,182 +35,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbf037e1-b2bc-4d27-8907-7db592b8d57e
+X-Inumbo-ID: 5c5a55ee-f701-4724-96ea-15fa3ae4163e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611051709;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=UFn2COXuBHxblLRGoZBsxxh6zIy1E1Z4KkjjEeYPCRs=;
-  b=Uo3EKQ7tdbm3v1tLV1ei/vbt8nM8+Lc2eYBBbcCLdwTB+PLgGhHpBHfz
-   4+R3e/M1VOvjkWrO4+gJKZMz9N7+fdnujtdOWgE1WQpVvhMmNa90FLj6G
-   F4lyEzqK0ZdjcEwFGK53wAyx7V3x7P88n/h05kSFeDiPkWLn2qV8v25Xx
-   Y=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: UF7WhgJgjWLU9lGOyA3tr2U4FskkHg1LRT2LTcBI2t8idR4pP4NOOu74oP8M8ZqwGlGYxFXXLK
- 9LpwqsILAKrivRJyQdM+z+E2aYd4JSd5LQtUZ7GT6N5kU6zQ0++iUGTbGhHq9lXphEW+6CY2/e
- akixllOzaaE2GYV2iDNO3uXvx5Mn8rr+TzqpXlbp9ZxSXYhNuedGixSLaZGSD5JYTx3sigQD0H
- O+5HRwH5jq6YhDhI15RWTDK50G9quYjnbzwFBzpcIAJZQax9/Tgyl+x1czgk8aaYI3tlcaHRBy
- ffQ=
+  d=citrix.com; s=securemail; t=1611053871;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=iK8jd78dLvu/tlu5XkqzG7D7XKHjR0HbANOJb7ps2lU=;
+  b=NMTxlp6PB1PSjbOu2+guUrDsz+m76fLqHZe8bb6z8QC11Kf68o3g1d3y
+   /WZbu74LwK8PeLHrpXOr3K04r/ks45oJs9R89tTNGJ+l6NeD2mu35sUwQ
+   ImzU9F84H4QyJh3oY0mq2wxY/2itB0nJM+nAYbvSUlJydXNLf1csaNG3W
+   U=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 17gTlZIbzd7sL/XiQMS2YLsvQwYSifJ8ZPENs3vQpr/YDxhW41rPOESsQo7WK4S7jSm3tFn9CZ
+ YEbhYsx1tQPE3EfgyM4gra+MPWyKQuBuJm1Fcqg7TdDIKD9GFq+J+7G15tyPcvr19U36q/52Hn
+ VvbjIXJxJ8Xtw9ktNbDiKDgiKvNIGP64cYfDcFejrtXMIqBiC5N3S9lNkiMjpt43hN76kViFCx
+ aaaToqGnETFhe3/JeOmPz1xnzASS+hi2Zmm2Ppm3c3uBLEAfH4n0J6xX5fpww9IB/pwQNnZohj
+ w8Y=
 X-SBRS: 5.2
-X-MesageID: 36650108
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 35343970
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,358,1602561600"; 
-   d="scan'208";a="36650108"
+   d="scan'208";a="35343970"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rx2qv89ObsXUVHxHuCpF06QAbyTzkNzxZcZGD5Lnw854gm+PaVHkuHKntc3aQR0J2fGzpsYB8+/SkfliPKh1s5Mvv9KRv9bh7VtPXf0T1og/OljE3hCakCulUkjVuv8AkhnaUeywOWJv7k1Vc0D3mQR8/2hYsvaVTc7HHhFTqMJYLyXfcD0hzu9gnlWTencZcskzJWPgLuPNGUftbxE+hry8irqAZOeZW9PPK1O2hOeUU0HAGsOLUnp0tZwBzFSWWw55mkf3fN1I9B9Ygz/DkgE9T450WyfGmCusVLRBo1pZkI+4oSFlf/1R5DcmnD161B0FOCvQO75a/G7qTEnmOw==
+ b=WUecLFIEM7JRqF/OltFpq8WsuLXn9YmlY0fBkkHUXmW3FaNlidkVOacLbXZ3X/RePEU0ETtnVo/uRITNsBp12PXpo7mHQxk3XOC75bZvQ6bCqRh2tg6z4rDzk+HLVRGusEkEdHuGua1/wnFTgIQXoJEJ4o2ou7+KNJL6YLYeyzXl1bs2PFRw+itB6kPdkB3WGlvFnJlPUE2ppPPoO9+knwJPrMy+ljv71KFx9+Lab3ovvtAYmMSQh6Tcst7MpLdG9FMatuyi1MyWw+hRaKTbDvPaJTW1qMRBU1C9B9HzDPpQ6muAa+A/Gcj5kO1uNEr9DU4Dc9aeO01Sp2z5fUt4NQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HFDSjVH+Td1ailRqBHdNwccecEOujYQNjO/T5gnFcuA=;
- b=FBFYmTkcqC76WPyz1HbSGlGTICeONN8o5QXoH/eckczuCZK0pEt5FXvRZS4aaKrA3H1TUlycNWf069diPf6gbxxSYr+COtrhUoibF3r1B/39LXDboaRE+pAlBJhln6e+1kFAWzt4fv03l+pGenuMT9YoOovpvcNxZBZeH6MxmDsVwjHtA2zX841BROMhxSrXNf4V+1w4UV3nS9KraXRZkKQ60uu8VxyH7dmJrL0em8z+EiG0+sJJvGTB7CuNWzu+3FWejIiaZTa4Iz1mkszJsPRQO/NrKb+sKGG8Ra2vbOKmYDO6GTr8jSPKyHzQrINQUfyb6/0K4guIFko34Wm5DA==
+ bh=oIvHd6W0GKH5u0ipSQVsqdGtbvGsnHygDlqsV8dlnEc=;
+ b=VKWS0KLlGoeaQ6IxvuM40N5GGuSRBv+YqNJaSY804zLxV01t/GIxmS3iSdZEAdiLP1qCDTTsV07GuLjFez1lVDm0eW34UNMynil1Os2GTT46i4lcXOXV+phVPYAz9dUzY2NYc4YHZ0KNnr7d3BvZpKwotD7t3tfDcJ9xGwcuktxAzOl4HhK+M3VEPj6CmyGGNK72RzuuCDhO22p5bu6QVoE97AeYiuiCT8dhZGfGS4Y2LfUHOx7XuB5duGiF2zidbzzzGogkfpLYleiR3gz0ZuSrIRNBr/UOObG1qCEJUegQzkZRLyBpAF4azSWHMTHDnLAhaDzoksN+j4mk/u20PQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HFDSjVH+Td1ailRqBHdNwccecEOujYQNjO/T5gnFcuA=;
- b=LcqvNk7YtJBlO6YDEx3oCPrOSUIIxVqUxXmjfdj5C6gd93yMVusUzIrXZAivzn5S96KrOi1LNdMPvmt729TMl/hozlhK07Z7zjfI9efBAAgmyEAMOPURd0Srbj4N9+71DoGhWUFP8l3ByCkmUXDpH/CYwk91hWKv/0z3C/5+syE=
-Date: Tue, 19 Jan 2021 11:21:39 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-CC: <linux-kernel@vger.kernel.org>, Arthur Borsboom
+ bh=oIvHd6W0GKH5u0ipSQVsqdGtbvGsnHygDlqsV8dlnEc=;
+ b=COHotLdSS007ho5YunbGa/rQ/sf+gihBHAK/GmHONnQNoxrpwtMixMKScm2qGBidF4rR6YJplGLGweWRmbrNdFYJKAKeVpXekYal+pjFJz+PkUe+2a3AzzZSj8JUDlhp3X2dbShCDzgeNEVaQXKy7iW2XQwZWQWzUxz7KVLPA8I=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <linux-kernel@vger.kernel.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Arthur Borsboom
 	<arthurborsboom@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Konrad Rzeszutek Wilk
-	<konrad.wilk@oracle.com>, Jens Axboe <axboe@kernel.dk>,
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Jens Axboe <axboe@kernel.dk>,
 	<xen-devel@lists.xenproject.org>, <linux-block@vger.kernel.org>
-Subject: Re: [PATCH] xen-blkfront: don't make discard-alignment mandatory
-Message-ID: <20210119102139.4zzfb2heytfsetmg@Air-de-Roger>
-References: <20210118151528.81668-1-roger.pau@citrix.com>
- <7cef385d-efe3-2661-bee2-9d21f159a5fb@suse.com>
- <20210119100651.afyccratx6ha52kc@Air-de-Roger>
- <20969962-331d-50d9-dc65-772b564ab1c6@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Subject: [PATCH v2] xen-blkfront: allow discard-* nodes to be optional
+Date: Tue, 19 Jan 2021 11:57:27 +0100
+Message-ID: <20210119105727.95173-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.29.2
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20969962-331d-50d9-dc65-772b564ab1c6@suse.com>
-X-ClientProxiedBy: AM5PR0502CA0005.eurprd05.prod.outlook.com
- (2603:10a6:203:91::15) To DS7PR03MB5608.namprd03.prod.outlook.com
+X-ClientProxiedBy: MR2P264CA0002.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:1::14) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fe5124b2-3780-43b4-6d17-08d8bc64053d
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2556:
-X-Microsoft-Antispam-PRVS: <DM5PR03MB2556C192659398F86176CE838FA30@DM5PR03MB2556.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
+X-MS-Office365-Filtering-Correlation-Id: 47ed5be3-976c-41f9-503c-08d8bc690ecc
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4297:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB429786D7C05D281605E074F38FA30@DM6PR03MB4297.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: C4mAq4zmzSLZ9qjAv3eZdlGG2pPLq5I4rosWhzIzjbXJ3sB28IsHvJsy7BHOfrCtVcO32WW52nJGbpk+xAEU66Uf5HGWpD1F3KTm5fGQ7Ae2bC78A4IoO5ZxY6niSjCP/Y8hCua3PHN5rRkHdTF3unV7P2eSY/6t+ZbF37PfQuT1K6OWmBjbbAYgWCwAC3ci2qDYV77czwH9oe/NeTMEaDM3DCmFrgmuq1VKk5JHRgJH0zNRwPkTAH7gK5sAN8wrcQ0d1lYE7um/P58u5sfqKNB7XgG/FWQUr0gUzEHsemQroQkl2IOHIP0WoJKCjCoCnnltVpS5YFAfUoEPPYBsonbxeWb/QLAMJwk+X8k9fTJGmG9tLTM7lxbEWfQqIOiMR6vjFsg7xjpV/pS1IFHAfQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(346002)(376002)(136003)(366004)(39860400002)(396003)(9686003)(5660300002)(1076003)(66574015)(66946007)(2906002)(6916009)(86362001)(6486002)(316002)(54906003)(83380400001)(478600001)(85182001)(53546011)(6496006)(26005)(8936002)(33716001)(66556008)(16526019)(956004)(186003)(8676002)(6666004)(4326008)(66476007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NTVla2NiQWxnYmZiY0VNbWhQYXpUR3h6SHZnN0J2QjhPTGs1dVNqNkxoY0x4?=
- =?utf-8?B?ckhaTTIzdUxIbWtPVUVlMktGcW0zS0JYWVJubFhZb2MyeUxIVHprRWpNaW1U?=
- =?utf-8?B?TnFaL1NkbjVKdUp4T0hvZ01VWnVSanJOUEFZV2JSd1VIYzN3OVpRSkw1Nzg3?=
- =?utf-8?B?QmFkdFNBOVIwVU1pVnZjcjZnVVBHd09TNzB3Rll0MHM2U1RtdC9Ya01EYTFV?=
- =?utf-8?B?U0V0SThLQ3lPSE5mbzRnWjhrM1kzd2NEbHBNeDVnM0Y0WFhvTGV0U0JYNEZl?=
- =?utf-8?B?M3c5WVM0dldJcnpuSnVKWDdMWXl3WVNXR0U0Sm5CWHQvY0RINVVvRHlyQ2FV?=
- =?utf-8?B?SzVOYmxjYjBZb2pKczF0VFhmNTZjSkdWc2RCZ2M4aUFlU2swL0RUcUttdVhV?=
- =?utf-8?B?NnBub2RZOS9MK2FmbnR6aTBHbUE3L28rY3VnY1RZdWIraWw0Z2NLUGdsZ1px?=
- =?utf-8?B?S2kwWk1Kb1FocTMvbzVQdFBmYjRKZ1NqQUYwbi9SQndnK1kwNzZsWHh0MWo1?=
- =?utf-8?B?ZVVLemVKc3pONlVBMzJrSndMY0poQnNUaHRNSXgzbFRhVkd3WWlxTUpOclpC?=
- =?utf-8?B?N1ZGRDI3ZDU4UjRjZ0poUUVXSUh4Z3h2QjZFcVU5ME16NUtJMzNkSEhjOEFt?=
- =?utf-8?B?Y2tuYlJiRm5OUDRiWHdTYkppZjFOVm5NYXprNmhzTkp4ZHZmM2gxSFc0bi8w?=
- =?utf-8?B?bVZPeWJWQkRJRVAzUHA3NVNJMSs2Y3VtZWZSN0NtTjFJeXNMNURUOE92WXRZ?=
- =?utf-8?B?bkxES3lDRG13ME90Ylk2QWpFNkZtVldBTjk2Vk4yWTlFc2pqMFB0eS8rWUF6?=
- =?utf-8?B?N2ZKQysreEkrRGRpWGNYTVE1Vy9uaDVtRnVDeGlaM0RKNXdaNlRVeG41Z3RF?=
- =?utf-8?B?UXVCVUR6a0J0VXd6ZWpVaVFMa3ZmUmNEUlVsZ0VXZk1kWnp5NHBYdUhIcVZr?=
- =?utf-8?B?ekZVL3QwbEJlTEd3bjJPaGpDTGFwdkdRT2FDa1NIdm5VOEFqUll4VEhxUDls?=
- =?utf-8?B?Tk9WSGdvOEluR0M1bVlzSXV2eGRjanhaOTdTZloyNXYrVG1sYzdsNnJJbWsy?=
- =?utf-8?B?TmRwdWVKcUQ3QUphcm5zcXZhZDZxb2lSS1ViaVNaRXVDU3k5MS9SaTBZNS9S?=
- =?utf-8?B?bDlMT1U2Y0pBUzdMb3NFcmNzZzhycE5jdzhHNGZmZ1VoWjVwcnVnNXAxaVI1?=
- =?utf-8?B?TzkyK2hHd0JUMnZEMkx1Q2M3SnZzdGx3UStZQUZXRFhIKzJUMkdBd0FseVZq?=
- =?utf-8?B?eEdUcytKVXM5NTliMm9BY3dpNUpMNDJCMm5hQTZzS3JNWDNqV3Q4Q2s4cU51?=
- =?utf-8?Q?yB/oMm4jzN06h2ckLlmMoHQlo9g/UkmbeR?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe5124b2-3780-43b4-6d17-08d8bc64053d
+X-Microsoft-Antispam-Message-Info: QnbNfng8Pir32hH70q69DetXY7T6rn31g6Q8GYMYa1LjX6BUYP2eOFepeMOKiCEABzU1yvb43kcKz3fQk9QDpksoCbD8uK7qqmu2P9/ZaTs9PVJ28g5lOnpXJ+v5/b55pnp4FXBDgga7+b8MZoqAOwuaLDKq3EfeKGR9BF0P6FIWuUbUND4vg1lVskQYClR7bqx1icoFq8jVuwuJy/2674O3ZLIFBVz/n4vVZifyRqn246uuM5ETXxsZDZzck/Hq9OEFozxfwODm44CzeExFKcec4OVTPbSnRq77BbeItuT/Smg/5AJlxm4toUpUHhvs0uOfbYK9V2t1hbkQ1yEsRZDJGThinQUKcgHZ7+J08e/fSfK9rszDgdT/FDY2QsnYDOdZQwo4nwJKtBASCgW//ayOFiObBUz77J1HdCH7XwxCiKnmJQ6WAfe9hfw4ZYKB
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(396003)(366004)(346002)(39860400002)(136003)(66556008)(956004)(316002)(54906003)(6666004)(36756003)(86362001)(6496006)(478600001)(1076003)(4326008)(66476007)(6486002)(6916009)(26005)(2616005)(16526019)(8936002)(66946007)(5660300002)(186003)(83380400001)(2906002)(8676002)(309714004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?L05hNjgyVkJXa0RIMlRGdTMrb0Vpd0E5TS92ZHZiUk9vZkc3RXhhaWNrdThT?=
+ =?utf-8?B?VGlpT0FQWXNjek4waExOYWxUdXJCdTl0MG9ZL1gxMGZ0U2FkWHhsVTRzRWFS?=
+ =?utf-8?B?VnBQd2hFUHd6TVVST3d4WFhZM1JGOHlmV0V4b3ZYWDA1dkpHbUJKSWl6WEdP?=
+ =?utf-8?B?RWkyVkdnbkF1Q2xqRFJPVVg2UTdjdWRKY2x3YnppTmplMm80ZkJLSWNjYWk0?=
+ =?utf-8?B?c2hUQWZTVGVZdUdmUEJ1WVlaRkFQUGNlb2JEMWo4blYxMFdobFpEVWtrcXVB?=
+ =?utf-8?B?eGJpTmJYbHAvVmZvZHVOYWZUbHpEb0Vha1BZUjJZaGFNTzgyYmtZU1ExUzg1?=
+ =?utf-8?B?SWVadDV1WXJWcEpzOTVhN1gzTmhnRjV2eG01dFcwTjlvRkkwcDlQQzJWK0lw?=
+ =?utf-8?B?MVRFSHBEZE5tWWtacSsxeFdjUUlxdEQ2MWRCd1JsekFFc2V0SWJvcnR3M1J0?=
+ =?utf-8?B?MmtZZGFBbmtZZ0JqclV6d3d4YnNQejVWaGJhdnNKbWduazdxaVNHOTFZVW5t?=
+ =?utf-8?B?cGJSUHgvTUtSZytvemFWUUlwaXA5NWx0WTBwK0huc0NXUXh3ZEp3c1FGOFJT?=
+ =?utf-8?B?UkFGSStXQlBjNVdWU2pDcDh5M1dFSDdjRTYvS0JYbThqZERKdmZSY1ZveCs4?=
+ =?utf-8?B?dzFFbzBvaUg4cDNCSG1jRDc4cFRHdWlicnRxbjlpa3MvbEZyVzZhajM5aGl4?=
+ =?utf-8?B?aGlTRW4xYUlZbytHY1ZOR1prUHNXcVU1WHpMQ2Yrc3l5WlVtUkxBRENXTG0r?=
+ =?utf-8?B?REg5aWV6VUVLVXJtcG0wZkFiUVVQUW9pNWYvVE5XTU9XOHlseGc3b0hNa0Nq?=
+ =?utf-8?B?cGVheHQ5S2o3OE05UnZPN21zNlpudVBpZ2pNTHNYbmlPWTBRSG41S3lTYmRU?=
+ =?utf-8?B?YTRWTU1nSkllNld4Y1pST3hWQUpyd0Q4SDBWYVVlSkROd0hmL01PZ1hlZHVy?=
+ =?utf-8?B?Q2dxaGNaNlNXbDZDT3ltYW5jS3BuUGtYZWwvRkF3bytORUtRRTdnKzJSSloz?=
+ =?utf-8?B?eHBpQnA4azVKb3l3UHhESWYyZUl4UDVhYUROUXhvMHJBNWtaUTIxMGNxdUNo?=
+ =?utf-8?B?TnN0YktaU1lQQmM2cTBYRGw3UTVxaVZ1WTNacThpL0I3QmNxSXh0ZERhK0Jv?=
+ =?utf-8?B?VVJJOTMwUzIxZVEwNTZtTTBtT1dPNUw2T2JKNUFjVVgyelpDdHB6NDdRR2Vy?=
+ =?utf-8?B?ekhFVnorUzZWdlFHcEJHczEwNFFXUzN6RTlFcHhzaUI4T3daYTU4WXFwNGhI?=
+ =?utf-8?B?cnJ3bUVGOUplT0dwQW1IaDV4WWJ0WERUZUswVzRGU0l6UFlXeFRUYWQ2SUdG?=
+ =?utf-8?Q?yAd9gP9tQogsroy/06eG+bI2JOvHx/duZ1?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47ed5be3-976c-41f9-503c-08d8bc690ecc
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2021 10:21:44.5131
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2021 10:57:48.1093
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1z/0kPgFywujPE9eeO7psHJUYh27LQiKKp79zaKRvfdmRvMEdI5nT5sv9GM/7w9iaKElBhfM4DLupKryRK6Guw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2556
+X-MS-Exchange-CrossTenant-UserPrincipalName: XnlxLvJ36lShVYXEbpUGCEkGPV+TCt99V04oQ2y8XPJbBhreZsMhMR8Utn7FEJorFIQ8ECU/wBbnSzdzc4Upow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4297
 X-OriginatorOrg: citrix.com
 
-On Tue, Jan 19, 2021 at 11:11:26AM +0100, Jürgen Groß wrote:
-> On 19.01.21 11:06, Roger Pau Monné wrote:
-> > On Tue, Jan 19, 2021 at 08:43:01AM +0100, Jürgen Groß wrote:
-> > > On 18.01.21 16:15, Roger Pau Monne wrote:
-> > > > Don't require the discard-alignment xenstore node to be present in
-> > > > order to correctly setup the feature. This can happen with versions of
-> > > > QEMU that only write the discard-granularity but not the
-> > > > discard-alignment node.
-> > > > 
-> > > > Assume discard-alignment is 0 if not present. While there also fix the
-> > > > logic to not enable the discard feature if discard-granularity is not
-> > > > present.
-> > > > 
-> > > > Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
-> > > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > > > ---
-> > > > Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> > > > Cc: Juergen Gross <jgross@suse.com>
-> > > > Cc: Stefano Stabellini <sstabellini@kernel.org>
-> > > > Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-> > > > Cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> > > > Cc: Jens Axboe <axboe@kernel.dk>
-> > > > Cc: xen-devel@lists.xenproject.org
-> > > > Cc: linux-block@vger.kernel.org
-> > > > Cc: Arthur Borsboom <arthurborsboom@gmail.com>
-> > > > ---
-> > > >    drivers/block/xen-blkfront.c | 25 +++++++++++++------------
-> > > >    1 file changed, 13 insertions(+), 12 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-> > > > index 5265975b3fba..5a93f7cc2939 100644
-> > > > --- a/drivers/block/xen-blkfront.c
-> > > > +++ b/drivers/block/xen-blkfront.c
-> > > > @@ -2179,22 +2179,23 @@ static void blkfront_closing(struct blkfront_info *info)
-> > > >    static void blkfront_setup_discard(struct blkfront_info *info)
-> > > >    {
-> > > > -	int err;
-> > > > -	unsigned int discard_granularity;
-> > > > -	unsigned int discard_alignment;
-> > > > +	unsigned int discard_granularity = 0;
-> > > > +	unsigned int discard_alignment = 0;
-> > > > +	unsigned int discard_secure = 0;
-> > > > -	info->feature_discard = 1;
-> > > > -	err = xenbus_gather(XBT_NIL, info->xbdev->otherend,
-> > > > +	xenbus_gather(XBT_NIL, info->xbdev->otherend,
-> > > >    		"discard-granularity", "%u", &discard_granularity,
-> > > >    		"discard-alignment", "%u", &discard_alignment,
-> > > > +		"discard-secure", "%u", &discard_secure,
-> > > >    		NULL);
-> > > 
-> > > This would mean that "discard-secure" will be evaluated only if the
-> > > other two items are set in Xenstore. From blkif.h I can't see this is
-> > > required, and your patch is modifying today's behavior in this regard.
-> > > 
-> > > You might want to have three xenbus_read_unsigned() calls instead.
-> > 
-> > You are right, discard-secure should be fetched regardless of whether
-> > discard-alignment exists.
-> > 
-> > I can fetch discard-granularity and discard-alignment using
-> > xenbus_gather and keep discard-secure using xenbus_read_unsigned. Let
-> > me send a new version.
-> 
-> I'm still not convinced this is correct. blkif.h doesn't mention that
-> discard-alignment will be valid only with discard-granularity being
-> present.
+This is inline with the specification described in blkif.h:
 
-No, in fact I think I need to rework this a little further. Just
-having feature-discard = 1 should enable the discard functionality, by
-setting discard-granularity = physical block size and
-discard-alignment = 0.
+ * discard-granularity: should be set to the physical block size if
+   node is not present.
+ * discard-alignment, discard-secure: should be set to 0 if node not
+   present.
 
-Roger.
+This was detected as QEMU would only create the discard-granularity
+node but not discard-alignment, and thus the setup done in
+blkfront_setup_discard would fail.
+
+Fix blkfront_setup_discard to not fail on missing nodes, and also fix
+blkif_set_queue_limits to set the discard granularity to the physical
+block size if none is specified in xenbus.
+
+Fixes: ed30bf317c5ce ('xen-blkfront: Handle discard requests.')
+Reported-by: Arthur Borsboom <arthurborsboom@gmail.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: xen-devel@lists.xenproject.org
+Cc: linux-block@vger.kernel.org
+Cc: Arthur Borsboom <arthurborsboom@gmail.com>
+---
+Changes since v2:
+ - Allow all discard-* nodes to be optional.
+---
+ drivers/block/xen-blkfront.c | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 5265975b3fba..e1c6798889f4 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -945,7 +945,8 @@ static void blkif_set_queue_limits(struct blkfront_info *info)
+ 	if (info->feature_discard) {
+ 		blk_queue_flag_set(QUEUE_FLAG_DISCARD, rq);
+ 		blk_queue_max_discard_sectors(rq, get_capacity(gd));
+-		rq->limits.discard_granularity = info->discard_granularity;
++		rq->limits.discard_granularity = info->discard_granularity ?:
++						 info->physical_sector_size;
+ 		rq->limits.discard_alignment = info->discard_alignment;
+ 		if (info->feature_secdiscard)
+ 			blk_queue_flag_set(QUEUE_FLAG_SECERASE, rq);
+@@ -2179,19 +2180,12 @@ static void blkfront_closing(struct blkfront_info *info)
+ 
+ static void blkfront_setup_discard(struct blkfront_info *info)
+ {
+-	int err;
+-	unsigned int discard_granularity;
+-	unsigned int discard_alignment;
+-
+ 	info->feature_discard = 1;
+-	err = xenbus_gather(XBT_NIL, info->xbdev->otherend,
+-		"discard-granularity", "%u", &discard_granularity,
+-		"discard-alignment", "%u", &discard_alignment,
+-		NULL);
+-	if (!err) {
+-		info->discard_granularity = discard_granularity;
+-		info->discard_alignment = discard_alignment;
+-	}
++	info->discard_granularity = xenbus_read_unsigned(info->xbdev->otherend,
++							 "discard-granularity",
++							 0);
++	info->discard_alignment = xenbus_read_unsigned(info->xbdev->otherend,
++						       "discard-alignment", 0);
+ 	info->feature_secdiscard =
+ 		!!xenbus_read_unsigned(info->xbdev->otherend, "discard-secure",
+ 				       0);
+-- 
+2.29.2
+
 
