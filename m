@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8442FBB05
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 16:23:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.70511.126576 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 825792FBB06
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jan 2021 16:23:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.70514.126588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1sqb-0005hX-Vx; Tue, 19 Jan 2021 15:23:09 +0000
+	id 1l1sqn-0005lU-8x; Tue, 19 Jan 2021 15:23:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 70511.126576; Tue, 19 Jan 2021 15:23:09 +0000
+Received: by outflank-mailman (output) from mailman id 70514.126588; Tue, 19 Jan 2021 15:23:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l1sqb-0005h7-SR; Tue, 19 Jan 2021 15:23:09 +0000
-Received: by outflank-mailman (input) for mailman id 70511;
- Tue, 19 Jan 2021 15:23:08 +0000
+	id 1l1sqn-0005l3-58; Tue, 19 Jan 2021 15:23:21 +0000
+Received: by outflank-mailman (input) for mailman id 70514;
+ Tue, 19 Jan 2021 15:23:19 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rdq3=GW=linuxfoundation.org=gregkh@srs-us1.protection.inumbo.net>)
- id 1l1sqa-0005h2-Lc
- for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 15:23:08 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=U8Ox=GW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l1sql-0005kg-PL
+ for xen-devel@lists.xenproject.org; Tue, 19 Jan 2021 15:23:19 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7966859b-2c65-4635-9330-8b64605bb0b9;
- Tue, 19 Jan 2021 15:23:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5392E22D2A;
- Tue, 19 Jan 2021 15:23:06 +0000 (UTC)
+ id bc5dc8b1-e56c-4ead-838c-fdc3358dc547;
+ Tue, 19 Jan 2021 15:23:18 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D0AE5B28A;
+ Tue, 19 Jan 2021 15:23:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,44 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7966859b-2c65-4635-9330-8b64605bb0b9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1611069786;
-	bh=pqyZ0jdGM2NW4JqDQHaY/YHHjqBTFdzRAExrriAwkf4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=E93roEyk0HlKAwPu8VnBBSpf9m7sK2vnrtivH4G7zrhcNzqWOCv5vJECButDO1tLe
-	 Km5YMNt5EO3+cnrS7Ydo2Qw32jytvvsI25+W5xRrnTweCo6GYrDDEgiIzcDAdwOBLO
-	 zWH0R/Qur3RBxtFnIFYxKJorEOZkbYMYssXaC4Lc=
-Date: Tue, 19 Jan 2021 16:23:04 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arthur Borsboom <arthurborsboom@gmail.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org
-Subject: Re: [PATCH v2] xen-blkfront: allow discard-* nodes to be optional
-Message-ID: <YAb5WHSglwumI77O@kroah.com>
-References: <20210119105727.95173-1-roger.pau@citrix.com>
- <20210119123622.zweul6uqfg54erj3@Air-de-Roger>
+X-Inumbo-ID: bc5dc8b1-e56c-4ead-838c-fdc3358dc547
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611069797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=01Lt0Kpnz73T941r2hiChhaTrHtArfRyEFTpPDpvP9w=;
+	b=U4NSLhUG4fImZYFaS7DYpLfqHl8Vn75/U8pOA/FY5i1uIc8Madkoz7j2TNq+OihoAQtAHv
+	s6cjTpykWMOYGcoQ+BKBfOmRIyjychaJ4V9MKYGFUJZiFqfFwklg6UKQBqXqbae0KtDPbx
+	BFNtCQRSWuV5Qxn5EsVDusq/5N64hbE=
+Subject: Re: [PATCH] xen/decompress: make helper symbols static
+To: Ian Jackson <iwj@xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <28f15465-bfcd-606b-eb24-42bfb990ae3d@suse.com>
+ <24581.45760.653861.613333@mariner.uk.xensource.com>
+ <9d77a189-de10-b4e2-c118-580121d797a9@suse.com>
+ <24582.62356.361386.407920@mariner.uk.xensource.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <88f6b446-21d0-ad94-c427-ebe0999b9358@suse.com>
+Date: Tue, 19 Jan 2021 16:23:17 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210119123622.zweul6uqfg54erj3@Air-de-Roger>
+In-Reply-To: <24582.62356.361386.407920@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 19, 2021 at 01:36:22PM +0100, Roger Pau Monné wrote:
-> Forgot to Cc stable for the Fixes tag. Doing it now.
+On 19.01.2021 15:58, Ian Jackson wrote:
+> Jan Beulich writes ("Re: [PATCH] xen/decompress: make helper symbols static"):
+>> On 18.01.2021 17:09, Ian Jackson wrote:
+>>> AFAICT, this patch
+>>>
+>>> * was first posted after the last posting date for Xen 4.15.
+>>> * is not a bugfix.
+>>>
+>>> In which case it has missed 4.15.
+>>>
+>>> Please correct me if you think I am wrong.
+>>
+>> You aren't, and I don't view this as a big problem - its more of
+>> an aid to be sure no bad (unintended) references exist (Arm's
+>> unhelpful re-use of xz's CRC32 function triggered the change).
+> 
+> Ah I see.  Thanks for that explanation.  Well, I might be inclined to
+> grant a freeze exception on the basis that the point of this is to
+> remove rather than add risk.
+> 
+> If you think that might be sensible, would you care to provide a frank
+> assessment of the risks to 4.15 of taking this patch, vs. the risks to
+> 4.15 of postponing it ?
 
-<formletter>
+Considering that we've been building fine without this adjustment,
+I don't think the risk of not taking the patch is non-negligible.
+The added safety is more for future work, to prevent anyone
+mistakenly using any of the so far globally available symbols.
+(There's actually more to do I think, in a separate patch, further
+reducing exposure of the just introduced zstd decompressor
+functions. I have this on my list of things to look into.)
 
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
+Taking the patch has a minimal risk of breaking the build, in
+case in some configuration a bad reference actually exists. I
+can't see any other risk, as the actual code doesn't get changed
+at all.
 
-</formletter>
+Jan
 
