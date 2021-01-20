@@ -2,30 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB4842FC6AD
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 02:28:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71185.127341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCBAA2FC6E3
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 02:37:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71196.127353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l22I9-0002R8-O7; Wed, 20 Jan 2021 01:28:13 +0000
+	id 1l22Qu-0003Zf-Mj; Wed, 20 Jan 2021 01:37:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71185.127341; Wed, 20 Jan 2021 01:28:13 +0000
+Received: by outflank-mailman (output) from mailman id 71196.127353; Wed, 20 Jan 2021 01:37:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l22I9-0002Ql-KX; Wed, 20 Jan 2021 01:28:13 +0000
-Received: by outflank-mailman (input) for mailman id 71185;
- Wed, 20 Jan 2021 01:28:11 +0000
+	id 1l22Qu-0003ZF-HB; Wed, 20 Jan 2021 01:37:16 +0000
+Received: by outflank-mailman (input) for mailman id 71196;
+ Wed, 20 Jan 2021 01:37:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AECs=GX=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1l22I7-0002QP-Ro
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 01:28:11 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F2v3=GX=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1l22Qs-0003ZA-Hm
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 01:37:14 +0000
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 00c4a390-a96d-432d-bec1-f643e0c5191e;
- Wed, 20 Jan 2021 01:28:11 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A39FE23447;
- Wed, 20 Jan 2021 01:28:09 +0000 (UTC)
+ id 9b6f5e44-8028-4e07-a77a-24c0c549eea9;
+ Wed, 20 Jan 2021 01:37:13 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10K1YEQb119873;
+ Wed, 20 Jan 2021 01:37:10 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by aserp2120.oracle.com with ESMTP id 3668qmrare-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 Jan 2021 01:37:10 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10K1UcVI006819;
+ Wed, 20 Jan 2021 01:35:10 GMT
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2108.outbound.protection.outlook.com [104.47.55.108])
+ by aserp3030.oracle.com with ESMTP id 3668qudaf7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 Jan 2021 01:35:10 +0000
+Received: from SA2PR10MB4572.namprd10.prod.outlook.com (2603:10b6:806:f9::18)
+ by SN6PR10MB2637.namprd10.prod.outlook.com (2603:10b6:805:44::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11; Wed, 20 Jan
+ 2021 01:35:07 +0000
+Received: from SA2PR10MB4572.namprd10.prod.outlook.com
+ ([fe80::4c5b:9cf:616d:b140]) by SA2PR10MB4572.namprd10.prod.outlook.com
+ ([fe80::4c5b:9cf:616d:b140%6]) with mapi id 15.20.3784.011; Wed, 20 Jan 2021
+ 01:35:07 +0000
+Received: from [10.74.103.107] (138.3.200.43) by
+ SN4PR0201CA0068.namprd02.prod.outlook.com (2603:10b6:803:20::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.10 via Frontend
+ Transport; Wed, 20 Jan 2021 01:35:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,283 +64,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00c4a390-a96d-432d-bec1-f643e0c5191e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611106090;
-	bh=DTDXBYAvLegemn4pqnV8Hz8yupUpTspWp1Tmm7EXYbQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bT+PXvjXeSRV947sqls/73HqtETgVe75XWphwXPVpn+Mryl5KekAKHKnU6JjJnvy6
-	 UrljeZfua6GPLVwfqkuI/MjRkOs5TSctbJOX/BCGiAj8VQG7pyLYODM9YeBE4j1Ao/
-	 zYJLSQkscIlrF2idRk9JEYzRHUacoFbVSRk7Rxg70gFWw6IpJRcyONfN2s+P5NEQdr
-	 UsJKKDsG9Sg1Ei3EtMtnWyMa/HGUu/bJW1pMV5ri5vjuTQ1OweDbInLn+ucc3IIBoK
-	 4//BRo/OLnIz3UGXbiJpOweibOJsWVaL/vB0hw3Xt81rHLSNpTqZL2k4vEPDjZhl+x
-	 MpszmbPZo57WQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: David Woodhouse <dwmw@amazon.co.uk>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH AUTOSEL 4.14 5/9] xen: Fix event channel callback via INTX/GSI
-Date: Tue, 19 Jan 2021 20:27:58 -0500
-Message-Id: <20210120012802.770525-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210120012802.770525-1-sashal@kernel.org>
-References: <20210120012802.770525-1-sashal@kernel.org>
+X-Inumbo-ID: 9b6f5e44-8028-4e07-a77a-24c0c549eea9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=58xQqYbiA3gFY1mH16yxiFLJL72Q8WqtkNLAmrNRloo=;
+ b=S5S5fqhvky1snrhXXyNlG4m1TiTyJYzvCvOrvSVgLEBALEgk4MFM2yhczOhR9rwA+JLY
+ qsJRS25O6F3czCOOdL4GrRfXY4qCddPEcy+7XAOCdvAzE8TV3bv8drpTVI9iZEr2B948
+ TqU9d04APPPbeCtSizlFVK3XbogTctpqpAGhvkiuEcIygTtmZd85rP94Kr+vM7Az6672
+ 5GKfiEOSGCfGAIDTnVSIeOpT5fR50wB+81wFeNHvDwN/YPg263RYTPNnDkpUhjCRUttn
+ qCCzeHc3QBa9cJauPvx7wZJJMUV/VFcCOdKjrXhqc7nFdSEVrIKoA5Z/MwkiMIbs0ivb UQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AZm9MPXEb3PJxIBH3WcGHTb8U+sqasLexU7KmYbUlBKwnvaxdU9saefMVTUfTD2gXit9Y2shkhp10w0d4WadfL5DLShgpYl1UpmaTTCC8azH0GUGHtEsWLbYJbK9RmalkF4zz0h6MTmwiAx5kKIAb8LoOf5X+lfNzu7AAtzF7iPrsqrFNjMSmsoyqgGFLUgafnfG9IwMurJScPRUxB0vy1XRzzTkmv5mBlLwUU+M1rk2Bu8M+GUjXnHp/K5vU/d3woM/DsAvsabFzKIbGARpNH2ozpnqStEiaJwMHAx900zKKS2e9oD4SYeLXbmfJxqFgGmI8+4o2NrwU6Ib/FBcuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=58xQqYbiA3gFY1mH16yxiFLJL72Q8WqtkNLAmrNRloo=;
+ b=DG2y7Mti6o22rLJNRkml2EgkprLqEaUf2Duh+ndN+cdoBOS+hK3gLfzsR5c5pqxFpl0b1IVQF50zm/OcmzXxTZpZglCoUo4DRfkTFMncUAZQ7Wf9Afr1GIcYEjq/QT2HKWkEhkQ40uwIXBKpkoMTGpeeVGtV/xMsb5+O6FkkWeZOi5DX1xd1rLtAvHOFIQkT+xnynb1nX8nEUyIJcjeUsMIbnYryuNN3cxIvKz2tpUvHzSF+F8Hr2BmcvCzqqT3NZC9I1JOA5/Tjk7+M6HW2MXJ4+lKnO4+p+m3cfKg0jPzUExUmOpOQ925agVuPZvxteBf7U9MbHPr89JMBBDzqwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=58xQqYbiA3gFY1mH16yxiFLJL72Q8WqtkNLAmrNRloo=;
+ b=LuM/XaQQgyhrjsi7tMoPHmVKwUovWXtlpSU0B6gC+LW8Ps1OgKpyVqOjYLRW3jOe6qjIPotUoOGKWRD8lsNW6wQq8UlmbCeuvaY0EVvic+SxK0ifoD94GUNWolEGivFHfqGllPxTV7oVyv0C+gQAblwyQUAbhtwKDIs6eJgAQeM=
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=oracle.com;
+Subject: Re: [PATCH AUTOSEL 5.10 26/45] x86/xen: Fix xen_hvm_smp_init() when
+ vector callback not available
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Cc: David Woodhouse <dwmw@amazon.co.uk>, Juergen Gross <jgross@suse.com>,
+        xen-devel@lists.xenproject.org
+References: <20210120012602.769683-1-sashal@kernel.org>
+ <20210120012602.769683-26-sashal@kernel.org>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <86c0baa1-f8c5-2580-6ee9-efc7043c2bf5@oracle.com>
+Date: Tue, 19 Jan 2021 20:35:04 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
+In-Reply-To: <20210120012602.769683-26-sashal@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [138.3.200.43]
+X-ClientProxiedBy: SN4PR0201CA0068.namprd02.prod.outlook.com
+ (2603:10b6:803:20::30) To SA2PR10MB4572.namprd10.prod.outlook.com
+ (2603:10b6:806:f9::18)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3b28f780-0e22-4742-3e00-08d8bce39e90
+X-MS-TrafficTypeDiagnostic: SN6PR10MB2637:
+X-Microsoft-Antispam-PRVS: 
+	<SN6PR10MB2637ADA77B9A4C4D36C8D9EB8AA20@SN6PR10MB2637.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:172;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	tsX4QwPYkGgJ6nlbBbMVgDuKXMd8l56H8aGPis4e5/Cp5RYWQ6nvlB/FeKm4DbEaXqh0Lnam656mdm4HQr7B3qoPFiJIHB6Xl9AR1Uk0qL25mKjtupsVm0pUZR+K1nEWBcT0epJ5tK0kIYsyiSLuE23aKaqHGw5twVNGI/Tiz2l5f2tY7qNlbdt2LtSwSE1OaEv8kU8kU2TtPYy/dkOVzDWrS2HdX8SDycGLLiMCF5PGiSTq5gchgXwBhPKOb1XpEYAJ23573DvHTD1E6FJE3vF09pShuKSMCjuB6O6MAalx6jFh7jlp8ImPm3vaQBuguq4gdHh4EcFxtFxAUfSYhh1MQH7inGqUd4hLpxSiTMJ1C4WahhKYn/Qom2KN+wLraA4FDqPri8ZxvVHtLNttaRDb3CB7yCU0LaH3oKBcQ4lPW6Wo5sIUqaSHYvRmX0MqJnsIo6v2ION5bqB/sOM5IGgNQgwM5QoG3NuHyQJ2DnHXkvWIivnroLvozNP+hQMHJKknsxgoGa8DRqClC1Jt8vhQ5swOYAHY+5XxYiMKH6uSe3kn00kx032+QUvRZ1m8
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR10MB4572.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(39860400002)(346002)(396003)(136003)(366004)(558084003)(478600001)(5660300002)(4326008)(44832011)(8936002)(6486002)(316002)(966005)(16576012)(31696002)(186003)(54906003)(2906002)(31686004)(36756003)(2616005)(16526019)(8676002)(66556008)(956004)(86362001)(66476007)(26005)(53546011)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 
+	=?utf-8?B?ZXdaMzM0MUZsbk9UeTRTclFteGFiN3B6bEl3RW9sR3hXaWdCL3dxaWFybE1D?=
+ =?utf-8?B?OHB5NTA3V3RDZ20xUzZweTZnbnRhQTE4djZCRnptWGQ2ckpRQTV1MGVXcW1r?=
+ =?utf-8?B?MTVYaDlyb29kWW50NjdhQ0VVMC9lYkJ1WFJKYmRha2hLOEhRbS9aRUY5UnlI?=
+ =?utf-8?B?anM4Q2pjTUtDNzQxYXJVd1poZjdrTGkwVnAvdUMyN3ZtdnlLQ1c5SnpWL2xq?=
+ =?utf-8?B?WU9PejZ1c2REakwxcVU5U2dYU0RSUjJyeFU3VFJWNzRraVRXZU5iNnNZbFdk?=
+ =?utf-8?B?cFNNYjJ2MGt5aFo1WU1oS2tEdS9yU1Nlb0JzazI2YWRTYm4rRzJla1dMS3dY?=
+ =?utf-8?B?aTdtY0NSamM5dm1PVURUSW9abW9ZejJPU0hyallhN3hrdnR1T0NpZGVhQlJi?=
+ =?utf-8?B?dytSdHlzaU5WcDV3YU9SOWJGU3dZWlVXZGhxWm5HTHhreU9nMHV1R1dCdEc5?=
+ =?utf-8?B?ZDB2eDBBMk9rdExLZGJyaGpNSU0xZkdveTF5cWltaTJSdVc1QUpSbnhrTjU0?=
+ =?utf-8?B?dUlNSUtNY1EyTHRJRVRtMjU4SzlXS1dKdUc1SFRLZ05GalFGN2IvcGZKcjM4?=
+ =?utf-8?B?RDhBeXBrbThRTWNNeGgyaTBzbTFjTFpuYlN5R3NqaXlIeEUvUll1RlRWc3pz?=
+ =?utf-8?B?ZjRkcmhoNjFMcGNhSnRoelVPVStCZi9XNzVtQ2RtN2VpOEpHTnNheEthOWtk?=
+ =?utf-8?B?WjBsd2did1BTQnRkNWNHK1NtaVYyRnJwMVMvZWJramEzZndqdkxMVEVQZ1Nv?=
+ =?utf-8?B?OElZZ3FDenpQRlRMMll0ZEgzb2IydGJvMjBnYktON2Rkdnh6YXJzbElMY3pu?=
+ =?utf-8?B?NFhaSjBjR3MwN1FDemJ0WVlwWG4xbHd4Ymp6ZU84bU9mNjB2TFVjUmI4ODZ1?=
+ =?utf-8?B?dDNWMzNLbGhZSlFSR29tcExyTEpVV3Y1YWRadnFMOEZhd3lpWThKTnppM1Nn?=
+ =?utf-8?B?YzlieXUxMkRWSzdhNGFic3VLWkJrckhlb1FKeEZnMDlTYi9QNFRBNHpRUDRw?=
+ =?utf-8?B?aDZkVG5vSjh6b2d1a3I0K3VLVXg5cDRKTVlNOWc0amxQQ1E0aGxOOVFqSmo4?=
+ =?utf-8?B?dzhCTWFyem00RHZkYVI3L3ZtWmdMRHFibFRtR0lLUitUU3NtSzNsajVRRVlj?=
+ =?utf-8?B?eEZmWHRwSXppN0Ntc0x4RTlSKytPWURFTFBpMFNTQS9mQ0s0Z2FzSDBuRFdW?=
+ =?utf-8?B?N0lNTklLMDkxRnBNT1Eza3JCOXFremhFNG8zMXkvNStoWm1Kc3oxZlIzOEdk?=
+ =?utf-8?B?TzdKa0daZE4rbFBwd3hBVW1uM0pqZmxWMGtVRVNPMWUxUXd0MHluekNGM3lZ?=
+ =?utf-8?B?bUVVQnRxWC9OWUlpME44NTdiQmtvRWRxL243dDdjYVEzMHdZZWJZTDZZSVJD?=
+ =?utf-8?B?dDE2U1dpN25lNHZ1WHF2STFxVi8vOVZ6Nnc0M1d4SFJweFBnYUNNNG5pbmQ0?=
+ =?utf-8?Q?JmyU1d2G?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b28f780-0e22-4742-3e00-08d8bce39e90
+X-MS-Exchange-CrossTenant-AuthSource: SA2PR10MB4572.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2021 01:35:07.8628
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bqMPrp6Q1qGbTYrg8ZcKTYkwQn708LXTFeYaB2Tu1sQSSsZYEVeZLP3hDJuA/0+nD+tafzTwCvESZZiiCjJbxhxVuC9aTAp32gTvt1dWWeU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR10MB2637
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9869 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 bulkscore=0
+ mlxlogscore=999 spamscore=0 suspectscore=0 malwarescore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101200005
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9869 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 priorityscore=1501
+ adultscore=0 impostorscore=0 mlxlogscore=999 spamscore=0 suspectscore=0
+ phishscore=0 clxscore=1031 bulkscore=0 mlxscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101200006
 
-From: David Woodhouse <dwmw@amazon.co.uk>
 
-[ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
+On 1/19/21 8:25 PM, Sasha Levin wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>
+> [ Upstream commit 3d7746bea92530e8695258a3cf3ddec7a135edd6 ]
 
-For a while, event channel notification via the PCI platform device
-has been broken, because we attempt to communicate with xenstore before
-we even have notifications working, with the xs_reset_watches() call
-in xs_init().
 
-We tend to get away with this on Xen versions below 4.0 because we avoid
-calling xs_reset_watches() anyway, because xenstore might not cope with
-reading a non-existent key. And newer Xen *does* have the vector
-callback support, so we rarely fall back to INTX/GSI delivery.
+Sasha, you will also want https://lore.kernel.org/lkml/20210115191123.27572-1-rdunlap@infradead.org/, it is sitting in Xen staging tree.
 
-To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
-startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
-case, deferring it to be called from xenbus_probe() in the XS_HVM case
-instead.
 
-Then fix up the invocation of xenbus_probe() to happen either from its
-device_initcall if the callback is available early enough, or when the
-callback is finally set up. This means that the hack of calling
-xenbus_probe() from a workqueue after the first interrupt, or directly
-from the PCI platform device setup, is no longer needed.
+-boris
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm/xen/enlighten.c          |  2 +-
- drivers/xen/events/events_base.c  | 10 ----
- drivers/xen/platform-pci.c        |  1 -
- drivers/xen/xenbus/xenbus.h       |  1 +
- drivers/xen/xenbus/xenbus_comms.c |  8 ---
- drivers/xen/xenbus/xenbus_probe.c | 81 +++++++++++++++++++++++++------
- include/xen/xenbus.h              |  2 +-
- 7 files changed, 70 insertions(+), 35 deletions(-)
 
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index ba7f4c8f5c3e4..e8e637c4f354d 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -393,7 +393,7 @@ static int __init xen_guest_init(void)
- 	}
- 	gnttab_init();
- 	if (!xen_initial_domain())
--		xenbus_probe(NULL);
-+		xenbus_probe();
- 
- 	/*
- 	 * Making sure board specific code will not set up ops for
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index aca8456752797..8c08c7d46d3d0 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -1987,16 +1987,6 @@ static struct irq_chip xen_percpu_chip __read_mostly = {
- 	.irq_ack		= ack_dynirq,
- };
- 
--int xen_set_callback_via(uint64_t via)
--{
--	struct xen_hvm_param a;
--	a.domid = DOMID_SELF;
--	a.index = HVM_PARAM_CALLBACK_IRQ;
--	a.value = via;
--	return HYPERVISOR_hvm_op(HVMOP_set_param, &a);
--}
--EXPORT_SYMBOL_GPL(xen_set_callback_via);
--
- #ifdef CONFIG_XEN_PVHVM
- /* Vector callbacks are better than PCI interrupts to receive event
-  * channel notifications because we can receive vector callbacks on any
-diff --git a/drivers/xen/platform-pci.c b/drivers/xen/platform-pci.c
-index 5d7dcad0b0a0d..4cec8146609ad 100644
---- a/drivers/xen/platform-pci.c
-+++ b/drivers/xen/platform-pci.c
-@@ -162,7 +162,6 @@ static int platform_pci_probe(struct pci_dev *pdev,
- 	ret = gnttab_init();
- 	if (ret)
- 		goto grant_out;
--	xenbus_probe(NULL);
- 	return 0;
- grant_out:
- 	gnttab_free_auto_xlat_frames();
-diff --git a/drivers/xen/xenbus/xenbus.h b/drivers/xen/xenbus/xenbus.h
-index 139539b0ab20d..e6a8d02d35254 100644
---- a/drivers/xen/xenbus/xenbus.h
-+++ b/drivers/xen/xenbus/xenbus.h
-@@ -114,6 +114,7 @@ int xenbus_probe_node(struct xen_bus_type *bus,
- 		      const char *type,
- 		      const char *nodename);
- int xenbus_probe_devices(struct xen_bus_type *bus);
-+void xenbus_probe(void);
- 
- void xenbus_dev_changed(const char *node, struct xen_bus_type *bus);
- 
-diff --git a/drivers/xen/xenbus/xenbus_comms.c b/drivers/xen/xenbus/xenbus_comms.c
-index eb5151fc8efab..e5fda0256feb3 100644
---- a/drivers/xen/xenbus/xenbus_comms.c
-+++ b/drivers/xen/xenbus/xenbus_comms.c
-@@ -57,16 +57,8 @@ DEFINE_MUTEX(xs_response_mutex);
- static int xenbus_irq;
- static struct task_struct *xenbus_task;
- 
--static DECLARE_WORK(probe_work, xenbus_probe);
--
--
- static irqreturn_t wake_waiting(int irq, void *unused)
- {
--	if (unlikely(xenstored_ready == 0)) {
--		xenstored_ready = 1;
--		schedule_work(&probe_work);
--	}
--
- 	wake_up(&xb_waitq);
- 	return IRQ_HANDLED;
- }
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index 217bcc092a968..fe24e8dcb2b8e 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -674,29 +674,76 @@ void unregister_xenstore_notifier(struct notifier_block *nb)
- }
- EXPORT_SYMBOL_GPL(unregister_xenstore_notifier);
- 
--void xenbus_probe(struct work_struct *unused)
-+void xenbus_probe(void)
- {
- 	xenstored_ready = 1;
- 
-+	/*
-+	 * In the HVM case, xenbus_init() deferred its call to
-+	 * xs_init() in case callbacks were not operational yet.
-+	 * So do it now.
-+	 */
-+	if (xen_store_domain_type == XS_HVM)
-+		xs_init();
-+
- 	/* Notify others that xenstore is up */
- 	blocking_notifier_call_chain(&xenstore_chain, 0, NULL);
- }
--EXPORT_SYMBOL_GPL(xenbus_probe);
- 
--static int __init xenbus_probe_initcall(void)
-+/*
-+ * Returns true when XenStore init must be deferred in order to
-+ * allow the PCI platform device to be initialised, before we
-+ * can actually have event channel interrupts working.
-+ */
-+static bool xs_hvm_defer_init_for_callback(void)
- {
--	if (!xen_domain())
--		return -ENODEV;
-+#ifdef CONFIG_XEN_PVHVM
-+	return xen_store_domain_type == XS_HVM &&
-+		!xen_have_vector_callback;
-+#else
-+	return false;
-+#endif
-+}
- 
--	if (xen_initial_domain() || xen_hvm_domain())
--		return 0;
-+static int __init xenbus_probe_initcall(void)
-+{
-+	/*
-+	 * Probe XenBus here in the XS_PV case, and also XS_HVM unless we
-+	 * need to wait for the platform PCI device to come up.
-+	 */
-+	if (xen_store_domain_type == XS_PV ||
-+	    (xen_store_domain_type == XS_HVM &&
-+	     !xs_hvm_defer_init_for_callback()))
-+		xenbus_probe();
- 
--	xenbus_probe(NULL);
- 	return 0;
- }
--
- device_initcall(xenbus_probe_initcall);
- 
-+int xen_set_callback_via(uint64_t via)
-+{
-+	struct xen_hvm_param a;
-+	int ret;
-+
-+	a.domid = DOMID_SELF;
-+	a.index = HVM_PARAM_CALLBACK_IRQ;
-+	a.value = via;
-+
-+	ret = HYPERVISOR_hvm_op(HVMOP_set_param, &a);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * If xenbus_probe_initcall() deferred the xenbus_probe()
-+	 * due to the callback not functioning yet, we can do it now.
-+	 */
-+	if (!xenstored_ready && xs_hvm_defer_init_for_callback())
-+		xenbus_probe();
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(xen_set_callback_via);
-+
- /* Set up event channel for xenstored which is run as a local process
-  * (this is normally used only in dom0)
-  */
-@@ -810,11 +857,17 @@ static int __init xenbus_init(void)
- 		break;
- 	}
- 
--	/* Initialize the interface to xenstore. */
--	err = xs_init();
--	if (err) {
--		pr_warn("Error initializing xenstore comms: %i\n", err);
--		goto out_error;
-+	/*
-+	 * HVM domains may not have a functional callback yet. In that
-+	 * case let xs_init() be called from xenbus_probe(), which will
-+	 * get invoked at an appropriate time.
-+	 */
-+	if (xen_store_domain_type != XS_HVM) {
-+		err = xs_init();
-+		if (err) {
-+			pr_warn("Error initializing xenstore comms: %i\n", err);
-+			goto out_error;
-+		}
- 	}
- 
- 	if ((xen_store_domain_type != XS_LOCAL) &&
-diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
-index eba01ab5a55e0..fe9a9fa2ebc45 100644
---- a/include/xen/xenbus.h
-+++ b/include/xen/xenbus.h
-@@ -187,7 +187,7 @@ void xs_suspend_cancel(void);
- 
- struct work_struct;
- 
--void xenbus_probe(struct work_struct *);
-+void xenbus_probe(void);
- 
- #define XENBUS_IS_ERR_READ(str) ({			\
- 	if (!IS_ERR(str) && strlen(str) == 0) {		\
--- 
-2.27.0
 
 
