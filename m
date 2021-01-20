@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 995372FCD19
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 10:04:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71277.127519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296EE2FCD38
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 10:12:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71282.127530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l29PV-0005Zw-Vx; Wed, 20 Jan 2021 09:04:17 +0000
+	id 1l29Wg-0006YL-Nm; Wed, 20 Jan 2021 09:11:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71277.127519; Wed, 20 Jan 2021 09:04:17 +0000
+Received: by outflank-mailman (output) from mailman id 71282.127530; Wed, 20 Jan 2021 09:11:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l29PV-0005ZX-SQ; Wed, 20 Jan 2021 09:04:17 +0000
-Received: by outflank-mailman (input) for mailman id 71277;
- Wed, 20 Jan 2021 09:04:16 +0000
+	id 1l29Wg-0006Xz-Kb; Wed, 20 Jan 2021 09:11:42 +0000
+Received: by outflank-mailman (input) for mailman id 71282;
+ Wed, 20 Jan 2021 09:11:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLlG=GX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l29PU-0005ZC-7g
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 09:04:16 +0000
+ id 1l29We-0006Xu-Fc
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 09:11:40 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e171988e-7d5c-4deb-952c-bea75df6849f;
- Wed, 20 Jan 2021 09:04:14 +0000 (UTC)
+ id 644164c2-ebdf-4154-9a46-d3053ba1d680;
+ Wed, 20 Jan 2021 09:11:39 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 12318AAAE;
- Wed, 20 Jan 2021 09:04:14 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 9B26DAAAE;
+ Wed, 20 Jan 2021 09:11:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,97 +38,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e171988e-7d5c-4deb-952c-bea75df6849f
+X-Inumbo-ID: 644164c2-ebdf-4154-9a46-d3053ba1d680
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611133454; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611133898; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=m/pRFPZ0uiySJH52Wp6OIffqMxmDbX8rGrJQkox0RzU=;
-	b=Dy0hDnqDfJUy21DxMCVPgtPSOw0xFbHb1P9OhYlD1CZ0OyAH8M+X8X659bYg6CiS4D76FY
-	aTMaox0ejqtNaUZS1bMZK6m0W15U9+axeVbqKihdiOwQ8BD7AA/FyTSdpOC2Ue/FxbYjFn
-	pnK7+iu1yV3C4PGjD0DTNOOlUhXQKXk=
-Subject: Re: [linux-5.4 bisection] complete test-amd64-amd64-dom0pvh-xl-intel
-To: xen-devel@lists.xenproject.org
-References: <E1l1vyr-00074y-8j@osstest.test-lab.xenproject.org>
-Cc: osstest service owner <osstest-admin@xenproject.org>,
+	bh=sfJnZU1jnrscntvQUch02z1b1riFO94uq2poCm5NGpo=;
+	b=MhngadF55yE/4B9lTIsSu0W819FOiu5JJ/YAmAG71BeNeRkM4/LlovUlCbbInqDEmo+nRh
+	xQ7Cz1MTrx54Q8uZgSbqjUnK8jI+i1xWErMZcuxlKkHdc5iz5tYg7fImpI+ovbmTwzyq+R
+	+WSie+XhEW/CBJjFQM+1EcRzQOQDIwU=
+Subject: Re: [PATCH 1/3] x86/smpboot: Re-position the call to tboot_wake_ap()
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Marek Kasiewicz <marek.kasiewicz@3mdeb.com>,
+ =?UTF-8?Q?Norbert_Kami=c5=84ski?= <norbert.kaminski@3mdeb.com>,
+ Michal Zygowski <michal.zygowski@3mdeb.com>, Piotr Krol
+ <piotr.krol@3mdeb.co>, Krystian Hebel <krystian.hebel@3mdeb.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Rich Persaud <persaur@gmail.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>
+References: <20210115231046.31785-1-andrew.cooper3@citrix.com>
+ <20210115231046.31785-2-andrew.cooper3@citrix.com>
+ <20210119143814.xtijb2ggz5yz5xvj@Air-de-Roger>
+ <46b505b8-7dbc-35da-f8e7-3329f0b69a44@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <dbd283e5-44d4-99b2-74a2-f725b6b1b8ce@suse.com>
-Date: Wed, 20 Jan 2021 10:04:13 +0100
+Message-ID: <961c9c23-3ca8-76fc-b4c6-d0f84ab2f6e3@suse.com>
+Date: Wed, 20 Jan 2021 10:11:37 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <E1l1vyr-00074y-8j@osstest.test-lab.xenproject.org>
+In-Reply-To: <46b505b8-7dbc-35da-f8e7-3329f0b69a44@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 19.01.2021 19:43, osstest service owner wrote:
-> branch xen-unstable
-> xenbranch xen-unstable
-> job test-amd64-amd64-dom0pvh-xl-intel
-> testid xen-boot
+On 19.01.2021 15:55, Andrew Cooper wrote:
+> On 19/01/2021 14:38, Roger Pau Monné wrote:
+>> On Fri, Jan 15, 2021 at 11:10:44PM +0000, Andrew Cooper wrote:
+>>> So all the moving parts are in one function.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>> CC: Wei Liu <wl@xen.org>
+>>> CC: Marek Kasiewicz <marek.kasiewicz@3mdeb.com>
+>>> CC: Norbert Kamiński <norbert.kaminski@3mdeb.com>
+>>> CC: Michal Zygowski <michal.zygowski@3mdeb.com>
+>>> CC: Piotr Krol <piotr.krol@3mdeb.co>
+>>> CC: Krystian Hebel <krystian.hebel@3mdeb.com>
+>>> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>> CC: Rich Persaud <persaur@gmail.com>
+>>> CC: Christopher Clark <christopher.w.clark@gmail.com>
+>>> ---
+>>>  xen/arch/x86/smpboot.c | 10 ++++++++--
+>>>  1 file changed, 8 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+>>> index 67e727cebd..9eca452ce1 100644
+>>> --- a/xen/arch/x86/smpboot.c
+>>> +++ b/xen/arch/x86/smpboot.c
+>>> @@ -426,6 +426,13 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
+>>>      int maxlvt, timeout, i;
+>>>  
+>>>      /*
+>>> +     * Some versions of tboot might be able to handle the entire wake sequence
+>>> +     * on our behalf.
+>>> +     */
+>>> +    if ( tboot_in_measured_env() && tboot_wake_ap(phys_apicid, start_eip) )
+>> I think you are missing a ! in front of tboot_wake_ap?
 > 
-> Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-> Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-> Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-> Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-> Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-> Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-> Tree: xen git://xenbits.xen.org/xen.git
+> Oh - so I am.  That function is totally backwards.
 > 
-> *** Found and reproduced problem changeset ***
-> 
->   Bug is in tree:  xen git://xenbits.xen.org/xen.git
->   Bug introduced:  0f7bcaf19f7c67ee8c07d1674b2bbb70f16c2d11
->   Bug not present: 04b090366ca59e8a75837c822df261a8d0bd1a30
->   Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/158526/
-> 
-> 
->   commit 0f7bcaf19f7c67ee8c07d1674b2bbb70f16c2d11
->   Author: Jan Beulich <jbeulich@suse.com>
->   Date:   Tue Jan 5 13:18:26 2021 +0100
->   
->       x86/vPCI: check address in vpci_msi_update()
->       
->       If the upper address bits don't match the interrupt delivery address
->       space window, entirely different behavior would need to be implemented.
->       Refuse such requests for the time being.
->       
->       Replace adjacent hard tabs while introducing MSI_ADDR_BASE_MASK.
->       
->       Signed-off-by: Jan Beulich <jbeulich@suse.com>
->       Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Fixed.
 
-Hmm, I'm puzzled. I see
+And then
 
-(XEN) irq.c:2812: dom0: -1:-1 already mapped to -640
-(XEN) vmsi.c:762:d0v0 0000:00:19.0: failed to map PIRQ: -16
-
-and
-
-(XEN) irq.c:2812: dom0: -1:-1 already mapped to -640
-(XEN) vmsi.c:762:d0v0 0000:03:00.0: failed to map PIRQ: -16
-(XEN) d0v0 0000:03:00.0: unable to enable entry 0: -16
-(XEN) irq.c:2812: dom0: -1:-1 already mapped to -640
-(XEN) vmsi.c:762:d0v0 0000:03:00.0: failed to map PIRQ: -16
-(XEN) d0v0 0000:03:00.0: unable to enable entry 1: -16
-(XEN) irq.c:2812: dom0: -1:-1 already mapped to -640
-(XEN) vmsi.c:762:d0v0 0000:03:00.0: failed to map PIRQ: -16
-(XEN) d0v0 0000:03:00.0: unable to enable entry 2: -16
-(XEN) irq.c:2812: dom0: -1:-1 already mapped to -640
-(XEN) vmsi.c:762:d0v0 0000:03:00.0: failed to map PIRQ: -16
-(XEN) d0v0 0000:03:00.0: unable to enable entry 3: -16
-(XEN) irq.c:2812: dom0: -1:-1 already mapped to -640
-(XEN) vmsi.c:762:d0v0 0000:03:00.0: failed to map PIRQ: -16
-(XEN) d0v0 0000:03:00.0: unable to enable entry 4: -16
-
-but I specifically do not see any instance of the debugging
-message that the supposedly offending commit added. Yet without
-any instance of that message I don't see how the change could
-make any difference to the behavior.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
