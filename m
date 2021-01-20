@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 617AD2FD5F9
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 17:48:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71609.128354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39C4B2FD5F8
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 17:48:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71611.128366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2GEc-0004Q4-R8; Wed, 20 Jan 2021 16:21:30 +0000
+	id 1l2GHp-0004aU-BZ; Wed, 20 Jan 2021 16:24:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71609.128354; Wed, 20 Jan 2021 16:21:30 +0000
+Received: by outflank-mailman (output) from mailman id 71611.128366; Wed, 20 Jan 2021 16:24:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2GEc-0004Pf-Ne; Wed, 20 Jan 2021 16:21:30 +0000
-Received: by outflank-mailman (input) for mailman id 71609;
- Wed, 20 Jan 2021 16:21:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l2GHp-0004a5-7N; Wed, 20 Jan 2021 16:24:49 +0000
+Received: by outflank-mailman (input) for mailman id 71611;
+ Wed, 20 Jan 2021 16:24:47 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLlG=GX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l2GEb-0004Pa-8J
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 16:21:29 +0000
+ id 1l2GHn-0004Zy-Gm
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 16:24:47 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 93f6bcf7-658f-42d7-81cb-f86044084aaf;
- Wed, 20 Jan 2021 16:21:28 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f8a4280a-9dfc-4ffb-9091-423a54649d90;
+ Wed, 20 Jan 2021 16:24:46 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9ABA2B805;
- Wed, 20 Jan 2021 16:21:27 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A7608AC7B;
+ Wed, 20 Jan 2021 16:24:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,70 +39,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93f6bcf7-658f-42d7-81cb-f86044084aaf
+X-Inumbo-ID: f8a4280a-9dfc-4ffb-9091-423a54649d90
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611159687; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611159885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JW55xmASWjRXetCJ9YiPD6Oh37dIkyG+xcdu/d/lBfU=;
-	b=mRyjyzFEcvd6RAfllAhSzdB8hy5MWqhDQycYQ8EFxyuzhsfXQo/vXBCzHtGgxC/usPPXic
-	vn6y7phMh0d0NQAnosyQtXVY0mXd5ofaA6WugO7lJP1+zvh/hBc0pCIrEqEu3cGHpeSwOB
-	6CFf2uJL4k3xDO8e1TWPhr1bUlAdK4s=
-Subject: Re: [PATCH V4 09/24] xen/ioreq: Make x86's IOREQ related dm-op
- handling common
+	bh=D0CAf3KXClyT+eprzcaZU37dvWypgpdYZrse+zqTfOg=;
+	b=Hq3KnsaRN4PGaZPjRoP13uKEEBiYLH7omZk8EUELcK7OjrP4B4IYQLtK9hZL/8pn1/cDNA
+	zTRYNkqvupq5xrNwOAnkkJIMkHSqZr9MJTNJKyuOPC/2lxO5ceDjNsJ2qRw0z4i0+2r/mu
+	E29nlo3uS8VddYx1vdkLM+fxapJFlus=
+Subject: Re: [PATCH V4 10/24] xen/ioreq: Move x86's io_completion/io_req
+ fields to struct vcpu
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Julien Grall <julien.grall@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
  <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
  Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
 References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-10-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-11-git-send-email-olekstysh@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <016657f8-371f-eba6-60ce-29741f0823b7@suse.com>
-Date: Wed, 20 Jan 2021 17:21:26 +0100
+Message-ID: <5c2cbbbe-080c-6fc6-94cf-d79e511e9aa6@suse.com>
+Date: Wed, 20 Jan 2021 17:24:45 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <1610488352-18494-10-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <1610488352-18494-11-git-send-email-olekstysh@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
 On 12.01.2021 22:52, Oleksandr Tyshchenko wrote:
-> From: Julien Grall <julien.grall@arm.com>
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> As a lot of x86 code can be re-used on Arm later on, this patch
-> moves the IOREQ related dm-op handling to the common code.
+> The IOREQ is a common feature now and these fields will be used
+> on Arm as is. Move them to common struct vcpu as a part of new
+> struct vcpu_io and drop duplicating "io" prefixes. Also move
+> enum hvm_io_completion to xen/sched.h and remove "hvm" prefixes.
 > 
-> The idea is to have the top level dm-op handling arch-specific
-> and call into ioreq_server_dm_op() for otherwise unhandled ops.
-> Pros:
-> - More natural than doing it other way around (top level dm-op
-> handling common).
-> - Leave compat_dm_op() in x86 code.
-> Cons:
-> - Code duplication. Both arches have to duplicate do_dm_op(), etc.
+> This patch completely removes layering violation in the common code.
 > 
-> Also update XSM code a bit to let dm-op be used on Arm.
-> 
-> This support is going to be used on Arm to be able run device
-> emulator outside of Xen hypervisor.
-> 
-> Signed-off-by: Julien Grall <julien.grall@arm.com>
 > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> CC: Julien Grall <julien.grall@arm.com>
 > [On Arm only]
 > Tested-by: Wei Chen <Wei.Chen@arm.com>
 
-Assuming the moved code is indeed just being moved (which is
-quite hard to ascertain by just looking at the diff),
-applicable parts
+Applicable parts
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
