@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD5212FDAE6
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 21:35:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71762.128779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDE292FDB1B
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 21:47:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71767.128791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2KCd-0006du-Md; Wed, 20 Jan 2021 20:35:43 +0000
+	id 1l2KO2-0007iv-Eu; Wed, 20 Jan 2021 20:47:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71762.128779; Wed, 20 Jan 2021 20:35:43 +0000
+Received: by outflank-mailman (output) from mailman id 71767.128791; Wed, 20 Jan 2021 20:47:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2KCd-0006dV-J7; Wed, 20 Jan 2021 20:35:43 +0000
-Received: by outflank-mailman (input) for mailman id 71762;
- Wed, 20 Jan 2021 20:35:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l2KO2-0007iW-BP; Wed, 20 Jan 2021 20:47:30 +0000
+Received: by outflank-mailman (input) for mailman id 71767;
+ Wed, 20 Jan 2021 20:47:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0VeX=GX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l2KCc-0006dP-BI
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 20:35:42 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6374a27c-e265-47e2-affb-3b17911f6ae4;
- Wed, 20 Jan 2021 20:35:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E7361233FC;
- Wed, 20 Jan 2021 20:35:39 +0000 (UTC)
+ <SRS0=vUnd=GX=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l2KO0-0007iR-NW
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 20:47:28 +0000
+Received: from mail-lj1-x22c.google.com (unknown [2a00:1450:4864:20::22c])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 010eb43d-fb27-4b2b-b36f-9162ad58d9eb;
+ Wed, 20 Jan 2021 20:47:27 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id x23so20352lji.7
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Jan 2021 12:47:27 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id j12sm291821lfc.99.2021.01.20.12.47.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Jan 2021 12:47:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,62 +41,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6374a27c-e265-47e2-affb-3b17911f6ae4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611174940;
-	bh=SaXBM97cW5QzJLYebR3DQBnLdnz8dM9embwkf5b6nEg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=V8QrYkvlOP0LWLMht1XEvXcpUs8uxyh3SKK53GkdBY0lXtOiEtT37rxafaTlkAJ6N
-	 VjtrrFKevyRwvxcKYrj/ddLLGLoGYlih2sCk52CIJaQQpVJzoHDtWdxWjEzX4F8iT0
-	 QdDTG0WkdjLX3cBSXc6tgQJPtkCj2O/TMUxOSmDl58GeM/m7gX9VNaxOKlkiOqjpqm
-	 eYZzH4k+mpiIPGWp8Is0WkIqW+LLBPL8Of6qT5Mow/ZYqNoVIR4nTncUCU/H4U3N8z
-	 Pzx4E4/MMQFLSmTDjVyy6joi6+OgVUED5b5En6gP52I0hFKgoRSj9o5B9i9BKo29QG
-	 m8vIyX3gkcqvw==
-Date: Wed, 20 Jan 2021 12:35:39 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Oleksandr <olekstysh@gmail.com>, xen-devel@lists.xenproject.org, 
-    Julien Grall <julien.grall@arm.com>, Ian Jackson <iwj@xenproject.org>, 
-    Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH V4 23/24] libxl: Introduce basic virtio-mmio support on
- Arm
-In-Reply-To: <58c9da23-ef6a-1d33-b2ec-30e3425da2f3@xen.org>
-Message-ID: <alpine.DEB.2.21.2101201234440.14528@sstabellini-ThinkPad-T480s>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-24-git-send-email-olekstysh@gmail.com> <25b62097-9ea9-31f3-0f8f-92a7f0d01d7c@xen.org> <51d44085-f178-3985-9324-da6494cd9d2e@gmail.com>
- <58c9da23-ef6a-1d33-b2ec-30e3425da2f3@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 010eb43d-fb27-4b2b-b36f-9162ad58d9eb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=yi0zr24d/5qGisNWcKFtTm01pNNqmX2xVtr7lDQl6CM=;
+        b=pkaC5VNMC0j7VNKA4CfZxz53hhoF8RWe96rn+P9S6l1nu2KnfBxvu2wxbEIMT9ieXJ
+         wmmbIhLwg2CdN0ncZewaSRJ7GDCQnY2R4Rhs53l/JAlq6tigx+Tmd6fbTgFM2Jvy2PfA
+         3ho94wqLdc4R0CzhBCX8oQkVNEtrktf/gg89A3mzNa/0pTjKWqhLjyUuxFA48hFr/nZT
+         Si/vzuLHKB4gFGHXFakEE1slbYa0tlTq1lo5O748Qqp3fF8LkmM5VAMjQkCT25rOWiKK
+         Z8LWC0JTQtMOL670B7HynqnPIGgMxOGXIHyYZY7zj5aMI7If/D3WKG/yHZUN1GBnP4de
+         gnrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=yi0zr24d/5qGisNWcKFtTm01pNNqmX2xVtr7lDQl6CM=;
+        b=GTSDY+QlTA3vRZUvfug+GFcNGLA/pLN/im/ocRDXZZ0MzF7bfsRxRwSbgBKnRgAvuB
+         KBEmLUKK2T1Tp3IvCgOYPwYl0XaSx1IX5ZObiZUF/PcwLlNkUNejD8kXAO7ZCqOsOVlX
+         plluD9QlZDlUIjFfnGAh3d/Pbj1xp7Q5m3DS9/89WqvtGY+kjw9IQQ+aPfbHUatGxs5/
+         oa6MRMCr98AjXskIv4RHQYi2UYV6TXdql4eBf+xfA30aJDPUJs9GJep5QNCfduxdxlbQ
+         TjTyRdUn/r34Gh32QeuJAO9n/Y5A6dzfli6HeNH62/I+jbfL+Y5+r4rRHpxSDhMYwAmO
+         EW7w==
+X-Gm-Message-State: AOAM530b6OJKd9tNpt8qYWJcCc1Q1jZ99kMJzVf592YxmoH1HGULhP2s
+	sUf+UaD4V1yAZmz7OpR1vsVOENjZbyjcCw==
+X-Google-Smtp-Source: ABdhPJxWZZV7r7XtpqHYg7pjLOI8TuBvf0esppicdoxPfrOy+zS5bwfFbxrrbDMtc2xUaPBSUdyuWQ==
+X-Received: by 2002:a2e:8e98:: with SMTP id z24mr5314531ljk.83.1611175646524;
+        Wed, 20 Jan 2021 12:47:26 -0800 (PST)
+Subject: Re: [PATCH V4 06/24] xen/ioreq: Make x86's
+ hvm_mmio_first(last)_byte() common
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-7-git-send-email-olekstysh@gmail.com>
+ <d3328d6c-a754-efc7-fe94-489dd5282878@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <4d81b9f4-0cb4-caf8-e16d-4a570c2d9e18@gmail.com>
+Date: Wed, 20 Jan 2021 22:47:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <d3328d6c-a754-efc7-fe94-489dd5282878@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On Wed, 20 Jan 2021, Julien Grall wrote:
-> > > > +#define GUEST_VIRTIO_MMIO_SIZE xen_mk_ullong(0x200)
-> > > 
-> > > AFAICT, the size of the virtio mmio region should be 0x100. So why is it
-> > > 0x200?
-> > 
-> > 
-> > I didn't find the total size requirement for the mmio region in virtio
-> > specification v1.1 (the size of control registers is indeed 0x100 and
-> > device-specific configuration registers starts at the offset 0x100, however
-> > it's size depends on the device and the driver).
-> > 
-> > kvmtool uses 0x200 [1], in some Linux device-trees we can see 0x200 [2]
-> > (however, device-tree bindings example has 0x100 [3]), so what would be the
-> > proper value for Xen code?
-> 
-> Hmm... I missed that fact. I would say we want to use the biggest size
-> possible so we can cover most of the devices.
-> 
-> Although, as you pointed out, this may not cover all the devices. So maybe we
-> want to allow the user to configure the size via xl.cfg for the one not
-> conforming with 0x200.
-> 
-> This could be implemented in the future. Stefano/Ian, what do you think?
 
-I agree it could be implemented in the future. For now, I would pick
-0x200.
+On 20.01.21 18:15, Jan Beulich wrote:
+
+Hi Jan
+
+> On 12.01.2021 22:52, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> The IOREQ is a common feature now and these helpers will be used
+>> on Arm as is. Move them to xen/ioreq.h and replace "hvm" prefixes
+>> with "ioreq".
+>>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> Reviewed-by: Paul Durrant <paul@xen.org>
+>> CC: Julien Grall <julien.grall@arm.com>
+>> [On Arm only]
+>> Tested-by: Wei Chen <Wei.Chen@arm.com>
+>>
+>> ---
+>> Please note, this is a split/cleanup/hardening of Julien's PoC:
+>> "Add support for Guest IO forwarding to a device emulator"
+>>
+>> Changes RFC -> V1:
+>>     - new patch
+>>
+>> Changes V1 -> V2:
+>>     - replace "hvm" prefix by "ioreq"
+>>
+>> Changes V2 -> V3:
+>>     - add Paul's R-b
+>>
+>> Changes V32 -> V4:
+>>     - add Jan's A-b
+> Did you?
+
+Oops, I didn't. I will add.
+
+
+>
+> Jan
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
