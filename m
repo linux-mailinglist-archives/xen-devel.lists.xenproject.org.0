@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2150C2FCCA0
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 09:23:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71252.127445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22A3B2FCCFE
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 09:56:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71261.127470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l28lK-0001Bs-W8; Wed, 20 Jan 2021 08:22:46 +0000
+	id 1l29I5-0004CJ-Sc; Wed, 20 Jan 2021 08:56:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71252.127445; Wed, 20 Jan 2021 08:22:46 +0000
+Received: by outflank-mailman (output) from mailman id 71261.127470; Wed, 20 Jan 2021 08:56:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l28lK-0001BY-Sz; Wed, 20 Jan 2021 08:22:46 +0000
-Received: by outflank-mailman (input) for mailman id 71252;
- Wed, 20 Jan 2021 08:22:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jLlG=GX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l28lI-0001BT-Py
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 08:22:44 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9d93247b-2ee4-4623-ab4f-b40d55608f79;
- Wed, 20 Jan 2021 08:22:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3D535B807;
- Wed, 20 Jan 2021 08:22:42 +0000 (UTC)
+	id 1l29I5-0004Bs-P3; Wed, 20 Jan 2021 08:56:37 +0000
+Received: by outflank-mailman (input) for mailman id 71261;
+ Wed, 20 Jan 2021 08:56:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=e+JE=GX=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
+ id 1l29I4-0004Bn-JX
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 08:56:36 +0000
+Received: from mail-ed1-x533.google.com (unknown [2a00:1450:4864:20::533])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id faa9334b-11c6-4931-8373-d3179579781f;
+ Wed, 20 Jan 2021 08:56:35 +0000 (UTC)
+Received: by mail-ed1-x533.google.com with SMTP id j13so520337edp.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Jan 2021 00:56:35 -0800 (PST)
+Received: from zen.linaroharston ([51.148.130.216])
+ by smtp.gmail.com with ESMTPSA id z22sm706765edb.88.2021.01.20.00.56.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Jan 2021 00:56:33 -0800 (PST)
+Received: from zen (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id AA3201FF7E;
+ Wed, 20 Jan 2021 08:56:32 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,77 +44,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d93247b-2ee4-4623-ab4f-b40d55608f79
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611130962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lHjEpTNzsFiFc8Xu/W1YqAEVvFDE+UGY4IcPVO0byPI=;
-	b=gxJCfomT+YIhyLLg7r2cB+wikhJN81U50cP71trhrNBZRi1OhW2NtfbIsaHAkcuO8I6qOU
-	/J1X68ZZhTeoT+cV9+AKIs3uekUxpVJSZt+mITcyhyqNSdjrFYpJRUJ2Pp2ao2CIrgkl2H
-	cjZw/pQ5D2nb6lVStU/pL9udjj0jjKE=
-Subject: Re: zstd compressed kernels
-To: Michael Young <m.a.young@durham.ac.uk>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <1abcd9d-428f-93d-b63d-996ef4592723@austen3.home>
- <71d36766-1258-0a79-02ff-d888a41e431e@citrix.com>
- <6edb6c99-4289-b991-c767-333e376ce66@austen3.home>
- <e500ee3a-01fb-ac1b-5ea2-47fd0f2a67db@suse.com>
- <ebca949a-719c-ad5a-37a1-d340f37b59d8@austen3.home>
- <52fba28b-9652-e4c1-88e1-e35e2645c72e@austen3.home>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <54fec3c2-06c4-9d26-75fa-9770a380c180@suse.com>
-Date: Wed, 20 Jan 2021 09:22:41 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: faa9334b-11c6-4931-8373-d3179579781f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=references:user-agent:from:to:cc:subject:date:in-reply-to
+         :message-id:mime-version:content-transfer-encoding;
+        bh=O7LZ1CyhGv9nOKRtBKA1vePKRSppKmv7791UCVLHNG8=;
+        b=ASK/Eo1SRlZN3h/6VrvtyZWxarariM2Q7jkcPYLjOFbsVdXcvrlqLroGLxuYXMrukK
+         sxsi8REZxDqEMj3Wwm9qi7N6jHaj+9vCFx0fjlnm6K0+EoxI5Br9b5MvFfAd9p3rSRmC
+         4+bYIffeaFldubq15q3tho7EuA0YSxlhjO4CWYobL6jJgeH+4bNpa+n0kUtpTlZJiXaB
+         hVqTmafsCSGOsSqMAe+qV3hpEA4Azf+130Xa423umYl1gRMh4T2LTBdC/tKo9bR1MyOr
+         iMH7vVzOvasSZtu9eyzvFGf23tOyktrK7iV0BtyWphEVX4Lp5PZgUgTRRjQ/TrU0fJpX
+         2mdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
+         :in-reply-to:message-id:mime-version:content-transfer-encoding;
+        bh=O7LZ1CyhGv9nOKRtBKA1vePKRSppKmv7791UCVLHNG8=;
+        b=I6+dqkC7cWi7K43a0pm4ZebxHylNbphc3fV107hXD/Ed0hX/MKOiw/9qwsyI1lweBa
+         MOAxEEm9wdenx7cYNzmF0/2qawGRyq75kXuWKsa8Weq2no5soY2LUU39t+epa1En/IhF
+         ir5Lc3Wrn0KzzidlGBoNSLQ+PcfePIO2eivbrUGG7jOeCR/6UfXo72arMwsaQjEl3KTt
+         FMZ6FA2zQ8j2xhRErcRNIEzKGSoEiYzfgMxIRR2lqSF487lX8ebUkIiHClc3xvos4fBS
+         LX++ONP2dR2ObCrJk0+gQiDvXcOYkY75h3JyFJ2tHDhhd0YgS+iJIHpqaLtSMZ0BZlY+
+         tMjg==
+X-Gm-Message-State: AOAM5300g63FUG4Nex3IuGAm82jgqC9Ng428gfE3rZ7vQ1nxRpLGgtkf
+	B4kcyhjBF5wFdtB6zJFBcHjHPw==
+X-Google-Smtp-Source: ABdhPJw4TY/ElD16elVTE7kyetDCaV0UYrAU2WK3Vfnja9er6+ksTgX9KgYwTR2n7dMfQA/oAIPVJg==
+X-Received: by 2002:a05:6402:306a:: with SMTP id bs10mr6557963edb.209.1611132994640;
+        Wed, 20 Jan 2021 00:56:34 -0800 (PST)
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-6-git-send-email-olekstysh@gmail.com>
+User-agent: mu4e 1.5.7; emacs 28.0.50
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Paul Durrant
+ <paul@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Roger Pau =?utf-8?Q?Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei
+ Liu <wl@xen.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Julien Grall <julien.grall@arm.com>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH V4 05/24] xen/ioreq: Make x86's
+ hvm_ioreq_needs_completion() common
+Date: Wed, 20 Jan 2021 08:48:09 +0000
+In-reply-to: <1610488352-18494-6-git-send-email-olekstysh@gmail.com>
+Message-ID: <87v9bst29r.fsf@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <52fba28b-9652-e4c1-88e1-e35e2645c72e@austen3.home>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 20.01.2021 00:10, Michael Young wrote:
-> I have been trying the "[PATCH v2 1/5] libxenguest: support zstd 
-> compressed kernel" patch, and (assuming I haven't broken anything trying 
-> to migrate it to 4.14) it fails with
-> 
-> onfigure: error: Package requirements (libzstd) were not met:
-> 
-> Package 'libzstd', required by 'virtual:world', not found
-> 
-> Consider adjusting the PKG_CONFIG_PATH environment variable if you
-> installed software in a non-standard prefix.
-> 
-> Alternatively, you may set the environment variables libzstd_CFLAGS
-> and libzstd_LIBS to avoid the need to call pkg-config.
-> See the pkg-config man page for more details.
-> configure: error: ./configure failed for tools
-> 
-> I didn't give it any zstd packages so I would expect this test to fail, 
 
-Hmm, maybe I either misunderstood the purpose of
-PKG_CHECK_MODULES(), or didn't use it correctly. The goal clearly
-is for there to be no failure, but simply a libxenguest without
-zstd decompression support. But I will admit I didn't try
-configuring on a system without libzstd; apparently I should have.
+Oleksandr Tyshchenko <olekstysh@gmail.com> writes:
 
-I specifically didn't want to use AC_CHECK_HEADER() / AC_CHECK_LIB()
-since pkg-config is - aiui - to help abstract the need to know where
-exactly to look for headers and libraries of a particular package,
-and libzstd comes with a libzstd.pc "out of the box". Cc-ing the
-tools maintainers in the hope they may know right away what my
-mistake here is.
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>
+> The IOREQ is a common feature now and this helper will be used
+> on Arm as is. Move it to xen/ioreq.h and remove "hvm" prefix.
+>
+> Although PIO handling on Arm is not introduced with the current series
+> (it will be implemented when we add support for vPCI), technically
+> the PIOs exist on Arm (however they are accessed the same way as MMIO)
+> and it would be better not to diverge now.
 
-> but I would have expected the build to continue and attempt to use the 
-> zstd code in the xen tree instead.
+I find this description a little confusing. When you say PIO do you mean
+using instructions like in/out on the x86? If so then AFAIK it's a
+legacy feature of x86 as everything I've come across since just does
+MMIO, including PCI.
 
-No, this - very specifically - is not the intention. This also isn't
-how things work for the other compression methods. The hypervisor
-code gets reused only for the stubdom build.
+The code changes look fine to me though:
 
-Jan
+Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+
+--=20
+Alex Benn=C3=A9e
 
