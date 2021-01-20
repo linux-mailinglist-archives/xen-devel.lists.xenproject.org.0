@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1148A2FD93A
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 20:15:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71722.128677 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D7AC2FDA01
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 20:48:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71726.128689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2IvL-0006Wy-Eq; Wed, 20 Jan 2021 19:13:47 +0000
+	id 1l2JSU-00014J-8c; Wed, 20 Jan 2021 19:48:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71722.128677; Wed, 20 Jan 2021 19:13:47 +0000
+Received: by outflank-mailman (output) from mailman id 71726.128689; Wed, 20 Jan 2021 19:48:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2IvL-0006WZ-Bf; Wed, 20 Jan 2021 19:13:47 +0000
-Received: by outflank-mailman (input) for mailman id 71722;
- Wed, 20 Jan 2021 19:13:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l2JSU-00013u-5A; Wed, 20 Jan 2021 19:48:02 +0000
+Received: by outflank-mailman (input) for mailman id 71726;
+ Wed, 20 Jan 2021 19:48:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=20gi=GX=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
- id 1l2IvK-0006WU-9V
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 19:13:46 +0000
-Received: from mail-lj1-x22f.google.com (unknown [2a00:1450:4864:20::22f])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6e744a44-c1ef-41b9-b594-485d9dd0220b;
- Wed, 20 Jan 2021 19:13:45 +0000 (UTC)
-Received: by mail-lj1-x22f.google.com with SMTP id n11so27390682lji.5
- for <xen-devel@lists.xenproject.org>; Wed, 20 Jan 2021 11:13:45 -0800 (PST)
+ <SRS0=0VeX=GX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l2JSS-00013p-Pm
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 19:48:00 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7f2b9aff-3010-415b-b879-93092415cf85;
+ Wed, 20 Jan 2021 19:47:59 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7D5C32343E;
+ Wed, 20 Jan 2021 19:47:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,116 +38,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e744a44-c1ef-41b9-b594-485d9dd0220b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=xr5s3QZlCbiEuZtgWbPLVUvC90Axdr3xTcAJO6SmkJE=;
-        b=Z5y74jl7Hhm1mLlxeMOk7j9XFDwTd58soP17HRRq0ec1Aevjho+oFnoEyopChsk6kn
-         5BAo/IUg404i0eI+tbTvhggvTJ4lnt49Un1nbsJaoJVskReIXsOGJbK1yipDJHk0nBUf
-         d9Ywi7vBQrp7MNp75c8oGUi50IZvUkpp1pozF2peyNcnJWearbgT7ctm09kM2ecItaFH
-         CfUfxjC+SXLkKtbmffdgA+WsJ9Xr9BagwnF0wRyeWpuleK9b0zrt1tsnHEkoPIs4pZMM
-         Ra0UIXegmzjuxvs4o5HYtyXzIntY7bGnmKvuT+LB0m+uRxnZsn6lz3NwHSANP/OHacG2
-         T6gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=xr5s3QZlCbiEuZtgWbPLVUvC90Axdr3xTcAJO6SmkJE=;
-        b=Q3QWzGFFUlqzM6kOT1FlooZBr7mugv/Wn1nEu/nnmBUngHotdNisBsFrseA8qk21sN
-         fGu1IMfXFb/hDx3dMZyGkGKomEii7/x2tJoW82Rs8QjzesvYtWjKAxe9+SEf66Tr0xjy
-         cdrvoB6FqkhKM/R2T6Q99A5I6oNM+8DM0Poc877HEZhVQ6x8pJXMwzHXmGFT8n8r3Sx/
-         TmFKXt9BxO9oITwH5k5DLrrkxTHZS6v4i9gk8flR1KaQ/lh1Gcm7f8WSbx//AETIeTbz
-         i5MRVTuyKVO8vWV6pUfHThdG9J97lnXD4hgjWXOl+F5LDNYp8hs3H6AdmcUVIHGLHIrZ
-         IUPg==
-X-Gm-Message-State: AOAM533/U0PMp49ILFf3uj+yGze44tnXMTV614+VMF7jKLhxi01DKAZP
-	js3FmTtC49ILjpMFtsiOkAjzDm07q00/mrvuAAGrB95V
-X-Google-Smtp-Source: ABdhPJxgxLv+AkhP2G0okW7894Dpltje8/7Znx+DnU5kMDIn6YVUW1c7ItrIe/tX1zqNDlc1jGZ+oJbo0cN68w8xUv8=
-X-Received: by 2002:a2e:888e:: with SMTP id k14mr5119879lji.285.1611170023660;
- Wed, 20 Jan 2021 11:13:43 -0800 (PST)
+X-Inumbo-ID: 7f2b9aff-3010-415b-b879-93092415cf85
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1611172078;
+	bh=Uylvc275ckLCMUtxiOO1wRpc255HDTMXtSu+n3eBEqE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=d9fPP0m7nmgaT1yz+k4uyMR1M6DwVvUsUpa6NBKCKfnusrrzvO6s/yeZTn1C2EELp
+	 Yxvlcjf7J7JBmj4r322C4NIxUZ5ClzU5wZy0GPZji9VsWywta5F382NbbnTPOy4VZR
+	 67VCziW+h+ATo5UYJYiNgz9/FctOlwSQP6RDs9WhVn0DhIKCXKzVBALRwxfSww+GVd
+	 0aUJQ/beatukiqVkGAkRgvEV2axtAsyqjq2Ue4pQrxe4GDXL4NAbMJvdhNk3vuV3Lo
+	 dHhDFXIS5P5lSVv2gPcWG7P8ZdFC5+8N/fIuinc4F9SeF1cU+F4FpQAL+bgVvnEdlw
+	 NE6Wld2ULSFGw==
+Date: Wed, 20 Jan 2021 11:47:57 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr <olekstysh@gmail.com>, xen-devel@lists.xenproject.org, 
+    Julien Grall <julien.grall@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
+ IOREQ/DM features
+In-Reply-To: <9c12c1a7-81e3-20e9-7419-a625f23e4c27@xen.org>
+Message-ID: <alpine.DEB.2.21.2101201147100.14528@sstabellini-ThinkPad-T480s>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-15-git-send-email-olekstysh@gmail.com> <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org> <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com> <06704224-bb57-c55e-a2ee-23032095e8ea@xen.org>
+ <e2dcc876-291f-1244-933c-179f97a84e07@gmail.com> <b79b07eb-02db-16bb-2d8b-a55b0c355dbb@xen.org> <a7b26b16-cdec-3734-284e-a907e3cc356c@gmail.com> <alpine.DEB.2.21.2101191626560.14528@sstabellini-ThinkPad-T480s>
+ <9c12c1a7-81e3-20e9-7419-a625f23e4c27@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-References: <20201019200318.103781-1-jandryuk@gmail.com>
-In-Reply-To: <20201019200318.103781-1-jandryuk@gmail.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 20 Jan 2021 14:13:32 -0500
-Message-ID: <CAKf6xptj7jRAc_q4XZdB5L4xiL3rgjZtzWcunbgZYnkt8c+Hcw@mail.gmail.com>
-Subject: Re: [PATCH] flask: label-pci: Allow specifying irq label
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; boundary="8323329-1388229174-1611172078=:14528"
 
-On Mon, Oct 19, 2020 at 4:03 PM Jason Andryuk <jandryuk@gmail.com> wrote:
->
-> IRQs can be shared, so uniquely labeling doesn't always work.  You run
-> into issues if you have domA_t allowed access to device_A_t and domB_t
-> to device_B_t.  The shared IRQ can only be labeled one of
-> device_A_t or device_B_t, and assignment of the second device fails
-> since domA_t doesn't have permission for device_B_t and vice versa.
->
-> Add the ability to specify an irq label to flask-label-pci.  A
-> shared_irq_t can then be used to for the PIRQ.  The default remains to
-> use the device label if an IRQ label isn't specified.
->
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> ---
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Hi,
+--8323329-1388229174-1611172078=:14528
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-This is useful to me and was posted before the 4.15 cut off.  Can it
-make it into the release?
+On Wed, 20 Jan 2021, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 20/01/2021 00:50, Stefano Stabellini wrote:
+> > On Tue, 19 Jan 2021, Oleksandr wrote:
+> > > diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+> > > index 40b9e59..0508bd8 100644
+> > > --- a/xen/arch/arm/ioreq.c
+> > > +++ b/xen/arch/arm/ioreq.c
+> > > @@ -101,12 +101,10 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs
+> > > *regs,
+> > > 
+> > >   bool arch_ioreq_complete_mmio(void)
+> > >   {
+> > > -    struct vcpu *v = current;
+> > >       struct cpu_user_regs *regs = guest_cpu_user_regs();
+> > >       const union hsr hsr = { .bits = regs->hsr };
+> > > -    paddr_t addr = v->io.req.addr;
+> > > 
+> > > -    if ( try_handle_mmio(regs, hsr, addr) == IO_HANDLED )
+> > > +    if ( handle_ioserv(regs, current) == IO_HANDLED )
+> > >       {
+> > >           advance_pc(regs, hsr);
+> > >           return true;
+> > 
+> > Yes, but I think we want to keep the check
+> > 
+> >      vio->req.state == STATE_IORESP_READY
+> > 
+> > So maybe (uncompiled, untested):
+> > 
+> >      if ( v->io.req.state != STATE_IORESP_READY )
+> >          return false;
+> 
+> Is it possible to reach this function with v->io.req.state !=
+> STATE_IORESP_READY? If not, then I would suggest to add an
+> ASSERT_UNREACHABLE() before the return.
 
-Thanks,
-Jason
-
-
->  tools/flask/utils/label-pci.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
->
-> diff --git a/tools/flask/utils/label-pci.c b/tools/flask/utils/label-pci.c
-> index 9ddb713cf4..897b772804 100644
-> --- a/tools/flask/utils/label-pci.c
-> +++ b/tools/flask/utils/label-pci.c
-> @@ -28,7 +28,7 @@
->
->  static void usage (int argCnt, char *argv[])
->  {
-> -       fprintf(stderr, "Usage: %s SBDF label\n", argv[0]);
-> +       fprintf(stderr, "Usage: %s SBDF label <irq_label>\n", argv[0]);
->         exit(1);
->  }
->
-> @@ -39,12 +39,19 @@ int main (int argCnt, char *argv[])
->         int seg, bus, dev, fn;
->         uint32_t sbdf;
->         uint64_t start, end, flags;
-> +       char *pirq_label;
->         char buf[1024];
->         FILE *f;
->
-> -       if (argCnt != 3)
-> +       if (argCnt < 3 || argCnt > 4)
->                 usage(argCnt, argv);
->
-> +       if (argCnt == 4) {
-> +           pirq_label = argv[3];
-> +       } else {
-> +           pirq_label = argv[2];
-> +       }
-> +
->         xch = xc_interface_open(0,0,0);
->         if ( !xch )
->         {
-> @@ -107,7 +114,7 @@ int main (int argCnt, char *argv[])
->         if (fscanf(f, "%" SCNu64, &start) != 1)
->                 start = 0;
->         if (start) {
-> -               ret = xc_flask_add_pirq(xch, start, argv[2]);
-> +               ret = xc_flask_add_pirq(xch, start, pirq_label);
->                 if (ret) {
->                         fprintf(stderr, "xc_flask_add_pirq %"PRIu64" failed: %d\n",
->                                         start, ret);
-> --
-> 2.26.2
->
+If I am reading the state machine right it should *not* be possible to
+get here with v->io.req.state != STATE_IORESP_READY, so yes,
+ASSERT_UNREACHABLE() would work.
+--8323329-1388229174-1611172078=:14528--
 
