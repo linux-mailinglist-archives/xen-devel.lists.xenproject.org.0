@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 958C22FCDDA
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 11:38:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71323.127624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD6BE2FCEB2
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 12:03:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71332.127636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2As4-0006Ts-Sz; Wed, 20 Jan 2021 10:37:52 +0000
+	id 1l2BGe-0000rk-0B; Wed, 20 Jan 2021 11:03:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71323.127624; Wed, 20 Jan 2021 10:37:52 +0000
+Received: by outflank-mailman (output) from mailman id 71332.127636; Wed, 20 Jan 2021 11:03:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2As4-0006TT-P6; Wed, 20 Jan 2021 10:37:52 +0000
-Received: by outflank-mailman (input) for mailman id 71323;
- Wed, 20 Jan 2021 10:37:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VxJk=GX=cert.pl=hubert.jasudowicz@srs-us1.protection.inumbo.net>)
- id 1l2As3-0006TO-3R
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 10:37:51 +0000
-Received: from mx.nask.net.pl (unknown [195.187.55.89])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e4a669c0-e734-4941-8da9-70009fd081cf;
- Wed, 20 Jan 2021 10:37:49 +0000 (UTC)
+	id 1l2BGd-0000rL-Sa; Wed, 20 Jan 2021 11:03:15 +0000
+Received: by outflank-mailman (input) for mailman id 71332;
+ Wed, 20 Jan 2021 11:03:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ukRc=GX=kroah.com=greg@srs-us1.protection.inumbo.net>)
+ id 1l2BGb-0000rG-TB
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 11:03:14 +0000
+Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9b8cebc7-db95-4b30-9889-57706037d7c0;
+ Wed, 20 Jan 2021 11:03:12 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id C9B285C00DC;
+ Wed, 20 Jan 2021 06:03:12 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Wed, 20 Jan 2021 06:03:12 -0500
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 53CBA240068;
+ Wed, 20 Jan 2021 06:03:12 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,96 +43,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4a669c0-e734-4941-8da9-70009fd081cf
-Date: Wed, 20 Jan 2021 11:37:36 +0100
-From: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	=?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-Subject: Re: [PATCH] x86/vmx: Remove IO bitmap from minimal VMX requirements
-Message-ID: <20210120103736.zclypjyuleg2u5in@arnold.localdomain>
-Mail-Followup-To: Jan Beulich <jbeulich@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	=?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
-References: <570e73b83c18cce4dbe4c70cc14b6df7c33f0502.1610720991.git.hubert.jasudowicz@cert.pl>
- <20210115144420.bcz7l52h2zs4ml34@Air-de-Roger>
- <5211cb4d-4a60-68eb-2c67-a16565e02f23@suse.com>
+X-Inumbo-ID: 9b8cebc7-db95-4b30-9889-57706037d7c0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
+	date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-transfer-encoding:in-reply-to; s=fm2; bh=n
+	j9c/dzz3CvjK9bcY8q4YjBxdvICEX+2nraw/Vl7viY=; b=M2GAtQ9RIhX8GN2p4
+	PIfFEM5zET2tdrkxXAnVYJPJuU6zeIjlkiRxwCmW7bkUONZdnsZE7KKzUYy8WxXW
+	TSpf5I3HXrk+13VdMwgUdXKBJDp0KtezheIH+lmvTPbnMlqSdXzkOl8Y5x8QFkgR
+	baov9nzv4MikEUjSGYVCmuj4eXDbjcNJoX4xOlLydIKh4opI6E3lAPoleNa4Xm3Q
+	LAL9YGPP1a9xj5poeZAsyqCsoCeOqwLXrKUXtpKlUNSaSDFkDGwX+0Qo5eaKPFo/
+	9rgjXV1HVba72zu2pSdlyDYMI9HvlElpif4LLhBDO5vTF8MV9E+9S/aRFcDMtZzD
+	AdOHw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-transfer-encoding:content-type
+	:date:from:in-reply-to:message-id:mime-version:references
+	:subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; bh=nj9c/dzz3CvjK9bcY8q4YjBxdvICEX+2nraw/Vl7v
+	iY=; b=X6stgKB9I9rjjf7Anj/aMbA1HBUeBKjbCiShZncv2u/WuuBuKsmvwGZys
+	Uzujs1Q8RWxlAJx6P9wxlMFzRGo51i4GD0opsuMTwt088PU0ijj1sW5UoHR3HzWK
+	ckZGOAJs3rRmdtLfYZMSqmW9Mt6ROLVwZ3553NFzNK8IR1LpxFoOseg6OSvMNZtA
+	p7OLu+bls0MNxc79uIOMLHXjdUAUfcWoxF24a6AiCXaS1D0K7Pu6CwsOZWTByRKZ
+	4t6O9LAYi1LjuktHLuLOuHat2fEXnW3DCYe+QobRdNpQEatD9GrXlvRy2UfzJL4b
+	KrHQ/gdYR2ItHls0JUHX+cHzhqnUQ==
+X-ME-Sender: <xms:8A0IYHEqYpsiFcMh-kQ25-gN9gLUaIUWOE9c3-ErMxPVVwnVnTG-5A>
+    <xme:8A0IYEW0D8EBo7Am1rUD65vByD6UOvtNkrjnHTqGcLUEDi78D5PS6cXf-rbLaJY1V
+    cc-CmGCS3DQvA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddvgddvhecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefirhgvghcu
+    mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpedvfffgue
+    eiuefhheevheetgfehvdefgeekfeevueejfeeftdetudetiefhheffvdenucffohhmrghi
+    nhepkhgvrhhnvghlrdhorhhgnecukfhppeekfedrkeeirdejgedrieegnecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghh
+    rdgtohhm
+X-ME-Proxy: <xmx:8A0IYJIXokwug8hlc4tvn17bqdcp56ttfw3I9xeyjrlUwF45JSd4cw>
+    <xmx:8A0IYFGhrN1j9r8cpQ4SQcxeU9YlnLvqawJgVogyJwY9D7WQfXJjxg>
+    <xmx:8A0IYNU5X6zDQ2YvdZb6gi95a7klx_PcvuPx19p3ajn61oQrVViWmQ>
+    <xmx:8A0IYAQd9jOflaE1lNmbleu7AJbejwa2_ADfX0Pa3Ah5EtGUFdZQEQ>
+Date: Wed, 20 Jan 2021 12:03:10 +0100
+From: Greg KH <greg@kroah.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: stable@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for <= 5.4] xen/privcmd: allow fetching resource sizes
+Message-ID: <YAgN7hlFe73mrBWE@kroah.com>
+References: <20210118140426.80458-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5211cb4d-4a60-68eb-2c67-a16565e02f23@suse.com>
+In-Reply-To: <20210118140426.80458-1-roger.pau@citrix.com>
 
-On 2021-01-19, Jan Beulich wrote:
-> On 15.01.2021 15:44, Roger Pau Monné wrote:
-> > On Fri, Jan 15, 2021 at 03:30:50PM +0100, Hubert Jasudowicz wrote:
-> >> This patch is a result of a downstream bug report[1]. Xen fails to
-> >> create a HVM domain while running under VMware Fusion 12.1.0 on
-> >> a modern Intel Core i9 CPU:
-> >>
-> >> (XEN) VMX: CPU0 has insufficient CPU-Based Exec Control (b5b9fffe; requires 2299968c)
-> >> (XEN) VMX: failed to initialise.
-> >>
-> >> It seems that Apple hypervisor API doesn't support this feature[2].
-> >>
-> >> Move this bit from minimal required features to optional.
-> >>
-> >> [1] https://github.com/CERT-Polska/drakvuf-sandbox/issues/418
-> >> [2] https://developer.apple.com/documentation/hypervisor/cpu_based_io_bitmaps
-> >>
-> >> Signed-off-by: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-> >> ---
-> >>  xen/arch/x86/hvm/vmx/vmcs.c        | 8 +++++---
-> >>  xen/include/asm-x86/hvm/vmx/vmcs.h | 2 ++
-> >>  2 files changed, 7 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-> >> index 164535f8f0..bad4d6e206 100644
-> >> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> >> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> >> @@ -276,10 +276,10 @@ static int vmx_init_vmcs_config(void)
-> >>             CPU_BASED_MONITOR_EXITING |
-> >>             CPU_BASED_MWAIT_EXITING |
-> >>             CPU_BASED_MOV_DR_EXITING |
-> >> -           CPU_BASED_ACTIVATE_IO_BITMAP |
-> >>             CPU_BASED_USE_TSC_OFFSETING |
-> >>             CPU_BASED_RDTSC_EXITING);
-> >>      opt = (CPU_BASED_ACTIVATE_MSR_BITMAP |
-> >> +           CPU_BASED_ACTIVATE_IO_BITMAP |
-> >>             CPU_BASED_TPR_SHADOW |
-> >>             CPU_BASED_MONITOR_TRAP_FLAG |
-> >>             CPU_BASED_ACTIVATE_SECONDARY_CONTROLS);
-> >> @@ -1168,8 +1168,10 @@ static int construct_vmcs(struct vcpu *v)
-> >>      }
-> >>  
-> >>      /* I/O access bitmap. */
-> >> -    __vmwrite(IO_BITMAP_A, __pa(d->arch.hvm.io_bitmap));
-> >> -    __vmwrite(IO_BITMAP_B, __pa(d->arch.hvm.io_bitmap) + PAGE_SIZE);
-> >> +    if ( cpu_has_vmx_io_bitmap ) {
-> >> +        __vmwrite(IO_BITMAP_A, __pa(d->arch.hvm.io_bitmap));
-> >> +        __vmwrite(IO_BITMAP_B, __pa(d->arch.hvm.io_bitmap) + PAGE_SIZE);
-> >> +    }
-> > 
-> > Maybe I'm missing something, but don't you need to expand
-> > EXIT_REASON_IO_INSTRUCTION in vmx_vmexit_handler when there's no IO
-> > bitmap support so that all the emulation is bypassed and the IO port
-> > access is replayed by Xen?
+On Mon, Jan 18, 2021 at 03:04:26PM +0100, Roger Pau Monne wrote:
+> commit ef3a575baf53571dc405ee4028e26f50856898e7 upstream
 > 
-> I think it's worse than this: I don't see us ever setting
-> "unconditional I/O exiting", which means guests would be allowed
-> access to all I/O ports. IOW I think that other bit needs setting
-> when I/O bitmaps can't be made use of.
+> Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num = 0 and
+> addr = 0 in order to fetch the size of a specific resource.
 > 
+> Add a shortcut to the default map resource path, since fetching the
+> size requires no address to be passed in, and thus no VMA to setup.
+> 
+> This is missing from the initial implementation, and causes issues
+> when mapping resources that don't have fixed or known sizes.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Reviewed-by: Juergen Gross <jgross@suse.com>
+> Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: stable@vger.kernel.org # >= 4.18
+> Link: https://lore.kernel.org/r/20210112115358.23346-1-roger.pau@citrix.com
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> Cc: xen-devel@lists.xenproject.org
+> ---
+>  drivers/xen/privcmd.c | 25 +++++++++++++++++++------
+>  1 file changed, 19 insertions(+), 6 deletions(-)
 
-Sure, I'll fix it and get back to you with a v2.
+Now queued up, thanks.
 
-Hubert Jasudowicz
+greg k-h
 
