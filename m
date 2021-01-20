@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7E812FD504
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 17:13:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71600.128330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EED22FD534
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 17:15:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71604.128342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2G5z-0003Fe-KQ; Wed, 20 Jan 2021 16:12:35 +0000
+	id 1l2G8s-0003Pz-6B; Wed, 20 Jan 2021 16:15:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71600.128330; Wed, 20 Jan 2021 16:12:35 +0000
+Received: by outflank-mailman (output) from mailman id 71604.128342; Wed, 20 Jan 2021 16:15:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2G5z-0003FF-Gb; Wed, 20 Jan 2021 16:12:35 +0000
-Received: by outflank-mailman (input) for mailman id 71600;
- Wed, 20 Jan 2021 16:12:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l2G8s-0003Pa-2S; Wed, 20 Jan 2021 16:15:34 +0000
+Received: by outflank-mailman (input) for mailman id 71604;
+ Wed, 20 Jan 2021 16:15:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l2G5y-0003FA-EF
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 16:12:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l2G5y-0004cV-CZ
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 16:12:34 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l2G5y-0006tV-9z
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 16:12:34 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1l2G5t-0006NG-K3; Wed, 20 Jan 2021 16:12:29 +0000
+ (envelope-from <SRS0=jLlG=GX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l2G8q-0003PV-R6
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 16:15:32 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4713b04c-9edd-4bd8-874c-1881b5151499;
+ Wed, 20 Jan 2021 16:15:32 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 269C7AB7F;
+ Wed, 20 Jan 2021 16:15:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,66 +38,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=t84CnhFfiLD0oe0QYgCF0JkdPs2eZ4zXdqAd21sg6O8=; b=wLsNzkzlsB0nGl8DuKbs5yJAa1
-	DLEq9+rHtRVM3QO/isStiVyQh5KmO3we4a7ASFbZQuk8wfseirwIy4lxrgS9+06cpEycBaCSOjEP5
-	Ke7Aw3EVQJud2d1pgi4sDYlrcqsImbHiNc5RFpm6NCziHGhNbhR+L2lRGNbewxyEhFvI=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 4713b04c-9edd-4bd8-874c-1881b5151499
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611159331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kWPe8TFUXyYQPci2ndQZhATyTbcQsQ97qvpBErLc1VQ=;
+	b=MTychSIDwgH2n+mU6HlSIr42EkoXvVPXWIeWsozK7qgwANXmY27mM2IQdYqOaR4IP51PT4
+	9SzYu/qHwgEgkmPO+hChkcb1f5eiZ8NsBQ8fXMZLg+qMmMB0x7mxqjwx6EMZ5iuYVPY+aK
+	ADKSqysCWts9t+Cojr/XWlzylnUgGgw=
+Subject: Re: [PATCH V4 06/24] xen/ioreq: Make x86's
+ hvm_mmio_first(last)_byte() common
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-7-git-send-email-olekstysh@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d3328d6c-a754-efc7-fe94-489dd5282878@suse.com>
+Date: Wed, 20 Jan 2021 17:15:30 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+In-Reply-To: <1610488352-18494-7-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Message-ID: <24584.22125.355284.48139@mariner.uk.xensource.com>
-Date: Wed, 20 Jan 2021 16:12:29 +0000
-To: Manuel Bouyer <bouyer@antioche.eu.org>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 05/24] Introduce locking functions for block device setup
- on NetBSD
-In-Reply-To: <20210120155900.GA5035@antioche.eu.org>
-References: <20201214163623.2127-1-bouyer@netbsd.org>
-	<20201214163623.2127-6-bouyer@netbsd.org>
-	<20201229112909.kprjtysxkg4p6y2i@Air-de-Roger>
-	<20210104102037.GA2005@antioche.eu.org>
-	<24584.18578.623201.789017@mariner.uk.xensource.com>
-	<20210120155900.GA5035@antioche.eu.org>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Manuel Bouyer writes ("Re: [PATCH 05/24] Introduce locking functions for block device setup on NetBSD"):
-> Yes, at last the stat call will need to be patched.
-> But it seems to rely on a linux-specific behavoir, which is that
-> /dev/stdin points to the real file on redirection:
-> >ls -l /dev/stdin /proc/self/fd/0 < /etc/passwd
-> lrwxrwxrwx 1 root   root      15 Apr 30  2019 /dev/stdin -> /proc/self/fd/0
-> lr-x------ 1 bouyer ita-iatos 64 Jan 20 16:54 /proc/self/fd/0 -> /etc/passwd
+On 12.01.2021 22:52, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> On NetBSD (and I guess other BSDs) this won't work, as /dev/stdin is a
-> specific device:
-> >ls -l /dev/stdin 
-> crw-rw-rw-  1 root  wheel  22, 0 Nov 15  2007 /dev/stdin
+> The IOREQ is a common feature now and these helpers will be used
+> on Arm as is. Move them to xen/ioreq.h and replace "hvm" prefixes
+> with "ioreq".
 > 
-> so stat -L will always return the same data. We can't use the same
-> protocol.
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Reviewed-by: Paul Durrant <paul@xen.org>
+> CC: Julien Grall <julien.grall@arm.com>
+> [On Arm only]
+> Tested-by: Wei Chen <Wei.Chen@arm.com>
+> 
+> ---
+> Please note, this is a split/cleanup/hardening of Julien's PoC:
+> "Add support for Guest IO forwarding to a device emulator"
+> 
+> Changes RFC -> V1:
+>    - new patch
+> 
+> Changes V1 -> V2:
+>    - replace "hvm" prefix by "ioreq"
+> 
+> Changes V2 -> V3:
+>    - add Paul's R-b
+> 
+> Changes V32 -> V4:
+>    - add Jan's A-b
 
-Ah.
+Did you?
 
-The manpage I am looking at says:
-
-     If no argument is given, stat displays information about the
-     file descriptor for standard input.
-
-Here NetBSD has a better command line API than Linux - Linux requires
-pratting about with /dev/stdin and NetBSD doesn't.  So I think
-where on Linux we have
-   stat .... /dev/stdin
-on NetBsd we can simply have
-   stat ....
-with no filename argument.
-
-I think NetBSD's stat(1) also takes different argumnts to specify the
-format.  NetBSD uses -f, whereas Linux uses -c.  So the exact rune
-will have to be different.
-
-Ian.
+Jan
 
