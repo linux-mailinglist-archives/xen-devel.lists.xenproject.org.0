@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1500E2FC69F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 02:28:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71183.127330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB4842FC6AD
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 02:28:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71185.127341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l22Ht-0002Kq-Ed; Wed, 20 Jan 2021 01:27:57 +0000
+	id 1l22I9-0002R8-O7; Wed, 20 Jan 2021 01:28:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71183.127330; Wed, 20 Jan 2021 01:27:57 +0000
+Received: by outflank-mailman (output) from mailman id 71185.127341; Wed, 20 Jan 2021 01:28:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l22Ht-0002KP-Aw; Wed, 20 Jan 2021 01:27:57 +0000
-Received: by outflank-mailman (input) for mailman id 71183;
- Wed, 20 Jan 2021 01:27:55 +0000
+	id 1l22I9-0002Ql-KX; Wed, 20 Jan 2021 01:28:13 +0000
+Received: by outflank-mailman (input) for mailman id 71185;
+ Wed, 20 Jan 2021 01:28:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AECs=GX=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1l22Hr-0002K8-Pe
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 01:27:55 +0000
+ id 1l22I7-0002QP-Ro
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 01:28:11 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 316ada7c-0d4c-4912-83d9-f2823296013b;
- Wed, 20 Jan 2021 01:27:55 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7B404233EB;
- Wed, 20 Jan 2021 01:27:53 +0000 (UTC)
+ id 00c4a390-a96d-432d-bec1-f643e0c5191e;
+ Wed, 20 Jan 2021 01:28:11 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A39FE23447;
+ Wed, 20 Jan 2021 01:28:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,17 +37,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 316ada7c-0d4c-4912-83d9-f2823296013b
+X-Inumbo-ID: 00c4a390-a96d-432d-bec1-f643e0c5191e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611106074;
-	bh=Ig8moJu33pnUjzGkeAFtZIUhRO1QCYANqkOw5Nf1+6Q=;
+	s=k20201202; t=1611106090;
+	bh=DTDXBYAvLegemn4pqnV8Hz8yupUpTspWp1Tmm7EXYbQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gsc5FwyfY47GLopgRfoymDTbsRkg50lpGu8CDTa6Kd7zhbmzXstel1QPkQ5bVwCN5
-	 pg5sBgE3wSosW043T+q87W2gvKqDEAA5iB7I+67z988sOFSAaGzgrUFPw9jox/if7c
-	 xPkkE9eiwn0us8PR9Nl8Y9sedIQFX97nkEubwJbLLCdN3P/VOSbp2vws05A/WGFPhJ
-	 +PSO3Bws0BTpXIG06Do9WE7QXvw6g52l88vLAr4UWJn8umB7WaS7UWoD6EFZIqsAEg
-	 Up5y18jVp8/6a8SJp2fHjCHGInuCzBtI/FEGbZJIcqKKxrPUb88KEAjfsyVK9zvKuc
-	 oIdyLcso4SjMg==
+	b=bT+PXvjXeSRV947sqls/73HqtETgVe75XWphwXPVpn+Mryl5KekAKHKnU6JjJnvy6
+	 UrljeZfua6GPLVwfqkuI/MjRkOs5TSctbJOX/BCGiAj8VQG7pyLYODM9YeBE4j1Ao/
+	 zYJLSQkscIlrF2idRk9JEYzRHUacoFbVSRk7Rxg70gFWw6IpJRcyONfN2s+P5NEQdr
+	 UsJKKDsG9Sg1Ei3EtMtnWyMa/HGUu/bJW1pMV5ri5vjuTQ1OweDbInLn+ucc3IIBoK
+	 4//BRo/OLnIz3UGXbiJpOweibOJsWVaL/vB0hw3Xt81rHLSNpTqZL2k4vEPDjZhl+x
+	 MpszmbPZo57WQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -57,12 +57,12 @@ Cc: David Woodhouse <dwmw@amazon.co.uk>,
 	Sasha Levin <sashal@kernel.org>,
 	xen-devel@lists.xenproject.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH AUTOSEL 4.19 09/15] xen: Fix event channel callback via INTX/GSI
-Date: Tue, 19 Jan 2021 20:27:34 -0500
-Message-Id: <20210120012740.770354-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 5/9] xen: Fix event channel callback via INTX/GSI
+Date: Tue, 19 Jan 2021 20:27:58 -0500
+Message-Id: <20210120012802.770525-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210120012740.770354-1-sashal@kernel.org>
-References: <20210120012740.770354-1-sashal@kernel.org>
+In-Reply-To: <20210120012802.770525-1-sashal@kernel.org>
+References: <20210120012802.770525-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -109,10 +109,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  7 files changed, 70 insertions(+), 35 deletions(-)
 
 diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index 07060e5b58641..8aa901e20ca8e 100644
+index ba7f4c8f5c3e4..e8e637c4f354d 100644
 --- a/arch/arm/xen/enlighten.c
 +++ b/arch/arm/xen/enlighten.c
-@@ -405,7 +405,7 @@ static int __init xen_guest_init(void)
+@@ -393,7 +393,7 @@ static int __init xen_guest_init(void)
  	}
  	gnttab_init();
  	if (!xen_initial_domain())
@@ -155,10 +155,10 @@ index 5d7dcad0b0a0d..4cec8146609ad 100644
  grant_out:
  	gnttab_free_auto_xlat_frames();
 diff --git a/drivers/xen/xenbus/xenbus.h b/drivers/xen/xenbus/xenbus.h
-index 88516a8a9f932..a9bb5f91082d3 100644
+index 139539b0ab20d..e6a8d02d35254 100644
 --- a/drivers/xen/xenbus/xenbus.h
 +++ b/drivers/xen/xenbus/xenbus.h
-@@ -115,6 +115,7 @@ int xenbus_probe_node(struct xen_bus_type *bus,
+@@ -114,6 +114,7 @@ int xenbus_probe_node(struct xen_bus_type *bus,
  		      const char *type,
  		      const char *nodename);
  int xenbus_probe_devices(struct xen_bus_type *bus);
@@ -188,10 +188,10 @@ index eb5151fc8efab..e5fda0256feb3 100644
  	return IRQ_HANDLED;
  }
 diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index e6d0903459e11..14ccf13ab8fa1 100644
+index 217bcc092a968..fe24e8dcb2b8e 100644
 --- a/drivers/xen/xenbus/xenbus_probe.c
 +++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -683,29 +683,76 @@ void unregister_xenstore_notifier(struct notifier_block *nb)
+@@ -674,29 +674,76 @@ void unregister_xenstore_notifier(struct notifier_block *nb)
  }
  EXPORT_SYMBOL_GPL(unregister_xenstore_notifier);
  
@@ -277,7 +277,7 @@ index e6d0903459e11..14ccf13ab8fa1 100644
  /* Set up event channel for xenstored which is run as a local process
   * (this is normally used only in dom0)
   */
-@@ -818,11 +865,17 @@ static int __init xenbus_init(void)
+@@ -810,11 +857,17 @@ static int __init xenbus_init(void)
  		break;
  	}
  
