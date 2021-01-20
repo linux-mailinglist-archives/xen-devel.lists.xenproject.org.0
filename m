@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D35B82FC5AD
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 01:24:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71158.127246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 946182FC61A
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 01:51:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71162.127257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l21Hl-0006Ke-OF; Wed, 20 Jan 2021 00:23:45 +0000
+	id 1l21i9-0000j2-0t; Wed, 20 Jan 2021 00:51:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71158.127246; Wed, 20 Jan 2021 00:23:45 +0000
+Received: by outflank-mailman (output) from mailman id 71162.127257; Wed, 20 Jan 2021 00:51:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l21Hl-0006KF-Kh; Wed, 20 Jan 2021 00:23:45 +0000
-Received: by outflank-mailman (input) for mailman id 71158;
- Wed, 20 Jan 2021 00:23:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l21i8-0000if-U4; Wed, 20 Jan 2021 00:51:00 +0000
+Received: by outflank-mailman (input) for mailman id 71162;
+ Wed, 20 Jan 2021 00:50:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0VeX=GX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l21Hk-0006KA-8W
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 00:23:44 +0000
+ id 1l21i7-0000ia-HY
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 00:50:59 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 79379936-4d79-4db9-a57c-311a98f99b21;
- Wed, 20 Jan 2021 00:23:43 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0493D22AAA;
- Wed, 20 Jan 2021 00:23:41 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e11dfcbd-02a5-4953-b10a-372c6cde7569;
+ Wed, 20 Jan 2021 00:50:58 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DB3C523108;
+ Wed, 20 Jan 2021 00:50:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,334 +37,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79379936-4d79-4db9-a57c-311a98f99b21
+X-Inumbo-ID: e11dfcbd-02a5-4953-b10a-372c6cde7569
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611102222;
-	bh=dhCgbsR4N45P2v7R4G+cO4pyjffvNW7/8J56fZmIAvM=;
+	s=k20201202; t=1611103858;
+	bh=6k8MlF333mXXPUOYjfv3nFd/cs5OFSEJEzCDmbCyIO4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=B93844ya5pyzeF8TSMy4AzuIT/6zHuboJvlnrLNW9mC1tXaZ8wcIsdC35dIuov8L3
-	 DhwvDfzRLG9YBM2ENAREe/8Oz909oAaQ/l8edEDRf7a8K8R0H9N8x2CaTaIsoYiLfp
-	 E3CdhanxA/NiGIQJL/5SBBk7MSKe398Xvd68qhgMos0ha0QlYdddrHSM68wRLm+CP/
-	 iDyXynXdQc8MTnNoq4uVBGjt0IusKsnyhIx+x+xzjKOdZtOxgZj6lb+AVtl6dU2U7a
-	 Du3QbYJFXmi0kI6yRieUeJMYTq+hhs/swAHle39j2qjON8JX7uabNgm4gXu3kP5Vk+
-	 zVB1gDctzcoEA==
-Date: Tue, 19 Jan 2021 16:23:41 -0800 (PST)
+	b=kcuo042Na9mA/fmzJEnRicu1vR9Rox29zVVDz0PQPzsgNBlXb97257K1XdmeTjAzK
+	 i51bbtseYqRiuZ5gfuL+8QlEu/gLeH1TJbw5GtJIQB5T2fU6ZOG6o0iMLZNs693/se
+	 1htn2P9WAc0LaCWYqRenqpIuXO+t6Xg8WSp4E/RW8MXx0rfhfHFr0+WYgGEqe+Kqp9
+	 xtQnm0uTeehiF4u60hL4sif8p/2N/lOdf+bUsmI+Wl4fxaPDxkeqOhUGmLsASe42AW
+	 Sv0EFO8u/UskcTH/LPjjyXP+6a40Zqx/C4T7ef+94D6ZV6psQ1VrjBeYt5OKjdHkop
+	 IkAkbOnTF4lfg==
+Date: Tue, 19 Jan 2021 16:50:57 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Oleksandr <olekstysh@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>, 
-    Julien Grall <julien@xen.org>, 
+cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
+    Julien Grall <julien.grall@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
  IOREQ/DM features
-In-Reply-To: <dad53a8c-2771-ba81-9fa0-f1ea70aa14cf@gmail.com>
-Message-ID: <alpine.DEB.2.21.2101191620050.14528@sstabellini-ThinkPad-T480s>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-15-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2101141652360.31265@sstabellini-ThinkPad-T480s> <dad53a8c-2771-ba81-9fa0-f1ea70aa14cf@gmail.com>
+In-Reply-To: <a7b26b16-cdec-3734-284e-a907e3cc356c@gmail.com>
+Message-ID: <alpine.DEB.2.21.2101191626560.14528@sstabellini-ThinkPad-T480s>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-15-git-send-email-olekstysh@gmail.com> <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org> <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com> <06704224-bb57-c55e-a2ee-23032095e8ea@xen.org>
+ <e2dcc876-291f-1244-933c-179f97a84e07@gmail.com> <b79b07eb-02db-16bb-2d8b-a55b0c355dbb@xen.org> <a7b26b16-cdec-3734-284e-a907e3cc356c@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1928124558-1611102222=:14528"
+Content-Type: multipart/mixed; BOUNDARY="8323329-44906125-1611102555=:14528"
+Content-ID: <alpine.DEB.2.21.2101191633510.14528@sstabellini-ThinkPad-T480s>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1928124558-1611102222=:14528
-Content-Type: text/plain; charset=UTF-8
+--8323329-44906125-1611102555=:14528
+Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2101191633511.14528@sstabellini-ThinkPad-T480s>
 
-On Sun, 17 Jan 2021, Oleksandr wrote:
-> On 15.01.21 02:55, Stefano Stabellini wrote:
-> > On Tue, 12 Jan 2021, Oleksandr Tyshchenko wrote:
-> > > From: Julien Grall <julien.grall@arm.com>
+On Tue, 19 Jan 2021, Oleksandr wrote:
+> > > > > > >       PROGRESS(xen):
+> > > > > > >           ret = relinquish_memory(d, &d->xenpage_list);
+> > > > > > >           if ( ret )
+> > > > > > > diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+> > > > > > > index ae7ef96..9814481 100644
+> > > > > > > --- a/xen/arch/arm/io.c
+> > > > > > > +++ b/xen/arch/arm/io.c
+> > > > > > > @@ -16,6 +16,7 @@
+> > > > > > >    * GNU General Public License for more details.
+> > > > > > >    */
+> > > > > > >   +#include <xen/ioreq.h>
+> > > > > > >   #include <xen/lib.h>
+> > > > > > >   #include <xen/spinlock.h>
+> > > > > > >   #include <xen/sched.h>
+> > > > > > > @@ -23,6 +24,7 @@
+> > > > > > >   #include <asm/cpuerrata.h>
+> > > > > > >   #include <asm/current.h>
+> > > > > > >   #include <asm/mmio.h>
+> > > > > > > +#include <asm/hvm/ioreq.h>
+> > > > > > 
+> > > > > > Shouldn't this have been included by "xen/ioreq.h"?
+> > > > > Well, for V1 asm/hvm/ioreq.h was included by xen/ioreq.h. But, it
+> > > > > turned out that there was nothing inside common header required arch
+> > > > > one to be included and
+> > > > > I was asked to include arch header where it was indeed needed (several
+> > > > > *.c files).
+> > > > 
+> > > > Fair enough.
+> > > > 
+> > > > [...]
+> > > > 
+> > > > > > 
+> > > > > > If you return IO_HANDLED here, then it means the we will take care
+> > > > > > of previous I/O but the current one is going to be ignored. 
+> > > > > Which current one? As I understand, if try_fwd_ioserv() gets called
+> > > > > with vio->req.state == STATE_IORESP_READY then this is a second round
+> > > > > after emulator completes the emulation (the first round was when
+> > > > > we returned IO_RETRY down the function and claimed that we would need
+> > > > > a completion), so we are still dealing with previous I/O.
+> > > > > vcpu_ioreq_handle_completion() -> arch_ioreq_complete_mmio() ->
+> > > > > try_handle_mmio() -> try_fwd_ioserv() -> handle_ioserv()
+> > > > > And after we return IO_HANDLED here, handle_ioserv() will be called to
+> > > > > complete the handling of this previous I/O emulation.
+> > > > > Or I really missed something?
+> > > > 
+> > > > Hmmm... I somehow thought try_fw_ioserv() would only be called the first
+> > > > time. Do you have a branch with your code applied? This would help to
+> > > > follow the different paths.
+> > > Yes, I mentioned about it in cover letter.
 > > > 
-> > > This patch adds basic IOREQ/DM support on Arm. The subsequent
-> > > patches will improve functionality and add remaining bits.
-> > > 
-> > > The IOREQ/DM features are supposed to be built with IOREQ_SERVER
-> > > option enabled, which is disabled by default on Arm for now.
-> > > 
-> > > Please note, the "PIO handling" TODO is expected to left unaddressed
-> > > for the current series. It is not an big issue for now while Xen
-> > > doesn't have support for vPCI on Arm. On Arm64 they are only used
-> > > for PCI IO Bar and we would probably want to expose them to emulator
-> > > as PIO access to make a DM completely arch-agnostic. So "PIO handling"
-> > > should be implemented when we add support for vPCI.
-> > > 
-> > > Signed-off-by: Julien Grall <julien.grall@arm.com>
-> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > [On Arm only]
-> > > Tested-by: Wei Chen <Wei.Chen@arm.com>
-> > > 
-> > > ---
-> > > Please note, this is a split/cleanup/hardening of Julien's PoC:
-> > > "Add support for Guest IO forwarding to a device emulator"
-> > > 
-> > > Changes RFC -> V1:
-> > >     - was split into:
-> > >       - arm/ioreq: Introduce arch specific bits for IOREQ/DM features
-> > >       - xen/mm: Handle properly reference in set_foreign_p2m_entry() on
-> > > Arm
-> > >     - update patch description
-> > >     - update asm-arm/hvm/ioreq.h according to the newly introduced arch
-> > > functions:
-> > >       - arch_hvm_destroy_ioreq_server()
-> > >       - arch_handle_hvm_io_completion()
-> > >     - update arch files to include xen/ioreq.h
-> > >     - remove HVMOP plumbing
-> > >     - rewrite a logic to handle properly case when hvm_send_ioreq()
-> > > returns IO_RETRY
-> > >     - add a logic to handle properly handle_hvm_io_completion() return
-> > > value
-> > >     - rename handle_mmio() to ioreq_handle_complete_mmio()
-> > >     - move paging_mark_pfn_dirty() to asm-arm/paging.h
-> > >     - remove forward declaration for hvm_ioreq_server in asm-arm/paging.h
-> > >     - move try_fwd_ioserv() to ioreq.c, provide stubs if
-> > > !CONFIG_IOREQ_SERVER
-> > >     - do not remove #ifdef CONFIG_IOREQ_SERVER in memory.c for guarding
-> > > xen/ioreq.h
-> > >     - use gdprintk in try_fwd_ioserv(), remove unneeded prints
-> > >     - update list of #include-s
-> > >     - move has_vpci() to asm-arm/domain.h
-> > >     - add a comment (TODO) to unimplemented yet handle_pio()
-> > >     - remove hvm_mmio_first(last)_byte() and hvm_ioreq_(page/vcpu/server)
-> > > structs
-> > >       from the arch files, they were already moved to the common code
-> > >     - remove set_foreign_p2m_entry() changes, they will be properly
-> > > implemented
-> > >       in the follow-up patch
-> > >     - select IOREQ_SERVER for Arm instead of Arm64 in Kconfig
-> > >     - remove x86's realmode and other unneeded stubs from xen/ioreq.h
-> > >     - clafify ioreq_t p.df usage in try_fwd_ioserv()
-> > >     - set ioreq_t p.count to 1 in try_fwd_ioserv()
-> > > 
-> > > Changes V1 -> V2:
-> > >     - was split into:
-> > >       - arm/ioreq: Introduce arch specific bits for IOREQ/DM features
-> > >       - xen/arm: Stick around in leave_hypervisor_to_guest until I/O has
-> > > completed
-> > >     - update the author of a patch
-> > >     - update patch description
-> > >     - move a loop in leave_hypervisor_to_guest() to a separate patch
-> > >     - set IOREQ_SERVER disabled by default
-> > >     - remove already clarified /* XXX */
-> > >     - replace BUG() by ASSERT_UNREACHABLE() in handle_pio()
-> > >     - remove default case for handling the return value of
-> > > try_handle_mmio()
-> > >     - remove struct hvm_domain, enum hvm_io_completion, struct
-> > > hvm_vcpu_io,
-> > >       struct hvm_vcpu from asm-arm/domain.h, these are common materials
-> > > now
-> > >     - update everything according to the recent changes (IOREQ related
-> > > function
-> > >       names don't contain "hvm" prefixes/infixes anymore, IOREQ related
-> > > fields
-> > >       are part of common struct vcpu/domain now, etc)
-> > > 
-> > > Changes V2 -> V3:
-> > >     - update patch according the "legacy interface" is x86 specific
-> > >     - add dummy arch hooks
-> > >     - remove dummy paging_mark_pfn_dirty()
-> > >     - don’t include <xen/domain_page.h> in common ioreq.c
-> > >     - don’t include <public/hvm/ioreq.h> in arch ioreq.h
-> > >     - remove #define ioreq_params(d, i)
-> > > 
-> > > Changes V3 -> V4:
-> > >     - rebase
-> > >     - update patch according to the renaming IO_ -> VIO_ (io_ -> vio_)
-> > >       and misc changes to arch hooks
-> > >     - update patch according to the IOREQ related dm-op handling changes
-> > >     - don't include <xen/ioreq.h> from arch header
-> > >     - make all arch hooks out-of-line
-> > >     - add a comment above IOREQ_STATUS_* #define-s
-> > > ---
-> > >   xen/arch/arm/Makefile           |   2 +
-> > >   xen/arch/arm/dm.c               | 122 +++++++++++++++++++++++
-> > >   xen/arch/arm/domain.c           |   9 ++
-> > >   xen/arch/arm/io.c               |  12 ++-
-> > >   xen/arch/arm/ioreq.c            | 213
-> > > ++++++++++++++++++++++++++++++++++++++++
-> > >   xen/arch/arm/traps.c            |  13 +++
-> > >   xen/include/asm-arm/domain.h    |   3 +
-> > >   xen/include/asm-arm/hvm/ioreq.h |  72 ++++++++++++++
-> > >   xen/include/asm-arm/mmio.h      |   1 +
-> > >   9 files changed, 446 insertions(+), 1 deletion(-)
-> > >   create mode 100644 xen/arch/arm/dm.c
-> > >   create mode 100644 xen/arch/arm/ioreq.c
-> > >   create mode 100644 xen/include/asm-arm/hvm/ioreq.h
-> > > 
-> > > diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> > > index 512ffdd..16e6523 100644
-> > > --- a/xen/arch/arm/Makefile
-> > > +++ b/xen/arch/arm/Makefile
-> > > @@ -13,6 +13,7 @@ obj-y += cpuerrata.o
-> > >   obj-y += cpufeature.o
-> > >   obj-y += decode.o
-> > >   obj-y += device.o
-> > > +obj-$(CONFIG_IOREQ_SERVER) += dm.o
-> > >   obj-y += domain.o
-> > >   obj-y += domain_build.init.o
-> > >   obj-y += domctl.o
-> > > @@ -27,6 +28,7 @@ obj-y += guest_atomics.o
-> > >   obj-y += guest_walk.o
-> > >   obj-y += hvm.o
-> > >   obj-y += io.o
-> > > +obj-$(CONFIG_IOREQ_SERVER) += ioreq.o
-> > >   obj-y += irq.o
-> > >   obj-y += kernel.init.o
-> > >   obj-$(CONFIG_LIVEPATCH) += livepatch.o
-> > > diff --git a/xen/arch/arm/dm.c b/xen/arch/arm/dm.c
-> > > new file mode 100644
-> > > index 0000000..e6dedf4
-> > > --- /dev/null
-> > > +++ b/xen/arch/arm/dm.c
-> > > @@ -0,0 +1,122 @@
-> > > +/*
-> > > + * Copyright (c) 2019 Arm ltd.
-> > > + *
-> > > + * This program is free software; you can redistribute it and/or modify
-> > > it
-> > > + * under the terms and conditions of the GNU General Public License,
-> > > + * version 2, as published by the Free Software Foundation.
-> > > + *
-> > > + * This program is distributed in the hope it will be useful, but WITHOUT
-> > > + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> > > + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
-> > > for
-> > > + * more details.
-> > > + *
-> > > + * You should have received a copy of the GNU General Public License
-> > > along with
-> > > + * this program; If not, see <http://www.gnu.org/licenses/>.
-> > > + */
-> > > +
-> > > +#include <xen/dm.h>
-> > > +#include <xen/guest_access.h>
-> > > +#include <xen/hypercall.h>
-> > > +#include <xen/ioreq.h>
-> > > +#include <xen/nospec.h>
-> > > +
-> > > +static int dm_op(const struct dmop_args *op_args)
-> > > +{
-> > > +    struct domain *d;
-> > > +    struct xen_dm_op op;
-> > > +    bool const_op = true;
-> > > +    long rc;
-> > > +    size_t offset;
-> > > +
-> > > +    static const uint8_t op_size[] = {
-> > > +        [XEN_DMOP_create_ioreq_server]              = sizeof(struct
-> > > xen_dm_op_create_ioreq_server),
-> > > +        [XEN_DMOP_get_ioreq_server_info]            = sizeof(struct
-> > > xen_dm_op_get_ioreq_server_info),
-> > > +        [XEN_DMOP_map_io_range_to_ioreq_server]     = sizeof(struct
-> > > xen_dm_op_ioreq_server_range),
-> > > +        [XEN_DMOP_unmap_io_range_from_ioreq_server] = sizeof(struct
-> > > xen_dm_op_ioreq_server_range),
-> > > +        [XEN_DMOP_set_ioreq_server_state]           = sizeof(struct
-> > > xen_dm_op_set_ioreq_server_state),
-> > > +        [XEN_DMOP_destroy_ioreq_server]             = sizeof(struct
-> > > xen_dm_op_destroy_ioreq_server),
-> > > +    };
-> > > +
-> > > +    rc = rcu_lock_remote_domain_by_id(op_args->domid, &d);
-> > > +    if ( rc )
-> > > +        return rc;
-> > > +
-> > > +    rc = xsm_dm_op(XSM_DM_PRIV, d);
-> > > +    if ( rc )
-> > > +        goto out;
-> > > +
-> > > +    offset = offsetof(struct xen_dm_op, u);
-> > > +
-> > > +    rc = -EFAULT;
-> > > +    if ( op_args->buf[0].size < offset )
-> > > +        goto out;
-> > > +
-> > > +    if ( copy_from_guest_offset((void *)&op, op_args->buf[0].h, 0,
-> > > offset) )
-> > > +        goto out;
-> > > +
-> > > +    if ( op.op >= ARRAY_SIZE(op_size) )
-> > > +    {
-> > > +        rc = -EOPNOTSUPP;
-> > > +        goto out;
-> > > +    }
-> > > +
-> > > +    op.op = array_index_nospec(op.op, ARRAY_SIZE(op_size));
-> > > +
-> > > +    if ( op_args->buf[0].size < offset + op_size[op.op] )
-> > > +        goto out;
-> > > +
-> > > +    if ( copy_from_guest_offset((void *)&op.u, op_args->buf[0].h, offset,
-> > > +                                op_size[op.op]) )
-> > > +        goto out;
-> > > +
-> > > +    rc = -EINVAL;
-> > > +    if ( op.pad )
-> > > +        goto out;
-> > > +
-> > > +    rc = ioreq_server_dm_op(&op, d, &const_op);
-> > > +
-> > > +    if ( (!rc || rc == -ERESTART) &&
-> > > +         !const_op && copy_to_guest_offset(op_args->buf[0].h, offset,
-> > > +                                           (void *)&op.u, op_size[op.op])
-> > > )
-> > > +        rc = -EFAULT;
-> > > +
-> > > + out:
-> > > +    rcu_unlock_domain(d);
-> > > +
-> > > +    return rc;
-> > > +}
-> > > +
-> > > +long do_dm_op(domid_t domid,
-> > > +              unsigned int nr_bufs,
-> > > +              XEN_GUEST_HANDLE_PARAM(xen_dm_op_buf_t) bufs)
-> > > +{
-> > > +    struct dmop_args args;
-> > > +    int rc;
-> > > +
-> > > +    if ( nr_bufs > ARRAY_SIZE(args.buf) )
-> > > +        return -E2BIG;
-> > > +
-> > > +    args.domid = domid;
-> > > +    args.nr_bufs = array_index_nospec(nr_bufs, ARRAY_SIZE(args.buf) + 1);
-> > > +
-> > > +    if ( copy_from_guest_offset(&args.buf[0], bufs, 0, args.nr_bufs) )
-> > > +        return -EFAULT;
-> > > +
-> > > +    rc = dm_op(&args);
-> > > +
-> > > +    if ( rc == -ERESTART )
-> > > +        rc = hypercall_create_continuation(__HYPERVISOR_dm_op, "iih",
-> > > +                                           domid, nr_bufs, bufs);
-> > > +
-> > > +    return rc;
-> > > +}
-> > I might have missed something in the discussions but this function is
-> > identical to xen/arch/x86/hvm/dm.c:do_dm_op, why not make it common?
+> > > Please see
+> > > https://github.com/otyshchenko1/xen/commits/ioreq_4.14_ml5
+> > > why 5 - because I started counting from the RFC)
 > > 
-> > Also the previous function dm_op is very similar to
-> > xen/arch/x86/hvm/dm.c:dm_op I would prefer to make them common if
-> > possible. Was this already discussed?
-> Well, let me explain. Both dm_op() and do_dm_op() were indeed common (top
-> level dm-op handling common) for previous versions, so Arm's dm.c didn't
-> contain this stuff.
-> The idea to make it other way around (top level dm-op handling arch-specific
-> and call into ioreq_server_dm_op() for otherwise unhandled ops) was discussed
-> at [1] which besides
-> it's Pros leads to code duplication, so Arm's dm.c has to duplicate some
-> stuff, etc.
-> I was thinking about moving do_dm_op() which is _same_ for both arches to
-> common code, but I am not sure whether it is conceptually correct which that
-> new "alternative" approach of handling dm-op.
+> > Oh, I looked at the cover letter and didn't find it. Hence why I asked. I
+> > should have looked more carefully. Thanks!
+> > 
+> > I have looked closer at the question and I am not sure to understand why
+> > arch_ioreq_complete_mmio() is going to call try_handle_mmio().
+> > 
+> > This looks pretty innefficient to me because we already now the IO was
+> > handled by the IOREQ server.
+> > 
+> > I realize that x86 is calling handle_mmio() again. However, I don't think we
+> > need the same on Arm because the instruction for accessing device memory are
+> > a lot simpler (you can only read or store at most a 64-bit value).
+> 
+> I think, I agree.
 
-Yes, I think it makes sense to make do_dm_op common because it is
-identical. That should be easy.
+Yes I agree too
 
-I realize that the common part of dm_op is the initial boilerplate which
-is similar for every hypercall, so I think it is also OK if we don't
-share it and leave it as it is in this version of the series.
---8323329-1928124558-1611102222=:14528--
+
+> > So I would like to keep our emulation simple and not rely on try_ioserv_fw()
+> > to always return true when call from completion (AFAICT it is not possible
+> > to return false then).
+> 
+> 
+> So what you are proposing is just a replacement try_ioserv_fw() by
+> handle_ioserv() technically?
+> 
+> 
+> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+> index 40b9e59..0508bd8 100644
+> --- a/xen/arch/arm/ioreq.c
+> +++ b/xen/arch/arm/ioreq.c
+> @@ -101,12 +101,10 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
+> 
+>  bool arch_ioreq_complete_mmio(void)
+>  {
+> -    struct vcpu *v = current;
+>      struct cpu_user_regs *regs = guest_cpu_user_regs();
+>      const union hsr hsr = { .bits = regs->hsr };
+> -    paddr_t addr = v->io.req.addr;
+> 
+> -    if ( try_handle_mmio(regs, hsr, addr) == IO_HANDLED )
+> +    if ( handle_ioserv(regs, current) == IO_HANDLED )
+>      {
+>          advance_pc(regs, hsr);
+>          return true;
+
+Yes, but I think we want to keep the check
+
+    vio->req.state == STATE_IORESP_READY
+
+So maybe (uncompiled, untested):
+
+    if ( v->io.req.state != STATE_IORESP_READY )
+        return false;
+
+    if ( handle_ioserv(regs, current) == IO_HANDLED )
+    {
+        advance_pc(regs, hsr);
+        return true;
+    }
+--8323329-44906125-1611102555=:14528--
 
