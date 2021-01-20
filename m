@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 387D92FCDD1
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 11:25:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71316.127609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958C22FCDDA
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 11:38:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71323.127624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2Aeu-0005Pf-IC; Wed, 20 Jan 2021 10:24:16 +0000
+	id 1l2As4-0006Ts-Sz; Wed, 20 Jan 2021 10:37:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71316.127609; Wed, 20 Jan 2021 10:24:16 +0000
+Received: by outflank-mailman (output) from mailman id 71323.127624; Wed, 20 Jan 2021 10:37:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2Aeu-0005PD-E8; Wed, 20 Jan 2021 10:24:16 +0000
-Received: by outflank-mailman (input) for mailman id 71316;
- Wed, 20 Jan 2021 10:24:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2Aes-0005P5-UD; Wed, 20 Jan 2021 10:24:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2Aes-0006TZ-OS; Wed, 20 Jan 2021 10:24:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2Aes-0000Af-Ew; Wed, 20 Jan 2021 10:24:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l2Aes-0005Jf-ER; Wed, 20 Jan 2021 10:24:14 +0000
+	id 1l2As4-0006TT-P6; Wed, 20 Jan 2021 10:37:52 +0000
+Received: by outflank-mailman (input) for mailman id 71323;
+ Wed, 20 Jan 2021 10:37:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VxJk=GX=cert.pl=hubert.jasudowicz@srs-us1.protection.inumbo.net>)
+ id 1l2As3-0006TO-3R
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 10:37:51 +0000
+Received: from mx.nask.net.pl (unknown [195.187.55.89])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e4a669c0-e734-4941-8da9-70009fd081cf;
+ Wed, 20 Jan 2021 10:37:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,80 +36,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=T+yC6gNwaVdlIofTOB3ZS3aV4oWFuW8vGtO6wQoWhdY=; b=Ozx4uTqxOY3OPPnTEkjGwf46gZ
-	AIHniSRDNmuFB+ABa+zdDCG/UFs3UgONphQNZcccKEIDrw4mDvWb3KGo1SDClwit8Zsz6uxO5/l5k
-	mA+D8Et6bfotEepHdKIQKERA+1sQrqQAxKGnoPNIQeXOGJSaQEpg3B7dntCFb60G+PU0=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158538-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e4a669c0-e734-4941-8da9-70009fd081cf
+Date: Wed, 20 Jan 2021 11:37:36 +0100
+From: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	=?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+Subject: Re: [PATCH] x86/vmx: Remove IO bitmap from minimal VMX requirements
+Message-ID: <20210120103736.zclypjyuleg2u5in@arnold.localdomain>
+Mail-Followup-To: Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	=?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+References: <570e73b83c18cce4dbe4c70cc14b6df7c33f0502.1610720991.git.hubert.jasudowicz@cert.pl>
+ <20210115144420.bcz7l52h2zs4ml34@Air-de-Roger>
+ <5211cb4d-4a60-68eb-2c67-a16565e02f23@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 158538: tolerable ALL FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable-coverity:coverity-amd64:coverity-upload:fail:heisenbug
-X-Osstest-Versions-This:
-    xen=3487f4cf8bf5cef47a4c3918c13a502afc9891f6
-X-Osstest-Versions-That:
-    xen=db9c4ad1b1abaef3c38027b9b2700d9250d13125
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 20 Jan 2021 10:24:14 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5211cb4d-4a60-68eb-2c67-a16565e02f23@suse.com>
 
-flight 158538 xen-unstable-coverity real [real]
-flight 158539 xen-unstable-coverity real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158538/
-http://logs.test-lab.xenproject.org/osstest/logs/158539/
+On 2021-01-19, Jan Beulich wrote:
+> On 15.01.2021 15:44, Roger Pau MonnÈ wrote:
+> > On Fri, Jan 15, 2021 at 03:30:50PM +0100, Hubert Jasudowicz wrote:
+> >> This patch is a result of a downstream bug report[1]. Xen fails to
+> >> create a HVM domain while running under VMware Fusion 12.1.0 on
+> >> a modern Intel Core i9 CPU:
+> >>
+> >> (XEN) VMX: CPU0 has insufficient CPU-Based Exec Control (b5b9fffe; requires 2299968c)
+> >> (XEN) VMX: failed to initialise.
+> >>
+> >> It seems that Apple hypervisor API doesn't support this feature[2].
+> >>
+> >> Move this bit from minimal required features to optional.
+> >>
+> >> [1] https://github.com/CERT-Polska/drakvuf-sandbox/issues/418
+> >> [2] https://developer.apple.com/documentation/hypervisor/cpu_based_io_bitmaps
+> >>
+> >> Signed-off-by: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
+> >> ---
+> >>  xen/arch/x86/hvm/vmx/vmcs.c        | 8 +++++---
+> >>  xen/include/asm-x86/hvm/vmx/vmcs.h | 2 ++
+> >>  2 files changed, 7 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+> >> index 164535f8f0..bad4d6e206 100644
+> >> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> >> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> >> @@ -276,10 +276,10 @@ static int vmx_init_vmcs_config(void)
+> >>             CPU_BASED_MONITOR_EXITING |
+> >>             CPU_BASED_MWAIT_EXITING |
+> >>             CPU_BASED_MOV_DR_EXITING |
+> >> -           CPU_BASED_ACTIVATE_IO_BITMAP |
+> >>             CPU_BASED_USE_TSC_OFFSETING |
+> >>             CPU_BASED_RDTSC_EXITING);
+> >>      opt = (CPU_BASED_ACTIVATE_MSR_BITMAP |
+> >> +           CPU_BASED_ACTIVATE_IO_BITMAP |
+> >>             CPU_BASED_TPR_SHADOW |
+> >>             CPU_BASED_MONITOR_TRAP_FLAG |
+> >>             CPU_BASED_ACTIVATE_SECONDARY_CONTROLS);
+> >> @@ -1168,8 +1168,10 @@ static int construct_vmcs(struct vcpu *v)
+> >>      }
+> >>  
+> >>      /* I/O access bitmap. */
+> >> -    __vmwrite(IO_BITMAP_A, __pa(d->arch.hvm.io_bitmap));
+> >> -    __vmwrite(IO_BITMAP_B, __pa(d->arch.hvm.io_bitmap) + PAGE_SIZE);
+> >> +    if ( cpu_has_vmx_io_bitmap ) {
+> >> +        __vmwrite(IO_BITMAP_A, __pa(d->arch.hvm.io_bitmap));
+> >> +        __vmwrite(IO_BITMAP_B, __pa(d->arch.hvm.io_bitmap) + PAGE_SIZE);
+> >> +    }
+> > 
+> > Maybe I'm missing something, but don't you need to expand
+> > EXIT_REASON_IO_INSTRUCTION in vmx_vmexit_handler when there's no IO
+> > bitmap support so that all the emulation is bypassed and the IO port
+> > access is replayed by Xen?
+> 
+> I think it's worse than this: I don't see us ever setting
+> "unconditional I/O exiting", which means guests would be allowed
+> access to all I/O ports. IOW I think that other bit needs setting
+> when I/O bitmaps can't be made use of.
+> 
 
-Failures :-/ but no regressions.
+Sure, I'll fix it and get back to you with a v2.
 
-Tests which are failing intermittently (not blocking):
- coverity-amd64                7 coverity-upload     fail pass in 158539-retest
-
-version targeted for testing:
- xen                  3487f4cf8bf5cef47a4c3918c13a502afc9891f6
-baseline version:
- xen                  db9c4ad1b1abaef3c38027b9b2700d9250d13125
-
-Last test of basis   158472  2021-01-17 09:19:26 Z    3 days
-Testing same since   158538  2021-01-20 09:19:56 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Christian Lindig <christian.lindig@citrix.com>
-  Doug Goldstein <cardoe@cardoe.com>
-  From: Manuel Bouyer <bouyer@netbsd.org>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Manuel Bouyer <bouyer@netbsd.org>
-  Roger Pau Monn√© <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-
-jobs:
- coverity-amd64                                               fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   db9c4ad1b1..3487f4cf8b  3487f4cf8bf5cef47a4c3918c13a502afc9891f6 -> coverity-tested/smoke
+Hubert Jasudowicz
 
