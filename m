@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7A972FD382
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 16:12:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71550.128185 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A94E52FD385
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 16:13:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71553.128210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2F9v-0004Bx-PL; Wed, 20 Jan 2021 15:12:35 +0000
+	id 1l2FAt-0004LH-EW; Wed, 20 Jan 2021 15:13:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71550.128185; Wed, 20 Jan 2021 15:12:35 +0000
+Received: by outflank-mailman (output) from mailman id 71553.128210; Wed, 20 Jan 2021 15:13:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2F9v-0004Bb-Lz; Wed, 20 Jan 2021 15:12:35 +0000
-Received: by outflank-mailman (input) for mailman id 71550;
- Wed, 20 Jan 2021 15:12:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l2F9u-0004BW-98
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 15:12:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l2F9s-00032r-Ui; Wed, 20 Jan 2021 15:12:32 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l2F9s-0002hY-Mr; Wed, 20 Jan 2021 15:12:32 +0000
+	id 1l2FAt-0004Kc-AZ; Wed, 20 Jan 2021 15:13:35 +0000
+Received: by outflank-mailman (input) for mailman id 71553;
+ Wed, 20 Jan 2021 15:13:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Uvzb=GX=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1l2FAr-0004KD-Cm
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 15:13:33 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c6e4596e-75f1-4945-a94f-2428cd1e5c45;
+ Wed, 20 Jan 2021 15:13:29 +0000 (UTC)
+Received: from rochebonne.antioche.eu.org (rochebonne [10.0.0.1])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 10KFDMxI002243;
+ Wed, 20 Jan 2021 16:13:22 +0100 (MET)
+Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
+ id F3832281D; Wed, 20 Jan 2021 16:13:21 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,81 +40,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=U+OhN+94E24VyjWt5Gh3oE7VskapI4soYT35Y4uA7CQ=; b=FE9hFvPPAV5yyhuUNqUAVJCtjb
-	jLqyJ6/Zu+GkBdQ4YIP4rHidp11pSsvJdFWG4/jW7Mq9KTv9AZTnvY5pyWFh++x2NB0Qb4y7DUqRr
-	1gAHyp5kbTIVdsKvIYaEBSlNDh1vg+QKezq5ODIs+qDdmlmCtYrDArSGDtvXLrBZh4Uo=;
-Subject: Re: [XEN PATCH] xen/arm: Relax GIC version check
-To: Vladimir Murzin <vladimir.murzin@arm.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, Volodymyr_Babchuk@epam.com,
- Ian Jackson <iwj@xenproject.org>
-References: <20210120112644.8882-1-vladimir.murzin@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <5df5270d-216b-3f14-5416-bd3a12da3650@xen.org>
-Date: Wed, 20 Jan 2021 15:12:31 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.1
+X-Inumbo-ID: c6e4596e-75f1-4945-a94f-2428cd1e5c45
+Date: Wed, 20 Jan 2021 16:13:21 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Ian Jackson <iwj@xenproject.org>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        George Dunlap <george.dunlap@citrix.com>,
+        xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+        Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] libs/light: make it build without setresuid()
+Message-ID: <20210120151321.GB4175@antioche.eu.org>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+ <20210112181242.1570-16-bouyer@antioche.eu.org>
+ <20210118181656.2abblbjg2jvhlad7@Air-de-Roger>
+ <24584.17302.958286.788145@mariner.uk.xensource.com>
 MIME-Version: 1.0
-In-Reply-To: <20210120112644.8882-1-vladimir.murzin@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <24584.17302.958286.788145@mariner.uk.xensource.com>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Wed, 20 Jan 2021 16:13:22 +0100 (MET)
 
-(+ Ian)
-
-Hi Vladimir,
-
-On 20/01/2021 11:26, Vladimir Murzin wrote:
-> Supported values are
+On Wed, Jan 20, 2021 at 02:52:06PM +0000, Ian Jackson wrote:
+> Roger Pau Monné writes ("Re: [PATCH] libs/light: make it build without setresuid()"):
+> > On Tue, Jan 12, 2021 at 07:12:36PM +0100, Manuel Bouyer wrote:
+> > > From: Manuel Bouyer <bouyer@netbsd.org>
+> > > 
+> > > NetBSD doesn't have setresuid(). Add a configure check for it,
+> > > and use plain setuid() if !HAVE_SETRESUID
+> ...
+> > LGTM from a code PoV, but I think George/Ian should take a look, since
+> > they know exactly what this is supposed to do, and I would bet there
+> > are some reasons why setresuid is used instead of setuid, which should
+> > likely be taken into account in the commit message to justify why
+> > using setuid in it's place it's fine.
 > 
-> 0b0000 GIC CPU interface system registers not implemented.
+> There is indeed a reason for using setresuid here.  See the comments
+> at the top of kill_device_model_uid_child and the commit messages for
+> 87f9458e3400 and 0c653574d39c.  This is all quite complex:
 > 
-> 0b0001 System register interface to versions 3.0 and 4.0 of the GIC
->         CPU interface is supported.
+> https://xenproject.org/2018/08/01/killing-processes-that-dont-want-to-be-killed/
 > 
-> 0b0011 System register interface to version 4.1 of the GIC CPU
->         interface is supported.
+> https://marc.info/?l=xen-devel&m=152215770803468
+>  (search in that message for "libxl UID cleanup")
 > 
-> 4.1 is still backward compatible with 4.0/3.0, moreover ARM ARM
-> guarantees that future versions of the GIC CPU interface retain
-> backwards compatible.
+> I wrote a message to George in 2018 proving that the desired set of
+> IDs cannot be made without setresuid.  I'll c&p the relevant part below.
 > 
-> Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
+> I don't think setuid is safe - at least, if we are trying to restrict
+> the dm.  Since I think after the libxl child is forked, and has called
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+What is the dm in this case ? qemu ? On NetBSD qemu runs as root AFAIK,
+so there isn't much to protect.
 
-@Ian: I would like your put as the RM for 4.15.
+> setuid, it might be traceable (by NetBSD's equivalent of ptrace) by
+> the dm.  The dm could puppet it into pretending it had succeeded, but
+> then hang around until the domid is reused.
 
-Technically, it could be consider as a new "feature" because Xen would 
-fail to boot on such HW.
+I don't understand. We're talking about a simple kill(2) syscall here.
 
-However, I think the change is small enough and doesn't introduce risk 
-on existing supported HW.
-
-Therefore, I would like to merge it for 4.15. @Ian does it sounds good 
-to you?
-
-> ---
->   xen/include/asm-arm/cpufeature.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
-> index 13a2739a6..c6e5711b2 100644
-> --- a/xen/include/asm-arm/cpufeature.h
-> +++ b/xen/include/asm-arm/cpufeature.h
-> @@ -17,7 +17,7 @@
->   #define cpu_has_el3_64    (boot_cpu_feature64(el3) >= 1)
->   #define cpu_has_fp        (boot_cpu_feature64(fp) < 8)
->   #define cpu_has_simd      (boot_cpu_feature64(simd) < 8)
-> -#define cpu_has_gicv3     (boot_cpu_feature64(gic) == 1)
-> +#define cpu_has_gicv3     (boot_cpu_feature64(gic) >= 1)
->   #endif
->   
->   #define cpu_feature32(c, feat)         ((c)->pfr32.feat)
+> At the very least, this patch needs an argument, in detail, why this
+> is OK.
 > 
+> Also, why oh why does NetBSD not have setresuid ??  It's at least 20
+> years old !
+
+It's not because it's old that it's good.
+
+
+
+> 
+> Sorry,
+
+OK so if I understand properly, you say Xen should not be used on NetBSD ?
 
 -- 
-Julien Grall
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
