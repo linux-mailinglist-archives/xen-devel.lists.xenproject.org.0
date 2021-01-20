@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E3A2FD6E4
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 18:30:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71672.128537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AB7F2FD763
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 18:45:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71680.128552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2HJC-0004Ew-W0; Wed, 20 Jan 2021 17:30:18 +0000
+	id 1l2HWi-0005Ni-Bn; Wed, 20 Jan 2021 17:44:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71672.128537; Wed, 20 Jan 2021 17:30:18 +0000
+Received: by outflank-mailman (output) from mailman id 71680.128552; Wed, 20 Jan 2021 17:44:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2HJC-0004EW-SJ; Wed, 20 Jan 2021 17:30:18 +0000
-Received: by outflank-mailman (input) for mailman id 71672;
- Wed, 20 Jan 2021 17:30:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WFGZ=GX=arm.com=robin.murphy@srs-us1.protection.inumbo.net>)
- id 1l2HJB-0004EP-Pu
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 17:30:17 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id e860c445-7f9f-43cc-9f7f-8526ad3e0672;
- Wed, 20 Jan 2021 17:30:15 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0CA6C31B;
- Wed, 20 Jan 2021 09:30:15 -0800 (PST)
-Received: from [10.57.39.58] (unknown [10.57.39.58])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EF5433F68F;
- Wed, 20 Jan 2021 09:30:08 -0800 (PST)
+	id 1l2HWi-0005NL-8R; Wed, 20 Jan 2021 17:44:16 +0000
+Received: by outflank-mailman (input) for mailman id 71680;
+ Wed, 20 Jan 2021 17:44:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1l2HWg-0005NG-SW
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 17:44:14 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l2HWf-0006By-HS; Wed, 20 Jan 2021 17:44:13 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l2HWf-00080J-9j; Wed, 20 Jan 2021 17:44:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,113 +39,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e860c445-7f9f-43cc-9f7f-8526ad3e0672
-Subject: Re: [RFC PATCH v3 5/6] dt-bindings: of: Add restricted DMA pool
-To: Rob Herring <robh@kernel.org>, Claire Chang <tientzu@chromium.org>
-Cc: mpe@ellerman.id.au, benh@kernel.crashing.org, paulus@samba.org,
- joro@8bytes.org, will@kernel.org, frowand.list@gmail.com,
- konrad.wilk@oracle.com, boris.ostrovsky@oracle.com, jgross@suse.com,
- sstabellini@kernel.org, hch@lst.de, m.szyprowski@samsung.com,
- grant.likely@arm.com, xypron.glpk@gmx.de, treding@nvidia.com,
- mingo@kernel.org, bauerman@linux.ibm.com, peterz@infradead.org,
- gregkh@linuxfoundation.org, saravanak@google.com,
- rafael.j.wysocki@intel.com, heikki.krogerus@linux.intel.com,
- andriy.shevchenko@linux.intel.com, rdunlap@infradead.org,
- dan.j.williams@intel.com, bgolaszewski@baylibre.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, iommu@lists.linux-foundation.org,
- xen-devel@lists.xenproject.org, tfiga@chromium.org, drinkcat@chromium.org
-References: <20210106034124.30560-1-tientzu@chromium.org>
- <20210106034124.30560-6-tientzu@chromium.org>
- <20210120165348.GA220770@robh.at.kernel.org>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <313f8052-a591-75de-c4c2-ee9ea8f02e7f@arm.com>
-Date: Wed, 20 Jan 2021 17:30:07 +0000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=hk3aYC9kVmQdbH4T//kFU9NPt5/jYQQGZ3acn7lCibQ=; b=werg4A1v4Z+qbWP6O/b12aZCax
+	/N6kRLeBU5NGToLbISvddVpu2IJCJZkJ2OnBMijnvMRfTFX71YfnOEsooObHLS3eRe3z15Q2NnL5t
+	uKwW4z0oYslxoYuN9iMoRh69BCF5i0jFnzXxb3aMiqWIve97ex4uLyp9PCCm8jQdOqCg=;
+Subject: Re: [XEN PATCH] xen/arm: Hide Pointer Authentication (PAC)
+To: Vladimir Murzin <vladimir.murzin@arm.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, Volodymyr_Babchuk@epam.com
+References: <20210120112712.9534-1-vladimir.murzin@arm.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <2b70b207-4893-e08a-6fdc-52c0b5c8cc6b@xen.org>
+Date: Wed, 20 Jan 2021 17:44:11 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <20210120165348.GA220770@robh.at.kernel.org>
+In-Reply-To: <20210120112712.9534-1-vladimir.murzin@arm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2021-01-20 16:53, Rob Herring wrote:
-> On Wed, Jan 06, 2021 at 11:41:23AM +0800, Claire Chang wrote:
->> Introduce the new compatible string, restricted-dma-pool, for restricted
->> DMA. One can specify the address and length of the restricted DMA memory
->> region by restricted-dma-pool in the device tree.
+Hi Vladimir,
+
+On 20/01/2021 11:27, Vladimir Murzin wrote:
+> The ARMv8.3 Pointer Authentication extension is not supported by Xen
+> at the moment, so do not expose that via ID register.
 > 
-> If this goes into DT, I think we should be able to use dma-ranges for
-> this purpose instead. Normally, 'dma-ranges' is for physical bus
-> restrictions, but there's no reason it can't be used for policy or to
-> express restrictions the firmware has enabled.
-
-There would still need to be some way to tell SWIOTLB to pick up the 
-corresponding chunk of memory and to prevent the kernel from using it 
-for anything else, though.
-
->> Signed-off-by: Claire Chang <tientzu@chromium.org>
->> ---
->>   .../reserved-memory/reserved-memory.txt       | 24 +++++++++++++++++++
->>   1 file changed, 24 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt b/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
->> index e8d3096d922c..44975e2a1fd2 100644
->> --- a/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
->> +++ b/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
->> @@ -51,6 +51,20 @@ compatible (optional) - standard definition
->>             used as a shared pool of DMA buffers for a set of devices. It can
->>             be used by an operating system to instantiate the necessary pool
->>             management subsystem if necessary.
->> +        - restricted-dma-pool: This indicates a region of memory meant to be
->> +          used as a pool of restricted DMA buffers for a set of devices. The
->> +          memory region would be the only region accessible to those devices.
->> +          When using this, the no-map and reusable properties must not be set,
->> +          so the operating system can create a virtual mapping that will be used
->> +          for synchronization. The main purpose for restricted DMA is to
->> +          mitigate the lack of DMA access control on systems without an IOMMU,
->> +          which could result in the DMA accessing the system memory at
->> +          unexpected times and/or unexpected addresses, possibly leading to data
->> +          leakage or corruption. The feature on its own provides a basic level
->> +          of protection against the DMA overwriting buffer contents at
->> +          unexpected times. However, to protect against general data leakage and
->> +          system memory corruption, the system needs to provide way to restrict
->> +          the DMA to a predefined memory region.
->>           - vendor specific string in the form <vendor>,[<device>-]<usage>
->>   no-map (optional) - empty property
->>       - Indicates the operating system must not create a virtual mapping
->> @@ -120,6 +134,11 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
->>   			compatible = "acme,multimedia-memory";
->>   			reg = <0x77000000 0x4000000>;
->>   		};
->> +
->> +		restricted_dma_mem_reserved: restricted_dma_mem_reserved {
->> +			compatible = "restricted-dma-pool";
->> +			reg = <0x50000000 0x400000>;
->> +		};
->>   	};
->>   
->>   	/* ... */
->> @@ -138,4 +157,9 @@ one for multimedia processing (named multimedia-memory@77000000, 64MiB).
->>   		memory-region = <&multimedia_reserved>;
->>   		/* ... */
->>   	};
->> +
->> +	pcie_device: pcie_device@0,0 {
->> +		memory-region = <&restricted_dma_mem_reserved>;
+> Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>   xen/arch/arm/cpufeature.c        |  6 +++++
+>   xen/include/asm-arm/cpufeature.h | 38 +++++++++++++++++++++++++++++++-
+>   2 files changed, 43 insertions(+), 1 deletion(-)
 > 
-> PCI hosts often have inbound window configurations that limit the
-> address range and translate PCI to bus addresses. Those windows happen
-> to be configured by dma-ranges. In any case, wouldn't you want to put
-> the configuration in the PCI host node? Is there a usecase of
-> restricting one PCIe device and not another?
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index 99fe4db28..1d8878380 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -187,6 +187,12 @@ static int __init create_guest_cpuinfo(void)
+>   
+>       /* Hide MTE support as Xen does not support it */
+>       guest_cpuinfo.pfr64.mte = 0;
+> +
+> +    /* Hide PAC support as Xen does not support it */
+> +    guest_cpuinfo.isa64.apa = 0;
+> +    guest_cpuinfo.isa64.api = 0;
+> +    guest_cpuinfo.isa64.gpa = 0;
+> +    guest_cpuinfo.isa64.gpi = 0;
+>   #endif
+>   
+>       /* Hide AMU support */
+> diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+> index c6e5711b2..43135abef 100644
+> --- a/xen/include/asm-arm/cpufeature.h
+> +++ b/xen/include/asm-arm/cpufeature.h
+> @@ -212,8 +212,44 @@ struct cpuinfo_arm {
+>           };
+>       } mm64;
+>   
+> -    struct {
+> +    union {
+>           uint64_t bits[2];
+> +        struct {
+> +            /* ISAR0 */
+> +            unsigned long __res0:4;
+> +            unsigned long aes:4;
+> +            unsigned long sha1:4;
+> +            unsigned long sha2:4;
+> +            unsigned long crc32:4;
+> +            unsigned long atomic:4;
+> +            unsigned long __res1:4;
+> +            unsigned long rdm:4;
+> +            unsigned long sha3:4;
+> +            unsigned long sm3:4;
+> +            unsigned long sm4:4;
+> +            unsigned long dp:4;
+> +            unsigned long fhm:4;
+> +            unsigned long ts:4;
+> +            unsigned long tlb:4;
+> +            unsigned long rndr:4;
+> +
+> +            /* ISAR1 */
+> +            unsigned long dpb:4;
+> +            unsigned long apa:4;
+> +            unsigned long api:4;
+> +            unsigned long jscvt:4;
+> +            unsigned long fcma:4;
+> +            unsigned long lrcpc:4;
+> +            unsigned long gpa:4;
+> +            unsigned long gpi:4;
+> +            unsigned long frintts:4;
+> +            unsigned long sb:4;
+> +            unsigned long specres:4;
+> +            unsigned long bf16:4;
+> +            unsigned long dgh:4;
+> +            unsigned long i8mm:4;
+> +            unsigned long __res0:8;
 
-The general design seems to accommodate devices having their own pools 
-such that they can't even snoop on each others' transient DMA data. If 
-the interconnect had a way of wiring up, say, PCI RIDs to AMBA NSAIDs, 
-then in principle you could certainly apply that to PCI endpoints too 
-(presumably you'd also disallow them from peer-to-peer transactions at 
-the PCI level too).
+This unfortunately break the build on arm64 becase __res0 is defined 
+twiced in the structure:
 
-Robin.
+oss/xen/xen/include/asm/cpufeature.h:251:27: error: duplicate member 
+‘__res0’
+              unsigned long __res0:8;
+                            ^~~~~~
+
+The change is trivial, so I have resolved it (see change below) and 
+committed it:
+
+diff --git a/xen/include/asm-arm/cpufeature.h 
+b/xen/include/asm-arm/cpufeature.h
+index 2baf7919615d..70cb67301f74 100644
+--- a/xen/include/asm-arm/cpufeature.h
++++ b/xen/include/asm-arm/cpufeature.h
+@@ -248,7 +248,7 @@ struct cpuinfo_arm {
+              unsigned long bf16:4;
+              unsigned long dgh:4;
+              unsigned long i8mm:4;
+-            unsigned long __res0:8;
++            unsigned long __res2:8;
+          };
+      } isa64;
+
+Cheers,
+
+-- 
+Julien Grall
 
