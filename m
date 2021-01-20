@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A3B2FCCFE
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 09:56:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71261.127470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98FE62FCCF5
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 09:51:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71257.127459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l29I5-0004CJ-Sc; Wed, 20 Jan 2021 08:56:37 +0000
+	id 1l29CN-00041G-8Y; Wed, 20 Jan 2021 08:50:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71261.127470; Wed, 20 Jan 2021 08:56:37 +0000
+Received: by outflank-mailman (output) from mailman id 71257.127459; Wed, 20 Jan 2021 08:50:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l29I5-0004Bs-P3; Wed, 20 Jan 2021 08:56:37 +0000
-Received: by outflank-mailman (input) for mailman id 71261;
- Wed, 20 Jan 2021 08:56:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=e+JE=GX=linaro.org=alex.bennee@srs-us1.protection.inumbo.net>)
- id 1l29I4-0004Bn-JX
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 08:56:36 +0000
-Received: from mail-ed1-x533.google.com (unknown [2a00:1450:4864:20::533])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id faa9334b-11c6-4931-8373-d3179579781f;
- Wed, 20 Jan 2021 08:56:35 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id j13so520337edp.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Jan 2021 00:56:35 -0800 (PST)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id z22sm706765edb.88.2021.01.20.00.56.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Jan 2021 00:56:33 -0800 (PST)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id AA3201FF7E;
- Wed, 20 Jan 2021 08:56:32 +0000 (GMT)
+	id 1l29CN-00040t-4y; Wed, 20 Jan 2021 08:50:43 +0000
+Received: by outflank-mailman (input) for mailman id 71257;
+ Wed, 20 Jan 2021 08:50:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jLlG=GX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l29CL-00040o-HL
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 08:50:41 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fce69ced-2a64-4e82-9918-48573af26e12;
+ Wed, 20 Jan 2021 08:50:39 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6009FADA2;
+ Wed, 20 Jan 2021 08:50:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,77 +39,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: faa9334b-11c6-4931-8373-d3179579781f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=O7LZ1CyhGv9nOKRtBKA1vePKRSppKmv7791UCVLHNG8=;
-        b=ASK/Eo1SRlZN3h/6VrvtyZWxarariM2Q7jkcPYLjOFbsVdXcvrlqLroGLxuYXMrukK
-         sxsi8REZxDqEMj3Wwm9qi7N6jHaj+9vCFx0fjlnm6K0+EoxI5Br9b5MvFfAd9p3rSRmC
-         4+bYIffeaFldubq15q3tho7EuA0YSxlhjO4CWYobL6jJgeH+4bNpa+n0kUtpTlZJiXaB
-         hVqTmafsCSGOsSqMAe+qV3hpEA4Azf+130Xa423umYl1gRMh4T2LTBdC/tKo9bR1MyOr
-         iMH7vVzOvasSZtu9eyzvFGf23tOyktrK7iV0BtyWphEVX4Lp5PZgUgTRRjQ/TrU0fJpX
-         2mdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=O7LZ1CyhGv9nOKRtBKA1vePKRSppKmv7791UCVLHNG8=;
-        b=I6+dqkC7cWi7K43a0pm4ZebxHylNbphc3fV107hXD/Ed0hX/MKOiw/9qwsyI1lweBa
-         MOAxEEm9wdenx7cYNzmF0/2qawGRyq75kXuWKsa8Weq2no5soY2LUU39t+epa1En/IhF
-         ir5Lc3Wrn0KzzidlGBoNSLQ+PcfePIO2eivbrUGG7jOeCR/6UfXo72arMwsaQjEl3KTt
-         FMZ6FA2zQ8j2xhRErcRNIEzKGSoEiYzfgMxIRR2lqSF487lX8ebUkIiHClc3xvos4fBS
-         LX++ONP2dR2ObCrJk0+gQiDvXcOYkY75h3JyFJ2tHDhhd0YgS+iJIHpqaLtSMZ0BZlY+
-         tMjg==
-X-Gm-Message-State: AOAM5300g63FUG4Nex3IuGAm82jgqC9Ng428gfE3rZ7vQ1nxRpLGgtkf
-	B4kcyhjBF5wFdtB6zJFBcHjHPw==
-X-Google-Smtp-Source: ABdhPJw4TY/ElD16elVTE7kyetDCaV0UYrAU2WK3Vfnja9er6+ksTgX9KgYwTR2n7dMfQA/oAIPVJg==
-X-Received: by 2002:a05:6402:306a:: with SMTP id bs10mr6557963edb.209.1611132994640;
-        Wed, 20 Jan 2021 00:56:34 -0800 (PST)
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-6-git-send-email-olekstysh@gmail.com>
-User-agent: mu4e 1.5.7; emacs 28.0.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Paul Durrant
- <paul@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Roger Pau =?utf-8?Q?Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei
- Liu <wl@xen.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien.grall@arm.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH V4 05/24] xen/ioreq: Make x86's
- hvm_ioreq_needs_completion() common
-Date: Wed, 20 Jan 2021 08:48:09 +0000
-In-reply-to: <1610488352-18494-6-git-send-email-olekstysh@gmail.com>
-Message-ID: <87v9bst29r.fsf@linaro.org>
+X-Inumbo-ID: fce69ced-2a64-4e82-9918-48573af26e12
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611132638; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5mEg8jOhABGGSMZP0cbPaGtMCxb7AHEGZaDSbWAvqWo=;
+	b=TqG8s0JDqvAh/GsFskdJUzBbOHwbPbI8jGOuaGVy3w7La6eM5y0+zvpW48xem52du/W48H
+	Bo8ZyaFK74biMk0i04g957frEV2Cua5UlSnResJmo62UAY3WNzsfZY42aDN8ksBd9xiCDb
+	nZz+LDCpMr6iePDjnW+oHc4z/heaY4k=
+Subject: Re: Problems with APIC on versions 4.9 and later (4.8 works)
+To: Claudemir Todo Bom <claudemir@todobom.com>
+References: <CANyqHYfNBHnUiBiXHdt+R3mZ72oYQBnQcaWuKw5gY0uDb_ZqKw@mail.gmail.com>
+ <e1d69914-c6bc-40b9-a9f4-33be4bd022b6@suse.com>
+ <CANyqHYcifnCgd5C5vbYoi4CTtoMX5+jzGqHfs6JZ+e=d2Y_dmg@mail.gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ff799cd4-ba42-e120-107c-5011dc803b5a@suse.com>
+Date: Wed, 20 Jan 2021 09:50:37 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
+In-Reply-To: <CANyqHYcifnCgd5C5vbYoi4CTtoMX5+jzGqHfs6JZ+e=d2Y_dmg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
+On 19.01.2021 20:36, Claudemir Todo Bom wrote:
+> I do not have serial output on this setup, so I recorded a video with
+> boot_delay=50 in order to be able to get all the kernel messages:
+> https://youtu.be/y95h6vqoF7Y
 
-Oleksandr Tyshchenko <olekstysh@gmail.com> writes:
+This doesn't show any badness afaics.
 
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->
-> The IOREQ is a common feature now and this helper will be used
-> on Arm as is. Move it to xen/ioreq.h and remove "hvm" prefix.
->
-> Although PIO handling on Arm is not introduced with the current series
-> (it will be implemented when we add support for vPCI), technically
-> the PIOs exist on Arm (however they are accessed the same way as MMIO)
-> and it would be better not to diverge now.
+> This is running 4.14 from debian bullseye (testing).
+> 
+> I'm also attaching the dmesg output when booting xen 4.8 with  the same
+> kernel version and same parameters.
+> 
+> I visually compared all the messages, and the only thing I noticed was that
+> 4.14 used tsc as clocksource and 4.8 used xen. I tried to boot the kernel
+> with "clocksource=xen" and the problem is happening with that also.
 
-I find this description a little confusing. When you say PIO do you mean
-using instructions like in/out on the x86? If so then AFAIK it's a
-legacy feature of x86 as everything I've come across since just does
-MMIO, including PCI.
+There's some confusion here I suppose: The clock source you talk
+about is the kernel's, not Xen's. I didn't think this would
+change for the same kernel version with different Xen underneath,
+but the Linux maintainers of the Xen code there may know better.
+Cc-ing them.
 
-The code changes look fine to me though:
+> The "start" of the problem is that when the kernel gets to the "Freeing
+> unused kernel image (initmem) memory: 2380K" it hangs and stays there for a
+> while. After a few minutes it shows that a process (swapper) is blocked for
+> sometime (image attached)
 
-Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+Now that's pretty unusual - the call trace seen in the screen
+shot you had attached indicates the kernel didn't even make it
+past its own initialization just yet. Just to have explored that
+possibility - could you enable Xen's NMI watchdog (simply
+"watchdog" on the Xen command line)? Among the boot messages
+there ought to be one indicating whether it actually works on
+your system. Without a serial console you wouldn't see anything
+if it triggers, but the system would then never make it to the
+kernel side issue.
 
---=20
-Alex Benn=C3=A9e
+As far as making sure we at least see all kernel messages -
+are you having "ignore_loglevel" in place? I don't think I've
+been able to spot the kernel command line anywhere in the video.
+
+I'm afraid there's no real way around seeing the full Xen
+messages, i.e. including possible ones while Dom0 already boots
+(and allowing some debug keys to be issued, as the rcu_barrier
+on the stack may suggest there's an issue with one of the
+secondary CPUs). You could try whether "vag=keep" on the Xen
+command line allows you to see more, but this option may have
+quite severe an effect on the timing of Dom0's booting, which
+may make an already bad situation worse.
+
+Alternatively the kernel may need instrumenting to figure what
+exactly it is that prevent forward progress.
+
+There's one other wild guess you may want to try: "cpuidle=no"
+on the Xen command line.
+
+Jan
 
