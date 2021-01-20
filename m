@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 623082FD3B0
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 16:18:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71566.128234 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 665612FD411
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 16:33:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71570.128245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2FFD-0004i9-99; Wed, 20 Jan 2021 15:18:03 +0000
+	id 1l2FTJ-0006cn-O1; Wed, 20 Jan 2021 15:32:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71566.128234; Wed, 20 Jan 2021 15:18:03 +0000
+Received: by outflank-mailman (output) from mailman id 71570.128245; Wed, 20 Jan 2021 15:32:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2FFD-0004hj-5p; Wed, 20 Jan 2021 15:18:03 +0000
-Received: by outflank-mailman (input) for mailman id 71566;
- Wed, 20 Jan 2021 15:18:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uQjw=GX=gmail.com=arthurborsboom@srs-us1.protection.inumbo.net>)
- id 1l2FFA-0004hc-VN
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 15:18:01 +0000
-Received: from mail-yb1-xb32.google.com (unknown [2607:f8b0:4864:20::b32])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 92003508-0821-4d32-a608-ed05e2e30782;
- Wed, 20 Jan 2021 15:18:00 +0000 (UTC)
-Received: by mail-yb1-xb32.google.com with SMTP id x78so15310599ybe.11
- for <xen-devel@lists.xenproject.org>; Wed, 20 Jan 2021 07:18:00 -0800 (PST)
+	id 1l2FTJ-0006cQ-Kh; Wed, 20 Jan 2021 15:32:37 +0000
+Received: by outflank-mailman (input) for mailman id 71570;
+ Wed, 20 Jan 2021 15:32:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l2FTI-0006cL-CT
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 15:32:36 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l2FTI-0003P2-6t
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 15:32:36 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l2FTI-0003q1-4H
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 15:32:36 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l2FTB-0006HV-Vs; Wed, 20 Jan 2021 15:32:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,111 +41,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92003508-0821-4d32-a608-ed05e2e30782
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=1QF0838Q2mOKIXn1l947NcF9CM6M/0gAJkWSquMRYw4=;
-        b=IWG6lpKFBP3I2FEVkM2MNyWDyHsJ/2pVF4SW1z3n5wM4FR3HYhc0nHfFSRq/xlshhJ
-         A010/u8tkEblV0rkboFLFL7PJ+VKKjiRAi3MPCqgrnCdKJDEVY3OSQcQjYdsTT5DUHev
-         9PzpsYGKbDOW1hGCQ1RJfkx80uDudpcjqFSeHIe/blFMkC8qX5OZuvbD65EeBTmxKeDf
-         JFCrdEidpuC7PR/Li73WasL9jUh508vS3Z6szZ1/Vs9KAHha38a/WhGIk5kD8XA+O/nq
-         hOSZzGR/yLVbS10k5ARj1VPPUau3IaCB2TBuFwNfbGHoVrgEWkvbAfrNmWP3OhzApcFN
-         iDPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=1QF0838Q2mOKIXn1l947NcF9CM6M/0gAJkWSquMRYw4=;
-        b=LsvItow4xatW18sTQ5iLZEPC/3spSRmVo6dylE0Y/MyXYLUewK2JQ0QrNvHhO5He06
-         qKxgHvR2/mljousXvDB6Owm96LQ2oBSL0U7GOT6z0O4qGLAbLC44dK/YaWC6IHfebnL1
-         qwDZnIJXo4MpEBhFdOzOcb9WKwYnjSNKfGnAP89o+e1Dl+PUIHHDzNoqkOsztcJeE7zo
-         8wYfL1gB4+Cm290xHK5s9qRH62HXifh53aDN8ecO8AVjLfw0O4hmHhYEfZ9DVeAfQ6+j
-         jsMXm0w6wLULl+ERgNskmWW1UZ0DTkVd1MXW+brS5skuZZJH2Ng3gXzxuM95ro41SE90
-         EjJg==
-X-Gm-Message-State: AOAM530nb9jjw0nTHDMbv8AEBhyj8v9JECndDewSR0fXYEJ4sm6Qcs85
-	Y7AD+FuUQAc12eJKX2tSXgbiqIiESXWuzReZOgs=
-X-Google-Smtp-Source: ABdhPJwZm8l3po5mR9bLp+Ns2Vs4cCmdbTy+DKzrEibxLAXMNa7i1KEWMX+wOhF3QEEfY0J6nY9jXh67EbSQqKabYbk=
-X-Received: by 2002:a25:c04f:: with SMTP id c76mr13165714ybf.443.1611155879500;
- Wed, 20 Jan 2021 07:17:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=jno+kZoJdqqTIyrMhy+bC1RJCmOH67NIWmICx+fp/cA=; b=Tnijve3Le9nwZo0wZu9QwYDLHz
+	pe1ro1m7vvZOb7RlDbpMTBJKEQ4bKwvVeUCstl+tRmFIbMzHQphonCyfyD/Pwz1jK7D9wtnfQGpAE
+	4yBlABnJo4AUjs52nFntE/43hzJrJfLgjAH5L/OxP0zzGWBG+7XloWvN9QsyZj+jdQLk=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-References: <20210119105727.95173-1-roger.pau@citrix.com> <CALUcmUkd9Eeau6tC9ZWHbLdvHTYfY34LvK6KKpOOxreYF67Myg@mail.gmail.com>
- <20210120143515.v2vgyhcxrhnnng6r@Air-de-Roger>
-In-Reply-To: <20210120143515.v2vgyhcxrhnnng6r@Air-de-Roger>
-From: Arthur Borsboom <arthurborsboom@gmail.com>
-Date: Wed, 20 Jan 2021 16:17:43 +0100
-Message-ID: <CALUcmU=6aAUrkg8KkJQvsQvNr1yL3E88Uy5xsD+u+XOrbUAhCQ@mail.gmail.com>
-Subject: Re: [PATCH v2] xen-blkfront: allow discard-* nodes to be optional
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: linux-kernel@vger.kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org, 
-	linux-block@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24584.19725.745755.464840@mariner.uk.xensource.com>
+Date: Wed, 20 Jan 2021 15:32:29 +0000
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    xen-devel@lists.xenproject.org,
+    Wei Liu <wl@xen.org>,
+    Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] libs/light: make it build without setresuid()
+In-Reply-To: <20210120151321.GB4175@antioche.eu.org>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+	<20210112181242.1570-16-bouyer@antioche.eu.org>
+	<20210118181656.2abblbjg2jvhlad7@Air-de-Roger>
+	<24584.17302.958286.788145@mariner.uk.xensource.com>
+	<20210120151321.GB4175@antioche.eu.org>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-This time the patch applied cleanly.
+Manuel Bouyer writes ("Re: [PATCH] libs/light: make it build without setresuid()"):
+> On Wed, Jan 20, 2021 at 02:52:06PM +0000, Ian Jackson wrote:
+> > I don't think setuid is safe - at least, if we are trying to restrict
+> > the dm.  Since I think after the libxl child is forked, and has called
+> 
+> What is the dm in this case ? qemu ? On NetBSD qemu runs as root AFAIK,
+> so there isn't much to protect.
 
-The trim command seems to work as well, meaning no error messages and
-a certain amount of blocks (5GB) is trimmed.
-The trimming did consume a bit of time (10-20 seconds), assuming it is
-actually discarding the blocks at the host.
+Yes, the dm is qemu.  If qemu restriction is not supported, that makes
+a big difference.  The complex situation here is to do with trying to
+kill a possibly hostile qemu.
 
-First run:
+> > setuid, it might be traceable (by NetBSD's equivalent of ptrace) by
+> > the dm.  The dm could puppet it into pretending it had succeeded, but
+> > then hang around until the domid is reused.
+> 
+> I don't understand. We're talking about a simple kill(2) syscall here.
 
-[arthur@test-arch ~]$ sudo fstrim -v /
-/: 5.7 GiB (6074368000 bytes) trimmed
+If we're not trying to restrict qemu's privilege at all, then I think
+the setuid is fine.  There are then only two remaining concerns I have
+with this patch:
 
-Second run:
+Firstly, we try to avoid #ifdefs like this.  It tends to make the code
+rather tangled, especially over time.  Instead we prefer to move the
+non-portable code into its own file, eg *_linux.c.
 
-[arthur@test-arch ~]$ sudo fstrim -v /
-/: 0 B (0 bytes) trimmed
+Secondly, I think we should check that dm_restrict is not enabled.
+I think an assert would do since I think we believe this is already
+prevented elsewhere ?
 
-No errors were reported in the dmesg of the VM; no errors in Dom0 and
-no errors in dmesg of Xen (xl dmesg).
+(One option for making this work would be to simply disable the
+killing by uid on NetBSD.  But I don't think that's a good answer
+because killing by uid after eg setuid is more reliable even if it is
+not 100% bulletproof.  So switching to setuid or maybe setreuid is the
+right answer.)
 
-Based on this single test, it seems to work.
-You can add me as Tested-By.
+> OK so if I understand properly, you say Xen should not be used on NetBSD ?
 
-On Wed, 20 Jan 2021 at 15:35, Roger Pau Monn=C3=A9 <roger.pau@citrix.com> w=
-rote:
->
-> On Wed, Jan 20, 2021 at 03:23:30PM +0100, Arthur Borsboom wrote:
-> > Hi Roger,
-> >
-> > I have set up a test environment based on Linux 5.11.0-rc4.
-> > The patch did not apply clean, so I copied/pasted the patch manually.
-> >
-> > Without the patch the call trace (as reported) is visible in dmesg.
-> > With the patch the call trace in dmesg is gone, but ... (there is alway=
-s a
-> > but) ...
-> >
-> > Now the discard action returns the following.
-> >
-> > [arthur@test-arch ~]$ sudo fstrim -v /
-> > fstrim: /: the discard operation is not supported
-> >
-> > It might be correct, but of course I was hoping the Xen VM guest would =
-pass
-> > on the discard request to the block device in the Xen VM host, which is=
- a
-> > disk partition.
-> > Any suggestions?
->
-> Hm, that's not what I did see on my testing, the operation worked OK,
-> and that's what I would expect to happen in your case also, since I
-> know the xenstore keys.
->
-> I think it's possible your email client has mangled the patch, I'm
-> attaching the same patch to this email, could you try to apply it
-> again and report back? (this time it should apply cleanly)
->
-> Thanks, Roger.
+I'm sorry to have offended and discouraged you.  That was not my
+intention.  My apologies for sending an off-putting message.  For the
+avoidance of any doubt, definitely don't think that.  We should make
+this work properly.
 
+Would you be willing to look into the two points I mention above and
+send a revised version of the patch ?  If you find the refactoring
+awkward I or Roger can help.
 
-
---=20
-Arthur Borsboom
+Regards,
+Ian.
 
