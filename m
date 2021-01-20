@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A28932FDA39
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 20:57:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71732.128701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A1C22FDA3E
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 20:58:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71735.128713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2Jb3-00027d-7o; Wed, 20 Jan 2021 19:56:53 +0000
+	id 1l2Jcb-0002Ez-KG; Wed, 20 Jan 2021 19:58:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71732.128701; Wed, 20 Jan 2021 19:56:53 +0000
+Received: by outflank-mailman (output) from mailman id 71735.128713; Wed, 20 Jan 2021 19:58:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2Jb3-00027E-4g; Wed, 20 Jan 2021 19:56:53 +0000
-Received: by outflank-mailman (input) for mailman id 71732;
- Wed, 20 Jan 2021 19:56:51 +0000
+	id 1l2Jcb-0002Ea-Gn; Wed, 20 Jan 2021 19:58:29 +0000
+Received: by outflank-mailman (input) for mailman id 71735;
+ Wed, 20 Jan 2021 19:58:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0VeX=GX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l2Jb1-000279-Lx
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 19:56:51 +0000
+ <SRS0=zx4O=GX=kernel.org=pr-tracker-bot@srs-us1.protection.inumbo.net>)
+ id 1l2Jca-0002ET-9O
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 19:58:28 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e0682eff-c1f9-4764-8d31-a236027004ec;
- Wed, 20 Jan 2021 19:56:50 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A73012343E;
- Wed, 20 Jan 2021 19:56:49 +0000 (UTC)
+ id 3cd37954-b0dc-4743-8ab4-2cde834426b1;
+ Wed, 20 Jan 2021 19:58:27 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id EB38D23440;
+ Wed, 20 Jan 2021 19:58:26 +0000 (UTC)
+Received: from pdx-korg-docbuild-1.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-1.ci.codeaurora.org (Postfix) with ESMTP id D4B6C604FC;
+ Wed, 20 Jan 2021 19:58:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,96 +41,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0682eff-c1f9-4764-8d31-a236027004ec
+X-Inumbo-ID: 3cd37954-b0dc-4743-8ab4-2cde834426b1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611172610;
-	bh=PPsE1PNc6ro+lfHP+Fy8znBu6Qo9KnM1gYSYJbNdlog=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Zp3x2J4L3eP8BgtVsgKg4qH7XO5lxinNHbbO6+8kE+T7X8RF25PCdW1uBQ9WSWlNP
-	 IrD+rwzdwP3BCgrhYRzoPThMtFoMX1m8Ta8sYLxeAwfqJMVJdgHZlasHacwNfNYvg5
-	 zV+xLFj+kaD8xjaQGajjMUWsuP+xb1b5nx22T5mkuqvZeP/ftKFxVOzyiMGgy4t7of
-	 rP+PG0RwfY73k3XAzJIeUcENACinKY+0H7K8uCQ2aw48Hgf94cTIG/YoUdv1rTuzUg
-	 BDbawiPT1CYURlfJDntBuEuGjpErywn4f05YfWYOhygxsFzNpvJrjjOlWuwHfkiTtS
-	 H/ciNrpuQvV3g==
-Date: Wed, 20 Jan 2021 11:56:48 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v5 08/10] xen/arm: smmuv3: Use fallthrough
- pseudo-keyword
-In-Reply-To: <c392bcf9f3a4d22b0e67240d52498c719ff3a3a6.1611153615.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.21.2101201156410.14528@sstabellini-ThinkPad-T480s>
-References: <cover.1611153615.git.rahul.singh@arm.com> <c392bcf9f3a4d22b0e67240d52498c719ff3a3a6.1611153615.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	s=k20201202; t=1611172707;
+	bh=8Gt5nD+hiWgiOiVulIE8p1fTb/Qv1s/EF0Jm9eW7lS4=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=QKA8ghcwZ/GEMcruoZ4DmDvoKa4pMvEo5PiAzIXujhp8h2nkS1SwmmacMEVbkzPIx
+	 DSgLdlB7g2e4HRkKDbMdl3X5qyHBDthMjqCP+aakujqyjyfEdIHYFi75+yMxiPKWpM
+	 FBOHELx9eWp1G/1h8mwHMoPdR0J8qnmrf43eaYh6kDtHsN2COmzWIxxLTgUz1duRXA
+	 xQTZ1K5ON0mBxKDW0KadQ5Eb/QJVzlGaAlqCM58kCHYUsSAvJ3Lrm02rkzlIx+LhO3
+	 3lZDbVIyVO5R63I4IAONL1zhmaeejnaa2e6uSWV8Gsav9BN2lsozc1pnYQXcaX/hOa
+	 05WUYeL+t1HnQ==
+Subject: Re: [GIT PULL] xen: branch for v5.11-rc5
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20210120150157.5289-1-jgross@suse.com>
+References: <20210120150157.5289-1-jgross@suse.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20210120150157.5289-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.11-rc5-tag
+X-PR-Tracked-Commit-Id: bd9dcef67ffcae2de49e319fba349df76472fd10
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 2e4ceed606ba4942f632d097f70696543fe98d8e
+Message-Id: <161117270679.2860.10704382342128586934.pr-tracker-bot@kernel.org>
+Date: Wed, 20 Jan 2021 19:58:26 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 
-On Wed, 20 Jan 2021, Rahul Singh wrote:
-> Backport commit df561f6688fef775baa341a0f5d960becd248b11
-> "treewide: Use fallthrough pseudo-keyword" from Linux kernel.
-> 
-> Replace the existing /* fall through */ comments and its variants with
-> the new pseudo-keyword macro fallthrough[1]. Also, remove unnecessary
-> fall-through markings when it is the case.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+The pull request you sent on Wed, 20 Jan 2021 16:01:57 +0100:
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.11-rc5-tag
 
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/2e4ceed606ba4942f632d097f70696543fe98d8e
 
-> ---
-> Changes since v3:
->  - This patch is introduce in this version.
-> Changes since v4:
->  - Add more information about the merged patch in commit message.
-> ---
-> ---
->  xen/drivers/passthrough/arm/smmu-v3.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-> index 5ce14850b4..f5f8b4c981 100644
-> --- a/xen/drivers/passthrough/arm/smmu-v3.c
-> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
-> @@ -932,7 +932,6 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_device *smmu)
->  		 */
->  		return;
->  	case CMDQ_ERR_CERROR_ILL_IDX:
-> -		/* Fallthrough */
->  	default:
->  		break;
->  	}
-> @@ -2488,7 +2487,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
->  	switch (FIELD_GET(IDR0_STALL_MODEL, reg)) {
->  	case IDR0_STALL_MODEL_FORCE:
->  		smmu->features |= ARM_SMMU_FEAT_STALL_FORCE;
-> -		/* Fallthrough */
-> +		fallthrough;
->  	case IDR0_STALL_MODEL_STALL:
->  		smmu->features |= ARM_SMMU_FEAT_STALLS;
->  	}
-> @@ -2505,7 +2504,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
->  	switch (FIELD_GET(IDR0_TTF, reg)) {
->  	case IDR0_TTF_AARCH32_64:
->  		smmu->ias = 40;
-> -		/* Fallthrough */
-> +		fallthrough;
->  	case IDR0_TTF_AARCH64:
->  		break;
->  	default:
-> @@ -2589,7 +2588,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
->  	default:
->  		dev_info(smmu->dev,
->  			"unknown output address size. Truncating to 48-bit\n");
-> -		/* Fallthrough */
-> +		fallthrough;
->  	case IDR5_OAS_48_BIT:
->  		smmu->oas = 48;
->  	}
-> -- 
-> 2.17.1
-> 
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
