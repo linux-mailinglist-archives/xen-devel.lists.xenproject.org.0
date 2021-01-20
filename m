@@ -2,57 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCBAA2FC6E3
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 02:37:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71196.127353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6A4A2FC86B
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 04:06:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71212.127366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l22Qu-0003Zf-Mj; Wed, 20 Jan 2021 01:37:16 +0000
+	id 1l23oC-0003qP-IR; Wed, 20 Jan 2021 03:05:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71196.127353; Wed, 20 Jan 2021 01:37:16 +0000
+Received: by outflank-mailman (output) from mailman id 71212.127366; Wed, 20 Jan 2021 03:05:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l22Qu-0003ZF-HB; Wed, 20 Jan 2021 01:37:16 +0000
-Received: by outflank-mailman (input) for mailman id 71196;
- Wed, 20 Jan 2021 01:37:14 +0000
+	id 1l23oC-0003q0-El; Wed, 20 Jan 2021 03:05:24 +0000
+Received: by outflank-mailman (input) for mailman id 71212;
+ Wed, 20 Jan 2021 03:05:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F2v3=GX=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1l22Qs-0003ZA-Hm
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 01:37:14 +0000
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ <SRS0=wA1v=GX=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1l23oB-0003pv-84
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 03:05:23 +0000
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b6f5e44-8028-4e07-a77a-24c0c549eea9;
- Wed, 20 Jan 2021 01:37:13 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10K1YEQb119873;
- Wed, 20 Jan 2021 01:37:10 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2120.oracle.com with ESMTP id 3668qmrare-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 20 Jan 2021 01:37:10 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10K1UcVI006819;
- Wed, 20 Jan 2021 01:35:10 GMT
-Received: from nam10-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam10lp2108.outbound.protection.outlook.com [104.47.55.108])
- by aserp3030.oracle.com with ESMTP id 3668qudaf7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 20 Jan 2021 01:35:10 +0000
-Received: from SA2PR10MB4572.namprd10.prod.outlook.com (2603:10b6:806:f9::18)
- by SN6PR10MB2637.namprd10.prod.outlook.com (2603:10b6:805:44::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.11; Wed, 20 Jan
- 2021 01:35:07 +0000
-Received: from SA2PR10MB4572.namprd10.prod.outlook.com
- ([fe80::4c5b:9cf:616d:b140]) by SA2PR10MB4572.namprd10.prod.outlook.com
- ([fe80::4c5b:9cf:616d:b140%6]) with mapi id 15.20.3784.011; Wed, 20 Jan 2021
- 01:35:07 +0000
-Received: from [10.74.103.107] (138.3.200.43) by
- SN4PR0201CA0068.namprd02.prod.outlook.com (2603:10b6:803:20::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.10 via Frontend
- Transport; Wed, 20 Jan 2021 01:35:06 +0000
+ id 4632536c-686d-4299-92fb-a24fa583ab4c;
+ Wed, 20 Jan 2021 03:05:22 +0000 (UTC)
+Received: from [10.10.1.167] (c-73-129-147-140.hsd1.md.comcast.net
+ [73.129.147.140]) by mx.zohomail.com
+ with SMTPS id 1611111918200969.7529743001716;
+ Tue, 19 Jan 2021 19:05:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,130 +39,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b6f5e44-8028-4e07-a77a-24c0c549eea9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=58xQqYbiA3gFY1mH16yxiFLJL72Q8WqtkNLAmrNRloo=;
- b=S5S5fqhvky1snrhXXyNlG4m1TiTyJYzvCvOrvSVgLEBALEgk4MFM2yhczOhR9rwA+JLY
- qsJRS25O6F3czCOOdL4GrRfXY4qCddPEcy+7XAOCdvAzE8TV3bv8drpTVI9iZEr2B948
- TqU9d04APPPbeCtSizlFVK3XbogTctpqpAGhvkiuEcIygTtmZd85rP94Kr+vM7Az6672
- 5GKfiEOSGCfGAIDTnVSIeOpT5fR50wB+81wFeNHvDwN/YPg263RYTPNnDkpUhjCRUttn
- qCCzeHc3QBa9cJauPvx7wZJJMUV/VFcCOdKjrXhqc7nFdSEVrIKoA5Z/MwkiMIbs0ivb UQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AZm9MPXEb3PJxIBH3WcGHTb8U+sqasLexU7KmYbUlBKwnvaxdU9saefMVTUfTD2gXit9Y2shkhp10w0d4WadfL5DLShgpYl1UpmaTTCC8azH0GUGHtEsWLbYJbK9RmalkF4zz0h6MTmwiAx5kKIAb8LoOf5X+lfNzu7AAtzF7iPrsqrFNjMSmsoyqgGFLUgafnfG9IwMurJScPRUxB0vy1XRzzTkmv5mBlLwUU+M1rk2Bu8M+GUjXnHp/K5vU/d3woM/DsAvsabFzKIbGARpNH2ozpnqStEiaJwMHAx900zKKS2e9oD4SYeLXbmfJxqFgGmI8+4o2NrwU6Ib/FBcuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=58xQqYbiA3gFY1mH16yxiFLJL72Q8WqtkNLAmrNRloo=;
- b=DG2y7Mti6o22rLJNRkml2EgkprLqEaUf2Duh+ndN+cdoBOS+hK3gLfzsR5c5pqxFpl0b1IVQF50zm/OcmzXxTZpZglCoUo4DRfkTFMncUAZQ7Wf9Afr1GIcYEjq/QT2HKWkEhkQ40uwIXBKpkoMTGpeeVGtV/xMsb5+O6FkkWeZOi5DX1xd1rLtAvHOFIQkT+xnynb1nX8nEUyIJcjeUsMIbnYryuNN3cxIvKz2tpUvHzSF+F8Hr2BmcvCzqqT3NZC9I1JOA5/Tjk7+M6HW2MXJ4+lKnO4+p+m3cfKg0jPzUExUmOpOQ925agVuPZvxteBf7U9MbHPr89JMBBDzqwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=58xQqYbiA3gFY1mH16yxiFLJL72Q8WqtkNLAmrNRloo=;
- b=LuM/XaQQgyhrjsi7tMoPHmVKwUovWXtlpSU0B6gC+LW8Ps1OgKpyVqOjYLRW3jOe6qjIPotUoOGKWRD8lsNW6wQq8UlmbCeuvaY0EVvic+SxK0ifoD94GUNWolEGivFHfqGllPxTV7oVyv0C+gQAblwyQUAbhtwKDIs6eJgAQeM=
-Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=none action=none
- header.from=oracle.com;
-Subject: Re: [PATCH AUTOSEL 5.10 26/45] x86/xen: Fix xen_hvm_smp_init() when
- vector callback not available
-To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Cc: David Woodhouse <dwmw@amazon.co.uk>, Juergen Gross <jgross@suse.com>,
-        xen-devel@lists.xenproject.org
-References: <20210120012602.769683-1-sashal@kernel.org>
- <20210120012602.769683-26-sashal@kernel.org>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <86c0baa1-f8c5-2580-6ee9-efc7043c2bf5@oracle.com>
-Date: Tue, 19 Jan 2021 20:35:04 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.1
-In-Reply-To: <20210120012602.769683-26-sashal@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Originating-IP: [138.3.200.43]
-X-ClientProxiedBy: SN4PR0201CA0068.namprd02.prod.outlook.com
- (2603:10b6:803:20::30) To SA2PR10MB4572.namprd10.prod.outlook.com
- (2603:10b6:806:f9::18)
+X-Inumbo-ID: 4632536c-686d-4299-92fb-a24fa583ab4c
+ARC-Seal: i=1; a=rsa-sha256; t=1611111920; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AXl8Hr1q4SR6eXsmETUcDXH2v9LnxcqgcPU/h/NS3VEL/CGMhWut7bcd91NLgljSBU+2yF/XNvtYIns8Az7+x9uRkGc7QGLM9k8boRWon5tUXUdeO4n4n1/KtXhyPjitB9nx71K7QQWs66FyjGfHu1HsIHGQ/8zSoz5sH609fF0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1611111920; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=L3frx8YIAmkkKTT6OuJKwK5YzDJJEpCMkz1Wy9hPbc8=; 
+	b=BHcWht5w/73GuLLFV/RLuXZ5xJAOplSLylXj+f+eGBEN/mWUzKKdwjswGUoxkcyJvwEJd96AQc80ZWQCeETv4cVZIfVJxytB+bbu+B3HB7owrZZyZ4t3XiWnj11y7CobUYk+R3FKHNNFBkCCwCLGlWja1kPxCivu/tycoHX1WX8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com> header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1611111920;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=L3frx8YIAmkkKTT6OuJKwK5YzDJJEpCMkz1Wy9hPbc8=;
+	b=e4JUcxSSq25tmsecAO0E9bn/z5uemYmyLHeYYAxM50qz9bVYaAH1NTSprs2vKRVT
+	I7F3+qw+3ydlWbrTCDQvr6UH/sd9EZ4bVbDFXwtKS4tvD4hbS5HecEjyNmu8MozUi3g
+	lUxPR6482SD1k7Tyb1rknwVcP07fhY1+2b30VC60=
+Subject: Re: [PATCH] xen/xsm: Improve alloc/free of evtchn buckets
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210118150623.29550-1-andrew.cooper3@citrix.com>
+ <21a82f0c-2267-0891-0f4a-0fdd9feec42c@suse.com>
+ <e584b28d-a438-fd1d-d908-3b70ffab9309@citrix.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Message-ID: <796033c5-4991-cfa8-4bea-b5df7c2f91f7@apertussolutions.com>
+Date: Tue, 19 Jan 2021 22:04:22 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3b28f780-0e22-4742-3e00-08d8bce39e90
-X-MS-TrafficTypeDiagnostic: SN6PR10MB2637:
-X-Microsoft-Antispam-PRVS: 
-	<SN6PR10MB2637ADA77B9A4C4D36C8D9EB8AA20@SN6PR10MB2637.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:172;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	tsX4QwPYkGgJ6nlbBbMVgDuKXMd8l56H8aGPis4e5/Cp5RYWQ6nvlB/FeKm4DbEaXqh0Lnam656mdm4HQr7B3qoPFiJIHB6Xl9AR1Uk0qL25mKjtupsVm0pUZR+K1nEWBcT0epJ5tK0kIYsyiSLuE23aKaqHGw5twVNGI/Tiz2l5f2tY7qNlbdt2LtSwSE1OaEv8kU8kU2TtPYy/dkOVzDWrS2HdX8SDycGLLiMCF5PGiSTq5gchgXwBhPKOb1XpEYAJ23573DvHTD1E6FJE3vF09pShuKSMCjuB6O6MAalx6jFh7jlp8ImPm3vaQBuguq4gdHh4EcFxtFxAUfSYhh1MQH7inGqUd4hLpxSiTMJ1C4WahhKYn/Qom2KN+wLraA4FDqPri8ZxvVHtLNttaRDb3CB7yCU0LaH3oKBcQ4lPW6Wo5sIUqaSHYvRmX0MqJnsIo6v2ION5bqB/sOM5IGgNQgwM5QoG3NuHyQJ2DnHXkvWIivnroLvozNP+hQMHJKknsxgoGa8DRqClC1Jt8vhQ5swOYAHY+5XxYiMKH6uSe3kn00kx032+QUvRZ1m8
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR10MB4572.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(376002)(39860400002)(346002)(396003)(136003)(366004)(558084003)(478600001)(5660300002)(4326008)(44832011)(8936002)(6486002)(316002)(966005)(16576012)(31696002)(186003)(54906003)(2906002)(31686004)(36756003)(2616005)(16526019)(8676002)(66556008)(956004)(86362001)(66476007)(26005)(53546011)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: 
-	=?utf-8?B?ZXdaMzM0MUZsbk9UeTRTclFteGFiN3B6bEl3RW9sR3hXaWdCL3dxaWFybE1D?=
- =?utf-8?B?OHB5NTA3V3RDZ20xUzZweTZnbnRhQTE4djZCRnptWGQ2ckpRQTV1MGVXcW1r?=
- =?utf-8?B?MTVYaDlyb29kWW50NjdhQ0VVMC9lYkJ1WFJKYmRha2hLOEhRbS9aRUY5UnlI?=
- =?utf-8?B?anM4Q2pjTUtDNzQxYXJVd1poZjdrTGkwVnAvdUMyN3ZtdnlLQ1c5SnpWL2xq?=
- =?utf-8?B?WU9PejZ1c2REakwxcVU5U2dYU0RSUjJyeFU3VFJWNzRraVRXZU5iNnNZbFdk?=
- =?utf-8?B?cFNNYjJ2MGt5aFo1WU1oS2tEdS9yU1Nlb0JzazI2YWRTYm4rRzJla1dMS3dY?=
- =?utf-8?B?aTdtY0NSamM5dm1PVURUSW9abW9ZejJPU0hyallhN3hrdnR1T0NpZGVhQlJi?=
- =?utf-8?B?dytSdHlzaU5WcDV3YU9SOWJGU3dZWlVXZGhxWm5HTHhreU9nMHV1R1dCdEc5?=
- =?utf-8?B?ZDB2eDBBMk9rdExLZGJyaGpNSU0xZkdveTF5cWltaTJSdVc1QUpSbnhrTjU0?=
- =?utf-8?B?dUlNSUtNY1EyTHRJRVRtMjU4SzlXS1dKdUc1SFRLZ05GalFGN2IvcGZKcjM4?=
- =?utf-8?B?RDhBeXBrbThRTWNNeGgyaTBzbTFjTFpuYlN5R3NqaXlIeEUvUll1RlRWc3pz?=
- =?utf-8?B?ZjRkcmhoNjFMcGNhSnRoelVPVStCZi9XNzVtQ2RtN2VpOEpHTnNheEthOWtk?=
- =?utf-8?B?WjBsd2did1BTQnRkNWNHK1NtaVYyRnJwMVMvZWJramEzZndqdkxMVEVQZ1Nv?=
- =?utf-8?B?OElZZ3FDenpQRlRMMll0ZEgzb2IydGJvMjBnYktON2Rkdnh6YXJzbElMY3pu?=
- =?utf-8?B?NFhaSjBjR3MwN1FDemJ0WVlwWG4xbHd4Ymp6ZU84bU9mNjB2TFVjUmI4ODZ1?=
- =?utf-8?B?dDNWMzNLbGhZSlFSR29tcExyTEpVV3Y1YWRadnFMOEZhd3lpWThKTnppM1Nn?=
- =?utf-8?B?YzlieXUxMkRWSzdhNGFic3VLWkJrckhlb1FKeEZnMDlTYi9QNFRBNHpRUDRw?=
- =?utf-8?B?aDZkVG5vSjh6b2d1a3I0K3VLVXg5cDRKTVlNOWc0amxQQ1E0aGxOOVFqSmo4?=
- =?utf-8?B?dzhCTWFyem00RHZkYVI3L3ZtWmdMRHFibFRtR0lLUitUU3NtSzNsajVRRVlj?=
- =?utf-8?B?eEZmWHRwSXppN0Ntc0x4RTlSKytPWURFTFBpMFNTQS9mQ0s0Z2FzSDBuRFdW?=
- =?utf-8?B?N0lNTklLMDkxRnBNT1Eza3JCOXFremhFNG8zMXkvNStoWm1Kc3oxZlIzOEdk?=
- =?utf-8?B?TzdKa0daZE4rbFBwd3hBVW1uM0pqZmxWMGtVRVNPMWUxUXd0MHluekNGM3lZ?=
- =?utf-8?B?bUVVQnRxWC9OWUlpME44NTdiQmtvRWRxL243dDdjYVEzMHdZZWJZTDZZSVJD?=
- =?utf-8?B?dDE2U1dpN25lNHZ1WHF2STFxVi8vOVZ6Nnc0M1d4SFJweFBnYUNNNG5pbmQ0?=
- =?utf-8?Q?JmyU1d2G?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b28f780-0e22-4742-3e00-08d8bce39e90
-X-MS-Exchange-CrossTenant-AuthSource: SA2PR10MB4572.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2021 01:35:07.8628
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bqMPrp6Q1qGbTYrg8ZcKTYkwQn708LXTFeYaB2Tu1sQSSsZYEVeZLP3hDJuA/0+nD+tafzTwCvESZZiiCjJbxhxVuC9aTAp32gTvt1dWWeU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR10MB2637
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9869 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 bulkscore=0
- mlxlogscore=999 spamscore=0 suspectscore=0 malwarescore=0 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101200005
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9869 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 priorityscore=1501
- adultscore=0 impostorscore=0 mlxlogscore=999 spamscore=0 suspectscore=0
- phishscore=0 clxscore=1031 bulkscore=0 mlxscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101200006
+In-Reply-To: <e584b28d-a438-fd1d-d908-3b70ffab9309@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-ZohoMailClient: External
 
+On 1/18/21 11:21 AM, Andrew Cooper wrote:
+> On 18/01/2021 15:31, Jan Beulich wrote:
+>> On 18.01.2021 16:06, Andrew Cooper wrote:
+>>> --- a/xen/common/event_channel.c
+>>> +++ b/xen/common/event_channel.c
+>>> @@ -147,6 +147,14 @@ static bool virq_is_global(unsigned int virq)
+>>>       return true;
+>>>   }
+>>>  =20
+>>> +static void free_evtchn_bucket(struct domain *d, struct evtchn *bucket=
+)
+>>> +{
+>>> +    if ( !bucket )
+>>> +        return;
+>> You could avoid this since flask_free_security_evtchns() has
+>> a similar check. Alternatively it could be dropped from there.
+>=20
+> I considered altering both.=C2=A0 However, all functions like this really
+> should be idempotent.
+>=20
+> For this case, the compiler can drop the check from both callsites, and
+> its safer if the structure of the callers change in the future.
+>=20
+>> But even if you want to keep the duplication
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>=20
+> Thanks.
 
-On 1/19/21 8:25 PM, Sasha Levin wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
->
-> [ Upstream commit 3d7746bea92530e8695258a3cf3ddec7a135edd6 ]
+You can add,
+Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
+>>
+>> One further aspect to consider though:
+>>
+>>> --- a/xen/include/xsm/dummy.h
+>>> +++ b/xen/include/xsm/dummy.h
+>>> @@ -309,12 +309,12 @@ static XSM_INLINE int xsm_evtchn_reset(XSM_DEFAUL=
+T_ARG struct domain *d1, struct
+>>>       return xsm_default_action(action, d1, d2);
+>>>   }
+>>>  =20
+>>> -static XSM_INLINE int xsm_alloc_security_evtchn(struct evtchn *chn)
+>>> +static XSM_INLINE int xsm_alloc_security_evtchns(struct evtchn *chn, u=
+nsigned int nr)
+>> I wonder whether we wouldn't better identify the difference
+>> between pointer (to individual element) and array by writing
+>> this (and others below) as
+>>
+>> static XSM_INLINE int xsm_alloc_security_evtchns(struct evtchn chn[], un=
+signed int nr)
+>=20
+> In which case want we want is (unsigned int nr, struct evtchn chn[nr])
+> which I think is the C99 way of writing this to help static analysis.
 
-Sasha, you will also want https://lore.kernel.org/lkml/20210115191123.27572-1-rdunlap@infradead.org/, it is sitting in Xen staging tree.
+Would it be better to switch this to the (unsigned int nr, struct evtchn=20
+chn[nr]) you suggested now or wait to make the change uniform? IMHO it=20
+is probably better for the sake of existing consistency to keep what you=20
+have here, with the understanding that this might get redone as part of=20
+a larger function semantic change.
 
-
--boris
-
-
+>>
+>> I think we've done so in a few places already, but of course it
+>> would be a long way to get the entire code base consistent in
+>> this regard. Plus of course while this works fine in function
+>> declarations / definitions, it won't be possible to use for
+>> struct / union fields.
+>>
+>> Also it looks like this and further lines have become overly long.
+>=20
+> Everything is long lines in this area of code.=C2=A0 Its all due an overh=
+aul.
+>=20
+> ~Andrew
+>=20
 
 
