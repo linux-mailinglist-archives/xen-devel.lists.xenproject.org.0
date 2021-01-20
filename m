@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50E482FD860
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 19:34:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71717.128665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1148A2FD93A
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 20:15:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71722.128677 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2IJE-0002g8-Am; Wed, 20 Jan 2021 18:34:24 +0000
+	id 1l2IvL-0006Wy-Eq; Wed, 20 Jan 2021 19:13:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71717.128665; Wed, 20 Jan 2021 18:34:24 +0000
+Received: by outflank-mailman (output) from mailman id 71722.128677; Wed, 20 Jan 2021 19:13:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2IJE-0002fj-74; Wed, 20 Jan 2021 18:34:24 +0000
-Received: by outflank-mailman (input) for mailman id 71717;
- Wed, 20 Jan 2021 18:34:22 +0000
+	id 1l2IvL-0006WZ-Bf; Wed, 20 Jan 2021 19:13:47 +0000
+Received: by outflank-mailman (input) for mailman id 71722;
+ Wed, 20 Jan 2021 19:13:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ap16=GX=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l2IJC-0002fO-HG
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 18:34:22 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=20gi=GX=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1l2IvK-0006WU-9V
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 19:13:46 +0000
+Received: from mail-lj1-x22f.google.com (unknown [2a00:1450:4864:20::22f])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 379f119e-6e69-44db-9b77-219065c8cf40;
- Wed, 20 Jan 2021 18:34:21 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 77E1AAC63;
- Wed, 20 Jan 2021 18:34:20 +0000 (UTC)
+ id 6e744a44-c1ef-41b9-b594-485d9dd0220b;
+ Wed, 20 Jan 2021 19:13:45 +0000 (UTC)
+Received: by mail-lj1-x22f.google.com with SMTP id n11so27390682lji.5
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Jan 2021 11:13:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,222 +37,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 379f119e-6e69-44db-9b77-219065c8cf40
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611167660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hLLGhrN/k0OWxcK4YWTi0hJuD8D4za1CTy8vzj+FhJM=;
-	b=Rl47JY5IsjT6PGm4RxGdiH+ItbJp7kPc91PkFK+tz94ftZnJ3u5NYQyxoBFiNsALk/Lx7c
-	a5FMYlgQcCf4HpUNC8AdyaC7GheLVhqe3ALmQUn6VWr80/FIlzDBCiH5Trq4vL1MtM9luL
-	njvme2ViVdTn9kW090y5nBU1SWem0lo=
-Subject: Re: [PATCH v6 1/3] xen/arm: add support for
- run_in_exception_handler()
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-References: <20210116103339.21708-1-jgross@suse.com>
- <20210116103339.21708-2-jgross@suse.com>
- <4e8cc6e6-dc55-6dda-ffbc-6487e45d5aaf@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <8ff75c7e-6485-5deb-2746-92482f87c742@suse.com>
-Date: Wed, 20 Jan 2021 19:34:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: 6e744a44-c1ef-41b9-b594-485d9dd0220b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=xr5s3QZlCbiEuZtgWbPLVUvC90Axdr3xTcAJO6SmkJE=;
+        b=Z5y74jl7Hhm1mLlxeMOk7j9XFDwTd58soP17HRRq0ec1Aevjho+oFnoEyopChsk6kn
+         5BAo/IUg404i0eI+tbTvhggvTJ4lnt49Un1nbsJaoJVskReIXsOGJbK1yipDJHk0nBUf
+         d9Ywi7vBQrp7MNp75c8oGUi50IZvUkpp1pozF2peyNcnJWearbgT7ctm09kM2ecItaFH
+         CfUfxjC+SXLkKtbmffdgA+WsJ9Xr9BagwnF0wRyeWpuleK9b0zrt1tsnHEkoPIs4pZMM
+         Ra0UIXegmzjuxvs4o5HYtyXzIntY7bGnmKvuT+LB0m+uRxnZsn6lz3NwHSANP/OHacG2
+         T6gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=xr5s3QZlCbiEuZtgWbPLVUvC90Axdr3xTcAJO6SmkJE=;
+        b=Q3QWzGFFUlqzM6kOT1FlooZBr7mugv/Wn1nEu/nnmBUngHotdNisBsFrseA8qk21sN
+         fGu1IMfXFb/hDx3dMZyGkGKomEii7/x2tJoW82Rs8QjzesvYtWjKAxe9+SEf66Tr0xjy
+         cdrvoB6FqkhKM/R2T6Q99A5I6oNM+8DM0Poc877HEZhVQ6x8pJXMwzHXmGFT8n8r3Sx/
+         TmFKXt9BxO9oITwH5k5DLrrkxTHZS6v4i9gk8flR1KaQ/lh1Gcm7f8WSbx//AETIeTbz
+         i5MRVTuyKVO8vWV6pUfHThdG9J97lnXD4hgjWXOl+F5LDNYp8hs3H6AdmcUVIHGLHIrZ
+         IUPg==
+X-Gm-Message-State: AOAM533/U0PMp49ILFf3uj+yGze44tnXMTV614+VMF7jKLhxi01DKAZP
+	js3FmTtC49ILjpMFtsiOkAjzDm07q00/mrvuAAGrB95V
+X-Google-Smtp-Source: ABdhPJxgxLv+AkhP2G0okW7894Dpltje8/7Znx+DnU5kMDIn6YVUW1c7ItrIe/tX1zqNDlc1jGZ+oJbo0cN68w8xUv8=
+X-Received: by 2002:a2e:888e:: with SMTP id k14mr5119879lji.285.1611170023660;
+ Wed, 20 Jan 2021 11:13:43 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <4e8cc6e6-dc55-6dda-ffbc-6487e45d5aaf@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="zMUyPWZCDDpsqCuxSbuOHe8nTg3hfH7rz"
+References: <20201019200318.103781-1-jandryuk@gmail.com>
+In-Reply-To: <20201019200318.103781-1-jandryuk@gmail.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 20 Jan 2021 14:13:32 -0500
+Message-ID: <CAKf6xptj7jRAc_q4XZdB5L4xiL3rgjZtzWcunbgZYnkt8c+Hcw@mail.gmail.com>
+Subject: Re: [PATCH] flask: label-pci: Allow specifying irq label
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>, Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---zMUyPWZCDDpsqCuxSbuOHe8nTg3hfH7rz
-Content-Type: multipart/mixed; boundary="TTR3NKXgm9SYh5XgnfliRB9j6gmcAizSP";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-Message-ID: <8ff75c7e-6485-5deb-2746-92482f87c742@suse.com>
-Subject: Re: [PATCH v6 1/3] xen/arm: add support for
- run_in_exception_handler()
-References: <20210116103339.21708-1-jgross@suse.com>
- <20210116103339.21708-2-jgross@suse.com>
- <4e8cc6e6-dc55-6dda-ffbc-6487e45d5aaf@xen.org>
-In-Reply-To: <4e8cc6e6-dc55-6dda-ffbc-6487e45d5aaf@xen.org>
+On Mon, Oct 19, 2020 at 4:03 PM Jason Andryuk <jandryuk@gmail.com> wrote:
+>
+> IRQs can be shared, so uniquely labeling doesn't always work.  You run
+> into issues if you have domA_t allowed access to device_A_t and domB_t
+> to device_B_t.  The shared IRQ can only be labeled one of
+> device_A_t or device_B_t, and assignment of the second device fails
+> since domA_t doesn't have permission for device_B_t and vice versa.
+>
+> Add the ability to specify an irq label to flask-label-pci.  A
+> shared_irq_t can then be used to for the PIRQ.  The default remains to
+> use the device label if an IRQ label isn't specified.
+>
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
 
---TTR3NKXgm9SYh5XgnfliRB9j6gmcAizSP
-Content-Type: multipart/mixed;
- boundary="------------FEDF2B79905AD78CF09AC887"
-Content-Language: en-US
+Hi,
 
-This is a multi-part message in MIME format.
---------------FEDF2B79905AD78CF09AC887
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 20.01.21 19:20, Julien Grall wrote:
-> Hi Juergen,
->=20
-> On 16/01/2021 10:33, Juergen Gross wrote:
->> Add support to run a function in an exception handler for Arm. Do it
->> as on x86 via a bug_frame, but pass the function pointer via a
->> register (this needs to be done that way, because inline asm support
->> for 32-bit Arm lacks the needed functionality to reference an
->> arbitrary function via the bugframe).
->=20
-> I was going to commit the series, but then realized the commit message =
-
-> and comment needs some tweaking because technically GCC is supporting=20
-> 'i' (I managed to get it working with -fno-pie).
->=20
-> So how about:
->=20
-> "This is needed to be done that way because GCC complains about invalid=
-=20
-> constraint when using a function pointer with "i" and PIE is enabled=20
-> (default on most of GCC shipped with distro). Clang happily accepts it,=
-=20
-> so it may be a bug in GCC."
->=20
->=20
->> +/*
->> + * Unfortunately gcc for arm 32-bit doesn't support the "i"=20
->> constraint, so
->> + * the easiest way to implement run_in_exception_handler() is to pass=
-=20
->> the
->> + * to be called function in a fixed register.
->> + */
->=20
-> This comment should also be updated.
->=20
-> I can update both while committing if you are happy with the change.
-
-Fine with me.
+This is useful to me and was posted before the 4.15 cut off.  Can it
+make it into the release?
 
 Thanks,
+Jason
 
 
-Juergen
-
---------------FEDF2B79905AD78CF09AC887
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------FEDF2B79905AD78CF09AC887--
-
---TTR3NKXgm9SYh5XgnfliRB9j6gmcAizSP--
-
---zMUyPWZCDDpsqCuxSbuOHe8nTg3hfH7rz
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAId6oFAwAAAAAACgkQsN6d1ii/Ey/r
-NAgAh0+UlmGIQKCvEfnoLufTgt+r+Yk9ZOVN8wxZLgrVXmWKfv8AfMuXA6EwfD9Nia7sgTssO3N9
-h2KYGvBVFBSZtXnsq2VM1OMRBDt6wWXVVvbrgWnSh1VUGr7odMsUo2gg0XR4LxAVcOaZdNtfHPXW
-gGlkD9KyznqdmjPWO8nOcu+Q/Z22VXsYpr3e4M8msHz7Pr0tjQHStae5j+1ciptY0XjDxY6CJibb
-+0pzDpy5apKQa86n0ELSN35yoERsxnMqfCGv51zDDkcbO4nkEIO/exnEhOABFf1A3+YmGfLFk1ho
-hChh5pZXj49d73m38An1COCKm5OWZnYsNl8hJmasMw==
-=q7FT
------END PGP SIGNATURE-----
-
---zMUyPWZCDDpsqCuxSbuOHe8nTg3hfH7rz--
+>  tools/flask/utils/label-pci.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+>
+> diff --git a/tools/flask/utils/label-pci.c b/tools/flask/utils/label-pci.c
+> index 9ddb713cf4..897b772804 100644
+> --- a/tools/flask/utils/label-pci.c
+> +++ b/tools/flask/utils/label-pci.c
+> @@ -28,7 +28,7 @@
+>
+>  static void usage (int argCnt, char *argv[])
+>  {
+> -       fprintf(stderr, "Usage: %s SBDF label\n", argv[0]);
+> +       fprintf(stderr, "Usage: %s SBDF label <irq_label>\n", argv[0]);
+>         exit(1);
+>  }
+>
+> @@ -39,12 +39,19 @@ int main (int argCnt, char *argv[])
+>         int seg, bus, dev, fn;
+>         uint32_t sbdf;
+>         uint64_t start, end, flags;
+> +       char *pirq_label;
+>         char buf[1024];
+>         FILE *f;
+>
+> -       if (argCnt != 3)
+> +       if (argCnt < 3 || argCnt > 4)
+>                 usage(argCnt, argv);
+>
+> +       if (argCnt == 4) {
+> +           pirq_label = argv[3];
+> +       } else {
+> +           pirq_label = argv[2];
+> +       }
+> +
+>         xch = xc_interface_open(0,0,0);
+>         if ( !xch )
+>         {
+> @@ -107,7 +114,7 @@ int main (int argCnt, char *argv[])
+>         if (fscanf(f, "%" SCNu64, &start) != 1)
+>                 start = 0;
+>         if (start) {
+> -               ret = xc_flask_add_pirq(xch, start, argv[2]);
+> +               ret = xc_flask_add_pirq(xch, start, pirq_label);
+>                 if (ret) {
+>                         fprintf(stderr, "xc_flask_add_pirq %"PRIu64" failed: %d\n",
+>                                         start, ret);
+> --
+> 2.26.2
+>
 
