@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD6BE2FCEB2
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 12:03:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71332.127636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07E8E2FCF1F
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 12:28:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71336.127646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2BGe-0000rk-0B; Wed, 20 Jan 2021 11:03:16 +0000
+	id 1l2Bdl-0002qG-08; Wed, 20 Jan 2021 11:27:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71332.127636; Wed, 20 Jan 2021 11:03:15 +0000
+Received: by outflank-mailman (output) from mailman id 71336.127646; Wed, 20 Jan 2021 11:27:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2BGd-0000rL-Sa; Wed, 20 Jan 2021 11:03:15 +0000
-Received: by outflank-mailman (input) for mailman id 71332;
- Wed, 20 Jan 2021 11:03:14 +0000
+	id 1l2Bdk-0002pu-TB; Wed, 20 Jan 2021 11:27:08 +0000
+Received: by outflank-mailman (input) for mailman id 71336;
+ Wed, 20 Jan 2021 11:27:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ukRc=GX=kroah.com=greg@srs-us1.protection.inumbo.net>)
- id 1l2BGb-0000rG-TB
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 11:03:14 +0000
-Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b8cebc7-db95-4b30-9889-57706037d7c0;
- Wed, 20 Jan 2021 11:03:12 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C9B285C00DC;
- Wed, 20 Jan 2021 06:03:12 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 20 Jan 2021 06:03:12 -0500
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- by mail.messagingengine.com (Postfix) with ESMTPA id 53CBA240068;
- Wed, 20 Jan 2021 06:03:12 -0500 (EST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JkA9=GX=arm.com=vladimir.murzin@srs-us1.protection.inumbo.net>)
+ id 1l2Bdi-0002pp-KO
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 11:27:06 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 74181906-3f67-489b-8699-8c5538c15a25;
+ Wed, 20 Jan 2021 11:27:04 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 666E231B;
+ Wed, 20 Jan 2021 03:27:04 -0800 (PST)
+Received: from login2.euhpc.arm.com (login2.euhpc.arm.com [10.6.27.34])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AD6F53F719;
+ Wed, 20 Jan 2021 03:27:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,86 +41,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b8cebc7-db95-4b30-9889-57706037d7c0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-transfer-encoding:in-reply-to; s=fm2; bh=n
-	j9c/dzz3CvjK9bcY8q4YjBxdvICEX+2nraw/Vl7viY=; b=M2GAtQ9RIhX8GN2p4
-	PIfFEM5zET2tdrkxXAnVYJPJuU6zeIjlkiRxwCmW7bkUONZdnsZE7KKzUYy8WxXW
-	TSpf5I3HXrk+13VdMwgUdXKBJDp0KtezheIH+lmvTPbnMlqSdXzkOl8Y5x8QFkgR
-	baov9nzv4MikEUjSGYVCmuj4eXDbjcNJoX4xOlLydIKh4opI6E3lAPoleNa4Xm3Q
-	LAL9YGPP1a9xj5poeZAsyqCsoCeOqwLXrKUXtpKlUNSaSDFkDGwX+0Qo5eaKPFo/
-	9rgjXV1HVba72zu2pSdlyDYMI9HvlElpif4LLhBDO5vTF8MV9E+9S/aRFcDMtZzD
-	AdOHw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-transfer-encoding:content-type
-	:date:from:in-reply-to:message-id:mime-version:references
-	:subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; bh=nj9c/dzz3CvjK9bcY8q4YjBxdvICEX+2nraw/Vl7v
-	iY=; b=X6stgKB9I9rjjf7Anj/aMbA1HBUeBKjbCiShZncv2u/WuuBuKsmvwGZys
-	Uzujs1Q8RWxlAJx6P9wxlMFzRGo51i4GD0opsuMTwt088PU0ijj1sW5UoHR3HzWK
-	ckZGOAJs3rRmdtLfYZMSqmW9Mt6ROLVwZ3553NFzNK8IR1LpxFoOseg6OSvMNZtA
-	p7OLu+bls0MNxc79uIOMLHXjdUAUfcWoxF24a6AiCXaS1D0K7Pu6CwsOZWTByRKZ
-	4t6O9LAYi1LjuktHLuLOuHat2fEXnW3DCYe+QobRdNpQEatD9GrXlvRy2UfzJL4b
-	KrHQ/gdYR2ItHls0JUHX+cHzhqnUQ==
-X-ME-Sender: <xms:8A0IYHEqYpsiFcMh-kQ25-gN9gLUaIUWOE9c3-ErMxPVVwnVnTG-5A>
-    <xme:8A0IYEW0D8EBo7Am1rUD65vByD6UOvtNkrjnHTqGcLUEDi78D5PS6cXf-rbLaJY1V
-    cc-CmGCS3DQvA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddvgddvhecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefirhgvghcu
-    mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpedvfffgue
-    eiuefhheevheetgfehvdefgeekfeevueejfeeftdetudetiefhheffvdenucffohhmrghi
-    nhepkhgvrhhnvghlrdhorhhgnecukfhppeekfedrkeeirdejgedrieegnecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghh
-    rdgtohhm
-X-ME-Proxy: <xmx:8A0IYJIXokwug8hlc4tvn17bqdcp56ttfw3I9xeyjrlUwF45JSd4cw>
-    <xmx:8A0IYFGhrN1j9r8cpQ4SQcxeU9YlnLvqawJgVogyJwY9D7WQfXJjxg>
-    <xmx:8A0IYNU5X6zDQ2YvdZb6gi95a7klx_PcvuPx19p3ajn61oQrVViWmQ>
-    <xmx:8A0IYAQd9jOflaE1lNmbleu7AJbejwa2_ADfX0Pa3Ah5EtGUFdZQEQ>
-Date: Wed, 20 Jan 2021 12:03:10 +0100
-From: Greg KH <greg@kroah.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: stable@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH for <= 5.4] xen/privcmd: allow fetching resource sizes
-Message-ID: <YAgN7hlFe73mrBWE@kroah.com>
-References: <20210118140426.80458-1-roger.pau@citrix.com>
+X-Inumbo-ID: 74181906-3f67-489b-8699-8c5538c15a25
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	julien@xen.org,
+	Volodymyr_Babchuk@epam.com
+Subject: [XEN PATCH] xen/arm: Relax GIC version check
+Date: Wed, 20 Jan 2021 11:26:44 +0000
+Message-Id: <20210120112644.8882-1-vladimir.murzin@arm.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210118140426.80458-1-roger.pau@citrix.com>
 
-On Mon, Jan 18, 2021 at 03:04:26PM +0100, Roger Pau Monne wrote:
-> commit ef3a575baf53571dc405ee4028e26f50856898e7 upstream
-> 
-> Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num = 0 and
-> addr = 0 in order to fetch the size of a specific resource.
-> 
-> Add a shortcut to the default map resource path, since fetching the
-> size requires no address to be passed in, and thus no VMA to setup.
-> 
-> This is missing from the initial implementation, and causes issues
-> when mapping resources that don't have fixed or known sizes.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Reviewed-by: Juergen Gross <jgross@suse.com>
-> Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: stable@vger.kernel.org # >= 4.18
-> Link: https://lore.kernel.org/r/20210112115358.23346-1-roger.pau@citrix.com
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> Cc: xen-devel@lists.xenproject.org
-> ---
->  drivers/xen/privcmd.c | 25 +++++++++++++++++++------
->  1 file changed, 19 insertions(+), 6 deletions(-)
+Supported values are
 
-Now queued up, thanks.
+0b0000 GIC CPU interface system registers not implemented.
 
-greg k-h
+0b0001 System register interface to versions 3.0 and 4.0 of the GIC
+       CPU interface is supported.
+
+0b0011 System register interface to version 4.1 of the GIC CPU
+       interface is supported.
+
+4.1 is still backward compatible with 4.0/3.0, moreover ARM ARM
+guarantees that future versions of the GIC CPU interface retain
+backwards compatible.
+
+Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
+---
+ xen/include/asm-arm/cpufeature.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/include/asm-arm/cpufeature.h b/xen/include/asm-arm/cpufeature.h
+index 13a2739a6..c6e5711b2 100644
+--- a/xen/include/asm-arm/cpufeature.h
++++ b/xen/include/asm-arm/cpufeature.h
+@@ -17,7 +17,7 @@
+ #define cpu_has_el3_64    (boot_cpu_feature64(el3) >= 1)
+ #define cpu_has_fp        (boot_cpu_feature64(fp) < 8)
+ #define cpu_has_simd      (boot_cpu_feature64(simd) < 8)
+-#define cpu_has_gicv3     (boot_cpu_feature64(gic) == 1)
++#define cpu_has_gicv3     (boot_cpu_feature64(gic) >= 1)
+ #endif
+ 
+ #define cpu_feature32(c, feat)         ((c)->pfr32.feat)
+-- 
+2.24.0
+
 
