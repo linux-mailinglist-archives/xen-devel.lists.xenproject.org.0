@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86F432FD1FA
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 14:56:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71379.127750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE052FD1FD
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 14:56:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71382.127790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2Dxs-0000lJ-Bd; Wed, 20 Jan 2021 13:56:04 +0000
+	id 1l2Dy1-0000wF-M3; Wed, 20 Jan 2021 13:56:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71379.127750; Wed, 20 Jan 2021 13:56:04 +0000
+Received: by outflank-mailman (output) from mailman id 71382.127790; Wed, 20 Jan 2021 13:56:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2Dxs-0000ka-6R; Wed, 20 Jan 2021 13:56:04 +0000
-Received: by outflank-mailman (input) for mailman id 71379;
- Wed, 20 Jan 2021 13:56:02 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l2Dy1-0000vQ-GT; Wed, 20 Jan 2021 13:56:13 +0000
+Received: by outflank-mailman (input) for mailman id 71382;
+ Wed, 20 Jan 2021 13:56:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ap16=GX=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l2Dxq-0000k6-DY
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 13:56:02 +0000
+ id 1l2Dxz-0000k4-UK
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 13:56:11 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5b248457-3492-4caa-8685-9960cfe0a97e;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bd6b0249-ece7-4ba1-baa8-df4214b5d690;
  Wed, 20 Jan 2021 13:56:00 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AA656AAAE;
+ by mx2.suse.de (Postfix) with ESMTP id E1118AE64;
  Wed, 20 Jan 2021 13:55:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -39,204 +38,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b248457-3492-4caa-8685-9960cfe0a97e
+X-Inumbo-ID: bd6b0249-ece7-4ba1-baa8-df4214b5d690
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611150959; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611150960; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HFz2mXiWK9cyR0546fhkjVi2i/3VDJZ0f5MwdCEislA=;
-	b=GqKVUMcOgRLmUaULu57gR6su+/2/Vv7q7x/dM5ryMylY4I2P2WhRYHjjcHwHVjCqR5g8K2
-	AHYzal1ZwaVUXcw4GboQ1bOuMp62x6zKbI/N+K4nMz/Vj1UgNM77UDKcl2pfzd0Z19oZxU
-	VAeDt9G0Ut+tTLCMb+yhSm95vgfJ82Y=
+	bh=PezddZt9B1as0O7QAdAa2+LbregUz6HT/ncAiFWbX44=;
+	b=oaQCboFHaUqJimMmrkWaejoQ5IykVCDwOI95OdyFVq0vhGHGybVYs/OwOJy+m+C800HwF6
+	08t7yGFuJmO1MwJpxdefXsHvz3LGhu33KSKEURxh6WBAFDi7vNylIz7neSCrFxbKLztb1D
+	dv+AIZ3P3iWRO7W9OBE/pazZJAgk40Y=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
+	x86@kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Josh Poimboeuf <jpoimboe@redhat.com>,
-	Jason Baron <jbaron@akamai.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
+Cc: Juergen Gross <jgross@suse.com>,
 	Thomas Gleixner <tglx@linutronix.de>,
-	Mel Gorman <mgorman@suse.de>,
 	Ingo Molnar <mingo@redhat.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v4 01/15] static_call: Pull some static_call declarations to the type headers
-Date: Wed, 20 Jan 2021 14:55:41 +0100
-Message-Id: <20210120135555.32594-2-jgross@suse.com>
+	Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: [PATCH v4 02/15] x86/xen: use specific Xen pv interrupt entry for MCE
+Date: Wed, 20 Jan 2021 14:55:42 +0100
+Message-Id: <20210120135555.32594-3-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210120135555.32594-1-jgross@suse.com>
 References: <20210120135555.32594-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Zijlstra <peterz@infradead.org>
+Xen PV guests don't use IST. For machine check interrupts switch to
+the same model as debug interrupts.
 
-Some static call declarations are going to be needed on low level header
-files. Move the necessary material to the dedicated static call types
-header to avoid inclusion dependency hell.
-
-[jgross@suse.com: updated tools/include/linux/static_call_types.h, too]
-
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Mel Gorman <mgorman@suse.de>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Paul E. McKenney <paulmck@kernel.org>
 Signed-off-by: Juergen Gross <jgross@suse.com>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- include/linux/static_call.h             | 20 ------------------
- include/linux/static_call_types.h       | 27 +++++++++++++++++++++++++
- tools/include/linux/static_call_types.h | 27 +++++++++++++++++++++++++
- 3 files changed, 54 insertions(+), 20 deletions(-)
+ arch/x86/include/asm/idtentry.h |  3 +++
+ arch/x86/xen/enlighten_pv.c     | 16 +++++++++++++++-
+ arch/x86/xen/xen-asm.S          |  2 +-
+ 3 files changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/static_call.h b/include/linux/static_call.h
-index 695da4c9b338..39f39920bb29 100644
---- a/include/linux/static_call.h
-+++ b/include/linux/static_call.h
-@@ -107,26 +107,11 @@ extern void arch_static_call_transform(void *site, void *tramp, void *func, bool
- 
- #define STATIC_CALL_TRAMP_ADDR(name) &STATIC_CALL_TRAMP(name)
- 
--/*
-- * __ADDRESSABLE() is used to ensure the key symbol doesn't get stripped from
-- * the symbol table so that objtool can reference it when it generates the
-- * .static_call_sites section.
-- */
--#define __static_call(name)						\
--({									\
--	__ADDRESSABLE(STATIC_CALL_KEY(name));				\
--	&STATIC_CALL_TRAMP(name);					\
--})
--
+diff --git a/arch/x86/include/asm/idtentry.h b/arch/x86/include/asm/idtentry.h
+index 247a60a47331..5dd64404715a 100644
+--- a/arch/x86/include/asm/idtentry.h
++++ b/arch/x86/include/asm/idtentry.h
+@@ -585,6 +585,9 @@ DECLARE_IDTENTRY_MCE(X86_TRAP_MC,	exc_machine_check);
  #else
- #define STATIC_CALL_TRAMP_ADDR(name) NULL
+ DECLARE_IDTENTRY_RAW(X86_TRAP_MC,	exc_machine_check);
+ #endif
++#ifdef CONFIG_XEN_PV
++DECLARE_IDTENTRY_RAW(X86_TRAP_MC,	xenpv_exc_machine_check);
++#endif
  #endif
  
+ /* NMI */
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 4409306364dc..9f5e44c1f70a 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -583,6 +583,20 @@ DEFINE_IDTENTRY_RAW(xenpv_exc_debug)
+ 		exc_debug(regs);
+ }
  
--#define DECLARE_STATIC_CALL(name, func)					\
--	extern struct static_call_key STATIC_CALL_KEY(name);		\
--	extern typeof(func) STATIC_CALL_TRAMP(name);
--
- #define static_call_update(name, func)					\
- ({									\
- 	BUILD_BUG_ON(!__same_type(*(func), STATIC_CALL_TRAMP(name)));	\
-@@ -174,7 +159,6 @@ extern int static_call_text_reserved(void *start, void *end);
- 	};								\
- 	ARCH_DEFINE_STATIC_CALL_NULL_TRAMP(name)
- 
--#define static_call(name)	__static_call(name)
- #define static_call_cond(name)	(void)__static_call(name)
- 
- #define EXPORT_STATIC_CALL(name)					\
-@@ -207,7 +191,6 @@ struct static_call_key {
- 	};								\
- 	ARCH_DEFINE_STATIC_CALL_NULL_TRAMP(name)
- 
--#define static_call(name)	__static_call(name)
- #define static_call_cond(name)	(void)__static_call(name)
- 
- static inline
-@@ -252,9 +235,6 @@ struct static_call_key {
- 		.func = NULL,						\
- 	}
- 
--#define static_call(name)						\
--	((typeof(STATIC_CALL_TRAMP(name))*)(STATIC_CALL_KEY(name).func))
--
- static inline void __static_call_nop(void) { }
- 
- /*
-diff --git a/include/linux/static_call_types.h b/include/linux/static_call_types.h
-index 89135bb35bf7..08f78b1b88b4 100644
---- a/include/linux/static_call_types.h
-+++ b/include/linux/static_call_types.h
-@@ -4,6 +4,7 @@
- 
- #include <linux/types.h>
- #include <linux/stringify.h>
-+#include <linux/compiler.h>
- 
- #define STATIC_CALL_KEY_PREFIX		__SCK__
- #define STATIC_CALL_KEY_PREFIX_STR	__stringify(STATIC_CALL_KEY_PREFIX)
-@@ -32,4 +33,30 @@ struct static_call_site {
- 	s32 key;
- };
- 
-+#define DECLARE_STATIC_CALL(name, func)					\
-+	extern struct static_call_key STATIC_CALL_KEY(name);		\
-+	extern typeof(func) STATIC_CALL_TRAMP(name);
++#ifdef CONFIG_X86_MCE
++DEFINE_IDTENTRY_RAW(xenpv_exc_machine_check)
++{
++	/*
++	 * There's no IST on Xen PV, but we still need to dispatch
++	 * to the correct handler.
++	 */
++	if (user_mode(regs))
++		noist_exc_machine_check(regs);
++	else
++		exc_machine_check(regs);
++}
++#endif
 +
-+#ifdef CONFIG_HAVE_STATIC_CALL
-+
-+/*
-+ * __ADDRESSABLE() is used to ensure the key symbol doesn't get stripped from
-+ * the symbol table so that objtool can reference it when it generates the
-+ * .static_call_sites section.
-+ */
-+#define __static_call(name)						\
-+({									\
-+	__ADDRESSABLE(STATIC_CALL_KEY(name));				\
-+	&STATIC_CALL_TRAMP(name);					\
-+})
-+
-+#define static_call(name)	__static_call(name)
-+
-+#else
-+
-+#define static_call(name)						\
-+	((typeof(STATIC_CALL_TRAMP(name))*)(STATIC_CALL_KEY(name).func))
-+
-+#endif /* CONFIG_HAVE_STATIC_CALL */
-+
- #endif /* _STATIC_CALL_TYPES_H */
-diff --git a/tools/include/linux/static_call_types.h b/tools/include/linux/static_call_types.h
-index 89135bb35bf7..08f78b1b88b4 100644
---- a/tools/include/linux/static_call_types.h
-+++ b/tools/include/linux/static_call_types.h
-@@ -4,6 +4,7 @@
- 
- #include <linux/types.h>
- #include <linux/stringify.h>
-+#include <linux/compiler.h>
- 
- #define STATIC_CALL_KEY_PREFIX		__SCK__
- #define STATIC_CALL_KEY_PREFIX_STR	__stringify(STATIC_CALL_KEY_PREFIX)
-@@ -32,4 +33,30 @@ struct static_call_site {
- 	s32 key;
- };
- 
-+#define DECLARE_STATIC_CALL(name, func)					\
-+	extern struct static_call_key STATIC_CALL_KEY(name);		\
-+	extern typeof(func) STATIC_CALL_TRAMP(name);
-+
-+#ifdef CONFIG_HAVE_STATIC_CALL
-+
-+/*
-+ * __ADDRESSABLE() is used to ensure the key symbol doesn't get stripped from
-+ * the symbol table so that objtool can reference it when it generates the
-+ * .static_call_sites section.
-+ */
-+#define __static_call(name)						\
-+({									\
-+	__ADDRESSABLE(STATIC_CALL_KEY(name));				\
-+	&STATIC_CALL_TRAMP(name);					\
-+})
-+
-+#define static_call(name)	__static_call(name)
-+
-+#else
-+
-+#define static_call(name)						\
-+	((typeof(STATIC_CALL_TRAMP(name))*)(STATIC_CALL_KEY(name).func))
-+
-+#endif /* CONFIG_HAVE_STATIC_CALL */
-+
- #endif /* _STATIC_CALL_TYPES_H */
+ struct trap_array_entry {
+ 	void (*orig)(void);
+ 	void (*xen)(void);
+@@ -603,7 +617,7 @@ static struct trap_array_entry trap_array[] = {
+ 	TRAP_ENTRY_REDIR(exc_debug,			true  ),
+ 	TRAP_ENTRY(exc_double_fault,			true  ),
+ #ifdef CONFIG_X86_MCE
+-	TRAP_ENTRY(exc_machine_check,			true  ),
++	TRAP_ENTRY_REDIR(exc_machine_check,		true  ),
+ #endif
+ 	TRAP_ENTRY_REDIR(exc_nmi,			true  ),
+ 	TRAP_ENTRY(exc_int3,				false ),
+diff --git a/arch/x86/xen/xen-asm.S b/arch/x86/xen/xen-asm.S
+index 1cb0e84b9161..bc2586730a5b 100644
+--- a/arch/x86/xen/xen-asm.S
++++ b/arch/x86/xen/xen-asm.S
+@@ -172,7 +172,7 @@ xen_pv_trap asm_exc_spurious_interrupt_bug
+ xen_pv_trap asm_exc_coprocessor_error
+ xen_pv_trap asm_exc_alignment_check
+ #ifdef CONFIG_X86_MCE
+-xen_pv_trap asm_exc_machine_check
++xen_pv_trap asm_xenpv_exc_machine_check
+ #endif /* CONFIG_X86_MCE */
+ xen_pv_trap asm_exc_simd_coprocessor_error
+ #ifdef CONFIG_IA32_EMULATION
 -- 
 2.26.2
 
