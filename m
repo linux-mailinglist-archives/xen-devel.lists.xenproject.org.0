@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 946182FC61A
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 01:51:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.71162.127257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B58222FC683
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jan 2021 02:27:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.71168.127269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l21i9-0000j2-0t; Wed, 20 Jan 2021 00:51:01 +0000
+	id 1l22Gb-0001rT-QV; Wed, 20 Jan 2021 01:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 71162.127257; Wed, 20 Jan 2021 00:51:00 +0000
+Received: by outflank-mailman (output) from mailman id 71168.127269; Wed, 20 Jan 2021 01:26:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l21i8-0000if-U4; Wed, 20 Jan 2021 00:51:00 +0000
-Received: by outflank-mailman (input) for mailman id 71162;
- Wed, 20 Jan 2021 00:50:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0VeX=GX=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l21i7-0000ia-HY
- for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 00:50:59 +0000
+	id 1l22Gb-0001r3-N8; Wed, 20 Jan 2021 01:26:37 +0000
+Received: by outflank-mailman (input) for mailman id 71168;
+ Wed, 20 Jan 2021 01:26:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AECs=GX=kernel.org=sashal@srs-us1.protection.inumbo.net>)
+ id 1l22Ga-0001qx-BX
+ for xen-devel@lists.xenproject.org; Wed, 20 Jan 2021 01:26:36 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e11dfcbd-02a5-4953-b10a-372c6cde7569;
- Wed, 20 Jan 2021 00:50:58 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DB3C523108;
- Wed, 20 Jan 2021 00:50:57 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0e881a61-6720-4d20-a122-4dd72de75538;
+ Wed, 20 Jan 2021 01:26:35 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8C33D2313F;
+ Wed, 20 Jan 2021 01:26:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,159 +38,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e11dfcbd-02a5-4953-b10a-372c6cde7569
+X-Inumbo-ID: 0e881a61-6720-4d20-a122-4dd72de75538
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611103858;
-	bh=6k8MlF333mXXPUOYjfv3nFd/cs5OFSEJEzCDmbCyIO4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kcuo042Na9mA/fmzJEnRicu1vR9Rox29zVVDz0PQPzsgNBlXb97257K1XdmeTjAzK
-	 i51bbtseYqRiuZ5gfuL+8QlEu/gLeH1TJbw5GtJIQB5T2fU6ZOG6o0iMLZNs693/se
-	 1htn2P9WAc0LaCWYqRenqpIuXO+t6Xg8WSp4E/RW8MXx0rfhfHFr0+WYgGEqe+Kqp9
-	 xtQnm0uTeehiF4u60hL4sif8p/2N/lOdf+bUsmI+Wl4fxaPDxkeqOhUGmLsASe42AW
-	 Sv0EFO8u/UskcTH/LPjjyXP+6a40Zqx/C4T7ef+94D6ZV6psQ1VrjBeYt5OKjdHkop
-	 IkAkbOnTF4lfg==
-Date: Tue, 19 Jan 2021 16:50:57 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Oleksandr <olekstysh@gmail.com>
-cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
-    Julien Grall <julien.grall@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-In-Reply-To: <a7b26b16-cdec-3734-284e-a907e3cc356c@gmail.com>
-Message-ID: <alpine.DEB.2.21.2101191626560.14528@sstabellini-ThinkPad-T480s>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com> <1610488352-18494-15-git-send-email-olekstysh@gmail.com> <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org> <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com> <06704224-bb57-c55e-a2ee-23032095e8ea@xen.org>
- <e2dcc876-291f-1244-933c-179f97a84e07@gmail.com> <b79b07eb-02db-16bb-2d8b-a55b0c355dbb@xen.org> <a7b26b16-cdec-3734-284e-a907e3cc356c@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	s=k20201202; t=1611105994;
+	bh=TvoxUaYKyTJSm4C6R/yNO1CK4InwfvxfRJEgKERmIds=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=iw1942wQpAYEMwLB3v+CfKaT6lDldWdKdDUkvvDJ74+WHow1jsHLccmRzpwsrTLGN
+	 b0ORMMZCq+fbxUQEZ2lrx11KSN7ilYU2pPhjOpURU6ByMZmVAtjzdIjDUEbhEa/QWF
+	 GeJkrOHlkDhPMhy0+994wwARQQKwxWHjRqDGzDevUH89vF7MHvjHBcG4M+fx6ZoziL
+	 aH58FLXib9ikWVwE9h/bVks5N4srqorAW000+2qzHNh4Fn58927NxRcTI2fNFAwYSC
+	 JvnLbITQgOOI3+X9DZaoJi3kFO7pjXBNgwCsgcNFfpmlQDFWTvzvRx8Urg5CQo2TaL
+	 nfO79yGp0pLag==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: David Woodhouse <dwmw@amazon.co.uk>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	xen-devel@lists.xenproject.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH AUTOSEL 5.10 24/45] xen: Fix event channel callback via INTX/GSI
+Date: Tue, 19 Jan 2021 20:25:41 -0500
+Message-Id: <20210120012602.769683-24-sashal@kernel.org>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210120012602.769683-1-sashal@kernel.org>
+References: <20210120012602.769683-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-44906125-1611102555=:14528"
-Content-ID: <alpine.DEB.2.21.2101191633510.14528@sstabellini-ThinkPad-T480s>
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
---8323329-44906125-1611102555=:14528
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2101191633511.14528@sstabellini-ThinkPad-T480s>
+[ Upstream commit 3499ba8198cad47b731792e5e56b9ec2a78a83a2 ]
 
-On Tue, 19 Jan 2021, Oleksandr wrote:
-> > > > > > >       PROGRESS(xen):
-> > > > > > >           ret = relinquish_memory(d, &d->xenpage_list);
-> > > > > > >           if ( ret )
-> > > > > > > diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> > > > > > > index ae7ef96..9814481 100644
-> > > > > > > --- a/xen/arch/arm/io.c
-> > > > > > > +++ b/xen/arch/arm/io.c
-> > > > > > > @@ -16,6 +16,7 @@
-> > > > > > >    * GNU General Public License for more details.
-> > > > > > >    */
-> > > > > > >   +#include <xen/ioreq.h>
-> > > > > > >   #include <xen/lib.h>
-> > > > > > >   #include <xen/spinlock.h>
-> > > > > > >   #include <xen/sched.h>
-> > > > > > > @@ -23,6 +24,7 @@
-> > > > > > >   #include <asm/cpuerrata.h>
-> > > > > > >   #include <asm/current.h>
-> > > > > > >   #include <asm/mmio.h>
-> > > > > > > +#include <asm/hvm/ioreq.h>
-> > > > > > 
-> > > > > > Shouldn't this have been included by "xen/ioreq.h"?
-> > > > > Well, for V1 asm/hvm/ioreq.h was included by xen/ioreq.h. But, it
-> > > > > turned out that there was nothing inside common header required arch
-> > > > > one to be included and
-> > > > > I was asked to include arch header where it was indeed needed (several
-> > > > > *.c files).
-> > > > 
-> > > > Fair enough.
-> > > > 
-> > > > [...]
-> > > > 
-> > > > > > 
-> > > > > > If you return IO_HANDLED here, then it means the we will take care
-> > > > > > of previous I/O but the current one is going to be ignored. 
-> > > > > Which current one? As I understand, if try_fwd_ioserv() gets called
-> > > > > with vio->req.state == STATE_IORESP_READY then this is a second round
-> > > > > after emulator completes the emulation (the first round was when
-> > > > > we returned IO_RETRY down the function and claimed that we would need
-> > > > > a completion), so we are still dealing with previous I/O.
-> > > > > vcpu_ioreq_handle_completion() -> arch_ioreq_complete_mmio() ->
-> > > > > try_handle_mmio() -> try_fwd_ioserv() -> handle_ioserv()
-> > > > > And after we return IO_HANDLED here, handle_ioserv() will be called to
-> > > > > complete the handling of this previous I/O emulation.
-> > > > > Or I really missed something?
-> > > > 
-> > > > Hmmm... I somehow thought try_fw_ioserv() would only be called the first
-> > > > time. Do you have a branch with your code applied? This would help to
-> > > > follow the different paths.
-> > > Yes, I mentioned about it in cover letter.
-> > > 
-> > > Please see
-> > > https://github.com/otyshchenko1/xen/commits/ioreq_4.14_ml5
-> > > why 5 - because I started counting from the RFC)
-> > 
-> > Oh, I looked at the cover letter and didn't find it. Hence why I asked. I
-> > should have looked more carefully. Thanks!
-> > 
-> > I have looked closer at the question and I am not sure to understand why
-> > arch_ioreq_complete_mmio() is going to call try_handle_mmio().
-> > 
-> > This looks pretty innefficient to me because we already now the IO was
-> > handled by the IOREQ server.
-> > 
-> > I realize that x86 is calling handle_mmio() again. However, I don't think we
-> > need the same on Arm because the instruction for accessing device memory are
-> > a lot simpler (you can only read or store at most a 64-bit value).
-> 
-> I think, I agree.
+For a while, event channel notification via the PCI platform device
+has been broken, because we attempt to communicate with xenstore before
+we even have notifications working, with the xs_reset_watches() call
+in xs_init().
 
-Yes I agree too
+We tend to get away with this on Xen versions below 4.0 because we avoid
+calling xs_reset_watches() anyway, because xenstore might not cope with
+reading a non-existent key. And newer Xen *does* have the vector
+callback support, so we rarely fall back to INTX/GSI delivery.
 
+To fix it, clean up a bit of the mess of xs_init() and xenbus_probe()
+startup. Call xs_init() directly from xenbus_init() only in the !XS_HVM
+case, deferring it to be called from xenbus_probe() in the XS_HVM case
+instead.
 
-> > So I would like to keep our emulation simple and not rely on try_ioserv_fw()
-> > to always return true when call from completion (AFAICT it is not possible
-> > to return false then).
-> 
-> 
-> So what you are proposing is just a replacement try_ioserv_fw() by
-> handle_ioserv() technically?
-> 
-> 
-> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
-> index 40b9e59..0508bd8 100644
-> --- a/xen/arch/arm/ioreq.c
-> +++ b/xen/arch/arm/ioreq.c
-> @@ -101,12 +101,10 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
-> 
->  bool arch_ioreq_complete_mmio(void)
->  {
-> -    struct vcpu *v = current;
->      struct cpu_user_regs *regs = guest_cpu_user_regs();
->      const union hsr hsr = { .bits = regs->hsr };
-> -    paddr_t addr = v->io.req.addr;
-> 
-> -    if ( try_handle_mmio(regs, hsr, addr) == IO_HANDLED )
-> +    if ( handle_ioserv(regs, current) == IO_HANDLED )
->      {
->          advance_pc(regs, hsr);
->          return true;
+Then fix up the invocation of xenbus_probe() to happen either from its
+device_initcall if the callback is available early enough, or when the
+callback is finally set up. This means that the hack of calling
+xenbus_probe() from a workqueue after the first interrupt, or directly
+from the PCI platform device setup, is no longer needed.
 
-Yes, but I think we want to keep the check
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Link: https://lore.kernel.org/r/20210113132606.422794-2-dwmw2@infradead.org
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/arm/xen/enlighten.c          |  2 +-
+ drivers/xen/events/events_base.c  | 10 ----
+ drivers/xen/platform-pci.c        |  1 -
+ drivers/xen/xenbus/xenbus.h       |  1 +
+ drivers/xen/xenbus/xenbus_comms.c |  8 ---
+ drivers/xen/xenbus/xenbus_probe.c | 81 +++++++++++++++++++++++++------
+ include/xen/xenbus.h              |  2 +-
+ 7 files changed, 70 insertions(+), 35 deletions(-)
 
-    vio->req.state == STATE_IORESP_READY
+diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+index 60e901cd0de6a..5a957a9a09843 100644
+--- a/arch/arm/xen/enlighten.c
++++ b/arch/arm/xen/enlighten.c
+@@ -371,7 +371,7 @@ static int __init xen_guest_init(void)
+ 	}
+ 	gnttab_init();
+ 	if (!xen_initial_domain())
+-		xenbus_probe(NULL);
++		xenbus_probe();
+ 
+ 	/*
+ 	 * Making sure board specific code will not set up ops for
+diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+index 6038c4c35db5a..bbebe248b7264 100644
+--- a/drivers/xen/events/events_base.c
++++ b/drivers/xen/events/events_base.c
+@@ -2010,16 +2010,6 @@ static struct irq_chip xen_percpu_chip __read_mostly = {
+ 	.irq_ack		= ack_dynirq,
+ };
+ 
+-int xen_set_callback_via(uint64_t via)
+-{
+-	struct xen_hvm_param a;
+-	a.domid = DOMID_SELF;
+-	a.index = HVM_PARAM_CALLBACK_IRQ;
+-	a.value = via;
+-	return HYPERVISOR_hvm_op(HVMOP_set_param, &a);
+-}
+-EXPORT_SYMBOL_GPL(xen_set_callback_via);
+-
+ #ifdef CONFIG_XEN_PVHVM
+ /* Vector callbacks are better than PCI interrupts to receive event
+  * channel notifications because we can receive vector callbacks on any
+diff --git a/drivers/xen/platform-pci.c b/drivers/xen/platform-pci.c
+index dd911e1ff782c..9db557b76511b 100644
+--- a/drivers/xen/platform-pci.c
++++ b/drivers/xen/platform-pci.c
+@@ -149,7 +149,6 @@ static int platform_pci_probe(struct pci_dev *pdev,
+ 	ret = gnttab_init();
+ 	if (ret)
+ 		goto grant_out;
+-	xenbus_probe(NULL);
+ 	return 0;
+ grant_out:
+ 	gnttab_free_auto_xlat_frames();
+diff --git a/drivers/xen/xenbus/xenbus.h b/drivers/xen/xenbus/xenbus.h
+index 2a93b7c9c1599..dc15373354144 100644
+--- a/drivers/xen/xenbus/xenbus.h
++++ b/drivers/xen/xenbus/xenbus.h
+@@ -115,6 +115,7 @@ int xenbus_probe_node(struct xen_bus_type *bus,
+ 		      const char *type,
+ 		      const char *nodename);
+ int xenbus_probe_devices(struct xen_bus_type *bus);
++void xenbus_probe(void);
+ 
+ void xenbus_dev_changed(const char *node, struct xen_bus_type *bus);
+ 
+diff --git a/drivers/xen/xenbus/xenbus_comms.c b/drivers/xen/xenbus/xenbus_comms.c
+index eb5151fc8efab..e5fda0256feb3 100644
+--- a/drivers/xen/xenbus/xenbus_comms.c
++++ b/drivers/xen/xenbus/xenbus_comms.c
+@@ -57,16 +57,8 @@ DEFINE_MUTEX(xs_response_mutex);
+ static int xenbus_irq;
+ static struct task_struct *xenbus_task;
+ 
+-static DECLARE_WORK(probe_work, xenbus_probe);
+-
+-
+ static irqreturn_t wake_waiting(int irq, void *unused)
+ {
+-	if (unlikely(xenstored_ready == 0)) {
+-		xenstored_ready = 1;
+-		schedule_work(&probe_work);
+-	}
+-
+ 	wake_up(&xb_waitq);
+ 	return IRQ_HANDLED;
+ }
+diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
+index 44634d970a5ca..c8f0282bb6497 100644
+--- a/drivers/xen/xenbus/xenbus_probe.c
++++ b/drivers/xen/xenbus/xenbus_probe.c
+@@ -683,29 +683,76 @@ void unregister_xenstore_notifier(struct notifier_block *nb)
+ }
+ EXPORT_SYMBOL_GPL(unregister_xenstore_notifier);
+ 
+-void xenbus_probe(struct work_struct *unused)
++void xenbus_probe(void)
+ {
+ 	xenstored_ready = 1;
+ 
++	/*
++	 * In the HVM case, xenbus_init() deferred its call to
++	 * xs_init() in case callbacks were not operational yet.
++	 * So do it now.
++	 */
++	if (xen_store_domain_type == XS_HVM)
++		xs_init();
++
+ 	/* Notify others that xenstore is up */
+ 	blocking_notifier_call_chain(&xenstore_chain, 0, NULL);
+ }
+-EXPORT_SYMBOL_GPL(xenbus_probe);
+ 
+-static int __init xenbus_probe_initcall(void)
++/*
++ * Returns true when XenStore init must be deferred in order to
++ * allow the PCI platform device to be initialised, before we
++ * can actually have event channel interrupts working.
++ */
++static bool xs_hvm_defer_init_for_callback(void)
+ {
+-	if (!xen_domain())
+-		return -ENODEV;
++#ifdef CONFIG_XEN_PVHVM
++	return xen_store_domain_type == XS_HVM &&
++		!xen_have_vector_callback;
++#else
++	return false;
++#endif
++}
+ 
+-	if (xen_initial_domain() || xen_hvm_domain())
+-		return 0;
++static int __init xenbus_probe_initcall(void)
++{
++	/*
++	 * Probe XenBus here in the XS_PV case, and also XS_HVM unless we
++	 * need to wait for the platform PCI device to come up.
++	 */
++	if (xen_store_domain_type == XS_PV ||
++	    (xen_store_domain_type == XS_HVM &&
++	     !xs_hvm_defer_init_for_callback()))
++		xenbus_probe();
+ 
+-	xenbus_probe(NULL);
+ 	return 0;
+ }
+-
+ device_initcall(xenbus_probe_initcall);
+ 
++int xen_set_callback_via(uint64_t via)
++{
++	struct xen_hvm_param a;
++	int ret;
++
++	a.domid = DOMID_SELF;
++	a.index = HVM_PARAM_CALLBACK_IRQ;
++	a.value = via;
++
++	ret = HYPERVISOR_hvm_op(HVMOP_set_param, &a);
++	if (ret)
++		return ret;
++
++	/*
++	 * If xenbus_probe_initcall() deferred the xenbus_probe()
++	 * due to the callback not functioning yet, we can do it now.
++	 */
++	if (!xenstored_ready && xs_hvm_defer_init_for_callback())
++		xenbus_probe();
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(xen_set_callback_via);
++
+ /* Set up event channel for xenstored which is run as a local process
+  * (this is normally used only in dom0)
+  */
+@@ -818,11 +865,17 @@ static int __init xenbus_init(void)
+ 		break;
+ 	}
+ 
+-	/* Initialize the interface to xenstore. */
+-	err = xs_init();
+-	if (err) {
+-		pr_warn("Error initializing xenstore comms: %i\n", err);
+-		goto out_error;
++	/*
++	 * HVM domains may not have a functional callback yet. In that
++	 * case let xs_init() be called from xenbus_probe(), which will
++	 * get invoked at an appropriate time.
++	 */
++	if (xen_store_domain_type != XS_HVM) {
++		err = xs_init();
++		if (err) {
++			pr_warn("Error initializing xenstore comms: %i\n", err);
++			goto out_error;
++		}
+ 	}
+ 
+ 	if ((xen_store_domain_type != XS_LOCAL) &&
+diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
+index 00c7235ae93e7..2c43b0ef1e4d5 100644
+--- a/include/xen/xenbus.h
++++ b/include/xen/xenbus.h
+@@ -192,7 +192,7 @@ void xs_suspend_cancel(void);
+ 
+ struct work_struct;
+ 
+-void xenbus_probe(struct work_struct *);
++void xenbus_probe(void);
+ 
+ #define XENBUS_IS_ERR_READ(str) ({			\
+ 	if (!IS_ERR(str) && strlen(str) == 0) {		\
+-- 
+2.27.0
 
-So maybe (uncompiled, untested):
-
-    if ( v->io.req.state != STATE_IORESP_READY )
-        return false;
-
-    if ( handle_ioserv(regs, current) == IO_HANDLED )
-    {
-        advance_pc(regs, hsr);
-        return true;
-    }
---8323329-44906125-1611102555=:14528--
 
