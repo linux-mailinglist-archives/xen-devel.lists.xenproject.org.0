@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730E32FF332
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Jan 2021 19:31:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72340.130179 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B12582FF336
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Jan 2021 19:33:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72343.130191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2ejy-0003CP-KD; Thu, 21 Jan 2021 18:31:30 +0000
+	id 1l2elN-0003Jm-Vy; Thu, 21 Jan 2021 18:32:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72340.130179; Thu, 21 Jan 2021 18:31:30 +0000
+Received: by outflank-mailman (output) from mailman id 72343.130191; Thu, 21 Jan 2021 18:32:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2ejy-0003C0-Gv; Thu, 21 Jan 2021 18:31:30 +0000
-Received: by outflank-mailman (input) for mailman id 72340;
- Thu, 21 Jan 2021 18:31:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l2ejw-0003Bu-OE
- for xen-devel@lists.xenproject.org; Thu, 21 Jan 2021 18:31:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l2ejt-0006Tv-3M; Thu, 21 Jan 2021 18:31:25 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l2ejs-00010X-MO; Thu, 21 Jan 2021 18:31:24 +0000
+	id 1l2elN-0003JN-SE; Thu, 21 Jan 2021 18:32:57 +0000
+Received: by outflank-mailman (input) for mailman id 72343;
+ Thu, 21 Jan 2021 18:32:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hfWZ=GY=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1l2elM-0003JI-CF
+ for xen-devel@lists.xenproject.org; Thu, 21 Jan 2021 18:32:56 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a497b70a-528d-4071-ad80-3c1417339b07;
+ Thu, 21 Jan 2021 18:32:54 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id ABB7CACC6;
+ Thu, 21 Jan 2021 18:32:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,159 +39,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=WNo6GrYvzfBt8R0wpWriNGAxDAPy3aOWTTbEM1mFXcQ=; b=h+yBaRJhUtvGs1hPuqKngzj4Gd
-	y4vOXKvtaSsocOfXgWkw/lAXt+AKfc35adv+NX8+hhZ5E1ehyr5DR3MwIO+T0N0qgmHE95OnoX3iQ
-	WH6NgDRSC6ddviJAPpN5CDyal+V/ZBJ0uGgy3lyajurMxtvabpuX64dbdS7OKoUcRTX4=;
-Subject: Re: [PATCH v5 10/10] xen/arm: smmuv3: Add support for SMMUv3 driver
-To: Rahul Singh <Rahul.Singh@arm.com>, Oleksandr <olekstysh@gmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1611153615.git.rahul.singh@arm.com>
- <b14ea889b0c27fec1b8843da91b570b0ccd66796.1611153615.git.rahul.singh@arm.com>
- <b35211f0-d523-aa5f-55a1-6afa5142617c@gmail.com>
- <F193260F-E4F0-4977-97ED-72505603C5F6@arm.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <d5c1f75a-8e5c-a938-0d10-a0d276643052@xen.org>
-Date: Thu, 21 Jan 2021 18:31:22 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.1
+X-Inumbo-ID: a497b70a-528d-4071-ad80-3c1417339b07
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611253973; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iIcNkolvMKSxKkSoVh59rIIEhSIKgaKsvYWdTI1qnTg=;
+	b=ku+t2S2vkTp9Q7+xQRGgMpWcJl5MrnaEBbEyUI8R79kY8co4TZC/38ZNmXrnHSU+0CrBm9
+	7STxNZwpVPDgPRU77zClculurX2eEY9hYdV5DiM8+cdkkw5+X+GJCLuo18gayblXwgK7JZ
+	lQSaVaqL81rKPYePAQ/zxY71K6yxq+0=
+Message-ID: <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
+Subject: Re: Null scheduler and vwfi native problem
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Anders =?ISO-8859-1?Q?T=F6rnqvist?= <anders.tornqvist@codiax.se>, 
+	xen-devel@lists.xenproject.org
+Date: Thu, 21 Jan 2021 19:32:52 +0100
+In-Reply-To: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
+References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-NBA5hJW2DM7PYV7tgFoV"
+User-Agent: Evolution 3.38.3 (by Flathub.org) 
 MIME-Version: 1.0
-In-Reply-To: <F193260F-E4F0-4977-97ED-72505603C5F6@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
 
-On 21/01/2021 17:18, Rahul Singh wrote:
-> Hello Oleksandr,
 
-Hi,
+--=-NBA5hJW2DM7PYV7tgFoV
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->> On 20 Jan 2021, at 9:33 pm, Oleksandr <olekstysh@gmail.com> wrote:
->>
->>
->> On 20.01.21 16:52, Rahul Singh wrote:
->>
->> Hi Rahul
->>
->>> Add support for ARM architected SMMUv3 implementation. It is based on
->>> the Linux SMMUv3 driver.
->>>
->>> Driver is currently supported as Tech Preview.
->>>
->>> Major differences with regard to Linux driver are as follows:
->>> 2. Only Stage-2 translation is supported as compared to the Linux driver
->>>     that supports both Stage-1 and Stage-2 translations.
->>> 3. Use P2M  page table instead of creating one as SMMUv3 has the
->>>     capability to share the page tables with the CPU.
->>> 4. Tasklets are used in place of threaded IRQ's in Linux for event queue
->>>     and priority queue IRQ handling.
->>> 5. Latest version of the Linux SMMUv3 code implements the commands queue
->>>     access functions based on atomic operations implemented in Linux.
->>>     Atomic functions used by the commands queue access functions are not
->>>     implemented in XEN therefore we decided to port the earlier version
->>>     of the code. Atomic operations are introduced to fix the bottleneck
->>>     of the SMMU command queue insertion operation. A new algorithm for
->>>     inserting commands into the queue is introduced, which is lock-free
->>>     on the fast-path.
->>>     Consequence of reverting the patch is that the command queue
->>>     insertion will be slow for large systems as spinlock will be used to
->>>     serializes accesses from all CPUs to the single queue supported by
->>>     the hardware. Once the proper atomic operations will be available in
->>>     XEN the driver can be updated.
->>> 6. Spin lock is used in place of mutex when attaching a device to the
->>>     SMMU, as there is no blocking locks implementation available in XEN.
->>>     This might introduce latency in XEN. Need to investigate before
->>>     driver is out for tech preview.
->>> 7. PCI ATS functionality is not supported, as there is no support
->>>     available in XEN to test the functionality. Code is not tested and
->>>     compiled. Code is guarded by the flag CONFIG_PCI_ATS.
->>> 8. MSI interrupts are not supported as there is no support available in
->>>     XEN to request MSI interrupts. Code is not tested and compiled. Code
->>>     is guarded by the flag CONFIG_MSI.
->>>
->>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->>> ---
->>> Changes since v2:
->>> - added return statement for readx_poll_timeout function.
->>> - remove iommu_get_dma_cookie and iommu_put_dma_cookie.
->>> - remove struct arm_smmu_xen_device as not required.
->>> - move dt_property_match_string to device_tree.c file.
->>> - replace arm_smmu_*_thread to arm_smmu_*_tasklet to avoid confusion.
->>> - use ARM_SMMU_REG_SZ as size when map memory to XEN.
->>> - remove bypass keyword to make sure when device-tree probe is failed we
->>>    are reporting error and not continuing to configure SMMU in bypass
->>>    mode.
->>> - fixed minor comments.
->>> Changes since v3:
->>> - Fixed typo for CONFIG_MSI
->>> - Added back the mutex code
->>> - Rebase the patch on top of newly added WARN_ON().
->>> - Remove the direct read of register VTCR_EL2.
->>> - Fixed minor comments.
->>> Changes since v4:
->>> - Replace the ffsll() with ffs64() function.
->>> - Add code to free resources when probe failed.
->>
->> Thank you for addressing, patch looks ok to me, just one small remark below:
->>
->>
->>> +
->>> +static void __hwdom_init arm_smmu_iommu_hwdom_init(struct domain *d)
->>> +{
->>> +}
->>
->> We discussed in V4 about adding some code here which all IOMMUs on Arm already have, copy it below for the convenience:
->>
->>
->>       /* Set to false options not supported on ARM. */
->>       if ( iommu_hwdom_inclusive )
->>           printk(XENLOG_WARNING
->>           "map-inclusive dom0-iommu option is not supported on ARM\n");
->>       iommu_hwdom_inclusive = false;
->>       if ( iommu_hwdom_reserved == 1 )
->>           printk(XENLOG_WARNING
->>           "map-reserved dom0-iommu option is not supported on ARM\n");
->>       iommu_hwdom_reserved = 0;
->>
->>       arch_iommu_hwdom_init(d);
->>
->>
->> Also we discussed about possibility to fold the part of code (which disables unsupported options) in arch_iommu_hwdom_init() to avoid duplication as a follow-up.
->> At least, I expected to see arch_iommu_hwdom_init() to be called by arm_smmu_iommu_hwdom_init() it current patch... Please note, this is *not* a request for change immediately,
->> I think, driver is functional even without this code (hopefully arch_iommu_hwdom_init is empty now, etc).  But, if you happen to do V6 or probably it could be done on commit ...
->>
-> 
-> Yes I will send the patch to move the code to arch_iommu_hwdom_init() to avoid duplication once SMMUv3 driver will be merged.
-> I thought anyway I have to remove the code from SMMUv1 and IPMMU I will take care of all the IOMMU driver at the same time because of that I didn’t modify the SMMUv3 driver.
+On Thu, 2021-01-21 at 11:54 +0100, Anders T=C3=B6rnqvist wrote:
+> Hi,
+>=20
+Hello,
 
-There are two part in the problem here:
-   1) Code duplication
-   2) The SMMUv3 not checking the command line and calling 
-arch_iommu_hwdom_init(d)
+> I see a problem with destroy and restart of a domain. Interrupts are
+> not=20
+> available when trying to restart a domain.
+>=20
+> The situation seems very similar to the thread "null scheduler bug"=20
+> =20
+> https://lists.xenproject.org/archives/html/xen-devel/2018-09/msg01213.htm=
+l
+> .
+>=20
+Right. Back then, PCI passthrough was involved, if I remember
+correctly. Is it the case for you as well?
 
-I agree that 1) can be deferred because it is a clean-up. However, I 
-consider 2) a (latent) bug because it means that we risk unintentionally 
-breaking the SMMUv3 driver is we need to add code in 
-arch_iommu_hwdom_init() as part of a future bug fix for 4.15.
+> The target system is a iMX8-based ARM board and Xen is a 4.13.0
+> version=20
+> built from https://source.codeaurora.org/external/imx/imx-xen.git.
+>=20
+Mmm, perhaps it's me, but neither going at that url with a browser not
+trying to clone it, I do not see anything. What I'm doing wrong?
 
-Therefore...
+> Xen is booted with sched=3Dnull vwfi=3Dnative.
+> One physical CPU core is pinned to the domu.
+> Some interrupts are passed through to the domu.
+>=20
+Ok, I guess it is involved, since you say "some interrupts are passed
+through..."
 
-> Yes if there is a need for v6 I will add the arch_iommu_hwdom_init(d) in arm_smmu_iommu_hwdom_init().
+> When destroying the domain with xl destroy etc it does not complain
+> but=20
+> then when trying to restart the domain
+> again with a "xl create <domain cfg>" I get:
+> (XEN) IRQ 210 is already used by domain 1
+>=20
+> "xl list" does not contain the domain.
+>=20
+> Repeating the "xl create" command 5-10 times eventually starts the=20
+> domain without complaining about the IRQ.
+>=20
+> Inspired from the discussion in the thread above I have put printks
+> in=20
+> the xen/common/domain.c file.
+> In the function domain_destroy I have a printk("End of domain_destroy
+> function\n") in the end.
+> In the function complete_domain_destroy have a printk("Begin of=20
+> complete_domain_destroy function\n") in the beginning.
+>=20
+> With these printouts I get at "xl destroy":
+> (XEN) End of domain_destroy function
+>=20
+> So it seems like the function complete_domain_destroy is not called.
+>=20
+Ok, thanks for making these tests. It's helpful to have this
+information right away.
 
-... I think calling arch_iommu_hwdom_init() should be the strict 
-minimum. So please address it. Although, no need to resend the full 
-series, you can only resend patch #10.
+> "xl create" results in:
+> (XEN) IRQ 210 is already used by domain 1
+> (XEN) End of domain_destroy function
+>=20
+> Then repeated "xl create" looks the same until after a few tries I
+> also get:
+> (XEN) Begin of complete_domain_destroy function
+>=20
+> After that the next "xl create" creates the domain.
+>=20
+>=20
+> I have also applied the patch from=20
+>    =20
+> https://lists.xenproject.org/archives/html/xen-devel/2018-09/msg02469.htm=
+l
+> .=20
+> This does seem to change the results.
+>=20
+Ah... Really? That's a bit unexpected, TBH.
 
-Cheers,
+Well, I'll think about it.
 
--- 
-Julien Grall
+> Starting the system without "sched=3Dnull vwfi=3Dnative" does not result
+> in=20
+> the problem.
+>
+Ok, how about, if you're up for some more testing:
+
+ - booting with "sched=3Dnull" but not with "vwfi=3Dnative"
+ - booting with "sched=3Dnull vwfi=3Dnative" but not doing the IRQ=C2=A0
+   passthrough that you mentioned above
+
+?
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-NBA5hJW2DM7PYV7tgFoV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmAJyNQACgkQFkJ4iaW4
+c+6HBA//XfTRd89R+eHsXoAzKqLs7ZyzQ7ju6CdQlm2Krz7wloN8dTQv6bDgEEYy
+HUNosqkrPJ2/VLtw3seYiKvbJjdZ1gVD1lxURqwclaYsvLAkunqgk4Rfht9PTgEl
+z7OgKjPXJ2dLKvlD/6gikiZALvvaYQsk2qVUxk4rut9js1hBHpDs2PlEKDHBnjPU
+aWLhB77E6po5saKQd0xFDexc43AqA/WVDNJ13uDPND49EbtzY41PDll2/cH0rP3y
+WKl1DyOB8Wm4qTEYCZDBvHTozhmx92GnlThyq1MgZ7SWGE/uWOjxtUBk7AL8PqJE
+KGfHF4nKZuddHpNk5C71ZQfRvotB+s93iW62aA/5FsoNQKgs6ypb+EBGHoPFF1lI
+hblSiMM93yjT+KIeJeSowYyIL4dbyb/YuhXHzIWuD1B9ObR14ZmjG7cMIpIrgOru
+momQssL+GbB1uQFyOuKBTS4Xs/vXHO1sptlDicTZrE+Ro1M++jY2rxAHU3C1DsoI
+DViL0hoMXsG3wBh26/qZoP24qcwXhrKJcyhEIvwi2DyZOzLgdGLPhVgJq//omnj3
+7dhhQYkJYT/l4Mdg2H4zkgCxj01paLda8V0VLLOKCkmsMQvmebDhe7XW3eU5CQKD
+2JFXrvug66qAKvfu71P+tacJ8w0r18OUoFHIAB9Db1ij1R8yvS8=
+=50LD
+-----END PGP SIGNATURE-----
+
+--=-NBA5hJW2DM7PYV7tgFoV--
+
 
