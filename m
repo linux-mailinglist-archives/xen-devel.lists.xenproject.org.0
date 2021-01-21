@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0771A2FE9BB
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Jan 2021 13:15:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72038.129445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58D842FEC7C
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Jan 2021 14:59:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72045.129456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2YrI-0001jM-6d; Thu, 21 Jan 2021 12:14:40 +0000
+	id 1l2aTA-00032J-Bh; Thu, 21 Jan 2021 13:57:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72038.129445; Thu, 21 Jan 2021 12:14:40 +0000
+Received: by outflank-mailman (output) from mailman id 72045.129456; Thu, 21 Jan 2021 13:57:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2YrI-0001ix-2T; Thu, 21 Jan 2021 12:14:40 +0000
-Received: by outflank-mailman (input) for mailman id 72038;
- Thu, 21 Jan 2021 12:14:39 +0000
+	id 1l2aTA-00031w-8Q; Thu, 21 Jan 2021 13:57:52 +0000
+Received: by outflank-mailman (input) for mailman id 72045;
+ Thu, 21 Jan 2021 13:57:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YaFh=GY=gmail.com=vicooodin@srs-us1.protection.inumbo.net>)
- id 1l2YrH-0001is-2M
- for xen-devel@lists.xenproject.org; Thu, 21 Jan 2021 12:14:39 +0000
-Received: from mail-ot1-x335.google.com (unknown [2607:f8b0:4864:20::335])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iH6i=GY=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l2aT9-00031r-GA
+ for xen-devel@lists.xenproject.org; Thu, 21 Jan 2021 13:57:51 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 16fb4859-d036-4b15-a97d-f0ab959b40dd;
- Thu, 21 Jan 2021 12:14:38 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id d1so1338636otl.13
- for <xen-devel@lists.xenproject.org>; Thu, 21 Jan 2021 04:14:38 -0800 (PST)
+ id a9232e66-7fdb-4f1b-a91b-06811c7364a0;
+ Thu, 21 Jan 2021 13:57:50 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 25FF3ABD6;
+ Thu, 21 Jan 2021 13:57:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,56 +38,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16fb4859-d036-4b15-a97d-f0ab959b40dd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=/NWL35Cnme8VSzscEJqs4UCQQRPXFL/vaSUf3iI5V/k=;
-        b=Sm+OqxBhC/+TfN2r5USrP5+YQZgKMtdcUwAVoCTMjup+CtA6sBoUuxG7RgqSQqR88o
-         HxdslZhB1eY5njx0SVLrGrH8B1BIjHGmrkccEnytgZwZVX+W3v5tUCiw5/7MhN9lHrgQ
-         z9mheQUOObzGxUc0VdzvBX0USRQRlROHG3GulR8BQb5QrJ4awIoRhz0qa9h7DIDdesMf
-         NsXr6y6BYk1edN/jV8hbeuzx3cVrpSjBRXq9bGP5i2pa0U6OJes4OREu62WaxZxbKC/f
-         0+CM/9Rjzz6WGvmfeAl3PNT4Zv4LrPp8jteMVr0IZzFv9tMOt+bwYACLvtNJIatygU48
-         3M2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=/NWL35Cnme8VSzscEJqs4UCQQRPXFL/vaSUf3iI5V/k=;
-        b=d08/Z/GkNsRuzxyhxACZWc5qcHGhER58MlrXIWJr3kGOOz8WxJ1HWqOb+rWr0DwJ+y
-         +visGIXj406l3c2P/fFssKcmisVbXKpf6U3qLpnlZojHhRYmioXQOvN1VhFYIEfI7i29
-         7Bkd8PfzTO94NxsU0i9vZAltBUDgw2Gl57UIeQ+Zd2r3MDWjrRPbqv1w/jFmuUJsniG2
-         CvWwVhddSccONIhSL0G5dQig27yTou1QWPSGST4iHjnE8whGu181OFu98tCHqzhu1MO5
-         4gVZPW1K1kR3qKooH1XOPOhDXn0RjRxM3oHZ+dTo6/9XNXQypYQQISZvcL9PtRsj1yHA
-         nkEQ==
-X-Gm-Message-State: AOAM530gFjZ08R2qLlyO905Zi00kem8RDNN88EEevt//598EL9Hz0a4m
-	7B+B48eep3sKECTJ9mYHFWBY9dWduFGab1CFpX4=
-X-Google-Smtp-Source: ABdhPJzPxRhmWz5ddM4lrDMxKS/BwydK1aJg4Cek0R/qTyYdLJtHjGhKilmnwWbdqtsd/cPcFUEpgDL5FqsF+UtFHuk=
-X-Received: by 2002:a9d:1288:: with SMTP id g8mr8776208otg.168.1611231277761;
- Thu, 21 Jan 2021 04:14:37 -0800 (PST)
+X-Inumbo-ID: a9232e66-7fdb-4f1b-a91b-06811c7364a0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611237469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uPtE8loEaa7vbXLL7rycEljVo4EhvGoxVZmS7eQrimQ=;
+	b=s/E7Ffl0asSXSj15ByehDbysvLiTA/Fsz0rhM17wUPkxG+26Qb2E9Bl1MjeScvCkF5XtcK
+	Vn9+cQ8SDJSu7r5awrGo88vj1ddn/PWgpnKvES3vD7HLMAJ6L8/SrVpx0Hw1kgy2M4oIU1
+	WpxzQ8eVUrKpDNcLWjuXupkxpJp10O4=
+Subject: Re: [PATCH V4 16/24] xen/mm: Handle properly reference in
+ set_foreign_p2m_entry() on Arm
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Julien Grall <julien.grall@arm.com>,
+ xen-devel@lists.xenproject.org
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-17-git-send-email-olekstysh@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1a706a1c-baed-b323-d772-dc35286bb4d2@suse.com>
+Date: Thu, 21 Jan 2021 14:57:48 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-From: Nastya Vicodin <vicooodin@gmail.com>
-Date: Thu, 21 Jan 2021 14:14:26 +0200
-Message-ID: <CAFdZxxmyXncZhCepxM8beRvTAsaYya=VSO5eaDU4zjqLGbYWqw@mail.gmail.com>
-Subject: [PATCH v7 0/7] xl / libxl: named PCI pass-through devices
-To: Wei Liu <wl@xen.org>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>, 
-	Paul Durrant <pdurrant@amazon.com>
-Content-Type: multipart/alternative; boundary="000000000000f6470305b968039c"
+In-Reply-To: <1610488352-18494-17-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---000000000000f6470305b968039c
-Content-Type: text/plain; charset="UTF-8"
+On 12.01.2021 22:52, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> This patch implements reference counting of foreign entries in
+> in set_foreign_p2m_entry() on Arm. This is a mandatory action if
+> we want to run emulator (IOREQ server) in other than dom0 domain,
+> as we can't trust it to do the right thing if it is not running
+> in dom0. So we need to grab a reference on the page to avoid it
+> disappearing.
+> 
+> It is valid to always pass "p2m_map_foreign_rw" type to
+> guest_physmap_add_entry() since the current and foreign domains
+> would be always different. A case when they are equal would be
+> rejected by rcu_lock_remote_domain_by_id(). Besides the similar
+> comment in the code put a respective ASSERT() to catch incorrect
+> usage in future.
+> 
+> It was tested with IOREQ feature to confirm that all the pages given
+> to this function belong to a domain, so we can use the same approach
+> as for XENMAPSPACE_gmfn_foreign handling in xenmem_add_to_physmap_one().
+> 
+> This involves adding an extra parameter for the foreign domain to
+> set_foreign_p2m_entry() and a helper to indicate whether the arch
+> supports the reference counting of foreign entries and the restriction
+> for the hardware domain in the common code can be skipped for it.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> CC: Julien Grall <julien.grall@arm.com>
+> [On Arm only]
+> Tested-by: Wei Chen <Wei.Chen@arm.com>
 
-Hi, Wei!
+In principle x86 parts
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+However, being a maintainer of ...
 
-Wei, could you please review?
+> --- a/xen/include/asm-x86/p2m.h
+> +++ b/xen/include/asm-x86/p2m.h
+> @@ -382,6 +382,22 @@ struct p2m_domain {
+>  #endif
+>  #include <xen/p2m-common.h>
+>  
+> +static inline bool arch_acquire_resource_check(struct domain *d)
+> +{
+> +    /*
+> +     * The reference counting of foreign entries in set_foreign_p2m_entry()
+> +     * is not supported for translated domains on x86.
+> +     *
+> +     * FIXME: Until foreign pages inserted into the P2M are properly
+> +     * reference counted, it is unsafe to allow mapping of
+> +     * resource pages unless the caller is the hardware domain.
+> +     */
+> +    if ( paging_mode_translate(d) && !is_hardware_domain(d) )
+> +        return false;
+> +
+> +    return true;
+> +}
 
-Regards,
-Anastasiia Lukianenko
 
---000000000000f6470305b968039c
-Content-Type: text/html; charset="UTF-8"
+... this code, I'd like to ask that such constructs be avoided
+and this be a single return statement:
 
-<div dir="ltr">Hi, Wei!<div><br></div><div>Wei, could you please review?<br></div><div><br></div><div>Regards,</div><div>Anastasiia Lukianenko</div></div>
+    return !paging_mode_translate(d) || is_hardware_domain(d);
 
---000000000000f6470305b968039c--
+I also think you may want to consider dropping the initial
+"The" from the comment. I'm further unconvinced "foreign
+entries" needs saying when set_foreign_p2m_entry() deals with
+exclusively such. In the end the original comment moved here
+would probably suffice, no need for any more additions than
+perhaps a simple "(see set_foreign_p2m_entry())".
+
+Jan
 
