@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 992702FF642
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Jan 2021 21:47:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72396.130310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D8A42FF6AA
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Jan 2021 22:02:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72402.130326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2gqi-0000TM-RN; Thu, 21 Jan 2021 20:46:36 +0000
+	id 1l2h5N-0002V1-7S; Thu, 21 Jan 2021 21:01:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72396.130310; Thu, 21 Jan 2021 20:46:36 +0000
+Received: by outflank-mailman (output) from mailman id 72402.130326; Thu, 21 Jan 2021 21:01:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2gqi-0000Sw-N6; Thu, 21 Jan 2021 20:46:36 +0000
-Received: by outflank-mailman (input) for mailman id 72396;
- Thu, 21 Jan 2021 20:46:35 +0000
+	id 1l2h5N-0002Ub-2z; Thu, 21 Jan 2021 21:01:45 +0000
+Received: by outflank-mailman (input) for mailman id 72402;
+ Thu, 21 Jan 2021 21:01:43 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2gqh-0000So-BO; Thu, 21 Jan 2021 20:46:35 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1l2h5L-0002UW-IB
+ for xen-devel@lists.xenproject.org; Thu, 21 Jan 2021 21:01:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2gqh-0000NU-2D; Thu, 21 Jan 2021 20:46:35 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2gqg-00072a-Ox; Thu, 21 Jan 2021 20:46:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l2gqg-00047T-OE; Thu, 21 Jan 2021 20:46:34 +0000
+ (envelope-from <julien@xen.org>)
+ id 1l2h5E-0000eO-Cd; Thu, 21 Jan 2021 21:01:36 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l2h5E-0002Hx-1J; Thu, 21 Jan 2021 21:01:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,435 +39,364 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9UDS5joT9j46M0ZAGMCzk4vRCO1+bPlCrFUu/SfaYr4=; b=3Jfbpr2rU+XJTZeknI6aePGlIQ
-	4k1EQTj+8cFNvUuglJ/2PpmzPa3JrbYqVk5NbjDUJlW+f9pRphs7YNcH8I6oBFdOMMz136mpRvpGI
-	jIjEBbev+Pzs3Tk7DiZLp792dMD5mcv6PeSSYNjnCShsyqNbxH/tlNo6ksduYYAXGbyw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158552-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=iXhL/eCStt7EY6FYcLQ/SPkgtow3e6tloMyLcZwewWY=; b=M3We2gUjniyHkFUKm4I0ZLuA48
+	qW0LcR8lN8211Eor/Sy9suyolJVKn7BR1rpgpiVCfyRRb7+pR6wQtLU1sCf9PaQshm4hNA3l/916Q
+	vrcrgzIoTt2wlJLQhZMzgYi0kgsG6x1EjngcNGKmf31rGEsVrdMe1isGILSKvuEVfZWY=;
+Subject: Re: IRQ latency measurements in hypervisor
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <jgrall@amazon.com>, Dario Faggioli <dario.faggioli@suse.com>,
+ "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+References: <87pn294szv.fsf@epam.com>
+ <alpine.DEB.2.21.2101141515230.31265@sstabellini-ThinkPad-T480s>
+ <f31c9cca-0275-eaef-5fcd-c8484d4b5da0@xen.org> <87wnwe2ogp.fsf@epam.com>
+ <187995c9-78f4-0a1c-d912-ca5100d07321@xen.org> <87im7r2otp.fsf@epam.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <db4923e1-e928-824f-1e16-f787de74c53f@xen.org>
+Date: Thu, 21 Jan 2021 21:01:34 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 158552: regressions - FAIL
-X-Osstest-Failures:
-    linux-5.4:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=d26b3110041a9fddc6c6e36398f53f7eab8cff82
-X-Osstest-Versions-That:
-    linux=a829146c3fdcf6d0b76d9c54556a223820f1f73b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 21 Jan 2021 20:46:34 +0000
+In-Reply-To: <87im7r2otp.fsf@epam.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 158552 linux-5.4 real [real]
-flight 158562 linux-5.4 real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158552/
-http://logs.test-lab.xenproject.org/osstest/logs/158562/
+Hi Volodymir,
 
-Regressions :-(
+On 20/01/2021 23:03, Volodymyr Babchuk wrote:
+> Julien Grall writes:
+>>>>> This is very interestingi too. Did you get any spikes with the
+>>>>> period
+>>>>> set to 100us? It would be fantastic if there were none.
+>>>>>
+>>>>>> 3. Huge latency spike during domain creation. I conducted some
+>>>>>>       additional tests, including use of PV drivers, but this didn't
+>>>>>>       affected the latency in my "real time" domain. But attempt to
+>>>>>>       create another domain with relatively large memory size of 2GB led
+>>>>>>       to huge spike in latency. Debugging led to this call path:
+>>>>>>
+>>>>>>       XENMEM_populate_physmap -> populate_physmap() ->
+>>>>>>       alloc_domheap_pages() -> alloc_heap_pages()-> huge
+>>>>>>       "for ( i = 0; i < (1 << order); i++ )" loop.
+>>>>
+>>>> There are two for loops in alloc_heap_pages() using this syntax. Which
+>>>> one are your referring to?
+>>> I did some tracing with Lautrebach. It pointed to the first loop and
+>>> especially to flush_page_to_ram() call if I remember correctly.
+>>
+>> Thanks, I am not entirely surprised because we are clean and
+>> invalidating the region line by line and across all the CPUs.
+>>
+>> If we are assuming 128 bytes cacheline, we will need to issue 32 cache
+>> instructions per page. This going to involve quite a bit of traffic on
+>> the system.
+>>
+>> One possibility would be to defer the cache flush when the domain is
+>> created and use the hypercall XEN_DOMCTL_cacheflush to issue the
+>> flush.
+> 
+> Can we flush caches on first access to a page? What I mean - do not
+> populate stage 2 tables with allocated memory. Flush caches in abort
+> handler and then populate them.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot            fail REGR. vs. 158387
+We are using a similar approach for implementing set/way but it only 
+works as long as you don't assign a device (with or without an IOMMU).
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 158387
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 158387
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 158387
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 158387
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 158387
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 158387
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 158387
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 158387
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 158387
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 158387
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 158387
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+Currently, it is quite uncommon to have device that are able to restart 
+a DMA transaction after faulting. So we would not be able to share the 
+P2M with IOMMU if we populate the P2M on the first access (a device may 
+be the first to access the memory).
 
-version targeted for testing:
- linux                d26b3110041a9fddc6c6e36398f53f7eab8cff82
-baseline version:
- linux                a829146c3fdcf6d0b76d9c54556a223820f1f73b
+Even if we decided to unshare the P2M, there would still be a trust 
+problem if the device is non-coherent (i.e. it cannot snoop the cache).
 
-Last test of basis   158387  2021-01-12 19:40:06 Z    9 days
-Failing since        158473  2021-01-17 13:42:20 Z    4 days    8 attempts
-Testing same since   158533  2021-01-20 00:41:04 Z    1 days    3 attempts
+The same can be said if you are not protecting the device with an IOMMU 
+(you may have an MPU or something different on the system).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adrian Hunter <adrian.hunter@intel.com>
-  Akilesh Kailash <akailash@google.com>
-  Al Viro <viro@zeniv.linux.org.uk>
-  Alan Maguire <alan.maguire@oracle.com>
-  Aleksander Jan Bajkowski <olek2@wp.pl>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alexander Lobakin <alobakin@pm.me>
-  Alexey Minnekhanov <alexeymin@postmarketos.org>
-  Anders Roxell <anders.roxell@linaro.org>
-  Andreas Kemnade <andreas@kemnade.info>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrii Nakryiko <andrii@kernel.org>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Aya Levin <ayal@nvidia.com>
-  Ayush Sawal <ayush.sawal@chelsio.com>
-  Borislav Petkov <bp@suse.de>
-  Christoph Hellwig <hch@lst.de>
-  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-  Chunyan Zhang <chunyan.zhang@unisoc.com>
-  Colin Ian King <colin.king@canonical.com>
-  Craig Tatlor <ctatlor97@gmail.com>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  Dave Wysochanski <dwysocha@redhat.com>
-  David Rientjes <rientjes@google.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  Dennis Li <Dennis.Li@amd.com>
-  Dexuan Cui <decui@microsoft.com>
-  Dinghao Liu <dinghao.liu@zju.edu.cn>
-  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-  Fabian Vogt <fvogt@suse.com>
-  Fenghua Yu <fenghua.yu@intel.com>
-  Filipe Manana <fdmanana@suse.com>
-  Finn Thain <fthain@telegraphics.com.au>
-  Florian Westphal <fw@strlen.de>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  Gopal Tiwari <gtiwari@redhat.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Guido Günther <agx@sigxcpu.org>
-  Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-  Hans de Goede <hdegoede@redhat.com>
-  Hao Wang <pkuwangh@gmail.com>
-  Huazhong Tan <tanhuazhong@huawei.com>
-  Ido Schimmel <idosch@nvidia.com>
-  Ingo Molnar <mingo@kernel.org>
-  Israel Rukshin <israelr@nvidia.com>
-  j.nixdorf@avm.de <j.nixdorf@avm.de>
-  Jakub Kicinski <kuba@kernel.org>
-  Jamie Iles <jamie@jamieiles.com>
-  Jan Kara <jack@suse.cz>
-  Jani Nikula <jani.nikula@intel.com>
-  Jann Horn <jannh@google.com>
-  Jason Gunthorpe <jgg@nvidia.com>
-  Jean Delvare <jdelvare@suse.de>
-  Jens Axboe <axboe@kernel.dk>
-  Jerome Brunet <jbrunet@baylibre.com>
-  Jesper Dangaard Brouer <brouer@redhat.com>
-  Jethro Beekman <jethro@fortanix.com>
-  Jiri Kosina <jkosina@suse.cz>
-  Jiri Slaby <jslaby@suse.cz>
-  Johannes Nixdorf <j.nixdorf@avm.de>
-  John Millikin <john@john-millikin.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Joonsoo Kim <iamjoonsoo.kim@lge.com>
-  Jouni K. Seppänen <jks@iki.fi>
-  Jozsef Kadlecsik <kadlec@netfilter.org>
-  Julian Wiedmann <jwi@linux.ibm.com>
-  Kan Liang <kan.liang@linux.intel.com>
-  Kees Cook <keescook@chromium.org>
-  Leon Romanovsky <leonro@nvidia.com>
-  Leon Schuermann <leon@is.currently.online>
-  Linhua Xu <linhua.xu@unisoc.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Lorenzo Bianconi <lorenzo@kernel.org>
-  Lu Baolu <baolu.lu@linux.intel.com>
-  Luis Lozano <llozano@google.com>
-  Manoj Gupta <manojgupta@google.com>
-  Marc Kleine-Budde <mkl@pengutronix.de>
-  Marc Zyngier <maz@kernel.org>
-  Marcin Wojtas <mw@semihalf.com>
-  Mark Bloch <mbloch@nvidia.com>
-  Mark Brown <broonie@kernel.org>
-  Mark Zhang <markzhang@nvidia.com>
-  Martin KaFai Lau <kafai@fb.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Masami Hiramatsu <mhiramat@kernel.org>
-  Matthew Rosato <mjrosato@linux.ibm.com>
-  Miaohe Lin <linmiaohe@huawei.com>
-  Michael Chan <michael.chan@broadcom.com>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Mike Snitzer <snitzer@redhat.com>
-  Mikulas Patocka <mpatocka@redhat.com>
-  Ming Lei <ming.lei@redhat.com>
-  Nathan Chancellor <natechancellor@gmail.com>
-  Naveen N. Rao <naveen.n.rao@linux.vnet.ibm.com>
-  Nick Desaulniers <ndesaulniers@google.com>
-  Oded Gabbay <ogabbay@kernel.org>
-  Olaf Hering <olaf@aepfle.de>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Parav Pandit <parav@nvidia.com>
-  Paul Cercueil <paul@crapouillou.net>
-  Paulo Alcantara (SUSE) <pc@cjr.nz>
-  Paulo Alcantara <pc@cjr.nz>
-  Peter Robinson <pbrobinson@gmail.com>
-  Ping Cheng <ping.cheng@wacom.com>
-  Ping Cheng <pinglinux@gmail.com>
-  Po-Hsu Lin <po-hsu.lin@canonical.com>
-  Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Randy Dunlap <rdunlap@infradead.org>
-  Rasmus Villemoes <rasmus.villemoes@prevas.dk>
-  Reinette Chatre <reinette.chatre@intel.com>
-  Rob Clark <robdclark@chromium.org>
-  Rohit Maheshwari <rohitm@chelsio.com>
-  Roman Guskov <rguskov@dh-electronics.com>
-  Saeed Mahameed <saeedm@nvidia.com>
-  Sagi Grimberg <sagi@grimberg.me>
-  Samuel Holland <samuel@sholland.org>
-  Sasha Levin <sashal@kernel.org>
-  Sean Tranchetti <stranche@codeaurora.org>
-  Shawn Guo <shawn.guo@linaro.org>
-  Shravya Kumbham <shravya.kumbham@xilinx.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Stefan Chulski <stefanc@marvell.com>
-  Steve French <stfrench@microsoft.com>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
-  Su Yue <l@damenly.su>
-  Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-  Takashi Iwai <tiwai@suse.de>
-  Theodore Ts'o <tytso@mit.edu>
-  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-  Thomas Hebb <tommyhebb@gmail.com>
-  Tom Rix <trix@redhat.com>
-  Tony Lindgren <tony@atomide.com>
-  Trond Myklebust <trond.myklebust@hammerspace.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-  Valdis Kletnieks <valdis.kletnieks@vt.edu>
-  Valdis Klētnieks <valdis.kletnieks@vt.edu>
-  Vasily Averin <vvs@virtuozzo.com>
-  Vinay Kumar Yadav <vinay.yadav@chelsio.com>
-  Vineet Gupta <vgupta@synopsys.com>
-  Vinod Koul <vkoul@kernel.org>
-  Viresh Kumar <viresh.kumar@linaro.org>
-  Wei Liu <wei.liu@kernel.org>
-  Will Deacon <will@kernel.org>
-  Willem de Bruijn <willemb@google.com>
-  Wolfram Sang <wsa@kernel.org>
-  Xiaolei Wang <xiaolei.wang@windriver.com>
-  yangerkun <yangerkun@huawei.com>
-  Yonglong Liu <liuyonglong@huawei.com>
-  Yufeng Mo <moyufeng@huawei.com>
+The only case where we could possibly disable the flush is when your 
+memory is statically partionned as the guest would always receive the 
+same pages.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
+[...]
 
+>>
+>> Do you have any suggestion how to split it?
+>>
+> 
+> Well, it  is quite complex function and I can't tell right away.
+> At this time I don't quite understand why spin_unlock() is called after
+> the first (1 << order) loop for instance.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+The part after the spin lock will check whether the pages are scrubbed. 
+As the content of the pages cannot be touched by someone else (we made 
+sure the scrub task removed them from its list). Therefore, the 
+operation is fine to be called without the heap_lock held.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> 
+> Also, this function does many different things for its simple name.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Everything in this function needs to happen before the page can safely 
+be handed out to another part of Xen or a guest. AFAICT, the only thing 
+that can possibly be split out is the call to flush_page_to_ram().
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> 
+>>>
+>>>> I think the first step is we need to figure out which part of the
+>>>> allocation is slow (see my question above). From there, we can figure
+>>>> out if there is a way to reduce the impact.
+>>> I'll do more tracing and will return with more accurate numbers.
+>>> But as far as I can see, any loop on 262144 pages will take some time..
+>> .
+>>
+>> It really depends on the content of the loop. On any modern
+>> processors, you are very likely not going to notice a loop that update
+>> just a flag.
+>>
+>> However, you are likely going to be see an impact if your loop is
+>> going to clean & invalidate the cache for each page.
+>>
+> 
+> Totally agree. I used Xen tracing subsystem to do the measurements and I
+> can confirm that call to flush_page_to_ram() causes most of the impact.
+> 
+> 
+> There is the details:
+> 
+> 
+> I added number of tracing points to the function:
+> 
+> static struct page_info *alloc_heap_pages(
+>      unsigned int zone_lo, unsigned int zone_hi,
+>      unsigned int order, unsigned int memflags,
+>      struct domain *d)
+> {
+>      nodeid_t node;
+>      unsigned int i, buddy_order, zone, first_dirty;
+>      unsigned long request = 1UL << order;
+>      struct page_info *pg;
+>      bool need_tlbflush = false;
+>      uint32_t tlbflush_timestamp = 0;
+>      unsigned int dirty_cnt = 0;
+> 
+>      /* Make sure there are enough bits in memflags for nodeID. */
+>      BUILD_BUG_ON((_MEMF_bits - _MEMF_node) < (8 * sizeof(nodeid_t)));
+> 
+>      ASSERT(zone_lo <= zone_hi);
+>      ASSERT(zone_hi < NR_ZONES);
+> 
+>      if ( unlikely(order > MAX_ORDER) )
+>          return NULL;
+> 
+>      spin_lock(&heap_lock);
+> 
+>      TRACE_1D(TRC_PGALLOC_PT1, order); // <=================================
+> 
+>      /*
+>       * Claimed memory is considered unavailable unless the request
+>       * is made by a domain with sufficient unclaimed pages.
+>       */
+>      if ( (outstanding_claims + request > total_avail_pages) &&
+>            ((memflags & MEMF_no_refcount) ||
+>             !d || d->outstanding_pages < request) )
+>      {
+>          spin_unlock(&heap_lock);
+>          return NULL;
+>      }
+> 
+>      pg = get_free_buddy(zone_lo, zone_hi, order, memflags, d);
+>      /* Try getting a dirty buddy if we couldn't get a clean one. */
+>      if ( !pg && !(memflags & MEMF_no_scrub) )
+>          pg = get_free_buddy(zone_lo, zone_hi, order,
+>                              memflags | MEMF_no_scrub, d);
+>      if ( !pg )
+>      {
+>          /* No suitable memory blocks. Fail the request. */
+>          spin_unlock(&heap_lock);
+>          return NULL;
+>      }
+> 
+>      TRACE_0D(TRC_PGALLOC_PT2); // <=================================
+> 
+>      node = phys_to_nid(page_to_maddr(pg));
+>      zone = page_to_zone(pg);
+>      buddy_order = PFN_ORDER(pg);
+> 
+>      first_dirty = pg->u.free.first_dirty;
+> 
+>      /* We may have to halve the chunk a number of times. */
+>      while ( buddy_order != order )
+>      {
+>          buddy_order--;
+>          page_list_add_scrub(pg, node, zone, buddy_order,
+>                              (1U << buddy_order) > first_dirty ?
+>                              first_dirty : INVALID_DIRTY_IDX);
+>          pg += 1U << buddy_order;
+> 
+>          if ( first_dirty != INVALID_DIRTY_IDX )
+>          {
+>              /* Adjust first_dirty */
+>              if ( first_dirty >= 1U << buddy_order )
+>                  first_dirty -= 1U << buddy_order;
+>              else
+>                  first_dirty = 0; /* We've moved past original first_dirty */
+>          }
+>      }
+> 
+>      TRACE_0D(TRC_PGALLOC_PT3); // <=================================
+> 
+>      ASSERT(avail[node][zone] >= request);
+>      avail[node][zone] -= request;
+>      total_avail_pages -= request;
+>      ASSERT(total_avail_pages >= 0);
+> 
+>      check_low_mem_virq();
+> 
+>      if ( d != NULL )
+>          d->last_alloc_node = node;
+> 
+>      for ( i = 0; i < (1 << order); i++ )
+>      {
+>          /* Reference count must continuously be zero for free pages. */
+>          if ( (pg[i].count_info & ~PGC_need_scrub) != PGC_state_free )
+>          {
+>              printk(XENLOG_ERR
+>                     "pg[%u] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
+>                     i, mfn_x(page_to_mfn(pg + i)),
+>                     pg[i].count_info, pg[i].v.free.order,
+>                     pg[i].u.free.val, pg[i].tlbflush_timestamp);
+>              BUG();
+>          }
+> 
+>          /* PGC_need_scrub can only be set if first_dirty is valid */
+>          ASSERT(first_dirty != INVALID_DIRTY_IDX || !(pg[i].count_info & PGC_need_scrub));
+> 
+>          /* Preserve PGC_need_scrub so we can check it after lock is dropped. */
+>          pg[i].count_info = PGC_state_inuse | (pg[i].count_info & PGC_need_scrub);
+> 
+>          if ( !(memflags & MEMF_no_tlbflush) )
+>              accumulate_tlbflush(&need_tlbflush, &pg[i],
+>                                  &tlbflush_timestamp);
+> 
+>          /* Initialise fields which have other uses for free pages. */
+>          pg[i].u.inuse.type_info = 0;
+>          page_set_owner(&pg[i], NULL);
+> 
+>          /* Ensure cache and RAM are consistent for platforms where the
+>           * guest can control its own visibility of/through the cache.
+>           */
+>          flush_page_to_ram(mfn_x(page_to_mfn(&pg[i])),
+>                            !(memflags & MEMF_no_icache_flush));
+>      }
+> 
+>      TRACE_0D(TRC_PGALLOC_PT4); // <=================================
+>      spin_unlock(&heap_lock);
+> 
+>      if ( first_dirty != INVALID_DIRTY_IDX ||
+>           (scrub_debug && !(memflags & MEMF_no_scrub)) )
+>      {
+>          for ( i = 0; i < (1U << order); i++ )
+>          {
+>              if ( test_bit(_PGC_need_scrub, &pg[i].count_info) )
+>              {
+>                  if ( !(memflags & MEMF_no_scrub) )
+>                      scrub_one_page(&pg[i]);
+> 
+>                  dirty_cnt++;
+> 
+>                  spin_lock(&heap_lock);
+>                  pg[i].count_info &= ~PGC_need_scrub;
+>                  spin_unlock(&heap_lock);
+>              }
+>              else if ( !(memflags & MEMF_no_scrub) )
+>                  check_one_page(&pg[i]);
+>          }
+> 
+>          if ( dirty_cnt )
+>          {
+>              spin_lock(&heap_lock);
+>              node_need_scrub[node] -= dirty_cnt;
+>              spin_unlock(&heap_lock);
+>          }
+>      }
+> 
+>      TRACE_0D(TRC_PGALLOC_PT5); // <=================================
+>      if ( need_tlbflush )
+>          filtered_flush_tlb_mask(tlbflush_timestamp);
+> 
+>      TRACE_0D(TRC_PGALLOC_PT6); // <=================================
+> 
+>      return pg;
+> }
+> 
+> 
+> And wrote a simple Python scripts that parses the output of
+> xentrace. There are results for different orders:
+> 
+>    46.842032: page_alloc trace point 1. Order: 18
+>    46.842035: page_alloc trace point 2 (+   0.000003)
+>    46.842035: page_alloc trace point 3 (+   0.000000)
+>    46.975105: page_alloc trace point 4 (+   0.133069)
+>    46.975106: page_alloc trace point 5 (+   0.000001)
+>    46.975106: page_alloc trace point 6 (+   0.000000): total:    0.133074
+> 
+>    46.998536: page_alloc trace point 1. Order: 9
+>    46.998538: page_alloc trace point 2 (+   0.000002)
+>    46.998540: page_alloc trace point 3 (+   0.000001)
+>    46.998799: page_alloc trace point 4 (+   0.000259)
+>    46.998800: page_alloc trace point 5 (+   0.000000)
+>    46.998800: page_alloc trace point 6 (+   0.000000): total:    0.000264
+> 
+>    46.835802: page_alloc trace point 1. Order: 3
+>    46.835803: page_alloc trace point 2 (+   0.000000)
+>    46.835803: page_alloc trace point 3 (+   0.000000)
+>    46.835812: page_alloc trace point 4 (+   0.000009)
+>    46.835813: page_alloc trace point 5 (+   0.000000)
+>    46.835813: page_alloc trace point 6 (+   0.000001): total:    0.000011
+> 
+>    46.998815: page_alloc trace point 1. Order: 0
+>    46.998816: page_alloc trace point 2 (+   0.000002)
+>    46.998817: page_alloc trace point 3 (+   0.000000)
+>    46.998818: page_alloc trace point 4 (+   0.000002)
+>    46.998819: page_alloc trace point 5 (+   0.000001)
+>    46.998819: page_alloc trace point 6 (+   0.000000): total:    0.000005
+> 
+> Then I commented out call to flush_page_to_ram() and got the following
+> results:
+> 
+>   149.561902: page_alloc trace point 1. Order: 18
+>   149.561905: page_alloc trace point 2 (+   0.000003)
+>   149.561905: page_alloc trace point 3 (+   0.000000)
+>   149.569450: page_alloc trace point 4 (+   0.007545)
+>   149.569451: page_alloc trace point 5 (+   0.000001)
+>   149.569452: page_alloc trace point 6 (+   0.000000): total:    0.007550
+> 
+>   149.592624: page_alloc trace point 1. Order: 9
+>   149.592626: page_alloc trace point 2 (+   0.000003)
+>   149.592627: page_alloc trace point 3 (+   0.000001)
+>   149.592639: page_alloc trace point 4 (+   0.000012)
+>   149.592639: page_alloc trace point 5 (+   0.000000)
+>   149.592640: page_alloc trace point 6 (+   0.000000): total:    0.000016
+> 
+> All time units are seconds, by the way.
 
+That's quite a big improvement! I would definitely consider to defer the 
+flush and use the domctl.
 
-Not pushing.
+However, I am a bit confused with the result. In an earlier, you wrote 
+the operation would take a second. The numbers for oder=18, only show 
+133ms spent in the alloc_heap_pages(). Would you be able to clarify 
+where the rest of the time is spent?
 
-(No revision log; it would be 4191 lines long.)
+Would it be possible that updating the p2m also take some time?
+
+Cheers,
+
+-- 
+Julien Grall
 
