@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 528612FF1EB
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Jan 2021 18:29:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72294.130056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 571292FF248
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Jan 2021 18:46:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72302.130068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2dlr-0004E9-9a; Thu, 21 Jan 2021 17:29:23 +0000
+	id 1l2e23-000654-R6; Thu, 21 Jan 2021 17:46:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72294.130056; Thu, 21 Jan 2021 17:29:23 +0000
+Received: by outflank-mailman (output) from mailman id 72302.130068; Thu, 21 Jan 2021 17:46:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2dlr-0004Dj-62; Thu, 21 Jan 2021 17:29:23 +0000
-Received: by outflank-mailman (input) for mailman id 72294;
- Thu, 21 Jan 2021 17:29:21 +0000
+	id 1l2e23-00064f-NP; Thu, 21 Jan 2021 17:46:07 +0000
+Received: by outflank-mailman (input) for mailman id 72302;
+ Thu, 21 Jan 2021 17:46:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AvUf=GY=arm.com=robin.murphy@srs-us1.protection.inumbo.net>)
- id 1l2dlp-0004Dd-Tg
- for xen-devel@lists.xenproject.org; Thu, 21 Jan 2021 17:29:21 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id c0e28eef-9301-41b7-a07c-056e5b8d8932;
- Thu, 21 Jan 2021 17:29:21 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B74E611B3;
- Thu, 21 Jan 2021 09:29:20 -0800 (PST)
-Received: from [10.57.39.58] (unknown [10.57.39.58])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 13E233F66E;
- Thu, 21 Jan 2021 09:29:14 -0800 (PST)
+ <SRS0=aMxC=GY=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l2e22-00064a-Ns
+ for xen-devel@lists.xenproject.org; Thu, 21 Jan 2021 17:46:06 +0000
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b38d3f79-04a5-48d3-8fc7-47e229e5bfc4;
+ Thu, 21 Jan 2021 17:46:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,167 +36,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0e28eef-9301-41b7-a07c-056e5b8d8932
-Subject: Re: [RFC PATCH v3 5/6] dt-bindings: of: Add restricted DMA pool
-To: Rob Herring <robh@kernel.org>
-Cc: Claire Chang <tientzu@chromium.org>, Michael Ellerman
- <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Grant Likely <grant.likely@arm.com>, Heinrich Schuchardt
- <xypron.glpk@gmx.de>, Thierry Reding <treding@nvidia.com>,
- Ingo Molnar <mingo@kernel.org>,
- Thiago Jung Bauermann <bauerman@linux.ibm.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Saravana Kannan <saravanak@google.com>,
- "Wysocki, Rafael J" <rafael.j.wysocki@intel.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>, Dan Williams
- <dan.j.williams@intel.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- devicetree@vger.kernel.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Linux IOMMU <iommu@lists.linux-foundation.org>,
- xen-devel@lists.xenproject.org, Tomasz Figa <tfiga@chromium.org>,
- Nicolas Boichat <drinkcat@chromium.org>
-References: <20210106034124.30560-1-tientzu@chromium.org>
- <20210106034124.30560-6-tientzu@chromium.org>
- <20210120165348.GA220770@robh.at.kernel.org>
- <313f8052-a591-75de-c4c2-ee9ea8f02e7f@arm.com>
- <CAL_JsqKjTqcCbCLksRbCh7=f-A3Y09A3jNqtUApaA+p=RKd_Eg@mail.gmail.com>
- <c0d631de-8840-4f6e-aebf-41bb8449f78c@arm.com>
- <CAL_JsqLv-FaiY_k+wS=iXG5AtccsXSBtvTfEGHvsN-VNqXdwpA@mail.gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <1a570c5c-e0da-7d86-4384-4a4c50193c94@arm.com>
-Date: Thu, 21 Jan 2021 17:29:13 +0000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: b38d3f79-04a5-48d3-8fc7-47e229e5bfc4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1611251163;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=fiUzy/F/+ecZGpAUhDioXddsqcI8H5S+67f02K1UvzU=;
+  b=AkCBCw/G6zMQuy5fuQ6CpdX4xx7a/4jLdBEuEU9y1UpC3Sd//OpYKnTY
+   q+17mLUT7shUyzkG4ffyE+7oSyG4P/GhdOR+zGpGS/+1meNSdsQhUaoBY
+   CJ9iNhqNzLJHDx+hscztix3WmhNE5bQmjmtmGuHR/AHr8oARpF0y1J97/
+   E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 2YKz+afmc0wiNkcd48AftRlI8n5xxblBJZUOm1xCn2+HkZnwPfgEPxWig1Po3g/nASm6rqEc4r
+ umIJpBdONue0E7Sci3Q6PvObAnAcJUqkLPp9r9qeooPOKgdkKW6V0RNLt9sBLUH4+HwVRinx74
+ WL23QrhuhFuk8HLFe/jaDwgs1UIoZAnFOh7Dj5V2ET7l4kA7Zrtwd8utNql2ka+uOcklfizK+J
+ dmiDtopd1QCHLiok3vS+2CXgdSa3xGrBUPbvP5/+EMpon/aTjGKg2a7XB28FchMJJwbo7hAFID
+ zbI=
+X-SBRS: 5.2
+X-MesageID: 35580457
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,364,1602561600"; 
+   d="scan'208";a="35580457"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TfkLZ2xQ2/Cpr5lmU95x5HEqQDT1VKvxgOsCVWNf9enn6Z+Ve0jRff4Pke0fM4hdtdMtx3onqptqpgYVn0Xkz/+hKBtXCnAdd0WZy0z4JmzbFhTZmNxu7Bt/aTqb7TaFoFbOBhiGvU4VvLJ+nrO1OSNZ6OLqMxEz3Gfqfvq7C3AD0dTR/N2BUVrzfC8tyaxhRUu3XA7y1tLETj+CFE3XTzQP27KnhDkg2a1Xw6UuvUl6AR13OKr0m3p2aiht46QkE0EijO9xa72u4RuYRK1kEiCxLWCmWBaGM2Iwcn4gbGlG67hrblTROwLh5vF4rp/QGWyBfF1TXVrVPU+4GSo/+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ChX1/SvbxOz/orZGYfaGZm60eftD+Fv4pS0hWjcpRpc=;
+ b=T93lprlBWEcXRXrYRFqzyvQEVerw56tb8zkBqRr7QheGDvDTWU1uq6i18VdcGTY6yy+5NwmiLF6LXvHcVUfjapzqErABh3prk7FvR83AGMOoGuYyjem5yR00C19lkU/B5K9wTTN6v67BCqOijmiM3aUksfnk6DOEIbzxD+Wg7GF8WNmHPHFlQDOZzgEqBhyiD/6VXgv5wv2X0IexU57Ov42CLCeurSdMXzh4Pzcmkkb1h/gZX7PgoWvxY2Df2X/5MKXOb0aEi4wcfRsWAYI996BfnojCqq+Oyh8bNFqfd6D8vmMEelHDqg3nvnj5GiR8ilckFkfPJHlSrKfYbivGWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ChX1/SvbxOz/orZGYfaGZm60eftD+Fv4pS0hWjcpRpc=;
+ b=Q8AiAg38Kte6ApJgPnOAPmdTQ6Th/4E5E/yC8vnTqklrOVYjxJrcvPV3IrwrkyaT8ONMY9wUn5Vi3vR7tt34oGpuBqPP1oWSE2f9YO9n7+LCDr5xsV9mKZiR2XScVmXQJq6LjWrxf5SctLKdpwWakKTQdiuREe6TqaojJ4wHOXE=
+Date: Thu, 21 Jan 2021 18:45:54 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 2/4] x86/vioapic: issue EOI to dpci when switching pin
+ to edge trigger mode
+Message-ID: <20210121174554.emmefqoykw3brozr@Air-de-Roger>
+References: <20210115142820.35224-1-roger.pau@citrix.com>
+ <20210115142820.35224-3-roger.pau@citrix.com>
+ <3e6652f4-693c-cb03-a5f1-bf90e0f83253@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <3e6652f4-693c-cb03-a5f1-bf90e0f83253@suse.com>
+X-ClientProxiedBy: MR2P264CA0154.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:1::17) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqLv-FaiY_k+wS=iXG5AtccsXSBtvTfEGHvsN-VNqXdwpA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 53d29f01-a040-47c5-3c04-08d8be34698e
+X-MS-TrafficTypeDiagnostic: DM5PR03MB2778:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR03MB2778C84F53229CB0C3A95AF88FA10@DM5PR03MB2778.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: q5EKbXfysbakqpZmQgA6RlyJD0URAN8w3NMDbfPToQoP3EdzxyLji6G+uu5SJi+NtraEZmaDd2ll2QW1Xu9KsfIhN+ezePvAwohghATb7P7YR8W6u9aEUzHatUgoPZX+YQMKqsUN6EEgB18HyWq+BLprdR648lDdZOPM1t7Tt9pjx8g5YjaXfCqlb6SDgjPKruwIeDE1A981Vmi5VCqKlwRDKdc6HjNl6dOOwn3uvnekziwV6WI8kWdQMEr7T9j5vTK2T12KQCBjgGoqzvkB59Q97WnCedFRZaEsoHRuwHKf6r3i9kNI9sYgbtA+z4crZQKHMSmhkukNaFcZnpGt5LUg7JR/9cbe3/3geJZ4Y+PrzjB7JfNrzeXww9uQGPaxKtb+Ad7ETdeIPEH399bhdxXsECq2GLSGbYzn15+t/p5Sb3NAM0zMbS7Js6XzImk9TXqKFrKpS44evIekw6cdqq8jBiGUuQkQwCkY48E9svrj1QEfr8jh1uZ3hCnFq+7GWJP+P4my5HuRmf2+32jvoA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(396003)(136003)(39860400002)(376002)(346002)(366004)(66946007)(186003)(6496006)(6666004)(33716001)(8936002)(26005)(16526019)(66476007)(6916009)(1076003)(5660300002)(316002)(6486002)(956004)(478600001)(8676002)(4326008)(53546011)(54906003)(83380400001)(85182001)(2906002)(9686003)(66556008)(86362001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?eEdpbUVVUmc3V3NFVnEyeENJU3V5OUVzWGxZdjJDMTNWcU9LWE4ybkhxWWtJ?=
+ =?utf-8?B?OVZJVi9SNHBuNTZvUllrZlJRU3FtTkFSSHdtbytKZ1gwNDVyV2tTYW15Q0dV?=
+ =?utf-8?B?QzJ1UldaSm9RSmtWRGYwVzgyYnBLM1lwcURLZWg0YWhWdkxRVGNhMHIyNEJQ?=
+ =?utf-8?B?d2JMM3kzazFZYWwyVDZpZTl6WXVGUTNPV0d1eTRSZGEwbXlZa2ZmUWF5VjBr?=
+ =?utf-8?B?QnVtb1JpNjhLbldCYmFISTZ4bmJKZmVuNE1ZUmJoWUE2aHAxZ2VJQm1vUEpZ?=
+ =?utf-8?B?dXBKMDNGVGZLc1M4N1h3ZnJtNWRaRHRFei9hdGNIa1BNOGhTVHVOQ0tIWlVK?=
+ =?utf-8?B?am1YWHVkWEd3Z1paNVl0eTBrdUhZRERmS3BiYzdiSXdxNHQ2eEZwRWoyNXA3?=
+ =?utf-8?B?WE41SlV2U1A1MjZObGNHUlhVMWEyRktQYyttZ0hZQ09SM2NqVDhhODBwMmsx?=
+ =?utf-8?B?c3VyWnN1enM4ZS9oUEVzemJZaEZvdVhuWUxvWDNKQlhFUlBwU3NOWjk2OEhP?=
+ =?utf-8?B?WS93WjdoU1ZCRjR0cWwxNE1iS0JoSlcwS3pRaFFKQms2NkxKdUtCQjZsWTFD?=
+ =?utf-8?B?Zzc2SG9JeTVkemZTdmdMclJmeDBKTWtqc2NZV0V1c2Q4bDFwcWt6YVA0N3pB?=
+ =?utf-8?B?cXRDdXhjRG5oTlNkNzVBVG1kQ2ljY2ZubE95S3gxSlZBcHFIMmpUeTF4SWVI?=
+ =?utf-8?B?a2ZDY0tMcXZIZVV3cVpmdlhqd2pKWUJ2ZFRrZjBRRGZKcG5mOFlsdWxNTEFV?=
+ =?utf-8?B?U2JiZEp4L0NLWGNXMmRYUkpOWU4veUVFVWhISVkrREZpUTRFOXRoOHJNUXBB?=
+ =?utf-8?B?R3VaNGRmeVF5aTF4NUJ0T09NbjZRVzIrUlZoMk8yZXpQSzhuS0dreDZnNFdi?=
+ =?utf-8?B?WEd1ZDBGTUNTcVIwMmEyZnpEOVQ2dDRYeURxa3BSODdzT1NEYzlEdG5zQUsy?=
+ =?utf-8?B?Tk5ITHZ2ZWxJQUVIN2ZCVFREbWpQRlF2dUw0RGxCUVVac0dGK0FxcEVJais2?=
+ =?utf-8?B?M2tJaWJidVBnNmVTZUt6OHpUNk1tQzNvcUtDY1c2ZkZ5ZXBhNGhINk1VdGRW?=
+ =?utf-8?B?TDI3d3FmVVJscmFZanlHeTZBY21mdDI2M1BSUTdUamVpME9JSkdKenJreDF6?=
+ =?utf-8?B?bUQ4azNTWGRla2thNitVSWRDNlJUazJqS1kyOWlMRUxQWFhhb2pXSldvTGVG?=
+ =?utf-8?B?NkxQVFpTRlF3VjZ0OTdFcU5QQVR3K2w1cVdDMS90L1JqUVhmY2xkb0RwR3Rh?=
+ =?utf-8?B?Mm9GOWJyQjRrWWREWHlqQ2w2VXRBakY0Z1pPK2l5NmROUWZ3MXNWZHVNUzBw?=
+ =?utf-8?Q?I/lvPmybegkN55QSUJ5L5nxXJvd7z5v02m?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53d29f01-a040-47c5-3c04-08d8be34698e
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2021 17:45:59.3860
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lZSSwaWHeqfRN8jskubMxXhZ3V0yFt8ElLiSAmVJctCbn/otMEfUDPkXThQV7nQw46LqfOniX98iQlXOb/K7VA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2778
+X-OriginatorOrg: citrix.com
 
-On 2021-01-21 15:48, Rob Herring wrote:
-> On Wed, Jan 20, 2021 at 7:10 PM Robin Murphy <robin.murphy@arm.com>
-> wrote:
->> 
->> On 2021-01-20 21:31, Rob Herring wrote:
->>> On Wed, Jan 20, 2021 at 11:30 AM Robin Murphy
->>> <robin.murphy@arm.com> wrote:
->>>> 
->>>> On 2021-01-20 16:53, Rob Herring wrote:
->>>>> On Wed, Jan 06, 2021 at 11:41:23AM +0800, Claire Chang
->>>>> wrote:
->>>>>> Introduce the new compatible string, restricted-dma-pool,
->>>>>> for restricted DMA. One can specify the address and length
->>>>>> of the restricted DMA memory region by restricted-dma-pool
->>>>>> in the device tree.
->>>>> 
->>>>> If this goes into DT, I think we should be able to use
->>>>> dma-ranges for this purpose instead. Normally, 'dma-ranges'
->>>>> is for physical bus restrictions, but there's no reason it
->>>>> can't be used for policy or to express restrictions the
->>>>> firmware has enabled.
->>>> 
->>>> There would still need to be some way to tell SWIOTLB to pick
->>>> up the corresponding chunk of memory and to prevent the kernel
->>>> from using it for anything else, though.
->>> 
->>> Don't we already have that problem if dma-ranges had a very
->>> small range? We just get lucky because the restriction is
->>> generally much more RAM than needed.
->> 
->> Not really - if a device has a naturally tiny addressing capability
->> that doesn't even cover ZONE_DMA32 where the regular SWIOTLB buffer
->> will be allocated then it's unlikely to work well, but that's just
->> crap system design. Yes, memory pressure in ZONE_DMA{32} is
->> particularly problematic for such limited devices, but it's
->> irrelevant to the issue at hand here.
+On Thu, Jan 21, 2021 at 05:23:04PM +0100, Jan Beulich wrote:
+> On 15.01.2021 15:28, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/hvm/vioapic.c
+> > +++ b/xen/arch/x86/hvm/vioapic.c
+> > @@ -268,6 +268,17 @@ static void vioapic_write_redirent(
+> >  
+> >      spin_unlock(&d->arch.hvm.irq_lock);
+> >  
+> > +    if ( ent.fields.trig_mode == VIOAPIC_EDGE_TRIG &&
+> > +         ent.fields.remote_irr && is_iommu_enabled(d) )
+> > +            /*
+> > +             * Since IRR has been cleared and further interrupts can be
+> > +             * injected also attempt to deassert any virtual line of passed
+> > +             * through devices using this pin. Switching a pin from level to
+> > +             * trigger mode can be used as a way to EOI an interrupt at the
+> > +             * IO-APIC level.
+> > +             */
+> > +            hvm_dpci_eoi(d, gsi);
+> > +
+> >      if ( is_hardware_domain(d) && unmasked )
+> >      {
+> >          /*
 > 
-> Yesterday's crap system design is today's security feature. Couldn't 
-> this feature make crap system design work better?
+> I assume in the comment you mean "... from level to edge
+> mode ...".
 
-Indeed! Say you bring out your shiny new "Strawberry Flan 4" machine
-with all the latest connectivity, but tragically its PCIe can only
-address 25% of the RAM. So you decide to support deploying it in two
-configurations: one where it runs normally for best performance, and
-another "secure" one where it dedicates that quarter of RAM as a 
-restricted DMA pool for any PCIe devices - that way, even if that hotel 
-projector you plug in turns out to be a rogue Thunderbolt endpoint, it 
-can never snarf your private keys off your eMMC out of the page cache.
+Yes, that's right, I completely missed it, sorry.
 
-(Yes, is is the thinnest of strawmen, but it sets the scene for the 
-point you raised...)
+> But this isn't reflected in the if() you add -
+> you do the same also when the mode doesn't change. Or do
+> you build on the assumption that ent.fields.remote_irr can
+> only be set if the prior mode was "level" (in which case
+> an assertion may be warranted, as I don't think this is
+> overly obvious)?
 
-...which is that in both cases the dma-ranges will still be identical. 
-So how is the kernel going to know whether to steal that whole area from 
-memblock before anything else can allocate from it, or not?
+Yes, IRR is only set for level triggered interrupts, so it's indeed
+build on the assumption that a pin can only have had IRR set when in
+edge mode when it's being switched from level to edge.
 
-I don't disagree that even in Claire's original intended case it would 
-be semantically correct to describe the hardware-firewalled region with 
-dma-ranges. It just turns out not to be necessary, and you're already 
-arguing for not adding anything in DT that doesn't need to be.
+I can add an assertion.
 
->> What we have here is a device that's not allowed to see *kernel*
->> memory at all. It's been artificially constrained to a particular
->> region by a TZASC or similar, and the only data which should ever
->> be placed in that
-> 
-> May have been constrained, but that's entirely optional.
-> 
-> In the optional case where the setup is entirely up to the OS, I
-> don't think this belongs in the DT at all. Perhaps that should be
-> solved first.
+> Also, looking at this code, is it correct to trigger an IRQ
+> upon the guest writing the upper half of an unmasked RTE
+> with remote_irr clear? I'd assume this needs to be strictly
+> limited to a 1->0 transition of the mask bit. If other code
+> indeed guarantees this in all cases, perhaps another place
+> where an assertion would be warranted?
 
-Yes! Let's definitely consider that case! Say you don't have any 
-security or physical limitations but want to use a bounce pool for some 
-device anyway because reasons (perhaps copying streaming DMA data to a 
-better guaranteed alignment gives an overall performance win). Now the 
-*only* relevant thing to communicate to the kernel is to, ahem, reserve 
-a large chunk of memory, and use it for this special purpose. Isn't that 
-literally what reserved-memory bindings are for?
+Indeed. I don't think it should be possible for a write to the upper
+half to trigger the injection of an interrupt, as having
+gsi_assert_count > 0 would imply that either IRR is already set, or
+that the pin is masked when processing an upper write.
 
->> region is data intended for that device to see. That way if it
->> tries to go rogue it physically can't start slurping data intended
->> for other devices or not mapped for DMA at all. The bouncing is an
->> important part of this - I forget the title off-hand but there was
->> an interesting paper a few years ago which demonstrated that even
->> with an IOMMU, streaming DMA of in-place buffers could reveal
->> enough adjacent data from the same page to mount an attack on the
->> system. Memory pressure should be immaterial since the size of each
->> bounce pool carveout will presumably be tuned for the needs of the
->> given device.
->> 
->>> In any case, wouldn't finding all the dma-ranges do this? We're 
->>> already walking the tree to find the max DMA address now.
->> 
->> If all you can see are two "dma-ranges" properties, how do you
->> propose to tell that one means "this is the extent of what I can
->> address, please set my masks and dma-range-map accordingly and try
->> to allocate things where I can reach them" while the other means
->> "take this output range away from the page allocator and hook it up
->> as my dedicated bounce pool, because it is Serious Security Time"?
->> Especially since getting that choice wrong either way would be a
->> Bad Thing.
-> 
-> Either we have some heuristic based on the size or we add some hint. 
-> The point is let's build on what we already have for defining DMA 
-> accessible memory in DT rather than some parallel mechanism.
+I can add that a pre-patch if you agree.
 
-The point I'm trying to bang home is that it's really not about the DMA 
-accessibility, it's about the purpose of the memory itself. Even when 
-DMA accessibility *is* relevant it's already implied by that purpose, 
-from the point of view of the implementation. The only difference it 
-might make is to the end user if they want to ascertain whether the 
-presence of such a pool represents protection against an untrusted 
-device or just some DMA optimisation tweak.
+In fact we could almost short-circuit the logic after the *pent = ent;
+line for upper writes if it wasn't for the call to
+vlapic_adjust_i8259_target, the rest of the code there shouldn't
+matter for upper writes. And the i8259 target logic that we have is
+very dodgy I would say. I have plans to fix it at some point, but
+that requires fixing the virtual periodic timers logic first, which I
+didn't get around to re-posting.
 
-Robin.
+Thanks, Roger.
 
