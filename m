@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 962FD2FF991
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 01:48:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72495.130568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E5D2FF997
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 01:55:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72501.130582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2kbx-0001ej-59; Fri, 22 Jan 2021 00:47:37 +0000
+	id 1l2kjU-0002j0-Ts; Fri, 22 Jan 2021 00:55:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72495.130568; Fri, 22 Jan 2021 00:47:37 +0000
+Received: by outflank-mailman (output) from mailman id 72501.130582; Fri, 22 Jan 2021 00:55:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2kbw-0001eG-W9; Fri, 22 Jan 2021 00:47:36 +0000
-Received: by outflank-mailman (input) for mailman id 72495;
- Fri, 22 Jan 2021 00:47:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2kbv-0001e8-0f; Fri, 22 Jan 2021 00:47:35 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2kbu-0004uZ-Or; Fri, 22 Jan 2021 00:47:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2kbu-0002Tj-Dj; Fri, 22 Jan 2021 00:47:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l2kbu-0008NU-DG; Fri, 22 Jan 2021 00:47:34 +0000
+	id 1l2kjU-0002ib-QP; Fri, 22 Jan 2021 00:55:24 +0000
+Received: by outflank-mailman (input) for mailman id 72501;
+ Fri, 22 Jan 2021 00:55:23 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0NXE=GZ=gmail.com=bobbyeshleman@srs-us1.protection.inumbo.net>)
+ id 1l2kjT-0002iW-Hg
+ for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 00:55:23 +0000
+Received: from mail-pg1-x529.google.com (unknown [2607:f8b0:4864:20::529])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 452d960e-c1f9-4e3c-9c2e-293067f9f203;
+ Fri, 22 Jan 2021 00:55:22 +0000 (UTC)
+Received: by mail-pg1-x529.google.com with SMTP id c22so2506548pgg.13
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Jan 2021 16:55:22 -0800 (PST)
+Received: from localhost.localdomain ([2601:1c2:4f00:c640:3cc1:5f60:de20:49b1])
+ by smtp.gmail.com with ESMTPSA id j23sm6930632pgj.34.2021.01.21.16.55.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Jan 2021 16:55:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +41,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=BNwvIIAetsl9zNIQyTrA08ZXvVCDJORDyix4YD96t/U=; b=FdH1g5L+xPkt1+bie90exHt0lI
-	CpLcofOpNRHiXZuLKLPiCyR64JR0rx0X9TscZWvl+/HMVkgt7viGRYDK+17qrQ3ONZxcmUHPdCBcY
-	XGVCm7Qo7RSCaifBII1jipTbdvSk7JmDhcK3Lh0Vhe8GLSycAZz/D7R1H3LCbUDEfgdE=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158565-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 452d960e-c1f9-4e3c-9c2e-293067f9f203
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=rIOKGHEaZfI6rvT9SVdqB5YuiixLFxsrRTXqgVKYpFY=;
+        b=opo3i9qwHHPs7NSfXWSYlNwu9XA1+GYaUuidLeqlaoQkipH4qe75UTIN5JvfryfV9H
+         WSt3OExA8ERcVCAvW7y0VRhJPF9KkXh35mcIPK3gcsiJOay9RK/AK+gLyB8+XZ1SqSbE
+         oAD1SjEL9wNqgBvk3+to/YsNy0Ngdwaku0bORSTkUNiJLpc4/gc6BqrBko87QJUuUrpV
+         +pZINbwXOIkmuN6w3B1QnlmIfLayZxlynRs7vev0HGwHPQzp/1Cz1/Qo1PQ3FdqOEZcA
+         FbCaA6Vas2jSVlInulakqT7YMSiURmOqDnmIx4sbRH48J6hOFIwSQ7WO/Zfj7/Rsk0iK
+         xjBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=rIOKGHEaZfI6rvT9SVdqB5YuiixLFxsrRTXqgVKYpFY=;
+        b=A9azmct+dpddhC8yE3Y81PMn9Wgp816sFKGgDN7q4Zu6JWRQUkwMfIAHTXS/Bl7NIW
+         n4Eyb6Bek+OrWuKzTHEOmpTcGqGOYUTN+LgSX+e1tMXTzcHoUoGVAUr1TnzJ2X+n/bu0
+         v2GNxYSqLbQiYurLdGYo8RSq8l+vjcjF9VdQzC22YOA8mwgdjfWgwJKyG02UlOq2bC3D
+         fjEx/oD9u4Bw0diViYHo1wbHmf1GbMp3DFV0qCXzh8cf65+1UYvmYQUDcB1TtptNGsIr
+         kprSqifsGnxdfdyjgPswtQwowhXodovga9nzIvbCDPcW/MdWbkgNirjyFw1qCRpwb2AZ
+         HTtQ==
+X-Gm-Message-State: AOAM530q1hycvUEeMasnXH9PqVdGlq2fyge6A1ugq1STG/zU7lp9xJ9F
+	3j6g3Z8wt1kawflq4uIOpdE9NC5N4QJlyUNx
+X-Google-Smtp-Source: ABdhPJxXk4Hknfu/PliLzQt2PC5CBl2DWL5AqmZU1vN/pKxbXtUGA2ySIMNzR/vsNViM+lSaY3yg7w==
+X-Received: by 2002:aa7:9736:0:b029:1b9:c4f5:54d5 with SMTP id k22-20020aa797360000b02901b9c4f554d5mr2043978pfg.47.1611276921417;
+        Thu, 21 Jan 2021 16:55:21 -0800 (PST)
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+	Daniel Kiper <daniel.kiper@oracle.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Olivier Lambert <olivier.lambert@vates.fr>
+Subject: [PATCH v3 0/5] Support Secure Boot for multiboot2 Xen
+Date: Thu, 21 Jan 2021 16:51:39 -0800
+Message-Id: <cover.1611273359.git.bobbyeshleman@gmail.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158565: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=24114840ea4f82b6958ba0d7ac5e4cec44aafe11
-X-Osstest-Versions-That:
-    xen=dbf22970f5df8d20b2a6b7107cb9d977630181a6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 Jan 2021 00:47:34 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 158565 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158565/
+This is version 3 for a patch set sent out to the ML in 2018 [1] to
+support UEFI Secure Boot for Xen on multiboot2 platforms.
 
-Failures :-/ but no regressions.
+A new binary, xen.mb.efi, is built.  It contains the mb2 header as well
+as a hand-crafted PE/COFF header.  The dom0 kernel is verified using the
+shim lock protocol.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+I followed with v2 feedback and attempted to convert the PE/COFF header
+into C instead of ASM.  Unfortunately, this was only possible for the
+first part (Legacy) of the PE/COFF header.  The other parts required
+addresses only available at link time (such as __2M_rwdata_end,
+__pe_SizeOfImage, efi_mb_start address, etc...), which effectively ruled
+out C.
 
-version targeted for testing:
- xen                  24114840ea4f82b6958ba0d7ac5e4cec44aafe11
-baseline version:
- xen                  dbf22970f5df8d20b2a6b7107cb9d977630181a6
+The biggest difference between v2 and v3 is that in v3 we do not attempt
+to merge xen.mb.efi and xen.efi into a single binary.  Instead, this
+will be left to a future patch set, unless requested otherwise.
 
-Last test of basis   158561  2021-01-21 19:01:40 Z    0 days
-Testing same since   158565  2021-01-21 22:01:27 Z    0 days    1 attempts
+[1]: https://lists.xen.org/archives/html/xen-devel/2018-06/msg01292.html
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Orzel <michal.orzel@arm.com>
-  Stefano Stabellini <sstabellini@kernel.org>
+Changes in v3:
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+- add requested comment clarification
+- remove unnecessary fake data from PE/COFF head (like linker versions)
+- macro-ize and refactor Makefile according to Jan's feedback
+- break PE/COFF header into its own file
+- shrink the PE/COFF to start 0x40 instead of 0x80 (my tests showed
+  this function with no problem, on a live nested vm or using
+  objdump/objcopy)
+- support SOURCE_EPOCH for posix time
+- removed `date` invocation that would break on FreeBSD
+- style changes
+- And obviously, ported to current HEAD
 
+Daniel Kiper (5):
+  xen: add XEN_BUILD_POSIX_TIME
+  xen/x86: manually build xen.mb.efi binary
+  xen/x86: add some addresses to the Multiboot header
+  xen/x86: add some addresses to the Multiboot2 header
+  xen/x86/efi: Verify dom0 kernel with SHIM_LOCK protocol in
+    efi_multiboot2()
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+ xen/Makefile                 |  22 ++++---
+ xen/arch/x86/Makefile        |   7 +-
+ xen/arch/x86/arch.mk         |   2 +
+ xen/arch/x86/boot/Makefile   |   1 +
+ xen/arch/x86/boot/head.S     |  53 +++++++++++++--
+ xen/arch/x86/boot/pecoff.S   | 123 +++++++++++++++++++++++++++++++++++
+ xen/arch/x86/efi/efi-boot.h  |  30 ++++++++-
+ xen/arch/x86/efi/stub.c      |  17 ++++-
+ xen/arch/x86/xen.lds.S       |  34 ++++++++++
+ xen/common/efi/boot.c        |  19 ++++--
+ xen/include/xen/compile.h.in |   1 +
+ xen/include/xen/efi.h        |   1 +
+ 12 files changed, 283 insertions(+), 27 deletions(-)
+ create mode 100644 xen/arch/x86/boot/pecoff.S
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+-- 
+2.30.0
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   dbf22970f5..24114840ea  24114840ea4f82b6958ba0d7ac5e4cec44aafe11 -> smoke
 
