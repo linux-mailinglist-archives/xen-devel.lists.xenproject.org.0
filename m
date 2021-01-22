@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F5F0300885
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 17:23:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72946.131493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D04D8300886
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 17:24:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72949.131505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2zCo-0000bJ-Pe; Fri, 22 Jan 2021 16:22:38 +0000
+	id 1l2zEb-0000jX-6T; Fri, 22 Jan 2021 16:24:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72946.131493; Fri, 22 Jan 2021 16:22:38 +0000
+Received: by outflank-mailman (output) from mailman id 72949.131505; Fri, 22 Jan 2021 16:24:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2zCo-0000au-MQ; Fri, 22 Jan 2021 16:22:38 +0000
-Received: by outflank-mailman (input) for mailman id 72946;
- Fri, 22 Jan 2021 16:22:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l2zEb-0000j7-39; Fri, 22 Jan 2021 16:24:29 +0000
+Received: by outflank-mailman (input) for mailman id 72949;
+ Fri, 22 Jan 2021 16:24:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l2zCm-0000ap-Le
- for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 16:22:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l2zCm-0003Nx-Hd
- for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 16:22:36 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l2zCm-0002EQ-EH
- for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 16:22:36 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1l2zCj-0004GJ-5A; Fri, 22 Jan 2021 16:22:33 +0000
+ (envelope-from <SRS0=2lNi=GZ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l2zEZ-0000j0-Ip
+ for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 16:24:27 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ded8c897-1442-485b-9a04-07654c76268d;
+ Fri, 22 Jan 2021 16:24:26 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B194AAF55;
+ Fri, 22 Jan 2021 16:24:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,56 +38,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=fnfW3SVBMONFtom3Dvx63/GpRDk4iVv08ABHdSCtmqU=; b=Lp3dlIklbKTluNQcM+K7FUSTK4
-	7jjcC9kP29OoEvMY/6N7NkYUFc2fBMj1QRa/RKF6KTZzlqmTIR6J+sdcDV5sZGRSRqpX5D951qziI
-	Chb+LxRKMjLSjNtMForupLU5fOttDpGDWVXKpBLy8OHQ7JVVMPpCyhU1G0MZYcLrES9w=;
-From: Ian Jackson <iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Message-ID: <24586.64456.905401.474099@mariner.uk.xensource.com>
-Date: Fri, 22 Jan 2021 16:22:32 +0000
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-    Edwin =?iso-8859-1?Q?T=F6r=F6k?= <edvin.torok@citrix.com>,
-    Christian Lindig <christian.lindig@citrix.com>,
-    =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
-    Wei Liu <wl@xen.org>
+X-Inumbo-ID: ded8c897-1442-485b-9a04-07654c76268d
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611332665; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dlAA51Obufg6oA141vxSyydRZ4R/Jb7iYpC+AhNtjrk=;
+	b=DENnCahli3o9Z7Y+hROCh6eAIX9OPzjznH+QALk9vpjsmlRneILv2ivmQ837Kc0ITSgdih
+	QAQo6YSZ7oQYd9H2miMOayKbFOITxH+STudYhwtkKcpCzvnJpXAIoJbqJP4gqanFOA+WyZ
+	nSrtv61w0pR7QFBqeHQXMfTmVzl6xBg=
 Subject: Re: [OSSTEST PATCH 7/7] make-flight: Stripy xenstored
-In-Reply-To: <0361ffd5-a640-ac59-c222-4a2d5a9a4727@citrix.com>
+To: Ian Jackson <iwj@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?=
+ <edvin.torok@citrix.com>, Christian Lindig <christian.lindig@citrix.com>,
+ Wei Liu <wl@xen.org>
 References: <20210122155603.23402-1-iwj@xenproject.org>
-	<20210122155603.23402-7-iwj@xenproject.org>
-	<0361ffd5-a640-ac59-c222-4a2d5a9a4727@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+ <20210122155603.23402-7-iwj@xenproject.org>
+ <0361ffd5-a640-ac59-c222-4a2d5a9a4727@citrix.com>
+ <24586.64456.905401.474099@mariner.uk.xensource.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <3c119c18-b020-bfb3-3a13-dd39f4c37241@suse.com>
+Date: Fri, 22 Jan 2021 17:24:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+MIME-Version: 1.0
+In-Reply-To: <24586.64456.905401.474099@mariner.uk.xensource.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="ux8HoAcQe9PKGdzUzqqSpUm3fiv9S3taP"
 
-Andrew Cooper writes ("Re: [OSSTEST PATCH 7/7] make-flight: Stripy xenstored"):
-> A couple of quick questions/observations.  Does this cope in a sensible
-> way if, for whatever reason, the chosen daemon isn't present?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--ux8HoAcQe9PKGdzUzqqSpUm3fiv9S3taP
+Content-Type: multipart/mixed; boundary="fFmJPQ5k2ILXhFNh2tRKX93D6xGngegDa";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Ian Jackson <iwj@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?=
+ <edvin.torok@citrix.com>, Christian Lindig <christian.lindig@citrix.com>,
+ Wei Liu <wl@xen.org>
+Message-ID: <3c119c18-b020-bfb3-3a13-dd39f4c37241@suse.com>
+Subject: Re: [OSSTEST PATCH 7/7] make-flight: Stripy xenstored
+References: <20210122155603.23402-1-iwj@xenproject.org>
+ <20210122155603.23402-7-iwj@xenproject.org>
+ <0361ffd5-a640-ac59-c222-4a2d5a9a4727@citrix.com>
+ <24586.64456.905401.474099@mariner.uk.xensource.com>
+In-Reply-To: <24586.64456.905401.474099@mariner.uk.xensource.com>
 
-That would depend on what you mean by "sensible".  I think that given
-that we now think we support both on all architectures, "sensible"
-means "the tests fail if one of the xenstoreds doesn't build".  And
+--fFmJPQ5k2ILXhFNh2tRKX93D6xGngegDa
+Content-Type: multipart/mixed;
+ boundary="------------FF3AFDDAA590F812E8FBBC4B"
+Content-Language: en-US
 
-that's what this will do :-).
+This is a multi-part message in MIME format.
+--------------FF3AFDDAA590F812E8FBBC4B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-> How hard would it be to add the 3rd option, stub-cxenstored into this
-> mix?  It is just one other key in xencommons to tweak.
+On 22.01.21 17:22, Ian Jackson wrote:
+> Andrew Cooper writes ("Re: [OSSTEST PATCH 7/7] make-flight: Stripy xens=
+tored"):
+>> A couple of quick questions/observations.=C2=A0 Does this cope in a se=
+nsible
+>> way if, for whatever reason, the chosen daemon isn't present?
+>=20
+> That would depend on what you mean by "sensible".  I think that given
+> that we now think we support both on all architectures, "sensible"
+> means "the tests fail if one of the xenstoreds doesn't build".  And
+>=20
+> that's what this will do :-).
+>=20
+>> How hard would it be to add the 3rd option, stub-cxenstored into this
+>> mix?=C2=A0 It is just one other key in xencommons to tweak.
+>=20
+> We would presumably want to do that for a smaller set of tests, but
+> yes, that could be done as a future enhancement.
+>=20
+>> SUPPORT.md doesn't appear to make any statements about the disposition=
 
-We would presumably want to do that for a smaller set of tests, but
-yes, that could be done as a future enhancement.
+>> of xenstoreds, but stub-cxenstored is used by at least two major
+>> downstreams so is obviously has security support in practice, and ough=
+t
+>> to be tested.
+>=20
+> Looking at /etc/default/xencommons, I think that testing would be done
+> by setting XENSTORETYPE=3Ddomain.  Do we want to test stub C xentored o=
+r
+> stub ocaml xenstored or both ?  The config seems not to have a way to
+> specify which.  Do we build only one ?
 
-> SUPPORT.md doesn't appear to make any statements about the disposition
-> of xenstoreds, but stub-cxenstored is used by at least two major
-> downstreams so is obviously has security support in practice, and ought
-> to be tested.
+There is only stub C xenstored in our build.
 
-Looking at /etc/default/xencommons, I think that testing would be done
-by setting XENSTORETYPE=domain.  Do we want to test stub C xentored or
-stub ocaml xenstored or both ?  The config seems not to have a way to
-specify which.  Do we build only one ?
 
-Ian.
+Juergen
+
+
+--------------FF3AFDDAA590F812E8FBBC4B
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------FF3AFDDAA590F812E8FBBC4B--
+
+--fFmJPQ5k2ILXhFNh2tRKX93D6xGngegDa--
+
+--ux8HoAcQe9PKGdzUzqqSpUm3fiv9S3taP
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAK/DgFAwAAAAAACgkQsN6d1ii/Ey+v
+8Af/XbrQatkr4cFhCz+OktODrGhOMoQMVeplKP5V0m4XAw0cROX8iAYLlaQvtpXHYBUBk9cjsXLh
+YvcrCAaEOB8anRkB1GZ4UOrVrwAM4yxPXsfBU10i34Yw1zvLfHfOcXm7VO2WFa24FB8Y2mBue1Dd
+SmavoVAf/LBe1DlNR1zLMTfvvpMsYXGRfBCjDaaE6InvQK1BD8mi8tT1AbBY1xg55QfOAjwTvA5q
+wlohtZpHj0n9SMh9p2TaosgVPyp2PPmRh2SYP1P1ZASY7dRltM3YDUwvTp9fLKPach/Wi+5mw9Ji
+F5uit9977XGE3hkAElzPau48hDkfVgRPUhKbaIpi9Q==
+=Pn9V
+-----END PGP SIGNATURE-----
+
+--ux8HoAcQe9PKGdzUzqqSpUm3fiv9S3taP--
 
