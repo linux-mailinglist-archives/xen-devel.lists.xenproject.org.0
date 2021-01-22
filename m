@@ -2,32 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3222D2FFFBC
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 11:06:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72655.130873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29B02FFFF4
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 11:16:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72662.130885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2tKg-0008F2-Fi; Fri, 22 Jan 2021 10:06:22 +0000
+	id 1l2tTM-0000tj-ED; Fri, 22 Jan 2021 10:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72655.130873; Fri, 22 Jan 2021 10:06:22 +0000
+Received: by outflank-mailman (output) from mailman id 72662.130885; Fri, 22 Jan 2021 10:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2tKg-0008Ed-CN; Fri, 22 Jan 2021 10:06:22 +0000
-Received: by outflank-mailman (input) for mailman id 72655;
- Fri, 22 Jan 2021 10:06:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=83/a=GZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l2tKf-0008EY-L7
- for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 10:06:21 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 36e33469-176a-4c15-b979-ac107ca9daec;
- Fri, 22 Jan 2021 10:06:18 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BA346AB9F;
- Fri, 22 Jan 2021 10:06:17 +0000 (UTC)
+	id 1l2tTM-0000tK-Ac; Fri, 22 Jan 2021 10:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 72662;
+ Fri, 22 Jan 2021 10:15:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0IRn=GZ=epam.com=prvs=16567376ec=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
+ id 1l2tTK-0000tE-Rn
+ for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 10:15:19 +0000
+Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id debe68e2-a8a5-4052-9ad0-e95827c19b49;
+ Fri, 22 Jan 2021 10:15:17 +0000 (UTC)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 10MAEluB016995; Fri, 22 Jan 2021 10:15:12 GMT
+Received: from eur05-am6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2105.outbound.protection.outlook.com [104.47.18.105])
+ by mx0a-0039f301.pphosted.com with ESMTP id 3668rwg7rh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Jan 2021 10:15:11 +0000
+Received: from AM0PR03MB3508.eurprd03.prod.outlook.com (2603:10a6:208:4f::23)
+ by AM9PR03MB7250.eurprd03.prod.outlook.com (2603:10a6:20b:263::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.10; Fri, 22 Jan
+ 2021 10:15:09 +0000
+Received: from AM0PR03MB3508.eurprd03.prod.outlook.com
+ ([fe80::2dc5:6ffb:56c8:f539]) by AM0PR03MB3508.eurprd03.prod.outlook.com
+ ([fe80::2dc5:6ffb:56c8:f539%6]) with mapi id 15.20.3763.014; Fri, 22 Jan 2021
+ 10:15:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,167 +52,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36e33469-176a-4c15-b979-ac107ca9daec
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611309977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zyxZqEMVYesvwarE9Sw5jNJSxpCR/OJBKRQRTSbvCZs=;
-	b=pDLE0DjDfo0Xj3Lm6OvbpM+MItuWaiJ8i1E5czXPqvyzEJT76NXX8HplIrR2sRX85ZaANX
-	Q489ERi5ZsxEoeTEL2jkbGzJX4u4ugjoNyyVY5xWfJPAG/NJo9Uu8NZvDBVJ9YQWRthXZq
-	SpJ9EaJrleiOgQEw57RmgqXwGHdfI58=
-Subject: Re: [PATCH v2 3/4] x86/vpic: issue dpci EOI for cleared pins at ICW1
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210115142820.35224-1-roger.pau@citrix.com>
- <20210115142820.35224-4-roger.pau@citrix.com>
- <2ebcf745-cee2-b90d-9983-42c7297c7f3a@suse.com>
- <20210122095354.c2ft7776poj7dusd@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b47adf3f-0677-8b94-4f4a-0a902620a4fa@suse.com>
-Date: Fri, 22 Jan 2021 11:06:18 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <20210122095354.c2ft7776poj7dusd@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
+X-Inumbo-ID: debe68e2-a8a5-4052-9ad0-e95827c19b49
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VQZN2D8cNF+USVWYAyVfKTXTwGoFCgqZTs7w2Mt8+8w/RIaUFgOlGZ2WpUU7H51d8eYgsmexUAeFrJHhXuKENr1Q1C6rgEg37OyB5Q2CfcbH0/9xlsKOdQdvNBLQn8GtHyCwSJoc7Yfn6PVQow5inws6BDFJcAJIP9E/l9CMxZaBWpyTUhWIhh3JH45l1zkRlo/o6Q325cqX6P3jC7N9zqWGM0BBfrJZ+pLy900vXAg2Qa6lCJVK1HNNFOyKmBpBBs2s7n8Pp7jU5GiZGxhSWPBddsHMYNaB5TCeVO/AN0axlIVH7gPiAZl4epKK03S9qKYa54yYbmEhXlKnCJuIcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ghsbB059gqoJr2EJGr9y8U+7rOyvqEb3oAmRtxL4Uho=;
+ b=S0yuIor3JPYqfwIqSumd6ji2NZlLEKxrlGBblB1eI9zcHN0IzQ7IC7p9h353rvziN/9ePmZriM/3fVq6JXIQBssU85AWnYrg1xNoUoP8P9zrJtQ+pvIPdKnDUK+HSP/Rbobl+e3JAQUdaNdct0jMMMeM5EIuKlV6DeAwdr6uSOztTSf58uAmxM/VtZHbQjfQWXl5slOTgDVnW1yqTYZ0E2mAMDTdaMFYSAEHyY0NuHLBRUI3Orpfe+5wCrysXYDHcGSTuQAPaob0prnKgIk1NACjauTCXi0zspnu0tHTZoZXKE4ePku4h/iXnXB1+pOsBH+Xbev6ht3q/NSRpNxqKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ghsbB059gqoJr2EJGr9y8U+7rOyvqEb3oAmRtxL4Uho=;
+ b=AHUgkJRq1DCcFCS5oHDzUCFHEAXwSaZH+DaH9aXbPLBJnylC/SpZOWZxKxP9Rf7Ytbs55IQ+v97jtcHQpE6Gxh8H3QYxbY9SXlpQiaB390hL07PzFeMUKd/nYWk51euSadGjPnD/C0nRYvlmtgvOT4JlVU6Wrjk1p6hpmEeVNW2ZC/wd3V1KhB2UKQJBiZfAcv3P+4Y0bme7/z6eBLwkly8jewLMIgAd343qQgZU1L8XEbMVc+J2+p8ORMF7m4UVNY2CnBf8IxNQLGyohwj1FWHh+eWZ42ak5LTuKTAM2hyNgAororeDHVfmlHJNak2coWYJAFZcVXotx8wiwG+HCQ==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+        Stefano Stabellini
+	<sstabellini@kernel.org>,
+        Julien Grall <julien@xen.org>, Julien Grall
+	<julien.grall@arm.com>
+Subject: Re: [PATCH V4 20/24] xen/arm: io: Harden sign extension check
+Thread-Topic: [PATCH V4 20/24] xen/arm: io: Harden sign extension check
+Thread-Index: AQHW6S1XhqmL2XksL0G2IwXoD8Dgg6ozfI+A
+Date: Fri, 22 Jan 2021 10:15:08 +0000
+Message-ID: <87lfcl1dn8.fsf@epam.com>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-21-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <1610488352-18494-21-git-send-email-olekstysh@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.4.10; emacs 27.1
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=epam.com;
+x-originating-ip: [176.36.48.175]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1f5def45-8723-4c10-52aa-08d8bebe98e3
+x-ms-traffictypediagnostic: AM9PR03MB7250:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: 
+ <AM9PR03MB72508703948EC7B5A9B8AECAE6A00@AM9PR03MB7250.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ g9jNN+FD9lZxV5rt+pATgYQ0MqIgkfUPO74V2BCCp8GdjrQ6JAeGG24WElbdnFJ3ZITgLE9Pqf5eGbBGt7H6a4Z8lSkoCwXi2Nb7tIjUnP4AsIFZDHFFe8Z0qIo3poeuhKnV/R352HQ0Uuei8IbLo1qKaioDqNuYSbSuXaP03mX3SFszEzrArbMRU+SjLWBlNXQcNqG6n46ThyF54QdZ2B7vIprmHY00BBv0FJyHco+RnyBqeEaZKtClfdFmh7wHlHj8CV2y8w0XQraGweweWKHncTSazxvdZBwqNhlnmPYZMvcm71W+uUSnls+1HmpAh2CpkQ0zkB+3dibk4yBka7wG/AHfHWjKDKUgCQ1H1eQ12MiOc1gWJTRAOTj8NQ+3fm3fpBwSFzVbjIgGtUaxcQ==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB3508.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(366004)(376002)(346002)(39860400002)(83380400001)(54906003)(8936002)(6486002)(66446008)(186003)(64756008)(66556008)(66946007)(76116006)(4326008)(6506007)(55236004)(26005)(316002)(8676002)(2616005)(86362001)(66476007)(71200400001)(2906002)(5660300002)(36756003)(478600001)(6512007)(6916009);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata: 
+ =?iso-8859-1?Q?QJk5Da7gn9RYkTDIa1URJvd6MwILhqQKPq6iiJFQlgKq/siH1ENTOaTCep?=
+ =?iso-8859-1?Q?Zuk/S5zENkL48tztVcuFP9HIrq0f+QAHB6W1MnnJ/k7lFpiDX9t56APh/P?=
+ =?iso-8859-1?Q?abF6QmZSd6Uqqgd7yCuMYDtrnKt+yRibDq6LZqteOLuoYiS70WvrfEGGDt?=
+ =?iso-8859-1?Q?8kCBKrxJpOCZ2u58k0AUf2ztg82lOVYHyCtMLhZuLuN6dAMc1KPFjqVDNu?=
+ =?iso-8859-1?Q?XAWNgWSbiFw8ftp9Is3iBVBMvbyuiA1lzM/SDyeKKt3j/7YLpDJv7zj6ux?=
+ =?iso-8859-1?Q?ThmNEOxUccrEpXT0pm3hYV+zVQJvS+lML86H2W509w8d9VKB6gioMxJ9u6?=
+ =?iso-8859-1?Q?DcKVltHBA931f6CdOEHdcLPbMJIgKhqW6QSMbT9L7lsU4vkjVcZqw9usTh?=
+ =?iso-8859-1?Q?XahtCjPpDleGpKyr8AvVWUSHqjcSFleexjR7cSReHRTm0HrJuzx1022PB+?=
+ =?iso-8859-1?Q?gGvOiB2uCL+t362fT6LCWxujDaCthLmWlQjXUw6jx/slbHFKrb5WzABEbB?=
+ =?iso-8859-1?Q?OJP6Ge3zo8hsV+TqafH69tNnI7qHmzhSDDpYcZGb/8CPv2qjgaVk5NlBzz?=
+ =?iso-8859-1?Q?WpACoRyaAbPNjitY8MfwImf8BAriYo/dlGmw9X2aT0AgaRpwDojRGxP8jv?=
+ =?iso-8859-1?Q?LQLNznCge/5tlTOiIXFsFrtxYu5JxQIa7CJp53nGzvUreB7A1Lu3j8HvJ3?=
+ =?iso-8859-1?Q?nJO2MVWtqiy53M6wtCD7ZnMuMiGPv17hBtrnVaRYa9wF1w4Myhi+akApQv?=
+ =?iso-8859-1?Q?KzOoHahjO+jdLkGMpoYSczPex6QVb5JNhQEpqqAkPTPqXoSYI8NLtrpjbg?=
+ =?iso-8859-1?Q?R+0N16bUzbE6aLr5gWoYXYjnqIUWFtUaJLvVhX+wP1T9emze4q71SubRTj?=
+ =?iso-8859-1?Q?mQWqxoRi7j34hnBAUGx/MXJm6+JJeeigdsDptYVChXhuvIy076vlsvVx2a?=
+ =?iso-8859-1?Q?s8QRAdJHDH5sPZS7uQMRyY1ClzDWxb9hqtjlO7Jt7H5JEytfzgaxHmj3WB?=
+ =?iso-8859-1?Q?n+oML7VPgHaAnGkJyz0295RRx/R+kFRNWns+pt?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB3508.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f5def45-8723-4c10-52aa-08d8bebe98e3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jan 2021 10:15:08.9904
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Gugs0Pf5ff0Nl8Af/OaIQ/1cL7Cgw7BcmdlakI98kWBrcVkudP0j8nmVyaE+wZlNd47cbA8eeH5dv+QKp5n11mhx+Ss2oAKUYJwL7DxYoIw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7250
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 spamscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 mlxlogscore=953 lowpriorityscore=0
+ clxscore=1011 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2101220054
 
-On 22.01.2021 10:53, Roger Pau Monné wrote:
-> On Fri, Jan 22, 2021 at 10:02:15AM +0100, Jan Beulich wrote:
->> On 15.01.2021 15:28, Roger Pau Monne wrote:
->>> When pins are cleared from either ISR or IRR as part of the
->>> initialization sequence forward the clearing of those pins to the dpci
->>> EOI handler, as it is equivalent to an EOI. Not doing so can bring the
->>> interrupt controller state out of sync with the dpci handling logic,
->>> that expects a notification when a pin has been EOI'ed.
->>
->> The question though is what this clearing of ISR and some of
->> IRR during ICW1 is based upon: Going through various manuals
->> (up-to-date from Nov 2020, intermediate, and all the way
->> through to an old hard copy from 1993) I can't find a single
->> mention of ICW1 having any effect on ISR or IRR, despite both
->> soft copy ones being detailed about other state getting
->> changed.
->>
->> There is "Following initialization, an interrupt request (IRQ)
->> input must make a low-to-high transition to generate an
->> interrupt", but I'm afraid this can be read to mean different
->> things. And if it was meant to describe an effect on ISR
->> and/or IRR, it would imo be in conflict with us keeping IRR
->> bits of level triggered interrupts.
-> 
-> I have an old copy of the 8259A spec, and it does mention the same
-> quote that you have above. I also wondered while I was adjusting this
-> code whether what we do is fine. I have to admit I haven't considered
-> changing this logic much because I don't have an effective way to test
-> it.
-> 
-> I've also taken a look at what others do, QEMU for example will do
-> exactly the same logic as Xen during ICW1, bhyve OTOH will fully zero
-> IRR and leave ISR as is.
-> 
-> Doing a bit of archaeology in QEMU I've found the following change:
-> 
-> commit aa24822bdc7c4e74afbc6fa1324b01cf067da7cb
-> Author: Jan Kiszka <jan.kiszka@siemens.com>
-> Date:   Tue Jan 24 16:29:29 2012 +0100
-> 
->     i8259: Do not clear level-triggered lines in IRR on init
-> 
->     When an input line is handled as level-triggered, it will immediately
->     raise an IRQ on the output of a PIC again that goes through an init
->     reset. So only clear the edge-triggered inputs from IRR in that
->     scenario.
-> 
->     Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
->     Signed-off-by: Anthony Liguori <aliguori@us.ibm.com>
-> 
-> Which seems to point out there's a reasoning behind what it's
-> currently implemented. This seems to be against the spec as there's no
-> low-to-high transition?
 
-Would seem so to me, yes. Knowing how hard it was back at the time
-to find any doc on the 8259A at all, and knowing that the doc that
-initially became available wasn't very complete, I could very well
-imagine the present doc still being incomplete. Let me see if I
-can get something out of Intel.
+Hi Oleksandr,
 
->>> @@ -217,6 +219,24 @@ static void vpic_ioport_write(
->>>              }
->>>  
->>>              vpic->init_state = ((val & 3) << 2) | 1;
->>> +            vpic_update_int_output(vpic);
->>> +            vpic_unlock(vpic);
->>> +
->>> +            /*
->>> +             * Forward the EOI of any pending or in service interrupt that has
->>> +             * been cleared from IRR or ISR, or else the dpci logic will get
->>> +             * out of sync with the state of the interrupt controller.
->>> +             */
->>> +            while ( pending )
->>> +            {
->>> +                unsigned int pin = __scanbit(pending, 8);
->>> +
->>> +                ASSERT(pin < 8);
->>> +                hvm_dpci_eoi(current->domain,
->>> +                             hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
->>> +                __clear_bit(pin, &pending);
->>> +            }
->>> +            goto unmask;
->>
->> A similar consideration applies here (albeit just as an
->> observation, as being orthogonal to your change): A PIC
->> becomes ready for handling interrupts only at the end of the
->> ICWx sequence. Hence it would seem to me that invoking
->> pt_may_unmask_irq()
-> 
-> Right, it might be best to force unmask = 1 when init_state gets set
-> to 0. A spurious call to pt_may_unmask_irq won't be harmful anyway,
-> even if no pins have been actually unmasked.
+Oleksandr Tyshchenko writes:
 
-Right, that's what I was considering too. (Really I was
-thinking to propagate the "unmasked" value from ICW1
-processing to when init_state gets cleared, but you're
-right about a stray call to pt_may_unmask_irq() not doing
-any harm.)
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>
+> In the ideal world we would never get an undefined behavior when
+> propagating the sign bit since that bit can only be set for access
+> size smaller than the register size (i.e byte/half-word for aarch32,
+> byte/half-word/word for aarch64).
+>
+> In the real world we need to care for *possible* hardware bug such as
+> advertising a sign extension for either 64-bit (or 32-bit) on Arm64
+> (resp. Arm32).
+>
+> So harden a bit more the code to prevent undefined behavior when
+> propagating the sign bit in case of buggy hardware.
+>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> CC: Julien Grall <julien.grall@arm.com>
 
->> (maybe also vpic_update_int_output()) at
->> ICW1 is premature. To me this seems particularly relevant
->> considering that ICW1 clears IMR, and hence an interrupt
->> becoming pending between ICW1 and ICW2 wouldn't know which
->> vector to use.
->>
->> Or maybe on that side of things, vpic_update_int_output()
->> should really do
->>
->>     if ( vpic->int_output == (!vpic->init_state && irq >= 0) )
->>         return;
->>
->>     /* INT line transition L->H or H->L. */
->>     vpic->int_output = !vpic->init_state && !vpic->int_output;
->>
->> ?
-> 
-> So to force int_output = false when in init state. Seems reasonable, I
-> can implement this either as a pre-patch or a followup, but again I'm
-> not sure I have means to properly test it.
+Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-That testing consideration goes as well for the correctness
-of what we have right now. It functions for the very limited
-set of modes typical OSes use, and likely nobody really
-knows whether it would also function correctly when used in
-"exotic" ways.
+>
+> ---
+> Please note, this is a split/cleanup/hardening of Julien's PoC:
+> "Add support for Guest IO forwarding to a device emulator"
+>
+> Changes V3 -> V4:
+>    - new patch
+> ---
+>  xen/include/asm-arm/traps.h | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/xen/include/asm-arm/traps.h b/xen/include/asm-arm/traps.h
+> index e301c44..992d537 100644
+> --- a/xen/include/asm-arm/traps.h
+> +++ b/xen/include/asm-arm/traps.h
+> @@ -93,7 +93,8 @@ static inline register_t sign_extend(const struct hsr_d=
+abt dabt, register_t r)
+>       * Note that we expect the read handler to have zeroed the bits
+>       * outside the requested access size.
+>       */
+> -    if ( dabt.sign && (r & (1UL << (size - 1))) )
+> +    if ( dabt.sign && (size < sizeof(register_t) * 8) &&
+> +         (r & (1UL << (size - 1))) )
+>      {
+>          /*
+>           * We are relying on register_t using the same as
 
-As to pre-patch or follow-up: For this latter aspect it
-probably doesn't matter much. If any adjustment is made
-affecting the code further up, it may want to be a pre-patch
-though, as it may change how you want to exit (e.g. I'd
-expect the "goto" to possibly go away).
 
-Jan
+--=20
+Volodymyr Babchuk at EPAM=
 
