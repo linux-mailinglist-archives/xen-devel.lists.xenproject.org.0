@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65132FF8FF
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 00:36:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72490.130555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 962FD2FF991
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 01:48:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72495.130568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2jU6-0002Zm-Vt; Thu, 21 Jan 2021 23:35:26 +0000
+	id 1l2kbx-0001ej-59; Fri, 22 Jan 2021 00:47:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72490.130555; Thu, 21 Jan 2021 23:35:26 +0000
+Received: by outflank-mailman (output) from mailman id 72495.130568; Fri, 22 Jan 2021 00:47:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2jU6-0002ZN-SY; Thu, 21 Jan 2021 23:35:26 +0000
-Received: by outflank-mailman (input) for mailman id 72490;
- Thu, 21 Jan 2021 23:35:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hfWZ=GY=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1l2jU5-0002ZI-LS
- for xen-devel@lists.xenproject.org; Thu, 21 Jan 2021 23:35:25 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 085ece7b-c484-4766-b0c8-6a658a439e97;
- Thu, 21 Jan 2021 23:35:24 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 86EE2AC95;
- Thu, 21 Jan 2021 23:35:23 +0000 (UTC)
+	id 1l2kbw-0001eG-W9; Fri, 22 Jan 2021 00:47:36 +0000
+Received: by outflank-mailman (input) for mailman id 72495;
+ Fri, 22 Jan 2021 00:47:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l2kbv-0001e8-0f; Fri, 22 Jan 2021 00:47:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l2kbu-0004uZ-Or; Fri, 22 Jan 2021 00:47:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l2kbu-0002Tj-Dj; Fri, 22 Jan 2021 00:47:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l2kbu-0008NU-DG; Fri, 22 Jan 2021 00:47:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,137 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 085ece7b-c484-4766-b0c8-6a658a439e97
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611272123; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KfjcpEPQh2gL6oEMnT+zF2CkrJqn0bsGUA4cxcsDPoM=;
-	b=FFGgLJRhTwe5Ey1RHe3kAM9DwbzRk6aBuF8lFyTLTJ013dIa9RyGFytqUS2a2WhK+1e0/l
-	AMsK1KP2J+oEvg30xuo/SrcwMo8S4051uzo6Keeme41GqmFvr94kp/nJ2G5NCtWQlALSkj
-	jFPXLh787XW8TULodrZeukVc76Of0Xo=
-Message-ID: <e18ba69efd0d12fc489144024305fd3c6102c330.camel@suse.com>
-Subject: Re: Null scheduler and vwfi native problem
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Julien Grall <julien@xen.org>, Anders =?ISO-8859-1?Q?T=F6rnqvist?=
-	 <anders.tornqvist@codiax.se>, xen-devel@lists.xenproject.org, Stefano
-	Stabellini <sstabellini@kernel.org>
-Date: Fri, 22 Jan 2021 00:35:22 +0100
-In-Reply-To: <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
-References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
-	 <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
-	 <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-0grzHQMUTvST//M2BxG8"
-User-Agent: Evolution 3.38.3 (by Flathub.org) 
-MIME-Version: 1.0
-
-
---=-0grzHQMUTvST//M2BxG8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BNwvIIAetsl9zNIQyTrA08ZXvVCDJORDyix4YD96t/U=; b=FdH1g5L+xPkt1+bie90exHt0lI
+	CpLcofOpNRHiXZuLKLPiCyR64JR0rx0X9TscZWvl+/HMVkgt7viGRYDK+17qrQ3ONZxcmUHPdCBcY
+	XGVCm7Qo7RSCaifBII1jipTbdvSk7JmDhcK3Lh0Vhe8GLSycAZz/D7R1H3LCbUDEfgdE=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158565-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 158565: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=24114840ea4f82b6958ba0d7ac5e4cec44aafe11
+X-Osstest-Versions-That:
+    xen=dbf22970f5df8d20b2a6b7107cb9d977630181a6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 22 Jan 2021 00:47:34 +0000
 
-On Thu, 2021-01-21 at 19:40 +0000, Julien Grall wrote:
-> Hi Dario,
->=20
-Hi!
+flight 158565 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158565/
 
-> On 21/01/2021 18:32, Dario Faggioli wrote:
-> > On Thu, 2021-01-21 at 11:54 +0100, Anders T=C3=B6rnqvist wrote:
-> > > =C2=A0=20
-> > > https://lists.xenproject.org/archives/html/xen-devel/2018-09/msg01213=
-.html
-> > > .
-> > >=20
-> > Right. Back then, PCI passthrough was involved, if I remember
-> > correctly. Is it the case for you as well?
->=20
-> PCI passthrough is not yet supported on Arm :). However, the bug was=20
-> reported with platform device passthrough.
->=20
-Yeah, well... That! Which indeed is not PCI. Sorry for the terminology
-mismatch. :-)
+Failures :-/ but no regressions.
 
-> > Well, I'll think about it. >
-> > > Starting the system without "sched=3Dnull vwfi=3Dnative" does not
-> > > result
-> > > in
-> > > the problem.
-> > >=20
-> > Ok, how about, if you're up for some more testing:
-> >=20
-> > =C2=A0 - booting with "sched=3Dnull" but not with "vwfi=3Dnative"
-> > =C2=A0 - booting with "sched=3Dnull vwfi=3Dnative" but not doing the IR=
-Q
-> > =C2=A0=C2=A0=C2=A0 passthrough that you mentioned above
-> >=20
-> > ?
->=20
-> I think we can skip the testing as the bug was fully diagnostics back
-> then. Unfortunately, I don't think a patch was ever posted.
->
-True. But an hackish debug patch was provided and, back then, it
-worked.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-OTOH, Anders seems to be reporting that such a patch did not work here.
-I also continue to think that we're facing the same or a very similar
-problem... But I'm curious why applying the patch did not help this
-time. And that's why I asked for more testing.
+version targeted for testing:
+ xen                  24114840ea4f82b6958ba0d7ac5e4cec44aafe11
+baseline version:
+ xen                  dbf22970f5df8d20b2a6b7107cb9d977630181a6
 
-Anyway, it's true that we left the issue pending, so something like
-this:
+Last test of basis   158561  2021-01-21 19:01:40 Z    0 days
+Testing same since   158565  2021-01-21 22:01:27 Z    0 days    1 attempts
 
-> =C2=A0From Xen PoV, any pCPU executing guest context can be considered=
-=20
-> quiescent. So one way to solve the problem would be to mark the pCPU=20
-> when entering to the guest.
->=20
-Should be done anyway.
+------------------------------------------------------------
+People who touched revisions under test:
+  Michal Orzel <michal.orzel@arm.com>
+  Stefano Stabellini <sstabellini@kernel.org>
 
-We'll then see if it actually solves this problem too, or if this is
-really something else.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Thanks for the summary, BTW. :-)
 
-I'll try to work on a patch.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Regards
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> [1]=20
->    =20
-> https://lore.kernel.org/xen-devel/acbeae1c-fda1-a079-322a-786d7528ecfc@ar=
-m.com/
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---=-0grzHQMUTvST//M2BxG8
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmAKD7oACgkQFkJ4iaW4
-c+4WYRAAxIvxdrcmphAFH3mb8G4SJ4idDZmoU5QX4EcJHY/e5UARwMDaoMPl6jjJ
-1dbSXFyvXcG0tMG9Hu7BqlLyylbiwVZqfkmRVr0zK0vmmXlElHRDkDN8oOblW40t
-3cN0G8GaLmIqPQwNghvxuqPGNuCCLzvESC8h60EMMmdQ3MTUW1as1mI1PqE2DZhb
-DHlasuUYa51t2gfkS8qWo/QUoPdG1JTj5deKIoKjOhaWBAo2vS/T43NpVuFyTpU1
-VAOYB7yhUdePkGlnRpriyJskOOj31SD973BBNFx3/8xbI1Ox+6fLLfEVLrBfRR9y
-hnnYzPJxzxY1lQ6gNonGx1IBZ6Jm614c/Q/6LXaLvfT8CP7nSi9sjtmonHGEq/Hl
-gFMAUWAgOct/tmKqxzHuJ/ir4NIKxJZAx7p52wnIovXScFIDD4QYupuUulieXY2l
-rhzafeUqHMCHKG8jMQMk9KKB3tBwnNOxDIy70Cp9jqBLycOZ5PA6k0eKimNtcZGj
-sIxbDsyJNaPUzM3eHqEfnrfu8d4aAZMGL/aDm7Jth7qiCp2IOslJmT56ULTjodqZ
-7qadBu0s+Vtqre5+gIewf/q3v/1447vTOrAOFIeWjuO/JmQG7XoGdYuL6Dc6lqs8
-lvZ772hcRUVHQvrMZzaA26ttNxXWNj7pfrm4/ASDLs+zqTwsEsA=
-=LT9U
------END PGP SIGNATURE-----
+Pushing revision :
 
---=-0grzHQMUTvST//M2BxG8--
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   dbf22970f5..24114840ea  24114840ea4f82b6958ba0d7ac5e4cec44aafe11 -> smoke
 
