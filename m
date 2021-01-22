@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76E7E3001B7
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 12:37:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72701.130957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94EFC3001FB
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 12:52:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72710.130973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2ulB-0000tR-NM; Fri, 22 Jan 2021 11:37:49 +0000
+	id 1l2uys-0002wt-V2; Fri, 22 Jan 2021 11:51:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72701.130957; Fri, 22 Jan 2021 11:37:49 +0000
+Received: by outflank-mailman (output) from mailman id 72710.130973; Fri, 22 Jan 2021 11:51:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2ulB-0000t0-IX; Fri, 22 Jan 2021 11:37:49 +0000
-Received: by outflank-mailman (input) for mailman id 72701;
- Fri, 22 Jan 2021 11:37:48 +0000
+	id 1l2uys-0002wU-Rk; Fri, 22 Jan 2021 11:51:58 +0000
+Received: by outflank-mailman (input) for mailman id 72710;
+ Fri, 22 Jan 2021 11:51:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=83/a=GZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l2ulA-0000sn-FX
- for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 11:37:48 +0000
+ id 1l2uyr-0002wP-7h
+ for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 11:51:57 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 02527e93-90c2-4c2b-98c3-ad5fcc467b1f;
- Fri, 22 Jan 2021 11:37:47 +0000 (UTC)
+ id f670ed33-d2ff-4bd6-94e5-796197d1be34;
+ Fri, 22 Jan 2021 11:51:56 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B7028AC4F;
- Fri, 22 Jan 2021 11:37:46 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 736D5AB9F;
+ Fri, 22 Jan 2021 11:51:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,86 +38,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02527e93-90c2-4c2b-98c3-ad5fcc467b1f
+X-Inumbo-ID: f670ed33-d2ff-4bd6-94e5-796197d1be34
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611315466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611316315; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5fEMuR81WAbwUUpUnl9gfrKTh7f01kWJIh3wylQXtVs=;
-	b=HlSHa2cFBxku4ZZWMLqNUdZQK29AwQU3mZv+zSdeq4pACS8JJ+RneJUsEfZmeRtwc9Sur8
-	TrNdDapBThsLPpKuwAwo/7RgPPvALZ3l8M3TVdHYjGcSsEy3oX9VpfDKvrKooC0+VSOmCm
-	kShvNCGkl/H9EtVah/1ovm60MnxTpH0=
-Subject: Re: [PATCH v2 4/4] x86/dpci: remove the dpci EOI timer
-To: Roger Pau Monne <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>
-Cc: Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	bh=akXlBs8h9mU4IZe9NohAMPTt5tKWnLX76cj5niFmnRg=;
+	b=VXyCRoXS3YEZNi8qQFeclkasuCy18JxhPA3wh/IlLxObMPwI0AOaJ0oIzr7j+Yohsx2dVK
+	WsaQ4AoW2GLy26M82hPidjFWx6ypSJEkZ1qDyLnCVoUa69P7qEpZsjmmppaBqYIwz8B9Pe
+	lm9dOa0Jy4jy+0gkG2gMr2uzdMElDME=
+Subject: Re: [PATCH v2 2/4] x86: Introduce MSR_UNHANDLED
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, andrew.cooper3@citrix.com
+Cc: iwj@xenproject.org, wl@xen.org, anthony.perard@citrix.com,
+ roger.pau@citrix.com, jun.nakajima@intel.com, kevin.tian@intel.com,
  xen-devel@lists.xenproject.org
-References: <20210115142820.35224-1-roger.pau@citrix.com>
- <20210115142820.35224-5-roger.pau@citrix.com>
+References: <1611182952-9941-1-git-send-email-boris.ostrovsky@oracle.com>
+ <1611182952-9941-3-git-send-email-boris.ostrovsky@oracle.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f16c54ce-2b3d-eaf6-1668-5fd73b151937@suse.com>
-Date: Fri, 22 Jan 2021 12:37:47 +0100
+Message-ID: <ba472bc6-a4e4-2e94-6388-0f9bf8eef3b3@suse.com>
+Date: Fri, 22 Jan 2021 12:51:55 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <20210115142820.35224-5-roger.pau@citrix.com>
+In-Reply-To: <1611182952-9941-3-git-send-email-boris.ostrovsky@oracle.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.01.2021 15:28, Roger Pau Monne wrote:
-> Current interrupt pass though code will setup a timer for each
-> interrupt injected to the guest that requires an EOI from the guest.
-> Such timer would perform two actions if the guest doesn't EOI the
-> interrupt before a given period of time. The first one is deasserting
-> the virtual line, the second is perform an EOI of the physical
-> interrupt source if it requires such.
-> 
-> The deasserting of the guest virtual line is wrong, since it messes
-> with the interrupt status of the guest. This seems to have been done
-> in order to compensate for missing deasserts when certain interrupt
-> controller actions are performed. The original motivation of the
-> introduction of the timer was to fix issues when a GSI was shared
-> between different guests. We believe that other changes in the
-> interrupt handling code (ie: proper propagation of EOI related actions
-> to dpci) will have fixed such errors now.
-> 
-> Performing an EOI of the physical interrupt source is redundant, since
-> there's already a timer that takes care of this for all interrupts,
-> not just the HVM dpci ones, see irq_guest_action_t struct eoi_timer
-> field.
-> 
-> Since both of the actions performed by the dpci timer are not
-> required, remove it altogether.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 20.01.2021 23:49, Boris Ostrovsky wrote:
+> --- a/xen/arch/x86/msr.c
+> +++ b/xen/arch/x86/msr.c
+> @@ -295,7 +295,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+>          }
+>  
+>          /* Fallthrough. */
+> -    case 0x40000200 ... 0x400002ff:
+> +    case 0x40000200 ... 0x400002fe:
+>          ret = guest_rdmsr_xen(v, msr, val);
+>          break;
+>  
+> @@ -514,7 +514,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+>          }
+>  
+>          /* Fallthrough. */
+> -    case 0x40000200 ... 0x400002ff:
+> +    case 0x40000200 ... 0x400002fe:
+>          ret = guest_wrmsr_xen(v, msr, val);
+>          break;
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with ...
+For both of these, we need some kind of connection to
+MSR_UNHANDLED. Could be a BUILD_BUG_ON() or an explicit
+"case MSR_UNHANDLED:" (preventing someone "correcting" the
+apparent mistake) or yet something else.
 
-> Changes since v1:
->  - Add parentheses.
+> --- a/xen/include/xen/lib/x86/msr.h
+> +++ b/xen/include/xen/lib/x86/msr.h
+> @@ -2,8 +2,21 @@
+>  #ifndef XEN_LIB_X86_MSR_H
+>  #define XEN_LIB_X86_MSR_H
+>  
+> +/*
+> + * Behavior on accesses to MSRs that are not handled by emulation:
+> + *  0 = return #GP, warning emitted
+> + *  1 = read as 0, writes are dropped, no warning
+> + *  2 = read as 0, writes are dropped, warning emitted
+> + */
+> +#define MSR_UNHANDLED_NEVER     0
+> +#define MSR_UNHANDLED_SILENT    1
+> +#define MSR_UNHANDLED_VERBOSE   2
+> +
+> +/* MSR that is not explicitly processed by emulation */
+> +#define MSR_UNHANDLED           0x400002ff
 
-... this, as you've already clarified, indeed having happened.
-I understand this change is independent of the earlier ones in
-this series. The minor adjustment could be taken care of while
-committing, and I'm inclined to not wait ...
+MSR indexes as well as definitions for MSR contents generally
+live in asm-x86/msr-index.h. I think it would be better for
+the above to also go there.
 
->  xen/drivers/passthrough/vtd/x86/hvm.c |  3 -
+Additionally the comment on MSR_UNHANDLED should not only
+say what will not happen for this index, but also what its
+intended purpose is.
 
-... for Kevin's ack on this obvious part of the change,
-considering his prior input on the discussion we've had (where
-he did signal agreement with the removal).
+> @@ -45,6 +58,8 @@ struct msr_policy
+>              bool taa_no:1;
+>          };
+>      } arch_caps;
+> +
+> +    uint8_t ignore_msrs;
 
-However, despite this series having been posted before the
-deadline, it feels to me like a change that doesn't come
-without risk (and hence would have been better to have earlier
-in the release cycle). Hence, Ian, I'd like to gather your
-release manager opinion on taking this now vs postponing for
-4.16 (and then still being a likely backporting candidate). My
-vote is "pro", in case it matters.
+Add a brief comment along the lines of /* MSR_UNHANDLED_* */
+here to make the connection to intended values?
+
+Also, Andrew, (I think I did say so before) - I definitely
+would want your general consent with this model, as what gets
+altered here is almost all relatively recent contributions
+by you. Nor would I exclude the approach being controversial.
 
 Jan
 
