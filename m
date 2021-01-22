@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47007300649
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 15:57:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.72836.131260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5204F3006E7
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Jan 2021 16:15:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.72842.131274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2xrd-0006Cv-GZ; Fri, 22 Jan 2021 14:56:41 +0000
+	id 1l2y8w-0008B5-Tw; Fri, 22 Jan 2021 15:14:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 72836.131260; Fri, 22 Jan 2021 14:56:41 +0000
+Received: by outflank-mailman (output) from mailman id 72842.131274; Fri, 22 Jan 2021 15:14:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l2xrd-0006CT-BJ; Fri, 22 Jan 2021 14:56:41 +0000
-Received: by outflank-mailman (input) for mailman id 72836;
- Fri, 22 Jan 2021 14:56:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l2y8w-0008Af-QT; Fri, 22 Jan 2021 15:14:34 +0000
+Received: by outflank-mailman (input) for mailman id 72842;
+ Fri, 22 Jan 2021 15:14:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2xrb-0006CL-OZ; Fri, 22 Jan 2021 14:56:39 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2xrb-0001Nc-KL; Fri, 22 Jan 2021 14:56:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l2xrb-0001fo-CG; Fri, 22 Jan 2021 14:56:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l2xrb-0002BH-Bq; Fri, 22 Jan 2021 14:56:39 +0000
+ (envelope-from <SRS0=83/a=GZ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l2y8u-00089m-GL
+ for xen-devel@lists.xenproject.org; Fri, 22 Jan 2021 15:14:32 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 04219876-0b43-4dce-9aec-d4dc72feeec3;
+ Fri, 22 Jan 2021 15:14:31 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6C80CB7CA;
+ Fri, 22 Jan 2021 15:14:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +38,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=s4Hjz/iP0u2/kPTUTBja/BFbvrwSiZGJ9f46C1HpHyU=; b=AxgCtzbFaavzXF+2LxTlSKcQqy
-	weNJ7PtlzQ9eaeyy1gBBMB+hqPim6XEqEZNEg6Q/LjG7BNgP5KhmmQ9tRTwuKOwbqXIm87/23/vzJ
-	hDYjS7Yww2stPjfAA5MbuX6kItgil1gsDIzGM3IsJWuFGvosYK/mR/EI3t1N2tbXimFo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158571-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 04219876-0b43-4dce-9aec-d4dc72feeec3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611328470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=o77QcCORTwruCKZaKWE882+Adk7xW9OlbIdyAQkRSHM=;
+	b=Ogxf5+SJzDH/p+5Jy7JXGA5+x+BO4f+UJ+F+noHatD+gOT07yv1IPbOmhi3ba081L0i81c
+	aKR2nDZsp9PIVlnVETa1Si6E4oAEaozwkO02+donzeXZOz1HsSEAlfRnmyIhpCs+EV9X6L
+	TTf4RXwU5qjoMumU6PXiPlRq0MuVZV4=
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] tools/libs: honor build dependencies for recently moved
+ subdirs
+Message-ID: <42328c2a-0c4a-af4b-4fad-349e16bd45c3@suse.com>
+Date: Fri, 22 Jan 2021 16:14:30 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158571: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=a37b50c28e6749186011b333787b1ec4fe21415f
-X-Osstest-Versions-That:
-    xen=24114840ea4f82b6958ba0d7ac5e4cec44aafe11
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 Jan 2021 14:56:39 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 158571 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158571/
+While the lack of proper dependency tracking of #include-d files is
+wider than just the libs/ subtree, dealing with the problem universally
+there or  in tools/Rules.mk is too much of a risk at this point in the
+release cycle. Add the missing inclusion of $(DEPS_INCLUDE) only in the
+specific Makefile-s, after having checked that their prior Makefile-s
+had such includes.
 
-Failures :-/ but no regressions.
+Interestingly the $(DEPS_RM) use is present in tools/libs/libs.mk's
+clean target, so doesn't need taking care of in individual Makefile-s.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Release-acked-by: Ian Jackson <iwj@xenproject.org>
 
-version targeted for testing:
- xen                  a37b50c28e6749186011b333787b1ec4fe21415f
-baseline version:
- xen                  24114840ea4f82b6958ba0d7ac5e4cec44aafe11
-
-Last test of basis   158565  2021-01-21 22:01:27 Z    0 days
-Testing same since   158571  2021-01-22 12:02:43 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Juergen Gross <jgross@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   24114840ea..a37b50c28e  a37b50c28e6749186011b333787b1ec4fe21415f -> smoke
+--- a/tools/libs/ctrl/Makefile
++++ b/tools/libs/ctrl/Makefile
+@@ -62,6 +62,8 @@ $(eval $(genpath-target))
+ 
+ $(LIB_OBJS) $(PIC_OBJS): _paths.h
+ 
++-include $(DEPS_INCLUDE)
++
+ clean: cleanlocal
+ 
+ .PHONY: cleanlocal
+--- a/tools/libs/guest/Makefile
++++ b/tools/libs/guest/Makefile
+@@ -108,6 +108,8 @@ $(eval $(genpath-target))
+ 
+ xc_private.h: _paths.h
+ 
++-include $(DEPS_INCLUDE)
++
+ .PHONY: cleanlocal
+ cleanlocal:
+ 	rm -f libxenguest.map
+--- a/tools/libs/light/Makefile
++++ b/tools/libs/light/Makefile
+@@ -271,3 +271,5 @@ cleanlocal:
+ 	$(RM) -f libxenlight.map
+ 	$(RM) -f $(AUTOSRCS) $(AUTOINCS)
+ 	$(MAKE) -C $(ACPI_PATH) ACPI_BUILD_DIR=$(CURDIR) clean
++
++-include $(DEPS_INCLUDE)
+--- a/tools/libs/store/Makefile
++++ b/tools/libs/store/Makefile
+@@ -31,6 +31,8 @@ else
+ PKG_CONFIG_REMOVE += -ldl
+ endif
+ 
++-include $(DEPS_INCLUDE)
++
+ .PHONY: install
+ install: install-headers
+ 
+--- a/tools/libs/util/Makefile
++++ b/tools/libs/util/Makefile
+@@ -52,6 +52,8 @@ $(LIB_OBJS) $(PIC_OBJS): $(AUTOINCS) _pa
+ genpath-target = $(call buildmakevars2header,_paths.h)
+ $(eval $(genpath-target))
+ 
++-include $(DEPS_INCLUDE)
++
+ clean: cleanlocal
+ 
+ .PHONY: cleanlocal
+--- a/tools/libs/vchan/Makefile
++++ b/tools/libs/vchan/Makefile
+@@ -11,6 +11,7 @@ SRCS-y += io.c
+ NO_HEADERS_CHK := y
+ 
+ include $(XEN_ROOT)/tools/libs/libs.mk
++-include $(DEPS_INCLUDE)
+ 
+ clean: cleanlocal
+ 
 
