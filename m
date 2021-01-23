@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01E5E3016FA
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 17:48:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.73459.132391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 507A4301731
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 18:28:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.73483.132405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l3M5G-000587-Rf; Sat, 23 Jan 2021 16:48:22 +0000
+	id 1l3MhX-0000WK-1l; Sat, 23 Jan 2021 17:27:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 73459.132391; Sat, 23 Jan 2021 16:48:22 +0000
+Received: by outflank-mailman (output) from mailman id 73483.132405; Sat, 23 Jan 2021 17:27:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l3M5G-00057m-Od; Sat, 23 Jan 2021 16:48:22 +0000
-Received: by outflank-mailman (input) for mailman id 73459;
- Sat, 23 Jan 2021 16:48:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cw0p=G2=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1l3M5F-00057b-B7
- for xen-devel@lists.xenproject.org; Sat, 23 Jan 2021 16:48:21 +0000
-Received: from mail-ej1-x630.google.com (unknown [2a00:1450:4864:20::630])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e991adfb-311b-4b86-aa35-c84e72b37f5c;
- Sat, 23 Jan 2021 16:48:20 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id 6so12085523ejz.5
- for <xen-devel@lists.xenproject.org>; Sat, 23 Jan 2021 08:48:20 -0800 (PST)
+	id 1l3MhW-0000Vs-Sh; Sat, 23 Jan 2021 17:27:54 +0000
+Received: by outflank-mailman (input) for mailman id 73483;
+ Sat, 23 Jan 2021 17:27:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l3MhV-0000Vk-Ku; Sat, 23 Jan 2021 17:27:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l3MhV-0003I6-EQ; Sat, 23 Jan 2021 17:27:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l3MhV-0001Kz-4Y; Sat, 23 Jan 2021 17:27:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l3MhV-000249-44; Sat, 23 Jan 2021 17:27:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,107 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e991adfb-311b-4b86-aa35-c84e72b37f5c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=4FA20mUzGxNcyR0WA6zXqMf5LkfXZKqBDnFiBJfsc+4=;
-        b=al+UtG6kg77BGtLbgbe9ajRHWkEA4DBJLYe52Lze/lMOTQL5ECDnq5qLtztBNuRe6i
-         J6UYiJbW97oSzhs6xJoNCltuHwzE5AjVYveINYLUsV29avxlxtxk57YIV8dkhwLhZtJV
-         QZjTpfiM8aCkmY70i/W9Af/sxDLr/Gcv4621VVbqtz7HHhcDpdyvwxRtCSXa+mphREdn
-         d88zjKgNOuTC2QtKDlETvms0qKqxDhelPpJKF+jEjbkZhwh8Sjkm+ccejqgb5VWyRgei
-         Id9Vlxk/DVNfz5YNyuUJI4w5YIqkJPsmkJJQS3vxTs0gA7GKb/oCoptjROndZGSHs3Qn
-         f83A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=4FA20mUzGxNcyR0WA6zXqMf5LkfXZKqBDnFiBJfsc+4=;
-        b=eH6BVStcgRYBEvGtjQDt73uxiQ6jj4rX8sU+bFI4HGvyyTfo3g1CVrbcbD9pcFZfNM
-         LNe9PuSgc6tUZgRkJq763OigjIc5H8GJERf2LuxafMHyVcYi1Y7itIjGkmNfx5c5oybl
-         79uJlbJYaonP80U/1rCv+vvdgWSLNyZWq423UG+yl0K7Y0SPtPpuZW0RXpKo/tKlo3TN
-         HnBCxKU/kio3dk83QGEceP7e2cl/5D7maxFijPzUe4tOVRBdj/mEZqqDW52dC8VQrI/V
-         7/hgIAhoGmsFq/X4lGba/3kdPryrrgcZnPuWNy6ZKJGsz/KbWgGAf4Qdek/SWYoqamcr
-         8/uw==
-X-Gm-Message-State: AOAM533QemUs3nYl0V3wy/E4vzp+6SZUv/a3d2B22W6rzGjIk1awXuZc
-	ld7dsJo7PJBMYgqyblpFhLnyVBmSFTtmjdoAuj8=
-X-Google-Smtp-Source: ABdhPJyNrQw4MWyw4gsTXZD9LKFZA4rKUhKkOctsTXCbGm0KlMaqyTdhPXkrPDqjqH672esbP2VaGeJrBy2LmfOAzUA=
-X-Received: by 2002:a17:906:46d3:: with SMTP id k19mr2095649ejs.546.1611420499461;
- Sat, 23 Jan 2021 08:48:19 -0800 (PST)
-MIME-Version: 1.0
-References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
- <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Sat, 23 Jan 2021 16:48:08 +0000
-Message-ID: <CAJ=z9a1_CbOSB_WcQGsLJ9JmkJ3AcLm2s-AirVJkFoKRxy-5Ug@mail.gmail.com>
-Subject: Re: Question about xen and Rasp 4B
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jukka Kaartinen <jukka.kaartinen@unikie.com>, xen-devel <xen-devel@lists.xenproject.org>, 
-	Roman Shaposhnik <roman@zededa.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=neWgyzDltIrxQMHqawQg+I3wOjI4hA3/tJQLQs7AOf4=; b=V/H+JizhB58Yo/f6037zjwb30t
+	Jn4TMgHjAuoYv6AoZom130C/3V5By47FGU3YF0ub7Yp9uONrImlgkUlpUhW/E1yLHP0aczg0010Ft
+	rQDMLE4FLfGqnElyvR0FOiktXYO/7E9MSwTqE09so1ozjvAZ2mec719RqFcmCiMFC5a0=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158585-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 158585: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=3b769c5110384fb33bcfeddced80f721ec7838cc
+X-Osstest-Versions-That:
+    ovmf=6c5801be6ef36e35f0b4ff906a4c99d68ca6f69a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 23 Jan 2021 17:27:53 +0000
 
-On Sat, 23 Jan 2021 at 00:27, Stefano Stabellini <sstabellini@kernel.org> wrote:
->
-> + xen-devel, Roman,
->
->
-> On Fri, 22 Jan 2021, Jukka Kaartinen wrote:
-> > Hi Stefano,
-> > I'm Jukka Kaartinen a SW developer working on enabling hypervisors on mobile platforms. One of our HW that we use on development is
-> > Raspberry Pi 4B. I wonder if you could help me a bit :).
-> >
-> > I'm trying to enable the GPU with Xen + Raspberry Pi for dom0. https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323#p1797605
-> >
-> > I got so far that GPU drivers are loaded (v3d & vc4) without errors. But now Xen returns error when X is starting:
-> > (XEN) traps.c:1986:d0v1 HSR=0x93880045 pc=0x00007f97b14e70 gva=0x7f7f817000 gpa=0x0000401315d000
-> >  I tried to debug what causes this and looks like find_mmio_handler cannot find handler.
-> > (See more here: https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323&start=25#p1801691 )
-> >
-> > Any ideas why the handler is not found?
->
->
-> Hi Jukka,
->
-> I am glad to hear that you are interested in Xen on RaspberryPi :-)  I
-> haven't tried the GPU yet, I have been using the serial only.
-> Roman, did you ever get the GPU working?
->
->
-> The error is a data abort error: Linux is trying to access an address
-> which is not mapped to dom0. The address seems to be 0x401315d000. It is
-> a pretty high address; I looked in device tree but couldn't spot it.
->
-> From the HSR (the syndrom register) it looks like it is a translation
-> fault at EL1 on stage1.
+flight 158585 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158585/
 
-Hmmm.... We don't trap stage 1 faults to Xen, instead they are
-received by the OS directly.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 3b769c5110384fb33bcfeddced80f721ec7838cc
+baseline version:
+ ovmf                 6c5801be6ef36e35f0b4ff906a4c99d68ca6f69a
 
-In fact the ESR_El1, indicates that it is a translation fault at level
-1 when walking the stage-2 page-table. So it means the guest physical
-address is not mapped in the P2M. But...
+Last test of basis   158566  2021-01-21 23:10:45 Z    1 days
+Testing same since   158585  2021-01-23 01:06:49 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ray Ni <ray.ni@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-> As if the Linux address mapping was wrong.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-... I think the GPA is bogus. So I agree Linux may have configured the
-stage-1 page-tables incorrectly.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->
-> Anyone has any ideas how this could happen? Maybe a reserved-memory
-> misconfiguration?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-It looks like to me both the PC and the GVA points to user memory.
-Normally, Xen will inject a data abort into Linux and will usually
-dump some information (e.g. the task running).
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-@Jukka, would it be possible to provide the console out for both Xen and Linux?
 
-Would you also be able to confirm if the same setup is working when
-Linux is running directly on the HW? This would give us an idea
-whether the issue is specific to Xen.
+Pushing revision :
 
-Cheers,
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   6c5801be6e..3b769c5110  3b769c5110384fb33bcfeddced80f721ec7838cc -> xen-tested-master
 
