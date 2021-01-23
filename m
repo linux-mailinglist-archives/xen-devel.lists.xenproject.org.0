@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13D76301564
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 14:23:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.73306.132139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C375301633
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 16:17:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.73319.132166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l3IsD-0000of-Il; Sat, 23 Jan 2021 13:22:41 +0000
+	id 1l3KfA-00039I-16; Sat, 23 Jan 2021 15:17:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 73306.132139; Sat, 23 Jan 2021 13:22:41 +0000
+Received: by outflank-mailman (output) from mailman id 73319.132166; Sat, 23 Jan 2021 15:17:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l3IsD-0000oJ-ER; Sat, 23 Jan 2021 13:22:41 +0000
-Received: by outflank-mailman (input) for mailman id 73306;
- Sat, 23 Jan 2021 13:22:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l3IsB-0000oD-7u
- for xen-devel@lists.xenproject.org; Sat, 23 Jan 2021 13:22:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l3IsA-00074R-6d; Sat, 23 Jan 2021 13:22:38 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l3Is9-0006BM-Qq; Sat, 23 Jan 2021 13:22:37 +0000
+	id 1l3Kf9-00038t-TN; Sat, 23 Jan 2021 15:17:19 +0000
+Received: by outflank-mailman (input) for mailman id 73319;
+ Sat, 23 Jan 2021 14:29:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KE1E=G2=unikie.com=jukka.kaartinen@srs-us1.protection.inumbo.net>)
+ id 1l3Jur-0006se-9z
+ for xen-devel@lists.xenproject.org; Sat, 23 Jan 2021 14:29:29 +0000
+Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0419504e-bc3b-4c89-9cf2-934b71eaa425;
+ Sat, 23 Jan 2021 14:29:27 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id a12so3444669lfb.1
+ for <xen-devel@lists.xenproject.org>; Sat, 23 Jan 2021 06:29:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,141 +37,266 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=7T1exBXi/j/fhZ2RfiQf032YwMX1mDT9ra5fW7Pd1GA=; b=aoaiZbJ0wXN5THIONfBDSfbYvA
-	NHlyKSwdOBBwJ5y2Z/uaZzXE52S2cPTmsRqmP0euCwZj1RyegNn2akFugleGsEj+1usqdru7FXEs4
-	CXIwMWv8FWdZWIH8CK0hRb/TiumVQoGrY6e922hLZQl73ghVmEcZn7JyankwczJ9BLEQ=;
-Subject: Re: [PATCH 2/6] x86/mm: p2m_add_foreign() is HVM-only
-To: Oleksandr <olekstysh@gmail.com>, Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <be9ce75e-9119-2b5a-9e7b-437beb7ee446@suse.com>
- <cf4569c5-a9c5-7b4b-d576-d1521c369418@suse.com>
- <f736244b-ece7-af35-1517-2e5fdd9705c7@citrix.com>
- <e2ee99fc-e3f8-bdaf-fe4a-d048da34731a@suse.com>
- <b4abbe2f-5e3d-5f43-80b8-cfa3fd97061e@citrix.com>
- <CAPD2p-nZyf_i_bGh5sSs2fC4S7nxB1Mk_zbSKtqF=zvBOp3X+Q@mail.gmail.com>
- <2dcbe286-4112-e4b3-dc12-9691154365b3@suse.com>
- <448a6ef3-2cbd-da9c-e4ef-88122d246833@gmail.com>
- <18c21c64-d350-482a-c778-c8478d3daf2c@suse.com>
- <c8315e16-6130-e990-3d16-d0d42b2f92c4@gmail.com>
- <ec041f81-4b80-5ffb-8219-6732f50bef36@suse.com>
- <f6f1ffdd-619d-017e-6820-276814056845@gmail.com>
- <257224ea-4ba3-302e-e198-e92c8c1036b3@suse.com>
- <898d609c-8652-e43d-4400-27986cc37371@gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <9523a20e-0b26-51b4-a13a-5767584389cf@xen.org>
-Date: Sat, 23 Jan 2021 13:22:35 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.1
+X-Inumbo-ID: 0419504e-bc3b-4c89-9cf2-934b71eaa425
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=unikie-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=vGTVbhqDYkiCrLAlbXotpw+CIsbbzjF5RiPtCmwIQLs=;
+        b=XclbSLPwX7TJKJ6OHS6nii/RcR4Pngy8Psu2s9Gj2rrflq+wn57jI+52KuEuH3wjLg
+         V+mcnXp96jkSxm2l4tRutQ1flkKY7tYJfpUE8WZi+wD6u159HJ6IW7ZZSprGIsmF7kIt
+         +SSjD5TsaPeLY8/XAkyigFNwsJUlrIfolnwmixa9nSHApKZxGNyumRhe0I2EgqTc/bQU
+         bqeyyXArs+mpCe3Ag8i5lJj6/DbBPG9Ru2857Trp17jAiCdZU2M1DGRSmyIQQHFtTjNF
+         9w6N/KgtIBWQ0h9WcI4jpj3AYpNhsmtkMyyZU5ozd7uehGhLnBNhzIQ//578BBELQI8i
+         e0dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=vGTVbhqDYkiCrLAlbXotpw+CIsbbzjF5RiPtCmwIQLs=;
+        b=O5WtCaW+4J+q9I5HlY/1wvvYd0r6n+2K2jSk/0iclksBBrndUss79mZXwH0veDU2S0
+         uqmDktS5Cvnk7Hl+IMfue9UAuMFkpSky+Nb4EP50b0S3dwKu1xXS8mrDK4f3qj8HFjx5
+         H8W10Di4hGM1y3rzbgXyJi/6DHV1Rqu75Hmlu277WIvsk+YhreeEU8u3CA6nIY/+AK9Z
+         cruVs3QULbNiaPVwDd63RpwL+SG3zNrrCiBTcLMcOIqQTvhIkvNGJUL9iY4Snig+Q/4r
+         JZO5QqeZDvgeyUDiykG7nYkHARFb6JFf3BM7OZpZx1pHuxYF7IEwUePFZoDAsRF4hMsb
+         ufBw==
+X-Gm-Message-State: AOAM532LIvJxA+Iy2W1u0mTq1zDdMFe0T0Wb+6VqirWgAuz+UdCvPNzr
+	OTo7jfNeHAmjkAA02/QMezkILDsb8+HIZX/uwih6NA==
+X-Google-Smtp-Source: ABdhPJzETc4hGbvroTJ4YBFqWzxSXfYO6dYb2BB/4FwBJyxLb6bfKzc8M2G3tXWivJIsIn7uuxwbH5IIXp3AisAnXmw=
+X-Received: by 2002:ac2:4114:: with SMTP id b20mr200144lfi.180.1611412166144;
+ Sat, 23 Jan 2021 06:29:26 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <898d609c-8652-e43d-4400-27986cc37371@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
+ <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
+From: Jukka Kaartinen <jukka.kaartinen@unikie.com>
+Date: Sat, 23 Jan 2021 16:29:15 +0200
+Message-ID: <CAFnJQOqoqj6mWwR61ZsZj1JxRrdisFtH_87YXCeW619GM+L21Q@mail.gmail.com>
+Subject: Re: Question about xen and Rasp 4B
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, roman@zededa.com, julien@xen.org, 
+	Bertrand.Marquis@arm.com
+Content-Type: multipart/alternative; boundary="000000000000c009f305b9922114"
 
-Hi Jan & Oleksandr,
+--000000000000c009f305b9922114
+Content-Type: text/plain; charset="UTF-8"
 
-On 13/01/2021 15:06, Oleksandr wrote:
-> 
-> On 12.01.21 13:58, Jan Beulich wrote:
-> 
-> Hi Jan.
-> 
->> On 11.01.2021 09:23, Oleksandr wrote:
->>> On 11.01.21 09:41, Jan Beulich wrote:
->>>> If you could also provide your exact .config, I could see whether I
->>>> can repro here with some of the gcc5 versions I have laying around.
->>> Please see attached
->> Builds perfectly fine with 5.4.0 here.
-> 
-> Thank you for testing.
-> 
-> 
-> I wonder whether I indeed missed something. I have switched to 5.4.0 
-> again (from 9.3.0) and rechecked, a build issue was still present.
-> I even downloaded 5.4.0 sources and built them to try to build Xen, and 
-> got the same effect.  What I noticed is that for non-debug builds the 
-> build issue wasn't present.
-> Then I decided to build today's staging 
-> (414be7b66349e7dca42bc1fd47c2b2f5b2d27432 xen/memory: Fix compat 
-> XENMEM_acquire_resource for size requests) instead of 9-day's old one when
-> I had initially reported about that build issue 
-> (7ba2ab495be54f608cb47440e1497b2795bd301a x86/p2m: Fix 
-> paging_gva_to_gfn() for nested virt). Today's staging builds perfectly 
-> fine with 5.4.0.
-> It seems that commit in the middle 
-> (994f6478a48a60e3b407c7defc2d36a80f880b04 xsm/dummy: harden against 
-> speculative abuse) indirectly fixes that weird build issue with 5.4.0...
+Thanks for the response!
 
-The gitlab CI reported a similar issue today (see [1]) when building 
-with randconfig ([2]). This is happening on Debian sid with GCC 9.3.
+On Sat, Jan 23, 2021 at 2:27 AM Stefano Stabellini <sstabellini@kernel.org>
+wrote:
 
-Note that the default compiler on sid is GCC 10.2.1. So you will have to 
-install the package gcc-9 and then use CC=gcc-9 make <...>.
+> + xen-devel, Roman,
+>
+>
+> On Fri, 22 Jan 2021, Jukka Kaartinen wrote:
+> > Hi Stefano,
+> > I'm Jukka Kaartinen a SW developer working on enabling hypervisors on
+> mobile platforms. One of our HW that we use on development is
+> > Raspberry Pi 4B. I wonder if you could help me a bit :).
+> >
+> > I'm trying to enable the GPU with Xen + Raspberry Pi for dom0.
+> https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323#p1797605
+> >
+> > I got so far that GPU drivers are loaded (v3d & vc4) without errors. But
+> now Xen returns error when X is starting:
+> > (XEN) traps.c:1986:d0v1 HSR=0x93880045 pc=0x00007f97b14e70
+> gva=0x7f7f817000 gpa=0x0000401315d000
+> >  I tried to debug what causes this and looks
+> like find_mmio_handler cannot find handler.
+> > (See more here:
+> https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323&start=25#p1801691
+> )
+> >
+> > Any ideas why the handler is not found?
+>
+>
+> Hi Jukka,
+>
+> I am glad to hear that you are interested in Xen on RaspberryPi :-)  I
+> haven't tried the GPU yet, I have been using the serial only.
+> Roman, did you ever get the GPU working?
+>
+>
+> The error is a data abort error: Linux is trying to access an address
+> which is not mapped to dom0. The address seems to be 0x401315d000. It is
+> a pretty high address; I looked in device tree but couldn't spot it.
+>
+> From the HSR (the syndrom register) it looks like it is a translation
+> fault at EL1 on stage1. As if the Linux address mapping was wrong.
+> Anyone has any ideas how this could happen? Maybe a reserved-memory
+> misconfiguration?
+>
+I had issues with loading the driver in the first place. Apparently swiotlb
+is used, maybe it can cause this. I also tried to enable CMA.
+config.txt:
+dtoverlay=vc4-fkms-v3d,cma=320M@0x0-0x40000000
+gpu_mem=128
 
-
- From a local repro, I get the following message:
-
-ld: ld: prelink.o: in function `xenmem_add_to_physmap_batch':
-/root/xen/xen/common/memory.c:942: undefined reference to 
-`xenmem_add_to_physmap_one'
-/root/xen/xen/common/memory.c:942:(.text+0x22145): relocation truncated 
-to fit: R_X86_64_PLT32 against undefined symbol `xenmem_add_to_physmap_one'
-prelink-efi.o: in function `xenmem_add_to_physmap_batch':
-/root/xen/xen/common/memory.c:942: undefined reference to 
-`xenmem_add_to_physmap_one'
-make[2]: *** [Makefile:215: /root/xen/xen/xen.efi] Error 1
-make[2]: *** Waiting for unfinished jobs....
-ld: /root/xen/xen/.xen-syms.0: hidden symbol `xenmem_add_to_physmap_one' 
-isn't defined
-ld: final link failed: bad value
-
-
-This points to the call in xenmem_add_to_physmap_batch(). I have played 
-a bit with the .config options. I was able to get it built as soon as I 
-disabled CONFIG_COVERAGE=y.
-
-So maybe the optimizer is not clever enough on GCC 9 when building with 
-coverage enabled?
-
-With the diff below applied (borrowed from 
-xenmem_add_to_physmap_batch()), I can build without tweaking the .config 
-[1]:
-
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index ccb4d49fc6..5cfd36a53d 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -903,6 +903,12 @@ static int xenmem_add_to_physmap_batch(struct 
-domain *d,
-  {
-      union add_to_physmap_extra extra = {};
-
-+    if ( !paging_mode_translate(d) )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return -EACCES;
-+    }
-+
-      if ( unlikely(xatpb->size < extent) )
-          return -EILSEQ;
-
-Cheers,
-
-[1] https://gitlab.com/xen-project/xen/-/jobs/981624525
-[2] https://pastebin.com/vTbQXXV9
+That memory is very high. Success full address is for example
+this: 0xff841f00
+(XEN) GICv2 initialization:
+(XEN)         gic_dist_addr=00000000ff841000
+(XEN)         gic_cpu_addr=00000000ff842000
+(XEN)         gic_hyp_addr=00000000ff844000
+(XEN)         gic_vcpu_addr=00000000ff846000
+(XEN)         gic_maintenance_irq=25
 
 
-https://gitlab.com/xen-project/xen/-/jobs/981624525
+> > p.s.
+> > While testing I found issue with Xen master branch and your
+> patch: xen/rpi4: implement watchdog-based reset
+> >
+> > Looks like black listing the bcm2835-pm
+> > @@ -37,12 +41,69 @@ static const struct dt_device_match
+> rpi4_blacklist_dev[] __initconst =
+> >       * The aux peripheral also shares a page with the aux UART.
+> >       */
+> >      DT_MATCH_COMPATIBLE("brcm,bcm2835-aux"),
+> > +    /* Special device used for rebooting */
+> > +    DT_MATCH_COMPATIBLE("brcm,bcm2835-pm"),
+> >
+> > will prevent v3d driver to locate phandle. I think it will use the same
+> resource:
+> >   pm: watchdog@7e100000 {
+> >       compatible = "brcm,bcm2835-pm", "brcm,bcm2835-pm-wdt";
+> > #power-domain-cells = <1>;
+> > #reset-cells = <1>;
+> > reg = <0x7e100000 0x114>,
+> >      <0x7e00a000 0x24>,
+> >      <0x7ec11000 0x20>;
+> > clocks = <&clocks BCM2835_CLOCK_V3D>,
+> > <&clocks BCM2835_CLOCK_PERI_IMAGE>,
+> > <&clocks BCM2835_CLOCK_H264>,
+> > <&clocks BCM2835_CLOCK_ISP>;
+> > clock-names = "v3d", "peri_image", "h264", "isp";
+> > system-power-controller;
+> >
+> > };
+>
+> Yeah, I imagine it could be possible. Can you post the error message you
+> are seeing from the v3d driver?
 
-> 
-> 
+This is the error:
+[    0.069682] OF: /v3dbus/v3d@7ec04000: could not find phandle
+[    0.074828] OF: /v3dbus/v3d@7ec04000: could not find phandle
+v3d driver is not loaded.
 
 -- 
-Julien Grall
+Br,
+Jukka Kaartinen
+
+--000000000000c009f305b9922114
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div>Thanks for the response!<br></div></=
+div><div class=3D"gmail_quote"><div class=3D"gmail_attr"><br></div><div dir=
+=3D"ltr" class=3D"gmail_attr">On Sat, Jan 23, 2021 at 2:27 AM Stefano Stabe=
+llini &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">+=
+ xen-devel, Roman,<br>
+<br>
+<br>
+On Fri, 22 Jan 2021, Jukka Kaartinen wrote:<br>
+&gt; Hi Stefano,<br>
+&gt; I&#39;m Jukka=C2=A0Kaartinen a SW developer working on enabling hyperv=
+isors on mobile platforms. One of our HW that we use on development is<br>
+&gt; Raspberry Pi 4B. I wonder if you could help me a bit :).<br>
+&gt; <br>
+&gt; I&#39;m trying to enable the GPU with Xen=C2=A0+ Raspberry Pi for dom0=
+.=C2=A0<a href=3D"https://www.raspberrypi.org/forums/viewtopic.php?f=3D63&a=
+mp;t=3D232323#p1797605" rel=3D"noreferrer" target=3D"_blank">https://www.ra=
+spberrypi.org/forums/viewtopic.php?f=3D63&amp;t=3D232323#p1797605</a><br>
+&gt; <br>
+&gt; I got so far that GPU drivers are loaded (v3d &amp; vc4) without error=
+s. But now Xen returns error=C2=A0when X is starting:<br>
+&gt; (XEN) traps.c:1986:d0v1 HSR=3D0x93880045 pc=3D0x00007f97b14e70 gva=3D0=
+x7f7f817000 gpa=3D0x0000401315d000<br>
+&gt; =C2=A0I tried to debug what causes this and looks like=C2=A0find_mmio_=
+handler=C2=A0cannot find handler.<br>
+&gt; (See more here: <a href=3D"https://www.raspberrypi.org/forums/viewtopi=
+c.php?f=3D63&amp;t=3D232323&amp;start=3D25#p1801691" rel=3D"noreferrer" tar=
+get=3D"_blank">https://www.raspberrypi.org/forums/viewtopic.php?f=3D63&amp;=
+t=3D232323&amp;start=3D25#p1801691</a> )<br>
+&gt; <br>
+&gt; Any ideas why the handler is not found?<br>
+<br>
+<br>
+Hi Jukka,<br>
+<br>
+I am glad to hear that you are interested in Xen on RaspberryPi :-)=C2=A0 I=
+<br>
+haven&#39;t tried the GPU yet, I have been using the serial only.<br>
+Roman, did you ever get the GPU working?<br>
+<br>
+<br>
+The error is a data abort error: Linux is trying to access an address<br>
+which is not mapped to dom0. The address seems to be 0x401315d000. It is<br=
+>
+a pretty high address; I looked in device tree but couldn&#39;t spot it.<br=
+>
+<br>
+From the HSR (the syndrom register) it looks like it is a translation<br>
+fault at EL1 on stage1. As if the Linux address mapping was wrong.<br>
+Anyone has any ideas how this could happen? Maybe a reserved-memory<br>
+misconfiguration?<br></blockquote><div>I had issues=C2=A0with loading the d=
+river in the first place. Apparently swiotlb is used, maybe it=C2=A0can cau=
+se this. I also tried to enable CMA.</div><div>config.txt:</div><div>dtover=
+lay=3Dvc4-fkms-v3d,cma=3D320M@0x0-0x40000000<br>gpu_mem=3D128<br></div><div=
+><br></div><div>That memory=C2=A0is very high. Success full address is for =
+example this:=C2=A00xff841f00</div><div>(XEN) GICv2 initialization:<br>(XEN=
+) =C2=A0 =C2=A0 =C2=A0 =C2=A0 gic_dist_addr=3D00000000ff841000<br>(XEN) =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 gic_cpu_addr=3D00000000ff842000<br>(XEN) =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 gic_hyp_addr=3D00000000ff844000<br>(XEN) =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 gic_vcpu_addr=3D00000000ff846000<br>(XEN) =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 gic_maintenance_irq=3D25<br></div><div>=C2=A0</div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">
+&gt; p.s.<br>
+&gt; While testing I found issue with Xen master branch and your patch:=C2=
+=A0xen/rpi4: implement watchdog-based reset<br>
+&gt; <br>
+&gt; Looks like black listing the=C2=A0bcm2835-pm<br>
+&gt; @@ -37,12 +41,69 @@ static const struct dt_device_match rpi4_blacklist=
+_dev[] __initconst =3D<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 * The aux peripheral also shares a page with the =
+aux UART.<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; =C2=A0 =C2=A0 =C2=A0DT_MATCH_COMPATIBLE(&quot;brcm,bcm2835-aux&quot;),=
+<br>
+&gt; + =C2=A0 =C2=A0/* Special device used for rebooting */<br>
+&gt; + =C2=A0 =C2=A0DT_MATCH_COMPATIBLE(&quot;brcm,bcm2835-pm&quot;),<br>
+&gt; <br>
+&gt; will prevent v3d driver to locate phandle. I think it will use the sam=
+e resource:<br>
+&gt; =C2=A0 pm: watchdog@7e100000 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quot;brcm,bcm2835-pm&quot;, =
+&quot;brcm,bcm2835-pm-wdt&quot;;<br>
+&gt; #power-domain-cells =3D &lt;1&gt;;<br>
+&gt; #reset-cells =3D &lt;1&gt;;<br>
+&gt; reg =3D &lt;0x7e100000 0x114&gt;,<br>
+&gt; =C2=A0 =C2=A0 =C2=A0&lt;0x7e00a000 0x24&gt;,<br>
+&gt; =C2=A0 =C2=A0 =C2=A0&lt;0x7ec11000 0x20&gt;;<br>
+&gt; clocks =3D &lt;&amp;clocks BCM2835_CLOCK_V3D&gt;,<br>
+&gt; &lt;&amp;clocks BCM2835_CLOCK_PERI_IMAGE&gt;,<br>
+&gt; &lt;&amp;clocks BCM2835_CLOCK_H264&gt;,<br>
+&gt; &lt;&amp;clocks BCM2835_CLOCK_ISP&gt;;<br>
+&gt; clock-names =3D &quot;v3d&quot;, &quot;peri_image&quot;, &quot;h264&qu=
+ot;, &quot;isp&quot;;<br>
+&gt; system-power-controller;<br>
+&gt; <br>
+&gt; };<br>
+<br>
+Yeah, I imagine it could be possible. Can you post the error message you<br=
+>
+are seeing from the v3d driver?</blockquote></div><div>This is the error:</=
+div>[ =C2=A0 =C2=A00.069682] OF: /v3dbus/v3d@7ec04000: could not find phand=
+le<br>[ =C2=A0 =C2=A00.074828] OF: /v3dbus/v3d@7ec04000: could not find pha=
+ndle<br clear=3D"all"><div>v3d driver is not loaded.</div><div><br></div>--=
+ <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Br,</=
+div><div>Jukka Kaartinen</div></div></div></div>
+
+--000000000000c009f305b9922114--
 
