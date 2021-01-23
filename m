@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 381E83011CE
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 02:01:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.73178.131951 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AD9D3011DA
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 02:06:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.73183.131967 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l37ID-0003m1-Hd; Sat, 23 Jan 2021 01:00:45 +0000
+	id 1l37NL-0002t3-6d; Sat, 23 Jan 2021 01:06:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 73178.131951; Sat, 23 Jan 2021 01:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 73183.131967; Sat, 23 Jan 2021 01:06:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l37ID-0003k5-EO; Sat, 23 Jan 2021 01:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 73178;
- Sat, 23 Jan 2021 01:00:44 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l37NL-0002sT-19; Sat, 23 Jan 2021 01:06:03 +0000
+Received: by outflank-mailman (input) for mailman id 73183;
+ Sat, 23 Jan 2021 01:06:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eRYf=G2=zededa.com=roman@srs-us1.protection.inumbo.net>)
- id 1l37IB-00039y-SS
- for xen-devel@lists.xenproject.org; Sat, 23 Jan 2021 01:00:44 +0000
-Received: from mail-qv1-xf2f.google.com (unknown [2607:f8b0:4864:20::f2f])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c7f0623c-e524-4f41-adc5-355e7b94d142;
- Sat, 23 Jan 2021 01:00:43 +0000 (UTC)
-Received: by mail-qv1-xf2f.google.com with SMTP id 2so3611686qvd.0
- for <xen-devel@lists.xenproject.org>; Fri, 22 Jan 2021 17:00:43 -0800 (PST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l37NJ-0002sL-3Y; Sat, 23 Jan 2021 01:06:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l37NI-00027B-T3; Sat, 23 Jan 2021 01:06:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l37NI-0001DT-IX; Sat, 23 Jan 2021 01:06:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l37NI-0004nu-I3; Sat, 23 Jan 2021 01:06:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,78 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7f0623c-e524-4f41-adc5-355e7b94d142
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=zededa.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=o5ofyMLIm5Vp1y7UCN5TmlGjzJ3WLUaP8rGCWg7TXOc=;
-        b=IKcfmmxfwogA6b2ioXys6KL0PSXP2rmduany7wiZcdRYvowHZqQPpaDPmpXsidl8Gj
-         8mnKniVmY5usB8CUpyPnytpyNCsvbmqF2yabTAeqLU0129BkWGAdjuSA/sd6QR5c3PgD
-         h7QJ5Gl6y7VmVFfsWQ+x+d+LAMBgq3v72NqOQJr0X61wB8N//cAoeJ//9NZLRw2zuW0H
-         3V0lxU7mIhQG1P5yIElkk5ZD2wv9dH9paW9oBEMQs7fULGJaEvzcVfn80HdpAyFYoEGP
-         c/2UgIN6yLadOrhzXT50fnMgN1gsIdTCeLXjf0+IjGoV5bJAJ6JnQwZ1LQGAImoEuGk3
-         bxAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=o5ofyMLIm5Vp1y7UCN5TmlGjzJ3WLUaP8rGCWg7TXOc=;
-        b=ii+oNzHHmgKLpGMimZZBGhlmoGyr0pgRbQqFttjNKqz3i6eNihqTVZ+6KiOVQ2jOaV
-         8ajZO5rQiTMSlK5s53eayp4DU+n4QlfSeyrQqE/rlSA0AseCnAeV8dVfggnfU6qWMt2I
-         dwY2ZNE86AShERPe9cATe5xpW0PiIbWEWKsDZMXpUM56547O9xTVTdflfO8MFC0sWsM/
-         j6Jrj/ih2QnwBNKhctMbVdOGX9o+wEAxJW5fanEIm1h3Gh09y35Mq4Vh84m+M8MIgZA2
-         3pmmSjUxoNolQ0qB1knUAb8EnH/Nf/UrHdZkDPAfwIPkMeLWgu8Gb1JNcXACL1u5fOgl
-         Qing==
-X-Gm-Message-State: AOAM531+D2VxnuE5CdtgGxuyIhoc/259bI4bk/2eyd9wciyyoiTstZkW
-	Dr4f0DtZ4aPLrSO8AMlxGDLsxWLcxP2MoGXskfE4ww==
-X-Google-Smtp-Source: ABdhPJwBGOWMXEjybLhp5Ud+wde3/+sWArlu5cK2RTdIiI9PLXcOcOsvKCwDd4MBtXu3oER7Xc5GmNLOn7jj0WR9rvQ=
-X-Received: by 2002:ad4:5188:: with SMTP id b8mr237923qvp.55.1611363642693;
- Fri, 22 Jan 2021 17:00:42 -0800 (PST)
-MIME-Version: 1.0
-References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
- <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
-From: Roman Shaposhnik <roman@zededa.com>
-Date: Fri, 22 Jan 2021 17:00:31 -0800
-Message-ID: <CAMmSBy9i7Ci98zd-NHs_KSRPwQq4mweBLOd__t=jQncXVYA5sw@mail.gmail.com>
-Subject: Re: Question about xen and Rasp 4B
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jukka Kaartinen <jukka.kaartinen@unikie.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=6qvwBTWLojHsX6jmRaoVCxVw8/rljU+ry83uQGyoIRI=; b=Q7H5AbRB8c8cQoDSWGlZoeCs6L
+	kTuJhrJlvkjf7Eb3YpwXA6OD4h+MwfeUFvXc98H0BQRVT7YH7qtqbpStY8pHaP44CWUmNpydIk5lA
+	64x716crHQhR1GiIutYG/krIUuq0v4EL2ymSjT6fO5XIJKoOjRKqNLri3yW/U7hLDxi4=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158566-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 158566: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=6c5801be6ef36e35f0b4ff906a4c99d68ca6f69a
+X-Osstest-Versions-That:
+    ovmf=5b4a97bbc39ed8e7eb50038b9cffe2e948e49995
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 23 Jan 2021 01:06:00 +0000
 
-On Fri, Jan 22, 2021 at 4:27 PM Stefano Stabellini
-<sstabellini@kernel.org> wrote:
->
-> + xen-devel, Roman,
->
->
-> On Fri, 22 Jan 2021, Jukka Kaartinen wrote:
-> > Hi Stefano,
-> > I'm Jukka Kaartinen a SW developer working on enabling hypervisors on mobile platforms. One of our HW that we use on development is
-> > Raspberry Pi 4B. I wonder if you could help me a bit :).
-> >
-> > I'm trying to enable the GPU with Xen + Raspberry Pi for dom0. https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323#p1797605
-> >
-> > I got so far that GPU drivers are loaded (v3d & vc4) without errors. But now Xen returns error when X is starting:
-> > (XEN) traps.c:1986:d0v1 HSR=0x93880045 pc=0x00007f97b14e70 gva=0x7f7f817000 gpa=0x0000401315d000
-> >  I tried to debug what causes this and looks like find_mmio_handler cannot find handler.
-> > (See more here: https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323&start=25#p1801691 )
-> >
-> > Any ideas why the handler is not found?
->
->
-> Hi Jukka,
->
-> I am glad to hear that you are interested in Xen on RaspberryPi :-)  I
-> haven't tried the GPU yet, I have been using the serial only.
-> Roman, did you ever get the GPU working?
+flight 158566 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158566/
 
-I've never tested it with X -- sorry. But I have to ask what kernel is being
-used? It made a lot of difference for me to actually STOP using RPi
-supplied kernels and switch directly to 5.10.7.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 6c5801be6ef36e35f0b4ff906a4c99d68ca6f69a
+baseline version:
+ ovmf                 5b4a97bbc39ed8e7eb50038b9cffe2e948e49995
 
-Thanks,
-Roman.
+Last test of basis   158555  2021-01-21 10:39:50 Z    1 days
+Testing same since   158566  2021-01-21 23:10:45 Z    1 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bob Feng <bob.c.feng@intel.com>
+  Star Zeng <star.zeng@intel.com>
+  Zeng, Star <star.zeng@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   5b4a97bbc3..6c5801be6e  6c5801be6ef36e35f0b4ff906a4c99d68ca6f69a -> xen-tested-master
 
