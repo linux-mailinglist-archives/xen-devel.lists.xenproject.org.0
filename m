@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AD9D3011DA
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 02:06:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.73183.131967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4466B30123B
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 03:21:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.73190.131978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l37NL-0002t3-6d; Sat, 23 Jan 2021 01:06:03 +0000
+	id 1l38Wr-00022l-LN; Sat, 23 Jan 2021 02:19:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 73183.131967; Sat, 23 Jan 2021 01:06:03 +0000
+Received: by outflank-mailman (output) from mailman id 73190.131978; Sat, 23 Jan 2021 02:19:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l37NL-0002sT-19; Sat, 23 Jan 2021 01:06:03 +0000
-Received: by outflank-mailman (input) for mailman id 73183;
- Sat, 23 Jan 2021 01:06:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l37NJ-0002sL-3Y; Sat, 23 Jan 2021 01:06:01 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l37NI-00027B-T3; Sat, 23 Jan 2021 01:06:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l37NI-0001DT-IX; Sat, 23 Jan 2021 01:06:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l37NI-0004nu-I3; Sat, 23 Jan 2021 01:06:00 +0000
+	id 1l38Wr-00022P-GI; Sat, 23 Jan 2021 02:19:57 +0000
+Received: by outflank-mailman (input) for mailman id 73190;
+ Sat, 23 Jan 2021 02:19:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Lmv8=G2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l38Wp-00022K-Hs
+ for xen-devel@lists.xenproject.org; Sat, 23 Jan 2021 02:19:55 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 12643925-4e27-4d29-8105-f753e243a12b;
+ Sat, 23 Jan 2021 02:19:54 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9F4D923B26;
+ Sat, 23 Jan 2021 02:19:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +37,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=6qvwBTWLojHsX6jmRaoVCxVw8/rljU+ry83uQGyoIRI=; b=Q7H5AbRB8c8cQoDSWGlZoeCs6L
-	kTuJhrJlvkjf7Eb3YpwXA6OD4h+MwfeUFvXc98H0BQRVT7YH7qtqbpStY8pHaP44CWUmNpydIk5lA
-	64x716crHQhR1GiIutYG/krIUuq0v4EL2ymSjT6fO5XIJKoOjRKqNLri3yW/U7hLDxi4=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158566-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 158566: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=6c5801be6ef36e35f0b4ff906a4c99d68ca6f69a
-X-Osstest-Versions-That:
-    ovmf=5b4a97bbc39ed8e7eb50038b9cffe2e948e49995
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 23 Jan 2021 01:06:00 +0000
+X-Inumbo-ID: 12643925-4e27-4d29-8105-f753e243a12b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1611368394;
+	bh=JO82ZvTFAwydQvzuNDU6QXl21mhdn4DPKTkjxw22bi0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Cu3I828LLR5Imj/XNVhCP1o4tmzT2CDaA37mBll9UcLVj7A70KF6QBvbgXfI2rmJJ
+	 xQk1yxsIvQ4xomMAKQme39JLlbhBiiBiQ9fIx+avNkfZJ2FzCkAd9X5eQljpMwFQGM
+	 VHRaawKXIs8RXEH8s+KEBJWY5PYX18+Xj8gjKQTAyYFnLB2fBNQoB2d065motVhlWp
+	 HdG6JlSQxpRnuzSIFPScimubp0/Nlo+AQ4muOWEF/lPREzsrP3TcL0FSCq9ctvl8fq
+	 ciEpMC2Gx+ySCqqL0Zv9LRdu2evvosPHU3TuFxwRA7lCMOpQt1Jiyj1co/4+J4KhWH
+	 oCesVsJPNiIpg==
+From: Stefano Stabellini <sstabellini@kernel.org>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	andrew.cooper3@citrix.com,
+	george.dunlap@citrix.com,
+	iwj@xenproject.org,
+	jbeulich@suse.com,
+	julien@xen.org,
+	wl@xen.org,
+	Bertrand.Marquis@arm.com
+Subject: [PATCH v3] xen: EXPERT clean-up and introduce UNSUPPORTED
+Date: Fri, 22 Jan 2021 18:19:50 -0800
+Message-Id: <20210123021950.1270-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.17.1
 
-flight 158566 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158566/
+A recent thread [1] has exposed a couple of issues with our current way
+of handling EXPERT.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 6c5801be6ef36e35f0b4ff906a4c99d68ca6f69a
-baseline version:
- ovmf                 5b4a97bbc39ed8e7eb50038b9cffe2e948e49995
+1) It is not obvious that "Configure standard Xen features (expert
+users)" is actually the famous EXPERT we keep talking about on xen-devel
 
-Last test of basis   158555  2021-01-21 10:39:50 Z    1 days
-Testing same since   158566  2021-01-21 23:10:45 Z    1 days    1 attempts
+2) It is not obvious when we need to enable EXPERT to get a specific
+feature
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Bob Feng <bob.c.feng@intel.com>
-  Star Zeng <star.zeng@intel.com>
-  Zeng, Star <star.zeng@intel.com>
+In particular if you want to enable ACPI support so that you can boot
+Xen on an ACPI platform, you have to enable EXPERT first. But searching
+through the kconfig menu it is really not clear (type '/' and "ACPI"):
+nothing in the description tells you that you need to enable EXPERT to
+get the option.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+So this patch makes things easier by doing two things:
 
+- introduce a new kconfig option UNSUPPORTED which is clearly to enable
+  UNSUPPORTED features as defined by SUPPORT.md
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+- change EXPERT options to UNSUPPORTED where it makes sense: keep
+  depending on EXPERT for features made for experts
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+- tag unsupported features by adding (UNSUPPORTED) to the one-line
+  description
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+- clarify the EXPERT one-line description
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+[1] https://marc.info/?l=xen-devel&m=160333101228981
 
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+CC: andrew.cooper3@citrix.com
+CC: george.dunlap@citrix.com
+CC: iwj@xenproject.org
+CC: jbeulich@suse.com
+CC: julien@xen.org
+CC: wl@xen.org
+CC: Bertrand.Marquis@arm.com
 
-Pushing revision :
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
+Changes in v3:
+- improve UNSUPPORTED text description
+- avoid changing XEN_SHSTK and EFI_SET_VIRTUAL_ADDRESS_MAP
+- update HVM_FEP to be UNSUPPORTED
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   5b4a97bbc3..6c5801be6e  6c5801be6ef36e35f0b4ff906a4c99d68ca6f69a -> xen-tested-master
+Changes in v2:
+- introduce UNSUPPORTED
+- don't switch all EXPERT options to UNSUPPORTED
+
+See as reference the v2 thread here:
+https://marc.info/?l=xen-devel&m=160566066013723
+---
+ xen/Kconfig              |  9 ++++++++-
+ xen/arch/arm/Kconfig     | 10 +++++-----
+ xen/arch/x86/Kconfig     |  6 +++---
+ xen/common/Kconfig       |  2 +-
+ xen/common/sched/Kconfig |  6 +++---
+ 5 files changed, 20 insertions(+), 13 deletions(-)
+
+diff --git a/xen/Kconfig b/xen/Kconfig
+index 34c318bfa2..4a3d988353 100644
+--- a/xen/Kconfig
++++ b/xen/Kconfig
+@@ -34,8 +34,15 @@ config DEFCONFIG_LIST
+ 	option defconfig_list
+ 	default ARCH_DEFCONFIG
+ 
++config UNSUPPORTED
++	bool "Configure UNSUPPORTED features"
++	help
++	  This option allows certain unsupported Xen options to be changed,
++	  which includes non-security-supported, experimental, and tech
++	  preview features as defined by SUPPORT.md.
++
+ config EXPERT
+-	bool "Configure standard Xen features (expert users)"
++	bool "Configure EXPERT features"
+ 	help
+ 	  This option allows certain base Xen options and settings
+ 	  to be disabled or tweaked. This is for specialized environments
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index c3eb13ea73..cca76040e5 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -32,7 +32,7 @@ menu "Architecture Features"
+ source "arch/Kconfig"
+ 
+ config ACPI
+-	bool "ACPI (Advanced Configuration and Power Interface) Support" if EXPERT
++	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)" if UNSUPPORTED
+ 	depends on ARM_64
+ 	---help---
+ 
+@@ -49,7 +49,7 @@ config GICV3
+ 	  If unsure, say Y
+ 
+ config HAS_ITS
+-        bool "GICv3 ITS MSI controller support" if EXPERT
++        bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
+         depends on GICV3 && !NEW_VGIC
+ 
+ config HVM
+@@ -77,7 +77,7 @@ config SBSA_VUART_CONSOLE
+ 	  SBSA Generic UART implements a subset of ARM PL011 UART.
+ 
+ config ARM_SSBD
+-	bool "Speculative Store Bypass Disable" if EXPERT
++	bool "Speculative Store Bypass Disable (UNSUPPORTED)" if UNSUPPORTED
+ 	depends on HAS_ALTERNATIVE
+ 	default y
+ 	help
+@@ -87,7 +87,7 @@ config ARM_SSBD
+ 	  If unsure, say Y.
+ 
+ config HARDEN_BRANCH_PREDICTOR
+-	bool "Harden the branch predictor against aliasing attacks" if EXPERT
++	bool "Harden the branch predictor against aliasing attacks (UNSUPPORTED)" if UNSUPPORTED
+ 	default y
+ 	help
+ 	  Speculation attacks against some high-performance processors rely on
+@@ -104,7 +104,7 @@ config HARDEN_BRANCH_PREDICTOR
+ 	  If unsure, say Y.
+ 
+ config TEE
+-	bool "Enable TEE mediators support" if EXPERT
++	bool "Enable TEE mediators support (UNSUPPORTED)" if UNSUPPORTED
+ 	default n
+ 	help
+ 	  This option enables generic TEE mediators support. It allows guests
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 78f351f94b..302334d3e4 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -147,7 +147,7 @@ config BIGMEM
+ 	  If unsure, say N.
+ 
+ config HVM_FEP
+-	bool "HVM Forced Emulation Prefix support" if EXPERT
++	bool "HVM Forced Emulation Prefix support (UNSUPPORTED)" if UNSUPPORTED
+ 	default DEBUG
+ 	depends on HVM
+ 	---help---
+@@ -166,7 +166,7 @@ config HVM_FEP
+ 	  If unsure, say N.
+ 
+ config TBOOT
+-	bool "Xen tboot support" if EXPERT
++	bool "Xen tboot support (UNSUPPORTED)" if UNSUPPORTED
+ 	default y if !PV_SHIM_EXCLUSIVE
+ 	select CRYPTO
+ 	---help---
+@@ -252,7 +252,7 @@ config HYPERV_GUEST
+ endif
+ 
+ config MEM_SHARING
+-	bool "Xen memory sharing support" if EXPERT
++	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
+ 	depends on HVM
+ 
+ endmenu
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index b5c91a1664..39451e8350 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -272,7 +272,7 @@ config LATE_HWDOM
+ 	  If unsure, say N.
+ 
+ config ARGO
+-	bool "Argo: hypervisor-mediated interdomain communication" if EXPERT
++	bool "Argo: hypervisor-mediated interdomain communication (UNSUPPORTED)" if UNSUPPORTED
+ 	---help---
+ 	  Enables a hypercall for domains to ask the hypervisor to perform
+ 	  data transfer of messages between domains.
+diff --git a/xen/common/sched/Kconfig b/xen/common/sched/Kconfig
+index 61231aacaa..94c9e20139 100644
+--- a/xen/common/sched/Kconfig
++++ b/xen/common/sched/Kconfig
+@@ -15,7 +15,7 @@ config SCHED_CREDIT2
+ 	  optimized for lower latency and higher VM density.
+ 
+ config SCHED_RTDS
+-	bool "RTDS scheduler support (EXPERIMENTAL)"
++	bool "RTDS scheduler support (UNSUPPORTED)" if UNSUPPORTED
+ 	default y
+ 	---help---
+ 	  The RTDS scheduler is a soft and firm real-time scheduler for
+@@ -23,14 +23,14 @@ config SCHED_RTDS
+ 	  in the cloud, and general low-latency workloads.
+ 
+ config SCHED_ARINC653
+-	bool "ARINC653 scheduler support (EXPERIMENTAL)"
++	bool "ARINC653 scheduler support (UNSUPPORTED)" if UNSUPPORTED
+ 	default DEBUG
+ 	---help---
+ 	  The ARINC653 scheduler is a hard real-time scheduler for single
+ 	  cores, targeted for avionics, drones, and medical devices.
+ 
+ config SCHED_NULL
+-	bool "Null scheduler support (EXPERIMENTAL)"
++	bool "Null scheduler support (UNSUPPORTED)" if UNSUPPORTED
+ 	default y
+ 	---help---
+ 	  The null scheduler is a static, zero overhead scheduler,
+-- 
+2.17.1
+
 
