@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027623014EC
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 12:55:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.73277.132091 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13D76301564
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Jan 2021 14:23:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.73306.132139 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l3HVb-0000Ks-7l; Sat, 23 Jan 2021 11:55:15 +0000
+	id 1l3IsD-0000of-Il; Sat, 23 Jan 2021 13:22:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 73277.132091; Sat, 23 Jan 2021 11:55:15 +0000
+Received: by outflank-mailman (output) from mailman id 73306.132139; Sat, 23 Jan 2021 13:22:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l3HVb-0000KT-4M; Sat, 23 Jan 2021 11:55:15 +0000
-Received: by outflank-mailman (input) for mailman id 73277;
- Sat, 23 Jan 2021 11:55:13 +0000
+	id 1l3IsD-0000oJ-ER; Sat, 23 Jan 2021 13:22:41 +0000
+Received: by outflank-mailman (input) for mailman id 73306;
+ Sat, 23 Jan 2021 13:22:39 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l3HVZ-0000KJ-J3
- for xen-devel@lists.xenproject.org; Sat, 23 Jan 2021 11:55:13 +0000
+ (envelope-from <julien@xen.org>) id 1l3IsB-0000oD-7u
+ for xen-devel@lists.xenproject.org; Sat, 23 Jan 2021 13:22:39 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1l3HVV-0005bN-QX; Sat, 23 Jan 2021 11:55:09 +0000
+ id 1l3IsA-00074R-6d; Sat, 23 Jan 2021 13:22:38 +0000
 Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1l3HVV-0008Dn-GP; Sat, 23 Jan 2021 11:55:09 +0000
+ id 1l3Is9-0006BM-Qq; Sat, 23 Jan 2021 13:22:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +42,137 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
 	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=4t7p09Yyty8AlkWbzZZL9fvWfZhGW0mVSz1SQe+Tjq8=; b=N04dUgz1Q/989Gh+K3UIps7fZI
-	4/iQHb8nFjSd/WWWb50NtUrcoYvrdf9YLl8B9z6nQFiUyrfX5DhBxuVNJWunQmLUfy8E4gwblDOPo
-	jop8n7Y1+hyhqGwKN9t3atI+qaNlWKqgQAkCBM1eBe0p3NMFdYXhkPsWEjgkl4w+Xhys=;
-Subject: Re: [PATCH v6 10/10] xen/arm: smmuv3: Add support for SMMUv3 driver
-To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <388adde9a060eb9fc685cc743a354361fcdf0374.1611314782.git.rahul.singh@arm.com>
- <df3a76bc971a09daf4e61361bbc635e82cf9b59e.1611314782.git.rahul.singh@arm.com>
+	bh=7T1exBXi/j/fhZ2RfiQf032YwMX1mDT9ra5fW7Pd1GA=; b=aoaiZbJ0wXN5THIONfBDSfbYvA
+	NHlyKSwdOBBwJ5y2Z/uaZzXE52S2cPTmsRqmP0euCwZj1RyegNn2akFugleGsEj+1usqdru7FXEs4
+	CXIwMWv8FWdZWIH8CK0hRb/TiumVQoGrY6e922hLZQl73ghVmEcZn7JyankwczJ9BLEQ=;
+Subject: Re: [PATCH 2/6] x86/mm: p2m_add_foreign() is HVM-only
+To: Oleksandr <olekstysh@gmail.com>, Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <be9ce75e-9119-2b5a-9e7b-437beb7ee446@suse.com>
+ <cf4569c5-a9c5-7b4b-d576-d1521c369418@suse.com>
+ <f736244b-ece7-af35-1517-2e5fdd9705c7@citrix.com>
+ <e2ee99fc-e3f8-bdaf-fe4a-d048da34731a@suse.com>
+ <b4abbe2f-5e3d-5f43-80b8-cfa3fd97061e@citrix.com>
+ <CAPD2p-nZyf_i_bGh5sSs2fC4S7nxB1Mk_zbSKtqF=zvBOp3X+Q@mail.gmail.com>
+ <2dcbe286-4112-e4b3-dc12-9691154365b3@suse.com>
+ <448a6ef3-2cbd-da9c-e4ef-88122d246833@gmail.com>
+ <18c21c64-d350-482a-c778-c8478d3daf2c@suse.com>
+ <c8315e16-6130-e990-3d16-d0d42b2f92c4@gmail.com>
+ <ec041f81-4b80-5ffb-8219-6732f50bef36@suse.com>
+ <f6f1ffdd-619d-017e-6820-276814056845@gmail.com>
+ <257224ea-4ba3-302e-e198-e92c8c1036b3@suse.com>
+ <898d609c-8652-e43d-4400-27986cc37371@gmail.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <1a7e0989-29c6-7c7e-43a1-0caa11caad61@xen.org>
-Date: Sat, 23 Jan 2021 11:55:07 +0000
+Message-ID: <9523a20e-0b26-51b4-a13a-5767584389cf@xen.org>
+Date: Sat, 23 Jan 2021 13:22:35 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <df3a76bc971a09daf4e61361bbc635e82cf9b59e.1611314782.git.rahul.singh@arm.com>
+In-Reply-To: <898d609c-8652-e43d-4400-27986cc37371@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Rahul
+Hi Jan & Oleksandr,
 
-On 22/01/2021 11:37, Rahul Singh wrote:
-> Add support for ARM architected SMMUv3 implementation. It is based on
-> the Linux SMMUv3 driver.
+On 13/01/2021 15:06, Oleksandr wrote:
 > 
-> Driver is currently supported as Tech Preview.
+> On 12.01.21 13:58, Jan Beulich wrote:
 > 
-> Major differences with regard to Linux driver are as follows:
-> 2. Only Stage-2 translation is supported as compared to the Linux driver
->     that supports both Stage-1 and Stage-2 translations.
-> 3. Use P2M  page table instead of creating one as SMMUv3 has the
->     capability to share the page tables with the CPU.
-> 4. Tasklets are used in place of threaded IRQ's in Linux for event queue
->     and priority queue IRQ handling.
-> 5. Latest version of the Linux SMMUv3 code implements the commands queue
->     access functions based on atomic operations implemented in Linux.
->     Atomic functions used by the commands queue access functions are not
->     implemented in XEN therefore we decided to port the earlier version
->     of the code. Atomic operations are introduced to fix the bottleneck
->     of the SMMU command queue insertion operation. A new algorithm for
->     inserting commands into the queue is introduced, which is lock-free
->     on the fast-path.
->     Consequence of reverting the patch is that the command queue
->     insertion will be slow for large systems as spinlock will be used to
->     serializes accesses from all CPUs to the single queue supported by
->     the hardware. Once the proper atomic operations will be available in
->     XEN the driver can be updated.
-> 6. Spin lock is used in place of mutex when attaching a device to the
->     SMMU, as there is no blocking locks implementation available in XEN.
->     This might introduce latency in XEN. Need to investigate before
->     driver is out for tech preview.
-> 7. PCI ATS functionality is not supported, as there is no support
->     available in XEN to test the functionality. Code is not tested and
->     compiled. Code is guarded by the flag CONFIG_PCI_ATS.
-> 8. MSI interrupts are not supported as there is no support available in
->     XEN to request MSI interrupts. Code is not tested and compiled. Code
->     is guarded by the flag CONFIG_MSI.
+> Hi Jan.
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>> On 11.01.2021 09:23, Oleksandr wrote:
+>>> On 11.01.21 09:41, Jan Beulich wrote:
+>>>> If you could also provide your exact .config, I could see whether I
+>>>> can repro here with some of the gcc5 versions I have laying around.
+>>> Please see attached
+>> Builds perfectly fine with 5.4.0 here.
+> 
+> Thank you for testing.
+> 
+> 
+> I wonder whether I indeed missed something. I have switched to 5.4.0 
+> again (from 9.3.0) and rechecked, a build issue was still present.
+> I even downloaded 5.4.0 sources and built them to try to build Xen, and 
+> got the same effect.  What I noticed is that for non-debug builds the 
+> build issue wasn't present.
+> Then I decided to build today's staging 
+> (414be7b66349e7dca42bc1fd47c2b2f5b2d27432 xen/memory: Fix compat 
+> XENMEM_acquire_resource for size requests) instead of 9-day's old one when
+> I had initially reported about that build issue 
+> (7ba2ab495be54f608cb47440e1497b2795bd301a x86/p2m: Fix 
+> paging_gva_to_gfn() for nested virt). Today's staging builds perfectly 
+> fine with 5.4.0.
+> It seems that commit in the middle 
+> (994f6478a48a60e3b407c7defc2d36a80f880b04 xsm/dummy: harden against 
+> speculative abuse) indirectly fixes that weird build issue with 5.4.0...
 
-Thank you for sending a new version. I have commited the series now.
+The gitlab CI reported a similar issue today (see [1]) when building 
+with randconfig ([2]). This is happening on Debian sid with GCC 9.3.
+
+Note that the default compiler on sid is GCC 10.2.1. So you will have to 
+install the package gcc-9 and then use CC=gcc-9 make <...>.
+
+
+ From a local repro, I get the following message:
+
+ld: ld: prelink.o: in function `xenmem_add_to_physmap_batch':
+/root/xen/xen/common/memory.c:942: undefined reference to 
+`xenmem_add_to_physmap_one'
+/root/xen/xen/common/memory.c:942:(.text+0x22145): relocation truncated 
+to fit: R_X86_64_PLT32 against undefined symbol `xenmem_add_to_physmap_one'
+prelink-efi.o: in function `xenmem_add_to_physmap_batch':
+/root/xen/xen/common/memory.c:942: undefined reference to 
+`xenmem_add_to_physmap_one'
+make[2]: *** [Makefile:215: /root/xen/xen/xen.efi] Error 1
+make[2]: *** Waiting for unfinished jobs....
+ld: /root/xen/xen/.xen-syms.0: hidden symbol `xenmem_add_to_physmap_one' 
+isn't defined
+ld: final link failed: bad value
+
+
+This points to the call in xenmem_add_to_physmap_batch(). I have played 
+a bit with the .config options. I was able to get it built as soon as I 
+disabled CONFIG_COVERAGE=y.
+
+So maybe the optimizer is not clever enough on GCC 9 when building with 
+coverage enabled?
+
+With the diff below applied (borrowed from 
+xenmem_add_to_physmap_batch()), I can build without tweaking the .config 
+[1]:
+
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index ccb4d49fc6..5cfd36a53d 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -903,6 +903,12 @@ static int xenmem_add_to_physmap_batch(struct 
+domain *d,
+  {
+      union add_to_physmap_extra extra = {};
+
++    if ( !paging_mode_translate(d) )
++    {
++        ASSERT_UNREACHABLE();
++        return -EACCES;
++    }
++
+      if ( unlikely(xatpb->size < extent) )
+          return -EILSEQ;
 
 Cheers,
+
+[1] https://gitlab.com/xen-project/xen/-/jobs/981624525
+[2] https://pastebin.com/vTbQXXV9
+
+
+https://gitlab.com/xen-project/xen/-/jobs/981624525
+
+> 
+> 
 
 -- 
 Julien Grall
