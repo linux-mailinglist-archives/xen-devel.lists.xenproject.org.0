@@ -2,37 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984C5301D68
-	for <lists+xen-devel@lfdr.de>; Sun, 24 Jan 2021 17:15:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.73763.132696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B945301D78
+	for <lists+xen-devel@lfdr.de>; Sun, 24 Jan 2021 17:24:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.73770.132707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l3i2Y-0001kd-HS; Sun, 24 Jan 2021 16:15:02 +0000
+	id 1l3iAl-0002id-Cj; Sun, 24 Jan 2021 16:23:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 73763.132696; Sun, 24 Jan 2021 16:15:02 +0000
+Received: by outflank-mailman (output) from mailman id 73770.132707; Sun, 24 Jan 2021 16:23:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l3i2Y-0001kE-EJ; Sun, 24 Jan 2021 16:15:02 +0000
-Received: by outflank-mailman (input) for mailman id 73763;
- Sun, 24 Jan 2021 16:15:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l3iAl-0002iE-9V; Sun, 24 Jan 2021 16:23:31 +0000
+Received: by outflank-mailman (input) for mailman id 73770;
+ Sun, 24 Jan 2021 16:23:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jMrK=G3=microsoft.com=mikelley@srs-us1.protection.inumbo.net>)
- id 1l3i2W-0001k9-4v
- for xen-devel@lists.xenproject.org; Sun, 24 Jan 2021 16:15:00 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (unknown
- [40.107.94.120]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9f4d8e82-0996-422f-a19b-8fd6b2a1dd19;
- Sun, 24 Jan 2021 16:14:58 +0000 (UTC)
-Received: from (2603:10b6:301:7c::11) by
- MWHPR21MB0766.namprd21.prod.outlook.com (2603:10b6:300:76::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3825.3; Sun, 24 Jan 2021 16:14:53 +0000
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::9c8:94c9:faf1:17c2]) by MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::9c8:94c9:faf1:17c2%9]) with mapi id 15.20.3825.003; Sun, 24 Jan 2021
- 16:14:53 +0000
+ <SRS0=sOcY=G3=unikie.com=jukka.kaartinen@srs-us1.protection.inumbo.net>)
+ id 1l3iAj-0002i9-VX
+ for xen-devel@lists.xenproject.org; Sun, 24 Jan 2021 16:23:30 +0000
+Received: from mail-lj1-x236.google.com (unknown [2a00:1450:4864:20::236])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1caaa90b-97f2-4149-8b3a-98067e0ea29e;
+ Sun, 24 Jan 2021 16:23:28 +0000 (UTC)
+Received: by mail-lj1-x236.google.com with SMTP id x23so12312832lji.7
+ for <xen-devel@lists.xenproject.org>; Sun, 24 Jan 2021 08:23:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,203 +37,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f4d8e82-0996-422f-a19b-8fd6b2a1dd19
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pnf29PYDBXAObPg12rWLOxVKkHLvFlUfB0mRangUDS1Tz49blsNR7CYK/jHmDHFwV/pAX7yRPNDNZFPur4OKwpVkcU4Th8FXISC+pP4r6GZ05Xz90WSXGkS+YvPSaRfObEVJWTTZVRNIrv1O0XOAo72RcBb2vuv10VfeFs33T5XFbRAwRefprJACMZP8xivVYcqobtlRZZnEqsbjH1evupnIHe4gav2BUheD6yNF3QHM9WdjBYdDj41ISU469+adkqqoDj9PiTgg5LiuG2wGULiB4vJ3pOcznVlqdfteY7NFi6dKdxbfoCfWuIJnN/Vf2fUgl1Nw8j1gt9vGfhquOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N6kaM3w5vMJvVuegHx0ENVTzpA5s2k6LrcBEwVm5Mlo=;
- b=LQQ7JiBthGFimfKeFlbvYZ76b/VtYCOGBDChvzaqftW8GrfOfyspC4qT1zKoVaHU33oh2F/32TP2ubhLwSa+kcVqNz3PYTgaNyGHz/zISJaDjO+iahfeYjlgOYIvKDAgIQEfLltE0zT9pMeIk/AGW9MpXsoew3dOXZBqVKdi4giSmKDbpqFW8L8ZEeDEPp079MHFcqZWgkUifMSOp9u40QqWZEGpcFC7QUPnZMdT40jwiPw3kbACHeVswGCYDLx3HvG4cgNWWPbIcqFSfuUYSYIUAlfd17GzOMclKDlp2Y753byTqeBgMxCDweZUJk0cD2GG+Yb05xY13RhUy5bmaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N6kaM3w5vMJvVuegHx0ENVTzpA5s2k6LrcBEwVm5Mlo=;
- b=ewGwE1S2YttbCB3WjnMELD7OWBTx2om/XXtatIQ8p91mNd1yxaWN09oG5WI2DatDm11NVoRUO8U/0P/VR5fzI14bkgOovsYMOes3W0dNzu4VFDTG3KCFm0akjlhzWPbXE3voXJFeVLZUNrjf0DDqO55vspHDddJmvmtoLyqVpzQ=
-From: Michael Kelley <mikelley@microsoft.com>
-To: Juergen Gross <jgross@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "x86@kernel.org" <x86@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"virtualization@lists.linux-foundation.org"
-	<virtualization@lists.linux-foundation.org>, "kvm@vger.kernel.org"
-	<kvm@vger.kernel.org>
-CC: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, KY
- Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
-	Deep Shah <sdeep@vmware.com>, "VMware, Inc." <pv-drivers@vmware.com>, Paolo
- Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>,
-	vkuznets <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>, Jim
- Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>
-Subject: RE: [PATCH v4 07/15] x86/paravirt: switch time pvops functions to use
- static_call()
-Thread-Topic: [PATCH v4 07/15] x86/paravirt: switch time pvops functions to
- use static_call()
-Thread-Index: AQHW72lBoCJK4XcIc0e5K1+SYrbIiqo29YsA
-Date: Sun, 24 Jan 2021 16:14:52 +0000
-Message-ID:
- <MWHPR21MB15930A0BC65D8A3F31C13F49D7BE9@MWHPR21MB1593.namprd21.prod.outlook.com>
-References: <20210120135555.32594-1-jgross@suse.com>
- <20210120135555.32594-8-jgross@suse.com>
-In-Reply-To: <20210120135555.32594-8-jgross@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2021-01-24T16:14:50Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=819a5dc4-1861-402f-a4b0-8109384682ad;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0
-authentication-results: suse.com; dkim=none (message not signed)
- header.d=none;suse.com; dmarc=none action=none header.from=microsoft.com;
-x-originating-ip: [66.75.126.197]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: abac4818-1089-42f7-3a44-08d8c0832efa
-x-ms-traffictypediagnostic: MWHPR21MB0766:
-x-ms-exchange-transport-forked: True
-x-ld-processed: 72f988bf-86f1-41af-91ab-2d7cd011db47,ExtAddr
-x-microsoft-antispam-prvs:
- <MWHPR21MB076658EA4DDC06E93557023FD7BE9@MWHPR21MB0766.namprd21.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4941;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 1188+vCYRZjxXPC7Ti8SBtXV6yPsJ893MHnL7vTaiDZcKuDnC9u6ocOuPA27EpZ2OjuZ8r+PDsNHspT3Vzhe5AtGEXWBf3vrxhZ+p7RNa0gChnB3gjXB5p3PFkkwLsYhvCMBg2o5oDqwnr5gXb9bD/hAcSgcYyOnsQd5eTge45swpHxlHzEEOOCGmWxMKhj6QlFuKtfFBQu83gRc4+LoxIo9u/sR5swz7Wwa0EudacSuo9WSzv9R9tJTO0lmAT/MLOK2yQLfZomYSKbqdUYfyK8mX+5lujqBItELY7B+8pZ71Cu5kwdxr0JkYwh3rexpRjf6kK0+qer97CuE0dnaw+TTcMnUdBD/uq4vRrAElXiLO9G9RelNlwBllm0KUFNfIF/vhSLpfgej8tpLLKNVKK1gyKoNfMcUXBifKbOeoPLxLBIc6LtlJdQA5h5/tTUuwNlKFrRBkN4GMKmE0wXyghMc9yopH78J39DGV6ypnrWz+NiScz7vtadlGWh1Ghw1lFdP4CaH+9QIIJbCniaSrw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR21MB1593.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(396003)(346002)(366004)(136003)(39860400002)(8676002)(8936002)(10290500003)(86362001)(83380400001)(76116006)(66476007)(66946007)(66556008)(64756008)(316002)(66446008)(7696005)(54906003)(26005)(186003)(8990500004)(5660300002)(4326008)(110136005)(71200400001)(7416002)(9686003)(6506007)(52536014)(2906002)(82950400001)(55016002)(82960400001)(33656002)(478600001);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?kz/zFCJOu4H9XEpVGhuyuo467KMOSNWslf305XmQ4FJ/tpNt32FQSs1zJa1D?=
- =?us-ascii?Q?5MysFF/ynK4NaO5eusgIi/dJFaNlPd0z2xya1bZLlAB/Cx9V2NvjB+Ch7ntZ?=
- =?us-ascii?Q?O+Yc8B3I0Ga9hzcpTeAhgb9yxma1ye/GLP2VXKLijH6q8o/1/NV58jPVYVyS?=
- =?us-ascii?Q?kpErNEN+LUp0xrpujwkG84QSr1SAsuRB94BKjAycIFfXV0qzbnE0v5hBrDMT?=
- =?us-ascii?Q?vNXQa1v8YuXasMypTjNponwsuttc7H0ToK8c0JOGDXXNlTW+M32UhmtuO39L?=
- =?us-ascii?Q?AUBtCBZe1DnZednan8tJ8Kbp1lpvMSiE5AGQONkeBDM122AlMuROJSZH2yZ2?=
- =?us-ascii?Q?GS0+kZIyQCkF8sZTJW1CH/69JZtVJeSQzLjP3fnORPeh3zi3ZFUmAxz68+V/?=
- =?us-ascii?Q?z4UrsxyPcRiUiY06QyLy5JV8nX+fmGcDeA7htgKlLE6waXwP4N8tXEidg/9L?=
- =?us-ascii?Q?vz6LGingVD9yvswJ+6Gmpx0VlS+uP41DvBUofGwTxpIJOza/kQIPqyf48DWb?=
- =?us-ascii?Q?5UFNFdYPFFcCA+FymkZA4McibR51GMnsDuMkA9kkVZPcEshdQOiCPxw95RDG?=
- =?us-ascii?Q?jUVz5zKXwCRWXNzza7idtVzWta8tVKSDWQmnv/rJDPyYdrn5iR2TpJsOhNl0?=
- =?us-ascii?Q?qQRWC55jsWZXIScyb3fylHJqAdeukLQ3EfIwpYBTPs8CfrfRe8YtMBeDNEN0?=
- =?us-ascii?Q?Hkh2XzSafosFtxk8y2yoZS11vIMuOOEMoy6sqDBQJWNGoIyt5Oy5yWJVzoIb?=
- =?us-ascii?Q?1T5yWhduBWAxYdsoOCkyYMDjMiPLCj3EtPdMsxezJII1GNesyk+9Arx1g4sP?=
- =?us-ascii?Q?d7qeWmgz9LglUb/PcUG8v3SrCW7LZpUZwSLRwrbee8LsSwHHT4hwAmqvDN4I?=
- =?us-ascii?Q?B+5F1q8V5ZiEkdKP022dPwBLWMnXt/dKQ912VwhIAiWIzwELwVahwvYvqQF9?=
- =?us-ascii?Q?EcZFJn8cl/2AmZkGBbF6aPSxjoC5wmNBSJ/hEyfrFZ3pwdO3X1SFeeTuLlOG?=
- =?us-ascii?Q?F9WJl3RxRR49m3yBbf3Ig4KH4Jd68Bm85cthOOCbUiy4j4Soinn9E5WRloKJ?=
- =?us-ascii?Q?LddEMjJK?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 1caaa90b-97f2-4149-8b3a-98067e0ea29e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=unikie-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=TarkN/ptFE68BdfwoE/1aVB8dXJhagmP0qB5zQ1hupc=;
+        b=UJRPKHb7yQ3qYswaWFHIxe/qHJGcg5vv1A/S3bQ3wjTQvZf1y5brU330f2XCXAUFoZ
+         Tc2HRluKItqa+PHe6KbIxNTnW4wXH8a2lU2mu7mJBjJdyXrkyVtAADhxrkv4FCzbeD+U
+         wVOM0Azmi7/1LMU4vSd1LtPXC07e5SnUfniLSGBGYgppqG724vO8pWM1Sbuuh4Eh9tGo
+         I1U/c7Fe0kEk/9AlGT/BapniyXNSA1J5SdNpHwhU4iiwU0pX84dBjaMxN+oGIXpby950
+         rdOK17hly84arZDjo7ViLmt+xmTr4nxnlALGU+kZ04Uu9AiLCaNbFTXkUKX4tuC9/WhZ
+         kRHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=TarkN/ptFE68BdfwoE/1aVB8dXJhagmP0qB5zQ1hupc=;
+        b=bXrzZT/vdaWkX/sN+rZJLMvnttuucvfPXIiIrxs9M2jDJC9tiY2IPRCAA4AVcTPyD6
+         x8bVR99IHmgEREHduZsQ4kEwTzLRDaOPQvIxwhimcw+rtOpFmSeWoHPebksHC6JuimKO
+         HXneAm35mZLKb49esc8cjUSb64DjQrHxujzoYDnqg6jt3JSdstQJ3JpudTMPneS+J7tQ
+         5Pf2ueNHIbcqZ5Y+MQ1uNha3w33t6D+6IOOIzbguC3twOrZ/XTLQvLLmSQnC4eylAo8+
+         9dDq1y0vLDqjyEfoWyF73ZkHFoGf3EUWDclTecwGUE8Fsl0jvfRbZc661wDEwJH+5yby
+         sm7g==
+X-Gm-Message-State: AOAM533cK/eerizZa1TBMo0HAvNEs1Xi/XXMyID/WdILFg9T1+lAjh3s
+	TAwPwGN2ZoR6/+TFGlqtSnpo4DeRLFrptWANaTgvBg==
+X-Google-Smtp-Source: ABdhPJzDjEyV5r0UJlZcIOllvJYX/14Dh9Bgu9kcEs8JBIYaIK8eR+YCgMay+Pt8a8rg05UvrpWnUVHNXq8tZXFTR4E=
+X-Received: by 2002:a2e:81d1:: with SMTP id s17mr1263605ljg.49.1611505407047;
+ Sun, 24 Jan 2021 08:23:27 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR21MB1593.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: abac4818-1089-42f7-3a44-08d8c0832efa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jan 2021 16:14:52.8508
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xztFFZkAgufhIpsxNn9jfAwjKZDnihx8Hd1SovgteFrbj6RTL0YsgqffhEus7e7DkQPdHpJmj/Is8hNS/YABtAQMvY5JCgJVygxYlz+2mIs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR21MB0766
+References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
+ <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s> <CAJ=z9a1_CbOSB_WcQGsLJ9JmkJ3AcLm2s-AirVJkFoKRxy-5Ug@mail.gmail.com>
+In-Reply-To: <CAJ=z9a1_CbOSB_WcQGsLJ9JmkJ3AcLm2s-AirVJkFoKRxy-5Ug@mail.gmail.com>
+From: Jukka Kaartinen <jukka.kaartinen@unikie.com>
+Date: Sun, 24 Jan 2021 18:23:16 +0200
+Message-ID: <CAFnJQOpVsnhgOMwm6pEWrUpUW7wniw5S_EChhW_U7yZvK3Cqyg@mail.gmail.com>
+Subject: Re: Question about xen and Rasp 4B
+To: Julien Grall <julien.grall.oss@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Roman Shaposhnik <roman@zededa.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+Content-Type: multipart/alternative; boundary="000000000000574aa805b9a7d789"
 
-From: Juergen Gross <jgross@suse.com> Sent: Wednesday, January 20, 2021 5:5=
-6 AM
->=20
-> The time pvops functions are the only ones left which might be
-> used in 32-bit mode and which return a 64-bit value.
->=20
-> Switch them to use the static_call() mechanism instead of pvops, as
-> this allows quite some simplification of the pvops implementation.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V4:
-> - drop paravirt_time.h again
-> - don't move Hyper-V code (Michael Kelley)
-> ---
->  arch/x86/Kconfig                      |  1 +
->  arch/x86/include/asm/mshyperv.h       |  2 +-
->  arch/x86/include/asm/paravirt.h       | 17 ++++++++++++++---
->  arch/x86/include/asm/paravirt_types.h |  6 ------
->  arch/x86/kernel/cpu/vmware.c          |  5 +++--
->  arch/x86/kernel/kvm.c                 |  2 +-
->  arch/x86/kernel/kvmclock.c            |  2 +-
->  arch/x86/kernel/paravirt.c            | 16 ++++++++++++----
->  arch/x86/kernel/tsc.c                 |  2 +-
->  arch/x86/xen/time.c                   | 11 ++++-------
->  drivers/clocksource/hyperv_timer.c    |  5 +++--
->  drivers/xen/time.c                    |  2 +-
->  12 files changed, 42 insertions(+), 29 deletions(-)
->=20
+--000000000000574aa805b9a7d789
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[snip]
+On Sat, Jan 23, 2021 at 6:48 PM Julien Grall <julien.grall.oss@gmail.com>
+wrote:
 
-> diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/mshyp=
-erv.h
-> index 30f76b966857..b4ee331d29a7 100644
-> --- a/arch/x86/include/asm/mshyperv.h
-> +++ b/arch/x86/include/asm/mshyperv.h
-> @@ -63,7 +63,7 @@ typedef int (*hyperv_fill_flush_list_func)(
->  static __always_inline void hv_setup_sched_clock(void *sched_clock)
->  {
->  #ifdef CONFIG_PARAVIRT
-> -	pv_ops.time.sched_clock =3D sched_clock;
-> +	paravirt_set_sched_clock(sched_clock);
->  #endif
->  }
->=20
+> On Sat, 23 Jan 2021 at 00:27, Stefano Stabellini <sstabellini@kernel.org>
+> wrote:
+> >
+> > + xen-devel, Roman,
+> >
+> >
+> > On Fri, 22 Jan 2021, Jukka Kaartinen wrote:
+> > > Hi Stefano,
+> > > I'm Jukka Kaartinen a SW developer working on enabling hypervisors on
+> mobile platforms. One of our HW that we use on development is
+> > > Raspberry Pi 4B. I wonder if you could help me a bit :).
+> > >
+> > > I'm trying to enable the GPU with Xen + Raspberry Pi for dom0.
+> https://www.raspberrypi.org/forums/viewtopic.php?f=3D63&t=3D232323#p17976=
+05
+> > >
+> > > I got so far that GPU drivers are loaded (v3d & vc4) without errors.
+> But now Xen returns error when X is starting:
+> > > (XEN) traps.c:1986:d0v1 HSR=3D0x93880045 pc=3D0x00007f97b14e70
+> gva=3D0x7f7f817000 gpa=3D0x0000401315d000
+> > >  I tried to debug what causes this and looks like find_mmio_handler
+> cannot find handler.
+> > > (See more here:
+> https://www.raspberrypi.org/forums/viewtopic.php?f=3D63&t=3D232323&start=
+=3D25#p1801691
+> )
+> > >
+> > > Any ideas why the handler is not found?
+> >
+> >
+> > Hi Jukka,
+> >
+> > I am glad to hear that you are interested in Xen on RaspberryPi :-)  I
+> > haven't tried the GPU yet, I have been using the serial only.
+> > Roman, did you ever get the GPU working?
+> >
+> >
+> > The error is a data abort error: Linux is trying to access an address
+> > which is not mapped to dom0. The address seems to be 0x401315d000. It i=
+s
+> > a pretty high address; I looked in device tree but couldn't spot it.
+> >
+> > From the HSR (the syndrom register) it looks like it is a translation
+> > fault at EL1 on stage1.
+>
+> Hmmm.... We don't trap stage 1 faults to Xen, instead they are
+> received by the OS directly.
+>
+> In fact the ESR_El1, indicates that it is a translation fault at level
+> 1 when walking the stage-2 page-table. So it means the guest physical
+> address is not mapped in the P2M. But...
+>
+>
+> > As if the Linux address mapping was wrong.
+>
+> ... I think the GPA is bogus. So I agree Linux may have configured the
+> stage-1 page-tables incorrectly.
+>
+> >
+> > Anyone has any ideas how this could happen? Maybe a reserved-memory
+> > misconfiguration?
+>
+> It looks like to me both the PC and the GVA points to user memory.
+> Normally, Xen will inject a data abort into Linux and will usually
+> dump some information (e.g. the task running).
+>
+I observed that when xen outputs this:
+(XEN) traps.c:1983:d0v1 HSR=3D0x93830045 pc=3D0x00007fa9df9684 gva=3D0x7faa=
+26b000
+gpa=3D0x0000401207f000
+vc4_bo_create is called with this size:
+[   44.449287]  vc4_bo_create size: 4096
 
-This looks fine.
 
-[snip]
 
-> diff --git a/drivers/clocksource/hyperv_timer.c b/drivers/clocksource/hyp=
-erv_timer.c
-> index ba04cb381cd3..bf3bf20bc6bd 100644
-> --- a/drivers/clocksource/hyperv_timer.c
-> +++ b/drivers/clocksource/hyperv_timer.c
-> @@ -18,6 +18,7 @@
->  #include <linux/sched_clock.h>
->  #include <linux/mm.h>
->  #include <linux/cpuhotplug.h>
-> +#include <linux/static_call.h>
->  #include <clocksource/hyperv_timer.h>
->  #include <asm/hyperv-tlfs.h>
->  #include <asm/mshyperv.h>
-> @@ -445,7 +446,7 @@ static bool __init hv_init_tsc_clocksource(void)
->  	clocksource_register_hz(&hyperv_cs_tsc, NSEC_PER_SEC/100);
->=20
->  	hv_sched_clock_offset =3D hv_read_reference_counter();
-> -	hv_setup_sched_clock(read_hv_sched_clock_tsc);
-> +	paravirt_set_sched_clock(read_hv_sched_clock_tsc);
->=20
->  	return true;
->  }
-> @@ -470,6 +471,6 @@ void __init hv_init_clocksource(void)
->  	clocksource_register_hz(&hyperv_cs_msr, NSEC_PER_SEC/100);
->=20
->  	hv_sched_clock_offset =3D hv_read_reference_counter();
-> -	hv_setup_sched_clock(read_hv_sched_clock_msr);
-> +	static_call_update(pv_sched_clock, read_hv_sched_clock_msr);
->  }
->  EXPORT_SYMBOL_GPL(hv_init_clocksource);
+> @Jukka, would it be possible to provide the console out for both Xen and
+> Linux?
+>
+Here are the logs:
+https://drive.google.com/drive/folders/1fhcwpsf6SfPYrk0QR6zexGia0v1XysUr?us=
+p=3Dsharing
 
-The changes to hyperv_timer.c aren't needed and shouldn't be
-there, so as to preserve hyperv_timer.c as architecture neutral.  With
-your update to hv_setup_sched_clock() in mshyperv.h, the original
-code works correctly.  While there are two call sites for
-hv_setup_sched_clock(), only one is called.  And once the sched clock
-function is set, it is never changed or overridden.
+I hope you can access them.
 
-Michael
+Would you also be able to confirm if the same setup is working when
+> Linux is running directly on the HW? This would give us an idea
+> whether the issue is specific to Xen.
+>
+Yes, the same setup works when running directly on the HW. I even boot the
+linux using u-boot and the same device tree.
+
+There is one change that bothers me and that is the swiotlb size. I had to
+increase its size:
+ 20  * Maximum allowable number of contiguous slabs to map,
+ 21  * must be a power of 2.  What is the appropriate value ?
+ 22  * The complexity of {map,unmap}_single is linearly dependent on this
+value.
+ 23  */
+ 24 //#define IO_TLB_SEGSIZE=E2=96=B8=E2=96=B8=E2=96=B8=E2=96=B8=E2=96=B8=
+=E2=96=B8=E2=96=B8=E2=96=B8128
+ 25 #define IO_TLB_SEGSIZE=E2=96=B8=E2=96=B84096
+without this change I get this error:
+[   79.444987] v3d fec00000.v3d: swiotlb buffer is full (sz: 8294400
+bytes), total 32768 (slots), used 1 (slots)
+
+
+--=20
+Br,
+Jukka Kaartinen
+
+--000000000000574aa805b9a7d789
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Sat, Jan 23, 2021 at 6:48 PM Julie=
+n Grall &lt;<a href=3D"mailto:julien.grall.oss@gmail.com">julien.grall.oss@=
+gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">On Sat, 23 Jan 2021 at 00:27, Stefano Stabellini &lt;<a href=3D"=
+mailto:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a>=
+&gt; wrote:<br>
+&gt;<br>
+&gt; + xen-devel, Roman,<br>
+&gt;<br>
+&gt;<br>
+&gt; On Fri, 22 Jan 2021, Jukka Kaartinen wrote:<br>
+&gt; &gt; Hi Stefano,<br>
+&gt; &gt; I&#39;m Jukka Kaartinen a SW developer working on enabling hyperv=
+isors on mobile platforms. One of our HW that we use on development is<br>
+&gt; &gt; Raspberry Pi 4B. I wonder if you could help me a bit :).<br>
+&gt; &gt;<br>
+&gt; &gt; I&#39;m trying to enable the GPU with Xen + Raspberry Pi for dom0=
+. <a href=3D"https://www.raspberrypi.org/forums/viewtopic.php?f=3D63&amp;t=
+=3D232323#p1797605" rel=3D"noreferrer" target=3D"_blank">https://www.raspbe=
+rrypi.org/forums/viewtopic.php?f=3D63&amp;t=3D232323#p1797605</a><br>
+&gt; &gt;<br>
+&gt; &gt; I got so far that GPU drivers are loaded (v3d &amp; vc4) without =
+errors. But now Xen returns error when X is starting:<br>
+&gt; &gt; (XEN) traps.c:1986:d0v1 HSR=3D0x93880045 pc=3D0x00007f97b14e70 gv=
+a=3D0x7f7f817000 gpa=3D0x0000401315d000<br>
+&gt; &gt;=C2=A0 I tried to debug what causes this and looks like find_mmio_=
+handler cannot find handler.<br>
+&gt; &gt; (See more here: <a href=3D"https://www.raspberrypi.org/forums/vie=
+wtopic.php?f=3D63&amp;t=3D232323&amp;start=3D25#p1801691" rel=3D"noreferrer=
+" target=3D"_blank">https://www.raspberrypi.org/forums/viewtopic.php?f=3D63=
+&amp;t=3D232323&amp;start=3D25#p1801691</a> )<br>
+&gt; &gt;<br>
+&gt; &gt; Any ideas why the handler is not found?<br>
+&gt;<br>
+&gt;<br>
+&gt; Hi Jukka,<br>
+&gt;<br>
+&gt; I am glad to hear that you are interested in Xen on RaspberryPi :-)=C2=
+=A0 I<br>
+&gt; haven&#39;t tried the GPU yet, I have been using the serial only.<br>
+&gt; Roman, did you ever get the GPU working?<br>
+&gt;<br>
+&gt;<br>
+&gt; The error is a data abort error: Linux is trying to access an address<=
+br>
+&gt; which is not mapped to dom0. The address seems to be 0x401315d000. It =
+is<br>
+&gt; a pretty high address; I looked in device tree but couldn&#39;t spot i=
+t.<br>
+&gt;<br>
+&gt; From the HSR (the syndrom register) it looks like it is a translation<=
+br>
+&gt; fault at EL1 on stage1.<br>
+<br>
+Hmmm.... We don&#39;t trap stage 1 faults to Xen, instead they are<br>
+received by the OS directly.<br>
+<br>
+In fact the ESR_El1, indicates that it is a translation fault at level<br>
+1 when walking the stage-2 page-table. So it means the guest physical<br>
+address is not mapped in the P2M. But...<br>
+<br>
+<br>
+&gt; As if the Linux address mapping was wrong.<br>
+<br>
+... I think the GPA is bogus. So I agree Linux may have configured the<br>
+stage-1 page-tables incorrectly.<br>
+<br>
+&gt;<br>
+&gt; Anyone has any ideas how this could happen? Maybe a reserved-memory<br=
+>
+&gt; misconfiguration?<br>
+<br>
+It looks like to me both the PC and the GVA points to user memory.<br>
+Normally, Xen will inject a data abort into Linux and will usually<br>
+dump some information (e.g. the task running).<br></blockquote><div>I obser=
+ved that when xen outputs this:</div><div>(XEN) traps.c:1983:d0v1 HSR=3D0x9=
+3830045 pc=3D0x00007fa9df9684 gva=3D0x7faa26b000 gpa=3D0x0000401207f000<br>=
+</div><div>vc4_bo_create is called with this size:<br></div><div>[ =C2=A0 4=
+4.449287]=C2=A0 vc4_bo_create size: 4096<br></div><div>=C2=A0</div><div>=C2=
+=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+@Jukka, would it be possible to provide the console out for both Xen and Li=
+nux?<br></blockquote><div class=3D"gmail_quote"><div>Here are the logs:</di=
+v></div><div><a href=3D"https://drive.google.com/drive/folders/1fhcwpsf6SfP=
+Yrk0QR6zexGia0v1XysUr?usp=3Dsharing">https://drive.google.com/drive/folders=
+/1fhcwpsf6SfPYrk0QR6zexGia0v1XysUr?usp=3Dsharing</a>=C2=A0</div><div>I hope=
+ you can access them.=C2=A0</div><div><br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">
+Would you also be able to confirm if the same setup is working when<br>
+Linux is running directly on the HW? This would give us an idea<br>
+whether the issue is specific to Xen.<br></blockquote><div>Yes, the same se=
+tup works when running directly on the HW. I even boot the linux using u-bo=
+ot and the same device tree.</div><div><br></div><div>There is one change t=
+hat bothers me and that is the swiotlb size. I had to increase its size:</d=
+iv><div>=C2=A020 =C2=A0* Maximum allowable number of contiguous slabs to ma=
+p,<br>=C2=A021 =C2=A0* must be a power of 2.=C2=A0 What is the appropriate =
+value ?<br>=C2=A022 =C2=A0* The complexity of {map,unmap}_single is linearl=
+y dependent on this value.<br>=C2=A023 =C2=A0*/<br>=C2=A024 //#define IO_TL=
+B_SEGSIZE=E2=96=B8=E2=96=B8=E2=96=B8=E2=96=B8=E2=96=B8=E2=96=B8=E2=96=B8=E2=
+=96=B8128<br>=C2=A025 #define IO_TLB_SEGSIZE=E2=96=B8=E2=96=B84096<br></div=
+><div>without this change I get this error:</div><div>[ =C2=A0 79.444987] v=
+3d fec00000.v3d: swiotlb buffer is full (sz: 8294400 bytes), total 32768 (s=
+lots), used 1 (slots)<br></div><div></div></div><br clear=3D"all"><div><br>=
+</div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><d=
+iv>Br,</div><div>Jukka Kaartinen</div></div></div></div>
+
+--000000000000574aa805b9a7d789--
 
