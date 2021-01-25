@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 650183025BA
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 14:51:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74088.133159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E61343025D0
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 15:00:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74094.133171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l42HR-0002jv-85; Mon, 25 Jan 2021 13:51:45 +0000
+	id 1l42Pi-0003mX-4X; Mon, 25 Jan 2021 14:00:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74088.133159; Mon, 25 Jan 2021 13:51:45 +0000
+Received: by outflank-mailman (output) from mailman id 74094.133171; Mon, 25 Jan 2021 14:00:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l42HR-0002jW-4v; Mon, 25 Jan 2021 13:51:45 +0000
-Received: by outflank-mailman (input) for mailman id 74088;
- Mon, 25 Jan 2021 13:51:44 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l42Pi-0003m7-0h; Mon, 25 Jan 2021 14:00:18 +0000
+Received: by outflank-mailman (input) for mailman id 74094;
+ Mon, 25 Jan 2021 14:00:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l42HQ-0002jR-Eg
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 13:51:44 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l42HQ-0005Pm-BB
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 13:51:44 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l42HQ-0004Cq-9q
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 13:51:44 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1l42HL-0003mk-En; Mon, 25 Jan 2021 13:51:39 +0000
+ (envelope-from <SRS0=gzjc=G4=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l42Pg-0003m1-JZ
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 14:00:16 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d9e1f663-09ce-4cc2-a363-61c03d79f94d;
+ Mon, 25 Jan 2021 14:00:15 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 78AC0AC45;
+ Mon, 25 Jan 2021 14:00:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,194 +38,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=z281Hj/3sB0EmWS2Yb/AJ4/BUXrugA4uJiMHT02PzaE=; b=a50IUzzL4gg9Cbjcqb25KYWNRM
-	GIz9GOmV7vaF91u6R+ctzw5Qha6hx//v8j2Svlpeuhr4I4WczNlL0ZPFHPwmYJtruOOSEYRav149W
-	OEJZUoCVQeefD557dm5yizjDnHuY1jPQWU593DQf0aga2dDRYboVDU9BFdtE3spwQegc=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: d9e1f663-09ce-4cc2-a363-61c03d79f94d
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611583214; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=sdcHMLB31tbVyd/BVCp9LaTCjmBsfraBzDo/3Q+9DY0=;
+	b=a+FXT8qjH2HLENLcySw+AEVEMq3UZKQkhDpMgaFFkB5quYElNpPQP/9K13VrYvtrJ2mk8E
+	HXo1oyd6S52wm9Ck4hPZD1//7kYwxWiQD3+kJo7VRZ+22wVC1mRDMla2ykm8i7igFHcxJa
+	1WuCmcl4PO8kMCN1ZzQbhfe2/WQ9KHg=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] x86/xen: avoid warning in Xen pv guest with CONFIG_AMD_MEM_ENCRYPT enabled
+Date: Mon, 25 Jan 2021 15:00:13 +0100
+Message-Id: <20210125140013.10198-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24590.52459.194044.857442@mariner.uk.xensource.com>
-Date: Mon, 25 Jan 2021 13:51:39 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Ian Jackson <iwj@xenproject.org>,
-    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Wei Liu <wl@xen.org>,
-    M A Young <m.a.young@durham.ac.uk>
-Subject: Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels
-In-Reply-To: <d541007c-9537-ba53-02f7-8ea90e9c89cf@suse.com>
-References: <aab9e3e6-5125-6b0a-6cd4-960fd783b1b2@suse.com>
-	<f23d219f-ea52-e472-b95f-2a7e359d44cc@suse.com>
-	<24590.44019.51460.33930@mariner.uk.xensource.com>
-	<d541007c-9537-ba53-02f7-8ea90e9c89cf@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Transfer-Encoding: 8bit
 
-Jan Beulich writes ("Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels"):
-> On 25.01.2021 12:30, Ian Jackson wrote:
-> >> As far as configure.ac goes, I'm pretty sure there is a better (more
-> >> "standard") way of using PKG_CHECK_MODULES().
-> > 
-> > Yes, what you have done is rather unidiomatic and seems to rely on
-> > undocumented internals of the PKG_*. macros.
-> 
-> Which specific part of the construct are you referring to?
-> I didn't think I used anything outright undocumented. Of
-> course I did have some trouble finding suitable docs, but in
-> the end I managed to locate at least something that I was
-> able to grok.
+When booting a kernel which has been built with CONFIG_AMD_MEM_ENCRYPT
+enabled as a Xen pv guest a warning is issued for each processor:
 
-I mean, the parts where you examine libzstd_PKG_ERRORS.
+[    5.964347] ------------[ cut here ]------------
+[    5.968314] WARNING: CPU: 0 PID: 1 at /home/gross/linux/head/arch/x86/xen/enlighten_pv.c:660 get_trap_addr+0x59/0x90
+[    5.972321] Modules linked in:
+[    5.976313] CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W         5.11.0-rc5-default #75
+[    5.980313] Hardware name: Dell Inc. OptiPlex 9020/0PC5F7, BIOS A05 12/05/2013
+[    5.984313] RIP: e030:get_trap_addr+0x59/0x90
+[    5.988313] Code: 42 10 83 f0 01 85 f6 74 04 84 c0 75 1d b8 01 00 00 00 c3 48 3d 00 80 83 82 72 08 48 3d 20 81 83 82 72 0c b8 01 00 00 00 eb db <0f> 0b 31 c0 c3 48 2d 00 80 83 82 48 ba 72 1c c7 71 1c c7 71 1c 48
+[    5.992313] RSP: e02b:ffffc90040033d38 EFLAGS: 00010202
+[    5.996313] RAX: 0000000000000001 RBX: ffffffff82a141d0 RCX: ffffffff8222ec38
+[    6.000312] RDX: ffffffff8222ec38 RSI: 0000000000000005 RDI: ffffc90040033d40
+[    6.004313] RBP: ffff8881003984a0 R08: 0000000000000007 R09: ffff888100398000
+[    6.008312] R10: 0000000000000007 R11: ffffc90040246000 R12: ffff8884082182a8
+[    6.012313] R13: 0000000000000100 R14: 000000000000001d R15: ffff8881003982d0
+[    6.016316] FS:  0000000000000000(0000) GS:ffff888408200000(0000) knlGS:0000000000000000
+[    6.020313] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    6.024313] CR2: ffffc900020ef000 CR3: 000000000220a000 CR4: 0000000000050660
+[    6.028314] Call Trace:
+[    6.032313]  cvt_gate_to_trap.part.7+0x3f/0x90
+[    6.036313]  ? asm_exc_double_fault+0x30/0x30
+[    6.040313]  xen_convert_trap_info+0x87/0xd0
+[    6.044313]  xen_pv_cpu_up+0x17a/0x450
+[    6.048313]  bringup_cpu+0x2b/0xc0
+[    6.052313]  ? cpus_read_trylock+0x50/0x50
+[    6.056313]  cpuhp_invoke_callback+0x80/0x4c0
+[    6.060313]  _cpu_up+0xa7/0x140
+[    6.064313]  cpu_up+0x98/0xd0
+[    6.068313]  bringup_nonboot_cpus+0x4f/0x60
+[    6.072313]  smp_init+0x26/0x79
+[    6.076313]  kernel_init_freeable+0x103/0x258
+[    6.080313]  ? rest_init+0xd0/0xd0
+[    6.084313]  kernel_init+0xa/0x110
+[    6.088313]  ret_from_fork+0x1f/0x30
+[    6.092313] ---[ end trace be9ecf17dceeb4f3 ]---
 
-> >  Why not do as was done for bz2, lzma, lzo2 ?
-> 
-> Because the pkg-config approach is more flexible - aiui
-> AC_CHECK_HEADER() and AC_CHECK_LIB() won't find a
-> dependency when sitting in some custom place, which the *.pc
-> files are specifically supposed to cover for.
+Reason is that there is no Xen pv trap entry for X86_TRAP_VC.
 
-Yes, sorry, I didn't mean to suggest that the use of PKG_CHECK_MODULES
-rather than AC_CHECK_LIB was wrong.  But I think you can just pass
-similar if-found and if-not-found fragments.  Maybe something like:
+Fix that by defining a trap entry for X86_TRAP_VC in Xen pv mode.
 
- AC_CHECK_LIB([lzo2], [lzo1x_decompress], [zlib="$zlib -DHAVE_LZO1X -llzo2"])
-+PKG_CHECK_MODULES([libzstd], [libzstd], [zlib="$zlib -DHAVE_ZSTD $libzstd_CFLAGS $libzstd_LIBS"])
+Fixes: 0786138c78e793 ("x86/sev-es: Add a Runtime #VC Exception Handler")
+Cc: <stable@vger.kernel.org> # v5.10
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ arch/x86/include/asm/idtentry.h |  3 +++
+ arch/x86/xen/enlighten_pv.c     | 11 +++++++++++
+ arch/x86/xen/xen-asm.S          |  3 +++
+ 3 files changed, 17 insertions(+)
 
-> >  Printing the errors to configure's terminal is
-> > not normally done, either.
-> 
-> With this you mean the AC_MSG_WARN()?
+diff --git a/arch/x86/include/asm/idtentry.h b/arch/x86/include/asm/idtentry.h
+index 247a60a47331..115a76e77e65 100644
+--- a/arch/x86/include/asm/idtentry.h
++++ b/arch/x86/include/asm/idtentry.h
+@@ -609,6 +609,9 @@ DECLARE_IDTENTRY_DF(X86_TRAP_DF,	exc_double_fault);
+ /* #VC */
+ #ifdef CONFIG_AMD_MEM_ENCRYPT
+ DECLARE_IDTENTRY_VC(X86_TRAP_VC,	exc_vmm_communication);
++#ifdef CONFIG_XEN_PV
++DECLARE_IDTENTRY_RAW(X86_TRAP_VC,	xenpv_exc_vmm_communication);
++#endif
+ #endif
+ 
+ #ifdef CONFIG_XEN_PV
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 4409306364dc..82948251f57b 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -583,6 +583,14 @@ DEFINE_IDTENTRY_RAW(xenpv_exc_debug)
+ 		exc_debug(regs);
+ }
+ 
++#ifdef CONFIG_AMD_MEM_ENCRYPT
++DEFINE_IDTENTRY_RAW(xenpv_exc_vmm_communication)
++{
++	/* This should never happen and there is no way to handle it. */
++	panic("X86_TRAP_VC in Xen PV mode.");
++}
++#endif
++
+ struct trap_array_entry {
+ 	void (*orig)(void);
+ 	void (*xen)(void);
+@@ -625,6 +633,9 @@ static struct trap_array_entry trap_array[] = {
+ 	TRAP_ENTRY(exc_coprocessor_error,		false ),
+ 	TRAP_ENTRY(exc_alignment_check,			false ),
+ 	TRAP_ENTRY(exc_simd_coprocessor_error,		false ),
++#ifdef CONFIG_AMD_MEM_ENCRYPT
++	TRAP_ENTRY_REDIR(exc_vmm_communication,		true ),
++#endif
+ };
+ 
+ static bool __ref get_trap_addr(void **addr, unsigned int ist)
+diff --git a/arch/x86/xen/xen-asm.S b/arch/x86/xen/xen-asm.S
+index 1cb0e84b9161..16f4db35de44 100644
+--- a/arch/x86/xen/xen-asm.S
++++ b/arch/x86/xen/xen-asm.S
+@@ -175,6 +175,9 @@ xen_pv_trap asm_exc_alignment_check
+ xen_pv_trap asm_exc_machine_check
+ #endif /* CONFIG_X86_MCE */
+ xen_pv_trap asm_exc_simd_coprocessor_error
++#ifdef CONFIG_AMD_MEM_ENCRYPT
++xen_pv_trap asm_xenpv_exc_vmm_communication
++#endif /* CONFIG_AMD_MEM_ENCRYPT */
+ #ifdef CONFIG_IA32_EMULATION
+ xen_pv_trap entry_INT80_compat
+ #endif
+-- 
+2.26.2
 
-I don't mind there being a call to AC_MSG_WARN.  I don't think I have
-a strong opinion about whether lack of zstd ought to produce a
-warning.  If there ought to be a warning, then it ought to be made
-with AC_MSG_WARN, indeed.
-
-I mean the inclusion of $libzstd_PKG_ERRORS in the output.
-
-> I'm okay to drop it; I was actually half tempted to myself already,
-> but thought having it would be better in line with
-> PKG_CHECK_MODULES() when not passed a 4th argument (where it gets
-> quite verbose, but of course also fails the configure process
-> altogether).
-
-Does it ?  Admittedly the documentation I found in pkg.m4 for these
-PKG_* macros doesn't say what the default is for ACTION-IF-NOT-FOUND
-but it would surely parallel all the autoconf-provided macros where
-the default is a no-op.  I read the autoconf output in your patch
-(where admitteedly you pass [true]) and that seems to support my
-supposition.
-
-If you want a warning I think it should be a call to AC_MSG_WARN in
-ACTION-IF-NOT-FOUND.
-
-> > I don't understand why there is an x86-specific angle here.
-> 
-> On a "normal" libxenguest build decompression is available
-> only on x86, because of
-> 
-> SRCS-$(CONFIG_X86)     += xg_dom_bzimageloader.c
-
-Oh!
-
-> Hence the dependencies thereof also only ought to need
-> checking on x86.
-
-I see.  Hmm.  TBH this seems anomalous.  I would prefer to keep the
-configure test and expect that eventually some non-x86 folsk will
-decide to turn this on there too.
-
-This suggests to me that a warning for missing zstd is not necessarily
-a good idea unless it is conditional for x86.
-
-> I have to admit I'm uncertain about the stubdom build. I was
-> merely implying that if decompression is unavailable in "normal"
-> builds outside of x86, then _if_ non-x86 builds of stubdom exist
-> in the first place, decompression code there is at best dead
-> (the quoted restriction from Makefile applies in this case too,
-> and hence I can't see callers of that code, despite
-> 
-> ifeq ($(CONFIG_LIBXC_MINIOS),y)
-> SRCS-y                 += xg_dom_decompress_unsafe.c
-> SRCS-y                 += xg_dom_decompress_unsafe_bzip2.c
-> SRCS-y                 += xg_dom_decompress_unsafe_lzma.c
-> SRCS-y                 += xg_dom_decompress_unsafe_lzo1x.c
-> SRCS-y                 += xg_dom_decompress_unsafe_xz.c
-> SRCS-y                 += xg_dom_decompress_unsafe_zstd.c
-> endif
-> 
-> not restricting it to x86).
-
-I think there is no mini-os and no stubdom build on ARM.  I don't
-think this is necessarily for any particularly principled reason
-except that minios in particular is not so easy to port.
-
-So that would explain why the build isn't broken despite this
-inconsistency.
-
-> >> This follows the logic used for other decompression methods utilizing an
-> >> external library, albeit here we can't ignore the 32-bit size field
-> >> appended to the compressed image - its presence causes decompression to
-> >> fail. Leverage the field instead to allocate the output buffer in one
-> >> go, i.e. without incrementally realloc()ing.
-> > 
-> >> +    insize = *size - 4;
-> >> +    outsize = *(uint32_t *)(*blob + insize);
-> > 
-> > Potentiallty unaligned access.  IDK if this kind of thing is thought
-> > OK in hypervisor code but it it's not sufficiently portable for tools.
-> 
-> Also a possible endianness issue, yes.
-
-The endianness issue at least just means "this code doesn't work and
-will always reject images".  The alignment issue might mean "feeding
-a corrupted image file will crash your management daemon".
-
-IDK what the zstd-defined endianness is.  I guess it must be LE for
-your patch to work on x86.
-
-> Since as per above this
-> code gets used on x86 only, I thought this would be fine at least
-> for now.
-
-I think that's too much of a boobytrap to leave in the code.
-
-> In fact before using this simplistic approach I did
-> check whether xg_dom_bzimageloader.c had suitable abstraction
-> available, yet I couldn't spot any.
-
-How unfortunate.  I have also hunted for some existing code and also
-didn't find anything suitably general.
-
-I did find this, open-coded in xg_dom_core.c:xc_dom_check_gzip:
-
-    unziplen = (size_t)gzlen[3] << 24 | gzlen[2] << 16 | gzlen[1] << 8 | gzlen[0];
-
-Maybe this could be moved to a macro or inline function in
-xg_private.h ?
-
-> > The rest of this code looks OK to me.  I spent quite a while trying to
-> > figure out the memory management / ownership rules for the interface
-> > to these decompression functions.  This business where they all
-> > allocate a new buffer, and overwrite their input pointer with it (but
-> > only on success), is pretty nasty.  I wasn't able to find where the
-> > old buffer was freed.  But the other decompressors all seem to work
-> > the same way.  Urgh.  In summary: nasty, but, this new code seems to
-> > follow the existing convension.
-> 
-> Yes, this isn't pretty, but looks to have served the purpose. I'd
-> be happy to see it improved, but I'm afraid beyond what's in this
-> series I won't have much time to help the overall situation.
-
-Quite so.  I'm certainly not suggesting that untangling that is a
-blocker for this patch.
-
-Thanks,
-Ian.
 
