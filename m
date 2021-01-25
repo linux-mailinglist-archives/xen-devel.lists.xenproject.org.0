@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9E523028E6
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 18:30:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74226.133371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 027D5302941
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 18:47:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74233.133382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l45h9-0007XY-3X; Mon, 25 Jan 2021 17:30:31 +0000
+	id 1l45wn-00008c-Gx; Mon, 25 Jan 2021 17:46:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74226.133371; Mon, 25 Jan 2021 17:30:31 +0000
+Received: by outflank-mailman (output) from mailman id 74233.133382; Mon, 25 Jan 2021 17:46:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l45h8-0007X9-Ul; Mon, 25 Jan 2021 17:30:30 +0000
-Received: by outflank-mailman (input) for mailman id 74226;
- Mon, 25 Jan 2021 17:30:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l45wn-00008I-D1; Mon, 25 Jan 2021 17:46:41 +0000
+Received: by outflank-mailman (input) for mailman id 74233;
+ Mon, 25 Jan 2021 17:46:40 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l45h7-0007X4-17
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 17:30:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l45h6-0001Cn-TR
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 17:30:28 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l45h6-000568-SZ
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 17:30:28 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1l45h3-0004HN-HR; Mon, 25 Jan 2021 17:30:25 +0000
+ (envelope-from <SRS0=l+K7=G4=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1l45wm-00008D-Ns
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 17:46:40 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c09683e1-25e9-4ffc-a8b2-f72b2ac7e944;
+ Mon, 25 Jan 2021 17:46:39 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 10PHkSI4009791
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 25 Jan 2021 12:46:33 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 10PHkRa6009790;
+ Mon, 25 Jan 2021 09:46:27 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,138 +42,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=Lc0C8IWNKpMjkpd/4whW0H5yvf6tll/G6UcAdZsWh68=; b=xQcHtZ/3eyji2D9C2VDL9T9czf
-	scs9hw25iMFOJG9IXn+BJyw6+OyTuRGx9h/WeXejwPP9e02sC+Ai4WTIbO+fNJTHA4v002G8Q+lSa
-	qbPyGUQHf7mnV1TZI2nPo5PwxDsN2RWQ/Tue5R6P1qUxYiI0ghGFe0iIBm5g4WjStI2E=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: c09683e1-25e9-4ffc-a8b2-f72b2ac7e944
+Date: Mon, 25 Jan 2021 09:46:27 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+        George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+        Roger Pau Monn?? <roger.pau@citrix.com>,
+        xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/pod: Do not fragment PoD memory allocations
+Message-ID: <YA8D85MoJ9lG0KJS@mattapan.m5p.com>
+References: <202101242308.10ON8Umj004866@m5p.com>
+ <b2ad35f1-3adf-a78a-5e82-2ac4a672d624@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24591.49.238509.216726@mariner.uk.xensource.com>
-Date: Mon, 25 Jan 2021 17:30:25 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    Wei Liu <wl@xen.org>,
-    M A Young <m.a.young@durham.ac.uk>
-Subject: Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels
-In-Reply-To: <cd06d04f-f1c4-0087-b46e-34648585fb5a@suse.com>
-References: <aab9e3e6-5125-6b0a-6cd4-960fd783b1b2@suse.com>
-	<f23d219f-ea52-e472-b95f-2a7e359d44cc@suse.com>
-	<24590.44019.51460.33930@mariner.uk.xensource.com>
-	<d541007c-9537-ba53-02f7-8ea90e9c89cf@suse.com>
-	<24590.52459.194044.857442@mariner.uk.xensource.com>
-	<6895299a-f2fd-7090-d0fa-dc7b2e54d1ba@suse.com>
-	<24590.56183.458644.60628@mariner.uk.xensource.com>
-	<6e988e9e-f8c2-13cb-79a4-1d8ae4e8a403@suse.com>
-	<24590.61205.393750.544294@mariner.uk.xensource.com>
-	<cd06d04f-f1c4-0087-b46e-34648585fb5a@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Disposition: inline
+In-Reply-To: <b2ad35f1-3adf-a78a-5e82-2ac4a672d624@suse.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-The quoted-reply part of this message may be going off into the weeds.
-Feel free to ignore it, or parts of it, if you think you can make
-progress without disabusing me of what I think are my
-misunderstandings...
-
-Jan Beulich writes ("Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels"):
-> On 25.01.2021 17:17, Ian Jackson wrote:
-> >  I don't understand why this
-> > situation should be handled differently for zstd than for any of the
-> > other calls to *PKG* (glib, pixman, libnl).
-> 
-> The difference is that glib and pixman aren't optional (if
-> building qemu), i.e. we want configure to fail if they can't
-> be found or are too old.
-
-Yes, but I think that just means adding the [true] fourth argument, to
-make failure to find the library a no-op.  I don't think it needs any
-more complex handling.  At least, I have not yet understood a need for
-more complex handling...
-
-> > Perhaps you experienced some issue which would have been fixed by the
-> > addition of the missing PKG_PROG_PKG_CONFIG ?
-> 
-> I don't think so, no, as I've not tried configuring in a way
-> where the earlier PKG_CHECK_MODULES() would be bypassed.
-
-I guess I should take care of this then, since I think it's probably
-an accident waiting to happen.
-
-> >> I can, but it feels wrong, in particular if I gave it a
-> >> generic looking name (get_unaligned_le32() or some such,
+On Mon, Jan 25, 2021 at 10:56:25AM +0100, Jan Beulich wrote:
+> On 24.01.2021 05:47, Elliott Mitchell wrote:
 > > 
-> > That would seem perfect to me.  I don't know what would be wrong
-> > with it.
+> > ---
+> > Changes in v2:
+> > - Include the obvious removal of the goto target.  Always realize you're
+> >   at the wrong place when you press "send".
 > 
-> Using this (most?) natural name has two issues in my view:
-> For one, it'll likely cause conflicts with how other code
-> (using hypervisor files) gets built. And then I consider it
-> odd to have just one out of a larger set of functions, but
-> I would consider it odd as well if I had to introduce them
-> all right here.
+> Please could you also label the submission then accordingly? I
+> got puzzled by two identically titled messages side by side,
+> until I noticed the difference.
 
-If you put this new definition in xg_private.h for now then it ought
-not to conflict with anyone else.  (Assuming it's a static inline, or
-a macro.  If it will have external linkage then it will need a name
-prefix which I would prefer to avoid.)
+Sorry about that.  Would you have preferred a third message mentioning
+this mistake?
 
-I think it best to add this one macro/inline now.  When someone wants
-more of these, they can add them.  If someone want them elsewhere they
-can do the work of finding or making a suitably central place.  If it
-weren't for the release timing I might think it better to add more,
-but my general rule is that steps towards the best possible situation
-are better than steps that go away from the best possible situation,
-even if the former are not complete.
-
-I think a reasonable alternative would be to arrange to import a
-comprehensive set from somewhere.
-
-> > I think we had concluded not to print a warning ?
+> > I'm not including a separate cover message since this is a single hunk.
+> > This really needs some checking in `xl`.  If one has a domain which
+> > sometimes gets started on different hosts and is sometimes modified with
+> > slightly differing settings, one can run into trouble.
+> > 
+> > In this case most of the time the particular domain is most often used
+> > PV/PVH, but every so often is used as a template for HVM.  Starting it
+> > HVM will trigger PoD mode.  If it is started on a machine with less
+> > memory than others, PoD may well exhaust all memory and then trigger a
+> > panic.
+> > 
+> > `xl` should likely fail HVM domain creation when the maximum memory
+> > exceeds available memory (never mind total memory).
 > 
-> Yes. Even in the projected new form of using the construct I
-> don't intend to change the description's wording, as the
-> intended use of [true] still looks like that can't be intended
-> usage. IOW my remark extended beyond the warning; I'm sorry if
-> this did end up confusing because you were referring to just
-> the warning.
+> I don't think so, no - it's the purpose of PoD to allow starting
+> a guest despite there not being enough memory available to
+> satisfy its "max", as such guests are expected to balloon down
+> immediately, rather than triggering an oom condition.
 
-I'm afraid I don't understand what you mean.  In particular, what you
-mean by "the intended use of [true] still looks like that can't be
-intended usage".
+Even Qemu/OVMF is expected to handle ballooning for a *HVM* domain?
 
-  the intended {by whom for what puropose?} use of [true] still looks
-  like that {what?} can't be intended {by whom?} usage
+> > For example try a domain with the following settings:
+> > 
+> > memory = 8192
+> > maxmem = 2147483648
+> > 
+> > If type is PV or PVH, it will likely boot successfully.  Change type to
+> > HVM and unless your hardware budget is impressive, Xen will soon panic.
+> 
+> Xen will panic? That would need fixing if so. Also I'd consider
+> an excessively high maxmem (compared to memory) a configuration
+> error. According to my experiments long, long ago I seem to
+> recall that a factor beyond 32 is almost never going to lead to
+> anything good, irrespective of guest type. (But as said, badness
+> here should be restricted to the guest; Xen itself should limp
+> on fine.)
 
-I have the feeling that I have totally failed to grasp your mental
-model, which naturally underlies your comments.
+I'll confess I haven't confirmed the panic is in Xen itself.  Problem is
+when this gets triggered, by the time the situation is clear and I can
+get to the console the computer is already restarting, thus no error
+message has been observed.
 
-Do you mean that with "true" for the 4th argument, the printed output
-is not correct, in the failure case ?  Maybe it needs a call to AC_MSG
-or something (but AIUI most of these PKG_* macros ought to do that for
-us).  I'm just guessing at your meaing here...
+This is most certainly a configuration error.  Problem is this is a very
+small delta between a perfectly valid configuration and the one which
+reliably triggers a panic.
 
-> >>>>> I mean the inclusion of $libzstd_PKG_ERRORS in the output.
-> >>>>
-> >>>> I see no point in the warning without including this. In fact
-> >>>> I added the AC_MSG_WARN() just so that the contents of this
-> >>>> variable (and hence an indication to the user of what to do)
-> >>>> was easily accessible.
-> >>>
-> >>> This is not usual autoconf practice.  The usual approach is to
-> >>> consider that missing features are just to be dealt with with a
-> >>> minimum of fuss.
-> >>
-> >> Which is why I made the description say what it says. Just
-> >> that - as per above - I don't see viable alternatives (yet).
+The memory:maxmem ratio isn't the problem.  My example had a maxmem of
+2147483648 since that is enough to exceed the memory of sub-$100K
+computers.  The crucial features are maxmem >= machine memory,
+memory < free memory (thus potentially bootable PV/PVH) and type = "hvm".
 
-Quoting this because I think it may still be relevant for
-understanding the foregoing...
+When was the last time you tried running a Xen machine with near zero
+free memory?  Perhaps in the past Xen kept the promise of never panicing
+on memory exhaustion, but this feels like this hasn't held for some time.
 
-Ian.
+
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
