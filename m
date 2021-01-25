@@ -2,30 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F796302FFF
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 00:21:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74558.134022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0CF030305A
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 00:41:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74564.134034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4BAH-0002Di-5b; Mon, 25 Jan 2021 23:20:57 +0000
+	id 1l4BTV-00043E-PG; Mon, 25 Jan 2021 23:40:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74558.134022; Mon, 25 Jan 2021 23:20:57 +0000
+Received: by outflank-mailman (output) from mailman id 74564.134034; Mon, 25 Jan 2021 23:40:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4BAH-0002DJ-2B; Mon, 25 Jan 2021 23:20:57 +0000
-Received: by outflank-mailman (input) for mailman id 74558;
- Mon, 25 Jan 2021 23:20:55 +0000
+	id 1l4BTV-00042p-Lh; Mon, 25 Jan 2021 23:40:49 +0000
+Received: by outflank-mailman (input) for mailman id 74564;
+ Mon, 25 Jan 2021 23:40:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wS9q=G4=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1l4BAF-0002DE-C5
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 23:20:55 +0000
-Received: from mail-ej1-x62d.google.com (unknown [2a00:1450:4864:20::62d])
+ <SRS0=DTVL=G4=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l4BTT-00042R-RH
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 23:40:47 +0000
+Received: from mail-lj1-x22b.google.com (unknown [2a00:1450:4864:20::22b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9c6ed374-a59c-4c2f-b464-ed3cbe259dd8;
- Mon, 25 Jan 2021 23:20:54 +0000 (UTC)
-Received: by mail-ej1-x62d.google.com with SMTP id 6so20498879ejz.5
- for <xen-devel@lists.xenproject.org>; Mon, 25 Jan 2021 15:20:54 -0800 (PST)
+ id 1ac0c8f2-9b31-4bc4-b557-d347b6ad0719;
+ Mon, 25 Jan 2021 23:40:46 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id i17so17506415ljn.1
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Jan 2021 15:40:46 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id t20sm1192938lji.36.2021.01.25.15.40.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Jan 2021 15:40:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,73 +41,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c6ed374-a59c-4c2f-b464-ed3cbe259dd8
+X-Inumbo-ID: 1ac0c8f2-9b31-4bc4-b557-d347b6ad0719
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=BboUDNpi1qHV92/H5x807xexcMW30ods8/jbdOk29x4=;
-        b=vG7uXI8qsdq4hmydKxfuyqDNgRvvKBGliwxX4Sd2bQ7W2NHWiZA7YXFaDnaRiggSId
-         6aYdl4WJ38yGfHyXUX+ACBIsQh6MCM4/CaBpYcmlw+uGKa6e3oUY8K7QMb5a56gAKgi4
-         cjf/WqA+/1HAO+uMP/pH59LTbv9l/4+Y3xn0zaBoGe06Fw4NazhexRbalxRMibm9jiMB
-         +QlDa+EoAYnntJfFifcl9w0TkUEJOZYJDlMCK03S5wITvuOw8BJXn+dcVbwKUtMkeTlQ
-         0I7dDqN7+c7KmaSeQxgVe0inwD49x3GGAFEADfij+cQ0oXnGSilzpiZF7wa4tA7jZQGE
-         lYuA==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=tiBZJgmqME3Y/Ik8DqD8nb0WRn+JEiUYia9+mCMJcLo=;
+        b=WfeaICBZfiDgheK0AbdKXPlboGwnRWrlLihwGT2zHgrMnhVk2GuLYV16mZ6XaZJuIO
+         rGZFFAinoBLihA3epGIQS59Z75RExvEnMGKnDsjkPfgfz7gL53D1BD5PPD0BwvDeAra7
+         pIfj2ZZqhxVZeL528FEXSYWY+YYA/Nz5q2LhDz5Jzcxti0KIs6Nlh3D8APZ9WFsOMrcr
+         rJvUaggiav3covc1PBc/+83T3LZ7sd3JoKpHV8TYu0RbE7lzXj4gZaUXTJcbU5TIOe7i
+         ZK0GnI2JyaaOsH/hrPRVUpMZYvRR+TohIIdY5Ig1GOpCoJQObiv7H9i1qv18L4MlDWvJ
+         15kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=BboUDNpi1qHV92/H5x807xexcMW30ods8/jbdOk29x4=;
-        b=H+2bRsmiYwgjAOEmN+K4SSlJtDYfkiTAmFCU/9snw2vHp3op5gVOgr3vKN8VlcULwy
-         1QQa2bMbi/cSS4c//UI0osjR/ZHoGeSq8Ny1YegKDxf+BFeGc+QJaZy2UN2jqwsA025E
-         y30l3eqCJ8HF0vuP7/vkI6QMSEw8A6TOb7War645YJUXOOnraTNLPxfFubbxy8GZWA/H
-         OWu48htxU4u00u+XtPOyL1x1soYmlC0YsfMRskoSkL5Ku4fo5igJtZS5YXEkl2F8CA1f
-         qTeUVR1jH/6vkIZRghpWIc6M5GO81AP7nVpQzCSOgOCo+pRARhgxddYbgR7ugEOPBqfG
-         /gvw==
-X-Gm-Message-State: AOAM533ya0gwR+s9TdcxPQq44yftydNn5COsOmXSCDxtMeIyYNwsR8Ia
-	s4vscthZfI7paM2JcezQuxYLH6LjddbpZ/4ajJg=
-X-Google-Smtp-Source: ABdhPJxwzFBqbjnJrt9b4PPtTelaW7Gyr6rhHcZmARgA+xNqZusO99bUxwkcjTWcOgErhb4HmiiAx6ez9OC5XSNI60c=
-X-Received: by 2002:a17:906:46d3:: with SMTP id k19mr1711584ejs.546.1611616853694;
- Mon, 25 Jan 2021 15:20:53 -0800 (PST)
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=tiBZJgmqME3Y/Ik8DqD8nb0WRn+JEiUYia9+mCMJcLo=;
+        b=CHDX61VS8ok+lrx/PVww4C02R/WB+2H+E0xxN9wwGGRiNjbCfoacC1iddWkoM6v3Ib
+         MVAZ75VKYLCa9Tub2jygjIKbprWqAzGgATZordVGhoZxjSEKEUgJ1KG5Gh7wYFkPU/qS
+         +pTUQEs6uutkX0T1+41ewa3zZZCNi9aoo2ivuuuOZ6c5XbWgFCxHrjK4H1daPcfXFk4r
+         M9AkK+xWkgLFb7wzZJXqbC7tUvXFXqfC+/6RQUpTpy7KhwO1uVC2WZOnifyuotzx2l+1
+         DFqRJzihi0PwHEv/neEZKAHAH4MWW6QkrdEAhbXVTYYBUBX2NnzOpTwxXAz1FBW/du8X
+         D/nw==
+X-Gm-Message-State: AOAM531cxvI+NkeYF1VD/EvHxVUH38AjO71dd+3KsROOKNQnuvTCDkYe
+	FjF84jJemmdCG0GLZkGEkmU=
+X-Google-Smtp-Source: ABdhPJziYJgPcYyO9wchJSdrIDiKKYgD5DkMvpIdt2Bs7Vouq/1lo6VTmC3DWwAFAyzNM7Z5o0wABw==
+X-Received: by 2002:a2e:9252:: with SMTP id v18mr1407650ljg.352.1611618045761;
+        Mon, 25 Jan 2021 15:40:45 -0800 (PST)
+Subject: Re: [PATCH V5 04/22] xen/ioreq: Make x86's IOREQ feature common
+To: Julien Grall <julien.grall.oss@gmail.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
+ <1611601709-28361-5-git-send-email-olekstysh@gmail.com>
+ <CAJ=z9a1c+obN3KW_cMr7OH0112_gHSxnAoEJb9qW6R1J38QgQQ@mail.gmail.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <20270711-36bc-6d7d-16cb-4572cace47ed@gmail.com>
+Date: Tue, 26 Jan 2021 01:40:39 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <161160798888.13183.15031685460985886988@c667a6b167f6> <alpine.DEB.2.21.2101251255430.20638@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.2101251255430.20638@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Mon, 25 Jan 2021 23:20:42 +0000
-Message-ID: <CAJ=z9a2YpESuHGfZXoRTGj5mxhwar37Na3eYkX90QffYKf1r1Q@mail.gmail.com>
-Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, famzheng@amazon.com, 
-	Doug Goldstein <cardoe@cardoe.com>, Wei Liu <wl@xen.org>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAJ=z9a1c+obN3KW_cMr7OH0112_gHSxnAoEJb9qW6R1J38QgQQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On Mon, 25 Jan 2021 at 20:56, Stefano Stabellini <sstabellini@kernel.org> wrote:
->
-> Julien,
 
-Hi,
+On 26.01.21 01:13, Julien Grall wrote:
+> Hi,
+
+Hi Julien
+
 
 >
-> This seems to be an arm randconfig failure:
+> On Mon, 25 Jan 2021 at 19:09, Oleksandr Tyshchenko <olekstysh@gmail.com> wrote:
+>> ***
+>> Please note, this patch depends on the following which is
+>> on review:
+>> https://patchwork.kernel.org/patch/11816689/
+>> The effort (to get it upstreamed) was paused because of
+>> the security issue around that code (XSA-348).
+>> ***
+> I read this comment as "This series should be applied on top the patch
+> X". However, looking at your branch, I can't see the patch. What did I
+> miss?
+You didn't miss anything. Patch series doesn't contain it. I mentioned 
+about this patch in order not to forget about it
+and draw reviewer's attention. Looks like, the activity (to get it 
+upstreamed) hasn't been resumed yet and I don't know what we should do 
+with that dependency
+in the context of this series...
+
+
 >
-> https://gitlab.com/xen-project/patchew/xen/-/pipelines/246632953
-> https://gitlab.com/xen-project/patchew/xen/-/jobs/985455044
+> Cheers,
 
-Thanks! The error is:
+-- 
+Regards,
 
-#'target_mem_ref' not supported by expression#'memory.c: In function
-'do_memory_op':
-memory.c:1210:18: error:  may be used uninitialized in this function
-[-Werror=maybe-uninitialized]
- 1210 |             rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 1211 |                                        _mfn(mfn_list[i]));
-      |                                        ~~~~~~~~~~~~~~~~~~
+Oleksandr Tyshchenko
 
-I found a few references online of the error message, but it is not
-clear what it means. From a quick look at Oleksandr's branch, I also
-can't spot anything unitialized. Any ideas?
-
-Cheers,
 
