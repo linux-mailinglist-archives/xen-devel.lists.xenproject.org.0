@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027D5302941
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 18:47:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74233.133382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 727DA30296D
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 18:59:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74240.133394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l45wn-00008c-Gx; Mon, 25 Jan 2021 17:46:41 +0000
+	id 1l468R-00019k-Q9; Mon, 25 Jan 2021 17:58:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74233.133382; Mon, 25 Jan 2021 17:46:41 +0000
+Received: by outflank-mailman (output) from mailman id 74240.133394; Mon, 25 Jan 2021 17:58:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l45wn-00008I-D1; Mon, 25 Jan 2021 17:46:41 +0000
-Received: by outflank-mailman (input) for mailman id 74233;
- Mon, 25 Jan 2021 17:46:40 +0000
+	id 1l468R-00019O-M0; Mon, 25 Jan 2021 17:58:43 +0000
+Received: by outflank-mailman (input) for mailman id 74240;
+ Mon, 25 Jan 2021 17:58:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l+K7=G4=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1l45wm-00008D-Ns
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 17:46:40 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ (envelope-from <SRS0=1+bL=G4=xen.org=tim@srs-us1.protection.inumbo.net>)
+ id 1l468Q-00019J-0C
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 17:58:42 +0000
+Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c09683e1-25e9-4ffc-a8b2-f72b2ac7e944;
- Mon, 25 Jan 2021 17:46:39 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 10PHkSI4009791
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 25 Jan 2021 12:46:33 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 10PHkRa6009790;
- Mon, 25 Jan 2021 09:46:27 -0800 (PST) (envelope-from ehem)
+ id d5cee7ba-c955-45d8-9562-4505f704050a;
+ Mon, 25 Jan 2021 17:58:41 +0000 (UTC)
+Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.3 (FreeBSD))
+ (envelope-from <tim@xen.org>)
+ id 1l468M-000DBO-ND; Mon, 25 Jan 2021 17:58:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,102 +38,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c09683e1-25e9-4ffc-a8b2-f72b2ac7e944
-Date: Mon, 25 Jan 2021 09:46:27 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
+X-Inumbo-ID: d5cee7ba-c955-45d8-9562-4505f704050a
+Date: Mon, 25 Jan 2021 17:58:38 +0000
+From: Tim Deegan <tim@xen.org>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-        George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
-        Roger Pau Monn?? <roger.pau@citrix.com>,
-        xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/pod: Do not fragment PoD memory allocations
-Message-ID: <YA8D85MoJ9lG0KJS@mattapan.m5p.com>
-References: <202101242308.10ON8Umj004866@m5p.com>
- <b2ad35f1-3adf-a78a-5e82-2ac4a672d624@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: Re: [PATCH] x86/shadow: replace stale literal numbers in
+ hash_{vcpu,domain}_foreach()
+Message-ID: <YA8GznIHJF04H2hs@deinos.phlegethon.org>
+References: <035e3959-d15b-e897-1c57-9ff713d64da3@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <b2ad35f1-3adf-a78a-5e82-2ac4a672d624@suse.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+In-Reply-To: <035e3959-d15b-e897-1c57-9ff713d64da3@suse.com>
+X-SA-Known-Good: Yes
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: tim@xen.org
+X-SA-Exim-Scanned: No (on deinos.phlegethon.org); SAEximRunCond expanded to false
 
-On Mon, Jan 25, 2021 at 10:56:25AM +0100, Jan Beulich wrote:
-> On 24.01.2021 05:47, Elliott Mitchell wrote:
-> > 
-> > ---
-> > Changes in v2:
-> > - Include the obvious removal of the goto target.  Always realize you're
-> >   at the wrong place when you press "send".
+At 12:07 +0100 on 25 Jan (1611576438), Jan Beulich wrote:
+> 15 apparently once used to be the last valid type to request a callback
+> for, and the dimension of the respective array. The arrays meanwhile are
+> larger than this (in a benign way, i.e. no caller ever sets a mask bit
+> higher than 15), dimensioned by SH_type_unused. Have the ASSERT()s
+> follow suit and add build time checks at the call sites.
 > 
-> Please could you also label the submission then accordingly? I
-> got puzzled by two identically titled messages side by side,
-> until I noticed the difference.
-
-Sorry about that.  Would you have preferred a third message mentioning
-this mistake?
-
-> > I'm not including a separate cover message since this is a single hunk.
-> > This really needs some checking in `xl`.  If one has a domain which
-> > sometimes gets started on different hosts and is sometimes modified with
-> > slightly differing settings, one can run into trouble.
-> > 
-> > In this case most of the time the particular domain is most often used
-> > PV/PVH, but every so often is used as a template for HVM.  Starting it
-> > HVM will trigger PoD mode.  If it is started on a machine with less
-> > memory than others, PoD may well exhaust all memory and then trigger a
-> > panic.
-> > 
-> > `xl` should likely fail HVM domain creation when the maximum memory
-> > exceeds available memory (never mind total memory).
+> Also adjust a comment naming the wrong of the two functions.
 > 
-> I don't think so, no - it's the purpose of PoD to allow starting
-> a guest despite there not being enough memory available to
-> satisfy its "max", as such guests are expected to balloon down
-> immediately, rather than triggering an oom condition.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Even Qemu/OVMF is expected to handle ballooning for a *HVM* domain?
+Reviewed-by: Tim Deegan <tim@xen.org>
 
-> > For example try a domain with the following settings:
-> > 
-> > memory = 8192
-> > maxmem = 2147483648
-> > 
-> > If type is PV or PVH, it will likely boot successfully.  Change type to
-> > HVM and unless your hardware budget is impressive, Xen will soon panic.
-> 
-> Xen will panic? That would need fixing if so. Also I'd consider
-> an excessively high maxmem (compared to memory) a configuration
-> error. According to my experiments long, long ago I seem to
-> recall that a factor beyond 32 is almost never going to lead to
-> anything good, irrespective of guest type. (But as said, badness
-> here should be restricted to the guest; Xen itself should limp
-> on fine.)
+> ---
+> The ASSERT()s being adjusted look redundant with the BUILD_BUG_ON()s
+> being added, so I wonder whether dropping them wouldn't be the better
+> route.
 
-I'll confess I haven't confirmed the panic is in Xen itself.  Problem is
-when this gets triggered, by the time the situation is clear and I can
-get to the console the computer is already restarting, thus no error
-message has been observed.
+I'm happy to keep both, as they do slightly different things.
 
-This is most certainly a configuration error.  Problem is this is a very
-small delta between a perfectly valid configuration and the one which
-reliably triggers a panic.
+Thanks for fixing this up!
 
-The memory:maxmem ratio isn't the problem.  My example had a maxmem of
-2147483648 since that is enough to exceed the memory of sub-$100K
-computers.  The crucial features are maxmem >= machine memory,
-memory < free memory (thus potentially bootable PV/PVH) and type = "hvm".
-
-When was the last time you tried running a Xen machine with near zero
-free memory?  Perhaps in the past Xen kept the promise of never panicing
-on memory exhaustion, but this feels like this hasn't held for some time.
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Tim.
 
