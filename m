@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D7BA302FE0
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 00:14:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74550.134007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F796302FFF
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 00:21:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74558.134022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4B3j-0001Fj-FX; Mon, 25 Jan 2021 23:14:11 +0000
+	id 1l4BAH-0002Di-5b; Mon, 25 Jan 2021 23:20:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74550.134007; Mon, 25 Jan 2021 23:14:11 +0000
+Received: by outflank-mailman (output) from mailman id 74558.134022; Mon, 25 Jan 2021 23:20:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4B3j-0001FG-As; Mon, 25 Jan 2021 23:14:11 +0000
-Received: by outflank-mailman (input) for mailman id 74550;
- Mon, 25 Jan 2021 23:14:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l4B3i-0001F7-3t; Mon, 25 Jan 2021 23:14:10 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l4B3h-00079Q-TP; Mon, 25 Jan 2021 23:14:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l4B3h-0005vv-I2; Mon, 25 Jan 2021 23:14:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l4B3h-0000bs-HK; Mon, 25 Jan 2021 23:14:09 +0000
+	id 1l4BAH-0002DJ-2B; Mon, 25 Jan 2021 23:20:57 +0000
+Received: by outflank-mailman (input) for mailman id 74558;
+ Mon, 25 Jan 2021 23:20:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wS9q=G4=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1l4BAF-0002DE-C5
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 23:20:55 +0000
+Received: from mail-ej1-x62d.google.com (unknown [2a00:1450:4864:20::62d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9c6ed374-a59c-4c2f-b464-ed3cbe259dd8;
+ Mon, 25 Jan 2021 23:20:54 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id 6so20498879ejz.5
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Jan 2021 15:20:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +37,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5W2KoTi5D9JR3jPlyxiT3h5iLXfrMjPXZWhp0cO9WJA=; b=0uWsXcCsIhooJbXwrodgFk2Yym
-	3tXjDoAg7FS6BEO4slSGicxcEazfMct4Kjd0yM9LKbbuuvweCpp1tK27s+bCNlIp75e8di/OUsNbN
-	UjwJvLYwy60s/g8KPvYkgwahx05f9KHRkSSWbB/Hg82jtWWdkIDM99Ivz5+d9849WFRs=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158618-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 9c6ed374-a59c-4c2f-b464-ed3cbe259dd8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=BboUDNpi1qHV92/H5x807xexcMW30ods8/jbdOk29x4=;
+        b=vG7uXI8qsdq4hmydKxfuyqDNgRvvKBGliwxX4Sd2bQ7W2NHWiZA7YXFaDnaRiggSId
+         6aYdl4WJ38yGfHyXUX+ACBIsQh6MCM4/CaBpYcmlw+uGKa6e3oUY8K7QMb5a56gAKgi4
+         cjf/WqA+/1HAO+uMP/pH59LTbv9l/4+Y3xn0zaBoGe06Fw4NazhexRbalxRMibm9jiMB
+         +QlDa+EoAYnntJfFifcl9w0TkUEJOZYJDlMCK03S5wITvuOw8BJXn+dcVbwKUtMkeTlQ
+         0I7dDqN7+c7KmaSeQxgVe0inwD49x3GGAFEADfij+cQ0oXnGSilzpiZF7wa4tA7jZQGE
+         lYuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=BboUDNpi1qHV92/H5x807xexcMW30ods8/jbdOk29x4=;
+        b=H+2bRsmiYwgjAOEmN+K4SSlJtDYfkiTAmFCU/9snw2vHp3op5gVOgr3vKN8VlcULwy
+         1QQa2bMbi/cSS4c//UI0osjR/ZHoGeSq8Ny1YegKDxf+BFeGc+QJaZy2UN2jqwsA025E
+         y30l3eqCJ8HF0vuP7/vkI6QMSEw8A6TOb7War645YJUXOOnraTNLPxfFubbxy8GZWA/H
+         OWu48htxU4u00u+XtPOyL1x1soYmlC0YsfMRskoSkL5Ku4fo5igJtZS5YXEkl2F8CA1f
+         qTeUVR1jH/6vkIZRghpWIc6M5GO81AP7nVpQzCSOgOCo+pRARhgxddYbgR7ugEOPBqfG
+         /gvw==
+X-Gm-Message-State: AOAM533ya0gwR+s9TdcxPQq44yftydNn5COsOmXSCDxtMeIyYNwsR8Ia
+	s4vscthZfI7paM2JcezQuxYLH6LjddbpZ/4ajJg=
+X-Google-Smtp-Source: ABdhPJxwzFBqbjnJrt9b4PPtTelaW7Gyr6rhHcZmARgA+xNqZusO99bUxwkcjTWcOgErhb4HmiiAx6ez9OC5XSNI60c=
+X-Received: by 2002:a17:906:46d3:: with SMTP id k19mr1711584ejs.546.1611616853694;
+ Mon, 25 Jan 2021 15:20:53 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158618: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=25fcedefaa9fcbd20203202aa1b73eef051a5fa9
-X-Osstest-Versions-That:
-    xen=1d24e551b99a85f50c69e72b7828a7d6c4c4e7a5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 25 Jan 2021 23:14:09 +0000
+References: <161160798888.13183.15031685460985886988@c667a6b167f6> <alpine.DEB.2.21.2101251255430.20638@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2101251255430.20638@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Mon, 25 Jan 2021 23:20:42 +0000
+Message-ID: <CAJ=z9a2YpESuHGfZXoRTGj5mxhwar37Na3eYkX90QffYKf1r1Q@mail.gmail.com>
+Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, famzheng@amazon.com, 
+	Doug Goldstein <cardoe@cardoe.com>, Wei Liu <wl@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 158618 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158618/
+On Mon, 25 Jan 2021 at 20:56, Stefano Stabellini <sstabellini@kernel.org> wrote:
+>
+> Julien,
 
-Failures :-/ but no regressions.
+Hi,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+>
+> This seems to be an arm randconfig failure:
+>
+> https://gitlab.com/xen-project/patchew/xen/-/pipelines/246632953
+> https://gitlab.com/xen-project/patchew/xen/-/jobs/985455044
 
-version targeted for testing:
- xen                  25fcedefaa9fcbd20203202aa1b73eef051a5fa9
-baseline version:
- xen                  1d24e551b99a85f50c69e72b7828a7d6c4c4e7a5
+Thanks! The error is:
 
-Last test of basis   158614  2021-01-25 18:02:33 Z    0 days
-Testing same since   158618  2021-01-25 21:01:28 Z    0 days    1 attempts
+#'target_mem_ref' not supported by expression#'memory.c: In function
+'do_memory_op':
+memory.c:1210:18: error:  may be used uninitialized in this function
+[-Werror=maybe-uninitialized]
+ 1210 |             rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1211 |                                        _mfn(mfn_list[i]));
+      |                                        ~~~~~~~~~~~~~~~~~~
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Paul Durrant <pdurrant@amazon.com>
-  Wei Liu <wl@xen.org>
+I found a few references online of the error message, but it is not
+clear what it means. From a quick look at Oleksandr's branch, I also
+can't spot anything unitialized. Any ideas?
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   1d24e551b9..25fcedefaa  25fcedefaa9fcbd20203202aa1b73eef051a5fa9 -> smoke
+Cheers,
 
