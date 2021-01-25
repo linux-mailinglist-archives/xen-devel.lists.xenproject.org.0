@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7260B3025AA
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 14:48:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74083.133147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 650183025BA
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 14:51:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74088.133159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l42D9-0001pI-Ll; Mon, 25 Jan 2021 13:47:19 +0000
+	id 1l42HR-0002jv-85; Mon, 25 Jan 2021 13:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74083.133147; Mon, 25 Jan 2021 13:47:19 +0000
+Received: by outflank-mailman (output) from mailman id 74088.133159; Mon, 25 Jan 2021 13:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l42D9-0001ot-IV; Mon, 25 Jan 2021 13:47:19 +0000
-Received: by outflank-mailman (input) for mailman id 74083;
- Mon, 25 Jan 2021 13:47:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l42HR-0002jW-4v; Mon, 25 Jan 2021 13:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 74088;
+ Mon, 25 Jan 2021 13:51:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dw2F=G4=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l42D8-0001oo-8p
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 13:47:18 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 182049ad-019b-4471-896d-ab1d4ca06e58;
- Mon, 25 Jan 2021 13:47:17 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 16147AC45;
- Mon, 25 Jan 2021 13:47:16 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1l42HQ-0002jR-Eg
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 13:51:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l42HQ-0005Pm-BB
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 13:51:44 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l42HQ-0004Cq-9q
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 13:51:44 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l42HL-0003mk-En; Mon, 25 Jan 2021 13:51:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,94 +41,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 182049ad-019b-4471-896d-ab1d4ca06e58
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611582436; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sLiddK6WxHpSs2F+LzPqIN9aPYHgm2uxw7VxXear1Zs=;
-	b=oP++ymbX6wai0GwW7D6qH9IxNhhHuF2nv7dcpfUyXlHJ810oI/uWcGbkYEEgPLTDdgAQc3
-	Xy1YD6gh9Ir970FgmVDuHHhOoTkWA6kkMOFHN9QOKiYdLtDfqZ0UISkhNMDaPvsns1sx6m
-	7xlavQesUsGoV7/3QOb6ppqmu+jVO+0=
-Subject: Re: [PATCH v4 02/10] evtchn: bind-interdomain doesn't need to hold
- both domains' event locks
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
- <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cf0a1c24-0146-1017-7310-9536f2ed0ad1@suse.com>
- <8b21ff13-d6ea-3fa5-8d87-c05157112e4b@suse.com>
- <ab03e9a4-5c5f-347f-f084-f587b95794e5@xen.org>
- <00f5f88e-5fa5-495a-520d-ba2221b8276b@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <279137db-d986-b370-ae31-4a792ec1e743@suse.com>
-Date: Mon, 25 Jan 2021 14:47:15 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=z281Hj/3sB0EmWS2Yb/AJ4/BUXrugA4uJiMHT02PzaE=; b=a50IUzzL4gg9Cbjcqb25KYWNRM
+	GIz9GOmV7vaF91u6R+ctzw5Qha6hx//v8j2Svlpeuhr4I4WczNlL0ZPFHPwmYJtruOOSEYRav149W
+	OEJZUoCVQeefD557dm5yizjDnHuY1jPQWU593DQf0aga2dDRYboVDU9BFdtE3spwQegc=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <00f5f88e-5fa5-495a-520d-ba2221b8276b@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24590.52459.194044.857442@mariner.uk.xensource.com>
+Date: Mon, 25 Jan 2021 13:51:39 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ian Jackson <iwj@xenproject.org>,
+    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Wei Liu <wl@xen.org>,
+    M A Young <m.a.young@durham.ac.uk>
+Subject: Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels
+In-Reply-To: <d541007c-9537-ba53-02f7-8ea90e9c89cf@suse.com>
+References: <aab9e3e6-5125-6b0a-6cd4-960fd783b1b2@suse.com>
+	<f23d219f-ea52-e472-b95f-2a7e359d44cc@suse.com>
+	<24590.44019.51460.33930@mariner.uk.xensource.com>
+	<d541007c-9537-ba53-02f7-8ea90e9c89cf@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 09.01.2021 17:14, Julien Grall wrote:
-> On 09/01/2021 15:41, Julien Grall wrote:
->> On 05/01/2021 13:09, Jan Beulich wrote:
->>> The local domain's lock is needed for the port allocation, but for the
->>> remote side the per-channel lock is sufficient. The per-channel locks
->>> then need to be acquired slightly earlier, though.
->>
->> I was expecting is little bit more information in the commit message 
->> because there are a few changes in behavior with this change:
->>
->>   1) AFAICT, evtchn_allocate_port() rely on rchn->state to be protected 
->> by the rd->event_lock. Now that you dropped the rd->event_lock, 
->> rchn->state may be accessed while it is updated in 
->> evtchn_bind_interdomain(). The port cannot go back to ECS_FREE here, but 
->> I think the access needs to be switched to {read, write}_atomic() or 
->> ACCESS_ONCE.
->>
->>    2) xsm_evtchn_interdomain() is now going to be called without the 
->> rd->event_lock. Can you confirm that the lock is not needed by XSM?
+Jan Beulich writes ("Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels"):
+> On 25.01.2021 12:30, Ian Jackson wrote:
+> >> As far as configure.ac goes, I'm pretty sure there is a better (more
+> >> "standard") way of using PKG_CHECK_MODULES().
+> > 
+> > Yes, what you have done is rather unidiomatic and seems to rely on
+> > undocumented internals of the PKG_*. macros.
 > 
-> Actually, I think there is a bigger issue. evtchn_close() will check 
-> chn1->state with just d1->event_lock held (IOW, there chn1->lock is not 
-> held).
-> 
-> If the remote domain happen to close the unbound port at the same time 
-> the local domain bound it, then you may end up in the following situation:
-> 
-> 
-> evtchn_bind_interdomain()        | evtchn_close()
->                                   |
->                                   |  switch ( chn1->state )
->                                   |  case ECS_UNBOUND:
->                                   |      /* nothing to do */
->     double_evtchn_lock()          |
->     rchn->state = ECS_INTERDOMAIN |
->     double_evtchn_unlock()        |
->                                   |  evtchn_write_lock(chn1)
->                                   |  evtchn_free(d1, chn1)
->                                   |  evtchn_write_unlock(chn1)
-> 
-> When the local domain will try to close the port, it will hit the 
-> BUG_ON(chn2->state != ECS_INTERDOMAIN) because the remote port were 
-> already freed.
+> Which specific part of the construct are you referring to?
+> I didn't think I used anything outright undocumented. Of
+> course I did have some trouble finding suitable docs, but in
+> the end I managed to locate at least something that I was
+> able to grok.
 
-Hmm, yes, thanks for spotting (and sorry for taking a while to
-reply).
+I mean, the parts where you examine libzstd_PKG_ERRORS.
 
-> I think this can be solved by acquiring the event lock earlier on in 
-> evtchn_close(). Although, this may become a can of worms as it would be 
-> more complex to prevent lock inversion because chn1->lock and chn2->lock.
+> >  Why not do as was done for bz2, lzma, lzo2 ?
+> 
+> Because the pkg-config approach is more flexible - aiui
+> AC_CHECK_HEADER() and AC_CHECK_LIB() won't find a
+> dependency when sitting in some custom place, which the *.pc
+> files are specifically supposed to cover for.
 
-Indeed. I think I'll give up on trying to eliminate the double
-per-domain event locking for the time being, and resubmit with
-both patches dropped.
+Yes, sorry, I didn't mean to suggest that the use of PKG_CHECK_MODULES
+rather than AC_CHECK_LIB was wrong.  But I think you can just pass
+similar if-found and if-not-found fragments.  Maybe something like:
 
-Jan
+ AC_CHECK_LIB([lzo2], [lzo1x_decompress], [zlib="$zlib -DHAVE_LZO1X -llzo2"])
++PKG_CHECK_MODULES([libzstd], [libzstd], [zlib="$zlib -DHAVE_ZSTD $libzstd_CFLAGS $libzstd_LIBS"])
+
+> >  Printing the errors to configure's terminal is
+> > not normally done, either.
+> 
+> With this you mean the AC_MSG_WARN()?
+
+I don't mind there being a call to AC_MSG_WARN.  I don't think I have
+a strong opinion about whether lack of zstd ought to produce a
+warning.  If there ought to be a warning, then it ought to be made
+with AC_MSG_WARN, indeed.
+
+I mean the inclusion of $libzstd_PKG_ERRORS in the output.
+
+> I'm okay to drop it; I was actually half tempted to myself already,
+> but thought having it would be better in line with
+> PKG_CHECK_MODULES() when not passed a 4th argument (where it gets
+> quite verbose, but of course also fails the configure process
+> altogether).
+
+Does it ?  Admittedly the documentation I found in pkg.m4 for these
+PKG_* macros doesn't say what the default is for ACTION-IF-NOT-FOUND
+but it would surely parallel all the autoconf-provided macros where
+the default is a no-op.  I read the autoconf output in your patch
+(where admitteedly you pass [true]) and that seems to support my
+supposition.
+
+If you want a warning I think it should be a call to AC_MSG_WARN in
+ACTION-IF-NOT-FOUND.
+
+> > I don't understand why there is an x86-specific angle here.
+> 
+> On a "normal" libxenguest build decompression is available
+> only on x86, because of
+> 
+> SRCS-$(CONFIG_X86)     += xg_dom_bzimageloader.c
+
+Oh!
+
+> Hence the dependencies thereof also only ought to need
+> checking on x86.
+
+I see.  Hmm.  TBH this seems anomalous.  I would prefer to keep the
+configure test and expect that eventually some non-x86 folsk will
+decide to turn this on there too.
+
+This suggests to me that a warning for missing zstd is not necessarily
+a good idea unless it is conditional for x86.
+
+> I have to admit I'm uncertain about the stubdom build. I was
+> merely implying that if decompression is unavailable in "normal"
+> builds outside of x86, then _if_ non-x86 builds of stubdom exist
+> in the first place, decompression code there is at best dead
+> (the quoted restriction from Makefile applies in this case too,
+> and hence I can't see callers of that code, despite
+> 
+> ifeq ($(CONFIG_LIBXC_MINIOS),y)
+> SRCS-y                 += xg_dom_decompress_unsafe.c
+> SRCS-y                 += xg_dom_decompress_unsafe_bzip2.c
+> SRCS-y                 += xg_dom_decompress_unsafe_lzma.c
+> SRCS-y                 += xg_dom_decompress_unsafe_lzo1x.c
+> SRCS-y                 += xg_dom_decompress_unsafe_xz.c
+> SRCS-y                 += xg_dom_decompress_unsafe_zstd.c
+> endif
+> 
+> not restricting it to x86).
+
+I think there is no mini-os and no stubdom build on ARM.  I don't
+think this is necessarily for any particularly principled reason
+except that minios in particular is not so easy to port.
+
+So that would explain why the build isn't broken despite this
+inconsistency.
+
+> >> This follows the logic used for other decompression methods utilizing an
+> >> external library, albeit here we can't ignore the 32-bit size field
+> >> appended to the compressed image - its presence causes decompression to
+> >> fail. Leverage the field instead to allocate the output buffer in one
+> >> go, i.e. without incrementally realloc()ing.
+> > 
+> >> +    insize = *size - 4;
+> >> +    outsize = *(uint32_t *)(*blob + insize);
+> > 
+> > Potentiallty unaligned access.  IDK if this kind of thing is thought
+> > OK in hypervisor code but it it's not sufficiently portable for tools.
+> 
+> Also a possible endianness issue, yes.
+
+The endianness issue at least just means "this code doesn't work and
+will always reject images".  The alignment issue might mean "feeding
+a corrupted image file will crash your management daemon".
+
+IDK what the zstd-defined endianness is.  I guess it must be LE for
+your patch to work on x86.
+
+> Since as per above this
+> code gets used on x86 only, I thought this would be fine at least
+> for now.
+
+I think that's too much of a boobytrap to leave in the code.
+
+> In fact before using this simplistic approach I did
+> check whether xg_dom_bzimageloader.c had suitable abstraction
+> available, yet I couldn't spot any.
+
+How unfortunate.  I have also hunted for some existing code and also
+didn't find anything suitably general.
+
+I did find this, open-coded in xg_dom_core.c:xc_dom_check_gzip:
+
+    unziplen = (size_t)gzlen[3] << 24 | gzlen[2] << 16 | gzlen[1] << 8 | gzlen[0];
+
+Maybe this could be moved to a macro or inline function in
+xg_private.h ?
+
+> > The rest of this code looks OK to me.  I spent quite a while trying to
+> > figure out the memory management / ownership rules for the interface
+> > to these decompression functions.  This business where they all
+> > allocate a new buffer, and overwrite their input pointer with it (but
+> > only on success), is pretty nasty.  I wasn't able to find where the
+> > old buffer was freed.  But the other decompressors all seem to work
+> > the same way.  Urgh.  In summary: nasty, but, this new code seems to
+> > follow the existing convension.
+> 
+> Yes, this isn't pretty, but looks to have served the purpose. I'd
+> be happy to see it improved, but I'm afraid beyond what's in this
+> series I won't have much time to help the overall situation.
+
+Quite so.  I'm certainly not suggesting that untangling that is a
+blocker for this patch.
+
+Thanks,
+Ian.
 
