@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 168ED302782
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 17:12:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74185.133294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27A2C302798
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Jan 2021 17:17:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74190.133306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l44SU-0008Mj-Gf; Mon, 25 Jan 2021 16:11:18 +0000
+	id 1l44YV-00006y-74; Mon, 25 Jan 2021 16:17:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74185.133294; Mon, 25 Jan 2021 16:11:18 +0000
+Received: by outflank-mailman (output) from mailman id 74190.133306; Mon, 25 Jan 2021 16:17:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l44SU-0008MK-Dj; Mon, 25 Jan 2021 16:11:18 +0000
-Received: by outflank-mailman (input) for mailman id 74185;
- Mon, 25 Jan 2021 16:11:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pamT=G4=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1l44SS-0008MF-FJ
- for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 16:11:16 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 12d718ae-7716-4881-a38b-90ea0e9e9df0;
- Mon, 25 Jan 2021 16:11:14 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D4B30ADD6;
- Mon, 25 Jan 2021 16:11:13 +0000 (UTC)
+	id 1l44YV-00006V-3u; Mon, 25 Jan 2021 16:17:31 +0000
+Received: by outflank-mailman (input) for mailman id 74190;
+ Mon, 25 Jan 2021 16:17:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l44YT-00006Q-MY
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 16:17:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l44YS-0008Q1-Pb
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 16:17:28 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l44YS-0005Ad-Nn
+ for xen-devel@lists.xenproject.org; Mon, 25 Jan 2021 16:17:28 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l44YP-00048D-Ji; Mon, 25 Jan 2021 16:17:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,138 +41,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12d718ae-7716-4881-a38b-90ea0e9e9df0
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611591074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YeI3WrI1MxUyDgAp5xzN5wRbVxSgZe6k/sWMR8hlgv4=;
-	b=rc1zVoCnal6ap5OEx0R5gjOLSO2t6Ai4pUwoR356XUSyFg6Dl5UVSyIcsqYY7NYIykiGox
-	JV5D8gHGkkwosZRFdCixsi+xXyLDfFtOFu1qGVyQys7S3K8RSI+Ql6mGb0FZprqFJR2fxW
-	MjfVXVSnvH0Y0jb8VrtwDL5W9KeBhgo=
-Message-ID: <d92c4191fb81e6d1de636f281c8624d68f8d14fc.camel@suse.com>
-Subject: Re: Null scheduler and vwfi native problem
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Julien Grall <julien@xen.org>, Anders =?ISO-8859-1?Q?T=F6rnqvist?=
-	 <anders.tornqvist@codiax.se>, xen-devel@lists.xenproject.org, Stefano
-	Stabellini <sstabellini@kernel.org>
-Date: Mon, 25 Jan 2021 17:11:12 +0100
-In-Reply-To: <744ddde6-a228-82fc-76b9-401926d7963b@xen.org>
-References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
-	 <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
-	 <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
-	 <e18ba69efd0d12fc489144024305fd3c6102c330.camel@suse.com>
-	 <e37fe8a9-c633-3572-e273-2fd03b35b791@codiax.se>
-	 <744ddde6-a228-82fc-76b9-401926d7963b@xen.org>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-AGSsqWDvMFt7mIVfEbUS"
-User-Agent: Evolution 3.38.3 (by Flathub.org) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=1aI9bTPPebZWaN5tVzPI7zqnxamWuLDel+uV/4/Tlfw=; b=A6Wf1KAgy+ZMzkrKfMXo8TCNyb
+	S4KoVSPxAmmjY0igVhzqvRm7NO+u/K6K3puyxdGwu2AJ+6b+6zaw0Sm62Ve0mo0Xx6YmkMs8TAz31
+	XSiArX2kq9ewtZPfj0oZKMViRyj0Bxjt5OPvG9dXxtmp6vSzqs84aJFnJ2B9KMe3Nxp8=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-
-
---=-AGSsqWDvMFt7mIVfEbUS
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2021-01-22 at 14:26 +0000, Julien Grall wrote:
-> Hi Anders,
->=20
-> On 22/01/2021 08:06, Anders T=C3=B6rnqvist wrote:
-> > On 1/22/21 12:35 AM, Dario Faggioli wrote:
-> > > On Thu, 2021-01-21 at 19:40 +0000, Julien Grall wrote:
-> > - booting with "sched=3Dnull vwfi=3Dnative" but not doing the IRQ=20
-> > passthrough that you mentioned above
-> > "xl destroy" gives
-> > (XEN) End of domain_destroy function
-> >=20
-> > Then a "xl create" says nothing but the domain has not started
-> > correct.=20
-> > "xl list" look like this for the domain:
-> > mydomu=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2=C2=A0=
-=C2=A0 512=C2=A0=C2=A0=C2=A0=C2=A0 1 ------=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0
-> > 0.0
->=20
-> This is odd. I would have expected ``xl create`` to fail if something
-> went wrong with the domain creation.
->
-So, Anders, would it be possible to issue a:
-
-# xl debug-keys r
-# xl dmesg
-
-And send it to us ?
-
-Ideally, you'd do it:
- - with Julien's patch (the one he sent the other day, and that you=C2=A0
-   have already given a try to) applied
- - while you are in the state above, i.e., after having tried to=C2=A0
-   destroy a domain and failing
- - and maybe again after having tried to start a new domain
-
-> One possibility is the NULL scheduler doesn't release the pCPUs until
-> the domain is fully destroyed. So if there is no pCPU free, it
-> wouldn't=20
-> be able to schedule the new domain.
->=20
-> However, I would have expected the NULL scheduler to refuse the
-> domain=20
-> to create if there is no pCPU available.
->=20
-Yeah but, unfortunately, the scheduler does not have it easy to fail
-domain creation at this stage (i.e., when we realize there are no
-available pCPUs). That's the reason why the NULL scheduler has a
-waitqueue, where vCPUs that cannot be put on any pCPU are put.
-
-Of course, this is a configuration error (or a bug, like maybe in this
-case :-/), and we print warnings when it happens.
-
-> @Dario, @Stefano, do you know when the NULL scheduler decides to=20
-> allocate the pCPU?
->=20
-On which pCPU to allocate a vCPU is decided in null_unit_insert(),
-called from sched_alloc_unit() and sched_init_vcpu().
-
-On the other hand, a vCPU is properly removed from its pCPU, hence
-making the pCPU free for being assigned to some other vCPU, in
-unit_deassign(), called from null_unit_remove(), which in turn is
-called from sched_destroy_vcpu() Which is indeed called from
-complete_domain_destroy().
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-AGSsqWDvMFt7mIVfEbUS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24590.61205.393750.544294@mariner.uk.xensource.com>
+Date: Mon, 25 Jan 2021 16:17:25 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Wei Liu <wl@xen.org>,
+    M A Young <m.a.young@durham.ac.uk>
+Subject: Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels
+In-Reply-To: <6e988e9e-f8c2-13cb-79a4-1d8ae4e8a403@suse.com>
+References: <aab9e3e6-5125-6b0a-6cd4-960fd783b1b2@suse.com>
+	<f23d219f-ea52-e472-b95f-2a7e359d44cc@suse.com>
+	<24590.44019.51460.33930@mariner.uk.xensource.com>
+	<d541007c-9537-ba53-02f7-8ea90e9c89cf@suse.com>
+	<24590.52459.194044.857442@mariner.uk.xensource.com>
+	<6895299a-f2fd-7090-d0fa-dc7b2e54d1ba@suse.com>
+	<24590.56183.458644.60628@mariner.uk.xensource.com>
+	<6e988e9e-f8c2-13cb-79a4-1d8ae4e8a403@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
------BEGIN PGP SIGNATURE-----
+I have a feeling we may be talking at cross purposes rather too much.
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmAO7aAACgkQFkJ4iaW4
-c+7UphAAj12367kpLWIKGNZH5na2LjBsIU4D0OXqdnQ1VYJb2iy22ZjdLVUNw9AX
-/WO2kWq6Nt30nTVIQPt+/spuEM0Q+8sNyG5x66shoKBekkjxBfsBRM3LOLgrWVC1
-KR6FXDxCsB5RoNR0kHGoQ8u9Wh+4+DT8nxH4bb0PnaGAPOhmFqt/nPNq74hFihsQ
-FAXTKEdwowlT8TIttmGOB3GCcU5RDQ0AisxMoUQH4YGBZjZTnAnnXvAqvHQO1v1s
-+IH+CIrw/K1uZiAGhi4wkFTKteK72TqnBxQaMrygz51IE+BUhRc1/rtFilLLeAam
-nx12dQDhwA1RUArjttXkTv7S0/2PQPeopJkh54/CCgLAIPfq9lWgpc8E7OmIgWMO
-0ZT3Wq5Nz7iouIrp7o+EEIEK0jV8uXvVW17J9h3yQNdyMdbA5U95mjwk/vdvvTds
-5FMgajiX0pXYnMDrmpB7wMWLS1tmn8CnWS7+MnhB4DydUMIxc7od/u0aTH1IrEqj
-pkBTTE58NqTtaI34grNZj1NUQAnQ06YFokrpU+i2o56nmFY40tLb5LtkVEEIMkBM
-RhhtKjCq4usFqDpOiNoTWwzLEYwyLn0sagyN49bQ3HCUynAyCbnvhOXXgFBXxXqT
-lr98e0H/lR2wuB4HSeWav5Ph84etS5q0mnyOHGMEOU1qpshvhpA=
-=PHKU
------END PGP SIGNATURE-----
+Jan Beulich writes ("Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels"):
+> On 25.01.2021 15:53, Ian Jackson wrote:
+> > Well how about passing "true" for the fourth argument then ?
+> 
+> That I did try intermediately, but didn't ever post. It'll
+> screw up when libzstd_CFLAGS and libzstd_LIBS were provided
+> to override pkg-config. When you look at the expanded code,
+> this will end up with pkg_failed set to "untried" and still
+> take the error path. I.e. we wouldn't get the overridden
+> settings appended to $zlib.
 
---=-AGSsqWDvMFt7mIVfEbUS--
+I infer you're reading the autoonf output.  I think pkg_failed is
+something to do with tracking whether pkg-config exists at all.  In
+general, reading autoconf output is an act of desperation when RTFM
+and so on fails.  The output is typically much more complicated than
+the input and can be quite confusing.
 
+I noticed that configure.ac fails to say PKG_PROG_PKG_CONFIG contrary
+to the imprecations in the documentation.  For example, for
+PKG_CHECK_MODULES we have:
+
+ | # Note that if there is a possibility the first call to
+ | # PKG_CHECK_MODULES might not happen, you should be sure to include
+ | # an explicit call to PKG_PROG_PKG_CONFIG in your configure.ac
+ 
+Indeed our first call to PKG_CHECK_* in the existing configure.ac is
+within an if and there is no call to PKG_PROG_PKG_CONFIG.  I think one
+should be added probably somewhere near the top (eg, just after
+AX_XEN_EXPAND_CONFIG).
+
+I'm not sure exactly what you mean in your paragraph I quote above.  I
+think you mean that if the user supplies the options on the command
+line bugt pkg-config is absent ?  I don't understand why this
+situation should be handled differently for zstd than for any of the
+other calls to *PKG* (glib, pixman, libnl).
+
+Perhaps you experienced some issue which would have been fixed by the
+addition of the missing PKG_PROG_PKG_CONFIG ?
+
+(Also I note that the docs for PKG_CHECK_EXISTS contain a confusing
+slip: there it says "you have to call PKG_CHECK_EXISTS manually" but
+surely it must mean PKG_PROG_PKG_CONFIG.)
+
+> >>> If you want a warning I think it should be a call to AC_MSG_WARN in
+> >>> ACTION-IF-NOT-FOUND.
+> >>
+> >> I didn't to avoid the nesting of things yielding even harder
+> >> to read code.
+> > 
+> > In your code it's nested too, just in an if rather than the in the
+> > macro argument - but with a separate condition.  Please do it the
+> > "usual autoconf way".
+> 
+> Pieces of shell code look to be permitted - a few lines down
+> from the addition to configure.ac there is a shell case
+> statement. Or are you telling me that's an abuse I shouldn't
+> follow? But then I still don't see how to sensibly replace
+> the construct, given the issue described further up.
+
+I don't understand what you are getting at.  I think you must have
+misunderstood me.
+
+You explained that you preferred not to use the 4th argument,
+ACTION-IF-NOT-FOUND, "to avoid nesting".  I was trying to say that I
+didn't think this was a good reason and that instead putting the code
+in a separate conditional is not warranted here (and not idiomatic).
+
+There is nothing wrong[1] with including (cautious) shell code in
+configure.ac, so that was not part of my argument.
+
+> >>>     unziplen = (size_t)gzlen[3] << 24 | gzlen[2] << 16 | gzlen[1] << 8 | gzlen[0];
+> >>
+> >> Okay, I'll copy that then.
+> > 
+> > Could you make a macro or inline function in xg_private.h[1] rather
+> > than open-coding a copy, please ?
+> > 
+> > [1] Or, if you prefer, a header with wider scope.
+> 
+> I can, but it feels wrong, in particular if I gave it a
+> generic looking name (get_unaligned_le32() or some such,
+
+That would seem perfect to me.  I don't know what would be wrong
+with it.
+
+> >>> I mean the inclusion of $libzstd_PKG_ERRORS in the output.
+> >>
+> >> I see no point in the warning without including this. In fact
+> >> I added the AC_MSG_WARN() just so that the contents of this
+> >> variable (and hence an indication to the user of what to do)
+> >> was easily accessible.
+> > 
+> > This is not usual autoconf practice.  The usual approach is to
+> > consider that missing features are just to be dealt with with a
+> > minimum of fuss.
+> 
+> Which is why I made the description say what it says. Just
+> that - as per above - I don't see viable alternatives (yet).
+
+I think we had concluded not to print a warning ?
+
+Ian.
+
+[1] Contrary to the autoconf docs, which were written for a time when
+even some very basic shell constructs such as "if" statements were not
+always reliable.  In xen.git we can assume a vaguely posix shell.
 
