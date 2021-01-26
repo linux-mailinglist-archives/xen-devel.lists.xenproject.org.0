@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA58930375F
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 08:38:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74638.134136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4708B303773
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 08:47:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74644.134148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4IuT-0003Mx-Vy; Tue, 26 Jan 2021 07:37:09 +0000
+	id 1l4J4A-0004Lt-2Z; Tue, 26 Jan 2021 07:47:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74638.134136; Tue, 26 Jan 2021 07:37:09 +0000
+Received: by outflank-mailman (output) from mailman id 74644.134148; Tue, 26 Jan 2021 07:47:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4IuT-0003MX-Sa; Tue, 26 Jan 2021 07:37:09 +0000
-Received: by outflank-mailman (input) for mailman id 74638;
- Tue, 26 Jan 2021 07:37:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4J49-0004LU-VW; Tue, 26 Jan 2021 07:47:09 +0000
+Received: by outflank-mailman (input) for mailman id 74644;
+ Tue, 26 Jan 2021 07:47:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ElsB=G5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4IuS-0003MS-6t
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 07:37:08 +0000
+ id 1l4J49-0004LP-4q
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 07:47:09 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3e631714-eaa1-4f05-aa19-6ce78bf1af28;
- Tue, 26 Jan 2021 07:37:07 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 98550fd1-130f-4720-911b-ec4d34664f43;
+ Tue, 26 Jan 2021 07:47:08 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 734D0AE91;
- Tue, 26 Jan 2021 07:37:06 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 24A9AADD6;
+ Tue, 26 Jan 2021 07:47:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,85 +38,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e631714-eaa1-4f05-aa19-6ce78bf1af28
+X-Inumbo-ID: 98550fd1-130f-4720-911b-ec4d34664f43
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611646626; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611647227; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7G6M7VLWX2HfWjv+I3yeJvp2R6zYlznnwDW9sQHn3Zo=;
-	b=ZMjFlVFo6ZjQcA1AubsU4mO0loUnYglkVC0oZ1rZ2Z63ICoJ37j3ltwdlHltbebw2XvJGv
-	n1XKD4JReyldqTiuj+US0l/I1eVd6ZzMeHZFgsW24bCmlxxspsLRMWaUazbmnIYTcnKY6o
-	nxsNaBuR48bvne5sJ2oPBO6aWdFMA2Q=
-Subject: Re: [PATCH v7 04/10] xen/memory: Add a vmtrace_buf resource type
+	bh=05TI/LbH1TkAQncD73H4V2pFWpEiY3ytCnf759tyVOc=;
+	b=eLN0ZyBKkhuM/QmgUOn7MoC2FSkPrECgL53xf3ZaT/l7jVNVLMMAi5JyZbipyIlz98VPV1
+	KHlblwC6JrQ4HXX1ZtJmjJmpFviPvUFpkVxLtk+Cv7S86Hxc6rftXVTqmZJNTFDYwsDpSv
+	G8pVhWHVEcqPHKPkFYDS0eJjkJWCK+I=
+Subject: Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels
+To: Ian Jackson <iwj@xenproject.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ M A Young <m.a.young@durham.ac.uk>
+References: <aab9e3e6-5125-6b0a-6cd4-960fd783b1b2@suse.com>
+ <f23d219f-ea52-e472-b95f-2a7e359d44cc@suse.com>
+ <24590.44019.51460.33930@mariner.uk.xensource.com>
+ <d541007c-9537-ba53-02f7-8ea90e9c89cf@suse.com>
+ <24590.52459.194044.857442@mariner.uk.xensource.com>
+ <6895299a-f2fd-7090-d0fa-dc7b2e54d1ba@suse.com>
+ <24590.56183.458644.60628@mariner.uk.xensource.com>
+ <6e988e9e-f8c2-13cb-79a4-1d8ae4e8a403@suse.com>
+ <24590.61205.393750.544294@mariner.uk.xensource.com>
+ <cd06d04f-f1c4-0087-b46e-34648585fb5a@suse.com>
+ <24591.49.238509.216726@mariner.uk.xensource.com>
 From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210121212718.2441-1-andrew.cooper3@citrix.com>
- <20210121212718.2441-5-andrew.cooper3@citrix.com>
- <7702d1d6-86c9-af43-c9a9-f5ec082bad2d@suse.com>
-Message-ID: <226c4857-b0f7-f7f8-f353-e7331cce6e46@suse.com>
-Date: Tue, 26 Jan 2021 08:37:02 +0100
+Message-ID: <9f2e20ae-ab61-329e-9894-7c6b964edfbf@suse.com>
+Date: Tue, 26 Jan 2021 08:47:07 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <7702d1d6-86c9-af43-c9a9-f5ec082bad2d@suse.com>
+In-Reply-To: <24591.49.238509.216726@mariner.uk.xensource.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 25.01.2021 17:31, Jan Beulich wrote:
-> On 21.01.2021 22:27, Andrew Cooper wrote:
->> --- a/xen/common/memory.c
->> +++ b/xen/common/memory.c
->> @@ -1068,11 +1068,35 @@ static unsigned int resource_max_frames(const struct domain *d,
->>      case XENMEM_resource_grant_table:
->>          return gnttab_resource_max_frames(d, id);
->>  
->> +    case XENMEM_resource_vmtrace_buf:
->> +        return d->vmtrace_frames;
->> +
->>      default:
->>          return arch_resource_max_frames(d, type, id);
->>      }
->>  }
->>  
->> +static int acquire_vmtrace_buf(
->> +    struct domain *d, unsigned int id, unsigned long frame,
->> +    unsigned int nr_frames, xen_pfn_t mfn_list[])
->> +{
->> +    const struct vcpu *v = domain_vcpu(d, id);
->> +    unsigned int i;
->> +    mfn_t mfn;
->> +
->> +    if ( !v || !v->vmtrace.buf ||
->> +         nr_frames > d->vmtrace_frames ||
->> +         (frame + nr_frames) > d->vmtrace_frames )
->> +        return -EINVAL;
+On 25.01.2021 18:30, Ian Jackson wrote:
+> Jan Beulich writes ("Re: [PATCH v2.5 1/5] libxenguest: support zstd compressed kernels"):
+>> On 25.01.2021 17:17, Ian Jackson wrote:
+>>> I think we had concluded not to print a warning ?
+>>
+>> Yes. Even in the projected new form of using the construct I
+>> don't intend to change the description's wording, as the
+>> intended use of [true] still looks like that can't be intended
+>> usage. IOW my remark extended beyond the warning; I'm sorry if
+>> this did end up confusing because you were referring to just
+>> the warning.
 > 
+> I'm afraid I don't understand what you mean.  In particular, what you
+> mean by "the intended use of [true] still looks like that can't be
+> intended usage".
 > 
-> I think that for this to guard against overflow, the first nr_frames
-> needs to be replaced by frame (as having the wider type), or else a
-> very large value of frame coming in will not yield the intended
-> -EINVAL.
+>   the intended {by whom for what puropose?} use of [true] still looks
+>   like that {what?} can't be intended {by whom?} usage
+> 
+> I have the feeling that I have totally failed to grasp your mental
+> model, which naturally underlies your comments.
+> 
+> Do you mean that with "true" for the 4th argument, the printed output
+> is not correct, in the failure case ?  Maybe it needs a call to AC_MSG
+> or something (but AIUI most of these PKG_* macros ought to do that for
+> us).  I'm just guessing at your meaing here...
 
-Actually, besides this then wanting to be >= instead of >, this
-wouldn't take care of the 32-bit case (or more generally the
-sizeof(long) == sizeof(int) one). So I think you want
+Well, I'm afraid I'm ending up confusing you because I'm confused
+about the possible intentions here. My initial attempt to avoid
+configure failing was to specify [] as the 4th argument. This, to
+me, would have felt the half-way natural indication that I don't
+mean anything to be done in the failure case, neither autoconf's
+default nor anything else. [true], otoh, already feels like a
+workaround for some shortcoming.
 
-    if ( !v || !v->vmtrace.buf ||
-         (frame + nr_frames) < frame ||
-         (frame + nr_frames) > d->vmtrace_frames )
-        return -EINVAL;
-
-> If you agree, with this changed,
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-This holds.
+Anyway - I guess we should continue from v3, which I hope to post
+later this morning.
 
 Jan
 
