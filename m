@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32F35304596
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 18:45:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75380.135717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2DCA3045B5
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 18:51:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75386.135728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4SOD-00053n-Jc; Tue, 26 Jan 2021 17:44:29 +0000
+	id 1l4SUv-00062J-JG; Tue, 26 Jan 2021 17:51:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75380.135717; Tue, 26 Jan 2021 17:44:29 +0000
+Received: by outflank-mailman (output) from mailman id 75386.135728; Tue, 26 Jan 2021 17:51:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4SOD-00053N-FQ; Tue, 26 Jan 2021 17:44:29 +0000
-Received: by outflank-mailman (input) for mailman id 75380;
- Tue, 26 Jan 2021 17:44:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3HxG=G5=lip6.fr=manuel.bouyer@srs-us1.protection.inumbo.net>)
- id 1l4SOB-00053I-Cj
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 17:44:27 +0000
-Received: from isis.lip6.fr (unknown [2001:660:3302:283c::2])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 28156956-db74-4e59-b51d-c5c991cca99e;
- Tue, 26 Jan 2021 17:44:26 +0000 (UTC)
-Received: from asim.lip6.fr (asim.lip6.fr [132.227.86.2])
- by isis.lip6.fr (8.15.2/8.15.2) with ESMTP id 10QHiFG7008650;
- Tue, 26 Jan 2021 18:44:15 +0100 (CET)
-Received: from armandeche.soc.lip6.fr (armandeche [132.227.63.133])
- by asim.lip6.fr (8.15.2/8.14.4) with ESMTP id 10QHiFrm009952;
- Tue, 26 Jan 2021 18:44:15 +0100 (MET)
-Received: by armandeche.soc.lip6.fr (Postfix, from userid 20331)
- id 2A46F7218; Tue, 26 Jan 2021 18:44:15 +0100 (MET)
+	id 1l4SUv-00061f-G9; Tue, 26 Jan 2021 17:51:25 +0000
+Received: by outflank-mailman (input) for mailman id 75386;
+ Tue, 26 Jan 2021 17:51:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7V+q=G5=m5p.com=ehem@srs-us1.protection.inumbo.net>)
+ id 1l4SUu-00061H-Fq
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 17:51:24 +0000
+Received: from mailhost.m5p.com (unknown [74.104.188.4])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0a991c8a-4a7f-41ef-b070-8113926b1cfc;
+ Tue, 26 Jan 2021 17:51:22 +0000 (UTC)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 10QHpBw4017590
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 26 Jan 2021 12:51:17 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.15.2/8.15.2/Submit) id 10QHpBrV017589;
+ Tue, 26 Jan 2021 09:51:11 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,116 +43,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28156956-db74-4e59-b51d-c5c991cca99e
-Date: Tue, 26 Jan 2021 18:44:15 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
+X-Inumbo-ID: 0a991c8a-4a7f-41ef-b070-8113926b1cfc
+Date: Tue, 26 Jan 2021 09:51:11 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
-        Anthony PERARD <anthony.perard@citrix.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        George Dunlap <george.dunlap@citrix.com>,
-        Julien Grall <julien@xen.org>,
-        Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+        George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+        Roger Pau Monn?? <roger.pau@citrix.com>,
         xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] Fix error: array subscript has type 'char'
-Message-ID: <20210126174415.GA21858@mail.soc.lip6.fr>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
- <574d9ed8-c827-6864-4732-4e1b813fc3e3@suse.com>
- <20210114122912.GA2522@antioche.eu.org>
- <1af2b532-4dce-29cf-94ae-ad0c399ecbce@suse.com>
- <20210114141615.GA9157@mail.soc.lip6.fr>
+Subject: Re: [PATCH] x86/pod: Do not fragment PoD memory allocations
+Message-ID: <YBBWj7NO+1HVKEgX@mattapan.m5p.com>
+References: <202101242308.10ON8Umj004866@m5p.com>
+ <b2ad35f1-3adf-a78a-5e82-2ac4a672d624@suse.com>
+ <YA8D85MoJ9lG0KJS@mattapan.m5p.com>
+ <c0a70f39-d529-6ee4-511d-e82730c14879@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210114141615.GA9157@mail.soc.lip6.fr>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (isis.lip6.fr [132.227.60.2]); Tue, 26 Jan 2021 18:44:16 +0100 (CET)
-X-Scanned-By: MIMEDefang 2.78 on 132.227.60.2
+In-Reply-To: <c0a70f39-d529-6ee4-511d-e82730c14879@suse.com>
+X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
+	autolearn=unavailable autolearn_force=no version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
 
-On Thu, Jan 14, 2021 at 03:16:15PM +0100, Manuel Bouyer wrote:
-> On Thu, Jan 14, 2021 at 02:25:05PM +0100, Jan Beulich wrote:
-> > On 14.01.2021 13:29, Manuel Bouyer wrote:
-> > > On Thu, Jan 14, 2021 at 11:53:20AM +0100, Jan Beulich wrote:
-> > >> On 12.01.2021 19:12, Manuel Bouyer wrote:
-> > >>> From: Manuel Bouyer <bouyer@netbsd.org>
-> > >>>
-> > >>> Use unsigned char variable, or cast to (unsigned char), for
-> > >>> tolower()/islower() and friends. Fix compiler error
-> > >>> array subscript has type 'char' [-Werror=char-subscripts]
-> > >>
-> > >> Isn't this something that wants changing in your ctype.h instead?
-> > >> the functions (or macros), as per the C standard, ought to accept
-> > >> plain char aiui, and if they use the input as an array subscript,
-> > >> it should be their implementation suitably converting type first.
-> > > 
-> > > I asked for inputs from NetBSD developers familiar with this part.
-> > > 
-> > > Although the parameter is an int, only a subset of values is valid,
-> > > as stated in ISO C 2018 (Section 7.4 paragrah 1):
-> > >> In all cases the argument is an int, the value of which shall be
-> > >> representable as an unsigned char or shall equal the value of the
-> > >> macro EOF.  If the argument has any other value, the behavior is 
-> > >> undefined.                               
+On Tue, Jan 26, 2021 at 12:08:15PM +0100, Jan Beulich wrote:
+> On 25.01.2021 18:46, Elliott Mitchell wrote:
+> > On Mon, Jan 25, 2021 at 10:56:25AM +0100, Jan Beulich wrote:
+> >> On 24.01.2021 05:47, Elliott Mitchell wrote:
+> >>>
+> >>> ---
+> >>> Changes in v2:
+> >>> - Include the obvious removal of the goto target.  Always realize you're
+> >>>   at the wrong place when you press "send".
+> >>
+> >> Please could you also label the submission then accordingly? I
+> >> got puzzled by two identically titled messages side by side,
+> >> until I noticed the difference.
 > > 
-> > Which means you're shifting the undefined-ness from the implementation
-> > (using the value as array index) to the callers (truncating values, or
-> > converting value range). In particular I do not think that the
-> > intention behind the standard's wording is for every caller to need to
-> > cast to unsigned char, when e.g. character literals are of type char
-> > and string literals are of type const char[].
+> > Sorry about that.  Would you have preferred a third message mentioning
+> > this mistake?
 > 
-> If you don't cast you fall into the undefined behavior case for non-ascii
-> characters. For example, "é" in iso-latin-1 is 0xe9. In a signed char, this is
-> -23 (decimal). without the cast, tolower() will see -23.
-> If it is casted to (unsigned char) first, tolower() will see 233, as expected.
-> The following test program illustrates this:
-> armandeche:/tmp>cat toto.c
-> #include <stdio.h>
-> 
-> int
-> main(int _c, const char *_v[])
-> {
->         char c = 0xe9;
-> 	printf("%d %d\n", (int)c, (int)(unsigned char)c);
-> }
-> armandeche:/tmp>./toto 
-> -23 233
-> 
-> 
-> 
-> > 
-> > > As stated by NetBSD's ctype(3) manual page, NetBSD and glibc took different
-> > > approach. NetBSD emits a compile-time warning if the input may lead to
-> > > undefined behavior. quoting the man page:
-> > >      Some implementations of libc, such as glibc as of 2018, attempt to avoid
-> > >      the worst of the undefined behavior by defining the functions to work for
-> > >      all integer inputs representable by either unsigned char or char, and
-> > >      suppress the warning.  However, this is not an excuse for avoiding
-> > >      conversion to unsigned char: if EOF coincides with any such value, as it
-> > >      does when it is -1 on platforms with signed char, programs that pass char
-> > >      will still necessarily confuse the classification and mapping of EOF with
-> > >      the classification and mapping of some non-EOF inputs.
-> > > 
-> > > 
-> > > So, although no warning is emmited on linux, it looks like to me that the
-> > > cast to unsigned char is needed anyway, and relying on glibc's behavior
-> > > is not portable.
-> > 
-> > I fully agree we shouldn't rely on glibc's behavior (I'm sure
-> > you've looked at xen/include/xen/ctype.h to see how we address
-> > this it Xen itself, but I will admit this is to a degree comparing
-> > apples and oranges, not the least because the lack of a need to
-> > consider EOF in Xen). At least in xen/tools/symbols.c I don't
-> > think we're at risk of running into "undefined" space. Casts are
-> 
-> as long as there's only ascii characters.
-> 
-> Anyway NetBSD won't change its ctype.h
+> No. But I'd have expected v2 to have its subject start with
+> "[PATCH v2] ...", making it relatively clear that one might
+> save looking at the one labeled just "[PATCH] ...".
 
-I guess I'm going to give up on this one. We'll keep it as a local patch.
+Yes, in fact I spotted this just after.  I was in a situation of, "does
+this deserve sending an additional message out?"  (ugh, yet more damage
+from that issue...)
+
+
+> >>> I'm not including a separate cover message since this is a single hunk.
+> >>> This really needs some checking in `xl`.  If one has a domain which
+> >>> sometimes gets started on different hosts and is sometimes modified with
+> >>> slightly differing settings, one can run into trouble.
+> >>>
+> >>> In this case most of the time the particular domain is most often used
+> >>> PV/PVH, but every so often is used as a template for HVM.  Starting it
+> >>> HVM will trigger PoD mode.  If it is started on a machine with less
+> >>> memory than others, PoD may well exhaust all memory and then trigger a
+> >>> panic.
+> >>>
+> >>> `xl` should likely fail HVM domain creation when the maximum memory
+> >>> exceeds available memory (never mind total memory).
+> >>
+> >> I don't think so, no - it's the purpose of PoD to allow starting
+> >> a guest despite there not being enough memory available to
+> >> satisfy its "max", as such guests are expected to balloon down
+> >> immediately, rather than triggering an oom condition.
+> > 
+> > Even Qemu/OVMF is expected to handle ballooning for a *HVM* domain?
+> 
+> No idea how qemu comes into play here. Any preboot environment
+> aware of possibly running under Xen of course is expected to
+> tolerate running with maxmem > memory (or clearly document its
+> inability, in which case it may not be suitable for certain
+> use cases). For example, I don't see why a preboot environment
+> would need to touch all of the memory in a VM, except maybe
+> for the purpose of zeroing it (which PoD can deal with fine).
+
+I'm reading that as your answer to the above question is "yes".
+
+
+> >>> For example try a domain with the following settings:
+> >>>
+> >>> memory = 8192
+> >>> maxmem = 2147483648
+> >>>
+> >>> If type is PV or PVH, it will likely boot successfully.  Change type to
+> >>> HVM and unless your hardware budget is impressive, Xen will soon panic.
+> >>
+> >> Xen will panic? That would need fixing if so. Also I'd consider
+> >> an excessively high maxmem (compared to memory) a configuration
+> >> error. According to my experiments long, long ago I seem to
+> >> recall that a factor beyond 32 is almost never going to lead to
+> >> anything good, irrespective of guest type. (But as said, badness
+> >> here should be restricted to the guest; Xen itself should limp
+> >> on fine.)
+> > 
+> > I'll confess I haven't confirmed the panic is in Xen itself.  Problem is
+> > when this gets triggered, by the time the situation is clear and I can
+> > get to the console the computer is already restarting, thus no error
+> > message has been observed.
+> 
+> If the panic isn't in Xen itself, why would the computer be
+> restarting?
+
+I was thinking there was a possibility it is actually Domain 0 which is
+panicing.
+
+
+> > This is most certainly a configuration error.  Problem is this is a very
+> > small delta between a perfectly valid configuration and the one which
+> > reliably triggers a panic.
+> > 
+> > The memory:maxmem ratio isn't the problem.  My example had a maxmem of
+> > 2147483648 since that is enough to exceed the memory of sub-$100K
+> > computers.  The crucial features are maxmem >= machine memory,
+> > memory < free memory (thus potentially bootable PV/PVH) and type = "hvm".
+> > 
+> > When was the last time you tried running a Xen machine with near zero
+> > free memory?  Perhaps in the past Xen kept the promise of never panicing
+> > on memory exhaustion, but this feels like this hasn't held for some time.
+> 
+> Such bugs needs fixing. Which first of all requires properly
+> pointing them out. A PoD guest misbehaving when there's not
+> enough memory to fill its pages (i.e. before it manages to
+> balloon down) is expected behavior. If you can't guarantee the
+> guest ballooning down quickly enough, don't configure it to
+> use PoD. A PoD guest causing a Xen crash, otoh, is very likely
+> even a security issue. Which needs to be treated as such: It
+> needs fixing, not avoiding by "curing" one of perhaps many
+> possible sources.
+
+Okay, this has been reliably reproducing for a while.  I had originally
+thought it was a problem of HVM plus memory != maxmem, but the
+non-immediate restart disagrees with that assessment.
+
+> As an aside - if the PoD code had proper 1Gb page support,
+> would you then propose to only allocate in 1Gb chunks? And if
+> there was a 512Gb page feature in hardware, in 512Gb chunks
+> (leaving aside the fact that scanning 512Gb of memory to be
+> all zero would simply take too long with today's computers)?
+
+That answer would vary over time.  Today or tommorrow, certainly not.
+In a decade's time (or several) when a typical pocket computer^W^W
+cellphone has 4TB of memory and a $30K server has a minimum of 128TB then
+doing allocations in 1GB chunks would be worthy of consideration.
+
 
 -- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
