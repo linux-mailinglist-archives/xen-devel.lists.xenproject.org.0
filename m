@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3523304383
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 17:14:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75266.135477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35F113043B1
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 17:23:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75276.135492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4QyU-0003QL-Km; Tue, 26 Jan 2021 16:13:50 +0000
+	id 1l4R6e-0004R6-J3; Tue, 26 Jan 2021 16:22:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75266.135477; Tue, 26 Jan 2021 16:13:50 +0000
+Received: by outflank-mailman (output) from mailman id 75276.135492; Tue, 26 Jan 2021 16:22:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4QyU-0003Pw-Hf; Tue, 26 Jan 2021 16:13:50 +0000
-Received: by outflank-mailman (input) for mailman id 75266;
- Tue, 26 Jan 2021 16:13:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ElsB=G5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4QyT-0003Pr-7d
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 16:13:49 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3a4139b1-bc25-45e8-af44-f627c272a40f;
- Tue, 26 Jan 2021 16:13:47 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 19F11AB92;
- Tue, 26 Jan 2021 16:13:47 +0000 (UTC)
+	id 1l4R6e-0004Qj-FN; Tue, 26 Jan 2021 16:22:16 +0000
+Received: by outflank-mailman (input) for mailman id 75276;
+ Tue, 26 Jan 2021 16:22:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nQkR=G5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l4R6d-0004Qe-0J
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 16:22:15 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5eeec0f3-4b6e-47fd-8dcb-b49afc025e8f;
+ Tue, 26 Jan 2021 16:22:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,102 +35,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a4139b1-bc25-45e8-af44-f627c272a40f
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611677627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8RLJLIMLsKavuqFKq7beKULubAhkwt+v1KlfaoupVfA=;
-	b=H+6QXyEp9Rat6/oDIc+imcRVmteDXaA5hT4RwcdkF/qIZS1Ab/oF/sSaMviK4EqTS/5C9V
-	jrwDrzUXWiddx5mYFsz66+/9P9CbuLcWYs9BZhAawU6yr7zJFU7poJ7NC4LGxVscaGlGhC
-	vdt5YWXA9GOjS5S/TGZY7Qq0i/K9ZPc=
-Subject: Re: [PATCH 1/3] x86/irq: remove duplicated clear_domain_irq_pirq
- calls
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+X-Inumbo-ID: 5eeec0f3-4b6e-47fd-8dcb-b49afc025e8f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1611678133;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=PdCRLPy1mWS7TocJMy9bzVdpfLCvaxiCZucESggrwIQ=;
+  b=RMYdjE/CssMF/DRRkxMQWYI4CKpuD5Pi9Guz/U899Rq+IuZC43dnN3FB
+   0hHB3hWMPl8R6lFtLcGj+TG/hY/7VpYjU+Zm0G+W+uWYJfxZn5UBj+Ux1
+   1oPJP/acDr6iK4x7oierCs7Dxs0aavnDaS9fgACt2DmO9NmQ7WkY+CYLy
+   c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: xTLkb/BL6aLnMGwG8Y6t0sQW1MouWy/F7zPfMltAL/wPU079/0CWlvZFVwJqQF43D6OiPyT7jP
+ 9xpgbQlKFvnxh0TiTmAM4eN0WD8G4Rh8CL/ktk1A1Y7qAd5S/kbMWrgrDM7L/U/qCmKhHp3KkA
+ lRCyvkv9pFIrWGV6Z53eEuweApwQF7gCsfFJUgnQHW+yZFYiZPUWTX/jJJaqgAMTvT3WawxlDP
+ KWNgps4Zvn0YvzxroYKu66ukPJRj070VNYtnFNAo+VS+VvCZqo4eeJg1VhCao5icyS4Aq/bN6C
+ j4I=
+X-SBRS: 5.2
+X-MesageID: 37198098
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,375,1602561600"; 
+   d="scan'208";a="37198098"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MDaE77cf5xEIBn8EbdBjcRiZV6J/5AAFjGf8/z8whrs/ll6S8pB70FxceTMVPzWHYR+D7ZuPJS9eKVfsg4UsGkf9l1eytWCwjluuJX1zZa7Ezr6PKFVRTqHyOC3EaCYz6ErrVUEHfX/EWS2lHxGF+QTG/o3TKS3Cd3QL0iv8/qme3ZOULjngeDWtvRAMgFoivU3SzlxzZpjtksDhROZEAGRG+UPTaRfciSLyrb8zccCG3inECaNPt9lMQxe1X2T82TorRZ3iIiiLxAVwqfo6CQcJFCnvz0dn/v4zSvu+kg89QT+N4SIFA2S9rvI8Jk107NonzZyDD2i4FXxYIjrofQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZSAkpewS/T7g/TCWm/Xp18FU4aJB+e6JQoCvcrbfApk=;
+ b=H2saXHR/W05siwJcUp/psQBulyfM2XHxs4Z1Ymt/uYIrBn6pYCixHM7HtOoAIRWNS+3xaOKdmb24GnaO/b4mTItuSeJULtSK+PFX+YmsR0BdzmBf+Mztgd6YXznmMqIroiqZavy7+tCt6n0pCeTxsYW5jkVZ4mHPrs7/nXJeXjbmPEVcmHT/K3HxUAGI8HHttCUHAei0ewWE9OXd7BfRQYRLKVdzLoQKF9nMLuZA7y6PLM1BVsorxyr/1qkg4FUwopj/ajSnPf8jwlKlXGdaeij3l5ylvMI2zgcj8JiGvvBPprkxvjDZOVQo+jMT6MXWsjbK7i8l5yIv/q93mdYf1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZSAkpewS/T7g/TCWm/Xp18FU4aJB+e6JQoCvcrbfApk=;
+ b=KEqg1PVfIGlPQB3+p5EZbEMFxjGiCvV6jKjmPYVnlWX5OkBIDp8BIfnEI9DvUfdYCmXGtpW5z7GPhc/YcuAZSGTEn0nO6VKOSeh+ugQhOOAjcsYvAOD9tjmj1PyHCxrZqj8kA2nUwbJiaDCqsV6I0YTr1TwCJ28b8Xsy5z7yFb8=
+Date: Tue, 26 Jan 2021 17:21:57 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 2/3] x86/irq: don't disable domain MSI IRQ on force unbind
+Message-ID: <20210126162157.3hr7yk6o2rbtrero@Air-de-Roger>
 References: <20210126110606.21741-1-roger.pau@citrix.com>
- <20210126110606.21741-2-roger.pau@citrix.com>
- <10af3f2a-6f4f-372c-6d9a-c02fc730af4b@suse.com>
- <20210126160851.3ocxqnkmmxzojrar@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6726c520-bb0d-7ed7-21c9-aca31b6721f5@suse.com>
-Date: Tue, 26 Jan 2021 17:13:47 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <20210126160851.3ocxqnkmmxzojrar@Air-de-Roger>
+ <20210126110606.21741-3-roger.pau@citrix.com>
+ <7633ddb0-922b-0165-7e8c-d265786ef4aa@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
+In-Reply-To: <7633ddb0-922b-0165-7e8c-d265786ef4aa@suse.com>
+X-ClientProxiedBy: PR3P189CA0043.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:102:53::18) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3f711d99-304d-4242-bee3-08d8c216846a
+X-MS-TrafficTypeDiagnostic: DM5PR03MB3370:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR03MB3370F2AD4C72FE65B297932E8FBC9@DM5PR03MB3370.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mONuU1SDA+HB2rA/7UrhLTmKlCZLBjcdr1yudp+BwF+vNtQ58GXHYxM15Sgio6EaFioNQWzvisDBihGwUrVh/FHw3qxmaoh1ZO4FDWg0eOyiwFB3mY8k+n6NHPNd+t50P9z/43ZdBehAG9DzA+P/yRGjT4wYC2V33ClZcMBmgj9J6RiYs9onLTYiHHDv3+VBUkqxRPtcUTjaT7egX5OETloHhQ0UeiLf3NTTmm2d93sPCJ9oRoLI9bZeF+2IeFn5nkUSV4aW6PxWmrudBYdLMEr6FmxWrPeQ95i6tqvX4okMBfcbSa99VycBUbeaiQuc3CfVA8w5I5XjyNj+wF+otXELVRLU9leOcODCDuIJzexJpxZaVtApX5LDVdeDBp5RqDpIzabfXnkjNziACMxz4o198oleFSuxgrlm563YxhCPwS6bm9ZjpMgp4So/i4cAYODXOco/Ez+y0RJuN45b8pHZj0ugZlM8Lde4SxZuMsL7c5+tQ7Hohu+0Mc8UIBfIUsyesjx4Zk4tvk+IMErCTQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(376002)(396003)(136003)(39860400002)(366004)(346002)(186003)(1076003)(6916009)(5660300002)(33716001)(54906003)(16526019)(8936002)(26005)(316002)(4326008)(66556008)(2906002)(83380400001)(85182001)(9686003)(66946007)(66476007)(478600001)(6486002)(8676002)(53546011)(6666004)(956004)(86362001)(6496006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NTM1cmlWb01kbDVwQ0RCUHo4N1kwM3Ewd0ZQK2x3L1FhSW9YQU1wU0Z3dWYz?=
+ =?utf-8?B?RUxWdndGcElMMHlPS3o5NzFoaW9CY3BwTnRXYkdvalBPWEFwT3kzZEYwblNP?=
+ =?utf-8?B?eVBJYXFKTVpsT3NJT2paUFZJSFpQeHRZaHNKWTJRRm5aOHRNN1dmbGZuWHpE?=
+ =?utf-8?B?T1ljZ21YSlNJWXVXdlFUYmdkTW83VmRVTE0zdXRKbkp6SCswZkd5NmU5MTRj?=
+ =?utf-8?B?TE9vYnQ4QWptQWJCM3g5MFppNVR3RFFPVWpnNlM0QmU3Ynp1RnFqcHVHUTVC?=
+ =?utf-8?B?UStBNVY5RS9qQkl5NE5CWUpLVnNvNE9JRm5PVVhUM2hLbFRFMXhXQ3Zaa0NV?=
+ =?utf-8?B?RTBWelpXNm03aklNa1lNY2dKZEQyOVNFUFNpOEYrR0p1VGdrUEp3Yjkya1Mx?=
+ =?utf-8?B?SWhuT2xLMm9INEQralNTV0w1U0RhN3psZ2d4RGJwb1MzTW82Q0xCT25CdVd3?=
+ =?utf-8?B?bUVNV3dwMjA5a3ErcndyNWVwNzdDVGZHeHZBbEk4MVo5WExyKzB0N2YrY3lL?=
+ =?utf-8?B?R0RVOW93MmhjV3NBcDFRMHJ3Q2trbFN4NjhqeXN2cGFwUTl1T29NbER2NlFm?=
+ =?utf-8?B?ck5ZWXV3bnhSaHZ2TVc2cXIvUjdTTkROMUlKVDlXNnFsbGZWY3FTcTFaazV5?=
+ =?utf-8?B?ZGlRVHdXSlVJcEhhTUVES3c3RzhKNnJielNxL2JreTBVK05aamdXSlVpa0U5?=
+ =?utf-8?B?N2kyRGpmVjd1Z2ZwMlVuYmlUQTdOaUZ0UmEweHVtV3FTYklZeVJ4VjBNaW1h?=
+ =?utf-8?B?clVTbDdYY2FBSzRXT1VFZmYybzIxWHM0V05DS1R1OXpvZkZMN3VwQ3NKTzlQ?=
+ =?utf-8?B?MzdhRHQwSnAyTXN5QUZlWFhMdU1XUXlQdEZtRnlCTTBnQWY0dUlLZmJ6dnpS?=
+ =?utf-8?B?RGRSY1lidDVkdHJ5Y3YyTDZMTjlUVkozdFBEOE96WnY2L0dxR3M1NEl3MVUz?=
+ =?utf-8?B?RlF5R2dJcVFHOExGWURPb0dmeEJCdFd0QVVhTFNzcGl5dVpQRkV3T3E5aUgy?=
+ =?utf-8?B?YUJxOWQrWXlyTmhwVUkwTGx4b3pHSlFWMkh3VDVPSnhOY1lKYTZrT1dTNE1W?=
+ =?utf-8?B?UGR3Q21JVnU4NUwrM2RrS3BxdTBoQ2Q1Zy90bzd2ZWI2RmlFcW5JQmd6a2hy?=
+ =?utf-8?B?L1BLazRaQndXQ0Vwd0xUMk1wQjV1THRvYkdsRXVLcWt5MW1zZWdNWi9Pb1Nk?=
+ =?utf-8?B?MEh2aTlmZmRqa0JCYUo4UWtpNW16R3dLM0tuQW80NTdBYWpYNXZuc1ZqbVlk?=
+ =?utf-8?B?dlAxb0NzRDNMTTcvd0pZVk84R21tOUQ0aFk1a2tNQWJ4aDdTTnMyZW5SY0xK?=
+ =?utf-8?B?d1RhTzJXNFhkQ1hNdi9uNlhzb2dzbmJFai9aSmxaTFEwQVdiZm9Gd01JU3Bh?=
+ =?utf-8?B?WDF2c01uSXI5Wno0MkdRcU1sV2gwZ1hWMmo4RDVuNVJlYWtDWEFPNGdUYWNa?=
+ =?utf-8?B?MkhWL0w3MmU0NUdxcDIydHBGTFprV3B3ZEd2NHZnPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f711d99-304d-4242-bee3-08d8c216846a
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2021 16:22:04.1464
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0q7u04d/OmztWk1vEzwiU40a8P0xkXl3oX6a0bdFf/Inxgl/jv+PbLUHioG18OfohQ1BtGcf8Qf0cL+ncXAOsA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3370
+X-OriginatorOrg: citrix.com
 
-On 26.01.2021 17:08, Roger Pau Monné wrote:
-> On Tue, Jan 26, 2021 at 03:38:27PM +0100, Jan Beulich wrote:
->> On 26.01.2021 12:06, Roger Pau Monne wrote:
->>> There are two duplicated calls to cleanup_domain_irq_pirq in
->>> unmap_domain_pirq.
->>>
->>> The first one in the for loop will be called with exactly the same
->>> arguments as the call placed closer to the loop start.
->>
->> I'm having trouble figuring out which two instances you refer
->> to: To me "first one" and "closer to the start" are two ways
->> of expressing the same thing. You don't refer to the call to
->> clear_domain_irq_pirq(), do you, when the two calls you
->> remove are to cleanup_domain_irq_pirq()? Admittedly quite
->> similar names, but entirely different functions.
+On Tue, Jan 26, 2021 at 03:52:54PM +0100, Jan Beulich wrote:
+> On 26.01.2021 12:06, Roger Pau Monne wrote:
+> > When force unbinding a MSI the used IRQ would get added to the domain
+> > irq-pirq tree as -irq -pirq,
 > 
-> Urg, yes, that's impossible to parse sensibly, sorry.
+> I think it's -pirq at index irq, i.e. I don't think IRQ gets
+> negated as far as the radix tree goes. info->arch.irq gets a
+> negative value stored, yes.
+
+Right, and this then prevents the IRQ to be used at all by the domain.
+Doiong a domain_irq_to_pirq with that IRQ will get -pirq, but that
+seems pretty arbitrary for MSI IRQs, that get allocated on demand.
+
+At the end of unmap_domain_pirq the IRQ will get freed if it was
+assigned to an MSI source, and hence it seem pointless to add irq ->
+-pirq to the domain irq tree.
+
+> > thus preventing the same IRQ to be used by the domain.
 > 
-> Also the subject is wrong, should be cleanup_domain_irq_pirq, not
-> clear_domain_irq_pirq.
+> Iirc this (answering your post-commit-message question here)
+> is for cleaning up _after_ the domain, i.e. there's no goal
+> to allow re-use of this IRQ. The comment ahead of
+> unmap_domain_pirq() validly says "The pirq should have been
+> unbound before this call." The only time we can't make
+> ourselves dependent upon this is when the guest is being
+> cleaned up. During normal operation I think we actually
+> _want_ to enforce correct behavior of the guest here.
+
+OK, so that might be fine for legacy PCI IRQs, that are fixed, but
+quite pointless for allocated on demand MSI IRQs that can change
+between allocations.
+
+> > It's not clear to me why we add the irq as -irq -pirq to the irq-pirq
+> > domain tree on forced unbind, as allowing to bind the irq again should
+> > just work regardless of whether it has been previously forcefully
+> > unbound?
 > 
-> This should instead be:
+> To continue from the above, see pirq_guest_unbind() where
+> we have
 > 
-> "There are two duplicated calls to cleanup_domain_irq_pirq in
-> unmap_domain_pirq.
+>     if ( desc == NULL )
+>     {
+>         irq = -pirq->arch.irq;
+>         BUG_ON(irq <= 0);
+>         desc = irq_to_desc(irq);
+>         spin_lock_irq(&desc->lock);
+>         clear_domain_irq_pirq(d, irq, pirq);
+>     }
 > 
-> The first removed call to cleanup_domain_irq_pirq will be called with
-> exactly the same arguments as the previous call placed above it."
+> as the alternative to going the normal path through
+> __pirq_guest_unbind(). Again iirc that's to cover for the
+> unbind request arriving after the unmap one (i.e. having
+> caused the unmap to force-unbind the IRQ).
 
-And which one is "the previous call"? I'm still getting the
-impression you're mixing up cleanup_domain_irq_pirq() and
-clear_domain_irq_pirq(). (I guess we need to resort to line
-numbers in current staging or master, to avoid
-misunderstandings. Not for the commit message [if any], but
-for the discussion.)
+Oh, so that's the point. Do you think you could add some comments to
+explain the indented behaviour? I think I get it now, but it's hard to
+follow without some pointers.
 
-> It's hard to explain this in a commit message.
-> 
-> Do you agree that the removed calls are duplicated though? I might have
-> as well missed part of the logic here and be wrong about this.
-
-No, for the moment I don't agree yet, because I don't see
-the redundancy so far.
-
->>> The logic used in the loop seems extremely complex to follow IMO,
->>> there are several breaks for exiting the loop, and the index (i) is
->>> also updated in different places.
->>
->> Indeed, and it didn't feel well already back at the time when
->> I much extended this to support multi-vector MSI. I simply
->> didn't have any good idea how to streamline all of this
->> (short of rewriting it altogether, which would have made
->> patch review quite difficult). If you have thoughts, I'm all
->> ears.
-> 
-> I would just rewrite it altogether. Code like this is very prone to
-> cause mistakes in the future IMO. If you want I can try to.
-
-I wouldn't mind, but yes, besides review difficulties ...
-
-> I guess the problem with this is that we would lose the history of the
-> code for no functional change.
-
-... this also wouldn't be overly nice (but can be dealt with
-via a few more steps wading through git history).
-
-Jan
+Thanks, Roger.
 
