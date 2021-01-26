@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2BF6304485
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 18:07:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75354.135663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5694E30451D
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 18:24:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75364.135681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4RoM-00019S-NW; Tue, 26 Jan 2021 17:07:26 +0000
+	id 1l4S3e-00030S-91; Tue, 26 Jan 2021 17:23:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75354.135663; Tue, 26 Jan 2021 17:07:26 +0000
+Received: by outflank-mailman (output) from mailman id 75364.135681; Tue, 26 Jan 2021 17:23:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4RoM-000193-KM; Tue, 26 Jan 2021 17:07:26 +0000
-Received: by outflank-mailman (input) for mailman id 75354;
- Tue, 26 Jan 2021 17:07:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ElsB=G5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4RoK-00018x-QJ
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 17:07:24 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d360b26e-3326-4be9-bf3d-dc6784222cd2;
- Tue, 26 Jan 2021 17:07:23 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B4E4CAB92;
- Tue, 26 Jan 2021 17:07:22 +0000 (UTC)
+	id 1l4S3e-000303-54; Tue, 26 Jan 2021 17:23:14 +0000
+Received: by outflank-mailman (input) for mailman id 75364;
+ Tue, 26 Jan 2021 17:23:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PjTf=G5=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l4S3c-0002zy-Eg
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 17:23:12 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1f8d6377-6669-4821-8dae-8348a6f253ec;
+ Tue, 26 Jan 2021 17:23:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,72 +35,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d360b26e-3326-4be9-bf3d-dc6784222cd2
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611680842; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=12zF1yxqIS+nqv4aRBVRF0QF7ZcuJMMaeM4a5urbkqg=;
-	b=h3kKwv6R/k49jfMQfdfiKRBc6MnkYtsNSJryVAT5r3uYWOuz2rFLtuH+63xXabtvHzCKUF
-	4DYsHpzXoDE62Agh+Mr96+RhldO1Vb2R6xqdutFSgFC5ME2d4GUuxH8/Vi5gz5n5kHiKWC
-	iRma9M/vajyLAKZzvwPwD0d70DMldrc=
-Subject: Re: [PATCH v3 0/6] x86/intr: HVM guest interrupt handling
- fixes/cleanup
-To: Ian Jackson <iwj@xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210126134521.25784-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f5d10743-676e-d723-6d3a-32b9c8b4d4fd@suse.com>
-Date: Tue, 26 Jan 2021 18:07:23 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+X-Inumbo-ID: 1f8d6377-6669-4821-8dae-8348a6f253ec
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1611681790;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=ktSy6tjjtPLYTkYFEYWkWhkT8/l/YxW3r48HMuzyB5k=;
+  b=NU+EfzW0jhPJTQCE63ISDe4C402xbHE0jKuW4zKbfqzPdO/z3VADxADc
+   S0NB8C1YHnsK6ZtjXsI8Bv4tO2mraXa1ROJtlOuzA47YVwXtXkitzd3fh
+   aXIJnuwLLwfVRLR4cjLxQXgH5D3apYyDJlZGql31Yw3bNPafpv+xLtWTS
+   o=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: Lp5TFtVM00pkPgaNGhUdBqhlZNMzxb6hXhtQjW5JoLp+Kp1kSq+p9cEsS4WMx8Ly7AvoLNR+PL
+ QalhoZ7AxjubF8CnjHIbb4O8RvkWTYCaAGKeHSNOy8EaT2TNB1Hvf81avL/UEZoAyb2guhaRW2
+ MP/Nattb4w4GVst/XsKwyESiGvCaFdQe8xAANZJBdXxrxEjOtB0BsU7qNZV9pi7VNPsK903LZi
+ PLaG0Avdt8quHRZXJzeaRnjxSBpFV7lf/MVFmHP4GRIqA37A3q65XXza3K9valIS+ynHqHgddX
+ O0c=
+X-SBRS: 5.2
+X-MesageID: 36265250
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,375,1602561600"; 
+   d="scan'208";a="36265250"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CpjJ8lp65THn+6rPBL7/uOiTp1EpUabZPOwBgJ2CeZXogVR3iJ3QXfdVt7t7uAkvki6HMqlxJZVGZfdqsU5qTLsK4OEmRElqDN3ERQmzRUTv7xW6aYH8sSXwwNUWMlHLB8HlOocxOi0vu5cVQ930QhKV5UELJ0/H/0h8gOamPAM/7oQPzhqOQ/ifXNOqlv3PQcsRJW+fydKvX2Zt/SJpZRy3EHevL+bXXiPEfs4C+kZC3FmreR/WXYrFJPLbQ6pOFa3cgxyWHv4tZWPvskmHBrV2cmahDMWK1LBjzdujDvHPnmgmPfLGgLsG+oBzMdhXwdT/oRSfqRYu/CK1U/vD6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DbwPhCPnskchRDmL1tvYgzjZ8Efur8tL/415t6LC6v8=;
+ b=G8DBWgIHrnybAnsAEyFAGVdDT2iMVaQEkrAPdCo0aDiFkegf9xDb7kzV7fBEZ0ECYNG2z35q6E2QqmaNdtyEBJCpMqAQC0nFzBRzWYQQmkk6Z0JzOmnhI9G4GuS3sK0HLqXI994+hkEP2cFPGYWM7BFsM/fMuhEUnuDd/9CIN1BVVjy9a29YtGHjySzlsRH/8QzDZm14jb9uLU39UBd3VFZd9PFRzeCWKbQnh4WoUbFJCCn8/3ikLHrIJw1MRcpWzrA19x4ZVWOKRm+llevRg7F9L96/bFtwF6FbC69I7X454RvzT54a1a56OF3EhTzbgL3tRKcbPS1BPAkNfisOtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DbwPhCPnskchRDmL1tvYgzjZ8Efur8tL/415t6LC6v8=;
+ b=BHb3r//0dDy/nIIvVT7Q1QGIMBHAyjPhn63cbAE7n1g+cZs3+EVgqGCU2ATuHryjGIP1vWrCmsWcuW5iBQsBYPa5+5nfk6ec4S9SKjqK4ZRGUDk203dmqawiL7Q15aLAWQsXdvXP6RXvRR1C5vZ6VFuOHSQVccAohOD4lYNHj0g=
+Subject: Re: [PATCH for <= 5.4] xen/privcmd: allow fetching resource sizes
+To: Greg KH <greg@kroah.com>
+CC: <stable@vger.kernel.org>, Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, <xen-devel@lists.xenproject.org>, Roger Pau
+ Monne <roger.pau@citrix.com>
+References: <20210118140426.80458-1-roger.pau@citrix.com>
+ <YAgN7hlFe73mrBWE@kroah.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <1a70f632-1437-5501-faac-98f05380d5ea@citrix.com>
+Date: Tue, 26 Jan 2021 17:22:59 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <20210126134521.25784-1-roger.pau@citrix.com>
+In-Reply-To: <YAgN7hlFe73mrBWE@kroah.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P123CA0062.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1::26) To BYAPR03MB4728.namprd03.prod.outlook.com
+ (2603:10b6:a03:13a::24)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9d0a0735-a7dc-4911-bdd9-08d8c21f0b5a
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3477:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR03MB3477CC4FF490F2F2DAA3861BBABC9@BYAPR03MB3477.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 32LSysQ65t1nI890MDCM5wdFuK+k8AdPO9df3RRSmx3G+q6pG8SPo42bE4arXcl1fD+0e9h0QXdsQGmpvNtxfVj5kbrBs2vc+7OXhRJ7DVIdou1HVOjNXCPWcOAWadXC/HIB2ozfH4wAAMA5IrUazIGI0FUevNCvjevjpPxN/s29ZpodJAQv611D9thQPo2sLzIn/OlmSHledtOGIHPkuQzXMdbdV5K08gY/hgOyI/b+QBYG2GUVJ9FSddnOu0UHNEdoGcSovhScBKbK7R+OGvbXjZbWZ3dUZqoQxlSrgO5R4ne8J25vx190vXINsTsVTrpJ+0t9I6w6Xiu9iol4e9noUKez6nBP+E1kORVRytHHB+CuRRZDxqoYWUXua9xz1F3T0Nk0z3Ao/YROSySEEjv5IM/jXjOAecWOkjhnYlwoTcTOWHblg6CGfeX2dPPdw8MeXhfiqrn0mi04R7tTGoNpIpNeE/5d1lGPUj3om2dCVp0lhWuwiIXKYzsl5bKjAaBEsPAAFqFHSuoyluYAihgxs//K2RbTkrK1fve2PLEn5rfrRhQWhZURc86W+ujaRtMMLSIYea2tbuOQZRvIBSjKZoEw//91w3mcD9LskZrrcg4wO0i8wfx0CCGUrn0GFP97cK/DjLIL8CvUFZ2uTycBeTZ3cl/VV/RYYvU2jIxm59hnB+MITMBRKYWG9w8N
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(376002)(39860400002)(366004)(396003)(346002)(136003)(478600001)(66476007)(54906003)(31686004)(36756003)(107886003)(53546011)(956004)(83380400001)(316002)(5660300002)(186003)(2616005)(66556008)(8936002)(4326008)(66946007)(6486002)(16526019)(6666004)(16576012)(31696002)(966005)(2906002)(86362001)(26005)(8676002)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?WVVIYlBDZ05UNW9XSGhRS3prVWJkSmFrNzFvbm4yZFJSeDAyZTRSRzNPTC9E?=
+ =?utf-8?B?T284K1hiVG9QSHU3eXo1ZjZUeVNtdkpLSWdQdjRzYmhsOEhQZXliRjd5TXJU?=
+ =?utf-8?B?RTBBNDV4MTUzMWlJeVlSVE1HK3JSS08rbzhaeTYrS01EeCtpS25vWnRDdmRw?=
+ =?utf-8?B?RFE4NVg1d05ubmpwTzVlQm5lMno4SDU1ZkZTOHFaMzB6UXh1VFpBQ1hMZXJW?=
+ =?utf-8?B?MVhqWU54VkdtNU5VQzA0YmtWZ3U1aHhmM2MvclNteTlvWmxPMG5oandyYnBS?=
+ =?utf-8?B?UjUxL2RiWTk0UEpPVHdLVjJ2WTN3NVFVSms1SERRWnc4U2xubXY3c0x5QmJl?=
+ =?utf-8?B?ZVJuMVFTVG1EdDJnT3E5UHlLTEF4TkJZVzFvSWdPN2dQN1h0K1VMR2hLbU02?=
+ =?utf-8?B?cEpkVjJqdWh4YnlDN0dzWjY5akJSZnBVeGR4MTE3UnpKQ0p4bkRkZXVuNUNZ?=
+ =?utf-8?B?Y3B1QU9KVFNZZStnTXFHdFdMNDBiQ05nOXdPeXhwZUNJNXhpVG1MVFdTL2JT?=
+ =?utf-8?B?RHY5Z1ArelVHVDk0cWRxNEQveXBkRXVzTytWdDBtbDdoOVRWUWx5MUl3M2g2?=
+ =?utf-8?B?V3FKT2ZLK3UrS0lzZ1FuVk9HelNWSVBGYlovQjRWMmpQWm5mbWxJaUkyT2g5?=
+ =?utf-8?B?VnNBQ3E3UFV1R0tENUxkVkdhdnFmeXBQbnNrTGE2RFFNQW12OEpUamYyeXlx?=
+ =?utf-8?B?TVJQZGFkdkFnNTVUblJ0Um9WVXNyZTBlWFdqQzlRdHozSjFSa2k4cWNQaXZG?=
+ =?utf-8?B?Lzc5QWx6QlVYeG9KQ2RuOXUrQmM5cW5maHdTMXVOZUxiOVk0cXNpbG5iYWtK?=
+ =?utf-8?B?VWMxMTV0UmFBOENYMkdmWHUxemw0UlB6a2xHaVhTZ1MrdkxsajdIQ21QRUVq?=
+ =?utf-8?B?ZnJvTVlKUEtzNDhOUU0wKzd2OW1OcHFjWkhjOUg5V1ViSTFpbE1HYmU1R1Zq?=
+ =?utf-8?B?bGdieDVyMm1iL081Y1hnTEVBT3UwS3Q0Ry9DQVJNZmljNi9qbzdYTFpQeEoz?=
+ =?utf-8?B?a3BldnhVRDMrRnFlaUtnRWZROERwRFNQUDU1dVROeVNMTGZwQ3pXZGh3cHNm?=
+ =?utf-8?B?MVpIRElTNTVFMjR5b053QWtJeG5iYkZRV0tjc25oRVAvT293UExOWlFPOXFC?=
+ =?utf-8?B?RDk4NzliUFZvVTFIV2trNHdZYUt5U2M1M3lJWWFXOVJkV0RqNGdtRTUvcmJv?=
+ =?utf-8?B?aVZmR0FQdG5GZGxYZVA5Y2xxSWRtNGxVMHMyZnUrS1FsNFZIci9ENXJFcWRu?=
+ =?utf-8?B?YUUzTWsyMnlNUiswYkE1N3hIOGZnOTdMbmdNLzBPYlVLZHo5QUFOdk45LzBE?=
+ =?utf-8?B?enRZVFV1VmNNUU5PbXpSdXppdTJvbVJjcU54SXlGN3MwZXpRMVVSbERyRE1X?=
+ =?utf-8?B?NVFvWDU3cTYxdGNjcVBNdFVaWFNPbmp3UVEraERhd3JvMW9oY2FXZmdLTVFD?=
+ =?utf-8?Q?Oxyf5U/a?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d0a0735-a7dc-4911-bdd9-08d8c21f0b5a
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2021 17:23:06.7583
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NQmKYEsdouPg0r4VyTQnMBMHBXHu4c2K3SB6UF4vakYCn8D5QhxlsUO/ZSezYGPHWUgPjO1Rn3Rb0+lRvLjY4PhoEsaJ+ZdTCIWh9rq1UHQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3477
+X-OriginatorOrg: citrix.com
 
-Ian,
+On 20/01/2021 11:03, Greg KH wrote:
+> On Mon, Jan 18, 2021 at 03:04:26PM +0100, Roger Pau Monne wrote:
+>> commit ef3a575baf53571dc405ee4028e26f50856898e7 upstream
+>>
+>> Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num = 0 and
+>> addr = 0 in order to fetch the size of a specific resource.
+>>
+>> Add a shortcut to the default map resource path, since fetching the
+>> size requires no address to be passed in, and thus no VMA to setup.
+>>
+>> This is missing from the initial implementation, and causes issues
+>> when mapping resources that don't have fixed or known sizes.
+>>
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Reviewed-by: Juergen Gross <jgross@suse.com>
+>> Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Cc: stable@vger.kernel.org # >= 4.18
+>> Link: https://lore.kernel.org/r/20210112115358.23346-1-roger.pau@citrix.com
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+>> Cc: xen-devel@lists.xenproject.org
+>> ---
+>>  drivers/xen/privcmd.c | 25 +++++++++++++++++++------
+>>  1 file changed, 19 insertions(+), 6 deletions(-)
+> Now queued up, thanks.
 
-On 26.01.2021 14:45, Roger Pau Monne wrote:
-> The following series aims to fix some shortcomings of guest interrupt
-> handling when using passthrough devices. The first 5 patches are
-> bugfixes or cleanups, which I think should solve the issue(s) that
-> caused the dpci EOI timer to be introduced. However neither me nor
-> others seem to be able to reproduce the original issue, so it's hard to
-> tell.
-> 
-> It's my opinion that we should remove the timer and see what explodes
-> (if anything). That's the only way we will be able to figure out what
-> the original issue was, and how to fix it without introducing yet
-> another per-guest-irq related timer.
-> 
-> Thanks, Roger.
-> 
-> Roger Pau Monne (6):
->   x86/vioapic: top word redir entry writes don't trigger interrupts
->   x86/vioapic: issue EOI to dpci when switching pin to edge trigger mode
->   x86/vpic: force int output to low when in init mode
->   x86/vpic: don't trigger unmask event until end of init
->   x86/vpic: issue dpci EOI for cleared pins at ICW1
->   x86/dpci: remove the dpci EOI timer
+Hello,
 
-while half of this series was still submitted in time, I'd still
-like to raise the question of including part or all of it in
-4.15. In particular the last change is one which I would prefer
-to see happen early in a release cycle. Risk assessment is
-pretty difficult, I'm afraid (Roger can correct me here), as at
-least some of what gets adjusted are cases we don't normally
-expect to be exercised. (FAOD patch 5 is still pending a R-b
-tag.)
+The upstream version of this patch was queued against 5.4 and 4.19, both
+of which suffered a patch conflict, and are fixed by this version.
 
-Roger, if you could give your own judgement on which of the
-changes you would view as more or less clear 4.15 candidates,
-this may help Ian take a decision.
+Was it an oversight that this version didn't get queued for 4.19?
 
-Jan
+Thanks,
+
+~Andrew
 
