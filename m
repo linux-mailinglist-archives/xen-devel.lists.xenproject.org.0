@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 124A7303973
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 10:51:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74732.134340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A115A303978
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 10:51:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74735.134351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4L06-00019r-Oq; Tue, 26 Jan 2021 09:51:06 +0000
+	id 1l4L0Q-0001Gq-1R; Tue, 26 Jan 2021 09:51:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74732.134340; Tue, 26 Jan 2021 09:51:06 +0000
+Received: by outflank-mailman (output) from mailman id 74735.134351; Tue, 26 Jan 2021 09:51:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4L06-00019R-LN; Tue, 26 Jan 2021 09:51:06 +0000
-Received: by outflank-mailman (input) for mailman id 74732;
- Tue, 26 Jan 2021 09:51:05 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l4L0P-0001GT-Tq; Tue, 26 Jan 2021 09:51:25 +0000
+Received: by outflank-mailman (input) for mailman id 74735;
+ Tue, 26 Jan 2021 09:51:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ElsB=G5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4L05-00019E-9l
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 09:51:05 +0000
+ id 1l4L0O-0001G7-Cw
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 09:51:24 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 847934c1-74f9-41b2-864e-a4791bbcc5b9;
- Tue, 26 Jan 2021 09:51:04 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ddf7a50c-8962-4546-b371-1dcafdcb598a;
+ Tue, 26 Jan 2021 09:51:23 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7801CAE40;
- Tue, 26 Jan 2021 09:51:03 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id A1BC6AE40;
+ Tue, 26 Jan 2021 09:51:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,18 +39,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 847934c1-74f9-41b2-864e-a4791bbcc5b9
+X-Inumbo-ID: ddf7a50c-8962-4546-b371-1dcafdcb598a
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611654663; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611654682; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kI7/dlB+nykep5k8tkQbgg5svw4MBZtWSOUhKGSPGrs=;
-	b=ASg9I2mgrIPFqWXfQXI/ZjhdaPIh2gkoTMFNxQ4mOyeOMrIk1TW8w156fYxuN8HjjOYIdl
-	wlTxzULVge0h+BMIbu8Bilu0mHGErOELdb/dgYR3ubR5Xs7Q7aMti0zzTtHIFAuhfqi9T+
-	UDRXa8Uc+dZPryUGFDEWCkGlwkmf1g4=
-Subject: [PATCH v3 08/15] bunzip: replace INIT
+	bh=ei0fpeiiAKGtY8+oZt/tf9Q3mew4s0SgaZQoWt8z3PE=;
+	b=M7WhP6UKn/HeIuyo1huiOoOsgDFjRhWachYqvl1wrvtoS2Ho8a0VGsHuKV1j5xc4LFqWOA
+	zyjrd0cUYpDAdLZXkh/qQgq/NIMOM/gghs7SaLJvgH48cKQouLIML98dzl31YmcqgnDstz
+	2CGVfvv7hJLsoAsH4s2kCw3xa3vgdEY=
+Subject: [PATCH v3 09/15] unlzo: replace INIT
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -57,8 +58,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>
 References: <2db91183-a7de-0c43-2fef-feb3523ed19b@suse.com>
-Message-ID: <9069acc9-7e86-a0c7-5ec9-e12d674bb834@suse.com>
-Date: Tue, 26 Jan 2021 10:51:04 +0100
+Message-ID: <e9f80b21-dff6-d6f0-3e69-c42219a3aaa9@suse.com>
+Date: Tue, 26 Jan 2021 10:51:23 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
@@ -67,93 +68,53 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-While tools/libs/guest/xg_private.h has its own (non-conflicting for our
-purposes) __init, which hence needs to be #undef-ed, there's no other
-need for this abstraction.
+There's no need for this abstraction.
 
 Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 v3: New.
 
---- a/xen/common/decompress.h
-+++ b/xen/common/decompress.h
-@@ -23,6 +23,10 @@
- #define INIT
- #define INITDATA
+--- a/xen/common/lzo.c
++++ b/xen/common/lzo.c
+@@ -135,8 +135,8 @@
+  */
+ #define MAX_255_COUNT      ((((size_t)~0) / 255) - 2)
  
-+#undef __init /* tools/libs/guest/xg_private.h has its own one */
-+#define __init
-+#define __initdata
-+
- #define large_malloc malloc
- #define large_free free
- 
---- a/xen/common/bunzip2.c
-+++ b/xen/common/bunzip2.c
-@@ -104,7 +104,7 @@ struct bunzip_data {
- 
- /* Return the next nnn bits of input.  All reads from the compressed input
-    are done through this function.  All reads are big endian */
--static unsigned int INIT get_bits(struct bunzip_data *bd, char bits_wanted)
-+static unsigned int __init get_bits(struct bunzip_data *bd, char bits_wanted)
+-int INIT lzo1x_decompress_safe(const unsigned char *in, size_t in_len,
+-                               unsigned char *out, size_t *out_len)
++int __init lzo1x_decompress_safe(const unsigned char *in, size_t in_len,
++                                 unsigned char *out, size_t *out_len)
  {
- 	unsigned int bits = 0;
+     unsigned char *op;
+     const unsigned char *ip;
+--- a/xen/common/unlzo.c
++++ b/xen/common/unlzo.c
+@@ -57,7 +57,7 @@ static const unsigned char lzop_magic[]
+ #define HEADER_SIZE_MIN       (9 + 7     + 4 + 8     + 1       + 4)
+ #define HEADER_SIZE_MAX       (9 + 7 + 1 + 8 + 8 + 4 + 1 + 255 + 4)
  
-@@ -144,7 +144,7 @@ static unsigned int INIT get_bits(struct
- 
- /* Unpacks the next block and sets up for the inverse burrows-wheeler step. */
- 
--static int INIT get_next_block(struct bunzip_data *bd)
-+static int __init get_next_block(struct bunzip_data *bd)
+-static int INIT parse_header(u8 *input, int *skip, int in_len)
++static int __init parse_header(u8 *input, int *skip, int in_len)
  {
- 	struct group_data *hufGroup = NULL;
- 	int *base = NULL;
-@@ -509,7 +509,7 @@ got_huff_bits:
-    are ignored, data is written to out_fd and return is RETVAL_OK or error.
- */
- 
--static int INIT read_bunzip(struct bunzip_data *bd, unsigned char *outbuf, int len)
-+static int __init read_bunzip(struct bunzip_data *bd, unsigned char *outbuf, int len)
- {
- 	const unsigned int *dbuf;
- 	int pos, xcurrent, previous, gotcount;
-@@ -607,7 +607,7 @@ decode_next_byte:
- 	goto decode_next_byte;
+ 	int l;
+ 	u8 *parse = input;
+@@ -114,11 +114,11 @@ static int INIT parse_header(u8 *input,
+ 	return 1;
  }
  
--static int INIT nofill(void *buf, unsigned int len)
-+static int __init nofill(void *buf, unsigned int len)
+-int INIT unlzo(unsigned char *input, unsigned int in_len,
+-	       int (*fill) (void *, unsigned int),
+-	       int (*flush) (void *, unsigned int),
+-	       unsigned char *output, unsigned int *posp,
+-	       void (*error) (const char *x))
++int __init unlzo(unsigned char *input, unsigned int in_len,
++		 int (*fill) (void *, unsigned int),
++		 int (*flush) (void *, unsigned int),
++		 unsigned char *output, unsigned int *posp,
++		 void (*error) (const char *x))
  {
- 	return -1;
- }
-@@ -615,8 +615,8 @@ static int INIT nofill(void *buf, unsign
- /* Allocate the structure, read file header.  If in_fd ==-1, inbuf must contain
-    a complete bunzip file (len bytes long).  If in_fd!=-1, inbuf and len are
-    ignored, and data is read from file handle into temporary buffer. */
--static int INIT start_bunzip(struct bunzip_data **bdp, void *inbuf, int len,
--			     int (*fill)(void*, unsigned int))
-+static int __init start_bunzip(struct bunzip_data **bdp, void *inbuf, int len,
-+			       int (*fill)(void*, unsigned int))
- {
- 	struct bunzip_data *bd;
- 	unsigned int i, j, c;
-@@ -665,11 +665,11 @@ static int INIT start_bunzip(struct bunz
- 
- /* Example usage: decompress src_fd to dst_fd.  (Stops at end of bzip2 data,
-    not end of file.) */
--int INIT bunzip2(unsigned char *buf, unsigned int len,
--		 int(*fill)(void*, unsigned int),
--		 int(*flush)(void*, unsigned int),
--		 unsigned char *outbuf, unsigned int *pos,
--		 void(*error)(const char *x))
-+int __init bunzip2(unsigned char *buf, unsigned int len,
-+		   int(*fill)(void*, unsigned int),
-+		   int(*flush)(void*, unsigned int),
-+		   unsigned char *outbuf, unsigned int *pos,
-+		   void(*error)(const char *x))
- {
- 	struct bunzip_data *bd;
- 	int i = -1;
+ 	u8 r = 0;
+ 	int skip = 0;
 
 
