@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48E75303F2C
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 14:46:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75057.135067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81F83303F2D
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 14:46:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75062.135078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4Ofz-0002ip-QX; Tue, 26 Jan 2021 13:46:35 +0000
+	id 1l4Og6-0002nr-6N; Tue, 26 Jan 2021 13:46:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75057.135067; Tue, 26 Jan 2021 13:46:35 +0000
+Received: by outflank-mailman (output) from mailman id 75062.135078; Tue, 26 Jan 2021 13:46:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4Ofz-0002hf-K0; Tue, 26 Jan 2021 13:46:35 +0000
-Received: by outflank-mailman (input) for mailman id 75057;
- Tue, 26 Jan 2021 13:46:33 +0000
+	id 1l4Og6-0002nL-2V; Tue, 26 Jan 2021 13:46:42 +0000
+Received: by outflank-mailman (input) for mailman id 75062;
+ Tue, 26 Jan 2021 13:46:40 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nQkR=G5=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l4Ofx-0002gl-En
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 13:46:33 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ id 1l4Og4-0002mo-P9
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 13:46:40 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7072411f-a9af-4426-8466-b6aa6857452c;
- Tue, 26 Jan 2021 13:46:32 +0000 (UTC)
+ id 42f6c252-3aa8-4103-a788-c44e73f23caf;
+ Tue, 26 Jan 2021 13:46:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,160 +36,351 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7072411f-a9af-4426-8466-b6aa6857452c
+X-Inumbo-ID: 42f6c252-3aa8-4103-a788-c44e73f23caf
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611668792;
+  d=citrix.com; s=securemail; t=1611668799;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=IUh0RVE8w61pnOPOiiWTKkZqV0zgf/HgssEZSrgxWxs=;
-  b=eW5RdTLO6hWCZgl2kijJ+R4hfNXUSD03jN6b5LaMFK5j5hjh8whBe8wO
-   TP7/YR8NkloLe50F9B9fMAKrE1/DMc1of52yzhGwtpY9IINNETF9vRh1+
-   /+QxKhEknV2YfZJHRCzafLpVxNoyPJiUts/XhIQxKWKXpMF3H6iapmrHL
-   Y=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: bPRthZlSwnuU+7vlFLpn7h8vnrNhWd303H2gOghQaR9vhrNR1p5rttKr+y5OLvQSEhSyeywj+f
- F1L5Ozf9sVfN86fsQGfFBQGC28MwBeUl37LHxuTAw33FF3RUgOBE35GQVdkgusO3yMj3ZNPnl3
- IMoAnFvFJPNm/VluF/RgLsrOwN1b6NnY4YLmiB5IkyJge3mnAevxZmgrFJP6OPJtAkFvbOVjf8
- Ws/LAjde5dTu4H3X87uk/MdM3sE78J3V/lHKYm03XvTtAaSX8zpbRIx6wop0UreXny1+BENOyl
- Gjo=
+  bh=hcu6rPXB0GnFJq4wOo4jGXsPQsFB9xSluXYQMH2pwfQ=;
+  b=aEXSjKr80CrROtLH+bRDV0eBIPgOetTvLJmZJj/UoCfKaqlNP+Is1/+S
+   6adbKRqMbeXf8nONA02BQnp1zetQJJEm8WrJ2I4rdWbtrt4+tvD5CevAq
+   wZ2WVUVfVLZDZpeW9+d4XWV029PecHvQX8pZUp+1f1MrD6Kalb0Vg1Lb0
+   4=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: F+5N4xvlVypnhSJ/y4LMsFy7hTmvlT0cffeRQW4jbNh9fFCCP1GCqKkiUWkTctIeG2MjWWWGnL
+ TsWpXxBEcHAcgajfA0Q2QC5aluTyL0CahuVgGOwVTj38nxff9xYX0I5bYGFqLY4v+Tzwo8MAUX
+ xdQAzzkLKHpBSDeT7JNn+cV2sQN6DdU8K98lTHex/8rCOYpqRYYfRdZ5Kj39ffhL1OKfaZpPuw
+ 6qiPsuy456qgqxh/p/CqA3kPQHUFLP49z9Zk4EQKklwp0w5d1YjKoOZah1AVjCuYpEkINblnd6
+ SSM=
 X-SBRS: 5.2
-X-MesageID: 35832614
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 36241636
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,375,1602561600"; 
-   d="scan'208";a="35832614"
+   d="scan'208";a="36241636"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eiBi/si0raOzLF8LpSiwHVd4D9QJSCS3dnZKzoJvO3m3YSYqT4UWayW2NjpR6o5bl6oO2/ZTz3cK95gzD5jxE2Ntktq2DQH7xiyEXeTJ4cX96POhsO7rd9DeJpHjMPFqbaGX0kQZuQWUxy4/Lh7XMLAeFUDBExlUJJasbJR+6K6RMGE68ZIs6roPM4Pe64TfMveDccnuuVRIEbb0zTKJorPkPf0nbzoBk87Iu3sVfPJm+anJywM1l7DxY/E0vufIFbI5Mi62DnVX7cpFbdJ2Axsg2T4YvmkE8G0nV63Bo9Jt7zcKQ1doRE0WYdPjIvZa1erVI45zg9YEVhFJCrJ26Q==
+ b=eZs0h+3fSJx5DvXQrBzGES3tKd28KY16SjqW9Lx8pE31Irmn7VvxDr/P0l3PNEVVdhBZXOMv0Vq2HMZDhW3dDJ/JAQyteayqXz/Dkragnr8eVwmduWHwGD8e4fsP/0Hs4H2cGDBRQ2EtaxeapJqVcab3U3eZPdqTQ4y/gvv/QOkAYOR6vxAbEp3PcfQ6uCQ1D/KpNDJF6rz65MNKPiVJycwI+w3eatvz/faMqYnIVG4rY5yTMZpNz4nbQxL8MAUxuMGMzh92qxm7DR9jsRkAKqSwj3HcjSOvudTZFFazQAHCUHMcdrWO3+5h0rE4VSDbnlj7YPUUyLvLocwFHPt/RA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H/2YxvgG6p6cjj2vAugUvonXsKtSjBfUQcfmm0qKKj0=;
- b=GeZNcg3nCiqc7MjMxuNF5uHh5e0NTokEGboMLBVIJeTgqvv0qig+K6EoXNYtYs4OpcmuhMXbmB7K3UsShVEooqA9meKRFtSid+rGTfg2ZccYxrSGV6lnu1ntkgooETYBLTU/7PqeVttnbvP+I1Kf6gOe4o5nDik3at9Cw35bRpUGBIJI2xIgyAWn3d+gviC/mrgvOBi2xCEgfkc5esADu4Qk0t+xTzPkqJXG1CiwBKiyF1gTIS2PZaCwD7czH12I790j8OXco2GkSlZxZFssUPsYQk/5FzhwusCX31fXFAiQ4AxEzYMqie/1XfDLnL5uS/KK7nz6QU62PQPtzlxYaA==
+ bh=ESUtauwQX8NuL5g6STCfuBsRHGMv9bFrt+yaDxNcMYw=;
+ b=K1cpizfQnzueyqdUwH5+bUbycEuq4pV5YPdMh/6fyuLjcutzlLwSoRnVKNbbrsVtxXLa3+Or+FrL9bea1dbBJvSKa2FdeGpfETmWBpVIPZ7frsLHzTa20kduMj10LqfWwXJBt0CTkpT4QffSKxkALs6+7e0p4k7xG66lyXXJFK1fHMlTh0eeq0rrLV63S8AtsqUctomv0XdlPGvYtlYddMw/aVl5ShNdBwXDFPa9UNBV2P4ApLDPuQ54jwMkegLz7z1PmN3H5/HokDRmuOKCqb9P76LqFeoFfhBjib9b2Sk02eMVQu5k8PdT/fj/W259FPszG2dXSUHawXfykFssqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H/2YxvgG6p6cjj2vAugUvonXsKtSjBfUQcfmm0qKKj0=;
- b=WoUxnWPMZBX1zXzWLnHs2zPTx1YdeYtuHMWse4jnU8Mi+AH8S+GgrUmhXhGmyj7C71X5yUjxZdqEyFiUqX2KTrYeKkZN5qTeLUJSxcjfuJ0hPRnAX4QWxFY8Dp/f8OBqufSnUGgSt9ZlUnO1gtr5AK/sstXC/ZWcqal3eAumyVM=
+ bh=ESUtauwQX8NuL5g6STCfuBsRHGMv9bFrt+yaDxNcMYw=;
+ b=Docy04WjdBBFEGTqVuuKMn1ulIgRzsMP7kKF34uTxuEdvpldsXnOdgi8gHkmpigd51ZKm8YzGr64KRrZdphz6VgJLiqbkoWykFBpYWHSxEoSyzyPqcfXMUJDE5YMSJ8nu8iw7HSDPqwbKW8ILYNLGMvQSTM9l8RBEww7B8cM3zU=
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v3 5/6] x86/vpic: issue dpci EOI for cleared pins at ICW1
-Date: Tue, 26 Jan 2021 14:45:20 +0100
-Message-ID: <20210126134521.25784-6-roger.pau@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Kevin Tian <kevin.tian@intel.com>,
+	Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v3 6/6] x86/dpci: remove the dpci EOI timer
+Date: Tue, 26 Jan 2021 14:45:21 +0100
+Message-ID: <20210126134521.25784-7-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210126134521.25784-1-roger.pau@citrix.com>
 References: <20210126134521.25784-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR2P264CA0174.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501::13)
+X-ClientProxiedBy: MR2P264CA0177.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501::16)
  To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 909f7242-960f-49ba-2fed-08d8c200c888
+X-MS-Office365-Filtering-Correlation-Id: 5f362332-9e36-4f2e-215c-08d8c200cc02
 X-MS-TrafficTypeDiagnostic: DM5PR03MB3209:
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR03MB320920124CDBF73EED17B59C8FBC9@DM5PR03MB3209.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <DM5PR03MB32097BA119A8329B687B084F8FBC9@DM5PR03MB3209.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: A9Kf4G15ufgIYCd2mREST3ieBgIRmZEgn+gigioPoUPeZkq/ATd80arvbWJbAx4Rs3UynQidkWIKQlx/ha08FW20T30UVmt83rlIrLkcVvGWO9z+mmQCVfX9/hshLloFewp6UBUdfXcVUpikqwEH63nBnrHOH/sqResr57Bp/UucIdocNeO3Bf6ci5yPA+RI2HoHA6i2+yRib7ewyVm/H5U52UtItQCZTDW+xGGPcHatz54VAVnqWIx7icN2nGPOdDJPPeiLSzxWXkViE5kr3dbD3n6jrotDy6C0r6kMvDsqKupb9n6Rtp1n/5Be3z9GpWuSYOwgPIOQ8NdOtMjbAmmFGxm3tMQBefBEXwAYlngFFJksNU9ARxbLOhero6ad2nub1C91/diP8bZ67T6V7P3hjfVCaZb4Tx4VueuHeqnkK1JzH5oFbQxT/7v10LgvO6S5jmLe7MfreaXGzYffvDi1kSb4Dj5rms4JotRc2X7Td3rrlt741Jt0Ix9FnDnq+zvIlZyO11bQt28MqLws/g==
+X-Microsoft-Antispam-Message-Info: RjFIeuz43TaSp5UaOvcqgwqMvz4igqJMjYBBurZh3bizXYVgUMknBSKsgsM6EcZktTa3iAPuyvo8GNrx8HXByWwWmjkvsfIXeda7JjFSVXELhvnKcs4LRQ418zOMj8/1QNV5ZQYH9S/lMqHTE/DkDxHiod2P4ktCnh7DDLAUdvrOAFlQLbkffRAsDuvHTAAXVE8x53bKQQrzY96jCrJWd4cMsDhUHXRS8k9a9jUiExrH+LQh48do2QHQLfZVRuTfvNZMU7h05rOTMM4SMIkjjvr9pUoA7sKfb+GMAMPfsPFUIznNGDrWzN1b5gDvfYxvUOmgMwPxQjodIGFS/yaNVVE+u0nnB6Il41JbAZ2mODAOtaLxxbAamV5IO3pYBNNkWAIdNX6+Ke9Hw7goWcNsfhR7TmzkemaWmNSsBTHAUvmB3/+r1k27GnGRgWjwiVL6IHCmGSA8tnB0y3loYP6jF6B7h751Gob7vkiOsCEMD1GfiLm4Rr9m3RB9HZ0f7Hb2Uf3YP5al3AsUYKeJAEvFnw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(346002)(39860400002)(396003)(136003)(376002)(6666004)(6916009)(66946007)(8936002)(956004)(86362001)(36756003)(478600001)(2616005)(8676002)(83380400001)(4326008)(6486002)(186003)(6496006)(54906003)(16526019)(2906002)(1076003)(5660300002)(66476007)(316002)(26005)(66556008);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?RE5ycEp0R0VHbHIrNk5EQUtpbzE3MGxIeWpNakE2a2oxeERYY3crVEM1ZGwv?=
- =?utf-8?B?RlJNeGYwK3NzQXNSQkFvS3I2OTBkUUc2UkxTY1gwUWtkOForYXRKWjUveFJ5?=
- =?utf-8?B?aGR0TUdVWDZ5NDIzMWpYRGhIb25qWEh1MTQwdWFpRjM0U0NrUzc2SE5ramJo?=
- =?utf-8?B?Mldzc09OS1VOV1BycXRmNDcvd3JUeVQyV09MZTJjbVRxNmFvc2pESGRkZGc4?=
- =?utf-8?B?T2NTb0JHbUI0REJNU3RQSkFkU1dvd0g5MUxJOTI5OEcxMUZzcHFoYjl2eGdM?=
- =?utf-8?B?RWJqSTBaUVAyMXNtNlJrTWtCcmZBalF2WGpqUzRCTVhLc202bEFibXJjWEoz?=
- =?utf-8?B?S2Rod1R1aUIzdW5HRVU3bWF3ZW5GSmIxdWpNMDB3aklObWlTZkZlWWdOV05s?=
- =?utf-8?B?Y0YxeCtTNVJGcFdJWnZjL3JlYlJxeFBINndrbDZNUGZuZ3EybmZJRkd5MG1P?=
- =?utf-8?B?RUZBQlQ2VFBQUmoyWTUwYS9YN1FYNU5Cc0lBdWNUYldxakJXcXlGRzZWNHRx?=
- =?utf-8?B?Yi85SUZUTXQzUVZtaUN1TGxPTW5FQVJLOGdLMGw3Y0VhWVBoQkJSQzI0VkR5?=
- =?utf-8?B?aDJ6bnpVNVo4c2h1V0VERWRPSHRtWDl6c0FWNS9qb2RDdzhkemFhZE5sanMy?=
- =?utf-8?B?RkYrc09XNUpId2pxT3YwQUY0aWkvd1R1WStabmNwZmNiSTU5eFJpcVFQa1Nt?=
- =?utf-8?B?elVvZVdVa0dFMWxxeEUxWndwQ25wMmFiblV6RytRZ3MxVU1Ha1R3cFpVelc0?=
- =?utf-8?B?QVRGK2dPNmtwMG9TYkVxdnZ5M3ExMmhOVk5DU3hhNzJ0UjNJenovcWlabEFY?=
- =?utf-8?B?b2ljNWl4Y2NheTB5MmRSeUJyYzlKN21TKy9IcU1mNTRyN2EwRmZOVVNTSEZ6?=
- =?utf-8?B?UnFCVXFlL1BuaGlJeWJ4YTcyWDJkNUtwcHVjckhpenJubkpWMFp6VU9GQjBa?=
- =?utf-8?B?Zm9QV2RyUjluWjBPendOZDR0Zk82SlRUMXJhaWh5RFgyOUJLL1RVeG51bXAr?=
- =?utf-8?B?aXJnUUVEMDZaSHBQZW5LaHdPZkYvdHloZTBjZmszR0tMY08zRmJ1ZW1rbVg2?=
- =?utf-8?B?ZWRIZnNaZC91YnBjc1hwV2c2NEsvUDZxVEszdUNQR1NNVUsrWVp3YVlxZ1FL?=
- =?utf-8?B?MlpHNnUrQlJ4RElzeGw0UU92cmlkZ2pWd1BGbEloeEk0Nm5Da1RFM29Ta3VF?=
- =?utf-8?B?dGs3UUI1NkVsWDBnNmZhYmdVQm00UTd6NXg4VTJUM0xLS2FrcFY3cldoTWdZ?=
- =?utf-8?B?cTkrMnp3S0Q0YzlCaWxiQ0o1QjBLMzc0U2x6dUZQUWtjZDFvOHVUbmU4eHhw?=
- =?utf-8?B?dW5RdVEydHdWU09QeEU1bkRlYnlMWExuRnJnK3Z0cEdIYlhmU2x4ZldxWHVT?=
- =?utf-8?B?ejh1ak1vRWpRNllHdlVyOVh5Tno3cVF6SjdrNWlWMEx1bkJnTkxQazJQYmVm?=
- =?utf-8?B?NTRkbmo2ZG9kZ1FlbkpNQkpMZVlVVlo3UnltczZ3PT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 909f7242-960f-49ba-2fed-08d8c200c888
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dDUyQXBGdjlyS0FqaFpYYWszek9LbnhaYlZNK3FGUVZTTUpiM2g1RmNDaFoy?=
+ =?utf-8?B?dkFNWWdnR3FWdzg2eHhLK2w0WkxLLzN1U2NObDZ3SWI2WE42RUIySkVCY0lI?=
+ =?utf-8?B?ZXRiSkxYNjhWMFFNeFhsWGprdEFJVis5Ymt5ZzRxQXpNcCs4TnJFaGROQmxm?=
+ =?utf-8?B?NktaQmYrYWoxSDVmTHV1UndFbmRaMzBjUzNWMXZUTms3RFhVdVMrWFJxOTl3?=
+ =?utf-8?B?MHJmSEpuZVNrY2ZQTWFzbkg4TjNjd2J3OEhiMkk5VVVMbHhnYVI3NVNZNDdS?=
+ =?utf-8?B?enhRMkVIays2UzJJb2doTk9iZGRzVFl5NCtPRWdDY2lVUFdaNm9qa09NZHVM?=
+ =?utf-8?B?cFM1T0ZKYjczbTBqS2U5L2syT3U2QXRTeUhHclFqZHJDSjA1U0krQ2hOZFkv?=
+ =?utf-8?B?VlBGeHdZQld3emJuM3RJTUVkcldEQmJoaUpMa21UV0FIZ24rc2pNMUxzcXB0?=
+ =?utf-8?B?KytrTTJGWlBLcGlEYUJMQlRXWnVzNEZVNW9kaU0zWmloc05ZTHRXRVV5YU8x?=
+ =?utf-8?B?TnFjTjkwa1dkSUdVT3BnaWJNYlRUdmViU3prWVBiSU9wR0M1WTZzS3NuSzJL?=
+ =?utf-8?B?T2JOWDNERHB1Nm9ZODZHK2MyZVNralIwTGJDQmNUUXIrQTh4cVdIdXR0Misw?=
+ =?utf-8?B?dHFHTXE5c3RPNy9QUThJMWNQREYxU05hN0pNRXNFSU9ORkRsZ3VWTzh0L2VX?=
+ =?utf-8?B?T2x3a3JMNU9jRGVPZ1NZOUprMWI2RkZha0RibjQwTXpXZEJ5bjVSSDlOT2sx?=
+ =?utf-8?B?VW1KaFZyNkVaNmxjakFXRklnWkJ1dSsyTVpQUHZ1UFFQZzhjaHI0M21Gd0w4?=
+ =?utf-8?B?ejZTdTc2YS9mQW5iMUFvd1ZvZkp1VGN1NW9uUUJVYWxvd2srTllaa3A0ZFNH?=
+ =?utf-8?B?cklPOCtOdXVGWlZLVmpBbkdSQy9HNlFZOGtQZm11cTNtWDUzWWoxOWttd2k1?=
+ =?utf-8?B?ZzNqV1lJNTF4dkNXeSsrWjFINVM5SWhlN29NZUFTei9zZ1NyaCtEODhQVEFP?=
+ =?utf-8?B?ZW1lV2VsM09jVGl5aGUvWWkzeTBDVDlyMEFnOHEvck1HUmpZU1ZaZVZqV2JP?=
+ =?utf-8?B?ODdMQ3NzUjJwZHZSdnNEZG5DNTJTRnBNUFNXdFhYcDhibVlxVnhxR2tXVi9v?=
+ =?utf-8?B?bUNVbzJDazhSb0FmL0I4YXkrS1hKd29ERjNUUUJncmR6ZVhLb2VkaGRPeVlZ?=
+ =?utf-8?B?c29qQ0ZobzZnRDJrT2szd25iN0haSnZISmx6a2MvdC9VVGo3RHR3N1d6Qk4v?=
+ =?utf-8?B?QWpYS3JHV3pTQnVGeVpkZ3VsbjZZTGx0UjhObTE2TGlLSHI2eFR5WmFQVVd5?=
+ =?utf-8?B?em8yWjdxZ0dXSkZvLzRNMkl3RjNkMy9lRFowb0lmWTRzYnVuR3IyTGZhTmlZ?=
+ =?utf-8?B?WllpZVVYZHQ0aURxOHFWWjhvVmZlZWZDeS9NQmZKWHE3NnhaQ3crTENscTJi?=
+ =?utf-8?B?OGdWZVJoeSszZzdaYmczZ1JNL0V4dTZWSU5HMW5RPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f362332-9e36-4f2e-215c-08d8c200cc02
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2021 13:46:29.5391
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2021 13:46:35.2739
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B09+9vjU6k30frnSTFqbdc7UpmlSDJ4yUx8YW2qvMTf/iCS5X93AqHKcUi3tTQaLsssN01BIuElGDbimDyryuw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5HmbMAl3wDf3gqiTMY3EEsYXNduTJ5dU+hGVF+eAiivItDxQkWjBZKQgFGzdlmgyLkPWVDUI4IgOV+pVwbRi8g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3209
 X-OriginatorOrg: citrix.com
 
-When pins are cleared from either ISR or IRR as part of the
-initialization sequence forward the clearing of those pins to the dpci
-EOI handler, as it is equivalent to an EOI. Not doing so can bring the
-interrupt controller state out of sync with the dpci handling logic,
-that expects a notification when a pin has been EOI'ed.
+Current interrupt pass though code will setup a timer for each
+interrupt injected to the guest that requires an EOI from the guest.
+Such timer would perform two actions if the guest doesn't EOI the
+interrupt before a given period of time. The first one is deasserting
+the virtual line, the second is perform an EOI of the physical
+interrupt source if it requires such.
 
-Fixes: 7b3cb5e5416 ('IRQ injection changes for HVM PCI passthru.')
+The deasserting of the guest virtual line is wrong, since it messes
+with the interrupt status of the guest. This seems to have been done
+in order to compensate for missing deasserts when certain interrupt
+controller actions are performed. The original motivation of the
+introduction of the timer was to fix issues when a GSI was shared
+between different guests. We believe that other changes in the
+interrupt handling code (ie: proper propagation of EOI related actions
+to dpci) will have fixed such errors now.
+
+Performing an EOI of the physical interrupt source is redundant, since
+there's already a timer that takes care of this for all interrupts,
+not just the HVM dpci ones, see irq_guest_action_t struct eoi_timer
+field.
+
+Since both of the actions performed by the dpci timer are not
+required, remove it altogether.
+
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes since v2:
- - Remove the unmask label.
+Changes since v1:
+ - Add parentheses.
 ---
- xen/arch/x86/hvm/vpic.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ xen/drivers/passthrough/vtd/x86/hvm.c |  3 -
+ xen/drivers/passthrough/x86/hvm.c     | 95 +--------------------------
+ xen/include/asm-x86/hvm/irq.h         |  3 -
+ xen/include/xen/iommu.h               |  5 --
+ 4 files changed, 2 insertions(+), 104 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/vpic.c b/xen/arch/x86/hvm/vpic.c
-index 795a76768d..f465b7f997 100644
---- a/xen/arch/x86/hvm/vpic.c
-+++ b/xen/arch/x86/hvm/vpic.c
-@@ -197,6 +197,8 @@ static void vpic_ioport_write(
-     {
-         if ( val & 0x10 )
+diff --git a/xen/drivers/passthrough/vtd/x86/hvm.c b/xen/drivers/passthrough/vtd/x86/hvm.c
+index f77b35815c..b531fe907a 100644
+--- a/xen/drivers/passthrough/vtd/x86/hvm.c
++++ b/xen/drivers/passthrough/vtd/x86/hvm.c
+@@ -36,10 +36,7 @@ static int _hvm_dpci_isairq_eoi(struct domain *d,
          {
-+            unsigned int pending = vpic->isr | (vpic->irr & ~vpic->elcr);
-+
-             /* ICW1 */
-             /* Clear edge-sensing logic. */
-             vpic->irr &= vpic->elcr;
-@@ -220,6 +222,24 @@ static void vpic_ioport_write(
+             hvm_pci_intx_deassert(d, digl->device, digl->intx);
+             if ( --pirq_dpci->pending == 0 )
+-            {
+-                stop_timer(&pirq_dpci->timer);
+                 pirq_guest_eoi(dpci_pirq(pirq_dpci));
+-            }
+         }
+     }
+ 
+diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
+index a6e2863c14..351daafdc9 100644
+--- a/xen/drivers/passthrough/x86/hvm.c
++++ b/xen/drivers/passthrough/x86/hvm.c
+@@ -136,77 +136,6 @@ static void pt_pirq_softirq_reset(struct hvm_pirq_dpci *pirq_dpci)
+     pirq_dpci->masked = 0;
+ }
+ 
+-bool pt_irq_need_timer(uint32_t flags)
+-{
+-    return !(flags & (HVM_IRQ_DPCI_GUEST_MSI | HVM_IRQ_DPCI_TRANSLATE |
+-                      HVM_IRQ_DPCI_NO_EOI));
+-}
+-
+-static int pt_irq_guest_eoi(struct domain *d, struct hvm_pirq_dpci *pirq_dpci,
+-                            void *arg)
+-{
+-    if ( __test_and_clear_bit(_HVM_IRQ_DPCI_EOI_LATCH_SHIFT,
+-                              &pirq_dpci->flags) )
+-    {
+-        pirq_dpci->masked = 0;
+-        pirq_dpci->pending = 0;
+-        pirq_guest_eoi(dpci_pirq(pirq_dpci));
+-    }
+-
+-    return 0;
+-}
+-
+-static void pt_irq_time_out(void *data)
+-{
+-    struct hvm_pirq_dpci *irq_map = data;
+-    const struct hvm_irq_dpci *dpci;
+-    const struct dev_intx_gsi_link *digl;
+-
+-    spin_lock(&irq_map->dom->event_lock);
+-
+-    if ( irq_map->flags & HVM_IRQ_DPCI_IDENTITY_GSI )
+-    {
+-        ASSERT(is_hardware_domain(irq_map->dom));
+-        /*
+-         * Identity mapped, no need to iterate over the guest GSI list to find
+-         * other pirqs sharing the same guest GSI.
+-         *
+-         * In the identity mapped case the EOI can also be done now, this way
+-         * the iteration over the list of domain pirqs is avoided.
+-         */
+-        hvm_gsi_deassert(irq_map->dom, dpci_pirq(irq_map)->pirq);
+-        irq_map->flags |= HVM_IRQ_DPCI_EOI_LATCH;
+-        pt_irq_guest_eoi(irq_map->dom, irq_map, NULL);
+-        spin_unlock(&irq_map->dom->event_lock);
+-        return;
+-    }
+-
+-    dpci = domain_get_irq_dpci(irq_map->dom);
+-    if ( unlikely(!dpci) )
+-    {
+-        ASSERT_UNREACHABLE();
+-        spin_unlock(&irq_map->dom->event_lock);
+-        return;
+-    }
+-    list_for_each_entry ( digl, &irq_map->digl_list, list )
+-    {
+-        unsigned int guest_gsi = hvm_pci_intx_gsi(digl->device, digl->intx);
+-        const struct hvm_girq_dpci_mapping *girq;
+-
+-        list_for_each_entry ( girq, &dpci->girq[guest_gsi], list )
+-        {
+-            struct pirq *pirq = pirq_info(irq_map->dom, girq->machine_gsi);
+-
+-            pirq_dpci(pirq)->flags |= HVM_IRQ_DPCI_EOI_LATCH;
+-        }
+-        hvm_pci_intx_deassert(irq_map->dom, digl->device, digl->intx);
+-    }
+-
+-    pt_pirq_iterate(irq_map->dom, pt_irq_guest_eoi, NULL);
+-
+-    spin_unlock(&irq_map->dom->event_lock);
+-}
+-
+ struct hvm_irq_dpci *domain_get_irq_dpci(const struct domain *d)
+ {
+     if ( !d || !is_hvm_domain(d) )
+@@ -568,15 +497,10 @@ int pt_irq_create_bind(
+                 }
              }
  
-             vpic->init_state = ((val & 3) << 2) | 1;
-+            vpic_update_int_output(vpic);
-+            vpic_unlock(vpic);
-+
-+            /*
-+             * Forward the EOI of any pending or in service interrupt that has
-+             * been cleared from IRR or ISR, or else the dpci logic will get
-+             * out of sync with the state of the interrupt controller.
-+             */
-+            while ( pending )
-+            {
-+                unsigned int pin = __scanbit(pending, 8);
-+
-+                ASSERT(pin < 8);
-+                hvm_dpci_eoi(current->domain,
-+                             hvm_isa_irq_to_gsi((addr >> 7) ? (pin | 8) : pin));
-+                __clear_bit(pin, &pending);
-+            }
-+            return;
+-            /* Init timer before binding */
+-            if ( pt_irq_need_timer(pirq_dpci->flags) )
+-                init_timer(&pirq_dpci->timer, pt_irq_time_out, pirq_dpci, 0);
+             /* Deal with gsi for legacy devices */
+             rc = pirq_guest_bind(d->vcpu[0], info, share);
+             if ( unlikely(rc) )
+             {
+-                if ( pt_irq_need_timer(pirq_dpci->flags) )
+-                    kill_timer(&pirq_dpci->timer);
+                 /*
+                  * There is no path for __do_IRQ to schedule softirq as
+                  * IRQ_GUEST is not set. As such we can reset 'dom' directly.
+@@ -743,8 +667,6 @@ int pt_irq_destroy_bind(
+     {
+         pirq_guest_unbind(d, pirq);
+         msixtbl_pt_unregister(d, pirq);
+-        if ( pt_irq_need_timer(pirq_dpci->flags) )
+-            kill_timer(&pirq_dpci->timer);
+         pirq_dpci->flags = 0;
+         /*
+          * See comment in pt_irq_create_bind's PT_IRQ_TYPE_MSI before the
+@@ -934,16 +856,6 @@ static void hvm_dirq_assist(struct domain *d, struct hvm_pirq_dpci *pirq_dpci)
+             __msi_pirq_eoi(pirq_dpci);
+             goto out;
          }
-         else if ( val & 0x08 )
-         {
+-
+-        /*
+-         * Set a timer to see if the guest can finish the interrupt or not. For
+-         * example, the guest OS may unmask the PIC during boot, before the
+-         * guest driver is loaded. hvm_pci_intx_assert() may succeed, but the
+-         * guest will never deal with the irq, then the physical interrupt line
+-         * will never be deasserted.
+-         */
+-        ASSERT(pt_irq_need_timer(pirq_dpci->flags));
+-        set_timer(&pirq_dpci->timer, NOW() + PT_IRQ_TIME_OUT);
+     }
+ 
+  out:
+@@ -967,10 +879,10 @@ static void hvm_pirq_eoi(struct pirq *pirq)
+      * since interrupt is still not EOIed
+      */
+     if ( --pirq_dpci->pending ||
+-         !pt_irq_need_timer(pirq_dpci->flags) )
++         /* When the interrupt source is MSI no Ack should be performed. */
++         (pirq_dpci->flags & HVM_IRQ_DPCI_TRANSLATE) )
+         return;
+ 
+-    stop_timer(&pirq_dpci->timer);
+     pirq_guest_eoi(pirq);
+ }
+ 
+@@ -1042,9 +954,6 @@ static int pci_clean_dpci_irq(struct domain *d,
+ 
+     pirq_guest_unbind(d, dpci_pirq(pirq_dpci));
+ 
+-    if ( pt_irq_need_timer(pirq_dpci->flags) )
+-        kill_timer(&pirq_dpci->timer);
+-
+     list_for_each_entry_safe ( digl, tmp, &pirq_dpci->digl_list, list )
+     {
+         list_del(&digl->list);
+diff --git a/xen/include/asm-x86/hvm/irq.h b/xen/include/asm-x86/hvm/irq.h
+index 7f76f6c437..07b1ab99cd 100644
+--- a/xen/include/asm-x86/hvm/irq.h
++++ b/xen/include/asm-x86/hvm/irq.h
+@@ -117,7 +117,6 @@ struct dev_intx_gsi_link {
+ #define _HVM_IRQ_DPCI_MACH_PCI_SHIFT            0
+ #define _HVM_IRQ_DPCI_MACH_MSI_SHIFT            1
+ #define _HVM_IRQ_DPCI_MAPPED_SHIFT              2
+-#define _HVM_IRQ_DPCI_EOI_LATCH_SHIFT           3
+ #define _HVM_IRQ_DPCI_GUEST_PCI_SHIFT           4
+ #define _HVM_IRQ_DPCI_GUEST_MSI_SHIFT           5
+ #define _HVM_IRQ_DPCI_IDENTITY_GSI_SHIFT        6
+@@ -126,7 +125,6 @@ struct dev_intx_gsi_link {
+ #define HVM_IRQ_DPCI_MACH_PCI        (1u << _HVM_IRQ_DPCI_MACH_PCI_SHIFT)
+ #define HVM_IRQ_DPCI_MACH_MSI        (1u << _HVM_IRQ_DPCI_MACH_MSI_SHIFT)
+ #define HVM_IRQ_DPCI_MAPPED          (1u << _HVM_IRQ_DPCI_MAPPED_SHIFT)
+-#define HVM_IRQ_DPCI_EOI_LATCH       (1u << _HVM_IRQ_DPCI_EOI_LATCH_SHIFT)
+ #define HVM_IRQ_DPCI_GUEST_PCI       (1u << _HVM_IRQ_DPCI_GUEST_PCI_SHIFT)
+ #define HVM_IRQ_DPCI_GUEST_MSI       (1u << _HVM_IRQ_DPCI_GUEST_MSI_SHIFT)
+ #define HVM_IRQ_DPCI_IDENTITY_GSI    (1u << _HVM_IRQ_DPCI_IDENTITY_GSI_SHIFT)
+@@ -171,7 +169,6 @@ struct hvm_pirq_dpci {
+     struct list_head digl_list;
+     struct domain *dom;
+     struct hvm_gmsi_info gmsi;
+-    struct timer timer;
+     struct list_head softirq_list;
+ };
+ 
+diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+index 863a68fe16..192ee07127 100644
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -183,11 +183,6 @@ int pt_irq_destroy_bind(struct domain *, const struct xen_domctl_bind_pt_irq *);
+ void hvm_dpci_isairq_eoi(struct domain *d, unsigned int isairq);
+ struct hvm_irq_dpci *domain_get_irq_dpci(const struct domain *);
+ void free_hvm_irq_dpci(struct hvm_irq_dpci *dpci);
+-#ifdef CONFIG_HVM
+-bool pt_irq_need_timer(uint32_t flags);
+-#else
+-static inline bool pt_irq_need_timer(unsigned int flags) { return false; }
+-#endif
+ 
+ struct msi_desc;
+ struct msi_msg;
 -- 
 2.29.2
 
