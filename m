@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E225304CDF
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 23:58:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75652.136274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95083304CE0
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 23:58:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75654.136286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4XII-0003lJ-CA; Tue, 26 Jan 2021 22:58:42 +0000
+	id 1l4XIJ-0003nf-Ln; Tue, 26 Jan 2021 22:58:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75652.136274; Tue, 26 Jan 2021 22:58:42 +0000
+Received: by outflank-mailman (output) from mailman id 75654.136286; Tue, 26 Jan 2021 22:58:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4XII-0003ke-8V; Tue, 26 Jan 2021 22:58:42 +0000
-Received: by outflank-mailman (input) for mailman id 75652;
- Tue, 26 Jan 2021 22:58:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4XIJ-0003mt-Hf; Tue, 26 Jan 2021 22:58:43 +0000
+Received: by outflank-mailman (input) for mailman id 75654;
+ Tue, 26 Jan 2021 22:58:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ePBE=G5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l4XIH-0003iw-23
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 22:58:41 +0000
+ id 1l4XII-0003iY-CK
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 22:58:42 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f3734734-292e-4661-8063-0dcccaad7a10;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6c140295-193d-4b56-94ee-33fb97677d53;
  Tue, 26 Jan 2021 22:58:40 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 291122065E;
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A79EA2067B;
  Tue, 26 Jan 2021 22:58:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -38,17 +37,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3734734-292e-4661-8063-0dcccaad7a10
+X-Inumbo-ID: 6c140295-193d-4b56-94ee-33fb97677d53
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611701919;
-	bh=zOWrR4VH8CVYg9SMt9hKgpD629fQnlmWeS5U6jKieqE=;
+	s=k20201202; t=1611701920;
+	bh=f04Fi/lIYdD7+J+KA0VjXybZ+sqQj9Rzhr9Y9B6vpgU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S+dK7+mrMvngn8plnOso2EjdwsLPFOpJ3JqK3vINRnD1OX23OxIwkPOXMRRYP7+uP
-	 4hKXKCpNVCuwPRLbs3hEU3q6jLEN9OBFBdHLUIdlIzrLWg2U5RnADY1q7lTQgi9l0Y
-	 LZcJHfp5Rb72RweGUfsiD+sFZAg+5et5SmthIWHV7Z6GXRk0i4v+jfa7pR97yWai7J
-	 ukQ16ou/GyEvLT350boJnzcsrbokUlDWFxHEcbsPUalF+pnJiiTPkh1Zj+6H9pZRUl
-	 uAWmJTSKJgoVWB2CG0eIP49Wi0BcoRDKBoXjYcsEMqli0pl5Fg43bn0+jpjorKs2pt
-	 lwSAWsDUZ3LrA==
+	b=J3Ot9nEGFAjMJlpm42N0j4RTmAr+SBBh4u8BgTeLBNp+RemkWHnBXo5YVrdckT0jH
+	 mtF+/XaAScv7Pf/uUM99nkaw2BIqesKz8Yt2MID9NsuqwWfRI96NSoi+cZBLiGGJtf
+	 a9ecgYTeXj+sVLWGfEcKOxG6Qv75dDOwwhgE8tFnmRV3JLCZ7BkWTPV98Rby3RnspI
+	 3PEdUdSpPp0OmcCRVW6iCwtMpubs6sx7v3u/uOd+YijfqDMIeGWg3qbAMcOrrMzmns
+	 b+hzPuEbVPuy+mQlonMPM8XF4Fnc2H7fBXmVYAG2F8V+dSVppgT5w86ItZrw+hTWOz
+	 5wf1NjXS9Xrhw==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -58,126 +57,136 @@ Cc: sstabellini@kernel.org,
 	rahul.singh@arm.com,
 	brian.woods@xilinx.com,
 	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: [PATCH v3 2/3] arm,smmu: restructure code in preparation to new bindings support
-Date: Tue, 26 Jan 2021 14:58:35 -0800
-Message-Id: <20210126225836.6017-2-sstabellini@kernel.org>
+Subject: [PATCH v3 3/3] arm,smmu: add support for generic DT bindings. Implement add_device and dt_xlate.
+Date: Tue, 26 Jan 2021 14:58:36 -0800
+Message-Id: <20210126225836.6017-3-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <alpine.DEB.2.21.2101261435550.2568@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.2101261435550.2568@sstabellini-ThinkPad-T480s>
 
 From: Brian Woods <brian.woods@xilinx.com>
 
-Restructure some of the code and add supporting functions for adding
-generic device tree (DT) binding support.  This will allow for using
-current Linux device trees with just modifying the chosen field to
-enable Xen.
+Now that all arm iommu drivers support generic bindings we can remove
+the workaround from iommu_add_dt_device().
+
+Note that if both legacy bindings and generic bindings are present in
+device tree, the legacy bindings are the ones that are used.
 
 Signed-off-by: Brian Woods <brian.woods@xilinx.com>
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 ---
 Changes in v3:
 - split patch
+- make find_smmu return non-const so that we can use it in arm_smmu_dt_add_device_generic
+- use dt_phandle_args
+- update commit message
 ---
- xen/drivers/passthrough/arm/smmu.c | 60 +++++++++++++++++-------------
- 1 file changed, 35 insertions(+), 25 deletions(-)
+ xen/drivers/passthrough/arm/smmu.c    | 40 ++++++++++++++++++++++++++-
+ xen/drivers/passthrough/device_tree.c | 17 +-----------
+ 2 files changed, 40 insertions(+), 17 deletions(-)
 
 diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index 3898d1d737..9687762283 100644
+index 9687762283..620ba5a4b5 100644
 --- a/xen/drivers/passthrough/arm/smmu.c
 +++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -782,50 +782,36 @@ static int insert_smmu_master(struct arm_smmu_device *smmu,
- 	return 0;
- }
+@@ -254,6 +254,8 @@ struct iommu_group
+ 	atomic_t ref;
+ };
  
--static int register_smmu_master(struct arm_smmu_device *smmu,
--				struct device *dev,
--				struct of_phandle_args *masterspec)
-+static int arm_smmu_dt_add_device_legacy(struct arm_smmu_device *smmu,
-+					 struct device *dev,
-+					 struct iommu_fwspec *fwspec)
++static struct arm_smmu_device *find_smmu(const struct device *dev);
++
+ static struct iommu_group *iommu_group_alloc(void)
  {
--	int i, ret = 0;
-+	int i;
- 	struct arm_smmu_master *master;
--	struct iommu_fwspec *fwspec;
-+	struct device_node *dev_node = dev_get_dev_node(dev);
- 
--	master = find_smmu_master(smmu, masterspec->np);
-+	master = find_smmu_master(smmu, dev_node);
- 	if (master) {
- 		dev_err(dev,
- 			"rejecting multiple registrations for master device %s\n",
--			masterspec->np->name);
-+			dev_node->name);
- 		return -EBUSY;
- 	}
- 
- 	master = devm_kzalloc(dev, sizeof(*master), GFP_KERNEL);
- 	if (!master)
- 		return -ENOMEM;
--	master->of_node = masterspec->np;
--
--	ret = iommu_fwspec_init(&master->of_node->dev, smmu->dev);
--	if (ret) {
--		kfree(master);
--		return ret;
--	}
--	fwspec = dev_iommu_fwspec_get(dev);
--
--	/* adding the ids here */
--	ret = iommu_fwspec_add_ids(&masterspec->np->dev,
--				   masterspec->args,
--				   masterspec->args_count);
--	if (ret)
--		return ret;
-+	master->of_node = dev_node;
- 
- 	/* Xen: Let Xen know that the device is protected by an SMMU */
--	dt_device_set_protected(masterspec->np);
-+	dt_device_set_protected(dev_node);
- 
- 	if (!(smmu->features & ARM_SMMU_FEAT_STREAM_MATCH)) {
- 		for (i = 0; i < fwspec->num_ids; ++i) {
--			if (masterspec->args[i] >= smmu->num_mapping_groups) {
-+			if (fwspec->ids[i] >= smmu->num_mapping_groups) {
- 				dev_err(dev,
- 					"stream ID for master device %s greater than maximum allowed (%d)\n",
--					masterspec->np->name, smmu->num_mapping_groups);
-+					dev_node->name, smmu->num_mapping_groups);
- 				return -ERANGE;
- 			}
- 		}
-@@ -833,6 +819,30 @@ static int register_smmu_master(struct arm_smmu_device *smmu,
- 	return insert_smmu_master(smmu, master);
+ 	struct iommu_group *group = xzalloc(struct iommu_group);
+@@ -843,6 +845,40 @@ static int register_smmu_master(struct arm_smmu_device *smmu,
+ 					     fwspec);
  }
  
-+static int register_smmu_master(struct arm_smmu_device *smmu,
-+				struct device *dev,
-+				struct of_phandle_args *masterspec)
++static int arm_smmu_dt_add_device_generic(u8 devfn, struct device *dev)
 +{
-+	int ret = 0;
++	struct arm_smmu_device *smmu;
 +	struct iommu_fwspec *fwspec;
 +
-+	ret = iommu_fwspec_init(&masterspec->np->dev, smmu->dev);
-+	if (ret)
-+		return ret;
++	fwspec = dev_iommu_fwspec_get(dev);
++	if (fwspec == NULL)
++		return -ENXIO;
 +
-+	fwspec = dev_iommu_fwspec_get(&masterspec->np->dev);
++	smmu = find_smmu(fwspec->iommu_dev);
++	if (smmu == NULL)
++		return -ENXIO;
 +
-+	ret = iommu_fwspec_add_ids(&masterspec->np->dev,
-+				   masterspec->args,
-+				   masterspec->args_count);
-+	if (ret)
-+		return ret;
++	return arm_smmu_dt_add_device_legacy(smmu, dev, fwspec);
++}
 +
-+	return arm_smmu_dt_add_device_legacy(smmu,
-+					     &masterspec->np->dev,
-+					     fwspec);
++static int arm_smmu_dt_xlate_generic(struct device *dev,
++				    const struct dt_phandle_args *spec)
++{
++	uint32_t mask, fwid = 0;
++
++	if (spec->args_count > 0)
++		fwid |= (SMR_ID_MASK & spec->args[0]) << SMR_ID_SHIFT;
++
++	if (spec->args_count > 1)
++		fwid |= (SMR_MASK_MASK & spec->args[1]) << SMR_MASK_SHIFT;
++	else if (!of_property_read_u32(spec->np, "stream-match-mask", &mask))
++		fwid |= (SMR_MASK_MASK & mask) << SMR_MASK_SHIFT;
++
++	return iommu_fwspec_add_ids(dev,
++				    &fwid,
++				    1);
 +}
 +
  static struct arm_smmu_device *find_smmu_for_device(struct device *dev)
  {
  	struct arm_smmu_device *smmu;
+@@ -2766,6 +2802,7 @@ static void arm_smmu_iommu_domain_teardown(struct domain *d)
+ static const struct iommu_ops arm_smmu_iommu_ops = {
+     .init = arm_smmu_iommu_domain_init,
+     .hwdom_init = arm_smmu_iommu_hwdom_init,
++    .add_device = arm_smmu_dt_add_device_generic,
+     .teardown = arm_smmu_iommu_domain_teardown,
+     .iotlb_flush = arm_smmu_iotlb_flush,
+     .iotlb_flush_all = arm_smmu_iotlb_flush_all,
+@@ -2773,9 +2810,10 @@ static const struct iommu_ops arm_smmu_iommu_ops = {
+     .reassign_device = arm_smmu_reassign_dev,
+     .map_page = arm_iommu_map_page,
+     .unmap_page = arm_iommu_unmap_page,
++    .dt_xlate = arm_smmu_dt_xlate_generic,
+ };
+ 
+-static __init const struct arm_smmu_device *find_smmu(const struct device *dev)
++static struct arm_smmu_device *find_smmu(const struct device *dev)
+ {
+ 	struct arm_smmu_device *smmu;
+ 	bool found = false;
+diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
+index a51ae3c9c3..ae07f272e1 100644
+--- a/xen/drivers/passthrough/device_tree.c
++++ b/xen/drivers/passthrough/device_tree.c
+@@ -162,22 +162,7 @@ int iommu_add_dt_device(struct dt_device_node *np)
+          * these callback implemented.
+          */
+         if ( !ops->add_device || !ops->dt_xlate )
+-        {
+-            /*
+-             * Some Device Trees may expose both legacy SMMU and generic
+-             * IOMMU bindings together. However, the SMMU driver is only
+-             * supporting the former and will protect them during the
+-             * initialization. So we need to skip them and not return
+-             * error here.
+-             *
+-             * XXX: This can be dropped when the SMMU is able to deal
+-             * with generic bindings.
+-             */
+-            if ( dt_device_is_protected(np) )
+-                return 0;
+-            else
+-                return -EINVAL;
+-        }
++            return -EINVAL;
+ 
+         if ( !dt_device_is_available(iommu_spec.np) )
+             break;
 -- 
 2.17.1
 
