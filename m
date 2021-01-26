@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4B93045DA
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 19:00:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75395.135750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5F86304638
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 19:27:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75404.135770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4SdQ-00075V-LQ; Tue, 26 Jan 2021 18:00:12 +0000
+	id 1l4T2i-0000hS-0z; Tue, 26 Jan 2021 18:26:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75395.135750; Tue, 26 Jan 2021 18:00:12 +0000
+Received: by outflank-mailman (output) from mailman id 75404.135770; Tue, 26 Jan 2021 18:26:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4SdQ-000756-Hs; Tue, 26 Jan 2021 18:00:12 +0000
-Received: by outflank-mailman (input) for mailman id 75395;
- Tue, 26 Jan 2021 18:00:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4SdP-000751-7E
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 18:00:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4SdP-0003iA-3e
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 18:00:11 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4SdP-0007dW-2A
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 18:00:11 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1l4SdB-0007Ju-AC; Tue, 26 Jan 2021 17:59:57 +0000
+	id 1l4T2h-0000h3-Tj; Tue, 26 Jan 2021 18:26:19 +0000
+Received: by outflank-mailman (input) for mailman id 75404;
+ Tue, 26 Jan 2021 18:26:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ePBE=G5=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l4T2h-0000gy-24
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 18:26:19 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1175d09d-db78-45e6-b647-de1be20cd0f9;
+ Tue, 26 Jan 2021 18:26:18 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2FB62207BC;
+ Tue, 26 Jan 2021 18:26:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,78 +37,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:CC:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=v20vDnA7iol2QTsFv9Zq6fBxOjQkztiDHFVIw61InOQ=; b=cNbD5UGRULmV30qQA33afcke4+
-	38olZITizdc5NpcrG9dF8yunQ31ARKTGCxYaWBL6g+6kQLeUJmnWeeEbFpbPm5bkpj08HQl8SdoyU
-	WA31CFGb3u6CrRS4rfRD3+Qm4uscWNR9qZobOMQE+I8QhEESd+vBG2SypJhqcuvoHPDk=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 1175d09d-db78-45e6-b647-de1be20cd0f9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1611685577;
+	bh=abtO3RAm6Hn7mmYf4RLA+aTAQjRjKGymTLDaAGREULU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=dGyXl338IAFFwwBZtOQ/MGkFvbAN4zLo6Pj59FcxtDALiRPf0/3eOvAYC1cS1/ggM
+	 xx0ESbHP8sTyMkq2Ets2qM3fhsWcqz83JXi2ACaWdxdiNKaHkkvZyGLUvgMXUm7/5Y
+	 cNiiqKZsXcK4YD0Pdybk7mkriknjpCYeZLNC959PzczKLfscEbTd9bkjoC70rkeTsK
+	 JQuthb70478+FeBnq3MiNpCmrVCKQK3HAJtmtjlvpRi63zI2GdnQweL8pu2Z8BCujs
+	 BWPjxgv9XTL4A7yjKZC4JbpaA8RH+i9mlyGCb4TiJ9Yo4IUQThtSigy4oNGMBK2y9P
+	 EBoUtOcivHTKA==
+Date: Tue, 26 Jan 2021 10:26:16 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    andrew.cooper3@citrix.com, george.dunlap@citrix.com, iwj@xenproject.org, 
+    jbeulich@suse.com, wl@xen.org
+Subject: Re: [PATCH v4 1/2] xen: EXPERT clean-up and introduce UNSUPPORTED
+In-Reply-To: <616b0552-33fc-360e-664c-44178e5afc6a@xen.org>
+Message-ID: <alpine.DEB.2.21.2101261024070.20638@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2101251321420.20638@sstabellini-ThinkPad-T480s> <20210125212747.26676-1-sstabellini@kernel.org> <616b0552-33fc-360e-664c-44178e5afc6a@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24592.22685.67161.585056@mariner.uk.xensource.com>
-Date: Tue, 26 Jan 2021 17:59:57 +0000
-To: Manuel Bouyer <bouyer@antioche.eu.org>,
-    Jan Beulich <jbeulich@suse.com>,
-CC: Wei Liu <wl@xen.org>,
-    Anthony PERARD <anthony.perard@citrix.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] Fix error: array subscript has type 'char'
-In-Reply-To: <20210126174415.GA21858@mail.soc.lip6.fr>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
-	<574d9ed8-c827-6864-4732-4e1b813fc3e3@suse.com>
-	<20210114122912.GA2522@antioche.eu.org>
-	<1af2b532-4dce-29cf-94ae-ad0c399ecbce@suse.com>
-	<20210114141615.GA9157@mail.soc.lip6.fr>
-	<20210126174415.GA21858@mail.soc.lip6.fr>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Type: text/plain; charset=US-ASCII
 
-Manuel Bouyer writes ("Re: [PATCH] Fix error: array subscript has type 'char'"):
-> On Thu, Jan 14, 2021 at 03:16:15PM +0100, Manuel Bouyer wrote:
-> > On Thu, Jan 14, 2021 at 02:25:05PM +0100, Jan Beulich wrote:
-> > > Which means you're shifting the undefined-ness from the implementation
+On Tue, 26 Jan 2021, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 25/01/2021 21:27, Stefano Stabellini wrote:
+> >   config ARM_SSBD
+> > -	bool "Speculative Store Bypass Disable" if EXPERT
+> > +	bool "Speculative Store Bypass Disable (UNSUPPORTED)" if UNSUPPORTED
+> >   	depends on HAS_ALTERNATIVE
+> >   	default y
+> >   	help
+> > @@ -87,7 +87,7 @@ config ARM_SSBD
+> >   	  If unsure, say Y.
+> >     config HARDEN_BRANCH_PREDICTOR
+> > -	bool "Harden the branch predictor against aliasing attacks" if EXPERT
+> > +	bool "Harden the branch predictor against aliasing attacks
+> > (UNSUPPORTED)" if UNSUPPORTED
+> >   	default y
+> >   	help
+> >   	  Speculation attacks against some high-performance processors rely on
+> 
+> I read through the back and forth between Bertrand and Jan about
+> "UNSUPPORTED". However, I still don't understand why those two options are
+> moved to UNSUPPORTED.
+> 
+> Both options will only build the code to enable the mitigation. The decision
+> is still based on the processor you are running on.
+> 
+> In addition to that, ARM_SSBD can also be forced enabled/disabled on the
+> command line.
 
-The undefined-ness is in the *specification*. [1]
+Yes, you are right. HARDEN_BRANCH_PREDICTOR and ARM_SSBD should remain
+EXPERT as they are today. It was a mistake to change them to
+UNSUPPORTED.
 
-> > > Isn't this something that wants changing in your ctype.h instead?
-> > > the functions (or macros), as per the C standard
 
-Jan, can you please check your facts before asserting the existence
-of a pretty blatant bug in a platform's implementation of basic C
-functions ?
+> A user may want to compile out the code if the target processor is not the
+> affected by the two issues. This wouldn't be much different to Xen deciding to
+> not enabling the mitigation.
+> 
+> I would view the two options as supported but not security supported. So this
+> seems to fit exactly in the definition of EXPERT rather than UNSUPPORTED.
 
-From my copy of C99+TC1+TC2, para 7.4:
-
- 1   In all cases the argument is an int, the value of which shall be
-     representable as an unsigned char or shall equal the value of the
-     macro EOF.  If the argument has any other value, the behavior is
-     undefined. [...]
-
-If char is signed, then it can contain -ve values.  Those values are
-promoted to int by the usual integer promotions.  Naturally such
-negative values are not representable as unsigned char.  Passing them
-to ctype macros is UB.
-
-So Manuel's ctypes.h is conforming and the compiler warning (which I
-have seen on Linux too) is correct.
-
-> I guess I'm going to give up on this one. We'll keep it as a local patch.
-
-Manuel, your original patch:
-
-Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-(The R-A is FTAOD since IMO this is a bugfix.)
-
-Ian.
-
-[1] I agree that "fixing" ctypes.h everywhere might be nice (eg the
-way glibc does it) but that has other implications and it is not
-reasonable to expect platforms supporting Xen to do that.
+Yes, I'll leave them unmodified.
 
