@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0323F304116
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 15:57:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75167.135274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE27304183
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 16:07:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75174.135289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4PmS-0002YX-Ms; Tue, 26 Jan 2021 14:57:20 +0000
+	id 1l4Pvn-0003YP-MK; Tue, 26 Jan 2021 15:06:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75167.135274; Tue, 26 Jan 2021 14:57:20 +0000
+Received: by outflank-mailman (output) from mailman id 75174.135289; Tue, 26 Jan 2021 15:06:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4PmS-0002Y8-J7; Tue, 26 Jan 2021 14:57:20 +0000
-Received: by outflank-mailman (input) for mailman id 75167;
- Tue, 26 Jan 2021 14:57:19 +0000
+	id 1l4Pvn-0003Y0-Ig; Tue, 26 Jan 2021 15:06:59 +0000
+Received: by outflank-mailman (input) for mailman id 75174;
+ Tue, 26 Jan 2021 15:06:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=garG=G5=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
- id 1l4PmR-0002Y3-Qx
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 14:57:19 +0000
-Received: from mail-wr1-f43.google.com (unknown [209.85.221.43])
+ <SRS0=yJWm=G5=bounce.vates.fr=bounce-md_30504962.60102f9b.v1-2ef14842609b4865bbf42ade9935d791@srs-us1.protection.inumbo.net>)
+ id 1l4Pvl-0003Xc-Qo
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 15:06:57 +0000
+Received: from mail180-30.suw31.mandrillapp.com (unknown [198.2.180.30])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 85c33159-158e-47ad-b016-0f2a91b6c751;
- Tue, 26 Jan 2021 14:57:17 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id b5so16775515wrr.10
- for <xen-devel@lists.xenproject.org>; Tue, 26 Jan 2021 06:57:17 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id u14sm3511919wmq.45.2021.01.26.06.57.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jan 2021 06:57:16 -0800 (PST)
+ id e42a7f90-9788-45ee-a381-04f1d45d5db2;
+ Tue, 26 Jan 2021 15:06:56 +0000 (UTC)
+Received: from pmta03.mandrill.prod.suw01.rsglab.com (127.0.0.1) by
+ mail180-30.suw31.mandrillapp.com id h20o1022sc0q for
+ <xen-devel@lists.xenproject.org>;
+ Tue, 26 Jan 2021 15:04:59 +0000 (envelope-from
+ <bounce-md_30504962.60102f9b.v1-2ef14842609b4865bbf42ade9935d791@bounce.vates.fr>)
+Received: from [185.78.159.90] by mandrillapp.com id
+ 2ef14842609b4865bbf42ade9935d791; Tue, 26 Jan 2021 15:04:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,63 +43,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85c33159-158e-47ad-b016-0f2a91b6c751
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=oMRD2IGlQe0VkH5NsMlo8MCUYOvYpaFDA5hfK4f4djg=;
-        b=Gthsov8+ZZkSvjCsmwHQWY6DWIYBvL/i5zF7o9zuLtajt5ygwPbGaYhfnpTO6i8Z94
-         spfCxm/xWykPuTd0hV0ravtNq+lemzzkUoZfcEXtqEq9R14ULtVB7W0DxHf2Opc6wdCA
-         W9+65anJiNVHA5SqAUMedj4UM3w1es2Pn6vqwnx3LjJZMvsWOsdeWteeZhtRzPvY+Ia6
-         yV/MLNtg4DBIxBRzjIFTn1mbM5iMI3+3cOaeje0Fo0JSUX9miK5hJ088ndozRBqUbk8Z
-         UsVyMrnL+2DEX768nXbQLVa238kzYxYbpYwNk62sHxr3JjHOWfdna4MkQMAMeJKi0f3O
-         7m2A==
-X-Gm-Message-State: AOAM5330REzileNCO2DX6pJv1G4qF9dOQkk8nUn1vDO/R7zcDISTvIVG
-	B5oDlGHZMPU9TLeI01zgJj8=
-X-Google-Smtp-Source: ABdhPJw18oH4tmuy9z2F9V3xuEToq19UFYiLcSIFZ7flLsr+XdOXG/LONMS+wSMYNNeu+39F8YAJNA==
-X-Received: by 2002:a5d:4402:: with SMTP id z2mr6518007wrq.265.1611673037155;
-        Tue, 26 Jan 2021 06:57:17 -0800 (PST)
-Date: Tue, 26 Jan 2021 14:57:15 +0000
-From: Wei Liu <wei.liu@kernel.org>
-To: David Hildenbrand <david@redhat.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Wei Yang <richard.weiyang@linux.alibaba.com>,
-	linux-hyperv@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1] mm/memory_hotplug: MEMHP_MERGE_RESOURCE ->
- MHP_MERGE_RESOURCE
-Message-ID: <20210126145715.ne5m7lmnqgzn53a2@liuwe-devbox-debian-v2>
-References: <20210126115829.10909-1-david@redhat.com>
+X-Inumbo-ID: e42a7f90-9788-45ee-a381-04f1d45d5db2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=mandrill; d=vates.fr;
+ h=From:Subject:To:Cc:References:Message-Id:In-Reply-To:Date:MIME-Version:Content-Type:Content-Transfer-Encoding; i=samuel.verschelde@vates.fr;
+ bh=Oo1Biu6IJLr6S34QRg9Mivu+clUjfFOFJ46YyDAFOpw=;
+ b=jGhYSWn5+Fy69BjuRwdWmnTcGP6SKYSjLIGfkLuLaP6SYFV9L60D5eziNeS4PTcMJSGbIPADh4Ic
+   VVYEpFvUBJiWxiqSI2OE1FNmCwbfLUaNr3TISejMYHqAUjIVH88bPRP+4ItgXSyQ6kKuh+nOlZYW
+   YrPoJE+KUJHW8nz1leo=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
+ i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1611673499; h=From : 
+ Subject : To : Cc : References : Message-Id : In-Reply-To : Date : 
+ MIME-Version : Content-Type : Content-Transfer-Encoding : From : 
+ Subject : Date : X-Mandrill-User : List-Unsubscribe; 
+ bh=Oo1Biu6IJLr6S34QRg9Mivu+clUjfFOFJ46YyDAFOpw=; 
+ b=mp4sv24GuwbvtUvOYi8RkEdkz+k0vadxQi/Vkllf7QxQk62Gr9t8HRZDQbgwZK5qsezN9O
+ v00/eVuyhAm0nb7PKDvon2iNC93VtYMHSoLq+XX4Y+MVqk/4ioXl3KGJex7zRRAomashknGg
+ t8S3xYvgdkQGJSNPfVR6np3khWCHw=
+From: Samuel Verschelde <samuel.verschelde@vates.fr>
+Subject: Re: XSA-332 kernel patch - huge network performance on pfSense VMs
+X-Virus-Scanned: amavisd-new at vates.fr
+To: xen-devel@lists.xenproject.org
+Cc: =?utf-8?Q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+References: <dc5d60d7-1ada-5eb1-ff91-495d663ca89e@vates.fr> <20210118100340.6vryyk52f5pyxgwv@Air-de-Roger>
+Message-Id: <48ac8598-1799-3b80-73c0-210076639fbc@vates.fr>
+In-Reply-To: <20210118100340.6vryyk52f5pyxgwv@Air-de-Roger>
+X-Report-Abuse: Please forward a copy of this message, including all headers, to abuse@mandrill.com
+X-Report-Abuse: You can also report abuse here: http://mandrillapp.com/contact/abuse?id=30504962.2ef14842609b4865bbf42ade9935d791
+X-Mandrill-User: md_30504962
+Date: Tue, 26 Jan 2021 15:04:59 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210126115829.10909-1-david@redhat.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jan 26, 2021 at 12:58:29PM +0100, David Hildenbrand wrote:
-> Let's make "MEMHP_MERGE_RESOURCE" consistent with "MHP_NONE", "mhp_t" and
-> "mhp_flags". As discussed recently [1], "mhp" is our internal
-> acronym for memory hotplug now.
+Le 18/01/2021 =C3=A0 11:03, Roger Pau Monn=C3=A9 a =C3=A9crit=C2=A0:
+> On Fri, Jan 15, 2021 at 03:03:26PM +0000, Samuel Verschelde wrote:
+>> Hi list,
+>>
+>> Another "popular" thread on XCP-ng forum [1], started in october 2020,
+>> allowed us to detect that patch 12 from the XSA-332 advisory [2] had a v=
+ery
+>> significant impact on network performance in the case of pfSense VMs.
+>>
+>> We reproduced the issue internally (well, we reproduced "something". The
+>> user setups in this thread are diverse) and our findings seem to confirm
+>> what the users reported. Running iperf3 from the pfSense VM to a debian =
+VM
+>> gives results around 5 times slower than before. Reverting this single p=
+atch
+>> brings the performance back. On the debian to pfSense direction, the dro=
+p is
+>> about 25%.
 > 
-> [1] https://lore.kernel.org/linux-mm/c37de2d0-28a1-4f7d-f944-cfd7d81c334d@redhat.com/
+> pfSense is based on FreeBSD, so I would bet that whatever performance
+> degradation you are seeing would also happen with plain FreeBSD. I
+> would assume netfront in FreeBSD is triggering the ratelimit on Linux,
+> and hence it gets throttled.
 > 
-[...]
-> Signed-off-by: David Hildenbrand <david@redhat.com>
+> Do you think you have the bandwidth to look into the FreeBSD side and
+> try to provide a fix? I'm happy to review and commit in upstream
+> FreeBSD, but would be nice to have someone else also in the loop as
+> ATM I'm the only one doing FreeBSD/Xen development AFAIK.
+> 
+> Thanks, Roger.
+> 
 
-Acked-by: Wei Liu <wei.liu@kernel.org>
+(sorry about the previous email, looks like my mail client hates me)
+
+I would personnally not be able to hack into either Xen, the linux 
+kernel or FreeBSD in any efficient way. My role here is limited to 
+packaging, testing and acting as a relay between users and developers. 
+We currently don't have anyone at Vates who would be able to hack into 
+FreeBSD either.
+
+What currently put FreeBSD on our radar is the large amount of users who 
+use FreeNAS/TrueNAS or pfSense VMs, and the recent bugs they detected 
+(XSA-360 and this performance drop).
+
+Additionnally, regarding this performance issue, some users report an 
+impact of that same patch 12 on the network performance of their non-BSD 
+VMs [1][2], so I think the FreeBSD case might be helpful to help 
+identify what in that patch caused throttling (if that's what happens), 
+because it's easier to reproduce, but I'm not sure fixes would only need 
+to be made in FreeBSD.
+
+Best regards,
+
+Samuel Verschelde
+
+[1] https://xcp-ng.org/forum/post/35521 mentions debian based Untangle 
+OS and inter-VLAN traffic
+[2] https://xcp-ng.org/forum/post/35476 general slowdown affecting all 
+VMs (VM to workstation traffic), from the first user who identified 
+patch 12 as the cause.
+
 
