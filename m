@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88ED530446D
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 18:02:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75338.135624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E75E30447A
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 18:03:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75343.135635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4RjF-0000hT-8o; Tue, 26 Jan 2021 17:02:09 +0000
+	id 1l4RkK-0000po-NU; Tue, 26 Jan 2021 17:03:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75338.135624; Tue, 26 Jan 2021 17:02:09 +0000
+Received: by outflank-mailman (output) from mailman id 75343.135635; Tue, 26 Jan 2021 17:03:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4RjF-0000h1-4d; Tue, 26 Jan 2021 17:02:09 +0000
-Received: by outflank-mailman (input) for mailman id 75338;
- Tue, 26 Jan 2021 17:02:07 +0000
+	id 1l4RkK-0000pS-Jm; Tue, 26 Jan 2021 17:03:16 +0000
+Received: by outflank-mailman (input) for mailman id 75343;
+ Tue, 26 Jan 2021 17:03:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=45Ul=G5=merlin.srs.infradead.org=batv+939790865eead6dd946b+6365+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1l4RjD-0000gv-2K
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 17:02:07 +0000
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 793ff46c-a469-406d-ba6c-3c87fc737170;
- Tue, 26 Jan 2021 17:02:01 +0000 (UTC)
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=u3832b3a9db3152.ant.amazon.com)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1l4Rix-0005eU-Jc; Tue, 26 Jan 2021 17:01:51 +0000
+ <SRS0=StHo=G5=codiax.se=anders.tornqvist@srs-us1.protection.inumbo.net>)
+ id 1l4RkJ-0000pM-2i
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 17:03:15 +0000
+Received: from mailrelay3-3.pub.mailoutpod1-cph3.one.com (unknown
+ [46.30.212.12]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1eef2d1d-0d93-4627-a53c-857dedbe3559;
+ Tue, 26 Jan 2021 17:03:11 +0000 (UTC)
+Received: from [192.168.101.129] (h77-53-239-0.cust.a3fiber.se [77.53.239.0])
+ by mailrelay3.pub.mailoutpod1-cph3.one.com (Halon) with ESMTPSA
+ id 5cf04198-5ff8-11eb-8cc2-d0431ea8bb03;
+ Tue, 26 Jan 2021 17:03:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,223 +39,652 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 793ff46c-a469-406d-ba6c-3c87fc737170
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=CBo81UQNuCDmAB+DUPniDCu0YPbadaqTfR98DpDqSPU=; b=mA8PNUznueESrK+/K/ID3i3Fd1
-	LyGm2BgOmJMKREM+Rtenc9mngva5h/DXlfdwkvXX+DfQb9dOsjQ4kn5zMKI3lGB3DR7/ZR5veB6a0
-	DYuHMfWdUybCVLjDfjZpTmsUDg4E1O09zVg8YhShbSjcfUXdaN1FvC/y7vNxefGdL96Q2AgVP9Prt
-	CjG77yXjOqZpf7lSKZiqSHIQLXbWjmuhDCtEVuWFQAoixMFiwDNuKt5f+nfmb32HgXsF0VPtKTEAk
-	Zi7f5A3QQYe1lSBVxSERMDu/82EKLHCxbx9Mk4gUpDUXJBrjLeKB0gaNOTg4K8wvUby8xdH85Bmti
-	InI3UzzA==;
-Message-ID: <4c9af052a6e0f6485d1de43f2c38b1461996db99.camel@infradead.org>
-Subject: [PATCH] xen: Fix XenStore initialisation for XS_LOCAL
-From: David Woodhouse <dwmw2@infradead.org>
-To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, x86@kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Paul Durrant <pdurrant@amazon.com>, 
- jgrall@amazon.com, karahmed@amazon.de, xen-devel
- <xen-devel@lists.xenproject.org>
-Date: Tue, 26 Jan 2021 17:01:49 +0000
-In-Reply-To: <4d334457-e173-fa21-40f0-65f800a00cec@suse.com>
-References: <20210113132606.422794-1-dwmw2@infradead.org>
-	 <4d334457-e173-fa21-40f0-65f800a00cec@suse.com>
-Content-Type: multipart/signed; micalg="sha-256";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-XalUlSc7InwHfIE55Wvq"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by merlin.infradead.org. See http://www.infradead.org/rpr.html
+X-Inumbo-ID: 1eef2d1d-0d93-4627-a53c-857dedbe3559
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codiax.se; s=20191106;
+	h=content-transfer-encoding:content-type:in-reply-to:mime-version:date:
+	 message-id:from:references:to:subject:from;
+	bh=2afwcZ5XmVIvUy8ALGgvd5dqeQKTfIQyi4bSoyV52ys=;
+	b=MM0TDTLm05/NLdcQfJ/NHivf5T5pWS+KiBpCkPZqbfxro+BcSlv1yVLr7oe5e0NTKFvrY1ObhcSe4
+	 SQEheyM6mXjKYCRqmjGDa848rgsonGkFcJKm3oxKgZ5WCS7Cu9rqt8aJtIwX9Vf6VZI1NRNxpdsYjn
+	 CXocTIA9fDIXxYibCpOQQQB+Msui6lCSvLYz6yrt/ZPclLvwRLb3Nxfna8SsHgnS2u2Ri3OoVh1sOs
+	 0VdLHNjHBQrhgThSx3WrwVTGA/0NjsjbzV5vY9YeemJqFJz+e/Fs20m83EGI0yt1L47/ckI4sHLT+b
+	 k0yxafm0l7zRaoVvYGETgR7ckx53T1w==
+X-HalOne-Cookie: 9fd41e6b116560ce8494b4b80c4b0a1ce54337d5
+X-HalOne-ID: 5cf04198-5ff8-11eb-8cc2-d0431ea8bb03
+Subject: Re: Null scheduler and vwfi native problem
+To: Dario Faggioli <dfaggioli@suse.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
+ <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
+ <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
+ <e18ba69efd0d12fc489144024305fd3c6102c330.camel@suse.com>
+ <e37fe8a9-c633-3572-e273-2fd03b35b791@codiax.se>
+ <744ddde6-a228-82fc-76b9-401926d7963b@xen.org>
+ <d92c4191fb81e6d1de636f281c8624d68f8d14fc.camel@suse.com>
+From: =?UTF-8?Q?Anders_T=c3=b6rnqvist?= <anders.tornqvist@codiax.se>
+Message-ID: <c9a4e132-5bca-aa76-ab8b-bfeee1cd5a9e@codiax.se>
+Date: Tue, 26 Jan 2021 18:03:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <d92c4191fb81e6d1de636f281c8624d68f8d14fc.camel@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+
+On 1/25/21 5:11 PM, Dario Faggioli wrote:
+> On Fri, 2021-01-22 at 14:26 +0000, Julien Grall wrote:
+>> Hi Anders,
+>>
+>> On 22/01/2021 08:06, Anders Törnqvist wrote:
+>>> On 1/22/21 12:35 AM, Dario Faggioli wrote:
+>>>> On Thu, 2021-01-21 at 19:40 +0000, Julien Grall wrote:
+>>> - booting with "sched=null vwfi=native" but not doing the IRQ
+>>> passthrough that you mentioned above
+>>> "xl destroy" gives
+>>> (XEN) End of domain_destroy function
+>>>
+>>> Then a "xl create" says nothing but the domain has not started
+>>> correct.
+>>> "xl list" look like this for the domain:
+>>> mydomu                                   2   512     1 ------
+>>> 0.0
+>> This is odd. I would have expected ``xl create`` to fail if something
+>> went wrong with the domain creation.
+>>
+> So, Anders, would it be possible to issue a:
+>
+> # xl debug-keys r
+> # xl dmesg
+>
+> And send it to us ?
+>
+> Ideally, you'd do it:
+>   - with Julien's patch (the one he sent the other day, and that you
+>     have already given a try to) applied
+>   - while you are in the state above, i.e., after having tried to
+>     destroy a domain and failing
+>   - and maybe again after having tried to start a new domain
+Here are some logs.
+
+The system is booted as before with the patch and the domu config does 
+not have the IRQs.
 
 
---=-XalUlSc7InwHfIE55Wvq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+# xl list
+Name                                        ID   Mem VCPUs State    Time(s)
+Domain-0                                     0  3000     5 r-----     820.1
+mydomu                                       1   511     1 r-----     157.0
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+# xl debug-keys r
+(XEN) sched_smt_power_savings: disabled
+(XEN) NOW=191793008000
+(XEN) Online Cpus: 0-5
+(XEN) Cpupool 0:
+(XEN) Cpus: 0-5
+(XEN) Scheduler: null Scheduler (null)
+(XEN)     cpus_free =
+(XEN) Domain info:
+(XEN)     Domain: 0
+(XEN)       1: [0.0] pcpu=0
+(XEN)       2: [0.1] pcpu=1
+(XEN)       3: [0.2] pcpu=2
+(XEN)       4: [0.3] pcpu=3
+(XEN)       5: [0.4] pcpu=4
+(XEN)     Domain: 1
+(XEN)       6: [1.0] pcpu=5
+(XEN) Waitqueue:
+(XEN) CPUs info:
+(XEN) CPU[00] sibling={0}, core={0}, unit=d0v0
+(XEN)     run: [0.0] pcpu=0
+(XEN) CPU[01] sibling={1}, core={1}, unit=d0v1
+(XEN)     run: [0.1] pcpu=1
+(XEN) CPU[02] sibling={2}, core={2}, unit=d0v2
+(XEN)     run: [0.2] pcpu=2
+(XEN) CPU[03] sibling={3}, core={3}, unit=d0v3
+(XEN)     run: [0.3] pcpu=3
+(XEN) CPU[04] sibling={4}, core={4}, unit=d0v4
+(XEN)     run: [0.4] pcpu=4
+(XEN) CPU[05] sibling={5}, core={5}, unit=d1v0
+(XEN)     run: [1.0] pcpu=5
 
-In commit 3499ba8198ca ("xen: Fix event channel callback via INTX/GSI")
-I reworked the triggering of xenbus_probe().
-
-I tried to simplify things by taking out the workqueue based startup
-triggered from wake_waiting(); the somewhat poorly named xenbus IRQ
-handler.
-
-I missed the fact that in the XS_LOCAL case (Dom0 starting its own
-xenstored or xenstore-stubdom, which happens after the kernel is booted
-completely), that IRQ-based trigger is still actually needed.
-
-So... put it back, except more cleanly. By just spawning a xenbus_probe
-thread which waits on xb_waitq and runs the probe the first time it
-gets woken, just as the workqueue-based hack did.
-
-This is actually a nicer approach for *all* the back ends with different
-interrupt methods, and we can switch them all over to that without the
-complex conditions for when to trigger it. But not in -rc6. This is
-the minimal fix for the regression, although it's a step in the right
-direction instead of doing a partial revert and actually putting the
-workqueue back. It's also simpler than the workqueue.
-
-Fixes: 3499ba8198ca ("xen: Fix event channel callback via INTX/GSI")
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- drivers/xen/xenbus/xenbus_probe.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
-
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_=
-probe.c
-index c8f0282bb649..18ffd0551b54 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -714,6 +714,23 @@ static bool xs_hvm_defer_init_for_callback(void)
- #endif
- }
-=20
-+static int xenbus_probe_thread(void *unused)
-+{
-+	DEFINE_WAIT(w);
-+
-+	/*
-+	 * We actually just want to wait for *any* trigger of xb_waitq,
-+	 * and run xenbus_probe() the moment it occurs.
-+	 */
-+	prepare_to_wait(&xb_waitq, &w, TASK_INTERRUPTIBLE);
-+	schedule();
-+	finish_wait(&xb_waitq, &w);
-+
-+	DPRINTK("probing");
-+	xenbus_probe();
-+	return 0;
-+}
-+
- static int __init xenbus_probe_initcall(void)
- {
- 	/*
-@@ -725,6 +742,20 @@ static int __init xenbus_probe_initcall(void)
- 	     !xs_hvm_defer_init_for_callback()))
- 		xenbus_probe();
-=20
-+	/*
-+	 * For XS_LOCAL, spawn a thread which will wait for xenstored
-+	 * or a xenstore-stubdom to be started, then probe. It will be
-+	 * triggered when communication starts happening, by waiting
-+	 * on xb_waitq.
-+	 */
-+	if (xen_store_domain_type =3D=3D XS_LOCAL) {
-+		struct task_struct *probe_task;
-+
-+		probe_task =3D kthread_run(xenbus_probe_thread, NULL,
-+					 "xenbus_probe");
-+		if (IS_ERR(probe_task))
-+			return PTR_ERR(probe_task);
-+	}
- 	return 0;
- }
- device_initcall(xenbus_probe_initcall);
---=20
-2.29.2
-
-
---=-XalUlSc7InwHfIE55Wvq
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCECow
-ggUcMIIEBKADAgECAhEA4rtJSHkq7AnpxKUY8ZlYZjANBgkqhkiG9w0BAQsFADCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMTkwMTAyMDAwMDAwWhcNMjIwMTAxMjM1
-OTU5WjAkMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZyYWRlYWQub3JnMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEAsv3wObLTCbUA7GJqKj9vHGf+Fa+tpkO+ZRVve9EpNsMsfXhvFpb8
-RgL8vD+L133wK6csYoDU7zKiAo92FMUWaY1Hy6HqvVr9oevfTV3xhB5rQO1RHJoAfkvhy+wpjo7Q
-cXuzkOpibq2YurVStHAiGqAOMGMXhcVGqPuGhcVcVzVUjsvEzAV9Po9K2rpZ52FE4rDkpDK1pBK+
-uOAyOkgIg/cD8Kugav5tyapydeWMZRJQH1vMQ6OVT24CyAn2yXm2NgTQMS1mpzStP2ioPtTnszIQ
-Ih7ASVzhV6csHb8Yrkx8mgllOyrt9Y2kWRRJFm/FPRNEurOeNV6lnYAXOymVJwIDAQABo4IB0zCC
-Ac8wHwYDVR0jBBgwFoAUgq9sjPjF/pZhfOgfPStxSF7Ei8AwHQYDVR0OBBYEFLfuNf820LvaT4AK
-xrGK3EKx1DE7MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUF
-BwMEBggrBgEFBQcDAjBGBgNVHSAEPzA9MDsGDCsGAQQBsjEBAgEDBTArMCkGCCsGAQUFBwIBFh1o
-dHRwczovL3NlY3VyZS5jb21vZG8ubmV0L0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3Js
-LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWls
-Q0EuY3JsMIGLBggrBgEFBQcBAQR/MH0wVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuY29tb2RvY2Eu
-Y29tL0NPTU9ET1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwJAYI
-KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAeBgNVHREEFzAVgRNkd213MkBpbmZy
-YWRlYWQub3JnMA0GCSqGSIb3DQEBCwUAA4IBAQALbSykFusvvVkSIWttcEeifOGGKs7Wx2f5f45b
-nv2ghcxK5URjUvCnJhg+soxOMoQLG6+nbhzzb2rLTdRVGbvjZH0fOOzq0LShq0EXsqnJbbuwJhK+
-PnBtqX5O23PMHutP1l88AtVN+Rb72oSvnD+dK6708JqqUx2MAFLMevrhJRXLjKb2Mm+/8XBpEw+B
-7DisN4TMlLB/d55WnT9UPNHmQ+3KFL7QrTO8hYExkU849g58Dn3Nw3oCbMUgny81ocrLlB2Z5fFG
-Qu1AdNiBA+kg/UxzyJZpFbKfCITd5yX49bOriL692aMVDyqUvh8fP+T99PqorH4cIJP6OxSTdxKM
-MIIFHDCCBASgAwIBAgIRAOK7SUh5KuwJ6cSlGPGZWGYwDQYJKoZIhvcNAQELBQAwgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTE5MDEwMjAwMDAwMFoXDTIyMDEwMTIz
-NTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBALL98Dmy0wm1AOxiaio/bxxn/hWvraZDvmUVb3vRKTbDLH14bxaW
-/EYC/Lw/i9d98CunLGKA1O8yogKPdhTFFmmNR8uh6r1a/aHr301d8YQea0DtURyaAH5L4cvsKY6O
-0HF7s5DqYm6tmLq1UrRwIhqgDjBjF4XFRqj7hoXFXFc1VI7LxMwFfT6PStq6WedhROKw5KQytaQS
-vrjgMjpICIP3A/CroGr+bcmqcnXljGUSUB9bzEOjlU9uAsgJ9sl5tjYE0DEtZqc0rT9oqD7U57My
-ECIewElc4VenLB2/GK5MfJoJZTsq7fWNpFkUSRZvxT0TRLqznjVepZ2AFzsplScCAwEAAaOCAdMw
-ggHPMB8GA1UdIwQYMBaAFIKvbIz4xf6WYXzoHz0rcUhexIvAMB0GA1UdDgQWBBS37jX/NtC72k+A
-CsaxitxCsdQxOzAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEF
-BQcDBAYIKwYBBQUHAwIwRgYDVR0gBD8wPTA7BgwrBgEEAbIxAQIBAwUwKzApBggrBgEFBQcCARYd
-aHR0cHM6Ly9zZWN1cmUuY29tb2RvLm5ldC9DUFMwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
-bC5jb21vZG9jYS5jb20vQ09NT0RPUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFp
-bENBLmNybDCBiwYIKwYBBQUHAQEEfzB9MFUGCCsGAQUFBzAChklodHRwOi8vY3J0LmNvbW9kb2Nh
-LmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3J0MCQG
-CCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAC20spBbrL71ZEiFrbXBHonzhhirO1sdn+X+O
-W579oIXMSuVEY1LwpyYYPrKMTjKECxuvp24c829qy03UVRm742R9Hzjs6tC0oatBF7KpyW27sCYS
-vj5wbal+TttzzB7rT9ZfPALVTfkW+9qEr5w/nSuu9PCaqlMdjABSzHr64SUVy4ym9jJvv/FwaRMP
-gew4rDeEzJSwf3eeVp0/VDzR5kPtyhS+0K0zvIWBMZFPOPYOfA59zcN6AmzFIJ8vNaHKy5QdmeXx
-RkLtQHTYgQPpIP1Mc8iWaRWynwiE3ecl+PWzq4i+vdmjFQ8qlL4fHz/k/fT6qKx+HCCT+jsUk3cS
-jDCCBeYwggPOoAMCAQICEGqb4Tg7/ytrnwHV2binUlYwDQYJKoZIhvcNAQEMBQAwgYUxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYDVQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRp
-b24gQXV0aG9yaXR5MB4XDTEzMDExMDAwMDAwMFoXDTI4MDEwOTIzNTk1OVowgZcxCzAJBgNVBAYT
-AkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNV
-BAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAvrOeV6wodnVAFsc4A5jTxhh2IVDzJXkLTLWg0X06WD6cpzEup/Y0dtmEatrQPTRI5Or1u6zf
-+bGBSyD9aH95dDSmeny1nxdlYCeXIoymMv6pQHJGNcIDpFDIMypVpVSRsivlJTRENf+RKwrB6vcf
-WlP8dSsE3Rfywq09N0ZfxcBa39V0wsGtkGWC+eQKiz4pBZYKjrc5NOpG9qrxpZxyb4o4yNNwTqza
-aPpGRqXB7IMjtf7tTmU2jqPMLxFNe1VXj9XB1rHvbRikw8lBoNoSWY66nJN/VCJv5ym6Q0mdCbDK
-CMPybTjoNCQuelc0IAaO4nLUXk0BOSxSxt8kCvsUtQIDAQABo4IBPDCCATgwHwYDVR0jBBgwFoAU
-u69+Aj36pvE8hI6t7jiY7NkyMtQwHQYDVR0OBBYEFIKvbIz4xf6WYXzoHz0rcUhexIvAMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQKMAgwBgYEVR0gADBMBgNVHR8E
-RTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9u
-QXV0aG9yaXR5LmNybDBxBggrBgEFBQcBAQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29t
-b2RvY2EuY29tL0NPTU9ET1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2Nz
-cC5jb21vZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAHhcsoEoNE887l9Wzp+XVuyPomsX9vP2
-SQgG1NgvNc3fQP7TcePo7EIMERoh42awGGsma65u/ITse2hKZHzT0CBxhuhb6txM1n/y78e/4ZOs
-0j8CGpfb+SJA3GaBQ+394k+z3ZByWPQedXLL1OdK8aRINTsjk/H5Ns77zwbjOKkDamxlpZ4TKSDM
-KVmU/PUWNMKSTvtlenlxBhh7ETrN543j/Q6qqgCWgWuMAXijnRglp9fyadqGOncjZjaaSOGTTFB+
-E2pvOUtY+hPebuPtTbq7vODqzCM6ryEhNhzf+enm0zlpXK7q332nXttNtjv7VFNYG+I31gnMrwfH
-M5tdhYF/8v5UY5g2xANPECTQdu9vWPoqNSGDt87b3gXb1AiGGaI06vzgkejL580ul+9hz9D0S0U4
-jkhJiA7EuTecP/CFtR72uYRBcunwwH3fciPjviDDAI9SnC/2aPY8ydehzuZutLbZdRJ5PDEJM/1t
-yZR2niOYihZ+FCbtf3D9mB12D4ln9icgc7CwaxpNSCPt8i/GqK2HsOgkL3VYnwtx7cJUmpvVdZ4o
-gnzgXtgtdk3ShrtOS1iAN2ZBXFiRmjVzmehoMof06r1xub+85hFQzVxZx5/bRaTKTlL8YXLI8nAb
-R9HWdFqzcOoB/hxfEyIQpx9/s81rgzdEZOofSlZHynoSMYIDyjCCA8YCAQEwga0wgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
-ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjEw
-MTI2MTcwMTQ5WjAvBgkqhkiG9w0BCQQxIgQgY4G/+zbrrg4Y8Qoh/bfGiy5cOa+1YcKJlvtzSnMa
-9kkwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
-TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
-PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAD6I6b22IA5uaIcD3M2e2D1nON4i7Aqjn81Y3nRtYpr9cuAXdnB7C20OJmVXm1j6
-29rM5UIYM07Jc7g5ZkKMk5Q2sunFdCIgq00ERa1O2Z2WG7TGbSyl09Njp8WQoV+ooJXpkW42KkR6
-a74TImFvxfXxDoqtFfKicxQyEpV1Ro+R9TXkEhkYfRHslNHvA5htPZdJ5ORB9Uo7KA161KGev5Ml
-3U4HRLC8oWqCPd+Pbp+ChI3kOLdMj9NFA3eJ0tXlvUuEZ8MDSlezIluFUMjWrtETG0BneshReodp
-s55mc1UgRpWE+vV1jiMppjjrEP4x+8ntUzSWr7bnfcIL1islqW0AAAAAAAA=
+# xl dmesg
+(XEN) Checking for initrd in /chosen
+(XEN) RAM: 0000000080200000 - 00000000ffffffff
+(XEN) RAM: 0000000880000000 - 00000008ffffffff
+(XEN)
+(XEN) MODULE[0]: 0000000080400000 - 000000008054d848 Xen
+(XEN) MODULE[1]: 0000000083000000 - 0000000083018000 Device Tree
+(XEN) MODULE[2]: 0000000088000000 - 0000000089701200 Kernel
+(XEN)  RESVD[0]: 0000000088000000 - 0000000090000000
+(XEN)  RESVD[1]: 0000000083000000 - 0000000083018000
+(XEN)  RESVD[2]: 0000000084000000 - 0000000085ffffff
+(XEN)  RESVD[3]: 0000000086000000 - 00000000863fffff
+(XEN)  RESVD[4]: 0000000090000000 - 00000000903fffff
+(XEN)  RESVD[5]: 0000000090400000 - 0000000091ffffff
+(XEN)  RESVD[6]: 0000000092000000 - 00000000921fffff
+(XEN)  RESVD[7]: 0000000092200000 - 00000000923fffff
+(XEN)  RESVD[8]: 0000000092400000 - 00000000943fffff
+(XEN)  RESVD[9]: 0000000094400000 - 0000000094bfffff
+(XEN)
+(XEN) CMDLINE[0000000088000000]:chosen console=hvc0 earlycon=xen 
+root=/dev/mmcblk0p3 mem=3000M hostname=myhost 
+video=HDMI-A-1:1920x1080@60 imxdrm.legacyfb_depth=32   quiet loglevel=3 
+logo.nologo vt.global_cursor_default=0
+(XEN)
+(XEN) Command line: console=dtuart dtuart=/serial@5a060000 
+dom0_mem=3000M dom0_max_vcpus=5 hmp-unsafe=true dom0_vcpus_pin 
+sched=null vwfi=native
+(XEN) Domain heap initialised
+(XEN) Booting using Device Tree
+(XEN) partition id 4
+(XEN) Domain name mydomu
+(XEN) *****Initialized MU
+(XEN) Looking for dtuart at "/serial@5a060000", options ""
+  Xen 4.13.1-pre
+(XEN) Xen version 4.13.1-pre (anders@builder.local) 
+(aarch64-poky-linux-gcc (GCC) 8.3.0) debug=n  Fri Jan 22 17:32:33 UTC 2021
+(XEN) Latest ChangeSet: Wed Feb 27 17:56:28 2019 +0800 git:b64b8df-dirty
+(XEN) Processor: 410fd034: "ARM Limited", variant: 0x0, part 0xd03, rev 0x4
+(XEN) 64-bit Execution:
+(XEN)   Processor Features: 0000000001002222 0000000000000000
+(XEN)     Exception Levels: EL3:64+32 EL2:64+32 EL1:64+32 EL0:64+32
+(XEN)     Extensions: FloatingPoint AdvancedSIMD GICv3-SysReg
+(XEN)   Debug Features: 0000000010305106 0000000000000000
+(XEN)   Auxiliary Features: 0000000000000000 0000000000000000
+(XEN)   Memory Model Features: 0000000000001122 0000000000000000
+(XEN)   ISA Features:  0000000000011120 0000000000000000
+(XEN) 32-bit Execution:
+(XEN)   Processor Features: 00000131:10011011
+(XEN)     Instruction Sets: AArch32 A32 Thumb Thumb-2 Jazelle
+(XEN)     Extensions: GenericTimer Security
+(XEN)   Debug Features: 03010066
+(XEN)   Auxiliary Features: 00000000
+(XEN)   Memory Model Features: 10201105 40000000 01260000 02102211
+(XEN)  ISA Features: 02101110 13112111 21232042 01112131 00011142 00011121
+(XEN) Generic Timer IRQ: phys=30 hyp=26 virt=27 Freq: 8000 KHz
+(XEN) GICv3 initialization:
+(XEN)       gic_dist_addr=0x00000051a00000
+(XEN)       gic_maintenance_irq=25
+(XEN)       gic_rdist_stride=0
+(XEN)       gic_rdist_regions=1
+(XEN)       redistributor regions:
+(XEN)         - region 0: 0x00000051b00000 - 0x00000051bc0000
+(XEN) GICv3 compatible with GICv2 cbase 0x00000052000000 vbase 
+0x00000052020000
+(XEN) GICv3: 544 lines, (IID 0001143b).
+(XEN) GICv3: CPU0: Found redistributor in region 0 @000000004002d000
+(XEN) XSM Framework v1.0.0 initialized
+(XEN) Initialising XSM SILO mode
+(XEN) Using scheduler: null Scheduler (null)
+(XEN) Initializing null scheduler
+(XEN) WARNING: This is experimental software in development.
+(XEN) Use at your own risk.
+(XEN) Allocated console ring of 16 KiB.
+(XEN) Bringing up CPU1
+(XEN) GICv3: CPU1: Found redistributor in region 0 @00000000400ad000
+(XEN) Bringing up CPU2
+(XEN) GICv3: CPU2: Found redistributor in region 0 @00000000400cd000
+(XEN) Bringing up CPU3
+(XEN) GICv3: CPU3: Found redistributor in region 0 @000000004004d000
+(XEN) Bringing up CPU4
+(XEN) GICv3: CPU4: Found redistributor in region 0 @000000004006d000
+(XEN) Bringing up CPU5
+(XEN) GICv3: CPU5: Found redistributor in region 0 @000000004008d000
+(XEN) Brought up 6 CPUs
+(XEN) I/O virtualisation enabled
+(XEN)  - Dom0 mode: Relaxed
+(XEN) Interrupt remapping enabled
+(XEN) P2M: 40-bit IPA with 40-bit PA and 8-bit VMID
+(XEN) P2M: 3 levels with order-1 root, VTCR 0x80023558
+(XEN) *** LOADING DOMAIN 0 ***
+(XEN) Loading d0 kernel from boot module @ 0000000088000000
+(XEN) Allocating 1:1 mappings totalling 3000MB for dom0:
+(XEN) BANK[0] 0x00000098000000-0x00000100000000 (1664MB)
+(XEN) BANK[1] 0x00000880000000-0x000008c0000000 (1024MB)
+(XEN) BANK[2] 0x000008d0000000-0x000008e0000000 (256MB)
+(XEN) BANK[3] 0x000008ec800000-0x000008f0000000 (56MB)
+(XEN) Grant table range: 0x00000080400000-0x00000080440000
+(XEN) HACK: skip /imx8_gpu_ss setup!
+(XEN) Allocating PPI 16 for event channel interrupt
+(XEN) Loading zImage from 0000000088000000 to 
+0000000098080000-0000000099781200
+(XEN) Loading d0 DTB to 0x00000000a0000000-0x00000000a001772e
+(XEN) Initial low memory virq threshold set at 0x4000 pages.
+(XEN) Scrubbing Free RAM in background
+(XEN) Std. Loglevel: Errors and warnings
+(XEN) Guest Loglevel: Nothing (Rate-limited: Errors and warnings)
+(XEN) ***************************************************
+(XEN) WARNING: HMP COMPUTING HAS BEEN ENABLED.
+(XEN) It has implications on the security and stability of the system,
+(XEN) unless the cpu affinity of all domains is specified.
+(XEN) ***************************************************
+(XEN) 3... 2... 1...
+(XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+(XEN) Freed 336kB init memory.
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER4
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER8
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER12
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER16
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER20
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER24
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER28
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER32
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER36
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER40
+(XEN) Power on resource 215
+(XEN) printk: 11 messages suppressed.
+(XEN) d1v0: vGICR: SGI: unhandled word write 0x000000ffffffff to ICACTIVER0
+(XEN) sched_smt_power_savings: disabled
+(XEN) NOW=191793008000
+(XEN) Online Cpus: 0-5
+(XEN) Cpupool 0:
+(XEN) Cpus: 0-5
+(XEN) Scheduler: null Scheduler (null)
+(XEN)     cpus_free =
+(XEN) Domain info:
+(XEN)     Domain: 0
+(XEN)       1: [0.0] pcpu=0
+(XEN)       2: [0.1] pcpu=1
+(XEN)       3: [0.2] pcpu=2
+(XEN)       4: [0.3] pcpu=3
+(XEN)       5: [0.4] pcpu=4
+(XEN)     Domain: 1
+(XEN)       6: [1.0] pcpu=5
+(XEN) Waitqueue:
+(XEN) CPUs info:
+(XEN) CPU[00] sibling={0}, core={0}, unit=d0v0
+(XEN)     run: [0.0] pcpu=0
+(XEN) CPU[01] sibling={1}, core={1}, unit=d0v1
+(XEN)     run: [0.1] pcpu=1
+(XEN) CPU[02] sibling={2}, core={2}, unit=d0v2
+(XEN)     run: [0.2] pcpu=2
+(XEN) CPU[03] sibling={3}, core={3}, unit=d0v3
+(XEN)     run: [0.3] pcpu=3
+(XEN) CPU[04] sibling={4}, core={4}, unit=d0v4
+(XEN)     run: [0.4] pcpu=4
+(XEN) CPU[05] sibling={5}, core={5}, unit=d1v0
+(XEN)     run: [1.0] pcpu=5
 
 
---=-XalUlSc7InwHfIE55Wvq--
+# xl destroy mydomu
+(XEN) End of domain_destroy function
+
+# xl list
+Name                                        ID   Mem VCPUs State    Time(s)
+Domain-0                                     0  3000     5 r-----    1057.9
+
+# xl debug-keys r
+(XEN) sched_smt_power_savings: disabled
+(XEN) NOW=223871439875
+(XEN) Online Cpus: 0-5
+(XEN) Cpupool 0:
+(XEN) Cpus: 0-5
+(XEN) Scheduler: null Scheduler (null)
+(XEN)     cpus_free =
+(XEN) Domain info:
+(XEN)     Domain: 0
+(XEN)       1: [0.0] pcpu=0
+(XEN)       2: [0.1] pcpu=1
+(XEN)       3: [0.2] pcpu=2
+(XEN)       4: [0.3] pcpu=3
+(XEN)       5: [0.4] pcpu=4
+(XEN)     Domain: 1
+(XEN)       6: [1.0] pcpu=5
+(XEN) Waitqueue:
+(XEN) CPUs info:
+(XEN) CPU[00] sibling={0}, core={0}, unit=d0v0
+(XEN)     run: [0.0] pcpu=0
+(XEN) CPU[01] sibling={1}, core={1}, unit=d0v1
+(XEN)     run: [0.1] pcpu=1
+(XEN) CPU[02] sibling={2}, core={2}, unit=d0v2
+(XEN)     run: [0.2] pcpu=2
+(XEN) CPU[03] sibling={3}, core={3}, unit=d0v3
+(XEN)     run: [0.3] pcpu=3
+(XEN) CPU[04] sibling={4}, core={4}, unit=d0v4
+(XEN)     run: [0.4] pcpu=4
+(XEN) CPU[05] sibling={5}, core={5}, unit=d1v0
+
+
+# xl create mydomu.cfg
+Parsing config from mydomu.cfg
+(XEN) Power on resource 215
+
+# xl list
+Name                                        ID   Mem VCPUs State    Time(s)
+Domain-0                                     0  3000     5 r-----    1152.1
+mydomu                                       2   512     1 ------       0.0
+
+# xl debug-keys r
+(XEN) sched_smt_power_savings: disabled
+(XEN) NOW=241210530250
+(XEN) Online Cpus: 0-5
+(XEN) Cpupool 0:
+(XEN) Cpus: 0-5
+(XEN) Scheduler: null Scheduler (null)
+(XEN)     cpus_free =
+(XEN) Domain info:
+(XEN)     Domain: 0
+(XEN)       1: [0.0] pcpu=0
+(XEN)       2: [0.1] pcpu=1
+(XEN)       3: [0.2] pcpu=2
+(XEN)       4: [0.3] pcpu=3
+(XEN)       5: [0.4] pcpu=4
+(XEN)     Domain: 1
+(XEN)       6: [1.0] pcpu=5
+(XEN)     Domain: 2
+(XEN)       7: [2.0] pcpu=-1
+(XEN) Waitqueue: d2v0
+(XEN) CPUs info:
+(XEN) CPU[00] sibling={0}, core={0}, unit=d0v0
+(XEN)     run: [0.0] pcpu=0
+(XEN) CPU[01] sibling={1}, core={1}, unit=d0v1
+(XEN)     run: [0.1] pcpu=1
+(XEN) CPU[02] sibling={2}, core={2}, unit=d0v2
+(XEN)     run: [0.2] pcpu=2
+(XEN) CPU[03] sibling={3}, core={3}, unit=d0v3
+(XEN)     run: [0.3] pcpu=3
+(XEN) CPU[04] sibling={4}, core={4}, unit=d0v4
+(XEN)     run: [0.4] pcpu=4
+(XEN) CPU[05] sibling={5}, core={5}, unit=d1v0
+
+# xl dmesg
+(XEN) Checking for initrd in /chosen
+(XEN) RAM: 0000000080200000 - 00000000ffffffff
+(XEN) RAM: 0000000880000000 - 00000008ffffffff
+(XEN)
+(XEN) MODULE[0]: 0000000080400000 - 000000008054d848 Xen
+(XEN) MODULE[1]: 0000000083000000 - 0000000083018000 Device Tree
+(XEN) MODULE[2]: 0000000088000000 - 0000000089701200 Kernel
+(XEN)  RESVD[0]: 0000000088000000 - 0000000090000000
+(XEN)  RESVD[1]: 0000000083000000 - 0000000083018000
+(XEN)  RESVD[2]: 0000000084000000 - 0000000085ffffff
+(XEN)  RESVD[3]: 0000000086000000 - 00000000863fffff
+(XEN)  RESVD[4]: 0000000090000000 - 00000000903fffff
+(XEN)  RESVD[5]: 0000000090400000 - 0000000091ffffff
+(XEN)  RESVD[6]: 0000000092000000 - 00000000921fffff
+(XEN)  RESVD[7]: 0000000092200000 - 00000000923fffff
+(XEN)  RESVD[8]: 0000000092400000 - 00000000943fffff
+(XEN)  RESVD[9]: 0000000094400000 - 0000000094bfffff
+(XEN)
+(XEN) CMDLINE[0000000088000000]:chosen console=hvc0 earlycon=xen 
+root=/dev/mmcblk0p3 mem=3000M hostname=myhost 
+video=HDMI-A-1:1920x1080@60 imxdrm.legacyfb_depth=32   quiet loglevel=3 
+logo.nologo vt.global_cursor_default=0
+(XEN)
+(XEN) Command line: console=dtuart dtuart=/serial@5a060000 
+dom0_mem=3000M dom0_max_vcpus=5 hmp-unsafe=true dom0_vcpus_pin 
+sched=null vwfi=native
+(XEN) Domain heap initialised
+(XEN) Booting using Device Tree
+(XEN) partition id 4
+(XEN) Domain name mydomu
+(XEN) *****Initialized MU
+(XEN) Looking for dtuart at "/serial@5a060000", options ""
+  Xen 4.13.1-pre
+(XEN) Xen version 4.13.1-pre (anders@builder.local) 
+(aarch64-poky-linux-gcc (GCC) 8.3.0) debug=n  Fri Jan 22 17:32:33 UTC 2021
+(XEN) Latest ChangeSet: Wed Feb 27 17:56:28 2019 +0800 git:b64b8df-dirty
+(XEN) Processor: 410fd034: "ARM Limited", variant: 0x0, part 0xd03, rev 0x4
+(XEN) 64-bit Execution:
+(XEN)   Processor Features: 0000000001002222 0000000000000000
+(XEN)     Exception Levels: EL3:64+32 EL2:64+32 EL1:64+32 EL0:64+32
+(XEN)     Extensions: FloatingPoint AdvancedSIMD GICv3-SysReg
+(XEN)   Debug Features: 0000000010305106 0000000000000000
+(XEN)   Auxiliary Features: 0000000000000000 0000000000000000
+(XEN)   Memory Model Features: 0000000000001122 0000000000000000
+(XEN)   ISA Features:  0000000000011120 0000000000000000
+(XEN) 32-bit Execution:
+(XEN)   Processor Features: 00000131:10011011
+(XEN)     Instruction Sets: AArch32 A32 Thumb Thumb-2 Jazelle
+(XEN)     Extensions: GenericTimer Security
+(XEN)   Debug Features: 03010066
+(XEN)   Auxiliary Features: 00000000
+(XEN)   Memory Model Features: 10201105 40000000 01260000 02102211
+(XEN)  ISA Features: 02101110 13112111 21232042 01112131 00011142 00011121
+(XEN) Generic Timer IRQ: phys=30 hyp=26 virt=27 Freq: 8000 KHz
+(XEN) GICv3 initialization:
+(XEN)       gic_dist_addr=0x00000051a00000
+(XEN)       gic_maintenance_irq=25
+(XEN)       gic_rdist_stride=0
+(XEN)       gic_rdist_regions=1
+(XEN)       redistributor regions:
+(XEN)         - region 0: 0x00000051b00000 - 0x00000051bc0000
+(XEN) GICv3 compatible with GICv2 cbase 0x00000052000000 vbase 
+0x00000052020000
+(XEN) GICv3: 544 lines, (IID 0001143b).
+(XEN) GICv3: CPU0: Found redistributor in region 0 @000000004002d000
+(XEN) XSM Framework v1.0.0 initialized
+(XEN) Initialising XSM SILO mode
+(XEN) Using scheduler: null Scheduler (null)
+(XEN) Initializing null scheduler
+(XEN) WARNING: This is experimental software in development.
+(XEN) Use at your own risk.
+(XEN) Allocated console ring of 16 KiB.
+(XEN) Bringing up CPU1
+(XEN) GICv3: CPU1: Found redistributor in region 0 @00000000400ad000
+(XEN) Bringing up CPU2
+(XEN) GICv3: CPU2: Found redistributor in region 0 @00000000400cd000
+(XEN) Bringing up CPU3
+(XEN) GICv3: CPU3: Found redistributor in region 0 @000000004004d000
+(XEN) Bringing up CPU4
+(XEN) GICv3: CPU4: Found redistributor in region 0 @000000004006d000
+(XEN) Bringing up CPU5
+(XEN) GICv3: CPU5: Found redistributor in region 0 @000000004008d000
+(XEN) Brought up 6 CPUs
+(XEN) I/O virtualisation enabled
+(XEN)  - Dom0 mode: Relaxed
+(XEN) Interrupt remapping enabled
+(XEN) P2M: 40-bit IPA with 40-bit PA and 8-bit VMID
+(XEN) P2M: 3 levels with order-1 root, VTCR 0x80023558
+(XEN) *** LOADING DOMAIN 0 ***
+(XEN) Loading d0 kernel from boot module @ 0000000088000000
+(XEN) Allocating 1:1 mappings totalling 3000MB for dom0:
+(XEN) BANK[0] 0x00000098000000-0x00000100000000 (1664MB)
+(XEN) BANK[1] 0x00000880000000-0x000008c0000000 (1024MB)
+(XEN) BANK[2] 0x000008d0000000-0x000008e0000000 (256MB)
+(XEN) BANK[3] 0x000008ec800000-0x000008f0000000 (56MB)
+(XEN) Grant table range: 0x00000080400000-0x00000080440000
+(XEN) HACK: skip /imx8_gpu_ss setup!
+(XEN) Allocating PPI 16 for event channel interrupt
+(XEN) Loading zImage from 0000000088000000 to 
+0000000098080000-0000000099781200
+(XEN) Loading d0 DTB to 0x00000000a0000000-0x00000000a001772e
+(XEN) Initial low memory virq threshold set at 0x4000 pages.
+(XEN) Scrubbing Free RAM in background
+(XEN) Std. Loglevel: Errors and warnings
+(XEN) Guest Loglevel: Nothing (Rate-limited: Errors and warnings)
+(XEN) ***************************************************
+(XEN) WARNING: HMP COMPUTING HAS BEEN ENABLED.
+(XEN) It has implications on the security and stability of the system,
+(XEN) unless the cpu affinity of all domains is specified.
+(XEN) ***************************************************
+(XEN) 3... 2... 1...
+(XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+(XEN) Freed 336kB init memory.
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER4
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER8
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER12
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER16
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER20
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER24
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER28
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER32
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER36
+(XEN) d0v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER40
+(XEN) Power on resource 215
+(XEN) printk: 11 messages suppressed.
+(XEN) d1v0: vGICR: SGI: unhandled word write 0x000000ffffffff to ICACTIVER0
+(XEN) sched_smt_power_savings: disabled
+(XEN) NOW=191793008000
+(XEN) Online Cpus: 0-5
+(XEN) Cpupool 0:
+(XEN) Cpus: 0-5
+(XEN) Scheduler: null Scheduler (null)
+(XEN)     cpus_free =
+(XEN) Domain info:
+(XEN)     Domain: 0
+(XEN)       1: [0.0] pcpu=0
+(XEN)       2: [0.1] pcpu=1
+(XEN)       3: [0.2] pcpu=2
+(XEN)       4: [0.3] pcpu=3
+(XEN)       5: [0.4] pcpu=4
+(XEN)     Domain: 1
+(XEN)       6: [1.0] pcpu=5
+(XEN) Waitqueue:
+(XEN) CPUs info:
+(XEN) CPU[00] sibling={0}, core={0}, unit=d0v0
+(XEN)     run: [0.0] pcpu=0
+(XEN) CPU[01] sibling={1}, core={1}, unit=d0v1
+(XEN)     run: [0.1] pcpu=1
+(XEN) CPU[02] sibling={2}, core={2}, unit=d0v2
+(XEN)     run: [0.2] pcpu=2
+(XEN) CPU[03] sibling={3}, core={3}, unit=d0v3
+(XEN)     run: [0.3] pcpu=3
+(XEN) CPU[04] sibling={4}, core={4}, unit=d0v4
+(XEN)     run: [0.4] pcpu=4
+(XEN) CPU[05] sibling={5}, core={5}, unit=d1v0
+(XEN)     run: [1.0] pcpu=5
+(XEN) End of domain_destroy function
+(XEN) sched_smt_power_savings: disabled
+(XEN) NOW=223871439875
+(XEN) Online Cpus: 0-5
+(XEN) Cpupool 0:
+(XEN) Cpus: 0-5
+(XEN) Scheduler: null Scheduler (null)
+(XEN)     cpus_free =
+(XEN) Domain info:
+(XEN)     Domain: 0
+(XEN)       1: [0.0] pcpu=0
+(XEN)       2: [0.1] pcpu=1
+(XEN)       3: [0.2] pcpu=2
+(XEN)       4: [0.3] pcpu=3
+(XEN)       5: [0.4] pcpu=4
+(XEN)     Domain: 1
+(XEN)       6: [1.0] pcpu=5
+(XEN) Waitqueue:
+(XEN) CPUs info:
+(XEN) CPU[00] sibling={0}, core={0}, unit=d0v0
+(XEN)     run: [0.0] pcpu=0
+(XEN) CPU[01] sibling={1}, core={1}, unit=d0v1
+(XEN)     run: [0.1] pcpu=1
+(XEN) CPU[02] sibling={2}, core={2}, unit=d0v2
+(XEN)     run: [0.2] pcpu=2
+(XEN) CPU[03] sibling={3}, core={3}, unit=d0v3
+(XEN)     run: [0.3] pcpu=3
+(XEN) CPU[04] sibling={4}, core={4}, unit=d0v4
+(XEN)     run: [0.4] pcpu=4
+(XEN) CPU[05] sibling={5}, core={5}, unit=d1v0
+(XEN) Power on resource 215
+(XEN) sched_smt_power_savings: disabled
+(XEN) NOW=241210530250
+(XEN) Online Cpus: 0-5
+(XEN) Cpupool 0:
+(XEN) Cpus: 0-5
+(XEN) Scheduler: null Scheduler (null)
+(XEN)     cpus_free =
+(XEN) Domain info:
+(XEN)     Domain: 0
+(XEN)       1: [0.0] pcpu=0
+(XEN)       2: [0.1] pcpu=1
+(XEN)       3: [0.2] pcpu=2
+(XEN)       4: [0.3] pcpu=3
+(XEN)       5: [0.4] pcpu=4
+(XEN)     Domain: 1
+(XEN)       6: [1.0] pcpu=5
+(XEN)     Domain: 2
+(XEN)       7: [2.0] pcpu=-1
+(XEN) Waitqueue: d2v0
+(XEN) CPUs info:
+(XEN) CPU[00] sibling={0}, core={0}, unit=d0v0
+(XEN)     run: [0.0] pcpu=0
+(XEN) CPU[01] sibling={1}, core={1}, unit=d0v1
+(XEN)     run: [0.1] pcpu=1
+(XEN) CPU[02] sibling={2}, core={2}, unit=d0v2
+(XEN)     run: [0.2] pcpu=2
+(XEN) CPU[03] sibling={3}, core={3}, unit=d0v3
+(XEN)     run: [0.3] pcpu=3
+(XEN) CPU[04] sibling={4}, core={4}, unit=d0v4
+(XEN)     run: [0.4] pcpu=4
+(XEN) CPU[05] sibling={5}, core={5}, unit=d1v0
+
+
+I then repeated the "xl create" some times until it caused the 
+complete_domain_destroy function to be called.
+Then the information looked like this:
+
+# xl debug-keys r
+(XEN) sched_smt_power_savings: disabled
+(XEN) NOW=850134473000
+(XEN) Online Cpus: 0-5
+(XEN) Cpupool 0:
+(XEN) Cpus: 0-5
+(XEN) Scheduler: null Scheduler (null)
+(XEN)     cpus_free =
+(XEN) Domain info:
+(XEN)     Domain: 0
+(XEN)       1: [0.0] pcpu=0
+(XEN)       2: [0.1] pcpu=1
+(XEN)       3: [0.2] pcpu=2
+(XEN)       4: [0.3] pcpu=3
+(XEN)       5: [0.4] pcpu=4
+(XEN)     Domain: 2
+(XEN)       6: [2.0] pcpu=5
+(XEN)     Domain: 3
+(XEN)     Domain: 4
+(XEN) Waitqueue:
+(XEN) CPUs info:
+(XEN) CPU[00] sibling={0}, core={0}, unit=d0v0
+(XEN)     run: [0.0] pcpu=0
+(XEN) CPU[01] sibling={1}, core={1}, unit=d0v1
+(XEN)     run: [0.1] pcpu=1
+(XEN) CPU[02] sibling={2}, core={2}, unit=d0v2
+(XEN)     run: [0.2] pcpu=2
+(XEN) CPU[03] sibling={3}, core={3}, unit=d0v3
+(XEN)     run: [0.3] pcpu=3
+(XEN) CPU[04] sibling={4}, core={4}, unit=d0v4
+(XEN)     run: [0.4] pcpu=4
+(XEN) CPU[05] sibling={5}, core={5}, unit=d2v0
+(XEN)     run: [2.0] pcpu=5
+
+# xl list
+Name                                        ID   Mem VCPUs State    Time(s)
+Domain-0                                     0  3000     5 r-----    4277.7
+mydomu                                       2   511     1 r-----      15.6
+
+
+>
+>> One possibility is the NULL scheduler doesn't release the pCPUs until
+>> the domain is fully destroyed. So if there is no pCPU free, it
+>> wouldn't
+>> be able to schedule the new domain.
+>>
+>> However, I would have expected the NULL scheduler to refuse the
+>> domain
+>> to create if there is no pCPU available.
+>>
+> Yeah but, unfortunately, the scheduler does not have it easy to fail
+> domain creation at this stage (i.e., when we realize there are no
+> available pCPUs). That's the reason why the NULL scheduler has a
+> waitqueue, where vCPUs that cannot be put on any pCPU are put.
+>
+> Of course, this is a configuration error (or a bug, like maybe in this
+> case :-/), and we print warnings when it happens.
+>
+>> @Dario, @Stefano, do you know when the NULL scheduler decides to
+>> allocate the pCPU?
+>>
+> On which pCPU to allocate a vCPU is decided in null_unit_insert(),
+> called from sched_alloc_unit() and sched_init_vcpu().
+>
+> On the other hand, a vCPU is properly removed from its pCPU, hence
+> making the pCPU free for being assigned to some other vCPU, in
+> unit_deassign(), called from null_unit_remove(), which in turn is
+> called from sched_destroy_vcpu() Which is indeed called from
+> complete_domain_destroy().
+>
+> Regards
+
 
 
