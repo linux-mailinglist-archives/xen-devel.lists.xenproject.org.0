@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BEAB303989
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 10:53:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74771.134424 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F79430398C
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 10:55:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74778.134436 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4L2j-00020q-61; Tue, 26 Jan 2021 09:53:49 +0000
+	id 1l4L3o-0002CV-Gu; Tue, 26 Jan 2021 09:54:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74771.134424; Tue, 26 Jan 2021 09:53:49 +0000
+Received: by outflank-mailman (output) from mailman id 74778.134436; Tue, 26 Jan 2021 09:54:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4L2j-00020P-2n; Tue, 26 Jan 2021 09:53:49 +0000
-Received: by outflank-mailman (input) for mailman id 74771;
- Tue, 26 Jan 2021 09:53:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l4L3o-0002C4-Ci; Tue, 26 Jan 2021 09:54:56 +0000
+Received: by outflank-mailman (input) for mailman id 74778;
+ Tue, 26 Jan 2021 09:54:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ElsB=G5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4L2h-00020A-PX
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 09:53:47 +0000
+ id 1l4L3m-0002Bd-Kv
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 09:54:54 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7ae2e427-071e-4cf6-b5e6-3125eeeb49cb;
- Tue, 26 Jan 2021 09:53:46 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 860b7770-873e-4eb3-92e1-68a2c2efd728;
+ Tue, 26 Jan 2021 09:54:53 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 37C87ACF4;
- Tue, 26 Jan 2021 09:53:45 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4FD83ACF4;
+ Tue, 26 Jan 2021 09:54:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,18 +39,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ae2e427-071e-4cf6-b5e6-3125eeeb49cb
+X-Inumbo-ID: 860b7770-873e-4eb3-92e1-68a2c2efd728
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611654825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611654892; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TNwBS5CqZiz6ZS6XTeoRh5oALwnQG2gs/BtgNSkMD0o=;
-	b=NAkyNLxstySUWv9KBfM3Aqo5AL/ejLfZZm6hksz+eAbXJlcu5J96Z0EoBgjmSZhUcVm4mM
-	oOLh/4J6LRzOi0iWqSneO6BiitU0BVDf39mxQCV7ikQRrK10Nf2BQRcLvsPvfVHIX9hNyh
-	tUfqmYpFTHFGVeoVEdNh/zMjZyCyWh0=
-Subject: [PATCH v3 15/15] unzstd: make helper symbols static
+	bh=CmACXmwxaudtkfIf6PNkfCRd4qdwwfStoKQQsJAzqz0=;
+	b=PPjleKzCOV/yF/Djfy+0Gmyaww2DSpHUa6MkFlHO2Betcxxk35tMv5nE50yvxEBf0Rsbj9
+	lYUFcbvsjPt12I9LXgBQxjfplV6pmIXUgZSreeLxXMFOrPfvKCy1Snb8GTwholtmkXXNZ1
+	6MgXlwCOBEc0lgITMbLY87kUvnaiyS0=
+Subject: Re: [PATCH v3 01/15] gunzip: drop INIT{,DATA} and STATIC
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -57,376 +58,257 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>
 References: <2db91183-a7de-0c43-2fef-feb3523ed19b@suse.com>
-Message-ID: <22549ef3-62a7-955e-e2ad-8bd47f832b68@suse.com>
-Date: Tue, 26 Jan 2021 10:53:45 +0100
+ <b33f4fd3-e81a-a703-9fb5-a01880c2db9a@suse.com>
+Message-ID: <c111f29b-cb2d-6743-e9c4-6381fa540814@suse.com>
+Date: Tue, 26 Jan 2021 10:54:52 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <2db91183-a7de-0c43-2fef-feb3523ed19b@suse.com>
+In-Reply-To: <b33f4fd3-e81a-a703-9fb5-a01880c2db9a@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-While for the original library's purposes these functions of course want
-to be externally exposed, we don't need this, and we also don't want
-this both to prevent unintended use and to keep the name space tidy.
-(When functions have no callers at all, wrap them with a suitable
-#ifdef.) This has the added benefit of reducing the resulting binary
-size - while this is all .init code, it's still desirable to not carry
-dead code.
+On 26.01.2021 10:50, Jan Beulich wrote:
+> There's no need for the extra abstraction.
+> 
+> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Additionally in the hypervisor we don't need the bulk of unzstd(), so
-insert a conditional allowing the compiler to DCE the rest (including
-the called functions).
+This, of course, is 07/15. Sorry.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v3: New.
+Jan
 
---- a/xen/common/unzstd.c
-+++ b/xen/common/unzstd.c
-@@ -53,6 +53,10 @@
-  *                 <= 22 + (uncompressed_size >> 15) + 131072
-  */
- 
-+#ifdef __XEN__
-+#include <xen/lib.h>
-+#endif
-+
- #include "decompress.h"
- 
- #include "zstd/entropy_common.c"
-@@ -173,6 +177,11 @@ int __init unzstd(unsigned char *in_buf,
- 		return decompress_single(in_buf, in_len, out_buf, out_len,
- 					 in_pos, error);
- 
-+#ifdef __XEN__
-+	ASSERT_UNREACHABLE();
-+	return -1;
-+#endif
-+
- 	/*
- 	 * If in_buf is not provided, we must be using fill(), so allocate
- 	 * a large enough buffer. If it is provided, it must be at least
---- a/xen/common/zstd/entropy_common.c
-+++ b/xen/common/zstd/entropy_common.c
-@@ -45,8 +45,10 @@
- #include "huf.h"
- #include "mem.h"
- 
-+#ifdef BUILD_DEAD_CODE
- /*===   Version   ===*/
- unsigned __init FSE_versionNumber(void) { return FSE_VERSION_NUMBER; }
-+#endif
- 
- /*===   Error Management   ===*/
- unsigned __init FSE_isError(size_t code) { return ERR_isError(code); }
---- a/xen/common/zstd/fse.h
-+++ b/xen/common/zstd/fse.h
-@@ -64,7 +64,7 @@ FSE_PUBLIC_API unsigned FSE_versionNumbe
- FSE_PUBLIC_API size_t FSE_compressBound(size_t size); /* maximum compressed size */
- 
- /* Error Management */
--FSE_PUBLIC_API unsigned FSE_isError(size_t code); /* tells if a return value is an error code */
-+static unsigned FSE_isError(size_t code); /* tells if a return value is an error code */
- 
- /*-*****************************************
- *  FSE detailed API
-@@ -173,7 +173,7 @@ If there is an error, the function will
- 	@return : size read from 'rBuffer',
- 			  or an errorCode, which can be tested using FSE_isError().
- 			  maxSymbolValuePtr[0] and tableLogPtr[0] will also be updated with their respective values */
--FSE_PUBLIC_API size_t FSE_readNCount(short *normalizedCounter, unsigned *maxSymbolValuePtr, unsigned *tableLogPtr, const void *rBuffer, size_t rBuffSize);
-+static size_t FSE_readNCount(short *normalizedCounter, unsigned *maxSymbolValuePtr, unsigned *tableLogPtr, const void *rBuffer, size_t rBuffSize);
- 
- /*! Constructor and Destructor of FSE_DTable.
- 	Note that its size depends on 'tableLog' */
-@@ -182,14 +182,14 @@ typedef unsigned FSE_DTable; /* don't al
- /*! FSE_buildDTable():
- 	Builds 'dt', which must be already allocated, using FSE_createDTable().
- 	return : 0, or an errorCode, which can be tested using FSE_isError() */
--FSE_PUBLIC_API size_t FSE_buildDTable_wksp(FSE_DTable *dt, const short *normalizedCounter, unsigned maxSymbolValue, unsigned tableLog, void *workspace, size_t workspaceSize);
-+static size_t FSE_buildDTable_wksp(FSE_DTable *dt, const short *normalizedCounter, unsigned maxSymbolValue, unsigned tableLog, void *workspace, size_t workspaceSize);
- 
- /*! FSE_decompress_usingDTable():
- 	Decompress compressed source `cSrc` of size `cSrcSize` using `dt`
- 	into `dst` which must be already allocated.
- 	@return : size of regenerated data (necessarily <= `dstCapacity`),
- 			  or an errorCode, which can be tested using FSE_isError() */
--FSE_PUBLIC_API size_t FSE_decompress_usingDTable(void *dst, size_t dstCapacity, const void *cSrc, size_t cSrcSize, const FSE_DTable *dt);
-+static size_t FSE_decompress_usingDTable(void *dst, size_t dstCapacity, const void *cSrc, size_t cSrcSize, const FSE_DTable *dt);
- 
- /*!
- Tutorial :
-@@ -273,10 +273,10 @@ size_t FSE_buildCTable_wksp(FSE_CTable *
- size_t FSE_buildDTable_raw(FSE_DTable *dt, unsigned nbBits);
- /**< build a fake FSE_DTable, designed to read a flat distribution where each symbol uses nbBits */
- 
--size_t FSE_buildDTable_rle(FSE_DTable *dt, unsigned char symbolValue);
-+static size_t FSE_buildDTable_rle(FSE_DTable *dt, unsigned char symbolValue);
- /**< build a fake FSE_DTable, designed to always generate the same symbolValue */
- 
--size_t FSE_decompress_wksp(void *dst, size_t dstCapacity, const void *cSrc, size_t cSrcSize, unsigned maxLog, void *workspace, size_t workspaceSize);
-+static size_t FSE_decompress_wksp(void *dst, size_t dstCapacity, const void *cSrc, size_t cSrcSize, unsigned maxLog, void *workspace, size_t workspaceSize);
- /**< same as FSE_decompress(), using an externally allocated `workSpace` produced with `FSE_DTABLE_SIZE_U32(maxLog)` */
- 
- /* *****************************************
---- a/xen/common/zstd/fse_decompress.c
-+++ b/xen/common/zstd/fse_decompress.c
-@@ -174,6 +174,7 @@ size_t __init FSE_buildDTable_rle(FSE_DT
- 	return 0;
- }
- 
-+#ifdef BUILD_DEAD_CODE
- size_t __init FSE_buildDTable_raw(FSE_DTable *dt, unsigned nbBits)
- {
- 	void *ptr = dt;
-@@ -200,6 +201,7 @@ size_t __init FSE_buildDTable_raw(FSE_DT
- 
- 	return 0;
- }
-+#endif
- 
- FORCE_INLINE size_t FSE_decompress_usingDTable_generic(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize, const FSE_DTable *dt,
- 						       const unsigned fast)
---- a/xen/common/zstd/huf.h
-+++ b/xen/common/zstd/huf.h
-@@ -45,7 +45,7 @@
- size_t HUF_compressBound(size_t size); /**< maximum compressed size (worst case) */
- 
- /* Error Management */
--unsigned HUF_isError(size_t code); /**< tells if a return value is an error code */
-+static unsigned HUF_isError(size_t code); /**< tells if a return value is an error code */
- 
- /* ***   Advanced function   *** */
- 
-@@ -99,12 +99,12 @@ typedef U32 HUF_DTable;
- *  Advanced decompression functions
- ******************************************/
- size_t HUF_decompress4X_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace, size_t workspaceSize); /**< decodes RLE and uncompressed */
--size_t HUF_decompress4X_hufOnly_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
--				size_t workspaceSize);							       /**< considers RLE and uncompressed as errors */
--size_t HUF_decompress4X2_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
--				   size_t workspaceSize); /**< single-symbol decoder */
--size_t HUF_decompress4X4_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
--				   size_t workspaceSize); /**< double-symbols decoder */
-+static size_t HUF_decompress4X_hufOnly_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
-+					    size_t workspaceSize);					       /**< considers RLE and uncompressed as errors */
-+static size_t HUF_decompress4X2_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
-+					  size_t workspaceSize); /**< single-symbol decoder */
-+static size_t HUF_decompress4X4_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
-+					  size_t workspaceSize); /**< double-symbols decoder */
- 
- /* ****************************************
- *  HUF detailed API
-@@ -153,8 +153,8 @@ size_t HUF_buildCTable_wksp(HUF_CElt *tr
- 	`huffWeight` is destination buffer.
- 	@return : size read from `src` , or an error Code .
- 	Note : Needed by HUF_readCTable() and HUF_readDTableXn() . */
--size_t HUF_readStats_wksp(BYTE *huffWeight, size_t hwSize, U32 *rankStats, U32 *nbSymbolsPtr, U32 *tableLogPtr, const void *src, size_t srcSize,
--			  void *workspace, size_t workspaceSize);
-+static size_t HUF_readStats_wksp(BYTE *huffWeight, size_t hwSize, U32 *rankStats, U32 *nbSymbolsPtr, U32 *tableLogPtr, const void *src, size_t srcSize,
-+				 void *workspace, size_t workspaceSize);
- 
- /** HUF_readCTable() :
- *   Loading a CTable saved with HUF_writeCTable() */
-@@ -172,12 +172,12 @@ HUF_decompress() does the following:
- *   based on a set of pre-determined metrics.
- *   @return : 0==HUF_decompress4X2, 1==HUF_decompress4X4 .
- *   Assumption : 0 < cSrcSize < dstSize <= 128 KB */
--U32 HUF_selectDecoder(size_t dstSize, size_t cSrcSize);
-+static U32 HUF_selectDecoder(size_t dstSize, size_t cSrcSize);
- 
--size_t HUF_readDTableX2_wksp(HUF_DTable *DTable, const void *src, size_t srcSize, void *workspace, size_t workspaceSize);
--size_t HUF_readDTableX4_wksp(HUF_DTable *DTable, const void *src, size_t srcSize, void *workspace, size_t workspaceSize);
-+static size_t HUF_readDTableX2_wksp(HUF_DTable *DTable, const void *src, size_t srcSize, void *workspace, size_t workspaceSize);
-+static size_t HUF_readDTableX4_wksp(HUF_DTable *DTable, const void *src, size_t srcSize, void *workspace, size_t workspaceSize);
- 
--size_t HUF_decompress4X_usingDTable(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable);
-+static size_t HUF_decompress4X_usingDTable(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable);
- size_t HUF_decompress4X2_usingDTable(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable);
- size_t HUF_decompress4X4_usingDTable(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable);
- 
-@@ -196,13 +196,13 @@ size_t HUF_compress1X_repeat(void *dst,
- 			     int preferRepeat); /**< `workSpace` must be a table of at least HUF_COMPRESS_WORKSPACE_SIZE_U32 unsigned */
- 
- size_t HUF_decompress1X_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace, size_t workspaceSize);
--size_t HUF_decompress1X2_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
--				   size_t workspaceSize); /**< single-symbol decoder */
-+static size_t HUF_decompress1X2_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
-+					  size_t workspaceSize); /**< single-symbol decoder */
- size_t HUF_decompress1X4_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace,
- 				   size_t workspaceSize); /**< double-symbols decoder */
- 
--size_t HUF_decompress1X_usingDTable(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize,
--				    const HUF_DTable *DTable); /**< automatic selection of sing or double symbol decoder, based on DTable */
-+static size_t HUF_decompress1X_usingDTable(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize,
-+					   const HUF_DTable *DTable); /**< automatic selection of sing or double symbol decoder, based on DTable */
- size_t HUF_decompress1X2_usingDTable(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable);
- size_t HUF_decompress1X4_usingDTable(void *dst, size_t maxDstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable);
- 
---- a/xen/common/zstd/huf_decompress.c
-+++ b/xen/common/zstd/huf_decompress.c
-@@ -218,6 +218,7 @@ static size_t __init HUF_decompress1X2_u
- 	return dstSize;
- }
- 
-+#ifdef BUILD_DEAD_CODE
- size_t __init HUF_decompress1X2_usingDTable(void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable)
- {
- 	DTableDesc dtd = HUF_getDTableDesc(DTable);
-@@ -225,6 +226,7 @@ size_t __init HUF_decompress1X2_usingDTa
- 		return ERROR(GENERIC);
- 	return HUF_decompress1X2_usingDTable_internal(dst, dstSize, cSrc, cSrcSize, DTable);
- }
-+#endif
- 
- size_t __init HUF_decompress1X2_DCtx_wksp(HUF_DTable *DCtx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace, size_t workspaceSize)
- {
-@@ -349,6 +351,7 @@ static size_t __init HUF_decompress4X2_u
- 	}
- }
- 
-+#ifdef BUILD_DEAD_CODE
- size_t __init HUF_decompress4X2_usingDTable(void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable)
- {
- 	DTableDesc dtd = HUF_getDTableDesc(DTable);
-@@ -356,6 +359,7 @@ size_t __init HUF_decompress4X2_usingDTa
- 		return ERROR(GENERIC);
- 	return HUF_decompress4X2_usingDTable_internal(dst, dstSize, cSrc, cSrcSize, DTable);
- }
-+#endif
- 
- size_t __init HUF_decompress4X2_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace, size_t workspaceSize)
- {
-@@ -679,6 +683,7 @@ static size_t __init HUF_decompress1X4_u
- 	return dstSize;
- }
- 
-+#ifdef BUILD_DEAD_CODE
- size_t __init HUF_decompress1X4_usingDTable(void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable)
- {
- 	DTableDesc dtd = HUF_getDTableDesc(DTable);
-@@ -701,6 +706,7 @@ size_t __init HUF_decompress1X4_DCtx_wks
- 
- 	return HUF_decompress1X4_usingDTable_internal(dst, dstSize, ip, cSrcSize, DCtx);
- }
-+#endif
- 
- static size_t __init HUF_decompress4X4_usingDTable_internal(void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable)
- {
-@@ -812,6 +818,7 @@ static size_t __init HUF_decompress4X4_u
- 	}
- }
- 
-+#ifdef BUILD_DEAD_CODE
- size_t __init HUF_decompress4X4_usingDTable(void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, const HUF_DTable *DTable)
- {
- 	DTableDesc dtd = HUF_getDTableDesc(DTable);
-@@ -819,6 +826,7 @@ size_t __init HUF_decompress4X4_usingDTa
- 		return ERROR(GENERIC);
- 	return HUF_decompress4X4_usingDTable_internal(dst, dstSize, cSrc, cSrcSize, DTable);
- }
-+#endif
- 
- size_t __init HUF_decompress4X4_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace, size_t workspaceSize)
- {
-@@ -896,6 +904,7 @@ U32 __init HUF_selectDecoder(size_t dstS
- 
- typedef size_t (*decompressionAlgo)(void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize);
- 
-+#ifdef BUILD_DEAD_CODE
- size_t __init HUF_decompress4X_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace, size_t workspaceSize)
- {
- 	/* validation checks */
-@@ -918,6 +927,7 @@ size_t __init HUF_decompress4X_DCtx_wksp
- 			      : HUF_decompress4X2_DCtx_wksp(dctx, dst, dstSize, cSrc, cSrcSize, workspace, workspaceSize);
- 	}
- }
-+#endif
- 
- size_t __init HUF_decompress4X_hufOnly_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace, size_t workspaceSize)
- {
-@@ -934,6 +944,7 @@ size_t __init HUF_decompress4X_hufOnly_w
- 	}
- }
- 
-+#ifdef BUILD_DEAD_CODE
- size_t __init HUF_decompress1X_DCtx_wksp(HUF_DTable *dctx, void *dst, size_t dstSize, const void *cSrc, size_t cSrcSize, void *workspace, size_t workspaceSize)
- {
- 	/* validation checks */
-@@ -956,3 +967,4 @@ size_t __init HUF_decompress1X_DCtx_wksp
- 			      : HUF_decompress1X2_DCtx_wksp(dctx, dst, dstSize, cSrc, cSrcSize, workspace, workspaceSize);
- 	}
- }
-+#endif
---- a/xen/common/zstd/zstd_common.c
-+++ b/xen/common/zstd/zstd_common.c
-@@ -47,12 +47,14 @@ ZSTD_customMem __init ZSTD_initStack(voi
- 	return stackMem;
- }
- 
-+#ifdef BUILD_DEAD_CODE
- void *__init ZSTD_stackAllocAll(void *opaque, size_t *size)
- {
- 	ZSTD_stack *stack = (ZSTD_stack *)opaque;
- 	*size = (BYTE const *)stack->end - (BYTE *)ZSTD_PTR_ALIGN(stack->ptr);
- 	return stack_push(stack, *size);
- }
-+#endif
- 
- void *__init ZSTD_stackAlloc(void *opaque, size_t size)
- {
---- a/xen/common/zstd/zstd_internal.h
-+++ b/xen/common/zstd/zstd_internal.h
-@@ -324,7 +324,7 @@ typedef struct {
- 
- const seqStore_t *ZSTD_getSeqStore(const ZSTD_CCtx *ctx);
- void ZSTD_seqToCodes(const seqStore_t *seqStorePtr);
--int ZSTD_isSkipFrame(ZSTD_DCtx *dctx);
-+static int ZSTD_isSkipFrame(ZSTD_DCtx *dctx);
- 
- /*= Custom memory allocation functions */
- typedef void *(*ZSTD_allocFunction)(void *opaque, size_t size);
-@@ -335,8 +335,8 @@ typedef struct {
- 	void *opaque;
- } ZSTD_customMem;
- 
--void *ZSTD_malloc(size_t size, ZSTD_customMem customMem);
--void ZSTD_free(void *ptr, ZSTD_customMem customMem);
-+static void *ZSTD_malloc(size_t size, ZSTD_customMem customMem);
-+static void ZSTD_free(void *ptr, ZSTD_customMem customMem);
- 
- /*====== stack allocation  ======*/
- 
-@@ -348,11 +348,11 @@ typedef struct {
- #define ZSTD_ALIGN(x) ALIGN(x, sizeof(size_t))
- #define ZSTD_PTR_ALIGN(p) PTR_ALIGN(p, sizeof(size_t))
- 
--ZSTD_customMem ZSTD_initStack(void *workspace, size_t workspaceSize);
-+static ZSTD_customMem ZSTD_initStack(void *workspace, size_t workspaceSize);
- 
- void *ZSTD_stackAllocAll(void *opaque, size_t *size);
--void *ZSTD_stackAlloc(void *opaque, size_t size);
--void ZSTD_stackFree(void *opaque, void *address);
-+static void *ZSTD_stackAlloc(void *opaque, size_t size);
-+static void ZSTD_stackFree(void *opaque, void *address);
- 
- /*======  common function  ======*/
- 
-@@ -367,10 +367,10 @@ ZSTD_STATIC U32 ZSTD_highbit32(U32 val)
- void ZSTD_invalidateRepCodes(ZSTD_CCtx *cctx);
- 
- size_t ZSTD_freeCCtx(ZSTD_CCtx *cctx);
--size_t ZSTD_freeDCtx(ZSTD_DCtx *dctx);
-+static size_t ZSTD_freeDCtx(ZSTD_DCtx *dctx);
- size_t ZSTD_freeCDict(ZSTD_CDict *cdict);
--size_t ZSTD_freeDDict(ZSTD_DDict *cdict);
-+static size_t ZSTD_freeDDict(ZSTD_DDict *cdict);
- size_t ZSTD_freeCStream(ZSTD_CStream *zcs);
--size_t ZSTD_freeDStream(ZSTD_DStream *zds);
-+static size_t ZSTD_freeDStream(ZSTD_DStream *zds);
- 
- #endif /* ZSTD_CCOMMON_H_MODULE */
+> ---
+> v3: New.
+> 
+> --- a/xen/common/gunzip.c
+> +++ b/xen/common/gunzip.c
+> @@ -22,7 +22,6 @@ static unsigned __initdata inptr;
+>  static unsigned __initdata outcnt;
+>  
+>  #define OF(args)        args
+> -#define STATIC          static
+>  
+>  #define memzero(s, n)   memset((s), 0, (n))
+>  
+> @@ -30,9 +29,6 @@ typedef unsigned char   uch;
+>  typedef unsigned short  ush;
+>  typedef unsigned long   ulg;
+>  
+> -#define INIT            __init
+> -#define INITDATA        __initdata
+> -
+>  #define get_byte()      (inptr < insize ? inbuf[inptr++] : fill_inbuf())
+>  
+>  /* Diagnostic functions */
+> --- a/xen/common/inflate.c
+> +++ b/xen/common/inflate.c
+> @@ -107,7 +107,7 @@
+>  static char rcsid[] = "#Id: inflate.c,v 0.14 1993/06/10 13:27:04 jloup Exp #";
+>  #endif
+>  
+> -#ifndef STATIC
+> +#ifndef __XEN__
+>  
+>  #if defined(STDC_HEADERS) || defined(HAVE_STDLIB_H)
+>  #  include <sys/types.h>
+> @@ -115,14 +115,9 @@ static char rcsid[] = "#Id: inflate.c,v
+>  #endif
+>  
+>  #include "gzip.h"
+> -#define STATIC
+> -#endif /* !STATIC */
+>  
+> -#ifndef INIT
+> -#define INIT
+> -#define INITDATA
+> -#endif
+> - 
+> +#endif /* !__XEN__ */
+> +
+>  #define slide window
+>  
+>  /* Huffman code lookup table entry--this entry is four bytes for machines
+> @@ -143,15 +138,15 @@ struct huft {
+>  
+>  
+>  /* Function prototypes */
+> -STATIC int INIT huft_build OF((unsigned *, unsigned, unsigned, 
+> -                               const ush *, const ush *, struct huft **, int *));
+> -STATIC int INIT huft_free OF((struct huft *));
+> -STATIC int INIT inflate_codes OF((struct huft *, struct huft *, int, int));
+> -STATIC int INIT inflate_stored OF((void));
+> -STATIC int INIT inflate_fixed OF((void));
+> -STATIC int INIT inflate_dynamic OF((void));
+> -STATIC int INIT inflate_block OF((int *));
+> -STATIC int INIT inflate OF((void));
+> +static int huft_build OF((unsigned *, unsigned, unsigned,
+> +                          const ush *, const ush *, struct huft **, int *));
+> +static int huft_free OF((struct huft *));
+> +static int inflate_codes OF((struct huft *, struct huft *, int, int));
+> +static int inflate_stored OF((void));
+> +static int inflate_fixed OF((void));
+> +static int inflate_dynamic OF((void));
+> +static int inflate_block OF((int *));
+> +static int inflate OF((void));
+>  
+>  
+>  /* The inflate algorithm uses a sliding 32 K byte window on the uncompressed
+> @@ -217,10 +212,10 @@ static const ush cpdext[] = {         /*
+>     the stream.
+>   */
+>  
+> -STATIC ulg INITDATA bb;                /* bit buffer */
+> -STATIC unsigned INITDATA bk;           /* bits in bit buffer */
+> +static ulg __initdata bb;                /* bit buffer */
+> +static unsigned __initdata bk;           /* bits in bit buffer */
+>  
+> -STATIC const ush mask_bits[] = {
+> +static const ush mask_bits[] = {
+>      0x0000,
+>      0x0001, 0x0003, 0x0007, 0x000f, 0x001f, 0x003f, 0x007f, 0x00ff,
+>      0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff
+> @@ -235,10 +230,10 @@ STATIC const ush mask_bits[] = {
+>   *  malloc by Hannu Savolainen 1993 and Matthias Urlichs 1994
+>   */
+>  
+> -static unsigned long INITDATA malloc_ptr;
+> -static int INITDATA malloc_count;
+> +static unsigned long __initdata malloc_ptr;
+> +static int __initdata malloc_count;
+>  
+> -static void *INIT malloc(int size)
+> +static void *__init malloc(int size)
+>  {
+>      void *p;
+>  
+> @@ -259,7 +254,7 @@ static void *INIT malloc(int size)
+>      return p;
+>  }
+>  
+> -static void INIT free(void *where)
+> +static void __init free(void *where)
+>  {
+>      malloc_count--;
+>      if (!malloc_count)
+> @@ -303,8 +298,8 @@ static void INIT free(void *where)
+>   */
+>  
+>  
+> -STATIC const int lbits = 9;          /* bits in base literal/length lookup table */
+> -STATIC const int dbits = 6;          /* bits in base distance lookup table */
+> +static const int lbits = 9;          /* bits in base literal/length lookup table */
+> +static const int dbits = 6;          /* bits in base distance lookup table */
+>  
+>  
+>  /* If BMAX needs to be larger than 16, then h and x[] should be ulg. */
+> @@ -312,10 +307,10 @@ STATIC const int dbits = 6;          /*
+>  #define N_MAX 288       /* maximum number of codes in any set */
+>  
+>  
+> -STATIC unsigned INITDATA hufts;      /* track memory usage */
+> +static unsigned __initdata hufts;      /* track memory usage */
+>  
+>  
+> -STATIC int INIT huft_build(
+> +static int __init huft_build(
+>      unsigned *b,            /* code lengths in bits (all assumed <= BMAX) */
+>      unsigned n,             /* number of codes (assumed <= N_MAX) */
+>      unsigned s,             /* number of simple-valued codes (0..s-1) */
+> @@ -560,7 +555,7 @@ STATIC int INIT huft_build(
+>  
+>  
+>  
+> -STATIC int INIT huft_free(
+> +static int __init huft_free(
+>      struct huft *t         /* table to free */
+>      )
+>  /* Free the malloc'ed tables built by huft_build(), which makes a linked
+> @@ -582,7 +577,7 @@ STATIC int INIT huft_free(
+>  }
+>  
+>  
+> -STATIC int INIT inflate_codes(
+> +static int __init inflate_codes(
+>      struct huft *tl,    /* literal/length decoder tables */
+>      struct huft *td,    /* distance decoder tables */
+>      int bl,             /* number of bits decoded by tl[] */
+> @@ -697,7 +692,7 @@ STATIC int INIT inflate_codes(
+>  
+>  
+>  
+> -STATIC int INIT inflate_stored(void)
+> +static int __init inflate_stored(void)
+>  /* "decompress" an inflated type 0 (stored) block. */
+>  {
+>      unsigned n;           /* number of bytes in block */
+> @@ -758,7 +753,7 @@ STATIC int INIT inflate_stored(void)
+>  /*
+>   * We use `noinline' here to prevent gcc-3.5 from using too much stack space
+>   */
+> -STATIC int noinline INIT inflate_fixed(void)
+> +static int noinline __init inflate_fixed(void)
+>  /* decompress an inflated type 1 (fixed Huffman codes) block.  We should
+>     either replace this with a custom decoder, or at least precompute the
+>     Huffman tables. */
+> @@ -822,7 +817,7 @@ STATIC int noinline INIT inflate_fixed(v
+>  /*
+>   * We use `noinline' here to prevent gcc-3.5 from using too much stack space
+>   */
+> -STATIC int noinline INIT inflate_dynamic(void)
+> +static int noinline __init inflate_dynamic(void)
+>  /* decompress an inflated type 2 (dynamic Huffman codes) block. */
+>  {
+>      int i;                /* temporary variables */
+> @@ -1027,7 +1022,7 @@ goto out;
+>  
+>  
+>  
+> -STATIC int INIT inflate_block(
+> +static int __init inflate_block(
+>  int *e                  /* last block flag */
+>  )
+>  /* decompress an inflated block */
+> @@ -1078,7 +1073,7 @@ NEEDBITS(1)
+>  
+>  
+>  
+> -STATIC int INIT inflate(void)
+> +static int __init inflate(void)
+>  /* decompress an inflated entry */
+>  {
+>      int e;                /* last block flag */
+> @@ -1130,8 +1125,8 @@ STATIC int INIT inflate(void)
+>   *
+>   **********************************************************************/
+>  
+> -static ulg INITDATA crc_32_tab[256];
+> -static ulg INITDATA crc;  /* initialized in makecrc() so it'll reside in bss */
+> +static ulg __initdata crc_32_tab[256];
+> +static ulg __initdata crc;  /* initialized in makecrc() so it'll reside in bss */
+>  #define CRC_VALUE (crc ^ 0xffffffffUL)
+>  
+>  /*
+> @@ -1139,7 +1134,7 @@ static ulg INITDATA crc;  /* initialized
+>   * gzip-1.0.3/makecrc.c.
+>   */
+>  
+> -static void INIT
+> +static void __init
+>  makecrc(void)
+>  {
+>  /* Not copyrighted 1990 Mark Adler */
+> @@ -1187,7 +1182,7 @@ makecrc(void)
+>  /*
+>   * Do the uncompression!
+>   */
+> -static int INIT gunzip(void)
+> +static int __init gunzip(void)
+>  {
+>      uch flags;
+>      unsigned char magic[2]; /* magic header */
+> 
+> 
 
 
