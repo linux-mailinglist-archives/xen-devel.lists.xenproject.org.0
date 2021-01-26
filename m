@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2551D3040F4
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 15:53:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75160.135259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0323F304116
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 15:57:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75167.135274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4PiE-0002NJ-2b; Tue, 26 Jan 2021 14:52:58 +0000
+	id 1l4PmS-0002YX-Ms; Tue, 26 Jan 2021 14:57:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75160.135259; Tue, 26 Jan 2021 14:52:58 +0000
+Received: by outflank-mailman (output) from mailman id 75167.135274; Tue, 26 Jan 2021 14:57:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4PiD-0002Mu-V8; Tue, 26 Jan 2021 14:52:57 +0000
-Received: by outflank-mailman (input) for mailman id 75160;
- Tue, 26 Jan 2021 14:52:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ElsB=G5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4PiB-0002Mp-TG
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 14:52:55 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 288723cd-1f37-4089-8b40-3c6992e5421b;
- Tue, 26 Jan 2021 14:52:54 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 23397AC6E;
- Tue, 26 Jan 2021 14:52:54 +0000 (UTC)
+	id 1l4PmS-0002Y8-J7; Tue, 26 Jan 2021 14:57:20 +0000
+Received: by outflank-mailman (input) for mailman id 75167;
+ Tue, 26 Jan 2021 14:57:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=garG=G5=gmail.com=wei.liu.linux@srs-us1.protection.inumbo.net>)
+ id 1l4PmR-0002Y3-Qx
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 14:57:19 +0000
+Received: from mail-wr1-f43.google.com (unknown [209.85.221.43])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 85c33159-158e-47ad-b016-0f2a91b6c751;
+ Tue, 26 Jan 2021 14:57:17 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id b5so16775515wrr.10
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Jan 2021 06:57:17 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id u14sm3511919wmq.45.2021.01.26.06.57.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 Jan 2021 06:57:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,74 +42,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 288723cd-1f37-4089-8b40-3c6992e5421b
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611672774; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q+r1idT+j24+vI3F7fiZ1w8IAkUZ3/tLMcLP30JUfjY=;
-	b=uxPig276281qc+suKiS3ihKYcCf6EbDSq3DxHYre3EH81KkNiPFrKfcvKNcaWvXzM+GSFN
-	WvGfq9FNdyReekPBar/LhfjBnti9KzUvAWaDF/8ctoiPykXPArhBfS1y/aK6irpIBR2zQz
-	j+i39BmRfPIPhsQgedjc2LNMCl1Q14Y=
-Subject: Re: [PATCH 2/3] x86/irq: don't disable domain MSI IRQ on force unbind
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20210126110606.21741-1-roger.pau@citrix.com>
- <20210126110606.21741-3-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7633ddb0-922b-0165-7e8c-d265786ef4aa@suse.com>
-Date: Tue, 26 Jan 2021 15:52:54 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: 85c33159-158e-47ad-b016-0f2a91b6c751
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=oMRD2IGlQe0VkH5NsMlo8MCUYOvYpaFDA5hfK4f4djg=;
+        b=Gthsov8+ZZkSvjCsmwHQWY6DWIYBvL/i5zF7o9zuLtajt5ygwPbGaYhfnpTO6i8Z94
+         spfCxm/xWykPuTd0hV0ravtNq+lemzzkUoZfcEXtqEq9R14ULtVB7W0DxHf2Opc6wdCA
+         W9+65anJiNVHA5SqAUMedj4UM3w1es2Pn6vqwnx3LjJZMvsWOsdeWteeZhtRzPvY+Ia6
+         yV/MLNtg4DBIxBRzjIFTn1mbM5iMI3+3cOaeje0Fo0JSUX9miK5hJ088ndozRBqUbk8Z
+         UsVyMrnL+2DEX768nXbQLVa238kzYxYbpYwNk62sHxr3JjHOWfdna4MkQMAMeJKi0f3O
+         7m2A==
+X-Gm-Message-State: AOAM5330REzileNCO2DX6pJv1G4qF9dOQkk8nUn1vDO/R7zcDISTvIVG
+	B5oDlGHZMPU9TLeI01zgJj8=
+X-Google-Smtp-Source: ABdhPJw18oH4tmuy9z2F9V3xuEToq19UFYiLcSIFZ7flLsr+XdOXG/LONMS+wSMYNNeu+39F8YAJNA==
+X-Received: by 2002:a5d:4402:: with SMTP id z2mr6518007wrq.265.1611673037155;
+        Tue, 26 Jan 2021 06:57:17 -0800 (PST)
+Date: Tue, 26 Jan 2021 14:57:15 +0000
+From: Wei Liu <wei.liu@kernel.org>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Wei Yang <richard.weiyang@linux.alibaba.com>,
+	linux-hyperv@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1] mm/memory_hotplug: MEMHP_MERGE_RESOURCE ->
+ MHP_MERGE_RESOURCE
+Message-ID: <20210126145715.ne5m7lmnqgzn53a2@liuwe-devbox-debian-v2>
+References: <20210126115829.10909-1-david@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20210126110606.21741-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210126115829.10909-1-david@redhat.com>
+User-Agent: NeoMutt/20180716
 
-On 26.01.2021 12:06, Roger Pau Monne wrote:
-> When force unbinding a MSI the used IRQ would get added to the domain
-> irq-pirq tree as -irq -pirq,
+On Tue, Jan 26, 2021 at 12:58:29PM +0100, David Hildenbrand wrote:
+> Let's make "MEMHP_MERGE_RESOURCE" consistent with "MHP_NONE", "mhp_t" and
+> "mhp_flags". As discussed recently [1], "mhp" is our internal
+> acronym for memory hotplug now.
+> 
+> [1] https://lore.kernel.org/linux-mm/c37de2d0-28a1-4f7d-f944-cfd7d81c334d@redhat.com/
+> 
+[...]
+> Signed-off-by: David Hildenbrand <david@redhat.com>
 
-I think it's -pirq at index irq, i.e. I don't think IRQ gets
-negated as far as the radix tree goes. info->arch.irq gets a
-negative value stored, yes.
-
-> thus preventing the same IRQ to be used by the domain.
-
-Iirc this (answering your post-commit-message question here)
-is for cleaning up _after_ the domain, i.e. there's no goal
-to allow re-use of this IRQ. The comment ahead of
-unmap_domain_pirq() validly says "The pirq should have been
-unbound before this call." The only time we can't make
-ourselves dependent upon this is when the guest is being
-cleaned up. During normal operation I think we actually
-_want_ to enforce correct behavior of the guest here.
-
-> It's not clear to me why we add the irq as -irq -pirq to the irq-pirq
-> domain tree on forced unbind, as allowing to bind the irq again should
-> just work regardless of whether it has been previously forcefully
-> unbound?
-
-To continue from the above, see pirq_guest_unbind() where
-we have
-
-    if ( desc == NULL )
-    {
-        irq = -pirq->arch.irq;
-        BUG_ON(irq <= 0);
-        desc = irq_to_desc(irq);
-        spin_lock_irq(&desc->lock);
-        clear_domain_irq_pirq(d, irq, pirq);
-    }
-
-as the alternative to going the normal path through
-__pirq_guest_unbind(). Again iirc that's to cover for the
-unbind request arriving after the unmap one (i.e. having
-caused the unmap to force-unbind the IRQ).
-
-Jan
+Acked-by: Wei Liu <wei.liu@kernel.org>
 
