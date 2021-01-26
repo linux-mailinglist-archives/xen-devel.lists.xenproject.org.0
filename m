@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A844303877
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 09:59:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74657.134172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29503038A5
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 10:06:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74665.134183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4KBf-0002l8-Ui; Tue, 26 Jan 2021 08:58:59 +0000
+	id 1l4KIH-0003jZ-Ol; Tue, 26 Jan 2021 09:05:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74657.134172; Tue, 26 Jan 2021 08:58:59 +0000
+Received: by outflank-mailman (output) from mailman id 74665.134183; Tue, 26 Jan 2021 09:05:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4KBf-0002kj-RB; Tue, 26 Jan 2021 08:58:59 +0000
-Received: by outflank-mailman (input) for mailman id 74657;
- Tue, 26 Jan 2021 08:58:58 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l4KIH-0003jA-La; Tue, 26 Jan 2021 09:05:49 +0000
+Received: by outflank-mailman (input) for mailman id 74665;
+ Tue, 26 Jan 2021 09:05:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l4KBd-0002kc-UH
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 08:58:58 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l4KBX-00021O-Mx; Tue, 26 Jan 2021 08:58:51 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l4KBX-0003kk-Dc; Tue, 26 Jan 2021 08:58:51 +0000
+ (envelope-from <SRS0=ElsB=G5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l4KIG-0003j5-Ry
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 09:05:48 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 71ddebb8-8588-4943-84e9-b2ebc4c68f67;
+ Tue, 26 Jan 2021 09:05:48 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 28C21AC4F;
+ Tue, 26 Jan 2021 09:05:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,53 +39,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=rhAAX9mxj63ew3jmpnE1Ia71wlWyOVFdlBb/ficbzoU=; b=yru/o5L84qgpaUOxxwyETVaAyZ
-	UtjeTiQHX1Q0sT9gKMgupwYeBkF52FI4IRVB2S49mvj+9oBeiMqYiCVqOrxk0UrOtt8JCro9vb0Yq
-	/JaKF3sd0vq5KkpUxJpIjO7m/w5F0yDKHsu5OzvUxp0MEtXliEiuP387HqbUC5yLwA1U=;
-Subject: Re: [PATCH v7 01/10] xen+tools: Introduce XEN_SYSCTL_PHYSCAP_vmtrace
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Ian Jackson <iwj@xenproject.org>,
- =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
- Tamas K Lengyel <tamas@tklengyel.com>
-References: <20210121212718.2441-1-andrew.cooper3@citrix.com>
- <20210121212718.2441-2-andrew.cooper3@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <bd8061a1-70ae-13bd-906f-e4a180f394a9@xen.org>
-Date: Tue, 26 Jan 2021 08:58:49 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.1
+X-Inumbo-ID: 71ddebb8-8588-4943-84e9-b2ebc4c68f67
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611651947; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HQbG2i0s6glfTvEwzk61lTurV0fPoGhE6eRPysHAcZQ=;
+	b=Lkzb19jssbVHihrpsDfeMK45FUp5Vxcqq0+sWPc2CiKC8ptHRzcMn9Xg5ctBJfGsaE/Z3n
+	71VfgUaJ1U3IlbwYn3dAWs/GhJtckNBFWnhWY+2cAZY1r7uPRxu6mnpCMnIG2ZOCdXen66
+	3jxRGHVeHeSzctuNo+DeUMQXAHaCrk4=
+Subject: Re: [PATCH v2 3/4] x86: Allow non-faulting accesses to non-emulated
+ MSRs if policy permits this
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: iwj@xenproject.org, wl@xen.org, anthony.perard@citrix.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, jun.nakajima@intel.com,
+ kevin.tian@intel.com, xen-devel@lists.xenproject.org
+References: <1611182952-9941-1-git-send-email-boris.ostrovsky@oracle.com>
+ <1611182952-9941-4-git-send-email-boris.ostrovsky@oracle.com>
+ <c9ee36ca-e19d-0408-d137-8dcee4110ef3@suse.com>
+ <dc4ec7c0-c2cf-bf15-a757-7f1836ca801d@oracle.com>
+ <d3aec393-4f3b-140b-2189-5de731ee23ba@suse.com> <YA8RCGy6Zj5rE2R8@oracle.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <6f16e5d7-41b5-1a11-c444-11aab52a8891@suse.com>
+Date: Tue, 26 Jan 2021 10:05:47 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <20210121212718.2441-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <YA8RCGy6Zj5rE2R8@oracle.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Hi Andrew,
+On 25.01.2021 19:42, Boris Ostrovsky wrote:
+> On 21-01-25 11:22:08, Jan Beulich wrote:
+>> On 22.01.2021 20:52, Boris Ostrovsky wrote:
+>>> On 1/22/21 7:51 AM, Jan Beulich wrote:
+>>>> On 20.01.2021 23:49, Boris Ostrovsky wrote:
+>>>>> +
+>>>>> +    /*
+>>>>> +     * Accesses to unimplemented MSRs as part of emulation of instructions
+>>>>> +     * other than guest's RDMSR/WRMSR should never succeed.
+>>>>> +     */
+>>>>> +    if ( !is_guest_msr_access )
+>>>>> +        ignore_msrs = MSR_UNHANDLED_NEVER;
+>>>>
+>>>> Wouldn't you better "return true" here? Such accesses also
+>>>> shouldn't be logged imo (albeit I agree that's a change from
+>>>> current behavior).
+>>>
+>>>
+>>> Yes, that's why I didn't return here. We will be here in !is_guest_msr_access case most likely due to a bug in the emulator so I think we do want to see the error logged.
+>>
+>> Why "most likely"?
+> 
+> 
+> OK, definitely ;-)
 
-On 21/01/2021 21:27, Andrew Cooper wrote:
-> diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-> index a073647117..d4453d2eab 100644
-> --- a/xen/include/public/sysctl.h
-> +++ b/xen/include/public/sysctl.h
-> @@ -100,6 +100,7 @@ struct xen_sysctl_tbuf_op {
->   #define _XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share 5
->   #define XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share  \
->       (1u << _XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share)
-> +#define XEN_SYSCTL_PHYSCAP_vmtrace       (1 << 6)
->   
->   /* Max XEN_SYSCTL_PHYSCAP_* constant.  Used for ABI checking. */
->   #define XEN_SYSCTL_PHYSCAP_MAX XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share
+Oops - I was thinking the other way around, considering such
+to possibly be legitimate. It just so happens that curently
+we have no such path.
 
-XEN_SYSCTL_PHYSCAP_MAX needs to be bumped.
+> But I still think logging these accesses would be helpful.
 
-Cheers,
+Because of the above I continue to question this.
 
--- 
-Julien Grall
+>>>>> +    if ( unlikely(ignore_msrs != MSR_UNHANDLED_NEVER) )
+>>>>> +        *val = 0;
+>>>>
+>>>> I don't understand the conditional here, even more so with
+>>>> the respective changelog entry. In any event you don't
+>>>> want to clobber the value ahead of ...
+>>>>
+>>>>> +    if ( likely(ignore_msrs != MSR_UNHANDLED_SILENT) )
+>>>>> +    {
+>>>>> +        if ( is_write )
+>>>>> +            gdprintk(XENLOG_WARNING, "WRMSR 0x%08x val 0x%016"PRIx64
+>>>>> +                    " unimplemented\n", msr, *val);
+>>>>
+>>>> ... logging it.
+>>>
+>>>
+>>> True. I dropped !is_write from v1 without considering this.
+>>>
+>>> As far as the conditional --- dropping it too would be a behavior change. 
+>>
+>> Albeit an intentional one then? Plus I think I have trouble
+>> seeing what behavior it would be that would change.
+> 
+> 
+> Currently callers of, say, read_msr() don't expect the argument that they pass in to change. Granted, they shouldn't (and AFAICS don't) look at it but it's a change nonetheless.
+
+Hmm, I'm confused: The purpose of read_msr() is to change the
+value pointed at by the passed in argument. And for write_msr()
+the users of the hook pass the argument by value, i.e. wouldn't
+observe the changed value (it would only possibly be
+intermediate layers which might observe the change, but those
+ought to not care).
+
+>>>>> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
+>>>>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+>>>>> @@ -850,4 +850,10 @@ static inline void x86_emul_reset_event(struct x86_emulate_ctxt *ctxt)
+>>>>>      ctxt->event = (struct x86_event){};
+>>>>>  }
+>>>>>  
+>>>>> +static inline bool x86_emul_guest_msr_access(struct x86_emulate_ctxt *ctxt)
+>>>>
+>>>> The parameter wants to be pointer-to-const. In addition I wonder
+>>>> whether this wouldn't better be a sibling to
+>>>> x86_insn_is_cr_access() (without a "state" parameter, which
+>>>> would be unused and unavailable to the callers), which may end
+>>>> up finding further uses down the road.
+>>>
+>>>
+>>> "Sibling" in terms of name (yes, it would be) or something else?
+>>
+>> Name and (possible) purpose - a validate hook could want to
+>> make use of this, for example.
+> 
+> A validate hook? 
+
+Quoting from struct x86_emulate_ops:
+
+    /*
+     * validate: Post-decode, pre-emulate hook to allow caller controlled
+     * filtering.
+     */
+    int (*validate)(
+        const struct x86_emulate_state *state,
+        struct x86_emulate_ctxt *ctxt);
+
+Granted to be directly usable the function would need to have a
+"state" parameter. As that's unused, having it have one and
+passing NULL in your case might be acceptable. But I also could
+see arguments towards this not being a good idea.
+
+>>>> I notice you use this function only from PV priv-op emulation.
+>>>> What about the call paths through hvmemul_{read,write}_msr()?
+>>>> (It's also questionable whether the write paths need this -
+>>>> the only MSR written outside of WRMSR emulation is
+>>>> MSR_SHADOW_GS_BASE, which can't possibly reach the "unhandled"
+>>>> logic anywhere. But maybe better to be future proof here in
+>>>> case new MSR writes appear in the emulator, down the road.)
+>>>
+>>>
+>>> Won't we end up in hvm_funcs.msr_write_intercept ops which do call it?
+>>
+>> Of course we will - the boolean will very likely need
+>> propagating (a possible alternative being a per-vCPU flag
+>> indicating "in emulator").
+> 
+> 
+> Oh, I see what you mean. By per-vcpu flag you mean arch_vcpu field I assume?
+
+Yes, a boolean in one of the arch-specific per-vCPU structs.
+Whether that's arch_vcpu or perhaps something HVM specific is
+another question.
+
+Jan
 
