@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2DCA3045B5
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 18:51:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75386.135728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E4B93045DA
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 19:00:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75395.135750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4SUv-00062J-JG; Tue, 26 Jan 2021 17:51:25 +0000
+	id 1l4SdQ-00075V-LQ; Tue, 26 Jan 2021 18:00:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75386.135728; Tue, 26 Jan 2021 17:51:25 +0000
+Received: by outflank-mailman (output) from mailman id 75395.135750; Tue, 26 Jan 2021 18:00:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4SUv-00061f-G9; Tue, 26 Jan 2021 17:51:25 +0000
-Received: by outflank-mailman (input) for mailman id 75386;
- Tue, 26 Jan 2021 17:51:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4SdQ-000756-Hs; Tue, 26 Jan 2021 18:00:12 +0000
+Received: by outflank-mailman (input) for mailman id 75395;
+ Tue, 26 Jan 2021 18:00:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7V+q=G5=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1l4SUu-00061H-Fq
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 17:51:24 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0a991c8a-4a7f-41ef-b070-8113926b1cfc;
- Tue, 26 Jan 2021 17:51:22 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 10QHpBw4017590
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 26 Jan 2021 12:51:17 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 10QHpBrV017589;
- Tue, 26 Jan 2021 09:51:11 -0800 (PST) (envelope-from ehem)
+ (envelope-from <iwj@xenproject.org>) id 1l4SdP-000751-7E
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 18:00:11 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l4SdP-0003iA-3e
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 18:00:11 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l4SdP-0007dW-2A
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 18:00:11 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l4SdB-0007Ju-AC; Tue, 26 Jan 2021 17:59:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,158 +41,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a991c8a-4a7f-41ef-b070-8113926b1cfc
-Date: Tue, 26 Jan 2021 09:51:11 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-        George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
-        Roger Pau Monn?? <roger.pau@citrix.com>,
-        xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/pod: Do not fragment PoD memory allocations
-Message-ID: <YBBWj7NO+1HVKEgX@mattapan.m5p.com>
-References: <202101242308.10ON8Umj004866@m5p.com>
- <b2ad35f1-3adf-a78a-5e82-2ac4a672d624@suse.com>
- <YA8D85MoJ9lG0KJS@mattapan.m5p.com>
- <c0a70f39-d529-6ee4-511d-e82730c14879@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:CC:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=v20vDnA7iol2QTsFv9Zq6fBxOjQkztiDHFVIw61InOQ=; b=cNbD5UGRULmV30qQA33afcke4+
+	38olZITizdc5NpcrG9dF8yunQ31ARKTGCxYaWBL6g+6kQLeUJmnWeeEbFpbPm5bkpj08HQl8SdoyU
+	WA31CFGb3u6CrRS4rfRD3+Qm4uscWNR9qZobOMQE+I8QhEESd+vBG2SypJhqcuvoHPDk=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c0a70f39-d529-6ee4-511d-e82730c14879@suse.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+Content-Transfer-Encoding: 7bit
+Message-ID: <24592.22685.67161.585056@mariner.uk.xensource.com>
+Date: Tue, 26 Jan 2021 17:59:57 +0000
+To: Manuel Bouyer <bouyer@antioche.eu.org>,
+    Jan Beulich <jbeulich@suse.com>,
+CC: Wei Liu <wl@xen.org>,
+    Anthony PERARD <anthony.perard@citrix.com>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] Fix error: array subscript has type 'char'
+In-Reply-To: <20210126174415.GA21858@mail.soc.lip6.fr>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+	<574d9ed8-c827-6864-4732-4e1b813fc3e3@suse.com>
+	<20210114122912.GA2522@antioche.eu.org>
+	<1af2b532-4dce-29cf-94ae-ad0c399ecbce@suse.com>
+	<20210114141615.GA9157@mail.soc.lip6.fr>
+	<20210126174415.GA21858@mail.soc.lip6.fr>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On Tue, Jan 26, 2021 at 12:08:15PM +0100, Jan Beulich wrote:
-> On 25.01.2021 18:46, Elliott Mitchell wrote:
-> > On Mon, Jan 25, 2021 at 10:56:25AM +0100, Jan Beulich wrote:
-> >> On 24.01.2021 05:47, Elliott Mitchell wrote:
-> >>>
-> >>> ---
-> >>> Changes in v2:
-> >>> - Include the obvious removal of the goto target.  Always realize you're
-> >>>   at the wrong place when you press "send".
-> >>
-> >> Please could you also label the submission then accordingly? I
-> >> got puzzled by two identically titled messages side by side,
-> >> until I noticed the difference.
-> > 
-> > Sorry about that.  Would you have preferred a third message mentioning
-> > this mistake?
-> 
-> No. But I'd have expected v2 to have its subject start with
-> "[PATCH v2] ...", making it relatively clear that one might
-> save looking at the one labeled just "[PATCH] ...".
+Manuel Bouyer writes ("Re: [PATCH] Fix error: array subscript has type 'char'"):
+> On Thu, Jan 14, 2021 at 03:16:15PM +0100, Manuel Bouyer wrote:
+> > On Thu, Jan 14, 2021 at 02:25:05PM +0100, Jan Beulich wrote:
+> > > Which means you're shifting the undefined-ness from the implementation
 
-Yes, in fact I spotted this just after.  I was in a situation of, "does
-this deserve sending an additional message out?"  (ugh, yet more damage
-from that issue...)
+The undefined-ness is in the *specification*. [1]
 
+> > > Isn't this something that wants changing in your ctype.h instead?
+> > > the functions (or macros), as per the C standard
 
-> >>> I'm not including a separate cover message since this is a single hunk.
-> >>> This really needs some checking in `xl`.  If one has a domain which
-> >>> sometimes gets started on different hosts and is sometimes modified with
-> >>> slightly differing settings, one can run into trouble.
-> >>>
-> >>> In this case most of the time the particular domain is most often used
-> >>> PV/PVH, but every so often is used as a template for HVM.  Starting it
-> >>> HVM will trigger PoD mode.  If it is started on a machine with less
-> >>> memory than others, PoD may well exhaust all memory and then trigger a
-> >>> panic.
-> >>>
-> >>> `xl` should likely fail HVM domain creation when the maximum memory
-> >>> exceeds available memory (never mind total memory).
-> >>
-> >> I don't think so, no - it's the purpose of PoD to allow starting
-> >> a guest despite there not being enough memory available to
-> >> satisfy its "max", as such guests are expected to balloon down
-> >> immediately, rather than triggering an oom condition.
-> > 
-> > Even Qemu/OVMF is expected to handle ballooning for a *HVM* domain?
-> 
-> No idea how qemu comes into play here. Any preboot environment
-> aware of possibly running under Xen of course is expected to
-> tolerate running with maxmem > memory (or clearly document its
-> inability, in which case it may not be suitable for certain
-> use cases). For example, I don't see why a preboot environment
-> would need to touch all of the memory in a VM, except maybe
-> for the purpose of zeroing it (which PoD can deal with fine).
+Jan, can you please check your facts before asserting the existence
+of a pretty blatant bug in a platform's implementation of basic C
+functions ?
 
-I'm reading that as your answer to the above question is "yes".
+From my copy of C99+TC1+TC2, para 7.4:
 
+ 1   In all cases the argument is an int, the value of which shall be
+     representable as an unsigned char or shall equal the value of the
+     macro EOF.  If the argument has any other value, the behavior is
+     undefined. [...]
 
-> >>> For example try a domain with the following settings:
-> >>>
-> >>> memory = 8192
-> >>> maxmem = 2147483648
-> >>>
-> >>> If type is PV or PVH, it will likely boot successfully.  Change type to
-> >>> HVM and unless your hardware budget is impressive, Xen will soon panic.
-> >>
-> >> Xen will panic? That would need fixing if so. Also I'd consider
-> >> an excessively high maxmem (compared to memory) a configuration
-> >> error. According to my experiments long, long ago I seem to
-> >> recall that a factor beyond 32 is almost never going to lead to
-> >> anything good, irrespective of guest type. (But as said, badness
-> >> here should be restricted to the guest; Xen itself should limp
-> >> on fine.)
-> > 
-> > I'll confess I haven't confirmed the panic is in Xen itself.  Problem is
-> > when this gets triggered, by the time the situation is clear and I can
-> > get to the console the computer is already restarting, thus no error
-> > message has been observed.
-> 
-> If the panic isn't in Xen itself, why would the computer be
-> restarting?
+If char is signed, then it can contain -ve values.  Those values are
+promoted to int by the usual integer promotions.  Naturally such
+negative values are not representable as unsigned char.  Passing them
+to ctype macros is UB.
 
-I was thinking there was a possibility it is actually Domain 0 which is
-panicing.
+So Manuel's ctypes.h is conforming and the compiler warning (which I
+have seen on Linux too) is correct.
 
+> I guess I'm going to give up on this one. We'll keep it as a local patch.
 
-> > This is most certainly a configuration error.  Problem is this is a very
-> > small delta between a perfectly valid configuration and the one which
-> > reliably triggers a panic.
-> > 
-> > The memory:maxmem ratio isn't the problem.  My example had a maxmem of
-> > 2147483648 since that is enough to exceed the memory of sub-$100K
-> > computers.  The crucial features are maxmem >= machine memory,
-> > memory < free memory (thus potentially bootable PV/PVH) and type = "hvm".
-> > 
-> > When was the last time you tried running a Xen machine with near zero
-> > free memory?  Perhaps in the past Xen kept the promise of never panicing
-> > on memory exhaustion, but this feels like this hasn't held for some time.
-> 
-> Such bugs needs fixing. Which first of all requires properly
-> pointing them out. A PoD guest misbehaving when there's not
-> enough memory to fill its pages (i.e. before it manages to
-> balloon down) is expected behavior. If you can't guarantee the
-> guest ballooning down quickly enough, don't configure it to
-> use PoD. A PoD guest causing a Xen crash, otoh, is very likely
-> even a security issue. Which needs to be treated as such: It
-> needs fixing, not avoiding by "curing" one of perhaps many
-> possible sources.
+Manuel, your original patch:
 
-Okay, this has been reliably reproducing for a while.  I had originally
-thought it was a problem of HVM plus memory != maxmem, but the
-non-immediate restart disagrees with that assessment.
+Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-> As an aside - if the PoD code had proper 1Gb page support,
-> would you then propose to only allocate in 1Gb chunks? And if
-> there was a 512Gb page feature in hardware, in 512Gb chunks
-> (leaving aside the fact that scanning 512Gb of memory to be
-> all zero would simply take too long with today's computers)?
+(The R-A is FTAOD since IMO this is a bugfix.)
 
-That answer would vary over time.  Today or tommorrow, certainly not.
-In a decade's time (or several) when a typical pocket computer^W^W
-cellphone has 4TB of memory and a $30K server has a minimum of 128TB then
-doing allocations in 1GB chunks would be worthy of consideration.
+Ian.
 
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+[1] I agree that "fixing" ctypes.h everywhere might be nice (eg the
+way glibc does it) but that has other implications and it is not
+reasonable to expect platforms supporting Xen to do that.
 
