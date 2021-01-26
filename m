@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93239303963
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 10:49:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.74709.134280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D911303965
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jan 2021 10:49:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.74714.134292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4KyT-0008Kk-7A; Tue, 26 Jan 2021 09:49:25 +0000
+	id 1l4Kyo-0008S3-Ea; Tue, 26 Jan 2021 09:49:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 74709.134280; Tue, 26 Jan 2021 09:49:25 +0000
+Received: by outflank-mailman (output) from mailman id 74714.134292; Tue, 26 Jan 2021 09:49:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4KyT-0008KI-30; Tue, 26 Jan 2021 09:49:25 +0000
-Received: by outflank-mailman (input) for mailman id 74709;
- Tue, 26 Jan 2021 09:49:24 +0000
+	id 1l4Kyo-0008Rd-BB; Tue, 26 Jan 2021 09:49:46 +0000
+Received: by outflank-mailman (input) for mailman id 74714;
+ Tue, 26 Jan 2021 09:49:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ElsB=G5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4KyS-0008K6-Ab
- for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 09:49:24 +0000
+ id 1l4Kym-0008RQ-Pf
+ for xen-devel@lists.xenproject.org; Tue, 26 Jan 2021 09:49:44 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d35e3c06-1905-4f6a-931a-9a8072b05581;
- Tue, 26 Jan 2021 09:49:23 +0000 (UTC)
+ id 68cd4557-f601-4ef0-83d7-aa9c844d6dfb;
+ Tue, 26 Jan 2021 09:49:43 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 62723AE40;
- Tue, 26 Jan 2021 09:49:22 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 1A3C1AE40;
+ Tue, 26 Jan 2021 09:49:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,18 +38,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d35e3c06-1905-4f6a-931a-9a8072b05581
+X-Inumbo-ID: 68cd4557-f601-4ef0-83d7-aa9c844d6dfb
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611654562; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611654583; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eVmMIy5O87CMi7zsqnSGDrT7n4RL6KGiJLriSkhGBXM=;
-	b=JicT2UDtSta6+/FwxML3+Jo5MK8CSf9fJLWJI2+fV2BK5P4f/ZTrNoz8JOIy9dzQabBaOr
-	Ntb6mpxU+jUm3p0IbHs8dlQcDTp6GpMPX6aRsYskYtg3/BzHB5geCfA00hkHrU5YnFBRp/
-	jFlqNIcb/PW1xme1sII4vcpiRTwREco=
-Subject: [PATCH v3 03/15] xen/decompress: make helper symbols static
+	bh=QX8/cPAcmhUJDAaeMJZCNy+hflROg1060DEkwWtrtPo=;
+	b=SZUO77Pe7gMAKaIweSIB6BYEF8CvRuCVMiAJPpYKS84vBGNxize0z01SDOnbGNJ9JjknYf
+	QYWUz4PP0ql093s6DZJilHAdlt6FxmaG9R0RGWNHiar3/w2ZfOtI3iE2dNtYvoCpN5kOdx
+	gAFc4z0XHqJT53wcwoIJIXHEtvB3X8A=
+Subject: [PATCH v3 04/15] libxenguest: "standardize" LZO kernel decompression
+ code
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -57,8 +58,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>
 References: <2db91183-a7de-0c43-2fef-feb3523ed19b@suse.com>
-Message-ID: <99b620e4-bff9-76c3-9a0d-936171971407@suse.com>
-Date: Tue, 26 Jan 2021 10:49:22 +0100
+Message-ID: <44286280-0203-8eb9-8006-43125aeb77c7@suse.com>
+Date: Tue, 26 Jan 2021 10:49:43 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
@@ -67,171 +68,91 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-The individual decompression CUs need to only surface their top level
-functions to other code. Arrange for everything else to be static, to
-make sure no undue uses of that code exist or will appear without
-explicitly noticing. (In some cases this also results in code size
-reduction, but since this is all init-only code this probably doesn't
-matter very much.)
-
-In the LZO case also take the opportunity and convert u8 where lines
-get touched anyway.
-
-The downside is that the top level functions will now be non-static
-in stubdom builds of libxenguest, but I think that's acceptable. This
-does require declaring them first, though, as the compiler warns about
-the lack of declarations.
+Add a DOMPRINTF() other methods have, indicating success. To facilitate
+this, introduce an "outsize" local variable and update *size as well as
+*blob only once done. The latter then also avoids leaving a pointer to
+freed memory in dom->kernel_blob in case of a decompression error.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Acked-by: Wei Liu <wl@xen.org>
+Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
-v2: Fix stubdom build.
+v2: New.
 
---- a/tools/libs/guest/xg_dom_decompress_unsafe.h
-+++ b/tools/libs/guest/xg_dom_decompress_unsafe.h
-@@ -1,8 +1,12 @@
-+#ifdef __MINIOS__
-+# include "../../xen/include/xen/decompress.h"
-+#else
- typedef int decompress_fn(unsigned char *inbuf, unsigned int len,
-                           int (*fill)(void*, unsigned int),
-                           int (*flush)(void*, unsigned int),
-                           unsigned char *outbuf, unsigned int *posp,
-                           void (*error)(const char *x));
-+#endif
+--- a/tools/libs/guest/xg_dom_bzimageloader.c
++++ b/tools/libs/guest/xg_dom_bzimageloader.c
+@@ -409,7 +409,7 @@ static int xc_try_lzo1x_decode(
+     int ret;
+     const unsigned char *cur = dom->kernel_blob;
+     unsigned char *out_buf = NULL;
+-    size_t left = dom->kernel_size;
++    size_t left = dom->kernel_size, outsize;
+     const char *msg;
+     unsigned version;
+     static const unsigned char magic[] = {
+@@ -471,7 +471,7 @@ static int xc_try_lzo1x_decode(
+     cur += ret;
+     left -= ret;
  
- int xc_dom_decompress_unsafe(
-     decompress_fn fn, struct xc_dom_image *dom, void **blob, size_t *size)
---- a/xen/common/bunzip2.c
-+++ b/xen/common/bunzip2.c
-@@ -665,12 +665,11 @@ static int INIT start_bunzip(struct bunz
+-    for ( *size = 0; ; )
++    for ( outsize = 0; ; )
+     {
+         lzo_uint src_len, dst_len, out_len;
+         unsigned char *tmp_buf;
+@@ -484,9 +484,15 @@ static int xc_try_lzo1x_decode(
+         if ( !dst_len )
+         {
+             msg = "Error registering stream output";
+-            if ( xc_dom_register_external(dom, out_buf, *size) )
++            if ( xc_dom_register_external(dom, out_buf, outsize) )
+                 break;
  
- /* Example usage: decompress src_fd to dst_fd.  (Stops at end of bzip2 data,
-    not end of file.) */
--STATIC int INIT bunzip2(unsigned char *buf, unsigned int len,
--			int(*fill)(void*, unsigned int),
--			int(*flush)(void*, unsigned int),
--			unsigned char *outbuf,
--			unsigned int *pos,
--			void(*error)(const char *x))
-+int INIT bunzip2(unsigned char *buf, unsigned int len,
-+		 int(*fill)(void*, unsigned int),
-+		 int(*flush)(void*, unsigned int),
-+		 unsigned char *outbuf, unsigned int *pos,
-+		 void(*error)(const char *x))
- {
- 	struct bunzip_data *bd;
- 	int i = -1;
---- a/xen/common/decompress.h
-+++ b/xen/common/decompress.h
-@@ -7,7 +7,7 @@
- #include <xen/types.h>
- #include <xen/xmalloc.h>
++            DOMPRINTF("%s: LZO decompress OK, 0x%zx -> 0x%zx",
++                      __FUNCTION__, *size, outsize);
++
++            *blob = out_buf;
++            *size = outsize;
++
+             return 0;
+         }
  
--#define STATIC
-+#define STATIC static
- #define INIT __init
- #define INITDATA __initdata
+@@ -508,15 +514,15 @@ static int xc_try_lzo1x_decode(
+             break;
  
---- a/xen/common/unlz4.c
-+++ b/xen/common/unlz4.c
-@@ -22,12 +22,11 @@
- #define LZ4_DEFAULT_UNCOMPRESSED_CHUNK_SIZE (8 << 20)
- #define ARCHIVE_MAGICNUMBER 0x184C2102
+         msg = "Output buffer overflow";
+-        if ( *size > SIZE_MAX - dst_len )
++        if ( outsize > SIZE_MAX - dst_len )
+             break;
  
--STATIC int INIT unlz4(unsigned char *input, unsigned int in_len,
--		      int (*fill)(void *, unsigned int),
--		      int (*flush)(void *, unsigned int),
--		      unsigned char *output,
--		      unsigned int *posp,
--		      void (*error)(const char *x))
-+int INIT unlz4(unsigned char *input, unsigned int in_len,
-+	       int (*fill)(void *, unsigned int),
-+	       int (*flush)(void *, unsigned int),
-+	       unsigned char *output, unsigned int *posp,
-+	       void (*error)(const char *x))
- {
- 	int ret = -1;
- 	size_t chunksize = 0;
---- a/xen/common/unlzma.c
-+++ b/xen/common/unlzma.c
-@@ -528,13 +528,11 @@ static inline int INIT process_bit1(stru
+         msg = "Decompressed image too large";
+-        if ( xc_dom_kernel_check_size(dom, *size + dst_len) )
++        if ( xc_dom_kernel_check_size(dom, outsize + dst_len) )
+             break;
  
+         msg = "Failed to (re)alloc memory";
+-        tmp_buf = realloc(out_buf, *size + dst_len);
++        tmp_buf = realloc(out_buf, outsize + dst_len);
+         if ( tmp_buf == NULL )
+             break;
  
+@@ -524,7 +530,7 @@ static int xc_try_lzo1x_decode(
+         out_len = dst_len;
  
--STATIC int INIT unlzma(unsigned char *buf, unsigned int in_len,
--		       int(*fill)(void*, unsigned int),
--		       int(*flush)(void*, unsigned int),
--		       unsigned char *output,
--		       unsigned int *posp,
--		       void(*error)(const char *x)
--	)
-+int INIT unlzma(unsigned char *buf, unsigned int in_len,
-+	        int(*fill)(void*, unsigned int),
-+	        int(*flush)(void*, unsigned int),
-+	        unsigned char *output, unsigned int *posp,
-+	        void(*error)(const char *x))
- {
- 	struct lzma_header header;
- 	int lc, pb, lp;
---- a/xen/common/unlzo.c
-+++ b/xen/common/unlzo.c
-@@ -114,11 +114,11 @@ static int INIT parse_header(u8 *input,
- 	return 1;
- }
+         ret = lzo1x_decompress_safe(cur, src_len,
+-                                    out_buf + *size, &out_len, NULL);
++                                    out_buf + outsize, &out_len, NULL);
+         switch ( ret )
+         {
+         case LZO_E_OK:
+@@ -532,8 +538,7 @@ static int xc_try_lzo1x_decode(
+             if ( out_len != dst_len )
+                 break;
  
--STATIC int INIT unlzo(u8 *input, unsigned int in_len,
--		      int (*fill) (void *, unsigned int),
--		      int (*flush) (void *, unsigned int),
--		      u8 *output, unsigned int *posp,
--		      void (*error) (const char *x))
-+int INIT unlzo(unsigned char *input, unsigned int in_len,
-+	       int (*fill) (void *, unsigned int),
-+	       int (*flush) (void *, unsigned int),
-+	       unsigned char *output, unsigned int *posp,
-+	       void (*error) (const char *x))
- {
- 	u8 r = 0;
- 	int skip = 0;
---- a/xen/common/unxz.c
-+++ b/xen/common/unxz.c
-@@ -157,11 +157,11 @@
-  * both input and output buffers are available as a single chunk, i.e. when
-  * fill() and flush() won't be used.
-  */
--STATIC int INIT unxz(unsigned char *in, unsigned int in_size,
--		     int (*fill)(void *dest, unsigned int size),
--		     int (*flush)(void *src, unsigned int size),
--		     unsigned char *out, unsigned int *in_used,
--		     void (*error)(const char *x))
-+int INIT unxz(unsigned char *in, unsigned int in_size,
-+	      int (*fill)(void *dest, unsigned int size),
-+	      int (*flush)(void *src, unsigned int size),
-+	      unsigned char *out, unsigned int *in_used,
-+	      void (*error)(const char *x))
- {
- 	struct xz_buf b;
- 	struct xz_dec *s;
---- a/xen/common/unzstd.c
-+++ b/xen/common/unzstd.c
-@@ -142,12 +142,11 @@ out:
- 	return err;
- }
- 
--STATIC int INIT unzstd(unsigned char *in_buf, unsigned int in_len,
--		       int (*fill)(void*, unsigned int),
--		       int (*flush)(void*, unsigned int),
--		       unsigned char *out_buf,
--		       unsigned int *in_pos,
--		       void (*error)(const char *x))
-+int INIT unzstd(unsigned char *in_buf, unsigned int in_len,
-+	        int (*fill)(void*, unsigned int),
-+	        int (*flush)(void*, unsigned int),
-+	        unsigned char *out_buf, unsigned int *in_pos,
-+	        void (*error)(const char *x))
- {
- 	ZSTD_inBuffer in;
- 	ZSTD_outBuffer out;
+-            *blob = out_buf;
+-            *size += out_len;
++            outsize += out_len;
+             cur += src_len;
+             left -= src_len;
+             continue;
 
 
