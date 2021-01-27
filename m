@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9995306165
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 17:58:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76282.137583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42A3A30616E
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 18:00:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76286.137595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4o98-0003qS-49; Wed, 27 Jan 2021 16:58:22 +0000
+	id 1l4oAt-0004n4-Fl; Wed, 27 Jan 2021 17:00:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76282.137583; Wed, 27 Jan 2021 16:58:22 +0000
+Received: by outflank-mailman (output) from mailman id 76286.137595; Wed, 27 Jan 2021 17:00:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4o98-0003q3-0I; Wed, 27 Jan 2021 16:58:22 +0000
-Received: by outflank-mailman (input) for mailman id 76282;
- Wed, 27 Jan 2021 16:58:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l4oAt-0004me-CM; Wed, 27 Jan 2021 17:00:11 +0000
+Received: by outflank-mailman (input) for mailman id 76286;
+ Wed, 27 Jan 2021 17:00:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4o96-0003ps-Dt
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 16:58:20 +0000
+ id 1l4oAr-0004mY-GB
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 17:00:09 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id db90707b-ddb6-4a01-8c43-f225a5fbf2de;
- Wed, 27 Jan 2021 16:58:18 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 26899694-c8f4-4c83-b379-cdb34cc44595;
+ Wed, 27 Jan 2021 17:00:08 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E94DCAD78;
- Wed, 27 Jan 2021 16:58:17 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 7405EAF23;
+ Wed, 27 Jan 2021 17:00:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,138 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db90707b-ddb6-4a01-8c43-f225a5fbf2de
+X-Inumbo-ID: 26899694-c8f4-4c83-b379-cdb34cc44595
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611766698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611766807; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HEXjWz6vfq5GOT+mIcBFWrWCrx2K+MMFpii9D+Tes3Y=;
-	b=e+FvEbnGgVvZvYKarKnErEFrOUUP3yYTZyQ6FLyT8hhmlWap7P12xAhfcxdmV1t7KcSRaX
-	fScHbAbaK4WTzwuq8Vb7b11+o7w9KB5IWv/eeg5bv16Vo1etIEEn29e/KFURxdTcA0jB6j
-	PJNMr83M72lXKtPdk1ieJFtAgX2oQXc=
-Subject: Re: [PATCH V5 04/22] xen/ioreq: Make x86's IOREQ feature common
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Tim Deegan <tim@xen.org>, Julien Grall <julien.grall@arm.com>,
- xen-devel@lists.xenproject.org
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-5-git-send-email-olekstysh@gmail.com>
+	bh=+vqV58qxipV/beJXszG0XL5gfOoT0uRKlrmAw1/07PQ=;
+	b=cLPflhwwrMlIv8ZpwSYd640eBf/PU6J5pnkYg5FI+fWB3zoXoaWfbAiPwxwBRGl/43l3rA
+	JPZr8OWItpNcL5q3wfSjNlFgdbC26dQNGl2B29rc/U1g7Gy7BpVYCf51VrUYreWA5dnnwV
+	4C4nhuEBqvbcw/3uolUN5tffZLVxb5k=
+Subject: Re: [PATCH] Fix error: array subscript has type 'char' [and 1 more
+ messages]
+To: George Dunlap <George.Dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Manuel Bouyer <bouyer@antioche.eu.org>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+ <574d9ed8-c827-6864-4732-4e1b813fc3e3@suse.com>
+ <20210114122912.GA2522@antioche.eu.org>
+ <1af2b532-4dce-29cf-94ae-ad0c399ecbce@suse.com>
+ <20210114141615.GA9157@mail.soc.lip6.fr>
+ <20210126174415.GA21858@mail.soc.lip6.fr>
+ <24592.22685.67161.585056@mariner.uk.xensource.com>
+ <2452d5cb-90ba-a4c4-a5e4-3070c5a676d2@suse.com>
+ <27ec4834-ebf2-2121-47f7-470083d03a3f@suse.com>
+ <24593.28738.216430.891500@mariner.uk.xensource.com>
+ <d3796603-20a7-2c81-a446-0d0a75cd52d5@suse.com>
+ <24593.37649.81543.442376@mariner.uk.xensource.com>
+ <2bdd894f-e966-7943-c5ec-fe45ef7227e7@suse.com>
+ <0280E0D7-5094-4D89-A938-C9270260C927@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <01b122dd-37c9-d429-b060-adea9e7cae8b@suse.com>
-Date: Wed, 27 Jan 2021 17:58:17 +0100
+Message-ID: <3b370b70-6362-cc55-dd5d-d657db6ee7e3@suse.com>
+Date: Wed, 27 Jan 2021 18:00:07 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <1611601709-28361-5-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <0280E0D7-5094-4D89-A938-C9270260C927@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 27.01.2021 17:52, George Dunlap wrote:
 > 
-> As a lot of x86 code can be re-used on Arm later on, this patch
-> moves previously prepared IOREQ support to the common code
-> (the code movement is verbatim copy).
 > 
-> The "legacy" mechanism of mapping magic pages for the IOREQ servers
-> remains x86 specific and not exposed to the common code.
+>> On Jan 27, 2021, at 4:32 PM, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 27.01.2021 17:21, Ian Jackson wrote:
+>>> Jan Beulich writes ("Re: [PATCH] Fix error: array subscript has type 'char' [and 1 more messages]"):
+>>>> I don't think I've ever come across that part of a platform
+>>>> API/ABI spec. Instead my understanding so far was that good
+>>>> platform headers would be ignorant of the user's choice of
+>>>> char's signed-ness (wherever compilers offer such a choice,
+>>>> but I think all that I've ever worked with did). At the very
+>>>> least gcc's doc doesn't warn about any possible
+>>>> incompatibilities resulting from use of -fsigned-char or
+>>>> -funsigned-char (or their bitfield equivalents, for that
+>>>> matter).
+>>>
+>>> Well, I've considered this and I still don't think changing to
+>>> -funsigned-char is good idea.
+>>>
+>>> Are you OK with me checking in the current patch or should I ask the
+>>> other committers for a second opinion ?
+>>
+>> For the changes to tools/ it's really up to you. For the change
+>> to xen/tools/symbols.c I could live with it (for being user
+>> space code), but I still think adding casts in such a place is
+>> not necessarily setting a good precedent. So for this one I'd
+>> indeed appreciate getting another opinion.
 > 
-> The common IOREQ feature is supposed to be built with IOREQ_SERVER
-> option enabled, which is selected for x86's config HVM for now.
+> My thoughts:
 > 
-> In order to avoid having a gigantic patch here, the subsequent
-> patches will update remaining bits in the common code step by step:
-> - Make IOREQ related structs/materials common
-> - Drop the "hvm" prefixes and infixes
-> - Remove layering violation by moving corresponding fields
->   out of *arch.hvm* or abstracting away accesses to them
+> * On the whole, the risk of an incompatibility with system headers does seem higher than the risk of casting a value which is known not to be EOF
 > 
-> Introduce asm/ioreq.h wrapper to be included by common ioreq.h
-> instead of asm/hvm/ioreq.h to avoid HVM-ism in the code common.
+> * Such a change doesn’t seem like the kind of thing we should ask Manuel to do, when a simpler change will do the trick
 > 
-> Also include <xen/domain_page.h> which will be needed on Arm
-> to avoid touch the common code again when introducing Arm specific bits.
-> 
-> This support is going to be used on Arm to be able run device
-> emulator outside of Xen hypervisor.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Reviewed-by: Paul Durrant <paul@xen.org>
-> CC: Julien Grall <julien.grall@arm.com>
-> [On Arm only]
-> Tested-by: Wei Chen <Wei.Chen@arm.com>
+> * At any rate it doesn’t seem like a good thing to experiment with in the week before the feature freeze.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-with ...
-
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -92,6 +92,7 @@ config PV_LINEAR_PT
->  
->  config HVM
->  	def_bool !PV_SHIM_EXCLUSIVE
-> +	select IOREQ_SERVER
->  	prompt "HVM support"
->  	---help---
-
-... the addition moved below the prompt line (could probably
-be taken care of while committing, if no other need for a v6
-arises).
-
-(Personally I think this should be
-
-config HVM
-	bool "HVM support"
-	default !PV_SHIM_EXCLUSIVE
-	select IOREQ_SERVER
-	---help---
-
-anyway, but that's nothing you need to care about.)
-
-> --- /dev/null
-> +++ b/xen/include/asm-x86/ioreq.h
-> @@ -0,0 +1,37 @@
-> +/*
-> + * ioreq.h: Hardware virtual machine assist interface definitions.
-> + *
-> + * This is a wrapper which purpose is to not include arch HVM specific header
-> + * from the common code.
-> + *
-> + * Copyright (c) 2016 Citrix Systems Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#ifndef __ASM_X86_IOREQ_H__
-> +#define __ASM_X86_IOREQ_H__
-> +
-> +#include <asm/hvm/ioreq.h>
-> +
-> +#endif /* __ASM_X86_IOREQ_H__ */
-
-Not necessarily for taking care of right away, I think in the
-longer run this wants wrapping by #ifdef CONFIG_HVM, such that
-in !HVM builds the dependency on the "chained" header goes
-away (reducing the amount of rebuilding in incremental builds).
+Well, okay then, I withdraw my implied nak under these conditions.
 
 Jan
 
