@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D7BD30554C
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 09:10:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75779.136528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4B82305553
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 09:14:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75787.136540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4ftr-0004lM-9L; Wed, 27 Jan 2021 08:10:03 +0000
+	id 1l4fxg-0005PO-TC; Wed, 27 Jan 2021 08:14:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75779.136528; Wed, 27 Jan 2021 08:10:03 +0000
+Received: by outflank-mailman (output) from mailman id 75787.136540; Wed, 27 Jan 2021 08:14:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4ftr-0004kv-3U; Wed, 27 Jan 2021 08:10:03 +0000
-Received: by outflank-mailman (input) for mailman id 75779;
- Wed, 27 Jan 2021 08:10:01 +0000
+	id 1l4fxg-0005Oz-Pc; Wed, 27 Jan 2021 08:14:00 +0000
+Received: by outflank-mailman (input) for mailman id 75787;
+ Wed, 27 Jan 2021 08:13:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rFzC=G6=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l4ftp-0004WX-0t
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 08:10:01 +0000
+ (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l4fxf-0005Ou-8c
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 08:13:59 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd60414d-4383-4966-90fa-19af096053cf;
- Wed, 27 Jan 2021 08:10:00 +0000 (UTC)
+ id 84ebb0a9-6240-4ece-80f5-4bc8ce66f29a;
+ Wed, 27 Jan 2021 08:13:58 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 43524AD7F;
- Wed, 27 Jan 2021 08:09:59 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id BEEE8B928;
+ Wed, 27 Jan 2021 08:13:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,210 +38,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd60414d-4383-4966-90fa-19af096053cf
+X-Inumbo-ID: 84ebb0a9-6240-4ece-80f5-4bc8ce66f29a
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611734999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611735237; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z5LvDYHANoWj9sYY1RG39gtvvQXhRF6cxng1vY6A6Fc=;
-	b=Xs8u6Dud6X2E9t76Pub9Za9op2rFx/NBYK3x+769ZtgYPn035FDdp7xRJORDNhx+54IDj5
-	jvzyugwC6/xw5KUioCxip49yzdYr8+Y4Ibop709zXsL9aKIeZEtDk2yGDkfwLPRHqLLb2e
-	Fr5x+MJpivV7Kw71NUrUemwouDZa27g=
-Subject: Re: [PATCH] xen: Fix XenStore initialisation for XS_LOCAL
-To: David Woodhouse <dwmw2@infradead.org>, x86@kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Paul Durrant <pdurrant@amazon.com>, jgrall@amazon.com, karahmed@amazon.de,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <20210113132606.422794-1-dwmw2@infradead.org>
- <4d334457-e173-fa21-40f0-65f800a00cec@suse.com>
- <4c9af052a6e0f6485d1de43f2c38b1461996db99.camel@infradead.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <7e59a6a0-e401-ff61-5615-59db8508bfb8@suse.com>
-Date: Wed, 27 Jan 2021 09:09:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=RO4z4/Ol2UCy+55zfXJQ3hot1SK9y/Uc4AZbFwzEBhc=;
+	b=DxFThww7gcuBX0eDcGvhWRIsDhntyQc9CIzy1WCbLQpEl3K/hLRtBFq14yd75e8BFPOqgz
+	LarTISUVNouYCz3ZZImv/rgjykg9DNqdpPZlFM4NIof6FwSkaIHmuP9JxtR7pkTxfhbkaN
+	w9mFEGzkrTieiZ04FwD5HiBIZzKiNnA=
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v5 0/6] evtchn: (not so) recent XSAs follow-on
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson
+ <iwj@xenproject.org>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <306e62e8-9070-2db9-c959-858465c50c1d@suse.com>
+Date: Wed, 27 Jan 2021 09:13:57 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <4c9af052a6e0f6485d1de43f2c38b1461996db99.camel@infradead.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ltsYRorj5vOFY6z7tq4dzL6kAjOSrglnx"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ltsYRorj5vOFY6z7tq4dzL6kAjOSrglnx
-Content-Type: multipart/mixed; boundary="JkJMMvsk58nEDM828LskCuaFVHXAha0h7";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: David Woodhouse <dwmw2@infradead.org>, x86@kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Paul Durrant <pdurrant@amazon.com>, jgrall@amazon.com, karahmed@amazon.de,
- xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <7e59a6a0-e401-ff61-5615-59db8508bfb8@suse.com>
-Subject: Re: [PATCH] xen: Fix XenStore initialisation for XS_LOCAL
-References: <20210113132606.422794-1-dwmw2@infradead.org>
- <4d334457-e173-fa21-40f0-65f800a00cec@suse.com>
- <4c9af052a6e0f6485d1de43f2c38b1461996db99.camel@infradead.org>
-In-Reply-To: <4c9af052a6e0f6485d1de43f2c38b1461996db99.camel@infradead.org>
-
---JkJMMvsk58nEDM828LskCuaFVHXAha0h7
-Content-Type: multipart/mixed;
- boundary="------------4B87D03C28E4743B7B6CC3EE"
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------4B87D03C28E4743B7B6CC3EE
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+These are grouped into a series largely because of their origin,
+not so much because there are (heavy) dependencies among them.
+The main change from v4 is the dropping of the two patches trying
+to do away with the double event lock acquires in interdomain
+channel handling. See also the individual patches.
 
-On 26.01.21 18:01, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
->=20
-> In commit 3499ba8198ca ("xen: Fix event channel callback via INTX/GSI")=
+1: use per-channel lock where possible
+2: convert domain event lock to an r/w one
+3: slightly defer lock acquire where possible
+4: add helper for port_is_valid() + evtchn_from_port()
+5: type adjustments
+6: drop acquiring of per-channel lock from send_guest_{global,vcpu}_virq()
 
-> I reworked the triggering of xenbus_probe().
->=20
-> I tried to simplify things by taking out the workqueue based startup
-> triggered from wake_waiting(); the somewhat poorly named xenbus IRQ
-> handler.
->=20
-> I missed the fact that in the XS_LOCAL case (Dom0 starting its own
-> xenstored or xenstore-stubdom, which happens after the kernel is booted=
-
-> completely), that IRQ-based trigger is still actually needed.
->=20
-> So... put it back, except more cleanly. By just spawning a xenbus_probe=
-
-> thread which waits on xb_waitq and runs the probe the first time it
-> gets woken, just as the workqueue-based hack did.
->=20
-> This is actually a nicer approach for *all* the back ends with differen=
-t
-> interrupt methods, and we can switch them all over to that without the
-> complex conditions for when to trigger it. But not in -rc6. This is
-> the minimal fix for the regression, although it's a step in the right
-> direction instead of doing a partial revert and actually putting the
-> workqueue back. It's also simpler than the workqueue.
->=20
-> Fixes: 3499ba8198ca ("xen: Fix event channel callback via INTX/GSI")
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-
-Committed to: xen/tip.git for-linus-5.11
-
-
-Juergen
-
---------------4B87D03C28E4743B7B6CC3EE
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------4B87D03C28E4743B7B6CC3EE--
-
---JkJMMvsk58nEDM828LskCuaFVHXAha0h7--
-
---ltsYRorj5vOFY6z7tq4dzL6kAjOSrglnx
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmARH9YFAwAAAAAACgkQsN6d1ii/Ey8s
-5QgAlyn4b6nqEGcphU6FVgL1dxEU4kPKqYwOsQoznWYVYXfsofQbwYxs868FuJuPr7N5ou1IhO1T
-Bb0fH8vjsgrceExdCIz0+mi6BTU1iF9P5D2jTbvE1ZFEHgM2oT+6+XX7SAgQ6fRb/f4K72x0e9gC
-0YVcf0NjoH1bBd3ciceu8NBJZkTZrE/O5gXc7fNmlUGhlFbNl2J3w+COByu41vwbzO/pwgC65kAf
-QZGSfv2gSO6lVHWKD+AZpmglXkEMWWFwXH6z4ujQfiq8zpRA1pNEQu69DVo45ivpTKg8vlQqwRtu
-fF0qZo/MSbELXHInCZZ6/r7n8jCPA2NhMFyiQIQBcw==
-=teQ+
------END PGP SIGNATURE-----
-
---ltsYRorj5vOFY6z7tq4dzL6kAjOSrglnx--
+Jan
 
