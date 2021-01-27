@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD056305716
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 10:38:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75873.136756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E09830571F
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 10:41:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75876.136767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4hHP-0006D1-Tw; Wed, 27 Jan 2021 09:38:27 +0000
+	id 1l4hK2-00077M-C0; Wed, 27 Jan 2021 09:41:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75873.136756; Wed, 27 Jan 2021 09:38:27 +0000
+Received: by outflank-mailman (output) from mailman id 75876.136767; Wed, 27 Jan 2021 09:41:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4hHP-0006Cc-Qv; Wed, 27 Jan 2021 09:38:27 +0000
-Received: by outflank-mailman (input) for mailman id 75873;
- Wed, 27 Jan 2021 09:38:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rFzC=G6=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l4hHO-0006CX-EB
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 09:38:26 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a690f63e-b386-4eee-8ab0-c8fbd420ccfd;
- Wed, 27 Jan 2021 09:38:25 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 970ABADA2;
- Wed, 27 Jan 2021 09:38:24 +0000 (UTC)
+	id 1l4hK2-000770-8x; Wed, 27 Jan 2021 09:41:10 +0000
+Received: by outflank-mailman (input) for mailman id 75876;
+ Wed, 27 Jan 2021 09:41:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1Xld=G6=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l4hK0-00076v-IV
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 09:41:08 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6beba1bb-03c8-41c1-ba84-23e65e9e9fa0;
+ Wed, 27 Jan 2021 09:41:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,162 +35,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a690f63e-b386-4eee-8ab0-c8fbd420ccfd
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611740304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=R3PWSOk1QE9v1GpOIHb/NnNGs7W5QhxGQA5YD3vuLm4=;
-	b=rlTPArEzklGezseesPPFjz4F1fJwPjR1KNQkEVUkSvvakuCt4EZel4JI/VgNArul7YKey2
-	Pp86uNd24R9Modq30iF0Zmo7Kz/apPZ+jc6sP6CTSP0f5d8tx4gE7RH/zxBh/J3KVq2SdF
-	G8RoOYcWZXVGjsY8G0qpjPGOYvcOjtw=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] x86/xen: avoid warning in Xen pv guest with CONFIG_AMD_MEM_ENCRYPT enabled
-Date: Wed, 27 Jan 2021 10:38:22 +0100
-Message-Id: <20210127093822.18570-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
+X-Inumbo-ID: 6beba1bb-03c8-41c1-ba84-23e65e9e9fa0
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1611740467;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=V9hwVcAuKIlY1drz2Z5yDhWQ476Ck4UJDCseqaO6rHc=;
+  b=HVYAQsj3LePmwaPzxKZDtDcAXRhu9HozgPnNWJsNpQ3RYqg4NfQ9cBi6
+   U1WZqXQkBrUuhKIRTHVy6B8u/2iYl8Vk2U57kaFzmvtXd2OOnEDUvFXST
+   8D3j8MAWJcsGFEAnLurNtpYT1WaCzqBX61YNiTkDd0f2hANGQvEfg6QIQ
+   k=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: VdIqnJZpSmfSfX0u5bJKJ3soAzeqdLRNkZvK35qIfT287Zp+aBOamJfJ5wclsTvYJFJczxKnlW
+ BtEbcMqNIcl/pQ//T1ThWwTpP/9AtnA+NYuspT7DQHR+J72x6+c7OkxkNVdg8BcL0AwRE1dHKl
+ 6JfLQCzNKW5Wjnm2l0Mphdys4+HVwe4UN/htc2CTDSRfdr4eNu99OFspbz1CsfpYGSMLAHMjxC
+ 3asUdiQEAqEP98KKuoy8yK+HFmBauISaMYhIoWxmxKgUeFtXO1SUDPREOZHHkDFjQx93PucPHL
+ ORc=
+X-SBRS: 5.2
+X-MesageID: 36148806
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,378,1602561600"; 
+   d="scan'208";a="36148806"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Hf/WLNRz+BRYH1IXf/8QVu5K217eO4A+O2vJRMgXXBW36TkOzPsXe1mkBZ7CxSQtBpaiB87D75Obi6iKOeQXMKqN5uZIr+i0OeFFitRzJwTKINznmTf1FFgbVzKBlDUHDjOSZkmNZe0Cc9dKm48kdPiExfixEa8tPH/t9BM02pNRvdGVYO5cR8Uwrg1BRntOLNIqt7dRz33oshCeO9f1kWxb57A3w8ZUs+rqxOEtZAIUG5JuPTzM5xkTsYsWJQel4VuIozh7fCXPlGfMN1YuUgex3W55fd5R7wMR7iBzuk+7Rjd9TZ5ODX/eUzdaHAemnnHfZHYGMC43PiBKHvNzdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DqbFHMqdSeAud9UE3X6HcdVeifsYJofWryRws/2/CXo=;
+ b=SB9Y/BDVt3b937C1PHszyMGvBLeIiH0q5hDWqnMg/X6cQZErLLizKVOUGqZVTUDhVYe6aBaf9OJzc7n3tLjJevOioJZGGP/FyuIOGIZnGkUqPn5gDpx6MBNdLXfX6kE0nObKftWNpBpKSptfJu19Ig1cmna3JPFp34fJ+0YmaknSbbBPPtSE1Y0Ghf3e1xd1m2QHO1nM1+j1qWdhqOxXTo6/pFZyV7/+C+FJzoqzotzSsFf4G5wNhHZ27cz1YR7b9tRO4RVl/EyIURjzfG7fAxvYijHTFODo9D2oGvXv0c2g2pWqhe99bHVMt1zwllvrffunyO6axvlHv5z9lGq2sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DqbFHMqdSeAud9UE3X6HcdVeifsYJofWryRws/2/CXo=;
+ b=NgBgEVMOykvVJTX9OYZcfY81IvSEY5EkOkgJkGqhWkDVtx0KQ7jqtl/HRDoLepiBkCfXLS9mSbQmXTj4nUgkeQ/OiUWh9jyrJdg98ueU7Rs/yvsCGGENtlHrMHQKSrjDcf8Zbbid8XOKh7q4iDb9g9U2gVaoCxXKJXqTm7qaJ2U=
+Date: Wed, 27 Jan 2021 10:40:43 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
+ Liu <wl@xen.org>
+Subject: Re: [PATCH] NetBSD hotplug: fix block unconfigure on destroy
+Message-ID: <20210127094043.lkccsom63xswygio@Air-de-Roger>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+ <20210112181242.1570-4-bouyer@antioche.eu.org>
+ <20210115152712.njzgo2zqpiwyhmds@Air-de-Roger>
+ <20210126164749.GA8309@antioche.eu.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210126164749.GA8309@antioche.eu.org>
+X-ClientProxiedBy: PR3P189CA0065.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:102:b4::10) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e1dc2483-5507-4818-bf34-08d8c2a7a087
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4060:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4060F91039ADFCAEA631E4AE8FBB0@DM6PR03MB4060.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NKhjSKuf9V7+43mgWzSesqG8ltLfbMBWqkGwGyaH69YIXZTjsMJtv94zqCGrliw5hUOsa7MIXst0NQnHR+kCsqqoUfo/FrrkAoNtTzaNtlTk5SUU0o2U3/jH5onEutSU6qcoVojGYmdFbr9qiM+QwEhvxmvILnIT1b1oelY1UOmR6nDHhh07voQKGkWGrD1n3sSHHdlqMGJ6pD7o9Kca2nP1uqvEzKMa/hfeaKq/eDN2raWwOUxxDiTWOncPW7v8h2hKaeFYTamE4Wle+KyPHsn6fABw2moqrid07ueI1lDXqDN4pUKKCZnM/hHB0ll610229Xuc/xPhgbxgT9qXXY7Ld5Du6IMg5/SWUfai/RXtsRQzNhoU1Vg8BU1gGsMVQAVZl+5L/GpNP2lhL94UgVmRBc9oyQenMvT0SCPJ7GfA7FUDQcEPtYKcQj2Cm5+sNgKk59IvtONtVUxcOXyEJH+1+9jBoy71Qts+ppSQem+6mgQ3zZrTPBcNOs4UzvOkgTqxQ/64CC0OXIMGzBVrkQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(376002)(396003)(39860400002)(136003)(346002)(366004)(6666004)(6916009)(66556008)(6496006)(54906003)(26005)(86362001)(85182001)(8936002)(66946007)(16526019)(9686003)(316002)(956004)(8676002)(33716001)(83380400001)(2906002)(5660300002)(478600001)(186003)(4326008)(6486002)(66476007)(1076003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?MDlFSmJUUFRkS2xIdVhJTHlUQ2IzRUh6SlkrVEpjNE1aOEp4czdqeE5RaEpu?=
+ =?utf-8?B?Vm9hNXRQbG52QTVBeTJBTCtqbUx5QVZUTGFLR2dFOHdRTmRvZjV6Q0Z0YWti?=
+ =?utf-8?B?MWtKZjlJSnZEbEsyci9zT21ha21WeFByb3Z5NzlSTkRZWVVDUHZSZTlMWXlx?=
+ =?utf-8?B?U3JZemw5WnNzdm5nNm9TVzhmaHo3Wjc4STc2TFl2bnp5ekkvcm9mN25JMTdY?=
+ =?utf-8?B?blkyczBkUnI4UG84VVJyWEhoY29RK1hLVnQrL3drUnlxZmpTa0ZQR3ZCZ0h3?=
+ =?utf-8?B?Tzc5N0RQMzl5Sm5zcW1QNktOMGtLQnNGY2VZU2tjc1Qybmh2U2lUZE5RSC92?=
+ =?utf-8?B?WUpBTVpjTTJtakQ5T1VQcjA0NVJzYXBOQy9jL290RVNiTk5va09SYy8vSS9q?=
+ =?utf-8?B?MnFoNndNb1pwRGVXMS9ZSGR3UWxVaXQ2eFBoWGZ5YjV4bHcxZTJkRmlWbVBj?=
+ =?utf-8?B?d3FwSVIvNGNPWGhwS2FjbTZoY3liaHd3TndzelZtRTk1NDkxV2lNRmFnZ1Rw?=
+ =?utf-8?B?UHBaNi81Y0FUY2xKbzVvekpWdnB6RzBhQk9ORFZBN3R2a3JBcTk4VnhEUmlp?=
+ =?utf-8?B?RHIrMXQ4R0dyQVZLTHZ6VGlydXo0R1ZkdmNOeHphcmM1UW13ckxkbko5TVBR?=
+ =?utf-8?B?c1BVRzZTRFJNTklVeU9kaXlyNXhuaXZVUVh1eWpMajkwd1VuSmxzeUZ2Vlo3?=
+ =?utf-8?B?aGFOWE1GZ2pFL250ZTl2ekRJdkNrbmxxTjVibTJHekVnZG02eUlyVzVYNkhQ?=
+ =?utf-8?B?MEtYQ0hFUWdmbytjVnBIc1BKTHJXYnhsZ0k1S1BHUEdnVGZIekhQVnJOMEJV?=
+ =?utf-8?B?cVpnQjdSNmJrcU1rOEFielJjYXVhQTFva2JIMkd1b3hCOUlJSm5CVWMyamx6?=
+ =?utf-8?B?Q0w3M1M4RThmaFpZb1MvWlBjd1BwTGl6eWxDNm4zL202M1dKcmozSXlRQzlT?=
+ =?utf-8?B?ZkFTSk0zMHN5cXVqaTQ5Q1d0TmJOdi9hN0FBU3RlZ2lzVlJncHFTMHpMNVl3?=
+ =?utf-8?B?TXlpa255S1p0TDBtbE51eXlyWnBON3ZSSTljNjlkZjVxalZOT3NOSWZHUEpH?=
+ =?utf-8?B?VHVLWEVSSmR1TFZqQzFrT0lvNXpxZXVTZEw0TjU1dlE5OWFERU9MbjVtRHJQ?=
+ =?utf-8?B?MCtnNG1LbW9uRHpra1dyMkhrT3hDWXl0WnNpbTBPSUtFZmEwQ2FJMzUzd3Iz?=
+ =?utf-8?B?SWJ1ZUQ4SnI3bGlqZWFudUZlbWFPSzdRVkxmMmFnWGk4RFp1cWQ0aGpWcGxy?=
+ =?utf-8?B?RnpWaHhjR0U3UmVRc0ZVckUrUmhKYnhkZUFCaFdWbEFKT2Y4cWtMaUxoeTFl?=
+ =?utf-8?B?Q2dIWnhrSVNHbk5JQUdkdnBQYTE4eUJ2VjdGZzJTVU1lcHVEa0VLM2xhSTUr?=
+ =?utf-8?B?Tm5BOXdaM2JWVzZGS28zcVpSVzl4NGsrbmlxS0t3bE4wTVY1eU1MLzNyNVd3?=
+ =?utf-8?B?aTl5MUZkNC9LalphbkxSaTYyUlhiWFIrSm9oZEZRPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1dc2483-5507-4818-bf34-08d8c2a7a087
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2021 09:40:48.3882
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lhi7dugXPICwskWmAZi/gfqkxbDa0JkFMMfFY6shxRDj5gTg1C5hMt6dXMQRzRlMxUK+1VsKjQEyVlMDosKzEg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4060
+X-OriginatorOrg: citrix.com
 
-When booting a kernel which has been built with CONFIG_AMD_MEM_ENCRYPT
-enabled as a Xen pv guest a warning is issued for each processor:
+On Tue, Jan 26, 2021 at 05:47:49PM +0100, Manuel Bouyer wrote:
+> On Fri, Jan 15, 2021 at 04:27:12PM +0100, Roger Pau Monné wrote:
+> > On Tue, Jan 12, 2021 at 07:12:24PM +0100, Manuel Bouyer wrote:
+> > > From: Manuel Bouyer <bouyer@netbsd.org>
+> > > 
+> > > When a domain is destroyed, xparams may not be available any more when
+> > > the block script is called to unconfigure the vnd.
+> > > Check xparam only at configure time, and just unconfigure any vnd present
+> > > in the xenstore.
+> > 
+> > The patch itself seems fine to me, there's no need to fetch params
+> > for unplug, you can just reply on the vnd node.
+> > 
+> > I'm however not sure why params would be deleted from xenstore but not
+> > vnd, do you know why?
+> 
+> I'm not sure, it happens on xl destroy, when the kernel in the
+> domU is stuck (so it won't shutdown properly).
 
-[    5.964347] ------------[ cut here ]------------
-[    5.968314] WARNING: CPU: 0 PID: 1 at /home/gross/linux/head/arch/x86/xen/enlighten_pv.c:660 get_trap_addr+0x59/0x90
-[    5.972321] Modules linked in:
-[    5.976313] CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W         5.11.0-rc5-default #75
-[    5.980313] Hardware name: Dell Inc. OptiPlex 9020/0PC5F7, BIOS A05 12/05/2013
-[    5.984313] RIP: e030:get_trap_addr+0x59/0x90
-[    5.988313] Code: 42 10 83 f0 01 85 f6 74 04 84 c0 75 1d b8 01 00 00 00 c3 48 3d 00 80 83 82 72 08 48 3d 20 81 83 82 72 0c b8 01 00 00 00 eb db <0f> 0b 31 c0 c3 48 2d 00 80 83 82 48 ba 72 1c c7 71 1c c7 71 1c 48
-[    5.992313] RSP: e02b:ffffc90040033d38 EFLAGS: 00010202
-[    5.996313] RAX: 0000000000000001 RBX: ffffffff82a141d0 RCX: ffffffff8222ec38
-[    6.000312] RDX: ffffffff8222ec38 RSI: 0000000000000005 RDI: ffffc90040033d40
-[    6.004313] RBP: ffff8881003984a0 R08: 0000000000000007 R09: ffff888100398000
-[    6.008312] R10: 0000000000000007 R11: ffffc90040246000 R12: ffff8884082182a8
-[    6.012313] R13: 0000000000000100 R14: 000000000000001d R15: ffff8881003982d0
-[    6.016316] FS:  0000000000000000(0000) GS:ffff888408200000(0000) knlGS:0000000000000000
-[    6.020313] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    6.024313] CR2: ffffc900020ef000 CR3: 000000000220a000 CR4: 0000000000050660
-[    6.028314] Call Trace:
-[    6.032313]  cvt_gate_to_trap.part.7+0x3f/0x90
-[    6.036313]  ? asm_exc_double_fault+0x30/0x30
-[    6.040313]  xen_convert_trap_info+0x87/0xd0
-[    6.044313]  xen_pv_cpu_up+0x17a/0x450
-[    6.048313]  bringup_cpu+0x2b/0xc0
-[    6.052313]  ? cpus_read_trylock+0x50/0x50
-[    6.056313]  cpuhp_invoke_callback+0x80/0x4c0
-[    6.060313]  _cpu_up+0xa7/0x140
-[    6.064313]  cpu_up+0x98/0xd0
-[    6.068313]  bringup_nonboot_cpus+0x4f/0x60
-[    6.072313]  smp_init+0x26/0x79
-[    6.076313]  kernel_init_freeable+0x103/0x258
-[    6.080313]  ? rest_init+0xd0/0xd0
-[    6.084313]  kernel_init+0xa/0x110
-[    6.088313]  ret_from_fork+0x1f/0x30
-[    6.092313] ---[ end trace be9ecf17dceeb4f3 ]---
+That's weird. Linux hotplug script will unconditionally read the
+params node and we had no complaints there. Can you assert this still
+happens with the latest version of Xen?
 
-Reason is that there is no Xen pv trap entry for X86_TRAP_VC.
+As said I think fetching vnd on detach is fine because there's no need
+to fetch the other nodes, but this seems to be masking some kind of
+error elsewhere.
 
-Fix that by adding a generic trap handler for unknown traps and wire all
-unknown bare metal handlers to this generic handler, which will just
-panic the system in case such a trap will ever happen.
-
-Fixes: 0786138c78e793 ("x86/sev-es: Add a Runtime #VC Exception Handler")
-Cc: <stable@vger.kernel.org> # v5.10
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- use generic handler for unknown traps (Andrew Cooper)
----
- arch/x86/include/asm/idtentry.h |  1 +
- arch/x86/xen/enlighten_pv.c     | 14 +++++++++++++-
- arch/x86/xen/xen-asm.S          |  1 +
- 3 files changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/include/asm/idtentry.h b/arch/x86/include/asm/idtentry.h
-index 247a60a47331..f656aabd1545 100644
---- a/arch/x86/include/asm/idtentry.h
-+++ b/arch/x86/include/asm/idtentry.h
-@@ -613,6 +613,7 @@ DECLARE_IDTENTRY_VC(X86_TRAP_VC,	exc_vmm_communication);
- 
- #ifdef CONFIG_XEN_PV
- DECLARE_IDTENTRY_XENCB(X86_TRAP_OTHER,	exc_xen_hypervisor_callback);
-+DECLARE_IDTENTRY_RAW(X86_TRAP_OTHER,	exc_xen_unknown_trap);
- #endif
- 
- /* Device interrupts common/spurious */
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 4409306364dc..ca5ac10fcbf7 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -583,6 +583,12 @@ DEFINE_IDTENTRY_RAW(xenpv_exc_debug)
- 		exc_debug(regs);
- }
- 
-+DEFINE_IDTENTRY_RAW(exc_xen_unknown_trap)
-+{
-+	/* This should never happen and there is no way to handle it. */
-+	panic("Unknown trap in Xen PV mode.");
-+}
-+
- struct trap_array_entry {
- 	void (*orig)(void);
- 	void (*xen)(void);
-@@ -631,6 +637,7 @@ static bool __ref get_trap_addr(void **addr, unsigned int ist)
- {
- 	unsigned int nr;
- 	bool ist_okay = false;
-+	bool found = false;
- 
- 	/*
- 	 * Replace trap handler addresses by Xen specific ones.
-@@ -645,6 +652,7 @@ static bool __ref get_trap_addr(void **addr, unsigned int ist)
- 		if (*addr == entry->orig) {
- 			*addr = entry->xen;
- 			ist_okay = entry->ist_okay;
-+			found = true;
- 			break;
- 		}
- 	}
-@@ -655,9 +663,13 @@ static bool __ref get_trap_addr(void **addr, unsigned int ist)
- 		nr = (*addr - (void *)early_idt_handler_array[0]) /
- 		     EARLY_IDT_HANDLER_SIZE;
- 		*addr = (void *)xen_early_idt_handler_array[nr];
-+		found = true;
- 	}
- 
--	if (WARN_ON(ist != 0 && !ist_okay))
-+	if (!found)
-+		*addr = (void *)xen_asm_exc_xen_unknown_trap;
-+
-+	if (WARN_ON(found && ist != 0 && !ist_okay))
- 		return false;
- 
- 	return true;
-diff --git a/arch/x86/xen/xen-asm.S b/arch/x86/xen/xen-asm.S
-index 1cb0e84b9161..53cf8aa35032 100644
---- a/arch/x86/xen/xen-asm.S
-+++ b/arch/x86/xen/xen-asm.S
-@@ -178,6 +178,7 @@ xen_pv_trap asm_exc_simd_coprocessor_error
- #ifdef CONFIG_IA32_EMULATION
- xen_pv_trap entry_INT80_compat
- #endif
-+xen_pv_trap asm_exc_xen_unknown_trap
- xen_pv_trap asm_exc_xen_hypervisor_callback
- 
- 	__INIT
--- 
-2.26.2
-
+Thanks, Roger.
 
