@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 100FE305C23
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 13:53:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76094.137180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22AED305D9F
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 14:54:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76100.137192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4kJX-00039y-CP; Wed, 27 Jan 2021 12:52:51 +0000
+	id 1l4lG4-0000Bj-1b; Wed, 27 Jan 2021 13:53:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76094.137180; Wed, 27 Jan 2021 12:52:51 +0000
+Received: by outflank-mailman (output) from mailman id 76100.137192; Wed, 27 Jan 2021 13:53:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4kJX-00039Z-8F; Wed, 27 Jan 2021 12:52:51 +0000
-Received: by outflank-mailman (input) for mailman id 76094;
- Wed, 27 Jan 2021 12:52:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4lG3-0000BK-UU; Wed, 27 Jan 2021 13:53:19 +0000
+Received: by outflank-mailman (input) for mailman id 76100;
+ Wed, 27 Jan 2021 13:53:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4kJW-00039U-2P
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 12:52:50 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 890f91c3-7de2-4851-8202-2ce76484b47f;
- Wed, 27 Jan 2021 12:52:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E3E03ABDA;
- Wed, 27 Jan 2021 12:52:42 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1l4lG2-0000BF-UX
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 13:53:18 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l4lG2-0007Ae-Pf
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 13:53:18 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l4lG2-0001Yv-OH
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 13:53:18 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l4lFq-0001Mu-Fs; Wed, 27 Jan 2021 13:53:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,98 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 890f91c3-7de2-4851-8202-2ce76484b47f
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611751963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=40EGBYVQzQy/CJYgjOd/avRCZXefzPG90Wp86ILC+/Y=;
-	b=OIV1E0qJaasb4XLfIFimJhdDj1YKiMp1Bh9k3HkIjO6An+muYvW4TcuEzwfgzZ778f1K/u
-	/WYSXJTFEFlM/iPcKqBG3yRr2ZGK2YnJByRV1qnCCemm+inlfHAYlE9Oh5VYeDQ7/r1lQO
-	r38dwjyR6nhQlEz9KGfY0L1otClUsgs=
-Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Oleksandr <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien@xen.org>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-15-git-send-email-olekstysh@gmail.com>
- <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org>
- <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com>
- <06704224-bb57-c55e-a2ee-23032095e8ea@xen.org>
- <e2dcc876-291f-1244-933c-179f97a84e07@gmail.com>
- <57d95c18-5215-03e7-7849-73c9fe968e75@xen.org>
- <e0bc7f80-974e-945d-4605-173bd05302af@gmail.com>
- <9aa563c1-de53-cafc-f7e7-c3da49b6ef6e@suse.com>
- <7d49becb-8774-5756-f2ed-ddba544231cc@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <254baa33-2427-ffeb-b4ee-9ceadd213f25@suse.com>
-Date: Wed, 27 Jan 2021 13:52:42 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=a/IogMdq/ibn48EDkq8vE62npdUOddgEoc3zJJLBWkw=; b=xDr3CI1mAn4HJ47X7PMqJ4WvKp
+	mcqkFEY/sdx7oV74OebQmj3O9XajIgzIZadPKfb4Y9UEFGzFgaDmhLJJJd7ER5JElPpcJsC+GMXJp
+	LppsrrUJ0z3yTAOC04rwG6VEBNolSLztOFw+90NvCokGmDCweyG35kshQBVeHNAK+z0M=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <7d49becb-8774-5756-f2ed-ddba544231cc@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24593.28738.216430.891500@mariner.uk.xensource.com>
+Date: Wed, 27 Jan 2021 13:53:06 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>,
+    Anthony PERARD <anthony.perard@citrix.com>,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    xen-devel@lists.xenproject.org,
+    Manuel Bouyer <bouyer@antioche.eu.org>
+Subject: Re: [PATCH] Fix error: array subscript has type 'char' [and 1 more messages]
+In-Reply-To: <2452d5cb-90ba-a4c4-a5e4-3070c5a676d2@suse.com>,
+	<27ec4834-ebf2-2121-47f7-470083d03a3f@suse.com>
+References: <20210112181242.1570-1-bouyer@antioche.eu.org>
+	<574d9ed8-c827-6864-4732-4e1b813fc3e3@suse.com>
+	<20210114122912.GA2522@antioche.eu.org>
+	<1af2b532-4dce-29cf-94ae-ad0c399ecbce@suse.com>
+	<20210114141615.GA9157@mail.soc.lip6.fr>
+	<20210126174415.GA21858@mail.soc.lip6.fr>
+	<24592.22685.67161.585056@mariner.uk.xensource.com>
+	<2452d5cb-90ba-a4c4-a5e4-3070c5a676d2@suse.com>
+	<27ec4834-ebf2-2121-47f7-470083d03a3f@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 27.01.2021 13:22, Oleksandr wrote:
-> On 27.01.21 12:24, Jan Beulich wrote:
->> On 21.01.2021 09:50, Oleksandr wrote:
->>> On 20.01.21 17:50, Julien Grall wrote:
->>>> On 17/01/2021 18:52, Oleksandr wrote:
->>>>> error2.txt - when add #include <public/hvm/dm_op.h> to xen/ioreq.h
->>>> It looks like the error is happening in dm.c rather than xen/dm.h. Any
->>>> reason to not include <public/hvm/dm_op.h> in dm.c directly?
->>> Including it directly doesn't solve build issue.
->>> If I am not mistaken in order to follow requirements how to include
->>> headers (alphabetic order, public* should be included after xen* and
->>> asm* ones, etc)
->>> the dm.h gets included the first in dm.c, and dm_op.h gets included the
->>> last. We can avoid build issue if we change inclusion order a bit,
->>> what I mean is to include dm.h after hypercall.h at least (because
->>> hypercall.h already includes dm_op.h). But this breaks the requirements
->>> and is not way to go.
->>> Now I am in doubt how to overcome this.
->> First, violating the alphabetic ordering rule is perhaps less
->> of a problem than putting seemingly stray #include-s anywhere.
->> However, as soon as ordering starts mattering, this is
->> indicative of problems with the headers: Either the (seemingly)
->> too early included one lacks some #include-s, or you've run
->> into a circular dependency. In the former case the needed
->> #include-s should be added, and all ought to be fine. In the
->> latter case, however, disentangling may be a significant
->> effort, and hence it may be sensible and acceptable to instead
->> use unusual ordering of #include-s in the one place where it
->> matters (suitably justified in the description). Ideally such
->> would come with a promise to try to sort this later on, when
->> time is less constrained.
-> Thank you for the explanation. I think, I am facing the former case (too 
-> early included one lacks some #include-s),
-> actually both common/dm.c and arch/arm/dm.c suffer from that.
-> It works for me if I add the following to both files (violating the 
-> alphabetic ordering rule):
-> 
-> +#include <xen/types.h>
-> +#include <public/hvm/dm_op.h>
-> +
->   #include <xen/dm.h>
-> 
-> 
-> So, if I got your point correctly, we could include these both headers 
-> by dm.h) Would it be appropriate (with suitable justification of course)?
+Jan Beulich writes ("Re: [PATCH] Fix error: array subscript has type 'char'"):
+> I did read that part of the spec before replying.
 
-Perhaps - this is a header you introduce aiui, so it's up to
-you to arrange for it to include all further headers it
-depends upon. In such a case (new header) you don't need to
-explicitly justify what you include, but of course you don't
-want to include excessive ones, or you risk getting back
-"Why?" from reviewers.
+I find this quite astonishing.  You claimed that FreeBSD's libc was
+buggy *after having read the spec to which you agree it conforms*.
 
-Jan
+>   Irrespective of the wording there it seems entirely unreasonable
+> to me for the spec to imply all use sites of the is...() functions
+> to have to use casts. Even more so that we all know (I suppose) that
+> casts can be dangerous as both potentially introducing bugs (perhaps
+> not at the point of their addition, but later when code elsewhere
+> gets changed) and keeping analysis tools from actually spotting
+> ones.
+
+Nevertheless, this is the design of the C standard.  A common approach
+to this problem is something like this (from libxl_internal.h):
+
+  /*
+   * int CTYPE(ISFOO, char c);
+   * int CTYPE(toupper, char c);
+   * int CTYPE(tolower, char c);
+   *
+   * This is necessary because passing a simple char to a ctype.h
+   * is forbidden.  ctype.h macros take ints derived from _unsigned_ chars.
+   *
+   * If you have a char which might be EOF then you should already have
+   * it in an int representing an unsigned char, and you can use the
+   * <ctype.h> macros directly.  This generally happens only with values
+   * from fgetc et al.
+   *
+   * For any value known to be a character (eg, anything that came from
+   * a char[]), use CTYPE.
+   */
+  #define CTYPE(isfoo,c) (isfoo((unsigned char)(c)))
+
+Jan Beulich writes ("Re: [PATCH] Fix error: array subscript has type 'char'"):
+> On 27.01.2021 09:31, Jan Beulich wrote:
+> > But yes, I'm not the maintainer of this code, so if you're
+> > happy with such risks, so be it.
+> 
+> And actually I was only partly right here - there's one hunk
+> here affecting code I'm the maintainer just as much as you
+> are. At least there I'd like to ask that ...
+> 
+> > For the record, to me the less risky approach here would seem
+> > to have been to make use of compilers allowing to choose
+> > whether plain char is signed or unsigned, and force it to
+> > unsigned for at least the affected components.
+> 
+> ... this be considered as an alternative, before I maybe
+> withdraw my de-facto nak.
+
+Whether char is signed or unsigned is generally specified in the
+platform API/ABI.  Deviating from this for userland code is not
+possible or reasonable since it would involve processing the system
+headers with a deviant langauge definition!
+
+Deviating from it for hypervisor code would be possible but I think it
+would be unwise.
+
+Ian.
 
