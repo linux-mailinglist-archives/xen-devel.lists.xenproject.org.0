@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6685D306112
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 17:32:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76254.137523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84D9B306133
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 17:44:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76259.137535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4njs-0001ON-TA; Wed, 27 Jan 2021 16:32:16 +0000
+	id 1l4nvM-0002Rk-0Q; Wed, 27 Jan 2021 16:44:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76254.137523; Wed, 27 Jan 2021 16:32:16 +0000
+Received: by outflank-mailman (output) from mailman id 76259.137535; Wed, 27 Jan 2021 16:44:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4njs-0001Ny-Q6; Wed, 27 Jan 2021 16:32:16 +0000
-Received: by outflank-mailman (input) for mailman id 76254;
- Wed, 27 Jan 2021 16:32:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l4nvL-0002RL-TA; Wed, 27 Jan 2021 16:44:07 +0000
+Received: by outflank-mailman (input) for mailman id 76259;
+ Wed, 27 Jan 2021 16:44:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4njr-0001Nt-Sq
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 16:32:15 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 95060ce7-b140-4f0f-80c9-79d58d7c9258;
- Wed, 27 Jan 2021 16:32:15 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1B07EAAC6;
- Wed, 27 Jan 2021 16:32:14 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1l4nvK-0002RG-Vs
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 16:44:07 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l4nul-0002Fx-Ko; Wed, 27 Jan 2021 16:43:31 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l4nul-0006M9-Ca; Wed, 27 Jan 2021 16:43:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,71 +39,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95060ce7-b140-4f0f-80c9-79d58d7c9258
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611765134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FY9ePlQV8e/YP1Dy1wzCoWUwN1T+6SE4eCVJbGKOYD8=;
-	b=owyzeJzDGqha034yRBpTI9z3MvvxxDAeXxt+F3mRW+PMULrBWdCFuTB/bxvKi149Djw3Ma
-	TtoRIPouFDBAS4AOCVpBrAYd/1fbnUK+5BYEuDJVROnb3yNj/S9sle1Vz9arhjeL6F5bET
-	vTWeLwPP70xUxlCFMIGbniSvzkRh7vg=
-Subject: Re: [PATCH] Fix error: array subscript has type 'char' [and 1 more
- messages]
-To: Ian Jackson <iwj@xenproject.org>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=kqpU83Jkyi116SfAspAFlBJt11xbJOrvdEus+hMIOOI=; b=1nfAwWEGfnAHJeHRXCYLF5e2jq
+	9uyWAcM2YxfXMUMVu5D4EHvzyNttKEh5oKSRlJsF0PF8zGV+vXC5YotJ0vd9tKM3yUPCJEQd/yf5g
+	oVPoW8JsGWuJgWChdBz5SCovFwWPAFk7S06etuzwZfjnMUJQRNtpHcV+Yln0KUQYFqUM=;
+Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Manuel Bouyer <bouyer@antioche.eu.org>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
- <574d9ed8-c827-6864-4732-4e1b813fc3e3@suse.com>
- <20210114122912.GA2522@antioche.eu.org>
- <1af2b532-4dce-29cf-94ae-ad0c399ecbce@suse.com>
- <20210114141615.GA9157@mail.soc.lip6.fr>
- <20210126174415.GA21858@mail.soc.lip6.fr>
- <24592.22685.67161.585056@mariner.uk.xensource.com>
- <2452d5cb-90ba-a4c4-a5e4-3070c5a676d2@suse.com>
- <27ec4834-ebf2-2121-47f7-470083d03a3f@suse.com>
- <24593.28738.216430.891500@mariner.uk.xensource.com>
- <d3796603-20a7-2c81-a446-0d0a75cd52d5@suse.com>
- <24593.37649.81543.442376@mariner.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2bdd894f-e966-7943-c5ec-fe45ef7227e7@suse.com>
-Date: Wed, 27 Jan 2021 17:32:13 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien.grall@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Kaly Xin <Kaly.Xin@arm.com>, Artem Mygaiev <joculator@gmail.com>,
+ =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <dc7866fc-5b13-5378-2b22-6475053fd76b@xen.org>
+Date: Wed, 27 Jan 2021 16:43:27 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <24593.37649.81543.442376@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 27.01.2021 17:21, Ian Jackson wrote:
-> Jan Beulich writes ("Re: [PATCH] Fix error: array subscript has type 'char' [and 1 more messages]"):
->> I don't think I've ever come across that part of a platform
->> API/ABI spec. Instead my understanding so far was that good
->> platform headers would be ignorant of the user's choice of
->> char's signed-ness (wherever compilers offer such a choice,
->> but I think all that I've ever worked with did). At the very
->> least gcc's doc doesn't warn about any possible
->> incompatibilities resulting from use of -fsigned-char or
->> -funsigned-char (or their bitfield equivalents, for that
->> matter).
-> 
-> Well, I've considered this and I still don't think changing to
-> -funsigned-char is good idea.
-> 
-> Are you OK with me checking in the current patch or should I ask the
-> other committers for a second opinion ?
+Hi Oleksandr,
 
-For the changes to tools/ it's really up to you. For the change
-to xen/tools/symbols.c I could live with it (for being user
-space code), but I still think adding casts in such a place is
-not necessarily setting a good precedent. So for this one I'd
-indeed appreciate getting another opinion.
+On 25/01/2021 19:08, Oleksandr Tyshchenko wrote:
+> ***
+> 
+> Patch series [8] was rebased on recent "staging branch"
+> (5e31789 tools/ocaml/libs/xb: Do not crash after xenbus is unmapped) and tested on
+> Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with virtio-mmio disk backend [9]
+> running in driver domain and unmodified Linux Guest running on existing
+> virtio-blk driver (frontend). No issues were observed. Guest domain 'reboot/destroy'
+> use-cases work properly. Patch series was only build-tested on x86.
+> 
+> Please note, build-test passed for the following modes:
+> 1. x86: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y (default)
+> 2. x86: #CONFIG_HVM is not set / #CONFIG_IOREQ_SERVER is not set
+> 3. Arm64: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
+> 4. Arm64: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set  (default)
+> 5. Arm32: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
+> 6. Arm32: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set  (default)
 
-Jan
+I thought I woudl give a try to test the code, but I can't find a way to 
+enable CONFIG_IOREQ_SERVER from the UI.
+
+Looking at the Kconfig, it looks like CONFIG_IOREQ_SERVER doesn't have a 
+prompt and is not selected by Arm.
+
+Can you provide details how this can be built on Arm?
+
+Cheers,
+
+-- 
+Julien Grall
 
