@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDA55305771
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 10:55:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75901.136840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61C553057B1
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 11:03:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75907.136854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4hXK-0000Iv-Ui; Wed, 27 Jan 2021 09:54:54 +0000
+	id 1l4hev-0001N5-Qc; Wed, 27 Jan 2021 10:02:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75901.136840; Wed, 27 Jan 2021 09:54:54 +0000
+Received: by outflank-mailman (output) from mailman id 75907.136854; Wed, 27 Jan 2021 10:02:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4hXK-0000IV-Ra; Wed, 27 Jan 2021 09:54:54 +0000
-Received: by outflank-mailman (input) for mailman id 75901;
- Wed, 27 Jan 2021 09:54:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kelV=G6=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l4hXJ-0000IP-D0
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 09:54:53 +0000
-Received: from mail-lj1-x233.google.com (unknown [2a00:1450:4864:20::233])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5c3ee6b5-3cf5-43ea-aa85-528dd36b7ac7;
- Wed, 27 Jan 2021 09:54:52 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id r14so1364604ljc.2
- for <xen-devel@lists.xenproject.org>; Wed, 27 Jan 2021 01:54:52 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id p5sm374306lfc.300.2021.01.27.01.54.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Jan 2021 01:54:50 -0800 (PST)
+	id 1l4hev-0001Mf-NQ; Wed, 27 Jan 2021 10:02:45 +0000
+Received: by outflank-mailman (input) for mailman id 75907;
+ Wed, 27 Jan 2021 10:02:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l4heu-0001MX-7L; Wed, 27 Jan 2021 10:02:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l4heu-0003LR-1U; Wed, 27 Jan 2021 10:02:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l4het-0001Fs-KH; Wed, 27 Jan 2021 10:02:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l4het-0006k6-Jn; Wed, 27 Jan 2021 10:02:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,110 +42,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c3ee6b5-3cf5-43ea-aa85-528dd36b7ac7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=YvozFcyC0Wnt7SDiv/ISUZS544PsgCH2wb+767XLSjI=;
-        b=dAtBir0jmIkaFKHrwWG81swC+mXcJCeGE7nnSeS7dgzd7zNS1HeuWVfOu3IYnzzwxE
-         Qoq0s0ryFHUHshTxwHbEIKfHonWsVFCYQKnojlycSz7QXMPKCL70HgLhVtCdN7xBUxpc
-         op5hKkYwFfUZWha3r1SkkmdFgXADq6z+PiLO6EiBKq06i9xXVA67RQ+nReaVnNWA67mN
-         R9LYceimER5BueiUZrW3z4fKcM6uRedFTkj6tLf5BHd9kfm6Xdjo5V0xQrKKF4m/+gA3
-         N9oPDcIwLl/4v6HKklF2owobllY9cxHOqEUFQSxAOWeZkp10Vudnizd6KB4/IlAcX+75
-         bvmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=YvozFcyC0Wnt7SDiv/ISUZS544PsgCH2wb+767XLSjI=;
-        b=H8Mv10Ax95f2qNAdYaJw5jjB+ES6oHo2LXaGbLZDO/Q8NvI7fAPiuS6Sfbjcrq8yqX
-         mocIpRyi1ECuLx2Zmcjprfur4XEQQ6WU0p6gD91vUSGFnDbBRJgogmlbTSr2D1ywy5gV
-         SyNA5VyOKJFRjIkCv+75BOhU0ylJBkLgDlO+31Fx0vhU+jVUnFktklhDT+/Q8Ues4uNd
-         g1QjrPbWmAL2kPlpwGQV9DH2ielSZCzoU1fp7MSdB8NyPhxQ7YwyiZSQwG3DPbaV6a2f
-         xXP66yVpRRvqaa4XP0yyPCAqDfokowu/tH7NQuaWdifHXzWJCXsDiijmdSm9+VoeOFrn
-         bc8A==
-X-Gm-Message-State: AOAM530O9tQVU2Pz5fLri69ZkGxae3oQToSm7P7XfqwnoC2kFQgVGymU
-	k6bP+T8G/32tXf1qJM6cMgkpwiqW9XP5Lg==
-X-Google-Smtp-Source: ABdhPJzbeSvgXJ6AussZQsEQ4PgTQXcbAJz23JWIJE1Oe3H/hWGGyO8g71gpjo1M9AiZv+E8PIAs9g==
-X-Received: by 2002:a2e:9bc7:: with SMTP id w7mr5552231ljj.310.1611741290999;
-        Wed, 27 Jan 2021 01:54:50 -0800 (PST)
-Subject: Re: [PATCH V5 14/22] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-15-git-send-email-olekstysh@gmail.com>
- <ff05bfd8-150a-1dbc-8c25-c922ee863146@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <9016d379-2b79-0b1c-ff25-9c5f7284e3c9@gmail.com>
-Date: Wed, 27 Jan 2021 11:54:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=P+kROXr7I2eG6UwV+kEjJhwM4boc4OVVX2Kue6WjTOA=; b=csADhwIVe3whliL58do1HNdZbI
+	2Dh50xtpd+8To3cP7cULKIYSLR91i3/SCi9DKMDwpnvFfQ49KUdueQISnTWNOukVz8RLcCMlwJi5h
+	7JJeXy6j1lCs38C2JdXRJeZ31af/8K0FJvmvchl6qimJ1JCwNf4kidfJpyJdX3qo95i4=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158704-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <ff05bfd8-150a-1dbc-8c25-c922ee863146@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Subject: [xen-unstable-coverity test] 158704: all pass - PUSHED
+X-Osstest-Versions-This:
+    xen=07edcd17fa2dce80250b3dd31e561268bc4663a9
+X-Osstest-Versions-That:
+    xen=452ddbe3592b141b05a7e0676f09c8ae07f98fdd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 27 Jan 2021 10:02:43 +0000
+
+flight 158704 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158704/
+
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  07edcd17fa2dce80250b3dd31e561268bc4663a9
+baseline version:
+ xen                  452ddbe3592b141b05a7e0676f09c8ae07f98fdd
+
+Last test of basis   158599  2021-01-24 09:18:27 Z    3 days
+Testing same since   158704  2021-01-27 09:18:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Paul Durrant <pdurrant@amazon.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ coverity-amd64                                               pass    
 
 
-On 26.01.21 11:15, Jan Beulich wrote:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Hi Jan
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
->> --- a/xen/include/xen/dm.h
->> +++ b/xen/include/xen/dm.h
->> @@ -19,6 +19,8 @@
->>   
->>   #include <xen/sched.h>
->>   
->> +#include <public/hvm/dm_op.h>
->> +
->>   struct dmop_args {
->>       domid_t domid;
->>       unsigned int nr_bufs;
-> How come this becomes necessary at this point in the series, when
-> nothing else in this header changes, and nothing changes in the
-> public headers at all? Is it perhaps a .c file that needs the
-> #include instead? Headers shouldn't pull in other headers without
-> clear need - as indicated in reply to a prior version, we have
-> way too many bad examples (causing headaches in certain cases),
-> and we'd like to avoid gaining more.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Yes, I understand this and completely agree. I remember last discussion 
-on that, this is not forgotten. The only reason I made this (non 
-entirely correct) change is to make
-series compilable on Arm with IOREQ support enabled. If I considered 
-this change as a correct one I would make it from the very beginning (in 
-patch #9 which adds this common header)...
-I added remark to draw reviewer's attention on the fact that I got stuck 
-with resolving that, what I did wrong and how it should be done 
-properly. The problem is that I didn't manage to make it properly.
-
-Of course, I tried to include it directly by dm.c, but this didn't help 
-much without violating "alphabetical order" rule. Details here:
-https://lore.kernel.org/xen-devel/e0bc7f80-974e-945d-4605-173bd05302af@gmail.com/
-
-I would appreciate any input on that.
-
-> (Oh, I notice you actually
-> have a post-commit-message remark about this, but then this
-> patch should be marked RFC until the issue was resolved.)
-
-Agree, I should have marked this patch as RFC to avoid misunderstanding.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
--- 
-Regards,
+Pushing revision :
 
-Oleksandr Tyshchenko
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   452ddbe359..07edcd17fa  07edcd17fa2dce80250b3dd31e561268bc4663a9 -> coverity-tested/smoke
 
