@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E693058D1
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 11:52:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75953.136969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3B8D3058F5
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 11:57:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75993.136981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4iQF-0006rX-0o; Wed, 27 Jan 2021 10:51:39 +0000
+	id 1l4iVU-0007Jd-26; Wed, 27 Jan 2021 10:57:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75953.136969; Wed, 27 Jan 2021 10:51:38 +0000
+Received: by outflank-mailman (output) from mailman id 75993.136981; Wed, 27 Jan 2021 10:57:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4iQE-0006r8-TD; Wed, 27 Jan 2021 10:51:38 +0000
-Received: by outflank-mailman (input) for mailman id 75953;
- Wed, 27 Jan 2021 10:51:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l4iVT-0007JH-Uf; Wed, 27 Jan 2021 10:57:03 +0000
+Received: by outflank-mailman (input) for mailman id 75993;
+ Wed, 27 Jan 2021 10:57:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4iQD-0006r3-FC
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 10:51:37 +0000
+ id 1l4iVS-0007JC-RN
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 10:57:03 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 49fbfdb4-cec9-4053-81a2-5168f57171d6;
- Wed, 27 Jan 2021 10:51:36 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4db9cce2-fc6a-484c-aae6-92a88b1aba48;
+ Wed, 27 Jan 2021 10:56:57 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 48252AD57;
- Wed, 27 Jan 2021 10:51:35 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0F674AD2B;
+ Wed, 27 Jan 2021 10:56:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,123 +39,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49fbfdb4-cec9-4053-81a2-5168f57171d6
+X-Inumbo-ID: 4db9cce2-fc6a-484c-aae6-92a88b1aba48
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611744695; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611745017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Y6PRypggxK1Wk8Qfql6q5PHwmIYEeidMsVIebDmNc6g=;
-	b=qb2MG2XaT+pveavjKQ5z999aP5DsnI9k4c/gCIAhX4xcRzPe/rbUlbqBeAE+3Y/2fu2tnG
-	7gnqEpMPVQTkoOfqc8iV7aBjFvyYXp4fZNY2Qt6FoOCx+iqpCsn7QBSzu+DjYl7IAKWSjM
-	nr4QEnN+MS5eW2zlT83rwYbf8iseGnE=
-Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
-To: Oleksandr <olekstysh@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, famzheng@amazon.com,
- Doug Goldstein <cardoe@cardoe.com>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien.grall.oss@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <161160798888.13183.15031685460985886988@c667a6b167f6>
- <alpine.DEB.2.21.2101251255430.20638@sstabellini-ThinkPad-T480s>
- <CAJ=z9a2YpESuHGfZXoRTGj5mxhwar37Na3eYkX90QffYKf1r1Q@mail.gmail.com>
- <a277d66a-0bb4-22ea-badb-c3f415a5d09f@gmail.com>
- <e305357a-2c2c-7e48-7cdf-9bce97db6b4c@gmail.com>
+	bh=X22pjoc3R05cEyBcSdDS4M+jzZBi8OqIcNLr6tG6NLo=;
+	b=nWOlT5MKFwcGje+YqBzXMPqVKCRFjabR9mcyxK5VaWeAAj2AB61FSPqmvMIC96JshZSh15
+	E/ttqk3HsfnyQzDb3FuyzUWFrqGv9F4pRupOeYjEtUX5mzbiu9+YhMg+RkxaVWKQYiyG/v
+	y4OM9V4DsGMBEY4bt99qv7mCEL/8r3I=
+Subject: Re: [PATCH] xen-blkback: fix compatibility bug with single page rings
+To: Paul Durrant <paul@xen.org>
+Cc: Paul Durrant <pdurrant@amazon.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, Dongli Zhang <dongli.zhang@oracle.com>,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20210127103034.2559-1-paul@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6c5b6c07-8efa-be88-3885-a7c55d4ec400@suse.com>
-Date: Wed, 27 Jan 2021 11:51:34 +0100
+Message-ID: <cd70ae5e-a389-7521-8caf-15650a276152@suse.com>
+Date: Wed, 27 Jan 2021 11:56:56 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <e305357a-2c2c-7e48-7cdf-9bce97db6b4c@gmail.com>
+In-Reply-To: <20210127103034.2559-1-paul@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.01.2021 11:13, Oleksandr wrote:
-> On 26.01.21 02:14, Oleksandr wrote:
->> On 26.01.21 01:20, Julien Grall wrote:
->>> On Mon, 25 Jan 2021 at 20:56, Stefano Stabellini 
->>> <sstabellini@kernel.org> wrote:
->>>> This seems to be an arm randconfig failure:
->>>>
->>>> https://gitlab.com/xen-project/patchew/xen/-/pipelines/246632953
->>>> https://gitlab.com/xen-project/patchew/xen/-/jobs/985455044
->>> Thanks! The error is:
->>>
->>> #'target_mem_ref' not supported by expression#'memory.c: In function
-
-Btw, I found the first part of this line pretty confusing, to a
-degree that when seeing it initially I thought this must be some
-odd tool producing the odd error. But perhaps this is just
-unfortunate output ordering from different tools running in
-parallel.
-
->>> 'do_memory_op':
->>> memory.c:1210:18: error:  may be used uninitialized in this function
->>> [-Werror=maybe-uninitialized]
->>>   1210 |             rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
->>>        | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>>   1211 | _mfn(mfn_list[i]));
->>>        | ~~~~~~~~~~~~~~~~~~
->>>
->>> I found a few references online of the error message, but it is not
->>> clear what it means. From a quick look at Oleksandr's branch, I also
->>> can't spot anything unitialized. Any ideas?
->> It seems that error happens if *both* CONFIG_GRANT_TABLE and 
->> CONFIG_IOREQ_SERVER are disabled. Looks like that mfn_list is 
->> initialized either in acquire_grant_table() or in acquire_ioreq_server().
->> If these options disabled then corresponding helpers are just stubs, 
->> so indeed that mfn_list gets uninitialized. But, I am not sure why gcc 
->> complains about it as set_foreign_p2m_entry() is *not* going to be 
->> called in that case???
+On 27.01.2021 11:30, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
 > 
-> This weird build error goes away if I simply add:
+> Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid
+> inconsistent xenstore 'ring-page-order' set by malicious blkfront"), the
+> behaviour of xen-blkback when connecting to a frontend was:
 > 
-> diff --git a/xen/common/memory.c b/xen/common/memory.c
-> index 33296e6..d1bd57b 100644
-> --- a/xen/common/memory.c
-> +++ b/xen/common/memory.c
-> @@ -1136,7 +1136,7 @@ static int acquire_resource(
->        * moment since they are small, but if they need to grow in future
->        * use-cases then per-CPU arrays or heap allocations may be required.
->        */
-> -    xen_pfn_t mfn_list[32];
-> +    xen_pfn_t mfn_list[32] = {0};
->       int rc;
+> - read 'ring-page-order'
+> - if not present then expect a single page ring specified by 'ring-ref'
+> - else expect a ring specified by 'ring-refX' where X is between 0 and
+>   1 << ring-page-order
 > 
->       if ( !arch_acquire_resource_check(currd) )
+> This was correct behaviour, but was broken by the afforementioned commit to
+> become:
 > 
+> - read 'ring-page-order'
+> - if not present then expect a single page ring
+> - expect a ring specified by 'ring-refX' where X is between 0 and
+>   1 << ring-page-order
+> - if that didn't work then see if there's a single page ring specified by
+>   'ring-ref'
 > 
-> Shall I make the corresponding patch?
+> This incorrect behaviour works most of the time but fails when a frontend
+> that sets 'ring-page-order' is unloaded and replaced by one that does not
+> because, instead of reading 'ring-ref', xen-blkback will read the stale
+> 'ring-ref0' left around by the previous frontend will try to map the wrong
+> grant reference.
+> 
+> This patch restores the original behaviour.
 
-I'd prefer if we could find another solution, avoiding this
-pointless writing of 256 bytes of zeros (and really to be on the
-safe side I think it should rather be ~0 that gets put in there).
-Could you check whether clearing the array along the lines of
-this
-
-    default:
-        memset(mfn_list, ~0, sizeof(mfn_list));
-        rc = -EOPNOTSUPP;
-        break;
-
-helps (avoiding the writes in all normal cases)? Of course this
-wouldn't be a guarantee that another compiler (version) won't
-warn yet again. But the only other alternative I can think of
-without having the writes on the common path would be something
-along the lines of older Linux'es uninitialized_var(). Maybe
-someone else has a better idea ...
-
-> But it is still unclear to me why the compiler doesn't recognize that 
-> *non-yet-uninitialized* mfn_list[] won't be used if both 
-> CONFIG_GRANT_TABLE and CONFIG_IOREQ_SERVER are not set...
-
-The combination of conditions may be too complex for it to
-figure. I suppose a warning like this can't be had without at
-least one of false positives or false negatives.
+Isn't this only the 2nd of a pair of fixes that's needed, the
+first being the drivers, upon being unloaded, to fully clean up
+after itself? Any stale key left may lead to confusion upon
+re-use of the containing directory.
 
 Jan
 
