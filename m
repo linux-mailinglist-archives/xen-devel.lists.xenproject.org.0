@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF14305808
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 11:15:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75922.136898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27B7A305849
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 11:25:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75928.136910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4hrV-0002g6-Jy; Wed, 27 Jan 2021 10:15:45 +0000
+	id 1l4hzx-0003gE-GD; Wed, 27 Jan 2021 10:24:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75922.136898; Wed, 27 Jan 2021 10:15:45 +0000
+Received: by outflank-mailman (output) from mailman id 75928.136910; Wed, 27 Jan 2021 10:24:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4hrV-0002fh-GO; Wed, 27 Jan 2021 10:15:45 +0000
-Received: by outflank-mailman (input) for mailman id 75922;
- Wed, 27 Jan 2021 10:15:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4hzx-0003fp-Cy; Wed, 27 Jan 2021 10:24:29 +0000
+Received: by outflank-mailman (input) for mailman id 75928;
+ Wed, 27 Jan 2021 10:24:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4hrU-0002fc-5u
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 10:15:44 +0000
+ id 1l4hzv-0003fi-Tu
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 10:24:27 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a8948d7e-619b-41b5-976f-ed04b8563c0f;
- Wed, 27 Jan 2021 10:15:41 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5e114bc2-0dfc-49aa-8c75-7f1aaca29598;
+ Wed, 27 Jan 2021 10:24:26 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 03B55AD57;
- Wed, 27 Jan 2021 10:15:41 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id E4875AD57;
+ Wed, 27 Jan 2021 10:24:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,85 +38,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8948d7e-619b-41b5-976f-ed04b8563c0f
+X-Inumbo-ID: 5e114bc2-0dfc-49aa-8c75-7f1aaca29598
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611742541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611743066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bHkei/tqo+0OHikaoGIMMxLv2x5s4qUGEBk2rOEbsKk=;
-	b=ByaxDbR9W1oSgQT1thdT1GiItrlFEEcausEaTxJQnqp5KdlprKofvscbgLadG+dIY81cTg
-	ZpMIzCi2voD3N/d77csCs4qR2OWkgrabxMXd+RGl6E2zJjVh8XQanF/ewvYgctHaBo8tNx
-	lYNE3g6rDA0/h43kNotG/DyY3ihp+pw=
-Subject: Re: [PATCH V5 14/22] arm/ioreq: Introduce arch specific bits for
+	bh=ideyUUArALBzZ67ty25RBwS2F+y82steAoSwTM9Fs/g=;
+	b=GjkcDecLgdz4edXR8iSVBvfBVtkfITL5DzWcKxCMhIxCFNUa6bR0OkLcps65iKN14tqIxL
+	YsDwSURguLuFQrrDP5e/NcQd/KjZ/RNSU+cXxJWnAtvR/1qudjkoNiG5jJclMsXxrS1gP9
+	WoSBYCWLSKEJwYFMzQIDIQ7dW3j2Vrs=
+Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
  IOREQ/DM features
 To: Oleksandr <olekstysh@gmail.com>
-Cc: Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-15-git-send-email-olekstysh@gmail.com>
- <ff05bfd8-150a-1dbc-8c25-c922ee863146@suse.com>
- <9016d379-2b79-0b1c-ff25-9c5f7284e3c9@gmail.com>
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Julien Grall <julien@xen.org>
+References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
+ <1610488352-18494-15-git-send-email-olekstysh@gmail.com>
+ <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org>
+ <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com>
+ <06704224-bb57-c55e-a2ee-23032095e8ea@xen.org>
+ <e2dcc876-291f-1244-933c-179f97a84e07@gmail.com>
+ <57d95c18-5215-03e7-7849-73c9fe968e75@xen.org>
+ <e0bc7f80-974e-945d-4605-173bd05302af@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e654d314-8549-f7dc-4b9f-abb2484d7515@suse.com>
-Date: Wed, 27 Jan 2021 11:15:40 +0100
+Message-ID: <9aa563c1-de53-cafc-f7e7-c3da49b6ef6e@suse.com>
+Date: Wed, 27 Jan 2021 11:24:25 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <9016d379-2b79-0b1c-ff25-9c5f7284e3c9@gmail.com>
+In-Reply-To: <e0bc7f80-974e-945d-4605-173bd05302af@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-On 27.01.2021 10:54, Oleksandr wrote:
-> 
-> On 26.01.21 11:15, Jan Beulich wrote:
-> 
-> Hi Jan
-> 
->> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
->>> --- a/xen/include/xen/dm.h
->>> +++ b/xen/include/xen/dm.h
->>> @@ -19,6 +19,8 @@
->>>   
->>>   #include <xen/sched.h>
->>>   
->>> +#include <public/hvm/dm_op.h>
->>> +
->>>   struct dmop_args {
->>>       domid_t domid;
->>>       unsigned int nr_bufs;
->> How come this becomes necessary at this point in the series, when
->> nothing else in this header changes, and nothing changes in the
->> public headers at all? Is it perhaps a .c file that needs the
->> #include instead? Headers shouldn't pull in other headers without
->> clear need - as indicated in reply to a prior version, we have
->> way too many bad examples (causing headaches in certain cases),
->> and we'd like to avoid gaining more.
-> 
-> Yes, I understand this and completely agree. I remember last discussion 
-> on that, this is not forgotten. The only reason I made this (non 
-> entirely correct) change is to make
-> series compilable on Arm with IOREQ support enabled. If I considered 
-> this change as a correct one I would make it from the very beginning (in 
-> patch #9 which adds this common header)...
-> I added remark to draw reviewer's attention on the fact that I got stuck 
-> with resolving that, what I did wrong and how it should be done 
-> properly. The problem is that I didn't manage to make it properly.
-> 
-> Of course, I tried to include it directly by dm.c, but this didn't help 
-> much without violating "alphabetical order" rule. Details here:
-> https://lore.kernel.org/xen-devel/e0bc7f80-974e-945d-4605-173bd05302af@gmail.com/
-> 
-> I would appreciate any input on that.
+On 21.01.2021 09:50, Oleksandr wrote:
+> On 20.01.21 17:50, Julien Grall wrote:
+>> On 17/01/2021 18:52, Oleksandr wrote:
+>>> error2.txt - when add #include <public/hvm/dm_op.h> to xen/ioreq.h
+>>
+>> It looks like the error is happening in dm.c rather than xen/dm.h. Any 
+>> reason to not include <public/hvm/dm_op.h> in dm.c directly?
+> Including it directly doesn't solve build issue.
+> If I am not mistaken in order to follow requirements how to include 
+> headers (alphabetic order, public* should be included after xen* and 
+> asm* ones, etc)
+> the dm.h gets included the first in dm.c, and dm_op.h gets included the 
+> last. We can avoid build issue if we change inclusion order a bit,
+> what I mean is to include dm.h after hypercall.h at least (because 
+> hypercall.h already includes dm_op.h). But this breaks the requirements 
+> and is not way to go.
+> Now I am in doubt how to overcome this.
 
-I'll try to reply there.
+First, violating the alphabetic ordering rule is perhaps less
+of a problem than putting seemingly stray #include-s anywhere.
+However, as soon as ordering starts mattering, this is
+indicative of problems with the headers: Either the (seemingly)
+too early included one lacks some #include-s, or you've run
+into a circular dependency. In the former case the needed
+#include-s should be added, and all ought to be fine. In the
+latter case, however, disentangling may be a significant
+effort, and hence it may be sensible and acceptable to instead
+use unusual ordering of #include-s in the one place where it
+matters (suitably justified in the description). Ideally such
+would come with a promise to try to sort this later on, when
+time is less constrained.
 
 Jan
 
