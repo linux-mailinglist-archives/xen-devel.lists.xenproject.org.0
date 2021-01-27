@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6984B305FC4
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 16:37:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76169.137331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59B56305FFC
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 16:46:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76179.137343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4msH-00027P-Qi; Wed, 27 Jan 2021 15:36:53 +0000
+	id 1l4n0n-0003Ba-MD; Wed, 27 Jan 2021 15:45:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76169.137331; Wed, 27 Jan 2021 15:36:53 +0000
+Received: by outflank-mailman (output) from mailman id 76179.137343; Wed, 27 Jan 2021 15:45:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4msH-00026w-N5; Wed, 27 Jan 2021 15:36:53 +0000
-Received: by outflank-mailman (input) for mailman id 76169;
- Wed, 27 Jan 2021 15:36:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4n0n-0003BB-Is; Wed, 27 Jan 2021 15:45:41 +0000
+Received: by outflank-mailman (input) for mailman id 76179;
+ Wed, 27 Jan 2021 15:45:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4msG-00026m-SC
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 15:36:52 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 305a95e7-7692-4864-a0fd-a54b1cc24e2f;
- Wed, 27 Jan 2021 15:36:51 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9D9C7AE05;
- Wed, 27 Jan 2021 15:36:50 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1l4n0m-0003B6-Bh
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 15:45:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l4n0m-0000g3-5F
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 15:45:40 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l4n0m-0001oL-4P
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 15:45:40 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l4n0i-0001cz-T3; Wed, 27 Jan 2021 15:45:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,33 +41,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 305a95e7-7692-4864-a0fd-a54b1cc24e2f
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611761810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=r11qVoOGJXCjn49f+hzQUyiPak6/U9rcgI7o8DVvVy8=;
-	b=JPX2qVwmiPNvlveN9872Yc5ivSbHc9UIIn1BaJE/e+UR/qGSjcB4yuRD/A4WMK3f340rCA
-	5rEHM4TIH3JMD31p9EEpHVvV2h7FGjdcHfreBbN21UJQ8gHGKikREsRuC6pWuU1NAlJS8P
-	/v60Ag5ry0myzPLHDUNDf1w+CDDTH64=
-To: Juergen Gross <jgross@suse.com>, Ian Jackson <iwj@xenproject.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: MAINTAINERS vs libxl
-Message-ID: <c427c7f7-05ed-e537-76c2-c900a753755d@suse.com>
-Date: Wed, 27 Jan 2021 16:36:50 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=FzTuKw0uz32m7i6qYlgpc6SRRJPU8InyBmnQAWW1sB0=; b=YVJuC61FSCVX2rwCQIvWv2G6tb
+	s+TCAVPbsrfZw7IMNbEnK/TWsQ8105GbkErkAFcnpCNC1bbiAVvqMV1/ujjdGYi+5BxUhzQoYrn4Z
+	2tkwXw2a4s11QxZOA40osLFwHT6vi0ZNuBtpte5WifIYPUnz3jEbNb8vJjVGfWoQOMII=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24593.35488.655441.334099@mariner.uk.xensource.com>
+Date: Wed, 27 Jan 2021 15:45:36 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    Wei Liu <wl@xen.org>,
+    Anthony Perard <anthony.perard@citrix.com>
+Subject: Re: [PATCH] libxlutil: avoid almost-undefined behavior
+In-Reply-To: <1d735cfa-d011-c8f5-ff39-81e0227e3a5d@suse.com>
+References: <1d735cfa-d011-c8f5-ff39-81e0227e3a5d@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-In commit 032a96e5ef38 tools/libxl/ was split into
-tools/libs/light/ and tools/libs/guest/. Wasn't the latter
-rather meant to be tools/libs/util/, as that's the other part
-of what had previously resided under tools/libxl/?
+Jan Beulich writes ("[PATCH] libxlutil: avoid almost-undefined behavior"):
+> While only value computations of an object are disallowed in the
+> presence of another unsequenced side effect, at least gcc 4.3 looks to
+> extend this to taking the object's address. The resulting warning causes
+> the build to fail, because of -Werror.
+> 
+> While there also correct an adjacent comment.
+> 
+> Fixes: bdc0799fe26a ("libxlu: introduce xlu_pci_parse_spec_string()")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
