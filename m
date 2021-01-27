@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76325305729
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 10:44:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75880.136780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04659305747
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 10:47:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75885.136792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4hMZ-0007Fj-Qk; Wed, 27 Jan 2021 09:43:47 +0000
+	id 1l4hQ3-0007Pt-AY; Wed, 27 Jan 2021 09:47:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75880.136780; Wed, 27 Jan 2021 09:43:47 +0000
+Received: by outflank-mailman (output) from mailman id 75885.136792; Wed, 27 Jan 2021 09:47:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4hMZ-0007FK-N3; Wed, 27 Jan 2021 09:43:47 +0000
-Received: by outflank-mailman (input) for mailman id 75880;
- Wed, 27 Jan 2021 09:43:46 +0000
+	id 1l4hQ3-0007PU-7N; Wed, 27 Jan 2021 09:47:23 +0000
+Received: by outflank-mailman (input) for mailman id 75885;
+ Wed, 27 Jan 2021 09:47:21 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=csCD=G6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l4hMY-0007FE-5H
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 09:43:46 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l4hQ1-0007PP-Nb
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 09:47:21 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fc4358dc-8775-42d5-8120-3882dd5cb31c;
- Wed, 27 Jan 2021 09:43:44 +0000 (UTC)
+ id ea1c5069-67e6-4299-8360-80960a41f76b;
+ Wed, 27 Jan 2021 09:47:20 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1A901ADC1;
+ Wed, 27 Jan 2021 09:47:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,130 +39,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc4358dc-8775-42d5-8120-3882dd5cb31c
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611740623;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=iDcnlAgIL2oAhRt9z7jQyrjVk8qxAj04sZ/SbjpbnWs=;
-  b=BKGTDpPppIUNAOUXv6pUPViWN3VFjs18xwSVO/WJ1QnDnC+cEUCxIQzW
-   G9/pg0JzdDEk3wBF4GnvdxkFnD8HO2S7uZS+MeRM+v14HQThQQG5K/sgw
-   KMDY51JIo6EKdyyu+RbSLjxsPbxspQ6lnexuKY4pCJAc/9y7lI5jqKmz3
-   U=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: PLTFgBR7BKCv9kAbjEsBtI+57i/sVAjAvB7LnRlwEFZIowt4+5WEFXhaeSgBbKUR7hh2mitJr2
- TrTnxYYkSyvhqo5DNRR1vNu1/vLcXj/R/jK31blewmqVB6KO1mpOZkuSLgzWwzQEtl4j8u2azr
- AAqL9jmBQBuqx+EnJC9MpSdQlHOa1G6yZh19i+JAta7TziJ5s+1VPME31p+al8Z8vVF+AnwyIn
- jvb0fj74/xDjn8y8YpfoDucw18pFo3AmYRe+Ey41YtjTLoQmxDK8cqYYYoYeGfSgBa9vHFigOs
- Uko=
-X-SBRS: 5.2
-X-MesageID: 37261422
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,378,1602561600"; 
-   d="scan'208";a="37261422"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mOgW7rR0m8pTvdWT3nENCtJZhQxMq8SGTlqYdzMR8q7i2g2kTEIuithtg68JS1NwK0g1PotZwB+fzVI07cHElbcrXj//rGusKcb+z4dQcN8H0sNxGloL+NCFPsxvR3fMQiP5tGNhLWqW80BAS/lj/WhzTvc+zbevL++nZbmr+cF4GeMtcwMvpRDB+KYnYGnmz3p6iY01J4smStM4GDTaeValWifv+NVQ69qsIr4m//574LZmDnIdnaWa/4TCQ5rBCaXbWaNX+4X39pKe1C/21qEtD3CFxoa/pj+/xoaqDU3NOeWEJ6tljSlEQc5/VKUPhNdwIm00JrVjN/QogPbESQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qD6hixH2FpJz5wfaTZ8Bu7e+a+vsNQyqtxNknJYYGR4=;
- b=Iad0HYRLYeiWsvkSVib5vwLQiUyptxN4zXVgeCV9BTmpP1SAHg0RhoL4GAx+XwD1VRdLhv0LQ4jBNFH4Z8mrgQU4dve3lPmv5/0gj77JMHFdQMokqIJXyr2tjvG32xyUkUSGQ6nE+UYvOND/STEJDRjSY0YHCfzzwjbPre5LWWX8/UEMUeA1j/OZfh6DKE3N7O7K/WxNbdZjVE/dnm4qZGzUX9RGO6lAzDniMVtuKRBVBW0cR2lN32pOY4i3O0bIbn4iyHiiyfjdFcbcHXvodsCgToheP3wGVokjnnTEsgIF88ZbHox3NAMw42pyvklkCutxmqffZuf+OrngnM1mZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qD6hixH2FpJz5wfaTZ8Bu7e+a+vsNQyqtxNknJYYGR4=;
- b=V+BbOczXYbkHpwIm9y7b+fsS1YEUSBLpwmP+DM6NSJxY48jfXUNSwACLB5p83igX10jzIcQVwRKROtdnfv0Fy4gkJMWiArxRNaz43EuH+S3pvB3Q1TIXCqiBAvuFbxze8g++iVZM4ekHkCeC/oG4dpVq4jMcwfl2pqB7vfqCWaI=
-Subject: Re: [PATCH v2] x86/xen: avoid warning in Xen pv guest with
- CONFIG_AMD_MEM_ENCRYPT enabled
-To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, "Boris
- Ostrovsky" <boris.ostrovsky@oracle.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, <stable@vger.kernel.org>
-References: <20210127093822.18570-1-jgross@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <fb2305a4-4741-c641-9639-5b17b63f2baf@citrix.com>
-Date: Wed, 27 Jan 2021 09:43:31 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+X-Inumbo-ID: ea1c5069-67e6-4299-8360-80960a41f76b
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611740840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QZ7T8Yau8/JepgnwJmfSDz/HsFPfRuZQuMQ1NAScEh0=;
+	b=cEWcJR17o4xOc35CpZqoEUb72nL8/3RWopDDNZVTN5l01YOB8FT99TeZfnuaNxVq+odeIo
+	iDvvT77qS0LdOLhsI6X7dK/5J83gEudHbbU1QFXR9fjfZjtUumXQ3TEWfaxUHBA7yFXfwV
+	fLwCt0+PbLIGa4rS9Qx0oilS3O0bCxk=
+Subject: Re: [PATCH] x86/pod: Do not fragment PoD memory allocations
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Roger Pau Monn?? <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <202101242308.10ON8Umj004866@m5p.com>
+ <b2ad35f1-3adf-a78a-5e82-2ac4a672d624@suse.com>
+ <YA8D85MoJ9lG0KJS@mattapan.m5p.com>
+ <c0a70f39-d529-6ee4-511d-e82730c14879@suse.com>
+ <YBBWj7NO+1HVKEgX@mattapan.m5p.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f6a75725-edc2-ee2d-0565-da1efae05190@suse.com>
+Date: Wed, 27 Jan 2021 10:47:19 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
-In-Reply-To: <20210127093822.18570-1-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0466.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1aa::21) To BYAPR03MB4728.namprd03.prod.outlook.com
- (2603:10b6:a03:13a::24)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a159071d-3c4b-4a8e-0936-08d8c2a806a4
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4454:
-X-Microsoft-Antispam-PRVS: <BYAPR03MB44548885C95C1A2C642FD3A7BABB9@BYAPR03MB4454.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vAFU0Y+dsQ1f7fiSGF39oj3hCLkzmUo7bjxiAeO/C70vF+Lx83uqnpoBtii6ZI9ZwfW2cxbafAz2rQgoe83CuCvH+sSxq4Yk1p06WP4YlBnFWlRlSUK4jYZuRWmMah6yZWjMbeWFQgmayP0XEWQ8QoEISDy69Upw45fl6NgOY7MSM5dcU5htz2FW5m7Xzg/r+01aBMGHFGC6PTEUZawJ56A01N79V0EwFpsP3drg/lHuwxo7Jn17upr+7GwYcXtvLgDrgLJcD5ZL4i4d/7DHUPQFBS9yqssFP8JdkFBcGSrVnDkpoBdlnccKkQ9CFUQTxFWcbwgf/tE37RH47gqvizuJayQp46ZxaQq491QBEnOBrfILfZushEY5EVuiUzLTvy39iiTdqwJHxlcz1I8PvtrzK0gpCZxc4o1GGT2OLQsP3BuyWnu6W9OV1cW/KnJAggtC/ImzfOeZJ2lusZ3cnF4ULZCt8MoUu78GZW3umiE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(5660300002)(86362001)(4326008)(31696002)(36756003)(31686004)(478600001)(316002)(54906003)(2906002)(7416002)(8936002)(66556008)(66476007)(66946007)(4744005)(6666004)(16576012)(6486002)(26005)(53546011)(16526019)(8676002)(186003)(956004)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?aWNnTFNPbnIwakV0SXUrVHdOOEdUUW5yMEM5MW1UV053SDdFOVRwUkozNmhh?=
- =?utf-8?B?bEpkUWU5MVVLbmhGcFVRUS9PVHM4bFcycS93NDJ4SWFIN0NMWGdScjZPRXZk?=
- =?utf-8?B?RU53MFVRcUx0SkZqTzhzVllabGhzczh3LzFSTjc4a0kxdi9Ld3pKQnZqRGw1?=
- =?utf-8?B?OUVBRDUva0JyVXdmM1JQUUROS254MDFZRElZbjZTOXpmbzNOclZMNnhibldQ?=
- =?utf-8?B?UzMzbUFaY2liRlVLN0taQ0NpUFpqOUUwREowSFZQZ0lwY1M3N1hMdkRBV2hR?=
- =?utf-8?B?V2pTdkhPRUIvdTVyNlgzVjRIWUJkZXhHNUw5bzE4VEtmcFh4UUVIUG1hNTJO?=
- =?utf-8?B?UThreWc2ZFd2STBkNFM4cmtZaUt2aWFiMUFKdUE3OG9rSDhZRmVYdHN2c3hX?=
- =?utf-8?B?Q3N5SndTYkV6YUc5M3FxbGpJZWtTVzhxekxKVkttd0o1b1lySmhzMDIxNGEr?=
- =?utf-8?B?U0ttWGV4V2cwZjZocFpCR2ZNazhPbHJwT3FYMCtaNFoxUjJ1eU83RExvUHY5?=
- =?utf-8?B?a0d3eDgyZkRseTdxTmlGRmJFQ1pkZkJzZ0NhZkR0R2ZxYi9uQnFhMDNEMnRw?=
- =?utf-8?B?V0JsL1F6MGNIY3ZMT2lFZENlU2p1enhjdE5xSVlkb2RmcUd2RjNXeXpHb0dX?=
- =?utf-8?B?VHgrRzlab2lxdVhMa3Z5Zk9aZWRDUmh5YUN1Q0VVTnhjVDMzR0JENnFqcWRJ?=
- =?utf-8?B?V25nV3FlTzVycmErd3FGVFN3a01jTkszYy9scVluMlZaUjI0MHpIR0JoaFhV?=
- =?utf-8?B?TGZFTis5Q1pBV1N4Tm96b1ZCdWdNMHJwcFIxWlFUUmlDMUhhRTAzdDY4N3BC?=
- =?utf-8?B?NzJQRk1XK3V3amExYzFtU0Z3TUdHZ2ozQ2ZRcjIxOFVWdENGZHQ0Lzl3YjEr?=
- =?utf-8?B?Mm9nK0R6TFczUExxZk5QU1BlanVTTklTOTd3T2ZYSzJCUnhBc0hDTWFJZ2JH?=
- =?utf-8?B?N3hZczJNQ0xZVHVzaTFlVHNvK09FdWhyRmc3ZmJ3cyt6T1VEK3JDTldUSFI5?=
- =?utf-8?B?c0RTdVJzMUk4UHlaaWFMZmI5Q2IveU9kRnk0YjJkbjRCWkYrbGlOZWlKemd2?=
- =?utf-8?B?ZDV3bERhNXNxZlJIRTJPRVh4Zy9MV0krTXZWWnkzdENwcWtTWWEreXk3Wk5t?=
- =?utf-8?B?Zm54KzJWSUE5TlZqSDFrVFRIL0tQa0xUSlpvczdPYUg2K2UrQkpjSEppZVVy?=
- =?utf-8?B?d1N1VnFuU3hubGNLRHRZYTJYWWkzSlFoTUlQeU9Ba2NOT1phSXg3VlZ3MjYw?=
- =?utf-8?B?U20rYnljUVl6dThoVVd4WjJHeHR6MTNFTERDcHRVeUNWR1Zqd2twMnRzSzdJ?=
- =?utf-8?B?dFYwQk1uS0RWNGN3UHdMRzh2NCs3SWd2THJTSktINCtRU3VsVmMrM3FZRUo5?=
- =?utf-8?B?cTVxM0dVNmVOMU55QUFsaUFqL1dKN0h0Mlgzc0djSkpjVDBtVXNmVmZzckpz?=
- =?utf-8?Q?rlUn3h6T?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a159071d-3c4b-4a8e-0936-08d8c2a806a4
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2021 09:43:39.7261
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wKz1qP+oixGYlrxmH/ox+CWTn9NXK4SAqa0MHQO/HvtQRuIcpknIrGYL94Kly/trj5ZMjcCUFozWy2RpuXrkovJ3NJ2b3LJfBczI4oQuwWE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4454
-X-OriginatorOrg: citrix.com
+In-Reply-To: <YBBWj7NO+1HVKEgX@mattapan.m5p.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On 27/01/2021 09:38, Juergen Gross wrote:
-> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-> index 4409306364dc..ca5ac10fcbf7 100644
-> --- a/arch/x86/xen/enlighten_pv.c
-> +++ b/arch/x86/xen/enlighten_pv.c
-> @@ -583,6 +583,12 @@ DEFINE_IDTENTRY_RAW(xenpv_exc_debug)
->  		exc_debug(regs);
->  }
->  
-> +DEFINE_IDTENTRY_RAW(exc_xen_unknown_trap)
-> +{
-> +	/* This should never happen and there is no way to handle it. */
-> +	panic("Unknown trap in Xen PV mode.");
+On 26.01.2021 18:51, Elliott Mitchell wrote:
+> On Tue, Jan 26, 2021 at 12:08:15PM +0100, Jan Beulich wrote:
+>> On 25.01.2021 18:46, Elliott Mitchell wrote:
+>>> On Mon, Jan 25, 2021 at 10:56:25AM +0100, Jan Beulich wrote:
+>>>> On 24.01.2021 05:47, Elliott Mitchell wrote:
+>>>>>
+>>>>> ---
+>>>>> Changes in v2:
+>>>>> - Include the obvious removal of the goto target.  Always realize you're
+>>>>>   at the wrong place when you press "send".
+>>>>
+>>>> Please could you also label the submission then accordingly? I
+>>>> got puzzled by two identically titled messages side by side,
+>>>> until I noticed the difference.
+>>>
+>>> Sorry about that.  Would you have preferred a third message mentioning
+>>> this mistake?
+>>
+>> No. But I'd have expected v2 to have its subject start with
+>> "[PATCH v2] ...", making it relatively clear that one might
+>> save looking at the one labeled just "[PATCH] ...".
+> 
+> Yes, in fact I spotted this just after.  I was in a situation of, "does
+> this deserve sending an additional message out?"  (ugh, yet more damage
+> from that issue...)
+> 
+> 
+>>>>> I'm not including a separate cover message since this is a single hunk.
+>>>>> This really needs some checking in `xl`.  If one has a domain which
+>>>>> sometimes gets started on different hosts and is sometimes modified with
+>>>>> slightly differing settings, one can run into trouble.
+>>>>>
+>>>>> In this case most of the time the particular domain is most often used
+>>>>> PV/PVH, but every so often is used as a template for HVM.  Starting it
+>>>>> HVM will trigger PoD mode.  If it is started on a machine with less
+>>>>> memory than others, PoD may well exhaust all memory and then trigger a
+>>>>> panic.
+>>>>>
+>>>>> `xl` should likely fail HVM domain creation when the maximum memory
+>>>>> exceeds available memory (never mind total memory).
+>>>>
+>>>> I don't think so, no - it's the purpose of PoD to allow starting
+>>>> a guest despite there not being enough memory available to
+>>>> satisfy its "max", as such guests are expected to balloon down
+>>>> immediately, rather than triggering an oom condition.
+>>>
+>>> Even Qemu/OVMF is expected to handle ballooning for a *HVM* domain?
+>>
+>> No idea how qemu comes into play here. Any preboot environment
+>> aware of possibly running under Xen of course is expected to
+>> tolerate running with maxmem > memory (or clearly document its
+>> inability, in which case it may not be suitable for certain
+>> use cases). For example, I don't see why a preboot environment
+>> would need to touch all of the memory in a VM, except maybe
+>> for the purpose of zeroing it (which PoD can deal with fine).
+> 
+> I'm reading that as your answer to the above question is "yes".
 
-Looks much better.  How about including regs->entry_vector here, just to
-short circuit the inevitable swearing which will accompany encountering
-this panic() ?
+For the OVMF part of your question.
 
-~Andrew
+>>>>> For example try a domain with the following settings:
+>>>>>
+>>>>> memory = 8192
+>>>>> maxmem = 2147483648
+>>>>>
+>>>>> If type is PV or PVH, it will likely boot successfully.  Change type to
+>>>>> HVM and unless your hardware budget is impressive, Xen will soon panic.
+>>>>
+>>>> Xen will panic? That would need fixing if so. Also I'd consider
+>>>> an excessively high maxmem (compared to memory) a configuration
+>>>> error. According to my experiments long, long ago I seem to
+>>>> recall that a factor beyond 32 is almost never going to lead to
+>>>> anything good, irrespective of guest type. (But as said, badness
+>>>> here should be restricted to the guest; Xen itself should limp
+>>>> on fine.)
+>>>
+>>> I'll confess I haven't confirmed the panic is in Xen itself.  Problem is
+>>> when this gets triggered, by the time the situation is clear and I can
+>>> get to the console the computer is already restarting, thus no error
+>>> message has been observed.
+>>
+>> If the panic isn't in Xen itself, why would the computer be
+>> restarting?
+> 
+> I was thinking there was a possibility it is actually Domain 0 which is
+> panicing.
+
+Which wouldn't be any different in how it would need dealing
+with.
+
+>>> This is most certainly a configuration error.  Problem is this is a very
+>>> small delta between a perfectly valid configuration and the one which
+>>> reliably triggers a panic.
+>>>
+>>> The memory:maxmem ratio isn't the problem.  My example had a maxmem of
+>>> 2147483648 since that is enough to exceed the memory of sub-$100K
+>>> computers.  The crucial features are maxmem >= machine memory,
+>>> memory < free memory (thus potentially bootable PV/PVH) and type = "hvm".
+>>>
+>>> When was the last time you tried running a Xen machine with near zero
+>>> free memory?  Perhaps in the past Xen kept the promise of never panicing
+>>> on memory exhaustion, but this feels like this hasn't held for some time.
+>>
+>> Such bugs needs fixing. Which first of all requires properly
+>> pointing them out. A PoD guest misbehaving when there's not
+>> enough memory to fill its pages (i.e. before it manages to
+>> balloon down) is expected behavior. If you can't guarantee the
+>> guest ballooning down quickly enough, don't configure it to
+>> use PoD. A PoD guest causing a Xen crash, otoh, is very likely
+>> even a security issue. Which needs to be treated as such: It
+>> needs fixing, not avoiding by "curing" one of perhaps many
+>> possible sources.
+> 
+> Okay, this has been reliably reproducing for a while.  I had originally
+> thought it was a problem of HVM plus memory != maxmem, but the
+> non-immediate restart disagrees with that assessment.
+
+I guess it's not really clear what you mean with this, but anyway:
+The important aspect here that I'm concerned about is what the
+manifestations of the issue are. I'm still hoping that you would
+provide such information, so we can then start thinking about how
+to solve these. If, of course, there is anything worse than the
+expected effects which use of PoD can have on the guest itself.
+
+Jan
 
