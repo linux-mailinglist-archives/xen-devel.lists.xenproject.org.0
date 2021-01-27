@@ -2,34 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2491030622D
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 18:37:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76313.137655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F5B5306246
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 18:41:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76320.137666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4ol7-00088g-LG; Wed, 27 Jan 2021 17:37:37 +0000
+	id 1l4ooh-0000es-6W; Wed, 27 Jan 2021 17:41:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76313.137655; Wed, 27 Jan 2021 17:37:37 +0000
+Received: by outflank-mailman (output) from mailman id 76320.137666; Wed, 27 Jan 2021 17:41:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4ol7-00088H-Hi; Wed, 27 Jan 2021 17:37:37 +0000
-Received: by outflank-mailman (input) for mailman id 76313;
- Wed, 27 Jan 2021 17:37:35 +0000
+	id 1l4ooh-0000eV-31; Wed, 27 Jan 2021 17:41:19 +0000
+Received: by outflank-mailman (input) for mailman id 76320;
+ Wed, 27 Jan 2021 17:41:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kelV=G6=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l4ol5-00088C-GL
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 17:37:35 +0000
-Received: from mail-lj1-x22c.google.com (unknown [2a00:1450:4864:20::22c])
+ <SRS0=csCD=G6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l4oog-0000eQ-7e
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 17:41:18 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8dde484d-24be-452f-b614-8953932189b7;
- Wed, 27 Jan 2021 17:37:34 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id a25so3097805ljn.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Jan 2021 09:37:34 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id t198sm631543lff.138.2021.01.27.09.37.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Jan 2021 09:37:32 -0800 (PST)
+ id 7d171868-358c-4e06-ab45-99b101414c2c;
+ Wed, 27 Jan 2021 17:41:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,131 +35,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dde484d-24be-452f-b614-8953932189b7
+X-Inumbo-ID: 7d171868-358c-4e06-ab45-99b101414c2c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1611769277;
+  h=subject:to:references:from:message-id:date:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=yQjP6+WeNgo1q9AJN9Xgg4evSG4Ynh197qZcYlKg4ig=;
+  b=dvTwENv/DW81s9WJ/kh7DnBRrzeNk2WJfAAVLOKI6rpATTKOYyPZqfRm
+   z5eoV35ZGJOPTmHV8p/Zo9huJ1PLZ+Mf1qluEBMudvlHQj4ZimnwwIJyR
+   czknyHeZQ/BWU/9JSnbicRaAL2dnkhjv8gkScHtdBIMIpRGVfKUaFEo+O
+   o=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: fA6HBVkWD0p8qqgf8k6mhrfiui/T6AVkfn+oELTemyMR32wlxZ8n9e1zNBLjzAbX42njbfvO3w
+ G/JWUyyeI9d95ir6/3LthPrA+AF7k+ynKP0PLvja8JE4EFn9AKCS4w25QJz5y9CO6h3o50h3NE
+ NgBIa5KL/OC/HcnJvzpYZe9LNPJUIj7zxcAOXmvXRmZm/wlSP06DS1ZKWAJemvd3GBgelA6qRS
+ qnOFSbMJ8Y32aF59GrsbNw+7VTVp6DGc2bKn9HgW1+n7XR1cdSxxE5at0OK4iKz+bTa2KRYXrX
+ wHc=
+X-SBRS: 5.2
+X-MesageID: 36188525
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,380,1602561600"; 
+   d="scan'208";a="36188525"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F/eIFIRowJTyCwFfhO/mi9UL/w1l91qxzf0/JJw/OCWqBagNxa9aYk1yNsC7UfrGZdf5MqHkXEo/5KqJXmnrAIYS43GJqxWchQkDuI37jL12kJILVtX6Bd8GT2mF9ca+8bHEfxTUtEisxld3e6lSHb0ouNQkUg+f6xVTy+m9X8AqITxz0Wv43m8X9fzMgodxxR6gPBZfN4tUV9Og5ySaLxxI2dXahkQ92XWHzTb3EycIQ0qEu1PzLreYy0qKgpdz77bQDWSppQMoa4CdXAGdR5RLNcYVwXlGNYda7Y/je/gQlN/AOUdvh4HObBLABBQi/Nu0jNqM0PhqAHSmvy7+Hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yQjP6+WeNgo1q9AJN9Xgg4evSG4Ynh197qZcYlKg4ig=;
+ b=QH6m8BvFZVWp9yRO7W6m7LzeSy1Vv9Nhiys/RDW+B0OSZ0/bQc5IosSKoviQxpf4dEL+SCD+49Mncf8aGvHE0DBjholZzSzMKfDzNgo8K23td/3+d5H2u6rmz6/eZr2USrRqPyhjqBWNrOcEpjTdSSfmMwz7TBBu8Z6uKxrm5H6jYvLR0YQ2BngC+kD3BdCY0SFesMtm6+A4fCbIO8MJ1MbDiVDTw6z1cJSL23BUVDouydM2S8awXFX5dzDsjxNXUVGr7JqSLAQ1tvi4SXek5Kso8jLH8/78dheOfswCXNmHCppPbDVVN8NbPLwzpsBmYrzYZQ5Bf+z8o/EZnnBCSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=uYh3G9eISfau9q6J1nwt0OTt73Pa4xytrj9n5QD8jhQ=;
-        b=BzOmZBC/UJi/bgjTMAyjMqkFSO4pDk4ffcFlo7zjwQGTIBzfUY4xAaW9wzXVMPJEiP
-         iqwO+BZyy1Ak4hQU9Hf7sD/toFBsTYi0ObxsC4mpjw6Zcte6plEv98zQlVzYMctxBdSl
-         BwvfjAR5X/tVrtHE1xsaoDhjIIom5CVIL583+KB5vZ0cuOmWcMv/BIlkBwsKIMnHUW9b
-         59r7AiAIZYugyl3S/hOqJ6hbA8ItAvPKwJYnmcBskRiC+WEyu2nWkLdikLk0jNG+EKYV
-         5YBNlwpQVpf0YntA30yzGyZWcLbrPKDLe0x7l19SGW/++1PgkZzfCeMj//XUxbsRHIDO
-         lBFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=uYh3G9eISfau9q6J1nwt0OTt73Pa4xytrj9n5QD8jhQ=;
-        b=aFro2ZU9N960lmswG3HwhbtuiTt86wedkNA7MUXeLELjOo+tWId14Jgl4/z/9+aSvI
-         5wIBlNeyWO6Qyh92sW4ZdNbP7gDBECFgZdVHnBaZHsCk7rF4joTlFE6FGWCvkknJmGD8
-         7FymsQn9+ot8gFmmu+0+mglhFM/BrFRiQrKD3BZt44ZuUXNGKAoQs5njuuhiJvX/hnPr
-         qwLZc8Lo8r9Y9Z1Ar9Sd2yylysguaPxMPgexaZe40ihqSeehQcwiOQn2gwUQzY+YUPXF
-         sRMhq1FFDECMGIz1egGy2jU3w1eJc9gJt/MTuh9/zIqSh8Rq2avte7E6e27oOlZ0KnQf
-         rH5g==
-X-Gm-Message-State: AOAM530iLLBGKI/AHjDfq/ti/G32RFva+1OW/WeNTA+eEEdiiTXEOsHK
-	p9z93hyfQF41ORlzdQvGx2M=
-X-Google-Smtp-Source: ABdhPJy0NJFzOmRA/DCTvLxTo8xcI9FxSIpCcT3Bf1eCVhb1WzHo7XPUVamfi7oxkgG580SXds9hYw==
-X-Received: by 2002:a05:651c:1130:: with SMTP id e16mr2049247ljo.149.1611769053413;
-        Wed, 27 Jan 2021 09:37:33 -0800 (PST)
-Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <julien.grall@arm.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Kaly Xin <Kaly.Xin@arm.com>, Artem Mygaiev <joculator@gmail.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <dc7866fc-5b13-5378-2b22-6475053fd76b@xen.org>
- <a69fdf11-2445-865f-4893-b486618c29a3@gmail.com>
- <a1bde3cd-c902-1e86-dc35-6c503ebfa684@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <e274bb07-23e6-95cb-c614-344098f27f76@gmail.com>
-Date: Wed, 27 Jan 2021 19:37:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <a1bde3cd-c902-1e86-dc35-6c503ebfa684@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yQjP6+WeNgo1q9AJN9Xgg4evSG4Ynh197qZcYlKg4ig=;
+ b=UihYNk5slxsq3HbXWO+d2zXxG/1EbKAQxcRcGVx9XwpE9Ui1VSo7Wi+W7tfh0a+N5KahfmgEtTza9HkPf28edNzEfSdIlUsZ/Ls/vvAPCvkgJE+phlcsBzmJ2Zl9g0HQ+XjOL03RA+o0txMrgozWa7pKnpBX7EXsJza95sY2yBA=
+Subject: Re: [PATCH] MAINTAINERS: fix entry for LIBXENLIGHT
+To: <xen-devel@lists.xenproject.org>
+References: <20210127161711.24005-1-jgross@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <669cdb63-6c35-e716-7d44-9b36f774772d@citrix.com>
+Date: Wed, 27 Jan 2021 17:41:08 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+In-Reply-To: <20210127161711.24005-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Language: en-GB
+X-ClientProxiedBy: LO4P123CA0448.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a9::21) To BYAPR03MB4728.namprd03.prod.outlook.com
+ (2603:10b6:a03:13a::24)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d2116fb7-d6c2-4a96-e20f-08d8c2eabd4a
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4661:
+X-Microsoft-Antispam-PRVS: <BYAPR03MB4661BD1E987D8A6C11E17D66BABB9@BYAPR03MB4661.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: oDQLXUNOASyE0COSPI88yG1IbqPsQhcaXB90ZYzwm+HMMcDEu5Ph+jscee11Thel1EF5D4RrrxL2DZNAbeEKYFmtsVHYUTwEZbrVGrQ6DRK8m4vWRFdbbvoQyNm+S7EvCOPIZWlHUpvHv9mlnNOPDDX18aqXGhZFltEKjiVPX1M8zlJ/M5bzNRz+ND3mPwUTJ859va86/2AHIZmsd5IVSMxzS9SVNJSDmp+q3nZns7oXvETN+Nh3J+Vc2yYQNdw8e82XZqXsv+wC/NYPdC7kIemyibs/qP+Nt16SrmlqCym8tkveJ4meuUghwBDYE6sUYg6sXlWq1d/L5dblTTwcXDAwN7Y+kQWxMeOFLnfJXmN50cUS5GkBe1qVm6vlcek1wY5aHSWyVrYSL/7iHxoJ1itF2dBpms7eOfcd+gs3ibEn+7A5EYF+n6NqKH3KA9aggrx3Vx661nzybDKG9luj1V5ZKM9RXCkzSCJasWEiK20=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(376002)(136003)(396003)(346002)(366004)(6916009)(66476007)(8936002)(4744005)(6666004)(2906002)(5660300002)(66946007)(6486002)(956004)(31696002)(36756003)(26005)(86362001)(16526019)(8676002)(478600001)(16576012)(186003)(316002)(2616005)(66556008)(53546011)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NHRLbnU2eGsvaWhabEE1SHRzY0JPNlNXN1NydWlTZlRtZG1JVGYzc0pBRUJG?=
+ =?utf-8?B?SnhuQlBuK0xiVG1aa0Q3dmdjM2tBSUtiY1krU2tjSGM0Rm1Kdm5TcGRwVlNm?=
+ =?utf-8?B?ZE1TV255WitHd1Voa2xxcDg4MG1tOVZIQmRQVzNwU2t6ajhNK2NRVElna3hK?=
+ =?utf-8?B?OU9VbGxwUXpiQlFMQ2xLaWp5TW9yUXBhYStsSmtOVDFVdjhsazdUdGdXdThp?=
+ =?utf-8?B?Vy9iT2szR0JhQVpjdEF0TSszZmN3Y3FpQU1CUXdQaXN5Rm9lQ2x1UTIrZFps?=
+ =?utf-8?B?OHBHb2szN2NPcFZPbndqOFdqb3hoV1NKRkRvRCtGSytnblpxbk85aEU4bG4w?=
+ =?utf-8?B?M1BwVXV5MFlrN3l4M0hZNDAxWmV4YS81M2d6QXBRWWlxV2RBSjVWTmlJZmlP?=
+ =?utf-8?B?Vno1Z21SeUphTllTazBTR3JHY0k0c1FYQUYxa3haR3FNNGJYY1hKRGVjYTJw?=
+ =?utf-8?B?VGRVR2E5TnA3SmhTZ3A5UkxYajh1OEJobFlKN0hrYXZmVk4zQXBZZU9MV0c4?=
+ =?utf-8?B?K2NTZjRhQUV5azJsU3oyTGxvMHdNcTB2S3RnNEhKZGQxa2tGcEl0SGlJekd3?=
+ =?utf-8?B?TlVvWkFYbFhkamRZRmIwMmNuMHJ5cEpkTkpsT0RLSWxQVUxIYk40TndTS0Nn?=
+ =?utf-8?B?Vk8rM2NORUN3YkM3cWMrQnJnbTFRNWpSSWJkTFFzQmtDZjdxSzlmT1hmY2x2?=
+ =?utf-8?B?eTFTQTQzUDZ4eUhEN0J5aEJxbXQreDZIQjdCZG9QSEZNRTk1a1dLSUFxcDJK?=
+ =?utf-8?B?RTVEa0xGb0pSQmE2SUhpcVVxZ1BNZEZxM3RRVlhXNlhoenl3OWN4NG00RmUx?=
+ =?utf-8?B?UFpGSFA1bkN3R1Z2d3JJU1I0N1lIN2dUM0NMcER1ek1rc0J4ZUl2blA3OGNa?=
+ =?utf-8?B?K0VyM0FhbnZ4alRzaUZ5T2NNZ0JsRlU5akE5aGoyQ1J2bFRHRC9pS3p4UlJH?=
+ =?utf-8?B?YVhTaVFUZWY4YjBYZmk2N2FqVndHbG8rc0FNeEYvWms3UjUxTzRja29ZYXJO?=
+ =?utf-8?B?UEVnWXczR1JkUUt3TWk3MlM1MVJsTTlHbUpHUTQxWUV4Qnc2Ym1IRHM0aU10?=
+ =?utf-8?B?VG5ybktnTURHeVMwWGVnS0NkMGxJRmVsVmtZTHkxVmxHTFlCNzNBYyt2NVlE?=
+ =?utf-8?B?WjFrdklEY3B3cVVTOG1MVkt4ckQrUWJEQlFOblJORTdKdHFmNCtnZVlaV3Zi?=
+ =?utf-8?B?SjRKTXRhdUY4VlRzOUI3T0Zid1lCSlIrc25lUTZKWk04WDh0TlJXTXp4d1Vs?=
+ =?utf-8?B?bnZwa01odGFCSVZIVzJsR2lRWjhoN1l6UGtNYmVISTFFUkVlL2M4YmNXdFBy?=
+ =?utf-8?B?UVRLOTladktJQ1ZSZmdDOVB6eTJwbWZaUVFlYlE0aGNOV2ZseTFydGVLNkpi?=
+ =?utf-8?B?d3hCUjBocVNCa0dvWU8ySjF0eXBqaTF6cXVuUEw3WDFNY1dvYm1jNlJ4dDRz?=
+ =?utf-8?B?SGJGalltMFJwTExKaWZra0lUSE84TXJ1eXUyelFRPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2116fb7-d6c2-4a96-e20f-08d8c2eabd4a
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2021 17:41:12.8181
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ISaGLG66GWLAe6mTo61obin5Y7l2ZpodiCGEf5Tz/E7hoPs2uve4UYLPq+XCZTaBEtJwuvk/cfC1UOY7Sc6FIHh6WOzVEzFfPrpdXJwKUqE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4661
+X-OriginatorOrg: citrix.com
 
-
-On 27.01.21 19:33, Julien Grall wrote:
-
-Hi Julien
-
+On 27/01/2021 16:17, Juergen Gross wrote:
+> When splitting libxl into libs/light and libs/util the related
+> MAINTAINERS entry was modified in a wrong way.
 >
->
-> On 27/01/2021 16:50, Oleksandr wrote:
->>
->> On 27.01.21 18:43, Julien Grall wrote:
->>> Hi Oleksandr,
->>
->> Hi Julien
->>
->>
->>>
->>> On 25/01/2021 19:08, Oleksandr Tyshchenko wrote:
->>>> ***
->>>>
->>>> Patch series [8] was rebased on recent "staging branch"
->>>> (5e31789 tools/ocaml/libs/xb: Do not crash after xenbus is 
->>>> unmapped) and tested on
->>>> Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with virtio-mmio 
->>>> disk backend [9]
->>>> running in driver domain and unmodified Linux Guest running on 
->>>> existing
->>>> virtio-blk driver (frontend). No issues were observed. Guest domain 
->>>> 'reboot/destroy'
->>>> use-cases work properly. Patch series was only build-tested on x86.
->>>>
->>>> Please note, build-test passed for the following modes:
->>>> 1. x86: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y (default)
->>>> 2. x86: #CONFIG_HVM is not set / #CONFIG_IOREQ_SERVER is not set
->>>> 3. Arm64: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
->>>> 4. Arm64: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set (default)
->>>> 5. Arm32: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
->>>> 6. Arm32: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set (default)
->>>
->>> I thought I woudl give a try to test the code, but I can't find a 
->>> way to enable CONFIG_IOREQ_SERVER from the UI.
->>>
->>> Looking at the Kconfig, it looks like CONFIG_IOREQ_SERVER doesn't 
->>> have a prompt and is not selected by Arm.
->>>
->>> Can you provide details how this can be built on Arm?
->>
->> Please apply the attached patch to select IOREQ on Arm.
->
-> This is roughly what I wrote. I think a user should be able to select 
-> IOREQ via the menuconfig without any additional patch on top of your 
-> series.
->
-> Can you include a patch that would enable that?
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Fixes: 032a96e5ef38f96 ("maintainers: fix libxl paths")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Yes, do you prefer a separate patch or required changes could be folded 
-in patch #14?
-
-
->
->
-> Cheers,
->
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
