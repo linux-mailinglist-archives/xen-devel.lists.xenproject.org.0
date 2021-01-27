@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 007CF306184
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 18:04:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76302.137631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF6E6306221
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 18:35:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76308.137643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4oFJ-0005C7-HJ; Wed, 27 Jan 2021 17:04:45 +0000
+	id 1l4ohn-0007zJ-VV; Wed, 27 Jan 2021 17:34:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76302.137631; Wed, 27 Jan 2021 17:04:45 +0000
+Received: by outflank-mailman (output) from mailman id 76308.137643; Wed, 27 Jan 2021 17:34:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4oFJ-0005Bi-Dv; Wed, 27 Jan 2021 17:04:45 +0000
-Received: by outflank-mailman (input) for mailman id 76302;
- Wed, 27 Jan 2021 17:04:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4ohn-0007yu-Rf; Wed, 27 Jan 2021 17:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 76308;
+ Wed, 27 Jan 2021 17:34:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4oFI-0005Bd-Dw
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 17:04:44 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bb5674c6-c259-4be8-9f35-4f0e62ce02c6;
- Wed, 27 Jan 2021 17:04:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3FBD9AAC6;
- Wed, 27 Jan 2021 17:04:42 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1l4ohm-0007yp-0P
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 17:34:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l4ohV-00038G-Kv; Wed, 27 Jan 2021 17:33:53 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l4ohV-0005p8-91; Wed, 27 Jan 2021 17:33:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,103 +39,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb5674c6-c259-4be8-9f35-4f0e62ce02c6
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611767082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MvCvvf0SMRzngs1kwVhboppIrZ/CyZB6JxS0jlkDvR4=;
-	b=P78G9Ga9WjmIIqMHV4VqIP65Vs51NhzSMcrOERJd5sUaVt5kRmO5twHFWfgbudoWERXVu4
-	7tMCjwyTTBEBMIBR8sT2qGc4NbXjVsPAMwuWl3Q5CJRLprKkktnNaUcyXN3p9Ue403mEoX
-	hL0ZZQrDayG+Wj9Pkt/CPy8+EYZ5/8o=
-Subject: Re: [PATCH V5 14/22] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Julien Grall <julien@xen.org>, Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=UcYmVsQNdB8rHv3QP6Ur0Gw8CdpuWwwWK2bbOcZMVKw=; b=cbEi6sjn8WfIKSNQ7gS2WFG6CH
+	6r6oq0u+ZdjT0ixVb2znsiANp7eqtguF90KswM9/psF47kQV7lnmE59cJwFt5BGI+ADnLAVYXSw3k
+	yOsY6OVr3QqeO6qytSU2g+3vRu1cEr8RHkMoMtJD8MTepap7NawPxxP90Q/F43G5LNV4=;
+Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
+To: Oleksandr <olekstysh@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien.grall@arm.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Kaly Xin <Kaly.Xin@arm.com>, Artem Mygaiev <joculator@gmail.com>,
+ =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
 References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-15-git-send-email-olekstysh@gmail.com>
- <ff05bfd8-150a-1dbc-8c25-c922ee863146@suse.com>
- <d977056e-a265-b0ba-c0e6-2cc7fe3800e9@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e80eaf48-69a8-6901-6efd-262d2aae23f8@suse.com>
-Date: Wed, 27 Jan 2021 18:04:42 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ <dc7866fc-5b13-5378-2b22-6475053fd76b@xen.org>
+ <a69fdf11-2445-865f-4893-b486618c29a3@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <a1bde3cd-c902-1e86-dc35-6c503ebfa684@xen.org>
+Date: Wed, 27 Jan 2021 17:33:49 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <d977056e-a265-b0ba-c0e6-2cc7fe3800e9@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <a69fdf11-2445-865f-4893-b486618c29a3@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 
-On 27.01.2021 18:01, Julien Grall wrote:
-> Hi Jan,
+
+
+On 27/01/2021 16:50, Oleksandr wrote:
 > 
-> On 26/01/2021 09:15, Jan Beulich wrote:
->> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
->>> --- a/xen/include/xen/dm.h
->>> +++ b/xen/include/xen/dm.h
->>> @@ -19,6 +19,8 @@
->>>   
->>>   #include <xen/sched.h>
->>>   
->>> +#include <public/hvm/dm_op.h>
->>> +
->>>   struct dmop_args {
->>>       domid_t domid;
->>>       unsigned int nr_bufs;
+> On 27.01.21 18:43, Julien Grall wrote:
+>> Hi Oleksandr,
+> 
+> Hi Julien
+> 
+> 
 >>
->> How come this becomes necessary at this point in the series, when
->> nothing else in this header changes, and nothing changes in the
->> public headers at all? Is it perhaps a .c file that needs the
->> #include instead? Headers shouldn't pull in other headers without
->> clear need - as indicated in reply to a prior version, we have
->> way too many bad examples (causing headaches in certain cases),
->> and we'd like to avoid gaining more. (Oh, I notice you actually
->> have a post-commit-message remark about this, but then this
->> patch should be marked RFC until the issue was resolved.)
+>> On 25/01/2021 19:08, Oleksandr Tyshchenko wrote:
+>>> ***
+>>>
+>>> Patch series [8] was rebased on recent "staging branch"
+>>> (5e31789 tools/ocaml/libs/xb: Do not crash after xenbus is unmapped) 
+>>> and tested on
+>>> Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with virtio-mmio disk 
+>>> backend [9]
+>>> running in driver domain and unmodified Linux Guest running on existing
+>>> virtio-blk driver (frontend). No issues were observed. Guest domain 
+>>> 'reboot/destroy'
+>>> use-cases work properly. Patch series was only build-tested on x86.
+>>>
+>>> Please note, build-test passed for the following modes:
+>>> 1. x86: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y (default)
+>>> 2. x86: #CONFIG_HVM is not set / #CONFIG_IOREQ_SERVER is not set
+>>> 3. Arm64: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
+>>> 4. Arm64: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set (default)
+>>> 5. Arm32: CONFIG_HVM=y / CONFIG_IOREQ_SERVER=y
+>>> 6. Arm32: CONFIG_HVM=y / #CONFIG_IOREQ_SERVER is not set (default)
+>>
+>> I thought I woudl give a try to test the code, but I can't find a way 
+>> to enable CONFIG_IOREQ_SERVER from the UI.
+>>
+>> Looking at the Kconfig, it looks like CONFIG_IOREQ_SERVER doesn't have 
+>> a prompt and is not selected by Arm.
+>>
+>> Can you provide details how this can be built on Arm?
 > 
-> dm.h contains the following:
-> 
-> struct dmop_args {
->      domid_t domid;
->      unsigned int nr_bufs;
->      /* Reserve enough buf elements for all current hypercalls. */
->      struct xen_dm_op_buf buf[2];
-> };
+> Please apply the attached patch to select IOREQ on Arm.
 
-Which means the public header should be included, yes, but
-right away at the point this dependency appears, not at a
-random point later in the series.
+This is roughly what I wrote. I think a user should be able to select 
+IOREQ via the menuconfig without any additional patch on top of your series.
 
-Jan
+Can you include a patch that would enable that?
 
-> The struct xen_dm_op_buf is defined public/hvm/dm_op.h. On x86, this 
-> will be indirectly included via:
->     ->  xen/sched.h
->      ->  xen/domain.h
->       ->  asm/domain.h
->        ->  asm/hvm/domain.h
->         ->  public/hvm/dm_op.h
-> 
-> It looks like this was include from asm/hvm/domain.h because, before 
-> this series, NR_IO_RANGE_TYPES made use of a DMOP definition.
-> 
-> With this series, the type is now moved in ioreq.h. So I think we may be 
-> able to drop the include from asm/hvm/domain.h (this would avoid to 
-> include it everywhere...).
-> 
-> I also think we want to include public/hvm/dm_op.h in xen/dm.h because 
-> it is included directly by *.c.
-> 
-> Cheers,
-> 
+Cheers,
 
+-- 
+Julien Grall
 
