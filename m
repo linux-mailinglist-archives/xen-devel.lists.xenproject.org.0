@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD7530653B
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 21:34:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76418.137894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D0D30655A
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 21:46:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76423.137906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4rWJ-0001ct-K1; Wed, 27 Jan 2021 20:34:31 +0000
+	id 1l4rhn-0002iK-Mw; Wed, 27 Jan 2021 20:46:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76418.137894; Wed, 27 Jan 2021 20:34:31 +0000
+Received: by outflank-mailman (output) from mailman id 76423.137906; Wed, 27 Jan 2021 20:46:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4rWJ-0001cU-G0; Wed, 27 Jan 2021 20:34:31 +0000
-Received: by outflank-mailman (input) for mailman id 76418;
- Wed, 27 Jan 2021 20:34:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4rhn-0002hv-J2; Wed, 27 Jan 2021 20:46:23 +0000
+Received: by outflank-mailman (input) for mailman id 76423;
+ Wed, 27 Jan 2021 20:46:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5d38=G6=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l4rWI-0001cP-Eq
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 20:34:30 +0000
+ id 1l4rhl-0002hq-GN
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 20:46:21 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4ffafbf2-d5a2-495c-8c17-4acf4e97c886;
- Wed, 27 Jan 2021 20:34:29 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3AB7360C3D;
- Wed, 27 Jan 2021 20:34:28 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e8937056-5a7b-45e3-b141-21caecb5b5a4;
+ Wed, 27 Jan 2021 20:46:20 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3473764D9A;
+ Wed, 27 Jan 2021 20:46:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,109 +37,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ffafbf2-d5a2-495c-8c17-4acf4e97c886
+X-Inumbo-ID: e8937056-5a7b-45e3-b141-21caecb5b5a4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611779668;
-	bh=RTTccxXM1QwrSl6dMdXtBcH0gynbdSrlFfMsGg//aqY=;
+	s=k20201202; t=1611780380;
+	bh=0RfUf4yerQrha9QyOB+91GWDYT7qOWKxq5wesvhQqSM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=r2h/zPnKlWDFjsLtCtHeUyiItdROAz2cwFqdsEXOYEY8I/7EbNnWwT1mAI1gPxuRc
-	 jctjvBWRLf2xjr2eh4Tkr95Gh6QAlMvGSvxGs0k607EcVGgq5uR7nEgtgiOaWVpwiK
-	 H6+7Qm0RbHSATL7YyFj+y3RZiWdqAUOnkflvlEaolQr22DEExpB5EPoZYkjc0qFTtw
-	 LlckDxG1Xwdi6++B/EGhkHdJxyx9rtH7Dr1D3FkStgDLSGt4dQ8vLGy/TXXQv2TdG4
-	 bK71uMSNfQeVRN470Gsollf10/aCesW5/bsLsND33wnYJsjVDrmnphqB/wE9GpU5GI
-	 SO3sE6F/v3cSw==
-Date: Wed, 27 Jan 2021 12:34:27 -0800 (PST)
+	b=MmVdZ+96zpxx0O6Ce/02Htnn9gJiNRpTg6xCdhU4wz75fzXiFm9nbHceien1j6OQs
+	 NU9WuPvMrrq0Y8ATVG/OE8YxnGKDC4kCbmfFnbeFeBiW5EnWu2/z3zZHvUsXd0YgTp
+	 nwU9Vs8LGRs1k/FOJTX72WyA+8GcDHWxFK9FY7W7dd2dUZYOweUNdEnzhN+1n8VGCB
+	 HkQC+chhJuM96OfmcG2HCaMvvBzH/eP8fJ50u8ZZO1lcSQ0sepNaWtYZXFWDLKGNae
+	 hviLEthZDzK+Uxpw1R93HMYnhcBEXHjm7jm+OLAkEfkjCwaVMKU76vQsLbqY9j7bZf
+	 5+SAN45vC0IFw==
+Date: Wed, 27 Jan 2021 12:46:18 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Oleksandr <olekstysh@gmail.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, 
+cc: Julien Grall <julien@xen.org>, Julien Grall <julien.grall.oss@gmail.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
     Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, 
+    Kevin Tian <kevin.tian@intel.com>, Tim Deegan <tim@xen.org>, 
     Julien Grall <julien.grall@arm.com>
-Subject: Re: [PATCH V5 15/22] xen/arm: Call vcpu_ioreq_handle_completion()
- in check_for_vcpu_work()
-In-Reply-To: <0d1a9eed-f898-079f-6176-ca05d2374059@gmail.com>
-Message-ID: <alpine.DEB.2.21.2101271233440.9684@sstabellini-ThinkPad-T480s>
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com> <1611601709-28361-16-git-send-email-olekstysh@gmail.com> <75703470-5a5a-98e5-bdfa-ca91a5cf439b@xen.org> <0d1a9eed-f898-079f-6176-ca05d2374059@gmail.com>
+Subject: Re: [PATCH V5 04/22] xen/ioreq: Make x86's IOREQ feature common
+In-Reply-To: <1156e356-5762-a196-ec16-bb6614912394@gmail.com>
+Message-ID: <alpine.DEB.2.21.2101271235410.9684@sstabellini-ThinkPad-T480s>
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com> <1611601709-28361-5-git-send-email-olekstysh@gmail.com> <CAJ=z9a1c+obN3KW_cMr7OH0112_gHSxnAoEJb9qW6R1J38QgQQ@mail.gmail.com> <20270711-36bc-6d7d-16cb-4572cace47ed@gmail.com>
+ <eb03f366-9405-c193-07be-fbeca29fca4c@xen.org> <1156e356-5762-a196-ec16-bb6614912394@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1984081347-1611779668=:9684"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1984081347-1611779668=:9684
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 27 Jan 2021, Oleksandr wrote:
-> On 27.01.21 16:49, Julien Grall wrote:
-> > Hi Oleksandr,
-> 
-> Hi Julien, Stefano
-> 
-> 
+> > > > On Mon, 25 Jan 2021 at 19:09, Oleksandr Tyshchenko <olekstysh@gmail.com>
+> > > > wrote:
+> > > > > ***
+> > > > > Please note, this patch depends on the following which is
+> > > > > on review:
+> > > > > https://patchwork.kernel.org/patch/11816689/
+> > > > > The effort (to get it upstreamed) was paused because of
+> > > > > the security issue around that code (XSA-348).
+> > > > > ***
+> > > > I read this comment as "This series should be applied on top the patch
+> > > > X". However, looking at your branch, I can't see the patch. What did I
+> > > > miss?
+> > > You didn't miss anything. Patch series doesn't contain it. I mentioned
+> > > about this patch in order not to forget about it
+> > > and draw reviewer's attention. Looks like, the activity (to get it
+> > > upstreamed) hasn't been resumed yet and I don't know what we should do
+> > > with that dependency
+> > > in the context of this series...
 > > 
-> > On 25/01/2021 19:08, Oleksandr Tyshchenko wrote:
-> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > 
-> > > This patch adds remaining bits needed for the IOREQ support on Arm.
-> > > Besides just calling vcpu_ioreq_handle_completion() we need to handle
-> > > it's return value to make sure that all the vCPU works are done before
-> > > we return to the guest (the vcpu_ioreq_handle_completion() may return
-> > > false if there is vCPU work to do or IOREQ state is invalid).
-> > > For that reason we use an unbounded loop in leave_hypervisor_to_guest().
-> > > 
-> > > The worse that can happen here if the vCPU will never run again
-> > > (the I/O will never complete). But, in Xen case, if the I/O never
-> > > completes then it most likely means that something went horribly
-> > > wrong with the Device Emulator. And it is most likely not safe
-> > > to continue. So letting the vCPU to spin forever if the I/O never
-> > > completes is a safer action than letting it continue and leaving
-> > > the guest in unclear state and is the best what we can do for now.
-> > > 
-> > > Please note, using this loop we will not spin forever on a pCPU,
-> > > preventing any other vCPUs from being scheduled. At every loop
-> > > we will call check_for_pcpu_work() that will process pending
-> > > softirqs. In case of failure, the guest will crash and the vCPU
-> > > will be unscheduled. In normal case, if the rescheduling is necessary
-> > > the vCPU will be rescheduled to give place to someone else.
-> > > 
-> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > CC: Julien Grall <julien.grall@arm.com>
-> > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> > > [On Arm only]
-> > > Tested-by: Wei Chen <Wei.Chen@arm.com>
-> > > 
-> > > ---
-> > > Please note, this is a split/cleanup/hardening of Julien's PoC:
-> > > "Add support for Guest IO forwarding to a device emulator"
-> > > 
-> > > Changes V1 -> V2:
-> > >     - new patch, changes were derived from (+ new explanation):
-> > >       arm/ioreq: Introduce arch specific bits for IOREQ/DM features
-> > > 
-> > > Changes V2 -> V3:
-> > >     - update patch description
-> > > 
-> > > Changes V3 -> V4:
-> > >     - update patch description and comment in code
-> > > 
-> > > Changes V4 -> V5:
-> > >     - add Stefano's R-b
-> > 
-> > Reviewed-by means the person reviewed the code and confirmed it is correct.
-> > Given the changes you made below, I don't think this tag can hold.
-> > 
-> > Please confirm with Stefano he is happy with the tag to be carried.
+> > I will reply what I wrote on IRC privately :). I think this fine to defer it
+> > to after Xen 4.15 because IOREQ will be in tech preview.
 > 
-> I think you are right, sorry for that. I should have either clarified this
-> question with Stefano in advance or dropped this tag.
-> 
-> @Stefano, are you happy with the changes for V4 -> V5 (would you mind if your
-> R-b still stands)?
+> Thank you. I got a request to make a possibility for user to select IOREQ via
+> the menuconfig on Arm. Saying tech preview do you mean that I also need to put
+> it under CONFIG_EXPERT on Arm?
 
-Yes, I am.
---8323329-1984081347-1611779668=:9684--
+Normally I would say that unless it actually takes an expert to enable
+the feature, it is better to make it depend on CONFIG_UNSUPPORTED [1].
+
+However, in this case, it might actually take an expert :-)
+Additional patches are still required to enable the feature at the
+toolstack level, and also the user needs to build a userspace ioreq
+server. So in this case I am fine either way. I'll leave it up to you
+and Julien to pick the best one.
+
+Either way, please add "(EXPERT)" or "(UNSUPPORTED)" in the one-line
+kconfig description for ARM if possible.
+
+
+[1] https://marc.info/?l=xen-devel&m=161168780401884
 
