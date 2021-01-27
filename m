@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F200A30585D
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 11:27:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.75931.136922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1724030586E
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 11:31:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.75937.136933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4i2Q-0003nx-Uu; Wed, 27 Jan 2021 10:27:02 +0000
+	id 1l4i61-0004je-GN; Wed, 27 Jan 2021 10:30:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 75931.136922; Wed, 27 Jan 2021 10:27:02 +0000
+Received: by outflank-mailman (output) from mailman id 75937.136933; Wed, 27 Jan 2021 10:30:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4i2Q-0003nY-RY; Wed, 27 Jan 2021 10:27:02 +0000
-Received: by outflank-mailman (input) for mailman id 75931;
- Wed, 27 Jan 2021 10:27:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l4i61-0004jH-CE; Wed, 27 Jan 2021 10:30:45 +0000
+Received: by outflank-mailman (input) for mailman id 75937;
+ Wed, 27 Jan 2021 10:30:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rFzC=G6=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l4i2P-0003nT-1T
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 10:27:01 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0d4a7a4f-fd58-4fe0-9f2a-6aaf43559f0c;
- Wed, 27 Jan 2021 10:26:58 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C194FADA2;
- Wed, 27 Jan 2021 10:26:57 +0000 (UTC)
+ (envelope-from <paul@xen.org>) id 1l4i60-0004jC-3a
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 10:30:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1l4i5z-0003o8-AR; Wed, 27 Jan 2021 10:30:43 +0000
+Received: from host86-190-149-163.range86-190.btcentralplus.com
+ ([86.190.149.163] helo=ubuntu.home)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <paul@xen.org>)
+ id 1l4i5y-0005F8-W1; Wed, 27 Jan 2021 10:30:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,206 +40,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d4a7a4f-fd58-4fe0-9f2a-6aaf43559f0c
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611743217; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lCSEw5IKbkt10LxDH6btSRzN19f+vZPTc+6q9fs5sDY=;
-	b=HD0DlG+ubmbiz6DcviGqYBxD/AwSgSiI/PhM+su5op3Y3XArbAUis4ytG344D6mO9qbCxT
-	zWSwPOC6QjJg2G6vdpC+HVCJhl5mnSyEgEfMx9ITlhNgncUvJPX/sQ0417rIeiB6t6Qw1z
-	iMhyLbt1d2ojIBxU+CufyI60NFt0FHg=
-Subject: Re: [PATCH v2] x86/xen: avoid warning in Xen pv guest with
- CONFIG_AMD_MEM_ENCRYPT enabled
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-References: <20210127093822.18570-1-jgross@suse.com>
- <fb2305a4-4741-c641-9639-5b17b63f2baf@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <2dc49fae-bf35-7c7d-2d86-338665db27ca@suse.com>
-Date: Wed, 27 Jan 2021 11:26:56 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:Cc:To:From;
+	bh=6/ptHMbuxYa6BXHfF9UQPcY2KxtZZywQRKCjkU8Fz9o=; b=J0YcgcpU/TQzwemcTYqNewhQSD
+	ziPvpCBJgSy68kc79RsBYacQqZsE3MR3iPY0Ov8RJ5b9Yx9fTBKICJSuuLK67icSdmfi4XreSC3oj
+	KQVdPhvzPH3uDVqjCtHr9ONoKhqagQtSNAdeFmSpIsBiU5wM3ci6Vf7oxl/LkiftEmYk=;
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Paul Durrant <pdurrant@amazon.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Dongli Zhang <dongli.zhang@oracle.com>
+Subject: [PATCH] xen-blkback: fix compatibility bug with single page rings
+Date: Wed, 27 Jan 2021 10:30:34 +0000
+Message-Id: <20210127103034.2559-1-paul@xen.org>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <fb2305a4-4741-c641-9639-5b17b63f2baf@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Ae0qWicHCmbfPiNOK9GAVSDefNkktA1hT"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Ae0qWicHCmbfPiNOK9GAVSDefNkktA1hT
-Content-Type: multipart/mixed; boundary="7jkOIed7ZUVZJSS2ImsckjQxSXeAfqxSB";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-Message-ID: <2dc49fae-bf35-7c7d-2d86-338665db27ca@suse.com>
-Subject: Re: [PATCH v2] x86/xen: avoid warning in Xen pv guest with
- CONFIG_AMD_MEM_ENCRYPT enabled
-References: <20210127093822.18570-1-jgross@suse.com>
- <fb2305a4-4741-c641-9639-5b17b63f2baf@citrix.com>
-In-Reply-To: <fb2305a4-4741-c641-9639-5b17b63f2baf@citrix.com>
+From: Paul Durrant <pdurrant@amazon.com>
 
---7jkOIed7ZUVZJSS2ImsckjQxSXeAfqxSB
-Content-Type: multipart/mixed;
- boundary="------------6EDABF7462AFF4137F4C713B"
-Content-Language: en-US
+Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid
+inconsistent xenstore 'ring-page-order' set by malicious blkfront"), the
+behaviour of xen-blkback when connecting to a frontend was:
 
-This is a multi-part message in MIME format.
---------------6EDABF7462AFF4137F4C713B
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+- read 'ring-page-order'
+- if not present then expect a single page ring specified by 'ring-ref'
+- else expect a ring specified by 'ring-refX' where X is between 0 and
+  1 << ring-page-order
 
-On 27.01.21 10:43, Andrew Cooper wrote:
-> On 27/01/2021 09:38, Juergen Gross wrote:
->> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c=
+This was correct behaviour, but was broken by the afforementioned commit to
+become:
 
->> index 4409306364dc..ca5ac10fcbf7 100644
->> --- a/arch/x86/xen/enlighten_pv.c
->> +++ b/arch/x86/xen/enlighten_pv.c
->> @@ -583,6 +583,12 @@ DEFINE_IDTENTRY_RAW(xenpv_exc_debug)
->>   		exc_debug(regs);
->>   }
->>  =20
->> +DEFINE_IDTENTRY_RAW(exc_xen_unknown_trap)
->> +{
->> +	/* This should never happen and there is no way to handle it. */
->> +	panic("Unknown trap in Xen PV mode.");
->=20
-> Looks much better.=C2=A0 How about including regs->entry_vector here, j=
-ust to
-> short circuit the inevitable swearing which will accompany encountering=
+- read 'ring-page-order'
+- if not present then expect a single page ring
+- expect a ring specified by 'ring-refX' where X is between 0 and
+  1 << ring-page-order
+- if that didn't work then see if there's a single page ring specified by
+  'ring-ref'
 
-> this panic() ?
+This incorrect behaviour works most of the time but fails when a frontend
+that sets 'ring-page-order' is unloaded and replaced by one that does not
+because, instead of reading 'ring-ref', xen-blkback will read the stale
+'ring-ref0' left around by the previous frontend will try to map the wrong
+grant reference.
 
-You are aware the regs parameter is struct pt_regs *, not the Xen
-struct cpu_user_regs *?
+This patch restores the original behaviour.
 
-So I have no idea how I should get this information without creating
-a per-vector handler.
+Fixes: 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid inconsistent xenstore 'ring-page-order' set by malicious blkfront")
+Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+---
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Dongli Zhang <dongli.zhang@oracle.com>
+---
+ drivers/block/xen-blkback/common.h |  1 +
+ drivers/block/xen-blkback/xenbus.c | 36 +++++++++++++-----------------
+ 2 files changed, 17 insertions(+), 20 deletions(-)
 
+diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-blkback/common.h
+index b0c71d3a81a0..524a79f10de6 100644
+--- a/drivers/block/xen-blkback/common.h
++++ b/drivers/block/xen-blkback/common.h
+@@ -313,6 +313,7 @@ struct xen_blkif {
+ 
+ 	struct work_struct	free_work;
+ 	unsigned int 		nr_ring_pages;
++	bool                    multi_ref;
+ 	/* All rings for this device. */
+ 	struct xen_blkif_ring	*rings;
+ 	unsigned int		nr_rings;
+diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
+index 9860d4842f36..4c1541cde68c 100644
+--- a/drivers/block/xen-blkback/xenbus.c
++++ b/drivers/block/xen-blkback/xenbus.c
+@@ -998,10 +998,15 @@ static int read_per_ring_refs(struct xen_blkif_ring *ring, const char *dir)
+ 	for (i = 0; i < nr_grefs; i++) {
+ 		char ring_ref_name[RINGREF_NAME_LEN];
+ 
+-		snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref%u", i);
++		if (blkif->multi_ref)
++			snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref%u", i);
++		else {
++			WARN_ON(i != 0);
++			snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref");
++		}
++
+ 		err = xenbus_scanf(XBT_NIL, dir, ring_ref_name,
+ 				   "%u", &ring_ref[i]);
+-
+ 		if (err != 1) {
+ 			if (nr_grefs == 1)
+ 				break;
+@@ -1013,18 +1018,6 @@ static int read_per_ring_refs(struct xen_blkif_ring *ring, const char *dir)
+ 		}
+ 	}
+ 
+-	if (err != 1) {
+-		WARN_ON(nr_grefs != 1);
+-
+-		err = xenbus_scanf(XBT_NIL, dir, "ring-ref", "%u",
+-				   &ring_ref[0]);
+-		if (err != 1) {
+-			err = -EINVAL;
+-			xenbus_dev_fatal(dev, err, "reading %s/ring-ref", dir);
+-			return err;
+-		}
+-	}
+-
+ 	err = -ENOMEM;
+ 	for (i = 0; i < nr_grefs * XEN_BLKIF_REQS_PER_PAGE; i++) {
+ 		req = kzalloc(sizeof(*req), GFP_KERNEL);
+@@ -1129,10 +1122,15 @@ static int connect_ring(struct backend_info *be)
+ 		 blkif->nr_rings, blkif->blk_protocol, protocol,
+ 		 blkif->vbd.feature_gnt_persistent ? "persistent grants" : "");
+ 
+-	ring_page_order = xenbus_read_unsigned(dev->otherend,
+-					       "ring-page-order", 0);
+-
+-	if (ring_page_order > xen_blkif_max_ring_order) {
++	err = xenbus_scanf(XBT_NIL, dev->otherend, "ring-page-order", "%u",
++			   &ring_page_order);
++	if (err != 1) {
++		blkif->nr_ring_pages = 1;
++		blkif->multi_ref = false;
++	} else if (ring_page_order <= xen_blkif_max_ring_order) {
++		blkif->nr_ring_pages = 1 << ring_page_order;
++		blkif->multi_ref = true;
++	} else {
+ 		err = -EINVAL;
+ 		xenbus_dev_fatal(dev, err,
+ 				 "requested ring page order %d exceed max:%d",
+@@ -1141,8 +1139,6 @@ static int connect_ring(struct backend_info *be)
+ 		return err;
+ 	}
+ 
+-	blkif->nr_ring_pages = 1 << ring_page_order;
+-
+ 	if (blkif->nr_rings == 1)
+ 		return read_per_ring_refs(&blkif->rings[0], dev->otherend);
+ 	else {
+-- 
+2.17.1
 
-Juergen
-
---------------6EDABF7462AFF4137F4C713B
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------6EDABF7462AFF4137F4C713B--
-
---7jkOIed7ZUVZJSS2ImsckjQxSXeAfqxSB--
-
---Ae0qWicHCmbfPiNOK9GAVSDefNkktA1hT
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmARP/AFAwAAAAAACgkQsN6d1ii/Ey8H
-KQf/d1qSrElkCAvRhLViB1sKaD8JgIQ7K8qv9q/g4aa6727Q7UcRwqqXX/ktKjEnCQhBdnFdKUDQ
-RqPHHVLASanPanrfEPT2ciZxCIn7iSVSoK9ivrWQWSALyoROYanMGh/Hgm6MxHcaZGi2Ft5BXSgc
-tFfl3mlP8WUIkJSg/OT2zbiJAs0ZxruwoA6wpASzHxxjenl3UycAEx9Gg+jVJo5ENsv5pJNVwIa2
-1GD+MuuIMjnnS5O6+doKlxis7qUdQZYXuHrHtN59nw7rTGlwhESo45jesuOMf2gGKYV30rWE0LaH
-E1bNYskTbuHW0NwVidVkpOJ4UZ7CfvPRxPPEbrp4nw==
-=vR4K
------END PGP SIGNATURE-----
-
---Ae0qWicHCmbfPiNOK9GAVSDefNkktA1hT--
 
