@@ -2,31 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0666A30597E
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 12:22:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76027.137057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73CC8305989
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 12:24:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76032.137067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4iu9-0002EL-FL; Wed, 27 Jan 2021 11:22:33 +0000
+	id 1l4ivj-0002No-RI; Wed, 27 Jan 2021 11:24:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76027.137057; Wed, 27 Jan 2021 11:22:33 +0000
+Received: by outflank-mailman (output) from mailman id 76032.137067; Wed, 27 Jan 2021 11:24:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4iu9-0002Dw-By; Wed, 27 Jan 2021 11:22:33 +0000
-Received: by outflank-mailman (input) for mailman id 76027;
- Wed, 27 Jan 2021 11:22:31 +0000
+	id 1l4ivj-0002NP-Np; Wed, 27 Jan 2021 11:24:11 +0000
+Received: by outflank-mailman (input) for mailman id 76032;
+ Wed, 27 Jan 2021 11:24:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l4iu7-0002Dq-F7
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 11:22:31 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=csCD=G6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l4ivh-0002NK-Dh
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 11:24:09 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6d84a487-6413-4aae-bf50-8dcdd5377142;
- Wed, 27 Jan 2021 11:22:30 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AFCACB7CA;
- Wed, 27 Jan 2021 11:22:29 +0000 (UTC)
+ id 3baa081f-382e-4151-b47f-d06267d6fd50;
+ Wed, 27 Jan 2021 11:24:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,120 +35,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d84a487-6413-4aae-bf50-8dcdd5377142
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611746549; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+4aEGRZJ+ZC4qZ4u71ZgQyDaivQrbt2FxTCSGdcyii4=;
-	b=utf71+t9jCYNpedxDR745+FPpsYtppY3XAVfRleCIceyL7aK30vfCLXR3UbU+m5Ta1LhTd
-	1BcTz8wL60ZlF2yKnoqPsF+uQ/9ZNzFuCdiGIeXIPmqKaJemEK/Vub13NOSHMMNd61GClM
-	VCk5GK5sF5AY6Mha/sB8ToH3EOFe6HU=
-Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
-To: Oleksandr <olekstysh@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, famzheng@amazon.com,
- Doug Goldstein <cardoe@cardoe.com>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien.grall.oss@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <161160798888.13183.15031685460985886988@c667a6b167f6>
- <alpine.DEB.2.21.2101251255430.20638@sstabellini-ThinkPad-T480s>
- <CAJ=z9a2YpESuHGfZXoRTGj5mxhwar37Na3eYkX90QffYKf1r1Q@mail.gmail.com>
- <a277d66a-0bb4-22ea-badb-c3f415a5d09f@gmail.com>
- <e305357a-2c2c-7e48-7cdf-9bce97db6b4c@gmail.com>
- <6c5b6c07-8efa-be88-3885-a7c55d4ec400@suse.com>
- <4e7c5fe5-ca2e-d96e-aaa6-2691cc6634d2@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <46bfa4de-f069-9fa9-995e-242a228f984c@suse.com>
-Date: Wed, 27 Jan 2021 12:22:29 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+X-Inumbo-ID: 3baa081f-382e-4151-b47f-d06267d6fd50
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1611746648;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=R6nQ7HGU/s0s6LAoEgdBUKYsNClcpf60fTivNq5cCjM=;
+  b=CTMJ9MAobE6m/+qJEbdqSLtF4YBmCQ+gELk6D+Ux8XheOcAqbgIXDZhZ
+   obbfmreBXMRAQaV1/jNRDU0p4W2jLrRCjmEoe+aAV58z4IvXd8MEhjhLA
+   8t31RXdP2/TI++LB29FCXjb/v8/n9xR0MjFzdziwEhfpRNDDJhn7Fk6fl
+   k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: GgGyFyPvfVGFDgz7Ah7jbpv0MW8fELnKeqA08POMt3VhH9Z0lJ/2Radm66g91KdJTERMnDjNKO
+ 5nH/QWkpovgHz5Z7Ma7VYVfOK41ylXJ4lKGK9NYVjDGvNWjcjns6n0vI6IWfvG4ilSJRnPrNZF
+ U/TqExJn8ASgIsKhbP7hOu7F/TdEDVnS2VOkkFCPCxkqYmo41VMKgPT8rFqlUG+sEOA7J4WItW
+ uNXIzhcCdxfzngrJVY79yBBcSYOZGy9QNNO6HrTTMzHe926n2C//CfguuKDOBUwNSagJezz0G3
+ qcA=
+X-SBRS: 5.2
+X-MesageID: 37266880
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,379,1602561600"; 
+   d="scan'208";a="37266880"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Frq8nvpRr0lKjDlmgHk1hbOPKeV1/HnWY7QSkdzc2xFvHWcnQTLK5IHUrj8LQLS0qo8xzf4i89Z2y8aCM/cGxtSqrRnP4O8w7z4+KvixL5nOVeE6alxxUiIe7PptXKhloblyGDPl2TjTgZpj0jP1elVh3YABbYnnarWdRRs7ouZ8tIvG/N4L0tkMZhgU5c1OjjNbWzN8qTMT3sCbZcBjsRTHl+441XrxVU/ZLLaGJsY5SfIddtdw3JRMIsY9gcfI8pgDZPqt5YJTLVVQYQEh4/Qb8eKRt2oFF1EQqtbZutihZd99GU8Wfbxk5euFgt9RxQ3BaMhO8st3KMNfcM24Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R6nQ7HGU/s0s6LAoEgdBUKYsNClcpf60fTivNq5cCjM=;
+ b=c1pcS9u6YKggZtlKUfH9bFNddhuEqzXlDBY5OJJ8QuuYKNZ+xwDH5EclSlhJdpXV4Wc5K1oC9CZiJFaIkEA523SEKzKpV15CpFlThbxTN7PI/cdFPA3X0i3Bw3uMbfzP4ihTdIl38ucjOoS4EAW4QM3TkxcNlhqSCu6LXvw7k1NcTazy5QfnMeaxy/T+8x32K0bcoAeTUX6kdvxJaqW42llpNyECa9Bd+mz3gH6y/rgeGm6l0FZiG4t+oVF5ijaoStLcI+rhvDB4Y8Whhm1Jo0MXOW1xgXvvl4Iqy+2gjh37OHwVYf3ykfDgjYvieuN0xoi/2vNitW+89DjM5oFabA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R6nQ7HGU/s0s6LAoEgdBUKYsNClcpf60fTivNq5cCjM=;
+ b=DJn8DAnTQsMXirVzQ9J3dIst1t9vFpHVNQAz4uWaN0pqK86wOv1SlmTx2ID9kfV9Y8p5aNTI7VPX3zz0DpAuQXZozsSC7vkSudLoIVhfN+fEOJNl0CaSA1WOjaXNiKE5Wc3N0y8NNlTg8lQZHp5m17IbCRunSz1qcOhTX4jYZqI=
+Subject: Re: [PATCH v2] x86/xen: avoid warning in Xen pv guest with
+ CONFIG_AMD_MEM_ENCRYPT enabled
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+	<xen-devel@lists.xenproject.org>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, "Boris
+ Ostrovsky" <boris.ostrovsky@oracle.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, <stable@vger.kernel.org>
+References: <20210127093822.18570-1-jgross@suse.com>
+ <fb2305a4-4741-c641-9639-5b17b63f2baf@citrix.com>
+ <2dc49fae-bf35-7c7d-2d86-338665db27ca@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <6ca7dcf3-2588-3797-b90c-5eaca542a65d@citrix.com>
+Date: Wed, 27 Jan 2021 11:23:56 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <4e7c5fe5-ca2e-d96e-aaa6-2691cc6634d2@gmail.com>
+In-Reply-To: <2dc49fae-bf35-7c7d-2d86-338665db27ca@suse.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P123CA0015.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:a6::27) To BYAPR03MB4728.namprd03.prod.outlook.com
+ (2603:10b6:a03:13a::24)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e8606082-cbab-4d1d-2a37-08d8c2b60d45
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5952:
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB595271874836D7C302B33428BABB9@SJ0PR03MB5952.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: csy7sqoWPw1n9RgeMLCSOUo1+8YfTHOVYC2IsP2iVb2LZ9tNrihbikUgb/H90Hm6PsJvJoAE/F1+PV93ZdzFekc9dtoN9kvIo8hNiO3xulqcaWbGPl77iqSFf9qD6cxc6r+IrS/qtmcHMKMnN9fyrsx+xjkYrZ+w1vmzIM0mvYmgvhJISKRpUQ6epnpuJVoo5h2Qh5v5o6TpFYaqVE1tdvqReI+XI+N86OtOdXUcDeneE5SRDw4DSZ8qA0E8FeVIp94V35r4dCLq64NpFQkI4EbAmO+q8dlZgjh90yglp4VAZHX4avTx8AzuqwIUEG3WKe0NB+mwIyauQnwlLysj3Eg8wqkzMEs0heEXLiCDgM5Vh9Co8iMYxAR33lIuWPN+xmEQZQRm8GCATHHFbry+LqvffctoDNNa4dAebaJPIEZA8tXIF03fWA1eoqDbe59SRHusnJU7BL2rlKaITeZX3Suh+yzyPDqop9hrS+NFng0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(396003)(366004)(376002)(346002)(136003)(66946007)(66556008)(6666004)(4326008)(36756003)(5660300002)(956004)(478600001)(7416002)(66476007)(2906002)(16576012)(2616005)(26005)(8936002)(31686004)(316002)(186003)(6486002)(16526019)(8676002)(53546011)(86362001)(31696002)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dGNuTmg5Sk9BSm4zSnhjWDJIUUNjUWJOZlhVNzUvTFJISFYrenlOTjNkV1BX?=
+ =?utf-8?B?dUlrSk9XeHZNYTR0b1lCUkZRUXlhV0p4ZTRSUkQwOVd1UTcreXhnblYrTFhn?=
+ =?utf-8?B?RWJWWFJqd1BUbzRpWDYweGpLY0NoS05vcVRIRkJsN3hHNUxoRzRyQWd0cUNx?=
+ =?utf-8?B?YkNDblpNbHdrWWJqTkY1Snprd0x6VlBnQ3ZyOWhTM0lDQTA0NGRmWEJzSk9i?=
+ =?utf-8?B?WnhMaDB5UVZMaExrMlNJKy94TGJKbzE5bCtZdGZ5YnJIYjh4R0hnT2o3blZx?=
+ =?utf-8?B?QzdYeDNMMVdtTHZLWG1KMjJzelByM1NVMEJnb0tsMkFmNStqcXhocDE2K0Vm?=
+ =?utf-8?B?M3p5QVU3RFJabXVtT0w2QmJkTkhxektCSGFXcHdzSG5rYUZ3Q0xzajJqbDNp?=
+ =?utf-8?B?aGdRdjZaWksvNTBRYnAwTUxsVmFmSzdPZURqRUQ4SzZsZ3BKVnlpU3NCMlIy?=
+ =?utf-8?B?VTdXSC9qWTFqa2p2dHVLS2IzMVdabWk4Z0QrcFNMUTc2T0JsUTk3UEc3UGZr?=
+ =?utf-8?B?cnEzYjNySFk0c3N2c3o5QkVaMGFTWHdiQ09YUTdCL2twSFJCTVV1b2lXK3kr?=
+ =?utf-8?B?RHFIUHIzY0VpcitaQXRra1V5bm9DL1g3Z3BGWFB6cXAxMy9jMFB4RXE2Vk5O?=
+ =?utf-8?B?MkUvNjMzc0ROS3FkeUlCVWI2eFhUZ1dqdzN0T1o1V0UzcmFnQ1VvemM1ZUpa?=
+ =?utf-8?B?cS9XWmJxUmRyY2FxcnNJUXZZUjlTcllmRVJxZUw3dWthLzFDRHg0OVA1ZWUz?=
+ =?utf-8?B?YkxwL3hsSG5jSXNISWNXMGlsQzhjWjRYSlBsMUNuUTg0dUd4YkYyZ3ZuK0Fs?=
+ =?utf-8?B?Q3BjcUZaRjRoTElCLytqN0pxbkNsaStaSE4xWVlqeG43QlJicVVTNDc1ZjlY?=
+ =?utf-8?B?SHczRnkwWU1iM21oQnBNNGQrNVljRXdSTnRIRHBnLys3SHdmRi9tLzFra0hm?=
+ =?utf-8?B?eFQvSXNRVmNDTS9HVEUwTlh6RGtBRTlYc1prSmdicWtwSmZkVUo4eXYzbm5k?=
+ =?utf-8?B?UFpqc3g3eWFLTGtMZTBYNFhsbmIrNjBHMmV6cnFhMGt3TTMrOUFkdUwvbm5E?=
+ =?utf-8?B?V3I1YmhqZ09nRmQ2WTFzMi9oYjZnMWpLOXFBYk1xeVpOZTJtOW14elVrNXpl?=
+ =?utf-8?B?VzBob3VSWm5lZ08rMW45Z2tOUjMyTk9zdVlod0RWT1BhODMweXc3VU1oVXc4?=
+ =?utf-8?B?ZTQwNEVXZ2RVZnlDaEFvYVdzUk1KUkljZTdVRFlFQ2d5eW93VHdmM0QwZXFx?=
+ =?utf-8?B?Q3QvRTgrSUlCT1ZaVXduQnkvNk9ZWGpOdW5teDZEaGNEUXJHQm0zdUZzWXFp?=
+ =?utf-8?B?MjAzNGhWUGxZdkVCMFU5bzdFajZCMTR1ZWhPQ0xVN2FHNWdnMVJRWXVBdjFG?=
+ =?utf-8?B?RUhETm5BWDZ6WmM1R2VYdndOaWF5UFp1cTFUOVZHZjliVTVYSmtTUVhLTnlS?=
+ =?utf-8?Q?Y2lFgSZM?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8606082-cbab-4d1d-2a37-08d8c2b60d45
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2021 11:24:03.6697
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8kDBZXnuDo4YTax66hKhnbJwfCC6OFBMrr17dPgRE50rn5rY8zB1Cv0Ry705bayPS1K+Zioz48ieyKRKT0VAZ2tF1i/S0POMEBXRLVnrnmU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5952
+X-OriginatorOrg: citrix.com
 
-On 27.01.2021 12:15, Oleksandr wrote:
-> On 27.01.21 12:51, Jan Beulich wrote:
->> On 27.01.2021 11:13, Oleksandr wrote:
->>> On 26.01.21 02:14, Oleksandr wrote:
->>>> On 26.01.21 01:20, Julien Grall wrote:
->>>>> On Mon, 25 Jan 2021 at 20:56, Stefano Stabellini
->>>>> <sstabellini@kernel.org> wrote:
->>>>>> This seems to be an arm randconfig failure:
->>>>>>
->>>>>> https://gitlab.com/xen-project/patchew/xen/-/pipelines/246632953
->>>>>> https://gitlab.com/xen-project/patchew/xen/-/jobs/985455044
->>>>> Thanks! The error is:
->>>>>
->>>>> #'target_mem_ref' not supported by expression#'memory.c: In function
->> Btw, I found the first part of this line pretty confusing, to a
->> degree that when seeing it initially I thought this must be some
->> odd tool producing the odd error. But perhaps this is just
->> unfortunate output ordering from different tools running in
->> parallel.
+On 27/01/2021 10:26, Jürgen Groß wrote:
+> On 27.01.21 10:43, Andrew Cooper wrote:
+>> On 27/01/2021 09:38, Juergen Gross wrote:
+>>> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+>>> index 4409306364dc..ca5ac10fcbf7 100644
+>>> --- a/arch/x86/xen/enlighten_pv.c
+>>> +++ b/arch/x86/xen/enlighten_pv.c
+>>> @@ -583,6 +583,12 @@ DEFINE_IDTENTRY_RAW(xenpv_exc_debug)
+>>>           exc_debug(regs);
+>>>   }
+>>>   +DEFINE_IDTENTRY_RAW(exc_xen_unknown_trap)
+>>> +{
+>>> +    /* This should never happen and there is no way to handle it. */
+>>> +    panic("Unknown trap in Xen PV mode.");
 >>
->>>>> 'do_memory_op':
->>>>> memory.c:1210:18: error:  may be used uninitialized in this function
->>>>> [-Werror=maybe-uninitialized]
->>>>>    1210 |             rc = set_foreign_p2m_entry(currd, d, gfn_list[i],
->>>>>         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>>>>    1211 | _mfn(mfn_list[i]));
->>>>>         | ~~~~~~~~~~~~~~~~~~
->>>>>
->>>>> I found a few references online of the error message, but it is not
->>>>> clear what it means. From a quick look at Oleksandr's branch, I also
->>>>> can't spot anything unitialized. Any ideas?
->>>> It seems that error happens if *both* CONFIG_GRANT_TABLE and
->>>> CONFIG_IOREQ_SERVER are disabled. Looks like that mfn_list is
->>>> initialized either in acquire_grant_table() or in acquire_ioreq_server().
->>>> If these options disabled then corresponding helpers are just stubs,
->>>> so indeed that mfn_list gets uninitialized. But, I am not sure why gcc
->>>> complains about it as set_foreign_p2m_entry() is *not* going to be
->>>> called in that case???
->>> This weird build error goes away if I simply add:
->>>
->>> diff --git a/xen/common/memory.c b/xen/common/memory.c
->>> index 33296e6..d1bd57b 100644
->>> --- a/xen/common/memory.c
->>> +++ b/xen/common/memory.c
->>> @@ -1136,7 +1136,7 @@ static int acquire_resource(
->>>         * moment since they are small, but if they need to grow in future
->>>         * use-cases then per-CPU arrays or heap allocations may be required.
->>>         */
->>> -    xen_pfn_t mfn_list[32];
->>> +    xen_pfn_t mfn_list[32] = {0};
->>>        int rc;
->>>
->>>        if ( !arch_acquire_resource_check(currd) )
->>>
->>>
->>> Shall I make the corresponding patch?
->> I'd prefer if we could find another solution, avoiding this
->> pointless writing of 256 bytes of zeros (and really to be on the
->> safe side I think it should rather be ~0 that gets put in there).
->> Could you check whether clearing the array along the lines of
->> this
->>
->>      default:
->>          memset(mfn_list, ~0, sizeof(mfn_list));
->>          rc = -EOPNOTSUPP;
->>          break;
->>
->> helps (avoiding the writes in all normal cases)?
-> 
-> Yes, this helps (at least in my environment):
-> 
-> aarch64-poky-linux-gcc v8.2
+>> Looks much better.  How about including regs->entry_vector here, just to
+>> short circuit the inevitable swearing which will accompany encountering
+>> this panic() ?
+>
+> You are aware the regs parameter is struct pt_regs *, not the Xen
+> struct cpu_user_regs *?
 
-Good. I'd be okay if you folded this in (plus a comment of
-course), but others may have different views, not the least as
-this is only papering over the issue (yet an issue that's not
-ours, but the compiler's).
+Yes, but I was assuming that they both contained the same information.
 
-Jan
+>
+> So I have no idea how I should get this information without creating
+> a per-vector handler.
+
+Oh - that's dull.
+
+Fine then.  Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
