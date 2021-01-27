@@ -2,34 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A977C305B2C
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 13:23:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76084.137155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0926E305B41
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 13:26:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76088.137168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4jpz-0000EM-KZ; Wed, 27 Jan 2021 12:22:19 +0000
+	id 1l4jtj-0000On-6B; Wed, 27 Jan 2021 12:26:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76084.137155; Wed, 27 Jan 2021 12:22:19 +0000
+Received: by outflank-mailman (output) from mailman id 76088.137168; Wed, 27 Jan 2021 12:26:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4jpz-0000Dy-HJ; Wed, 27 Jan 2021 12:22:19 +0000
-Received: by outflank-mailman (input) for mailman id 76084;
- Wed, 27 Jan 2021 12:22:18 +0000
+	id 1l4jtj-0000OO-2x; Wed, 27 Jan 2021 12:26:11 +0000
+Received: by outflank-mailman (input) for mailman id 76088;
+ Wed, 27 Jan 2021 12:26:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kelV=G6=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l4jpy-0000Dt-DR
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 12:22:18 +0000
-Received: from mail-lj1-x22a.google.com (unknown [2a00:1450:4864:20::22a])
+ <SRS0=MRfa=G6=todobom.com=claudemir@srs-us1.protection.inumbo.net>)
+ id 1l4jth-0000OE-IN
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 12:26:09 +0000
+Received: from mail-qk1-x734.google.com (unknown [2607:f8b0:4864:20::734])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 81e38574-a40d-43c4-980a-51c5a4bafecd;
- Wed, 27 Jan 2021 12:22:17 +0000 (UTC)
-Received: by mail-lj1-x22a.google.com with SMTP id a25so1858937ljn.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Jan 2021 04:22:17 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id h9sm465064lfj.24.2021.01.27.04.22.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Jan 2021 04:22:15 -0800 (PST)
+ id e49cec29-5b53-4afe-a705-ff9465705295;
+ Wed, 27 Jan 2021 12:26:06 +0000 (UTC)
+Received: by mail-qk1-x734.google.com with SMTP id k193so1450634qke.6
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Jan 2021 04:26:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,121 +37,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81e38574-a40d-43c4-980a-51c5a4bafecd
+X-Inumbo-ID: e49cec29-5b53-4afe-a705-ff9465705295
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=m9t+itjT9/wzQxErG1N5o66C9Qic51I+Dt46qx5fArw=;
-        b=IahbtPTNg5VapF+XPe39IwJ3xqVSXKXR7NQukKohA2rmcVcwOngufMr7BZ12d4UBbp
-         XDEP8lddTTaHAtmW8YkHgVpoAypuLpfh1vFrjZmH4z+s9VgQaa6h0mZEnZmzsTnfdktY
-         PV6zLQAbRtkN5PlFkt/pmZ47FW3P4NUGckSeu9Fw+kj/SqetKeatAX6ARsZ7JIfQzC5G
-         oP+TABYvI65maJlSaszeTbUYp7lCAKQKNbX0VgGWNs1rKoCUrtSIptZJi/z1bKdl/rPS
-         QQrMP6pZO4Q+V9tjxz6mvKOkUknyJAIc1J19awNPmRoI26o7Wo8+2esaV6KHEaleTcu3
-         gWpg==
+        d=todobom-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=4IPRbagzFIa3BqCaVe3/Ejr4PmmHmadXBYaqfUB3Mo0=;
+        b=dd0H2h4lmPfRt1qNIlSyXhy2ExEX5fVSNtft3JAUSKwZjHP8e7UevHpc11N7ryE5C8
+         JLc4iM1umiS3TNWxBAVSl2W2kIlY4+SurMmCDFH4+A9qMSfn18sqBAariLXXgO4D9lNq
+         AwpDdxXTf8NqyBLAy32XE6mqogczGKv/uBsp5N5Pc7ezT1TZi9w2nTOhCOWF7OIAYYVd
+         4+64J2hkEs9+gXBn0RDdLlCJJ/+RCHRyIWgB9HY/1TZwR1ZaQrW8lVa7FqkyjNgn2gZL
+         nAl7T1OuslHdtxuHX1CRHWFAu+dgQbVy7uMsCSsGhIzNF9wfDnUjvrB982a3FRJUjaUc
+         YPiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=m9t+itjT9/wzQxErG1N5o66C9Qic51I+Dt46qx5fArw=;
-        b=hEA9+HGxl6/tsE2+AFy2NUKcxpRf9xeAgqtqLPQNggA7suPEcK+I1BEYtwVFrV8FO6
-         M0HNLhUn4npGL/8VSSVEqeYZ3uQhmwu1cnGjAjQdjTMrxY2hfQsrWMnYE2MyNIYceIsu
-         DP7T+fsJ4iNIvKOQy9MXzoK/2RjdIw/nLv4gbviE1sH4wTxja+UWoiV5RJZbyly2lnNF
-         S75eq7ALysbNPk3zV/WhhOxjrKMYV9bwAgdxWiVKozLiLKg53oFXUUMY4fCL5vbm6sFb
-         g4RoZC/ObaA5NNevuBSYuS71C9HyD1WxTWOj8FjMrlLGfBRCJPtb9Dnlj9ay62v+sfjc
-         mdgA==
-X-Gm-Message-State: AOAM530wQU3NrOec3EAu+6RoUh3uoTtNaOhAa99xsT+QTuGQMftidmvY
-	mj5zMmJe0irbW53yrGvfkwU=
-X-Google-Smtp-Source: ABdhPJzlzxxMd6NbpOxat7xjbQQ3pn8YtPzwq3tfWKM08QsxO6ogee4jbtysi/rQvTnamcFPXabE6w==
-X-Received: by 2002:a2e:9ed1:: with SMTP id h17mr5223020ljk.160.1611750136300;
-        Wed, 27 Jan 2021 04:22:16 -0800 (PST)
-Subject: Re: [PATCH V4 14/24] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien@xen.org>
-References: <1610488352-18494-1-git-send-email-olekstysh@gmail.com>
- <1610488352-18494-15-git-send-email-olekstysh@gmail.com>
- <355e613a-3c9d-7978-62cd-a35df057e5cd@xen.org>
- <d54a9ef4-b707-1887-a7f7-b33c6f0f97d9@gmail.com>
- <06704224-bb57-c55e-a2ee-23032095e8ea@xen.org>
- <e2dcc876-291f-1244-933c-179f97a84e07@gmail.com>
- <57d95c18-5215-03e7-7849-73c9fe968e75@xen.org>
- <e0bc7f80-974e-945d-4605-173bd05302af@gmail.com>
- <9aa563c1-de53-cafc-f7e7-c3da49b6ef6e@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <7d49becb-8774-5756-f2ed-ddba544231cc@gmail.com>
-Date: Wed, 27 Jan 2021 14:22:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=4IPRbagzFIa3BqCaVe3/Ejr4PmmHmadXBYaqfUB3Mo0=;
+        b=FtjyLic22gMJ6Y7RuM30Zm1EunG2XnPE4SclztlQxRqO87qVpn+fDEvS19zH/gNZZT
+         jJNDLytklG/wY1UcxGk0/XXQHjanoaxeXFYm+HYDoQPLG0pcGzLMZv98xMccQEOkHaN2
+         nVTBN5CXRsNPZ0s7903x8daNok4GZ62UqKNLnkv2oaSzoi4mpvgn5Puo4XQxaGc1DT0B
+         WwU2D83jQecN+AxpM8yEvSadGstzL4pN1rWLFtFQf/JFqEiuWyweaRDsuIrauDNan/eW
+         OomqVr5FDNgLqicJKtaxSLyXws8PWnYMDep2Nh6TVYDkw6a6Q1DMdTsdbZo8OrW/hund
+         +35Q==
+X-Gm-Message-State: AOAM530NuQe9iVJ3nwFkGvYOeLRZYahoVm9jwJEueh+ah7A50k/pfdkj
+	y6QiZ71UFSuI0it5ClX3rFoCBD1nWnKqkB9AiE1Ekg==
+X-Google-Smtp-Source: ABdhPJxeklqolwcTxta4HDca+rCCcSHc7G+49sLciK6GCokHWQPFv0A5Ol458hl30UOzybbOMkaxmanumnNZubPaBos=
+X-Received: by 2002:a37:9e8a:: with SMTP id h132mr10075633qke.119.1611750365918;
+ Wed, 27 Jan 2021 04:26:05 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <9aa563c1-de53-cafc-f7e7-c3da49b6ef6e@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+References: <CANyqHYfNBHnUiBiXHdt+R3mZ72oYQBnQcaWuKw5gY0uDb_ZqKw@mail.gmail.com>
+ <e1d69914-c6bc-40b9-a9f4-33be4bd022b6@suse.com> <CANyqHYcifnCgd5C5vbYoi4CTtoMX5+jzGqHfs6JZ+e=d2Y_dmg@mail.gmail.com>
+ <ff799cd4-ba42-e120-107c-5011dc803b5a@suse.com> <609a82d8-af12-4764-c4e0-f5ee0e11c130@suse.com>
+ <CANyqHYehUWeNfVXqVJX6nrBS_CcKL1DQjyNVa1cUbvbx+zD83w@mail.gmail.com>
+ <9d04edfe-0059-6fbf-c1da-2087f6190e64@suse.com> <CANyqHYfOC6JY978SRPAQ8Ug3GevFD=jbT6bVVET4+QOv8mv7qA@mail.gmail.com>
+ <a0a7bbd0-c4c3-cfb8-5af0-a5a4aff14b76@suse.com>
+In-Reply-To: <a0a7bbd0-c4c3-cfb8-5af0-a5a4aff14b76@suse.com>
+From: Claudemir Todo Bom <claudemir@todobom.com>
+Date: Wed, 27 Jan 2021 09:25:54 -0300
+Message-ID: <CANyqHYdDueVgZYJ-PNv9QDLqFAnTGxLVyMeY6XgkDOO1KGapVg@mail.gmail.com>
+Subject: Re: Problems with APIC on versions 4.9 and later (4.8 works)
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 27.01.21 12:24, Jan Beulich wrote:
-
-Hi Jan
-
-> On 21.01.2021 09:50, Oleksandr wrote:
->> On 20.01.21 17:50, Julien Grall wrote:
->>> On 17/01/2021 18:52, Oleksandr wrote:
->>>> error2.txt - when add #include <public/hvm/dm_op.h> to xen/ioreq.h
->>> It looks like the error is happening in dm.c rather than xen/dm.h. Any
->>> reason to not include <public/hvm/dm_op.h> in dm.c directly?
->> Including it directly doesn't solve build issue.
->> If I am not mistaken in order to follow requirements how to include
->> headers (alphabetic order, public* should be included after xen* and
->> asm* ones, etc)
->> the dm.h gets included the first in dm.c, and dm_op.h gets included the
->> last. We can avoid build issue if we change inclusion order a bit,
->> what I mean is to include dm.h after hypercall.h at least (because
->> hypercall.h already includes dm_op.h). But this breaks the requirements
->> and is not way to go.
->> Now I am in doubt how to overcome this.
-> First, violating the alphabetic ordering rule is perhaps less
-> of a problem than putting seemingly stray #include-s anywhere.
-> However, as soon as ordering starts mattering, this is
-> indicative of problems with the headers: Either the (seemingly)
-> too early included one lacks some #include-s, or you've run
-> into a circular dependency. In the former case the needed
-> #include-s should be added, and all ought to be fine. In the
-> latter case, however, disentangling may be a significant
-> effort, and hence it may be sensible and acceptable to instead
-> use unusual ordering of #include-s in the one place where it
-> matters (suitably justified in the description). Ideally such
-> would come with a promise to try to sort this later on, when
-> time is less constrained.
-Thank you for the explanation. I think, I am facing the former case (too 
-early included one lacks some #include-s),
-actually both common/dm.c and arch/arm/dm.c suffer from that.
-It works for me if I add the following to both files (violating the 
-alphabetic ordering rule):
-
-+#include <xen/types.h>
-+#include <public/hvm/dm_op.h>
-+
-  #include <xen/dm.h>
-
-
-So, if I got your point correctly, we could include these both headers 
-by dm.h) Would it be appropriate (with suitable justification of course)?
-I think, we could avoid including xen/sched.h by dm.h (need to recheck), 
-just these two headers above.
-
-
+Em ter., 26 de jan. de 2021 =C3=A0s 08:48, Jan Beulich <jbeulich@suse.com> =
+escreveu:
 >
-> Jan
+> On 25.01.2021 20:37, Claudemir Todo Bom wrote:
+> > I've managed to get the debug messages on the screen using
+> > vga=3Dtext-80x50,keep and disabling all messages from the kernel. Two
+> > images are attached with the output running the debug patch.
+>
+> And the 1st of them (161303) was taken at the time of the hang of
+> the kernel (or entire system), not any earlier? I ask because one
+> part of the reason for the patch was to understand whether the
+> rendezvousing itself would fail in some way (like one of the CPUs
+> not calling in).
 
--- 
-Regards,
+I could not tell if it already hung when I took the picture, but I can
+tell the messages keep appearing after the hang. I tested this
+enabling log messages... the screen became a mess, but I can assure
+that the rendezvous function is being run and completed multiple times
+after the "freeing memory" message that freezes the kernel.
 
-Oleksandr Tyshchenko
+> Were new log messages (from the debugging patch) still issued at
+> this point, showing Xen itself was still alive?
+>
+> The 2nd of the pictures (162313) at least clarifies that indeed
+> the commit in question had a functional effect on this system,
+> because of
+>
+> (XEN) TSC warp detected, disabling TSC_RELIABLE
+>
+> I still can't figure though why the change in rendezvous handling
+> (from "std" to "tsc") would have broken your system.
+>
+> > About the version I've used to test: since the 4.14 shows that other
+> > bug with the detection of cpu features I mentioned on the other
+> > subthread, I chose to work on 4.11 that doesn't shows that behaviour.
+> >
+> > Calling with clocksource on the xen command line changed nothing.
+>
+> Oh, right, because the specific feature that causes the change
+> of rendezvous functions for you also is a prereq for that mode
+> of operation.
 
+Oh, this should be why reverting the code on 4.14 didn't work...
+probably messed up with features introduced after 4.11.
+
+> > I don't know if this part of code is intended to execute a lot of
+> > times, but when starting with dom0_max_vcpus=3D1, the system boots up
+> > and keeps showing the messages.
+>
+> When there's just one CPU, there's no CPU to rendezvous with.
+>
+> Iirc you did say that you observe the hang even with as little
+> as 2 CPUs? The problem the above quoted message is supposed to
+> address is normally coming into play only on multi-socket
+> systems. Yet from your initial report I deduce this is a
+> single socket system. So in the end I suppose there are two
+> problems - one is the hang, and the other is that your system
+> gets diagnosed as having an unreliable TSC (at least I didn't
+> think Xeon E5 v2 should have a problem there).
+
+It is a single socket, I was talking about virtual cpus for domain 0.
+
+After the last tests I tried to boot it with maxcpus=3D1 parameter on
+the xen command line. This changed the rendezvous code to std and the
+system worked on all versions up to 4.14.
+
+Is there any performance issue on using this parameter and this "std"
+rendezvous code?
+
+> I will want to extend the debugging patch, but I'd like to
+> have clarification on some of the points above first.
+
+If this information is good for more tests, please send the patch and
+I will test it!
+
+Best regards,
+Claudemir
 
