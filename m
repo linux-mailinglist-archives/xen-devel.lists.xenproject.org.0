@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0562306079
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 17:03:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76225.137451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 760CE3060BB
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 17:13:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76233.137475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4nHl-0006V2-BZ; Wed, 27 Jan 2021 16:03:13 +0000
+	id 1l4nR5-0007Z9-Dx; Wed, 27 Jan 2021 16:12:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76225.137451; Wed, 27 Jan 2021 16:03:13 +0000
+Received: by outflank-mailman (output) from mailman id 76233.137475; Wed, 27 Jan 2021 16:12:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4nHl-0006Ud-83; Wed, 27 Jan 2021 16:03:13 +0000
-Received: by outflank-mailman (input) for mailman id 76225;
- Wed, 27 Jan 2021 16:03:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l4nR5-0007Yk-Ak; Wed, 27 Jan 2021 16:12:51 +0000
+Received: by outflank-mailman (input) for mailman id 76233;
+ Wed, 27 Jan 2021 16:12:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4nHj-0006UY-PO
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 16:03:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4nHj-0001Z8-KG
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 16:03:11 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4nHj-0003JP-Ik
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 16:03:11 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1l4nHd-0001gd-6j; Wed, 27 Jan 2021 16:03:05 +0000
+ (envelope-from <SRS0=Shlr=G6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l4nR4-0007Yf-4J
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 16:12:50 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 535f0a9d-6f75-40a0-ad5b-bb2d70213c83;
+ Wed, 27 Jan 2021 16:12:48 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BAB8CAAC6;
+ Wed, 27 Jan 2021 16:12:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,74 +39,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:To:Date:
-	Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=+5+2cYDjvbSWLxSN9NELUjAw+CXcFFseY9YTN8ajpYU=; b=rf1QGxCDwZ4xjTQOE4rm3p9ebG
-	JVz05J5eguMkHmA9loWG2I8EMunsON+bwWdTE70hvD6Au6H1zD0NeNzJ6Mv2hfarv045kg7sAxe32
-	bqa3/wENIkj6FTwBsiH0EXKso5Ekk0FOzSRXCpzxk2ZZn2O+P7AwTFzH4DqwAWE6iUo8=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 535f0a9d-6f75-40a0-ad5b-bb2d70213c83
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611763967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=RLYaX2uBFS02n8F0ItXYo4/tpuz9p98GWPGhfgLHXB4=;
+	b=Ms4C+Cx+ErZ3L3N2GajJGOVk6MfSZVi3F4Hsde4YryVfdRBg/lgFa+GQp8TWIJZquunfHH
+	bNHQG/HH76+o/yOIczovEfm9qprmO8RqPamkUckFCp0lbLEClkjWSGoxUfUctleULPE3HZ
+	kw/CkWYnO3gm61CjxvfYIYm1My6oUhk=
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] MAINTAINERS: correct split libxl paths
+Message-ID: <c76fdb98-e9b6-81cf-63ca-57d5c18bd0d2@suse.com>
+Date: Wed, 27 Jan 2021 17:12:47 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Message-ID: <24593.36536.770883.890760@mariner.uk.xensource.com>
-Date: Wed, 27 Jan 2021 16:03:04 +0000
-To: Manuel Bouyer <bouyer@antioche.eu.org>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    xen-devel@lists.xenproject.org,
-    Wei Liu <wl@xen.org>,
-    Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH] libs/light: make it build without setresuid()
-In-Reply-To: <24584.26722.347244.50758@mariner.uk.xensource.com>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
-	<20210112181242.1570-16-bouyer@antioche.eu.org>
-	<20210118181656.2abblbjg2jvhlad7@Air-de-Roger>
-	<24584.17302.958286.788145@mariner.uk.xensource.com>
-	<20210120151321.GB4175@antioche.eu.org>
-	<24584.19725.745755.464840@mariner.uk.xensource.com>
-	<20210120165615.GB5035@antioche.eu.org>
-	<24584.25612.523093.188718@mariner.uk.xensource.com>
-	<20210120172046.GA5772@antioche.eu.org>
-	<24584.26722.347244.50758@mariner.uk.xensource.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Ian Jackson writes ("Re: [PATCH] libs/light: make it build without setresuid()"):
-> Manuel Bouyer writes ("Re: [PATCH] libs/light: make it build without setresuid()"):
-> > On Wed, Jan 20, 2021 at 05:10:36PM +0000, Ian Jackson wrote:
-> > > My last mail had in it a thing that claims to be a proof that this is
-> > > not possible.
-> > 
-> > This code:
-...
-> > actually works on NetBSD. processes from 375 are killed, and the
-> > seteuid(0) call succeeds (showing that the saved used id is still 0).
-> 
-> I guess I must have been wrong.
-> 
-> > > What do you think ?
-> > 
-> > As this is supported by Xen, I hope I can make at last run qemu with a
-> > non-zero uid.
-> 
-> The logic for deciding what user to run qemu as, and whether to kill
-> by uid or by pid, is in libxl_dm.c, in the function
-> libxl__domain_get_device_model_uid.
-> 
-> The dm_restrict flag turns on various other things too.
+The other half of the originally combined code lives in tools/libs/util/,
+not tools/libs/guest/ (which was split off of libxc).
 
-I think I have lost track of where we are with this patch.  I would
-like to see all this properly sorted in Xen 4.15.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-How about I write a patch splitting the relevant part up into a
-version for systems with setresuid and systems without ?  Then you
-could fill in the missing part.
-
-Should I expect the non-setresuid OS to provide effectively the whole
-orf kill_device_model_uid_child, or just a replacement for the
-setresuid call and surrounding logging, something like
-  kill_device_model_uid_child_setresuid
-?
-
-Ian.
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -363,8 +363,8 @@ M:	Ian Jackson <iwj@xenproject.org>
+ M:	Wei Liu <wl@xen.org>
+ M:	Anthony PERARD <anthony.perard@citrix.com>
+ S:	Supported
+-F:	tools/libs/guest/
+ F:	tools/libs/light/
++F:	tools/libs/util/
+ F:	tools/xl/
+ 
+ LIVEPATCH
 
