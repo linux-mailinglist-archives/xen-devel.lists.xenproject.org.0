@@ -2,32 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C93D305E9F
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 15:50:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76127.137239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C5D5305F17
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 16:07:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76134.137252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4m8a-0005PU-CO; Wed, 27 Jan 2021 14:49:40 +0000
+	id 1l4mP6-0007C3-Sv; Wed, 27 Jan 2021 15:06:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76127.137239; Wed, 27 Jan 2021 14:49:40 +0000
+Received: by outflank-mailman (output) from mailman id 76134.137252; Wed, 27 Jan 2021 15:06:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4m8a-0005P9-97; Wed, 27 Jan 2021 14:49:40 +0000
-Received: by outflank-mailman (input) for mailman id 76127;
- Wed, 27 Jan 2021 14:49:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l4m8Y-0005P4-Nm
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 14:49:38 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l4m8W-00088q-Q0; Wed, 27 Jan 2021 14:49:36 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l4m8W-00062m-D7; Wed, 27 Jan 2021 14:49:36 +0000
+	id 1l4mP6-0007Be-Os; Wed, 27 Jan 2021 15:06:44 +0000
+Received: by outflank-mailman (input) for mailman id 76134;
+ Wed, 27 Jan 2021 15:06:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=csCD=G6=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1l4mP5-0007BZ-8N
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 15:06:43 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 797b74f3-723d-4349-a160-f92233ece703;
+ Wed, 27 Jan 2021 15:06:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,167 +35,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=XeuecU/N5swQqfhcNPGn47MmlPu3Wx6YrKF1GZxqIn0=; b=MomTczGYMHxG63c7AhImyoNqXI
-	VLpmaM9tWHGpLdPTRy3Z9CSx8yMYaMPBWsOGgqLvc34lgwiN46JmZL5KsAlUG7geb6l6nAueTvZMi
-	SjCGsyrBUL+k4Yc+3BJDv0ymGwQTASZE1FGkEPU1bq9zh2YMEe+RjvvgJ+jJZ+n43Cp8=;
-Subject: Re: [PATCH V5 15/22] xen/arm: Call vcpu_ioreq_handle_completion() in
- check_for_vcpu_work()
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-16-git-send-email-olekstysh@gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <75703470-5a5a-98e5-bdfa-ca91a5cf439b@xen.org>
-Date: Wed, 27 Jan 2021 14:49:34 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.1
+X-Inumbo-ID: 797b74f3-723d-4349-a160-f92233ece703
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1611760001;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Urw+0M2RN5OXbE1CP5wlKFIaC/7H3qvdf/pd1my9Rkw=;
+  b=RPX+7ydV4T0IZl5CG5lnWhll03jyZftloKX8u0lVb9Sp7XhByfXIvKuO
+   PxoIxs5I0cIvkKHrNyJTsn3A3+cM0sxAWaqoCYcoBYqNLopQZSuJRRUIa
+   kSoHr12UYrL1YiuYOpYnn7XYboaShhDL7oRcn8uEUcvL8ByqaCZNoq3Sj
+   k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: W+gU9OUiDWb2Ww5VsZyQ22ioZjuhkvFbvoE+zpbcJGE7x+HjjOAQqwTqUY+sdoHqiGUN3pt7Xt
+ ma43YpWQJfsdjZ5jwrDtAPpQsDItelbFBMMZ6TKcwqCL7l1fHJcPSg/SFJuD047D0A1v85XCxN
+ BANC1xWWKwMfnWWU1UH+8KkQr+3X9Qg/fjlola9i8t8cjzn8UAIYFlKI+VegT/X2S0QBKqTQxU
+ o6Jp2NMOpF4bvvoSMo8HnGvXQ0nxbFKrDhLQs5t9ye2h6aGPWJ+qqrntJrjEhbJxb6kZtx8Lh3
+ H9I=
+X-SBRS: 5.2
+X-MesageID: 37285657
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,379,1602561600"; 
+   d="scan'208";a="37285657"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Aaron Janse <aaron@ajanse.me>,
+	Jason Andryuk <jandryuk@gmail.com>, Ondrej Balaz <blami@blami.net>, "Tamas K
+ Lengyel" <tamas@tklengyel.com>, =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>
+Subject: [PATCH v2] x86/timer: Fix boot on Intel systems using ITSSPRC static PIT clock gating
+Date: Wed, 27 Jan 2021 15:06:15 +0000
+Message-ID: <20210127150615.641-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <1611601709-28361-16-git-send-email-olekstysh@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Oleksandr,
+Recent Intel client devices have disabled the legacy PIT for powersaving
+reasons, breaking compatibility with a traditional IBM PC.  Xen depends on a
+legacy timer interrupt to check that the IO-APIC/PIC routing is configured
+correctly, and fails to boot with:
 
-On 25/01/2021 19:08, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> This patch adds remaining bits needed for the IOREQ support on Arm.
-> Besides just calling vcpu_ioreq_handle_completion() we need to handle
-> it's return value to make sure that all the vCPU works are done before
-> we return to the guest (the vcpu_ioreq_handle_completion() may return
-> false if there is vCPU work to do or IOREQ state is invalid).
-> For that reason we use an unbounded loop in leave_hypervisor_to_guest().
-> 
-> The worse that can happen here if the vCPU will never run again
-> (the I/O will never complete). But, in Xen case, if the I/O never
-> completes then it most likely means that something went horribly
-> wrong with the Device Emulator. And it is most likely not safe
-> to continue. So letting the vCPU to spin forever if the I/O never
-> completes is a safer action than letting it continue and leaving
-> the guest in unclear state and is the best what we can do for now.
-> 
-> Please note, using this loop we will not spin forever on a pCPU,
-> preventing any other vCPUs from being scheduled. At every loop
-> we will call check_for_pcpu_work() that will process pending
-> softirqs. In case of failure, the guest will crash and the vCPU
-> will be unscheduled. In normal case, if the rescheduling is necessary
-> the vCPU will be rescheduled to give place to someone else.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> CC: Julien Grall <julien.grall@arm.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> [On Arm only]
-> Tested-by: Wei Chen <Wei.Chen@arm.com>
-> 
-> ---
-> Please note, this is a split/cleanup/hardening of Julien's PoC:
-> "Add support for Guest IO forwarding to a device emulator"
-> 
-> Changes V1 -> V2:
->     - new patch, changes were derived from (+ new explanation):
->       arm/ioreq: Introduce arch specific bits for IOREQ/DM features
-> 
-> Changes V2 -> V3:
->     - update patch description
-> 
-> Changes V3 -> V4:
->     - update patch description and comment in code
-> 
-> Changes V4 -> V5:
->     - add Stefano's R-b
+  (XEN) *******************************
+  (XEN) Panic on CPU 0:
+  (XEN) IO-APIC + timer doesn't work!  Boot with apic_verbosity=debug and send report.  Then try booting with the `noapic` option
+  (XEN) *******************************
 
-Reviewed-by means the person reviewed the code and confirmed it is 
-correct. Given the changes you made below, I don't think this tag can hold.
+While this setting can be undone by Xen, the details of how to differ by
+chipset, and would be very short sighted for battery based devices.  See bit 2
+"8254 Static Clock Gating Enable" in:
 
-Please confirm with Stefano he is happy with the tag to be carried.
+  https://edc.intel.com/content/www/us/en/design/products-and-solutions/processors-and-chipsets/comet-lake-u/intel-400-series-chipset-on-package-platform-controller-hub-register-database/itss-power-reduction-control-itssprc-offset-3300/
 
-Other than that, the change looks good to me:
+All impacted systems have an HPET, but there is no indication of the absence
+of PIT functionality, nor a suitable way to probe for its absence.  As a short
+term fix, reconfigure the HPET into legacy replacement mode.  A better
+longterm fix would be to avoid the reliance on the timer interrupt entirely.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Tested-by: Jason Andryuk <jandryuk@gmail.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Aaron Janse <aaron@ajanse.me>
+CC: Jason Andryuk <jandryuk@gmail.com>
+CC: Ondrej Balaz <blami@blami.net>
+CC: Tamas K Lengyel <tamas@tklengyel.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Cheers,
+v2:
+ * Fix build - misplaced bracket.
+ * Tweak description of SETVAL.
 
->     - update patch subject/description and comment in code,
->       was "xen/arm: Stick around in leave_hypervisor_to_guest until I/O has completed"
->     - change loop logic a bit
->     - squash with changes to check_for_vcpu_work() from patch #14
-> 
-> ---
-> ---
->   xen/arch/arm/traps.c | 26 +++++++++++++++++++++++---
->   1 file changed, 23 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-> index b0cd8f9..2039ff5 100644
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -21,6 +21,7 @@
->   #include <xen/hypercall.h>
->   #include <xen/init.h>
->   #include <xen/iocap.h>
-> +#include <xen/ioreq.h>
->   #include <xen/irq.h>
->   #include <xen/lib.h>
->   #include <xen/mem_access.h>
-> @@ -2261,12 +2262,23 @@ static void check_for_pcpu_work(void)
->    * Process pending work for the vCPU. Any call should be fast or
->    * implement preemption.
->    */
-> -static void check_for_vcpu_work(void)
-> +static bool check_for_vcpu_work(void)
->   {
->       struct vcpu *v = current;
->   
-> +#ifdef CONFIG_IOREQ_SERVER
-> +    bool handled;
-> +
-> +    local_irq_enable();
-> +    handled = vcpu_ioreq_handle_completion(v);
-> +    local_irq_disable();
-> +
-> +    if ( !handled )
-> +        return true;
-> +#endif
-> +
->       if ( likely(!v->arch.need_flush_to_ram) )
-> -        return;
-> +        return false;
->   
->       /*
->        * Give a chance for the pCPU to process work before handling the vCPU
-> @@ -2277,6 +2289,8 @@ static void check_for_vcpu_work(void)
->       local_irq_enable();
->       p2m_flush_vm(v);
->       local_irq_disable();
-> +
-> +    return false;
->   }
->   
->   /*
-> @@ -2289,7 +2303,13 @@ void leave_hypervisor_to_guest(void)
->   {
->       local_irq_disable();
->   
-> -    check_for_vcpu_work();
-> +    /*
-> +     * check_for_vcpu_work() may return true if there are more work to before
-> +     * the vCPU can safely resume. This gives us an opportunity to deschedule
-> +     * the vCPU if needed.
-> +     */
-> +    while ( check_for_vcpu_work() )
-> +        check_for_pcpu_work();
->       check_for_pcpu_work();
->   
->       vgic_sync_to_lrs();
-> 
+Slightly RFC.  On older platforms this does generate some spurious PIC
+interrupts during boot, but they're benign.  I was hoping to have time to fix
+those too, but I'm getting an increasing number of requests to post this
+patch.
 
+Other followup actions:
+ * Overhaul our setup logic.  Large quantities of it is legacy for pre-64bit
+   systems, and not applicable to Xen these days.
+ * Have Xen turn the PIT off when it isn't being used as the timesource.  Its
+   a waste of time servicing useless interrupts.
+ * Make `clocksource=pit` not enter an infinite loop on these systems
+ * Drop all references to `noapic`.  These days, the only thing it will ever
+   do is make a bad situation worse.
+---
+ xen/arch/x86/hpet.c | 64 ++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 63 insertions(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
+index e6fab8acd8..876c5e4769 100644
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -758,7 +758,7 @@ static u32 *hpet_boot_cfg;
+ u64 __init hpet_setup(void)
+ {
+     static u64 __initdata hpet_rate;
+-    u32 hpet_id, hpet_period;
++    unsigned int hpet_id, hpet_period, hpet_cfg;
+     unsigned int last, rem;
+ 
+     if ( hpet_rate )
+@@ -793,6 +793,68 @@ u64 __init hpet_setup(void)
+     if ( (rem * 2) > hpet_period )
+         hpet_rate++;
+ 
++    /*
++     * Intel chipsets from Skylake/ApolloLake onwards can statically clock
++     * gate the 8259 PIT.  This option is enabled by default in slightly later
++     * systems, as turning the PIT off is a prerequisite to entering the C11
++     * power saving state.
++     *
++     * Xen currently depends on the legacy timer interrupt being active while
++     * IRQ routing is configured.
++     *
++     * Reconfigure the HPET into legacy mode to re-establish the timer
++     * interrupt.
++     */
++    if ( hpet_id & HPET_ID_LEGSUP &&
++         !((hpet_cfg = hpet_read32(HPET_CFG)) & HPET_CFG_LEGACY) )
++    {
++        unsigned int c0_cfg, ticks, count;
++
++        /* Stop the main counter. */
++        hpet_write32(hpet_cfg & ~HPET_CFG_ENABLE, HPET_CFG);
++
++        /* Reconfigure channel 0 to be 32bit periodic. */
++        c0_cfg = hpet_read32(HPET_Tn_CFG(0));
++        c0_cfg |= (HPET_TN_ENABLE | HPET_TN_PERIODIC | HPET_TN_SETVAL |
++                   HPET_TN_32BIT);
++        hpet_write32(c0_cfg, HPET_Tn_CFG(0));
++
++        /*
++         * The exact period doesn't have to match a legacy PIT.  All we need
++         * is an interrupt queued up via the IO-APIC to check routing.
++         *
++         * Use HZ as the frequency.
++         */
++        ticks = ((SECONDS(1) / HZ) * div_sc(hpet_rate, SECONDS(1), 32)) >> 32;
++
++        count = hpet_read32(HPET_COUNTER);
++
++        /*
++         * HPET_TN_SETVAL above is atrociously documented in the spec.
++         *
++         * Periodic HPET channels have a main comparator register, and
++         * separate accumulator register.  Each time an interrupt is
++         * generated, the accumulator register is re-added to the comparator
++         * set up the new period.
++         *
++         * Normally, writes to the CMP register update both registers.
++         * However, under these semantics, it is impossible to set up a
++         * periodic timer correctly without the main HPET counter being at 0.
++         *
++         * Instead, HPET_TN_SETVAL is a self-clearing control bit which we can
++         * use for periodic timers to mean that the second write to CMP
++         * updates the accumulator only, and not the absolute comparator
++         * value.
++         *
++         * This lets us set a period when the main counter isn't at 0.
++         */
++        hpet_write32(count + ticks, HPET_Tn_CMP(0));
++        hpet_write32(ticks,         HPET_Tn_CMP(0));
++
++        /* Restart the main counter, and legacy mode. */
++        hpet_write32(hpet_cfg | HPET_CFG_ENABLE | HPET_CFG_LEGACY, HPET_CFG);
++    }
++
+     return hpet_rate;
+ }
+ 
 -- 
-Julien Grall
+2.11.0
+
 
