@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22AED305D9F
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 14:54:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76100.137192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD70A305DAD
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jan 2021 14:59:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76106.137204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4lG4-0000Bj-1b; Wed, 27 Jan 2021 13:53:20 +0000
+	id 1l4lLl-0000Qx-PY; Wed, 27 Jan 2021 13:59:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76100.137192; Wed, 27 Jan 2021 13:53:20 +0000
+Received: by outflank-mailman (output) from mailman id 76106.137204; Wed, 27 Jan 2021 13:59:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4lG3-0000BK-UU; Wed, 27 Jan 2021 13:53:19 +0000
-Received: by outflank-mailman (input) for mailman id 76100;
- Wed, 27 Jan 2021 13:53:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l4lLl-0000QY-L4; Wed, 27 Jan 2021 13:59:13 +0000
+Received: by outflank-mailman (input) for mailman id 76106;
+ Wed, 27 Jan 2021 13:59:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4lG2-0000BF-UX
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 13:53:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4lG2-0007Ae-Pf
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 13:53:18 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1l4lG2-0001Yv-OH
- for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 13:53:18 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1l4lFq-0001Mu-Fs; Wed, 27 Jan 2021 13:53:06 +0000
+ (envelope-from <SRS0=rFzC=G6=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l4lLj-0000QT-S5
+ for xen-devel@lists.xenproject.org; Wed, 27 Jan 2021 13:59:11 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 82aca791-c3f9-4241-bcc2-a25a94e8f7cd;
+ Wed, 27 Jan 2021 13:59:10 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 78AFBABDA;
+ Wed, 27 Jan 2021 13:59:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,100 +39,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=a/IogMdq/ibn48EDkq8vE62npdUOddgEoc3zJJLBWkw=; b=xDr3CI1mAn4HJ47X7PMqJ4WvKp
-	mcqkFEY/sdx7oV74OebQmj3O9XajIgzIZadPKfb4Y9UEFGzFgaDmhLJJJd7ER5JElPpcJsC+GMXJp
-	LppsrrUJ0z3yTAOC04rwG6VEBNolSLztOFw+90NvCokGmDCweyG35kshQBVeHNAK+z0M=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 82aca791-c3f9-4241-bcc2-a25a94e8f7cd
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611755949; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ymCzo9mLRnx+klz2aLLGCvQekDkAL6VeU6kIAyQl5B8=;
+	b=hHWmOpM0k8WAi/Bsk/2vC6moDWg6Ds5mr8r2/8rbfgCwVjBHQr/c0BJaUh1LhaeXdMjvJC
+	m/+J0bvFJ8MvMbIoEoAXx8PYHICntzhz0gH+b6zNdvdaMrEAHP5Ch0HorWDH0Mqw2/5h3v
+	mrGRqj+tGqUE4+fPvsdVxRym4pH78cI=
+Subject: Re: [PATCH v2] x86/xen: avoid warning in Xen pv guest with
+ CONFIG_AMD_MEM_ENCRYPT enabled
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
+References: <20210127093822.18570-1-jgross@suse.com>
+ <fb2305a4-4741-c641-9639-5b17b63f2baf@citrix.com>
+ <2dc49fae-bf35-7c7d-2d86-338665db27ca@suse.com>
+ <6ca7dcf3-2588-3797-b90c-5eaca542a65d@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <27d2b0bb-3232-a99b-a577-e61014dd04bc@suse.com>
+Date: Wed, 27 Jan 2021 14:59:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24593.28738.216430.891500@mariner.uk.xensource.com>
-Date: Wed, 27 Jan 2021 13:53:06 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>,
-    Anthony PERARD <anthony.perard@citrix.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
-    xen-devel@lists.xenproject.org,
-    Manuel Bouyer <bouyer@antioche.eu.org>
-Subject: Re: [PATCH] Fix error: array subscript has type 'char' [and 1 more messages]
-In-Reply-To: <2452d5cb-90ba-a4c4-a5e4-3070c5a676d2@suse.com>,
-	<27ec4834-ebf2-2121-47f7-470083d03a3f@suse.com>
-References: <20210112181242.1570-1-bouyer@antioche.eu.org>
-	<574d9ed8-c827-6864-4732-4e1b813fc3e3@suse.com>
-	<20210114122912.GA2522@antioche.eu.org>
-	<1af2b532-4dce-29cf-94ae-ad0c399ecbce@suse.com>
-	<20210114141615.GA9157@mail.soc.lip6.fr>
-	<20210126174415.GA21858@mail.soc.lip6.fr>
-	<24592.22685.67161.585056@mariner.uk.xensource.com>
-	<2452d5cb-90ba-a4c4-a5e4-3070c5a676d2@suse.com>
-	<27ec4834-ebf2-2121-47f7-470083d03a3f@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+In-Reply-To: <6ca7dcf3-2588-3797-b90c-5eaca542a65d@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="JvC1SoRQx9avNbPw1HwzDh8UEKM1mAMMI"
 
-Jan Beulich writes ("Re: [PATCH] Fix error: array subscript has type 'char'"):
-> I did read that part of the spec before replying.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--JvC1SoRQx9avNbPw1HwzDh8UEKM1mAMMI
+Content-Type: multipart/mixed; boundary="p2AthCCs6u07wHRfE3QQqaMU5Ty8e0g49";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, x86@kernel.org, linux-kernel@vger.kernel.org
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
+Message-ID: <27d2b0bb-3232-a99b-a577-e61014dd04bc@suse.com>
+Subject: Re: [PATCH v2] x86/xen: avoid warning in Xen pv guest with
+ CONFIG_AMD_MEM_ENCRYPT enabled
+References: <20210127093822.18570-1-jgross@suse.com>
+ <fb2305a4-4741-c641-9639-5b17b63f2baf@citrix.com>
+ <2dc49fae-bf35-7c7d-2d86-338665db27ca@suse.com>
+ <6ca7dcf3-2588-3797-b90c-5eaca542a65d@citrix.com>
+In-Reply-To: <6ca7dcf3-2588-3797-b90c-5eaca542a65d@citrix.com>
 
-I find this quite astonishing.  You claimed that FreeBSD's libc was
-buggy *after having read the spec to which you agree it conforms*.
+--p2AthCCs6u07wHRfE3QQqaMU5Ty8e0g49
+Content-Type: multipart/mixed;
+ boundary="------------047F63F05DF2D09D19CC2609"
+Content-Language: en-US
 
->   Irrespective of the wording there it seems entirely unreasonable
-> to me for the spec to imply all use sites of the is...() functions
-> to have to use casts. Even more so that we all know (I suppose) that
-> casts can be dangerous as both potentially introducing bugs (perhaps
-> not at the point of their addition, but later when code elsewhere
-> gets changed) and keeping analysis tools from actually spotting
-> ones.
+This is a multi-part message in MIME format.
+--------------047F63F05DF2D09D19CC2609
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Nevertheless, this is the design of the C standard.  A common approach
-to this problem is something like this (from libxl_internal.h):
+On 27.01.21 12:23, Andrew Cooper wrote:
+> On 27/01/2021 10:26, J=C3=BCrgen Gro=C3=9F wrote:
+>> On 27.01.21 10:43, Andrew Cooper wrote:
+>>> On 27/01/2021 09:38, Juergen Gross wrote:
+>>>> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv=
+=2Ec
+>>>> index 4409306364dc..ca5ac10fcbf7 100644
+>>>> --- a/arch/x86/xen/enlighten_pv.c
+>>>> +++ b/arch/x86/xen/enlighten_pv.c
+>>>> @@ -583,6 +583,12 @@ DEFINE_IDTENTRY_RAW(xenpv_exc_debug)
+>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 exc_debug(re=
+gs);
+>>>>  =C2=A0 }
+>>>>  =C2=A0 +DEFINE_IDTENTRY_RAW(exc_xen_unknown_trap)
+>>>> +{
+>>>> +=C2=A0=C2=A0=C2=A0 /* This should never happen and there is no way =
+to handle it. */
+>>>> +=C2=A0=C2=A0=C2=A0 panic("Unknown trap in Xen PV mode.");
+>>>
+>>> Looks much better.=C2=A0 How about including regs->entry_vector here,=
+ just to
+>>> short circuit the inevitable swearing which will accompany encounteri=
+ng
+>>> this panic() ?
+>>
+>> You are aware the regs parameter is struct pt_regs *, not the Xen
+>> struct cpu_user_regs *?
+>=20
+> Yes, but I was assuming that they both contained the same information.
+>=20
+>>
+>> So I have no idea how I should get this information without creating
+>> a per-vector handler.
+>=20
+> Oh - that's dull.
+>=20
+> Fine then.=C2=A0 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>=
 
-  /*
-   * int CTYPE(ISFOO, char c);
-   * int CTYPE(toupper, char c);
-   * int CTYPE(tolower, char c);
-   *
-   * This is necessary because passing a simple char to a ctype.h
-   * is forbidden.  ctype.h macros take ints derived from _unsigned_ chars.
-   *
-   * If you have a char which might be EOF then you should already have
-   * it in an int representing an unsigned char, and you can use the
-   * <ctype.h> macros directly.  This generally happens only with values
-   * from fgetc et al.
-   *
-   * For any value known to be a character (eg, anything that came from
-   * a char[]), use CTYPE.
-   */
-  #define CTYPE(isfoo,c) (isfoo((unsigned char)(c)))
+>=20
 
-Jan Beulich writes ("Re: [PATCH] Fix error: array subscript has type 'char'"):
-> On 27.01.2021 09:31, Jan Beulich wrote:
-> > But yes, I'm not the maintainer of this code, so if you're
-> > happy with such risks, so be it.
-> 
-> And actually I was only partly right here - there's one hunk
-> here affecting code I'm the maintainer just as much as you
-> are. At least there I'd like to ask that ...
-> 
-> > For the record, to me the less risky approach here would seem
-> > to have been to make use of compilers allowing to choose
-> > whether plain char is signed or unsigned, and force it to
-> > unsigned for at least the affected components.
-> 
-> ... this be considered as an alternative, before I maybe
-> withdraw my de-facto nak.
+I think I'll switch the panic() to printk(); BUG(); in order to have
+more diagnostic data. Can I keep your R-b: with that modification?
 
-Whether char is signed or unsigned is generally specified in the
-platform API/ABI.  Deviating from this for userland code is not
-possible or reasonable since it would involve processing the system
-headers with a deviant langauge definition!
 
-Deviating from it for hypervisor code would be possible but I think it
-would be unwise.
+Juergen
 
-Ian.
+--------------047F63F05DF2D09D19CC2609
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------047F63F05DF2D09D19CC2609--
+
+--p2AthCCs6u07wHRfE3QQqaMU5Ty8e0g49--
+
+--JvC1SoRQx9avNbPw1HwzDh8UEKM1mAMMI
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmARcawFAwAAAAAACgkQsN6d1ii/Ey/S
++Qf/SDnP8YDLZOhMmc4iROihLCxWJ55OA9hJWAm0sH3GXU/Z2LG0yvfpO0+54XPic2HxvbInCiOs
+Qxf/QTXTUtp8wuzcoP6DnODQ1bQnmON7IUxGaprzsvSdBEsVzhJKeuckliPwupFNqe0jwdi+Cx2r
+hKHL+iFV56P5ePyNbLn46/x1avlumXLTKCM54xdbL4kU7u7Eg9MKU+lSh6JTEIMEsSvPmQoMwk1w
+bxiUVBnH1C6xOJFYK0cfiZMMfweG/AyvMo9leXfSYqUPIBj7U7oGy/81I7iNk6qd0kq51I3I0D9s
+Ip8s3jU1HFNUHLA3PrYCYJc7YJA+1pfWAid3aX1ldw==
+=u/6S
+-----END PGP SIGNATURE-----
+
+--JvC1SoRQx9avNbPw1HwzDh8UEKM1mAMMI--
 
