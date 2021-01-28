@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 746EA3070CE
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 09:14:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76777.138652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80E4D30717E
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 09:31:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76792.138680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l52Qu-0005wP-9m; Thu, 28 Jan 2021 08:13:40 +0000
+	id 1l52hZ-00080h-6l; Thu, 28 Jan 2021 08:30:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76777.138652; Thu, 28 Jan 2021 08:13:40 +0000
+Received: by outflank-mailman (output) from mailman id 76792.138680; Thu, 28 Jan 2021 08:30:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l52Qu-0005vx-3x; Thu, 28 Jan 2021 08:13:40 +0000
-Received: by outflank-mailman (input) for mailman id 76777;
- Thu, 28 Jan 2021 08:13:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l52Qs-0005vn-Gy; Thu, 28 Jan 2021 08:13:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l52Qs-0000vM-8g; Thu, 28 Jan 2021 08:13:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l52Qr-0000SL-Sj; Thu, 28 Jan 2021 08:13:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l52Qr-0001Ei-SF; Thu, 28 Jan 2021 08:13:37 +0000
+	id 1l52hZ-00080L-3o; Thu, 28 Jan 2021 08:30:53 +0000
+Received: by outflank-mailman (input) for mailman id 76792;
+ Thu, 28 Jan 2021 08:30:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TgTx=G7=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l52hY-00080G-1l
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 08:30:52 +0000
+Received: from mail-wm1-x335.google.com (unknown [2a00:1450:4864:20::335])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e2fe3801-fbd8-4b48-8292-a5da9c7ddfed;
+ Thu, 28 Jan 2021 08:30:50 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id y187so3861351wmd.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 00:30:50 -0800 (PST)
+Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
+ by smtp.gmail.com with ESMTPSA id z8sm5117039wmi.44.2021.01.28.00.30.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 28 Jan 2021 00:30:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,253 +41,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dj1rMZx9/UTq2O+lESrkHZQTrWRbBWZCzKZ1yYglekE=; b=UVrx7fVSux0f+ei8ArYukdEOto
-	yh9DdxZ4k7d3TlJ8jMrGdA1AB3n/FEQO5GOyQAqM9URSPgw9ftridMpxG389r+51UUizjq835oN+K
-	9t72RvIbxXKJXIJupmGj/ywLCAPN/zFZo3lrVWyXIH2wiw9LYfKumP6dE3JPWCRf/JxI=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158717-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e2fe3801-fbd8-4b48-8292-a5da9c7ddfed
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=H8WoKx+nSfhoPodRKXREvqGtXU4BW2MHhgMwXifC4wM=;
+        b=rLc9k9RMU1WVOq8sNKZ/5ut4I5yCV8PQzbp95t3Ttj/6pShlxr73mBOXUQhzwiVv4S
+         MZwgx3iN6I8P3FONK3yEOlJofYojyoU+K+B+zWWwAcmFHPwMH4vPFjzdVcFu54KPQ1q8
+         u540Sp/Q36zOpY/dVGT5c9sow2Iku7PddwA+aYdXugyLp7u9CUwNEjbb0UGHG9ssuT/I
+         e+xkzudB4MdKygMk6MysW8WRR+fNnXm4J3cwTBHBlI7wJNZc2y+X06gUPtnjV5XDIcye
+         RAb7NvxVMc6JTGgKD7Ic0xoPeDJw7/r9H/2489ZS2EBtIS+iVosCw9w5xioer3/3MFNQ
+         LkZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=H8WoKx+nSfhoPodRKXREvqGtXU4BW2MHhgMwXifC4wM=;
+        b=Osd+cVh097gFo3OOpX3oWNX2AsBwjjOdr0y5wlvxx+EYE5T7AvMkyndqYHnY6o1zZ3
+         qYv/wcrRCUJK8h2nd2ZW2vXzcWErsqc2jyCdYeK5LLzL/eGpSXekjfW/5C9fY1Che303
+         UB2LsAn9lXew4qxWOktGqgMLBcbDCSMG+mp6Xna9aJ+udcZPANGsFJKs+/YcV6inkNwb
+         Vl8W9k4gElF3U+3irbhlD/oKuc7o5ooyIn2FJfvPhzbXRrfYjh6IRG7sHKasH0Cy81V/
+         AULxrZL07s5nkXSnc1NHR1ntNICyq59oD60qUooeUwWHjv32HWxgo/Y7TBpa8wM5af5f
+         5Lig==
+X-Gm-Message-State: AOAM531ndCiRGDgt7Q/VUBSzRsSqjYLeUKfwNSu4oSzpjCXNXm5huyu6
+	gLUn8LPP7CFpTClMe7Kvz/Y=
+X-Google-Smtp-Source: ABdhPJzPYCwg+J5CvqY2nxpXnp6tjmw1gSi+TgYY7Kv1KFq+k91l3/rqQl/t9heR2hclXXCDgdY3EA==
+X-Received: by 2002:a1c:4e:: with SMTP id 75mr7683830wma.150.1611822650069;
+        Thu, 28 Jan 2021 00:30:50 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Dongli Zhang'" <dongli.zhang@oracle.com>,
+	<xen-devel@lists.xenproject.org>,
+	<linux-block@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Cc: "'Paul Durrant'" <pdurrant@amazon.com>,
+	"'Konrad Rzeszutek Wilk'" <konrad.wilk@oracle.com>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Jens Axboe'" <axboe@kernel.dk>
+References: <20210127103034.2559-1-paul@xen.org> <18c3efc4-57b6-5a5d-cfa3-7820b7f5080c@oracle.com>
+In-Reply-To: <18c3efc4-57b6-5a5d-cfa3-7820b7f5080c@oracle.com>
+Subject: RE: [PATCH] xen-blkback: fix compatibility bug with single page rings
+Date: Thu, 28 Jan 2021 08:30:48 -0000
+Message-ID: <028b01d6f54f$e1e52280$a5af6780$@xen.org>
 MIME-Version: 1.0
-Subject: [libvirt test] 158717: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-xsm:xen-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=85be8e3d7481fddb3902bb2259592322d9e517d9
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 28 Jan 2021 08:13:37 +0000
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQH8tEXaaRm8hTZRIcgVeZub79k21gI2QQrMqd+EqUA=
+Content-Language: en-gb
 
-flight 158717 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158717/
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+Dongli Zhang
+> Sent: 27 January 2021 19:57
+> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org; =
+linux-block@vger.kernel.org; linux-
+> kernel@vger.kernel.org
+> Cc: Paul Durrant <pdurrant@amazon.com>; Konrad Rzeszutek Wilk =
+<konrad.wilk@oracle.com>; Roger Pau
+> Monn=C3=A9 <roger.pau@citrix.com>; Jens Axboe <axboe@kernel.dk>
+> Subject: Re: [PATCH] xen-blkback: fix compatibility bug with single =
+page rings
+>=20
+>=20
+>=20
+> On 1/27/21 2:30 AM, Paul Durrant wrote:
+> > From: Paul Durrant <pdurrant@amazon.com>
+> >
+> > Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to =
+avoid
+> > inconsistent xenstore 'ring-page-order' set by malicious blkfront"), =
+the
+> > behaviour of xen-blkback when connecting to a frontend was:
+> >
+> > - read 'ring-page-order'
+> > - if not present then expect a single page ring specified by =
+'ring-ref'
+> > - else expect a ring specified by 'ring-refX' where X is between 0 =
+and
+> >   1 << ring-page-order
+> >
+> > This was correct behaviour, but was broken by the afforementioned =
+commit to
+> > become:
+> >
+> > - read 'ring-page-order'
+> > - if not present then expect a single page ring
+> > - expect a ring specified by 'ring-refX' where X is between 0 and
+> >   1 << ring-page-order
+> > - if that didn't work then see if there's a single page ring =
+specified by
+> >   'ring-ref'
+> >
+> > This incorrect behaviour works most of the time but fails when a =
+frontend
+> > that sets 'ring-page-order' is unloaded and replaced by one that =
+does not
+> > because, instead of reading 'ring-ref', xen-blkback will read the =
+stale
+> > 'ring-ref0' left around by the previous frontend will try to map the =
+wrong
+> > grant reference.
+> >
+> > This patch restores the original behaviour.
+> >
+> > Fixes: 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid =
+inconsistent xenstore 'ring-page-
+> order' set by malicious blkfront")
+> > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> > ---
+> > Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+> > Cc: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
+> > Cc: Jens Axboe <axboe@kernel.dk>
+> > Cc: Dongli Zhang <dongli.zhang@oracle.com>
+> > ---
+> >  drivers/block/xen-blkback/common.h |  1 +
+> >  drivers/block/xen-blkback/xenbus.c | 36 =
++++++++++++++-----------------
+> >  2 files changed, 17 insertions(+), 20 deletions(-)
+> >
+> > diff --git a/drivers/block/xen-blkback/common.h =
+b/drivers/block/xen-blkback/common.h
+> > index b0c71d3a81a0..524a79f10de6 100644
+> > --- a/drivers/block/xen-blkback/common.h
+> > +++ b/drivers/block/xen-blkback/common.h
+> > @@ -313,6 +313,7 @@ struct xen_blkif {
+> >
+> >  	struct work_struct	free_work;
+> >  	unsigned int 		nr_ring_pages;
+> > +	bool                    multi_ref;
+> >  	/* All rings for this device. */
+> >  	struct xen_blkif_ring	*rings;
+> >  	unsigned int		nr_rings;
+> > diff --git a/drivers/block/xen-blkback/xenbus.c =
+b/drivers/block/xen-blkback/xenbus.c
+> > index 9860d4842f36..4c1541cde68c 100644
+> > --- a/drivers/block/xen-blkback/xenbus.c
+> > +++ b/drivers/block/xen-blkback/xenbus.c
+> > @@ -998,10 +998,15 @@ static int read_per_ring_refs(struct =
+xen_blkif_ring *ring, const char *dir)
+> >  	for (i =3D 0; i < nr_grefs; i++) {
+> >  		char ring_ref_name[RINGREF_NAME_LEN];
+> >
+> > -		snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref%u", i);
+> > +		if (blkif->multi_ref)
+> > +			snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref%u", i);
+> > +		else {
+> > +			WARN_ON(i !=3D 0);
+> > +			snprintf(ring_ref_name, RINGREF_NAME_LEN, "ring-ref");
+> > +		}
+> > +
+> >  		err =3D xenbus_scanf(XBT_NIL, dir, ring_ref_name,
+> >  				   "%u", &ring_ref[i]);
+> > -
+> >  		if (err !=3D 1) {
+> >  			if (nr_grefs =3D=3D 1)
+> >  				break;
+>=20
+> I think we should not simply break here because the failure can be due =
+to when
+> (nr_grefs =3D=3D 1) and reading from legacy "ring-ref".
+>=20
 
-Regressions :-(
+Yes, you're quite right. This special case is no longer correct.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-xsm                6 xen-build                fail REGR. vs. 151777
+> Should we do something as below?
+>=20
+> err =3D -EINVAL;
+> xenbus_dev_fatal(dev, err, "reading %s/ring-ref", dir);
+> return err;
+>=20
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+I think simply removing the 'if (nr_grefs =3D=3D 1)' will be sufficient.
 
-version targeted for testing:
- libvirt              85be8e3d7481fddb3902bb2259592322d9e517d9
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+  Paul
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  202 days
-Failing since        151818  2020-07-11 04:18:52 Z  201 days  196 attempts
-Testing same since   158717  2021-01-28 04:19:52 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brian Turek <brian.turek@gmail.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Helmut Grohne <helmut@subdivi.de>
-  Ian Wienand <iwienand@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Laine Stump <laine@redhat.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Orion Poplawski <orion@nwra.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  Shi Lei <shi_lei@massclouds.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tuguoyi <tu.guoyi@h3c.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  Weblate <noreply@weblate.org>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               fail    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+> Dongli Zhang
+>=20
+>=20
+> > @@ -1013,18 +1018,6 @@ static int read_per_ring_refs(struct =
+xen_blkif_ring *ring, const char *dir)
+> >  		}
+> >  	}
+> >
+> > -	if (err !=3D 1) {
+> > -		WARN_ON(nr_grefs !=3D 1);
+> > -
+> > -		err =3D xenbus_scanf(XBT_NIL, dir, "ring-ref", "%u",
+> > -				   &ring_ref[0]);
+> > -		if (err !=3D 1) {
+> > -			err =3D -EINVAL;
+> > -			xenbus_dev_fatal(dev, err, "reading %s/ring-ref", dir);
+> > -			return err;
+> > -		}
+> > -	}
+> > -
+> >  	err =3D -ENOMEM;
+> >  	for (i =3D 0; i < nr_grefs * XEN_BLKIF_REQS_PER_PAGE; i++) {
+> >  		req =3D kzalloc(sizeof(*req), GFP_KERNEL);
+> > @@ -1129,10 +1122,15 @@ static int connect_ring(struct backend_info =
+*be)
+> >  		 blkif->nr_rings, blkif->blk_protocol, protocol,
+> >  		 blkif->vbd.feature_gnt_persistent ? "persistent grants" : "");
+> >
+> > -	ring_page_order =3D xenbus_read_unsigned(dev->otherend,
+> > -					       "ring-page-order", 0);
+> > -
+> > -	if (ring_page_order > xen_blkif_max_ring_order) {
+> > +	err =3D xenbus_scanf(XBT_NIL, dev->otherend, "ring-page-order", =
+"%u",
+> > +			   &ring_page_order);
+> > +	if (err !=3D 1) {
+> > +		blkif->nr_ring_pages =3D 1;
+> > +		blkif->multi_ref =3D false;
+> > +	} else if (ring_page_order <=3D xen_blkif_max_ring_order) {
+> > +		blkif->nr_ring_pages =3D 1 << ring_page_order;
+> > +		blkif->multi_ref =3D true;
+> > +	} else {
+> >  		err =3D -EINVAL;
+> >  		xenbus_dev_fatal(dev, err,
+> >  				 "requested ring page order %d exceed max:%d",
+> > @@ -1141,8 +1139,6 @@ static int connect_ring(struct backend_info =
+*be)
+> >  		return err;
+> >  	}
+> >
+> > -	blkif->nr_ring_pages =3D 1 << ring_page_order;
+> > -
+> >  	if (blkif->nr_rings =3D=3D 1)
+> >  		return read_per_ring_refs(&blkif->rings[0], dev->otherend);
+> >  	else {
+> >
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 38191 lines long.)
 
