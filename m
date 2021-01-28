@@ -2,58 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6174307647
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 13:46:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76986.139214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D9C307645
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 13:45:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76988.139203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l56gf-0002Xf-CL; Thu, 28 Jan 2021 12:46:13 +0000
+	id 1l56g6-0002S8-2I; Thu, 28 Jan 2021 12:45:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76986.139214; Thu, 28 Jan 2021 12:46:13 +0000
+Received: by outflank-mailman (output) from mailman id 76988.139203; Thu, 28 Jan 2021 12:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l56gf-0002XE-8g; Thu, 28 Jan 2021 12:46:13 +0000
-Received: by outflank-mailman (input) for mailman id 76986;
- Thu, 28 Jan 2021 12:44:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l56g5-0002Rj-VS; Thu, 28 Jan 2021 12:45:37 +0000
+Received: by outflank-mailman (input) for mailman id 76988;
+ Thu, 28 Jan 2021 12:45:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3/5e=G7=oracle.com=dave.kleikamp@srs-us1.protection.inumbo.net>)
- id 1l56ey-0002QO-8w
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 12:44:28 +0000
-Received: from userp2130.oracle.com (unknown [156.151.31.86])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e0315bc8-1a9d-4216-8b6c-e8bf94f873d1;
- Thu, 28 Jan 2021 12:44:26 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10SCYAiu192248;
- Thu, 28 Jan 2021 12:43:16 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2130.oracle.com with ESMTP id 368b7r3xs7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 28 Jan 2021 12:43:16 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10SCbobd047153;
- Thu, 28 Jan 2021 12:43:15 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2172.outbound.protection.outlook.com [104.47.56.172])
- by aserp3030.oracle.com with ESMTP id 368wcqmysx-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 28 Jan 2021 12:43:15 +0000
-Received: from CH2PR10MB4118.namprd10.prod.outlook.com (2603:10b6:610:a4::8)
- by CH2PR10MB3941.namprd10.prod.outlook.com (2603:10b6:610:4::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.15; Thu, 28 Jan
- 2021 12:43:11 +0000
-Received: from CH2PR10MB4118.namprd10.prod.outlook.com
- ([fe80::2cd3:dc36:f8d4:ea2a]) by CH2PR10MB4118.namprd10.prod.outlook.com
- ([fe80::2cd3:dc36:f8d4:ea2a%8]) with mapi id 15.20.3784.019; Thu, 28 Jan 2021
- 12:43:11 +0000
-Received: from [192.168.0.190] (68.201.65.98) by
- SN4PR0501CA0077.namprd05.prod.outlook.com (2603:10b6:803:22::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.8 via Frontend
- Transport; Thu, 28 Jan 2021 12:43:07 +0000
+ <SRS0=TgTx=G7=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l56g4-0002Re-Dx
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 12:45:36 +0000
+Received: from mail-wm1-x332.google.com (unknown [2a00:1450:4864:20::332])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1b289c31-15be-418e-a191-cc1cee2c06ef;
+ Thu, 28 Jan 2021 12:45:35 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id m2so4204595wmm.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 04:45:35 -0800 (PST)
+Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
+ by smtp.gmail.com with ESMTPSA id 17sm5604203wmk.48.2021.01.28.04.45.33
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 28 Jan 2021 04:45:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,171 +41,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0315bc8-1a9d-4216-8b6c-e8bf94f873d1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=4s6f1Z4X6xFsF2Ee1gAGevBW8HhU6VhaeckNt9jWQHc=;
- b=kX6Rlr0au8sY4I6yUJwn2LXmhSeVCZE3jKgLuqO1QhpGfaIM4g2+Ig07nc+VWL7SzJVg
- Bj72iFAcU9Za8alm5F6IopQUt9S9FRLVjgKOzpkdupcC+hpfJjJHBLB/bmz88hbIhmKm
- R5V6ChjnvtAW/+gc2yOzLGfoJTVsrsbY+kr8JgLDbWqNF4+R6cbKMt3a3s7X48K4271x
- CDkPKyy97rdwx0sWjQDA2+7KudY+HrQldnAORaUtHWSSe5HKI9gYe3WuYasENMKo4H26
- YZHYf/IJQe1vowSGdXaismmdrzSvukfzxgZgsVxZUPtuzVPDomuh8lDLOEXGRn0omBFg Fg== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RKa1PHQx+4vPhBbaBxaJjVKGURsFjvvn2W6lC/iFdn9bkxeVzsvtftX1xuRA2u84IGmDemjkbsOwoFCwOvg9NKLHBcEzufwP4kH1tdGx+H9eQX62kkQICCwZp9KJr5vKd1yHCr3APlfB1zM2KLBJ03e+r9Vcf7FZypAoO/lXq1OSRCFA/4kvSijmF2tXHX7Zyj1YSIdRqMhnZEekXkq3qsHnU8jRHsFVM9RqQz2AjXAmdLnbA11IsEL7gMZs/9lPCj/aPVW20Y+pji7OPD41ujvylPOxbe1JX1m4boJpM9Qvhr0FETkYNwB3/eepMUZflx48FJ6UX1cwUPN+utuiTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4s6f1Z4X6xFsF2Ee1gAGevBW8HhU6VhaeckNt9jWQHc=;
- b=eye7cqB5+rQXahNo3YEXGO/r0wrAgfNmXyOfChG/HMWPvXF4nqWaeLetDNEHYAxEXke5tVmaQzJLisX8as5R65JK8SE0agPGBN38fiNX9bnfY0FmIsuTW7JnCvs4NLUHTz4zsQFevpAPO9l4+CZ0HZSS6wMOpxU8UU37D5536AznjCYNCpXpR7CRgQ7P1FTShRVo+ukLXm6LHKuKOsIFFW1d/9QiJEwOwwfMQKtjySz3EAOsroLmoDCYVZCrSOhEK0RKD57Il4yxnwNpBrArsGxShbQZIPXT4nuL6SUxgqHJRGqLZZqKXAigJ8degYRY8pPhfRMTK9tUQH5hPL9MkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+X-Inumbo-ID: 1b289c31-15be-418e-a191-cc1cee2c06ef
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4s6f1Z4X6xFsF2Ee1gAGevBW8HhU6VhaeckNt9jWQHc=;
- b=Mr0nOt0UdZbc4cbI+3mzml8n5Q2KLA4MNetq2+yWthAXAn2HGggfFVZFDPIA5a75lWpBuhsz6jb+7Hv4R+QLC6SnfehG7z67W5eJYq42XFUyMZ/Wqub2sQs6r+KdZ2HwpgSqYLe4paKq0Af/xnNbc+FBBI7IKZugdF6TcuEkdt4=
-Authentication-Results: linux.alibaba.com; dkim=none (message not signed)
- header.d=none;linux.alibaba.com; dmarc=none action=none
- header.from=oracle.com;
-Subject: Re: [RFC PATCH 19/34] fs/jfs/jfs_logmgr.c: use bio_new in lbmRead
-To: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>, linux-xfs@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
-        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-        drbd-dev@lists.linbit.com, xen-devel@lists.xenproject.org,
-        linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
-        target-devel@vger.kernel.org, linux-fscrypt@vger.kernel.org,
-        jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
-        ocfs2-devel@oss.oracle.com, linux-pm@vger.kernel.org,
-        linux-mm@kvack.org
-Cc: axboe@kernel.dk, philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
-        konrad.wilk@oracle.com, roger.pau@citrix.com, minchan@kernel.org,
-        ngupta@vflare.org, sergey.senozhatsky.work@gmail.com, agk@redhat.com,
-        snitzer@redhat.com, hch@lst.de, sagi@grimberg.me,
-        martin.petersen@oracle.com, viro@zeniv.linux.org.uk, tytso@mit.edu,
-        jaegeuk@kernel.org, ebiggers@kernel.org, djwong@kernel.org,
-        shaggy@kernel.org, konishi.ryusuke@gmail.com, mark@fasheh.com,
-        jlbec@evilplan.org, joseph.qi@linux.alibaba.com, damien.lemoal@wdc.com,
-        naohiro.aota@wdc.com, jth@kernel.org, rjw@rjwysocki.net,
-        len.brown@intel.com, pavel@ucw.cz, akpm@linux-foundation.org,
-        hare@suse.de, gustavoars@kernel.org, tiwai@suse.de,
-        alex.shi@linux.alibaba.com, asml.silence@gmail.com,
-        ming.lei@redhat.com, tj@kernel.org, osandov@fb.com, bvanassche@acm.org,
-        jefflexu@linux.alibaba.com
-References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
- <20210128071133.60335-20-chaitanya.kulkarni@wdc.com>
-From: Dave Kleikamp <dave.kleikamp@oracle.com>
-Message-ID: <8d3f7e70-1c7a-567a-0e60-97bac846bf13@oracle.com>
-Date: Thu, 28 Jan 2021 06:43:03 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-In-Reply-To: <20210128071133.60335-20-chaitanya.kulkarni@wdc.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [68.201.65.98]
-X-ClientProxiedBy: SN4PR0501CA0077.namprd05.prod.outlook.com
- (2603:10b6:803:22::15) To CH2PR10MB4118.namprd10.prod.outlook.com
- (2603:10b6:610:a4::8)
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=5HZmOnhuwAj2v4zjq2s472s3S/ZmtFf7k2VzcL5KLLM=;
+        b=Qms3RaHi+DvRsyyVaA/lNb2x+IrecvIp5CtMyJpm7xAOAi/8NAtORBAhvmx11wzXLv
+         0ouZxQpC9uYV5vW6X67XvMSkWR/ggSVLhOm27PP7UxfwsAQTGPOmA2yNmcHiDjFfWwss
+         eBEfdEs4UCGEYBj82nVFBnqdavV6VSzc4oYc4xtQ2uMzZWTLO8MOY69WXej1GhK31y0j
+         DPMjvHpFWGo7sMsAzKDn/JiZTGTQq4UF7cddWbIBL8wqCgmfSVmShpz7EyblfUO/9Z6s
+         yPyPVwgNVDTnn4VELCA27skTX4hjgKumiXQG9o1lRxV0QGqfaB6y8ZvtyXntR6ssvRNn
+         5z0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=5HZmOnhuwAj2v4zjq2s472s3S/ZmtFf7k2VzcL5KLLM=;
+        b=DYy61i9qn9yEkAbdTYqDr/9/Z9yT9B3dkvP1kmX62hQwbo7UdaKFcBGFQ/AFVOOQQR
+         xAFTb7IEslwK3V5seLZaehtlHXczyBTvnCz+qrY7kOK15fFbj9vB+KzzENGbJJf+Fnba
+         ifwNffTXqxVari4fMP8xdb16DEW97+TDC5/QpME9MP4w5JAZVeV7/als/OOAXYdnGWLI
+         bMWXK85txDqVnfogDQS5QnLog+4QvK4L4XhdstnPRnF0VkTuD2Xg4eocr/AzAmBAw81v
+         +NbzX0B0M8O3j4HqPTWoZ7XJBUOP155jpG9ZRrTlg8IHmWFK38wvyXrgLkY6P50XHQYL
+         i4uA==
+X-Gm-Message-State: AOAM5312hhb7l+7n6V+XvqkngGG6/pxaNj5VMy9+RwdkK+PE8nmI2ImK
+	vBPvOPq/CxdJJcIZQBpY0GE=
+X-Google-Smtp-Source: ABdhPJygj28s4pfoQGpSH5eZqlVdE6ngPXXE0+aDXsnRk8MZgUwIBGcqrIXjj28iGOSOXrpaDMpHCQ==
+X-Received: by 2002:a1c:3882:: with SMTP id f124mr8508548wma.56.1611837934699;
+        Thu, 28 Jan 2021 04:45:34 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'Xen-devel'" <xen-devel@lists.xenproject.org>
+Cc: "'Wei Liu'" <wl@xen.org>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Juergen Gross'" <jgross@suse.com>,
+	"'Ian Jackson'" <iwj@xenproject.org>,
+	=?utf-8?Q?'Micha=C5=82_Leszczy=C5=84ski'?= <michal.leszczynski@cert.pl>,
+	"'Hubert Jasudowicz'" <hubert.jasudowicz@cert.pl>,
+	"'Tamas K Lengyel'" <tamas@tklengyel.com>,
+	"'Manuel Bouyer'" <bouyer@netbsd.org>
+References: <20210128120152.9908-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20210128120152.9908-1-andrew.cooper3@citrix.com>
+Subject: RE: [PATCH v4] tools/foreignmem: Support querying the size of a resource
+Date: Thu, 28 Jan 2021 12:45:33 -0000
+Message-ID: <029301d6f573$783c9a10$68b5ce30$@xen.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0e01d42d-3bc2-4bab-28da-08d8c38a4555
-X-MS-TrafficTypeDiagnostic: CH2PR10MB3941:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: 
-	<CH2PR10MB39411E0FD376FAA86E74219987BA9@CH2PR10MB3941.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:260;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	pJ5ccHGdfMIuYnzx8aq0wBe7CGK5hELGkFwmW+UbSGKkOVpfgd4YBi0vrc+er51UtFKESCZAyt1Tp5H5X6cEG9b1EeQrBf4RSEyzl3baouUCAYXgXHVFR0/RrNoIj7y0HIIMRk7rAHMY0vw04eZ0KN1Rg0nSmRbIXxfIzHm/+llfg5vXr7mz+bpOE+7sfq/1lFfhHLxDCXXWejvvBjnCeOxXqgBDiOXdG5T5s0+D4oxdxJZFuttUOavuECY7bCePtreJrvjchJOPXhU1BoOiRU4gVcpEp8gkj+VeGWMkfFRlm0cCmZbfS3BfDuXDIT7v3vdL8Q9W39+CtghNyBZ4KaMGtxayQFhOQ6Po0F1ZVyaiiuZ85rlA4rjv24EJRBq6/z02CElTZrxJeLOHNl1EFko6t5wnFfQCXczxRrfrpdXumXasRKoJ/+16Gw0rrPZY85eRY7PEoxjxU7PLkD4+F17RBlIaAnKfg+aLMDxGkkoSN9BOBtMlkavxKTCf8ofiLHhjadTYZo2E3Uz0awpIg+XtnZwMJu+yQJg5YabAYiD3ogLMFP/9xSg9wyCqCxIWb2px3qKIgj4zJ8SqXI+ievvKAKlegmf0tVnNgoQvfibMDk1NTpx5Py49FzNeNngt
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR10MB4118.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(346002)(396003)(136003)(39860400002)(366004)(376002)(7366002)(6486002)(36756003)(2616005)(66556008)(83380400001)(2906002)(921005)(16526019)(5660300002)(8676002)(66476007)(7406005)(478600001)(7416002)(86362001)(186003)(6666004)(316002)(16576012)(31696002)(66946007)(8936002)(53546011)(956004)(4326008)(26005)(31686004)(44832011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: 
-	=?utf-8?B?Vm4rTktBWm5uc09iM3FnVVBkdjNUVHBpdWs5Q0ZDTkk5R0E3ODRnYUZMMktU?=
- =?utf-8?B?RG56Y1hFZjFxaXJGM1N2TnlIN0ZCOFJCa2FKYmpJMEZDTGJIcU81MkkvWUN5?=
- =?utf-8?B?TFd0TUV5cERHM1RvKytObUVJd0NXSmpZa1NRZk5iRGhldTRMSlVvajhDTlhR?=
- =?utf-8?B?T0txelh4S3RUTDRrN20rSjFIZzBwdk1OOFRtMHBOUTdjMUhHby9mcWVJWFBm?=
- =?utf-8?B?bndkYzh1dWM1NVZXRk9pTEFmbG9Mcnl2N1h1YzhDVTVSdWdjczNKMFk1LzM5?=
- =?utf-8?B?STBkVWthUEIzamRkOTlvS0xNUHdFNFhkbVRxQXEvKzdEODZhdmlMSDRjbU9T?=
- =?utf-8?B?aENkbks2SEo1ZzNJanV3Z2pHVW1pUFF6eXdlRVkyTVBrRE42a2FjbWIwWkpl?=
- =?utf-8?B?TDdURFBoVFVSMnh4U0VLcjFTTUJrM2JXbXBSY3J3T3pQb3E0eHFTSWdZcXNX?=
- =?utf-8?B?cm9INjZLZG9QQ0dJR2JXZS9LNUtGeVZhTDlmTXV3SHVlczBrbldTWHFGdjhI?=
- =?utf-8?B?YlFTR2pCalVGQWo0aTUxblpoR1h3RjZKd3J3R2FCZDlNc0RVSUdtUFMyODht?=
- =?utf-8?B?Qi9pd1NrdlJoL243S2U1eUsyVEtJZ3FYckRmMFRmUllPcW1leFZnSnVEY2R3?=
- =?utf-8?B?Z2hDdUx4R3FyRjJqVEZ2WkRBWWJOdy9iY3JsUXFtSzhBYmhOZlp1MEZmMW1J?=
- =?utf-8?B?RU1udXJkREFRS0lFMUU0dlNRazZ4Vmw5UGlrTnExV3RKdzBodnZseFFKQTVz?=
- =?utf-8?B?Uy9FdkhyUjJtVU85aklWcXkzd0g4a0FMYllNR01TUFl5dkQ3ZkpJdUJDMksx?=
- =?utf-8?B?VjMvUWVUVnFpNzd0ZE1PZEtMaElncUlFYjYvNFBQZ3hVeXBrVDNVOXhORTA3?=
- =?utf-8?B?azNUa1FVUXZzTXZxQWIxeXUvdjlvbHRrR3ZTbEpwRUZpOVc5ZUZvWWVjWGFM?=
- =?utf-8?B?dGh5MTFxYVdobnA3dDZtckhsallCWHU1SXBwYkxXNHFNb2dLR3BMQ3BEWEFt?=
- =?utf-8?B?K2tRNnZ0eU9EZHF3TmVycGZzY0RSWHJibHlOcnYvamJCZEZmSzk0cnN1NXRR?=
- =?utf-8?B?RjBrd0I1eGVTSWlUb3RPbjNVUnhLMGxqeko1Vk41emRZMWxjRlZmNE5yRkxD?=
- =?utf-8?B?Ri9ITS8vQ3c4dDVYbnlHbU8zU0RqS09wK0NXaFRaWnkxd3JDL2thTSttS1lv?=
- =?utf-8?B?VnR3MlVIdjRlSy85QTdCS1FhekYvbnZyTjZlZTJtcU85NmtER3o5S0RDV3JL?=
- =?utf-8?B?cTJiTEFPUlJDWksyeS81NzVueSt5QmdieUYwVHd2bGRZZzdUYlB4QzhLNUtQ?=
- =?utf-8?B?Rjk0eGVMVGV0aFF4WS8zUG8xbGQ2NG9jUzZzbWNYTXBvRTZsUDVRSTV5ZXB6?=
- =?utf-8?B?VTRKOTgvaTZIb0dDR2pPQzNnM3V6Z3kvMUd3azhpYnRoTFdhbEg0N2hlb21t?=
- =?utf-8?Q?xgW5/je/?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e01d42d-3bc2-4bab-28da-08d8c38a4555
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR10MB4118.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2021 12:43:11.2780
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tFBedDYhghl7XP3cZN2/McX0JwxYw4Cu7FZ5NDxZqDAklfqhu0dMXnszrFIG3H4zPpJnTe1yGk1iM6Mt6c63XUXi/NVyG5gbxkRVEUnPYnc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR10MB3941
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9877 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 mlxscore=0 suspectscore=0
- phishscore=0 mlxlogscore=999 bulkscore=0 malwarescore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101280064
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9877 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 spamscore=0 phishscore=0
- adultscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 mlxscore=0 clxscore=1011 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101280064
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGhwFBtvDP1/NOJjC1fTcVPiTmZCaqnZhkg
+Content-Language: en-gb
 
-You probably don't need 4 patches to fs/jfs/. These can be combined into 
-a single patch.
+> -----Original Message-----
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> Sent: 28 January 2021 12:02
+> To: Xen-devel <xen-devel@lists.xenproject.org>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Wei Liu <wl@xen.org>; =
+Paul Durrant <paul@xen.org>;
+> Roger Pau Monn=C3=A9 <roger.pau@citrix.com>; Juergen Gross =
+<jgross@suse.com>; Ian Jackson
+> <iwj@xenproject.org>; Micha=C5=82 Leszczy=C5=84ski =
+<michal.leszczynski@cert.pl>; Hubert Jasudowicz
+> <hubert.jasudowicz@cert.pl>; Tamas K Lengyel <tamas@tklengyel.com>; =
+Manuel Bouyer <bouyer@netbsd.org>
+> Subject: [PATCH v4] tools/foreignmem: Support querying the size of a =
+resource
+>=20
+> With the Xen side of this interface (soon to be) fixed to return real =
+sizes,
+> userspace needs to be able to make the query.
+>=20
+> Introduce xenforeignmemory_resource_size() for the purpose, bumping =
+the
+> library minor version.
+>=20
+> Update both all osdep_xenforeignmemory_map_resource() implementations =
+to
+> understand size requests, skip the mmap() operation, and copy back the
+> nr_frames field.
+>=20
+> For NetBSD, also fix up the ioctl() error path to issue an unmap(), =
+which was
+> overlooked by c/s 4a64e2bb39 "libs/foreignmemory: Implement on =
+NetBSD".
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Dave
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-On 1/28/21 1:11 AM, Chaitanya Kulkarni wrote:
-> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-> ---
->   fs/jfs/jfs_logmgr.c | 7 ++-----
->   1 file changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/jfs/jfs_logmgr.c b/fs/jfs/jfs_logmgr.c
-> index 9330eff210e0..4481f3e33a3f 100644
-> --- a/fs/jfs/jfs_logmgr.c
-> +++ b/fs/jfs/jfs_logmgr.c
-> @@ -1979,17 +1979,14 @@ static int lbmRead(struct jfs_log * log, int pn, struct lbuf ** bpp)
->   
->   	bp->l_flag |= lbmREAD;
->   
-> -	bio = bio_alloc(GFP_NOFS, 1);
-> -
-> -	bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
-> -	bio_set_dev(bio, log->bdev);
-> +	bio = bio_new(log->bdev, bp->l_blkno << (log->l2bsize - 9),
-> +			REQ_OP_READ, 0, 1, GFP_NOFS);
->   
->   	bio_add_page(bio, bp->l_page, LOGPSIZE, bp->l_offset);
->   	BUG_ON(bio->bi_iter.bi_size != LOGPSIZE);
->   
->   	bio->bi_end_io = lbmIODone;
->   	bio->bi_private = bp;
-> -	bio->bi_opf = REQ_OP_READ;
->   	/*check if journaling to disk has been disabled*/
->   	if (log->no_integrity) {
->   		bio->bi_iter.bi_size = 0;
-> 
 
