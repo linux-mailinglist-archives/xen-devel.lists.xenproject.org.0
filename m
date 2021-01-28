@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC183069BE
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 02:11:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76498.138075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1147306A49
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 02:23:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76504.138088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4vpC-0002HW-QS; Thu, 28 Jan 2021 01:10:18 +0000
+	id 1l4w1g-0003Ko-5E; Thu, 28 Jan 2021 01:23:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76498.138075; Thu, 28 Jan 2021 01:10:18 +0000
+Received: by outflank-mailman (output) from mailman id 76504.138088; Thu, 28 Jan 2021 01:23:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4vpC-0002H7-Mi; Thu, 28 Jan 2021 01:10:18 +0000
-Received: by outflank-mailman (input) for mailman id 76498;
- Thu, 28 Jan 2021 01:10:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W+gg=G7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l4vpA-0002H2-QZ
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 01:10:16 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d85725d2-efbb-4356-8fea-af4b07813753;
- Thu, 28 Jan 2021 01:10:15 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9F88764DDD;
- Thu, 28 Jan 2021 01:10:14 +0000 (UTC)
+	id 1l4w1g-0003KM-10; Thu, 28 Jan 2021 01:23:12 +0000
+Received: by outflank-mailman (input) for mailman id 76504;
+ Thu, 28 Jan 2021 01:23:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l4w1e-0003KE-LE; Thu, 28 Jan 2021 01:23:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l4w1e-00012v-Az; Thu, 28 Jan 2021 01:23:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l4w1d-0006xs-QX; Thu, 28 Jan 2021 01:23:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l4w1d-0002xR-Q2; Thu, 28 Jan 2021 01:23:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,274 +42,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d85725d2-efbb-4356-8fea-af4b07813753
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611796215;
-	bh=lDhBGCocDUkJjsLznzy/09FZuAnkbBt9JITBm4EBsa0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=PMho9xyMDwnKZhYFCEaT9JQ7MoeNDogJpDoI+Vq78B+2YW4OhZxKPoWI6IukT8Vkf
-	 7teTlCg4UKv7cjM3B2sTKkO4TT1ooc/axevObSRqnnc8pgKwOeBcDdJ2RSXetNVeLb
-	 BDJnrALZerooTEevfnCOJRU8LVMRQkHt/UomA82F3oz6yAZ8ShWAbaQ5puwF9ymjxO
-	 Sk9N3DmZLoLM/TfmPAIw3vSzpf/I0RlaPSWCMAnjAKf4FwNtryBHVKzNZnXDfhljjF
-	 pqq6PdxWLflaHnAXi7GABPFIFd9Y064zvpTu957vKzu3Zz9Ox3S/WeSF9iBcrlDUdr
-	 WBV/ri4IitrWg==
-Date: Wed, 27 Jan 2021 17:10:14 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jukka Kaartinen <jukka.kaartinen@unikie.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Roman Shaposhnik <roman@zededa.com>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: Question about xen and Rasp 4B
-In-Reply-To: <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.2101271707570.9684@sstabellini-ThinkPad-T480s>
-References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com> <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s> <CAFnJQOqoqj6mWwR61ZsZj1JxRrdisFtH_87YXCeW619GM+L21Q@mail.gmail.com> <alpine.DEB.2.21.2101251646470.20638@sstabellini-ThinkPad-T480s>
- <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com> <alpine.DEB.2.21.2101261149210.2568@sstabellini-ThinkPad-T480s> <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cwU6Cb+kPCQQ6x/qReaiMZjj81eBQvgg1pyuYTebH/E=; b=XrllZMMMLHSt0VFYtd8AvniNRB
+	s9q9AmF4caT9+28p0Zz1lx87wrsPgkvU7A7sV3GGFVYJlB4K1RNQAdS3YI0ab1jRIFDeQJfGOAFkc
+	7ZpftkvdR96xh0LWG3URMZl/+oUIw4oAEDmoHbHTj2TmbMF4z6ZMLH7WGxwXw7Q7BFAs=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158705-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-114547665-1611796214=:9684"
+Subject: [qemu-mainline test] 158705: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-coresched-amd64-xl:guest-localmigrate/x10:fail:heisenbug
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:guest-localmigrate:fail:heisenbug
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=9cd69f1a270235b652766f00b94114f48a2d603f
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 28 Jan 2021 01:23:09 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 158705 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158705/
 
---8323329-114547665-1611796214=:9684
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Regressions :-(
 
-On Wed, 27 Jan 2021, Jukka Kaartinen wrote:
-> On Tue, Jan 26, 2021 at 10:22 PM Stefano Stabellini <sstabellini@kernel.org> wrote:
->       On Tue, 26 Jan 2021, Jukka Kaartinen wrote:
->       > On Tue, Jan 26, 2021 at 2:54 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
->       >       On Sat, 23 Jan 2021, Jukka Kaartinen wrote:
->       >       > Thanks for the response!
->       >       >
->       >       > On Sat, Jan 23, 2021 at 2:27 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
->       >       >       + xen-devel, Roman,
->       >       >
->       >       >
->       >       >       On Fri, 22 Jan 2021, Jukka Kaartinen wrote:
->       >       >       > Hi Stefano,
->       >       >       > I'm Jukka Kaartinen a SW developer working on enabling hypervisors on mobile platforms. One of our HW that we
->       use on
->       >       >       development is
->       >       >       > Raspberry Pi 4B. I wonder if you could help me a bit :).
->       >       >       >
->       >       >       > I'm trying to enable the GPU with Xen + Raspberry Pi for
->       >       >       dom0. https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323#p1797605
->       >       >       >
->       >       >       > I got so far that GPU drivers are loaded (v3d & vc4) without errors. But now Xen returns error when X is
->       starting:
->       >       >       > (XEN) traps.c:1986:d0v1 HSR=0x93880045 pc=0x00007f97b14e70 gva=0x7f7f817000 gpa=0x0000401315d000
->       >       >       >  I tried to debug what causes this and looks like find_mmio_handler cannot find handler.
->       >       >       > (See more here: https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323&start=25#p1801691 )
->       >       >       >
->       >       >       > Any ideas why the handler is not found?
->       >       >
->       >       >
->       >       >       Hi Jukka,
->       >       >
->       >       >       I am glad to hear that you are interested in Xen on RaspberryPi :-)  I
->       >       >       haven't tried the GPU yet, I have been using the serial only.
->       >       >       Roman, did you ever get the GPU working?
->       >       >
->       >       >
->       >       >       The error is a data abort error: Linux is trying to access an address
->       >       >       which is not mapped to dom0. The address seems to be 0x401315d000. It is
->       >       >       a pretty high address; I looked in device tree but couldn't spot it.
->       >       >
->       >       >       >From the HSR (the syndrom register) it looks like it is a translation
->       >       >       fault at EL1 on stage1. As if the Linux address mapping was wrong.
->       >       >       Anyone has any ideas how this could happen? Maybe a reserved-memory
->       >       >       misconfiguration?
->       >       >
->       >       > I had issues with loading the driver in the first place. Apparently swiotlb is used, maybe it can cause this. I also
->       tried to
->       >       enable CMA.
->       >       > config.txt:
->       >       > dtoverlay=vc4-fkms-v3d,cma=320M@0x0-0x40000000
->       >       > gpu_mem=128
->       >
->       >       Also looking at your other reply and the implementation of
->       >       vc4_bo_create, it looks like this is a CMA problem.
->       >
->       >       It would be good to run a test with the swiotlb-xen disabled:
->       >
->       >       diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
->       >       index 467fa225c3d0..2bdd12785d14 100644
->       >       --- a/arch/arm/xen/mm.c
->       >       +++ b/arch/arm/xen/mm.c
->       >       @@ -138,8 +138,7 @@ void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
->       >        static int __init xen_mm_init(void)
->       >        {
->       >               struct gnttab_cache_flush cflush;
->       >       -       if (!xen_initial_domain())
->       >       -               return 0;
->       >       +       return 0;
->       >               xen_swiotlb_init(1, false);
->       >
->       >               cflush.op = 0;
->       >
->       > With this change the kernel is not booting up. (btw. I'm using USB SSD for my OS.)
->       > [    0.071081] bcm2835-dma fe007000.dma: Unable to set DMA mask
->       > [    0.076277] bcm2835-dma fe007b00.dma: Unable to set DMA mask
->       > (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=25: not implemented
->       > (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=15: not implemented
->       > [    0.592695] pci 0000:00:00.0: Failed to add - passthrough or MSI/MSI-X might fail!
->       > (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=15: not implemented
->       > [    0.606819] pci 0000:01:00.0: Failed to add - passthrough or MSI/MSI-X might fail!
->       > [    1.212820] usb 1-1: device descriptor read/64, error 18
->       > [    1.452815] usb 1-1: device descriptor read/64, error 18
->       > [    1.820813] usb 1-1: device descriptor read/64, error 18
->       > [    2.060815] usb 1-1: device descriptor read/64, error 18
->       > [    2.845548] usb 1-1: device descriptor read/8, error -61
->       > [    2.977603] usb 1-1: device descriptor read/8, error -61
->       > [    3.237530] usb 1-1: device descriptor read/8, error -61
->       > [    3.369585] usb 1-1: device descriptor read/8, error -61
->       > [    3.480765] usb usb1-port1: unable to enumerate USB device
->       >
->       > Traces stop here. I could try with a memory card. Maybe it makes a difference.
-> 
->       This is very surprising. Disabling swiotlb-xen should make things better
->       not worse. The only reason I can think of why it could make things worse
->       is if Linux runs out of low memory. Julien's patch
->       437b0aa06a014ce174e24c0d3530b3e9ab19b18b for Xen should have addressed
->       that issue though. Julien, any ideas?
-> 
-> I really don't know if this is a problem but in the allocate_memory_11  arch_get_dma_bitsize is called. That should return the
-> platform->dma_bitsize but at the early stage of boot platform is not initialized so default 32 is returned. I tried changing the hard code
-> from 32 -> 30 but it didn't make any difference.
->       static void __init allocate_memory_11(struct domain *d,
->                                       struct kernel_info *kinfo)
-> {
->     const unsigned int min_low_order =
->         get_order_from_bytes(min_t(paddr_t, dom0_mem, MB(128)));
->     const unsigned int min_order = get_order_from_bytes(MB(4));
->     struct page_info *pg;
->     unsigned int order = get_allocation_size(kinfo->unassigned_mem);
->     int i;
-> 
->     bool lowmem = true;
->     unsigned int lowmem_bitsize = min(32U, arch_get_dma_bitsize());
-> 
-> also here the place where static dma_bitsize is set is not called for dom0
-> 
-> void __init end_boot_allocator(void)
-> {
-> ....
->     if ( !dma_bitsize && (num_online_nodes() > 1) )
->         dma_bitsize = arch_get_dma_bitsize();
-> 
->  
-> and will lead alloc_domheap_pages not to use dma_bitsize since it is not set.
-> struct page_info *alloc_domheap_pages(
->     struct domain *d, unsigned int order, unsigned int memflags)
-> {
-> 
-> uses static: dma_bitsize and currently is not set for raspberry pi.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd     17 guest-start/debian.repeat fail REGR. vs. 152631
 
-You can easily check from the device tree in dom0 what memory range was
-allocated for it by Xen. The memory node is simply called "memory". We
-might be able to understand if the range is too high from there.
+Tests which are failing intermittently (not blocking):
+ test-amd64-coresched-amd64-xl 20 guest-localmigrate/x10    fail pass in 158662
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 16 guest-localmigrate fail pass in 158662
 
-FYI I have just ordered a micro HDMI cable so I might be able to provide
-more useful feedback in the following days.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                9cd69f1a270235b652766f00b94114f48a2d603f
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
+
+Last test of basis   152631  2020-08-20 09:07:46 Z  160 days
+Failing since        152659  2020-08-21 14:07:39 Z  159 days  325 attempts
+Testing same since   158662  2021-01-26 19:07:26 Z    1 days    2 attempts
+
+------------------------------------------------------------
+368 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
- 
- 
->       >       It is going to be fine just to boot Dom0 and DomUs without PV drivers.
->       >       Also, can you post the device tree that you are using here? Just in case
->       >       there is an issue with Xen parsing any possible /reserved-memory nodes
->       >       with CMA info that need to be passed on to Dom0.
->       >
->       > Here is the device dumped from command line:
->       > dtc -I fs /proc/device-tree
->       > https://drive.google.com/file/d/17u18dJHxRfbGZMtRXIwtLVZZfMj9KwN-/view?usp=sharing
-> 
->       There is a reserved-memory node:
-> 
->               reserved-memory {
->                       #address-cells = <0x02>;
->                       #size-cells = <0x01>;
->                       ranges;
->                       phandle = <0x3f>;
-> 
->                       linux,cma {
->                               linux,cma-default;
->                               alloc-ranges = <0x00 0x00 0x30000000>;
->                               compatible = "shared-dma-pool";
->                               size = <0x10000000>;
->                               phandle = <0x40>;
->                               reusable;
->                       };
->               };
-> 
->       But in theory Xen should be able to export it to Dom0. It would be worth
->       verifying that by running the same dtc -I fs /proc/device-tree in dom0 (in
->       the dom0 configuration that can finish booting of course) you get the
->       same reserved-memory node.
-> 
-> Actually the device-tree is exported from the dom0.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-That's good
- 
- 
->       There is also another suspicious node here:
-> 
->               axi {
->                       vc_mem {
->                               reg = <0x3eb00000 0x3ff00000 0xc0000000>;
->                       };
->               }; 
-> 
->       Which doesn't seem device tree exactly compliant and maybe GPU related.
->       But again, Xen would probably export it as is to Dom0.
-> 
-> 
-> 
->       >       >       > p.s.
->       >       >       > While testing I found issue with Xen master branch and your patch: xen/rpi4: implement watchdog-based reset
->       >       >       >
->       >       >       > Looks like black listing the bcm2835-pm
->       >       >       > @@ -37,12 +41,69 @@ static const struct dt_device_match rpi4_blacklist_dev[] __initconst =
->       >       >       >       * The aux peripheral also shares a page with the aux UART.
->       >       >       >       */
->       >       >       >      DT_MATCH_COMPATIBLE("brcm,bcm2835-aux"),
->       >       >       > +    /* Special device used for rebooting */
->       >       >       > +    DT_MATCH_COMPATIBLE("brcm,bcm2835-pm"),
->       >       >       >
->       >       >       > will prevent v3d driver to locate phandle. I think it will use the same resource:
->       >       >       >   pm: watchdog@7e100000 {
->       >       >       >       compatible = "brcm,bcm2835-pm", "brcm,bcm2835-pm-wdt";
->       >       >       > #power-domain-cells = <1>;
->       >       >       > #reset-cells = <1>;
->       >       >       > reg = <0x7e100000 0x114>,
->       >       >       >      <0x7e00a000 0x24>,
->       >       >       >      <0x7ec11000 0x20>;
->       >       >       > clocks = <&clocks BCM2835_CLOCK_V3D>,
->       >       >       > <&clocks BCM2835_CLOCK_PERI_IMAGE>,
->       >       >       > <&clocks BCM2835_CLOCK_H264>,
->       >       >       > <&clocks BCM2835_CLOCK_ISP>;
->       >       >       > clock-names = "v3d", "peri_image", "h264", "isp";
->       >       >       > system-power-controller;
->       >       >       >
->       >       >       > };
->       >       >
->       >       >       Yeah, I imagine it could be possible. Can you post the error message you
->       >       >       are seeing from the v3d driver?
->       >       >
->       >       > This is the error:
->       >       > [    0.069682] OF: /v3dbus/v3d@7ec04000: could not find phandle
->       >       > [    0.074828] OF: /v3dbus/v3d@7ec04000: could not find phandle
->       >       > v3d driver is not loaded.
-> 
-> 
-> 
-> --
-> Br,
-> Jukka Kaartinen
-> 
-> 
---8323329-114547665-1611796214=:9684--
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 95241 lines long.)
 
