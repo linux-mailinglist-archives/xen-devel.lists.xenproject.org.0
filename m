@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2556307CF8
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 18:50:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77356.140067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7318A307D08
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 18:53:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77360.140079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5BQv-0006iV-G4; Thu, 28 Jan 2021 17:50:17 +0000
+	id 1l5BTh-0006qf-1S; Thu, 28 Jan 2021 17:53:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77356.140067; Thu, 28 Jan 2021 17:50:17 +0000
+Received: by outflank-mailman (output) from mailman id 77360.140079; Thu, 28 Jan 2021 17:53:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5BQv-0006i6-D4; Thu, 28 Jan 2021 17:50:17 +0000
-Received: by outflank-mailman (input) for mailman id 77356;
- Thu, 28 Jan 2021 17:50:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tEu6=G7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l5BQt-0006i1-76
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 17:50:15 +0000
-Received: from mail-lf1-x12d.google.com (unknown [2a00:1450:4864:20::12d])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eae2de72-d643-4253-8714-9b8d7d21b7d7;
- Thu, 28 Jan 2021 17:50:14 +0000 (UTC)
-Received: by mail-lf1-x12d.google.com with SMTP id v24so8734345lfr.7
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 09:50:13 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id v84sm1710908lfa.178.2021.01.28.09.50.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Jan 2021 09:50:12 -0800 (PST)
+	id 1l5BTg-0006qE-SB; Thu, 28 Jan 2021 17:53:08 +0000
+Received: by outflank-mailman (input) for mailman id 77360;
+ Thu, 28 Jan 2021 17:53:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l5BTf-0006q6-P8; Thu, 28 Jan 2021 17:53:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l5BTf-0003C8-Id; Thu, 28 Jan 2021 17:53:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l5BTf-0006pA-C6; Thu, 28 Jan 2021 17:53:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l5BTf-00070F-Bc; Thu, 28 Jan 2021 17:53:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,158 +42,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eae2de72-d643-4253-8714-9b8d7d21b7d7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=RT10ahMbjIiRoKCKnqxm+qZVu+rUXa9AzqM4cPQRpAc=;
-        b=BW1VxRkmhs9cIFJluLF3vg1fb4Oe0+3D17SNsZQFdERVpe4977Enme5ij1NA4vvIpW
-         YfhXIVFIsjZSroCvqDaN6sMRsxu3bgjR0low1gTaCpCEp5903KMC4ds0aq3Q+5k9wqyh
-         4FQQzayBcH6zRNObwJp4wX312uHPJhtOWqCSWaYkRnaCfM6ac1T26n0AqjMEO/l5EKcP
-         IM2XDVc+NuU/4OTGuCT35MBFrfQ6cd3CNmHQfOBdgsvJPcgYVmULiRxH1zGlNchvzQaF
-         2QvVgtp5UrE9hWBX1i9ASgqYZVWJgqs7N249rWv+5B6/zsSowRQMPhNDT6gRrhOdCZ0e
-         tuAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=RT10ahMbjIiRoKCKnqxm+qZVu+rUXa9AzqM4cPQRpAc=;
-        b=t2qkMezVxO7f0VQgHlYOph6KrSA9loBH6SE/vK1oTW8okFdoLLyBa0J/FwIxolUB9l
-         6fNob+nXnZFtloGYkEPx1GyU1wMNQfa0KnAoHu4nzd8hONk/PmYwKT65sitdHBomJUrv
-         8aVKccFa9zRjDSI9iSolBccI+9K4Xld24wCj+XMIQ+cwqTxN18hKcWr11FRTfFV6h02q
-         i5ApBKVqCunN3yv23rarSfLG+wXgdr53TlGV8Z1KBSRnsjv+SmCbzCfYwmEVtdSTzkt6
-         6WVvh+6pbbqty4Q+Gw3oeO+ecFA9P91hpkusvuy+gkFzEJ+gUU8xw9U57KN3VG7qgme7
-         Bl+g==
-X-Gm-Message-State: AOAM533Ew8/ydZxzp6fHGXligrVPf8ctra5t0mh5G7t7AMFmlfuzcS/2
-	UC+1rr5+LHIIBg5Y1AyMq9Q=
-X-Google-Smtp-Source: ABdhPJz+zOPt8ZQSBc1gnC+TEvMFMwMHZKoR/pNRbuYAmhT643tQAFx/1LdC+f8QNhcS90JsCHpRIQ==
-X-Received: by 2002:ac2:48b5:: with SMTP id u21mr103235lfg.147.1611856212776;
-        Thu, 28 Jan 2021 09:50:12 -0800 (PST)
-Subject: Re: [PATCH V5 14/22] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-15-git-send-email-olekstysh@gmail.com>
- <67136393-8454-9d28-628a-bfb380fd8fc9@xen.org>
- <aa19b356-aa5b-2427-ab8d-2c1ade84ad1c@gmail.com>
- <a5fd81ac-3ed4-40e7-66d7-a8daf3be4987@xen.org>
- <078a6aa6-2f72-d816-9e14-8132648d3370@gmail.com>
- <d0ff4658-30c2-ffed-3a9d-3dadd6195a61@gmail.com>
- <fef8ba7e-d434-5c72-779c-53fd323558de@gmail.com>
- <4385cb3d-c91f-08d2-e9c3-6d3d7af155b0@xen.org>
- <bcee25d0-1022-3aed-e269-e2e097b0d899@gmail.com>
- <36f81705-764e-54e8-c314-d6f46d372a17@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <a7d58a8a-ab76-ae9b-32fc-b81e4b2cc4a8@gmail.com>
-Date: Thu, 28 Jan 2021 19:50:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <36f81705-764e-54e8-c314-d6f46d372a17@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EMcVE22ENnZft75tV12lnHTih3BuQcUDpvj62KRLpBs=; b=pqh2ikO8TiPVDaqYcbCaC7JCr5
+	Xh58rlDKeckKflb31yNqRHxWqBmWuGVh/0Wamcmo78sjuDtnzeLoByE/AN1IkxZObHWJSVsDe56O/
+	qZb9W438+EE0KmPVthscZylLZFximdcbHVVEG/DR1oAF7qN/HhRE/4pp/qY19EKeLLSE=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158728-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 158728: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=6e2046378086d2eaf3f1fe807a2fd697f2630f40
+X-Osstest-Versions-That:
+    xen=6677b5a3577c16501fbc51a3341446905bd21c38
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 28 Jan 2021 17:53:07 +0000
+
+flight 158728 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158728/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 158713
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  6e2046378086d2eaf3f1fe807a2fd697f2630f40
+baseline version:
+ xen                  6677b5a3577c16501fbc51a3341446905bd21c38
+
+Last test of basis   158713  2021-01-27 23:00:26 Z    0 days
+Failing since        158724  2021-01-28 12:01:30 Z    0 days    2 attempts
+Testing same since   158728  2021-01-28 15:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Manuel Bouyer <bouyer@netbsd.org>
+  Wei Liu <wl@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-On 28.01.21 17:08, Julien Grall wrote:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Hi Julien
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->
->
-> On 28/01/2021 14:52, Oleksandr wrote:
->>
->> On 28.01.21 16:41, Julien Grall wrote:
->>> On 28/01/2021 14:29, Oleksandr wrote:
->>>> On 28.01.21 15:39, Oleksandr wrote:
->>>>>
->>>>> On 28.01.21 13:33, Oleksandr wrote:
->>>>>
->>>>> Hi Julien
->>>>>
->>>>>>
->>>>>> On 28.01.21 11:40, Julien Grall wrote:
->>>>>>
->>>>>> Hi Julien
->>>>>>
->>>>>>> Hi Oleksandr,
->>>>>>>
->>>>>>> On 27/01/2021 19:20, Oleksandr wrote:
->>>>>>>  >  >>> So I think we may be able to drop the include from 
->>>>>>> asm/hvm/domain.h
->>>>>>>> (this would avoid to include it everywhere...).
->>>>>>>>
->>>>>>>> I have tried that, but other CUs use definitions from 
->>>>>>>> public/hvm/dm_op.h, for example:
->>>>>>>>
->>>>>>>> p2m-pt.c: In function 'p2m_type_to_flags':
->>>>>>>> p2m-pt.c:87:33: error: 'XEN_DMOP_IOREQ_MEM_ACCESS_WRITE' 
->>>>>>>> undeclared (first use in this function)
->>>>>>>>           if ( p2m->ioreq.flags & 
->>>>>>>> XEN_DMOP_IOREQ_MEM_ACCESS_WRITE )
->>>>>>>>                                   ^
->>>>>>>> So, I would prefer to leave it as is, please let me know if you 
->>>>>>>> think otherwise.
->>>>>>>
->>>>>>> AFAICT, there is only 2 places (p2m-pt.c and p2m-ept.c) that 
->>>>>>> requires <public/hvm/dm_op.h> but doesn't directly include it. 
->>>>>>> Folding the diff below in patch #4 should do the job:
->>>>>>
->>>>>> ok, will do
->>>>>
->>>>>
->>>>> Just to clarify, you mentioned about patch #4, but shouldn't we 
->>>>> make these changes in patch #9 which actually tries to sort dm 
->>>>> related stuff?
->>>>
->>>> or a least in patch #8 which moves the stuff from 
->>>> asm-x86/hvm/domain.h to xen/ioreq.h (including the user of 
->>>> XEN_DMOP_IO_RANGE_PCI),
->>>
->>> I looked at the header asm-x86/hvm/domain.h after applying patch #4, 
->>> there is nothing requiring DMOP from there.
->>>
->>> I tried to build it with this series applied up to patch #4 + my 
->>> diff. It does build without any issue.
->>
->> Hmm, interesting. I might miss something, but I got an build issue if 
->> I split these changes with patch #4 and build the series up to this 
->> patch:
->
-> I think I looked and tried with the wrong commit. :( This was moved in 
-> patch #7 (xen/ioreq: Make x86's hvm_ioreq_(page/vcpu/server) structs 
-> common).
->
-> Sorry for the confusion.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-No problem.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-So I will merge these changes with patch #7 (that already has all 
-required approvals) with the following justification:
+Not pushing.
 
-Also there is no need to include public/hvm/dm_op.h by
-asm-x86/hvm/domain.h anymore since #define NR_IO_RANGE_TYPES
-(which uses XEN_DMOP_IO_RANGE_PCI) gets moved to another location.
-Instead include it by 2 places (p2m-pt.c and p2m-ept.c) which
-require that header, but don't directly include it so far.
+------------------------------------------------------------
+commit 6e2046378086d2eaf3f1fe807a2fd697f2630f40
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jul 29 16:28:32 2020 +0100
 
+    xen/memory: Clarify the XENMEM_acquire_resource ABI description
+    
+    This is how similar operations already operate, compatible with the sole
+    implementation (in Linux), and explicitly gives us some flexibility.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Paul Durrant <paul@xen.org>
 
-If there are any objections please let me know.
+commit 75fc85998546878ca5417071a6ca60c34065c2c3
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Thu Jul 23 15:58:48 2020 +0100
 
+    tools/foreignmem: Support querying the size of a resource
+    
+    With the Xen side of this interface (soon to be) fixed to return real sizes,
+    userspace needs to be able to make the query.
+    
+    Introduce xenforeignmemory_resource_size() for the purpose, bumping the
+    library minor version.
+    
+    Update both all osdep_xenforeignmemory_map_resource() implementations to
+    understand size requests, skip the mmap() operation, and copy back the
+    nr_frames field.
+    
+    For NetBSD, also fix up the ioctl() error path to issue an unmap(), which was
+    overlooked by c/s 4a64e2bb39 "libs/foreignmemory: Implement on NetBSD".
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Paul Durrant <paul@xen.org>
+    Acked-by: Wei Liu <wl@xen.org>
 
--- 
-Regards,
+commit 2b4b33ffe7d67dc677350a3e1fa7a11d7ab49fb4
+Author: Manuel Bouyer <bouyer@netbsd.org>
+Date:   Tue Jan 26 23:47:52 2021 +0100
 
-Oleksandr Tyshchenko
-
+    libs/foreignmemory: Implement on NetBSD
+    
+    Implement foreignmemory interface on NetBSD. The compat interface is now used
+    only on __sun__
+    
+    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+(qemu changes not included)
 
