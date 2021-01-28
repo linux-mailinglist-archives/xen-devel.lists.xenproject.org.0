@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9319307BE0
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 18:13:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77287.139892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0E3307BE2
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 18:14:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77290.139904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5ArF-0001Mp-6Y; Thu, 28 Jan 2021 17:13:25 +0000
+	id 1l5Arp-0001SG-Fk; Thu, 28 Jan 2021 17:14:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77287.139892; Thu, 28 Jan 2021 17:13:25 +0000
+Received: by outflank-mailman (output) from mailman id 77290.139904; Thu, 28 Jan 2021 17:14:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5ArF-0001MQ-31; Thu, 28 Jan 2021 17:13:25 +0000
-Received: by outflank-mailman (input) for mailman id 77287;
- Thu, 28 Jan 2021 17:13:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l5Arp-0001Rq-Bz; Thu, 28 Jan 2021 17:14:01 +0000
+Received: by outflank-mailman (input) for mailman id 77290;
+ Thu, 28 Jan 2021 17:14:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TgTx=G7=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1l5ArC-0001MK-Mh
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 17:13:22 +0000
-Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1c1569a8-a2fd-4ce5-ba11-b5781c416f8b;
- Thu, 28 Jan 2021 17:13:21 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id c12so6176623wrc.7
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 09:13:21 -0800 (PST)
-Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id x81sm7022901wmg.40.2021.01.28.09.13.18
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 28 Jan 2021 09:13:20 -0800 (PST)
+ <SRS0=W+gg=G7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l5Aro-0001Rj-3J
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 17:14:00 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 882ed516-7f10-4cf6-ab65-97ef0d46b27a;
+ Thu, 28 Jan 2021 17:13:59 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9CB8664E21;
+ Thu, 28 Jan 2021 17:13:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,100 +38,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c1569a8-a2fd-4ce5-ba11-b5781c416f8b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:thread-index
-         :content-language;
-        bh=9488a2P3fJlNgPE67Bm5Bf5hZKojmQ6UAk6SR91FpXg=;
-        b=l20VkycDneWvyXDNlwjvtzZTICcXsA7gaZzdUmnO6Ine2fK997yUQr4adxnfyIbkuf
-         TBwwDLDOcy1aPvjoYNqSeiUxomN76Vk6BBpou8gLg6hhcnqJUVIy839/81lY+qFsArL3
-         JUSPH7raNKSan6/KzfZ9RHjR9S0Kr7E9ZqCcLbKT4xtx1Ew04IPiAzmh4q/0WlEWIm5I
-         m5zHPc6b7YPeNdvKVJ5x1GQO/HUNXVYzs7FCAtBKXxE81FC5E9hU8TaEUkx6hrJk1lTR
-         TZktU25LMcqyPkG+T5TXGV/AgKODHspFz4Kvefnaf7naQLUdulRvfiivcaIWryuzIk2r
-         U9Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :thread-index:content-language;
-        bh=9488a2P3fJlNgPE67Bm5Bf5hZKojmQ6UAk6SR91FpXg=;
-        b=mTzyPn1qa13c+1avPEXLooLxgqCsFFa2lwgAKHsNcGXqBeleTZXt7k1uwew1aSCyVW
-         ja1FyqHx+B3mcmQtzxrlF6To728x9iMTbruJZ7hP14ZFbE1K1+Q9qmCSHQzk9CRiOZZ+
-         4DFJcDjmX5pNII+YDqbXidtlY8btxjXj89ilqLs6r+iLo4clVOFBWqTwa6bqQiyUEL+M
-         VDnKQixM6xY8r/lS1bje5lCYGtgERLly++0oNkHcXq8I4s2vIhr4qKlKweScI80M0DEW
-         Vl7h9/b215czKYH+Trgnn3DxaZHG+rnP9k3m/GWS7SefVhwKbs+/YtJi0NQRk9jLz25L
-         sLPQ==
-X-Gm-Message-State: AOAM5329Zdds/28K9EEJiCipUkxn1iC3FU0tNy1ZArCpqFK6ewyuL/Tq
-	vVOsE8LpmtwNLk+wJ2werVo=
-X-Google-Smtp-Source: ABdhPJzR2CHSnBbdTSiHdnD0qat4VVIQL/P+8rSIOh2bDxWEqQbOZcC8QbNPzgXHGXMI1N60izv3Vg==
-X-Received: by 2002:adf:e50e:: with SMTP id j14mr102488wrm.162.1611854001023;
-        Thu, 28 Jan 2021 09:13:21 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
-	"'Xen-devel'" <xen-devel@lists.xenproject.org>
-Cc: "'Jan Beulich'" <JBeulich@suse.com>,
-	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
-	"'Wei Liu'" <wl@xen.org>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Julien Grall'" <julien@xen.org>,
-	"'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
-	"'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>
-References: <20210128160616.17608-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20210128160616.17608-1-andrew.cooper3@citrix.com>
-Subject: RE: [PATCH] xen/memory: Reject out-of-range resource 'frame' values
-Date: Thu, 28 Jan 2021 17:13:17 -0000
-Message-ID: <02b601d6f598$e01d9ec0$a058dc40$@xen.org>
+X-Inumbo-ID: 882ed516-7f10-4cf6-ab65-97ef0d46b27a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1611854038;
+	bh=J3hC5Chiv1hO4uAwSJ+X1mfIKbQWk+GfB+EETNgggDQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Eq0FV48P5lHzKa7PbVwfuOt0nes/i2FzhLnj/tLqKJWqgf18OriZDDldPD7c/7IY4
+	 WouudFRmiqmMfnMPbxx0y/lDQazzPGn1DMbd4vkrVtQz8CGPHtMK6QSlRwIPpZRiXb
+	 CO8qQA+b3FHQ3fOLfUfHO2yLtdXLT1EwcV7Bbg0U1HvtVZ+WglKJsvdqMty36q0u2W
+	 OlIQ91/6e3325hr+gWCMh+4N8SmTVduNZ3nmDjaW6Kt2KXJrZ8+sRQHXpJQEOVMuxA
+	 INzmmkg1aUj3QWilOPWFjuppQCqjoh3UxzLpqtVK4VZBerGQ7Upg9jSRFXOe28ax+n
+	 0Fn595zDz+FNg==
+Date: Thu, 28 Jan 2021 09:13:56 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Oleksandr <olekstysh@gmail.com>
+cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien.grall.oss@gmail.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Paul Durrant <paul@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, 
+    Kevin Tian <kevin.tian@intel.com>, Tim Deegan <tim@xen.org>, 
+    Julien Grall <julien.grall@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH V5 04/22] xen/ioreq: Make x86's IOREQ feature common
+In-Reply-To: <f6983b35-ea63-b48c-e122-ee9c294034ab@gmail.com>
+Message-ID: <alpine.DEB.2.21.2101280913190.9684@sstabellini-ThinkPad-T480s>
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com> <1611601709-28361-5-git-send-email-olekstysh@gmail.com> <CAJ=z9a1c+obN3KW_cMr7OH0112_gHSxnAoEJb9qW6R1J38QgQQ@mail.gmail.com> <20270711-36bc-6d7d-16cb-4572cace47ed@gmail.com>
+ <eb03f366-9405-c193-07be-fbeca29fca4c@xen.org> <1156e356-5762-a196-ec16-bb6614912394@gmail.com> <alpine.DEB.2.21.2101271235410.9684@sstabellini-ThinkPad-T480s> <dd9a1bf6-5afb-158a-6456-a5ded15580bf@gmail.com> <0785367a-9349-ae0c-2622-9412297773fc@suse.com>
+ <f6983b35-ea63-b48c-e122-ee9c294034ab@gmail.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQI3XV/tj1LXdZgysUfBsteFhT3rcKl8dfqA
-Content-Language: en-gb
+Content-Type: multipart/mixed; boundary="8323329-1293718514-1611854038=:9684"
 
-> -----Original Message-----
-> From: Andrew Cooper <andrew.cooper3@citrix.com>
-> Sent: 28 January 2021 16:06
-> To: Xen-devel <xen-devel@lists.xenproject.org>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Jan Beulich =
-<JBeulich@suse.com>; Roger Pau Monn=C3=A9
-> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; Stefano Stabellini =
-<sstabellini@kernel.org>; Julien
-> Grall <julien@xen.org>; Volodymyr Babchuk =
-<Volodymyr_Babchuk@epam.com>; Paul Durrant <paul@xen.org>;
-> Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Subject: [PATCH] xen/memory: Reject out-of-range resource 'frame' =
-values
->=20
-> The ABI is unfortunate, and frame being 64 bits leads to all kinds of =
-problems
-> performing correct overflow checks.
->=20
-> Furthermore, the mixed use of unsigned int and unsigned long in the =
-call tree
-> is buggy on arm32 where the two are the same size, and certain =
-out-of-range
-> combinations will truncated and be permitted.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> CC: Paul Durrant <paul@xen.org>
-> CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->=20
-> Posted ahead of my full v8 series, in the hope that it catches some =
-people
-> before the end of the day.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+--8323329-1293718514-1611854038=:9684
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
+On Thu, 28 Jan 2021, Oleksandr wrote:
+> On 28.01.21 13:21, Jan Beulich wrote:
+> > On 28.01.2021 12:01, Oleksandr wrote:
+> > > On 27.01.21 22:46, Stefano Stabellini wrote:
+> > > > On Wed, 27 Jan 2021, Oleksandr wrote:
+> > > > > Thank you. I got a request to make a possibility for user to select
+> > > > > IOREQ via
+> > > > > the menuconfig on Arm. Saying tech preview do you mean that I also
+> > > > > need to put
+> > > > > it under CONFIG_EXPERT on Arm?
+> > > > Normally I would say that unless it actually takes an expert to enable
+> > > > the feature, it is better to make it depend on CONFIG_UNSUPPORTED [1].
+> > > > 
+> > > > However, in this case, it might actually take an expert :-)
+> > > > Additional patches are still required to enable the feature at the
+> > > > toolstack level, and also the user needs to build a userspace ioreq
+> > > > server. So in this case I am fine either way. I'll leave it up to you
+> > > > and Julien to pick the best one.
+> > > > 
+> > > > Either way, please add "(EXPERT)" or "(UNSUPPORTED)" in the one-line
+> > > > kconfig description for ARM if possible.
+> > > > 
+> > > > 
+> > > > [1] https://marc.info/?l=xen-devel&m=161168780401884
+> > > Thank you for the explanation, personally I would prefer EXPERT, but...
+> > > 
+> > > It would be really nice if we could agreed regarding that *common*
+> > > Kconfig option before I submit V6 (which would probably avoid me to send
+> > > V7 I hope).
+> > > 
+> > > Now I see it as following (please note, it is a subject for new patch in
+> > > this series, which should come last):
+> > > 
+> > > +++ b/xen/common/Kconfig
+> > > @@ -137,7 +137,13 @@ config HYPFS_CONFIG
+> > >             want to hide the .config contents from dom0.
+> > > 
+> > >    config IOREQ_SERVER
+> > > -       bool
+> > > +       bool "IOREQ support" if EXPERT || X86
+> > This would make the prompt visible for x86, which we don't
+> > want.
+> 
+> Hmm, I missed that point.
+> 
+> 
+> > But I guess Stefano was anyway after ...
+> > 
+> > > +       default X86
+> > > +       depends on HVM
+> > > +       ---help---
+> > > +         Enables generic mechanism for providing emulated devices to
+> > > the guests.
+> > > +
+> > > +         If unsure, say Y.
+> >   config IOREQ_SERVER
+> >         bool "IOREQ support (EXPERT)" if EXPERT && !X86
+> >         default X86
+> >         depends on HVM
+> > 
+> > As the prompt should be invisible this way on x86, the (EXPERT)
+> > doesn't need further qualifying, except maybe in the help text
+> > (just to avoid this being taken as a possible mistake).
+> 
+> Yes, this works as my initial version *but* is invisible on x86,
+> 
+> what is more that indeed the *EXPERT* tag for IOREQ on x86 will look quite
+> odd...
+> 
+> Perfect, thank you.
+
+Yep, perfect
+--8323329-1293718514-1611854038=:9684--
 
