@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D5430784F
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 15:41:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77099.139457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA98307853
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 15:41:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77103.139469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l58TV-0007io-RR; Thu, 28 Jan 2021 14:40:45 +0000
+	id 1l58US-0007on-54; Thu, 28 Jan 2021 14:41:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77099.139457; Thu, 28 Jan 2021 14:40:45 +0000
+Received: by outflank-mailman (output) from mailman id 77103.139469; Thu, 28 Jan 2021 14:41:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l58TV-0007iP-Ne; Thu, 28 Jan 2021 14:40:45 +0000
-Received: by outflank-mailman (input) for mailman id 77099;
- Thu, 28 Jan 2021 14:40:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l58US-0007oO-1h; Thu, 28 Jan 2021 14:41:44 +0000
+Received: by outflank-mailman (input) for mailman id 77103;
+ Thu, 28 Jan 2021 14:41:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AY0C=G7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l58TU-0007iK-Ag
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:40:44 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 33dd243c-cc79-483a-ad41-569f220181f8;
- Thu, 28 Jan 2021 14:40:43 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 74302ACB7;
- Thu, 28 Jan 2021 14:40:42 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1l58UQ-0007oH-GK
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:41:42 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l58UL-0007eY-Kr; Thu, 28 Jan 2021 14:41:37 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l58UL-0008Tb-DX; Thu, 28 Jan 2021 14:41:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,67 +40,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33dd243c-cc79-483a-ad41-569f220181f8
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611844842; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=lo8ff0wg31WPDl4BHmbjNh0fflkm+W+tVaUcxAY+VYY=;
-	b=XDdoJODlpQEK3wPimMX6qIE9mGdvIo4HHxm/0lL95dIJGiai1qYh2lYZkPS8Mj8lv8DB0g
-	QPrt/CHNCuYXNZqv30QJTMhA+YVu2iNc9nLuhEAlsxAE34dDRvjBjdikSKXs+H+HELcucF
-	NwXuK1ZyWUtMxFJuFrEdDcCMBOnLtmQ=
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/HVM: re-order error path of hvm_domain_initialise()
-Message-ID: <57a95580-bae0-ac76-fb4c-e1db85da4d5f@suse.com>
-Date: Thu, 28 Jan 2021 15:40:42 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=pBFm1I4wiY1ETuBdSooTDwr0paxlPqPehf8f0oIIIfs=; b=ZEy/bjmIs7knrMeexb11RYE8Uw
+	OXEjwqaE4XxJe94rtkFXnxHg4T23u6WJrEVhETtjeAW1KVe/WpAc0/6zHLdPvi82EAkMC85jpWNYZ
+	G/dEf3lv27sSFrMguwFNLjrLDlJ0UlLGVNrRLwR2hruCZtUlxizNaap4Kntkrv6eZ/6w=;
+Subject: Re: [PATCH V5 14/22] arm/ioreq: Introduce arch specific bits for
+ IOREQ/DM features
+To: Oleksandr <olekstysh@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
+ <1611601709-28361-15-git-send-email-olekstysh@gmail.com>
+ <67136393-8454-9d28-628a-bfb380fd8fc9@xen.org>
+ <aa19b356-aa5b-2427-ab8d-2c1ade84ad1c@gmail.com>
+ <a5fd81ac-3ed4-40e7-66d7-a8daf3be4987@xen.org>
+ <078a6aa6-2f72-d816-9e14-8132648d3370@gmail.com>
+ <d0ff4658-30c2-ffed-3a9d-3dadd6195a61@gmail.com>
+ <fef8ba7e-d434-5c72-779c-53fd323558de@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <4385cb3d-c91f-08d2-e9c3-6d3d7af155b0@xen.org>
+Date: Thu, 28 Jan 2021 14:41:35 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <fef8ba7e-d434-5c72-779c-53fd323558de@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
-hvm_destroy_all_ioreq_servers(), called from
-hvm_domain_relinquish_resources(), invokes relocate_portio_handler(),
-which uses d->arch.hvm.io_handler. Defer freeing of this array
-accordingly on the error path of hvm_domain_initialise().
 
-Similarly rtc_deinit() requires d->arch.hvm.pl_time to still be around,
-or else an armed timer structure would get freed, and that timer never
-get killed.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-We may want to consider moving the other two XFREE()s later as well,
-if only to be on the safe side.
+On 28/01/2021 14:29, Oleksandr wrote:
+> 
+> Hi Julien
+> 
+> 
+> On 28.01.21 15:39, Oleksandr wrote:
+>>
+>> On 28.01.21 13:33, Oleksandr wrote:
+>>
+>> Hi Julien
+>>
+>>>
+>>> On 28.01.21 11:40, Julien Grall wrote:
+>>>
+>>> Hi Julien
+>>>
+>>>> Hi Oleksandr,
+>>>>
+>>>> On 27/01/2021 19:20, Oleksandr wrote:
+>>>>  >  >>> So I think we may be able to drop the include from 
+>>>> asm/hvm/domain.h
+>>>>> (this would avoid to include it everywhere...).
+>>>>>
+>>>>> I have tried that, but other CUs use definitions from 
+>>>>> public/hvm/dm_op.h, for example:
+>>>>>
+>>>>> p2m-pt.c: In function 'p2m_type_to_flags':
+>>>>> p2m-pt.c:87:33: error: 'XEN_DMOP_IOREQ_MEM_ACCESS_WRITE' undeclared 
+>>>>> (first use in this function)
+>>>>>           if ( p2m->ioreq.flags & XEN_DMOP_IOREQ_MEM_ACCESS_WRITE )
+>>>>>                                   ^
+>>>>> So, I would prefer to leave it as is, please let me know if you 
+>>>>> think otherwise.
+>>>>
+>>>> AFAICT, there is only 2 places (p2m-pt.c and p2m-ept.c) that 
+>>>> requires <public/hvm/dm_op.h> but doesn't directly include it. 
+>>>> Folding the diff below in patch #4 should do the job:
+>>>
+>>> ok, will do
+>>
+>>
+>> Just to clarify, you mentioned about patch #4, but shouldn't we make 
+>> these changes in patch #9 which actually tries to sort dm related stuff?
+> 
+> or a least in patch #8 which moves the stuff from asm-x86/hvm/domain.h 
+> to xen/ioreq.h (including the user of XEN_DMOP_IO_RANGE_PCI),
 
-For vRTC I question the calling of check_update_timer() from rtc_init():
-I would consider it more reasonable to do so immediately before the
-guest gets first launched, especially if a guest remains paused for a
-while after creation.
+I looked at the header asm-x86/hvm/domain.h after applying patch #4, 
+there is nothing requiring DMOP from there.
 
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -714,15 +714,15 @@ int hvm_domain_initialise(struct domain
-  fail1:
-     if ( is_hardware_domain(d) )
-         xfree(d->arch.hvm.io_bitmap);
--    XFREE(d->arch.hvm.io_handler);
-     XFREE(d->arch.hvm.params);
--    XFREE(d->arch.hvm.pl_time);
-     XFREE(d->arch.hvm.irq);
-  fail0:
-     hvm_destroy_cacheattr_region_list(d);
-     destroy_perdomain_mapping(d, PERDOMAIN_VIRT_START, 0);
-  fail:
-     hvm_domain_relinquish_resources(d);
-+    XFREE(d->arch.hvm.io_handler);
-+    XFREE(d->arch.hvm.pl_time);
-     return rc;
- }
- 
+I tried to build it with this series applied up to patch #4 + my diff. 
+It does build without any issue.
+
+Cheers,
+
+-- 
+Julien Grall
 
