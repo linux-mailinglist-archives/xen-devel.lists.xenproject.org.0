@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8824306AF0
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 03:13:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76518.138117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8474306AFB
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 03:19:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76527.138135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4wnL-0008UJ-3F; Thu, 28 Jan 2021 02:12:27 +0000
+	id 1l4wtx-0000PN-0e; Thu, 28 Jan 2021 02:19:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76518.138117; Thu, 28 Jan 2021 02:12:27 +0000
+Received: by outflank-mailman (output) from mailman id 76527.138135; Thu, 28 Jan 2021 02:19:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l4wnK-0008Tp-Tt; Thu, 28 Jan 2021 02:12:26 +0000
-Received: by outflank-mailman (input) for mailman id 76518;
- Thu, 28 Jan 2021 02:12:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l4wtw-0000Oy-Th; Thu, 28 Jan 2021 02:19:16 +0000
+Received: by outflank-mailman (input) for mailman id 76527;
+ Thu, 28 Jan 2021 02:19:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l4wnI-0008Tg-Ru; Thu, 28 Jan 2021 02:12:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l4wnI-0002IT-LV; Thu, 28 Jan 2021 02:12:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l4wnI-0008Px-6I; Thu, 28 Jan 2021 02:12:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l4wnI-0000o6-2s; Thu, 28 Jan 2021 02:12:24 +0000
+ (envelope-from <SRS0=IsKK=G7=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1l4wtw-0000Ot-6h
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 02:19:16 +0000
+Received: from mail-qk1-x736.google.com (unknown [2607:f8b0:4864:20::736])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 74be655e-29de-4de9-bd5d-977981123c08;
+ Thu, 28 Jan 2021 02:19:14 +0000 (UTC)
+Received: by mail-qk1-x736.google.com with SMTP id a7so3938957qkb.13
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Jan 2021 18:19:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,620 +37,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0mZtLc1VqYvpnULY1BrtvJqcCs0gmZ/YgltIqiaVwH8=; b=KgfxGmrRDTMnNAyGT6JawLTeot
-	Evr80eQxfEqZC37NqJWqY2dTFEGtKu6b4tUaDGHXFfFruvLhX29yzAl52ZbPjxNuSrCL6Dyw3qvcE
-	G9KZIhz8t8jI3LhC4TETfFibGKUZ2OKTq7MghkAY1JGHcXHl+NWh1Ok1PNO5IdY9F9JU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158707-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 74be655e-29de-4de9-bd5d-977981123c08
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zededa.com; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=jYSAugB6rrJOLSRT6ew3DqYgA9ChCBmh3NvOJqcLi/M=;
+        b=kfuPpazbh8fN4LkvXVUu3mFwt3dWljRcjZWFWa/f9bRjWtPOQS2kKPQq/o3nIWRDnA
+         TrsK3plM/RPU05LhDEwqKVyCYyiMRQmA5kkPV3DRQvksQoNVOfinH7dPIGZPMIUsIVUn
+         2fr8OiFDY9bgAwfoliBCjkhFL0QptGFHlSAV/EvZaTswPjuz9N7rErVV2zZm017IRkxO
+         febbvmoJACHHo2B5wl1BaEVLEY6TRO6Mynl//sVmWhTb+j6dgbKgRFTBK1AsImp1raVk
+         2cDGqYIKrQCUX/7JuuBOZua70N44QRxlISAdGQPBYgxQQ0PUIwuWu8NMN8t7ChoOBAmp
+         xbeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=jYSAugB6rrJOLSRT6ew3DqYgA9ChCBmh3NvOJqcLi/M=;
+        b=jUr7A1pm9RjRt9iFQCAuk5uYNyLWPyQjWw8o3ejW2kBFxWirfpepkzYkfGFz2n0wLe
+         g4etLE/auC0t6YAMWwQ0FRS/YnJHNk6LWWmQs9lCwRuUY7A5qv12ktFwRcXQaUZgQjVG
+         YiGq/M/jjqdR92Wpju8yTnFXktfi1ZBT6U7qEmBoR21sZyMYUrqy6BNEY24sD7nJfzyz
+         eTjScTvxXkXdbkNum/oqSCXdrJJUHzgCb6zI4GsnlSQqD7ZJCkbgILRkOtD+DsWDrEQk
+         7m0SBEXhHGe2UGhsubbwYuDpbVOYaoU6qaDI07MyhxpcDsUlu2OTIPIdACv4tmEhEtz5
+         3YcA==
+X-Gm-Message-State: AOAM533yiXkWuxs4Ool6TDj5CS3pID3eZzy5lwV9pcdRD0TItDzX6owe
+	27cYu1YziJj12cRXj/TYMoPt/z/dsGtkBlOUFsOz5g==
+X-Google-Smtp-Source: ABdhPJwMfX8Wu6umHF5mdpTQk68A3JZVn1c8pyoFhhGMozY/Pu2UDMZIlXoLiifqEBjkUCe91OLo/foMraoE/UJJ97Y=
+X-Received: by 2002:a05:620a:152b:: with SMTP id n11mr12620558qkk.267.1611800354580;
+ Wed, 27 Jan 2021 18:19:14 -0800 (PST)
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 158707: regressions - FAIL
-X-Osstest-Failures:
-    linux-5.4:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:regression
-    linux-5.4:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
-    linux-5.4:test-amd64-coresched-amd64-xl:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-qemuu-freebsd12-amd64:guest-start:fail:regression
-    linux-5.4:test-amd64-coresched-i386-xl:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-qemuu-freebsd11-amd64:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-qemut-rhel6hvm-amd:redhat-install:fail:regression
-    linux-5.4:test-arm64-arm64-xl-seattle:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-freebsd10-amd64:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-amd:redhat-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-freebsd10-i386:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-xl:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-libvirt:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-xl-credit1:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-xl-shadow:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-xl-xsm:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-xl:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-libvirt:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-xl-xsm:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-pair:guest-start/debian:fail:regression
-    linux-5.4:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
-    linux-5.4:test-amd64-amd64-xl-credit2:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-pair:guest-start/debian:fail:regression
-    linux-5.4:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-libvirt-pair:guest-start/debian:fail:regression
-    linux-5.4:test-amd64-i386-qemut-rhel6hvm-intel:redhat-install:fail:regression
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-intel:redhat-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:windows-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:windows-install:fail:regression
-    linux-5.4:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:windows-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-i386-pvgrub:debian-di-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-5.4:test-arm64-arm64-xl-credit1:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl-xsm:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-xl-credit2:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-pygrub:debian-di-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-amd64-pvgrub:debian-di-install:fail:regression
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:windows-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-raw:debian-di-install:fail:regression
-    linux-5.4:test-amd64-amd64-libvirt-vhd:debian-di-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:windows-install:fail:regression
-    linux-5.4:test-armhf-armhf-xl:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-libvirt:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:windows-install:fail:regression
-    linux-5.4:test-amd64-i386-xl-shadow:guest-start:fail:regression
-    linux-5.4:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
-    linux-5.4:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
-    linux-5.4:test-armhf-armhf-xl-arndale:guest-start:fail:regression
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start:fail:regression
-    linux-5.4:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=131f8d8a889a5ca66a835eea82bba043ac91a7cf
-X-Osstest-Versions-That:
-    linux=a829146c3fdcf6d0b76d9c54556a223820f1f73b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 28 Jan 2021 02:12:24 +0000
+References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
+ <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
+ <CAFnJQOqoqj6mWwR61ZsZj1JxRrdisFtH_87YXCeW619GM+L21Q@mail.gmail.com>
+ <alpine.DEB.2.21.2101251646470.20638@sstabellini-ThinkPad-T480s>
+ <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com>
+ <alpine.DEB.2.21.2101261149210.2568@sstabellini-ThinkPad-T480s>
+ <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com> <alpine.DEB.2.21.2101271707570.9684@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2101271707570.9684@sstabellini-ThinkPad-T480s>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Wed, 27 Jan 2021 18:19:03 -0800
+Message-ID: <CAMmSBy-3_BY0z6jmFi+_GHfhKR6bV7z1RBNDcekqr5Mx8gBRRQ@mail.gmail.com>
+Subject: Re: Question about xen and Rasp 4B
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jukka Kaartinen <jukka.kaartinen@unikie.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 158707 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158707/
+On Wed, Jan 27, 2021 at 5:10 PM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> On Wed, 27 Jan 2021, Jukka Kaartinen wrote:
+> > On Tue, Jan 26, 2021 at 10:22 PM Stefano Stabellini <sstabellini@kernel.org> wrote:
+> >       On Tue, 26 Jan 2021, Jukka Kaartinen wrote:
+> >       > On Tue, Jan 26, 2021 at 2:54 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
+> >       >       On Sat, 23 Jan 2021, Jukka Kaartinen wrote:
+> >       >       > Thanks for the response!
+> >       >       >
+> >       >       > On Sat, Jan 23, 2021 at 2:27 AM Stefano Stabellini <sstabellini@kernel.org> wrote:
+> >       >       >       + xen-devel, Roman,
+> >       >       >
+> >       >       >
+> >       >       >       On Fri, 22 Jan 2021, Jukka Kaartinen wrote:
+> >       >       >       > Hi Stefano,
+> >       >       >       > I'm Jukka Kaartinen a SW developer working on enabling hypervisors on mobile platforms. One of our HW that we
+> >       use on
+> >       >       >       development is
+> >       >       >       > Raspberry Pi 4B. I wonder if you could help me a bit :).
+> >       >       >       >
+> >       >       >       > I'm trying to enable the GPU with Xen + Raspberry Pi for
+> >       >       >       dom0. https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323#p1797605
+> >       >       >       >
+> >       >       >       > I got so far that GPU drivers are loaded (v3d & vc4) without errors. But now Xen returns error when X is
+> >       starting:
+> >       >       >       > (XEN) traps.c:1986:d0v1 HSR=0x93880045 pc=0x00007f97b14e70 gva=0x7f7f817000 gpa=0x0000401315d000
+> >       >       >       >  I tried to debug what causes this and looks like find_mmio_handler cannot find handler.
+> >       >       >       > (See more here: https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=232323&start=25#p1801691 )
+> >       >       >       >
+> >       >       >       > Any ideas why the handler is not found?
+> >       >       >
+> >       >       >
+> >       >       >       Hi Jukka,
+> >       >       >
+> >       >       >       I am glad to hear that you are interested in Xen on RaspberryPi :-)  I
+> >       >       >       haven't tried the GPU yet, I have been using the serial only.
+> >       >       >       Roman, did you ever get the GPU working?
+> >       >       >
+> >       >       >
+> >       >       >       The error is a data abort error: Linux is trying to access an address
+> >       >       >       which is not mapped to dom0. The address seems to be 0x401315d000. It is
+> >       >       >       a pretty high address; I looked in device tree but couldn't spot it.
+> >       >       >
+> >       >       >       >From the HSR (the syndrom register) it looks like it is a translation
+> >       >       >       fault at EL1 on stage1. As if the Linux address mapping was wrong.
+> >       >       >       Anyone has any ideas how this could happen? Maybe a reserved-memory
+> >       >       >       misconfiguration?
+> >       >       >
+> >       >       > I had issues with loading the driver in the first place. Apparently swiotlb is used, maybe it can cause this. I also
+> >       tried to
+> >       >       enable CMA.
+> >       >       > config.txt:
+> >       >       > dtoverlay=vc4-fkms-v3d,cma=320M@0x0-0x40000000
+> >       >       > gpu_mem=128
+> >       >
+> >       >       Also looking at your other reply and the implementation of
+> >       >       vc4_bo_create, it looks like this is a CMA problem.
+> >       >
+> >       >       It would be good to run a test with the swiotlb-xen disabled:
+> >       >
+> >       >       diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
+> >       >       index 467fa225c3d0..2bdd12785d14 100644
+> >       >       --- a/arch/arm/xen/mm.c
+> >       >       +++ b/arch/arm/xen/mm.c
+> >       >       @@ -138,8 +138,7 @@ void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int order)
+> >       >        static int __init xen_mm_init(void)
+> >       >        {
+> >       >               struct gnttab_cache_flush cflush;
+> >       >       -       if (!xen_initial_domain())
+> >       >       -               return 0;
+> >       >       +       return 0;
+> >       >               xen_swiotlb_init(1, false);
+> >       >
+> >       >               cflush.op = 0;
+> >       >
+> >       > With this change the kernel is not booting up. (btw. I'm using USB SSD for my OS.)
+> >       > [    0.071081] bcm2835-dma fe007000.dma: Unable to set DMA mask
+> >       > [    0.076277] bcm2835-dma fe007b00.dma: Unable to set DMA mask
+> >       > (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=25: not implemented
+> >       > (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=15: not implemented
+> >       > [    0.592695] pci 0000:00:00.0: Failed to add - passthrough or MSI/MSI-X might fail!
+> >       > (XEN) physdev.c:16:d0v0 PHYSDEVOP cmd=15: not implemented
+> >       > [    0.606819] pci 0000:01:00.0: Failed to add - passthrough or MSI/MSI-X might fail!
+> >       > [    1.212820] usb 1-1: device descriptor read/64, error 18
+> >       > [    1.452815] usb 1-1: device descriptor read/64, error 18
+> >       > [    1.820813] usb 1-1: device descriptor read/64, error 18
+> >       > [    2.060815] usb 1-1: device descriptor read/64, error 18
+> >       > [    2.845548] usb 1-1: device descriptor read/8, error -61
+> >       > [    2.977603] usb 1-1: device descriptor read/8, error -61
+> >       > [    3.237530] usb 1-1: device descriptor read/8, error -61
+> >       > [    3.369585] usb 1-1: device descriptor read/8, error -61
+> >       > [    3.480765] usb usb1-port1: unable to enumerate USB device
+> >       >
+> >       > Traces stop here. I could try with a memory card. Maybe it makes a difference.
+> >
+> >       This is very surprising. Disabling swiotlb-xen should make things better
+> >       not worse. The only reason I can think of why it could make things worse
+> >       is if Linux runs out of low memory. Julien's patch
+> >       437b0aa06a014ce174e24c0d3530b3e9ab19b18b for Xen should have addressed
+> >       that issue though. Julien, any ideas?
+> >
+> > I really don't know if this is a problem but in the allocate_memory_11  arch_get_dma_bitsize is called. That should return the
+> > platform->dma_bitsize but at the early stage of boot platform is not initialized so default 32 is returned. I tried changing the hard code
+> > from 32 -> 30 but it didn't make any difference.
+> >       static void __init allocate_memory_11(struct domain *d,
+> >                                       struct kernel_info *kinfo)
+> > {
+> >     const unsigned int min_low_order =
+> >         get_order_from_bytes(min_t(paddr_t, dom0_mem, MB(128)));
+> >     const unsigned int min_order = get_order_from_bytes(MB(4));
+> >     struct page_info *pg;
+> >     unsigned int order = get_allocation_size(kinfo->unassigned_mem);
+> >     int i;
+> >
+> >     bool lowmem = true;
+> >     unsigned int lowmem_bitsize = min(32U, arch_get_dma_bitsize());
+> >
+> > also here the place where static dma_bitsize is set is not called for dom0
+> >
+> > void __init end_boot_allocator(void)
+> > {
+> > ....
+> >     if ( !dma_bitsize && (num_online_nodes() > 1) )
+> >         dma_bitsize = arch_get_dma_bitsize();
+> >
+> >
+> > and will lead alloc_domheap_pages not to use dma_bitsize since it is not set.
+> > struct page_info *alloc_domheap_pages(
+> >     struct domain *d, unsigned int order, unsigned int memflags)
+> > {
+> >
+> > uses static: dma_bitsize and currently is not set for raspberry pi.
+>
+> You can easily check from the device tree in dom0 what memory range was
+> allocated for it by Xen. The memory node is simply called "memory". We
+> might be able to understand if the range is too high from there.
+>
+> FYI I have just ordered a micro HDMI cable so I might be able to provide
+> more useful feedback in the following days.
 
-Regressions :-(
+Speaking of which -- I'm also curious where this leads (esp. given our
+use of newer,
+non-Rpi specific kernels) so I can run all sorts of experiments with EVE too.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 158387
- test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot            fail REGR. vs. 158387
- test-amd64-amd64-xl-multivcpu 14 guest-start             fail REGR. vs. 158387
- test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 158387
- test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 158387
- test-amd64-amd64-qemuu-freebsd12-amd64 13 guest-start    fail REGR. vs. 158387
- test-amd64-coresched-i386-xl 14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-qemuu-freebsd11-amd64 13 guest-start    fail REGR. vs. 158387
- test-arm64-arm64-xl          14 guest-start              fail REGR. vs. 158387
- test-amd64-i386-qemut-rhel6hvm-amd 12 redhat-install     fail REGR. vs. 158387
- test-arm64-arm64-xl-seattle  14 guest-start              fail REGR. vs. 158387
- test-amd64-i386-freebsd10-amd64 13 guest-start           fail REGR. vs. 158387
- test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 158387
- test-amd64-i386-qemuu-rhel6hvm-amd 12 redhat-install     fail REGR. vs. 158387
- test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 158387
- test-amd64-i386-freebsd10-i386 13 guest-start            fail REGR. vs. 158387
- test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 158387
- test-amd64-i386-xl           14 guest-start              fail REGR. vs. 158387
- test-amd64-i386-libvirt      14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-xl-credit1  14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-xl-xsm      14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 158387
- test-amd64-i386-xl-xsm       14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 158387
- test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 158387
- test-amd64-amd64-xl-credit2  14 guest-start              fail REGR. vs. 158387
- test-amd64-i386-pair         25 guest-start/debian       fail REGR. vs. 158387
- test-amd64-i386-libvirt-xsm  14 guest-start              fail REGR. vs. 158387
- test-amd64-i386-libvirt-pair 25 guest-start/debian       fail REGR. vs. 158387
- test-amd64-i386-qemut-rhel6hvm-intel 12 redhat-install   fail REGR. vs. 158387
- test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 158387
- test-amd64-i386-qemuu-rhel6hvm-intel 12 redhat-install   fail REGR. vs. 158387
- test-amd64-amd64-xl-qemuu-win7-amd64 12 windows-install  fail REGR. vs. 158387
- test-amd64-i386-xl-qemut-win7-amd64 12 windows-install   fail REGR. vs. 158387
- test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-xl-qemut-win7-amd64 12 windows-install  fail REGR. vs. 158387
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-i386-pvgrub 12 debian-di-install        fail REGR. vs. 158387
- test-amd64-i386-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 158387
- test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-xl-credit2  14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-pygrub      12 debian-di-install        fail REGR. vs. 158387
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-xl-qcow2    12 debian-di-install        fail REGR. vs. 158387
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-i386-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-amd64-pvgrub 12 debian-di-install       fail REGR. vs. 158387
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-xl-qemuu-ws16-amd64 12 windows-install  fail REGR. vs. 158387
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 158387
- test-amd64-amd64-xl-qemut-ws16-amd64 12 windows-install  fail REGR. vs. 158387
- test-amd64-i386-xl-qemuu-win7-amd64 12 windows-install   fail REGR. vs. 158387
- test-amd64-i386-xl-raw       12 debian-di-install        fail REGR. vs. 158387
- test-amd64-amd64-libvirt-vhd 12 debian-di-install        fail REGR. vs. 158387
- test-amd64-i386-xl-qemut-ws16-amd64 12 windows-install   fail REGR. vs. 158387
- test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 158387
- test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 158387
- test-amd64-i386-xl-qemuu-ws16-amd64 12 windows-install   fail REGR. vs. 158387
- test-amd64-i386-xl-shadow    14 guest-start              fail REGR. vs. 158387
- test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 158387
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 158387
- test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 158387
- test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 158387
- test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 158387
-
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 158387
- test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 158387
-
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
-
-version targeted for testing:
- linux                131f8d8a889a5ca66a835eea82bba043ac91a7cf
-baseline version:
- linux                a829146c3fdcf6d0b76d9c54556a223820f1f73b
-
-Last test of basis   158387  2021-01-12 19:40:06 Z   15 days
-Failing since        158473  2021-01-17 13:42:20 Z   10 days   17 attempts
-Testing same since   158707  2021-01-27 15:40:55 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Adrian Hunter <adrian.hunter@intel.com>
-  Akilesh Kailash <akailash@google.com>
-  Al Viro <viro@zeniv.linux.org.uk>
-  Alan Maguire <alan.maguire@oracle.com>
-  Alan Stern <stern@rowland.harvard.edu>
-  Aleksander Jan Bajkowski <olek2@wp.pl>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alex Leibovich <alexl@marvell.com>
-  Alexander Lobakin <alobakin@pm.me>
-  Alexander Shishkin <alexander.shishkin@linux.intel.com>
-  Alexandru Ardelean <alexandru.ardelean@analog.com>
-  Alexey Minnekhanov <alexeymin@postmarketos.org>
-  Anders Roxell <anders.roxell@linaro.org>
-  Andreas Kemnade <andreas@kemnade.info>
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrey Zhizhikin <andrey.zhizhikin@leica-geosystems.com>
-  Andrii Nakryiko <andrii@kernel.org>
-  Andy Lutomirski <luto@kernel.org>
-  Anthony Iliopoulos <ailiop@suse.com>
-  Ariel Marcovitch <ariel.marcovitch@gmail.com>
-  Ariel Marcovitch <arielmarcovitch@gmail.com>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Aya Levin <ayal@nvidia.com>
-  Ayush Sawal <ayush.sawal@chelsio.com>
-  Baptiste Lepers <baptiste.lepers@gmail.com>
-  Ben Skeggs <bskeggs@redhat.com>
-  Billy Tsai <billy_tsai@aspeedtech.com>
-  Borislav Petkov <bp@suse.de>
-  Can Guo <cang@codeaurora.org>
-  Catalin Marinas <catalin.marinas@arm.com>
-  Cezary Rojewski <cezary.rojewski@intel.com>
-  Chris Wilson <chris@chris-wilson.co.uk>
-  Christoph Hellwig <hch@lst.de>
-  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-  Chuck Lever <chuck.lever@oracle.com>
-  Chunyan Zhang <chunyan.zhang@unisoc.com>
-  Colin Ian King <colin.king@canonical.com>
-  Cong Wang <cong.wang@bytedance.com>
-  Craig Tatlor <ctatlor97@gmail.com>
-  Damien Le Moal <damien.lemoal@wdc.com>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniel Vetter <daniel.vetter@ffwll.ch>
-  Daniel Vetter <daniel.vetter@intel.com>
-  Dave Wysochanski <dwysocha@redhat.com>
-  David Howells <dhowells@redhat.com>
-  David Rientjes <rientjes@google.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  David Woodhouse <dwmw@amazon.co.uk>
-  David Wu <david.wu@rock-chips.com>
-  Dennis Li <Dennis.Li@amd.com>
-  Dexuan Cui <decui@microsoft.com>
-  Dinghao Liu <dinghao.liu@zju.edu.cn>
-  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-  Enke Chen <enchen@paloaltonetworks.com>
-  Eric Dumazet <edumazet@google.com>
-  Eugene Korenevsky <ekorenevsky@astralinux.ru>
-  Ewan D. Milne <emilne@redhat.com>
-  Fabian Vogt <fvogt@suse.com>
-  Felipe Balbi <balbi@kernel.org>
-  Felix Fietkau <nbd@nbd.name>
-  Fenghua Yu <fenghua.yu@intel.com>
-  Filipe Laíns <lains@archlinux.org>
-  Filipe Manana <fdmanana@suse.com>
-  Finn Thain <fthain@telegraphics.com.au>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Florian Westphal <fw@strlen.de>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  Gopal Tiwari <gtiwari@redhat.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Guido Günther <agx@sigxcpu.org>
-  Guillaume Nault <gnault@redhat.com>
-  Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-  Hamish Martin <hamish.martin@alliedtelesis.co.nz>
-  Hangbin Liu <liuhangbin@gmail.com>
-  Hannes Reinecke <hare@suse.de>
-  Hans de Goede <hdegoede@redhat.com>
-  Hao Wang <pkuwangh@gmail.com>
-  Heikki Krogerus <heikki.krogerus@linux.intel.com>
-  Hoang Le <hoang.h.le@dektech.com.au>
-  Huazhong Tan <tanhuazhong@huawei.com>
-  Ido Schimmel <idosch@nvidia.com>
-  Igor Russkikh <irusskikh@marvell.com>
-  Ingo Molnar <mingo@kernel.org>
-  Ion Agorria <ion@agorria.com>
-  Israel Rukshin <israelr@nvidia.com>
-  J. Bruce Fields <bfields@redhat.com>
-  j.nixdorf@avm.de <j.nixdorf@avm.de>
-  Jakub Kicinski <kuba@kernel.org>
-  Jamie Iles <jamie@jamieiles.com>
-  Jan Kara <jack@suse.cz>
-  Jani Nikula <jani.nikula@intel.com>
-  Jann Horn <jannh@google.com>
-  Jason A. Donenfeld <Jason@zx2c4.com>
-  Jason Gunthorpe <jgg@nvidia.com>
-  JC Kuo <jckuo@nvidia.com>
-  Jean Delvare <jdelvare@suse.de>
-  Jens Axboe <axboe@kernel.dk>
-  Jerome Brunet <jbrunet@baylibre.com>
-  Jesper Dangaard Brouer <brouer@redhat.com>
-  Jethro Beekman <jethro@fortanix.com>
-  Jiaxun Yang <jiaxun.yang@flygoat.com>
-  Jiri Kosina <jkosina@suse.cz>
-  Jiri Slaby <jslaby@suse.cz>
-  Joel Stanley <joel@jms.id.au>
-  Johannes Berg <johannes.berg@intel.com>
-  Johannes Nixdorf <j.nixdorf@avm.de>
-  John Millikin <john@john-millikin.com>
-  Johnathan Smithinovic <johnathan.smithinovic@gmx.at>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jon Maloy <jmaloy@redhat.com>
-  Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Joonsoo Kim <iamjoonsoo.kim@lge.com>
-  Josef Bacik <josef@toxicpanda.com>
-  Jouni K. Seppänen <jks@iki.fi>
-  Jozsef Kadlecsik <kadlec@netfilter.org>
-  Juerg Haefliger <juergh@canonical.com>
-  Juergen Gross <jgross@suse.com>
-  Julian Wiedmann <jwi@linux.ibm.com>
-  Kai-Heng Feng <kai.heng.feng@canonical.com>
-  Kan Liang <kan.liang@linux.intel.com>
-  Kees Cook <keescook@chromium.org>
-  Krzysztof Mazur <krzysiek@podlesie.net>
-  Krzysztof Piotr Olędzki <ole@ans.pl>
-  Lars-Peter Clausen <lars@metafoo.de>
-  Lecopzer Chen <lecopzer.chen@mediatek.com>
-  Lecopzer Chen <lecopzer@gmail.com>
-  Leon Romanovsky <leonro@nvidia.com>
-  Leon Schuermann <leon@is.currently.online>
-  Linhua Xu <linhua.xu@unisoc.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linus Walleij <linus.walleij@linaro.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Longfang Liu <liulongfang@huawei.com>
-  Lorenzo Bianconi <lorenzo@kernel.org>
-  Lu Baolu <baolu.lu@linux.intel.com>
-  Luis Lozano <llozano@google.com>
-  Lukas Wunner <lukas@wunner.de>
-  Manish Chopra <manishc@marvell.com>
-  Manoj Gupta <manojgupta@google.com>
-  Marc Kleine-Budde <mkl@pengutronix.de>
-  Marc Zyngier <maz@kernel.org>
-  Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
-  Marcin Wojtas <mw@semihalf.com>
-  Mark Bloch <mbloch@nvidia.com>
-  Mark Brown <broonie@kernel.org>
-  Mark Zhang <markzhang@nvidia.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Martin KaFai Lau <kafai@fb.com>
-  Martin Wilck <mwilck@suse.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Masami Hiramatsu <mhiramat@kernel.org>
-  Mathias Kresin <dev@kresin.me>
-  Mathias Nyman <mathias.nyman@linux.intel.com>
-  Matteo Croce <mcroce@microsoft.com>
-  Matthew Rosato <mjrosato@linux.ibm.com>
-  Miaohe Lin <linmiaohe@huawei.com>
-  Michael Chan <michael.chan@broadcom.com>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael Hennerich <michael.hennerich@analog.com>
-  Michael S. Tsirkin <mst@redhat.com>
-  Mike Snitzer <snitzer@redhat.com>
-  Mikko Perttunen <mperttunen@nvidia.com>
-  Mikulas Patocka <mpatocka@redhat.com>
-  Ming Lei <ming.lei@redhat.com>
-  Mircea Cirjaliu <mcirjaliu@bitdefender.com>
-  Nathan Chancellor <natechancellor@gmail.com>
-  Naveen N. Rao <naveen.n.rao@linux.vnet.ibm.com>
-  Neal Cardwell <ncardwell@google.com>
-  Necip Fazil Yildiran <fazilyildiran@gmail.com>
-  Nick Desaulniers <ndesaulniers@google.com>
-  Nicolas Dichtel <nicolas.dichtel@6wind.com>
-  Nilesh Javali <njavali@marvell.com>
-  Oded Gabbay <ogabbay@kernel.org>
-  Olaf Hering <olaf@aepfle.de>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Pali Rohár <pali@kernel.org>
-  Palmer Dabbelt <palmerdabbelt@google.com>
-  Pan Bian <bianpan2016@163.com>
-  Parav Pandit <parav@nvidia.com>
-  Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-  Paul Cercueil <paul@crapouillou.net>
-  Paulo Alcantara (SUSE) <pc@cjr.nz>
-  Paulo Alcantara <pc@cjr.nz>
-  Peter Collingbourne <pcc@google.com>
-  Peter Geis <pgwipeout@gmail.com>
-  Peter Robinson <pbrobinson@gmail.com>
-  Petr Machata <me@pmachata.org>
-  Petr Machata <petrm@nvidia.com>
-  Phil Oester <kernel@linuxace.com>
-  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-  Ping Cheng <ping.cheng@wacom.com>
-  Ping Cheng <pinglinux@gmail.com>
-  Po-Hsu Lin <po-hsu.lin@canonical.com>
-  Qinglang Miao <miaoqinglang@huawei.com>
-  Qingqing Zhuo <qingqing.zhuo@amd.com>
-  Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Rafael Kitover <rkitover@gmail.com>
-  Randy Dunlap <rdunlap@infradead.org>
-  Rasmus Villemoes <rasmus.villemoes@prevas.dk>
-  Reinette Chatre <reinette.chatre@intel.com>
-  Rich Felker <dalias@libc.org>
-  Rob Clark <robdclark@chromium.org>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Rohit Maheshwari <rohitm@chelsio.com>
-  Roman Guskov <rguskov@dh-electronics.com>
-  Ronnie Sahlberg <lsahlber@redhat.com>
-  Ross Zwisler <zwisler@google.com>
-  Ryan Chen <ryan_chen@aspeedtech.com>
-  Saeed Mahameed <saeedm@nvidia.com>
-  Sagar Shrikant Kadam <sagar.kadam@sifive.com>
-  Sagi Grimberg <sagi@grimberg.me>
-  Sameer Pujar <spujar@nvidia.com>
-  Samuel Holland <samuel@sholland.org>
-  Sasha Levin <sashal@kernel.org>
-  Sean Tranchetti <stranche@codeaurora.org>
-  Seth Miller <miller.seth@gmail.com>
-  Shawn Guo <shawn.guo@linaro.org>
-  Shravya Kumbham <shravya.kumbham@xilinx.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Stanislav Fomichev <sdf@google.com>
-  Stefan Chulski <stefanc@marvell.com>
-  Steffen Klassert <steffen.klassert@secunet.com>
-  Stephan Gerhold <stephan@gerhold.net>
-  Stephen Boyd <sboyd@kernel.org>
-  Steve French <stfrench@microsoft.com>
-  Steven Rostedt (VMware) <rostedt@goodmis.org>
-  Su Yue <l@damenly.su>
-  Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-  Takashi Iwai <tiwai@suse.de>
-  Tariq Toukan <tariqt@nvidia.com>
-  Theodore Ts'o <tytso@mit.edu>
-  Thierry Reding <treding@nvidia.com>
-  Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-  Thomas Hebb <tommyhebb@gmail.com>
-  Tobias Waldekranz <tobias@waldekranz.com>
-  Toke Høiland-Jørgensen <toke@toke.dk>
-  Tom Rix <trix@redhat.com>
-  Tony Lindgren <tony@atomide.com>
-  Trond Myklebust <trond.myklebust@hammerspace.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-  Vadim Pasternak <vadimp@nvidia.com>
-  Valdis Kletnieks <valdis.kletnieks@vt.edu>
-  Valdis Klētnieks <valdis.kletnieks@vt.edu>
-  Vasily Averin <vvs@virtuozzo.com>
-  Victor Zhao <Victor.Zhao@amd.com>
-  Vinay Kumar Yadav <vinay.yadav@chelsio.com>
-  Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-  Vineet Gupta <vgupta@synopsys.com>
-  Vinod Koul <vkoul@kernel.org>
-  Viresh Kumar <viresh.kumar@linaro.org>
-  Vladimir Oltean <vladimir.oltean@nxp.com>
-  Wang Hui <john.wanghui@huawei.com>
-  Wayne Lin <Wayne.Lin@amd.com>
-  Wei Liu <wei.liu@kernel.org>
-  Will Deacon <will@kernel.org>
-  Willem de Bruijn <willemb@google.com>
-  Wolfram Sang <wsa+renesas@sang-engineering.com>
-  Wolfram Sang <wsa@kernel.org>
-  Xiaolei Wang <xiaolei.wang@windriver.com>
-  yangerkun <yangerkun@huawei.com>
-  Yazen Ghannam <Yazen.Ghannam@amd.com>
-  Yonglong Liu <liuyonglong@huawei.com>
-  Youling Tang <tangyouling@loongson.cn>
-  YueHaibing <yuehaibing@huawei.com>
-  Yufeng Mo <moyufeng@huawei.com>
-  zhengbin <zhengbin13@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-i386-xl                                           fail    
- test-amd64-coresched-i386-xl                                 fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-i386-xl-xsm                                       fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-i386-qemut-rhel6hvm-amd                           fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
- test-amd64-i386-freebsd10-amd64                              fail    
- test-amd64-amd64-qemuu-freebsd11-amd64                       fail    
- test-amd64-amd64-qemuu-freebsd12-amd64                       fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               fail    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-i386-qemut-rhel6hvm-intel                         fail    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      fail    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        fail    
- test-amd64-i386-pair                                         fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-i386-libvirt-pair                                 fail    
- test-amd64-amd64-amd64-pvgrub                                fail    
- test-amd64-amd64-i386-pvgrub                                 fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      fail    
- test-amd64-amd64-xl-qcow2                                    fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-i386-xl-raw                                       fail    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-amd64-i386-xl-shadow                                    fail    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 7622 lines long.)
+Thanks,
+Roman.
 
