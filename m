@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 538EA30757D
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 13:07:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76974.139173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93BF430763B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 13:39:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76978.139191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l565K-0006tk-OZ; Thu, 28 Jan 2021 12:07:38 +0000
+	id 1l56Yu-0001Po-7e; Thu, 28 Jan 2021 12:38:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76974.139173; Thu, 28 Jan 2021 12:07:38 +0000
+Received: by outflank-mailman (output) from mailman id 76978.139191; Thu, 28 Jan 2021 12:38:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l565K-0006tL-LS; Thu, 28 Jan 2021 12:07:38 +0000
-Received: by outflank-mailman (input) for mailman id 76974;
- Thu, 28 Jan 2021 12:07:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l56Yu-0001PP-3f; Thu, 28 Jan 2021 12:38:12 +0000
+Received: by outflank-mailman (input) for mailman id 76978;
+ Thu, 28 Jan 2021 12:13:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tEu6=G7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l565J-0006tG-4t
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 12:07:37 +0000
-Received: from mail-lj1-x229.google.com (unknown [2a00:1450:4864:20::229])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a709830-bd86-4c30-be86-6d519f6396c3;
- Thu, 28 Jan 2021 12:07:36 +0000 (UTC)
-Received: by mail-lj1-x229.google.com with SMTP id f11so5999959ljm.8
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 04:07:36 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id e22sm1962472ljg.78.2021.01.28.04.06.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Jan 2021 04:07:03 -0800 (PST)
+ <SRS0=7iPv=G7=linux.alibaba.com=joseph.qi@srs-us1.protection.inumbo.net>)
+ id 1l56BB-0007sL-0r
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 12:13:41 +0000
+Received: from out30-131.freemail.mail.aliyun.com (unknown [115.124.30.131])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 10eb5a45-45de-4782-9780-d87b4522a68e;
+ Thu, 28 Jan 2021 12:13:38 +0000 (UTC)
+Received: from B-D1K7ML85-0059.local(mailfrom:joseph.qi@linux.alibaba.com
+ fp:SMTPD_---0UN8ZMkY_1611836008) by smtp.aliyun-inc.com(127.0.0.1);
+ Thu, 28 Jan 2021 20:13:29 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,122 +39,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a709830-bd86-4c30-be86-6d519f6396c3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=vzs07POZkyi+yedUnli2x7lLx8fPZ+Vn+tqEfLBwqj8=;
-        b=TgjQvXe12wyIIcBXVizUdrlnMZIFXjOJTRwNj3sdHTSYrQRHdMrt1KdSeuh62v6pla
-         L1meG8e9hlkJ+UXp36HWjNsceLtY4nKn2KkjiNjpDF1Avg2dQuA0127ylgXBVuLmepHu
-         A6z/hQe9qQnDVIz0pZJ851xgfWant+2k6D5SgJMrt6aDeqC1g0V+34GYR1lHyaG10pwW
-         DRso6Yn3aF7jORFO9NKtNxt1BkkRkUxOXn11kF9bnJ0PFJ2TYO990G7f5hCwUzyfvpSM
-         J6FrQSqS10EDhGKOUjQe0ryBeaKkuL3yLG7U9ezRtByGoQVJVCA0Wu1yYKYVL+3qNR1T
-         CDMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=vzs07POZkyi+yedUnli2x7lLx8fPZ+Vn+tqEfLBwqj8=;
-        b=L8gtJOn8TjGzlDlvH69NoBl/D5P6pqfDwEd8BjvkBpKvAadBYfJh92icQW48TfpJ4N
-         OVOSOBlg2cU46MVIqsoihBLUN/hskjTbheh4b0SYg+cy1GI4HTRYr3TS92XuI0gmKaHU
-         sAeytwoqax29PvnQrqfQFZzTxf11oft4voDOoRwo685Q0jr5jME+nnySgbxZYhrCSXcF
-         aJrR9WIKO2n4OoTJPa2filGGnNTJv0sTIUnlk7EXJzN1fsi7k+sWkU4bpGYao4LJ/A+I
-         as9k4hLuXzVaSmvb1UXa0o6bxr8eNc75ONS+lanz6PPcwU46SSJycDZ6fZfFaadxsPVX
-         uHHw==
-X-Gm-Message-State: AOAM532GLQa1kKJy1wFsor7gMDevtE1tT+4O6LERyTQSrtShtfHrLa1o
-	HigYyps2LTRiXnfH/eSUOv3jg8ig7Qdpew==
-X-Google-Smtp-Source: ABdhPJxvCvYyj1+sR4HWZnxzy3c5CYBgazRMo4C4UQ45mhefJGmo01XHbrMF4Sha97KEgylkF3Q/hQ==
-X-Received: by 2002:a05:651c:113c:: with SMTP id e28mr8068039ljo.356.1611835654862;
-        Thu, 28 Jan 2021 04:07:34 -0800 (PST)
-Subject: Re: [PATCH V5 09/22] xen/ioreq: Make x86's IOREQ related dm-op
- handling common
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien.grall@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-10-git-send-email-olekstysh@gmail.com>
- <d83c0736-c5cb-23e1-1cb3-fefe6907f091@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <19fa20ec-739b-250a-19f5-c4cbafd632fa@gmail.com>
-Date: Thu, 28 Jan 2021 14:06:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 10eb5a45-45de-4782-9780-d87b4522a68e
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R261e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=e01e04357;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=56;SR=0;TI=SMTPD_---0UN8ZMkY_1611836008;
+Subject: Re: [RFC PATCH 25/34] ocfs/cluster: use bio_new in dm-log-writes
+To: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ dm-devel@redhat.com, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, drbd-dev@lists.linbit.com,
+ xen-devel@lists.xenproject.org, linux-nvme@lists.infradead.org,
+ linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
+ linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
+ linux-pm@vger.kernel.org, linux-mm@kvack.org
+Cc: axboe@kernel.dk, philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
+ konrad.wilk@oracle.com, roger.pau@citrix.com, minchan@kernel.org,
+ ngupta@vflare.org, sergey.senozhatsky.work@gmail.com, agk@redhat.com,
+ snitzer@redhat.com, hch@lst.de, sagi@grimberg.me,
+ martin.petersen@oracle.com, viro@zeniv.linux.org.uk, tytso@mit.edu,
+ jaegeuk@kernel.org, ebiggers@kernel.org, djwong@kernel.org,
+ shaggy@kernel.org, konishi.ryusuke@gmail.com, mark@fasheh.com,
+ jlbec@evilplan.org, damien.lemoal@wdc.com, naohiro.aota@wdc.com,
+ jth@kernel.org, rjw@rjwysocki.net, len.brown@intel.com, pavel@ucw.cz,
+ akpm@linux-foundation.org, hare@suse.de, gustavoars@kernel.org,
+ tiwai@suse.de, alex.shi@linux.alibaba.com, asml.silence@gmail.com,
+ ming.lei@redhat.com, tj@kernel.org, osandov@fb.com, bvanassche@acm.org,
+ jefflexu@linux.alibaba.com
+References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
+ <20210128071133.60335-26-chaitanya.kulkarni@wdc.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Message-ID: <8ba2c461-6042-757d-a3c1-0490932e749e@linux.alibaba.com>
+Date: Thu, 28 Jan 2021 20:13:28 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <d83c0736-c5cb-23e1-1cb3-fefe6907f091@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20210128071133.60335-26-chaitanya.kulkarni@wdc.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
+I think you send a wrong subject by mistake.
 
-On 28.01.21 12:52, Jan Beulich wrote:
+Thanks,
+Joseph
 
-Hi Jan
-
-> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
->> --- /dev/null
->> +++ b/xen/include/xen/dm.h
->> @@ -0,0 +1,41 @@
->> +/*
->> + * Copyright (c) 2016 Citrix Systems Inc.
->> + *
->> + * This program is free software; you can redistribute it and/or modify it
->> + * under the terms and conditions of the GNU General Public License,
->> + * version 2, as published by the Free Software Foundation.
->> + *
->> + * This program is distributed in the hope it will be useful, but WITHOUT
->> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
->> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
->> + * more details.
->> + *
->> + * You should have received a copy of the GNU General Public License along with
->> + * this program; If not, see <http://www.gnu.org/licenses/>.
->> + */
->> +
->> +#ifndef __XEN_DM_H__
->> +#define __XEN_DM_H__
->> +
->> +#include <xen/sched.h>
->> +
->> +struct dmop_args {
->> +    domid_t domid;
->> +    unsigned int nr_bufs;
->> +    /* Reserve enough buf elements for all current hypercalls. */
->> +    struct xen_dm_op_buf buf[2];
-> So this is then the patch where the public header needs including,
-> to satisfy this use of a struct declared there independent of what
-> xen/sched.h includes. In fact public/xen.h needs including here
-> as well, I think, for domid_t. Otoh I can't see why you include
-> xen/sched.h.
-
-Yes, xen/sched.h indeed doesn't need to be included here, I mentioned 
-that we could just replace
-
-it by xen/types.h (this is the minimum what we need here I think). As I 
-understand public/xen.h is already included by public/hvm/dm_op.h...
-
-
->
-> My previously given ack applies only with this properly sorted.
-
-Got it, sure.
-
-
-
->
-> Jan
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+On 1/28/21 3:11 PM, Chaitanya Kulkarni wrote:
+> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+> ---
+>  fs/ocfs2/cluster/heartbeat.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+> index 0179a73a3fa2..b34518036446 100644
+> --- a/fs/ocfs2/cluster/heartbeat.c
+> +++ b/fs/ocfs2/cluster/heartbeat.c
+> @@ -515,12 +515,13 @@ static struct bio *o2hb_setup_one_bio(struct o2hb_region *reg,
+>  	unsigned int cs = *current_slot;
+>  	struct bio *bio;
+>  	struct page *page;
+> +	sector_t sect = (reg->hr_start_block + cs) << (bits - 9);
+>  
+>  	/* Testing has shown this allocation to take long enough under
+>  	 * GFP_KERNEL that the local node can get fenced. It would be
+>  	 * nicest if we could pre-allocate these bios and avoid this
+>  	 * all together. */
+> -	bio = bio_alloc(GFP_ATOMIC, 16);
+> +	bio = bio_new(reg->hr_bdev, sect, op, op_flags, 16, GFP_ATOMIC);
+>  	if (!bio) {
+>  		mlog(ML_ERROR, "Could not alloc slots BIO!\n");
+>  		bio = ERR_PTR(-ENOMEM);
+> @@ -528,11 +529,8 @@ static struct bio *o2hb_setup_one_bio(struct o2hb_region *reg,
+>  	}
+>  
+>  	/* Must put everything in 512 byte sectors for the bio... */
+> -	bio->bi_iter.bi_sector = (reg->hr_start_block + cs) << (bits - 9);
+> -	bio_set_dev(bio, reg->hr_bdev);
+>  	bio->bi_private = wc;
+>  	bio->bi_end_io = o2hb_bio_end_io;
+> -	bio_set_op_attrs(bio, op, op_flags);
+>  
+>  	vec_start = (cs << bits) % PAGE_SIZE;
+>  	while(cs < max_slots) {
+> 
 
