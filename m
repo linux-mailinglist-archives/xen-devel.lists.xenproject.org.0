@@ -2,28 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27BBC30755E
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 13:02:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76970.139161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 538EA30757D
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 13:07:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76974.139173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5606-0006ii-47; Thu, 28 Jan 2021 12:02:14 +0000
+	id 1l565K-0006tk-OZ; Thu, 28 Jan 2021 12:07:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76970.139161; Thu, 28 Jan 2021 12:02:14 +0000
+Received: by outflank-mailman (output) from mailman id 76974.139173; Thu, 28 Jan 2021 12:07:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5606-0006iJ-0p; Thu, 28 Jan 2021 12:02:14 +0000
-Received: by outflank-mailman (input) for mailman id 76970;
- Thu, 28 Jan 2021 12:02:12 +0000
+	id 1l565K-0006tL-LS; Thu, 28 Jan 2021 12:07:38 +0000
+Received: by outflank-mailman (input) for mailman id 76974;
+ Thu, 28 Jan 2021 12:07:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0GBf=G7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l5604-0006iE-9Q
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 12:02:12 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=tEu6=G7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l565J-0006tG-4t
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 12:07:37 +0000
+Received: from mail-lj1-x229.google.com (unknown [2a00:1450:4864:20::229])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8bb4e74d-00ad-4160-b7d6-4bf30690cc29;
- Thu, 28 Jan 2021 12:02:10 +0000 (UTC)
+ id 4a709830-bd86-4c30-be86-6d519f6396c3;
+ Thu, 28 Jan 2021 12:07:36 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id f11so5999959ljm.8
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 04:07:36 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id e22sm1962472ljg.78.2021.01.28.04.06.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Jan 2021 04:07:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,312 +41,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bb4e74d-00ad-4160-b7d6-4bf30690cc29
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611835330;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=YNbZ86esMvcGT7tjDvXP+K2Apsd+TVJMsW1oTRfUtJU=;
-  b=DzTnkb+0dUjHJjDbt1+Rx64BZ/w5Ko3OWYbdwCK7Yd2EIV4iTzZGXlGF
-   xsWFNWGBLh2Ax1YS0Knq7uNWQJGQ32WriUkFg7QvbnPPOWUMmGtH1OaUE
-   3JYYSUWWb023Rs240xnXfGXsLz+HGPMpQIjVaIo+9VW1KEj0+vqHnAh6P
-   U=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: DbzTGMTtxSheKBtHJvcDXpDeDvNOtA1NzEtz37Kek/jGDo30h+TtuYhWyIK4x5+qcFtxhuVQSr
- SkiyZDKfPxKwvS8wZxNaJaXe0SKogMDXkZvT4X7yBlyJqJxa2/gBXvKWiPk5aCFOmzpjfjpJfH
- xp5bBiqRaaq5ALRUFZVa7shD0vfShkozANAPMovfgvEcH8F5tAoSd88Bgf4QczxA4gS91qQjoM
- YVl9VNDH7TYypORCBzwvx3zWdb89nRDPN1q+4QD875lZfZcuKLMf950pRWzAPTKwKIHe/1c/W3
- CC4=
-X-SBRS: 5.1
-X-MesageID: 36255448
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,382,1602561600"; 
-   d="scan'208";a="36255448"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, "Paul
- Durrant" <paul@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>, Ian Jackson
-	<iwj@xenproject.org>, =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?=
-	<michal.leszczynski@cert.pl>, Hubert Jasudowicz <hubert.jasudowicz@cert.pl>,
-	Tamas K Lengyel <tamas@tklengyel.com>, Manuel Bouyer <bouyer@netbsd.org>
-Subject: [PATCH v4] tools/foreignmem: Support querying the size of a resource
-Date: Thu, 28 Jan 2021 12:01:52 +0000
-Message-ID: <20210128120152.9908-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: 4a709830-bd86-4c30-be86-6d519f6396c3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=vzs07POZkyi+yedUnli2x7lLx8fPZ+Vn+tqEfLBwqj8=;
+        b=TgjQvXe12wyIIcBXVizUdrlnMZIFXjOJTRwNj3sdHTSYrQRHdMrt1KdSeuh62v6pla
+         L1meG8e9hlkJ+UXp36HWjNsceLtY4nKn2KkjiNjpDF1Avg2dQuA0127ylgXBVuLmepHu
+         A6z/hQe9qQnDVIz0pZJ851xgfWant+2k6D5SgJMrt6aDeqC1g0V+34GYR1lHyaG10pwW
+         DRso6Yn3aF7jORFO9NKtNxt1BkkRkUxOXn11kF9bnJ0PFJ2TYO990G7f5hCwUzyfvpSM
+         J6FrQSqS10EDhGKOUjQe0ryBeaKkuL3yLG7U9ezRtByGoQVJVCA0Wu1yYKYVL+3qNR1T
+         CDMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=vzs07POZkyi+yedUnli2x7lLx8fPZ+Vn+tqEfLBwqj8=;
+        b=L8gtJOn8TjGzlDlvH69NoBl/D5P6pqfDwEd8BjvkBpKvAadBYfJh92icQW48TfpJ4N
+         OVOSOBlg2cU46MVIqsoihBLUN/hskjTbheh4b0SYg+cy1GI4HTRYr3TS92XuI0gmKaHU
+         sAeytwoqax29PvnQrqfQFZzTxf11oft4voDOoRwo685Q0jr5jME+nnySgbxZYhrCSXcF
+         aJrR9WIKO2n4OoTJPa2filGGnNTJv0sTIUnlk7EXJzN1fsi7k+sWkU4bpGYao4LJ/A+I
+         as9k4hLuXzVaSmvb1UXa0o6bxr8eNc75ONS+lanz6PPcwU46SSJycDZ6fZfFaadxsPVX
+         uHHw==
+X-Gm-Message-State: AOAM532GLQa1kKJy1wFsor7gMDevtE1tT+4O6LERyTQSrtShtfHrLa1o
+	HigYyps2LTRiXnfH/eSUOv3jg8ig7Qdpew==
+X-Google-Smtp-Source: ABdhPJxvCvYyj1+sR4HWZnxzy3c5CYBgazRMo4C4UQ45mhefJGmo01XHbrMF4Sha97KEgylkF3Q/hQ==
+X-Received: by 2002:a05:651c:113c:: with SMTP id e28mr8068039ljo.356.1611835654862;
+        Thu, 28 Jan 2021 04:07:34 -0800 (PST)
+Subject: Re: [PATCH V5 09/22] xen/ioreq: Make x86's IOREQ related dm-op
+ handling common
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien.grall@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
+ <1611601709-28361-10-git-send-email-olekstysh@gmail.com>
+ <d83c0736-c5cb-23e1-1cb3-fefe6907f091@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <19fa20ec-739b-250a-19f5-c4cbafd632fa@gmail.com>
+Date: Thu, 28 Jan 2021 14:06:52 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <d83c0736-c5cb-23e1-1cb3-fefe6907f091@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-With the Xen side of this interface (soon to be) fixed to return real sizes,
-userspace needs to be able to make the query.
 
-Introduce xenforeignmemory_resource_size() for the purpose, bumping the
-library minor version.
+On 28.01.21 12:52, Jan Beulich wrote:
 
-Update both all osdep_xenforeignmemory_map_resource() implementations to
-understand size requests, skip the mmap() operation, and copy back the
-nr_frames field.
+Hi Jan
 
-For NetBSD, also fix up the ioctl() error path to issue an unmap(), which was
-overlooked by c/s 4a64e2bb39 "libs/foreignmemory: Implement on NetBSD".
+> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
+>> --- /dev/null
+>> +++ b/xen/include/xen/dm.h
+>> @@ -0,0 +1,41 @@
+>> +/*
+>> + * Copyright (c) 2016 Citrix Systems Inc.
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify it
+>> + * under the terms and conditions of the GNU General Public License,
+>> + * version 2, as published by the Free Software Foundation.
+>> + *
+>> + * This program is distributed in the hope it will be useful, but WITHOUT
+>> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+>> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+>> + * more details.
+>> + *
+>> + * You should have received a copy of the GNU General Public License along with
+>> + * this program; If not, see <http://www.gnu.org/licenses/>.
+>> + */
+>> +
+>> +#ifndef __XEN_DM_H__
+>> +#define __XEN_DM_H__
+>> +
+>> +#include <xen/sched.h>
+>> +
+>> +struct dmop_args {
+>> +    domid_t domid;
+>> +    unsigned int nr_bufs;
+>> +    /* Reserve enough buf elements for all current hypercalls. */
+>> +    struct xen_dm_op_buf buf[2];
+> So this is then the patch where the public header needs including,
+> to satisfy this use of a struct declared there independent of what
+> xen/sched.h includes. In fact public/xen.h needs including here
+> as well, I think, for domid_t. Otoh I can't see why you include
+> xen/sched.h.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
----
-CC: Wei Liu <wl@xen.org>
-CC: Paul Durrant <paul@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Juergen Gross <jgross@suse.com>
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Michał Leszczyński <michal.leszczynski@cert.pl>
-CC: Hubert Jasudowicz <hubert.jasudowicz@cert.pl>
-CC: Tamas K Lengyel <tamas@tklengyel.com>
-CC: Manuel Bouyer <bouyer@netbsd.org>
+Yes, xen/sched.h indeed doesn't need to be included here, I mentioned 
+that we could just replace
 
-This depends on a bugfix to the Linux IOCTL to understand size requests and
-pass them on to Xen.
+it by xen/types.h (this is the minimum what we need here I think). As I 
+understand public/xen.h is already included by public/hvm/dm_op.h...
 
-  https://lore.kernel.org/xen-devel/20210112115358.23346-1-roger.pau@citrix.com/T/#u
 
-v4:
- * Rebase over NetBSD support being added.
+>
+> My previously given ack applies only with this properly sorted.
 
-v3:
- * Rewrite from scratch, to avoid breaking restricted domid situations.  In
-   particular, we cannot open a xencall interface and issue blind hypercalls.
----
- tools/include/xenforeignmemory.h                 | 15 +++++++++++++++
- tools/libs/foreignmemory/Makefile                |  2 +-
- tools/libs/foreignmemory/core.c                  | 18 ++++++++++++++++++
- tools/libs/foreignmemory/freebsd.c               | 18 +++++++++++++++---
- tools/libs/foreignmemory/libxenforeignmemory.map |  4 ++++
- tools/libs/foreignmemory/linux.c                 | 18 +++++++++++++++---
- tools/libs/foreignmemory/netbsd.c                | 21 ++++++++++++++++++++-
- 7 files changed, 88 insertions(+), 8 deletions(-)
+Got it, sure.
 
-diff --git a/tools/include/xenforeignmemory.h b/tools/include/xenforeignmemory.h
-index d594be8df0..0ab1dd19d3 100644
---- a/tools/include/xenforeignmemory.h
-+++ b/tools/include/xenforeignmemory.h
-@@ -179,6 +179,21 @@ xenforeignmemory_resource_handle *xenforeignmemory_map_resource(
- int xenforeignmemory_unmap_resource(
-     xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres);
- 
-+/**
-+ * Determine the maximum size of a specific resource.
-+ *
-+ * @parm fmem handle to the open foreignmemory interface
-+ * @parm domid the domain id
-+ * @parm type the resource type
-+ * @parm id the type-specific resource identifier
-+ *
-+ * Return 0 on success and fills in *size, with a value in bytes.  Sets errno
-+ * and return -1 on error.
-+ */
-+int xenforeignmemory_resource_size(
-+    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
-+    unsigned int id, size_t *size);
-+
- #endif
- 
- /*
-diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
-index f191cdbed0..0eb9a3a712 100644
---- a/tools/libs/foreignmemory/Makefile
-+++ b/tools/libs/foreignmemory/Makefile
-@@ -2,7 +2,7 @@ XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR    = 1
--MINOR    = 3
-+MINOR    = 4
- 
- SRCS-y                 += core.c
- SRCS-$(CONFIG_Linux)   += linux.c
-diff --git a/tools/libs/foreignmemory/core.c b/tools/libs/foreignmemory/core.c
-index 63f12e2450..28ec311af1 100644
---- a/tools/libs/foreignmemory/core.c
-+++ b/tools/libs/foreignmemory/core.c
-@@ -188,6 +188,24 @@ int xenforeignmemory_unmap_resource(
-     return rc;
- }
- 
-+int xenforeignmemory_resource_size(
-+    xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
-+    unsigned int id, size_t *size)
-+{
-+    xenforeignmemory_resource_handle fres = {
-+        .domid = domid,
-+        .type  = type,
-+        .id    = id,
-+    };
-+    int rc = osdep_xenforeignmemory_map_resource(fmem, &fres);
-+
-+    if ( rc )
-+        return rc;
-+
-+    *size = fres.nr_frames << PAGE_SHIFT;
-+    return 0;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/tools/libs/foreignmemory/freebsd.c b/tools/libs/foreignmemory/freebsd.c
-index 3d403a7cd0..9a2796f0b7 100644
---- a/tools/libs/foreignmemory/freebsd.c
-+++ b/tools/libs/foreignmemory/freebsd.c
-@@ -119,6 +119,10 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
-     };
-     int rc;
- 
-+    if ( !fres->addr && !fres->nr_frames )
-+        /* Request for resource size.  Skip mmap(). */
-+        goto skip_mmap;
-+
-     fres->addr = mmap(fres->addr, fres->nr_frames << PAGE_SHIFT,
-                       fres->prot, fres->flags | MAP_SHARED, fmem->fd, 0);
-     if ( fres->addr == MAP_FAILED )
-@@ -126,6 +130,7 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
- 
-     mr.addr = (uintptr_t)fres->addr;
- 
-+ skip_mmap:
-     rc = ioctl(fmem->fd, IOCTL_PRIVCMD_MMAP_RESOURCE, &mr);
-     if ( rc )
-     {
-@@ -136,13 +141,20 @@ int osdep_xenforeignmemory_map_resource(xenforeignmemory_handle *fmem,
-         else
-             errno = EOPNOTSUPP;
- 
--        saved_errno = errno;
--        osdep_xenforeignmemory_unmap_resource(fmem, fres);
--        errno = saved_errno;
-+        if ( fres->addr )
-+        {
-+            saved_errno = errno;
-+            osdep_xenforeignmemory_unmap_resource(fmem, fres);
-+            errno = saved_errno;
-+        }
- 
-         return -1;
-     }
- 
-+    /* If requesting size, copy back. */
-+    if ( !fres->addr )
-+        fres->nr_frames = mr.num;
-+
-     return 0;
- }
- 
-diff --git a/tools/libs/foreignmemory/libxenforeignmemory.map b/tools/libs/foreignmemory/libxenforeignmemory.map
-index d5323c87d9..8aca341b99 100644
---- a/tools/libs/foreignmemory/libxenforeignmemory.map
-+++ b/tools/libs/foreignmemory/libxenforeignmemory.map
-@@ -19,3 +19,7 @@ VERS_1.3 {
- 		xenforeignmemory_map_resource;
- 		xenforeignmemory_unmap_resource;
- } VERS_1.2;
-+VERS_1.4 {
-+	global:
-+		xenforeignmemory_resource_size;
-+} VERS_1.3;
-diff --git a/tools/libs/foreignmemory/linux.c b/tools/libs/foreignmemory/linux.c
-index fe73d5ab72..d0eead1196 100644
---- a/tools/libs/foreignmemory/linux.c
-+++ b/tools/libs/foreignmemory/linux.c
-@@ -312,6 +312,10 @@ int osdep_xenforeignmemory_map_resource(
-     };
-     int rc;
- 
-+    if ( !fres->addr && !fres->nr_frames )
-+        /* Request for resource size.  Skip mmap(). */
-+        goto skip_mmap;
-+
-     fres->addr = mmap(fres->addr, fres->nr_frames << PAGE_SHIFT,
-                       fres->prot, fres->flags | MAP_SHARED, fmem->fd, 0);
-     if ( fres->addr == MAP_FAILED )
-@@ -319,6 +323,7 @@ int osdep_xenforeignmemory_map_resource(
- 
-     mr.addr = (uintptr_t)fres->addr;
- 
-+ skip_mmap:
-     rc = ioctl(fmem->fd, IOCTL_PRIVCMD_MMAP_RESOURCE, &mr);
-     if ( rc )
-     {
-@@ -329,13 +334,20 @@ int osdep_xenforeignmemory_map_resource(
-         else
-             errno = EOPNOTSUPP;
- 
--        saved_errno = errno;
--        (void)osdep_xenforeignmemory_unmap_resource(fmem, fres);
--        errno = saved_errno;
-+        if ( fres->addr )
-+        {
-+            saved_errno = errno;
-+            osdep_xenforeignmemory_unmap_resource(fmem, fres);
-+            errno = saved_errno;
-+        }
- 
-         return -1;
-     }
- 
-+    /* If requesting size, copy back. */
-+    if ( !fres->addr )
-+        fres->nr_frames = mr.num;
-+
-     return 0;
- }
- 
-diff --git a/tools/libs/foreignmemory/netbsd.c b/tools/libs/foreignmemory/netbsd.c
-index d26566f601..4ae60aafdd 100644
---- a/tools/libs/foreignmemory/netbsd.c
-+++ b/tools/libs/foreignmemory/netbsd.c
-@@ -132,6 +132,10 @@ int osdep_xenforeignmemory_map_resource(
-     };
-     int rc;
- 
-+    if ( !fres->addr && !fres->nr_frames )
-+        /* Request for resource size.  Skip mmap(). */
-+        goto skip_mmap;
-+
-     fres->addr = mmap(fres->addr, fres->nr_frames << PAGE_SHIFT,
-                       fres->prot, fres->flags | MAP_ANON | MAP_SHARED, -1, 0);
-     if ( fres->addr == MAP_FAILED )
-@@ -139,13 +143,28 @@ int osdep_xenforeignmemory_map_resource(
- 
-     mr.addr = (uintptr_t)fres->addr;
- 
-+ skip_mmap:
-     rc = ioctl(fmem->fd, IOCTL_PRIVCMD_MMAP_RESOURCE, &mr);
-     if ( rc )
-     {
-         PERROR("ioctl failed");
-+
-+        if ( fres->addr )
-+        {
-+            int saved_errno = errno;
-+
-+            osdep_xenforeignmemory_unmap_resource(fmem, fres);
-+            errno = saved_errno;
-+        }
-+
-+        return -1;
-     }
- 
--    return rc;
-+    /* If requesting size, copy back. */
-+    if ( !fres->addr )
-+        fres->nr_frames = mr.num;
-+
-+    return 0;
- }
- 
- /*
+
+
+>
+> Jan
+
 -- 
-2.11.0
+Regards,
+
+Oleksandr Tyshchenko
 
 
