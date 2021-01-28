@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9DC306E2E
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 08:12:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76575.138219 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA44306E31
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 08:12:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76579.138231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l51TQ-0003ZM-NQ; Thu, 28 Jan 2021 07:12:12 +0000
+	id 1l51TZ-0003fQ-6G; Thu, 28 Jan 2021 07:12:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76575.138219; Thu, 28 Jan 2021 07:12:12 +0000
+Received: by outflank-mailman (output) from mailman id 76579.138231; Thu, 28 Jan 2021 07:12:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l51TQ-0003Yg-GG; Thu, 28 Jan 2021 07:12:12 +0000
-Received: by outflank-mailman (input) for mailman id 76575;
- Thu, 28 Jan 2021 07:12:10 +0000
+	id 1l51TZ-0003eg-1S; Thu, 28 Jan 2021 07:12:21 +0000
+Received: by outflank-mailman (input) for mailman id 76579;
+ Thu, 28 Jan 2021 07:12:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YU/W=G7=wdc.com=prvs=655a99766=chaitanya.kulkarni@srs-us1.protection.inumbo.net>)
- id 1l51TO-0003Y5-JD
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 07:12:10 +0000
-Received: from esa3.hgst.iphmx.com (unknown [216.71.153.141])
+ id 1l51TX-0003e2-GD
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 07:12:19 +0000
+Received: from esa5.hgst.iphmx.com (unknown [216.71.153.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fb547af9-eb84-4c99-bd7d-dbd0c1260015;
- Thu, 28 Jan 2021 07:12:07 +0000 (UTC)
-Received: from uls-op-cesaip02.wdc.com (HELO uls-op-cesaep02.wdc.com)
- ([199.255.45.15])
- by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:12:06 +0800
+ id 8155d42f-4410-473e-9aec-c33bf1545e19;
+ Thu, 28 Jan 2021 07:12:18 +0000 (UTC)
+Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
+ ([199.255.45.14])
+ by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:12:16 +0800
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
- by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 22:54:24 -0800
+ by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2021 22:56:36 -0800
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
- by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:12:06 -0800
+ by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:12:16 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,37 +43,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb547af9-eb84-4c99-bd7d-dbd0c1260015
+X-Inumbo-ID: 8155d42f-4410-473e-9aec-c33bf1545e19
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1611817927; x=1643353927;
+  t=1611817938; x=1643353938;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=jUCaPFeDv057fdkiILPSRkCuXPSAzqxSiECC+FKJaMI=;
-  b=ntzfBVdo6Ba8+2InFSdLXU0jcRosgGQ/a63/Hz8IQ622DjbGi6ZQMeb5
-   0wyjQLb+5qz92VJsgQeCphIOcfIrq1dm8LAOt39vK6fhnWNivb9YK75D4
-   +XQ8NZ1GGPJqP6gBu666Jh4pzj5AZqHGrREhSiCYlS4zDSPlBnXjEKUeB
-   q7lyZjlhZcudf/u+Qux/EsAnW29nnheu+5DFtYZO5pqzJ33EBRazOUVOl
-   z7HIVC30EKfUDdWuSCJS4OXDNLip8eUZftDIsVxrefAMX/CzJ7fwztqEL
-   ctLEGmxTt46J/874hseAZ8pqMHCFC4Of1CoWK/g7uh/i7GL3IC8GBXlpM
-   A==;
-IronPort-SDR: UP/zg7VusFM37PFExVn1lpsq4kLlp3CoWfxlTMD27D9IMap9JPMjj3BqHLRPB+lhnNpe4ZPZbP
- 8kwCBfy1bf7mfSN2D32EfvowCqLT5okVggOFWWrPUveJvUfo2ymhQgyFGqI05TPCD92y4vSr75
- fALAIM5gSbdZIsp6uc3zl1zV5l2mdCubhZENgrGn16ZC5qDqAteab4yNT9YbH6hjreb6ju52Ec
- Kte8SIp7+3F6DH/KSyCFEw93Y+n8mVTJVePAMS7bKjpoKLtkcT+7reZB++nmq+TBgFusqZ0911
- w/o=
+  bh=H5WYNiBvrNWIzR/dDsyAI0RzKPxZxlDuB4vWYUDlMrE=;
+  b=nTCJ/jo6Ravq1fP7M7IF2+lgEPjN9ey5djcz2unlL5FDEMGuhD6cUyK8
+   iZ06mGy8V/A2r5wqd6kLwsj4NrvQH3M979SFcamKcpIUNDj8xiIoiszYY
+   Pp4SC0IDJYmaovKrkiGT0ysPRKU4Z/yORg6PiGVeSWJvJYXhMAh7T17Fm
+   4zPkDDVJDUv46+d38RVKBko5bzVXPv57ddmlEheqIVlm8JALbDtUXEAI6
+   v8mbiJQZPF3F/QDXPnMI9qApDMtxSwcEnmlikzusXsyMdudJtTMTTZrQh
+   LOnFcI0J8VdIke4yuH0YDrZuBmrTthOddYocxoa9H//YaHk9BQmJV4avA
+   g==;
+IronPort-SDR: gdFFU5PZNAYOhnKxNZLzR/eMpHEKmd5S6QzV4b7iDR/oQnrAdr4QVw2tqljSiwQrUgX3C9YccN
+ 3rixqsLpteMciiAzZ823QwdhSvvQZxCEvRF3wk+wvsWkwT9y6v92AFAk1DNzuqn8ZlojCVdDSv
+ 71ObpD8V1BVRqckwnGU2vYGA9iep2DpypMt0BhJGTvqwIwnW+khuntXoHCq7QiCRySRyCR2hAJ
+ dkYuyMwrCWiKHNubJGed7RHDxQgF9ErKvmj1H9AcmwfcYK/E3b3U/VwdGnMBe4/Zt9sB/0I6dl
+ EoA=
 X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; 
-   d="scan'208";a="162963116"
-IronPort-SDR: 8i0j1P+vj7oUgnmWMDCVMmiMi/tvxMOLB6tyoIxd9NRYHDF8m0rKbbA4pVsRUz4VP1lJ+lT5Go
- Qbip/3H67HbZZkCHJXtATZEq9dxkj6+5cicW4dgr8nxtkKpLqdGUP/JPjhlrQja+jwnqpLfH6W
- jLnZtjTtevIqirU5Zh+MmvOv9T94JhsbnN+ZOsb76Fi0F+r/WrsGsP3w3V2vQTXscndevNEQvt
- n5TwssndZ/I8e+lmlx7gVN1pGtAOUBzpPYAacf49GRV7V965p9fdoE5bpiPz6GWg2NyvNx1mOs
- gZoNjL/SimU8o7q7eDs3+2FX
-IronPort-SDR: d5xTirF8Ys37shQjxL90xQdmAvrvSyaDd23k+ldZQk6g8Gmyh3lDvEoGm16xcyp5mSBaZTpxOa
- PvC1PFp6twA2TpPlG+Ql+/AG65S9RMLgGFawcQCbg9J6k/x2AMPUiKYtsSCC84Z+EGYfmFKoID
- N3xp6Srvi9c6y+EZp98pFBd59WcY1NGSO1F5aHMorlNIT26uZMyL8pegMXpgjACziNosRf/+TT
- qFeHE9fwJbeXCBkPpJ7sXhYMSQdfV8ojzZIb3gXAYZT1zkKG2mcOAVOk/sf7gRxWJd9WgQISSA
- lhk=
+   d="scan'208";a="158518045"
+IronPort-SDR: TnX6CdAM0G669YD2/0mFLpB/iYawSSNiP4c9iqDMqX1DZp2e7WWQ+pnV/pFUq+AtYqBpnMTsRT
+ Wp60HApwwH6w5mm2JeZy8nmGENxMsHWw8aec68dB1/c/65vLKBtUz03+jVpm+0B15nx5H1WRKq
+ hfFj0rECp61vKw3Gb2eQTvjRW03bLiSeFBrRbBuic+qFBl450DZstf0FZg+DclUIPeJVfPrCZr
+ cTwGdhS9YMFLzZ9umS/vxFaFCNAa6gXkI1FleVQCUiQGjtzyEBGWD7Af1BZa78h+C2gTPiw7cy
+ h3GHNFwJLNg/0Vd9eG89nC2p
+IronPort-SDR: sJ1sB4+NIXrk86BqB2mBiNRkLb2CtaUtTUjLUptuVolKqncgiWgms0hBmEnyXBHOe2LGJgTWAc
+ Mtkqx7/Ji/KEF3P2zVgoCc4AZmvUpaw07sB7pwwqNDwBZIjeJgdIawB6xDKz7hKZuinbJ6FPFN
+ v+digmuqEID+qvvg+Pvdb6mLkPbYX8es6TqyRNtA6iTBnQbrstI0JA9CgrvLf0RhQ0DnF83KdI
+ QwpSDAYi/vWthDgyxzldo4sKChZfQfmY/MjRYeTOvpJG4q5JRSujoZAO3KJfZIMHz0OJMVK9L1
+ YPQ=
 WDCIronportException: Internal
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-xfs@vger.kernel.org,
@@ -133,9 +133,9 @@ Cc: axboe@kernel.dk,
 	osandov@fb.com,
 	bvanassche@acm.org,
 	jefflexu@linux.alibaba.com
-Subject: [RFC PATCH 03/34] drdb: use bio_new in drdb
-Date: Wed, 27 Jan 2021 23:11:02 -0800
-Message-Id: <20210128071133.60335-4-chaitanya.kulkarni@wdc.com>
+Subject: [RFC PATCH 04/34] drdb: use bio_new() in submit_one_flush
+Date: Wed, 27 Jan 2021 23:11:03 -0800
+Message-Id: <20210128071133.60335-5-chaitanya.kulkarni@wdc.com>
 X-Mailer: git-send-email 2.22.1
 In-Reply-To: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
@@ -144,38 +144,36 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- drivers/block/drbd/drbd_receiver.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/block/drbd/drbd_receiver.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
-index 09c86ef3f0fd..e1cd3427b28b 100644
+index e1cd3427b28b..b86bbf725cbd 100644
 --- a/drivers/block/drbd/drbd_receiver.c
 +++ b/drivers/block/drbd/drbd_receiver.c
-@@ -1643,6 +1643,7 @@ int drbd_submit_peer_request(struct drbd_device *device,
- 	struct bio *bio;
- 	struct page *page = peer_req->pages;
- 	sector_t sector = peer_req->i.sector;
-+	struct block_device *bdev = device->ldev->backing_bdev;
- 	unsigned data_size = peer_req->i.size;
- 	unsigned n_bios = 0;
- 	unsigned nr_pages = (data_size + PAGE_SIZE -1) >> PAGE_SHIFT;
-@@ -1687,15 +1688,12 @@ int drbd_submit_peer_request(struct drbd_device *device,
- 	 * generated bio, but a bio allocated on behalf of the peer.
- 	 */
- next_bio:
--	bio = bio_alloc(GFP_NOIO, nr_pages);
-+	bio = bio_new(bdev, sector, op, op_flags, GFP_NOIO, nr_pages);
- 	if (!bio) {
- 		drbd_err(device, "submit_ee: Allocation of a bio failed (nr_pages=%u)\n", nr_pages);
- 		goto fail;
- 	}
- 	/* > peer_req->i.sector, unless this is the first bio */
--	bio->bi_iter.bi_sector = sector;
--	bio_set_dev(bio, device->ldev->backing_bdev);
--	bio_set_op_attrs(bio, op, op_flags);
- 	bio->bi_private = peer_req;
- 	bio->bi_end_io = drbd_peer_request_endio;
+@@ -1277,8 +1277,10 @@ static void one_flush_endio(struct bio *bio)
  
+ static void submit_one_flush(struct drbd_device *device, struct issue_flush_context *ctx)
+ {
+-	struct bio *bio = bio_alloc(GFP_NOIO, 0);
++	struct block_device *bdev = device->ldev->backing_bdev;
++	struct bio *bio = bio_new(bdev, 0, REQ_OP_FLUSH, REQ_PREFLUSH, 0, GFP_NOIO);
+ 	struct one_flush_context *octx = kmalloc(sizeof(*octx), GFP_NOIO);
++
+ 	if (!bio || !octx) {
+ 		drbd_warn(device, "Could not allocate a bio, CANNOT ISSUE FLUSH\n");
+ 		/* FIXME: what else can I do now?  disconnecting or detaching
+@@ -1296,10 +1298,8 @@ static void submit_one_flush(struct drbd_device *device, struct issue_flush_cont
+ 
+ 	octx->device = device;
+ 	octx->ctx = ctx;
+-	bio_set_dev(bio, device->ldev->backing_bdev);
+ 	bio->bi_private = octx;
+ 	bio->bi_end_io = one_flush_endio;
+-	bio->bi_opf = REQ_OP_FLUSH | REQ_PREFLUSH;
+ 
+ 	device->flush_jif = jiffies;
+ 	set_bit(FLUSH_PENDING, &device->flags);
 -- 
 2.22.1
 
