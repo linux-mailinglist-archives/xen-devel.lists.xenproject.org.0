@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A62A30747C
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 12:15:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76915.139019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA34D30748E
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 12:17:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76918.139031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l55G2-0000rl-Gq; Thu, 28 Jan 2021 11:14:38 +0000
+	id 1l55Ho-000102-VN; Thu, 28 Jan 2021 11:16:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76915.139019; Thu, 28 Jan 2021 11:14:38 +0000
+Received: by outflank-mailman (output) from mailman id 76918.139031; Thu, 28 Jan 2021 11:16:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l55G2-0000rP-DI; Thu, 28 Jan 2021 11:14:38 +0000
-Received: by outflank-mailman (input) for mailman id 76915;
- Thu, 28 Jan 2021 11:14:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l55Ho-0000zd-SH; Thu, 28 Jan 2021 11:16:28 +0000
+Received: by outflank-mailman (input) for mailman id 76918;
+ Thu, 28 Jan 2021 11:16:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=umji=G7=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1l55G1-0000rK-9A
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 11:14:37 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 41cee408-cc26-4b1f-bc31-2b6c0b0fe272;
- Thu, 28 Jan 2021 11:14:35 +0000 (UTC)
+ <SRS0=tEu6=G7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l55Hn-0000zH-6s
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 11:16:27 +0000
+Received: from mail-lj1-x230.google.com (unknown [2a00:1450:4864:20::230])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 03e5e06a-f198-48ac-b35c-6848957ab083;
+ Thu, 28 Jan 2021 11:16:26 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id u4so4310655ljh.6
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 03:16:26 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id b14sm1502419lff.16.2021.01.28.03.16.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Jan 2021 03:16:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,122 +41,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41cee408-cc26-4b1f-bc31-2b6c0b0fe272
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611832475;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=1ux2TGwHmk3ufEj8WUHkuR60u7X4NUPW92hdxdNpAWQ=;
-  b=MpdJmLqmDX5/nxPWtad2xZn7qV9ttyhOl98lkfW9q0vy7vxhH3md0S6O
-   0PSOKk54uNEjYU9d0c2yFytSDzx1V9n2OR9b7vzWI5/zsAV6r9L7fqrbs
-   Fy7H+BYyh/Y2pnpNDay9jvXU7H/Aw+6lYvaoIbZ1ClHUR7gAsvpqVSXM3
-   Y=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: nEyNvEUCYovYMRYN7Vu7U0oiCMkwCQdNP4IMYPEp1G80qkG308OMT42bKi2hdF/f6TzkfqCQ0r
- QgHn7lsa5lZXHmPHtDpmYDpLaqqJg/9FQh0nI+u3cF1y5qEj7pJS9M1WN8sg7REo5cXIDiwmsg
- vxN/4RFofU8VXYmRuZ3UwBcsz5AioQy3mmjEliVSfkGJKUTUZSnw5ZaRN1e4UXZb3odwEngbQG
- GSlWiG2ONziW7AIWXMhTtuFRN4kgAck15K3FSA1y72jXQTvrt32S+7t0Z+pzVP4feWGGlht4PE
- oRA=
-X-SBRS: 5.2
-X-MesageID: 36091251
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,382,1602561600"; 
-   d="scan'208";a="36091251"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xaj7qZu8HnLJsH3ZnwOG12M284TwX9e19GjzH+ng8LZpEIuXLm5dkWwxVI6mm4ZlEQGHhHQmf1Om7GLpa+to0e1L85SCbjRabFi+4z5D5XZGuPxkQ28iVFAfq6YnQLDNPQLVxfPsEuiiYHGfdei+e02oSDZo5t0b6QiZzzTwpKksqQ0ly1EYfjrVFdPsps2zk7mcbuaF749kU8DSi3Ar2U00eqpmihBqvliGPQyekHiUCIX3sjYcR6ZRX4g/lGh7QWM9vlSncOKy6EnfkacB3Cte7g0VPnAvSMqS50nFLH5fdTT8feqAsD4848foheiVTIcJNk0j3WysbhwbyoeaCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oa240Lnfp/ltQ2I8Ds9sL3mxXzP7ps/H3ZJFxDyPERo=;
- b=GkoBMUl+Dgz3q5xXyavp916t/AdDHar2fI41am+8fkDh4wF0MTRmreF54Hx/fSrF2LiMWkO80KrFScrH2F4/9EVLLafRHsj+WfNtwrp0So6yJhqjcP2gApQoKAg7Gj2Dziwu/ZpBCJb0Z3wm42R0aciROAcHoCWKgCDQctOTKhMVQ93kmHjNIXFSXxBhFLruOs8mNaPQXDWJNrPaj9YY0OXHpXyXrnGRCP4xIOCM9kARgA3hVDicdW8kj55X1mcpXJWh9+xdoi3rcN4sT+m6xDr8v8s+m2wxQe8Lvl3AdS6C/owkeS6TMNoJHkmgEuS6la4/ckD8B8gd5OVKwhEkkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 03e5e06a-f198-48ac-b35c-6848957ab083
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oa240Lnfp/ltQ2I8Ds9sL3mxXzP7ps/H3ZJFxDyPERo=;
- b=jDohnUvUuRDJLRiWmVzRpg0mt/jzOYkwFJsyGmGd2QQsBRxJRtZ35t4JbtTji6sU4j38msTnwq4JfeX0jsktnUJQyIn0dZ1TCl8lp1HdJJ1eVXU85+RGdEhgx7V71VULHuHNmjE3a7EXsQvvCxFppXdokd+YwTyai/rWmy6/ZmQ=
-Date: Thu, 28 Jan 2021 12:14:25 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Manuel Bouyer <bouyer@netbsd.org>
-CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
- Liu <wl@xen.org>
-Subject: Re: [PATCH v2] libs/gnttab: implement on NetBSD
-Message-ID: <YBKckSPrDenZy1rK@Air-de-Roger>
-References: <20210126224800.1246-1-bouyer@netbsd.org>
- <20210126224800.1246-7-bouyer@netbsd.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210126224800.1246-7-bouyer@netbsd.org>
-X-ClientProxiedBy: MRXP264CA0025.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:14::13) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=i5tc2X52sSSMSva2vn7V4s8vxxOKlqRmxyi8ISHJW1E=;
+        b=uOdKJ1uMuDyZDFoZHDb1ZvOOlri9uVIuHj2ejcrSMF7pGmSFCjesLC18d98/It/QA0
+         7huafXa9SGqne+fE1n4h6Yssa4vRe1uQHPkdE/TD0o1rt0EMO43LKkQJ7ab0SFSKBwp2
+         p6itb1CuL+0ww+/GoGbBLmS9xiweJp7qTC5Zl4Jj0UmJCbktHYI/Q5yjP3BtCrOO4aIE
+         UH0tRL3/LO727F8nNQmACeP6VcSsgPISzNhgCAeF6ME6ayjCw+JxNrJErpzM3x2Z0oAZ
+         OBnH/R3cey+ZinA58IyMvrvy+K/um8leFumnanA3n63xJMqN+H1jmGa1velQ/eGiBYiS
+         vtmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=i5tc2X52sSSMSva2vn7V4s8vxxOKlqRmxyi8ISHJW1E=;
+        b=MQc0tVVPVzhbyHofRBRXrE0nNc8g7NiEtm0eRQo4CtzkOU7QqpygRUX9cgX3+cjRfv
+         1Ei2Rm53hn4xVelur1XXgv2uBf+UxRYg1OtoSaPF59prK5FR43KQoCbZFcjf/a1PlCIg
+         VicK/f5G5auLB95nO9fPp5XwLG2lNHmn90bs9jaibTc8uNITlD+7Ur2mry6ytQz4YyAM
+         T6hBoaquZ1Z838J7C1Ggs5NZJXw9u43dbsGu90tqxllRaz9oxPJIldNzK7QtJebz2jP1
+         YsmeNWiA+mbWu6fEjR11q7Gy3ZxO8Pkr7FFTE09NUWjdwrozTC83gG1wV4+2m1Zpy3Cr
+         6oFA==
+X-Gm-Message-State: AOAM531ZGsmUqFMXdLT65N7gQueTllL8I0hWhCwMa3Tq5mTXfYPe0d40
+	Th27g+/klvijOB2QGfOmZz+iFQsJ3Q7NWQ==
+X-Google-Smtp-Source: ABdhPJzuv17IPE6Za59CT8PzLxXrRyhI6pUrc0MTLVCCqLNSp5RDp92ctc4r54eb/fk8jg5MEjDVLQ==
+X-Received: by 2002:a2e:8887:: with SMTP id k7mr3672827lji.24.1611832584844;
+        Thu, 28 Jan 2021 03:16:24 -0800 (PST)
+Subject: Re: [PATCH V5 04/22] xen/ioreq: Make x86's IOREQ feature common
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Tim Deegan <tim@xen.org>, Julien Grall <julien.grall@arm.com>,
+ xen-devel@lists.xenproject.org
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
+ <1611601709-28361-5-git-send-email-olekstysh@gmail.com>
+ <01b122dd-37c9-d429-b060-adea9e7cae8b@suse.com>
+ <b16bb4e2-fb26-f5e5-2417-86867241036a@gmail.com>
+ <1eb1247b-f455-65c8-b91c-3e8bc05186a1@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <17d15bd5-87d3-5159-cb80-a54dbd8fb57d@gmail.com>
+Date: Thu, 28 Jan 2021 13:16:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 523d2fdd-0925-46d0-008f-08d8c37de24c
-X-MS-TrafficTypeDiagnostic: DM5PR03MB3372:
-X-Microsoft-Antispam-PRVS: <DM5PR03MB33727A9055EC727557C796488FBA9@DM5PR03MB3372.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jAp9aZmlmjqKl4NgIaiu60FDTg4PXfXfjUgJDEN8C259zYxNUbHkiOkWEhdPtYIliYsqe8UvoS6GQ5yzz8/Onva6zZv5jFQrxhW3c+PXHTItWaGPpAXrrCRYALfC6PtQft/p6uYMzhM7rBLO5Au+xABQOsbeeK4Ed2bKa7rK3JBrr6TpzMqrCWYCThaZ8RrR9UUKTXuwklO9FKG7ccreP5pE5N8puouPEW77ASQj/WT/SJmMVLsSahShz3dKPAeowsASXgVcQ3AuE/yHyr1CIyezBUPCIGg5nYgL7lHyx3OjWaHn6RER2KY6EnV/Db0BefFlYYrwvFi14uNxlhdMiNwI4VgEFBaZLRNyGSJc6Ia1zesoRrwzImKzuBceXU76LD1tprAV8jhHhBVhz/0W+Pbqnh/9GmyDKHgLlP7i1MLIrfTZ/wf+BaPaw4yYP7XpluRy9VdgYVFWqS9DHxUwcq+2ue+FtPfVc3qGdtT6jquhohMNnzpFEf0XJzVw/smaNRYjHQfWyet73GQMSTUbFQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(6666004)(478600001)(316002)(6486002)(9686003)(66946007)(85182001)(66476007)(66556008)(6496006)(86362001)(5660300002)(4326008)(8676002)(16526019)(4744005)(956004)(8936002)(6916009)(2906002)(186003)(26005)(54906003)(33716001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?QVQ3S2doM1NBbm9hTS9TbDhYTElHOVV1a0NFekN5SHNmWUd5RGM4K0tCUWxn?=
- =?utf-8?B?eTFzKzNXc1FVdkk5WTZxOWU0RUU5Umdqa0dQbkJPWTluVkd1UFpqNVhmdG1k?=
- =?utf-8?B?VlIwMTA0MkpUOElOaDN4cENzcXFPazVSMDRjOHgrMGZPZzZWNG5DbjJuMEk5?=
- =?utf-8?B?R0hMTnV4bnVIMitIUzk4b1VXK0NyTkwvZmxYNEZjOVdBaE0vWVVWMUlwalVh?=
- =?utf-8?B?RGhmeHI0cDZKd3pFUUxueDFTM1FMendSbWhqd2tGZGJuV0Z5RFIwL0x5VHlk?=
- =?utf-8?B?UnArdWQ0SzBmZlNBS0h0WnNHVGg0d0x4L1hDTjFaanBFNW9qb0NHeGpob0h4?=
- =?utf-8?B?b3lvM29TNHV1SXVlVjlra3RpT0xUK3FQa1VGTmJkWitIT0JRKy9zWWlXVXVu?=
- =?utf-8?B?WURhbTYwTW95U0k2NjZmWlRYNTJDSWNyMEdaaDVrZERyaHFOK1ZzaWlqYWNn?=
- =?utf-8?B?TnNVZ2d2OUJYYlQ0RGVIOFdnOEZtQVZCQXg2RFpBZEUydGJ2a3pKMkR4WW5J?=
- =?utf-8?B?dHVLSGdnV1lpSy82dmIreXh5aUprYmU1eldOOTdITWd3eGJkTUNhKzl6Q0lJ?=
- =?utf-8?B?MDZqUElzaDFhZ3BreGRsOEo5dEFzUk95WldzNm5DczE2UWlUS0RoOG4xNGUv?=
- =?utf-8?B?M2Y3QWVSVTRhTmNkbnlFcDczV1NqaE8vdmNXa0JMTDN5bHhKRk90MGg4c3J0?=
- =?utf-8?B?eGV3V2lSRVgzN3NuSWcxNnRBb1hvTVZSR29oNXllelgyM2VLK25KenZSSHlt?=
- =?utf-8?B?RC9VK2d0dEcwTVRocmVNZTRFdkVSUk9mT1ByMEZXUENiOFJLQmY2eXJ6cXIw?=
- =?utf-8?B?aFBiZzRWZWxOMnpPaUt6OU9KY1dFWW1YYXIrRHBHRkJweElWZDhpT1Jid0dF?=
- =?utf-8?B?bGE2VHFMc0QvRlkzM1Z0NjZ4OFVwQkpURERuOUtpalRleG1pS1hpS2o0UWc2?=
- =?utf-8?B?YU9JdUJ0OW5HOTJVOWQrMW95RkNUblgzeW45N2VGYy80OVMrRC9uT3FHcGFJ?=
- =?utf-8?B?M1FEUHQ3MzkvUXIzRWhYZk4xTHFiZkJJczNFV0pJc0E1VFliT0FHcE9lalpj?=
- =?utf-8?B?bXpDaUN4SklrenM0dnZYa1hYWnk0NUlzamplQXVHTk9uUGwya2VQa2F0cENi?=
- =?utf-8?B?Q3ZsRWNWTVA1UmNuSjhMSGhXYnVsRmpRUUQ3US85RUEzVmtleWVDMXdrbS8w?=
- =?utf-8?B?U0lKR2dITEpLZ3dnVEtHRHdNYmh6dVhDNzVtMy9TWHgrMWNENmFiSE55djQw?=
- =?utf-8?B?SnFKRWhrZTVoMEZHakx1TGU0TldWZlUxOWd0RnFHRzhhb0ZWa2hZZFlGZFYw?=
- =?utf-8?B?OEFOck9hRW1YUXcwQzg4VElEaW9ZeU1RWVdOK3hqUEtlZ05EQit1MklFZXBp?=
- =?utf-8?B?cGN1N2U5V1BpNGF1WXBnbzJBampSa1BxZExoSEErM2ozU0RyYUJVRXEwWVB4?=
- =?utf-8?B?NjgrRlhtS2t2d0ZOVEVYcWJxLzhuSWFhS090cGpRPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 523d2fdd-0925-46d0-008f-08d8c37de24c
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2021 11:14:30.9050
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PaOTGZrE0kvrkom80LNA0eUxP1xBYlcVL8r6UuT51wY4XScZZvuhmxZRPab4W0Pu6i97HAXIvHEgAVhK6VG5Dg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3372
-X-OriginatorOrg: citrix.com
+In-Reply-To: <1eb1247b-f455-65c8-b91c-3e8bc05186a1@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On Tue, Jan 26, 2021 at 11:47:53PM +0100, Manuel Bouyer wrote:
-> +int osdep_gntshr_unshare(xengntshr_handle *xgs,
-> +                         void *start_address, uint32_t count)
-> +{
-> +    return munmap(start_address, count * PAGE_SIZE);
-> +}
-> +
-> +/*
-> + * The functions below are Linux-isms that will likely never be implemented
-> + * on FreeBSD unless FreeBSD also implements something akin to Linux dmabuf.
 
-You might want to s/FreeBSD/NetBSD/ in the line above.
+On 28.01.21 10:06, Jan Beulich wrote:
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Hi Jan
 
-Thanks, Roger
+> On 27.01.2021 21:14, Oleksandr wrote:
+>> On 27.01.21 18:58, Jan Beulich wrote:
+>>> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
+>>>> --- a/xen/arch/x86/Kconfig
+>>>> +++ b/xen/arch/x86/Kconfig
+>>>> @@ -92,6 +92,7 @@ config PV_LINEAR_PT
+>>>>    
+>>>>    config HVM
+>>>>    	def_bool !PV_SHIM_EXCLUSIVE
+>>>> +	select IOREQ_SERVER
+>>>>    	prompt "HVM support"
+>>>>    	---help---
+>>> ... the addition moved below the prompt line (could probably
+>>> be taken care of while committing, if no other need for a v6
+>>> arises).
+>> V6 is planned anyway, so will do, but ...
+>>
+>>
+>>> (Personally I think this should be
+>>>
+>>> config HVM
+>>> 	bool "HVM support"
+>>> 	default !PV_SHIM_EXCLUSIVE
+>> ... def_bool is changed to default by intention or this is a typo?
+> No, it's not a typo. "def_bool" is just a shorthand for "bool"
+> and "default", which is useful when there's no prompt, but
+> gets abused (in my view at least) in a number of other cases.
+> But as said ...
+>
+>>> anyway, but that's nothing you need to care about.)
+> ... here.
+
+ok, well, thank you, but FYI playing with default instead of def_bool I 
+noticed the difference in behavior.
+
+I don't understand why, but HVM option disappears from menuconfig 
+somehow... Or I do something completely wrong...
+
+
+>
+>>>> --- /dev/null
+>>>> +++ b/xen/include/asm-x86/ioreq.h
+>>>> @@ -0,0 +1,37 @@
+>>>> +/*
+>>>> + * ioreq.h: Hardware virtual machine assist interface definitions.
+>>>> + *
+>>>> + * This is a wrapper which purpose is to not include arch HVM specific header
+>>>> + * from the common code.
+>>>> + *
+>>>> + * Copyright (c) 2016 Citrix Systems Inc.
+>>>> + *
+>>>> + * This program is free software; you can redistribute it and/or modify it
+>>>> + * under the terms and conditions of the GNU General Public License,
+>>>> + * version 2, as published by the Free Software Foundation.
+>>>> + *
+>>>> + * This program is distributed in the hope it will be useful, but WITHOUT
+>>>> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+>>>> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+>>>> + * more details.
+>>>> + *
+>>>> + * You should have received a copy of the GNU General Public License along with
+>>>> + * this program; If not, see <http://www.gnu.org/licenses/>.
+>>>> + */
+>>>> +
+>>>> +#ifndef __ASM_X86_IOREQ_H__
+>>>> +#define __ASM_X86_IOREQ_H__
+>>>> +
+>>>> +#include <asm/hvm/ioreq.h>
+>>>> +
+>>>> +#endif /* __ASM_X86_IOREQ_H__ */
+>>> Not necessarily for taking care of right away, I think in the
+>>> longer run this wants wrapping by #ifdef CONFIG_HVM, such that
+>>> in !HVM builds the dependency on the "chained" header goes
+>>> away (reducing the amount of rebuilding in incremental builds).
+>> I don't mind wrapping it right away.
+> Well, if that doesn't break the !HVM build, I'd of course
+> appreciate it. I'd expect fallout, though.
+
+Hmm, I didn't notice a fallout with that change when CONFIG_HVM is not set
+
++#ifdef CONFIG_HVM
+#include <asm/hvm/ioreq.h>
++#endif
+
+
+>
+> Jan
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
