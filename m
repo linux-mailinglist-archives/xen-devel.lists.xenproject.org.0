@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FC1307EC4
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 20:44:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77435.140232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFE00307F08
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 21:02:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77442.140250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5DD8-00020n-D5; Thu, 28 Jan 2021 19:44:10 +0000
+	id 1l5DUC-000489-Vc; Thu, 28 Jan 2021 20:01:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77435.140232; Thu, 28 Jan 2021 19:44:10 +0000
+Received: by outflank-mailman (output) from mailman id 77442.140250; Thu, 28 Jan 2021 20:01:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5DD8-00020N-9g; Thu, 28 Jan 2021 19:44:10 +0000
-Received: by outflank-mailman (input) for mailman id 77435;
- Thu, 28 Jan 2021 19:44:09 +0000
+	id 1l5DUC-00047m-ST; Thu, 28 Jan 2021 20:01:48 +0000
+Received: by outflank-mailman (input) for mailman id 77442;
+ Thu, 28 Jan 2021 20:01:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tEu6=G7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l5DD6-00020I-Vs
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 19:44:09 +0000
-Received: from mail-lj1-x22c.google.com (unknown [2a00:1450:4864:20::22c])
+ id 1l5DUA-00047f-Vv
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 20:01:47 +0000
+Received: from mail-lj1-x22e.google.com (unknown [2a00:1450:4864:20::22e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b8458b0b-caf6-45bf-824a-c42dd79273ff;
- Thu, 28 Jan 2021 19:44:07 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id e18so7785849lja.12
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 11:44:07 -0800 (PST)
+ id 311d70e6-1491-4441-a507-14671e49e5f5;
+ Thu, 28 Jan 2021 20:01:45 +0000 (UTC)
+Received: by mail-lj1-x22e.google.com with SMTP id f2so7844854ljp.11
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 12:01:45 -0800 (PST)
 Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id l133sm1770565lfd.234.2021.01.28.11.44.05
+ by smtp.gmail.com with ESMTPSA id k30sm1769744lfo.166.2021.01.28.12.01.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Jan 2021 11:44:06 -0800 (PST)
+ Thu, 28 Jan 2021 12:01:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,150 +41,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8458b0b-caf6-45bf-824a-c42dd79273ff
+X-Inumbo-ID: 311d70e6-1491-4441-a507-14671e49e5f5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=dKQlun+FzopAMojG5mXB0OqNVb4pYCcJeKP6FDJ1VuA=;
-        b=MOQEQCVK8dgqW4bNV8fUll6kZFVvJIj+y55SHFWX7utF+EEd+rkcYC2MWIgB+FmenS
-         fAU7mWy68wXpoBs3ncnaktWeT9yQ9oBmzTwsg0CgJ/4YOzVzZMPngQQyMm0KLFpxjK7D
-         o9CtZlJR4kfniTlUiqoLWNZSyXqCHhktloI+PoYElmbVjc0zFUna7UbbCe/THXuaxrZE
-         pmYqioHfm/vR0HksbydWbChZBEGw6RqJPLsSbI7ARqiXiGPg0/yr4e+PJ1f6/u35yc19
-         BsWviAJj+eAU1F6+pBQy9GaHB8zk3EOYTgq9pHjkZXduGLS2GCU877tZ6MK7q6qFGoJI
-         4odQ==
+        bh=a8sCxpm8BjbOrDmAamUB94nVe5Kq0FQKMiaQCIiIbbk=;
+        b=ljA/kWZ4CHHZ8/RuFbcFaPrzRe3elza3y6Hrs2cD3FSdqTtBmRw30srpaB3slDnwJe
+         a/fl8L2QvPledaRgIv2x0OpyirF3w6P7IKdmiQCi4mz8BI6IG7bbaJ6qH+jji26/VUkO
+         G0iFhq5B8wxFOnlbpaXy13RBIiN2X+BeYD05S9vhtaQgJfG5aDhEzj+hbde6zu68m09G
+         oTpYhfud2KngaTaFwETqA8yPPJwbSjrJQYIvyCH6XonWWpXpNLOkwfnA/6gbk4CdPPEU
+         FgssembHcpvxNGZdRJRMiPXcFDao2PbEiLiFaLkC3Yt3nAocWPo+EO2WE8frUMVWDy61
+         lFgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=dKQlun+FzopAMojG5mXB0OqNVb4pYCcJeKP6FDJ1VuA=;
-        b=hGth8ooqA82mm0dJMpD7O2C6dYHmX8Ouv7YdUA8aqCnKlTkJIblI+De3SZzX2OuE+H
-         ic7ML8rc0kDbaY4BTxSewYJa5W+DnY9PbjXNFtZ4/xVvYeKYxjNEpzNLqMUA8ZR95UCD
-         ODFwCuOd4py71Aoh9+j9nkBTTSpCK3BXBf+NgJwcvJEVi1bBBvWhzLkWZLcdhMu6dVk8
-         7yHvpL/mRkbrgwyqcM38S5aMFtZKodmH5B1Cd6UDc19yIZn5Xtyu1lrOmeuRbf9mHWtF
-         MSs1KhEQyCIGIxVRTU8v7poRbbiR/JxEvqni7gOtt9SxAqBQeLzfkcxsDjTQ2y6MSwnX
-         lLYg==
-X-Gm-Message-State: AOAM5337lsSZJKwFcYlZGmm12rzwH24BSrbGHNEoagM5LXgxhkScIo8a
-	EIUv22jzKotcjrboiJEFzKo=
-X-Google-Smtp-Source: ABdhPJy76szGmfWrFL8GOkvDZOERP0cCLjZ9aD71nh2vepj4wmimnLNKqbmSNGcDHp2Kp3GonRgJUQ==
-X-Received: by 2002:a2e:a409:: with SMTP id p9mr443774ljn.281.1611863046737;
-        Thu, 28 Jan 2021 11:44:06 -0800 (PST)
-Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Ian Jackson <iwj@xenproject.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+        bh=a8sCxpm8BjbOrDmAamUB94nVe5Kq0FQKMiaQCIiIbbk=;
+        b=CWwLJCy2BpAdkiV8luLOQvI3UKSTMCNc2IGOIdu7Qz4uRjXLs1ZHl34aXNTOmHMONL
+         R4m3Dau39oWBKDNOjowjSxld4kRV1DgCFYk5JnG4HmnONv3auASIKbAyw3moSdHrEuV0
+         nSgl/bess2QvVConUb8PmpmUP8aGSD3i+R24JxzDrv9yLGU5Awcq2zG48lgCD30Dkw/C
+         nE4sly+f38dKinSXjdFAcEojd+EfsMY/LbUOcC6YluzzB69c13OxR1VY98oiiHDZZ9DQ
+         70dTZ0fTDYrUMDb34s2aifcwnbpoK+RWj9oXT/o/4kI1BHNS0YavuoueShoTc+iW1MEl
+         4qGA==
+X-Gm-Message-State: AOAM533GWKRicY9yIf6EpI/9GVatEfTu60WjoG7h7Ej/YBqlF6f2w9Zv
+	n26F/LBMa1mFB9QLOXcky/ktdISy2mHUzQ==
+X-Google-Smtp-Source: ABdhPJzL3N1oHAcAjnnEFVVOQbwV+tj7SkC6608CPymlYeQPUcOweZKiu3qKnCXxSNS37xYurXYb8w==
+X-Received: by 2002:a2e:88c9:: with SMTP id a9mr488482ljk.107.1611864104605;
+        Thu, 28 Jan 2021 12:01:44 -0800 (PST)
+Subject: Re: [PATCH V5 09/22] xen/ioreq: Make x86's IOREQ related dm-op
+ handling common
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien.grall@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <julien.grall@arm.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Kaly Xin <Kaly.Xin@arm.com>, Artem Mygaiev <joculator@gmail.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
 References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <ca1375c7-852d-fb3a-6895-5ef12ea7a01e@xen.org>
- <alpine.DEB.2.21.2101280919590.9684@sstabellini-ThinkPad-T480s>
- <1bdfda04-5954-a285-db0f-3f1633e5fd2e@xen.org>
- <5fa7024d-b259-3507-c708-676c52c13c68@citrix.com>
+ <1611601709-28361-10-git-send-email-olekstysh@gmail.com>
+ <d83c0736-c5cb-23e1-1cb3-fefe6907f091@suse.com>
+ <19fa20ec-739b-250a-19f5-c4cbafd632fa@gmail.com>
+ <46d8a845-8cbc-365b-1032-f079bf1e7d67@suse.com>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <089ca38a-63e4-5418-8ff4-54cdad949340@gmail.com>
-Date: Thu, 28 Jan 2021 21:44:04 +0200
+Message-ID: <f131f63b-b8d9-2fe7-d3f0-da4a9faec62d@gmail.com>
+Date: Thu, 28 Jan 2021 22:01:43 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <5fa7024d-b259-3507-c708-676c52c13c68@citrix.com>
+In-Reply-To: <46d8a845-8cbc-365b-1032-f079bf1e7d67@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 
 
-On 28.01.21 20:10, Andrew Cooper wrote:
+On 28.01.21 15:18, Jan Beulich wrote:
 
-Hi Andrew
+Hi Jan
 
-> On 28/01/2021 17:44, Julien Grall wrote:
+> On 28.01.2021 13:06, Oleksandr wrote:
+>> On 28.01.21 12:52, Jan Beulich wrote:
 >>
->> On 28/01/2021 17:24, Stefano Stabellini wrote:
->>> On Thu, 28 Jan 2021, Julien Grall wrote:
->>>> On 25/01/2021 19:08, Oleksandr Tyshchenko wrote:
->>>>    > Patch series [8] was rebased on recent "staging branch"
->>>>> (5e31789 tools/ocaml/libs/xb: Do not crash after xenbus is
->>>>> unmapped) and
->>>>> tested on
->>>>> Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with virtio-mmio disk
->>>>> backend [9]
->>>>> running in driver domain and unmodified Linux Guest running on
->>>>> existing
->>>>> virtio-blk driver (frontend). No issues were observed. Guest domain
->>>>> 'reboot/destroy'
->>>>> use-cases work properly. Patch series was only build-tested on x86.
->>>> I have done basic testing with a Linux guest on x86 and I didn't
->>>> spot any
->>>> regression.
->>>>
->>>> Unfortunately, I don't have a Windows VM in hand, so I can't confirm
->>>> if there
->>>> is no regression there. Can anyone give a try?
->>>>
->>>> On a separate topic, Andrew expressed on IRC some concern to expose the
->>>> bufioreq interface to other arch than x86. I will let him explain
->>>> his view
->>>> here.
->>>>
->>>> Given that IOREQ will be a tech preview on Arm (this implies the
->>>> interface is
->>>> not stable) on Arm, I think we can defer the discussion past the
->>>> freeze.
->>> Yes, I agree that we can defer the discussion.
->>>
->>>
->>>> For now, I would suggest to check if a Device Model is trying to
->>>> create an
->>>> IOREQ server with bufioreq is enabled (see ioreq_server_create()).
->>>> This would
->>>> not alleviate Andrew's concern, however it would at allow us to
->>>> judge whether
->>>> the buffering concept is going to be used on Arm (I can see some use
->>>> for the
->>>> Virtio doorbell).
->>>>
->>>> What do others think?
->>> Difficult to say. We don't have any uses today but who knows in the
->>> future.
->> I have some ideas, but Andrew so far objects on using the existing
->> bufioreq interface for good reasons. It is using guest_cmpxchg() which
->> is really expensive.
-> Worse.  Patch 5 needs to switch cmpxchg() to guest_cmpxchg() to avoid
-> reintroducing XSA-295, but doesn't.
->
->>> Maybe for now the important thing is to clarify that the bufioreq
->>> interface won't be maintain for backward compatibility on ARM, and could
->>> be removed without warnings, at least as long as the whole IOREQ feature
->>> is a tech preview. >
->>> In other words, it is not like we are forced to keep bufioreq around
->>> forever on ARM.
->> That's correct, we are not forced to use it. But if you only document
->> it, then there is a fair chance this will split past the "Tech Preview".
+>> Hi Jan
 >>
->> Today, there is no caller which requires to send buffered I/O in the
->> Xen Arm hypervisor. So a Device Model should not need to say "I want
->> to allocate a page and event channel for the buffered I/O".
+>>> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
+>>>> --- /dev/null
+>>>> +++ b/xen/include/xen/dm.h
+>>>> @@ -0,0 +1,41 @@
+>>>> +/*
+>>>> + * Copyright (c) 2016 Citrix Systems Inc.
+>>>> + *
+>>>> + * This program is free software; you can redistribute it and/or modify it
+>>>> + * under the terms and conditions of the GNU General Public License,
+>>>> + * version 2, as published by the Free Software Foundation.
+>>>> + *
+>>>> + * This program is distributed in the hope it will be useful, but WITHOUT
+>>>> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+>>>> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+>>>> + * more details.
+>>>> + *
+>>>> + * You should have received a copy of the GNU General Public License along with
+>>>> + * this program; If not, see <http://www.gnu.org/licenses/>.
+>>>> + */
+>>>> +
+>>>> +#ifndef __XEN_DM_H__
+>>>> +#define __XEN_DM_H__
+>>>> +
+>>>> +#include <xen/sched.h>
+>>>> +
+>>>> +struct dmop_args {
+>>>> +    domid_t domid;
+>>>> +    unsigned int nr_bufs;
+>>>> +    /* Reserve enough buf elements for all current hypercalls. */
+>>>> +    struct xen_dm_op_buf buf[2];
+>>> So this is then the patch where the public header needs including,
+>>> to satisfy this use of a struct declared there independent of what
+>>> xen/sched.h includes. In fact public/xen.h needs including here
+>>> as well, I think, for domid_t. Otoh I can't see why you include
+>>> xen/sched.h.
+>> Yes, xen/sched.h indeed doesn't need to be included here, I mentioned
+>> that we could just replace
 >>
->> The check I suggested serves two purposes:
->>    1) Catch any future upstream user of bufioreq
->>    2) Avoid an interface to be marked supported by mistake
-> "use bufioreq" is an input to create_ioreq_server.  The easiest fix in
-> the short term is "if ( !IS_ENABLED(CONFIG_X86) && bufioreq ) return
-> -EINVAL;"
+>> it by xen/types.h (this is the minimum what we need here I think). As I
+>> understand public/xen.h is already included by public/hvm/dm_op.h...
+> But that's something you better wouldn't depend on anywhere.
+> What one public header does or does not include may change over
+> time.
 
-OK, will take into the account for V6 as a separate patch
-
-
+ok, will include public/xen.h as well.
 
 -- 
 Regards,
