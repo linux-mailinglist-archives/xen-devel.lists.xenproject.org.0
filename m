@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BEFD3073DC
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 11:37:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76873.138911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA39330740A
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 11:49:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76881.138923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l54fw-0004WL-9P; Thu, 28 Jan 2021 10:37:20 +0000
+	id 1l54rF-0005cI-Ba; Thu, 28 Jan 2021 10:49:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76873.138911; Thu, 28 Jan 2021 10:37:20 +0000
+Received: by outflank-mailman (output) from mailman id 76881.138923; Thu, 28 Jan 2021 10:49:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l54fw-0004Vv-5n; Thu, 28 Jan 2021 10:37:20 +0000
-Received: by outflank-mailman (input) for mailman id 76873;
- Thu, 28 Jan 2021 10:37:18 +0000
+	id 1l54rF-0005bt-7t; Thu, 28 Jan 2021 10:49:01 +0000
+Received: by outflank-mailman (input) for mailman id 76881;
+ Thu, 28 Jan 2021 10:49:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0GBf=G7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l54fu-0004Vp-S1
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 10:37:18 +0000
+ <SRS0=umji=G7=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l54rE-0005bo-Me
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 10:49:00 +0000
 Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 85e10e0b-0b4e-43bb-8ad5-b4c1bbed4f55;
- Thu, 28 Jan 2021 10:37:18 +0000 (UTC)
+ id 7aecf81e-1231-4e38-88db-c5459ee24c1c;
+ Thu, 28 Jan 2021 10:48:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,122 +36,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85e10e0b-0b4e-43bb-8ad5-b4c1bbed4f55
+X-Inumbo-ID: 7aecf81e-1231-4e38-88db-c5459ee24c1c
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611830238;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=ANbkmBCfOimPihB6U7SrXOWAjRWEJjOCDTIHEjtT1eM=;
-  b=E+lWloF4GaYRWXjvLbY4VSXhWhmgx7ObRY5418hAiHZqkfErChjtUJDI
-   eM5Y5ym7nxpWlyzV1C5oRVK7405NwX7b0imgm7hTuj2uiTv27MLabochZ
-   rJRMrSctNLb7IvdVXZzDjEJBIqHPpuqQ2KznB+SndJc4qBieZN6BOqFWu
-   A=;
+  d=citrix.com; s=securemail; t=1611830939;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=x0XjCWq6GLx4oKfbD7EDlSvCfGmrBZJYnkW10NDFoYQ=;
+  b=bW4Cm4PTZ8aViVX1fqxP9neaBbtoZOqg3Hu90YwvINcCyKDqfsGuv0mQ
+   tIq/S4Jri6MhvX4zhSDaIaYLmA0ZLGEAw3PDEUo3SArS4iAXfVNie6PKm
+   jPPVlLJaMvKz35Z353BLQrS+jxZpaNcTjWpOzeixKg02edVCk5GF7+1dA
+   o=;
 Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: vvcsQkNcBOceuyfPuE3zBYnRx/rhQE8ubB4wnnPoVIl07y0UDXSl10tsupdb8YmYBCqpOaBPX9
- scTVwWz/kRX9pFyicQvJG1yO/6OQTp1HoHffAf1LcteUUf+CReS6LA2GmgxPjqPRd6B0F9M5r2
- U+kMeymWRLgNkinmSDSeMqAU6ocdYGXs5L25xKqyBfIITu2tZKbPKGOAnZ4vv/RCqhZNa0PzNU
- t0Bsf3hv8BfNZao1WbXssoCig7btsFuTyVA8HRwhsDuLnL8bVBunU+a+L9LP7NbWFHnoGO+TJF
- huA=
+IronPort-SDR: tyRAsOLf2U6Yrgb853i05N6E1wgBoFN2gqSi6KU1pHa4LIc63dHUA6sJpAuxu2WjGrXV7/Ev8n
+ HSDnMYrbihrnUjnsnvkiCyG1fSu1+Ko+TqXDT6JJ4fyKrL19+phKTh3swebHJMT+lmLgB1hHCc
+ 8DC6XLffm4AcKVlBTUyAhyQWb7tk9yPgj36CGwGHlWF5+fjWiKBKa++7QdPOL/WnZ5Vg9CWkJY
+ xgeqRN6t8xn7f6zqE//QfV6sL32VXQi352Uqb2R4HHmt6oWcwGkH0xYXJ/9V/z6ZPvyqPJo0re
+ /u4=
 X-SBRS: 5.2
-X-MesageID: 36089090
+X-MesageID: 36089649
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,382,1602561600"; 
-   d="scan'208";a="36089090"
+   d="scan'208";a="36089649"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hdJoBp0a+/OZaCxuLhewZ1RGlBwCXoHdkChfJXo+HLP/Onxycp+obdRZpfjewfi7DQ0JtsqpEGgvdOl2sQ8Kx3oWHQ59pJF+3HJoJnHbiM6VTFMeLLibVZbEMJqdYjTPFE7vHdqYgXu1mBQPKmgeAPGh1tHdoDaf9DJVOv8pzS5GO6RHl1vyr/WqSB0Vrlm+XGlFCeX7wTbHTLjUZDYL7MZug48buL8vAiPVdDTzsXFuvqoXnu8wQRxoRbDKMNqmvhEN3bvXgn5Y8shw4K+pinptuKuj/5HyR84QMyxAnmdLtMlUm3f/KH09hlKimkp3x3ot4D0V238IpizCu3pF1Q==
+ b=TxL4cGHd9OI3U4jrWMLdRwuRI6KCqWWXShD5QcMpul3P/H3FP6m154gIfz1G7PFZIFo4DE6psBacb0yfM4/akl2Ees4bMnBtGxnuYfTrAazZmruy6XB+JcymA43mmO7Tf6UgAyosKA90N5R/xm+ibxYkzuWmscSrHvI1C0KiWXsh1oswaUby6gKW0s8ejZU6ClsFYj98QQQLXok4vjWXDJtSBrhwxKfCba2tzwu9zEyQQ23V47d7972w9Sza5kdFOblO3y5+vqx1LjVnXCar/cBxveAxG3VurK//ion+HizUSoNNihi1R9VLNsy81Ea5Oh5ZZzL4rC1HeoCt2SUyyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ANbkmBCfOimPihB6U7SrXOWAjRWEJjOCDTIHEjtT1eM=;
- b=VNIdm4zq9COgylW0uYy0bK3N9nciJk+4hL9c1SOgYgu4Izhz0UwfW7Y0rbx5p26mwXaAS4h5d8H8Qpvh7pU3l+JcVJXJUnX0MFfqkjAWf1pbaqHxZ6fy4YyIE4zShS+ym3XMNYTeyZI4Fqg1HnZr8lutUJgpgLhvDS+GwA1L+W+BCLqWEvbTaeT1mRjV75Jw72Wwt6D9639MU1UnpNBD2Y8hsNvVS19Y63wcoguXT0C5BZaEWWOXgw0lV/7ov78INdqerO1PL1VJteFVQD1F4oaiMIpKmQYAcyB8hGnTI0kGOgDHK8TyWEqbCTLvNsPfiQxAOtBEtkCNack48en3qg==
+ bh=d6/XcprKi1hHmRtqAbFapT2Fs5x3WXGI3YVfJr0Z08w=;
+ b=UFAtuYeHsVhmpeajIH51v3hDweb/n28VhJXzRyYZbCPrxESIbW1AbQW5LtvJJ3nMSBtw25b3x8RHAVBdHZwP0DmNlwBBykJ6EdtXLkBklxSqMueJXM5pfmthjVwgmpee/6xZ1cqNJgd81KmmGoINp09VqNj3YuMTROyxNMIfJB1zsfxAvuJtC5ALZ3YPlRurBkhN39LiGwrUtPm1RETzScANBLuLA0b7Zw5EQoMgEvo+Jkwy1Q+W1tHdaqT16XX4PwFQShqa1RWLhQ1BTuuDERBD2/LXvlhxYwxYR9XFT+D1Qzw7+v2cZI2/Fq2l/Cr5ESwJ2s58sy+0McjHS6DOjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ANbkmBCfOimPihB6U7SrXOWAjRWEJjOCDTIHEjtT1eM=;
- b=nHGzCgFMgp6HSCd+Jvax4U7YOsn1LCpyqxNBbqyQ1F5o/ZB/5w1CweAIfXnkV7Ol2tL6U1dnKv6DttktJortSGjkge+nGJ334snj2bJtTGgdydkIoTjCR1GhKOApz3ZYjLI5/b3nmQFt/oHkiPOEAzLXhfHU8Y6et+08RVqe6g4=
-Subject: Re: [PATCH] memory: bail from page scrubbing when CPU is no longer
- online
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <251a14b5-01a5-0a9d-d269-f463a0759f1d@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a1032406-4b4b-f6ee-34c6-eb7ddbee471f@citrix.com>
-Date: Thu, 28 Jan 2021 10:37:05 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-In-Reply-To: <251a14b5-01a5-0a9d-d269-f463a0759f1d@suse.com>
+ bh=d6/XcprKi1hHmRtqAbFapT2Fs5x3WXGI3YVfJr0Z08w=;
+ b=FUmRWF+aXVENNwZIsHmQoz99T5jBqqZwqi+tnToaAk9vtpLaV3Co9i0cQVtpgu4cE8QXZyHLtUszGhx8l7Q/BAhyeTEnH9qvi9Gk19moXUL82m9lFkbtGj6hFaCQF1t44AUtYZG0DbSX1iWt3NJSLWiyKHydzRx9Xz+mAUU6e9o=
+Date: Thu, 28 Jan 2021 11:48:49 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Manuel Bouyer <bouyer@netbsd.org>
+CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>, Wei
+ Liu <wl@xen.org>
+Subject: Re: [PATCH v2] libs/foreignmemory: Implement on NetBSD
+Message-ID: <YBKWkc8mzlaIktD7@Air-de-Roger>
+References: <20210126224800.1246-1-bouyer@netbsd.org>
+ <20210126224800.1246-6-bouyer@netbsd.org>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO2P265CA0410.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a0::14) To BYAPR03MB4728.namprd03.prod.outlook.com
- (2603:10b6:a03:13a::24)
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210126224800.1246-6-bouyer@netbsd.org>
+X-ClientProxiedBy: MRXP264CA0011.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:15::23) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 65dccfe7-a535-4645-925c-08d8c378ac60
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4344:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR03MB4344EA6312343892EBFA3206BABA9@BYAPR03MB4344.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: a327a31e-772e-4331-a91d-08d8c37a4e75
+X-MS-TrafficTypeDiagnostic: DM5PR03MB2554:
+X-Microsoft-Antispam-PRVS: <DM5PR03MB25547724639B2F3C13A6DEFF8FBA9@DM5PR03MB2554.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YN1qusrOOYiSQJpMRNhJAEV+UbXP5cFAGqzVOUW5Ua5hQmdrUZa+Ckflsu3qZsr9a1fyWKwAb2Bxk4bPyYc62OVSYNlAmI3AMN2moVCQQWlymgrdMeF1k5YnRscsCK1lfr9srZA8CaPwgOS6FlplAxHDIFxZi6cnXx8/jlX191KOLXu4aO8ZBLn9jaOhJX4MDqzwUQ6dvqZsBeYcIOpl2ELvUqnxHyMvAwg/RNRz/z5mH6Z3r+RquVkjHBhe3w88aM6vWhAeVRZMshMtr7TxDblC6SkgYfNCY/cCV2cUfkp7eo8ckYwkZhhxYMrc419E/xFSUzhC+ejyFD/IRa1QE4EmCXGvrlHSp2gXClW0srjf11sVY5bytNO88QOKhbJ6414Xt7e/NXjIc4mksxOzRMIVMjkfTF+Zv3PILwsrt+ULRxUkiYDP+VNv95zZOISs/YqvQ1kVrq1XMK03/k/b/4uhfYbsMcVa7JaNgWq7ki//+uAAWQYyEI4DbWUNXuzLaiabAuAEPuHlN0eDvf6tth0WqbFsLruL9S7Zcnu2OFahREr0QVCgxqDI3YFWot1jxDlyMqrTjX+8Dspc8emt9o+tl8dp9YqadMTzCtj+YJ0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(346002)(376002)(39860400002)(136003)(366004)(36756003)(66476007)(26005)(2616005)(110136005)(4326008)(66556008)(16526019)(956004)(2906002)(186003)(53546011)(6486002)(31686004)(478600001)(6666004)(31696002)(86362001)(5660300002)(4744005)(8676002)(16576012)(8936002)(54906003)(316002)(66946007)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?SDRvRzJCbkxpSjRJWit6anRkSWFJMnJXdzM0ZFNPbm0yOHJic2p2UDBYNWVz?=
- =?utf-8?B?S3p6STVqK1R6bUZranBxYWp4Mng1c2Z4M200Njd1SXBIemJ4L05ITzVrbm04?=
- =?utf-8?B?VXZ3bnY1VHFvNHJia0FvVjdLa3B5OU1vUDB3YTAvVnRVRFo1TTF4eFpBbnlT?=
- =?utf-8?B?N2FadEg4N1JhUlZNcm1zOFpUMWhwSVZpbUVCZzEwUzJXaVpzY1lzMzVNM3Yy?=
- =?utf-8?B?UHVrSW5zWnl4MUpqUHBBa1ZIMXRtZ2ZvWmY3Nkh1Y0o1U280OW51ZFFmZ0ow?=
- =?utf-8?B?QnpsQ3RxcERoZnF5THpEa0g1WEpqT0VxRW8zS21RWkdHQSs3OWtDMGRKaDYv?=
- =?utf-8?B?N0xwNzVXbHFST3BGVFErb0RwTnlUVlR6RGlndDYzMUYvb1R1eGxJZmtRT09F?=
- =?utf-8?B?MkhwWU9DY25zZmZSYXgyYTVRZmQ1bFJjYjhBak4zYmRUNmJpUk5hNll4dEVz?=
- =?utf-8?B?cE5Fbkhlb0l1dUgya1pIVzJSYTZWL3FESzRJL3lzdEdTMGp0K0xySGNEaDVC?=
- =?utf-8?B?UUIrMzdxOFpNdG5KdURMZGRENHh4TnF5eE5lNUwwZTl3TnNkcEpxRnN5cWJs?=
- =?utf-8?B?WnFCdGxSdW5pZFkwc09RODRHNDNZMTNGbDFRUUNPM2l3Vjl2Y0I3UUliMXI2?=
- =?utf-8?B?cmwxTkdLR0pvcy9jek1MOG1YK3h2ZXByNmFSTlBQclUybVc2Rm1LYldGa1Nl?=
- =?utf-8?B?TDdkTkx0UXZmRWpZNklnM2Y1MnRlTGpQVHJiUCtuSlZxcGgrdUl5WlRZQUNQ?=
- =?utf-8?B?S0lnNThmSjBSUXV4WlN0TUo4UkpSRG1FYXRuTlJBemxITXhLdEt5WStHNFcz?=
- =?utf-8?B?Z2hpY1VYb2RJSXNyeHQ5ZzJZS1lGaWVrWk81K2V4aHhzdUJtTWJvVmtoWlp6?=
- =?utf-8?B?UW9UaUxxRTY5aWVBTkJNTXRSS3FkZ2ZuemVtTEhSZkxENmF5SXFja3FFVzhN?=
- =?utf-8?B?dEU4ajRmb3JUN0NhVHU4Y3RGZXdwaWxkMVhqeWZLa1dieTBwNlBqQk1uTlpa?=
- =?utf-8?B?eUVXTC8ySXZvK2dNMzFXOC9HMWE3N1gwcTlZUUJMTlRoaDVNajFJVVVRVFRQ?=
- =?utf-8?B?c1FtdWliMm9zZFhyMVpiRFhYMS9JeDhtVjF4Z3NRM2xOL2R1eE1acVJCSzJP?=
- =?utf-8?B?Qm9oZTVWTjVXYmpZYWNsV2V4OHVhVU9DYnY3eGh3M0FrLzEwY0lNVFF4ejVi?=
- =?utf-8?B?bVk4TEpPTTJtMlpYeEhBWFpmWm5vY0VxL0ZralFST2lYcGx3a3lDV1N1NWp2?=
- =?utf-8?B?SDNidENUQ2tZdDMxQ09mb1lwQzBvN1pjbFpRdkt0YlR0aWwvWG4yODB3TjhG?=
- =?utf-8?B?bXRMU2QrQnZaQ0xDaHFXTmJPbHBuUVFTYU1IRXFiMXJUQzVReG5EMTV1S0dP?=
- =?utf-8?B?aG5qZ0xDMnd0OHVHZHdYMUl1cDJlK1g4czM1YUR3WjJoTzkvcFdmVEFMbzhK?=
- =?utf-8?B?bS9Id29JTThGUVduYkIrVCtySDFrbVp3YXhWY05RPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65dccfe7-a535-4645-925c-08d8c378ac60
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
+X-Microsoft-Antispam-Message-Info: 8uPxf4jwYoBMkqOvem4ZnZ1TRz+R6x2/rIfGqYsBZoKaNtwUc8jdRqIXlRlFzKcnBFgktSWJ0E67mH2t+6svqoLbNasB2WofwutigcDsDX5GnJm76VZSbJvflVczySVmtc6EAZLMtkQVXdBNSVfmzlr87gOry2llsOkt74dgdk2b/35JRCJEgTaXXimdQ2i6iooBIW/2S5z6JlLnErLSBWIiW8okm3qtiwZnJcxAo3MPovhK4+X8WTeNbgNaPVGZhGsXzxOi6rFZU1O3qi5OAhfdqplvOi5eoIvrYKkm0mo2+E6NfDgu0wn394+uWzm+eLpn0SlmNV5SI64O6ZtLCQxleZt2MMRxi9jkbWbUBKxTqjY+O7HUPKsZ8K+thX76AaMXZ1ryKqrr5oDUxQ4cljnBrRHh/lHdTJXR42LctRGBQJ/5vJLHwAnjo+Ru6XM9qd24kI8WyYt/iG07gYxLDUj8vQSTYQwwxVE/vmE8+QurnoiU6kKxtT6sHy0lMJmk4ODN7jTdjO36+TzOD5OBPw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(396003)(136003)(39860400002)(346002)(376002)(366004)(316002)(186003)(8676002)(956004)(4326008)(26005)(6496006)(16526019)(66476007)(9686003)(86362001)(478600001)(6486002)(66946007)(54906003)(2906002)(33716001)(83380400001)(8936002)(6916009)(66556008)(5660300002)(85182001)(6666004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Yk1BeHVadWNCZGFmaHhFR1dwWWF1OEFJWGlVdU80cEw0OHAya3ovektqVG0y?=
+ =?utf-8?B?THU1TkdwbWU0L1d2ZFZVYm9tMDh0bXN5czhxa3IrR2M5NzNZTjFIS05BL0Rn?=
+ =?utf-8?B?YlYyQUJDdktNdWsvTDJXdjlTWHhnVFArSDJOL1g3cm16c1ZqcFg4cE8xbS9X?=
+ =?utf-8?B?RUhGUTQ3T0F5MndydHZaYy8xVXNCd2dMY3dTY1M4REhiN2d6WEwzSndWMHRI?=
+ =?utf-8?B?L0VTYXFPOTY0WmNiQ3NMclZrTTBjL1pFeWRVbmUrTDl1Q0FINVVTSFRoUDR4?=
+ =?utf-8?B?TEphTE9mSElMQnI5KzZRZ29CRld0a0tqNmt2QlZZMjJuSGRiRkR2dWE2RWFu?=
+ =?utf-8?B?Ynd0RU8zUngwdFRscnFvRmVXcUFxcDFGczRaS2FkT1A2Y2R5ZG9SOXM4Q1Rj?=
+ =?utf-8?B?bWh2TlFMbVpaUm9yaXdyY1BSWHpqR1oyQWZLNml5Z3JaYmtxd0FVRTZSQXRU?=
+ =?utf-8?B?TEVUYVVjV2l1OG9hR29VNThPeTYyZTFDcjVVK0E5VHo5VDhzYzlkRjZNQ2c3?=
+ =?utf-8?B?Sm1tNVl5ZjBHa05IZmtqNGw2R3NWeFFZYkNjSGZCa1AzYjdhMmMyTFV2VXRE?=
+ =?utf-8?B?Q1hjb0FhdlA2UE9LT1lPUGtyM3ZjR3J3a0dsdTR5RFI3SVhLQVd1akxWbEpq?=
+ =?utf-8?B?T0YvQzM4QTVyWkQxbDZQRDk0eWNlWGJoWVp0RHU2OXNhOVArNWZVWXgrakJO?=
+ =?utf-8?B?TEpPLzB6b3BYT0YraXpPeDdBQmMvdWtTa2VYNXNBVm01UXJQaVFFbjRRVHp5?=
+ =?utf-8?B?VmR4NUU4ZGg4MW1wdCtSczk0ZHhjelM2Q3ljUWovbVRCbnROVGhrUkNxYkEx?=
+ =?utf-8?B?bHFGNkVHVU1RS2h3MEJCNUFBcjl0N25wbTFtWks1SzdacEszODlyb3N2dTN6?=
+ =?utf-8?B?aG0zKzZaZUxaZUNUS1RRR0lGSGlIQWtlTHM3VTVIVHVidDlqR2paZy8rV3Jr?=
+ =?utf-8?B?SVdnUC9SU0pyWXNVczgzbUptR1RVTFJZeko0TE1LSDFkL0thR0liWDNIbEdm?=
+ =?utf-8?B?N2d5Y281Q3RPbkYzRUZPd1ZtRDVPd200K1VzQjg2Z25ZaU9WRTVOaGNPditU?=
+ =?utf-8?B?MlB0YTVTcXB2ejNxVlJSRDhteFBoSG1MVUJYd3RUVjlUYUtPdFVDYkI5emxR?=
+ =?utf-8?B?VnJRaU5pdWcweTRBVUI3OHhMNUdLVWxheVhKeG5TZWJRdXZyZ0k4d3pyZnVF?=
+ =?utf-8?B?SWtHVG94WWNjTWtOUTNyU0phYnppRXRTZGRUZTBHMFBEblRLNGhQQjUzMDRR?=
+ =?utf-8?B?aVNSdmhsajRNbUhlakhVekF5MDlIMGt2YlNFWkRyRnFDM1ZKd2ZGVk1lalhu?=
+ =?utf-8?B?UEZ3MkVWSkdpT0RSaWFJYjNUb0EyZFNLWEZvMHVkREV6d2YrUmlpR1hnejRC?=
+ =?utf-8?B?cm8xWittVk56N3FrZmk5cENIZmJVM29yZit2OU1UZzVWd2tKcTVoazBUWWlz?=
+ =?utf-8?B?MEY0cCtSSkRYU3g2SHN5c0R3Y2xNRlNJTERIWFpnPT0=?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: a327a31e-772e-4331-a91d-08d8c37a4e75
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2021 10:37:12.9786
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2021 10:48:54.4308
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mBRPMqp+UlGfrrHYSxGWN7Ldg7yKq/XXcBqRm1AdBcD979/1EEjaVs3V14lAy8uFw3LKPqrmSN+BmYOe4p+0dVaZLx7LOVUjAn+uArq6MNw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4344
+X-MS-Exchange-CrossTenant-UserPrincipalName: cgjMLGlo13xw1pjO/F7seUKwET4Rrd4mkuzgaNepmfQ/lUFOZD6q0ufiZnCbW8urXnGy9OywTyGUBDELQuc/hQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2554
 X-OriginatorOrg: citrix.com
 
-On 28/01/2021 10:35, Jan Beulich wrote:
-> Scrubbing can significantly delay the offlining (parking) of a CPU (e.g.
-> because of booting into in smt=0 mode), to a degree that the "CPU <n>
-> still not dead..." messages logged on x86 in 1s intervals can be seen
-> multiple times. There are no softirqs involved in this process, so
-> extend the existing preemption check in the scrubbing logic to also exit
-> when the CPU is no longer observed online.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Tue, Jan 26, 2021 at 11:47:52PM +0100, Manuel Bouyer wrote:
+> Implement foreignmemory interface on NetBSD. The compat interface is now used
+> only on __sun__
+> 
+> Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+> ---
+>  tools/libs/foreignmemory/Makefile  |  2 +-
+>  tools/libs/foreignmemory/netbsd.c  | 66 +++++++++++++++++++++++++-----
+>  tools/libs/foreignmemory/private.h |  6 +--
+>  3 files changed, 60 insertions(+), 14 deletions(-)
+> 
+> diff --git a/tools/libs/foreignmemory/Makefile b/tools/libs/foreignmemory/Makefile
+> index 13850f7988..f191cdbed0 100644
+> --- a/tools/libs/foreignmemory/Makefile
+> +++ b/tools/libs/foreignmemory/Makefile
+> @@ -8,7 +8,7 @@ SRCS-y                 += core.c
+>  SRCS-$(CONFIG_Linux)   += linux.c
+>  SRCS-$(CONFIG_FreeBSD) += freebsd.c
+>  SRCS-$(CONFIG_SunOS)   += compat.c solaris.c
+> -SRCS-$(CONFIG_NetBSD)  += compat.c netbsd.c
+> +SRCS-$(CONFIG_NetBSD)  += netbsd.c
+>  SRCS-$(CONFIG_MiniOS)  += minios.c
+>  
+>  include $(XEN_ROOT)/tools/libs/libs.mk
+> diff --git a/tools/libs/foreignmemory/netbsd.c b/tools/libs/foreignmemory/netbsd.c
+> index 54a418ebd6..a7e1d72ffc 100644
+> --- a/tools/libs/foreignmemory/netbsd.c
+> +++ b/tools/libs/foreignmemory/netbsd.c
+> @@ -19,7 +19,9 @@
+>  
+>  #include <unistd.h>
+>  #include <fcntl.h>
+> +#include <errno.h>
+>  #include <sys/mman.h>
+> +#include <sys/ioctl.h>
+>  
+>  #include "private.h"
+>  
+> @@ -66,15 +68,17 @@ int osdep_xenforeignmemory_close(xenforeignmemory_handle *fmem)
+>      return close(fd);
+>  }
+>  
+> -void *osdep_map_foreign_batch(xenforeignmem_handle *fmem, uint32_t dom,
+> -                              void *addr, int prot, int flags,
+> -                              xen_pfn_t *arr, int num)
+> +void *osdep_xenforeignmemory_map(xenforeignmemory_handle *fmem,
+> +                                 uint32_t dom, void *addr,
+> +                                 int prot, int flags, size_t num,
+> +                                 const xen_pfn_t arr[/*num*/], int err[/*num*/])
+> +
+>  {
+>      int fd = fmem->fd;
+> -    privcmd_mmapbatch_t ioctlx;
+> -    addr = mmap(addr, num*XC_PAGE_SIZE, prot, flags | MAP_ANON | MAP_SHARED, -1, 0);
+> +    privcmd_mmapbatch_v2_t ioctlx;
+> +    addr = mmap(addr, num*PAGE_SIZE, prot, flags | MAP_ANON | MAP_SHARED, -1, 0);
+>      if ( addr == MAP_FAILED ) {
+> -        PERROR("osdep_map_foreign_batch: mmap failed");
+> +        PERROR("osdep_xenforeignmemory_map: mmap failed");
+>          return NULL;
+>      }
+>  
+> @@ -82,11 +86,12 @@ void *osdep_map_foreign_batch(xenforeignmem_handle *fmem, uint32_t dom,
+>      ioctlx.dom=dom;
+>      ioctlx.addr=(unsigned long)addr;
+>      ioctlx.arr=arr;
+> -    if ( ioctl(fd, IOCTL_PRIVCMD_MMAPBATCH, &ioctlx) < 0 )
+> +    ioctlx.err=err;
+> +    if ( ioctl(fd, IOCTL_PRIVCMD_MMAPBATCH_V2, &ioctlx) < 0 )
+>      {
+>          int saved_errno = errno;
+> -        PERROR("osdep_map_foreign_batch: ioctl failed");
+> -        (void)munmap(addr, num*XC_PAGE_SIZE);
+> +        PERROR("osdep_xenforeignmemory_map: ioctl failed");
+> +        (void)munmap(addr, num*PAGE_SIZE);
+>          errno = saved_errno;
+>          return NULL;
+>      }
+> @@ -97,7 +102,48 @@ void *osdep_map_foreign_batch(xenforeignmem_handle *fmem, uint32_t dom,
+>  int osdep_xenforeignmemory_unmap(xenforeignmemory_handle *fmem,
+>                                   void *addr, size_t num)
+>  {
+> -    return munmap(addr, num*XC_PAGE_SIZE);
+> +    return munmap(addr, num*PAGE_SIZE);
+> +}
+> +
+> +int osdep_xenforeignmemory_restrict(xenforeignmemory_handle *fmem,
+> +                                    domid_t domid)
+> +{
+> +    errno = EOPNOTSUPP;
+> +    return -1;
+> +}
+> +
+> +int osdep_xenforeignmemory_unmap_resource(
+> +    xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres)
+> +{
+> +    return fres ? munmap(fres->addr, fres->nr_frames << PAGE_SHIFT) : 0;
+> +}
+> +
+> +int osdep_xenforeignmemory_map_resource(
+> +    xenforeignmemory_handle *fmem, xenforeignmemory_resource_handle *fres)
+> +{
+> +    privcmd_mmap_resource_t mr = {
+> +        .dom = fres->domid,
+> +        .type = fres->type,
+> +        .id = fres->id,
+> +        .idx = fres->frame,
+> +        .num = fres->nr_frames,
+> +    };
+> +    int rc;
+> +
+> +    fres->addr = mmap(fres->addr, fres->nr_frames << PAGE_SHIFT,
+> +                      fres->prot, fres->flags | MAP_ANON | MAP_SHARED, -1, 0);
+> +    if ( fres->addr == MAP_FAILED )
+> +        return -1;
+> +
+> +    mr.addr = (uintptr_t)fres->addr;
+> +
+> +    rc = ioctl(fmem->fd, IOCTL_PRIVCMD_MMAP_RESOURCE, &mr);
+> +    if ( rc )
+> +    {
+> +        PERROR("ioctl failed");
+> +    }
+> +
+> +    return 0;
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+You need to return rc here, or else the failure won't be propagated to
+the caller.
+
+If you agree I don't think I have further comments:
+
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks, Roger.
 
