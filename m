@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F023C307B93
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 18:01:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77275.139858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9319307BE0
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 18:13:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77287.139892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Af7-0000L6-Ph; Thu, 28 Jan 2021 17:00:53 +0000
+	id 1l5ArF-0001Mp-6Y; Thu, 28 Jan 2021 17:13:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77275.139858; Thu, 28 Jan 2021 17:00:53 +0000
+Received: by outflank-mailman (output) from mailman id 77287.139892; Thu, 28 Jan 2021 17:13:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Af7-0000Kh-Lq; Thu, 28 Jan 2021 17:00:53 +0000
-Received: by outflank-mailman (input) for mailman id 77275;
- Thu, 28 Jan 2021 16:59:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JMWF=G7=kernel.org=djwong@srs-us1.protection.inumbo.net>)
- id 1l5Ae4-00082Y-P0
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 16:59:48 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bf9f499b-1317-4784-9461-0663aededbcf;
- Thu, 28 Jan 2021 16:59:47 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0EEE564E0E;
- Thu, 28 Jan 2021 16:59:47 +0000 (UTC)
+	id 1l5ArF-0001MQ-31; Thu, 28 Jan 2021 17:13:25 +0000
+Received: by outflank-mailman (input) for mailman id 77287;
+ Thu, 28 Jan 2021 17:13:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TgTx=G7=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l5ArC-0001MK-Mh
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 17:13:22 +0000
+Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1c1569a8-a2fd-4ce5-ba11-b5781c416f8b;
+ Thu, 28 Jan 2021 17:13:21 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id c12so6176623wrc.7
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 09:13:21 -0800 (PST)
+Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
+ by smtp.gmail.com with ESMTPSA id x81sm7022901wmg.40.2021.01.28.09.13.18
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 28 Jan 2021 09:13:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,86 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf9f499b-1317-4784-9461-0663aededbcf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611853187;
-	bh=f6FDYR+2fbZ3ZjuVDKmJrkeFHlqyA4P3vGdmoyOPa1M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Rzag2xxRHgFBGSJ365/QUldWd9CTCZVGt3cs71rJutBhKs94QB4O0wVHJ78U0xIF9
-	 n96V7cXtAmPsB9hu9gUYvKXwcH1SXtYNdkFw15Hr/lW1MQ6ApKzq4voIl5psE+u1SS
-	 oIYlBt3CEfmzYKr/W9GKeV1ES9XtHwmC1KiXTL4cmN2/9EoY9kXCbDD71u9sIp+Nfr
-	 FbyyfdHM+E5ZA+F8801PzzCElIq3kyLXwweF8LRAnfmH79wwG+57YuSijr3uE7kbk9
-	 /DpcS6Ckt3f1RwDjmwI1QhKt/MkNHods9aX+BJj1ComGJOXJH3o25qnvlVltgShwCo
-	 r/bA/dJbtb2Sw==
-Date: Thu, 28 Jan 2021 08:59:46 -0800
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	dm-devel@redhat.com, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, drbd-dev@lists.linbit.com,
-	xen-devel@lists.xenproject.org, linux-nvme@lists.infradead.org,
-	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
-	linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
-	linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
-	linux-pm@vger.kernel.org, linux-mm@kvack.org, axboe@kernel.dk,
-	philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
-	konrad.wilk@oracle.com, roger.pau@citrix.com, minchan@kernel.org,
-	ngupta@vflare.org, sergey.senozhatsky.work@gmail.com,
-	agk@redhat.com, snitzer@redhat.com, hch@lst.de, sagi@grimberg.me,
-	martin.petersen@oracle.com, viro@zeniv.linux.org.uk, tytso@mit.edu,
-	jaegeuk@kernel.org, ebiggers@kernel.org, shaggy@kernel.org,
-	konishi.ryusuke@gmail.com, mark@fasheh.com, jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com, damien.lemoal@wdc.com,
-	naohiro.aota@wdc.com, jth@kernel.org, rjw@rjwysocki.net,
-	len.brown@intel.com, pavel@ucw.cz, akpm@linux-foundation.org,
-	hare@suse.de, gustavoars@kernel.org, tiwai@suse.de,
-	alex.shi@linux.alibaba.com, asml.silence@gmail.com,
-	ming.lei@redhat.com, tj@kernel.org, osandov@fb.com,
-	bvanassche@acm.org, jefflexu@linux.alibaba.com
-Subject: Re: [RFC PATCH 17/34] iomap: use bio_new in iomap_dio_zero
-Message-ID: <20210128165946.GL7698@magnolia>
-References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
- <20210128071133.60335-18-chaitanya.kulkarni@wdc.com>
+X-Inumbo-ID: 1c1569a8-a2fd-4ce5-ba11-b5781c416f8b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=9488a2P3fJlNgPE67Bm5Bf5hZKojmQ6UAk6SR91FpXg=;
+        b=l20VkycDneWvyXDNlwjvtzZTICcXsA7gaZzdUmnO6Ine2fK997yUQr4adxnfyIbkuf
+         TBwwDLDOcy1aPvjoYNqSeiUxomN76Vk6BBpou8gLg6hhcnqJUVIy839/81lY+qFsArL3
+         JUSPH7raNKSan6/KzfZ9RHjR9S0Kr7E9ZqCcLbKT4xtx1Ew04IPiAzmh4q/0WlEWIm5I
+         m5zHPc6b7YPeNdvKVJ5x1GQO/HUNXVYzs7FCAtBKXxE81FC5E9hU8TaEUkx6hrJk1lTR
+         TZktU25LMcqyPkG+T5TXGV/AgKODHspFz4Kvefnaf7naQLUdulRvfiivcaIWryuzIk2r
+         U9Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=9488a2P3fJlNgPE67Bm5Bf5hZKojmQ6UAk6SR91FpXg=;
+        b=mTzyPn1qa13c+1avPEXLooLxgqCsFFa2lwgAKHsNcGXqBeleTZXt7k1uwew1aSCyVW
+         ja1FyqHx+B3mcmQtzxrlF6To728x9iMTbruJZ7hP14ZFbE1K1+Q9qmCSHQzk9CRiOZZ+
+         4DFJcDjmX5pNII+YDqbXidtlY8btxjXj89ilqLs6r+iLo4clVOFBWqTwa6bqQiyUEL+M
+         VDnKQixM6xY8r/lS1bje5lCYGtgERLly++0oNkHcXq8I4s2vIhr4qKlKweScI80M0DEW
+         Vl7h9/b215czKYH+Trgnn3DxaZHG+rnP9k3m/GWS7SefVhwKbs+/YtJi0NQRk9jLz25L
+         sLPQ==
+X-Gm-Message-State: AOAM5329Zdds/28K9EEJiCipUkxn1iC3FU0tNy1ZArCpqFK6ewyuL/Tq
+	vVOsE8LpmtwNLk+wJ2werVo=
+X-Google-Smtp-Source: ABdhPJzR2CHSnBbdTSiHdnD0qat4VVIQL/P+8rSIOh2bDxWEqQbOZcC8QbNPzgXHGXMI1N60izv3Vg==
+X-Received: by 2002:adf:e50e:: with SMTP id j14mr102488wrm.162.1611854001023;
+        Thu, 28 Jan 2021 09:13:21 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+	"'Xen-devel'" <xen-devel@lists.xenproject.org>
+Cc: "'Jan Beulich'" <JBeulich@suse.com>,
+	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
+	"'Wei Liu'" <wl@xen.org>,
+	"'Stefano Stabellini'" <sstabellini@kernel.org>,
+	"'Julien Grall'" <julien@xen.org>,
+	"'Volodymyr Babchuk'" <Volodymyr_Babchuk@epam.com>,
+	"'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>
+References: <20210128160616.17608-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20210128160616.17608-1-andrew.cooper3@citrix.com>
+Subject: RE: [PATCH] xen/memory: Reject out-of-range resource 'frame' values
+Date: Thu, 28 Jan 2021 17:13:17 -0000
+Message-ID: <02b601d6f598$e01d9ec0$a058dc40$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210128071133.60335-18-chaitanya.kulkarni@wdc.com>
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQI3XV/tj1LXdZgysUfBsteFhT3rcKl8dfqA
+Content-Language: en-gb
 
-On Wed, Jan 27, 2021 at 11:11:16PM -0800, Chaitanya Kulkarni wrote:
-> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-
-Looks ok to me,
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-
---D
-
+> -----Original Message-----
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
+> Sent: 28 January 2021 16:06
+> To: Xen-devel <xen-devel@lists.xenproject.org>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Jan Beulich =
+<JBeulich@suse.com>; Roger Pau Monn=C3=A9
+> <roger.pau@citrix.com>; Wei Liu <wl@xen.org>; Stefano Stabellini =
+<sstabellini@kernel.org>; Julien
+> Grall <julien@xen.org>; Volodymyr Babchuk =
+<Volodymyr_Babchuk@epam.com>; Paul Durrant <paul@xen.org>;
+> Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Subject: [PATCH] xen/memory: Reject out-of-range resource 'frame' =
+values
+>=20
+> The ABI is unfortunate, and frame being 64 bits leads to all kinds of =
+problems
+> performing correct overflow checks.
+>=20
+> Furthermore, the mixed use of unsigned int and unsigned long in the =
+call tree
+> is buggy on arm32 where the two are the same size, and certain =
+out-of-range
+> combinations will truncated and be permitted.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > ---
->  fs/iomap/direct-io.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-> index ea1e8f696076..f6c557a1bd25 100644
-> --- a/fs/iomap/direct-io.c
-> +++ b/fs/iomap/direct-io.c
-> @@ -189,15 +189,13 @@ iomap_dio_zero(struct iomap_dio *dio, struct iomap *iomap, loff_t pos,
->  	int flags = REQ_SYNC | REQ_IDLE;
->  	struct bio *bio;
->  
-> -	bio = bio_alloc(GFP_KERNEL, 1);
-> -	bio_set_dev(bio, iomap->bdev);
-> -	bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
-> +	bio = bio_new(iomap->bdev, iomap_sector(iomap, pos), REQ_OP_WRITE,
-> +		      flags, 1, GFP_KERNEL);
->  	bio->bi_private = dio;
->  	bio->bi_end_io = iomap_dio_bio_end_io;
->  
->  	get_page(page);
->  	__bio_add_page(bio, page, len, 0);
-> -	bio_set_op_attrs(bio, REQ_OP_WRITE, flags);
->  	iomap_dio_submit_bio(dio, iomap, bio, pos);
->  }
->  
-> -- 
-> 2.22.1
-> 
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Paul Durrant <paul@xen.org>
+> CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>=20
+> Posted ahead of my full v8 series, in the hope that it catches some =
+people
+> before the end of the day.
+
+Reviewed-by: Paul Durrant <paul@xen.org>
+
 
