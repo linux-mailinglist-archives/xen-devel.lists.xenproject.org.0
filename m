@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E94DB306E6B
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 08:15:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76685.138507 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2471C306E7F
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 08:16:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76692.138532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l51Wo-0006LF-V1; Thu, 28 Jan 2021 07:15:42 +0000
+	id 1l51Wz-0006WD-VR; Thu, 28 Jan 2021 07:15:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76685.138507; Thu, 28 Jan 2021 07:15:42 +0000
+Received: by outflank-mailman (output) from mailman id 76692.138532; Thu, 28 Jan 2021 07:15:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l51Wo-0006Ko-RI; Thu, 28 Jan 2021 07:15:42 +0000
-Received: by outflank-mailman (input) for mailman id 76685;
- Thu, 28 Jan 2021 07:15:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l51Wz-0006Ve-PQ; Thu, 28 Jan 2021 07:15:53 +0000
+Received: by outflank-mailman (input) for mailman id 76692;
+ Thu, 28 Jan 2021 07:15:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YU/W=G7=wdc.com=prvs=655a99766=chaitanya.kulkarni@srs-us1.protection.inumbo.net>)
- id 1l51Wn-0006K0-CL
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 07:15:41 +0000
-Received: from esa4.hgst.iphmx.com (unknown [216.71.154.42])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 55264d12-e0be-46d6-b9ac-490a0d653ba8;
- Thu, 28 Jan 2021 07:15:40 +0000 (UTC)
+ id 1l51Wy-0005xp-0V
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 07:15:52 +0000
+Received: from esa5.hgst.iphmx.com (unknown [216.71.153.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id da9bff1e-c501-457d-9cf5-275f1f36d2d5;
+ Thu, 28 Jan 2021 07:15:49 +0000 (UTC)
 Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
  ([199.255.45.14])
- by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:15:39 +0800
+ by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:15:48 +0800
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
  by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 22:59:59 -0800
+ 27 Jan 2021 23:00:08 -0800
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
- by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:15:39 -0800
+ by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:15:48 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +43,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55264d12-e0be-46d6-b9ac-490a0d653ba8
+X-Inumbo-ID: da9bff1e-c501-457d-9cf5-275f1f36d2d5
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1611818140; x=1643354140;
+  t=1611818149; x=1643354149;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=mX0lBXgZV5dDDUNO5/xUPQTxA6WXojrnDbaB4rJIAQ4=;
-  b=aaVLORsEGRgytiupj+H8u8Nwfro8Wh3jnZGjXcDD4jt2HKyp/W8ERIXp
-   fQEmB8ar99oys/4QKD4tcrrQUi5sGkoM1TPci77eg8niu4H/UQKRJF7xu
-   KazKuO3tqz61g7nyfZl+sAsXbjSqmq8Iz6yUbq2cwh0J/GKqg6NTTlJUW
-   Yub6sZdsFGXQTXwUA2NDFDHVC1hcVkngxwoRiXEyhK0L/ACZRPo7hEM8+
-   UIGoinidpnrqFz9AHnIlAtP1yx7dx8L79GJwiNFw/pIZ7nWLPgL5W3r8F
-   xsuNeovEl2ICMMBi09a0/fuW2gsLkovlx87gPzzhca5uipPwjfQQJ7fW5
-   A==;
-IronPort-SDR: NAk5m52GoaY29bds24u2KQ1qBvFn8Wa+/LcNmDWFgF8OYkvl53M7tYgY9bsXTvcF2Xrk0r1Vbg
- ophQVnMAMJZf/kH5eFdEYq+vuv/6rfLZCDAsFQyDSXkXnH3aOlX1RngvMkFkhvQuhC7vCMEB/q
- vgC1NmBLrTFqW45C6WXqsHW3S2mCTSD0EvptpsgvF6ieg4XJFhZ8qmlIywZFjX1kEhxKdx39Wi
- 4Y6Hxoyq/TBKKU3PhCHJ5yoJCSfUM2g7Wp5LzVs3faRk2SCoDUVkhyFf9P9vAlR0H+k7mKArmh
- jV8=
+  bh=NNQh//SoJS4GqMqJS7HaqIWs/nAFaMjGpU2K0hvKGW0=;
+  b=fQfK9wUdOyIrIsfy9RLLvC5xPgYcSXg3MNYnHSc9IsYLZx30nRHzIAUZ
+   294UUudQQlYk8gJcK/edZROZYlJIE1eNrjLm1JGiz/Q21FfSGShI1OpDG
+   AVL3nWWtzIN++jlZ98TQAnqMod+6Ql8ECPGPLXwk9xo2jd9Tx5vttBp8A
+   MKW1qB5k/Qt/1N/OTPnz9MYuOySMfX9ETamQAGkN5rbbeVBg424fAd1GQ
+   hDTtCXp/Z9hfKKx9hoSKub7BrBRCs+yLmSqVgpJS1F86spUPwH+/QWj7g
+   HR1yP3TJs98ynx2C6xmfLztXq4e7yWbpoTlZnnY6hLXY72FFMg4KLmomH
+   Q==;
+IronPort-SDR: FIV1m0hqMjPv7EbDoudd3IU/sfM4dtIXVcOrfZP9FG6QS+qNV/cpHr7zPfe6cikVTuMAIWMrRE
+ 1CFFIA3M2n74FPetnuW4UIXhHv04+NojRtALLIm1ShTbRzoMpJzodse0FT7TKA9rmpzDk0hf2J
+ osqfJT1Hw13QCXwtTqc43/JeIOacFqdvj3uOE8wdnBhSuCJtni52KCfSDmNsSyMqak0NZQLmhb
+ RVqXLrFPttVmJHYuA+DRTQ/CQCt7oxoFooNbcGq7LXUqJAFun/IgoGhOb61ZyQh4tY4TVzWgoL
+ SfQ=
 X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; 
-   d="scan'208";a="158517545"
-IronPort-SDR: H5QB8oH8qT7CGwyeMbvP6Jex1n5Ad0nKeXTChgPOMt6L0rK5j7qcLv9+EF3MyWUSHYnU7Vb/xL
- WPEi5+iUvwCnx8AG/EOFf/ZvPTkBTClx1hJwvbj3cxA2vxv/IJ9hR0FR51lJfElrqEL3cCpAMR
- Dd9DLyTrHZQcFYU9kC8VgFO2EUUnG6Zt7GttE/rX9wfuCG0LQnMSoqCU/cGPe5vzGAcFpnc9xe
- frL7j0+g+G9cL5BN7yx/sOJzbv9rL//AiKkqMYIOR9xHTytIaBnIotnHxqH3Visks1zAwVIFdH
- 3j3B/8WI312Hk5JgkTqx7Sx/
-IronPort-SDR: +tiKd6++/IklFSy7iDJaHbayhG5AQMYy46sQaNwq7O80dac1IZ8ZNlxjx4DxYbXvKYV6ua9+Jn
- RJlpIO7cWN3eoJjRXIKMWDgWPb2hxGv4A2WF6qkOCUmJWGu679NggrholDw0Y/zhUvvPmDPwT6
- YMwbiHmVzfz4ihKs4Lc84G8Ml2oUugQkKwA3saHG7RouPgTCEOWIbUjZGA0E7lav6RMiRyuWgb
- NQVibBmtLzaPM7sNDSYSURpVt5muhPgCfKQdUKPwhH4mY9hUDkI5QyIoSDd8h2S0Ai5kAfU9pn
- AHM=
+   d="scan'208";a="158518450"
+IronPort-SDR: s18G1HC83Rr3z3ZHjRbyNRB84D8eeJyfxEsQsWugvQYNm/5tp9Bykx2d0PDD1lJnqQ7n3ROCLB
+ YSWyg9J7I6HqnB2NgFwMU4ssoB6tjGH/79230TWkDogzAEgyRx4yPiMRRDGGGJYtPzQqzrHfUY
+ iO3zDWOiwemtUczZcPdewa4KogxATq3ygZIiw6li+/J7dkvbfEn3uGzNA0AnmVFzdIkRTnkjEr
+ NZyMm+4X1MpeNq7dOG+OefxOr48EAZ8pX3UG1xjxSqFs9hl07ia08o8M9UC0qFD/6LvMa4wq1F
+ GfS04fX+yByC8zurUKSx9scr
+IronPort-SDR: QLHAdyBGhpMGQ+9sBMvXF0omk88B/E7BRqUoQLtstkadK8XTqcLBOvZ/pjpZSQe5Fab6+IJLIs
+ ck58Xl2YqFxcQH934VbGmHAxVZYNpxUZEqIAo35K+cwpiHURts0rCHDJ2TNufJwwd/0szVEfZu
+ V2kbFpOqLyVucrhtvqpRhrkBznCSCkx3a3rZqsYu2xJ2ZrJKihugfXyvxYjD/F6eNL2QYyPhq5
+ GySOsYgZ6Jfrk4o/qsLABBe1b7+pVB/jDQ0aaMBZEhc+3I3KzSll4D3O/V1q5DDbYD+ht9Zxf5
+ kSQ=
 WDCIronportException: Internal
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-xfs@vger.kernel.org,
@@ -134,9 +133,9 @@ Cc: axboe@kernel.dk,
 	osandov@fb.com,
 	bvanassche@acm.org,
 	jefflexu@linux.alibaba.com
-Subject: [RFC PATCH 29/34] power/swap: use bio_new in hib_submit_io
-Date: Wed, 27 Jan 2021 23:11:28 -0800
-Message-Id: <20210128071133.60335-30-chaitanya.kulkarni@wdc.com>
+Subject: [RFC PATCH 30/34] hfsplus: use bio_new in hfsplus_submit_bio()
+Date: Wed, 27 Jan 2021 23:11:29 -0800
+Message-Id: <20210128071133.60335-31-chaitanya.kulkarni@wdc.com>
 X-Mailer: git-send-email 2.22.1
 In-Reply-To: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
@@ -145,30 +144,25 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- kernel/power/swap.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ fs/hfsplus/wrapper.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/kernel/power/swap.c b/kernel/power/swap.c
-index c73f2e295167..e92e36c053a6 100644
---- a/kernel/power/swap.c
-+++ b/kernel/power/swap.c
-@@ -271,13 +271,12 @@ static int hib_submit_io(int op, int op_flags, pgoff_t page_off, void *addr,
- 		struct hib_bio_batch *hb)
- {
- 	struct page *page = virt_to_page(addr);
-+	sector_t sect = page_off * (PAGE_SIZE >> 9);
- 	struct bio *bio;
- 	int error = 0;
+diff --git a/fs/hfsplus/wrapper.c b/fs/hfsplus/wrapper.c
+index 0350dc7821bf..8341ee6c9b31 100644
+--- a/fs/hfsplus/wrapper.c
++++ b/fs/hfsplus/wrapper.c
+@@ -64,10 +64,7 @@ int hfsplus_submit_bio(struct super_block *sb, sector_t sector,
+ 	offset = start & (io_size - 1);
+ 	sector &= ~((io_size >> HFSPLUS_SECTOR_SHIFT) - 1);
  
--	bio = bio_alloc(GFP_NOIO | __GFP_HIGH, 1);
--	bio->bi_iter.bi_sector = page_off * (PAGE_SIZE >> 9);
--	bio_set_dev(bio, hib_resume_bdev);
+-	bio = bio_alloc(GFP_NOIO, 1);
+-	bio->bi_iter.bi_sector = sector;
+-	bio_set_dev(bio, sb->s_bdev);
 -	bio_set_op_attrs(bio, op, op_flags);
-+	bio = bio_new(hib_resume_bdev, sect, op, op_flags, 1,
-+		      GFP_NOIO | __GFP_HIGH);
++	bio = bio_new(sb->s_bdev, sector, op, op_flags, 1, GFP_NOIO);
  
- 	if (bio_add_page(bio, page, PAGE_SIZE, 0) < PAGE_SIZE) {
- 		pr_err("Adding page to bio failed at %llu\n",
+ 	if (op != WRITE && data)
+ 		*data = (u8 *)buf + offset;
 -- 
 2.22.1
 
