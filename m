@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8F26306F20
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 08:27:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76765.138626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31C4330713B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 09:19:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76786.138666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l51iG-0000Gv-8O; Thu, 28 Jan 2021 07:27:32 +0000
+	id 1l52Wo-0006IJ-3y; Thu, 28 Jan 2021 08:19:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76765.138626; Thu, 28 Jan 2021 07:27:32 +0000
+Received: by outflank-mailman (output) from mailman id 76786.138666; Thu, 28 Jan 2021 08:19:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l51iG-0000GZ-56; Thu, 28 Jan 2021 07:27:32 +0000
-Received: by outflank-mailman (input) for mailman id 76765;
- Thu, 28 Jan 2021 07:27:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ixcb=G7=wdc.com=prvs=6551138a8=damien.lemoal@srs-us1.protection.inumbo.net>)
- id 1l51iE-0000GU-MY
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 07:27:31 +0000
-Received: from esa1.hgst.iphmx.com (unknown [68.232.141.245])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05ce2219-fd1e-4d36-a62c-584ce1327cee;
- Thu, 28 Jan 2021 07:27:28 +0000 (UTC)
-Received: from mail-sn1nam02lp2053.outbound.protection.outlook.com (HELO
- NAM02-SN1-obe.outbound.protection.outlook.com) ([104.47.36.53])
- by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:27:23 +0800
-Received: from BL0PR04MB6514.namprd04.prod.outlook.com (2603:10b6:208:1ca::23)
- by BL0PR04MB4852.namprd04.prod.outlook.com (2603:10b6:208:59::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.15; Thu, 28 Jan
- 2021 07:27:21 +0000
-Received: from BL0PR04MB6514.namprd04.prod.outlook.com
- ([fe80::b880:19d5:c7fe:329d]) by BL0PR04MB6514.namprd04.prod.outlook.com
- ([fe80::b880:19d5:c7fe:329d%7]) with mapi id 15.20.3784.017; Thu, 28 Jan 2021
- 07:27:21 +0000
+	id 1l52Wo-0006Hv-0k; Thu, 28 Jan 2021 08:19:46 +0000
+Received: by outflank-mailman (input) for mailman id 76786;
+ Thu, 28 Jan 2021 08:19:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AY0C=G7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l52Wm-0006Hq-Ey
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 08:19:44 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9103fa1b-b3a6-40a8-aa70-633eba947429;
+ Thu, 28 Jan 2021 08:19:43 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 6003EAEDD;
+ Thu, 28 Jan 2021 08:19:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,248 +39,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05ce2219-fd1e-4d36-a62c-584ce1327cee
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1611818848; x=1643354848;
-  h=from:to:cc:subject:date:message-id:references:
-   content-transfer-encoding:mime-version;
-  bh=T2M8NUVLME4aRV2htfsE34grqMKC5BmKNz4/COkl3ZQ=;
-  b=NYumlfsc7NytUXHfXiEXGCf4QOECvyKFnOy3hu+3f9TFPfjnXbdg6cWx
-   73DHmPvbeaKgMQpGQOsipD/NlNPUz2XaS3TjIH+Z4LsfbW6v5AgwXcgyP
-   2ai+Te1rDB7zPc/Pgi3p1l//yEXg314dVZ5hMh91MhauKifzxrhId3cOx
-   QoqRqr1Hgy2BCtKTIFHAWYKtZ2AEEZO9ybwHxAa1vd8SujT5Y3FREr1I8
-   hWuTuTL7v4i+RM+7KaCkJ360rgkdDaBYapVPISvLcyVOSpa6Wz5K37LFl
-   v8lB0ZucizdXeSFbYm5doByKoWtGan/pl9ZK17Vfe8B1Db9/D8rRKkR9J
-   A==;
-IronPort-SDR: 5meZAAXbPsZyMOd9RQOAURE7ue4N8I0GylPazNiN4F+IkU2Nf7CrEdUTmPOyFzJi7zfeggOiiu
- Gt5Od7xhy+yHk7m31eLzfrafTPyIE2+841Tdhjt9RuKfy1UwsAhsaJEc7TrPpyeonTG5OoNRbW
- jYwfp8qY1//btPd2uEMJY+wlNQ6hUZhFAaCgz+oVCXV8JG1R++3gaALgNG32rpHLVCAPpUvSm5
- ZnyqhIjEF7MhfKsrin8SIf9C2tCW+9kugysfCU7OmxJSUh1jT50kH6wLdq3lVUWVW9JSAnaEIT
- sQI=
-X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; 
-   d="scan'208";a="268893463"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B83E+AQw1n8nLaPpws6ZVk2Dvv0JowLzEH6tW4QBIZHQO5bOyKoRkl9zce6LAfAcYeKNBnUqMBuqWKPapazajsM6mugFl46pUPnH27w2MyNgzfB2U64tU7/YQtksU04S+GWbxUwv7ua6jeuaCXw0Q2a/INcuYW1pZmbpSmGcHX0jgHrsfKIziwmv/KoIW40wdsUPJfmkSsIjxMNkqU8mSH3CYfS72OI5u+QFvQXzGlRrot81kEsbS6zPF3R+md3jI0xbLOthW81i6HkUhnZFc7n6i76TjivEJep1dTrNSJmAcZacixJJoHL5R1ayC6mgKhmUp43MFeS2JhA8RHsWLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7dHgs/1VLBXJ5Fid/0F/6cbHkJ0A+oW1xrqX9+A0GgQ=;
- b=WpVsW1S/kKhHgGTEzveH/WBQWziddYzWdBCW+5peeK2CMYzuM35ikhiL93qQisaU2sh5XUUpBGRi/TFqqx3OmGIe24yyfIzJAQbSDPUcgJl828BlV9USdpsDOoEeDZtHgttMYKmGI1gJsSt+V6kxWrCrBRnN8lSCWDpfiroaO+QmE16osB2eevjAkuP0qNTfCZo6bo3ZQRwiDwhweVFwoM8Ww9mA8MT5yPoo5QtVqHYpRPAG0NbaJNanr+SI0Duz8hOTcNB65u4JLwKXGhuJHAalGmP1VOd5oTVjmseyILk+5VEQB5HpwincSvcGZkpYEkN24oBog5tfK+cn6HqdlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
- header.d=wdc.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7dHgs/1VLBXJ5Fid/0F/6cbHkJ0A+oW1xrqX9+A0GgQ=;
- b=OmolSAczHKzAAi3bPwvoWo7TGzLvqangGQWi2c5Sh9RFfgjNOdOyzcv9+C8k3UIZaJ+51zzrFKlVtvr1qzTutNDoolRqW7KTSNHEs80Rs9hbYszveqvR3GqoW8LPT57NDFR+VyDiYnlpkJdSihza+fjBRoOc8go2CbQlrPtUGhw=
-From: Damien Le Moal <Damien.LeMoal@wdc.com>
-To: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>, "linux-block@vger.kernel.org"
-	<linux-block@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "drbd-dev@lists.linbit.com"
-	<drbd-dev@lists.linbit.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "linux-nvme@lists.infradead.org"
-	<linux-nvme@lists.infradead.org>, "linux-scsi@vger.kernel.org"
-	<linux-scsi@vger.kernel.org>, "target-devel@vger.kernel.org"
-	<target-devel@vger.kernel.org>, "linux-fscrypt@vger.kernel.org"
-	<linux-fscrypt@vger.kernel.org>, "jfs-discussion@lists.sourceforge.net"
-	<jfs-discussion@lists.sourceforge.net>, "linux-nilfs@vger.kernel.org"
-	<linux-nilfs@vger.kernel.org>, "ocfs2-devel@oss.oracle.com"
-	<ocfs2-devel@oss.oracle.com>, "linux-pm@vger.kernel.org"
-	<linux-pm@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>
-CC: "axboe@kernel.dk" <axboe@kernel.dk>, "philipp.reisner@linbit.com"
-	<philipp.reisner@linbit.com>, "lars.ellenberg@linbit.com"
-	<lars.ellenberg@linbit.com>, "konrad.wilk@oracle.com"
-	<konrad.wilk@oracle.com>, "roger.pau@citrix.com" <roger.pau@citrix.com>,
-	"minchan@kernel.org" <minchan@kernel.org>, "ngupta@vflare.org"
-	<ngupta@vflare.org>, "sergey.senozhatsky.work@gmail.com"
-	<sergey.senozhatsky.work@gmail.com>, "agk@redhat.com" <agk@redhat.com>,
-	"snitzer@redhat.com" <snitzer@redhat.com>, "hch@lst.de" <hch@lst.de>,
-	"sagi@grimberg.me" <sagi@grimberg.me>, "martin.petersen@oracle.com"
-	<martin.petersen@oracle.com>, "viro@zeniv.linux.org.uk"
-	<viro@zeniv.linux.org.uk>, "tytso@mit.edu" <tytso@mit.edu>,
-	"jaegeuk@kernel.org" <jaegeuk@kernel.org>, "ebiggers@kernel.org"
-	<ebiggers@kernel.org>, "djwong@kernel.org" <djwong@kernel.org>,
-	"shaggy@kernel.org" <shaggy@kernel.org>, "konishi.ryusuke@gmail.com"
-	<konishi.ryusuke@gmail.com>, "mark@fasheh.com" <mark@fasheh.com>,
-	"jlbec@evilplan.org" <jlbec@evilplan.org>, "joseph.qi@linux.alibaba.com"
-	<joseph.qi@linux.alibaba.com>, Naohiro Aota <Naohiro.Aota@wdc.com>,
-	"jth@kernel.org" <jth@kernel.org>, "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
-	"len.brown@intel.com" <len.brown@intel.com>, "pavel@ucw.cz" <pavel@ucw.cz>,
-	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, "hare@suse.de"
-	<hare@suse.de>, "gustavoars@kernel.org" <gustavoars@kernel.org>,
-	"tiwai@suse.de" <tiwai@suse.de>, "alex.shi@linux.alibaba.com"
-	<alex.shi@linux.alibaba.com>, "asml.silence@gmail.com"
-	<asml.silence@gmail.com>, "ming.lei@redhat.com" <ming.lei@redhat.com>,
-	"tj@kernel.org" <tj@kernel.org>, "osandov@fb.com" <osandov@fb.com>,
-	"bvanassche@acm.org" <bvanassche@acm.org>, "jefflexu@linux.alibaba.com"
-	<jefflexu@linux.alibaba.com>
-Subject: Re: [RFC PATCH 02/34] block: introduce and use bio_new
-Thread-Topic: [RFC PATCH 02/34] block: introduce and use bio_new
-Thread-Index: AQHW9UTnP+XqlvwCeEC+5iodtWSeNA==
-Date: Thu, 28 Jan 2021 07:27:21 +0000
-Message-ID:
- <BL0PR04MB6514DBA7EDB8EC87A1C20871E7BA9@BL0PR04MB6514.namprd04.prod.outlook.com>
-References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
- <20210128071133.60335-3-chaitanya.kulkarni@wdc.com>
- <BL0PR04MB6514C554B4AC96866BC1B16FE7BA9@BL0PR04MB6514.namprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: wdc.com; dkim=none (message not signed)
- header.d=none;wdc.com; dmarc=none action=none header.from=wdc.com;
-x-originating-ip: [2400:2411:43c0:6000:47a:7b5a:7dfa:1b1e]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 98283964-c91e-431c-9fb9-08d8c35e268c
-x-ms-traffictypediagnostic: BL0PR04MB4852:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs:
- <BL0PR04MB485290861AB8AD7380809BB0E7BA9@BL0PR04MB4852.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- Hxj4fa4GkcBNNCunfMw7J9/b9iCM3fJznMuhOWkCQfvwJ0NrAIluFKg3+jXWfl1tLzPUJCh7B78dGsB53Gqk1Z2m7MWGTazT/q4pi5bAn+XOAilmmSdZvZ9sqjmQNXhEiTj4kt72t+S3/drX6amXX9FT+FK55adEN2vnuJcgUNqzT4TxQrX+LcNNGQZnWc1Tlo1+uTv04dXECuuh7Tu9LBWclBuE7jek77LbLzIUJdaPhgbGq6L/Pdx0JqnyYF+FEQPM8881yuui+kueEXVoqlzgBqK5vaKAqGJTqa0aBFevZqZNENtO6og/LDPr5d9E1UWTTP7/Da2oTdLL+35iaIOLalRmCHBRvUY6cEGhYxURyVSG+g4j64QtJxsEF71Nji99U+trtgurQXiLlnDTDGxf+MDnSLAb7nLKVPD/4Kml1pvdzPIUKukEtZD2GxrzabB/3418cwibWgs+12obfmiGrBfi16NV2BeC0p+Se0p+BmqHDY/WZr2ITJIpH7HBw28kQg7FWHu0BZbkFGLyZ1vhLckxE+yPI8cR0tXHr+nJtxvmCqxf3bBjfbGb7Q3/k4D1vq2cQ3zlnKpMfEgb0g==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR04MB6514.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(346002)(39860400002)(366004)(136003)(376002)(186003)(66476007)(83380400001)(53546011)(5660300002)(66446008)(316002)(8676002)(71200400001)(66556008)(91956017)(86362001)(64756008)(6506007)(2906002)(66946007)(52536014)(7366002)(7406005)(9686003)(33656002)(110136005)(7416002)(55016002)(54906003)(4326008)(76116006)(7696005)(921005)(8936002)(478600001)(21314003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata:
- =?us-ascii?Q?sgomRkWS3uJS/HM3uKXHylAhoSZM+lVQWdt2dHx9bjA8NQXvXFM6Dfv8MW1A?=
- =?us-ascii?Q?iCsEXvQot8m+wWe1prFL3N6W4X/zd4E4zBQMqtLQEJA5H+WTWLCNwdvng6U5?=
- =?us-ascii?Q?SkD6CC9MBeyZGtVMnjn2C+bStrwfe/6T4Mh4yY7H804uejWxG1MgZhnXTjqp?=
- =?us-ascii?Q?f36HcMhJa8fqBRYTB616pNnmAuoeQyPrXZYwSIUFh1bkSg5h3DWdvFdnge8/?=
- =?us-ascii?Q?O9MCM+eECuYQXcaVSUcc0tBlY9mVO1xLxaHa+pFR3r6GyIUZVhAFKPD8DMJf?=
- =?us-ascii?Q?WqsPp+KkYw2miQ2VWu7CKnb5XE/WZZK8NjFYrO+UvBi0zDKD7ZerGy3ioMo0?=
- =?us-ascii?Q?d5CGojo5bVlNDYR39iusEWUd7T18JfU4UoWDmqvKw9astFDt7GxuiNAHMcX0?=
- =?us-ascii?Q?yyVIMk2hKHQYRROUDYWJXFKFYeCK5lmmjxBt04cM+t3AhLH2tTJ8jpap65/Y?=
- =?us-ascii?Q?8A/ijV/T2IbajTQmqxd38MsAkL8lLy0sB7zTUHpkXikXfHmE6OhpRLxglctK?=
- =?us-ascii?Q?/aViM41m44269sQxLJudPSQx/yzA7+nPRic11ihTWQ2xQYSelMI6oY07tQjC?=
- =?us-ascii?Q?hVnAD1Qaet3As9B+ynly4BGIECf/ZcPbSzc+Oocke/rsdoUZIRCx9A5o9NPg?=
- =?us-ascii?Q?7g0qYPFGa112F08uWlKr8jI4vxPqF3DcPOVvoayIcVqK9XZoqxF6lkGygG5v?=
- =?us-ascii?Q?YJDU5PuEe/Bm7FrQH0EsVCPz9aYpSofnlInNuhSpB7hk8gf+GLuZQe8ZAkA7?=
- =?us-ascii?Q?lLd1unSvvMeP5ssLoUJow6t03g2CrTllNyQmec0sH/jgAMA2cCCp8r8xmKu0?=
- =?us-ascii?Q?Gg+Dly15s3nODQmsmpsV0f+GypiBJPNVpzMiB5Rnrtqy507XVwyx/YdLVrRR?=
- =?us-ascii?Q?7DSFyDH/Gxm1k2D/VzvvIJvHY1LnFzctkrr2UgpR99aD9dEGB6hzTFgdaIQZ?=
- =?us-ascii?Q?nCCmPvdeJum19k9qpYis5Ika8c3StyujyDXHLcdbNXrwFYeKpNzciRcoJEUu?=
- =?us-ascii?Q?eP4u0Tzg0LWQzv92vuaJ8NPyfWg9Lh2zkr0bUa/54WZ0wuoaMHYXuXRE9cLO?=
- =?us-ascii?Q?raOcqCp92WeqiaDleK2EmL+MyhJdBYKk0193myzV8+3E9alBggQTIB9lKXUE?=
- =?us-ascii?Q?7KMBpTg7b29BlR2LscuWM6WzgIjSyYfNWQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 9103fa1b-b3a6-40a8-aa70-633eba947429
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611821982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OXZXZQj3k+rInBtzXPh8TFlU/zNFtpXxR/sUxa5byA4=;
+	b=c1DjcFcpsUf0WssLm7Ptl3qQaxvaefsxyGrQohnW2afTVs7q3Gxeamrz7PM67A9fYauiMJ
+	2/CeM4KhhPI19fdei6TcZOJwO1/QaY8j4tp1f2F3E7BVIBhZaygnrW/f5mBX9XtI4if3tr
+	v2j/w0zgpBDtjtbUoPL5FwKY8HqsCzs=
+Subject: Re: [PATCH V5 04/22] xen/ioreq: Make x86's IOREQ feature common
+To: Oleksandr <olekstysh@gmail.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Tim Deegan <tim@xen.org>, Julien Grall <julien.grall@arm.com>,
+ xen-devel@lists.xenproject.org
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
+ <1611601709-28361-5-git-send-email-olekstysh@gmail.com>
+ <01b122dd-37c9-d429-b060-adea9e7cae8b@suse.com>
+ <b16bb4e2-fb26-f5e5-2417-86867241036a@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1eb1247b-f455-65c8-b91c-3e8bc05186a1@suse.com>
+Date: Thu, 28 Jan 2021 09:06:56 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR04MB6514.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98283964-c91e-431c-9fb9-08d8c35e268c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2021 07:27:21.2324
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /2IrgMXm3pcAMmUWJ3iRNrQ3DcnbFiB1YBVtQXVgzQ2J9zyuh/I6YXHgjhJr8lFi69x2/0yQ3ft/PTFeop9ktQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR04MB4852
+In-Reply-To: <b16bb4e2-fb26-f5e5-2417-86867241036a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On 2021/01/28 16:21, Damien Le Moal wrote:=0A=
-> On 2021/01/28 16:12, Chaitanya Kulkarni wrote:=0A=
->> Introduce bio_new() helper and use it in blk-lib.c to allocate and=0A=
->> initialize various non-optional or semi-optional members of the bio=0A=
->> along with bio allocation done with bio_alloc(). Here we also calmp the=
-=0A=
->> max_bvecs for bio with BIO_MAX_PAGES before we pass to bio_alloc().=0A=
->>=0A=
->> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>=0A=
->> ---=0A=
->>  block/blk-lib.c     |  6 +-----=0A=
->>  include/linux/bio.h | 25 +++++++++++++++++++++++++=0A=
->>  2 files changed, 26 insertions(+), 5 deletions(-)=0A=
->>=0A=
->> diff --git a/block/blk-lib.c b/block/blk-lib.c=0A=
->> index fb486a0bdb58..ec29415f00dd 100644=0A=
->> --- a/block/blk-lib.c=0A=
->> +++ b/block/blk-lib.c=0A=
->> @@ -14,17 +14,13 @@ struct bio *blk_next_bio(struct bio *bio, struct blo=
-ck_device *bdev,=0A=
->>  			sector_t sect, unsigned op, unsigned opf,=0A=
->>  			unsigned int nr_pages, gfp_t gfp)=0A=
->>  {=0A=
->> -	struct bio *new =3D bio_alloc(gfp, nr_pages);=0A=
->> +	struct bio *new =3D bio_new(bdev, sect, op, opf, gfp, nr_pages);=0A=
->>  =0A=
->>  	if (bio) {=0A=
->>  		bio_chain(bio, new);=0A=
->>  		submit_bio(bio);=0A=
->>  	}=0A=
->>  =0A=
->> -	new->bi_iter.bi_sector =3D sect;=0A=
->> -	bio_set_dev(new, bdev);=0A=
->> -	bio_set_op_attrs(new, op, opf);=0A=
->> -=0A=
->>  	return new;=0A=
->>  }=0A=
->>  =0A=
->> diff --git a/include/linux/bio.h b/include/linux/bio.h=0A=
->> index c74857cf1252..2a09ba100546 100644=0A=
->> --- a/include/linux/bio.h=0A=
->> +++ b/include/linux/bio.h=0A=
->> @@ -826,5 +826,30 @@ static inline void bio_set_polled(struct bio *bio, =
-struct kiocb *kiocb)=0A=
->>  	if (!is_sync_kiocb(kiocb))=0A=
->>  		bio->bi_opf |=3D REQ_NOWAIT;=0A=
->>  }=0A=
->> +/**=0A=
->> + * bio_new -	allcate and initialize new bio=0A=
->> + * @bdev:	blockdev to issue discard for=0A=
->> + * @sector:	start sector=0A=
->> + * @op:		REQ_OP_XXX from enum req_opf=0A=
->> + * @op_flags:	REQ_XXX from enum req_flag_bits=0A=
->> + * @max_bvecs:	maximum bvec to be allocated for this bio=0A=
->> + * @gfp_mask:	memory allocation flags (for bio_alloc)=0A=
->> + *=0A=
->> + * Description:=0A=
->> + *    Allocates, initializes common members, and returns a new bio.=0A=
->> + */=0A=
->> +static inline struct bio *bio_new(struct block_device *bdev, sector_t s=
-ector,=0A=
->> +				  unsigned int op, unsigned int op_flags,=0A=
->> +				  unsigned int max_bvecs, gfp_t gfp_mask)=0A=
->> +{=0A=
->> +	unsigned nr_bvec =3D clamp_t(unsigned int, max_bvecs, 0, BIO_MAX_PAGES=
-);=0A=
->> +	struct bio *bio =3D bio_alloc(gfp_mask, nr_bvec);=0A=
-> =0A=
-> I think that depending on the gfp_mask passed, bio can be NULL. So this s=
-hould=0A=
-> be checked.=0A=
-> =0A=
->> +=0A=
->> +	bio_set_dev(bio, bdev);=0A=
->> +	bio->bi_iter.bi_sector =3D sector;=0A=
->> +	bio_set_op_attrs(bio, op, op_flags);=0A=
-> =0A=
-> This function is obsolete. Open code this.=0A=
-=0A=
-And that also mean that you could remove one argument to bio_new(): combine=
- op=0A=
-and op_flags into "unsigned int opf"=0A=
-=0A=
-> =0A=
->> +=0A=
->> +	return bio;=0A=
->> +}=0A=
->>  =0A=
->>  #endif /* __LINUX_BIO_H */=0A=
->>=0A=
-> =0A=
-> =0A=
-=0A=
-=0A=
--- =0A=
-Damien Le Moal=0A=
-Western Digital Research=0A=
+On 27.01.2021 21:14, Oleksandr wrote:
+> On 27.01.21 18:58, Jan Beulich wrote:
+>> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
+>>> --- a/xen/arch/x86/Kconfig
+>>> +++ b/xen/arch/x86/Kconfig
+>>> @@ -92,6 +92,7 @@ config PV_LINEAR_PT
+>>>   
+>>>   config HVM
+>>>   	def_bool !PV_SHIM_EXCLUSIVE
+>>> +	select IOREQ_SERVER
+>>>   	prompt "HVM support"
+>>>   	---help---
+>> ... the addition moved below the prompt line (could probably
+>> be taken care of while committing, if no other need for a v6
+>> arises).
+> 
+> V6 is planned anyway, so will do, but ...
+> 
+> 
+>>
+>> (Personally I think this should be
+>>
+>> config HVM
+>> 	bool "HVM support"
+>> 	default !PV_SHIM_EXCLUSIVE
+> 
+> ... def_bool is changed to default by intention or this is a typo?
+
+No, it's not a typo. "def_bool" is just a shorthand for "bool"
+and "default", which is useful when there's no prompt, but
+gets abused (in my view at least) in a number of other cases.
+But as said ...
+
+>> anyway, but that's nothing you need to care about.)
+
+... here.
+
+>>> --- /dev/null
+>>> +++ b/xen/include/asm-x86/ioreq.h
+>>> @@ -0,0 +1,37 @@
+>>> +/*
+>>> + * ioreq.h: Hardware virtual machine assist interface definitions.
+>>> + *
+>>> + * This is a wrapper which purpose is to not include arch HVM specific header
+>>> + * from the common code.
+>>> + *
+>>> + * Copyright (c) 2016 Citrix Systems Inc.
+>>> + *
+>>> + * This program is free software; you can redistribute it and/or modify it
+>>> + * under the terms and conditions of the GNU General Public License,
+>>> + * version 2, as published by the Free Software Foundation.
+>>> + *
+>>> + * This program is distributed in the hope it will be useful, but WITHOUT
+>>> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+>>> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+>>> + * more details.
+>>> + *
+>>> + * You should have received a copy of the GNU General Public License along with
+>>> + * this program; If not, see <http://www.gnu.org/licenses/>.
+>>> + */
+>>> +
+>>> +#ifndef __ASM_X86_IOREQ_H__
+>>> +#define __ASM_X86_IOREQ_H__
+>>> +
+>>> +#include <asm/hvm/ioreq.h>
+>>> +
+>>> +#endif /* __ASM_X86_IOREQ_H__ */
+>> Not necessarily for taking care of right away, I think in the
+>> longer run this wants wrapping by #ifdef CONFIG_HVM, such that
+>> in !HVM builds the dependency on the "chained" header goes
+>> away (reducing the amount of rebuilding in incremental builds).
+> 
+> I don't mind wrapping it right away.
+
+Well, if that doesn't break the !HVM build, I'd of course
+appreciate it. I'd expect fallout, though.
+
+Jan
 
