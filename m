@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D603307B3E
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 17:47:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77241.139776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6F66307B40
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 17:48:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77245.139787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5ARL-0006BA-1C; Thu, 28 Jan 2021 16:46:39 +0000
+	id 1l5ASY-0006Hu-BT; Thu, 28 Jan 2021 16:47:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77241.139776; Thu, 28 Jan 2021 16:46:39 +0000
+Received: by outflank-mailman (output) from mailman id 77245.139787; Thu, 28 Jan 2021 16:47:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5ARK-0006Al-UD; Thu, 28 Jan 2021 16:46:38 +0000
-Received: by outflank-mailman (input) for mailman id 77241;
- Thu, 28 Jan 2021 16:46:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AY0C=G7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l5ARJ-0006Ae-OR
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 16:46:37 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a862d070-547f-460c-92cd-6fd775acfa18;
- Thu, 28 Jan 2021 16:46:36 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3F6D7AD3E;
- Thu, 28 Jan 2021 16:46:35 +0000 (UTC)
+	id 1l5ASY-0006HY-81; Thu, 28 Jan 2021 16:47:54 +0000
+Received: by outflank-mailman (input) for mailman id 77245;
+ Thu, 28 Jan 2021 16:47:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KAhC=G7=infradead.org=willy@srs-us1.protection.inumbo.net>)
+ id 1l5ASU-0006HO-4n
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 16:47:52 +0000
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id be061242-517f-4d00-a392-490f537b021a;
+ Thu, 28 Jan 2021 16:47:46 +0000 (UTC)
+Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
+ Linux)) id 1l5ARp-008hlF-CH; Thu, 28 Jan 2021 16:47:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,109 +37,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a862d070-547f-460c-92cd-6fd775acfa18
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611852395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=scNZwnVTOpQsFkbNfoX/SeBNscd1JuMR7WH6/ZADtJg=;
-	b=aqV2t/CPGg5lWqAYmhRwJtNclmkifQUp+dz6H7B3JPWxAUvP7xQfZAze0mmBQu7b1HOnoS
-	Vl3Pt7FSKS+OTLweyogNbGkkZQXw0eVjrP6nnXwbdQ66dH2sK502K57Ae3mk8jKTntB1nI
-	pTroO2qc9682qbuAeYh0N4QhDcGakWw=
-Subject: Re: more randconfig failures
-To: Julien Grall <julien@xen.org>, Rahul Singh <Rahul.Singh@arm.com>,
- Julien Grall <julien.grall.oss@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Doug Goldstein <cardoe@cardoe.com>, "fam@euphon.net" <fam@euphon.net>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- "famzheng@amazon.com" <famzheng@amazon.com>, Wei Liu <wl@xen.org>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <alpine.DEB.2.21.2101271311470.9684@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1_33h+jQrtoWnpH7hhkYjHaKLrh+s-5H+W0r1R=jWO8Q@mail.gmail.com>
- <DD7ECA11-D48F-435C-A731-8007E9785F62@arm.com>
- <89f34355-2c93-6081-e057-2dd98e76f908@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <51cd6fab-3bdb-6f85-f936-96e4ba9f708a@suse.com>
-Date: Thu, 28 Jan 2021 17:46:35 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: be061242-517f-4d00-a392-490f537b021a
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ok1YlK16MaIquA7ZYUHxK/CMaFxxxwNWazaMAgFieLU=; b=vuOaMGbyB7/+Dg91fNUqvgBiBD
+	4apxS7jU5nU9b/DveQFuS18fYHTQPOpBZxMrv3tCqxWOuQg228bSNlkmvJ1gQneLnOfM3WL1ObNGi
+	MTuz8xXL3LKzE+DH7errCMxepgPQ3Thh2HpLy2Nat9DQOLy35B1FC3UkIZuvmKmdZzwX86t+WV5Mk
+	/pCa23DxPP5a3Rlkwfqrn59vty95NQBRWyuZpKNZRkjNLQlQ2KJrMub6IYLsf3IL2tz3nuZRbVWe7
+	TKvbqzYB3UBc6MLrjn2HVQGE6rKRMshHOwu50Myfj/erONbRzfW9chvly9np7Q4o+a4JR4iRTNdIG
+	5mKhGc+Q==;
+Date: Thu, 28 Jan 2021 16:47:09 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
+Cc: Damien Le Moal <Damien.LeMoal@wdc.com>,
+	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
+	"linux-fscrypt@vger.kernel.org" <linux-fscrypt@vger.kernel.org>,
+	"jfs-discussion@lists.sourceforge.net" <jfs-discussion@lists.sourceforge.net>,
+	"linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
+	"ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"shaggy@kernel.org" <shaggy@kernel.org>,
+	"sergey.senozhatsky.work@gmail.com" <sergey.senozhatsky.work@gmail.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"len.brown@intel.com" <len.brown@intel.com>,
+	"tiwai@suse.de" <tiwai@suse.de>,
+	"djwong@kernel.org" <djwong@kernel.org>,
+	"gustavoars@kernel.org" <gustavoars@kernel.org>,
+	"pavel@ucw.cz" <pavel@ucw.cz>,
+	"alex.shi@linux.alibaba.com" <alex.shi@linux.alibaba.com>,
+	"agk@redhat.com" <agk@redhat.com>,
+	"sagi@grimberg.me" <sagi@grimberg.me>,
+	"osandov@fb.com" <osandov@fb.com>,
+	"ebiggers@kernel.org" <ebiggers@kernel.org>,
+	"ngupta@vflare.org" <ngupta@vflare.org>,
+	Naohiro Aota <Naohiro.Aota@wdc.com>,
+	"konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+	"hare@suse.de" <hare@suse.de>,
+	"ming.lei@redhat.com" <ming.lei@redhat.com>,
+	"viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+	"jefflexu@linux.alibaba.com" <jefflexu@linux.alibaba.com>,
+	"jaegeuk@kernel.org" <jaegeuk@kernel.org>,
+	"konishi.ryusuke@gmail.com" <konishi.ryusuke@gmail.com>,
+	"bvanassche@acm.org" <bvanassche@acm.org>,
+	"axboe@kernel.dk" <axboe@kernel.dk>,
+	"jth@kernel.org" <jth@kernel.org>, "tytso@mit.edu" <tytso@mit.edu>,
+	"rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+	"philipp.reisner@linbit.com" <philipp.reisner@linbit.com>,
+	"minchan@kernel.org" <minchan@kernel.org>,
+	"tj@kernel.org" <tj@kernel.org>,
+	"lars.ellenberg@linbit.com" <lars.ellenberg@linbit.com>,
+	"roger.pau@citrix.com" <roger.pau@citrix.com>,
+	"asml.silence@gmail.com" <asml.silence@gmail.com>
+Subject: Re: [Ocfs2-devel] [RFC PATCH 02/34] block: introduce and use bio_new
+Message-ID: <20210128164709.GZ308988@casper.infradead.org>
+References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
+ <20210128071133.60335-3-chaitanya.kulkarni@wdc.com>
+ <BL0PR04MB6514C554B4AC96866BC1B16FE7BA9@BL0PR04MB6514.namprd04.prod.outlook.com>
+ <DM6PR04MB4972DA86892CF4531440064F86BA9@DM6PR04MB4972.namprd04.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <89f34355-2c93-6081-e057-2dd98e76f908@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM6PR04MB4972DA86892CF4531440064F86BA9@DM6PR04MB4972.namprd04.prod.outlook.com>
 
-On 28.01.2021 17:34, Julien Grall wrote:
-> On 27/01/2021 23:11, Rahul Singh wrote:
->> Hello Julien,
-> 
-> Hi Rahul,
-> 
->>> On 27 Jan 2021, at 9:25 pm, Julien Grall <julien.grall.oss@gmail.com> wrote:
->>>
->>> Hi,
->>>
->>> On Wed, 27 Jan 2021 at 21:16, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>>
->>>> Hi all,
->>>>
->>>> These are two recent randconfig build failures reported by gitlab (the
->>>> two patches that triggered the CI-loop are two patches to the
->>>> MAINTAINERS file -- certainly not the cause of the build issues):
->>>>
->>>> x86 randconfig failure:
->>>> https://gitlab.com/xen-project/patchew/xen/-/jobs/990347647
->>>>
->>>> arm randconfig failure:
->>>> https://gitlab.com/xen-project/patchew/xen/-/jobs/990335472
->>>
->>> make[5]: Leaving directory '/builds/xen-project/patchew/xen/xen/common/libfdt'
->>> smmu-v3.c: In function 'acpi_smmu_get_options':
->>> smmu-v3.c:3017:7: error: 'ACPI_IORT_SMMU_V3_CAVIUM_CN99XX' undeclared
->>> (first use in this function)
->>> 3017 |  case ACPI_IORT_SMMU_V3_CAVIUM_CN99XX:
->>>       |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>> smmu-v3.c:3017:7: note: each undeclared identifier is reported only
->>> once for each function it appears in
->>> smmu-v3.c:3020:7: error: 'ACPI_IORT_SMMU_V3_HISILICON_HI161X'
->>> undeclared (first use in this function)
->>> 3020 |  case ACPI_IORT_SMMU_V3_HISILICON_HI161X:
->>>       |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>>   INIT_O  efi-dom0.init.o
->>> smmu-v3.c: In function 'arm_smmu_device_acpi_probe':
->>> smmu-v3.c:3035:36: error: implicit declaration of function
->>> 'dev_get_platdata' [-Werror=implicit-function-declaration]
->>> 3035 |  node = *(struct acpi_iort_node **)dev_get_platdata(dev);
->>>       |                                    ^~~~~~~~~~~~~~~~
->>> smmu-v3.c:3035:36: error: nested extern declaration of
->>> 'dev_get_platdata' [-Werror=nested-externs]
->>> smmu-v3.c:3035:10: error: cast to pointer from integer of different
->>> size [-Werror=int-to-pointer-cast]
->>> 3035 |  node = *(struct acpi_iort_node **)dev_get_platdata(dev);
->>>       |          ^
->>> ld    -EL  -r -o built_in.o memcpy.o memcmp.o memmove.o memset.o
->>> memchr.o clear_page.o bitops.o find_next_bit.o strchr.o strcmp.o
->>> strlen.o strncmp.o strnlen.o strrchr.o
->>> cc1: all warnings being treated as errors
->>>
->>> It looks like the SMMUv3 driver has not been built tested with
->>> CONFIG_ACPI=y.  Bertrand, Rahul, can you take a look?
->>
->> Sorry my mistake I didn’t enable the ARM_SMMU_V3 with ACPI and tested the compilation.
->>
->> There are two option to fix this:
->>
->> 1. #undef-ining the CONFIG_ACPI in the smmu-v3.c file and fix the compilation. In this case once we have ACPI IORT table code ported to XEN smmu-v3 code can be used at that time.
->> 2.  Remove the arm_smmu_device_acpi_probe() from the smmu-v3.c now and once we have  ACPI IORT table code ported to XEN we can add it back.
-> 
-> How about the following?
-> 
-> 3. Only allow the user to build the SMMUv3 when !CONFIG_ACPI.
 
-And then perhaps as "depends on !ACPI || BROKEN" in Kconfig?
+FYI your email is completely unreadable to those not using html.
+I can't tell what you wrote and what Damien wrote.
 
-Jan
+On Thu, Jan 28, 2021 at 08:33:10AM +0000, Chaitanya Kulkarni wrote:
+> On 1/27/21 11:21 PM, Damien Le Moal wrote:
+> 
+> On 2021/01/28 16:12, Chaitanya Kulkarni wrote:
+> 
+> 
+> Introduce bio_new() helper and use it in blk-lib.c to allocate and
+> initialize various non-optional or semi-optional members of the bio
+> along with bio allocation done with bio_alloc(). Here we also calmp the
+> max_bvecs for bio with BIO_MAX_PAGES before we pass to bio_alloc().
+> 
+> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com><mailto:chaitanya.kulkarni@wdc.com>
+> ---
+>  block/blk-lib.c     |  6 +-----
+>  include/linux/bio.h | 25 +++++++++++++++++++++++++
+>  2 files changed, 26 insertions(+), 5 deletions(-)
+> 
+> diff --git a/block/blk-lib.c b/block/blk-lib.c
+> index fb486a0bdb58..ec29415f00dd 100644
+> --- a/block/blk-lib.c
+> +++ b/block/blk-lib.c
+> @@ -14,17 +14,13 @@ struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
+>                         sector_t sect, unsigned op, unsigned opf,
+>                         unsigned int nr_pages, gfp_t gfp)
+>  {
+> -       struct bio *new = bio_alloc(gfp, nr_pages);
+> +       struct bio *new = bio_new(bdev, sect, op, opf, gfp, nr_pages);
+> 
+>         if (bio) {
+>                 bio_chain(bio, new);
+>                 submit_bio(bio);
+>         }
+> 
+> -       new->bi_iter.bi_sector = sect;
+> -       bio_set_dev(new, bdev);
+> -       bio_set_op_attrs(new, op, opf);
+> -
+>         return new;
+>  }
+> 
+> diff --git a/include/linux/bio.h b/include/linux/bio.h
+> index c74857cf1252..2a09ba100546 100644
+> --- a/include/linux/bio.h
+> +++ b/include/linux/bio.h
+> @@ -826,5 +826,30 @@ static inline void bio_set_polled(struct bio *bio, struct kiocb *kiocb)
+>         if (!is_sync_kiocb(kiocb))
+>                 bio->bi_opf |= REQ_NOWAIT;
+>  }
+> +/**
+> + * bio_new -   allcate and initialize new bio
+> + * @bdev:      blockdev to issue discard for
+> + * @sector:    start sector
+> + * @op:                REQ_OP_XXX from enum req_opf
+> + * @op_flags:  REQ_XXX from enum req_flag_bits
+> + * @max_bvecs: maximum bvec to be allocated for this bio
+> + * @gfp_mask:  memory allocation flags (for bio_alloc)
+> + *
+> + * Description:
+> + *    Allocates, initializes common members, and returns a new bio.
+> + */
+> +static inline struct bio *bio_new(struct block_device *bdev, sector_t sector,
+> +                                 unsigned int op, unsigned int op_flags,
+> +                                 unsigned int max_bvecs, gfp_t gfp_mask)
+> +{
+> +       unsigned nr_bvec = clamp_t(unsigned int, max_bvecs, 0, BIO_MAX_PAGES);
+> +       struct bio *bio = bio_alloc(gfp_mask, nr_bvec);
+> 
+> 
+> I think that depending on the gfp_mask passed, bio can be NULL. So this should
+> be checked.
+> 
+> 
+> true, I'll add that check.
+> 
+> 
+> 
+> 
+> +
+> +       bio_set_dev(bio, bdev);
+> +       bio->bi_iter.bi_sector = sector;
+> +       bio_set_op_attrs(bio, op, op_flags);
+> 
+> 
+> This function is obsolete. Open code this.
+> 
+> 
+> true, will do.
+> 
+> 
+> 
+> 
+> +
+> +       return bio;
+> +}
+> 
+>  #endif /* __LINUX_BIO_H */
+> 
+> 
+> 
+> Thanks for the comments Damien.
+
+> _______________________________________________
+> Ocfs2-devel mailing list
+> Ocfs2-devel@oss.oracle.com
+> https://oss.oracle.com/mailman/listinfo/ocfs2-devel
+
 
