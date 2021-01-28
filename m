@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7265307C30
+	by mail.lfdr.de (Postfix) with ESMTPS id C8957307C31
 	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 18:24:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77314.139967 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.77315.139979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5B1Z-0003AN-LM; Thu, 28 Jan 2021 17:24:05 +0000
+	id 1l5B1f-0003DL-20; Thu, 28 Jan 2021 17:24:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77314.139967; Thu, 28 Jan 2021 17:24:05 +0000
+Received: by outflank-mailman (output) from mailman id 77315.139979; Thu, 28 Jan 2021 17:24:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5B1Z-00039x-I2; Thu, 28 Jan 2021 17:24:05 +0000
-Received: by outflank-mailman (input) for mailman id 77314;
- Thu, 28 Jan 2021 17:24:04 +0000
+	id 1l5B1e-0003Cd-Ug; Thu, 28 Jan 2021 17:24:10 +0000
+Received: by outflank-mailman (input) for mailman id 77315;
+ Thu, 28 Jan 2021 17:24:09 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JMWF=G7=kernel.org=djwong@srs-us1.protection.inumbo.net>)
- id 1l5B1Y-00039r-BX
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 17:24:04 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=W+gg=G7=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1l5B1d-00039r-6c
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 17:24:09 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 383f1d05-3695-4fae-9c0a-a6da0f9bcd89;
- Thu, 28 Jan 2021 17:24:03 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B21F464DF9;
- Thu, 28 Jan 2021 17:24:02 +0000 (UTC)
+ id 1151c23c-2f34-4317-b299-b4a14364e58c;
+ Thu, 28 Jan 2021 17:24:05 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3D2F164E01;
+ Thu, 28 Jan 2021 17:24:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,84 +38,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 383f1d05-3695-4fae-9c0a-a6da0f9bcd89
+X-Inumbo-ID: 1151c23c-2f34-4317-b299-b4a14364e58c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611854642;
-	bh=Zs2s8ZvTIPYGR4BFwbfSOZLDbQpy7x8YdhBNvxD8Dok=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dYixlgG2K3aWwDLaJowzYgnOFmByUyz6PjYTAvhTfbvB+e9gPk0mBgRRvBez32mDu
-	 g+/BEjUeO2s7tBkV+OtFiT2UlC3mn8gjSXsXC5Xpxm6KRmfDNpc8Z7+gIuibodKK4H
-	 l1i2cwlyEJsSukyTcGjNrcpQfEjVAbCBE6DwgrePquTtnF0XcOLlk2eq3YbBOrXlcF
-	 50KQtEwBjnE5+b+zJhPCQRu9YN8ISWqvJskcg8GQfdpqKteYo166Aso1a23IfJvuVj
-	 VfAojNA36QPu6qz6sKkxuvacugxCY5JwWT3tNh6OxRrRzVwkEqP+vyF3JrdyJAT+Ys
-	 o8BRepJ02vTLA==
-Date: Thu, 28 Jan 2021 09:24:02 -0800
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	dm-devel@redhat.com, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, drbd-dev@lists.linbit.com,
-	xen-devel@lists.xenproject.org, linux-nvme@lists.infradead.org,
-	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
-	linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
-	linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
-	linux-pm@vger.kernel.org, linux-mm@kvack.org, axboe@kernel.dk,
-	philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
-	konrad.wilk@oracle.com, roger.pau@citrix.com, minchan@kernel.org,
-	ngupta@vflare.org, sergey.senozhatsky.work@gmail.com,
-	agk@redhat.com, snitzer@redhat.com, hch@lst.de, sagi@grimberg.me,
-	martin.petersen@oracle.com, viro@zeniv.linux.org.uk, tytso@mit.edu,
-	jaegeuk@kernel.org, ebiggers@kernel.org, shaggy@kernel.org,
-	konishi.ryusuke@gmail.com, mark@fasheh.com, jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com, damien.lemoal@wdc.com,
-	naohiro.aota@wdc.com, jth@kernel.org, rjw@rjwysocki.net,
-	len.brown@intel.com, pavel@ucw.cz, akpm@linux-foundation.org,
-	hare@suse.de, gustavoars@kernel.org, tiwai@suse.de,
-	alex.shi@linux.alibaba.com, asml.silence@gmail.com,
-	ming.lei@redhat.com, tj@kernel.org, osandov@fb.com,
-	bvanassche@acm.org, jefflexu@linux.alibaba.com
-Subject: Re: [RFC PATCH 18/34] iomap: use bio_new in iomap_dio_bio_actor
-Message-ID: <20210128172402.GO7698@magnolia>
-References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
- <20210128071133.60335-19-chaitanya.kulkarni@wdc.com>
+	s=k20201202; t=1611854645;
+	bh=G58/BjCp4PuTTCqUlLqasmLHng545gugUjUWfHOeewY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=t4Sebc9c9o14VIuupFtz23oD7fN7vR//5s7zA5jJUPvpHmfOqNs9UaZUt1ji+f6Cb
+	 1yTP8KCaUFYTOBNvUu1naVbekELWzIdImt46ltSbcDOH30Md2336D9qd72TiH+m93b
+	 yMOcG5SlOQfyECRoGKamP4bzvPGOyZnzJ2629ZPxQC1Y+UeHgM8m0fXpjj6Pkjd7av
+	 9Efpt/tQ9V0YxPB4uXhfBppVtZ5OZ76s5aygNUEP/XTpZMxg7LsUL7Ra6emDAw8enQ
+	 i2gFLsBUUXLhDiRevUTl42DrBO4KqOteYnOEsaUjdQPulU6EtVXERBND6+o7Bq5mwA
+	 GkeoK8qs6/ZRA==
+Date: Thu, 28 Jan 2021 09:24:03 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Ian Jackson <iwj@xenproject.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, Julien Grall <julien.grall@arm.com>, 
+    George Dunlap <george.dunlap@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+    Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
+    Kaly Xin <Kaly.Xin@arm.com>, Artem Mygaiev <joculator@gmail.com>, 
+    =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: Re: [PATCH V5 00/22] IOREQ feature (+ virtio-mmio) on Arm
+In-Reply-To: <ca1375c7-852d-fb3a-6895-5ef12ea7a01e@xen.org>
+Message-ID: <alpine.DEB.2.21.2101280919590.9684@sstabellini-ThinkPad-T480s>
+References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com> <ca1375c7-852d-fb3a-6895-5ef12ea7a01e@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210128071133.60335-19-chaitanya.kulkarni@wdc.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed, Jan 27, 2021 at 11:11:17PM -0800, Chaitanya Kulkarni wrote:
-> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-> ---
->  fs/iomap/direct-io.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+On Thu, 28 Jan 2021, Julien Grall wrote:
+> On 25/01/2021 19:08, Oleksandr Tyshchenko wrote:
+>  > Patch series [8] was rebased on recent "staging branch"
+> > (5e31789 tools/ocaml/libs/xb: Do not crash after xenbus is unmapped) and
+> > tested on
+> > Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with virtio-mmio disk
+> > backend [9]
+> > running in driver domain and unmodified Linux Guest running on existing
+> > virtio-blk driver (frontend). No issues were observed. Guest domain
+> > 'reboot/destroy'
+> > use-cases work properly. Patch series was only build-tested on x86.
 > 
-> diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-> index f6c557a1bd25..0737192f7e5c 100644
-> --- a/fs/iomap/direct-io.c
-> +++ b/fs/iomap/direct-io.c
-> @@ -267,9 +267,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
->  			goto out;
->  		}
->  
-> -		bio = bio_alloc(GFP_KERNEL, nr_pages);
-> -		bio_set_dev(bio, iomap->bdev);
-> -		bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
-> +		bio = bio_new(iomap->bdev, iomap_sector(iomap, pos), 0, 0,
-> +			      nr_pages, GFP_KERNEL);
-
-op == 0?  It seems a little odd to me that we'd set the field to zero
-and then construct bi_opf later.
-
-It also strikes me as a little strange that bi_opf is combined from the
-third and fourth parameters, but maybe some day you'll want to do some
-parameter verification on debug kernels or something...?
-
---D
-
->  		bio->bi_write_hint = dio->iocb->ki_hint;
->  		bio->bi_ioprio = dio->iocb->ki_ioprio;
->  		bio->bi_private = dio;
-> -- 
-> 2.22.1
+> I have done basic testing with a Linux guest on x86 and I didn't spot any
+> regression.
 > 
+> Unfortunately, I don't have a Windows VM in hand, so I can't confirm if there
+> is no regression there. Can anyone give a try?
+> 
+> On a separate topic, Andrew expressed on IRC some concern to expose the
+> bufioreq interface to other arch than x86. I will let him explain his view
+> here.
+> 
+> Given that IOREQ will be a tech preview on Arm (this implies the interface is
+> not stable) on Arm, I think we can defer the discussion past the freeze.
+
+Yes, I agree that we can defer the discussion.
+
+
+> For now, I would suggest to check if a Device Model is trying to create an
+> IOREQ server with bufioreq is enabled (see ioreq_server_create()). This would
+> not alleviate Andrew's concern, however it would at allow us to judge whether
+> the buffering concept is going to be used on Arm (I can see some use for the
+> Virtio doorbell).
+> 
+> What do others think?
+
+Difficult to say. We don't have any uses today but who knows in the
+future.
+
+Maybe for now the important thing is to clarify that the bufioreq
+interface won't be maintain for backward compatibility on ARM, and could
+be removed without warnings, at least as long as the whole IOREQ feature
+is a tech preview.
+
+In other words, it is not like we are forced to keep bufioreq around
+forever on ARM.
 
