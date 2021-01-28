@@ -2,33 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DA98307853
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 15:41:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77103.139469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1F48307884
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 15:48:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77114.139499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l58US-0007on-54; Thu, 28 Jan 2021 14:41:44 +0000
+	id 1l58ad-00088b-8i; Thu, 28 Jan 2021 14:48:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77103.139469; Thu, 28 Jan 2021 14:41:44 +0000
+Received: by outflank-mailman (output) from mailman id 77114.139499; Thu, 28 Jan 2021 14:48:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l58US-0007oO-1h; Thu, 28 Jan 2021 14:41:44 +0000
-Received: by outflank-mailman (input) for mailman id 77103;
- Thu, 28 Jan 2021 14:41:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l58ad-00088B-4f; Thu, 28 Jan 2021 14:48:07 +0000
+Received: by outflank-mailman (input) for mailman id 77114;
+ Thu, 28 Jan 2021 14:48:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l58UQ-0007oH-GK
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:41:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l58UL-0007eY-Kr; Thu, 28 Jan 2021 14:41:37 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l58UL-0008Tb-DX; Thu, 28 Jan 2021 14:41:37 +0000
+ (envelope-from <SRS0=AY0C=G7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l58ab-000882-QN
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:48:05 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id de339bd3-d126-42f4-9d44-8437d222389c;
+ Thu, 28 Jan 2021 14:48:05 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2DE36ACBA;
+ Thu, 28 Jan 2021 14:48:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,98 +38,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
-	bh=pBFm1I4wiY1ETuBdSooTDwr0paxlPqPehf8f0oIIIfs=; b=ZEy/bjmIs7knrMeexb11RYE8Uw
-	OXEjwqaE4XxJe94rtkFXnxHg4T23u6WJrEVhETtjeAW1KVe/WpAc0/6zHLdPvi82EAkMC85jpWNYZ
-	G/dEf3lv27sSFrMguwFNLjrLDlJ0UlLGVNrRLwR2hruCZtUlxizNaap4Kntkrv6eZ/6w=;
-Subject: Re: [PATCH V5 14/22] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Oleksandr <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-15-git-send-email-olekstysh@gmail.com>
- <67136393-8454-9d28-628a-bfb380fd8fc9@xen.org>
- <aa19b356-aa5b-2427-ab8d-2c1ade84ad1c@gmail.com>
- <a5fd81ac-3ed4-40e7-66d7-a8daf3be4987@xen.org>
- <078a6aa6-2f72-d816-9e14-8132648d3370@gmail.com>
- <d0ff4658-30c2-ffed-3a9d-3dadd6195a61@gmail.com>
- <fef8ba7e-d434-5c72-779c-53fd323558de@gmail.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <4385cb3d-c91f-08d2-e9c3-6d3d7af155b0@xen.org>
-Date: Thu, 28 Jan 2021 14:41:35 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.0
+X-Inumbo-ID: de339bd3-d126-42f4-9d44-8437d222389c
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611845284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tI101rdws8S8QrrRhoEwqvoto1+NPzPP1Q9en7PJHPA=;
+	b=pi3y//QVHLidCmACwz8h2e7BhEZHm/DtXfSdXYBO8Pf1qGlX53NGweXFW1LfRYvgnVjEZ7
+	QmT4jWmaG5ucYCvHd3ZF9QVc3Qdx0a98+FHMZYAhyCf2mZPSkaELNhszS9G1BJJ9LbU5Lp
+	yd+C3Otb0usEHexAdANri4wM4xKtMrs=
+Subject: Re: [PATCH v3] x86/mm: Short circuit damage from "fishy"
+ ref/typecount failure
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210119094122.23713-1-andrew.cooper3@citrix.com>
+ <20210119130254.27058-1-andrew.cooper3@citrix.com>
+ <98f64276-ec5d-7242-f10f-126fe7ee1f7e@suse.com>
+ <45f5d1f0-1a89-706f-f202-91ddb1d8b094@citrix.com>
+ <dd59ad75-c0f1-4d14-a0b6-06dd9e095b36@suse.com>
+ <0c279f99-e74e-ced0-4947-b9a104160671@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <144d3985-67fe-10d3-11ef-3452b6f2656a@suse.com>
+Date: Thu, 28 Jan 2021 15:48:04 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <fef8ba7e-d434-5c72-779c-53fd323558de@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <0c279f99-e74e-ced0-4947-b9a104160671@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-
-
-On 28/01/2021 14:29, Oleksandr wrote:
+On 25.01.2021 18:59, Andrew Cooper wrote:
+> I am literally not changing the current behaviour.  Xen *will* hit a
+> BUG() if any of these domain_crash() paths are taken.
 > 
-> Hi Julien
-> 
-> 
-> On 28.01.21 15:39, Oleksandr wrote:
->>
->> On 28.01.21 13:33, Oleksandr wrote:
->>
->> Hi Julien
->>
->>>
->>> On 28.01.21 11:40, Julien Grall wrote:
->>>
->>> Hi Julien
->>>
->>>> Hi Oleksandr,
->>>>
->>>> On 27/01/2021 19:20, Oleksandr wrote:
->>>>  >  >>> So I think we may be able to drop the include from 
->>>> asm/hvm/domain.h
->>>>> (this would avoid to include it everywhere...).
->>>>>
->>>>> I have tried that, but other CUs use definitions from 
->>>>> public/hvm/dm_op.h, for example:
->>>>>
->>>>> p2m-pt.c: In function 'p2m_type_to_flags':
->>>>> p2m-pt.c:87:33: error: 'XEN_DMOP_IOREQ_MEM_ACCESS_WRITE' undeclared 
->>>>> (first use in this function)
->>>>>           if ( p2m->ioreq.flags & XEN_DMOP_IOREQ_MEM_ACCESS_WRITE )
->>>>>                                   ^
->>>>> So, I would prefer to leave it as is, please let me know if you 
->>>>> think otherwise.
->>>>
->>>> AFAICT, there is only 2 places (p2m-pt.c and p2m-ept.c) that 
->>>> requires <public/hvm/dm_op.h> but doesn't directly include it. 
->>>> Folding the diff below in patch #4 should do the job:
->>>
->>> ok, will do
->>
->>
->> Just to clarify, you mentioned about patch #4, but shouldn't we make 
->> these changes in patch #9 which actually tries to sort dm related stuff?
-> 
-> or a least in patch #8 which moves the stuff from asm-x86/hvm/domain.h 
-> to xen/ioreq.h (including the user of XEN_DMOP_IO_RANGE_PCI),
+> If you do not believe me, then please go and actually check what happens
+> when simulating a ref-acquisition failure.
 
-I looked at the header asm-x86/hvm/domain.h after applying patch #4, 
-there is nothing requiring DMOP from there.
+Okay, I've started with the debugging patch below. After the
+other error handling fixed (see the patch just sent), this
+works fine and - with the changes not marked "//temp" - even
+stops leaking the page in that case. This latter fact proves
+(to me) that at least on this path there's no ref lost
+anywhere, and there's also no BUG() elsewhere that we would
+trigger. As re-assurance I observed subsequent run attempts
+of the same guest to end up re-using this same page for this
+same purpose in a number of cases.
 
-I tried to build it with this series applied up to patch #4 + my diff. 
-It does build without any issue.
+You patch altered two other, similar paths, and I can't
+exclude there to be a problem there. Since the exercise was
+useful for fixing the other two bugs anyway, I guess I'll do
+the same for those paths later on and see what I get.
 
-Cheers,
+Jan
 
--- 
-Julien Grall
+--- unstable.orig/xen/arch/x86/hvm/vmx/vmx.c
++++ unstable/xen/arch/x86/hvm/vmx/vmx.c
+@@ -3076,13 +3076,22 @@ static int vmx_alloc_vlapic_mapping(stru
+     if ( !pg )
+         return -ENOMEM;
+ 
+-    if ( !get_page_and_type(pg, d, PGT_writable_page) )
++printk("%pd: APIC access MFN: %lx (c=%lx t=%lx)\n", d, mfn_x(page_to_mfn(pg)), pg->count_info, pg->u.inuse.type_info);//temp
++//temp    if ( !get_page_and_type(pg, d, PGT_writable_page) )
+     {
+         /*
+          * The domain can't possibly know about this page yet, so failure
+          * here is a clear indication of something fishy going on.
+          */
+         domain_crash(d);
++        if ( get_page(pg, d) )
++        {
++            put_page_alloc_ref(pg);
++printk("%pd: MFN %lx: (c=%lx t=%lx)\n", d, mfn_x(page_to_mfn(pg)), pg->count_info, pg->u.inuse.type_info);//temp
++            put_page(pg);
++        }
++        else
++            printk("%pd: leaking MFN %lx\n", d, mfn_x(page_to_mfn(pg)));
+         return -ENODATA;
+     }
+ 
+
 
