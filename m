@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AB31307801
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 15:29:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77082.139421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 618EC307837
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 15:37:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77089.139433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l58IY-0005kH-2y; Thu, 28 Jan 2021 14:29:26 +0000
+	id 1l58Pf-0006dA-13; Thu, 28 Jan 2021 14:36:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77082.139421; Thu, 28 Jan 2021 14:29:26 +0000
+Received: by outflank-mailman (output) from mailman id 77089.139433; Thu, 28 Jan 2021 14:36:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l58IX-0005jr-V5; Thu, 28 Jan 2021 14:29:25 +0000
-Received: by outflank-mailman (input) for mailman id 77082;
- Thu, 28 Jan 2021 14:29:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tEu6=G7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l58IW-0005jl-BS
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:29:24 +0000
-Received: from mail-lj1-x22e.google.com (unknown [2a00:1450:4864:20::22e])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f51559a6-5eca-45eb-93b3-c3423d804c3c;
- Thu, 28 Jan 2021 14:29:23 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id y11so6579724ljk.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 06:29:23 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id b24sm1710966lff.204.2021.01.28.06.29.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Jan 2021 06:29:21 -0800 (PST)
+	id 1l58Pe-0006cl-U9; Thu, 28 Jan 2021 14:36:46 +0000
+Received: by outflank-mailman (input) for mailman id 77089;
+ Thu, 28 Jan 2021 14:36:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AY0C=G7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l58Pe-0006cg-AM
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:36:46 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 68a05a8a-67fd-41ba-84f9-fa13906b2294;
+ Thu, 28 Jan 2021 14:36:44 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DD480B141;
+ Thu, 28 Jan 2021 14:36:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,168 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f51559a6-5eca-45eb-93b3-c3423d804c3c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=yjs6PedjRi1tEV5PcSbTaYSabtBnHYKNtVuQh7L6+TE=;
-        b=G/8YN6WHa301YdSq/PZii+CWMdxCFLRwvfWVTJGfF/ZBVeTmCeyVrrL++mq/rRduyH
-         BVMJyMZknBjitBrvSe0+onDLV/SYHYP2/wAlZwRjoF8t8AqNEDPd4s7oz9WyQfd0DcMU
-         H+2xsknb2uYEt+8mLCowVQ5ubDhHU+2RwltSbSnJk7KMLEl3oYTi6AFpijFBXNcEuCVH
-         UKHw/8UxZx/+ll35Je92DS2wW0k1P/X6gN/Rjof9lVUr0HoOtzyp8PvRtcWOCkHmfEK2
-         EWIBsM82MC6PfVuStYDt71BJB6PuftYzKei0zNbOK1MXhfW2nJLsDThJrpkA9x8QPR3J
-         17Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=yjs6PedjRi1tEV5PcSbTaYSabtBnHYKNtVuQh7L6+TE=;
-        b=r+fMUE5rOtntKXSKadhTK5gYuJiKE9SxTzZEabjbvgYJKVwpKgD6k2vN2oSft4i3ha
-         42GqKB3yucMzpRX6xh13f0FcBshQ4uaAI6teR7grd2Qxg9gDsvDsyCB+A4bp81QkM2ej
-         nd9LrdNi7COBxtT1XCIdvY9OmBfP4d0VRklbTdBY4obbtBNUpgqXHvfN2VMwA5jy6AX4
-         Zf5WGK5dEuxf2VurCu3PI3VVhvjZJ/xKTv7jayn6dfF2pLk0TnWqGQVgEw3D9r2CxLSp
-         D/bS6KNLvHojOvB9Es1JVw/UxGivvoAFljVtMEghmmwKfL4KKiic4cDmzCtOPf/9prmK
-         cTvA==
-X-Gm-Message-State: AOAM5333dHjeFENW5oImw3+s7gFCKLL6ca50RYlCH+y5/PO2/856tN67
-	ZUotZ65A1OUm/H55IfifUgU=
-X-Google-Smtp-Source: ABdhPJzri9S9ipnHSxcG+b6xyZxEMGarOHBqNpLO06ORkp+2bLsP3XiTQps9KQn+6emFV0AArfUgGQ==
-X-Received: by 2002:a2e:850c:: with SMTP id j12mr9158890lji.298.1611844162030;
-        Thu, 28 Jan 2021 06:29:22 -0800 (PST)
-Subject: Re: [PATCH V5 14/22] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-From: Oleksandr <olekstysh@gmail.com>
+X-Inumbo-ID: 68a05a8a-67fd-41ba-84f9-fa13906b2294
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611844604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UzWmFL4gu1fxl7jDKFC/P4wFaBDkoWjQgCeJZayvpks=;
+	b=Oztx6KIxKD0+lSM95UWH+tAEJ+is5y5SkAoItMc4gqp0J8TZ6QR5I+lJLy0X63IFR6OJs0
+	niPpRmsEBGBSjcUcn6nppGknkL1RkQqlmIvhF6Dd1xFxfxwUMQ2j/75TZQ3TYbxwTxwVJE
+	k5AMcvN3nUR0eLld5puNLH1JYAY1cOw=
+Subject: Re: [PATCH V5 10/22] xen/ioreq: Move x86's io_completion/io_req
+ fields to struct vcpu
 To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Julien Grall <julien.grall@arm.com>,
+ xen-devel@lists.xenproject.org, Oleksandr Tyshchenko <olekstysh@gmail.com>
 References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-15-git-send-email-olekstysh@gmail.com>
- <67136393-8454-9d28-628a-bfb380fd8fc9@xen.org>
- <aa19b356-aa5b-2427-ab8d-2c1ade84ad1c@gmail.com>
- <a5fd81ac-3ed4-40e7-66d7-a8daf3be4987@xen.org>
- <078a6aa6-2f72-d816-9e14-8132648d3370@gmail.com>
- <d0ff4658-30c2-ffed-3a9d-3dadd6195a61@gmail.com>
-Message-ID: <fef8ba7e-d434-5c72-779c-53fd323558de@gmail.com>
-Date: Thu, 28 Jan 2021 16:29:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <1611601709-28361-11-git-send-email-olekstysh@gmail.com>
+ <2a048ca9-2767-a4d8-c864-21392bb65fdc@xen.org>
+ <f4a4cbe6-89a1-3f80-2d03-fd62c5d7eda6@suse.com>
+ <61c10e68-d3fe-af16-b22f-bac804a0a70a@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1330ae92-d2ac-fca2-e149-fb7c39b3a66f@suse.com>
+Date: Thu, 28 Jan 2021 15:36:43 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <d0ff4658-30c2-ffed-3a9d-3dadd6195a61@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <61c10e68-d3fe-af16-b22f-bac804a0a70a@xen.org>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-
-Hi Julien
-
-
-On 28.01.21 15:39, Oleksandr wrote:
->
-> On 28.01.21 13:33, Oleksandr wrote:
->
-> Hi Julien
->
->>
->> On 28.01.21 11:40, Julien Grall wrote:
->>
->> Hi Julien
->>
->>> Hi Oleksandr,
->>>
->>> On 27/01/2021 19:20, Oleksandr wrote:
->>>  >  >>> So I think we may be able to drop the include from 
->>> asm/hvm/domain.h
->>>> (this would avoid to include it everywhere...).
+On 28.01.2021 15:21, Julien Grall wrote:
+> On 28/01/2021 13:53, Jan Beulich wrote:
+>> On 28.01.2021 14:41, Julien Grall wrote:
+>>> On 25/01/2021 19:08, Oleksandr Tyshchenko wrote:
+>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >>>>
->>>> I have tried that, but other CUs use definitions from 
->>>> public/hvm/dm_op.h, for example:
+>>>> The IOREQ is a common feature now and these fields will be used
+>>>> on Arm as is. Move them to common struct vcpu as a part of new
+>>>> struct vcpu_io and drop duplicating "io" prefixes. Also move
+>>>> enum hvm_io_completion to xen/sched.h and remove "hvm" prefixes.
 >>>>
->>>> p2m-pt.c: In function 'p2m_type_to_flags':
->>>> p2m-pt.c:87:33: error: 'XEN_DMOP_IOREQ_MEM_ACCESS_WRITE' undeclared 
->>>> (first use in this function)
->>>>           if ( p2m->ioreq.flags & XEN_DMOP_IOREQ_MEM_ACCESS_WRITE )
->>>>                                   ^
->>>> So, I would prefer to leave it as is, please let me know if you 
->>>> think otherwise.
+>>>> This patch completely removes layering violation in the common code.
+>>>>
+>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>> Reviewed-by: Julien Grall <jgrall@amazon.com>
+>>>> Reviewed-by: Paul Durrant <paul@xen.org>
+>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>> CC: Julien Grall <julien.grall@arm.com>
+>>>> [On Arm only]
+>>>> Tested-by: Wei Chen <Wei.Chen@arm.com>
 >>>
->>> AFAICT, there is only 2 places (p2m-pt.c and p2m-ept.c) that 
->>> requires <public/hvm/dm_op.h> but doesn't directly include it. 
->>> Folding the diff below in patch #4 should do the job:
->>
->> ok, will do
->
->
-> Just to clarify, you mentioned about patch #4, but shouldn't we make 
-> these changes in patch #9 which actually tries to sort dm related stuff?
-
-or a least in patch #8 which moves the stuff from asm-x86/hvm/domain.h 
-to xen/ioreq.h (including the user of XEN_DMOP_IO_RANGE_PCI),
-
-what do you think?
-
-
-As for proposed changes, can confirm they work.
-
-
->
->
->>
->>
+>>> I seem to have trouble running Xen on x86 platform after this patch is
+>>> applied (see trace below).
 >>>
->>> diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
->>> index 975ab403f235..23d411f01d2f 100644
->>> --- a/xen/arch/x86/mm/p2m-ept.c
->>> +++ b/xen/arch/x86/mm/p2m-ept.c
->>> @@ -17,6 +17,7 @@
+>>> The bisector pointed out to this patch but I can't quite figure out why
+>>> this is breaking.
 >>>
->>>  #include <xen/domain_page.h>
->>>  #include <xen/sched.h>
->>> +#include <public/hvm/dm_op.h>
->>>  #include <asm/altp2m.h>
->>>  #include <asm/current.h>
->>>  #include <asm/paging.h>
->>> diff --git a/xen/arch/x86/mm/p2m-pt.c b/xen/arch/x86/mm/p2m-pt.c
->>> index c43d5d0413a1..f2afcf49a368 100644
->>> --- a/xen/arch/x86/mm/p2m-pt.c
->>> +++ b/xen/arch/x86/mm/p2m-pt.c
->>> @@ -27,6 +27,7 @@
->>>  #include <xen/vm_event.h>
->>>  #include <xen/event.h>
->>>  #include <xen/trace.h>
->>> +#include <public/hvm/dm_op.h>
->>>  #include <public/vm_event.h>
->>>  #include <asm/altp2m.h>
->>>  #include <asm/domain.h>
->>> diff --git a/xen/include/asm-x86/hvm/domain.h 
->>> b/xen/include/asm-x86/hvm/domain.h
->>> index 3b36c2f41fa1..f26c1a2e2d5f 100644
->>> --- a/xen/include/asm-x86/hvm/domain.h
->>> +++ b/xen/include/asm-x86/hvm/domain.h
->>> @@ -28,8 +28,6 @@
->>>  #include <asm/hvm/vmx/vmcs.h>
->>>  #include <asm/hvm/svm/vmcb.h>
->>>
->>> -#include <public/hvm/dm_op.h>
->>> -
->>>  #ifdef CONFIG_MEM_SHARING
->>>  struct mem_sharing_domain
->>>  {
->>>
->>> You would then need to move the include of <public/hvm/dm_op.h> in 
->>> <xen/dm.h> from this patch to patch #9.
+>>> Does this ring any bell to someone?
 >>
->> yes, sure
+>> Memory overwriting / corruption? This ...
 >>
+>>> (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+>>> (XEN) ----[ Xen-4.15-unstable  x86_64  debug=n gcov=y  Tainted:   C   ]----
+>>> (XEN) CPU:    1
+>>> (XEN) RIP:    e008:[<ffff82d04041c1c7>]
+>>> x86_64/entry.S#restore_all_guest+0x7/0x145
+>>> (XEN) RFLAGS: 0000000000010002   CONTEXT: hypervisor (d0v0)
+>>> (XEN) rax: 00000000000000ff   rbx: ffff83027c806000   rcx: ffff82d0406c9a80
+>>> (XEN) rdx: 0000000000000000   rsi: fffffffffffffed9   rdi: 0000000000000001
+>>> (XEN) rbp: ffff83027c887df0   rsp: ffff83027c887ef8   r8:  00000000aaa8946e
+>>> (XEN) r9:  0000000000000002   r10: ffff83027c806040   r11: ffff83027c8cc020
+>>> (XEN) r12: ffff83027c80f000   r13: ffff83027c895000   r14: 0000000000000000
+>>> (XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 00000000003426e0
+>>> (XEN) cr3: 0000000273a2d000   cr2: 0000000000000000
+>>> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+>>> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+>>> (XEN) Xen code around <ffff82d04041c1c7>
+>>> (x86_64/entry.S#restore_all_guest+0x7/0x145):
+>>> (XEN)  00 48 8b 93 98 0d 00 00 <44> 8b 3a 4c 8b 8b 68 0b 00 00 ba ff 7f
 >>
--- 
-Regards,
+>> ... is
+>>
+>> restore_all_guest:
+>>          ASSERT_INTERRUPTS_DISABLED
+>>
+>>          /* Stash guest SPEC_CTRL value while we can read struct vcpu. */
+>>          mov VCPU_arch_msrs(%rbx), %rdx
+>>          mov VCPUMSR_spec_ctrl_raw(%rdx), %r15d
+>>
+>> i.e. Dom0/vCPU0's v->arch.msrs got zeroed in an unintended way,
+>> hence %rdx is zero here (%rbx looks at least plausible).
+>>
+>> I take it that you double check this isn't an incremental build
+>> issue, i.e. entry.o for some reason not having got rebuilt
+>> despite struct vcpu's layout having changed?
+> 
+> I was going to reply back on my e-mail with more debugging information. 
+> It seems that this is a build issue as if I clean the repo the error 
+> disappear.
+> 
+> The error happens when I move from staging to a batch with this series 
+> applied without a cleaning the tree. It also happens the other way 
+> around as well.
+> 
+> Removing entry.o or asm-offsets.h before building doesn't help. Any 
+> other idea?
 
-Oleksandr Tyshchenko
+No, I'd need to know how exactly to repro and then try to debug.
 
+> On a side note, it looks like asm-offsets.h doesn't get rebuild when 
+> Kconfig change. I noticed an issue when trying to turn on the perf counters.
+
+That's bad and needs fixing. Assuming you mean the kconfig change
+in fact incurs a change to asm-offsets.h. Otherwise there might
+be a move-if-changed somewhere preventing unnecessary rebuilding.
+
+Jan
 
