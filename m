@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31C4330713B
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 09:19:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76786.138666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B76B3070BB
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 09:11:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76773.138639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l52Wo-0006IJ-3y; Thu, 28 Jan 2021 08:19:46 +0000
+	id 1l52OX-0005oP-P0; Thu, 28 Jan 2021 08:11:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76786.138666; Thu, 28 Jan 2021 08:19:46 +0000
+Received: by outflank-mailman (output) from mailman id 76773.138639; Thu, 28 Jan 2021 08:11:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l52Wo-0006Hv-0k; Thu, 28 Jan 2021 08:19:46 +0000
-Received: by outflank-mailman (input) for mailman id 76786;
- Thu, 28 Jan 2021 08:19:44 +0000
+	id 1l52OX-0005o0-Ll; Thu, 28 Jan 2021 08:11:13 +0000
+Received: by outflank-mailman (input) for mailman id 76773;
+ Thu, 28 Jan 2021 08:11:12 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AY0C=G7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l52Wm-0006Hq-Ey
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 08:19:44 +0000
+ id 1l52OW-0005nt-Gq
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 08:11:12 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9103fa1b-b3a6-40a8-aa70-633eba947429;
- Thu, 28 Jan 2021 08:19:43 +0000 (UTC)
+ id ef75abb5-48b0-4c56-ac29-06507a48697b;
+ Thu, 28 Jan 2021 08:11:10 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6003EAEDD;
- Thu, 28 Jan 2021 08:19:41 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 492CCAC41;
+ Thu, 28 Jan 2021 08:11:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,119 +39,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9103fa1b-b3a6-40a8-aa70-633eba947429
+X-Inumbo-ID: ef75abb5-48b0-4c56-ac29-06507a48697b
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611821982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611821469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OXZXZQj3k+rInBtzXPh8TFlU/zNFtpXxR/sUxa5byA4=;
-	b=c1DjcFcpsUf0WssLm7Ptl3qQaxvaefsxyGrQohnW2afTVs7q3Gxeamrz7PM67A9fYauiMJ
-	2/CeM4KhhPI19fdei6TcZOJwO1/QaY8j4tp1f2F3E7BVIBhZaygnrW/f5mBX9XtI4if3tr
-	v2j/w0zgpBDtjtbUoPL5FwKY8HqsCzs=
-Subject: Re: [PATCH V5 04/22] xen/ioreq: Make x86's IOREQ feature common
-To: Oleksandr <olekstysh@gmail.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Tim Deegan <tim@xen.org>, Julien Grall <julien.grall@arm.com>,
- xen-devel@lists.xenproject.org
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-5-git-send-email-olekstysh@gmail.com>
- <01b122dd-37c9-d429-b060-adea9e7cae8b@suse.com>
- <b16bb4e2-fb26-f5e5-2417-86867241036a@gmail.com>
+	bh=gQtsh0rjtjgwVo02/JiPeZ77olFt6KVHC33TS4hR1zc=;
+	b=aqbgGmjD3imXWyEi+upJgJnPxzZ7DQEXiHtO/2X3ndR6bxtBNOKbeGko+hXmtSKw8qRTfY
+	C1q5GklYHLm77uF+FT1k64zE0pmeh6kcdMFLYK+HjSBFL91Jdun1Wqn7plOmHsIyPa2/N8
+	98oiVEOy/rdw46V65+ktwBPdJ/Kn3PY=
+Subject: Re: more randconfig failures
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, julien@xen.org, wl@xen.org,
+ Bertrand.Marquis@arm.com, "fam@euphon.net" <fam@euphon.net>,
+ famzheng@amazon.com, Doug Goldstein <cardoe@cardoe.com>
+References: <alpine.DEB.2.21.2101271311470.9684@sstabellini-ThinkPad-T480s>
+ <45a1b4b2-afd7-9b70-e857-d0c23f2fd26e@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <1eb1247b-f455-65c8-b91c-3e8bc05186a1@suse.com>
-Date: Thu, 28 Jan 2021 09:06:56 +0100
+Message-ID: <3231c24e-d86f-3d4f-5521-c7d3fcb82275@suse.com>
+Date: Thu, 28 Jan 2021 09:11:09 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <b16bb4e2-fb26-f5e5-2417-86867241036a@gmail.com>
+In-Reply-To: <45a1b4b2-afd7-9b70-e857-d0c23f2fd26e@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.01.2021 21:14, Oleksandr wrote:
-> On 27.01.21 18:58, Jan Beulich wrote:
->> On 25.01.2021 20:08, Oleksandr Tyshchenko wrote:
->>> --- a/xen/arch/x86/Kconfig
->>> +++ b/xen/arch/x86/Kconfig
->>> @@ -92,6 +92,7 @@ config PV_LINEAR_PT
->>>   
->>>   config HVM
->>>   	def_bool !PV_SHIM_EXCLUSIVE
->>> +	select IOREQ_SERVER
->>>   	prompt "HVM support"
->>>   	---help---
->> ... the addition moved below the prompt line (could probably
->> be taken care of while committing, if no other need for a v6
->> arises).
-> 
-> V6 is planned anyway, so will do, but ...
-> 
-> 
+On 27.01.2021 22:23, Andrew Cooper wrote:
+> On 27/01/2021 21:16, Stefano Stabellini wrote:
+>> Hi all,
 >>
->> (Personally I think this should be
+>> These are two recent randconfig build failures reported by gitlab (the
+>> two patches that triggered the CI-loop are two patches to the
+>> MAINTAINERS file -- certainly not the cause of the build issues):
 >>
->> config HVM
->> 	bool "HVM support"
->> 	default !PV_SHIM_EXCLUSIVE
+>> x86 randconfig failure:
+>> https://gitlab.com/xen-project/patchew/xen/-/jobs/990347647
 > 
-> ... def_bool is changed to default by intention or this is a typo?
-
-No, it's not a typo. "def_bool" is just a shorthand for "bool"
-and "default", which is useful when there's no prompt, but
-gets abused (in my view at least) in a number of other cases.
-But as said ...
-
->> anyway, but that's nothing you need to care about.)
-
-... here.
-
->>> --- /dev/null
->>> +++ b/xen/include/asm-x86/ioreq.h
->>> @@ -0,0 +1,37 @@
->>> +/*
->>> + * ioreq.h: Hardware virtual machine assist interface definitions.
->>> + *
->>> + * This is a wrapper which purpose is to not include arch HVM specific header
->>> + * from the common code.
->>> + *
->>> + * Copyright (c) 2016 Citrix Systems Inc.
->>> + *
->>> + * This program is free software; you can redistribute it and/or modify it
->>> + * under the terms and conditions of the GNU General Public License,
->>> + * version 2, as published by the Free Software Foundation.
->>> + *
->>> + * This program is distributed in the hope it will be useful, but WITHOUT
->>> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
->>> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
->>> + * more details.
->>> + *
->>> + * You should have received a copy of the GNU General Public License along with
->>> + * this program; If not, see <http://www.gnu.org/licenses/>.
->>> + */
->>> +
->>> +#ifndef __ASM_X86_IOREQ_H__
->>> +#define __ASM_X86_IOREQ_H__
->>> +
->>> +#include <asm/hvm/ioreq.h>
->>> +
->>> +#endif /* __ASM_X86_IOREQ_H__ */
->> Not necessarily for taking care of right away, I think in the
->> longer run this wants wrapping by #ifdef CONFIG_HVM, such that
->> in !HVM builds the dependency on the "chained" header goes
->> away (reducing the amount of rebuilding in incremental builds).
+> This has been known and a source of intermittent failures for ages.
 > 
-> I don't mind wrapping it right away.
+> I already laid out how to fix it, by removing some inappropriate Kconfig
+> dependencies.  I'll get around to writing some patches when there aren't
+> more important tasks to do for 4.15.
 
-Well, if that doesn't break the !HVM build, I'd of course
-appreciate it. I'd expect fallout, though.
+Are you sure? I see
+
+ld: ld: /builds/xen-project/patchew/xen/xen/.xen-syms.0: hidden symbol `xenmem_add_to_physmap_one' isn't defined
+
+which rather reminds me of a recent report where DCE doesn't do what we
+expect it to do.
 
 Jan
 
