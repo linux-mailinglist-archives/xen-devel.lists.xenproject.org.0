@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46B1B306E4B
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 08:13:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76623.138350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E26CC306E52
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 08:14:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76625.138362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l51V2-0004lu-GM; Thu, 28 Jan 2021 07:13:52 +0000
+	id 1l51V7-0004rA-QM; Thu, 28 Jan 2021 07:13:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76623.138350; Thu, 28 Jan 2021 07:13:52 +0000
+Received: by outflank-mailman (output) from mailman id 76625.138362; Thu, 28 Jan 2021 07:13:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l51V2-0004lO-CY; Thu, 28 Jan 2021 07:13:52 +0000
-Received: by outflank-mailman (input) for mailman id 76623;
- Thu, 28 Jan 2021 07:13:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l51V7-0004qR-Mm; Thu, 28 Jan 2021 07:13:57 +0000
+Received: by outflank-mailman (input) for mailman id 76625;
+ Thu, 28 Jan 2021 07:13:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YU/W=G7=wdc.com=prvs=655a99766=chaitanya.kulkarni@srs-us1.protection.inumbo.net>)
- id 1l51V1-0004at-4b
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 07:13:51 +0000
-Received: from esa4.hgst.iphmx.com (unknown [216.71.154.42])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9b0a8e08-2d3e-432f-a1e1-97912fa5dfcc;
- Thu, 28 Jan 2021 07:13:47 +0000 (UTC)
+ id 1l51V5-0004pI-VL
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 07:13:55 +0000
+Received: from esa2.hgst.iphmx.com (unknown [68.232.143.124])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a2d2eb70-8fc1-4b20-a3bd-ce1efdabf817;
+ Thu, 28 Jan 2021 07:13:55 +0000 (UTC)
 Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
  ([199.255.45.15])
- by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:13:46 +0800
+ by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:16:05 +0800
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
  by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2021 22:56:04 -0800
+ 27 Jan 2021 22:56:12 -0800
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
- by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:13:46 -0800
+ by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:13:54 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,37 +44,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b0a8e08-2d3e-432f-a1e1-97912fa5dfcc
+X-Inumbo-ID: a2d2eb70-8fc1-4b20-a3bd-ce1efdabf817
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1611818027; x=1643354027;
+  t=1611818166; x=1643354166;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ph9rmwEURyYiJjcGgT3e2aApJZNJOSNpUoZqKSV1dx8=;
-  b=R0H0BBlYwokmIFrBez2p9fEC8db94MCPractRJhmKSgF/0N/EwjucYDp
-   eInEL+qyXGnxxTG86wUtt/iEWKav4ntKme4SwWqQA4xGYtFSXhfQ04MxW
-   XXeP/JbbboWTFmyOgcplJH7RHIyoQ1LZI8c5yO/EMTkEIZL2MpHiripYl
-   s4UZ8Eemx2yAV7seL0AUPeyVJbhHX8kgU87L3h3OYpZcIbWRJyLRq1Oue
-   746ki6pS2w1WTulu1CS4W6DwGVSyHr7vAGiAatIBAiYVoCvGBirxusRFh
-   elZDMhiH/HYtyOToZZ3FiA8wvn9KhpVlfJ7Lb2OK8RdpTD1tLAp+55gUz
-   Q==;
-IronPort-SDR: PxkB4tEb6SkklkQyJOvN1E/naXNRiNQ3w+3MQVtLtM9nnLJ80dbI+U2blbAUCc97CWeIrJ2YCA
- biozTuAQqsxKBa177I2FJ044CYNks2OUMpmxfXSHmjZNlEWJHRuABXLuEzpOXsl2/tsEiUZWgF
- TClexH1InSBvi7yc8VK0QNv8Bn+k9Xs14OjKP5cvyd+5vv+iONmnvHYzgUiSIxVWRmqBhm6A+z
- eoSM3ogiIMr44jZr/GgH4de1y4DiI8gwGHCsdXC3LE5ukPGRNdVrfoLu9W1a7Q2mqdVF1CU1/o
- 808=
+  bh=wUwjN0vBouMAu1m5itQWMc9ceGIiyWjYqyXKNeHEsnQ=;
+  b=nxzJflacH2hbguCGRxCBP9wduYQ3myDzwmPyGdPjQhY6sNVghRPXRdjj
+   ikYM3FqSQvPqimwtOSoO2oHA9krYU8WLH1VbZhvIfVvxqB0VIbnWt4OO3
+   LW7g5jCWJc7ZeTc0MqfI1dqccsxWNf8I6Oura1JvK8zN1P8yKik8cR+OT
+   f6dwbGrduhi1BWQPyvGXXvhpiIW4yaaL7S9zUQvg0q0cnP2e0VVPuUHdG
+   VnBWfnBrD4AEYV0zSYCnsEOlzQqe4EhIRoLV+6L1B172B43ZNFS//4/TA
+   HIZM/XqVX+pX/lpJcRccqkVnWG1WwsfGXFyUOBT8pzMLENyY84OyQCD87
+   g==;
+IronPort-SDR: L9JRq0irKBoR/immUwJJk5MAs79tfhm5a9Nf0efAIcPDlTWveGHJ1lZLroh43J2FSFGVYhLuhG
+ oYHLx3uTX3J8HyT3w+d/qPY4qa9SvOceJ9gjDmjIEh5JLNq8SPyInqvXWdr88m/x9SDGkSjU/x
+ onDlSBVGOTHEwYLuE74oVLzY5nburvJWzJlGjrwxFk3HE40Tn5W9zfy6Df1PpWlI7ekUr+6g+A
+ FtDXuzjsF1UVZ6BG4pFzlAlOcUgT3FImkJvb8ZFLF6XA2aybNi4OSY50Xs/eHJvkAn/YsTUWeU
+ Kpc=
 X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; 
-   d="scan'208";a="158517361"
-IronPort-SDR: LikeUj7PUk3ZLLpc6Px6qO01HqC1wlvZZzrPY7ZnZhHS4w+tCONfQJ+C7YfrTFndxX6zHW701m
- uXH8Ec+SdAgbEtSwMH5U9R1ttunpWEL+zdgq53HlP7ORRwCetLMMo4J+lv/6fc4rIg6e69PRT+
- ZyLqDvhyJE5IUdrq/ZQdKQH1vVHd8Tahx2MUuVziV5zEb4dvc0i6/jOLg1fPJa1DPKyR7HQ4hc
- zfFZLR6r5pmRF36OyGY/413rw6Aua0a/7RlI2P7jMF0gJ+nwo8MogZ/qRcGExCm6IzLXv8Qf2G
- jJbi+lLsafIAyOsJhpORr9Go
-IronPort-SDR: 2qgPwD8neR80/SdtH4pRH50bxmDr7msnaiMmu0nET+XLf24Atsm9LH9w2S7p7pMRphnBeo5pVx
- VOFkyyTuzt5tWdOljMzaLRlQ/2Y+vBgbMl5P6BLyAgHROT8V3ajdo6WQ+YwR34TObygZuUERZX
- rfU+sPmHgGS1V+3dgxOeo8REERCKgWHIYxzhiuWRBtY6dBheQaeAr6VP4LTAPeLl+kd1iFUoyd
- mqKwU7dlwbyE4M8F7GURh/yglDYKxcs47wr8oitkT1bgU4EtSPSZoGcLrNM5tqqKQP8I79UW3Y
- S3E=
+   d="scan'208";a="262549028"
+IronPort-SDR: bbV/rPEQomMPAyAfzgt/2nDhxQWlkmrixit6zLlYOAQKuYlEsk3dczL1e+4hLz3d5mute5trpt
+ GHvoWPb0+lwuypKor8ukIqoBxcISsuxQA9D/TnsL5Zh2Gfx+oMHDcNF3HurIpxAKrFTKDdG7NH
+ s0tuyuxfapfZock6Yr+n+Jx2miiyehTBngrvuy40asxV2TThbBDwqDkTW/oth+sZQSc9bTisDn
+ IHJaAge3kVg3MpcirmZJcV1wwp3oSVVVBdcEtR/P5C1dYJhvpxutOGX5r1UBMSNpJs4P69nybI
+ XSThmT0YoiKtEkYRtsXeExK6
+IronPort-SDR: pB2cXSth9j9iO8qI9kro9aUnzxe7uC+CM4R5ezhi5mkNe3QJ3MeSZh+GGUOxW9ROBr/hgtgk35
+ 3kQYC2KUTB+4qbQnoUg89GyqXiUICL6Lbb6/fLgPHrp+IuvY60iwR3VPtR6IrHib1STZYvjFII
+ G0U9LFUNwbOn5ju9S5MOKHMAKhFoQxnYNKdJKA68HgaqnFN4j9YRc5HgIY3H1XVVcQBHwY13od
+ d8yfo6WXgScVxvO/+aDCj5bBUi8Qq8LHMuAKgJFuukK9k/tSzy9sPaWEv7Xl8jluo8DC44HSzF
+ bXE=
 WDCIronportException: Internal
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-xfs@vger.kernel.org,
@@ -133,9 +134,9 @@ Cc: axboe@kernel.dk,
 	osandov@fb.com,
 	bvanassche@acm.org,
 	jefflexu@linux.alibaba.com
-Subject: [RFC PATCH 14/34] fs/buffer: use bio_new in submit_bh_wbc
-Date: Wed, 27 Jan 2021 23:11:13 -0800
-Message-Id: <20210128071133.60335-15-chaitanya.kulkarni@wdc.com>
+Subject: [RFC PATCH 15/34] fscrypt: use bio_new in fscrypt_zeroout_range
+Date: Wed, 27 Jan 2021 23:11:14 -0800
+Message-Id: <20210128071133.60335-16-chaitanya.kulkarni@wdc.com>
 X-Mailer: git-send-email 2.22.1
 In-Reply-To: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
@@ -144,46 +145,28 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- fs/buffer.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ fs/crypto/bio.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/fs/buffer.c b/fs/buffer.c
-index 32647d2011df..fcbea667fa04 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -3023,12 +3023,16 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
- 	if (test_set_buffer_req(bh) && (op == REQ_OP_WRITE))
- 		clear_buffer_write_io_error(bh);
+diff --git a/fs/crypto/bio.c b/fs/crypto/bio.c
+index b048a0e38516..20dab9bdf098 100644
+--- a/fs/crypto/bio.c
++++ b/fs/crypto/bio.c
+@@ -148,12 +148,11 @@ int fscrypt_zeroout_range(const struct inode *inode, pgoff_t lblk,
+ 		return -EINVAL;
  
--	bio = bio_alloc(GFP_NOIO, 1);
-+	if (buffer_meta(bh))
-+		op_flags |= REQ_META;
-+	if (buffer_prio(bh))
-+		op_flags |= REQ_PRIO;
-+
-+	bio = bio_new(bh->b_bdev,  bh->b_blocknr * (bh->b_size >> 9), op,
-+		      op_flags, GFP_NOIO, 1);
+ 	/* This always succeeds since __GFP_DIRECT_RECLAIM is set. */
+-	bio = bio_alloc(GFP_NOFS, nr_pages);
++	bio = bio_alloc(inode->i_sb->s_bdev, 0, REQ_OP_WRITE, 0, nr_pages,
++			GFP_NOFS);
  
- 	fscrypt_set_bio_crypt_ctx_bh(bio, bh, GFP_NOIO);
+ 	do {
+-		bio_set_dev(bio, inode->i_sb->s_bdev);
+ 		bio->bi_iter.bi_sector = pblk << (blockbits - 9);
+-		bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
  
--	bio->bi_iter.bi_sector = bh->b_blocknr * (bh->b_size >> 9);
--	bio_set_dev(bio, bh->b_bdev);
- 	bio->bi_write_hint = write_hint;
- 
- 	bio_add_page(bio, bh->b_page, bh->b_size, bh_offset(bh));
-@@ -3037,12 +3041,6 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
- 	bio->bi_end_io = end_bio_bh_io_sync;
- 	bio->bi_private = bh;
- 
--	if (buffer_meta(bh))
--		op_flags |= REQ_META;
--	if (buffer_prio(bh))
--		op_flags |= REQ_PRIO;
--	bio_set_op_attrs(bio, op, op_flags);
--
- 	/* Take care of bh's that straddle the end of the device */
- 	guard_bio_eod(bio);
- 
+ 		i = 0;
+ 		offset = 0;
 -- 
 2.22.1
 
