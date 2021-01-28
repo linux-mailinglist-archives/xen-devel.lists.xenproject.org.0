@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF4C33078B6
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 15:54:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77146.139561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66CC13078D0
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 15:57:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77153.139576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l58gd-0001Iz-2T; Thu, 28 Jan 2021 14:54:19 +0000
+	id 1l58jT-0001SA-IG; Thu, 28 Jan 2021 14:57:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77146.139561; Thu, 28 Jan 2021 14:54:19 +0000
+Received: by outflank-mailman (output) from mailman id 77153.139576; Thu, 28 Jan 2021 14:57:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l58gc-0001Ic-Vf; Thu, 28 Jan 2021 14:54:18 +0000
-Received: by outflank-mailman (input) for mailman id 77146;
- Thu, 28 Jan 2021 14:54:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l58jT-0001Rp-ES; Thu, 28 Jan 2021 14:57:15 +0000
+Received: by outflank-mailman (input) for mailman id 77153;
+ Thu, 28 Jan 2021 14:57:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AY0C=G7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l58gb-0001IW-CY
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:54:17 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c5a8ed3c-c05b-4ad7-9158-b2497ab97c11;
- Thu, 28 Jan 2021 14:54:15 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EAD05AE7D;
- Thu, 28 Jan 2021 14:54:14 +0000 (UTC)
+ (envelope-from <iwj@xenproject.org>) id 1l58jR-0001Rk-6G
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:57:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l58jR-0007wp-4c
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:57:13 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l58jR-0001Np-32
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 14:57:13 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l58jJ-0004dB-6r; Thu, 28 Jan 2021 14:57:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,69 +41,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5a8ed3c-c05b-4ad7-9158-b2497ab97c11
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611845655; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gMExEDRFdmp6DwtIQ7gxyCMBOyGB9d4wPsf1mmk8tLk=;
-	b=AVx9Cu1x/IVZBoDw7zs0CNhkaEiILWRqBYji7fau7sP3wc2IT3KJFZ0FwbqC7vp75AQpEp
-	CekFs3DjWdoeqo/CveOw10ohcmRq6j0c5WxyQzkxhIhBXCrXvzjedCCGoLjtGEv+bPJnQj
-	v8/jgNbhrMhhJh4Ar3S2WTPcHGM8ld8=
-Subject: Re: [PATCH V5 10/22] xen/ioreq: Move x86's io_completion/io_req
- fields to struct vcpu
-To: Ian Jackson <iwj@xenproject.org>
-Cc: Julien Grall <julien@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <olekstysh@gmail.com>
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-11-git-send-email-olekstysh@gmail.com>
- <2a048ca9-2767-a4d8-c864-21392bb65fdc@xen.org>
- <f4a4cbe6-89a1-3f80-2d03-fd62c5d7eda6@suse.com>
- <61c10e68-d3fe-af16-b22f-bac804a0a70a@xen.org>
- <1330ae92-d2ac-fca2-e149-fb7c39b3a66f@suse.com>
- <24594.53081.646632.583737@mariner.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a9fe45ac-8503-7b9c-a8b4-bd8e767a11d3@suse.com>
-Date: Thu, 28 Jan 2021 15:54:14 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=Sqy/D0+GqTINvq2roXBe3t5Qyt3i0NF2ANL2IyKFPcY=; b=c4EzQ57xBOiViSi22Jcljd3BOj
+	WAX/pGv7hO+UeFV/Srk/3yT+k/6Ds/0cvC/0QZHXcQrXJk1W19IF5zzBLEUaOgxm3zbGhHRgdhQVQ
+	zy4v2/BmA8lgqIObrWr1UyytilyQumOCOjUVRRiYOPZuYubftVjABq1o40V7X3IydMuo=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <24594.53081.646632.583737@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Message-ID: <24594.53440.970539.475825@mariner.uk.xensource.com>
+Date: Thu, 28 Jan 2021 14:57:04 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    Wei Liu <wl@xen.org>,
+    Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH for-4.15] x86/boot: Drop 'noapic' suggestion from
+ check_timer()
+In-Reply-To: <38cf4cb4-c0d3-d880-a0b4-eb21af447cad@suse.com>
+References: <20210127194904.9922-1-andrew.cooper3@citrix.com>
+	<38cf4cb4-c0d3-d880-a0b4-eb21af447cad@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-On 28.01.2021 15:51, Ian Jackson wrote:
-> Jan Beulich writes ("Re: [PATCH V5 10/22] xen/ioreq: Move x86's io_completion/io_req fields to struct vcpu"):
->> On 28.01.2021 15:21, Julien Grall wrote:
->>> It seems that this is a build issue as if I clean the repo the error 
->>> disappear.
->>>
->>> The error happens when I move from staging to a batch with this series 
->>> applied without a cleaning the tree. It also happens the other way 
->>> around as well.
+Jan Beulich writes ("Re: [PATCH for-4.15] x86/boot: Drop 'noapic' suggestion from check_timer()"):
+> On 27.01.2021 20:49, Andrew Cooper wrote:
+> > In practice, there is no such thing as a real 64bit system without
+> > APICs.  (PVH style virtual environments, sure, but they don't end up here).
+> > 
+> > The suggestion to try and use noapic only makes a bad situation worse.
+> > 
+> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > 
-> How vexing.
-> 
->>> Removing entry.o or asm-offsets.h before building doesn't help. Any 
->>> other idea?
->>
->> No, I'd need to know how exactly to repro and then try to debug.
-> 
-> IMO this problem is not a blocker for pushing this today or tomorrow.
-> Unless someone disagrees ?
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-No, I don't think this is caused by this series, and Andrew's
-reply of having noticed the same supports this.
+Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-Jan
+Not sure if this is a bugfix but it is a change to a message so fine.
+
+Ian.
 
