@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6F66307B40
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 17:48:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77245.139787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C8E8307B4B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 17:49:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77248.139800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5ASY-0006Hu-BT; Thu, 28 Jan 2021 16:47:54 +0000
+	id 1l5AU7-0006aB-Nq; Thu, 28 Jan 2021 16:49:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77245.139787; Thu, 28 Jan 2021 16:47:54 +0000
+Received: by outflank-mailman (output) from mailman id 77248.139800; Thu, 28 Jan 2021 16:49:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5ASY-0006HY-81; Thu, 28 Jan 2021 16:47:54 +0000
-Received: by outflank-mailman (input) for mailman id 77245;
- Thu, 28 Jan 2021 16:47:52 +0000
+	id 1l5AU7-0006Zm-KI; Thu, 28 Jan 2021 16:49:31 +0000
+Received: by outflank-mailman (input) for mailman id 77248;
+ Thu, 28 Jan 2021 16:49:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KAhC=G7=infradead.org=willy@srs-us1.protection.inumbo.net>)
- id 1l5ASU-0006HO-4n
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 16:47:52 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AY0C=G7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l5AU6-0006Zh-I2
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 16:49:30 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id be061242-517f-4d00-a392-490f537b021a;
- Thu, 28 Jan 2021 16:47:46 +0000 (UTC)
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
- Linux)) id 1l5ARp-008hlF-CH; Thu, 28 Jan 2021 16:47:23 +0000
+ id d9746dd0-9026-41cf-b1bf-670ad6725a72;
+ Thu, 28 Jan 2021 16:49:29 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DD16AAD5C;
+ Thu, 28 Jan 2021 16:49:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,188 +38,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be061242-517f-4d00-a392-490f537b021a
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ok1YlK16MaIquA7ZYUHxK/CMaFxxxwNWazaMAgFieLU=; b=vuOaMGbyB7/+Dg91fNUqvgBiBD
-	4apxS7jU5nU9b/DveQFuS18fYHTQPOpBZxMrv3tCqxWOuQg228bSNlkmvJ1gQneLnOfM3WL1ObNGi
-	MTuz8xXL3LKzE+DH7errCMxepgPQ3Thh2HpLy2Nat9DQOLy35B1FC3UkIZuvmKmdZzwX86t+WV5Mk
-	/pCa23DxPP5a3Rlkwfqrn59vty95NQBRWyuZpKNZRkjNLQlQ2KJrMub6IYLsf3IL2tz3nuZRbVWe7
-	TKvbqzYB3UBc6MLrjn2HVQGE6rKRMshHOwu50Myfj/erONbRzfW9chvly9np7Q4o+a4JR4iRTNdIG
-	5mKhGc+Q==;
-Date: Thu, 28 Jan 2021 16:47:09 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
-Cc: Damien Le Moal <Damien.LeMoal@wdc.com>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
-	"linux-fscrypt@vger.kernel.org" <linux-fscrypt@vger.kernel.org>,
-	"jfs-discussion@lists.sourceforge.net" <jfs-discussion@lists.sourceforge.net>,
-	"linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
-	"ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>,
-	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"shaggy@kernel.org" <shaggy@kernel.org>,
-	"sergey.senozhatsky.work@gmail.com" <sergey.senozhatsky.work@gmail.com>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"len.brown@intel.com" <len.brown@intel.com>,
-	"tiwai@suse.de" <tiwai@suse.de>,
-	"djwong@kernel.org" <djwong@kernel.org>,
-	"gustavoars@kernel.org" <gustavoars@kernel.org>,
-	"pavel@ucw.cz" <pavel@ucw.cz>,
-	"alex.shi@linux.alibaba.com" <alex.shi@linux.alibaba.com>,
-	"agk@redhat.com" <agk@redhat.com>,
-	"sagi@grimberg.me" <sagi@grimberg.me>,
-	"osandov@fb.com" <osandov@fb.com>,
-	"ebiggers@kernel.org" <ebiggers@kernel.org>,
-	"ngupta@vflare.org" <ngupta@vflare.org>,
-	Naohiro Aota <Naohiro.Aota@wdc.com>,
-	"konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
-	"hare@suse.de" <hare@suse.de>,
-	"ming.lei@redhat.com" <ming.lei@redhat.com>,
-	"viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
-	"jefflexu@linux.alibaba.com" <jefflexu@linux.alibaba.com>,
-	"jaegeuk@kernel.org" <jaegeuk@kernel.org>,
-	"konishi.ryusuke@gmail.com" <konishi.ryusuke@gmail.com>,
-	"bvanassche@acm.org" <bvanassche@acm.org>,
-	"axboe@kernel.dk" <axboe@kernel.dk>,
-	"jth@kernel.org" <jth@kernel.org>, "tytso@mit.edu" <tytso@mit.edu>,
-	"rjw@rjwysocki.net" <rjw@rjwysocki.net>,
-	"philipp.reisner@linbit.com" <philipp.reisner@linbit.com>,
-	"minchan@kernel.org" <minchan@kernel.org>,
-	"tj@kernel.org" <tj@kernel.org>,
-	"lars.ellenberg@linbit.com" <lars.ellenberg@linbit.com>,
-	"roger.pau@citrix.com" <roger.pau@citrix.com>,
-	"asml.silence@gmail.com" <asml.silence@gmail.com>
-Subject: Re: [Ocfs2-devel] [RFC PATCH 02/34] block: introduce and use bio_new
-Message-ID: <20210128164709.GZ308988@casper.infradead.org>
-References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
- <20210128071133.60335-3-chaitanya.kulkarni@wdc.com>
- <BL0PR04MB6514C554B4AC96866BC1B16FE7BA9@BL0PR04MB6514.namprd04.prod.outlook.com>
- <DM6PR04MB4972DA86892CF4531440064F86BA9@DM6PR04MB4972.namprd04.prod.outlook.com>
+X-Inumbo-ID: d9746dd0-9026-41cf-b1bf-670ad6725a72
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611852569; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fZdYh7jzmjVtcxaaxK5x4pS20kBrfOS+U6zjtM3Ks14=;
+	b=a3GhVBmLlEgvRNYrbFLxxD9/1gvLVS8MWsGxaKSHgPX4M0vRoKWoYFi1/jSyU9XbAsz6bd
+	KtuZWQGFtGZIxGehHaaGnIacsuGOtQRqKSswHgkFiY1g/m0RfLB4DjDE06YoUO+OjibFVa
+	tYxS0YXsBQwfW8zrP3ohsGSkm9JfYfM=
+Subject: Re: [PATCH] xen-release-management doc: More info on schedule
+To: Ian Jackson <iwj@xenproject.org>
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Paul Durrant <xadimgnik@gmail.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20210128163538.13922-1-iwj@xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <cf93f027-e831-8fcb-7539-c9ed0c7585d9@suse.com>
+Date: Thu, 28 Jan 2021 17:49:29 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM6PR04MB4972DA86892CF4531440064F86BA9@DM6PR04MB4972.namprd04.prod.outlook.com>
+In-Reply-To: <20210128163538.13922-1-iwj@xenproject.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-
-FYI your email is completely unreadable to those not using html.
-I can't tell what you wrote and what Damien wrote.
-
-On Thu, Jan 28, 2021 at 08:33:10AM +0000, Chaitanya Kulkarni wrote:
-> On 1/27/21 11:21 PM, Damien Le Moal wrote:
+On 28.01.2021 17:35, Ian Jackson wrote:
+> This documents our practice, established in 2018
+>   https://lists.xen.org/archives/html/xen-devel/2018-07/msg02240.html
+> et seq
 > 
-> On 2021/01/28 16:12, Chaitanya Kulkarni wrote:
-> 
-> 
-> Introduce bio_new() helper and use it in blk-lib.c to allocate and
-> initialize various non-optional or semi-optional members of the bio
-> along with bio allocation done with bio_alloc(). Here we also calmp the
-> max_bvecs for bio with BIO_MAX_PAGES before we pass to bio_alloc().
-> 
-> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com><mailto:chaitanya.kulkarni@wdc.com>
+> CC: Jürgen Groß <jgross@suse.com>
+> CC: Paul Durrant <xadimgnik@gmail.com>
+> CC: Wei Liu <wl@xen.org>
+> Signed-off-by: Ian Jackson <iwj@xenproject.org>
 > ---
->  block/blk-lib.c     |  6 +-----
->  include/linux/bio.h | 25 +++++++++++++++++++++++++
->  2 files changed, 26 insertions(+), 5 deletions(-)
+>  docs/process/xen-release-management.pandoc | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
 > 
-> diff --git a/block/blk-lib.c b/block/blk-lib.c
-> index fb486a0bdb58..ec29415f00dd 100644
-> --- a/block/blk-lib.c
-> +++ b/block/blk-lib.c
-> @@ -14,17 +14,13 @@ struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
->                         sector_t sect, unsigned op, unsigned opf,
->                         unsigned int nr_pages, gfp_t gfp)
->  {
-> -       struct bio *new = bio_alloc(gfp, nr_pages);
-> +       struct bio *new = bio_new(bdev, sect, op, opf, gfp, nr_pages);
-> 
->         if (bio) {
->                 bio_chain(bio, new);
->                 submit_bio(bio);
->         }
-> 
-> -       new->bi_iter.bi_sector = sect;
-> -       bio_set_dev(new, bdev);
-> -       bio_set_op_attrs(new, op, opf);
-> -
->         return new;
->  }
-> 
-> diff --git a/include/linux/bio.h b/include/linux/bio.h
-> index c74857cf1252..2a09ba100546 100644
-> --- a/include/linux/bio.h
-> +++ b/include/linux/bio.h
-> @@ -826,5 +826,30 @@ static inline void bio_set_polled(struct bio *bio, struct kiocb *kiocb)
->         if (!is_sync_kiocb(kiocb))
->                 bio->bi_opf |= REQ_NOWAIT;
->  }
-> +/**
-> + * bio_new -   allcate and initialize new bio
-> + * @bdev:      blockdev to issue discard for
-> + * @sector:    start sector
-> + * @op:                REQ_OP_XXX from enum req_opf
-> + * @op_flags:  REQ_XXX from enum req_flag_bits
-> + * @max_bvecs: maximum bvec to be allocated for this bio
-> + * @gfp_mask:  memory allocation flags (for bio_alloc)
-> + *
-> + * Description:
-> + *    Allocates, initializes common members, and returns a new bio.
-> + */
-> +static inline struct bio *bio_new(struct block_device *bdev, sector_t sector,
-> +                                 unsigned int op, unsigned int op_flags,
-> +                                 unsigned int max_bvecs, gfp_t gfp_mask)
-> +{
-> +       unsigned nr_bvec = clamp_t(unsigned int, max_bvecs, 0, BIO_MAX_PAGES);
-> +       struct bio *bio = bio_alloc(gfp_mask, nr_bvec);
-> 
-> 
-> I think that depending on the gfp_mask passed, bio can be NULL. So this should
-> be checked.
-> 
-> 
-> true, I'll add that check.
-> 
-> 
-> 
-> 
-> +
-> +       bio_set_dev(bio, bdev);
-> +       bio->bi_iter.bi_sector = sector;
-> +       bio_set_op_attrs(bio, op, op_flags);
-> 
-> 
-> This function is obsolete. Open code this.
-> 
-> 
-> true, will do.
-> 
-> 
-> 
-> 
-> +
-> +       return bio;
-> +}
-> 
->  #endif /* __LINUX_BIO_H */
-> 
-> 
-> 
-> Thanks for the comments Damien.
+> diff --git a/docs/process/xen-release-management.pandoc b/docs/process/xen-release-management.pandoc
+> index e1aa1eda8f..a5d70fed67 100644
+> --- a/docs/process/xen-release-management.pandoc
+> +++ b/docs/process/xen-release-management.pandoc
+> @@ -15,8 +15,10 @@ that they can have an idea what to expect from the Release Manager.
+>  
+>  # Xen release cycle
+>  
+> -The Xen hypervisor project now releases every 8 months. The actual release date
+> -depends on a lot of factors.
+> +The Xen hypervisor project now releases every 8 months.  We aim to
+> +release in the first half of March/July/November.  These dates have
+> +been chosen to avoid major holidays and cultural events; if one
+> +release slips, ideally the previous release cycle would be shortened.
 
-> _______________________________________________
-> Ocfs2-devel mailing list
-> Ocfs2-devel@oss.oracle.com
-> https://oss.oracle.com/mailman/listinfo/ocfs2-devel
+s/previous/subsequent/ ?
 
+> @@ -33,6 +35,12 @@ During freeze period, the tree is closed for new features. Only bug fixes are
+>  accepted. This period can be shorter or longer than 2 months. If it ends up
+>  longer than 2 months, it eats into the next development period.
+>  
+> +The precise release schedule depends on a lot of factors and needs to
+> +be set afresh by the Release Manager in each release cycle.  When the
+> +release is in March, particular consideration should be given to the
+> +Chinese New Year holidaty which will then typically occur curing the
+> +freeze, so the freeze should probably be extended to compensate.
+
+s/curing/during/ I suppose, and there's a stray t in "holiday".
+
+Lgtm apart from these - feel free to translate to an ack if you
+think one is needed.
+
+Jan
 
