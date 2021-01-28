@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40AF63074DC
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 12:34:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.76939.139085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CFE33074F0
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jan 2021 12:39:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.76948.139117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l55Yq-0003JA-Du; Thu, 28 Jan 2021 11:34:04 +0000
+	id 1l55do-0003iE-9W; Thu, 28 Jan 2021 11:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 76939.139085; Thu, 28 Jan 2021 11:34:04 +0000
+Received: by outflank-mailman (output) from mailman id 76948.139117; Thu, 28 Jan 2021 11:39:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l55Yq-0003Il-AG; Thu, 28 Jan 2021 11:34:04 +0000
-Received: by outflank-mailman (input) for mailman id 76939;
- Thu, 28 Jan 2021 11:34:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tEu6=G7=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l55Yo-0003Hu-V0
- for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 11:34:03 +0000
-Received: from mail-lj1-x230.google.com (unknown [2a00:1450:4864:20::230])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d022b032-95ee-4adc-8baa-221e65a8ab4b;
- Thu, 28 Jan 2021 11:34:01 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id l12so5899261ljc.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 03:34:01 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id p15sm1529225lfc.286.2021.01.28.03.33.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Jan 2021 03:33:46 -0800 (PST)
+	id 1l55do-0003hp-6I; Thu, 28 Jan 2021 11:39:12 +0000
+Received: by outflank-mailman (input) for mailman id 76948;
+ Thu, 28 Jan 2021 11:39:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l55dm-0003gd-Ak
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 11:39:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l55dm-0004Wt-58
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 11:39:10 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1l55dm-0001RI-4D
+ for xen-devel@lists.xenproject.org; Thu, 28 Jan 2021 11:39:10 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1l55df-00047v-B2; Thu, 28 Jan 2021 11:39:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,140 +41,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d022b032-95ee-4adc-8baa-221e65a8ab4b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=C8nc54qr91hqP5mk5kE9NoZXMfmBBqjP285Ln7BD4Zo=;
-        b=juuqtBm+QxoOmXTGg5Pa9MBwe9KzoDAO759lkaLAEwEwCG+fCUux3d5cnoivC1WUt8
-         BHO6mYdYwi46wA/x1AmoTEQ5EzbwHIu++zFb4WREr6/yF/GQd6zTn2313zN5Zd9NqdGa
-         41URM1swu8l50AL93i/FQP6jCPseMRejBkRsE1J5fvKdOCxoH/K7Kz9jYeqvQd+Jq+9a
-         5BpLTlCMee7ABNjf49vN97sTrlhzZFeyZUbNa7KUNe+GHmS/Aq92CARTjdsxtI7Eje+k
-         38EMzuBetmchUuWyjZGWwNLKGoag1fbnqc+EvgaaKDeATAoDqE+1mQq3l8qrekYw8BXy
-         hPeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=C8nc54qr91hqP5mk5kE9NoZXMfmBBqjP285Ln7BD4Zo=;
-        b=T9H0jzZuBBcPPdk6h83UZBMfJ5ybr0KScvk+xDwi+xJpZNC5Ygdyx+qZA0Qn/N8k9v
-         w2XplPlWn1+XU7C21s41F15m4qE8jtg/PcH/OwrJb+8cCHbLbaekROmGo5F8wbhFydwl
-         sCBzMzkiZqd9xuvo6JE8Z9+CrixKyY/VGHYnPQooLrzvIBPacvkvLPrCaankqyPyEQW0
-         /3pkR+29lef4saWiIzoqBi/OyqMo4wFkp4uGc+suljhNIO/5zX0Tqn11+Pc0aP/qd0xD
-         CORNAdB3ZCLBVHyNw3VqSPGwxGV+naza1m5KiL/LNUOb0K5cSNmf8KNq/HMWOAQbz/HH
-         q7Vg==
-X-Gm-Message-State: AOAM533PPoZtHDq0GV5VoKs0lPlqn2LIJYRS1aLKYswbuFRBpmGm0zf/
-	pcpN1u4bdb5K8GPEBTQkj54=
-X-Google-Smtp-Source: ABdhPJyUq5sIKleqhsM7eooY2Ih5pa+34uKWDBrQuGaHwG/C6NwavimO1OQXjcZCQGqX7hieMekeUQ==
-X-Received: by 2002:a05:651c:c5:: with SMTP id 5mr4628448ljr.59.1611833640492;
-        Thu, 28 Jan 2021 03:34:00 -0800 (PST)
-Subject: Re: [PATCH V5 14/22] arm/ioreq: Introduce arch specific bits for
- IOREQ/DM features
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <1611601709-28361-1-git-send-email-olekstysh@gmail.com>
- <1611601709-28361-15-git-send-email-olekstysh@gmail.com>
- <67136393-8454-9d28-628a-bfb380fd8fc9@xen.org>
- <aa19b356-aa5b-2427-ab8d-2c1ade84ad1c@gmail.com>
- <a5fd81ac-3ed4-40e7-66d7-a8daf3be4987@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <078a6aa6-2f72-d816-9e14-8132648d3370@gmail.com>
-Date: Thu, 28 Jan 2021 13:33:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=2xsUwPNTtlshm2WMqw1F75iopXm4+mjHsjBFpQNrVBc=; b=K/tCnlKTtZkea1Kfuax5uyOkOm
+	cAJxekuL/kCbFd8Oj077PCV9EomgDJFQWzXZats6NZzyXgSFmkUH4d8RU7+GmyCBUU1y/5fp3Oj3w
+	+ojrfH5xJ0rTfiOcSz9QL5HFoktVo5ZLExuf/11dZmHeI+PyqCIfc4LvgQPog6ZTlH7I=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <a5fd81ac-3ed4-40e7-66d7-a8daf3be4987@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24594.41559.85184.745760@mariner.uk.xensource.com>
+Date: Thu, 28 Jan 2021 11:39:03 +0000
+To: Manuel Bouyer <bouyer@antioche.eu.org>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    xen-devel@lists.xenproject.org,
+    Wei Liu <wl@xen.org>,
+    Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] libs/light: make it build without setresuid()
+In-Reply-To: <20210127193430.GB26055@mail.soc.lip6.fr>
+References: <20210112181242.1570-16-bouyer@antioche.eu.org>
+	<20210118181656.2abblbjg2jvhlad7@Air-de-Roger>
+	<24584.17302.958286.788145@mariner.uk.xensource.com>
+	<20210120151321.GB4175@antioche.eu.org>
+	<24584.19725.745755.464840@mariner.uk.xensource.com>
+	<20210120165615.GB5035@antioche.eu.org>
+	<24584.25612.523093.188718@mariner.uk.xensource.com>
+	<20210120172046.GA5772@antioche.eu.org>
+	<24584.26722.347244.50758@mariner.uk.xensource.com>
+	<24593.36536.770883.890760@mariner.uk.xensource.com>
+	<20210127193430.GB26055@mail.soc.lip6.fr>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+
+Manuel Bouyer writes ("Re: [PATCH] libs/light: make it build without setresuid()"):
+> On Wed, Jan 27, 2021 at 04:03:04PM +0000, Ian Jackson wrote:
+> > How about I write a patch splitting the relevant part up into a
+> > version for systems with setresuid and systems without ?  Then you
+> > could fill in the missing part.
+> 
+> Yesterday I sent a v2 with the rewriting you suggested. But I'm fine
+> with you doing the rewrite.
+
+OK.
+
+> > Should I expect the non-setresuid OS to provide effectively the whole
+> > orf kill_device_model_uid_child, or just a replacement for the
+> > setresuid call and surrounding logging, something like
+> >   kill_device_model_uid_child_setresuid
+> 
+> As far as I'm concerned, kill_device_model_uid_child_setresuid() is enough.
+> 
+> Unfortunably I don't think I'll have time to work on dm restriction
+> for NetBSD before 4.15
+
+No problem.
 
 
-On 28.01.21 11:40, Julien Grall wrote:
+Taking a step back, I think this series is very close to going in, if
+not actually ready.  Do you have a git branch version of this ?
 
-Hi Julien
+I find the series of un-numbered patches you have posted make it hard
+to see the wood for the trees, and collect all the relevant pieces.  A
+git branch version would make the life of the committer considerably
+easier.
 
-> Hi Oleksandr,
->
-> On 27/01/2021 19:20, Oleksandr wrote:
->  >  >>> So I think we may be able to drop the include from 
-> asm/hvm/domain.h
->> (this would avoid to include it everywhere...).
->>
->> I have tried that, but other CUs use definitions from 
->> public/hvm/dm_op.h, for example:
->>
->> p2m-pt.c: In function 'p2m_type_to_flags':
->> p2m-pt.c:87:33: error: 'XEN_DMOP_IOREQ_MEM_ACCESS_WRITE' undeclared 
->> (first use in this function)
->>           if ( p2m->ioreq.flags & XEN_DMOP_IOREQ_MEM_ACCESS_WRITE )
->>                                   ^
->> So, I would prefer to leave it as is, please let me know if you think 
->> otherwise.
->
-> AFAICT, there is only 2 places (p2m-pt.c and p2m-ept.c) that requires 
-> <public/hvm/dm_op.h> but doesn't directly include it. Folding the diff 
-> below in patch #4 should do the job:
+If you don't have a favourite public git server you can post me a link
+to, you could use gitlab.com where we have a mirror of xen.git.
+   https://gitlab.com/xen-project/xen
 
-ok, will do
+(If you need instructions mail me privately.)
 
-
->
-> diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
-> index 975ab403f235..23d411f01d2f 100644
-> --- a/xen/arch/x86/mm/p2m-ept.c
-> +++ b/xen/arch/x86/mm/p2m-ept.c
-> @@ -17,6 +17,7 @@
->
->  #include <xen/domain_page.h>
->  #include <xen/sched.h>
-> +#include <public/hvm/dm_op.h>
->  #include <asm/altp2m.h>
->  #include <asm/current.h>
->  #include <asm/paging.h>
-> diff --git a/xen/arch/x86/mm/p2m-pt.c b/xen/arch/x86/mm/p2m-pt.c
-> index c43d5d0413a1..f2afcf49a368 100644
-> --- a/xen/arch/x86/mm/p2m-pt.c
-> +++ b/xen/arch/x86/mm/p2m-pt.c
-> @@ -27,6 +27,7 @@
->  #include <xen/vm_event.h>
->  #include <xen/event.h>
->  #include <xen/trace.h>
-> +#include <public/hvm/dm_op.h>
->  #include <public/vm_event.h>
->  #include <asm/altp2m.h>
->  #include <asm/domain.h>
-> diff --git a/xen/include/asm-x86/hvm/domain.h 
-> b/xen/include/asm-x86/hvm/domain.h
-> index 3b36c2f41fa1..f26c1a2e2d5f 100644
-> --- a/xen/include/asm-x86/hvm/domain.h
-> +++ b/xen/include/asm-x86/hvm/domain.h
-> @@ -28,8 +28,6 @@
->  #include <asm/hvm/vmx/vmcs.h>
->  #include <asm/hvm/svm/vmcb.h>
->
-> -#include <public/hvm/dm_op.h>
-> -
->  #ifdef CONFIG_MEM_SHARING
->  struct mem_sharing_domain
->  {
->
-> You would then need to move the include of <public/hvm/dm_op.h> in 
-> <xen/dm.h> from this patch to patch #9.
-
-yes, sure
-
-
--- 
 Regards,
-
-Oleksandr Tyshchenko
-
+Ian.
 
