@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09AF4308471
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 04:59:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77688.140876 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFF9A30847E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 05:12:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77697.140891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Kva-0003ar-5E; Fri, 29 Jan 2021 03:58:34 +0000
+	id 1l5L95-0005i6-Cn; Fri, 29 Jan 2021 04:12:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77688.140876; Fri, 29 Jan 2021 03:58:34 +0000
+Received: by outflank-mailman (output) from mailman id 77697.140891; Fri, 29 Jan 2021 04:12:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5KvZ-0003aO-Vl; Fri, 29 Jan 2021 03:58:33 +0000
-Received: by outflank-mailman (input) for mailman id 77688;
- Fri, 29 Jan 2021 03:58:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5KvY-0003aG-Uy; Fri, 29 Jan 2021 03:58:32 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5KvY-0003qX-KP; Fri, 29 Jan 2021 03:58:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5KvY-00055s-Dg; Fri, 29 Jan 2021 03:58:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l5KvY-0007Cm-DA; Fri, 29 Jan 2021 03:58:32 +0000
+	id 1l5L95-0005hj-9H; Fri, 29 Jan 2021 04:12:31 +0000
+Received: by outflank-mailman (input) for mailman id 77697;
+ Fri, 29 Jan 2021 04:12:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CfXQ=HA=gmail.com=jlpoole56@srs-us1.protection.inumbo.net>)
+ id 1l5L93-0005hc-M7
+ for xen-devel@lists.xen.org; Fri, 29 Jan 2021 04:12:29 +0000
+Received: from mail-pl1-x62c.google.com (unknown [2607:f8b0:4864:20::62c])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2a7a44a6-c483-45da-aee4-1e47b5038210;
+ Fri, 29 Jan 2021 04:12:28 +0000 (UTC)
+Received: by mail-pl1-x62c.google.com with SMTP id b17so4551885plz.6
+ for <xen-devel@lists.xen.org>; Thu, 28 Jan 2021 20:12:28 -0800 (PST)
+Received: from [192.168.1.2] (75-164-166-38.ptld.qwest.net. [75.164.166.38])
+ by smtp.googlemail.com with ESMTPSA id b17sm6876227pfo.151.2021.01.28.20.12.26
+ for <xen-devel@lists.xen.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Jan 2021 20:12:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,258 +42,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=tQLVleWD9tIpg2rjTAXVP3Hf2i1YpKrcVACawXdlNaE=; b=r55q/ed9HXuXWsWUn7xWEG88Xz
-	B187JHnDt2JTsR19d4Q8PuSCeEsQKbh+zdlQmp+iyYmgvbkopJJnMD2uOb45TR3/zNVmv9D8bJYS7
-	8ngi26x+KLF1biVkoBsIgsK2ERJcPu5iicYnaocExZZhFWD4NFCssxnrlYjYBbN4ooDg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158752-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2a7a44a6-c483-45da-aee4-1e47b5038210
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=reply-to:from:subject:to:message-id:date:user-agent:mime-version
+         :content-transfer-encoding:content-language;
+        bh=k49HqiK/igngsk3HCsvQ+LGIboeDo80MI6abtqN5nE4=;
+        b=KcopK7fhF8JFKyRyk8fn7zWl+//B5Jh2KUNTVkV+GAFFpDM7VQkJAXg2wZo4jeyYbT
+         4oFVUAbZeQh8KY/RvR02vByRKM4AsxGB/Qd9UgXb2aE78vcxGVz8gff8k+FZWgkiEnqF
+         7ftuWNf24TTahjakuwUi6bgLkfgWPr8EF3BwABZzYMeeFqpUTjmAucDYU5UI2hhz7tgV
+         +d15u95dkuwwVO7AVbq1XPCwCdWy4QnuMQWIg4kEXwYBqlg5cHh1RlT5dAPBQPMvey18
+         WIWrhwJf+YGpHy7f2NyItyDYN/+CbToVzhDwXIkbIva/x6MUhLJJQi70xJlqJpMcqrMg
+         sgfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:reply-to:from:subject:to:message-id:date
+         :user-agent:mime-version:content-transfer-encoding:content-language;
+        bh=k49HqiK/igngsk3HCsvQ+LGIboeDo80MI6abtqN5nE4=;
+        b=jr2mfPtQr5jV8HbeuFlN22FfGrMPGR+ppChwJ1+N6vW/Q/RMTn2KV9v884ZtrLBaK9
+         YwcAGpcNI5ooVOKDVFTrnHuoRdX7ZTYmLnUzvSNDnusdFHucFXoNJu27hhiaFScJhUSU
+         FEokvNVFhZtaSy2cHr85PzwEOTGI4scq6n/SCgdv4GNCUj2sxaUeSX5C4lO2Vmj/5Zb7
+         w0uBpiufEFaQjyM7AU/8mKa4cNNfe4KkvEjWhC5z+Wx+jrHVkzxHUZ5ynhgpq01Va7DX
+         mfTZGhl0o0XqOVYoDCHfQodrbuk0Mfgv3pBw/W/ZbAU6kSyRrqaUid4GCJg0SsC6KURf
+         k9zg==
+X-Gm-Message-State: AOAM532JIMBS5P9d38y0SVsPkXUErl0usg0qUGeCjjb7aVJ2gBz7/WdF
+	IcihNAVdiNVqNAEtYKmg0zKHmOgGzZc=
+X-Google-Smtp-Source: ABdhPJwDVhRVz/PmJj3rWrmKklCFVzSh72SG9zRYXAIOQdIKSHB9b5V/CQe+3bbe5pCzUzib1ZpXIA==
+X-Received: by 2002:a17:903:31d1:b029:de:8361:739b with SMTP id v17-20020a17090331d1b02900de8361739bmr2605812ple.85.1611893547415;
+        Thu, 28 Jan 2021 20:12:27 -0800 (PST)
+Reply-To: jlpoole56@gmail.com
+From: "John L. Poole" <jlpoole56@gmail.com>
+Subject: Is initramfs' /dev supposed to show exposed targets at Guest Boot
+ Time?
+To: xen-devel@lists.xen.org
+Message-ID: <1b60bde3-3f11-baee-d2b1-e33e05ffe0b1@gmail.com>
+Date: Thu, 28 Jan 2021 20:11:48 -0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158752: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=ec0648db751a08486a586a5e9b5de4e81baebfca
-X-Osstest-Versions-That:
-    xen=6677b5a3577c16501fbc51a3341446905bd21c38
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Jan 2021 03:58:32 +0000
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-flight 158752 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158752/
+Greetings,
 
-Regressions :-(
+I try to run Xen on low energy platforms.  I've previously been here 
+about an Intal Atom which died
+just after the 3 year warranty expired.  So I'm trying AMD's laptop 
+Ryzen.  I think I've been using Xen
+for 8 years.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 158713
+I have Debian (Linux snuc 4.19.0-13-amd64 #1 SMP Debian 4.19.160-2 
+(2020-11-28) x86_64 GNU/Linux)
+running on a new SimplyNuC:  Aspen PN50 R7 4800U with a AMD Ryzen™ 4000 
+Renoir mobile processor.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+(I tried to run Xen from the factory installed Ubuntu and ran into the 
+same problem below, so I
+thought I ought to use Debian in case Ubuntu had a shortcoming re: lvm)
 
-version targeted for testing:
- xen                  ec0648db751a08486a586a5e9b5de4e81baebfca
-baseline version:
- xen                  6677b5a3577c16501fbc51a3341446905bd21c38
+I created volumes with lvm, i.e. /dev/vg0/aresboot, /dev/vg0/aresswap, 
+/dev/vg0/aresserver
+which are to be exposed to the Gentoo environment as sda1, sda2, and 
+sda3.  My Gentoo
+/etc/fstab accordingly has sda1,2, & 3 specified.  My problem occurs, I 
+think, before my Gentoo
+kernel even has a chance to perform its initialization.
 
-Last test of basis   158713  2021-01-27 23:00:26 Z    1 days
-Failing since        158724  2021-01-28 12:01:30 Z    0 days    5 attempts
-Testing same since   158752  2021-01-29 01:02:35 Z    0 days    1 attempts
+I am trying to create a Gentoo VM and successfully built a kernel and 
+initramfs in a chrooted
+environment within /dev/vg0/aresserver.  I've successfully done this 
+before on
+other platforms; however, my attempt now is on this tiny, but powerful 
+and efficient, SimplyNUC.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Manuel Bouyer <bouyer@netbsd.org>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-  Wei Liu <wl@xen.org>
+And, I think this may be my first time using LVM partitions exclusively 
+rather than standard fsdisk partitions.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+When I try to "xl create ares.conf -c", the Gentoo kernel is unable to 
+see the labeled "sda3"
+[target is Debian's /dev/vg0/aresserver].
+
+I'm not new Xen and have not had this kind of problem before, but I also 
+don't think I staged
+my guests completely on lvm partitions.  I'm thinking there is a problem 
+between the
+Xen Kernel code and Gentoo's kernel and I think the problem may be on 
+the Gentoo side.
+
+The version of lvm on Debian is: 2.03.02(2)
+The version of lvm [lvm2] on Gentoo is: 2.02.187-r2
+
+(Would a lvm 2.02 be unable to read a 2.03??)
+
+My question now is: when my Gentoo initramfs can't find the partition 
+and I enter its shell, should I
+be seeing the exposed partition, e.g. "sda3", under /dev?  I think so.
+
+None of the names I specify, e.g. "sda3", appear under the /dev listing 
+(see pastebin below).
+
+A sample configuration for the disk (just 1 target used to debug this 
+problem) is:
+
+disk = ['format=raw, vdev=sda3, access=rw, 
+target=/dev/mapper/vg0-aresserver']
+
+I have tried specifying root as "sda3" -- the name that the target 
+should appear as in the guest
+environment as well as the full path from the Dom0 environment (above).
+
+I'm guessing my problem is an initramfs and/or kernel issue in Gentoo: 
+being unable to
+read an lvm partition.  Note, when I compiled, I used genkernel as follows:
+
+      genkernel --menuconfig --lvm --mdadm all
+
+and my xen configuration has:
+
+      root=/dev/vg0/aresserver dolvm  domdadm
+
+(root=/dev/sda3 and root=sda3 do not work either)
+
+Before I approach Gentoo developers, I wanted to learn from the Xen 
+gurus that my assumption that the
+initramfs /dev listing is the correct assay to determine if initramfs 
+and/or the kernel are
+able to see the Debian lvm partitions.
+
+Here is a pastebin of my create session and listing of /dev from within 
+initramfs shell: https://pastebin.com/juybx5gU
+
+So, should I be seeing "sda3" when I list /dev?
+
+Thank you.
+-- 
+Email Rider
+
+John Laurence Poole
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit ec0648db751a08486a586a5e9b5de4e81baebfca
-Author: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Date:   Tue Jan 26 11:03:28 2021 -0800
-
-    xen: add (EXPERT) to one-line description of XEN_SHSTK
-    
-    Add an "(EXPERT)" tag to the one-line description of Kconfig options
-    that depend on EXPERT. (Not where just the prompt depends on EXPERT.)
-    
-    Today we only have one such option: XEN_SHSTK.
-    
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    CC: andrew.cooper3@citrix.com
-    CC: george.dunlap@citrix.com
-    CC: iwj@xenproject.org
-    CC: jbeulich@suse.com
-    CC: julien@xen.org
-    CC: wl@xen.org
-
-commit d96e5e6c12145b4fc7b19b7b4751d20540061da0
-Author: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Date:   Tue Jan 26 11:03:27 2021 -0800
-
-    xen: EXPERT clean-up and introduce UNSUPPORTED
-    
-    A recent thread [1] has exposed a couple of issues with our current way
-    of handling EXPERT.
-    
-    1) It is not obvious that "Configure standard Xen features (expert
-    users)" is actually the famous EXPERT we keep talking about on xen-devel
-    
-    2) It is not obvious when we need to enable EXPERT to get a specific
-    feature
-    
-    In particular if you want to enable ACPI support so that you can boot
-    Xen on an ACPI platform, you have to enable EXPERT first. But searching
-    through the kconfig menu it is really not clear (type '/' and "ACPI"):
-    nothing in the description tells you that you need to enable EXPERT to
-    get the option.
-    
-    So this patch makes things easier by doing two things:
-    
-    - introduce a new kconfig option UNSUPPORTED which is clearly to enable
-      UNSUPPORTED features as defined by SUPPORT.md
-    
-    - change EXPERT options to UNSUPPORTED where it makes sense: keep
-      depending on EXPERT for features made for experts
-    
-    - tag unsupported features by adding (UNSUPPORTED) to the one-line
-      description
-    
-    - clarify the EXPERT one-line description
-    
-    [1] https://marc.info/?l=xen-devel&m=160333101228981
-    
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com> [x86,common]
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    CC: andrew.cooper3@citrix.com
-    CC: george.dunlap@citrix.com
-    CC: iwj@xenproject.org
-    CC: jbeulich@suse.com
-    CC: julien@xen.org
-    CC: wl@xen.org
-
-commit 6ca510153350163b02809ae06e1dabad89c2c786
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jan 27 19:43:32 2021 +0000
-
-    x86/boot: Drop 'noapic' suggestion from check_timer()
-    
-    In practice, there is no such thing as a real 64bit system without
-    APICs.  (PVH style virtual environments, sure, but they don't end up here).
-    
-    The suggestion to try and use noapic only makes a bad situation worse.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 525cae0b9eb359774f08ceb609c333954bcb00e8
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Wed Nov 25 13:22:08 2020 +0000
-
-    xen-release-management doc: More info on schedule
-    
-    This documents our practice, established in 2018
-      https://lists.xen.org/archives/html/xen-devel/2018-07/msg02240.html
-    et seq
-    
-    CC: Jürgen Groß <jgross@suse.com>
-    CC: Paul Durrant <xadimgnik@gmail.com>
-    CC: Wei Liu <wl@xen.org>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
-
-commit e8524e4d4d612ef53943f539da2e81785282e5af
-Author: Manuel Bouyer <bouyer@netbsd.org>
-Date:   Tue Jan 12 19:12:21 2021 +0100
-
-    Fix error: array subscript has type 'char'
-    
-    Use unsigned char variable, or cast to (unsigned char), for
-    tolower()/islower() and friends. Fix compiler error
-    array subscript has type 'char' [-Werror=char-subscripts]
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 6e2046378086d2eaf3f1fe807a2fd697f2630f40
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jul 29 16:28:32 2020 +0100
-
-    xen/memory: Clarify the XENMEM_acquire_resource ABI description
-    
-    This is how similar operations already operate, compatible with the sole
-    implementation (in Linux), and explicitly gives us some flexibility.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-
-commit 75fc85998546878ca5417071a6ca60c34065c2c3
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu Jul 23 15:58:48 2020 +0100
-
-    tools/foreignmem: Support querying the size of a resource
-    
-    With the Xen side of this interface (soon to be) fixed to return real sizes,
-    userspace needs to be able to make the query.
-    
-    Introduce xenforeignmemory_resource_size() for the purpose, bumping the
-    library minor version.
-    
-    Update both all osdep_xenforeignmemory_map_resource() implementations to
-    understand size requests, skip the mmap() operation, and copy back the
-    nr_frames field.
-    
-    For NetBSD, also fix up the ioctl() error path to issue an unmap(), which was
-    overlooked by c/s 4a64e2bb39 "libs/foreignmemory: Implement on NetBSD".
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 2b4b33ffe7d67dc677350a3e1fa7a11d7ab49fb4
-Author: Manuel Bouyer <bouyer@netbsd.org>
-Date:   Tue Jan 26 23:47:52 2021 +0100
-
-    libs/foreignmemory: Implement on NetBSD
-    
-    Implement foreignmemory interface on NetBSD. The compat interface is now used
-    only on __sun__
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-(qemu changes not included)
 
