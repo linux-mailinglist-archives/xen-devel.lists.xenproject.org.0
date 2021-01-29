@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B50308360
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F0A230835F
 	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 02:49:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77578.140608 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.77579.140620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Iuf-0004sp-RJ; Fri, 29 Jan 2021 01:49:29 +0000
+	id 1l5Iuk-0004y0-Ah; Fri, 29 Jan 2021 01:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77578.140608; Fri, 29 Jan 2021 01:49:29 +0000
+Received: by outflank-mailman (output) from mailman id 77579.140620; Fri, 29 Jan 2021 01:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Iuf-0004s7-NF; Fri, 29 Jan 2021 01:49:29 +0000
-Received: by outflank-mailman (input) for mailman id 77578;
- Fri, 29 Jan 2021 01:49:27 +0000
+	id 1l5Iuk-0004xO-2R; Fri, 29 Jan 2021 01:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 77579;
+ Fri, 29 Jan 2021 01:49:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AjHm=HA=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1l5Iud-0004da-Jz
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 01:49:27 +0000
-Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
+ id 1l5Iui-0004da-Jv
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 01:49:32 +0000
+Received: from mail-lj1-x22b.google.com (unknown [2a00:1450:4864:20::22b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 94a7b5d1-73e6-4697-b6eb-9c4eddf3578f;
- Fri, 29 Jan 2021 01:49:11 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id a12so10326725lfb.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 17:49:10 -0800 (PST)
+ id a50a8c0f-025e-4589-8e3e-82577820982b;
+ Fri, 29 Jan 2021 01:49:12 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id r14so8743959ljc.2
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jan 2021 17:49:12 -0800 (PST)
 Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id z128sm1840238lfa.72.2021.01.28.17.49.08
+ by smtp.gmail.com with ESMTPSA id z128sm1840238lfa.72.2021.01.28.17.49.09
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 28 Jan 2021 17:49:09 -0800 (PST)
+ Thu, 28 Jan 2021 17:49:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94a7b5d1-73e6-4697-b6eb-9c4eddf3578f
+X-Inumbo-ID: a50a8c0f-025e-4589-8e3e-82577820982b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=jSb7x+4yQyqCLdt0Hc3olaT2zK2MLUsGOPPC0n8/O54=;
-        b=LajRGJW2QNITxPoExTnsYEghUCzo33JCP7te/a3L3a9KPv9jZ6kVr3jC5qKr0sNAWf
-         +cKp3lSY5XnAN8xd5WpciOkiLtbQfPQjoZ5IOPMToRyU/rk9hJnnG00pqWfAYSGlRjt+
-         1M2Klr/sTgU8+onvlEw7FilR0wHfMCmsgW5XXgWoTesPF8axWAnYnOKibmYHekaw53Md
-         kmZEHZF69t0Td1duoWTJA/54rKMR+hzpnW62um9DfsScfzxJKKqak9jKJdrzFazYOf7n
-         fBHipjyxhEVAXhQrWqlI7KByxbuEVn52cvxuRFcmlH2A1dv5YIvqIb1MiCWfNmAb0ZaO
-         ltHw==
+        bh=4xuAT5BoXwLYZKVpDnJ4oCiBPzwMaEaaq9l2TzHM01U=;
+        b=YssgsN8JEg7tB9BnA3WAA2KozYG+SFlVIZZhqp/xJ9Zru9Xh33PmKG8hF6dopt/sRt
+         mp9mYbpvTBXDGQhk1cDu5jszmXY1ld10KuYMx33GBn374Entw7KQBN2WmXV+m+b77fa6
+         Zb96a9beo5u1c9D1+lpBu26wnkFSe4ZbdphMH9Q+xbGEOeLUcRNUYo1sYEQYmVJi8hY8
+         qCWEWD6vXrINglygqeaVngymldJDE/Go+SpDaKtmVpbgGYgyyORssjKb5CoOHRbqQkfS
+         ZCDsxkmRq72Qgz9hta7rzops+qNDV4ljsqp4G5b1TaZuNDehW9ZLtvbwkAk3Qzp/pCGQ
+         vwCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=jSb7x+4yQyqCLdt0Hc3olaT2zK2MLUsGOPPC0n8/O54=;
-        b=a+u9EJg94cAjIr4SlSnopa4BG+XkAg0uiDTB0QY4tCSeJS11+vxmtGMuB/Pcj/0CmW
-         tSdAAQukU2x/Dukm3ctAMM/PcUSUkBwhRe8jV7iqwHDei0hDwqUp381Ner38ZGslBCt2
-         JQImgL0i5kFm8mJITY79R3o3NNjIhwj0ikFhARYQEOp4SmAlt5hX2E+8FDvP+0/qg2ph
-         tQGwn1kOpVXPWqhzzJGQU6wfB0yAheNu+UtxaL8rm+Ej0378OGsbVLdTjLKP2k3O+6RS
-         CmSxbYysSxkbmE9yXRIW7tIZPo3QyARQJHPBKnFz2Nz8eVbP6WvX3oIo1RIVW/FNX74U
-         wijw==
-X-Gm-Message-State: AOAM5332Suf+Zq5f8FYDuhsF/dBGsbd8nwNaaso5214pP37LSbmK/c8U
-	78zgSUvyg0JxNz2ifOHdgLsfYPT0fogA0w==
-X-Google-Smtp-Source: ABdhPJx0169AU/SRPkWn0JUW/nPlOzvXT7MZcyjdbLc/GxrcbLQDSLyYre/Ck4bX+arijvXLK/DAow==
-X-Received: by 2002:ac2:4436:: with SMTP id w22mr855089lfl.41.1611884949760;
-        Thu, 28 Jan 2021 17:49:09 -0800 (PST)
+        bh=4xuAT5BoXwLYZKVpDnJ4oCiBPzwMaEaaq9l2TzHM01U=;
+        b=A00s2JUjD8eNH6E/UpXOmzD9pWyUVtRxm0NCKULw1YOSbB7mJe5m24wkrFk9oP5uf2
+         W40EfTWgZAaKXtu+nGXvaAx9ED6D9hs5QBvsQFllMskIRDoXMUFGOF936bqAT8wZt6N6
+         MRrIG3iWPTYm13fJCS/qTED0q+Z36PRvX+yJs5m7GpPdl0dRms5MazjX3UyeVKZbg7Rw
+         YoSP03QYiKb3aJAcym9HGxIN9cF0PZfSofWDU5jYOoQjfGF3IoSHvlxn8N8oLGV5sDof
+         oLC4fR1Qxjj1EKnosmuaWQg9+Ga8/MKd6tvjLLEd7sFNoBbi5TJaauoqrww3OHO8CUAk
+         O7MQ==
+X-Gm-Message-State: AOAM5300jnzahFmQNyjQ9l765svEsHIyRwtDqvMAUak/3pFg5fl6syKK
+	9ZY8/waS0MtU7sHs1ywooI+iac1Urq2UZA==
+X-Google-Smtp-Source: ABdhPJyZiSygaXMCJRK6GlVWwJv30GUfOrPNK17jx7jQtqN6Jkc4F1vh48J31jBGU1IJqAM9yz8Xyg==
+X-Received: by 2002:a2e:5802:: with SMTP id m2mr1176199ljb.145.1611884950983;
+        Thu, 28 Jan 2021 17:49:10 -0800 (PST)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
@@ -80,9 +80,9 @@ Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien.grall@arm.com>
-Subject: [PATCH V6 05/24] xen/ioreq: Make x86's hvm_ioreq_needs_completion() common
-Date: Fri, 29 Jan 2021 03:48:33 +0200
-Message-Id: <1611884932-1851-6-git-send-email-olekstysh@gmail.com>
+Subject: [PATCH V6 06/24] xen/ioreq: Make x86's hvm_mmio_first(last)_byte() common
+Date: Fri, 29 Jan 2021 03:48:34 +0200
+Message-Id: <1611884932-1851-7-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1611884932-1851-1-git-send-email-olekstysh@gmail.com>
 References: <1611884932-1851-1-git-send-email-olekstysh@gmail.com>
@@ -92,13 +92,9 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-The IOREQ is a common feature now and this helper will be used
-on Arm as is. Move it to xen/ioreq.h and remove "hvm" prefix.
-
-Although PIO handling on Arm is not introduced with the current series
-(it will be implemented when we add support for vPCI), technically
-the PIOs exist on Arm (however they are accessed the same way as MMIO)
-and it would be better not to diverge now.
+The IOREQ is a common feature now and these helpers will be used
+on Arm as is. Move them to xen/ioreq.h and replace "hvm" prefixes
+with "ioreq".
 
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 Reviewed-by: Paul Durrant <paul@xen.org>
@@ -114,11 +110,10 @@ Please note, this is a split/cleanup/hardening of Julien's PoC:
 "Add support for Guest IO forwarding to a device emulator"
 
 Changes RFC -> V1:
-   - new patch, was split from:
-     "[RFC PATCH V1 01/12] hvm/ioreq: Make x86's IOREQ feature common"
+   - new patch
 
 Changes V1 -> V2:
-   - remove "hvm" prefix
+   - replace "hvm" prefix by "ioreq"
 
 Changes V2 -> V3:
    - add Paul's R-b
@@ -135,106 +130,127 @@ Changes V5 -> V6:
 
 ---
 ---
- xen/arch/x86/hvm/emulate.c     | 4 ++--
- xen/arch/x86/hvm/io.c          | 2 +-
- xen/common/ioreq.c             | 4 ++--
- xen/include/asm-x86/hvm/vcpu.h | 7 -------
- xen/include/xen/ioreq.h        | 7 +++++++
- 5 files changed, 12 insertions(+), 12 deletions(-)
+ xen/arch/x86/hvm/intercept.c |  5 +++--
+ xen/arch/x86/hvm/stdvga.c    |  4 ++--
+ xen/common/ioreq.c           |  4 ++--
+ xen/include/asm-x86/hvm/io.h | 16 ----------------
+ xen/include/xen/ioreq.h      | 16 ++++++++++++++++
+ 5 files changed, 23 insertions(+), 22 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index 60ca465..c3487b5 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -336,7 +336,7 @@ static int hvmemul_do_io(
-             rc = hvm_send_ioreq(s, &p, 0);
-             if ( rc != X86EMUL_RETRY || currd->is_shutting_down )
-                 vio->io_req.state = STATE_IOREQ_NONE;
--            else if ( !hvm_ioreq_needs_completion(&vio->io_req) )
-+            else if ( !ioreq_needs_completion(&vio->io_req) )
-                 rc = X86EMUL_OKAY;
-         }
-         break;
-@@ -2649,7 +2649,7 @@ static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
-     if ( rc == X86EMUL_OKAY && vio->mmio_retry )
-         rc = X86EMUL_RETRY;
+diff --git a/xen/arch/x86/hvm/intercept.c b/xen/arch/x86/hvm/intercept.c
+index cd4c4c1..02ca3b0 100644
+--- a/xen/arch/x86/hvm/intercept.c
++++ b/xen/arch/x86/hvm/intercept.c
+@@ -17,6 +17,7 @@
+  * this program; If not, see <http://www.gnu.org/licenses/>.
+  */
  
--    if ( !hvm_ioreq_needs_completion(&vio->io_req) )
-+    if ( !ioreq_needs_completion(&vio->io_req) )
-         completion = HVMIO_no_completion;
-     else if ( completion == HVMIO_no_completion )
-         completion = (vio->io_req.type != IOREQ_TYPE_PIO ||
-diff --git a/xen/arch/x86/hvm/io.c b/xen/arch/x86/hvm/io.c
-index 11e007d..ef8286b 100644
---- a/xen/arch/x86/hvm/io.c
-+++ b/xen/arch/x86/hvm/io.c
-@@ -135,7 +135,7 @@ bool handle_pio(uint16_t port, unsigned int size, int dir)
++#include <xen/ioreq.h>
+ #include <xen/types.h>
+ #include <xen/sched.h>
+ #include <asm/regs.h>
+@@ -34,7 +35,7 @@
+ static bool_t hvm_mmio_accept(const struct hvm_io_handler *handler,
+                               const ioreq_t *p)
+ {
+-    paddr_t first = hvm_mmio_first_byte(p), last;
++    paddr_t first = ioreq_mmio_first_byte(p), last;
  
-     rc = hvmemul_do_pio_buffer(port, size, dir, &data);
+     BUG_ON(handler->type != IOREQ_TYPE_COPY);
  
--    if ( hvm_ioreq_needs_completion(&vio->io_req) )
-+    if ( ioreq_needs_completion(&vio->io_req) )
-         vio->io_completion = HVMIO_pio_completion;
+@@ -42,7 +43,7 @@ static bool_t hvm_mmio_accept(const struct hvm_io_handler *handler,
+         return 0;
  
-     switch ( rc )
+     /* Make sure the handler will accept the whole access. */
+-    last = hvm_mmio_last_byte(p);
++    last = ioreq_mmio_last_byte(p);
+     if ( last != first &&
+          !handler->mmio.ops->check(current, last) )
+         domain_crash(current->domain);
+diff --git a/xen/arch/x86/hvm/stdvga.c b/xen/arch/x86/hvm/stdvga.c
+index fd7cadb..17dee74 100644
+--- a/xen/arch/x86/hvm/stdvga.c
++++ b/xen/arch/x86/hvm/stdvga.c
+@@ -524,8 +524,8 @@ static bool_t stdvga_mem_accept(const struct hvm_io_handler *handler,
+      * deadlock when hvm_mmio_internal() is called from
+      * hvm_copy_to/from_guest_phys() in hvm_process_io_intercept().
+      */
+-    if ( (hvm_mmio_first_byte(p) < VGA_MEM_BASE) ||
+-         (hvm_mmio_last_byte(p) >= (VGA_MEM_BASE + VGA_MEM_SIZE)) )
++    if ( (ioreq_mmio_first_byte(p) < VGA_MEM_BASE) ||
++         (ioreq_mmio_last_byte(p) >= (VGA_MEM_BASE + VGA_MEM_SIZE)) )
+         return 0;
+ 
+     spin_lock(&s->lock);
 diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-index 4e7d91b..61ddd54 100644
+index 61ddd54..89e75ff 100644
 --- a/xen/common/ioreq.c
 +++ b/xen/common/ioreq.c
-@@ -160,7 +160,7 @@ static bool hvm_wait_for_io(struct hvm_ioreq_vcpu *sv, ioreq_t *p)
-     }
+@@ -1078,8 +1078,8 @@ struct hvm_ioreq_server *hvm_select_ioreq_server(struct domain *d,
+             break;
  
-     p = &sv->vcpu->arch.hvm.hvm_io.io_req;
--    if ( hvm_ioreq_needs_completion(p) )
-+    if ( ioreq_needs_completion(p) )
-         p->data = data;
+         case XEN_DMOP_IO_RANGE_MEMORY:
+-            start = hvm_mmio_first_byte(p);
+-            end = hvm_mmio_last_byte(p);
++            start = ioreq_mmio_first_byte(p);
++            end = ioreq_mmio_last_byte(p);
  
-     sv->pending = false;
-@@ -186,7 +186,7 @@ bool handle_hvm_io_completion(struct vcpu *v)
-     if ( sv && !hvm_wait_for_io(sv, get_ioreq(s, v)) )
-         return false;
- 
--    vio->io_req.state = hvm_ioreq_needs_completion(&vio->io_req) ?
-+    vio->io_req.state = ioreq_needs_completion(&vio->io_req) ?
-         STATE_IORESP_READY : STATE_IOREQ_NONE;
- 
-     msix_write_completion(v);
-diff --git a/xen/include/asm-x86/hvm/vcpu.h b/xen/include/asm-x86/hvm/vcpu.h
-index 5ccd075..6c1feda 100644
---- a/xen/include/asm-x86/hvm/vcpu.h
-+++ b/xen/include/asm-x86/hvm/vcpu.h
-@@ -91,13 +91,6 @@ struct hvm_vcpu_io {
-     const struct g2m_ioport *g2m_ioport;
+             if ( rangeset_contains_range(r, start, end) )
+                 return s;
+diff --git a/xen/include/asm-x86/hvm/io.h b/xen/include/asm-x86/hvm/io.h
+index 3d2e877..3a4a739 100644
+--- a/xen/include/asm-x86/hvm/io.h
++++ b/xen/include/asm-x86/hvm/io.h
+@@ -40,22 +40,6 @@ struct hvm_mmio_ops {
+     hvm_mmio_write_t write;
  };
  
--static inline bool hvm_ioreq_needs_completion(const ioreq_t *ioreq)
+-static inline paddr_t hvm_mmio_first_byte(const ioreq_t *p)
 -{
--    return ioreq->state == STATE_IOREQ_READY &&
--           !ioreq->data_is_ptr &&
--           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
+-    return unlikely(p->df) ?
+-           p->addr - (p->count - 1ul) * p->size :
+-           p->addr;
 -}
 -
- struct nestedvcpu {
-     bool_t nv_guestmode; /* vcpu in guestmode? */
-     void *nv_vvmcx; /* l1 guest virtual VMCB/VMCS */
+-static inline paddr_t hvm_mmio_last_byte(const ioreq_t *p)
+-{
+-    unsigned long size = p->size;
+-
+-    return unlikely(p->df) ?
+-           p->addr + size - 1:
+-           p->addr + (p->count * size) - 1;
+-}
+-
+ typedef int (*portio_action_t)(
+     int dir, unsigned int port, unsigned int bytes, uint32_t *val);
+ 
 diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
-index 430fc22..e957b52 100644
+index e957b52..6853aa3 100644
 --- a/xen/include/xen/ioreq.h
 +++ b/xen/include/xen/ioreq.h
-@@ -23,6 +23,13 @@
+@@ -23,6 +23,22 @@
  
  #include <public/hvm/dm_op.h>
  
-+static inline bool ioreq_needs_completion(const ioreq_t *ioreq)
++static inline paddr_t ioreq_mmio_first_byte(const ioreq_t *p)
 +{
-+    return ioreq->state == STATE_IOREQ_READY &&
-+           !ioreq->data_is_ptr &&
-+           (ioreq->type != IOREQ_TYPE_PIO || ioreq->dir != IOREQ_WRITE);
++    return unlikely(p->df) ?
++           p->addr - (p->count - 1ul) * p->size :
++           p->addr;
 +}
 +
- #define HANDLE_BUFIOREQ(s) \
-     ((s)->bufioreq_handling != HVM_IOREQSRV_BUFIOREQ_OFF)
- 
++static inline paddr_t ioreq_mmio_last_byte(const ioreq_t *p)
++{
++    unsigned long size = p->size;
++
++    return unlikely(p->df) ?
++           p->addr + size - 1:
++           p->addr + (p->count * size) - 1;
++}
++
+ static inline bool ioreq_needs_completion(const ioreq_t *ioreq)
+ {
+     return ioreq->state == STATE_IOREQ_READY &&
 -- 
 2.7.4
 
