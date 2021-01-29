@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B1533086E9
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 09:14:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77765.141046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0318D3086F1
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 09:18:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77775.141071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Oul-000630-9l; Fri, 29 Jan 2021 08:13:59 +0000
+	id 1l5Oz4-0006LQ-Aa; Fri, 29 Jan 2021 08:18:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77765.141046; Fri, 29 Jan 2021 08:13:59 +0000
+Received: by outflank-mailman (output) from mailman id 77775.141071; Fri, 29 Jan 2021 08:18:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Oul-00062e-6s; Fri, 29 Jan 2021 08:13:59 +0000
-Received: by outflank-mailman (input) for mailman id 77765;
- Fri, 29 Jan 2021 08:13:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rFjR=HA=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1l5Ouk-00062Z-2f
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 08:13:58 +0000
-Received: from mail-wm1-x32a.google.com (unknown [2a00:1450:4864:20::32a])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 98659c8f-d337-494c-9cd8-a92239ec8d53;
- Fri, 29 Jan 2021 08:13:57 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id 190so6138506wmz.0
- for <xen-devel@lists.xenproject.org>; Fri, 29 Jan 2021 00:13:57 -0800 (PST)
-Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id n5sm7682024wmq.7.2021.01.29.00.13.55
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 29 Jan 2021 00:13:55 -0800 (PST)
+	id 1l5Oz4-0006L1-7H; Fri, 29 Jan 2021 08:18:26 +0000
+Received: by outflank-mailman (input) for mailman id 77775;
+ Fri, 29 Jan 2021 08:18:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mmvf=HA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l5Oz2-0006Ku-8b
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 08:18:24 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b4d694d1-1c01-4087-91d8-b09fcb01aa6b;
+ Fri, 29 Jan 2021 08:18:21 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 05AB3ACB0;
+ Fri, 29 Jan 2021 08:18:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,176 +39,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98659c8f-d337-494c-9cd8-a92239ec8d53
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:thread-index
-         :content-language;
-        bh=ap7wbNqjVosqq+BvvhMDlkF+QfPcogCuAP+EWe9p3wQ=;
-        b=Gwcb7o1LK/nN/KxcT3rZXGOzEyxp6t41adhXLxTCnZpZiHOPrfSabv1uCJlswZXT3/
-         J/LcmMQbei+ZPtrzqRkf/ZglS5miyrN5QVqdFMdJpdQu4N0c/HOxsJBL3Asn66LeR6fa
-         tp1Q5+m4fTrQ9CSUZB1CzKsLbqJqD+ypFqQ4Y2wZjbp7zbVEtWLk9NngfnvZwjwv3jzP
-         5cBREXGD2y1iI5zJPeC6Sg77Wu0e0EcDolQ4ev0Qo4sMZweX7565fnZfOgG64Io5bpbD
-         Q81qJnCFyWNZ/YqkiyCh6gVgOkkrxv4YFWY9BlWDFeOd2ETe0XOgRa/iJpFuwygu4pkO
-         uNKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :thread-index:content-language;
-        bh=ap7wbNqjVosqq+BvvhMDlkF+QfPcogCuAP+EWe9p3wQ=;
-        b=EANup9gggzuPDOuB05ahEhg4Td8RVzl7qMY5nYA+4E43ayrDpJsvezuQuNYrQVHpGU
-         IJT0vLyYHwGIbh090W+zCP/7qEG7OrFWg7kAgFU9LEXEsWNGN7i5jZ7j7Ic2prdh7k7R
-         TQGkQfos74PL7PlvSV4EGvVZPYe24VXgEXWG7OMg6L6UwM/YalI+/VFeXxzcs+qmDrnF
-         zizWP+5VrVLsZHy1FcKaZH7LsKHW5JF3XJSu2ELJzUuDNt5lCTHpJ0r36B0YnlGlaDcs
-         fRzBtSbaw1KoEmFplf+0MCdrrrboTrXSBopzB3GOtGcZq9t8c36v64pKcCbV1ezlqNP8
-         GrIg==
-X-Gm-Message-State: AOAM532swRArXFF7kXd3ODwScRoQ3UW49lP7/uWFN8NEpb6hn6wKTAjZ
-	XvKz4SCoRiBFSIjHGxB9GS0=
-X-Google-Smtp-Source: ABdhPJxAlwg2Jl1OSocAkzyfXiK+OmNVCzkpzmKB90q6W2bDkZsnVpDXy831cIjCmntOiaR3xvP7Aw==
-X-Received: by 2002:a1c:9850:: with SMTP id a77mr2584383wme.163.1611908036281;
-        Fri, 29 Jan 2021 00:13:56 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: =?utf-8?Q?'J=C3=BCrgen_Gro=C3=9F'?= <jgross@suse.com>,
-	"'Dongli Zhang'" <dongli.zhang@oracle.com>,
-	<xen-devel@lists.xenproject.org>,
-	<linux-block@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Cc: "'Paul Durrant'" <pdurrant@amazon.com>,
-	"'Konrad Rzeszutek Wilk'" <konrad.wilk@oracle.com>,
-	=?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>,
-	"'Jens Axboe'" <axboe@kernel.dk>
-References: <20210128130441.11744-1-paul@xen.org> <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com> <7fb64e2f-141a-c848-0f8a-2313d2e821b6@suse.com>
-In-Reply-To: <7fb64e2f-141a-c848-0f8a-2313d2e821b6@suse.com>
-Subject: RE: [PATCH v2] xen-blkback: fix compatibility bug with single page rings
-Date: Fri, 29 Jan 2021 08:13:54 -0000
-Message-ID: <02d901d6f616$b0004750$1000d5f0$@xen.org>
+X-Inumbo-ID: b4d694d1-1c01-4087-91d8-b09fcb01aa6b
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611908301; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Y6nsR+YvrCpNyiP9yeLVwtQTmOzd2dnRdUmgkQnQz80=;
+	b=EB5vXn6EKiQ0ydBOz90XRshBFbCwl3wsDLM9Zch338zZXnGWdDjfMI0V6GlNVOV39lWVUx
+	8Wxk5UXqjF4W3ddecNMMkGqk0Mt3DTQBTTEc7ewZkoQRx25EMKxHuelmo2DcG7Ked5lTgz
+	oXpZ6PWbsTL+NjGG8KKxIKhWP+j2pa4=
+Subject: Re: [PATCH 3/3] x86: Support booting under Secure Startup via SKINIT
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Norbert_Kami=c5=84ski?= <norbert.kaminski@3mdeb.com>,
+ Marek Kasiewicz <marek.kasiewicz@3mdeb.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Michal Zygowski <michal.zygowski@3mdeb.com>,
+ Piotr Krol <piotr.krol@3mdeb.co>, Krystian Hebel <krystian.hebel@3mdeb.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Rich Persaud <persaur@gmail.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20210115231046.31785-1-andrew.cooper3@citrix.com>
+ <20210115231046.31785-4-andrew.cooper3@citrix.com>
+ <7c24ddd1-a443-9da8-d840-93a5518b741f@suse.com>
+ <15d53d9c-0e05-c4cb-f0e6-ef7eb51e1c9a@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c23f7076-836c-4fae-d2da-0f1a8e114515@suse.com>
+Date: Fri, 29 Jan 2021 09:18:21 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQESWKuFsxkk/iz7Hd1VT64wNwq0EAGAqAtPAflt50Srq6kdsA==
-Content-Language: en-gb
+In-Reply-To: <15d53d9c-0e05-c4cb-f0e6-ef7eb51e1c9a@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: J=C3=BCrgen Gro=C3=9F <jgross@suse.com>
-> Sent: 29 January 2021 07:35
-> To: Dongli Zhang <dongli.zhang@oracle.com>; Paul Durrant =
-<paul@xen.org>; xen-
-> devel@lists.xenproject.org; linux-block@vger.kernel.org; =
-linux-kernel@vger.kernel.org
-> Cc: Paul Durrant <pdurrant@amazon.com>; Konrad Rzeszutek Wilk =
-<konrad.wilk@oracle.com>; Roger Pau
-> Monn=C3=A9 <roger.pau@citrix.com>; Jens Axboe <axboe@kernel.dk>
-> Subject: Re: [PATCH v2] xen-blkback: fix compatibility bug with single =
-page rings
->=20
-> On 29.01.21 07:20, Dongli Zhang wrote:
-> >
-> >
-> > On 1/28/21 5:04 AM, Paul Durrant wrote:
-> >> From: Paul Durrant <pdurrant@amazon.com>
-> >>
-> >> Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() =
-to avoid
-> >> inconsistent xenstore 'ring-page-order' set by malicious =
-blkfront"), the
-> >> behaviour of xen-blkback when connecting to a frontend was:
-> >>
-> >> - read 'ring-page-order'
-> >> - if not present then expect a single page ring specified by =
-'ring-ref'
-> >> - else expect a ring specified by 'ring-refX' where X is between 0 =
-and
-> >>    1 << ring-page-order
-> >>
-> >> This was correct behaviour, but was broken by the afforementioned =
-commit to
-> >> become:
-> >>
-> >> - read 'ring-page-order'
-> >> - if not present then expect a single page ring (i.e. =
-ring-page-order =3D 0)
-> >> - expect a ring specified by 'ring-refX' where X is between 0 and
-> >>    1 << ring-page-order
-> >> - if that didn't work then see if there's a single page ring =
-specified by
-> >>    'ring-ref'
-> >>
-> >> This incorrect behaviour works most of the time but fails when a =
-frontend
-> >> that sets 'ring-page-order' is unloaded and replaced by one that =
-does not
-> >> because, instead of reading 'ring-ref', xen-blkback will read the =
-stale
-> >> 'ring-ref0' left around by the previous frontend will try to map =
-the wrong
-> >> grant reference.
-> >>
-> >> This patch restores the original behaviour.
-> >>
-> >> Fixes: 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid =
-inconsistent xenstore 'ring-page-
-> order' set by malicious blkfront")
-> >> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
-> >> ---
-> >> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-> >> Cc: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
-> >> Cc: Jens Axboe <axboe@kernel.dk>
-> >> Cc: Dongli Zhang <dongli.zhang@oracle.com>
-> >>
-> >> v2:
-> >>   - Remove now-spurious error path special-case when nr_grefs =
-=3D=3D 1
-> >> ---
-> >>   drivers/block/xen-blkback/common.h |  1 +
-> >>   drivers/block/xen-blkback/xenbus.c | 38 =
-+++++++++++++-----------------
-> >>   2 files changed, 17 insertions(+), 22 deletions(-)
-> >>
-> >> diff --git a/drivers/block/xen-blkback/common.h =
-b/drivers/block/xen-blkback/common.h
-> >> index b0c71d3a81a0..524a79f10de6 100644
-> >> --- a/drivers/block/xen-blkback/common.h
-> >> +++ b/drivers/block/xen-blkback/common.h
-> >> @@ -313,6 +313,7 @@ struct xen_blkif {
-> >>
-> >>   	struct work_struct	free_work;
-> >>   	unsigned int 		nr_ring_pages;
-> >> +	bool                    multi_ref;
-> >
-> > Is it really necessary to introduce 'multi_ref' here or we may just =
-re-use
-> > 'nr_ring_pages'?
-> >
-> > According to blkfront code, 'ring-page-order' is set only when it is =
-not zero,
-> > that is, only when (info->nr_ring_pages > 1).
->=20
+On 28.01.2021 21:26, Andrew Cooper wrote:
+> On 20/01/2021 09:19, Jan Beulich wrote:
+>> On 16.01.2021 00:10, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/cpu/common.c
+>>> +++ b/xen/arch/x86/cpu/common.c
+>>> @@ -834,6 +834,29 @@ void load_system_tables(void)
+>>>  	BUG_ON(system_state != SYS_STATE_early_boot && (stack_bottom & 0xf));
+>>>  }
+>>>  
+>>> +static void skinit_enable_intr(void)
+>>> +{
+>>> +	uint64_t val;
+>>> +
+>>> +	/*
+>>> +	 * If the platform is performing a Secure Launch via SKINIT
+>>> +	 * INIT_REDIRECTION flag will be active.
+>>> +	 */
+>>> +	if ( !cpu_has_skinit || rdmsr_safe(MSR_K8_VM_CR, val) ||
+>>> +	     !(val & VM_CR_INIT_REDIRECTION) )
+>>> +		return;
+>>> +
+>>> +	ap_boot_method = AP_BOOT_SKINIT;
+>>> +
+>>> +	/*
+>>> +	 * We don't yet handle #SX.  Disable INIT_REDIRECTION first, before
+>>> +	 * enabling GIF, so a pending INIT resets us, rather than causing a
+>>> +	 * panic due to an unknown exception.
+>>> +	 */
+>>> +	wrmsr_safe(MSR_K8_VM_CR, val & ~VM_CR_INIT_REDIRECTION);
+>> Why wrmsr_safe() without checking its return value? If the write
+>> faults, we're hosed anyway, aren't we, so we may as well crash on
+>> the offending WRMSR rather than some time later?
+> 
+> Paranoia.
+> 
+> Xen's old MSR behaviour would have leaked INIT_REDIRECTION into guest
+> context but discarded writes,
 
-That's how it is *supposed* to be. Windows certainly behaves that way =
-too.
+In which case there wouldn't have been any fault to catch and
+ignore.
 
-> Did you look into all other OS's (Windows, OpenBSD, FreebSD, NetBSD,
-> Solaris, Netware, other proprietary systems) implementations to verify
-> that claim?
->=20
-> I don't think so. So better safe than sorry.
->=20
+> and there are usecases to keep
+> INIT_REDIRECTION enabled (if you're willing to sacrifice PV guests to
+> avoid #SX-over-the-syscall-gap or back-to-back-INIT-on-IST shaped
+> security holes).
+> 
+> I can make it unconditional if you'd prefer.  At the moment, all this is
+> is a best-effort attempt to get back into the old state, so development
+> can continue more easily.
 
-Indeed. It was unfortunate that the commit to blkif.h documenting =
-multi-page (829f2a9c6dfae) was not crystal clear and (possibly as a =
-consequence) blkback was implemented to read ring-ref0 rather than =
-ring-ref if ring-page-order was present and 0. Hence the only safe thing =
-to do is to restore that behaviour.
+I'm not sure which variant is strictly better, but if you stick
+to wrmsr_safe(), may I ask that you say this is out of paranoia
+in the comment, so future readers will not wonder like I did?
 
-  Paul
-
->=20
-> Juergen
-
+Jan
 
