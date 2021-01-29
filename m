@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A7930822C
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 01:02:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77525.140437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CFF330822E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 01:03:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77529.140452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5HEX-00044K-2D; Fri, 29 Jan 2021 00:01:53 +0000
+	id 1l5HFs-0004BD-Dx; Fri, 29 Jan 2021 00:03:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77525.140437; Fri, 29 Jan 2021 00:01:53 +0000
+Received: by outflank-mailman (output) from mailman id 77529.140452; Fri, 29 Jan 2021 00:03:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5HEW-00043s-UZ; Fri, 29 Jan 2021 00:01:52 +0000
-Received: by outflank-mailman (input) for mailman id 77525;
- Fri, 29 Jan 2021 00:01:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5HEU-00043k-Rn; Fri, 29 Jan 2021 00:01:50 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5HEU-0001bl-GX; Fri, 29 Jan 2021 00:01:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5HET-0004im-LW; Fri, 29 Jan 2021 00:01:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l5HET-0008QS-Kl; Fri, 29 Jan 2021 00:01:49 +0000
+	id 1l5HFs-0004An-9z; Fri, 29 Jan 2021 00:03:16 +0000
+Received: by outflank-mailman (input) for mailman id 77529;
+ Fri, 29 Jan 2021 00:03:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Jz+J=HA=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1l5HFr-0004Ah-1j
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 00:03:15 +0000
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c4c0e3d9-dfee-49ae-90b5-5226628980d0;
+ Fri, 29 Jan 2021 00:03:14 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10SNxxr1171998;
+ Fri, 29 Jan 2021 00:03:09 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2130.oracle.com with ESMTP id 368b7r6r2x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 29 Jan 2021 00:03:09 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 10SNuEl2112396;
+ Fri, 29 Jan 2021 00:03:09 GMT
+Received: from nam11-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11lp2176.outbound.protection.outlook.com [104.47.57.176])
+ by userp3030.oracle.com with ESMTP id 368wr11v3n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 29 Jan 2021 00:03:09 +0000
+Received: from BYAPR10MB3288.namprd10.prod.outlook.com (2603:10b6:a03:156::21)
+ by BYAPR10MB3238.namprd10.prod.outlook.com (2603:10b6:a03:157::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.12; Fri, 29 Jan
+ 2021 00:03:06 +0000
+Received: from BYAPR10MB3288.namprd10.prod.outlook.com
+ ([fe80::fcc2:62e8:e4e1:b4cb]) by BYAPR10MB3288.namprd10.prod.outlook.com
+ ([fe80::fcc2:62e8:e4e1:b4cb%5]) with mapi id 15.20.3784.019; Fri, 29 Jan 2021
+ 00:03:06 +0000
+Received: from [10.74.101.127] (138.3.200.63) by
+ CH0PR04CA0102.namprd04.prod.outlook.com (2603:10b6:610:75::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3805.16 via Frontend Transport; Fri, 29 Jan 2021 00:03:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,191 +63,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=cQ6FX5qqcrxNma2F1UlpuDMLKqAda2+H9Ge/C9CLt0w=; b=a0bPuZyRAYSP4wdc4Pe+9luc5o
-	Ts2fvFcaaWbwwhzKT8AE3YrWEF9+O5x3GiTyATmiSDSbWbIlNCo0aLPmRX5AbIe071L2AgA+YF3/G
-	cnScXvJwNUF5b0+Thcq5Ewr5BYDgagYsgExTCtmX3f6C4vaj7UzH2UphBVRXx0ZxFOZk=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158750-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c4c0e3d9-dfee-49ae-90b5-5226628980d0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=kIlesV4ySIHUA8GsVzfzRvlw+bHCbj52vG1el594lsA=;
+ b=X07h92yOGBHaPDqbULhjBe2rjBtrkwCVz+Osdmb2cVuWuU5Z9hgvTehDS3AxQ0JTqosP
+ hzAWmYk0nsidyR28jw8VLoAGaPXUs48++JBss5wEVWry4eR3Hs9sn7odOEWgq0l1OApP
+ VbDiVeJKCIRLO8WkaF++i+y9B0FMdi8NFhZA8Jb6FomqNAGVAMzCC8y+j/UbHcBdWHY8
+ qcREtdyxuNhwplh6Kq1ZotOeXbDovZQDUnPbaw9u5DGmNGJ9ymb5JHuK0fyH40Ef0isO
+ L0QLL8t9NKjWVNxevCt5XhirS6HzHh9qs3hxNuEzM8Bdc4jZtnewxZuP67HDITl06R/o gw== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G7X7fYREfk64VhnEmUE55JVVhPowpl0j7FVcOIG5pnD/CiNDJxfrGw2yC3xjlASPmtWK4glHMlJsUmR51E42/ZeblCivb7GrxRFG0MYI33MLJn1VBYxGRyFSX666a2A1JtLCNLaEc+p+AJFhzaFBMxpMxsUxjqdddDRoKtFgLHOpyEz04es+LkLpKYflWjinlnJWpgk/U5Tx2o9sP2B9GADYNAMqDQPL12e15gkeJYELMs0/aWAwh4BfjD4HA1k93KeEyM7qofwQMNMlp0GokzCGoHV8ME0qUm657tAk4OVIEtGEgowAhQKSaJV7Hee2EKl+l3AtOrNoWcbEhHu9Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kIlesV4ySIHUA8GsVzfzRvlw+bHCbj52vG1el594lsA=;
+ b=j4hPqyk9juZSyxFv0xx280/PIMwP/Yv0zJtvXd8suPfneB8JEPfsltt7n041k3DjmzVgMpzSiInvUajk+kUyYMygOW+7hw/HUfvNic43YUmLl4yMFHOBZshq8cRxOqO9dhXYz9pmMwCAKzlRaMoGcG7GDf4gTfXfCBB7jUTpHPqa2Z2+vzAZugQbgQHMj/e12AKRXDY8BC+4FjzP936/L3Wm3HvveJhX0nbWoTXKKv5k0OwVBqwnl+sQlEZcc8+ELVFv0i1UudNOK5TdxHpBgLClBXFW2eSHi5plEhvo0e3SLhniRxwogtiSDT+8JE+Bhxfi+6KmrhuUMymHhFrKaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kIlesV4ySIHUA8GsVzfzRvlw+bHCbj52vG1el594lsA=;
+ b=bPp2Cv2tVVL6DSyPeKe0RBrraJbpDqP7iZtWFAs5nLAWvKiIcBi6G7L5pQ51yfdGVK88S3veUHXQC+vBmmLPL22pmXEF8Ysp/XpIOaDjq5ssqF4qta8ye11a1tZZN922zDwggAUI9jJbiG/ud5REIQJJfWnsc3zEjoBu+JmNhSU=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=oracle.com;
+Subject: Re: Problems starting Xen domU after latest stable update
+To: Michael D Labriola <michael.d.labriola@gmail.com>,
+        David Woodhouse <dwmw@amazon.co.uk>, Juergen Gross <jgross@suse.com>,
+        Sasha Levin <sashal@kernel.org>,
+        Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+        Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+        linux-kernel@vger.kernel.org
+References: <2nft2kipqg.fsf@aragorn.infrastructure.cah>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <983b87d6-edb8-21ea-7d6f-f653f5c0d048@oracle.com>
+Date: Thu, 28 Jan 2021 19:03:00 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.6.1
+In-Reply-To: <2nft2kipqg.fsf@aragorn.infrastructure.cah>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Originating-IP: [138.3.200.63]
+X-ClientProxiedBy: CH0PR04CA0102.namprd04.prod.outlook.com
+ (2603:10b6:610:75::17) To BYAPR10MB3288.namprd10.prod.outlook.com
+ (2603:10b6:a03:156::21)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158750: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=6ca510153350163b02809ae06e1dabad89c2c786
-X-Osstest-Versions-That:
-    xen=6677b5a3577c16501fbc51a3341446905bd21c38
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Jan 2021 00:01:49 +0000
-
-flight 158750 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158750/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 158713
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  6ca510153350163b02809ae06e1dabad89c2c786
-baseline version:
- xen                  6677b5a3577c16501fbc51a3341446905bd21c38
-
-Last test of basis   158713  2021-01-27 23:00:26 Z    1 days
-Failing since        158724  2021-01-28 12:01:30 Z    0 days    4 attempts
-Testing same since   158750  2021-01-28 21:00:26 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Manuel Bouyer <bouyer@netbsd.org>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 17694743-63b1-4c86-3f63-08d8c3e94147
+X-MS-TrafficTypeDiagnostic: BYAPR10MB3238:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<BYAPR10MB323844B23CE70927B56189DA8AB99@BYAPR10MB3238.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:115;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	bjo4f3wHycI9Jlsh7GIkbRSyjjz0MmlB+v0N1I6wmq9xD0uSk6fzfUcLWwZaRkyGbzjBuXC8V3IoXNw2AXslGX7N/L3WIlvHoPEqFKqjzd0Q2i55kUEZJ4dBd3ND1jzV2Jvqt2NTU8Y7fJHjf7EXrsjHFtz1QjkOG4xYeEoxg6H/RB39epDpVHLZkW9/OY9HXz1WLVJExPX3/1X4xtKL+eovjJqXcQM3+QCGMJGWSE2geOL38t4fHOxJrlhU00t965UfP1k0UAMTgAjnwL9q7X0ACutSEo3r7T4i7CU5CHaM9bJKyyA7w4aWNixl2iBX2UiJOcz4Zdu0tX88XPPu0K7JxwE9KtREjS/PeS7kOTycYSiKjRpdjd62HMYlOL8wnpM0m6axpMhkwYhtuAiQqSCFS6nT60fYQj6+LEc1WfSxeSWEnsbHMwTTsrYMFS9e8blpMwHwdd1ZWUTBcu+KpqziFItlmt6ttI1t83ICoSlYJVK5psJ9cobLDR0y9I/S/fbN1FRe2/FrIoDyTq44PoTsqjHl3eMenOUaGr4GzLzKJ59kRT5tcSz63y/ST93jBFuf5XJCrFwYhARW5P3cdXrwC70CILOH/30Hyo/C1yU=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB3288.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(39860400002)(376002)(366004)(396003)(136003)(346002)(44832011)(110136005)(8936002)(36756003)(316002)(86362001)(66946007)(2906002)(8676002)(66556008)(15650500001)(31686004)(956004)(16576012)(6486002)(31696002)(66476007)(478600001)(5660300002)(26005)(16526019)(186003)(53546011)(83380400001)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 
+	=?utf-8?B?TCtIcmxYeGd6a1J0bTUyOURmUFJLL1B6dytqNzBuOXdITXRQVG9BVW0ydWw4?=
+ =?utf-8?B?aEsxVVo5TW5ZemU3TlowVGNzeFpPUk5aanFtbS9VK1dRZ0s5RWdYNWdYRmkw?=
+ =?utf-8?B?eVNzVlhIMW4zL1FYdUVuOGZhNTJ6TTdGM3U2S0VRczZKdnFrU2FCNmlGU2Ja?=
+ =?utf-8?B?QTFHcXliQWwzVzVrYitTOTRRclJzQUxjV29pa2Q4M2xiUUxWaFdzbko0RzdM?=
+ =?utf-8?B?d24yWkxJanVHWTJrOW5Pck9zOXFaU3NQOCtPYjlrUkxkN2xiL3hldVNwR3FE?=
+ =?utf-8?B?ajZoVHNHK2lmNUU5cER3Z1dSU2YrWkhSS2hDNVpBcm5QaVNTbUMxOVZ3K2J5?=
+ =?utf-8?B?aUZnZjhjS1FraXhBcDRNMUl2T1dlRzkwYU9pQzlqaG9aWllsY1NGZTZKNXZa?=
+ =?utf-8?B?aUJkZWhjaGhIMXJkWlVYenZPbTZZWWlRM05KSUQzNnh2Kyt2K2lVZS9sZkhx?=
+ =?utf-8?B?NjhtTnhUcmJ4MzBFTUZSek04TTFIT0NhWHowVk5hRDFnbUNHdkJnUkRWZVV4?=
+ =?utf-8?B?MmtmRkF5OCtnVTRiV3FUQVROWFRUWncwN1diVGZtaXJkSTdsZ21aRFJQT3Zm?=
+ =?utf-8?B?VUl3eU9GeUMyd3NML2M3SGxvY1p4NzJrQWZBdllsN09RWWw5UVVBY21lb3ZC?=
+ =?utf-8?B?N2V0RXdRekxyM0VSSzZ4QmV0NEwrSnpHdmxuZU9odkUzTlEwUDZNcS9menZw?=
+ =?utf-8?B?RkEzNEJZaDdCQ0JOeUZTL0ovakk5eUZEOHdpdzlXRFRiamZHZXVXY2RrVmVH?=
+ =?utf-8?B?dXc3REhma0h6WHlvbGQ2V0hqTGFra0laVGJCcmthZjRyVDBhaWQzYmlJV0Zy?=
+ =?utf-8?B?d1VPeC9abW9Ia3l4K2dvZjR3QlN4K3BLb3VhQzJXQzk1bWZVb3lrOUM4U1Fx?=
+ =?utf-8?B?TnJTdVZHZEpPcHpObTM0VjlRdEFVM1BhRCt4RXFiZXc3bWoyME1MOGl2RHU1?=
+ =?utf-8?B?K09MOVRkeSt3M2pVdGFPSnF5b2tleFozdTczbGtCWVNBZWN3bmgzQlNJUnRa?=
+ =?utf-8?B?QkVoYmQ0QkcwSGY1WXN3THFjZEZ5N2VEV0lCOXBlR0JwSHJkSkJzZ1k0SkFD?=
+ =?utf-8?B?aGVoNERYN1o5RTVJRytwejcza3RKSHQxaWFxeW5KeEFiRWN2UmJjc2Jpakp5?=
+ =?utf-8?B?ZjJ5U01wZndkd1VmRFRXelpkcTN2enM3QWhVVnBZdENJZEVjWW1IaGptcG9N?=
+ =?utf-8?B?eVM2T2dsa1YxUkRrUjJ6MFpRT3ZXbDFZcG8wc2l1M05xcisvMUFYU1NLUlMw?=
+ =?utf-8?B?OGtvM3RKMGEvV1A5WndjTzlXVHVId2J5dUg0eU9OcUJLNm5FTktsUTFBaklz?=
+ =?utf-8?B?Vno1MFNqUDZwekJaN1F3dGNCSEFacmhkalZCRmZacUtQc2xaYnpRY3hjdkRs?=
+ =?utf-8?B?TXdtNllGQWpWSmh2a3BILzY3dlFYSHR2T0g3WnQ0a1BVa2s4MEhtRmExTS9U?=
+ =?utf-8?Q?UsYStyNZ?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17694743-63b1-4c86-3f63-08d8c3e94147
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3288.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2021 00:03:06.4109
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TJnOPcRMDKgMht8J15ot0e9eZmjSttLMIQCzJo8xZopSnWpvTReWUKO9DmcYs+yh+Z79Cn6jKRPAbx4s1eHpkPtQataRBwIsYGholNrrDSI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB3238
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9878 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 spamscore=0 phishscore=0
+ adultscore=0 mlxlogscore=999 malwarescore=0 suspectscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101280115
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9878 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 spamscore=0 phishscore=0
+ adultscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 mlxscore=0 clxscore=1011 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2101280115
 
 
-Not pushing.
+On 1/28/21 6:52 PM, Michael D Labriola wrote:
+> Hey, everyone.  I've run into problems starting up my Xen domUs as of
+> the latest batch of stable updates.  Whenever I try to create one, I
+> get a bunch of block device errors like this:
+>
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to add device with path /local/domain/0/backend/vbd/4/51712
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to add device with path /local/domain/0/backend/vbd/4/51728
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to add device with path /local/domain/0/backend/vbd/4/51744
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to add device with path /local/domain/0/backend/vbd/4/51760
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to add device with path /local/domain/0/backend/vbd/4/51776
+> libxl: error: libxl_create.c:1452:domcreate_launch_dm: Domain 4:unable to add disk devices
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to remove device with path /local/domain/0/backend/vbd/4/51712
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to remove device with path /local/domain/0/backend/vbd/4/51728
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to remove device with path /local/domain/0/backend/vbd/4/51744
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to remove device with path /local/domain/0/backend/vbd/4/51760
+> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:unable to remove device with path /local/domain/0/backend/vbd/4/51776
+> libxl: error: libxl_domain.c:1290:devices_destroy_cb: Domain 4:libxl__devices_destroy failed
+> libxl: error: libxl_domain.c:1177:libxl__destroy_domid: Domain 4:Non-existant domain
+> libxl: error: libxl_domain.c:1131:domain_destroy_callback: Domain 4:Unable to destroy guest
+> libxl: error: libxl_domain.c:1058:domain_destroy_cb: Domain 4:Destruction of domain failed
+>
+> I'm using Xen 4.13.1 on the box I've been testing with.
+>
+> I bisected down to this commit, and reverting it does indeed fix my
+> problem.  Well, this commit upstream and it's cherry-picked variants
+> on linux-5.4.y and linux-5.10.y.
 
-------------------------------------------------------------
-commit 6ca510153350163b02809ae06e1dabad89c2c786
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jan 27 19:43:32 2021 +0000
 
-    x86/boot: Drop 'noapic' suggestion from check_timer()
-    
-    In practice, there is no such thing as a real 64bit system without
-    APICs.  (PVH style virtual environments, sure, but they don't end up here).
-    
-    The suggestion to try and use noapic only makes a bad situation worse.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+You most likely need 5f46400f7a6a4fad635d5a79e2aa5a04a30ffea1. It hit Linus tree a few hours ago.
 
-commit 525cae0b9eb359774f08ceb609c333954bcb00e8
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Wed Nov 25 13:22:08 2020 +0000
 
-    xen-release-management doc: More info on schedule
-    
-    This documents our practice, established in 2018
-      https://lists.xen.org/archives/html/xen-devel/2018-07/msg02240.html
-    et seq
-    
-    CC: Jürgen Groß <jgross@suse.com>
-    CC: Paul Durrant <xadimgnik@gmail.com>
-    CC: Wei Liu <wl@xen.org>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+-boris
 
-commit e8524e4d4d612ef53943f539da2e81785282e5af
-Author: Manuel Bouyer <bouyer@netbsd.org>
-Date:   Tue Jan 12 19:12:21 2021 +0100
 
-    Fix error: array subscript has type 'char'
-    
-    Use unsigned char variable, or cast to (unsigned char), for
-    tolower()/islower() and friends. Fix compiler error
-    array subscript has type 'char' [-Werror=char-subscripts]
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-commit 6e2046378086d2eaf3f1fe807a2fd697f2630f40
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jul 29 16:28:32 2020 +0100
-
-    xen/memory: Clarify the XENMEM_acquire_resource ABI description
-    
-    This is how similar operations already operate, compatible with the sole
-    implementation (in Linux), and explicitly gives us some flexibility.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-
-commit 75fc85998546878ca5417071a6ca60c34065c2c3
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu Jul 23 15:58:48 2020 +0100
-
-    tools/foreignmem: Support querying the size of a resource
-    
-    With the Xen side of this interface (soon to be) fixed to return real sizes,
-    userspace needs to be able to make the query.
-    
-    Introduce xenforeignmemory_resource_size() for the purpose, bumping the
-    library minor version.
-    
-    Update both all osdep_xenforeignmemory_map_resource() implementations to
-    understand size requests, skip the mmap() operation, and copy back the
-    nr_frames field.
-    
-    For NetBSD, also fix up the ioctl() error path to issue an unmap(), which was
-    overlooked by c/s 4a64e2bb39 "libs/foreignmemory: Implement on NetBSD".
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 2b4b33ffe7d67dc677350a3e1fa7a11d7ab49fb4
-Author: Manuel Bouyer <bouyer@netbsd.org>
-Date:   Tue Jan 26 23:47:52 2021 +0100
-
-    libs/foreignmemory: Implement on NetBSD
-    
-    Implement foreignmemory interface on NetBSD. The compat interface is now used
-    only on __sun__
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-(qemu changes not included)
 
