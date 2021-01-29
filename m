@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B31A3085FF
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 07:52:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77730.140969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE5730867A
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 08:35:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77740.140992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Nci-0005Vn-D0; Fri, 29 Jan 2021 06:51:16 +0000
+	id 1l5OJD-0001Bi-VI; Fri, 29 Jan 2021 07:35:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77730.140969; Fri, 29 Jan 2021 06:51:16 +0000
+Received: by outflank-mailman (output) from mailman id 77740.140992; Fri, 29 Jan 2021 07:35:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Nci-0005VO-9i; Fri, 29 Jan 2021 06:51:16 +0000
-Received: by outflank-mailman (input) for mailman id 77730;
- Fri, 29 Jan 2021 06:51:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l5OJD-0001BL-RE; Fri, 29 Jan 2021 07:35:11 +0000
+Received: by outflank-mailman (input) for mailman id 77740;
+ Fri, 29 Jan 2021 07:35:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5Nch-0005VD-Bs; Fri, 29 Jan 2021 06:51:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5Ncg-0007JV-U4; Fri, 29 Jan 2021 06:51:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5Ncg-0003ge-Jk; Fri, 29 Jan 2021 06:51:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l5Ncg-0003CN-JA; Fri, 29 Jan 2021 06:51:14 +0000
+ (envelope-from <SRS0=9j1X=HA=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l5OJB-0001BG-Nt
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 07:35:09 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e94c1306-46b8-4030-9b95-5d1484d3ea0e;
+ Fri, 29 Jan 2021 07:35:08 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 65E32ABDA;
+ Fri, 29 Jan 2021 07:35:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,258 +39,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=uVIS+ntvYeiplyEmnqUZXBWBt52I+a6la5iIEi0T9sU=; b=Nce6eIIg9UGVdeKmHEAQNitDlr
-	XICsJtN2pH0x7WC2K7Z+8KoUfD0XhWdytS2gbFA9m2oV/7mO1jyA8wwWuqa6FIQ41/yAsJs5YiRJ6
-	gBGLC0EGSU58cQr6B0FQqoOsV3gsNiPn6CMP556kS38SGC4sFByqh+EaLboknuaZgAYA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158759-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e94c1306-46b8-4030-9b95-5d1484d3ea0e
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611905707; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zAq51H83aYnizsU5uKH4Xo3JZYjQqCAFMXuwsnbMpLQ=;
+	b=egkOuZgO/1U3ZcJB0aoekc8YSPYrBM6Dbx4wpJ7qyPhKX7f9X3H2cqMyawp7VD5rpT7YDZ
+	URDzYzj3ypDwVGagHUmRlb6Wjj7WevT/XncPuMIRgZh+8067dnTdjTLZ9dAXKQn7fdCkXZ
+	665Pk57zhHySUtiPYi9FUeK8y3atlLE=
+Subject: Re: [PATCH v2] xen-blkback: fix compatibility bug with single page
+ rings
+To: Dongli Zhang <dongli.zhang@oracle.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Paul Durrant <pdurrant@amazon.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>
+References: <20210128130441.11744-1-paul@xen.org>
+ <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <7fb64e2f-141a-c848-0f8a-2313d2e821b6@suse.com>
+Date: Fri, 29 Jan 2021 08:35:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158759: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=ec0648db751a08486a586a5e9b5de4e81baebfca
-X-Osstest-Versions-That:
-    xen=6677b5a3577c16501fbc51a3341446905bd21c38
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Jan 2021 06:51:14 +0000
+In-Reply-To: <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="KTNhVyFFfyx2e8FCQZ7SGPr0cJJ2X0WH9"
 
-flight 158759 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158759/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--KTNhVyFFfyx2e8FCQZ7SGPr0cJJ2X0WH9
+Content-Type: multipart/mixed; boundary="v0ECwaP7zIbuMUDrGMvLowgnhMmWanZZI";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Dongli Zhang <dongli.zhang@oracle.com>, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Paul Durrant <pdurrant@amazon.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>
+Message-ID: <7fb64e2f-141a-c848-0f8a-2313d2e821b6@suse.com>
+Subject: Re: [PATCH v2] xen-blkback: fix compatibility bug with single page
+ rings
+References: <20210128130441.11744-1-paul@xen.org>
+ <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com>
+In-Reply-To: <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com>
 
-Regressions :-(
+--v0ECwaP7zIbuMUDrGMvLowgnhMmWanZZI
+Content-Type: multipart/mixed;
+ boundary="------------23E2E4DE08DE09AA38981101"
+Content-Language: en-US
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 158713
- build-arm64-xsm               6 xen-build                fail REGR. vs. 158713
+This is a multi-part message in MIME format.
+--------------23E2E4DE08DE09AA38981101
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+On 29.01.21 07:20, Dongli Zhang wrote:
+>=20
+>=20
+> On 1/28/21 5:04 AM, Paul Durrant wrote:
+>> From: Paul Durrant <pdurrant@amazon.com>
+>>
+>> Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to a=
+void
+>> inconsistent xenstore 'ring-page-order' set by malicious blkfront"), t=
+he
+>> behaviour of xen-blkback when connecting to a frontend was:
+>>
+>> - read 'ring-page-order'
+>> - if not present then expect a single page ring specified by 'ring-ref=
+'
+>> - else expect a ring specified by 'ring-refX' where X is between 0 and=
 
-version targeted for testing:
- xen                  ec0648db751a08486a586a5e9b5de4e81baebfca
-baseline version:
- xen                  6677b5a3577c16501fbc51a3341446905bd21c38
+>>    1 << ring-page-order
+>>
+>> This was correct behaviour, but was broken by the afforementioned comm=
+it to
+>> become:
+>>
+>> - read 'ring-page-order'
+>> - if not present then expect a single page ring (i.e. ring-page-order =
+=3D 0)
+>> - expect a ring specified by 'ring-refX' where X is between 0 and
+>>    1 << ring-page-order
+>> - if that didn't work then see if there's a single page ring specified=
+ by
+>>    'ring-ref'
+>>
+>> This incorrect behaviour works most of the time but fails when a front=
+end
+>> that sets 'ring-page-order' is unloaded and replaced by one that does =
+not
+>> because, instead of reading 'ring-ref', xen-blkback will read the stal=
+e
+>> 'ring-ref0' left around by the previous frontend will try to map the w=
+rong
+>> grant reference.
+>>
+>> This patch restores the original behaviour.
+>>
+>> Fixes: 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid inco=
+nsistent xenstore 'ring-page-order' set by malicious blkfront")
+>> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+>> ---
+>> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+>> Cc: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
+>> Cc: Jens Axboe <axboe@kernel.dk>
+>> Cc: Dongli Zhang <dongli.zhang@oracle.com>
+>>
+>> v2:
+>>   - Remove now-spurious error path special-case when nr_grefs =3D=3D 1=
 
-Last test of basis   158713  2021-01-27 23:00:26 Z    1 days
-Failing since        158724  2021-01-28 12:01:30 Z    0 days    6 attempts
-Testing same since   158752  2021-01-29 01:02:35 Z    0 days    2 attempts
+>> ---
+>>   drivers/block/xen-blkback/common.h |  1 +
+>>   drivers/block/xen-blkback/xenbus.c | 38 +++++++++++++---------------=
+--
+>>   2 files changed, 17 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-bl=
+kback/common.h
+>> index b0c71d3a81a0..524a79f10de6 100644
+>> --- a/drivers/block/xen-blkback/common.h
+>> +++ b/drivers/block/xen-blkback/common.h
+>> @@ -313,6 +313,7 @@ struct xen_blkif {
+>>  =20
+>>   	struct work_struct	free_work;
+>>   	unsigned int 		nr_ring_pages;
+>> +	bool                    multi_ref;
+>=20
+> Is it really necessary to introduce 'multi_ref' here or we may just re-=
+use
+> 'nr_ring_pages'?
+>=20
+> According to blkfront code, 'ring-page-order' is set only when it is no=
+t zero,
+> that is, only when (info->nr_ring_pages > 1).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Manuel Bouyer <bouyer@netbsd.org>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-  Wei Liu <wl@xen.org>
+Did you look into all other OS's (Windows, OpenBSD, FreebSD, NetBSD,
+Solaris, Netware, other proprietary systems) implementations to verify
+that claim?
 
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I don't think so. So better safe than sorry.
 
 
-Not pushing.
+Juergen
 
-------------------------------------------------------------
-commit ec0648db751a08486a586a5e9b5de4e81baebfca
-Author: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Date:   Tue Jan 26 11:03:28 2021 -0800
+--------------23E2E4DE08DE09AA38981101
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-    xen: add (EXPERT) to one-line description of XEN_SHSTK
-    
-    Add an "(EXPERT)" tag to the one-line description of Kconfig options
-    that depend on EXPERT. (Not where just the prompt depends on EXPERT.)
-    
-    Today we only have one such option: XEN_SHSTK.
-    
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    CC: andrew.cooper3@citrix.com
-    CC: george.dunlap@citrix.com
-    CC: iwj@xenproject.org
-    CC: jbeulich@suse.com
-    CC: julien@xen.org
-    CC: wl@xen.org
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-commit d96e5e6c12145b4fc7b19b7b4751d20540061da0
-Author: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Date:   Tue Jan 26 11:03:27 2021 -0800
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-    xen: EXPERT clean-up and introduce UNSUPPORTED
-    
-    A recent thread [1] has exposed a couple of issues with our current way
-    of handling EXPERT.
-    
-    1) It is not obvious that "Configure standard Xen features (expert
-    users)" is actually the famous EXPERT we keep talking about on xen-devel
-    
-    2) It is not obvious when we need to enable EXPERT to get a specific
-    feature
-    
-    In particular if you want to enable ACPI support so that you can boot
-    Xen on an ACPI platform, you have to enable EXPERT first. But searching
-    through the kconfig menu it is really not clear (type '/' and "ACPI"):
-    nothing in the description tells you that you need to enable EXPERT to
-    get the option.
-    
-    So this patch makes things easier by doing two things:
-    
-    - introduce a new kconfig option UNSUPPORTED which is clearly to enable
-      UNSUPPORTED features as defined by SUPPORT.md
-    
-    - change EXPERT options to UNSUPPORTED where it makes sense: keep
-      depending on EXPERT for features made for experts
-    
-    - tag unsupported features by adding (UNSUPPORTED) to the one-line
-      description
-    
-    - clarify the EXPERT one-line description
-    
-    [1] https://marc.info/?l=xen-devel&m=160333101228981
-    
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com> [x86,common]
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-    CC: andrew.cooper3@citrix.com
-    CC: george.dunlap@citrix.com
-    CC: iwj@xenproject.org
-    CC: jbeulich@suse.com
-    CC: julien@xen.org
-    CC: wl@xen.org
+--------------23E2E4DE08DE09AA38981101--
 
-commit 6ca510153350163b02809ae06e1dabad89c2c786
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jan 27 19:43:32 2021 +0000
+--v0ECwaP7zIbuMUDrGMvLowgnhMmWanZZI--
 
-    x86/boot: Drop 'noapic' suggestion from check_timer()
-    
-    In practice, there is no such thing as a real 64bit system without
-    APICs.  (PVH style virtual environments, sure, but they don't end up here).
-    
-    The suggestion to try and use noapic only makes a bad situation worse.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+--KTNhVyFFfyx2e8FCQZ7SGPr0cJJ2X0WH9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-commit 525cae0b9eb359774f08ceb609c333954bcb00e8
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Wed Nov 25 13:22:08 2020 +0000
+-----BEGIN PGP SIGNATURE-----
 
-    xen-release-management doc: More info on schedule
-    
-    This documents our practice, established in 2018
-      https://lists.xen.org/archives/html/xen-devel/2018-07/msg02240.html
-    et seq
-    
-    CC: Jürgen Groß <jgross@suse.com>
-    CC: Paul Durrant <xadimgnik@gmail.com>
-    CC: Wei Liu <wl@xen.org>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmATuqoFAwAAAAAACgkQsN6d1ii/Ey80
+kwf/e41zDqm+jP5oJsLO4FvTwwwFeSs6ARV+zlLQCldBq5oB1HPuzNpjQsE704m/eUEZzMZy2/7W
+Z1pKAwvSLzPQyyx7Rw8pJKJuNio7oIAiCKAiupU3rJBmorI3CCLlbpwfdFGkuKJ8GxZs193BL+WC
+3dNKyBC4aFT3khnmT5y/9PF08Ms9YYVOYPq+6KOM0MbsseD9d4E9LwsC1wzWG9EUA5Ckh8wIZ3XR
+VO1561Q2S36zukXwzbvsGOk9JmD/1kjjR26wsC0JAYU5JKIJxAeeR9V1ZXXrcLjbmwC8KPF+mhOP
+/9Obe9R6O6mT4jKwbmwqJBYjBBJvMsSkKdry2YZZRg==
+=KyR6
+-----END PGP SIGNATURE-----
 
-commit e8524e4d4d612ef53943f539da2e81785282e5af
-Author: Manuel Bouyer <bouyer@netbsd.org>
-Date:   Tue Jan 12 19:12:21 2021 +0100
-
-    Fix error: array subscript has type 'char'
-    
-    Use unsigned char variable, or cast to (unsigned char), for
-    tolower()/islower() and friends. Fix compiler error
-    array subscript has type 'char' [-Werror=char-subscripts]
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Release-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-commit 6e2046378086d2eaf3f1fe807a2fd697f2630f40
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jul 29 16:28:32 2020 +0100
-
-    xen/memory: Clarify the XENMEM_acquire_resource ABI description
-    
-    This is how similar operations already operate, compatible with the sole
-    implementation (in Linux), and explicitly gives us some flexibility.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-
-commit 75fc85998546878ca5417071a6ca60c34065c2c3
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Thu Jul 23 15:58:48 2020 +0100
-
-    tools/foreignmem: Support querying the size of a resource
-    
-    With the Xen side of this interface (soon to be) fixed to return real sizes,
-    userspace needs to be able to make the query.
-    
-    Introduce xenforeignmemory_resource_size() for the purpose, bumping the
-    library minor version.
-    
-    Update both all osdep_xenforeignmemory_map_resource() implementations to
-    understand size requests, skip the mmap() operation, and copy back the
-    nr_frames field.
-    
-    For NetBSD, also fix up the ioctl() error path to issue an unmap(), which was
-    overlooked by c/s 4a64e2bb39 "libs/foreignmemory: Implement on NetBSD".
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-    Acked-by: Wei Liu <wl@xen.org>
-
-commit 2b4b33ffe7d67dc677350a3e1fa7a11d7ab49fb4
-Author: Manuel Bouyer <bouyer@netbsd.org>
-Date:   Tue Jan 26 23:47:52 2021 +0100
-
-    libs/foreignmemory: Implement on NetBSD
-    
-    Implement foreignmemory interface on NetBSD. The compat interface is now used
-    only on __sun__
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-(qemu changes not included)
+--KTNhVyFFfyx2e8FCQZ7SGPr0cJJ2X0WH9--
 
