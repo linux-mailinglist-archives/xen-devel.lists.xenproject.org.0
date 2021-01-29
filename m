@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D629308AC6
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 18:00:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78328.142465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39E0E308ACA
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 18:02:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78333.142478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5X8H-0004Mr-2t; Fri, 29 Jan 2021 17:00:29 +0000
+	id 1l5XAD-0004Ya-Dw; Fri, 29 Jan 2021 17:02:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78328.142465; Fri, 29 Jan 2021 17:00:29 +0000
+Received: by outflank-mailman (output) from mailman id 78333.142478; Fri, 29 Jan 2021 17:02:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5X8G-0004MR-TJ; Fri, 29 Jan 2021 17:00:28 +0000
-Received: by outflank-mailman (input) for mailman id 78328;
- Fri, 29 Jan 2021 17:00:27 +0000
+	id 1l5XAD-0004YD-Aq; Fri, 29 Jan 2021 17:02:29 +0000
+Received: by outflank-mailman (input) for mailman id 78333;
+ Fri, 29 Jan 2021 17:02:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5X8F-0004ME-DB; Fri, 29 Jan 2021 17:00:27 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1l5XAC-0004Y8-66
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 17:02:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5X8E-0002Dm-Vo; Fri, 29 Jan 2021 17:00:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5X8E-0006PQ-Kl; Fri, 29 Jan 2021 17:00:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l5X8E-0008Ub-KJ; Fri, 29 Jan 2021 17:00:26 +0000
+ (envelope-from <julien@xen.org>)
+ id 1l5X9j-0002Ez-Ul; Fri, 29 Jan 2021 17:01:59 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l5X9j-00026i-KD; Fri, 29 Jan 2021 17:01:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,91 +40,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=fZlx4GZldSSuCx241YpQQSaTgMW63rsRDi2nVbNFTqY=; b=laHjG2REBG6ex0D6C+FKcfdPgK
-	JiXCTLRKtDm39De861jP3bpuKF0z9dWTdrgzKh58iwAiRG4IGGHcAm5ozDzzrd+vPj6lzcJBm0w/+
-	C4OtojlCzOTi8ZPPYzNhSKCvEe4AwNf8y8vik7G7g5NeK6yZWnMPREA+qDKVZsYD3bzw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158783-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:References:Cc:To:Subject;
+	bh=GJjxpg58GA+1PkuPFL1M36Gv8SlsFkIyqoebUCcQwwU=; b=CCMDzJ8canpk7tDcNHAc99Zke9
+	PHmZl16PYXfzDK1rVi+gyaIxDql69yXdClKjd6zjA7hymv9MjYo94vNoIqXdAaYa5ZrPGLNUgpo0E
+	+zjGSkc9js5jm5+9yDQnxLvbOxrMZfK3lvti9ZnLItng1u00eDbio3GOI5Ni0RE6mKM0=;
+Subject: Re: [PATCH V6 00/24] IOREQ feature (+ virtio-mmio) on Arm
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Julien Grall <julien.grall@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Kaly Xin <Kaly.Xin@arm.com>, Artem Mygaiev <joculator@gmail.com>,
+ =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+References: <1611884932-1851-1-git-send-email-olekstysh@gmail.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <0149ee4f-a148-fc30-2bb2-d39f53a9feee@xen.org>
+Date: Fri, 29 Jan 2021 17:01:56 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158783: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=7e5cffcd1e9300cab46a1816b5eb676caaeed2c1
-X-Osstest-Versions-That:
-    xen=fbb3bf002b42803ef289ea2a649ebd5f25d22236
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Jan 2021 17:00:26 +0000
+In-Reply-To: <1611884932-1851-1-git-send-email-olekstysh@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-flight 158783 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158783/
+Hi Oleksandr,
 
-Failures :-/ but no regressions.
+On 29/01/2021 01:48, Oleksandr Tyshchenko wrote:
+> Julien Grall (3):
+>    xen/ioreq: Make x86's IOREQ related dm-op handling common
+>    xen/mm: Make x86's XENMEM_resource_ioreq_server handling common
+>    arm/ioreq: Introduce arch specific bits for IOREQ/DM features
+> 
+> Oleksandr Tyshchenko (21):
+>    x86/ioreq: Prepare IOREQ feature for making it common
+>    x86/ioreq: Add IOREQ_STATUS_* #define-s and update code for moving
+>    x86/ioreq: Provide out-of-line wrapper for the handle_mmio()
+>    xen/ioreq: Make x86's IOREQ feature common
+>    xen/ioreq: Make x86's hvm_ioreq_needs_completion() common
+>    xen/ioreq: Make x86's hvm_mmio_first(last)_byte() common
+>    xen/ioreq: Make x86's hvm_ioreq_(page/vcpu/server) structs common
+>    xen/ioreq: Move x86's ioreq_server to struct domain
+>    xen/ioreq: Move x86's io_completion/io_req fields to struct vcpu
+>    xen/ioreq: Remove "hvm" prefixes from involved function names
+>    xen/ioreq: Use guest_cmpxchg64() instead of cmpxchg()
+>    xen/arm: Call vcpu_ioreq_handle_completion() in check_for_vcpu_work()
+>    xen/mm: Handle properly reference in set_foreign_p2m_entry() on Arm
+>    xen/ioreq: Introduce domain_has_ioreq_server()
+>    xen/dm: Introduce xendevicemodel_set_irq_level DM op
+>    xen/arm: io: Abstract sign-extension
+>    xen/arm: io: Harden sign extension check
+>    xen/ioreq: Make x86's send_invalidate_req() common
+>    xen/arm: Add mapcache invalidation handling
+>    xen/ioreq: Do not let bufioreq to be used on other than x86 arches
+>    xen/ioreq: Make the IOREQ feature selectable on Arm
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+I have used the v7 of the last and committed the series.
 
-version targeted for testing:
- xen                  7e5cffcd1e9300cab46a1816b5eb676caaeed2c1
-baseline version:
- xen                  fbb3bf002b42803ef289ea2a649ebd5f25d22236
+I am looking forward for the virtio support :).
 
-Last test of basis   158773  2021-01-29 11:02:39 Z    0 days
-Testing same since   158783  2021-01-29 14:01:30 Z    0 days    1 attempts
+Thanks for the hard work!
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Marek Kasiewicz <marek.kasiewicz@3mdeb.com>
-  Norbert Kamiński <norbert.kaminski@3mdeb.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+Cheers,
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   fbb3bf002b..7e5cffcd1e  7e5cffcd1e9300cab46a1816b5eb676caaeed2c1 -> smoke
+-- 
+Julien Grall
 
