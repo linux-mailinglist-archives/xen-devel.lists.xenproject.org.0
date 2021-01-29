@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1731308E19
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 21:10:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78485.142791 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFEC5308E1C
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 21:12:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78490.142806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5a5Q-0000Is-D5; Fri, 29 Jan 2021 20:09:44 +0000
+	id 1l5a7p-00017I-U4; Fri, 29 Jan 2021 20:12:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78485.142791; Fri, 29 Jan 2021 20:09:44 +0000
+Received: by outflank-mailman (output) from mailman id 78490.142806; Fri, 29 Jan 2021 20:12:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5a5Q-0000IP-9F; Fri, 29 Jan 2021 20:09:44 +0000
-Received: by outflank-mailman (input) for mailman id 78485;
- Fri, 29 Jan 2021 20:09:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l5a7p-00016t-QK; Fri, 29 Jan 2021 20:12:13 +0000
+Received: by outflank-mailman (input) for mailman id 78490;
+ Fri, 29 Jan 2021 20:12:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5a5P-0000IH-5s; Fri, 29 Jan 2021 20:09:43 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5a5P-0005WC-04; Fri, 29 Jan 2021 20:09:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5a5O-0006LE-O6; Fri, 29 Jan 2021 20:09:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l5a5O-00048r-Na; Fri, 29 Jan 2021 20:09:42 +0000
+ (envelope-from <SRS0=fMc6=HA=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1l5a7o-00016o-RR
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 20:12:12 +0000
+Received: from mail-qk1-x733.google.com (unknown [2607:f8b0:4864:20::733])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 014ceb0e-14d2-444b-99e7-b9aa3a5f0a81;
+ Fri, 29 Jan 2021 20:12:12 +0000 (UTC)
+Received: by mail-qk1-x733.google.com with SMTP id t63so9998241qkc.1
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Jan 2021 12:12:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,94 +37,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=uD0+HKsELeR7kcfrNPPqIHoOeD7XN2vbYBNIqhZruDc=; b=SWEUtnY7UOmSOGLKI2uFRW309L
-	P4rnTx+aVI+q8vLBief/2XRBq7oToj3yforYpUA3dWG0zO9TAhhN43jlEqUS65bD3av3+SiK6M/1L
-	0r2AnIj6gD6UUQ8zAUqJyfkQq1ID9A0PObwm7uZg9znc9xdPjRYstZsoMQMrfNkO+0jQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158790-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 014ceb0e-14d2-444b-99e7-b9aa3a5f0a81
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zededa.com; s=google;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=7+ZPBD93wU9Oq4PyTgn3HqsJ99mpynfKlSUpq0XM4mA=;
+        b=ZwpCsp/2soyh1nf7wf2dt+3jtCy9QUb5FThVpFlzJgQpFwZceTb5d6jMtgktDfraMe
+         9Xx9RSlMBZRT2aeqxkFG+4IZqUVhtxXdeysNaP2imXXfBVFEN1xE5e6Ptc385rIzLXV2
+         GCweOh48HnOYh8mWlTeTPYy8WP8nxlpXJ75UrZQr5ywJGDZMRDZJ4b9glvgUyGSLVygi
+         30XWjExvPdLBFA6vxfFxNxil5atVrrQ/OHqLnHPBAnl0lDF+DE4JbseyF+zVK1/obXDa
+         u65LvlHkOFuqyeDhPNpCggYNsFnFXZHR3fVuoc32dtO8dBPSgdlPx6fh+xPh3AjkCmYB
+         BcxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=7+ZPBD93wU9Oq4PyTgn3HqsJ99mpynfKlSUpq0XM4mA=;
+        b=EajiDEMlcevfAExjRtCVtpjBEbGxLyr3wjnCKrsZW69u1/vBtzdOw2Oq2opj9w4f+L
+         Iyx9goPoFZojOBZDBe7gA6Qh0QCX/v0JtABk7+VOgwRquS7A/12x2uRiJ1F7bK+k6+BR
+         u5rzNY6DKMSCFO6qXVN0SQ6Mqv0A5IEUraQMnTsDRh20Mzob2PftBno0zPJb/Ast57zF
+         kWe4YSUqdROrUrHsb8BypSunQvzE/aH5sLF3ZHuE4MijF1Mes8LqRlqBFmylazFR7qtP
+         VqFhhipeH3DUaOg/5h67WufMsLDtP+W1NOMQNwgIBHgsXsnOlEoWdLKNa3ASxt1IMsl8
+         GFYQ==
+X-Gm-Message-State: AOAM532quRmkEt6lQ6m2MRunUNJ1YgpQU7XqccydUAt1FDpLaBgxkT2s
+	ZVxuaIOpGLNBhqdJOzVutE+lsBkMFvPsanpPYJTBRJ2xJW/AUQ==
+X-Google-Smtp-Source: ABdhPJxIpGaRWNsnBay2Smeu9zsMG4x6baJWWxxat1mxwopNoRFNpl3EkyQy4TdOdsLDiV+SQBSeuQDRy+yn9iBmhD8=
+X-Received: by 2002:a37:6f42:: with SMTP id k63mr5659469qkc.291.1611951131237;
+ Fri, 29 Jan 2021 12:12:11 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158790: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=b9a76fc4f0825e9161cf579f2f584226ea08afe9
-X-Osstest-Versions-That:
-    xen=7e5cffcd1e9300cab46a1816b5eb676caaeed2c1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Jan 2021 20:09:42 +0000
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Fri, 29 Jan 2021 12:12:00 -0800
+Message-ID: <CAMmSBy-wXf+YHa_m1N37537EQfUrs8RVi2i=Ur6yXGtJV_bCgQ@mail.gmail.com>
+Subject: Troubles analyzing crash dumps from xl dump-core
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 158790 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158790/
+Hi!
 
-Failures :-/ but no regressions.
+I'm trying to see how much mileage I can get out of
+crash(1) 7.2.8 (based on gdb 7.6) when it comes to
+analyzing crash dumps taken via xl dump-core (this
+is all on x86_64 with stock Xen v. 4.14).
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+The good news is that the image actually does load
+up but it throws the following WARNINGs in the process:
 
-version targeted for testing:
- xen                  b9a76fc4f0825e9161cf579f2f584226ea08afe9
-baseline version:
- xen                  7e5cffcd1e9300cab46a1816b5eb676caaeed2c1
+WARNING: cannot access vmalloc'd module memory
+crash: read error: kernel virtual address: ffffffff93613480  type:
+"fill_task_struct"
+WARNING: active task ffffffff93613480 on cpu 0 not found in PID hash
+crash: read error: kernel virtual address: ffffffff93613480  type:
+"fill_task_struct"
+WARNING: cannot read log_buf contents
 
-Last test of basis   158783  2021-01-29 14:01:30 Z    0 days
-Testing same since   158790  2021-01-29 18:00:27 Z    0 days    1 attempts
+And then the info that it gives me around basic things like
+ps, mod, log, etc. is really super limited (and I am now suspecting
+may even be wrong).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien.grall@arm.com>
-  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-  Paul Durrant <paul@xen.org>
-  Rahul Singh <rahul.singh@arm.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Wei Chen <Wei.Chen@arm.com>
+Since I was primarily after dmesg/log initially, I tried:
+crash> log
+log: WARNING: cannot read log_buf contents
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Then I tried taking an xl dump-core from the domU that was still
+very much alive and happy and got similar results -- so it clearly
+doesn't seem to be related to the state domU is in.
 
+As matter of fact, I actually got to the desired dmesg output
+by simply running strings(1) on the core file -- so the info is
+definitely there -- but I guess some kind of index/reference maybe
+broken.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+With all that in mind, if there's anyone on this ML who has recently
+done Xen DomU crash dump analysis -- I would definitely appreciate
+the pointers!
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   7e5cffcd1e..b9a76fc4f0  b9a76fc4f0825e9161cf579f2f584226ea08afe9 -> smoke
+Thanks,
+Roman.
 
