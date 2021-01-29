@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59C6030896C
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 15:01:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78159.142056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B93D308978
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 15:14:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78173.142089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5UJa-0006gi-NZ; Fri, 29 Jan 2021 13:59:58 +0000
+	id 1l5UX4-0000Na-Bu; Fri, 29 Jan 2021 14:13:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78159.142056; Fri, 29 Jan 2021 13:59:58 +0000
+Received: by outflank-mailman (output) from mailman id 78173.142089; Fri, 29 Jan 2021 14:13:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5UJa-0006g8-Hb; Fri, 29 Jan 2021 13:59:58 +0000
-Received: by outflank-mailman (input) for mailman id 78159;
- Fri, 29 Jan 2021 13:59:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5UJZ-0006g0-1q; Fri, 29 Jan 2021 13:59:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5UJY-0006y2-Lt; Fri, 29 Jan 2021 13:59:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5UJY-00073X-FR; Fri, 29 Jan 2021 13:59:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l5UJY-0008Rr-Et; Fri, 29 Jan 2021 13:59:56 +0000
+	id 1l5UX4-0000N9-8H; Fri, 29 Jan 2021 14:13:54 +0000
+Received: by outflank-mailman (input) for mailman id 78173;
+ Fri, 29 Jan 2021 14:13:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rA00=HA=gmail.com=michael.d.labriola@srs-us1.protection.inumbo.net>)
+ id 1l5UX1-0000N4-UW
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 14:13:51 +0000
+Received: from mail-wr1-x431.google.com (unknown [2a00:1450:4864:20::431])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id efd15429-65fe-4efb-9a48-9eb6112b61fc;
+ Fri, 29 Jan 2021 14:13:51 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id g10so8993177wrx.1
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Jan 2021 06:13:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,92 +37,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=kyArnUmRZfiaYEYbLr3laUr1/VpviC34qnuU4yuSoiE=; b=yd3x/cS8e8icSsrql7tHvPpzW1
-	yLh1yRgneQV/zGNw1Pe8G+AtMgk1+5s8Dou+l2kSv26IHZxshSVkzzWXqgb0l+buOd/XzH0dtgYLu
-	UkQKmdnLX91Bn46tqqImeGp8mJvYimWAQu8+L8H7MenpaH5yzI1IMcAeRpCgrTKSMgCw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158773-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: efd15429-65fe-4efb-9a48-9eb6112b61fc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=/2hCLinPJNgQBv6zSIhEEGCF3003/VIqkT79ZqD45s4=;
+        b=qY/Ka+h6/GDh2EFiTqmmVIPUCJhFXofLbwIqDtpbZAk5gO/WrqHpk9k0loGbcUZUmt
+         T/CKZNhZy9GPoY0Xm5npHaMIMQDbmAkmaD4dthDsUpZly0WceTLwHdmahfPMXWZEzJTw
+         9cBPu/yF25LZvIi1AKdHcGFTcABqtBwZzDX0tKpa1QvqqqnrnBDuBqgVfDg/JegLcUST
+         +FxpDjTDJCyObgeolgxsQNFp54GKsb8yKv7sReeXtavQ2iExyqcoD2u7Dvz1rJoUdZ02
+         ecvY9TnfN0LFe7a1TshaDzL3jXV+eX48MYZrZsjM9xFns8LPRah7IY7dwBty6kyVNJXi
+         fmaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=/2hCLinPJNgQBv6zSIhEEGCF3003/VIqkT79ZqD45s4=;
+        b=Fe8ZN3IyjCnjmxRbJK8FvjnBVnq7hGaoDQ6i65YXM8ARC2OcatjCAcEQbWkhZWYkUK
+         Au9aSLXLA8e1VLEKeL67Es6XDxT3odPczmv4gcwR0oJ3SnACIPlR2HD76SY+MS1M2Ljb
+         9FZlcPbkLCywwsczpk5QbRMD55BdxLuU+UzIk5NJ2fGDkdsmNmgWNp+hS68jlFRBjtnB
+         /2RVNolsge5o/0z59HtW/Uc3hviRgaP79lsvkQJwAH5Id64925XRzEVR1AtSg2uLHjLf
+         SnBLlt6nEIQMgdxQmWG2A9DpLz8hVl3c3fUjPytMYK2vC0WruSUe3tjHZdV1RRpAoShC
+         RoFA==
+X-Gm-Message-State: AOAM531LiCjJW8Q5tc6BV8wnGRK0HmCNkcTYQwRPRx+eFp7r0sKCSUV6
+	RebsXcCmLZEfA/yVqLynguGGfxDil6EFzKF9e9I=
+X-Google-Smtp-Source: ABdhPJzJKt7LcxvasjvV+lhO4PZMR0Eg1i6xlL7jOdXUzlPXOc7tx7QIEJujHlxMebW3S3kD/jXnimy3Jn4Ffezh810=
+X-Received: by 2002:a05:6000:104f:: with SMTP id c15mr4714357wrx.239.1611929630061;
+ Fri, 29 Jan 2021 06:13:50 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158773: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=fbb3bf002b42803ef289ea2a649ebd5f25d22236
-X-Osstest-Versions-That:
-    xen=6677b5a3577c16501fbc51a3341446905bd21c38
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Jan 2021 13:59:56 +0000
+References: <2nft2kipqg.fsf@aragorn.infrastructure.cah> <983b87d6-edb8-21ea-7d6f-f653f5c0d048@oracle.com>
+ <20210129005129.GA2452@mail-itl> <44068a70-8940-824b-9e39-b800635b92c7@suse.com>
+In-Reply-To: <44068a70-8940-824b-9e39-b800635b92c7@suse.com>
+From: Michael Labriola <michael.d.labriola@gmail.com>
+Date: Fri, 29 Jan 2021 09:13:37 -0500
+Message-ID: <CAOQxz3w-2aJn1dKbQRG8_m8f3_pN0zSXzYkfyU7cvo34vF6P=g@mail.gmail.com>
+Subject: Re: Problems starting Xen domU after latest stable update
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, David Woodhouse <dwmw@amazon.co.uk>, 
+	Sasha Levin <sashal@kernel.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+	Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 158773 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158773/
+On Fri, Jan 29, 2021 at 12:26 AM J=C3=BCrgen Gro=C3=9F <jgross@suse.com> wr=
+ote:
+>
+> On 29.01.21 01:51, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Thu, Jan 28, 2021 at 07:03:00PM -0500, Boris Ostrovsky wrote:
+> >>
+> >> On 1/28/21 6:52 PM, Michael D Labriola wrote:
+> >>> Hey, everyone.  I've run into problems starting up my Xen domUs as of
+> >>> the latest batch of stable updates.  Whenever I try to create one, I
+> >>> get a bunch of block device errors like this:
+> >>>
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51712
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51728
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51744
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51760
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51776
+> >>> libxl: error: libxl_create.c:1452:domcreate_launch_dm: Domain 4:unabl=
+e to add disk devices
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51712
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51728
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51744
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51760
+> >>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51776
+> >>> libxl: error: libxl_domain.c:1290:devices_destroy_cb: Domain 4:libxl_=
+_devices_destroy failed
+> >>> libxl: error: libxl_domain.c:1177:libxl__destroy_domid: Domain 4:Non-=
+existant domain
+> >>> libxl: error: libxl_domain.c:1131:domain_destroy_callback: Domain 4:U=
+nable to destroy guest
+> >>> libxl: error: libxl_domain.c:1058:domain_destroy_cb: Domain 4:Destruc=
+tion of domain failed
+> >>>
+> >>> I'm using Xen 4.13.1 on the box I've been testing with.
+> >>>
+> >>> I bisected down to this commit, and reverting it does indeed fix my
+> >>> problem.  Well, this commit upstream and it's cherry-picked variants
+> >>> on linux-5.4.y and linux-5.10.y.
+> >>
+> >>
+> >> You most likely need 5f46400f7a6a4fad635d5a79e2aa5a04a30ffea1. It hit =
+Linus tree a few hours ago.
+> >
+> > I can confirm this fixes the same issue for me (too?), thanks!
+> > Shouldn't this patch have Cc: stable?
+>
+> No, I don't think so.
+>
+> The issue being fixed by the patch has been introduced only in 5.11
 
-Failures :-/ but no regressions.
+For the record, the issue is also in the latest stable 5.4.y and
+5.10.y releases (I assume older ones as well, but those are the only 2
+I tested).  That's where I ran into it initially.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+> and the fixing patch references the buggy patch via a Fixes: tag.
+>
+> If the buggy patch has been put into stable this Fixes: tag should
+> result in the fix being put into the same stable branches as well.
 
-version targeted for testing:
- xen                  fbb3bf002b42803ef289ea2a649ebd5f25d22236
-baseline version:
- xen                  6677b5a3577c16501fbc51a3341446905bd21c38
+I've never done this before...  does this happen automatically?  Or is
+there somebody we should ping to make sure it happens?
 
-Last test of basis   158713  2021-01-27 23:00:26 Z    1 days
-Failing since        158724  2021-01-28 12:01:30 Z    1 days    8 attempts
-Testing same since   158773  2021-01-29 11:02:39 Z    0 days    1 attempts
+Thanks!
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Manuel Bouyer <bouyer@netbsd.org>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6677b5a357..fbb3bf002b  fbb3bf002b42803ef289ea2a649ebd5f25d22236 -> smoke
+-Mike
 
