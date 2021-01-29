@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFF9A30847E
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 05:12:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77697.140891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C18FE30852D
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 06:27:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77704.140909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5L95-0005i6-Cn; Fri, 29 Jan 2021 04:12:31 +0000
+	id 1l5MIK-0004jj-Tn; Fri, 29 Jan 2021 05:26:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77697.140891; Fri, 29 Jan 2021 04:12:31 +0000
+Received: by outflank-mailman (output) from mailman id 77704.140909; Fri, 29 Jan 2021 05:26:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5L95-0005hj-9H; Fri, 29 Jan 2021 04:12:31 +0000
-Received: by outflank-mailman (input) for mailman id 77697;
- Fri, 29 Jan 2021 04:12:29 +0000
+	id 1l5MIK-0004jK-Pu; Fri, 29 Jan 2021 05:26:08 +0000
+Received: by outflank-mailman (input) for mailman id 77704;
+ Fri, 29 Jan 2021 05:26:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CfXQ=HA=gmail.com=jlpoole56@srs-us1.protection.inumbo.net>)
- id 1l5L93-0005hc-M7
- for xen-devel@lists.xen.org; Fri, 29 Jan 2021 04:12:29 +0000
-Received: from mail-pl1-x62c.google.com (unknown [2607:f8b0:4864:20::62c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9j1X=HA=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l5MIK-0004jF-3B
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 05:26:08 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2a7a44a6-c483-45da-aee4-1e47b5038210;
- Fri, 29 Jan 2021 04:12:28 +0000 (UTC)
-Received: by mail-pl1-x62c.google.com with SMTP id b17so4551885plz.6
- for <xen-devel@lists.xen.org>; Thu, 28 Jan 2021 20:12:28 -0800 (PST)
-Received: from [192.168.1.2] (75-164-166-38.ptld.qwest.net. [75.164.166.38])
- by smtp.googlemail.com with ESMTPSA id b17sm6876227pfo.151.2021.01.28.20.12.26
- for <xen-devel@lists.xen.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Jan 2021 20:12:26 -0800 (PST)
+ id 72f1992b-bd17-4b53-98ba-d0cce2b72fb4;
+ Fri, 29 Jan 2021 05:26:04 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DA43CAE56;
+ Fri, 29 Jan 2021 05:26:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,144 +38,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a7a44a6-c483-45da-aee4-1e47b5038210
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=reply-to:from:subject:to:message-id:date:user-agent:mime-version
-         :content-transfer-encoding:content-language;
-        bh=k49HqiK/igngsk3HCsvQ+LGIboeDo80MI6abtqN5nE4=;
-        b=KcopK7fhF8JFKyRyk8fn7zWl+//B5Jh2KUNTVkV+GAFFpDM7VQkJAXg2wZo4jeyYbT
-         4oFVUAbZeQh8KY/RvR02vByRKM4AsxGB/Qd9UgXb2aE78vcxGVz8gff8k+FZWgkiEnqF
-         7ftuWNf24TTahjakuwUi6bgLkfgWPr8EF3BwABZzYMeeFqpUTjmAucDYU5UI2hhz7tgV
-         +d15u95dkuwwVO7AVbq1XPCwCdWy4QnuMQWIg4kEXwYBqlg5cHh1RlT5dAPBQPMvey18
-         WIWrhwJf+YGpHy7f2NyItyDYN/+CbToVzhDwXIkbIva/x6MUhLJJQi70xJlqJpMcqrMg
-         sgfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:reply-to:from:subject:to:message-id:date
-         :user-agent:mime-version:content-transfer-encoding:content-language;
-        bh=k49HqiK/igngsk3HCsvQ+LGIboeDo80MI6abtqN5nE4=;
-        b=jr2mfPtQr5jV8HbeuFlN22FfGrMPGR+ppChwJ1+N6vW/Q/RMTn2KV9v884ZtrLBaK9
-         YwcAGpcNI5ooVOKDVFTrnHuoRdX7ZTYmLnUzvSNDnusdFHucFXoNJu27hhiaFScJhUSU
-         FEokvNVFhZtaSy2cHr85PzwEOTGI4scq6n/SCgdv4GNCUj2sxaUeSX5C4lO2Vmj/5Zb7
-         w0uBpiufEFaQjyM7AU/8mKa4cNNfe4KkvEjWhC5z+Wx+jrHVkzxHUZ5ynhgpq01Va7DX
-         mfTZGhl0o0XqOVYoDCHfQodrbuk0Mfgv3pBw/W/ZbAU6kSyRrqaUid4GCJg0SsC6KURf
-         k9zg==
-X-Gm-Message-State: AOAM532JIMBS5P9d38y0SVsPkXUErl0usg0qUGeCjjb7aVJ2gBz7/WdF
-	IcihNAVdiNVqNAEtYKmg0zKHmOgGzZc=
-X-Google-Smtp-Source: ABdhPJwDVhRVz/PmJj3rWrmKklCFVzSh72SG9zRYXAIOQdIKSHB9b5V/CQe+3bbe5pCzUzib1ZpXIA==
-X-Received: by 2002:a17:903:31d1:b029:de:8361:739b with SMTP id v17-20020a17090331d1b02900de8361739bmr2605812ple.85.1611893547415;
-        Thu, 28 Jan 2021 20:12:27 -0800 (PST)
-Reply-To: jlpoole56@gmail.com
-From: "John L. Poole" <jlpoole56@gmail.com>
-Subject: Is initramfs' /dev supposed to show exposed targets at Guest Boot
- Time?
-To: xen-devel@lists.xen.org
-Message-ID: <1b60bde3-3f11-baee-d2b1-e33e05ffe0b1@gmail.com>
-Date: Thu, 28 Jan 2021 20:11:48 -0800
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
+X-Inumbo-ID: 72f1992b-bd17-4b53-98ba-d0cce2b72fb4
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611897964; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1mtl5hlqCovATj6+TX89DVe/hfAobAWAH/SKWPhzPGs=;
+	b=SE+DMSthyceyHzFxz8yCw2K0n6cGagPkrFIc39nCgCMbFlCS6AFaLxYLKJMQ8FKvU+UX+1
+	J9EirNLl/Wl1A4nzyNjj/RVPMAGwmVcGPzpS+CVc5hQHZv0gbBQuU+Cte5UOfMn+aN77RG
+	EMwgzo14+XllZHwMZgdxaA1a7RxgMXg=
+Subject: Re: Problems starting Xen domU after latest stable update
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Michael D Labriola <michael.d.labriola@gmail.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Sasha Levin <sashal@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+References: <2nft2kipqg.fsf@aragorn.infrastructure.cah>
+ <983b87d6-edb8-21ea-7d6f-f653f5c0d048@oracle.com>
+ <20210129005129.GA2452@mail-itl>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <44068a70-8940-824b-9e39-b800635b92c7@suse.com>
+Date: Fri, 29 Jan 2021 06:26:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210129005129.GA2452@mail-itl>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="EGwiQzZCoNLZmzRhDQxnU6miBrMwYBCNy"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--EGwiQzZCoNLZmzRhDQxnU6miBrMwYBCNy
+Content-Type: multipart/mixed; boundary="nZPkDkCt3NHURUzEQdZiwXelszA8Yan8e";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Michael D Labriola <michael.d.labriola@gmail.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Sasha Levin <sashal@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <44068a70-8940-824b-9e39-b800635b92c7@suse.com>
+Subject: Re: Problems starting Xen domU after latest stable update
+References: <2nft2kipqg.fsf@aragorn.infrastructure.cah>
+ <983b87d6-edb8-21ea-7d6f-f653f5c0d048@oracle.com>
+ <20210129005129.GA2452@mail-itl>
+In-Reply-To: <20210129005129.GA2452@mail-itl>
+
+--nZPkDkCt3NHURUzEQdZiwXelszA8Yan8e
+Content-Type: multipart/mixed;
+ boundary="------------F995415C110CA22168F5B32B"
 Content-Language: en-US
 
-Greetings,
+This is a multi-part message in MIME format.
+--------------F995415C110CA22168F5B32B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-I try to run Xen on low energy platforms.  I've previously been here 
-about an Intal Atom which died
-just after the 3 year warranty expired.  So I'm trying AMD's laptop 
-Ryzen.  I think I've been using Xen
-for 8 years.
+On 29.01.21 01:51, Marek Marczykowski-G=C3=B3recki wrote:
+> On Thu, Jan 28, 2021 at 07:03:00PM -0500, Boris Ostrovsky wrote:
+>>
+>> On 1/28/21 6:52 PM, Michael D Labriola wrote:
+>>> Hey, everyone.  I've run into problems starting up my Xen domUs as of=
 
-I have Debian (Linux snuc 4.19.0-13-amd64 #1 SMP Debian 4.19.160-2 
-(2020-11-28) x86_64 GNU/Linux)
-running on a new SimplyNuC:  Aspen PN50 R7 4800U with a AMD Ryzen™ 4000 
-Renoir mobile processor.
+>>> the latest batch of stable updates.  Whenever I try to create one, I
+>>> get a bunch of block device errors like this:
+>>>
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51712
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51728
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51744
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51760
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to add device with path /local/domain/0/backend/vbd/4/51776
+>>> libxl: error: libxl_create.c:1452:domcreate_launch_dm: Domain 4:unabl=
+e to add disk devices
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51712
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51728
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51744
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51760
+>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4:u=
+nable to remove device with path /local/domain/0/backend/vbd/4/51776
+>>> libxl: error: libxl_domain.c:1290:devices_destroy_cb: Domain 4:libxl_=
+_devices_destroy failed
+>>> libxl: error: libxl_domain.c:1177:libxl__destroy_domid: Domain 4:Non-=
+existant domain
+>>> libxl: error: libxl_domain.c:1131:domain_destroy_callback: Domain 4:U=
+nable to destroy guest
+>>> libxl: error: libxl_domain.c:1058:domain_destroy_cb: Domain 4:Destruc=
+tion of domain failed
+>>>
+>>> I'm using Xen 4.13.1 on the box I've been testing with.
+>>>
+>>> I bisected down to this commit, and reverting it does indeed fix my
+>>> problem.  Well, this commit upstream and it's cherry-picked variants
+>>> on linux-5.4.y and linux-5.10.y.
+>>
+>>
+>> You most likely need 5f46400f7a6a4fad635d5a79e2aa5a04a30ffea1. It hit =
+Linus tree a few hours ago.
+>=20
+> I can confirm this fixes the same issue for me (too?), thanks!
+> Shouldn't this patch have Cc: stable?
 
-(I tried to run Xen from the factory installed Ubuntu and ran into the 
-same problem below, so I
-thought I ought to use Debian in case Ubuntu had a shortcoming re: lvm)
+No, I don't think so.
 
-I created volumes with lvm, i.e. /dev/vg0/aresboot, /dev/vg0/aresswap, 
-/dev/vg0/aresserver
-which are to be exposed to the Gentoo environment as sda1, sda2, and 
-sda3.  My Gentoo
-/etc/fstab accordingly has sda1,2, & 3 specified.  My problem occurs, I 
-think, before my Gentoo
-kernel even has a chance to perform its initialization.
+The issue being fixed by the patch has been introduced only in 5.11
+and the fixing patch references the buggy patch via a Fixes: tag.
 
-I am trying to create a Gentoo VM and successfully built a kernel and 
-initramfs in a chrooted
-environment within /dev/vg0/aresserver.  I've successfully done this 
-before on
-other platforms; however, my attempt now is on this tiny, but powerful 
-and efficient, SimplyNUC.
-
-And, I think this may be my first time using LVM partitions exclusively 
-rather than standard fsdisk partitions.
-
-When I try to "xl create ares.conf -c", the Gentoo kernel is unable to 
-see the labeled "sda3"
-[target is Debian's /dev/vg0/aresserver].
-
-I'm not new Xen and have not had this kind of problem before, but I also 
-don't think I staged
-my guests completely on lvm partitions.  I'm thinking there is a problem 
-between the
-Xen Kernel code and Gentoo's kernel and I think the problem may be on 
-the Gentoo side.
-
-The version of lvm on Debian is: 2.03.02(2)
-The version of lvm [lvm2] on Gentoo is: 2.02.187-r2
-
-(Would a lvm 2.02 be unable to read a 2.03??)
-
-My question now is: when my Gentoo initramfs can't find the partition 
-and I enter its shell, should I
-be seeing the exposed partition, e.g. "sda3", under /dev?  I think so.
-
-None of the names I specify, e.g. "sda3", appear under the /dev listing 
-(see pastebin below).
-
-A sample configuration for the disk (just 1 target used to debug this 
-problem) is:
-
-disk = ['format=raw, vdev=sda3, access=rw, 
-target=/dev/mapper/vg0-aresserver']
-
-I have tried specifying root as "sda3" -- the name that the target 
-should appear as in the guest
-environment as well as the full path from the Dom0 environment (above).
-
-I'm guessing my problem is an initramfs and/or kernel issue in Gentoo: 
-being unable to
-read an lvm partition.  Note, when I compiled, I used genkernel as follows:
-
-      genkernel --menuconfig --lvm --mdadm all
-
-and my xen configuration has:
-
-      root=/dev/vg0/aresserver dolvm  domdadm
-
-(root=/dev/sda3 and root=sda3 do not work either)
-
-Before I approach Gentoo developers, I wanted to learn from the Xen 
-gurus that my assumption that the
-initramfs /dev listing is the correct assay to determine if initramfs 
-and/or the kernel are
-able to see the Debian lvm partitions.
-
-Here is a pastebin of my create session and listing of /dev from within 
-initramfs shell: https://pastebin.com/juybx5gU
-
-So, should I be seeing "sda3" when I list /dev?
-
-Thank you.
--- 
-Email Rider
-
-John Laurence Poole
+If the buggy patch has been put into stable this Fixes: tag should
+result in the fix being put into the same stable branches as well.
 
 
+Juergen
+
+
+--------------F995415C110CA22168F5B32B
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------F995415C110CA22168F5B32B--
+
+--nZPkDkCt3NHURUzEQdZiwXelszA8Yan8e--
+
+--EGwiQzZCoNLZmzRhDQxnU6miBrMwYBCNy
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmATnGoFAwAAAAAACgkQsN6d1ii/Ey8e
+oAf+MddfaCnGDNsaGVPvbGniUHKmkw89GXzyPr3oGnm71XPEsk/x34EraLyFUhWY0REl24u4W4Y4
+G5inX3r1vEoYwCWd259Z5img/ZRDUFZ086lZPX/O2C8nlzROL5h+sUX16Mg/7utcPM080PU9jxPb
+hHXjT192f0lmJniBG+Mf2WrVzBstO3X5JWiIXwuuFcWG3MlFf1YCDGQb+46j7bEB6o3TDVrz/x1A
+vzdMkJU3LllO62ooRhH6YfWIVGj6fg5W9KM+aIxUOCvovghBdig+ju/TxA8WUMzwAmn6ezB3r/VF
+0FsTfgfg7Itq8equm/Mbqsx30oXuR/nKtTsnEwHXAA==
+=zlg9
+-----END PGP SIGNATURE-----
+
+--EGwiQzZCoNLZmzRhDQxnU6miBrMwYBCNy--
 
