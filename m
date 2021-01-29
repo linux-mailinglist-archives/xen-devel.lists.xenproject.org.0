@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6AA30893C
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 14:09:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78133.141997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49C6030896B
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 15:01:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78162.142068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5TWX-0001IU-4t; Fri, 29 Jan 2021 13:09:17 +0000
+	id 1l5UKH-0007cH-Vn; Fri, 29 Jan 2021 14:00:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78133.141997; Fri, 29 Jan 2021 13:09:17 +0000
+Received: by outflank-mailman (output) from mailman id 78162.142068; Fri, 29 Jan 2021 14:00:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5TWX-0001I5-1M; Fri, 29 Jan 2021 13:09:17 +0000
-Received: by outflank-mailman (input) for mailman id 78133;
- Fri, 29 Jan 2021 13:09:15 +0000
+	id 1l5UKH-0007bs-SQ; Fri, 29 Jan 2021 14:00:41 +0000
+Received: by outflank-mailman (input) for mailman id 78162;
+ Fri, 29 Jan 2021 14:00:40 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mmvf=HA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l5TWV-0001I0-TK
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 13:09:15 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+WIj=HA=amazon.de=prvs=65673c61e=nmanthey@srs-us1.protection.inumbo.net>)
+ id 1l5UKG-0007bn-Ra
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 14:00:40 +0000
+Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 66b312ed-c5b6-434a-b310-ef96d78af1e1;
- Fri, 29 Jan 2021 13:09:10 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 52FD7AC41;
- Fri, 29 Jan 2021 13:09:09 +0000 (UTC)
+ id 91e6b562-0f2e-4492-a8f6-caf0ecb4acb9;
+ Fri, 29 Jan 2021 14:00:40 +0000 (UTC)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2b-a7fdc47a.us-west-2.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
+ 29 Jan 2021 14:00:33 +0000
+Received: from EX13D02EUC001.ant.amazon.com
+ (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
+ by email-inbound-relay-2b-a7fdc47a.us-west-2.amazon.com (Postfix) with ESMTPS
+ id ECCACC0829; Fri, 29 Jan 2021 14:00:31 +0000 (UTC)
+Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
+ EX13D02EUC001.ant.amazon.com (10.43.164.92) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 29 Jan 2021 14:00:30 +0000
+Received: from u6fc700a6f3c650.ant.amazon.com (10.1.213.24) by
+ mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP Server id
+ 15.0.1497.2 via Frontend Transport; Fri, 29 Jan 2021 14:00:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,70 +48,110 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66b312ed-c5b6-434a-b310-ef96d78af1e1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611925749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4xV0erOPMjYUBHIryVvlrAVZadBdb7HdfDjUcO2JiXo=;
-	b=LWAaJo0qWmYCVG30RGntzfnVYLi/TGZq3UtyQuFIAu/Xma0RUZn6e7lESMxDNEJKepNU1O
-	P/d8CmaFfJ3zJtNImWcJC/f6In++Q5h/lvhW+/0ytztEEa12UvOH6C5ChiRRxhx78yS+rw
-	C/APgmm71Xfywb0X++mffCwXTXmYXag=
-Subject: Re: [PATCH V6 24/24] xen/ioreq: Make the IOREQ feature selectable on
- Arm
-To: Oleksandr <olekstysh@gmail.com>, Paul Durrant <paul@xen.org>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-References: <1611884932-1851-1-git-send-email-olekstysh@gmail.com>
- <1611884932-1851-25-git-send-email-olekstysh@gmail.com>
- <2d98fd45-a88a-a198-a42d-393a713e1d54@xen.org>
- <433f8d5c-f66f-874e-e08e-83427f9f2a29@suse.com>
- <3fb55faa-8d05-cb8f-f567-4e099347b3e6@gmail.com>
- <e9e9eabc-3925-c402-b7e2-1412b5b6ca8a@suse.com>
- <63d005ce-0993-e604-7b06-fc6603995152@xen.org>
- <4da02c52-1866-6eaa-415b-ddd374edc9d9@gmail.com>
- <645c998c-8a63-7f65-1de1-2c9000da4d69@suse.com>
- <92a8fedc-1837-908f-26e5-a5fd7b867853@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9a8de722-f095-d084-1f79-033530519d0e@suse.com>
-Date: Fri, 29 Jan 2021 14:09:09 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+X-Inumbo-ID: 91e6b562-0f2e-4492-a8f6-caf0ecb4acb9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+  t=1611928840; x=1643464840;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=zGmG7rG65qh/syOK6SrNKiWQCyTboe4a0KLQqkTJ4Gs=;
+  b=XzwlJvSvoSvlUcHc27rNhsUCoWf4UPCQw5dJCae7WM9z43ze5GnJYcQ7
+   r3YL2jSYxn/dbGC70jSPELhaN77VWdZTOseyleGf+vJYUjKxg2IVR07/Q
+   Nku8ISeQguN94x+xYth2L9dlOGmNAsGeHXb+75gdqMXPdapirxQxMQnAy
+   Y=;
+X-IronPort-AV: E=Sophos;i="5.79,385,1602547200"; 
+   d="scan'208";a="78266441"
+From: Norbert Manthey <nmanthey@amazon.de>
+To: <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Norbert Manthey
+	<nmanthey@amazon.de>
+Subject: [PATCH HVM v1 1/1] hvm: refactor set param
+Date: Fri, 29 Jan 2021 14:59:50 +0100
+Message-ID: <20210129135950.32095-1-nmanthey@amazon.de>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <92a8fedc-1837-908f-26e5-a5fd7b867853@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+Precedence: Bulk
 
-On 29.01.2021 13:06, Oleksandr wrote:
-> On 29.01.21 13:54, Jan Beulich wrote:
->> On 29.01.2021 12:37, Oleksandr wrote:
->>> I am wondering do we need to update support.md in the context of IOREQ
->>> status on Arm right now or this could be postponed?
->> I think so, yes. I have to admit I didn't even realize the whole
->> series doesn't make an addition there. I think this wants to be
->> part of this patch here, as without it the code can't be enabled
->> (and hence can't be used, and hence its support status really
->> doesn't matter [yet]).
-> Thank you for the clarification.
-> The only mention about IOREQ server I managed to find in support.md is 
-> "x86/Multiple IOREQ servers"
-> with Status: Experimental. Does it match the current state on X86? I am 
-> asking because we are considering Tech Preview (which is higher than 
-> Experimental)
-> on Arm. Now I am wondering how could that be... Or I missed something?
+To prevent leaking HVM params via L1TF and similar issues on a
+hyperthread pair, let's load values of domains as late as possible.
 
-That's a question primarily to Paul, I guess, but I wouldn't
-recommend you piggyback on that entry that you've found. You
-want IOREQ servers in general (which are an integral part of
-x86/HVM), and hence imo you want a separate entry.
+Furthermore, speculative barriers are re-arranged to make sure we do not
+allow guests running on co-located VCPUs to leak hvm parameter values of
+other domains.
 
-Jan
+This is part of the speculative hardening effort.
+
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
+Reported-by: Hongyan Xia <hongyxia@amazon.co.uk>
+
+---
+ xen/arch/x86/hvm/hvm.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -4060,7 +4060,7 @@ static int hvm_allow_set_param(struct domain *d,
+                                uint32_t index,
+                                uint64_t new_value)
+ {
+-    uint64_t value = d->arch.hvm.params[index];
++    uint64_t value;
+     int rc;
+ 
+     rc = xsm_hvm_param(XSM_TARGET, d, HVMOP_set_param);
+@@ -4108,6 +4108,13 @@ static int hvm_allow_set_param(struct domain *d,
+     if ( rc )
+         return rc;
+ 
++    if ( index >= HVM_NR_PARAMS )
++        return -EINVAL;
++
++    /* Make sure we evaluate permissions before loading data of domains. */
++    block_speculation();
++
++    value = d->arch.hvm_domain.params[index];
+     switch ( index )
+     {
+     /* The following parameters should only be changed once. */
+@@ -4388,6 +4395,10 @@ int hvm_get_param(struct domain *d, uint32_t index, uint64_t *value)
+     if ( rc )
+         return rc;
+ 
++    /* Make sure the index bound check in hvm_get_param is respected, as well as
++       the above domain permissions. */
++    block_speculation();
++
+     switch ( index )
+     {
+     case HVM_PARAM_ACPI_S_STATE:
+@@ -4428,9 +4439,6 @@ static int hvmop_get_param(
+     if ( a.index >= HVM_NR_PARAMS )
+         return -EINVAL;
+ 
+-    /* Make sure the above bound check is not bypassed during speculation. */
+-    block_speculation();
+-
+     d = rcu_lock_domain_by_any_id(a.domid);
+     if ( d == NULL )
+         return -ESRCH;
+-- 
+2.17.1
+
+
+
+
+Amazon Development Center Germany GmbH
+Krausenstr. 38
+10117 Berlin
+Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
+Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+Sitz: Berlin
+Ust-ID: DE 289 237 879
+
+
+
 
