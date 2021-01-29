@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD5E3087EA
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 11:46:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77956.141579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E6D83087EC
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 11:47:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77959.141591 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5RHt-0000Iq-Eh; Fri, 29 Jan 2021 10:46:01 +0000
+	id 1l5RIr-0000Q7-P5; Fri, 29 Jan 2021 10:47:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77956.141579; Fri, 29 Jan 2021 10:46:01 +0000
+Received: by outflank-mailman (output) from mailman id 77959.141591; Fri, 29 Jan 2021 10:47:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5RHt-0000IQ-BR; Fri, 29 Jan 2021 10:46:01 +0000
-Received: by outflank-mailman (input) for mailman id 77956;
- Fri, 29 Jan 2021 10:46:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l5RIr-0000Pi-La; Fri, 29 Jan 2021 10:47:01 +0000
+Received: by outflank-mailman (input) for mailman id 77959;
+ Fri, 29 Jan 2021 10:47:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sDuN=HA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l5RHs-0000II-61
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 10:46:00 +0000
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3b96bfaa-ea30-43aa-90ae-e97994574f26;
- Fri, 29 Jan 2021 10:45:58 +0000 (UTC)
+ <SRS0=Fs4s=HA=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
+ id 1l5RIq-0000PX-11
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 10:47:00 +0000
+Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 803ed90d-24f7-4d7d-9ea8-4832063cbd92;
+ Fri, 29 Jan 2021 10:46:59 +0000 (UTC)
+Received: from rochebonne.antioche.eu.org (rochebonne
+ [IPv6:2001:41d0:fe9d:1100:221:70ff:fe0c:9885])
+ by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 10TAkr7x014070;
+ Fri, 29 Jan 2021 11:46:53 +0100 (MET)
+Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
+ id 1F2BA281D; Fri, 29 Jan 2021 11:46:53 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,116 +41,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b96bfaa-ea30-43aa-90ae-e97994574f26
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611917158;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Tv4cBwEAsvdZj0In03grL69EwnWIPYvdtYFViraxlCw=;
-  b=heEQui6/Hcfj0UIueMzpsIIFbSwgt0e9pkTGgs5g2REpiN2iueTvlQGg
-   6yU0PW+qupV9SszUu1xIqcpsDv0EYDB1R4Y2uONJzrVisisPOAqE2x1X0
-   /FZ+A9WHGriyXCcN4VWGVTQTEXjoln8pk/OoIZVyk3BL+Hq4xyYZ8e8pc
-   0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: SpVlrpEWSl+OnuyIfttemGZHhAdmBXE1B+7P38b1dZKAIwUHZvGBw22W5LaN7rN4AujlHEIiV8
- zqnPznKbd4FpO3Z5lRJltfOu4WiRCEXJ5T2X1EPodAGQoSoE2eEjwHybffJ4d26DLbwNd1hhKf
- Jp86OoGqClOGEWFSR0/a9hk5SwDQpg1Rfpw0/ZSUSuUTFMNGTEoEUJQbAeewwes1SiBwkSqKcm
- f8x0JRowtothAAFRIlVqkaJ5z2lPR8cYfSjCJhfB1HFMrKxQ8mAmCysS+O99BIDttj/8QVz1Kj
- 4OE=
-X-SBRS: 5.1
-X-MesageID: 36517224
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,385,1602561600"; 
-   d="scan'208";a="36517224"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 2.5/3] x86/svm: Reimplement VMRUN/STGI/CLGI with new asm-defns.h infrastructure
-Date: Fri, 29 Jan 2021 10:45:40 +0000
-Message-ID: <20210129104540.32137-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20210115231046.31785-1-andrew.cooper3@citrix.com>
-References: <20210115231046.31785-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 803ed90d-24f7-4d7d-9ea8-4832063cbd92
+Date: Fri, 29 Jan 2021 11:46:53 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
+        Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v2] libs/light: pass some infos to qemu
+Message-ID: <20210129104653.GG2015@antioche.eu.org>
+References: <20210126224800.1246-1-bouyer@netbsd.org>
+ <20210126224800.1246-12-bouyer@netbsd.org>
+ <YBKbEhavZlpD75fU@Air-de-Roger>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <YBKbEhavZlpD75fU@Air-de-Roger>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [IPv6:2001:41d0:fe9d:1100:a00:20ff:fe1c:276e]); Fri, 29 Jan 2021 11:46:53 +0100 (MET)
 
-... in order to reuse stgi elsewhere.
+On Thu, Jan 28, 2021 at 12:08:02PM +0100, Roger Pau Monné wrote:
+> On Tue, Jan 26, 2021 at 11:47:58PM +0100, Manuel Bouyer wrote:
+> > Pass bridge name to qemu as command line option
+> > When starting qemu, set an environnement variable XEN_DOMAIN_ID,
+> > to be used by qemu helper scripts
+> > The only functional difference of using the br parameter is that the
+> > bridge name gets passed to the QEMU script.
+> > NetBSD doesn't have the ioctl to rename network interfaces implemented, and
+> > thus cannot rename the interface from tapX to vifX.Y-emu. Only qemu knowns
+> > the tap interface name, so we need to use the qemu script from qemu itself.
+> > 
+> > Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> If you have a moment might be worth adding a note in
+> xl-network-configuration.5.pod that NetBSD in HVM mode requires
+> bridged networking I think?
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau MonnÃ© <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/hvm/svm/entry.S    | 10 +++-------
- xen/include/asm-x86/asm-defns.h | 12 ++++++++++++
- 2 files changed, 15 insertions(+), 7 deletions(-)
+With the default qemu-ifup script only. As you can do whatever you want
+in the script, you can support whatever network configuration you want.
+It's quite easy to do IP routing for example.
 
-diff --git a/xen/arch/x86/hvm/svm/entry.S b/xen/arch/x86/hvm/svm/entry.S
-index 1d2df08e89..e208a4b32a 100644
---- a/xen/arch/x86/hvm/svm/entry.S
-+++ b/xen/arch/x86/hvm/svm/entry.S
-@@ -22,10 +22,6 @@
- #include <asm/asm_defns.h>
- #include <asm/page.h>
- 
--#define VMRUN  .byte 0x0F,0x01,0xD8
--#define STGI   .byte 0x0F,0x01,0xDC
--#define CLGI   .byte 0x0F,0x01,0xDD
--
- ENTRY(svm_asm_do_resume)
-         GET_CURRENT(bx)
- .Lsvm_do_resume:
-@@ -82,9 +78,9 @@ __UNLIKELY_END(nsvm_hap)
-         pop  %rsi
-         pop  %rdi
- 
--        CLGI
-+        clgi
-         sti
--        VMRUN
-+        vmrun
- 
-         SAVE_ALL
- 
-@@ -93,7 +89,7 @@ __UNLIKELY_END(nsvm_hap)
-         SPEC_CTRL_ENTRY_FROM_HVM    /* Req: b=curr %rsp=regs/cpuinfo, Clob: acd */
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
- 
--        STGI
-+        stgi
- GLOBAL(svm_stgi_label)
-         mov  %rsp,%rdi
-         call svm_vmexit_handler
-diff --git a/xen/include/asm-x86/asm-defns.h b/xen/include/asm-x86/asm-defns.h
-index 43f4868d40..2e3ec0ac01 100644
---- a/xen/include/asm-x86/asm-defns.h
-+++ b/xen/include/asm-x86/asm-defns.h
-@@ -8,6 +8,18 @@
- .endm
- #endif
- 
-+.macro vmrun
-+    .byte 0x0f, 0x01, 0xd8
-+.endm
-+
-+.macro stgi
-+    .byte 0x0f, 0x01, 0xdc
-+.endm
-+
-+.macro clgi
-+    .byte 0x0f, 0x01, 0xdd
-+.endm
-+
- .macro INDIRECT_BRANCH insn:req arg:req
- /*
-  * Create an indirect branch.  insn is one of call/jmp, arg is a single
+> 
+> Also, the qemu-ifup script doesn't seem to be part of the NetBSD
+> scripts that are upstream, is this something carried by the NetBSD
+> package?
+
+Ha maybe I overlooked this. I'll add it, but maybe it can be submitted in
+a separate patch ?
+
 -- 
-2.11.0
-
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
