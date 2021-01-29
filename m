@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C502308A2B
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 17:20:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78289.142363 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D82B308A2C
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 17:21:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78293.142376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5WV3-00078U-OO; Fri, 29 Jan 2021 16:19:57 +0000
+	id 1l5WW3-0007v7-34; Fri, 29 Jan 2021 16:20:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78289.142363; Fri, 29 Jan 2021 16:19:57 +0000
+Received: by outflank-mailman (output) from mailman id 78293.142376; Fri, 29 Jan 2021 16:20:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5WV3-000785-LF; Fri, 29 Jan 2021 16:19:57 +0000
-Received: by outflank-mailman (input) for mailman id 78289;
- Fri, 29 Jan 2021 16:19:56 +0000
+	id 1l5WW2-0007ui-VS; Fri, 29 Jan 2021 16:20:58 +0000
+Received: by outflank-mailman (input) for mailman id 78293;
+ Fri, 29 Jan 2021 16:20:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mmvf=HA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l5WV2-00077z-2W
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 16:19:56 +0000
+ id 1l5WW0-0007ua-LM
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 16:20:56 +0000
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 06332875-1727-41eb-9049-bf59a6abdda2;
- Fri, 29 Jan 2021 16:19:55 +0000 (UTC)
+ id d96cb176-aa03-47de-9071-f3f2eb94037e;
+ Fri, 29 Jan 2021 16:20:55 +0000 (UTC)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 44D93AF72;
- Fri, 29 Jan 2021 16:19:54 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id DC542B040;
+ Fri, 29 Jan 2021 16:20:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,25 +38,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06332875-1727-41eb-9049-bf59a6abdda2
+X-Inumbo-ID: d96cb176-aa03-47de-9071-f3f2eb94037e
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611937194; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1611937255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pQE/B5fzZf3jiK+QiCdMMnScKlarCr8sADBb9isYXQM=;
-	b=vHSzF7cKwMt9UyYYQEXm67J/iFlw/ozSnEQnNj/mZHexZSMi6tRa8TlbJ+zHXvrpYADUa0
-	mNzE5MtEFvo3jB1E3dP55AVyqOf8CC49p4rAH1bEGSsIWL3vKMQobVUMNcWw3atqdU4OWf
-	uvGIhrOjYDakg4jCZId7PlmGIxF5d0s=
-Subject: [PATCH 1/2] x86/time: change initiation of the calibration timer
+	bh=/Ssquy+rPe4/EYFAhCpT7dpYV2lE6HH4TbsIX6MEXDQ=;
+	b=hfDCTMUNBHa9X4gPjChjFJafBb0+t//RulpOegDOWCSp+p5EWwmDPQnfuJt4SkR28t1gGq
+	jxweFJvDf181TFJnAANvkucx7IQe3VUOiI2mLWXYeRQKuljSx6/gDYVV1tm7Qq+IyJFzuk
+	NFnsH82ezAcqDVK1okQGwIi0IJiGNV4=
+Subject: [PATCH RFC 2/2] x86/time: don't move TSC backwards in
+ time_calibration_tsc_rendezvous()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Claudemir Todo Bom <claudemir@todobom.com>
 References: <35443b5a-1410-7099-a937-e9f537bbe989@suse.com>
-Message-ID: <e4e260f0-730f-27e0-26c2-840e4ebe4a08@suse.com>
-Date: Fri, 29 Jan 2021 17:19:55 +0100
+Message-ID: <d0f1f249-293c-5a7f-4b6c-1caeb275e7b9@suse.com>
+Date: Fri, 29 Jan 2021 17:20:55 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
 MIME-Version: 1.0
@@ -65,87 +67,96 @@ Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
-Setting the timer a second (EPOCH) into the future at a random point
-during boot (prior to bringing up APs and prior to launching Dom0) does
-not yield predictable results: The timer may expire while we're still
-bringing up APs (too early) or when Dom0 already boots (too late).
-Instead invoke the timer handler function explicitly at a predictable
-point in time, once we've established the rendezvous function to use
-(and hence also once all APs are online). This will, through the raising
-and handling of TIMER_SOFTIRQ, then also have the effect of arming the
-timer.
+While doing this for small amounts may be okay, the unconditional use
+of CPU0's value here has been found to be a problem when the boot time
+TSC of the BSP was behind that of all APs by more than a second. In
+particular because of get_s_time_fixed() producing insane output when
+the calculated delta is negative, we can't allow this to happen.
 
+On the first iteration have all other CPUs sort out the highest TSC
+value any one of them has read. On the second iteration, if that
+maximum is higher than CPU0's, update its recorded value from that
+taken in the first iteration, along with the system time. Use the
+resulting value on the last iteration to write everyone's TSCs.
+
+Reported-by: Claudemir Todo Bom <claudemir@todobom.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Since CPU0 reads its TSC last on the first iteration, if TSCs were
+perfectly sync-ed there shouldn't ever be a need to update. However,
+even on the TSC-reliable system I first tested this on (using
+"tsc=skewed" to get this rendezvous function into use in the first
+place) updates by up to several thousand clocks did happen. I wonder
+whether this points at some problem with the approach that I'm not (yet)
+seeing.
+
+Considering the sufficiently modern CPU it's using, I suspect the system
+wouldn't even need to turn off TSC_RELIABLE, if only there wasn't the
+boot time skew. Hence another approach might be to fix this boot time
+skew. Of course to recognize whether the TSCs then still aren't in sync
+we'd need to run tsc_check_reliability() sufficiently long after that
+adjustment.
+
+The above and the desire to have the change tested by the reporter are
+the reasons for the RFC.
+
+As per the comment ahead of it, the original purpose of the function was
+to deal with TSCs halted in deep C states. While this probably explains
+why only forward moves were ever expected, I don't see how this could
+have been reliable in case CPU0 was deep-sleeping for a sufficiently
+long time. My only guess here is a hidden assumption of CPU0 never being
+idle for long enough.
 
 --- a/xen/arch/x86/time.c
 +++ b/xen/arch/x86/time.c
-@@ -854,9 +854,7 @@ static void resume_platform_timer(void)
+@@ -1658,7 +1658,7 @@ struct calibration_rendezvous {
+     cpumask_t cpu_calibration_map;
+     atomic_t semaphore;
+     s_time_t master_stime;
+-    u64 master_tsc_stamp;
++    uint64_t master_tsc_stamp, max_tsc_stamp;
+ };
  
- static void __init reset_platform_timer(void)
- {
--    /* Deactivate any timers running */
-     kill_timer(&plt_overflow_timer);
--    kill_timer(&calibration_timer);
- 
-     /* Reset counters and stamps */
-     spin_lock_irq(&platform_timer_lock);
-@@ -1956,19 +1954,13 @@ static void __init reset_percpu_time(voi
-     t->stamp.master_stime = t->stamp.local_stime;
- }
- 
--static void __init try_platform_timer_tail(bool late)
-+static void __init try_platform_timer_tail(void)
- {
-     init_timer(&plt_overflow_timer, plt_overflow, NULL, 0);
-     plt_overflow(NULL);
- 
-     platform_timer_stamp = plt_stamp64;
-     stime_platform_stamp = NOW();
--
--    if ( !late )
--        init_percpu_time();
--
--    init_timer(&calibration_timer, time_calibration, NULL, 0);
--    set_timer(&calibration_timer, NOW() + EPOCH);
- }
- 
- /* Late init function, after all cpus have booted */
-@@ -2009,10 +2001,13 @@ static int __init verify_tsc_reliability
-             time_calibration_rendezvous_fn = time_calibration_nop_rendezvous;
- 
-             /* Finish platform timer switch. */
--            try_platform_timer_tail(true);
-+            try_platform_timer_tail();
- 
-             printk("Switched to Platform timer %s TSC\n",
-                    freq_string(plt_src.frequency));
+ static void
+@@ -1696,6 +1696,21 @@ static void time_calibration_tsc_rendezv
+                 r->master_stime = read_platform_stime(NULL);
+                 r->master_tsc_stamp = rdtsc_ordered();
+             }
++            else if ( r->master_tsc_stamp < r->max_tsc_stamp )
++            {
++                /*
++                 * We want to avoid moving the TSC backwards for any CPU.
++                 * Use the largest value observed anywhere on the first
++                 * iteration and bump up our previously recorded system
++                 * accordingly.
++                 */
++                uint64_t delta = r->max_tsc_stamp - r->master_tsc_stamp;
 +
-+            time_calibration(NULL);
++                r->master_stime += scale_delta(delta,
++                                               &this_cpu(cpu_time).tsc_scale);
++                r->master_tsc_stamp = r->max_tsc_stamp;
++            }
 +
-             return 0;
-         }
-     }
-@@ -2033,6 +2028,8 @@ static int __init verify_tsc_reliability
-          !boot_cpu_has(X86_FEATURE_TSC_RELIABLE) )
-         time_calibration_rendezvous_fn = time_calibration_tsc_rendezvous;
+             atomic_inc(&r->semaphore);
  
-+    time_calibration(NULL);
-+
-     return 0;
- }
- __initcall(verify_tsc_reliability);
-@@ -2048,7 +2045,11 @@ int __init init_xen_time(void)
-     do_settime(get_wallclock_time(), 0, NOW());
+             if ( i == 0 )
+@@ -1711,6 +1726,17 @@ static void time_calibration_tsc_rendezv
+             while ( atomic_read(&r->semaphore) < total_cpus )
+                 cpu_relax();
  
-     /* Finish platform timer initialization. */
--    try_platform_timer_tail(false);
-+    try_platform_timer_tail();
++            if ( _r )
++            {
++                uint64_t tsc = rdtsc_ordered(), cur;
 +
-+    init_percpu_time();
++                while ( tsc > (cur = r->max_tsc_stamp) )
++                    if ( cmpxchg(&r->max_tsc_stamp, cur, tsc) == cur )
++                        break;
 +
-+    init_timer(&calibration_timer, time_calibration, NULL, 0);
++                _r = NULL;
++            }
++
+             if ( i == 0 )
+                 write_tsc(r->master_tsc_stamp);
  
-     /*
-      * Setup space to track per-socket TSC_ADJUST values. Don't fiddle with
 
 
