@@ -2,34 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E48093086D1
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 09:09:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77752.141011 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EE2B3086D0
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 09:09:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77753.141023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Opt-0004xu-0V; Fri, 29 Jan 2021 08:08:57 +0000
+	id 1l5OqN-00053d-Ar; Fri, 29 Jan 2021 08:09:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77752.141011; Fri, 29 Jan 2021 08:08:56 +0000
+Received: by outflank-mailman (output) from mailman id 77753.141023; Fri, 29 Jan 2021 08:09:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Ops-0004xV-TZ; Fri, 29 Jan 2021 08:08:56 +0000
-Received: by outflank-mailman (input) for mailman id 77752;
- Fri, 29 Jan 2021 08:08:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l5OqN-00053E-79; Fri, 29 Jan 2021 08:09:27 +0000
+Received: by outflank-mailman (input) for mailman id 77753;
+ Fri, 29 Jan 2021 08:09:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tiRV=HA=codiax.se=anders.tornqvist@srs-us1.protection.inumbo.net>)
- id 1l5Opq-0004nH-Eg
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 08:08:55 +0000
-Received: from mailrelay2-3.pub.mailoutpod1-cph3.one.com (unknown
- [46.30.212.11]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eb4b61f4-bde0-4c1c-b9fa-60ba7ee39d01;
- Fri, 29 Jan 2021 08:08:51 +0000 (UTC)
-Received: from [192.168.101.129] (h87-96-135-119.cust.a3fiber.se
- [87.96.135.119])
- by mailrelay2.pub.mailoutpod1-cph3.one.com (Halon) with ESMTPSA
- id 37a648e6-6209-11eb-b55b-d0431ea8a290;
- Fri, 29 Jan 2021 08:08:49 +0000 (UTC)
+ <SRS0=CEfz=HA=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1l5OqL-00052y-5A
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 08:09:25 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d589fe18-b640-4174-8af8-d29cf7458891;
+ Fri, 29 Jan 2021 08:09:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,242 +35,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb4b61f4-bde0-4c1c-b9fa-60ba7ee39d01
+X-Inumbo-ID: d589fe18-b640-4174-8af8-d29cf7458891
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1611907763;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=VLk1ilLS/5EiUIcofUgMC8ww4YHHzs1Hhh3RL8LxF7c=;
+  b=ZhkZkM2ivJ3lPD5KjJXfz9VwJZ0hrcb68t+3mWYLbBfiayYLs7HKSydD
+   iYO+SEzxCwrIw2hGUiQSWfrwJLTonGq8p6ip43ePZ9yNOE1NqJzYA5YRR
+   xztTCyNOxfS6oBq15UflCewTZo39du0b/4kFgekdzQMG/EGDJ5LurjPyv
+   k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: K2vthq0ZaUF4BxnPkCkhxY3Li867X2qzmnNnM68up5XF8J5B58gpFNusNNc20X6sl+RmgmFqam
+ 4hG8972He1QbyQDY2xUQeekZPg84We4281Fmz4e/KFNCXSAm04e41iPRf6eaZtRJsqgeGursCh
+ 3zoB3PNc1e8LteAC7O5SsN4gDR9wRJAueJl1AoTkm1n9Gvo21bjM5kPpA/qH3XSWtrHyuv7RuN
+ UQkdiGc+QaJgq5Ea6McHYEY9QhHj2LlM7O5dyc7mdR4DIByX1wdB0NM+2yIZCMI0GNquRDZ/y0
+ 4Jo=
+X-SBRS: 5.2
+X-MesageID: 36094392
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.79,384,1602561600"; 
+   d="scan'208";a="36094392"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FDqbO8Hl3Gf3HOIigYPbBM3LcLu/U0UnjZMyc6bbwtQMaoa+6Y2+WiDAXqk7/fQcQU3nwFIVreHSpj5S8PoYdR6yW3CmCV+Ms47gB178g/ihR7yOjWNxOyxaSmIBpHQnqXY13cfXd0PyjIM0dOJFrKjtG3Zj9vQ5i2/rCcxXcdGrQlQv7srBs5IRRl9yh4LDpeGmFW4qHJG9FLmsaeii7HC80CBfYzKrVyKlnGLhXgMB6F/Nqe33PhLmijQXtiVSz9jGZVUg7GeYk85bSYaQHoyIWTRrit55rwZLvhhOeh55PE5SclKfcSLZ2gncsUXjzciYCI42fmZsZ+oXXNTGpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=59IBSPxFJSLPUesTixSDC35C2l3xZdXrRoLPqiJoM6U=;
+ b=jjzRY/uDK7aAlF8piL8Lgz4LswTPK+49gDuv3HwM/tlWsyaRlIGymJjKdZeeOhO6cCOb+4CN8ZAgi2EhwvWwbDf55Hl2wa9Q84iLPZytVip2sHqzpLvBFSs7MLHL02eN7bsm/Js8d99lPrzBwyu0tvQMuY5/J+TALDmy+uz5rHappEytHe/fkGEHtq6ga7QhNWTvAEKue4sMzhnLJva089d8UXF61pSYukkXnXW4J8ahNGw87+vlPuYvnlkSYEqSEU0wVh9CyFQAQYjxGHswk6LweVBLBd6GwGCAxS4++3/cqQE+5HeOlpnufeBaXbBNGs6ct4w2nz98RcrqwyjDXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codiax.se; s=20191106;
-	h=content-transfer-encoding:content-type:in-reply-to:mime-version:date:
-	 message-id:from:references:to:subject:from;
-	bh=uyZlAECUDHdtpxrn2ASMwrpCBkQaFI8akyZ2sIVrSg4=;
-	b=Ut6Gq4itLFIlbVjJ5Gu/iaXB51Zpps4rO8ka3+ddMjalKDdAenL3yM30zcoTqQ+WKxtH9yf8fN02T
-	 kR/Tfq1tEr+Rd/mphHQ30Fvs9TR6Wo5IVFnyybouf1ut+CIIOV9ufzwaOmN3jptbfVpylLvov1Y0We
-	 W67kv2w3WPRYSHLcBtcckL96xUtJ4+2xEq6py49mQJEs+SupF/iwDWgrgiWpdXkndBTjBOQd1l8tF5
-	 pNtvBmUp+ONd6ICgifEh4ogBH4FjqJI1Q+kqbTpHJV0nd4tmz0tLpTPHan3JNo/gpMeb0Xbs1yUU/8
-	 jmfIA+4cMjSFbVdYpRK/ZZmB1uYJoRg==
-X-HalOne-Cookie: d73722d7c0985d99c8bd62e16c96cb641c56f56c
-X-HalOne-ID: 37a648e6-6209-11eb-b55b-d0431ea8a290
-Subject: Re: Null scheduler and vwfi native problem
-To: Dario Faggioli <dfaggioli@suse.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
- <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
- <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
- <e18ba69efd0d12fc489144024305fd3c6102c330.camel@suse.com>
- <e37fe8a9-c633-3572-e273-2fd03b35b791@codiax.se>
- <744ddde6-a228-82fc-76b9-401926d7963b@xen.org>
- <d92c4191fb81e6d1de636f281c8624d68f8d14fc.camel@suse.com>
- <c9a4e132-5bca-aa76-ab8b-bfeee1cd5a9e@codiax.se>
- <f52baf12308d71b96d0d9be1c7c382a3c5efafbc.camel@suse.com>
-From: =?UTF-8?Q?Anders_T=c3=b6rnqvist?= <anders.tornqvist@codiax.se>
-Message-ID: <18ef4619-19ae-90d2-459c-9b5282b49176@codiax.se>
-Date: Fri, 29 Jan 2021 09:08:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <f52baf12308d71b96d0d9be1c7c382a3c5efafbc.camel@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=59IBSPxFJSLPUesTixSDC35C2l3xZdXrRoLPqiJoM6U=;
+ b=jxBlHZi0HcfCxZs/zXLiYv9X7pElHLkPPchvrwuZZmulIWqZrSOd5mQs3w7C+XgOgXnCGg1+LYLGjUv2/jhRoH1WcN/4IlC5uzeW5eT6P7WoHjmFm2vmcxOb0+WmGwaNZyXewVCJXvRHNz7DGzqqElBN0aDavDxIjYJRYYnpcX0=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] libs/foreignmemory: fix MiniOS build
+Date: Fri, 29 Jan 2021 09:09:05 +0100
+Message-ID: <20210129080905.14517-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.29.2
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
+X-ClientProxiedBy: MRXP264CA0040.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:14::28) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 955b3ac5-94e3-4131-9ba7-08d8c42d2c76
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4476:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB4476D7F5E3C33297C002C0F48FB99@DM6PR03MB4476.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6MJUmOvdyg+V40945+ncTmF+mQqaOBnlPRaxaulq/NXvOL+OY4kFbWBDg1eTHWUuemrYZXKkvGuown9YL+e1xgO2AOyhRn58aIrtUWTgKR4cwrq9WKm4A1a92G3UEc3bkfJKjVmPY2dIt1i3hiKMhv0FoARc8oeZFWltkEcD1QlIp7tn90rg9Q04Pw99jfy93JsWVjcrkNnQrOgsgPt8mpMe6Arma7/USm7bxbOrHk0Ishw4VG/OAB0KyUon/6ZI398y19oRJPifF3U9PeseXbrbFOa00lZmM0XIg0ukULtPhx+LWKPRZ7o3yqr6rOD9IfYbSGz0O8NlEQqSqxUUWeV5WSQQ4WaN+f9d3REa/GlBF27943vfGxqRx7/wowdZHX7MuuJBip1xjYO5+AxB9XYZpz3pmUQPbd6cYm5eA2T4AMSGGQix+hUdD3BPGldGrmErrPUYpOiU60G2KatOx8yIkOV2C2p5RTyFnKfYbrVUT6Hz9uxEJxs0QoVluN7kv2IITFSFXYPkw4/f4DDevQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(366004)(39860400002)(396003)(136003)(376002)(6916009)(86362001)(4326008)(8676002)(6496006)(6666004)(8936002)(316002)(5660300002)(26005)(83380400001)(16526019)(66946007)(2906002)(2616005)(478600001)(956004)(36756003)(1076003)(66476007)(66556008)(54906003)(186003)(6486002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UHhOUFFOU2JnT1pVV2oyQSs5K2VlWlAyMU1sVWM0UjRjV2NLWFMyelVucGc3?=
+ =?utf-8?B?VytWQ01kMWlNOU1JcXhWaE9iaVZTZTVvNHZXVVlBekJDeU85V0ZmN1kydGRP?=
+ =?utf-8?B?V2o3NEd6M2VVcGxiSXpsSTFaU3ZaTnFESUpMa3RUNjh0Y21ZZlVNbGlweVBI?=
+ =?utf-8?B?MzZpaUlqNm10anBvdEREL0JGdGtxa2dPbUsxNWt6ZUxCNnpwTGNmMlNuK2o1?=
+ =?utf-8?B?VFJLY2QrazkxTTgrWENHbzJrcjNHZEhvSUhHWWFVbUhpcTI5OEs4U3k2eTJI?=
+ =?utf-8?B?RlNaVWt0ekZYOGN5NXVZeTRWcUlkamxOTTZrbUU4VXNmOUtsSkVhMStJTTl0?=
+ =?utf-8?B?dUNxZk55QjZHVFdVOWYxdTFOMUlSQThEcW52bjc1YzdKYW9tWnlVMjE1YVpY?=
+ =?utf-8?B?a0tIZ2dGdWxzanRUS09Fd0h4QUpJU0Z2RlRXTmNpMnBuY2RqT3pNOEtDeEtu?=
+ =?utf-8?B?cEo1VC9IamxpSmd2clNlSVlJeWY4c3ZVTjdzRUFRRUh3dnk3SFVTNFluR05l?=
+ =?utf-8?B?ZlpvZzBEZWJJenpNVEc2WFF4aVo4REhIUDRyNjQybE05d1F4Wk9NZzZmeGZo?=
+ =?utf-8?B?NjcvMVdvVGNobFJQQkNvQ0ppNGpMVVNpYzJoOTBvTWdqa2c3NW9wRGZCTVJq?=
+ =?utf-8?B?Q1Q3Tnp0QzdzQ05tNEJZSWVCeVNRRitZT1ZXQjZQNmJOMDJFVWxYZEt1RmRE?=
+ =?utf-8?B?REpMc1dxeFNnbjhZcWl4ZTZxRnN0R1hTenJkT2ovVDJROTl3MFh2K2hQYmxq?=
+ =?utf-8?B?eWtsNlo0Q3QyaHRQa0s2U3E0cGkxQXdhRjJkd1Y1RmMvUHQwVmIzMDBDNzI5?=
+ =?utf-8?B?MS91VDNMNFRjUXk1L0twR3k1dU01MWhGQjJLSzFsdUcyL1YwNUlJaXRRQWZn?=
+ =?utf-8?B?ZVRSS25jMGhPSEp5NGdjUi9MUCtnK1AvdnJwbDk2SGcvd1ZEZmk1RWFFKytJ?=
+ =?utf-8?B?eW0wUWp0WDRJR1YzY214UTdyeFRGM3BEVzdsK2pBMk5ZSTcwcFpsMVBYeUhj?=
+ =?utf-8?B?V0pKazIwTllhMk1xcTRrQmZBQWNUS0p0WWIrUzh2cGIxUERtOFVrS01WVTFz?=
+ =?utf-8?B?c1ZmYUJmQlYvdXVlZmJGY1o1bmZqUXl6QWtraG5aVVNSTWRHbUgxQ0VIU0FW?=
+ =?utf-8?B?TDlxVE52VFY0NzlhTGg5TW1GTEpPbnQxMDgxZmV3QkxXNkxkZlFwUVdxSHI2?=
+ =?utf-8?B?MWxEZmwwZFFlZmZhaHlqckVEdWhUbDg3MHZZbzdMTnk0RzhhNHlma2V2RUZB?=
+ =?utf-8?B?UnpXVVF6S0dUK3BhVkU1cU00Ymt4aW9DSDlpNXUyY1d1aFdOenVSZ3hpOWMr?=
+ =?utf-8?B?Um9vbEYvUmxSNXFCNU40eGdWZ2d5WFg4ckhmbzY1OTVGV1lTV1BlRC9TUzNJ?=
+ =?utf-8?B?cHlGMWRRaVA3UFVVVWUzUjhsSFBsem5BWnk3Y1k1M1BmQUU4c1p0VWJmM0t6?=
+ =?utf-8?Q?lTu29pj5?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 955b3ac5-94e3-4131-9ba7-08d8c42d2c76
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2021 08:09:17.3658
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VGC1YGb1hcdQR4UZLehtg73jAUXFmeUcjyPZKdSxpJQUePbNXl6EhwgKGDFHLXXEOhHByTSyLfIejhZJ6P2dbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4476
+X-OriginatorOrg: citrix.com
 
-On 1/26/21 11:31 PM, Dario Faggioli wrote:
-> On Tue, 2021-01-26 at 18:03 +0100, Anders Törnqvist wrote:
->> On 1/25/21 5:11 PM, Dario Faggioli wrote:
->>> On Fri, 2021-01-22 at 14:26 +0000, Julien Grall wrote:
->>>> Hi Anders,
->>>>
->>>> On 22/01/2021 08:06, Anders Törnqvist wrote:
->>>>> On 1/22/21 12:35 AM, Dario Faggioli wrote:
->>>>>> On Thu, 2021-01-21 at 19:40 +0000, Julien Grall wrote:
->>>>> - booting with "sched=null vwfi=native" but not doing the IRQ
->>>>> passthrough that you mentioned above
->>>>> "xl destroy" gives
->>>>> (XEN) End of domain_destroy function
->>>>>
->>>>> Then a "xl create" says nothing but the domain has not started
->>>>> correct.
->>>>> "xl list" look like this for the domain:
->>>>> mydomu                                   2   512     1 ------
->>>>> 0.0
->>>> This is odd. I would have expected ``xl create`` to fail if
->>>> something
->>>> went wrong with the domain creation.
->>>>
->>> So, Anders, would it be possible to issue a:
->>>
->>> # xl debug-keys r
->>> # xl dmesg
->>>
->>> And send it to us ?
->>>
->>> Ideally, you'd do it:
->>>    - with Julien's patch (the one he sent the other day, and that
->>> you
->>>      have already given a try to) applied
->>>    - while you are in the state above, i.e., after having tried to
->>>      destroy a domain and failing
->>>    - and maybe again after having tried to start a new domain
->> Here are some logs.
->>
-> Great, thanks a lot!
->
->> The system is booted as before with the patch and the domu config
->> does
->> not have the IRQs.
->>
-> Ok.
->
->> # xl list
->> Name                                        ID   Mem VCPUs State
->> Time(s)
->> Domain-0                                     0  3000     5 r-----
->> 820.1
->> mydomu                                       1   511     1 r-----
->> 157.0
->>
->> # xl debug-keys r
->> (XEN) sched_smt_power_savings: disabled
->> (XEN) NOW=191793008000
->> (XEN) Online Cpus: 0-5
->> (XEN) Cpupool 0:
->> (XEN) Cpus: 0-5
->> (XEN) Scheduler: null Scheduler (null)
->> (XEN)     cpus_free =
->> (XEN) Domain info:
->> (XEN)     Domain: 0
->> (XEN)       1: [0.0] pcpu=0
->> (XEN)       2: [0.1] pcpu=1
->> (XEN)       3: [0.2] pcpu=2
->> (XEN)       4: [0.3] pcpu=3
->> (XEN)       5: [0.4] pcpu=4
->> (XEN)     Domain: 1
->> (XEN)       6: [1.0] pcpu=5
->> (XEN) Waitqueue:
->>
-> So far, so good. All vCPUs are running on their assigned pCPU, and
-> there is no vCPU wanting to run but not having a vCPU where to do so.
->
->> (XEN) Command line: console=dtuart dtuart=/serial@5a060000
->> dom0_mem=3000M dom0_max_vcpus=5 hmp-unsafe=true dom0_vcpus_pin
->> sched=null vwfi=native
->>
-> Oh, just as a side note (and most likely unrelated to the problem we're
-> discussing), you should be able to get rid of dom0_vcpus_pin.
->
-> The NULL scheduler will do something similar to what that option itself
-> does anyway. And with the benefit that, if you want, you can actually
-> change to what pCPUs the dom0's vCPU are pinned. While, if you use
-> dom0_vcpus_pin, you can't.
->
-> So it using it has only downsides (and that's true in general, if you
-> ask me, but particularly so if using NULL).
-Thanks for the feedback.
-I removed dom0_vcpus_pin. And, as you said, it seems to be unrelated to 
-the problem we're discussing. The system still behaves the same.
+Keep the dummy handlers for restrict, map_resource and unmap_resource
+for MiniOS, or else the build breaks with:
 
-When the dom0_vcpus_pin is removed. xl vcpu-list looks like this:
+ld: /home/osstest/build.158759.build-amd64/xen/stubdom/mini-os-x86_64-xenstore/mini-os.o: in function `xenforeignmemory_restrict':
+/home/osstest/build.158759.build-amd64/xen/stubdom/libs-x86_64/foreignmemory/core.c:137: undefined reference to `osdep_xenforeignmemory_restrict'
+ld: /home/osstest/build.158759.build-amd64/xen/stubdom/mini-os-x86_64-xenstore/mini-os.o: in function `xenforeignmemory_map_resource':
+/home/osstest/build.158759.build-amd64/xen/stubdom/libs-x86_64/foreignmemory/core.c:171: undefined reference to `osdep_xenforeignmemory_map_resource'
+ld: /home/osstest/build.158759.build-amd64/xen/stubdom/mini-os-x86_64-xenstore/mini-os.o: in function `xenforeignmemory_unmap_resource':
+/home/osstest/build.158759.build-amd64/xen/stubdom/libs-x86_64/foreignmemory/core.c:185: undefined reference to `osdep_xenforeignmemory_unmap_resource'
+ld: /home/osstest/build.158759.build-amd64/xen/stubdom/mini-os-x86_64-xenstore/mini-os.o: in function `xenforeignmemory_resource_size':
+/home/osstest/build.158759.build-amd64/xen/stubdom/libs-x86_64/foreignmemory/core.c:200: undefined reference to `osdep_xenforeignmemory_map_resource'
 
-Name                                ID  VCPU   CPU State Time(s) 
-Affinity (Hard / Soft)
-Domain-0                             0     0    0   r--      29.4 all / all
-Domain-0                             0     1    1   r--      28.7 all / all
-Domain-0                             0     2    2   r--      28.7 all / all
-Domain-0                             0     3    3   r--      28.6 all / all
-Domain-0                             0     4    4   r--      28.6 all / all
-mydomu                              1     0    5   r--      21.6 5 / all
+Fixes: 2b4b33ffe7d67 ('libs/foreignmemory: Implement on NetBSD')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ tools/libs/foreignmemory/private.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- From this listing (with "all" as hard affinity for dom0) one might read 
-it like dom0 is not pinned with hard affinity to any specific pCPUs at 
-all but mudomu is pinned to pCPU 5.
-Will the dom0_max_vcpus=5 in this case guarantee that dom0 only will run 
-on pCPU 0-4 so that mydomu always will have pCPU 5 for itself only?
-
-What if I would like mydomu to be th only domain that uses pCPU 2?
-
->
->> # xl destroy mydomu
->> (XEN) End of domain_destroy function
->>
->> # xl list
->> Name                                        ID   Mem VCPUs State
->> Time(s)
->> Domain-0                                     0  3000     5 r-----
->> 1057.9
->>
->> # xl debug-keys r
->> (XEN) sched_smt_power_savings: disabled
->> (XEN) NOW=223871439875
->> (XEN) Online Cpus: 0-5
->> (XEN) Cpupool 0:
->> (XEN) Cpus: 0-5
->> (XEN) Scheduler: null Scheduler (null)
->> (XEN)     cpus_free =
->> (XEN) Domain info:
->> (XEN)     Domain: 0
->> (XEN)       1: [0.0] pcpu=0
->> (XEN)       2: [0.1] pcpu=1
->> (XEN)       3: [0.2] pcpu=2
->> (XEN)       4: [0.3] pcpu=3
->> (XEN)       5: [0.4] pcpu=4
->> (XEN)     Domain: 1
->> (XEN)       6: [1.0] pcpu=5
->>
-> Right. And from the fact that: 1) we only see the "End of
-> domain_destroy function" line in the logs, and 2) we see that the vCPU
-> is still listed here, we have our confirmation (like there wase the
-> need for it :-/) that domain destruction is done only partially.
-Yes it looks like that.
->
->> # xl create mydomu.cfg
->> Parsing config from mydomu.cfg
->> (XEN) Power on resource 215
->>
->> # xl list
->> Name                                        ID   Mem VCPUs State
->> Time(s)
->> Domain-0                                     0  3000     5 r-----
->> 1152.1
->> mydomu                                       2   512     1 ------
->>         0.0
->>
->> # xl debug-keys r
->> (XEN) sched_smt_power_savings: disabled
->> (XEN) NOW=241210530250
->> (XEN) Online Cpus: 0-5
->> (XEN) Cpupool 0:
->> (XEN) Cpus: 0-5
->> (XEN) Scheduler: null Scheduler (null)
->> (XEN)     cpus_free =
->> (XEN) Domain info:
->> (XEN)     Domain: 0
->> (XEN)       1: [0.0] pcpu=0
->> (XEN)       2: [0.1] pcpu=1
->> (XEN)       3: [0.2] pcpu=2
->> (XEN)       4: [0.3] pcpu=3
->> (XEN)       5: [0.4] pcpu=4
->> (XEN)     Domain: 1
->> (XEN)       6: [1.0] pcpu=5
->> (XEN)     Domain: 2
->> (XEN)       7: [2.0] pcpu=-1
->> (XEN) Waitqueue: d2v0
->>
-> Yep, so, as we were suspecting, domain 1 was not destroyed properly.
-> Specifically, we did not get to the point where the vCPU is deallocated
-> and the pCPU to which such vCPU has been assigned to by the NULL
-> scheduler is released.
->
-> This means that the new vCPU (i.e., d2v0) has, from the point of view
-> of the NULL scheduler, no pCPU where to run. And it's therefore parked
-> in the waitqueue.
->
-> There should be a warning about that, which I don't see... but perhaps
-> I'm just misremembering.
->
-> Anyway, cool, this makes things even more clear.
->
-> Thanks again for letting us see these logs.
-
-Thanks for the attention to this :-)
-
-Any ideas for how to solve it?
-
+diff --git a/tools/libs/foreignmemory/private.h b/tools/libs/foreignmemory/private.h
+index 7e734ac61e..1ee3626dd2 100644
+--- a/tools/libs/foreignmemory/private.h
++++ b/tools/libs/foreignmemory/private.h
+@@ -54,7 +54,7 @@ struct xenforeignmemory_resource_handle {
+     int flags;
+ };
+ 
+-#ifdef __sun__
++#if defined(__sun__) || defined(__MINIOS__)
+ static inline int osdep_xenforeignmemory_restrict(xenforeignmemory_handle *fmem,
+                                                   domid_t domid)
+ {
+-- 
+2.29.2
 
 
