@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19ADB3087C6
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 11:25:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77908.141445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CCBF3087CD
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 11:31:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77914.141457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Qxc-0005Zj-1q; Fri, 29 Jan 2021 10:25:04 +0000
+	id 1l5R3h-0006bq-P6; Fri, 29 Jan 2021 10:31:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77908.141445; Fri, 29 Jan 2021 10:25:04 +0000
+Received: by outflank-mailman (output) from mailman id 77914.141457; Fri, 29 Jan 2021 10:31:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Qxb-0005ZK-Ui; Fri, 29 Jan 2021 10:25:03 +0000
-Received: by outflank-mailman (input) for mailman id 77908;
- Fri, 29 Jan 2021 10:25:02 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rFjR=HA=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1l5Qxa-0005ZF-0y
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 10:25:02 +0000
-Received: from mail-wm1-x336.google.com (unknown [2a00:1450:4864:20::336])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9a7d7f86-41a7-47ba-857b-5c7afe87085c;
- Fri, 29 Jan 2021 10:25:01 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id m1so3455704wml.2
- for <xen-devel@lists.xenproject.org>; Fri, 29 Jan 2021 02:25:01 -0800 (PST)
-Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id u6sm12073978wro.75.2021.01.29.02.24.59
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 29 Jan 2021 02:24:59 -0800 (PST)
+	id 1l5R3h-0006bR-Lh; Fri, 29 Jan 2021 10:31:21 +0000
+Received: by outflank-mailman (input) for mailman id 77914;
+ Fri, 29 Jan 2021 10:31:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mmvf=HA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l5R3f-0006bM-IG
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 10:31:19 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 324d1176-3cda-4ab6-9f9f-3e4e8b6ec8af;
+ Fri, 29 Jan 2021 10:31:17 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 06142B152;
+ Fri, 29 Jan 2021 10:31:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,108 +39,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a7d7f86-41a7-47ba-857b-5c7afe87085c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
-         :mime-version:content-transfer-encoding:thread-index
-         :content-language;
-        bh=c7WR+3RccdjadefWiM4c1ValuO588F2mXx4BZYmjl9Y=;
-        b=G+t5BddZbQg2tJYGRFFcGlPVOaYbsxdNOEor4AGM/bZ0CYZzW9aPgVpO6p3R9lFYM5
-         /hxG2dzlqHnRwVxsEfC39LdbH2Gyv0pVvjSV/caBpN+EKZ7t1NsQx5yCNv0yotdJrgrx
-         BS5HLoCqRIznwn9JD4HoO6fCfRTlrm8cF50+5G/bjj6ztYNy2myYZ8BqCzWuq6xYd8Fw
-         N+wjcdIyAf0dHpuf4llfzwFAOJKFQgNfmQO6vf8jrjw7DcWddMyBQvAIfbNmi0U/PPNb
-         cqguazi9gFPz9P5x538wybuwlIZ8DZ4U5utu07JwFxXcoNQPAhgNgi2quEu6D0huVtIb
-         y6Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
-         :subject:date:message-id:mime-version:content-transfer-encoding
-         :thread-index:content-language;
-        bh=c7WR+3RccdjadefWiM4c1ValuO588F2mXx4BZYmjl9Y=;
-        b=Ga+kQ5brutXboWteS3UIznNJwZ+DMupCvXwrt+HFuOCFS+e2eha0s9Y4W0ZXdkesuP
-         IxG79SFaVJ5F4d7wht3J+Q0EMZH5tkTbHpOsTCzzjmW0uqJtd2ETAYtnhQPgDhWGk4nN
-         sJKgnKfB26w425ajOLeoObyLEwSYgDiKFMVd4yonE2iRHQsFBVu6VCRcclCDFy7QRPN5
-         MzdhLml4LUfzST2nRdBIeSFKq3yCm5M85UPq5yPlPCAD8J84AnaqTAeaKW7+YppLvXeR
-         Q7AywfmSx//IEI2S+qCZXPSfPwdxwPqvBPCmTQraVhBWri8rDbI7uN6A0+CIa6B8Qr26
-         4Dtw==
-X-Gm-Message-State: AOAM5305EUYDJlxGEuo9XRWkilBkK7pHusthG9VyPzomC7u64AC2Ewuc
-	wOezYc6zgOI+bDAh0rFILtc=
-X-Google-Smtp-Source: ABdhPJya4iwVrI42kq9BHXxhNwGgils3uj+/IRBvJ1bdVDwqp8sib59LwlirH6ah9QZ8OziuyI2JnQ==
-X-Received: by 2002:a1c:ab57:: with SMTP id u84mr3236631wme.115.1611915900272;
-        Fri, 29 Jan 2021 02:25:00 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-Reply-To: <paul@xen.org>
-To: "'Oleksandr Tyshchenko'" <olekstysh@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-Cc: "'Oleksandr Tyshchenko'" <oleksandr_tyshchenko@epam.com>,
-	"'Julien Grall'" <julien@xen.org>,
-	"'Stefano Stabellini'" <sstabellini@kernel.org>,
-	"'Andrew Cooper'" <andrew.cooper3@citrix.com>
-References: <1611884932-1851-1-git-send-email-olekstysh@gmail.com> <1611884932-1851-24-git-send-email-olekstysh@gmail.com>
-In-Reply-To: <1611884932-1851-24-git-send-email-olekstysh@gmail.com>
-Subject: RE: [PATCH V6 23/24] xen/ioreq: Do not let bufioreq to be used on other than x86 arches
-Date: Fri, 29 Jan 2021 10:24:58 -0000
-Message-ID: <02ff01d6f628$ff5e1950$fe1a4bf0$@xen.org>
+X-Inumbo-ID: 324d1176-3cda-4ab6-9f9f-3e4e8b6ec8af
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611916277; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/OUR/WVsjWH8rfG6i/mdv/8J4wk1GCs7/hDyaF3Monk=;
+	b=fxYLTM0DUzD8CfEJv936UbtKMltrXPA5OCnXriVSVHSGGO3Tx8yB3vdyy/ZRK0BBfab2jh
+	stICcgZLTFhCQhqwHzf4eIq7/BqgUJ3YzEAHA6e44+A+h13uqA/cKLGZqjUuCgmq4qYO3r
+	nJo2buz1PcJ+8GdJ4iY5SyPeyVATzow=
+Subject: Ping: [PATCH v2 1/2] viridian: remove implicit limit of 64 VPs per
+ partition
+To: paul@xen.org, iwj@xenproject.org, wl@xen.org, anthony.perard@citrix.com
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
+ sstabellini@kernel.org, roger.pau@citrix.com,
+ xen-devel@lists.xenproject.org, Igor Druzhinin <igor.druzhinin@citrix.com>
+References: <1610425048-990-1-git-send-email-igor.druzhinin@citrix.com>
+ <396e7b8d-444a-d67d-e0f7-f6b85052dff7@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <9f421029-1abb-2aa8-2874-b6eb41b70d63@suse.com>
+Date: Fri, 29 Jan 2021 11:31:17 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
+In-Reply-To: <396e7b8d-444a-d67d-e0f7-f6b85052dff7@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQHcosR1Pl6co9bNaZKkGsPjYTbuUAGOhGsAqiaYJuA=
-Content-Language: en-gb
 
-> -----Original Message-----
-> From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-> Sent: 29 January 2021 01:49
-> To: xen-devel@lists.xenproject.org
-> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Paul Durrant <paul@xen.org>; Julien Grall
-> <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>; Andrew Cooper
-> <andrew.cooper3@citrix.com>
-> Subject: [PATCH V6 23/24] xen/ioreq: Do not let bufioreq to be used on other than x86 arches
+On 25.01.2021 16:37, Igor Druzhinin wrote:
+> On 12/01/2021 04:17, Igor Druzhinin wrote:
+>> TLFS 7.8.1 stipulates that "a virtual processor index must be less than
+>> the maximum number of virtual processors per partition" that "can be obtained
+>> through CPUID leaf 0x40000005". Furthermore, "Requirements for Implementing
+>> the Microsoft Hypervisor Interface" defines that starting from Windows Server
+>> 2012, which allowed more than 64 CPUs to be brought up, this leaf can now
+>> contain a value -1 basically assuming the hypervisor has no restriction while
+>> 0 (that we currently expose) means the default restriction is still present.
+>>
+>> Along with the previous changes exposing ExProcessorMasks this allows a recent
+>> Windows VM with Viridian extension enabled to have more than 64 vCPUs without
+>> going into BSOD in some cases.
+>>
+>> Since we didn't expose the leaf before and to keep CPUID data consistent for
+>> incoming streams from previous Xen versions - let's keep it behind an option.
+>>
+>> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+>> ---
 > 
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> This patch prevents the device model running on other than x86
-> systems to use buffered I/O feature for now.
-> 
-> Please note, there is no caller which requires to send buffered
-> I/O request on Arm currently and the purpose of this check is
-> to catch any future user of bufioreq.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
+> ping? Paul?
 
-Acked-by: Paul Durrant <paul@xen.org>
+Paul - I saw a reply by you on patch 2, but not on this one.
 
-> ---
-> Please note, this is a split/cleanup/hardening of Julien's PoC:
-> "Add support for Guest IO forwarding to a device emulator"
-> 
-> Changes V5 -> V6:
->    - new patch
-> ---
-> ---
->  xen/common/ioreq.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-> index 67ef1f7..a36137d 100644
-> --- a/xen/common/ioreq.c
-> +++ b/xen/common/ioreq.c
-> @@ -629,6 +629,9 @@ static int ioreq_server_create(struct domain *d, int bufioreq_handling,
->      unsigned int i;
->      int rc;
-> 
-> +    if ( !IS_ENABLED(CONFIG_X86) && bufioreq_handling )
-> +        return -EINVAL;
-> +
->      if ( bufioreq_handling > HVM_IOREQSRV_BUFIOREQ_ATOMIC )
->          return -EINVAL;
-> 
-> --
-> 2.7.4
+libxl maintainers - both patches would want to be acked by you.
 
-
+Jan
 
