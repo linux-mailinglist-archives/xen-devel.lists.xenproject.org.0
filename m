@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F82E3087DB
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 11:36:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77925.141492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F34303087DD
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 11:38:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77929.141504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5R8F-0006zj-Qb; Fri, 29 Jan 2021 10:36:03 +0000
+	id 1l5RA2-00077e-6m; Fri, 29 Jan 2021 10:37:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77925.141492; Fri, 29 Jan 2021 10:36:03 +0000
+Received: by outflank-mailman (output) from mailman id 77929.141504; Fri, 29 Jan 2021 10:37:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5R8F-0006zN-NJ; Fri, 29 Jan 2021 10:36:03 +0000
-Received: by outflank-mailman (input) for mailman id 77925;
- Fri, 29 Jan 2021 10:36:02 +0000
+	id 1l5RA2-00077E-3c; Fri, 29 Jan 2021 10:37:54 +0000
+Received: by outflank-mailman (input) for mailman id 77929;
+ Fri, 29 Jan 2021 10:37:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XqTT=HA=kroah.com=greg@srs-us1.protection.inumbo.net>)
- id 1l5R8D-0006zG-Sz
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 10:36:02 +0000
-Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rFjR=HA=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l5RA0-000779-Rw
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 10:37:52 +0000
+Received: from mail-wr1-x430.google.com (unknown [2a00:1450:4864:20::430])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id da0409bc-883b-4e97-9a41-6a0eb94fc658;
- Fri, 29 Jan 2021 10:36:01 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C43B25C0140;
- Fri, 29 Jan 2021 05:36:00 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 29 Jan 2021 05:36:00 -0500
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- by mail.messagingengine.com (Postfix) with ESMTPA id D0C6824005A;
- Fri, 29 Jan 2021 05:35:59 -0500 (EST)
+ id cf491b12-9c6a-4b5b-b86e-2764d26d10be;
+ Fri, 29 Jan 2021 10:37:52 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id 7so8348517wrz.0
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Jan 2021 02:37:52 -0800 (PST)
+Received: from CBGR90WXYV0 ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
+ by smtp.gmail.com with ESMTPSA id s4sm9433653wme.38.2021.01.29.02.37.50
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 29 Jan 2021 02:37:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,101 +41,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da0409bc-883b-4e97-9a41-6a0eb94fc658
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
-	date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-transfer-encoding:in-reply-to; s=fm2; bh=4
-	sIVOb41X70JozTnXUFauGcmu5JH2TTTxgOh8kwtLio=; b=i5y8AFC4LGZNzIng3
-	HcNqx9+534XhTle7SY3wqifd8MLofkKftMPShvY66fq1GhlCoHTnHmWx68eSI1GE
-	WkSdLvZMEakiSM97H5xvT8pBAu4CpCe7uNXg32FVggPL/R8oX3R9bNmGbHg8H1zy
-	RS84HQHfyjDR+MO276H3FCZoCX7N6JBH3Gr0OIonQEtCfg8/qUpkXfMWnYMNzQgZ
-	XoT9QRfxXyoOws4JznVh1sJSg2CJ3gnCAf4CnDDIKgdRkVgg696KKw73JRDzJlTM
-	zZh2zqsohmQA8Q01AVQieV/Aq4HhNIABrJhs6AwV+i9ukv48VI+38Bya9Njg+pzx
-	hma+Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-transfer-encoding:content-type
-	:date:from:in-reply-to:message-id:mime-version:references
-	:subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; bh=4sIVOb41X70JozTnXUFauGcmu5JH2TTTxgOh8kwtL
-	io=; b=plX3JTRcqeuRKvG7BElo/HzGurSMidrt3MACFT+kLsh1/nwXsXXsr1fpZ
-	Wo9LpSRaO6PKqC7NXe4DLALKF5lDxkauTkEe6FeXc03K3SL6VSskyN1sxBQSEtBs
-	JeVbCWTvZ0nksfZlFy5FjVTQQIQm76+Ir21UJ1xu2mVobldsLFdDXc/tI4zFnfv4
-	We0mDJ6uRFOkPuJwT1Ctej3C1KwmW5O73heWZALR2QjA6fCTtRzEsmfVqDMAp9hH
-	YPLYSAOHRSCh55Ti/KAoF7aBuPSXdyO/dr+QAsVWP01VP/5wQlu+iP756xQZ7J1a
-	ZRM7lrQcmHCqp8uNhTgtcdVeAQxqA==
-X-ME-Sender: <xms:EOUTYLzBvktTXHXabjsI1L2fSxfnSgDnzIwws3gZcqeHqPQBLu4kkA>
-    <xme:EOUTYDSBjYsbLc_ypmKjRNERfEuJP0x6i87xDt5L9xA24d_No2jMkE6fn_bl6GQb6
-    QEVqih2GT5fcQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedvgdduiecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefirhgvghcu
-    mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpedvfffgue
-    eiuefhheevheetgfehvdefgeekfeevueejfeeftdetudetiefhheffvdenucffohhmrghi
-    nhepkhgvrhhnvghlrdhorhhgnecukfhppeekfedrkeeirdejgedrieegnecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghh
-    rdgtohhm
-X-ME-Proxy: <xmx:EOUTYFUTpbhs8MEQ4UKGy0FhtmoXNzd-nKYNYsU0Ig1N9UDYAg6IIQ>
-    <xmx:EOUTYFgF57rFL5Xtv3XGwVlhHKJeWUGi4Vz5L8dLxk9Bu2mZkrp1Aw>
-    <xmx:EOUTYNAajpxrgs-cLG8AwyZqQxg5OUtVMNDKQAnqHIOKHa4BkBYt_g>
-    <xmx:EOUTYMOG1EiNTVfPi1icuxQqzjM8M7vKuMp34BjjSRysjOOZcMYxyw>
-Date: Fri, 29 Jan 2021 11:35:58 +0100
-From: Greg KH <greg@kroah.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: stable@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,
-	Roger Pau Monne <roger.pau@citrix.com>
-Subject: Re: [PATCH for <= 5.4] xen/privcmd: allow fetching resource sizes
-Message-ID: <YBPlDmlJTK78clC3@kroah.com>
-References: <20210118140426.80458-1-roger.pau@citrix.com>
- <YAgN7hlFe73mrBWE@kroah.com>
- <1a70f632-1437-5501-faac-98f05380d5ea@citrix.com>
+X-Inumbo-ID: cf491b12-9c6a-4b5b-b86e-2764d26d10be
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=GkFa5kkShAleTaE6/sbx2rVnUcWwNlhGyreQ4dfRTyE=;
+        b=uH3bEk0ESk1dv8LCOWfdfcIcixbfnheM5lOlUl/PT6yMtCZlI47i+0io0mm++lnz1o
+         +jzLIi6fQK2tzN8sETVSnyfjF1svhJnYCvLGfr8uGPAVL1MBKZONN1JzlrFubVFNuaSe
+         cbIlGNDiDzzRxIMEaI8jbdLQSq5hZd3CXw33nhJqepu3CqKuUhjI8j/ylwrYUCKVICK/
+         O7ZF6tUy6rV0DXjn0nuxfc6/p/BOvndJblqp/WQlhgfxxPRu2B/MOfjgKow1MD5AaWwL
+         aHLajHLdq61rIOiDn3Qcm+MaOSFhstn13fGSyUHsXu8tfLC8jtfS3zuZI5cDAMawb9d7
+         72uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=GkFa5kkShAleTaE6/sbx2rVnUcWwNlhGyreQ4dfRTyE=;
+        b=CO7YbVDK5CGzGXIl1q9U/EiHvTsYJJDdkCl0Z2M7uYDAthY4n84YRb0dLhpDrN3rZ8
+         VOugWzVoHuqZ3srywI2SimBCnpN1U8QGRtEwOhnGxpLpYPy46Uuo+gBhXFc7M3eflz2r
+         SdYImZN0WXpuCWOudQ8M/BY1P9Jrnpm8t1x3H78eVRy2LUUdewPDxHRuJOn/cwVYJMVK
+         QSbotqeNlzfHyZZiVUT/l/ti1bvEvvtKRZ0V1VaoOSEl1cTcIdl4a8ZGkIsP+pEwR+Eu
+         G3ZYxEIOykD1UQLf8ObUDYd2BgW/vfVAJOipvtmteGvHllVe/Lr0K7kgndu7cJcWIpZw
+         5rTg==
+X-Gm-Message-State: AOAM533ijDzaXR7cHx+3O6jTKBvwQd1xwiviX94NP+4vdhBjpBXq9Gbd
+	tjcYOyDmSXTYJ5rr0dYQOX0=
+X-Google-Smtp-Source: ABdhPJxkn9E1v00Jrd0L6ehAI6ahvqQBioIdVjdli6CqRWFlf7IE0nQbISxHkb9/rsWZ/wSFo9avfA==
+X-Received: by 2002:a5d:452f:: with SMTP id j15mr3888573wra.298.1611916671361;
+        Fri, 29 Jan 2021 02:37:51 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: "'Igor Druzhinin'" <igor.druzhinin@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Cc: <iwj@xenproject.org>,
+	<wl@xen.org>,
+	<andrew.cooper3@citrix.com>,
+	<george.dunlap@citrix.com>,
+	<jbeulich@suse.com>,
+	<julien@xen.org>,
+	<sstabellini@kernel.org>,
+	<anthony.perard@citrix.com>,
+	<roger.pau@citrix.com>
+References: <1610425048-990-1-git-send-email-igor.druzhinin@citrix.com>
+In-Reply-To: <1610425048-990-1-git-send-email-igor.druzhinin@citrix.com>
+Subject: RE: [PATCH v2 1/2] viridian: remove implicit limit of 64 VPs per partition
+Date: Fri, 29 Jan 2021 10:37:49 -0000
+Message-ID: <030001d6f62a$caf547e0$60dfd7a0$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1a70f632-1437-5501-faac-98f05380d5ea@citrix.com>
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQNSytsssxWJzcTJyJyBVC30FTjr4qdGv6Cw
+Content-Language: en-gb
 
-On Tue, Jan 26, 2021 at 05:22:59PM +0000, Andrew Cooper wrote:
-> On 20/01/2021 11:03, Greg KH wrote:
-> > On Mon, Jan 18, 2021 at 03:04:26PM +0100, Roger Pau Monne wrote:
-> >> commit ef3a575baf53571dc405ee4028e26f50856898e7 upstream
-> >>
-> >> Allow issuing an IOCTL_PRIVCMD_MMAP_RESOURCE ioctl with num = 0 and
-> >> addr = 0 in order to fetch the size of a specific resource.
-> >>
-> >> Add a shortcut to the default map resource path, since fetching the
-> >> size requires no address to be passed in, and thus no VMA to setup.
-> >>
-> >> This is missing from the initial implementation, and causes issues
-> >> when mapping resources that don't have fixed or known sizes.
-> >>
-> >> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> >> Reviewed-by: Juergen Gross <jgross@suse.com>
-> >> Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >> Cc: stable@vger.kernel.org # >= 4.18
-> >> Link: https://lore.kernel.org/r/20210112115358.23346-1-roger.pau@citrix.com
-> >> Signed-off-by: Juergen Gross <jgross@suse.com>
-> >> ---
-> >> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> >> Cc: xen-devel@lists.xenproject.org
-> >> ---
-> >>  drivers/xen/privcmd.c | 25 +++++++++++++++++++------
-> >>  1 file changed, 19 insertions(+), 6 deletions(-)
-> > Now queued up, thanks.
+> -----Original Message-----
+> From: Igor Druzhinin <igor.druzhinin@citrix.com>
+> Sent: 12 January 2021 04:17
+> To: xen-devel@lists.xenproject.org
+> Cc: iwj@xenproject.org; wl@xen.org; andrew.cooper3@citrix.com; george.dunlap@citrix.com;
+> jbeulich@suse.com; julien@xen.org; sstabellini@kernel.org; anthony.perard@citrix.com; paul@xen.org;
+> roger.pau@citrix.com; Igor Druzhinin <igor.druzhinin@citrix.com>
+> Subject: [PATCH v2 1/2] viridian: remove implicit limit of 64 VPs per partition
 > 
-> Hello,
+> TLFS 7.8.1 stipulates that "a virtual processor index must be less than
+> the maximum number of virtual processors per partition" that "can be obtained
+> through CPUID leaf 0x40000005". Furthermore, "Requirements for Implementing
+> the Microsoft Hypervisor Interface" defines that starting from Windows Server
+> 2012, which allowed more than 64 CPUs to be brought up, this leaf can now
+> contain a value -1 basically assuming the hypervisor has no restriction while
+> 0 (that we currently expose) means the default restriction is still present.
 > 
-> The upstream version of this patch was queued against 5.4 and 4.19, both
-> of which suffered a patch conflict, and are fixed by this version.
+> Along with the previous changes exposing ExProcessorMasks this allows a recent
+> Windows VM with Viridian extension enabled to have more than 64 vCPUs without
+> going into BSOD in some cases.
 > 
-> Was it an oversight that this version didn't get queued for 4.19?
+> Since we didn't expose the leaf before and to keep CPUID data consistent for
+> incoming streams from previous Xen versions - let's keep it behind an option.
+> 
+> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
 
-It does not apply cleanly there, if you provide a working backport, I
-will be glad to apply it.
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-thanks,
-
-greg k-h
 
