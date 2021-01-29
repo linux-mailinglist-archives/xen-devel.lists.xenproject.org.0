@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 474E6308A64
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 17:37:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78313.142428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D339D308A66
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 17:40:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78317.142440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Wm3-00012t-Dz; Fri, 29 Jan 2021 16:37:31 +0000
+	id 1l5WoD-0001Nw-Rf; Fri, 29 Jan 2021 16:39:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78313.142428; Fri, 29 Jan 2021 16:37:31 +0000
+Received: by outflank-mailman (output) from mailman id 78317.142440; Fri, 29 Jan 2021 16:39:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Wm3-00012U-Ai; Fri, 29 Jan 2021 16:37:31 +0000
-Received: by outflank-mailman (input) for mailman id 78313;
- Fri, 29 Jan 2021 16:37:29 +0000
+	id 1l5WoD-0001NX-O7; Fri, 29 Jan 2021 16:39:45 +0000
+Received: by outflank-mailman (input) for mailman id 78317;
+ Fri, 29 Jan 2021 16:39:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mmvf=HA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l5Wm1-00012P-QU
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 16:37:29 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AjHm=HA=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l5WoC-0001NS-Rn
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 16:39:44 +0000
+Received: from mail-lf1-x135.google.com (unknown [2a00:1450:4864:20::135])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1c6e23fb-a793-4d92-a99f-0cc894facf8d;
- Fri, 29 Jan 2021 16:37:29 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 29558AECE;
- Fri, 29 Jan 2021 16:37:28 +0000 (UTC)
+ id 96cda91e-0026-4b07-b105-9b0dc6a1270c;
+ Fri, 29 Jan 2021 16:39:44 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id e2so9714447lfj.13
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Jan 2021 08:39:43 -0800 (PST)
+Received: from otyshchenko.www.tendawifi.com ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id w18sm2591332ljm.11.2021.01.29.08.39.41
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 29 Jan 2021 08:39:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,104 +41,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c6e23fb-a793-4d92-a99f-0cc894facf8d
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611938248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y3CP644klWC+es9IOzPIKIXWACzvqS7V5u7MMMLnEOk=;
-	b=RDr81gyKSjBqv42AUgp21ytnzFiLPAW5HBQooAqRRMWSXsTPHHtx3AnpJ/JqXxDDqASsBL
-	cbyWzI15z5TzomLkZovvg0jPh6kSaZQB8H/cW/5rxGbKJDUMpcN8WtmRtGbh6EDImSvnWn
-	0WWsnxQGJ/qi55q7jApLR+/YUlgrhZw=
-Subject: Re: [PATCH v7 02/10] xen/domain: Add vmtrace_frames domain creation
- parameter
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20210121212718.2441-1-andrew.cooper3@citrix.com>
- <20210121212718.2441-3-andrew.cooper3@citrix.com>
- <752e7de2-b95e-f7ab-0d14-877c72c66134@suse.com>
-Message-ID: <fd93bd3f-66ad-a400-a5ba-df1376d52b3d@suse.com>
-Date: Fri, 29 Jan 2021 17:37:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
-MIME-Version: 1.0
-In-Reply-To: <752e7de2-b95e-f7ab-0d14-877c72c66134@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 96cda91e-0026-4b07-b105-9b0dc6a1270c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=EOugPesWge3Q64OHuB1MGvixZz05GP8UbM6Im7F0rAA=;
+        b=PoXw1IZLMHUMzgQpV2CdczzycYC9SDBZGOZAkaS9VCYZVqgpw1KFIo4GL9fpvK7tBV
+         UeD0LQ2eDjCjg5LvigFZAKhqHWRuX058WnXGCpLQaDgkbpqUOJEOeT5SQbn1Uhor/YN2
+         Vw2pFizaFaT5MGOkq+JZCnZSS9wOWnjb7rMe3oDmpSGlpPuq9OO2Ac4zs9+4j0C7PY7V
+         aHqPkaPtXXZj3alCFA+xPyL2mnkonA+9WLGO0EItUwOXC3xepdWbYJ/NiKnbdZoS+UUc
+         gTSUcX4iABjXXXwNMHcsK9V37rgjWOm1J+/FK1ycOqTFIMquaS4capmHejuf2MFJSPAR
+         wdqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=EOugPesWge3Q64OHuB1MGvixZz05GP8UbM6Im7F0rAA=;
+        b=lawDRzLgsjSQxm8dhDfqWtSuqZZ7DnMzKXCzs5CGIWfWpvKIGpR8vC13QW/yChJC5t
+         fpcJdecl+Scke5IdCDVPIlMHTnFR9qnS7OVEVX1YTtRIGkYuZRlgmPFYa+vCHl2xRdlj
+         5X9KozfvJw90Kdo/zIKRJ6skJ1bIMNOGwfb9JWx+7qHl47ppu3AW4EKm3Bh0dQzv9wT8
+         Z2FEO5j29bXOyhwpboonJvHXopneOYKE7U8KbbeueQ9brPfqplSFTci7nZvwD4SfvnmP
+         dPWSaKnYqEaiOLPnmsfpA7+q4ia/ATzRouzHROdPbu/bDVM+cZOIsHucBa5QSNUlG+ZT
+         sj1g==
+X-Gm-Message-State: AOAM5301WxJTXEtwAOIkm+LUyTSWGhM79M1chvRoPlrD50Dp0d4OcBDI
+	/RPdOueGo7NWdjFV/eBkJkYu7r9MrwpUOw==
+X-Google-Smtp-Source: ABdhPJwVgIZZ2rl6PJgsh1CYVsjcnNfKYApzIFfexhMs7s16HjoEY8szFZ9GBEQdAnoCCHpPAtNVng==
+X-Received: by 2002:ac2:4acc:: with SMTP id m12mr2731698lfp.537.1611938382770;
+        Fri, 29 Jan 2021 08:39:42 -0800 (PST)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH V7 24/24] xen/ioreq: Make the IOREQ feature selectable on Arm
+Date: Fri, 29 Jan 2021 18:39:25 +0200
+Message-Id: <1611938365-19059-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-On 25.01.2021 16:08, Jan Beulich wrote:
-> On 21.01.2021 22:27, Andrew Cooper wrote:
->> --- a/xen/common/domain.c
->> +++ b/xen/common/domain.c
->> @@ -132,6 +132,48 @@ static void vcpu_info_reset(struct vcpu *v)
->>      v->vcpu_info_mfn = INVALID_MFN;
->>  }
->>  
->> +static void vmtrace_free_buffer(struct vcpu *v)
->> +{
->> +    const struct domain *d = v->domain;
->> +    struct page_info *pg = v->vmtrace.buf;
->> +    unsigned int i;
->> +
->> +    if ( !pg )
->> +        return;
->> +
->> +    for ( i = 0; i < d->vmtrace_frames; i++ )
->> +    {
->> +        put_page_alloc_ref(&pg[i]);
->> +        put_page_and_type(&pg[i]);
->> +    }
->> +
->> +    v->vmtrace.buf = NULL;
-> 
-> To set a good precedent, maybe this wants moving up ahead of
-> the loop and ...
-> 
->> +}
->> +
->> +static int vmtrace_alloc_buffer(struct vcpu *v)
->> +{
->> +    struct domain *d = v->domain;
->> +    struct page_info *pg;
->> +    unsigned int i;
->> +
->> +    if ( !d->vmtrace_frames )
->> +        return 0;
->> +
->> +    pg = alloc_domheap_pages(d, get_order_from_pages(d->vmtrace_frames),
->> +                             MEMF_no_refcount);
->> +    if ( !pg )
->> +        return -ENOMEM;
->> +
->> +    v->vmtrace.buf = pg;
-> 
-> ... this wants moving down past the loop, to avoid
-> globally announcing something that isn't fully initialized
-> yet / anymore?
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-So having replied on the other thread I looked back here: The
-suggested change actually is not just to set a good precedent.
-By recording the page(s) in v->vmtrace_buf, ...
+The purpose of this patch is to add a possibility for user
+to be able to select IOREQ support on Arm (which is disabled
+by default) with retaining the current behaviour on x86
+(is selected by HVM and it's prompt is not visible).
 
->> +    for ( i = 0; i < d->vmtrace_frames; i++ )
->> +        /* Domain can't know about this page yet - something fishy going on. */
->> +        if ( !get_page_and_type(&pg[i], d, PGT_writable_page) )
->> +            BUG();
+Also make the IOREQ be depended on CONFIG_EXPERT on Arm since
+it is considered as Technological Preview feature and
+update SUPPORT.md.
 
-... failure here (if handled better than by BUG()) will lead
-vmtrace_free_buffer() to believe it needs to put references
-(besides freeing the page(s), which is fine). So your claimed
-bug really is just here, not everywhere else, and there is no
-reason to go backwards in terms of error handling "quality",
-as per the bottom of ./CODING_STYLE.
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-Jan
+---
+Please note, this is a split/cleanup/hardening of Julien's PoC:
+"Add support for Guest IO forwarding to a device emulator"
+
+Changes V5 -> V6:
+   - new patch
+
+Changes V6 -> V7:
+   - use "If unsure, say N."
+   - add Jan's and Julien's A-b
+   - update SUPPORT.md
+---
+ SUPPORT.md         | 4 ++++
+ xen/common/Kconfig | 8 +++++++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 5ee3c86..f69edc7 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -691,6 +691,10 @@ to be used in addition to QEMU.
+ 
+ 	Status: Experimental
+ 
++### ARM/IOREQ servers
++
++	Status: Tech Preview
++
+ ### ARM/Non-PCI device passthrough
+ 
+     Status: Supported, not security supported
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index fa049a6..1ecd4f6 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -137,7 +137,13 @@ config HYPFS_CONFIG
+ 	  want to hide the .config contents from dom0.
+ 
+ config IOREQ_SERVER
+-	bool
++	bool "IOREQ support (EXPERT)" if EXPERT && !X86
++	default X86
++	depends on HVM
++	---help---
++	  Enables generic mechanism for providing emulated devices to the guests.
++
++	  If unsure, say N.
+ 
+ config KEXEC
+ 	bool "kexec support"
+-- 
+2.7.4
+
 
