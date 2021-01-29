@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FE5730867A
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 08:35:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.77740.140992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E48093086D1
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 09:09:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.77752.141011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5OJD-0001Bi-VI; Fri, 29 Jan 2021 07:35:11 +0000
+	id 1l5Opt-0004xu-0V; Fri, 29 Jan 2021 08:08:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 77740.140992; Fri, 29 Jan 2021 07:35:11 +0000
+Received: by outflank-mailman (output) from mailman id 77752.141011; Fri, 29 Jan 2021 08:08:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5OJD-0001BL-RE; Fri, 29 Jan 2021 07:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 77740;
- Fri, 29 Jan 2021 07:35:09 +0000
+	id 1l5Ops-0004xV-TZ; Fri, 29 Jan 2021 08:08:56 +0000
+Received: by outflank-mailman (input) for mailman id 77752;
+ Fri, 29 Jan 2021 08:08:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9j1X=HA=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l5OJB-0001BG-Nt
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 07:35:09 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e94c1306-46b8-4030-9b95-5d1484d3ea0e;
- Fri, 29 Jan 2021 07:35:08 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 65E32ABDA;
- Fri, 29 Jan 2021 07:35:07 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tiRV=HA=codiax.se=anders.tornqvist@srs-us1.protection.inumbo.net>)
+ id 1l5Opq-0004nH-Eg
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 08:08:55 +0000
+Received: from mailrelay2-3.pub.mailoutpod1-cph3.one.com (unknown
+ [46.30.212.11]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id eb4b61f4-bde0-4c1c-b9fa-60ba7ee39d01;
+ Fri, 29 Jan 2021 08:08:51 +0000 (UTC)
+Received: from [192.168.101.129] (h87-96-135-119.cust.a3fiber.se
+ [87.96.135.119])
+ by mailrelay2.pub.mailoutpod1-cph3.one.com (Halon) with ESMTPSA
+ id 37a648e6-6209-11eb-b55b-d0431ea8a290;
+ Fri, 29 Jan 2021 08:08:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,267 +41,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e94c1306-46b8-4030-9b95-5d1484d3ea0e
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611905707; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zAq51H83aYnizsU5uKH4Xo3JZYjQqCAFMXuwsnbMpLQ=;
-	b=egkOuZgO/1U3ZcJB0aoekc8YSPYrBM6Dbx4wpJ7qyPhKX7f9X3H2cqMyawp7VD5rpT7YDZ
-	URDzYzj3ypDwVGagHUmRlb6Wjj7WevT/XncPuMIRgZh+8067dnTdjTLZ9dAXKQn7fdCkXZ
-	665Pk57zhHySUtiPYi9FUeK8y3atlLE=
-Subject: Re: [PATCH v2] xen-blkback: fix compatibility bug with single page
- rings
-To: Dongli Zhang <dongli.zhang@oracle.com>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>
-References: <20210128130441.11744-1-paul@xen.org>
- <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <7fb64e2f-141a-c848-0f8a-2313d2e821b6@suse.com>
-Date: Fri, 29 Jan 2021 08:35:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+X-Inumbo-ID: eb4b61f4-bde0-4c1c-b9fa-60ba7ee39d01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codiax.se; s=20191106;
+	h=content-transfer-encoding:content-type:in-reply-to:mime-version:date:
+	 message-id:from:references:to:subject:from;
+	bh=uyZlAECUDHdtpxrn2ASMwrpCBkQaFI8akyZ2sIVrSg4=;
+	b=Ut6Gq4itLFIlbVjJ5Gu/iaXB51Zpps4rO8ka3+ddMjalKDdAenL3yM30zcoTqQ+WKxtH9yf8fN02T
+	 kR/Tfq1tEr+Rd/mphHQ30Fvs9TR6Wo5IVFnyybouf1ut+CIIOV9ufzwaOmN3jptbfVpylLvov1Y0We
+	 W67kv2w3WPRYSHLcBtcckL96xUtJ4+2xEq6py49mQJEs+SupF/iwDWgrgiWpdXkndBTjBOQd1l8tF5
+	 pNtvBmUp+ONd6ICgifEh4ogBH4FjqJI1Q+kqbTpHJV0nd4tmz0tLpTPHan3JNo/gpMeb0Xbs1yUU/8
+	 jmfIA+4cMjSFbVdYpRK/ZZmB1uYJoRg==
+X-HalOne-Cookie: d73722d7c0985d99c8bd62e16c96cb641c56f56c
+X-HalOne-ID: 37a648e6-6209-11eb-b55b-d0431ea8a290
+Subject: Re: Null scheduler and vwfi native problem
+To: Dario Faggioli <dfaggioli@suse.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
+ <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
+ <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
+ <e18ba69efd0d12fc489144024305fd3c6102c330.camel@suse.com>
+ <e37fe8a9-c633-3572-e273-2fd03b35b791@codiax.se>
+ <744ddde6-a228-82fc-76b9-401926d7963b@xen.org>
+ <d92c4191fb81e6d1de636f281c8624d68f8d14fc.camel@suse.com>
+ <c9a4e132-5bca-aa76-ab8b-bfeee1cd5a9e@codiax.se>
+ <f52baf12308d71b96d0d9be1c7c382a3c5efafbc.camel@suse.com>
+From: =?UTF-8?Q?Anders_T=c3=b6rnqvist?= <anders.tornqvist@codiax.se>
+Message-ID: <18ef4619-19ae-90d2-459c-9b5282b49176@codiax.se>
+Date: Fri, 29 Jan 2021 09:08:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="KTNhVyFFfyx2e8FCQZ7SGPr0cJJ2X0WH9"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---KTNhVyFFfyx2e8FCQZ7SGPr0cJJ2X0WH9
-Content-Type: multipart/mixed; boundary="v0ECwaP7zIbuMUDrGMvLowgnhMmWanZZI";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Dongli Zhang <dongli.zhang@oracle.com>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Paul Durrant <pdurrant@amazon.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Jens Axboe <axboe@kernel.dk>
-Message-ID: <7fb64e2f-141a-c848-0f8a-2313d2e821b6@suse.com>
-Subject: Re: [PATCH v2] xen-blkback: fix compatibility bug with single page
- rings
-References: <20210128130441.11744-1-paul@xen.org>
- <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com>
-In-Reply-To: <c3a476c5-c671-4429-73d5-0bf7ced1a06b@oracle.com>
-
---v0ECwaP7zIbuMUDrGMvLowgnhMmWanZZI
-Content-Type: multipart/mixed;
- boundary="------------23E2E4DE08DE09AA38981101"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------23E2E4DE08DE09AA38981101
+In-Reply-To: <f52baf12308d71b96d0d9be1c7c382a3c5efafbc.camel@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 
-On 29.01.21 07:20, Dongli Zhang wrote:
->=20
->=20
-> On 1/28/21 5:04 AM, Paul Durrant wrote:
->> From: Paul Durrant <pdurrant@amazon.com>
+On 1/26/21 11:31 PM, Dario Faggioli wrote:
+> On Tue, 2021-01-26 at 18:03 +0100, Anders Törnqvist wrote:
+>> On 1/25/21 5:11 PM, Dario Faggioli wrote:
+>>> On Fri, 2021-01-22 at 14:26 +0000, Julien Grall wrote:
+>>>> Hi Anders,
+>>>>
+>>>> On 22/01/2021 08:06, Anders Törnqvist wrote:
+>>>>> On 1/22/21 12:35 AM, Dario Faggioli wrote:
+>>>>>> On Thu, 2021-01-21 at 19:40 +0000, Julien Grall wrote:
+>>>>> - booting with "sched=null vwfi=native" but not doing the IRQ
+>>>>> passthrough that you mentioned above
+>>>>> "xl destroy" gives
+>>>>> (XEN) End of domain_destroy function
+>>>>>
+>>>>> Then a "xl create" says nothing but the domain has not started
+>>>>> correct.
+>>>>> "xl list" look like this for the domain:
+>>>>> mydomu                                   2   512     1 ------
+>>>>> 0.0
+>>>> This is odd. I would have expected ``xl create`` to fail if
+>>>> something
+>>>> went wrong with the domain creation.
+>>>>
+>>> So, Anders, would it be possible to issue a:
+>>>
+>>> # xl debug-keys r
+>>> # xl dmesg
+>>>
+>>> And send it to us ?
+>>>
+>>> Ideally, you'd do it:
+>>>    - with Julien's patch (the one he sent the other day, and that
+>>> you
+>>>      have already given a try to) applied
+>>>    - while you are in the state above, i.e., after having tried to
+>>>      destroy a domain and failing
+>>>    - and maybe again after having tried to start a new domain
+>> Here are some logs.
 >>
->> Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to a=
-void
->> inconsistent xenstore 'ring-page-order' set by malicious blkfront"), t=
-he
->> behaviour of xen-blkback when connecting to a frontend was:
+> Great, thanks a lot!
+>
+>> The system is booted as before with the patch and the domu config
+>> does
+>> not have the IRQs.
 >>
->> - read 'ring-page-order'
->> - if not present then expect a single page ring specified by 'ring-ref=
-'
->> - else expect a ring specified by 'ring-refX' where X is between 0 and=
-
->>    1 << ring-page-order
+> Ok.
+>
+>> # xl list
+>> Name                                        ID   Mem VCPUs State
+>> Time(s)
+>> Domain-0                                     0  3000     5 r-----
+>> 820.1
+>> mydomu                                       1   511     1 r-----
+>> 157.0
 >>
->> This was correct behaviour, but was broken by the afforementioned comm=
-it to
->> become:
+>> # xl debug-keys r
+>> (XEN) sched_smt_power_savings: disabled
+>> (XEN) NOW=191793008000
+>> (XEN) Online Cpus: 0-5
+>> (XEN) Cpupool 0:
+>> (XEN) Cpus: 0-5
+>> (XEN) Scheduler: null Scheduler (null)
+>> (XEN)     cpus_free =
+>> (XEN) Domain info:
+>> (XEN)     Domain: 0
+>> (XEN)       1: [0.0] pcpu=0
+>> (XEN)       2: [0.1] pcpu=1
+>> (XEN)       3: [0.2] pcpu=2
+>> (XEN)       4: [0.3] pcpu=3
+>> (XEN)       5: [0.4] pcpu=4
+>> (XEN)     Domain: 1
+>> (XEN)       6: [1.0] pcpu=5
+>> (XEN) Waitqueue:
 >>
->> - read 'ring-page-order'
->> - if not present then expect a single page ring (i.e. ring-page-order =
-=3D 0)
->> - expect a ring specified by 'ring-refX' where X is between 0 and
->>    1 << ring-page-order
->> - if that didn't work then see if there's a single page ring specified=
- by
->>    'ring-ref'
+> So far, so good. All vCPUs are running on their assigned pCPU, and
+> there is no vCPU wanting to run but not having a vCPU where to do so.
+>
+>> (XEN) Command line: console=dtuart dtuart=/serial@5a060000
+>> dom0_mem=3000M dom0_max_vcpus=5 hmp-unsafe=true dom0_vcpus_pin
+>> sched=null vwfi=native
 >>
->> This incorrect behaviour works most of the time but fails when a front=
-end
->> that sets 'ring-page-order' is unloaded and replaced by one that does =
-not
->> because, instead of reading 'ring-ref', xen-blkback will read the stal=
-e
->> 'ring-ref0' left around by the previous frontend will try to map the w=
-rong
->> grant reference.
+> Oh, just as a side note (and most likely unrelated to the problem we're
+> discussing), you should be able to get rid of dom0_vcpus_pin.
+>
+> The NULL scheduler will do something similar to what that option itself
+> does anyway. And with the benefit that, if you want, you can actually
+> change to what pCPUs the dom0's vCPU are pinned. While, if you use
+> dom0_vcpus_pin, you can't.
+>
+> So it using it has only downsides (and that's true in general, if you
+> ask me, but particularly so if using NULL).
+Thanks for the feedback.
+I removed dom0_vcpus_pin. And, as you said, it seems to be unrelated to 
+the problem we're discussing. The system still behaves the same.
+
+When the dom0_vcpus_pin is removed. xl vcpu-list looks like this:
+
+Name                                ID  VCPU   CPU State Time(s) 
+Affinity (Hard / Soft)
+Domain-0                             0     0    0   r--      29.4 all / all
+Domain-0                             0     1    1   r--      28.7 all / all
+Domain-0                             0     2    2   r--      28.7 all / all
+Domain-0                             0     3    3   r--      28.6 all / all
+Domain-0                             0     4    4   r--      28.6 all / all
+mydomu                              1     0    5   r--      21.6 5 / all
+
+ From this listing (with "all" as hard affinity for dom0) one might read 
+it like dom0 is not pinned with hard affinity to any specific pCPUs at 
+all but mudomu is pinned to pCPU 5.
+Will the dom0_max_vcpus=5 in this case guarantee that dom0 only will run 
+on pCPU 0-4 so that mydomu always will have pCPU 5 for itself only?
+
+What if I would like mydomu to be th only domain that uses pCPU 2?
+
+>
+>> # xl destroy mydomu
+>> (XEN) End of domain_destroy function
 >>
->> This patch restores the original behaviour.
+>> # xl list
+>> Name                                        ID   Mem VCPUs State
+>> Time(s)
+>> Domain-0                                     0  3000     5 r-----
+>> 1057.9
 >>
->> Fixes: 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid inco=
-nsistent xenstore 'ring-page-order' set by malicious blkfront")
->> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
->> ---
->> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
->> Cc: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
->> Cc: Jens Axboe <axboe@kernel.dk>
->> Cc: Dongli Zhang <dongli.zhang@oracle.com>
+>> # xl debug-keys r
+>> (XEN) sched_smt_power_savings: disabled
+>> (XEN) NOW=223871439875
+>> (XEN) Online Cpus: 0-5
+>> (XEN) Cpupool 0:
+>> (XEN) Cpus: 0-5
+>> (XEN) Scheduler: null Scheduler (null)
+>> (XEN)     cpus_free =
+>> (XEN) Domain info:
+>> (XEN)     Domain: 0
+>> (XEN)       1: [0.0] pcpu=0
+>> (XEN)       2: [0.1] pcpu=1
+>> (XEN)       3: [0.2] pcpu=2
+>> (XEN)       4: [0.3] pcpu=3
+>> (XEN)       5: [0.4] pcpu=4
+>> (XEN)     Domain: 1
+>> (XEN)       6: [1.0] pcpu=5
 >>
->> v2:
->>   - Remove now-spurious error path special-case when nr_grefs =3D=3D 1=
-
->> ---
->>   drivers/block/xen-blkback/common.h |  1 +
->>   drivers/block/xen-blkback/xenbus.c | 38 +++++++++++++---------------=
---
->>   2 files changed, 17 insertions(+), 22 deletions(-)
+> Right. And from the fact that: 1) we only see the "End of
+> domain_destroy function" line in the logs, and 2) we see that the vCPU
+> is still listed here, we have our confirmation (like there wase the
+> need for it :-/) that domain destruction is done only partially.
+Yes it looks like that.
+>
+>> # xl create mydomu.cfg
+>> Parsing config from mydomu.cfg
+>> (XEN) Power on resource 215
 >>
->> diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-bl=
-kback/common.h
->> index b0c71d3a81a0..524a79f10de6 100644
->> --- a/drivers/block/xen-blkback/common.h
->> +++ b/drivers/block/xen-blkback/common.h
->> @@ -313,6 +313,7 @@ struct xen_blkif {
->>  =20
->>   	struct work_struct	free_work;
->>   	unsigned int 		nr_ring_pages;
->> +	bool                    multi_ref;
->=20
-> Is it really necessary to introduce 'multi_ref' here or we may just re-=
-use
-> 'nr_ring_pages'?
->=20
-> According to blkfront code, 'ring-page-order' is set only when it is no=
-t zero,
-> that is, only when (info->nr_ring_pages > 1).
+>> # xl list
+>> Name                                        ID   Mem VCPUs State
+>> Time(s)
+>> Domain-0                                     0  3000     5 r-----
+>> 1152.1
+>> mydomu                                       2   512     1 ------
+>>         0.0
+>>
+>> # xl debug-keys r
+>> (XEN) sched_smt_power_savings: disabled
+>> (XEN) NOW=241210530250
+>> (XEN) Online Cpus: 0-5
+>> (XEN) Cpupool 0:
+>> (XEN) Cpus: 0-5
+>> (XEN) Scheduler: null Scheduler (null)
+>> (XEN)     cpus_free =
+>> (XEN) Domain info:
+>> (XEN)     Domain: 0
+>> (XEN)       1: [0.0] pcpu=0
+>> (XEN)       2: [0.1] pcpu=1
+>> (XEN)       3: [0.2] pcpu=2
+>> (XEN)       4: [0.3] pcpu=3
+>> (XEN)       5: [0.4] pcpu=4
+>> (XEN)     Domain: 1
+>> (XEN)       6: [1.0] pcpu=5
+>> (XEN)     Domain: 2
+>> (XEN)       7: [2.0] pcpu=-1
+>> (XEN) Waitqueue: d2v0
+>>
+> Yep, so, as we were suspecting, domain 1 was not destroyed properly.
+> Specifically, we did not get to the point where the vCPU is deallocated
+> and the pCPU to which such vCPU has been assigned to by the NULL
+> scheduler is released.
+>
+> This means that the new vCPU (i.e., d2v0) has, from the point of view
+> of the NULL scheduler, no pCPU where to run. And it's therefore parked
+> in the waitqueue.
+>
+> There should be a warning about that, which I don't see... but perhaps
+> I'm just misremembering.
+>
+> Anyway, cool, this makes things even more clear.
+>
+> Thanks again for letting us see these logs.
 
-Did you look into all other OS's (Windows, OpenBSD, FreebSD, NetBSD,
-Solaris, Netware, other proprietary systems) implementations to verify
-that claim?
+Thanks for the attention to this :-)
 
-I don't think so. So better safe than sorry.
+Any ideas for how to solve it?
 
 
-Juergen
-
---------------23E2E4DE08DE09AA38981101
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------23E2E4DE08DE09AA38981101--
-
---v0ECwaP7zIbuMUDrGMvLowgnhMmWanZZI--
-
---KTNhVyFFfyx2e8FCQZ7SGPr0cJJ2X0WH9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmATuqoFAwAAAAAACgkQsN6d1ii/Ey80
-kwf/e41zDqm+jP5oJsLO4FvTwwwFeSs6ARV+zlLQCldBq5oB1HPuzNpjQsE704m/eUEZzMZy2/7W
-Z1pKAwvSLzPQyyx7Rw8pJKJuNio7oIAiCKAiupU3rJBmorI3CCLlbpwfdFGkuKJ8GxZs193BL+WC
-3dNKyBC4aFT3khnmT5y/9PF08Ms9YYVOYPq+6KOM0MbsseD9d4E9LwsC1wzWG9EUA5Ckh8wIZ3XR
-VO1561Q2S36zukXwzbvsGOk9JmD/1kjjR26wsC0JAYU5JKIJxAeeR9V1ZXXrcLjbmwC8KPF+mhOP
-/9Obe9R6O6mT4jKwbmwqJBYjBBJvMsSkKdry2YZZRg==
-=KyR6
------END PGP SIGNATURE-----
-
---KTNhVyFFfyx2e8FCQZ7SGPr0cJJ2X0WH9--
 
