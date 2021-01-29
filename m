@@ -2,31 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A4B30897B
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 15:17:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78178.142102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8DB330897F
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jan 2021 15:20:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78182.142113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Ua0-0000Xt-V5; Fri, 29 Jan 2021 14:16:56 +0000
+	id 1l5Ucj-0000mt-DP; Fri, 29 Jan 2021 14:19:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78178.142102; Fri, 29 Jan 2021 14:16:56 +0000
+Received: by outflank-mailman (output) from mailman id 78182.142113; Fri, 29 Jan 2021 14:19:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5Ua0-0000XU-RE; Fri, 29 Jan 2021 14:16:56 +0000
-Received: by outflank-mailman (input) for mailman id 78178;
- Fri, 29 Jan 2021 14:16:55 +0000
+	id 1l5Ucj-0000mU-AD; Fri, 29 Jan 2021 14:19:45 +0000
+Received: by outflank-mailman (input) for mailman id 78182;
+ Fri, 29 Jan 2021 14:19:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9j1X=HA=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l5UZz-0000XN-My
- for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 14:16:55 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iqUO=HA=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1l5Uch-0000mP-Gj
+ for xen-devel@lists.xenproject.org; Fri, 29 Jan 2021 14:19:43 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe0e::62c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dfb4f3be-6755-4440-aae2-dc5be60d0f89;
- Fri, 29 Jan 2021 14:16:54 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4B8AAABDA;
- Fri, 29 Jan 2021 14:16:53 +0000 (UTC)
+ id 60fd6a76-e82f-479a-8872-5140aae2550f;
+ Fri, 29 Jan 2021 14:19:41 +0000 (UTC)
+Received: from AM6P191CA0075.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:8a::16)
+ by AM0PR08MB3235.eurprd08.prod.outlook.com (2603:10a6:208:57::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.12; Fri, 29 Jan
+ 2021 14:19:39 +0000
+Received: from VE1EUR03FT036.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:8a:cafe::37) by AM6P191CA0075.outlook.office365.com
+ (2603:10a6:209:8a::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.16 via Frontend
+ Transport; Fri, 29 Jan 2021 14:19:39 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT036.mail.protection.outlook.com (10.152.19.204) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3784.11 via Frontend Transport; Fri, 29 Jan 2021 14:19:38 +0000
+Received: ("Tessian outbound f362b81824dc:v71");
+ Fri, 29 Jan 2021 14:19:37 +0000
+Received: from 1b2e893b3627.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 628A6830-7CF9-4FA9-A064-7C96E039A7A6.1; 
+ Fri, 29 Jan 2021 14:19:32 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 1b2e893b3627.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 29 Jan 2021 14:19:32 +0000
+Received: from VE1PR08MB5696.eurprd08.prod.outlook.com (2603:10a6:800:1ae::15)
+ by VI1PR08MB4160.eurprd08.prod.outlook.com (2603:10a6:803:ea::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.17; Fri, 29 Jan
+ 2021 14:19:29 +0000
+Received: from VE1PR08MB5696.eurprd08.prod.outlook.com
+ ([fe80::c8bf:1301:3373:94a6]) by VE1PR08MB5696.eurprd08.prod.outlook.com
+ ([fe80::c8bf:1301:3373:94a6%5]) with mapi id 15.20.3805.017; Fri, 29 Jan 2021
+ 14:19:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,267 +70,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfb4f3be-6755-4440-aae2-dc5be60d0f89
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1611929813; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GYU9AnLJ0CmMxvc6Bs6flLDFq+IrjaZVrAxTy6Oy/T0=;
-	b=RiF8Odvze3hqiIyFk0NDL4i78Byz+MmGGp9ogxFvkw9fcQHJ0N/tdP8hv4S+QZ33brNsG5
-	yo16UIOy6Qn5bgylJSq6/S41/fM8B8oi5I3dhuK7eyG5oKGJSOPkvNKWPvALIYM3zuF45H
-	XHprWk5oIMHvQnPXOoJ8QBW8ub7b2Q0=
-Subject: Re: Problems starting Xen domU after latest stable update
-To: Michael Labriola <michael.d.labriola@gmail.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- David Woodhouse <dwmw@amazon.co.uk>, Sasha Levin <sashal@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <2nft2kipqg.fsf@aragorn.infrastructure.cah>
- <983b87d6-edb8-21ea-7d6f-f653f5c0d048@oracle.com>
- <20210129005129.GA2452@mail-itl>
- <44068a70-8940-824b-9e39-b800635b92c7@suse.com>
- <CAOQxz3w-2aJn1dKbQRG8_m8f3_pN0zSXzYkfyU7cvo34vF6P=g@mail.gmail.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <16a2f371-1c39-13f5-c214-e054b08abbab@suse.com>
-Date: Fri, 29 Jan 2021 15:16:52 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <CAOQxz3w-2aJn1dKbQRG8_m8f3_pN0zSXzYkfyU7cvo34vF6P=g@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="NdtiXIueJY5Zfv7OjBCV5lEkGkEd53vvJ"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---NdtiXIueJY5Zfv7OjBCV5lEkGkEd53vvJ
-Content-Type: multipart/mixed; boundary="tjkuZXxXv3VLDH9RmKvu7JB73Ys6zl5fu";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Michael Labriola <michael.d.labriola@gmail.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- David Woodhouse <dwmw@amazon.co.uk>, Sasha Levin <sashal@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Message-ID: <16a2f371-1c39-13f5-c214-e054b08abbab@suse.com>
-Subject: Re: Problems starting Xen domU after latest stable update
-References: <2nft2kipqg.fsf@aragorn.infrastructure.cah>
- <983b87d6-edb8-21ea-7d6f-f653f5c0d048@oracle.com>
- <20210129005129.GA2452@mail-itl>
- <44068a70-8940-824b-9e39-b800635b92c7@suse.com>
- <CAOQxz3w-2aJn1dKbQRG8_m8f3_pN0zSXzYkfyU7cvo34vF6P=g@mail.gmail.com>
-In-Reply-To: <CAOQxz3w-2aJn1dKbQRG8_m8f3_pN0zSXzYkfyU7cvo34vF6P=g@mail.gmail.com>
-
---tjkuZXxXv3VLDH9RmKvu7JB73Ys6zl5fu
-Content-Type: multipart/mixed;
- boundary="------------42C6587E6E24D886442930BF"
+X-Inumbo-ID: 60fd6a76-e82f-479a-8872-5140aae2550f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q0/O7CXBWfgMaKY78SQLsp5ColsjSNly8FHLlKoZyF8=;
+ b=8f6sBkMd+LiLduhPaZLcRSF6/XeJc8BHB9IrGauanxwotXC3LbY/H2vHyHsjvIuQvYRizWgCU0ziGl7iwMGccdGbEO9zvTiFf3yJ0LiGMTuCEMTu8Z+OB+6ejoGYvGAt1QcmHhXOVpFkImSayLpiSH51fEymw/W3QFpSM/JVK30=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 1dbf5eb4250e18f2
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=W4tN+5nK6WCGZIWzWTUlvwgliOWzLG6xxrqdX78PdaU0QPJZ4dF/8WMoaql4BSzVFqHD+8E04JxJeh4M6t4/xKJTY/iPC9jNNrZLxEZM5AQTY4XpjKSES/ZX0GwZFcAonSOcoorc3epSuIksHM0NCuoq13kiXNl1uodAHw2pQgcPuxdgIb6xal95E+ERQ38AOyUF4CGYGnvQk2MBj4KcA/LSqwKW9vIIsL2bT8Puzl0dbtvOYgekTn5VlmJ5rZJYix+8Q0TbRa4eW28naPRCSMEEztdrlyCJpTxaUwcNbXfxqpmFFCA0x7/gRbgiM/C8WZaCJMqt+xWURXJh8s+jRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q0/O7CXBWfgMaKY78SQLsp5ColsjSNly8FHLlKoZyF8=;
+ b=E+FdrwKM5OkOAN7/W821k25JcAsLyeeiSW7VbxCRiWj5FpeTkvacOCngkkNePTk399l9Ray+uXUiJWiBVgJFRXPhC6d8/rIw5pptQwxPExixPzdK7VRY1eDEZp8CMTwvgNFhfDhV5A/6L/Ocm1LpbLuqFPj5gkiG6DhEm0dJSTxNfnKw2vxBA+unHqOYXEjQMqqVbuFBWi+5+OcnU3uBdXk5lmZ1nqo9S4nGzNKhgIAB89Q53zWc1n/jJnUdmVdDBj8i2VXrLNBNKZFO6ujAKdaF/xEI6ZjNojhNpq6o7LhMS9gUSp9cJkARYPp7VKFf3VVydIn3CKy1Ea+f0iBw3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q0/O7CXBWfgMaKY78SQLsp5ColsjSNly8FHLlKoZyF8=;
+ b=8f6sBkMd+LiLduhPaZLcRSF6/XeJc8BHB9IrGauanxwotXC3LbY/H2vHyHsjvIuQvYRizWgCU0ziGl7iwMGccdGbEO9zvTiFf3yJ0LiGMTuCEMTu8Z+OB+6ejoGYvGAt1QcmHhXOVpFkImSayLpiSH51fEymw/W3QFpSM/JVK30=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Rahul Singh <Rahul.Singh@arm.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"julien@xen.org" <julien@xen.org>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>, Paul Durrant
+	<paul@xen.org>
+Subject: Re: [PATCH] xen/arm: smmuv3: Disable the SMMUv3 driver when ACPI is
+ enabled.
+Thread-Topic: [PATCH] xen/arm: smmuv3: Disable the SMMUv3 driver when ACPI is
+ enabled.
+Thread-Index: AQHW9iw1gBNQivQN7kOKh7vm+7p7cqo+pygA
+Date: Fri, 29 Jan 2021 14:19:29 +0000
+Message-ID: <57F5188D-2151-4790-9DEA-FC88C487692B@arm.com>
+References:
+ <1a228e438f405c376d6fc36e4625c6c09f9d78f3.1611916545.git.rahul.singh@arm.com>
+In-Reply-To:
+ <1a228e438f405c376d6fc36e4625c6c09f9d78f3.1611916545.git.rahul.singh@arm.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------42C6587E6E24D886442930BF
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3608.120.23.2.4)
+Authentication-Results-Original: arm.com; dkim=none (message not signed)
+ header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
+x-originating-ip: [86.26.33.241]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 124a6657-f583-4bd5-9878-08d8c460e962
+x-ms-traffictypediagnostic: VI1PR08MB4160:|AM0PR08MB3235:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<AM0PR08MB32351AB517D1DA7E5E8D50AF9DB99@AM0PR08MB3235.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:7219;OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ A0o1M/7ZKijkCVGOk1OPH0iNnH0w5iwRb7NPQRa4F8H5hRXIIzPfUOaiSYYYuZK3xWPBaN3mMq44wh4fCcGbg/APWCXpN1WGiEZP2Yq5eeGRsII/++QRx18ftw1L9T0td2HO3oXqxObQSMv00ncqL7JEASagh0+HXw/NYofexAQBDPOFZ9tiA5WKGQMN0e9n2Zg3bD0KIgOAl8OuVNm5hXHhiad3E2hZxdl/iyMD2Gd9XdGEVROh2ecKNwzy+vDNGBWwA+rNJL7Va8AP94QAxvY7/rW1XziyakbNsePolWV1Cmfch6O4WbVV5sUMdvJdRKfteggtIXOPTLQl2b+626EUrtfNgooRluibXd3PAJjnqef8L5Dp3AYK67zujKS3eZmLgu0d7DMxWMZbLqH68DhgVb9KPFiSRhgkKmSAJWMJZYVbbI7hPs/7kXbQ6TP8ZgEkdZTCzxoFhJ9XqQ6hEOqWSa2bydkn6roHYLYo8Q8dvLlU9F7ejunn8q8v92ZGOng33pT/aNSc83mQLig2zvq0fjs8OgmkK/FwUXI2GM7xoMfxOiqWeq8v6c3A0vGrdoHbcrwxS0pqIiOc3AtYiw==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5696.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(376002)(396003)(136003)(346002)(366004)(64756008)(66476007)(66946007)(55236004)(2616005)(8676002)(66556008)(53546011)(4744005)(5660300002)(37006003)(54906003)(26005)(36756003)(66446008)(83380400001)(186003)(6506007)(76116006)(91956017)(6862004)(2906002)(4326008)(478600001)(86362001)(6636002)(71200400001)(6512007)(33656002)(316002)(6486002)(8936002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata:
+ =?us-ascii?Q?qU66BwiAjMkRJRM1imEPlmSh/U+vgZeOtCbeoMPlvUcERqzbU6OeGaabJJkd?=
+ =?us-ascii?Q?8FTHwOTcNtTFp9KZWJ5bwnGMMNBi6t6DtP8HzAEkFfcPk+j6zkwJTgi6+nhf?=
+ =?us-ascii?Q?krwf6b5sP8EyaniQuUyBRWSzyER4OhHDLUNUzQnowhsb19w6B+4gyRCZDNCF?=
+ =?us-ascii?Q?n8OldPkDgaM2ODEBFCrXdruB/G/1uzB8zHqnCrEKeZilOXvbXaOA+nlSkvPS?=
+ =?us-ascii?Q?GzoAXlJ2/+8+UKq9lBMQVna/Gfu3jNNsoTTAWzxGZeiUW19PnqjGyUcwf5Iy?=
+ =?us-ascii?Q?MRqmZaGZSy1mwk5M6kc8T/O2mBGVkk9C03vOMh7Upv2VAfos7C+4a9akv2Ws?=
+ =?us-ascii?Q?JmLoqGMwreDkYH1J+8pFAwpDOynk7UqJX1R9e0vaLO75K/JE+Mf9XYo6WMzJ?=
+ =?us-ascii?Q?wRtRKiXLV85ONWjvUvuk6fFiyGdbO/C8iDZsxF0+Cpo8wu7CxK3f8V4I8D0v?=
+ =?us-ascii?Q?qldidbejjqnK3eJzrBphBIWmHBBC1vyD1vyyEPl9rS5xp2PYHL0W6ZHCTd+7?=
+ =?us-ascii?Q?20nQR223mnDn0EhimkMtSdT3uuocp62pKakY5XYdzSz8K15X+OU8E9QGNOl2?=
+ =?us-ascii?Q?Ya3A6g+2Uzld/xNPS86pcnm5dfKTnHWbEpYVH3mPnUThtGW0Cc0zulCfxgGD?=
+ =?us-ascii?Q?NfBMM1POckAvRrbHoatVyoAeFzVoHDLNLRTxHpq1/vD4sx5HKPD4Y9B8UnLj?=
+ =?us-ascii?Q?2TxESoMaBH9qZkU//TrfXveDuiMH1IstrlrngSowWejaRHWwgMVwngC5Eywi?=
+ =?us-ascii?Q?Qzb6VdWSYuZazeRiG77Atrzvdn2U9QgcN23h6cHCB70SuP1C4FjFTATF/qFn?=
+ =?us-ascii?Q?0xqBb2UFXKUy2ju4/aoE11vLSlq+JXFANBT4YIheCKxDiVGe+w0eojDhXoyB?=
+ =?us-ascii?Q?apox826fWkEoabzTUptig1VwaYGi4J4N4nzSYDZalBA07Ts/XY12OtEIc1es?=
+ =?us-ascii?Q?aBR/OPkdgSAMDKHhllBsl2XBUliaxd2l3F4UpbijNeA7SaVorVGSaIySTnxn?=
+ =?us-ascii?Q?BLQ6upUFKIeI4yRxW9CTr3hEa7uFECGNATD+S/0jzjqbpaQiW22G4lE9ye02?=
+ =?us-ascii?Q?MrtOHQHT?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <0E52AE0D7644064F85FE40096622A159@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4160
+Original-Authentication-Results: arm.com; dkim=none (message not signed)
+ header.d=none;arm.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT036.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	4b42440d-7b0b-4727-8854-08d8c460e3dd
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	XH7+J64G/O32T7H9g1hkrn9+GbKzdEwnC/N7lbRe3+rmROThgFsmnmq0vNRT+wFe31artj+iKgGQJpuvWwxOtEmr/JH5T4BlfDVZhTKX9RniJ9NcUEwS54JSzpY1D95b4WunAkxypeAJ4hMD9JT+FBP9S1gWX/Ig2YJA1q3RPyIPnR29jhpc1piu+HaU+90CrYHkjhCwdWxBmM5iotZpDUgyd1/zwcjbwGkN4Ykhq+tvdpD7YWjl2ae3QagYW7R9cGww/9o/PYhvnh1OcaqiSWmtTNcb8FTfB2r0vAUEeGHXNk7cnYgp3tDmX6yYJG0gyDg9v8AaiDOg21FE/2W1XQ17Az9mXaGKNCzZSAPOKSpT6W/fyObmljk/wfK28z4zshwJote2bGry/TbsqcOO+VEYG8pWQYQAkxhq++SfgKO8BHwonbhVy4cW2M1VAE8Tko4z957gIQGT03XMRQe3v/x1bWwRAEnCn8j/LWZM3n+wxj2OcqMz34P9/qM596CrvxPIVkEa2OpJB/oXvV5K1ZP9/9KlW+9GR18gZwpMe5ueKcpj28vGHPrG2xUM+1QaVXkNdmddRj6mSD4vhJv5RRh1iJgYi4pFwcz6y3G4NLg=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(136003)(39860400002)(346002)(396003)(376002)(46966006)(26005)(83380400001)(2616005)(55236004)(6636002)(53546011)(54906003)(33656002)(70206006)(4326008)(316002)(478600001)(8936002)(6506007)(47076005)(6862004)(6486002)(81166007)(86362001)(70586007)(8676002)(356005)(82310400003)(186003)(6512007)(336012)(82740400003)(37006003)(2906002)(5660300002)(36756003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2021 14:19:38.3053
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 124a6657-f583-4bd5-9878-08d8c460e962
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT036.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB3235
 
-On 29.01.21 15:13, Michael Labriola wrote:
-> On Fri, Jan 29, 2021 at 12:26 AM J=C3=BCrgen Gro=C3=9F <jgross@suse.com=
-> wrote:
->>
->> On 29.01.21 01:51, Marek Marczykowski-G=C3=B3recki wrote:
->>> On Thu, Jan 28, 2021 at 07:03:00PM -0500, Boris Ostrovsky wrote:
->>>>
->>>> On 1/28/21 6:52 PM, Michael D Labriola wrote:
->>>>> Hey, everyone.  I've run into problems starting up my Xen domUs as =
-of
->>>>> the latest batch of stable updates.  Whenever I try to create one, =
-I
->>>>> get a bunch of block device errors like this:
->>>>>
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to add device with path /local/domain/0/backend/vbd/4/51712
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to add device with path /local/domain/0/backend/vbd/4/51728
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to add device with path /local/domain/0/backend/vbd/4/51744
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to add device with path /local/domain/0/backend/vbd/4/51760
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to add device with path /local/domain/0/backend/vbd/4/51776
->>>>> libxl: error: libxl_create.c:1452:domcreate_launch_dm: Domain 4:una=
-ble to add disk devices
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to remove device with path /local/domain/0/backend/vbd/4/51712
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to remove device with path /local/domain/0/backend/vbd/4/51728
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to remove device with path /local/domain/0/backend/vbd/4/51744
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to remove device with path /local/domain/0/backend/vbd/4/51760
->>>>> libxl: error: libxl_device.c:1105:device_backend_callback: Domain 4=
-:unable to remove device with path /local/domain/0/backend/vbd/4/51776
->>>>> libxl: error: libxl_domain.c:1290:devices_destroy_cb: Domain 4:libx=
-l__devices_destroy failed
->>>>> libxl: error: libxl_domain.c:1177:libxl__destroy_domid: Domain 4:No=
-n-existant domain
->>>>> libxl: error: libxl_domain.c:1131:domain_destroy_callback: Domain 4=
-:Unable to destroy guest
->>>>> libxl: error: libxl_domain.c:1058:domain_destroy_cb: Domain 4:Destr=
-uction of domain failed
->>>>>
->>>>> I'm using Xen 4.13.1 on the box I've been testing with.
->>>>>
->>>>> I bisected down to this commit, and reverting it does indeed fix my=
+Hi Rahul,
 
->>>>> problem.  Well, this commit upstream and it's cherry-picked variant=
-s
->>>>> on linux-5.4.y and linux-5.10.y.
->>>>
->>>>
->>>> You most likely need 5f46400f7a6a4fad635d5a79e2aa5a04a30ffea1. It hi=
-t Linus tree a few hours ago.
->>>
->>> I can confirm this fixes the same issue for me (too?), thanks!
->>> Shouldn't this patch have Cc: stable?
->>
->> No, I don't think so.
->>
->> The issue being fixed by the patch has been introduced only in 5.11
+> On 29 Jan 2021, at 10:47, Rahul Singh <Rahul.Singh@arm.com> wrote:
 >=20
-> For the record, the issue is also in the latest stable 5.4.y and
-> 5.10.y releases (I assume older ones as well, but those are the only 2
-> I tested).  That's where I ran into it initially.
+> SMMUv3 driver does not support ACPI device probe.If APCI is enabled with
+> SMMUv3 driver compiler will throw an error.
 >=20
->> and the fixing patch references the buggy patch via a Fixes: tag.
->>
->> If the buggy patch has been put into stable this Fixes: tag should
->> result in the fix being put into the same stable branches as well.
+> Disable SMMUv3 driver when ACPI is enabled in kconfig to fix compilation
+> error.
 >=20
-> I've never done this before...  does this happen automatically?  Or is
-> there somebody we should ping to make sure it happens?
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-This happens automatically (I think).
-
-I have seen mails for the patch been taken for 4.14, 4.19, 5.4 and 5.10.
-
-
-Juergen
+Cheers
+Bertrand
 
 
---------------42C6587E6E24D886442930BF
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+> ---
+> xen/drivers/passthrough/Kconfig | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/xen/drivers/passthrough/Kconfig b/xen/drivers/passthrough/Kc=
+onfig
+> index 341ba92b30..82f02f56af 100644
+> --- a/xen/drivers/passthrough/Kconfig
+> +++ b/xen/drivers/passthrough/Kconfig
+> @@ -15,7 +15,7 @@ config ARM_SMMU
+>=20
+> config ARM_SMMU_V3
+> 	bool "ARM Ltd. System MMU Version 3 (SMMUv3) Support" if EXPERT
+> -	depends on ARM_64
+> +	depends on ARM_64 && (!ACPI || BROKEN)
+> 	---help---
+> 	 Support for implementations of the ARM System MMU architecture
+> 	 version 3. Driver is in experimental stage and should not be used in
+> --=20
+> 2.17.1
+>=20
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------42C6587E6E24D886442930BF--
-
---tjkuZXxXv3VLDH9RmKvu7JB73Ys6zl5fu--
-
---NdtiXIueJY5Zfv7OjBCV5lEkGkEd53vvJ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAUGNQFAwAAAAAACgkQsN6d1ii/Ey8S
-Dgf9Hl56bDtrt1IrsmAcujYq9IvEmKJ32NBfPuMlyCcu8Kkxuw6tIu77AuzMdzSNZdFkScHggZRf
-HKUJRdv83mnE1gXRE8gJnRCQ5hPD4o+VWsKHpZlfy+73MVKbidmTdnPqrbQDGrbUukdEQE3m7ddb
-JVDrCHpR67YEe0q6+4MhGu4BL4FOC27UWKORjs64DJxPvVP6bBjZa/XiPaiCmUxs+/CEHcQOtV+V
-HZZY8CbmMqgREKnmDL75b3I+XeqD2uoefO4jTyHNdXxOEUF+aFMHpWlWqDXmFVkBwFiC7fZ64ABy
-QdFqEaI3TVANeUH2YpOwtrGV7DN7D5n0sr1PKBjtYA==
-=AVI1
------END PGP SIGNATURE-----
-
---NdtiXIueJY5Zfv7OjBCV5lEkGkEd53vvJ--
 
