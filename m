@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 448FB309271
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 07:22:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78733.143408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DFA7309282
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 08:29:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78741.143426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5jdF-0000pD-6n; Sat, 30 Jan 2021 06:21:17 +0000
+	id 1l5kgK-00070C-FK; Sat, 30 Jan 2021 07:28:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78733.143408; Sat, 30 Jan 2021 06:21:17 +0000
+Received: by outflank-mailman (output) from mailman id 78741.143426; Sat, 30 Jan 2021 07:28:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5jdF-0000ol-1x; Sat, 30 Jan 2021 06:21:17 +0000
-Received: by outflank-mailman (input) for mailman id 78733;
- Sat, 30 Jan 2021 06:21:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1l5kgK-0006zn-Bk; Sat, 30 Jan 2021 07:28:32 +0000
+Received: by outflank-mailman (input) for mailman id 78741;
+ Sat, 30 Jan 2021 07:28:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5jdD-0000oa-3i; Sat, 30 Jan 2021 06:21:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5jdC-0000NT-SS; Sat, 30 Jan 2021 06:21:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5jdC-0000Rj-KS; Sat, 30 Jan 2021 06:21:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l5jdC-0003XJ-Jx; Sat, 30 Jan 2021 06:21:14 +0000
+ (envelope-from <SRS0=WPLm=HB=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1l5kgI-0006zi-O2
+ for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 07:28:30 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5abb13ab-a34e-4ab3-989c-8d6c99465ea0;
+ Sat, 30 Jan 2021 07:28:29 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C3937ACB7;
+ Sat, 30 Jan 2021 07:28:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +38,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5NQbH95cO58QHX/rsunR9FJyOQcfd+7Dn9lW2WfIEVw=; b=RqurrixnZCxnVrJFrOsjbCEFSj
-	gJZ2hUNJPvbw/en5vEqJgQcThibNG/7QYgpcrYcIC2TxbH/4X4H8OPAvVKlPry14nHS3ihom5TnbD
-	x9K/s6Hxc3X/KQyZiIrgZiNtpl5sAcFTxnRh0e8WpX55Lr5FJMK2+pfjPmNnhke9Fe0M=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158804-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5abb13ab-a34e-4ab3-989c-8d6c99465ea0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1611991708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AcgzVcm4OxBCeIAbDONg16Q1zWNd6wH7uoB+GW5Ka7o=;
+	b=Y5iU08v0RTlE5+U81FmdP69SHLMKcgiWO7lLLDFvVrcyYkyqs0eMYL77ckfY4SU37+wJs7
+	6vIqmau5/QaEaQBAPcDRZlcOPpZZNqz1ma/gJ/d1ehF8j6AEoUz+i21nUHd8gWtgelRpqu
+	hsXb7sEK6a6cz+6LHG3eix1wpVqlVx0=
+Subject: Re: Troubles analyzing crash dumps from xl dump-core
+To: Roman Shaposhnik <roman@zededa.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <CAMmSBy-wXf+YHa_m1N37537EQfUrs8RVi2i=Ur6yXGtJV_bCgQ@mail.gmail.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <91837fa8-1d57-8b37-bf66-9e021855348d@suse.com>
+Date: Sat, 30 Jan 2021 08:28:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158804: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=9dc687f155a57216b83b17f9cde55dd43e06b0cd
-X-Osstest-Versions-That:
-    xen=e402441d4c02908cea9c14392fd7c2831c0456d0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 30 Jan 2021 06:21:14 +0000
+In-Reply-To: <CAMmSBy-wXf+YHa_m1N37537EQfUrs8RVi2i=Ur6yXGtJV_bCgQ@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="jl2luRkgFGer77ZxCQ605A8E2ULzRHlgZ"
 
-flight 158804 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158804/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--jl2luRkgFGer77ZxCQ605A8E2ULzRHlgZ
+Content-Type: multipart/mixed; boundary="cNR0bwT8LNqXnkc2l1yBwLWGUUH6Eu9B0";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Roman Shaposhnik <roman@zededa.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <91837fa8-1d57-8b37-bf66-9e021855348d@suse.com>
+Subject: Re: Troubles analyzing crash dumps from xl dump-core
+References: <CAMmSBy-wXf+YHa_m1N37537EQfUrs8RVi2i=Ur6yXGtJV_bCgQ@mail.gmail.com>
+In-Reply-To: <CAMmSBy-wXf+YHa_m1N37537EQfUrs8RVi2i=Ur6yXGtJV_bCgQ@mail.gmail.com>
 
-Failures :-/ but no regressions.
+--cNR0bwT8LNqXnkc2l1yBwLWGUUH6Eu9B0
+Content-Type: multipart/mixed;
+ boundary="------------C8CDAABBEF3DBA62EF0F310A"
+Content-Language: en-US
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+This is a multi-part message in MIME format.
+--------------C8CDAABBEF3DBA62EF0F310A
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-version targeted for testing:
- xen                  9dc687f155a57216b83b17f9cde55dd43e06b0cd
-baseline version:
- xen                  e402441d4c02908cea9c14392fd7c2831c0456d0
+On 29.01.21 21:12, Roman Shaposhnik wrote:
+> Hi!
+>=20
+> I'm trying to see how much mileage I can get out of
+> crash(1) 7.2.8 (based on gdb 7.6) when it comes to
+> analyzing crash dumps taken via xl dump-core (this
+> is all on x86_64 with stock Xen v. 4.14).
+>=20
+> The good news is that the image actually does load
+> up but it throws the following WARNINGs in the process:
+>=20
+> WARNING: cannot access vmalloc'd module memory
+> crash: read error: kernel virtual address: ffffffff93613480  type:
+> "fill_task_struct"
+> WARNING: active task ffffffff93613480 on cpu 0 not found in PID hash
+> crash: read error: kernel virtual address: ffffffff93613480  type:
+> "fill_task_struct"
+> WARNING: cannot read log_buf contents
+>=20
+> And then the info that it gives me around basic things like
+> ps, mod, log, etc. is really super limited (and I am now suspecting
+> may even be wrong).
+>=20
+> Since I was primarily after dmesg/log initially, I tried:
+> crash> log
+> log: WARNING: cannot read log_buf contents
+>=20
+> Then I tried taking an xl dump-core from the domU that was still
+> very much alive and happy and got similar results -- so it clearly
+> doesn't seem to be related to the state domU is in.
+>=20
+> As matter of fact, I actually got to the desired dmesg output
+> by simply running strings(1) on the core file -- so the info is
+> definitely there -- but I guess some kind of index/reference maybe
+> broken.
+>=20
+> With all that in mind, if there's anyone on this ML who has recently
+> done Xen DomU crash dump analysis -- I would definitely appreciate
+> the pointers!
 
-Last test of basis   158798  2021-01-29 23:00:28 Z    0 days
-Testing same since   158804  2021-01-30 04:00:24 Z    0 days    1 attempts
+For me it just works (openSUSE).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Tamas K Lengyel <tamas@tklengyel.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+I tried a pv guest only with a 4.4 kernel, though.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Juergen
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+--------------C8CDAABBEF3DBA62EF0F310A
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------C8CDAABBEF3DBA62EF0F310A--
 
-Pushing revision :
+--cNR0bwT8LNqXnkc2l1yBwLWGUUH6Eu9B0--
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   e402441d4c..9dc687f155  9dc687f155a57216b83b17f9cde55dd43e06b0cd -> smoke
+--jl2luRkgFGer77ZxCQ605A8E2ULzRHlgZ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmAVCpsFAwAAAAAACgkQsN6d1ii/Ey/D
+6Af/UNxBvnCod3AWT1ns414BRuWxDEsgfaTaNAbX2DTcjIqEGFLK1sbgbCxcAicAuBJoQzbm/11w
+KLGl+aQIcfXoBORuffW0sDaRLj8ALyPv9uso1u0jhZXnvk+6/5u/xjyBOThvaxzHd80rlmdtqQlI
+XEtD6fFXyg9WkRtzpaxkQVJwmYBIpR526PFZgNxs1LtD+sCYdOuqK1+gFHmK/sqX3tdPBVpt3J/g
+EZVOH2ZMzXDv8xFG42fBCNxmxYTLQE4xjY9bSftlEGw5hmCTCcqdzFtQxgIxZcwygoj6zQkrAILW
+pE2k99T/KJ5fYwbRqZ0SvP4rA9P7RSF++7gJIyyhoA==
+=DofI
+-----END PGP SIGNATURE-----
+
+--jl2luRkgFGer77ZxCQ605A8E2ULzRHlgZ--
 
