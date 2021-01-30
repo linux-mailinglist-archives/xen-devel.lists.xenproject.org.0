@@ -2,33 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEE4B309789
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 19:29:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78992.143780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C5E13097B0
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 19:54:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.79002.143796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5uzO-0008AW-5o; Sat, 30 Jan 2021 18:28:54 +0000
+	id 1l5vNZ-0002iM-80; Sat, 30 Jan 2021 18:53:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78992.143780; Sat, 30 Jan 2021 18:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 79002.143796; Sat, 30 Jan 2021 18:53:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5uzO-0008A6-2T; Sat, 30 Jan 2021 18:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 78992;
- Sat, 30 Jan 2021 18:28:53 +0000
+	id 1l5vNZ-0002hx-4h; Sat, 30 Jan 2021 18:53:53 +0000
+Received: by outflank-mailman (input) for mailman id 79002;
+ Sat, 30 Jan 2021 18:53:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bcvp=HB=antioche.eu.org=bouyer@srs-us1.protection.inumbo.net>)
- id 1l5uzN-0008A1-Hj
- for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 18:28:53 +0000
-Received: from chassiron.antioche.eu.org (unknown [2001:41d0:fe9d:1101::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=DC5f=HB=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1l5vNX-0002hs-CY
+ for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 18:53:51 +0000
+Received: from mail-qv1-xf2d.google.com (unknown [2607:f8b0:4864:20::f2d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b1f3288c-d745-44ee-bedf-c9a5af2d1bd1;
- Sat, 30 Jan 2021 18:28:52 +0000 (UTC)
-Received: from rochebonne.antioche.eu.org (rochebonne [10.0.0.1])
- by chassiron.antioche.eu.org (8.15.2/8.15.2) with ESMTP id 10UISjYA005910;
- Sat, 30 Jan 2021 19:28:45 +0100 (MET)
-Received: by rochebonne.antioche.eu.org (Postfix, from userid 1210)
- id 94875281D; Sat, 30 Jan 2021 19:28:45 +0100 (CET)
+ id 47698bc7-31fd-4cbf-9cd3-2870c3fcc1cd;
+ Sat, 30 Jan 2021 18:53:50 +0000 (UTC)
+Received: by mail-qv1-xf2d.google.com with SMTP id j13so6164798qvu.10
+ for <xen-devel@lists.xenproject.org>; Sat, 30 Jan 2021 10:53:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,63 +37,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1f3288c-d745-44ee-bedf-c9a5af2d1bd1
-Date: Sat, 30 Jan 2021 19:28:45 +0100
-From: Manuel Bouyer <bouyer@antioche.eu.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>,
-        Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v2] libs/light: make it build without setresuid()
-Message-ID: <20210130182845.GA2111@antioche.eu.org>
-References: <20210126224800.1246-1-bouyer@netbsd.org>
- <20210126224800.1246-11-bouyer@netbsd.org>
- <69db20b1-b464-cc6d-3b26-711950cc81d7@citrix.com>
- <20210129230110.GA3543@antioche.eu.org>
- <effea1ec-8f2e-7cf9-267d-8369e4d84701@citrix.com>
+X-Inumbo-ID: 47698bc7-31fd-4cbf-9cd3-2870c3fcc1cd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zededa.com; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=ygf5191TXY/ER33epdRheEnfGbESSDofM8QQmH5Dbgw=;
+        b=SfOL9br/G19JG6chUHmt5g1W+RZUyH4f1c0BgsM56FLWb45WCMZnafGE2NtcxSsKmL
+         NDoJN6R1DZjvs8YCxkycMmuO+6P/Jac5rpgHOC/N64I7/+tOoGbqO1MI1LOhJr5F/GUG
+         c1Wyw11mPFETySVV9qTV+IkUGB6qW/vJOr53vgRjf70G7xjHpG8AtDSebbtsOHmkE8vx
+         C4eaYAEEWXEZGOznbfL4dTewXImq0GozBu5gmFpzNHGk2QAyVBzMXpUfrleiSz+6hen4
+         3xqSuUjzc7fOHsngMX/G1U/b2t3/uiGytzZq944TBB1cNoNdq+KeHMh1hfVpDHb8vzOW
+         B3hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=ygf5191TXY/ER33epdRheEnfGbESSDofM8QQmH5Dbgw=;
+        b=Ao57fGe/7wpHu5BSJ8oJtX34W5hCPWIHEE8cP92lg8nT73MGEzbNYWzwRcCHaCBDCj
+         6tPrGxSN4Kbd18NjaY4vLQtpnjVdZcmnhwvIthZtzaamexjN/1RUprDeJYDffTIr0URK
+         pzdbK6/QCyTU9ts7eJjIUMdyLq3oLKQxvy2LShl9elIpZ8NJ/hVkFiTMtre1AQpERema
+         kUfdsKJ0IJGBgS13vJXaobGc1dQT2Di57+BBPq6+zY7jvub5fvs+wc4UKdjE6+bBf2Yd
+         xnvFOCP08j5yXzgEbnsXYeEDt5BxtA8wIrIPp0JyA4LXIN5T1BdAeDlHw9aTK27rvriY
+         yQQg==
+X-Gm-Message-State: AOAM533LE51mrJIYhbb8jVKnZxvw6tMXW0UmwuHSfUfQZOFvC4UFzGaJ
+	862iSw/G6vewOEBVA1O6iyL1Vq92K4Q9drmbQHLwLPMRayk=
+X-Google-Smtp-Source: ABdhPJzM+GqPVcNP6YM4c2kj8gOb1ArQCCZdOS33WDf568f25LZo3p2uh1dc4nTEcndZrzXwpe7MlUBFsTREROsQt8w=
+X-Received: by 2002:a0c:f582:: with SMTP id k2mr8949485qvm.55.1612032829880;
+ Sat, 30 Jan 2021 10:53:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <effea1ec-8f2e-7cf9-267d-8369e4d84701@citrix.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (chassiron.antioche.eu.org [151.127.5.145]); Sat, 30 Jan 2021 19:28:46 +0100 (MET)
+References: <CAMmSBy-wXf+YHa_m1N37537EQfUrs8RVi2i=Ur6yXGtJV_bCgQ@mail.gmail.com>
+ <91837fa8-1d57-8b37-bf66-9e021855348d@suse.com>
+In-Reply-To: <91837fa8-1d57-8b37-bf66-9e021855348d@suse.com>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Sat, 30 Jan 2021 10:53:39 -0800
+Message-ID: <CAMmSBy8vHstYXPUOZS1byK+JtcJRC_WqZXU8jtd4CJHUop3eGg@mail.gmail.com>
+Subject: Re: Troubles analyzing crash dumps from xl dump-core
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jan 29, 2021 at 11:05:24PM +0000, Andrew Cooper wrote:
-> On 29/01/2021 23:01, Manuel Bouyer wrote:
-> > On Fri, Jan 29, 2021 at 10:51:14PM +0000, Andrew Cooper wrote:
-> >> Given the freeze, and discussions on IRC, I have committed most of this
-> >> series.
-> > thanks
+On Fri, Jan 29, 2021 at 11:28 PM J=C3=BCrgen Gro=C3=9F <jgross@suse.com> wr=
+ote:
+>
+> On 29.01.21 21:12, Roman Shaposhnik wrote:
+> > Hi!
 > >
-> >> This particular patch doesn't compile, but I fixed it up.
-> >>
-> >> Still outstanding are "NetBSD: use system-provided headers", the
-> > I just sent a v3 of this patch
-> 
-> You accidentally labelled it v2, but I'm sure we can cope.
-> 
+> > I'm trying to see how much mileage I can get out of
+> > crash(1) 7.2.8 (based on gdb 7.6) when it comes to
+> > analyzing crash dumps taken via xl dump-core (this
+> > is all on x86_64 with stock Xen v. 4.14).
 > >
-> >> followon patches requested in "libs/light: pass some infos to qemu", and
-> > will try to get at it tomorow
+> > The good news is that the image actually does load
+> > up but it throws the following WARNINGs in the process:
 > >
-> >> "xenpmd.c: use dynamic allocation" which failed like this:
-> >>
-> >> https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/996140268
-> > It looks like I don't have access to this page, could you share the
-> > content ?
-> 
-> urgh - have the permissions broken themselves again...
-> 
-> xenpmd.c:115:13: error: implicit declaration of function 'asprintf'
-> [-Werror=implicit-function-declaration]
-> 
-> It needs an include of stdio.h, and/or some form of #define _GNU_SOURCE.
+> > WARNING: cannot access vmalloc'd module memory
+> > crash: read error: kernel virtual address: ffffffff93613480  type:
+> > "fill_task_struct"
+> > WARNING: active task ffffffff93613480 on cpu 0 not found in PID hash
+> > crash: read error: kernel virtual address: ffffffff93613480  type:
+> > "fill_task_struct"
+> > WARNING: cannot read log_buf contents
+> >
+> > And then the info that it gives me around basic things like
+> > ps, mod, log, etc. is really super limited (and I am now suspecting
+> > may even be wrong).
+> >
+> > Since I was primarily after dmesg/log initially, I tried:
+> > crash> log
+> > log: WARNING: cannot read log_buf contents
+> >
+> > Then I tried taking an xl dump-core from the domU that was still
+> > very much alive and happy and got similar results -- so it clearly
+> > doesn't seem to be related to the state domU is in.
+> >
+> > As matter of fact, I actually got to the desired dmesg output
+> > by simply running strings(1) on the core file -- so the info is
+> > definitely there -- but I guess some kind of index/reference maybe
+> > broken.
+> >
+> > With all that in mind, if there's anyone on this ML who has recently
+> > done Xen DomU crash dump analysis -- I would definitely appreciate
+> > the pointers!
+>
+> For me it just works (openSUSE).
 
-I added the #define, it builds on NetBSD and Linux.
+Can you please run:
 
-I just sent a v3 (as 2 separate patches, sorry I don't know how
-to easily make it otherwise with git) that should fix it.
+crash --version and readelf -a XXXX (on the xl dump-core output)
+and post the results?
 
--- 
-Manuel Bouyer <bouyer@antioche.eu.org>
-     NetBSD: 26 ans d'experience feront toujours la difference
---
+also, what version of  Xen are you using?
+
+> I tried a pv guest only with a 4.4 kernel, though.
+
+I would really appreciate it if you could try it on HVM so that
+I know whether it is an issue that only affects my setup or
+other folks (especially after seeing answers to above).
+
+Thanks,
+Roman.
 
