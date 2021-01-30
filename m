@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A820F309156
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 02:52:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78616.143095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98FEA30916C
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 03:00:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78622.143106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5fQq-00026Z-Vz; Sat, 30 Jan 2021 01:52:12 +0000
+	id 1l5fYN-0002Vd-Nx; Sat, 30 Jan 2021 01:59:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78616.143095; Sat, 30 Jan 2021 01:52:12 +0000
+Received: by outflank-mailman (output) from mailman id 78622.143106; Sat, 30 Jan 2021 01:59:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5fQq-000260-Qo; Sat, 30 Jan 2021 01:52:12 +0000
-Received: by outflank-mailman (input) for mailman id 78616;
- Sat, 30 Jan 2021 01:52:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5fQo-00025s-SC; Sat, 30 Jan 2021 01:52:10 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5fQo-0001If-OD; Sat, 30 Jan 2021 01:52:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1l5fQo-000526-G5; Sat, 30 Jan 2021 01:52:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l5fQo-0007pu-Fa; Sat, 30 Jan 2021 01:52:10 +0000
+	id 1l5fYN-0002VE-Kh; Sat, 30 Jan 2021 01:59:59 +0000
+Received: by outflank-mailman (input) for mailman id 78622;
+ Sat, 30 Jan 2021 01:59:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UkB/=HB=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1l5fYM-0002V6-3r
+ for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 01:59:58 +0000
+Received: from MTA-13-3.privateemail.com (unknown [198.54.118.204])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 57e428bb-bf56-472e-a33c-955c6c65ff45;
+ Sat, 30 Jan 2021 01:59:57 +0000 (UTC)
+Received: from mta-13.privateemail.com (localhost [127.0.0.1])
+ by mta-13.privateemail.com (Postfix) with ESMTP id 67F72800E2;
+ Fri, 29 Jan 2021 20:59:56 -0500 (EST)
+Received: from drt-xps-ubuntu.lan (unknown [10.20.151.217])
+ by mta-13.privateemail.com (Postfix) with ESMTPA id 63B58800DC;
+ Sat, 30 Jan 2021 01:59:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +41,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=hzw5hawaBCL8yFqtw+SINWvYNT6DKkI/3KdgZooFzV4=; b=JT/iSz3tKJroZxrMjoA9wG8qAw
-	aeGWJcSDCQD/r/716+oXlKJOEG3xMOwPs/EUuhhT6vlWoMXVceWjKfHOmmmqUiHb3kPcWwG5iD1lJ
-	I+XG6BniR+rZPvU5lLYQXoGGtFkNAPHl+3ZHGmS0p9l5aebEhzBHOXUjuxI6Ksy9Gcfo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-158798-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 57e428bb-bf56-472e-a33c-955c6c65ff45
+From: Tamas K Lengyel <tamas@tklengyel.com>
+To: xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/debug: fix page-overflow bug in dbg_rw_guest_mem
+Date: Fri, 29 Jan 2021 20:59:53 -0500
+Message-Id: <caba05850df644814d75d5de0574c62ce90e8789.1611971959.git.tamas@tklengyel.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158798: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=e402441d4c02908cea9c14392fd7c2831c0456d0
-X-Osstest-Versions-That:
-    xen=b9a76fc4f0825e9161cf579f2f584226ea08afe9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 30 Jan 2021 01:52:10 +0000
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-flight 158798 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158798/
+When using gdbsx dbg_rw_guest_mem is used to read/write guest memory. When the
+buffer being accessed is on a page-boundary, the next page needs to be grabbed
+to access the correct memory for the buffer's overflown parts. While
+dbg_rw_guest_mem has logic to handle that, it broke with 229492e210a. Instead
+of grabbing the next page the code right now is looping back to the
+start of the first page. This results in errors like the following while trying
+to use gdb with Linux' lx-dmesg:
 
-Failures :-/ but no regressions.
+[    0.114457] PM: hibernation: Registered nosave memory: [mem
+0xfdfff000-0xffffffff]
+[    0.114460] [mem 0x90000000-0xfbffffff] available for PCI demem 0
+[    0.114462] f]f]
+Python Exception <class 'ValueError'> embedded null character:
+Error occurred in Python: embedded null character
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Fixing this bug by taking the variable assignment outside the loop.
 
-version targeted for testing:
- xen                  e402441d4c02908cea9c14392fd7c2831c0456d0
-baseline version:
- xen                  b9a76fc4f0825e9161cf579f2f584226ea08afe9
+Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
+---
+ xen/arch/x86/debug.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Last test of basis   158790  2021-01-29 18:00:27 Z    0 days
-Testing same since   158798  2021-01-29 23:00:28 Z    0 days    1 attempts
+diff --git a/xen/arch/x86/debug.c b/xen/arch/x86/debug.c
+index 4356039ed2..f32d4b0bcc 100644
+--- a/xen/arch/x86/debug.c
++++ b/xen/arch/x86/debug.c
+@@ -112,10 +112,11 @@ static unsigned int dbg_rw_guest_mem(struct domain *dp, void * __user gaddr,
+                                      void * __user buf, unsigned int len,
+                                      bool toaddr, uint64_t pgd3)
+ {
++    unsigned long addr = (unsigned long)gaddr;
++
+     while ( len > 0 )
+     {
+         char *va;
+-        unsigned long addr = (unsigned long)gaddr;
+         mfn_t mfn;
+         gfn_t gfn = INVALID_GFN;
+         unsigned long pagecnt;
+-- 
+2.27.0
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Manuel Bouyer <bouyer@netbsd.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   b9a76fc4f0..e402441d4c  e402441d4c02908cea9c14392fd7c2831c0456d0 -> smoke
 
