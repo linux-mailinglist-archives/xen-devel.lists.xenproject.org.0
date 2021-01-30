@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F03F430914E
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 02:42:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78610.143077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A820F309156
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 02:52:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.78616.143095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5fHY-00010W-UW; Sat, 30 Jan 2021 01:42:36 +0000
+	id 1l5fQq-00026Z-Vz; Sat, 30 Jan 2021 01:52:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78610.143077; Sat, 30 Jan 2021 01:42:36 +0000
+Received: by outflank-mailman (output) from mailman id 78616.143095; Sat, 30 Jan 2021 01:52:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5fHY-000107-RL; Sat, 30 Jan 2021 01:42:36 +0000
-Received: by outflank-mailman (input) for mailman id 78610;
- Sat, 30 Jan 2021 01:42:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ybww=HB=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l5fHX-000102-AQ
- for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 01:42:35 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0a17ff76-08f2-41ec-a893-1c0edbbde65d;
- Sat, 30 Jan 2021 01:42:33 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3824764E00;
- Sat, 30 Jan 2021 01:42:32 +0000 (UTC)
+	id 1l5fQq-000260-Qo; Sat, 30 Jan 2021 01:52:12 +0000
+Received: by outflank-mailman (input) for mailman id 78616;
+ Sat, 30 Jan 2021 01:52:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l5fQo-00025s-SC; Sat, 30 Jan 2021 01:52:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l5fQo-0001If-OD; Sat, 30 Jan 2021 01:52:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l5fQo-000526-G5; Sat, 30 Jan 2021 01:52:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l5fQo-0007pu-Fa; Sat, 30 Jan 2021 01:52:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,40 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a17ff76-08f2-41ec-a893-1c0edbbde65d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1611970952;
-	bh=h/LeJYMJ3mIuW/sjtwYHqUdYdHwVRcudYPwbNZPGpWo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DxazaksHpSQXTCBr91SLRDM3SQkcmO+MUoFauxyE/8MMSiGyuOwnI6KMhA6xDUM9H
-	 gRv2ScHn4orTiGPmXQKViLyiytTzJcupijELJikFExZDNvsDBmBINO4Pf7QVRe6wAM
-	 ST95zLRljtVxp/vUz72Z8McXCy9ebBd09BBlQzLgJRFuagdzZ1RYPCnHupXeO4nxbp
-	 0O3Rf67NQdDwRTuTuypPqEnGU1ouTSoBY3JXYwM0/ubPSuBO1iS0rKo1dL3sgFP8m/
-	 Y3RYPS7VP/ja/IRxSC9O5ACmeDiTesqMDl0Hgh3fiIrnXIwGoijDwMvdgOSDbuWEI2
-	 RtpzecN9KdJ0A==
-Date: Fri, 29 Jan 2021 17:42:31 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Jukka Kaartinen <jukka.kaartinen@unikie.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Roman Shaposhnik <roman@zededa.com>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>
-Subject: Re: Question about xen and Rasp 4B
-In-Reply-To: <alpine.DEB.2.21.2101271707570.9684@sstabellini-ThinkPad-T480s>
-Message-ID: <alpine.DEB.2.21.2101291740190.9684@sstabellini-ThinkPad-T480s>
-References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com> <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s> <CAFnJQOqoqj6mWwR61ZsZj1JxRrdisFtH_87YXCeW619GM+L21Q@mail.gmail.com> <alpine.DEB.2.21.2101251646470.20638@sstabellini-ThinkPad-T480s>
- <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com> <alpine.DEB.2.21.2101261149210.2568@sstabellini-ThinkPad-T480s> <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com>
- <alpine.DEB.2.21.2101271707570.9684@sstabellini-ThinkPad-T480s>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=hzw5hawaBCL8yFqtw+SINWvYNT6DKkI/3KdgZooFzV4=; b=JT/iSz3tKJroZxrMjoA9wG8qAw
+	aeGWJcSDCQD/r/716+oXlKJOEG3xMOwPs/EUuhhT6vlWoMXVceWjKfHOmmmqUiHb3kPcWwG5iD1lJ
+	I+XG6BniR+rZPvU5lLYQXoGGtFkNAPHl+3ZHGmS0p9l5aebEhzBHOXUjuxI6Ksy9Gcfo=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158798-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 158798: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=e402441d4c02908cea9c14392fd7c2831c0456d0
+X-Osstest-Versions-That:
+    xen=b9a76fc4f0825e9161cf579f2f584226ea08afe9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 30 Jan 2021 01:52:10 +0000
 
-On Wed, 27 Jan 2021, Stefano Stabellini wrote:
-> FYI I have just ordered a micro HDMI cable so I might be able to provide
-> more useful feedback in the following days.
+flight 158798 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158798/
 
-What did you use to setup the graphic environment? Is it Ubuntu or
-Raspbian? I am having issues setting up a distro with a "startx" that
-works.
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  e402441d4c02908cea9c14392fd7c2831c0456d0
+baseline version:
+ xen                  b9a76fc4f0825e9161cf579f2f584226ea08afe9
+
+Last test of basis   158790  2021-01-29 18:00:27 Z    0 days
+Testing same since   158798  2021-01-29 23:00:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Manuel Bouyer <bouyer@netbsd.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   b9a76fc4f0..e402441d4c  e402441d4c02908cea9c14392fd7c2831c0456d0 -> smoke
 
