@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14D5309197
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BD4B309196
 	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 03:59:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78638.143194 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.78642.143228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5gTt-0000km-DP; Sat, 30 Jan 2021 02:59:25 +0000
+	id 1l5gU2-00011G-3Z; Sat, 30 Jan 2021 02:59:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78638.143194; Sat, 30 Jan 2021 02:59:25 +0000
+Received: by outflank-mailman (output) from mailman id 78642.143228; Sat, 30 Jan 2021 02:59:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5gTt-0000jp-8E; Sat, 30 Jan 2021 02:59:25 +0000
-Received: by outflank-mailman (input) for mailman id 78638;
- Sat, 30 Jan 2021 02:59:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l5gU1-000109-SY; Sat, 30 Jan 2021 02:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 78642;
+ Sat, 30 Jan 2021 02:59:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bynp=HB=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l5gTr-0000YI-Kk
- for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 02:59:23 +0000
+ id 1l5gU0-0000YD-Qc
+ for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 02:59:32 +0000
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d0575504-b320-4970-9fec-343f3cef2949;
- Sat, 30 Jan 2021 02:59:12 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2c0b585b-f587-468e-bc95-4c5c8fe3e30e;
+ Sat, 30 Jan 2021 02:59:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,39 +35,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0575504-b320-4970-9fec-343f3cef2949
+X-Inumbo-ID: 2c0b585b-f587-468e-bc95-4c5c8fe3e30e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1611975552;
+  d=citrix.com; s=securemail; t=1611975553;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=u9HbrD454r7loU8ATdIyKS3rdl9mdxgTmPdOV+EWKoU=;
-  b=H0SLfOtZ/zh7XbtooTQftdbOxlLsgrZI+S35puWcrSbRITmH/xzlSjxm
-   sz1k1rcljYYBJiWX+2L1H+992I8ihxzEHANtNWThjA0+01SJD0//oCgFo
-   Ov3dE1N/ASdR8a+4qSRRyb1Q8dtIVDf5EOwMGaZxJPguhck9CamSPA3yv
-   0=;
+  bh=EqYl0Kb4/COUva2GRLaJjCYsAtWQEco55jqghSs9xRU=;
+  b=a7H8g3sYNXSxEIlc3QNQDFoTJm6SNUtwZ0OJpoLRVCO9VQf2LNHezGlh
+   iM7k0P+UMe91OmHmlwlC1I84gXL+ZfbSC9021phD0odwmS9NiKrTOaXej
+   s2Ted7lBX2IKMT9s+OqoiWYMiM2yiz2Ai0FF/P46ftubng1z964Br6Vie
+   4=;
 Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: s6vv2TFw2N7RC3xdfMkWMWdj8MslYeVxlAw7UuMOmewed5HiqimBN2PhttUOKhWfNXPM/rYjEv
- GUrqer6lHvPbRVAIjX5kxx9CSGx04/Ac741dMeqpbFgLm0TflU85oTFyocNab0j53ViWk9/f2Q
- caYgFjatN2mOuwqQkDxp6UymyA1i0Zu1sy7MaECzobJpwRaKYd6f+tcdtLtaM14taABZwmqQhz
- dF6TuRNXoiYWt63LFRXV/ZkQn1sj0WACHpHc8ZaZ3oy4qUmsGpYAGQI4Ftc+vq2gZ3eLRZK5YR
- D5E=
+IronPort-SDR: ISuLahzRvGoRGi4NrvKUugJTJrfABpKQhnld6WCRriWnFjzGC6pCRZHfVsmb2dMD5Imm1sU2+m
+ Xc3d3pYnvN1VyW4rNYjsbP+58qjbwneTEVVcV4FifCbzgoGWXgsy+M5S7ruJX6Ly6pOquyNSms
+ qRKumJSOZPyjNnmNH21bUjXeGoFlXH7iPhGtc2IQ/6cIUeQF03jcPM08h7FVfmGxETAffthZ3I
+ acB/+NfHK1dvleJX8BwDx/wZ7giqe8ZSbZ9gpYrCW/5G0EqcuYAAoqTczCLH5PvgNTp0at/LpA
+ FjU=
 X-SBRS: 5.1
-X-MesageID: 36195185
+X-MesageID: 36195186
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,387,1602561600"; 
-   d="scan'208";a="36195185"
+   d="scan'208";a="36195186"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Ian Jackson
-	<iwj@xenproject.org>, =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?=
-	<michal.leszczynski@cert.pl>, Tamas K Lengyel <tamas@tklengyel.com>
-Subject: [PATCH v8 07/16] xen+tools: Introduce XEN_SYSCTL_PHYSCAP_vmtrace
-Date: Sat, 30 Jan 2021 02:58:43 +0000
-Message-ID: <20210130025852.12430-8-andrew.cooper3@citrix.com>
+CC: =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Tamas K Lengyel
+	<tamas@tklengyel.com>
+Subject: [PATCH v8 08/16] xen/domain: Add vmtrace_size domain creation parameter
+Date: Sat, 30 Jan 2021 02:58:44 +0000
+Message-ID: <20210130025852.12430-9-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210130025852.12430-1-andrew.cooper3@citrix.com>
 References: <20210130025852.12430-1-andrew.cooper3@citrix.com>
@@ -76,217 +75,243 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-We're about to introduce support for Intel Processor Trace, but similar
-functionality exists in other platforms.
+From: Michał Leszczyński <michal.leszczynski@cert.pl>
 
-Aspects of vmtrace can reasonably can be common, so start with
-XEN_SYSCTL_PHYSCAP_vmtrace and plumb the signal from Xen all the way down into
-`xl info`.
+To use vmtrace, buffers of a suitable size need allocating, and different
+tasks will want different sizes.
 
+Add a domain creation parameter, and audit it appropriately in the
+{arch_,}sanitise_domain_config() functions.
+
+For now, the x86 specific auditing is tuned to Processor Trace running in
+Single Output mode, which requires a single contiguous range of memory.
+
+The size is given an arbitrary limit of 64M which is expected to be enough for
+anticipated usecases, but not large enough to get into long-running-hypercall
+problems.
+
+Signed-off-by: Michał Leszczyński <michal.leszczynski@cert.pl>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>
 CC: Michał Leszczyński <michal.leszczynski@cert.pl>
 CC: Tamas K Lengyel <tamas@tklengyel.com>
 
-v8:
- * Bump XEN_SYSCTL_PHYSCAP_MAX, fix Ocaml stubs
-v7:
- * New
----
- tools/golang/xenlight/helpers.gen.go | 2 ++
- tools/golang/xenlight/types.gen.go   | 1 +
- tools/include/libxl.h                | 7 +++++++
- tools/libs/light/libxl.c             | 2 ++
- tools/libs/light/libxl_types.idl     | 1 +
- tools/ocaml/libs/xc/xenctrl.ml       | 1 +
- tools/ocaml/libs/xc/xenctrl.mli      | 1 +
- tools/xl/xl_info.c                   | 5 +++--
- xen/common/domain.c                  | 2 ++
- xen/common/sysctl.c                  | 2 ++
- xen/include/public/sysctl.h          | 3 ++-
- xen/include/xen/domain.h             | 2 ++
- 12 files changed, 26 insertions(+), 3 deletions(-)
+When support for later generations of IPT get added, we can in principle start
+to use ToTP which is a scatter list of smaller trace regions to use, if we
+need to massively up the buffer size available.
 
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index e0681ee14e..63e2876463 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -3348,6 +3348,7 @@ x.CapHvmDirectio = bool(xc.cap_hvm_directio)
- x.CapHap = bool(xc.cap_hap)
- x.CapShadow = bool(xc.cap_shadow)
- x.CapIommuHapPtShare = bool(xc.cap_iommu_hap_pt_share)
-+x.CapVmtrace = bool(xc.cap_vmtrace)
+v8:
+ * Rename vmtrace_frames to vmtrace_size.  Reposition to fill a hole.
+ * Rename vmtrace.buf to vmtrace.pg.
+ * Rework the refcounting logic and comment it *very* clearly.
+
+v7:
+ * Major chop&change within the series.
+ * Use the name 'vmtrace' consistently.
+ * Use the (new) common vcpu_teardown() functionality, rather than leaving a
+   latent memory leak on ARM.
+---
+ xen/arch/x86/domain.c       | 23 +++++++++++++
+ xen/common/domain.c         | 79 +++++++++++++++++++++++++++++++++++++++++++++
+ xen/include/public/domctl.h |  3 ++
+ xen/include/xen/sched.h     |  6 ++++
+ 4 files changed, 111 insertions(+)
+
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index b9ba04633e..6c7ee25f3b 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -660,6 +660,29 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+         return -EINVAL;
+     }
  
-  return nil}
- 
-@@ -3378,6 +3379,7 @@ xc.cap_hvm_directio = C.bool(x.CapHvmDirectio)
- xc.cap_hap = C.bool(x.CapHap)
- xc.cap_shadow = C.bool(x.CapShadow)
- xc.cap_iommu_hap_pt_share = C.bool(x.CapIommuHapPtShare)
-+xc.cap_vmtrace = C.bool(x.CapVmtrace)
- 
-  return nil
-  }
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index ac78dea1af..5851c38057 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -1000,6 +1000,7 @@ CapHvmDirectio bool
- CapHap bool
- CapShadow bool
- CapIommuHapPtShare bool
-+CapVmtrace bool
++    if ( config->vmtrace_size )
++    {
++        unsigned int size = config->vmtrace_size;
++
++        ASSERT(vmtrace_available); /* Checked by common code. */
++
++        /*
++         * For now, vmtrace is restricted to HVM guests, and using a
++         * power-of-2 buffer between 4k and 64M in size.
++         */
++        if ( !hvm )
++        {
++            dprintk(XENLOG_INFO, "vmtrace not supported for PV\n");
++            return -EINVAL;
++        }
++
++        if ( size < PAGE_SIZE || size > MB(64) || (size & (size - 1)) )
++        {
++            dprintk(XENLOG_INFO, "Unsupported vmtrace size: %#x\n", size);
++            return -EINVAL;
++        }
++    }
++
+     return 0;
  }
  
- type Connectorinfo struct {
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 547ddd3085..f48d0c5e8a 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -482,6 +482,13 @@
- #define LIBXL_HAVE_DEVICE_PCI_NAME 1
- 
- /*
-+ * LIBXL_HAVE_PHYSINFO_CAP_VMTRACE indicates that libxl_physinfo has a
-+ * cap_vmtrace field, which indicates the availability of platform tracing
-+ * functionality.
-+ */
-+#define LIBXL_HAVE_PHYSINFO_CAP_VMTRACE 1
-+
-+/*
-  * libxl ABI compatibility
-  *
-  * The only guarantee which libxl makes regarding ABI compatibility
-diff --git a/tools/libs/light/libxl.c b/tools/libs/light/libxl.c
-index d2a87157a2..204eb0be2d 100644
---- a/tools/libs/light/libxl.c
-+++ b/tools/libs/light/libxl.c
-@@ -402,6 +402,8 @@ int libxl_get_physinfo(libxl_ctx *ctx, libxl_physinfo *physinfo)
-         !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_shadow);
-     physinfo->cap_iommu_hap_pt_share =
-         !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share);
-+    physinfo->cap_vmtrace =
-+        !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_vmtrace);
- 
-     GC_FREE;
-     return 0;
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 37fe61f3ec..dacb7df6b7 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -1053,6 +1053,7 @@ libxl_physinfo = Struct("physinfo", [
-     ("cap_hap", bool),
-     ("cap_shadow", bool),
-     ("cap_iommu_hap_pt_share", bool),
-+    ("cap_vmtrace", bool),
-     ], dir=DIR_OUT)
- 
- libxl_connectorinfo = Struct("connectorinfo", [
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index e0a47c4769..a02e26b27f 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -116,6 +116,7 @@ type physinfo_cap_flag =
- 	| CAP_HAP
- 	| CAP_Shadow
- 	| CAP_IOMMU_HAP_PT_SHARE
-+	| CAP_Vmtrace
- 
- type physinfo =
- {
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 84311fa33d..d2a312e273 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -101,6 +101,7 @@ type physinfo_cap_flag =
-   | CAP_HAP
-   | CAP_Shadow
-   | CAP_IOMMU_HAP_PT_SHARE
-+  | CAP_Vmtrace
- 
- type physinfo = {
-   threads_per_core : int;
-diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
-index ca417df8e8..8383e4a6df 100644
---- a/tools/xl/xl_info.c
-+++ b/tools/xl/xl_info.c
-@@ -210,14 +210,15 @@ static void output_physinfo(void)
-          info.hw_cap[4], info.hw_cap[5], info.hw_cap[6], info.hw_cap[7]
-         );
- 
--    maybe_printf("virt_caps              :%s%s%s%s%s%s%s\n",
-+    maybe_printf("virt_caps              :%s%s%s%s%s%s%s%s\n",
-          info.cap_pv ? " pv" : "",
-          info.cap_hvm ? " hvm" : "",
-          info.cap_hvm && info.cap_hvm_directio ? " hvm_directio" : "",
-          info.cap_pv && info.cap_hvm_directio ? " pv_directio" : "",
-          info.cap_hap ? " hap" : "",
-          info.cap_shadow ? " shadow" : "",
--         info.cap_iommu_hap_pt_share ? " iommu_hap_pt_share" : ""
-+         info.cap_iommu_hap_pt_share ? " iommu_hap_pt_share" : "",
-+         info.cap_vmtrace ? " vmtrace" : ""
-         );
- 
-     vinfo = libxl_get_version_info(ctx);
 diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 2b461655c3..d1e94d88cf 100644
+index d1e94d88cf..491b32812e 100644
 --- a/xen/common/domain.c
 +++ b/xen/common/domain.c
-@@ -82,6 +82,8 @@ struct vcpu *idle_vcpu[NR_CPUS] __read_mostly;
+@@ -132,6 +132,71 @@ static void vcpu_info_reset(struct vcpu *v)
+     v->vcpu_info_mfn = INVALID_MFN;
+ }
  
- vcpu_info_t dummy_vcpu_info;
- 
-+bool __read_mostly vmtrace_available;
++static void vmtrace_free_buffer(struct vcpu *v)
++{
++    const struct domain *d = v->domain;
++    struct page_info *pg = v->vmtrace.pg;
++    unsigned int i;
 +
- static void __domain_finalise_shutdown(struct domain *d)
++    if ( !pg )
++        return;
++
++    v->vmtrace.pg = NULL;
++
++    for ( i = 0; i < (d->vmtrace_size >> PAGE_SHIFT); i++ )
++    {
++        put_page_alloc_ref(&pg[i]);
++        put_page_and_type(&pg[i]);
++    }
++}
++
++static int vmtrace_alloc_buffer(struct vcpu *v)
++{
++    struct domain *d = v->domain;
++    struct page_info *pg;
++    unsigned int i;
++
++    if ( !d->vmtrace_size )
++        return 0;
++
++    pg = alloc_domheap_pages(d, get_order_from_bytes(d->vmtrace_size),
++                             MEMF_no_refcount);
++    if ( !pg )
++        return -ENOMEM;
++
++    /*
++     * Getting the reference counting correct here is hard.
++     *
++     * All pages are now on the domlist.  They, or subranges within, will be
++     * freed when their reference count drops to zero, which may any time
++     * between now and the domain teardown path.
++     */
++
++    for ( i = 0; i < (d->vmtrace_size >> PAGE_SHIFT); i++ )
++        if ( unlikely(!get_page_and_type(&pg[i], d, PGT_writable_page)) )
++            goto refcnt_err;
++
++    /*
++     * We must only let vmtrace_free_buffer() take any action in the success
++     * case when we've taken all the refs it intends to drop.
++     */
++    v->vmtrace.pg = pg;
++
++    return 0;
++
++ refcnt_err:
++    /*
++     * In the failure case, we must drop all the acquired typerefs thus far,
++     * skip vmtrace_free_buffer(), and leave domain_relinquish_resources() to
++     * drop the alloc refs on any remaining pages - some pages could already
++     * have been freed behind our backs.
++     */
++    while ( i-- )
++        put_page_and_type(&pg[i]);
++
++    return -ENODATA;
++}
++
+ /*
+  * Release resources held by a vcpu.  There may or may not be live references
+  * to the vcpu, and it may or may not be fully constructed.
+@@ -140,6 +205,8 @@ static void vcpu_info_reset(struct vcpu *v)
+  */
+ static int vcpu_teardown(struct vcpu *v)
  {
-     struct vcpu *v;
-diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index ec916424e5..3558641cd9 100644
---- a/xen/common/sysctl.c
-+++ b/xen/common/sysctl.c
-@@ -277,6 +277,8 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-             if ( iommu_hap_pt_share )
-                 pi->capabilities |= XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share;
-         }
-+        if ( vmtrace_available )
-+            pi->capabilities |= XEN_SYSCTL_PHYSCAP_vmtrace;
- 
-         if ( copy_to_guest(u_sysctl, op, 1) )
-             ret = -EFAULT;
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index a073647117..039ccf885c 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -100,9 +100,10 @@ struct xen_sysctl_tbuf_op {
- #define _XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share 5
- #define XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share  \
-     (1u << _XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share)
-+#define XEN_SYSCTL_PHYSCAP_vmtrace       (1 << 6)
- 
- /* Max XEN_SYSCTL_PHYSCAP_* constant.  Used for ABI checking. */
--#define XEN_SYSCTL_PHYSCAP_MAX XEN_SYSCTL_PHYSCAP_iommu_hap_pt_share
-+#define XEN_SYSCTL_PHYSCAP_MAX XEN_SYSCTL_PHYSCAP_vmtrace
- 
- struct xen_sysctl_physinfo {
-     uint32_t threads_per_core;
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index cde0d9c7fe..1708c36964 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -131,4 +131,6 @@ void vnuma_destroy(struct vnuma_info *vnuma);
- static inline void vnuma_destroy(struct vnuma_info *vnuma) { ASSERT(!vnuma); }
- #endif
- 
-+extern bool vmtrace_available;
++    vmtrace_free_buffer(v);
 +
- #endif /* __XEN_DOMAIN_H__ */
+     return 0;
+ }
+ 
+@@ -201,6 +268,9 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
+     if ( sched_init_vcpu(v) != 0 )
+         goto fail_wq;
+ 
++    if ( vmtrace_alloc_buffer(v) != 0 )
++        goto fail_wq;
++
+     if ( arch_vcpu_create(v) != 0 )
+         goto fail_sched;
+ 
+@@ -449,6 +519,12 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
+         }
+     }
+ 
++    if ( config->vmtrace_size && !vmtrace_available )
++    {
++        dprintk(XENLOG_INFO, "vmtrace requested but not available\n");
++        return -EINVAL;
++    }
++
+     return arch_sanitise_domain_config(config);
+ }
+ 
+@@ -474,7 +550,10 @@ struct domain *domain_create(domid_t domid,
+     ASSERT(is_system_domain(d) ? config == NULL : config != NULL);
+ 
+     if ( config )
++    {
+         d->options = config->flags;
++        d->vmtrace_size = config->vmtrace_size;
++    }
+ 
+     /* Sort out our idea of is_control_domain(). */
+     d->is_privileged = is_priv;
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index 666aeb71bf..88a5b1ef5d 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -95,6 +95,9 @@ struct xen_domctl_createdomain {
+     int32_t max_grant_frames;
+     int32_t max_maptrack_frames;
+ 
++    /* Per-vCPU buffer size in bytes.  0 to disable. */
++    uint32_t vmtrace_size;
++
+     struct xen_arch_domainconfig arch;
+ };
+ 
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 06dba1a397..bc78a09a53 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -272,6 +272,10 @@ struct vcpu
+     /* vPCI per-vCPU area, used to store data for long running operations. */
+     struct vpci_vcpu vpci;
+ 
++    struct {
++        struct page_info *pg; /* One contiguous allocation of d->vmtrace_size */
++    } vmtrace;
++
+     struct arch_vcpu arch;
+ 
+ #ifdef CONFIG_IOREQ_SERVER
+@@ -547,6 +551,8 @@ struct domain
+         unsigned int guest_request_sync          : 1;
+     } monitor;
+ 
++    unsigned int vmtrace_size; /* Buffer size in bytes, or 0 to disable. */
++
+ #ifdef CONFIG_ARGO
+     /* Argo interdomain communication support */
+     struct argo_domain *argo;
 -- 
 2.11.0
 
