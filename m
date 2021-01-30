@@ -2,27 +2,27 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92799309191
+	by mail.lfdr.de (Postfix) with ESMTPS id 907A8309190
 	for <lists+xen-devel@lfdr.de>; Sat, 30 Jan 2021 03:59:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.78637.143180 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.78639.143206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5gTs-0000hb-0P; Sat, 30 Jan 2021 02:59:24 +0000
+	id 1l5gTw-0000qT-Q8; Sat, 30 Jan 2021 02:59:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 78637.143180; Sat, 30 Jan 2021 02:59:23 +0000
+Received: by outflank-mailman (output) from mailman id 78639.143206; Sat, 30 Jan 2021 02:59:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l5gTr-0000gy-S9; Sat, 30 Jan 2021 02:59:23 +0000
-Received: by outflank-mailman (input) for mailman id 78637;
- Sat, 30 Jan 2021 02:59:22 +0000
+	id 1l5gTw-0000pX-LA; Sat, 30 Jan 2021 02:59:28 +0000
+Received: by outflank-mailman (input) for mailman id 78639;
+ Sat, 30 Jan 2021 02:59:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bynp=HB=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l5gTq-0000YD-Q7
- for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 02:59:22 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1l5gTv-0000YD-QJ
+ for xen-devel@lists.xenproject.org; Sat, 30 Jan 2021 02:59:27 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4d657e7b-95f0-4b8d-93db-3330e23ff20a;
+ id 90dd9708-3c52-4a16-8f98-bf6113781a2e;
  Sat, 30 Jan 2021 02:59:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -35,126 +35,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d657e7b-95f0-4b8d-93db-3330e23ff20a
+X-Inumbo-ID: 90dd9708-3c52-4a16-8f98-bf6113781a2e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1611975552;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=8vgH45XlNNq0PCbPRDg9sE+eRRJKofBQp4hdFGXVgoY=;
-  b=a2fGwvNCovZH9g4Q1KNmF2DiT9+MZ1tKqxBebUn4JOTCLDl7um6KIYc2
-   +6NJ4ElOEI5tPQYMBrUvXcecz4mfdmhTkKnTa4bysJZaPicDq6cMNbJGW
-   Oj7v0iHRoAh8a4XeSxCnHIQgmtmy/BygdzC9mTZlcS8ASu+OARai2tuvu
-   Q=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: x6FII1DBgEZCwjABwaIKg7sLAAANYTPvSaryuUuV6nwXqVX1BRzFbH9BNaudHSHrDPfn10kEgR
- 4PzjduA+DinvCteRhqXXkhTmHMlWyjtnziq3J0EhgXhzCPqU25ScQxW5wxevZmvcXWggzgB0WR
- gD+vBw9ZJ95d/caR+gMiPuymtU3tBN55FutuFryYK98jTPeEvHX6vd4BSiagxPwWE720Q3PAVp
- NcIDz9SM8iyk71fR9/emoBF6wD4BgQp5ps9D14KvbU4J2cHVpSbW26n0U312vRy+ML/iUihgt9
- xhI=
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=TFUeOvHFx2gnEVFRi1+gHwqBqIzxUVzebfveWMaPxFo=;
+  b=YEaMJQsEpV/piOFRXT3ButIQtIQQJqxLsMa/JID2A78i05Bama2JjkON
+   fY2piX3S3gWHbCqBJDdhQj+xvbbTZ1WXOo5L8daID+bZhct+yOzmUOFmQ
+   uyBJF/50wj1gB8l9MRyO2u7idkWMs0KdVnR8U/a59ja91PB3QOBaS6nXZ
+   U=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: LshTWpJRRTcuKP+ZTeLGY/JqdgFbzmMFQwh2hopnEgq5BO6RfcNBvrJ/TV7ZrcbLeal0aojM3d
+ W+AZVWxPvxV4Y+cphexg2wLqOK6faAqXTAEMyq1NPs2K+N0/NJYRwB8dz8+3PKlk+gem4TBmm/
+ N86gRDTwuXKMKV+6Zbv2KPt4OQLlyoL8JQpX+pOYeeYhWsZkvFuzEE6EeY+raAKBK3PVMnEyLX
+ WYK1mV2UANiEqf4JbRMH/8M2s7AQ//txVUZrxZc4mjqgFXbIzKpKJng8feV7e8FuFJCHTlC7VD
+ Swg=
 X-SBRS: 5.1
-X-MesageID: 36399490
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 37525491
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,387,1602561600"; 
-   d="scan'208";a="36399490"
+   d="scan'208";a="37525491"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Ian Jackson
-	<iwj@xenproject.org>, Anthony PERARD <anthony.perard@citrix.com>, "Jun
- Nakajima" <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
-	=?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>,
-	Tamas K Lengyel <tamas@tklengyel.com>
-Subject: [PATCH v8 00/16] acquire_resource size and external IPT monitoring
-Date: Sat, 30 Jan 2021 02:58:36 +0000
-Message-ID: <20210130025852.12430-1-andrew.cooper3@citrix.com>
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Paul Durrant <paul@xen.org>, "Oleksandr
+ Tyshchenko" <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH v8 01/16] xen/memory: Reject out-of-range resource 'frame' values
+Date: Sat, 30 Jan 2021 02:58:37 +0000
+Message-ID: <20210130025852.12430-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20210130025852.12430-1-andrew.cooper3@citrix.com>
+References: <20210130025852.12430-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Combined series (as they are dependent).  First, the resource size fixes, and
-then the external IPT monitoring built on top.
+The ABI is unfortunate, and frame being 64 bits leads to all kinds of problems
+performing correct overflow checks.
 
-Posting in full for reference, but several patches are ready to go in.  Those
-in need of review are patch 6, 8 and 12.
+Reject out-of-range values, and combinations which overflow, and use unsigned
+int consistently elsewhere.  This fixes several truncation bugs in the grant
+call tree, as the underlying limits are expressed with unsigned int to begin
+with.
 
-See individual patches for changes.  The major work was rebasing over the
-ARM/IOREQ series which moved a load of code which this series was bugfixing.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Paul Durrant <paul@xen.org>
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Andrew Cooper (7):
-  xen/memory: Reject out-of-range resource 'frame' values
-  xen/gnttab: Rework resource acquisition
-  xen/memory: Fix acquire_resource size semantics
-  xen/memory: Improve compat XENMEM_acquire_resource handling
-  xen/memory: Indent part of acquire_resource()
-  xen/memory: Fix mapping grant tables with XENMEM_acquire_resource
-  xen+tools: Introduce XEN_SYSCTL_PHYSCAP_vmtrace
+v8:
+ * Push long=>int conversion all the way down into gnttab/ioreq
+ * Rebase over ARM/IOREQ series
 
-Michał Leszczyński (7):
-  xen/domain: Add vmtrace_size domain creation parameter
-  tools/[lib]xl: Add vmtrace_buf_size parameter
-  xen/memory: Add a vmtrace_buf resource type
-  x86/vmx: Add Intel Processor Trace support
-  xen/domctl: Add XEN_DOMCTL_vmtrace_op
-  tools/libxc: Add xc_vmtrace_* functions
-  tools/misc: Add xen-vmtrace tool
+v7.5:
+ * New
+---
+ xen/common/grant_table.c      | 14 +++++++-------
+ xen/common/ioreq.c            |  2 +-
+ xen/common/memory.c           | 17 +++++++++++++++--
+ xen/include/xen/grant_table.h |  8 ++++----
+ xen/include/xen/ioreq.h       |  2 +-
+ 5 files changed, 28 insertions(+), 15 deletions(-)
 
-Tamas K Lengyel (2):
-  xen/vmtrace: support for VM forks
-  x86/vm_event: Carry the vmtrace buffer position in vm_event
-
- docs/man/xl.cfg.5.pod.in                    |   9 +
- tools/golang/xenlight/helpers.gen.go        |   4 +
- tools/golang/xenlight/types.gen.go          |   2 +
- tools/include/libxl.h                       |  14 ++
- tools/include/xenctrl.h                     |  73 ++++++++
- tools/libs/ctrl/Makefile                    |   1 +
- tools/libs/ctrl/xc_vmtrace.c                | 128 +++++++++++++
- tools/libs/light/libxl.c                    |   2 +
- tools/libs/light/libxl_cpuid.c              |   1 +
- tools/libs/light/libxl_create.c             |   1 +
- tools/libs/light/libxl_types.idl            |   5 +
- tools/misc/.gitignore                       |   1 +
- tools/misc/Makefile                         |   7 +
- tools/misc/xen-cpuid.c                      |   2 +-
- tools/misc/xen-vmtrace.c                    | 154 ++++++++++++++++
- tools/ocaml/libs/xc/xenctrl.ml              |   1 +
- tools/ocaml/libs/xc/xenctrl.mli             |   1 +
- tools/xl/xl_info.c                          |   5 +-
- tools/xl/xl_parse.c                         |   4 +
- xen/arch/x86/domain.c                       |  23 +++
- xen/arch/x86/domctl.c                       |  55 ++++++
- xen/arch/x86/hvm/vmx/vmcs.c                 |  19 +-
- xen/arch/x86/hvm/vmx/vmx.c                  | 200 +++++++++++++++++++-
- xen/arch/x86/mm/mem_sharing.c               |   3 +
- xen/arch/x86/vm_event.c                     |   3 +
- xen/common/compat/memory.c                  | 147 +++++++++++----
- xen/common/domain.c                         |  81 ++++++++
- xen/common/grant_table.c                    | 112 ++++++++----
- xen/common/ioreq.c                          |   2 +-
- xen/common/memory.c                         | 274 +++++++++++++++++++---------
- xen/common/sysctl.c                         |   2 +
- xen/include/asm-x86/cpufeature.h            |   1 +
- xen/include/asm-x86/hvm/hvm.h               |  72 ++++++++
- xen/include/asm-x86/hvm/vmx/vmcs.h          |   4 +
- xen/include/asm-x86/msr.h                   |  32 ++++
- xen/include/public/arch-x86/cpufeatureset.h |   1 +
- xen/include/public/domctl.h                 |  38 ++++
- xen/include/public/memory.h                 |  18 +-
- xen/include/public/sysctl.h                 |   3 +-
- xen/include/public/vm_event.h               |   7 +
- xen/include/xen/domain.h                    |   2 +
- xen/include/xen/grant_table.h               |  21 ++-
- xen/include/xen/ioreq.h                     |   2 +-
- xen/include/xen/sched.h                     |   6 +
- xen/xsm/flask/hooks.c                       |   1 +
- 45 files changed, 1366 insertions(+), 178 deletions(-)
- create mode 100644 tools/libs/ctrl/xc_vmtrace.c
- create mode 100644 tools/misc/xen-vmtrace.c
-
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index f6f5acd300..4ecec35f28 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -3918,7 +3918,7 @@ int mem_sharing_gref_to_gfn(struct grant_table *gt, grant_ref_t ref,
+ 
+ /* caller must hold write lock */
+ static int gnttab_get_status_frame_mfn(struct domain *d,
+-                                       unsigned long idx, mfn_t *mfn)
++                                       unsigned int idx, mfn_t *mfn)
+ {
+     const struct grant_table *gt = d->grant_table;
+ 
+@@ -3929,8 +3929,8 @@ static int gnttab_get_status_frame_mfn(struct domain *d,
+ 
+     if ( idx >= nr_status_frames(gt) )
+     {
+-        unsigned long nr_status;
+-        unsigned long nr_grant;
++        unsigned int nr_status;
++        unsigned int nr_grant;
+ 
+         nr_status = idx + 1; /* sufficient frames to make idx valid */
+ 
+@@ -3958,7 +3958,7 @@ static int gnttab_get_status_frame_mfn(struct domain *d,
+ 
+ /* caller must hold write lock */
+ static int gnttab_get_shared_frame_mfn(struct domain *d,
+-                                       unsigned long idx, mfn_t *mfn)
++                                       unsigned int idx, mfn_t *mfn)
+ {
+     const struct grant_table *gt = d->grant_table;
+ 
+@@ -3966,7 +3966,7 @@ static int gnttab_get_shared_frame_mfn(struct domain *d,
+ 
+     if ( idx >= nr_grant_frames(gt) )
+     {
+-        unsigned long nr_grant;
++        unsigned int nr_grant;
+ 
+         nr_grant = idx + 1; /* sufficient frames to make idx valid */
+ 
+@@ -4021,7 +4021,7 @@ int gnttab_map_frame(struct domain *d, unsigned long idx, gfn_t gfn, mfn_t *mfn)
+     return rc;
+ }
+ 
+-int gnttab_get_shared_frame(struct domain *d, unsigned long idx,
++int gnttab_get_shared_frame(struct domain *d, unsigned int idx,
+                             mfn_t *mfn)
+ {
+     struct grant_table *gt = d->grant_table;
+@@ -4034,7 +4034,7 @@ int gnttab_get_shared_frame(struct domain *d, unsigned long idx,
+     return rc;
+ }
+ 
+-int gnttab_get_status_frame(struct domain *d, unsigned long idx,
++int gnttab_get_status_frame(struct domain *d, unsigned int idx,
+                             mfn_t *mfn)
+ {
+     struct grant_table *gt = d->grant_table;
+diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
+index a36137d41d..90ed2e0302 100644
+--- a/xen/common/ioreq.c
++++ b/xen/common/ioreq.c
+@@ -771,7 +771,7 @@ static int ioreq_server_get_info(struct domain *d, ioservid_t id,
+ }
+ 
+ int ioreq_server_get_frame(struct domain *d, ioservid_t id,
+-                           unsigned long idx, mfn_t *mfn)
++                           unsigned int idx, mfn_t *mfn)
+ {
+     struct ioreq_server *s;
+     int rc;
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index 33296e65cb..4d681597a5 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1055,7 +1055,7 @@ static long xatp_permission_check(struct domain *d, unsigned int space)
+ }
+ 
+ static int acquire_grant_table(struct domain *d, unsigned int id,
+-                               unsigned long frame,
++                               unsigned int frame,
+                                unsigned int nr_frames,
+                                xen_pfn_t mfn_list[])
+ {
+@@ -1094,7 +1094,7 @@ static int acquire_grant_table(struct domain *d, unsigned int id,
+ 
+ static int acquire_ioreq_server(struct domain *d,
+                                 unsigned int id,
+-                                unsigned long frame,
++                                unsigned int frame,
+                                 unsigned int nr_frames,
+                                 xen_pfn_t mfn_list[])
+ {
+@@ -1164,6 +1164,19 @@ static int acquire_resource(
+     if ( xmar.nr_frames > ARRAY_SIZE(mfn_list) )
+         return -E2BIG;
+ 
++    /*
++     * The ABI is rather unfortunate.  nr_frames (and therefore the total size
++     * of the resource) is 32bit, while frame (the offset within the resource
++     * we'd like to start at) is 64bit.
++     *
++     * Reject values oustide the of the range of nr_frames, as well as
++     * combinations of frame and nr_frame which overflow, to simplify the rest
++     * of the logic.
++     */
++    if ( (xmar.frame >> 32) ||
++         ((xmar.frame + xmar.nr_frames) >> 32) )
++        return -EINVAL;
++
+     rc = rcu_lock_remote_domain_by_id(xmar.domid, &d);
+     if ( rc )
+         return rc;
+diff --git a/xen/include/xen/grant_table.h b/xen/include/xen/grant_table.h
+index 8876f1f28e..6d14fe2526 100644
+--- a/xen/include/xen/grant_table.h
++++ b/xen/include/xen/grant_table.h
+@@ -55,9 +55,9 @@ int mem_sharing_gref_to_gfn(struct grant_table *gt, grant_ref_t ref,
+ 
+ int gnttab_map_frame(struct domain *d, unsigned long idx, gfn_t gfn,
+                      mfn_t *mfn);
+-int gnttab_get_shared_frame(struct domain *d, unsigned long idx,
++int gnttab_get_shared_frame(struct domain *d, unsigned int idx,
+                             mfn_t *mfn);
+-int gnttab_get_status_frame(struct domain *d, unsigned long idx,
++int gnttab_get_status_frame(struct domain *d, unsigned int idx,
+                             mfn_t *mfn);
+ 
+ #else
+@@ -92,13 +92,13 @@ static inline int gnttab_map_frame(struct domain *d, unsigned long idx,
+     return -EINVAL;
+ }
+ 
+-static inline int gnttab_get_shared_frame(struct domain *d, unsigned long idx,
++static inline int gnttab_get_shared_frame(struct domain *d, unsigned int idx,
+                                           mfn_t *mfn)
+ {
+     return -EINVAL;
+ }
+ 
+-static inline int gnttab_get_status_frame(struct domain *d, unsigned long idx,
++static inline int gnttab_get_status_frame(struct domain *d, unsigned int idx,
+                                           mfn_t *mfn)
+ {
+     return -EINVAL;
+diff --git a/xen/include/xen/ioreq.h b/xen/include/xen/ioreq.h
+index 2d635e9432..a54a637bef 100644
+--- a/xen/include/xen/ioreq.h
++++ b/xen/include/xen/ioreq.h
+@@ -90,7 +90,7 @@ bool vcpu_ioreq_handle_completion(struct vcpu *v);
+ bool is_ioreq_server_page(struct domain *d, const struct page_info *page);
+ 
+ int ioreq_server_get_frame(struct domain *d, ioservid_t id,
+-                           unsigned long idx, mfn_t *mfn);
++                           unsigned int idx, mfn_t *mfn);
+ int ioreq_server_map_mem_type(struct domain *d, ioservid_t id,
+                               uint32_t type, uint32_t flags);
+ 
 -- 
 2.11.0
 
