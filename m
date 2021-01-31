@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E49213099F3
-	for <lists+xen-devel@lfdr.de>; Sun, 31 Jan 2021 03:16:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.79139.144131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B2F6309A0C
+	for <lists+xen-devel@lfdr.de>; Sun, 31 Jan 2021 04:11:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.79146.144151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l62H1-0004gK-LZ; Sun, 31 Jan 2021 02:15:35 +0000
+	id 1l638m-00024K-VA; Sun, 31 Jan 2021 03:11:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 79139.144131; Sun, 31 Jan 2021 02:15:35 +0000
+Received: by outflank-mailman (output) from mailman id 79146.144151; Sun, 31 Jan 2021 03:11:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l62H1-0004fs-DL; Sun, 31 Jan 2021 02:15:35 +0000
-Received: by outflank-mailman (input) for mailman id 79139;
- Sun, 31 Jan 2021 02:15:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AZXz=HC=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1l62H0-0004fn-61
- for xen-devel@lists.xenproject.org; Sun, 31 Jan 2021 02:15:34 +0000
-Received: from out4-smtp.messagingengine.com (unknown [66.111.4.28])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f1b18c0e-2dce-4cd0-94ae-fac34c78167e;
- Sun, 31 Jan 2021 02:15:31 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 08DEB5C00FF;
- Sat, 30 Jan 2021 21:15:31 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sat, 30 Jan 2021 21:15:31 -0500
-Received: from mail-itl (ip5b40aa59.dynamic.kabel-deutschland.de
- [91.64.170.89])
- by mail.messagingengine.com (Postfix) with ESMTPA id DC651240057;
- Sat, 30 Jan 2021 21:15:29 -0500 (EST)
+	id 1l638m-00023s-QW; Sun, 31 Jan 2021 03:11:08 +0000
+Received: by outflank-mailman (input) for mailman id 79146;
+ Sun, 31 Jan 2021 03:11:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l638l-00023k-K6; Sun, 31 Jan 2021 03:11:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l638l-00049i-Df; Sun, 31 Jan 2021 03:11:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l638l-0002Ju-6P; Sun, 31 Jan 2021 03:11:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l638l-0001my-5u; Sun, 31 Jan 2021 03:11:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,317 +42,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1b18c0e-2dce-4cd0-94ae-fac34c78167e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=ZyXCdf
-	QJVtXGtyqXbNHNMRlxjZ1mi7dGaQMR+CIG4nU=; b=BghAuJ+XxYUrZyenjnxR7D
-	DfbuHwoEyEh6CnwJXkEbgbJedh/wHymu2ed5qIZPdwv592H9oquHhQdMyg9uWaXV
-	rT6PjtIetNR0smoQqLyoP3IVGOd4mWrQYeZw5nhlhxcN/m+Ehmi2NdbpDMMuBVgZ
-	x1reAlM09MUUHpi2tnVaqyeFj4r3vEcZfIddBX754K2kFWY0M3T1YBwg7IvpkIf5
-	RHegoO0RQISeBQQz9JI/a5jDcSnMnCOUHigMZYd/R6PfAQz6aHtxPznAYLTRunxT
-	4BAjeSDBJzbIPy04HI+/cS4ln0egqgqGz8PmUkCe0DSC6PqoZ2pNokgn8CNpvG6w
-	==
-X-ME-Sender: <xms:whIWYCXX5qU5hlAqPOsBQYviuBJHg8A_F00ky-bFoVOs7MkVpjFqmg>
-    <xme:whIWYOn0przwv3uW2f-MZwZmwrrL48tx6vdRZs7EjaDTLuaI9fryoD7mA7pz1W-Yc
-    FCSYCC_Tn311Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeehgdegfecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteevffei
-    gffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecukfhppeelud
-    drieegrddujedtrdekleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
-    ihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
-    gtohhm
-X-ME-Proxy: <xmx:whIWYGb1Sx8pUzF81sXKTk8US3KJ4USYYme4NecuST3Fk1QXwSmdnw>
-    <xmx:whIWYJWMvIQYt3okT0u6FH5jEe81AiaROvtJCiC6B1X7yNxFuQZbUQ>
-    <xmx:whIWYMl9NfY-vdAdjMPID2nvZoG5bFSpw_T-7c3Y5flqUeM-GdbiMQ>
-    <xmx:wxIWYBwb3bfMsp_MbaLGG1QNp-l1kwY9wCvg-QGBAlnRFJq_lci6mA>
-Date: Sun, 31 Jan 2021 03:15:26 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Juergen Gross <jgross@suse.de>, Dario Faggioli <dfaggioli@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13 and newer
-Message-ID: <20210131021526.GB6354@mail-itl>
-References: <20200318141635.GW7869@mail-itl>
- <fa845540-fd8e-bc63-a3af-50673dede579@citrix.com>
- <20200318221006.GS18599@mail-itl>
- <413cac496e18bcb04b0691ef633d206f3a14a8e3.camel@suse.com>
- <20200323000946.GH18599@mail-itl>
- <20200929142730.GA25731@mail-itl>
- <d243c1b5-712d-a958-0b6c-b232eb4edc80@suse.com>
- <20200929151627.GE1482@mail-itl>
- <ea53b845-5edf-a61e-62ae-7ababc30b3e0@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=WIU9gk4gk+OFvLnOLELyDRVmef5LxYeTFngrCk7OaZU=; b=bZVx/wKFysXxM8rgoi+XBJwINB
+	G5RhZxbG1rfOc3FzydQoddH9R9yQ//u8tuaVldbbued9R82LIdnkK2mdyQY7LFTp9eDduvSwcUCtq
+	/A5w4Povhsx+YHiWVjxAboOCa2DKomgkxbc/kyHKRrl6+Oy0+i3vW/rMgCsUTVNyXSBo=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158816-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="/NkBOFFp2J2Af1nK"
-Content-Disposition: inline
-In-Reply-To: <ea53b845-5edf-a61e-62ae-7ababc30b3e0@suse.com>
+Subject: [qemu-mainline test] 158816: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-xl-vhd:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=74208cd252c5da9d867270a178799abd802b9338
+X-Osstest-Versions-That:
+    qemuu=1d806cef0e38b5db8347a8e12f214d543204a314
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 31 Jan 2021 03:11:07 +0000
+
+flight 158816 qemu-mainline real [real]
+flight 158836 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158816/
+http://logs.test-lab.xenproject.org/osstest/logs/158836/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 152631
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 152631
+ test-armhf-armhf-xl-vhd     17 guest-start/debian.repeat fail REGR. vs. 152631
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 152631
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 152631
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 152631
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 152631
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 152631
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 152631
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 152631
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                74208cd252c5da9d867270a178799abd802b9338
+baseline version:
+ qemuu                1d806cef0e38b5db8347a8e12f214d543204a314
+
+Last test of basis   152631  2020-08-20 09:07:46 Z  163 days
+Failing since        152659  2020-08-21 14:07:39 Z  162 days  330 attempts
+Testing same since   158816  2021-01-30 13:16:09 Z    0 days    1 attempts
+
+------------------------------------------------------------
+372 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-amd64-pvgrub                                pass    
+ test-amd64-amd64-i386-pvgrub                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-xl-raw                                       pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
---/NkBOFFp2J2Af1nK
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13 and newer
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Tue, Sep 29, 2020 at 05:27:48PM +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> On 29.09.20 17:16, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Tue, Sep 29, 2020 at 05:07:11PM +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> > > On 29.09.20 16:27, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > On Mon, Mar 23, 2020 at 01:09:49AM +0100, Marek Marczykowski-G=C3=
-=B3recki wrote:
-> > > > > On Thu, Mar 19, 2020 at 01:28:10AM +0100, Dario Faggioli wrote:
-> > > > > > [Adding Juergen]
-> > > > > >=20
-> > > > > > On Wed, 2020-03-18 at 23:10 +0100, Marek Marczykowski-G=C3=B3re=
-cki wrote:
-> > > > > > > On Wed, Mar 18, 2020 at 02:50:52PM +0000, Andrew Cooper wrote:
-> > > > > > > > On 18/03/2020 14:16, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > > > > > > Hi,
-> > > > > > > > >=20
-> > > > > > > > > In my test setup (inside KVM with nested virt enabled), I=
- rather
-> > > > > > > > > frequently get Xen crash on resume from S3. Full message =
-below.
-> > > > > > > > >=20
-> > > > > > > > > This is Xen 4.13.0, with some patches, including "sched: =
-fix
-> > > > > > > > > resuming
-> > > > > > > > > from S3 with smt=3D0".
-> > > > > > > > >=20
-> > > > > > > > > Contrary to the previous issue, this one does not happen =
-always -
-> > > > > > > > > I
-> > > > > > > > > would say in about 40% cases on this setup, but very rare=
-ly on
-> > > > > > > > > physical
-> > > > > > > > > setup.
-> > > > > > > > >=20
-> > > > > > > > > This is _without_ core scheduling enabled, and also with =
-smt=3Doff.
-> > > > > > > > >=20
-> > > > > > > > > Do you think it would be any different on xen-unstable? I=
- cat
-> > > > > > > > > try, but
-> > > > > > > > > it isn't trivial in this setup, so I'd ask first.
-> > > > > > > > >=20
-> > > > > > Well, Juergen has fixed quite a few issues.
-> > > > > >=20
-> > > > > > Most of them where triggering with core-scheduling enabled, and=
- I don't
-> > > > > > recall any of them which looked similar or related to this.
-> > > > > >=20
-> > > > > > Still, it's possible that the same issue causes different sympt=
-oms, and
-> > > > > > hence that maybe one of the patches would fix this too.
-> > > > >=20
-> > > > > I've tested on master (d094e95fb7c), and reproduced exactly the s=
-ame crash
-> > > > > (pasted below for the completeness).
-> > > > > But there is more: additionally, in most (all?) cases after resum=
-e I've got
-> > > > > soft lockup in Linux dom0 in smp_call_function_single() - see bel=
-ow. It
-> > > > > didn't happened before and the only change was Xen 4.13 -> master.
-> > > > >=20
-> > > > > Xen crash:
-> > > > >=20
-> > > > > (XEN) Assertion 'c2rqd(sched_unit_master(unit)) =3D=3D svc->rqd' =
-failed at credit2.c:2133
-> > > >=20
-> > > > Juergen, any idea about this one? This is also happening on the cur=
-rent
-> > > > stable-4.14 (28855ebcdbfa).
-> > > >=20
-> > >=20
-> > > Oh, sorry I didn't come back to this issue.
-> > >=20
-> > > I suspect this is related to stop_machine_run() being called during
-> > > suspend(), as I'm seeing very sporadic issues when offlining and then
-> > > onlining cpus with core scheduling being active (it seems as if the
-> > > dom0 vcpu doing the cpu online activity sometimes is using an old
-> > > vcpu state).
-> >=20
-> > Note this is default Xen 4.14 start, so core scheduling is _not_ active:
->=20
-> The similarity in the two failure cases is that multiple cpus are
-> affected by the operations during stop_machine_run().
->=20
-> >=20
-> >      (XEN) Brought up 2 CPUs
-> >      (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
-> >      (XEN) Adding cpu 0 to runqueue 0
-> >      (XEN)  First cpu on runqueue, activating
-> >      (XEN) Adding cpu 1 to runqueue 1
-> >      (XEN)  First cpu on runqueue, activating
-> >=20
-> > > I wasn't able to catch the real problem despite of having tried lots
-> > > of approaches using debug patches.
-> > >=20
-> > > Recently I suspected the whole problem could be somehow related to
-> > > RCU handling, as stop_machine_run() is relying on tasklets which are
-> > > executing in idle context, and RCU handling is done in idle context,
-> > > too. So there might be some kind of use after free scenario in case
-> > > some memory is freed via RCU despite it still being used by a tasklet.
-> >=20
-> > That sounds plausible, even though I don't really know this area of Xen.
-> >=20
-> > > I "just" need to find some time to verify this suspicion. Any help do=
-ing
-> > > this would be appreciated. :-)
-> >=20
-> > I do have a setup where I can easily-ish reproduce the issue. If there
-> > is some debug patch you'd like me to try, I can do that.
->=20
-> Thanks. I might come back to that offer as you are seeing a crash which
-> will be much easier to analyze. Catching my error case is much harder as
-> it surfaces some time after the real problem in a non destructive way
-> (usually I'm seeing a failure to load a library in the program which
-> just did its job via exactly the library claiming not being loadable).
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-I'm resurrecting this thread as it was recently mentioned elsewhere. I
-can still reproduce the issue on the recent staging branch (9dc687f155).
-
-It fails after the first resume (not always, but frequent enough to
-debug it). At least one guest needs to be running - with just (PV) dom0
-the crash doesn't happen (at least for the ~8 times in a row I tried).
-If the first resume works, the second (almost?) always will fail but
-with a different symptoms - dom0 kernel lockups (at least some of its
-vcpus). I haven't debugged this one yet at all.
-
-Any help will be appreciated, I can apply some debug patches, change
-configuration etc.
-
-In the meantime I tried to collect more info with the patch below, but I
-can't make much of it. Here is what I've got:
-
-(XEN) c2r(sched_unit_master(unit)) =3D 1, c2rqd(sched_unit_master(unit)) =
-=3D ffff8301ba6d0230, sched_unit_master(unit) =3D 1, svc->rqd->id =3D 0, sv=
-c->rqd =3D ffff8301ba6d0050,=20
-(XEN) Assertion 'c2rqd(sched_unit_master(unit)) =3D=3D svc->rqd' failed at =
-credit2.c:2294
-(XEN) ----[ Xen-4.15-unstable  x86_64  debug=3Dy  Not tainted ]----
-(XEN) CPU:    0
-(XEN) RIP:    e008:[<ffff82d040246642>] credit2.c#csched2_unit_wake+0x205/0=
-x207
-(XEN) RFLAGS: 0000000000010083   CONTEXT: hypervisor
-(XEN) rax: ffff8301ba6d0230   rbx: ffff8301ba6b7b50   rcx: 0000000000000001
-(XEN) rdx: 000000317a159000   rsi: 000000000000000a   rdi: ffff82d0404686b8
-(XEN) rbp: ffff8300be877df0   rsp: ffff8300be877dd0   r8:  0000000000000000
-(XEN) r9:  0000000000000004   r10: 0000000000000001   r11: 0000000000000001
-(XEN) r12: ffff8301ba6b7be0   r13: ffff82d040453d00   r14: 0000000000000001
-(XEN) r15: 0000013446313336   cr0: 000000008005003b   cr4: 00000000000006e0
-(XEN) cr3: 00000000be866000   cr2: 0000000000000000
-(XEN) fsb: 00000000000b8000   gsb: 0000000000000000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-(XEN) Xen code around <ffff82d040246642> (credit2.c#csched2_unit_wake+0x205=
-/0x207):
-(XEN)  f3 00 00 e9 7a ff ff ff <0f> 0b 55 48 89 e5 41 57 41 56 41 55 41 54 =
-53 48
-(XEN) Xen stack trace from rsp=3Dffff8300be877dd0:
-(XEN)    ffff8301ba6a2000 ffff8301ba6b7b50 ffff8301ba6b7b50 ffff8301ba6d0230
-(XEN)    ffff8300be877e40 ffff82d04024f968 0000000000000202 ffff8301ba6d0230
-(XEN)    ffff82d0405a05c0 ffff83010a6f1fd0 ffff8301ba6a2000 0000000000000000
-(XEN)    0000000000000000 ffff82d0405a05c0 ffff8300be877e50 ffff82d04020548a
-(XEN)    ffff8300be877e70 ffff82d04020552b ffff8301ba6a21b8 ffff82d0405801b0
-(XEN)    ffff8300be877e88 ffff82d04022ba4e ffff82d0405801a0 ffff8300be877eb8
-(XEN)    ffff82d04022bd2f 0000000000000000 0000000000007fff ffff82d040586f00
-(XEN)    ffff82d0405801b0 ffff8300be877ef0 ffff82d0402f0412 ffff82d0402f039e
-(XEN)    ffff8301ba6a2000 ffff8301ba708000 0000000000000000 ffff8301ba6bb000
-(XEN)    ffff8300be877e18 ffff8881072a76e0 ffffc90003f3ff08 0000000000000003
-(XEN)    0000000000000000 0000000000002401 ffffffff827594c8 0000000000000246
-(XEN)    0000000000000003 0000000000002401 0000000000002401 0000000000000000
-(XEN)    ffffffff810010ea 0000000000002401 0000000000000010 deadbeefdeadf00d
-(XEN)    0000010000000000 ffffffff810010ea 000000000000e033 0000000000000246
-(XEN)    ffffc90003f3fcb8 000000000000e02b 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000e01000000000 ffff8301ba6fb000
-(XEN)    0000000000000000 00000000000006e0 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000
-(XEN) Xen call trace:
-(XEN)    [<ffff82d040246642>] R credit2.c#csched2_unit_wake+0x205/0x207
-(XEN)    [<ffff82d04024f968>] F vcpu_wake+0x105/0x52c
-(XEN)    [<ffff82d04020548a>] F vcpu_unpause+0x13/0x15
-(XEN)    [<ffff82d04020552b>] F domain.c#continue_hypercall_tasklet_handler=
-+0x9f/0xb9
-(XEN)    [<ffff82d04022ba4e>] F tasklet.c#do_tasklet_work+0x76/0xa9
-(XEN)    [<ffff82d04022bd2f>] F do_tasklet+0x58/0x8a
-(XEN)    [<ffff82d0402f0412>] F domain.c#idle_loop+0x74/0xdd
-(XEN)=20
-(XEN)=20
-(XEN) ****************************************
-(XEN) Panic on CPU 0:
-(XEN) Assertion 'c2rqd(sched_unit_master(unit)) =3D=3D svc->rqd' failed at =
-credit2.c:2294
-
-And the patch:
-
-diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-index eb5e5a78c5e7..475f0acf2dc5 100644
---- a/xen/common/sched/credit2.c
-+++ b/xen/common/sched/credit2.c
-@@ -2268,10 +2268,28 @@ csched2_unit_wake(const struct scheduler *ops, stru=
-ct sched_unit *unit)
-     }
-=20
-     /* Add into the new runqueue if necessary */
--    if ( svc->rqd =3D=3D NULL )
-+    if ( svc->rqd =3D=3D NULL ) {
-+        printk(XENLOG_DEBUG "assigning cpu %d to runqueue\n", cpu);
-         runq_assign(unit);
--    else
-+        printk(XENLOG_DEBUG "assigned cpu %d to runqueue %d\n",
-+                cpu,
-+                svc->rqd ? svc->rqd->id : -1);
-+    } else {
-+        if (c2rqd(sched_unit_master(unit)) !=3D svc->rqd) {
-+            printk(XENLOG_DEBUG "c2r(sched_unit_master(unit)) =3D %d, "
-+                                "c2rqd(sched_unit_master(unit)) =3D %p, "
-+                                "sched_unit_master(unit) =3D %d, "
-+                                "svc->rqd->id =3D %d, "
-+                                "svc->rqd =3D %p, "
-+                                "\n",
-+                c2r(sched_unit_master(unit)),
-+                c2rqd(sched_unit_master(unit)),
-+                sched_unit_master(unit),
-+                svc->rqd->id,
-+                svc->rqd);
-+        }
-         ASSERT(c2rqd(sched_unit_master(unit)) =3D=3D svc->rqd );
-+    }
-=20
-     now =3D NOW();
-=20
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Not pushing.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---/NkBOFFp2J2Af1nK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmAWEr8ACgkQ24/THMrX
-1yw3rQf+M6Spe30K4QuqiaV8gWulDeJ61mdRER7bXIBGX9SKY87Pxyddn2zwKqPy
-LyGQOGs0+bzKNR1gcZWQ7kHq5FG1BU1fZ9ekiwLNlFtxoxOEl8rhA9QdMKRdaSOc
-VFEiOvUZsTFztRRvCdfLhCn/reSFXzzoDvIuLTclbBy7NSj6ZbwrGeV25ydwQxzs
-h76Ue2dMXYvJRsOBIxHVYR4WlOpV2zHyG23kK1xR7AQg/Ag/ZcGPYkwIwUBjgAsn
-wDkQX6rJFD/xxwwuT29MG9NJ5wMVYjyEqwAEWOt8OxNLldwtVgyDRRu1Aw3oF22Z
-6nOycoW7EuHK7QxCji/vBKwzQTEyxA==
-=bUBT
------END PGP SIGNATURE-----
-
---/NkBOFFp2J2Af1nK--
+(No revision log; it would be 98359 lines long.)
 
