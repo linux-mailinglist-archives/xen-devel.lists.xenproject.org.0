@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E721309E3F
-	for <lists+xen-devel@lfdr.de>; Sun, 31 Jan 2021 19:55:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.79395.144501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E6A6309E43
+	for <lists+xen-devel@lfdr.de>; Sun, 31 Jan 2021 20:07:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.79402.144519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6Hs4-0003ZF-IX; Sun, 31 Jan 2021 18:54:52 +0000
+	id 1l6I3j-0004ga-SP; Sun, 31 Jan 2021 19:06:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 79395.144501; Sun, 31 Jan 2021 18:54:52 +0000
+Received: by outflank-mailman (output) from mailman id 79402.144519; Sun, 31 Jan 2021 19:06:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6Hs4-0003Yq-Ee; Sun, 31 Jan 2021 18:54:52 +0000
-Received: by outflank-mailman (input) for mailman id 79395;
- Sun, 31 Jan 2021 18:54:51 +0000
+	id 1l6I3j-0004gB-Ow; Sun, 31 Jan 2021 19:06:55 +0000
+Received: by outflank-mailman (input) for mailman id 79402;
+ Sun, 31 Jan 2021 19:06:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jslU=HC=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1l6Hs2-0003Yl-Sr
- for xen-devel@lists.xenproject.org; Sun, 31 Jan 2021 18:54:50 +0000
-Received: from mail-wr1-x429.google.com (unknown [2a00:1450:4864:20::429])
+ <SRS0=dQWc=HC=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+ id 1l6I3j-0004g6-3J
+ for xen-devel@lists.xenproject.org; Sun, 31 Jan 2021 19:06:55 +0000
+Received: from mail-wr1-x42d.google.com (unknown [2a00:1450:4864:20::42d])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 918c4d15-c36d-4d18-841f-c2fdd8c55c98;
- Sun, 31 Jan 2021 18:54:49 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id c4so11558350wru.9
- for <xen-devel@lists.xenproject.org>; Sun, 31 Jan 2021 10:54:49 -0800 (PST)
-Received: from [192.168.1.36] (7.red-83-57-171.dynamicip.rima-tde.net.
- [83.57.171.7])
- by smtp.gmail.com with ESMTPSA id w129sm19274346wmb.11.2021.01.31.10.54.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 31 Jan 2021 10:54:47 -0800 (PST)
+ id cc9b2626-883d-4149-a9a5-94e1a3a583ec;
+ Sun, 31 Jan 2021 19:06:54 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id z6so14231047wrq.10
+ for <xen-devel@lists.xenproject.org>; Sun, 31 Jan 2021 11:06:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,84 +36,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 918c4d15-c36d-4d18-841f-c2fdd8c55c98
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: cc9b2626-883d-4149-a9a5-94e1a3a583ec
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=FR1Qgn3KJQlZYF2cn6BPEB2wNOofYOMOINr06XrBFiY=;
-        b=GjTFCFkHrS2IgKKCd7vdSkEuYzQZIa01Miw6JpYkLB0r/vPHzlMFUexuGXOBLuz2sm
-         zYBj0l5sLm0kMQdXDq4BiM7Pq83FnjG4YkktMvWblRWBjqu3d87CVD93RRHCZFJ0kB+4
-         FDu5nv/PQbEAoEctMF7rlyPdZzeInG6bMk8QZgx0S2GMlGboWsTzkVVSOrZtpSnQU5/N
-         9tCQfpZYAuRsKLYuuTadPa9Ax0KnlQQzUKpO8uPJ5Q7AlRsgLvZwjzV9z2XWOjF2BBgt
-         5+vSeyUGv6NDj6h3ebTIGjpFN+ajHlFGdSNt1oGj7UOvLnACunHfD13HswWqvhs4dzkR
-         zxiA==
+        h=mime-version:from:date:message-id:subject:to;
+        bh=Iycj1EIA33IGU8QU0AcXWp7UsjUbYELmutzpQtrUK08=;
+        b=N2LdFtopi7+rh5AmrB3dCT55DauBOsqH7g466K/KcpsMAwXPzDnC9wR6K2ycQHkQ5s
+         AFg65ruTWZlub/z8GR7HNZ4871KbMfTtUyx9h/y/Gm4fDhiMjOiXngX5Q4Q/4EZg3RGE
+         75KfM7ieNpB63UgmcvbxUyZMtpWl2NPCQ/AVTdNWELydLB6NF4EZMAMwsED4fZ5jremA
+         KITHkFYRZ7fB9uTFMElBRVqKJRdtq3N8urUfnzRFwB+peyzLO1Pkbdprd3LPgOAkyeEI
+         obrbayicDBA/uBe6uZgSWIKKBaqCiVdfznbuAP9H4ly0MruiF9Ooc1r6qYDxqxtt16go
+         dA7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=FR1Qgn3KJQlZYF2cn6BPEB2wNOofYOMOINr06XrBFiY=;
-        b=eCVN9TEb8giwm4g7TcOltuBat41TqEF1H0HCDBHPy7mHaiAq4sPWViLW30rHqfI1kB
-         2FKNkx5nISXcAbIlawHgVNKH5w9NBh9qcS52/P1atZITICck5DPzNVRzGtEEteJqO8Uc
-         9Vi3+v3tKCwkg0SRQf/qhfLi7qLq+fb7M1aAjspuwUWjwDufczG8MnwBYbRmQihbfHIJ
-         agRKAWk4tXVNIQ9Jv9lyC2WHAbwzXH3iq9ikgDMqZmPdueXLggz6f4a0y3H4WDcayEoM
-         q4pUBaDZmf6KGUWn6eq70vtlU1G9u0TlMpdMkK8nC/sfBHlQVsXC0aCbWOQoHXECcvKr
-         osGA==
-X-Gm-Message-State: AOAM5325TXfyhx89qv0GGyDD7DN6fJysMylVyYXxF493uHm8ljamnnAI
-	GJLkoFHtwxHZBSQ+IY5Xs9A=
-X-Google-Smtp-Source: ABdhPJzUkcPB+r3xOLKZAYbK/j8OsewAgS73QOlIP8attOclSPS7y7JkgnNYKWVwwvcwMJbgH5iDRw==
-X-Received: by 2002:adf:8145:: with SMTP id 63mr14199539wrm.8.1612119288945;
-        Sun, 31 Jan 2021 10:54:48 -0800 (PST)
-Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
-Subject: Re: [PATCH v2 1/4] meson: Do not build Xen x86_64-softmmu on Aarch64
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, qemu-devel@nongnu.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Eduardo Habkost <ehabkost@redhat.com>, Paul Durrant <paul@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- xen-devel@lists.xenproject.org, Anthony Perard <anthony.perard@citrix.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-References: <20210131141810.293186-1-f4bug@amsat.org>
- <20210131141810.293186-2-f4bug@amsat.org>
- <6ea50cf0-344d-cf9b-0a20-0444b3764f2d@citrix.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
-Message-ID: <c7e1fc51-bc83-9a1d-408b-5e0731c29f5e@amsat.org>
-Date: Sun, 31 Jan 2021 19:54:46 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=Iycj1EIA33IGU8QU0AcXWp7UsjUbYELmutzpQtrUK08=;
+        b=aGz3jTsMO6+h819z61y3GcvEpzvRkoWU7KnvYCjsR9PfT2s0GUnFqF/6Y7bB7f+aZi
+         CIImfISj1md+axV/uIOji70la5mXtLKxymPkmS817q/Zzw0NeBQYw2el6hZKOXz15Z0E
+         Qh4hLUReaHPR6YIDNJKmq4TTrPL70YFRXhRoX+pkf+KkNuMtwfdweU0q7V4h6uxZBM9Y
+         kRah4faNpHp45ikfCeNQ2XfutCJX4FKzIZh3DAchrH+BnCu+3dgOmYlCEOypEXIyKXjx
+         IHALLxvq+vrsoA5w4SQqxCQyXFcl8SYCqcTKi1CMT+avModGWs63SWO2hxbGXvXCRB8b
+         4UzQ==
+X-Gm-Message-State: AOAM531DDB8eykrr1m+g2xUR56ihVaYAJ4FkLY2Vx7svuoqFAgR/Wqn7
+	JZTrlRGRgp49Fab72mWR0gJGzXBnTki+2f9GPYOI06txooOcIg==
+X-Google-Smtp-Source: ABdhPJylykS4dI/yOc2Xpjo0WHTuGd2NFUzOc2SFx39t40v/sRxBMfiKJm8g+lEPnPRJkkBCPkUZuQVrk38NK0PzZK0=
+X-Received: by 2002:a05:6000:1547:: with SMTP id 7mr14767169wry.301.1612120013082;
+ Sun, 31 Jan 2021 11:06:53 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <6ea50cf0-344d-cf9b-0a20-0444b3764f2d@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Sun, 31 Jan 2021 14:06:17 -0500
+Message-ID: <CABfawhnvgFLU=VmaqmKyf8DNeVcXoXTD2=XpiwnL0OikC1_z4w@mail.gmail.com>
+Subject: Xen 4.14.1 on RPI4: device tree generation failed
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 1/31/21 3:45 PM, andrew.cooper3--- via wrote:
-> On 31/01/2021 14:18, Philippe Mathieu-Daudé wrote:
->> The Xen on ARM documentation only mentions the i386-softmmu
->> target. As the x86_64-softmmu doesn't seem used, remove it
->> to avoid wasting cpu cycles building it.
->>
->> Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
-> 
-> As far as I understand, it only gets used at all on ARM for the
-> blkback=>qcow path, and has nothing to do with I440FX or other boards. 
-> i.e. it is a paravirt disk and nothing else.
+Hi all,
+I'm trying to boot Xen 4.14.1 on my RPI4 with the 5.10 kernel, built
+using https://github.com/tklengyel/xen-rpi4-builder/tree/update.
+Everything builds fine and Xen boots but then I get this error:
 
-Yeah the PIIX3 part is messy, this is easier to select I440FX which
-provides all the required dependencies. TBH I'd rather invest my
-time in other tasks, and the Xen folks don't seem interested in getting
-this improved. I only did that series to reply to Paolo and pass over
-to Alex Bennée.
+(XEN) *** LOADING DOMAIN 0 ***
+(XEN) Loading d0 kernel from boot module @ 0000000000480000
+(XEN) Allocating 1:1 mappings totalling 2048MB for dom0:
+(XEN) BANK[0] 0x00000008000000-0x00000028000000 (512MB)
+(XEN) BANK[1] 0x00000030000000-0x00000038000000 (128MB)
+(XEN) BANK[2] 0x00000080000000-0x000000c0000000 (1024MB)
+(XEN) BANK[3] 0x000000d8000000-0x000000f0000000 (384MB)
+(XEN) Grant table range: 0x00000000200000-0x00000000240000
+(XEN) Unable to retrieve address 0 for /scb/pcie@7d500000/pci@1,0/usb@1,0
+(XEN) Device tree generation failed (-22).
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) Could not set up DOM0 guest OS
+(XEN) ****************************************
+(XEN)
+(XEN) Reboot in five seconds...
 
-> xenpv should not be tied to i386-softmmu in the first place, and would
-> remove a very-WTF-worthy current state of things.  That said, I have no
-> idea how much effort that might be.
 
-Here the problem isn't much Xen but the rest of x86 machines in QEMU.
+Does anyone have an idea what might be going wrong here? I tried
+building the dtb without using the dtb overlay but it didn't seem to
+do anything.
 
-Regards,
-
-Phil.
+Thanks,
+Tamas
 
