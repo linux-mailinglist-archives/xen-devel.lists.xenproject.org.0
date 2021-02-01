@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EC6D30B3B6
+	by mail.lfdr.de (Postfix) with ESMTPS id 7949A30B3B5
 	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 00:52:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80222.146642 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.80221.146630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6izk-00035e-TD; Mon, 01 Feb 2021 23:52:36 +0000
+	id 1l6izf-00033z-K4; Mon, 01 Feb 2021 23:52:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80222.146642; Mon, 01 Feb 2021 23:52:36 +0000
+Received: by outflank-mailman (output) from mailman id 80221.146630; Mon, 01 Feb 2021 23:52:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6izk-000357-PJ; Mon, 01 Feb 2021 23:52:36 +0000
-Received: by outflank-mailman (input) for mailman id 80222;
- Mon, 01 Feb 2021 23:52:34 +0000
+	id 1l6izf-00033a-Gi; Mon, 01 Feb 2021 23:52:31 +0000
+Received: by outflank-mailman (input) for mailman id 80221;
+ Mon, 01 Feb 2021 23:52:30 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IWGu=HD=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l6izi-00033V-Os
- for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 23:52:34 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1l6izd-00033V-UV
+ for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 23:52:29 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7098a47b-7da7-49cb-a644-40ccc243acb2;
- Mon, 01 Feb 2021 23:52:29 +0000 (UTC)
+ id 7c1e5e0b-07ee-49dd-ac0c-ef390b2db081;
+ Mon, 01 Feb 2021 23:52:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,106 +36,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7098a47b-7da7-49cb-a644-40ccc243acb2
+X-Inumbo-ID: 7c1e5e0b-07ee-49dd-ac0c-ef390b2db081
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612223549;
+  d=citrix.com; s=securemail; t=1612223547;
   h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=FaRlj2zjPcVI+8D5Vii4wydz4lnh2fPaipEPLCTPTI0=;
-  b=SZjlb4NuwRAMCtg82JY9sAJv2tOki2WqnQUHWovDr2ooY3Ft0PTDOSQQ
-   COwLrqjkSslcangajo0ZfJ7X8p12lcrgYDl/2cxv1jw0AtKV1wpKOQ3YG
-   bte92Ap7myYnCkskdApBzthBgj1WPle0fv3ROrvZX4D6KKQCewtjyM3N8
-   4=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: VGG41gzWPGgR1D9d6Nqyc5pFf0yGaeZWBxJlOgIReLPjTnRPrebnQEN95TkhRZyBAujKjfDekZ
- YzR7jscQ4lQCpafFPq03Kf8N17oWuQskY9kytiNqWjA4Mao4Fufa4p6VULuaK/2I3XzMUB6l/Q
- +ozcBcfxVVjVIstbc/gqrhgmsQiWuZ92j5vJPITm10QwRJELJ1iDZlLUnKn6iZ518xad3Eh59P
- ttUhk37grwqnotT97cEkWRuYKGh60sNigdU/BnWUA15/8ZctB0k6yKTU514RXRbLuKPAqlkxwG
- DdE=
+   references:mime-version;
+  bh=E5JUPU1j2pT/veM8SWF/+k6jtm1Vy8PzPBbksm2vA/E=;
+  b=O6IMRZtqj7HX/MQqtncNB9oTXGohww3OwNZqSf0m5lT2KpyrCYAFot/H
+   U68ResoE33UL6dzR1TEM3rumW2TQaN0bi0LF6IzGq9SQzicsSwCUGzOyz
+   f9B09zAV3CqnqSp89MZrnap0VEtwxz6bKPmfEunwjCH9DqVx9BnKkgRgw
+   g=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 47SmiOIP1y9uF8049fSXl693rHNEwXfXK3cqeRsTSw1Sgj369cMxOTtxcf4mvOSU3MeW8dhel+
+ fpgs/MMEY38E0ReJm8aqZ0TESzIYiNji4o3AJoKTXbRq1I5w4sCnPau4RISHaYRArAyWwUNkj1
+ JRf1mZyMPraBr16a8A8Dy91DcYmvcx4YOJyNhmw2Tn7QvWF7V8NVmp9hNP1JcSJtSgKh6vK6f8
+ EzMZ8NCs5weUZGuFLHVZo6K58Z5RjFw2MEQ9Y0G08431PB5z3jLKNc3DN6rGdzxn7oEVSXModI
+ lDM=
 X-SBRS: 5.1
-X-MesageID: 36320760
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 36363241
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.79,393,1602561600"; 
-   d="scan'208";a="36320760"
+   d="scan'208";a="36363241"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Tamas K Lengyel <tamas.lengyel@intel.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, =?UTF-8?q?Micha=C5=82=20Leszczy=C5=84ski?=
-	<michal.leszczynski@cert.pl>, Tamas K Lengyel <tamas@tklengyel.com>
-Subject: [PATCH v9 10/11] x86/vm_event: Carry the vmtrace buffer position in vm_event
-Date: Mon, 1 Feb 2021 23:27:02 +0000
-Message-ID: <20210201232703.29275-11-andrew.cooper3@citrix.com>
+CC: Tamas K Lengyel <tamas.lengyel@intel.com>
+Subject: [PATCH v9 11/11] x86/vm_event: add response flag to reset vmtrace buffer
+Date: Mon, 1 Feb 2021 23:27:03 +0000
+Message-ID: <20210201232703.29275-12-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20210201232703.29275-1-andrew.cooper3@citrix.com>
 References: <20210201232703.29275-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
 From: Tamas K Lengyel <tamas.lengyel@intel.com>
 
-Add vmtrace_pos field to x86 regs in vm_event. Initialized to ~0 if
-vmtrace is not in use.
+Allow resetting the vmtrace buffer in response to a vm_event. This can be used
+to optimize a use-case where detecting a looped vmtrace buffer is important.
 
 Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Jun Nakajima <jun.nakajima@intel.com>
-CC: Kevin Tian <kevin.tian@intel.com>
-CC: Michał Leszczyński <michal.leszczynski@cert.pl>
-CC: Tamas K Lengyel <tamas@tklengyel.com>
-
-v8:
- * Use 'vmtrace' consistently.
-
-v7:
- * New
----
- xen/arch/x86/vm_event.c       | 3 +++
- xen/include/public/vm_event.h | 7 +++++++
- 2 files changed, 10 insertions(+)
+ xen/arch/x86/vm_event.c        | 7 +++++++
+ xen/common/vm_event.c          | 3 +++
+ xen/include/asm-arm/vm_event.h | 6 ++++++
+ xen/include/asm-x86/vm_event.h | 2 ++
+ xen/include/public/vm_event.h  | 4 ++++
+ 5 files changed, 22 insertions(+)
 
 diff --git a/xen/arch/x86/vm_event.c b/xen/arch/x86/vm_event.c
-index 848d69c1b0..36272e9316 100644
+index 36272e9316..8f73a73e2e 100644
 --- a/xen/arch/x86/vm_event.c
 +++ b/xen/arch/x86/vm_event.c
-@@ -251,6 +251,9 @@ void vm_event_fill_regs(vm_event_request_t *req)
- 
-     req->data.regs.x86.shadow_gs = ctxt.shadow_gs;
-     req->data.regs.x86.dr6 = ctxt.dr6;
-+
-+    if ( hvm_vmtrace_output_position(curr, &req->data.regs.x86.vmtrace_pos) != 1 )
-+        req->data.regs.x86.vmtrace_pos = ~0;
- #endif
+@@ -300,6 +300,13 @@ void vm_event_emulate_check(struct vcpu *v, vm_event_response_t *rsp)
+     };
  }
  
++void vm_event_reset_vmtrace(struct vcpu *v)
++{
++#ifdef CONFIG_HVM
++    hvm_vmtrace_reset(v);
++#endif
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
+index 127f2d58f1..44d542f23e 100644
+--- a/xen/common/vm_event.c
++++ b/xen/common/vm_event.c
+@@ -424,6 +424,9 @@ static int vm_event_resume(struct domain *d, struct vm_event_domain *ved)
+             if ( rsp.flags & VM_EVENT_FLAG_GET_NEXT_INTERRUPT )
+                 vm_event_monitor_next_interrupt(v);
+ 
++            if ( rsp.flags & VM_EVENT_FLAG_RESET_VMTRACE )
++                vm_event_reset_vmtrace(v);
++
+             if ( rsp.flags & VM_EVENT_FLAG_VCPU_PAUSED )
+                 vm_event_vcpu_unpause(v);
+         }
+diff --git a/xen/include/asm-arm/vm_event.h b/xen/include/asm-arm/vm_event.h
+index 14d1d341cc..abe7db1970 100644
+--- a/xen/include/asm-arm/vm_event.h
++++ b/xen/include/asm-arm/vm_event.h
+@@ -58,4 +58,10 @@ void vm_event_sync_event(struct vcpu *v, bool value)
+     /* Not supported on ARM. */
+ }
+ 
++static inline
++void vm_event_reset_vmtrace(struct vcpu *v)
++{
++    /* Not supported on ARM. */
++}
++
+ #endif /* __ASM_ARM_VM_EVENT_H__ */
+diff --git a/xen/include/asm-x86/vm_event.h b/xen/include/asm-x86/vm_event.h
+index 785e741fba..0756124075 100644
+--- a/xen/include/asm-x86/vm_event.h
++++ b/xen/include/asm-x86/vm_event.h
+@@ -54,4 +54,6 @@ void vm_event_emulate_check(struct vcpu *v, vm_event_response_t *rsp);
+ 
+ void vm_event_sync_event(struct vcpu *v, bool value);
+ 
++void vm_event_reset_vmtrace(struct vcpu *v);
++
+ #endif /* __ASM_X86_VM_EVENT_H__ */
 diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
-index 141ea024a3..147dc3ea73 100644
+index 147dc3ea73..36135ba4f1 100644
 --- a/xen/include/public/vm_event.h
 +++ b/xen/include/public/vm_event.h
-@@ -223,6 +223,13 @@ struct vm_event_regs_x86 {
-      */
-     uint64_t npt_base;
+@@ -123,6 +123,10 @@
+  * Set if the event comes from a nested VM and thus npt_base is valid.
+  */
+ #define VM_EVENT_FLAG_NESTED_P2M         (1 << 12)
++/*
++ * Reset the vmtrace buffer (if vmtrace is enabled)
++ */
++#define VM_EVENT_FLAG_RESET_VMTRACE      (1 << 13)
  
-+    /*
-+     * Current position in the vmtrace buffer, or ~0 if vmtrace is not active.
-+     *
-+     * For Intel Processor Trace, it is the upper half of MSR_RTIT_OUTPUT_MASK.
-+     */
-+    uint64_t vmtrace_pos;
-+
-     uint32_t cs_base;
-     uint32_t ss_base;
-     uint32_t ds_base;
+ /*
+  * Reasons for the vm event request
 -- 
 2.11.0
 
