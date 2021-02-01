@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D11930A682
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Feb 2021 12:29:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.79772.145301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FF9D30A684
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Feb 2021 12:29:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.79773.145312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6XOU-0002e8-0u; Mon, 01 Feb 2021 11:29:22 +0000
+	id 1l6XOa-0002jT-9l; Mon, 01 Feb 2021 11:29:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 79772.145301; Mon, 01 Feb 2021 11:29:21 +0000
+Received: by outflank-mailman (output) from mailman id 79773.145312; Mon, 01 Feb 2021 11:29:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6XOT-0002dV-SF; Mon, 01 Feb 2021 11:29:21 +0000
-Received: by outflank-mailman (input) for mailman id 79772;
- Mon, 01 Feb 2021 11:29:21 +0000
+	id 1l6XOa-0002io-68; Mon, 01 Feb 2021 11:29:28 +0000
+Received: by outflank-mailman (input) for mailman id 79773;
+ Mon, 01 Feb 2021 11:29:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jUbX=HD=gmail.com=philippe.mathieu.daude@srs-us1.protection.inumbo.net>)
- id 1l6XOS-0002d8-UU
- for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 11:29:20 +0000
-Received: from mail-wr1-x435.google.com (unknown [2a00:1450:4864:20::435])
+ id 1l6XOY-0002hn-EF
+ for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 11:29:26 +0000
+Received: from mail-wm1-x331.google.com (unknown [2a00:1450:4864:20::331])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 712290df-d38f-45e8-ae26-fea464031983;
- Mon, 01 Feb 2021 11:29:20 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id q7so16138853wre.13
- for <xen-devel@lists.xenproject.org>; Mon, 01 Feb 2021 03:29:20 -0800 (PST)
+ id 5cc4cb1c-3b29-4634-bc0a-6dfffa42d20c;
+ Mon, 01 Feb 2021 11:29:25 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id y187so12868892wmd.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Feb 2021 03:29:25 -0800 (PST)
 Received: from localhost.localdomain (7.red-83-57-171.dynamicip.rima-tde.net.
  [83.57.171.7])
- by smtp.gmail.com with ESMTPSA id y6sm26305538wrp.6.2021.02.01.03.29.18
+ by smtp.gmail.com with ESMTPSA id s23sm20324467wmc.35.2021.02.01.03.29.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Feb 2021 03:29:18 -0800 (PST)
+ Mon, 01 Feb 2021 03:29:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,34 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 712290df-d38f-45e8-ae26-fea464031983
+X-Inumbo-ID: 5cc4cb1c-3b29-4634-bc0a-6dfffa42d20c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=aPiraoQq+wBjdcIQOiUTo/rKER9nPb2vFzjApKq2T+g=;
-        b=ko4bHURsbdywzQeAqTKNRMtP+zzJ6yTACMFwMAle7bWMNtkvJufYJrtPUI/M5VW3/O
-         frmacZk8z5EwOYVKlR1W7pU0lJDo4Xtr7KDcSHqPIQGwsREIlJ5kPDQQ61Cr1BYMoUWE
-         CF0rc60JUGkcPOKbMV0O0+zHtMU1Tui4QSz+lBYsHlKckNcTiNoyfbBX8hLgAYBcFvOE
-         uNIFEwGblR6Um04jIkD8OHxk0Gs5LrqqQzd0x+eiVKhrXYbg0AxzeRgUoumA1uDQTC4m
-         FxrgOOgPU5iJBrHon1c+gWeae2DbmRnTY7+cbkCrU59wU2snpSOPEcSb8jlKgXrUPOGp
-         zwjA==
+        bh=86kgWxqaVQ459jB6Z+UlH8D45KqeOXWfxBT1ho7ZaU4=;
+        b=OvgFBK6bmxqweSp3L77Aj8WaAxT1RQK0LtEk3i36jsBBT/QaFtswrGEa72xZLMd4Yb
+         HIUhY+oLNPcVTx0grppbuToABViBp+iIgP1lhjj7VUfVrYskRS511GA7hnokxOH0+1hl
+         Llq6UzcwQZKox5D1iLDy4JUoVe9v7MvTlaPAwPhQGGDyHg/dG4Y7wUG4nevlaACcQCNa
+         OGhW/bC2jrKwZhFOXWeH02rHFHQET1ePy5uJIr09AQTtEe/LqnRUMrCDsUr7yNukAjNX
+         KfV/ZLVI7sFYmKWV4CFTTIr/ggz3eMOkgOHARcOO5pOvHUgqxm9ZDMwGiTNoRja/YO0o
+         FkWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :in-reply-to:references:mime-version:content-transfer-encoding;
-        bh=aPiraoQq+wBjdcIQOiUTo/rKER9nPb2vFzjApKq2T+g=;
-        b=ojeT7zw2DR0nZAaMP9ChrBI55nFDHgcpMPuarD5KOds/pMTM41uEfhDqHqCNHrfJAn
-         qfwJIeZUzDjC8U9fqHonzTBA94hYk4Fsmn7MX14P763olOjv+/A2QxEhjOjxYeLdIF3f
-         m5GSuYMI1XuPHd1+pNehtNPC1ReAS7jA/pG5c3Nn/H04xLU1MTPBfKe12X7Wjdsy5AM7
-         mLLYsub9HEQaFw0RFqoa3dL9jTYPu4djTQ14tgadEEX3yOKtyEusoKiDPXUWlnjuzMJh
-         resaWkw6uxKuBHAtN416dDapcmoUoKsw+fZMCyxaDkmElpIUYHtfcrp4DwHeQFAQ+ZDe
-         XNIQ==
-X-Gm-Message-State: AOAM530PjKulwDdGeLI1W5LSYaZE4A8mdfZZMIBsJFSJ9psw9cFcC7FX
-	w3Zn+xmciA/yGN4jaHiQ6Rg=
-X-Google-Smtp-Source: ABdhPJwPt7ERal1fQeDzwH3w64qDIOwi7IRP9XTWdLtX/WYy5c6IDx5O5BK4Mw3ZLOmXAK4MQef0Tw==
-X-Received: by 2002:a5d:4e0e:: with SMTP id p14mr17735664wrt.58.1612178959403;
-        Mon, 01 Feb 2021 03:29:19 -0800 (PST)
+        bh=86kgWxqaVQ459jB6Z+UlH8D45KqeOXWfxBT1ho7ZaU4=;
+        b=FAuKnR2pvYsvQUFztPtDtY9FcUAiTWAuSmhxqI1IdrHCFB2prtLkck4eLyrC+VP5F5
+         gG1D6QY3bT79qZHwcVUNOH0+NusDtAbh8ZTiTF/7Pu3mVJQKof11r9ikbHLLz7G7L5U7
+         WrQBsEq3t3xVsvNghbFeW2C6rlbEYZudX+7NbKr7cdmBFv5WQiH0H54OTElmzIEJ+6Vi
+         cRwczpKPpt4cuIMyiw7UldvXV2Z64sEQZnIS5VNcJNDX5p/pPHR+aZKCHxTWeNsp3oJq
+         D1e4oolEa9Jbf62zpNxkFjy/SYQ46SjnOQnEu6Ueb8NQ3hlJ/i6Ptlb43oi1wC69vG/M
+         McQQ==
+X-Gm-Message-State: AOAM533/Q20nBD6/cguvOgiYMg/UJzy7sYawFcSaY+gxfsVzevm/WowF
+	8ovr/v9FvQ2WmR4/VeV+XiY=
+X-Google-Smtp-Source: ABdhPJxcRgfDMwb1tHeCu3Tj2p4+drVJi66+iJFM6aft3sJqiy4qEUbcRAahN2gmhZHZ8T/I+s19pw==
+X-Received: by 2002:a1c:f415:: with SMTP id z21mr14727242wma.114.1612178964810;
+        Mon, 01 Feb 2021 03:29:24 -0800 (PST)
 Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
 To: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -83,9 +83,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	Richard Henderson <richard.henderson@linaro.org>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
-Subject: [PATCH v3 2/7] hw/xen: Relax dependency on FSDEV_9P
-Date: Mon,  1 Feb 2021 12:29:00 +0100
-Message-Id: <20210201112905.545144-3-f4bug@amsat.org>
+Subject: [PATCH v3 3/7] accel/xen: Incorporate xen-mapcache.c
+Date: Mon,  1 Feb 2021 12:29:01 +0100
+Message-Id: <20210201112905.545144-4-f4bug@amsat.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210201112905.545144-1-f4bug@amsat.org>
 References: <20210201112905.545144-1-f4bug@amsat.org>
@@ -93,70 +93,113 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Relax the dependency on 9pfs by using the 'imply' Kconfig rule.
-This fixes when XEN_PV without XEN_FV:
+xen-mapcache.c contains accelerator related routines,
+not particular to the X86 HVM machine. Move this file
+to accel/xen/ (adapting the buildsys machinery).
 
-  /usr/bin/ld: libcommon.fa.p/hw_xen_xen-legacy-backend.c.o: in function
-  `xen_be_register_common':
-  hw/xen/xen-legacy-backend.c:754: undefined reference to `xen_9pfs_ops'
-
-Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
 ---
- hw/xen/xen-legacy-backend.c | 3 ++-
- accel/Kconfig               | 2 +-
- hw/xen/meson.build          | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+ meson.build                           |  3 +++
+ accel/xen/trace.h                     |  1 +
+ {hw/i386 => accel}/xen/xen-mapcache.c |  0
+ hw/i386/xen/xen-hvm.c                 |  1 -
+ accel/xen/meson.build                 |  5 ++++-
+ accel/xen/trace-events                | 10 ++++++++++
+ hw/i386/xen/meson.build               |  1 -
+ hw/i386/xen/trace-events              |  6 ------
+ 8 files changed, 18 insertions(+), 9 deletions(-)
+ create mode 100644 accel/xen/trace.h
+ rename {hw/i386 => accel}/xen/xen-mapcache.c (100%)
+ create mode 100644 accel/xen/trace-events
 
-diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
-index b61a4855b7b..338d443a5c0 100644
---- a/hw/xen/xen-legacy-backend.c
-+++ b/hw/xen/xen-legacy-backend.c
-@@ -33,6 +33,7 @@
- #include "hw/xen/xen-legacy-backend.h"
- #include "hw/xen/xen_pvdev.h"
- #include "monitor/qdev.h"
-+#include CONFIG_DEVICES
+diff --git a/meson.build b/meson.build
+index 97a577a7743..f2e778f22cd 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1706,6 +1706,9 @@
+   'crypto',
+   'monitor',
+ ]
++if 'CONFIG_XEN' in accelerators
++  trace_events_subdirs += [ 'accel/xen' ]
++endif
+ if have_user
+   trace_events_subdirs += [ 'linux-user' ]
+ endif
+diff --git a/accel/xen/trace.h b/accel/xen/trace.h
+new file mode 100644
+index 00000000000..f6be599b187
+--- /dev/null
++++ b/accel/xen/trace.h
+@@ -0,0 +1 @@
++#include "trace/trace-accel_xen.h"
+diff --git a/hw/i386/xen/xen-mapcache.c b/accel/xen/xen-mapcache.c
+similarity index 100%
+rename from hw/i386/xen/xen-mapcache.c
+rename to accel/xen/xen-mapcache.c
+diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+index 68821d90f52..7156ab13329 100644
+--- a/hw/i386/xen/xen-hvm.c
++++ b/hw/i386/xen/xen-hvm.c
+@@ -31,7 +31,6 @@
+ #include "sysemu/runstate.h"
+ #include "sysemu/sysemu.h"
+ #include "sysemu/xen.h"
+-#include "sysemu/xen-mapcache.h"
+ #include "trace.h"
+ #include "exec/address-spaces.h"
  
- DeviceState *xen_sysdev;
- BusState *xen_sysbus;
-@@ -750,7 +751,7 @@ void xen_be_register_common(void)
- 
-     xen_be_register("console", &xen_console_ops);
-     xen_be_register("vkbd", &xen_kbdmouse_ops);
--#ifdef CONFIG_VIRTFS
-+#ifdef CONFIG_FSDEV_9P
-     xen_be_register("9pfs", &xen_9pfs_ops);
- #endif
- #ifdef CONFIG_USB_LIBUSB
-diff --git a/accel/Kconfig b/accel/Kconfig
-index 461104c7715..7565ccf69e6 100644
---- a/accel/Kconfig
-+++ b/accel/Kconfig
-@@ -15,4 +15,4 @@ config KVM
- 
- config XEN
-     bool
--    select FSDEV_9P if VIRTFS
-+    imply FSDEV_9P
-diff --git a/hw/xen/meson.build b/hw/xen/meson.build
-index 076954b89ca..3c2062b9b3e 100644
---- a/hw/xen/meson.build
-+++ b/hw/xen/meson.build
-@@ -2,12 +2,12 @@
-   'xen-backend.c',
-   'xen-bus-helper.c',
-   'xen-bus.c',
--  'xen-legacy-backend.c',
-   'xen_devconfig.c',
-   'xen_pvdev.c',
- ))
- 
- xen_specific_ss = ss.source_set()
-+xen_specific_ss.add(files('xen-legacy-backend.c'))
- xen_specific_ss.add(when: 'CONFIG_XEN_PCI_PASSTHROUGH', if_true: files(
-   'xen-host-pci-device.c',
-   'xen_pt.c',
+diff --git a/accel/xen/meson.build b/accel/xen/meson.build
+index 002bdb03c62..45671e4bdbf 100644
+--- a/accel/xen/meson.build
++++ b/accel/xen/meson.build
+@@ -1 +1,4 @@
+-specific_ss.add(when: 'CONFIG_XEN', if_true: files('xen-all.c'))
++specific_ss.add(when: 'CONFIG_XEN', if_true: files(
++  'xen-all.c',
++  'xen-mapcache.c',
++))
+diff --git a/accel/xen/trace-events b/accel/xen/trace-events
+new file mode 100644
+index 00000000000..30bf4f42283
+--- /dev/null
++++ b/accel/xen/trace-events
+@@ -0,0 +1,10 @@
++# See docs/devel/tracing.txt for syntax documentation.
++
++# xen-hvm.c
++xen_ram_alloc(unsigned long ram_addr, unsigned long size) "requested: 0x%lx, size 0x%lx"
++
++# xen-mapcache.c
++xen_map_cache(uint64_t phys_addr) "want 0x%"PRIx64
++xen_remap_bucket(uint64_t index) "index 0x%"PRIx64
++xen_map_cache_return(void* ptr) "%p"
++
+diff --git a/hw/i386/xen/meson.build b/hw/i386/xen/meson.build
+index be84130300c..2fcc46e6ca1 100644
+--- a/hw/i386/xen/meson.build
++++ b/hw/i386/xen/meson.build
+@@ -1,6 +1,5 @@
+ i386_ss.add(when: 'CONFIG_XEN', if_true: files(
+   'xen-hvm.c',
+-  'xen-mapcache.c',
+   'xen_apic.c',
+   'xen_platform.c',
+   'xen_pvdevice.c',
+diff --git a/hw/i386/xen/trace-events b/hw/i386/xen/trace-events
+index ca3a4948baa..f1b36d164d9 100644
+--- a/hw/i386/xen/trace-events
++++ b/hw/i386/xen/trace-events
+@@ -20,9 +20,3 @@ cpu_ioreq_move(void *req, uint32_t dir, uint32_t df, uint32_t data_is_ptr, uint6
+ xen_map_resource_ioreq(uint32_t id, void *addr) "id: %u addr: %p"
+ cpu_ioreq_config_read(void *req, uint32_t sbdf, uint32_t reg, uint32_t size, uint32_t data) "I/O=%p sbdf=0x%x reg=%u size=%u data=0x%x"
+ cpu_ioreq_config_write(void *req, uint32_t sbdf, uint32_t reg, uint32_t size, uint32_t data) "I/O=%p sbdf=0x%x reg=%u size=%u data=0x%x"
+-
+-# xen-mapcache.c
+-xen_map_cache(uint64_t phys_addr) "want 0x%"PRIx64
+-xen_remap_bucket(uint64_t index) "index 0x%"PRIx64
+-xen_map_cache_return(void* ptr) "%p"
+-
 -- 
 2.26.2
 
