@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D8330AA6F
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Feb 2021 16:07:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.79948.145852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B523A30AA80
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Feb 2021 16:09:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.79952.145864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6an2-0003fD-Jy; Mon, 01 Feb 2021 15:06:56 +0000
+	id 1l6apQ-0003y4-6h; Mon, 01 Feb 2021 15:09:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 79948.145852; Mon, 01 Feb 2021 15:06:56 +0000
+Received: by outflank-mailman (output) from mailman id 79952.145864; Mon, 01 Feb 2021 15:09:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6an2-0003en-Gi; Mon, 01 Feb 2021 15:06:56 +0000
-Received: by outflank-mailman (input) for mailman id 79948;
- Mon, 01 Feb 2021 15:06:54 +0000
+	id 1l6apQ-0003xg-38; Mon, 01 Feb 2021 15:09:24 +0000
+Received: by outflank-mailman (input) for mailman id 79952;
+ Mon, 01 Feb 2021 15:09:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IWGu=HD=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l6an0-0003ei-2E
- for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 15:06:54 +0000
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4N3t=HD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l6apO-0003xW-EE
+ for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 15:09:22 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f5f63a9b-5c1a-423c-83bb-ebddb6c74494;
- Mon, 01 Feb 2021 15:06:52 +0000 (UTC)
+ id ebf6e760-b35b-4046-bb6d-a7e01e55b497;
+ Mon, 01 Feb 2021 15:09:20 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 47A77ABD5;
+ Mon,  1 Feb 2021 15:09:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,139 +39,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5f63a9b-5c1a-423c-83bb-ebddb6c74494
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612192012;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=CmujobCdXS0rXkjlW1uqM7HHHGcadyi+aill032zNUs=;
-  b=ZpVbxefhl9Djz+C5K62BldOg6Zw2FyMJ65UNlNP+9W4XRD+RvDtCTDbS
-   MwWakulLV22XmkAVdaYPQgDb3qMzHP6axzPjdfUZIqq+hMThvnPDWXovo
-   4t5pa+eLMMLk46BOMGjGeRz20/p2ZQVVucWpGx+51679cz1QVzMHNCupE
-   k=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: D+qiPcmJdTvK/MMSKIwebaB5Am/s7qJyoundTtE7WG7qVAH1drLb3QBBg73sTlfGvP0cdI9KUl
- 2/v2fXWi5ZNZgAllXQ+yMOWi6ghg8jduHwYkMPjJzb/oQZM3CLgS+bR9v4+j/Yrof0pWHX1LhC
- XWBDR19RVKL7dPLC5/A1KEf1lQO9PRB16BSl03ZvpikBgtNsJQT/9PsFyZv5Kg8iFko16iwfnL
- /m2H460lM8Qnq3DHWjlt3ceaZ7vLtcFNESMm2S0oa/fGSg15m/vLsOZjPcSNAm6wHShxDESW0p
- mNw=
-X-SBRS: 5.2
-X-MesageID: 36482386
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,392,1602561600"; 
-   d="scan'208";a="36482386"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ILQ8kmlPAednR6jK1EeYa6nSOHIMj6OpNIbvUBFLCmWEm+Oyl2/UGMTSnA+wnmaDV83z3RpydhTKWT/MAoTtRbQ11LRy9IbuQtMYFQFW96clK4kNfgeLyrEqB7voYepnFp+YBW0VZsvCuG6GVGhBwYVFx5F0tOcWRc/8INz77WBCkYyOw4/TGhRQ0xT4jkZTH9lpApZK+RSNTM38EheXiXpUlA6EcvOwl+eXONy539JD4yFdh+nxR/Rdqk3p2ggNjRI37b97gnKaH/U5anbPcjvAmbXjmQno1nIiZqsnNzzfYeKkQAgpKATSr+5fB9oDXQDIGadN9mAo0hAuBmZgtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=atXN1GxkEwQE8MMSncvh83/fWaw7vuSzU/q8wa+hX3g=;
- b=E1zFr9vBeLw9JR1Xi3MeEg0Xq96wY5AvcVEgveKa2ZusUrEqOuXwr16ceBbtI5HybjN+kP3KyKLSxNqDbHWvaF5hkyri0jmeRhqtTJM9T/GaabBh0SGAl6Qr6pLaAinyV0l3n/VSMXxcfbQZdcETA7oje141Ne4/TP5lTWFvZMCUkntZfCUQkoZu+0e+P+ySQB8jw7s8YEpx6N9VbiqaEHnwrmsg87wsL5pJGtMhTlkxZomXfrk6L0OrIUjhmGz8fbtyLxkkFgzedHgxqOHmkv/5jFKrltJM9zWWTUgwzsSmvD9q2Koo43Cu0ydc7DkWkJylh+Aka7bDwkXUHThXpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=atXN1GxkEwQE8MMSncvh83/fWaw7vuSzU/q8wa+hX3g=;
- b=BMG5WmTyqUfEiQeZx1semoZ80iJT73V+cNPW+Jvjk8M3rsQeAN29ueqnzFkD8i3qhA0xiMbL9DI9BZmkRKyAabQ6bhnqDsyf6YoNyLwXCe8tSGXU2HF1A1YvGtzn8Oy4Gsxf5HXYKeHlwFKAqwbqK0DCOS1k67SCo1bO6Qotvbw=
-Subject: Re: [PATCH] x86/build: correctly record dependencies of asm-offsets.s
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Ian Jackson
-	<iwj@xenproject.org>
-References: <b3b57f6b-3ed9-18f6-2a87-6af3304c6645@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <0cbbdb3a-5681-10df-aeee-ac185d7033cc@citrix.com>
-Date: Mon, 1 Feb 2021 15:06:41 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-In-Reply-To: <b3b57f6b-3ed9-18f6-2a87-6af3304c6645@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO4P123CA0131.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:193::10) To BYAPR03MB4728.namprd03.prod.outlook.com
- (2603:10b6:a03:13a::24)
+X-Inumbo-ID: ebf6e760-b35b-4046-bb6d-a7e01e55b497
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612192159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Tzm3Ir4Xb3LXI0gewPtMCGXTGNN2FaOl2nuWVwTF40c=;
+	b=qDGXoTs+NlA33B4DWSXl/pUB3IZe5GIEMbex0aGkgj8nzilG7QEeCJ0an2mai7dkkyhsaV
+	bycMJfSPGK2pUe3vR+iEJaqmoueroPwkghC8SuUvbBeUwJPgTZ0PwoJyMeidSHQAZ3T2cy
+	ZxAcxXkSfqto0ppBqKJIas2k13l0Vi4=
+Subject: Re: Problems with APIC on versions 4.9 and later (4.8 works)
+To: Claudemir Todo Bom <claudemir@todobom.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <CANyqHYfNBHnUiBiXHdt+R3mZ72oYQBnQcaWuKw5gY0uDb_ZqKw@mail.gmail.com>
+ <e1d69914-c6bc-40b9-a9f4-33be4bd022b6@suse.com>
+ <CANyqHYcifnCgd5C5vbYoi4CTtoMX5+jzGqHfs6JZ+e=d2Y_dmg@mail.gmail.com>
+ <ff799cd4-ba42-e120-107c-5011dc803b5a@suse.com>
+ <609a82d8-af12-4764-c4e0-f5ee0e11c130@suse.com>
+ <CANyqHYehUWeNfVXqVJX6nrBS_CcKL1DQjyNVa1cUbvbx+zD83w@mail.gmail.com>
+ <9d04edfe-0059-6fbf-c1da-2087f6190e64@suse.com>
+ <CANyqHYfOC6JY978SRPAQ8Ug3GevFD=jbT6bVVET4+QOv8mv7qA@mail.gmail.com>
+ <a0a7bbd0-c4c3-cfb8-5af0-a5a4aff14b76@suse.com>
+ <CANyqHYeDR_NUKzPtbfLiUzxAUzerKepbU4B-_6=U-7Y6uy8gpQ@mail.gmail.com>
+ <8837c3fb-1e0c-5941-258c-e76551a9e02b@suse.com>
+ <8cf69fb3-5b8c-60ea-bd1c-39a0cbd5cb5c@suse.com>
+ <CANyqHYeCQc2bt836uyrtm9Eo2T1uPP-+ups-ygfACu6zK36BQg@mail.gmail.com>
+ <bd150f4d-4f7e-082e-6b10-03bf1eca7b80@suse.com>
+ <CANyqHYeHf8f6G+U2z9A0JC049HPYvWQ+WXZYLCQyWyx5Jvq6BA@mail.gmail.com>
+ <803a50a9-707f-14db-b523-cd1f6f685ab4@suse.com>
+ <CANyqHYfNjqjm7tFoHD=XDcv_P42wppmx0gjy=--Kz88MZcK6Pw@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <96a23d4a-b29f-46e2-a0f5-568a5d1f4b9e@suse.com>
+Date: Mon, 1 Feb 2021 16:09:18 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b6707d29-31e3-4b95-36b8-08d8c6c2ff14
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4727:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR03MB47270F358FB3D5D5987E28A7BAB69@BYAPR03MB4727.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1468;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HN7FtUHAfhqt6xYggEhbbu/jrVBK2AWLESV2Db8TSdx2EiAmx8jq2+JRj5saBeAh7W68PlF3/8KQ/khvemrxaQ4M270IEXfHHqPu1HzWSIOmU2thQmd25j9s1q9O7TS8RU6+WBAgdOQq5PCYEIBpUr/UTEjFa/aGcrdA+JcpOPD0yoo6KaU/MLXWQAqi788X5YCOyUTkgDSUPMAxeANsnvO0Tn+k8tR+6egLPvekFXwgpoFTbbRZfllPUrsu0jilDBNorXJ1zX2rIjs5ebUYFQvfa8URQ/a5Hag2JngGD+9U3wA7x/0UVrmcN9qNmL3sJ1VQwAEN5ykyEaNtfzOSIX52blTwFDno52FRwg4pHNgSZPg94SURtqGU2AAbyEBwGvpG3gHDjqdGCiBugrpeq+MsUKgkvWlBneRVWBRs3VaIQsJXxItqEPcyCdRW8gccVYAN50tXeCK6Uiv+LN/wwa82xae11oRmvBXCe+ao4ru+FLCANCBgMMc6ux/wMzqEm6OQtcTPfofZVNTEHFheLzQtA/bBx0Krt6EEgE4UnV1e9jFbNnt58AnqBpg0qwOVtyjMoWfb2+hyLwnjzNVqnLI0YcjWVMxTpCZG/exLMwM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB4728.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39860400002)(346002)(136003)(366004)(376002)(396003)(2616005)(6666004)(8936002)(2906002)(6486002)(478600001)(4326008)(5660300002)(66556008)(956004)(66476007)(16526019)(186003)(53546011)(26005)(66946007)(316002)(16576012)(83380400001)(54906003)(110136005)(36756003)(31696002)(86362001)(8676002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?TTZqa0o2SnQzemhsazQ2Q1QvVzlrenNDd2laTlZtMGptQ3RXcEE4YVo2c2NY?=
- =?utf-8?B?S0x6YlNwWEZVUCsvVU5XeXkzMVBpaGN3U2VnSzZMYzhwSUlNeFZ3TmlrMTM0?=
- =?utf-8?B?WDNPSmtCSzlJRUZ6SFQxRm1iMmFNbnMyeFYreVF0NTluUjlnc2loZmI2N3lp?=
- =?utf-8?B?bXRPcUpKT0x4aUxsVkxkandKQWFhKys0OXRPaEtuNUVhaVJjdGIyaWpxSjFW?=
- =?utf-8?B?VDh3UjhiTVdEQzdpVXJhUkIySTk3Q1hncjRIOHBHKy8zVjM2emRhWVlTbVA1?=
- =?utf-8?B?VjdzeXhOcG1UdzNQWWxxWUppdlhMU2I0eTdubHpWbzQ0bW40RjhhMGpodHRJ?=
- =?utf-8?B?WTBpUzl5ZUxSSEJ6U280T1RCYWlTTSttaUJpTmZZT1B6eUdIUVl2elBqZnRQ?=
- =?utf-8?B?QWl4a3lDL2Zzd3hzenJscnFpL2k3Z256UFZGL3p5UjgyK3BrUmJPdjE1b1Iv?=
- =?utf-8?B?a3gxR1RpcGZVMjNoMS84aVczRndBWVZCQUtVanh3WDk2M2lDem1QL1FQMGlN?=
- =?utf-8?B?aGZNU2NacTRFTktxVkk1UG1BcFFGQ0NhVCt2eWJuQ29INUowSW1TZ0tEcG9m?=
- =?utf-8?B?VFJ2bEk4M0hZRnJLY1FvT1N1VWNXMjczYUhQak5ZYk1KeXBkYmpWRXVZN2ts?=
- =?utf-8?B?SUVPSWNmYVg1UUJsTUNlVWlRUTVwUjl4Skh1TTFmdnVPaXRrYkErU0VwYXRl?=
- =?utf-8?B?QWUxOFFiMWt2b0JieVNxUVlSKzRuREd3ZUFsVW81a2p0ekpSeDJtdHdQSTZi?=
- =?utf-8?B?ZVlQYUdCYkpmcVBKU01VZWErVnN3R2R1RjRJQU54V0x1eXcxNmhYUnhiQnZE?=
- =?utf-8?B?d0I2QVhFOEIwTTB3ejE0RVRldERiOTZodXM0anhRS2RkWFJjUWlzRE04U3Zj?=
- =?utf-8?B?NEpxRGFyd2hnaFJyTmVROFptYkxLRGZ1T0ZIaXl1TUxVQjBzZWR1eUhJMFNv?=
- =?utf-8?B?THFLcGFtd1NRWnd3TWNxalRQbVhoaVhMWlgrQkVQV2JpZGp4cWJMTENRcXJs?=
- =?utf-8?B?dmlISFkvanB5YmlZWlNMSGNlT2pSdDYyY3FqeUpYOFlhVWVsZ0ZjM1ZxbnBm?=
- =?utf-8?B?WWFYRUVWcVlaaXluVmZIeVFRd1VKVEF2VkJLdjBpbWV1TVJSOTVWcHJTNXo3?=
- =?utf-8?B?UW5iN3RseWpyaEZSSDdrK3p5WFkvd3JnbCs5aHd6WFRzeXcrZzY1Q2tWREsz?=
- =?utf-8?B?YURGNkp0Y01iNnFBZVlLR0hOalA0R21POGJBVjFIbGVqcEYwYWZXVGN3NDZi?=
- =?utf-8?B?bnluMk1rQ2NnbXBzd0gydEVTUWJhaDRGSUw3dHF4RXhqaGFWRUZOMWxUMW1z?=
- =?utf-8?B?ejdoVnRwWE1TeXpzNTYyVlpRWTNZcU0yVVRldDZsZmR2U1lrSmJVVDNDVkJD?=
- =?utf-8?B?QVVxeUdXL29VeWxTN05xWkVGUXVIOGJGSUttMEdyMkhDRE4rN3lwVnRhMFcz?=
- =?utf-8?B?Z3JKTTFUejFMbUtqalVqOXdoeWUwRGJhUGVicHNBPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6707d29-31e3-4b95-36b8-08d8c6c2ff14
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB4728.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2021 15:06:47.9854
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YHEN7OOU8ktHBijsrRx5FiDoDWAxHlj8MOYpRll8f7uX9siHy+m0A0W3v7w0GgrJaDhv9YBYFAjEEVkHDLX5dCRIpEcQpzBVIYDihISgqls=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4727
-X-OriginatorOrg: citrix.com
+In-Reply-To: <CANyqHYfNjqjm7tFoHD=XDcv_P42wppmx0gjy=--Kz88MZcK6Pw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On 01/02/2021 14:56, Jan Beulich wrote:
-> Going through an intermediate *.new file requires telling the compiler
-> what the real target is, so that the inclusion of the resulting .*.d
-> file will actually be useful.
->
-> Fixes: 7d2d7a43d014 ("x86/build: limit rebuilding of asm-offsets.h")
-> Reported-by: Julien Grall <julien@xen.org>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 01.02.2021 15:46, Claudemir Todo Bom wrote:
+> Tested first without the debug patch and with following parameters:
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, whatever the
-outcome of the discussion below.
+And this test was all three of the non-debugging patches?
 
-> ---
-> Already on the original patch I did suggest that perhaps Arm would want
-> to follow suit. So again - perhaps the rules should be unified by moving
-> to common code?
->
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -241,7 +241,7 @@ efi/buildid.o efi/relocs-dummy.o: $(BASE
->  efi/buildid.o efi/relocs-dummy.o: ;
->  
->  asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c $(BASEDIR)/include/asm-x86/asm-macros.h
-> -	$(CC) $(filter-out -Wa$(comma)% -flto,$(c_flags)) -S -g0 -o $@.new $<
-> +	$(CC) $(filter-out -Wa$(comma)% -flto,$(c_flags)) -S -g0 -o $@.new -MQ $@ $<
->  	$(call move-if-changed,$@.new,$@)
->  
->  asm-macros.i: CFLAGS-y += -D__ASSEMBLY__ -P
+> xen: dom0_mem=1024M,max:2048M dom0_max_vcpus=4 dom0_vcpus_pin=true smt=true
+> kernel: loglevel=3
+> 
+> same behaviour as before... black screen right after the xen messages.
+> 
+> adding earlyprintk=xen to the kernel command line is sufficient to
+> make it boot, I can imagine this can be happening because Xen is not
+> releasing console to the kernel at that moment.
 
+If the answer to the above question is "yes", then I start
+suspecting this to be a different problem. I'm not sure I
+see a way to debug this without having access to any output
+(i.e. neither video nor serial). Without "earlyprintk=xen"
+and instead with "vga=keep watchdog" on the Xen command
+line, is there anything helpful (without or if need be with
+the debugging patch in place)?
+
+> The system worked well (with earlyprintk=xen), tested with the "yes
+> stress test" mentioned before on a guest and on dom0.
+> 
+> Then, I installed the debug patch and booted it again, it also needed
+> the earlyprintk=xen parameter on the kernel command line. I've also
+> added console_timestamps=boot to the xen command line in order to get
+> the time of the messages.
+> 
+> I'm attaching the outputs of "xl dmesg" and "dmesg" on this message.
+> 
+> Think it is almost done! WIll wait for the next round of tests!
+
+As per above, not sure if there's going to be one. Thanks
+for your patient testing!
+
+Jan
 
