@@ -2,31 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F92F30A8EB
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Feb 2021 14:40:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.79887.145643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F13C30A908
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Feb 2021 14:47:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.79889.145654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6ZQM-0001QH-LZ; Mon, 01 Feb 2021 13:39:26 +0000
+	id 1l6ZYB-0002IH-Fr; Mon, 01 Feb 2021 13:47:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 79887.145643; Mon, 01 Feb 2021 13:39:26 +0000
+Received: by outflank-mailman (output) from mailman id 79889.145654; Mon, 01 Feb 2021 13:47:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6ZQM-0001Ps-IM; Mon, 01 Feb 2021 13:39:26 +0000
-Received: by outflank-mailman (input) for mailman id 79887;
- Mon, 01 Feb 2021 13:39:25 +0000
+	id 1l6ZYB-0002Hs-Cp; Mon, 01 Feb 2021 13:47:31 +0000
+Received: by outflank-mailman (input) for mailman id 79889;
+ Mon, 01 Feb 2021 13:47:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4N3t=HD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1l6ZQK-0001Pn-UZ
- for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 13:39:24 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LFAu=HD=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1l6ZY9-0002Hn-S7
+ for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 13:47:29 +0000
+Received: from mail-lf1-x12b.google.com (unknown [2a00:1450:4864:20::12b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 69491309-3bb8-4c86-8196-14ef3dc5bfa0;
- Mon, 01 Feb 2021 13:39:23 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E5860AB92;
- Mon,  1 Feb 2021 13:39:22 +0000 (UTC)
+ id b1ba89df-cddf-4a84-b968-3d9ec33954d9;
+ Mon, 01 Feb 2021 13:47:28 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id f1so22817098lfu.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Feb 2021 05:47:28 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id c7sm3909521ljd.95.2021.02.01.05.47.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Feb 2021 05:47:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,91 +41,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69491309-3bb8-4c86-8196-14ef3dc5bfa0
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612186763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KUY99SqnKBeXZzlYj2VlDDRXfhI6LC4XP4ZRoVG/cIQ=;
-	b=F7UdL39RVWKQ9o2wFgFCvRkLUTgi8ELiMLLjmjqk6e8BK7VoItatrXSE3sP0qvr8x0XqMd
-	1Gy/W4aCvutMeNgVPhDsbJASIzEFas4MHqjK4UaL8ugA6fp1uctfZutWFOPq+xHT4TtJrl
-	BEbOsPn+NgYYN3AexyGmxzsz6gUOz7s=
-Subject: Re: [PATCH for 4.16] xl: Add xl.conf-based dom0 autoballoon limits
-To: George Dunlap <george.dunlap@citrix.com>
-Cc: Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20210129164858.3280477-1-george.dunlap@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <606292ed-9083-d9a7-33e9-a02485cbbca0@suse.com>
-Date: Mon, 1 Feb 2021 14:39:22 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+X-Inumbo-ID: b1ba89df-cddf-4a84-b968-3d9ec33954d9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=jbuJPoipTiUQP7/k+Rmr0WaOAzGMug15ye46jUuJg14=;
+        b=NrqXkc5T34QPfoPLnw86SWjAiuhppAmC1XT3UfCFjrmuJnqJL0Fy1Wjju/gY0glebH
+         0Es8tmD/T2pxDS8bA3U2IX4XYRuGsjW+QZv04eGgqVKp+P49A+/7HfR32HCyd9b2tLzt
+         0BnrbYgICrrP6Od8lr0MPsUsETtBFZuKmeYC2cEa21K0RQhwSXN8kLzgw9EsvaCShDIy
+         NhU9Ff7qHnTUp5iGQsNXNOmcWZwwuw2MOeClww7HkobFMdsAl37SNn3E8356oDZKO9tV
+         9XsggcCqx64OJh6gHYPqSxcpd/+ZFsrLRDzhxoasJ9MDWHj6hp7vcBfwuLswHUvoZp8N
+         VCdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=jbuJPoipTiUQP7/k+Rmr0WaOAzGMug15ye46jUuJg14=;
+        b=i8ouG4RWjFJQ3QbzWXsaP7VWtzoo2B/NptImcYHLLUR5GCydF21FMTNOLhDJaXmIzU
+         GRjmaS5/gVXTdj4rh/D6gPodf+RSPyGMdT2CTMIee9fTwx/ZqokOnsoQbfocaJgA+d/S
+         vHo+zHapmmNLtCK/viBYPMusMReRNfB5FCzsu2pnWDtGcDuGXhdy44gN/0hwGlEYypbi
+         m+VQ7SOri/CePbGFn8GlbXNLRwH+ijVwkDprrS7oqBvmtW2f91/ab79JlAd0nPJV03UU
+         R2K6sBdUe9iyYkIvGrQWLINNyhxZqkM6WvjbK3/bUJyVP/nCv4NWtkncmoTNW1GwZkVF
+         VH/g==
+X-Gm-Message-State: AOAM531XcfvjDml3Anh6hAU+HTHVp2+lFJJcsklL6EVipOmYzA+QPKbg
+	SN24CquUvt/gvp02NHnwbL4=
+X-Google-Smtp-Source: ABdhPJy6z0KlgYp43GQ3JrzHVxWydzuScJzBi8/BWK4j4Vo3Ykq1/E2PN90O07tlS4m4zUWV47DW9w==
+X-Received: by 2002:ac2:5d51:: with SMTP id w17mr8032713lfd.343.1612187247589;
+        Mon, 01 Feb 2021 05:47:27 -0800 (PST)
+Subject: Re: [PATCH v8 00/16] acquire_resource size and external IPT
+ monitoring
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <iwj@xenproject.org>, Anthony PERARD
+ <anthony.perard@citrix.com>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>,
+ =?UTF-8?Q?Micha=c5=82_Leszczy=c5=84ski?= <michal.leszczynski@cert.pl>,
+ Tamas K Lengyel <tamas@tklengyel.com>
+References: <20210130025852.12430-1-andrew.cooper3@citrix.com>
+ <911270bf-0077-b70e-c224-712dfa535afa@gmail.com>
+ <fceef592-e637-e985-8217-11546e088027@citrix.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <d5cc17a4-267c-3022-11e5-eb043de121a9@gmail.com>
+Date: Mon, 1 Feb 2021 15:47:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210129164858.3280477-1-george.dunlap@citrix.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <fceef592-e637-e985-8217-11546e088027@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 
-On 29.01.2021 17:48, George Dunlap wrote:
-> When in "autoballoon" mode, xl will attempt to balloon dom0 down in
-> order to free up memory to start a guest, based on the expected amount
-> of memory reported by libxl.  Currently, this is limited in libxl with
-> a hard-coded value of 128MiB, to prevent squeezing dom0 so hard that
-> it OOMs.  On many systems, however, 128MiB is far too low a limit, and
-> dom0 may crash anyway.
-> 
-> Furthermore, "autoballoon" mode, although strongly recommended
-> against, must be the default mode for most distros: Having the memory
-> available to Linux drop to 1GiB would be too much of an unexpected
-> surprise for those not familiar with Xen.  This leads to a situation,
-> however, where starting too many guests on a large-ish system can
-> unexpectedly cause the system to slow down and crash with no warning,
-> as xl squeezes dom0 until it OOMs.
-> 
-> Ideally what we want is to retain the "just works after install"
-> functionality that we have now with respect to autoballooning, but
-> prompts the admin to consider autoballooning issues once they've
-> demonstrated that they intend to use a significant percentage of the
-> host memory to start guests, and also allow knowledgable users the
-> flexibility to configure the system as they see fit.
-> 
-> To do this, introduce two new xl.conf-based dom0 autoballoon limits:
-> autoballoon_dom0_min_memmb, and autoballoon_dom0_min_mempct.
-> 
-> When parsing xl.conf, xl will always calculate a minimum value for
-> dom0 target.  If autoballoon_dom0_min_memmb is set, it will just use
-> that; if that is not set and _min_mempct is set, it will calculate the
-> minimum target based on a percentage of host memory.  If neither is
-> set, it will default to 25% of host memory.
-> 
-> Add a more useful error message when autoballoon fails due to missing
-> the target.  Additionally, if the autoballoon target was automatic,
-> post an additional message prompting the admin to consider autoballoon
-> explicitly.  Hopefully this will balance things working out of the box
-> (and make it possible for advanced users to configure their systems as
-> they wish), yet prompt admins to explore further when it's
-> appropriate.
-> 
-> NB that there's a race in the resulting code between
-> libxl_get_memory_target() and libxl_set_memory_target(); but there was
-> already a race between the latter and libxl_get_free_memory() anyway;
-> this doesn't really make the situation worse.
-> 
-> While here, reduce the scope of the free_memkb variable, which isn't
-> used outside the do{} loop in freemem().
-> 
-> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
 
-I'm not convinced it is the tool stack to set a lower limit here.
-Imo the kernel should guard itself from too aggressive ballooning.
-In fact, the old XenoLinux driver did, as of
-https://xenbits.xen.org/hg/linux-2.6.18-xen.hg/rev/b61443b1bf76,
-which in our forward ports we then extended to have exposure in
-/proc and /sys, alongside an upper limit (for purely informational
-purposes iirc).
+On 01.02.21 15:07, Andrew Cooper wrote:
 
-Jan
+Hi Andrew
+
+> On 01/02/2021 12:34, Oleksandr wrote:
+>> On 30.01.21 04:58, Andrew Cooper wrote:
+>>
+>> Hi Andrew
+>>
+>>> Combined series (as they are dependent).  First, the resource size
+>>> fixes, and
+>>> then the external IPT monitoring built on top.
+>>>
+>>> Posting in full for reference, but several patches are ready to go
+>>> in.  Those
+>>> in need of review are patch 6, 8 and 12.
+>>>
+>>> See individual patches for changes.  The major work was rebasing over
+>>> the
+>>> ARM/IOREQ series which moved a load of code which this series was
+>>> bugfixing.
+>> Looks like that some of these patches have been already merged. So I
+>> preliminary tested current staging
+>> (9dc687f155a57216b83b17f9cde55dd43e06b0cd x86/debug: fix page-overflow
+>> bug in dbg_rw_guest_mem) on Arm *with* IOREQ enabled.
+>>
+>> I didn't notice any regressions with IOREQ on Arm))
+> Fantastic!
+>
+> Tamas and I did do extended testing on the subset which got committed,
+> before it went in, and it is all fixing of corner cases, rather than
+> fundamentally changing how things worked.
+>
+>
+> One query I did leave on IRC, and hasn't had an answer.
+>
+> What is the maximum number of vcpus in an ARM guest?
+
+public/arch-arm.h says that current supported guest VCPUs max number is 
+128.
+
+
+> You moved an
+> x86-ism "max 128 vcpus" into common code.
+
+Ooh, I am not sure I understand where exactly. Could you please clarify 
+in which patch?
+
+
+>
+> ~Andrew
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
