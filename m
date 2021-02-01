@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0972730ACBF
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Feb 2021 17:37:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80013.146117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FCC530ACF5
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Feb 2021 17:48:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80018.146129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6cCW-0007Mw-RW; Mon, 01 Feb 2021 16:37:20 +0000
+	id 1l6cMw-0008T6-Tj; Mon, 01 Feb 2021 16:48:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80013.146117; Mon, 01 Feb 2021 16:37:20 +0000
+Received: by outflank-mailman (output) from mailman id 80018.146129; Mon, 01 Feb 2021 16:48:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6cCW-0007MV-Ms; Mon, 01 Feb 2021 16:37:20 +0000
-Received: by outflank-mailman (input) for mailman id 80013;
- Mon, 01 Feb 2021 16:37:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mXSv=HD=tklengyel.com=tamas@srs-us1.protection.inumbo.net>)
- id 1l6cCU-0007MQ-NP
- for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 16:37:18 +0000
-Received: from MTA-08-4.privateemail.com (unknown [198.54.122.58])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82bfd945-ae78-43aa-a983-8b0dd615e2b3;
- Mon, 01 Feb 2021 16:37:17 +0000 (UTC)
-Received: from MTA-08.privateemail.com (localhost [127.0.0.1])
- by MTA-08.privateemail.com (Postfix) with ESMTP id D819D60078
- for <xen-devel@lists.xenproject.org>; Mon,  1 Feb 2021 11:37:16 -0500 (EST)
-Received: from mail-wm1-f51.google.com (unknown [10.20.151.218])
- by MTA-08.privateemail.com (Postfix) with ESMTPA id 99DC16004C
- for <xen-devel@lists.xenproject.org>; Mon,  1 Feb 2021 16:37:16 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id y187so13747274wmd.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Feb 2021 08:37:16 -0800 (PST)
+	id 1l6cMw-0008Sh-QK; Mon, 01 Feb 2021 16:48:06 +0000
+Received: by outflank-mailman (input) for mailman id 80018;
+ Mon, 01 Feb 2021 16:48:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4N3t=HD=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1l6cMv-0008Sc-O3
+ for xen-devel@lists.xenproject.org; Mon, 01 Feb 2021 16:48:05 +0000
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5def02a2-896b-4c72-8b7a-25691fb14c0f;
+ Mon, 01 Feb 2021 16:48:03 +0000 (UTC)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 94E73AB92;
+ Mon,  1 Feb 2021 16:48:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,90 +39,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82bfd945-ae78-43aa-a983-8b0dd615e2b3
-X-Gm-Message-State: AOAM530wT7WKzgXQ0VxX+C+nqWRnttcqIbvgjQMmyqcydibKv7mk5R4M
-	l4q8vHjg+OGTfjsKgXCQMmQFMILKfOmuSU0qmS8=
-X-Google-Smtp-Source: ABdhPJw55lAGPsvAzoKS/Wj+V4tSwCJ0BZJtsGajVfpkkEG3OevZhCKSlbEXLcZ2c79xzskQFoWBEBHXqvl4ooD0YRc=
-X-Received: by 2002:a05:600c:214d:: with SMTP id v13mr15950431wml.186.1612197435173;
- Mon, 01 Feb 2021 08:37:15 -0800 (PST)
+X-Inumbo-ID: 5def02a2-896b-4c72-8b7a-25691fb14c0f
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1612198082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YOVHCqx27sDKeippwBQDyPRkXExzEzerkHgT2dfxMis=;
+	b=mVcjSUsBS73TmY7PymTduRcqVQfo4ROJSkVOWCOVbVwu1XeUNEMTvV2PVwGbMFe25xQMsF
+	54mVXlW/+6TuKnHcIH0mUkB4Idp/WCqnxaFRCoPphJXNd1pSnCgNeQyyK2DEDRgIFadQxM
+	OzOgcJtXP1ma041eLroDRDHXBWiFb6k=
+Subject: Re: Problems with APIC on versions 4.9 and later (4.8 works)
+To: Claudemir Todo Bom <claudemir@todobom.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <CANyqHYfNBHnUiBiXHdt+R3mZ72oYQBnQcaWuKw5gY0uDb_ZqKw@mail.gmail.com>
+ <ff799cd4-ba42-e120-107c-5011dc803b5a@suse.com>
+ <609a82d8-af12-4764-c4e0-f5ee0e11c130@suse.com>
+ <CANyqHYehUWeNfVXqVJX6nrBS_CcKL1DQjyNVa1cUbvbx+zD83w@mail.gmail.com>
+ <9d04edfe-0059-6fbf-c1da-2087f6190e64@suse.com>
+ <CANyqHYfOC6JY978SRPAQ8Ug3GevFD=jbT6bVVET4+QOv8mv7qA@mail.gmail.com>
+ <a0a7bbd0-c4c3-cfb8-5af0-a5a4aff14b76@suse.com>
+ <CANyqHYeDR_NUKzPtbfLiUzxAUzerKepbU4B-_6=U-7Y6uy8gpQ@mail.gmail.com>
+ <8837c3fb-1e0c-5941-258c-e76551a9e02b@suse.com>
+ <8cf69fb3-5b8c-60ea-bd1c-39a0cbd5cb5c@suse.com>
+ <CANyqHYeCQc2bt836uyrtm9Eo2T1uPP-+ups-ygfACu6zK36BQg@mail.gmail.com>
+ <bd150f4d-4f7e-082e-6b10-03bf1eca7b80@suse.com>
+ <CANyqHYeHf8f6G+U2z9A0JC049HPYvWQ+WXZYLCQyWyx5Jvq6BA@mail.gmail.com>
+ <803a50a9-707f-14db-b523-cd1f6f685ab4@suse.com>
+ <CANyqHYfNjqjm7tFoHD=XDcv_P42wppmx0gjy=--Kz88MZcK6Pw@mail.gmail.com>
+ <96a23d4a-b29f-46e2-a0f5-568a5d1f4b9e@suse.com>
+ <CANyqHYfue3mPKESc6_U79=ckCHrJo6rEJg0TgXi8-g6=peM01A@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <73a79bef-2c5d-cd94-8eaa-bd4139123a0f@suse.com>
+Date: Mon, 1 Feb 2021 17:48:01 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-References: <caba05850df644814d75d5de0574c62ce90e8789.1611971959.git.tamas@tklengyel.com>
- <74f3263a-fe12-d365-ad45-e5556b575539@citrix.com> <044823b7-1bbd-6405-7371-2b06e49cc147@suse.com>
- <0dc1f3c9-6837-ce12-8826-11354346b3c1@citrix.com> <65ded62d-9f57-85ed-c333-e301d195c9f2@suse.com>
-In-Reply-To: <65ded62d-9f57-85ed-c333-e301d195c9f2@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 1 Feb 2021 11:36:39 -0500
-X-Gmail-Original-Message-ID: <CABfawhk6ob5Az6p++-uCwBDkL+nC_SvtWWyHOuGF1WzJabirnA@mail.gmail.com>
-Message-ID: <CABfawhk6ob5Az6p++-uCwBDkL+nC_SvtWWyHOuGF1WzJabirnA@mail.gmail.com>
-Subject: Re: [PATCH] x86/debug: fix page-overflow bug in dbg_rw_guest_mem
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Elena Ufimtseva <elena.ufimtseva@oracle.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
-	Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Virus-Scanned: ClamAV using ClamSMTP
+In-Reply-To: <CANyqHYfue3mPKESc6_U79=ckCHrJo6rEJg0TgXi8-g6=peM01A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-On Mon, Feb 1, 2021 at 7:29 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 01.02.2021 12:44, Andrew Cooper wrote:
-> > On 01/02/2021 09:37, Jan Beulich wrote:
-> >> On 30.01.2021 03:59, Andrew Cooper wrote:
-> >>> On 30/01/2021 01:59, Tamas K Lengyel wrote:
-> >>>> When using gdbsx dbg_rw_guest_mem is used to read/write guest memory. When the
-> >>>> buffer being accessed is on a page-boundary, the next page needs to be grabbed
-> >>>> to access the correct memory for the buffer's overflown parts. While
-> >>>> dbg_rw_guest_mem has logic to handle that, it broke with 229492e210a. Instead
-> >>>> of grabbing the next page the code right now is looping back to the
-> >>>> start of the first page. This results in errors like the following while trying
-> >>>> to use gdb with Linux' lx-dmesg:
-> >>>>
-> >>>> [    0.114457] PM: hibernation: Registered nosave memory: [mem
-> >>>> 0xfdfff000-0xffffffff]
-> >>>> [    0.114460] [mem 0x90000000-0xfbffffff] available for PCI demem 0
-> >>>> [    0.114462] f]f]
-> >>>> Python Exception <class 'ValueError'> embedded null character:
-> >>>> Error occurred in Python: embedded null character
-> >>>>
-> >>>> Fixing this bug by taking the variable assignment outside the loop.
-> >>>>
-> >>>> Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
-> >>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >> I have to admit that I'm irritated: On January 14th I did submit
-> >> a patch ('x86/gdbsx: convert "user" to "guest" accesses') fixing this
-> >> as a side effect. I understand that one was taking care of more
-> >> issues here, but shouldn't that be preferred? Re-basing isn't going
-> >> to be overly difficult, but anyway.
-> >
-> > I'm sorry.  That was sent during the period where I had no email access
-> > (hence I wasn't aware of it - I've been focusing on 4.15 work and this
-> > series wasn't pinged.),
->
-> Oh, so you had actually lost emails, rather than (as I did
-> understand so far) only getting them in a very delayed fashion?
->
-> Anyway, the first part of that series having been pretty close
-> to getting an XSA, I thought you were well aware that at least
-> that part is very clearly intended for 4.15. (I also did
-> mention it to you last week on irc, when you asked what wants
-> specifically looking at for 4.15.) Plus, besides the bringing
-> up of the topic on the last two or three community calls, over
-> all of January I've specifically avoided pinging _any_ of the
-> many patches I have pending, to avoid giving you the feel of
-> even more pressure.
->
-> > but it also isn't identified as a bugfix, or
-> > suitable for backporting in that form.
-> >
-> > I apologise for the extra work caused unintentionally, but I think this
-> > is the correct way around WRT backports, is it not?
->
-> It didn't occur to me that there could be a consideration of
-> backporting here. But yes, if so wanted, maybe the split is
-> helpful. Otoh then the full change could as well be taken,
-> to stop the abuse of "user" accesses also in the stable trees.
+On 01.02.2021 16:26, Claudemir Todo Bom wrote:
+> Em seg., 1 de fev. de 2021 às 12:09, Jan Beulich <jbeulich@suse.com> escreveu:
+>>
+>> On 01.02.2021 15:46, Claudemir Todo Bom wrote:
+>>> Tested first without the debug patch and with following parameters:
+>>
+>> And this test was all three of the non-debugging patches?
+> 
+> Yes, all three patches.
+> 
+>>> xen: dom0_mem=1024M,max:2048M dom0_max_vcpus=4 dom0_vcpus_pin=true smt=true
+>>> kernel: loglevel=3
+>>>
+>>> same behaviour as before... black screen right after the xen messages.
+>>>
+>>> adding earlyprintk=xen to the kernel command line is sufficient to
+>>> make it boot, I can imagine this can be happening because Xen is not
+>>> releasing console to the kernel at that moment.
+>>
+>> If the answer to the above question is "yes", then I start
+>> suspecting this to be a different problem. I'm not sure I
+>> see a way to debug this without having access to any output
+>> (i.e. neither video nor serial). Without "earlyprintk=xen"
+>> and instead with "vga=keep watchdog" on the Xen command
+>> line, is there anything helpful (without or if need be with
+>> the debugging patch in place)?
+> 
+> with "vga=text-80x25,keep watchdog" and without the earlyprintk,
+> system booted.
 
-IMHO this should be backported cause it breaks use of gdbsx for all
-affected releases.
+Well, you clearly don't want to keep "vga=keep". There has to
+be something that's still going wrong, but this may now be a
+kernel side issue. In the logs you provided I couldn't spot
+anything odd, but these were from working cases after all. So
+as said, for now I'm lost, and you may need to live with some
+form of workaround (which you've said you're okay with).
 
-Tamas
+Jan
 
