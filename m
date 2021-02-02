@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 079AB30B78C
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 07:00:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80350.146934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F1630B79D
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 07:05:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80352.146948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6oiW-0000kT-6k; Tue, 02 Feb 2021 05:59:12 +0000
+	id 1l6ooB-0001nO-1a; Tue, 02 Feb 2021 06:05:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80350.146934; Tue, 02 Feb 2021 05:59:12 +0000
+Received: by outflank-mailman (output) from mailman id 80352.146948; Tue, 02 Feb 2021 06:05:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6oiW-0000k4-3M; Tue, 02 Feb 2021 05:59:12 +0000
-Received: by outflank-mailman (input) for mailman id 80350;
- Tue, 02 Feb 2021 05:59:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l6ooA-0001mm-SI; Tue, 02 Feb 2021 06:05:02 +0000
+Received: by outflank-mailman (input) for mailman id 80352;
+ Tue, 02 Feb 2021 06:05:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TyQM=HE=m5p.com=ehem@srs-us1.protection.inumbo.net>)
- id 1l6oiV-0000jz-6h
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 05:59:11 +0000
-Received: from mailhost.m5p.com (unknown [74.104.188.4])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 575553cc-0f5a-42f4-9c70-75cb4e06bc2f;
- Tue, 02 Feb 2021 05:59:07 +0000 (UTC)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.15.2/8.15.2) with ESMTPS id 1125wsaL019305
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 2 Feb 2021 00:58:59 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.15.2/8.15.2/Submit) id 1125wrwD019304;
- Mon, 1 Feb 2021 21:58:53 -0800 (PST) (envelope-from ehem)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6oo9-0001me-EG; Tue, 02 Feb 2021 06:05:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6oo9-0006D0-7R; Tue, 02 Feb 2021 06:05:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6oo8-0004aq-WF; Tue, 02 Feb 2021 06:05:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6oo8-00068i-Vj; Tue, 02 Feb 2021 06:05:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,184 +42,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 575553cc-0f5a-42f4-9c70-75cb4e06bc2f
-Date: Mon, 1 Feb 2021 21:58:53 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-        Roger Pau Monne <roger.pau@citrix.com>,
-        "open list:X86" <xen-devel@lists.xenproject.org>,
-        Andrew Cooper <Andrew.Cooper3@citrix.com>
-Subject: Re: [PATCH] x86/pod: Do not fragment PoD memory allocations
-Message-ID: <YBjqHZIRCzdW7RX7@mattapan.m5p.com>
-References: <YBBWj7NO+1HVKEgX@mattapan.m5p.com>
- <f6a75725-edc2-ee2d-0565-da1efae05190@suse.com>
- <YBHJS3NEX5+iEqyd@mattapan.m5p.com>
- <67ef8210-a65f-9d6a-bea1-46ce06d47fb7@citrix.com>
- <YBHo/gscAfcAZqst@mattapan.m5p.com>
- <44450edc-9a64-8a6e-e8d3-3a3f726a96bc@suse.com>
- <YBMB1VUhYd3RUuDO@mattapan.m5p.com>
- <DC18947E-BC67-4BF8-A889-04B812DACACC@citrix.com>
- <YBbzXQt2GBAvpvgQ@mattapan.m5p.com>
- <E8806231-28EE-4618-B6A5-1B50813BF4B1@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ANU+ItRc3YblHBUc48DcLgHSQg78UmQ8PnjkfQDuKjU=; b=rRk0/R1Wa8J/gVOa6nph9FZwWq
+	a1Y1SgiNqZl4zpkg8zjPq5ND7ZR9hxI1JzVH7/MlHfKRoJyLVlRxZwJCIm4Hgo4BkzMjVNNFlzq6w
+	BMHqVD18gojfNoCWCOp2NWDQ/8u6f0EkQBg7JtI0fGQwvNvunX2bAUvI+pt+iyyXTew4=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158937-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <E8806231-28EE-4618-B6A5-1B50813BF4B1@citrix.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on mattapan.m5p.com
+Subject: [xen-unstable-smoke test] 158937: regressions - trouble: blocked/fail
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=ffbb8aa282de262403275f2395d8540818cf576e
+X-Osstest-Versions-That:
+    xen=9dc687f155a57216b83b17f9cde55dd43e06b0cd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 02 Feb 2021 06:05:00 +0000
 
-On Mon, Feb 01, 2021 at 10:35:15AM +0000, George Dunlap wrote:
-> 
-> 
-> > On Jan 31, 2021, at 6:13 PM, Elliott Mitchell <ehem+xen@m5p.com> wrote:
-> > 
-> > On Thu, Jan 28, 2021 at 10:42:27PM +0000, George Dunlap wrote:
-> >> 
-> >>> On Jan 28, 2021, at 6:26 PM, Elliott Mitchell <ehem+xen@m5p.com> wrote:
-> >>> type = "hvm"
-> >>> memory = 1024
-> >>> maxmem = 1073741824
-> >>> 
-> >>> I suspect maxmem > free Xen memory may be sufficient.  The instances I
-> >>> can be certain of have been maxmem = total host memory *7.
-> >> 
-> >> Can you include your Xen version and dom0 command-line?
-> > 
-> >> This is on staging-4.14 from a month or two ago (i.e., what I happened to have on a random test  box), and `dom0_mem=1024M,max:1024M` in my command-line.  That rune will give dom0 only 1GiB of RAM, but also prevent it from auto-ballooning down to free up memory for the guest.
-> >> 
-> > 
-> > As this is a server, not a development target, Debian's build of 4.11 is
-> > in use.  Your domain 0 memory allocation is extremely generous compared
-> > to mine.  One thing which is on the command-line though is
-> > "watchdog=true".
-> 
-> staging-4.14 is just the stable 4.14 branch which our CI loop tests before pushing to stable-4.14, which is essentially tagged 3 times a year for point releases.  It???s quite stable.  I???ll give 4.11 a try if I get a chance.
-> 
-> It???s not clear from your response ??? are you allocating a fixed amount to dom0?  How much is it?  In fact, probably the simplest thing to do would be to attach the output of `xl info` and `xl dmesg`; that will save a lot of potential future back-and-forth.
-> 
-> 1GiB isn???t particularly generous if you???re running a large number of guests.  My understanding is that XenServer now defaults to 4GiB of RAM for dom0.
-> 
+flight 158937 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158937/
 
-I guess it comes to setup, how careful one is at pruning unneeded
-services and whether one takes steps to ensure there aren't extra qemu
-processes hanging around (avoiding hvm VMs in most cases).
+Regressions :-(
 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 158804
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 158804
+ build-armhf                   6 xen-build                fail REGR. vs. 158804
 
-release                : 4.19.160-2
-version                : #5 SMP Sat Dec 5 09:58:41 PST 2020
-machine                : x86_64
-nr_cpus                : 8
-max_cpu_id             : 7
-nr_nodes               : 1
-cores_per_socket       : 4
-threads_per_core       : 2
-cpu_mhz                : 4018.086
-hw_caps                : 178bf3ff:b698320b:2e500800:0069bfff:00000000:00000008:00000000:00000500
-virt_caps              : hvm
-total_memory           : 16110
-free_memory            : 781
-sharing_freed_memory   : 0
-sharing_used_memory    : 0
-outstanding_claims     : 0
-free_cpus              : 0
-xen_major              : 4
-xen_minor              : 11
-xen_extra              : .4
-xen_version            : 4.11.4
-xen_caps               : xen-3.0-x86_64 xen-3.0-x86_32p hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_64 
-xen_scheduler          : credit
-xen_pagesize           : 4096
-platform_params        : virt_start=0xffff800000000000
-xen_changeset          : 
-xen_commandline        : placeholder watchdog=true loglvl=info iommu=verbose cpuidle dom0_mem=384M,max:640M dom0_max_vcpus=8
-cc_compiler            : gcc (Debian 8.3.0-6) 8.3.0
-cc_compile_by          : pkg-xen-devel
-cc_compile_domain      : lists.alioth.debian.org
-cc_compile_date        : Fri Dec 11 21:33:51 UTC 2020
-build_id               : 6d8e0fa3ddb825695eb6c6832631b4fa2331fe41
-xend_config_format     : 4
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ xen                  ffbb8aa282de262403275f2395d8540818cf576e
+baseline version:
+ xen                  9dc687f155a57216b83b17f9cde55dd43e06b0cd
+
+Last test of basis   158804  2021-01-30 04:00:24 Z    3 days
+Failing since        158892  2021-02-01 16:00:25 Z    0 days    8 attempts
+Testing same since   158897  2021-02-01 19:02:25 Z    0 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ian Jackson <iwj@xenproject.org>
+  Manuel Bouyer <bouyer@netbsd.org>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  fail    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-> > I've got 3 candidates which presently concern me:ble:
-> > 
-> > 1> There is a limited range of maxmem values where this occurs.  Perhaps
-> > 1TB is too high on your machine for the problem to reproduce.  As
-> > previously stated my sample configuration has maxmem being roughly 7
-> > times actual machine memory.
-> 
-> In fact I did a number of binary-search-style experiments to try to find out boundary behavior.  I don???t think I did 7x memory, but I certainly did 2x or 3x host memory, and the exact number you gave that caused you problems.  In all cases for me, it either worked or failed with a cryptic error message (the specific message depending on whether I had fixed dom0 memory or autoballooned memory).
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Hmm, may have to mem-set Dom0 to max then retry the crash configuration
-with maxmem just greater than machine memory...    Do have that downtime
-due to kernel update...
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> > 2> Between issuing the `xl create` command and the machine rebooting a
-> > few moments of slow response have been observed.  Perhaps the memory
-> > allocator loop is hogging processor cores long enough for the watchdog to
-> > trigger?
-> 
-> I don???t know the balloon driver very well, but I???d hope it yielded pretty regularly.  It seems more likely to me that your dom0 is swapping due to low memory / struggling with having to work with no file cache.  Or the OOM killer is doing its calculation trying to figure out which process to shoot?  
-> 
-
-I know which process it shoots.  One ideal is to have memory just high
-enough for the OOM-killer not to trigger.  Under this idea you *want* to
-use some swap, as some portions of process address space are left idle
-99.99% of the time and don't need to waste RAM.  This though is a bit
-funky with SSDs taking over for which writes are more precious.
-Difficulty then becomes some of Xen's odd Dom0 memory behavior.
-
-According to `xl list` it isn't possible to set Dom0's memory to maximum.
-I've been theorizing this might be due to memory used for DMA needing to
-be inside the maxmem region, but isn't counted in `xl list`...
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> > 3> Perhaps one of the patches on Debian broke things?  This seems
-> > unlikely since nearly all of Debian's patches are either strictly for
-> > packaging or else picks from Xen's main branch, but this is certainly
-> > possible.
-> 
-> Indeed, I???d consider that unlikely.  Some things I???d consider more likely to cause the difference:
-> 
-> 1. The amount of host memory (my test box had only 6GiB)
-> 
-> 2. The amount of memory assigned to dom0 
+Not pushing.
 
-I consider this unlikely.  Due to a downtime I got a chance to try this
-issue from the console and *nothing* appeared.  If there was a memory
-issue with domain 0 then I would have expected messages from the
-OOM-killer before restart.
+------------------------------------------------------------
+commit ffbb8aa282de262403275f2395d8540818cf576e
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Mon Feb 1 16:53:17 2021 +0100
 
+    xenstore: fix build on {Net/Free}BSD
+    
+    The endian.h header is in sys/ on NetBSD and FreeBSD.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
-> 3. The number of other VMs running in the background
+commit 419cd07895891c6642f29085aee07be72413f08c
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Mon Feb 1 15:18:36 2021 +0000
 
-During that downtime other VMs had been saved to storage (I didn't want
-to lose their runtimes).  As such all memory was available to domain 0
-and the problematic VM configuration.
+    xenpmd.c: Remove hard tab
+    
+    bbed98e7cedc "xenpmd.c: use dynamic allocation" had a hard tab.
+    I thought we had fixed that and I thought I had checked.
+    Remove it now.
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
 
+commit bbed98e7cedcd5072671c21605330075740382d3
+Author: Manuel Bouyer <bouyer@netbsd.org>
+Date:   Sat Jan 30 19:27:10 2021 +0100
 
-> 4. A difference in the version of Linux (I???m also running Debian, but deban-testing)
-> 
-
-Not impossible, but seems improbable to me.  This has also been observed
-when domain 0 had a 4.9 kernel.  Perhaps 5.x includes some fix which
-works around the issue, but I'm very doubtful of this.
-
-> 5. A bug in 4.11 that was fixed by 4.14.
-
-This isn't confined to 4.11.  I observed this with 4.8 and I recall
-running into suspiciously similar things with 4.4.  The bug may well have
-been fixed between 4.11 and 4.14 though.
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+    xenpmd.c: use dynamic allocation
+    
+    On NetBSD, d_name is larger than 256, so file_name[284] may not be large
+    enough (and gcc emits a format-truncation error).
+    Use asprintf() instead of snprintf() on a static on-stack buffer.
+    
+    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    
+    Plus
+    
+    define GNU_SOURCE for asprintf()
+    
+    Harmless on NetBSD.
+    
+    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+(qemu changes not included)
 
