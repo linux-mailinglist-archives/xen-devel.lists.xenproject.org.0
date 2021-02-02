@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E4130B403
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 01:21:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80236.146675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B592530B467
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 02:07:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80246.146699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6jQm-0006qy-0p; Tue, 02 Feb 2021 00:20:32 +0000
+	id 1l6k9a-0002yZ-P8; Tue, 02 Feb 2021 01:06:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80236.146675; Tue, 02 Feb 2021 00:20:31 +0000
+Received: by outflank-mailman (output) from mailman id 80246.146699; Tue, 02 Feb 2021 01:06:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6jQl-0006qZ-Tv; Tue, 02 Feb 2021 00:20:31 +0000
-Received: by outflank-mailman (input) for mailman id 80236;
- Tue, 02 Feb 2021 00:20:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=33Vw=HE=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1l6jQk-0006qU-FE
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 00:20:30 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bfb0b5e2-c7d7-489e-986b-8efad4bbf45f;
- Tue, 02 Feb 2021 00:20:29 +0000 (UTC)
+	id 1l6k9a-0002y2-Ku; Tue, 02 Feb 2021 01:06:50 +0000
+Received: by outflank-mailman (input) for mailman id 80246;
+ Tue, 02 Feb 2021 01:06:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6k9Z-0002xu-4B; Tue, 02 Feb 2021 01:06:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6k9Y-0007VU-Vg; Tue, 02 Feb 2021 01:06:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6k9Y-0007KP-Pb; Tue, 02 Feb 2021 01:06:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6k9Y-0007X0-P7; Tue, 02 Feb 2021 01:06:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,93 +42,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfb0b5e2-c7d7-489e-986b-8efad4bbf45f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612225228;
-  h=subject:to:references:from:message-id:date:mime-version:
-   in-reply-to:content-transfer-encoding;
-  bh=qYRCDf454/9gViQXW6sCARkf8D4a98DJsrtCD/deB/Y=;
-  b=PRo/mFU+pG5SNLEvcfuAPzlehRUz3B95W+lRsDXqmVKCbe8xO4KCQvDC
-   7UMGvJXy1yRQBc13o2g8KtLoJpsaE+00AZ+slaJJ0ZpMWyRs/qXSLAjl2
-   LhPawqFrzhfGyJ6BWxvQEK6pdkJGbuhJIgb1hVuLmkUMexzqp9A1LaUnl
-   Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: pSXi1n/ArSFDmDmP3Wj2/HrEBHF7dcBtMvr/FAXyN/chPv76xa5CkPeVyBtw39o6e6mszFoD6o
- 6FHeGSyazeKksF5VOTvdaRUFWyOWrNjIz2AzvOTF9mOkymtfsaPwkIWTE8/TfO/mthalkGuzRC
- s1Uii+9OacAcitJPQt2Yts71dN+3XDLvE5UT/lqpEqfC4rhkIfjxhFpDMMHqMJxddwUhVsgwC5
- +Wat+FpxpVNbIoKkEyn1IEkFDlCr6cQi3aQqfpD4yzPrOsC8+ktX1pbP+mo0sT/ckgKboEL6VO
- OS0=
-X-SBRS: 5.1
-X-MesageID: 36322045
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,393,1602561600"; 
-   d="scan'208";a="36322045"
-Subject: Re: staging: unable to restore HVM with Viridian param set
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Tamas K Lengyel
-	<tamas.k.lengyel@gmail.com>, Xen-devel <xen-devel@lists.xenproject.org>, "Wei
- Liu" <wl@xen.org>, Ian Jackson <iwj@xenproject.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
-References: <CABfawhkxEKOha7RYpSvTaJEtxyBsio9Pcc=xtRD7DszHm2k2pw@mail.gmail.com>
- <12e17af4-3502-0047-36e2-3c1262602747@citrix.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <7ea14fac-7832-fe68-529e-03a8f9812f88@citrix.com>
-Date: Tue, 2 Feb 2021 00:20:24 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <12e17af4-3502-0047-36e2-3c1262602747@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Zkfq1gV8ircImS2Ydg3Z1JkiovdGXZ6RBUa5l6geKIo=; b=yC1dFlX9TgFjumW8dQbzyWPQZP
+	H7eqMSH01jlOg1r5PWQUyU9PJrgmpkzM9bq8m0VR0c+msKM96fXm9wNHYd27+RfMkraulTll0Nh8l
+	DIbfZfQQ/m+JHwYjGeHi9cW30ZWGRPafg+UxRpI0rqmlLmzriIBZ0fLuRTOlQW0T5ZDs=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158918-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 158918: regressions - trouble: blocked/fail
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=ffbb8aa282de262403275f2395d8540818cf576e
+X-Osstest-Versions-That:
+    xen=9dc687f155a57216b83b17f9cde55dd43e06b0cd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 02 Feb 2021 01:06:48 +0000
 
-n 01/02/2021 22:57, Andrew Cooper wrote:
-> On 01/02/2021 22:51, Tamas K Lengyel wrote:
->> Hi all,
->> trying to restore a Windows VM saved on Xen 4.14 with Xen staging results in:
->>
->> # xl restore -p /shared/cfg/windows10.save
->> Loading new save file /shared/cfg/windows10.save (new xl fmt info 0x3/0x0/1475)
->>  Savefile contains xl domain config in JSON format
->> Parsing config from <saved>
->> xc: info: Found x86 HVM domain from Xen 4.14
->> xc: info: Restoring domain
->> xc: error: set HVM param 9 = 0x0000000000000065 (17 = File exists):
->> Internal error
->> xc: error: Restore failed (17 = File exists): Internal error
->> libxl: error: libxl_stream_read.c:850:libxl__xc_domain_restore_done:
->> restoring domain: File exists
->> libxl: error: libxl_create.c:1581:domcreate_rebuild_done: Domain
->> 8:cannot (re-)build domain: -3
->> libxl: error: libxl_domain.c:1182:libxl__destroy_domid: Domain
->> 8:Non-existant domain
->> libxl: error: libxl_domain.c:1136:domain_destroy_callback: Domain
->> 8:Unable to destroy guest
->> libxl: error: libxl_domain.c:1063:domain_destroy_cb: Domain
->> 8:Destruction of domain failed
->>
->> Running on staging 419cd07895891c6642f29085aee07be72413f08c
-> 
-> CC'ing maintainers and those who've edited the code recently.
-> 
-> What is happening is xl/libxl is selecting some viridian settings,
-> applying them to the domain, and then the migrations stream has a
-> different set of viridian settings.
-> 
-> For a migrating-in VM, nothing should be set during domain build. 
-> Viridian state has been part of the migrate stream since before mig-v2,
-> so can be considered to be everywhere relevant now.
+flight 158918 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158918/
 
-The fallout is likely from my changes that modified default set of viridian
-settings. The relevant commits:
-983524671031fcfdb24a6c0da988203ebb47aebe
-7e5cffcd1e9300cab46a1816b5eb676caaeed2c1
+Regressions :-(
 
-The same config from migrated domains now implies different set of viridian
-extensions then those set at the source side. That creates inconsistency in
-libxl. I don't really know how to address it properly in libxl other than
-don't extend the default set ever.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 158804
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 158804
+ build-armhf                   6 xen-build                fail REGR. vs. 158804
 
-Igor
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ xen                  ffbb8aa282de262403275f2395d8540818cf576e
+baseline version:
+ xen                  9dc687f155a57216b83b17f9cde55dd43e06b0cd
+
+Last test of basis   158804  2021-01-30 04:00:24 Z    2 days
+Failing since        158892  2021-02-01 16:00:25 Z    0 days    5 attempts
+Testing same since   158897  2021-02-01 19:02:25 Z    0 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ian Jackson <iwj@xenproject.org>
+  Manuel Bouyer <bouyer@netbsd.org>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  fail    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit ffbb8aa282de262403275f2395d8540818cf576e
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Mon Feb 1 16:53:17 2021 +0100
+
+    xenstore: fix build on {Net/Free}BSD
+    
+    The endian.h header is in sys/ on NetBSD and FreeBSD.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 419cd07895891c6642f29085aee07be72413f08c
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Mon Feb 1 15:18:36 2021 +0000
+
+    xenpmd.c: Remove hard tab
+    
+    bbed98e7cedc "xenpmd.c: use dynamic allocation" had a hard tab.
+    I thought we had fixed that and I thought I had checked.
+    Remove it now.
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+
+commit bbed98e7cedcd5072671c21605330075740382d3
+Author: Manuel Bouyer <bouyer@netbsd.org>
+Date:   Sat Jan 30 19:27:10 2021 +0100
+
+    xenpmd.c: use dynamic allocation
+    
+    On NetBSD, d_name is larger than 256, so file_name[284] may not be large
+    enough (and gcc emits a format-truncation error).
+    Use asprintf() instead of snprintf() on a static on-stack buffer.
+    
+    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    
+    Plus
+    
+    define GNU_SOURCE for asprintf()
+    
+    Harmless on NetBSD.
+    
+    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+(qemu changes not included)
 
