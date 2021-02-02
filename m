@@ -2,30 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B117930C9BC
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 19:28:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80687.147771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59DA330C9FD
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 19:38:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80692.147785 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l70OY-0005En-A1; Tue, 02 Feb 2021 18:27:22 +0000
+	id 1l70YY-0006Jm-E0; Tue, 02 Feb 2021 18:37:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80687.147771; Tue, 02 Feb 2021 18:27:22 +0000
+Received: by outflank-mailman (output) from mailman id 80692.147785; Tue, 02 Feb 2021 18:37:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l70OY-0005EP-6O; Tue, 02 Feb 2021 18:27:22 +0000
-Received: by outflank-mailman (input) for mailman id 80687;
- Tue, 02 Feb 2021 18:27:21 +0000
+	id 1l70YY-0006JN-Ab; Tue, 02 Feb 2021 18:37:42 +0000
+Received: by outflank-mailman (input) for mailman id 80692;
+ Tue, 02 Feb 2021 18:37:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gsWk=HE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1l70OX-0005EC-2L
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 18:27:21 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=eq/0=HE=lip6.fr=manuel.bouyer@srs-us1.protection.inumbo.net>)
+ id 1l70YW-0006JI-At
+ for xen-devel@lists.xen.org; Tue, 02 Feb 2021 18:37:40 +0000
+Received: from isis.lip6.fr (unknown [2001:660:3302:283c::2])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d7c15d5a-4cdd-4df8-b5d2-8bafc3c15eb9;
- Tue, 02 Feb 2021 18:27:20 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3D97764F68;
- Tue,  2 Feb 2021 18:27:19 +0000 (UTC)
+ id 2c3b8160-42e0-4667-b88a-7629e24dddfd;
+ Tue, 02 Feb 2021 18:37:38 +0000 (UTC)
+Received: from asim.lip6.fr (asim.lip6.fr [132.227.86.2])
+ by isis.lip6.fr (8.15.2/8.15.2) with ESMTP id 112Ibaqt002576
+ for <xen-devel@lists.xen.org>; Tue, 2 Feb 2021 19:37:36 +0100 (CET)
+Received: from armandeche.soc.lip6.fr (armandeche [132.227.63.133])
+ by asim.lip6.fr (8.15.2/8.14.4) with ESMTP id 112IbaKq013885
+ for <xen-devel@lists.xen.org>; Tue, 2 Feb 2021 19:37:36 +0100 (MET)
+Received: by armandeche.soc.lip6.fr (Postfix, from userid 20331)
+ id 00A467120; Tue,  2 Feb 2021 19:37:35 +0100 (MET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,98 +43,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7c15d5a-4cdd-4df8-b5d2-8bafc3c15eb9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1612290439;
-	bh=4VmhOap821i5h0fmMi7LKFBaQp9enkkSEshesdaVjw4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=GjsBHYrXgmuyvYBZ31Qa2c5eK7vTmgmh/COeMQ4EKJD8wTOxCGlRMjB0ld0pOxaQR
-	 Oz4uBrpORvjB724Msm0/b1dHUDNXree3STn90miBzIW1ZDmI665k1/mjBUq+YJq76G
-	 ikXUHq9SNmgf8R4pSNN59j+5zmGUONCMFq0iCjm8AXv/f+cNv65Gn7SZTwKUjRx46r
-	 +PdorPizufaj5b5BBoz9456ebavm8gqOhcoO/VUbZ7uh8nmo2ACjnGaqbTbX/801jR
-	 EmCmFjYybML8Yynezqn33Rv6GKbTk8MuM8GH/eXZjxpByQQryaMvlLpFyh3MrjRv1W
-	 SChmSh/kvM/Pw==
-Date: Tue, 2 Feb 2021 10:27:18 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Rahul Singh <Rahul.Singh@arm.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, 
-    "brian.woods@xilinx.com" <brian.woods@xilinx.com>
-Subject: Re: [PATCH v3 0/3] Generic SMMU Bindings
-In-Reply-To: <7ddc6e1b-41ce-37ae-f86e-39893f53a0ec@xen.org>
-Message-ID: <alpine.DEB.2.21.2102021024100.29047@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2101261435550.2568@sstabellini-ThinkPad-T480s> <C094E054-885F-4363-ABF3-E0FB4DDD7A2A@arm.com> <alpine.DEB.2.21.2102020937480.29047@sstabellini-ThinkPad-T480s> <7ddc6e1b-41ce-37ae-f86e-39893f53a0ec@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 2c3b8160-42e0-4667-b88a-7629e24dddfd
+Date: Tue, 2 Feb 2021 19:37:35 +0100
+From: Manuel Bouyer <bouyer@antioche.eu.org>
+To: xen-devel@lists.xen.org
+Subject: xenstored file descriptor leak
+Message-ID: <20210202183735.GA25046@mail.soc.lip6.fr>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.4.3 (isis.lip6.fr [132.227.60.2]); Tue, 02 Feb 2021 19:37:36 +0100 (CET)
+X-Scanned-By: MIMEDefang 2.78 on 132.227.60.2
 
-On Tue, 2 Feb 2021, Julien Grall wrote:
-> On 02/02/2021 17:44, Stefano Stabellini wrote:
-> > On Tue, 2 Feb 2021, Rahul Singh wrote:
-> > > Hello Stefano,
-> > > 
-> > > > On 26 Jan 2021, at 10:58 pm, Stefano Stabellini <sstabellini@kernel.org>
-> > > > wrote:
-> > > > 
-> > > > Hi all,
-> > > > 
-> > > > This series introduces support for the generic SMMU bindings to
-> > > > xen/drivers/passthrough/arm/smmu.c.
-> > > > 
-> > > > The last version of the series was
-> > > > https://marc.info/?l=xen-devel&m=159539053406643
-> > > > 
-> > > > I realize that it is late for 4.15 -- I think it is OK if this series
-> > > > goes in afterwards.
-> > > 
-> > > I tested the series on the Juno board it is woking fine.
-> > > I found one issue in SMMU driver while testing this series that is not
-> > > related to this series but already existing issue in SMMU driver.
-> > > 
-> > > If there are more than one device behind SMMU and they share the same
-> > > Stream-Id, SMMU driver is creating the new SMR entry without checking the
-> > > already configured SMR entry if SMR entry correspond to stream-id is
-> > > already configured.  Because of this I observed the stream match conflicts
-> > > on Juno board.
-> > > 
-> > > (XEN) smmu: /iommu@7fb30000: Unexpected global fault, this could be
-> > > serious
-> > > (XEN) smmu: /iommu@7fb30000: 	GFSR 0x00000004, GFSYNR0 0x00000006,
-> > > GFSYNR1 0x00000000, GFSYNR2 0x00000000
-> > > 
-> > > 
-> > > Below two patches is required to be ported to Xen to fix the issue from
-> > > Linux driver.
-> > > 
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/drivers/iommu/arm-smmu.c?h=linux-5.8.y&id=1f3d5ca43019bff1105838712d55be087d93c0da
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/drivers/iommu/arm-smmu.c?h=linux-5.8.y&id=21174240e4f4439bb8ed6c116cdbdc03eba2126e
-> > 
-> > 
-> > Good catch and thanks for the pointers! Do you have any interest in
-> > backporting these two patches or should I put them on my TODO list?
-> > 
-> > Unrelated to who does the job, we should discuss if it makes sense to
-> > try to fix the bug for 4.15. The patches don't seem trivial so I am
-> > tempted to say that it might be best to leave the bug unfixed for 4.15
-> > and fix it later.
-> 
-> SMMU support on Juno is not that interesting because IIRC the stream-ID is the
-> same for all the devices. So it is all or nothing passthrough.
-> 
-> For other HW, this may be a useful feature. Yet we would need a way to group
-> the devices for passthrough.
-> 
-> In this context, I would consider it more a feature than a bug because the
-> SMMU driver never remotely work on such HW.
+Hello,
+on NetBSD I'm tracking down an issue where xenstored never closes its
+file descriptor to /var/run/xenstored/socket and instead loops at 100%
+CPU on these descriptors.
 
-I see. To be honest I wasn't thinking of Juno (I wasn't aware of its
-limitations) but of potential genuine situations where stream-ids are
-the same for 2 devices. I know it can happen with PCI devices for
-instance, although I am aware we don't have PCI passthrough yet. I don't
-know if it is possible for it to happen with non-PCI devices but I
-wouldn't be surprised if it can.
+xenstored loops because poll(2) returns a POLLIN event for these
+descriptors but they are marked is_ignored = true. 
+
+I'm seeing this with xen 4.15, 4.13 and has also been reported with 4.11
+with latest security patches.
+It seems to have started with patches for XSA-115 (A user reported this
+for 4.11)
+
+I've tracked it down to a difference in poll(2) implementation; it seems
+that linux will return something that is not (POLLIN|POLLOUT) when a
+socket if closed; while NetBSD returns POLLIN (this matches the NetBSD's
+man page).
+
+First I think there may be a security issue here, as, even on linux it should
+be possible for a client to cause a socket to go to the is_ignored state,
+while still sending data and cause xenstored to go to a 100% CPU loop.
+I think this is needed anyway:
+
+--- xenstored_core.c.orig	2021-02-02 18:06:33.389316841 +0100
++++ xenstored_core.c	2021-02-02 19:27:43.761877371 +0100
+@@ -397,9 +397,12 @@
+ 			     !list_empty(&conn->out_list)))
+ 				*ptimeout = 0;
+ 		} else {
+-			short events = POLLIN|POLLPRI;
+-			if (!list_empty(&conn->out_list))
+-				events |= POLLOUT;
++			short events = 0;
++			if (!conn->is_ignored) {
++				events |= POLLIN|POLLPRI;
++			        if (!list_empty(&conn->out_list))
++				        events |= POLLOUT;
++			}
+ 			conn->pollfd_idx = set_fd(conn->fd, events);
+ 		}
+ 	}
+
+Now I wonder if, on NetBSD at last, a read error or short read shouldn't
+cause the socket to be closed, as with:
+
+@@ -1561,6 +1565,8 @@
+ 
+ bad_client:
+ 	ignore_connection(conn);
++	/* we don't want to keep this connection alive */
++	talloc_free(conn);
+ }
+ 
+ static void handle_output(struct connection *conn)
+
+
+what do you think ?
+
+-- 
+Manuel Bouyer <bouyer@antioche.eu.org>
+     NetBSD: 26 ans d'experience feront toujours la difference
+--
 
