@@ -2,29 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DFDD30CB0D
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 20:12:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80701.147815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C64730CB56
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 20:21:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80703.147827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l714o-0001r7-C4; Tue, 02 Feb 2021 19:11:02 +0000
+	id 1l71El-0002tv-BF; Tue, 02 Feb 2021 19:21:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80701.147815; Tue, 02 Feb 2021 19:11:02 +0000
+Received: by outflank-mailman (output) from mailman id 80703.147827; Tue, 02 Feb 2021 19:21:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l714o-0001qi-8x; Tue, 02 Feb 2021 19:11:02 +0000
-Received: by outflank-mailman (input) for mailman id 80701;
- Tue, 02 Feb 2021 19:11:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hKoN=HE=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1l714n-0001qd-3F
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 19:11:01 +0000
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5fcb1b71-6134-4c64-8799-d21583c05e78;
- Tue, 02 Feb 2021 19:10:59 +0000 (UTC)
+	id 1l71El-0002tW-7x; Tue, 02 Feb 2021 19:21:19 +0000
+Received: by outflank-mailman (input) for mailman id 80703;
+ Tue, 02 Feb 2021 19:21:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1l71Ej-0002tR-Dw
+ for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 19:21:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l71Ei-000461-1U; Tue, 02 Feb 2021 19:21:16 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1l71Eh-0003nu-Ns; Tue, 02 Feb 2021 19:21:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,305 +40,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fcb1b71-6134-4c64-8799-d21583c05e78
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1612293059;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=wHP3tAWKLhgeTGf6oNIIFZkRbXg7nIN94ZGYk8lgsYY=;
-  b=eirMNJHIMMZs9BaSQ7G20/fETMs6k2Rw3ge3T3iFdfODWjtXOx2a1IYc
-   cFMS07F+9FtuNTBWNb/Zxe9dcl2lCQZ6MRX4MJsVVa10jyPdSYikM7t9f
-   PCIlmGJEeK2wyX7oVw/YC9cXZm0fq06fSmwbArqkBga6Jc6mW1lF/5lvw
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: Z/fiUyJ6WxUu3WkwTjrMezJ3Auls+vSANv7qeldeoLPX3cFLSUxflO+3SXCuHjvaTvm50CeKME
- Pq3tDfc+mICtijQrPrd7Vt6I3T62B8+7vh2tsomNsMxrYknAy0d89czdgZIqshfZfMFzQuV4Ot
- io+Ofks6YgP0l6Su8D6dOnW+YL1UTae5w2m2tEhZ8fNxJLAQ1Cd110irSDJ/T0/6sTRJDXSawc
- TP4U5hlajnZ8mt5vhUH2T4rHVy4pIrFcfUxmOUCJ2alj6zCKk31lZxil0955VgIQLdoD1wnCyQ
- 1As=
-X-SBRS: 5.1
-X-MesageID: 36400885
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.79,396,1602561600"; 
-   d="scan'208";a="36400885"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-	"Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, Oleksandr
-	<olekstysh@gmail.com>
-Subject: [PATCH for-4.15] tools/tests: Introduce a test for acquire_resource
-Date: Tue, 2 Feb 2021 19:09:37 +0000
-Message-ID: <20210202190937.30206-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
+	bh=tDuQlJufbyrkxG6R+9PVQYZDZUQUiOSapiecrWdniUU=; b=W4VH4UaNqTVeE4v+oqQ7pJOkJx
+	m0MFcVHbxa2rZ2qyfAhc0AI37K/abPeez97p1zlQ2IziRqftW27aSH5VeFJloPPa9LSPMpXCjw/uv
+	SuOQ53YCnQgat9lrGGXxT/3cB1xIZ1PNb8YJJi3qLzS6lgWx1i5COuJs7zFL2wpgK/1Q=;
+Subject: Re: [PATCH] xen/arm: domain_build: Ignore device nodes with invalid
+ addresses
+From: Julien Grall <julien@xen.org>
+To: Elliott Mitchell <ehem+xen@m5p.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <YBmQQ3Tzu++AadKx@mattapan.m5p.com>
+ <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org>
+Message-ID: <b6d342f8-c833-db88-9808-cdc946999300@xen.org>
+Date: Tue, 2 Feb 2021 19:21:14 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <a422c04c-f908-6fb6-f2de-fea7b18a6e7d@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-For now, simply try to map 40 frames of grant table.  This catches most of the
-basic errors with resource sizes found and fixed through the 4.15 dev window.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Oleksandr <olekstysh@gmail.com>
 
-Fails against current staging:
+On 02/02/2021 18:12, Julien Grall wrote:
+> Hi,
+> 
+> On 02/02/2021 17:47, Elliott Mitchell wrote:
+>> The handle_device() function has been returning failure upon
+>> encountering a device address which was invalid.  A device tree which
+>> had such an entry has now been seen in the wild.  As it causes no
+>> failures to simply ignore the entries, ignore them. >
+>> Signed-off-by: Elliott Mitchell <ehem+xenn@m5p.com>
+>>
+>> ---
+>> I'm starting to suspect there are an awful lot of places in the various
+>> domain_build.c files which should simply ignore errors.  This is now the
+>> second place I've encountered in 2 months where ignoring errors was the
+>> correct action.
+> 
+> Right, as a counterpoint, we run Xen on Arm HW for several years now and 
+> this is the first time I heard about issue parsing the DT. So while I 
+> appreciate that you are eager to run Xen on the RPI...
+> 
+>>  I know failing in case of error is an engineer's
+>> favorite approach, but there seem an awful lot of harmless failures
+>> causing panics.
+>>
+>> This started as the thread "[RFC PATCH] xen/arm: domain_build: Ignore
+>> empty memory bank".  Now it seems clear the correct approach is to simply
+>> ignore these entries.
+> 
+> ... we first need to fully understand the issues. Here a few questions:
+>     1) Can you provide more information why you believe the address is 
+> invalid?
+>     2) How does Linux use the node?
+>     3) Is it happening with all the RPI DT? If not, what are the 
+> differences?
 
-  XENMEM_acquire_resource tests
-  Test x86 PV
-    d7: grant table
-      Fail: Map 7 - Argument list too long
-  Test x86 PVH
-    d8: grant table
-      Fail: Map 7 - Argument list too long
+So I had another look at the device-tree you provided earlier on. The 
+node is the following (copied directly from the DTS):
 
-The fix has already been posted:
-  [PATCH v9 01/11] xen/memory: Fix mapping grant tables with XENMEM_acquire_resource
+&pcie0 {
+         pci@1,0 {
+                 #address-cells = <3>;
+                 #size-cells = <2>;
+                 ranges;
 
-and the fixed run is:
+                 reg = <0 0 0 0 0>;
 
-  XENMEM_acquire_resource tests
-  Test x86 PV
-    d7: grant table
-  Test x86 PVH
-    d8: grant table
+                 usb@1,0 {
+                         reg = <0x10000 0 0 0 0>;
+                         resets = <&reset 
+RASPBERRYPI_FIRMWARE_RESET_ID_USB>;
+                 };
+         };
+};
 
-ARM folk: would you mind testing this?  I'm pretty sure the create parameters
-are suitable, but I don't have any way to test this.
+pcie0: pcie@7d500000 {
+    compatible = "brcm,bcm2711-pcie";
+    reg = <0x0 0x7d500000  0x0 0x9310>;
+    device_type = "pci";
+    #address-cells = <3>;
+    #interrupt-cells = <1>;
+    #size-cells = <2>;
+    interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+                 <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
+    interrupt-names = "pcie", "msi";
+    interrupt-map-mask = <0x0 0x0 0x0 0x7>;
+    interrupt-map = <0 0 0 1 &gicv2 GIC_SPI 143
+                                                      IRQ_TYPE_LEVEL_HIGH>;
+    msi-controller;
+    msi-parent = <&pcie0>;
 
-I've got more plans for this, but insufficient time right now.
----
- tools/tests/Makefile                 |   1 +
- tools/tests/resource/.gitignore      |   1 +
- tools/tests/resource/Makefile        |  40 ++++++++++
- tools/tests/resource/test-resource.c | 138 +++++++++++++++++++++++++++++++++++
- 4 files changed, 180 insertions(+)
- create mode 100644 tools/tests/resource/.gitignore
- create mode 100644 tools/tests/resource/Makefile
- create mode 100644 tools/tests/resource/test-resource.c
+    ranges = <0x02000000 0x0 0xc0000000 0x6 0x00000000
+              0x0 0x40000000>;
+    /*
+     * The wrapper around the PCIe block has a bug
+     * preventing it from accessing beyond the first 3GB of
+     * memory.
+     */
+    dma-ranges = <0x02000000 0x0 0x00000000 0x0 0x00000000
+                  0x0 0xc0000000>;
+    brcm,enable-ssc;
+};
 
-diff --git a/tools/tests/Makefile b/tools/tests/Makefile
-index fc9b715951..c45b5fbc1d 100644
---- a/tools/tests/Makefile
-+++ b/tools/tests/Makefile
-@@ -2,6 +2,7 @@ XEN_ROOT = $(CURDIR)/../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
- SUBDIRS-y :=
-+SUBDIRS-y := resource
- SUBDIRS-$(CONFIG_X86) += cpu-policy
- SUBDIRS-$(CONFIG_X86) += mce-test
- ifneq ($(clang),y)
-diff --git a/tools/tests/resource/.gitignore b/tools/tests/resource/.gitignore
-new file mode 100644
-index 0000000000..4872e97d4b
---- /dev/null
-+++ b/tools/tests/resource/.gitignore
-@@ -0,0 +1 @@
-+test-resource
-diff --git a/tools/tests/resource/Makefile b/tools/tests/resource/Makefile
-new file mode 100644
-index 0000000000..8a3373e786
---- /dev/null
-+++ b/tools/tests/resource/Makefile
-@@ -0,0 +1,40 @@
-+XEN_ROOT = $(CURDIR)/../../..
-+include $(XEN_ROOT)/tools/Rules.mk
-+
-+TARGET := test-resource
-+
-+.PHONY: all
-+all: $(TARGET)
-+
-+.PHONY: run
-+run: $(TARGET)
-+	./$(TARGET)
-+
-+.PHONY: clean
-+clean:
-+	$(RM) -f -- *.o .*.d .*.d2 $(TARGET)
-+
-+.PHONY: distclean
-+distclean: clean
-+	$(RM) -f -- *~
-+
-+.PHONY: install
-+install: all
-+
-+.PHONY: uninstall
-+uninstall:
-+
-+CFLAGS += -Werror -D__XEN_TOOLS__
-+CFLAGS += $(CFLAGS_xeninclude)
-+CFLAGS += $(CFLAGS_libxenctrl)
-+CFLAGS += $(CFLAGS_libxenforeginmemory)
-+CFLAGS += $(APPEND_CFLAGS)
-+
-+LDFLAGS += $(LDLIBS_libxenctrl)
-+LDFLAGS += $(LDLIBS_libxenforeignmemory)
-+LDFLAGS += $(APPEND_LDFLAGS)
-+
-+test-resource: test-resource.o
-+	$(CC) $(LDFLAGS) -o $@ $<
-+
-+-include $(DEPS_INCLUDE)
-diff --git a/tools/tests/resource/test-resource.c b/tools/tests/resource/test-resource.c
-new file mode 100644
-index 0000000000..81a2a5cd12
---- /dev/null
-+++ b/tools/tests/resource/test-resource.c
-@@ -0,0 +1,138 @@
-+#include <err.h>
-+#include <errno.h>
-+#include <error.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <sys/mman.h>
-+
-+#include <xenctrl.h>
-+#include <xenforeignmemory.h>
-+#include <xendevicemodel.h>
-+#include <xen-tools/libs.h>
-+
-+static unsigned int nr_failures;
-+#define fail(fmt, ...)                          \
-+({                                              \
-+    nr_failures++;                              \
-+    (void)printf(fmt, ##__VA_ARGS__);           \
-+})
-+
-+static xc_interface *xch;
-+static xenforeignmemory_handle *fh;
-+static xendevicemodel_handle *dh;
-+
-+static void test_gnttab(uint32_t domid, unsigned int nr_frames)
-+{
-+    xenforeignmemory_resource_handle *res;
-+    void *addr = NULL;
-+    size_t size;
-+    int rc;
-+
-+    printf("  d%u: grant table\n", domid);
-+
-+    rc = xenforeignmemory_resource_size(
-+        fh, domid, XENMEM_resource_grant_table,
-+        XENMEM_resource_grant_table_id_shared, &size);
-+    if ( rc )
-+        return fail("    Fail: Get size: %d - %s\n", errno, strerror(errno));
-+
-+    if ( (size >> XC_PAGE_SHIFT) != nr_frames )
-+        return fail("    Fail: Get size: expected %u frames, got %zu\n",
-+                    nr_frames, size >> XC_PAGE_SHIFT);
-+
-+    res = xenforeignmemory_map_resource(
-+        fh, domid, XENMEM_resource_grant_table,
-+        XENMEM_resource_grant_table_id_shared, 0, size >> XC_PAGE_SHIFT,
-+        &addr, PROT_READ | PROT_WRITE, 0);
-+    if ( !res )
-+        return fail("    Fail: Map %d - %s\n", errno, strerror(errno));
-+
-+    rc = xenforeignmemory_unmap_resource(fh, res);
-+    if ( rc )
-+        return fail("    Fail: Unmap %d - %s\n", errno, strerror(errno));
-+}
-+
-+static void test_domain_configurations(void)
-+{
-+    static struct test {
-+        const char *name;
-+        struct xen_domctl_createdomain create;
-+    } tests[] = {
-+#if defined(__x86_64__) || defined(__i386__)
-+        {
-+            .name = "x86 PV",
-+            .create = {
-+                .max_vcpus = 2,
-+                .max_grant_frames = 40,
-+            },
-+        },
-+        {
-+            .name = "x86 PVH",
-+            .create = {
-+                .flags = XEN_DOMCTL_CDF_hvm,
-+                .max_vcpus = 2,
-+                .max_grant_frames = 40,
-+                .arch = {
-+                    .emulation_flags = XEN_X86_EMU_LAPIC,
-+                },
-+            },
-+        },
-+#elif defined(__aarch64__) || defined(__arm__)
-+        {
-+            .name = "ARM",
-+            .create = {
-+                .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
-+                .max_vcpus = 2,
-+                .max_grant_frames = 40,
-+            },
-+        },
-+#endif
-+    };
-+
-+    for ( unsigned int i = 0; i < ARRAY_SIZE(tests); ++i )
+The interpretation of "reg" depends on the context. In this case, we are 
+trying to interpret as a memory address from the CPU PoV when it has a 
+different meaning (I am not exactly sure what).
+
+In fact, you are lucky that Xen doesn't manage to interpret it. Xen 
+should really stop trying to look region to map when it discover a PCI 
+bus. I wrote a quick hack patch that should ignore it:
+
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 374bf655ee34..937fd1e387b7 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -1426,7 +1426,7 @@ static int __init handle_device(struct domain *d, 
+struct dt_device_node *dev,
+
+  static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
+                                struct dt_device_node *node,
+-                              p2m_type_t p2mt)
++                              p2m_type_t p2mt, bool pci_bus)
+  {
+      static const struct dt_device_match skip_matches[] __initconst =
+      {
+@@ -1532,9 +1532,14 @@ static int __init handle_node(struct domain *d, 
+struct kernel_info *kinfo,
+                 "WARNING: Path %s is reserved, skip the node as we may 
+re-use the path.\n",
+                 path);
+
+-    res = handle_device(d, node, p2mt);
+-    if ( res)
+-        return res;
++    if ( !pci_bus )
 +    {
-+        struct test *t = &tests[i];
-+        uint32_t domid = 0;
-+        int rc;
++        res = handle_device(d, node, p2mt);
++        if ( res)
++           return res;
 +
-+        printf("Test %s\n", t->name);
-+
-+        rc = xc_domain_create(xch, &domid, &t->create);
-+        if ( rc )
-+        {
-+            if ( errno == EINVAL || errno == EOPNOTSUPP )
-+                printf("  Skip: %d - %s\n", errno, strerror(errno));
-+            else
-+                fail("  Domain create failure: %d - %s\n",
-+                     errno, strerror(errno));
-+            continue;
-+        }
-+
-+        test_gnttab(domid, t->create.max_grant_frames);
-+
-+        rc = xc_domain_destroy(xch, domid);
-+        if ( rc )
-+            fail("  Failed to destroy domain: %d - %s\n",
-+                 errno, strerror(errno));
++        pci_bus = dt_device_type_is_equal(node, "pci");
 +    }
-+}
-+
-+int main(int argc, char **argv)
-+{
-+    printf("XENMEM_acquire_resource tests\n");
-+
-+    xch = xc_interface_open(NULL, NULL, 0);
-+    fh = xenforeignmemory_open(NULL, 0);
-+    dh = xendevicemodel_open(NULL, 0);
-+
-+    if ( !xch )
-+        err(1, "xc_interface_open");
-+    if ( !fh )
-+        err(1, "xenforeignmemory_open");
-+    if ( !dh )
-+        err(1, "xendevicemodel_open");
-+
-+    test_domain_configurations();
-+
-+    return !!nr_failures;
-+}
--- 
-2.11.0
 
+      /*
+       * The property "name" is used to have a different name on older FDT
+@@ -1554,7 +1559,7 @@ static int __init handle_node(struct domain *d, 
+struct kernel_info *kinfo,
+
+      for ( child = node->child; child != NULL; child = child->sibling )
+      {
+-        res = handle_node(d, kinfo, child, p2mt);
++        res = handle_node(d, kinfo, child, p2mt, pci_bus);
+          if ( res )
+              return res;
+      }
+@@ -2192,7 +2197,7 @@ static int __init prepare_dtb_hwdom(struct domain 
+*d, struct kernel_info *kinfo)
+
+      fdt_finish_reservemap(kinfo->fdt);
+
+-    ret = handle_node(d, kinfo, dt_host, default_p2mt);
++    ret = handle_node(d, kinfo, dt_host, default_p2mt, false);
+      if ( ret )
+          goto err;
+
+A less hackish possibility would be to modify dt_number_of_address() and 
+return 0 when the device is a child of a PCI below.
+
+Stefano, do you have any opinions?
+
+Cheers,
+
+-- 
+Julien Grall
 
