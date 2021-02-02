@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBEF830B90B
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 09:00:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80388.147059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4632530B946
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 09:12:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80392.147072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6qat-00056L-Cs; Tue, 02 Feb 2021 07:59:27 +0000
+	id 1l6qn7-0007fH-LL; Tue, 02 Feb 2021 08:12:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80388.147059; Tue, 02 Feb 2021 07:59:27 +0000
+Received: by outflank-mailman (output) from mailman id 80392.147072; Tue, 02 Feb 2021 08:12:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6qat-00054z-9Y; Tue, 02 Feb 2021 07:59:27 +0000
-Received: by outflank-mailman (input) for mailman id 80388;
- Tue, 02 Feb 2021 07:59:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1l6qar-00054u-QJ
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 07:59:25 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l6qaq-0008Bt-Ug; Tue, 02 Feb 2021 07:59:24 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1l6qaq-0005Vl-P8; Tue, 02 Feb 2021 07:59:24 +0000
+	id 1l6qn7-0007es-I9; Tue, 02 Feb 2021 08:12:05 +0000
+Received: by outflank-mailman (input) for mailman id 80392;
+ Tue, 02 Feb 2021 08:12:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IB5w=HE=unikie.com=jukka.kaartinen@srs-us1.protection.inumbo.net>)
+ id 1l6qn6-0007en-0X
+ for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 08:12:04 +0000
+Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0ae982b5-e2d2-40f2-8c3c-abf95db9ca2c;
+ Tue, 02 Feb 2021 08:12:02 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id e15so6489830lft.13
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Feb 2021 00:12:02 -0800 (PST)
+Received: from [192.168.1.76] (91-153-193-91.elisa-laajakaista.fi.
+ [91.153.193.91])
+ by smtp.gmail.com with ESMTPSA id i2sm4236978ljn.39.2021.02.02.00.12.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 02 Feb 2021 00:12:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,91 +42,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	MIME-Version:Date:Message-ID:From:References:To:Subject;
-	bh=PMmzMAArqVH1l6YZzvwo1qCQH2Z4azKlIqLB2VxigfA=; b=peXsMGrjbb0hYJLmsGEVnUoqoS
-	vh8onzuImGs9EcpLqmHPitSZYO0f2ZNsKDaO2efvwlbiUajLMGGiolWG7DCgI+sy0vc47RNP+uSlM
-	5Ir2G4SPu2LCVuE9hhFhsvZPdROcbyJh4Y6Vq3/ED3jhPFL82JGN13+VWdt3+hxvM9YY=;
-Subject: Re: Null scheduler and vwfi native problem
-To: Dario Faggioli <dfaggioli@suse.com>,
- =?UTF-8?Q?Anders_T=c3=b6rnqvist?= <anders.tornqvist@codiax.se>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <fe3dd9f0-b035-01fe-3e01-ddf065f182ab@codiax.se>
- <207305e4e2998614767fdcc5ad83ced6de982820.camel@suse.com>
- <e85548f4-e03b-4717-3495-9ed472ed03c9@xen.org>
- <e18ba69efd0d12fc489144024305fd3c6102c330.camel@suse.com>
- <e37fe8a9-c633-3572-e273-2fd03b35b791@codiax.se>
- <744ddde6-a228-82fc-76b9-401926d7963b@xen.org>
- <d92c4191fb81e6d1de636f281c8624d68f8d14fc.camel@suse.com>
- <c9a4e132-5bca-aa76-ab8b-bfeee1cd5a9e@codiax.se>
- <f52baf12308d71b96d0d9be1c7c382a3c5efafbc.camel@suse.com>
- <18ef4619-19ae-90d2-459c-9b5282b49176@codiax.se>
- <a9d80e262760f6692f7086c9b6a0622caf19e795.camel@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <4760cbac-b006-78bc-b064-3265384f6707@xen.org>
-Date: Tue, 2 Feb 2021 07:59:23 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.7.0
+X-Inumbo-ID: 0ae982b5-e2d2-40f2-8c3c-abf95db9ca2c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=unikie-com.20150623.gappssmtp.com; s=20150623;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=mBeMdGCzCotqagX+j+uVvuRd6wPgDYEDThhCzjwhkKk=;
+        b=zVkG3XPssK5AwfuM4qaZRznpmwf9bN7Ncsd8o8+OZ2sCEhSraA02l2u9/yF48Y7KfB
+         53Mzkgxz6pZmQ9WSGI8L8shP1bMIrvlNy/VHOROE4gBPk3ynVWITWwpupSos6p2nfDAu
+         IE5YJtR3tKUporJx5CWcIf/LpmMPpaGveEf+roedMEAgdraPejuNQeRnhnKMOoYvPQfT
+         Rf4NA1yEzfyDmmYBzTkwRQqoAKAH64kHBBlfWf2HR7KMj5my1geLgvufWlsVncmp8m4t
+         K1T/bGz5KHWvnV44YA6EsO5lAL2R+GfJqfqYNFYqqz8IyTN87GKJuoPt2R+UDY6S4rDv
+         MgdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=mBeMdGCzCotqagX+j+uVvuRd6wPgDYEDThhCzjwhkKk=;
+        b=p6gATpfto6RpZMLtZi6wx2WZ61rHY4DZ3ngIALfh9GbFPhtMZLU3WPc/0SYrHc3Df7
+         lGZjmLJeDOLWNVX58M5m3SNpTQTAl/vRs3PsM0JfOLtE99hYIJC1pD36B85uCSMgwme7
+         d8dFwoopSafPF9LcRQAbNYR2KxGmrcDEG6RJvxks8lvvcwNmuZgZpwdPK6HHW2yTUaGc
+         uRmm4WTwbjCv9xW8PeWlYP6Ay3G3R3jUzJXJK0sEoSu/jfWU6VZqGg+KOzHHJXMaWAw6
+         ht3rXK/ELulg3dWK/RU8fk249ta+tpIQxiEmWtPPCAUnaMF2znB04KIYAXXEwaHr9leO
+         Zm8A==
+X-Gm-Message-State: AOAM532j0VcH0411LsBcoQSSRTh3Xnby7nk02FlwTfyNOHToYvpor9yQ
+	sdHgF5VqA5l5naFcrne/2KnxsQ==
+X-Google-Smtp-Source: ABdhPJyyjJgzZxu+y0g66+uj+Jn1Ixix1LE7vHy8gVURNnNn70/dxYOIg7d/0E1x8Swwya18iDiyVA==
+X-Received: by 2002:a19:54d:: with SMTP id 74mr10585440lff.258.1612253521340;
+        Tue, 02 Feb 2021 00:12:01 -0800 (PST)
+Subject: Re: Question about xen and Rasp 4B
+To: Roman Shaposhnik <roman@zededa.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <CAFnJQOouOUox_kBB66sfSuriUiUSvmhSjPxucJjgrB9DdLOwkg@mail.gmail.com>
+ <alpine.DEB.2.21.2101221449480.14612@sstabellini-ThinkPad-T480s>
+ <CAFnJQOqoqj6mWwR61ZsZj1JxRrdisFtH_87YXCeW619GM+L21Q@mail.gmail.com>
+ <alpine.DEB.2.21.2101251646470.20638@sstabellini-ThinkPad-T480s>
+ <CAFnJQOpuehAWde5Ta4ud9CGufwZ-K+=60epzSdKc_DnS75O2iA@mail.gmail.com>
+ <alpine.DEB.2.21.2101261149210.2568@sstabellini-ThinkPad-T480s>
+ <CAFnJQOpgRM-3_aZsnv36w+aQV=gMcBA18ZEw_-man7zmYb4O4Q@mail.gmail.com>
+ <5a33e663-4a6d-6247-769a-8f14db4810f2@xen.org>
+ <b9247831-335a-f791-1664-abed6b400a42@unikie.com>
+ <CAMmSBy-54qtu_oVVT=KB8GeKP0SW0uK+4wQ_LooHE0y_MZKJQg@mail.gmail.com>
+From: Jukka Kaartinen <jukka.kaartinen@unikie.com>
+Message-ID: <3ec2b0cb-3685-384e-94df-28eaf8b57c42@unikie.com>
+Date: Tue, 2 Feb 2021 10:12:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <a9d80e262760f6692f7086c9b6a0622caf19e795.camel@suse.com>
+In-Reply-To: <CAMmSBy-54qtu_oVVT=KB8GeKP0SW0uK+4wQ_LooHE0y_MZKJQg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-Hi Dario,
+Hi Roman,
 
-On 30/01/2021 17:59, Dario Faggioli wrote:
-> On Fri, 2021-01-29 at 09:08 +0100, Anders Törnqvist wrote:
->> On 1/26/21 11:31 PM, Dario Faggioli wrote:
->>> Thanks again for letting us see these logs.
->>
->> Thanks for the attention to this :-)
->>
->> Any ideas for how to solve it?
->>
-> So, you're up for testing patches, right?
+>>>
+>> Good catch.
+>> GPU works now and I can start X! Thanks! I was also able to create domU
+>> that runs Raspian OS.
 > 
-> How about applying these two, and letting me know what happens? :-D
+> This is very interesting that you were able to achieve that - congrats!
 > 
-> They are on top of current staging. I can try to rebase on something
-> else, if it's easier for you to test.
-> 
-> Besides being attached, they're also available here:
-> 
-> https://gitlab.com/xen-project/people/dfaggioli/xen/-/tree/rcu-quiet-fix
-> 
-> I could not test them properly on ARM, as I don't have an ARM system
-> handy, so everything is possible really... just let me know.
-> 
-> It should at least build fine, AFAICT from here:
-> 
-> https://gitlab.com/xen-project/people/dfaggioli/xen/-/pipelines/249101213
-> 
-> Julien, back in:
-> 
->   https://lore.kernel.org/xen-devel/315740e1-3591-0e11-923a-718e06c36445@arm.com/
-> 
-> 
-> you said I should hook in enter_hypervisor_head(),
-> leave_hypervisor_tail(). Those functions are gone now and looking at
-> how the code changed, this is where I figured I should put the calls
-> (see the second patch). But feel free to educate me otherwise.
+> Now, sorry to be a bit dense -- but since this thread went into all
+> sorts of interesting
+> directions all at once -- I just have a very particular question: what is exact
+> combination of versions of Xen, Linux kernel and a set of patches that went
+> on top that allowed you to do that? I'd love to obviously see it
+> productized in Xen
+> upstream, but for now -- I'd love to make available to Project EVE/Xen community
+> since there seems to be a few folks interested in EVE/Xen combo being able to
+> do that.
 
-enter_hypervisor_from_guest() and leave_hypervisor_to_guest() are the 
-new functions.
+I have tried Xen Release 4.14.0, 4.14.1 and master (from week 4, 2021).
 
-I have had a quick look at your place. The RCU call in 
-leave_hypervisor_to_guest() needs to be placed just after the last call 
-to check_for_pcpu_work().
+Kernel rpi-5.9.y and rpi-5.10.y branches from 
+https://github.com/raspberrypi/linux
 
-Otherwise, you may be preempted and keep the RCU quiet.
+and
 
-The placement in enter_hypervisor_from_guest() doesn't matter too much, 
-although I would consider to call it as a late as possible.
+U-boot (master).
 
-Cheers,
+For the GPU to work it was enough to disable swiotlb from the kernel(s) 
+as suggested in this thread.
 
--- 
-Julien Grall
+If you use Xen master then you need to revert the 
+25849c8b16f2a5b7fcd0a823e80a5f1b590291f9. Apparently v3d uses same 
+resources and will not start.
+
+I was able to get most of the combinations to work without any big efforts.
+In case you use USB SSD U-boot needs a fix if you use 5.9 kernel.
+The 5.10 works with the lates Xen master but then you need one small 
+workaround to the xen since there is address that Xen cannot map. Some 
+usb address cannot be found (address was 0 if recall correctly). I just 
+by passed the error:
+
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index e824ba34b0..3e8a175f2e 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -1409,7 +1409,7 @@ static int __init handle_device(struct domain *d, 
+struct dt_device_node *dev,
+          {
+              printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
+                     i, dt_node_full_name(dev));
+-            return res;
++            continue; //return res;
+          }
+
+          res = map_range_to_domain(dev, addr, size, &mr_data);
+
 
