@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4150E30B630
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 05:09:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80329.146880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE16230B651
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 05:17:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80335.146901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6mzQ-0006RO-MD; Tue, 02 Feb 2021 04:08:32 +0000
+	id 1l6n81-0007Vk-KO; Tue, 02 Feb 2021 04:17:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80329.146880; Tue, 02 Feb 2021 04:08:32 +0000
+Received: by outflank-mailman (output) from mailman id 80335.146901; Tue, 02 Feb 2021 04:17:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6mzQ-0006Qw-Hu; Tue, 02 Feb 2021 04:08:32 +0000
-Received: by outflank-mailman (input) for mailman id 80329;
- Tue, 02 Feb 2021 04:08:31 +0000
+	id 1l6n81-0007VG-Ga; Tue, 02 Feb 2021 04:17:25 +0000
+Received: by outflank-mailman (input) for mailman id 80335;
+ Tue, 02 Feb 2021 04:17:24 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1l6mzO-0006Qo-UJ; Tue, 02 Feb 2021 04:08:30 +0000
+ id 1l6n80-0007V8-0l; Tue, 02 Feb 2021 04:17:24 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1l6mzO-0002YR-P8; Tue, 02 Feb 2021 04:08:30 +0000
+ id 1l6n7z-0002hN-Qx; Tue, 02 Feb 2021 04:17:23 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1l6mzO-00089d-Im; Tue, 02 Feb 2021 04:08:30 +0000
+ id 1l6n7z-00005g-F5; Tue, 02 Feb 2021 04:17:23 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1l6mzO-000311-IE; Tue, 02 Feb 2021 04:08:30 +0000
+ id 1l6n7z-0001nB-Eb; Tue, 02 Feb 2021 04:17:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,77 +43,134 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=SP2mRNvxIy+dapOEmJVaZSWo64nLNNsBrBDFQGuR2wI=; b=dF/n8f8V8to89QHkm2SlJ/FxS9
-	xn6I1fgUn15ffc6HNbKniUhmG9K0Ihn4THukk8bQNgpYxRFwfNBn0BLNzgH9uOgLM9gomRo1c+MT6
-	IMLLHEvtLtNHw6Vzc+olDHNFJ4rPqx0OsHTH2a0HNz0SYiF5Dd3xi7pcPZoejWjGjckA=;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=a+1TD2R8zqpo6AN8wxmd1LoA7+m96HIqtQRLKlMSJf0=; b=5y8IDNkZFpAu+cYNI1oEsG03CH
+	nPm5Qw3vJ0Onluqie0ah0IUK3QlREVAW524L02l6K7cg5Ol4V9J8Mh1DyebiLVDzBQn9Jho7C5Kn/
+	0tu94ifWdTCQBwdahiIj0KT6E5mUWNXkt0Z4U6zRNGD0dxpb4fjlD781GKc0eidy2fvY=;
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-158930-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 158930: regressions - trouble: blocked/fail
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=ffbb8aa282de262403275f2395d8540818cf576e
-X-Osstest-Versions-That:
-    xen=9dc687f155a57216b83b17f9cde55dd43e06b0cd
+Subject: [xen-unstable-smoke bisection] complete build-arm64-xsm
+Message-Id: <E1l6n7z-0001nB-Eb@osstest.test-lab.xenproject.org>
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 02 Feb 2021 04:08:30 +0000
+Date: Tue, 02 Feb 2021 04:17:23 +0000
 
-flight 158930 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/158930/
+branch xen-unstable-smoke
+xenbranch xen-unstable-smoke
+job build-arm64-xsm
+testid xen-build
 
-Regressions :-(
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Tests which did not succeed and are blocking,
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  ffbb8aa282de262403275f2395d8540818cf576e
+  Bug not present: 419cd07895891c6642f29085aee07be72413f08c
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/158933/
+
+
+  commit ffbb8aa282de262403275f2395d8540818cf576e
+  Author: Roger Pau Monne <roger.pau@citrix.com>
+  Date:   Mon Feb 1 16:53:17 2021 +0100
+  
+      xenstore: fix build on {Net/Free}BSD
+      
+      The endian.h header is in sys/ on NetBSD and FreeBSD.
+      
+      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+      Acked-by: Ian Jackson <iwj@xenproject.org>
+      Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build --summary-out=tmp/158933.bisection-summary --basis-template=158804 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-arm64-xsm xen-build
+Searching for failure / basis pass:
+ 158930 fail [host=laxton0] / 158804 [host=rochester1] 158798 ok.
+Failure / basis pass flights: 158930 / 158798
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+Basis pass 7ea428895af2840d85c524f0bd11a38aac308308 e402441d4c02908cea9c14392fd7c2831c0456d0
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen.git#7ea428895af2840d85c524f0bd11a38aac308308-7ea428895af2840d85c524f0bd11a38aac308308 git://xenbits.xen.org/xen.git#e402441d4c02908cea9c14392fd7c2831c0456d0-ffbb8aa282de262403275f2395d8540818cf576e
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 158798 pass 7ea428895af2840d85c524f0bd11a38aac308308 e402441d4c02908cea9c14392fd7c2831c0456d0
+ 158804 [host=rochester1]
+ 158897 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+ 158900 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+ 158911 pass 7ea428895af2840d85c524f0bd11a38aac308308 e402441d4c02908cea9c14392fd7c2831c0456d0
+ 158913 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+ 158914 pass 7ea428895af2840d85c524f0bd11a38aac308308 6fe64b150ce519d1952edc5da452e1d143cef4cc
+ 158909 [host=laxton1]
+ 158916 pass 7ea428895af2840d85c524f0bd11a38aac308308 9dc687f155a57216b83b17f9cde55dd43e06b0cd
+ 158917 [host=laxton1]
+ 158918 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+ 158919 [host=laxton1]
+ 158921 pass 7ea428895af2840d85c524f0bd11a38aac308308 bbed98e7cedcd5072671c21605330075740382d3
+ 158924 pass 7ea428895af2840d85c524f0bd11a38aac308308 419cd07895891c6642f29085aee07be72413f08c
+ 158923 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+ 158925 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+ 158926 pass 7ea428895af2840d85c524f0bd11a38aac308308 419cd07895891c6642f29085aee07be72413f08c
+ 158927 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+ 158930 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+ 158931 pass 7ea428895af2840d85c524f0bd11a38aac308308 419cd07895891c6642f29085aee07be72413f08c
+ 158933 fail 7ea428895af2840d85c524f0bd11a38aac308308 ffbb8aa282de262403275f2395d8540818cf576e
+Searching for interesting versions
+ Result found: flight 158798 (pass), for basis pass
+ For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 419cd07895891c6642f29085aee07be72413f08c, results HASH(0x55b718daeee0) HASH(0x55b718dce0e0) HASH(0x55b718dd0a10) For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 bbed98e7cedcd5072671c21605330075740382d3, results HASH(0x55b718dc5018) For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 9dc687f155a57216b83b17f9cde55dd43e06b0cd, results HASH(0x\
+ 55b718dbf2d8) For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 6fe64b150ce519d1952edc5da452e1d143cef4cc, results HASH(0x55b718db3698) For basis failure, parent search stopping at 7ea428895af2840d85c524f0bd11a38aac308308 e402441d4c02908cea9c14392fd7c2831c0456d0, results HASH(0x55b718db0be8) HASH(0x55b718dbacc8) Result found: flight 158897 (fail), for basis failure (at ancestor ~988)
+ Repro found: flight 158911 (pass), for basis pass
+ Repro found: flight 158913 (fail), for basis failure
+ 0 revisions at 7ea428895af2840d85c524f0bd11a38aac308308 419cd07895891c6642f29085aee07be72413f08c
+No revisions left to test, checking graph state.
+ Result found: flight 158924 (pass), for last pass
+ Result found: flight 158925 (fail), for first failure
+ Repro found: flight 158926 (pass), for last pass
+ Repro found: flight 158927 (fail), for first failure
+ Repro found: flight 158931 (pass), for last pass
+ Repro found: flight 158933 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  ffbb8aa282de262403275f2395d8540818cf576e
+  Bug not present: 419cd07895891c6642f29085aee07be72413f08c
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/158933/
+
+
+  commit ffbb8aa282de262403275f2395d8540818cf576e
+  Author: Roger Pau Monne <roger.pau@citrix.com>
+  Date:   Mon Feb 1 16:53:17 2021 +0100
+  
+      xenstore: fix build on {Net/Free}BSD
+      
+      The endian.h header is in sys/ on NetBSD and FreeBSD.
+      
+      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+      Acked-by: Ian Jackson <iwj@xenproject.org>
+      Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+158933: tolerable ALL FAIL
+
+flight 158933 xen-unstable-smoke real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158933/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
 including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 158804
- build-arm64-xsm               6 xen-build                fail REGR. vs. 158804
- build-armhf                   6 xen-build                fail REGR. vs. 158804
+ build-arm64-xsm               6 xen-build               fail baseline untested
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- xen                  ffbb8aa282de262403275f2395d8540818cf576e
-baseline version:
- xen                  9dc687f155a57216b83b17f9cde55dd43e06b0cd
-
-Last test of basis   158804  2021-01-30 04:00:24 Z    3 days
-Failing since        158892  2021-02-01 16:00:25 Z    0 days    7 attempts
-Testing same since   158897  2021-02-01 19:02:25 Z    0 days    6 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <iwj@xenproject.org>
-  Manuel Bouyer <bouyer@netbsd.org>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
 
 jobs:
  build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
 
 
 ------------------------------------------------------------
@@ -131,57 +188,4 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-
-Not pushing.
-
-------------------------------------------------------------
-commit ffbb8aa282de262403275f2395d8540818cf576e
-Author: Roger Pau Monne <roger.pau@citrix.com>
-Date:   Mon Feb 1 16:53:17 2021 +0100
-
-    xenstore: fix build on {Net/Free}BSD
-    
-    The endian.h header is in sys/ on NetBSD and FreeBSD.
-    
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Acked-by: Ian Jackson <iwj@xenproject.org>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-commit 419cd07895891c6642f29085aee07be72413f08c
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Mon Feb 1 15:18:36 2021 +0000
-
-    xenpmd.c: Remove hard tab
-    
-    bbed98e7cedc "xenpmd.c: use dynamic allocation" had a hard tab.
-    I thought we had fixed that and I thought I had checked.
-    Remove it now.
-    
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
-
-commit bbed98e7cedcd5072671c21605330075740382d3
-Author: Manuel Bouyer <bouyer@netbsd.org>
-Date:   Sat Jan 30 19:27:10 2021 +0100
-
-    xenpmd.c: use dynamic allocation
-    
-    On NetBSD, d_name is larger than 256, so file_name[284] may not be large
-    enough (and gcc emits a format-truncation error).
-    Use asprintf() instead of snprintf() on a static on-stack buffer.
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-    
-    Plus
-    
-    define GNU_SOURCE for asprintf()
-    
-    Harmless on NetBSD.
-    
-    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
-    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-(qemu changes not included)
 
