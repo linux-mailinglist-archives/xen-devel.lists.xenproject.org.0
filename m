@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6520830C60C
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 17:39:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80655.147655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8F5430C62C
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 17:42:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80656.147667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6yhx-00026q-V2; Tue, 02 Feb 2021 16:39:17 +0000
+	id 1l6yl1-0002ut-Db; Tue, 02 Feb 2021 16:42:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80655.147655; Tue, 02 Feb 2021 16:39:17 +0000
+Received: by outflank-mailman (output) from mailman id 80656.147667; Tue, 02 Feb 2021 16:42:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6yhx-00026R-S0; Tue, 02 Feb 2021 16:39:17 +0000
-Received: by outflank-mailman (input) for mailman id 80655;
- Tue, 02 Feb 2021 16:39:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1l6yl1-0002uU-AR; Tue, 02 Feb 2021 16:42:27 +0000
+Received: by outflank-mailman (input) for mailman id 80656;
+ Tue, 02 Feb 2021 16:42:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2iTi=HE=redhat.com=pbonzini@srs-us1.protection.inumbo.net>)
- id 1l6yhw-00026M-Aq
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 16:39:16 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [63.128.21.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 34753819-a19f-4505-9d2b-c72fed66008a;
- Tue, 02 Feb 2021 16:39:15 +0000 (UTC)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-500-cpCsUiTMPzWIWHKI7sQoTA-1; Tue, 02 Feb 2021 11:39:13 -0500
-Received: by mail-ed1-f69.google.com with SMTP id f21so9907421edx.23
- for <xen-devel@lists.xenproject.org>; Tue, 02 Feb 2021 08:39:12 -0800 (PST)
-Received: from ?IPv6:2001:b07:6468:f312:c8dd:75d4:99ab:290a?
- ([2001:b07:6468:f312:c8dd:75d4:99ab:290a])
- by smtp.gmail.com with ESMTPSA id b1sm3313895eju.15.2021.02.02.08.39.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Feb 2021 08:39:10 -0800 (PST)
+ <SRS0=XtUW=HE=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1l6yl0-0002uO-9b
+ for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 16:42:26 +0000
+Received: from mail-wr1-x42a.google.com (unknown [2a00:1450:4864:20::42a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a09bd907-abea-44ab-8d69-0271c9986d12;
+ Tue, 02 Feb 2021 16:42:25 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id z6so21121453wrq.10
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Feb 2021 08:42:25 -0800 (PST)
+Received: from CBGR90WXYV0 (host86-190-149-163.range86-190.btcentralplus.com.
+ [86.190.149.163])
+ by smtp.gmail.com with ESMTPSA id b4sm32480479wrn.12.2021.02.02.08.42.23
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 02 Feb 2021 08:42:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,108 +42,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34753819-a19f-4505-9d2b-c72fed66008a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612283955;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=upnt39CyCVwBoTycKyW7rsDh22PJi9fn/RtxLu9lyuM=;
-	b=XJIj4CVuOXIbXba3uXtKtrnaOq+uQ44BWiothUsTonfEyZyMDOa0wyaJllX1KM1j0rebSs
-	NlRe+86rO/kD88PQ7gQREl3DxCPnGaQ2Hj933Hz4irAPL7Mnhg2XCCDqasiOG6JkOTsAj6
-	GbrJ964JhnmSXAV8qWOtJl8Gq46V168=
-X-MC-Unique: cpCsUiTMPzWIWHKI7sQoTA-1
+X-Inumbo-ID: a09bd907-abea-44ab-8d69-0271c9986d12
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+         :mime-version:content-transfer-encoding:thread-index
+         :content-language;
+        bh=STneyShm0vCPYM4l3wpr4D69jWlxGiJ4g4tzZ7/33lE=;
+        b=Z8h1xH9LrCIPbnUzDhB6+8OgUVkaq3lMCCgyLN0ZPUv8uKh1CGeCtexXpijdWGeEdR
+         GmuMpknz9Xi/KKlCXJNdmCykqb7XMrDbl1hQeONsplw0h5K7DxwcmeBHPTqhf/n1FwSl
+         twSkencRK6PL1ThnkyhuV9IKTwtSLwmBLvCqYEzPgYOevXeJRrABOjSSgyK7nG+nfMv7
+         LDAUDusE6mxPyKTsXFh2FcyPBev6/DzxmoHcZbXvChChWJxHY74FbieBOcnEIessfNAs
+         mk6DBnsjmySGjFkdSOqoy39WYd6OgG1pU+/6SX5SG2SNErZj1nSPVoQdbah0wjMck+ji
+         b7YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=upnt39CyCVwBoTycKyW7rsDh22PJi9fn/RtxLu9lyuM=;
-        b=jNN54bI9P6cTotgnOZvga7m0i35xIGIYp511SIPc5vvGStWnNIYF34YQBnTNvarUBO
-         bp2//dFPwO39xOW91JCNhbpmJELIYClZVM20aEhkTxGyVqsGgFz9Z5O76YcYwCVFGl00
-         c5WS15URWWjMvgTC9PHba0ZFzH23/vluMKNu8wNmH6KednAR+8BXKkjr/zGc48Zwxxyc
-         gPKUCdN9fIF+BY0QFSfzjEBj0kc9Xs966kEq8oLZhtVS0XO7oxhcBe+cX8WObczKqyF5
-         He3adK+IIUKcl+/7RtFrG1grcufHCBmh5f2dQYFJtJgxmwsIllMGEdrbdQ1BkCdl91Te
-         /bWQ==
-X-Gm-Message-State: AOAM530jIDUUrVmRyBVK/sdfMQgHQ/T4idfy3Qi8QolOrFy9/en1DEn9
-	nZJUFm+a5NRS+qoAQvgzwHPV+61aNAsynW88e8rXzlKpq5l5/Llw216OpIqSp1xpYM6/Bbpe6Gs
-	lmQr9PzrRP3G6TMn/qHBAMUOQxzk=
-X-Received: by 2002:a17:906:c049:: with SMTP id bm9mr22307617ejb.535.1612283951845;
-        Tue, 02 Feb 2021 08:39:11 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJz2tklvRYuU9l0qDykZvY93YU17wJ9cDOV5rFXjVQAhMAYZL/Panns/oGzBvmoCNoRhjmIqiA==
-X-Received: by 2002:a17:906:c049:: with SMTP id bm9mr22307596ejb.535.1612283951672;
-        Tue, 02 Feb 2021 08:39:11 -0800 (PST)
-Subject: Re: [PATCH] hw/i386/xen: Remove dead code
-To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
- qemu-devel@nongnu.org
-Cc: Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <ehabkost@redhat.com>, qemu-trivial@nongnu.org,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "qemu-trivial@nongnu.org" <qemu-trivial@nongnu.org>
-References: <20210202155644.998812-1-philmd@redhat.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Message-ID: <13e06470-e13d-31ef-f7a7-9370a01d8b1c@redhat.com>
-Date: Tue, 2 Feb 2021 17:39:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+        h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+         :subject:date:message-id:mime-version:content-transfer-encoding
+         :thread-index:content-language;
+        bh=STneyShm0vCPYM4l3wpr4D69jWlxGiJ4g4tzZ7/33lE=;
+        b=brBOZpxpdZz3PUytMXP9WfMnRBt6ODFu2GX4Gx/GC3ZdOd1gS719SnSEDmf3SLfvYi
+         pxZuMyMPLwUIZBntECg/o8GkgK0js+GWgBMHdXDxCUmAiv1cEZ3NQaiffSguNnJrOC03
+         rW3yWJwVM9HECGKLeOnfi0zhwVbKL9gS8Dp+tOVRHbi1qGb5RgLTONOAyTbt8p7y2utt
+         Ya5Q4gP3UsZTNK1kaT7u0/VA2ZvQ6VSO1km/7vZQvXLDSQn/IOrywfApql2vRmQnvGCu
+         e7dunp47unJY8hfEluSUeBAtQvyQ3h8IT++LPwnrUSDpck7kMaLqnZ4ZCGxfcaomAgOx
+         qyEQ==
+X-Gm-Message-State: AOAM530Km5r1M5KDaxm/vKnsOKwjzOqGMjQcDZ8efp4rFfdT1Iv5IZOl
+	B7ilq+P17DUKkXTbtwzuUFU=
+X-Google-Smtp-Source: ABdhPJy2nnGmtTJ3TUqoRthgCxgYu0/DthvxcvL9h7iYFq5Z3OEkSPZ7bmrdl5r8eH8nbB7nJSHkNg==
+X-Received: by 2002:adf:f891:: with SMTP id u17mr24929982wrp.253.1612284144489;
+        Tue, 02 Feb 2021 08:42:24 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+Reply-To: <paul@xen.org>
+To: =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>,
+	<linux-block@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>,
+	"'Paul Durrant'" <pdurrant@amazon.com>,
+	"'Konrad Rzeszutek Wilk'" <konrad.wilk@oracle.com>,
+	"'Jens Axboe'" <axboe@kernel.dk>,
+	"'Dongli Zhang'" <dongli.zhang@oracle.com>
+References: <20210128130441.11744-1-paul@xen.org> <YBl9ycif3bG/Y+eR@Air-de-Roger>
+In-Reply-To: <YBl9ycif3bG/Y+eR@Air-de-Roger>
+Subject: RE: [PATCH v2] xen-blkback: fix compatibility bug with single page rings
+Date: Tue, 2 Feb 2021 16:42:22 -0000
+Message-ID: <037601d6f982$61e34f80$25a9ee80$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20210202155644.998812-1-philmd@redhat.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQESWKuFsxkk/iz7Hd1VT64wNwq0EAFvpAqOq8LV10A=
+Content-Language: en-gb
 
-On 02/02/21 16:56, Philippe Mathieu-Daudé wrote:
-> 'drivers_blacklisted' is never accessed, remove it.
-> 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-> ---
->   hw/i386/xen/xen_platform.c | 13 ++-----------
->   1 file changed, 2 insertions(+), 11 deletions(-)
-> 
-> diff --git a/hw/i386/xen/xen_platform.c b/hw/i386/xen/xen_platform.c
-> index 7c4db35debb..01ae1fb1618 100644
-> --- a/hw/i386/xen/xen_platform.c
-> +++ b/hw/i386/xen/xen_platform.c
-> @@ -60,7 +60,6 @@ struct PCIXenPlatformState {
->       MemoryRegion bar;
->       MemoryRegion mmio_bar;
->       uint8_t flags; /* used only for version_id == 2 */
-> -    int drivers_blacklisted;
->       uint16_t driver_product_version;
->   
->       /* Log from guest drivers */
-> @@ -245,18 +244,10 @@ static void platform_fixed_ioport_writeb(void *opaque, uint32_t addr, uint32_t v
->   
->   static uint32_t platform_fixed_ioport_readw(void *opaque, uint32_t addr)
->   {
-> -    PCIXenPlatformState *s = opaque;
-> -
->       switch (addr) {
->       case 0:
-> -        if (s->drivers_blacklisted) {
-> -            /* The drivers will recognise this magic number and refuse
-> -             * to do anything. */
-> -            return 0xd249;
-> -        } else {
-> -            /* Magic value so that you can identify the interface. */
-> -            return 0x49d2;
-> -        }
-> +        /* Magic value so that you can identify the interface. */
-> +        return 0x49d2;
->       default:
->           return 0xffff;
->       }
-> 
+> -----Original Message-----
+> From: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> Sent: 02 February 2021 16:29
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; linux-block@vger.kernel.org; =
+linux-kernel@vger.kernel.org; Paul
+> Durrant <pdurrant@amazon.com>; Konrad Rzeszutek Wilk =
+<konrad.wilk@oracle.com>; Jens Axboe
+> <axboe@kernel.dk>; Dongli Zhang <dongli.zhang@oracle.com>
+> Subject: Re: [PATCH v2] xen-blkback: fix compatibility bug with single =
+page rings
+>=20
+> On Thu, Jan 28, 2021 at 01:04:41PM +0000, Paul Durrant wrote:
+> > From: Paul Durrant <pdurrant@amazon.com>
+> >
+> > Prior to commit 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to =
+avoid
+> > inconsistent xenstore 'ring-page-order' set by malicious blkfront"), =
+the
+> > behaviour of xen-blkback when connecting to a frontend was:
+> >
+> > - read 'ring-page-order'
+> > - if not present then expect a single page ring specified by =
+'ring-ref'
+> > - else expect a ring specified by 'ring-refX' where X is between 0 =
+and
+> >   1 << ring-page-order
+> >
+> > This was correct behaviour, but was broken by the afforementioned =
+commit to
+> > become:
+> >
+> > - read 'ring-page-order'
+> > - if not present then expect a single page ring (i.e. =
+ring-page-order =3D 0)
+> > - expect a ring specified by 'ring-refX' where X is between 0 and
+> >   1 << ring-page-order
+> > - if that didn't work then see if there's a single page ring =
+specified by
+> >   'ring-ref'
+> >
+> > This incorrect behaviour works most of the time but fails when a =
+frontend
+> > that sets 'ring-page-order' is unloaded and replaced by one that =
+does not
+> > because, instead of reading 'ring-ref', xen-blkback will read the =
+stale
+> > 'ring-ref0' left around by the previous frontend will try to map the =
+wrong
+> > grant reference.
+> >
+> > This patch restores the original behaviour.
+> >
+> > Fixes: 4a8c31a1c6f5 ("xen/blkback: rework connect_ring() to avoid =
+inconsistent xenstore 'ring-page-
+> order' set by malicious blkfront")
+> > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> > ---
+> > Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+> > Cc: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
+> > Cc: Jens Axboe <axboe@kernel.dk>
+> > Cc: Dongli Zhang <dongli.zhang@oracle.com>
+> >
+> > v2:
+> >  - Remove now-spurious error path special-case when nr_grefs =3D=3D =
+1
+> > ---
+> >  drivers/block/xen-blkback/common.h |  1 +
+> >  drivers/block/xen-blkback/xenbus.c | 38 =
++++++++++++++-----------------
+> >  2 files changed, 17 insertions(+), 22 deletions(-)
+> >
+> > diff --git a/drivers/block/xen-blkback/common.h =
+b/drivers/block/xen-blkback/common.h
+> > index b0c71d3a81a0..524a79f10de6 100644
+> > --- a/drivers/block/xen-blkback/common.h
+> > +++ b/drivers/block/xen-blkback/common.h
+> > @@ -313,6 +313,7 @@ struct xen_blkif {
+> >
+> >  	struct work_struct	free_work;
+> >  	unsigned int 		nr_ring_pages;
+> > +	bool                    multi_ref;
+>=20
+> You seem to have used spaces between the type and the variable name
+> here, while neighbors also use hard tabs.
+>=20
 
-Cc: qemu-trivial@nongnu.org
+Oops. Xen vs. Linux coding style :-( I'll send a v3 with the whitespace =
+fixed.
+
+> The rest LGTM:
+>=20
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>=20
+> We should have forbidden the usage of ring-page-order =3D 0 and we =
+could
+> have avoided having to add the multi_ref variable, but that's too late
+> now.
+
+Thanks. Yes, that cat is out of the bag and has been for a while =
+unfortunately.
+
+  Paul
+
+>=20
+> Thanks, Roger.
 
 
