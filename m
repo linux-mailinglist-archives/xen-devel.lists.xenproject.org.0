@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56B2630B85C
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 08:10:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.80368.146994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51CF330B88C
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Feb 2021 08:24:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.80373.147012 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6pom-0008Ex-Ey; Tue, 02 Feb 2021 07:09:44 +0000
+	id 1l6q2C-0001h9-Px; Tue, 02 Feb 2021 07:23:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 80368.146994; Tue, 02 Feb 2021 07:09:44 +0000
+Received: by outflank-mailman (output) from mailman id 80373.147012; Tue, 02 Feb 2021 07:23:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1l6pom-0008EY-BL; Tue, 02 Feb 2021 07:09:44 +0000
-Received: by outflank-mailman (input) for mailman id 80368;
- Tue, 02 Feb 2021 07:09:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1l6q2C-0001ge-Ln; Tue, 02 Feb 2021 07:23:36 +0000
+Received: by outflank-mailman (input) for mailman id 80373;
+ Tue, 02 Feb 2021 07:23:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OBIp=HE=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1l6pok-0008EL-Ro
- for xen-devel@lists.xenproject.org; Tue, 02 Feb 2021 07:09:42 +0000
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4fcbd9d4-3e3a-4c79-9329-a3a3f6d62f12;
- Tue, 02 Feb 2021 07:09:42 +0000 (UTC)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 46D2EACB7;
- Tue,  2 Feb 2021 07:09:41 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6q2B-0001gW-3P; Tue, 02 Feb 2021 07:23:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6q2A-0007Xa-Vn; Tue, 02 Feb 2021 07:23:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6q2A-0007o3-O0; Tue, 02 Feb 2021 07:23:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1l6q2A-0000rJ-NT; Tue, 02 Feb 2021 07:23:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,77 +42,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fcbd9d4-3e3a-4c79-9329-a3a3f6d62f12
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1612249781; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=1tpaqvOitmoTdUOKCltTkXQMrQMduhfR/V/K0TJ91jk=;
-	b=pbaIptIDBcZvfobat6HNoXje6mR3kf8+MuWpibPjXaHBmoQvt3LBZ1S4k+WfN+6v3yXqqG
-	CnLh7G8uXWy5d/2yQhTslehE4QmbeheYR1UmRM7pfxMgd1ZiuvafUH6s9i4k7bnpbVZHHm
-	wGiaWxu3itzFTHNe0z01xg0UqKte3eQ=
-From: Juergen Gross <jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tFQYqLIgHaetpsUJWtNLnq9Zxca8zDqUbFDlufu7IdQ=; b=QC6PmlL3YtksvFTxt2xMCFStwa
+	x/kUp4u7KQst40k5AFbQX/3zfoNchkYr8D0aujpmSo70UDLs8yL/+SJHKU9Q1aolRNZY4gOWE8KFx
+	jg9p5+E2Dkq8LmWFn09j+z1Zqh5L5XHLSjZlz2jWATISX4ea6g3plNlOl1pR4yNU0w+c=;
 To: xen-devel@lists.xenproject.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Paul Durrant <paul@xen.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Igor Druzhinin <igor.druzhinin@citrix.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xen/netback: avoid race in xenvif_rx_ring_slots_available()
-Date: Tue,  2 Feb 2021 08:09:38 +0100
-Message-Id: <20210202070938.7863-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
+    osstest-admin@xenproject.org
+Message-ID: <osstest-158941-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 158941: regressions - trouble: blocked/fail
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=ffbb8aa282de262403275f2395d8540818cf576e
+X-Osstest-Versions-That:
+    xen=9dc687f155a57216b83b17f9cde55dd43e06b0cd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 02 Feb 2021 07:23:34 +0000
 
-Since commit 23025393dbeb3b8b3 ("xen/netback: use lateeoi irq binding")
-xenvif_rx_ring_slots_available() is no longer called only from the rx
-queue kernel thread, so it needs to access the rx queue with the
-associated queue held.
+flight 158941 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/158941/
 
-Reported-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-Fixes: 23025393dbeb3b8b3 ("xen/netback: use lateeoi irq binding")
-Cc: stable@vger.kernel.org
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- drivers/net/xen-netback/rx.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Regressions :-(
 
-diff --git a/drivers/net/xen-netback/rx.c b/drivers/net/xen-netback/rx.c
-index b8febe1d1bfd..accc991d153f 100644
---- a/drivers/net/xen-netback/rx.c
-+++ b/drivers/net/xen-netback/rx.c
-@@ -38,10 +38,15 @@ static bool xenvif_rx_ring_slots_available(struct xenvif_queue *queue)
- 	RING_IDX prod, cons;
- 	struct sk_buff *skb;
- 	int needed;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&queue->rx_queue.lock, flags);
- 
- 	skb = skb_peek(&queue->rx_queue);
--	if (!skb)
-+	if (!skb) {
-+		spin_unlock_irqrestore(&queue->rx_queue.lock, flags);
- 		return false;
-+	}
- 
- 	needed = DIV_ROUND_UP(skb->len, XEN_PAGE_SIZE);
- 	if (skb_is_gso(skb))
-@@ -49,6 +54,8 @@ static bool xenvif_rx_ring_slots_available(struct xenvif_queue *queue)
- 	if (skb->sw_hash)
- 		needed++;
- 
-+	spin_unlock_irqrestore(&queue->rx_queue.lock, flags);
-+
- 	do {
- 		prod = queue->rx.sring->req_prod;
- 		cons = queue->rx.req_cons;
--- 
-2.26.2
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 158804
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 158804
+ build-armhf                   6 xen-build                fail REGR. vs. 158804
 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ xen                  ffbb8aa282de262403275f2395d8540818cf576e
+baseline version:
+ xen                  9dc687f155a57216b83b17f9cde55dd43e06b0cd
+
+Last test of basis   158804  2021-01-30 04:00:24 Z    3 days
+Failing since        158892  2021-02-01 16:00:25 Z    0 days    9 attempts
+Testing same since   158897  2021-02-01 19:02:25 Z    0 days    8 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ian Jackson <iwj@xenproject.org>
+  Manuel Bouyer <bouyer@netbsd.org>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  fail    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit ffbb8aa282de262403275f2395d8540818cf576e
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Mon Feb 1 16:53:17 2021 +0100
+
+    xenstore: fix build on {Net/Free}BSD
+    
+    The endian.h header is in sys/ on NetBSD and FreeBSD.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 419cd07895891c6642f29085aee07be72413f08c
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Mon Feb 1 15:18:36 2021 +0000
+
+    xenpmd.c: Remove hard tab
+    
+    bbed98e7cedc "xenpmd.c: use dynamic allocation" had a hard tab.
+    I thought we had fixed that and I thought I had checked.
+    Remove it now.
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+
+commit bbed98e7cedcd5072671c21605330075740382d3
+Author: Manuel Bouyer <bouyer@netbsd.org>
+Date:   Sat Jan 30 19:27:10 2021 +0100
+
+    xenpmd.c: use dynamic allocation
+    
+    On NetBSD, d_name is larger than 256, so file_name[284] may not be large
+    enough (and gcc emits a format-truncation error).
+    Use asprintf() instead of snprintf() on a static on-stack buffer.
+    
+    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    
+    Plus
+    
+    define GNU_SOURCE for asprintf()
+    
+    Harmless on NetBSD.
+    
+    Signed-off-by: Manuel Bouyer <bouyer@netbsd.org>
+    Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+(qemu changes not included)
 
